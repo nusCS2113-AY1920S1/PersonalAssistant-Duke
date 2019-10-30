@@ -51,16 +51,16 @@ public class Parser {
      */
     // Add new command types here
     private void mapBuiltinCommands() {
-        this.mapCommand("add", SearchThenAddCommand.class);
-        this.mapCommand("show", ShowCommand.class);
-        this.mapCommand("bye", EndCommand.class);
-        this.mapCommand("remove", RemoveCommand.class);
-        this.mapCommand("scheduleCca", AddCcaScheduleCommand.class);
-        this.mapCommand("clear", ClearCommand.class);
-        this.mapCommand("sort", SortCommand.class);
-        this.mapCommand("cap", CapCommand.class);
-        this.mapCommand("grade", GradeCommand.class);
-        this.mapCommand("update", UpdateModuleInfo.class);
+        mapCommand("add", SearchThenAddCommand.class);
+        mapCommand("show", ShowCommand.class);
+        mapCommand("bye", EndCommand.class);
+        mapCommand("remove", RemoveCommand.class);
+        mapCommand("scheduleCca", AddCcaScheduleCommand.class);
+        mapCommand("clear", ClearCommand.class);
+        mapCommand("sort", SortCommand.class);
+        mapCommand("cap", CapCommand.class);
+        mapCommand("grade", GradeCommand.class);
+        mapCommand("update", UpdateModuleInfo.class);
     }
 
     /**
@@ -167,6 +167,7 @@ public class Parser {
             .help("Grade you achieved for this module");
 
         getSubParser("update")
+                .help("Update modules database")
                 .addArgument("academicYear")
                 .help("Academic year of your choice, in format 2018-2019");
     }
