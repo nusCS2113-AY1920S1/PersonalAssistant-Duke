@@ -1,10 +1,10 @@
+//@@author yueyuu
 package gazeeebo.storage;
 
 import gazeeebo.notes.Assessment;
 import gazeeebo.notes.GeneralNotePage;
 import gazeeebo.notes.Module;
 
-import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
@@ -12,17 +12,20 @@ import java.util.Scanner;
 
 public class NotePageStorage {
     public static void writeToGoalFile() throws IOException {
-        FileWriter file = new FileWriter("/goal.txt");
+        FileWriter file = new FileWriter(NotePageStorage.class.getResource("/goal.txt").getPath());
         file.write(GeneralNotePage.goal);
+        file.flush();
         file.close();
     }
 
-    public static void readFromGoalFile() {
+    public static void readFromGoalFile() throws IOException {
         InputStream inputStream = NoteStorage.class.getResourceAsStream("/goal.txt");
         Scanner txtFile = new Scanner(inputStream);
         if (txtFile.hasNextLine()) {
             GeneralNotePage.goal = txtFile.nextLine();
         }
+        inputStream.close();
+        txtFile.close();
     }
 
     public static void writeToModulesFile() throws IOException {
@@ -39,10 +42,11 @@ public class NotePageStorage {
                 file.write(s + "\n");
             }
         }
+        file.flush();
         file.close();
     }
 
-    public static void readFromModulesFile() {
+    public static void readFromModulesFile() throws IOException {
         InputStream inputStream = NoteStorage.class.getResourceAsStream("/modules.txt");
         Scanner txtFile = new Scanner(inputStream);
         while (txtFile.hasNextLine()) {
@@ -57,5 +61,6 @@ public class NotePageStorage {
             }
             GeneralNotePage.modules.add(m);
         }
+        inputStream.close();
     }
 }

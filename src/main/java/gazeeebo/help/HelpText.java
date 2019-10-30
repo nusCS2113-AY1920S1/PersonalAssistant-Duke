@@ -1,3 +1,4 @@
+//@@author yueyuu
 package gazeeebo.help;
 
 public class HelpText {
