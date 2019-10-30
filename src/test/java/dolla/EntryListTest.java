@@ -1,3 +1,5 @@
+package dolla;
+
 import dolla.task.Entry;
 import dolla.task.EntryList;
 import dolla.task.Record;
@@ -32,7 +34,7 @@ public class EntryListTest {
     }
 
     @Test
-    void insertPrevPosition() {
+    public void insertPrevPosition() {
         EntryList newEntryList = createNewEntryList();
         newEntryList.insertPrevPosition(0, createNewEntry3());
         String firstEntryText = newEntryList.getFromList(0).getRecordDetail();
@@ -40,7 +42,7 @@ public class EntryListTest {
     }
 
     @Test
-    void removeFromList() {
+    public void removeFromList() {
         EntryList newEntryList = createNewEntryList();
         newEntryList.removeFromList(1);
         assertEquals(1, newEntryList.size());

@@ -89,6 +89,12 @@ public class AddActionCommand extends Command {
         }
     }
 
+    @Override
+    public String getCommandInfo() {
+        return null;
+    }
+
+
     /**
      * This method will set the previous position int in the respective mode.
      */

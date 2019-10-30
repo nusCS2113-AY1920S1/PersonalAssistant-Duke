@@ -69,4 +69,9 @@ public abstract class FindStringCommand extends Command {
         Ui.printMsg(msg);
     }
 
+    @Override
+    public String getCommandInfo() {
+        return null;
+    }
+
 }

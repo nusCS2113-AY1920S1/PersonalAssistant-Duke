@@ -1,6 +1,7 @@
 package dolla.command;
 
 import dolla.DollaData;
+import dolla.Time;
 import dolla.ui.Ui;
 import dolla.action.Redo;
 import dolla.action.Undo;
@@ -57,5 +58,16 @@ public class AddEntryCommand extends Command {
             prevPosition = -1; //reset to -1
         }
         Ui.echoAddRecord(newEntry);
+    }
+
+    @Override
+    public String getCommandInfo() {
+        String command = "AddEntryCommand";
+        //return (command + "{ type: " + type + ", amount: " + amount + ", description: "
+        //        + description + ", date: " + Time.dateToString(date) + ", prevPosition: "
+        //        + prevPosition) + " }";
+        return (command + "{ " + type + ", " + amount + ", "
+                + description + ", " + Time.dateToString(date) + ", "
+                + prevPosition) + " }";
     }
 }

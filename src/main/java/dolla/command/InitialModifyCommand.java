@@ -41,4 +41,9 @@ public class InitialModifyCommand extends Command {
             return true;
         }
     }
+
+    @Override
+    public String getCommandInfo() {
+        return null;
+    }
 }

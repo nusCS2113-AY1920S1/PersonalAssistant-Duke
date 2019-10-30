@@ -26,10 +26,11 @@ public class DebtsParser extends Parser {
 
     public DebtsParser(String inputLine) {
         super(inputLine);
+        this.mode = MODE_DEBT;
     }
 
     @Override
-    public Command handleInput(String mode) {
+    public Command parseInput() {
         if (commandToRun.equals("debts")) { //show debt list
             return new ShowListCommand(mode);
         } else if (commandToRun.equals("owe") || commandToRun.equals("borrow")) {

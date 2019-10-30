@@ -66,4 +66,9 @@ public class RemoveCommand extends Command {
             Ui.printRemoveError(recordList.size());
         }
     }
+
+    @Override
+    public String getCommandInfo() {
+        return null;
+    }
 }

@@ -15,6 +15,13 @@ import java.time.format.DateTimeParseException;
  */
 public abstract class Parser {
 
+    protected static final String MODE_DOLLA = "dolla";
+    protected static final String MODE_ENTRY = "entry";
+    protected static final String MODE_LIMIT = "limit";
+    protected static final String MODE_DEBT = "debt";
+    protected static final String MODE_SHORTCUT = "shortcut";
+
+    protected String mode;
     protected LocalDate date;
     protected String description;
     protected String inputLine;
@@ -35,7 +42,8 @@ public abstract class Parser {
         this.commandToRun = inputArray[0];
     }
 
-    public abstract Command handleInput(String mode);
+
+    public abstract Command parseInput();
 
     /**
      * Splits the input from the user and assigns the relevant data into description and date variables.

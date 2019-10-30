@@ -94,4 +94,9 @@ public class SortCommand extends Command {
             Ui.printEmptyListError(mode);
         }
     }
+
+    @Override
+    public String getCommandInfo() {
+        return null;
+    }
 }

@@ -32,4 +32,9 @@ public class AddLimitCommand extends Command {
         //todo: need to add budget and show and deduct money every time there is an expense entry
         LimitUi.echoAddRecord(newLimit);
     }
+
+    @Override
+    public String getCommandInfo() {
+        return null;
+    }
 }

@@ -16,6 +16,10 @@ import dolla.ui.LimitUi;
 //@@author Weng-Kexin
 public class LimitParser extends Parser {
 
+    public LimitParser(String inputLine) {
+        super(inputLine);
+        this.mode = MODE_LIMIT;
+    }
 
     protected static final String SEARCH_COMMAND = "search";
 
@@ -32,14 +36,8 @@ public class LimitParser extends Parser {
     private static final String LIMIT_DURATION_W = "weekly";
     private static final String LIMIT_DURATION_M = "monthly";
 
-    public LimitParser(String inputLine) {
-        super(inputLine);
-    }
-
-
-
     @Override
-    public Command handleInput(String mode) {
+    public Command parseInput() {
         if (commandToRun.equalsIgnoreCase(LIMIT_COMMAND_LIST)) { //show limit list todo:resolve bug
             return new ShowListCommand(mode);
         } else if (commandToRun.equalsIgnoreCase(LIMIT_COMMAND_SET)) { //add limit
