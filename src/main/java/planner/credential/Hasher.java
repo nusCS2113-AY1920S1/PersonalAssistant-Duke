@@ -21,6 +21,11 @@ public class Hasher {
         return md.digest(input.getBytes(StandardCharsets.UTF_8));
     }
 
+    /**
+     * Get hash value for input.
+     * @param input input for hashing
+     * @return hash value
+     */
     public byte[] getHash(String input) {
         try {
             return this.getHash(input, defaultAlgorithm);
