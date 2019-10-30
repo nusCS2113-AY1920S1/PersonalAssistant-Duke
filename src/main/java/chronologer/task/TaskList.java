@@ -54,9 +54,8 @@ public class TaskList {
     /**
      * This custom comparator allows the sorting of both deadlines and events.
      *
-     * @param task contains the task that needs to be added.
      */
-    public static final Comparator<Task> PriorityComparator = (firstPriority, secondPriority) -> {
+    private static final Comparator<Task> PriorityComparator = (firstPriority, secondPriority) -> {
         if (firstPriority.priority.equals(Priority.HIGH) && secondPriority.priority.equals(Priority.MEDIUM)) {
             return -1;
         } else if (firstPriority.priority.equals(Priority.MEDIUM) && secondPriority.priority.equals(Priority.MEDIUM)) {
@@ -171,8 +170,8 @@ public class TaskList {
     public Task addLocation(Integer indexOfTask, String taskWithLocation) {
         Task taskHasLocation = listOfTasks.get(indexOfTask);
         taskHasLocation.setLocation("Location of the task is " + taskWithLocation);
+        observableListOfTasks.add(taskHasLocation);
         return taskHasLocation;
-
     }
 
     /**
@@ -190,7 +189,7 @@ public class TaskList {
                 sortedDateList.add(listOfTasks.get(i));
             }
         }
-        Collections.sort(sortedDateList, DateComparator);
+        sortedDateList.sort(DateComparator);
         return sortedDateList;
     }
 
@@ -210,7 +209,6 @@ public class TaskList {
                 priorityList.add(listOfTask);
             }
         }
-
         priorityList.sort(PriorityComparator);
         for (int i = 0; i < priorityList.size(); i++) {
             stringPriorityList.add(priorityList.get(i).toString());
@@ -255,7 +253,20 @@ public class TaskList {
         return eventList;
     }
 
-    //@@author
+    /**
+     * Fetches all reminders for the current date.
+     *
+     * @return Holds reminders for the current date.
+     */
+    public ArrayList<String> fetchReminders(LocalDateTime currentDateTime) {
+        ArrayList<String> reminders = new ArrayList<>();
+        for (Task listOfTask : listOfTasks) {
+            if (listOfTask.isReminderTrigger() && listOfTask.reminder.reminderDate == currentDateTime) {
+                reminders.add(listOfTask.getDescription());
+            }
+        }
+        return reminders;
+    }
 
     /**
      * This function allows the user to obtain the tasks on a particular date, but
@@ -286,6 +297,7 @@ public class TaskList {
      */
     public Task editTaskDescription(int indexOfTask, String newDescription) {
         Task taskToBeEdited = listOfTasks.get(indexOfTask);
+        observableListOfTasks.remove(taskToBeEdited);
         taskToBeEdited.setDescription(newDescription);
         observableListOfTasks.add(taskToBeEdited);
         return taskToBeEdited;
@@ -295,11 +307,12 @@ public class TaskList {
      * Function to allow user to edit/add comments to existing tasks.
      *
      * @param indexOfTask Index of task in list
-     * @param comment     commnent to be added/edited
+     * @param comment     Holds comment to be added/edited
      * @return taskToBeEdited The task that has its comment edited/added
      */
     public Task editTaskComment(int indexOfTask, String comment) {
         Task taskToBeEdited = listOfTasks.get(indexOfTask);
+        observableListOfTasks.remove(taskToBeEdited);
         taskToBeEdited.setComment(comment);
         observableListOfTasks.add(taskToBeEdited);
         return taskToBeEdited;
@@ -327,6 +340,12 @@ public class TaskList {
 
     public void updatePriority(Task task) {
         observableListOfTasks.add(task);
+        observableListOfTasks.remove(task);
+    }
+
+    public void updateListOfTasks(ArrayList<Task> updatedListOfTasks) {
+        listOfTasks.clear();
+        listOfTasks = updatedListOfTasks;
     }
 
     public ArrayList<Task> getTasks() {

@@ -1,6 +1,7 @@
 package chronologer.command;
 
 import chronologer.exception.ChronologerException;
+import chronologer.storage.ChronologerStateList;
 import chronologer.storage.Storage;
 import chronologer.task.Task;
 import chronologer.task.TaskList;
@@ -43,10 +44,12 @@ public class IgnoreCommand extends Command {
         if (isIndexValid(indexOfTask, tasks.getSize())) {
             if (isIgnore) {
                 Task task = tasks.markAsIgnorable(indexOfTask);
+                ChronologerStateList.addState((tasks.getTasks()));
                 storage.saveFile(tasks.getTasks());
                 UiTemporary.printOutput(IGNORED + task.toString());
             } else {
                 Task task = tasks.markAsUnignorable(indexOfTask);
+                ChronologerStateList.addState((tasks.getTasks()));
                 storage.saveFile(tasks.getTasks());
                 UiTemporary.printOutput(UNIGNORED + task.toString());
             }

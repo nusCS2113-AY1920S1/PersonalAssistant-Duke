@@ -1,6 +1,7 @@
 package chronologer.command;
 
 import chronologer.exception.ChronologerException;
+import chronologer.storage.ChronologerStateList;
 import chronologer.storage.Storage;
 import chronologer.task.Task;
 import chronologer.task.TaskList;
@@ -36,6 +37,7 @@ public class RemindCommand extends Command {
 
         Task task = tasks.getTasks().get(indexOfTask);
         task.setReminder(days);
+        ChronologerStateList.addState((tasks.getTasks()));
         storage.saveFile(tasks.getTasks());
 
         UiTemporary.printOutput(String.format("Okay! You'll get a reminder for this task %d days beforehand:", days)

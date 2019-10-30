@@ -23,14 +23,14 @@
             <ListView fx:id="wednesdayTask" prefHeight="240.0" prefWidth="182.0" style="-fx-background-color: #373737;" />
          </content>
       </ScrollPane>
-      <ScrollPane layoutX="798.0" layoutY="92.0" prefHeight="240.0" prefWidth="196.0">
-         <content>
-            <ListView fx:id="thursdayTask" prefHeight="240.0" prefWidth="215.0" style="-fx-background-color: #373737;" />
-         </content>
-      </ScrollPane>
       <ScrollPane layoutX="602.0" layoutY="92.0" prefHeight="240.0" prefWidth="196.0">
          <content>
-            <ListView fx:id="fridayTask" prefHeight="240.0" prefWidth="215.0" style="-fx-background-color: #373737;" />
+            <ListView fx:id="thursdayTask" prefHeight="240.0" prefWidth="182.0" style="-fx-background-color: #373737;" />
+         </content>
+      </ScrollPane>
+      <ScrollPane layoutX="798.0" layoutY="92.0" prefHeight="240.0" prefWidth="196.0">
+         <content>
+            <ListView fx:id="fridayTask" prefHeight="240.0" prefWidth="182.0" style="-fx-background-color: #373737;" />
          </content>
       </ScrollPane>
       <ScrollPane layoutX="14.0" layoutY="399.0" prefHeight="240.0" prefWidth="196.0">
@@ -55,7 +55,7 @@
       </ScrollPane>
       <ScrollPane layoutX="809.0" layoutY="399.0" prefHeight="240.0" prefWidth="186.0">
          <content>
-            <ListView prefHeight="246.0" prefWidth="300.0" style="-fx-background-color: #373737;" />
+            <ListView fx:id="reminderTask" prefHeight="246.0" prefWidth="300.0" style="-fx-background-color: #373737;" />
          </content>
       </ScrollPane>
       <Label layoutX="314.0" text="Your timeline for this week" textFill="#a8a8a8">

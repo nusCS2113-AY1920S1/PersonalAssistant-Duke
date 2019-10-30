@@ -1,6 +1,7 @@
 package chronologer.command;
 
 import chronologer.exception.ChronologerException;
+import chronologer.storage.ChronologerStateList;
 import chronologer.task.Deadline;
 import chronologer.task.Event;
 import chronologer.task.Task;
@@ -8,7 +9,6 @@ import chronologer.task.TaskList;
 import chronologer.storage.Storage;
 import chronologer.task.Todo;
 import chronologer.ui.UiTemporary;
-
 import java.time.LocalDateTime;
 
 /**
@@ -123,6 +123,7 @@ public class AddCommand extends Command {
         }
 
         tasks.add(task);
+        ChronologerStateList.addState(tasks.getTasks());
         storage.saveFile(tasks.getTasks());
         UiTemporary.printOutput("Got it! I've added this task:" + "\n  " + task.toString() + "\nNow you have "
                 + tasks.getSize() + " task(s) in the list.");

@@ -2,10 +2,10 @@ package chronologer.command;
 
 import chronologer.exception.ChronologerException;
 import chronologer.storage.ChronologerStateList;
-import chronologer.task.Task;
 import chronologer.storage.Storage;
 import chronologer.task.TaskList;
 import chronologer.ui.UiTemporary;
+import org.apache.commons.lang3.SerializationUtils;
 
 /**
  * Allows the user to delete a particular task from their task list based on index.
@@ -13,14 +13,7 @@ import chronologer.ui.UiTemporary;
  * @author Sai Ganesh Suresh
  * @version v1.3
  */
-public class DeleteCommand extends Command {
-
-    private Integer indexOfTask;
-
-    public DeleteCommand(Integer indexOfTask) {
-        this.indexOfTask = indexOfTask;
-    }
-
+public class RedoCommand extends Command {
     /**
      * Removes the task from the TaskList and saves the updated TaskList to persistent storage.
      *
@@ -29,12 +22,9 @@ public class DeleteCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Storage storage) throws ChronologerException {
-        if (isIndexValid(indexOfTask, tasks.getSize())) {
-            Task task = tasks.delete(indexOfTask);
-            ChronologerStateList.addState(tasks.getTasks());
-            storage.saveFile(tasks.getTasks());
-            UiTemporary.printOutput("Noted. I've removed this task:" + "\n " + task.toString() + "\nNow you have "
-                + tasks.getSize() + " task(s) in the list.");
-        }
+        tasks.updateListOfTasks(ChronologerStateList.redo());
+        tasks.updatePriority(null);
+        storage.saveFile(tasks.getTasks());
+        UiTemporary.printOutput("redo successful");
     }
 }

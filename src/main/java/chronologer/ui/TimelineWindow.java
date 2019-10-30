@@ -61,6 +61,8 @@ class TimelineWindow extends UiComponent<Region> {
     @FXML
     private ListView<String> tasksWithoutDates;
     @FXML
+    private ListView<String> reminderTask;
+    @FXML
     private Label todayLabel;
 
     private Parser parser;
@@ -87,6 +89,7 @@ class TimelineWindow extends UiComponent<Region> {
     private void initializeTimelineComponents() {
         attachTasksListener();
         populateEveryDay();
+        populateReminders();
         prioritizedTodayTasks();
         tasksWithoutDates();
         initializeListViewComponents();
@@ -110,6 +113,17 @@ class TimelineWindow extends UiComponent<Region> {
         initializeListViewDarkComponents(sundayTask);
         initializeListViewDarkComponents(priorityTask);
         initializeListViewDarkComponents(tasksWithoutDates);
+    }
+
+    /**
+     * This method populates the ListView with prioritized tasks for the day.
+     */
+    private void populateReminders() {
+        ObservableList<String> reminderTasks;
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        LocalDateTime now = LocalDateTime.now();
+        reminderTasks = FXCollections.observableArrayList(tasks.fetchReminders(now));
+        reminderTask.setItems(reminderTasks);
     }
 
     /**
