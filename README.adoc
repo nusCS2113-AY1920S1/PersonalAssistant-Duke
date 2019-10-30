@@ -1,4 +1,5 @@
 # El Duque (for people trying to be programmers)
+ifdef::env-github,env-browser[:relfileprefix: docs/]
 
 * This is a Command Line(CLI) task manager programme.
 * Java application as part of our Software Engineering module.
