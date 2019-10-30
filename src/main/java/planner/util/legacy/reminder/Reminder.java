@@ -21,7 +21,6 @@ public class Reminder {
     private Thread thread;
     private static final TimeInterval minBefore = TimeInterval.ofMinutes(1);
     private volatile boolean kill;
-    private PlannerUi plannerUi;
 
     /**
      * Constructor for Reminder.
@@ -39,7 +38,6 @@ public class Reminder {
         this.checkEvery = checkEvery;
         this.kill = true;
         this.thread = new Thread(this::remind);
-        this.plannerUi = plannerUi;
     }
 
     public Reminder(List<Task> tasks, int minutesBefore, int minutesEvery) throws ModTimeIntervalTooCloseException {
@@ -102,14 +100,15 @@ public class Reminder {
         LocalDateTime now;
         long sleepSeconds;
         while (!this.kill) {
-            now = LocalDateTime.now();::]
+            now = LocalDateTime.now();
             if (now.isAfter(targetTime)) {
                 targetTime = now.plus(this.checkEvery);
                 try {
-                    plannerUi.reminderMsg();
+                    // edit here
                     new PlannerUi().printUpcomingTasks(
                             this.getUpcomingTasks(
                                     new TimePeriodSpanning(now, now.plus(this.remindBefore))));
+                    new PlannerUi().reminderMsg();
                 } catch (ModInvalidTimePeriodException e) {
                     System.out.println(e.getMessage());
                 }
