@@ -368,9 +368,9 @@ public class ModelManager implements Model {
         Double totalCost = 0.0;
         for (Item<Ingredient> item : ingredientList) {
             Index index = Index.fromZeroBased(bakingHome.getShoppingList().indexOf(item));
-            totalCost += bakingHome.getShoppingList().get(index.getZeroBased()).getTotalPrice();
+            totalCost += bakingHome.getShoppingList().get(index.getZeroBased()).getItem().getUnitPrice()
+                    * item.getQuantity().getNumber();
         }
-      //  System.out.println("ModelManager line 374" + totalCost);
         return totalCost;
     }
 

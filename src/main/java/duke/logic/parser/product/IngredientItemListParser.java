@@ -37,7 +37,8 @@ public class IngredientItemListParser {
             }
             if (matcher.group("name") != null) {
                 if (matcher.group("quantity") != null) {
-                    String name = StringUtils.capitalize(matcher.group("name").strip());
+                    String s1 = matcher.group("name").strip();
+                    String name = StringUtils.capitalize(s1.toLowerCase());
                     params.put(name, matcher.group("quantity"));
                 } else {
                     params.put(matcher.group("name"), "");
