@@ -59,8 +59,8 @@ public class EventList {
         eventArrayList = new ArrayList<>();
 
         for (String currLine : inputList) {
-            boolean isDone = currLine.substring(0, 3).equals("✓");
-            char eventType = currLine.charAt(3);
+            boolean isDone = currLine.substring(0, 1).equals("V");
+            char eventType = currLine.charAt(1);
 
             if (eventType == TODO) {
                 String[] splitString = currLine.split(" ");
