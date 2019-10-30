@@ -1,5 +1,6 @@
 package entertainment.pro.commons.exceptions;
 
+import entertainment.pro.commons.PromptMessages;
 import entertainment.pro.model.MovieInfoObject;
 import entertainment.pro.model.Playlist;
 import entertainment.pro.model.PlaylistMovieInfoObject;
@@ -19,8 +20,8 @@ public class PlaylistExceptions extends Exceptions {
     public static void checkNameExist(String name, UserProfile userProfile) throws PlaylistExceptions {
         for (String log : userProfile.getPlaylistNames()) {
             if (name.equals(log)) {
-                throw new PlaylistExceptions("ohno u already have a playlist with the same name :( "
-                        + "pls try again with another name for this playlist");
+                throw new PlaylistExceptions(PromptMessages.PLAYLIST_EXISTS_START + name
+                        + PromptMessages.PLAYLIST_EXISTS_END);
             }
         }
     }
@@ -39,8 +40,8 @@ public class PlaylistExceptions extends Exceptions {
             }
         }
         if (flag) {
-            throw new PlaylistExceptions("ohno the movie < " + movie.getMovieTitle()
-                    + " > has already been added to this playlist :( pls try again with another movie");
+            throw new PlaylistExceptions(PromptMessages.CANNOT_ADD_TO_PLAYLIST_START + movie.getMovieTitle()
+                    + PromptMessages.CANNOT_ADD_TO_PLAYLIST_END);
         }
     }
 
@@ -58,8 +59,8 @@ public class PlaylistExceptions extends Exceptions {
             }
         }
         if (flag) {
-            throw new PlaylistExceptions("ohno the movie < " + movie.getMovieTitle()
-                    + " > does not belong to this playlist :( pls try again with another movie");
+            throw new PlaylistExceptions(PromptMessages.CANNOT_REMOVE_FROM_PLAYLIST_START + movie.getMovieTitle()
+                    + PromptMessages.CANNOT_REMOVE_FROM_PLAYLIST_END);
         }
     }
 
@@ -77,8 +78,8 @@ public class PlaylistExceptions extends Exceptions {
             }
         }
         if (flag) {
-            throw new PlaylistExceptions("ohno the playlist < " + name
-                    + " > does not exist :( pls try again with another playlist");
+            throw new PlaylistExceptions(PromptMessages.PLAYLIST_DOES_NOT_EXISTS_START + name
+                    + PromptMessages.PLAYLIST_DOES_NOT_EXISTS_END);
         }
     }
 
@@ -91,6 +92,22 @@ public class PlaylistExceptions extends Exceptions {
         if ((i < 0) || (i >= size)) {
             throw new PlaylistExceptions("ohno the index < " + i
                     + "> does not exist :( pls try again with another index");
+        }
+    }
+
+    /**
+     * check whether user input a number for movie index.
+     * @throws PlaylistExceptions when user input characters instead
+     */
+    public static void checkIndexInput(String input) throws PlaylistExceptions {
+        boolean flag = false;
+        try {
+            Integer.parseInt(input);
+        } catch (NumberFormatException e) {
+            flag = true;
+        }
+        if (flag) {
+            throw new PlaylistExceptions("ohno <" + input + "> is not a number :( pls try again with a number");
         }
     }
 }

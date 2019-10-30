@@ -2,11 +2,15 @@ package entertainment.pro.storage.utils;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import entertainment.pro.commons.exceptions.SetExceptions;
 import entertainment.pro.model.GenreId;
 import entertainment.pro.model.UserProfile;
+import entertainment.pro.ui.Controller;
+import entertainment.pro.ui.MovieHandler;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Set;
 import java.util.TreeMap;
 
 
@@ -211,7 +215,19 @@ public class ProfileCommands {
     private void setGenrePreference(TreeMap<String, ArrayList<String>> flagMap) throws IOException {
         ArrayList<Integer> genrePreferences = new ArrayList<>(10);
         for (String log : flagMap.get("-g")) {
-            genrePreferences.add(findGenreID(log));
+            try {
+                SetExceptions.checkValidGenre(log);
+            } catch (SetExceptions e) {
+                System.out.println(e);
+                continue;
+            }
+            try {
+                int id = findGenreID(log);
+                SetExceptions.checkForSetPreference(id, userProfile.getGenreIdRestriction());
+                genrePreferences.add(id);
+            } catch (SetExceptions e) {
+                System.out.println(e);
+            }
         }
         userProfile.setGenreIdPreference(genrePreferences);
         editProfileJson.updateProfile(userProfile);
@@ -223,12 +239,17 @@ public class ProfileCommands {
      * no = restrict adult content
      */
     private void setAdultPreference(String value) throws IOException {
-        if (value.equals("yes")) {
-            userProfile.setAdult(true);
-        } else if (value.equals("no")) {
-            userProfile.setAdult(false);
+        try {
+            SetExceptions.checkForSetAdult(userProfile);
+            if (value.equals("yes")) {
+                userProfile.setAdult(true);
+            } else if (value.equals("no")) {
+                userProfile.setAdult(false);
+            }
+            editProfileJson.updateProfile(userProfile);
+        } catch (SetExceptions e) {
+            System.out.println(e);
         }
-        editProfileJson.updateProfile(userProfile);
     }
 
     /**
@@ -237,13 +258,30 @@ public class ProfileCommands {
     private void setAll(TreeMap<String, ArrayList<String>> flagMap, String value) throws IOException {
         ArrayList<Integer> genrePreferences = new ArrayList<>(10);
         for (String log : flagMap.get("-g")) {
-            genrePreferences.add(findGenreID(log));
+            try {
+                SetExceptions.checkValidGenre(log);
+            } catch (SetExceptions e) {
+                System.out.println(e);
+                continue;
+            }
+            try {
+                int id = findGenreID(log);
+                SetExceptions.checkForSetPreference(id, userProfile.getGenreIdRestriction());
+                genrePreferences.add(id);
+            } catch (SetExceptions e) {
+                System.out.println(e);
+            }
         }
         userProfile.setGenreIdPreference(genrePreferences);
-        if (value.equals("yes")) {
-            userProfile.setAdult(true);
-        } else if (value.equals("no")) {
-            userProfile.setAdult(false);
+        try {
+            SetExceptions.checkForSetAdult(userProfile);
+            if (value.equals("yes")) {
+                userProfile.setAdult(true);
+            } else if (value.equals("no")) {
+                userProfile.setAdult(false);
+            }
+        } catch (SetExceptions e) {
+            System.out.println(e);
         }
         editProfileJson.updateProfile(userProfile);
     }
@@ -254,7 +292,19 @@ public class ProfileCommands {
     public void setRestriction(TreeMap<String, ArrayList<String>> flagMap) throws IOException {
         ArrayList<Integer> genreRestrictions = new ArrayList<>(10);
         for (String log : flagMap.get("-g")) {
-            genreRestrictions.add(findGenreID(log));
+            try {
+                SetExceptions.checkValidGenre(log);
+            } catch (SetExceptions e) {
+                System.out.println(e);
+                continue;
+            }
+            try {
+                int id = findGenreID(log);
+                SetExceptions.checkForSetRestriction(id, userProfile.getGenreIdPreference());
+                genreRestrictions.add(id);
+            } catch (SetExceptions e) {
+                System.out.println(e);
+            }
         }
         userProfile.setGenreIdRestriction(genreRestrictions);
         editProfileJson.updateProfile(userProfile);

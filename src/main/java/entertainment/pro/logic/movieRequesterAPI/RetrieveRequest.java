@@ -73,7 +73,7 @@ public class RetrieveRequest implements InfoFetcher {
     // Data Keys for both movie and TV shows
     private static final String MOVIE_TITLE = "title";
     private static final String TV_TITLE = "original_name";
-    private static final String RELEASE_DATE = "release_date";
+    private static final String RELEASE_DATE = "release_dates";
     private static final String DATA_ID = "id";
     private static final String GENRES = "genre_ids";
     private static final String SUMMARY = "overview";
@@ -314,6 +314,7 @@ public class RetrieveRequest implements InfoFetcher {
         for (int i = 0; i < certInfo.size(); i += 1) {
             JSONObject castPair = (JSONObject) certInfo.get(i);
             if (castPair.get(TO_SPECIFY_ISO).equals(TO_SPECIFY_US)) {
+                //SONArray jsonArray = castPair.get(RELEASE_DATE)
                 Map certMap = (Map) certInfo.get(i);
                 Iterator<Map.Entry> itr1 = certMap.entrySet().iterator();
                 while (itr1.hasNext()) {
@@ -322,7 +323,7 @@ public class RetrieveRequest implements InfoFetcher {
                         certStrings = pair.getValue().toString();
                     }
                 }
-                // System.out.println("this is:" + certStrings);
+                System.out.println("this is:" + certStrings);
                 String[] getCert = certStrings.strip().split(TO_SPECIFY_CERTIFICATION);
                 if (getCert.length == 2) {
                     cert = getCert[1].substring(2, getCert[1].length() - 2);
@@ -372,11 +373,11 @@ public class RetrieveRequest implements InfoFetcher {
 
 
     /**
-     * to be done by marc
+     * api request to search movies to add to the watchlist
      *
-     * @param movieTitle
-     * @return
-     * @throws Exceptions
+     * @param movieTitle: movie name to be added to watchlist
+     * @return first movie title in the search result
+     * @throws Exceptions: API request errors such as bad encoding or incorrect URL
      */
     public String beginAddRequest(String movieTitle) throws Exceptions {
         try {
@@ -392,12 +393,12 @@ public class RetrieveRequest implements InfoFetcher {
     }
 
     /**
-     * to be done by marc
+     * api request to search movies by genre to add to the watchlist
      *
-     * @param genre
-     * @param adult
-     * @return
-     * @throws Exceptions
+     * @param genre: genreid of the api to search
+     * @param adult: parameter to determine if adult feature needs to be enabled
+     * @return Array_list of movies results based on the genre
+     * @throws Exceptions: API request errors such as bad encoding or incorrect URL
      */
     public ArrayList<MovieInfoObject> beginSearchGenre(String genre, boolean adult) throws Exceptions {
         try {

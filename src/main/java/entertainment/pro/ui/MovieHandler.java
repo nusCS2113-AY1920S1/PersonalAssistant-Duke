@@ -1,6 +1,9 @@
 package entertainment.pro.ui;
 
+import entertainment.pro.commons.PromptMessages;
+import entertainment.pro.commons.exceptions.EmptyCommandException;
 import entertainment.pro.commons.exceptions.Exceptions;
+import entertainment.pro.commons.exceptions.MissingInfoException;
 import entertainment.pro.logic.cinemaRequesterAPI.CinemaRetrieveRequest;
 import entertainment.pro.logic.contexts.CommandContext;
 import entertainment.pro.logic.contexts.ContextHelper;
@@ -12,7 +15,8 @@ import entertainment.pro.logic.movieRequesterAPI.MovieResultFilter;
 import entertainment.pro.model.*;
 import entertainment.pro.storage.user.Blacklist;
 import entertainment.pro.storage.utils.*;
-
+//import entertainment.pro.xtra.PastCommands;
+//import entertainment.pro.storage.utils.PastUserCommands;
 
 import javafx.application.Platform;
 import javafx.event.EventHandler;
@@ -37,6 +41,8 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * This is main page of GUI.
@@ -95,8 +101,8 @@ public class MovieHandler extends Controller implements RequestListener {
 //            userGenreLabel, sortAlphaOrderLabel, sortLatestDateLabel, sortHighestRatingLabel,
 //            sortHighestRatingText, autoCompleteLabel, generalFeedbackLabel, userNameLabel, userAgeLabel
 
-//    @FXML
-//    private Menu fileMenu, helpMenu;
+    private final static Logger LOGGER = Logger.getLogger(MovieHandler.class.getName());
+
 
 //    @FXML
 //    private Text userPreferenceText, userNameText, userAgeText,
@@ -131,6 +137,7 @@ public class MovieHandler extends Controller implements RequestListener {
     private static RetrieveRequest mMovieRequest;
     private static CinemaRetrieveRequest mCinemaRequest;
     private int index = 0;
+    //    private static PastCommands pastCommands = new PastCommands();
     static String command = "";
     ArrayList<Integer> genrePreference = new ArrayList<>();
     ArrayList<Integer> genreRestriction = new ArrayList<>();
@@ -155,44 +162,84 @@ public class MovieHandler extends Controller implements RequestListener {
 
     Controller controller;
 
+//    /**
+//     * checkstyle made me put javadoc here >:( whoever made this function pls edit the the javadoc tqtq -wh.
+//     */
+//    public static void updatePastCommands(String now) {
+//        PastCommandStructure pastCommandStructure = new PastCommandStructure(now, command);
+//        ArrayList<PastCommandStructure> arrayList = pastCommands.getMap();
+//        arrayList.add(pastCommandStructure);
+//        System.out.println(now + " " + command);
+//        pastCommands.setMap(arrayList);
+//        PastUserCommands.update(pastCommands);
+//    }
 
-    class KeyboardClick implements EventHandler<KeyEvent> {
-
-        private Controller control;
-
-        KeyboardClick(Controller control) {
-            this.control = control;
-        }
-
-        /**
-         * Handles user's inputs and respond appropriately.
-         *
-         * @param event consist of user's inputs.
-         */
-        @Override
-        public void handle(KeyEvent event) {
-
-            System.out.println("You Pressing : " + ((KeyEvent) event).getCode());
-            if ((event.getCode().equals(KeyCode.ENTER))) {
-                System.out.println("Hello");
-                command = mSearchTextField.getText();
-                //clickEntered(command, control);
-                try {
-                    CommandParser.parseCommands(command, control);
-                } catch (IOException | Exceptions e) {
-                    e.printStackTrace();
-                }
-                clearSearchTextField();
-            } else if (event.getCode().equals(KeyCode.TAB)) {
-                System.out.println("Tab presjenksjessed");
-                event.consume();
-            } else if (event.getCode().equals(KeyCode.DOWN)) {
-                mMoviesScrollPane.requestFocus();
-                mMoviesFlowPane.getChildren().get(0).setStyle("-fx-border-color: white");
-            }
-        }
-
-    }
+//    class KeyboardClick implements EventHandler<KeyEvent> {
+//
+//        private Controller control;
+//
+//        KeyboardClick(Controller control) {
+//            this.control = control;
+//        }
+//
+//        /**
+//         * Handles user's inputs and respond appropriately.
+//         *
+//         * @param event consist of user's inputs.
+//         */
+//        @Override
+//        public void handle(KeyEvent event) {
+//
+//            System.out.println("You Pressing : " + ((KeyEvent) event).getCode());
+//            if ((event.getCode().equals(KeyCode.ENTER))) {
+//                System.out.println("Hello");
+//
+//            } else if (event.getCode().equals(KeyCode.TAB)) {
+//                System.out.println("Tab presjenksjessed");
+//                event.consume();
+//            }
+//        }
+//
+//    }
+//=======
+//    class KeyboardClick implements EventHandler<KeyEvent> {
+//
+//        private Controller control;
+//
+//        KeyboardClick(Controller control) {
+//            this.control = control;
+//        }
+//
+//        /**
+//         * Handles user's inputs and respond appropriately.
+//         *
+//         * @param event consist of user's inputs.
+//         */
+//        @Override
+//        public void handle(KeyEvent event) {
+//
+//            System.out.println("You Pressing : " + ((KeyEvent) event).getCode());
+//            if ((event.getCode().equals(KeyCode.ENTER))) {
+//                System.out.println("Hello");
+//                command = mSearchTextField.getText();
+//                //clickEntered(command, control);
+//                try {
+//                    CommandParser.parseCommands(command, control);
+//                } catch (IOException | Exceptions e) {
+//                    e.printStackTrace();
+//                }
+//                clearSearchTextField();
+//            } else if (event.getCode().equals(KeyCode.TAB)) {
+//                System.out.println("Tab presjenksjessed");
+//                event.consume();
+//            } else if (event.getCode().equals(KeyCode.DOWN)) {
+//                mMoviesScrollPane.requestFocus();
+//                mMoviesFlowPane.getChildren().get(0).setStyle("-fx-border-color: white");
+//            }
+//        }
+//
+//    }
+//>>>>>>> 5c7ec624a7884df35d019a4043c39bb85084435a
 
     /**
      * This function is called when JavaFx runtime when view is loaded.
@@ -203,11 +250,16 @@ public class MovieHandler extends Controller implements RequestListener {
         EditProfileJson editProfileJson = new EditProfileJson();
         userProfile = editProfileJson.load();
         //ArrayList<Integer> arrayList = userPr
+//        try {
+//            pastCommands.setMap(PastUserCommands.load());
+//        } catch (ParseException e) {
+//            e.printStackTrace();
+//        }
         userNameLabel.setText(userProfile.getUserName());
         userAgeLabel.setText(Integer.toString(userProfile.getUserAge()));
         playlists = userProfile.getPlaylistNames();
         ProfileCommands command = new ProfileCommands(userProfile);
-
+        userPlaylistsLabel.setText(Integer.toString(userProfile.getPlaylistNames().size()));
         System.out.println("changed age");
 
         //setting adult label
@@ -239,6 +291,9 @@ public class MovieHandler extends Controller implements RequestListener {
         mMovieRequest = new RetrieveRequest(this);
         mMovieRequest.setSearchProfile(searchProfile);
         mCinemaRequest = new CinemaRetrieveRequest(this);
+        LOGGER.setLevel(Level.ALL);
+        LOGGER.log(Level.INFO , "MAIN UI INITIALISED");
+
         CommandContext.initialiseContext();
 
         BlacklistStorage bp = new BlacklistStorage();
@@ -270,6 +325,23 @@ public class MovieHandler extends Controller implements RequestListener {
                 }
 
                 mSearchTextField.positionCaret(mSearchTextField.getText().length());
+            } else if (event.getCode() == KeyCode.ENTER) {
+
+                command = mSearchTextField.getText();
+                try {
+                    CommandParser.parseCommands(command, this);
+                } catch (IOException | Exceptions e) {
+                    LOGGER.log(Level.SEVERE , "Exception in parsing command" + e);
+                } catch (EmptyCommandException e) {
+                    LOGGER.log(Level.SEVERE , PromptMessages.MISSING_COMMAND + e);
+                    setFeedbackText(PromptMessages.MISSING_COMMAND);
+                } catch (MissingInfoException e) {
+                    setFeedbackText(PromptMessages.MISSING_ARGUMENTS);
+                }
+                clearSearchTextField();
+            } else if (event.getCode().equals(KeyCode.DOWN)) {
+                mMoviesScrollPane.requestFocus();
+                mMoviesFlowPane.getChildren().get(0).setStyle("-fx-border-color: white");
             }
         });
 
@@ -277,7 +349,12 @@ public class MovieHandler extends Controller implements RequestListener {
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
         Date date = new Date();
         String now = formatter.format(date);
-
+//        PastCommandStructure pastCommandStructure = new PastCommandStructure(now, "view movies current");
+//        ArrayList<PastCommandStructure> arrayList = pastCommands.getMap();
+//        arrayList.add(pastCommandStructure);
+        //System.out.println(now + " " + command);
+//        pastCommands.setMap(arrayList);
+//        PastUserCommands.update(pastCommands);
 
         //generalFeedbackText.setText("Welcome to Entertainment Pro. Displaying currently showing movies...");
 
@@ -288,8 +365,8 @@ public class MovieHandler extends Controller implements RequestListener {
 
         System.out.println(generalFeedbackText.getText());
 
-        //Enter is Pressed
-        mSearchTextField.setOnKeyPressed(new KeyboardClick(this));
+//        //Enter is Pressed
+//        mSearchTextField.setOnKeyPressed(new KeyboardClick(this));
         mMoviesScrollPane.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
@@ -363,19 +440,19 @@ public class MovieHandler extends Controller implements RequestListener {
                 } else if (event.getCode().equals(KeyCode.ENTER)) {
                     try {
                         switch (pageTracker.getCurrentPage()) {
-                        case "mainPage":
-                            moviePosterClicked(mMovies.get(index));
-                            break;
-                        case "playlistInfo":
-                            Playlist playlist1 = new EditPlaylistJson(playlistName).load();
-                            playlistMoviePosterClicked(playlist1.getMovies().get(index));
-                            break;
-                        case "playlistList":
-                            Playlist playlist2 = new EditPlaylistJson(playlists.get(index)).load();
-                            playlistPaneClicked(playlist2);
-                            break;
-                        default:
-                            break;
+                            case "mainPage":
+                                moviePosterClicked(mMovies.get(index));
+                                break;
+                            case "playlistInfo":
+                                Playlist playlist1 = new EditPlaylistJson(playlistName).load();
+                                playlistMoviePosterClicked(playlist1.getMovies().get(index));
+                                break;
+                            case "playlistList":
+                                Playlist playlist2 = new EditPlaylistJson(playlists.get(index)).load();
+                                playlistPaneClicked(playlist2);
+                                break;
+                            default:
+                                break;
                         }
 
 
@@ -408,27 +485,50 @@ public class MovieHandler extends Controller implements RequestListener {
         SearchResultContext.addResults(MoviesFinal);
         mMovies = MoviesFinal;
 
-        if (isViewBackMoreInfo) {
-
-
-        } else {
-            //System.out.println("this is size: " + mMovies.size());
-            mImagesLoadingProgress = new double[mMovies.size()];
-            Platform.runLater(() -> {
-                try {
-                    buildMoviesFlowPane(MoviesFinal);
-                    pageTracker.setToMainPage();
-                } catch (Exceptions exceptions) {
-                    exceptions.printStackTrace();
-                }
-            });
-            if (isViewBack == true) {
-
-                isViewBack = false;
+//        if (isViewBackMoreInfo) {
+//            Platform.runLater(new Runnable() {
+//                @Override
+//                public void run() {
+//                    // Update UI here.
+//                    PastCommandStructure pastCommandStructure = getPastCommands().getMap().get(
+//                            getPastCommands().getMap().size() - 2);
+//                    String command = pastCommandStructure.getQuery();
+//                    String[] getStrips = command.split(" ");
+//                    int num = 0;
+//                    if (getPastCommands().getMap().get(getPastCommands().getMap().size() - 2)
+//                            .getQuery().startsWith("view entry")) {
+//                        num = Integer.parseInt(getStrips[2]);
+//                    }
+//                    try {
+//                        showMovie(num);
+//                    } catch (Exceptions exceptions) {
+//                        exceptions.printStackTrace();
+//                    }
+//                    isViewBackMoreInfo = false;
+//                        getPastCommands().getMap().remove(getPastCommands().getMap().size() - 1);
+//                        getPastCommands().getMap().remove(getPastCommands().getMap().size() - 1);
+//                        PastUserCommands.update(pastCommands);
+//                        isViewBack = false;
+//                }
+//            });
+//
+//        } else {
+        //System.out.println("this is size: " + mMovies.size());
+        mImagesLoadingProgress = new double[mMovies.size()];
+        Platform.runLater(() -> {
+            try {
+                buildMoviesFlowPane(MoviesFinal);
+                pageTracker.setToMainPage();
+            } catch (Exceptions exceptions) {
+                exceptions.printStackTrace();
             }
-        }
-
-
+        });
+//        if (isViewBack == true) {
+//            getPastCommands().getMap().remove(getPastCommands().getMap().size() - 1);
+//            getPastCommands().getMap().remove(getPastCommands().getMap().size() - 1);
+//            PastUserCommands.update(pastCommands);
+//            isViewBack = false;
+//        }
     }
 
     /**
@@ -497,7 +597,7 @@ public class MovieHandler extends Controller implements RequestListener {
             AnchorPane posterPane = buildMoviePosterPane(movies.get(i), i + 1);
             mMoviesFlowPane.getChildren().add(posterPane);
         }
-      //  mMoviesScrollPane.setFitToWidth(true);
+        //  mMoviesScrollPane.setFitToWidth(true);
         mMoviesScrollPane.setContent(mMoviesFlowPane);
         mMoviesScrollPane.setVvalue(0);
     }
@@ -540,9 +640,9 @@ public class MovieHandler extends Controller implements RequestListener {
                     controller.getPosterImageView().setImage(posterImage);
 
                 } else {
-                  //  System.out.println("hi1");
+                    //  System.out.println("hi1");
                     Image posterImage = new Image(this.getClass().getResourceAsStream("../../../../EPdata/FakeMoviePoster.png"));
-                   // System.out.println("hi2");
+                    // System.out.println("hi2");
                     posterImage.progressProperty().addListener((observable, oldValue, newValue) -> {
                         try {
                             updateProgressBar(movie, newValue.doubleValue());
@@ -591,7 +691,23 @@ public class MovieHandler extends Controller implements RequestListener {
         if (currentTotalProgress >= mMovies.size()) {
             mProgressBar.setVisible(false);
             mStatusLabel.setText("");
-
+//            if (isViewBack) {
+//                PastCommandStructure pastCommandStructure = getPastCommands().getMap().get(
+//                        getPastCommands().getMap().size() - 2);
+//                String command = pastCommandStructure.getQuery();
+//                String[] getStrips = command.split(" ");
+//                int num = 0;
+//                if (getPastCommands().getMap().get(getPastCommands().getMap().size() - 2)
+//                        .getQuery().startsWith("view entry")) {
+//                    num = Integer.parseInt(getStrips[2]);
+//                }
+//                showMovie(num);
+//                isViewBack = false;
+//                getPastCommands().getMap().remove(getPastCommands().getMap().size() - 1);
+//                getPastCommands().getMap().remove(getPastCommands().getMap().size() - 1);
+//                PastUserCommands.update(pastCommands);
+//
+//            }
         }
     }
 
@@ -617,6 +733,8 @@ public class MovieHandler extends Controller implements RequestListener {
         mProgressBar.setVisible(true);
         mStatusLabel.setText("Loading..");
         playlistVBox.getChildren().clear();
+        mMoviesScrollPane.setHvalue(0.5);
+        mMoviesScrollPane.setVvalue(0.5);
 
         int count = 1;
         if (playlists.isEmpty()) {
@@ -838,21 +956,20 @@ public class MovieHandler extends Controller implements RequestListener {
             }
 
             /**String[] genres = RetrieveRequest.getGenreStrings(movie);
-            StringBuilder builder = new StringBuilder();
-            try {
-                for (String genre : genres) {
-                    builder.append(genre);
-                    System.out.println(genre + "  " + genres.length);
-                    // if not last string in array, append a ,
-                    if (genres.length == 0) {
-                        System.out.println("no genres");
-                    } else if (!genres[genres.length - 1].equals(genre)) {
-                        builder.append(", ");
-                    }
-                }
-            } catch (NullPointerException ex) {
-
-            }**/
+             StringBuilder builder = new StringBuilder();
+             try {
+             for (String genre : genres) {
+             builder.append(genre);
+             System.out.println(genre + "  " + genres.length);
+             // if not last string in array, append a ,
+             if (genres.length == 0) {
+             System.out.println("no genres");
+             } else if (!genres[genres.length - 1].equals(genre)) {
+             builder.append(", ");
+             }
+             }
+             } catch (NullPointerException ex) {
+             }**/
             //controller.getMovieGenresLabel().setText(builder.toString());
             controller.getMovieGenresLabel().setText(genreText);
             mMoviesFlowPane.getChildren().add(posterView);
@@ -940,7 +1057,6 @@ public class MovieHandler extends Controller implements RequestListener {
         generalFeedbackText.setText(output);
     }
 
-
     /**
      * Prints message in UI.
      *
@@ -998,7 +1114,9 @@ public class MovieHandler extends Controller implements RequestListener {
         return userProfile;
     }
 
-
+//    public static PastCommands getPastCommands() {
+//        return pastCommands;
+//    }
 
     public ArrayList<MovieInfoObject> getmMovies() {
         return mMovies;
@@ -1122,16 +1240,16 @@ public class MovieHandler extends Controller implements RequestListener {
      */
     public void refresh() throws IOException {
         switch (pageTracker.getCurrentPage()) {
-        case "playlistList":
-            EditProfileJson editProfileJson = new EditProfileJson();
-            buildPlaylistVBox(editProfileJson.load().getPlaylistNames());
-            break;
-        case "playlistInfo":
-            EditPlaylistJson editPlaylistJson = new EditPlaylistJson(playlistName);
-            buildPlaylistInfo(editPlaylistJson.load());
-            break;
-        default:
-            break;
+            case "playlistList":
+                EditProfileJson editProfileJson = new EditProfileJson();
+                buildPlaylistVBox(editProfileJson.load().getPlaylistNames());
+                break;
+            case "playlistInfo":
+                EditPlaylistJson editPlaylistJson = new EditPlaylistJson(playlistName);
+                buildPlaylistInfo(editPlaylistJson.load());
+                break;
+            default:
+                break;
         }
     }
 

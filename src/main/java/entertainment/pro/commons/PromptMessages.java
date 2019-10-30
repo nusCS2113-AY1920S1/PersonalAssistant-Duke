@@ -32,7 +32,15 @@ public class PromptMessages {
 
     public static final String BLACKLIST_ADD_SUCCUESS = "Successfully added to blacklist!";
     public static final String BLACKLIST_REMOVE_SUCCUESS = "Successfully removed from  blacklist!";
-    public static final String BLACKLIST_REMOVE_FAILURE = "Sorry could not find such an item in your blacklist";
+    public static final String BLACKLIST_REMOVE_FAILURE = "Could not find item in your blacklist. Check Spelling?";
+
+    public static final String MISSING_ARGUMENTS = "You are missing a few arguments! Type 'help me' to find out more!";
+    public static final String MISSING_COMMAND = "You have entered an empty command!";
+
+    public static final String FILE_NOT_FOUND = "File not found!";
+    public static final String FILES_NOT_FOUND  = "Entire Help directory is missing!";
+
+
 
     //API Messages
     public static final String API_FAIL_GENERAL = "☹ I'sorry, but something went wrong when fetching data";
@@ -41,4 +49,16 @@ public class PromptMessages {
     public static final String API_OFFLINE = "☹ I'sorry, no internet connection detected. "
             + "So, the app will operate in offline mode";
     public static final String API_INVALID_REQUEST = "☹ I'sorry, but your request is either unclear or invalid";
+
+    //PlaylistExceptions messages
+    public static final String PLAYLIST_EXISTS_START =  "☹ I'sorry, but there's already a playlist with called <";
+    public static final String PLAYLIST_EXISTS_END =  ">. Please try again with another name.";
+    public static final String CANNOT_ADD_TO_PLAYLIST_START = "☹ I'sorry, but <";
+    public static final String CANNOT_ADD_TO_PLAYLIST_END = ">. Please try again with another item";
+    public static final String CANNOT_REMOVE_FROM_PLAYLIST_START = "☹ I'sorry, but <";
+    public static final String CANNOT_REMOVE_FROM_PLAYLIST_END = "> is not a valid item in this playlist. Please try again with another item";
+    public static final String PLAYLIST_DOES_NOT_EXISTS_START = "☹ I'sorry, but <";
+    public static final String PLAYLIST_DOES_NOT_EXISTS_END = "> does not exists. Please try again with another playlist title.";
+
+
 }

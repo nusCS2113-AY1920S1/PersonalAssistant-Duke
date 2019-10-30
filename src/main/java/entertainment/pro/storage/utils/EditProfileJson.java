@@ -14,6 +14,7 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import java.io.*;
+import java.lang.reflect.Array;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -48,39 +49,71 @@ public class EditProfileJson {
      * to load UserProfile object from userProfile.json.
      */
     public UserProfile load() throws IOException {
-//        JSONParser parser = new JSONParser();
-//        JSONObject jsonObject = new JSONObject();
-//        try {
-//            jsonObject = (JSONObject) parser.parse(new FileReader("./userProfile.json"));
-//        } catch (ParseException e) {
-//            e.printStackTrace();
-//        }
-//        UserProfile userProfile;
-//        ArrayList<Integer> genrePreference = new ArrayList<>();
-//        ArrayList<Integer> genreRestriction = new ArrayList<>();
-//        JSONArray jsonArray = (JSONArray) jsonObject.get("genreIdPreference");
-//        JSONArray jsonArray1 = (JSONArray) jsonObject.get("genreIdRestriction");
-//        for (int i = 0; i < jsonArray.size(); i += 1) {
-//            Long num = (Long) jsonArray.get(i);
-//            int num2 = num.intValue();
-//            genrePreference.add(num2);
-//        }
-//        for (int i = 0; i < jsonArray1.size(); i += 1) {
-//            Long num = (Long) jsonArray1.get(i);
-//            int num2 = num.intValue();
-//            genreRestriction.add(num2);
-//        }
-//        //ArrayList<Integer> arrayList = (ArrayList<Integer>) jsonObject.get("genreIdPreference");
-//        boolean isRating = (boolean) jsonObject.get("sortByHighestRating");
-//        //boolean isDates = (boolean) jsonObject.get("sortByLatestDates");
-//        ArrayList<String> emptyPlaylist = new ArrayList<>();
-//        long age = (long) jsonObject.get("age");
-//        int ageToInt = Math.toIntExact(age);
-//        return new UserProfile((String)jsonObject.get("name"),
-//                ageToInt, genrePreference, genreRestriction,
-//                (boolean) jsonObject.get("adult"), emptyPlaylist, (boolean)jsonObject.get("sortByAlphabetical"),
-//                (boolean) jsonObject.get("sortByHighestRating"), (boolean)jsonObject.get("sortByLatestRelease"));
-        return mapper.readValue(inputStream, typeReference);
+//        InputStream inputStream = getClass().getResourceAsStream("./userProfile.json");
+        InputStream inputStream = new FileInputStream("./userProfile.json");
+        InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+        BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+        String userProfileString = "";
+        String line;
+        while ((line = bufferedReader.readLine()) != null) {
+            userProfileString += line;
+        }
+        bufferedReader.close();
+        inputStreamReader.close();
+        inputStream.close();
+
+        JSONParser parser = new JSONParser();
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject = (JSONObject) parser.parse(new FileReader("./userProfile.json"));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        UserProfile userProfile = new UserProfile();
+        parse(userProfileString, userProfile);
+        return userProfile;
+//        return mapper.readValue(inputStream, typeReference);
+    }
+
+
+    private void parse(String userProfileString, UserProfile userProfile) {
+        JSONParser parser = new JSONParser();
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject = (JSONObject) parser.parse(userProfileString);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        final String name = (String) jsonObject.get("userName");
+        final int age = ((Long) jsonObject.get("userAge")).intValue();
+        ArrayList<Integer> genrePreference = new ArrayList<>();
+        ArrayList<Integer> genreRestriction = new ArrayList<>();
+        JSONArray jsonArray = (JSONArray) jsonObject.get("genreIdPreference");
+        JSONArray jsonArray1 = (JSONArray) jsonObject.get("genreIdRestriction");
+        for (int i = 0; i < jsonArray.size(); i += 1) {
+            Long num = (Long) jsonArray.get(i);
+            int num2 = num.intValue();
+            genrePreference.add(num2);
+        }
+        for (int i = 0; i < jsonArray1.size(); i += 1) {
+            Long num = (Long) jsonArray1.get(i);
+            int num2 = num.intValue();
+            genreRestriction.add(num2);
+        }
+        final boolean adult = (boolean) jsonObject.get("adult");
+        final ArrayList<String> playlistNames = (ArrayList<String>) jsonObject.get("playlistNames");
+        final boolean highestRating = (boolean) jsonObject.get("sortByHighestRating");
+        final boolean latestRelease = (boolean) jsonObject.get("sortByLatestRelease");
+        final boolean alphabeticalOrder = (boolean) jsonObject.get("sortByAlphabetical");
+        userProfile.setUserName(name);
+        userProfile.setUserAge(age);
+        userProfile.setGenreIdPreference(genrePreference);
+        userProfile.setGenreIdRestriction(genreRestriction);
+        userProfile.setPlaylistNames(playlistNames);
+        userProfile.setAdult(adult);
+        userProfile.setSortByAlphabetical(alphabeticalOrder);
+        userProfile.setSortByHighestRating(highestRating);
+        userProfile.setSortByLatestRelease(latestRelease);
     }
 
     /**

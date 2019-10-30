@@ -88,7 +88,7 @@ public class WatchlistHandler {
      * @param index index of the movie to mark as done
      * @param handle moviehandler class to print out the completed duke.task on the users view
      */
-    public static void markAsDone(int index, MovieHandler handle) {
+    public static void markIndexAsDone(int index, MovieHandler handle) {
         try {
             String result = "I've marked this duke.task as Done: \n";
             index--;
@@ -140,5 +140,32 @@ public class WatchlistHandler {
             names.add(i.getDescription());
         }
         return names;
+    }
+
+    /**
+     * searches for a movie in the watchlist to mark as its corresponding task as done
+     * @param movie: title of the movie to be searched
+     * @param handle: UI controller to print text to the UI textfield itself
+     * @return: a boolean to determine if the movie was found or not
+     */
+    public static boolean markMovieAsDone(String movie, MovieHandler handle) {
+        int index = 0;
+        String result = "I have marked this task as done: \n";
+        for (Tasks task : watch) {
+            if (task.getDescription().equals(movie)) {
+                task.setDone(true);
+                if (task.getType().equals("D")) {
+                    result += space + index + 1 + ".[" + task.getType()
+                            + "][" + task.getStatusIcon() + "] " + ((Deadline) task).toMessage();
+                } else {
+                    result += space + index + 1 + ".[" + task.getType()
+                            + "][" + task.getStatusIcon() + "] " + ((Period) task).toMessage();
+                }
+                handle.setFeedbackText(result);
+                return true;
+            }
+            index++;
+        }
+        return false;
     }
 }
