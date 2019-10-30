@@ -31,7 +31,8 @@ public class MemberFactory implements IArchDukeFactory<IMember> {
         if (isNameCreated) {
             return new Member(name, phone, email, index, role);
         } else {
-            return new NullMember();
+            return new NullMember("Name cannot be empty! Please follow the add command format in user "
+                                  + "guide! \"add member -n NAME\" is the minimum requirement for add member command");
         }
     }
 }

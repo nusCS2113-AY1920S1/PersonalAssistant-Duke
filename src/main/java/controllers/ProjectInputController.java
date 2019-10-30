@@ -146,8 +146,7 @@ public class ProjectInputController implements IController {
             return new String[] {"Added new member to: " + projectToManage.getDescription(), ""
                     + "Member details " + newMember.getDetails()};
         } else {
-            return new String[] {"Name cannot be empty! Please follow the add command format in user guide!",
-                                 "\"add member -n NAME\" is the minimum requirement for add member command"};
+            return new String[] {newMember.getDetails()};
         }
     }
 
