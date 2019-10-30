@@ -158,15 +158,20 @@ public class Process {
      * Command format: set fund am/AMOUNT_OF_FUND.
      * @param input Input from the user.
      * @param ui Ui that interacts with the user.
+     * @param fund the total fund the that the organisation owns
      */
-    public void setFund(String input, Ui ui, Fund fund){
-        String[] split = input.split("am/", 2);
-        Double amount = Double.parseDouble(split[1]);
-        if (fund.getFund() == -1) {
-            fund.setFund(amount);
-            ui.printSetFundMessage(fund);
-        } else {
-            ui.exceptionMessage("     ☹ OOPS!!! The fund id set already.");
+    public void setFund(String input, Ui ui, Fund fund) {
+        try {
+            String[] split = input.split("am/", 2);
+            Double amount = Double.parseDouble(split[1]);
+            if (fund.getFund() == 0.0) {
+                fund.setFund(amount);
+                ui.printSetFundMessage(fund);
+            } else {
+                ui.exceptionMessage("     ☹ OOPS!!! The fund id set already.");
+            }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            ui.exceptionMessage("     ☹ OOPS!!! Please input the correct command format (refer to user guide)");
         }
     }
 
@@ -175,12 +180,45 @@ public class Process {
      * Command format: add fund add/AMOUNT_OF_FUND.
      * @param input Input from the user.
      * @param ui Ui that interacts with the user.
+     * @param fund the total fund the that the organisation owns
      */
-    public void addFund(String input, Ui ui, Fund fund){
-        String[] split = input.split("add/", 2);
-        Double amount = Double.parseDouble(split[1]);
-        fund.addFund(amount);
-        ui.printAddFundMessage(fund, amount);
+    public void addFund(String input, Ui ui, Fund fund) {
+        try {
+            String[] split = input.split("add/", 2);
+            Double amount = Double.parseDouble(split[1]);
+            fund.addFund(amount);
+            ui.printAddFundMessage(fund, amount);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            ui.exceptionMessage("     ☹ OOPS!!! Please input the correct command format (refer to user guide)");
+        }
+    }
+
+    /**
+     *
+     * Command Format: assign fund p/PROJECT_NAME am/AMOUNT_OF_FUND
+     * @param input Input from the user.
+     * @param ui Ui that interacts with the user.
+     * @param fund the total fund the that the organisation owns
+     * @param projectmap Hashmap containing projects.
+     */
+    public void assignFund(String input, Ui ui, Fund fund) {
+        try {
+            String[] split = input.split("pr/|am/");
+            String projectname = split[1];
+            Double amount = Double.parseDouble(split[2]);
+            Project project = projectmanager.projectmap.get(projectname);
+            if ( fund.getFundRemaining() >= amount ) {
+                fund.takeFund(amount);
+                project.addBudget(amount);
+                ui.printAssignFundMessage(fund, amount, project);
+            } else {
+                ui.exceptionMessage("     ☹ OOPS!!! There is not enough fund. Please decrease the amount of fund assigned)");
+            }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            ui.exceptionMessage("     ☹ OOPS!!! Please input the correct command format (refer to user guide)");
+        } catch (NullPointerException e) {
+            ui.exceptionMessage("     ☹ OOPS!!! There is no project with that name yet, please add the project first!");
+        }
     }
 
     //===========================* Deadline *================================

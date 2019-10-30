@@ -8,13 +8,15 @@ public class Fund {
     private double fundTaken;
     private double fundRemaining;
 
+    private static final double NOFUND = 0.0;
+
     /**
      * Instantiates the fund object.
      */
     public Fund( ) {
-        this.fund = -1;
+        this.fund = NOFUND;
         this.fundTaken = 0;
-        this.fundRemaining = fund;
+        this.fundRemaining = NOFUND;
     }
 
     /**
@@ -23,6 +25,7 @@ public class Fund {
      */
     public void setFund(double fund) {
         this.fund = fund;
+        this.fundRemaining = fund;
     }
 
     /**
