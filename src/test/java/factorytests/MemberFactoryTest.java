@@ -103,4 +103,14 @@ public class MemberFactoryTest {
         assertEquals(expectedMember.getIndexNumber(), simulatedMember.getIndexNumber());
         assertEquals(expectedMember.getName(), simulatedMember.getName());
     }
+
+    @Test
+    void memberCreation_validEmail_creationSuccess() {
+        simulatedFactoryInput = "-n Thor -i 91234567 -e thor.bigguy@marvel.com";
+        IMember simulatedMember = memberFactory.create(simulatedFactoryInput);
+        Member expectedMember = new Member("Thor", "91234567", "thor.bigguy@marvel.com", 0, "member");
+        assertEquals(expectedMember.getDetails(), simulatedMember.getDetails());
+        assertEquals(expectedMember.getIndexNumber(), simulatedMember.getIndexNumber());
+        assertEquals(expectedMember.getName(), simulatedMember.getName());
+    }
 }
