@@ -462,8 +462,9 @@ class BankListTest {
 
     @Test
     void bankListAddBank_successfulAdd_printBankDetails() {
-        BankList testList = new BankList(new Storage("data/"));
-        Ui testUi = new Ui();
+        Storage testStorage = new Storage("data/");
+        testStorage.createDirectoryIfNotExist("data/");
+        BankList testList = new BankList(testStorage);        Ui testUi = new Ui();
         Saving newBank = new Saving("test", 123, 123);
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
@@ -499,8 +500,9 @@ class BankListTest {
 
     @Test
     void bankListDeleteBank_successfulDelete_displayDeletedBankDetails() {
-        BankList testList = new BankList(new Storage("data/"));
-        Ui testUi = new Ui();
+        Storage testStorage = new Storage("data/");
+        testStorage.createDirectoryIfNotExist("data/");
+        BankList testList = new BankList(testStorage);        Ui testUi = new Ui();
         Saving newBank = new Saving("test", 123, 123);
         Saving newBank2 = new Saving("test2", 456, 456);
         try {
@@ -529,8 +531,9 @@ class BankListTest {
 
     @Test
     void bankListEditSavings_editedBankDetails_displayNewDetails() {
-        BankList testList = new BankList(new Storage("data/"));
-        Ui testUi = new Ui();
+        Storage testStorage = new Storage("data/");
+        testStorage.createDirectoryIfNotExist("data/");
+        BankList testList = new BankList(testStorage);        Ui testUi = new Ui();
         Saving newBank = new Saving("test", 123, 123);
         try {
             testList.bankListAddBank(newBank, testUi);
@@ -582,12 +585,6 @@ class BankListTest {
                 + "                investment      $456.00         Not " + "Applicable  " + NEWLINE + "------"
                 + "------------------------------------------------------------------------------------------"
                 + "---------------------------------" + NEWLINE;
-        System.setOut(new PrintStream(new FileOutputStream(FileDescriptor.out)));
-        System.out.println("What was expected:");
-        System.out.println(outputMessage);
-        System.out.println();
-        System.out.println("What was printed:");
-        System.out.println(outContent.toString());
         assertEquals(outputMessage, outContent.toString());
     }
 }
