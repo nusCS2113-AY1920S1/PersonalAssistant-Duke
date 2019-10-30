@@ -1,7 +1,5 @@
 package duke.command;
 
-import java.io.IOException;
-import java.text.ParseException;
 import java.util.Optional;
 
 import duke.exception.DukeException;
@@ -24,8 +22,8 @@ public class InsertCommand extends Command {
      * Initialised with a filter and index to confirm the location in the TaskList where the Task t should be inserted
      *
      * @param filter filter for each task
-     * @param index index of the given task
-     * @param t task to be inserted
+     * @param index  index of the given task
+     * @param t      task to be inserted
      */
     public InsertCommand(Optional<String> filter, int index, Task t) {
         this.filter = filter;
@@ -36,8 +34,8 @@ public class InsertCommand extends Command {
     /**
      * Executes the insertion of the task into the specified index
      *
-     * @param tasks TaskList of all of user's tasks
-     * @param ui Ui handling user interaction
+     * @param tasks   TaskList of all of user's tasks
+     * @param ui      Ui handling user interaction
      * @param storage Storage handling saving and loading of TaskList
      * @throws DukeException if given index is valid
      */
@@ -48,7 +46,8 @@ public class InsertCommand extends Command {
 
     /**
      * Not applicable for this Command.
-     * @param tasks NA
+     *
+     * @param tasks     NA
      * @param undoStack NA
      */
     @Override

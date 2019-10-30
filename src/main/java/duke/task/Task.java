@@ -1,12 +1,12 @@
 package duke.task;
 
-import duke.exception.DukeException;
-import duke.extensions.Priority;
-import duke.extensions.Recurrence;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Optional;
+
+import duke.exception.DukeException;
+import duke.extensions.Priority;
+import duke.extensions.Recurrence;
 
 /**
  * Superclass for all Tasks that will be added to the duke.task.Task Manager
@@ -28,11 +28,11 @@ public class Task {
      * They will be instantiated to a default value by AddCommand if user does not provide the specifications
      * Automatically flags the boolean isDone as False
      *
-     * @param filter filter for each task
-     * @param dateTime datetime of the task, usually describes when it is due
-     * @param recurrence describes whether the task recurs
+     * @param filter      filter for each task
+     * @param dateTime    datetime of the task, usually describes when it is due
+     * @param recurrence  describes whether the task recurs
      * @param description the description of the task
-     * @param duration how long the task would take to complete
+     * @param duration    how long the task would take to complete
      */
     public Task(Optional<String> filter, Optional<LocalDateTime> dateTime, Recurrence recurrence,
                 String description, int duration) {

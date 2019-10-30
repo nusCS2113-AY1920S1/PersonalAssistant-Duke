@@ -47,21 +47,20 @@ public class TaskAssigner {
                     System.out.println(String.format("Task \"%s\" has been assigned to filter \"%s\"",
                             task.getDescription(), s));
                     return;
-                }
-                else {
+                } else {
                     System.out.println("Alright then.");
                     return;
                 }
             }
         }
-        ArrayList<ArrayList<String>> tokens_per_task = new ArrayList<ArrayList<String>>();
+        ArrayList<ArrayList<String>> tokensPerTask = new ArrayList<ArrayList<String>>();
         for (int i = 0; i < tasks.size(); i++) {
-            tokens_per_task.add(tokenize(tasks.get(i)));
+            tokensPerTask.add(tokenize(tasks.get(i)));
         }
-        Map<String, Integer> uniqueTokens = getUniqueTokens(tokens_per_task);
+        Map<String, Integer> uniqueTokens = getUniqueTokens(tokensPerTask);
         ArrayList<ArrayList<Integer>> vectorCounts = new ArrayList<ArrayList<Integer>>();
-        for (int i = 0; i < tokens_per_task.size(); i++) {
-            ArrayList<Integer> vector = getVectorCount(tokens_per_task.get(i), uniqueTokens);
+        for (int i = 0; i < tokensPerTask.size(); i++) {
+            ArrayList<Integer> vector = getVectorCount(tokensPerTask.get(i), uniqueTokens);
             vectorCounts.add(vector);
         }
         Map<String, ArrayList<Integer>> filterVectorCounts = getFilterVectors(filters, tasks, vectorCounts);
@@ -86,8 +85,7 @@ public class TaskAssigner {
             task.setFilter(Optional.ofNullable(closestFilter));
             System.out.println(String.format("Task \"%s\" has been assigned to filter \"%s\"",
                     task.getDescription(), closestFilter));
-        }
-        else {
+        } else {
             System.out.println("Alright then.");
         }
     }
@@ -96,27 +94,27 @@ public class TaskAssigner {
      * Cleans and tokenizes a task's description into arraylist of strings
      *
      * @param task Task whose description is to be tokenized
-     * @return ArrayList<string> containing tokens of task description
+     * @return ArrayList of String containing tokens of task description
      */
     public static ArrayList<String> tokenize(Task task) {
         String description = task.getDescription();
         description = description.trim();
         description = description.replaceAll("(?:--|[\\[\\]{}()+/\\\\])", "");
-        String[] tokens_array = description.split("\\s+");
-        return new ArrayList<String>(Arrays.asList(tokens_array));
+        String[] tokensArray = description.split("\\s+");
+        return new ArrayList<String>(Arrays.asList(tokensArray));
     }
 
     /**
      * Generates a map for unique token to index in count vector
      *
-     * @param tokens_per_task An arraylist that contains arraylist of tokens for each task description
+     * @param tokensPerTask An arraylist that contains arraylist of tokens for each task description
      * @return A map that maps unique tokens to their index in the count vector
      */
-    public static Map<String, Integer> getUniqueTokens(ArrayList<ArrayList<String>> tokens_per_task) {
+    public static Map<String, Integer> getUniqueTokens(ArrayList<ArrayList<String>> tokensPerTask) {
         Map<String, Integer> map = new HashMap<String, Integer>();
-        for (int i = 0; i < tokens_per_task.size(); i++) {
-            for (int j = 0; j < tokens_per_task.get(i).size(); j++) {
-                String token = tokens_per_task.get(i).get(j);
+        for (int i = 0; i < tokensPerTask.size(); i++) {
+            for (int j = 0; j < tokensPerTask.get(i).size(); j++) {
+                String token = tokensPerTask.get(i).get(j);
                 if (!map.containsKey(token)) {
                     map.put(token, map.size());
                 }
@@ -195,7 +193,8 @@ public class TaskAssigner {
      * @param filterVectorCounts Average VectorCounts of all the filters
      * @return The closest filter or null if best cosine similarity is 0
      */
-    public static String findClosestFilter (ArrayList<Integer> taskVector, Map<String, ArrayList<Integer>> filterVectorCounts) {
+    public static String findClosestFilter(ArrayList<Integer> taskVector, Map<String,
+            ArrayList<Integer>> filterVectorCounts) {
         String closestFilter = null;
         double maxSimilarity = 0;
         for (String filter : filterVectorCounts.keySet()) {
