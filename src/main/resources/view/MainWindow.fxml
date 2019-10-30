@@ -43,7 +43,7 @@
          <children>
             <ImageView fitHeight="66.0" fitWidth="91.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="2">
                <image>
-                  <Image url="@../../../../src/main/resources/images/ICON.png" />
+                  <Image url="@/images/ICON.png" />
                </image>
                <GridPane.margin>
                   <Insets left="50.0" right="50.0" />
@@ -77,7 +77,7 @@
                <graphic>
                   <ImageView fx:id="menu" fitHeight="41.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../src/main/resources/images/Menus.png" />
+                        <Image url="@/images/Menus.png" />
                      </image>
                      <effect>
                         <ColorAdjust />
@@ -95,7 +95,7 @@
                <graphic>
                   <ImageView fx:id="timer" fitHeight="46.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../src/main/resources/images/Timers.png" />
+                        <Image url="@/images/Timers.png" />
                      </image>
                      <viewport>
                         <Rectangle2D minX="1.0" minY="1.0" />
@@ -113,7 +113,7 @@
                <graphic>
                   <ImageView fx:id="trophy" fitHeight="68.0" fitWidth="42.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../src/main/resources/images/trophies.png" />
+                        <Image url="@/images/trophies.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -125,7 +125,7 @@
                <graphic>
                   <ImageView fx:id="spiderGraph" fitHeight="108.0" fitWidth="51.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../src/main/resources/images/Statistics.png" />
+                        <Image url="@/images/Statistics.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -137,7 +137,7 @@
                <graphic>
                   <ImageView fx:id="profile" fitHeight="46.0" fitWidth="42.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../src/main/resources/images/Avatars.png" />
+                        <Image url="@/images/Avatars.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -149,7 +149,7 @@
                <graphic>
                   <ImageView fx:id="trolley" fitHeight="75.0" fitWidth="43.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../src/main/resources/images/Shops.png" />
+                        <Image url="@/images/Shops.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -161,7 +161,7 @@
                <graphic>
                   <ImageView fx:id="swords" fitHeight="44.0" fitWidth="42.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../src/main/resources/images/Arena.png" />
+                        <Image url="@/images/Arena.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -173,7 +173,7 @@
                <graphic>
                   <ImageView fx:id="gear" fitHeight="49.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../src/main/resources/images/Settings.png" />
+                        <Image url="@/images/Settings.png" />
                      </image>
                   </ImageView>
                </graphic>
