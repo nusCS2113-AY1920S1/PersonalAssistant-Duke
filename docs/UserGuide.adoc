@@ -655,6 +655,17 @@ Below is a list of command parameters that you can expect to use for the command
 
 Take note that there is a maximum of *30* character limit.
 
+| `ACCOUNT_NAME`
+| Indicates the name of the savings bank account.
+
+(e.g. JunBank Savings Account)
+
+| `ACCOUNT_NAME` should contain alphabetic characters, numeric characters, and spaces only.
+
+`ACCOUNT_NAME` is case-sensitive.
+
+Take note that there is a maximum of *30* character limit.
+
 | `CARD_LIMIT`
 | Indicates the credit limit of the credit card.
 
@@ -665,9 +676,9 @@ Take note that there is a maximum of *30* character limit.
 | `CASHBACK_RATE`
 | Indicates the cashback returns rate of the credit card in percentage.
 
-(e.g. 3.1)
+(e.g. 20 for 20%)
 
-| `CASHBACK_RATE` should contain only digits and up to 2 decimal places up to a maximum of *20.00*
+| `CASHBACK_RATE` should contain only digits and up to 2 decimal places up to a maximum of *20*%
 
 | `AMOUNT`
 | Indicates the amount of money.
@@ -682,6 +693,13 @@ Take note that there is a maximum of *30* character limit.
 (e.g. 2/2/2019)
 
 | `DATE` should be in *DD/MM/YYYY* format and cannot be a newer date than the current date.
+
+| `YEARMONTH`
+| Indicates the month and year the expenditure was made.
+
+(e.g. 10/2019)
+
+| `YEARMONTH` should be in *MM/YYYY* format and cannot be ahead of the current month.
 
 | `DESCRIPTION`
 | Indicates the description of the transaction.
@@ -699,6 +717,14 @@ Take note that there is a maximum of *50* character limit.
 | `TRANSACTION_NUMBER`
 | Indicates the transaction number in the list when displayed. It is used for editing or deleting expenditures.
 | `TRANSACTION_NUMBER` should contain positive numbers only up to a maximum of *9* digits.
+
+| `BILL_EXPENDITURE_NUMBER`
+| Indicates the credit card bill transaction number in your savings account.
+| `BILL_EXPENDITURE_NUMBER` should contain positive numbers only up to a maximum of *9* digits.
+
+| `BILL_DEPOSIT_NUMBER`
+| Indicates the credit card bill rebate transaction number in your savings account.
+| `BILL_DEPOSIT_NUMBER` should contain positive numbers only up to a maximum of *9* digits.
 
 |======
 
@@ -737,6 +763,9 @@ Change in your credit card rebates rate? You can change them here as well!
 [WARNING]
 ====
 At least one of `/newname`, `/limit` or `/rebate` must be used.
+
+`/limit cannot be edited when there are unpaid credit card expenditures.`
+
 ====
 
 *Example*
@@ -749,9 +778,9 @@ Edits the credit card name from `POBB Tomorrow Card` to `JunBank GoodVibes Card`
 
 Edits the credit limit of `POBB Tomorrow Card` to $`10000`.
 
-* `/edit /card /name POBB Tomorrow Card /rebate 2.05`
+* `/edit /card /name POBB Tomorrow Card /rebate 2.25`
 
-Edits the cashback rate of `POBB Tomorrow Card` to `2.05`%.
+Edits the cashback rate of `POBB Tomorrow Card` to `2.25`%.
 
 ===== Deleting credit card `/delete /card`
 
@@ -816,7 +845,7 @@ Edits expenditure `2` that was charged to `POBB Tomorrow Card` to a new descript
 
 Edits expenditure `5` that was charged to `POBB Tomorrow Card` to an amount of $`3.50`
 
-===== Deleting expenditures for credit cards `/cardexpenditure`
+===== Deleting expenditures for credit cards `/delete /cardexpenditure`
 
 Accidentally added a transaction that did not happen? You can delete it!
 
@@ -834,6 +863,67 @@ To find out which expenditure to delete, use the `/list` or `/find` function to 
 * `/delete /cardexpenditure /from POBB Tomorrow Card /transno 1`
 
 Deletes an expenditure from `POBB Tomorrow Card` with transaction number `1`.
+
+===== Adding monthly credit card bill to savings account /add /cardbill
+
+Charge your credit card monthly bill to your savings account! This will add a credit card bill expenditure and also
+deposit the monthly rebate to your savings account.
+
+*Command Syntax*
+
+`/add /cardbill /card CARD_NAME /date YEARMONTH /bank ACCOUNT_NAME`
+
+[TIP]
+====
+The credit card bill expenditure and rebates deposit will be reflected in the savings account dated today.
+
+Rebates will be calculated based on the current credit card rebate, no matter which month the credit card transaction
+is from.
+====
+
+*Example*
+
+* `/add /cardbill /card POBB Tomorrow Card /date 10/2019 /bank JunBank Savings Account`
+
+Adds a credit card bill expenditure dated today to `JunBank Savings Account` with total card expenditures from `POBB
+Tomorrow Card` in the month and year of `10/2019`.
+
+Rebates for the month will also be deposited back to `JunBank Savings Account`.
+
+===== Deleting credit card bill from savings account /delete /cardbill
+
+Made a mistake in charging of credit card bill or decided to add more card transaction for an already paid month? You
+can delete your credit card bill, which will delete the bill expenditure and rebate deposit from your savings account!
+
+*Command Syntax*
+
+`/delete /cardbill /card CARD_NAME /date YEARMONTH /bank ACCOUNT_NAME /expno BILL_EXPENDITURE_NUMBER /depno
+BILL_DEPOSIT_NUMBER`
+
+[TIP]
+====
+To find out the expenditure and deposit number, use the /list or /find function to find the expenditure number in
+your savings account.
+====
+
+[WARNING]
+====
+Do not use the `/delete /bankexpenditure` or `/delete /deposit` command to remove your credit card bill. By doing so,
+you will be unable to reverse your credit card bill and hence unable to add more credit card expenditures to
+previously paid months.
+
+If you specify an incorrect `/expno`, but if the bank transaction amount matches the total card expenditures from
+`/date`, the incorrect bank expenditure will be deleted.
+
+If you specify an incorrect `/depno`, it will be deleted immediately if `/expno` leads to a deletion.
+====
+
+*Example*
+
+* `/delete /cardbill /card POBB Tomorrow Card /date 10/2019 /bank JunBank Savings Account /expno 1 /depno 2`
+
+Deletes credit card bill expenditure `1` and rebate deposit `2` from `JunBank Savings Account`. All credit card
+expenditures from `10/2019` will be marked as unpaid from `POBB Tomorrow Card`.
 
 ==== Financial Goal Management
 In this section, you'll be introduced to commands and parameters that help you to create financial goals to
@@ -1186,11 +1276,11 @@ Finds and lists all transactions that matches the category `food` from the bank 
 
 Finds and lists all transactions that matches any one of the categories:
 
-* BANK_NAME -> JunBank Savings Account | DESCRIPTION -> bubble tea
+* ACCOUNT_NAME -> JunBank Savings Account | DESCRIPTION -> bubble tea
 
-* BANK_NAME -> JunBank Savings Account | FROM -> 1/1/2019  TO -> 7/1/2019
+* ACCOUNT_NAME -> JunBank Savings Account | FROM -> 1/1/2019  TO -> 7/1/2019
 
-* BANK_NAME -> JunBank Savings Account | CATEGORY -> food
+* ACCOUNT_NAME -> JunBank Savings Account | CATEGORY -> food
 
 [TIP]
 ====
@@ -1645,6 +1735,16 @@ AMOUNT] [/date DATE]`
 | Delete an expenditure record tied to the credit card specified.
 | `/delete /cardexpenditure /from CARD_NAME /transno TRANSACTION_NUMBER`
 | `/delete /cardexpenditure /from POBB Tomorrow Card /transno 1`
+
+| *Adding credit card bill*
+| Add a credit card bill expenditure and rebate deposit into savings account.
+| `/add /cardbill /card CARD_NAME /date YEARMONTH /bank ACCOUNT_NAME`
+| `/add /cardbill /card POBB Tomorrow Card /date 10/2019 /bank JunBank Savings Account`
+
+| *Deleting credit card bill*
+| Delete a credit card bill expenditure and rebate deposit from savings account.
+| `/delete /cardbill /card CARD_NAME /date YEARMONTH /bank ACCOUNT_NAME /expno 1 /depno 2`
+| `/delete /cardbill /card POBB Tomorrow Card /date 10/2019 /bank JunBank Savings Account /expno 1 /depno 2`
 
 |======
 
