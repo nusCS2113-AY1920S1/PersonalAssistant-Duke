@@ -21,8 +21,10 @@ import planner.logic.command.RemoveCommand;
 import planner.logic.command.SearchThenAddCommand;
 import planner.logic.command.ShowCommand;
 import planner.logic.command.SortCommand;
+import planner.logic.command.UpdateModuleInfo;
 import planner.logic.exceptions.legacy.ModException;
 import planner.logic.parser.action.Join;
+import planner.util.logger.PlannerLogger;
 
 public class Parser {
 
@@ -58,6 +60,7 @@ public class Parser {
         this.mapCommand("sort", SortCommand.class);
         this.mapCommand("cap", CapCommand.class);
         this.mapCommand("grade", GradeCommand.class);
+        this.mapCommand("update", UpdateModuleInfo.class);
     }
 
     /**
@@ -65,9 +68,9 @@ public class Parser {
      */
     // Add arguments for parsers here
     public void mapBuiltinParserArguments() {
-        Subparser addParser = getSubParser("add")
-                .help("Add a module or cca");
-        Subparsers addParsers = addParser.addSubparsers()
+        Subparsers addParsers = getSubParser("add")
+                .help("Add a module or cca")
+                .addSubparsers()
                 .dest("toAdd")
                 .help("add command options");
         addParsers.addParser("module")
@@ -139,24 +142,39 @@ public class Parser {
                 .choices("modules", "ccas", "data")
                 .help("What to clear");
 
-        getSubParser("sort")
+        Subparsers sortParsers = getSubParser("sort")
                 .help("Sort your modules in alphabet order")
-                .addArgument("toSort")
-                .choices("modules", "ccas")
+                .addSubparsers()
+                .dest("toSort")
                 .help("What to sort");
+        sortParsers.addParser("modules")
+                .help("Sort your modules")
+                .addArgument("type")
+                .choices("code", "level", "mc")
+                .help("What to use for sorting");
+        sortParsers.addParser("ccas")
+                .help("Sort your CCAs");
 
-        Subparser capParser = getSubParser("cap");
+        Subparser capParser = getSubParser("cap")
+                .help("Calculate your CAP");
         capParser.addArgument("toCap")
             .choices("overall", "list", "module")
             .help("What type of CAP to calculate");
 
-        Subparser gradeParser = getSubParser("grade");
+        Subparser gradeParser = getSubParser("grade")
+                .help("Enter your grades and let me calculate your GPA for you!");
         gradeParser.addArgument("moduleCode")
             .required(true)
             .help("Codename of module to grade");
         gradeParser.addArgument("letterGrade")
             .required(true)
             .help("Grade you achieved for this module");
+
+        Subparser updateParser = getSubParser("update");
+        updateParser.addArgument("academicYear")
+                .required(true)
+                .help("Academic year of your choice, in format 2018-2019");
+
     }
 
     private void initBuiltinActions() {
@@ -230,6 +248,7 @@ public class Parser {
             return this.getParser().parseArgs(args);
         } catch (ArgumentParserException ex) {
             this.handleError(ex);
+            PlannerLogger.log(ex);
             return null;
         }
     }
@@ -248,6 +267,7 @@ public class Parser {
             return this.getSubParser(subParserName).parseArgs(args);
         } catch (ArgumentParserException ex) {
             this.handleError(subParserName, ex);
+            PlannerLogger.log(ex);
             return null;
         }
     }
@@ -281,9 +301,11 @@ public class Parser {
                 throw (ModException) ex.getCause();
             }
             ex.printStackTrace();
+            PlannerLogger.log(ex);
             return null;
         } catch (Throwable ex) {
             ex.printStackTrace();
+            PlannerLogger.log(ex);
             return null;
         }
     }

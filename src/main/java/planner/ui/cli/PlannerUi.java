@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.Set;
 
+import planner.logic.exceptions.legacy.ModEmptyCommandException;
 import planner.logic.modules.legacy.task.Task;
 import planner.logic.modules.module.ModuleTask;
 
@@ -44,8 +45,17 @@ public class PlannerUi {
         scan.close();
     }
 
-    public String readCommand() {
-        return scan.nextLine().strip();
+    /**
+     * Reads the next line of input if it is valid.
+     * @return String of user input.
+     * @throws ModEmptyCommandException there's an error in the next line of input.
+     */
+    public String readCommand() throws ModEmptyCommandException {
+        if (scan.hasNext()) {
+            return scan.nextLine().strip();
+        } else {
+            throw new ModEmptyCommandException();
+        }
     }
 
     /**
@@ -323,6 +333,10 @@ public class PlannerUi {
         for (ModuleTask hold : mods) {
             System.out.println(hold);
         }
+    }
+
+    public void showUpdatedMsg() {
+        System.out.println("Your module data files has been updated!");
     }
 
     public void reminderMsg() {

@@ -1,0 +1,6 @@
+list
+done
+done 3
+delete 3
+list
+bye

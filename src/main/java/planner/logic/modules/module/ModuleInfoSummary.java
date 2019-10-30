@@ -10,18 +10,6 @@ public class ModuleInfoSummary {
     private boolean isDone = false;
     private boolean suOption = false;
 
-    /**
-     * TODO JavaDocs.
-     */
-    public void moduleInfoSummary(String moduleCode, String title, int[] semesters, boolean suOption) {
-        this.moduleCode = moduleCode;
-        this.title = title;
-        this.semesters = semesters;
-        this.isDone = false;
-        this.suOption = suOption;
-    }
-
-
     public String getModuleCode() {
         return moduleCode;
     }
