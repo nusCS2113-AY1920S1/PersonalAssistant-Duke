@@ -193,9 +193,9 @@ image::AllClassDiagram.png[width="1000"]
 
 == Implementation
 
-=== Customisation
+=== Customization
 
-The user can customise Le Duc in the following ways :
+The user can customize Le Duc in the following ways :
 
 * `shortcut`: The user can implement and use shortcut for every command.
 * `language`: The user can change the language for Le Duc.
