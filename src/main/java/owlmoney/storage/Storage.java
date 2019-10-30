@@ -1,5 +1,6 @@
 package owlmoney.storage;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.Reader;
 import java.io.Writer;
@@ -22,6 +23,18 @@ public class Storage {
         this.path = path;
     }
 
+    public boolean checkIfFileExist(String fileName) {
+        return Files.exists(Paths.get(path + fileName));
+    }
+
+    public boolean createDirectoryIfNotExist(String path) {
+        File dir = new File(path);
+        boolean result = false;
+        if (!dir.exists()) {
+            result = dir.mkdirs();
+        }
+        return result;
+    }
     /**
      * Writes files dynamically based on parameters specified.
      *
