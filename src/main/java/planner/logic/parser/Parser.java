@@ -166,11 +166,9 @@ public class Parser {
         gradeParser.addArgument("letterGrade")
             .help("Grade you achieved for this module");
 
-        Subparser updateParser = getSubParser("update");
-        updateParser.addArgument("academicYear")
-                .required(true)
+        getSubParser("update")
+                .addArgument("academicYear")
                 .help("Academic year of your choice, in format 2018-2019");
-
     }
 
     private void initBuiltinActions() {
