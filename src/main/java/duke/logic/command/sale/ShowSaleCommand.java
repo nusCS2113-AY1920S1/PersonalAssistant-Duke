@@ -8,7 +8,7 @@ public class ShowSaleCommand extends SaleCommand {
     public static final String COMMAND_WORD = "";
     private static final String MESSAGE_LIST_SUCCESS = "Showing all sales.";
 
-    public static final String AUTO_COMPLETE_INDICATOR = SaleCommand.COMMAND_WORD + ShowSaleCommand.COMMAND_WORD;
+    public static final String AUTO_COMPLETE_INDICATOR = SaleCommand.COMMAND_WORD + " " + ShowSaleCommand.COMMAND_WORD;
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
