@@ -3,7 +3,7 @@ package duke.launcher;
 import duke.parser.ParserCommand;
 import duke.data.Storage;
 import duke.models.Schedule;
-import duke.models.ManageStudents;
+import duke.models.students.ManageStudents;
 import duke.models.MyPlan;
 import duke.task.TaskList;
 import duke.view.CliView;
@@ -62,7 +62,7 @@ public class Duke extends Application {
      * @throws FileNotFoundException if storage or schedule files are not found
      * @throws ParseException        if unable to load schedule
      */
-    public Duke() throws FileNotFoundException, ParseException {
+    public Duke() throws FileNotFoundException {
         cliView = new CliView();
         storage = new Storage(".\\src\\main\\java\\duke\\data\\duke.txt");
         tasks = new TaskList();

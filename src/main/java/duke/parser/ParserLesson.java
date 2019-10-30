@@ -1,5 +1,9 @@
 package duke.parser;
 
+import duke.command.AddCommand;
+import duke.command.DeleteCommand;
+import duke.command.ExitCommand;
+import duke.command.ViewCommand;
 import duke.view.CliView;
 import duke.data.Storage;
 import duke.models.Lesson;
@@ -53,13 +57,30 @@ public class ParserLesson {
      * The scanner object responsible for taking in user input.
      */
     private Scanner myLessonScan;
-
+    /**
+     * Represents the AddCommand class.
+     */
+    private AddCommand addCommand = new AddCommand();
+    /**
+     * Represents the DeleteCommand class.
+     */
+    private DeleteCommand deleteCommand = new DeleteCommand();
+    /**
+     * Represents the ViewCommand class.
+     */
+    private ViewCommand viewCommand = new ViewCommand();
+    /**
+     * Represents the ExitCommand class.
+     */
+    private ExitCommand exitCommand = new ExitCommand();
+    //@@author nottherealedmund
     /**
      * Constructor for ParserLesson.
      *
      * @throws FileNotFoundException if file does not exist
      * @throws ParseException        if user input is not in the correct format
      */
+
     public ParserLesson() throws FileNotFoundException, ParseException {
         cliView = new CliView();
         lessonStorage = new Storage(
@@ -68,6 +89,7 @@ public class ParserLesson {
         myLessonScan = new Scanner(System.in);
     }
 
+    //@@author nottherealedmund
     /**
      * Method to run when entering lesson of the day.
      */
@@ -83,33 +105,26 @@ public class ParserLesson {
                 // to add (It consumes the \n character)
                 switch (executeType) {
                 case 1:
-                    System.out.print(lesson.viewLesson(lessonDate));
+                    viewCommand.viewLesson(lesson, lessonDate);
                     break;
 
                 case 2:
-                    cliView.showLessonPromptAddLesson(lessonDate);
-                    String myLesson = myLessonScan.nextLine();
-                    System.out.println(
-                        lesson.addLesson(
-                            lessonDate, myLesson, lessonStorage));
+                    addCommand.addLesson(lesson, lessonStorage, lessonDate);
                     break;
 
                 case indexThree:
-                    cliView.showLessonPromptDeleteLesson(lessonDate);
-                    String message = myLessonScan.nextLine();
-                    System.out.println(
-                        lesson.removeLesson(
-                            lessonDate, message, lessonStorage));
+                    deleteCommand.deleteLesson(
+                        lesson, lessonStorage, lessonDate);
                     break;
 
                 case indexFour:
-                    System.out.println(lesson.removeAllLesson(
-                        lessonDate, lessonStorage));
+                    deleteCommand.deleteAllLessons(
+                        lesson, lessonStorage, lessonDate);
                     break;
 
                 case indexFive:
-                    isRunning = false;
                     cliView.showQuitLesson();
+                    isRunning = exitCommand.exitLesson();
                     break;
                 default:
                 }
