@@ -1,0 +1,56 @@
+= Modak Shantanu Bharat - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: AlgoSenpai Adventures
+
+---
+
+== Overview
+
+AlgoSenpai Adventures (ASA) is a desktop education/chatbot application used for teaching Data Structures and Algorithms
+principles. The user interacts with it using a CLI, and it has a GUI created with JavaFX.
+It is written in Java, and has about 10 kLoC.
+
+== Summary of contributions
+
+* *Main Contribution*: Stats Component
+** The Stats component allows data about the user (such as name, number of questions answered) to be stored permanently
+in a text file and retrieved from storage when the program is launched again.
+** It is an essential feature as it allows the user to track his/her progress over time.
+** It consists of 2 main classes: The `UserStats` class that holds the data during runtime, and the `Storage` class that
+handles storage to/from the text file.
+** This contribution includes the description of this feature I wrote in the documentation.
+
+* *Code contributed*: [https://github.com/AY1920S1-CS2113T-T09-3/main/tree/master/src/main/java/com/algosenpai/app[Functional]] (under stats and storage)
+[https://github.com/AY1920S1-CS2113T-T09-3/main/tree/master/src/test/java/com/algosenpai/app[Test code]] (Storage, UserStats, ChapterStats)
+
+* *Other contributions*:
+
+** Project management:
+
+** Enhancements to existing features:
+** Documentation:
+** Community:
+** Tools:
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=delete]
+
+include::../UserGuide.adoc[tag=dataencryption]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=undoredo]
+
+include::../DeveloperGuide.adoc[tag=dataencryption]
