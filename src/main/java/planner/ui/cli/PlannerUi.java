@@ -416,4 +416,26 @@ public class PlannerUi {
     public void showUpdatedMsg() {
         System.out.println("Your module data files has been updated!");
     }
+
+    /**
+     * Message to print the reminder list.
+     */
+    public void reminderMsg() {
+        showLine();
+        System.out.println("Please remember to update your module information!");
+        showLine();
+    }
+
+    /**
+     * Message to print the list of reminder options.
+     */
+    public void reminderList() {
+        showLine();;
+        System.out.println("Would you like to off your reminder for\n"
+                            + "1) for 30 mins\n"
+                            + "2) for 1 hour\n"
+                            + "3) for 12 hours\n"
+                            + "4) for 24 hours\n"
+                            + "*helpline* : for 1), enter 'reminder one'");
+    }
 }

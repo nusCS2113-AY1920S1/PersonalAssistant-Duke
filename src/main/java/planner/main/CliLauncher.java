@@ -29,7 +29,6 @@ public class CliLauncher {
     private ModuleTasksList modTasks;
     private CcaList ccas;
     private Parser argparser;
-    private Reminder reminder;
     private JsonWrapper jsonWrapper;
     private PlannerUi modUi;
     private HashMap<String, ModuleInfoDetailed> modDetailedMap;
