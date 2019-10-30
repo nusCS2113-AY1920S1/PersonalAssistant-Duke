@@ -1,6 +1,6 @@
 package repositorytests;
 
-import models.data.Project;
+import models.project.Project;
 import org.junit.jupiter.api.Test;
 import repositories.ProjectRepository;
 

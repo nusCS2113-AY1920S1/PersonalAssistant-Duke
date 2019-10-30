@@ -1,4 +1,4 @@
-package models.data;
+package models.project;
 
 import models.member.Member;
 import models.member.MemberList;
@@ -23,8 +23,8 @@ public class Project implements IProject {
         this.description = description;
         this.memberList = new MemberList();
         this.taskList = new TaskList();
-        this.taskAndListOfMembersAssigned = new HashMap<Task, ArrayList<Member>>();
-        this.memberAndIndividualListOfTasks = new HashMap<Member, ArrayList<Task>>();
+        this.taskAndListOfMembersAssigned = new HashMap<>();
+        this.memberAndIndividualListOfTasks = new HashMap<>();
     }
 
     @Override

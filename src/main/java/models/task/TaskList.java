@@ -54,13 +54,14 @@ public class TaskList {
      * @return An ArrayList with String descriptions of task details sorted by name by default to be presented in table
      *         format.
      */
-    public ArrayList<String> getAllTaskDetailsForTable(HashMap<Task, ArrayList<Member>> tasksAndAssignedMembers) {
+    public ArrayList<String> getAllTaskDetailsForTable(HashMap<Task, ArrayList<Member>> tasksAndAssignedMembers,
+                                                       String sortCriteria) {
         ArrayList<String> allTaskDetailsForTable = new ArrayList<>();
         if (this.taskList.size() == 0) {
             allTaskDetailsForTable.add(" - There are currently no tasks! -");
         } else {
             ArrayList<String> allTaskDetails = this.parserHelper.parseSortTaskDetails(tasksAndAssignedMembers,
-                    taskList, "/PRIORITY");
+                    taskList, sortCriteria);
 
             for (String s : allTaskDetails) {
                 String[] indivTaskDetails = s.split(" [|] ");
