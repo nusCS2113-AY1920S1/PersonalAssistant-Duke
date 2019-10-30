@@ -3,24 +3,18 @@
 package planner.util.legacy.reminder;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
-import planner.logic.exceptions.legacy.ModInvalidTimePeriodException;
 import planner.logic.exceptions.legacy.ModTimeIntervalTooCloseException;
 import planner.logic.modules.legacy.task.Task;
-import planner.logic.modules.legacy.task.TaskWithPeriod;
-import planner.ui.cli.PlannerUi;
 import planner.util.legacy.periods.TimeInterval;
-import planner.util.legacy.periods.TimePeriodSpanning;
 
-public class Reminder {
-    private TimeInterval remindBefore;
-    private TimeInterval checkEvery;
-    private List<Task> tasks;
-    private Thread thread;
-    private static final TimeInterval minBefore = TimeInterval.ofMinutes(1);
-    private volatile boolean kill;
+public abstract class Reminder {
+    TimeInterval remindBefore;
+    TimeInterval checkEvery;
+    Thread thread;
+    static final TimeInterval minBefore = TimeInterval.ofMinutes(1);
+    volatile boolean kill;
 
     /**
      * Constructor for Reminder.
@@ -33,7 +27,6 @@ public class Reminder {
         if (remindBefore.isLessThan(Reminder.minBefore)) {
             throw new ModTimeIntervalTooCloseException();
         }
-        this.tasks = tasks;
         this.remindBefore = remindBefore;
         this.checkEvery = checkEvery;
         this.kill = true;
@@ -103,13 +96,7 @@ public class Reminder {
             now = LocalDateTime.now();
             if (now.isAfter(targetTime)) {
                 targetTime = now.plus(this.checkEvery);
-                try {
-                    new PlannerUi().printUpcomingTasks(
-                            this.getUpcomingTasks(
-                                    new TimePeriodSpanning(now, now.plus(this.remindBefore))));
-                } catch (ModInvalidTimePeriodException e) {
-                    System.out.println(e.getMessage());
-                }
+                this.execute(now);
             }
             sleepSeconds = Math.max(TimeInterval.between(LocalDateTime.now(), targetTime)
                     .toDuration().getSeconds() - 1, 0);
@@ -123,20 +110,5 @@ public class Reminder {
         }
     }
 
-    /**
-     * Get upcoming tasks.
-     * @param timePeriodSpanning How long before the task begin to remind
-     * @return the upcoming tasks
-     */
-    private List<Task> getUpcomingTasks(TimePeriodSpanning timePeriodSpanning) {
-        List<Task> upcomingTasks = new ArrayList<>();
-        for (Task task: this.tasks) {
-            if (task instanceof TaskWithPeriod
-                    && !task.isDone()
-                    && ((TaskWithPeriod)task).isClashing(timePeriodSpanning)) {
-                upcomingTasks.add(task);
-            }
-        }
-        return upcomingTasks;
-    }
+    abstract void execute(LocalDateTime now);
 }
