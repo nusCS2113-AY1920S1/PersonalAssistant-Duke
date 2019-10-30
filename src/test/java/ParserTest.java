@@ -33,6 +33,21 @@ public class ParserTest {
     }
 
     @Test
+    public void parseCommands_switchesChained_argumentsExtracted() {
+        try {
+            Command testCmd = uut.parse("doctor Hello-switch World-optswitch Optional-none-maybe");
+            DoctorCommand docCmd = (DoctorCommand) testCmd;
+            assertEquals("Hello", docCmd.getArg());
+            assertEquals("World", docCmd.getSwitchVal("switch"));
+            assertEquals("Optional", docCmd.getSwitchVal("optswitch"));
+            assertTrue(docCmd.getSwitchVals().containsKey("maybe"));
+            assertTrue(docCmd.getSwitchVals().containsKey("none"));
+        } catch (DukeException excp) {
+            fail("Exception thrown while extracting test command with chained switches!");
+        }
+    }
+
+    @Test
     public void parseCommands_optionalArgOmitted_argumentsExtracted() {
         try {
             Command testCmd = uut.parse("doctor Hello -switch World -maybe -none");

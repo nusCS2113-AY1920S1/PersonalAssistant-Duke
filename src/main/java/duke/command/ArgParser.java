@@ -72,6 +72,9 @@ public class ArgParser {
             break;
         case SWITCH:
             addSwitch();
+            if (switchMap.get(currSwitchName).argLevel == ArgLevel.OPTIONAL) {
+                switchVals.put(currSwitchName, null);
+            }
             break;
         case CMDARG:
             setCmdArg();
@@ -132,8 +135,8 @@ public class ArgParser {
             addSwitch();
             break;
         case '-':
-            checkSwitchAllowed();
             addSwitch();
+            checkSwitchAllowed();
             break;
         default:
             elementBuilder.append(curr);
