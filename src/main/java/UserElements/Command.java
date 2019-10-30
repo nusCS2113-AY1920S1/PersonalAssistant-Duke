@@ -17,6 +17,7 @@ import Events.Storage.Storage;
 import UserElements.ConcertBudgeting.CostExceedsBudgetException;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.Queue;
@@ -149,6 +150,10 @@ public class Command {
                 goalsManagement(events, ui);
                 break;
 
+            case "checklist":
+                checklistManagement(events, ui);
+                break;
+
             default:
                 ui.printInvalidCommand();
                 changesMade = false;
@@ -157,6 +162,54 @@ public class Command {
         if (changesMade) {
             events.sortList();
             storage.saveToFile(events, ui);
+        }
+    }
+
+    private void checklistManagement(EventList events, UI ui) {
+        if (continuation.isEmpty()) {
+            ui.eventDescriptionEmpty();
+        } else {
+            try {
+                String[] splitChecklist = continuation.split("/");
+                String[] checklistCommand = splitChecklist[0].split(" ");
+                int eventIndex = Integer.parseInt(checklistCommand[1]) - 1;
+//                if(!((events.getEvent(eventIndex).getType()=='P') || (events.getEvent(eventIndex).getType()=='L'))) {
+//                    ui.noSuchEvent();
+//                    return;
+//                }
+                if (checklistCommand.length == 3) {
+                    int checklistIndex = Integer.parseInt(checklistCommand[2]);
+                    switch (checklistCommand[0]) {
+                        case "delete":
+                            events.getEvent(eventIndex).deleteChecklist(checklistIndex - 1);
+                            ui.checklistDeleted(eventIndex);
+                            break;
+
+                        case "edit":
+                            events.getEvent(eventIndex).editChecklist(checklistIndex - 1, splitChecklist[1]);
+                            ui.checklistEdited(splitChecklist[1], eventIndex);
+                            break;
+                    }
+                } else {
+                    switch (checklistCommand[0]) {
+                        case "add":
+                            events.getEvent(eventIndex).addChecklist(splitChecklist[1]);
+                            System.out.println(splitChecklist[1] + "___" + eventIndex);
+                            ui.checklistAdded(splitChecklist[1], eventIndex);
+                            break;
+
+                        case "view":
+                            //print goals list
+                            ArrayList<String> thisChecklist = events.getEvent(eventIndex).getChecklist();
+                            ui.printEventChecklist(thisChecklist, eventIndex, events.getEvent(eventIndex));
+                            break;
+                    }
+                }
+            } catch (IndexOutOfBoundsException ne) {
+                ui.noSuchEvent();
+            } catch (NumberFormatException numE) {
+                ui.notAnInteger();
+            }
         }
     }
 
