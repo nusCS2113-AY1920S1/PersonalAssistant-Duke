@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import Events.EventTypes.Event;
 import Events.Formatting.EventDate;
-import Events.Storage.ServiceInfo;
+import Events.Storage.Instruments.ServiceInfo;
 
 public class Instrument {
 
