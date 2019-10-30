@@ -1,7 +1,6 @@
 package money;
 
 import controlpanel.MoneyStorage;
-import money.Loan;
 import moneycommands.*;
 import controlpanel.DukeException;
 import controlpanel.Ui;
@@ -104,9 +103,9 @@ public class ExpenditureTest {
     @Test
     void testInvalidIndexException() throws DukeException {
         String invalidInput = "delete expenditure yo yo ";
-        MoneyCommand invalidAddCommand = new DeleteExpenditureCommand(invalidInput);
         ui.clearOutputString();
         try {
+            MoneyCommand invalidAddCommand = new DeleteExpenditureCommand(invalidInput);
             invalidAddCommand.execute(account, ui, storage);
             fail();
         } catch (DukeException | ParseException | NumberFormatException e) {
