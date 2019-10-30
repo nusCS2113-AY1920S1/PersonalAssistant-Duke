@@ -30,7 +30,7 @@
   },
   {
     "name": "lala",
-    "isDone": false,
+    "isDone": true,
     "memberList": [],
     "time": "Dec 12, 2019, 11:22:00 AM"
   }

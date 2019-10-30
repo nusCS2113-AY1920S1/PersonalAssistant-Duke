@@ -107,7 +107,8 @@ public class ModelController implements Model {
 
     @Override
     public void unlink(int taskIndex, String memberName) {
-
+        tasksManager.getTaskById(taskIndex).deleteMember(memberName);
+        memberManager.getMemberByName(memberName).deleteTask(memberName);
     }
 
     @Override
