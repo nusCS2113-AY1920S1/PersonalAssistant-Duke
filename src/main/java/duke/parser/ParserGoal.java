@@ -1,5 +1,9 @@
 package duke.parser;
 
+import duke.command.AddCommand;
+import duke.command.DeleteCommand;
+import duke.command.ExitCommand;
+import duke.command.ViewCommand;
 import duke.view.CliView;
 import duke.data.Storage;
 import duke.models.Goal;
@@ -53,7 +57,22 @@ public class ParserGoal {
      * The scanner object responsible for taking in user input.
      */
     private Scanner myGoalScan;
-
+    /**
+     * Represents the AddCommand class.
+     */
+    private AddCommand addCommand = new AddCommand();
+    /**
+     * Represents the DeleteCommand class.
+     */
+    private DeleteCommand deleteCommand = new DeleteCommand();
+    /**
+     * Represents the ViewCommand class.
+     */
+    private ViewCommand viewCommand = new ViewCommand();
+    /**
+     * Represents the ExitCommand class.
+     */
+    private ExitCommand exitCommand = new ExitCommand();
     /**
      * Constructor for ParserGoal.
      *
@@ -83,33 +102,24 @@ public class ParserGoal {
                 // to add (It consumes the \n character)
                 switch (executeType) {
                 case 1:
-                    System.out.print(goal.viewGoal(goalDate));
+                    viewCommand.viewGoal(goal, goalDate);
                     break;
 
                 case 2:
-                    cliView.showGoalPromptAddGoal(goalDate);
-                    String myGoal = myGoalScan.nextLine();
-                    System.out.println(
-                        goal.addGoal(
-                            goalDate, myGoal, goalStorage));
+                    addCommand.addGoal(goal, goalStorage, goalDate);
                     break;
 
                 case indexThree:
-                    cliView.showGoalPromptDeleteGoal(goalDate);
-                    String message = myGoalScan.nextLine();
-                    System.out.println(
-                        goal.removeGoal(
-                            goalDate, message, goalStorage));
+                    deleteCommand.deleteGoal(goal, goalStorage, goalDate);
                     break;
 
                 case indexFour:
-                    System.out.println(goal.removeAllGoal(
-                        goalDate, goalStorage));
+                    deleteCommand.deleteAllGoals(goal, goalStorage, goalDate);
                     break;
 
                 case indexFive:
-                    isRunning = false;
                     cliView.showQuitGoal();
+                    isRunning = exitCommand.exitGoal();
                     break;
                 default:
                     cliView.showDontKnow();
