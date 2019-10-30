@@ -139,7 +139,7 @@ public class SetCommand extends CommandSuper {
             index = index.strip();
             int i = Integer.valueOf(index);
             System.out.println(i);
-            WatchlistHandler.markAsDone(i, (MovieHandler)(this.getUiController()));
+            WatchlistHandler.markIndexAsDone(i, (MovieHandler)(this.getUiController()));
         } catch (NullPointerException | IndexOutOfBoundsException e) {
             ((MovieHandler)(this.getUiController())).setFeedbackText("please enter a valid duke.task number");
         }
