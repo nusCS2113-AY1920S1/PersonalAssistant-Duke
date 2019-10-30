@@ -199,5 +199,8 @@ public class Window {
     public void executeCommand(String fullCommandText) throws DukeException {
         CommandOutput commandOutput = logicController.execute(fullCommandText);
         setOutputArea(commandOutput.getOutputToUser());
+        if (commandOutput.isExit()) {
+            System.exit(0);
+        }
     }
 }
