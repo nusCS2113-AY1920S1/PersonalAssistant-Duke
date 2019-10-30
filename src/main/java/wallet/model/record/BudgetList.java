@@ -61,4 +61,16 @@ public class BudgetList {
     public void editBudget(int index, Budget budget) {
         budgetList.set(index, budget);
     }
+
+    /**
+     * Gets budget for a certain month of the year.
+     */
+    public double getBudget(int month, int year) {
+        for (Budget b : this.budgetList) {
+            if (b.getMonth() == month && b.getYear() == year) {
+                return b.getAmount();
+            }
+        }
+        return 0;
+    }
 }
