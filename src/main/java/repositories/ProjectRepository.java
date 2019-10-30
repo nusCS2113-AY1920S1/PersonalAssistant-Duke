@@ -1,26 +1,20 @@
 package repositories;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
-import controllers.ConsoleInputController;
 import models.project.IProject;
 import models.project.Project;
 import util.factories.ProjectFactory;
+import util.json.JsonHelper;
 import util.log.DukeLogger;
 
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class ProjectRepository implements IRepository<Project> {
     private ArrayList<Project> allProjects;
     private ProjectFactory projectFactory;
-    private String filePath = System.getProperty("user.dir") + "/savedProjects.json";
+    private JsonHelper jsonHelper = new JsonHelper();
 
     public ProjectRepository() {
-        loadProjectsData();
+        allProjects = jsonHelper.loadProjectsData();
         this.projectFactory = new ProjectFactory();
     }
 
@@ -39,7 +33,7 @@ public class ProjectRepository implements IRepository<Project> {
         }
         Project newlyCreatedProject = (Project) newProject;
         allProjects.add(newlyCreatedProject);
-        saveProjectsData();
+        jsonHelper.saveProjectsData(allProjects);
         return true;
     }
 
@@ -60,10 +54,10 @@ public class ProjectRepository implements IRepository<Project> {
     public boolean deleteItem(int projectNumber) {
         try {
             this.allProjects.remove(projectNumber - 1);
-            saveProjectsData();
+            jsonHelper.saveProjectsData(allProjects);
             return true;
         } catch (IndexOutOfBoundsException err) {
-            saveProjectsData();
+            jsonHelper.saveProjectsData(allProjects);
             return false;
         }
     }
@@ -110,43 +104,5 @@ public class ProjectRepository implements IRepository<Project> {
             toPrintAll.add(toPrint);
         }
         return toPrintAll;
-    }
-
-    /**
-     * Method that is responsible for saving Projects Data by using GSON library to convert to a human editable JSON
-     * file.
-     */
-    private void saveProjectsData() {
-        Gson gson = new GsonBuilder()
-                .setPrettyPrinting()
-                .create();
-        try {
-            DukeLogger.logDebug(ConsoleInputController.class, "Saving to file.");
-            FileWriter fileWriter = new FileWriter(filePath);
-            gson.toJson(this.allProjects, fileWriter);
-            fileWriter.flush();
-            fileWriter.close();
-            DukeLogger.logDebug(ConsoleInputController.class, "File saved.");
-        } catch (IOException err) {
-            DukeLogger.logError(ConsoleInputController.class, "savedProjects file is not found.");
-        }
-    }
-
-    /**
-     * Method responsible for loading Projects Data from hard coded directory where savedProjects.json file is located
-     */
-    private void loadProjectsData() {
-        Gson gson = new Gson();
-        try (FileReader fileReader = new FileReader(filePath)) {
-            DukeLogger.logDebug(ConsoleInputController.class, "Loading saved file.");
-            this.allProjects = gson.fromJson(fileReader, new TypeToken<ArrayList<Project>>(){}.getType());
-            if (this.allProjects == null) {
-                this.allProjects = new ArrayList<>();
-            }
-            DukeLogger.logDebug(ConsoleInputController.class, "Saved file loaded.");
-        } catch (IOException err) {
-            DukeLogger.logError(ConsoleInputController.class, "Saved file not loaded");
-            this.allProjects = new ArrayList<>();
-        }
     }
 }
