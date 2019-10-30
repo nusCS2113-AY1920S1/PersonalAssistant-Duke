@@ -26,6 +26,20 @@ public class Project {
     }
 
     /**
+     * Add the budget assigned to the project
+     * @param amount a double value indicates the assigned amount of budget
+     */
+    public void addBudget(Double amount) {
+        this.budget += amount;
+    }
+
+    public String giveProject(){
+        return "\t" + "Project name:  " + this.projectname + "\n" +
+                "\t" + "Allocated Budget:  " + this.budget + "\n" +
+                "\t" + "Total Spending: " + this.spending;
+    }
+
+    /**
      * Overload function to Instantiate Project object with budget allocated.
      * @param budget Budget allocated to project.
      */
