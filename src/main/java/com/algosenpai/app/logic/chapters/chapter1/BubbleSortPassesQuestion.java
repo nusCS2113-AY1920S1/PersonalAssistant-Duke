@@ -22,9 +22,7 @@ public class BubbleSortPassesQuestion extends Question {
         initialArray = new ArrayList<>(generateArray(arraySize));
         // Determines the number of passes.
         passes = getRandomNumber(1, arraySize - 2);
-        questionFormatter();
-        bubbleSort(initialArray, passes);
-        answer = initialArray.toString();
+        run();
     }
 
     /**
@@ -34,9 +32,18 @@ public class BubbleSortPassesQuestion extends Question {
      * @param passes The number of passes to be carried out.
      */
     public BubbleSortPassesQuestion(int arraySize, ArrayList<Integer> initialArray,int passes) {
-        this.arraySize = arraySize;
-        this.initialArray = initialArray;
-        this.passes = passes;
+        BubbleSortPassesQuestion.arraySize = arraySize;
+        BubbleSortPassesQuestion.initialArray = initialArray;
+        BubbleSortPassesQuestion.passes = passes;
+        questionFormatter();
+        bubbleSort(initialArray, passes);
+        answer = initialArray.toString();
+    }
+
+    /**
+     * Runs the remaining code.
+     */
+    private void run() {
         questionFormatter();
         bubbleSort(initialArray, passes);
         answer = initialArray.toString();

@@ -29,6 +29,25 @@ public class QuickSortPivotQuestion extends Question {
         answer = quickSortPivotAnswerGenerator();
     }
 
+    /**
+     * This is used for testing.
+     * @param arraySize The given array size.
+     * @param initialArray The given array.
+     */
+    QuickSortPivotQuestion(int arraySize, ArrayList<Integer> initialArray) {
+        QuickSortPivotQuestion.arraySize = arraySize;
+        QuickSortPivotQuestion.initialArray = initialArray;
+        arr = initialArray.toArray(new Integer[arraySize]);
+        // Data structure containing the elements after all the steps of quickSort
+        ArrayList<Integer[]> allSteps = new ArrayList<>();
+        quickSort(arr, 0, arraySize - 1, allSteps);
+        arr = allSteps.get(getRandomNumber(0, allSteps.size() - 1));
+        QuickSortPivotQuestion.initialArray = new ArrayList<>(Arrays.asList(arr));
+        questionFormatter();
+        answer = quickSortPivotAnswerGenerator();
+    }
+
+
     @Override
     public void questionFormatter() {
         question = "An array of " + arraySize
