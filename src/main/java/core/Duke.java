@@ -48,20 +48,20 @@ public class Duke {
     public void run() throws DukeException {
         UiController.welcome();
         uiController.start();
-            boolean isExit = false;
-            Scanner in = new Scanner(System.in);
-            while (isExit) {
-                uiController.readCommand(in);
-                isExit = uiController.isExit();
-            }
-        }
-
-        /**
-         * Main method of the entire project.
-         *
-         * @param args command line arguments, not used here
-         */
-        public static void main (String[]args) throws DukeException {
-            new Duke().run();
+        boolean isExit = false;
+        Scanner in = new Scanner(System.in);
+        while (isExit) {
+            uiController.readCommand(in);
+            isExit = uiController.isExit();
         }
     }
+
+    /**
+     * Main method of the entire project.
+     *
+     * @param args command line arguments, not used here
+     */
+    public static void main(String[] args) throws DukeException {
+        new Duke().run();
+    }
+}
