@@ -48,7 +48,7 @@ public class RoomShare {
             taskList.list();
         }
         pg = new ProgressBar(taskList.getSize(), taskList.getDoneSize());
-        pg.showBar();
+        System.out.println(pg.showBar());
     }
 
     /**
@@ -79,7 +79,7 @@ public class RoomShare {
                     ui.showError(e);
                 }
                 pg = new ProgressBar(taskList.getSize(), taskList.getDoneSize());
-                pg.showBar();
+                System.out.println(pg.showBar());
                 break;
 
             case bye:
