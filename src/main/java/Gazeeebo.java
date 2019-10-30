@@ -29,7 +29,7 @@ public class Gazeeebo {
         Ui ui = new Ui();
         try {
             ui.showWelcome();
-            list = store.realFromSaveFile();
+            list = store.readFromSaveFile();
             NoteStorage.readFromFile("NoteDaily.txt", NoteList.daily);
             NoteStorage.readFromFile("NoteWeekly.txt", NoteList.weekly);
             NoteStorage.readFromFile("NoteMonthly.txt", NoteList.monthly);

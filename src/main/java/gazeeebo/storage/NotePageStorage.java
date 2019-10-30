@@ -14,6 +14,7 @@ public class NotePageStorage {
     public static void writeToGoalFile() throws IOException {
         FileWriter file = new FileWriter(NotePageStorage.class.getResource("/goal.txt").getPath());
         file.write(GeneralNotePage.goal);
+        file.flush();
         file.close();
     }
 
@@ -41,10 +42,11 @@ public class NotePageStorage {
                 file.write(s + "\n");
             }
         }
+        file.flush();
         file.close();
     }
 
-    public static void readFromModulesFile() {
+    public static void readFromModulesFile() throws IOException {
         InputStream inputStream = NoteStorage.class.getResourceAsStream("/modules.txt");
         Scanner txtFile = new Scanner(inputStream);
         while (txtFile.hasNextLine()) {
@@ -59,5 +61,6 @@ public class NotePageStorage {
             }
             GeneralNotePage.modules.add(m);
         }
+        inputStream.close();
     }
 }

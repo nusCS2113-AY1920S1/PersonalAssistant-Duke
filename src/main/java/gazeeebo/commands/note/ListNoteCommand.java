@@ -25,7 +25,7 @@ public class ListNoteCommand extends AddNoteCommand {
      *
      * @param listOFNotes the list of notes for the specified period
      */
-    private void printOutNoteList(ArrayList<String> listOFNotes) {
+    public void printOutNoteList(ArrayList<String> listOFNotes) {
         assert !listOFNotes.isEmpty() : "there is an empty note section of a date (bug in DeleteNoteCommand)";
         for (int i = 0; i < listOFNotes.size(); i++) {
             System.out.println((i+1) + ". " + listOFNotes.get(i));
