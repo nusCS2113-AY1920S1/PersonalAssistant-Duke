@@ -3,31 +3,37 @@ package moomoo.stubs;
 import moomoo.task.Expenditure;
 
 import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 public class ExpenditureStub extends Expenditure {
     private String name;
     private double cost;
     private LocalDateTime dateTime;
+    private LocalDate date;
 
     /**
      * Initializes the expenditure stub with name,cost and date time.
      * @param name Given input name of expenditure.
      * @param cost Given cost of expenditure.
-     * @param dateTime Date and time of expenditure.
+     * @param date Date and time of expenditure.
      */
-    public ExpenditureStub(String name, double cost, LocalDateTime dateTime) {
+    public ExpenditureStub(String name, double cost, LocalDate date) {
         this.name = name;
         this.cost = cost;
-        this.dateTime = dateTime;
+        this.date = date;
     }
 
-    @Override
-    public LocalDateTime getDateTime() {
-        return dateTime;
+    //@Override
+    public LocalDate getDate() {
+        return date;
     }
 
     @Override
     public double getCost() {
         return cost;
+    }
+
+    public String getName() {
+        return name;
     }
 }
