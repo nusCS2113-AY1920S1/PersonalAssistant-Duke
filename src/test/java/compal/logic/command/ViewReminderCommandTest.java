@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
+import static compal.logic.command.CommandTestUtil.assertCommandFailure;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 //@@author Catherinetan99
@@ -43,6 +44,13 @@ public class ViewReminderCommandTest {
         deadline2.markAsDone();
         taskListMain.addTask(deadline2);
         taskListDup.addTask(deadline2);
+    }
+
+    @Test
+    void execute_arrayListNotInitialised_exceptionThrown() {
+        TaskList taskList = new TaskList();
+        ViewReminderCommand testViewReminder = new ViewReminderCommand();
+        assertCommandFailure(testViewReminder, taskList, ViewReminderCommand.MESSAGE_UNABLE_TO_EXECUTE);
     }
 
     @Test

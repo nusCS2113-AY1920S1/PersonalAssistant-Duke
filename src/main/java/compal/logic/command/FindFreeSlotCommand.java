@@ -69,7 +69,9 @@ public class FindFreeSlotCommand extends Command {
         Date currentDate = calendar.getTime();
 
         if (isEqualDate(date, currentDate)) {
-            if (arrayList.get(0).getEndTime().after(currentDateAndTime)) {
+            if (arrayList.isEmpty()) {
+                startPointer = currentDateAndTime;
+            } else if (arrayList.get(0).getEndTime().after(currentDateAndTime)) {
                 startPointer = arrayList.get(0).getEndTime();
             } else {
                 startPointer = currentDateAndTime;
