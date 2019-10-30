@@ -6,6 +6,7 @@ import duke.command.BackupCommand;
 import duke.command.FilterCommand;
 import duke.dukeexception.DukeException;
 import duke.task.FilterList;
+import duke.task.Reminders;
 import duke.task.Task;
 import duke.task.TaskList;
 import duke.ui.Ui;
@@ -115,6 +116,13 @@ public class MainWindow extends AnchorPane {
 
         dialogContainer.getChildren().add(
                 DialogBox.getDukeDialog(Ui.showWelcomeGui(), dukeImage)
+        );
+
+        TaskList items = duke.getTaskList();
+        Reminders remind = new Reminders();
+        dialogContainer.getChildren().add(
+                //DialogBox.getDukeDialog("Upcoming Reminders: \n" + items.getList(), dukeImage)
+                DialogBox.getDukeDialog(remind.getReminders(3, items).getList(), dukeImage)
         );
     }
 
