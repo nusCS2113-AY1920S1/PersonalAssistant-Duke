@@ -69,7 +69,7 @@ public class ProductCommandUtil {
      */
     public static void verifyNewIngredients(Model model, Product product) {
         IngredientItemList ingredients = product.getIngredients();
-        for(Item<Ingredient> ingredient : ingredients) {
+        for (Item<Ingredient> ingredient : ingredients) {
             if (!model.hasShoppingList(ingredient)) {
                 Item<Ingredient> newIngredient =  new Item<Ingredient>(ingredient.getItem(),
                         Quantity.getDefaultQuantity());

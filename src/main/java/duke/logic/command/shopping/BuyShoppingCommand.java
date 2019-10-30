@@ -46,6 +46,7 @@ public class BuyShoppingCommand extends ShoppingCommand {
         for (Index index : indices) {
             Item<Ingredient> toBuy = shoppingList.get(index.getZeroBased());
             toBuyList.add(toBuy);
+            //totalCost += toBuy.getTotalPrice();
 
             if (inventoryList.contains(toBuy)) {
                 Double addedQuantity = toBuy.getQuantity().getNumber();
@@ -66,7 +67,7 @@ public class BuyShoppingCommand extends ShoppingCommand {
         model.addSaleFromShopping(totalCost, toBuyList);
         model.commit(ShoppingMessageUtils.MESSAGE_COMMIT_BUY_SHOPPING);
 
-        return new CommandResult(String.format(ShoppingMessageUtils.MESSAGE_COMMIT_BUY_SHOPPING,
+        return new CommandResult(String.format(ShoppingMessageUtils.MESSAGE_SUCCESS_BUY_SHOPPING,
                 totalCost, CommandResult.DisplayedPage.SHOPPING));
     }
 }
