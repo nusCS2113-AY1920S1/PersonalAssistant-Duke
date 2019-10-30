@@ -341,7 +341,8 @@ public class Ui {
      * @return String of the welcome message.
      */
     public static String showWelcomeGui() {
-        String str = LINE + "\n     Hello! I'm Duke\n     What can I do for you?\n" + LINE + "\n    Upcoming Reminders in 3 days,\n     refer to Chat Box below:";
+        String str = LINE + "\n     Hello! I'm Duke\n     What can I do for you?\n"
+                + LINE + "\n    Upcoming Reminders in 3 days,\n     refer to Chat Box below:";
         return str;
     }
 

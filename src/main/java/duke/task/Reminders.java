@@ -27,11 +27,11 @@ public class Reminders implements Serializable {
         LocalDateTime remindByDateTime = currentDateTime.plusDays(remindDaysFrom);
         TaskList myTaskList = new TaskList();
         items.getTasks().forEach(task -> {
-           if (task.getDateTime()!= null) {
-               String str = task.getDateTime();
-               DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
-               LocalDateTime taskDue = LocalDateTime.parse(str, formatter);
-               if (taskDue.isAfter(currentDateTime) && taskDue.isBefore(remindByDateTime)) {
+            if (task.getDateTime()!= null) {
+                String str = task.getDateTime();
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
+                LocalDateTime taskDue = LocalDateTime.parse(str, formatter);
+                if (taskDue.isAfter(currentDateTime) && taskDue.isBefore(remindByDateTime)) {
                     myTaskList.add(task);
                 }
             }
