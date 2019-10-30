@@ -3,11 +3,9 @@ package com.algosenpai.app.storage;
 import com.algosenpai.app.stats.UserStats;
 
 import java.io.*;
-import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.Scanner;
 
 public class Storage {
 
