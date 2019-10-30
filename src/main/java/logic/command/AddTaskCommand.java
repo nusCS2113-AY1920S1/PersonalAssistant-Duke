@@ -1,10 +1,9 @@
 package logic.command;
 
-import model.Member;
-import model.MemberManager;
 import model.Model;
 import model.Task;
-import utils.DukeException;
+import common.DukeException;
+import common.LoggerController;
 
 import java.util.Date;
 
@@ -27,6 +26,7 @@ public class AddTaskCommand extends Command {
         this.time = time;
     }
 
+    //@@author JustinChia1997
     @Override
     public CommandOutput execute(Model model) throws DukeException {
         Task newTask = model.addTask(taskName);
@@ -37,6 +37,12 @@ public class AddTaskCommand extends Command {
             //TODO add functionality to add members on the go
         }
         model.save();
+        if (model.hasTask(taskName)) {
+            LoggerController.logInfo(AddTaskCommand.class, "Task "
+                    + taskName + " has been added successfully");
+        } else {
+            LoggerController.logDebug(AddTaskCommand.class, "Task not added");
+        }
         return new CommandOutput(FEEDBACK_MESSAGE + taskName);
     }
 }

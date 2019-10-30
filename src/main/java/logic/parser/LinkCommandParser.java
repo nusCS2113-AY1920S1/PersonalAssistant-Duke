@@ -3,8 +3,7 @@ package logic.parser;
 import core.Duke;
 import logic.command.LinkCommand;
 import logic.command.UnlinkCommand;
-import utils.DukeException;
-
+import common.DukeException;
 import java.util.HashMap;
 
 public class LinkCommandParser {

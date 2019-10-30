@@ -1,7 +1,7 @@
 package logic.parser;
 
 import logic.command.Command;
-import utils.DukeException;
+import common.DukeException;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -28,6 +28,7 @@ public class NewParser {
      * @throws DukeException if the format of command cannot be parsed
      */
     public static Command parseCommand(String fullCommand) throws DukeException {
+
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(fullCommand.trim());
         if (!matcher.matches()) {
             throw new DukeException("Message is invalid");
@@ -55,9 +56,10 @@ public class NewParser {
             return LinkCommandParser.parseLinkCommand(arguments);
         case UNLINK_COMMAND_WORD:
             return LinkCommandParser.parseUnlinkCommand(arguments);
+        case DELETE_COMMAND_WORD:
+            return DeleteCommandParser.parseDeleteCommand(arguments);
         default:
             throw new DukeException("Command not found");
-
         }
 
     }

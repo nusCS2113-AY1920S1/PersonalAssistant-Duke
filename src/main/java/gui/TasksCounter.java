@@ -1,15 +1,15 @@
-package utils;
+package gui;
+
+import model.Task;
 
 import java.util.ArrayList;
-
-import tasks.Task;
 
 public class TasksCounter {
     private ArrayList<Task> tasks;
 
     /**
-     * Initilises a new TaskCounter with given arraylist of tasks.
-     * For counting number of completed tasks in given set
+     * Initilises a new TaskCounter with given arraylist of model.tasks.
+     * For counting number of completed model.tasks in given set
      *
      * @param tasks task set to be counted
      */
@@ -18,14 +18,14 @@ public class TasksCounter {
     }
 
     /**
-     * Gets percentage of tasks marked "done" in given set of tasks
+     * Gets percentage of model.tasks marked "done" in given set of model.tasks
      *
      * @return float value of percentage marked done
      */
     public float getPercCompleted() {
         float totalCompleted = 0;
         for (int i = 0; i < tasks.size(); i++) {
-            if (tasks.get(i).getIsDone()) {
+            if (tasks.get(i).isDone()) {
                 totalCompleted += 1;
             }
         }

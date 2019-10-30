@@ -1,4 +1,4 @@
-package utils;
+package common;
 
 /**
  * handle the error
@@ -13,4 +13,5 @@ public class DukeException extends Exception {
     public DukeException(String msg) {
         super(msg);
     }
+
 }

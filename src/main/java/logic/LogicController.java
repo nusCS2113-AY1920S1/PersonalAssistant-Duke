@@ -4,9 +4,9 @@ import logic.command.Command;
 import logic.command.CommandOutput;
 import logic.parser.NewParser;
 import model.Model;
-import tasks.Task;
-import utils.DukeException;
-import utils.Storage;
+import model.Task;
+import common.DukeException;
+import storage.Storage;
 
 import java.util.ArrayList;
 

@@ -1,6 +1,6 @@
 package model;
 
-import utils.DukeException;
+import common.DukeException;
 
 import java.util.ArrayList;
 
@@ -16,7 +16,7 @@ public class Member {
     private String phone;
 
     public Member(String name) {
-        setName(name);
+        this.name = name;
         this.taskList = new ArrayList<>();
     }
 
@@ -32,8 +32,10 @@ public class Member {
     /**
      * add javadoc please
      * */
-    public void deleteTask(Task toDelete) {
-        taskList.remove(toDelete);
+    public void deleteTask(String toDelete) {
+        if (taskList != null) {
+            taskList.remove(toDelete);
+        }
     }
 
     public ArrayList<String> getTaskList() {
@@ -62,8 +64,10 @@ public class Member {
     }
 
     /**
-     * add javadoc please
-     * */
+     * set email
+     * @param email email of the member
+     * @throws DukeException exception
+     */
     public void setEmail(String email) throws DukeException {
         if (email.matches(EMAIL_VALIDATION_REGEX)) {
             this.email = email;

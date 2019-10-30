@@ -1,7 +1,7 @@
 package logic.command;
 
+import common.DukeException;
 import model.Model;
-import utils.DukeException;
 
 public class UnlinkCommand extends LinkCommand {
 

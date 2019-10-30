@@ -1,7 +1,7 @@
 package model;
 
 import model.Member;
-import utils.DukeException;
+import common.DukeException;
 
 import java.time.Duration;
 import java.util.ArrayList;
@@ -33,6 +33,7 @@ public class Task {
      * add javadoc please
      * */
     public void deleteMember(String toDelete) {
+        System.out.println(memberList);
         memberList.remove(toDelete);
     }
 

@@ -3,7 +3,7 @@ package logic.parser;
 import logic.command.Command;
 import logic.command.ListMembersCommand;
 import logic.command.ListTasksCommand;
-import utils.DukeException;
+import common.DukeException;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

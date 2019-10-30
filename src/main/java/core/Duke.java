@@ -1,15 +1,10 @@
 package core;
 
-import members.Member;
-import gui.Window;
-import commands.Command;
+
+
+import common.DukeException;
 import model.Model;
-import tasks.Task;
-import utils.DukeException;
-import utils.Parser;
-import utils.Storage;
-import utils.TasksCounter;
-import utils.Reminder;
+
 
 import java.util.Scanner;
 import java.util.ArrayList;
@@ -18,6 +13,7 @@ import java.util.ArrayList;
 import gui.UiController;
 import logic.LogicController;
 import model.ModelController;
+import storage.Storage;
 
 /**
  * This is the main class to be executed for DUKE PRO application
@@ -26,22 +22,11 @@ import model.ModelController;
  */
 public class Duke {
 
-    /**
-     * deals with loading tasks from the file and saving tasks in the file
-     */
-    private Storage storage;
-
-    /**
-     * an array list contains all the tasks
-     */
-    private ArrayList<Task> tasks;
-
-    private ArrayList<Member> members;
-
     //=============New instantiation of new structure objects===================
     protected Model modelController;
     protected LogicController logicController;
     protected UiController uiController;
+    protected Storage storage;
 
     public static Duke instance;
 
@@ -49,10 +34,8 @@ public class Duke {
     /**
      * A constructor which applies the file path to load previous data
      *
-     * @param taskFilePath   the file path of task list
-     * @param memberFilePath the file path of member list
      */
-    public Duke(String taskFilePath, String memberFilePath) {
+    public Duke() {
         //========= instantiation for controllers ==============
         modelController = new ModelController();
         logicController = new LogicController(modelController);
@@ -81,6 +64,6 @@ public class Duke {
      * @param args command line arguments, not used here
      */
     public static void main(String[] args) throws DukeException {
-        new Duke("data/tasks.txt", "data/members.txt").run();
+        new Duke().run();
     }
 }
