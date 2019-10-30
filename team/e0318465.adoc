@@ -36,7 +36,7 @@ Test Code: [https://github.com/AY1920S1-CS2113-T13-4/main/blob/master/src/test/j
 ** *Project Management*
 *** Managed user stories by labelling and placing in the right column.
 ** *Community*
-*** PR reviewed https://github.com/AY1920S1-CS2113-T13-4/main/pull/125[#125]
+*** PR reviewed https://github.com/AY1920S1-CS2113-T13-4/main/pull/141[#141], https://github.com/AY1920S1-CS2113-T13-4/main/pull/125[#125], https://github.com/AY1920S1-CS2113-T13-4/main/pull/119[#119], https://github.com/AY1920S1-CS2113-T13-4/main/pull/42[#42]
 ** *Documentation*
 *** Did cosmetic tweaks to the positioning of the contents in User Guide and Developer Guide.
 
