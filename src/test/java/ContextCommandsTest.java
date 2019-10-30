@@ -1,10 +1,10 @@
 import duke.command.ByeCommand;
-import duke.command.HomeHelpCommand;
-import duke.command.HomeNewCommand;
 import duke.command.Parser;
+import duke.command.home.HomeHelpCommand;
+import duke.command.home.HomeNewCommand;
 import duke.exception.DukeException;
-import duke.ui.Context;
-import duke.ui.UiContext;
+import duke.ui.context.Context;
+import duke.ui.context.UiContext;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -23,7 +23,7 @@ public class ContextCommandsTest {
         Parser actualParser = new Parser(testUiContext);
         try {
             assertEquals(ByeCommand.class, actualParser.parse("bye").getClass());
-            assertEquals(actualParser.parse("new -n Hello -b 100 -a world").getClass(),
+            assertEquals(actualParser.parse("new Hello -b 100 -a world").getClass(),
                     HomeNewCommand.class);
             assertEquals(actualParser.parse("help").getClass(),
                     HomeHelpCommand.class);

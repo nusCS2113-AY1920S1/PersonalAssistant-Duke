@@ -67,7 +67,6 @@ public class ParserTest {
             assertEquals("Hello\\World", docCmd.getArg());
             assertEquals("double \" quote", docCmd.getSwitchVal("switch"));
             assertEquals("escaped \\ backslash", docCmd.getSwitchVal("maybe"));
-            assertTrue(docCmd.getSwitchVals().containsKey("none"));
         } catch (DukeException excp) {
             fail("Exception thrown when parsing strings and escapes!");
         }

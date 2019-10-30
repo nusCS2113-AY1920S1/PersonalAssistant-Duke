@@ -185,6 +185,7 @@ public class ArgParser {
     }
 
     private void checkArgAllowed() throws DukeHelpException {
+        assert (state != ParseState.CMDARG);
         if (switchMap.get(currSwitchName).argLevel == ArgLevel.NONE) {
             throw new DukeHelpException("The switch '" + currSwitchName + "' should not have an argument!",
                     currCommand);
@@ -192,9 +193,14 @@ public class ArgParser {
     }
 
     private void checkSwitchAllowed() throws DukeHelpException {
-        if (switchMap.get(currSwitchName).argLevel == ArgLevel.REQUIRED && state != ParseState.ARG) {
-            throw new DukeHelpException("The switch '" + currSwitchName + "' must have an argument!",
-                    currCommand);
+        if (state != ParseState.ARG) { //previous switch did not have an argument
+            ArgLevel switchArgLevel = switchMap.get(currSwitchName).argLevel;
+            if (switchArgLevel == ArgLevel.REQUIRED) {
+                throw new DukeHelpException("The switch '" + currSwitchName + "' must have an argument!",
+                        currCommand);
+            } else if (switchArgLevel == ArgLevel.OPTIONAL) {
+                switchVals.put(currSwitchName, null);
+            }
         }
     }
 
