@@ -41,11 +41,10 @@ public class EditCommand extends Command<SongList> {
         try {
             String[] sections = message.substring(5).split(" ");
             barNo = Integer.parseInt(sections[0].substring(4));
-
             int notesIndex = message.indexOf(sections[1]);
-
             Bar newBar = new Bar(barNo, message.substring(notesIndex));
 
+            songIndex = songList.getActiveIndex();
             Song song = songList.getSongIndex(songIndex);
 
             song.getBars().add(barNo - 1, newBar);
@@ -69,5 +68,17 @@ public class EditCommand extends Command<SongList> {
     @Override
     public boolean isExit() {
         return false;
+    }
+
+    //@@author rohan-av
+    /**
+     * Returns an integer corresponding to the duration, tempo and time signature if the command starts a metronome.
+     * Else, returns an array containing -1.
+     *
+     * @return the integer array corresponding to the parameters of the Metronome class
+     */
+    @Override
+    public int[] startMetronome() {
+        return new int[]{-1, -1, -1, -1};
     }
 }

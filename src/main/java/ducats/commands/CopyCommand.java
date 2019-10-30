@@ -54,7 +54,7 @@ public class CopyCommand extends Command<SongList> {
             //exception if not fully spelt
             throw new DucatsException(message);
         }
-        song = songList.getSongIndex(0);
+        song = songList.getSongIndex(songList.getActiveIndex());
         try {
             message = message.substring(5).trim();
             String[] sections = message.split(" ");
@@ -257,5 +257,17 @@ public class CopyCommand extends Command<SongList> {
 
         song.updateBars(newSongBars);
         storage.updateFile(songList);
+    }
+
+    //@@author rohan-av
+    /**
+     * Returns an integer corresponding to the duration, tempo and time signature if the command starts a metronome.
+     * Else, returns an array containing -1.
+     *
+     * @return the integer array corresponding to the parameters of the Metronome class
+     */
+    @Override
+    public int[] startMetronome() {
+        return new int[]{-1, -1, -1, -1};
     }
 }

@@ -88,7 +88,7 @@ public class Ui {
      * Returns a String formatted for display that shows all the elements in the task list
      * due to the list command.
      *
-     * @param list the task list
+     * @param list the list of Songs
      * @return the formatted String to be displayed
      */
     public String formatList(ArrayList<Song> list) {
@@ -105,6 +105,24 @@ public class Ui {
             result.append("The list is empty!");
         }
         return wrap(result.toString());
+    }
+
+    /**
+     * Returns a string providing the user with feedback regarding which Song has been opened for editing.
+     *
+     * @param songList the list of Songs stored in Ducats
+     * @return the formatted String to be displayed
+     */
+    public static String formatOpen(SongList songList, int songIndex) {
+        if (songIndex != -1) {
+            StringBuilder result = new StringBuilder();
+            result.append("The following song has been opened: ");
+            String songName = songList.getSongIndex(songList.getActiveIndex()).getName();
+            result.append(songName);
+            return wrap(result.toString());
+        } else {
+            return "Song not found! Please ensure that you've spelt it correctly.";
+        }
     }
 
     //@@author
@@ -387,5 +405,28 @@ public class Ui {
             output = String.format("Redo successfully! You can redo for %d more times.", numOfRedoLeft).toString();
         }
         return wrap(output);
+    }
+
+    //@@author rohan-av
+    /**
+     * Returns an output String that provides the user with feedback regarding the creation of a new Metronome.
+     *
+     * @param duration the duration of the metronome (in number of bars)
+     * @param tempo the tempo of the metronome
+     * @param timeSig the time signature of the metronome
+     * @return the formatted String to be displayed
+     */
+    public String formatMetronome(int duration, int tempo, int[] timeSig) {
+        StringBuilder result = new StringBuilder();
+        result.append("Metronome initialized with a duration of ")
+                .append(duration)
+                .append(" bars, a tempo of ")
+                .append(tempo)
+                .append(" and a ")
+                .append(timeSig[0])
+                .append("/")
+                .append(timeSig[1])
+                .append(" time signature.");
+        return wrap(result.toString());
     }
 }

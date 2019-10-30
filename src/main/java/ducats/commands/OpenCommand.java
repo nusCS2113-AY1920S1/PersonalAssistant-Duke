@@ -5,41 +5,40 @@ import ducats.Storage;
 import ducats.Ui;
 import ducats.components.SongList;
 
-//@@author SalonetheGreat
-/**
- * A class representing the command to display help: the command list.
- */
-public class HelpCommand extends Command<SongList> {
+//@@author rohan-av
 
-    /**
-     * Constructor for the command to display help.
-     * @param message the input message that resulted in the creation of the duke.Commands.Command
-     */
-    public HelpCommand(String message) {
+public class OpenCommand extends Command<SongList> {
+
+    public OpenCommand(String message) {
         this.message = message;
     }
 
     /**
-     * Displays the command list in use; returns the help messages intended to be displayed.
+     * Opens a specified song for editing based on the input message.
      *
-     * @param songList the duke.components.SongList object that contains the song list
+     * @param songList the the ducats.components.SongList object that contains the song list
      * @param ui the Ui object responsible for the reading of user input and the display of
      *           the responses
      * @param storage the Storage object used to read and manipulate the .txt file
-     * @return the string to be displayed in duke.Duke
-     * @throws DucatsException if an exception occurs in the parsing of the message or in IO
+     * @return the string to be displayed in the GUI of Ducats
+     * @throws DucatsException exception in the case of a wrong index provided by the user
      */
     public String execute(SongList songList, Ui ui, Storage storage) throws DucatsException {
-        if (message.length() == 4) {
-            return ui.formatHelp();
+        try {
+            String songName = message.substring(5);
+            int songIndex = songList.findSongIndex(songName);
+            if (songIndex != -1) {
+                songList.setActiveIndex(songList.findSongIndex(songName));
+            }
+            return Ui.formatOpen(songList, songIndex);
+        } catch (Exception e) {
+            throw new DucatsException("","index");
         }
-        String helpMessage = message.substring(4).trim();
-        return ui.formatHelp(helpMessage);
     }
 
     /**
      * Returns a boolean value representing whether the program will terminate or not, used in
-     * duke.Duke to reassign a boolean variable checked at each iteration of a while loop.
+     * ducats.Duke to reassign a boolean variable checked at each iteration of a while loop.
      *
      * @return a boolean value that represents whether the program will terminate after the command
      */
@@ -59,4 +58,5 @@ public class HelpCommand extends Command<SongList> {
     public int[] startMetronome() {
         return new int[]{-1, -1, -1, -1};
     }
+
 }

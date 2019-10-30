@@ -42,10 +42,10 @@ public class DeleteBarCommand extends Command<SongList> {
         if (songList.getSize() == 0) {
             throw new DucatsException("", "empty");
         }
-        if (barIndex > songList.getSongIndex(0).getBars().size() || barIndex < 1) {
+        if (barIndex > songList.getSongIndex(songList.getActiveIndex()).getBars().size() || barIndex < 1) {
             throw new DucatsException("", "index");
         } else {
-            Song song = songList.getSongIndex(0);
+            Song song = songList.getSongIndex(songList.getActiveIndex());
             Bar deletedBar = song.getBars().get(barIndex - 1);
             song.getBars().remove(barIndex - 1);
             try {
@@ -66,5 +66,17 @@ public class DeleteBarCommand extends Command<SongList> {
     @Override
     public boolean isExit() {
         return false;
+    }
+
+    //@@author rohan-av
+    /**
+     * Returns an integer corresponding to the duration, tempo and time signature if the command starts a metronome.
+     * Else, returns an array containing -1.
+     *
+     * @return the integer array corresponding to the parameters of the Metronome class
+     */
+    @Override
+    public int[] startMetronome() {
+        return new int[]{-1, -1, -1, -1};
     }
 }

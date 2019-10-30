@@ -72,7 +72,7 @@ public class AddOverlayCommand extends Command<SongList> {
      * @param ui the Ui object responsible for the reading of user input and the display of
      *           the responses
      * @param storage the Storage object used to read and manipulate the .txt file
-     * @return the string to be displayed in duke.Duke
+     * @return the string to be displayed in ducats.Ducats
      * @throws DucatsException if an exception occurs in the parsing of the message or in IO
      */
 
@@ -90,7 +90,7 @@ public class AddOverlayCommand extends Command<SongList> {
             String[] sections = message.substring(8).split(" ");
             //this refers to the bar that needs to be added:
             int barIndexToAdd = Integer.parseInt(sections[0]) - 1;
-
+            songIndex = songList.getActiveIndex();
             //System.out.println(barIndexToAdd);
             if (songList.getSize() > songIndex) {
                 Song song = songList.getSongIndex(songIndex);
@@ -150,5 +150,17 @@ public class AddOverlayCommand extends Command<SongList> {
     @Override
     public boolean isExit() {
         return false;
+    }
+
+    //@@author rohan-av
+    /**
+     * Returns an integer corresponding to the duration, tempo and time signature if the command starts a metronome.
+     * Else, returns an array containing -1.
+     *
+     * @return the integer array corresponding to the parameters of the Metronome class
+     */
+    @Override
+    public int[] startMetronome() {
+        return new int[]{-1, -1, -1, -1};
     }
 }

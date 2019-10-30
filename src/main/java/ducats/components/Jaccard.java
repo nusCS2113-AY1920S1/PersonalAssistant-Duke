@@ -18,7 +18,7 @@ public class Jaccard implements Serializable {
      * @param list1 - list1 is the first list of the alphabets.
      * @param list2 - list2 is the second list of the alphabets.
      */
-    public int  union(List<String> list1, List<String> list2) {
+    public int union(List<String> list1, List<String> list2) {
         HashMap<String, Integer> mapLetterList1 = new HashMap<String, Integer>();
         for (String temp: list1) {
             if (mapLetterList1.containsKey(list1)) {

@@ -1,34 +1,39 @@
 package ducats;
 
-
-import ducats.components.Jaccard;
 import ducats.commands.AddBarCommand;
 import ducats.commands.AddOverlayCommand;
+import ducats.commands.AsciiCommand;
 import ducats.commands.ByeCommand;
 import ducats.commands.Command;
 import ducats.commands.CopyCommand;
 import ducats.commands.DeleteBarCommand;
 import ducats.commands.DeleteCommand;
-import ducats.commands.OverlayBarGroup;
-import ducats.commands.OverlayBarSong;
 import ducats.commands.EditCommand;
 import ducats.commands.GroupCommand;
 import ducats.commands.HelpCommand;
 import ducats.commands.ListCommand;
+import ducats.commands.MetronomeCommand;
 import ducats.commands.NewCommand;
+import ducats.commands.OpenCommand;
+import ducats.commands.OverlayBarGroup;
+import ducats.commands.OverlayBarSong;
+import ducats.commands.OverlayGroupGroup;
 import ducats.commands.RedoCommand;
 import ducats.commands.UndoCommand;
 import ducats.commands.ViewCommand;
+<<<<<<< HEAD
 import ducats.commands.AsciiCommand;
 import ducats.commands.OverlayGroupGroup;
 import java.util.ArrayList;
 import java.util.HashMap;
 import ducats.components.WordGetter;
+=======
+import ducats.components.Jaccard;
+>>>>>>> 0bcca5d8fdce877df531455adf5b9ca1e08c737a
 
 /**
  * A class used to interpret the incoming messages and translate them into the appropriate duke.Commands.
  */
-
 public class Parser {
 
     /**
@@ -54,6 +59,11 @@ public class Parser {
         case "list":
             if (message.length() == 4) {
                 return new ListCommand();
+            }
+            break;
+        case "open":
+            if (message.length() >= 6) {
+                return new OpenCommand(message);
             }
             break;
         case "delete":
@@ -132,6 +142,11 @@ public class Parser {
         case "undo":
             if (message.length() == 4) {
                 return new UndoCommand();
+            }
+            break;
+        case "metronome":
+            if (message.length() >= 11) {
+                return new MetronomeCommand(message);
             }
             break;
         default:

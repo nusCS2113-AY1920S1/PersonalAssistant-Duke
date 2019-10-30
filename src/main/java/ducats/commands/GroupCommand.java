@@ -61,7 +61,7 @@ public class GroupCommand extends Command<SongList> {
 
             if (songList.getSize() > 0) {
                 Group group = createGroup(songList.getSongIndex(0), name, startNo, endNo);
-                songList.getSongIndex(0).getGroups().add(group);
+                songList.getSongIndex(songList.getActiveIndex()).getGroups().add(group);
             } else {
                 throw new DucatsException(message, "group");
             }
@@ -97,5 +97,17 @@ public class GroupCommand extends Command<SongList> {
             myBars.add(songBars.get(i));
         }
         return new Group(name, myBars);
+    }
+
+    //@@author rohan-av
+    /**
+     * Returns an integer corresponding to the duration, tempo and time signature if the command starts a metronome.
+     * Else, returns an array containing -1.
+     *
+     * @return the integer array corresponding to the parameters of the Metronome class
+     */
+    @Override
+    public int[] startMetronome() {
+        return new int[]{-1, -1, -1, -1};
     }
 }
