@@ -169,18 +169,6 @@
                   <Insets right="60.0" />
                </padding>
             </Button>
-            <Button fx:id="settings" layoutY="522.0" mnemonicParsing="false" onAction="#settingsAction" onMouseClicked="#removeWelcome" prefHeight="62.0" prefWidth="176.0" style="-fx-background-color: #34495e;" text="SETTINGS" textFill="#95a5a6" wrapText="true">
-               <graphic>
-                  <ImageView fx:id="gear" fitHeight="49.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@/images/Settings.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-               <padding>
-                  <Insets right="40.0" />
-               </padding>
-            </Button>
          </children>
       </AnchorPane>
       <GridPane prefHeight="90.0" prefWidth="176.0" style="-fx-background-color: #2dcb70;" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
