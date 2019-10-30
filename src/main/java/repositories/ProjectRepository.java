@@ -3,7 +3,7 @@ package repositories;
 import models.project.IProject;
 import models.project.Project;
 import util.factories.ProjectFactory;
-import util.json.JsonHelper;
+import util.json.JsonConverter;
 import util.log.DukeLogger;
 
 import java.util.ArrayList;
@@ -11,10 +11,10 @@ import java.util.ArrayList;
 public class ProjectRepository implements IRepository<Project> {
     private ArrayList<Project> allProjects;
     private ProjectFactory projectFactory;
-    private JsonHelper jsonHelper = new JsonHelper();
+    private JsonConverter jsonConverter = new JsonConverter();
 
     public ProjectRepository() {
-        allProjects = jsonHelper.loadProjectsData();
+        allProjects = jsonConverter.loadProjectsData();
         this.projectFactory = new ProjectFactory();
     }
 
@@ -33,7 +33,7 @@ public class ProjectRepository implements IRepository<Project> {
         }
         Project newlyCreatedProject = (Project) newProject;
         allProjects.add(newlyCreatedProject);
-        jsonHelper.saveProjectsData(allProjects);
+        jsonConverter.saveProjectsData(allProjects);
         return true;
     }
 
@@ -54,10 +54,10 @@ public class ProjectRepository implements IRepository<Project> {
     public boolean deleteItem(int projectNumber) {
         try {
             this.allProjects.remove(projectNumber - 1);
-            jsonHelper.saveProjectsData(allProjects);
+            jsonConverter.saveProjectsData(allProjects);
             return true;
         } catch (IndexOutOfBoundsException err) {
-            jsonHelper.saveProjectsData(allProjects);
+            jsonConverter.saveProjectsData(allProjects);
             return false;
         }
     }

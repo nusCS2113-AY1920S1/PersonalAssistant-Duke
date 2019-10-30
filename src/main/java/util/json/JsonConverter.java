@@ -12,7 +12,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class JsonHelper {
+public class JsonConverter {
     private String projectFilePath = System.getProperty("user.dir") + "/savedProjects.json";
 
     /**
