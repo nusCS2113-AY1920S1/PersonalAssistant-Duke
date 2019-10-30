@@ -1,3 +1,5 @@
+// @@author namiwa
+
 package planner.logic.modules.module;
 
 public class Attributes {
@@ -25,6 +27,6 @@ public class Attributes {
 
     @Override
     public String toString() {
-        return "SU:" + ((su) ? "True" : "False");
+        return "SU: " + ((su) ? "True" : "False");
     }
 }

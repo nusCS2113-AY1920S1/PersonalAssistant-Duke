@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import planner.logic.exceptions.legacy.ModInvalidTimeException;
@@ -16,6 +17,7 @@ public class NattyTesting {
 
     private NattyWrapper natty = new NattyWrapper();
 
+    @DisplayName("Testing Date return")
     @Test
     public void nattyDateTest() {
         try {
@@ -30,6 +32,7 @@ public class NattyTesting {
         }
     }
 
+    @DisplayName("Testing Local Date Time")
     @Test
     public void nattyLocalDateTimeTest() {
         try {

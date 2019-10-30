@@ -1,5 +1,5 @@
 [![Build Status](https://travis-ci.org/namiwa/main.svg?branch=master)](https://travis-ci.org/namiwa/main)
-
+[![Coverage Status](https://coveralls.io/repos/github/AY1920S1-CS2113T-F10-1/main/badge.svg?branch=master)](https://coveralls.io/github/AY1920S1-CS2113T-F10-1/main?branch=master)
 
 # Module planner for NUS CEG Students
 

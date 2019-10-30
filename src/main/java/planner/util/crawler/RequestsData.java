@@ -31,7 +31,7 @@ public class RequestsData {
         String upperMod = mod.trim().toUpperCase();
         return HttpRequest.newBuilder()
                 .uri(URI.create("https://api.nusmods.com/v2/2019-2020/modules/" + upperMod + ".json"))
-                .timeout(Duration.ofMinutes(1))
+                .timeout(Duration.ofSeconds(2))
                 .header("Content-Type", "application/json")
                 .build();
     }
@@ -44,7 +44,7 @@ public class RequestsData {
     public HttpRequest requestModuleList(String academicYear) {
         return HttpRequest.newBuilder()
                 .uri(URI.create("https://api.nusmods.com/v2/" + academicYear + "/moduleList.json"))
-                .timeout(Duration.ofMinutes(1))
+                .timeout(Duration.ofSeconds(2))
                 .header("Content-Type", "application/json")
                 .build();
     }
@@ -57,7 +57,7 @@ public class RequestsData {
     public HttpRequest requestModuleListDetailed(String academicYear) {
         return HttpRequest.newBuilder()
                 .uri(URI.create("https://api.nusmods.com/v2/" + academicYear + "/moduleInfo.json"))
-                .timeout(Duration.ofMinutes(1))
+                .timeout(Duration.ofSeconds(2))
                 .header("Content-Type", "application/json")
                 .build();
     }

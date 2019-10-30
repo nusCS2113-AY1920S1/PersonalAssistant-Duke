@@ -21,8 +21,10 @@ import planner.logic.command.RemoveCommand;
 import planner.logic.command.SearchThenAddCommand;
 import planner.logic.command.ShowCommand;
 import planner.logic.command.SortCommand;
+import planner.logic.command.UpdateModuleInfo;
 import planner.logic.exceptions.legacy.ModException;
 import planner.logic.parser.action.Join;
+import planner.util.logger.PlannerLogger;
 
 public class Parser {
 
@@ -58,6 +60,7 @@ public class Parser {
         this.mapCommand("sort", SortCommand.class);
         this.mapCommand("cap", CapCommand.class);
         this.mapCommand("grade", GradeCommand.class);
+        this.mapCommand("update", UpdateModuleInfo.class);
     }
 
     /**
@@ -162,6 +165,12 @@ public class Parser {
             .help("Codename of module to grade");
         gradeParser.addArgument("letterGrade")
             .help("Grade you achieved for this module");
+
+        Subparser updateParser = getSubParser("update");
+        updateParser.addArgument("academicYear")
+                .required(true)
+                .help("Academic year of your choice, in format 2018-2019");
+
     }
 
     private void initBuiltinActions() {
@@ -235,6 +244,7 @@ public class Parser {
             return this.getParser().parseArgs(args);
         } catch (ArgumentParserException ex) {
             this.handleError(ex);
+            PlannerLogger.log(ex);
             return null;
         }
     }
@@ -253,6 +263,7 @@ public class Parser {
             return this.getSubParser(subParserName).parseArgs(args);
         } catch (ArgumentParserException ex) {
             this.handleError(subParserName, ex);
+            PlannerLogger.log(ex);
             return null;
         }
     }
@@ -286,9 +297,11 @@ public class Parser {
                 throw (ModException) ex.getCause();
             }
             ex.printStackTrace();
+            PlannerLogger.log(ex);
             return null;
         } catch (Throwable ex) {
             ex.printStackTrace();
+            PlannerLogger.log(ex);
             return null;
         }
     }
