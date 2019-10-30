@@ -21,9 +21,16 @@ public class CalendarManager extends RequestProxy {
      */
     public static List<CalendarEntry> deleteEntry(List<CalendarEntry> currCalendar, Task task) {
         if (isModifiable(task)) {
-            currCalendar = currCalendar.stream()
-                    .filter(entry -> entry.getDateTasks().remove(task))
-                    .collect(Collectors.toList());
+            LocalDate key = task.getTimeFrame().getStart().toLocalDate();
+            CalendarEntry toModify = currCalendar.stream()
+                    .filter(ce -> ce.getDate().equals(key))
+                    .findAny()
+                    .orElse(null);
+            assert (toModify != null);
+            List<Task> newList = toModify.getDateTasks();
+            newList.remove(task);
+            currCalendar.remove(toModify);
+            currCalendar.add(new CalendarEntry(key, newList));
         }
         return currCalendar;
     }
@@ -43,6 +50,7 @@ public class CalendarManager extends RequestProxy {
             List<Task> newList;
             if (oldEntry.isPresent()) {
                 newList = oldEntry.get().getDateTasks();
+                currCalendar.remove(oldEntry.get());
             } else {
                 newList = new ArrayList<>();
             }
