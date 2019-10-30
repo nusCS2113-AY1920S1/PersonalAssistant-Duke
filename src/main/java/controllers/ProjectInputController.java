@@ -69,6 +69,7 @@ public class ProjectInputController implements IController {
      * @return Boolean variable giving status of whether the exit command is entered.
      */
     private String[] manageProject(Project projectToManage) {
+        String[] responseToView = {"Please enter a command."};
         if (manageProjectInput.hasNextLine()) {
             String projectFullCommand = manageProjectInput.nextLine();
             DukeLogger.logInfo(ProjectInputController.class, "Managing:"
@@ -76,54 +77,54 @@ public class ProjectInputController implements IController {
                     + projectFullCommand + "'");
             if (projectFullCommand.matches("exit")) {
                 isManagingAProject = false;
-                return projectExit(projectToManage);
+                responseToView = projectExit(projectToManage);
             } else if (projectFullCommand.matches("add member.*")) {
+                responseToView =  projectAddMember(projectToManage, projectFullCommand);
                 jsonConverter.saveProject(projectToManage);
-                return projectAddMember(projectToManage, projectFullCommand);
             } else if (projectFullCommand.matches("edit member.*")) {
+                responseToView = projectEditMember(projectToManage, projectFullCommand);
                 jsonConverter.saveProject(projectToManage);
-                return projectEditMember(projectToManage, projectFullCommand);
             } else if (projectFullCommand.matches("delete member.*")) {
+                responseToView = projectDeleteMember(projectToManage, projectFullCommand);
                 jsonConverter.saveProject(projectToManage);
-                return projectDeleteMember(projectToManage, projectFullCommand);
             } else if (projectFullCommand.matches("view members.*")) {
-                return projectViewMembers(projectToManage);
+                responseToView = projectViewMembers(projectToManage);
             } else if (projectFullCommand.matches("role.*")) {
+                responseToView = projectRoleMembers(projectToManage, projectFullCommand);
                 jsonConverter.saveProject(projectToManage);
-                return projectRoleMembers(projectToManage, projectFullCommand);
             } else if (projectFullCommand.matches("view credits.*")) {
-                return projectViewCredits(projectToManage);
+                responseToView = projectViewCredits(projectToManage);
             } else if (projectFullCommand.matches("add task.*")) {
+                responseToView = projectAddTask(projectToManage, projectFullCommand);
                 jsonConverter.saveProject(projectToManage);
-                return projectAddTask(projectToManage, projectFullCommand);
             } else if (projectFullCommand.matches("view tasks.*")) {
-                return projectViewTasks(projectToManage, projectFullCommand);
+                responseToView = projectViewTasks(projectToManage, projectFullCommand);
             } else if (projectFullCommand.matches("view assignments.*")) {
-                return projectViewAssignments(projectToManage, projectFullCommand);
+                responseToView = projectViewAssignments(projectToManage, projectFullCommand);
             } else if (projectFullCommand.matches("view task requirements.*")) { // need to refactor this
-                return projectViewTaskRequirements(projectToManage, projectFullCommand);
+                responseToView = projectViewTaskRequirements(projectToManage, projectFullCommand);
             } else if (projectFullCommand.matches("edit task requirements.*")) {
+                responseToView = projectEditTaskRequirements(projectToManage, projectFullCommand);
                 jsonConverter.saveProject(projectToManage);
-                return projectEditTaskRequirements(projectToManage, projectFullCommand);
             } else if (projectFullCommand.matches("edit task.*")) {
                 jsonConverter.saveProject(projectToManage);
-                return projectEditTask(projectToManage, projectFullCommand);
+                responseToView = projectEditTask(projectToManage, projectFullCommand);
             } else if (projectFullCommand.matches("delete task.*")) {
+                responseToView = projectDeleteTask(projectToManage, projectFullCommand);
                 jsonConverter.saveProject(projectToManage);
-                return projectDeleteTask(projectToManage, projectFullCommand);
             } else if (projectFullCommand.matches("assign task.*")) {
+                responseToView = projectAssignTask(projectToManage, projectFullCommand);
                 jsonConverter.saveProject(projectToManage);
-                return projectAssignTask(projectToManage, projectFullCommand);
             } else if (projectFullCommand.matches("add reminder.*")) {
+                responseToView = projectAddReminder(projectToManage,projectFullCommand);
                 jsonConverter.saveProject(projectToManage);
-                return projectAddReminder(projectToManage,projectFullCommand);
             } else if (projectFullCommand.matches("bye")) {
                 return end();
             } else {
                 return new String[] {"Invalid command. Try again!"};
             }
         }
-        return new String[] {"Please enter a command."};
+        return responseToView;
     }
 
     /**
