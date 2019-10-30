@@ -26,11 +26,11 @@ public class EditProductCommand extends ProductCommand {
 
     public static final String AUTO_COMPLETE_INDICATOR = ProductCommand.COMMAND_WORD + " " + COMMAND_WORD;
     public static final Prefix[] AUTO_COMPLETE_PARAMETERS = {
-            CliSyntax.PREFIX_PRODUCT_NAME,
-            CliSyntax.PREFIX_PRODUCT_INGREDIENT,
-            CliSyntax.PREFIX_PRODUCT_INGREDIENT_COST,
-            CliSyntax.PREFIX_PRODUCT_RETAIL_PRICE,
-            CliSyntax.PREFIX_PRODUCT_STATUS
+        CliSyntax.PREFIX_PRODUCT_NAME,
+        CliSyntax.PREFIX_PRODUCT_INGREDIENT,
+        CliSyntax.PREFIX_PRODUCT_INGREDIENT_COST,
+        CliSyntax.PREFIX_PRODUCT_RETAIL_PRICE,
+        CliSyntax.PREFIX_PRODUCT_STATUS
     };
 
     /**

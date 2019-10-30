@@ -135,9 +135,9 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void sortOrders(SortOrderCommand.SortCriteria criteria, boolean isIncreasing) {
+    public void sortOrders(SortOrderCommand.SortCriteria criteria, boolean isReversed) {
         requireNonNull(criteria);
-        bakingHome.sortOrders(criteria, isIncreasing);
+        bakingHome.sortOrders(criteria, isReversed);
     }
 
     @Override
@@ -370,7 +370,7 @@ public class ModelManager implements Model {
             Index index = Index.fromZeroBased(bakingHome.getShoppingList().indexOf(item));
             totalCost += bakingHome.getShoppingList().get(index.getZeroBased()).getTotalPrice();
         }
-      //  System.out.println("ModelManager line 374" + totalCost);
+        //  System.out.println("ModelManager line 374" + totalCost);
         return totalCost;
     }
 

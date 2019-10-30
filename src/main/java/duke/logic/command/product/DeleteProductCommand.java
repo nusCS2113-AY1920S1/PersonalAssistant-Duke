@@ -7,7 +7,6 @@ import duke.logic.message.ProductMessageUtils;
 import duke.model.Model;
 import duke.model.product.Product;
 
-import java.lang.ref.PhantomReference;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -18,6 +17,8 @@ public class DeleteProductCommand extends ProductCommand {
     public static final String COMMAND_WORD = "remove";
     private static final String MESSAGE_DELETE_SUCCESS = "Product(s) removed.";
     private static final String MESSAGE_INDEX_OUT_OF_BOUND = "Index [%d] is out of bound.";
+
+    public static final String AUTO_COMPLETE_INDICATOR = ProductCommand.COMMAND_WORD + " " + COMMAND_WORD;
 
     private final Set<Index> indices;
 

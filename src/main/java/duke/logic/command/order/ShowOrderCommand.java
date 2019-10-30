@@ -17,6 +17,7 @@ public class ShowOrderCommand extends OrderCommand {
     public static final Prefix[] AUTO_COMPLETE_PARAMETERS = {
         CliSyntax.PREFIX_ORDER_STATUS
     };
+
     private static final String MESSAGE_LIST_SUCCESS = "Showing %d order(s).";
     private Order.Status status;
 

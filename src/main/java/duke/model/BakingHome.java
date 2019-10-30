@@ -65,10 +65,10 @@ public class BakingHome implements ReadOnlyBakingHome {
 
     //================Order operations================
 
-    public void sortOrders(SortOrderCommand.SortCriteria criteria, boolean isIncreasing) {
+    public void sortOrders(SortOrderCommand.SortCriteria criteria, boolean isReversed) {
         requireNonNull(criteria);
 
-        orders.sort(new OrderComparator((criteria)), isIncreasing);
+        orders.sort(new OrderComparator((criteria)), isReversed);
 
     }
 

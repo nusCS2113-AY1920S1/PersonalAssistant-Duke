@@ -25,7 +25,7 @@ public class ProductCommandUtil {
         assert toEdit != null;
 
         String newProductName =
-                StringUtils.capitalize(productDescriptor.getProductName().orElse(toEdit.getProductName()));
+            StringUtils.capitalize(productDescriptor.getProductName().orElse(toEdit.getProductName()));
         Double newRetailPrice = productDescriptor.getRetailPrice().orElse(toEdit.getRetailPrice());
         Double newIngredientCost =
                 productDescriptor.getIngredientCost().orElse(toEdit.getIngredientCost());
