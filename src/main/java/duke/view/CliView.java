@@ -23,9 +23,11 @@ public class CliView {
     public void execute() {
         showWelcome();
         while (true) {
+            showMainMenu();
+            final int goodBye = 4;
             if (scan.hasNextLine()) {
                 String command = scan.nextLine();
-                if (command.equals("bye")) {
+                if (command.equals(String.valueOf(goodBye))) {
                     showGoodBye();
                     System.exit(0);
                 } else if (command.equals("home")) {
@@ -61,7 +63,8 @@ public class CliView {
         System.out.println("SPORTS MANAGER\n"
             + "1. View Training Schedule\n"
             + "2. Manage Students\n"
-            + "3. Training Circuits");
+            + "3. Training Circuits\n"
+            + "4. Exit");
     }
 
     /**
@@ -79,7 +82,8 @@ public class CliView {
         System.out.println("TRAINING SCHEDULE:\n"
             + "1. Daily Schedule\n"
             + "2. Weekly Schedule\n"
-            + "3. Monthly Schedule");
+            + "3. Monthly Schedule\n"
+            + "4. Back");
     }
 
     /**
@@ -91,7 +95,8 @@ public class CliView {
         System.out.println("DAILY SCHEDULE:\n"
             + "1. Classes of the day\n"
             + "2. Goals of the day\n"
-            + "3. Lessons learnt of the day");
+            + "3. Lessons learnt of the day\n"
+            + "4. Back");
     }
 
     /**
@@ -421,5 +426,12 @@ public class CliView {
      */
     public void showPromptClassName() {
         System.out.println("Please enter the name of the class.");
+    }
+
+    /**
+     * Prints error message when there is incomplete daily list.
+     */
+    public void showEmptyList() {
+        System.out.println("Sorry, there are no days matching what you have entered.");
     }
 }

@@ -52,10 +52,8 @@ public class ParserSchedule {
      */
     public ParserSchedule() throws FileNotFoundException, ParseException {
         cliView = new CliView();
-        scheduleStorage = new Storage(
-            ".\\src\\main\\java\\duke\\data\\timeslots.txt");
-        schedule = new Schedule(scheduleStorage.loadSchedule());
         sc = new Scanner(System.in);
+        schedule = new Schedule();
     }
 
     /**
@@ -63,10 +61,18 @@ public class ParserSchedule {
      *
      * @throws ParseException if user input is not in the correct format
      */
-    public void dailySchedule() throws ParseException {
+    public void dailySchedule() {
         cliView.showSchedulePromptDate();
-        String scheduleDate = sc.next();
-        schedule.getDay(scheduleDate);
+        sc.nextLine();
+        String scheduleDate = sc.nextLine();
+        // String day = schedule.getDay(scheduleDate);
+        // schedule of timeslot.txt cannot be loaded
+        // todo must fix the storage loading capabilities
+        String day = "empty";
+        if (day.equals("empty")) {
+            isRunning = false;
+            cliView.showEmptyList();
+        }
         while (isRunning) {
             try {
                 cliView.showScheduleAllActions(scheduleDate);
@@ -134,5 +140,54 @@ public class ParserSchedule {
      */
     public void monthlySchedule() {
         System.out.println(schedule.getMonth());
+    }
+
+    //@@author Sfloydzy
+
+    /**
+     * Method to parse the command input from the menu.
+     */
+    public void parseCommand() throws ParseException, FileNotFoundException {
+        final int dailySchedule = 1;
+        final int weeklySchedule = 2;
+        final int monthlySchedule = 3;
+        final int back = 4;
+        int input;
+        boolean runSchedule = true;
+        while (runSchedule) {
+            cliView.trainingScheduleHeading();
+            input = sc.nextInt();
+            switch (input) {
+            case dailySchedule:
+                boolean runDaily = true;
+                while (runDaily) {
+                    cliView.dailyScheduleHeading();
+                    input = sc.nextInt();
+                    if (input == 1) { //access daily schedule
+                        dailySchedule();
+                    } else if (input == 2) { //access daily goals
+                        new ParserGoal().runGoal();
+                    } else if (input == 3) { //access daily lessons
+                        new ParserLesson().runLesson();
+                    } else if (input == 4) { //back
+                        runDaily = false;
+                    } else {
+                        cliView.showDontKnow();
+                    }
+                }
+                break;
+            case weeklySchedule:
+                weeklySchedule();
+                break;
+            case monthlySchedule:
+                monthlySchedule();
+                break;
+            case back:
+                runSchedule = false;
+                break;
+            default:
+                cliView.showDontKnow();
+            }
+        }
     }
 }
