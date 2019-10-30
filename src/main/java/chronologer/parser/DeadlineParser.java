@@ -7,6 +7,7 @@ import chronologer.ui.UiTemporary;
 
 import java.text.ParseException;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 
 /**
  * Extract the components to add a deadline .
@@ -50,7 +51,7 @@ public class DeadlineParser extends DescriptionParser {
             UiTemporary.printOutput(ChronologerException.emptyDateOrTime());
             logger.writeLog(e.toString(), this.getClass().getName(), userInput);
             throw new ChronologerException(ChronologerException.emptyDateOrTime());
-        } catch (ParseException e) {
+        } catch (DateTimeParseException e) {
             UiTemporary.printOutput(ChronologerException.wrongDateOrTime());
             logger.writeLog(e.toString(), this.getClass().getName(), userInput);
             throw new ChronologerException(ChronologerException.wrongDateOrTime());

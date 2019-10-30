@@ -7,6 +7,7 @@ import chronologer.ui.UiTemporary;
 
 import java.text.ParseException;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 
 /**
  * Extract the components required to create an event class.
@@ -44,7 +45,7 @@ public class EventParser extends DescriptionParser {
         try {
             String fromDateString = dateTimeFromUser.split("-", 2)[0].trim();
             return DateTimeExtractor.extractDateTime(fromDateString, command);
-        } catch (ParseException e) {
+        } catch (DateTimeParseException e) {
             logger.writeLog(e.toString(), this.getClass().getName(), userInput);
             UiTemporary.printOutput(ChronologerException.wrongDateOrTime());
             throw new ChronologerException(ChronologerException.wrongDateOrTime());
@@ -55,7 +56,7 @@ public class EventParser extends DescriptionParser {
         try {
             String toDateString = dateTimeFromUser.split("-", 2)[1].trim();
             return DateTimeExtractor.extractDateTime(toDateString, command);
-        } catch (ParseException e) {
+        } catch (DateTimeParseException e) {
             logger.writeLog(e.toString(), this.getClass().getName(), userInput);
             UiTemporary.printOutput(ChronologerException.wrongDateOrTime());
             throw new ChronologerException(ChronologerException.wrongDateOrTime());

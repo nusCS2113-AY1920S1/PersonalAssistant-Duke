@@ -22,6 +22,7 @@ public class TaskList {
     private static final String EVENT = "EVENT";
     private static final String TODO_DURATION = "TODO DURATION";
     private static final String TODO_PERIOD = "TODO PERIOD";
+    private static final String TODO = "TODO";
 
     private ArrayList<Task> listOfTasks;
     private ObservableList<Task> observableListOfTasks;
@@ -178,8 +179,8 @@ public class TaskList {
      *
      * @param dayToFind is of String type which contains the desired date of
      *                  schedule.
-     * @return sortDateList the sorted schedule of all the tasks on a particular
-     *         ate.
+     * @return  sortDateList the sorted schedule of all the tasks on a particular
+     *          ate.
      */
     public ArrayList<Task> schedule(String dayToFind) {
         ArrayList<Task> sortedDateList = new ArrayList<Task>();
@@ -231,8 +232,10 @@ public class TaskList {
     }
 
     //@@author fauzt-reused
+
     /**
      * Retrieves all Event tasks in the main task list in chronologically-ordered list.
+     *
      * @param deadlineDate is the cut-off time to search all prior relevant events
      * @return all the events in the main task list in chronological order
      */
@@ -240,7 +243,7 @@ public class TaskList {
         ArrayList<Event> eventList = new ArrayList<>();
         for (Task item : listOfTasks) {
             boolean isAnEventBeforeDeadline = item.getClass() == Event.class
-                    && item.getStartDate().isBefore(deadlineDate);
+                && item.getStartDate().isBefore(deadlineDate);
             if (isAnEventBeforeDeadline) {
                 eventList.add((Event) item);
             }
@@ -279,7 +282,7 @@ public class TaskList {
         for (int i = 0; i < obtainDescriptions.size(); i++) {
             if (obtainDescriptions.get(i).toString().contains(dayToFind)) {
                 scheduleDescriptionOnly.add(obtainDescriptions.get(i).getModCode().trim() + " "
-                        + obtainDescriptions.get(i).getDescription().trim());
+                    + obtainDescriptions.get(i).getDescription().trim());
             }
         }
         return scheduleDescriptionOnly;
@@ -321,6 +324,10 @@ public class TaskList {
 
     public boolean isEvent(Task task) {
         return (EVENT.equals(task.getType()));
+    }
+
+    public boolean isTodo(Task task) {
+        return (TODO.equals(task.getType()));
     }
 
     public boolean isTodoDuration(Task task) {
