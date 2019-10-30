@@ -81,6 +81,11 @@ public class ModelController implements Model {
     }
 
     @Override
+    public int getMemberListSize() {
+        return memberManager.getMemberListSize();
+    }
+
+    @Override
     public MemberManager getMemberManager() {
         return memberManager;
     }
@@ -95,6 +100,7 @@ public class ModelController implements Model {
     public boolean hasMember(String name) throws DukeException {
         return memberManager.hasMember(name);
     }
+
 
     //============================
 

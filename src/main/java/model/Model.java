@@ -38,6 +38,8 @@ public interface Model {
     //==================Member Interface======================
     ArrayList<Member> getMemberList();
 
+    int getMemberListSize();
+
     MemberManager getMemberManager();
 
     void addMember(String name) throws DukeException;
