@@ -204,11 +204,11 @@ public class TaskList {
     public static void comparePriority() {
         Collections.sort(tasks, (task1, task2) -> {
             if( task1.getDone() && !task2.getDone() ) {
-                return -1;
-            } else if( task2.getDone() && !task1.getDone() ) {
                 return 1;
+            } else if( task2.getDone() && !task1.getDone() ) {
+                return -1;
             } else {
-                return  getValue(task2) - getValue(task1);
+                return  getValue(task1) - getValue(task2);
             }
         });
     }

@@ -1,5 +1,6 @@
 package Operations;
 
+import Enums.SortType;
 import Enums.TimeUnit;
 
 import java.io.IOException;
@@ -253,5 +254,13 @@ public class Ui {
 
     public static void clearScreen() throws IOException, InterruptedException {
         new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+    }
+
+    public void showBar(String bar) {
+        System.out.println(bar);
+    }
+
+    public void showChangeInPriority(SortType sortType) {
+        System.out.println("Your sorting preferences have been set to " + sortType.toString());
     }
 }
