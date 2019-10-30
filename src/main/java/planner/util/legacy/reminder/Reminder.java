@@ -102,7 +102,7 @@ public class Reminder {
         LocalDateTime now;
         long sleepSeconds;
         while (!this.kill) {
-            now = LocalDateTime.now();
+            now = LocalDateTime.now();::]
             if (now.isAfter(targetTime)) {
                 targetTime = now.plus(this.checkEvery);
                 try {
