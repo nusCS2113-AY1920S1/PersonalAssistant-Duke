@@ -6,7 +6,7 @@ plugins {
 
 shadowJar {
     archiveBaseName = "sportsManager"
-    archiveVersion = "0.1.2"
+    archiveVersion = "0.1.3"
     archiveClassifier = null
     archiveAppendix = null
 }
@@ -36,18 +36,15 @@ test {
     useJUnitPlatform()
 }
 
-group 'seedu.duke'
-version '0.1.0'
 
 repositories {
     mavenCentral()
 }
 
 application {
-    mainClassName = "duke.Duke"
+    mainClassName = "duke.launcher.Duke"
 }
 
 run {
     standardInput = System.in
 }
-
