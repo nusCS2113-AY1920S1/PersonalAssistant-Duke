@@ -24,7 +24,7 @@ public class RescheduleCommandTest {
      */
     @Test
     public void RescheduleCommandTest() {
-        Ui ui = new Ui();
+        Ui ui = new UiEn();
         Storage storage = null;
         try {
             storage = new Storage(System.getProperty("user.dir")+ "/src/test/java/testFile/testFile.txt", System.getProperty("user.dir")+ "/src/test/java/testFile/configTest.txt",System.getProperty("user.dir")+ "/src/test/java/testFile/welcome.txt");

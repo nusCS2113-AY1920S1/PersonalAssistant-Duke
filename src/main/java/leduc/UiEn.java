@@ -1,5 +1,6 @@
 package leduc;
 
+import leduc.exception.*;
 import leduc.task.EventsTask;
 import leduc.task.HomeworkTask;
 import leduc.task.Task;
@@ -248,5 +249,72 @@ public class UiEn extends Ui {
         System.out.println("\t---------------------------------------------------------------------------------");
     }
 
+    @Override
+    public void showError(DukeException e) {
+        if(e instanceof ConflictDateException){
+            String conflictTasks = "";
+            for (Task t : ((ConflictDateException)e).getTasks()){
+                conflictTasks += "\n\t\t\t" + t.toString();
+            }
+
+            System.out.println("\t ConflictDateException:\n\t\t ☹ OOPS!!! There is a date conflict with this event :" +
+                    conflictTasks);
+        }
+        else if(e instanceof DateComparisonEventException){
+            System.out.println("\t DateComparisonEventException:\n\t\t ☹ OOPS!!! The second date should not be before the first one.");
+        }
+        else if(e instanceof DuplicationShortcutException){
+            System.out.println("\t DuplicationShortcutException:\n\t\t ☹ OOPS!!! The shortcut already exists");
+        }
+        else if(e instanceof EmptyArgumentException){
+            System.out.println("\t EmptyArgumentException:\n\t\t ☹ OOPS!!! There should have an argument");
+        }
+        else if(e instanceof EmptyEventDateException){
+            System.out.println("\t emptyEventDateException:\n\t\t ☹ OOPS!!! Please enter a period for the event task");
+        }
+        else if(e instanceof EmptyEventException){
+            System.out.println("\t emptyEventException:\n\t\t ☹ OOPS!!! The description of a event task cannot be empty");
+        }
+        else if(e instanceof EmptyHomeworkDateException){
+            System.out.println("\t emptyHomeworkDateException:\n\t\t ☹ OOPS!!! Please enter a deadline for the task");
+        }
+        else if(e instanceof EmptyHomeworkException){
+            System.out.println("\t emptyHomeworkException:\n\t\t ☹ OOPS!!! The description of a homework task cannot be empty");
+        }
+        else if(e instanceof EmptyTodoException){
+            System.out.println("\t emptyTodoException:\n\t\t ☹ OOPS!!! The description of a todo cannot be empty.");
+        }
+        else if(e instanceof EventTypeException){
+            System.out.println("\t EventTypeException:\n\t\t ☹ OOPS!!! The task should be a event task");
+        }
+        else if(e instanceof FileException){
+            System.out.println("File doesn't exist or cannot be created or cannot be opened");
+        }
+        else if(e instanceof HomeworkTypeException){
+            System.out.println("\t HomeworkTypeException:\n\t\t ☹ OOPS!!! The task should be a homework task");
+        }
+        else if(e instanceof MeaninglessException){
+            System.out.println("\t MeaninglessException:\n\t\t OOPS!!! I'm sorry, but I don't know what that means :-(\"");
+        }
+        else if(e instanceof NonExistentDateException){
+            System.out.println("\t NonExistentDateException:\n\t\t ☹ OOPS!!! \n\t\t\t The date doesn't exist");
+        }
+        else if(e instanceof NonExistentTaskException){
+            System.out.println("\t NonExistentTaskException:\n\t\t ☹ OOPS!!! The task doesn't exist");
+        }
+        else if(e instanceof PostponeHomeworkException){
+            System.out.println("\t PostponeHomeworkException:\n\t\t ☹ OOPS!!! The new homework should not be before the old one");
+        }
+        else if(e instanceof PrioritizeFormatException){
+            System.out.println("\t PrioritizeFormatException:\n\t\t ☹ OOPS!!! Please respect the prioritize command format" +
+                    "\n\t\t\t prioritize INDEX prio INDEX");
+        }
+        else if(e instanceof PrioritizeLimitException){
+            System.out.println("\t PrioritizeLimitException:\n\t\t ☹ OOPS!!! The priority of a task should be an int greater than or equal to  0 and less than or equal to 9.");
+        }
+        else if(e instanceof WrongParameterException){
+            System.out.println("\t WrongParameterException:\n\t\t ☹ OOPS!!! The parameters are wrong");
+        }
+    }
 }
 

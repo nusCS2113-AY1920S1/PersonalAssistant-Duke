@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class ShowCommandTest {
     @Test
     public void ShowCommandTest(){
-        Ui ui = new Ui();
+        Ui ui = new UiEn();
         Storage storage = null;
         try {
             storage = new Storage(System.getProperty("user.dir")+ "/src/test/java/testFile/testFile.txt", System.getProperty("user.dir")+ "/src/test/java/testFile/configTest.txt",System.getProperty("user.dir")+ "/src/test/java/testFile/welcome.txt");

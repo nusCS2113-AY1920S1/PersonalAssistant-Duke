@@ -1,5 +1,6 @@
 package leduc;
 
+import leduc.exception.*;
 import leduc.task.EventsTask;
 import leduc.task.HomeworkTask;
 import leduc.task.Task;
@@ -234,5 +235,72 @@ public class UiFr extends Ui {
             }
         }
         System.out.println("\t---------------------------------------------------------------------------------");
+    }
+    @Override
+    public void showError(DukeException e) {
+        if(e instanceof ConflictDateException){
+            String conflictTasks = "";
+            for (Task t : ((ConflictDateException)e).getTasks()){
+                conflictTasks += "\n\t\t\t" + t.toString();
+            }
+
+            System.out.println("\t ConflictDateException:\n\t\t ☹ OOPS!!! Il y a un conflit de date avec cet event :" +
+                    conflictTasks);
+        }
+        else if(e instanceof DateComparisonEventException){
+            System.out.println("\t DateComparisonEventException:\n\t\t ☹ OOPS!!! La deuxième date ne devrait pas être avant la première.");
+        }
+        else if(e instanceof DuplicationShortcutException){
+            System.out.println("\t DuplicationShortcutException:\n\t\t ☹ OOPS!!! Le raccourci existe déjà");
+        }
+        else if(e instanceof EmptyArgumentException){
+            System.out.println("\t EmptyArgumentException:\n\t\t ☹ OOPS!!! Il devrait y avoir un argument");
+        }
+        else if(e instanceof EmptyEventDateException){
+            System.out.println("\t emptyEventDateException:\n\t\t ☹ OOPS!!! Veuillez entrer une période pour la tâche event");
+        }
+        else if(e instanceof EmptyEventException){
+            System.out.println("\t emptyEventException:\n\t\t ☹ OOPS!!! La description d'une tâche event ne peut pas être vide");
+        }
+        else if(e instanceof EmptyHomeworkDateException){
+            System.out.println("\t emptyHomeworkDateException:\n\t\t ☹ OOPS!!! Veuillez entrer l'échéance pour la tâche homework");
+        }
+        else if(e instanceof EmptyHomeworkException){
+            System.out.println("\t emptyHomeworkException:\n\t\t ☹ OOPS!!! La description d'une tâche homework ne peut pas être vide");
+        }
+        else if(e instanceof EmptyTodoException){
+            System.out.println("\t emptyTodoException:\n\t\t ☹ OOPS!!! La description d'un todo ne peut pas être vide.");
+        }
+        else if(e instanceof EventTypeException){
+            System.out.println("\t EventTypeException:\n\t\t ☹ OOPS!!! La tâche devrait être de type event");
+        }
+        else if(e instanceof FileException){
+            System.out.println("Le fichier n'existe pas ou ne peut pas être créé ou ne peut pas être ouvert ");
+        }
+        else if(e instanceof HomeworkTypeException){
+            System.out.println("\t HomeworkTypeException:\n\t\t ☹ OOPS!!! La tâche devrait être de type homework");
+        }
+        else if(e instanceof MeaninglessException){
+            System.out.println("\t MeaninglessException:\n\t\t OOPS!!! Je suis désolé mais je ne sais pas ce que cela signifie:-(\"");
+        }
+        else if(e instanceof NonExistentDateException){
+            System.out.println("\t NonExistentDateException:\n\t\t ☹ OOPS!!! \n\t\t\t La date n'existe pas)");
+        }
+        else if(e instanceof NonExistentTaskException){
+            System.out.println("\t NonExistentTaskException:\n\t\t ☹ OOPS!!! La tâche n'existe pas");
+        }
+        else if(e instanceof PostponeHomeworkException){
+            System.out.println("\t PostponeHomeworkException:\n\t\t ☹ OOPS!!! Le nouveau homework ne devrait pas être avant l'ancien");
+        }
+        else if(e instanceof PrioritizeFormatException){
+            System.out.println("\t PrioritizeFormatException:\n\t\t ☹ OOPS!!! Veuillez respecter le format de prioritize" +
+                    "\n\t\t\t prioritize INDEX prio INDEX");
+        }
+        else if(e instanceof PrioritizeLimitException){
+            System.out.println("\t PrioritizeLimitException:\n\t\t ☹ OOPS!!! La priorité d'une tâche doit être supérieur ou égale à 0 et inférieur ou égale à 9.");
+        }
+        else if(e instanceof WrongParameterException){
+            System.out.println("\t WrongParameterException:\n\t\t ☹ OOPS!!! Les paramètres sont faux");
+        }
     }
 }
