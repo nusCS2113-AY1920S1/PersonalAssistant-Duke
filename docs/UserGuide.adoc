@@ -13,10 +13,10 @@ This user guide aims to help you learn your way around our app, making the learn
   4. Run command ./gradlew run (for Windows) or gradlew run (for Mac).
   5. Some example commands you can try:
 
-* *`list`* : lists all tasks
-* **`deadline assignment /by 9/9/2019`** : adds a deadline type task with description `assignment` to the task list.
-* **`delete`**`1` : deletes the 1st task in the current list
-* *`bye`* : exits the app
+* *`/list`* : lists all tasks
+* **`/deadline assignment /by 9/9/2019`** : adds a deadline type task with description `assignment` to the task list.
+* **`/delete`**`1` : deletes the 1st task in the current list
+* *`/bye`* : exits the app
  
 == 3A. Features 
 *Command Format*
