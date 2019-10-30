@@ -34,7 +34,7 @@ Role: Project Coder
 
 === Gervaise Ang
 image::gervaiseang.png[width="150", align="left"]
-{empty}[https://github.com/gervaiseang[github]] [https://github.com/gervaiseang[portfolio]]
+{empty}[https://github.com/gervaiseang[github]] [https://github.com/AY1920S1-CS2113-T13-4/main/blob/master/team/gervaiseang.adoc[portfolio]]
 
 Role: Project Coder
 
