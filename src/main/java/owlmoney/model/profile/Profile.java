@@ -734,7 +734,7 @@ public class Profile {
      * @throws Exception if there are errors importing data.
      */
     private void loadBanksFromImportedData() throws BankException {
-        if(storage.checkIfFileExist(PROFILE_BANK_LIST_FILE_NAME)) {
+        if (storage.isFileExist(PROFILE_BANK_LIST_FILE_NAME)) {
             List<String[]> importData = importListDataFromStorage(PROFILE_BANK_LIST_FILE_NAME,ui);
             for (String[] importDataRow : importData) {
                 String bankName = importDataRow[0];
@@ -750,7 +750,8 @@ public class Profile {
                     Bank newSaving = new Saving(bankName, doubleAmount, doubleIncome);
                     profileImportNewBank(newSaving);
                 } else {
-                    throw new BankException("Error importing banks, data related to some bank accounts are not available");
+                    throw new BankException("Error importing banks, "
+                            + "data related to some bank accounts are not available");
                 }
             }
         }
@@ -762,7 +763,7 @@ public class Profile {
      * @throws Exception if there are errors importing data.
      */
     private void iterateBanksToAddTransaction() throws ParseException, BankException {
-        if (storage.checkIfFileExist(PROFILE_BANK_LIST_FILE_NAME)) {
+        if (storage.isFileExist(PROFILE_BANK_LIST_FILE_NAME)) {
             List<String[]> importBankData = importListDataFromStorage(PROFILE_BANK_LIST_FILE_NAME, ui);
             for (int i = 0; i < importBankData.size(); i++) {
                 String bankName = importBankData.get(i)[0];
@@ -770,19 +771,19 @@ public class Profile {
                 if (bankType.equals(INVESTMENT)) {
                     String transactionFileName = i + INVESTMENT_TRANSACTION_LIST_FILE_NAME;
                     String bondsFileName = i + INVESTMENT_BOND_LIST_FILE_NAME;
-                    if(storage.checkIfFileExist(bondsFileName)) {
+                    if (storage.isFileExist(bondsFileName)) {
                         loadBondsForInvestmentBanks(bondsFileName, bankName);
                     }
-                    if(storage.checkIfFileExist(transactionFileName)) {
+                    if (storage.isFileExist(transactionFileName)) {
                         loadTransactionsForBanks(transactionFileName, bankName, bankType);
                     }
                 } else if (bankType.equals(SAVING)) {
                     String transactionFileName = i + SAVING_TRANSACTION_LIST_FILE_NAME;
                     String recurringTransactionFileName = i + SAVING_RECURRING_TRANSACTION_LIST_FILE_NAME;
-                    if(storage.checkIfFileExist(transactionFileName)) {
+                    if (storage.isFileExist(transactionFileName)) {
                         loadTransactionsForBanks(transactionFileName, bankName, bankType);
                     }
-                    if(storage.checkIfFileExist(recurringTransactionFileName)) {
+                    if (storage.isFileExist(recurringTransactionFileName)) {
                         loadRecurringTransactionsForBanks(recurringTransactionFileName, bankName, bankType);
                     }
                 }
@@ -963,7 +964,7 @@ public class Profile {
      * @throws Exception if there are errors importing data.
      */
     private void loadGoalsFromImportedData() throws ParseException, BankException {
-        if (storage.checkIfFileExist(PROFILE_GOAL_LIST_FILE_NAME)) {
+        if (storage.isFileExist(PROFILE_GOAL_LIST_FILE_NAME)) {
             List<String[]> importData = importListDataFromStorage(PROFILE_GOAL_LIST_FILE_NAME,ui);
             for (String[] importDataRow : importData) {
                 Goals newGoal;

@@ -23,10 +23,20 @@ public class Storage {
         this.path = path;
     }
 
-    public boolean checkIfFileExist(String fileName) {
+    /**
+     * Checks if the specfied file exists.
+     * @param fileName the filename to check.
+     * @return the result of whether the file exists.
+     */
+    public boolean isFileExist(String fileName) {
         return Files.exists(Paths.get(path + fileName));
     }
 
+    /**
+     * Checks if the directory does not exist.
+     * @param path path of the directory.
+     * @return boolean of whether created successfully.
+     */
     public boolean createDirectoryIfNotExist(String path) {
         File dir = new File(path);
         boolean result = false;
@@ -63,7 +73,7 @@ public class Storage {
      * Writes file for profile user name only.
      *
      * @param inputData input data in String Arrays.
-     * @param fileName name of file when exported
+     * @param fileName name of file when exported.
      * @throws IOException when unable to write data to file.
      */
     public void writeProfileFile(String[] inputData, String fileName) throws IOException {
