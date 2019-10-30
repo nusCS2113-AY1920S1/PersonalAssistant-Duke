@@ -354,6 +354,7 @@ bank objects.
 . Once the savings object has been added, the details of the new savings object will be displayed to inform the user
 of the *successful* addition of the savings object.
 
+// tag::editing_bonds[]
 === Editing Bonds
 .Sequence Diagram of Editing Bonds
 image::editBondCommand.png[width="970"]
@@ -402,6 +403,8 @@ maturity through the method `editBondYear`.
 
 . Once the bond object has been edited, the updated details of that bond object will be displayed to inform the user
 of the *successful* editing of the bond.
+
+// end::editing_bonds[]
 
 === Deleting Credit Card
 .Model Component Diagram
