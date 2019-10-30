@@ -4,6 +4,7 @@ import model.Task;
 
 import java.util.ArrayList;
 
+//@@author AugGust
 public class TasksCounter {
     private ArrayList<Task> tasks;
 
