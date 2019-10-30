@@ -90,4 +90,8 @@ public class Todo extends Task implements Serializable {
             return TODO;
         }
     }
+
+    public int getDuration() {
+        return duration;
+    }
 }

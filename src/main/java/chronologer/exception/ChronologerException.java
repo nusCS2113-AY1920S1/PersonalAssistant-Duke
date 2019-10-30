@@ -23,8 +23,8 @@ public class ChronologerException extends Exception {
         + "See the manual above!";
     private static final String NONEXISTING_TASK_MSG = "OOPS!!! The task you searched for does not exist. "
         + "See the manual above!";
-    private static final String WRITE_ERROR_MSG = "OOPS!!! Unable to write file. The program will be terminated.";
-    private static final String READ_ERROR_MSG = "OOPS!!! Unable to read from file. The program will be terminated.";
+    private static final String WRITE_ERROR_MSG = "OOPS!!! Unable to write file.";
+    private static final String READ_ERROR_MSG = "OOPS!!! Unable to read from file.";
     private static final String NONEXISTING_CLASS_MSG = "OOPS!!! Unable to extract certain features of the Duke Project"
         + " Please ensure the project was imported properly";
     private static final String MISSING_FILE_MSG = "OOPS!!! Unable to read from previous task list. "

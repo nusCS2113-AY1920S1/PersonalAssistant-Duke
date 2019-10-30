@@ -3,6 +3,7 @@ package chronologer.parser;
 import java.text.ParseException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 /**
  * This DateTimeExtractor class allows the identification of dates and is used
@@ -31,7 +32,7 @@ public class DateTimeExtractor {
      * @throws ParseException The ParseException is called if the date or time
      *                        format provided by the user is incorrect!
      */
-    public static LocalDateTime extractDateTime(String dateTimeFromUser, String command) throws ParseException {
+    public static LocalDateTime extractDateTime(String dateTimeFromUser, String command) throws DateTimeParseException {
         if (command.equals("event")) {
             dateEvent = LocalDateTime.parse(dateTimeFromUser, DATE_FORMATTER);
             return dateEvent;
