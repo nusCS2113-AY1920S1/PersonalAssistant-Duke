@@ -50,13 +50,17 @@ public class Parser {
             c = new PostponeCommand(user);
             c.calledByShortcut();
         }
-        else if (user.trim().matches(EditCommand.getEditShortcut())){
+        else if (user.trim().matches("edit(.*)")){
             c = new EditCommand(user);
         }
-        else if (user.matches("delete \\d+")) {// if it is done and a number of task
+        else if (user.trim().matches(EditCommand.getEditShortcut()+ "(.*)")){
+            c = new EditCommand(user);
+            c.calledByShortcut();
+        }
+        else if (user.matches("delete \\d+")) {// if it is delete and a number of task
             c = new DeleteCommand(user);
         }
-        else if (user.matches(DeleteCommand.getDeleteShortcut() + " \\d+")) {// if it is done and a number of task
+        else if (user.matches(DeleteCommand.getDeleteShortcut() + " \\d+")) {// if it is delete and a number of task
             c = new DeleteCommand(user);
             c.calledByShortcut();
         }

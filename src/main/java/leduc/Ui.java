@@ -227,6 +227,7 @@ public abstract class Ui {
     /**
      * Display every command
      */
+<<<<<<< HEAD
     public abstract void showHelp();
 
     /**
@@ -293,4 +294,48 @@ public abstract class Ui {
      */
     public abstract void showEnterYearShow();
 
+=======
+    public void showHelp(){
+        System.out.println("\t---------------------------------------------------------------------------------");
+        System.out.println("\t All command will be display as :");
+        System.out.println("\t commandName [PARAMETERS] : description of the command");
+        System.out.println("\t All parameters will be written in UPPER_CASE");
+        System.out.println("\t Parameters are :");
+        System.out.println("\t DESCRIPTION : the description of a task");
+        System.out.println("\t SORTTYPE : the date or description");
+        System.out.println("\t DATE : the date of a task");
+        System.out.println("\t INDEX : the index of the task (goes from 1 to ...)");
+        System.out.println("\t KEYWORD : the keyword to find a task");
+        System.out.println("\t WELCOME: the welcome message");
+        System.out.println("\t DATEOPTION");
+        System.out.println("\t Date format is DD/MM/YYYY HH:mm except for show");
+        System.out.println("\t All blank space should be respected");
+        System.out.println("\t Here are the list of all command:");
+        System.out.println("\t todo DESCRIPTION prio INDEX: create a todo task ( prio index is optional) with priority index");
+        System.out.println("\t homework DESCRIPTION /by DATE prio INDEX: create a homework task ( prio index is optional) with priority index");
+        System.out.println("\t event DESCRIPTION /at DATE - DATE prio INDEX: create an event task ( prio index is optional) with priority index");
+        System.out.println("\t list : show all the tasks");
+        System.out.println("\t bye : exit the application");
+        System.out.println("\t done INDEX : mark as done the task of index INDEX");
+        System.out.println("\t delete INDEX : delete the task of index INDEX");
+        System.out.println("\t find KEYWORD : find the task with a keyword");
+        System.out.println("\t snooze INDEX : snooze a task of index INDEX");
+        System.out.println("\t postpone INDEX /by DATE : postpone a deadline task");
+        System.out.println("\t sort SORTTYPE : Sort all task by date/description");
+        System.out.println("\t reschedule INDEX /at DATE - DATE : reschedule an event task");
+        System.out.println("\t remind : remind the first three task");
+        System.out.println("\t setwelcome WELCOME : customize the welcome message");
+        System.out.println("\t edit :\n\t\t For multi-step command : 'edit' and then follow the instructions" +
+                           "\n\t\t For one shot command:" +
+                           "\n\t\t\t edit the description: 'edit INDEX description DESCRIPTION' " +
+                           "\n\t\t\t edit the date of an homework task: 'edit INDEX /by DATE' " +
+                           "\n\t\t\t edit the period of an event task: 'edit INDEX /at DATE - DATE' ");
+        System.out.println("\t show DATEOPTION DATE: show task by day/dayofweek/month/year ( day format is DD/MM/YYYY; " +
+                "dayofweek format is monday,tuesday...; month format is MM/YYYY; year format is YYYY)");
+        System.out.println("\t prioritize INDEX prio INDEX : give priority to task");
+        System.out.println("\t unfinished: Find and display all unfinished tasks");
+        System.out.println("\t help : show the list of all command");
+        System.out.println("\t---------------------------------------------------------------------------------");
+    }
+>>>>>>> 8ecc1bde0448aadf7989100dc3090ab2c0b3ba72
 }
