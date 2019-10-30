@@ -69,6 +69,17 @@ public class ParserHelperTest {
         assertEquals(0, parsedCommands.get(0).size());
         assertEquals(1, parsedCommands.get(1).size());
         assertEquals(1, parsedCommands.get(2).size());
+
+        command = "-i 1 -to ";
+        parsedCommands = parserHelper.parseAssignmentParams(command, project);
+        assertEquals(1, parsedCommands.get(0).size());
+        assertEquals(0, parsedCommands.get(1).size());
+
+        command = "-i 5 -to ";
+        parsedCommands = parserHelper.parseAssignmentParams(command, project);
+        assertEquals(0, parsedCommands.get(0).size());
+        assertEquals(0, parsedCommands.get(1).size());
+
     }
 
     @Test
