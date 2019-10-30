@@ -6,6 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.io.ByteArrayOutputStream;
+import java.io.FileDescriptor;
+import java.io.FileOutputStream;
 import java.io.PrintStream;
 
 import owlmoney.model.bank.exception.BankException;
@@ -578,6 +580,12 @@ class BankListTest {
                 + "                investment      $456.00         Not " + "Applicable  " + NEWLINE + "------"
                 + "------------------------------------------------------------------------------------------"
                 + "---------------------------------" + NEWLINE;
+        System.setOut(new PrintStream(new FileOutputStream(FileDescriptor.out)));
+        System.out.println("What was expected:");
+        System.out.println(outputMessage);
+        System.out.println();
+        System.out.println("What was printed:");
+        System.out.println(outContent.toString());
         assertEquals(outputMessage, outContent.toString());
     }
 }
