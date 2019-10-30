@@ -48,8 +48,8 @@ test {
 //}
 
 shadowJar {
-    archiveBaseName = "duke"
-    archiveVersion = "0.1.3"
+    archiveBaseName = "BakingHome"
+    archiveVersion = "1.3"
     archiveClassifier = null
     archiveAppendix = null
 }
