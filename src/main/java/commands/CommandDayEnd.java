@@ -17,9 +17,9 @@ public class CommandDayEnd extends Command {
         Ui ui = farmio.getUi();
         Storage storage = farmio.getStorage();
         Farmer farmer = farmio.getFarmer();
-        farmio.getSimulation().simulate("DayEnd", 0);
+        farmio.getSimulation().simulate("DayEnd", 0,4);
         farmer.nextDay();
-        farmio.getSimulation().simulate(1000,"DayStart", 1);
+        ui.sleep(200);
         farmio.setStage(Farmio.Stage.DAY_START);
     }
 }

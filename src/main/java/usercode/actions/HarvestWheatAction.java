@@ -22,8 +22,9 @@ public class HarvestWheatAction extends Action {
         criteriaFeedbackList.add(new Pair<>(!farmer.getWheatFarm().hasWheat(), "Error! you have attempted to harvest wheat despite not having any wheat"));
         criteriaFeedbackList.add(new Pair<>(!farmer.getLocation().equals("WheatFarm"), "Error! you have attempted to harvest wheat despite not being at the Wheatfarm"));
         checkActionCriteria(ui, farmer, simulation, criteriaFeedbackList);
-        simulation.simulate("HarvestWheatSimulation", 0, 8);
+        simulation.simulate("HarvestWheatSimulation", 0, 9);
         farmer.getWheatFarm().harvestWheat();
-        simulation.simulate(1000,"HarvestWheatSimulation", 9);
+        simulation.simulate();
+        ui.sleep(700);
     }
 }
