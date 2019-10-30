@@ -29,14 +29,19 @@ public class HelpCommand implements Command {
                 + ":<patient ID> :<task ID> :<dd/MM/yyyy HHmm> :<dd/MM/yyyy HHmm>`");
         userCommandList.add("List patients: `list patients`");
         userCommandList.add("List tasks: `list tasks`");
-        userCommandList.add("Delete a patient: `delete patient :<patient ID>`");
-        userCommandList.add("Delete an assigned task: `delete assigned task :<assigned task ID>`");
-        userCommandList.add("Find a patient: `find patient :<patient ID>`");
-        userCommandList.add("Find a patient's assigned: `find assigned tasks "
-                + ":<patient ID>");
-        userCommandList.add("Update a patient's data: `update patient "
+        userCommandList.add("Delete a patient: `delete patient :#<patient ID>`");
+        userCommandList.add("Delete a task: `delete task :#<task ID>`");
+        userCommandList.add("Delete an assigned task: `delete assigned task :#<assigned task ID>`");
+        userCommandList.add("Find a patient: `find patient :#<patient ID> OR <patient name>`");
+        userCommandList.add("Find a task: `find task :#<task ID> OR <task description>");
+        userCommandList.add("Find a patient's assigned tasks: `find assigned tasks "
+                + ":#<patient ID>");
+        userCommandList.add("Update a patient's data: `update patient :#<patient id> "
                 + ":<name/NRIC/room/remark> :<new information>`");
-        userCommandList.add("Update a task's description: `update task :<new description>`");
+        userCommandList.add("Update a task's description: `update task :#<task id>"
+                + ":<new description>`");
+        userCommandList.add("Undo an action: `undo`");
+        userCommandList.add("View help guide: `help`");
         userCommandList.add("Exit the program: `bye`");
 
 

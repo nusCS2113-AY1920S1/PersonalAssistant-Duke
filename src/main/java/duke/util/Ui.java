@@ -521,9 +521,9 @@ public class Ui {
      */
     public void taskPatientFound(Task task, ArrayList<Patient> patients) {
         printDukeResponse("The task " + task.getId() + " " + task.getDescription()
-            + " is assigned to following patient(s) : \n");
+            + " is assigned to following patient(s) : \n\n");
         for (int i = 0; i < patients.size(); i++) {
-            printDukeResponse(patients.get(i).getId() + ". " + patients.get(i).getName() + "\n");
+            printDukeResponse(patients.get(i).getId() + ". " + patients.get(i).getName() + "\n\n");
         }
     }
 
