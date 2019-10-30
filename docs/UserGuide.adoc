@@ -96,19 +96,19 @@ Format: `/list`
 
 Provides a way to easily snooze/postpone/reschedule a task. +
 Format: `/snooze INDEX` +
-        `NUMBER min/hour/day/week/month` OR `dd/mm/yyyy hhmm`
+        `NUMBER minutes/hours/days/weeks/months` OR `dd/mm/yyyy hhmm`
         
 ****
 * Snoozes the task as done at the specified `INDEX`
 * The index refers to the index shown in the displayed task list.
-* `NUMBER` refers to the quantity of the `min/hour/day/week/month`
+* `NUMBER` refers to the quantity of the `minutes/hours/days/weeks/months`
 * `dd/mm/yyyy hhmm` is the day/month/year and time(24hrs) of the task e.g. `9/9/2019 1200`
 ****
 
 Examples:
 
   * `/snooze 1` +  
-    `1 week` +
+    `1 weeks` +
     Snoozes the 1st task in the task list by 1 week.
     
   * `/snooze 2` +
