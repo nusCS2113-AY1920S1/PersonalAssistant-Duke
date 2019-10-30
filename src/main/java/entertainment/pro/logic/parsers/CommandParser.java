@@ -23,11 +23,6 @@ public class CommandParser {
      *
      * @param command command that was entered by the user
      */
-    /**
-     * Entry point to command parser Class.
-     *
-     * @param command command that was entered by the user
-     */
     public static void parseCommands(String command , Controller uicontroller) throws
             IOException
             , Exceptions

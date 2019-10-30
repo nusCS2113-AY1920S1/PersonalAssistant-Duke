@@ -51,7 +51,7 @@ public class EditProfileJson {
         JSONObject jsonObject = new JSONObject();
         try {
 
-            jsonObject = (JSONObject) parser.parse(new FileReader("EPdata/userProfile.json"));
+            jsonObject = (JSONObject) parser.parse(new FileReader("./userProfile.json"));
         } catch (ParseException e) {
             e.printStackTrace();
         }
