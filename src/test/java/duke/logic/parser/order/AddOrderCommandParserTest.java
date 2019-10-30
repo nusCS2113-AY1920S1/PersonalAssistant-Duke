@@ -25,12 +25,12 @@ public class AddOrderCommandParserTest {
 
     /**
      * Invalid equivalence partitions for quantity of item:
-     * - negative quantity and quantity more than 5000
+     * - negative quantity and quantity more than 50000
      * Valid equivalence partitions for quantity:
-     * - quantities in (0, 5000)
+     * - quantities in (0, 50000)
      * Boundary values:
      * - 0: valid input
-     * - 5000: valid input
+     * - 50000: valid input
      * <p>
      * The four test cases below tests EP at a time.
      */
@@ -39,7 +39,7 @@ public class AddOrderCommandParserTest {
     public void addOrder_invalid_quantity_failure() {
         Assertions.assertThrows(
             ParseException.class,
-            () -> parser.parse("-item a, 10000")
+            () -> parser.parse("-item a, 50000000")
         );
 
         Assertions.assertThrows(
@@ -60,7 +60,7 @@ public class AddOrderCommandParserTest {
 
     @Test
     public void addOrder_maxQuantity_success() {
-        Assertions.assertAll(() -> parser.parse("-item a, 5000.0"));
+        Assertions.assertAll(() -> parser.parse("-item a, 50000.0"));
     }
 
 

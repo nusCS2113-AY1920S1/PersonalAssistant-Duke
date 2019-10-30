@@ -117,7 +117,7 @@ public class Product {
         return productName;
     }
 
-    public double getIngredientCost() {
+    public Double getIngredientCost() {
         return ingredientCost;
     }
 
@@ -176,8 +176,8 @@ public class Product {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        duke.model.product.Product product = (duke.model.product.Product) o;
-        return productName.equals(product.productName);
+        Product product = (Product) o;
+        return productName.equals(product.getProductName());
     }
 
     @Override

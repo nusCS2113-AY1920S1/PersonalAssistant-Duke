@@ -16,16 +16,19 @@ public class ShowOrderCommandParser implements Parser<ShowOrderCommand> {
 
     @Override
     public ShowOrderCommand parse(String args) throws ParseException {
-        System.out.println(args);
         ArgumentMultimap map = ArgumentTokenizer.tokenize(
             args,
             CliSyntax.PREFIX_ORDER_STATUS
         );
 
+        if (!map.getPreamble().isBlank()) {
+            throw new ParseException(Message.MESSAGE_UNKNOWN_COMMAND);
+        }
+
         if (map.getValue(CliSyntax.PREFIX_ORDER_STATUS).isEmpty()) {
-            System.out.println("hiii");
             return new ShowOrderCommand();
         }
+
 
         try {
             Order.Status status = Order.Status.valueOf(map.getValue(CliSyntax.PREFIX_ORDER_STATUS).get().toUpperCase());

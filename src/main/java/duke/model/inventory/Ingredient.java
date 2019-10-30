@@ -17,7 +17,7 @@ public class Ingredient {
     private static final String MESSAGE_CONSTRAINTS_PRICE = "Price must be a valid non-negative number";
 
     private static final Double DEFAULT_PRICE = 0.00;
-    private static final String DEFAULT_REMARKS = "-";
+    private static final String DEFAULT_REMARKS = "";
 
     public final String name;
     public final Double unitPrice;

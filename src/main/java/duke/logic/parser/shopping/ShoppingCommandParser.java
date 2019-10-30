@@ -31,7 +31,7 @@ public class ShoppingCommandParser implements SubCommandParser<ShoppingCommand> 
         case BuyShoppingCommand.COMMAND_WORD:
             return new BuyShoppingCommandParser().parse(args);
         case ShowShoppingCommand.COMMAND_WORD:
-            return new ShowShoppingCommand();
+            return new ShowShoppingCommandParser().parse(args);
         case ListShoppingCommand.COMMAND_WORD:
             return new ListShoppingCommand();
         default:

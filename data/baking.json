@@ -1,15 +1,114 @@
 {
   "orders" : [ ],
-  "products" : [ ],
+  "products" : [ {
+    "productName" : "Cheesecake [Cheese, 1]",
+    "ingredientItems" : [ ],
+    "ingredientCost" : 0.0,
+    "retailPrice" : 0.0,
+    "status" : "ACTIVE"
+  }, {
+    "productName" : "Cheese cake [Cheese, 1]",
+    "ingredientItems" : [ ],
+    "ingredientCost" : 0.0,
+    "retailPrice" : 0.0,
+    "status" : "ACTIVE"
+  }, {
+    "productName" : "Cheesecake",
+    "ingredientItems" : [ ],
+    "ingredientCost" : 0.0,
+    "retailPrice" : 0.0,
+    "status" : "ACTIVE"
+  }, {
+    "productName" : "Cheese cake",
+    "ingredientItems" : [ {
+      "ingredient" : {
+        "name" : "Cheese",
+        "unitPrice" : 0.0,
+        "remarks" : ""
+      },
+      "amount" : 1.0
+    } ],
+    "ingredientCost" : 0.0,
+    "retailPrice" : 0.0,
+    "status" : "ACTIVE"
+  }, {
+    "productName" : "Cheezies",
+    "ingredientItems" : [ {
+      "ingredient" : {
+        "name" : "Cheese",
+        "unitPrice" : 0.0,
+        "remarks" : ""
+      },
+      "amount" : 2.0
+    } ],
+    "ingredientCost" : 25.0,
+    "retailPrice" : 0.0,
+    "status" : "ACTIVE"
+  }, {
+    "productName" : "Asfsf",
+    "ingredientItems" : [ {
+      "ingredient" : {
+        "name" : "Cheese",
+        "unitPrice" : 0.0,
+        "remarks" : ""
+      },
+      "amount" : 2.0
+    } ],
+    "ingredientCost" : 10.0,
+    "retailPrice" : 0.0,
+    "status" : "ACTIVE"
+  } ],
   "inventory" : [ {
     "ingredient" : {
-      "name" : "Egg",
-      "unitPrice" : 0.0,
+      "name" : "Cheese",
+      "unitPrice" : 5.0,
+      "remarks" : ""
+    },
+    "amount" : 18.0
+  }, {
+    "ingredient" : {
+      "name" : "Pepper",
+      "unitPrice" : 7.5,
+      "remarks" : ""
+    },
+    "amount" : 12.0
+  } ],
+  "shoppingList" : [ {
+    "ingredient" : {
+      "name" : "Cheese",
+      "unitPrice" : 5.0,
+      "remarks" : ""
+    },
+    "amount" : 0.0
+  }, {
+    "ingredient" : {
+      "name" : "Pepper",
+      "unitPrice" : 7.5,
       "remarks" : ""
     },
     "amount" : 0.0
   } ],
-  "shoppingList" : [ ],
-  "sales" : [ ],
+  "sales" : [ {
+    "id" : 1572443371540,
+    "description" : "Ingredients purchased.",
+    "value" : -25.0,
+    "isSpend" : true,
+    "saleDate" : "2019-10-30T13:49:31.540+0000",
+    "remarks" : "Ingredients are: -Cheese "
+  }, {
+    "id" : 1572443494048,
+    "description" : "Ingredients purchased.",
+    "value" : -87.5,
+    "isSpend" : true,
+    "saleDate" : "2019-10-30T13:51:34.044+0000",
+    "remarks" : "Ingredients are: -Pepper -Cheese "
+  }, {
+    "id" : 1572443565263,
+    "description" : "Ingredients purchased.",
+    "value" : -67.5,
+    "isSpend" : true,
+    "saleDate" : "2019-10-30T13:52:45.259+0000",
+    "remarks" : "Ingredients are: -Pepper -Cheese "
+  } ],
   "shortcuts" : [ ]
 }
