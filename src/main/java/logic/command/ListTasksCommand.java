@@ -33,7 +33,8 @@ public class ListTasksCommand extends Command {
                         + (i + 1) + " : " + "Task Name: "
                         + task.getName() + "\n"
                         + (task.getTime() != null ? "Time: " + task.getTime()  + "\n" : "")
-                        + (task.getMemberList().size() != 0 ? "Assigned to: " + task.getMemberList().toString() + "\n" : "")
+                        + (task.getMemberList().size() != 0
+                        ? "Assigned to: " + task.getMemberList().toString() + "\n" : "")
                         + "\n";
             }
         } else {
