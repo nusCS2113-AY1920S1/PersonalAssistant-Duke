@@ -14,7 +14,7 @@ public class CommandListMonYear extends Command {
     //Constructor
     /**
      * Constructor for CommandListMonYear subCommand Class.
-     * @param userInput The user input from the CLI
+     * @param userInput String is the user input from the CLI
      */
     public CommandListMonYear(String userInput) {
         this.userInput = userInput;
@@ -34,10 +34,10 @@ public class CommandListMonYear extends Command {
         int month = Integer.parseInt(Parser.parseForPrimaryInput(this.CommandType.LISTMY, userInput));
         int year = Integer.parseInt(Parser.parseForFlag("year", userInput));
         listReceipts = wallet.getReceipts().findReceiptByMonthYear(month, year);
-        Ui.dukeSays("You have the following receipts for"
-                + userInput);
+        Ui.dukeSays("You have the following receipts for" + userInput);
         Ui.printSeparator();
         listReceipts.printReceipts();
         Ui.printSeparator();
     }
 }
+
