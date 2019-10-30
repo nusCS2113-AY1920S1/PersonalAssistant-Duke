@@ -4,6 +4,8 @@ import leduc.command.SnoozeCommand;
 import leduc.exception.*;
 import leduc.storage.Storage;
 import leduc.task.*;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
@@ -18,14 +20,17 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  * Represents a JUnit test class for the SnoozeCommand.
  */
 public class SnoozeCommandTest {
+
+    private static Ui ui;
+    private static Storage storage;
+    private static TaskList tasks;
+
     /**
-     * Represents a JUnit test method for the SnoozeCommand
-     * Test the command depending on the input String (user).
+     * Represents the before of SnoozeCommandExecuteTest.
      */
-    @Test
-    public void SnoozeCommandExecuteTest() {
-        Ui ui = new Ui();
-        Storage storage = null;
+    @BeforeAll
+    public static void beforeSnoozeCommandExecuteTest(){
+        ui = new Ui();
         try {
             storage = new Storage(System.getProperty("user.dir")+ "/src/test/java/testFile/testFile.txt", System.getProperty("user.dir")+ "/src/test/java/testFile/configTest.txt",System.getProperty("user.dir")+ "/src/test/java/testFile/welcome.txt");
         } catch (FileException e) {
@@ -33,7 +38,7 @@ public class SnoozeCommandTest {
         } catch (MeaninglessException e) {
             e.printStackTrace();
         }
-        TaskList tasks = new TaskList(new ArrayList<>());
+        tasks = new TaskList(new ArrayList<>());
 
         LocalDateTime d1 = null;
         LocalDateTime d2 = null;
@@ -74,7 +79,14 @@ public class SnoozeCommandTest {
         tasks.add(new TodoTask("td4"));
 
         assertTrue(tasks.size()==5);
+    }
 
+    /**
+     * Represents a JUnit test method for the SnoozeCommand
+     * Test the command depending on the input String (user).
+     */
+    @Test
+    public void SnoozeCommandExecuteTest() {
         SnoozeCommand snoozeCommand1 = new SnoozeCommand("snooze 4");
         try{
             snoozeCommand1.execute(tasks,ui,storage);
@@ -98,8 +110,13 @@ public class SnoozeCommandTest {
         catch( DukeException e ){ // Should not happen
             assertTrue(false);
         }
+    }
 
-
+    /**
+     * Represents the after of SnoozeCommandTest.
+     */
+    @AfterAll
+    public static void afterSnoozeCommandTest(){
         tasks.getList().removeAll(tasks.getList());
         try {
             storage.save(tasks.getList());
@@ -108,7 +125,6 @@ public class SnoozeCommandTest {
             assertTrue(false);
         }
         assertTrue(tasks.size()==0);
-
     }
 
 }

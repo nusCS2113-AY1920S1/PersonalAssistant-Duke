@@ -4,6 +4,8 @@ import leduc.command.RescheduleCommand;
 import leduc.exception.*;
 import leduc.storage.Storage;
 import leduc.task.*;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
@@ -15,17 +17,19 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
 /**
- * Represents a JUnit test class for the RescheduleCommandTest.
+ * Represents a JUnit test class for the RescheduleCommand.
  */
 public class RescheduleCommandTest {
+    private static Ui ui;
+    private static Storage storage;
+    private static TaskList tasks;
+
     /**
-     * Represents a JUnit test method for the RescheduleCommandTest.
-     * Test the command depending on the input String (user).
+     * Represents the before of RescheduleCommandTest.
      */
-    @Test
-    public void RescheduleCommandTest() {
-        Ui ui = new Ui();
-        Storage storage = null;
+    @BeforeAll
+    public static void beforeRescheduleCommandTest(){
+        ui = new Ui();
         try {
             storage = new Storage(System.getProperty("user.dir")+ "/src/test/java/testFile/testFile.txt", System.getProperty("user.dir")+ "/src/test/java/testFile/configTest.txt",System.getProperty("user.dir")+ "/src/test/java/testFile/welcome.txt");
         } catch (FileException e) {
@@ -34,7 +38,7 @@ public class RescheduleCommandTest {
             e.printStackTrace();
         }
 
-        TaskList tasks = new TaskList(new ArrayList<>());
+        tasks = new TaskList(new ArrayList<>());
 
         LocalDateTime d1 = null;
         LocalDateTime d2 = null;
@@ -87,7 +91,15 @@ public class RescheduleCommandTest {
         tasks.add(new HomeworkTask("d1",date1));
 
         assertTrue(tasks.size()==6);
+    }
 
+
+    /**
+     * Represents a JUnit test method for the RescheduleCommand.
+     * Test the command depending on the input String (user).
+     */
+    @Test
+    public void RescheduleCommandTest() {
         RescheduleCommand rescheduleCommand1 = new RescheduleCommand(
                 "reschedule 4ee /at 12/12/2222 22:22 - 12/12/2222 22:24");
         try{
@@ -150,7 +162,13 @@ public class RescheduleCommandTest {
         catch( DukeException e ){ // Should not happen
             assertTrue(false);
         }
+    }
 
+    /**
+     * Represents the after of RescheduleCommandTest.
+     */
+    @AfterAll
+    public static void afterRescheduleCommandTest(){
         tasks.getList().removeAll(tasks.getList());
         try {
             storage.save(tasks.getList());
@@ -160,5 +178,4 @@ public class RescheduleCommandTest {
         }
         assertTrue(tasks.size()==0);
     }
-
 }

@@ -5,6 +5,8 @@ import leduc.command.SortCommand;
 import leduc.exception.*;
 import leduc.storage.Storage;
 import leduc.task.*;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
@@ -19,15 +21,16 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  * Represents a JUnit test class for the SortCommand.
  */
 public class SortCommandTest {
+    private static Ui ui;
+    private static Storage storage;
+    private static TaskList tasks;
 
     /**
-     * Represents a JUnit test method for the SortCommand.
-     * Test the command depending on the input String (user).
+     * Represents the before of SortCommandTest.
      */
-    @Test
-    public void SortCommandExecuteTest() {
-        Ui ui = new Ui();
-        Storage storage = null;
+    @BeforeAll
+    public static void beforeSortCommandTest(){
+        ui = new Ui();
         try {
             storage = new Storage(System.getProperty("user.dir")+ "/src/test/java/testFile/testFile.txt", System.getProperty("user.dir")+ "/src/test/java/testFile/configTest.txt",System.getProperty("user.dir")+ "/src/test/java/testFile/welcome.txt");
         } catch (FileException e) {
@@ -36,7 +39,7 @@ public class SortCommandTest {
             e.printStackTrace();
         }
 
-        TaskList tasks = new TaskList(new ArrayList<>());
+        tasks = new TaskList(new ArrayList<>());
 
         LocalDateTime d1 = null;
         LocalDateTime d2 = null;
@@ -118,6 +121,13 @@ public class SortCommandTest {
 
         assertTrue(tasks.size()==15);
 
+    }
+    /**
+     * Represents a JUnit test method for the SortCommand.
+     * Test the command depending on the input String (user).
+     */
+    @Test
+    public void SortCommandExecuteTest() {
         SortCommand sortCommandDate = new SortCommand("sort date");
         try{
             sortCommandDate.execute(tasks,ui,storage);
@@ -219,8 +229,13 @@ public class SortCommandTest {
         assertEquals("test",tasks.get(11).getTask());
         assertEquals("test 2",tasks.get(9).getTask());
         assertEquals("test 3",tasks.get(7).getTask());
+    }
 
-
+    /**
+     * Represents the after of SortCommandTest.
+     */
+    @AfterAll
+    public static void afterSortCommandTest(){
         tasks.getList().removeAll(tasks.getList());
         try {
             storage.save(tasks.getList());
@@ -229,7 +244,6 @@ public class SortCommandTest {
             assertTrue(false);
         }
         assertTrue(tasks.size()==0);
-
     }
 
 }

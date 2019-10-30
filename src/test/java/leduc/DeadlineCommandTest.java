@@ -4,6 +4,8 @@ import leduc.command.HomeworkCommand;
 import leduc.exception.*;
 import leduc.storage.Storage;
 import leduc.task.TaskList;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -14,15 +16,16 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  * Represents a JUnit test class for the DeadlineCommand.
  */
 public class DeadlineCommandTest {
+    private static Ui ui;
+    private static Storage storage;
+    private static TaskList tasks;
 
     /**
-     * Represents a JUnit test method for the DeadlineCommand.
-     * Test the command depending on the input String (user).
+     * Represents the before of deadlineCommandExecuteTest.
      */
-    @Test
-    public void deadlineCommandExecuteTest()  {
-        Ui ui = new Ui();
-        Storage storage = null;
+    @BeforeAll
+    public static void beforeDeadlineCommandExecuteTest(){
+        ui = new Ui();
         try {
             storage = new Storage(System.getProperty("user.dir")+ "/src/test/java/testFile/testFile.txt", System.getProperty("user.dir")+ "/src/test/java/testFile/configTest.txt",System.getProperty("user.dir")+ "/src/test/java/testFile/welcome.txt");
         } catch (FileException e) {
@@ -30,11 +33,15 @@ public class DeadlineCommandTest {
         } catch (MeaninglessException e) {
             e.printStackTrace();
         }
-        TaskList tasks = new TaskList(new ArrayList<>());
+        tasks = new TaskList(new ArrayList<>());
         assertTrue(tasks.size()==0);
-
-
-
+    }
+    /**
+     * Represents a JUnit test method for the DeadlineCommand.
+     * Test the command depending on the input String (user).
+     */
+    @Test
+    public void deadlineCommandExecuteTest()  {
         HomeworkCommand deadlineCommand1 = new HomeworkCommand("deadline ok");
         try{
             deadlineCommand1.execute(tasks,ui,storage);
@@ -104,7 +111,13 @@ public class DeadlineCommandTest {
             assertTrue(e instanceof PrioritizeLimitException);
         }
         assertTrue(tasks.size()==2);
+    }
 
+    /**
+     * Represents the after of deadlineCommandExecuteTest.
+     */
+    @AfterAll
+    public static void afterDeadlineCommandExecuteTest(){
         tasks.getList().removeAll(tasks.getList());
         try {
             storage.save(tasks.getList());
@@ -113,7 +126,5 @@ public class DeadlineCommandTest {
             assertTrue(false);
         }
         assertTrue(tasks.size()==0);
-
     }
-
 }
