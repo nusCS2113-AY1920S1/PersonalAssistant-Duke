@@ -33,28 +33,28 @@ public class CommandUtils {
     private static final int MAX_LEN_DIFF = 2;
     private static final Map<Character, Coord> keyboardMap =
             Map.ofEntries(Map.entry('q', new Coord(0, 1)), Map.entry('w', new Coord(1, 1)),
-            Map.entry('e', new Coord(2, 1)), Map.entry('r', new Coord(3, 1)),
-            Map.entry('t', new Coord(4, 1)), Map.entry('y', new Coord(5, 1)),
-            Map.entry('u', new Coord(6, 1)), Map.entry('i', new Coord(7, 1)),
-            Map.entry('o', new Coord(8, 1)), Map.entry('p', new Coord(9, 1)),
-            Map.entry('a', new Coord(0, 2)), Map.entry('z', new Coord(0, 3)),
-            Map.entry('s', new Coord(1, 2)), Map.entry('x', new Coord(1, 3)),
-            Map.entry('d', new Coord(2, 2)), Map.entry('c', new Coord(2, 3)),
-            Map.entry('f', new Coord(3, 2)), Map.entry('b', new Coord(4, 3)),
-            Map.entry('m', new Coord(5, 3)), Map.entry('j', new Coord(6, 2)),
-            Map.entry('g', new Coord(4, 2)), Map.entry('h', new Coord(5, 2)),
-            Map.entry('k', new Coord(7, 2)), Map.entry('l', new Coord(8, 2)),
-            Map.entry('v', new Coord(3, 3)), Map.entry('n', new Coord(5, 3)),
-            Map.entry('1', new Coord(0, 0)), Map.entry('2', new Coord(1, 0)),
-            Map.entry('3', new Coord(2, 0)), Map.entry('4', new Coord(3, 0)),
-            Map.entry('5', new Coord(4, 0)), Map.entry('6', new Coord(5, 0)),
-            Map.entry('7', new Coord(6, 0)), Map.entry('8', new Coord(7, 0)),
-            Map.entry('9', new Coord(8, 0)), Map.entry('0', new Coord(9, 0)),
-            Map.entry('[', new Coord(10, 1)), Map.entry(']', new Coord(9, 1)),
-            Map.entry(';', new Coord(9, 2)), Map.entry('\'', new Coord(10, 2)),
-            Map.entry(',', new Coord(8, 3)), Map.entry('.', new Coord(9, 3)),
-            Map.entry('/', new Coord(10, 3)), Map.entry('-', new Coord(10, 0)),
-            Map.entry('+', new Coord(11, 0)));
+                    Map.entry('e', new Coord(2, 1)), Map.entry('r', new Coord(3, 1)),
+                    Map.entry('t', new Coord(4, 1)), Map.entry('y', new Coord(5, 1)),
+                    Map.entry('u', new Coord(6, 1)), Map.entry('i', new Coord(7, 1)),
+                    Map.entry('o', new Coord(8, 1)), Map.entry('p', new Coord(9, 1)),
+                    Map.entry('a', new Coord(0, 2)), Map.entry('z', new Coord(0, 3)),
+                    Map.entry('s', new Coord(1, 2)), Map.entry('x', new Coord(1, 3)),
+                    Map.entry('d', new Coord(2, 2)), Map.entry('c', new Coord(2, 3)),
+                    Map.entry('f', new Coord(3, 2)), Map.entry('b', new Coord(4, 3)),
+                    Map.entry('m', new Coord(5, 3)), Map.entry('j', new Coord(6, 2)),
+                    Map.entry('g', new Coord(4, 2)), Map.entry('h', new Coord(5, 2)),
+                    Map.entry('k', new Coord(7, 2)), Map.entry('l', new Coord(8, 2)),
+                    Map.entry('v', new Coord(3, 3)), Map.entry('n', new Coord(5, 3)),
+                    Map.entry('1', new Coord(0, 0)), Map.entry('2', new Coord(1, 0)),
+                    Map.entry('3', new Coord(2, 0)), Map.entry('4', new Coord(3, 0)),
+                    Map.entry('5', new Coord(4, 0)), Map.entry('6', new Coord(5, 0)),
+                    Map.entry('7', new Coord(6, 0)), Map.entry('8', new Coord(7, 0)),
+                    Map.entry('9', new Coord(8, 0)), Map.entry('0', new Coord(9, 0)),
+                    Map.entry('[', new Coord(10, 1)), Map.entry(']', new Coord(9, 1)),
+                    Map.entry(';', new Coord(9, 2)), Map.entry('\'', new Coord(10, 2)),
+                    Map.entry(',', new Coord(8, 3)), Map.entry('.', new Coord(9, 3)),
+                    Map.entry('/', new Coord(10, 3)), Map.entry('-', new Coord(10, 0)),
+                    Map.entry('+', new Coord(11, 0)));
     private static final Map<Character, Integer> charMap;
 
     static {
@@ -182,7 +182,7 @@ public class CommandUtils {
                 } else {
                     // TODO: implement scaling factor?
                     subCostInc = Math.abs(keyboardMap.get(c1).xcoord - keyboardMap.get(c2).xcoord)
-                        + Math.abs(keyboardMap.get(c1).ycoord - keyboardMap.get(c2).ycoord);
+                            + Math.abs(keyboardMap.get(c1).ycoord - keyboardMap.get(c2).ycoord);
                 }
 
                 //calculate cost of each edit and find minimum
@@ -254,27 +254,27 @@ public class CommandUtils {
      */
     public static DukeObject findObject(DukeCore core, Patient patient, String type, String name, int index)
             throws DukeException {
-            if (name == null && index == -1) {
-                throw new DukeException("You must provide a unique identifier (name OR index)!");
-            } else if (name != null && index != -1) {
-                throw new DukeException("Please provide only 1 unique identifier (name OR index)!");
-            } else if (name != null) {
-                if ("impression".equals(type)) {
-                    return patient.getImpression(name);
-                } else if ("critical".equals(type)) {
-                    // TODO: Get critical
-                } else {
-                    // TODO: Get investigation
-                }
+        if (name == null && index == -1) {
+            throw new DukeException("You must provide a unique identifier (name OR index)!");
+        } else if (name != null && index != -1) {
+            throw new DukeException("Please provide only 1 unique identifier (name OR index)!");
+        } else if (name != null) {
+            if ("impression".equals(type)) {
+                return patient.getImpression(name);
+            } else if ("critical".equals(type)) {
+                // TODO: Get critical
             } else {
-                try {
-                    return core.ui.getIndexedList(type).get(index - 1);
-                } catch (IndexOutOfBoundsException e) {
-                    throw new DukeException("No such " + type + " exists in the list!");
-                }
+                // TODO: Get investigation
             }
+        } else {
+            try {
+                return core.ui.getIndexedList(type).get(index - 1);
+            } catch (IndexOutOfBoundsException e) {
+                throw new DukeException("No such " + type + " exists in the list!");
+            }
+        }
 
-            return null;
+        return null;
     }
 
     /**
