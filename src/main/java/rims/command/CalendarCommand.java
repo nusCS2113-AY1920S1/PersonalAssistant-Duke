@@ -15,11 +15,12 @@ public abstract class CalendarCommand extends Command{
     }
   // @Override
     //public void execute(Ui ui, Storage storage, ResourceList resources) {
+
     /*private static String Vert = "║";
     private static String Horz = "═";
     private static String TopLeft = "╔";
     private static String TopRight = "╗";
-    private static String BotRight = "╝";
+    private static String BotRight = "*";
     private static String BotLeft = "╚";
     private static String Centre = "╬";
     private static String TopCentre = "╦";
