@@ -25,7 +25,7 @@ public class ParserTest {
         Parser actualParser = new Parser(new UiContext());
         try {
             assertEquals(ByeCommand.class, actualParser.parse("bye").getClass());
-            assertEquals(actualParser.parse("new -n Hello -b 100 -a world").getClass(),
+            assertEquals(actualParser.parse("new Hello -b 100 -a world").getClass(),
                     HomeNewCommand.class);
         } catch (DukeException excp) {
             fail("Exception thrown while extracting valid commands!");
