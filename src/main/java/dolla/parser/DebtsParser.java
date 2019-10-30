@@ -1,6 +1,7 @@
 package dolla.parser;
 
 import dolla.Time;
+import dolla.command.InitialModifyCommand;
 import dolla.ui.DebtUi;
 import dolla.action.Repeat;
 import dolla.command.Command;
@@ -48,6 +49,12 @@ public class DebtsParser extends Parser {
                 return new ErrorCommand();
             }
             return processAdd(type, name, amount);
+        } else if (commandToRun.equals("modify")) {
+            if (verifyModifyCommand()) {
+                return new InitialModifyCommand(inputArray[1]);
+            } else {
+                return new ErrorCommand();
+            }
         } else if (commandToRun.equals("search")) {
             String component = inputArray[1];
             String content = inputArray[2];

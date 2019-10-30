@@ -90,7 +90,7 @@ public abstract class Ui {
     }
 
     /**
-     * This method prints the details of the specified record and is typically called when a new record is entered,
+     * Prints the details of the specified record and is typically called when a new record is entered,
      * so that the user can check the details of the created record.
      *
      * @param currRecord record to be printed, can be an entry, limit or debt.
@@ -98,6 +98,19 @@ public abstract class Ui {
     public static void echoAddRecord(Record currRecord) {
         System.out.println(line);
         System.out.println("\tGot it. I've added this " + currRecord.getRecordType() + ": ");
+        System.out.println("\t" + currRecord.getRecordDetail());
+        System.out.println(line);
+    }
+
+    /**
+     * Prints the details of the specified record and is typically called when a is modified,
+     * so that the user can check the details of the edited record.
+     *
+     * @param currRecord record to be printed, can be an entry, limit or debt.
+     */
+    public static void echoModifyRecord(Record currRecord) {
+        System.out.println(line);
+        System.out.println("\tGot it. I've modified this " + currRecord.getRecordType() + ": ");
         System.out.println("\t" + currRecord.getRecordDetail());
         System.out.println(line);
     }
@@ -354,9 +367,9 @@ public abstract class Ui {
     /**
      * Prints a message asking what the user wants to modify the selected log to.
      */
-    public static void printInitialModifyMsg() {
+    public static void printInitialModifyMsg(String mode) {
         System.out.println(line);
-        System.out.println("\tWhat would you want to change this entry to?");
+        System.out.println("\tWhat would you want to change this " + mode + " to?");
         System.out.println(line);
     }
 

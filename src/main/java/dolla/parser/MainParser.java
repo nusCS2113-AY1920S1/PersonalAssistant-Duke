@@ -17,6 +17,12 @@ public class MainParser {
     protected static final String MODE_LIMIT = "limit";
     protected static final String MODE_DEBT = "debt";
     protected static final String MODE_SHORTCUT = "shortcut";
+
+    protected static final String MODE_MODIFY_ENTRY = "modify entry";
+    protected static final String MODE_MODIFY_LIMIT = "modify limit";
+    protected static final String MODE_MODIFY_DEBT = "modify debt";
+    protected static final String MODE_MODIFY_SHORTCUT = "modify shortcut";
+
     protected static final String SPACE = " ";
     protected static final String COMMAND_BYE = "bye";
 
@@ -59,7 +65,10 @@ public class MainParser {
         case MODE_LIMIT:
             LimitParser limitParser = new LimitParser(inputLine);
             return limitParser.handleInput(mode);
-        case "modify entry": //is this a mode? (asking cause im not sure)
+        case MODE_MODIFY_ENTRY:
+        case MODE_MODIFY_LIMIT:
+        case MODE_MODIFY_DEBT:
+        case MODE_MODIFY_SHORTCUT:
             ModifyParser modifyParser = new ModifyParser(inputLine);
             return modifyParser.handleInput(mode);
         default:

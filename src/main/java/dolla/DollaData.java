@@ -105,6 +105,13 @@ public class DollaData {
         if (prevMode.equals("entry")) {
             entryList.removeFromList(modifyIndex);
             entryList.addWithIndex(modifyIndex, newRecord);
+        } else if (prevMode.equals("limit")){
+            // TODO
+        } else if (prevMode.equals("debt")) {
+            debtList.removeFromList(modifyIndex);
+            debtList.addWithIndex(modifyIndex, newRecord);
+        } else if (prevMode.equals("favourite")) {
+            // TODO
         }
     }
 

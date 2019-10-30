@@ -4,6 +4,7 @@ import dolla.DollaData;
 import dolla.ui.Ui;
 import dolla.task.RecordList;
 
+//@@author: omupenguin
 /**
  * InitialModifyCommand is a command that runs first when the
  * user wants to execute a modify command.
@@ -20,7 +21,7 @@ public class InitialModifyCommand extends Command {
     public void execute(DollaData dollaData) {
         String currMode = dollaData.getMode();
         if (isIndexInList(dollaData.getRecordList(currMode))) {
-            Ui.printInitialModifyMsg();
+            Ui.printInitialModifyMsg(currMode);
             dollaData.updateMode("modify " + currMode);
             dollaData.prepForModify(currMode, index);
         } else {

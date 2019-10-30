@@ -16,6 +16,7 @@ public class AddDebtsCommand extends Command {
     private String description;
     private LocalDate date;
     private int prevPosition;
+    private String mode = "debt";
 
     /**
      * Instantiates AddDebtsCommand.
@@ -39,7 +40,6 @@ public class AddDebtsCommand extends Command {
 
     @Override
     public void execute(DollaData dollaData) {
-        String mode = "debt";
         Debt newDebt = new Debt(type, name, amount, description, date);
         index = dollaData.getRecordList(mode).size();
 

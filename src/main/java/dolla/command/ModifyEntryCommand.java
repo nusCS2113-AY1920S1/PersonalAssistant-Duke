@@ -21,6 +21,7 @@ public class ModifyEntryCommand extends Command {
      * @param date date
      */
     public ModifyEntryCommand(String type, double amount, String description, LocalDate date) {
+        //System.out.println("Creating new ModifyEntryCommand....");
         this.type = type;
         this.amount = amount;
         this.description = description;
@@ -29,6 +30,7 @@ public class ModifyEntryCommand extends Command {
 
     @Override
     public void execute(DollaData dollaData) {
+        //System.out.println("Executing ModifyEntryCommand....");
         Entry newEntry = new Entry(type, amount, description, date);
         dollaData.modifyRecordList(newEntry);
         Ui.echoAddRecord(newEntry);
