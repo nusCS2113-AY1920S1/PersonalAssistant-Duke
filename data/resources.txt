@@ -5,3 +5,6 @@
 4,I,frisbee
 5,R,seminar room 2
 6,I,pen
+7,I,ball
+8,I,ball
+9,I,ball
