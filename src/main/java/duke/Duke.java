@@ -1,29 +1,13 @@
 package duke;
 
-import duke.command.FindTasksByPriorityCommand;
-import duke.command.BackupCommand;
-import duke.command.ExitCommand;
-import duke.command.ListPriorityCommand;
-import duke.command.Command;
-import duke.command.AddMultipleCommand;
-import duke.command.SetPriorityCommand;
-import duke.command.DeleteCommand;
-import duke.command.DeleteContactCommand;
-import duke.command.ListContactsCommand;
-import duke.command.AddContactsCommand;
-import duke.command.FilterCommand;
-
+import duke.command.*;
 import duke.dukeexception.DukeException;
 import duke.parser.Parser;
+import duke.storage.BudgetStorage;
+import duke.storage.ContactStorage;
 import duke.storage.PriorityStorage;
 import duke.storage.Storage;
-import duke.storage.ContactStorage;
-import duke.storage.BudgetStorage;
-import duke.task.BudgetList;
-import duke.task.PriorityList;
-import duke.task.FilterList;
-import duke.task.ContactList;
-import duke.task.TaskList;
+import duke.task.*;
 import duke.ui.Ui;
 
 import java.io.File;
@@ -49,7 +33,6 @@ public class Duke {
 
     private BudgetStorage budgetStorage;
     private BudgetList budgetList;
-    private static final int ZERO = 0;
 
     private static final String storageFilePath = "data";
     private static final String taskFilePath = "data/duke.txt";
@@ -142,6 +125,17 @@ public class Duke {
     }
     //@@author
 
+    //@@author e0318465
+    /**
+     * Retrieves the current contact list (GUI).
+     *
+     * @return A list of contacts.
+     */
+    public ContactList getContactList() {
+        return contactList;
+    }
+    //@@author
+
     /**
      * Retrieves a command from interpreting the user input (GUI).
      *
@@ -155,7 +149,7 @@ public class Duke {
     }
 
     /**
-     * Executes a command to overwrite exiting storage with the current updated lists(GUI).
+     * Executes a command to overwrite existing storage with the current updated lists(GUI).
      *
      * @param cmd Command to be executed.
      * @throws IOException  If there is an error writing the text file.
@@ -173,24 +167,11 @@ public class Duke {
      * @throws IOException  If there is an error writing the text file
      */
     public String executeCommand(Command cmd) throws IOException {
-        if (cmd instanceof AddContactsCommand) {
-            String str = cmd.executeGui(items, contactList, ui);
-            cmd.executeStorage(items, ui, contactStorage, contactList);
-            return str;
-        } else if (cmd instanceof ListContactsCommand) {
-            String str = cmd.executeGui(items, contactList, ui);
-            return str;
-        } else if (cmd instanceof DeleteContactCommand) {
-            String str = cmd.executeGui(items, contactList, ui);
-            cmd.executeStorage(items, ui, contactStorage, contactList);
-            return str;
-        } else {
             String str = cmd.executeGui(items, ui);
             if (cmd instanceof FilterCommand) {
                 cmd.execute(items,filterList);
             }
             return str;
-        }
     }
 
     //@@author talesrune
@@ -229,6 +210,7 @@ public class Duke {
                 if (cmd instanceof ExitCommand) {
                     priorityStorage.write(priorityList);
                     budgetStorage.write(budgetList);
+                    contactStorage.write(contactList);
                     cmd.executeStorage(items, ui, storage);
                     break;
                 } else if (cmd instanceof ListPriorityCommand
@@ -244,14 +226,6 @@ public class Duke {
                     storage.write(items);
                     cmd.execute(items, ui);
                     cmd.executeStorage(items, ui, storage);
-                } else if (cmd instanceof AddContactsCommand) {
-                    cmd.execute(items, contactList, ui);
-                    cmd.executeStorage(items, ui, contactStorage,contactList);
-                } else if (cmd instanceof ListContactsCommand) {
-                    cmd.execute(items, contactList, ui);
-                } else if (cmd instanceof DeleteContactCommand) {
-                    cmd.execute(items, contactList, ui);
-                    cmd.executeStorage(items, ui, contactStorage,contactList);
                 } else {
                     cmd.execute(items,ui);
                     priorityList = priorityList.addDefaultPriority(cmd);
