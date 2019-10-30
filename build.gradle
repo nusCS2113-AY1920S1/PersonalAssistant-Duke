@@ -31,7 +31,7 @@ sourceSets {
 
 shadowJar {
     archiveBaseName = "leduc"
-    archiveVersion = "v1.2.1-test-with-txtFile"
+    archiveVersion = "v1.3"
     archiveClassifier = null
     archiveAppendix = null
 }
