@@ -1,8 +1,11 @@
 package duke.model.task.recipetasks;
 
 import duke.model.task.ingredienttasks.Ingredient;
+import javafx.util.Pair;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import static duke.common.Messages.*;
 
@@ -71,6 +74,14 @@ public class RequiredIngredients {
 
     public int getSize() {
         return requiredIngredientList.size();
+    }
+
+    public HashMap<String, Double> getAllIngredient() {
+        HashMap<String, Double> arrayMap = new HashMap<>();
+        for (Ingredient ingredient : requiredIngredientList) {
+            arrayMap.put(ingredient.getIngredientName(), ingredient.getMass());
+        }
+        return arrayMap;
     }
 
     public String toViewString() {

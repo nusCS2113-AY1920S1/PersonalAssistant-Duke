@@ -33,7 +33,6 @@ public class ListAllRecipeCommand extends Command<RecipeList, Ui, RecipeStorage>
      */
 
     public ArrayList<String> execute(RecipeList recipeList, Ui ui, RecipeStorage recipeStorage) {
-        System.out.println("went into execute");
         ArrayList<String> arrayList = new ArrayList<>();
         if (userInput.trim().equals(COMMAND_LIST_RECIPES)) {
             arrayList.add(MESSAGE_HERE_ARE_THE_RECIPES);
