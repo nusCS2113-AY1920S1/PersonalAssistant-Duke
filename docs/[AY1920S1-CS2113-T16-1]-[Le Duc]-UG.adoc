@@ -282,7 +282,7 @@ Percent Complete: 0.0%
 
 === Sort by: `sort`
 
-Sort all task by date/description: `sort SORTTYPE`
+Sort all task by date/description/priority: `sort SORTTYPE`
 
 SORTTYPE is either date, description, priority
 
