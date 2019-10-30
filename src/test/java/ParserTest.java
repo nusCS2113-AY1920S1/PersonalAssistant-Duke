@@ -44,19 +44,6 @@ public class ParserTest {
     }
 
     @Test
-    public void parseCommands_differentOrder_argumentsExtracted() {
-        try {
-            Command testCmd = uut.parse("doctor -switch World -optswitch Optional Hello");
-            DoctorCommand docCmd = (DoctorCommand) testCmd;
-            assertEquals("Hello", docCmd.getArg());
-            assertEquals("World", docCmd.getSwitchVal("switch"));
-            assertEquals("Optional", docCmd.getSwitchVal("optswitch"));
-        } catch (DukeException excp) {
-            fail("Exception thrown while extracting arguments in different order!");
-        }
-    }
-
-    @Test
     public void parseCommands_optionalOmitted_argumentsExtracted() {
         try {
             Command testCmd = uut.parse("doctor -switch World Hello");
@@ -71,7 +58,7 @@ public class ParserTest {
     @Test
     public void parseCommands_stringsAndEscapes_argumentsExtracted() {
         try {
-            Command testCmd = uut.parse("doctor \"Hello\\\\World\" -switch \"double \\\" quote\"");
+            Command testCmd = uut.parse("doctor Hello\\\\World -switch double \\\" quote");
             DoctorCommand docCmd = (DoctorCommand) testCmd;
             assertEquals("Hello\\World", docCmd.getArg());
             assertEquals("double \" quote", docCmd.getSwitchVal("switch"));
