@@ -3,6 +3,7 @@
 package com.algosenpai.app.logic;
 
 import com.algosenpai.app.logic.chapters.QuizGenerator;
+import com.algosenpai.app.logic.chapters.QuizGenerator;
 import com.algosenpai.app.logic.command.ArchiveCommand;
 import com.algosenpai.app.logic.command.VolumeCommand;
 import com.algosenpai.app.logic.command.ByeCommand;
@@ -18,6 +19,7 @@ import com.algosenpai.app.logic.command.PrintQuizCommand;
 import com.algosenpai.app.logic.command.PrintUserCommand;
 import com.algosenpai.app.logic.command.QuizNextCommand;
 import com.algosenpai.app.logic.command.QuizTestCommand;
+import com.algosenpai.app.logic.command.QuizCommand;
 import com.algosenpai.app.logic.command.ResultCommand;
 import com.algosenpai.app.logic.command.ReviewCommand;
 import com.algosenpai.app.logic.command.SaveCommand;
@@ -45,7 +47,7 @@ public class Logic {
     private AtomicBoolean isQuizMode = new AtomicBoolean(false);
     private AtomicBoolean isNewQuiz = new AtomicBoolean(true);
     private ArrayList<QuestionModel> quizList;
-    private AtomicInteger questionNumber = new AtomicInteger(0);
+    private AtomicInteger questionNumber = new AtomicInteger(-1);
     private int prevResult = -1;
 
     // VariabReview features;
@@ -62,6 +64,19 @@ public class Logic {
         quizMaker = new QuizGenerator();
         historyList = new ArrayList<>();
         archiveList = new ArrayList<>();
+    }
+
+    /**
+     * Add the user answer to the quiz.
+     * @param userAnswer answer to the question.
+     */
+    public void setUserAnswer(String userAnswer) {
+        if (questionNumber.get() > 0) {
+            int currentQuestionNumber = questionNumber.get() - 1;
+            QuestionModel questionModel = quizList.get(currentQuestionNumber);
+            questionModel.setUserAnswer(userAnswer);
+            quizList.set(currentQuestionNumber, questionModel);
+        }
     }
 
     /**
@@ -125,10 +140,17 @@ public class Logic {
 
     private Command getQuizCommand(ArrayList<String> inputs) {
         if (!isNewQuiz.get()) {
-            if (inputs.get(1).equals("next") || inputs.get(1).equals("back")) {
-                return new QuizNextCommand(inputs, quizList, questionNumber);
+            if (inputs.get(0).equals("quiz")) {
+                if (inputs.size() < 2) {
+                    return new QuizCommand(inputs);
+                }
+                if (inputs.get(1).equals("next") || inputs.get(1).equals("back")) {
+                    return new QuizNextCommand(inputs, quizList, questionNumber);
+                } else {
+                    return new QuizTestCommand(inputs, quizList, questionNumber, isQuizMode, isNewQuiz);
+                }
             } else {
-                return new QuizTestCommand(inputs, quizList, questionNumber, isQuizMode, isNewQuiz);
+                return new QuizCommand(inputs);
             }
         }
         quizList = quizMaker.generateQuiz(chapterNumber.get(), quizList);

@@ -14,6 +14,6 @@ public class QuizCommand extends Command {
 
     @Override
     public String execute() {
-        return "";
+        return "You are taking a quiz. Please prefix commands with quiz: quiz <answer | back | next>";
     }
 }
