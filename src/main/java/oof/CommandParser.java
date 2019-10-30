@@ -22,14 +22,11 @@ import oof.command.FindCommand;
 import oof.command.FreeCommand;
 import oof.command.HelpCommand;
 import oof.command.ListCommand;
-import oof.command.PauseTrackerCommand;
 import oof.command.RecurringCommand;
 import oof.command.ScheduleCommand;
 import oof.command.SelectModuleCommand;
 import oof.command.SelectSemesterCommand;
 import oof.command.SnoozeCommand;
-import oof.command.StartTrackerCommand;
-import oof.command.StopTrackerCommand;
 import oof.command.SummaryCommand;
 import oof.command.ThresholdCommand;
 import oof.command.ViewAllModuleCommand;
@@ -37,8 +34,8 @@ import oof.command.ViewAllSemesterCommand;
 import oof.command.ViewLessonCommand;
 import oof.command.ViewSelectedModuleCommand;
 import oof.command.ViewSelectedSemesterCommand;
-import oof.command.ViewTrackerCommand;
 import oof.command.ViewWeekCommand;
+import oof.command.TrackerCommand;
 import oof.exception.OofException;
 
 /**
@@ -109,18 +106,9 @@ public class CommandParser {
         case "free":
             line = line.replaceFirst("free", "").trim();
             return new FreeCommand(line);
-        case "start":
-            line = line.replaceFirst("start", "").trim();
-            return new StartTrackerCommand(line);
-        case "stop":
-            line = line.replaceFirst("stop", "").trim();
-            return new StopTrackerCommand(line);
-        case "pause":
-            line = line.replaceFirst("pause", "").trim();
-            return new PauseTrackerCommand(line);
-        case "viewtracker":
-            line = line.replaceFirst("viewtracker", "").trim();
-            return new ViewTrackerCommand(line);
+        case "tracker":
+            line = line.replaceFirst("tracker", "").trim();
+            return new TrackerCommand(line);
         case "threshold":
             line = line.replaceFirst("threshold", "").trim();
             return new ThresholdCommand(line);
