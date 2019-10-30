@@ -1,10 +1,10 @@
 package seedu.duke.task.command;
 
 import seedu.duke.CommandParseHelper;
-import seedu.duke.Duke;
 import seedu.duke.common.command.Command;
 import seedu.duke.common.model.Model;
 import seedu.duke.task.TaskList;
+import seedu.duke.ui.UI;
 
 import java.util.ArrayList;
 
@@ -19,7 +19,7 @@ public class TaskDoneCommand extends Command {
      *
      * @param i the index of the target task to be marked as done
      */
-    TaskDoneCommand(int i) {
+    public TaskDoneCommand(int i) {
         index = i;
     }
 
@@ -41,12 +41,12 @@ public class TaskDoneCommand extends Command {
             String msg = taskList.markDone(index);
             if (!silent) {
                 responseMsg = msg;
-                Duke.getUI().showResponse(msg);
+                UI.getInstance().showResponse(msg);
             }
             return true;
-        } catch (CommandParseHelper.UserInputException e) {
+        } catch (CommandParseHelper.CommandParseException e) {
             if (!silent) {
-                Duke.getUI().showError(e.getMessage());
+                UI.getInstance().showError(e.getMessage());
             }
             return false;
         }

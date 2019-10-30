@@ -5,6 +5,7 @@ import javafx.stage.Stage;
 import seedu.duke.CommandParseHelper;
 import seedu.duke.Duke;
 import seedu.duke.common.command.Command;
+import seedu.duke.common.model.Model;
 
 import java.util.ArrayList;
 
@@ -19,29 +20,47 @@ public class UI {
     private static final String ANSI_CYAN = "\u001B[36m";
     private static final String ANSI_WHITE = "\u001B[37m";
     private static boolean debug = false;
-
+    private static UI ui;
     // to output result to GUI
     private MainWindow mainWindow;
     private String input = "";
     private String command = "";
-
     // variable returned to GUI
     private String emailContent = "";
     private String responseMsg = "";
 
     /**
-     * Instantiates the UI component, which also display the welcoming message.
+     * Constructor with necessary configurations.
      */
-    public UI() {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        logo = "Hello from\n" + logo + "\n";
+    private UI() {
+        debug = true;
+    }
+
+    /**
+     * Gets singleton ui instance.
+     *
+     * @return ui instance
+     */
+    public static UI getInstance() {
+        if (ui == null) {
+            ui = new UI();
+        }
+        return ui;
+    }
+
+    /**
+     * Initializes ui.
+     */
+    public void initUi() {
+        String logo = " ____        _        " + System.lineSeparator()
+                + "|  _ \\ _   _| | _____ "  + System.lineSeparator()
+                + "| | | | | | | |/ / _ \\"  + System.lineSeparator()
+                + "| |_| | |_| |   <  __/"  + System.lineSeparator()
+                + "|____/ \\__,_|_|\\_\\___|"  + System.lineSeparator();
+        logo = "Hello from" + System.lineSeparator() + logo + System.lineSeparator();
         logo += "What can I do for you?";
         showMessage(logo);
-        debug = true;
+        mainWindow.setInputPrefix();
     }
 
     public void setKeyBinding(Scene scene) {
@@ -57,8 +76,8 @@ public class UI {
         try {
             setInput(input);
             Command command = CommandParseHelper.parseCommand(input);
-            setCommand(command.toString());
-            command.execute(Duke.getModel());
+            //setCommand(command.toString());
+            command.execute(Model.getInstance());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -87,7 +106,7 @@ public class UI {
         this.responseMsg = msg;
         System.out.println("------------------------------");
         System.out.println(msg);
-        System.out.println("------------------------------\n");
+        System.out.println("------------------------------" + System.lineSeparator());
         showGui(msg);
     }
 
@@ -159,9 +178,10 @@ public class UI {
      * Synchronizes the gui display of tasks and emails with the model.
      */
     public void syncWithModel() {
-        Duke.getModel().updateGuiTaskList();
-        Duke.getModel().updateGuiEmailList();
-        Duke.getModel().updateEmailTagList();
+        Model model = Model.getInstance();
+        model.updateGuiTaskList();
+        model.updateGuiEmailList();
+        model.updateEmailTagList();
     }
 
     /**
@@ -198,6 +218,6 @@ public class UI {
     }
 
     public void exit() {
-        Duke.exit();
+        Duke.getInstance().exit();
     }
 }

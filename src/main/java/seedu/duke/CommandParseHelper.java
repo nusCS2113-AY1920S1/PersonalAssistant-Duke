@@ -3,8 +3,8 @@ package seedu.duke;
 import seedu.duke.common.command.Command;
 import seedu.duke.common.command.Command.Option;
 import seedu.duke.common.command.InvalidCommand;
-import seedu.duke.email.command.EmailCommandParseHelper;
-import seedu.duke.task.command.TaskCommandParseHelper;
+import seedu.duke.email.parser.EmailCommandParseHelper;
+import seedu.duke.task.parser.TaskCommandParseHelper;
 import seedu.duke.ui.UI;
 
 import java.util.ArrayList;
@@ -17,7 +17,7 @@ import java.util.regex.Pattern;
  */
 public class CommandParseHelper {
 
-    private static UI ui = Duke.getUI();
+    private static UI ui = UI.getInstance();
     private static InputType inputType = InputType.EMAIL;
 
     /**
@@ -109,20 +109,17 @@ public class CommandParseHelper {
      * @param commandString the user/file input that is to be parsed to a command
      * @return the parse result, which is a command ready to be executed
      */
-    public static Command parseCommand(String commandString) throws UserInputException {
+    public static Command parseCommand(String commandString) throws CommandParseException {
         return parseCommandOfType(commandString, inputType);
     }
 
-    public static Command parseCommand(String commandString, InputType userInputType) throws UserInputException {
+    public static Command parseCommand(String commandString, InputType userInputType) throws CommandParseException {
         return parseCommandOfType(commandString, userInputType);
     }
 
-    private static Command parseCommandOfType(String commandString, InputType userInputType) throws UserInputException {
+    private static Command parseCommandOfType(String commandString, InputType userInputType) throws CommandParseException {
         if (!isCommandFormat(commandString)) {
-            if (ui != null) {
-                ui.showError("Command is in wrong format");
-            }
-            return new InvalidCommand();
+            return new InvalidCommand("Command is in wrong format");
         }
         ArrayList<Option> optionList = parseOptions(commandString);
         String strippedOptionsCommandString = stripOptions(commandString);
@@ -131,7 +128,7 @@ public class CommandParseHelper {
         } else if (userInputType == InputType.EMAIL) {
             return parseEmailCommand(strippedOptionsCommandString, optionList);
         } else {
-            return new InvalidCommand();
+            return new InvalidCommand("Unaccepted prefix. Prefix must be either task or email. ");
         }
     }
 
@@ -145,9 +142,8 @@ public class CommandParseHelper {
     public static Command parseEmailCommand(String input, ArrayList<Option> optionList) {
         try {
             return EmailCommandParseHelper.parseEmailCommand(input, optionList);
-        } catch (UserInputException e) {
-            ui.showError(e.getMessage());
-            return new InvalidCommand();
+        } catch (CommandParseException e) {
+            return new InvalidCommand(e.getMessage());
         }
     }
 
@@ -172,16 +168,16 @@ public class CommandParseHelper {
      *
      * @param optionList the list of options where the time string is extracted
      * @return the time string
-     * @throws UserInputException if time option appears more than once
+     * @throws CommandParseException if time option appears more than once
      */
-    public static String extractTime(ArrayList<Option> optionList) throws UserInputException {
+    public static String extractTime(ArrayList<Option> optionList) throws CommandParseException {
         String time = "";
         for (Option option : optionList) {
             if (option.getKey().equals("time")) {
                 if ("".equals(time)) {
                     time = option.getValue();
                 } else {
-                    throw new UserInputException("Each task can have only one time option");
+                    throw new CommandParseException("Each task can have only one time option");
                 }
             }
         }
@@ -200,7 +196,7 @@ public class CommandParseHelper {
      * An type of exception dedicated to handling the unexpected user/file input. The message contains more
      * specific information.
      */
-    public static class UserInputException extends Exception {
+    public static class CommandParseException extends Exception {
         private String msg;
 
         /**
@@ -208,7 +204,7 @@ public class CommandParseHelper {
          *
          * @param msg the message that is ready to be displayed by UI.
          */
-        public UserInputException(String msg) {
+        public CommandParseException(String msg) {
             super();
             this.msg = msg;
         }

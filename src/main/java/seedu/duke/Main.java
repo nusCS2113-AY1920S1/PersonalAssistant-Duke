@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import seedu.duke.ui.UI;
 
 import java.io.IOException;
 
@@ -30,9 +31,9 @@ public class Main extends Application {
     }
 
     private void configureUi(Stage stage, FXMLLoader fxmlLoader, Scene scene) {
-        Duke.getUI().setMainWindow(fxmlLoader.getController());
-        Duke.getUI().setKeyBinding(scene);
-        Duke.getUI().setMainStage(stage);
+        UI.getInstance().setMainWindow(fxmlLoader.getController());
+        UI.getInstance().setKeyBinding(scene);
+        UI.getInstance().setMainStage(stage);
     }
 
     private void configureStage(Stage stage, Scene scene) {

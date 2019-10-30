@@ -1,9 +1,9 @@
 package seedu.duke.email.command;
 
-import seedu.duke.Duke;
 import seedu.duke.common.command.Command;
 import seedu.duke.common.model.Model;
 import seedu.duke.email.EmailList;
+import seedu.duke.ui.UI;
 
 import java.util.ArrayList;
 
@@ -20,7 +20,7 @@ public class EmailTagCommand extends Command {
      * @param index specific email which tags should be added to
      * @param tags  tags to be added to the email
      */
-    EmailTagCommand(int index, ArrayList<String> tags) {
+    public EmailTagCommand(int index, ArrayList<String> tags) {
         this.index = index;
         this.tags = tags;
     }
@@ -29,7 +29,7 @@ public class EmailTagCommand extends Command {
     public boolean execute(Model model) {
         EmailList emailList = model.getEmailList();
         responseMsg = emailList.addTags(index, tags);
-        Duke.getUI().showResponse(responseMsg);
+        UI.getInstance().showResponse(responseMsg);
         return true;
     }
 }

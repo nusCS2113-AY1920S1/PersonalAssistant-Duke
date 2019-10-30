@@ -2,12 +2,12 @@ package seedu.duke;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.duke.email.EmailContentParseHelper;
-import seedu.duke.email.EmailFormatParseHelper;
 import seedu.duke.email.EmailList;
-import seedu.duke.email.EmailStorage;
 import seedu.duke.email.EmailTags;
 import seedu.duke.email.entity.Email;
+import seedu.duke.email.parser.EmailContentParseHelper;
+import seedu.duke.email.parser.EmailFormatParseHelper;
+import seedu.duke.email.storage.EmailStorage;
 
 import java.util.HashMap;
 
@@ -19,8 +19,7 @@ public class EmailTagsTest {
     @Test
     public void updateEmailTagListTestFromStorage() {
         // To get emailList from local storage
-        String dir = EmailStorage.getDataDir() + "emailTagsTestFile.txt";
-        EmailList emailList = EmailStorage.readEmailFromFile(dir);
+        EmailList emailList = EmailStorage.readEmailFromFile("emailTagsTestFile.txt");
         System.out.println(emailList.toString());
         HashMap<String, EmailTags.SubTagMap> tagMap = EmailTags.updateEmailTagList(emailList);
         System.out.println(tagMap);
@@ -55,13 +54,12 @@ public class EmailTagsTest {
     @Test
     public void updateEmailTagListTest() {
         // To create a dummy emailList
-        String body = "CS2113T Akshay Narayan CS2113 TAN KIAN WEI uhc Wellnesss";
+        String body = "CS2113T Akshay Narayan CS2113 TAN KIAN WEI uhc Wellness";
         EmailFormatParseHelper.Sender sender = new EmailFormatParseHelper.Sender("Akshay", null);
         Email email = new Email("CS2113 SEP", sender, null, body, null);
 
-        EmailContentParseHelper emailContentParseHelper = new EmailContentParseHelper();
-        emailContentParseHelper.initKeywordList();
-        emailContentParseHelper.allKeywordInEmail(email);
+        EmailContentParseHelper.initKeywordList();
+        EmailContentParseHelper.allKeywordInEmail(email);
 
         EmailList emailList = new EmailList();
         emailList.add(email);

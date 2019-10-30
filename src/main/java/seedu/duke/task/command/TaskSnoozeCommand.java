@@ -1,10 +1,10 @@
 package seedu.duke.task.command;
 
 import seedu.duke.CommandParseHelper;
-import seedu.duke.Duke;
 import seedu.duke.common.command.Command;
 import seedu.duke.common.model.Model;
 import seedu.duke.task.TaskList;
+import seedu.duke.ui.UI;
 
 public class TaskSnoozeCommand extends Command {
     private int index;
@@ -15,7 +15,7 @@ public class TaskSnoozeCommand extends Command {
      *
      * @param index the index of the task to be snoozed
      */
-    TaskSnoozeCommand(int index, int duration) {
+    public TaskSnoozeCommand(int index, int duration) {
         this.index = index;
         this.duration = duration;
 
@@ -33,12 +33,12 @@ public class TaskSnoozeCommand extends Command {
             String msg = taskList.snoozed(index, duration);
             if (!silent) {
                 responseMsg = msg;
-                Duke.getUI().showResponse(msg);
+                UI.getInstance().showResponse(msg);
             }
             return true;
-        } catch (CommandParseHelper.UserInputException e) {
+        } catch (CommandParseHelper.CommandParseException e) {
             if (!silent) {
-                Duke.getUI().showError(e.getMessage());
+                UI.getInstance().showError(e.getMessage());
             }
             return false;
         }

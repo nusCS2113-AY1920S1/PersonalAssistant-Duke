@@ -1,8 +1,10 @@
-package seedu.duke.email;
+package seedu.duke.email.parser;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import seedu.duke.common.storage.TimestampHelper;
+import seedu.duke.email.EmailList;
 import seedu.duke.email.entity.Email;
 
 import java.time.LocalDateTime;
@@ -28,7 +30,7 @@ public class EmailFormatParseHelper {
      * @throws EmailParsingException the exception of the failure of the response parsing
      */
     public static EmailList parseFetchResponse(String response) throws EmailParsingException {
-        //Duke.getUI().showDebug(response);
+        //UI.getInstance().showDebug(response);
         EmailList emailList = new EmailList();
         try {
             JSONObject responseJson = new JSONObject(response);
@@ -81,8 +83,9 @@ public class EmailFormatParseHelper {
             String subject = indexJson.getString("subject");
             Sender sender = new Sender(indexJson.getString("sender"));
             LocalDateTime receivedDateTime = parseEmailDateTime(indexJson.getString("receivedDateTime"));
+            LocalDateTime updatedOn = TimestampHelper.parseTimestamp(indexJson.getString("updatedOn"));
             ArrayList<Email.Tag> tags = extractTagsFromJson(indexJson);
-            return new Email(subject, sender, receivedDateTime, tags);
+            return new Email(subject, sender, receivedDateTime, updatedOn, tags);
         } catch (JSONException e) {
             throw new EmailParsingException("Email index json failed to parse");
         }

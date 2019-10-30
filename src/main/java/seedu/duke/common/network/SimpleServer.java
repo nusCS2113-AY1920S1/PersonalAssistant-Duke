@@ -3,7 +3,7 @@ package seedu.duke.common.network;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
-import seedu.duke.Duke;
+import seedu.duke.ui.UI;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -27,14 +27,14 @@ public class SimpleServer {
             server.setExecutor(null); // creates a default executor
             server.start();
         } catch (IOException e) {
-            Duke.getUI().showError("Server setup failed...");
+            UI.getInstance().showError("Server setup failed...");
         }
     }
 
     private static void parseAuthCode(String url) {
         int index = url.indexOf("code=");
         if (index == -1) {
-            Duke.getUI().showError("Auth code parsing failed: " + url);
+            UI.getInstance().showError("Auth code parsing failed: " + url);
             return;
         }
         index += 5;
