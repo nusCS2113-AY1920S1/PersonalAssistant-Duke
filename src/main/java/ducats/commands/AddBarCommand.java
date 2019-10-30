@@ -43,26 +43,17 @@ public class AddBarCommand extends Command<SongList> {
         }
         try {
             String[] sections = message.substring(7).split(" ");
-            barNo = Integer.parseInt(sections[0].substring(4));
 
-            int notesIndex = message.indexOf(sections[1]);
-
-            Bar newBar = new Bar(barNo, message.substring(notesIndex));
             songIndex = songList.getActiveIndex();
             Song song = songList.getSongIndex(songIndex);
 
+            int notesIndex = message.indexOf(sections[1]);
+            barNo = song.getNumBars() + 1;
+            Bar newBar = new Bar(barNo, message.substring(notesIndex));
             song.addBar(newBar);
+
             storage.updateFile(songList);
             System.out.println(notesIndex);
-            try {
-                ArrayList<Song> temp = songList.getSongList();
-                System.out.println("i have gotten the song list");
-                //return ui.formatAddBar(temp, newBar, song);
-            } catch (Exception e) {
-                //System.out.println(e.getMessage());
-                return "hello myfddafadf ";
-            }
-            //
             storage.updateFile(songList);
             ArrayList<Song> temp = songList.getSongList();
             return ui.formatAddBar(temp, newBar, song);
