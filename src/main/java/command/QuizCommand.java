@@ -41,7 +41,6 @@ public class QuizCommand extends Command {
         return false;
     }
 
-
     /**
      * Creates a quiz with 4 options 1, 2, 3, 4 for user.
      * @param wordBank word bank to contain all the words
