@@ -27,7 +27,7 @@ endif::[]
 
 * *Value proposition*:
 *** Users will be able to save time and effort doing movies and/or TV show related stuff compared to a typical mouse/GUI driven app.
-*** Furthermore, our app intends to provide various entertainment related functionalities all under one roof so that users will not have the need to install different entertainment related apps for different purposes.
+*** Furthermore, our app intends to provide various entertainment related functionality all under one roof so that users will not have the need to install different entertainment related apps for different purposes.
 
 
 

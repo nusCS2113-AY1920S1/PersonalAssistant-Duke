@@ -5,6 +5,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import entertainment.pro.commons.exceptions.SetExceptions;
 import entertainment.pro.model.GenreId;
 import entertainment.pro.model.UserProfile;
+import entertainment.pro.ui.Controller;
+import entertainment.pro.ui.MovieHandler;
 
 import java.io.*;
 import java.util.ArrayList;

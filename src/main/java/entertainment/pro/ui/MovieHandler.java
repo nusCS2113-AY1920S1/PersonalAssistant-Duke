@@ -225,7 +225,7 @@ public class MovieHandler extends Controller implements RequestListener {
         userAgeLabel.setText(Integer.toString(userProfile.getUserAge()));
         playlists = userProfile.getPlaylistNames();
         ProfileCommands command = new ProfileCommands(userProfile);
-
+        userPlaylistsLabel.setText(Integer.toString(userProfile.getPlaylistNames().size()));
         System.out.println("changed age");
 
         //setting adult label
@@ -682,6 +682,8 @@ public class MovieHandler extends Controller implements RequestListener {
         mProgressBar.setVisible(true);
         mStatusLabel.setText("Loading..");
         playlistVBox.getChildren().clear();
+        mMoviesScrollPane.setHvalue(0.5);
+        mMoviesScrollPane.setVvalue(0.5);
 
         int count = 1;
         if (playlists.isEmpty()) {
@@ -1004,7 +1006,6 @@ public class MovieHandler extends Controller implements RequestListener {
         }
         generalFeedbackText.setText(output);
     }
-
 
     /**
      * Prints message in UI.

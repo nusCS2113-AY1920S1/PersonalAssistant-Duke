@@ -89,6 +89,7 @@ public class SetCommand extends CommandSuper {
             movieHandler.setLabels();
         } catch (SetExceptions e) {
             System.out.println(e);
+            movieHandler.setFeedbackText(e.getMessage());
         }
         movieHandler.clearSearchTextField();
 
