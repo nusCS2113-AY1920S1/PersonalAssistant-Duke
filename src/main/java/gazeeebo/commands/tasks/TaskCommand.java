@@ -21,7 +21,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Stack;
 
-public class taskCommand extends Command {
+public class TaskCommand extends Command {
     /**
      *  Parses the user input and return a command object.
      *

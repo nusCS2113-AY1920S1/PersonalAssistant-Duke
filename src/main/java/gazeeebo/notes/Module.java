@@ -1,3 +1,4 @@
+//@@author yueyuu
 package gazeeebo.notes;
 
 import gazeeebo.UI.Ui;
@@ -50,7 +51,7 @@ public class Module {
     public void editName(Ui ui) throws IOException {
         System.out.println("What do you want to edit the name to?");
         ui.readCommand();
-        for (Module m : GeneralNotePage.modules) {
+        for (Module m: GeneralNotePage.modules) {
             if (m.name.equals(ui.fullCommand) && !ui.fullCommand.equals(this.name)) {
                 System.out.println("You already have a module with the same name. Please use a different name.");
                 return;
@@ -185,8 +186,6 @@ public class Module {
         System.out.println("Which assessment do you want to delete?");
         String[] indexAndAssmtToDelete = checkIfValidIndexAssmt(ui);
         int assmtNum = Integer.parseInt(indexAndAssmtToDelete[0]);
-        //String assmtToDelete = indexAndAssmtToDelete[1];
-        //assert assmtToDelete != null: "Bug in notes.Module: deleteAssessment: assmtToDeleteName";
         assert assmtNum != -1 : "Bug in notes.Module: deleteAssessment: assmtNum";
         assessments.remove(assmtNum);
         System.out.println("Okay we have successfully deleted this assessment:");

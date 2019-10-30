@@ -15,11 +15,14 @@ public class AddCAPCommand {
      * Add a new module into GPAList.
      *
      * @param ui         prints things to the user.
-     * @param CAPList    deals stores semNumber, moduleCode, moduleCredits and CAP score.
+     * @param caplist    deals stores
+     *                   semNumber, moduleCode, moduleCredits and CAP score.
      * @throws IOException catch the error if the read file fails.
      */
-    public AddCAPCommand(Ui ui, Map<String, ArrayList<CAPCommand>> CAPList) throws IOException {
-        System.out.print("Input in this format: semNumber,Module_Code,total_MC,CAP\n");
+    public AddCAPCommand(final Ui ui, final Map<String,
+            ArrayList<CAPCommand>> caplist) throws IOException {
+        System.out.print("Input in this format: "
+                + "semNumber,Module_Code,total_MC,CAP\n");
         ui.readCommand();
         String[] splitAddInput = ui.fullCommand.split(",");
         String semNumber = splitAddInput[0];
@@ -27,12 +30,12 @@ public class AddCAPCommand {
         int moduleCredit = Integer.parseInt(splitAddInput[2]);
         String grade = splitAddInput[3];
         CAPCommand newCAP = new CAPCommand(moduleCode, moduleCredit, grade);
-        if (CAPList.containsKey(semNumber)) {
-            CAPList.get(semNumber).add(newCAP);
+        if (caplist.containsKey(semNumber)) {
+            caplist.get(semNumber).add(newCAP);
         } else {
             ArrayList<CAPCommand> semInfo = new ArrayList<>();
             semInfo.add(newCAP);
-            CAPList.put(semNumber, semInfo);
+            caplist.put(semNumber, semInfo);
         }
         System.out.print("Successfully added: " + moduleCode + "\n");
     }

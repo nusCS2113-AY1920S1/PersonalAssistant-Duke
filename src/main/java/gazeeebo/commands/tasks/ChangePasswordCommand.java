@@ -24,7 +24,10 @@ public class ChangePasswordCommand extends Command {
      * @throws IOException catch the error if the read file fails.
      */
     @Override
-    public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<ArrayList<Task>> commandStack, ArrayList<Task> deletedTask, TriviaManager triviaManager) throws DukeException, ParseException, IOException {
+    public void execute(final ArrayList<Task> list, final Ui ui,
+                        final Storage storage, final Stack<ArrayList<Task>> commandStack,
+                        final ArrayList<Task> deletedTask, final TriviaManager triviaManager)
+            throws DukeException, ParseException, IOException {
         System.out.println("Enter your current password:");
         ui.readCommand();
         while (!ui.fullCommand.equals("esc")) {

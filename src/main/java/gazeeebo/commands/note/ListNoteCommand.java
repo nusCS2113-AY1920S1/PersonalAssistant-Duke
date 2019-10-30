@@ -1,3 +1,4 @@
+//@@author yueyuu
 package gazeeebo.commands.note;
 
 import gazeeebo.storage.Storage;
@@ -24,7 +25,7 @@ public class ListNoteCommand extends AddNoteCommand {
      *
      * @param listOFNotes the list of notes for the specified period
      */
-    private void printOutNoteList(ArrayList<String> listOFNotes) {
+    public void printOutNoteList(ArrayList<String> listOFNotes) {
         assert !listOFNotes.isEmpty() : "there is an empty note section of a date (bug in DeleteNoteCommand)";
         for (int i = 0; i < listOFNotes.size(); i++) {
             System.out.println((i+1) + ". " + listOFNotes.get(i));
@@ -42,12 +43,12 @@ public class ListNoteCommand extends AddNoteCommand {
     private void printNoteList(ArrayList<Note> periodList, LocalDate dateToList, String period) throws DukeException {
         for (Note n: periodList) {
             if (n.noteDate.equals(dateToList)) {
-                System.out.println("Here are your gazeeebo.notes for that " + period + ":");
+                System.out.println("Here are your notes for that " + period + ":");
                 printOutNoteList(n.notes);
                 return;
             }
         }
-        throw new DukeException("There are no gazeeebo.notes for that " + period + ".");
+        throw new DukeException("There are no notes for that " + period + ".");
     }
 
     /** The main method that executes all the sub methods. */
@@ -63,11 +64,14 @@ public class ListNoteCommand extends AddNoteCommand {
         }
         try {
             switch (command[1]) {
-            case "day": printNoteList(NoteList.daily, userDate, command[1]);
+            case DAY:
+                printNoteList(NoteList.daily, userDate, command[1]);
                 break;
-            case "week": printNoteList(NoteList.weekly, userDate, command[1]);
+            case WEEK:
+                printNoteList(NoteList.weekly, userDate, command[1]);
                 break;
-            case "month": printNoteList(NoteList.monthly, userDate, command[1]);
+            case MONTH:
+                printNoteList(NoteList.monthly, userDate, command[1]);
                 break;
             default: System.out.println("Bug in ListNoteCommand");
                 System.exit(1);

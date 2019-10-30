@@ -29,6 +29,7 @@ public class EventCommand extends Command {
             String at = ui.fullCommand.split("/at ")[1];
             Event ev = new Event(description, at);
 
+            //@@author yueyuu
             //CHECKING FOR SCHEDULE ANOMALIES------------------------------------------------------------------
             ArrayList<Event> clash = new ArrayList<Event>(); //to store events that clash with the incoming event
             for (Task t : list) {
@@ -47,6 +48,7 @@ public class EventCommand extends Command {
                 System.out.println("");
             }
             //--------------------------------------------------------------------------------------------------
+            //@@author
 
             list.add(ev);
             System.out.println("Got it. I've added this task:");

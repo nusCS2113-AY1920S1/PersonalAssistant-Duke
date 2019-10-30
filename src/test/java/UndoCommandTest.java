@@ -1,4 +1,4 @@
-import gazeeebo.commands.tasks.taskCommand;
+import gazeeebo.commands.tasks.TaskCommand;
 import gazeeebo.storage.Storage;
 import gazeeebo.tasks.Task;
 import gazeeebo.TriviaManager.TriviaManager;
@@ -40,7 +40,7 @@ public class UndoCommandTest {
         ArrayList<Task> deletedTask = new ArrayList<Task>();
         Storage storage = new Storage();
         TriviaManager triviaManager = new TriviaManager(storage);
-        taskCommand taskCommand = new taskCommand();
+        TaskCommand taskCommand = new TaskCommand();
         try {
             taskCommand.execute(tasks, ui, storage, CommandStack, deletedTask,triviaManager);
         } catch (ParseException | IOException | DukeException e) {

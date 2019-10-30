@@ -15,7 +15,9 @@ public class AddContactCommand {
      * @param contactList map each name to its own phone number
      * @throws IOException catch any error if read file fails
      */
-    public AddContactCommand(Ui ui, Map<String, String> contactList) throws IOException {
+    public AddContactCommand(final Ui ui,
+                             final Map<String, String> contactList)
+            throws IOException {
         System.out.print("Input in this format: Name,Number\n");
         ui.readCommand();
         String[] splitCommand = ui.fullCommand.split(",");
