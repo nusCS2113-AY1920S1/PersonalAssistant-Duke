@@ -28,8 +28,7 @@ public class DeleteContactCommand extends Command {
     }
 
     /**
-     * Executes a command that deletes the task from the task list and outputs the result.
-     * (Not in use)
+     * Executes a command that deletes the contact from the contact list.
      *
      * @param items The task list that contains a list of tasks.
      * @param ui To tell the user that it is deleted successfully.
@@ -49,28 +48,7 @@ public class DeleteContactCommand extends Command {
     }
 
     /**
-     * Executes a command that deletes the contact from the contact list.
-     *
-     * @param items The task list that contains a list of tasks.
-     * @param contactList The list of contacts.
-     * @param ui To tell the user that it is executed successfully.
-     */
-//    @Override
-//    public void execute(TaskList items, ContactList contactList, Ui ui) {
-//        if (indexOfContactToDelete >= ZERO && indexOfContactToDelete + ONE <= contactList.size()) {
-//            String deletedContact = contactList.getAndDisplay(indexOfContactToDelete);
-//            contactList.remove(indexOfContactToDelete);
-//            ui.showContactDeleted(contactList, deletedContact);
-//        } else if (contactList.size() == ZERO) {
-//            ui.showErrorMsgGui("No contacts to be deleted!");
-//        } else {
-//            ui.showErrorMsg("Invalid index! Please choose 1 "
-//                    + ((contactList.size() == ONE) ? "" : "to " + contactList.size()));
-//        }
-//    }
-
-    /**
-     * Executes a command that deletes the task from the task list and outputs the result (GUI).
+     * Executes a command that deletes the contact from the contact list and outputs the deleted contact (GUI).
      *
      * @param items The task list that contains a list of tasks.
      * @param ui To tell the user that it is executed successfully.
@@ -93,29 +71,6 @@ public class DeleteContactCommand extends Command {
     }
 
     /**
-     * Executes a command that deletes the task from the task list and outputs the result (GUI).
-     *
-     * @param items The task list that contains a list of tasks.
-     * @param ui To tell the user that it is deleted successfully.
-     * @return String to be output to the user.
-     */
-//    @Override
-//    public String executeGui(TaskList items, ContactList contactList, Ui ui) {
-//        String str;
-//        if (indexOfContactToDelete >= ZERO && indexOfContactToDelete + ONE <= contactList.size()) {
-//            String deletedContact = contactList.getAndDisplay(indexOfContactToDelete);
-//            contactList.remove(indexOfContactToDelete);
-//            str = ui.showContactDeletedGui(contactList, deletedContact);
-//        } else if (contactList.size() == ZERO) {
-//            str = ui.showErrorMsgGui("No contacts to be deleted!");
-//        } else {
-//            str = ui.showErrorMsgGui("Invalid index! Please choose 1 "
-//                    + ((contactList.size() == ONE) ? "" : "to " + contactList.size()));
-//        }
-//        return str;
-//    }
-
-    /**
      * Executes a command that overwrites existing storage with the updated task list.
      * (Not in use)
      *
@@ -127,17 +82,4 @@ public class DeleteContactCommand extends Command {
     @Override
     public void executeStorage(TaskList items, Ui ui, Storage storage) throws IOException {
     }
-
-    /**
-     * Executes a command that overwrites existing storage with the updated contact list.
-     *
-     * @param items The task list that contains a list of tasks..
-     * @param ui To tell the user that it is executed successfully.
-     * @param contactStorage The storage to be overwritten.
-     * @throws IOException If there is an error reading the file.
-     */
-//    public void executeStorage(TaskList items, Ui ui, ContactStorage contactStorage,
-//                               ContactList contactList) throws IOException {
-//        contactStorage.write(contactList);
-//    }
 }
