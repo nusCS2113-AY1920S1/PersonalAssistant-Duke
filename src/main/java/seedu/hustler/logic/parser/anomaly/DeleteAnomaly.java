@@ -4,34 +4,62 @@ import seedu.hustler.Hustler;
 import seedu.hustler.logic.CommandLineException;
 
 /**
- * Detects delete anomalies in user input.
+ * Detects anomalies in delete command inputted by user.
  */
 public class DeleteAnomaly extends DetectAnomaly {
 
+    private static final String MESSAGE_INVALID_COMMAND_FORMAT = "Delete format should be: \"/delete <integer>\", \"/delete all\" or \"/delete done\"";
+    private static final String MESSAGE_INVALID_TASK_DISPLAYED_INDEX = "The task index provided is invalid!";
+
     /**
-     * Detect anomalies for input.
+     * Detects anomalies in delete command input.
      *
      * @param userInput input for which anomaly is detected
      * @throws CommandLineException if the user input does not conform the expected format
      */
     @Override
     public void detect(String[] userInput) throws CommandLineException {
-        String[] splitInput = userInput[1].split(" ");
-
-        if (splitInput.length > 1) {
-            throw new CommandLineException("Delete format should be: '/delete <integer>' !");
+        if (userInput.length == 1 || userInput[1].isBlank()) {
+            throw new CommandLineException(MESSAGE_INVALID_COMMAND_FORMAT);
         }
 
-        int index;
+        String[] parsedInput = userInput[1].split(" ");
+        if (parsedInput.length > 1) {
+            throw new CommandLineException(MESSAGE_INVALID_COMMAND_FORMAT);
+        }
+
+        if (!isNumeric(parsedInput[0])) {
+            if (!parsedInput[0].equals("all") && !parsedInput[0].equals("done")) {
+                throw new CommandLineException(MESSAGE_INVALID_COMMAND_FORMAT);
+            }
+            return;
+        }
+
+        int deleteIndex;
         try {
-            index = Integer.parseInt(splitInput[0]);
+            deleteIndex = Integer.parseInt(parsedInput[0]);
         } catch (NumberFormatException e) {
-            throw new CommandLineException("Delete format should be: '/delete <integer>' !");
+            throw new CommandLineException(MESSAGE_INVALID_COMMAND_FORMAT);
         }
 
-        index--;
-        if (index >= Hustler.list.size()) {
-            throw new CommandLineException("The task index provided is invalid.");
+        deleteIndex--;
+        if (deleteIndex >= Hustler.list.size() || deleteIndex < 0) {
+            throw new CommandLineException(MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
+    }
+
+    /**
+     * Checks if given string is numeric.
+     *
+     * @param string string to be checked.
+     * @return true if string represents an integer, false otherwise
+     */
+    private boolean isNumeric(String string) {
+        try {
+            Integer.parseInt(string);
+        } catch (NumberFormatException e) {
+            return false;
+        }
+        return true;
     }
 }

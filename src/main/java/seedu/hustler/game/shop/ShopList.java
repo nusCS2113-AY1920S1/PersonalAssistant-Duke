@@ -32,25 +32,8 @@ public class ShopList {
     /**
      * Prints out the list of ShopItems available in the store.
      */
-    public ShopList list() {
-        System.out.println("******************** Here are the items in the shop ********************");
-        System.out.println();
-        for (int i = 0; i < this.shopList.size(); i++) {
-            /**
-             * Divides the list to format the printing of different classes.
-             */
-            if (i == 0 || !(shopList.get(i).isEquals(shopList.get(i - 1)))) {
-                System.out.println("\n\t\t\t\t======" + shopList.get(i).getType() + "=====");
-            }
-            System.out.print((i + 1) + ". ");
-            System.out.print(shopList.get(i).toString());
-            System.out.println(shopList.get(i).isPurchased() ? " [Purchased]" :
-                " [" + shopList.get(i).getCost() + " points to purchase]");
-        }
-        System.out.println();
-        System.out.println("\t\t\t\tYou currently have: " + Achievements.totalPoints + " points.");
-        System.out.println("*************************************************************************");
-        return this;
+    public ArrayList<ShopItem> getShopList() {
+        return this.shopList;
     }
 
     /**
@@ -59,26 +42,15 @@ public class ShopList {
      * @return the ShopItem in the given index; null if IndexOfOfBounds exception is caught.
      */
     public Optional<ShopItem> buy(int index) {
-        try {
-            if (!shopList.get(index).isPurchased()) {
-                if (shopList.get(index).canPurchase(Achievements.totalPoints)) {
-                    shopList.get(index).setPurchased(true);
-                    Achievements.totalPoints -= shopList.get(index).getCost();
-                    System.out.println("\t Item has been purchased!");
-                    System.out.println("\tYour leftover points are: " + Achievements.totalPoints);
-                    return Optional.ofNullable(shopList.get(index));
-                } else {
-                    System.out.println("\tNot enough points. Please accumulate more points!");
-                    return Optional.empty();
-                }
+        if (!shopList.get(index).isPurchased()) {
+            if (shopList.get(index).canPurchase(Achievements.totalPoints)) {
+                shopList.get(index).setPurchased(true);
+                Achievements.totalPoints -= shopList.get(index).getCost();
             } else {
-                System.out.println("\tItem has already been purchased! Please check your inventory.");
                 return Optional.empty();
             }
-        } catch (IndexOutOfBoundsException e) {
-            System.out.println("\tThere is no such index! Please input a valid number");
-            return Optional.empty();
         }
+        return Optional.ofNullable(shopList.get(index));
     }
 
     /**

@@ -40,7 +40,7 @@ public class SnoozeCommand extends Command {
             String[] splitInput = userInput[1].split(" ");
             Hustler.list.snoozeTask(taskIndex, splitInput);
         } catch (CommandLineException e) {
-            ui.show_message(e.getMessage());
+            ui.showMessage(e.getMessage());
         }
     }
 }

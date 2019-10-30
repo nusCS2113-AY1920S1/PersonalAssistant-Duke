@@ -4,7 +4,6 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 import seedu.hustler.data.*;
 import seedu.hustler.game.achievement.AchievementList;
-import seedu.hustler.game.achievement.AddTask;
 import seedu.hustler.game.achievement.ConsecutiveLogin;
 import seedu.hustler.game.avatar.Avatar;
 import seedu.hustler.game.avatar.Inventory;
@@ -18,9 +17,6 @@ import seedu.hustler.ui.Ui;
 import seedu.hustler.ui.timer.TimerManager;
 
 import java.io.IOException;
-
-import static seedu.hustler.game.achievement.AchievementList.achievementList;
-import static seedu.hustler.game.achievement.ConsecutiveLogin.updateAchievementLevel;
 
 /**
  * A personal assistant that takes in user input and gives and performs
@@ -41,14 +37,17 @@ public class Hustler extends Application {
      */
     public static ShopList shopList = new ShopList();
 
+
+    /**
+     * achievementList stores and manage all the achievements available in Hustler.
+     * Achievements can either be locked and unlocked.
+     */
+    public static AchievementList achievementList = new AchievementList();
+
     /**
      * Storage instance that stores and loads tasks to and from
      * disk.
      */
-
-    public static AchievementList listAchievements = new AchievementList();
-
-
     private static TaskStorage taskStorage = new TaskStorage("data/hustler.txt");
 
     /**
@@ -94,7 +93,7 @@ public class Hustler extends Application {
      * Displays reminders at the start of Hustler.
      */
     public static void initialize() throws IOException {
-        ui.show_opening_string();
+        ui.showOpeningString();
         Folder.checkDirectory();
         loadStorage();
         memorymanager.createBackup();
@@ -102,6 +101,13 @@ public class Hustler extends Application {
         Reminders.runAll(list);
         Reminders.displayReminders();
         System.out.println();
+
+        achievementList = AchievementStorage.loadAchievements();
+        ConsecutiveLogin.updateCount();
+        ConsecutiveLogin.updatePoints();
+        ConsecutiveLogin.updateAchievementLevel();
+        achievementList.updateDedicated();
+
         avatar = AvatarStorage.load();
         AvatarStorage.save(avatar);
         shopList = ShopStorage.load();
@@ -120,9 +126,6 @@ public class Hustler extends Application {
             Command command = parser.parse(rawInput);
             command.execute();
             saveStorage();
-            System.out.println();
-        } catch (CommandLineException e) {
-            e.getErrorMsg();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -138,29 +141,16 @@ public class Hustler extends Application {
         list = new TaskList(taskStorage.load());
         avatar = AvatarStorage.load();
 
-        //Check if it's the first time the user logs in.
-        AchievementList.firstStart(AchievementStorage.logon());
-
         //Loads information such as number of tasks done, added, points, etc.
         AchievementStorage.loadStatus();
-
-        //Loads achievements into achievement list.
-        //AchievementStorage.loadAchievements();
-        AchievementStorage.loadAchievementsss();
-
-        //Counts number of consecutive login and updates accordingly.
-        ConsecutiveLogin.updateCount();
-        ConsecutiveLogin.updatePoints();
-        AchievementList.updateConsecutiveLogin(updateAchievementLevel());
         AchievementStorage.createBackup(achievementList);
     }
 
-    public static void reloadBackup() throws IOException {
+    public static void reloadBackup() {
         list = new TaskList(taskStorage.reloadBackup());
         avatar = AvatarStorage.reloadBackup();
         AchievementStorage.reloadStatus();
         AchievementStorage.reloadAchievements();
-        AddTask.updateAchievementLevel();
     }
 
     /**
@@ -168,12 +158,12 @@ public class Hustler extends Application {
      */
     public static void saveStorage() {
         try {
-            taskStorage.save(list.return_list());
+            taskStorage.save(list.returnList());
             AvatarStorage.save(avatar);
-            AchievementStorage.save();
+            AchievementStorage.saveAchievements(achievementList);
             AchievementStorage.saveStatus();
         } catch (IOException e) {
-            ui.show_save_error();
+            ui.showSaveError();
         }
     }
 }

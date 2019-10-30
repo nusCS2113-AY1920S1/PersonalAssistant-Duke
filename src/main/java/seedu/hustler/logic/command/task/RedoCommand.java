@@ -27,7 +27,7 @@ public class RedoCommand extends Command {
             MemoryManager memorymanager = new MemoryManager();
             memorymanager.redo();
         } catch(CommandLineException e) {
-            ui.show_message(e.getMessage());
+            ui.showMessage(e.getMessage());
         }
 
     }

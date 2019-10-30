@@ -51,8 +51,8 @@ public class UndoCommand extends Command {
             try {
                 anomaly.detect(taskInfo);
                 this.numberOfCommandsToUndo = Integer.parseInt(taskInfo[1]);
-            } catch(CommandLineException e) {
-                ui.show_message(e.getMessage());
+            } catch (CommandLineException e) {
+                ui.showMessage(e.getMessage());
                 return;
             }
 

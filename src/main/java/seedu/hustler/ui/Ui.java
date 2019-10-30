@@ -1,11 +1,14 @@
 package seedu.hustler.ui;
 
 import seedu.hustler.Hustler;
-import seedu.hustler.data.CommandLog;
+import seedu.hustler.game.achievement.Achievements;
+import seedu.hustler.game.avatar.Avatar;
+import seedu.hustler.game.shop.items.ShopItem;
 import seedu.hustler.task.Task;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
+
+import static seedu.hustler.game.achievement.Achievements.totalPoints;
 
 /**
  * A class dedicated to performing interactions with the user.
@@ -16,15 +19,9 @@ public class Ui {
     public static final String LINE = "\t_____________________________________";
 
     /**
-     * Default constructor.
-     */
-    public Ui() {
-    }
-
-    /**
      * Print with formatting.
      */
-    public void show_message(String message) {
+    public void showMessage(String message) {
         System.out.println(LINE);
         System.out.println("\t" + message);
         System.out.println(LINE);
@@ -33,7 +30,7 @@ public class Ui {
     /**
      * Prints an output message if list history was not saved.
      */
-    public void show_save_error() {
+    public void showSaveError() {
         System.out.println(LINE);
         System.out.println("\tCouldn't saveAchievements file.");
         System.out.println(LINE);
@@ -42,7 +39,7 @@ public class Ui {
     /**
      * Prints a bye message if user enters bye.
      */
-    public void show_bye_message() {
+    public void showByeMessage() {
         System.out.println(LINE);
         System.out.println("\tBye. Hope to see you again soon!");
         System.out.println(LINE);
@@ -51,73 +48,19 @@ public class Ui {
     /**
      * Prints an error message if user does not enter a valid command.
      */
-    public void correct_command_error() {
-        if (!CommandLog.isRestoring()) {
-            System.out.println(LINE);
-            System.out.println("\tPlease enter a valid command: add, "
-                + "list, bye, find, delete.");
-            System.out.println(LINE);
-        }
-    }
-
-    /**
-     * Prints an error message if the format of event or deadline
-     * commands is not correct.
-     */
-    public void wrong_description_error() {
+    public void correctCommandError() {
         System.out.println(LINE);
-        System.out.println("\tDescription needs a '/' before by/at");
-        System.out.println(LINE);
-    }
-
-    /**
-     * Prints an error message if user performs an operation on a nonexistent
-     * task.
-     */
-    public void task_doesnt_exist_error() {
-        System.out.println(LINE);
-        System.out.println("\tTask doesn't exist. Please choose another.");
+        System.out.println("\tPlease enter a valid command: /add, /list, /bye, /find, /delete.\n"
+                + "\tRefer to User Guide for more info.");
         System.out.println(LINE);
     }
 
     /**
      * Prints error message if an empty list is asked to be displayed.
      */
-    public void show_empty_list_error() {
+    public void showEmptyListError() {
         System.out.println(LINE);
-        System.out.println("\tList is empty. Please type "
-            + "another command apart from list.");
-        System.out.println(LINE);
-    }
-
-    /**
-     * Prints an error message if a command like find, delete, todo, deadline,
-     * event or others is entered without a following description.
-     */
-    public void empty_description_error() {
-        System.out.println(LINE);
-        System.out.println("\tPlease enter a description after the command.");
-        System.out.println(LINE);
-    }
-
-    /**
-     * Prints an error message when the format of the date/time
-     * entered for event or deadline is not correct.
-     */
-    public void date_time_error() {
-        System.out.println(LINE);
-        System.out.println("\tFormat of time is incorrect either in command "
-            + "or saveAchievements file. Saving event/deadline as mentioned without date "
-            + "time parsing.");
-        System.out.println(LINE);
-    }
-
-    /**
-     * Prints an error message when the format of date is wrong when showing schedule.
-     */
-    public void dateFormatError() {
-        System.out.println(LINE);
-        System.out.println("\tFormat of date invalid. Please type it in in DD/MM/YYYY");
+        System.out.println("\tList is empty. Please type another command apart from list.");
         System.out.println(LINE);
     }
 
@@ -136,23 +79,15 @@ public class Ui {
      */
     public void showAvatarStatistics() {
         System.out.println(LINE);
+        System.out.println("\tHere are the information on your Avatar:");
         System.out.println(Hustler.avatar.toString());
-        System.out.println(LINE);
-    }
-
-    /**
-     * Prints an error message when the format of show command is wrong.
-     */
-    public void showFormatError() {
-        System.out.println(LINE);
-        System.out.println("\tShow command invalid. Please only type \"show <DD/MM/YYYY>\"");
         System.out.println(LINE);
     }
 
     /**
      * A hello message when hustler is ran.
      */
-    public void show_opening_string() {
+    public void showOpeningString() {
         String logo = " _   _   _    _     _____  ______   _       ___      ___\n"
                 + "|  | |  | | |  |  |  / ____/ |__   __|  | |     |  __|  / __  \\\n"
                 + "|  |_| | | |  |  |   |  \\___      |  |    | |      | |__  | |__/ /\n"
@@ -166,7 +101,7 @@ public class Ui {
     /**
      * Prints a message if list is empty.
      */
-    public void show_list_empty() {
+    public void showListEmpty() {
         System.out.println(LINE);
         System.out.println("\tNothing to be cleared! Task list is already empty!");
         System.out.println(LINE);
@@ -175,17 +110,26 @@ public class Ui {
     /**
      * Prints a message when list is cleared.
      */
-    public void show_list_cleared() {
+    public void showListCleared() {
         System.out.println(LINE);
         System.out.println("\tAll tasks in the task list has been cleared! List is now empty!");
         System.out.println(LINE);
     }
 
     /**
+     * Prints a message when completed tasks are cleared.
+     */
+    public void showCompletedCleared(ArrayList<Task> list) {
+        System.out.println(LINE);
+        System.out.println("\tAll completed tasks in the task list has been cleared!");
+        showTaskList(list);
+    }
+
+    /**
      * Prints a message when a task has been snoozed.
      * @param taskDescription description of the snoozed task.
      */
-    public void show_task_snoozed(String taskDescription) {
+    public void showTaskSnoozed(String taskDescription) {
         System.out.println(LINE);
         System.out.println("\tGot it. You have snoozed the task.");
         System.out.println("\t" + taskDescription);
@@ -196,7 +140,7 @@ public class Ui {
      * Prints the entire collection of tasks in task list.
      * @param list collection of tasks.
      */
-    public void show_list(ArrayList<Task> list) {
+    public void showTaskList(ArrayList<Task> list) {
         System.out.println(LINE);
         System.out.println("\tHere are the tasks in your list:");
         for (int i = 0; i < list.size(); i++) {
@@ -209,7 +153,7 @@ public class Ui {
      * Prints a message when a task has been added.
      * @param list collection of tasks.
      */
-    public void show_task_added(ArrayList<Task> list) {
+    public void showTaskAdded(ArrayList<Task> list) {
         System.out.println(LINE);
         System.out.println("\tGot it. I've added this task:");
         System.out.println("\t  " + list.get(list.size() - 1).toString());
@@ -220,9 +164,9 @@ public class Ui {
     /**
      * Prints a message when a task clashes with another task in the list.
      */
-    public void show_task_clash() {
+    public void showTaskClash() {
         System.out.println(LINE);
-        System.out.println("Task clashes with another existing task in the list!");
+        System.out.println("\tTask clashes with another existing task in the list!");
         System.out.println(LINE);
     }
 
@@ -230,7 +174,7 @@ public class Ui {
      * Prints a message when a task has been completed.
      * @param taskDescription description of the completed task.
      */
-    public void show_task_done(String taskDescription) {
+    public void showTaskDone(String taskDescription) {
         System.out.println(LINE);
         System.out.println("\tNice! I've marked this task as done:");
         System.out.println("\t  " + taskDescription);
@@ -242,7 +186,7 @@ public class Ui {
      * @param list collection of tasks.
      * @param taskDescription description of the removed task.
      */
-    public void show_task_removed(ArrayList<Task> list, String taskDescription) {
+    public void showTaskRemoved(ArrayList<Task> list, String taskDescription) {
         System.out.println(LINE);
         System.out.println("\tNoted. I have removed this task:");
         System.out.println("\t  " + taskDescription);
@@ -252,14 +196,19 @@ public class Ui {
 
     /**
      * Prints the tasks that contains the searched keyword.
-     * @param list collection of tasks.
-     * @param matchingTasks list of integers which contains the matching tasks.
+     * @param matchingTasks the ArrayList of matching tasks.
+     * @param taskDescription the queried description.
      */
-    public void show_matching_tasks(ArrayList<Task> list, ArrayList<Integer> matchingTasks) {
+    public void showMatchingTasks(ArrayList<Task> matchingTasks, String taskDescription) {
         System.out.println(LINE);
-        System.out.println("\tFound " + matchingTasks.size() + ". Here you go.");
-        for (Integer id : matchingTasks) {
-            System.out.println("\t  " + (id + 1) + ". " + list.get(id).toString());
+        if (matchingTasks.isEmpty()) {
+            System.out.println("\tNo task found given the query \"" + taskDescription + "\".");
+        } else {
+            System.out.println("\tFound " + matchingTasks.size() + " task(s) given the query \""
+                    + taskDescription + "\". Here you go.");
+            for (int i = 0; i < matchingTasks.size(); i++) {
+                System.out.println("\t" + (i + 1) + ". " + matchingTasks.get(i).toString());
+            }
         }
         System.out.println(LINE);
     }
@@ -268,16 +217,135 @@ public class Ui {
      * Prints a message when the task list has been sorted.
      * @param list collection of tasks.
      */
-    public void show_list_sorted(ArrayList<Task> list) {
+    public void showListSorted(ArrayList<Task> list) {
         System.out.println(LINE);
         System.out.println("\tTask list has been successfully sorted!");
-        show_list(list);
+        showTaskList(list);
     }
 
-    /** Issue an error if command not followed by number in case of
-     * commands like done, delete amongst others.
+    /**
+     * Displays on the screen the congratulatory message to indicate that the User
+     * has leveled up.
      */
-    public void numberCommandError() {
-        this.show_message("Command should be followed by a number. /command <number>");
+    public void showCongrats(Avatar avatar) {
+        System.out.println("\t_____________________________________");
+        System.out.println("\tCongratulations, you've leveled up! Your avatar has gotten stronger:");
+        System.out.println(avatar.toString());
+        System.out.println("\t_____________________________________\n\n");
+    }
+
+    /**
+     * Displays the item that the Avatar recently equipped.
+     */
+    public void showEquipped(ShopItem item) {
+        System.out.println(LINE);
+        System.out.println("\tYou are equipped with " + item);
+        System.out.println(LINE);
+    }
+
+    /**
+     * Displays the list of all items in the inventory.
+     */
+    public void listInventory(ArrayList<ShopItem> items) {
+        System.out.println("********** You currently have these items: **********");
+        if (items.size() == 0) {
+            System.out.println();
+            System.out.println("You have no items in your inventory.");
+            System.out.println();
+        } else {
+            for (int i = 0; i < items.size(); i++) {
+                System.out.println(i + 1 + ". " + items.get(i).toString());
+            }
+        }
+        System.out.println("******************************************************");
+    }
+
+    /**
+     * Shows the purchased text when purchase is successful.
+     */
+    public void showPurchasedSuccess() {
+        System.out.println(LINE);
+        System.out.println("\t Item has been purchased!");
+        System.out.println("\tYour leftover points are: " + Achievements.totalPoints);
+        System.out.println(LINE);
+    }
+
+    /**
+     * Shows the failed text when purcahse is unsuccessful.
+     */
+    public void showPurchasedFailure() {
+        System.out.println(LINE);
+        System.out.println("\tNot enough points. Please accumulate more points!");
+        System.out.println(LINE);
+    }
+
+    /**
+     * Shows the text to inform the user that item was already purchased before.
+     */
+    public void showAlreadyPurchased() {
+        System.out.println(LINE);
+        System.out.println("\tItem has already been purchased! Please check your inventory.");
+        System.out.println(LINE);
+    }
+
+    /**
+     * Shows the list of items in the shop for purchase.
+     * @param shopList the ArrayList of the items in the shop.
+     */
+    public void showShopList(ArrayList<ShopItem> shopList) {
+        System.out.println("******************** Here are the items in the shop ********************");
+        for (int i = 0; i < shopList.size(); i++) {
+            /**
+             * Divides the list to format the printing of different classes.
+             */
+            if (i == 0 || !(shopList.get(i).isEquals(shopList.get(i - 1)))) {
+                System.out.println("\n\t\t\t\t======" + shopList.get(i).getType() + "=====");
+            }
+            System.out.print((i + 1) + ". ");
+            System.out.print(shopList.get(i).toString());
+            System.out.println(shopList.get(i).isPurchased() ? " [Purchased]" :
+                    " [" + shopList.get(i).getCost() + " points to purchase]");
+        }
+        System.out.println();
+        System.out.println("\t\t\t\tYou currently have: " + Achievements.totalPoints + " points.");
+        System.out.println("*************************************************************************");
+    }
+
+    /**
+     * Prints a message to show the newly unlocked achievement.
+     *
+     * @param achievement newly unlocked achievement
+     */
+    public void showAchievementUnlocked(Achievements achievement) {
+        System.out.println("Congratulations, you have unlocked this achievement!" + achievement.toString());
+    }
+
+    /**
+     * Prints out the all the unlocked and locked achievements.
+     *
+     * @param achievementList list of achievements
+     */
+    public void showAchievementList(ArrayList<Achievements> achievementList) {
+        System.out.println("\uD83D\uDD13 ACHIEVEMENTS UNLOCKED \uD83D\uDD13");
+        if (!achievementList.isEmpty()) {
+            int l = 0;
+            for (int i = 0; i < achievementList.size(); i++) {
+                if (!achievementList.get(i).checkLock()) {
+                    l++;
+                    System.out.print(l + ". ");
+                    System.out.println(achievementList.get(i));
+                }
+            }
+            System.out.println("\uD83D\uDD12 LOCKED ACHIEVEMENTS \uD83D\uDD12");
+            int j = 0;
+            for (int i = 0; i < achievementList.size(); i++) {
+                if (achievementList.get(i).checkLock()) {
+                    j++;
+                    System.out.print(j + ". ");
+                    System.out.println(achievementList.get(i));
+                }
+            }
+            System.out.println("Total Points = " + totalPoints + " \uD83D\uDCB0");
+        }
     }
 }

@@ -18,8 +18,8 @@ public class AddEntryAnomaly extends DetectAnomaly {
             Hustler.list.get(index);
         } catch (NumberFormatException e) {
             throw new CommandLineException("Please issue a number after the command: /command <index>");
-        } catch (ArrayIndexOutOfBoundsException e) {
-            throw new CommandLineException("Please enter the current index of task.");
+        } catch (IndexOutOfBoundsException e) {
+            throw new CommandLineException("Please enter the correct index of task.");
         }
     } 
 }

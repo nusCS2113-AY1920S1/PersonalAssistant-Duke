@@ -23,7 +23,7 @@ public class DeleteCommand extends Command {
     /**
     * Initializes userInput.
     *
-    * @param userInput array that contains task id to delete.
+    * @param userInput array that contains task id to delete
     */
     public DeleteCommand(String[] userInput) {
         this.userInput = userInput;
@@ -34,16 +34,19 @@ public class DeleteCommand extends Command {
      */
     public void execute() {
         Ui ui = new Ui();
-        if (userInput[1].equals("all")) {
-            Hustler.list.clearList();
-            return;
-        }
         try {
             anomaly.detect(userInput);
-            int taskIndex = Integer.parseInt(userInput[1].split(" ")[0]) - 1;
+            if (userInput[1].equals("all")) {
+                Hustler.list.clearList();
+                return;
+            } else if (userInput[1].equals("done")) {
+                Hustler.list.clearDone();
+                return;
+            }
+            int taskIndex = Integer.parseInt(userInput[1]) - 1;
             Hustler.list.removeTask(taskIndex);
         } catch (CommandLineException e) {
-            ui.show_message(e.getMessage());
+            ui.showMessage(e.getMessage());
         }
     }
 }

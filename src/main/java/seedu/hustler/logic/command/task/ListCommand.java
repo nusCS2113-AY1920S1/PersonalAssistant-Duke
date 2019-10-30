@@ -26,7 +26,7 @@ public class ListCommand extends Command {
             listAnomaly.detect(userInput);
             Hustler.list.displayList();
         } catch(CommandLineException e) {
-            ui.show_message(e.getMessage());
+            ui.showMessage(e.getMessage());
         }
     }
 }
