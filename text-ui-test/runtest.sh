@@ -20,7 +20,7 @@ then
 fi
 
 # run the program, feed duke.commands from input.txt file and redirect the output to the ACTUAL.TXT
-java -classpath ../bin duke.Duke < input.txt > ACTUAL.TXT
+java -classpath ../bin duke.Ducats < input.txt > ACTUAL.TXT
 
 # compare the output to the expected output
 
