@@ -11,6 +11,7 @@ public class Word {
     private String word;
     private String meaning;
     private HashSet<String> tags;
+    private HashSet<String> synonyms;
 
     /**
      * Maximum ratio of difference allowed for 2 words to be considered close.
@@ -31,6 +32,7 @@ public class Word {
         this.word = word;
         this.meaning = meaning;
         this.tags = new HashSet<>();
+        this.synonyms = new HashSet<>();
         this.numberOfSearches = 0;
     }
 
@@ -44,6 +46,7 @@ public class Word {
         this.word = word;
         this.meaning = meaning;
         this.tags = tags;
+        this.synonyms = new HashSet<>();
         this.numberOfSearches = 0;
     }
 
@@ -65,6 +68,14 @@ public class Word {
 
     public void addTag(String tag) {
         this.tags.add(tag);
+    }
+
+    public HashSet<String> getSynonyms() {
+        return synonyms;
+    }
+
+    public void addSynonym(String synonym) {
+        this.synonyms.add(synonym);
     }
 
     public void incrementNumberOfSearches() {
