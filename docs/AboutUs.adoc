@@ -12,45 +12,45 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 
 === QIAN JIE
 image::qjie7.png[width="150", align="left"]
-{empty}[http://github.com/qjie7[github]] [<<QIANJIE#, portfolio>>]
+{empty}[http://github.com/qjie7[github]] [https://nuscs2113-ay1920s1.github.io/dashboard/#=undefined&search=github_qjie7[portfolio]]
 
 Role: Team Lead +
-Responsibilities: UI
+Responsibilities: Release management, feature implementations, GUI, Statistical analysis
 
 '''
 
 === TAEKMAN LAUREN MARIE
 image::lmtaek.png[width="150", align="left"]
-{empty}[https://github.com/lmtaek[github]] [<<LAUREN#, portfolio>>]
+{empty}[https://github.com/lmtaek[github]] [https://nuscs2113-ay1920s1.github.io/dashboard/#=undefined&search=lmtaek[portfolio]]
 
 Role: Developer +
-Responsibilities: Data
+Responsibilities: UI, project management, feature implementations, GUI, documentation
 
 '''
 
 === LIU KEJUN
 image::kkeejjuunn.png[width="150", align="left"]
-{empty}[https://github.com/kkeejjuunn[github]] [<<KEJUN#, portfolio>>]
+{empty}[https://github.com/kkeejjuunn[github]] [https://nuscs2113-ay1920s1.github.io/dashboard/#=undefined&search=kkeejjuunn[portfolio]]
 
 Role: Developer +
-Responsibilities: Dev Ops + Threading
+Responsibilities: UI, feature implementations, data management, documentation
 
 '''
 
 === HUANG XUANKUN
 image::HUANGXUANKUN.png[width="150", align="left"]
-{empty}[https://github.com/HUANGXUANKUN[github]] [<<XUANKUN#, portfolio>>]
+{empty}[https://github.com/HUANGXUANKUN[github]] [https://nuscs2113-ay1920s1.github.io/dashboard/#=undefined&search=HUANGXUANKUN[portfolio]]
 
 Role: Developer +
-Responsibilities: UI
+Responsibilities: Release management, project management, GUI, refactoring, feature implementations
 
 '''
 
 === WEI FENG
 image::WEIFENG-NUSCEG.png[width="150", align="left"]
-{empty}[https://github.com/WEIFENG-NUSCEG[github]] [<<WEIFENG#, portfolio>>]
+{empty}[https://github.com/WEIFENG-NUSCEG[github]] [https://nuscs2113-ay1920s1.github.io/dashboard/#=undefined&search=WEIFENG-NUSCEG[portfolio]]
 
 Role: Developer +
-Responsibilities: UI
+Responsibilities: UI, data management, feature implementations
 
 '''
