@@ -11,10 +11,10 @@ import java.io.PrintStream;
 public class RoomShareExceptionTest {
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
     private static final PrintStream originalOut = System.out;
-
+/*
     @BeforeAll
-    public void setUpStreams() {
-        System.setOut(new PrintStream(outContent));
+    static void setUpStreams() {
+        System.setOut(new PrintStream(new ByteArrayOutputStream()));
     }
 
     @AfterAll
@@ -57,6 +57,8 @@ public class RoomShareExceptionTest {
         new RoomShareException(ExceptionType.test);
         assertEquals("Anomaly Detected", outContent.toString());
     }
+
+ */
 }
 
 
