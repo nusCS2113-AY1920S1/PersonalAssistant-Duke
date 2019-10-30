@@ -2,11 +2,25 @@ package duke.ui.window;
 
 import com.jfoenix.controls.JFXListView;
 import duke.data.DukeObject;
+import duke.data.Evidence;
 import duke.data.Impression;
+import duke.data.Investigation;
+import duke.data.Medicine;
+import duke.data.Observation;
 import duke.data.Patient;
+import duke.data.Plan;
+import duke.data.Result;
+import duke.data.Treatment;
 import duke.ui.UiElement;
 import duke.ui.UiStrings;
+import duke.ui.card.EvidenceCard;
 import duke.ui.card.ImpressionCard;
+import duke.ui.card.InvestigationCard;
+import duke.ui.card.MedicineCard;
+import duke.ui.card.ObservationCard;
+import duke.ui.card.PlanCard;
+import duke.ui.card.ResultCard;
+import duke.ui.card.TreatmentCard;
 import javafx.collections.MapChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -41,12 +55,16 @@ public class PatientWindow extends UiElement<Region> {
     @FXML
     private Label allergiesLabel;
     @FXML
-    private JFXListView<Node> impressionsListPanel;
+    private JFXListView<Node> impressionListPanel;
+    @FXML
+    private JFXListView<Node> criticalListPanel;
+    @FXML
+    private JFXListView<Node> investigationListPanel;
 
     private Patient patient;
     private List<DukeObject> indexedImpressionList;
-    //private List<DukeObject> indexedCriticalList;
-    //private List<DukeObject> indexedInvestigationList;
+    private List<DukeObject> indexedCriticalList;
+    private List<DukeObject> indexedInvestigationList;
 
     /**
      * Constructs the patient UI window.
@@ -56,6 +74,8 @@ public class PatientWindow extends UiElement<Region> {
 
         this.patient = patient;
         this.indexedImpressionList = new ArrayList<>();
+        this.indexedCriticalList = new ArrayList<>();
+        this.indexedInvestigationList = new ArrayList<>();
 
         if (patient == null) {
             return;
@@ -96,23 +116,62 @@ public class PatientWindow extends UiElement<Region> {
 
 
         indexedImpressionList.clear();
-        impressionsListPanel.getItems().clear();
-        for (Impression impression : patient.getImpressionsObservableMap().values()) {
-            ImpressionCard impressionCard;
+        indexedCriticalList.clear();
+        indexedInvestigationList.clear();
+        impressionListPanel.getItems().clear();
+        criticalListPanel.getItems().clear();
+        indexedInvestigationList.clear();
 
+        for (Impression impression : patient.getImpressionsObservableMap().values()) {
+            // Impression list
+            ImpressionCard impressionCard;
             if (impression.equals(patient.getPrimaryDiagnosis())) {
                 impressionCard = new ImpressionCard(impression, true);
-                impressionsListPanel.getItems().add(0, impressionCard);
+                impressionListPanel.getItems().add(0, impressionCard);
                 indexedImpressionList.add(0, impression);
             } else {
                 impressionCard = new ImpressionCard(impression, false);
-                impressionsListPanel.getItems().add(impressionCard);
+                impressionListPanel.getItems().add(impressionCard);
                 indexedImpressionList.add(impression);
+            }
+
+            // Critical list
+            for (Treatment treatment : impression.getObservableTreatments().values()) {
+                if (treatment.getPriority() == 1) {
+                    criticalListPanel.getItems().add(newTreatmentCard(treatment));
+                    indexedCriticalList.add(treatment);
+                }
+            }
+
+            for (Evidence evidence : impression.getObservableEvidences().values()) {
+                if (evidence.getPriority() == 1) {
+                    criticalListPanel.getItems().add(newEvidenceCard(evidence));
+                    indexedCriticalList.add(evidence);
+                }
+            }
+
+            // Investigation list
+            for (Treatment treatment : impression.getObservableTreatments().values()) {
+                if (treatment instanceof Investigation) {
+                    Investigation investigation = (Investigation) treatment;
+                    if (investigation.getPriority() != 1) {
+                        investigationListPanel.getItems().add(new InvestigationCard(investigation));
+                        indexedInvestigationList.add(investigation);
+                    }
+                }
             }
         }
 
-        impressionsListPanel.getItems().forEach(card -> {
-            ((ImpressionCard) card).setIndex(impressionsListPanel.getItems().indexOf(card) + 1);
+        impressionListPanel.getItems().forEach(card -> {
+            ((ImpressionCard) card).setIndex(impressionListPanel.getItems().indexOf(card) + 1);
+        });
+
+        criticalListPanel.getItems().forEach(card -> {
+            ((EvidenceCard) card).setIndex(criticalListPanel.getItems().indexOf(card) + 1);
+        });
+
+        investigationListPanel.getItems().forEach(card -> {
+            ((InvestigationCard) card).setIndex(investigationListPanel.getItems().indexOf(card) + 1);
         });
     }
 
@@ -130,6 +189,44 @@ public class PatientWindow extends UiElement<Region> {
     public List<DukeObject> getIndexedList(String type) {
         if ("impression".equals(type)) {
             return indexedImpressionList;
+        } else if ("critical".equals(type)) {
+            return indexedCriticalList;
+        } else if ("investigation".equals(type)) {
+            return indexedInvestigationList;
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * This function returns the new card added dependent on the class instance.
+     *
+     * @param evidence the evidence
+     * @return ObservationCard/ResultCard
+     */
+    private EvidenceCard newEvidenceCard(Evidence evidence) {
+        if (evidence instanceof Observation) {
+            return new ObservationCard((Observation) evidence);
+        } else if (evidence instanceof Result) {
+            return new ResultCard((Result) evidence);
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * This function returns the new card added dependent on the class instance.
+     *
+     * @param treatment the treatment
+     * @return InvestigationCard/MedicineCard/PlanCard
+     */
+    private TreatmentCard newTreatmentCard(Treatment treatment) {
+        if (treatment instanceof Investigation) {
+            return new InvestigationCard((Investigation) treatment);
+        } else if (treatment instanceof Medicine) {
+            return new MedicineCard((Medicine) treatment);
+        } else if (treatment instanceof Plan) {
+            return new PlanCard((Plan) treatment);
         } else {
             return null;
         }

@@ -52,8 +52,10 @@ public class PatientOpenCommand extends ArgCommand {
             core.uiContext.setContext(Context.IMPRESSION, object);
         } else if ("critical".equals(type)) {
             // TODO: Get critical
+            core.uiContext.setContext(Context.IMPRESSION, object.getParent());
         } else {
-            core.uiContext.setContext(Context.INVESTIGATION, object);
+            // TODO: Get investigation
+            core.uiContext.setContext(Context.IMPRESSION, object.getParent());
         }
 
         core.ui.print("Accessing " + type + " of Bed " + patient.getBedNo());

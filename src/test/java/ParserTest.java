@@ -4,10 +4,10 @@ import duke.exception.DukeException;
 import duke.ui.context.UiContext;
 import mocks.DoctorCommand;
 import mocks.TestCommands;
+import mocks.ValidEmptyCommand;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -59,30 +59,27 @@ public class ParserTest {
     }
 
     @Test
-    public void parseCommands_differentOrder_argumentsExtracted() {
+    public void parseCommands_stringsAndEscapes_argumentsExtracted() {
         try {
-            Command testCmd = uut.parse("doctor -switch World -optswitch Optional Hello");
+            Command testCmd = uut.parse("doctor Hello\\\\World -switch double \\\" quote"
+                    + "-maybe escaped \\\\ backslash");
             DoctorCommand docCmd = (DoctorCommand) testCmd;
-            assertEquals("Hello", docCmd.getArg());
-            assertEquals("World", docCmd.getSwitchVal("switch"));
-            assertEquals("Optional", docCmd.getSwitchVal("optswitch"));
+            assertEquals("Hello\\World", docCmd.getArg());
+            assertEquals("double \" quote", docCmd.getSwitchVal("switch"));
+            assertEquals("escaped \\ backslash", docCmd.getSwitchVal("maybe"));
+            assertTrue(docCmd.getSwitchVals().containsKey("none"));
         } catch (DukeException excp) {
-            fail("Exception thrown while extracting arguments in different order!");
+            fail("Exception thrown when parsing strings and escapes!");
         }
     }
 
     @Test
-    public void parseCommands_stringsAndEscapes_argumentsExtracted() {
+    public void parseCommands_validEmptyCommand_errorNotThrown() {
         try {
-            Command testCmd = uut.parse("doctor \"Hello\\\\World\" -switch\"double \\\" quote\" -none"
-                            + "-maybe escaped\\\\backslash");
-            DoctorCommand docCmd = (DoctorCommand) testCmd;
-            assertEquals("Hello\\World", docCmd.getArg());
-            assertEquals("double \" quote", docCmd.getSwitchVal("switch"));
-            assertEquals("escaped\\backslash", docCmd.getSwitchVal("maybe"));
-            assertTrue(docCmd.getSwitchVals().containsKey("none"));
+            Command testCmd = uut.parse("empty");
+            assertEquals(ValidEmptyCommand.class, testCmd.getClass());
         } catch (DukeException excp) {
-            fail("Exception thrown when parsing strings and escapes!");
+            fail("Exception thrown when parsing valid empty command!");
         }
     }
 }

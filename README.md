@@ -7,8 +7,8 @@
 [![GitHub issues](https://img.shields.io/github/issues/AY1920S1-CS2113-T14-1/main)](https://github.com/AY1920S1-CS2113-T14-1/main/issues)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
-<img src="docs/images/Logo.png" width=400>
-<img src="docs/images/Ui.png" width=600>
+<img src="docs/images/Logo.png" width=300>
+<img src="docs/images/Ui.png" width=1000>
 
 Dr. Duke is a command-line based personal assistant for house officers to manage their patients' data. It aims to increase the speed at which patient data can be entered, organised and accessed by providing a powerful and flexible command line interface, together with easily understandable visual cues.
 

@@ -193,7 +193,7 @@ Shows a detailed view of a `Patient`. The details are displayed in separate pane
 * List of `Impressions` with their associated details (the name, an excerpt of its description,
   and the number of critical items and follow-up investigations associated with it)
 * List of critical `Treatments` and `Evidences` (of `priority` 1)
-* List of `Investigations` to follow up on (i.e. all current investigations; completed investigations should be stored as Results)
+* List of `Investigations` to follow up on (i.e. all current investigations; completed investigations should be stored as `Results`)
 
 Inherits: <<home-help,`help`>>, <<home-undo,`undo`>>, <<home-redo,`redo`>>
 
@@ -314,47 +314,47 @@ Relevant switches for various types are as follows.
 
 [[type-table]]
 [cols=2*,options="header"]
- | ===
- | Type
- | Relevant Switches
+|===
+|Type
+|Relevant Switches
 
- | `-m[edicine]`
-a | 
+|`-m[edicine]`
+a|
 * `-n[ame] "<name>"` - Required
-* `-sta[tus] ("<status name>"\ | <status idx>)` - Default: 0 (not ordered)
+* `-sta[tus] ("<status name>"\|<status idx>)` - Default: 0 (not ordered)
 * `-d[ose] "<dose>"` - Required
 * `-da[te] "<start date>"` - Default: Today
 * `-du[ration] "<duration of course>"` - Required
 * `-pri[ority] <priority idx>` - Default: 0 (not urgent)
 
- | `-in[v(x\ | estigation)]`
-a | 
+|`-i[nv(x\|estigation)]`
+a|
 * `-n[ame] "<name>"` - Required
-* `-sta[tus] ("<status name>"\ | <status idx>)` - Default: 0 (not ordered)
+* `-sta[tus] ("<status name>"\|<status idx>)` - Default: 0 (not ordered)
 * `-sum[mary] "<summary>"` - Default: ""
 * `-pri[ority] <priority idx>` - Default: 0 (not urgent)
 
- | `-p[lan]`
-a | 
+|`-p[lan]`
+a|
 * `-n[ame] "<name>"` - Required
-* `-sta[tus] ("<status name>"\ | <status idx>)` - Default: 0 (not ordered)
+* `-sta[tus] ("<status name>"\|<status idx>)` - Default: 0 (not ordered)
 * `-sum[mary] "<summary>"` - Default: ""
 * `-pri[ority] <priority idx>` - Default: 0 (not urgent)
 
- | `-o[bservation]`
-a | 
+|`-o[bservation]`
+a|
 * `-n[ame] "<name>"` - Required
 * `-sum[mary] "<summary>"` - Default: ""
-* `-(subj[ective]\ | obj[ective])` - Default: objective observations
+* `-(subj[ective]\|obj[ective])` - Default: objective observations
 * `-pri[ority] <priority idx>` - Default: 0 (not urgent)
 
- | `-r[esult]`
-a | 
+|`-r[esult]`
+a|
 * `-n[ame] "<name>"` - Required
 * `-sum[mary] "<summary>"` - Default: ""
 * `-pri[ority] <priority idx>` - Default: 0 (not urgent)
 
- | ===
+|===
 
 `<status name>` is a case-insensitive substring of the `statusArr` entry of that particular object, while `<status idx>` is its numerical representation.
 

@@ -403,12 +403,8 @@ public class Impression extends DukeObject {
         }
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        if (!(obj instanceof Impression)) {
-            return false;
-        }
-
-        return this.getName().equals(((Impression) obj).getName());
+    public boolean equals(Impression impression) {
+        return getName().equals(impression.getName()) && description.equals(impression.description)
+                && getParent() == impression.getParent();
     }
 }
