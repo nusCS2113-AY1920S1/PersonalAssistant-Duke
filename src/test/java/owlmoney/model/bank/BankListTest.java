@@ -464,7 +464,8 @@ class BankListTest {
     void bankListAddBank_successfulAdd_printBankDetails() {
         Storage testStorage = new Storage("data/");
         testStorage.createDirectoryIfNotExist("data/");
-        BankList testList = new BankList(testStorage);        Ui testUi = new Ui();
+        BankList testList = new BankList(testStorage);
+        Ui testUi = new Ui();
         Saving newBank = new Saving("test", 123, 123);
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
@@ -502,7 +503,8 @@ class BankListTest {
     void bankListDeleteBank_successfulDelete_displayDeletedBankDetails() {
         Storage testStorage = new Storage("data/");
         testStorage.createDirectoryIfNotExist("data/");
-        BankList testList = new BankList(testStorage);        Ui testUi = new Ui();
+        BankList testList = new BankList(testStorage);
+        Ui testUi = new Ui();
         Saving newBank = new Saving("test", 123, 123);
         Saving newBank2 = new Saving("test2", 456, 456);
         try {
@@ -533,7 +535,8 @@ class BankListTest {
     void bankListEditSavings_editedBankDetails_displayNewDetails() {
         Storage testStorage = new Storage("data/");
         testStorage.createDirectoryIfNotExist("data/");
-        BankList testList = new BankList(testStorage);        Ui testUi = new Ui();
+        BankList testList = new BankList(testStorage);
+        Ui testUi = new Ui();
         Saving newBank = new Saving("test", 123, 123);
         try {
             testList.bankListAddBank(newBank, testUi);
