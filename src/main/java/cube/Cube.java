@@ -1,52 +1,58 @@
-/**
- * This is the main entrance of Duke programme.
- *
- * @author tygq13
- */
 package cube;
 
-import cube.model.Food;
-import cube.model.FoodList;
+import cube.model.food.Food;
+import cube.model.food.FoodList;
+import cube.model.sale.SalesHistory;
+import cube.model.ModelManager;
 import cube.ui.Ui;
 import cube.logic.parser.Parser;
 import cube.logic.command.Command;
-import cube.logic.command.CommandResult;
+import cube.logic.command.util.CommandResult;
 import cube.util.FileUtilJson;
 import cube.storage.*;
 import cube.exception.CubeException;
+import cube.util.LogUtil;
 
-/**
- * the main class of Duke Programme
- */
-public class Duke {
+import java.util.logging.Logger;
+
+
+public class Cube {
 
     private StorageManager storageManager;
-    private FileUtilJson storage;
+    private ModelManager modelManager;
+    private FileUtilJson<StorageManager> storage;
     private FoodList foodList;
+    private SalesHistory salesHistory;
     private Ui ui;
+    private final Logger logger = LogUtil.getLogger(Cube.class);
 
     /**
-     * Duke constructor with filePath.
+     * Cube constructor with filePath.
      *
      * @param filePath the file path where duke data is stored.
      */
-    public Duke(String filePath) {
+    public Cube(String filePath) {
+        logger.info("=============================[ Initializing Cube ]===========================");
         ui = new Ui();
-        storage = new FileUtilJson(filePath);
+        storageManager = new StorageManager();
+        storage = new FileUtilJson<>(filePath, "cube.json", storageManager);
 
         try {
+            LogUtil.init(storageManager.getConfig().getLogConfig());
             storageManager = storage.load();
             foodList = storageManager.getFoodList();
+            salesHistory = storageManager.getSalesHistory();
+            modelManager = new ModelManager(foodList, salesHistory);
             Food.updateRevenue(storageManager.getRevenue());
         } catch (CubeException e) {
+            logger.warning(e.getMessage());
             ui.showLoadingError(filePath);
-            foodList = new FoodList();
-            storageManager = new StorageManager();
+            modelManager = new ModelManager();
         }
     }
 
     /**
-     * Runs the Duke programme by receiving user commands and executing the commands.
+     * Runs the Cube programme by receiving user commands and executing the commands.
      */
     public void run() {
         ui.showWelcome();
@@ -54,18 +60,22 @@ public class Duke {
         while (!isExit) {
             try {
                 String fullCommand = ui.readCommand();
+                logger.info("Command Entered : " + fullCommand);
+
                 ui.showLine();
                 Command c = Parser.parse(fullCommand);
                 isExit = c.isExit();
-                CommandResult result = c.execute(foodList, storageManager);
+                CommandResult result = c.execute(modelManager, storageManager);
                 ui.showCommandResult(result);
                 storage.save(storageManager);
             } catch (CubeException e) {
+                logger.warning(e.getMessage());
                 ui.showError(e.getMessage());
             } finally {
                 ui.showLine();
             }
         }
+        logger.info("=============================[  Exiting Cube  ]==============================");
     }
 
     /**
@@ -74,6 +84,6 @@ public class Duke {
      */
     public static void main(String[] args) {
         //todo: allow user to specify data path
-        new Duke("data").run();
+        new Cube("data").run();
     }
 }

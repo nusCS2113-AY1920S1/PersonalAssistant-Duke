@@ -1,10 +1,12 @@
 package cube.logic.command;
 
 import cube.logic.command.exception.CommandException;
-import cube.model.FoodList;
-import cube.model.Food;
+import cube.model.food.FoodList;
+import cube.model.food.Food;
+import cube.model.ModelManager;
 import cube.storage.StorageManager;
 import cube.logic.parser.ParserUtil;
+import cube.logic.command.util.CommandResult;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -46,7 +48,8 @@ public class ReminderCommand extends Command{
      */
 
     @Override
-    public CommandResult execute(FoodList list, StorageManager storage) throws CommandException {
+    public CommandResult execute(ModelManager model, StorageManager storage) throws CommandException {
+        FoodList list = model.getFoodList();
         FoodList stockReminder = new FoodList();
         FoodList expiryReminder = new FoodList();
         Calendar cal = Calendar.getInstance();

@@ -1,4 +1,4 @@
-package cube.model;
+package cube.model.food;
 
 import java.util.Comparator;
 import java.util.Date;
@@ -23,6 +23,6 @@ class SortByExpiry implements Comparator<Food> {
 
 class SortByStock implements Comparator<Food> {
 	public int compare(Food a, Food b) {
-		return a.getStock() > b.getStock() ? -1 : (a.getStock() < b.getStock()) ? 1 : 0;
+		return a.getStock() < b.getStock() ? -1 : (a.getStock() > b.getStock()) ? 1 : 0;
 	}
 }

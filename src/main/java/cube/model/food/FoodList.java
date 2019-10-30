@@ -1,4 +1,4 @@
-package cube.model;
+package cube.model.food;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -106,6 +106,14 @@ public class FoodList{
 			result += String.format("%1$d. %2$s.\n", i + 1, foodArrayList.get(i));
 		}
 		return result;
+	}
+
+	@Override
+	// for Junit test use
+	public boolean equals(Object other) {
+	    return other == this // short circuit if same object
+	            || (other instanceof FoodList // instanceof handles nulls
+	                    && foodArrayList.equals(((FoodList) other).foodArrayList));
 	}
 
 }
