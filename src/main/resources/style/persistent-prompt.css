@@ -2,5 +2,5 @@
     -fx-prompt-text-fill: derive(-fx-control-inner-background,-30%);
 }
 .no-prompt {
-    -fx-prompt-text-fill: transparent !important;
+    -fx-prompt-text-fill: transparent;
 }

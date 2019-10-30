@@ -40,7 +40,7 @@ public class DucatsWindow {
     private HBox songPanel;
 
     //CONSTANTS
-    String noSongs = "You have no songs in your song list.";
+    private String noSongs = "You have no songs in your song list.";
     private Ducats ducats = new Ducats();
 
     /**
