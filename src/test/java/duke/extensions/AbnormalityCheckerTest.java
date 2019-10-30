@@ -1,14 +1,7 @@
 package duke.extensions;
 
-import duke.exception.DukeException;
-import duke.storage.Storage;
-import duke.task.Event;
-import duke.task.Task;
-import duke.tasklist.TaskList;
-import duke.ui.Ui;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -18,7 +11,15 @@ import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import duke.exception.DukeException;
+import duke.storage.Storage;
+import duke.task.Event;
+import duke.tasklist.TaskList;
+import duke.ui.Ui;
 
 class AbnormalityCheckerTest {
     private static final String FILE_PATH = "data/editCommandTest.json";
@@ -84,6 +85,7 @@ class AbnormalityCheckerTest {
 
         return t;
     }
+
     @Test
     void checkEventClashTrue() throws DukeException {
         TaskList tasks = createTaskList();

@@ -1,23 +1,27 @@
 package duke.command;
 
-import duke.exception.DukeException;
-import duke.extensions.Recurrence;
-import duke.parser.AddCommandParser;
-import duke.parser.EditCommandParser;
-import duke.storage.Storage;
-import duke.task.Task;
-import duke.tasklist.TaskList;
-import duke.ui.Ui;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
-import java.io.*;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.PrintStream;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import duke.exception.DukeException;
+import duke.extensions.Recurrence;
+import duke.storage.Storage;
+import duke.task.Task;
+import duke.tasklist.TaskList;
+import duke.ui.Ui;
 
 class AutoAssignCommandTest {
 
@@ -131,7 +135,6 @@ class AutoAssignCommandTest {
         Optional<String> actualTaskFilter = tasks.get(3).getFilter();
         assertEquals(expectedTaskFilter.get(), actualTaskFilter.get());
     }
-
 
 
 }

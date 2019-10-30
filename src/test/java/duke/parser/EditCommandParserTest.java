@@ -1,14 +1,14 @@
 package duke.parser;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.ArrayList;
 import java.util.Optional;
 
+import org.junit.jupiter.api.Test;
+
 import duke.command.EditCommand;
 import duke.exception.DukeException;
-import org.junit.jupiter.api.Test;
 
 class EditCommandParserTest {
 
@@ -25,7 +25,7 @@ class EditCommandParserTest {
 
         EditCommand expectedEditCommand = new EditCommand(Optional.of("cs"), 4, keywordAndFields);
         EditCommand actualEditCommand = editCommandParser.parse(Optional.of("cs"), "4 -description muji pen -r weekly");
-       // assertEquals(expectedEditCommand, actualEditCommand);
+        // assertEquals(expectedEditCommand, actualEditCommand);
     }
 
     @Test

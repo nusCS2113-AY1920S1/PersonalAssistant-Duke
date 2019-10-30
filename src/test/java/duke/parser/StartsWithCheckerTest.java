@@ -1,10 +1,7 @@
 package duke.parser;
 
-import duke.storage.Storage;
-import duke.ui.Ui;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -13,7 +10,11 @@ import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import duke.storage.Storage;
+import duke.ui.Ui;
 
 class StartsWithCheckerTest {
     private static final String FILE_PATH = "data/editCommandTest.json";
@@ -53,7 +54,7 @@ class StartsWithCheckerTest {
                 "done", "edit", "task", "autoassign"));
         ArrayList<String> commandsToTest = new ArrayList<>(Arrays.asList("by", "h", "l", "del", "fi",
                 "do", "e", "t", "auto"));
-        for (int i=0; i<commandList.size(); i++) {
+        for (int i = 0; i < commandList.size(); i++) {
             final String input = "Y";
             provideInput(input);
             String filteredString = StartsWithChecker.checkStartsWithAnyCommand(commandsToTest.get(i));
@@ -67,7 +68,7 @@ class StartsWithCheckerTest {
                 "done", "edit", "task", "autoassign"));
         ArrayList<String> commandsToTest = new ArrayList<>(Arrays.asList("by", "h", "l", "del", "fi",
                 "do", "e", "t", "auto"));
-        for (int i=0; i<commandList.size(); i++) {
+        for (int i = 0; i < commandList.size(); i++) {
             final String input = "N";
             provideInput(input);
             String filteredString = StartsWithChecker.checkStartsWithAnyCommand(commandsToTest.get(i));
@@ -81,17 +82,18 @@ class StartsWithCheckerTest {
                 "done", "edit", "task", "autoassign"));
         ArrayList<String> commandsToTest = new ArrayList<>(Arrays.asList("ye", "elp", "ist", "elete", "ind",
                 "one", "dit", "ask", "utoassign"));
-        for (int i=0; i<commandList.size(); i++) {
+        for (int i = 0; i < commandList.size(); i++) {
             String filteredString = StartsWithChecker.checkStartsWithAnyCommand(commandsToTest.get(i));
             assertNotEquals(filteredString, commandList.get(i));
         }
     }
+
     void commandIsSubsetOfKeyWord() {
         ArrayList<String> commandList = new ArrayList<>(Arrays.asList("bye", "help", "list", "delete", "find",
                 "done", "edit", "task", "autoassign"));
         ArrayList<String> commandsToTest = new ArrayList<>(Arrays.asList("byee", "helpp", "listt", "deletee", "findd",
                 "donee", "editt", "taskk", "autoassignn"));
-        for (int i=0; i<commandList.size(); i++) {
+        for (int i = 0; i < commandList.size(); i++) {
             String filteredString = StartsWithChecker.checkStartsWithAnyCommand(commandsToTest.get(i));
             assertNotEquals(filteredString, commandList.get(i));
         }
