@@ -19,7 +19,7 @@ public class Task {
     public LocalDateTime dueDate;
 
     public int priority;
-    public int reminders;
+    protected Reminders reminders;
 
     /**
      * Creates a task with the specified description.
@@ -131,7 +131,6 @@ public class Task {
         return this.numberOfDays;
     }
 
-    //@@author gervaiseang
     /**
      * Set the remaining days of reminder.
      *
@@ -142,15 +141,28 @@ public class Task {
         this.numberOfDays = remainingDays;
     }
 
-    //@@author
     /**
-     * Set the remaining days of reminder.
+     * Set the reminders for existing tasks which are going to be due in 3 days
+     *
+     * @param days The number of days left of the reminded task.
+     */
+/*    public void setReminderList(int days) {
+        reminders = new Reminders(days, currentDate);
+    }*/
+
+    /**
+     * Check for reminders for a task is triggered
      *
      * @return boolean that triggers the reminder.
      */
-    public boolean isTriggerReminder() {
+/*    public boolean isTriggerReminder() {
+        if (reminders != null) {
+            return reminders.isTriggerReminder();
+        }
         return false;
-    }
+    }*/
+
+    //@@author
 
     /**
      * Set the priority of one task.
