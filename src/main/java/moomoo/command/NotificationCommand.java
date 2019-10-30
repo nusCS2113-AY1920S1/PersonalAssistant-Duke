@@ -26,15 +26,16 @@ public class NotificationCommand extends Command {
     @Override
     public void execute(ScheduleList calendar, Budget budget, CategoryList catList, Category category,
                         Ui ui, Storage storage) throws MooMooException {
+        String alert = "";
         if (expenditure > budget.getBudgetFromCategory(cat)) {
-            ui.setOutput("You have exceeded your budget of " + budget.getBudgetFromCategory(cat) + " for " + cat + "!");
-            ui.showResponse();
+            alert = "You have exceeded your budget of " + budget.getBudgetFromCategory(cat) + " for " + cat + "!\n";
+        } else if (expenditure == budget.getBudgetFromCategory(cat)) {
+            alert = "You have reached your budget limit of " + budget.getBudgetFromCategory(cat) + ".\n";
         } else if (expenditure > budget.getBudgetFromCategory(cat) * 0.9) {
-            ui.setOutput("You are reaching your budget limit of " + budget.getBudgetFromCategory(cat)
-                    + " for " + cat + ".");
+            alert = "You are reaching your budget limit of " + budget.getBudgetFromCategory(cat) + " for " + cat
+                    + ".\n";
         }
         double balance = budget.getBudgetFromCategory(cat) - expenditure;
-        ui.setOutput("Budget remaining = " + balance);
-        ui.showResponse();
+        ui.setOutput(alert + "Budget remaining = " + balance);
     }
 }
