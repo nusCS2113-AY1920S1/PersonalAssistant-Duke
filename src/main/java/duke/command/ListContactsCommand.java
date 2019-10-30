@@ -16,6 +16,7 @@ public class ListContactsCommand extends Command {
     public ListContactsCommand(ContactList contactList) {
         this.contactList = contactList;
     }
+
     /**
      * Executes a command that gathers all contacts from contact list and outputs the result.
      *

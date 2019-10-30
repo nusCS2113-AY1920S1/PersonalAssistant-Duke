@@ -1,13 +1,25 @@
 package duke;
 
-import duke.command.*;
+import duke.command.BackupCommand;
+import duke.command.ExitCommand;
+import duke.command.ListPriorityCommand;
+import duke.command.Command;
+import duke.command.AddMultipleCommand;
+import duke.command.SetPriorityCommand;
+import duke.command.DeleteCommand;
+import duke.command.FilterCommand;
+import duke.command.FindTasksByPriorityCommand;
 import duke.dukeexception.DukeException;
 import duke.parser.Parser;
 import duke.storage.BudgetStorage;
 import duke.storage.ContactStorage;
 import duke.storage.PriorityStorage;
 import duke.storage.Storage;
-import duke.task.*;
+import duke.task.BudgetList;
+import duke.task.PriorityList;
+import duke.task.FilterList;
+import duke.task.ContactList;
+import duke.task.TaskList;
 import duke.ui.Ui;
 
 import java.io.File;
@@ -167,11 +179,11 @@ public class Duke {
      * @throws IOException  If there is an error writing the text file
      */
     public String executeCommand(Command cmd) throws IOException {
-            String str = cmd.executeGui(items, ui);
-            if (cmd instanceof FilterCommand) {
-                cmd.execute(items,filterList);
-            }
-            return str;
+        String str = cmd.executeGui(items, ui);
+        if (cmd instanceof FilterCommand) {
+            cmd.execute(items,filterList);
+        }
+        return str;
     }
 
     //@@author talesrune

@@ -515,7 +515,7 @@ public class Parser {
                 try {
                     Integer.parseInt(arr[ONE]); //Catches for non integer value
                     return new DeleteContactCommand(Integer.parseInt(arr[ONE]) - ONE, contactList);
-                } catch(NumberFormatException e) {
+                } catch (NumberFormatException e) {
                     throw new DukeException("     Input is not an integer value!");
                 }
             }
