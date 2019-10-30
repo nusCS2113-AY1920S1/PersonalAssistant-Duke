@@ -557,7 +557,9 @@ class BankListTest {
 
     @Test
     void bankListEditInvestment_succeedEditing_displaysNewDetails() {
-        BankList testList = new BankList(new Storage("data/"));
+        Storage testStorage = new Storage("data/");
+        testStorage.createDirectoryIfNotExist("data/");
+        BankList testList = new BankList(testStorage);
         Ui testUi = new Ui();
         Investment newBank = new Investment("test", 123);
         try {
