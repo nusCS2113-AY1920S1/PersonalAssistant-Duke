@@ -14,7 +14,7 @@ This project portfolio documents my contributions to this project.
 
 ModPlan is an application created during [CS2113T Software Engineering and OOP] taken during Semester 1 of AY19/20 at the National University of Singapore (NUS). The team consists of 5 members all majoring in Computer Engineering (CEG), and we were tasked to morph or optimize a personal chat-bot/task planner `Duke` into something that solves a problem that specific users may face. The whole project is coded in Java, and maintained using GitHub under this repository {repoURL}/main[here].
 
-ModPlan is a command line based application that extends the functionality of NUSMODS, an NUS-approved website that helps students plan their module timetables, to aid NUS CEG students in planning all 8 semesters of their university tenure. The application is written in Java and has about 5000 lines of code. 
+ModPlan is a command line based application that extends the functionality of NUSMODS, an NUS-approved website that helps students plan their module timetables, to aid NUS CEG students in planning all 8 semesters of their university tenure. The application is written in Java and has about 5000 lines of code.
 
 == Summary of contributions
 
@@ -41,7 +41,7 @@ ModPlan is a command line based application that extends the functionality of NU
 *** Managed releases `v1.2` - `v1.3` (2 releases) on GitHub
 *** Managed assigning developers issues and pull requests, as well as tagging of project contributions
 ** Documentation:
-*** Setup most of the documentation in the GitHub repo, and was in-charge of maintaining the formatting of .adoc files: {repoURL}/docs[Documentation[
+*** Setup most of the documentation in the GitHub repo, and was in-charge of maintaining the formatting of .adoc files: {repoURL}/docs[Documentation]
 ** Community:
 *** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S1-CS2113T-F10-1/main/pull/95[#95], https://github.com/AY1920S1-CS2113T-F10-1/main/pull/70[#70], https://github.com/AY1920S1-CS2113T-F10-1/main/pull/57[#57], https://github.com/AY1920S1-CS2113T-F10-1/main/pull/50[#50])
 *** Contributed to forum discussions (examples:  https://github.com/AY1920S1-CS2113T-F10-1/main/issues/74[Issue #74], https://github.com/AY1920S1-CS2113T-F10-1/main/issues/105[Issue #105], https://github.com/AY1920S1-CS2113T-F10-1/main/pull/104[#104])
@@ -73,9 +73,9 @@ Keep typing all the module names in the module list and their respective grades 
 ****
 
 Example: +
-`cap overall` + 
+`cap overall` +
 `CG2028 A` +
-`CS2027 B-` + 
+`CS2027 B-` +
 `done`
 
 ==== Calculating CAP from the module list. +
@@ -180,15 +180,15 @@ Firstly, a new `Scanner` will be created to continue reading in the module that 
 After taking in the user input, ModPlan will check if the module is a legitimate module in the `detailedMap` pulled from NUSMODS API. +
 If it is invalid, a new `ModNotFoundException` will be thrown. Otherwise the prerequisite tree (if any) will be scanned for that particular module using the `parsePrerequisiteTree` method. +
 
-This method uses the string split method to parse the string of prerequisites into individual module codes, and sorts them into a List of Lists of Strings (LLS). 
+This method uses the string split method to parse the string of prerequisites into individual module codes, and sorts them into a List of Lists of Strings (LLS).
 
-Each List of Strings (LS) contains prerequesite modules as part of an 'or' tree, while the modules across the LLS are part of an 'and' tree. Once the methods finds one of the prerequisite modules in a LS that corresponds to a graded module taken in the user's module task list, it removes that LS entirely from the LLS, and moves on to check the next LS for any prerequisite modules taken. 
+Each List of Strings (LS) contains prerequesite modules as part of an 'or' tree, while the modules across the LLS are part of an 'and' tree. Once the methods finds one of the prerequisite modules in a LS that corresponds to a graded module taken in the user's module task list, it removes that LS entirely from the LLS, and moves on to check the next LS for any prerequisite modules taken.
 
 If the entire LLS is empty at the end of the execution, it means that the user has fulfilled enough of the prerequisite modules required for that module, and the user's CAP is calculated according to the graded prerequisite modules identified in the user's module task list. +
 
 The diagram below shows the example more clearly, where only one of the prerequisites within a LS need to be taken, while all of prerequisites across the LLS need to be taken. +
 
-image::CapCommandLLS.png[align="center"] 
+image::CapCommandLLS.png[align="center"]
 
 In this case, the modules the user needs to take are: +
 
