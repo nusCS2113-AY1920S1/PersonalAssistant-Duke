@@ -1,4 +1,4 @@
-package eggventory.commands.add;
+package eggventory.logic.commands.add;
 
 import eggventory.commons.enums.CommandType;
 import eggventory.commons.exceptions.BadInputException;
@@ -16,7 +16,7 @@ class AddPersonCommandTest {
 
     private StockList testStockList = new StockList();
     private Cli testCli = new Cli();
-    private Storage testStorage = new Storage("");
+    private Storage testStorage = new Storage("","");
     private PersonList personList = new PersonList();
 
     @Test

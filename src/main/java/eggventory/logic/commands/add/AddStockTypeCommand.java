@@ -42,4 +42,21 @@ public class AddStockTypeCommand extends Command {
         ui.drawTable(list.getAllStockTypesStruct());
         return output;
     }
+
+    //@@author patwaririshab
+    /**
+     * Executes the actual adding of task to the StockType.
+     * Only to be used by Storage.load() - handles the adding without showing UI output.
+     * @param list StockList to add the item to.
+     */
+    public void execute(StockList list) {
+        if (list.isExistingStockType(name)) {
+            //Do Nothing
+            //This is to prevent Uncategorised from being loaded multiple times
+        } else {
+            list.addStockType(name);
+            System.out.println(name);
+        }
+    }
+    //@@author
 }

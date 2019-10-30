@@ -27,7 +27,7 @@ public class CommandDictionary {
         commandDict.add(new Pair<>("delete template", "<Template Name>"));
 
         // Edit Commands
-        commandDict.add(new Pair<>("edit stock", "<Property> <New Value>"));
+        commandDict.add(new Pair<>("edit stock", "<Stock Code> <Property> <New Value>"));
         commandDict.add(new Pair<>("edit person", "<Property> <New Value>"));
 
         // List Commands

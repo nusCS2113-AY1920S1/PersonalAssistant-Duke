@@ -1,4 +1,4 @@
-package eggventory.commands.edit;
+package eggventory.logic.commands.edit;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

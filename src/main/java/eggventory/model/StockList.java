@@ -125,7 +125,7 @@ public class StockList {
         return null;
     }
 
-    //@@author
+    //@@author patwaririshab
     /**
      * Edits a Stock object in a StockList.
      * @param stockCode The unique String that identifies a Stock.
@@ -268,6 +268,22 @@ public class StockList {
         }
 
         return details.toString();
+    }
+
+    //@@author patwaririshab
+    /**
+     * Saves the stocktypes into a String.
+     * @return The String will be directly saved into a saved_stocktypes file.
+     */
+    public String saveStockTypesString() {
+        StringBuilder stockTypesString = new StringBuilder();
+
+        for (StockType stocktype : stockList) {
+            stockTypesString.append(stocktype.getName()).append("\n");
+        }
+        System.out.println(stockTypesString.toString());
+
+        return stockTypesString.toString();
     }
 
     //@@author Raghav-B

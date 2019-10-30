@@ -53,9 +53,17 @@ public class EditStockCommand extends Command {
         }
 
         Stock edited = list.setStock(stockCode, property, newValue);
-        output = String.format("Awesome! I have successfully updated the following stock: %s | %s | %d | %s\n",
-                edited.getStockType(), edited.getStockCode(), edited.getQuantity(),
-                edited.getDescription());
+        output = String.format("Awesome! I have successfully updated the following stock:\n"
+                        + "stocktype: %s\n"
+                        + "stockcode: %s\n"
+                        + "quantity: %d\n"
+                        + "description: %s\n"
+                        + "minimum: %s\n"
+                        + "lost: %s\n"
+                        + "loaned: %s\n"
+                        + "available: %s",
+                edited.getStockType(), edited.getStockCode(), edited.getQuantity(), edited.getDescription(),
+                edited.getMinimum(), edited.getLost(), edited.getLoaned(), edited.numAvailable());
         storage.save(list);
         ui.print(output);
         // Drawing stock data in GUI table.

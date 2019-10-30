@@ -11,7 +11,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
-//@@author patwaririshab
 class StockTypeTest {
 
     /*
@@ -34,11 +33,11 @@ class StockTypeTest {
         assertEquals(1,testStockType.getQuantity());
     }
 
+    //@@author patwaririshab
     @Test
     void addStock_Success() {
         StockType testStockType = new StockType("Resistor");
         assertTrue(testStockType.addStock("Resistor", "R50", 500,"Test Resistor"));
-
     }
 
     @Test
@@ -59,7 +58,6 @@ class StockTypeTest {
         assertEquals(0,testStockType.getQuantity());
     }
 
-    //@@author
     @Test
     void setStock_StockCode_Success() {
         StockType testStockType = new StockType("testList");

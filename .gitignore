@@ -14,4 +14,5 @@ src/main/resources/docs/
 bin/
 
 #data files for storing and loading
-data/saved_tasks.txt
+data/saved_stocks.csv
+data/saved_stocktypes.csv

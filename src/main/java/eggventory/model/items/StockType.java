@@ -164,6 +164,7 @@ public class StockType {
         return name;
     }
 
+    //@@author patwaririshab
     /**
      * Updates the name of the StockType.
      * @param newName String which uniquely identifies a StockType.
@@ -172,7 +173,6 @@ public class StockType {
         this.name = newName;
     }
 
-    //@@author patwaririshab
     /**
      * Updates the values of properties of a Stock.
      * @param stockCode String which uniquely identifies a Stock.
@@ -269,8 +269,4 @@ public class StockType {
         }
         return dataArray;
     }
-
-
-
-    //@@author
 }

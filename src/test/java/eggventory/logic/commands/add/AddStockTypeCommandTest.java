@@ -1,4 +1,4 @@
-package eggventory.commands.add;
+package eggventory.logic.commands.add;
 
 import eggventory.model.StockList;
 import eggventory.storage.Storage;
@@ -11,14 +11,13 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-
+//@@author patwaririshab
 class AddStockTypeCommandTest {
 
     private StockList testStockList = new StockList();
     private Cli testCli = new Cli();
-    private Storage testStorage = new Storage("");
+    private Storage testStorage = new Storage("", "");
 
-    //@@author patwaririshab
     @Test
     void testExecuteAddStockType_ValidStockType_Succeeds() throws BadInputException {
         String output = new AddStockTypeCommand(CommandType.ADD, "testStockType")

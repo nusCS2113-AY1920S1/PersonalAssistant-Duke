@@ -2,7 +2,7 @@ package eggventory.logic.parsers;
 
 import eggventory.logic.commands.Command;
 import eggventory.logic.commands.FindCommand;
-import eggventory.logic.commands.help.HelpCommand;
+import eggventory.logic.HelpCommand;
 import eggventory.logic.commands.ByeCommand;
 import eggventory.commons.enums.CommandType;
 import eggventory.commons.exceptions.BadInputException;

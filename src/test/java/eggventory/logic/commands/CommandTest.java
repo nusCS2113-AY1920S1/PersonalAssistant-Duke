@@ -1,4 +1,4 @@
-package eggventory.commands;
+package eggventory.logic.commands;
 
 import eggventory.model.StockList;
 import eggventory.storage.Storage;
@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class CommandTest {
     StockList newList = new StockList();
     Cli cli = new Cli();
-    Storage storage = new Storage("");
+    Storage storage = new Storage("","");
 
     @Test
     void getType() {

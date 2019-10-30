@@ -1,4 +1,4 @@
-package eggventory.logic.commands.help;
+package eggventory.logic;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -17,8 +17,6 @@ import eggventory.commons.enums.CommandType;
  */
 public class HelpCommand extends Command {
     private String options;
-    private static String OS = System.getProperty("os.name").toLowerCase();
-
 
     /**
      * Constructor for command: "help".
