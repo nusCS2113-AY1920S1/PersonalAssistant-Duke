@@ -23,28 +23,30 @@ public class SaleCard extends UiPart<AnchorPane> {
     @FXML
     private FlowPane itemFlow;
     @FXML
+    private Label index;
+    @FXML
+    private Label date;
+    @FXML
     private Label id;
     @FXML
-    private Label value;
-    @FXML
-    private Label saleDate;
-    @FXML
     private Label description;
+    @FXML
+    private Label value;
     @FXML
     private Label remarks;
 
     public SaleCard(Sale sale, int displayedIndex) {
         super(FXML);
+        index.setText(displayedIndex + ".");
+        date.setText(TimeParser.convertDateToString(sale.getSaleDate()));
         id.setText("ID: " + Long.toString(sale.getId()));
+        description.setText("Description: " + sale.getDescription());
         double tempValue = sale.getValue();
         if (sale.isSpend() && tempValue > 0.0) {
             tempValue = -tempValue;
         }
-
         DecimalFormat df2 = new DecimalFormat("#.##");
-        value.setText("$" + df2.format(tempValue));
-        saleDate.setText(TimeParser.convertDateToString(sale.getSaleDate()));
-        description.setText("Sale description: " + sale.getDescription());
+        value.setText("Amount: $" + df2.format(tempValue));
         remarks.setText("Remarks: " + sale.getRemarks());
     }
 }
