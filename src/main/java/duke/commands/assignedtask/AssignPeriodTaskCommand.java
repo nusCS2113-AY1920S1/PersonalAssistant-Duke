@@ -59,10 +59,15 @@ public class AssignPeriodTaskCommand implements Command {
                 throw new DukeException("The patient " + pid + " does not exist");
             }
             AssignedTask newAssignedTask = new AssignedTaskWithPeriod(pid, tid, stime, etime, type);
-            assignedTaskManager.addPatientTask(newAssignedTask);
-            storageManager.saveAssignedTasks(assignedTaskManager.getAssignTasks());
-            ui.patientTaskAssigned(newAssignedTask, patientManager.getPatient(pid).getName(),
-                taskManager.getTask(tid).getDescription());
+
+            if (!assignedTaskManager.isSameStartEndTimeExist(newAssignedTask)) {
+                assignedTaskManager.addPatientTask(newAssignedTask);
+                storageManager.saveAssignedTasks(assignedTaskManager.getAssignTasks());
+                ui.patientTaskAssigned(newAssignedTask, patientManager.getPatient(pid).getName(),
+                        taskManager.getTask(tid).getDescription());
+            } else {
+                throw new DukeException("A same period task already exists");
+            }
         } catch (Exception e) {
             throw new DukeException(e.getMessage());
         }

@@ -59,6 +59,35 @@ public class AssignedTaskWithPeriod extends AssignedTask {
         duration = Duration.between(getStartDate(), getEndDate()).toMillis();
     }
 
+
+    /**
+     * .
+     *
+     * @param pid          .
+     * @param tid          .
+     * @param isDone       .
+     * @param isRecurrsive .
+     * @param stime        .
+     * @param etime        .
+     * @param type         .
+     * @param uniqueId     .
+     */
+    public AssignedTaskWithPeriod(int pid, int tid, boolean isDone,
+                                  boolean isRecurrsive, String stime, String etime, String type, int uniqueId)
+            throws DukeException {
+        super(pid, tid, isDone, isRecurrsive, type, uniqueId);
+        setStartDateRaw(stime);
+        setEndDateRaw(etime);
+        try {
+            setStartDate(DateTimeParser.convertToLocalDateTime(stime));
+            setEndDate(DateTimeParser.convertToLocalDateTime(etime));
+        } catch (DukeException e) {
+            throw new DukeException("The date time format is wrong!");
+        }
+
+        duration = Duration.between(getStartDate(), getEndDate()).toMillis();
+    }
+
     /**
      * .
      *

@@ -12,11 +12,11 @@ public class MementoManager {
      * @Param state
      */
     public void add(Memento state) {
-        if (mementos.size() <= 5) {
-            mementos.add(state);
+        if (mementos.size() < 10) {
+            mementos.addLast(state);
         } else {
-            mementos.poll();
-            mementos.add(state);
+            mementos.pollFirst();
+            mementos.addLast(state);
         }
     }
 
@@ -26,8 +26,8 @@ public class MementoManager {
      */
     public Memento pop() throws DukeException {
         try {
-            if (mementos.size() != 0) {
-                return mementos.pop();
+            if (!mementos.isEmpty()) {
+                return mementos.pollLast();
             } else {
                 throw new DukeException("There are no more steps to undo!");
             }

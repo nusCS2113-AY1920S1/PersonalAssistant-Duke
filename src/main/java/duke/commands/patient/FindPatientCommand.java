@@ -40,13 +40,13 @@ public class FindPatientCommand implements Command {
             try {
                 id = Integer.parseInt(command.substring(1, command.length()));
             } catch (Exception e) {
-                throw new DukeException("The patient id is invalid.");
+                throw new DukeException(FindPatientCommand.class, "The patient id is invalid.");
             }
             try {
                 Patient patient = patientManager.getPatient(id);
                 ui.patientsFoundById(patient);
             } catch (Exception e) {
-                throw new DukeException("The patient id does not exist.");
+                throw new DukeException(FindPatientCommand.class, "The patient id does not exist.");
             }
         } else {
             ArrayList<Patient> patientsWithSameName = patientManager.getPatientByName(command);

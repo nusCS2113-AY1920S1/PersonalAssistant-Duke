@@ -47,6 +47,27 @@ public class AssignedTaskWithDate extends AssignedTask {
 
     /**
      *  .
+     * @param pid .
+     * @param tid .
+     * @param isdone .
+     * @param isrecurrsive .
+     * @param timeBeforeFormat .
+     * @param type .
+     * @param uniqueId .
+     */
+    public AssignedTaskWithDate(int pid, int tid, boolean isdone, boolean isrecurrsive,
+                                String timeBeforeFormat, String type, int uniqueId) throws DukeException {
+        super(pid, tid, isdone, isrecurrsive, type, uniqueId);
+        setTodoDateRaw(timeBeforeFormat);
+        try {
+            setTodoDate(DateTimeParser.convertToLocalDateTime(timeBeforeFormat));
+        } catch (DukeException e) {
+            throw new DukeException("The date time format is wrong!");
+        }
+    }
+
+    /**
+     *  .
      * @return .
      */
     public String toString() {
