@@ -1,4 +1,4 @@
-= Duke Pro - User Guide
+= Team Manager - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -18,21 +18,32 @@ By: `Team AY1920S1-CS2113-T14-4`      Since: `Sept 2019`
 
 == Introduction
 
-AddressBook Level 3 (AB3) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB3 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (gui). If you can type fast, AB3 can get your contact management tasks done faster than traditional gui apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+Team Manager is a schedule handler application for team managers
+with very packed schedules who prefer to use a desktop app for managing *tasks*, *members* and *reminders*. +
+The Team Manager personal assistant application will enable team managers to *efficiently and seamlessly plan their schedules*,
+*assign tasks to proper members*, as well as *providing visual cues for deadlines and reminders*. +
+Team Manager is optimized for those who prefer to work with a *Command Line Interface (CLI)*
+while providing an intuitive GUI for them to visualise and easily keep track of their busy schedules.
+
 
 == Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
 .  Download the latest `duke.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your `Duke Pro`.
+.  Copy the file to the folder you want to use as the home folder for your `Team Manager`.
 .  Double-click the file to start the app. The gui should appear in a few seconds.
 +
-image::UI.png[width="939", align="left"]
+image::Ui.png[width="939", align="left"]
 +
-.  Type the command in the command box and press kbd:[Enter] to execute it. +
-e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
-
-
+. Once the GUI appears you will be brought to a front page (dashboard) where you can get started on creating your own schedule.
+. Type the command in the command box and press kbd:[Enter] to execute it. +
+e.g. typing *`help`* and pressing kbd:[Enter] will list the command you can use.
+. Some example commands you can try:
+* `list tasks` : lists all tasks: todo, deadlines and events
+* `add deadline complete event banners /by 12/12/2019 1000` : adds a deadline to the list
+* `done 1` : marks the 1st task shown in the current list as done
+* `delete 1` : removes the 1st task shown in the current list
+* `bye` : exits the app
 .  Refer to <<Features>> for details of each command.
 
 [[Features]]
@@ -41,85 +52,203 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Words in *UPPER_CASE* are the parameters to be supplied by the user e.g. in `delete INDEX`, `INDEX` is a parameter which can be used as `delete 1`.
+* Items in square brackets means can have space e.g `add todo [TASK_NAME` can be used as `add todo read book`.
+* Items with …​ after them can be used multiple times (>=1) e.g. [PREREQUISITE TASK(s) index]…​ can be used as 1, 1 2, 1 2 3 etc.
+* DateTime has to be of pattern “dd/MM/yyyy HHmm” or "dd/MM/yyyy"
+* There are roughly three parts of commands, dealing with tasks, members, and some commands combining them together.
+
+*Reminders*
+
+* At each startup of Team Manager, a reminder of upcoming tasks in the next 3 days are displayed
+
+
 ====
 
-=== Viewing help : `help`
+=== Viewing Available Commands : `help`
 
-Format: `help`
+`help`
+
+=== Commands related to tasks
+As for tasks management, we can add, use keyword to search, mark a task as done, and delete a task.
+
+==== Adding New Task: `add`
+* Todo task: no time, just description (not recommended) +
+`add todo [TASK_NAME]` +
+e.g `add todo complete event banner`
+
+* Last task: has a duration time, no accurate start or end time (not recommended) +
+`add last [TASKNAME] /last [DURATION]` +
+e.g `add last [TASKNAME] /last [DURATION]`
+
+* Deadline task: has deadline +
+`add deadline [TASK_NAME] /by [DATETIME]` +
+e.g `add deadline complete event poster /by 12/12/2019 1000`
+
+* Event task: has accurate time +
+`add event [TASKNAME] /at [DATETIME]` +
+e.g `add event host swimming event /at 12/12/2019 1000`
+
+* Period task: has start time and end time +
+`add period [TASKNAME] /from [DATETIME] /to [DATETIME]` +
+e.g `add period host swimming event /from 12/12/2019 1000 /to 12/12/2019 1200`
+
+*  Do-After task: Add prerequisite tasks, for any type of task above, add an ending to add the prerequisite tasks, the prerequisite tasks is represented as indexes. +
+`add TASK_TYPE [TASK NAME] [TASK ARGUMENT(S)] /after [PREREQUISITE TASK(s) index]...` +
+e.g +
+* `add todo design the poster /after 1` +
+* `add deadline print the poster /at 01/12/2019 1700 /after 2` +
+* `add period host swimming event /from 12/12/2019 1000 /to 12/12/2019 1200 /after 1 2 3`
+
+==== Finding a task with key word : `find`
+
+Finds persons whose names contain any of the given keywords. +
+`find [KEYWORD]`
+
+****
+* The search is case sensitive. e.g banner will not match Banner
+* If multiple words in [KEYWORD], the length of the space matters. e.g read    book will not match read book
+* Only the Task name is searched
+* Tasks matching at least one keyword will be returned (i.e. OR search). e.g. Banner will return Complete Banner, Brainstorm Banner
+****
+
+
+==== Mark Task as Complete : `done`
+
+Marks the specified task from the schedule list as done. +
+`done INDEX` +
+
+****
+* Deletes the task at the specified INDEX.
+* The index refers to the index number shown in the displayed schedule list.
+* The index must be a positive integer 1, 2, 3, …​
+****
+
+==== Deleting a task : `delete`
+
+Deletes the specified task from the schedule list. +
+`delete INDEX`
+****
+* Deletes the task at the specified INDEX.
+* The index refers to the index number shown in the displayed schedule list.
+* The index must be a positive integer 1, 2, 3, …​
+****
+
+==== Editing the DateTime of deadline or event: `snooze`
+`snooze [TASKNAME] to [DATETIME]`
+****
+* Changes the DATETIME of deadline or event with the specified TASKNAME.
+* The DATETIME has to be of pattern “dd/MM/yyyy HHmm”​
+****
+
+==== Recurring a task: `recurring`
+Repeat an event weekly. +
+`recurring INDEX_of_TASK NUMBER_OF_WEEKS`
+
+
+=== Commands related to members
+
+==== Adding a new team member: `member`
+`member MEMBER_NAME`
+
+==== Removing a team member: `remove`
+`remove MEMBER_NAME`
+
+==== Assigning a task to a member: `link`
+`link TASK_INDEX /to MEMBER_NAME`
+
+==== Canceling the assignment of a task from a member: `unlink`
+`unlink TASK_INDEX /from MEMBER_NAME`
+
+
+=== Commands related to both tasks and members
+
+====  Listing task(s) or member(s): `list`
+* show all the tasks +
+`list tasks`
+* show all the members +
+`list members`
+* show all tasks haven’t been assigned to any members +
+`list tasks nopic`
+* show all members haven’t had any tasks yet +
+`list members free`
+* show all tasks assigned to a specific member +
+`list member MEMBER_NAME`
+* show all in charged people for a specific task +
+`list task TASK_INDEX`
+
+==== Viewing Schedule for the whole team or a member: `schedule`
+
+* view all tasks in chronological order +
+`schedule /all`
+* view all tasks for a specific member +
+`schedule /member MEMBER_NAME`
+* view tasks that has a DATETIME in chronological order. Providing an optional DATE will only show tasks on that date +
+`schedule /all [DATE]` +
+`schedule /member MEMBER_NAME [DATE]`
+****
+The DATE has to be of pattern “dd/MM/yyyy”
+****
+
+
+==== Checking time crash: `check`
+* check all tasks for time crash +
+`check`
+* check time crash for a specific member’s schedule +
+`check MEMBER_NAME`
+
+
+{to be implemented: take has done task into consideration or not}
+
+
+=== Exiting the program : `bye`
+* Exit the program.
+`bye`
+
+== FAQ
+Q: How do I transfer my data to another Computer? +
+A: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Duke Pro folder.
 
 {to be implemented}
 
-=== Adding a task: `add`
-Adds a task, there are *6* kinds of tasks.
+== Command Summary
+* Viewing Available Commands: `help`
 
-==== Deadline task
-  add deadline [description] /by [deadline]
+* Adding New Task
+** ToDo: `add todo [TASKNAME]`
+** Deadline: `add deadline [TASKNAME] /by [DATETIME]`
+** Event: `add event [TASKNAME] /at [DATETIME]`
+** Last: `add last [TASKNAME] /last [DURATION]`
+** Period: `add period [TASKNAME] /from [DATETIME] /to [DATETIME]`
+** Do-After: `[BASIC ADD COMMAND] /after [INDEXES OF PREREQUISITE TASK]`
+* Find Task by Name: `find [KEYWORD]`
+* Mark Task as Complete: `done INDEX`
+* Deleting a Task: `delete INDEX`
+* Editing the DateTime of deadline or event: `snooze [TASKNAME] to [DATETIME]`
+* Recurring Event task: `recurring INDEX WEEK-NUMBERS`
 
-==== Event task
-  add event [description] /at [time]
+* Adding a new member: `member MEMBER_NAME`
+* Removing a member: `remove MEMBER_NAME`
+* Linking task to a member: `link INDEX /to MEMBER_NAME`
+* Unlinking task from a member: `unlink INDEX /from MEMBER_NAME`
 
-==== Last task(no start or end time)
-  add last [description] /last [duration]
+* Listing
+** List all tasks: `list tasks`
+** List all members: `list members`
+** List unassigned tasks: `list tasks nopic`
+** List all free members: `list free members`
+** List one task: `list task INDEX`
+** List one member: `list member MEMBER_NAME`
+* View Schedule
+** Schedule all tasks: `schedule /all`
+** Schedule all tasks of one day: `schedule /all [DATE]`
+** Schedule all tasks of one member: `schedule /member MEMBER_NAME`
+** Schedule all tasks of one member of one day: `schedule /member MEMBER_NAME [DATE]`
+* Check time crash
+** Check for all tasks: `check`
+** Check for a member: `check MEMBER_NAME`
 
-==== Period task
-  add period [description] /from [start time] /to [end time]
-
-==== Todo task
-  add todo [description]
-
-==== Do-after task
-  [add command] /after [prerequsite tasks indexs]
-
-
-Examples:
-
-* `add todo cs2113 lecture`
-* `add deadline cs2113 assignment1 /by Oct 1st`
-
-=== Marking a task as done : `done`
-
-Marks a specific task as finished. +
-Format: `done [index of the task]`
-
-=== Finding a task with key word : `find`
-
-Searches in the task list to find a task with a certain key word +
-Format: `find [keyword]`
+* Exiting the program: bye
 
 
-=== Listing all tasks: `list`
-
-Lists all tasks, in order of index. +
-Format: `list [tasks/members]`
-
-=== Deleting a task : `delete`
-
-Deletes the specified task with indext from the task list +
-Format: `delete INDEX`
-
-****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed task list.
-* The index *must be a positive integer* 1, 2, 3, ...
-****
-
-=== Recurring a task : `recurring`
-
-Recurs a specific task for a certain numbers of weeks.
-Format: `recurring [index of the task] [number of weeks]`
-
-=== Checking time crash : `check`
-
-=== Snooze :
-
-=== Viewing schedule :
-
-=== Exiting the program : `bye`
-
-Exits the program. +
-Format: `bye`
 

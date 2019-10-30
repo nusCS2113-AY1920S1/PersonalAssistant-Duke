@@ -24,18 +24,20 @@ public class HelpCommand extends Command {
     public void execute(ArrayList<Task> tasks, ArrayList<Member> members, Storage storage) throws DukeException {
         Ui.print("Available Commands\n"
                 + "1. add\n"
-                + "2. list\n"
+                + "2. find\n"
                 + "3. done\n"
-                + "4. bye\n"
-                + "5. delete\n"
-                + "6. find\n"
-                + "7. recurring\n"
-                + "8. snooze\n"
-                + "9. schedule\n"
-                + "10. check\n"
-                + "11. link\n"
-                + "12. unlink\n"
-                + "13. remove");
+                + "4. delete\n"
+                + "5. snooze\n"
+                + "6. recurring\n"
+                + "7. remove\n"
+                + "8. reminder\n"
+                + "9. member\n"
+                + "10. link\n"
+                + "11. unlink\n"
+                + "12. list\n"
+                + "13. schedule\n"
+                + "14. check\n"
+                + "15. bye\n");
     }
 
     @Override

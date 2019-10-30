@@ -14,9 +14,18 @@ import utils.Storage;
 import java.util.ArrayList;
 import java.util.Date;
 
+//@@author yuyanglin28
+
 public class CheckAnomaliesCommand extends Command {
 
+    private String memberName;
+
     public CheckAnomaliesCommand() {
+        this.memberName = null;
+    }
+
+    public CheckAnomaliesCommand(String memberName) {
+        this.memberName = memberName.trim();
     }
 
     /**
@@ -25,11 +34,23 @@ public class CheckAnomaliesCommand extends Command {
     public void execute(ArrayList<Task> tasks, ArrayList<Member> members, Storage storage) throws DukeException {
 
         ArrayList<Task> scheTasks = new ArrayList<Task>();
-        String msg = "Here is your time crash\n";
+        String msg = "";
         String output = "";
 
+        ArrayList<Task> temp = new ArrayList<Task>();
 
-        ArrayList<Task> temp = (ArrayList<Task>) tasks.clone();
+        if (memberName == null) {
+            msg = "Here is the whole team time crash\n";
+            temp = (ArrayList<Task>) tasks.clone();
+        } else {
+            for (int i = 0; i < members.size(); i++) {
+                if (members.get(i).getName().equals(memberName)) {
+                    msg = "Here is " + memberName + "'s time crash\n";
+                    temp = (ArrayList<Task>) members.get(i).getTasksInCharge().clone();
+                }
+            }
+        }
+
         temp = removeNoTimeTask(temp);
 
         scheTasks = sortByDate(temp);

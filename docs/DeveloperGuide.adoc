@@ -23,20 +23,20 @@ Refer to the guide <<SettingUp#, here>>.
 
 == Problem
 
-The role of a project manager is to initiate, plan, design, execute and monitor the project to achieve its intended outcomes. This means the project manager must be able to efficiently organise and record down many details of the project to fulfill their responsibilities. However recording project details on pen and paper or word documents is too time consuming and lack many features that can aid in project management, such as deadline reminders.
+The role of a team manager is to initiate, plan, design, execute and monitor the project to achieve its intended outcomes. This means the team manager must be able to efficiently organise and record down many details of the project to fulfill their responsibilities. However recording project details on pen and paper or word documents is too time consuming and lack many features that can aid in project management, such as deadline reminders.
 
 == Target user profile
 
 * has a need to manage complex projects
 * leader of the team
-* project manager
+* team manager
 * prefer desktop apps over other types and prefer typing over mouse input
 * is comfortable using CLI apps
 
 
 == Value proposition
- The Duke personal assistant application will enable project manager to efficiently plan tasks, save time, and assign proper amount of tasks to team members, while providing an intuitive gui for them to visualise and easily keep track of the team progress.
- User can use this app to manage projects faster than a typical mouse/gui driven app.
+ The Team Manager application will enable the team manager to efficiently plan tasks, save time, and assign proper amount of tasks to team members, while providing an intuitive gui for them to visualise and easily keep track of the team progress.
+ Users can use this app to manage projects faster than a typical mouse/gui driven app.
 
 
 [appendix]
@@ -79,7 +79,7 @@ Actors: Project Manager
 
 *MSS*
 
-1. User starts the Duke Pro.
+1. User starts the Team Manager.
 2. User requests to display the team members list.
 3. UI displays the members list.
 4. User chooses one member.
@@ -103,10 +103,10 @@ Actors: Project Manager
 
 *MSS*
 
-1. User starts the Duke Pro.
+1. User starts Team Manager.
 2. User creates a new milestone with date of completion
 3. UI updates milestone progress bar
-4. Duke Pro automatically saves the new milestone in persistent storage
+4. Team Manager automatically saves the new milestone in persistent storage
 5. Use case ends.
 
 *Extensions*
@@ -122,7 +122,7 @@ Actors: Project Manager
 
 *MSS*
 
-1. User starts the Duke Pro.
+1. User starts the Team Manager.
 2. User creates Project Meeting.
 3. User enters meeting title and date.
 4. Use Case ends.
@@ -140,7 +140,7 @@ Actors: Project Manager
 
 *MSS*
 
-1. User starts the Duke Pro.
+1. User starts the Team Manager.
 2. User adds team member to specific task.
 3. Use Case ends.
 
@@ -162,7 +162,7 @@ Actors: Project Manager
 
 *MSS*
 
-1. User starts the Duke Pro.
+1. User starts the Team Manager.
 2. User enters task management.
 3. User marks sub tasks as complete.
 4. User adds remark for task.
@@ -179,7 +179,6 @@ Actors: Project Manager
 [appendix]
 == Non Functional Requirements
 
-* Login security, basic SHA256 protection of user’s password.
 * Storing the data.
 * Parsing the data into a readable text file so that power users can easily edit them.
 * Parsing user input.

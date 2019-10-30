@@ -17,34 +17,69 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class ViewScheCommand extends Command {
-    private String line;
+    private String option;
+
+    private String memberName;
+
+    private Date date;
+
+    private boolean sortByDate = false;
 
     /**
      * This is a class for command SCHEDULE, which displays tasks that has DATETIME in chronological order.
      * Optionally provided DATE allows filtering of tasks from that day only
      *
-     * @param line the DATE to be filtered
+     * @param line is /all or /member [memberName]
      */
-    public ViewScheCommand(String line) {
-        this.line = line.trim();
+    public ViewScheCommand(String line) throws DukeException {
+        String[] arrOfStr = line.split("\\s+");
+
+        this.option = arrOfStr[0].trim();
+        if (option.equals("/all")) {
+            if (arrOfStr.length > 1) {
+                this.date = Parser.parseDate(arrOfStr[1].trim());
+                sortByDate = true;
+            }
+        } else if (option.equals("/member")) {
+            this.memberName = arrOfStr[1].trim();
+            if (arrOfStr.length > 2) {
+                this.date = Parser.parseDate(arrOfStr[2].trim());
+                sortByDate = true;
+            }
+        }
     }
 
     @Override
+    //@@author auggust yuyanglin28
     public void execute(ArrayList<Task> tasks, ArrayList<Member> members, Storage storage) throws DukeException {
         ArrayList<Task> scheTasks = new ArrayList<Task>();
-        String output = "Here is your schedule in order";
-        if (line.length() > 0) {
-            Date date = Parser.parseDate(line);
-            output += " on " + line;
-            ArrayList<Task> temp = (ArrayList<Task>) tasks.clone();
+        ArrayList<Task> temp = new ArrayList<>();
+        String output = "";
+        if (option.equals("/all")) {
+            output = "Here is the whole team schedule in order";
+            temp = (ArrayList<Task>) tasks.clone();
+        } else if (option.equals("/member")) {
+            for (int i = 0; i < members.size(); i++) {
+                if (members.get(i).getName().equals(memberName)) {
+                    output = "Here is " + memberName + "'s schedule in order\n";
+                    temp = (ArrayList<Task>) members.get(i).getTasksInCharge().clone();
+                }
+            }
+        }
+
+        if (sortByDate) {
             temp = removeNoTimeTask(temp);
             temp = filterByDate(temp, date);
             scheTasks = sortByDate(temp);
+            if (scheTasks.size() > 0) {
+                output += " on " + date;
+            } else {
+                output += "There is no task on " + date;
+            }
         } else {
-            ArrayList<Task> temp = (ArrayList<Task>) tasks.clone();
             scheTasks = sortByDate(temp);
-
         }
+
         for (int i = 0; i < scheTasks.size(); i++) {
             output += "\n" + scheTasks.get(i);
         }
