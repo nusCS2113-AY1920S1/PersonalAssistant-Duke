@@ -16,6 +16,7 @@ import duke.ui.Ui;
  */
 public class TaskList {
     private ArrayList<Task> taskList;
+    private int longestFilter;
 
     /**
      * Constructor for duke.tasklist.TaskList
@@ -23,6 +24,7 @@ public class TaskList {
      */
     public TaskList() {
         taskList = new ArrayList<Task>();
+        longestFilter = 0;
     }
 
     /**
@@ -34,9 +36,15 @@ public class TaskList {
      */
     public TaskList(ArrayList<Task> tasks) {
         taskList = tasks;
+        longestFilter = 0;
         for (int i = 0; i < taskList.size(); i++) {
             Task t = taskList.get(i);
             t.updateDone();
+            if (t.getFilter().isPresent()) {
+                int filterLength = t.getFilter().get().length();
+                longestFilter = Math.max(longestFilter, filterLength);
+            }
+
         }
     }
 
@@ -50,6 +58,7 @@ public class TaskList {
      */
     public TaskList(TaskList list, Optional<String> filter) {
         taskList = new ArrayList<>();
+        longestFilter = filter.get().length();
         for (int i = 0; i < list.size(); i++) {
             Task t = list.get(i);
             if (t.getFilter().equals(filter)) {
@@ -96,6 +105,8 @@ public class TaskList {
         } else {
             System.out.println("Now you have " + taskCount + " tasks in the list.");
         }
+        int filterLength = task.getFilter().isPresent() ? task.getFilter().get().length() : 0;
+        longestFilter = Math.max(filterLength, longestFilter);
     }
 
     /**
@@ -132,7 +143,17 @@ public class TaskList {
      * @param index the index of the task as seen by the user in the TaskList printed
      */
     public void remove(Optional<String> filter, int index) throws DukeException {
+        Task t = get(filter, index);
+        int filterLength = t.getFilter().isPresent() ? t.getFilter().get().length() : 0;
         taskList.remove(reduceFilter(filter, index));
+        if (filterLength == longestFilter) {
+            int currLongest = 0;
+            for (Task task : taskList) {
+                int currFilterLength = task.getFilter().isPresent() ? task.getFilter().get().length() : 0;
+                currLongest = Math.max(currLongest, currFilterLength);
+            }
+            longestFilter = currLongest;
+        }
     }
 
     /**
@@ -257,5 +278,9 @@ public class TaskList {
             return index - 1;
         }
         throw new DukeException("Index not found");
+    }
+
+    public int getLongestFilter() {
+        return longestFilter;
     }
 }
