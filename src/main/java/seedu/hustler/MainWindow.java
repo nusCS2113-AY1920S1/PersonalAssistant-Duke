@@ -19,7 +19,6 @@ import seedu.hustler.game.achievement.Achievements;
 import seedu.hustler.logic.parser.DateTimeParser;
 import seedu.hustler.task.Reminders;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
@@ -38,92 +37,67 @@ public class MainWindow extends AnchorPane{
     private TextArea console;
     @FXML
     private static PrintStream ps;
-
     @FXML
     private Button sendButton;
-
     @FXML
     private Button task;
-
     @FXML
     private Button taskCompletionMode;
-
     @FXML
     private Button achievement;
-
     @FXML
     private Button statistics;
-
     @FXML
     private Button avatar;
-
     @FXML
     private Button shop;
-
     @FXML
     private Button arena;
-
     @FXML
     private Button settings;
-
     @FXML
     private ImageView menu;
-
     @FXML
     private ImageView timer;
-
     @FXML
     private ImageView trophy;
-
     @FXML
     private ImageView spiderGraph;
-
     @FXML
     private ImageView profile;
-
     @FXML
     private ImageView trolley;
-
     @FXML
     private ImageView swords;
-
     @FXML
     private ImageView gear;
-
     @FXML
     private AnchorPane rootPane;
-
     @FXML
     private FlowPane welcomeScreen;
+    @FXML
+    private FlowPane flowPane = new FlowPane();
+    @FXML
+    private ScrollPane scrollPANEE;
+    @FXML
+    private FlowPane heading;
+    @FXML
+    private FlowPane pointBar;
+    @FXML
+    private Label pointLabel;
+    @FXML
+    private Label points;
+    @FXML
+    private ImageView medal;
+    @FXML
+    private GridPane pointGrid;
 
     private Hustler hustler;
 
-    @FXML
-    private FlowPane flowPane = new FlowPane();
 
-    @FXML
-    private ScrollPane scrollPANEE;
-
-    @FXML
-    private FlowPane heading;
-
-    @FXML
-    private FlowPane pointBar;
-
-    @FXML
-    private Label pointLabel;
-
-    @FXML
-    private Label points;
-
-    @FXML
-    private ImageView medal;
-
-    @FXML
-    private GridPane pointGrid;
     /**
      * Initializes essential components to run Hustler.
-     * @throws IOException if text area could not be found.
+     * @throws IOException if relevant data files cannot be found
      */
     @FXML
     public void initialize() throws IOException {
@@ -152,7 +126,6 @@ public class MainWindow extends AnchorPane{
         rootPane.getChildren().remove(pointLabel);
         pointGrid.getChildren().remove(points);
         rootPane.getChildren().remove(pointGrid);
-
     }
 
     public void setHustler(Hustler h) {
@@ -200,8 +173,7 @@ public class MainWindow extends AnchorPane{
      * Handles operations after each user's input.
      */
     @FXML
-    public void handleUserInput() throws IOException{
-
+    public void handleUserInput() {
         if (!userInput.getText().isEmpty()) {
             removeWelcome();
             sendClicked();
@@ -245,7 +217,7 @@ public class MainWindow extends AnchorPane{
     }
 
     @FXML
-    public void taskAction() throws IOException{
+    public void taskAction() {
         heading.getChildren().clear();
         rootPane.getChildren().remove(pointBar);
         rootPane.getChildren().remove(medal);
@@ -272,12 +244,10 @@ public class MainWindow extends AnchorPane{
         whiteSpace0.widthProperty().bind(scrollPANEE.widthProperty());
         flowPane.getChildren().add(whiteSpace0);
 
-
-        Image dateTimeIcon = new Image(new FileInputStream("src/main/resources/images/datetime.png"));
-
+        Image dateTimeIcon = new Image("file: resources/images/datetime.png");
 
         flowPane.setVgap(10);
-        for(int i = 0; i < Hustler.list.size(); i += 1) {
+        for (int i = 0; i < Hustler.list.size(); i++) {
             ImageView imageView = new ImageView();
             imageView.setImage(dateTimeIcon);
             imageView.setFitHeight(10);
@@ -298,36 +268,35 @@ public class MainWindow extends AnchorPane{
             stackPane.setMargin(text,new Insets(0,0,3,50));
             stackPane.setAlignment(text,Pos.CENTER_LEFT);
 
-            Image notDoneCheck = new Image(new FileInputStream("src/main/resources/images/notDone.png"));
-            ImageView notdoneCheckImage = new ImageView();
-            notdoneCheckImage.setFitHeight(20);
-            notdoneCheckImage.setFitWidth(20);
-            notdoneCheckImage.setImage(notDoneCheck);
+            Image notDoneCheck = new Image("file: resources/images/notDone.png");
+            ImageView notDoneCheckImage = new ImageView();
+            notDoneCheckImage.setFitHeight(20);
+            notDoneCheckImage.setFitWidth(20);
+            notDoneCheckImage.setImage(notDoneCheck);
 
-
-            Image doneCheck = new Image(new FileInputStream("src/main/resources/images/done.png"));
+            Image doneCheck = new Image("file: resources/images/done.png");
             ImageView doneCheckImage = new ImageView();
             doneCheckImage.setFitHeight(25);
             doneCheckImage.setFitWidth(30);
             doneCheckImage.setImage(doneCheck);
 
             Button doneButton = new Button();
-            doneButton.setGraphic(notdoneCheckImage);
+            doneButton.setGraphic(notDoneCheckImage);
             doneButton.setBackground(Background.EMPTY);
             stackPane.setAlignment(doneButton,Pos.CENTER_LEFT);
             stackPane.setMargin(doneButton, new Insets(0,0,0,10));
 
-            if(Hustler.list.get(i).getStatusIcon().contains("\u2713")) {
+            if (Hustler.list.get(i).getStatusIcon().contains("\u2713")) {
                 doneButton.setGraphic(doneCheckImage);
                 stackPane.setMargin(doneButton, new Insets(0,0,0,5));
                 text.setStrikethrough(true);
                 text.setOpacity(0.5);
             }
-            if(Hustler.list.get(i).getDateTime() == null) {
+            if (Hustler.list.get(i).getDateTime() == null) {
                 stackPane.getChildren().addAll(rect, text,doneButton);
                 flowPane.getChildren().add(stackPane);
             }
-            else if(Hustler.list.get(i).getDateTime() != null) {
+            else if (Hustler.list.get(i).getDateTime() != null) {
                 Text dateTime = new Text(DateTimeParser.convertDateTime(Hustler.list.get(i).getDateTime()));
                 stackPane.setMargin(dateTime, new Insets(0,0,3,70));
                 stackPane.setAlignment(dateTime,Pos.BOTTOM_LEFT);
@@ -416,7 +385,6 @@ public class MainWindow extends AnchorPane{
         titlePane.getChildren().addAll(title1);
         heading.getChildren().addAll(titlePane);
 
-
         flowPane.setStyle("-fx-background-color:#ffffff");
         flowPane.getChildren().clear();
 
@@ -457,9 +425,7 @@ public class MainWindow extends AnchorPane{
     }
 
     @FXML
-    public void achievementAction() throws IOException {
-
-
+    public void achievementAction() {
         rootPane.getChildren().add(pointBar);
         rootPane.getChildren().add(medal);
         rootPane.getChildren().add(pointLabel);
@@ -477,9 +443,7 @@ public class MainWindow extends AnchorPane{
         titlePane.getChildren().addAll(title1);
         heading.getChildren().addAll(titlePane);
 
-
-
-        Image lock = new Image(new FileInputStream("src/main/resources/images/locked_padlock.png"));
+        Image lock = new Image("file: resources/images/locked_padlock.png");
         flowPane.setStyle("-fx-background-color:#ffffff");
         flowPane.getChildren().clear();
         Hustler.run("/achievement");
@@ -505,13 +469,12 @@ public class MainWindow extends AnchorPane{
         R.setArcWidth(30.0);
         R.setStyle("#ffffff");
 
-
         SP.setAlignment(T,Pos.CENTER);
         SP.getChildren().addAll(R,T);
         flowPane.getChildren().add(SP);
 
-        for(int i = 0; i < Hustler.achievementList.size(); i += 1) {
-            if(!Hustler.achievementList.get(i).checkLock()) {
+        for (int i = 0; i < Hustler.achievementList.size(); i++) {
+            if (!Hustler.achievementList.get(i).checkLock()) {
                 StackPane stackPane = new StackPane();
                 Rectangle rect = new Rectangle();
                 Text text = new Text(Hustler.achievementList.get(i).toString());
@@ -550,8 +513,8 @@ public class MainWindow extends AnchorPane{
         StackPanel.getChildren().addAll(Rec,Txt);
         flowPane.getChildren().add(StackPanel);
 
-        for(int i = 0; i < Hustler.achievementList.size(); i += 1) {
-            if(Hustler.achievementList.get(i).checkLock()) {
+        for (int i = 0; i < Hustler.achievementList.size(); i++) {
+            if (Hustler.achievementList.get(i).checkLock()) {
                 ImageView imageview = new ImageView();
                 imageview.setImage(lock);
                 imageview.setFitHeight(30);
@@ -633,7 +596,6 @@ public class MainWindow extends AnchorPane{
         titlePane.getChildren().addAll(title1);
         heading.getChildren().addAll(titlePane);
 
-
         flowPane.setStyle("-fx-background-color:#ffffff");
         flowPane.getChildren().clear();
 
@@ -669,7 +631,6 @@ public class MainWindow extends AnchorPane{
         shop.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
         arena.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
         settings.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
-
     }
 
     @FXML
@@ -689,7 +650,6 @@ public class MainWindow extends AnchorPane{
         titlePane.prefWidthProperty().bind(heading.widthProperty());
         titlePane.getChildren().addAll(title1);
         heading.getChildren().addAll(titlePane);
-
 
         flowPane.setStyle("-fx-background-color:#ffffff");
         flowPane.getChildren().clear();
@@ -886,7 +846,6 @@ public class MainWindow extends AnchorPane{
         trolley.setEffect(null);
         swords.setEffect(null);
         gear.setEffect(color);
-
 
         task.setStyle("-fx-background-color:#34495E");
         taskCompletionMode.setStyle("-fx-background-color:#34495E");
