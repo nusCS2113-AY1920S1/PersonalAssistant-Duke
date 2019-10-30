@@ -25,31 +25,31 @@ public class PatientFindCommand extends ArgCommand {
         String searchTerm = getArg();
         String findStr = "Here are the objects that contain '" + getArg() + "':\n";
         Patient patient = (Patient) core.uiContext.getObject();
-        ArrayList<DukeObject> searchResult = new ArrayList<>();
+        ArrayList<DukeObject> resultList = new ArrayList<>();
         ArrayList<Impression> impressionResult;
         if (getSwitchVals().isEmpty()) {
-            searchResult = patient.find(searchTerm);
+            resultList = patient.find(searchTerm);
         } else {
             impressionResult = patient.findImpressions(searchTerm);
             for (Impression imp : impressionResult) {
                 if (getSwitchVals().containsKey("impression")) {
-                    searchResult.add(imp);
+                    resultList.add(imp);
                 }
                 if (getSwitchVals().containsKey("evidence")) {
-                    searchResult.addAll(imp.findEvidences(searchTerm));
+                    resultList.addAll(imp.findEvidences(searchTerm));
                 }
                 if (getSwitchVals().containsKey("treatment")) {
-                    searchResult.addAll(imp.findTreatments(searchTerm));
+                    resultList.addAll(imp.findTreatments(searchTerm));
                 }
             }
         }
 
         /*String information = "";
 
-        for (int i = 0; i < searchResult.size(); i++) {
-            information += (i + 1) + ". " + searchResult.get(i).getName() + "\n";
+        for (int i = 0; i < resultList.size(); i++) {
+            information += (i + 1) + ". " + resultList.get(i).getName() + "\n";
         }*/
-        SearchResult search = new SearchResult(searchTerm, searchResult, patient);
+        SearchResult search = new SearchResult(searchTerm, resultList, patient);
         core.uiContext.setContext(Context.SEARCH, search);
         core.ui.print("Returning result of search of " + searchTerm);
 
