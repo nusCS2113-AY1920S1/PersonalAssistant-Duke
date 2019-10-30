@@ -2,16 +2,17 @@ package duke.data;
 
 public class Help {
     private String command;
-    private String description;
+    private String summary;
     private String format;
     private String switches;
+    private String info;
 
     public String getCommand() {
         return command;
     }
 
-    public String getDescription() {
-        return description;
+    public String getSummary() {
+        return summary;
     }
 
     public String getFormat() {
@@ -20,5 +21,9 @@ public class Help {
 
     public String getSwitches() {
         return switches;
+    }
+
+    public String getInfo() {
+        return info;
     }
 }

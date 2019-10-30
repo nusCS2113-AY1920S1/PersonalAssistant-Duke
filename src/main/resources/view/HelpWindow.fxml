@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.ListView?>
+<?import com.jfoenix.controls.JFXListView?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox xmlns:fx="http://javafx.com/fxml/1" maxHeight="Infinity" maxWidth="Infinity" minHeight="-Infinity"
+<VBox xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
       minWidth="-Infinity"
-      prefHeight="600.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/11.0.1">
+      prefHeight="600.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/11.0.1">
     <children>
-        <ListView fx:id="helpListView" prefHeight="600.0"/>
+        <JFXListView fx:id="helpListView" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+                     minWidth="-Infinity" prefHeight="600.0" prefWidth="400.0"/>
     </children>
 </VBox>

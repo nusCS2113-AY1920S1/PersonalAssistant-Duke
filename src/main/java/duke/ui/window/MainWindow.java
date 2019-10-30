@@ -4,9 +4,11 @@ import duke.DukeCore;
 import duke.command.Executor;
 import duke.command.Parser;
 import duke.data.DukeObject;
+import duke.data.GsonStorage;
 import duke.data.Impression;
 import duke.data.Patient;
 import duke.data.SearchResult;
+import duke.exception.DukeException;
 import duke.ui.UiElement;
 import duke.ui.context.Context;
 import duke.ui.context.UiContext;
@@ -41,6 +43,7 @@ public class MainWindow extends UiElement<Stage> {
     private ObservableMap<String, Patient> patientObservableMap;
     private Executor executor;
     private Parser parser;
+    private GsonStorage storage;
 
     private CommandWindow commandWindow;
     private HomeWindow homeWindow;
@@ -65,6 +68,7 @@ public class MainWindow extends UiElement<Stage> {
         this.patientObservableMap = core.patientMap.getPatientObservableMap();
         this.executor = new Executor(core);
         this.parser = new Parser(core.uiContext);
+        this.storage = core.storage;
 
         placeChildUiElements();
     }
@@ -80,8 +84,12 @@ public class MainWindow extends UiElement<Stage> {
         commandWindow = new CommandWindow(parser, executor);
         commandWindowHolder.getChildren().add(commandWindow.getRoot());
 
-        HelpWindow helpWindow = new HelpWindow();
-        helpWindowHolder.getChildren().add(helpWindow.getRoot());
+        try {
+            HelpWindow helpWindow = new HelpWindow(storage);
+            helpWindowHolder.getChildren().add(helpWindow.getRoot());
+        } catch (DukeException e) {
+            print(e.getMessage());
+        }
 
         // TODO: Add contexts here.
         uiContext.addListener(event -> {

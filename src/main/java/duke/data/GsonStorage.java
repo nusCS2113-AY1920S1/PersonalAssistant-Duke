@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
+import duke.exception.DukeException;
 import duke.exception.DukeFatalException;
 
 import java.io.File;
@@ -14,7 +15,9 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 
 /*
  * Handles storage of patients.
@@ -57,7 +60,7 @@ public class GsonStorage {
 
         GsonBuilder gsonBuilder = new GsonBuilder();
         gsonBuilder.registerTypeAdapter(Treatment.class, new TreatmentAdaptor())
-                    .registerTypeAdapter(Evidence.class, new EvidenceAdaptor());
+                .registerTypeAdapter(Evidence.class, new EvidenceAdaptor());
         gson = gsonBuilder.create();//new GsonBuilder().registerTypeAdapterFactory(typeAdapterFactory).create();
 
         File dataDir = new File("data");
@@ -162,7 +165,7 @@ public class GsonStorage {
                 throw new DukeFatalException("Unable to setup data file, try checking your permissions?");
             }
         }
-        HashMap<String, HashMap<String, String>> helpMap = new HashMap<String, HashMap<String, String>>();
+        HashMap<String, HashMap<String, String>> helpMap;
         try {
             JsonReader reader = new JsonReader(new FileReader(helpFile));
             helpMap = gson.fromJson(reader, new TypeToken<HashMap<String, HashMap<String, String>>>() {
@@ -171,5 +174,20 @@ public class GsonStorage {
             throw new DukeFatalException("Unable to load data file, try checking your permissions?");
         }
         return helpMap;
+    }
+
+    /* @@author gowgos5 */
+    public List<Help> loadHelpList(String file) throws DukeException {
+        List<Help> helpList;
+
+        try {
+            JsonReader reader = new JsonReader(new FileReader(file));
+            Help[] helps = gson.fromJson(reader, Help[].class);
+            helpList = Arrays.asList(helps);
+        } catch (IOException e) {
+            throw new DukeException("The help data file cannot be loaded. The help window will be disabled.");
+        }
+
+        return helpList;
     }
 }
