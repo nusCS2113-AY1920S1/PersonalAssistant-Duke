@@ -108,4 +108,12 @@ public class FoodList{
 		return result;
 	}
 
+	@Override
+	// for Junit test use
+	public boolean equals(Object other) {
+	    return other == this // short circuit if same object
+	            || (other instanceof FoodList // instanceof handles nulls
+	                    && foodArrayList.equals(((FoodList) other).foodArrayList));
+	}
+
 }

@@ -16,7 +16,7 @@ import cube.logic.command.util.CommandUtil;
 public class AddCommand extends Command{
 	private final Food toAdd;
 
-	private final String MESSAGE_SUCCESS = "New Food added: \n" 
+	public static final String MESSAGE_SUCCESS = "New Food added: \n" 
 		+ "%1$s\n"
 		+ "Now you have %2$s food in the list.\n";
 
@@ -41,6 +41,7 @@ public class AddCommand extends Command{
 		FoodList list = model.getFoodList();
 		CommandUtil.requireNameNotExists(list, toAdd.getName());
 		list.add(toAdd);
+		// what is this for? not possible that a new food has revenue
 		Food.updateRevenue(Food.getRevenue() + toAdd.getFoodRevenue());
 		storage.storeFoodList(list);
 		return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd, list.size()));

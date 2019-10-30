@@ -43,4 +43,19 @@ public class CommandResult {
         return exit;
     }
 
+    // used for Junit test for commands
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+        if (!(other instanceof CommandResult)) {
+            return false;
+        }
+        CommandResult otherCommandResult = (CommandResult) other;
+        return feedbackToUser.equals(otherCommandResult.feedbackToUser)
+                && showHelp == otherCommandResult.showHelp
+                && exit == otherCommandResult.exit;
+    }
+
 }
