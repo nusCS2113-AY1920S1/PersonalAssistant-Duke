@@ -207,13 +207,13 @@ Examples:
 * `/timer 01 30 45` +
    Start a countdown for 1 hour, 30 minutes and 45 seconds.
    
-* `/pausetimer`
+* `/pausetimer` +
    Pauses a running timer. This command is invalid and does nothing if there are no timers currently running.
    
-* `/resumetimer`
+* `/resumetimer` +
    Resumes a timer that has been paused. This command is invalid if there are no timers currently paused.
    
-* `/stoptimer`
+* `/stoptimer` +
    Prematurely stops a running timer, resetting it. This command is invalid if there are no timers currently running.
 
 ****
