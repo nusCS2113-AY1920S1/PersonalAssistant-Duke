@@ -17,23 +17,23 @@ public class UpcomingTaskReminder extends Reminder {
     private List<Task> tasks;
 
     public UpcomingTaskReminder(List<Task> tasks, TimeInterval remindBefore, TimeInterval checkEvery) throws ModTimeIntervalTooCloseException {
-        super(tasks, remindBefore, checkEvery);
+        super(remindBefore, checkEvery);
     }
 
     public UpcomingTaskReminder(List<Task> tasks, int minutesBefore, int minutesEvery) throws ModTimeIntervalTooCloseException {
-        super(tasks, minutesBefore, minutesEvery);
+        super(minutesBefore, minutesEvery);
     }
 
     public UpcomingTaskReminder(List<Task> tasks, TimeInterval remindBefore) throws ModTimeIntervalTooCloseException {
-        super(tasks, remindBefore);
+        super(remindBefore);
     }
 
     public UpcomingTaskReminder(List<Task> tasks, int minutesBefore) throws ModTimeIntervalTooCloseException {
-        super(tasks, minutesBefore);
+        super(minutesBefore);
     }
 
     public UpcomingTaskReminder(List<Task> tasks) throws ModTimeIntervalTooCloseException {
-        super(tasks);
+        super();
     }
 
     @Override
