@@ -56,10 +56,16 @@ public class AssignDeadlineTaskCommand implements Command {
                 throw new DukeException("The patient " + pid + " does not exist");
             }
             AssignedTask newAssignedTask = new AssignedTaskWithDate(pid, tid, datetime, type);
-            assignedTaskManager.addPatientTask(newAssignedTask);
-            storageManager.saveAssignedTasks(assignedTaskManager.getAssignTasks());
-            ui.patientTaskAssigned(newAssignedTask, patientManager.getPatient(pid).getName(),
-                taskManager.getTask(tid).getDescription());
+
+            if (!assignedTaskManager.isSameDeadlineExist(newAssignedTask)) {
+                assignedTaskManager.addPatientTask(newAssignedTask);
+                storageManager.saveAssignedTasks(assignedTaskManager.getAssignTasks());
+                ui.patientTaskAssigned(newAssignedTask, patientManager.getPatient(pid).getName(),
+                        taskManager.getTask(tid).getDescription());
+            } else {
+                throw new DukeException("A same deadline task already exists");
+            }
+
         } catch (Exception e) {
             throw new DukeException(e.getMessage());
         }

@@ -5,6 +5,7 @@ import com.google.common.collect.Multimap;
 import duke.exceptions.DukeException;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Represents a list of Task that can perform operations such as
@@ -15,6 +16,7 @@ public class AssignedTaskManager {
      * An ArrayList structure.
      */
     private Multimap<Integer, AssignedTask> assignedTaskIdMap = ArrayListMultimap.create();
+    private HashMap<Integer, AssignedTask> assignedTaskUniqueIdMap = new HashMap<>();
     int maxId = 0;
 
     /**
@@ -24,11 +26,8 @@ public class AssignedTaskManager {
      */
     public AssignedTaskManager(ArrayList<AssignedTask> assignedTasks) {
         for (AssignedTask assignedTask : assignedTasks) {
-            if (assignedTask.getUuid() == 0) {
-                maxId += 1;
-                assignedTask.setUuid(maxId);
-            }
             assignedTaskIdMap.put(assignedTask.getPid(), assignedTask);
+            assignedTaskUniqueIdMap.put(assignedTask.getUuid(), assignedTask);
         }
 
         if (!assignedTasks.isEmpty()) {
@@ -42,7 +41,7 @@ public class AssignedTaskManager {
      * @return .
      */
     public ArrayList<AssignedTask> getAssignTasks() {
-        return new ArrayList<AssignedTask>(assignedTaskIdMap.values());
+        return new ArrayList<AssignedTask>(assignedTaskUniqueIdMap.values());
     }
 
     /**
@@ -56,6 +55,7 @@ public class AssignedTaskManager {
             t.setUuid(maxId); //Set the unique id to patient
         }
         assignedTaskIdMap.put(t.getPid(), t);
+        assignedTaskUniqueIdMap.put(maxId, t);
     }
 
 
@@ -66,11 +66,13 @@ public class AssignedTaskManager {
      * @throws DukeException .
      */
     public void deletePatientTaskByUniqueId(int uid) throws DukeException {
-        for (AssignedTask assignedTask : assignedTaskIdMap.values()) {
-            if (assignedTask.getUuid() == uid) {
-                assignedTaskIdMap.remove(assignedTask.getPid(), assignedTask);
-                return;
-            }
+        try {
+            AssignedTask assignedTask = assignedTaskUniqueIdMap.get(uid);
+            int patientID = assignedTask.getPid();
+            assignedTaskIdMap.remove(patientID, assignedTask);
+            assignedTaskUniqueIdMap.remove(uid);
+        } catch (Exception e) {
+            throw new DukeException("Such Unique ID does not exist" + e.getMessage());
         }
     }
 
@@ -84,6 +86,7 @@ public class AssignedTaskManager {
         for (AssignedTask assignedTask : assignedTaskIdMap.values()) {
             if (assignedTask.getTid() == id) {
                 assignedTaskIdMap.remove(assignedTask.getPid(), assignedTask);
+                assignedTaskUniqueIdMap.remove(assignedTask.getUuid());
                 return;
             }
         }
@@ -103,8 +106,12 @@ public class AssignedTaskManager {
             }
         }
 
-        for (int i = 0; i < count; i++) {
-            deleteAssignedTaskByTaskId(id);
+        try {
+            for (int i = 0; i < count; i++) {
+                deleteAssignedTaskByTaskId(id);
+            }
+        } catch (DukeException e) {
+            throw new DukeException(e.getMessage());
         }
     }
 
@@ -116,12 +123,7 @@ public class AssignedTaskManager {
      * @return .
      */
     public boolean doesUidExist(int id) {
-        for (AssignedTask assignedTask: assignedTaskIdMap.values()) {
-            if (assignedTask.getUuid() == id) {
-                return true;
-            }
-        }
-        return false;
+        return assignedTaskUniqueIdMap.containsKey(id);
     }
 
     /**
@@ -130,8 +132,23 @@ public class AssignedTaskManager {
      * @return .
      */
     public boolean doesPatientIdExist(int id) {
-        if (assignedTaskIdMap.containsKey(id)) {
-            return true;
+        return assignedTaskIdMap.containsKey(id);
+    }
+
+    /**
+     * .
+     *
+     * @return .
+     */
+    public boolean isSameStartEndTimeExist(AssignedTask patientTask) {
+        for (AssignedTask assignedTask: assignedTaskUniqueIdMap.values()) {
+            if (assignedTask instanceof AssignedTaskWithPeriod
+                    && assignedTask.getStartDate().equals(patientTask.getStartDate())
+                    && assignedTask.getEndDate().equals(patientTask.getEndDate())
+                    && (assignedTask.getPid() == patientTask.getPid())
+                    && (assignedTask.getTid() == patientTask.getTid())) {
+                return true;
+            }
         }
         return false;
     }
@@ -141,13 +158,31 @@ public class AssignedTaskManager {
      *
      * @return .
      */
-    public boolean isSameTaskExist(AssignedTask patientTask) {
-        for (AssignedTask assignedTask: assignedTaskIdMap.values()) {
-            if (assignedTask.equals(patientTask)) {
+    public boolean isSameDeadlineExist(AssignedTask patientTask) {
+        for (AssignedTask assignedTask: assignedTaskUniqueIdMap.values()) {
+            if (assignedTask instanceof AssignedTaskWithDate
+                    && assignedTask.getTodoDate().equals(patientTask.getTodoDate())
+                    && (assignedTask.getPid() == patientTask.getPid())
+                    && (assignedTask.getTid() == patientTask.getTid())) {
                 return true;
             }
         }
         return false;
+    }
+
+    /**
+     * .
+     *
+     * @param id .
+     * @throws DukeException .
+     */
+    public void deleteAssignedTaskBelongToThePatientFromUniqueIdMap(int id) throws DukeException {
+        for (AssignedTask assignedTask : assignedTaskUniqueIdMap.values()) {
+            if (assignedTask.getPid() == id) {
+                assignedTaskUniqueIdMap.remove(assignedTask.getUuid());
+                return;
+            }
+        }
     }
 
     /**
@@ -158,6 +193,21 @@ public class AssignedTaskManager {
      */
     public void deleteAllTasksBelongToThePatient(Integer pid) throws DukeException {
         if (assignedTaskIdMap.containsKey(pid)) {
+            int count = 0;
+            for (AssignedTask assignedTask : assignedTaskUniqueIdMap.values()) {
+                if (assignedTask.getPid() == pid) {
+                    count++;
+                }
+            }
+
+            try {
+                for (int i = 0; i < count; i++) {
+                    deleteAssignedTaskBelongToThePatientFromUniqueIdMap(pid);
+                }
+            } catch (DukeException e) {
+                throw new DukeException(e.getMessage());
+            }
+
             assignedTaskIdMap.removeAll(pid);
         } else {
             throw new DukeException("Patient id: " + pid + " does not have any tasks!");
