@@ -1,7 +1,6 @@
 package core;
 
 
-
 import common.DukeException;
 import model.Model;
 
@@ -33,7 +32,6 @@ public class Duke {
 
     /**
      * A constructor which applies the file path to load previous data
-     *
      */
     public Duke() {
         //========= instantiation for controllers ==============
@@ -46,24 +44,24 @@ public class Duke {
     /**
      * main running structure of Duke.
      */
+
     public void run() throws DukeException {
         UiController.welcome();
         uiController.start();
-        //Reminder.checkReminders(tasks);
-        boolean isExit = false;
-        Scanner in = new Scanner(System.in);
-        while (isExit) {
-            uiController.readCommand(in);
-            isExit = uiController.isExit();
+            boolean isExit = false;
+            Scanner in = new Scanner(System.in);
+            while (isExit) {
+                uiController.readCommand(in);
+                isExit = uiController.isExit();
+            }
+        }
+
+        /**
+         * Main method of the entire project.
+         *
+         * @param args command line arguments, not used here
+         */
+        public static void main (String[]args) throws DukeException {
+            new Duke().run();
         }
     }
-
-    /**
-     * Main method of the entire project.
-     *
-     * @param args command line arguments, not used here
-     */
-    public static void main(String[] args) throws DukeException {
-        new Duke().run();
-    }
-}
