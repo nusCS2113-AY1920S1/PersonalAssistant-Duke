@@ -14,7 +14,7 @@ public class LogicController {
 
     protected ArrayList<Task> tasks;
     protected Storage storage;
-    protected Model model;
+    public Model model;
 
 
     public LogicController(Model model) {

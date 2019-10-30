@@ -28,6 +28,7 @@ import javax.swing.KeyStroke;
 import javax.swing.SwingConstants;
 import javax.swing.JLabel;
 
+//@@author AugGust
 public class Window {
 
     private JFrame frame;
@@ -199,6 +200,7 @@ public class Window {
     public void executeCommand(String fullCommandText) throws DukeException {
         CommandOutput commandOutput = logicController.execute(fullCommandText);
         setOutputArea(commandOutput.getOutputToUser());
+        updatePercentage();
         if (commandOutput.isExit()) {
             System.exit(0);
         }

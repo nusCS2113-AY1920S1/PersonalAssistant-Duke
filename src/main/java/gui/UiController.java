@@ -30,7 +30,7 @@ public class UiController {
      */
     public void start() {
         //TODO remove temp tasks list
-        TasksCounter tc = new TasksCounter(new ArrayList<Task>());
+        TasksCounter tc = new TasksCounter(logicController.model.getTaskList());
         new Window(tc, logicController);
     }
 

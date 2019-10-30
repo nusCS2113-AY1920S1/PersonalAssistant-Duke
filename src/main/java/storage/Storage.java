@@ -56,6 +56,7 @@ public class Storage {
         taskDataFile = new File(taskFilePath);
         memberDataFile = new File(memberFilePath);
 
+        //@@author AugGust
         //Generate folders and files if does not exist
         taskDataFile.getParentFile().mkdirs();
         memberDataFile.getParentFile().mkdirs();
