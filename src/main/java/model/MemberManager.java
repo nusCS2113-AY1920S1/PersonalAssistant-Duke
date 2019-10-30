@@ -148,4 +148,13 @@ public class MemberManager {
     public ArrayList<String> getTaskListOfMember(String memberName) {
         return getMemberByName(memberName).getTaskList();
     }
+
+    //@@author JasonChanWQ
+    /**
+     * Returns the size of the memberList
+     * @return size of memberList
+     */
+    public int getMemberListSize() {
+        return memberList.size();
+    }
 }
