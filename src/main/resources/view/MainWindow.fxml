@@ -17,9 +17,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="601.0" prefWidth="590.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.hustler.MainWindow">
+<AnchorPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="601.0" prefWidth="590.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.hustler.MainWindow">
     <children>
-        <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" hvalue="1.0" layoutY="-32.0" prefHeight="590.0" prefWidth="558.0" vvalue="1.0">
+        <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" hvalue="1.0" layoutX="176.0" layoutY="524.0" prefHeight="79.0" prefWidth="415.0" vvalue="1.0">
             <content>
                 <VBox fx:id="dialogContainer" />
             </content>
@@ -182,7 +182,7 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
       </GridPane>
-      <ScrollPane fx:id="scrollPANEE" layoutY="133.0" prefHeight="425.0" prefWidth="414.0" AnchorPane.bottomAnchor="43.0" AnchorPane.leftAnchor="176.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="133.0">
+      <ScrollPane fx:id="scrollPANEE" fitToHeight="true" fitToWidth="true" layoutY="133.0" prefHeight="425.0" prefWidth="414.0" AnchorPane.bottomAnchor="43.0" AnchorPane.leftAnchor="176.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="133.0">
          <content>
             <FlowPane fx:id="flowPane" prefHeight="466.0" prefWidth="414.0" style="-fx-background-color: #ffffff;" />
          </content>
