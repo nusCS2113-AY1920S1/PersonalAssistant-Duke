@@ -21,11 +21,11 @@ By: `AY1920S1-CS2113T-F10-3` Since: `Aug 2019` Licence: `NUS`
 
 === About AlphaNUS
 
-NUS treasurers often come face to face with piles of payment forms for claims and also need to
+NUS treasurers often come face to face with piles of payment forms filled with payments for claims and also need to
 keep track of their statuses. Having to manage and allocate club funds to multiple projects, treasurers
 may find it a chore to keep up to date with their finances.
 
-AlphaNUS is a financial management system for treasurers to keep track of payment forms made by payees as well manage the club's funds for projects.
+*AlphaNUS* is a financial management assistant for treasurers to keep track of payment forms made by payees as well as manage the club's funds for projects.
 
 This developer guide includes detailed documentation on the designs and implementations of the project and how developers can make changes it.
 
@@ -54,6 +54,7 @@ Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plu
 . Open a console and run the command `gradlew processResources` (Mac/Linux: `./gradlew processResources`). It should finish with the `BUILD SUCCESSFUL` message. +
 This will generate all resources required by the application and tests.
 
+// tag::Design[]
 == Design
 .Architecture Diagram
 image::ArchitectureDiagram.png[]
@@ -107,10 +108,12 @@ image::ModelClassDiagram.png[]
 
 {To be added}
 
+// end::Design[]
+// tag::Project[]
 == Implementation
 This section describes some noteworthy details on how certain features are implemented.
 
-//tag::Project
+
 === Project Feature
 The `project` feature is managed by the `ProjectManager` class, which is called by the
 `Process` class in the `Command` component.
@@ -137,6 +140,8 @@ Below is a sequence diagram to provide a visual representation of the `add proje
 image::AddProjectSeqDiagram.png[]
 
 The `delete project` command is implemented in the same manner to the `add project` command. Both return the `Project` object that was deleted or added to be passed to `Ui` for printing its details to the user. The `delete project` command only differs from the `add project` command when it deletes the `Project` object from the HashMap of `Project` objects, in contrast to adding a `Project` object to the HashMap.
+
+// end::Project[]
 
 //tag::payee
 === Payee Feature
