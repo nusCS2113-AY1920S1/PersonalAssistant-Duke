@@ -128,6 +128,10 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`* * *`|user| have a backup for my handbook| recover it in case I delete this program
 |`* * *`|user | set the priority of existing tasks | know clearly which task to finish first. 
 |`* * *`|user | set a reminder for a specific task | create a reminder of a task which is due in how many days specified.
+|`* * *`|user | find tasks by date | know what tasks I have on that certain date.
+|`* * *`|user | set priority for a task | remaind myself the importance of that task.
+|`* * *`|user | find tasks by priority | selectively complete all my tasks.
+|`* * *`|user | sort tasks by priority | know clearly which task to finish first.
 |`* *`|engineering undergraduate | keep track of my budget and expenditure | know when to not overspend.
 |`* *`|engineering undergraduate | receive notifications 3 days before it is due, | know the highest priority or urgent tasks to be completed.
 |`* *`|user | be able to delete multiple tasks | not have to repeat the delete action multiple times.
