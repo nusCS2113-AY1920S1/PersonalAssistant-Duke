@@ -106,4 +106,6 @@ public class Instruction {
 
     public boolean isAssignFund(String input) { return input.startsWith("assign fund"); }
 
+    public boolean isViewhistory(String input) { return input.startsWith("view history"); }
+
 }

@@ -1,20 +1,22 @@
-delete payee p/payee   | 24-10-2019 22:51:48
-delete payee p/payee  | 25-10-2019 10:48:30
-add project pr/RAG  | 25-10-2019 10:20:32
-add project pr/FLAG  | 25-10-2019 10:20:57
-goto project pr/RAG  | 25-10-2019 10:21:13
-add project pr/RAG  | 25-10-2019 10:23:11
-add project pr/flag  | 25-10-2019 10:23:26
-add project pr/rag  | 25-10-2019 10:25:05
-add project pr/flag  | 25-10-2019 10:25:13
-add payee p/payeename e/email m/matricnum ph/999  | 25-10-2019 10:28:51
-add payment p/payeename i/itemname c/9.99 v/invoice d/deadline  | 25-10-2019 10:29:34
-set fund am/200  | 28-10-2019 16:55:00
-set fund am/200  | 28-10-2019 16:56:13
-set fund am/200  | 28-10-2019 16:57:40
-add fund add/400  | 28-10-2019 16:57:47
-add project pr/trial  | 29-10-2019 01:25:07
-set fund am/200  | 29-10-2019 01:25:37
-add fund add/200  | 29-10-2019 01:26:07
-assign fund p/trial am/300  | 29-10-2019 01:26:27
->>>>>>> 0047133360198f4e0871153a22269d86438c2e95
+delete payee p/payee   ~ 24-10-2019 22:51:48
+delete payee p/payee   ~ 25-10-2019 10:48:30
+add project pr/RAG  ~ 25-10-2019 10:20:32
+add project pr/FLAG  ~ 25-10-2019 10:20:57
+goto project pr/RAG  ~ 25-10-2019 10:21:13
+add project pr/RAG  ~ 25-10-2019 10:23:11
+add project pr/flag  ~ 25-10-2019 10:23:26
+add project pr/rag  ~ 25-10-2019 10:25:05
+add project pr/flag  ~ 25-10-2019 10:25:13
+add payee p/payeename e/email m/matricnum ph/999  ~ 25-10-2019 10:28:51
+add payment p/payeename i/itemname c/9.99 v/invoice d/deadline  ~ 25-10-2019 10:29:34
+set fund am/200  ~ 28-10-2019 16:55:00
+set fund am/200  ~ 28-10-2019 16:56:13
+set fund am/200  ~ 28-10-2019 16:57:40
+add fund add/400 ~ 28-10-2019 16:57:47
+add project pr/trial  ~ 29-10-2019 01:25:07
+set fund am/200  ~ 29-10-2019 01:25:37
+add fund add/200  ~ 29-10-2019 01:26:07
+assign fund p/trial am/300  ~ 29-10-2019 01:26:27
+delete payee p/payee  ~ 31-10-2019 01:46:17
+delete payee p/payeename ~ 31-10-2019 01:46:41
+goto project pr/RAG ~ 31-10-2019 01:47:09

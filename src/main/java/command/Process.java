@@ -557,12 +557,45 @@ public class Process {
         Date date = cal.getTime();
         DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
         String formattedDate = dateFormat.format(date);
-        String commandTime = input + "  | " + formattedDate;
+        String commandTime = input + " ~ " + formattedDate;
         storage.save(commandTime);
     }
 
     public void history(Ui ui, ArrayList<String> commandList, Storage storage) {
         commandList = storage.load();
         ui.printArrayList(commandList);
+    }
+    public void viewhistory(String input, Ui ui, ArrayList<String> commandList, Storage storage) throws ParseException {
+        String[] splitspace = input.split(" ", 3);
+        String[] splitslash = splitspace[2].split("/", 2);
+        String[] splitdates = splitslash[1].split(" ", 3);
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+        String date1 = splitdates[0];
+        Date date_first = sdf.parse(date1);
+        String date2 = splitdates[2];
+        Date date_second = sdf.parse(date2);
+        commandList = storage.load();
+        ArrayList<String> viewhistory = new ArrayList<String>();
+        for(int i = 0; i < commandList.size(); i = i + 1){
+            String token = null;
+            String token1 = null;
+            String[] splitdate_command = commandList.get(i).split("~",2);
+            for(int j = 0; j < splitdate_command.length; j = j + 1){
+                token = splitdate_command[j];
+            }
+            String[] splitdate_time = token.split(" ", 3);
+            for(int k = 0; k < splitdate_time.length; k = k + 1){
+                if(k == 1){
+                    token1 = splitdate_time[k];
+                }
+            }
+            Date date_command = sdf.parse(token1);
+            if((date_command.compareTo(date_first)) >= 0){
+                if((date_command.compareTo(date_second)) <= 0){
+                    viewhistory.add(commandList.get(i));
+                }
+            }
+        }
+        ui.printArrayList(viewhistory);
     }
 }
