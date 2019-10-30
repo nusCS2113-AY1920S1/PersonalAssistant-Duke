@@ -1,6 +1,6 @@
 package duke.models;
 
-import duke.models.manageStudents.MyStudent;
+import duke.models.students.MyStudent;
 import duke.task.Item;
 
 import java.util.ArrayList;

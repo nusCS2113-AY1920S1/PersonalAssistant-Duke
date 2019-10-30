@@ -5,7 +5,7 @@ import duke.data.Storage;
 import duke.models.Reminder;
 import duke.models.Schedule;
 import duke.task.TaskList;
-import duke.models.manageStudents.ManageStudents;
+import duke.models.students.ManageStudents;
 import duke.models.MyClass;
 import duke.models.MyPlan;
 
