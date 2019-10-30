@@ -1,11 +1,11 @@
 package model;
 
+import com.google.gson.Gson;
 import storage.Storage;
 import common.DukeException;
 
 import java.util.ArrayList;
 
-import com.google.gson.Gson;
 
 public class ModelController implements Model {
     private TasksManager tasksManager;
