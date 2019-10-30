@@ -48,6 +48,10 @@ public class TaskAssigner {
                             task.getDescription(), s));
                     return;
                 }
+                else {
+                    System.out.println("Alright then.");
+                    return;
+                }
             }
         }
         ArrayList<ArrayList<String>> tokens_per_task = new ArrayList<ArrayList<String>>();
@@ -83,6 +87,9 @@ public class TaskAssigner {
             System.out.println(String.format("Task \"%s\" has been assigned to filter \"%s\"",
                     task.getDescription(), closestFilter));
         }
+        else {
+            System.out.println("Alright then.");
+        }
     }
 
     /**
@@ -91,7 +98,7 @@ public class TaskAssigner {
      * @param task Task whose description is to be tokenized
      * @return ArrayList<string> containing tokens of task description
      */
-    private static ArrayList<String> tokenize(Task task) {
+    public static ArrayList<String> tokenize(Task task) {
         String description = task.getDescription();
         description = description.trim();
         description = description.replaceAll("(?:--|[\\[\\]{}()+/\\\\])", "");
@@ -105,7 +112,7 @@ public class TaskAssigner {
      * @param tokens_per_task An arraylist that contains arraylist of tokens for each task description
      * @return A map that maps unique tokens to their index in the count vector
      */
-    private static Map<String, Integer> getUniqueTokens(ArrayList<ArrayList<String>> tokens_per_task) {
+    public static Map<String, Integer> getUniqueTokens(ArrayList<ArrayList<String>> tokens_per_task) {
         Map<String, Integer> map = new HashMap<String, Integer>();
         for (int i = 0; i < tokens_per_task.size(); i++) {
             for (int j = 0; j < tokens_per_task.get(i).size(); j++) {
@@ -125,7 +132,7 @@ public class TaskAssigner {
      * @param uniqueTokens a map that maps unique tokens to their index in the count vector
      * @return Arraylist of numbers which represent vector counts for description
      */
-    private static ArrayList<Integer> getVectorCount(ArrayList<String> tokens, Map<String, Integer> uniqueTokens) {
+    public static ArrayList<Integer> getVectorCount(ArrayList<String> tokens, Map<String, Integer> uniqueTokens) {
         ArrayList<Integer> vector = new ArrayList<Integer>();
         // Initialize the vector
         for (int i = 0; i < uniqueTokens.size(); i++) {
@@ -143,7 +150,7 @@ public class TaskAssigner {
      * @param tasks TaskList of all of user's tasks
      * @return Set of filters
      */
-    private static HashSet<String> getFilters(TaskList tasks) {
+    public static HashSet<String> getFilters(TaskList tasks) {
         ArrayList<String> filters = new ArrayList<String>();
         for (int i = 0; i < tasks.size(); i++) {
             Optional<String> filter = tasks.get(i).getFilter();
@@ -162,8 +169,8 @@ public class TaskAssigner {
      * @param vectorCounts VectorCounts for each task
      * @return Map of filter to average VectorCount of filter
      */
-    private static Map<String, ArrayList<Integer>> getFilterVectors(Set<String> filters, TaskList tasks,
-                                                                    ArrayList<ArrayList<Integer>> vectorCounts) {
+    public static Map<String, ArrayList<Integer>> getFilterVectors(Set<String> filters, TaskList tasks,
+                                                                   ArrayList<ArrayList<Integer>> vectorCounts) {
         Map<String, ArrayList<Integer>> filterVectorCounts = new HashMap<String, ArrayList<Integer>>();
         for (int i = 0; i < tasks.size(); i++) {
             Optional<String> filter = tasks.get(i).getFilter();
@@ -188,8 +195,7 @@ public class TaskAssigner {
      * @param filterVectorCounts Average VectorCounts of all the filters
      * @return The closest filter or null if best cosine similarity is 0
      */
-    private static String findClosestFilter(ArrayList<Integer> taskVector, Map<String, ArrayList<Integer>>
-            filterVectorCounts) {
+    public static String findClosestFilter (ArrayList<Integer> taskVector, Map<String, ArrayList<Integer>> filterVectorCounts) {
         String closestFilter = null;
         double maxSimilarity = 0;
         for (String filter : filterVectorCounts.keySet()) {
@@ -210,7 +216,7 @@ public class TaskAssigner {
      * @param vectorB second vectorCount
      * @return Cosine similarity between the 2 vectors
      */
-    private static double cosine_similarity(ArrayList<Integer> vectorA, ArrayList<Integer> vectorB) {
+    public static double cosine_similarity(ArrayList<Integer> vectorA, ArrayList<Integer> vectorB) {
         // A and B must have same length
         double dotProduct = 0;
         double normA = 0;
