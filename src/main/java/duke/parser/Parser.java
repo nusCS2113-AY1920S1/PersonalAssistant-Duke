@@ -19,7 +19,7 @@ public class Parser {
     private static final String ASSIGN_LOCKER_COMMAND = "assign";
     private static final String LIST_COMMAND = "list";
     private static final String EXIT_COMMAND = "bye";
-
+    private static final String EXPORT_LOCKER_COMMAND = "export";
     /**
      * this function is used to parse the command entered by the user.
      *
@@ -27,6 +27,7 @@ public class Parser {
      * @return objects of type Command depending on the command given by the user
      * @throws DukeException when the user inputs invalid command
      */
+
     public Command parse(String fullCommand) throws DukeException {
         Matcher commandMatch = GENERAL_COMMAND_FORMAT.matcher(fullCommand.trim());
         if (!commandMatch.matches()) {
@@ -50,6 +51,8 @@ public class Parser {
             return new ListCommandParser().parse();
         case EXIT_COMMAND:
             return new ByeCommandParser().parse();
+        case EXPORT_LOCKER_COMMAND:
+            return new ExportLockerCommandParser().parse();
         default:
             throw new DukeException("Invalid Command");
         }

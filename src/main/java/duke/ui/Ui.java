@@ -189,6 +189,14 @@ public class Ui {
     }
 
     /**
+     * This function tells the user that SpongeBob has exported the CSV file.
+     */
+    public void exportMessage() {
+        printSpaces("Noted. I have exported the details to a new CSV file");
+        printDash();
+    }
+
+    /**
      * This function prints the tasks that match a given keyword.
      * @param taskList stores the tasks that match a given keyword.
      */
