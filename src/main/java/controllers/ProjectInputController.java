@@ -4,6 +4,8 @@ import models.project.IProject;
 import models.project.Project;
 import models.member.IMember;
 import models.member.Member;
+import models.reminder.IReminder;
+import models.reminder.Reminder;
 import models.task.ITask;
 import models.task.Task;
 import repositories.ProjectRepository;
@@ -11,6 +13,7 @@ import util.AssignmentViewHelper;
 import util.ParserHelper;
 import util.ViewHelper;
 import util.factories.MemberFactory;
+import util.factories.ReminderFactory;
 import util.factories.TaskFactory;
 import util.log.DukeLogger;
 
@@ -100,6 +103,8 @@ public class ProjectInputController implements IController {
                 return projectDeleteTask(projectToManage, projectFullCommand);
             } else if (projectFullCommand.matches("assign task.*")) {
                 return projectAssignTask(projectToManage, projectFullCommand);
+            } else if (projectFullCommand.matches("add reminder.*")) {
+                return projectAddReminder(projectToManage,projectFullCommand);
             } else if (projectFullCommand.matches("bye")) {
                 return end();
             } else {
@@ -165,7 +170,7 @@ public class ProjectInputController implements IController {
             } else {
                 return new String[] {"The member index entered is invalid."};
             }
-        } catch (StringIndexOutOfBoundsException | NumberFormatException e) {
+        } catch (IndexOutOfBoundsException | NumberFormatException e) {
             return new String[] {"Please enter the updated member details format correctly."};
         }
     }
@@ -176,13 +181,17 @@ public class ProjectInputController implements IController {
      * @param projectCommand The user input.
      */
     public String[] projectDeleteMember(Project projectToManage, String projectCommand) {
-        int memberIndexNumber = Integer.parseInt(projectCommand.substring(14).split(" ")[0]);
-        if (projectToManage.getNumOfMembers() >= memberIndexNumber) {
-            Member memberToRemove = projectToManage.getMembers().getMember(memberIndexNumber);
-            projectToManage.removeMember(memberToRemove);
-            return new String[] {"Removed member with the index number " + memberIndexNumber};
-        } else {
-            return new String[] {"The member index entered is invalid."};
+        try {
+            int memberIndexNumber = Integer.parseInt(projectCommand.substring(14).split(" ")[0]);
+            if (projectToManage.getNumOfMembers() >= memberIndexNumber) {
+                Member memberToRemove = projectToManage.getMembers().getMember(memberIndexNumber);
+                projectToManage.removeMember(memberToRemove);
+                return new String[]{"Removed member with the index number " + memberIndexNumber};
+            } else {
+                return new String[]{"The member index entered is invalid."};
+            }
+        } catch (IndexOutOfBoundsException e) {
+            return new String[] {"Please enter the index number of the member to be deleted correctly."};
         }
     }
 
@@ -364,25 +373,29 @@ public class ProjectInputController implements IController {
      * @param projectCommand The user input.
      */
     public String[] projectViewTasks(Project projectToManage, String projectCommand) {
-        if (("view tasks").equals(projectCommand)) {
-            HashMap<Task, ArrayList<Member>> tasksAndAssignedMembers = projectToManage.getTasksAndAssignedMembers();
-            ArrayList<ArrayList<String>> tableToPrint = new ArrayList<>();
-            ArrayList<String> allTaskDetailsForTable
-                    = projectToManage.getTasks().getAllTaskDetailsForTable(tasksAndAssignedMembers, "/PRIORITY");
-            allTaskDetailsForTable.add(0, "Tasks of " + projectToManage.getDescription() + ":");
-            DukeLogger.logDebug(ProjectInputController.class, allTaskDetailsForTable.toString());
-            tableToPrint.add(allTaskDetailsForTable);
-            return viewHelper.consolePrintTable(tableToPrint);
-        } else if (projectCommand.length() >= 11) {
-            String sortCriteria = projectCommand.substring(11);
-            HashMap<Task, ArrayList<Member>> tasksAndAssignedMembers = projectToManage.getTasksAndAssignedMembers();
-            ArrayList<ArrayList<String>> tableToPrint = new ArrayList<>();
-            ArrayList<String> allTaskDetailsForTable =
-                    projectToManage.getTasks().getAllTaskDetailsForTable(tasksAndAssignedMembers,sortCriteria);
-            DukeLogger.logDebug(ProjectInputController.class, allTaskDetailsForTable.toString());
-            allTaskDetailsForTable.add(0, "Tasks of " + projectToManage.getDescription() + ":");
-            tableToPrint.add(allTaskDetailsForTable);
-            return viewHelper.consolePrintTable(tableToPrint);
+        try {
+            if (("view tasks").equals(projectCommand)) {
+                HashMap<Task, ArrayList<Member>> tasksAndAssignedMembers = projectToManage.getTasksAndAssignedMembers();
+                ArrayList<ArrayList<String>> tableToPrint = new ArrayList<>();
+                ArrayList<String> allTaskDetailsForTable
+                        = projectToManage.getTasks().getAllTaskDetailsForTable(tasksAndAssignedMembers, "/PRIORITY");
+                allTaskDetailsForTable.add(0, "Tasks of " + projectToManage.getDescription() + ":");
+                DukeLogger.logDebug(ProjectInputController.class, allTaskDetailsForTable.toString());
+                tableToPrint.add(allTaskDetailsForTable);
+                return viewHelper.consolePrintTable(tableToPrint);
+            } else if (projectCommand.length() >= 11) {
+                String sortCriteria = projectCommand.substring(11);
+                HashMap<Task, ArrayList<Member>> tasksAndAssignedMembers = projectToManage.getTasksAndAssignedMembers();
+                ArrayList<ArrayList<String>> tableToPrint = new ArrayList<>();
+                ArrayList<String> allTaskDetailsForTable =
+                        projectToManage.getTasks().getAllTaskDetailsForTable(tasksAndAssignedMembers, sortCriteria);
+                DukeLogger.logDebug(ProjectInputController.class, allTaskDetailsForTable.toString());
+                allTaskDetailsForTable.add(0, "Tasks of " + projectToManage.getDescription() + ":");
+                tableToPrint.add(allTaskDetailsForTable);
+                return viewHelper.consolePrintTable(tableToPrint);
+            }
+        } catch (IndexOutOfBoundsException e) {
+            return (new String[] {"Currently there are no tasks with the specified attribute."});
         }
         return null;
     }
@@ -434,5 +447,27 @@ public class ProjectInputController implements IController {
 
     public String[] end() {
         return new String[] {"Bye. Hope to see you again soon!"};
+    }
+
+
+    /**
+     * Add reminder to the default list list of tasks and the members assigned to them.
+     * @param projectToManage The project to manage.
+     * @param projectCommand The user input.
+     */
+    private String [] projectAddReminder(Project projectToManage, String projectCommand) {
+        try {
+            ReminderFactory reminderFactory = new ReminderFactory();
+            IReminder newReminder = reminderFactory.createReminder(projectCommand.substring(13));
+            if (newReminder.getReminderName() != null) {
+                projectToManage.addReminderToList((Reminder) newReminder);
+                return new String[] {"Added new reminder to the Reminder List in project."};
+            }
+            return new String[] {"Failed to create new task. Please ensure all "
+                    + "necessary parameters are given"};
+
+        } catch (NumberFormatException | ParseException e) {
+            return new String[] {"Please enter your reminder date format correctly."};
+        }
     }
 }
