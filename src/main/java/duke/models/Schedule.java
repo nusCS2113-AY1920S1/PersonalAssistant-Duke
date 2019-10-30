@@ -24,9 +24,9 @@ public class Schedule {
      *
      * @param timeSlots The details of a time slot that needs to be scheduled.
      */
-    public Schedule(final ArrayList<TimeSlot> timeSlots) {
-        this.list = timeSlots;
-    }
+    //    public Schedule(final ArrayList<TimeSlot> timeSlots) {
+    //        this.list = timeSlots;
+    //    }
 
 
     /**

@@ -52,10 +52,8 @@ public class ParserSchedule {
      */
     public ParserSchedule() throws FileNotFoundException, ParseException {
         cliView = new CliView();
-        scheduleStorage = new Storage(
-            ".\\src\\main\\java\\duke\\data\\timeslots.txt");
-        schedule = new Schedule(scheduleStorage.loadSchedule());
         sc = new Scanner(System.in);
+        schedule = new Schedule();
     }
 
     /**
@@ -63,11 +61,14 @@ public class ParserSchedule {
      *
      * @throws ParseException if user input is not in the correct format
      */
-    public void dailySchedule() throws ParseException {
+    public void dailySchedule() {
         cliView.showSchedulePromptDate();
         sc.nextLine();
         String scheduleDate = sc.nextLine();
-        String day = schedule.getDay(scheduleDate);
+        // String day = schedule.getDay(scheduleDate);
+        // schedule of timeslot.txt cannot be loaded
+        // todo must fix the storage loading capabilities
+        String day = "empty";
         if (day.equals("empty")) {
             isRunning = false;
             cliView.showEmptyList();
@@ -176,7 +177,7 @@ public class ParserSchedule {
                 }
                 break;
             case weeklySchedule:
-                sc.hasNextLine();
+                weeklySchedule();
                 break;
             case monthlySchedule:
                 monthlySchedule();
