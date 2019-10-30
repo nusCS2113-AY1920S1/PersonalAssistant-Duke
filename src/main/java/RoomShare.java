@@ -1,6 +1,9 @@
 import CustomExceptions.RoomShareException;
-import Enums.*;
-import Model_Classes.*;
+import Enums.ExceptionType;
+import Enums.SortType;
+import Enums.TaskType;
+import Enums.TimeUnit;
+import Model_Classes.Task;
 import Operations.*;
 
 import java.io.IOException;
@@ -18,8 +21,7 @@ public class RoomShare {
     private TempDeleteList tempDeleteList;
     private TaskCreator taskCreator;
     private Help help;
-    private ProgressBar pg;
-
+    private ListRoutine listRoutine;
 
     /**
      * Constructor of a RoomShare class. Creates all necessary objects and collections for RoomShare to run
@@ -42,13 +44,13 @@ public class RoomShare {
             ArrayList<Task> emptyList = new ArrayList<>();
             taskList = new TaskList(emptyList);
         }
+        listRoutine = new ListRoutine(taskList);
         recurHandler = new RecurHandler(taskList);
         if (recurHandler.checkRecurrence()) {
             ui.showChangeInTaskList();
             taskList.list();
         }
-        pg = new ProgressBar(taskList.getSize(), taskList.getDoneSize());
-        pg.showBar();
+        listRoutine.list();
     }
 
     /**
@@ -70,18 +72,6 @@ public class RoomShare {
                 help.showHelp(parser.getCommandLine());
                 break;
 
-            case list:
-                Ui.clearScreen();
-                ui.showList();
-                try {
-                    taskList.list();
-                } catch (RoomShareException e) {
-                    ui.showError(e);
-                }
-                pg = new ProgressBar(taskList.getSize(), taskList.getDoneSize());
-                pg.showBar();
-                break;
-
             case bye:
                 isExit = true;
                 try {
@@ -101,12 +91,7 @@ public class RoomShare {
                 } catch (RoomShareException e) {
                     ui.showError(e);
                 }
-                ui.showList();
-                try {
-                    taskList.list();
-                } catch (RoomShareException e) {
-                    ui.showError(e);
-                }
+                listRoutine.list();
                 break;
 
             case delete:
@@ -118,15 +103,19 @@ public class RoomShare {
                 } catch (RoomShareException e) {
                     ui.showError(e);
                 }
+                listRoutine.list();
                 break;
 
             case restore:
+                Ui.clearScreen();
                 int restoreIndex = parser.getIndex();
                 tempDeleteList.restore(restoreIndex, taskList);
+                listRoutine.list();
                 break;
 
             case find:
                 Ui.clearScreen();
+                listRoutine.list();
                 ui.showFind();
                 taskList.find(parser.getKey().toLowerCase());
                 break;
@@ -148,12 +137,7 @@ public class RoomShare {
                         ui.prioritySet();
                     }
                 }
-                ui.showList();
-                try {
-                    taskList.list();
-                } catch (RoomShareException e) {
-                    ui.showError(e);
-                }
+                listRoutine.list();
                 break;
 
             case add:
@@ -169,12 +153,7 @@ public class RoomShare {
                 } catch (RoomShareException e) {
                     ui.showError(e);
                 }
-                ui.showList();
-                try {
-                    taskList.list();
-                } catch (RoomShareException e) {
-                    ui.showError(e);
-                }
+                listRoutine.list();
                 break;
 
             case snooze :
@@ -188,21 +167,17 @@ public class RoomShare {
                 } catch (RoomShareException e) {
                     ui.showError(e);
                 }
+                listRoutine.list();
                 break;
 
             case reorder:
                 Ui.clearScreen();
                 int firstIndex = parser.getIndex();
-                ui.promptSecondIndex();
+                parser.discardNext();
                 int secondIndex = parser.getIndex();
                 ui.showReordering();
                 taskList.reorder(firstIndex, secondIndex);
-                ui.showList();
-                try {
-                    taskList.list();
-                } catch (RoomShareException e) {
-                    ui.showError(e);
-                }
+                listRoutine.list();
                 break;
 
             case subtask:
@@ -214,15 +189,11 @@ public class RoomShare {
                 } catch (RoomShareException e) {
                     ui.showError(e);
                 }
-                ui.showList();
-                try {
-                    taskList.list();
-                } catch (RoomShareException e) {
-                    ui.showError(e);
-                }
+                listRoutine.list();
                 break;
 
             case update:
+                Ui.clearScreen();
                 try {
                     int index = parser.getIndex();
                     String input = parser.getCommandLine().trim();
@@ -232,14 +203,20 @@ public class RoomShare {
                 } catch (RoomShareException e) {
                     ui.showError(e);
                 }
+                listRoutine.list();
                 break;
                 
             case sort:
+                Ui.clearScreen();
                 SortType sortType = parser.getSort();
                 TaskList.changeSort(sortType);
+                ui.showChangeInPriority(sortType);
+                listRoutine.list();
                 break;
 
             case log:
+                Ui.clearScreen();
+                listRoutine.list();
                 try {
                     String filePath = storage.writeLogFile(TaskList.currentList());
                     ui.showLogSuccess(filePath);
