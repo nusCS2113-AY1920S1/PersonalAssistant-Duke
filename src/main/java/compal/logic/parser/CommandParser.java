@@ -5,6 +5,8 @@ import compal.logic.command.Command;
 import compal.model.tasks.Task;
 import compal.logic.parser.exceptions.ParserException;
 
+import java.io.File;
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
 
@@ -62,6 +64,7 @@ public interface CommandParser {
     String MESSAGE_INVALID_TYPE = "Error: The type does not exist!";
     String MESSAGE_INVALID_PRIORITY = "Invalid Priority Input";
     String MESSAGE_LIMIT_EXCEEDED = "Error: Input entered is out of range!";
+    String MESSAGE_INVALID_FILE_NAME_FORMAT = "Invalid file name!";
 
 
     /**
@@ -78,6 +81,7 @@ public interface CommandParser {
      */
 
     //@@author SholihinK
+
     /**
      * Returns the type of task.
      *
@@ -115,6 +119,7 @@ public interface CommandParser {
     }
 
     //@@author Catherinetan99
+
     /**
      * Returns the reminder status in the String input.
      *
@@ -259,6 +264,7 @@ public interface CommandParser {
     }
 
     //@@author yueyeah
+
     /**
      * Parses user input for optional interval token, and returns the interval specified.
      *
@@ -283,6 +289,7 @@ public interface CommandParser {
     }
 
     //@@author yueyeah
+
     /**
      * Returns a date string if specified in the task.
      *
@@ -357,6 +364,7 @@ public interface CommandParser {
     }
 
     //@@author yueyeah
+
     /**
      * Parses through user input for /start token and return the start time.
      *
@@ -412,6 +420,7 @@ public interface CommandParser {
     }
 
     //@@author yueyeah
+
     /**
      * Parses through the user input for /final-date token and return the final date of iteration of events/deadline.
      * The presence of the /final-date token must be checked first in the specialised
@@ -438,11 +447,29 @@ public interface CommandParser {
         }
     }
 
+    //@@author SholihinK
+
+    /**
+     * @param fileName the name of file
+     * @return string of file name
+     * @throws ParserException if fileName is not valid
+     */
+    default String getFileName(String fileName) throws ParserException {
+        File f = new File(fileName);
+        try {
+            f.getCanonicalPath();
+            return fileName;
+        } catch (IOException e) {
+            throw new ParserException(MESSAGE_INVALID_FILE_NAME_FORMAT);
+        }
+    }
+
     /**
      * MISCELLANEOUS METHODS BELOW
      */
 
     //@@author SholihinK
+
     /**
      * Checks if input date and time is after current date time.
      *
@@ -467,6 +494,7 @@ public interface CommandParser {
     }
 
     //@@author SholihinK
+
     /**
      * Check if the date input is of valid format.
      *
@@ -496,6 +524,7 @@ public interface CommandParser {
     }
 
     //@@author yueyeah
+
     /**
      * Check if the time input is of valid format.
      *
@@ -510,6 +539,7 @@ public interface CommandParser {
     }
 
     //@@author yueyeah
+
     /**
      * Check if the priority input is valid.
      *
@@ -524,6 +554,7 @@ public interface CommandParser {
     }
 
     //@@author yueyeah
+
     /**
      * Check if the user input contains the token. Used to check for optional arguments like /final-date.
      *

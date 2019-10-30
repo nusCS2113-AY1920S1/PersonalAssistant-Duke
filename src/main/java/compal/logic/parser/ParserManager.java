@@ -25,6 +25,7 @@ public class ParserManager {
     public static final String CMD_FIND_FREE_SLOT = "findfreeslot";
     public static final String CMD_EDIT = "edit";
     public static final String CMD_LIST = "list";
+    public static final String CMD_EXPORT = "export";
 
 
     /**
@@ -67,6 +68,8 @@ public class ParserManager {
             return new ListCommandParser().parseCommand(restOfInput);
         case CMD_DELETE:
             return new DeleteCommandParser().parseCommand(restOfInput);
+        case CMD_EXPORT:
+            return new ExportCommandParser().parseCommand(restOfInput);
         default:
             return new HelpCommandParser().parseCommand(restOfInput);
         //suppose to return helpCommand();
