@@ -47,27 +47,39 @@ public class ProgressController extends HBox {
 
         Assignment deadlineTask;
         String eventsMC;
-        for (int i = 0; i < moduleCodeStatusIconDescriptionArrList.size(); i++) { //checks if the module code of the events hashMap is found in the deadline hashMap
-            eventsMC = moduleCodeStatusIconDescriptionArrList.get(i).getKey();
-            for (String deadlineMC : deadlineList.keySet()) {
-                if (!eventsMC.equals(deadlineMC)) {
-                    moduleCodeMap.put(deadlineMC, null);
-                    for (String date : deadlineList.get(deadlineMC).keySet()) {
-                        for (int j = 0; j < deadlineList.get(deadlineMC).get(date).size(); j++) {
-                            deadlineTask = deadlineList.get(deadlineMC).get(date).get(j);
-                            moduleCodeStatusIconDescriptionArrList.add(new Pair(deadlineMC, new Pair<>(deadlineTask.getStatusIcon(), deadlineTask.getDescription())));
-                        }
-                    }
-                } else if (eventsMC.equals(deadlineMC)) {
-                    for (String date : deadlineList.get(deadlineMC).keySet()) {
-                        for (int j = 0; j < deadlineList.get(deadlineMC).get(date).size(); j++) {
-                            deadlineTask = deadlineList.get(deadlineMC).get(date).get(j);
-                            moduleCodeStatusIconDescriptionArrList.add(new Pair(deadlineMC, new Pair<>(deadlineTask.getStatusIcon(), deadlineTask.getDescription())));
-                        }
+        if (eventsList.size() == 0) {
+            for (String moduleCode : deadlineList.keySet()) {
+                moduleCodeMap.put(moduleCode, null);
+                for (String date : deadlineList.get(moduleCode).keySet()) {
+                    for (int i = 0; i < deadlineList.get(moduleCode).get(date).size(); i++) {
+                        deadlineTask = deadlineList.get(moduleCode).get(date).get(i);
+                        moduleCodeStatusIconDescriptionArrList.add(new Pair(moduleCode, new Pair(deadlineTask.getStatusIcon(), deadlineTask.getDescription())));
                     }
                 }
             }
-            break;
+        } else {
+            for (int i = 0; i < moduleCodeStatusIconDescriptionArrList.size(); i++) { //checks if the module code of the events hashMap is found in the deadline hashMap
+                eventsMC = moduleCodeStatusIconDescriptionArrList.get(i).getKey();
+                for (String deadlineMC : deadlineList.keySet()) {
+                    if (!eventsMC.equals(deadlineMC)) {
+                        moduleCodeMap.put(deadlineMC, null);
+                        for (String date : deadlineList.get(deadlineMC).keySet()) {
+                            for (int j = 0; j < deadlineList.get(deadlineMC).get(date).size(); j++) {
+                                deadlineTask = deadlineList.get(deadlineMC).get(date).get(j);
+                                moduleCodeStatusIconDescriptionArrList.add(new Pair(deadlineMC, new Pair<>(deadlineTask.getStatusIcon(), deadlineTask.getDescription())));
+                            }
+                        }
+                    } else if (eventsMC.equals(deadlineMC)) {
+                        for (String date : deadlineList.get(deadlineMC).keySet()) {
+                            for (int j = 0; j < deadlineList.get(deadlineMC).get(date).size(); j++) {
+                                deadlineTask = deadlineList.get(deadlineMC).get(date).get(j);
+                                moduleCodeStatusIconDescriptionArrList.add(new Pair(deadlineMC, new Pair<>(deadlineTask.getStatusIcon(), deadlineTask.getDescription())));
+                            }
+                        }
+                    }
+                }
+                break;
+            }
         }
         return new Pair(moduleCodeMap, moduleCodeStatusIconDescriptionArrList);
     }

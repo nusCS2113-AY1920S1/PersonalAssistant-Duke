@@ -19,6 +19,7 @@ public class DateTimeParser {
     private static SimpleDateFormat dateOutputFormat = new SimpleDateFormat("E dd/MM/yyyy");
     private static SimpleDateFormat timeOutputFormat = new SimpleDateFormat("hh:mm a");
     private static SimpleDateFormat deadlineInputFormat = new SimpleDateFormat("dd/MM/yyyy HHmm");
+    private static SimpleDateFormat deadlineDateFormat = new SimpleDateFormat("E dd/MM/yyyy hh:mm a");
 
     /**
      * Parses any date that is tagged with event.
@@ -61,7 +62,7 @@ public class DateTimeParser {
         weekDate = dateStringSplit[0];
         weekDate = WeekFormatParse.acadWeekToString(weekDate,input.substring(0,input.length()-4));
         String time = input.substring(input.length()- 4).trim();
-        weekDate += " " + time;
+        weekDate = weekDate + time;
         Date date = deadlineInputFormat.parse(weekDate);
         String dateString = dateOutputFormat.format(date);
         String timeString = timeOutputFormat.format(date);
@@ -149,7 +150,11 @@ public class DateTimeParser {
         return dateTime;
     }
 
-    public static Date deadlineStringToDate(String date) throws ParseException {
+    public static Date deadlineInputStringToDate(String date) throws ParseException {
         return deadlineInputFormat.parse(date);
+    }
+
+    public static Date deadlineTaskStringToDate(String date) throws ParseException {
+        return deadlineDateFormat.parse(date);
     }
 }

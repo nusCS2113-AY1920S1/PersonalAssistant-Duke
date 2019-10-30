@@ -1,9 +1,6 @@
 package Commands;
 
-import Commons.LookupTable;
-import Commons.Storage;
-import Commons.Ui;
-import Commons.Week;
+import Commons.*;
 import Tasks.Assignment;
 import Tasks.TaskList;
 import javafx.collections.FXCollections;
@@ -11,13 +8,12 @@ import javafx.collections.ObservableList;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class WeekCommand extends Command {
-    private static LookupTable LT = new LookupTable();
     private static final Logger LOGGER = Logger.getLogger(WeekCommand.class.getName());
     private String week;
     private final ObservableList<Text> monList = FXCollections.observableArrayList();
@@ -27,13 +23,14 @@ public class WeekCommand extends Command {
     private final ObservableList<Text> friList = FXCollections.observableArrayList();
     private final ObservableList<Text> satList = FXCollections.observableArrayList();
     private final ObservableList<Text> sunList = FXCollections.observableArrayList();
-    private static Week weekList = new Week();
+    private static WeekList weekList = new WeekList();
 
-    public WeekCommand(String week) {
-        this.week = week;
+    public WeekCommand(String fullCommand) {
+        fullCommand = fullCommand.trim();
+        this.week = fullCommand;
     }
 
-    private ArrayList<String> generateDateDay(String date){
+    private ArrayList<String> generateDateDay(String date, LookupTable LT){
         String[] days = {"Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"};
         ArrayList<String> temp = new ArrayList<>();
         for (String day : days) {
@@ -97,12 +94,11 @@ public class WeekCommand extends Command {
         return toShow;
     }
 
-
     /**
      * This method generates data in day GridPane ListViews based on the week selected
      */
     public void setListView(LookupTable LT, TaskList eventsList) {
-        ArrayList<String> weekDates = generateDateDay(week);
+        ArrayList<String> weekDates = generateDateDay(week, LT);
         for(String module: eventsList.getMap().keySet()) {
             HashMap<String, ArrayList<Assignment>> moduleValue = eventsList.getMap().get(module);
             ArrayList<String> dates = checkIfExist(moduleValue, weekDates);
@@ -116,10 +112,7 @@ public class WeekCommand extends Command {
                 }
             }
         }
-        sortList();
-        weekList = new Week(monList, tueList, wedList, thuList, friList, satList, sunList);
     }
-
 
     /**
      * This method creates a comparator for a 12 hour time to be sorted by timeline.
@@ -156,14 +149,19 @@ public class WeekCommand extends Command {
         }
     }
 
-    public static Week getWeekList(){
+    public static WeekList getWeekList(){
         return weekList;
     }
 
-
     @Override
     public String execute(LookupTable LT, TaskList events, TaskList deadlines, Ui ui, Storage storage) throws Exception {
+        String intWeek = week.replaceFirst("Week", "");
+        intWeek = intWeek.trim();
+        Integer duration = Integer.parseInt(intWeek);
+        if(duration < 1 || duration > 13) return ui.showWeeksInvalidEntry(intWeek);
         setListView(LT, events);
+        sortList();
+        weekList = new WeekList(monList, tueList, wedList, thuList, friList, satList, sunList);
         return "";
     }
 }
