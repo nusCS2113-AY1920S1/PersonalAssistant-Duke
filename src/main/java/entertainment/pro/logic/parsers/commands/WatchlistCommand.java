@@ -26,7 +26,11 @@ public class WatchlistCommand  extends CommandSuper {
             }
             break;
         case set:
-            executeTaskDone();
+            if (getPayload().isEmpty()) {
+                executeIndexTaskDone();
+            } else {
+                executeNameTaskDone();
+            }
             break;
         case delete:
             deleteFromWatchlist();
@@ -35,6 +39,8 @@ public class WatchlistCommand  extends CommandSuper {
             break;
         }
     }
+
+
 
     /**
      * Add items to the watchlist.
@@ -100,15 +106,25 @@ public class WatchlistCommand  extends CommandSuper {
      * payload: none
      * flag: -d (index of the element in the watchlist to be marked as done)
      */
-    private void executeTaskDone()  {
+    private void executeIndexTaskDone()  {
         try {
             String index = this.getFlagMap().get("-i").get(0);
             index = index.strip();
             int i = Integer.valueOf(index);
             System.out.println(i);
-            WatchlistHandler.markAsDone(i, (MovieHandler)(this.getUiController()));
+            WatchlistHandler.markIndexAsDone(i, (MovieHandler)(this.getUiController()));
         } catch (NullPointerException | IndexOutOfBoundsException e) {
             ((MovieHandler)(this.getUiController())).setFeedbackText("please enter a valid task number");
+        }
+    }
+
+    /**
+     * removes a movie of a certain name from the watchlist
+     */
+    private void executeNameTaskDone() {
+        String movie = getPayload();
+        if (!WatchlistHandler.markMovieAsDone(movie, (MovieHandler)(this.getUiController()))) {
+            ((MovieHandler)(this.getUiController())).setFeedbackText("please enter a movie in the watchlist");
         }
     }
 
