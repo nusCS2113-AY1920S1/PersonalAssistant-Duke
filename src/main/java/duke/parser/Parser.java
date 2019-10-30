@@ -127,7 +127,7 @@ public class Parser {
                 if (splitted[0].equals("add")) {
                     if (splitted.length != 4)
                         throw new DukeException("must specify ingredient name, amount and/or expiry date");
-                    return new AddCommand<Ingredient>(new Ingredient(splitted[1], Integer.parseInt(splitted[2]), splitted[3]));
+                    return new AddCommand(new Ingredient(splitted[1], Integer.parseInt(splitted[2]), splitted[3]));
                 }
                 if (splitted[0].equals("remove")) {
                     if (splitted.length != 2)

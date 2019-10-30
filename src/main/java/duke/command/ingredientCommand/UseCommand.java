@@ -13,7 +13,7 @@ public class UseCommand extends Cmd<Ingredient> {
     private Ingredient toUse;
 
     public UseCommand(Ingredient ingredient){
-        toUse=ingredient;
+        toUse = ingredient;
     }
 
     @Override

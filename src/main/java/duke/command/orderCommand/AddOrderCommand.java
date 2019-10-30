@@ -1,9 +1,11 @@
 package duke.command.orderCommand;
 
+import duke.command.Cmd;
 import duke.command.dishesCommand.AddDishCommand;
 import duke.command.ingredientCommand.AddCommand;
 import duke.dish.Dish;
 import duke.exception.DukeException;
+import duke.ingredient.Ingredient;
 import duke.list.GenericList;
 import duke.order.Order;
 import duke.order.OrderList;
@@ -14,7 +16,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class AddOrderCommand extends AddCommand<Order> {
+public class AddOrderCommand extends Cmd<Order> {
 
     private Order order;
     private String content;
@@ -25,7 +27,7 @@ public class AddOrderCommand extends AddCommand<Order> {
      * @param order : the {@link Order} to be added in the list
      */
     public AddOrderCommand(Order order, String command) {
-        super(order);
+        //super(order);
         this.order = order;
         this.content = command;
     }

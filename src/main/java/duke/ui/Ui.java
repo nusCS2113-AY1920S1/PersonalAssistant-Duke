@@ -232,8 +232,8 @@ public void showIngredientTemplate(){
      * @param removed the task
      * @param size    size of list
      */
-    public void showRemovedTask(String removed, int size) {
-        System.out.println("\t Noted. I've removed this task:");
+    public void showRemovedIngredient(String removed, int size) {
+        System.out.println("\t Noted. I've removed this ingredient:");
         System.out.println("\t " + removed);
         showSize(size);
     }

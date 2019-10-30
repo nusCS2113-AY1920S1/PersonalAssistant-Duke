@@ -11,7 +11,7 @@ import duke.list.GenericList;
 import duke.storage.Storage;
 import duke.ui.Ui;
 
-public class AddIngredient extends AddCommand<Dish> {
+public class AddIngredient extends Cmd<Dish> {
 
     private Ingredient ingredient;
 

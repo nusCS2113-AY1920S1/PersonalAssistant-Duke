@@ -8,7 +8,7 @@ import duke.list.GenericList;
 import duke.storage.Storage;
 import duke.ui.Ui;
 
-public class AddCommand{
+public class AddCommand extends Cmd<Ingredient>{
 
     private Ingredient ingredient;
 

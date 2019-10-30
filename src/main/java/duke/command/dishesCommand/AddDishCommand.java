@@ -5,16 +5,17 @@ import duke.dish.DishList;
 import duke.dish.Dish;
 import duke.command.Cmd;
 import duke.exception.DukeException;
+import duke.ingredient.Ingredient;
 import duke.list.GenericList;
 import duke.storage.Storage;
 import duke.ui.Ui;
 
-public class AddDishCommand extends AddCommand<Dish> {
+public class AddDishCommand extends Cmd<Dish> {
 
     private Dish dish;
 
     public AddDishCommand(Dish dish) {
-        super(dish);
+        //super(dish);
         this.dish = dish;
     }
 
