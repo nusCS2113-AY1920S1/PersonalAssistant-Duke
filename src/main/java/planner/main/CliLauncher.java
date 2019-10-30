@@ -52,7 +52,7 @@ public class CliLauncher {
         }
     }
 
-    private CliLauncher() {
+    public CliLauncher() {
         this(false);
     }
 
@@ -88,12 +88,13 @@ public class CliLauncher {
         modSetup();
         boolean isExit = true;
         while (isExit) {
-            isExit = this.handleInput(modUi.readCommand());
+            isExit = this.handleInput();
         }
     }
 
-    private boolean handleInput(String input) {
+    private boolean handleInput() {
         try {
+            String input = modUi.readCommand();
             ModuleCommand c = argparser.parseCommand(input);
             if (c != null) {
                 c.execute(modDetailedMap, modTasks, ccas, modUi, store, jsonWrapper);
@@ -118,7 +119,7 @@ public class CliLauncher {
     public String getResponse(String input) {
         if (input != null) {
             this.output.reset();
-            this.handleInput(input);
+            this.handleInput();
         }
         return this.output.toString();
     }
