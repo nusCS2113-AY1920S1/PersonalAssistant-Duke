@@ -15,6 +15,7 @@ import util.ViewHelper;
 import util.factories.MemberFactory;
 import util.factories.ReminderFactory;
 import util.factories.TaskFactory;
+import util.json.JsonConverter;
 import util.log.DukeLogger;
 
 import java.text.ParseException;
@@ -28,6 +29,7 @@ public class ProjectInputController implements IController {
     private MemberFactory memberFactory;
     private boolean isManagingAProject;
     private ViewHelper viewHelper;
+    private JsonConverter jsonConverter = new JsonConverter();
 
     /**
      * Constructor for ProjectInputController takes in a View model and a ProjectRepository.
@@ -70,24 +72,29 @@ public class ProjectInputController implements IController {
         if (manageProjectInput.hasNextLine()) {
             String projectFullCommand = manageProjectInput.nextLine();
             DukeLogger.logInfo(ProjectInputController.class, "Managing:"
-                    + projectToManage.getDescription() + ",input:'"
+                    + projectToManage.getName() + ",input:'"
                     + projectFullCommand + "'");
             if (projectFullCommand.matches("exit")) {
                 isManagingAProject = false;
                 return projectExit(projectToManage);
             } else if (projectFullCommand.matches("add member.*")) {
+                jsonConverter.saveProject(projectToManage);
                 return projectAddMember(projectToManage, projectFullCommand);
             } else if (projectFullCommand.matches("edit member.*")) {
+                jsonConverter.saveProject(projectToManage);
                 return projectEditMember(projectToManage, projectFullCommand);
             } else if (projectFullCommand.matches("delete member.*")) {
+                jsonConverter.saveProject(projectToManage);
                 return projectDeleteMember(projectToManage, projectFullCommand);
             } else if (projectFullCommand.matches("view members.*")) {
                 return projectViewMembers(projectToManage);
             } else if (projectFullCommand.matches("role.*")) {
+                jsonConverter.saveProject(projectToManage);
                 return projectRoleMembers(projectToManage, projectFullCommand);
             } else if (projectFullCommand.matches("view credits.*")) {
                 return projectViewCredits(projectToManage);
             } else if (projectFullCommand.matches("add task.*")) {
+                jsonConverter.saveProject(projectToManage);
                 return projectAddTask(projectToManage, projectFullCommand);
             } else if (projectFullCommand.matches("view tasks.*")) {
                 return projectViewTasks(projectToManage, projectFullCommand);
@@ -96,14 +103,19 @@ public class ProjectInputController implements IController {
             } else if (projectFullCommand.matches("view task requirements.*")) { // need to refactor this
                 return projectViewTaskRequirements(projectToManage, projectFullCommand);
             } else if (projectFullCommand.matches("edit task requirements.*")) {
+                jsonConverter.saveProject(projectToManage);
                 return projectEditTaskRequirements(projectToManage, projectFullCommand);
             } else if (projectFullCommand.matches("edit task.*")) {
+                jsonConverter.saveProject(projectToManage);
                 return projectEditTask(projectToManage, projectFullCommand);
             } else if (projectFullCommand.matches("delete task.*")) {
+                jsonConverter.saveProject(projectToManage);
                 return projectDeleteTask(projectToManage, projectFullCommand);
             } else if (projectFullCommand.matches("assign task.*")) {
+                jsonConverter.saveProject(projectToManage);
                 return projectAssignTask(projectToManage, projectFullCommand);
             } else if (projectFullCommand.matches("add reminder.*")) {
+                jsonConverter.saveProject(projectToManage);
                 return projectAddReminder(projectToManage,projectFullCommand);
             } else if (projectFullCommand.matches("bye")) {
                 return end();
@@ -148,7 +160,7 @@ public class ProjectInputController implements IController {
         IMember newMember = memberFactory.create(memberDetails);
         if (newMember.getName() != null) {
             projectToManage.addMember((Member) newMember);
-            return new String[] {"Added new member to: " + projectToManage.getDescription(), ""
+            return new String[] {"Added new member to: " + projectToManage.getName(), ""
                     + "Member details " + newMember.getDetails()};
         } else {
             return new String[] {newMember.getDetails()};
@@ -202,7 +214,7 @@ public class ProjectInputController implements IController {
      */
     public String[] projectViewMembers(Project projectToManage) {
         ArrayList<String> allMemberDetailsForTable = projectToManage.getMembers().getAllMemberDetailsForTable();
-        String header = "Members of " + projectToManage.getDescription() + ":";
+        String header = "Members of " + projectToManage.getName() + ":";
         allMemberDetailsForTable.add(0, header);
         DukeLogger.logDebug(ProjectInputController.class, allMemberDetailsForTable.toString());
         ArrayList<ArrayList<String>> tablesToPrint = new ArrayList<>();
@@ -379,7 +391,7 @@ public class ProjectInputController implements IController {
                 ArrayList<ArrayList<String>> tableToPrint = new ArrayList<>();
                 ArrayList<String> allTaskDetailsForTable
                         = projectToManage.getTasks().getAllTaskDetailsForTable(tasksAndAssignedMembers, "/PRIORITY");
-                allTaskDetailsForTable.add(0, "Tasks of " + projectToManage.getDescription() + ":");
+                allTaskDetailsForTable.add(0, "Tasks of " + projectToManage.getName() + ":");
                 DukeLogger.logDebug(ProjectInputController.class, allTaskDetailsForTable.toString());
                 tableToPrint.add(allTaskDetailsForTable);
                 return viewHelper.consolePrintTable(tableToPrint);
@@ -390,7 +402,7 @@ public class ProjectInputController implements IController {
                 ArrayList<String> allTaskDetailsForTable =
                         projectToManage.getTasks().getAllTaskDetailsForTable(tasksAndAssignedMembers, sortCriteria);
                 DukeLogger.logDebug(ProjectInputController.class, allTaskDetailsForTable.toString());
-                allTaskDetailsForTable.add(0, "Tasks of " + projectToManage.getDescription() + ":");
+                allTaskDetailsForTable.add(0, "Tasks of " + projectToManage.getName() + ":");
                 tableToPrint.add(allTaskDetailsForTable);
                 return viewHelper.consolePrintTable(tableToPrint);
             }
@@ -438,7 +450,7 @@ public class ProjectInputController implements IController {
      * @return Boolean variable specifying the exit status.
      */
     public String[] projectExit(Project projectToManage) {
-        return new String[] {"Exited project: " + projectToManage.getDescription()};
+        return new String[] {"Exited project: " + projectToManage.getName()};
     }
 
     public boolean getIsManagingAProject() {

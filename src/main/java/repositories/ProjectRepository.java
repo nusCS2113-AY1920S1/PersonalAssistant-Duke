@@ -1,5 +1,6 @@
 package repositories;
 
+import exceptions.DukeException;
 import models.project.IProject;
 import models.project.Project;
 import util.factories.ProjectFactory;
@@ -14,7 +15,7 @@ public class ProjectRepository implements IRepository<Project> {
     private JsonConverter jsonConverter = new JsonConverter();
 
     public ProjectRepository() {
-        allProjects = jsonConverter.loadProjectsData();
+        allProjects = jsonConverter.loadAllProjectsData();
         this.projectFactory = new ProjectFactory();
     }
 
@@ -27,13 +28,13 @@ public class ProjectRepository implements IRepository<Project> {
     public boolean addToRepo(String input) {
         IProject newProject = projectFactory.create(input);
         DukeLogger.logDebug(ProjectRepository.class, "New project created with name: '"
-                + newProject.getDescription() + "'");
-        if (newProject.getDescription() == null || newProject.getMembers() == null) {
+                + newProject.getName() + "'");
+        if (newProject.getName() == null || newProject.getMembers() == null) {
             return false;
         }
         Project newlyCreatedProject = (Project) newProject;
         allProjects.add(newlyCreatedProject);
-        jsonConverter.saveProjectsData(allProjects);
+        jsonConverter.saveProject(newlyCreatedProject);
         return true;
     }
 
@@ -53,11 +54,10 @@ public class ProjectRepository implements IRepository<Project> {
      */
     public boolean deleteItem(int projectNumber) {
         try {
+            jsonConverter.deleteProject(allProjects.get(projectNumber));
             this.allProjects.remove(projectNumber - 1);
-            jsonConverter.saveProjectsData(allProjects);
             return true;
-        } catch (IndexOutOfBoundsException err) {
-            jsonConverter.saveProjectsData(allProjects);
+        } catch (IndexOutOfBoundsException | DukeException err) {
             return false;
         }
     }
@@ -71,7 +71,7 @@ public class ProjectRepository implements IRepository<Project> {
         ArrayList<ArrayList<String>> toPrintAll = new ArrayList<>();
         for (int projNum = 0; projNum < allProjects.size(); projNum++) {
             ArrayList<String> toPrint = new ArrayList<>();
-            toPrint.add("Project " + (projNum + 1) + ": " + allProjects.get(projNum).getDescription());
+            toPrint.add("Project " + (projNum + 1) + ": " + allProjects.get(projNum).getName());
             toPrint.add("Members: ");
             if (allProjects.get(projNum).getNumOfMembers() == 0) {
                 toPrint.add(" --");
