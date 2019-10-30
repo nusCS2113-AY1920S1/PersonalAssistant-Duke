@@ -152,7 +152,11 @@ public class UiFr extends Ui {
         System.out.println("\t reschedule INDEX /at DATE - DATE : replanifié une tâche event");
         System.out.println("\t remind : Rappelle les trois premières tâches");
         System.out.println("\t setwelcome WELCOME : personnalise le message de bienvenue");
-        System.out.println("\t edit : edite une tache (puis suivez les instructions)");
+        System.out.println("\t edit :\n\t\t Pour la commande en plusieurs étapes  : 'edit' et puis suivez les instructions" +
+                           "\n\t\t Pour la commande en une étape:" +
+                           "\n\t\t\t edit la description: 'edit INDEX description DESCRIPTION' " +
+                           "\n\t\t\t edit la date d'une tâche homework: 'edit INDEX /by DATE' " +
+                           "\n\t\t\t edit la period d'une tâche event: 'edit INDEX /at DATE - DATE' ");
         System.out.println("\t show DATEOPTION DATE: montre les tâches par day/dayofweek/today/week/month/year ( day format is DD/MM/YYYY; " +
                 "dayofweek format is monday,tuesday...; month format is MM/YYYY; year format is YYYY)");
         System.out.println("\t prioritize INDEX prio INDEX : donne une priorité à une tâche");
@@ -183,8 +187,8 @@ public class UiFr extends Ui {
     }
 
     @Override
-    public void showEdit(Task task, int index) {
-        super.display("\t La tâche a été éditée: \n\t "+ index + " " + task.toString());
+    public void showEdit(Task task) {
+        super.display("\t La tâche a été éditée: \n\t "+ task.toString());
     }
     @Override
     public void showAskShortcut(String commandName) {

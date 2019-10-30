@@ -8,6 +8,7 @@ import leduc.task.TaskList;
 
 import java.util.ArrayList;
 
+
 public class UiEn extends Ui {
     public UiEn() {
         super();
@@ -161,7 +162,11 @@ public class UiEn extends Ui {
         System.out.println("\t reschedule INDEX /at DATE - DATE : reschedule an event task");
         System.out.println("\t remind : remind the first three task");
         System.out.println("\t setwelcome WELCOME : customize the welcome message");
-        System.out.println("\t edit : edit a task (then, you have to follow the instructions)");
+        System.out.println("\t edit :\n\t\t For multi-step command : 'edit' and then follow the instructions" +
+                           "\n\t\t For one shot command:" +
+                           "\n\t\t\t edit the description: 'edit INDEX description DESCRIPTION' " +
+                           "\n\t\t\t edit the date of an homework task: 'edit INDEX /by DATE' " +
+                           "\n\t\t\t edit the period of an event task: 'edit INDEX /at DATE - DATE' ");
         System.out.println("\t show DATEOPTION DATE: show task by day/dayofweek/month/year ( day format is DD/MM/YYYY; " +
                 "dayofweek format is monday,tuesday...; month format is MM/YYYY; year format is YYYY)");
         System.out.println("\t prioritize INDEX prio INDEX : give priority to task");
@@ -193,8 +198,8 @@ public class UiEn extends Ui {
     }
 
     @Override
-    public void showEdit(Task task, int index) {
-        super.display("\t The task is edited: \n\t "+ index + " " + task.toString());
+    public void showEdit(Task task) {
+        super.display("\t The task is edited: \n\t " + task.toString());
     }
 
     @Override
@@ -317,4 +322,3 @@ public class UiEn extends Ui {
         }
     }
 }
-

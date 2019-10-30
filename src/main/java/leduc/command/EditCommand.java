@@ -44,59 +44,6 @@ public class EditCommand extends Command {
      * @throws EditFormatException Exception caught when the format of a one shot edit command is not respected.
      */
     public void execute(TaskList tasks, Ui ui, Storage storage)
-<<<<<<< HEAD
-            throws NonExistentDateException, FileException,
-            NonExistentTaskException, MeaninglessException, EmptyEventDateException, ConflictDateException,
-            DateComparisonEventException {
-        ui.showEditChooseTask();
-        ListCommand listCommand = new ListCommand(user);
-        listCommand.execute(tasks,ui,storage);
-        // The user choose the task
-        String userEditTaskNumber = ui.readCommand();
-        if ( userEditTaskNumber.matches("\\d+")){
-            int index = Integer.parseInt(userEditTaskNumber.trim()) - 1;
-            if (index > tasks.size() - 1 || index < 0) {
-                throw new NonExistentTaskException();
-            }
-            else {
-                Task t = tasks.get(index);
-                if ( t.isTodo()){
-                    ui.showEditWhat("description");
-                    t.setTask(ui.readCommand());
-                }
-                else{
-                    ui.showEdit2Choice();
-                    String userEditTPart = ui.readCommand();
-                    if ( userEditTPart.matches("\\d+")) {
-                        int choice = Integer.parseInt(userEditTPart.trim());
-                        if (choice == 1) {
-                            ui.showEditWhat("description");
-                            t.setTask(ui.readCommand());
-                        } else if (choice == 2) {
-                            if (t.isHomework()) {
-                                ui.showEditWhat("deadline");
-                                String deadlineString = ui.readCommand();
-                                Date d = new Date(deadlineString);
-                                HomeworkTask homeworkTask = (HomeworkTask) t;
-                                homeworkTask.setDeadlines(d);
-                            } else { //event task
-                                ui.showEditWhat("period");
-                                String periodString = ui.readCommand();
-                                String[] dateString = periodString.split(" - ");
-                                if (dateString.length == 1) {
-                                    throw new EmptyEventDateException();
-                                } else if (dateString[0].isBlank() || dateString[1].isBlank()) {
-                                    throw new EmptyEventDateException();
-                                }
-                                Date date1 = new Date(dateString[0]);
-                                Date date2 = new Date(dateString[1]);
-                                tasks.verifyConflictDate(date1, date2);
-                                EventsTask eventsTask = (EventsTask) t;
-                                eventsTask.reschedule(date1, date2);
-                            }
-                        } else {
-                            throw new MeaninglessException();
-=======
             throws NonExistentDateException, FileException, NonExistentTaskException, EmptyEventDateException, ConflictDateException, DateComparisonEventException, PrioritizeLimitException, EditFormatException, UserAnswerException {
         String userSubstring;
         if(callByShortcut){
@@ -107,49 +54,42 @@ public class EditCommand extends Command {
         }
         Task t = null;
         if(userSubstring.isBlank()) { // Multi-steps command
-            ui.display("\t Please choose the task to edit from the list by its index: ");
+            ui.showEditChooseTask();
             ListCommand listCommand = new ListCommand(user);
             listCommand.execute(tasks, ui, storage);
             // The user choose the task
             String userEditTaskNumber = ui.readCommand();
             t = this.getEditTask(userEditTaskNumber,tasks,true);
             if (t.isTodo()) {
-                    ui.display("\t Please enter the new description of the task");
+                    ui.showEditWhat("description");
                     t.setTask(ui.readCommand());
             }
             else {
-                ui.display("\t Please choose what you want to edit (1 or 2)\n\t 1. The description " +
-                        "\n\t 2. The deadline/period");
+                ui.showEdit2Choice();
                 String userEditTPart = ui.readCommand().trim();
                 if (userEditTPart.matches("\\d+")) {
                     int choice = Integer.parseInt(userEditTPart);
                     if (choice == 1) {
-                        ui.display("\t Please enter the new description of the task");
+                        ui.showEditWhat("description");
                         t.setTask(ui.readCommand().trim());
                     } else if (choice == 2) {
                         if (t.isHomework()) {
-                            ui.display("\t Please enter the new deadline of the task");
+                            ui.showEditWhat("deadline");
                             String deadlineString = ui.readCommand().trim();
                             this.editHomeworkDate(t, deadlineString);
                         } else { //event task
-                            ui.display("\t Please enter the new period of the task");
+                            ui.showEditWhat("period");
                             String periodString = ui.readCommand().trim();
                             this.editEventDate(t, tasks, periodString);
->>>>>>> 8ecc1bde0448aadf7989100dc3090ab2c0b3ba72
                         }
                     }
                     else {
                         throw new UserAnswerException();
                     }
                 }
-<<<<<<< HEAD
-                ui.showEdit(t, index+1);
-
-=======
                 else {
                     throw new UserAnswerException();
                 }
->>>>>>> 8ecc1bde0448aadf7989100dc3090ab2c0b3ba72
             }
         }
         else { // one shot command
@@ -178,7 +118,7 @@ public class EditCommand extends Command {
                 throw new EditFormatException();
             }
         }
-        ui.display("\t The task is edited: \n\t " + t.toString());
+        ui.showEdit(t);
         storage.save(tasks.getList());
     }
 
