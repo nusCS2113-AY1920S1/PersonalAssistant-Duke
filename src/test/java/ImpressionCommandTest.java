@@ -45,9 +45,9 @@ public class ImpressionCommandTest extends CommandTest {
     public void impressionNewCommand_fullCommand_correctDataCreated() {
         //TODO test other DukeData
         ArgCommand newMedCmd = new ImpressionNewCommand();
-        String[] switchNames = {"medicine", "name", "priority", "status", "dose", "date", "duration"};
-        String[] switchVals = {null, "test", "2", "1", "test dose", "today", "next two weeks"};
-        setupCommand(newMedCmd, null, switchNames, switchVals);
+        String[] switchNames = {"medicine", "priority", "status", "dose", "date", "duration"};
+        String[] switchVals = {null, "2", "1", "test dose", "today", "next two weeks"};
+        setupCommand(newMedCmd, "test", switchNames, switchVals);
         Medicine testMed = new Medicine("test", impression, 2, 1, "test dose",
                 "today", "next two weeks");
 
@@ -63,9 +63,9 @@ public class ImpressionCommandTest extends CommandTest {
     public void impressionNewCommand_minCommand_correctDataCreated() {
         //TODO test other DukeData
         ArgCommand newMedCmd = new ImpressionNewCommand();
-        String[] switchNames = {"medicine", "name", "dose", "duration"};
-        String[] switchVals = {null, "test", "test dose", "next two weeks"};
-        setupCommand(newMedCmd, null, switchNames, switchVals);
+        String[] switchNames = {"medicine", "dose", "duration"};
+        String[] switchVals = {null, "test dose", "next two weeks"};
+        setupCommand(newMedCmd, "test", switchNames, switchVals);
         Medicine testMed = new Medicine("test", impression, 0, 0, "test dose",
                 LocalDate.now().format(DateTimeFormatter.ofPattern("dd MMM yyyy")), "next two weeks");
 
