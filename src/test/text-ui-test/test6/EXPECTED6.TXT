@@ -31,11 +31,10 @@
 	 EditFormatException:
 		 ☹ OOPS!!! Please respect the edit command format
 		 For multi-step command : 'edit' and then follow the instructions
-		 For one shot command: 
-			 edit the description: 'edit INDEX description DESCRIPTION' 
-			 edit the date of an homework task: 'edit INDEX /by DATE' 
-			 edit the period of an event task: 'edit INDEX /at DATE - DATE' 
-			 edit the priority: 'edit INDEX prio INDEX' 
+		 For one shot command:
+			 edit the description: 'edit INDEX description DESCRIPTION'
+			 edit the date of an homework task: 'edit INDEX /by DATE'
+			 edit the period of an event task: 'edit INDEX /at DATE - DATE'
 	---------------------------------------------------------------------------------
 	 Please choose the task to edit from the list by its index: 
 	---------------------------------------------------------------------------------
