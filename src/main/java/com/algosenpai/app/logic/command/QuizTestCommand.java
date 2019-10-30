@@ -51,7 +51,7 @@ public class QuizTestCommand extends QuizCommand {
             if (!inputs.get(0).equals("quiz") || inputs.size() != 2) {
                 return "You are taking a quiz. Please prefix commands with quiz: quiz <answer | back | next>";
             }
-            quizList.get(questionNumber.get()).setAnswer(inputs.get(1));
+            quizList.get(questionNumber.get()).setUserAnswer(inputs.get(1));
             questionNumber.incrementAndGet();
         }
 

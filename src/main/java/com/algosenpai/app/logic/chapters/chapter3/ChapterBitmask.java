@@ -1,11 +1,11 @@
-package com.algosenpai.app.logic.chapters;
+package com.algosenpai.app.logic.chapters.chapter3;
 
 import com.algosenpai.app.logic.models.QuestionModel;
 import com.algosenpai.app.logic.models.ReviewTracingListModel;
 
 import java.util.Random;
 
-class ChapterBitmask {
+public class ChapterBitmask {
 
     private static Random random = new Random();
 
@@ -13,7 +13,7 @@ class ChapterBitmask {
      * Generates a random question related to bitmasking.
      * @return A question model containing to the random number being generated.
      */
-    static QuestionModel generateQuestions() {
+    public static QuestionModel generateQuestions() {
         int questionType = getRandomNumber(0,5);
         switch (questionType) {
         case 0 :

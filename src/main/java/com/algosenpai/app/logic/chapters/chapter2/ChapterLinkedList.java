@@ -1,4 +1,4 @@
-package com.algosenpai.app.logic.chapters;
+package com.algosenpai.app.logic.chapters.chapter2;
 
 import com.algosenpai.app.logic.models.QuestionModel;
 import com.algosenpai.app.logic.models.ReviewTracingListModel;
@@ -8,7 +8,7 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Random;
 
-class ChapterLinkedList {
+public class ChapterLinkedList {
 
 
     private static Random random = new Random();
@@ -17,7 +17,7 @@ class ChapterLinkedList {
      * Generates a random question related to linked lists.
      * @return a question model according to the random number being generated.
      */
-    static QuestionModel generateQuestions() {
+    public static QuestionModel generateQuestions() {
         int questionType = getRandomNumber(0, 4);
         switch (questionType) {
         case 0:

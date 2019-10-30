@@ -1,5 +1,8 @@
 package com.algosenpai.app.logic.chapters;
 
+import com.algosenpai.app.logic.chapters.chapter1.ChapterSorting;
+import com.algosenpai.app.logic.chapters.chapter2.ChapterLinkedList;
+import com.algosenpai.app.logic.chapters.chapter3.ChapterBitmask;
 import com.algosenpai.app.logic.models.QuestionModel;
 
 import java.util.ArrayList;
