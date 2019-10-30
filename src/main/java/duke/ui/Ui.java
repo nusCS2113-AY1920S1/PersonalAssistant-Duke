@@ -122,30 +122,6 @@ public class Ui {
     }
     //@@author
 
-
-    /**
-     * Outputs all the contacts of the contact list to user through CLI.
-     *
-     * @param contactList The list of contacts.
-     */
-    public void showContactList(ContactList contactList) {
-        out.println("     Here are all your contacts:");
-        out.print(contactList.getContactList());
-    }
-
-    /**
-     * Outputs all the contacts of the contact list to user through GUI.
-     *
-     * @param contactList The list of contacts.
-     * @return String of all contacts from contact list.
-     */
-    public static String showContactListGui(ContactList contactList) {
-        String str = "";
-        str += "Here are all your contacts:\n";
-        str += contactList.getContactList();
-        return str;
-    }
-
     //@@author talesrune
     /**
      * Outputs all the tasks of the task list to the user.
@@ -565,6 +541,29 @@ public class Ui {
 
     //@@author e0318465
     /**
+     * Outputs all the contacts of the contact list to user through CLI.
+     *
+     * @param contactList The list of contacts.
+     */
+    public void showContactList(ContactList contactList) {
+        out.println("     Here are all your contacts:");
+        out.print(contactList.getContactList());
+    }
+
+    /**
+     * Outputs all the contacts of the contact list to user through GUI.
+     *
+     * @param contactList The list of contacts.
+     * @return String of all contacts from contact list.
+     */
+    public static String showContactListGui(ContactList contactList) {
+        String str = "";
+        str += "Here are all your contacts:\n";
+        str += contactList.getContactList();
+        return str;
+    }
+
+    /**
      * Outputs an alert when a duplicated inout is detected.
      */
     public void showDuplicateMsg() {
@@ -580,7 +579,7 @@ public class Ui {
         if (contactList.size() == ZERO) {
             out.println("     You have no contacts!");
         } else {
-            out.println("Got it, now you have " + contactList.size() + " contacts. Contact added.");
+            out.println("     Got it, now you have " + contactList.size() + " contacts. Contact added.");
             out.println(contactList.get(contactList.size() - ONE));
         }
     }
@@ -609,7 +608,7 @@ public class Ui {
      * @param deletedContact The contact that is deleted.
      */
     public void showContactDeleted(ContactList contactList, String deletedContact) {
-        out.println("Now you have " + contactList.size() + " contact(s). I've removed this contact:");
+        out.println("     Now you have " + contactList.size() + " contact(s). I've removed this contact:");
         out.println(deletedContact);
     }
 
@@ -638,8 +637,8 @@ public class Ui {
         int numFound = ZERO;
         for (int i = ZERO; i < contactList.size(); i++) {
             String details = contactList.getOnlyDetails(i);
-            details.replaceAll(",", " ");
-            details.toLowerCase();
+            details = details.replaceAll(",", " ");
+            details = details.toLowerCase();
             if (details.contains(keyword)) {
                 out.println("     " + contactList.getSpecificContactList(i));
                 numFound++;
