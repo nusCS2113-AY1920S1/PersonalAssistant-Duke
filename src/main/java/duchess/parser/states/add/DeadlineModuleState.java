@@ -37,12 +37,12 @@ public class DeadlineModuleState extends ParserState {
             return new DisplayCommand(prompt);
         }
 
-        this.parser.setParserState(new DefaultState(parser));
-
         if (module.equalsIgnoreCase("nil")) {
+            parser.setParserState(new DefaultState(parser));
             return new AddDeadlineCommand(description, due);
         }
 
-        return new AddDeadlineCommand(description, due, module);
+        this.parser.setParserState(new DeadlineWeightageState(this.parser, description, due, module));
+        return this.parser.continueParsing(parameters);
     }
 }

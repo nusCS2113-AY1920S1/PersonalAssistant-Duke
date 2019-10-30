@@ -1,6 +1,7 @@
 package duchess.logic.commands;
 
 import duchess.exceptions.DuchessException;
+import duchess.model.Grade;
 import duchess.model.Module;
 import duchess.model.task.Deadline;
 import duchess.model.task.Task;
@@ -15,6 +16,7 @@ public class AddDeadlineCommand extends Command {
     private String description;
     private LocalDateTime deadline;
     private String moduleCode;
+    private int weightage;
 
     /**
      * Create a command to add a deadline.
@@ -33,14 +35,23 @@ public class AddDeadlineCommand extends Command {
         this.moduleCode = moduleCode;
     }
 
+    public AddDeadlineCommand(String description, LocalDateTime deadline, String moduleCode, int weightage) {
+        this(description, deadline, moduleCode);
+        this.weightage = weightage;
+    }
+
     @Override
     public void execute(Store store, Ui ui, Storage storage) throws DuchessException {
         Task task = new Deadline(description, deadline);
+        Grade grade;
         if (moduleCode != null) {
             Optional<Module> module = store.findModuleByCode(moduleCode);
             task.setModule(module.orElseThrow(() ->
                     new DuchessException("Unable to find given module.")
             ));
+            grade = new Grade(description, weightage);
+            task.setGrade(grade);
+            module.get().addGrade(grade);
         }
         store.getTaskList().add(task);
         ui.showTaskAdded(store.getTaskList(), task);

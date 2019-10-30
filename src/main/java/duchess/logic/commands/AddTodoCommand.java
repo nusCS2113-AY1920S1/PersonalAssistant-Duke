@@ -42,10 +42,9 @@ public class AddTodoCommand extends Command {
 
     @Override
     public void execute(Store store, Ui ui, Storage storage) throws DuchessException {
-        Task task;
+        Task task = new Todo(description);
         Grade grade;
         if (moduleCode != null) {
-            task = new Todo(description);
             Optional<Module> module = store.findModuleByCode(moduleCode);
             task.setModule(module.orElseThrow(() ->
                     new DuchessException("Unable to find given module.")
@@ -53,8 +52,6 @@ public class AddTodoCommand extends Command {
             grade = new Grade(description, weightage);
             task.setGrade(grade);
             module.get().addGrade(grade);
-        } else {
-            task = new Todo(description);
         }
         store.getTaskList().add(task);
         ui.showTaskAdded(store.getTaskList(), task);

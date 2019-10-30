@@ -1,42 +1,47 @@
 package duchess.parser.states.add;
 
-import duchess.logic.commands.AddTodoCommand;
+import duchess.exceptions.DuchessException;
+import duchess.logic.commands.AddDeadlineCommand;
 import duchess.logic.commands.Command;
 import duchess.logic.commands.DisplayCommand;
 import duchess.parser.Parser;
 import duchess.parser.states.DefaultState;
 import duchess.parser.states.ParserState;
 
+import java.time.LocalDateTime;
 import java.util.Map;
 
-public class TodoWeightageState extends ParserState {
+public class DeadlineWeightageState extends ParserState {
     private Parser parser;
     private String description;
+    private LocalDateTime due;
     private String moduleCode;
 
     /**
-     * Initializes a state to process weightage of grade associated with todo.
+     * Initializes a state to handle parsing of weightage of grades associated with deadlines.
      *
      * @param parser the main parser instance
-     * @param description the description of the task
-     * @param moduleCode the code of the associated module
+     * @param description description of deadline
+     * @param due deadline due time
+     * @param moduleCode the code of the module
      */
-    public TodoWeightageState(Parser parser, String description, String moduleCode) {
+    public DeadlineWeightageState(Parser parser, String description, LocalDateTime due, String moduleCode) {
         super("weightage");
         this.parser = parser;
         this.description = description;
+        this.due = due;
         this.moduleCode = moduleCode;
     }
 
     @Override
-    public Command process(String value, Map<String, String> parameters) {
+    public Command process(String value, Map<String, String> parameters) throws DuchessException {
         if (value == null) {
             return new DisplayCommand(Parser.TASK_WEIGHTAGE_PROMPT);
         }
 
         if (value.equalsIgnoreCase("nil")) {
             parser.setParserState(new DefaultState(parser));
-            return new AddTodoCommand(description, moduleCode);
+            return new AddDeadlineCommand(description, due, moduleCode);
         }
 
         int weightage;
@@ -50,7 +55,6 @@ public class TodoWeightageState extends ParserState {
         }
 
         parser.setParserState(new DefaultState(parser));
-        return new AddTodoCommand(description, moduleCode, weightage);
-
+        return new AddDeadlineCommand(description, due, moduleCode, weightage);
     }
 }

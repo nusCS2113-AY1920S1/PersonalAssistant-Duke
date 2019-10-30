@@ -57,7 +57,7 @@ public class DefaultState extends ParserState {
         } else if ("done".equals(keyword)) {
             try {
                 return new DoneCommand(Integer.parseInt(arguments.get(0)) - 1);
-            } catch (NumberFormatException e) {
+            } catch (NumberFormatException | IndexOutOfBoundsException e) {
                 throw new DuchessException("Please supply a number. Eg: done 2");
             }
         } else if ("reminder".equals(keyword)) {
