@@ -26,7 +26,7 @@ public class CommandAddName extends Command {
             ui.typeWriter("Welcome Farmer "
                     + name
                     + ", please press [ENTER] to begin the tutorial"
-                    + " or enter [skip] to skip the story", false);
+                    + " or enter [SKIP] to skip the story", false);
             farmio.setStage(Farmio.Stage.LEVEL_START);
         } else if (name.length() == 0) {
             ui.typeWriter("Provide a name.", false);

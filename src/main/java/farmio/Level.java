@@ -271,7 +271,7 @@ public class Level {
                 feedback += "detailed feedback : -- \n";
                 feedback += checkIncompleteObjectives(farmer);
             }
-            output.add("\n Press [ENTER] to continue the game or [RESET] to restart the level");
+            output.add("Press [ENTER] to continue the game or [RESET] to restart the level");
             return output;
         }
 

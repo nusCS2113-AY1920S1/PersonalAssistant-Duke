@@ -97,7 +97,7 @@ public class Ui {
         final char LEVEL_BEGIN_PLACEHOLDER = '~';
         boolean isNewline = false;
         int lineLength = 0;
-        System.out.print(">>> ");
+        if (!text.isBlank()) System.out.print(">>> ");
         sleep(150);
         for (int i = 0; i < text.length(); i++) {
             lineLength++;

@@ -8,7 +8,7 @@ import usercode.tasks.Task;
 import farmio.Storage;
 import farmio.Farmer;
 
-public class CommandTaskEdit extends Command {
+public class CommandTaskEdit extends CommandChangeTask {
     private Task task;
     private int taskID;
 
@@ -35,5 +35,6 @@ public class CommandTaskEdit extends Command {
                 farmio.getLevel().getNarratives().size() - 1);
         Ui ui = farmio.getUi();
         ui.showInfo("Successfully edited task!");
+        super.saveTask(farmio);
     }
 }
