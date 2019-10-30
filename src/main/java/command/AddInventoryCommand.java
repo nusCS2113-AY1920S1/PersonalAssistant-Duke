@@ -6,13 +6,11 @@ import inventory.Item;
 
 
 import exception.DukeException;
-import inventory.Inventory;
-import inventory.Item;
 import room.RoomList;
 import booking.BookingList;
 import storage.Storage;
 import ui.Ui;
-import user.User;
+import user.UserList;
 
 
 import java.io.IOException;
@@ -66,13 +64,12 @@ public class AddInventoryCommand extends Command {
      * @param ui user interface
      * @param inventoryStorage inventory storage in command execution
      * @param roomstorage room storage in command execution
-     * @param user current user
      * @throws DukeException if a clash in booking is found
      * @throws IOException if input entry is incorrect
      */
     @Override
-    public void execute(Inventory inventory, RoomList roomList, BookingList bookingList, Ui ui,
-                        Storage inventoryStorage, Storage bookingstorage, Storage roomstorage, User user)
+    public void execute(UserList userList, Inventory inventory, RoomList roomList, BookingList bookingList, Ui ui,
+                        Storage userStorage, Storage inventoryStorage, Storage bookingstorage, Storage roomstorage)
             throws DukeException, IOException, ParseException {
         boolean clash = Inventory.checkInventory(inventory, name); //make this function in Inventory class
         if (clash) {

@@ -4,13 +4,10 @@ import command.Command;
 import exception.DukeException;
 import inventory.Inventory;
 import room.RoomList;
-import storage.BookingConstants;
-import storage.Constants;
 import storage.Storage;
 import ui.Ui;
 import booking.BookingList;
-import user.Guest;
-import user.User;
+import user.UserList;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -24,36 +21,39 @@ public class Duke {
     private Storage bookingStorage;
     private BookingList bookingList;
     private RoomList roomList;
+    private UserList userList;
     private Ui ui;
-    private User user;
     private boolean isExit;
     private Storage roomStorage;
     private Inventory inventory;
     private Storage inventoryStorage;
+    private Storage userStorage;
 
 
     /**
      * Constructor for control.Duke
      * @param bookingListFile path of text file containing bookings list
      */
-    public Duke(String bookingListFile, String roomListFile, String inventoryFile) {
+    public Duke(String bookingListFile, String roomListFile, String inventoryFile, String userFile) {
         ui = new Ui();
         ui.showWelcome();
-        user = new Guest("guest");
         bookingStorage = new Storage(bookingListFile);
         roomStorage = new Storage(roomListFile);
         inventoryStorage = new Storage(inventoryFile);
+        userStorage = new Storage(userFile);
 
         try {
             bookingList = new BookingList(bookingStorage.load());
             roomList = new RoomList(roomStorage.load());
             inventory = new Inventory(inventoryStorage.load());
+            userList = new UserList(userStorage.load());
 
         } catch (FileNotFoundException | DukeException e) {
             ui.showLoadingError();
             bookingList = new BookingList();
             roomList = new RoomList();
             inventory = new Inventory();
+            userList = new UserList();
         }
     }
 
@@ -65,8 +65,8 @@ public class Duke {
     public String getResponse(String input) {
         try {
             ui.setOutput("");
-            Command c = Parser.parse(input, user.getLoginStatus());
-            c.execute(inventory, roomList, bookingList, ui, inventoryStorage, bookingStorage, roomStorage, user);
+            Command c = Parser.parse(input);
+            c.execute(userList, inventory, roomList, bookingList, ui, userStorage, inventoryStorage, bookingStorage, roomStorage);
             System.out.println(ui.getOutput());
             return ui.getOutput();
         } catch (DukeException | IOException | ParseException e) {

@@ -2,7 +2,6 @@
 package command;
 
 import inventory.Inventory;
-import inventory.Item;
 
 import booking.BookingList;
 import exception.DukeException;
@@ -10,7 +9,7 @@ import room.RoomList;
 import room.Room;
 import ui.Ui;
 import storage.Storage;
-import user.User;
+import user.UserList;
 
 import java.io.IOException;
 
@@ -43,12 +42,11 @@ public class DeleteRoomCommand extends Command {
      * @param ui user interface
      * @param bookingStorage handles read write of text file
      * @param roomStorage file storage for room list
-     * @param user Current user
      * @throws DukeException invalid entry
      */
     @Override
-    public void execute(Inventory inventory, RoomList roomList, BookingList bookingList, Ui ui,
-                        Storage inventoryStorage, Storage bookingStorage, Storage roomStorage, User user)
+    public void execute(UserList userList, Inventory inventory, RoomList roomList, BookingList bookingList, Ui ui,
+                        Storage userStorage, Storage inventoryStorage, Storage bookingStorage, Storage roomStorage)
             throws DukeException {
         if (index < 0 || index > roomList.size() - 1) {
             throw new DukeException("OOPS!!! You have entered an index that is out of bounds.");
