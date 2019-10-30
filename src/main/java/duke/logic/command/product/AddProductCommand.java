@@ -32,7 +32,6 @@ public class AddProductCommand extends ProductCommand {
         this.toAdd = ProductCommandUtil.getAddedProductFromDescriptor(descriptor);
     }
 
-
     /**
      * Executes the command and returns the result message.
      *
@@ -50,7 +49,9 @@ public class AddProductCommand extends ProductCommand {
         }
 
         ProductCommandUtil.verifyNewIngredients(model, toAdd);
-        toAdd.setIngredientCost(ProductCommandUtil.getIngredientCost(model, toAdd));
+        if (toAdd.getIngredientCost().equals(ProductCommandUtil.NOT_SPECIFIED_COST)) {
+            toAdd.setIngredientCost(ProductCommandUtil.getIngredientCost(model, toAdd));
+        }
         model.addProduct(toAdd);
         model.commit(ProductMessageUtils.MESSAGE_COMMIT_ADD_PRODUCT);
 

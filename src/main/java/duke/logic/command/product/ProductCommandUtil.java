@@ -12,6 +12,7 @@ import duke.model.product.Product;
 import static java.util.Objects.requireNonNull;
 
 public class ProductCommandUtil {
+    public static Double NOT_SPECIFIED_COST = -1.0;
 
     /**
      * Creates a new Product using information from a productDescriptor and previous product.
@@ -47,7 +48,11 @@ public class ProductCommandUtil {
             throw new ParseException(ProductMessageUtils.MESSAGE_MISSING_PRODUCT_NAME);
         }
         product.setProductName(productDescriptor.getProductName().get());
-        product.setIngredientCost(productDescriptor.getIngredientCost().orElse(Product.DEFAULT_INGREDIENT_COST));
+        if (!productDescriptor.getIngredientCost().isEmpty()) {
+            product.setIngredientCost(productDescriptor.getIngredientCost().get());
+        } else {
+            product.setIngredientCost(NOT_SPECIFIED_COST);
+        }
         product.setRetailPrice(productDescriptor.getRetailPrice().orElse(Product.DEFAULT_RETAIL_PRICE));
         product.setIngredients(productDescriptor.getIngredientItemList().orElse(new IngredientItemList()));
         return product;

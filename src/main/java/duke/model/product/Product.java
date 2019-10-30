@@ -117,7 +117,7 @@ public class Product {
         return productName;
     }
 
-    public double getIngredientCost() {
+    public Double getIngredientCost() {
         return ingredientCost;
     }
 
