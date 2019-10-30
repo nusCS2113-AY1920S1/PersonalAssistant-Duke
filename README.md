@@ -1,6 +1,7 @@
 # BakingHome
 
 [![Build Status](https://travis-ci.com/AY1920S1-CS2113T-T12-3/main.svg?branch=master)](https://travis-ci.com/AY1920S1-CS2113T-T12-3/main)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/fe0f891024024abe8bebac8e46d86a08)](https://www.codacy.com/manual/AY1920S1-CS2113T-T12-3/main?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=AY1920S1-CS2113T-T12-3/main&amp;utm_campaign=Badge_Grade)
 
 ![Ui](https://github.com/AY1920S1-CS2113T-T12-3/main/blob/master/docs/images/Ui.png)
 
