@@ -3,41 +3,39 @@ package chronologer.storage;
 import chronologer.exception.ChronologerException;
 import chronologer.task.Task;
 import chronologer.ui.UiTemporary;
+import org.apache.commons.lang3.SerializationUtils;
 
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Stack;
 
-public class ChronologerStateList {
+public class ChronologerStateList implements Serializable {
     private static ArrayList<Object> chronologerStateList = new ArrayList<>();
-    private static Integer currentStatePointer = 0;
-
-    public static void initialState(ArrayList<Task> listToStore){
-        chronologerStateList.add(listToStore.clone());
-    }
+    private static Stack<Object> chronologerUndoStack = new Stack<>();
+    private static Stack<Object> chronologerRedoStack = new Stack<>();
 
     /**
      * Function to store the current state.
      *
      */
     public static void addState(ArrayList<Task> listToStore){
-        chronologerStateList.add(listToStore.clone());
-        currentStatePointer += 1;
+        chronologerUndoStack.push(SerializationUtils.clone(listToStore));
     }
 
     /**
      * Function to undo to previous state.
-     *
      */
     public static ArrayList<Task> undo() throws ChronologerException {
-        if (currentStatePointer == 0) {
+        ArrayList<Task> toReturn;
+        if (chronologerUndoStack.size() <= 1) {
             UiTemporary.printOutput("Sorry unable to undo further");
             throw new ChronologerException(ChronologerException.fileDoesNotExist());
         }
         else {
-            currentStatePointer -= 1;
+            chronologerRedoStack.push(chronologerUndoStack.pop());
+            toReturn = (ArrayList<Task>) chronologerUndoStack.peek();
         }
-        System.out.println(currentStatePointer);
-        System.out.println(chronologerStateList.get(currentStatePointer).toString());
-        return (ArrayList<Task>) chronologerStateList.get(currentStatePointer);
+        return (SerializationUtils.clone(toReturn));
     }
 
     /**
@@ -45,13 +43,15 @@ public class ChronologerStateList {
      *
      */
     public static ArrayList<Task> redo()  throws ChronologerException {
-        if (currentStatePointer == chronologerStateList.size() - 1) {
-            UiTemporary.printOutput("Sorry unable to redo further");
+        ArrayList<Task> toReturn;
+        if (chronologerRedoStack.size() == 0) {
+            UiTemporary.printOutput("Sorry unable to undo further");
             throw new ChronologerException(ChronologerException.fileDoesNotExist());
         }
         else {
-            currentStatePointer += 1;
+            toReturn = (ArrayList<Task>) chronologerRedoStack.pop();
+            chronologerUndoStack.push(SerializationUtils.clone(toReturn));
         }
-        return (ArrayList<Task>) chronologerStateList.get(currentStatePointer);
+        return (SerializationUtils.clone(toReturn));
     }
 }

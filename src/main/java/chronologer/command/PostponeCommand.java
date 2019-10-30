@@ -1,6 +1,7 @@
 package chronologer.command;
 
 import chronologer.exception.ChronologerException;
+import chronologer.storage.ChronologerStateList;
 import chronologer.storage.Storage;
 import chronologer.task.Deadline;
 import chronologer.task.Event;
@@ -71,6 +72,7 @@ public class PostponeCommand extends Command {
                 throw new ChronologerException(ChronologerException.taskClash());
             } else {
                 taskToBePostponed.setStartDate(startDate);
+                ChronologerStateList.addState((tasks.getTasks()));
                 storage.saveFile(tasks.getTasks());
                 UiTemporary.printOutput(POSTPONED_DEADLINE + taskToBePostponed.toString());
             }
@@ -80,12 +82,14 @@ public class PostponeCommand extends Command {
             } else {
                 taskToBePostponed.setStartDate(startDate);
                 taskToBePostponed.setEndDate(toDate);
+                ChronologerStateList.addState((tasks.getTasks()));
                 storage.saveFile(tasks.getTasks());
                 UiTemporary.printOutput(POSTPONED_EVENT + taskToBePostponed.toString());
             }
         } else if (tasks.isTodoPeriod(taskToBePostponed)) {
             taskToBePostponed.setStartDate(startDate);
             taskToBePostponed.setEndDate(toDate);
+            ChronologerStateList.addState((tasks.getTasks()));
             storage.saveFile(tasks.getTasks());
             UiTemporary.printOutput(POSTPONED_TODO + taskToBePostponed.toString());
         } else {

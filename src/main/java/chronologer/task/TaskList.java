@@ -336,6 +336,7 @@ public class TaskList {
         observableListOfTasks.remove(task);
     }
     public void updateListOfTasks (ArrayList<Task> updatedListOfTasks) {
+        listOfTasks.clear();
         listOfTasks = updatedListOfTasks;
     }
 
