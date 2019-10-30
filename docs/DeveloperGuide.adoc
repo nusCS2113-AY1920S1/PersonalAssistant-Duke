@@ -353,7 +353,7 @@ The following sequence diagram show how `create task` operation works.
 
 image::images/CreateTask_Sequence.png[]
 
-=== 3.2. CRUD functionality for Reminder [Plan to do]
+=== 3.3. CRUD functionality for Reminder [Plan to do]
 ==== Implementation
 
 Implementation
@@ -372,9 +372,11 @@ name and due date (optional)
 
 * `view reminder` -- Viewing of all reminders in current project
 
+The following sequence diagram show how `create reminder` operation works.
+
 image::images/CreateReminder_Sequence.png[]
 
-=== 3.3. CRUD functionality for Task Assignments
+=== 3.4. CRUD functionality for Task Assignments
 
 ==== Implementation
 

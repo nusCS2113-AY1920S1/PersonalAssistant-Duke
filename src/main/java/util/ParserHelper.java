@@ -106,6 +106,36 @@ public class ParserHelper {
     }
 
     /**
+     * Parses the string input to extract the name, and reminder date.
+     * @param input Contains the name, and reminder date
+     * @return An ArrayList consisting of name in index 0,due date in index 1.
+     */
+    public ArrayList<String> parseReminderDetails(String[] input) {
+        ArrayList<String> newReminderInfo = new ArrayList<>();
+        String newReminderName = "--";
+        String newReminderDate = null;
+
+        ArrayList<String> newReminderInfoInput  =  new ArrayList<>(Arrays.asList(input));
+        newReminderInfoInput.remove(0); // Remove the first empty string in newReminderInfoInput
+        for (String s : newReminderInfoInput) {
+            switch (s.charAt(0)) {
+            case 'n':
+                newReminderName = s.substring(1).trim();
+                break;
+            case 'd':
+                newReminderDate = s.substring(1).trim();
+                break;
+            default:
+                break;
+            }
+        }
+
+        newReminderInfo.add(newReminderName);
+        newReminderInfo.add(newReminderDate);
+        return newReminderInfo;
+    }
+
+    /**
      * Parses string input to extract task requirements to be added and indexes of task requirements to be removed.
      * @param input Contains the new task requirements and indexes of task requirements to be removed.
      * @return An ArrayList consisting of indexes to be removed in index 0, and subsequent elements containing
