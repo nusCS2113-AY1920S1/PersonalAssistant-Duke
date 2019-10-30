@@ -1,5 +1,3 @@
-package templates;
-
 import duke.data.Impression;
 import duke.data.Investigation;
 import duke.data.Medicine;
@@ -10,6 +8,7 @@ import duke.data.Plan;
 import duke.data.Result;
 import duke.exception.DukeException;
 import org.junit.jupiter.api.Test;
+import templates.CommandTest;
 
 import java.io.FileWriter;
 import java.io.IOException;
