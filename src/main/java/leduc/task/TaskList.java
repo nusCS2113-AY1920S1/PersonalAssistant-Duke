@@ -90,13 +90,13 @@ public class TaskList {
         ArrayList<Task> conflictTasks = new ArrayList<>();
         for (Task t : tasks){
             if(t.isEvent()){
-                if(date1.getD().isAfter(((EventsTask)t).getDateFirst().getD()) && date1.getD().isBefore(((EventsTask)t).getDateSecond().getD())){
+                if(date1.getDate().isAfter(((EventsTask)t).getDateFirst().getDate()) && date1.getDate().isBefore(((EventsTask)t).getDateSecond().getDate())){
                     conflictTasks.add(t);
                 }
-                else if(date2.getD().isAfter(((EventsTask)t).getDateFirst().getD()) && date2.getD().isBefore(((EventsTask)t).getDateSecond().getD())){
+                else if(date2.getDate().isAfter(((EventsTask)t).getDateFirst().getDate()) && date2.getDate().isBefore(((EventsTask)t).getDateSecond().getDate())){
                     conflictTasks.add(t);
                 }
-                else if(date1.getD().isBefore(((EventsTask)t).getDateFirst().getD()) && date2.getD().isAfter(((EventsTask)t).getDateSecond().getD())){
+                else if(date1.getDate().isBefore(((EventsTask)t).getDateFirst().getDate()) && date2.getDate().isAfter(((EventsTask)t).getDateSecond().getDate())){
                     conflictTasks.add(t);
                 }
             }

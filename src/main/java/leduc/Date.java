@@ -10,15 +10,15 @@ import java.util.Locale;
  * Represents a date and contains a GregorianCalendar type field.
  */
 public class Date {
-    private LocalDateTime d;
+    private LocalDateTime date;
 
     /**
      * Constructor of leduc.Date.
      *
-     * @param d LocalDateTime which is a date.
+     * @param date LocalDateTime which is a date.
      */
-    public Date(LocalDateTime d) {
-        this.d = d;
+    public Date(LocalDateTime date) {
+        this.date = date;
     }
 
     /**
@@ -34,32 +34,32 @@ public class Date {
         }catch(Exception e){
             throw new NonExistentDateException();
         }
-        this.d = d1;
+        this.date = d1;
     }
     /**
      * Allow to snooze the date
      * Fixed to 30 minutes
      */
     public void snoozeLocalDateTime() {
-        this.d = this.d.plusMinutes(30);
+        this.date = this.date.plusMinutes(30);
     }
 
     /**
-     * Setter of the LocalDateTime d
+     * Setter of the LocalDateTime date
      *
-     * @param d the new value of date
+     * @param date the new value of date
      */
-    public void setD(LocalDateTime d) {
-        this.d = d;
+    public void setDate(LocalDateTime date) {
+        this.date = date;
     }
 
     /**
-     * Getter of the LocalDateTime d
+     * Getter of the LocalDateTime date
      *
-     * @return d the LocalDateTime d
+     * @return date the LocalDateTime date
      */
-    public LocalDateTime getD() {
-        return this.d;
+    public LocalDateTime getDate() {
+        return this.date;
     }
 
     /**
@@ -70,7 +70,7 @@ public class Date {
     @Override
     public String toString() {
         DateTimeFormatter formatters = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
-        String dateFormatted = this.d.format(formatters);
+        String dateFormatted = this.date.format(formatters);
         return dateFormatted; //no need secondes and time zone
     }
 

@@ -108,17 +108,17 @@ public class EventsTask extends Task {
     /**
      * Allow reschedule the period of the event task.
      * With verification that the second date should be after the first one.
-     * @param d1 the first date.
-     * @param d2 the second date.
+     * @param dateFirst the first date.
+     * @param dateSecond the second date.
      * @throws DateComparisonEventException Exception caught when the second date is before the first one.
      */
-    public void reschedule(Date d1, Date d2) throws DateComparisonEventException {
-        if (d2.getD().isBefore(d1.getD())){
+    public void reschedule(Date dateFirst, Date dateSecond) throws DateComparisonEventException {
+        if (dateSecond.getDate().isBefore(dateFirst.getDate())){
             throw new DateComparisonEventException();
         }
         else{
-            this.dateFirst = d1;
-            this.dateSecond = d2 ;
+            this.dateFirst = dateFirst;
+            this.dateSecond = dateSecond ;
         }
     }
 }
