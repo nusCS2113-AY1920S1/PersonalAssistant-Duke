@@ -1,11 +1,16 @@
 package seedu.duke.email.command;
 
+import org.json.JSONException;
 import seedu.duke.common.command.Command;
 import seedu.duke.common.model.Model;
 import seedu.duke.email.EmailKeywordPairList;
 import seedu.duke.email.EmailList;
 import seedu.duke.email.entity.Email;
 import seedu.duke.email.parser.EmailContentParseHelper;
+import seedu.duke.email.storage.EmailKeywordPairStorage;
+import seedu.duke.ui.UI;
+
+import java.io.IOException;
 
 public class EmailAddKeywordCommand extends Command {
     EmailKeywordPairList newKeywordPairList;
@@ -22,6 +27,12 @@ public class EmailAddKeywordCommand extends Command {
         model.setKeywordPairList(newKeywordPairList);
         addAllNewKeywords(emailList, newKeywordPairList);
         model.updateGuiEmailList();
+        try {
+            EmailKeywordPairStorage.saveKeywordPairList(newKeywordPairList);
+        } catch (JSONException | IOException e) {
+            UI.getInstance().showError("Keyword pairs save to file fails");
+            return false;
+        }
         return true;
     }
 

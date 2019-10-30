@@ -1,8 +1,11 @@
 package seedu.duke.email;
 
+import javafx.util.converter.TimeStringConverter;
 import seedu.duke.common.storage.TimestampHelper;
 import seedu.duke.email.entity.KeywordPair;
 
+import java.sql.Time;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
@@ -22,11 +25,19 @@ public class EmailKeywordPairList extends ArrayList<KeywordPair> {
         this.updatedOn = updatedOn;
     }
 
+    /**
+     * Sets updatedOn to current time.
+     */
+    public void updateTimestamp() {
+        this.updatedOn = TimestampHelper.getDateTime();
+    }
+
     private EmailKeywordPairList copy() {
         EmailKeywordPairList newList = new EmailKeywordPairList();
         for (KeywordPair keywordPair : this) {
             newList.add(keywordPair);
         }
+        newList.updateTimestamp();
         return newList;
     }
 
