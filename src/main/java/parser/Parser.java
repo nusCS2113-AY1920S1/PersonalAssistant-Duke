@@ -1,37 +1,37 @@
 package parser;
 
+import command.AddCommand;
 import command.AddTagCommand;
+import command.AddSynonymCommand;
+import command.BadCommand;
 import command.Command;
+import command.DeleteCommand;
 import command.EditCommand;
 import command.ExitCommand;
 import command.HelpCommand;
+import command.HistoryCommand;
+import command.ListCommand;
+import command.QuizCommand;
 import command.SearchBeginCommand;
+import command.SearchCommand;
 import command.SearchFrequencyCommand;
 import command.SetReminderCommand;
-import command.QuizCommand;
-import command.ListCommand;
-import command.AddCommand;
-import command.DeleteCommand;
-import command.SearchCommand;
-import command.HistoryCommand;
-import command.BadCommand;
-
 import dictionary.Word;
-
 import exception.CommandInvalidException;
+import exception.EmptyWordException;
 import exception.WordUpException;
-import exception.WrongQuizFormatException;
+import exception.WrongAddFormatException;
+import exception.WrongAddSynonymFormatException;
 import exception.WrongAddTagFormatException;
+import exception.WrongDeleteFormatException;
 import exception.WrongEditFormatException;
-import exception.WrongSearchFrequencyFormatException;
-import exception.WrongSearchFormatException;
 import exception.WrongHistoryFormatException;
 import exception.WrongListFormatDescription;
-import exception.WrongDeleteFormatException;
-import exception.WrongAddFormatException;
+import exception.WrongQuizFormatException;
 import exception.WrongReminderFormatException;
-import exception.EmptyWordException;
 import exception.WrongSearchBeginFormatException;
+import exception.WrongSearchFormatException;
+import exception.WrongSearchFrequencyFormatException;
 import exception.ZeroHistoryRequestException;
 
 import java.text.SimpleDateFormat;
@@ -79,6 +79,8 @@ public class Parser {
                 command = parseEdit(taskInfo);
             } else if (userCommand.equals("tag")) {
                 command = parseTag(taskInfo);
+            } else if (userCommand.equals("addsyn")) {
+                command = parseSynonym(taskInfo);
             } else if (userCommand.equals("quiz")) {
                 command = parseQuiz(taskInfo);
             } else {
@@ -318,6 +320,30 @@ public class Parser {
             tags.add(wordAndTags[i].trim());
         }
         return new AddTagCommand(wordDescription, tags);
+    }
+
+    /**
+     * Parses an add synonym command.
+     * @param taskInfo String array containing first stage parsed user input
+     * @return a AddSynonymCommand object
+     * @throws WrongAddSynonymFormatException when the format of the add synonym command does not match required format
+     * @author Ng Jian Wei
+     */
+    protected static Command parseSynonym(String[] taskInfo) throws WrongAddSynonymFormatException {
+        if (taskInfo.length == 1 || !taskInfo[1].startsWith("w/")) { //taskInfo[1] is w/drink s/beverage
+            throw new WrongAddSynonymFormatException();
+        }
+        String[] wordAndSynonyms = taskInfo[1].split("s/"); // "w/drink" and "beverage syno2 syno3"
+        if (wordAndSynonyms.length == 1) {
+            throw new WrongAddSynonymFormatException();
+        }
+        String wordDescription = wordAndSynonyms[0].substring(2).trim(); //drink
+        String[] synonymsString = wordAndSynonyms[1].trim().split(" ");
+        ArrayList<String> synonyms = new ArrayList<>();
+        for (String s : synonymsString) {
+            synonyms.add(s.trim());
+        }
+        return new AddSynonymCommand(wordDescription, synonyms);
     }
 
     /**
