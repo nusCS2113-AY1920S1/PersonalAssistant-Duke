@@ -78,8 +78,8 @@ public class CliView {
      */
     public void printLine() {
         System.out.println("____________________________________________________");
-
     }
+
     /**
      * This function prints out the goodbye message of Duke.
      */
