@@ -305,11 +305,48 @@ differences, listed below:
 ArchDuke allows users to manage each individual project in the `ProjectRepository`.
 
 image::images/ManageProject_Sequence.png[]
+=== 3.2 CRUD functionality for Members
+----Implementation
 
-=== 3.2. CRUD functionality for Tasks
+CRUD Member functions are handled by Member, MemberList, MemberFactory, Project and ProjectInputController.
+It allows ArchDuke to perform simple CRUD function for Member in the Project, these simple functions include Create, Read,
+Update and Delete. ProjectInputController will read the relevant command related to the member function and call the relevant methods in ParserHelper.
+
+It implements the following commands:
+
+* `add member -n MEMBER_NAME [-i MEMBER_PHONE_NUMBER] [-e MEMBER_EMAIL]` -- Creates a new Member with the member name
+and optional phone number and email attributes.
+
+* `edit member MEMBER_INDEX [-n MEMBER_NAME] [-i PHONE_NUMBER] [-e MEMBER_EMAIL]` -- Updates an existing member details
+based on the member index with the new attributes specified.
+
+* `view members`-- Displays all the members in the current project.
+
+* `delete member MEMBER_INDEX`--Deletes a member from the current project using the member index.
+
+The example usage scenario will explain in detail the data flow and how the program behaves at each step of CRUD
+functions with regards to a `Member` object.
+
+Step 1) The user creates a new project and chooses to manage it.
+
+Step 2) The user executes the command `add member -n Charles Wong -i 95674325 -e charles@gmail.com` to create a new member
+with the name "Charles Wong" whose phone number is "95674325" and whose email address is "charles@gmail.com".
+
+Step 3) The `ProjectInputController.manageProject()` method triggers the `MemberFactory` which does the validation of the input.
+
+Step 4) `MemberFactory` then goes on to call `parser.parseMemberDetails()` to do a simple parsing which will clean up
+the flags and will return an `ArrayList<String>` for MemberFactory to create the member.
+
+Step 5) `MemberFactory` will create the member based on the information provided by the user. The created member will
+subsequently be added into `memberList` which holds all the members in the current project. Upon doing successfully or
+unsuccessfully doing so, a String message will be returned.
+
+image::images/CreateMember_Sequence.png[]
+
+=== 3.3. CRUD functionality for Tasks
 ==== Implementation
 
-CRUD Task functions are handled by `Task`, `TaskList` and `TaskFactory`,`Project` and `ProjectInputController`.
+CRUD Task functions are handled by `Task`, `TaskList`, `TaskFactory`, `Project` and `ProjectInputController`.
 It allows ArchDuke to perform simple CRUD function for Task in the Project, these simple functions include Create, Read,
 Update and Delete. `TaskFactory` will create the relevant task with the apporatied input from the user which will then be
 added into the `TaskList` managed by the `Project`. `ProjectInputController` will read the relevant command related to task
@@ -333,7 +370,7 @@ removing unwanted requirements and adding new ones
 * `delete task TASK_INDEX` -- Deletion of task with stated index
 
 The example usage scenario below will explain in detail the data flow and how the program behaves at each step of CRUD
-functions with regards to a Task object.
+functions with regards to a `Task` object.
 
 Step 1) Assuming Project have been created and the user is currently managing a specific project.
 
@@ -353,7 +390,7 @@ The following sequence diagram show how `create task` operation works.
 
 image::images/CreateTask_Sequence.png[]
 
-=== 3.3. CRUD functionality for Reminder [Plan to do]
+=== 3.4. CRUD functionality for Reminder [Plan to do]
 ==== Implementation
 
 Implementation
@@ -469,7 +506,7 @@ assignments.
 
 // end::dataencryption[]
 
-=== 3.5. UI functionality for displaying information
+=== 3.6. UI functionality for displaying information
 
 ==== Implementation
 
@@ -523,7 +560,7 @@ The following sequence diagram show how `list` operation works.
 
 image::images/ViewAllProjects_Sequence.png[]
 
-=== 3.2. Logging
+=== 3.7. Logging
 
 We are using `org.apache.logging.log4j` package for logging. The `DukeLogger` class under `Utility` layer is used for
 logging every step that ArchDuke takes so that debugging will be easier.
