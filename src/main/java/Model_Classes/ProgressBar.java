@@ -19,7 +19,8 @@ public class ProgressBar {
     }
 
     /**
-     * Displays the progress bar
+     * Displays the number of tasks completed to the total number of task in
+     * a progress bar format.
      */
     public String showBar() {
         for (int i=0; i<50; i++) {
