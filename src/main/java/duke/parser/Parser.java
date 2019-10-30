@@ -413,7 +413,7 @@ public class Parser {
             String suffixStr = day + suf[sufIndex];
             String displayDT = datetimeFormat2.format(date);
             displayDT = suffixStr + " of " + displayDT;
-            
+
             return new FindTasksByDateCommand(displayDT);
             //@@author
         } else if (arr.length > ZERO && arr[ZERO].equals("remind")) {

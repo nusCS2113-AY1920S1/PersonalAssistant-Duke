@@ -1,14 +1,13 @@
 package duke.command;
 
 import duke.storage.Storage;
-import duke.task.PriorityList;
 import duke.task.TaskList;
 import duke.ui.Ui;
 
 
 //@@author Dou-Maokang
 /**
- * Represents a command to find tasks with a target priority.
+ * Represents a command to find tasks with a target date.
  */
 public class FindTasksByDateCommand extends Command {
     protected String targetDate;
@@ -29,26 +28,9 @@ public class FindTasksByDateCommand extends Command {
      * @param ui To tell the user that it is executed successfully.
      */
     public void execute(TaskList items, Ui ui) {
+        ui.showFindTasksByDate(items, targetDate);
     }
 
-    /**
-     * Return a list of dates on which have tasks.
-     *
-     */
-
-
-
-    /**
-     * Executes a command that locates matching tasks in task list and outputs the result.
-     *
-     * @param items The task list that contains a list of tasks.
-     * @param priorityList The list of priorities associated with the task list.
-     * @param ui To tell the user the matching tasks based on the keyword.
-     */
-    @Override
-    public void execute(TaskList items, PriorityList priorityList, Ui ui) {
-        ui.showFindTasksByPriority(items, priorityList, targetDate);
-    }
 
     /**
      * Executes a command that locates matching tasks in task list and outputs the result (GUI).

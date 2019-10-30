@@ -400,6 +400,20 @@ public class Ui {
         }
     }
 
+    public void showFindTasksByDate(TaskList items, String targetDate) {
+        out.println("     Here are the tasks on " + targetDate + " :");
+        int numFound = ZERO;
+        for (int i = ZERO; i < items.size(); i++) {
+            if (items.get(i).toString().contains(targetDate)) {
+                out.println("     " + (i + ONE) + "." + items.get(i).toString());
+                numFound++;
+            }
+        }
+        if (numFound == ZERO) {
+            out.println("     There's no tasks on " + targetDate + ".");
+        }
+    }
+
     //@@author talesrune
     /**
      * Outputs the tasks that are matched from the keyword to the user (GUI).
