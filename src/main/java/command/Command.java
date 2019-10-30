@@ -1,10 +1,13 @@
+
 package command;
+
+import inventory.Inventory;
+import inventory.Item;
 
 import control.Duke;
 import exception.DukeException;
 import room.RoomList;
 import storage.Storage;
-import task.TaskList;
 import ui.Ui;
 import booking.BookingList;
 import user.User;
@@ -23,17 +26,13 @@ public abstract class Command {
      * Execute command logic.
      * @param bookingList bookings list
      * @param ui user interface
-     * @param bookingStorage handles read write of text file
      * @param user Current user
      * @throws DukeException if control.Duke specific exception found
      * @throws IOException if IO exception found
      */
-    public void execute(RoomList roomlist, BookingList bookingList, Ui ui, Storage bookingStorage, Storage roomStorage, User user)
+    public void execute(Inventory inventory, RoomList roomList, BookingList bookingList, Ui ui,
+                        Storage inventoryStorage, Storage bookingstorage, Storage roomstorage, User user)
             throws DukeException, IOException, ParseException {
-    }
-
-
-    public void execute (RoomList roomlist, Ui ui, Storage roomStorage) throws DukeException, IOException, ParseException {
 
     }
 
@@ -54,17 +53,5 @@ public abstract class Command {
         } catch (ParseException e) {
             return false;
         }
-    }
-
-    protected static boolean isAdd (String dateTime, TaskList tasks) {
-        SimpleDateFormat dateTimeFormat =  new SimpleDateFormat("d/M/yyyy HHmm");
-        boolean found = false;
-        for (int i = 0; i < tasks.size(); i++) {
-            if (tasks.get(i).toString().contains(dateTime)) {
-                found = true;
-                break;
-            }
-        }
-        return found;
     }
 }

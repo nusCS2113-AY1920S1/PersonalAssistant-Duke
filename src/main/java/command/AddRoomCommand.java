@@ -1,29 +1,31 @@
+
 package command;
 
+import inventory.Inventory;
+import inventory.Item;
 
-import control.Duke;
 import booking.BookingList;
 import exception.DukeException;
 import storage.Storage;
-import room.AddRoom;
+import room.Room;
 import room.RoomList;
 import ui.Ui;
 import user.User;
 
 import java.io.IOException;
-import java.text.ParseException;
-
 
 public class AddRoomCommand extends Command {
+
     private String[] splitC;
     private String roomcode;
     private String[] datesplit;
-    private String date;
-    private String timeslot;
+    private String dateStartTime;
+    private String endTime;
 
+    //@@ zkchang97
     /**
-     * Creates anew room entry in the list of rooms.
-     * format is addroom ROOMCODE /date DD/MM/YYYY /timeslot HH:MM AM/PM to HH:MM AM/PM
+     * Creates a new room entry in the list of rooms.
+     * Format is addroom ROOMCODE /date DD/MM/YYYY HHMM /to HHMM
      * @param input from user
      * @param splitStr tokenized input
      * @throws DukeException when format is incorrect
@@ -31,31 +33,39 @@ public class AddRoomCommand extends Command {
     public AddRoomCommand(String input, String[] splitStr) throws DukeException {
         if (splitStr.length == 1) {
             throw new DukeException("Please enter the following to add a room:\n"
-                    + "addroom ROOMCODE /date DATE /timeslot TIMESLOT.\n"
-                    + "DATE format: DD/MM/YYYY.\n"
-                    + "TIMESLOT format: HH:MM AM/PM to HH:MM AM/PM.");
+                    + "addroom ROOMCODE /date DD/MM/YYYY HHMM /to HHMM.\n");
         }
         if (!input.contains(" /date ")) {
-            throw new DukeException("Please enter correct date for the room.");
+            throw new DukeException("Please enter correct date and start-time for the room.");
         }
-        if (!input.contains(" /timeslot ")) {
-            throw new DukeException("Please enter a timeslot for the room.");
+        if (!input.contains(" /to ")) {
+            throw new DukeException("Please enter an end-time for the room.");
         }
-        // addroom ROOMCODE /date DATE /timeslot TIMESLOT
+        // addroom ROOMCODE /date DATE TIMESTART /to TIMEEND
         String tempAR = input.substring(8);
-        splitC = tempAR.split(" /date ", 2); // splitC[] = {ROOMCODE, DATE /timeslot TIMESLOT}
+        splitC = tempAR.split(" /date ", 2); // splitC[] = {ROOMCODE, DATE TIMESTART /to TIMEEND}
         this.roomcode = splitC[0]; // ROOMCODE
-        this.datesplit = splitC[1].split(" /timeslot ", 2); // datesplit[] == {DATE, TIMESLOT}
-        this.date = datesplit[0];
-        this.timeslot = datesplit[1];
+        this.datesplit = splitC[1].split(" /to ", 2); // datesplit[] == {DATE TIMESTART, TIMEEND}
+        this.dateStartTime = datesplit[0];
+        this.endTime = datesplit[1];
     }
 
-
+    /**
+     * Executes the command to add a room to the system.
+     * @param roomList room list
+     * @param bookingList bookings list
+     * @param ui user interface
+     * @param bookingstorage booking storage in command execution
+     * @param roomstorage room storage in command execution
+     * @param user current user
+     * @throws IOException if input entry is incorrect
+     */
     @Override
-    public void execute(RoomList roomList, BookingList bookingList, Ui ui, Storage bookingstorage,
-                        Storage roomstorage, User user)
-            throws DukeException, IOException, ParseException {
-        AddRoom addroom = new AddRoom(roomcode, date, timeslot);
+
+    public void execute(Inventory inventory, RoomList roomList, BookingList bookingList, Ui ui, 
+                        Storage inventoryStorage, Storage bookingstorage, Storage roomstorage, User user)
+            throws IOException {
+        Room addroom = new Room(roomcode, dateStartTime, endTime);
         roomList.add(addroom);
         roomstorage.saveToFile(roomList);
         ui.addToOutput("Got it, I've added this room.\n"

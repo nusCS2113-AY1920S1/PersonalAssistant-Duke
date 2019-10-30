@@ -6,7 +6,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import storage.BookingConstants;
 import storage.Constants;
-import ui.MainWindow;
+import ui.Ui;
 
 import java.io.IOException;
 
@@ -15,7 +15,7 @@ import java.io.IOException;
  */
 public class Main extends Application {
 
-    private Duke duke = new Duke(BookingConstants.FILENAME, Constants.ROOMFILENAME);
+    private Duke duke = new Duke(BookingConstants.FILENAME, Constants.ROOMFILENAME, Constants.INVENTORYFILENAME);
 
     @Override
     public void start(Stage stage) {
@@ -25,7 +25,7 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setDuke(duke);
+            fxmlLoader.<Ui>getController().setDuke(duke);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

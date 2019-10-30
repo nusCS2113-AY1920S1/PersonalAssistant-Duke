@@ -1,4 +1,8 @@
+
 package command;
+
+import inventory.Inventory;
+import inventory.Item;
 
 
 import booking.BookingList;
@@ -11,8 +15,22 @@ import user.User;
 
 public class ListRoomCommand extends Command {
 
+    //@@ zkchang97
+    /**
+     * Executes the command to list the rooms in the text file.
+     * @param roomList list of rooms
+     * @param bookingList bookings list
+     * @param ui user interface
+     * @param bookingstorage booking storage in command execution
+     * @param roomstorage room storage in command execution
+     * @param user Current user
+     * @throws DukeException when entry is invalid due to formatting
+     */
+
     @Override
-    public void execute(RoomList roomList, BookingList bookingList, Ui ui, Storage bookingstorage, Storage roomstorage, User user) throws DukeException {
+    public void execute(Inventory inventory, RoomList roomList, BookingList bookingList, Ui ui,
+                        Storage inventoryStorage, Storage bookingstorage, Storage roomstorage, User user)
+            throws DukeException {
         if (roomList.isEmpty()) {
             throw new DukeException("The room list is empty. Please add a room.");
         }

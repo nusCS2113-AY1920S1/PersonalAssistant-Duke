@@ -1,37 +1,68 @@
 package room;
 
-import exception.DukeException;
 import storage.Constants;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 public class RoomList extends ArrayList<Room> {
 
+    /**
+     * Creates room list from text file.
+     * @param loader Strings from text file containing room list info
+     */
     public RoomList(ArrayList<String> loader) {
         for (String line : loader) {
-            String[] splitStr = line.split("\\|", 4);
-            this.add(new AddRoom(splitStr[Constants.ISBOOKED], splitStr[Constants.ROOMCODE],
-                    splitStr[Constants.ROOMDATE], splitStr[Constants.ROOMTIMESLOT]));
+            String[] splitStr = line.split(" \\| ", 4);
+            this.add(new Room(splitStr[Constants.ROOMCODE],
+                    splitStr[Constants.ROOMDATETIMESTART], splitStr[Constants.ROOMDATETIMEEND]));
         }
     }
 
+    /**
+     * Public constructor in Duke.java
+     */
+    public RoomList() {
+        super();
+    }
 
-    public static boolean checkRoom(String roomcode,String filePath) throws IOException {
-        BufferedReader reader;
-        boolean found = false;
-        reader = new BufferedReader(new FileReader(filePath));
-        String line = reader.readLine();
+    /**
+     * Checks if a room to be added is already present in the room list file.
+     * @param roomcode Room code of the target room
+     * @return if the room already exists in the file
+     * @throws IOException if the input is in the wrong format
+     */
 
-        while (line != null){
-            if(line.equals(roomcode))
-                found = true;
-                line = reader.readLine();
-            break;
+    public boolean checkRoom(String roomcode) {
+        for (Room i : this) {
+            if (i.roomcode.equals(roomcode)) {
+                return true;
+            }
         }
-        reader.close();
+        return false;
+    }
+
+    /*
+    public static boolean checkRoom(RoomList roomlist, String roomcode, String timeStart, String timeEnd) {
+        boolean found = false;
+        DateTimeFormatter formatterStart = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
+        DateTimeFormatter formatterEnd = DateTimeFormatter.ofPattern("HHmm");
+        LocalDateTime startTime = LocalDateTime.parse(timeStart, formatterStart);
+        LocalTime endTime = LocalTime.parse(timeEnd, formatterEnd);
+        for (int i = 0; i < roomlist.size(); i++) {
+            if (roomlist.get(i).roomcode == roomcode) {
+                if ((roomlist.get(i).dateTimeStart.isBefore(startTime)
+                        || roomlist.get(i).dateTimeStart.isEqual(startTime))
+                        && ((roomlist.get(i).timeEnd.isAfter(endTime))
+                        && (roomlist.get(i).timeEnd.isBefore(endTime)))) {
+                    found = true;
+                }
+            }
+        }
         return found;
     }
+     */
 }

@@ -1,17 +1,20 @@
 package booking;
 
-import user.User;
-
-import java.time.Instant;
-import java.time.LocalDateTime;
+import java.time.Month;
 import java.time.ZoneId;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoField;
+import java.util.Date;
 
 public class Booking {
 
     protected LocalDateTime dateTimeStart;
-    protected LocalDateTime dateTimeEnd;
+    protected LocalDate dateStart;
+    protected LocalTime timeEnd;
     protected String venue;
     protected String name;
     private String description;
@@ -31,23 +34,13 @@ public class Booking {
         DateTimeFormatter formatterStart = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
         DateTimeFormatter formatterEnd = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
         this.dateTimeStart = LocalDateTime.parse(dateTimeStart, formatterStart);
-        this.dateTimeEnd = LocalDateTime.parse(dateTimeEnd, formatterEnd);
+        this.dateStart = this.dateTimeStart.toLocalDate();
+        this.timeEnd = LocalTime.parse(dateTimeEnd, formatterEnd);
         this.description = description;
         this.name = username;
         this.status = "P";
 
     }
-
-    /*
-    public Booking (String roomcode, String username, String description, long atStart, long atEnd) {
-        this.venue =  roomcode;
-        this.description = description;
-        Instant instantStart = Instant.ofEpochMilli(atStart);
-        Instant instantEnd = Instant.ofEpochMilli(atEnd);
-        this.dateTimeStart = instantStart.atZone(ZoneId.systemDefault()).toLocalDateTime();
-        this.dateTimeEnd = instantEnd.atZone(ZoneId.systemDefault()).toLocalDateTime();
-
-    }*/
 
     /**
      * Facility.booking.Booking constructor to generate booking entry from file
@@ -61,36 +54,45 @@ public class Booking {
     public Booking(String username, String roomcode, String description, String atStart, String atEnd, String status) {
         this.venue = roomcode;
         this.description = description;
-        Instant instantStart = Instant.ofEpochMilli(Long.parseLong(atStart));
-        Instant instantEnd = Instant.ofEpochMilli(Long.parseLong(atEnd));
-        this.dateTimeStart = instantStart.atZone(ZoneId.systemDefault()).toLocalDateTime();
-        this.dateTimeEnd = instantEnd.atZone(ZoneId.systemDefault()).toLocalDateTime();
+        Date storedStart = new Date(Long.parseLong(atStart));
+        Date storedEnd = new Date(Long.parseLong(atEnd));
+        this.dateTimeStart = storedStart.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+        this.dateStart = storedStart.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        this.timeEnd = storedEnd.toInstant().atZone(ZoneId.systemDefault()).toLocalTime();
         this.name = username;
         this.status = status;
     }
 
     /**
-     * String version of the booking entry
+     * String version of the booking entry.
      * @return booking entry string version
      */
     public String toString() {
         DateTimeFormatter formatterStart = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
-        DateTimeFormatter formatterEnd = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
-        return name + " " + venue + " " + dateTimeStart.format(formatterStart) + " to " + dateTimeEnd.format(formatterEnd)+ " " +  status;
+        DateTimeFormatter formatterEnd = DateTimeFormatter.ofPattern("HHmm");
+        return name + " " + venue + " " + dateTimeStart.format(formatterStart) + " to "
+                + timeEnd.format(formatterEnd) + " " +  status;
     }
 
+    /**
+     * Version of entry to be stored in file.
+     * @return String entry for file
+     */
     public String toWriteFile() {
-        return this.name + " | " + this.venue + " | " + this.description + " | " +
-                this.dateTimeStart.getLong(ChronoField.EPOCH_DAY) + " | "
-                + this.dateTimeEnd.getLong(ChronoField.EPOCH_DAY) + " | " + this.status + "\n";
+        Date storeTimeStart = Date.from(dateTimeStart.atZone(ZoneId.systemDefault()).toInstant());
+        Instant timeEndInstant = timeEnd.atDate(dateStart).atZone(ZoneId.systemDefault()).toInstant();
+        Date storeTimeEnd = Date.from(timeEndInstant);
+        return this.name + " | " + this.venue + " | " + this.description + " | "
+                + storeTimeStart.getTime() + " | "
+                + storeTimeEnd.getTime() + " | " + this.status + "\n";
     }
 
     public LocalDateTime getDateTimeStart() {
         return this.dateTimeStart;
     }
 
-    public LocalDateTime getDateTimeEnd() {
-        return this.dateTimeEnd;
+    public LocalTime getTimeEnd() {
+        return this.timeEnd;
     }
 
     public String getVenue() {
@@ -108,4 +110,22 @@ public class Booking {
     public String getName() {
         return name;
     }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public LocalDate getDateStart() {
+        return dateStart;
+    }
+
+    public Month getStartMonth() {
+        return dateStart.getMonth();
+    }
+
+    public LocalTime getTimeStart() {
+        return dateTimeStart.toLocalTime();
+    }
+
+
 }

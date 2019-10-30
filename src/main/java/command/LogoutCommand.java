@@ -1,4 +1,8 @@
+
 package command;
+
+import inventory.Inventory;
+import inventory.Item;
 
 import booking.BookingList;
 import exception.DukeException;
@@ -15,20 +19,22 @@ import java.text.ParseException;
 public class LogoutCommand extends Command {
     private String[] splitL;
 
+    //@@ AmirAzhar
     /**
-     * User logout
-     *
+     * User logout.
      * @param input    from user
      * @param splitStr tokenized input
      * @throws DukeException if format not followed
      */
     public LogoutCommand(String input, String[] splitStr) throws DukeException, IOException {
-        if (Login.getCurrentUser().equals(" "))
+        if (Login.getCurrentUser().equals(" ")) {
             throw new DukeException("You are not currently logged in!");
+        }
     }
 
     @Override
-    public void execute(RoomList roomList, BookingList bookingList, Ui ui, Storage bookingStorage, Storage roomStorage, User user) throws DukeException, IOException, ParseException {
+    public void execute(Inventory inventory, RoomList roomList, BookingList bookingList, Ui ui,
+                        Storage inventoryStorage, Storage bookingstorage, Storage roomstorage, User user) {
         Login.setCurrentUser(" ");
         ui.addToOutput("You have succesfully logged out!");
     }
