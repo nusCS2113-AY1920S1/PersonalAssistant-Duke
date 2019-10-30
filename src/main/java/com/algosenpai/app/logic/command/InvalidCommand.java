@@ -4,6 +4,7 @@ package com.algosenpai.app.logic.command;
 
 import com.algosenpai.app.logic.constant.Commands;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -19,13 +20,14 @@ public class InvalidCommand extends Command {
 
     @Override
     public String execute() {
-        String input = new String();
+        return "???!";
+        /*String input = new String();
         for (String i : inputs) {
             input += i;
         }
-        return "!!!? Did you mean..." + compare(input);
+        return "Sorry please input a valid command." + compare(input);*/
     }
-
+    
     /**
      * Choose command that is closest to the input by user.
      * @param input command entered by user.
@@ -33,17 +35,31 @@ public class InvalidCommand extends Command {
      */
 
     public static String compare(String input) {
-        String str = "";
-        double num = -1;
+        String str = new String();
+        double num = -1.000;
+        String[] strings = new String[20];
+        DecimalFormat df = new DecimalFormat("#.###");
         String[] names = Commands.getNames();
+        int count = 0;
 
         for (String s: names) {
-            double temp = countPairs(input, input.length(), s, s.length());
-            if (temp > num) {
-                str = s;
+            double temp = ((double) countPairs(input, input.length(), s, s.length()) / (double) s.length());
+            df.format(temp);
+            if (temp > 0.500 && temp > num) {
+                for (String ss : strings) {
+                    ss = "";
+                }
+                count = 0;
+                strings[count] = str;
+            } else if (temp > 0.500 && temp == num) {
+                strings[count++] = s;
+                count++;
             }
+        } if (!strings[0].isEmpty()) {
+            return "Did you mean..." + strings.toString();
+        } else {
+            return " To view the list of commands, enter `menu`.";
         }
-        return str;
     }
 
     /**
