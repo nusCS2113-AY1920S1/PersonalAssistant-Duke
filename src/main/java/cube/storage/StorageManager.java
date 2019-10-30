@@ -102,4 +102,13 @@ public class StorageManager {
 		return configStorage;
 	}
 
+	/**
+	 * Sets the configuration storage containing user-defined configurations.
+	 * @return ConfigStorage object containing the user-defined configurations.
+	 */
+	@JsonIgnore
+	public void setConfig(ConfigStorage configStorage) {
+		this.configStorage = configStorage;
+	}
+
 }

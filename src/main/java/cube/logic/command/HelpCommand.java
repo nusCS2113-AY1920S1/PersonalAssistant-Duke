@@ -18,6 +18,8 @@ public class HelpCommand extends Command{
 			+ String.format("%1$-50s", "  'find -i <number> OR -n <food name> OR -t <food type> -sort <sort type>'") + "find specific food using index/name/type, sort type is only available when finding by type, it can be expiry/name/stock\n"
 			+ String.format("%1$-50s", "  'reminder'") + "show the list of food products that are low on stock and/or are approaching its expiry date\n"
 			+ "Miscellaneous:\n"
+			+ String.format("%1$-50s", "  'batch -i <filename> OR -o <filename>'") + "batch imports or outputs the list of food products as the filename in CSV.\n"
+			+ String.format("%1$-50s", "  'config UI -h <height> -w <width>'") + "updates the default window size configuration with specified values.\n"
 			+ String.format("%1$-50s", "  'bye' OR 'exit' OR 'quit'") + "to exit the programme\n"
 			+ String.format("%1$-50s", "  'help'") + "to show a list of available command\n";
 

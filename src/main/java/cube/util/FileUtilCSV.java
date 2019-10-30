@@ -6,6 +6,7 @@
 package cube.util;
 
 import com.fasterxml.jackson.databind.JavaType;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.dataformat.csv.CsvMapper;
 import com.fasterxml.jackson.dataformat.csv.CsvSchema;
 import com.fasterxml.jackson.databind.ObjectReader;
@@ -57,7 +58,6 @@ public class FileUtilCSV<Type> extends FileUtil {
                 while(iterator.hasNext()) {
                     Type currentObject = iterator.next();
                     collectionToLoad.add(currentObject);
-                    System.out.println(currentObject.toString());
                 }
 
             } catch (IOException e) {
@@ -80,6 +80,7 @@ public class FileUtilCSV<Type> extends FileUtil {
             JavaType type = mapper.getTypeFactory().constructType(fileObject.getClass());
             CsvSchema schema = mapper.schemaFor(type);
             schema = schema.withUseHeader(true);
+            mapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
             mapper.writerFor(collectionToSave.getClass()).with(schema).writeValue(file, collectionToSave);
         } catch (IOException e) {
             e.printStackTrace();
