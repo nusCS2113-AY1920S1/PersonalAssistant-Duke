@@ -91,4 +91,16 @@ public class MemberFactoryTest {
         assertEquals(expectedMember.getIndexNumber(), simulatedMember.getIndexNumber());
         assertEquals(expectedMember.getName(), simulatedMember.getName());
     }
+
+    @Test
+    void memberCreation_invalidEmail_nullObjectReturned() {
+        simulatedFactoryInput = "-n Thor -i 91234567 -e thor.marvel.com";
+        IMember simulatedMember = memberFactory.create(simulatedFactoryInput);
+        NullMember expectedMember =  new NullMember("Email address is not a valid email address! "
+                                    + "Please adhere to standard email address formats, "
+                                    + "such as archduke@emailprovider.com");
+        assertEquals(expectedMember.getDetails(), simulatedMember.getDetails());
+        assertEquals(expectedMember.getIndexNumber(), simulatedMember.getIndexNumber());
+        assertEquals(expectedMember.getName(), simulatedMember.getName());
+    }
 }
