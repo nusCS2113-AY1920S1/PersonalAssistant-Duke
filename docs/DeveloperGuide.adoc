@@ -118,34 +118,29 @@ NOTE: If there is no argument given for a switch, `getSwitchVal(<switch name>)` 
 
 ==== Parsing
 
-The `Parser` object scans through a user-supplied string. The first word is extracted, and if the corresponding command is an `ArgCommand`, it uses several nested finite state machines (FSMs) which switch on the characters in the input. Switches are extracted, using the aliases in `switchAliases` to identify the full names of the corresponding switches. The switch arguments are then compared against the requirements of the `ArgCommand`, as stored in the `switchMap`.
+The `Parser` object scans through a user-supplied string. The first word is extracted, and if the corresponding command is an `ArgCommand`, it uses a finite state machine (FSMs) which switches on the characters in the input. Switches are extracted, using the aliases in `switchAliases` to identify the full names of the corresponding switches. The switch arguments are then compared against the requirements of the `ArgCommand`, as stored in the `switchMap`.
 
 The finite state machine for input parsing has the following states:
 
+* `CMDARG`: parsing the argument for the command
 * `EMPTY`: parsing whitespace, which has no semantic meaning aside from serving as a separator
-* `ARG`: parsing an argument that is not quoted, which may be for a switch or for the command itself
-* `STRING`: parsing an argument that is surrounded by double quotes
+* `ARG`: parsing an argument for a switch
 * `SWITCH`: parsing a switch name
 
 The state transitions on encountering would not be clearly represented on a state diagram, but can be summarised as follows:
 
-* `EMPTY` 
-** `EMPTY` -> `EMPTY`: <Newline> or <Space>
-** `EMPTY` -> `SWITCH`: `-`
-** `EMPTY` -> `STRING`: `"`
-** `EMPTY` -> `ARG`: <any other character>
+* `CMDARG` 
+** `CMDARG` -> `SWITCH`: `-`
+** `CMDARG` -> `CMDARG`: any other character, which will be appended to the command's argument
 * `SWITCH` 
-** `SWITCH` -> `EMPTY`: <Newline> or <Space>
-** `SWITCH` -> `SWITCH` (add current switch and begin processing a new switch): `-`
-** `SWITCH` -> `STRING` (add current switch and begin parsing a string as an argument): `"`
-** `SWITCH` -> `SWITCH`: <any other character>
-* `STRING` 
-** `STRING` -> `EMPTY`: `"`
-** `STRING` -> `STRING`: <any other character>
+** `SWITCH` -> `SWITCH`: `-` to start a new switch, any other character to append characters to the switch name
+** `SWITCH` -> `EMPTY`: <Space> or <Newline>
+* `EMPTY` 
+** `EMPTY` -> `SWITCH`: `-`
+** `EMPTY` -> `EMPTY`: <Newline> or <Space>, which is skipped over
+** `EMPTY` -> `ARG`: any other character, which will initiate the construction of the argument for the previous switch
 * `ARG` 
-** `ARG` -> `EMPTY`: <Newline> or <Space>
-** `ARG` -> `DukeException`: Unescaped `"` or `-`
-** `ARG` -> `ARG`: <any other character>
+** `ARG` -> `SWITCH`: `-` marks the end of a switch's argument, and the beginning of a new switch
 
 Preceding any transition character with a backslash `\` will escape it, allowing it to be treated as an ordinary character.
 
@@ -154,9 +149,9 @@ When transitioning from `EMPTY` to any other state, `checkInputAllowed()` is use
 When every character in the input has been consumed, cleanup will be performed based on the state that the `Parser` is in at that point:
 
 * `EMPTY`: nothing is done
-* `ARG`: call `writeElement()` to write a command or switch argument
-* `SWITCH`: call `addSwitch()` to process the switch name
-* `STRING`: call `writeElement()`, assuming the user simply forgot to close the string
+* `ARG`: call `writeElement()` to write the switch argument being processed
+* `SWITCH`: call `addSwitch()` to process and add the switch, and update `switchVals` in the corner case where the command ends with a switch with an optional argument, which is not given.
+* `CMDARG`: call `setCmdArg()`
 
 [[Design-Model]]
 === Data Model [KWOK KUIN EK JEREMY]
