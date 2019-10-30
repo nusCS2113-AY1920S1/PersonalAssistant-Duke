@@ -2,7 +2,8 @@
 
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
-<AnchorPane prefHeight="591.0" prefWidth="857.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="591.0" prefWidth="857.0" stylesheets="@../css/product.css"
+            xmlns="http://javafx.com/javafx/11.0.1">
    <children>
        <TableView fx:id="inventoryListTable" prefHeight="591.0" prefWidth="857.0" AnchorPane.bottomAnchor="0.0"
                   AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="10.0">
