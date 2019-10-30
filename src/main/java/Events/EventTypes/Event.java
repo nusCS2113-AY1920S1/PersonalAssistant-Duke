@@ -109,7 +109,7 @@ public abstract class Event implements Comparable<Event> {
     }
 
     public String getDoneSymbol() {
-        return (isDone) ? "✓" : "✗";
+        return (isDone) ? "V" : "X";
     }
 
     public void markAsDone() {
