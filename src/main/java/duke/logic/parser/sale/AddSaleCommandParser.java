@@ -13,6 +13,9 @@ import static duke.logic.parser.commons.CliSyntax.PREFIX_SALE_DATE;
 import static duke.logic.parser.commons.CliSyntax.PREFIX_SALE_REMARKS;
 import static duke.logic.parser.sale.SaleParserUtil.createDescriptor;
 
+/**
+ * A parser that parses {@code AddSaleCommand}.
+ */
 public class AddSaleCommandParser implements Parser<AddSaleCommand> {
     public AddSaleCommand parse(String args) throws ParseException {
         ArgumentMultimap map = ArgumentTokenizer.tokenize(args,
