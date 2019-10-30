@@ -20,6 +20,7 @@ public class Storage {
         appDir = System.getProperty("user.dir");
         if (System.getProperty("os.name").startsWith("Windows")) {
             jsonName = "\\" + jsonName;
+            AsciiColours.inActivate();
         } else {
             jsonName = "/" + jsonName;
         }

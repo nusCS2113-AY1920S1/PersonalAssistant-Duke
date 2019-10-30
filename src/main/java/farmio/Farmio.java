@@ -3,6 +3,7 @@ package farmio;
 import commands.*;
 import exceptions.FarmioException;
 import exceptions.FarmioFatalException;
+import frontend.AsciiColours;
 import frontend.Simulation;
 import frontend.Ui;
 
