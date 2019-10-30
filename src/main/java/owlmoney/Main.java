@@ -82,12 +82,13 @@ class Main {
             String userName = importData.get(0)[0];
             profile = new Profile(userName, ui);
             ui.greet(profile.profileGetUsername());
-        } catch (Exception e) {
+        } catch (IOException exceptionMessage) {
             ui.printError("Unable to import profile files, starting fresh");
             ui.firstTimeRun();
             getUserName();
             ui.greet(profile.profileGetUsername());
             try {
+                storage.createDirectoryIfNotExist(FILE_PATH);
                 storage.writeProfileFile(new String[]{profile.profileGetUsername()},PROFILE_FILE_NAME);
             } catch (IOException ex) {
                 ui.printError("Unable to save profile now, your data is at risk, but we will"
