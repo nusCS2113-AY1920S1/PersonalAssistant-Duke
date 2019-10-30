@@ -1,12 +1,20 @@
-package tasks;
+package command;
 
+import commands.DoneCommand;
+import members.Member;
 import org.junit.jupiter.api.Test;
+import tasks.Task;
+import tasks.ToDo;
 import utils.DukeException;
+import utils.Storage;
+
+import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
-public class DoneTest {
+public class DoneCommandTest {
 
     //@@author: Jason
     @Test
@@ -23,6 +31,15 @@ public class DoneTest {
         ToDo temp = new ToDo(description);
         temp.markAsDone();
         assertEquals(true, temp.getIsDone());
+    }
+
+    //@@author: Jason
+    @Test
+    public void execute_negativeIntegerInput_throwsDukeException() {
+        ArrayList<Task> tasks = new ArrayList<>();
+        tasks.add(new ToDo("test"));
+        assertThrows(DukeException.class, () -> new DoneCommand("-1")
+                .execute(tasks, new ArrayList<Member>(), null));
     }
 
 }

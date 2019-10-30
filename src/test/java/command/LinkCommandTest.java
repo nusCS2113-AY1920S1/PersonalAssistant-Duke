@@ -1,14 +1,16 @@
-package tasks;
+package command;
 
 import members.Member;
 import org.junit.jupiter.api.Test;
+import tasks.Task;
+import tasks.ToDo;
 
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
-public class LinkTest {
+public class LinkCommandTest {
 
     //@@author: Jason
     @Test
