@@ -537,7 +537,11 @@ public class Command {
                         break;
 
                     case "view":
-                        ui.printEventContacts(events.getEvent(eventIndex));
+                        if (events.getEvent(eventIndex).getContactList().isEmpty()) {
+                            ui.noContactInEvent();
+                        } else {
+                            ui.printEventContacts(events.getEvent(eventIndex));
+                        }
                         break;
                 }
             } else {

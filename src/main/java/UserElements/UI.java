@@ -116,6 +116,10 @@ public class UI {
                 + newContact.getEmail() + " Phone Number: " +newContact.getPhoneNo());
     }
 
+    public void noContactInEvent() {
+        System.out.println("Do not have any contact in this event.");
+    }
+
     /**
      * prints entire list of events stored.
      *
