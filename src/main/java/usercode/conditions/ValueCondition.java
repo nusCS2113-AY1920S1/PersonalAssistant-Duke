@@ -15,6 +15,12 @@ public class ValueCondition extends Condition {
     private Comparator comparator;
     private int value;
 
+    /**
+     * ValueCondition Summary.
+     * @param type something
+     * @param comparator something
+     * @param value something
+     */
     public ValueCondition(ValueConditionType type, Comparator comparator, int value) {
         super(Type.VALUE);
         this.type = type;
@@ -36,21 +42,22 @@ public class ValueCondition extends Condition {
         return object;
     }
 
-    public String toString () {
+    public String toString() {
         return type.name() + " " + comparatorToString() + " " + Integer.toString(value);
     }
 
     private String comparatorToString() {
         switch (comparator) {
-            case greaterThanOrEquals:
-                return ">=";
-            case greaterThan:
-                return ">";
-            case lessThan:
-                return "<";
-            case lessThanOrEquals:
-                return "<=";
+        case greaterThanOrEquals:
+            return ">=";
+        case greaterThan:
+            return ">";
+        case lessThan:
+            return "<";
+        case lessThanOrEquals:
+            return "<=";
+        default:
+            return "";
         }
-        return "";
     }
 }

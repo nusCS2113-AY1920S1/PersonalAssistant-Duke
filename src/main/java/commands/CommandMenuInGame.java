@@ -23,59 +23,59 @@ public class CommandMenuInGame extends Command {
         double level = farmio.getFarmer().getLevel();
         Ui ui = farmio.getUi();
 
-        if(input.equals("actions")) {
-            if(level == 1.1) {
+        if (input.equals("actions")) {
+            if (level == 1.1) {
                 farmio.getSimulation().simulate("ActionList", 11,true);
             }
-            if(level == 1.2) {
+            if (level == 1.2) {
                 farmio.getSimulation().simulate("ActionList", 12,true);
             }
-            if(level == 1.3) {
+            if (level == 1.3) {
                 farmio.getSimulation().simulate("ActionList", 13,true);
             }
-            if(level == 1.4) {
+            if (level == 1.4) {
                 farmio.getSimulation().simulate("ActionList", 14,true);
             }
-            if(level == 1.5) {
+            if (level == 1.5) {
                 farmio.getSimulation().simulate("ActionList", 15,true);
             }
-            if(level == 1.6) {
+            if (level == 1.6) {
                 farmio.getSimulation().simulate("ActionList", 15,true);
             }
         }
-        if(input.equals("conditions")) {
-            if(level == 1.1) {
+        if (input.equals("conditions")) {
+            if (level == 1.1) {
                 farmio.getSimulation().simulate("ConditionList", 11,true);
             }
-            if(level == 1.2) {
+            if (level == 1.2) {
                 farmio.getSimulation().simulate("ConditionList", 11,true);
             }
-            if(level == 1.3) {
+            if (level == 1.3) {
                 farmio.getSimulation().simulate("ConditionList", 11,true);
             }
-            if(level == 1.4) {
+            if (level == 1.4) {
                 farmio.getSimulation().simulate("ConditionList", 14,true);
             }
-            if(level == 1.5) {
+            if (level == 1.5) {
                 farmio.getSimulation().simulate("ConditionList", 16,true);
             }
-            if(level == 1.6) {
+            if (level == 1.6) {
                 farmio.getSimulation().simulate("ConditionList", 16,true);
             }
         }
 
-        if(input.equals("market")) {
-            if(level < 1.5) {
+        if (input.equals("market")) {
+            if (level < 1.5) {
                 farmio.getSimulation().simulate("MarketList", 4,true);
-            } else if(level < 2) {
+            } else if (level < 2) {
                 farmio.getSimulation().simulate("MarketList", 1, true);
-            } else if(level < 3) {
+            } else if (level < 3) {
                 farmio.getSimulation().simulate("MarketList", 2,true);
-            } else if(level < 4) {
+            } else if (level < 4) {
                 farmio.getSimulation().simulate("MarketList", 3,true);
             }
         }
-        if(input.equals("")) {
+        if (input.equals("")) {
             Menu.show(farmio, true);
         }
         farmio.setStage(Farmio.Stage.MENU);
