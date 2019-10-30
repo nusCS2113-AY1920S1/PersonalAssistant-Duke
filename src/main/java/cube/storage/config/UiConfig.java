@@ -43,4 +43,12 @@ public class UiConfig {
     public void setWindowWidth(double windowWidth) {
         this.windowWidth = windowWidth;
     }
+
+    @Override
+    public String toString() {
+        String result = "";
+        result += String.format("%1$s = %2$s\n", "windowHeight", windowHeight);
+        result += String.format("%1$s = %2$s\n", "windowWidth", windowWidth);
+        return result;
+    }
 }

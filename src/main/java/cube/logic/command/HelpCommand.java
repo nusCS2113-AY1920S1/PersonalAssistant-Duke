@@ -19,7 +19,9 @@ public class HelpCommand extends Command{
 			+ String.format("%1$-50s", "  'reminder'") + "show the list of food products that are low on stock and/or are approaching its expiry date\n"
 			+ "Miscellaneous:\n"
 			+ String.format("%1$-50s", "  'batch -i <filename> OR -o <filename>'") + "batch imports or outputs the list of food products as the filename in CSV.\n"
+			+ String.format("%1$-50s", "  'config VIEW'") + "lists all the stored user configurations.\n"
 			+ String.format("%1$-50s", "  'config UI -h <height> -w <width>'") + "updates the default window size configuration with specified values.\n"
+			+ String.format("%1$-50s", "  'config LOG -c <log count> -s <size in MB> -l <level>'") + "updates the logging configuration with specified values.\n"
 			+ String.format("%1$-50s", "  'bye' OR 'exit' OR 'quit'") + "to exit the programme\n"
 			+ String.format("%1$-50s", "  'help'") + "to show a list of available command\n";
 
