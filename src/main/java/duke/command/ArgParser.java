@@ -76,6 +76,8 @@ public class ArgParser {
                 switchVals.put(currSwitchName, null);
             }
             break;
+        case EMPTY:
+            break;
         case CMDARG:
             setCmdArg();
             break;

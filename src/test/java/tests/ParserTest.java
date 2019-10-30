@@ -22,7 +22,7 @@ public class ParserTest {
     @Test
     public void parseCommands_fullSwitchNames_argumentsExtracted() {
         try {
-            Command testCmd = uut.parse("doctor Hello -switch World -optswitch Optional -maybe berhabs -none");
+            Command testCmd = uut.parse("doctor Hello -switch World -optswitch Optional -maybe berhabs -none ");
             DoctorCommand docCmd = (DoctorCommand) testCmd;
             assertEquals("Hello", docCmd.getArg());
             assertEquals("World", docCmd.getSwitchVal("switch"));
