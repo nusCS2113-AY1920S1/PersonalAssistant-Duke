@@ -28,7 +28,7 @@ public class RemindCommand extends Command {
             remindAnomaly.detect(userInput);
             Reminders.runAll(Hustler.list);
             Reminders.displayReminders();
-        } catch(CommandLineException e) {
+        } catch (CommandLineException e) {
             ui.showMessage(e.getMessage());
         }
 

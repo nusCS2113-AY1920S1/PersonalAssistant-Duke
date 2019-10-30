@@ -17,9 +17,13 @@ public class Inventory {
         return this;
     }
 
-    public int getSize() { return items.size(); }
+    public int getSize() {
+        return items.size();
+    }
 
-    public ShopItem get(int i) { return items.get(i); }
+    public ShopItem get(int i) {
+        return items.get(i);
+    }
 
     public ArrayList<ShopItem> getItems() {
         return this.items;
