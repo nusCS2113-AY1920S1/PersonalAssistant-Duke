@@ -165,7 +165,7 @@ public class TaskList {
      *
      * @param num This parameter is the number taken
      * @return String of the input number with the
-     * ordinal attached to the end of the number
+     *         ordinal attached to the end of the number
      */
     public String numOrdinal(final int num) {
         final int ten = 10;
@@ -195,7 +195,7 @@ public class TaskList {
      *
      * @param date The date taken in by the function
      * @return The date that has been converted into a string phrase,
-     * if in incorrect format return original date
+     *         if in incorrect format return original date
      * @throws StringIndexOutOfBoundsException e
      * @throws ArrayIndexOutOfBoundsException  e
      * @throws ParseException                  thrown when date

@@ -18,7 +18,7 @@
     <property name="severity" value="error"/>
 
     <property name="fileExtensions" value="java, properties, xml"/>
-    <!-- Excludes all 'module-info.java' files              -->
+    <!-- Excludes all 'models-info.java' files              -->
     <!-- See https://checkstyle.org/config_filefilters.html -->
     <module name="BeforeExecutionExclusionFileFilter">
         <property name="fileNamePattern" value="module\-info\.java$"/>
@@ -187,10 +187,10 @@
             <property name="lineWrappingIndentation" value="4"/>
             <property name="arrayInitIndent" value="4"/>
         </module>
-<!--        <module name="AbbreviationAsWordInName">-->
-<!--            <property name="ignoreFinal" value="false"/>-->
-<!--            <property name="allowedAbbreviationLength" value="1"/>-->
-        </module>
+        <!--        <models name="AbbreviationAsWordInName">-->
+        <!--            <property name="ignoreFinal" value="false"/>-->
+        <!--            <property name="allowedAbbreviationLength" value="1"/>-->
+        <!--        </models>-->
         <module name="OverloadMethodsDeclarationOrder"/>
         <module name="VariableDeclarationUsageDistance"/>
         <module name="MethodParamPad"/>
