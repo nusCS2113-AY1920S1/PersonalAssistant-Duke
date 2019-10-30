@@ -31,14 +31,24 @@ public class DeleteCommand extends Command {
         try {
             word = bank.getWordFromWordBank(this.deletedWord);
             if (tags.size() == 0) {                     //delete word
+                int initWordBankSize = bank.getWordBankSize();
+                int initTagBankSize = bank.getTagBankSize();
+
                 bank.deleteWordFromBank(word);
                 storage.updateFile(word.toString() + "\r","");
+
+                storage.writeExcelFile(bank);
+                storage.deleteRowsWordBankSheet(bank.getWordBankSize(), initWordBankSize);
+                storage.deleteRowsTagBankSheet(bank.getTagBankSize(), initTagBankSize);
+
                 return ui.showDeleted(word);
             } else {                                    //delete tags
-                bank.deleteWordFromBank(word);
                 ArrayList<String> nullTags = new ArrayList<>();
                 ArrayList<String> deletedTags = new ArrayList<>();
+                int initTagBankSize = bank.getTagBankSize();
                 bank.deleteTags(deletedWord, tags, deletedTags, nullTags);
+                storage.writeTagBankExcelFile(bank.getTagBank());
+                storage.deleteRowsTagBankSheet(bank.getTagBankSize(), initTagBankSize);
                 String returned = ui.showDeletedTags(deletedWord, deletedTags);
                 returned += ui.showNullTags(deletedWord, nullTags);
                 return returned;
