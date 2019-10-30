@@ -97,12 +97,22 @@ public class TimerManager {
      * prematurely.
      */
     public static void stopTimer() {
-        if (Timer.threadstatus == threadStatus.RUNNING || Timer.threadstatus == threadStatus.RESUMED || Timer.threadstatus == threadStatus.PAUSED) {
+        if (Timer.threadstatus == threadStatus.RUNNING || Timer.threadstatus == threadStatus.RESUMED 
+                || Timer.threadstatus == threadStatus.PAUSED) {
             Timer.threadstatus = threadStatus.STOPPED;
             countdownThread.interrupt();
             resetTimer();
         } else {
             TimerUI.printThreadError(threadError.STOPERROR);
         }
+    }
+
+    /**
+     * Checks whether timer is in operation and has not been
+     * stopped or finished.
+     */
+    public static boolean isRunning() {
+        return (Timer.threadstatus == threadStatus.RUNNING || Timer.threadstatus == threadStatus.RESUMED 
+            || Timer.threadstatus == threadStatus.PAUSED);
     }
 }
