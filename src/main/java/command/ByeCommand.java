@@ -1,14 +1,13 @@
 package command;
 
 import inventory.Inventory;
-import inventory.Item;
 
 import exception.DukeException;
 import room.RoomList;
 import storage.Storage;
 import ui.Ui;
 import booking.BookingList;
-import user.User;
+import user.UserList;
 
 import java.io.IOException;
 
@@ -25,8 +24,8 @@ public class ByeCommand extends Command {
      * @throws DukeException if control.Duke specific exception found
      */
     @Override
-    public void execute(Inventory inventory, RoomList roomList, BookingList bookingList, Ui ui,
-                        Storage inventoryStorage, Storage bookingstorage, Storage roomstorage, User user) {
+    public void execute(UserList userList, Inventory inventory, RoomList roomList, BookingList bookingList, Ui ui,
+                        Storage userStorage, Storage inventoryStorage, Storage bookingstorage, Storage roomstorage) {
         ui.showBye();
         this.isExit = true;
     }

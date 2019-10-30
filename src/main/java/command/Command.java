@@ -2,15 +2,13 @@
 package command;
 
 import inventory.Inventory;
-import inventory.Item;
 
-import control.Duke;
 import exception.DukeException;
 import room.RoomList;
 import storage.Storage;
 import ui.Ui;
 import booking.BookingList;
-import user.User;
+import user.UserList;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -26,12 +24,11 @@ public abstract class Command {
      * Execute command logic.
      * @param bookingList bookings list
      * @param ui user interface
-     * @param user Current user
      * @throws DukeException if control.Duke specific exception found
      * @throws IOException if IO exception found
      */
-    public void execute(Inventory inventory, RoomList roomList, BookingList bookingList, Ui ui,
-                        Storage inventoryStorage, Storage bookingstorage, Storage roomstorage, User user)
+    public void execute(UserList userList, Inventory inventory, RoomList roomList, BookingList bookingList, Ui ui,
+                        Storage userStorage, Storage inventoryStorage, Storage bookingstorage, Storage roomstorage)
             throws DukeException, IOException, ParseException {
 
     }
