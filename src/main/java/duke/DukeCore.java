@@ -1,11 +1,15 @@
 package duke;
 
+import duke.data.DukeObject;
 import duke.data.GsonStorage;
 import duke.data.PatientMap;
+import duke.data.SearchResult;
 import duke.exception.DukeFatalException;
 import duke.exception.DukeResetException;
+import duke.exception.DukeUtilException;
 import duke.ui.Ui;
 import duke.ui.UiManager;
+import duke.ui.context.Context;
 import duke.ui.context.UiContext;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -13,6 +17,7 @@ import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 /**
  * Main class of the application.
@@ -44,6 +49,16 @@ public class DukeCore extends Application {
         } catch (DukeFatalException | IOException e) {
             ui.showErrorDialogAndShutdown("Error encountered!", e);
         }
+    }
+
+    public void showSearchResults(String searchTerm, List<? extends DukeObject> resultList,
+                                         DukeObject parent) throws DukeUtilException {
+        if (resultList == null) {
+            throw new DukeUtilException("Search result list is null!");
+        }
+        SearchResult search = new SearchResult(searchTerm, resultList, parent);
+        uiContext.setContext(Context.SEARCH, search);
+        ui.print("Opening search results for " + searchTerm);
     }
 
     /**

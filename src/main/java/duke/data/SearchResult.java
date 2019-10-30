@@ -60,6 +60,11 @@ public class SearchResult extends DukeObject {
         return "";
     }
 
+    /*
+    public Object parseUserChoice(String inputStr) {
+
+    }*/
+
     private void initList() {
         // TODO: index
         for (DukeObject object : searchList) {

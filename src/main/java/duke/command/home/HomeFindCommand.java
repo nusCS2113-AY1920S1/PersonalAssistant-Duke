@@ -3,7 +3,6 @@ package duke.command.home;
 import duke.DukeCore;
 import duke.command.ArgCommand;
 import duke.command.ArgSpec;
-import duke.command.CommandUtils;
 import duke.data.DukeObject;
 import duke.data.Impression;
 import duke.data.Patient;
@@ -59,6 +58,6 @@ public class HomeFindCommand extends ArgCommand {
             }
             information.append(resultList.get(i).getName()).append(System.lineSeparator());
         }*/
-        CommandUtils.showSearchResults(core, searchTerm, resultList, null);
+        core.showSearchResults(searchTerm, resultList, null);
    }
 }

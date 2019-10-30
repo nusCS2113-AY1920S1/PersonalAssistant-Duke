@@ -192,13 +192,4 @@ public class CommandUtils {
         }
     }
 
-    public static void showSearchResults(DukeCore core, String searchTerm, List<? extends DukeObject> resultList,
-                                         DukeObject parent) throws DukeUtilException {
-        if (resultList == null) {
-            throw new DukeUtilException("Search result list is null!");
-        }
-        SearchResult search = new SearchResult(searchTerm, resultList, parent);
-        core.uiContext.setContext(Context.SEARCH, search);
-        core.ui.print("Opening search results for " + searchTerm);
-    }
 }
