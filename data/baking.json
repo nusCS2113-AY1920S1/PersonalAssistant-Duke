@@ -1,117 +1,14 @@
 {
-  "orders" : [ {
-    "id" : 1572420154681,
-    "creationDate" : "2019-10-30T07:22:34.681+0000",
-    "name" : "customer",
-    "contact" : "N/A",
-    "remarks" : "N/A",
-    "deliveryDate" : "2019-10-30T07:20:17.834+0000",
-    "status" : "COMPLETED",
-    "total" : 0.0,
-    "items" : [ {
-      "product" : {
-        "productName" : "Bread",
-        "ingredientItems" : [ ],
-        "ingredientCost" : 0.0,
-        "retailPrice" : 0.0,
-        "status" : "ACTIVE"
-      },
-      "amount" : 2.0
-    } ]
-  }, {
-    "id" : 1572420227420,
-    "creationDate" : "2019-10-30T07:23:47.420+0000",
-    "name" : "jj",
-    "contact" : "N/A",
-    "remarks" : "N/A",
-    "deliveryDate" : "2019-10-30T07:20:17.834+0000",
-    "status" : "ACTIVE",
-    "total" : 0.0,
-    "items" : [ {
-      "product" : {
-        "productName" : "Milk",
-        "ingredientItems" : [ ],
-        "ingredientCost" : 0.0,
-        "retailPrice" : 0.0,
-        "status" : "ACTIVE"
-      },
-      "amount" : 3.0
-    } ]
-  }, {
-    "id" : 1572420051159,
-    "creationDate" : "2019-10-30T07:20:51.159+0000",
-    "name" : "customer",
-    "contact" : "N/A",
-    "remarks" : "N/A",
-    "deliveryDate" : "2019-10-30T07:20:17.834+0000",
-    "status" : "ACTIVE",
-    "total" : 0.0,
-    "items" : [ {
-      "product" : {
-        "productName" : "Bread",
-        "ingredientItems" : [ ],
-        "ingredientCost" : 0.0,
-        "retailPrice" : 0.0,
-        "status" : "ACTIVE"
-      },
-      "amount" : 2.0
-    } ]
-  } ],
+  "orders" : [ ],
   "products" : [ {
-    "productName" : "Stay",
-    "ingredientItems" : [ ],
-    "ingredientCost" : 0.0,
-    "retailPrice" : 0.0,
-    "status" : "ARCHIVE"
-  }, {
     "productName" : "Name",
-    "ingredientItems" : [ ],
-    "ingredientCost" : 0.0,
-    "retailPrice" : 0.0,
-    "status" : "ARCHIVE"
-  }, {
-    "productName" : "Bread",
-    "ingredientItems" : [ ],
-    "ingredientCost" : 0.0,
-    "retailPrice" : 0.0,
-    "status" : "ACTIVE"
-  }, {
-    "productName" : "Milk",
     "ingredientItems" : [ ],
     "ingredientCost" : 0.0,
     "retailPrice" : 0.0,
     "status" : "ACTIVE"
   } ],
   "inventory" : [ ],
-  "shoppingList" : [ {
-    "ingredient" : {
-      "name" : "Cheese",
-      "unitPrice" : 6.66,
-      "remarks" : ""
-    },
-    "amount" : 0.0
-  }, {
-    "ingredient" : {
-      "name" : "Chicken",
-      "unitPrice" : 0.0,
-      "remarks" : ""
-    },
-    "amount" : 0.0
-  }, {
-    "ingredient" : {
-      "name" : "Hello",
-      "unitPrice" : 0.0,
-      "remarks" : ""
-    },
-    "amount" : 0.0
-  } ],
-  "sales" : [ {
-    "id" : 1572420154722,
-    "description" : "Order 1572420154681 completed.",
-    "value" : 0.0,
-    "isSpend" : false,
-    "saleDate" : "2019-10-30T07:20:17.834+0000",
-    "remarks" : "N/A"
-  } ],
+  "shoppingList" : [ ],
+  "sales" : [ ],
   "shortcuts" : [ ]
 }

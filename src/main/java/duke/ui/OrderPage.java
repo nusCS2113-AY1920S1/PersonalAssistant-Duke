@@ -4,10 +4,12 @@ import duke.commons.core.LogsCenter;
 import duke.model.order.Order;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 
 import java.util.logging.Logger;
@@ -43,10 +45,14 @@ public class OrderPage extends UiPart<AnchorPane> {
         orderListView.setCellFactory(listView -> new OrderListViewCell());
 
         updateStatistics(orderList);
-        orderList.addListener((ListChangeListener<Order>) change -> {
-            updateStatistics(orderList);
-        });
+        orderList.addListener((ListChangeListener<Order>) change ->
+            updateStatistics(orderList)
+        );
 
+        //Since clicking on ListView results in unwanted changed of colors
+        //of list cell elements (for example, label colors),
+        //clicking should be disabled.
+        disableMouseClick();
     }
 
     static class OrderListViewCell extends ListCell<Order> {
@@ -81,5 +87,9 @@ public class OrderPage extends UiPart<AnchorPane> {
         active.setText(activeCount + " active");
         finished.setText(finishedCount + " completed");
         canceled.setText(canceledCount + " canceled");
+    }
+
+    private void disableMouseClick() {
+        orderListView.addEventFilter(MouseEvent.MOUSE_PRESSED, Event::consume);
     }
 }

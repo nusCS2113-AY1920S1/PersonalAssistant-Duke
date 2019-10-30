@@ -5,6 +5,8 @@ import duke.commons.core.index.Index;
 import duke.logic.command.CommandResult;
 import duke.logic.command.exceptions.CommandException;
 import duke.logic.message.ProductMessageUtils;
+import duke.logic.parser.commons.CliSyntax;
+import duke.logic.parser.commons.Prefix;
 import duke.model.Model;
 import duke.model.exceptions.DuplicateEntityException;
 import duke.model.product.Product;
@@ -22,6 +24,14 @@ public class EditProductCommand extends ProductCommand {
     public final Index index;
     public final ProductDescriptor productDescriptor;
 
+    public static final String AUTO_COMPLETE_INDICATOR = ProductCommand.COMMAND_WORD + " " + COMMAND_WORD;
+    public static final Prefix[] AUTO_COMPLETE_PARAMETERS = {
+            CliSyntax.PREFIX_PRODUCT_NAME,
+            CliSyntax.PREFIX_PRODUCT_INGREDIENT,
+            CliSyntax.PREFIX_PRODUCT_INGREDIENT_COST,
+            CliSyntax.PREFIX_PRODUCT_RETAIL_PRICE,
+            CliSyntax.PREFIX_PRODUCT_STATUS
+    };
 
     /**
      * Creates an EditProductCommand to modify the details of an {@code comProduct}.

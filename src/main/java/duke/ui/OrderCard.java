@@ -4,10 +4,16 @@ import duke.logic.parser.commons.TimeParser;
 import duke.model.commons.Item;
 import duke.model.order.Order;
 import duke.model.product.Product;
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
+import javafx.util.Duration;
+
+import java.util.Calendar;
 
 /**
  * Controller for OrderCard. An OrderCard displays an order, including its creation time, customer, items,
@@ -41,6 +47,7 @@ public class OrderCard extends UiPart<AnchorPane> {
     @FXML
     private Label inventoryStatus;
 
+
     /**
      * Creates a card displaying the {@code order}.
      *
@@ -50,6 +57,7 @@ public class OrderCard extends UiPart<AnchorPane> {
     public OrderCard(Order order, int displayedIndex) {
         super(FXML);
 
+        //Fill order details
         id.setText(Long.toString(order.getId()));
         creationDate.setText(order.getCreationDate().toString());
         index.setText(displayedIndex + ".");
@@ -57,6 +65,7 @@ public class OrderCard extends UiPart<AnchorPane> {
         name.setText(order.getCustomer().name);
         contact.setText(order.getCustomer().contact);
         remarks.setText(order.getRemarks());
+        total.setText(Double.toString(order.getTotal()));
 
         status.setText(order.getStatus().toString().toLowerCase());
         status.getStyleClass().clear();
@@ -68,12 +77,14 @@ public class OrderCard extends UiPart<AnchorPane> {
             );
         }
 
+        //Setup listener to update inventory status
         updateInventoryStatus(order.isIsIngredientEnough(), order.getStatus());
         order.isIngredientEnoughProperty().addListener(((observable, oldValue, newValue) -> {
             updateInventoryStatus(newValue, order.getStatus());
         }));
 
-        total.setText(Double.toString(order.getTotal()));
+        //Clock to update deadline
+        initializeClock(order);
 
     }
 
@@ -83,5 +94,22 @@ public class OrderCard extends UiPart<AnchorPane> {
         } else {
             inventoryStatus.setVisible(false);
         }
+    }
+
+    private void initializeClock(Order order) {
+        Timeline clock = new Timeline(new KeyFrame(Duration.ZERO, e -> {
+            deadline.setText(TimeParser.convertDateToString(order.getDeliveryDate()));
+            if (Order.Status.ACTIVE.equals(order.getStatus())
+                && order.getDeliveryDate().before(Calendar.getInstance().getTime())) {
+                deadline.getStyleClass().clear();
+                deadline.getStyleClass().add("deadline-overdue");
+            } else {
+                deadline.getStyleClass().clear();
+                deadline.getStyleClass().add("deadline-normal");
+            }
+        }), new KeyFrame(Duration.seconds(2)));
+
+        clock.setCycleCount(Animation.INDEFINITE);
+        clock.play();
     }
 }
