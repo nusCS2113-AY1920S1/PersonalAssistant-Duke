@@ -1,6 +1,7 @@
 package dolla.task;
 
-import dolla.Storage;
+import dolla.storage.Storage;
+import dolla.storage.StorageWrite;
 
 import java.util.ArrayList;
 
@@ -16,12 +17,12 @@ public class LimitList extends RecordList {
     @Override
     public void add(Record newRecord) {
         super.add(newRecord);
-        Storage.setLimits(get()); //save
+        StorageWrite.setLimits(get()); //save
     }
 
     @Override
     public void removeFromList(int index) {
         super.removeFromList(index);
-        Storage.setLimits(get()); //save
+        StorageWrite.setLimits(get()); //save
     }
 }

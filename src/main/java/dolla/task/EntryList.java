@@ -1,6 +1,7 @@
 package dolla.task;
 
-import dolla.Storage;
+import dolla.storage.Storage;
+import dolla.storage.StorageWrite;
 
 import java.util.ArrayList;
 
@@ -15,18 +16,18 @@ public class EntryList extends RecordList {
     @Override
     public void add(Record newRecord) {
         super.add(newRecord);
-        Storage.setEntries(get()); //save
+        StorageWrite.setEntries(get()); //save
     }
 
     @Override
     public void insertPrevPosition(int prevPosition, Record newRecord) {
         super.insertPrevPosition(prevPosition, newRecord);
-        Storage.setEntries(get()); //save
+        StorageWrite.setEntries(get()); //save
     }
 
     @Override
     public void removeFromList(int index) {
         super.removeFromList(index);
-        Storage.setEntries(get());
+        StorageWrite.setEntries(get());
     }
 }
