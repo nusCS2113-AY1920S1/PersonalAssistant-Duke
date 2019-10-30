@@ -186,8 +186,8 @@ public class ArgParser {
 
     private void checkArgAllowed() throws DukeHelpException {
         if (switchMap.get(currSwitchName).argLevel == ArgLevel.NONE) {
-                throw new DukeHelpException("The switch '" + currSwitchName + "' should not have an argument!",
-                        currCommand);
+            throw new DukeHelpException("The switch '" + currSwitchName + "' should not have an argument!",
+                    currCommand);
         }
     }
 
