@@ -64,7 +64,7 @@ public class TaskList {
                     taskList, sortCriteria);
             if (sortCriteria.substring(0, 5).equals("/WHO-") && allTaskDetails.size() == 0) {
                 allTaskDetailsForTable.add(" - There are no tasks assigned to this member! -");
-            } else if (sortCriteria.equals("/DATE") && allTaskDetails.size() == 0) {
+            } else if ("/DATE".equals(sortCriteria) && allTaskDetails.size() == 0) {
                 allTaskDetailsForTable.add(" - There are no tasks with deadlines! -");
             } else {
                 for (String s : allTaskDetails) {
