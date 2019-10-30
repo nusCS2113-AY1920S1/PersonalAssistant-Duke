@@ -469,6 +469,60 @@ assignments.
 
 // end::dataencryption[]
 
+=== 3.5. UI functionality for displaying information
+
+==== Implementation
+
+UI functions are handled by `CLIView`, `ViewHelper`, and the data layer which stores the details of projects,
+members and tasks. It allows ArchDuke to present useful information to the user in an easily readable format when
+requested. The information will be presented in a table form with a clear header that describes the content and
+has the information in bullet point form.
+
+The UI display uses the following methods to produce a table:
+
+* `consolePrintTable()` -- Main method that constructs the table. Returns a String array with each element
+representing one row of the table
+* `consolePrintTableHoriBorder()` --  Returns a String containing the horizontal border of the table
+* `getRemainingSpaces()` -- Returns a String containing the remaining number of spaces required to fill up the rest of
+the line
+* `getArrayOfSplitStrings()` -- When a String that is meant to be in one row in the table is too long, it is passed
+into this method to split the string up into an array of Strings of suitable length to fit into one row of the table
+
+The following steps show how the UI table display are made in ArchDuke.
+
+Step 1) User enters a command that requires information to be presented in a clear format such as `list`, `view members`,
+`view tasks` etc.
+
+Step 2) Assume the command `list` is entered. The user is requesting an overview of all the projects that he is currently doing.
+This would call the method `getAllProjectDetailsForTable()` in `ProjectRepository`.
+
+Step 3) The method `getAllProjectDetailsForTable()` would return an ArrayList containing multiple ArrayLists of String, with each
+ArrayList of String containing all the details of each project which will be stored in one table. The parent ArrayList
+would then contain information to be printed in different tables. In this case, each project will fill one table.
+
+Step 4) The ArrayList of ArrayLists would then be passed into the `consolePrintTable()` method, which will pack each individual
+ArrayList of Strings into a formatted table. Each String in the ArrayList of Strings is an entry that is meant to be presented
+in one line of the table.
+
+Step 5) When the String is shorter that the full table width, there are spaces that need to be added to maintain the visual
+implementation of the table. Hence, the `getRemainingSpaces()` method is called to fill up the remaining spaces.
+
+Step 6) When the String is longer than the full table width, it needs to be split into multiple lines in order to fit it
+within the table. Hence, the `getArrayOfSplitStrings()` method is called to split the string up nicely to fit the table width.
+It will ensure that the String is split at the spaces so that the words remain intact. The only exception is when the length
+of a word is longer than the table width. the method would append a hyphen '-' at the point of the word where it exceeds table width
+and push the remainder to the next line.
+
+Step 7) The `consolePrintTableHoriBorder()` method is called at any point where the horizontal border of the table is required.
+
+Step 8) The `consolePrintTable()` method would then store the entire series of tables to be displayed into a String array
+with each element containing a line to be printed to be passed into `consolePrint()` where it will be printed with
+indentation and horizontal borders on the top and bottom.
+
+The following sequence diagram show how `list` operation works.
+
+image::images/ViewAllProjects_Sequence.png[]
+
 === 3.2. Logging
 
 We are using `org.apache.logging.log4j` package for logging. The `DukeLogger` class under `Utility` layer is used for
