@@ -29,6 +29,8 @@ public class CompleteOrderCommand extends OrderCommand {
     private static final String MESSAGE_INDEX_OUT_OF_BOUND = "Index [%d] out of bound.";
     private final Set<Index> indices;
 
+    public static final String AUTO_COMPLETE_INDICATOR = OrderCommand.COMMAND_WORD + " " + COMMAND_WORD;
+
     private static final Logger logger = LogsCenter.getLogger(CompleteOrderCommand.class);
 
 

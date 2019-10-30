@@ -6,7 +6,7 @@ package duke.logic.parser.commons;
 public class CliSyntax {
 
     /* Prefix definitions */
-    public static final Prefix PREFIX_ORDER_SORT_DECREASE = new Prefix("-decrease");
+    public static final Prefix PREFIX_ORDER_SORT_REVERSE = new Prefix("-re");
     public static final Prefix PREFIX_ORDER_ITEM = new Prefix("-item");
     public static final Prefix PREFIX_ORDER_REMARKS = new Prefix("-rmk");
     public static final Prefix PREFIX_ORDER_DEADLINE = new Prefix("-by");

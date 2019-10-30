@@ -16,7 +16,7 @@ public class SortOrderCommandParser implements Parser<SortOrderCommand> {
     @Override
     public SortOrderCommand parse(String args) throws ParseException {
         ArgumentMultimap map = ArgumentTokenizer.tokenize(args,
-            CliSyntax.PREFIX_ORDER_SORT_DECREASE
+            CliSyntax.PREFIX_ORDER_SORT_REVERSE
         );
 
         if (map.getPreamble().isBlank()) {
@@ -26,7 +26,7 @@ public class SortOrderCommandParser implements Parser<SortOrderCommand> {
         try {
             SortOrderCommand.SortCriteria criteria = SortOrderCommand.SortCriteria
                 .valueOf(map.getPreamble().toUpperCase());
-            boolean isIncreasing = !map.getValue(CliSyntax.PREFIX_ORDER_SORT_DECREASE).isPresent();
+            boolean isIncreasing = !map.getValue(CliSyntax.PREFIX_ORDER_SORT_REVERSE).isPresent();
             return new SortOrderCommand(criteria, isIncreasing);
 
         } catch (IllegalArgumentException e) {

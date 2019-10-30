@@ -284,21 +284,39 @@ public class AutoCompleter {
         }
     }
 
+    /**
+     * Returns the longest matched command class if found a match; otherwise returns {@code Optional.empty}.
+     * Matching is based on {@code AUTO_COMPLETER_INDICATOR} field defined in command classes.
+     * For example, for user input "order add", if OrderCommand class and AddOrderCommand classes have
+     * indicator "order" and "order add" respectively, returns AddOrderCommand class because it has a longer match.
+     *
+     * @param userInput to find a match.
+     */
     private Optional<Class<? extends Command>> getMatchedCommandClass(String userInput) {
         String userInputWithoutConsecutiveSpaces = userInput.strip().replaceAll(" +", " ");
 
+        Class<? extends Command> maxMatchedCommandClass = null;
+        int maxLength = 0;
         for (Class<? extends Command> commandClass : commandClasses) {
             String indicator = getCommandIndicator(commandClass);
             if (indicator.isEmpty()) {
                 continue;
             }
 
-            if (userInputWithoutConsecutiveSpaces.startsWith(indicator)) {
-                return Optional.of(commandClass);
+            if (userInputWithoutConsecutiveSpaces.startsWith(indicator) && indicator.length() > maxLength) {
+                maxLength = indicator.length();
+                maxMatchedCommandClass = commandClass;
             }
         }
 
-        return Optional.empty();
+
+        if (maxMatchedCommandClass != null) {
+            return Optional.of(maxMatchedCommandClass);
+        } else {
+            return Optional.empty();
+        }
+
+
     }
 
     /**

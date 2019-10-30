@@ -24,6 +24,10 @@ public class ShowProductCommandParser implements Parser<ShowProductCommand> {
                 PREFIX_PRODUCT_INDEX
         );
 
+        if (!map.getPreamble().isBlank()) {
+            throw new ParseException(Message.MESSAGE_UNKNOWN_COMMAND);
+        }
+
         Index index;
 
         try {

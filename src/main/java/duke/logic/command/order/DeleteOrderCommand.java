@@ -24,6 +24,8 @@ public class DeleteOrderCommand extends OrderCommand {
     private static final String MESSAGE_DELETE_SUCCESS = "%s order(s) removed.";
     private final Set<Index> indices;
 
+    public static final String AUTO_COMPLETE_INDICATOR = OrderCommand.COMMAND_WORD + " " + COMMAND_WORD;
+
     /**
      * Creates a {@code DeleteProductCommand}.
      *

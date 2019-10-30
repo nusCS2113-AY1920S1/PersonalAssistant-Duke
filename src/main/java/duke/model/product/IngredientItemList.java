@@ -25,7 +25,9 @@ public class IngredientItemList extends ArrayList<Item<Ingredient>> {
         return s;
     }
 
-    /** Checks if two ingredientItemLists are equal */
+    /**
+     * Checks if two ingredientItemLists are equal
+     */
     public boolean listEquals(Object o) {
         IngredientItemList list = (IngredientItemList) o;
         if (this == o) {
@@ -41,7 +43,7 @@ public class IngredientItemList extends ArrayList<Item<Ingredient>> {
         boolean result = true;
         for (int i = 0; i < this.size(); i++) {
             if (this.get(i).getItem().getName() != list.get(i).getItem().getName()
-                    || this.get(i).getQuantity() != list.get(i).getQuantity()) {
+                || this.get(i).getQuantity() != list.get(i).getQuantity()) {
                 result = false;
                 break;
             }

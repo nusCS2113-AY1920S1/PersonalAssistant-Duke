@@ -2,12 +2,18 @@ package duke.logic.command.sale;
 
 import duke.logic.command.CommandResult;
 import duke.logic.command.exceptions.CommandException;
+import duke.logic.parser.commons.Prefix;
 import duke.model.Model;
 import duke.model.sale.Sale;
 
 import java.util.Calendar;
 import java.util.Date;
 
+import static duke.logic.parser.commons.CliSyntax.PREFIX_SALE_DATE;
+import static duke.logic.parser.commons.CliSyntax.PREFIX_SALE_DESCRIPTION;
+import static duke.logic.parser.commons.CliSyntax.PREFIX_SALE_IS_SPEND;
+import static duke.logic.parser.commons.CliSyntax.PREFIX_SALE_REMARKS;
+import static duke.logic.parser.commons.CliSyntax.PREFIX_SALE_VALUE;
 import static java.util.Objects.requireNonNull;
 
 /**
@@ -26,6 +32,15 @@ public class AddSaleCommand extends SaleCommand {
     private static final String DEFAULT_REMARKS = "N/A";
 
     private final SaleDescriptor addSaleDescriptor;
+
+    public static final String AUTO_COMPLETE_INDICATOR = SaleCommand.COMMAND_WORD + COMMAND_WORD;
+    public static final Prefix[] AUTO_COMPLETE_PARAMETERS = {
+        PREFIX_SALE_DESCRIPTION,
+        PREFIX_SALE_VALUE,
+        PREFIX_SALE_IS_SPEND,
+        PREFIX_SALE_DATE,
+        PREFIX_SALE_REMARKS
+    };
 
     /**
      * Creates an AddSaleCommand to add the specified {@code Sale}.

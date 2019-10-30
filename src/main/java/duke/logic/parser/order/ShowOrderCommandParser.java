@@ -21,9 +21,14 @@ public class ShowOrderCommandParser implements Parser<ShowOrderCommand> {
             CliSyntax.PREFIX_ORDER_STATUS
         );
 
+        if (!map.getPreamble().isBlank()) {
+            throw new ParseException(Message.MESSAGE_UNKNOWN_COMMAND);
+        }
+
         if (map.getValue(CliSyntax.PREFIX_ORDER_STATUS).isEmpty()) {
             return new ShowOrderCommand();
         }
+
 
         try {
             Order.Status status = Order.Status.valueOf(map.getValue(CliSyntax.PREFIX_ORDER_STATUS).get().toUpperCase());

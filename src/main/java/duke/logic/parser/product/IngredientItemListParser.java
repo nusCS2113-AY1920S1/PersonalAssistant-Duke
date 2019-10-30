@@ -72,6 +72,7 @@ public class IngredientItemListParser {
 
     /**
      * Generates a list of Ingredient Items from user input.
+     *
      * @param input user input containing ingredient and portion
      * @return the IngredientItemList that contains the ingredients
      */
