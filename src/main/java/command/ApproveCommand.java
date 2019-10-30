@@ -35,8 +35,8 @@ public class ApproveCommand extends Command {
      * @throws IOException when entry is incorrect
      */
     public ApproveCommand(String input, String[] splitStr) throws DukeException, IOException {
-        if (splitStr.length <= 1) {
-            throw new DukeException("☹ OOPS!!! Please create the booking you want to edit with the following format: "
+        if (splitStr.length <= 2) {
+            throw new DukeException("☹ OOPS!!! Please create the booking you want to approve with the following format: "
                     + "name, roomcode, start date and time");
         }
         splitC = input.split(" ", 5);

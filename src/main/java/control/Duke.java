@@ -90,4 +90,8 @@ public class Duke {
     public BookingList getBookingList() {
         return bookingList;
     }
+
+    public RoomList getRoomList() {
+        return roomList;
+    }
 }

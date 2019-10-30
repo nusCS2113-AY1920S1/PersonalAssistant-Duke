@@ -17,8 +17,9 @@ public class RoomList extends ArrayList<Room> {
     public RoomList(ArrayList<String> loader) {
         for (String line : loader) {
             String[] splitStr = line.split(" \\| ", 4);
-            this.add(new Room(splitStr[Constants.ROOMCODE],
-                    splitStr[Constants.ROOMDATETIMESTART], splitStr[Constants.ROOMDATETIMEEND]));
+            Long longDateTimeStart = Long.parseLong(splitStr[Constants.ROOMDATETIMESTART]);
+            Long longDateTimeEnd = Long.parseLong(splitStr[Constants.ROOMDATETIMEEND]);
+            this.add(new Room(splitStr[Constants.ROOMCODE], longDateTimeStart, longDateTimeEnd));
         }
     }
 
