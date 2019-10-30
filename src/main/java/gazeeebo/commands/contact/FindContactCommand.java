@@ -16,16 +16,20 @@ public class FindContactCommand {
      * @param contactList   map each name to its own phone number
      * @param lineBreak String separator
      */
-    public FindContactCommand(Ui ui, Map<String, String> contactList, String lineBreak) {
+    public FindContactCommand(final Ui ui,
+                              final Map<String, String> contactList,
+                              final String lineBreak) {
         int a = ui.fullCommand.split(" ")[1].toCharArray()[0];
         String nameToFind = "";
         String toPrint = "";
         boolean isExist = false;
         for (int i = 1; i < ui.fullCommand.split(" ").length; i++) {
             if (i != ui.fullCommand.split(" ").length - 1) {
-                nameToFind = nameToFind.concat(ui.fullCommand.split(" ")[i] + " ");
+                nameToFind
+                        = nameToFind.concat(ui.fullCommand.split(" ")[i] + " ");
             } else {
-                nameToFind = nameToFind.concat(ui.fullCommand.split(" ")[i]);
+                nameToFind
+                        = nameToFind.concat(ui.fullCommand.split(" ")[i]);
             }
         }
         for (String keys : contactList.keySet()) {
@@ -39,10 +43,11 @@ public class FindContactCommand {
                 toPrint += "| " + contactList.get(keys) + "\n" + lineBreak;
             }
         }
-        if(!isExist) {
+        if (!isExist) {
             System.out.print(nameToFind + " is not found in the list.");
         } else {
-            System.out.print("Name:                         | Number:\n" + lineBreak + toPrint);
+            System.out.print("Name:                         "
+                    + "| Number:\n" + lineBreak + toPrint);
         }
     }
 }

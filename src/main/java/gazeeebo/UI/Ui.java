@@ -40,9 +40,7 @@ public class Ui {
                 + "\n__________________________________________\n"
                 + logo
                 + "\n__________________________________________\n";
-
         while (true) {
-
             readCommand();
             ArrayList<StringBuilder> password_list;
             Storage store = new Storage();
@@ -56,8 +54,6 @@ public class Ui {
             } else {
                 System.out.println("Incorrect password, please try again:");
             }
-
-
         }
         return welcomemessage;
     }
