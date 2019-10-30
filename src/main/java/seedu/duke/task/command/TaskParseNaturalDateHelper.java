@@ -1,6 +1,5 @@
 package seedu.duke.task.command;
 
-import javafx.util.Pair;
 import seedu.duke.CommandParseHelper;
 import seedu.duke.task.entity.Task;
 
@@ -43,13 +42,8 @@ public class TaskParseNaturalDateHelper {
      * @throws CommandParseHelper.CommandParseException an exception when the parsing is failed, most likely
      *                                                  due to a wrong format
      */
-<<<<<<< HEAD
-    public static LocalDateTime convertNaturalDate(String parsedDay, String parsedTiming)
-            throws CommandParseHelper.UserInputException {
-=======
     private static LocalDateTime convertNaturalDate(String parsedDay, String parsedTiming)
             throws CommandParseHelper.CommandParseException {
->>>>>>> 9740e4e80b1567669c5fbbcf388882c4ab381b36
         LocalDate date = LocalDate.now();
         LocalDateTime dateTime;
         try {
@@ -80,12 +74,6 @@ public class TaskParseNaturalDateHelper {
      * @throws CommandParseHelper.CommandParseException an exception when the parsing is failed, most likely
      *                                                  due to a wrong format
      */
-<<<<<<< HEAD
-    public static LocalDateTime getDate(String timeString) throws CommandParseHelper.UserInputException {
-        Pair<String, String> dateTime = TaskCommandParseHelper.checkTimeString(timeString);
-        String day = dateTime.getKey();
-        String timing = dateTime.getValue();
-=======
     public static LocalDateTime getDate(String timeString) throws CommandParseHelper.CommandParseException {
         String day = null;
         String timing = null;
@@ -99,7 +87,6 @@ public class TaskParseNaturalDateHelper {
                 day = timeStr;
             }
         }
->>>>>>> 9740e4e80b1567669c5fbbcf388882c4ab381b36
         if (isCorrectNaturalDate(day)) {
             return convertNaturalDate(day, timing);
         } else {

@@ -25,7 +25,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import javafx.util.Pair;
 
 import static seedu.duke.CommandParseHelper.extractTags;
 import static seedu.duke.CommandParseHelper.extractTime;
@@ -361,7 +360,7 @@ public class TaskCommandParseHelper {
      * @param optionList contains all options specified in input command
      * @return time in LocalDateTime format
      */
-    private static LocalDateTime parseTaskTime(ArrayList<Command.Option> optionList) {
+    public static LocalDateTime parseTaskTime(ArrayList<Command.Option> optionList) {
         try {
             String timeString = extractTime(optionList);
             return TaskParseNaturalDateHelper.getDate(timeString);
@@ -434,29 +433,6 @@ public class TaskCommandParseHelper {
             ui.showError(errorMessage);
         }
     }
-
-    /**
-     * Parses timeString to get day and time respectively.
-     *
-     * @param timeString the input string
-     * @return a pair containing day and time
-     */
-    public static Pair<String, String> checkTimeString(String timeString) {
-        Pair <String, String> dateTime = new Pair<> (null, null);
-        String day = dateTime.getKey();
-        String timing = dateTime.getValue();
-        if (!timeString.contains("/") && !timeString.isEmpty()) {
-            String timeStr = timeString.substring(0, 1).toUpperCase() + timeString.substring(1).toLowerCase();
-            if (timeStr.contains(" ")) {
-                String[] tokens = timeStr.split("\\s+", 3);
-                day = tokens[0];
-                timing = tokens[1];
-            } else {
-                day = timeStr;
-            }
-        }
-        dateTime = new Pair<> (day, timing);
-        return dateTime;
 
     private static class TaskParseException extends CommandParseHelper.CommandParseException {
 
