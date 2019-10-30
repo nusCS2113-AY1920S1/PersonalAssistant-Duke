@@ -18,7 +18,7 @@ public class MonthlyBudget {
      */
     public MonthlyBudget(ArrayList<Event> listOfConcerts) {
         this.listOfConcerts = new ArrayList<>();
-        setDateToFirstOfMonth(listOfConcerts.get(0).getStartDate()); //set EventDate date to first day of month
+        //setDateToFirstOfMonth(listOfConcerts.get(0).getStartDate()); //set EventDate date to first day of month
         storeConcerts(listOfConcerts); //convert events to Concert objects, and store in list.
     }
 

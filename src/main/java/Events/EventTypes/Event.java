@@ -132,6 +132,14 @@ public abstract class Event implements Comparable<Event> {
         return goalsList;
     }
 
+    public void editGoalList(Goal goalInput, int index) {
+        goalsList.set(index, goalInput);
+    }
+
+    public void updateGoalAchieved(int goalID) {
+        goalsList.get(goalID).setAchieved();
+    }
+
 
     @Override
     public int compareTo(Event currEvent) {

@@ -442,7 +442,14 @@ public class Command {
                         break;
 
                     case "edit":
-                        //edit goal
+                        Goal newGoal = new Goal(splitGoal[1]);
+                        events.getEvent(eventIndex).editGoalList(newGoal, goalIndex - 1);
+                        ui.goalUpdated();
+                        break;
+
+                    case "achieved":
+                        events.getEvent(eventIndex).updateGoalAchieved(goalIndex - 1);
+                        ui.goalSetAsAchieved();
                         break;
                 }
             } else {
@@ -454,7 +461,6 @@ public class Command {
                         break;
 
                     case "view":
-                        //print goals list
                         ui.printEventGoals(events.getEvent(eventIndex));
                         break;
                 }

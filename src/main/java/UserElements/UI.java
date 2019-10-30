@@ -1,8 +1,7 @@
 package UserElements;
 
-import Events.EventTypes.EventSubclasses.Concert;
-import Events.Storage.EventList;
 import Events.EventTypes.Event;
+import Events.EventTypes.EventSubclasses.Concert;
 import Events.Storage.EventList;
 import Events.Storage.Goal;
 
@@ -31,14 +30,30 @@ public class UI {
     /**
      * prints welcome message and instructions for use.
      */
-    public void welcome(EventList Events) {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
-        System.out.println(lineSeparation + "Hello! I'm Duke\nWhat can I do for you?\n");
+    public void welcome() {
+//        String logo = " ____        _        \n"
+//                + "|  _ \\ _   _| | _____ \n"
+//                + "| | | | | | | |/ / _ \\\n"
+//                + "| |_| | |_| |   <  __/\n"
+//                + "|____/ \\__,_|_|\\_\\___|\n";
+        String logo = " ___    ___   __________    __________   __________   __________   _________" + "\n"
+                + "|   \\  /   | |___    ___|  /  ________| |___    ___| |   _______| |   ____  \\" + "\n"
+                + "| |\\ \\/ /| |     |  |     /  /              |  |     |  |         |  |    \\  \\" + "\n"
+                + "| | \\  / | |     |  |     \\  \\_______       |  |     |  |____     |  |____/  /" + "\n"
+                + "| |  \\/  | |     |  |      \\_______  \\      |  |     |   ____|    |   ___   /" + "\n"
+                + "| |      | |     |  |              \\  \\     |  |     |  |         |  |   \\  \\" + "\n"
+                + "| |      | |  ___|  |___   ________/  /     |  |     |  |_______  |  |    |  |" + "\n"
+                + "|_|      |_| |__________| |__________/      |__|     |__________| |__|    |__|" + "\n"
+                + " ___    ___   __      __    __________   __________   __      __ " + "\n"
+                + "|   \\  /   | |  |    |  |  /  ________| |___    ___| |  |    /  /" + "\n"
+                + "| |\\ \\/ /| | |  |    |  | /  /              |  |     |  |   /  /" + "\n"
+                + "| | \\  / | | |  |    |  | \\  \\_______       |  |     |  |__/  /" + "\n"
+                + "| |  \\/  | | |  |    |  |  \\_______  \\      |  |     |   __  |" + "\n"
+                + "| |      | | |  |    |  |          \\  \\     |  |     |  |  \\  \\" + "\n"
+                + "| |      | | |  |____|  |  ________/  /  ___|  |___  |  |   \\  \\" + "\n"
+                + "|_|      |_| |__________| |__________/  |__________| |__|    \\__\\" + "\n";
+        System.out.println(logo);
+        System.out.println(lineSeparation + "Hello! I'm MisterMusik!\nWhat can I do for you?\n");
 
         System.out.println("Commands:");
         System.out.println("1. list: Print a list of events currently stored.");
@@ -73,23 +88,6 @@ public class UI {
         System.out.print(lineSeparation);
         System.out.println("Sorry! I don't know what that means.");
         System.out.print(lineSeparation);
-    }
-
-    public void printEventGoals(Event viewEventGoal) {
-        System.out.println("Here is the list of goals for the following event: " + viewEventGoal.toString());
-        int goalIndex = 1;
-        for (Goal goalObject : viewEventGoal.getGoalList()) {
-            System.out.println(goalIndex + ". " + goalObject.getGoal());
-            goalIndex += 1;
-        }
-    }
-
-    public void goalAdded() {
-        System.out.println("Ok, the goal has been added to the event.");
-    }
-
-    public void goalDeleted() {
-        System.out.println("Ok, the goal has been deleted from the event.");
     }
 
     /**
@@ -338,5 +336,30 @@ public class UI {
         System.out.print(lineSeparation);
         System.out.println("There are no concerts for that month!");
         System.out.print(lineSeparation);
+    }
+
+    public void printEventGoals(Event viewEventGoal) {
+        System.out.println("Here is the list of goals for the following event: " + viewEventGoal.toString());
+        int goalIndex = 1;
+        for (Goal goalObject : viewEventGoal.getGoalList()) {
+            System.out.println(goalIndex + ". " + goalObject.getGoal() + "Achieved?" + goalObject.getStatus());
+            goalIndex += 1;
+        }
+    }
+
+    public void goalAdded() {
+        System.out.println("Ok, the goal has been added to the event.");
+    }
+
+    public void goalDeleted() {
+        System.out.println("Ok, the goal has been deleted from the event.");
+    }
+
+    public void goalUpdated() {
+        System.out.println("Ok, the goal has been updated.");
+    }
+
+    public void goalSetAsAchieved() {
+        System.out.println("Ok, the goal has been set as achieved. Congratulations for achieving the goal!");
     }
 }
