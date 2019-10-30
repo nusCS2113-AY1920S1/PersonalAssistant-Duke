@@ -2,14 +2,15 @@
 
 package planner.logic.command;
 
-import planner.logic.modules.cca.CcaList;
-import planner.util.crawler.JsonWrapper;
-import planner.ui.cli.PlannerUi;
-import planner.util.storage.Storage;
+import java.util.HashMap;
 
+import planner.logic.exceptions.legacy.ModException;
+import planner.logic.modules.cca.CcaList;
 import planner.logic.modules.module.ModuleInfoDetailed;
 import planner.logic.modules.module.ModuleTasksList;
-import java.util.HashMap;
+import planner.ui.cli.PlannerUi;
+import planner.util.crawler.JsonWrapper;
+import planner.util.storage.Storage;
 
 public class ClearCommand extends ModuleCommand {
 
@@ -23,7 +24,8 @@ public class ClearCommand extends ModuleCommand {
                         CcaList ccas,
                         PlannerUi plannerUi,
                         Storage store,
-                        JsonWrapper jsonWrapper) {
+                        JsonWrapper jsonWrapper)
+                        throws ModException {
         String toClear = arg("toClear");
         plannerUi.clearMsg(toClear);
         boolean confirm = plannerUi.confirm();
