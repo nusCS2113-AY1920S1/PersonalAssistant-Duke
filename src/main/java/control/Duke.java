@@ -7,6 +7,7 @@ import room.RoomList;
 import storage.Storage;
 import ui.Ui;
 import booking.BookingList;
+import user.User;
 import user.UserList;
 
 import java.io.FileNotFoundException;
@@ -44,15 +45,26 @@ public class Duke {
 
         try {
             bookingList = new BookingList(bookingStorage.load());
-            roomList = new RoomList(roomStorage.load());
-            inventory = new Inventory(inventoryStorage.load());
-            userList = new UserList(userStorage.load());
-
         } catch (FileNotFoundException | DukeException e) {
             ui.showLoadingError();
             bookingList = new BookingList();
+        }
+        try {
+            roomList = new RoomList(roomStorage.load());
+        } catch (FileNotFoundException e) {
+            ui.showLoadingError();
             roomList = new RoomList();
+        }
+        try {
+            inventory = new Inventory(inventoryStorage.load());
+        } catch (FileNotFoundException e) {
+            ui.showLoadingError();
             inventory = new Inventory();
+        }
+        try {
+            userList = new UserList(userStorage.load());
+        }catch (FileNotFoundException e) {
+            ui.showLoadingError();
             userList = new UserList();
         }
     }
