@@ -2,7 +2,6 @@
 package command;
 
 import inventory.Inventory;
-import inventory.Item;
 
 import booking.Booking;
 import booking.BookingList;
@@ -11,7 +10,7 @@ import room.RoomList;
 import storage.Constants;
 import storage.Storage;
 import ui.Ui;
-import user.User;
+import user.UserList;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -37,8 +36,8 @@ public class FindBookingCommand extends Command {
     }
 
     @Override
-    public void execute(Inventory inventory, RoomList roomList, BookingList bookingList, Ui ui,
-                        Storage inventoryStorage, Storage bookingstorage, Storage roomstorage, User user)
+    public void execute(UserList userList, Inventory inventory, RoomList roomList, BookingList bookingList, Ui ui,
+                        Storage userStorage, Storage inventoryStorage, Storage bookingstorage, Storage roomstorage)
             throws DukeException, IOException, ParseException {
         boolean found = false;
         for(int i = 0; i < bookingList.size(); i++) {

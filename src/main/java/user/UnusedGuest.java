@@ -1,12 +1,12 @@
 package user;
 
-public class Guest extends User {
+public class UnusedGuest extends UnusedUser {
 
     /**
      * Dummy class for not logged in user.
      * @param username a random name input
      */
-    public Guest(String username) {
+    public UnusedGuest(String username) {
         super(username);
         this.userType = "G";
         this.email = "";

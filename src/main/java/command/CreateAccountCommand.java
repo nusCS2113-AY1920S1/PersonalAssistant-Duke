@@ -2,7 +2,6 @@
 package command;
 
 import inventory.Inventory;
-import inventory.Item;
 
 import booking.BookingList;
 import exception.DukeException;
@@ -10,15 +9,15 @@ import room.RoomList;
 import storage.Constants;
 import storage.Storage;
 import ui.Ui;
-import user.Login;
-import user.User;
+import user.UnusedLogin;
+import user.UnusedUser;
+import user.UserList;
 
 ;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.text.ParseException;
 
 public class CreateAccountCommand extends Command {
     private String[] splitC;
@@ -41,7 +40,7 @@ public class CreateAccountCommand extends Command {
                     + "email, password, username, usertype");
         }
         this.splitC = input.split(" ");
-        if (Login.checkExistence(splitC[1],"data\\members.txt")) {
+        if (UnusedLogin.checkExistence(splitC[1],"data\\members.txt")) {
             throw new DukeException(Constants.UNHAPPY + "OOPS!!! "
                     + "There is already an account registered under that email!");
         }
@@ -57,10 +56,10 @@ public class CreateAccountCommand extends Command {
     }
 
     @Override
-    public void execute(Inventory inventory, RoomList roomList, BookingList bookingList, Ui ui,
-                        Storage inventoryStorage, Storage bookingstorage, Storage roomstorage, User user)
+    public void execute(UserList userList, Inventory inventory, RoomList roomList, BookingList bookingList, Ui ui,
+                        Storage userStorage, Storage inventoryStorage, Storage bookingstorage, Storage roomstorage)
             throws DukeException, IOException {
-        User newUser = new User(splitC[1], splitC[2], splitC[3]);
+        UnusedUser newUser = new UnusedUser(splitC[1], splitC[2], splitC[3]);
         BufferedWriter bw = new BufferedWriter(new FileWriter("data\\members.txt", true));
         bw.write(newUser.toWriteFile());
         bw.newLine();

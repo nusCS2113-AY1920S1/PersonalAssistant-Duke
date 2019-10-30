@@ -2,15 +2,13 @@
 package command;
 
 import inventory.Inventory;
-import inventory.Item;
 
 import booking.BookingList;
 import exception.DukeException;
 import room.RoomList;
 import storage.Storage;
-import ui.ListBox;
 import ui.Ui;
-import user.User;
+import user.UserList;
 
 //@@author amoschan97
 public class ListCommand extends Command {
@@ -21,12 +19,11 @@ public class ListCommand extends Command {
      * @param roomList list of rooms
      * @param bookingList bookings list
      * @param ui user interface
-     * @param user Current user
      * @throws DukeException if there are no bookings
      */
     @Override
-    public void execute(Inventory inventory, RoomList roomList, BookingList bookingList, Ui ui,
-                        Storage inventoryStorage, Storage bookingstorage, Storage roomstorage, User user)
+    public void execute(UserList userList, Inventory inventory, RoomList roomList, BookingList bookingList, Ui ui,
+                        Storage userStorage, Storage inventoryStorage, Storage bookingstorage, Storage roomstorage)
             throws DukeException {
         if (bookingList.isEmpty()) {
             throw new DukeException("OOPS! There are no bookings in your list");

@@ -1,44 +1,20 @@
 package user;
 
+//@@ AmirAzhar
 public class User {
-    protected String email;
-    protected String password;
-    protected String username;
-    protected String userType;
-    protected boolean loginStatus;
+    public String username;
 
     /**
-     * User account.
-     * @param email NUS email (xxx@u.nus.edu)
-     * @param password alphanumerical with no special characters
+     * Create new user account
      * @param username preferably name of the user
      */
-    public User(String email, String password, String username) {
-        this.email = email;
-        this.password = password;
+    public User(String username) {
         this.username = username;
     }
 
-    public User(String username, String userType) {
-
-    }
-
-    public User(String username) {
-
-    }
-
     public String toWriteFile() {
-        return email + " | " + password + " | " + username;
+        return username;
     }
-
-    public boolean getLoginStatus() {
-        return loginStatus;
-    }
-
-    public void setLoginStatus() {
-        loginStatus = true;
-    }
-
 
     public String getUsername() {
         return username;
