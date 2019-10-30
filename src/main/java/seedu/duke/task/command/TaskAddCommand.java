@@ -22,6 +22,7 @@ public class TaskAddCommand extends Command {
     private String doAfter;
     private ArrayList<String> tags;
     private String priority;
+    private boolean done;
 
     /**
      * Instantiation of add command with all the necessary variables. it needs to execute.
@@ -42,13 +43,17 @@ public class TaskAddCommand extends Command {
         this.doAfter = doAfter;
         this.tags = tags;
         this.priority = priority;
+        this.done = false;
+    }
+
+    public void setDone(boolean done) {
+        this.done = done;
     }
 
     /**
      * Executes the add command by instantiating the task first and then add the task to task list.
      *
-     * @return a flag whether the task is successfully added. Returns false if the taskType is not
-     *         recognised.
+     * @return a flag whether the task is successfully added. Returns false if the taskType is not recognised.
      */
     @Override
     public boolean execute(Model model) {
@@ -59,6 +64,9 @@ public class TaskAddCommand extends Command {
         }
         String clashMsg = findClash(taskList, task);
         taskList.add(task);
+        if (done) {
+            task.markDone();
+        }
         if (!silent) {
             constructAddCommandMessage(taskList, task, clashMsg);
         }
@@ -89,7 +97,7 @@ public class TaskAddCommand extends Command {
         String clashMsg = "";
         if (clashTasks.size() > 0) {
             clashMsg = System.lineSeparator() + System.lineSeparator() + "Warning: New task added clashes "
-                + "with other task(s) in the list." + System.lineSeparator();
+                    + "with other task(s) in the list." + System.lineSeparator();
             clashMsg += clashTasks.toString();
         }
         return clashMsg;

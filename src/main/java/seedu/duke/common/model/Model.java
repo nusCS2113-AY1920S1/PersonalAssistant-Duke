@@ -35,6 +35,7 @@ public class Model {
         keywordPairList = EmailContentParseHelper.initKeywordList();
         taskList = TaskStorage.readTaskFromFile();
         emailList = EmailStorage.readEmailFromFile("");
+        updateGuiTaskList();
     }
 
     public TaskList getTaskList() {
