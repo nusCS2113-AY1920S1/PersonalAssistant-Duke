@@ -59,18 +59,19 @@ public class InventoryStorage {
             String content = "";
             while ((content = bufferedReader.readLine()) != null) {
                 String ingredientName, quantity, unit, additionalInfo, remaining, remaining2;
-                String[] split = content.split(" / ", 2);
+                String[] split = content.split("\\|", 2);
                 if (split.length == 2) {
-                    ingredientName = split[0];
-                    remaining = split[1];
-                    String[] split2 = remaining.split("/", 2);
+                    ingredientName = split[0].trim();
+                    remaining = split[1].trim();
+                    String[] split2 = remaining.split("\\|", 2);
                     if (split2.length == 2) {
-                        quantity = split2[0];
-                        remaining2 = split2[1];
-                        String[] split3 = remaining2.split("/", 2);
+                        quantity = split2[0].trim();
+                        remaining2 = split2[1].trim();
+                        String[] split3 = remaining2.split("\\|", 2);
                         if (split3.length == 2) {
-                            unit = split3[0];
-                            additionalInfo = split3[1];
+                            unit = split3[0].trim();
+                            additionalInfo = split3[1].trim();
+                            System.out.println(ingredientName + "...." + quantity + "...." + unit + "...." + additionalInfo);
                             Ingredient ingredient = new Ingredient(ingredientName, quantity, unit, additionalInfo);
                             inventoryListHM.put(ingredientName, ingredient);
                         }

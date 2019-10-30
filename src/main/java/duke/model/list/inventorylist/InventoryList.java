@@ -3,6 +3,7 @@ package duke.model.list.inventorylist;
 import duke.model.task.ingredienttasks.Ingredient;
 
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class InventoryList {
@@ -36,6 +37,28 @@ public class InventoryList {
         } else {
             return false;
         }
+    }
+
+    public double calculateMass(String quantity, String unit) {
+        double quan = Double.parseDouble(quantity);
+        switch (unit) {
+            case "kg":
+            case "l":
+                return quan*1000;
+            case "cup": return quan*237;
+            case "teaspoon": return quan*5;
+            case "tablespoon": return quan*13;
+            default: return quan;
+        }
+    }
+
+    public String containsInventoryIngredient(String recipeIngredient) {
+        System.out.println(this.inventoryHM.get(recipeIngredient));
+        double quantity = this.inventoryHM.get(recipeIngredient).getMass();
+        System.out.println(quantity);
+        String additional = this.inventoryHM.get(recipeIngredient).getAdditionalInfo();
+        System.out.println(additional);
+        return quantity + " | " + additional;
     }
 
 
