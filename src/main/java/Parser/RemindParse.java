@@ -42,7 +42,7 @@ public class RemindParse extends Parse {
             String activity = fullCommand.trim().substring(6);
             dateDescriptionSplit = activity.trim().split("/by");
             modDescriptionsplit = dateDescriptionSplit[0].trim().split(" ");
-            if(!super.isModCode(modDescriptionsplit[0])){
+            if(!super.isModCode(modDescriptionsplit[1])){
                 throw new DukeInvalidFormatException("\u2639" + " OOPS!!! The ModCode is invalid");
             }
             if(dateDescriptionSplit[0].contains("/set")){
@@ -57,8 +57,9 @@ public class RemindParse extends Parse {
                     throw new DukeInvalidFormatException("\u2639" + " OOPS!!! The description of a deadline cannot be empty.");
                 }
             }
+
             String[] dateTime = DateTimeParser.remindDateParse(dateDescriptionSplit[1].trim());
-            Date remindDate = DateTimeParser.deadlineStringToDate(dateTime[2]);
+            Date remindDate = DateTimeParser.deadlineInputStringToDate(dateTime[2]);
             return new RemindCommand(new Deadline(description, dateTime[0], dateTime[1]), remindDate, isRemind);
         } catch (ParseException | ArrayIndexOutOfBoundsException e) {
             LOGGER.log(Level.INFO, e.toString(), e);

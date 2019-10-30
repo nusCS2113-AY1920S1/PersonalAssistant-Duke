@@ -4,6 +4,7 @@ import Commons.Duke;
 import Commons.LookupTable;
 import Commons.Storage;
 import Commons.Ui;
+import DukeExceptions.DukeInvalidCommandException;
 import Tasks.TaskList;
 import java.util.ArrayList;
 
@@ -11,17 +12,28 @@ public class ShowPreviousCommand extends Command{
 
     private String fullCommand;
 
+    /**
+     * Creates ShowPreviousCommand object.
+     * @param fullCommand The user's input
+     */
     public ShowPreviousCommand(String fullCommand) {
         this.fullCommand = fullCommand;
 
     }
 
-    public ArrayList<String> previousCommandsHandler(ArrayList<String> userInputList, ArrayList<String> outputList, String s) {
+    /**
+     * This method adds previous command into the outputList base on user's choice/keyword.
+     * @param userInputList The list that contains all user inputs
+     * @param outputList The list that contains the inputs the user requested
+     * @param string The user's keyword for adding into outputList
+     * @return outputList which contains the inputs requested by user
+     */
+    public ArrayList<String> previousCommandsHandler(ArrayList<String> userInputList, ArrayList<String> outputList, String string) {
         int size = userInputList.size() - 1;
         String userInput;
         for (int j = 0; j < size; j ++) {
             userInput = userInputList.get(j);
-            if (userInput.contains(s)) {
+            if (userInput.contains(string)) {
                 outputList.add(userInput + " \n");
             }
         }
@@ -31,11 +43,18 @@ public class ShowPreviousCommand extends Command{
     public static ArrayList<String> result = new ArrayList<>();
     public ArrayList<String> userInputsList = new ArrayList<>();
     public ArrayList<String> updatedUserInputList = new ArrayList<>();
+
+    /**
+     * Shows the previous user inputs that user requested.
+     * @param ui The Ui object to display the message to display all the inputs
+     * @return This returns the method in the Ui object which returns the string to display the lists
+     * of user inputs
+     * @throws Exception
+     */
     @Override
-    public String execute(LookupTable LT, TaskList events, TaskList deadlines, Ui ui, Storage storage) throws Exception {
-        fullCommand = fullCommand.replace("show previous", "");
+    public String execute(LookupTable LT, TaskList events, TaskList deadlines, Ui ui, Storage storage) throws DukeInvalidCommandException {
+        fullCommand = fullCommand.replace("show/previous", "");
         fullCommand = fullCommand.trim();
-        //System.out.println("full command: " + fullCommand);
 
         boolean isNumber = true;
         int number = 0;
@@ -56,41 +75,21 @@ public class ShowPreviousCommand extends Command{
             }
         }
 
-//        for (String userInput : updatedUserInputList) {
-//            System.out.println("Updated user input is " + userInput);
-//        }
-
         int sizeOfUpdatedList = updatedUserInputList.size();
         int sizeOfPreviousList = sizeOfUpdatedList - 1;
 
-//        System.out.println("Size of userInputList: " + size);
-//        System.out.println("Size of updated List: " + sizeOfUpdatedList);
-
-
-        /* PRINTING FOR CHECKING:
-         * for (String userInput : userInputsList) {
-         *    System.out.println("User input is " + userInput);
-         * }
-         * System.out.println("size: ");
-         * System.out.println(size);
-         * System.out.println(userInputsList);
-         */
         if (sizeOfPreviousList < number) {
-            return ui.showInvalidNumberErrorMessage(sizeOfPreviousList);
+            throw new DukeInvalidCommandException("There are only " + sizeOfPreviousList + " of previous commands." +
+                    "Please enter a valid number less than or equal to " + sizeOfPreviousList + " .");
         }
 
         if (isNumber) {
             int startIndex = sizeOfPreviousList - 1;
             for (int i = 0; i < number; i ++) {
-                //size -= 1;
                 outputList.add(updatedUserInputList.get(startIndex) + " \n");
                 startIndex -= 1;
             }
             result = outputList;
-
-//            for (String output : outputList) {
-//                System.out.println("output is: " + output);
-//            }
 
         } else if (fullCommand.equals("add/d")) {
             result = previousCommandsHandler(updatedUserInputList, outputList,"add/d");
@@ -123,11 +122,6 @@ public class ShowPreviousCommand extends Command{
         } else if (fullCommand.equals("Week")) {
             result = previousCommandsHandler(updatedUserInputList, outputList, "Week");
         }
-
-//        for (String output : result) {
-//            System.out.println(output);
-//        }
-
         return ui.showPrevious(result);
     }
 
@@ -135,4 +129,3 @@ public class ShowPreviousCommand extends Command{
         return result;
     }
 }
-

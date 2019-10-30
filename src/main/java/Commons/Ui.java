@@ -69,6 +69,26 @@ public class Ui {
     }
 
     /**
+     * Displays the invalid chosen duration message.
+     * @param message The chosen free time
+     * @return The invalid free time with the proper format
+     */
+    public String showFreeTimesInvalidDuration(String message){
+        return "Invalid duration\n" + "Please enter the command in the format:\n" +
+                "find 'x' hours, where 'x' is between 1 - 16";
+    }
+
+    /**
+     * Displays the invalid chosen week message.
+     * @param message The chosen week
+     * @return The invalid week entry with the proper format
+     */
+    public String showWeeksInvalidEntry(String message){
+        return "Invalid week\n" + "Please enter the command in the format:\n" +
+                "Week 'x', where 'x' is a digit between 1 - 13";
+    }
+
+    /**
      * Displays the show reminder message when user sets a reminder for a task.
      */
     public String showReminder(Assignment task, String time) {
@@ -192,20 +212,8 @@ public class Ui {
         }
     }
 
-    public String showInvalidNumberErrorMessage(int validNumber) {
-        String message = "There are only " + validNumber + " of previous commands." +
-                "Please enter a valid number less than or equal to " + validNumber + " .";
-        return message;
-    }
-
     public String showChosenPreviousChoice(String chosenInput) {
         String message = "Your chosen previous input is: \n" + chosenInput;
-        return message;
-    }
-
-    public String showEmptyListMessage() {
-        String message = "You did not enter Show Previous Command yet. \n" +
-                "Format: show previous <num> or show previous <type> <num>";
         return message;
     }
 }
