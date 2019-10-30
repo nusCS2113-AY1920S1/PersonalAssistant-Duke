@@ -2,6 +2,7 @@ package gui;
 
 import java.util.ArrayList;
 
+//@@author AugGust
 public class InputMemory {
     ArrayList<String> inputHistory = new ArrayList<String>();
     int currentPointer = 0;

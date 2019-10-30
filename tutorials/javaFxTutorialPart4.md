@@ -211,7 +211,7 @@ For our custom `DialogBox`, we did not define a controller so let's create a con
 **DialogBox.java**
 ```java
 import java.io.IOException;
-import java.util.Collections;
+import java.utils.Collections;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

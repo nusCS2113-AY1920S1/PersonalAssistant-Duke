@@ -2,8 +2,9 @@ package logic.command;
 
 
 import model.Model;
-import tasks.Task;
+import common.DukeException;
 
+//@@author JustinChia1997
 /**
  * Represents a command with hidden internal logic and the ability to be executed.
  */
@@ -15,7 +16,7 @@ public abstract class Command {
      *
      * @return feedback message of the operation result for display
      */
-    public abstract CommandOutput execute(Model model);
+    public abstract CommandOutput execute(Model model) throws DukeException;
 
 
 }
