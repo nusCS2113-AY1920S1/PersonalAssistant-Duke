@@ -3,6 +3,8 @@ package duke.ui;
 import duke.task.Task;
 import duke.tasklist.TaskList;
 
+import java.util.Optional;
+
 /**
  * Class that handles the printing of the TaskList for the user to view
  */
@@ -15,22 +17,27 @@ public class TaskListPrinter {
      */
     public static void print(Ui ui, TaskList list) {
         int taskCount = list.size();
-        ui.showLine("ID | Priority | Recurrence | Duration | Done? | Description");
+        int filterLength = list.getLongestFilter();
+        String filterHead = createFilterHead(filterLength);
+        filterLength = filterHead.length();
+        ui.showLine("ID | " + filterHead + " | Priority | Recurrence | Duration | Done? | Description");
+        String rowBreak = createRowBreak(filterLength);
         for (int i = 0; i < taskCount; i++) {
-            ui.showLine("-- | -------- | ---------- | -------- | ----- | -----------");
-            String curr;
+            ui.showLine(rowBreak);
+            StringBuilder curr;
             if (i < 9) {
-                curr = "0" + (i + 1);
+                curr = new StringBuilder("0" + (i + 1));
             } else {
-                curr = Integer.toString(i + 1);
+                curr = new StringBuilder(Integer.toString(i + 1));
             }
             Task t = list.get(i);
-            curr += " | " + padPriority(t.getPriority());
-            curr += " | " + padRecurrence(t.getRecurrenceCode());
-            curr += " | " + padDuration(t.getDuration());
-            curr += " |   " + t.getStatusIcon();
-            curr += "   | " + t.getDescription();
-            ui.showLine(curr);
+            curr.append(" | ").append(padFilter(t.getFilter(), filterLength));
+            curr.append(" | ").append(padPriority(t.getPriority()));
+            curr.append(" | ").append(padRecurrence(t.getRecurrenceCode()));
+            curr.append(" | ").append(padDuration(t.getDuration()));
+            curr.append(" |   ").append(t.getStatusIcon());
+            curr.append("   | ").append(t.getDescription());
+            ui.showLine(curr.toString());
         }
     }
 
@@ -86,14 +93,60 @@ public class TaskListPrinter {
             front = toPad / 2 + 1;
             back = toPad / 2;
         }
-        String result = "";
+        StringBuilder result = new StringBuilder();
         for (int i = 0; i < front; i++) {
-            result += " ";
+            result.append(" ");
         }
-        result += duration;
+        result.append(duration);
         for (int i = 0; i < back; i++) {
-            result += " ";
+            result.append(" ");
         }
-        return result;
+        return result.toString();
+    }
+
+    private static String createFilterHead(int filterLength) {
+        StringBuilder result = new StringBuilder("Filter");
+        if (filterLength > 6) {
+            int difference = filterLength - 6;
+            int front = difference % 2 == 0 ? difference / 2 : difference / 2 + 1;
+            int back = difference / 2;
+            while (front-- > 0) {
+                result.insert(0, " ");
+            }
+            while (back-- > 0) {
+                result.append(" ");
+            }
+        }
+        return result.toString();
+    }
+
+    private static String createRowBreak(int filterLength) {
+        StringBuilder result = new StringBuilder("-- | ");
+        while (filterLength-- > 0) {
+            result.append("-");
+        }
+        return result + " | -------- | ---------- | -------- | ----- | -----------\"";
+    }
+
+    private static String padFilter(Optional<String> filter, int filterLength) {
+        int currLength;
+        StringBuilder result;
+        if (filter.isEmpty()) {
+            result = new StringBuilder("NA");
+            currLength = 2;
+        } else {
+            result = new StringBuilder(filter.get());
+            currLength = filter.get().length();
+        }
+        int difference = filterLength - currLength;
+        int front = difference % 2 == 0 ? difference / 2 : difference / 2 + 1;
+        int back = difference / 2;
+        while (front-- > 0) {
+            result.insert(0, " ");
+        }
+        while (back-- > 0) {
+            result.append(" ");
+        }
+        return result.toString();
     }
 }
