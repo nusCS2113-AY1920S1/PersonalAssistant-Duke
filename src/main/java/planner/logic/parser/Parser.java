@@ -73,12 +73,10 @@ public class Parser {
         addParsers.addParser("module")
                 .help("Add a module")
                 .addArgument("moduleCode")
-                .required(true)
                 .help("Codename of module to add");
         Subparser addCcaParser = addParsers.addParser("cca")
                 .help("Add a cca");
         addCcaParser.addArgument("name")
-                .required(true)
                 .nargs("+")
                 .action(this.joinString)
                 .help("Name of cca");
@@ -152,19 +150,17 @@ public class Parser {
         sortParsers.addParser("ccas")
                 .help("Sort your CCAs");
 
-        Subparser capParser = getSubParser("cap")
-                .help("Calculate your CAP");
-        capParser.addArgument("toCap")
-            .choices("overall", "list", "module")
-            .help("What type of CAP to calculate");
+        getSubParser("cap")
+                .help("Calculate your CAP")
+                .addArgument("toCap")
+                .choices("overall", "list", "module")
+                .help("What type of CAP to calculate");
 
         Subparser gradeParser = getSubParser("grade")
                 .help("Enter your grades and let me calculate your GPA for you!");
         gradeParser.addArgument("moduleCode")
-            .required(true)
             .help("Codename of module to grade");
         gradeParser.addArgument("letterGrade")
-            .required(true)
             .help("Grade you achieved for this module");
     }
 
