@@ -86,10 +86,12 @@ public class Ui {
         System.out.println("Changes the priority of the specified task");
         System.out.println("\t3 levels of priority: 1 (High), 2 (Medium), 3 (Low)");
         System.out.println("\teg. priority 1");
+        System.out.println("\tThis changes the priority of the task to high");
     }
 
     public void helpSnooze() {
         System.out.println("Snoozes a task for a specified amount of time");
+        System.out.println("Different time units include: hours, minutes");
         System.out.println("\teg. snooze 1 2 hours");
         System.out.println("\tThis snoozes task 1 for a period of 2 hours");
     }
@@ -100,11 +102,11 @@ public class Ui {
         System.out.println("\tThis will swap the order task 1 and task 3");
     }
 
-    /**
-     * not sure pls ask
-     */
+
     public void helpSubtask() {
-        System.out.println("");
+        System.out.println("Adds subtasks to an assignment task type");
+        System.out.println("\teg. subtask 3 subtask1, subtask2");
+        System.out.println("\tThis will add 2 subtasks to the task at index 3, subtask1 and subtask2");
     }
 
     public void helpUpdate() {
@@ -118,11 +120,10 @@ public class Ui {
         System.out.println("\tAssignee: @joel@");
     }
 
-    /**
-     * ???
-     */
     public void helpSort() {
-        System.out.println("Sorts based on task type");
+        System.out.println("Sorts the tasks in the task list based on, deadline, priority and alphabetical order");
+        System.out.println("\teg. sort deadline");
+        System.out.println("\tThis will sort the tasks in the task list by their deadlines");
     }
 
     public void helpLog() {
