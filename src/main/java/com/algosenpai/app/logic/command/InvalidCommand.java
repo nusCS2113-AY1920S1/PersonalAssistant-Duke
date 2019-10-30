@@ -17,6 +17,7 @@ public class InvalidCommand extends Command {
     @Override
     public String execute() {
         return "Invalid Command!";
+
         /*String input = new String();
         for (String i : inputs) {
             input += i;
@@ -29,7 +30,6 @@ public class InvalidCommand extends Command {
     //* Choose command that is closest to the input by user.
     //* @param input command entered by user.
     //* @return the closest command.
-    //*
     //*/
     /*
     public static String compare(String input) {
