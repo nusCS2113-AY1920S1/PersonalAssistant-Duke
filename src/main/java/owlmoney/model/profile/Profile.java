@@ -58,6 +58,7 @@ public class Profile {
     private static final String PROFILE_FILE_NAME = "profile.csv";
     private static final String HAS_SPENT = "true";
     private static final String NOT_SPENT = "false";
+    private static final String NO_BANK_ACCOUNT = "";
 
     /**
      * Creates a new instance of the user profile.
@@ -716,14 +717,13 @@ public class Profile {
      * @param fileName the name of the file to be imported.
      * @param ui required for printing.
      * @return the imported data from the file formatted in List of String arrays.`
-     * @throws Exception if there are errors importing the data from the file.
      */
     private List<String[]> importListDataFromStorage(String fileName,Ui ui) {
         List<String[]> importData = null;
         try {
             importData = storage.readFile(fileName);
         } catch (IOException | NullPointerException e) {
-            ui.printMessage("");
+            ui.printError("Unable");
         }
         return importData;
     }
@@ -731,7 +731,7 @@ public class Profile {
     /**
      * Add banks from imported data.
      *
-     * @throws Exception if there are errors importing data.
+     * @throws BankException if there are errors importing data.
      */
     private void loadBanksFromImportedData() throws BankException {
         if (storage.isFileExist(PROFILE_BANK_LIST_FILE_NAME)) {
@@ -760,7 +760,8 @@ public class Profile {
     /**
      * Iterates the bank file line by line to add specific details tied to the bank account.
      *
-     * @throws Exception if there are errors importing data.
+     * @throws BankException if there are errors importing data.
+     * @throws ParseException if there are errors parsing date.
      */
     private void iterateBanksToAddTransaction() throws ParseException, BankException {
         if (storage.isFileExist(PROFILE_BANK_LIST_FILE_NAME)) {
@@ -797,7 +798,8 @@ public class Profile {
      * @param fileName the name of the file to obtain transactions from.
      * @param bankName the name of the bank account.
      * @param bankType the type of bank account.
-     * @throws Exception if there are errors importing data.
+     * @throws BankException if there are errors importing data.
+     * @throws ParseException if there are errors parsing date.
      */
     private void loadTransactionsForBanks(String fileName, String bankName, String bankType)
             throws BankException, ParseException {
@@ -837,7 +839,8 @@ public class Profile {
      * @param fileName the name of the file to obtain transactions from.
      * @param bankName the name of the bank account.
      * @param bankType the type of bank account.
-     * @throws Exception if there are errors importing data.
+     * @throws BankException if there are errors importing data.
+     * @throws ParseException if there are errors parsing date.
      */
     private void loadRecurringTransactionsForBanks(String fileName, String bankName, String bankType)
             throws ParseException, BankException {
@@ -869,7 +872,8 @@ public class Profile {
      *
      * @param fileName the name of the file to obtain transactions from.
      * @param bankName the name of the bank account.
-     * @throws Exception if there are errors importing data.
+     * @throws BankException if there are errors importing data.
+     * @throws ParseException if there are errors parsing date.
      */
     private void loadBondsForInvestmentBanks(String fileName, String bankName)
             throws ParseException, BankException {
@@ -909,7 +913,8 @@ public class Profile {
      * @param bankType the type of bank account.
      * @throws BankException if the bank account does not support this feature.
      */
-    private void profileImportNewDeposit(String bankName, Transaction deposit, String bankType) throws BankException {
+    private void profileImportNewDeposit(String bankName, Transaction deposit, String bankType)
+            throws BankException {
         bankList.bankListImportNewDeposit(bankName, deposit, bankType);
     }
 
@@ -961,7 +966,8 @@ public class Profile {
     /**
      * Add goals from imported data.
      *
-     * @throws Exception if there are errors importing data.
+     * @throws BankException if there are errors importing data.
+     * @throws ParseException if there are errors parsing date.
      */
     private void loadGoalsFromImportedData() throws ParseException, BankException {
         if (storage.isFileExist(PROFILE_GOAL_LIST_FILE_NAME)) {
@@ -975,7 +981,7 @@ public class Profile {
                 Date dateInFormat = dateFormat.parse(date);
                 String savingsAccountName = importDataRow[3];
                 double doubleAmount = Double.parseDouble(amount);
-                if ("".equals(savingsAccountName)) {
+                if (NO_BANK_ACCOUNT.equals(savingsAccountName)) {
                     newGoal = new Goals(goalName,doubleAmount,dateInFormat);
                 } else {
                     newGoal = new Goals(goalName,doubleAmount,dateInFormat,
