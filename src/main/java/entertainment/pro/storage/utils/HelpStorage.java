@@ -15,10 +15,13 @@ public class HelpStorage {
     private static final Logger logger = Logger.getLogger(HelpStorage.class.getName());
     private static TreeMap<COMMANDKEYS, String> cmdHelp = new TreeMap<>();
 
+    /**
+     * checkstyle made me put javadoc here >:( whoever made this function pls edit the the javadoc tqtq -wh.
+     */
     public static void initialiseAllHelp() {
         for (COMMANDKEYS root: CommandStructure.AllRoots) {
             try {
-                cmdHelp.put(root , getHelpInstructions(root.toString()));
+                cmdHelp.put(root, getHelpInstructions(root.toString()));
             } catch (IOException e) {
                 logger.log(Level.SEVERE , PromptMessages.FILE_NOT_FOUND + e.toString());
             }
@@ -37,7 +40,8 @@ public class HelpStorage {
     }
 
     private static String getHelpInstructions(String root) throws IOException {
-        InputStream configStream = HelpStorage.class.getResourceAsStream(String.format("/helpData/%s.txt", root.toLowerCase()));
+        InputStream configStream = HelpStorage.class
+                .getResourceAsStream(String.format("/helpData/%s.txt", root.toLowerCase()));
         if (configStream == null) {
             logger.log(Level.SEVERE , PromptMessages.FILES_NOT_FOUND);
             return PromptMessages.FILES_NOT_FOUND;

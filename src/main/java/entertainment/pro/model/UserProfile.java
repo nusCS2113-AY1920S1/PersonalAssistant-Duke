@@ -14,18 +14,6 @@ public class UserProfile {
     private boolean sortByHighestRating = false;
     private boolean sortByLatestRelease = false;
 
-    public UserProfile(String userName, int userAge, ArrayList<Integer> genreIdPreference, ArrayList<Integer> genreIdRestriction, boolean adult, ArrayList<String> playlistNames, boolean sortByAlphabetical, boolean sortByHighestRating, boolean sortByLatestRelease) {
-        this.userName = userName;
-        this.userAge = userAge;
-        this.genreIdPreference = genreIdPreference;
-        this.genreIdRestriction = genreIdRestriction;
-        this.adult = adult;
-        this.playlistNames = playlistNames;
-        this.sortByAlphabetical = sortByAlphabetical;
-        this.sortByHighestRating = sortByHighestRating;
-        this.sortByLatestRelease = sortByLatestRelease;
-    }
-
     public ArrayList<Integer> getGenreIdPreference() {
         return genreIdPreference;
     }
@@ -118,8 +106,14 @@ public class UserProfile {
         return userAge;
     }
 
+    /**
+     * setting adult value to a default false when user is below 21 yrs old.
+     */
     public void setUserAge(int userAge) {
         this.userAge = userAge;
+        if (userAge < 21) {
+            adult = false;
+        }
     }
 }
 

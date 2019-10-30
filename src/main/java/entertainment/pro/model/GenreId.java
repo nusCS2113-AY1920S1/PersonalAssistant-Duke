@@ -1,7 +1,7 @@
 package entertainment.pro.model;
 
 /**
- * structure for GenreID object
+ * Structure for GenreID object.
  */
 public class GenreId {
     private String genre;

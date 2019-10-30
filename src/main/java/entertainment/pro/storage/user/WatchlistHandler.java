@@ -19,7 +19,7 @@ public class WatchlistHandler {
 
     /**
      * adds a duke.task to the watchlist
-     * @param t: the duke.task list to store the movies
+     * @param t the duke.task list to store the movies
      */
     public static boolean add(Tasks t) {
         for (Tasks i : watch) {
@@ -30,20 +30,25 @@ public class WatchlistHandler {
         watch.add(t);
         Collections.sort(watch, (d1, d2) -> {
             if (d1 instanceof Deadline && d2 instanceof Deadline) {
-                if (((Deadline)(d1)).getDate().getEndDate() == null || ((Deadline)(d2)).getDate().getEndDate() == null)
+                if (((Deadline)(d1)).getDate().getEndDate() == null
+                        || ((Deadline)(d2)).getDate().getEndDate() == null) {
                     return 0;
+                }
                 return ((Deadline)(d1)).getDate().getEndDate().compareTo(((Deadline)(d2)).getDate().getEndDate());
             } else if (d1 instanceof Period && d2 instanceof Period) {
-                if (((Period)(d1)).getDate().getEndDate() == null || ((Period)(d2)).getDate().getEndDate() == null)
+                if (((Period)(d1)).getDate().getEndDate() == null || ((Period)(d2)).getDate().getEndDate() == null) {
                     return 0;
+                }
                 return ((Period)(d1)).getDate().getEndDate().compareTo(((Period)(d2)).getDate().getEndDate());
             } else if (d1 instanceof Period && d2 instanceof Deadline) {
-                if (((Period)(d1)).getDate().getEndDate() == null || ((Deadline)(d2)).getDate().getEndDate() == null)
+                if (((Period)(d1)).getDate().getEndDate() == null || ((Deadline)(d2)).getDate().getEndDate() == null) {
                     return 0;
+                }
                 return ((Period)(d1)).getDate().getEndDate().compareTo(((Deadline)(d2)).getDate().getEndDate());
             } else if (d1 instanceof Deadline && d2 instanceof Period) {
-                if (((Deadline)(d1)).getDate().getEndDate() == null || ((Period)(d2)).getDate().getEndDate() == null)
+                if (((Deadline)(d1)).getDate().getEndDate() == null || ((Period)(d2)).getDate().getEndDate() == null) {
                     return 0;
+                }
                 return ((Deadline)(d1)).getDate().getEndDate().compareTo(((Period)(d2)).getDate().getEndDate());
             }
             return 0;
@@ -52,8 +57,8 @@ public class WatchlistHandler {
     }
 
     /**
-     * prints the entire watchlist of the user
-     * @param handle: class to retrieve the duke.ui controller to display the list on the users view
+     * prints the entire watchlist of the user.
+     * @param handle class to retrieve the duke.ui controller to display the list on the users view
      */
     public static void print_list(MovieHandler handle) {
         String result = "";
@@ -62,17 +67,17 @@ public class WatchlistHandler {
         for (Tasks i: watch) {
             String message = "";
             switch (i.getType()) {
-                case "D":
-                    message = ((Deadline)(i)).toMessage();
-                    break;
-                case "P":
-                    message = ((Period)(i)).toMessage();
-                    break;
-                default:
-                    break;
+            case "D":
+                message = ((Deadline)(i)).toMessage();
+                break;
+            case "P":
+                message = ((Period)(i)).toMessage();
+                break;
+            default:
+                break;
             }
-           result += space + index + ".[" + i.getType()
-            + "][" + i.getStatusIcon() + "] " + message + "\n";
+            result += space + index + ".[" + i.getType()
+                    + "][" + i.getStatusIcon() + "] " + message + "\n";
             index++;
         }
         handle.setFeedbackText(result);
@@ -80,8 +85,8 @@ public class WatchlistHandler {
 
     /**
      * marks the required duke.task as done and feedbacks it to the user
-     * @param index: index of the movie to mark as done
-     * @param handle: moviehandler class to print out the completed duke.task on the users view
+     * @param index index of the movie to mark as done
+     * @param handle moviehandler class to print out the completed duke.task on the users view
      */
     public static void markAsDone(int index, MovieHandler handle) {
         try {
@@ -104,8 +109,8 @@ public class WatchlistHandler {
 
     /**
      * removes a particular duke.task from the watchlist by its name
-     * @param movie: name of the movie to be removed
-     * @param handle: moviehandler class to print out the completed duke.task on the users view
+     * @param movie name of the movie to be removed
+     * @param handle moviehandler class to print out the completed duke.task on the users view
      * @return boolean: returns whether the movie was present in the watchlist or not
      */
     public static boolean removeFromWatchlist(String movie, MovieHandler handle) {
@@ -125,8 +130,8 @@ public class WatchlistHandler {
     }
 
     /**
-     * return a list of possible movie titles to remove from the watchlist
-     * @return ArrayList<String>: list of movie titles currently in the watchlist
+     * return a list of possible movie titles to remove from the watchlist.
+     * @return ArrayList list of movie titles currently in the watchlist
      *
      */
     public static ArrayList<String> getTitles() {

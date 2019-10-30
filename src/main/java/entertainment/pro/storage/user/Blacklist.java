@@ -18,11 +18,9 @@ public class Blacklist {
 
     /**
      * initialises the blacklisted words from the file.
-     * @param keywords
-     * @param movieTitles
-     * @param movies
      */
-    public static void initialiseAll(ArrayList<String> keywords , ArrayList<String> movieTitles , ArrayList<MovieModel> movies) {
+    public static void initialiseAll(ArrayList<String> keywords, ArrayList<String> movieTitles,
+                                     ArrayList<MovieModel> movies) {
         initialiseBlackListKey(keywords);
         initialiseBlackListMovieID(movies);
         initialiseBlackListMovieTitles(movieTitles);
@@ -30,7 +28,6 @@ public class Blacklist {
 
     /**
      * Initialise keywords arraylist from file data.
-     * @param keywords
      */
     public static void initialiseBlackListKey(ArrayList<String> keywords) {
         blackListKeyWords = (ArrayList<String>) keywords.clone();
@@ -38,7 +35,6 @@ public class Blacklist {
 
     /**
      * Initialise MovieTitles arraylist from file data.
-     * @param movieTitles
      */
     public static void initialiseBlackListMovieTitles(ArrayList<String> movieTitles) {
         blackListMoviesTitle = (ArrayList<String>) movieTitles.clone();
@@ -47,7 +43,6 @@ public class Blacklist {
 
     /**
      * Initialise MovieID arraylist from file data.
-     * @param movies
      */
     public static void initialiseBlackListMovieID(ArrayList<MovieModel> movies) {
         for (MovieModel m : movies) {
@@ -87,13 +82,12 @@ public class Blacklist {
                 return;
             }
         }
-        blackListMovies.add(new MovieModel(mo.getID() , mo.getTitle().toLowerCase()));
+        blackListMovies.add(new MovieModel(mo.getId() , mo.getTitle().toLowerCase()));
         saveBlackList();
     }
 
     /**
      * Adding Movies to blacklist.
-     * @param movie
      */
     public static void addToBlacklistMovie(String movie) {
         if (movie.trim() == "") {
@@ -108,12 +102,11 @@ public class Blacklist {
 
     /**
      * Save blackilist to JSON File.
-     *
      */
     public static void saveBlackList() {
         try {
             BlacklistStorage allbl = new BlacklistStorage();
-            allbl.updateBlacklistFile(blackListKeyWords , blackListMovies , blackListMoviesTitle);
+            allbl.updateBlacklistFile(blackListKeyWords, blackListMovies, blackListMoviesTitle);
 
         } catch (Exception e) {
             //TODO ADD exception handling
@@ -124,7 +117,6 @@ public class Blacklist {
 
     /**
      * removes keyword from blacklist.
-     * @param keyword
      * @return true if keyword successfully removed
      */
     public static boolean removeFromBlacklistKeyWord(String keyword)  {
@@ -218,7 +210,7 @@ public class Blacklist {
     public static boolean removeMovieObjById(MovieInfoObject movie)  {
 
         for (MovieModel mo : blackListMovies) {
-            if (mo.getId() == movie.getID()) {
+            if (mo.getId() == movie.getId()) {
                 blackListMovies.remove(mo);
                 return true;
             }
@@ -229,7 +221,6 @@ public class Blacklist {
 
     /**
      * Clears blacklist.
-     *
      */
     public static void clearBlacklist() {
         blackListMoviesTitle.clear();
@@ -239,7 +230,7 @@ public class Blacklist {
     }
 
     /**
-     * Function to print blacklist on screen
+     * Function to print blacklist on screen.
      * @return String crafted from blacklisted words
      */
     public static String printList() {
@@ -291,29 +282,28 @@ public class Blacklist {
         return (ArrayList<String>) blackListKeyWords.clone();
     }
 
-
+    /**
+     * checkstyle made me put javadoc here >:( whoever made this function pls edit the the javadoc tqtq -wh.
+     */
     public static ArrayList<String> getBlackListAll() {
         ArrayList<String> hints = new ArrayList<>();
         for (String a: blackListKeyWords) {
-
-             hints.add(a);
+            hints.add(a);
         }
 
         for (String a: blackListMoviesTitle) {
-
             hints.add(a);
-
         }
 
         for (MovieModel a: blackListMovies) {
-
             hints.add(a.getTitle());
-
         }
-
         return hints;
     }
 
+    /**
+     * checkstyle made me put javadoc here >:( whoever made this function pls edit the the javadoc tqtq -wh.
+     */
     public static ArrayList<String> getBlackListHints(String keyword) {
         keyword = keyword.toLowerCase();
         ArrayList<String> hints = new ArrayList<>();
@@ -341,8 +331,6 @@ public class Blacklist {
 
     /**
      * Filters search results to exclude blacklisted items.
-     *
-     * @param mMovies
      * @return filtered search results.
      */
     public static ArrayList<MovieInfoObject> filter(ArrayList<MovieInfoObject> mMovies) {
@@ -355,7 +343,6 @@ public class Blacklist {
 
     /**
      * Filter search results by blacklisted keywords.
-     * @param mMovies
      * @return filtered search results.
      */
     private static ArrayList<MovieInfoObject> filterByKeyword(ArrayList<MovieInfoObject> mMovies) {
@@ -377,7 +364,6 @@ public class Blacklist {
 
     /**
      * Filter search results by blacklisted movie Ids.
-     * @param mMovies
      * @return filtered search results.
      */
     private static ArrayList<MovieInfoObject> filterById(ArrayList<MovieInfoObject> mMovies) {
@@ -385,7 +371,7 @@ public class Blacklist {
         for (MovieInfoObject o : mMovies) {
             boolean isBlacklisted = false;
             for (MovieModel e : blackListMovies) {
-                if (o.getID() == e.getId()) {
+                if (o.getId() == e.getId()) {
                     isBlacklisted = true;
                 }
             }
@@ -400,7 +386,6 @@ public class Blacklist {
 
     /**
      * Filter search results by blacklisted movie Titles.
-     * @param mMovies
      * @return filtered search results.
      */
     private static ArrayList<MovieInfoObject> filterByTitle(ArrayList<MovieInfoObject> mMovies) {

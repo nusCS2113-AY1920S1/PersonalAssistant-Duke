@@ -1,10 +1,10 @@
 package entertainment.pro.logic.parsers;
 
-
 import entertainment.pro.commons.enums.COMMANDKEYS;
 import entertainment.pro.commons.exceptions.MissingInfoException;
 import entertainment.pro.model.CommandPair;
 import entertainment.pro.ui.Controller;
+
 import java.util.HashSet;
 import java.util.Set;
 import java.util.logging.Level;
@@ -100,9 +100,6 @@ public class CommandDebugger {
 
     /**
      * Compute string similarity based on  Jaccard Similarity algorithm.
-     *
-     * @param word1
-     * @param word2
      * @return the similarity score based on the algorithm
      */
     public static Double calculateJaccardSimilarity(CharSequence word1, CharSequence word2) {
@@ -130,5 +127,4 @@ public class CommandDebugger {
         }
         return Double.valueOf(iset.size()) / Double.valueOf(unionSet.size());
     }
-
 }

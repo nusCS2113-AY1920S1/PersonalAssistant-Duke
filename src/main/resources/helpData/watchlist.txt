@@ -1,7 +1,8 @@
 Watchlist functionality:
-    #add         :
-    #remove      :
-    #done        :
+    #add         : Add items to the watchlist
+    #remove      : Remove items from the watchlist
+    #done        : Mark items on the watchlist as done
 
-    usage: blacklist add MOVIE_NAME_OR_ID_OR_KEYWORD [-keyword]
-           blacklist remove MOVIE_NAME_KEYWORD [-keyword]
+    usage: watchlist add MOVIE_NAME_OR_ID_OR_KEYWORD [-keyword] [-Deadline] [-Event] [-start <Date1>] [-end <Date2>]
+           watchlist remove MOVIE_NAME_KEYWORD [-keyword]
+           watchlist done [-Deadline <index of movie in the watchlist>]

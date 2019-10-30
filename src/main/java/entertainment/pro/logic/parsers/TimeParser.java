@@ -5,7 +5,6 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-
 /**
  * This class deals with manipulating a string into a date if it is possible to.
  */
@@ -153,7 +152,7 @@ public class TimeParser {
 
 
     /**
-     * Get time portion of Date object only and convert it to String
+     * Get time portion of Date object only and convert it to String.
      */
     public static String getStringTime(Date date) {
         SimpleDateFormat targetFormat = new SimpleDateFormat("hh:mm aaa");
@@ -167,7 +166,7 @@ public class TimeParser {
     }
 
     /**
-     * Convert Date object to contain date only (no time)
+     * Convert Date object to contain date only (no time).
      */
     public static Date getDateOnly(Date date) {
         SimpleDateFormat targetFormat = new SimpleDateFormat("dd/MM/yyyy");
@@ -180,7 +179,7 @@ public class TimeParser {
 
 
     /**
-     * Convert string of date only to Date object
+     * Convert string of date only to Date object.
      */
     public static Date convertToDate(String s) {
         try {

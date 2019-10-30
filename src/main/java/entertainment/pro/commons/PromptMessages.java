@@ -1,7 +1,6 @@
 package entertainment.pro.commons;
 
 /**
- *
  * Contains and defines messages printed by the app.
  *
  */
@@ -26,8 +25,8 @@ public class PromptMessages {
 
     public static final String AUTOCOMPLETION_PROMPT = "Did you mean this?";
 
-    public static final String UNKNOWN_COMMAND = "☹ I'm sorry, but I don't know what that means. " +
-            "Refer to help for command formats :-(";
+    public static final String UNKNOWN_COMMAND = "☹ I'm sorry, but I don't know what that means. "
+            + "Refer to help for command formats :-(";
     public static final String INVALID_FORMAT = "⚡ Invalid format. Refer to help for command formats. :-(";
     public static final String OUT_OF_BOUNDS = "⚠ Index requested is out of bounds! :-(";
 
@@ -47,9 +46,19 @@ public class PromptMessages {
     public static final String API_FAIL_GENERAL = "☹ I'sorry, but something went wrong when fetching data";
     public static final String API_FAIL_EMPTY = "☹ I'sorry, but I could not find anything related to your request";
     public static final String API_TIME_OUT = "☹ I'sorry, but your request took so long";
-    public static final String API_OFFLINE = "☹ I'sorry, no internet connection detected. " +
-            "So, the app will operate in offline mode";
+    public static final String API_OFFLINE = "☹ I'sorry, no internet connection detected. "
+            + "So, the app will operate in offline mode";
     public static final String API_INVALID_REQUEST = "☹ I'sorry, but your request is either unclear or invalid";
+
+    //PlaylistExceptions messages
+    public static final String PLAYLIST_EXISTS_START =  "☹ I'sorry, but there's already a playlist with called <";
+    public static final String PLAYLIST_EXISTS_END =  ">. Please try again with another name.";
+    public static final String CANNOT_ADD_TO_PLAYLIST_START = "☹ I'sorry, but <";
+    public static final String CANNOT_ADD_TO_PLAYLIST_END = ">. Please try again with another item";
+    public static final String CANNOT_REMOVE_FROM_PLAYLIST_START = "☹ I'sorry, but <";
+    public static final String CANNOT_REMOVE_FROM_PLAYLIST_END = "> is not a valid item in this playlist. Please try again with another item";
+    public static final String PLAYLIST_DOES_NOT_EXISTS_START = "☹ I'sorry, but <";
+    public static final String PLAYLIST_DOES_NOT_EXISTS_END = "> does not exists. Please try again with another playlist title.";
 
 
 }

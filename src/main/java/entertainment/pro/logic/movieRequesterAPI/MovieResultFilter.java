@@ -13,8 +13,11 @@ public class MovieResultFilter {
         this.genreRestriction = genreRestriction;
     }
 
+    /**
+     * to check if movie fits within genre preferences.
+     */
     public boolean isFitGenrePreference(MovieInfoObject movie) {
-        long[] movieGenre = movie.getGenreIDs();
+        ArrayList<Long> movieGenre = movie.getGenreIdInfo();
         for (long log : movieGenre) {
             for (Integer preferenceLog : genrePreference) {
                 if (log == preferenceLog) {
@@ -25,8 +28,11 @@ public class MovieResultFilter {
         return false;
     }
 
+    /**
+     * to find out if movie fits within genre restrictions.
+     */
     public boolean isFitGenreRestriction(MovieInfoObject movie) {
-        long[] movieGenre = movie.getGenreIDs();
+        ArrayList<Long> movieGenre = movie.getGenreIdInfo();
         for (long log : movieGenre) {
             for (Integer preferenceLog : genreRestriction) {
                 if (log == preferenceLog) {
@@ -37,6 +43,9 @@ public class MovieResultFilter {
         return true;
     }
 
+    /**
+     * to filter movies according to preferences and restrictions.
+     */
     public ArrayList<MovieInfoObject> filter(ArrayList<MovieInfoObject> movies) {
         ArrayList<MovieInfoObject> filteredMovies = new ArrayList<>();
         if (!genrePreference.isEmpty() && !genreRestriction.isEmpty()) {

@@ -1,6 +1,7 @@
 package entertainment.pro.storage.utils;
 
 
+import entertainment.pro.model.MovieInfoObject;
 import entertainment.pro.storage.user.Blacklist;
 import entertainment.pro.model.UserProfile;
 import entertainment.pro.storage.user.Blacklist;
@@ -30,9 +31,11 @@ public class BlacklistStorage {
     private TypeReference<UserProfile> typeReference = new TypeReference<UserProfile>() {
     };
 
-    private enum BlacklistKeys { KEYS , MOVIES , ID};
+    private enum BlacklistKeys { KEYS, MOVIES, ID };
 
-
+    /**
+     * checkstyle made me put javadoc here >:( whoever made this function pls edit the the javadoc tqtq -wh.
+     */
     public BlacklistStorage() throws IOException {
         file = new File("./BlacklistStorage.json");
         if (file.createNewFile()) {
@@ -53,9 +56,7 @@ public class BlacklistStorage {
 
             File newFile = new File("./BlacklistStorage.json");
             if (newFile.createNewFile()) {
-
-                Blacklist.initialiseAll(new ArrayList<String>() , new ArrayList<String>() , new ArrayList<MovieModel>());
-
+                Blacklist.initialiseAll(new ArrayList<String>(), new ArrayList<String>(), new ArrayList<MovieModel>());
             } else {
                 FileReader reader = new FileReader(newFile);
                 JSONParser jsonParser = new JSONParser();
@@ -65,17 +66,17 @@ public class BlacklistStorage {
 
                 Gson gson = new Gson();
                 Type type = new TypeToken<ArrayList<String>>() { }.getType();
-                ArrayList<String> keyList = gson.fromJson(jsonObject.get(BlacklistKeys.KEYS.toString()).toString()
-                        , type);
+                ArrayList<String> keyList = gson.fromJson(jsonObject.get(BlacklistKeys.KEYS.toString()).toString(),
+                        type);
 
                 Type type2 = new TypeToken<ArrayList<MovieModel>>() { }.getType();
-                ArrayList<MovieModel> movieList = gson.fromJson(jsonObject.get(BlacklistKeys.ID.toString()).toString()
-                        , type2);
+                ArrayList<MovieModel> movieList = gson.fromJson(jsonObject.get(BlacklistKeys.ID.toString()).toString(),
+                        type2);
 
-                ArrayList<String> movieTitleList = gson.fromJson(jsonObject.get(BlacklistKeys.MOVIES.toString()).toString()
-                        , type);
+                ArrayList<String> movieTitleList = gson.fromJson(jsonObject.get(BlacklistKeys.MOVIES.toString())
+                                .toString(), type);
 
-                Blacklist.initialiseAll(keyList , movieTitleList , movieList);
+                Blacklist.initialiseAll(keyList, movieTitleList, movieList);
 
             }
 
@@ -87,20 +88,16 @@ public class BlacklistStorage {
 
     /**
      * update json file with any changes made blacklist.
-     *
-     * @param blackListKeyWords
-     * @param blackListMovies
-     * @param blackListMoviesTitle
      */
-    public void updateBlacklistFile (ArrayList<String>  blackListKeyWords ,
-                                    ArrayList<MovieModel>  blackListMovies ,
-                                     ArrayList<String>  blackListMoviesTitle) throws IOException {
+    public void updateBlacklistFile(ArrayList<String> blackListKeyWords,
+                                    ArrayList<MovieModel> blackListMovies,
+                                     ArrayList<String> blackListMoviesTitle) throws IOException {
 
         JSONObject allblacklist = new JSONObject();
 
-        allblacklist.put(BlacklistKeys.KEYS , blackListKeyWords);
-        allblacklist.put(BlacklistKeys.ID , blackListMovies);
-        allblacklist.put(BlacklistKeys.MOVIES , blackListMoviesTitle);
+        allblacklist.put(BlacklistKeys.KEYS, blackListKeyWords);
+        allblacklist.put(BlacklistKeys.ID, blackListMovies);
+        allblacklist.put(BlacklistKeys.MOVIES, blackListMoviesTitle);
 
         File oldFile = file;
         File newFile = new File("./tempBlacklist.json");
@@ -111,13 +108,16 @@ public class BlacklistStorage {
         System.out.println("Successfully DONE SAVING!");
     }
 
+    /**
+     * checkstyle made me put javadoc here >:( whoever made this function pls edit the the javadoc tqtq -wh.
+     */
     public void createNewBlacklistFile() throws IOException {
 
         JSONObject allblacklist = new JSONObject();
 
-        allblacklist.put(BlacklistKeys.KEYS , new ArrayList<String>());
-        allblacklist.put(BlacklistKeys.ID , new ArrayList<MovieModel>());
-        allblacklist.put(BlacklistKeys.MOVIES , new ArrayList<String>());
+        allblacklist.put(BlacklistKeys.KEYS, new ArrayList<String>());
+        allblacklist.put(BlacklistKeys.ID, new ArrayList<MovieModel>());
+        allblacklist.put(BlacklistKeys.MOVIES, new ArrayList<String>());
 
         File newFile = new File("./BlacklistStorage.json");
         mapper.writeValue(newFile, allblacklist);

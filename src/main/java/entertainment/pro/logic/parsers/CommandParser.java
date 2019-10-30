@@ -5,10 +5,25 @@ import entertainment.pro.commons.exceptions.EmptyCommandException;
 import entertainment.pro.commons.exceptions.MissingInfoException;
 import entertainment.pro.logic.execution.CommandStack;
 import entertainment.pro.commons.exceptions.Exceptions;
-import entertainment.pro.logic.parsers.commands.*;
 import entertainment.pro.model.CommandPair;
 import entertainment.pro.ui.Controller;
 import entertainment.pro.ui.MovieHandler;
+
+import entertainment.pro.logic.parsers.commands.PreferenceCommand;
+import entertainment.pro.logic.parsers.commands.RemoveCommand;
+import entertainment.pro.logic.parsers.commands.RestrictionCommand;
+import entertainment.pro.logic.parsers.commands.SearchCommand;
+import entertainment.pro.logic.parsers.commands.SetCommand;
+import entertainment.pro.logic.parsers.commands.ViewCommand;
+import entertainment.pro.logic.parsers.commands.WatchlistCommand;
+import entertainment.pro.logic.parsers.commands.YesCommand;
+import entertainment.pro.logic.parsers.commands.AddCommand;
+import entertainment.pro.logic.parsers.commands.BlacklistCommand;
+import entertainment.pro.logic.parsers.commands.FindCommand;
+import entertainment.pro.logic.parsers.commands.GetCommand;
+import entertainment.pro.logic.parsers.commands.HelpCommand;
+import entertainment.pro.logic.parsers.commands.MoreCommand;
+import entertainment.pro.logic.parsers.commands.PlaylistCommand;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -34,9 +49,7 @@ public class CommandParser {
         }
         String commandArr[] = command.split(" ");
         rootCommand(commandArr , command, uicontroller);
-
     }
-
 
     /**
      * Function to get the most probable root and sub root command if there was a typo in the user command.
@@ -151,8 +164,10 @@ public class CommandParser {
                 CommandPair pair = CommandDebugger.commandSpellChecker(commandArr , COMMANDKEYS.none , uicontroller);
                 ((MovieHandler) uicontroller).setFeedbackText("Sorry we are unable to process your command. " +
                         "Please check help for more details!");
+
         }
     }
+
     /**
      * Function to get the Root command for the comand.
      *
@@ -268,14 +283,12 @@ public class CommandParser {
     }
 
     private static void askUserConfirmation(CommandPair pair, Controller uicontroller, String[] commandArr) {
-
         if (pair.getSubRootCommand() == COMMANDKEYS.none) {
             ((MovieHandler) uicontroller).setAutoCompleteText("Did you mean :" + pair.getRootCommand());
         } else {
-            ((MovieHandler) uicontroller).setAutoCompleteText("Did you mean :" + pair.getRootCommand() + " " +
-                    pair.getSubRootCommand() + " " +
-                    String.join(" ", Arrays.copyOfRange(commandArr , 2 , commandArr.length)));
+            ((MovieHandler) uicontroller).setAutoCompleteText("Did you mean :" + pair.getRootCommand() + " "
+                    + pair.getSubRootCommand() + " "
+                    + String.join(" ", Arrays.copyOfRange(commandArr, 2, commandArr.length)));
         }
-
     }
 }

@@ -7,7 +7,6 @@ import entertainment.pro.logic.parsers.CommandSuper;
 import java.io.IOException;
 import java.util.ArrayList;
 
-
 /**
  * Contains all the commands the user entered to be kept track of.
  */
@@ -19,9 +18,6 @@ public class CommandStack {
 
     /**
      * Adds the command to the command Stack.
-     *
-     * @param cmd
-     * @throws IOException
      */
     public static void pushCmd(CommandSuper cmd) throws IOException, Exceptions {
         if (cmd.getRoot() == COMMANDKEYS.yes) {
@@ -94,8 +90,6 @@ public class CommandStack {
      * Execute the latest command.
      * This is in the case where by the user mistyped the command and has to type 'yes' to the
      * prompt to execute the predicted command
-     *
-     * @throws IOException
      */
     public static void executeLastCommand() throws IOException, Exceptions {
         System.out.println("Execute Last Command");

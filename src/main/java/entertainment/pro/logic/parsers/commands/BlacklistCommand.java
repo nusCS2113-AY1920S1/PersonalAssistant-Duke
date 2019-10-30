@@ -1,7 +1,6 @@
 package entertainment.pro.logic.parsers.commands;
 import entertainment.pro.commons.PromptMessages;
 import entertainment.pro.commons.enums.COMMANDKEYS;
-
 import entertainment.pro.logic.contexts.SearchResultContext;
 import entertainment.pro.logic.parsers.CommandStructure;
 import entertainment.pro.logic.parsers.CommandSuper;
@@ -22,33 +21,29 @@ public class BlacklistCommand extends CommandSuper {
 
     /**
      * Constructor for each Command Super class.
-     *
-     * @param uicontroller
      */
-    public BlacklistCommand (Controller uicontroller) {
+    public BlacklistCommand(Controller uicontroller) {
         super(COMMANDKEYS.blacklist, CommandStructure.cmdStructure.get(COMMANDKEYS.blacklist), uicontroller);
     }
 
 
     /**
      * Function to execute commands depending on the subroot command.
-     * @throws IOException
      */
     @Override
     public void executeCommands() throws IOException {
         switch (this.getSubRootCommand()) {
-            case add:
-                addToBlackList();
-                break;
-            case remove:
-                String movie = getPayload();
-                removeFromBlackList();
-                Blacklist.saveBlackList();
-                break;
-            default:
-                break;
+        case add:
+            addToBlackList();
+            break;
+        case remove:
+            String movie = getPayload();
+            removeFromBlackList();
+            Blacklist.saveBlackList();
+            break;
+        default:
+            break;
         }
-
     }
 
 
@@ -70,7 +65,7 @@ public class BlacklistCommand extends CommandSuper {
                     continue;
                 }
             }
-            if (Character.digit(s.charAt(i) , radix) < 0) {
+            if (Character.digit(s.charAt(i), radix) < 0) {
                 return false;
             }
         }
@@ -101,7 +96,7 @@ public class BlacklistCommand extends CommandSuper {
 
         logger.log(Level.INFO , PromptMessages.BLACKLIST_ADD_SUCCUESS);
 
-        ((MovieHandler) this.getUIController()).setFeedbackText(Blacklist.printList());
+        ((MovieHandler) this.getUiController()).setFeedbackText(Blacklist.printList());
 
     }
 
@@ -132,10 +127,11 @@ public class BlacklistCommand extends CommandSuper {
         logger.log(Level.INFO , PromptMessages.BLACKLIST_REMOVE_SUCCUESS);
 
         if (stat) {
-            ((MovieHandler) getUIController()).setFeedbackText(PromptMessages.BLACKLIST_REMOVE_SUCCUESS);
+            ((MovieHandler) getUiController()).setFeedbackText(PromptMessages.BLACKLIST_REMOVE_SUCCUESS);
         } else {
-            ((MovieHandler) getUIController())
+            ((MovieHandler) getUiController())
                     .setFeedbackText(PromptMessages.BLACKLIST_REMOVE_FAILURE);
+
         }
     }
 

@@ -3,19 +3,27 @@ package entertainment.pro.model;
 import java.util.ArrayList;
 
 /**
- * structure for Playlist object
+ * structure for Playlist object.
  */
 public class Playlist {
     private String playlistName;
     private String description;
     private ArrayList<PlaylistMovieInfoObject> movies;
 
+    /**
+     * constructor for Playlist.
+     * used for creating new playlist so there's only playlistName available
+     */
     public Playlist(String playlistName) {
         this.playlistName = playlistName;
         description = "";
         movies = new ArrayList<>();
     }
 
+    /**
+     * constructor for Playlist.
+     * used for loading Playlist from json files so all playlist attributes are available.
+     */
     public Playlist(String playlistName, String description, ArrayList<PlaylistMovieInfoObject> movies) {
         this.playlistName = playlistName;
         this.description = description;
@@ -46,10 +54,16 @@ public class Playlist {
         this.movies = movies;
     }
 
+    /**
+     * to add movies to playlists.
+     */
     public void add(ArrayList<PlaylistMovieInfoObject> movies) {
         this.movies.addAll(movies);
     }
 
+    /**
+     * to remove movies from playlist.
+     */
     public void remove(ArrayList<PlaylistMovieInfoObject> movies) {
         for (PlaylistMovieInfoObject log : this.movies) {
             System.out.println(log.getTitle() + "hehe");
@@ -63,6 +77,9 @@ public class Playlist {
         }
     }
 
+    /**
+     * to clear movies in playlist.
+     */
     public void clear() {
         movies = new ArrayList<>();
     }

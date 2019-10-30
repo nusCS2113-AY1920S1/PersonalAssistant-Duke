@@ -14,7 +14,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/AY1920S1-CS2113T-T09-4/main
 
-By: `Team Entertainment-Pro`      Since: `Sep 2019`  
+By: `CS2113T-T09-4`      Since: `Sep 2019`
 
 == Introduction
 
@@ -43,6 +43,209 @@ This app may not work with older major Java releases such as Java 10, 9, 8 etc.
 * *`display cinema:`* displays the location of all the nearby cinemas
 * *`exit the apprch new movie:`* displays all the current movies that are showing on cinemas 
 . Refer to Section 4, “Features” for details of each command.
+
+[[Features]]
+== Features
+
+===
+*Command Format*
+
+* Every command used in EntertainmentPro strictly follows a default command structure: `<root command>` `<sub-root>` `<payload>` `<flags>`.
+
+* The structure for `[flags]` can be `-<key>` `<flag title>` or simply `-<key>`.
+
+* Both the root command and the sub-root are one worded each, while payload and flag title can multi-worded.
+
+* Payload and flags may not needed depending on the particular command.
+
+* Words in `UPPER_CASE` are the parameters (i.e. payload) to be supplied by the user e.g. in `search movies QUERY_KEYWORDS`, `QUERY_KEYWORDS` is a parameter which can be used as `search movies harry potter`.
+
+* Items in square brackets are optional (i.e. flags) e.g. `QUERY_KEYWORD [-g/GENRE_NAME]` can be used as `harry potter -g fantasy` or as `harry potter`.
+
+* Square brackets with `...` inside them can have multiple flag titles (but at least 1), with each flag title separated by a `,` e.g. `-g GENRE_NAME ...` can be used as `-g fantasy`, `-g fantasy, animation` etc.
+
+* Some commands provide the option of multiple flagging at once but the each flags can still be used individually with the command.
+
+=== Viewing help: `help`
+
+Retrieves help information about each root command.
+Format: `help ROOT_COMMAND`
+
+[TIP]
+Keying in `help me` displays the list of all possible root commands
+
+Examples:
+
+* `help search`
+* `help preference`
+
+=== User Personalisation
+
+==== Setting user profile: `set`
+
+Sets values to the individual components of the user profile. +
+*_All existing values will be overwritten by the new value._*
+
+* *name* +
+Sets name to user profile. +
+Format: `set name USER_NAME` +
+Examples: `set name Duke` +
+
+* *age* +
+Sets age to user profile. +
+Format: `set age USER_AGE` +
+Examples: `set age 20` +
+** `USER_AGE` *must be a positive integer*.
+
+
+* *preferences and/or adult filter* +
+Sets adult filter preference and genre preferences. +
+Format: `set preference [-a YES_NO] [-g GENRE_NAME ...]` +
+Examples: +
+`set preference -a yes` +
+`set preference -a yes -g fantasy , comedy` +
+** `YES_NO` must be either "yes" or "no".
+*** "yes" indicates to allow adult content.
+*** "no" indicates to restrict adult content.
+** `[-a YES_NO]` will only be set if user's age is over 21.
+** At lest *one* of the optional fields must be provided.
+** `GENRE_NAME` cannot already belong to restrictions. +
+** `GENRE_NAME` must be a valid genre name.
+
+* *restrictions* +
+Sets genre restrictions. +
+Format: `set restrictions [-g GENRE_NAME ...]` +
+Examples: `set restrictions -g horror , history` +
+** `GENRE_NAME` cannot already belong to preferences. +
+** `GENRE_NAME` must be a valid genre name.
+
+* *sorting method* +
+Sets sorting method of displaying search results.
+Format: `set sort SORT_INDEX`
+Examples: +
+`set sort 1` -> to sort by alphabetical order +
+** `SORT_INDEX` must be an integer ranging from 1 to 3.
+*** "1" indicates to sort by alphabetical order.
+*** "2" indicates to sort by latest release date first.
+*** "3" indicates to sort by highest rating first.
+
+==== User preferences: `preference`
+
+Edits the user's preferences by *add*, *remove*, or *clear*. +
+
+* *add* +
+Adds on genres to genre preferences. +
+*_Valid inout values will not overwrite existing values, but will be appended on to existing values._* +
+Format: `preference add [-g GENRE_NAME ...]` +
+Examples: `preference add -g action` +
+** `GENRE_NAME` cannot already belong to preferences or restrictions. +
+** `GENRE_NAME` must be a valid genre name.
+
+* *remove* +
+Remove genres from genre preferences. +
+*_Valid inout values will not overwrite existing values, but will remove equivalent existing values._* +
+Format: `preference remove [-g GENRE_NAME ...]` +
+Examples: `preference remove -g comedy` +
+** `GENRE_NAME` must already belong to preferences. +
+** `GENRE_NAME` must be a valid genre name.
+
+* *clear* +
+Clears all genre preferences. +
+*_All existing values will be removed._* +
+Format: `preference clear`
+
+==== User Restrictions: `restriction`
+
+Edits the user's restrictions by *add*, *remove*, or *clear*.
+
+* *add* +
+Adds on genres to genre restrictions. +
+*_Valid inout values will not overwrite existing values, but will be appended on to existing values._* +
+Format: `restriction add [-g GENRE_NAME ...]` +
+Examples: `restriction add -g action` +
+** `GENRE_NAME` cannot already belong to preferences or restrictions. +
+** `GENRE_NAME` must be a valid genre name.
+
+* *remove* +
+Remove genres from genre restrictions. +
+*_Valid inout values will not overwrite existing values, but will remove equivalent existing values._* +
+Format: `restriction remove [-g GENRE_NAME ...]` +
+Examples: `restriction remove -g comedy` +
+** `GENRE_NAME` must already belong to restrictions. +
+** `GENRE_NAME` must be a valid genre name.
+
+* *clear* +
+Clears all genre restrictions. +
+*_All existing values will be removed._* +
+Format: `restriction clear`
+
+=== Search for movies and TV shows: `search`
+
+Searches for movies or TV shows using keywords and optionally, results can be filtered using specific genres and user profile.
+
+* *Searching for movies*: `movies` +
+** *current*: +
+Search within movies currently showing in cinemas.
+*** *Without filtering* +
+Format: `search movies /current`
+*** *Filtering according to pre-set user profile* +
+Format: `search movies /current -p`
+*** *Filtering using new unsaved set of filter flags* +
+Format: `search movies /current [-g PREFERENCE_GENRE_NAME ...] [-r RESTRICT_GENRE_NAME ...] [-a ADULT_FILER]` +
+Examples: +
+`search movies \current -g comedy -r horror , fantasy , -a yes` +
+`search movies \current -r romance , -a no` +
+**** `PREFERENCE_GENRE_NAME` and `RESTRICTION_GENRE_NAME` cannot have any overlaps.
+**** `PREFERENCE_GENRE_NAME` and `RESTRICTION_GENRE_NAME` must be valid genre names.
+**** `[-a ADULT_FILTER]` will only be applied if user's age is > 21.
+
+* *Searching for TV shows*: `shows` +
+** *current*: +
+Search within movies currently showing in cinemas.
+*** *Without filtering* +
+Format: `search shows /current`
+*** *Filtering according to pre-set user profile* +
+Format: `search shows /current -p`
+*** *Filtering using new unsaved set of filter flags* +
+Format: `search shows /current [-g PREFERENCE_GENRE_NAME ...] [-r RESTRICT_GENRE_NAME ...] [-a ADULT_FILER]` +
+Examples: +
+`search shows \current -g comedy -r horror , fantasy , -a yes` +
+`search shows \current -r romance , -a no` +
+**** `PREFERENCE_GENRE_NAME` and `RESTRICTION_GENRE_NAME` cannot have any overlaps.
+**** `PREFERENCE_GENRE_NAME` and `RESTRICTION_GENRE_NAME` must be valid genre names.
+**** `[-a ADULT_FILTER]` will only be applied if user's age is > 21.
+
+=== View more information about particular movie/TV show: `view`
+
+
+
+=== User Personalisation
+
+EntertainmentPro allows you to store your preferences so that your experience with it becomes more personalised to your liking. You will also be able to edit these preferences at any point of usage such that your personalised user experience is always up-to-date with your current obsessions! +
+The categories available for user personalisation are:
+
+. name:             your name
+. age:              your age
+. adult filter:     control the option to have adult content filtered out
+. preferences:      a list of genres that you enjoy
+. restrictions:     a list og genres that you dislike
+. sort:             control how your search results are sorted
+
+=== Search for movies and TV shows: `search`
+
+This feature displays a list of movies or TV shows that matches your search requirements. The requirements that can be handled by the app is explicitly written in the below subsections of 3.3.1 and 3.32. Do however take note that the data that is displayed comes from an external source which we do not hold any control. As such, there might be times when the data displayed might be inaccurate or outdated. Furthermore, in order to extract and display the required data from the external source, a strong internet connection is required. In the case where there is no/weak internet network, the app will instead extract and display data from the offline storage files. As such, searching for movies/TV shows in an offline mode may take a longer time to load.
+
+=== View information on movies and TV shows
+
+EntertainmentPro allows you to get full details on specific details and TV shows. +
+The details include:
+
+. title:            the title of the movie or show
+. summary:          a short description of the movie or show
+. release date:     the date of release for the movie or show
+. ratings:          the average given rating of the movie or show (max: 10.0)
+. genres:           the genres of the movie or show
+. cert:
 
 == Overview of the interface
 . Command Box: This is where users type entertainment.pro.logic.parsers.commands.
