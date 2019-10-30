@@ -311,10 +311,8 @@ public class AutoCompleter {
 
 
         if (maxMatchedCommandClass != null) {
-            System.out.println(maxMatchedCommandClass);
             return Optional.of(maxMatchedCommandClass);
         } else {
-            System.out.println("nothing");
             return Optional.empty();
         }
 

@@ -12,4 +12,6 @@ public class ProductMessageUtils {
     public static final String MESSAGE_COMMIT_ADD_PRODUCT = "Add product";
     public static final String MESSAGE_COMMIT_DELETE_PRODUCT = "Delete product(s)";
     public static final String MESSAGE_COMMIT_EDIT_PRODUCT = "Edit product(s)";
+    public static final String MESSAGE_PORTION_NOT_NUMBER = "Ingredient portion must be a number";
+    public static final String MESSAGE_UNRECOGNIZED_COMMAND = "This is an unknown command.";
 }

@@ -12,19 +12,20 @@ import duke.logic.parser.commons.SubCommandParser;
 import duke.logic.parser.exceptions.ParseException;
 
 
-public class ProductCommandParser implements SubCommandParser<ProductCommand> {
+public class
+
+
+ProductCommandParser implements SubCommandParser<ProductCommand> {
 
     @Override
     public ProductCommand parse(String subCommandAndArgs) throws ParseException {
-        if (subCommandAndArgs.equals("")) {
-            return new SwitchProductPageCommand();
-        }
+
         String subCommand = SubCommandParser.getSubCommandWord(subCommandAndArgs);
         String args = SubCommandParser.getArgs(subCommandAndArgs);
 
         switch (subCommand) {
         case SwitchProductPageCommand.COMMAND_WORD:
-            return new SwitchProductPageCommand();
+            return new SwitchProductPageCommandParser().parse(args);
         case ShowProductCommand.COMMAND_WORD:
             return new ShowProductCommandParser().parse(args);
         case AddProductCommand.COMMAND_WORD:

@@ -8,10 +8,12 @@ import duke.model.commons.Quantity;
 import duke.model.inventory.Ingredient;
 import duke.model.product.IngredientItemList;
 import duke.model.product.Product;
+import org.ocpsoft.prettytime.shade.org.apache.commons.lang.StringUtils;
 
 import static java.util.Objects.requireNonNull;
 
 public class ProductCommandUtil {
+    public static Double NOT_SPECIFIED_COST = -1.0;
 
     /**
      * Creates a new Product using information from a productDescriptor and previous product.
@@ -19,10 +21,11 @@ public class ProductCommandUtil {
      * @param productDescriptor contains the information to edit with.
      * @return edited product.
      */
-    public static Product getUpdatedProduct(Product toEdit, ProductDescriptor productDescriptor) {
+    public static Product getEditedProductFromDescriptor(Product toEdit, ProductDescriptor productDescriptor) {
         assert toEdit != null;
 
-        String newProductName = productDescriptor.getProductName().orElse(toEdit.getProductName());
+        String newProductName =
+            StringUtils.capitalize(productDescriptor.getProductName().orElse(toEdit.getProductName()));
         Double newRetailPrice = productDescriptor.getRetailPrice().orElse(toEdit.getRetailPrice());
         Double newIngredientCost =
                 productDescriptor.getIngredientCost().orElse(toEdit.getIngredientCost());
@@ -37,13 +40,21 @@ public class ProductCommandUtil {
      * @param productDescriptor contains the information to edit with
      * @return edited product
      */
-    public static Product getProductFromDescriptor(ProductDescriptor productDescriptor) throws ParseException {
+    public static Product getAddedProductFromDescriptor(ProductDescriptor productDescriptor) throws ParseException {
         Product product = new Product();
         if (!productDescriptor.getProductName().isPresent()) {
             throw new ParseException(ProductMessageUtils.MESSAGE_MISSING_PRODUCT_NAME);
         }
-        product.setProductName(productDescriptor.getProductName().get());
-        product.setIngredientCost(productDescriptor.getIngredientCost().orElse(Product.DEFAULT_INGREDIENT_COST));
+        String name = StringUtils.capitalize(productDescriptor.getProductName().get());
+        if (name.isBlank() || name.isEmpty()) {
+            throw new ParseException(ProductMessageUtils.MESSAGE_MISSING_PRODUCT_NAME);
+        }
+        product.setProductName(name);
+        if (!productDescriptor.getIngredientCost().isEmpty()) {
+            product.setIngredientCost(productDescriptor.getIngredientCost().get());
+        } else {
+            product.setIngredientCost(NOT_SPECIFIED_COST);
+        }
         product.setRetailPrice(productDescriptor.getRetailPrice().orElse(Product.DEFAULT_RETAIL_PRICE));
         product.setIngredients(productDescriptor.getIngredientItemList().orElse(new IngredientItemList()));
         return product;
@@ -58,10 +69,10 @@ public class ProductCommandUtil {
     public static void verifyNewIngredients(Model model, Product product) {
         IngredientItemList ingredients = product.getIngredients();
         for(Item<Ingredient> ingredient : ingredients) {
-            if (!model.hasIngredient(ingredient.getItem())) {
+            if (!model.hasShoppingList(ingredient)) {
                 Item<Ingredient> newIngredient =  new Item<Ingredient>(ingredient.getItem(),
                         Quantity.getDefaultQuantity());
-                model.addInventory(newIngredient);
+                model.addShoppingList(newIngredient);
             }
         }
     }
@@ -75,7 +86,6 @@ public class ProductCommandUtil {
         if (ingredients.isEmpty()) {
             return Product.DEFAULT_INGREDIENT_COST;
         }
-
-        return model.getIngredientCost(ingredients);
+        return model.computeTotalCost(ingredients);
     }
 }

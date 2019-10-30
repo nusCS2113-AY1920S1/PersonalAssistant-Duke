@@ -25,7 +25,7 @@ import static duke.logic.parser.commons.CliSyntax.PREFIX_ORDER_TOTAL;
  * A utility class for order parser.
  */
 class OrderParserUtil {
-    private static final double MAX_NUMBER = 5000.0;
+    private static final double MAX_NUMBER = 50000.0;
     private static final int MAX_NAME_LENGTH = 20;
     private static final int MAX_CONTACT_LENGTH = 20;
     private static final int MAX_REMARKS_LENGTH = 50;

@@ -4,6 +4,8 @@ import duke.commons.core.Message;
 import duke.commons.core.index.Index;
 import duke.logic.command.CommandResult;
 import duke.logic.command.exceptions.CommandException;
+import duke.logic.parser.commons.CliSyntax;
+import duke.logic.parser.commons.Prefix;
 import duke.model.Model;
 import duke.model.product.Product;
 
@@ -18,13 +20,16 @@ public class ShowProductCommand extends ProductCommand {
     public static final String MESSAGE_SHOW_PRODUCT_SUCCESS = "Showing product %s";
 
     public final Index index;
-    public final ProductDescriptor productDescriptor;
 
-    public ShowProductCommand(Index index, ProductDescriptor productDescriptor) {
-        requireAllNonNull(index, productDescriptor);
+    public static final String AUTO_COMPLETE_INDICATOR = ProductCommand.COMMAND_WORD + " " + COMMAND_WORD;
+    public static final Prefix[] AUTO_COMPLETE_PARAMETERS = {
+        CliSyntax.PREFIX_PRODUCT_INDEX,
+    };
+
+    public ShowProductCommand(Index index) {
+        requireAllNonNull(index);
 
         this.index = index;
-        this.productDescriptor = new ProductDescriptor(productDescriptor);
     }
     /**
      * Executes the command and returns the result message.
