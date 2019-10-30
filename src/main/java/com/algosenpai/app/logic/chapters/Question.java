@@ -6,7 +6,7 @@ import java.util.Random;
 
 public abstract class Question {
 
-    protected static Random random = new Random();
+    private static Random random = new Random();
 
     /**
      * Packages the question.
