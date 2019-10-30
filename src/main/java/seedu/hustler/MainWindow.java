@@ -4,10 +4,7 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -18,6 +15,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
+import seedu.hustler.game.achievement.Achievements;
 import seedu.hustler.logic.parser.DateTimeParser;
 import seedu.hustler.task.Reminders;
 
@@ -109,6 +107,20 @@ public class MainWindow extends AnchorPane{
     @FXML
     private FlowPane heading;
 
+    @FXML
+    private FlowPane pointBar;
+
+    @FXML
+    private Label pointLabel;
+
+    @FXML
+    private Label points;
+
+    @FXML
+    private ImageView medal;
+
+    @FXML
+    private GridPane pointGrid;
     /**
      * Initializes essential components to run Hustler.
      * @throws IOException if text area could not be found.
@@ -135,6 +147,12 @@ public class MainWindow extends AnchorPane{
         stackPane.getChildren().addAll(text);
         stackPane.prefWidthProperty().bind(welcomeScreen.widthProperty());
         welcomeScreen.getChildren().addAll(whiteSpace,stackPane);
+        rootPane.getChildren().remove(pointBar);
+        rootPane.getChildren().remove(medal);
+        rootPane.getChildren().remove(pointLabel);
+        pointGrid.getChildren().remove(points);
+        rootPane.getChildren().remove(pointGrid);
+
     }
 
     public void setHustler(Hustler h) {
@@ -196,6 +214,11 @@ public class MainWindow extends AnchorPane{
                 Hustler.run(input);
                 scrollPANEE.setContent(console);
                 console.prefHeightProperty().bind(scrollPANEE.heightProperty());
+                rootPane.getChildren().remove(pointBar);
+                rootPane.getChildren().remove(medal);
+                rootPane.getChildren().remove(pointLabel);
+                pointGrid.getChildren().remove(points);
+                rootPane.getChildren().remove(pointGrid);
             }
             userInput.clear();
             sendReleased();
@@ -223,8 +246,12 @@ public class MainWindow extends AnchorPane{
 
     @FXML
     public void taskAction() throws IOException{
-
         heading.getChildren().clear();
+        rootPane.getChildren().remove(pointBar);
+        rootPane.getChildren().remove(medal);
+        rootPane.getChildren().remove(pointLabel);
+        pointGrid.getChildren().remove(points);
+        rootPane.getChildren().remove(pointGrid);
         Text title1 = new Text("TASKS");
         title1.setFont(Font.font("Gill Sans", 15));
         title1.setFill(Color.GRAY);
@@ -373,7 +400,11 @@ public class MainWindow extends AnchorPane{
 
     @FXML
     public void taskCompletionModeAction() {
-
+        rootPane.getChildren().remove(pointBar);
+        rootPane.getChildren().remove(medal);
+        rootPane.getChildren().remove(pointLabel);
+        pointGrid.getChildren().remove(points);
+        rootPane.getChildren().remove(pointGrid);
         heading.getChildren().clear();
         Text title1 = new Text("TASK COMPLETION MODE");
         title1.setFont(Font.font("Gill Sans", 15));
@@ -428,6 +459,13 @@ public class MainWindow extends AnchorPane{
     @FXML
     public void achievementAction() throws IOException {
 
+
+        rootPane.getChildren().add(pointBar);
+        rootPane.getChildren().add(medal);
+        rootPane.getChildren().add(pointLabel);
+        points.setText(Integer.toString(Achievements.totalPoints));
+        pointGrid.getChildren().add(points);
+        rootPane.getChildren().add(pointGrid);
         heading.getChildren().clear();
         Text title1 = new Text("ACHIEVEMENTS");
         title1.setFont(Font.font("Gill Sans", 15));
@@ -579,8 +617,12 @@ public class MainWindow extends AnchorPane{
 
     @FXML
     public void statisticsAction() {
-
         heading.getChildren().clear();
+        rootPane.getChildren().remove(pointBar);
+        rootPane.getChildren().remove(medal);
+        rootPane.getChildren().remove(pointLabel);
+        pointGrid.getChildren().remove(points);
+        rootPane.getChildren().remove(pointGrid);
         Text title1 = new Text("STATISTICS");
         title1.setFont(Font.font("Gill Sans", 15));
         title1.setFill(Color.GRAY);
@@ -632,7 +674,11 @@ public class MainWindow extends AnchorPane{
 
     @FXML
     public void avatarAction() {
-
+        rootPane.getChildren().remove(pointBar);
+        rootPane.getChildren().remove(medal);
+        rootPane.getChildren().remove(pointLabel);
+        pointGrid.getChildren().remove(points);
+        rootPane.getChildren().remove(pointGrid);
         heading.getChildren().clear();
         Text title1 = new Text("AVATAR");
         title1.setFont(Font.font("Gill Sans", 15));
@@ -688,7 +734,11 @@ public class MainWindow extends AnchorPane{
 
     @FXML
     public void shopAction() {
-
+        rootPane.getChildren().remove(pointBar);
+        rootPane.getChildren().remove(medal);
+        rootPane.getChildren().remove(pointLabel);
+        pointGrid.getChildren().remove(points);
+        rootPane.getChildren().remove(pointGrid);
         heading.getChildren().clear();
         Text title1 = new Text("SHOP");
         title1.setFont(Font.font("Gill Sans", 15));
@@ -746,7 +796,11 @@ public class MainWindow extends AnchorPane{
 
     @FXML
     public void arenaAction() {
-
+        rootPane.getChildren().remove(pointBar);
+        rootPane.getChildren().remove(medal);
+        rootPane.getChildren().remove(pointLabel);
+        pointGrid.getChildren().remove(points);
+        rootPane.getChildren().remove(pointGrid);
         heading.getChildren().clear();
         Text title1 = new Text("ARENA");
         title1.setFont(Font.font("Gill Sans", 15));
@@ -799,7 +853,11 @@ public class MainWindow extends AnchorPane{
 
     @FXML
     public void settingsAction() {
-
+        rootPane.getChildren().remove(pointBar);
+        rootPane.getChildren().remove(medal);
+        rootPane.getChildren().remove(pointLabel);
+        pointGrid.getChildren().remove(points);
+        rootPane.getChildren().remove(pointGrid);
         heading.getChildren().clear();
         Text title1 = new Text("SETTINGS");
         title1.setFont(Font.font("Gill Sans", 15));
