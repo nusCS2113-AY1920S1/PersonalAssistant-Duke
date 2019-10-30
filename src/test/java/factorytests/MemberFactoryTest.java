@@ -60,7 +60,33 @@ public class MemberFactoryTest {
     void memberCreation_wrongInputs_creationFailed() {
         simulatedFactoryInput = "-i 12341234 -x 1";
         IMember simulatedMember = memberFactory.create(simulatedFactoryInput);
-        NullMember expectedMember = new NullMember();
+        NullMember expectedMember = new NullMember("Name cannot be empty! Please follow the add command "
+                                    + "format in user guide! \"add member -n NAME\" "
+                                    + "is the minimum requirement for add member command");
+        assertEquals(expectedMember.getDetails(), simulatedMember.getDetails());
+        assertEquals(expectedMember.getIndexNumber(), simulatedMember.getIndexNumber());
+        assertEquals(expectedMember.getName(), simulatedMember.getName());
+    }
+
+    @Test
+    void memberCreation_truncatedInputs_exceptionCaught() {
+        simulatedFactoryInput = "-n -x 1";
+        IMember simulatedMember = memberFactory.create(simulatedFactoryInput);
+        NullMember expectedMember = new NullMember("Name cannot be empty! Please follow the add command "
+                                    + "format in user guide! \"add member -n NAME\" is the minimum requirement for "
+                                    + "add member command");
+        assertEquals(expectedMember.getDetails(), simulatedMember.getDetails());
+        assertEquals(expectedMember.getIndexNumber(), simulatedMember.getIndexNumber());
+        assertEquals(expectedMember.getName(), simulatedMember.getName());
+    }
+
+    @Test
+    void memberCreation_missingFlags_exceptionCaught() {
+        simulatedFactoryInput = "- -x 0";
+        IMember simulatedMember = memberFactory.create(simulatedFactoryInput);
+        NullMember expectedMember =  new NullMember("Name cannot be empty! Please follow the add command "
+                                    + "format in user guide! \"add member -n NAME\" is the minimum requirement for "
+                                    + "add member command");
         assertEquals(expectedMember.getDetails(), simulatedMember.getDetails());
         assertEquals(expectedMember.getIndexNumber(), simulatedMember.getIndexNumber());
         assertEquals(expectedMember.getName(), simulatedMember.getName());

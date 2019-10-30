@@ -1,10 +1,15 @@
 package models.member;
 
 public class NullMember implements IMember {
+    private String errorMessage;
+
+    public NullMember(String errorMessage) {
+        this.errorMessage = errorMessage;
+    }
 
     @Override
     public String getDetails() {
-        return null;
+        return errorMessage;
     }
 
     @Override

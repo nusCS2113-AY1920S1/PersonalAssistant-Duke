@@ -21,7 +21,7 @@ public class MemberFactory implements IArchDukeFactory<IMember> {
         String[] memberDetails = this.parserHelper.parseMemberDetails(input);
         boolean isNameCreated = false;
         String name = memberDetails[0];
-        if (!("--").equals(name)) {
+        if (!("--").equals(name) && !("").equals(name)) {
             isNameCreated = true;
         }
         String phone = memberDetails[1];
@@ -31,7 +31,8 @@ public class MemberFactory implements IArchDukeFactory<IMember> {
         if (isNameCreated) {
             return new Member(name, phone, email, index, role);
         } else {
-            return new NullMember();
+            return new NullMember("Name cannot be empty! Please follow the add command format in user "
+                                  + "guide! \"add member -n NAME\" is the minimum requirement for add member command");
         }
     }
 }
