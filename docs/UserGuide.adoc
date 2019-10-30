@@ -117,7 +117,7 @@ Examples:
   
 === 3A.7 Reminders : `/remind`
 
-Reminds the user when there is only one day left for tasks/events. +
+Reminds the user a task is overdue or when there is only one day or 30 mins left for tasks/events. +
 Format: `/remind`
 
 === 3A.8 Viewing my Schedule : `/show`
