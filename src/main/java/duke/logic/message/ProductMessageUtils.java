@@ -13,5 +13,8 @@ public class ProductMessageUtils {
     public static final String MESSAGE_COMMIT_DELETE_PRODUCT = "Delete product(s)";
     public static final String MESSAGE_COMMIT_EDIT_PRODUCT = "Edit product(s)";
     public static final String MESSAGE_PORTION_NOT_NUMBER = "Ingredient portion must be a number";
-    public static final String MESSAGE_UNRECOGNIZED_COMMAND = "This is an unknown command.";
+    public static final String MESSAGE_MISSING_KEYWORD = "A keyword must be specified";
+    public static final String MESSAGE_MISSING_SEARCH_PREFIX = "You can use -include prefix to specify a "
+            + "keyword";
+    public static final String MESSAGE_SEARCH_PRODUCT_SHOWN = "Products containing keyword \" %s \" shown";
 }

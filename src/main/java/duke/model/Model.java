@@ -164,9 +164,17 @@ public interface Model {
     /**
      * Returns an unmodifiable view of the filtered product list.
      */
-    ObservableList<Product> getFilteredProductList(); //implement archive
+    ObservableList<Product> getFilteredProductList();
 
+    /**
+     * Updates the product list with the given predicate
+     */
     void updateFilteredProductList(Predicate<Product> predicate);
+
+    /**
+     * Returns a predicate that filters product containing the given keyword.
+     */
+    void getProductWithKeyword(String keyword);
 
     //========Sale operations=========
 
