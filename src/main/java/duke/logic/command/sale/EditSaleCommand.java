@@ -31,7 +31,7 @@ public class EditSaleCommand extends SaleCommand {
     private final Index index;
     private final SaleDescriptor saleDescriptor;
 
-    public static final String AUTO_COMPLETE_INDICATOR = SaleCommand.COMMAND_WORD + COMMAND_WORD;
+    public static final String AUTO_COMPLETE_INDICATOR = SaleCommand.COMMAND_WORD + " " + COMMAND_WORD;
     public static final Prefix[] AUTO_COMPLETE_PARAMETERS = {
         PREFIX_SALE_DESCRIPTION,
         PREFIX_SALE_VALUE,
