@@ -17,7 +17,7 @@ public class ProductParserUtil {
     public static ProductDescriptor createProductDescriptor(ArgumentMultimap map) {
         ProductDescriptor productDescriptor = new ProductDescriptor();
 
-        if (! map.getValue(PREFIX_PRODUCT_NAME).isPresent()) {
+        if (!map.getValue(PREFIX_PRODUCT_NAME).isPresent()) {
             throw new ParseException(ProductMessageUtils.MESSAGE_MISSING_PRODUCT_NAME);
         }
         String name = map.getValue(PREFIX_PRODUCT_NAME).get();

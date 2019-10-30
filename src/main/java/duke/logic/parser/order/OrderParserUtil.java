@@ -52,7 +52,7 @@ class OrderParserUtil {
         if (map.getValue(PREFIX_CUSTOMER_CONTACT).isPresent()) {
             String value = map.getValue(PREFIX_CUSTOMER_CONTACT).get();
             checkStringLength(value, MAX_CONTACT_LENGTH, MESSAGE_CONTACT_EXCEED_LIMIT);
-            descriptor.setCustomerName(value);
+            descriptor.setCustomerContact(value);
         }
         if (map.getValue(PREFIX_ORDER_DEADLINE).isPresent()) {
             descriptor.setDeliveryDate(TimeParser.convertStringToDate(

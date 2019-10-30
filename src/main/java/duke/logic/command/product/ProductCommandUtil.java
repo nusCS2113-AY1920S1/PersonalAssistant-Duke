@@ -66,7 +66,9 @@ public class ProductCommandUtil {
         }
     }
 
-    /** Calculates the default Ingredient cost of a product using ingredients in the product. */
+    /**
+     * Calculates the default Ingredient cost of a product using ingredients in the product.
+     */
     public static Double getIngredientCost(Model model, Product product) {
         requireNonNull(product);
         IngredientItemList ingredients = product.getIngredients();
