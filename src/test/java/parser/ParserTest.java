@@ -34,19 +34,19 @@ import static parser.Parser.parseEdit;
 
 class ParserTest {
 
-    private final static String addInput = "add w/happy m/clap along friends";
-    private final static String deleteInput = "delete w/happy";
-    private final static String searchInput = "search w/happy";
-    private final static String listInput = "list";
-    private final static String historyInput = "history 5";
-    private final static String freqInput = "freq o/asc";
-    private final static String editInput = "edit w/happy m/new";
-    private final static String tagInput = "tag w/happy t/emotion";
-    private final static String quizInput = "quiz";
-    private final static String reminderInput = "schedule";
-    private final static String searchBeginInput = "search_begin w/a";
-    private final static String exitInput = "exit";
-    private final static String helpInput = "help";
+    private static final String addInput = "add w/happy m/clap along friends";
+    private static final String deleteInput = "delete w/happy";
+    private static final String searchInput = "search w/happy";
+    private static final String listInput = "list";
+    private static final String historyInput = "history 5";
+    private static final String freqInput = "freq o/asc";
+    private static final String editInput = "edit w/happy m/new";
+    private static final String tagInput = "tag w/happy t/emotion";
+    private static final String quizInput = "quiz";
+    private static final String reminderInput = "schedule";
+    private static final String searchBeginInput = "search_begin w/a";
+    private static final String exitInput = "exit";
+    private static final String helpInput = "help";
 
 
     @Test
