@@ -2,12 +2,11 @@ package com.algosenpai.app.logic.command;
 
 import com.algosenpai.app.logic.models.QuestionModel;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class ReviewCommand extends Command {
 
-    ArrayList<QuestionModel> quizList;
+    private ArrayList<QuestionModel> quizList;
 
     /**
      * Create new command.
@@ -21,7 +20,11 @@ public class ReviewCommand extends Command {
     }
 
     @Override
-    public String execute() throws IOException {
-        return quizList.get(Integer.parseInt(inputs.get(1))).getRtlm().toString();
+    public String execute() {
+        if (this.quizList.isEmpty()) {
+            return "There is no current quiz available!";
+        }
+        int index = Integer.parseInt(inputs.get(1));
+        return quizList.get(index).getRtlm().toString();
     }
 }

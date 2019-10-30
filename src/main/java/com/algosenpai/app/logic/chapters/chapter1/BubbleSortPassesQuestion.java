@@ -27,6 +27,21 @@ public class BubbleSortPassesQuestion extends Question {
         answer = initialArray.toString();
     }
 
+    /**
+     * This is used for testing.
+     * @param arraySize The given array size.
+     * @param initialArray The actual array.
+     * @param passes The number of passes to be carried out.
+     */
+    public BubbleSortPassesQuestion(int arraySize, ArrayList<Integer> initialArray,int passes) {
+        this.arraySize = arraySize;
+        this.initialArray = initialArray;
+        this.passes = passes;
+        questionFormatter();
+        bubbleSort(initialArray, passes);
+        answer = initialArray.toString();
+    }
+
     @Override
     public void questionFormatter() {
         question = "An array of " + arraySize + " elements underwent the following Bubble Sort Algorithm : "
@@ -60,14 +75,19 @@ public class BubbleSortPassesQuestion extends Question {
      */
     private static void bubbleSort(ArrayList<Integer> arr, int passes) {
         for (int i = 0; i < passes; i++) {
+            rtlm.addReviewTracingModel("Pass" + (i + 1) + " : ");
             for (int j = 0; j < arr.size() - 1 - i; j++) {
                 int first = arr.get(j);
                 int second = arr.get(j + 1);
                 if (first > second) {
+                    rtlm.addReviewTracingModel("Since " + first + " is smaller than " + second + ", swap.");
                     arr.set(j, second);
                     arr.set(j + 1, first);
+                } else {
+                    rtlm.addReviewTracingModel("Since " + first + "is larger than " + second + ", ignore.");
                 }
             }
+            rtlm.addReviewTracingModel("This is the array after " + (i + 1) + " pass");
         }
     }
 }
