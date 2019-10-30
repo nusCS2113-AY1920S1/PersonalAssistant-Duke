@@ -26,7 +26,7 @@ Command format:
 - Each command is not case sensitive.
 
 
-### Listing all tasks : `list`
+### 3.0 Listing all tasks : `list`
 
 Shows a list of all tasks in the task scheduler. <br />
 Format: `list`
@@ -112,7 +112,7 @@ Example:<br />
 `Delete 3`
 
 
-### Postponing a task : `postpone`
+## 3.2 Postponing a task : `postpone`
 
 Edits an existing task in the task scheduler to a different date. <br />
 Format: `postpone INDEX DATE_TIME`
@@ -125,7 +125,7 @@ Examples:
 * `postpone 1 25/09/2019 1500`
 * `postpone 5 27/09/2019 0900 - 03/10/2019 2359`
 
-### Searching for a free timeslot: 'search'
+## 3.3 Searching for a free timeslot: 'search'
 
 Finds a timeslot that spans the specified period.
 Format: `search PERIOD UNIT_OF_TIME`
@@ -141,3 +141,58 @@ Examples:
 Expected outcome:
 
 `You can schedule something after [E][X] Dinner (at: 24/09/2019 1800 - 24/09/2019 1930)`
+
+## 3.4 Undo and Redo commands
+### 3.4.1) Undo: 'undo'
+
+Any changes made to the tasks, such as adding and deleting will be undone and the task manager will revert to a previous state.
+Format: `undo`
+- Simply use normal short-cut of ctrl+z to perform an undo. (*v1.4)*
+- If there are no more undo commands possible, the user will be notified.
+
+Expected outcome:
+
+`undo was successful`
+
+### 3.4.2) Redo: 'redo'
+
+Any changes made to the tasks by an undo command, will be reversed and reverted back to the state before the undo command was executed.
+Format: `undo`
+- Simply use normal short-cut of ctrl+z to perform an undo. (*v1.4)*
+- If there are no more redo commands possible, the user will be notified.
+
+Expected outcome:
+
+`redo was successful`
+
+### 3.4.3) History feature: 'undo'
+
+The last 5 changes from a particular usage will be stored into persistent storage, to allow the user to undo from launch of Chronologer.
+Format: `undo`
+- Simply use normal short-cut of ctrl+z to perform an undo. *(v1.4)*
+- If there are no more redo commands possible, the user will be notified.
+
+Expected outcome:
+
+`undo was successful.`
+
+### 3.4.4) *(v1.4)* The History (version storage): 'save state'
+
+This allows the user to store 3 versions of the task manager at any one time.
+Format: `save state`
+If there are no states saved, or 3 versions already saved, the user will be notified.
+The last 5 changes from a particular usage will be stored into persistent storage, to allow the user to undo from launch of Chronologer.
+
+Expected outcome:
+
+`state was saved successfully`
+
+### 3.4.5) *(v1.4)* The History (version storage): 'change state'
+
+This allows the user to change to any of 3 versions of the task manager stored on the system and use it.
+Format: `change to state 3`
+If there are no states saved, or 3 versions already saved, the user will be notified.
+
+Expected outcome:
+
+`changed to state 3.`
