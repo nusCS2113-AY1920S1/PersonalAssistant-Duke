@@ -34,13 +34,13 @@ public class DeleteRoomCommand extends Command {
 
     /**
      * Executes the command to delete a room from room list to the system.
-     * @param roomList
+     * @param roomList room list
      * @param bookingList bookings list
      * @param ui user interface
      * @param bookingStorage handles read write of text file
-     * @param roomStorage
+     * @param roomStorage handles read write of text file for room storge
      * @param user Current user
-     * @throws DukeException
+     * @throws DukeException for wrong user input format
      */
     @Override
     public void execute(RoomList roomList, BookingList bookingList, Ui ui, Storage bookingStorage,

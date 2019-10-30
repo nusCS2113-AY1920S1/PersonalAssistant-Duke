@@ -33,7 +33,8 @@ public class ListBox extends HBox {
      * @param timeEnd end time
      * @param status approve/reject status
      */
-    public ListBox(String index, String name, String venue, String date, String timeStart, String timeEnd, String status) {
+    public ListBox(String index, String name, String venue, String date, String timeStart,
+                   String timeEnd, String status) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Ui.class.getResource("/view/ListBox.fxml"));
             fxmlLoader.setController(this);
