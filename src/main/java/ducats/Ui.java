@@ -406,4 +406,27 @@ public class Ui {
         }
         return wrap(output);
     }
+
+    //@@author rohan-av
+    /**
+     * Returns an output String that provides the user with feedback regarding the creation of a new Metronome.
+     *
+     * @param duration the duration of the metronome (in number of bars)
+     * @param tempo the tempo of the metronome
+     * @param timeSig the time signature of the metronome
+     * @return the formatted String to be displayed
+     */
+    public String formatMetronome(int duration, int tempo, int[] timeSig) {
+        StringBuilder result = new StringBuilder();
+        result.append("Metronome initialized with a duration of ")
+                .append(duration)
+                .append(" bars, a tempo of ")
+                .append(tempo)
+                .append(" and a ")
+                .append(timeSig[0])
+                .append("/")
+                .append(timeSig[1])
+                .append(" time signature.");
+        return wrap(result.toString());
+    }
 }

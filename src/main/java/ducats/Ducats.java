@@ -13,14 +13,16 @@ import ducats.commands.GroupCommand;
 import ducats.commands.HelpCommand;
 import ducats.commands.ListCommand;
 import ducats.commands.NewCommand;
+import ducats.commands.OpenCommand;
+import ducats.commands.OverlayBarGroup;
+import ducats.commands.OverlayBarSong;
+import ducats.commands.OverlayGroupGroup;
 import ducats.commands.RedoCommand;
 import ducats.commands.UndoCommand;
 import ducats.commands.ViewCommand;
 import ducats.components.SongList;
-import ducats.commands.OverlayBarGroup;
-import ducats.commands.OverlayBarSong;
 import ducats.components.UndoRedoStack;
-import ducats.commands.OverlayGroupGroup;
+
 import java.nio.file.Paths;
 
 public class Ducats {
@@ -32,6 +34,7 @@ public class Ducats {
     private SongList songs;
     private Ui ui;
     private UndoRedoStack undoRedoStack;
+    private Metronome metronome;
 
     /**
      * Constructor for the duke.Duke object, which initializes the UI, duke.TaskList and duke.Storage in
@@ -43,6 +46,7 @@ public class Ducats {
 
         //storage = new Storage(Paths.get("/home/rishi/Desktop/cs2113t/team/main/data/todo_list.txt"));
         storage = new Storage(Paths.get("data", "songlist.txt"));
+        metronome = new Metronome();
         try {
             storage.loadToList(songs);
         } catch (DucatsException e) {
@@ -78,6 +82,7 @@ public class Ducats {
                         || c instanceof ListCommand
                         || c instanceof OverlayBarGroup
                         || c instanceof OverlayBarSong
+                        || c instanceof OpenCommand
                         || c instanceof AsciiCommand
                         || c instanceof OverlayGroupGroup) {
                     output = c.execute(songs, ui, storage);
@@ -93,6 +98,7 @@ public class Ducats {
                     output = c.execute(songs, ui, storage);
                 }
                 System.out.println(output);
+                metronome.start(c.startMetronome());
                 isExit = c.isExit();
             } catch (DucatsException e) {
                 System.out.println(ui.showError(e));
