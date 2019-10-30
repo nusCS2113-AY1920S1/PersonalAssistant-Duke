@@ -80,23 +80,23 @@ public class ProjectInputController implements IController {
                 responseToView = projectExit(projectToManage);
             } else if (projectFullCommand.matches("add member.*")) {
                 responseToView =  projectAddMember(projectToManage, projectFullCommand);
-                jsonConverter.saveProject(projectToManage);
+                // jsonConverter.saveProject(projectToManage);
             } else if (projectFullCommand.matches("edit member.*")) {
                 responseToView = projectEditMember(projectToManage, projectFullCommand);
-                jsonConverter.saveProject(projectToManage);
+                // jsonConverter.saveProject(projectToManage);
             } else if (projectFullCommand.matches("delete member.*")) {
                 responseToView = projectDeleteMember(projectToManage, projectFullCommand);
-                jsonConverter.saveProject(projectToManage);
+                // jsonConverter.saveProject(projectToManage);
             } else if (projectFullCommand.matches("view members.*")) {
-                responseToView = projectViewMembers(projectToManage);
+                // responseToView = projectViewMembers(projectToManage);
             } else if (projectFullCommand.matches("role.*")) {
                 responseToView = projectRoleMembers(projectToManage, projectFullCommand);
-                jsonConverter.saveProject(projectToManage);
+                // jsonConverter.saveProject(projectToManage);
             } else if (projectFullCommand.matches("view credits.*")) {
                 responseToView = projectViewCredits(projectToManage);
             } else if (projectFullCommand.matches("add task.*")) {
                 responseToView = projectAddTask(projectToManage, projectFullCommand);
-                jsonConverter.saveProject(projectToManage);
+                // jsonConverter.saveProject(projectToManage);
             } else if (projectFullCommand.matches("view tasks.*")) {
                 responseToView = projectViewTasks(projectToManage, projectFullCommand);
             } else if (projectFullCommand.matches("view assignments.*")) {
@@ -105,19 +105,19 @@ public class ProjectInputController implements IController {
                 responseToView = projectViewTaskRequirements(projectToManage, projectFullCommand);
             } else if (projectFullCommand.matches("edit task requirements.*")) {
                 responseToView = projectEditTaskRequirements(projectToManage, projectFullCommand);
-                jsonConverter.saveProject(projectToManage);
+                // jsonConverter.saveProject(projectToManage);
             } else if (projectFullCommand.matches("edit task.*")) {
-                jsonConverter.saveProject(projectToManage);
                 responseToView = projectEditTask(projectToManage, projectFullCommand);
+                // jsonConverter.saveProject(projectToManage);
             } else if (projectFullCommand.matches("delete task.*")) {
                 responseToView = projectDeleteTask(projectToManage, projectFullCommand);
-                jsonConverter.saveProject(projectToManage);
+                // jsonConverter.saveProject(projectToManage);
             } else if (projectFullCommand.matches("assign task.*")) {
                 responseToView = projectAssignTask(projectToManage, projectFullCommand);
-                jsonConverter.saveProject(projectToManage);
+                // jsonConverter.saveProject(projectToManage);
             } else if (projectFullCommand.matches("add reminder.*")) {
                 responseToView = projectAddReminder(projectToManage,projectFullCommand);
-                jsonConverter.saveProject(projectToManage);
+                // jsonConverter.saveProject(projectToManage);
             } else if (projectFullCommand.matches("bye")) {
                 return end();
             } else {
@@ -352,8 +352,10 @@ public class ProjectInputController implements IController {
         assignmentController.assignAndUnassign(projectCommand.substring(12));
         ArrayList<String> errorMessages = assignmentController.getErrorMessages();
         ArrayList<String> successMessages = assignmentController.getSuccessMessages();
-        errorMessages.addAll(successMessages);
-        return errorMessages.toArray(new String[0]);
+        if (!errorMessages.isEmpty()) {
+            return errorMessages.toArray(new String[0]);
+        }
+        return successMessages.toArray(new String[0]);
     }
 
     /**
