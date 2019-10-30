@@ -14,7 +14,6 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
-import seedu.hustler.game.achievement.Achievements;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -83,8 +82,6 @@ public class MainWindow extends AnchorPane{
     @FXML
     private ImageView swords;
 
-    @FXML
-    private ImageView gear;
 
     @FXML
     private AnchorPane rootPane;
@@ -384,7 +381,6 @@ public class MainWindow extends AnchorPane{
         profile.setEffect(null);
         trolley.setEffect(null);
         swords.setEffect(null);
-        gear.setEffect(null);
 
         task.setStyle("-fx-background-color:#243342");
         taskCompletionMode.setStyle("-fx-background-color:#34495E");
@@ -445,7 +441,6 @@ public class MainWindow extends AnchorPane{
         profile.setEffect(null);
         trolley.setEffect(null);
         swords.setEffect(null);
-        gear.setEffect(null);
 
         task.setStyle("-fx-background-color:#34495E");
         taskCompletionMode.setStyle("-fx-background-color:#243342");
@@ -474,12 +469,12 @@ public class MainWindow extends AnchorPane{
     public void achievementAction() throws IOException {
 
 
-        rootPane.getChildren().add(pointBar);
-        rootPane.getChildren().add(medal);
-        rootPane.getChildren().add(pointLabel);
-        points.setText(Integer.toString(Achievements.totalPoints));
-        pointGrid.getChildren().add(points);
-        rootPane.getChildren().add(pointGrid);
+//        rootPane.getChildren().add(pointBar);
+//        rootPane.getChildren().add(medal);
+//        rootPane.getChildren().add(pointLabel);
+//        points.setText(Integer.toString(Achievements.totalPoints));
+//        pointGrid.getChildren().add(points);
+//        rootPane.getChildren().add(pointGrid);
         heading.getChildren().clear();
         Text title1 = new Text("ACHIEVEMENTS");
         title1.setFont(Font.font("Gill Sans", 15));
@@ -609,7 +604,6 @@ public class MainWindow extends AnchorPane{
         profile.setEffect(null);
         trolley.setEffect(null);
         swords.setEffect(null);
-        gear.setEffect(null);
 
         task.setStyle("-fx-background-color:#34495E");
         taskCompletionMode.setStyle("-fx-background-color:#34495E");
@@ -670,7 +664,6 @@ public class MainWindow extends AnchorPane{
         profile.setEffect(null);
         trolley.setEffect(null);
         swords.setEffect(null);
-        gear.setEffect(null);
 
         task.setStyle("-fx-background-color:#34495E");
         taskCompletionMode.setStyle("-fx-background-color:#34495E");
@@ -730,7 +723,6 @@ public class MainWindow extends AnchorPane{
         profile.setEffect(color);
         trolley.setEffect(null);
         swords.setEffect(null);
-        gear.setEffect(null);
 
         task.setStyle("-fx-background-color:#34495E");
         taskCompletionMode.setStyle("-fx-background-color:#34495E");
@@ -790,7 +782,6 @@ public class MainWindow extends AnchorPane{
         profile.setEffect(null);
         trolley.setEffect(color);
         swords.setEffect(null);
-        gear.setEffect(null);
 
         task.setStyle("-fx-background-color:#34495E");
         taskCompletionMode.setStyle("-fx-background-color:#34495E");
@@ -853,7 +844,6 @@ public class MainWindow extends AnchorPane{
         profile.setEffect(null);
         trolley.setEffect(null);
         swords.setEffect(color);
-        gear.setEffect(null);
 
         task.setStyle("-fx-background-color:#34495E");
         taskCompletionMode.setStyle("-fx-background-color:#34495E");
