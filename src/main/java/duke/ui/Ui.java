@@ -78,25 +78,6 @@ public class Ui {
     }
 
     //@@author gervaiseang
-
-    /**
-     * Outputs all the reminders of the user.
-     *
-     * @param tasks The task list that contains all reminders.
-     */
-/*    public static void showReminder(TaskList tasks) {
-        ArrayList<Task> taskList = tasks.getTasks();
-        System.out.println("     You currently have these upcoming tasks:\n");
-        int currentIndex = ONE;
-        for (Task remaining: taskList) {
-            remaining.isTriggerReminder();
-            System.out.println("     " + currentIndex + "." + remaining.toString());
-            currentIndex += ONE;
-        }
-        System.out.println(LINE);
-    }*/
-
-    //@@author gervaiseang
     /**
      * Outputs task that is successfully sets a reminder to the user (GUI).
      *
