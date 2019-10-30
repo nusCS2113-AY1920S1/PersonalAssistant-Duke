@@ -48,4 +48,6 @@ public abstract class Record {
     public double getAmount() {
         return amount;
     }
+
+    public abstract String amountToMoney();
 }

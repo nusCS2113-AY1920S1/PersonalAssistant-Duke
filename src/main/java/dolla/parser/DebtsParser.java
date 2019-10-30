@@ -1,16 +1,10 @@
 package dolla.parser;
 
 import dolla.Time;
+import dolla.command.*;
+import dolla.task.Bill;
 import dolla.ui.DebtUi;
 import dolla.action.Repeat;
-import dolla.command.Command;
-import dolla.command.AddActionCommand;
-import dolla.command.ShowListCommand;
-import dolla.command.ErrorCommand;
-import dolla.command.AddDebtsCommand;
-import dolla.command.SortCommand;
-import dolla.command.SearchCommand;
-import dolla.command.RemoveCommand;
 
 //@@author tatayu
 /**
@@ -48,6 +42,14 @@ public class DebtsParser extends Parser {
                 return new ErrorCommand();
             }
             return processAdd(type, name, amount);
+        } else if (commandToRun.equals("bill")) {
+            String type = inputArray[0];
+            int people = Integer.parseInt(inputArray[1]);
+            double amount = stringToDouble(inputArray[2]);
+
+            return new AddBillCommand(type, people, amount);
+        } else if (commandToRun.equals("bills")) {
+            return null;//bill list???
         } else if (commandToRun.equals("search")) {
             String component = inputArray[1];
             String content = inputArray[2];

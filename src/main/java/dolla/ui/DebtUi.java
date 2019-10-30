@@ -1,5 +1,7 @@
 package dolla.ui;
 
+import javax.rmi.ssl.SslRMIClientSocketFactory;
+
 //@@author: tatayu
 public class DebtUi extends Ui {
 
@@ -10,6 +12,12 @@ public class DebtUi extends Ui {
         System.out.println(line);
         System.out.println("\tplease follow the format "
                 + "'owe(/borrow) [NAME] [AMOUNT] [DESCRIPTION] /due [DURATION] {/tag [TAGNAME]}'");
+        System.out.println(line);
+    }
+
+    public static void printAverageAmount(int people, double amount) {
+        System.out.println((line));
+        System.out.println("Here is the bill per person after splitting: " + "$" + amount/people);
         System.out.println(line);
     }
 }
