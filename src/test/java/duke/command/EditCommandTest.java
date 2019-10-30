@@ -6,22 +6,25 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.Month;
+import java.util.ArrayList;
 import java.util.Optional;
-
-import org.junit.jupiter.api.Test;
 
 import duke.exception.DukeException;
 import duke.extensions.Recurrence;
 import duke.parser.EditCommandParser;
+import duke.parser.KeywordAndField;
 import duke.storage.Storage;
+import duke.storage.UndoStack;
 import duke.task.Task;
 import duke.tasklist.TaskList;
 import duke.ui.Ui;
+import org.junit.jupiter.api.Test;
 
 public class EditCommandTest {
     private static final String FILE_PATH = "data/editCommandTest.json";
 
     private static final Ui ui = new Ui();
+    private static final UndoStack undoStack = new UndoStack();
     private static final Storage storage = new Storage(FILE_PATH);
 
 
@@ -178,4 +181,18 @@ public class EditCommandTest {
                 editCommand.execute(tasks, ui, storage));
         assertEquals("Please enter a valid recurrence period!", exception.getMessage());
     }
+
+    @Test
+    void savePrevStateTest() throws DukeException {
+        TaskList tasks = createTaskList();
+
+        EditCommand editCommand = new EditCommand(Optional.empty(), 2, new ArrayList<KeywordAndField>());
+        editCommand.savePrevState(tasks, undoStack);
+        Task expectedTask = tasks.get(2);
+        Command expectedCommand = new SetCommand(Optional.empty(), 2, expectedTask);
+        Command actualCommand = undoStack.retrieveRecent();
+        //assertEquals(expectedCommand, actualCommand);
+        //No idea what to assert to test this TODO?
+    }
+
 }
