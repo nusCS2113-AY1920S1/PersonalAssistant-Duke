@@ -130,26 +130,9 @@ public class TaskList {
      *
      * @param filter the filter predicate for each task
      * @param index the index of the task as seen by the user in the TaskList printed
-     * @throws DukeException
      */
     public void remove(Optional<String> filter, int index) throws DukeException {
-        int counter = -1;
-        if (filter.isPresent()) {
-            for (int i = 0; i < taskList.size(); i++) {
-                Task t = taskList.get(i);
-                if (t.getFilter().equals(filter)) {
-                    counter++;
-                }
-                if (counter == index - 1) {
-                    taskList.remove(i);
-                    return;
-                }
-            }
-        } else {
-            taskList.remove(index - 1);
-            return;
-        }
-        throw new DukeException("Index not found");
+        taskList.remove(reduceFilter(filter, index));
     }
 
     /**
@@ -244,9 +227,8 @@ public class TaskList {
      * @throws DukeException if an invalid index is given
      */
     public void set(Optional<String> filter, int index, Task t) throws DukeException {
-        int i = reduceFilter(filter, index);
-        taskList.remove(i);
-        taskList.add(i, t);
+        remove(filter, index);
+        insert(filter, index, t);
     }
 
     /**
