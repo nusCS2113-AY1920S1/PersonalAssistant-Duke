@@ -2,6 +2,7 @@ package dolla.parser;
 
 import dolla.Tag;
 import dolla.command.Command;
+import dolla.command.InitialModifyCommand;
 import dolla.command.SearchCommand;
 import dolla.command.SortCommand;
 import dolla.command.AddLimitCommand;
@@ -65,6 +66,14 @@ public class LimitParser extends Parser {
             }
             return new RemoveLimitCommand(limitType, duration);
          */
+        } else if (commandToRun.equals(COMMAND_MODIFY)) {
+            if (verifyModifyCommand()) {
+                // TODO: Update when ready
+                //return new InitialModifyCommand(inputArray[1]);
+                return new ErrorCommand();
+            } else {
+                return new ErrorCommand();
+            }
         } else if (commandToRun.equals(COMMAND_SEARCH)) {
             String component = inputArray[1];
             String content = inputArray[2];
