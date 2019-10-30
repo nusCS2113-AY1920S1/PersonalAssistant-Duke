@@ -57,7 +57,7 @@ public class ReminderCommand extends Command{
             Date expiryDate = food.getExpiryDate();
             int stock = food.getStock();
 
-            if (expiryDate != null && expiryDate.before(cal.getTime())) {
+            if (expiryDate != null && expiryDate.before(cal.getTime()) && expiryDate.after(new Date())) {
                 expiryReminder.add(food);
             }
 
