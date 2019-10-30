@@ -62,17 +62,22 @@ public class TaskList {
         } else {
             ArrayList<String> allTaskDetails = this.parserHelper.parseSortTaskDetails(tasksAndAssignedMembers,
                     taskList, sortCriteria);
+            if (sortCriteria.substring(0, 5).equals("/WHO-") && allTaskDetails.size() == 0) {
+                allTaskDetailsForTable.add(" - There are no tasks assigned to " + sortCriteria.substring(5) + "! -");
+            } else if ("/DATE".equals(sortCriteria) && allTaskDetails.size() == 0) {
+                allTaskDetailsForTable.add(" - There are no tasks with deadlines! -");
+            } else {
+                for (String s : allTaskDetails) {
+                    String[] indivTaskDetails = s.split(" [|] ");
+                    allTaskDetailsForTable.add(indivTaskDetails[0]);
 
-            for (String s : allTaskDetails) {
-                String[] indivTaskDetails = s.split(" [|] ");
-                allTaskDetailsForTable.add(indivTaskDetails[0]);
-
-                for (int i = 1; i < indivTaskDetails.length; i++) {
-                    allTaskDetailsForTable.add("   - " + indivTaskDetails[i]);
+                    for (int i = 1; i < indivTaskDetails.length; i++) {
+                        allTaskDetailsForTable.add("   - " + indivTaskDetails[i]);
+                    }
+                    allTaskDetailsForTable.add("");
                 }
-                allTaskDetailsForTable.add("");
+                allTaskDetailsForTable.remove(allTaskDetailsForTable.size() - 1);
             }
-            allTaskDetailsForTable.remove(allTaskDetailsForTable.size() - 1);
         }
         return allTaskDetailsForTable;
     }
