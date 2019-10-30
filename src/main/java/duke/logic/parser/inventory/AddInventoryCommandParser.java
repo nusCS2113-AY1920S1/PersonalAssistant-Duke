@@ -27,6 +27,10 @@ public class AddInventoryCommandParser implements Parser<AddInventoryCommand> {
                 PREFIX_INVENTORY_REMARKS
         );
 
+        if (map.getValue(PREFIX_INVENTORY_QUANTITY).isPresent()) {
+            InventoryParserUtil.checkValidQuantity(map.getValue(PREFIX_INVENTORY_QUANTITY).get());
+        }
+
         Ingredient ingredient = new Ingredient(
                 StringUtils.capitalize(map.getValue(PREFIX_INVENTORY_NAME).orElse(EMPTY_STRING).toLowerCase()),
                 map.getValue(PREFIX_INVENTORY_REMARKS).orElse(EMPTY_STRING)
