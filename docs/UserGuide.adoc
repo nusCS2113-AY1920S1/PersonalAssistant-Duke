@@ -188,7 +188,7 @@ User's hero run animation will be played on the screen.
 
 === 3B.4 Timer : `/timer` +
 
-Starts a exitable countdown that can be paused and resumed. +
+Starts a exitable countdown that can be paused and resumed. Upon starting a new timer, HUSTLER recommends some tasks for doing depending on the amount of time set. +
 Format: `/timer HH MM SS`
 
 ****
