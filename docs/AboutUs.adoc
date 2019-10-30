@@ -32,6 +32,6 @@ image::nimiew.png[width="150", align="left"]
 {empty}[https://github.com/nimiew[github]] 
 
 Role: Developer +
-Responsibilities: Unit Tests, Logic, Github Management
+Responsibilities: Unit Tests, Logic, Github Expert
 
 '''
