@@ -184,4 +184,23 @@ public class Food {
 				"\n  Expiry Date: " + expiryDate;
 	}
 
+	@Override
+	// for Junit test use
+	public boolean equals(Object other) {
+		if (other == this) {
+			return true;
+		}
+		if (other instanceof Food) {
+			Food b = (Food) other;
+			return name.equals(b.name)
+					&& ((type == null && b.type == null) || (type != null && type.equals(b.type)))
+					&& price == b.price
+					&& cost == b.cost
+					&& stock == b.stock
+					&& expiryDate == b.expiryDate;
+		} else {
+			return false;
+		}
+	}
+
 }
