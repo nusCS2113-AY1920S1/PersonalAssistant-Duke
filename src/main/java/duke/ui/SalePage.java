@@ -8,6 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.AnchorPane;
+import java.lang.Math;
 
 import java.text.DecimalFormat;
 
@@ -52,15 +53,15 @@ public class SalePage extends UiPart<AnchorPane> {
         double tempCost = 0.00;
 
         for (Sale sale : saleList) {
-            if (sale.isSpend()) {
-                tempCost += sale.getValue();
+            if (sale.isSpend() || sale.getValue() < 0.0) {
+                tempCost += Math.abs(sale.getValue());
             } else {
                 tempRevenue += sale.getValue();
             }
         }
         DecimalFormat df2 = new DecimalFormat("#.##");
         revenue.setText("Revenue: $" + df2.format(tempRevenue));
-        cost.setText("Cost: $" + df2.format(tempRevenue));
+        cost.setText("Cost: $" + df2.format(tempCost));
         profit.setText("Profit: $" + df2.format(tempRevenue - tempCost));
     }
 }
