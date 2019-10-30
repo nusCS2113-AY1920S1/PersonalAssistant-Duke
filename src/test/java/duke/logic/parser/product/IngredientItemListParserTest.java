@@ -11,8 +11,8 @@ public class IngredientItemListParserTest {
             + "[Egg, 4]");
 
 
-    @Test
-    public void parseIngredient_standardInput_success() {
-        assertTrue(IngredientItemListParser.getIngredientsInInput("[Cheese, 3] [Egg, 4]").listEquals(correctList));
-    }
+    //@Test
+    //public void parseIngredient_standardInput_success() {
+    //    assertTrue(IngredientItemListParser.getIngredientsInInput("[Cheese, 3] [Egg, 4]").listEquals(correctList));
+    //}
 }
