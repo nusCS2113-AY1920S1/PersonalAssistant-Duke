@@ -41,7 +41,7 @@ public class StorageRead extends Storage {
         ArrayList<String> msg = new ArrayList<String>();
 
         try {
-            InputStream inputStream = new FileInputStream("/dolla.txt");
+            InputStream inputStream = Storage.class.getResourceAsStream("/dolla.txt");
             InputStreamReader isReader = new InputStreamReader(inputStream);
             BufferedReader inStream = new BufferedReader(isReader);
             //            FileReader inFile = new FileReader("./data/dolla.txt");
