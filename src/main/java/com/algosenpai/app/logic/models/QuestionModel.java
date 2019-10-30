@@ -7,7 +7,7 @@ public class QuestionModel {
     private ReviewTracingListModel rtlm = new ReviewTracingListModel();
 
     /**
-     * Creates a question using multple parameters.
+     * Creates a question using multiple parameters.
      * @param question  The question to be shown to the user
      * @param answer    The correct answer to the question
      * @param rtlm      The steps leading to the correct answer
@@ -30,7 +30,7 @@ public class QuestionModel {
         return userAnswer;
     }
 
-    public void setAnswer(String userAnswer) {
+    public void setUserAnswer(String userAnswer) {
         this.userAnswer = userAnswer;
     }
 
@@ -42,7 +42,7 @@ public class QuestionModel {
         return this.userAnswer.equals(this.correctAnswer);
     }
 
-    private ReviewTracingListModel getRtlm() {
+    public ReviewTracingListModel getRtlm() {
         return rtlm;
     }
 
