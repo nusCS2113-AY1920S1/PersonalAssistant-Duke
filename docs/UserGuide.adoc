@@ -297,6 +297,21 @@ Format: `setpriority <task number> <priority>`
 Display the list of tasks and their priorities beside each task.
 Format: `priority`
 
+====  Find a list of tasks with a certain priority: `findpriority`
+Return a list of tasks that have a certain priority.
+Format: `findpriority <priority>`
+
+* The <priority> refers to the priority of the task: 1-HighPriority ~ 5-LowPriority.
+* The priority *must be between 1 and 5 both inclusive*. 
+* If no records are found, the user will be alerted.
+
+====  Find a list of tasks on a certain date: `finddate`
+Return a list of tasks due on a certain date.
+Format: `findpriority /on <date>`
+
+* The <date> is in the format <dd/MM/yyyy>.
+* If no records are found, the user will be alerted.
+
 === Miscellenous Inputs 
 
 ==== Backing up the program : `backup`
@@ -379,5 +394,9 @@ eg. `addcontact Prof Tan, 91234567, tancc@nus.edu.sg, E1-08-11`
 eg. `deletecontact 1`
 * *FindContact* : `findcontact [KEYWORD]`
 eg. `findcontact Prof Tan`
-* *Set Priority* : `setpriority [TASK_NUMBER] [PRIORITY]` +
+* *Set Priority* : `setpriority [TASK_NUMBER] [PRIORITY]` 
 e.g. `setpriority 1 5`
+* *Find tasks based on the priority* : `findpriority [PRIORITY]` 
+e.g. `findpriority 1`
+* *Find tasks on a date* : `findpriority /on [DATE]` 
+e.g. `finddate /on 01/12/2019`
