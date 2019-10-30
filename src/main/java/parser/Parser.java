@@ -56,7 +56,7 @@ public class Parser {
             String userCommand = taskInfo[0];
             Command command;
             if (userCommand.equals("exit")) {
-                return new ExitCommand();
+                command = new ExitCommand();
             } else if (userCommand.equals("help")) {
                 command = parseHelp(taskInfo);
             } else if (userCommand.equals("add")) {
