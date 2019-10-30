@@ -110,6 +110,11 @@ public class UI {
         }
     }
 
+    public void contactEdited(Contact newContact) {
+        System.out.println("The contact has been edited to: Name: " + newContact.getName() + " Email: "
+                + newContact.getEmail() + " Phone Number: " +newContact.getPhoneNo());
+    }
+
     /**
      * prints entire list of events stored.
      *

@@ -164,6 +164,23 @@ The user is able to edit the name of the event/ToDo he entered in case he entere
 
 Format: `edit <index for edition>/<new description>`
 
+=== Contact management : `contact`
+The user is able to add, delete, view, and edit contacts information of an event.
+A contact includes name, email address, and phone number.
+
+. Add contact +
+Format: `contact add <event index> /<contact information>`
+
+. Delete contact +
+Format: `contact delete <event index> <contact index> /`
+
+. View contact +
+Format: `contact view <event index> /`
+
+. Edit contact +
+Format: `contact edit <event index> <contact index> <edit type> /<new contact information>` +
+The edit types are name, email, and phone.
+
 === Exiting the program : `bye`
 
 Exits the program. +

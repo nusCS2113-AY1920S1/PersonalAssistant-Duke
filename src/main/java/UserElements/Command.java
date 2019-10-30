@@ -508,6 +508,7 @@ public class Command {
                                 break;
                         }
                         events.getEvent(eventIndex).editContact(contactIndex, editType, splitContact[1]);
+                        ui.contactEdited(events.getEvent(eventIndex).getContactList().get(contactIndex));
                         break;
                 }
             }
