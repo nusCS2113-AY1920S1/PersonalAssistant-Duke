@@ -9,7 +9,7 @@ import java.util.TreeMap;
 /**
  * Represents an object that keeps track of operations related to the number of searches on the words in the wordBank.
  */
-public class WordCount extends Bank {
+public class WordCount {
 
     /**
      * Maps the search count (KEY) to an ordered list of words (VALUE) with that search count.

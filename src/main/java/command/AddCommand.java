@@ -20,6 +20,7 @@ public class AddCommand extends Command {
         try {
             bank.addWordToBank(word);
             storage.writeFile(word.toString(), true);
+            storage.writeExcelFile(bank);
             return ui.showAdded(word);
         } catch (WordAlreadyExistsException e) {
             return e.showError();

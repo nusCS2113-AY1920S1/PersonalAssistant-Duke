@@ -19,9 +19,9 @@ shadowJar {
 
 dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter:5.5.0'
+    shadow 'junit:junit:3.8.2'
     compile 'org.apache.poi:poi:3.17'
     compile 'org.apache.poi:poi-ooxml:3.17'
-    shadow 'junit:junit:3.8.2'
 }
 
 jar {

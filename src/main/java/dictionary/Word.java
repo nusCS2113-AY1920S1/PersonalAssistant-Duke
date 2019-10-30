@@ -70,13 +70,9 @@ public class Word {
         this.tags.add(tag);
     }
 
-    public HashSet<String> getSynonyms() {
-        return synonyms;
-    }
+    public HashSet<String> getSynonyms() { return synonyms; }
 
-    public void addSynonym(String synonym) {
-        this.synonyms.add(synonym);
-    }
+    public void addSynonym(String synonym) { this.synonyms.add(synonym); }
 
     public void incrementNumberOfSearches() {
         this.numberOfSearches += 1;
