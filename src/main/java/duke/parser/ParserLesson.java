@@ -79,7 +79,8 @@ public class ParserLesson {
      * @throws FileNotFoundException if file does not exist
      * @throws ParseException        if user input is not in the correct format
      */
-    public ParserLesson() throws FileNotFoundException, ParseException {
+    public ParserLesson() throws FileNotFoundException, ParseException
+    {
         cliView = new CliView();
         lessonStorage = new Storage(
             ".\\src\\main\\java\\duke\\data\\lessons.txt");
@@ -110,11 +111,13 @@ public class ParserLesson {
                     break;
 
                 case indexThree:
-                    deleteCommand.deleteLesson(lesson, lessonStorage, lessonDate);
+                    deleteCommand.deleteLesson(
+                        lesson, lessonStorage, lessonDate);
                     break;
 
                 case indexFour:
-                    deleteCommand.deleteAllLessons(lesson, lessonStorage, lessonDate);
+                    deleteCommand.deleteAllLessons(
+                        lesson, lessonStorage, lessonDate);
                     break;
 
                 case indexFive:
