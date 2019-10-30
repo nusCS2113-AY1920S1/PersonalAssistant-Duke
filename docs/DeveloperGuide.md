@@ -383,9 +383,7 @@ This abstract class allows for creation of different types of lists, and basic l
 
 ![GenericList](https://github.com/AY1920S1-CS2113-T14-2/main/blob/master/docs/images/GenericListUML.png)
 
-### 3. Implementation
-
-
+##### <u>Ingredient Class</u>
 
 
 | Constructor                       | Description                                               |

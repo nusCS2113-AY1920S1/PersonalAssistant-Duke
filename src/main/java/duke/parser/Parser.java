@@ -181,7 +181,7 @@ public class Parser {
                 if (splitted.length > 4)
                     throw new DukeException("must specify order name, amount and expiry date");
                 else if (splitted[0].equals("add"))
-                    return new AddCommand<Order>(new Order(splitted[1]));
+                    //return new AddCommand<Order>(new Order(splitted[1]));
                 if (splitted[0].equals("remove")) {
                     // for(int i=0)
                     return new DeleteCommand<Order>(Integer.parseInt(splitted[1]));
