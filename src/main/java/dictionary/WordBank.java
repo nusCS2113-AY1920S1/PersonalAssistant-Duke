@@ -1,36 +1,31 @@
 package dictionary;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.SortedMap;
-import java.util.TreeMap;
-
-import exception.NoWordFoundException;
 import command.OxfordCall;
 import exception.NoWordFoundException;
 import exception.WordAlreadyExistsException;
 import exception.WordBankEmptyException;
 import storage.Storage;
 
-public class WordBank {
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.SortedMap;
+import java.util.TreeMap;
+
+public class WordBank extends Bank {
     private TreeMap<String, Word> wordBank;
 
     public WordBank(Storage storage) {
         wordBank = storage.loadFile();
     }
 
-    public WordBank() {
-        this.wordBank = new TreeMap<>();
+    public WordBank(TreeMap<String, Word> wordBank) {
+        this.wordBank = wordBank;
     }
 
     public TreeMap<String, Word> getWordBank() {
         return wordBank;
     }
 
-    public int getSize() {
-        return wordBank.size();
-    }
     /**
      * Searched for the Word object containing the word.
      * @param word the word to be found
@@ -144,7 +139,7 @@ public class WordBank {
      * @return tags lists of that word
      * @throws NoWordFoundException if the word doesn't exist in the word bank
      */
-    public HashSet<String> addWordToSomeTags(String wordToBeAddedTag, ArrayList<String> tags) throws NoWordFoundException {
+    public HashSet<String> addTag(String wordToBeAddedTag, ArrayList<String> tags) throws NoWordFoundException {
         if (!wordBank.containsKey(wordToBeAddedTag)) {
             throw new NoWordFoundException(wordToBeAddedTag);
         }
@@ -188,13 +183,5 @@ public class WordBank {
             }
         }
         return closedWords;
-    }
-
-    public void addTagToWord(String word, String tag) {
-        wordBank.get(word).addTag(tag);
-    }
-
-    public Word[] getAllWordsAsList() {
-        return wordBank.values().toArray(new Word[wordBank.size()]);
     }
 }
