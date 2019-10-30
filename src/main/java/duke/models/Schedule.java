@@ -23,7 +23,7 @@ public class Schedule {
      * The constructor for Schedule objects.
      *
      * @param timeSlots The details of a time slot that needs to be scheduled.
-     */
+      */
     //    public Schedule(final ArrayList<TimeSlot> timeSlots) {
     //        this.list = timeSlots;
     //    }

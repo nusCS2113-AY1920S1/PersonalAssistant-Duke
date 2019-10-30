@@ -23,9 +23,9 @@ public class MyPlan {
      */
     private CliView cliView;
 
-     /**
-      * Represents the list for the current loaded plan to be viewed or edited.
-      */
+    /**
+     * Represents the list for the current loaded plan to be viewed or edited.
+     */
     private ArrayList<MyTraining> list = new ArrayList<>();
     /**
      * Represents the list for the current number of plans saved.
@@ -40,18 +40,18 @@ public class MyPlan {
      */
     private String name;
 
-     /**
-      * The constructor for MyPlan.
-      * @param mapOfPlans map of plans
-      */
+    /**
+     * The constructor for MyPlan.
+     * @param mapOfPlans map of plans
+     */
     public MyPlan(final Map<String, ArrayList<MyTraining>> mapOfPlans) {
         this.map = mapOfPlans;
     }
 
-     /**
-      * A getter to retrieve the activity name in a plan.
-      * @return name of activity
-      */
+    /**
+     * A getter to retrieve the activity name in a plan.
+     * @return name of activity
+     */
     public String getName() {
         return this.name;
     }
@@ -264,11 +264,11 @@ public class MyPlan {
         return "";
     }
 
-     /**
-      * load the plan of specified intensity and value into the list.
-      * @param intensity intensity of plan to be loaded
-      * @param plan plan number passed as a string
-      */
+    /**
+     * load the plan of specified intensity and value into the list.
+     * @param intensity intensity of plan to be loaded
+     * @param plan plan number passed as a string
+     */
     public void loadPlanToList(final String intensity, final String plan) {
         clearPlan();
         if (!Intensity.contains(intensity)) {

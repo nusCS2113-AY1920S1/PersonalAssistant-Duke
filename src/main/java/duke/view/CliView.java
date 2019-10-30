@@ -130,7 +130,6 @@ public class CliView {
             + "(Cmd: plan edit [intensity level] [plan number])");
     }
 
-<<<<<<< HEAD:src/main/java/duke/Ui.java
     /**
      * Show plan list when option 1 is chosen from trainingProgramHeading.
      */
@@ -467,6 +466,7 @@ public class CliView {
      * Prints error message when there is incomplete daily list.
      */
     public void showEmptyList() {
-        System.out.println("Sorry, there are no days matching what you have entered.");
+        System.out.println("Sorry, there are no days matching"
+                + "what you have entered.");
     }
 }

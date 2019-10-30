@@ -67,18 +67,11 @@ public class Duke extends Application {
         storage = new Storage(".\\src\\main\\java\\duke\\data\\duke.txt");
         tasks = new TaskList();
         students = new ManageStudents();
-<<<<<<< HEAD:src/main/java/duke/Duke.java
-        schedule = new Schedule(
-            new Storage(".\\src\\main\\java\\duke\\data\\timeslots.txt"
-            ).loadSchedule());
         plan = new MyPlan(new Storage(
                 ".\\src\\main\\java\\duke\\data\\plan.txt").loadPlans());
-=======
         //        schedule = new Schedule(
-        //            new Storage(".\\src\\main\\java\\duke\\data\\timeslots.txt"
-        //            ).loadSchedule());
-        plan = new MyPlan();
->>>>>>> upstream/master:src/main/java/duke/launcher/Duke.java
+        //           new Storage(".\\src\\main\\java\\duke\\data\\timeslots.txt"
+        //           ).loadSchedule());
     }
 
     /**
