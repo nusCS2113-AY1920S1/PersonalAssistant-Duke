@@ -1,6 +1,7 @@
 package duke.model;
 
 import duke.commons.core.index.Index;
+import duke.logic.command.order.SortOrderCommand;
 import duke.model.commons.Item;
 import duke.model.inventory.Ingredient;
 import duke.model.order.Order;
@@ -132,6 +133,12 @@ public class ModelManager implements Model {
     public void updateFilteredOrderList(Predicate<Order> predicate) {
         requireNonNull(predicate);
         filteredOrders.setPredicate(predicate);
+    }
+
+    @Override
+    public void sortOrders(SortOrderCommand.SortCriteria criteria, boolean isIncreasing) {
+        requireNonNull(criteria);
+        bakingHome.sortOrders(criteria, isIncreasing);
     }
 
     @Override
@@ -302,14 +309,6 @@ public class ModelManager implements Model {
         return false;
     }
 
-    /**
-     * Calculates the cost of the given list of ingredients.
-     */
-    @Override
-    public Double getIngredientCost(IngredientItemList ingredients) {
-        return 4.84;
-    }
-
 
     @Override
     public boolean deductIngredient(Ingredient ingredient, double amount) {
@@ -363,6 +362,17 @@ public class ModelManager implements Model {
     @Override
     public void clearShoppingList(List<Item<Ingredient>> emptyList) {
         bakingHome.clearShoppingList(emptyList);
+    }
+
+    @Override
+    public Double computeTotalCost(ArrayList<Item<Ingredient>> ingredientList) {
+        Double totalCost = 0.0;
+        for (Item<Ingredient> item : ingredientList) {
+            Index index = Index.fromZeroBased(bakingHome.getShoppingList().indexOf(item));
+            totalCost += bakingHome.getShoppingList().get(index.getZeroBased()).getTotalPrice();
+        }
+      //  System.out.println("ModelManager line 374" + totalCost);
+        return totalCost;
     }
 
     @Override

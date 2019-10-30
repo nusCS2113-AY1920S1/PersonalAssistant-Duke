@@ -5,6 +5,7 @@ import duke.model.commons.Quantity;
 import duke.model.inventory.Ingredient;
 
 public class InventoryCommandUtil {
+
     public static Item<Ingredient> createNewInventory(Item<Ingredient> toEdit, InventoryDescriptor edited) {
         assert toEdit != null;
 

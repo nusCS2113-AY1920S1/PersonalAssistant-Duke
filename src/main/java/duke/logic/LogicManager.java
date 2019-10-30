@@ -2,6 +2,8 @@ package duke.logic;
 
 import duke.logic.command.Command;
 import duke.logic.command.CommandResult;
+import duke.logic.command.RedoCommand;
+import duke.logic.command.UndoCommand;
 import duke.logic.command.exceptions.CommandException;
 import duke.logic.command.inventory.AddInventoryCommand;
 import duke.logic.command.inventory.ClearInventoryCommand;
@@ -13,17 +15,24 @@ import duke.logic.command.order.CompleteOrderCommand;
 import duke.logic.command.order.DeleteOrderCommand;
 import duke.logic.command.order.EditOrderCommand;
 import duke.logic.command.order.OrderCommand;
+import duke.logic.command.order.ShowOrderCommand;
+import duke.logic.command.order.SortOrderCommand;
 import duke.logic.command.product.AddProductCommand;
 import duke.logic.command.product.EditProductCommand;
 import duke.logic.command.product.ProductCommand;
 import duke.logic.command.sale.AddSaleCommand;
 import duke.logic.command.sale.DeleteSaleCommand;
+import duke.logic.command.sale.EditSaleCommand;
+import duke.logic.command.sale.FilterSaleCommand;
+import duke.logic.command.sale.ShowSaleCommand;
 import duke.logic.command.shopping.AddShoppingCommand;
 import duke.logic.command.shopping.BuyShoppingCommand;
 import duke.logic.command.shopping.ClearShoppingCommand;
 import duke.logic.command.shopping.DeleteShoppingCommand;
 import duke.logic.command.shopping.EditShoppingCommand;
 import duke.logic.command.shopping.ShoppingCommand;
+import duke.logic.command.shortcut.ExecuteShortcutCommand;
+import duke.logic.command.shortcut.SetShortcutCommand;
 import duke.logic.parser.commons.AutoCompleter;
 import duke.logic.parser.commons.BakingHomeParser;
 import duke.logic.parser.exceptions.ParseException;
@@ -52,7 +61,7 @@ public class LogicManager implements Logic {
         this.storage = storage;
         this.bakingHomeParser = new BakingHomeParser();
         this.autoCompleter = new AutoCompleter();
-        addFieldsToAutoComplete();
+        addCommandsToAutoComplete();
     }
 
     @Override
@@ -106,17 +115,33 @@ public class LogicManager implements Logic {
         return model.getFilteredShoppingList();
     }
 
-    private void addFieldsToAutoComplete() {
+    private void addCommandsToAutoComplete() {
+        //Order commands
         autoCompleter.addCommandClass(OrderCommand.class);
+        autoCompleter.addCommandClass(SortOrderCommand.class);
         autoCompleter.addCommandClass(AddOrderCommand.class);
         autoCompleter.addCommandClass(DeleteOrderCommand.class);
         autoCompleter.addCommandClass(EditOrderCommand.class);
         autoCompleter.addCommandClass(CompleteOrderCommand.class);
+        autoCompleter.addCommandClass(ShowOrderCommand.class);
+
+        //Shortcut commands
+        autoCompleter.addCommandClass(SetShortcutCommand.class);
+        autoCompleter.addCommandClass(ExecuteShortcutCommand.class);
+
+        //Sale commands
         autoCompleter.addCommandClass(AddSaleCommand.class);
         autoCompleter.addCommandClass(DeleteSaleCommand.class);
+        autoCompleter.addCommandClass(EditSaleCommand.class);
+        autoCompleter.addCommandClass(FilterSaleCommand.class);
+        autoCompleter.addCommandClass(ShowSaleCommand.class);
+
+        //Product commands
         autoCompleter.addCommandClass(ProductCommand.class);
         autoCompleter.addCommandClass(AddProductCommand.class);
         autoCompleter.addCommandClass(EditProductCommand.class);
+
+        //Inventory commands
         autoCompleter.addCommandClass(InventoryCommand.class);
         autoCompleter.addCommandClass(AddInventoryCommand.class);
         autoCompleter.addCommandClass(EditInventoryCommand.class);
@@ -128,5 +153,9 @@ public class LogicManager implements Logic {
         autoCompleter.addCommandClass(DeleteShoppingCommand.class);
         autoCompleter.addCommandClass(ClearShoppingCommand.class);
         autoCompleter.addCommandClass(BuyShoppingCommand.class);
+
+        //Undo and Redo
+        autoCompleter.addCommandClass(UndoCommand.class);
+        autoCompleter.addCommandClass(RedoCommand.class);
     }
 }
