@@ -1,0 +1,6 @@
+View functionality:
+    #blacklist      :View blacklist
+    #watchlist      :View Watchlist
+
+    usage: view blacklist
+           view watchlist

@@ -38,7 +38,7 @@ public class PromptMessages {
     public static final String MISSING_COMMAND = "You have entered an empty command!";
 
     public static final String FILE_NOT_FOUND = "File not found!";
-    public static final String FILES_NOT_FOUND  = "Entire Help directory is missing!";
+    public static final String FILES_NOT_FOUND  = "File not found! Please wait for next update!";
 
 
 
