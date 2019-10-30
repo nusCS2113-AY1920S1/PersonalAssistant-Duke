@@ -11,15 +11,15 @@ public class EditCommandParser implements ParserInterface<EditCommand> {
 
     /**
      * Parse user input and return EditCommand.
-     * @param userInput String input by user.
+     * @param userInputStr String input by user.
      * @return <code>EditCommand</code> Command object encapsulating the Meal object to replace the old entry
      */
     @Override
 
-    public EditCommand parse(String userInput) {
+    public EditCommand parse(String userInputStr) {
         try {
-            InputValidator.validate(userInput);
-            String[] mealNameAndInfo = ArgumentSplitter.splitMealArguments(userInput);
+            InputValidator.validate(userInputStr);
+            String[] mealNameAndInfo = ArgumentSplitter.splitMealArguments(userInputStr);
             return new EditCommand(new Meal(mealNameAndInfo[0], mealNameAndInfo[1]));
         } catch (DukeException e) {
             return new EditCommand(false, e.getMessage());

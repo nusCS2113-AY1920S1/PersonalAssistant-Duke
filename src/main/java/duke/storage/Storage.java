@@ -27,9 +27,9 @@ public class Storage {
     /**
      * This is a function that will load all info required to initialize a MealList object.
      */
-    public void load(MealList meals, User user) throws DukeException {
-        loader.loadFile(meals, filePaths.getFilePathStr(FilePaths.FilePathNames.FILE_PATH_USER_MEALS_FILE));
-        loader.loadFile(meals, filePaths.getFilePathStr(FilePaths.FilePathNames.FILE_PATH_DEFAULT_MEAL_FILE));
+    public void loadMealInfo(MealList meals) throws DukeException {
+        loader.loadMealListData(meals);
+        loader.loadDefaultMealData(meals);
     }
 
     /**

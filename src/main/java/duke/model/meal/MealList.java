@@ -2,10 +2,7 @@ package duke.model.meal;
 
 import duke.commons.exceptions.DukeException;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.HashMap;
 
 /**
@@ -13,9 +10,6 @@ import java.util.HashMap;
  * A MealList object encapsulates the ArrayList of meals.
  */
 public class MealList {
-    private DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-    private Calendar calendarDate = Calendar.getInstance();
-    private String currentDate = dateFormat.format(calendarDate.getTime());
     private HashMap<String, ArrayList<Meal>> mealTracker = new HashMap<>();
     private HashMap<String, HashMap<String, Integer>> storedItems = new HashMap<>();
 
@@ -100,6 +94,10 @@ public class MealList {
 
     public void setMealTracker(HashMap<String, ArrayList<Meal>> mealTracker) {
         this.mealTracker = mealTracker;
+    }
+
+    public void setStoredItems(HashMap<String, HashMap<String, Integer>> storedItems) {
+        this.storedItems = storedItems;
     }
 
     public void addMeals(Meal data) throws DukeException {

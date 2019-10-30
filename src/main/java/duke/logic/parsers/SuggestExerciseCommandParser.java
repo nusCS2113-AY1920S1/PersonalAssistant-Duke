@@ -6,11 +6,11 @@ public class SuggestExerciseCommandParser implements ParserInterface {
 
     /**
      * Parse user input and return SuggestCommand.
-     * @param userInput String input by user
+     * @param userInputStr String input by user
      * @return <code>SuggestCommand</code> to be updated
      */
     @Override
-    public SuggestExerciseCommand parse(String userInput) {
+    public SuggestExerciseCommand parse(String userInputStr) {
         // TODO: Finalize suggest command input format and update UG/DG
         return new SuggestExerciseCommand();
     }

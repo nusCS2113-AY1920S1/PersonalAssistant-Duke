@@ -10,15 +10,15 @@ public class DeleteCommandParser implements ParserInterface<DeleteCommand> {
 
     /**
      * Parse user input and return DeleteCommand.
-     * @param userInput String input by user.
+     * @param userInputStr String input by user.
      * @return <code>DeleteCommand</code> Command object demarcating the entry of data to be deleted
      */
     @Override
 
-    public DeleteCommand parse(String userInput)  {
+    public DeleteCommand parse(String userInputStr)  {
         try {
-            InputValidator.validate(userInput);
-            String[] indexAndDate = ArgumentSplitter.splitArguments(userInput, "/date");
+            InputValidator.validate(userInputStr);
+            String[] indexAndDate = ArgumentSplitter.splitArguments(userInputStr, "/date");
             if (indexAndDate[1].equals("")) {
                 return new DeleteCommand(indexAndDate[0]);
             } else {

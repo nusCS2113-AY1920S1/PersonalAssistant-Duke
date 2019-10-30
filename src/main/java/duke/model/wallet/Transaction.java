@@ -4,10 +4,12 @@ import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
+import static duke.commons.constants.DateConstants.DATE_FORMAT;
+
 public class Transaction {
+    protected SimpleDateFormat dateParser = DATE_FORMAT;
     protected BigDecimal transactionAmount;
     protected String type = "";
-    protected SimpleDateFormat dateParser = new SimpleDateFormat("dd/MM/yyyy");
     protected String date = dateParser.format(Calendar.getInstance().getTime());
 
     public Transaction(String amountString, String dateString) {

@@ -14,14 +14,4 @@ public class Dinner extends Meal {
         super.type = "D";
         super.cost = "0";
     }
-
-    /**
-     * This is the secondary constructor of dinner object for storage parsing.
-     * @param description the description of the breakfast object
-     */
-    public Dinner(String description, String[] details) {
-        super(description, details);
-        super.type = "D";
-        super.cost = "0";
-    }
 }

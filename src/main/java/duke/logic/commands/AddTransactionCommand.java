@@ -2,8 +2,8 @@ package duke.logic.commands;
 
 import duke.commons.exceptions.DukeException;
 import duke.model.meal.MealList;
-import duke.model.wallet.Transaction;
 import duke.model.user.User;
+import duke.model.wallet.Transaction;
 import duke.model.wallet.Wallet;
 import duke.storage.Storage;
 

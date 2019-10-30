@@ -1,4 +1,4 @@
-package duke.commons.file;
+package duke.storage;
 
 import duke.commons.exceptions.DukeException;
 

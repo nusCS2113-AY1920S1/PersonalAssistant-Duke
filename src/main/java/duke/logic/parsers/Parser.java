@@ -7,27 +7,27 @@ import duke.logic.commands.ExitCommand;
 import duke.logic.commands.StatsCommand;
 import duke.logic.commands.UpdateWeightCommand;
 
-import static duke.commons.definitions.CommandDefinitions.PARSER_ADD_COMMAND;
-import static duke.commons.definitions.CommandDefinitions.PARSER_ADD_GOAL_COMMAND;
-import static duke.commons.definitions.CommandDefinitions.PARSER_BREAKFAST_COMMAND;
-import static duke.commons.definitions.CommandDefinitions.PARSER_CGRAPH_COMMAND;
-import static duke.commons.definitions.CommandDefinitions.PARSER_CLEAR_COMMAND;
-import static duke.commons.definitions.CommandDefinitions.PARSER_DELETE_COMMAND;
-import static duke.commons.definitions.CommandDefinitions.PARSER_DEPOSIT_COMMAND;
-import static duke.commons.definitions.CommandDefinitions.PARSER_DINNER_COMMAND;
-import static duke.commons.definitions.CommandDefinitions.PARSER_DONE_COMMAND;
-import static duke.commons.definitions.CommandDefinitions.PARSER_EDIT_COMMAND;
-import static duke.commons.definitions.CommandDefinitions.PARSER_EXIT_COMMAND;
-import static duke.commons.definitions.CommandDefinitions.PARSER_FIND_COMMAND;
-import static duke.commons.definitions.CommandDefinitions.PARSER_HELP_COMMAND;
-import static duke.commons.definitions.CommandDefinitions.PARSER_HISTORY_COMMAND;
-import static duke.commons.definitions.CommandDefinitions.PARSER_LIST_COMMAND;
-import static duke.commons.definitions.CommandDefinitions.PARSER_LUNCH_COMMAND;
-import static duke.commons.definitions.CommandDefinitions.PARSER_PAYMENT_COMMAND;
-import static duke.commons.definitions.CommandDefinitions.PARSER_STATS_COMMAND;
-import static duke.commons.definitions.CommandDefinitions.PARSER_SUGGEST_COMMAND;
-import static duke.commons.definitions.CommandDefinitions.PARSER_SUGGEST_EXERCISE_COMMAND;
-import static duke.commons.definitions.CommandDefinitions.PARSER_UPDATE_WEIGHT_COMMAND;
+import static duke.commons.constants.CommandDefinitions.PARSER_ADD_COMMAND;
+import static duke.commons.constants.CommandDefinitions.PARSER_ADD_GOAL_COMMAND;
+import static duke.commons.constants.CommandDefinitions.PARSER_BREAKFAST_COMMAND;
+import static duke.commons.constants.CommandDefinitions.PARSER_CGRAPH_COMMAND;
+import static duke.commons.constants.CommandDefinitions.PARSER_CLEAR_COMMAND;
+import static duke.commons.constants.CommandDefinitions.PARSER_DELETE_COMMAND;
+import static duke.commons.constants.CommandDefinitions.PARSER_DEPOSIT_COMMAND;
+import static duke.commons.constants.CommandDefinitions.PARSER_DINNER_COMMAND;
+import static duke.commons.constants.CommandDefinitions.PARSER_DONE_COMMAND;
+import static duke.commons.constants.CommandDefinitions.PARSER_EDIT_COMMAND;
+import static duke.commons.constants.CommandDefinitions.PARSER_EXIT_COMMAND;
+import static duke.commons.constants.CommandDefinitions.PARSER_FIND_COMMAND;
+import static duke.commons.constants.CommandDefinitions.PARSER_HELP_COMMAND;
+import static duke.commons.constants.CommandDefinitions.PARSER_HISTORY_COMMAND;
+import static duke.commons.constants.CommandDefinitions.PARSER_LIST_COMMAND;
+import static duke.commons.constants.CommandDefinitions.PARSER_LUNCH_COMMAND;
+import static duke.commons.constants.CommandDefinitions.PARSER_PAYMENT_COMMAND;
+import static duke.commons.constants.CommandDefinitions.PARSER_STATS_COMMAND;
+import static duke.commons.constants.CommandDefinitions.PARSER_SUGGEST_COMMAND;
+import static duke.commons.constants.CommandDefinitions.PARSER_SUGGEST_EXERCISE_COMMAND;
+import static duke.commons.constants.CommandDefinitions.PARSER_UPDATE_WEIGHT_COMMAND;
 import static duke.commons.exceptions.ExceptionMessages.UNKNOWN_COMMAND;
 
 /**
@@ -43,7 +43,7 @@ public class Parser {
 
     /**
      * This is the main function that parse the command inputted by the user.
-     * @param fullCommand the string the user input in the CLI
+     * @param fullCommandStr the string the user input in the CLI
      * @return <code>new ExitCommand()</code>
      *         if the user input "bye"
      *         <code>new AddCommand(new Breakfast())</code> if the user input
@@ -62,53 +62,55 @@ public class Parser {
      *         "delete" followed by the index of the task to be deleted
      * @throws DukeException when the command is not recognized or command syntax is invalid
      */
-    public Command parse(String fullCommand) throws DukeException {
-        this.parserUtil.parse(fullCommand);
-        String command = this.parserUtil.getCommand();
-        String userInput = this.parserUtil.getUserInput();
-        switch (command) {
+    public Command parse(String fullCommandStr) throws DukeException {
+
+        this.parserUtil.parse(fullCommandStr);
+        String commandStr = this.parserUtil.getCommand();
+        String argumentStr = this.parserUtil.getArgument();
+
+        switch (commandStr) {
             case PARSER_EXIT_COMMAND:
                 return new ExitCommand();
             case PARSER_BREAKFAST_COMMAND:
-                return new AddBreakfastCommandParser().parse(userInput);
+                return new AddBreakfastCommandParser().parse(argumentStr);
             case PARSER_LUNCH_COMMAND:
-                return new AddLunchCommandParser().parse(userInput);
+                return new AddLunchCommandParser().parse(argumentStr);
             case PARSER_DINNER_COMMAND:
-                return new AddDinnerCommandParser().parse(userInput);
+                return new AddDinnerCommandParser().parse(argumentStr);
             case PARSER_ADD_COMMAND:
-                return new AddItemCommandParser().parse(userInput);
+                return new AddItemCommandParser().parse(argumentStr);
             case PARSER_LIST_COMMAND:
-                return new ListCommandParser().parse(userInput);
+                return new ListCommandParser().parse(argumentStr);
             case PARSER_DONE_COMMAND:
-                return new DoneCommandParser().parse(userInput);
+                return new DoneCommandParser().parse(argumentStr);
             case PARSER_FIND_COMMAND:
-                return new FindCommandParser().parse(userInput);
+                return new FindCommandParser().parse(argumentStr);
             case PARSER_DELETE_COMMAND:
-                return new DeleteCommandParser().parse(userInput);
+                return new DeleteCommandParser().parse(argumentStr);
             case PARSER_UPDATE_WEIGHT_COMMAND:
-                return new UpdateWeightCommand(userInput);
+                return new UpdateWeightCommand(argumentStr);
             case PARSER_CLEAR_COMMAND:
-                return new ClearCommandParser().parse(userInput);
+                return new ClearCommandParser().parse(argumentStr);
             case PARSER_EDIT_COMMAND:
-                return new EditCommandParser().parse(userInput);
+                return new EditCommandParser().parse(argumentStr);
             case PARSER_ADD_GOAL_COMMAND:
-                return new AddGoalCommandParser().parse(userInput);
+                return new AddGoalCommandParser().parse(argumentStr);
             case PARSER_HELP_COMMAND:
-                return new HelpCommandParser().parse(userInput);
+                return new HelpCommandParser().parse(argumentStr);
             case PARSER_DEPOSIT_COMMAND:
-                return new DepositCommandParser().parse(userInput);
+                return new DepositCommandParser().parse(argumentStr);
             case PARSER_PAYMENT_COMMAND:
-                return new PaymentCommandParser().parse(userInput);
+                return new PaymentCommandParser().parse(argumentStr);
             case PARSER_HISTORY_COMMAND:
-                return parserUtil.getHistory(userInput);
+                return parserUtil.getHistory(argumentStr);
             case PARSER_SUGGEST_COMMAND:
-                return new SuggestMealCommandParser().parse(userInput);
+                return new SuggestMealCommandParser().parse(argumentStr);
             case PARSER_STATS_COMMAND:
                 return new StatsCommand();
             case PARSER_CGRAPH_COMMAND:
-                return new CGraphCommandParser().parse(userInput);
+                return new CGraphCommandParser().parse(argumentStr);
             case PARSER_SUGGEST_EXERCISE_COMMAND:
-                return new SuggestExerciseCommandParser().parse(userInput);
+                return new SuggestExerciseCommandParser().parse(argumentStr);
             default:
                 throw new DukeException(UNKNOWN_COMMAND);
         }

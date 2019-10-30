@@ -4,10 +4,10 @@ import duke.model.meal.Meal;
 import duke.model.meal.MealList;
 import duke.model.meal.SuggestMeal;
 
-import java.util.HashMap;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
+import java.util.HashMap;
 
 /**
  * This class handles all the data analytics aspect of the meal suggestion feature.

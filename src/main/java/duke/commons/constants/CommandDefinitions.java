@@ -1,10 +1,9 @@
-package duke.commons.definitions;
-
+package duke.commons.constants;
 
 /**
  * This class defines all the command keywords that will be used in the program.
  */
-public class CommandDefinitions {
+public final class CommandDefinitions {
     public static final String PARSER_BREAKFAST_COMMAND = "breakfast";
     public static final String PARSER_LUNCH_COMMAND = "lunch";
     public static final String PARSER_DINNER_COMMAND = "dinner";

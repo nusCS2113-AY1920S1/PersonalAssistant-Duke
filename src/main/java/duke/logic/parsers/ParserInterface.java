@@ -16,10 +16,10 @@ public interface ParserInterface<T extends Command> {
     DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
     /**
      * Parses user input into a Command of type T and returns it.
-     * @param userInput String input by user.
+     * @param userInputStr String input by user.
      * @return Command Returns a Command.
      * @throws DukeException If the user input has syntactic errors.
      */
-    T parse(String userInput) throws DukeException;
+    T parse(String userInputStr) throws DukeException;
 }
 

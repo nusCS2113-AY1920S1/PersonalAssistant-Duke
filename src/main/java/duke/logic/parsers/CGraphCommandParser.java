@@ -10,16 +10,16 @@ public class CGraphCommandParser implements ParserInterface<CGraphCommand> {
 
     /**
      * Parses user input and returns an AddCommand encapsulating a Lunch object.
-     * @param userInput String input by user.
+     * @param userInputStr String input by user.
      * @return <code>AddCommand</code> Command object encapsulating a breakfast object
      * @throws DukeException when the user input cannot be parsed
      */
     @Override
 
-    public CGraphCommand parse(String userInput) {
+    public CGraphCommand parse(String userInputStr) {
         try {
-            InputValidator.validate(userInput);
-            String[] lineSplit = userInput.split(" ");
+            InputValidator.validate(userInputStr);
+            String[] lineSplit = userInputStr.split(" ");
             String type = lineSplit[0];
             int month = Integer.parseInt(lineSplit[2]);
             int year = Integer.parseInt(lineSplit[4]);
