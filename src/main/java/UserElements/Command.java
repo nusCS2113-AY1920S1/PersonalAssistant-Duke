@@ -152,7 +152,7 @@ public class Command {
             case "checklist":
                 checklistManagement(events, ui);
                 break;
-
+                
             default:
                 ui.printInvalidCommand();
                 changesMade = false;
