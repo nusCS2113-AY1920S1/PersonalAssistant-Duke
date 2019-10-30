@@ -29,41 +29,11 @@ public class ParserCommand implements IParser {
         try {
             CliView cliView = new CliView();
             Scanner sc = new Scanner(System.in);
+            final String scheduleMenu = "1";
             switch (input) {
-            case "1":
-                final int returnLessonOption = 3;
-                final int returnMonthlyOption = 3;
-                final int theNumberThree = 3;
-                // Schedule
-                cliView.trainingScheduleHeading();
-                int executeType = sc.nextInt();
-                sc.nextLine();  // This line you have
-                // to add (It consumes the \n character)
-                if (executeType == 1) {
-                    cliView.dailyScheduleHeading();
-                    int dailyType = sc.nextInt();
-                    sc.nextLine();  // This line you have
-                    // to add (It consumes the \n character)
-                    if (dailyType == 1) {
-                        ParserSchedule parserSchedule =
-                            new ParserSchedule();
-                        parserSchedule.dailySchedule();
-                    } else if (dailyType == 2) {
-                        ParserGoal parserGoal = new ParserGoal();
-                        parserGoal.runGoal();
-                    } else if (dailyType == returnLessonOption) {
-                        ParserLesson parserLesson = new ParserLesson();
-                        parserLesson.runLesson();
-                    }
-                } else if (executeType == 2) {
-                    ParserSchedule parserSchedule = new ParserSchedule();
-                    parserSchedule.weeklySchedule();
-                } else if (executeType == returnMonthlyOption) {
-                    ParserSchedule parserSchedule = new ParserSchedule();
-                    parserSchedule.monthlySchedule();
-                } else {
-                    cliView.showCorrectFormat();
-                }
+            case scheduleMenu:
+                ParserSchedule parserSchedule = new ParserSchedule();
+                parserSchedule.parseCommand();
                 break;
             case "2":
                 cliView.manageStudentsHeading();

@@ -112,32 +112,36 @@ public class Schedule {
      * @throws ParseException if dayOfClass is in wrong format
      */
     public String getDay(final String dayOfClass) throws ParseException {
-        final int numberOfHoursInADay = 24;
-        final int tempInt = 10;
-        String message = "";
-        for (int i = 0; i <= numberOfHoursInADay; i++) {
-            String time = (i < tempInt) ? "0" + i + "00" : i + "00";
-            SimpleDateFormat simpleDateFormat =
-                new SimpleDateFormat("dd/MM/yyyy HHmm");
-            Date now = simpleDateFormat.parse(dayOfClass + " " + time);
-            DateFormat df = new SimpleDateFormat("HH:mm");
-            boolean isAssignedClass = false;
-            for (TimeSlot t : this.list) {
-                if (now.equals(t.getStartTime())) {
-                    isAssignedClass = true;
-                    message += df.format(now)
-                        + " " + t.getClassName() + " from "
-                        + df.format(t.getStartTime())
-                        + " to " + df.format(t.getEndTime()) + " at "
-                        + t.getLocation() + "\n";
+        try {
+            final int numberOfHoursInADay = 24;
+            final int tempInt = 10;
+            String message = "";
+            for (int i = 0; i <= numberOfHoursInADay; i++) {
+                String time = (i < tempInt) ? "0" + i + "00" : i + "00";
+                SimpleDateFormat simpleDateFormat =
+                    new SimpleDateFormat("dd/MM/yyyy HHmm");
+                Date now = simpleDateFormat.parse(dayOfClass + " " + time);
+                DateFormat df = new SimpleDateFormat("HH:mm");
+                boolean isAssignedClass = false;
+                for (TimeSlot t : this.list) {
+                    if (now.equals(t.getStartTime())) {
+                        isAssignedClass = true;
+                        message += df.format(now)
+                            + " " + t.getClassName() + " from "
+                            + df.format(t.getStartTime())
+                            + " to " + df.format(t.getEndTime()) + " at "
+                            + t.getLocation() + "\n";
+                    }
+                }
+                if (!isAssignedClass) {
+                    message += df.format(now) + "\n";
                 }
             }
-            if (!isAssignedClass) {
-                message += df.format(now) + "\n";
-            }
+            message += "--------------------------";
+            return message;
+        } catch (NullPointerException e) {
+            return "empty";
         }
-        message += "--------------------------";
-        return message;
     }
 
     /**
