@@ -16,7 +16,8 @@ public class InvalidCommand extends Command {
 
     @Override
     public String execute() {
-        return "???!";
+        return "Invalid Command!";
+
         /*String input = new String();
         for (String i : inputs) {
             input += i;
