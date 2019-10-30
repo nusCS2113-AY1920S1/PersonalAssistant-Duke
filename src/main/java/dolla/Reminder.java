@@ -6,6 +6,7 @@ import dolla.ui.Ui;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+//@@author tatayu
 /**
  * Class handles Reminder-related methods.
  */
@@ -44,7 +45,7 @@ public class Reminder {
         for (int i = 0; i < recordList.size(); i++) {
             LocalDate temp = recordList.get().get(i).getDate(); //get the time for that log
             LocalDate check = today.plusDays(2); //remind the user 2 days before
-            if (check.compareTo(temp) >= 0) {
+            if (check.compareTo(temp) >= 0 && temp.compareTo(today) > 0) {
                 listNum += 1;
                 System.out.println("\t" + listNum + ". " + recordList.get().get(i).getRecordDetail());
             }

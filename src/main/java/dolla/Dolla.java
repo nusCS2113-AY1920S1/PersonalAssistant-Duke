@@ -2,6 +2,7 @@ package dolla;
 
 import dolla.command.Command;
 import dolla.parser.MainParser;
+
 import static dolla.Storage.load;
 
 import java.util.Scanner;
@@ -18,6 +19,8 @@ public class Dolla {
 
     private static final String COMMAND_BYE = "bye";
     private DollaData dollaData = new DollaData();
+    public static TagList tagList = new TagList(); //todo: change
+
 
     //private TaskList tasks = new TaskList(new ArrayList<Task>());
     //Storage storage = new Storage();
@@ -27,7 +30,7 @@ public class Dolla {
      */
     private Dolla() {
         //tasks = new TaskList(Storage.load());
-        load(); //load from save
+        load(); //load from save TODO: add load for tag also (for now it can add to tagList but cant store to harddrive)
     }
 
     /**

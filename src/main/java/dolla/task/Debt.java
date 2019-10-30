@@ -4,6 +4,7 @@ import dolla.Time;
 
 import java.time.LocalDate;
 
+//@@author tatayu
 /**
  * Debt is a Class that stores an instance of the user's owe and borrow cases.
  */
@@ -26,7 +27,7 @@ public class Debt extends Record {
         this.amount = amount;
         this.description = description;
         this.date = date;
-        this.recordType = "debt";
+        this.recordType = RECORD_DEBT;
         this.userInput = type + " " + name + " " + amount + " " + description + " " + "/due " + Time.dateToString(date);
     }
 
