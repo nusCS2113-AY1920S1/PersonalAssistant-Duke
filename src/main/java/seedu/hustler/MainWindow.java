@@ -156,7 +156,7 @@ public class MainWindow extends AnchorPane{
             removeWelcome();
             sendClicked();
             flowPane.setStyle("-fx-background-color:#ffffff");
-            //console.clear();
+            console.clear();
             if (input.equals("/achievements")) {
                 achievementAction();
             } else if (input.equals("/avatar")) {
@@ -203,8 +203,6 @@ public class MainWindow extends AnchorPane{
         titlePane.prefWidthProperty().bind(heading.widthProperty());
         titlePane.getChildren().addAll(title1);
         heading.getChildren().addAll(titlePane);
-
-        Hustler.run(userInput.getText());
 
         ColorAdjust color = new ColorAdjust();
         color.setContrast(0.35);
