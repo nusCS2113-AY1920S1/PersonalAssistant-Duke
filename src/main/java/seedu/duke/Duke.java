@@ -18,7 +18,7 @@ import seedu.duke.ui.UI;
  */
 public class Duke {
     private static UI ui = new UI();
-    private static Model model = new Model();
+    private static Model model = Model.getInstance();
     private static Duke duke;
 
     private Duke() {

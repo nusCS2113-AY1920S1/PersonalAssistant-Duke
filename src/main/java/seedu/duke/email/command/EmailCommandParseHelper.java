@@ -7,6 +7,7 @@ import seedu.duke.common.command.ExitCommand;
 import seedu.duke.common.command.FlipCommand;
 import seedu.duke.common.command.HelpCommand;
 import seedu.duke.common.command.InvalidCommand;
+import seedu.duke.common.model.Model;
 import seedu.duke.email.EmailList;
 import seedu.duke.ui.UI;
 
@@ -125,7 +126,7 @@ public class EmailCommandParseHelper {
     }
 
     private static int parseEmailIndex(String input) throws CommandParseHelper.UserInputException {
-        EmailList emailList = Duke.getModel().getEmailList();
+        EmailList emailList = Model.getInstance().getEmailList();
         if (input.length() >= 6) {
             throw new CommandParseHelper.UserInputException("Invalid index.\nIndex of range 1 ~ 99999 is "
                     + "accepted.");
