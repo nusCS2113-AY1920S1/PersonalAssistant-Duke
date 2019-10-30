@@ -80,6 +80,7 @@ public class ParserLesson {
      * @throws ParseException        if user input is not in the correct format
      */
     public ParserLesson() throws FileNotFoundException, ParseException {
+
         cliView = new CliView();
         lessonStorage = new Storage(
             ".\\src\\main\\java\\duke\\data\\lessons.txt");
