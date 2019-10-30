@@ -140,6 +140,7 @@ public abstract class Event implements Comparable<Event> {
         return goalsList;
     }
 
+    //@@author YuanJiayi
     public void addContact(Contact contactInput) {
         contactList.add(contactInput);
     }
@@ -164,6 +165,7 @@ public abstract class Event implements Comparable<Event> {
         }
     }
 
+    //@@author
     public void addChecklist(String newChecklist) {
         System.out.println(newChecklist);
         this.checklist.add(newChecklist);
