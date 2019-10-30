@@ -1,7 +1,7 @@
 package duke.logic.parser.product;
 
+import duke.commons.core.Message;
 import duke.logic.command.product.SwitchProductPageCommand;
-import duke.logic.message.ProductMessageUtils;
 import duke.logic.parser.commons.Parser;
 import duke.logic.parser.exceptions.ParseException;
 
@@ -12,6 +12,6 @@ public class SwitchProductPageCommandParser implements Parser<SwitchProductPageC
         if ("".equals(args)) {
             return new SwitchProductPageCommand();
         }
-        throw new ParseException(ProductMessageUtils.MESSAGE_UNRECOGNIZED_COMMAND);
+        throw new ParseException(Message.MESSAGE_UNKNOWN_COMMAND);
     }
 }

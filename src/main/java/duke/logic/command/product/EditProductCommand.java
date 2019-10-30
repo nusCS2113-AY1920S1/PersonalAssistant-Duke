@@ -58,7 +58,6 @@ public class EditProductCommand extends ProductCommand {
             throw new CommandException(String.format(ProductMessageUtils.MESSAGE_DUPLICATE_PRODUCT,
                 editedProduct.getProductName()));
         }
-        model.updateFilteredProductList(Model.PREDICATE_SHOW_ACTIVE_PRODUCTS);
         model.commit(ProductMessageUtils.MESSAGE_COMMIT_EDIT_PRODUCT);
         return new CommandResult(String.format(MESSAGE_EDIT_PRODUCT_SUCCESS, editedProduct.getProductName()),
                 CommandResult.DisplayedPage.PRODUCT);
