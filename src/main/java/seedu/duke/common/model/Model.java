@@ -37,6 +37,7 @@ public class Model {
         taskList = TaskStorage.readTaskFromFile();
         emailList = EmailStorage.readEmailFromFile("");
         updateGuiTaskList();
+        updateGuiEmailList();
     }
 
     public TaskList getTaskList() {

@@ -258,6 +258,7 @@ public class Http {
     private static void configurePostRequestConnection(HttpURLConnection conn, String params) throws IOException {
         byte[] postData = params.getBytes(StandardCharsets.UTF_8);
         int postDataLength = postData.length;
+        conn.setConnectTimeout(5000);
         conn.setDoOutput(true);
         conn.setInstanceFollowRedirects(false);
         conn.setRequestMethod("POST");
