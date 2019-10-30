@@ -111,13 +111,17 @@ It should finish with the `BUILD SUCCESSFUL` message. This will generate the res
 
 == 2. Design
 
-=== 2.1. Architecture Design
+=== Architecture Design
+ArchDuke was implemented using the N-tier architecture approach. Having a N-tier application architecture helped s to
+flexibly create the application by segregating the application into tiers. Hence instead of reworking the entire application
+when the application is modified, we only had to rework the specific layer dealing with the modification. This approach also
+helped us in logically structuring the elements which made up ArchDuke. The Architecture Diagram given below explains the
+high-level design of ArchDuke.
 
 .Architecture Diagram
 image::images/ArchDuke_Architecture.png[]
 
-The Architecture Diagram given above explains the high-level design of ArchDuke. ArchDuke is based on the n-tier
-architecture design. Below is a quick overview of each component based on our Architecture.
+Below is a quick overview of each component based on our Architecture.
 
 Not included in the diagram is the `Main` program in the folder *_launcher_*. The Main program is responsible for
 initializing the `View` layer.
@@ -128,7 +132,7 @@ initializing the `View` layer.
 
 * `Factory` classes : Used mainly by `Repositories` and `Controllers` to create objects based on user input.
 * `Logger` classes: Used by all classes to write log messages to ArchDuke's log file.
-* `ParserHelper` class: Used by all classes for user user input parsing
+* `ParserHelper` class: Used by all classes for user input parsing
 * `SortHelper` class: Used primarily by `Repositories` and `Controllers` for sorting objects based on description
 before a Response model is generated for the `View` layer.
 * `DateTimeHelper` class: Used for handling anything that is related to Date objects or parsing inputs for Date objects
@@ -163,7 +167,7 @@ Each layer will be discussed in detail below.
 
 // The sections below give more details of each component.
 
-=== 2.2. View Layer
+=== 2.1. View Layer
 Our main UI Component is a class called CLIView. It is mainly responsible for reading the user input and displaying
 formatted messages to the user.
 
@@ -183,12 +187,15 @@ the commands by coordinating all other components.
 // *API* :
 // link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
-==== 2.3.1 ConsoleInputController
+==== 2.2.1 ConsoleInputController
 
-==== 2.3.2 ProjectInputController
+==== 2.2.2 ProjectInputController
 ProjectInputController is a class which acts as a parser for commands related to the members and the tasks of a given project.
 
-==== 2.3.3 AssignmentController
+*Rationale for implementation*
+
+
+==== 2.2.3 AssignmentController
 AssignmentController is a class which manages the assignment of tasks to group members.
 
 *Rationale for implementation*
@@ -204,7 +211,7 @@ The task index numbers (1, 2) , assignee indexes (1, 2, 3) and unassigned indexe
 1. To ensure that these 3 parts of the input can be easily managed
 2. To isolate the assignment commands to avoid making the code in projectInputController too long
 
-=== 2.4. Repository layer
+=== 2.3. Repository layer
 
 // .Structure of the Model Component
 // image::ModelClassDiagram.png[]
@@ -223,7 +230,7 @@ The task index numbers (1, 2) , assignee indexes (1, 2, 3) and unassigned indexe
 //  +
 // image:BetterModelClassDiagram.png[]
 
-=== 2.5. Data Layer
+=== 2.4. Data Layer
 
 // .Structure of the Storage Component
 // image::StorageClassDiagram.png[]
@@ -237,7 +244,7 @@ The task index numbers (1, 2) , assignee indexes (1, 2, 3) and unassigned indexe
 // * can save the Address Book data in json format and read it back.
 
 //[[Design-Commons]]
-//=== 2.6. Common classes
+//=== 2.5. Common classes
 
 //Classes used by multiple components are in the `seedu.addressbook.commons` package.
 
@@ -394,7 +401,6 @@ image::images/CreateTask_Sequence.png[]
 === 3.4. CRUD functionality for Reminder [Plan to do]
 ==== Implementation
 
-Implementation
 CRUD Reminder functions are handled by `Reminder`, `ReminderList` and `ReminderFactory`,`Project` and `ProjectInputController`.
 It allows ArchDuke to perform simple CRUD function for Reminder in the Project, these simple functions include Create, Read,
 Update and Delete. `TaskFactory` will create the relevant task with the apporatied input from the user which will then be
