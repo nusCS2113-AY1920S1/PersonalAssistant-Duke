@@ -81,7 +81,7 @@ public class Storage {
      *
      * @param songList - This is the list of songs by the user.
      */
-    
+
     public void loadToList(SongList songList) throws DucatsException {
         // loads data into list
         ArrayList<String> data = readStringsFromFile();
