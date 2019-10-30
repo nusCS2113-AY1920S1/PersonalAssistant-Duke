@@ -4,6 +4,7 @@ import duke.commons.core.Message;
 import duke.commons.core.index.Index;
 import duke.logic.command.CommandResult;
 import duke.logic.command.exceptions.CommandException;
+import duke.logic.message.ShoppingMessageUtils;
 import duke.model.Model;
 import duke.model.commons.Item;
 import duke.model.inventory.Ingredient;
@@ -17,10 +18,8 @@ import static java.util.Objects.requireNonNull;
 public class BuyShoppingCommand extends ShoppingCommand {
 
     public static final String COMMAND_WORD = "buy";
-    public static final String MESSAGE_SUCCESS = "Shopping list ingredient(s) bought. Total cost is: $%s";
 
     private static final Double ZERO_QUANTITY = 0.00;
-
     private final Set<Index> indices;
     private Double totalCost = 0.00;
     private ArrayList<Item<Ingredient>> toBuyList;
@@ -60,13 +59,14 @@ public class BuyShoppingCommand extends ShoppingCommand {
                 model.addInventory(toBuy);
             }
 
-            totalCost += toBuy.getTotalPrice();
-
             model.setShoppingList(toBuy, ShoppingCommandUtil.createNewIngredient(toBuy, ZERO_QUANTITY));
         }
 
+        totalCost = model.computeTotalCost(toBuyList);
         model.addSaleFromShopping(totalCost, toBuyList);
+        model.commit(ShoppingMessageUtils.MESSAGE_COMMIT_BUY_SHOPPING);
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, totalCost, CommandResult.DisplayedPage.SHOPPING));
+        return new CommandResult(String.format(ShoppingMessageUtils.MESSAGE_COMMIT_BUY_SHOPPING,
+                totalCost, CommandResult.DisplayedPage.SHOPPING));
     }
 }
