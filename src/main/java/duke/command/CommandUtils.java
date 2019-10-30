@@ -4,9 +4,11 @@ import duke.DukeCore;
 import duke.data.DukeObject;
 import duke.data.Patient;
 import duke.exception.DukeException;
+import duke.exception.DukeUtilException;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -100,28 +102,37 @@ public class CommandUtils {
      *
      * @param core  DukeCore object.
      * @param bedNo Bed number of patient.
-     * @param index Displayed index of patient (Home context).
+     * @param nameOrIdx Displayed index of patient (Home context), or name of Patient.
      * @return Patient object
      * @throws DukeException If 1 of the following 3 conditions applies.
      *                       1. No identifier is provided.
      *                       2. 2 identifiers are provided.
      *                       3. 1 unique identifier is provided but said patient does not exist.
      */
-    public static Patient findPatient(DukeCore core, String bedNo, int index) throws DukeException {
-        if (bedNo == null && index == -1) {
-            throw new DukeException("You must provide a unique identifier (bed number OR index) for a patient!");
-        } else if (bedNo != null && index != -1) {
-            throw new DukeException("Please provide only 1 unique identifier (bed number OR index) for the patient "
-                    + "you are looking for!");
-        } else if (bedNo != null) {
+    public static Patient findPatient(DukeCore core, String bedNo, String nameOrIdx) throws DukeException {
+        if (nameOrIdx == null && bedNo == null) {
+            throw new DukeUtilException("Please provide a way to identify the patient! Patients can be searched for"
+                    + "by name/index or by bed.");
+        }
+        if (nameOrIdx != null && bedNo != null) {
+            throw new DukeUtilException("I don't know if you want me to find the patient ");
+        }
+
+        if (bedNo != null) {
             return core.patientMap.getPatient(bedNo);
-        } else {
+        }
+        int index = idxFromString(nameOrIdx);
+        if (index != -1) {
             // TODO: Law of demeter
-            try {
-                return (Patient) core.ui.getIndexedList("patient").get(index - 1);
-            } catch (IndexOutOfBoundsException e) {
-                throw new DukeException("I cannot find a patient with the identifier you provided!");
+            List<DukeObject> patientList = core.ui.getIndexedList("patient");
+            int count = patientList.size();
+            if (index > count) {
+                throw new DukeException("I have only " + ((count == 1) ? ("1 patient") : (count + "patients")) + " in "
+                        + "my list!");
             }
+            return (Patient) patientList.get(index - 1);
+        } else {
+            core.patientMap.findPatient();
         }
     }
 

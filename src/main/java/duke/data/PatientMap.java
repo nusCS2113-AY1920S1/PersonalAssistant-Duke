@@ -21,7 +21,7 @@ public class PatientMap {
      * @throws DukeResetException If file is corrupted or the data has been edited to be unreadable.
      * @throws DukeFatalException If unable to write data file.
      */
-    public PatientMap(GsonStorage storage) throws DukeResetException, DukeFatalException {
+    public PatientMap(GsonStorage storage) throws DukeFatalException {
         HashMap<String, Patient> patientHashMap = storage.loadPatientHashMap();
         patientObservableMap = FXCollections.observableMap(patientHashMap);
 
