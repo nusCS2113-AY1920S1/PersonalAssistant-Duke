@@ -83,13 +83,12 @@ press kbd:[Enter], the result appears immediately!
 
 == Quick Start
 . Ensure you have *Java Version 11* installed on your computer.
-. Download the latest `OwlMoney-v1.3.zip` link:{repoURL}/releases/latest[here].
-. Copy the `OwlMoney-v1.3.zip` file to the folder you want to use as the home folder for *OwlMoney*.
-. Extract all contents in the zip file into a target folder, including the `data` directory which should be *empty*.
+. Download the latest `OwlMoney-v1.3.jar` link:{repoURL}/releases/latest[here].
+. Copy the `OwlMoney-v1.3.jar` file to the folder you want to use as the home folder for *OwlMoney*.
 . Open a *Command Prompt* or *Powershell*, navigate to the target folder and type `java -jar ./OwlMoney-v1.3.jar` to
 start *OwlMoney*.
 *OwlMoney* should appear in a few seconds.
-. Maximise the screen to enjoy the best experience of *OwlMoney*.
+. Maximise the screen to enjoy the best experience of *OwlMoney*, it performs best on displays *1920x1080* and above.
 . As this is your first time starting up this program, you have to create a profile by
 typing your `USERNAME` *(e.g. John)* when prompted and pressing kbd:[Enter]
 +
