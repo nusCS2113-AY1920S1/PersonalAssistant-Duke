@@ -4,7 +4,9 @@ import java.util.Timer;
 
 import duke.task.Task;
 
-
+/**
+ * Class that holds the instance of a pomodoro and manages the pomodoro timer task
+ */
 public class Pomodoro {
     private static final int ONE_MINUTE = 1000; // multiply by 60
     private static final int START_LONGBREAK_MINUTES = 15;
@@ -17,15 +19,27 @@ public class Pomodoro {
     private PomodoroTimerTask pomodoroTimerTask;
     private Timer timer;
 
+    /**
+     * Constructor method that creates a pomodoro that begins with a work cycle
+     */
     private Pomodoro() {
         currCycle = 0;
         currState = State.WORK;
     }
 
+    /**
+     * Method that holds an instance of the pomodoro timer
+     *
+     * @return an instance of Pomodoro
+     */
     public static Pomodoro getInstance() {
         return instance;
     }
 
+    /**
+     * Method that starts the timer by creating a new PomodoroTimerTask
+     * Inputs period of the TimerTask based on what cycle it is at currently
+     */
     public void startTimer() {
         timer = new Timer();
         switch (currState) {
@@ -56,6 +70,9 @@ public class Pomodoro {
         }
     }
 
+    /**
+     * Method that resets the state to the previous one
+     */
     public void resetState() {
         switch (currState) {
         case WORK:
@@ -73,6 +90,10 @@ public class Pomodoro {
             break;
         }
     }
+
+    /**
+     * Method that stops the timer and prints out the state that was completed
+     */
 
     public void stopTimer() {
         String cState;
@@ -92,6 +113,9 @@ public class Pomodoro {
         timer.cancel();
     }
 
+    /**
+     * Method that restarts the pomodoro cycle back to the start work cycle
+     */
     public void restartPomodoro() {
         System.out.println("Pomodoro restarted!");
         currCycle = 0;
@@ -106,6 +130,10 @@ public class Pomodoro {
         this.pomodoroTask = t;
     }
 
+    /**
+     * Method that prints out the current status of the pomodoro
+     * Current state, number of cycles completed and amount of time left on current pomodoro
+     */
     public void getStatus() {
         int minutesRemaining = pomodoroTimerTask.getMinutesRemaining();
         String cState;
@@ -126,6 +154,9 @@ public class Pomodoro {
         System.out.println(minutesRemaining + " minutes left for your current pomodoro");
     }
 
+    /**
+     * Enum for the 3 states of a pomodoro
+     */
     enum State {
         LONG_BREAK,
         SHORT_BREAK,

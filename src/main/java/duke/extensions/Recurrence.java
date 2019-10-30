@@ -6,10 +6,18 @@ import java.util.Optional;
 
 import duke.exception.DukeException;
 
+/**
+ * Class that contains the logic of the recurrence of the task
+ */
 public class Recurrence {
     private LocalDateTime lastUpdatedDate;
     private RecurrencePeriod recurrencePeriod;
 
+    /**
+     * Constructor of the Recurrence class
+     * @param recurrencePeriod an optional string of the recurrence period to set
+     * @throws DukeException if invalid recurrence period inputted
+     */
     public Recurrence(Optional<String> recurrencePeriod) throws DukeException {
         this.lastUpdatedDate = LocalDateTime.now();
         if (recurrencePeriod.isPresent()) {
@@ -38,15 +46,14 @@ public class Recurrence {
     }
 
     /**
-     * This function marks tasks as undone every week/day based on the
-     * recurrence period of the task.
+     * Method that checks whether it's time to reset the task to undone based on recurrence period
+     * @return true if it is time to reset, false if it is not
      */
     public boolean isTimeToReset() {
         LocalDateTime dateNow = LocalDateTime.now();
         switch (recurrencePeriod) {
         case DAILY:
             if (ChronoUnit.DAYS.between(lastUpdatedDate, dateNow) > 0) {
-
                 lastUpdatedDate = LocalDateTime.now();
                 return true;
             } else {
