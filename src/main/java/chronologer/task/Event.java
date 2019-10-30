@@ -28,6 +28,7 @@ public class Event extends Task implements Serializable, Comparable<Event> {
         this.endDate = endDate;
         this.startDate = startDate;
         setReminder(3);
+        this.type = EVENT;
     }
 
     /**
@@ -58,8 +59,4 @@ public class Event extends Task implements Serializable, Comparable<Event> {
         }
     }
 
-    @Override
-    public String getType() {
-        return EVENT;
-    }
 }

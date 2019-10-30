@@ -26,6 +26,7 @@ public class Deadline extends Task implements Serializable {
         super(description);
         this.startDate = atDate;
         setReminder(3);
+        this.type = DEADLINE;
     }
 
     /**
@@ -38,6 +39,7 @@ public class Deadline extends Task implements Serializable {
         super(description);
         this.startDate = atDate;
         this.modCode = modCode;
+        this.type = DEADLINE;
         setReminder(3);
     }
 
@@ -55,11 +57,6 @@ public class Deadline extends Task implements Serializable {
             dateString = dateString + "  Note to self: " + comment;
         }
         return message.concat(dateString);
-    }
-
-    @Override
-    public String getType() {
-        return DEADLINE;
     }
 
     @Override
