@@ -17,6 +17,7 @@ import javafx.util.Duration;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.net.URL;
 
 /**
  * A one scene chatbot GUI.
@@ -29,12 +30,11 @@ public class MainApp extends Application {
     private static int MAINWINDOW_HEIGHT = 650;
     private static int SPLASHSCREEN_WIDTH = 600;
     private static int SPLASHSCREEN_HEIGHT = 400;
-    private static String USERSTATS_FILE_PATH = "UserData.txt";
 
     //Initialise the different components here
     private Logic logic;
     private static MusicController musicController;
-    private UserStats stats = new UserStats(USERSTATS_FILE_PATH);
+    private UserStats stats = new UserStats("UserData.txt");
 
     static {
         try {
@@ -50,7 +50,7 @@ public class MainApp extends Application {
     private void initialize() throws IOException {
         try {
             logic = new Logic(stats);
-            Storage.loadData(USERSTATS_FILE_PATH);
+            Storage.loadData("UserData.txt");
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }

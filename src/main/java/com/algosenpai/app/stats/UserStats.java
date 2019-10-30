@@ -1,12 +1,13 @@
 package com.algosenpai.app.stats;
 
 import com.algosenpai.app.storage.Storage;
-import com.algosenpai.app.storage.UserStorageParser;
+
 import javafx.util.Pair;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -33,8 +34,8 @@ import java.util.HashMap;
 public class UserStats {
     private String userName;
     private String gender;
-    private int level;
-    private int expLevel;
+    private String level;
+    private String expLevel;
     private String userDataFilePath;
 
     // Array of chapter stats
@@ -56,26 +57,26 @@ public class UserStats {
         chapterNumber = new HashMap<>();
         this.userDataFilePath = userDataFilePath;
 
-        File file = new File(userDataFilePath);
+        File file = new File(String.valueOf(userDataFilePath));
         if (!file.isFile()) {
             this.userName = "Name";
             this.gender = "???";
-            this.level = 1;
-            this.expLevel = 0;
+            this.level = "1";
+            this.expLevel = "0";
         } else {
-            String userStatsString = Files.readString(Paths.get(userDataFilePath), StandardCharsets.US_ASCII);
-            String [] tokens = userStatsString.split("\n",7);
+            String userStatsString = Files.readString(Paths.get(String.valueOf(userDataFilePath)), StandardCharsets.US_ASCII);
+            String [] tokens = userStatsString.split("\n",6);
             this.userName = tokens[2];
             this.gender = tokens[3];
-            this.level = Integer.parseInt(tokens[4]);
-            this.expLevel = Integer.parseInt(tokens[5]);
+            this.level = tokens[4];
+            this.expLevel = tokens[5];
         }
     }
 
     /**
      * Constructor. Needs no explanation.
      */
-    public UserStats(String username, String gender, int level, int expLevel, ArrayList<ChapterStat> chapterData) {
+    public UserStats(String username, String gender, String level, String expLevel, ArrayList<ChapterStat> chapterData) {
         this.userName = username;
         this.gender = gender;
         this.level = level;
@@ -211,18 +212,18 @@ public class UserStats {
     }
 
     public int getUserLevel() {
-        return this.level;
+        return Integer.parseInt(this.level);
     }
 
-    public void setUserLevel(int level) {
+    public void setUserLevel(String level) {
         this.level = level;
     }
 
     public int getUserExp() {
-        return this.expLevel;
+        return Integer.parseInt(this.expLevel);
     }
 
-    public void setUserExp(int expLevel) {
+    public void setUserExp(String expLevel) {
         this.expLevel = expLevel;
     }
 
@@ -264,8 +265,8 @@ public class UserStats {
         String [] tokens = string.split("\n",6);
         String userName = tokens[2];
         String gender = tokens[3];
-        int level = Integer.parseInt(tokens[4]);
-        int expLevel = Integer.parseInt(tokens[5]);
+        String level = tokens[4];
+        String expLevel = tokens[5];
 
         // No chapters in the list, so exit early, otherwise will cause parsing error.
         if (tokens.length < 6) {
@@ -286,7 +287,7 @@ public class UserStats {
      */
     public static UserStats getDefaultUserStats() {
         // TODO Currently it returns an empty object, but it should ideally be a list of all chapters, with 0 attempts.
-        return new UserStats("Name", "nil", 1, 0, new ArrayList<>());
+        return new UserStats("Name", "nil", "1", "0", new ArrayList<>());
     }
 
     /**

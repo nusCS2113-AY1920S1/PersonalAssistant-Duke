@@ -2,13 +2,12 @@ package com.algosenpai.app.storage;
 
 import com.algosenpai.app.stats.UserStats;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
+import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Scanner;
 
 public class Storage {
 
@@ -30,6 +29,7 @@ public class Storage {
             saveData(filePath, newUserStats.toString());
             return newUserStats.toString();
         }
+
         return Files.readString(Paths.get(filePath), StandardCharsets.US_ASCII);
     }
 
