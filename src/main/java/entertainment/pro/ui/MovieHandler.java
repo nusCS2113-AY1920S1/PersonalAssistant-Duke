@@ -255,7 +255,7 @@ public class MovieHandler extends Controller implements RequestListener {
 //        } catch (ParseException e) {
 //            e.printStackTrace();
 //        }
-//        userNameLabel.setText(userProfile.getUserName());
+        userNameLabel.setText(userProfile.getUserName());
         userAgeLabel.setText(Integer.toString(userProfile.getUserAge()));
         playlists = userProfile.getPlaylistNames();
         ProfileCommands command = new ProfileCommands(userProfile);
