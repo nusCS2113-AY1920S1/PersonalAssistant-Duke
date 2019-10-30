@@ -11,8 +11,9 @@ import cube.logic.command.util.CommandResult;
 import cube.util.FileUtilJson;
 import cube.storage.*;
 import cube.exception.CubeException;
+import cube.util.LogUtil;
 
-import java.util.ArrayList;
+import java.util.logging.Logger;
 
 
 public class Cube {
@@ -23,6 +24,7 @@ public class Cube {
     private FoodList foodList;
     private SalesHistory salesHistory;
     private Ui ui;
+    private final Logger logger = LogUtil.getLogger(Cube.class);
 
     /**
      * Cube constructor with filePath.
@@ -30,17 +32,20 @@ public class Cube {
      * @param filePath the file path where duke data is stored.
      */
     public Cube(String filePath) {
+        logger.info("=============================[ Initializing Cube ]===========================");
         ui = new Ui();
         storageManager = new StorageManager();
         storage = new FileUtilJson<>(filePath, "cube.json", storageManager);
 
         try {
+            LogUtil.init(storageManager.getConfig().getLogConfig());
             storageManager = storage.load();
             foodList = storageManager.getFoodList();
             salesHistory = storageManager.getSalesHistory();
             modelManager = new ModelManager(foodList, salesHistory);
             Food.updateRevenue(storageManager.getRevenue());
         } catch (CubeException e) {
+            logger.warning(e.getMessage());
             ui.showLoadingError(filePath);
             modelManager = new ModelManager();
         }
@@ -55,6 +60,8 @@ public class Cube {
         while (!isExit) {
             try {
                 String fullCommand = ui.readCommand();
+                logger.info("Command Entered : " + fullCommand);
+
                 ui.showLine();
                 Command c = Parser.parse(fullCommand);
                 isExit = c.isExit();
@@ -62,11 +69,13 @@ public class Cube {
                 ui.showCommandResult(result);
                 storage.save(storageManager);
             } catch (CubeException e) {
+                logger.warning(e.getMessage());
                 ui.showError(e.getMessage());
             } finally {
                 ui.showLine();
             }
         }
+        logger.info("=============================[  Exiting Cube  ]==============================");
     }
 
     /**

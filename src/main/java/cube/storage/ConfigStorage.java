@@ -7,10 +7,12 @@ package cube.storage;
 
 import cube.storage.config.ReminderConfig;
 import cube.storage.config.UiConfig;
+import cube.storage.config.LogConfig;
 
 public class ConfigStorage {
     private UiConfig uiConfig;
     private ReminderConfig reminderConfig;
+    private LogConfig logConfig;
 
     /**
      * Default constructor.
@@ -19,6 +21,7 @@ public class ConfigStorage {
     public ConfigStorage() {
         this.uiConfig = new UiConfig();
         this.reminderConfig = new ReminderConfig();
+        this.logConfig = new LogConfig();
     }
 
     /**
@@ -51,5 +54,21 @@ public class ConfigStorage {
      */
     public void setReminderConfig(ReminderConfig reminderConfig) {
         this.reminderConfig = reminderConfig;
+    }
+
+    /**
+     * Getter for LogConfig.
+     * @return LogConfig object containing logger configurations.
+     */
+    public LogConfig getLogConfig() {
+        return logConfig;
+    }
+
+    /**
+     * Setter for LogConfig.
+     * @param logConfig The LogConfig object that contains logger configurations to be set.
+     */
+    public void setLogConfig(LogConfig logConfig) {
+        this.logConfig = logConfig;
     }
 }
