@@ -32,7 +32,7 @@ public class Http {
     private static String refreshToken = null;
     private static String clientId = "feacc09e-5364-4386-92e5-78ee25d2188d";
     private static String clientSecret = "8dhu0-v80Ic-ZrQpACgWLEPg:??1MGkc";
-    private static String redirect = "http://localhost:3000";
+    private static String redirect = "http://localhost:" + SimpleServer.getPort();
     private static String scope = "openid+Mail.Read+offline_access";
 
     /**

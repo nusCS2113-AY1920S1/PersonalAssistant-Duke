@@ -5,6 +5,7 @@ import javafx.application.Platform;
 import javafx.util.Duration;
 import seedu.duke.common.model.Model;
 import seedu.duke.common.network.Http;
+import seedu.duke.common.network.SimpleServer;
 import seedu.duke.ui.UI;
 
 
