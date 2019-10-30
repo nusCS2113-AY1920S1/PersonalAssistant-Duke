@@ -14,20 +14,14 @@ import java.time.format.TextStyle;
 import java.util.Locale;
 
 public class TaskParseNaturalDateHelper {
-//    private static String day;
-//    private static String timing;
-//
-//    TaskParseNaturalDateHelper(String day, String timing) {
-//        this.day = day;
-//        this.timing = timing;
-//    }
+
     /**
      * Checks if the input is a short form for a day of the week.
      *
      * @param input an input to be checked.
      * @return false if the input is not short form or not a day of the week.
      */
-    public static boolean isCorrectNaturalDate(String input) {
+    private static boolean isCorrectNaturalDate(String input) {
         DayOfWeek[] dayOfWeeks = DayOfWeek.values();
         for (int i = 0; i < dayOfWeeks.length; i++) {
             String day = dayOfWeeks[i].getDisplayName(TextStyle.SHORT, Locale.US);
@@ -49,7 +43,7 @@ public class TaskParseNaturalDateHelper {
      * @throws CommandParseHelper.UserInputException an exception when the parsing is failed, most likely due
      *                                               to a wrong format
      */
-    private static LocalDateTime convertNaturalDate(String parsedDay, String parsedTiming)
+    public static LocalDateTime convertNaturalDate(String parsedDay, String parsedTiming)
             throws CommandParseHelper.UserInputException {
         LocalDate date = LocalDate.now();
         LocalDateTime dateTime;
