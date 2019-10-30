@@ -17,6 +17,10 @@ public class ParserTrainingPlan implements IParser {
      * A scanner to handle user input.
      */
     private Scanner sc;
+    /**
+     * MyPlan object.
+     */
+    private MyPlan plan;
 
     /**
      * Constructor for ParserTrainingPlan.
@@ -24,10 +28,11 @@ public class ParserTrainingPlan implements IParser {
      */
     public ParserTrainingPlan() throws FileNotFoundException {
         ui = new Ui();
-        MyPlan plan = new MyPlan(new Storage(
+        plan = new MyPlan(new Storage(
                 ".\\src\\main\\java\\duke\\data\\plan.txt").loadPlans());
         sc = new Scanner(System.in);
     }
+
     /**
      * To parse training plan command.
      * @param input command.

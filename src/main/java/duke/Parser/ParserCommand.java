@@ -12,16 +12,10 @@ public class ParserCommand implements IParser {
      */
     private ParserManageStudents parserManageStudents
         = new ParserManageStudents();
-    /**
-     * Declaring ParserTrainingPLan type.
-     */
-    private ParserTrainingPlan parserTrainingPlan
-        = new ParserTrainingPlan();
 
     /**
      * Parse the respective command.
      * @param input command.
-     * @throws FileNotFoundException throws exception.
      */
     public void parseCommand(final String input) {
         try {
@@ -31,7 +25,6 @@ public class ParserCommand implements IParser {
                 case "1":
                     final int returnLessonOption = 3;
                     final int returnMonthlyOption = 3;
-                    final int theNumberThree = 3;
                     // Schedule
                     ui.trainingScheduleHeading();
                     int executeType = sc.nextInt();
@@ -69,11 +62,24 @@ public class ParserCommand implements IParser {
                     parserManageStudents.parseCommand(studentsInput);
                     break;
                 case "3":
+                    final int maxTrainingPlanOptions = 3;
                     ui.trainingProgramHeading();
                     executeType = sc.nextInt();
                     sc.nextLine();
-                    if(executeType == 1) {
-
+                    ParserTrainingPlan parserTrainingPlan = new
+                            ParserTrainingPlan();
+                    if (executeType == 1) {
+                        ui.planListHeading();
+                        parserTrainingPlan.parseCommand("plan view");
+                    } else if (executeType == 2) {
+                        ui.createPlanHeading();
+                        String intensity = sc.nextLine();
+                        parserTrainingPlan.parseCommand("plan new "
+                                + intensity);
+                    } else if (executeType == maxTrainingPlanOptions) {
+                        ui.editPlanHeading();
+                    } else {
+                        ui.showCorrectPlanHeading();
                     }
                     break;
                 default:

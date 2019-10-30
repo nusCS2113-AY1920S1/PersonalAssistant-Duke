@@ -239,15 +239,18 @@ public class MyPlan {
     public String viewPlan() {
         StringBuilder message = new StringBuilder();
         int x = 1;
-        for (MyTraining i : getList()) {
-            message.append("Activity ");
-            message.append(x).append(": ").append(i.toString());
-            if (x < getList().size() - 1) {
-                message.append("\n");
+        if (!getList().isEmpty()) {
+            for (MyTraining i : getList()) {
+                message.append("Activity ");
+                message.append(x).append(": ").append(i.toString());
+                if (x < getList().size() - 1) {
+                    message.append("\n");
+                }
+                x++;
             }
-            x++;
+            return message.toString();
         }
-        return message.toString();
+        return "";
     }
 
      /**
