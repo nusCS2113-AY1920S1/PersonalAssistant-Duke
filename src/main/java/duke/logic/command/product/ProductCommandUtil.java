@@ -24,8 +24,8 @@ public class ProductCommandUtil {
     public static Product getEditedProductFromDescriptor(Product toEdit, ProductDescriptor productDescriptor) {
         assert toEdit != null;
 
-        String newProductName =
-            StringUtils.capitalize(productDescriptor.getProductName().orElse(toEdit.getProductName()));
+        String s = productDescriptor.getProductName().orElse(toEdit.getProductName());
+        String newProductName = StringUtils.capitalize(s.toLowerCase());
         Double newRetailPrice = productDescriptor.getRetailPrice().orElse(toEdit.getRetailPrice());
         Double newIngredientCost =
                 productDescriptor.getIngredientCost().orElse(toEdit.getIngredientCost());
@@ -45,7 +45,8 @@ public class ProductCommandUtil {
         if (!productDescriptor.getProductName().isPresent()) {
             throw new ParseException(ProductMessageUtils.MESSAGE_MISSING_PRODUCT_NAME);
         }
-        String name = StringUtils.capitalize(productDescriptor.getProductName().get());
+        String s = productDescriptor.getProductName().get();
+        String name = StringUtils.capitalize(s.toLowerCase());
         if (name.isBlank() || name.isEmpty()) {
             throw new ParseException(ProductMessageUtils.MESSAGE_MISSING_PRODUCT_NAME);
         }
