@@ -37,7 +37,7 @@ public class MainWindow extends AnchorPane{
     @FXML
     private TextArea console;
     @FXML
-    private PrintStream ps;
+    private static PrintStream ps;
 
     @FXML
     private Button sendButton;
@@ -129,9 +129,9 @@ public class MainWindow extends AnchorPane{
     public void initialize() throws IOException {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         ps = new PrintStream(new Console(console));
-        System.setOut(ps);
-        System.setErr(ps);
+        onPrinting();
         Hustler.initialize();
+
         StackPane stackPane = new StackPane();
         welcomeScreen.setStyle("-fx-background-color:#2dcb70");
         Rectangle whiteSpace = new Rectangle();
@@ -159,6 +159,16 @@ public class MainWindow extends AnchorPane{
         hustler = h;
     }
 
+    public static void onPrinting() {
+        System.setOut(ps);
+        System.setErr(ps);
+    }
+
+    public static void offPrinting() {
+        System.setOut(dummyStream);
+        System.setErr(dummyStream);
+    }
+
     /**
      * Changes printing stream to text area in GUI.
      */
@@ -179,6 +189,14 @@ public class MainWindow extends AnchorPane{
     }
 
     /**
+     * Creates a dummy stream which does not print anything.
+     */
+    public static PrintStream dummyStream = new PrintStream(new OutputStream() {
+        public void write(int b) {
+        }
+    });
+
+    /**
      * Handles operations after each user's input.
      */
     @FXML
@@ -192,8 +210,6 @@ public class MainWindow extends AnchorPane{
             String token[] = input.split(" ");
             if (input.equals("/achievement")) {
                 achievementAction();
-            } else if (input.equals("/bye")) {
-                Hustler.run("/bye");
             } else {
                 Hustler.run(input);
                 scrollPANEE.setContent(console);

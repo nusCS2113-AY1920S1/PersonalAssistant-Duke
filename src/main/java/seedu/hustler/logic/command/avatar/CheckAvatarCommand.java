@@ -11,7 +11,7 @@ import seedu.hustler.ui.Ui;
 public class CheckAvatarCommand extends Command {
 
     /**
-     * The user input
+     * The user input.
      */
     private String[] userInput;
 

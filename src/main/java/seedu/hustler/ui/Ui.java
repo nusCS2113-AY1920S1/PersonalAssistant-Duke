@@ -1,7 +1,6 @@
 package seedu.hustler.ui;
 
 import seedu.hustler.Hustler;
-import seedu.hustler.data.CommandLog;
 import seedu.hustler.game.achievement.Achievements;
 import seedu.hustler.game.avatar.Avatar;
 import seedu.hustler.game.shop.items.ShopItem;
@@ -18,12 +17,6 @@ import static seedu.hustler.game.achievement.Achievements.totalPoints;
 public class Ui {
 
     public static final String LINE = "\t_____________________________________";
-
-    /**
-     * Default constructor.
-     */
-    public Ui() {
-    }
 
     /**
      * Print with formatting.
@@ -56,21 +49,9 @@ public class Ui {
      * Prints an error message if user does not enter a valid command.
      */
     public void correctCommandError() {
-        if (!CommandLog.isRestoring()) {
-            System.out.println(LINE);
-            System.out.println("\tPlease enter a valid command: /add, "
-                + "/list, /bye, /find, /delete. Refer to User Guide for more info.");
-            System.out.println(LINE);
-        }
-    }
-
-    /**
-     * Prints an error message if user performs an operation on a nonexistent
-     * task.
-     */
-    public void taskDoesntExistError() {
         System.out.println(LINE);
-        System.out.println("\tTask doesn't exist. Please choose another.");
+        System.out.println("\tPlease enter a valid command: /add, /list, /bye, /find, /delete.\n"
+                + "\tRefer to User Guide for more info.");
         System.out.println(LINE);
     }
 
@@ -79,18 +60,7 @@ public class Ui {
      */
     public void showEmptyListError() {
         System.out.println(LINE);
-        System.out.println("\tList is empty. Please type "
-            + "another command apart from list.");
-        System.out.println(LINE);
-    }
-
-    /**
-     * Prints an error message if a command like find, delete, todo, deadline,
-     * event or others is entered without a following description.
-     */
-    public void emptyDescriptionError() {
-        System.out.println(LINE);
-        System.out.println("\tPlease enter a description after the command.");
+        System.out.println("\tList is empty. Please type another command apart from list.");
         System.out.println(LINE);
     }
 
@@ -147,6 +117,15 @@ public class Ui {
     }
 
     /**
+     * Prints a message when completed tasks are cleared.
+     */
+    public void showCompletedCleared(ArrayList<Task> list) {
+        System.out.println(LINE);
+        System.out.println("\tAll completed tasks in the task list has been cleared!");
+        showTaskList(list);
+    }
+
+    /**
      * Prints a message when a task has been snoozed.
      * @param taskDescription description of the snoozed task.
      */
@@ -187,7 +166,7 @@ public class Ui {
      */
     public void showTaskClash() {
         System.out.println(LINE);
-        System.out.println("Task clashes with another existing task in the list!");
+        System.out.println("\tTask clashes with another existing task in the list!");
         System.out.println(LINE);
     }
 
@@ -223,9 +202,10 @@ public class Ui {
     public void showMatchingTasks(ArrayList<Task> matchingTasks, String taskDescription) {
         System.out.println(LINE);
         if (matchingTasks.isEmpty()) {
-            System.out.println("No task found given the query \"" + taskDescription + "\".");
+            System.out.println("\tNo task found given the query \"" + taskDescription + "\".");
         } else {
-            System.out.println("\tFound " + matchingTasks.size() + " task(s) given the query \"" + taskDescription + "\". Here you go.");
+            System.out.println("\tFound " + matchingTasks.size() + " task(s) given the query \""
+                    + taskDescription + "\". Here you go.");
             for (int i = 0; i < matchingTasks.size(); i++) {
                 System.out.println("\t" + (i + 1) + ". " + matchingTasks.get(i).toString());
             }
@@ -281,7 +261,7 @@ public class Ui {
     }
 
     /**
-     * Shows the purchased text when purchase is successful
+     * Shows the purchased text when purchase is successful.
      */
     public void showPurchasedSuccess() {
         System.out.println(LINE);
@@ -332,39 +312,40 @@ public class Ui {
     }
 
     /**
+     * Prints a message to show the newly unlocked achievement.
      *
-     * @param Achievement
+     * @param achievement newly unlocked achievement
      */
-    public void showAchievementUnlocked(Achievements Achievement) {
-        System.out.println("Congratulations, you have unlocked this achievement!" + Achievement.toString());
+    public void showAchievementUnlocked(Achievements achievement) {
+        System.out.println("Congratulations, you have unlocked this achievement!" + achievement.toString());
     }
 
     /**
+     * Prints out the all the unlocked and locked achievements.
      *
-     * @param achievementList
+     * @param achievementList list of achievements
      */
     public void showAchievementList(ArrayList<Achievements> achievementList) {
         System.out.println("\uD83D\uDD13 ACHIEVEMENTS UNLOCKED \uD83D\uDD13");
-        if(!achievementList.isEmpty()) {
+        if (!achievementList.isEmpty()) {
             int l = 0;
-            for(int i = 0; i < achievementList.size(); i ++) {
-                if(!achievementList.get(i).checkLock()) {
-                    l ++;
+            for (int i = 0; i < achievementList.size(); i++) {
+                if (!achievementList.get(i).checkLock()) {
+                    l++;
                     System.out.print(l + ". ");
                     System.out.println(achievementList.get(i));
                 }
             }
             System.out.println("\uD83D\uDD12 LOCKED ACHIEVEMENTS \uD83D\uDD12");
             int j = 0;
-            for(int i = 0; i < achievementList.size(); i ++) {
-                if(achievementList.get(i).checkLock()) {
-                    j ++;
+            for (int i = 0; i < achievementList.size(); i++) {
+                if (achievementList.get(i).checkLock()) {
+                    j++;
                     System.out.print(j + ". ");
                     System.out.println(achievementList.get(i));
                 }
             }
             System.out.println("Total Points = " + totalPoints + " \uD83D\uDCB0");
         }
-
     }
 }
