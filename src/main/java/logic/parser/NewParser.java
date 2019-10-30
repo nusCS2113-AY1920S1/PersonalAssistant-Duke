@@ -2,6 +2,7 @@ package logic.parser;
 
 import logic.command.Command;
 import common.DukeException;
+import logic.parser.schedule.ScheduleCommandParser;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -16,6 +17,10 @@ public class NewParser {
     private static final String DELETE_COMMAND_WORD = "DELETE";
     private static final String DONE_COMMAND_WORD = "DONE";
     public static final String LINK_COMMAND_WORD = "LINK";
+    public static final String HELP_COMMAND_WORD = "HELP";
+    public static final String FIND_COMMAND_WORD = "FIND";
+    public static final String BYE_COMMAND_WORD = "BYE";
+    public static final String SCHEDULE_COMMAND_WORD = "SCHEDULE";
 
     //@@author JustinChia1997
 
@@ -38,8 +43,8 @@ public class NewParser {
         commandWord = commandWord.trim().toUpperCase();
 
         String[] dict = {
-            "ADD", "LIST", "DONE", "BYE", "DELETE", "FIND", "SNOOZE",
-            "SCHEDULE", "CHECK", "LINK", "UNLINK", "REMOVE", "HELP"
+            "ADD", "LIST", "DONE", "DELETE", "HELP", "FIND", "BYE",
+            "SNOOZE", "SCHEDULE", "CHECK", "LINK", "UNLINK"
         };
 
         commandWord = SpellingErrorCorrector.commandCorrector(dict, commandWord);
@@ -55,6 +60,15 @@ public class NewParser {
             return LinkCommandParser.parseLinkCommand(arguments);
         case DELETE_COMMAND_WORD:
             return DeleteCommandParser.parseDeleteCommand(arguments);
+        case HELP_COMMAND_WORD:
+            return HelpCommandParser.parseHelpCommand(arguments);
+        case FIND_COMMAND_WORD:
+            return FindCommandParser.parseFindCommand(arguments);
+        case BYE_COMMAND_WORD:
+            return ByeCommandParser.parseByeCommand(arguments);
+        case SCHEDULE_COMMAND_WORD:
+            return ScheduleCommandParser.parseScheduleCommand(arguments);
+
         default:
             throw new DukeException("Command not found");
         }

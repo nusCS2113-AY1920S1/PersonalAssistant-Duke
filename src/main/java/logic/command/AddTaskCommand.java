@@ -8,7 +8,7 @@ import common.LoggerController;
 import java.util.Date;
 
 public class AddTaskCommand extends Command {
-    public static final String COMMAND_WORD = "task";
+
     public static final String FEEDBACK_MESSAGE = "You have created a new task: ";
     private String taskName;
     private String members;
@@ -37,9 +37,10 @@ public class AddTaskCommand extends Command {
             //TODO add functionality to add members on the go
         }
         model.save();
+
         if (model.hasTask(taskName)) {
             LoggerController.logInfo(AddTaskCommand.class, "Task "
-                    + taskName + " has been added successfully" );
+                    + taskName + " has been added successfully");
         } else {
             LoggerController.logDebug(AddTaskCommand.class, "Task not added");
         }
