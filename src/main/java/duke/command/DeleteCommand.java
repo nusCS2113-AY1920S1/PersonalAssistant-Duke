@@ -23,6 +23,7 @@ public class DeleteCommand {
      */
     private Scanner deleteScan;
 
+    //@@author nottherealedmund
     /**
      * The method to delete a Goal of the day.
      */
@@ -34,6 +35,7 @@ public class DeleteCommand {
                 goalDate, message, goalStorage));
     }
 
+    //@@author nottherealedmund
     /**
      * The method to delete a Lesson of the day.
      */
@@ -45,6 +47,7 @@ public class DeleteCommand {
                 lessonDate, message, lessonStorage));
     }
 
+    //@@author nottherealedmund
     /**
      * The method to delete all Goals of the day.
      */
@@ -53,6 +56,7 @@ public class DeleteCommand {
             goalDate, goalStorage));
     }
 
+    //@@author nottherealedmund
     /**
      * The method to delete all Lessons of the day.
      */

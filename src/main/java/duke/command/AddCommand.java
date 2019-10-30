@@ -23,6 +23,7 @@ public class AddCommand {
      */
     private Scanner addScan;
 
+    //@@author nottherealedmund
     /**
      * The method to add a Goal of the day.
      */
@@ -34,6 +35,7 @@ public class AddCommand {
                 goalDate, myGoal, goalStorage));
     }
 
+    //@@author nottherealedmund
     /**
      * The method to add a Lesson of the day.
      */

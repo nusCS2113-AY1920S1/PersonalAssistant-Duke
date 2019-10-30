@@ -16,6 +16,7 @@ public class ViewCommand {
      */
     private CliView cliView = new CliView();
 
+    //@@author nottherealedmund
     /**
      * The method to view all goals of the day.
      */
@@ -23,6 +24,7 @@ public class ViewCommand {
         System.out.print(goal.viewGoal(goalDate));
     }
 
+    //@@author nottherealedmund
     /**
      * The method to view all lessons of the day.
      */

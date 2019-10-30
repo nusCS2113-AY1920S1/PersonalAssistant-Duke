@@ -6,6 +6,7 @@ package duke.command;
  */
 public class ExitCommand {
 
+    //@@author nottherealedmund
     /**
      * The method to exit the program from any part of the program.
      */
@@ -13,6 +14,7 @@ public class ExitCommand {
         System.exit(0);
     }
 
+    //@@author nottherealedmund
     /**
      * The method to exit the Goal of the day.
      * @return Returns the false value to exit Goal of the day.
@@ -21,6 +23,7 @@ public class ExitCommand {
         return false;
     }
 
+    //@@author nottherealedmund
     /**
      * The method to exit the Lesson of the day.
      * @return Returns the false value to exit Lesson of the day.

@@ -73,6 +73,7 @@ public class ParserGoal {
      * Represents the ExitCommand class.
      */
     private ExitCommand exitCommand = new ExitCommand();
+    //@@author nottherealedmund
     /**
      * Constructor for ParserGoal.
      *
@@ -88,6 +89,7 @@ public class ParserGoal {
         myGoalScan = new Scanner(System.in);
     }
 
+    //@@author nottherealedmund
     /**
      * Method to run when entering goal of the day.
      */
