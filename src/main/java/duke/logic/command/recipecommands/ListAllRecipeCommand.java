@@ -10,8 +10,7 @@ import java.util.*;
 
 import static duke.common.Messages.DISPLAYED_INDEX_OFFSET;
 import static duke.common.Messages.ERROR_MESSAGE_RANDOM;
-import static duke.common.RecipeMessages.COMMAND_LIST_RECIPES;
-import static duke.common.RecipeMessages.MESSAGE_HERE_ARE_THE_RECIPES;
+import static duke.common.RecipeMessages.*;
 
 /**
  * Handles the list command and inherits all the fields and methods of Command parent class.
@@ -38,7 +37,11 @@ public class ListAllRecipeCommand extends Command<RecipeList, Ui, RecipeStorage>
             arrayList.add(MESSAGE_HERE_ARE_THE_RECIPES);
             // using generics. can use KeySet also but use EntrySet can extend for further purpose later on.
             arrayList.addAll(listOfRecipes(recipeList.getRecipeList()));
-        } else {
+        } else if (userInput.trim().equals(COMMAND_LIST_RECIPES_BY_PREPTIME)) {
+            arrayList.add(MESSAGE_HERE_ARE_THE_RECIPES);
+            arrayList.addAll(listOfRecipesyPrepTime(recipeList.getRecipeList()));
+        }
+            else {
             arrayList.add(ERROR_MESSAGE_RANDOM);
         }
         return arrayList;
@@ -61,6 +64,21 @@ public class ListAllRecipeCommand extends Command<RecipeList, Ui, RecipeStorage>
             arrayList.add(Integer.toString(i + DISPLAYED_INDEX_OFFSET) + ". " + value.getRecipeTitle().getTitle());
             i++;
         }
+        return arrayList;
+    }
+
+    private ArrayList<String> listOfRecipesyPrepTime(LinkedHashMap<String, Recipe> map) {
+        Set entries = map.entrySet();
+        Iterator entryIter = entries.iterator();
+        ArrayList<String> arrayList = new ArrayList<>();
+        int i = 0;
+//        while (entryIter.hasNext()) {
+//            Map.Entry entry = (Map.Entry) entryIter.next();
+//            Object key = entry.getKey();  // Get the key from the entry.
+//            Recipe value = (Recipe) entry.getValue();  // Get the value.
+//            arrayList.add(Integer.toString(i + DISPLAYED_INDEX_OFFSET) + ". " + value.getRecipeTitle().getTitle());
+//            i++;
+//        }
         return arrayList;
     }
 }

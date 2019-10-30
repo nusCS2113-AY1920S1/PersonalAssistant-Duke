@@ -129,8 +129,15 @@ public class Duke {
                 arrayList.add(ERROR_MESSAGE_RANDOM);
                 return arrayList;
             }
+        } else if (userInput.contains(COMMAND_EDIT_PREPTIME)) {
+            if (userInput.trim().substring(0, 12).equals(COMMAND_EDIT_PREPTIME)) {
+                Command<RecipeList, Ui, RecipeStorage> command = Parser.parse(userInput);
+                return command.execute(recipeList, ui, recipeStorage);
+            } else {
+                arrayList.add(ERROR_MESSAGE_RANDOM);
+                return arrayList;
+            }
         }
-
 
         // INVENTORY.
         else if (userInput.contains(COMMAND_ADD_TO_INVENTORY)) {

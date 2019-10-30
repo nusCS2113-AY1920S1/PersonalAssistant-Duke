@@ -64,6 +64,14 @@ public class RecipeList {
         this.recipeLHM.get(recipeTitle).editFeedback(feedback);
     }
 
+    public void editPrepTime(String recipeTitle, String prepTime) {
+        this.recipeLHM.get(recipeTitle).editPrepTime(prepTime);
+    }
+
+    public void getPrepTime(String recipeTitle, String prepTime) {
+        this.recipeLHM.get(recipeTitle).getPrepTime(prepTime);
+    }
+
     public String viewRecipe(String recipeTitle) {
         return this.recipeLHM.get(recipeTitle).getViewString();
     }
