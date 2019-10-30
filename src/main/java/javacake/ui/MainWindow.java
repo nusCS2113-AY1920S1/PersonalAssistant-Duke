@@ -382,7 +382,8 @@ public class MainWindow extends AnchorPane {
     }
 
     private void handleGuiQuiz() throws DukeException {
-        quizSession.parseInput(index++, input);
+        quizSession.parseInput(index, input);
+        index++;
         if (index < MAX_QUESTIONS) {
             response = quizSession.getQuestion(index);
         } else {
