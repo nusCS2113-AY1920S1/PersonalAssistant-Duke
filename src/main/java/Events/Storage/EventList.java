@@ -139,6 +139,7 @@ public class EventList {
         this.eventArrayList.add(event);
     }
 
+    //@@author YuanJiayi
     /**
      * Adds recurring events to the list.
      *
@@ -179,6 +180,7 @@ public class EventList {
         this.eventArrayList.addAll(tempEventList);
     }
 
+    //@@author
     /**
      * Checks the list of events for any clashes with the newly added event. If
      * there is a clash, return a reference to the event, if not, return null.

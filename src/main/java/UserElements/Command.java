@@ -423,6 +423,12 @@ public class Command {
         }
     }
 
+    //@@author YuanJiayi
+    /**
+     * Reschedules the date and time of an existing event.
+     *
+     * @param events The event list.
+     */
     public void rescheduleEvent(EventList events, UI ui) {
         Event copyOfEvent = null, newEvent = null;
         EventDate copyOfStartDate;
@@ -471,6 +477,7 @@ public class Command {
         }
     }
 
+    //@@author
     /**
      * Manages the goals of an existing event.
      *
@@ -518,6 +525,12 @@ public class Command {
         }
     }
 
+    //@@author YuanJiayi
+    /**
+     * Manage the contacts of an existing event.
+     *
+     * @param events The event list.
+     */
     private void contactManagement(EventList events, UI ui) {
         if (continuation.isEmpty()) {
             ui.noSuchEvent();
@@ -537,7 +550,11 @@ public class Command {
                         break;
 
                     case "view":
-                        ui.printEventContacts(events.getEvent(eventIndex));
+                        if (events.getEvent(eventIndex).getContactList().isEmpty()) {
+                            ui.noContactInEvent();
+                        } else {
+                            ui.printEventContacts(events.getEvent(eventIndex));
+                        }
                         break;
                 }
             } else {
@@ -572,6 +589,7 @@ public class Command {
         }
     }
 
+    //@@author
     public void remindEvents(EventList events, UI ui) {
         ui.printReminder(events);
     }

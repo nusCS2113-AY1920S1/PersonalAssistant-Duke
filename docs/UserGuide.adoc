@@ -170,7 +170,7 @@ The user is able to add, delete, view, and edit contacts information of an event
 A contact includes name, email address, and phone number.
 
 ==== Add contact item
-Format: `contact add <event index> /<contact information>`
+Format: `contact add <event index> /<name>, <email>, <phone number>`
 
 ==== Delete contact item
 Format: `contact delete <event index> <contact index> /`

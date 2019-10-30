@@ -94,14 +94,19 @@ public class UI {
     }
 
     public void contactAdded() {
+        System.out.print(lineSeparation);
         System.out.println("Ok, the contact has been added to the event.");
+        System.out.print(lineSeparation);
     }
 
     public void contactDeleted() {
+        System.out.print(lineSeparation);
         System.out.println("Ok, the contact has been deleted from the event.");
+        System.out.print(lineSeparation);
     }
 
     public void printEventContacts(Event viewEventContact) {
+        System.out.print(lineSeparation);
         System.out.println("Here is the list of contacts for the following event " + viewEventContact.toString());
         int contactNo = 1;
         for (Contact currContact : viewEventContact.getContactList()) {
@@ -109,11 +114,20 @@ public class UI {
             + " Phone Number: " + currContact.getPhoneNo());
             contactNo++;
         }
+        System.out.print(lineSeparation);
     }
 
     public void contactEdited(Contact newContact) {
+        System.out.print(lineSeparation);
         System.out.println("The contact has been edited to: Name: " + newContact.getName() + " Email: "
                 + newContact.getEmail() + " Phone Number: " +newContact.getPhoneNo());
+        System.out.print(lineSeparation);
+    }
+
+    public void noContactInEvent() {
+        System.out.print(lineSeparation);
+        System.out.println("Do not have any contact in this event.");
+        System.out.print(lineSeparation);
     }
 
     /**
