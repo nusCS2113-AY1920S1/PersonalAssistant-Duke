@@ -2,5 +2,3 @@ Transport             Market            WheatFarm
 ______________________________________________________
   gotoMarket       | buySeeds       | 
 ___________________|________________|_________________
-
-[PRESS 'ENTER' TO GO BACK TO MENU]

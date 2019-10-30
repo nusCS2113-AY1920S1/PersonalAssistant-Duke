@@ -5,7 +5,7 @@ import farmio.Farmio;
 import farmio.Level;
 import frontend.Ui;
 
-public class CommandTasksHint extends Command {
+public class CommandTaskAddReset extends Command {
 
     /**
      * Print hint or instructions for current level.
@@ -17,6 +17,6 @@ public class CommandTasksHint extends Command {
         Ui ui = farmio.getUi();
         Level level = farmio.getLevel();
         farmio.getSimulation().simulate(level.getPath() ,level.getNarratives().size() - 1);
-        ui.showHint(farmio.getLevel().getHint());
+        ui.show("Enter [Start] if you are ready to complete the objective or Enter [HINT] if you get stuck!");
     }
 }

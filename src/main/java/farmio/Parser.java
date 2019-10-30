@@ -45,8 +45,8 @@ public class Parser {
             return new CommandMenuStart();
         case LEVEL_START:
             return new CommandLevelStart();
-        case MENU:
-            return parseMenu(userInput);
+//        case MENU:
+//            return parseMenu(userInput);
         case RUNNING_DAY:
             return new CommandTasksRun();
         case CHECK_OBJECTIVES:
@@ -75,15 +75,15 @@ public class Parser {
      * @return Command that corresponds to the user's actions
      * @throws FarmioException if user input is invalid
      */
-    private static Command parseMenu(String userInput) throws FarmioException {
-        if (userInput.equals("resume game")) {
-            return new CommandLevelStart();
-        } else if (userInput.equals("actions") || userInput.equals("conditions") || userInput.equals("market") || userInput.equals("")) {
-            return new CommandMenuInGame(userInput);
-        } else {
-            throw new FarmioException("Invalid command!");
-        }
-    }
+//    private static Command parseMenu(String userInput) throws FarmioException {
+//        if (userInput.equals("resume game")) {
+//            return new CommandLevelStart();
+//        } else if (userInput.equals("actions") || userInput.equals("conditions") || userInput.equals("market") || userInput.equals("")) {
+//            return new CommandMenuInGame(userInput);
+//        } else {
+//            throw new FarmioException("Invalid command!");
+//        }
+//    }
 
     /**
      * Used to parse the user input during the DAY_END stage. User can choose to either reset the level,
@@ -113,7 +113,7 @@ public class Parser {
      */
     private static Command parseTaskAdd(String userInput) throws FarmioException {
         if (userInput.equals("menu")) {
-            return new CommandMenu();
+            return new CommandMenuInGame();
         }
         if (userInput.equals("deleteall") || userInput.equals("delete all")) {
             return new CommandTaskDeleteAll();
@@ -142,8 +142,10 @@ public class Parser {
         if (userInput.startsWith("do") || userInput.startsWith("if")
                 || userInput.startsWith("for") || userInput.startsWith("while")) {
             return new CommandTaskCreate(parseTask(userInput));
-        } else if (userInput.equals("hint") || userInput.equals("")) {
+        } else if (userInput.equals("hint")) {
             return new CommandTasksHint();
+        } else if (userInput.equals("")) {
+            return new CommandTaskAddReset();
         }
         throw new FarmioException("Invalid command!");
     }

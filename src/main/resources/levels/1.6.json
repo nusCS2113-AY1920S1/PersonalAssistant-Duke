@@ -11,7 +11,7 @@
     "using [if hasSeeds do plantSeeds && if haswWheat do harvestWheat]",
     "before selling the grains at the market"
   ],
-  "gold": 20,
+  "gold": 30,
   "seeds": 0,
   "seedlings": 0,
   "wheat": 0,
