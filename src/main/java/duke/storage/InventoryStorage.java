@@ -1,8 +1,7 @@
 package duke.storage;
 
-import duke.exception.DukeException;
-import duke.list.inventorylist.InventoryList;
-import duke.task.ingredienttasks.Ingredient;
+import duke.model.list.inventorylist.InventoryList;
+import duke.model.task.ingredienttasks.Ingredient;
 
 import java.io.*;
 import java.util.HashMap;
@@ -52,24 +51,23 @@ public class InventoryStorage {
      * Load all the save tasks in the file.
      *
      * @return the list of tasks in taskList
-     * @throws DukeException if Duke is not able to load the tasks from the file or unable to open the file
      */
-    public HashMap<String, Ingredient> load() throws DukeException {
+    public HashMap<String, Ingredient> load() {
             try {
             FileReader fileReader = new FileReader(filePathInventory);
             BufferedReader bufferedReader = new BufferedReader(fileReader);
             String content = "";
             while ((content = bufferedReader.readLine()) != null) {
                 String ingredientName, quantity, unit, additionalInfo, remaining, remaining2;
-                String[] split = content.split(" \\| ", 2);
+                String[] split = content.split(" / ", 2);
                 if (split.length == 2) {
                     ingredientName = split[0];
                     remaining = split[1];
-                    String[] split2 = remaining.split("\\|", 2);
+                    String[] split2 = remaining.split("/", 2);
                     if (split2.length == 2) {
                         quantity = split2[0];
                         remaining2 = split2[1];
-                        String[] split3 = remaining2.split("\\|", 2);
+                        String[] split3 = remaining2.split("/", 2);
                         if (split3.length == 2) {
                             unit = split3[0];
                             additionalInfo = split3[1];

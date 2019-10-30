@@ -1,8 +1,7 @@
 package duke.storage;
 
-import duke.exception.DukeException;
-import duke.list.recipelist.RatingList;
-import duke.task.recipetasks.Rating2;
+import duke.model.list.recipelist.RatingList;
+import duke.model.task.recipetasks.Rating2;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -43,9 +42,8 @@ public class RatingStorage {
      * Load all the save tasks in the file.
      *
      * @return the list of tasks in taskList
-     * @throws DukeException if Duke is not able to load the tasks from the file or unable to open the file
      */
-    public ArrayList<Rating2> load() throws DukeException {
+    public ArrayList<Rating2> load() {
         try {
             FileReader fileReader = new FileReader(filePathRating);
             BufferedReader bufferedReader = new BufferedReader(fileReader);

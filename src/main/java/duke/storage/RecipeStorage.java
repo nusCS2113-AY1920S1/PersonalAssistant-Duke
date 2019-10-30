@@ -1,8 +1,7 @@
 package duke.storage;
 
-import duke.exception.DukeException;
-import duke.list.recipelist.RecipeList;
-import duke.task.recipetasks.Recipe;
+import duke.model.list.recipelist.RecipeList;
+import duke.model.task.recipetasks.Recipe;
 
 import java.io.*;
 import java.util.LinkedHashMap;
@@ -25,7 +24,6 @@ public class RecipeStorage {
     }
 
     /**
-
      * Writing to file to save the task to file.
      *
      * @param recipeList contains the task list
@@ -34,7 +32,7 @@ public class RecipeStorage {
         try {
             FileWriter fileWriter = new FileWriter(filePathRecipes);
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-            recipeList.getRecipeList().forEach((RecipeTitle, Recipe) ->
+            recipeList.getRecipeList().forEach((String, Recipe) ->
             {
                 try {
                     bufferedWriter.write(Recipe.toSaveString() + "\n");
@@ -52,34 +50,35 @@ public class RecipeStorage {
      * Load all the save tasks in the file.
      *
      * @return the list of tasks in taskList
-     * @throws DukeException if Duke is not able to load the tasks from the file or unable to open the file
      */
-    public LinkedHashMap<String, Recipe> load() throws DukeException {
+
+    public LinkedHashMap<String, Recipe> load() {
         try {
             FileReader fileReader = new FileReader(filePathRecipes);
             BufferedReader bufferedReader = new BufferedReader(fileReader);
             String content = "";
             while ((content = bufferedReader.readLine()) != null) {
                 // can use a splitMethod() here for tidyness?
-                String recipeTitle, rating, prepStep, requiredIngredients, feedback, remaining, remaining2, remaining3;
+                String recipeTitle, rating, prepSteps, requiredIngredients, feedback, remaining, remaining2, remaining3;
                 String[] split = content.split("\\|", 2);
                 if (split.length == 2) {
-                    recipeTitle = split[0];
-                    remaining = split[1];
+                    recipeTitle = split[0].trim();
+                    remaining = split[1].trim();
                     String[] split2 = remaining.split("\\|", 2);
                     if (split2.length == 2) {
-                        rating = split2[0];
-                        remaining2 = split2[1];
+                        rating = split2[0].trim();
+                        remaining2 = split2[1].trim();
                         String[] split3 = remaining2.split("\\|", 2);
                         if (split3.length == 2) {
-                            prepStep = split3[0];
-                            remaining3 = split3[1];
+                            prepSteps = split3[0].trim();
+                            remaining3 = split3[1].trim();
                             String[] split4 = remaining3.split("\\|", 2);
                             if (split4.length == 2) {
-                                requiredIngredients = split4[0];
-                                feedback = split4[1];
-                                Recipe recipe = new Recipe(recipeTitle, rating, prepStep, requiredIngredients, feedback);
+                                requiredIngredients = split4[0].trim();
+                                feedback = split4[1].trim();
+                                Recipe recipe = new Recipe(recipeTitle, rating, prepSteps, requiredIngredients, feedback);
                                 LHMRecipeList.put(recipeTitle, recipe);
+                                System.out.println("successful load");
                             }
                         }
                     }

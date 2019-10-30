@@ -1,8 +1,7 @@
 package duke.storage;
 
-import duke.exception.DukeException;
-import duke.task.bookingtasks.Booking;
-import duke.list.bookinglist.BookingList;
+import duke.model.task.bookingtasks.Booking;
+import duke.model.list.bookinglist.BookingList;
 
 
 import java.io.FileReader;
@@ -53,9 +52,8 @@ public class BookingStorage {
      * Load all the save tasks in the file.
      *
      * @return the list of tasks in taskList
-     * @throws DukeException if Duke is not able to load the tasks from the file or unable to open the file
      */
-    public ArrayList<Booking> load() throws DukeException {
+    public ArrayList<Booking> load() {
         try {
             FileReader fileReader = new FileReader(filePath);
             BufferedReader bufferedReader = new BufferedReader(fileReader);
