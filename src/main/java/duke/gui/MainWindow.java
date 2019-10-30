@@ -1,19 +1,16 @@
 package duke.gui;
 
 import duke.Duke;
-import duke.commands.functional.HelpCommand;
 import duke.exceptions.DukeException;
 import duke.models.assignedtasks.AssignedTask;
 import duke.models.patients.Patient;
 import duke.models.tasks.Task;
-import duke.util.Ui;
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.chart.BarChart;
@@ -22,7 +19,6 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -32,6 +28,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import org.controlsfx.control.textfield.TextFields;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -150,6 +147,11 @@ public class MainWindow extends AnchorPane {
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         initializeTableViews();
+        //@@author qjie7
+        String[] possibleWords = {"add", "delete", "find", "update", "list", "task", "patients", "assigned", "patient",
+                                  "bye", "period", "deadline", "undo", "help"};
+        TextFields.bindAutoCompletion(userInput, possibleWords);
+        //@@author
         showHelpGuide();
     }
 
@@ -164,6 +166,13 @@ public class MainWindow extends AnchorPane {
     }
 
     //@@author qjie7
+    /**
+     * Event handler of PieChartPopUpButton.
+     */
+    public void handleUndoButton() {
+        executeDukeWithInput("undo");
+    }
+
 
     /**
      * Event handler of PieChartPopUpButton.
@@ -203,18 +212,21 @@ public class MainWindow extends AnchorPane {
         counterMap = duke.getStorageManager().loadCommandFrequency();
         final ArrayList<Integer> frequencyList = new ArrayList<Integer>(counterMap.values());
         final ArrayList<String> commandNameList = new ArrayList<String>(counterMap.keySet());
-        int year = Calendar.getInstance().get(Calendar.YEAR);
-        final String yearInString = Integer.toString(year);
-        Stage stage = new Stage();
-        stage.setTitle("Bar Chart");
         final CategoryAxis xAxis = new CategoryAxis();
         final NumberAxis yAxis = new NumberAxis();
         final BarChart<String, Number> bc = new BarChart<String, Number>(xAxis, yAxis);
+        int year = Calendar.getInstance().get(Calendar.YEAR);
+        final String yearInString = Integer.toString(year);
+
+        Stage stage = new Stage();
+        stage.setTitle("Bar Chart");
+
         bc.setTitle("Command Frequency");
         xAxis.setLabel("Command");
         yAxis.setLabel("Frequency");
         XYChart.Series series1 = new XYChart.Series();
         series1.setName(yearInString);
+
         for (int i = 0; i < commandNameList.size(); i++) {
             series1.getData().add(new XYChart.Data(commandNameList.get(i), frequencyList.get(i)));
         }
