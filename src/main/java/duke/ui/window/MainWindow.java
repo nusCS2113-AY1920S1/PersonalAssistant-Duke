@@ -15,6 +15,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.util.List;
@@ -32,6 +33,8 @@ public class MainWindow extends UiElement<Stage> {
     private TabPane contextWindowHolder;
     @FXML
     private AnchorPane homeWindowHolder;
+    @FXML
+    private VBox helpWindowHolder;
 
     private Stage primaryStage;
     private UiContext uiContext;
@@ -70,12 +73,15 @@ public class MainWindow extends UiElement<Stage> {
      * Places child UI elements in the main UI window.
      */
     private void placeChildUiElements() {
-        commandWindow = new CommandWindow(parser, executor);
-        commandWindowHolder.getChildren().add(commandWindow.getRoot());
-
         homeWindow = new HomeWindow(patientObservableMap);
         homeTab = new Tab("Home", homeWindow.getRoot());
         contextWindowHolder.getTabs().add(homeTab);
+
+        commandWindow = new CommandWindow(parser, executor);
+        commandWindowHolder.getChildren().add(commandWindow.getRoot());
+
+        HelpWindow helpWindow = new HelpWindow();
+        helpWindowHolder.getChildren().add(helpWindow.getRoot());
 
         // TODO: Add contexts here.
         uiContext.addListener(event -> {
