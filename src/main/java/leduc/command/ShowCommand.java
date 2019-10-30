@@ -124,7 +124,7 @@ public class ShowCommand extends Command {
         if(userSubSubString[0].matches("day")){
             String date;
             if(multiStep){
-                ui.display("please enter the day as DD/MM/YYYY");
+                ui.showEnterDayShow();
                 date = ui.readCommand();
             }
             else {
@@ -144,7 +144,7 @@ public class ShowCommand extends Command {
             int dayOfWeekInt = 0;
             String dayOfWeek;
             if(multiStep){
-                ui.display("please enter the day of the ween as monday, tuesday, wednesday, thursday, friday, saturday, sunday");
+                ui.showEnterDayOfWeekShow();
                 dayOfWeek = ui.readCommand();
             }
             else {
@@ -173,7 +173,7 @@ public class ShowCommand extends Command {
         else if (userSubSubString[0].matches("month")){
             String date;
             if(multiStep){
-                ui.display("please enter the month as MM/YYYY");
+                ui.showEnterMonthShow();
                 date = ui.readCommand();
             }
             else {
@@ -199,7 +199,7 @@ public class ShowCommand extends Command {
         else if (userSubSubString[0].matches("year")){
             String date;
             if(multiStep){
-                ui.display("please enter the year as YYYY");
+                ui.showEnterYearShow();
                 date = ui.readCommand();
             }
             else {

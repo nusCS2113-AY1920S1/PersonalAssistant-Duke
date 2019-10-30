@@ -86,10 +86,7 @@ public class RescheduleCommand extends Command {
             tasks.verifyConflictDate(date1, date2);
             rescheduleEventTask.reschedule(date1,date2);
             storage.save(tasks.getList());
-            ui.display("\t Noted. I've rescheduled this task: \n" +
-                    "\t\t "+rescheduleEventTask.getTag() + rescheduleEventTask.getMark() + " " +
-                    rescheduleEventTask.getTask()+ " at:" + rescheduleEventTask.getDateFirst() +
-                    " - " + rescheduleEventTask.getDateSecond() + "\n");
+            ui.showReschedule(rescheduleEventTask);
         }
     }
 

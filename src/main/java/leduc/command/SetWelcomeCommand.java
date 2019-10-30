@@ -49,7 +49,7 @@ public class SetWelcomeCommand extends Command{
             e.printStackTrace();
             throw new FileException();
         }
-        ui.display("\t The welcome message is edited: " + welcomeMessage);
+        ui.showNewWelcome(welcomeMessage);
     }
 
     /**

@@ -45,7 +45,7 @@ public class EditCommand extends Command {
             throws NonExistentDateException, FileException,
             NonExistentTaskException, MeaninglessException, EmptyEventDateException, ConflictDateException,
             DateComparisonEventException {
-        ui.display("\t Please choose the task to edit from the list by its index: ");
+        ui.showEditChooseTask();
         ListCommand listCommand = new ListCommand(user);
         listCommand.execute(tasks,ui,storage);
         // The user choose the task
@@ -58,27 +58,26 @@ public class EditCommand extends Command {
             else {
                 Task t = tasks.get(index);
                 if ( t.isTodo()){
-                    ui.display("\t Please enter the new description of the todo Task");
+                    ui.showEditWhat("description");
                     t.setTask(ui.readCommand());
                 }
                 else{
-                    ui.display("\t Please choose what you want to edit (1 or 2)\n\t 1. The description " +
-                            "\n\t 2. The deadline/period");
+                    ui.showEdit2Choice();
                     String userEditTPart = ui.readCommand();
                     if ( userEditTPart.matches("\\d+")) {
                         int choice = Integer.parseInt(userEditTPart.trim());
                         if (choice == 1) {
-                            ui.display("\t Please enter the new description of the task");
+                            ui.showEditWhat("description");
                             t.setTask(ui.readCommand());
                         } else if (choice == 2) {
                             if (t.isHomework()) {
-                                ui.display("\t Please enter the new deadline of the task");
+                                ui.showEditWhat("deadline");
                                 String deadlineString = ui.readCommand();
                                 Date d = new Date(deadlineString);
                                 HomeworkTask homeworkTask = (HomeworkTask) t;
                                 homeworkTask.setDeadlines(d);
                             } else { //event task
-                                ui.display("\t Please enter the new period of the task");
+                                ui.showEditWhat("period");
                                 String periodString = ui.readCommand();
                                 String[] dateString = periodString.split(" - ");
                                 if (dateString.length == 1) {
@@ -100,7 +99,8 @@ public class EditCommand extends Command {
                         throw new MeaninglessException();
                     }
                 }
-                ui.display("\t The task is edited: \n\t "+ (index+1) + " " + t.toString());
+                ui.showEdit(t, index+1);
+
             }
         }
         else {

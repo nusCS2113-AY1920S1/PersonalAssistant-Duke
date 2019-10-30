@@ -72,9 +72,7 @@ public class PostponeCommand extends Command {
             Date d = new Date(postponeString[1]);
             postponeHomeworkTask.postponeHomework(d);
             storage.save(tasks.getList());
-            ui.display("\t Noted. I've postponed this task: \n" +
-                    "\t\t "+postponeHomeworkTask.getTag() + postponeHomeworkTask.getMark() + " " + postponeHomeworkTask.getTask()+
-                    " by:" + postponeHomeworkTask.getDeadlines() + "\n");
+            ui.showPostpone(postponeHomeworkTask);
         }
     }
 

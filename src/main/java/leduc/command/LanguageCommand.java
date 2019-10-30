@@ -23,19 +23,21 @@ public class LanguageCommand extends Command {
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         String userSubstring;
         if(callByShortcut){
-            userSubstring = user.substring(LanguageCommand.languageShortcut.length());
+            userSubstring = user.substring(LanguageCommand.languageShortcut.length()).trim();
         }
         else {
-            userSubstring = user.substring(8);
+            userSubstring = user.substring(8).trim();
         }
         if(userSubstring.isBlank()){
             throw new EmptyArgumentException();
         }
         if(userSubstring.equals("fr")){
             storage.setLanguage(userSubstring);
+            ui.showLanguage("French");
         }
         else{
             storage.setLanguage("en");
+            ui.showLanguage("English");
         }
         storage.saveConfig();
     }

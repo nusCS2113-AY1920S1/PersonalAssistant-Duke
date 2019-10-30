@@ -49,7 +49,7 @@ public class Storage {
         this.configFile = new File(configFile);
         try {
             if(this.configFile.createNewFile()){ //if file exist, return false
-                language = "en";
+                this.language = "en";
                 saveConfig();
             }
             else {
@@ -61,7 +61,7 @@ public class Storage {
             this.configFile = new File ("config.txt");
             try{
                 if(this.configFile.createNewFile()){ //if file exist, return false
-                    language = "en";
+                    this.language = "en";
                     saveConfig();
                 }
                 else {

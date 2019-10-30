@@ -66,9 +66,7 @@ public class TodoCommand extends Command {
         }
         tasks.add(newTask);
         storage.save(tasks.getList());
-        ui.display("\t Got it. I've added this task:\n\t   "
-                + newTask.toString() +
-                "\n\t Now you have " + tasks.size() + " tasks in the list.");
+        ui.showTask(newTask, tasks.size());
     }
     /**
      * getter because the shortcut is private
