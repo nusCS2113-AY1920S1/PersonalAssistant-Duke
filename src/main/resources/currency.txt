@@ -1,0 +1,76 @@
+andorra, 0.66, false
+argentina, 43.95, false
+austria, 0.66, false
+australia, 1.08, false
+bahrain, 0.28, false
+belgium, 0.66, false
+botswana, 7.95, false
+brazil, 2.94, false
+brunei, 1.0, false
+bulgaria, 1.29, false
+canada, 0.96, false
+chile, 533.22, false
+china, 5.18, false
+colombia, 2490.3, false
+croatia, 4.93, false
+cyprus, 0.66, false
+czech republic, 16.91, false
+denmark, 4.94, false
+estonia, 0.66, false
+finland, 0.66, false
+france, 0.66, false
+germany, 0.66, false
+greece, 0.66, false
+hong kong, 5.75, false
+hungary, 217.68, false
+iceland, 91.55, false
+india, 51.97, false
+indonesia, 10294.18, false
+iran, 30825.44, false
+ireland, 0.66, false
+israel, 2.59, false
+italy, 0.66, false
+japan, 79.7, false
+kazakhstan, 285.65, false
+kuwait, 0.22, false
+libya, 1.03, false
+latvia, 0.66, false
+lithuania, 0.66, false
+luxembourg, 0.66, false
+malaysia, 3.07, false
+malta, 0.66, false
+mauritius, 26.64, false
+mexico, 13.98, false
+monaco, 0.66, false
+nepal, 83.53, false
+new zealand, 1.16, false
+norway, 6.75, false
+netherlands, 0.66, false
+oman, 0.28, false
+pakistan, 114.27, false
+philippines, 37.56, false
+poland, 2.83, false
+portugal, 0.66, false
+qatar, 2.67, false
+romania, 3.15, false
+russia, 46.86, false
+san marino, 0.66, false
+saudi arabia, 2.75, false
+singapore, 1.0, true
+slovakia, 0.66, false
+slovenia, 0.66, false
+spain, 0.66, false
+south africa, 10.73, false
+south korea, 859.5, false
+sri lanka, 133.13, false
+sweden, 7.1, false
+switzerland, 0.66, false
+taiwan, 22.42, false
+thailand, 22.12, false
+trinidad and tobago, 4.96, false
+turkey, 4.24, false
+united arab emirates, 2.69, false
+united kingdom, 0.57, false
+united states of america, 0.73, false
+vatican city, 0.66, false
+venezuela, 7.33, false

@@ -6,11 +6,13 @@ import wallet.logic.parser.ParserManager;
 import wallet.model.Wallet;
 import wallet.model.WalletList;
 import wallet.model.contact.ContactList;
+import wallet.model.currency.CurrencyList;
 import wallet.model.record.BudgetList;
 import wallet.model.record.ExpenseList;
 import wallet.model.record.LoanList;
 import wallet.model.record.RecordList;
 import wallet.reminder.Reminder;
+import wallet.storage.CurrencyStorage;
 import wallet.storage.StorageManager;
 
 import java.util.ArrayList;
@@ -23,6 +25,7 @@ import java.util.ArrayList;
  */
 public class LogicManager {
     public static final String MESSAGE_ERROR_COMMAND = "An error encountered while executing command.";
+    private CurrencyStorage currencyStorage;
     private static StorageManager storageManager;
     private ParserManager parserManager;
     private static Wallet wallet;
@@ -35,8 +38,11 @@ public class LogicManager {
      * Constructs a LogicManager object.
      */
     public LogicManager() {
+        this.currencyStorage = new CurrencyStorage();
         this.storageManager = new StorageManager();
-        this.wallet = new Wallet(new BudgetList(storageManager.loadBudget()), new RecordList(),
+        this.wallet = new Wallet(new CurrencyList(currencyStorage.loadFile()),
+                new BudgetList(storageManager.loadBudget()),
+                new RecordList(),
                 new ExpenseList(storageManager.loadExpense()),
                 new ContactList(storageManager.loadContact()),
                 new LoanList(storageManager.loadLoan()));
@@ -58,7 +64,9 @@ public class LogicManager {
         boolean isExit = false;
         StorageManager newStorageManager = new StorageManager();
 
-        Wallet newWallet = new Wallet(new BudgetList(newStorageManager.loadBudget()), new RecordList(),
+        Wallet newWallet = new Wallet(new CurrencyList(currencyStorage.loadFile()),
+                new BudgetList(newStorageManager.loadBudget()),
+                new RecordList(),
                 new ExpenseList(newStorageManager.loadExpense()),
                 new ContactList(newStorageManager.loadContact()),
                 new LoanList(newStorageManager.loadLoan()));

@@ -1,6 +1,7 @@
 package wallet.model;
 
 import wallet.model.contact.ContactList;
+import wallet.model.currency.CurrencyList;
 import wallet.model.record.BudgetList;
 import wallet.model.record.ExpenseList;
 import wallet.model.record.LoanList;
@@ -12,12 +13,14 @@ public class Wallet {
     private ExpenseList expenseList;
     private ContactList contactList;
     private LoanList loanList;
+    private CurrencyList currencyList;
 
     /**
      * Default constructor with no data.
      */
     public Wallet() {
         this.budgetList = new BudgetList();
+        this.currencyList = new CurrencyList();
         this.recordList = new RecordList();
         this.expenseList = new ExpenseList();
         this.contactList = new ContactList();
@@ -26,19 +29,25 @@ public class Wallet {
 
     /**
      * Constructs a Wallet object.
+     * @param currencyList The currencyList object.
      * @param budgetList The BudgetList object.
      * @param recordList The RecordList object.
      * @param expenseList The ExpenseList object.
      * @param contactList The ContactList object.
      * @param loanList The LoanList object.
      */
-    public Wallet(BudgetList budgetList, RecordList recordList, ExpenseList expenseList,
+    public Wallet(CurrencyList currencyList, BudgetList budgetList, RecordList recordList, ExpenseList expenseList,
                   ContactList contactList, LoanList loanList) {
+        this.currencyList = currencyList;
         this.budgetList = budgetList;
         this.recordList = recordList;
         this.expenseList = expenseList;
         this.contactList = contactList;
         this.loanList = loanList;
+    }
+
+    public CurrencyList getCurrencyList() {
+        return currencyList;
     }
 
     public BudgetList getBudgetList() {

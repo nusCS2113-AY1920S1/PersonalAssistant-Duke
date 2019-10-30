@@ -8,6 +8,7 @@ import wallet.model.Wallet;
 import wallet.model.WalletList;
 import wallet.model.contact.Contact;
 import wallet.model.contact.ContactList;
+import wallet.model.currency.CurrencyList;
 import wallet.model.record.BudgetList;
 import wallet.model.record.Category;
 import wallet.model.record.Expense;
@@ -106,7 +107,8 @@ public class EditCommandParserTest {
     public void parseLoan_validInput_success_case_description() {
         EditCommandParser parser = new EditCommandParser();
         WalletList dummyWalletList = new WalletList();
-        Wallet dummyWallet = new Wallet(new BudgetList(),
+        Wallet dummyWallet = new Wallet(new CurrencyList(),
+                new BudgetList(),
                 new RecordList(),
                 new ExpenseList(),
                 new ContactList(),
@@ -147,7 +149,8 @@ public class EditCommandParserTest {
     public void parseLoan_validInput_success_case_date() {
         EditCommandParser parser = new EditCommandParser();
         WalletList dummyWalletList = new WalletList();
-        Wallet dummyWallet = new Wallet(new BudgetList(),
+        Wallet dummyWallet = new Wallet(new CurrencyList(),
+                new BudgetList(),
                 new RecordList(),
                 new ExpenseList(),
                 new ContactList(),
@@ -188,7 +191,8 @@ public class EditCommandParserTest {
     public void parseLoan_validInput_success_case_amount() {
         EditCommandParser parser = new EditCommandParser();
         WalletList dummyWalletList = new WalletList();
-        Wallet dummyWallet = new Wallet(new BudgetList(),
+        Wallet dummyWallet = new Wallet(new CurrencyList(),
+                new BudgetList(),
                 new RecordList(),
                 new ExpenseList(),
                 new ContactList(),
@@ -229,7 +233,8 @@ public class EditCommandParserTest {
     public void parseLoan_validInput_success_case_isLend() {
         EditCommandParser parser = new EditCommandParser();
         WalletList dummyWalletList = new WalletList();
-        Wallet dummyWallet = new Wallet(new BudgetList(),
+        Wallet dummyWallet = new Wallet(new CurrencyList(),
+                new BudgetList(),
                 new RecordList(),
                 new ExpenseList(),
                 new ContactList(),
@@ -270,7 +275,8 @@ public class EditCommandParserTest {
     public void parseLoan_validInput_success_case_contact() {
         EditCommandParser parser = new EditCommandParser();
         WalletList dummyWalletList = new WalletList();
-        Wallet dummyWallet = new Wallet(new BudgetList(),
+        Wallet dummyWallet = new Wallet(new CurrencyList(),
+                new BudgetList(),
                 new RecordList(),
                 new ExpenseList(),
                 new ContactList(),

@@ -2,6 +2,7 @@ package wallet.logic.parser;
 
 import wallet.logic.command.AddCommand;
 import wallet.logic.command.Command;
+import wallet.logic.command.CurrencyCommand;
 import wallet.logic.command.DeleteCommand;
 import wallet.logic.command.DoneCommand;
 import wallet.logic.command.EditCommand;
@@ -78,6 +79,9 @@ public class ParserManager {
 
         case RedoCommand.COMMAND_WORD:
             return new RedoCommand();
+
+        case CurrencyCommand.COMMAND_WORD:
+            return new CurrencyParser().parse(arguments[1]);
 
         default:
             return null;
