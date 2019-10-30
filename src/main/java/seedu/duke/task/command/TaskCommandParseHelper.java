@@ -60,6 +60,8 @@ public class TaskCommandParseHelper {
             return parseUpdateCommand(input, optionList);
         } else if (input.startsWith("set")) {
             return parsePriorityCommand(input, optionList);
+        } else if (input.startsWith("link")) {
+            return parseLinkCommand(input, optionList);
         }
         return new InvalidCommand();
     }
@@ -433,6 +435,26 @@ public class TaskCommandParseHelper {
         }
         String name = eventMatcher.group("name");
         return new TaskAddCommand(taskType, name, time, doAfter, tags, priority);
+    }
+
+    private static Command parseLinkCommand(String input, ArrayList<Command.Option> optionList) {
+        Matcher linkCommandMatcher = prepareCommandMatcher(input, "^link(?:\\s+(?<index>[\\d]*)\\s*)?");
+        if (!linkCommandMatcher.matches()) {
+            showError("Please enter a task index and at least one email index");
+            return new InvalidCommand();
+        }
+        try {
+            int dayLimit = extractDayLimit(linkCommandMatcher);
+            if (dayLimit < 0) {
+                showError("Reminder day limit cannot be negative. Default is used.");
+                return new TaskReminderCommand();
+            } else {
+                return new TaskReminderCommand(dayLimit);
+            }
+        } catch (NumberFormatException e) {
+            showError("Reminder day limit in wrong format. Default is used.");
+            return new TaskReminderCommand();
+        }
     }
 
     /**
