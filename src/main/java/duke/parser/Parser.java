@@ -3,12 +3,9 @@ package duke.parser;
 import duke.command.Cmd;
 import duke.command.dishesCommand.*;
 import duke.command.ingredientCommand.*;
-<<<<<<< HEAD
-=======
 import duke.command.orderCommand.*;
 import duke.command.dishesCommand.*;
 import duke.command.dishesCommand.InitCommand;
->>>>>>> 7f04dc0b609bae19f6ac90eea7207006ee0d0c88
 import duke.dish.Dish;
 import duke.exception.DukeException;
 import duke.command.orderCommand.*;
@@ -39,6 +36,7 @@ public class Parser {
      * @return Command The Command to be executed
      * @throws DukeException for any invalid input
      */
+
     public static Cmd parse(String fullCommand, int size) throws DukeException {
         //splitted contains the keyword and the rest (description or task number)
         String[] splitted = fullCommand.split(" ", 2);
@@ -89,7 +87,23 @@ public class Parser {
                 throw new DukeException("I'm sorry, but I don't know what that means :-(");
         }
     }
-
+    /*
+    public static Cmd parse(String fullCommand, int size) throws DukeException
+    {
+        //splitted contains the keyword and the rest (description or task number)
+        String[] splitted = fullCommand.split(" ", 2);
+        //switching on the keyword
+        switch (splitted[0])
+        {
+            case "list":
+                return new ListCommand();
+            case "listtoday":
+                return new FindToday();
+            default:
+                throw new DukeException("I'm sorry, but I don't know what that means :-(");
+        }
+    }
+    */
 
     public static Cmd Parse(String fullCommand) throws DukeException {
         //splitted contains the keyword and the rest (description or task number)

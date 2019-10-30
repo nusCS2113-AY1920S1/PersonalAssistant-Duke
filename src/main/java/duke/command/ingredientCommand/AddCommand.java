@@ -46,7 +46,7 @@ public class AddCommand<T> extends Cmd<T> {
         try {
             storage.addInFile(((Printable)entry).printInFile());
         } catch (IOException e) {
-            throw new DukeException("Error while adding the command to the duke.txt file");
+            throw new DukeException("Error while adding the ingredient to the duke.txt file");
         }
     }
 }

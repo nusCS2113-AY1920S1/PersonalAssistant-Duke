@@ -35,9 +35,10 @@ public class FindToday extends Cmd<Task> {
             System.out.println("No ingredients for today!");
         } else {
             System.out.println("\t Here are the ingredients for today");
+            sb.setLength(sb.length() - 1);// to remove the last new line
+            System.out.println(sb.toString());
         }
-        sb.setLength(sb.length() - 1);// to remove the last new line
-        System.out.println(sb.toString());
+
     }
 }
 
