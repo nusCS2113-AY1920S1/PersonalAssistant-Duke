@@ -45,7 +45,7 @@ public class FindContactCommand extends Command {
      */
     @Override
     public String executeGui(TaskList items, Ui ui) {
-        return Ui.showFoundContactsGui(contactList, keyword);
+        return ui.showFoundContactsGui(contactList, keyword);
     }
 
     /**
