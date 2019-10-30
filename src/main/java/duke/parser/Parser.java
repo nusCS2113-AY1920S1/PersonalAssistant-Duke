@@ -488,6 +488,14 @@ public class Parser {
                         throw new DukeException("     (>_<) OOPS!!! The description of type for "
                                 + arr[ZERO] + " cannot be empty.");
                     } else if (typeOfUpdate != MINUS_ONE) {
+                        for (int i = ZERO; i < items.size(); i++) {
+                            if (dateDesc.equals(items.get(i).getDateTime()) && !items.get(i).isDone()) {
+                                throw new DukeException("     (>_<) OOPS!!! The date/time for "
+                                        + arr[ZERO] + " clashes with " + items.get(i).toString()
+                                        + "\n     Please choose another date/time! "
+                                        + "Or mark the above task as Done first!");
+                            }
+                        }
                         return new UpdateCommand(taskDesc, dateDesc, typeDesc, typeOfUpdate, tasknum);
                     } else {
                         throw new DukeException("     (>_<) OOPS!!! There is something wrong "

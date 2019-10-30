@@ -24,7 +24,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="880.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="duke.MainWindow">
    <children>
-      <MenuBar layoutX="7.0" layoutY="2.0" prefHeight="25.0" prefWidth="364.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="516.0" AnchorPane.topAnchor="0.0">
+      <MenuBar layoutX="7.0" layoutY="2.0" prefHeight="25.0" prefWidth="438.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="442.0" AnchorPane.topAnchor="0.0">
         <menus>
             <Menu mnemonicParsing="false" text="Add New">
                <items>
@@ -161,7 +161,5 @@
                </children></AnchorPane>
         </items>
       </SplitPane>
-      <Button disable="true" layoutX="406.0" mnemonicParsing="false" text="--&gt;" />
-      <Button disable="true" layoutX="364.0" mnemonicParsing="false" text="Save" />
    </children>
 </AnchorPane>
