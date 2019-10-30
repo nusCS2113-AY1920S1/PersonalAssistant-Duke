@@ -73,6 +73,7 @@ public class PostponeCommand extends Command {
             } else {
                 taskToBePostponed.setStartDate(startDate);
                 ChronologerStateList.addState((tasks.getTasks()));
+                tasks.updatePriority(null);
                 storage.saveFile(tasks.getTasks());
                 UiTemporary.printOutput(POSTPONED_DEADLINE + taskToBePostponed.toString());
             }
@@ -83,6 +84,7 @@ public class PostponeCommand extends Command {
                 taskToBePostponed.setStartDate(startDate);
                 taskToBePostponed.setEndDate(toDate);
                 ChronologerStateList.addState((tasks.getTasks()));
+                tasks.updatePriority(null);
                 storage.saveFile(tasks.getTasks());
                 UiTemporary.printOutput(POSTPONED_EVENT + taskToBePostponed.toString());
             }
@@ -90,6 +92,7 @@ public class PostponeCommand extends Command {
             taskToBePostponed.setStartDate(startDate);
             taskToBePostponed.setEndDate(toDate);
             ChronologerStateList.addState((tasks.getTasks()));
+            tasks.updatePriority(null);
             storage.saveFile(tasks.getTasks());
             UiTemporary.printOutput(POSTPONED_TODO + taskToBePostponed.toString());
         } else {

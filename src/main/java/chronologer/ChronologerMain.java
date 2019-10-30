@@ -37,6 +37,7 @@ public class ChronologerMain extends Application implements Serializable {
             ChronologerStateList.addState(SerializationUtils.clone(tasks.getTasks()));
         } catch (ChronologerException e) {
             this.tasks = new TaskList(new ArrayList<>());
+            ChronologerStateList.addState(SerializationUtils.clone(tasks.getTasks()));
         }
     }
 

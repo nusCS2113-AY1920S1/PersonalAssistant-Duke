@@ -44,7 +44,7 @@ public class ChronologerStateList implements Serializable {
     public static ArrayList<Task> redo()  throws ChronologerException {
         ArrayList<Task> toReturn;
         if (chronologerRedoStack.size() == 0) {
-            UiTemporary.printOutput("Sorry unable to undo further");
+            UiTemporary.printOutput("Sorry unable to redo further");
             throw new ChronologerException(ChronologerException.fileDoesNotExist());
         } else {
             toReturn = (ArrayList<Task>) chronologerRedoStack.pop();
