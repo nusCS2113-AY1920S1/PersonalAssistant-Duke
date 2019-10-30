@@ -1,3 +1,5 @@
+package dolla;
+
 import dolla.task.Entry;
 import org.junit.jupiter.api.Test;
 
@@ -14,32 +16,32 @@ public class EntryTest {
     }
 
     @Test
-    void amountToMoney() {
+    public void amountToMoney() {
         Entry newEntry = createNewEntry();
         assertEquals("$100.0", newEntry.amountToMoney());
     }
 
     @Test
-    void getLogText() {
+    public void getLogText() {
         Entry newEntry = createNewEntry();
         assertEquals("[expense] [$100.0] [Expense Description] [/on 03/12/2001]",
                 newEntry.getRecordDetail());
     }
 
     @Test
-    void formatSave() {
+    public void formatSave() {
         Entry newEntry = createNewEntry();
         assertEquals("E | 100.0 | Expense Description | 03/12/2001", newEntry.formatSave());
     }
 
     @Test
-    void getDescription() {
+    public void getDescription() {
         Entry newEntry = createNewEntry();
         assertEquals("Expense Description", newEntry.getDescription());
     }
 
     @Test
-    void getUserInput() {
+    public void getUserInput() {
         Entry newEntry = createNewEntry();
         assertEquals("expense 100.0 Expense Description /on 03/12/2001", newEntry.getUserInput());
     }

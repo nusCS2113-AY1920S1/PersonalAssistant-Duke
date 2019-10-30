@@ -25,7 +25,10 @@ public class MainParser {
      * @param mode The mode Dolla is currently on.
      * @return a command corresponding to the user input.
      */
-    public static Command handleInput(String mode, String inputLine) { // TODO: Rename to something else
+    public static Command handleInput(String mode, String inputLine) {
+
+        //Scanner input = new Scanner(System.in);
+        //String inputLine = input.nextLine();
         String[] inputArray = inputLine.split(SPACE);
         String command = inputArray[0];
         boolean isExitCommand = isExitCommand(command);
@@ -41,19 +44,19 @@ public class MainParser {
         case MODE_DOLLA:
             DollaParser dollaParser = new DollaParser(inputLine);
             //System.out.println("Running DollaParser...");
-            return dollaParser.handleInput(mode);
+            return dollaParser.parseInput();
         case MODE_ENTRY:
             EntryParser entryParser = new EntryParser(inputLine);
-            return entryParser.handleInput(mode);
+            return entryParser.parseInput();
         case MODE_DEBT:
             DebtsParser debtsParser = new DebtsParser(inputLine);
-            return debtsParser.handleInput(mode);
+            return debtsParser.parseInput();
         case MODE_LIMIT:
             LimitParser limitParser = new LimitParser(inputLine);
-            return limitParser.handleInput(mode);
-        case "modify entry": //is this a mode?
-            ModifyParser modifyParser = new ModifyParser(inputLine);
-            return modifyParser.handleInput(mode);
+            return limitParser.parseInput();
+        case "modify entry": //is this a mode? (asking cause im not sure)
+            ModifyParser modifyParser = new ModifyParser(mode, inputLine);
+            return modifyParser.parseInput();
         default:
             Ui.printInvalidCommandError();
             return new ErrorCommand();

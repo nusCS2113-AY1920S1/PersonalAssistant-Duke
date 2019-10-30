@@ -5,12 +5,13 @@ import dolla.command.ErrorCommand;
 import dolla.command.ModifyEntryCommand;
 
 public class ModifyParser extends Parser {
-    public ModifyParser(String inputLine) {
+    public ModifyParser(String mode, String inputLine) {
         super(inputLine);
+        this.mode = mode;
     }
 
     @Override
-    public Command handleInput(String mode) {
+    public Command parseInput() {
         String modeToModify = mode.split(" ")[1];
         if (modeToModify.equals("entry")) {
             if (verifyAddCommand() == true) {

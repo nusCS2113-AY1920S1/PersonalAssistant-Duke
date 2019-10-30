@@ -84,4 +84,9 @@ public class SearchCommand extends Command {
             SearchUi.printSearchDuration(mode, recordList, searchContent);
         }
     }
+
+    @Override
+    public String getCommandInfo() {
+        return null;
+    }
 }
