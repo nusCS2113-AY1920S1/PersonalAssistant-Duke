@@ -1,5 +1,6 @@
 package duke.ui;
 
+import duke.Duke;
 import duke.task.Todo;
 import duke.task.Deadline;
 import duke.task.ContactList;
@@ -9,6 +10,7 @@ import duke.task.Task;
 import duke.task.TaskList;
 import duke.task.PriorityList;
 
+import javafx.scene.control.ListView;
 import javafx.util.Pair;
 
 import java.io.InputStream;
@@ -27,6 +29,8 @@ public class Ui {
     protected final PrintStream out;
     private static final int ZERO = 0;
     private static final int ONE = 1;
+    private Duke duke;
+    private ListView<Task> listT;
 
     /**
      * Creates an empty ui using default scanner and print stream.
@@ -71,24 +75,6 @@ public class Ui {
      */
     public String readCommand() {
         return in.nextLine();
-    }
-
-    //@@author gervaiseang
-    /**
-     * Outputs all the reminders of the user.
-     *
-     * @param tasks The task list that contains all reminders.
-     */
-    public static void showReminder(TaskList tasks) {
-        ArrayList<Task> taskList = tasks.getTasks();
-        System.out.println("     You currently have these upcoming tasks:\n");
-        int currentIndex = ONE;
-        for (Task remaining: taskList) {
-            remaining.isTriggerReminder();
-            System.out.println("     " + currentIndex + "." + remaining.toString());
-            currentIndex += ONE;
-        }
-        System.out.println(LINE);
     }
 
     //@@author gervaiseang
@@ -336,7 +322,8 @@ public class Ui {
      * @return String of the welcome message.
      */
     public static String showWelcomeGui() {
-        String str = LINE + "\n     Hello! I'm Duke\n     What can I do for you?\n" + LINE;
+        String str = LINE + "\n     Hello! I'm Duke\n     What can I do for you?\n"
+                + LINE + "\n    Upcoming Reminders in 3 days,\n     refer to Chat Box below:";
         return str;
     }
 
