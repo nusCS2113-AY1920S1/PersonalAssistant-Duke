@@ -15,7 +15,7 @@ public class FindTasksByDateCommand extends Command {
     /**
      * Creates a command with the target date.
      *
-     * @param targetDate The target priority to be searched.
+     * @param targetDate The target date to be searched.
      */
     public FindTasksByDateCommand(String targetDate) {
         this.targetDate = targetDate;
