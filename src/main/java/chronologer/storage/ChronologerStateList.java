@@ -18,7 +18,7 @@ public class ChronologerStateList implements Serializable {
      * Function to store the current state.
      *
      */
-    public static void addState(ArrayList<Task> listToStore){
+    public static void addState(ArrayList<Task> listToStore) {
         chronologerUndoStack.push(SerializationUtils.clone(listToStore));
     }
 
@@ -30,8 +30,7 @@ public class ChronologerStateList implements Serializable {
         if (chronologerUndoStack.size() <= 1) {
             UiTemporary.printOutput("Sorry unable to undo further");
             throw new ChronologerException(ChronologerException.fileDoesNotExist());
-        }
-        else {
+        } else {
             chronologerRedoStack.push(chronologerUndoStack.pop());
             toReturn = (ArrayList<Task>) chronologerUndoStack.peek();
         }
@@ -47,8 +46,7 @@ public class ChronologerStateList implements Serializable {
         if (chronologerRedoStack.size() == 0) {
             UiTemporary.printOutput("Sorry unable to undo further");
             throw new ChronologerException(ChronologerException.fileDoesNotExist());
-        }
-        else {
+        } else {
             toReturn = (ArrayList<Task>) chronologerRedoStack.pop();
             chronologerUndoStack.push(SerializationUtils.clone(toReturn));
         }

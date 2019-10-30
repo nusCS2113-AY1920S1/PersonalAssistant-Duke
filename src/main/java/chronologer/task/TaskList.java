@@ -258,10 +258,10 @@ public class TaskList {
     public ArrayList<String> fetchReminders(LocalDateTime currentDateTime) {
         ArrayList<String> reminders = new ArrayList<>();
         for (Task listOfTask : listOfTasks) {
-                if (listOfTask.isReminderTrigger() && listOfTask.reminder.reminderDate == currentDateTime) {
-                    reminders.add(listOfTask.getDescription());
-                }
+            if (listOfTask.isReminderTrigger() && listOfTask.reminder.reminderDate == currentDateTime) {
+                reminders.add(listOfTask.getDescription());
             }
+        }
         return reminders;
     }
 
@@ -335,7 +335,8 @@ public class TaskList {
         observableListOfTasks.add(task);
         observableListOfTasks.remove(task);
     }
-    public void updateListOfTasks (ArrayList<Task> updatedListOfTasks) {
+
+    public void updateListOfTasks(ArrayList<Task> updatedListOfTasks) {
         listOfTasks.clear();
         listOfTasks = updatedListOfTasks;
     }
