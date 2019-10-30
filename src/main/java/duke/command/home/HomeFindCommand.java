@@ -7,9 +7,7 @@ import duke.command.CommandUtils;
 import duke.data.DukeObject;
 import duke.data.Impression;
 import duke.data.Patient;
-import duke.data.SearchResult;
 import duke.exception.DukeException;
-import duke.ui.context.Context;
 
 import java.util.ArrayList;
 
@@ -61,6 +59,6 @@ public class HomeFindCommand extends ArgCommand {
             }
             information.append(resultList.get(i).getName()).append(System.lineSeparator());
         }*/
-        CommandUtils.search(core, searchTerm, resultList, null);
+        CommandUtils.showSearchResults(core, searchTerm, resultList, null);
    }
 }

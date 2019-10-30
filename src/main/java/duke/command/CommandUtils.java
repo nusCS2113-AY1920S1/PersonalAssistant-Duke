@@ -192,8 +192,8 @@ public class CommandUtils {
         }
     }
 
-    public static void search(DukeCore core, String searchTerm, List<? extends DukeObject> resultList,
-                              DukeObject parent) throws DukeUtilException {
+    public static void showSearchResults(DukeCore core, String searchTerm, List<? extends DukeObject> resultList,
+                                         DukeObject parent) throws DukeUtilException {
         if (resultList == null) {
             throw new DukeUtilException("Search result list is null!");
         }

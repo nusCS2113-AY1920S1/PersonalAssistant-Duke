@@ -7,9 +7,7 @@ import duke.command.CommandUtils;
 import duke.data.DukeObject;
 import duke.data.Impression;
 import duke.data.Patient;
-import duke.data.SearchResult;
 import duke.exception.DukeException;
-import duke.ui.context.Context;
 
 import java.util.ArrayList;
 
@@ -53,6 +51,6 @@ public class PatientFindCommand extends ArgCommand {
 
 
         //core.ui.print(findStr + information);
-        CommandUtils.search(core, searchTerm, resultList, patient);
+        CommandUtils.showSearchResults(core, searchTerm, resultList, patient);
     }
 }
