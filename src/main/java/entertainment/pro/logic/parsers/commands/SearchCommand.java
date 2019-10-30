@@ -113,6 +113,8 @@ public class SearchCommand extends CommandSuper {
             movieHandler.getAPIRequester().beginSearchRequest(RetrieveRequest.MoviesRequestType.TRENDING_TV);
         } else if (payload.equals(GET_POPULAR)) {
             movieHandler.getAPIRequester().beginSearchRequest(RetrieveRequest.MoviesRequestType.POPULAR_TV);
+        } else {
+            movieHandler.getAPIRequester().beginSearchRequest(RetrieveRequest.MoviesRequestType.SEARCH_TV);
         }
     }
 

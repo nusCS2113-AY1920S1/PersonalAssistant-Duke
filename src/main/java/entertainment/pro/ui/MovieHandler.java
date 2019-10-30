@@ -12,8 +12,7 @@ import entertainment.pro.logic.movieRequesterAPI.MovieResultFilter;
 import entertainment.pro.model.*;
 import entertainment.pro.storage.user.Blacklist;
 import entertainment.pro.storage.utils.*;
-import entertainment.pro.xtra.PastCommands;
-import entertainment.pro.storage.utils.PastUserCommands;
+
 
 import javafx.application.Platform;
 import javafx.event.EventHandler;
@@ -132,7 +131,6 @@ public class MovieHandler extends Controller implements RequestListener {
     private static RetrieveRequest mMovieRequest;
     private static CinemaRetrieveRequest mCinemaRequest;
     private int index = 0;
-    private static PastCommands pastCommands = new PastCommands();
     static String command = "";
     ArrayList<Integer> genrePreference = new ArrayList<>();
     ArrayList<Integer> genreRestriction = new ArrayList<>();
@@ -157,17 +155,6 @@ public class MovieHandler extends Controller implements RequestListener {
 
     Controller controller;
 
-    /**
-     * checkstyle made me put javadoc here >:( whoever made this function pls edit the the javadoc tqtq -wh.
-     */
-    public static void updatePastCommands(String now) {
-        PastCommandStructure pastCommandStructure = new PastCommandStructure(now, command);
-        ArrayList<PastCommandStructure> arrayList = pastCommands.getMap();
-        arrayList.add(pastCommandStructure);
-        System.out.println(now + " " + command);
-        pastCommands.setMap(arrayList);
-        PastUserCommands.update(pastCommands);
-    }
 
     class KeyboardClick implements EventHandler<KeyEvent> {
 
@@ -216,11 +203,6 @@ public class MovieHandler extends Controller implements RequestListener {
         EditProfileJson editProfileJson = new EditProfileJson();
         userProfile = editProfileJson.load();
         //ArrayList<Integer> arrayList = userPr
-        try {
-            pastCommands.setMap(PastUserCommands.load());
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
         userNameLabel.setText(userProfile.getUserName());
         userAgeLabel.setText(Integer.toString(userProfile.getUserAge()));
         playlists = userProfile.getPlaylistNames();
@@ -295,12 +277,7 @@ public class MovieHandler extends Controller implements RequestListener {
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
         Date date = new Date();
         String now = formatter.format(date);
-        PastCommandStructure pastCommandStructure = new PastCommandStructure(now, "view movies current");
-        ArrayList<PastCommandStructure> arrayList = pastCommands.getMap();
-        arrayList.add(pastCommandStructure);
-        //System.out.println(now + " " + command);
-        pastCommands.setMap(arrayList);
-        PastUserCommands.update(pastCommands);
+
 
         //generalFeedbackText.setText("Welcome to Entertainment Pro. Displaying currently showing movies...");
 
@@ -432,31 +409,7 @@ public class MovieHandler extends Controller implements RequestListener {
         mMovies = MoviesFinal;
 
         if (isViewBackMoreInfo) {
-            Platform.runLater(new Runnable() {
-                @Override
-                public void run() {
-                    // Update UI here.
-                    PastCommandStructure pastCommandStructure = getPastCommands().getMap().get(
-                            getPastCommands().getMap().size() - 2);
-                    String command = pastCommandStructure.getQuery();
-                    String[] getStrips = command.split(" ");
-                    int num = 0;
-                    if (getPastCommands().getMap().get(getPastCommands().getMap().size() - 2)
-                            .getQuery().startsWith("view entry")) {
-                        num = Integer.parseInt(getStrips[2]);
-                    }
-                    try {
-                        showMovie(num);
-                    } catch (Exceptions exceptions) {
-                        exceptions.printStackTrace();
-                    }
-                    isViewBackMoreInfo = false;
-                        getPastCommands().getMap().remove(getPastCommands().getMap().size() - 1);
-                        getPastCommands().getMap().remove(getPastCommands().getMap().size() - 1);
-                        PastUserCommands.update(pastCommands);
-                        isViewBack = false;
-                }
-            });
+
 
         } else {
             //System.out.println("this is size: " + mMovies.size());
@@ -470,9 +423,7 @@ public class MovieHandler extends Controller implements RequestListener {
                 }
             });
             if (isViewBack == true) {
-                getPastCommands().getMap().remove(getPastCommands().getMap().size() - 1);
-                getPastCommands().getMap().remove(getPastCommands().getMap().size() - 1);
-                PastUserCommands.update(pastCommands);
+
                 isViewBack = false;
             }
         }
@@ -640,23 +591,7 @@ public class MovieHandler extends Controller implements RequestListener {
         if (currentTotalProgress >= mMovies.size()) {
             mProgressBar.setVisible(false);
             mStatusLabel.setText("");
-            if (isViewBack) {
-                PastCommandStructure pastCommandStructure = getPastCommands().getMap().get(
-                        getPastCommands().getMap().size() - 2);
-                String command = pastCommandStructure.getQuery();
-                String[] getStrips = command.split(" ");
-                int num = 0;
-                if (getPastCommands().getMap().get(getPastCommands().getMap().size() - 2)
-                        .getQuery().startsWith("view entry")) {
-                    num = Integer.parseInt(getStrips[2]);
-                }
-                showMovie(num);
-                isViewBack = false;
-                getPastCommands().getMap().remove(getPastCommands().getMap().size() - 1);
-                getPastCommands().getMap().remove(getPastCommands().getMap().size() - 1);
-                PastUserCommands.update(pastCommands);
 
-            }
         }
     }
 
@@ -1063,9 +998,7 @@ public class MovieHandler extends Controller implements RequestListener {
         return userProfile;
     }
 
-    public static PastCommands getPastCommands() {
-        return pastCommands;
-    }
+
 
     public ArrayList<MovieInfoObject> getmMovies() {
         return mMovies;

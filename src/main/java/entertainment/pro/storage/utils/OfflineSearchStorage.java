@@ -25,12 +25,18 @@ public class OfflineSearchStorage {
     private static String POPULAR_TV_DATA_FILEPATH = "/data/PopularTV.json";
     private static String TRENDING_TV_DATA_FILEPATH = "/data/TrendingTV.json";
     private static String TOP_RATED_TV_DATA_FILEPATH = "/data/RatedTV.json";
+    private static String MOVIES_DATABASE_FILEPATH = "/data/movieDatabase/";
 
     /**
      * load and fetch appropriate string data for search requests.
      */
     public String load() throws IOException {
         RetrieveRequest.MoviesRequestType type = RetrieveRequest.getGetType();
+        String json = "";
+        if (type.equals(RetrieveRequest.MoviesRequestType.SEARCH_MOVIES)) {
+            json = getDataForSearchMovies();
+            return json;
+        }
         String filename = getFileName(type);
         InputStream inputStream = getClass().getResourceAsStream(filename);
         InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
@@ -44,17 +50,40 @@ public class OfflineSearchStorage {
         bufferedReader.close();
         inputStreamReader.close();
         inputStream.close();
-
-        JSONParser jsonParser = new JSONParser();
-        JSONObject jsonObject = new JSONObject();
-        try {
-            //parse into JSONObject.
-            jsonObject = (JSONObject) jsonParser.parse(dataFromJSON);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        //return jsonObject;
         return dataFromJSON;
+    }
+
+    private String getDataForSearchMovies() throws IOException {
+       // String filename = MOVIES_DATABASE_FILEPATH;
+        String dataForMovies = "";
+        for (int i = 201; i <= 202; i += 1) {
+            String filename = MOVIES_DATABASE_FILEPATH;
+            filename += i + ".json";
+            InputStream inputStream = getClass().getResourceAsStream(filename);
+            System.out.println(filename);
+            InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+            BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+            String line;
+            int j = 1;
+            while ((line = bufferedReader.readLine()) != null) {
+                if (((i > 201) && (j > 1)) || (i == 201) ) {
+                    dataForMovies += line;
+                }
+                j += 1;
+            }
+            if (i != 202) {
+                dataForMovies = dataForMovies.substring(0, dataForMovies.length() - 2);
+                dataForMovies += ",";
+            }
+
+            bufferedReader.close();
+            inputStreamReader.close();
+            inputStream.close();
+            //filename =
+        }
+        dataForMovies += "}";
+        System.out.println(dataForMovies);
+        return dataForMovies;
     }
 
     /**
@@ -92,6 +121,8 @@ public class OfflineSearchStorage {
             case POPULAR_TV:
                 filename = POPULAR_TV_DATA_FILEPATH;
                 break;
+            case SEARCH_MOVIES:
+
             default:
                 filename = "";
         }

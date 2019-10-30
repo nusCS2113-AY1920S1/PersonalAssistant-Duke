@@ -9,7 +9,6 @@ import entertainment.pro.ui.Controller;
 import entertainment.pro.ui.MovieHandler;
 import entertainment.pro.logic.parsers.CommandStructure;
 import entertainment.pro.logic.parsers.CommandSuper;
-import entertainment.pro.model.PastCommandStructure;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -30,9 +29,6 @@ public class ViewCommand extends CommandSuper {
                 break;
             case blacklist:
                 ((MovieHandler) this.getUiController()).setFeedbackText(Blacklist.printList());
-                break;
-            case back:
-                executeBackCommands();
                 break;
             case entry:
                 executeEntryCommands(Integer.parseInt(getPayload()));
@@ -56,42 +52,9 @@ public class ViewCommand extends CommandSuper {
         //int num = Integer.parseInt(payload);
         //System.out.println("this is num +" + num);
         ((MovieHandler) this.getUiController()).showMovie(num);
-        if (!(((MovieHandler) this.getUiController()).isViewBack())) {
-            ((MovieHandler) this.getUiController()).updatePastCommands(now);
-        }
-    }
-
-    private void executeBackCommands() throws Exceptions {
-        PastCommandStructure pastCommandStructure =
-                ((MovieHandler) this.getUiController()).getPastCommands().getMap().get(
-                        ((MovieHandler) this.getUiController()).getPastCommands().getMap().size() - 2);
-        String command = pastCommandStructure.getQuery();
-        String[] getStrips = command.split(" ");
-        System.out.println("this is past command " + command);
-        ((MovieHandler) this.getUiController()).setViewBack(true);
-
-        if (command.startsWith("view entry")) {
-            //System.out.println("riyazzz");
-            ((MovieHandler) this.getUiController()).setViewBackMoreInfo(true);
-            String pastCommand = ((MovieHandler) this.getUiController()).getPastCommands().getMap().get(
-                    ((MovieHandler) this.getUiController()).getPastCommands().getMap().size() - 3).getQuery();
-            System.out.println("this is past command " + pastCommand);
-
-            try {
-                CommandParser.parseCommands(pastCommand, ((MovieHandler) this.getUiController()));
-            } catch (IOException | Exceptions e) {
-                e.printStackTrace();
-            }
-            //executeEntryCommands(num);
-        } else {
-            try {
-                CommandParser.parseCommands(command, ((MovieHandler) this.getUiController()));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
 
     }
+
 
 }
 
