@@ -25,7 +25,10 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 
+<<<<<<< HEAD
 import java.io.File;
+=======
+>>>>>>> 5be7a09fb02c85ba8e4eacd391016d1ff25be989
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
@@ -60,7 +63,11 @@ public class Ui extends AnchorPane {
 
     private Logic logic;
     private UserStats stats;
+<<<<<<< HEAD
     //private double userExp = stats.getUserExp()/10.0;
+=======
+    // private double userExp = stats.getUserExp()/10.0;
+>>>>>>> 5be7a09fb02c85ba8e4eacd391016d1ff25be989
     //private String userName = stats.getUsername();
     //private int level = stats.getUserLevel();
     //private String userGender = stats.getGender();
@@ -244,7 +251,7 @@ public class Ui extends AnchorPane {
      */
     private void updateLevelProgress(double expGain) {
         //userExp += expGain;
-        //levelProgress.setProgress(playerExp);
+        //levelProgress.setProgress(userExp);
     }
 
     /**

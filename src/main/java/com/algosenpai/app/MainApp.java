@@ -1,6 +1,8 @@
 package com.algosenpai.app;
 
 
+import com.algosenpai.app.stats.UserStats;
+import com.algosenpai.app.storage.Storage;
 import com.algosenpai.app.ui.Ui;
 import com.algosenpai.app.ui.controller.MusicController;
 import javafx.animation.PauseTransition;
@@ -15,6 +17,7 @@ import javafx.util.Duration;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.net.URL;
 
 /**
  * A one scene chatbot GUI.
@@ -31,6 +34,7 @@ public class MainApp extends Application {
     //Initialise the different components here
     private Logic logic;
     private static MusicController musicController;
+    private UserStats stats = new UserStats("UserData.txt");
 
     static {
         try {
@@ -40,9 +44,13 @@ public class MainApp extends Application {
         }
     }
 
-    private void initialize() {
+    public MainApp() throws IOException {
+    }
+
+    private void initialize() throws IOException {
         try {
-            logic = new Logic();
+            logic = new Logic(stats);
+            Storage.loadData("UserData.txt");
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -80,7 +88,7 @@ public class MainApp extends Application {
         AnchorPane ap = fxmlLoader.load();
         Scene scene = new Scene(ap, MAINWINDOW_WIDTH, MAINWINDOW_HEIGHT);
         stage.setScene(scene);
-        fxmlLoader.<Ui>getController().setLogic(logic);
+        fxmlLoader.<Ui>getController().setLogic(logic, stats);
         stage.setResizable(false);
         stage.setTitle(APPLICATION_TITLE);
         stage.show();

@@ -19,7 +19,7 @@ public class SaveCommand extends Command {
 
     @Override
     public String execute() {
-        userStats.saveUserStats();
+
         return "Your data is saved!";
     }
 }

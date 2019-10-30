@@ -2,10 +2,11 @@ package com.algosenpai.app.storage;
 
 import com.algosenpai.app.stats.UserStats;
 
+
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.FileNotFoundException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -21,13 +22,13 @@ public class Storage {
     public static String loadData(String filePath) throws IOException {
         File file = new File(filePath);
         // If the file does not exist, create it.
-        if (! file.isFile()) {
+        if (!file.isFile()) {
             file.createNewFile();
 
             // Fill it with the default UserStats.
             UserStats newUserStats = UserStats.getDefaultUserStats();
             // Save it to the file, so the next time the function is called, valid data exists in the file.
-            saveData(filePath,newUserStats.toString());
+            saveData(filePath, newUserStats.toString());
             return newUserStats.toString();
         }
 
