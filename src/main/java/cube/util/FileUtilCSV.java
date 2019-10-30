@@ -58,7 +58,6 @@ public class FileUtilCSV<Type> extends FileUtil {
                 while(iterator.hasNext()) {
                     Type currentObject = iterator.next();
                     collectionToLoad.add(currentObject);
-                    System.out.println(currentObject.toString());
                 }
 
             } catch (IOException e) {

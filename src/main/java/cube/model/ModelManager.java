@@ -29,6 +29,10 @@ public class ModelManager {
 		return foodList;
 	}
 
+	public void setFoodList(FoodList foodList) {
+		this.foodList = foodList;
+	}
+
 	public SalesHistory getSalesHistory() {
 		return salesHistory;
 	}
