@@ -127,6 +127,12 @@ public class MainWindow extends AnchorPane {
     @FXML
     private DatePicker assignTaskEndDatePicker;
     @FXML
+    private DatePicker assignDeadlineTaskDatePicker;
+    @FXML
+    private TextField assignDeadlineTaskTimeField;
+    @FXML
+    private TextField assignTaskUuidField;
+    @FXML
     private VBox helpGuideContainer;
 
     private final Duke duke = new Duke("./data");
@@ -167,7 +173,7 @@ public class MainWindow extends AnchorPane {
 
     //@@author qjie7
     /**
-     * Event handler of PieChartPopUpButton.
+     * Action takes to after Undo button is being pressed.
      */
     public void handleUndoButton() {
         executeDukeWithInput("undo");
@@ -283,7 +289,7 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
-     * Action takes to after add patient button is being pressed.
+     * Action takes to after list patients button is being pressed.
      */
     @FXML
     private void handleListPatientsButton() {
@@ -291,7 +297,7 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
-     * Action takes to after add patient button is being pressed.
+     * Action takes to after add task button is being pressed.
      */
     @FXML
     private void handleAddTaskButton() {
@@ -302,7 +308,7 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
-     * Action takes to after add patient button is being pressed.
+     * Action takes to after delete task button is being pressed.
      */
     @FXML
     private void handleDeleteTaskButton() {
@@ -313,7 +319,7 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
-     * Action takes to after add patient button is being pressed.
+     * Action takes to after list task button is being pressed.
      */
     @FXML
     private void handleListTasksButton() {
@@ -321,7 +327,7 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
-     * Action takes to after add patient button is being pressed.
+     * Action takes to after Assign Period Task button is being pressed.
      */
     @FXML
     private void handleAssignTaskButton() {
@@ -341,6 +347,39 @@ public class MainWindow extends AnchorPane {
         assignTaskPatientIdField.clear();
         assignTaskStartTimeField.clear();
         assignTaskEndTimeField.clear();
+    }
+
+    /**
+     * Action takes to after Assign Deadline Task button is being pressed.
+     */
+    @FXML
+    private void handleDeadlineTaskButton() {
+        String taskId = assignTaskIdField.getText();
+        String patientId = assignTaskPatientIdField.getText();
+        LocalDate deadlineDate = assignDeadlineTaskDatePicker.getValue();
+
+        String deadlineDateInString = deadlineDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+
+        String deadlineTime = assignDeadlineTaskTimeField.getText();
+        String input = "assign deadline task :" + "#" + patientId + " :"
+                + "#" + taskId + " :" + deadlineDateInString + " " + deadlineTime;
+        executeDukeWithInput(input);
+        assignTaskIdField.clear();
+        assignTaskPatientIdField.clear();
+        assignDeadlineTaskTimeField.clear();
+    }
+
+    /**
+     * Action takes to after Delete Assign task button is being pressed.
+     */
+    @FXML
+    private void handleDeleteUuidTaskButton() {
+        String uuid = assignTaskUuidField.getText();
+
+        String input = "delete assigned task :" + "#" + uuid;
+        executeDukeWithInput(input);
+        assignTaskUuidField.clear();
+
     }
     //@@author
 
