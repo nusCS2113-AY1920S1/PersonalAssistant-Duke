@@ -32,10 +32,10 @@ public class UserProfile {
 
     private static UserProfile loadProfile(String userName, String password) {
         return null;
-    };
+    }
 
     public void saveProfile() {
-    };
+    }
 
     public static boolean userExists(String userName) {
         return false;
@@ -43,7 +43,7 @@ public class UserProfile {
 
     public boolean isValidPassword(String password, String passwordHash) {
         return passwordHash.equals(UserProfile.hasher.getHashString(password));
-    };
+    }
 
     public String getUserName() {
         return this.userName;

@@ -8,6 +8,11 @@ import java.util.HashSet;
 public class Credential {
     private static HashSet<String> validActions = new HashSet<>(Arrays.asList("login", "register"));
 
+    /**
+     * Login/register prompt.
+     * @param plannerUi plannerUi to use
+     * @return corresponding user profile
+     */
     public UserProfile prompt(PlannerUi plannerUi) {
         String action = plannerUi.loginPrompt();
         while (!Credential.validActions.contains(action)) {
@@ -38,7 +43,7 @@ public class Credential {
             userProfile = UserProfile.createProfile(userName, password, plannerUi);
         }
         return userProfile;
-    };
+    }
 
     /**
      * Prompt for username.
