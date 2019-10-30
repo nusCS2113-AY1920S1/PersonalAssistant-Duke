@@ -14,8 +14,8 @@ public class CommandLevelEnd extends Command {
      */
     @Override
     public void execute(Farmio farmio) throws FarmioFatalException {
-        farmio.getUi().typeWriter("Farmer + is now ready for his next adventure! "
-                + "Press [ENTER] for the narrative or enter [SKIP] to skip the story", false);
+        farmio.getUi().typeWriter("Farmer "+ farmio.getFarmer().getName()+" is now ready for his next adventure! "
+                + "Press [ENTER] to continue or enter [SKIP] to skip the story", false);
         Storage storage = farmio.getStorage();
         Farmer farmer = farmio.getFarmer();
         Level level = new Level(storage.getLevel(farmer.nextLevel()),farmer.getName());
