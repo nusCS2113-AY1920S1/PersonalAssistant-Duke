@@ -140,28 +140,7 @@ public class Task {
     public void setReminder(int remainingDays) {
         this.numberOfDays = remainingDays;
     }
-
-    /**
-     * Set the reminders for existing tasks which are going to be due in 3 days
-     *
-     * @param days The number of days left of the reminded task.
-     */
-/*    public void setReminderList(int days) {
-        reminders = new Reminders(days, currentDate);
-    }*/
-
-    /**
-     * Check for reminders for a task is triggered
-     *
-     * @return boolean that triggers the reminder.
-     */
-/*    public boolean isTriggerReminder() {
-        if (reminders != null) {
-            return reminders.isTriggerReminder();
-        }
-        return false;
-    }*/
-
+    
     //@@author
 
     /**
