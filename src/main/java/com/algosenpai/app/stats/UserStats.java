@@ -288,8 +288,11 @@ public class UserStats {
      * @return The UserStats object.
      */
     public static UserStats getDefaultUserStats() {
-        // TODO Currently it returns an empty object, but it should ideally be a list of all chapters, with 0 attempts.
-        return new UserStats("Name", "nil", "1", "0", new ArrayList<>());
+        ArrayList<ChapterStat> chapters = new ArrayList<>();
+        chapters.add(new ChapterStat("Sorting",1,0,0,0,0,0,""));
+        chapters.add(new ChapterStat("Linked List",2,0,0,0,0,0,""));
+        chapters.add(new ChapterStat("Bitmask",3,0,0,0,0,0,""));
+        return new UserStats("DefaultName", "male", "1", "0", chapters);
     }
 
     /**
