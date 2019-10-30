@@ -59,25 +59,28 @@ public class ImpressionWindow extends UiElement<Region> {
      */
     public ImpressionWindow(Impression impression, Patient patient) {
         super(FXML, null);
+
         if (impression != null && patient != null) {
             this.patient = patient;
             this.impression = impression;
-            setImpression(impression, patient);
+            setImpression();
         }
     }
 
     /**
      * Set impressions for {@code patient}.
-     *
-     * @param impression Impression object.
-     * @param patient Patient object.
      */
-    public void setImpression(Impression impression, Patient patient) {
+    private void setImpression() {
         assert (patient.getName().equals(impression.getParent().getName()));
 
         updateUi();
 
         patient.getAttributes().addListener((MapChangeListener<String, Object>) change -> {
+            updateUi();
+        });
+
+        // TODO: description doesn't update UI
+        patient.getImpressionsObservableMap().addListener((MapChangeListener<String, Impression>) change -> {
             updateUi();
         });
 

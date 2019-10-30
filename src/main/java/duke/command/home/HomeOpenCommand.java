@@ -24,11 +24,12 @@ public class HomeOpenCommand extends ArgCommand {
         Patient patient = CommandUtils.findPatient(core, bed, index);
 
         if (isSwitchSet("impression")) {
-            Impression primaryImpression = patient.getPrimaryDiagnosis();
+            Impression primaryDiagnosis = patient.getPrimaryDiagnosis();
 
-            if (patient.getPrimaryDiagnosis() != null) {
+            if (primaryDiagnosis != null) {
                 core.uiContext.setContext(Context.PATIENT, patient);
-                core.uiContext.setContext(Context.IMPRESSION, primaryImpression);
+                core.uiContext.setContext(Context.IMPRESSION, primaryDiagnosis);
+                core.ui.print("Accessing primary diagnosis of Bed " + patient.getBedNo());
             } else {
                 throw new DukeException("The specified patient has no primary diagnosis at the moment!");
             }

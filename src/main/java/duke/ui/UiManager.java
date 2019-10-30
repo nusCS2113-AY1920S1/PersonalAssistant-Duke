@@ -1,13 +1,14 @@
 package duke.ui;
 
 import duke.DukeCore;
+import duke.data.DukeObject;
 import duke.ui.window.MainWindow;
 import javafx.application.Platform;
-import javafx.collections.ObservableList;
-import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+
+import java.util.List;
 
 /**
  * Manager of the UI component of the application.
@@ -57,8 +58,34 @@ public class UiManager implements Ui {
      * {@inheritDoc}
      */
     @Override
-    public ObservableList<Node> getCardList() {
-        return mainWindow.getCardList();
+    public void showInfoDialog(String title, String message) {
+        final Alert infoAlert = new Alert(Alert.AlertType.INFORMATION);
+        infoAlert.setTitle(title);
+        infoAlert.setHeaderText(message);
+        infoAlert.showAndWait();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void showErrorDialogAndShutdown(String title, Throwable e) {
+        final Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+        errorAlert.setTitle(title);
+        errorAlert.setHeaderText(e.getMessage());
+        errorAlert.setContentText(e.toString());
+        errorAlert.showAndWait();
+
+        Platform.exit();
+        System.exit(1);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public List<DukeObject> getIndexedList(String type) {
+        return mainWindow.getIndexedList(type);
     }
 
     /**
@@ -78,24 +105,5 @@ public class UiManager implements Ui {
     private void showMainWindow(Stage primaryStage) {
         mainWindow = new MainWindow(primaryStage, core);
         mainWindow.show();
-    }
-
-    /**
-     * Shows an error alert dialog with {@code title} and error message, {@code e}.
-     * Exits the application after the user has closed the alert dialog.
-     *
-     * @param title Title of error dialog.
-     * @param error Error.
-     */
-    private void showErrorDialogAndShutdown(String title, Throwable error) {
-        final Alert errorAlert = new Alert(Alert.AlertType.ERROR);
-        errorAlert.initOwner(mainWindow.getPrimaryStage());
-        errorAlert.setTitle(title);
-        errorAlert.setHeaderText(error.getMessage());
-        errorAlert.setContentText(error.toString());
-        errorAlert.showAndWait();
-
-        Platform.exit();
-        System.exit(1);
     }
 }

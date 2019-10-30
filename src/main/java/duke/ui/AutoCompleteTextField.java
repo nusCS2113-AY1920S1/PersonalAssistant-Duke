@@ -4,7 +4,7 @@ import javafx.geometry.Side;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.CustomMenuItem;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.TextArea;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +14,7 @@ import java.util.TreeSet;
 /**
  * TextField with an autocomplete feature.
  */
-public class AutoCompleteTextField extends TextField {
+public class AutoCompleteTextField extends TextArea {
     private final SortedSet<String> entries;
     private ContextMenu menu;
 

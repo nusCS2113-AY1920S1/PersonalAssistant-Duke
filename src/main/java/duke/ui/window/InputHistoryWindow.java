@@ -31,7 +31,6 @@ public abstract class InputHistoryWindow extends UiElement<Region> {
     public InputHistoryWindow(String fxmlFileName, Region root) {
         super(fxmlFileName, root);
 
-
         // listen for updates to text field, and save partial input to currentInput if not viewing history
         inputTextField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (historyPointer == inputHistory.size()) {
@@ -103,6 +102,10 @@ public abstract class InputHistoryWindow extends UiElement<Region> {
             keyEvent.consume();
             navigateToNextInput();
             break;
+        case ENTER:
+            keyEvent.consume();
+            handleAction();
+            break;
         default:
             break;
         }
@@ -128,8 +131,14 @@ public abstract class InputHistoryWindow extends UiElement<Region> {
             }
             cmdFileWr.write(cmdStrBuilder.toString());
             cmdFileWr.close();
-        } catch (IOException excp) {
+        } catch (IOException e) {
             throw new DukeException("Unable to write command history! Some data may have been lost,");
         }
     }
+
+    /**
+     * Handles the event where the user presses 'Enter" after he/she has finished
+     * typing the command in {@code inputTextField}.
+     */
+    protected abstract void handleAction();
 }

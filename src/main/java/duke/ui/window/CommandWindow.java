@@ -6,10 +6,8 @@ import duke.command.Parser;
 import duke.exception.DukeException;
 import duke.ui.MessageBox;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
-
 
 /**
  * UI element designed for the user to interact with the application.
@@ -27,8 +25,6 @@ public class CommandWindow extends InputHistoryWindow {
     private ScrollPane scrollPane;
     @FXML
     private VBox messageContainer;
-    @FXML
-    private Button sendButton;
 
     private Parser parser;
     private Executor executor;
@@ -50,19 +46,18 @@ public class CommandWindow extends InputHistoryWindow {
     }
 
     /**
-     * Handles the event where the user clicks on {@code sendButton} or the user presses 'Enter" after he/she
-     * has finished typing the command in {@code inputTextField}.
+     * {@inheritDoc}
      */
-    @FXML
-    private void handleAction() {
+    @Override
+    protected void handleAction() {
         String input = inputTextField.getText().trim();
 
         if (!input.isEmpty()) {
             storeInput(input);
             try {
                 writeHistory();
-            } catch (DukeException excp) {
-                printError(excp);
+            } catch (DukeException e) {
+                printError(e);
             }
             messageContainer.getChildren().add(MessageBox.getUserMessage(input).getRoot());
 
@@ -71,9 +66,9 @@ public class CommandWindow extends InputHistoryWindow {
             } catch (DukeException e) {
                 printError(e);
             }
-
-            inputTextField.clear();
         }
+
+        inputTextField.setText("");
     }
 
     /**

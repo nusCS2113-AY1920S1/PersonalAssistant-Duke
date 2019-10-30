@@ -1,8 +1,9 @@
 package duke.ui;
 
-import javafx.collections.ObservableList;
-import javafx.scene.Node;
+import duke.data.DukeObject;
 import javafx.stage.Stage;
+
+import java.util.List;
 
 /**
  * API of the UI component of the application.
@@ -23,9 +24,28 @@ public interface Ui {
     void print(String message);
 
     /**
-     * Retrieves list of UI cards in current {@code UiContext}.
+     * Displays an info pop-up dialog on screen.
      *
-     * @return List of UI cards.
+     * @param title   Title of dialog.
+     * @param message Dialog message.
      */
-    ObservableList<Node> getCardList();
+    void showInfoDialog(String title, String message);
+
+    /**
+     * Shows an error alert dialog with {@code title} and error message, {@code e}.
+     * Exits the application after the user has closed the alert dialog.
+     *
+     * @param title Title of error dialog.
+     * @param e     Thrown Error.
+     */
+    void showErrorDialogAndShutdown(String title, Throwable e);
+
+    /**
+     * Retrieves indexed list of DukeObjects.
+     * List is dependent on the current {@code UiContext}.
+     *
+     * @param type DukeObject type.
+     * @return Indexed list of DukeObjects.
+     */
+    List<DukeObject> getIndexedList(String type);
 }

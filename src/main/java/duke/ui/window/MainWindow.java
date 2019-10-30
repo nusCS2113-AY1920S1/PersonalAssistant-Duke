@@ -3,20 +3,21 @@ package duke.ui.window;
 import duke.DukeCore;
 import duke.command.Executor;
 import duke.command.Parser;
+import duke.data.DukeObject;
 import duke.data.Impression;
 import duke.data.Patient;
 import duke.data.SearchResult;
 import duke.ui.UiElement;
 import duke.ui.context.Context;
 import duke.ui.context.UiContext;
-import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+
+import java.util.List;
 
 /**
  * Main UI window of the application.
@@ -41,6 +42,7 @@ public class MainWindow extends UiElement<Stage> {
     private CommandWindow commandWindow;
     private HomeWindow homeWindow;
     private PatientWindow patientWindow;
+    private ImpressionWindow impressionWindow;
     private Tab homeTab;
     private Tab patientTab;
     private Tab impressionTab;
@@ -89,8 +91,8 @@ public class MainWindow extends UiElement<Stage> {
                     contextWindowHolder.getTabs().remove(patientTab);
                 }
 
-                patientTab = new Tab("Patient", new PatientWindow((Patient) uiContext.getObject(),
-                        commandWindow).getRoot());
+                patientWindow = new PatientWindow((Patient) uiContext.getObject());
+                patientTab = new Tab("Patient", patientWindow.getRoot());
                 contextWindowHolder.getTabs().add(1, patientTab);
                 contextWindowHolder.getSelectionModel().select(patientTab);
                 break;
@@ -100,8 +102,9 @@ public class MainWindow extends UiElement<Stage> {
                 }
 
                 Impression impression = (Impression) uiContext.getObject();
-                impressionTab = new Tab("Impression", new ImpressionWindow(impression,
-                        (Patient) impression.getParent()).getRoot());
+                // TODO: parent is transient. bug...
+                impressionWindow = new ImpressionWindow(impression, (Patient) impression.getParent());
+                impressionTab = new Tab("Impression", impressionWindow.getRoot());
                 contextWindowHolder.getTabs().add(2, impressionTab);
                 contextWindowHolder.getSelectionModel().select(impressionTab);
                 break;
@@ -135,16 +138,18 @@ public class MainWindow extends UiElement<Stage> {
     }
 
     /**
-     * Retrieves list of UI cards in current {@code UiContext}.
+     * Retrieves indexed list of DukeObjects.
+     * List is dependent on the current {@code UiContext}.
      *
-     * @return List of UI cards.
+     * @param type DukeObject type.
+     * @return Indexed list of DukeObjects.
      */
-    public ObservableList<Node> getCardList() {
+    public List<DukeObject> getIndexedList(String type) {
         switch (uiContext.getContext()) {
         case HOME:
-            return homeWindow.getPatientCardList();
+            return homeWindow.getIndexedPatientList();
         case PATIENT:
-            return patientWindow.getCardList();
+            return patientWindow.getIndexedList(type);
         case EVIDENCE:
         case TREATMENT:
         case IMPRESSION:

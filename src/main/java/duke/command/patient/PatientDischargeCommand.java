@@ -26,6 +26,7 @@ public class PatientDischargeCommand extends ArgCommand {
         HomeReportCommand.createReport(patient, header, explanation, getSwitchVal("summary"));
         core.patientMap.deletePatient(patient.getBedNo());
         core.uiContext.setContext(Context.HOME, null);
+        core.writeJsonFile();
         core.ui.print(result);
     }
 }

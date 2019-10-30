@@ -100,7 +100,7 @@
                         <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="7.0" layoutY="4.0" pickOnBounds="true"
                                    preserveRatio="true">
                             <image>
-                                <Image url="@../images/patient.png"/>
+                                <Image url="@../images/patient_name.png"/>
                             </image>
                         </ImageView>
                         <Label fx:id="nameLabel" layoutX="49.0" layoutY="8.0" prefHeight="22.0" prefWidth="165.0"
@@ -127,7 +127,8 @@
                                 <Image url="@../images/age.png"/>
                             </image>
                         </ImageView>
-                        <Label fx:id="ageLabel" layoutX="48.0" layoutY="48.0" prefHeight="22.0" prefWidth="165.0" text="Age">
+                        <Label fx:id="ageLabel" layoutX="48.0" layoutY="48.0" prefHeight="22.0" prefWidth="165.0"
+                               text="Age">
                             <font>
                                 <Font size="15.0"/>
                             </font>
@@ -174,8 +175,8 @@
                                 <Image url="@../images/address.png"/>
                             </image>
                         </ImageView>
-                        <Label fx:id="addressLabel" alignment="TOP_LEFT" layoutX="49.0" layoutY="261.0" prefWidth="165.0"
-                               text="Address" wrapText="true">
+                        <Label fx:id="addressLabel" alignment="TOP_LEFT" layoutX="49.0" layoutY="261.0"
+                               prefWidth="165.0" text="Address" wrapText="true">
                             <font>
                                 <Font size="15.0"/>
                             </font>
