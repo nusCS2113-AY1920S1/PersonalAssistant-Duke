@@ -165,7 +165,7 @@ public class ProjectInputController implements IController {
             } else {
                 return new String[] {"The member index entered is invalid."};
             }
-        } catch (StringIndexOutOfBoundsException | NumberFormatException e) {
+        } catch (IndexOutOfBoundsException | NumberFormatException e) {
             return new String[] {"Please enter the updated member details format correctly."};
         }
     }
@@ -176,13 +176,17 @@ public class ProjectInputController implements IController {
      * @param projectCommand The user input.
      */
     public String[] projectDeleteMember(Project projectToManage, String projectCommand) {
-        int memberIndexNumber = Integer.parseInt(projectCommand.substring(14).split(" ")[0]);
-        if (projectToManage.getNumOfMembers() >= memberIndexNumber) {
-            Member memberToRemove = projectToManage.getMembers().getMember(memberIndexNumber);
-            projectToManage.removeMember(memberToRemove);
-            return new String[] {"Removed member with the index number " + memberIndexNumber};
-        } else {
-            return new String[] {"The member index entered is invalid."};
+        try {
+            int memberIndexNumber = Integer.parseInt(projectCommand.substring(14).split(" ")[0]);
+            if (projectToManage.getNumOfMembers() >= memberIndexNumber) {
+                Member memberToRemove = projectToManage.getMembers().getMember(memberIndexNumber);
+                projectToManage.removeMember(memberToRemove);
+                return new String[]{"Removed member with the index number " + memberIndexNumber};
+            } else {
+                return new String[]{"The member index entered is invalid."};
+            }
+        } catch (IndexOutOfBoundsException e) {
+            return new String[] {"Please enter the index number of the member to be deleted correctly."};
         }
     }
 
@@ -339,14 +343,23 @@ public class ProjectInputController implements IController {
      * @param projectToManage The project to manage.
      * @param projectFullCommand The full command by the user.
      */
-    private String[] projectViewAssignments(Project projectToManage, String projectFullCommand) {
-        String input = projectFullCommand.substring(18);
-        if (input.charAt(0) == 'm') {
-            return projectViewMembersAssignments(projectToManage, projectFullCommand.substring(20));
-        } else if (input.charAt(0) == 't') {
-            return projectViewTasksAssignments(projectToManage, projectFullCommand.substring(20));
+    public String[] projectViewAssignments(Project projectToManage, String projectFullCommand) {
+        if (projectFullCommand.length() <= 18) {
+            return (new String[]{"Please input the parameters to view assignments:",
+                "-m for viewing by member, -t for viewing by task.",
+                "You may refer to the user guide for the list of possible commands."});
+        } else {
+            String input = projectFullCommand.substring(17);
+            if (input.charAt(0) == '-' && input.charAt(1) == 'm') {
+                return projectViewMembersAssignments(projectToManage,
+                    projectFullCommand.substring(20));
+            } else if (input.charAt(0) == '-' && input.charAt(1) == 't') {
+                return projectViewTasksAssignments(projectToManage,
+                    projectFullCommand.substring(20));
+            } else {
+                return (new String[] {"Could not understand your command! Please use -m for member, -t for task"});
+            }
         }
-        return null;
     }
 
     /**
@@ -355,25 +368,29 @@ public class ProjectInputController implements IController {
      * @param projectCommand The user input.
      */
     public String[] projectViewTasks(Project projectToManage, String projectCommand) {
-        if (("view tasks").equals(projectCommand)) {
-            HashMap<Task, ArrayList<Member>> tasksAndAssignedMembers = projectToManage.getTasksAndAssignedMembers();
-            ArrayList<ArrayList<String>> tableToPrint = new ArrayList<>();
-            ArrayList<String> allTaskDetailsForTable
-                    = projectToManage.getTasks().getAllTaskDetailsForTable(tasksAndAssignedMembers, "/PRIORITY");
-            allTaskDetailsForTable.add(0, "Tasks of " + projectToManage.getDescription() + ":");
-            DukeLogger.logDebug(ProjectInputController.class, allTaskDetailsForTable.toString());
-            tableToPrint.add(allTaskDetailsForTable);
-            return viewHelper.consolePrintTable(tableToPrint);
-        } else if (projectCommand.length() >= 11) {
-            String sortCriteria = projectCommand.substring(11);
-            HashMap<Task, ArrayList<Member>> tasksAndAssignedMembers = projectToManage.getTasksAndAssignedMembers();
-            ArrayList<ArrayList<String>> tableToPrint = new ArrayList<>();
-            ArrayList<String> allTaskDetailsForTable =
-                    projectToManage.getTasks().getAllTaskDetailsForTable(tasksAndAssignedMembers,sortCriteria);
-            DukeLogger.logDebug(ProjectInputController.class, allTaskDetailsForTable.toString());
-            allTaskDetailsForTable.add(0, "Tasks of " + projectToManage.getDescription() + ":");
-            tableToPrint.add(allTaskDetailsForTable);
-            return viewHelper.consolePrintTable(tableToPrint);
+        try {
+            if (("view tasks").equals(projectCommand)) {
+                HashMap<Task, ArrayList<Member>> tasksAndAssignedMembers = projectToManage.getTasksAndAssignedMembers();
+                ArrayList<ArrayList<String>> tableToPrint = new ArrayList<>();
+                ArrayList<String> allTaskDetailsForTable
+                        = projectToManage.getTasks().getAllTaskDetailsForTable(tasksAndAssignedMembers, "/PRIORITY");
+                allTaskDetailsForTable.add(0, "Tasks of " + projectToManage.getDescription() + ":");
+                DukeLogger.logDebug(ProjectInputController.class, allTaskDetailsForTable.toString());
+                tableToPrint.add(allTaskDetailsForTable);
+                return viewHelper.consolePrintTable(tableToPrint);
+            } else if (projectCommand.length() >= 11) {
+                String sortCriteria = projectCommand.substring(11);
+                HashMap<Task, ArrayList<Member>> tasksAndAssignedMembers = projectToManage.getTasksAndAssignedMembers();
+                ArrayList<ArrayList<String>> tableToPrint = new ArrayList<>();
+                ArrayList<String> allTaskDetailsForTable =
+                        projectToManage.getTasks().getAllTaskDetailsForTable(tasksAndAssignedMembers, sortCriteria);
+                DukeLogger.logDebug(ProjectInputController.class, allTaskDetailsForTable.toString());
+                allTaskDetailsForTable.add(0, "Tasks of " + projectToManage.getDescription() + ":");
+                tableToPrint.add(allTaskDetailsForTable);
+                return viewHelper.consolePrintTable(tableToPrint);
+            }
+        } catch (IndexOutOfBoundsException e) {
+            return (new String[] {"Currently there are no tasks with the specified attribute."});
         }
         return null;
     }

@@ -186,6 +186,7 @@ the commands by coordinating all other components.
 ==== 2.3.1 ConsoleInputController
 
 ==== 2.3.2 ProjectInputController
+ProjectInputController is a class which acts as a parser for commands related to the members and the tasks of a given project.
 
 ==== 2.3.3 AssignmentController
 AssignmentController is a class which acts as a parser for commands regarding the assignment of tasks to group members.
