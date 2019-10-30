@@ -5,7 +5,6 @@ import duke.logic.command.order.SortOrderCommand;
 import duke.model.commons.Item;
 import duke.model.inventory.Ingredient;
 import duke.model.order.Order;
-import duke.model.product.IngredientItemList;
 import duke.model.product.Product;
 import duke.model.sale.Sale;
 import duke.model.shortcut.Shortcut;

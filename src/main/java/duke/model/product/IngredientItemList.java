@@ -44,7 +44,7 @@ public class IngredientItemList extends ArrayList<Item<Ingredient>> {
                     || this.get(i).getQuantity() != list.get(i).getQuantity()) {
                 result = false;
                 break;
-            };
+            }
         }
         return result;
     }
