@@ -13,9 +13,9 @@ import cube.storage.StorageManager;
 import cube.logic.command.util.CommandResult;
 
 public class ListCommand extends Command{
-	SortType sortType;
+	public SortType sortType;
 
-	private final String MESSAGE_SUCCESS = "Here are the food in your list: \n"
+	public static final String MESSAGE_SUCCESS = "Here are the food in your list: \n"
 		+ "%1$s\n" // todo: toString for list
 		+ "The total revenue so far is $ %2$f\n";
 

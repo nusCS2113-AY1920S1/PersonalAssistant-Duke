@@ -21,7 +21,7 @@ public class CommandUtil {
 	 */
     public static void requireNameNotExists(FoodList list, String foodName) throws CommandException {
         if (list.existsName(foodName)) {
-            throw new CommandException(CommandErrorMessage.FOOD_NOT_EXISTS);
+            throw new CommandException(CommandErrorMessage.FOOD_ALREADY_EXISTS);
         }
     }
 
