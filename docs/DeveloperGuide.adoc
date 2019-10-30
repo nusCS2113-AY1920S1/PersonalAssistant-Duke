@@ -1173,9 +1173,6 @@ Use case ends.
 +
 Use case ends.
 
-*Extensions*
-
-* None
 
 
 
@@ -1305,9 +1302,6 @@ Use case ends.
 +
 Use case ends.
 
-*Extensions*
-
-* None
 
 
 
@@ -1381,9 +1375,6 @@ Use case ends.
 +
 Use case ends.
 
-*Extensions*
-
-* None
 
 
 
@@ -1402,10 +1393,6 @@ Use case ends.
 . System displays all recurring income in chronological order.
 +
 Use case ends.
-
-*Extensions*
-
-* None
 
 
 
@@ -1493,9 +1480,6 @@ Use case ends.
 +
 Use case ends.
 
-*Extensions*
-
-* None
 
 
 
@@ -1538,9 +1522,6 @@ Use case ends.
 +
 Use case ends.
 
-*Extensions*
-
-* None
 
 
 
@@ -1675,13 +1656,6 @@ Use case ends.
 +
 Use case ends.
 
-*Extensions*
-
-* None
-
-
-
-
 
 *Actor: Existing user* +
 [[UC-35]] *Use case: UC35 - Transfer money between different bank accounts* +
@@ -1719,10 +1693,6 @@ Use case ends.
 . System displays all credit card details.
 +
 Use case ends.
-
-*Extensions*
-
-* None
 
 
 
