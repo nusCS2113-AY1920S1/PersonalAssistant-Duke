@@ -25,6 +25,7 @@ public enum CommandType {
     TAGLIST(CommandListTag.class),
     EXPENDED(CommandGetSpendingByMonth.class),
     CONVERT(CommandConvert.class),
+    LISTMY(CommandListMonYear.class),
     ERROR(CommandError.class);
 
     private final Class commandClass;
