@@ -28,12 +28,13 @@ public class InvalidCommand extends Command {
         return "Sorry please input a valid command." + compare(input);*/
     }
 
-    /**
-     * Choose command that is closest to the input by user.
-     * @param input command entered by user.
-     * @return the closest command.
-     */
 
+   // /**
+     //* Choose command that is closest to the input by user.
+     //* @param input command entered by user.
+     //* @return the closest command.
+     //*/
+    /*
     public static String compare(String input) {
         String str = new String();
         double num = -1.000;
@@ -57,22 +58,22 @@ public class InvalidCommand extends Command {
             }
         }
         if (!strings[0].isEmpty()) {
-            return "Did you mean..." + strings.toString();
+            return "Did you mean..." + strings;
         } else {
             return " To view the list of commands, enter `menu`.";
         }
-    }
+    }*/
 
-    /**
-     * To compare the number of characters that the invalid command entered by user has with each valid command.
-     * @param unknownCommand input by user
-     * @param l1 length of the command inputted by user
-     * @param knownCommand one of the valid command
-     * @param l2 length of valid command
-     * @return number of similar characters
-     */
+    ///**
+     //* To compare the number of characters that the invalid command entered by user has with each valid command.
+     //* @param unknownCommand input by user
+     //* @param l1 length of the command inputted by user
+     //* @param knownCommand one of the valid command
+     //* @param l2 length of valid command
+     //* @return number of similar characters
+     //*/
 
-    public static int countPairs(String unknownCommand, int l1, String knownCommand, int l2) {
+    /*public static int countPairs(String unknownCommand, int l1, String knownCommand, int l2) {
 
         int []freq1 = new int[26];
         int []freq2 = new int[26];
@@ -93,5 +94,5 @@ public class InvalidCommand extends Command {
 
         return count;
     }
-
+    */
 }

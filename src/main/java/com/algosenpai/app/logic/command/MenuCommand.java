@@ -2,8 +2,6 @@
 
 package com.algosenpai.app.logic.command;
 
-import com.algosenpai.app.exceptions.DukeExceptions;
-
 import java.util.ArrayList;
 
 public class MenuCommand extends Command {
