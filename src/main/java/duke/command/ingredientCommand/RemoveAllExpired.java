@@ -19,7 +19,7 @@ public class RemoveAllExpired extends Cmd<Ingredient> {
         this.fridge=fridge;
     }
     @Override
-    public void execute(GenericList<Ingredient> tasklist, Ui ui, Storage storage) throws DukeException, IOException {
+    public void execute(GenericList<Ingredient> genlist, Ui ui, Storage storage) throws DukeException, IOException {
         if(fridge.hasExpiredIngredients()) {
             //System.out.println(" has expired "+fridge.getExpiredIngredients().size());
             IngredientsList expired=fridge.removeExpired();

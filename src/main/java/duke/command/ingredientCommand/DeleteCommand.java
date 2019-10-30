@@ -4,14 +4,15 @@ import duke.command.Cmd;
 import duke.exception.DukeException;
 import duke.list.GenericList;
 import duke.storage.Storage;
-import duke.task.Task;
-import duke.task.TaskList;
+import duke.ingredient.Ingredient;
+import duke.ingredient.IngredientsList;
+
 import duke.ui.Ui;
 
 import java.io.IOException;
 
 /**
- * Represents a specific {@link Cmd} used to delete a {@link Task} from the {@link TaskList}.
+ * Represents a specific {@link Cmd} used to delete a {@link Ingredient} from the {@link IngredientsList}.
  */
 public class DeleteCommand<T> extends Cmd<T> {
     private int taskNb;
@@ -21,18 +22,18 @@ public class DeleteCommand<T> extends Cmd<T> {
     }
 
     @Override
-    public void execute(GenericList<T> taskList, Ui ui, Storage storage) throws DukeException {
-        if (taskNb <= taskList.size() && taskNb > 0) {
-            T removed = taskList.removeEntry(taskNb - 1);
+    public void execute(GenericList<T> IngredientsList, Ui ui, Storage storage) throws DukeException {
+        if (taskNb <= IngredientsList.size() && taskNb > 0) {
+            T removed = IngredientsList.removeEntry(taskNb - 1);
 
             try {
                 storage.removeFromFile(taskNb - 1);
             } catch (IOException e) {
-                throw new DukeException("Error while deleting the task from the hard disc");
+                throw new DukeException("Error while deleting the ingredient from the hard disc");
             }
-            ui.showRemovedTask(removed.toString(), taskList.size());
+            ui.showRemovedIngredient(removed.toString(), IngredientsList.size());
         } else {
-            throw new DukeException("Enter a valid task number after delete, between 1 and " + taskList.size());
+            throw new DukeException("Enter a valid ingredient index number after delete, between 1 and " + IngredientsList.size());
         }
     }
 }
