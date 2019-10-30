@@ -33,7 +33,6 @@ public class LogUtil {
         logger.info("Initializing logger with stored configurations.");
         maxFileCount = logConfig.getMaxFileCount();
         maxFileSizeBytes = logConfig.getMaxFileSizeBytes();
-        logFileName = logConfig.getLogFileName();
         currentLogLevel = Level.parse(logConfig.getCurrentLogLevel());
         logger = LogUtil.getLogger(LogUtil.class);
         logger.info("Configured Log Level: " + currentLogLevel);

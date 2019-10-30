@@ -8,7 +8,6 @@ package cube.storage.config;
 public class LogConfig {
     private int maxFileCount;
     private int maxFileSizeBytes;
-    private String logFileName;
     private String currentLogLevel;
 
     /**
@@ -18,7 +17,6 @@ public class LogConfig {
     public LogConfig() {
         this.maxFileCount = 1;
         this.maxFileSizeBytes = (int)(Math.pow(2, 20) * 10); // 10MB
-        this.logFileName = "cube.log";
         this.currentLogLevel = "INFO";
     }
 
@@ -34,16 +32,8 @@ public class LogConfig {
         return maxFileSizeBytes;
     }
 
-    public void setMaxFileSizeBytes(int maxFileSizeBytes) {
-        this.maxFileSizeBytes = maxFileSizeBytes;
-    }
-
-    public String getLogFileName() {
-        return logFileName;
-    }
-
-    public void setLogFileName(String logFileName) {
-        this.logFileName = logFileName;
+    public void setMaxFileSizeMB(int maxFileSizeMB) {
+        this.maxFileSizeBytes = (int)(Math.pow(2, 20) * maxFileSizeMB);
     }
 
     public String getCurrentLogLevel() {
@@ -54,4 +44,12 @@ public class LogConfig {
         this.currentLogLevel = currentLogLevel;
     }
 
+    @Override
+    public String toString() {
+        String result = "";
+        result += String.format("%1$s = %2$s\n", "maxFileCount", maxFileCount);
+        result += String.format("%1$s = %2$s\n", "maxFileSizeBytes", maxFileSizeBytes);
+        result += String.format("%1$s = %2$s\n", "currentLogLevel", currentLogLevel);
+        return result;
+    }
 }
