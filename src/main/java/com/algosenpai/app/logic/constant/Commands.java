@@ -30,4 +30,8 @@ public enum Commands {
         }
         return names;
     }
+
+    // public static String[] names() {
+    // return Arrays.toString(Commands.values()).split(", ");
+    //}
 }

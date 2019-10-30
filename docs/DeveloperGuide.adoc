@@ -107,6 +107,17 @@ When the user inputs a command, the command will be parsed through by the parser
     - The logic class will then call for the first string in the arraylist, in which it will be used to determine which command to call for next.
 . If invalid, the InvalidCommand class will be called for, whereby the user will be notified to input a valid command: `error please input a valid command`.
 
+<<<<<<< HEAD
+==== Parser Component
+
+When the user inputs a command, the command will be parsed through by the parser class, checking for the validity of the command by comparing it with the enum of commands.
+
+. If valid, the command will be split by the spaces in between them and stored into an arraylist. (e.g. `select 3` will be split into {select, 3})
+    - The logic class will then call for the first string in the arraylist, in which it will be used to determine which command to call for next.
+. If invalid, the InvalidCommand class will be called for, whereby the user will be notified to input a valid command: `error please input a valid command`.
+
+=======
+>>>>>>> 80efd3d6c4aeae5036b80f293950a8942a608f6c
 image::ParserandCommandClassDiagram.png[]
 
 [[Design-Storage]]
