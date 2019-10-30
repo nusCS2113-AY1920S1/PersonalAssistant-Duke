@@ -10,7 +10,7 @@ public class BooleanCondition extends Condition {
 
     private BooleanConditionType type;
 
-    public BooleanCondition (BooleanConditionType conditionType) {
+    public BooleanCondition(BooleanConditionType conditionType) {
         super(Type.BOOLEAN);
         this.type = conditionType;
     }
@@ -27,7 +27,7 @@ public class BooleanCondition extends Condition {
         return object;
     }
 
-    public String toString () {
+    public String toString() {
         return type.name();
     }
 
