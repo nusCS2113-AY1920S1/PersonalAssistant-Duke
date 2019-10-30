@@ -71,6 +71,25 @@ public class Ui {
     }
 
     /**
+     * Shows the tags to be added.
+     * @param word word to add tag
+     * @param synonyms list of tags to be added
+     * @param synonymHashSet hash set represents existed tags of the word
+     * @return a string shown when command is completed
+     */
+    public String showAddSynonym(String word, ArrayList<String> synonyms, HashSet<String> synonymHashSet) {
+        String returnedString = "I have added " + (synonyms.size() == 1 ? "this synonym \"" + synonyms.get(0) + "\"" : "these synonyms")
+                + " to word \"" + word + "\"" + "\n";
+        returnedString += "Here " + (synonymHashSet.size() == 1 ? "is the synonym " : "are the synonyms ")
+                + "of word \"" + word + "\"" + "\n";
+        StringBuilder stringBuilder = new StringBuilder();
+        for (String synonym : synonymHashSet) {
+            stringBuilder.append(synonym + "\n");
+        }
+        return returnedString + stringBuilder.toString();
+    }
+
+    /**
      * Shows the list of all words in the word bank.
      * @param wordBank to store all words
      * @param order displayOrder to show words (ascending / descending)
