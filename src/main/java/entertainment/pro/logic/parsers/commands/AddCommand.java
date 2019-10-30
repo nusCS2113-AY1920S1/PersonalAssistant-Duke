@@ -11,7 +11,6 @@ import entertainment.pro.model.Period;
 import entertainment.pro.storage.user.WatchlistHandler;
 
 
-
 public class AddCommand extends CommandSuper {
 
     public AddCommand(Controller uicontroller) {
