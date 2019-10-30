@@ -255,6 +255,11 @@ public void showIngredientTemplate(){
         System.out.println("\t " + dish);
     }
 
+    public void showAddedIngredient(String ingredient) {
+        System.out.println("\t you have added the following ingredient: ");
+        System.out.println("\t " + ingredient);
+    }
+
     public void showDishes(String Dish, int Nb) {
         System.out.println(Dish + "\t orders: " + Nb);
     }

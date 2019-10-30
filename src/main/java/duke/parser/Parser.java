@@ -45,10 +45,7 @@ public class Parser {
      * @return Command The Command to be executed
      * @throws DukeException for any invalid input
      */
-<<<<<<< HEAD
-
-    public static Cmd parse(String fullCommand, int size) throws DukeException {
-=======
+    //public static Cmd parse(String fullCommand, int size) throws DukeException {
  /*   public static Cmd parse(String fullCommand, int size) throws DukeException {
 >>>>>>> 07cc5da9aa7b9d4958918b61fa2d02c9fc22e062
         //splitted contains the keyword and the rest (description or task number)
@@ -118,12 +115,9 @@ public class Parser {
         }
     }
     */
-=======
-*/
     public static Cmd parse(String fullCommand, Duke.Type type) throws DukeException {
         String[] splitted;
         //= fullCommand.split(" ", 3);
->>>>>>> 07cc5da9aa7b9d4958918b61fa2d02c9fc22e062
 
 
         switch (type) {
