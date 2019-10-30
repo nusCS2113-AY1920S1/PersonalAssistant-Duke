@@ -70,5 +70,7 @@ public class BookingMessages {
             "       Please enter in the following format:\n" +
             "       vieworders <customer_name>";
 
+    public static final String ERROR_MESSAGE_INVALID_NAME = "Invalid input.\n Please enter valid Customer Name!";
+
 
 }
