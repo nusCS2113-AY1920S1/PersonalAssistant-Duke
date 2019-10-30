@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Map;
 //@@author nottherealedmund
+
 public class Lesson {
     /**
      * A hash map which holds the optional lessons learnt for any day.
