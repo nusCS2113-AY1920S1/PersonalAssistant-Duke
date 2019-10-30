@@ -13,7 +13,7 @@ import java.time.LocalDate;
  * This command allows users to check the income
  * for a previous or future month specified by the user input.
  */
-public class ViewPastMonthIncome extends MoneyCommand {
+public class ViewPastIncomeCommand extends MoneyCommand {
     private int month;
     private int year;
 
@@ -23,7 +23,7 @@ public class ViewPastMonthIncome extends MoneyCommand {
      * with the data for the month and year to check as given in the user input.
      * @param command Check command inputted from user
      */
-    public ViewPastMonthIncome(String command) throws DukeException {
+    public ViewPastIncomeCommand(String command) throws DukeException {
         if (command.equals("list month")) {
             LocalDate currDate = LocalDate.now();
             month = currDate.getMonthValue();
