@@ -78,6 +78,10 @@ public class ConfigCommand extends Command {
         storage.setConfig(configStorage);
     }
 
+    /**
+     * Lists the configurations stored in various config classes.
+     * @param storage StorageManager object that contains configuration values stored in ConfigStorage.
+     */
     private void viewConfig(StorageManager storage) {
         ConfigStorage configStorage = storage.getConfig();
         uiConfig = configStorage.getUiConfig();

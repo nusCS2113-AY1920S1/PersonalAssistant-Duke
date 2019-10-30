@@ -32,7 +32,7 @@ public class MainWindow extends UiManager<Stage> {
 
     private StorageManager storageManager;
     private ConfigStorage configStorage;
-    private FileUtilJson storage;
+    private FileUtilJson<StorageManager> storage;
     private FoodList foodList;
     private SalesHistory salesHistory;
     private ModelManager modelManager;
@@ -43,7 +43,7 @@ public class MainWindow extends UiManager<Stage> {
         this.primaryStage = primaryStage;
     }
 
-    public MainWindow (Stage primaryStage, StorageManager storageManager, FileUtilJson storage) {
+    public MainWindow (Stage primaryStage, StorageManager storageManager, FileUtilJson<StorageManager> storage) {
         super(FXML, primaryStage);
 
         this.primaryStage = primaryStage;
@@ -51,7 +51,8 @@ public class MainWindow extends UiManager<Stage> {
         this.storage = storage;
         this.configStorage = storageManager.getConfig();
         this.foodList = storageManager.getFoodList();
-        this.modelManager = new ModelManager(foodList, new SalesHistory());
+        this.salesHistory = storageManager.getSalesHistory();
+        this.modelManager = new ModelManager(foodList, salesHistory);
     }
 
     public void show() {
@@ -68,7 +69,7 @@ public class MainWindow extends UiManager<Stage> {
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        listPanel = new ListPanel();
+        listPanel = new ListPanel(foodList);
         listPanelPlaceholder.getChildren().add(listPanel.getRoot());
     }
 

@@ -16,7 +16,7 @@ public class UiConfig {
      */
     public UiConfig() {
         this.windowHeight = 600;
-        this.windowWidth = 450;
+        this.windowWidth = 600;
     }
 
     /**
