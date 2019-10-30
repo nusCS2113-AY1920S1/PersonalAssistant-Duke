@@ -43,6 +43,14 @@ public class HelpWindow extends UiElement<Region> {
         initialise(storage);
         attachListenerToInput(inputTextField);
         attachListenerToContext(uiContext);
+
+        // TODO: tmp
+        inputTextField.requestFocus();
+        helpListView.setOnMouseClicked(event -> {
+            inputTextField.setText(helpListView.getSelectionModel().getSelectedItem().getHelp().getCommand());
+            inputTextField.requestFocus();
+            inputTextField.positionCaret(inputTextField.getText().length());
+        });
     }
 
     /**

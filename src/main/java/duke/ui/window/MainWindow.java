@@ -164,15 +164,10 @@ public class MainWindow extends UiElement<Stage> {
             return homeWindow.getIndexedPatientList();
         case PATIENT:
             return patientWindow.getIndexedList(type);
-        case EVIDENCE:
-        case TREATMENT:
         case IMPRESSION:
-        case INVESTIGATION:
         default:
-            break;
+            return null;
         }
-
-        return null;
     }
 
     public Stage getPrimaryStage() {

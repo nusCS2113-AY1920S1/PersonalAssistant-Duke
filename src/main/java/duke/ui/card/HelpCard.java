@@ -24,6 +24,8 @@ public class HelpCard extends UiCard {
     @FXML
     private VBox detailsSection;
 
+    private Help help;
+
     /**
      * Constructs a HelpCard object with the specified {@code Help}'s details.
      *
@@ -33,6 +35,8 @@ public class HelpCard extends UiCard {
     public HelpCard(Help help, boolean isDetailsShown) {
         super(FXML);
 
+        this.help = help;
+
         commandLabel.setText(help.getCommand());
         descriptionLabel.setText(help.getSummary());
         formatLabel.setText(help.getFormat());
@@ -41,5 +45,9 @@ public class HelpCard extends UiCard {
         if (!isDetailsShown) {
             mainSection.getChildren().remove(detailsSection);
         }
+    }
+
+    public Help getHelp() {
+        return help;
     }
 }

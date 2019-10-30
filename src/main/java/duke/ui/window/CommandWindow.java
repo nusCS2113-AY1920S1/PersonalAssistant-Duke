@@ -43,6 +43,8 @@ public class CommandWindow extends InputHistoryWindow {
         this.executor = executor;
 
         scrollPane.vvalueProperty().bind(messageContainer.heightProperty());
+        inputTextField.requestFocus();
+
         printWelcome();
     }
 
