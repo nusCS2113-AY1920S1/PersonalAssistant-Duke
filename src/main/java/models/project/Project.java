@@ -2,6 +2,8 @@ package models.project;
 
 import models.member.Member;
 import models.member.MemberList;
+import models.reminder.Reminder;
+import models.reminder.ReminderList;
 import models.task.Task;
 import models.task.TaskList;
 
@@ -12,6 +14,7 @@ public class Project implements IProject {
     private String description;
     private MemberList memberList;
     private TaskList taskList;
+    private ReminderList reminderList;
     private HashMap<Task, ArrayList<Member>> taskAndListOfMembersAssigned; //task_membersAssigned
     private HashMap<Member, ArrayList<Task>> memberAndIndividualListOfTasks; //member_individualTaskList
 
@@ -23,6 +26,7 @@ public class Project implements IProject {
         this.description = description;
         this.memberList = new MemberList();
         this.taskList = new TaskList();
+        this.reminderList = new ReminderList();
         this.taskAndListOfMembersAssigned = new HashMap<>();
         this.memberAndIndividualListOfTasks = new HashMap<>();
     }
@@ -212,5 +216,8 @@ public class Project implements IProject {
         return indexNumber > 0 && indexNumber <= getNumOfTasks();
     }
 
+    public void addReminderToList(Reminder reminder) {
+        this.reminderList.addReminderList(reminder);
+    }
 
 }

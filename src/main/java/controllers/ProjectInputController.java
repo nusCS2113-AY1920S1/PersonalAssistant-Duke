@@ -4,6 +4,8 @@ import models.project.IProject;
 import models.project.Project;
 import models.member.IMember;
 import models.member.Member;
+import models.reminder.IReminder;
+import models.reminder.Reminder;
 import models.task.ITask;
 import models.task.Task;
 import repositories.ProjectRepository;
@@ -11,6 +13,7 @@ import util.AssignmentViewHelper;
 import util.ParserHelper;
 import util.ViewHelper;
 import util.factories.MemberFactory;
+import util.factories.ReminderFactory;
 import util.factories.TaskFactory;
 import util.log.DukeLogger;
 
@@ -100,6 +103,8 @@ public class ProjectInputController implements IController {
                 return projectDeleteTask(projectToManage, projectFullCommand);
             } else if (projectFullCommand.matches("assign task.*")) {
                 return projectAssignTask(projectToManage, projectFullCommand);
+            } else if (projectFullCommand.matches("add reminder.*")) {
+                return projectAddReminder(projectToManage,projectFullCommand);
             } else if (projectFullCommand.matches("bye")) {
                 return end();
             } else {
@@ -442,5 +447,27 @@ public class ProjectInputController implements IController {
 
     public String[] end() {
         return new String[] {"Bye. Hope to see you again soon!"};
+    }
+
+
+    /**
+     * Add reminder to the default list list of tasks and the members assigned to them.
+     * @param projectToManage The project to manage.
+     * @param projectCommand The user input.
+     */
+    private String [] projectAddReminder(Project projectToManage, String projectCommand) {
+        try {
+            ReminderFactory reminderFactory = new ReminderFactory();
+            IReminder newReminder = reminderFactory.createReminder(projectCommand.substring(13));
+            if (newReminder.getReminderName() != null) {
+                projectToManage.addReminderToList((Reminder) newReminder);
+                return new String[] {"Added new reminder to the Reminder List in project."};
+            }
+            return new String[] {"Failed to create new task. Please ensure all "
+                    + "necessary parameters are given"};
+
+        } catch (NumberFormatException | ParseException e) {
+            return new String[] {"Please enter your reminder date format correctly."};
+        }
     }
 }
