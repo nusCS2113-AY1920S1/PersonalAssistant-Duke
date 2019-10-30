@@ -8,6 +8,8 @@ public class Items {
     }
 
     @Override
-    public String toString() { return (this.name + " : " + this.amount);}
+    public String toString() {
+        return (this.name + " : " + this.amount);
+    }
 }
 

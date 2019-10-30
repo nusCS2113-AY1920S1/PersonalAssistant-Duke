@@ -2,6 +2,7 @@ package control;
 
 import command.Command;
 import exception.DukeException;
+import inventory.Inventory;
 import room.RoomList;
 import storage.BookingConstants;
 import storage.Constants;
@@ -27,63 +28,54 @@ public class Duke {
     private User user;
     private boolean isExit;
     private Storage roomStorage;
+    private Inventory inventory;
+    private Storage inventoryStorage;
 
 
     /**
      * Constructor for control.Duke
      * @param bookingListFile path of text file containing bookings list
      */
-    public Duke(String bookingListFile, String roomListFile) {
+    public Duke(String bookingListFile, String roomListFile, String inventoryFile) {
         ui = new Ui();
         ui.showWelcome();
         user = new Guest("guest");
         bookingStorage = new Storage(bookingListFile);
         roomStorage = new Storage(roomListFile);
+        inventoryStorage = new Storage(inventoryFile);
+
         try {
             bookingList = new BookingList(bookingStorage.load());
             roomList = new RoomList(roomStorage.load());
+            inventory = new Inventory(inventoryStorage.load());
 
         } catch (FileNotFoundException | DukeException e) {
             ui.showLoadingError();
             bookingList = new BookingList();
+            roomList = new RoomList();
+            inventory = new Inventory();
         }
     }
 
     /**
-     *  Main control.Duke logic run here
+     * gets response.
+     * @param input from user
+     * @return respons from chatbot
      */
-    public void run() {
-        while (!isExit) {
-            try {
-                String fullCommand = ui.readCommand();
-                ui.showUserInput(fullCommand);
-                Command c = Parser.parse(fullCommand, user.getLoginStatus());
-                c.execute(roomList, bookingList, ui, bookingStorage, roomStorage, user);
-                isExit = c.isExit();
-            } catch (DukeException | IOException | ParseException e) {
-                ui.showError(e.getMessage());
-            }
-        }
-    }
-
-    /**
-     * Main function of control.Duke
-     * @param args input from command line
-     */
-    public static void main(String[] args) {
-        new Duke(BookingConstants.FILENAME, Constants.ROOMFILENAME).run();
-    }
-
     public String getResponse(String input) {
         try {
             ui.setOutput("");
             Command c = Parser.parse(input, user.getLoginStatus());
-            c.execute(roomList, bookingList, ui, bookingStorage, roomStorage, user);
+            c.execute(inventory, roomList, bookingList, ui, inventoryStorage, bookingStorage, roomStorage, user);
             System.out.println(ui.getOutput());
             return ui.getOutput();
         } catch (DukeException | IOException | ParseException e) {
             System.out.println(e.getMessage());
             return e.getMessage();
         }
+    }
+
+    public BookingList getBookingList() {
+        return bookingList;
     }
 }

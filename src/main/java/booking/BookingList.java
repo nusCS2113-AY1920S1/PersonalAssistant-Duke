@@ -4,14 +4,15 @@ import exception.DukeException;
 import storage.BookingConstants;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class BookingList extends ArrayList<Booking> {
 
     /**
-     * Create tasklist from text file.
-     * @param loader strings from text file containing task info
+     * Create booking list from text file.
+     * @param loader strings from text file containing booking info
      * @throws DukeException if file format incorrect
      */
     public BookingList(ArrayList<String> loader) throws DukeException {
@@ -19,7 +20,8 @@ public class BookingList extends ArrayList<Booking> {
             String[] splitStr = line.split(" \\| ", 6);
             this.add(new Booking(splitStr[BookingConstants.USERNAME],
                     splitStr[BookingConstants.VENUE], splitStr[BookingConstants.DESCRIPTION],
-                    splitStr[BookingConstants.TIMESTART], splitStr[BookingConstants.TIMEEND], splitStr[BookingConstants.STATUS]));
+                    splitStr[BookingConstants.TIMESTART], splitStr[BookingConstants.TIMEEND],
+                    splitStr[BookingConstants.STATUS]));
         }
     }
 
@@ -29,7 +31,7 @@ public class BookingList extends ArrayList<Booking> {
     }
 
     /**
-     * To check if a request with the same place and time slot has already been made
+     * To check if a request with the same place and time slot has already been made.
      * @param bookinglist the list of requests
      * @param roomcode the room in question
      * @param timeStart the starting time
@@ -39,15 +41,15 @@ public class BookingList extends ArrayList<Booking> {
     public static boolean checkBooking(BookingList bookinglist, String roomcode, String timeStart, String timeEnd) {
         boolean found = false;
         DateTimeFormatter formatterStart = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
-        DateTimeFormatter formatterEnd = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
+        DateTimeFormatter formatterEnd = DateTimeFormatter.ofPattern("HHmm");
         LocalDateTime startTime = LocalDateTime.parse(timeStart, formatterStart);
-        LocalDateTime endTime = LocalDateTime.parse(timeEnd, formatterEnd);
+        LocalTime endTime = LocalTime.parse(timeEnd, formatterEnd);
         for (int i = 0; i < bookinglist.size(); i++) {
             if (bookinglist.get(i).venue == roomcode) {
-                if ((bookinglist.get(i).dateTimeStart.isBefore(startTime) ||
-                        bookinglist.get(i).dateTimeStart.isEqual(startTime)) &&
-                        (bookinglist.get(i).dateTimeEnd.isAfter(endTime) ||
-                                bookinglist.get(i).dateTimeEnd.isEqual(endTime))) {
+                if ((bookinglist.get(i).dateTimeStart.isBefore(startTime)
+                        || bookinglist.get(i).dateTimeStart.isEqual(startTime))
+                        && ((bookinglist.get(i).timeEnd.isAfter(endTime))
+                        && (bookinglist.get(i).timeEnd.isBefore(endTime)))) {
                     found = true;
                 }
             }

@@ -1,11 +1,11 @@
 package storage;
 
-import room.RoomList;
 import room.Room;
-import task.Task;
-import task.TaskList;
+import room.RoomList;
 import booking.Booking;
 import booking.BookingList;
+import inventory.Inventory;
+import inventory.Item;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -43,23 +43,11 @@ public class Storage {
         return textLoaded;
     }
 
-
-
     /**
-     * Save task list to text file.
-     * @param tasks task list
-     * @throws IOException for IO exception
+     * To write new entries or changes from the list of bookings to file.
+     * @param bookingList the list used
+     * @throws IOException entry error
      */
-    public void saveToFile(TaskList tasks) throws IOException {
-        FileOutputStream fileOutputStream = new FileOutputStream(fileToRead);
-        String toWrite = "";
-        for (Task i : tasks) {
-            toWrite += i.toWriteFile();
-        }
-        fileOutputStream.write(toWrite.getBytes());
-        fileOutputStream.close();
-    }
-
     public void saveToFile(BookingList bookingList) throws IOException {
         FileOutputStream fileOutputStream = new FileOutputStream(fileToRead);
         String toWrite = "";
@@ -70,10 +58,30 @@ public class Storage {
         fileOutputStream.close();
     }
 
+    /**
+     * To write new entries or changes from the list of rooms to file.
+     * @param roomList the list of rooms
+     * @throws IOException invalid entry
+     */
     public void saveToFile(RoomList roomList) throws IOException {
         FileOutputStream fileOutputStream = new FileOutputStream(fileToRead);
         String toWrite = "";
         for (Room i : roomList) {
+            toWrite += i.toWriteFile();
+        }
+        fileOutputStream.write(toWrite.getBytes());
+        fileOutputStream.close();
+    }
+
+    /**
+     * To write to file for inventory.
+     * @param inventory inventory input
+     * @throws IOException parse error
+     */
+    public void saveToFile(Inventory inventory) throws IOException {
+        FileOutputStream fileOutputStream = new FileOutputStream(fileToRead);
+        String toWrite = "";
+        for (Item i : inventory) {
             toWrite += i.toWriteFile();
         }
         fileOutputStream.write(toWrite.getBytes());

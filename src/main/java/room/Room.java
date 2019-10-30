@@ -1,36 +1,82 @@
 package room;
+
+import java.time.Month;
+import java.time.ZoneId;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
-public abstract class Room {
+public class Room {
     protected String roomcode;
-    protected boolean isBooked;
-    protected Date dateTime;
+    protected LocalDateTime dateTimeStart;
+    protected LocalDate date;
+    protected LocalTime timeEnd;
 
-    public Room(String roomcode) {
+    /**
+     * Public constructor, returns the details of the room to be added.
+     * @param roomcode Room code
+     * @param dateTimeStart Available booking date and starting time of the room
+     * @param dateTimeEnd Available booking date and ending time of the room
+     */
+
+    public Room(String roomcode, String dateTimeStart, String dateTimeEnd) {
         this.roomcode = roomcode;
-        this.isBooked = false;
+        DateTimeFormatter formatterStart = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
+        DateTimeFormatter formatterEnd = DateTimeFormatter.ofPattern("HHmm");
+        this.dateTimeStart = LocalDateTime.parse(dateTimeStart, formatterStart);
+        this.date = this.dateTimeStart.toLocalDate();
+        this.timeEnd = LocalTime.parse(dateTimeEnd, formatterEnd);
     }
 
-    public String getStatusIcon() {
-        return (isBooked ? "✓" : "✗");
-    }
-
-    public void markAsBooked() {
-        this.isBooked = true;
-        System.out.println("Nice! The room is now booked!");
-        System.out.println("    " + this.toString());
-    }
-
-    @Override
+    /**
+     * Returns the format written into the room list.
+     * @return returns the statement and symbols as shown in room list
+     */
     public String toString() {
-        return "[ " + this.getStatusIcon() + "] " + this.roomcode;
+        DateTimeFormatter formatterStart = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
+        DateTimeFormatter formatterEnd = DateTimeFormatter.ofPattern("HHmm");
+        return (this.roomcode + " " + dateTimeStart.format(formatterStart) + " to " + timeEnd.format(formatterEnd));
     }
 
+    /**
+     * Returns the format written into the text file.
+     * @return returns the statement and symbols as shown in the text file
+     */
     public String toWriteFile() {
+        Date storeTimeStart = Date.from(dateTimeStart.atZone(ZoneId.systemDefault()).toInstant());
+        Instant timeEndInstant = timeEnd.atDate(date).atZone(ZoneId.systemDefault()).toInstant();
+        Date storeTimeEnd = Date.from(timeEndInstant);
+        return (this.roomcode + " | " + storeTimeStart.getTime() + " | " + storeTimeEnd.getTime() + "\n");
+    }
+
+    /**
+     * Getter, returns room code.
+     * @return the room code
+     */
+    public String getRoomcode() {
         return this.roomcode;
     }
 
-    public Date getDateTime() {
-        return this.dateTime;
+    public LocalDateTime getDateTimeStart() {
+        return this.dateTimeStart;
+    }
+
+    public LocalTime getTimeEnd() {
+        return this.timeEnd;
+    }
+
+    public LocalDate getDateStart() {
+        return date;
+    }
+
+    public Month getStartMonth() {
+        return date.getMonth();
+    }
+
+    public LocalTime getTimeStart() {
+        return dateTimeStart.toLocalTime();
     }
 }
