@@ -1,10 +1,10 @@
 package duchess.parser.states.add;
 
+import duchess.exceptions.DuchessException;
 import duchess.logic.commands.AddEventCommand;
 import duchess.logic.commands.Command;
 import duchess.logic.commands.DisplayCommand;
 import duchess.parser.Parser;
-import duchess.parser.Util;
 import duchess.parser.states.DefaultState;
 import duchess.parser.states.ParserState;
 
@@ -37,15 +37,15 @@ public class EventModuleState extends ParserState {
     }
 
     @Override
-    public Command process(String module, Map<String, String> parameters) {
+    public Command process(String module, Map<String, String> parameters) throws DuchessException {
         if (module == null) {
             return new DisplayCommand(String.format(Parser.TASK_MODULE_PROMPT, description));
-        } else if (module.equals("nil")) {
+        } else if (module.equalsIgnoreCase("nil")) {
             this.parser.setParserState(new DefaultState(parser));
             return new AddEventCommand(description, end, start);
         } else {
-            this.parser.setParserState(new DefaultState(parser));
-            return new AddEventCommand(description, end, start, module);
+            this.parser.setParserState(new EventWeightageState(this.parser, description, start, end, module));
+            return this.parser.continueParsing(parameters);
         }
     }
 }

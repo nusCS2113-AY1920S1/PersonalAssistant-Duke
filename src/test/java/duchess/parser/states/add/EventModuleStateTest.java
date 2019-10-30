@@ -28,8 +28,8 @@ class EventModuleStateTest {
         assertTrue(parser.getParserState() instanceof DefaultState);
 
         parser.setParserState(eventModuleState);
-        assertTrue(parser.parse("CS1231") instanceof AddEventCommand);
-        assertTrue(parser.getParserState() instanceof DefaultState);
+        assertTrue(parser.parse("CS1231") instanceof DisplayCommand);
+        assertTrue(parser.getParserState() instanceof EventWeightageState);
     }
 
     @Test

@@ -117,9 +117,6 @@ public class Grade {
 
     @Override
     public String toString() {
-        if (isComplete) {
-            return String.format("%s %d/%d %d%%", assessment, marks, maxMarks, weightage);
-        }
-        return String.format("%s %d%%", assessment, weightage);
+        return String.format("%s %d/%d %d%%", assessment, marks, maxMarks, weightage);
     }
 }

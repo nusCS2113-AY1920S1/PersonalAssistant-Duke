@@ -1,6 +1,7 @@
 package duchess.logic.commands;
 
 import duchess.exceptions.DuchessException;
+import duchess.model.Grade;
 import duchess.model.Module;
 import duchess.model.calendar.CalendarManager;
 import duchess.model.task.Event;
@@ -16,6 +17,7 @@ public class AddEventCommand extends Command {
     private LocalDateTime end;
     private LocalDateTime start;
     private String moduleCode;
+    private int weightage;
 
     /**
      * Creates a command to add an event.
@@ -36,14 +38,24 @@ public class AddEventCommand extends Command {
         this.moduleCode = moduleCode;
     }
 
+    public AddEventCommand(
+            String description, LocalDateTime end, LocalDateTime start, String moduleCode, int weightage) {
+        this(description, end, start, moduleCode);
+        this.weightage = weightage;
+    }
+
     @Override
     public void execute(Store store, Ui ui, Storage storage) throws DuchessException {
         Event task = new Event(description, end, start);
+        Grade grade;
         if (moduleCode != null) {
             Optional<Module> module = store.findModuleByCode(moduleCode);
             task.setModule(module.orElseThrow(() ->
                     new DuchessException("Unable to find given module.")
             ));
+            grade = new Grade(description, weightage);
+            task.setGrade(grade);
+            module.get().addGrade(grade);
         }
         if (store.isClashing(task)) {
             throw new DuchessException("Unable to add event - clash found.");
