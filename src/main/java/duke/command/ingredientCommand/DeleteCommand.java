@@ -31,7 +31,7 @@ public class DeleteCommand<T> extends Cmd<T> {
             } catch (IOException e) {
                 throw new DukeException("Error while deleting the ingredient from the hard disc");
             }
-            ui.showRemovedTask(removed.toString(), IngredientsList.size());
+            ui.showRemovedIngredient(removed.toString(), IngredientsList.size());
         } else {
             throw new DukeException("Enter a valid ingredient index number after delete, between 1 and " + IngredientsList.size());
         }
