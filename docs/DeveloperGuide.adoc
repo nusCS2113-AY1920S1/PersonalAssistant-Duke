@@ -189,7 +189,7 @@ the commands by coordinating all other components.
 ProjectInputController is a class which acts as a parser for commands related to the members and the tasks of a given project.
 
 ==== 2.3.3 AssignmentController
-AssignmentController is a class which acts as a parser for commands regarding the assignment of tasks to group members.
+AssignmentController is a class which manages the assignment of tasks to group members.
 
 *Rationale for implementation*
 
@@ -396,11 +396,6 @@ Assignments are tracked in the `Project` class using 2 Java HashMaps.
 ** Key: `Member`
 ** Value: ArrayList of `Task` objects (List of each member's individual tasks)
 
-Using a HashMap for storage allows for fast and easy writing and retrieval of data.
-It also prevents cyclic dependencies as `Task` and `Member` objects would not have to be aware of
-each other (such as each class keeping an ArrayList of the assignment) in order to establish the
-assignment.
-
 The following steps show how task assignments are made in ArchDuke.
 
 Step 1) Assume Project has been created and the user is currently managing a specific project.
@@ -413,7 +408,7 @@ Step 3) The `ProjectInputController.manageProject()` will call `AssignmentContro
 Step 4) Within the method call in `AssignmentController`, the command by the user will be parsed by the `ParserHelper` to split
 the input into 3 parts: the task index numbers, the assignee index numbers, and the unassignees index numbers. The index numbers
 will be checked to ensure that they are valid (non-negative integers, and exist within the project) with the help
-of `ParserHelper.parseMembersIndexes()` and `ParserHelper.parseTasksIndexes()` [yet to refactor and implement].
+of `ParserHelper.parseMembersIndexes()` and `ParserHelper.parseTasksIndexes()`.
 
 `AssignmentController.checkForSameMemberIndexes()` checks if the list of assignees and unassignees contain any identical
 index numbers, and remove them to avoid redundant work.
@@ -430,16 +425,30 @@ Step 7) If the input is valid, the assignment is created by calling `Project.cre
 `Project.removeAssignment()`. The HashMaps are manipulated accordingly to note down the assignment between the specified task
 and member. Success messages are stored in `successMessages` and are also displayed to the user later.
 
-// ==== Design Considerations
+==== Design Considerations
 
-// ===== Aspect: How undo & redo executes
+===== Aspect: How to keep track of Assignments
 
-// * **Alternative 1 (current choice):** Saves the entire address book.
-// ** Pros: Easy to implement.
-// ** Cons: May have performance issues in terms of memory usage.
-// * **Alternative 2:** Individual command knows how to undo/redo by itself.
-// ** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-// ** Cons: We must ensure that the implementation of each individual command are correct.
+* **Alternative 1 (current choice):** Use 2 HashMaps in Project class
+[HashMaps]
+
+** `taskAndListOfMembersAssigned`
+*** Key: `Task`
+*** Value: ArrayList of assigned `Member` objects (List of members assigned to task)
+
+** `memberAndIndividualListOfTasks`
+*** Key: `Member`
+*** Value: ArrayList of `Task` objects (List of each member's individual tasks)
+
+** Pros: Allows fast and easy writing and retrieval of data. Task and Member objects to not need to be
+aware of each other in order to maintain the assignment. Assignments can just be managed by a project.
+** Cons: Need a hashcode for Task and Member objects to properly hash.
+
+ * **Alternative 2:** Each `Task` maintains ArrayList of assigned members.
+Each `Member` maintains ArrayList of assigned tasks.
+ ** Pros: More intuitive.
+ ** Cons: Cyclic dependencies will exist between task and member, making it difficult to edit and change
+assignments.
 
 // ===== Aspect: Data structure to support the undo/redo commands
 
