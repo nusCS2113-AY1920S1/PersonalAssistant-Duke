@@ -7,6 +7,6 @@
       minWidth="-Infinity"
       prefHeight="600.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/11.0.1">
     <children>
-        <ListView prefHeight="600.0"/>
+        <ListView fx:id="helpListView" prefHeight="600.0"/>
     </children>
 </VBox>
