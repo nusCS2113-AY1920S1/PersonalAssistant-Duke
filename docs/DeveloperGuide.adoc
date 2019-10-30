@@ -557,6 +557,23 @@ Key in `calendar`.+
 Expected: Prints the calendar table containing all events of the next 7 days,
 where the first column of the table is the current day.
 
+=== Contact management
+. Add contact to an event in the list +
+Key in `contact add <event index> /<contact information>` +
+Expected: Prints the success of adding the contact.
+
+. Delete contact +
+Key in `contact delete <event index> <contact index> /` +
+Expected: Prints the success of deleting the contact.
+
+. View contact +
+Key in `contact view <event index> /` +
+Expected: Prints the contacts information in the event.
+
+. Edit contact +
+Key in `contact edit <event index> <contact index> <edit type> /<new contact information>` +
+Expected: Prints the success of editing the contact.
+
 [appendix]
 == Instructions for Manual Testing
 === Launch and Shutdown
