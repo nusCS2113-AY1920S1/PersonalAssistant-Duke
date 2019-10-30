@@ -79,8 +79,8 @@ public class ParserGoal {
      * @throws FileNotFoundException if file does not exist
      * @throws ParseException        if user input is not in the correct format
      */
-    public ParserGoal() throws FileNotFoundException, ParseException {
 
+    public ParserGoal() throws FileNotFoundException, ParseException {
         cliView = new CliView();
         goalStorage = new Storage(
             ".\\src\\main\\java\\duke\\data\\goals.txt");
