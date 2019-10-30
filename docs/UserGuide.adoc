@@ -30,6 +30,7 @@ DUKE Manager is for those who prefers an electronic handbook as compared to a ha
 DUKE Manager will be able to 
 - Handle various Task Inputs, 
 - Manage Tasks 
+- Show upcoming reminders due in 3 days at Home Page when program first boots up
 - Track Academic Expenses 
 - Manage and Track Academic Module 
 
@@ -82,16 +83,6 @@ Format: `repeat <task> /from <date and time> /for <duration> <day/week/month>`
 
 * Date and time must be input in this format <d/MM/yyyy HHmm>.
 * The duration refers to the length of time.
-
-==== Creating a new "Reminder" task : `reminder`
-
-Creates a new task called "Reminder" in Duke Manager. +
-Format: `remind <task number> /in <duration in days>`
-
-* Reminds the user of the task at the specified `<task number>`.
-* The task number refers to the index number shown in the displayed task list.
-* The index *must be in between 1 and the size of tasklist*. e.g. For a tasklist that contains 4 tasks, only numbers 1 to 4 are allowed.
-* The duration in days refers to the length of time in days.
 
 === Non-Priority-Related Task Inputs
 
