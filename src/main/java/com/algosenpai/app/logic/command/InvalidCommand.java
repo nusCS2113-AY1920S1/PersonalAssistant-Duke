@@ -25,11 +25,11 @@ public class InvalidCommand extends Command {
     }
 
 
-   // /**
-     //* Choose command that is closest to the input by user.
-     //* @param input command entered by user.
-     //* @return the closest command.
-     //*/
+    // /**
+    //* Choose command that is closest to the input by user.
+    //* @param input command entered by user.
+    //* @return the closest command.
+    //*/
     /*
     public static String compare(String input) {
         String str = new String();
@@ -61,34 +61,34 @@ public class InvalidCommand extends Command {
     }*/
 
     ///**
-     //* To compare the number of characters that the invalid command entered by user has with each valid command.
-     //* @param unknownCommand input by user
-     //* @param l1 length of the command inputted by user
-     //* @param knownCommand one of the valid command
-     //* @param l2 length of valid command
-     //* @return number of similar characters
-     //*/
+    //* To compare the number of characters that the invalid command entered by user has with each valid command.
+    //* @param unknownCommand input by user
+    //* @param l1 length of the command inputted by user
+    //* @param knownCommand one of the valid command
+    //* @param l2 length of valid command
+    //* @return number of similar characters
+    //*/
 
     /*public static int countPairs(String unknownCommand, int l1, String knownCommand, int l2) {
 
-        int []freq1 = new int[26];
-        int []freq2 = new int[26];
-        Arrays.fill(freq1, 0);
-        Arrays.fill(freq2, 0);
+       int []freq1 = new int[26];
+       int []freq2 = new int[26];
+       Arrays.fill(freq1, 0);
+       Arrays.fill(freq2, 0);
 
-        int count = 0;
+       int count = 0;
 
-        for (int i = 0; i < l1; i++) {
-            freq1[unknownCommand.charAt(i) - 'a']++;
-        }
-        for (int i = 0; i < l2; i++) {
-            freq2[knownCommand.charAt(i) - 'a']++;
-        }
-        for (int i = 0; i < 26; i++) {
-            count += (Math.min(freq1[i], freq2[i]));
-        }
+       for (int i = 0; i < l1; i++) {
+           freq1[unknownCommand.charAt(i) - 'a']++;
+       }
+       for (int i = 0; i < l2; i++) {
+           freq2[knownCommand.charAt(i) - 'a']++;
+       }
+       for (int i = 0; i < 26; i++) {
+           count += (Math.min(freq1[i], freq2[i]));
+       }
 
-        return count;
+       return count;
     }
     */
 }
