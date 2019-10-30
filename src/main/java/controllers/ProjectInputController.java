@@ -1,9 +1,9 @@
 package controllers;
 
-import models.project.IProject;
-import models.project.Project;
 import models.member.IMember;
 import models.member.Member;
+import models.project.IProject;
+import models.project.Project;
 import models.reminder.IReminder;
 import models.reminder.Reminder;
 import models.task.ITask;
@@ -15,7 +15,6 @@ import util.ViewHelper;
 import util.factories.MemberFactory;
 import util.factories.ReminderFactory;
 import util.factories.TaskFactory;
-import util.json.JsonConverter;
 import util.log.DukeLogger;
 
 import java.text.ParseException;
@@ -29,7 +28,6 @@ public class ProjectInputController implements IController {
     private MemberFactory memberFactory;
     private boolean isManagingAProject;
     private ViewHelper viewHelper;
-    private JsonConverter jsonConverter = new JsonConverter();
 
     /**
      * Constructor for ProjectInputController takes in a View model and a ProjectRepository.
@@ -88,7 +86,7 @@ public class ProjectInputController implements IController {
                 responseToView = projectDeleteMember(projectToManage, projectFullCommand);
                 // jsonConverter.saveProject(projectToManage);
             } else if (projectFullCommand.matches("view members.*")) {
-                // responseToView = projectViewMembers(projectToManage);
+                responseToView = projectViewMembers(projectToManage);
             } else if (projectFullCommand.matches("role.*")) {
                 responseToView = projectRoleMembers(projectToManage, projectFullCommand);
                 // jsonConverter.saveProject(projectToManage);
