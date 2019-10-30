@@ -1,0 +1,9 @@
+.root{
+    -fx-background-color: #2a2a2a;
+}
+
+#commandLine{
+    -fx-font-size: 16;
+    -fx-text-fill: #fff;
+    -fx-background-color: #232323;
+}

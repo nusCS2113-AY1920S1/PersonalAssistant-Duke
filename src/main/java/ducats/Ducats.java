@@ -115,4 +115,9 @@ public class Ducats {
     }
 
 
+    public SongList getSongs() {
+        return this.songs;
+    }
+
+    //@@author
 }
