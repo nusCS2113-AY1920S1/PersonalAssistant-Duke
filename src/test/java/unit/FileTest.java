@@ -1,3 +1,5 @@
+package unit;
+
 import spinbox.exceptions.CorruptedDataException;
 import spinbox.entities.items.File;
 import spinbox.entities.items.Item;

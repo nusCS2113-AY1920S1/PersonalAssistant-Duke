@@ -1,3 +1,5 @@
+package unit;
+
 import org.junit.jupiter.api.Test;
 import spinbox.storage.Storage;
 import spinbox.exceptions.StorageException;

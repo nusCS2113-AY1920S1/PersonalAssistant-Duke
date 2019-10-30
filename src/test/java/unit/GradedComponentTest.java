@@ -1,3 +1,5 @@
+package unit;
+
 import spinbox.exceptions.CorruptedDataException;
 import spinbox.exceptions.SpinBoxException;
 import spinbox.exceptions.InputException;

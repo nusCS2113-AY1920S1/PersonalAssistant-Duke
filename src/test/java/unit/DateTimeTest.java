@@ -1,3 +1,5 @@
+package unit;
+
 import spinbox.DateTime;
 import spinbox.exceptions.SpinBoxException;
 import org.junit.jupiter.api.Test;
