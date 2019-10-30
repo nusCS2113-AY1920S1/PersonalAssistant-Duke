@@ -27,7 +27,7 @@ public class InvalidCommand extends Command {
         }
         return "Sorry please input a valid command." + compare(input);*/
     }
-    
+
     /**
      * Choose command that is closest to the input by user.
      * @param input command entered by user.

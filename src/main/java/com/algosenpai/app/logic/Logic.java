@@ -4,6 +4,7 @@ package com.algosenpai.app.logic;
 
 import com.algosenpai.app.logic.chapters.QuizGenerator;
 import com.algosenpai.app.logic.command.ArchiveCommand;
+import com.algosenpai.app.logic.command.VolumeCommand;
 import com.algosenpai.app.logic.command.ByeCommand;
 import com.algosenpai.app.logic.command.ClearCommand;
 import com.algosenpai.app.logic.command.Command;
@@ -33,7 +34,6 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class Logic {
-    private Parser parser;
     private UserStats userStats;
     private QuizGenerator quizMaker;
 
@@ -58,7 +58,6 @@ public class Logic {
      * Initializes logic for the application with all the different components.
      */
     public Logic(UserStats stats) throws FileNotFoundException {
-        this.parser = new Parser();
         this.userStats = stats;
         quizMaker = new QuizGenerator();
         historyList = new ArrayList<>();
@@ -117,6 +116,8 @@ public class Logic {
             return new ArchiveCommand(inputs, quizList, archiveList);
         case "review":
             return new ReviewCommand(inputs, quizList);
+        case "volume":
+            return new VolumeCommand(inputs);
         default:
             return new InvalidCommand(inputs);
         }

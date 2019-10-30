@@ -30,7 +30,7 @@ public class SelectCommand extends Command {
             return getDefaultMessage();
         }
         chapterNumber.set(index - 1);
-        return "You have selected Chapter " + chapterNumber.get();
+        return "You have selected Chapter " + chapterNumber.incrementAndGet();
     }
 
     /**
