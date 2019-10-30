@@ -1,6 +1,6 @@
 package duke.command;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -62,7 +62,6 @@ class DoneCommandTest {
         String actualStatusIcon = tasks.get(1).getStatusIcon();
         assertEquals(expectedStatusIcon, actualStatusIcon);
     }
-
 
     @Test
     public void execute_done_success() throws DukeException, IOException {
