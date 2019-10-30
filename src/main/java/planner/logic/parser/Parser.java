@@ -146,12 +146,14 @@ public class Parser {
                 .choices("modules", "ccas")
                 .help("What to sort");
 
-        Subparser capParser = getSubParser("cap");
+        Subparser capParser = getSubParser("cap")
+                .help("Calculate your CAP from your input or list");
         capParser.addArgument("toCap")
             .choices("overall", "list", "module")
             .help("What type of CAP to calculate");
 
-        Subparser gradeParser = getSubParser("grade");
+        Subparser gradeParser = getSubParser("grade")
+                .help("Add a grade to your modules");
         gradeParser.addArgument("moduleCode")
             .required(true)
             .help("Codename of module to grade");
