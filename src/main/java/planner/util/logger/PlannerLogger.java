@@ -2,16 +2,14 @@
 
 package planner.util.logger;
 
-import planner.logic.exceptions.legacy.ModException;
-import planner.util.logger.formatter.LoggerFormatter;
-
 import java.io.IOException;
-import java.util.logging.ConsoleHandler;
 import java.util.logging.FileHandler;
 import java.util.logging.Formatter;
-import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import planner.logic.exceptions.legacy.ModException;
+import planner.util.logger.formatter.LoggerFormatter;
 
 public class PlannerLogger {
 
@@ -29,11 +27,7 @@ public class PlannerLogger {
      */
     public static void setLogFile() throws IOException {
         Logger rootLogger = Logger.getLogger("");
-        Handler[] handlers = rootLogger.getHandlers();
-        if (handlers[0] instanceof ConsoleHandler) {
-            rootLogger.removeHandler(handlers[0]);
-        }
-
+        logger.setUseParentHandlers(false);
         fileText = new FileHandler("data/logging.log", 8096, 1, true);
         fileText.setFormatter(formatter);
         logger.setLevel(Level.INFO);

@@ -4,7 +4,10 @@ package planner.util.crawler;
 
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.lang.reflect.Type;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -24,6 +27,7 @@ import planner.logic.modules.module.ModuleInfoDetailed;
 import planner.logic.modules.module.ModuleInfoSummary;
 import planner.logic.modules.module.ModuleTask;
 import planner.util.datetime.NattyWrapper;
+import planner.util.logger.PlannerLogger;
 import planner.util.storage.Storage;
 
 public class JsonWrapper {
@@ -57,13 +61,35 @@ public class JsonWrapper {
         return natty.dateToLocalDateTime(input);
     }
 
+
+    private HashMap<String, ModuleInfoDetailed> getMapFromList(List<ModuleInfoDetailed> modsList) {
+        HashMap<String, ModuleInfoDetailed> ret = new HashMap<>();
+        for (ModuleInfoDetailed temp : modsList) {
+            String modCode = temp.getModuleCode();
+            ret.put(modCode, temp);
+        }
+        return ret;
+    }
+
     /**
      * For each data set, request for nusMods API.
      */
     public void runRequests(Storage store) throws ModBadRequestStatus {
-        for (Requests req : Requests.values()) {
-            storeJson(req, store);
+        storeJson(Requests.DETAILED, store);
+    }
+
+    /**
+     * Updating detailed module list file in data folder.
+     * @param academicYear Academic Year input by user.
+     * @param store Storage object to write files.
+     * @throws ModBadRequestStatus If the user's status return from API call is not 200 (success).
+     */
+    public void runRequests(String academicYear, Storage store) throws ModBadRequestStatus {
+        store.setDataPath(Paths.get(listDetailedFile));
+        if (store.getDataPathExists()) {
+            return;
         }
+        requestsData.storeModData(requestsData.requestModuleListDetailed(academicYear), store);
     }
 
     private void storeJson(Requests type, Storage store) throws ModBadRequestStatus {
@@ -85,7 +111,7 @@ public class JsonWrapper {
                 break;
             }
             default: {
-                throw new IllegalStateException("Unexpected value: " + type);
+                throw new ModBadRequestStatus();
             }
         }
     }
@@ -104,8 +130,10 @@ public class JsonWrapper {
             return gson.fromJson(reader, listType);
         } catch (IllegalStateException e) {
             e.printStackTrace();
+            PlannerLogger.log(e);
         } catch (IOException ei) {
             System.out.println(Arrays.toString(ei.getStackTrace()));
+            PlannerLogger.log(ei);
         }
         return null;
     }
@@ -139,10 +167,32 @@ public class JsonWrapper {
             return gson.fromJson(reader, listType);
         } catch (IllegalStateException e) {
             e.printStackTrace();
+            PlannerLogger.log(e);
         } catch (IOException ei) {
             System.out.println(Arrays.toString(ei.getStackTrace()));
+            PlannerLogger.log(ei);
         }
         return new ArrayList<>();
+    }
+
+    /**
+     * Overloaded function to generate runtime file from resources instead of query file from NUSMODS.
+     * @param set Flag to run code.
+     * @param store Storage Object for file check.
+     * @return HashMap of Module code mapped to corresponding ModuleInfoDetailed.
+     * @throws ModFailedJsonException If the user's status return from API call is not 200 (success).
+     */
+    public HashMap<String, ModuleInfoDetailed> getModuleDetailedMap(boolean set, Storage store)
+            throws ModFailedJsonException {
+        if (set && store.getDataPathExists()) {
+            return getModuleDetailedMap();
+        } else {
+            InputStream in = this.getClass().getResourceAsStream("/data/modsDetailedListData.json");
+            Type listType = new TypeToken<List<ModuleInfoDetailed>>(){}.getType();
+            InputStreamReader inputStreamReader = new InputStreamReader(in, StandardCharsets.UTF_8);
+            List<ModuleInfoDetailed> modsList = gson.fromJson(inputStreamReader, listType);
+            return getMapFromList(modsList);
+        }
     }
 
     /**
@@ -155,12 +205,7 @@ public class JsonWrapper {
         if (modsList.size() == 0) {
             throw new ModFailedJsonException();
         }
-        HashMap<String, ModuleInfoDetailed> ret = new HashMap<>();
-        for (ModuleInfoDetailed temp : modsList) {
-            String modCode = temp.getModuleCode();
-            ret.put(modCode, temp);
-        }
-        return ret;
+        return getMapFromList(modsList);
     }
 
 
@@ -190,8 +235,10 @@ public class JsonWrapper {
             }
         } catch (IllegalStateException e) {
             e.printStackTrace();
+            PlannerLogger.log(e);
         } catch (IOException ei) {
             System.out.println(Arrays.toString(ei.getStackTrace()));
+            PlannerLogger.log(ei);
         }
         return new ArrayList<>();
     }
