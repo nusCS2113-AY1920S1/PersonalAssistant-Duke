@@ -84,25 +84,28 @@ public class MainWindow extends AnchorPane{
     public void initialize() throws IOException {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         ps = new PrintStream(new Console(console));
+        console.setEditable(false);
         onPrinting();
         Hustler.initialize();
 
         StackPane stackPane = new StackPane();
-        welcomeScreen.setStyle("-fx-background-color:#2dcb70");
         Rectangle whiteSpace = new Rectangle();
+        welcomeScreen.setStyle("-fx-background-color:#2dcb70");
         whiteSpace.setOpacity(0.0);
         whiteSpace.setHeight(50);
         whiteSpace.widthProperty().bind(flowPane.widthProperty());
+
         Text text = new Text("Hi, I am Hustler!\n What can I do for you?");
         text.setFont(Font.font("Gill Sans", 30));
         text.setFill(Color.WHITE);
         text.setTextAlignment(TextAlignment.CENTER);
+
         stackPane.setMargin(text,new Insets(0,50,0,50));
         stackPane.setAlignment(text,Pos.CENTER);
         stackPane.getChildren().addAll(text);
         stackPane.prefWidthProperty().bind(welcomeScreen.widthProperty());
-        welcomeScreen.getChildren().addAll(whiteSpace,stackPane);
 
+        welcomeScreen.getChildren().addAll(whiteSpace,stackPane);
     }
 
     public void setHustler(Hustler h) {
@@ -156,17 +159,17 @@ public class MainWindow extends AnchorPane{
             removeWelcome();
             sendClicked();
             flowPane.setStyle("-fx-background-color:#ffffff");
-            console.clear();
             if (input.equals("/achievements")) {
                 achievementAction();
             } else if (input.equals("/avatar")) {
                 avatarAction();
-            } else if(input.equals("/list")) {
-                taskAction();
+            } else if (input.equals("/shop")) {
+                shopAction();
             } else {
+                taskAction();
                 Hustler.run(input);
-                scrollPANEE.setContent(console);
             }
+            scrollPANEE.setContent(console);
             userInput.clear();
             sendReleased();
         }
@@ -194,14 +197,17 @@ public class MainWindow extends AnchorPane{
     @FXML
     public void taskAction() {
         heading.getChildren().clear();
-        Text title1 = new Text("TASKS");
-        title1.setFont(Font.font("Gill Sans", 15));
-        title1.setFill(Color.GRAY);
+
+        Text taskTitle = new Text("TASKS");
+        taskTitle.setFont(Font.font("Gill Sans", 15));
+        taskTitle.setFill(Color.GRAY);
+
         StackPane titlePane = new StackPane();
-        titlePane.setAlignment(title1, Pos.CENTER);
+        titlePane.setAlignment(taskTitle, Pos.CENTER);
         titlePane.prefHeightProperty().bind(heading.prefHeightProperty());
         titlePane.prefWidthProperty().bind(heading.widthProperty());
-        titlePane.getChildren().addAll(title1);
+        titlePane.getChildren().addAll(taskTitle);
+
         heading.getChildren().addAll(titlePane);
 
         ColorAdjust color = new ColorAdjust();
@@ -233,27 +239,24 @@ public class MainWindow extends AnchorPane{
         avatar.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
         shop.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
         arena.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
-       // settings.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
-        ps = new PrintStream(new Console(console));
-        Hustler.run("/list");
-        console.clear();
-        scrollPANEE.setContent(console);
+        // settings.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
     }
 
     @FXML
     public void taskCompletionModeAction() {
-
         heading.getChildren().clear();
-        Text title1 = new Text("TASK COMPLETION MODE");
-        title1.setFont(Font.font("Gill Sans", 15));
-        title1.setFill(Color.GRAY);
+
+        Text taskCompletionTitle = new Text("TASK COMPLETION MODE");
+        taskCompletionTitle.setFont(Font.font("Gill Sans", 15));
+        taskCompletionTitle.setFill(Color.GRAY);
+
         StackPane titlePane = new StackPane();
-        titlePane.setAlignment(title1, Pos.CENTER);
+        titlePane.setAlignment(taskCompletionTitle, Pos.CENTER);
         titlePane.prefHeightProperty().bind(heading.prefHeightProperty());
         titlePane.prefWidthProperty().bind(heading.widthProperty());
-        titlePane.getChildren().addAll(title1);
-        heading.getChildren().addAll(titlePane);
+        titlePane.getChildren().addAll(taskCompletionTitle);
 
+        heading.getChildren().addAll(titlePane);
 
         flowPane.setStyle("-fx-background-color:#ffffff");
         flowPane.getChildren().clear();
@@ -292,22 +295,22 @@ public class MainWindow extends AnchorPane{
         arena.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
         //settings.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
 
-        ps = new PrintStream(new Console(console));
         console.clear();
-        scrollPANEE.setContent(console);
     }
 
     @FXML
     public void achievementAction() {
         heading.getChildren().clear();
-        Text title1 = new Text("ACHIEVEMENTS");
-        title1.setFont(Font.font("Gill Sans", 15));
-        title1.setFill(Color.GRAY);
+
+        Text achievementTitle = new Text("ACHIEVEMENTS");
+        achievementTitle.setFont(Font.font("Gill Sans", 15));
+        achievementTitle.setFill(Color.GRAY);
+
         StackPane titlePane = new StackPane();
-        titlePane.setAlignment(title1, Pos.CENTER);
+        titlePane.setAlignment(achievementTitle, Pos.CENTER);
         titlePane.prefHeightProperty().bind(heading.prefHeightProperty());
         titlePane.prefWidthProperty().bind(heading.widthProperty());
-        titlePane.getChildren().addAll(title1);
+        titlePane.getChildren().addAll(achievementTitle);
 
         ColorAdjust color = new ColorAdjust();
         color.setContrast(0.35);
@@ -341,25 +344,25 @@ public class MainWindow extends AnchorPane{
         arena.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
         //settings.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
 
-        ps = new PrintStream(new Console(console));
         console.clear();
-        Hustler.run("/achievement");
-        scrollPANEE.setContent(console);
+        Hustler.run("/achievements");
     }
 
     @FXML
     public void statisticsAction() {
         heading.getChildren().clear();
-        Text title1 = new Text("STATISTICS");
-        title1.setFont(Font.font("Gill Sans", 15));
-        title1.setFill(Color.GRAY);
+
+        Text statisticsTitle = new Text("STATISTICS");
+        statisticsTitle.setFont(Font.font("Gill Sans", 15));
+        statisticsTitle.setFill(Color.GRAY);
+
         StackPane titlePane = new StackPane();
-        titlePane.setAlignment(title1, Pos.CENTER);
+        titlePane.setAlignment(statisticsTitle, Pos.CENTER);
         titlePane.prefHeightProperty().bind(heading.prefHeightProperty());
         titlePane.prefWidthProperty().bind(heading.widthProperty());
-        titlePane.getChildren().addAll(title1);
-        heading.getChildren().addAll(titlePane);
+        titlePane.getChildren().addAll(statisticsTitle);
 
+        heading.getChildren().addAll(titlePane);
 
         flowPane.setStyle("-fx-background-color:#ffffff");
         flowPane.getChildren().clear();
@@ -381,7 +384,7 @@ public class MainWindow extends AnchorPane{
         task.setStyle("-fx-background-color:#34495E");
         taskCompletionMode.setStyle("-fx-background-color:#34495E");
         achievement.setStyle("-fx-background-color:#34495E");
-        statistics.setStyle("-fx-background-color:#243342");
+        this.statistics.setStyle("-fx-background-color:#243342");
         avatar.setStyle("-fx-background-color:#34495E");
         shop.setStyle("-fx-background-color:#34495E");
         arena.setStyle("-fx-background-color:#34495E");
@@ -390,31 +393,30 @@ public class MainWindow extends AnchorPane{
         task.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
         taskCompletionMode.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
         achievement.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
-        statistics.textFillProperty().setValue(Paint.valueOf("#ffffff"));
+        this.statistics.textFillProperty().setValue(Paint.valueOf("#ffffff"));
         avatar.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
         shop.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
         arena.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
         //settings.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
-        ps = new PrintStream(new Console(console));
-        console.clear();
-        scrollPANEE.setContent(console);
 
+        console.clear();
     }
 
     @FXML
     public void avatarAction() {
-
         heading.getChildren().clear();
-        Text title1 = new Text("AVATAR");
-        title1.setFont(Font.font("Gill Sans", 15));
-        title1.setFill(Color.GRAY);
+
+        Text avatarTitle = new Text("AVATAR");
+        avatarTitle.setFont(Font.font("Gill Sans", 15));
+        avatarTitle.setFill(Color.GRAY);
+
         StackPane titlePane = new StackPane();
-        titlePane.setAlignment(title1, Pos.CENTER);
+        titlePane.setAlignment(avatarTitle, Pos.CENTER);
         titlePane.prefHeightProperty().bind(heading.prefHeightProperty());
         titlePane.prefWidthProperty().bind(heading.widthProperty());
-        titlePane.getChildren().addAll(title1);
-        heading.getChildren().addAll(titlePane);
+        titlePane.getChildren().addAll(avatarTitle);
 
+        heading.getChildren().addAll(titlePane);
 
         flowPane.setStyle("-fx-background-color:#ffffff");
         flowPane.getChildren().clear();
@@ -450,25 +452,26 @@ public class MainWindow extends AnchorPane{
         shop.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
         arena.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
         //settings.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
-        ps = new PrintStream(new Console(console));
+
         console.clear();
         Hustler.run("/avatar");
-        scrollPANEE.setContent(console);
     }
 
     @FXML
     public void shopAction() {
-
         heading.getChildren().clear();
+
         Text title1 = new Text("SHOP");
         title1.setFont(Font.font("Gill Sans", 15));
         title1.setFill(Color.GRAY);
+
         StackPane titlePane = new StackPane();
         //titlePane.setMargin(title1, new Insets(0,0,0,50));
         titlePane.setAlignment(title1, Pos.CENTER);
         titlePane.prefHeightProperty().bind(heading.prefHeightProperty());
         titlePane.prefWidthProperty().bind(heading.widthProperty());
         titlePane.getChildren().addAll(title1);
+
         heading.getChildren().addAll(titlePane);
 
         flowPane.setStyle("-fx-background-color:#ffffff");
@@ -506,26 +509,25 @@ public class MainWindow extends AnchorPane{
         arena.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
         //settings.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
 
-        ps = new PrintStream(new Console(console));
         console.clear();
         Hustler.run("/shop");
-        scrollPANEE.setContent(console);
-
     }
 
     @FXML
     public void arenaAction() {
-
         heading.getChildren().clear();
-        Text title1 = new Text("ARENA");
-        title1.setFont(Font.font("Gill Sans", 15));
-        title1.setFill(Color.GRAY);
+
+        Text arenaAction = new Text("ARENA");
+        arenaAction.setFont(Font.font("Gill Sans", 15));
+        arenaAction.setFill(Color.GRAY);
+
         StackPane titlePane = new StackPane();
         //titlePane.setMargin(title1, new Insets(0,0,0,50));
-        titlePane.setAlignment(title1, Pos.CENTER);
+        titlePane.setAlignment(arenaAction, Pos.CENTER);
         titlePane.prefHeightProperty().bind(heading.prefHeightProperty());
         titlePane.prefWidthProperty().bind(heading.widthProperty());
-        titlePane.getChildren().addAll(title1);
+        titlePane.getChildren().addAll(arenaAction);
+
         heading.getChildren().addAll(titlePane);
 
         flowPane.setStyle("-fx-background-color:#ffffff");
