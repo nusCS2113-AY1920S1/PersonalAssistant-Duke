@@ -1,8 +1,8 @@
 package seedu.duke.common.command;
 
 import seedu.duke.CommandParseHelper;
-import seedu.duke.Duke;
 import seedu.duke.common.model.Model;
+import seedu.duke.ui.UI;
 
 public class FlipCommand extends Command {
 
@@ -10,7 +10,7 @@ public class FlipCommand extends Command {
     public boolean execute(Model model) {
         responseMsg = "Input type flipped.";
         CommandParseHelper.flipInputType();
-        Duke.getUI().showResponse(responseMsg);
+        UI.getInstance().showResponse(responseMsg);
         return true;
     }
 }

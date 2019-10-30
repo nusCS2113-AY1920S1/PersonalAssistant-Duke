@@ -1,26 +1,42 @@
 package seedu.duke.common.model;
 
-import seedu.duke.Duke;
+import seedu.duke.email.EmailKeywordPairList;
+import seedu.duke.email.parser.EmailContentParseHelper;
 import seedu.duke.email.EmailList;
+import seedu.duke.email.storage.EmailStorage;
 import seedu.duke.email.EmailTags;
 import seedu.duke.task.TaskList;
+import seedu.duke.task.storage.TaskStorage;
+import seedu.duke.ui.UI;
 
 public class Model {
-    private TaskList taskList = new TaskList();
-    private EmailList emailList = new EmailList();
     private static Model model;
     private boolean isUpdateGui = true;
+    private TaskList taskList;
+    private EmailList emailList;
+    private EmailKeywordPairList keywordPairList;
 
-    /**
-     * Gets new instance.
-     *
-     * @return model
-     */
+    private Model() {
+    }
+
     public static Model getInstance() {
         if (model == null) {
             model = new Model();
         }
         return model;
+    }
+
+    /**
+     * Initializes model structure.
+     */
+    public void initModel() {
+        keywordPairList = new EmailKeywordPairList();
+        taskList = new TaskList();
+        emailList = new EmailList();
+        keywordPairList = EmailContentParseHelper.initKeywordList();
+        taskList = TaskStorage.readTaskFromFile();
+        emailList = EmailStorage.readEmailFromFile("");
+        updateGuiTaskList();
     }
 
     public TaskList getTaskList() {
@@ -44,6 +60,15 @@ public class Model {
     public void setEmailList(EmailList emailList) {
         this.emailList = emailList;
         updateGuiEmailList();
+        updateEmailTagList();
+    }
+
+    public EmailKeywordPairList getKeywordPairList() {
+        return keywordPairList;
+    }
+
+    public void setKeywordPairList(EmailKeywordPairList keywordPairList) {
+        this.keywordPairList = keywordPairList;
     }
 
     /**
@@ -51,7 +76,7 @@ public class Model {
      */
     public void updateGuiTaskList() {
         if (isUpdateGui) {
-            Duke.getUI().updateTaskList(taskList.getTaskGuiStringList());
+            UI.getInstance().updateTaskList(taskList.getTaskGuiStringList());
         }
     }
 
@@ -61,13 +86,39 @@ public class Model {
     public void updateGuiEmailList() {
         if (isUpdateGui) {
             emailList.sortByGivenOrder();
-            Duke.getUI().updateEmailList(emailList.getEmailGuiStringList());
+            UI.getInstance().updateEmailList(emailList.getEmailGuiStringList());
         }
     }
 
     public void updateEmailTagList() {
         EmailTags.updateEmailTagList(emailList);
-        //Duke.getUI().updateEmailList(emailList.getEmailTagList());
+        //UI.getInstance().updateEmailList(emailList.getEmailTagList());
+    }
+
+    /**
+     * Saves all the info in the model to the respective files before exit.
+     */
+    public void saveModel() {
+        TaskStorage.saveTasks(model.getTaskList());
+        EmailStorage.saveEmails(model.getEmailList());
+    }
+
+    /**
+     * Gets the length of the email list.
+     *
+     * @return email list length
+     */
+    public int getEmailListLength() {
+        return emailList.size();
+    }
+
+    /**
+     * Gets the length of the task list.
+     *
+     * @return task list length
+     */
+    public int getTaskListLength() {
+        return taskList.size();
     }
 
     public void setIsUpdateGui(boolean isUpdateGui) {

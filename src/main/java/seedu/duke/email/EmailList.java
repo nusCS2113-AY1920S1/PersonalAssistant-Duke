@@ -29,7 +29,7 @@ public class EmailList extends ArrayList<Email> {
         int index = 0;
         String listOfEmails = "This is your list of emails " + "(total of " + this.size() + "): ";
         for (Email email : this) {
-            listOfEmails += "\n" + (++index) + ". " + email.toGuiString();
+            listOfEmails += System.lineSeparator() + (++index) + ". " + email.toGuiString();
         }
         return listOfEmails;
     }
@@ -39,8 +39,8 @@ public class EmailList extends ArrayList<Email> {
      *
      * @param index of the email to be shown in the email list.
      * @return a string to inform the user that the particular email is being shown in browser.
-     * @throws CommandParseHelper.UserInputException thrown when index parsing failed or out of range
-     * @throws IOException                           if fails to load the filepath or open the browser.
+     * @throws CommandParseHelper.CommandParseException thrown when index parsing failed or out of range
+     * @throws IOException                              if fails to load the filepath or open the browser.
      */
     public String[] show(int index) {
         Email email = this.get(index);
@@ -62,7 +62,8 @@ public class EmailList extends ArrayList<Email> {
         for (String tag : tags) {
             email.addTag(tag);
         }
-        String responseMsg = "Tags added: " + tags.toString() + "\nto email: " + email.getSubject();
+        String responseMsg =
+                "Tags added: " + tags.toString() + System.lineSeparator() + "to email: " + email.getSubject();
         return responseMsg;
     }
 

@@ -40,11 +40,16 @@ public class TaskParseNaturalDateHelper {
      * @param parsedDay    an input that contains the day of the task to be done.
      * @param parsedTiming an input that contains the time of the task to be done.
      * @return dateTime that gives the date and time of the input.
-     * @throws CommandParseHelper.UserInputException an exception when the parsing is failed, most likely due
-     *                                               to a wrong format
+     * @throws CommandParseHelper.CommandParseException an exception when the parsing is failed, most likely
+     *                                                  due to a wrong format
      */
+<<<<<<< HEAD
     public static LocalDateTime convertNaturalDate(String parsedDay, String parsedTiming)
             throws CommandParseHelper.UserInputException {
+=======
+    private static LocalDateTime convertNaturalDate(String parsedDay, String parsedTiming)
+            throws CommandParseHelper.CommandParseException {
+>>>>>>> 9740e4e80b1567669c5fbbcf388882c4ab381b36
         LocalDate date = LocalDate.now();
         LocalDateTime dateTime;
         try {
@@ -62,7 +67,7 @@ public class TaskParseNaturalDateHelper {
                 day = dayOfWeek.getDisplayName(TextStyle.SHORT, Locale.US);
             }
         } catch (DateTimeParseException e) {
-            throw new CommandParseHelper.UserInputException("Wrong Date Time format");
+            throw new CommandParseHelper.CommandParseException("Wrong Date Time format");
         }
         return dateTime;
     }
@@ -72,13 +77,29 @@ public class TaskParseNaturalDateHelper {
      *
      * @param timeString time of the task in string format
      * @return time LocalDateTime format
-     * @throws CommandParseHelper.UserInputException an exception when the parsing is failed, most likely due
-     *                                               to a wrong format
+     * @throws CommandParseHelper.CommandParseException an exception when the parsing is failed, most likely
+     *                                                  due to a wrong format
      */
+<<<<<<< HEAD
     public static LocalDateTime getDate(String timeString) throws CommandParseHelper.UserInputException {
         Pair<String, String> dateTime = TaskCommandParseHelper.checkTimeString(timeString);
         String day = dateTime.getKey();
         String timing = dateTime.getValue();
+=======
+    public static LocalDateTime getDate(String timeString) throws CommandParseHelper.CommandParseException {
+        String day = null;
+        String timing = null;
+        if (!timeString.contains("/") && !timeString.isEmpty()) {
+            String timeStr = timeString.substring(0, 1).toUpperCase() + timeString.substring(1).toLowerCase();
+            if (timeStr.contains(" ")) {
+                String[] tokens = timeStr.split("\\s+", 3);
+                day = tokens[0];
+                timing = tokens[1];
+            } else {
+                day = timeStr;
+            }
+        }
+>>>>>>> 9740e4e80b1567669c5fbbcf388882c4ab381b36
         if (isCorrectNaturalDate(day)) {
             return convertNaturalDate(day, timing);
         } else {

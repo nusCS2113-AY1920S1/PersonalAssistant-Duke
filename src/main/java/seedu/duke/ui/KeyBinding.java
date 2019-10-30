@@ -16,13 +16,8 @@ class KeyBinding {
      */
     KeyBinding(Scene scene, TextField userInput, MainWindow mainWindow) {
         scene.addEventFilter(KeyEvent.KEY_PRESSED, (KeyEvent e) -> {
-            //String type = e.getEventType().getName();
             KeyCode keyCode = e.getCode();
             Object focus = scene.getFocusOwner();
-
-            //// print key pressed info to terminal for debugging purpose.
-            //String keyInfo =
-            //        focus + " " + type + ": Key Code=" + keyCode.getName() + ", Text=" + e.getText() + "\n";
             if (focus.equals(userInput)) {
                 mainWindow.handleUserInputKeyEvent(keyCode);
             }
