@@ -24,31 +24,25 @@ This user guide aims to help you learn your way around our app, making the learn
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `todo DESCRIPTION`,
   `DESCRIPTION` is a parameter which can be used as `todo read book`.
 
-=== 3A.1 Adding a task : `todo/deadline/event/doafter/range`
-Adds a todo/deadline/event/doafter/range to the tasklist.
+=== 3A.1 Adding a task : `/add`
+Adds a todo/deadline/event to the tasklist depending on the input format.
 
-Format: `todo DESCRIPTION`  
-        `deadline DESCRIPTION /by dd/mm/yyyy hhmm`  
-        `event DESCRIPTION /at dd/mm/yyyy hhmm`  
-        `doafter DESCRIPTION /after TASK`
-        `range DESCRIPTION /in d/M/uuuu HHmm and d/M/uuuu HHmm`
+Format: `/add DESCRIPTION` to add a ToDo task
+        `/add DESCRIPTION /by dd/mm/yyyy hhmm` to add a Deadline task  
+        `/add DESCRIPTION /at dd/mm/yyyy hhmm` to add a Event task
         
   - `DESCRIPTION` is the description of the task.
   - `dd/mm/yyyy hhmm` is the day/month/year and time(24hrs) of the task e.g. `9/9/2019 1200`
-  - `TASK` is a task that has been previously added, seeing that a DoAfter task can only be added after an existing task before it has been defined.
-  - `d/M/uuuu HHmm` indicates the dates and times that a range task has to be done within.
   
 Examples:
 
-* `todo read book`
-* `deadline homework /by 8/8/2019 2359`
-* `event team meeting /at 20/8/2019 1500`
-* `doafter return book /after read book`
-* `range attend workshop /in 21/09/2019 1600 and 21/09/2019 1800`
+* `/add read book`
+* `/add homework /by 8/8/2019 2359`
+* `/add team meeting /at 20/8/2019 1500`
 
-=== 3A.2 Deleting a task : `delete`
+=== 3A.2 Deleting a task : `/delete`
 Deletes the specified task from the task list. +
-Format: `delete INDEX`
+Format: `/delete INDEX`
 
 ****
 * Deletes the task at the specified `INDEX`.
@@ -58,14 +52,14 @@ Format: `delete INDEX`
 
 Examples:
 
- * `list` +
-   `delete 2` +
+ * `/list` +
+   `/delete 2` +
    Deletes the 2nd task in the task list.
   
-=== 3A.3 Finding tasks : `find`
+=== 3A.3 Finding tasks : `/find`
 
 Finds tasks whose description contains the given keyword. + 
-Format: `find KEYWORD`
+Format: `/find KEYWORD`
 
 ****
 * The search is case sensitive. e.g. `Book` will not match `book`
@@ -75,13 +69,13 @@ Format: `find KEYWORD`
 
 Examples:
 
-* `find book` +  
+* `/find book` +  
   Returns any task with the descriptions containing the keyword.
 
-=== 3A.4 Marking a task as done : `done`
+=== 3A.4 Marking a task as done : `/done`
 
 Marks a task in the task list as done. DoAfter tasks can only be marked as done when the task before it has been marked as done. +
-Format: `done INDEX`
+Format: `/done INDEX`
 
 ****
   * Marks the task as done at the specified `INDEX`
@@ -90,18 +84,18 @@ Format: `done INDEX`
 
 Examples:
 
-  * `done 1` +  
+  * `/done 1` +  
   Marks the 1st task in the task list as done.
 
-=== 3A.5 Listing all the tasks : `list`
+=== 3A.5 Listing all the tasks : `/list`
 
 Shows a list of all the tasks in the task list. + 
-Format: `list`
+Format: `/list`
 
-=== 3A.6 Snoozing a task : `snooze`
+=== 3A.6 Snoozing a task : `/snooze`
 
 Provides a way to easily snooze/postpone/reschedule a task. +
-Format: `snooze INDEX` +
+Format: `/snooze INDEX` +
         `NUMBER min/hour/day/week/month` OR `dd/mm/yyyy hhmm`
         
 ****
@@ -113,23 +107,23 @@ Format: `snooze INDEX` +
 
 Examples:
 
-  * `snooze 1` +  
+  * `/snooze 1` +  
     `1 week` +
     Snoozes the 1st task in the task list by 1 week.
     
-  * `snooze 2` +
+  * `/snooze 2` +
     `9/9/2019 1200` +
     Reschedules the 2nd task in the task list to the input date (9/9/2019 1200).
   
-=== 3A.7 Reminders : `remind`
+=== 3A.7 Reminders : `/remind`
 
-Reminds the user when there is only one day left for tasks/events. Reminders also show up at the start of the program without any need to input command if there is only one day left for tasks/events. +
-Format: `remind`
+Reminds the user when there is only one day left for tasks/events. +
+Format: `/remind`
 
-=== 3A.8 Viewing my Schedule : `show`
+=== 3A.8 Viewing my Schedule : `/show`
 
 Prints the schedule for a user defined date. +
-Format: `show DATE`
+Format: `/show DATE`
 
 ****
 * Shows the tasks in the schedule for the specified `DATE`
@@ -139,14 +133,14 @@ Format: `show DATE`
 Examples:
 
 ****
-* `show 30/10/2019` +
+* `/show 30/10/2019` +
    Shows all task scheduled for 30/10/2019.
 ****
 
-=== 3A.9 Exiting the program : `bye`
+=== 3A.9 Exiting the program : `/bye`
 
 Exits the program. +
-Format: `bye`
+Format: `/bye`
 
 === 3A.10 Saving the data
 
@@ -173,7 +167,7 @@ into the user's database
 
 Examples:
 ****
-* `buy hat 3` +
+* `/buy hat 3` +
 User will purchase index 3 (1 index) of the hat off the shop.
 ****
 
@@ -187,15 +181,15 @@ Contains functions related to the user's hero.
 
 Examples:
 ****
-* `play run` +
+* `/play run` +
 User's hero run animation will be played on the screen.
 ****
 
 
-=== 3B.4 Timer : `timer` +
+=== 3B.4 Timer : `/timer` +
 
 Starts a exitable countdown that can be paused and resumed. +
-Format: `countdown HH MM SS`
+Format: `/timer HH MM SS`
 
 ****
 * User earns points based off how long the countdown was given.
@@ -218,6 +212,24 @@ Examples:
 
 ****
 
+=== 3B.5 Sort : `/sort` +
+
+Sorts the tasks in the tasklist according to a parameter specified by the user (either normal, datetime or priority).
+
+Examples:
+
+****
+* `/sort normal` +
+  Sorts the tasks in order of which was entered first.
+  
+* `/sort datetime` +
+  Sorts the tasks in order of which is more urgent/ due sooner.
+
+* `/sort priority` +
+  Sorts the tasks in order of their priority, with the task assigned with higher priority showing first. Tasks can be assigned priority   levels by the user.
+  
+****
+
 == 4. FAQ
 
 *Q*: Where do I install Java 11 from? +  
@@ -225,8 +237,8 @@ Examples:
 
 == 5. Command Summary
 
-* *Add*: `todo DESCRIPTION` `deadline DESCRIPTION /by dd/mmm/yyyy hhmm` `event DESCRIPTION /at dd/mm/yyyy hhmm` `doafter DESCRIPTION /after TASK`  `range DESCRIPTION /at d/M/uuuu HHmm and d/M/uuuu HHmm` +
-  e.g. `todo read book` `deadline homework /by 8/8/2019 2359` `event team meeting /at 20/8/2019 1500` `doafter return book /after read book` `range workshop /in 22/09/2019 1900 and 22/09/2019 2100`
+* *Add*: `/add DESCRIPTION` `/add DESCRIPTION /by dd/mmm/yyyy hhmm` `/add DESCRIPTION /at dd/mm/yyyy hhmm` +
+  e.g. `/add read book` `/add homework /by 8/8/2019 2359` `/add team meeting /at 20/8/2019 1500`
 * *Delete*: `/delete INDEX`  +  
   e.g. `/delete 3`
 * *Find*: `/find KEYWORD` +
@@ -234,11 +246,11 @@ Examples:
 * *Done*: `/done INDEX` +
   e.g. `/done 2`
 * *List*: `/list`
-* *Snooze*: `/snooze <index> <date> <time>` +
-  e.g. `/snooze 3 22/01/2020 1900`
+* *Snooze*: `/snooze INDEX DATE TIME` or `/snooze INDEX INTEGER UNITS`+
+  e.g. `/snooze 3 22/01/2020 1900` or `/snooze 3 4 days`
 * *Remind*: `/remind`
 * *Show*: `/show`
-* *Sort*: `/sort SORTTPYE` +
+* *Sort*: `/sort SORTTYPE` +
   e.g. `/sort priority` `/sort normal` `/sort datetime`
 * *Achievements*: `/achievements`
-* *Bye*: `bye`
+* *Bye*: `/bye`
