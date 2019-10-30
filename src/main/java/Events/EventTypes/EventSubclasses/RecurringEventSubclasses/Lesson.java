@@ -2,7 +2,10 @@ package Events.EventTypes.EventSubclasses.RecurringEventSubclasses;
 
 import Events.EventTypes.EventSubclasses.RecurrentEvent;
 
+import java.util.ArrayList;
+
 public class Lesson extends RecurrentEvent {
+
     /**
      * creates new lesson class with boolean to read from file
      */
@@ -16,4 +19,6 @@ public class Lesson extends RecurrentEvent {
     public Lesson(String description, String startDateAndTime, String EndDateAndTime) {
         super(description, false, startDateAndTime, EndDateAndTime, 'L');
     }
+
+
 }

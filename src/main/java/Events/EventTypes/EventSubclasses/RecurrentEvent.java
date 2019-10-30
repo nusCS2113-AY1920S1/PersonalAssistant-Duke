@@ -2,6 +2,8 @@ package Events.EventTypes.EventSubclasses;
 
 import Events.EventTypes.Event;
 
+import java.util.ArrayList;
+
 public abstract class RecurrentEvent extends Event {
     /**
      * Creates recurrent event with isDone boolean for reading from files

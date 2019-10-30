@@ -1,11 +1,12 @@
 package UserElements;
 
-import Events.Storage.EventList;
 import Events.EventTypes.Event;
-import Events.Formatting.EventDate;
-import Events.Formatting.Predicate;
+import Events.EventTypes.EventSubclasses.Concert;
+import Events.Storage.Contact;
+import Events.Storage.EventList;
+import Events.Storage.Goal;
 
-import java.util.Date;
+import java.util.ArrayList;
 import java.util.Queue;
 
 
@@ -72,6 +73,60 @@ public class UI {
     public void printInvalidCommand() {
         System.out.print(lineSeparation);
         System.out.println("Sorry! I don't know what that means.");
+        System.out.print(lineSeparation);
+    }
+
+    public void printEventGoals(Event viewEventGoal) {
+        System.out.println("Here is the list of goals for the following event: " + viewEventGoal.toString());
+        int goalIndex = 1;
+        for (Goal goalObject : viewEventGoal.getGoalList()) {
+            System.out.println(goalIndex + ". " + goalObject.getGoal());
+            goalIndex += 1;
+        }
+    }
+
+    public void goalAdded() {
+        System.out.println("Ok, the goal has been added to the event.");
+    }
+
+    public void goalDeleted() {
+        System.out.println("Ok, the goal has been deleted from the event.");
+    }
+
+    public void contactAdded() {
+        System.out.print(lineSeparation);
+        System.out.println("Ok, the contact has been added to the event.");
+        System.out.print(lineSeparation);
+    }
+
+    public void contactDeleted() {
+        System.out.print(lineSeparation);
+        System.out.println("Ok, the contact has been deleted from the event.");
+        System.out.print(lineSeparation);
+    }
+
+    public void printEventContacts(Event viewEventContact) {
+        System.out.print(lineSeparation);
+        System.out.println("Here is the list of contacts for the following event " + viewEventContact.toString());
+        int contactNo = 1;
+        for (Contact currContact : viewEventContact.getContactList()) {
+            System.out.println(contactNo + ". Name: " + currContact.getName() + " Email: " + currContact.getEmail()
+            + " Phone Number: " + currContact.getPhoneNo());
+            contactNo++;
+        }
+        System.out.print(lineSeparation);
+    }
+
+    public void contactEdited(Contact newContact) {
+        System.out.print(lineSeparation);
+        System.out.println("The contact has been edited to: Name: " + newContact.getName() + " Email: "
+                + newContact.getEmail() + " Phone Number: " +newContact.getPhoneNo());
+        System.out.print(lineSeparation);
+    }
+
+    public void noContactInEvent() {
+        System.out.print(lineSeparation);
+        System.out.println("Do not have any contact in this event.");
         System.out.print(lineSeparation);
     }
 
@@ -183,7 +238,7 @@ public class UI {
     public void rescheduleFormatWrong() {
         System.out.print(lineSeparation);
         System.out.println("Please enter command in the following format:\n" +
-            "reschedule <taskIndex> dd-MM-yyyy HHmm HHmm\n" +
+                "reschedule <taskIndex> dd-MM-yyyy HHmm HHmm\n" +
                 "Please ensure that the taskIndex is a valid integer as well!");
         System.out.print(lineSeparation);
     }
@@ -202,6 +257,7 @@ public class UI {
         System.out.println("The event you added ends before it starts! Please try again.");
         System.out.print(lineSeparation);
     }
+
     /**
      * prints message when event index from input is not an integer
      */
@@ -297,5 +353,62 @@ public class UI {
         System.out.println("Here is the calendar of the next 7 days!");
         System.out.println(calendarInfo);
         System.out.println("\nEnter a command:");
+    }
+
+    public void costExceedsBudget(Concert concert, int budget) {
+        System.out.print(lineSeparation);
+        System.out.println("The following concert you wanted to add causes you to exceed the stipulated budget for that month!");
+        System.out.println(concert.toString());
+        String date = concert.getStartDate().getFormattedDateString().substring(8, 16);
+        System.out.println("exceeds budget of $" + budget + " for the month of " + date);
+        System.out.println("Operation has been cancelled.");
+        System.out.print(lineSeparation);
+    }
+
+    public static void printCostForMonth(String monthAndYear, int cost) {
+        System.out.print(lineSeparation);
+        System.out.println("Your total concert costs for " + monthAndYear + " is:");
+        System.out.println("$" + cost);
+        System.out.print(lineSeparation);
+    }
+
+    public static void printNoCostsForThatMonth() {
+        System.out.print(lineSeparation);
+        System.out.println("There are no concerts for that month!");
+        System.out.print(lineSeparation);
+    }
+
+    public void checklistDeleted(int eventIndex) {
+        System.out.print(lineSeparation);
+        System.out.println("Ok, checklist of event " + eventIndex + 1 + " has been deleted.");
+        System.out.print(lineSeparation);
+    }
+
+    public void checklistEdited(String newChecklistItem, int eventIndex) {
+        System.out.print(lineSeparation);
+        System.out.println("Ok, checklist of event " + eventIndex + 1 + " has been edited to:");
+        System.out.println(newChecklistItem);
+        System.out.print(lineSeparation);
+    }
+
+    public void checklistAdded(String newChecklistItem, int eventIndex) {
+        System.out.print(lineSeparation);
+        System.out.println("Ok, the following item has been added to checklist of event " + eventIndex + 1 + ":");
+        System.out.println(newChecklistItem);
+        System.out.print(lineSeparation);
+    }
+
+    public void printEventChecklist(ArrayList<String> thisChecklist, int eventIndex, Event eventAdded) {
+        System.out.print(lineSeparation);
+        System.out.println("Here is the checklist for the following event: ");
+        System.out.println("[" + eventAdded.getDoneSymbol() + "][" + eventAdded.getType() + "] " +
+                eventAdded.getDescription());
+        System.out.println("Checklist: ");
+        int checklistIndex = 1;
+        for (String checklistItem : thisChecklist) {
+            System.out.println(checklistIndex + ". " + checklistItem);
+            checklistIndex += 1;
+        }
+        System.out.print(lineSeparation);
     }
 }
