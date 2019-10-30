@@ -150,7 +150,9 @@ public class UI {
      * @param emailStringList list of emails in string form to be displayed
      */
     public void updateEmailList(ArrayList<String> emailStringList) {
-        mainWindow.updateEmailsList(emailStringList);
+        if (mainWindow != null) {
+            mainWindow.updateEmailsList(emailStringList);
+        }
     }
 
     /**
