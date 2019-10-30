@@ -1,7 +1,9 @@
 package entertainment.pro.logic.parsers.commands;
 
 import entertainment.pro.commons.enums.COMMANDKEYS;
+import entertainment.pro.commons.exceptions.EmptyCommandException;
 import entertainment.pro.commons.exceptions.Exceptions;
+import entertainment.pro.commons.exceptions.MissingInfoException;
 import entertainment.pro.logic.parsers.CommandParser;
 import entertainment.pro.storage.user.Blacklist;
 import entertainment.pro.storage.user.WatchlistHandler;
@@ -14,6 +16,7 @@ import entertainment.pro.model.PastCommandStructure;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.Level;
 
 public class ViewCommand extends CommandSuper {
     private Controller controller;
@@ -62,6 +65,7 @@ public class ViewCommand extends CommandSuper {
         }
     }
 
+
     private void executeBackCommands() throws Exceptions {
         PastCommandStructure pastCommandStructure =
                 ((MovieHandler) this.getUiController()).getPastCommands().getMap().get(
@@ -82,12 +86,20 @@ public class ViewCommand extends CommandSuper {
                 CommandParser.parseCommands(pastCommand, ((MovieHandler) this.getUiController()));
             } catch (IOException | Exceptions e) {
                 e.printStackTrace();
+            } catch (MissingInfoException e) {
+                e.printStackTrace();
+            } catch (EmptyCommandException e) {
+                e.printStackTrace();
             }
             //executeEntryCommands(num);
         } else {
             try {
                 CommandParser.parseCommands(command, ((MovieHandler) this.getUiController()));
             } catch (IOException e) {
+                e.printStackTrace();
+            } catch (MissingInfoException e) {
+                e.printStackTrace();
+            } catch (EmptyCommandException e) {
                 e.printStackTrace();
             }
         }

@@ -75,6 +75,7 @@ public class EditProfileJson {
 //        return mapper.readValue(inputStream, typeReference);
     }
 
+
     private void parse(String userProfileString, UserProfile userProfile) {
         JSONParser parser = new JSONParser();
         JSONObject jsonObject = new JSONObject();
