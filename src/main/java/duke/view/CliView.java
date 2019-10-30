@@ -1,11 +1,17 @@
 package duke.view;
 
+import duke.command.ExitCommand;
 import duke.parser.ParserCommand;
 import duke.models.MyTraining;
 
 import java.util.Scanner;
 
 public class CliView {
+
+    /**
+     * Represents the ExitCommand class.
+     */
+    private ExitCommand exitCommand = new ExitCommand();
 
     /**
      * Scanner object to read user input.
@@ -26,14 +32,14 @@ public class CliView {
             showMainMenu();
             final int goodBye = 4;
             if (scan.hasNextLine()) {
-                String command = scan.nextLine();
-                if (command.equals(String.valueOf(goodBye))) {
+                String input = scan.nextLine();
+                if (input.equals(String.valueOf(goodBye))) {
                     showGoodBye();
-                    System.exit(0);
-                } else if (command.equals("home")) {
+                    exitCommand.exitProgram();
+                } else if (input.equals("home")) {
                     showMainMenu();
                 } else {
-                    parser.parseCommand(command);
+                    parser.parseCommand(input);
                 }
             }
         }
