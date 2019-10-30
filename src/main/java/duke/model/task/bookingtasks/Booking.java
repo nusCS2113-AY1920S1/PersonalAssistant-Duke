@@ -53,4 +53,8 @@ public class Booking {
         return orders;
     }
 
+    public String getBookingDate() {
+        return bookingDate;
+    }
+
 }

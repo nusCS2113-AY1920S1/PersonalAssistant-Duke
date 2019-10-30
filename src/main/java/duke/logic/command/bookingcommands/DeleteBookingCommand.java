@@ -7,6 +7,7 @@ import duke.ui.Ui;
 
 import java.util.ArrayList;
 
+import static duke.common.BookingMessages.*;
 import static duke.common.Messages.ERROR_MESSAGE_INVALID_INDEX;
 import static duke.common.Messages.ERROR_MESSAGE_UNKNOWN_INDEX;
 
@@ -48,17 +49,15 @@ public class DeleteBookingCommand extends Command<BookingList, Ui, BookingStorag
     @Override
     public ArrayList<String> execute(BookingList bookingList, Ui ui, BookingStorage bookingStorage) {
         ArrayList<String> arrayList = new ArrayList<>();
-        if (userInput.trim().equals("deletebooking")) {
-            arrayList.add("Booking index cannot be empty!\n" +
-                    "       Please enter in the following format:\n" +
-                    "       deletebooking <booking_index>");
+        if (userInput.trim().equals(COMMAND_DELETE_BOOKING)) {
+            arrayList.add(ERROR_MESSAGE_EMPTY_BOOKING_INDEX);
         } else if (userInput.trim().charAt(13) == ' ') {
             String input = userInput.split("\\s",2)[1].trim();
             if (isParsable(input)) {
                 int index = Integer.parseInt(input);
                 if (index > bookingList.getSize() || index <= 0) {
                     if (bookingList.getSize() == 0) {
-                        arrayList.add("Booking list is empty.");
+                        arrayList.add(MESSAGE_EMPTY_BOOKING_LIST);
                     } else {
                         arrayList.add(ERROR_MESSAGE_INVALID_INDEX + bookingList.getSize() + ".");
                     }
@@ -68,7 +67,7 @@ public class DeleteBookingCommand extends Command<BookingList, Ui, BookingStorag
                     } else {
                         msg = " bookings in the list.";
                     }
-                    arrayList.add("     Noted. I've removed this booking:\n" + "       " + bookingList.getBookingList().get(index - 1)
+                    arrayList.add(MESSAGE_BOOKING_REMOVED + "       " + bookingList.getBookingList().get(index - 1)
                             + "\n" + "Now you have " + (bookingList.getSize() - 1) + msg);
 
                     bookingList.deleteBooking(index - 1);
@@ -79,9 +78,7 @@ public class DeleteBookingCommand extends Command<BookingList, Ui, BookingStorag
                 arrayList.add(ERROR_MESSAGE_UNKNOWN_INDEX);
             }
         } else {
-            arrayList.add("Incorrect delete booking command.\n " +
-                    "       Please enter in the following format:\n" +
-                    "       deletebooking <booking_index>");
+            arrayList.add(ERROR_MESSAGE_INVALID_DELETE_COMMAND);
         }
         return arrayList;
     }

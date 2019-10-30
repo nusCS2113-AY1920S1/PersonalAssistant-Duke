@@ -7,27 +7,42 @@ import duke.ui.Ui;
 
 import java.util.ArrayList;
 
+import static duke.common.BookingMessages.*;
+
 public class ViewOrdersCommand extends Command<BookingList, Ui, BookingStorage> {
 
     public ViewOrdersCommand(String userInput) {
         this.userInput = userInput;
     }
 
+    private static boolean isAlphabet(String input) {
+        char firstChar = input.charAt(0);
+        System.out.println(firstChar);
+        if (Character.isLetter(firstChar)) {
+            System.out.println("is a letter");
+            return true;
+        }else {
+            System.out.println("is a digit");
+            return false;
+        }
+    }
+
     @Override
     public ArrayList<String> execute(BookingList bookingList, Ui ui, BookingStorage bookingStorage) {
         ArrayList<String> arrayList = new ArrayList<>();
-        if (userInput.trim().equals("vieworders")) {
-            arrayList.add("Customer name cannot be empty!\n" +
-                    "       Please enter in the following format:\n" +
-                    "       vieworders <customer_name>");
+        if (userInput.trim().equals(COMMAND_VIEW_ORDERS)) {
+            arrayList.add(ERROR_MESSAGE_EMPTY_NAME_VIEW);
         } else if (userInput.trim().charAt(10) == ' ') {
             String customerName = userInput.split("\\s", 2)[1].trim().toLowerCase();
-            arrayList.add("     Here are your orders for: " + customerName);
-            arrayList.addAll(bookingList.viewOrders(customerName));
+            if (isAlphabet(customerName)) {
+                arrayList.add(MESSAGE_ORDERS_FOR + customerName);
+                arrayList.addAll(bookingList.viewOrders(customerName));
+            } else {
+                arrayList.add(ERROR_MESSAGE_INVALID_NAME);
+            }
+
         } else {
-            arrayList.add("Incorrect view orders command.\n " +
-                    "       Please enter in the following format:\n" +
-                    "       vieworders <customer_name>");
+            arrayList.add(ERROR_MESSAGE_INVALID_VIEWORDERS_COMMAND);
         }
         return arrayList;
     }
