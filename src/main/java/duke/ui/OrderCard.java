@@ -14,7 +14,6 @@ import javafx.scene.layout.FlowPane;
 import javafx.util.Duration;
 
 import java.util.Calendar;
-import java.util.Date;
 
 /**
  * Controller for OrderCard. An OrderCard displays an order, including its creation time, customer, items,
@@ -58,6 +57,7 @@ public class OrderCard extends UiPart<AnchorPane> {
     public OrderCard(Order order, int displayedIndex) {
         super(FXML);
 
+        //Fill order details
         id.setText(Long.toString(order.getId()));
         creationDate.setText(order.getCreationDate().toString());
         index.setText(displayedIndex + ".");
@@ -96,17 +96,6 @@ public class OrderCard extends UiPart<AnchorPane> {
         }
     }
 
-    private void updateDeadline(Order.Status status, Date deliveryDate) {
-        deadline.setText(TimeParser.convertDateToString(deliveryDate));
-        if (Order.Status.ACTIVE.equals(status) && deliveryDate.before(Calendar.getInstance().getTime())) {
-            deadline.getStyleClass().clear();
-            deadline.getStyleClass().add("deadline-overdue");
-        } else {
-            deadline.getStyleClass().clear();
-            deadline.getStyleClass().add("deadline-normal");
-        }
-    }
-
     private void initializeClock(Order order) {
         Timeline clock = new Timeline(new KeyFrame(Duration.ZERO, e -> {
             deadline.setText(TimeParser.convertDateToString(order.getDeliveryDate()));
@@ -118,7 +107,7 @@ public class OrderCard extends UiPart<AnchorPane> {
                 deadline.getStyleClass().clear();
                 deadline.getStyleClass().add("deadline-normal");
             }
-        }), new KeyFrame(javafx.util.Duration.seconds(2)));
+        }), new KeyFrame(Duration.seconds(2)));
 
         clock.setCycleCount(Animation.INDEFINITE);
         clock.play();
