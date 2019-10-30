@@ -4,8 +4,6 @@ import command.Command;
 import exception.DukeException;
 import inventory.Inventory;
 import room.RoomList;
-import storage.BookingConstants;
-import storage.Constants;
 import storage.Storage;
 import ui.Ui;
 import booking.BookingList;
@@ -46,13 +44,20 @@ public class Duke {
 
         try {
             bookingList = new BookingList(bookingStorage.load());
-            roomList = new RoomList(roomStorage.load());
-            inventory = new Inventory(inventoryStorage.load());
-
         } catch (FileNotFoundException | DukeException e) {
             ui.showLoadingError();
             bookingList = new BookingList();
+        }
+        try {
+            roomList = new RoomList(roomStorage.load());
+        } catch (FileNotFoundException e) {
+            ui.showLoadingError();
             roomList = new RoomList();
+        }
+        try {
+            inventory = new Inventory(inventoryStorage.load());
+        } catch (FileNotFoundException e) {
+            ui.showLoadingError();
             inventory = new Inventory();
         }
     }
@@ -77,5 +82,9 @@ public class Duke {
 
     public BookingList getBookingList() {
         return bookingList;
+    }
+
+    public RoomList getRoomList() {
+        return roomList;
     }
 }

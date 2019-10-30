@@ -21,7 +21,6 @@ public class Room {
      * @param dateTimeStart Available booking date and starting time of the room
      * @param dateTimeEnd Available booking date and ending time of the room
      */
-
     public Room(String roomcode, String dateTimeStart, String dateTimeEnd) {
         this.roomcode = roomcode;
         DateTimeFormatter formatterStart = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
@@ -29,6 +28,21 @@ public class Room {
         this.dateTimeStart = LocalDateTime.parse(dateTimeStart, formatterStart);
         this.date = this.dateTimeStart.toLocalDate();
         this.timeEnd = LocalTime.parse(dateTimeEnd, formatterEnd);
+    }
+
+    /**
+     * Converts text file to Room object.
+     * @param roomcode room code
+     * @param longTimeStart Available booking date and starting time of the room
+     * @param longTimeEnd Available booking date and ending time of the room
+     */
+    public Room(String roomcode, Long longTimeStart, Long longTimeEnd) {
+        this.roomcode = roomcode;
+        Date storedTimeStart = new Date(longTimeStart);
+        Date storedTimeEnd = new Date(longTimeEnd);
+        this.dateTimeStart = storedTimeStart.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+        this.date = this.dateTimeStart.toLocalDate();
+        this.timeEnd = storedTimeEnd.toInstant().atZone(ZoneId.systemDefault()).toLocalTime();
     }
 
     /**
@@ -49,7 +63,7 @@ public class Room {
         Date storeTimeStart = Date.from(dateTimeStart.atZone(ZoneId.systemDefault()).toInstant());
         Instant timeEndInstant = timeEnd.atDate(date).atZone(ZoneId.systemDefault()).toInstant();
         Date storeTimeEnd = Date.from(timeEndInstant);
-        return (this.roomcode + " | " + storeTimeStart.getTime() + " | " + storeTimeEnd.getTime() + "\n");
+        return (this.roomcode + " | " + storeTimeStart.getTime() + " | " + storeTimeEnd.getTime() + " | " + "stored\n");
     }
 
     /**

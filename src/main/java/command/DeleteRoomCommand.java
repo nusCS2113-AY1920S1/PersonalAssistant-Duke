@@ -1,4 +1,3 @@
-
 package command;
 
 import inventory.Inventory;

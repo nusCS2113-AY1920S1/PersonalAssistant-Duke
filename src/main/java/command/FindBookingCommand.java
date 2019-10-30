@@ -19,11 +19,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class FindBookingCommand extends Command {
-    private String name;
-    private String[] splitC;
-    private String roomcode;
-    private LocalDateTime dateTimeStart;
-    private String datetimeStartString;
+    private String textToFind;
 
     //@@author Alex-Teo
     /**
@@ -35,31 +31,22 @@ public class FindBookingCommand extends Command {
      */
     public FindBookingCommand(String input, String[] splitStr) throws DukeException, IOException {
         if (splitStr.length <= 1) {
-            throw new DukeException("☹ OOPS!!! Please create the booking you want to edit with the following format: "
-                    + "name, roomcode, start date and time");
+            throw new DukeException("☹ OOPS!!! Please input some keywords to search for!");
         }
-        splitC = input.split(" ", 5);
-        name = splitC[1];
-        roomcode = splitC[2];
-        datetimeStartString = splitC[3] + " " + splitC[4];
-        DateTimeFormatter formatterStart = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
-        this.dateTimeStart = LocalDateTime.parse(datetimeStartString, formatterStart);
+        textToFind = input.substring(5);
     }
 
     @Override
     public void execute(Inventory inventory, RoomList roomList, BookingList bookingList, Ui ui,
                         Storage inventoryStorage, Storage bookingstorage, Storage roomstorage, User user)
             throws DukeException, IOException, ParseException {
-        boolean valid = roomList.checkRoom(roomcode);
-        if (!valid) {
-            throw new DukeException(Constants.UNHAPPY + " OOPS!!! This room doesn't exist!");
-        }
-        for (Booking i: bookingList) {
-            if ((i.getVenue() == roomcode) && (i.getDateTimeStart() == dateTimeStart)) {
-                int entry = bookingList.indexOf(i) + 1;
-                ui.addToOutput(entry + ". " + i.toString());
-                break;
+        boolean found = false;
+        for(int i = 0; i < bookingList.size(); i++) {
+            if (bookingList.get(i).getDescription().contains(textToFind)) {
+                found = true;
+                ui.addToOutput(i + 1 + ". " + bookingList.get(i).toString());
             }
         }
+        if (!found) ui.addToOutput("No items match your search!");
     }
 }
