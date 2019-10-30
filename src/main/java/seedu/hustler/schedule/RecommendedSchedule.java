@@ -4,6 +4,7 @@ import java.util.Collections;
 import seedu.hustler.Hustler;
 import seedu.hustler.ui.Ui;
 import java.util.ArrayList;
+import seedu.hustler.logic.CommandLineException;
 
 /**
  * Extends on the Scheduler in order to provide recommendations
@@ -112,7 +113,12 @@ public class RecommendedSchedule extends Scheduler {
      *
      * @param index index of the task in the Hustler tasklist.
      */
-    public static void addFromTaskList(int index) {
+    public static void addFromTaskList(int index) throws CommandLineException{
+        for (ScheduleEntry entry : recommended) {
+            if (Hustler.list.get(index) == entry.getTask()) {
+                throw new CommandLineException("Task already present in schedule.");
+            }
+        }
         for (ScheduleEntry entry : schedule) {
             if (entry.getTask() == Hustler.list.get(index)) {
                 recommended.add(entry);

@@ -2,6 +2,7 @@ package seedu.hustler.logic.parser.anomaly;
 
 import seedu.hustler.Hustler;
 import seedu.hustler.logic.CommandLineException;
+import seedu.hustler.ui.timer.statusTypes.threadStatus;
 
 public class AddEntryAnomaly extends DetectAnomaly {
 
@@ -11,8 +12,11 @@ public class AddEntryAnomaly extends DetectAnomaly {
      * @param userInput the index issued by the user
      */
     public void detect(String[] userInput) throws CommandLineException {
-        int index = -1;
         try {
+            if (!Hustler.timermanager.isRunning()) {
+                throw new CommandLineException("Please start the time completion mode using the /timer command."); 
+            }
+            int index = -1;
             index = Integer.parseInt(userInput[1]);
             index--;
             Hustler.list.get(index);
