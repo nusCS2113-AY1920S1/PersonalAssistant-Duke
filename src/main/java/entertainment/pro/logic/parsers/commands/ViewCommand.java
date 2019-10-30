@@ -1,7 +1,9 @@
 package entertainment.pro.logic.parsers.commands;
 
 import entertainment.pro.commons.enums.COMMANDKEYS;
+import entertainment.pro.commons.exceptions.EmptyCommandException;
 import entertainment.pro.commons.exceptions.Exceptions;
+import entertainment.pro.commons.exceptions.MissingInfoException;
 import entertainment.pro.logic.parsers.CommandParser;
 import entertainment.pro.storage.user.Blacklist;
 import entertainment.pro.storage.user.WatchlistHandler;
@@ -14,6 +16,7 @@ import entertainment.pro.logic.parsers.CommandSuper;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.Level;
 
 public class ViewCommand extends CommandSuper {
     private Controller controller;
@@ -93,6 +96,5 @@ public class ViewCommand extends CommandSuper {
 //        }
 //
 //    }
-
 }
 

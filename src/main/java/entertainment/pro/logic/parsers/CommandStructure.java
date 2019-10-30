@@ -29,9 +29,9 @@ public class CommandStructure {
                 COMMANDKEYS.add, COMMANDKEYS.remove
             });
 
-            put(COMMANDKEYS.help, new COMMANDKEYS[] {
-                COMMANDKEYS.search, COMMANDKEYS.view, COMMANDKEYS.add, COMMANDKEYS.help, COMMANDKEYS.more,
-                COMMANDKEYS.yes, COMMANDKEYS.set,  COMMANDKEYS.playlist, COMMANDKEYS.yes
+            put(COMMANDKEYS.help , new COMMANDKEYS[]{
+                    COMMANDKEYS.search , COMMANDKEYS.view , COMMANDKEYS.add , COMMANDKEYS.help , COMMANDKEYS.more ,
+                    COMMANDKEYS.yes , COMMANDKEYS.set ,  COMMANDKEYS.playlist , COMMANDKEYS.me
             });
 
             put(COMMANDKEYS.yes, new COMMANDKEYS[] {
@@ -64,8 +64,19 @@ public class CommandStructure {
             });
             put(COMMANDKEYS.find, new COMMANDKEYS[] {
                 COMMANDKEYS.cinema
-            });
-        }};
+        });
+    }};
+
+
+    public static boolean hasSubRoot(COMMANDKEYS root) {
+        return CommandStructure.cmdStructure.get(root).length != 0;
+    }
+
+    public static boolean hasSubRoot(String root) {
+        return CommandStructure.cmdStructure.get(COMMANDKEYS.valueOf(root)).length != 0;
+    }
+
+
 
     public static COMMANDKEYS[] AllRoots = new COMMANDKEYS[]{
         COMMANDKEYS.search,
