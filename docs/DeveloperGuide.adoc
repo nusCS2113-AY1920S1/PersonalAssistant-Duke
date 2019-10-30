@@ -371,6 +371,8 @@ name and due date (optional)
 
 * `view reminder` -- Viewing of all reminders in current project
 
+The following sequence diagram show how `create reminder` operation works.
+
 image::images/CreateReminder_Sequence.png[]
 
 === 3.4. CRUD functionality for Task Assignments
