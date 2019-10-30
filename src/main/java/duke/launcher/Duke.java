@@ -70,6 +70,7 @@ public class Duke extends Application {
         //        schedule = new Schedule(
         //            new Storage(".\\src\\main\\java\\duke\\data\\timeslots.txt"
         //            ).loadSchedule());
+        // testing checkstyle
         plan = new MyPlan();
     }
 
