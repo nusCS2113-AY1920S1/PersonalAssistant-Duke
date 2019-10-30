@@ -47,7 +47,7 @@ public class AddOrderCommand extends AddCommand<Order> {
             Dish dish = entry.getKey();
             int amount = entry.getValue();
             order.addDish(dish, amount);
-            new AddDishCommand(dish, amount);
+            new AddDishCommand(dish);
         }
 
         orderList.addEntry(order);
