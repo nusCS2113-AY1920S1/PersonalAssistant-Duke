@@ -85,7 +85,7 @@ public class MainWindow extends UiElement<Stage> {
         commandWindowHolder.getChildren().add(commandWindow.getRoot());
 
         try {
-            HelpWindow helpWindow = new HelpWindow(storage);
+            HelpWindow helpWindow = new HelpWindow(storage, commandWindow.getInputTextField(), uiContext);
             helpWindowHolder.getChildren().add(helpWindow.getRoot());
         } catch (DukeException e) {
             print(e.getMessage());

@@ -7,6 +7,7 @@ import duke.exception.DukeException;
 import duke.ui.MessageBox;
 import javafx.fxml.FXML;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextArea;
 import javafx.scene.layout.VBox;
 
 /**
@@ -108,5 +109,9 @@ public class CommandWindow extends InputHistoryWindow {
      */
     private void printError(DukeException e) {
         print(e.getMessage());
+    }
+
+    public TextArea getInputTextField() {
+        return inputTextField;
     }
 }

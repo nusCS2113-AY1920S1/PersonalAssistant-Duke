@@ -177,6 +177,13 @@ public class GsonStorage {
     }
 
     /* @@author gowgos5 */
+    /**
+     * Loads help details from a pre-defined JSON file.
+     *
+     * @param file Relative file path.
+     * @return A list of {@code Help} objects.
+     * @throws DukeException If the data file cannot be loaded.
+     */
     public List<Help> loadHelpList(String file) throws DukeException {
         List<Help> helpList;
 

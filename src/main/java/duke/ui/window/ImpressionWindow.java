@@ -27,7 +27,7 @@ import javafx.scene.layout.Region;
 import java.util.Map;
 
 /**
- * UI window for the Patient context.
+ * UI window for the Impression context.
  */
 public class ImpressionWindow extends UiElement<Region> {
     private static final String FXML = "ImpressionWindow.fxml";
