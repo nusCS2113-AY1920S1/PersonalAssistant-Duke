@@ -17,94 +17,83 @@
     <children>
         <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="400.0" prefWidth="600.0" style="-fx-border-color: white; -fx-border-insets: 0;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <items>
-                <StackPane maxHeight="69.0" minHeight="69.0" style="-fx-background-color: white;">
+                <StackPane maxHeight="70.0" minHeight="70.0" style="-fx-background-color: white;">
                <children>
-                  <VBox prefHeight="175.0" prefWidth="100.0">
+                  <HBox StackPane.alignment="CENTER">
                      <children>
-                        <HBox>
+                        <VBox HBox.hgrow="ALWAYS">
                            <children>
-                              <StackPane />
-                              <StackPane />
-                              <StackPane />
+                              <StackPane>
+                                 <children>
+                                            <ImageView fitHeight="50.0" fitWidth="57.0" preserveRatio="true" StackPane.alignment="BOTTOM_CENTER">
+                                                <image>
+                                                    <Image url="@../images/revenue.png" />
+                                                </image>
+                                            </ImageView>
+                                 </children>
+                              </StackPane>
+                              <StackPane>
+                                 <children>
+                                          <Label fx:id="revenue" text="Revenue: $">
+                                              <font>
+                                                  <Font name="Consolas" size="14.0" />
+                                              </font>
+                                          </Label>
+                                 </children>
+                              </StackPane>
                            </children>
-                        </HBox>
-                        <HBox>
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </VBox>
+                        <Separator orientation="VERTICAL" valignment="BOTTOM" />
+                        <VBox HBox.hgrow="ALWAYS">
                            <children>
-                              <VBox HBox.hgrow="ALWAYS">
+                              <StackPane>
                                  <children>
-                                    <StackPane>
-                                       <children>
-                                                  <ImageView fitHeight="50.0" fitWidth="57.0" preserveRatio="true" StackPane.alignment="BOTTOM_CENTER">
-                                                      <image>
-                                                          <Image url="@../images/revenue.png" />
-                                                      </image>
-                                                  </ImageView>
-                                       </children>
-                                    </StackPane>
-                                    <StackPane>
-                                       <children>
-                                                <Label fx:id="revenue" text="Revenue: $">
-                                                    <font>
-                                                        <Font name="Consolas" size="14.0" />
-                                                    </font>
-                                                </Label>
-                                       </children>
-                                    </StackPane>
+                                            <ImageView fitHeight="50.0" fitWidth="50.0" preserveRatio="true" StackPane.alignment="BOTTOM_CENTER">
+                                                <image>
+                                                    <Image url="@../images/cost.png" />
+                                                </image>
+                                            </ImageView>
                                  </children>
-                                 <HBox.margin>
-                                    <Insets />
-                                 </HBox.margin>
-                              </VBox>
-                              <Separator orientation="VERTICAL" valignment="BOTTOM" />
-                              <VBox HBox.hgrow="ALWAYS">
+                              </StackPane>
+                              <StackPane>
                                  <children>
-                                    <StackPane>
-                                       <children>
-                                                  <ImageView fitHeight="50.0" fitWidth="50.0" preserveRatio="true" StackPane.alignment="BOTTOM_CENTER">
-                                                      <image>
-                                                          <Image url="@../images/cost.png" />
-                                                      </image>
-                                                  </ImageView>
-                                       </children>
-                                    </StackPane>
-                                    <StackPane>
-                                       <children>
-                                                <Label fx:id="cost" text="Cost: $">
-                                                    <font>
-                                                        <Font name="Consolas" size="14.0" />
-                                                    </font>
-                                                </Label>
-                                       </children>
-                                    </StackPane>
+                                          <Label fx:id="cost" text="Cost: $">
+                                              <font>
+                                                  <Font name="Consolas" size="14.0" />
+                                              </font>
+                                          </Label>
                                  </children>
-                              </VBox>
-                              <Separator layoutX="126.0" layoutY="10.0" orientation="VERTICAL" valignment="BOTTOM" />
-                              <VBox HBox.hgrow="ALWAYS">
-                                 <children>
-                                    <StackPane>
-                                       <children>
-                                                  <ImageView fitHeight="50.0" fitWidth="50.0" preserveRatio="true" StackPane.alignment="BOTTOM_CENTER">
-                                                      <image>
-                                                          <Image url="@../images/profit.png" />
-                                                      </image>
-                                                  </ImageView>
-                                       </children>
-                                    </StackPane>
-                                    <StackPane>
-                                       <children>
-                                                <Label fx:id="profit" text="Profit: $">
-                                                    <font>
-                                                        <Font name="Consolas" size="14.0" />
-                                                    </font>
-                                                </Label>
-                                       </children>
-                                    </StackPane>
-                                 </children>
-                              </VBox>
+                              </StackPane>
                            </children>
-                        </HBox>
+                        </VBox>
+                        <Separator layoutX="126.0" layoutY="10.0" orientation="VERTICAL" valignment="BOTTOM" />
+                        <VBox HBox.hgrow="ALWAYS">
+                           <children>
+                              <StackPane>
+                                 <children>
+                                            <ImageView fitHeight="50.0" fitWidth="50.0" preserveRatio="true" StackPane.alignment="BOTTOM_CENTER">
+                                                <image>
+                                                    <Image url="@../images/profit.png" />
+                                                </image>
+                                            </ImageView>
+                                 </children>
+                              </StackPane>
+                              <StackPane>
+                                 <children>
+                                          <Label fx:id="profit" text="Profit: $">
+                                              <font>
+                                                  <Font name="Consolas" size="14.0" />
+                                              </font>
+                                          </Label>
+                                 </children>
+                              </StackPane>
+                           </children>
+                        </VBox>
                      </children>
-                  </VBox>
+                  </HBox>
                </children>
             </StackPane>
             <StackPane>
