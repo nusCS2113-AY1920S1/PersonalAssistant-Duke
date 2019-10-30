@@ -1,6 +1,7 @@
 package duke.storage;
 
 import duke.exception.DukeException;
+import duke.list.GenericList;
 import duke.task.*;
 
 import java.io.IOException;
@@ -17,37 +18,38 @@ public class TaskStorage extends Storage<Task> {
      */
     public TaskStorage(String fp) {
         super(fp);
+        entries= new TaskList();
     }
 
     @Override
-    List<Task> generate() throws DukeException {
+    GenericList<Task> generate() throws DukeException {
         for (String next : contentSoFar) {
             //splitting each line to extract the task:
             //type - words[0], done or not - words[1], description - words[2], and more.
             String[] words = next.split("\\|");
             switch (words[0]) {
                 case "T":
-                    entries.add(new Todo(words[2]));
+                    entries.addEntry(new Todo(words[2]));
                     if (words[1].equals("1")) {
-                        entries.get(entries.size() - 1).markAsDone();
+                        entries.getEntry(entries.size() - 1).markAsDone();
                     }
                     break;
                 case "D":
-                    entries.add(new Deadline(words[2], words[3]));
+                    entries.addEntry(new Deadline(words[2], words[3]));
                     if (words[1].equals("1")) {
-                        entries.get(entries.size() - 1).markAsDone();
+                        entries.getEntry(entries.size() - 1).markAsDone();
                     }
                     break;
                 case "E":
-                    entries.add(new Event(words[2], words[3]));
+                    entries.addEntry(new Event(words[2], words[3]));
                     if (words[1].equals("1")) {
-                        entries.get(entries.size() - 1).markAsDone();
+                        entries.getEntry(entries.size() - 1).markAsDone();
                     }
                     break;
                 case "P":
-                    entries.add(new DoWithinPeriodTasks(words[2], words[3], words[4]));
+                    entries.addEntry(new DoWithinPeriodTasks(words[2], words[3], words[4]));
                     if (words[1].equals("1")) {
-                        entries.get(entries.size() - 1).markAsDone();
+                        entries.getEntry(entries.size() - 1).markAsDone();
                     }
                     break;
                 default:

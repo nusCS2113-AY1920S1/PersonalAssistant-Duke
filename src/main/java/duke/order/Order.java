@@ -4,6 +4,7 @@ import duke.dish.Dish;
 import duke.Duke;
 import duke.exception.DukeException;
 import duke.parser.Convert;
+import duke.storage.Printable;
 
 import java.time.Instant;
 import java.time.LocalDate;
@@ -13,7 +14,7 @@ import java.util.*;
 /**
  * Represents a general Order to be added by {@link Duke}.
  */
-public class Order {
+public class Order implements Printable {
     private Map<Dish, Integer> content;
     private boolean isDone;
     private Date date;
