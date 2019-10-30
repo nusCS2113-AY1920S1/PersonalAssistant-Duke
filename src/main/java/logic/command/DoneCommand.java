@@ -38,7 +38,7 @@ public class DoneCommand extends Command {
         int taskListLength = model.getTaskList().size();
         for (int i = 0; i < indexes.length; i++) {
             if (indexes[i] < 0 || indexes[i] >= taskListLength) {
-                throw new DukeException("Index " + (i + 1) + " out of range.\n Please try again.");
+                throw new DukeException("Index " + (indexes[i] + 1) + " out of range.\n Please try again.");
             }
         }
     }
