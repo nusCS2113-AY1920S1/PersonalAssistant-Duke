@@ -1,8 +1,6 @@
 package com.algosenpai.app.logic.chapters.chapter1;
 
 import com.algosenpai.app.logic.chapters.Question;
-import com.algosenpai.app.logic.models.QuestionModel;
-import com.algosenpai.app.logic.models.ReviewTracingListModel;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -14,8 +12,6 @@ public class QuickSortPivotQuestion extends Question {
     private static ArrayList<Integer> initialArray;
     // A static array container to store elements from initialArray
     private static Integer[] arr;
-    private static String question;
-    private static String answer;
 
     QuickSortPivotQuestion() {
         // Generates a size to be used for the array between 6 and 11.
@@ -31,11 +27,6 @@ public class QuickSortPivotQuestion extends Question {
         initialArray = new ArrayList<>(Arrays.asList(arr));
         questionFormatter();
         answer = quickSortPivotAnswerGenerator();
-    }
-
-    @Override
-    public QuestionModel execute() {
-        return new QuestionModel(question, answer, new ReviewTracingListModel());
     }
 
     @Override

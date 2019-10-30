@@ -1,8 +1,6 @@
 package com.algosenpai.app.logic.chapters.chapter2;
 
 import com.algosenpai.app.logic.chapters.Question;
-import com.algosenpai.app.logic.models.QuestionModel;
-import com.algosenpai.app.logic.models.ReviewTracingListModel;
 
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -10,22 +8,19 @@ import java.util.LinkedList;
 public class SingleInsertLinkedListQuestion extends Question {
 
     private static int listSize;
-    private static LinkedList<Integer> ll;
     private static int valueToAdd;
     private static String positionToAdd;
-    private static String question;
-    private static String answer;
 
     SingleInsertLinkedListQuestion() {
         //Generates a size for the linked list between 5 and 8.
         listSize = getRandomNumber(5,4);
-        //Populates the linked list with values.
-        ll = createList(listSize);
         //Decide on a value to be added between 0 and 100.
         valueToAdd = getRandomNumber(0,100);
         //Decide on the position to be added.
         positionToAdd = getPositionToAdd();
         questionFormatter();
+        //Populates the linked list with values.
+        LinkedList<Integer> ll = createList(listSize);
         question += printList(ll);
         if (positionToAdd.equals("head")) {
             ll.addFirst(valueToAdd);
@@ -33,11 +28,6 @@ public class SingleInsertLinkedListQuestion extends Question {
             ll.addLast(valueToAdd);
         }
         answer = printList(ll);
-    }
-
-    @Override
-    public QuestionModel execute() {
-        return new QuestionModel(question, answer, new ReviewTracingListModel());
     }
 
     @Override

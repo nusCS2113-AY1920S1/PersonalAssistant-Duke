@@ -1,8 +1,6 @@
 package com.algosenpai.app.logic.chapters.chapter2;
 
 import com.algosenpai.app.logic.chapters.Question;
-import com.algosenpai.app.logic.models.QuestionModel;
-import com.algosenpai.app.logic.models.ReviewTracingListModel;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -10,15 +8,13 @@ import java.util.LinkedList;
 
 public class StackPopPushQuestion extends Question {
 
-    private static String question;
-    private static String answer;
     private static int stackSize;
 
     StackPopPushQuestion() {
         // Generates a random number for the size of the stack between 4 and 8.
         stackSize = getRandomNumber(5, 5);
         // Populates the stack with numbers.
-        LinkedList<Integer> stack = createList(stackSize, 100);
+        LinkedList<Integer> stack = createList(stackSize);
         ArrayList<String> instructions = new ArrayList<>();
         // Determines the number of instructions to be carried out between 4 and 6.
         int numberOfInstructions = getRandomNumber(2, 4);
@@ -28,11 +24,6 @@ public class StackPopPushQuestion extends Question {
         question += printInstructions(instructions);
         changeStack(instructions, stack);
         answer = String.valueOf(stack.getLast());
-    }
-
-    @Override
-    public QuestionModel execute() {
-        return new QuestionModel(question, answer, new ReviewTracingListModel());
     }
 
     @Override
@@ -48,10 +39,10 @@ public class StackPopPushQuestion extends Question {
      * @param size The number of elements to be in the Linked List.
      * @return The Linked List data structure to be used for the question.
      */
-    private static LinkedList<Integer> createList(int size, int bound) {
+    private static LinkedList<Integer> createList(int size) {
         HashSet<Integer> set = new HashSet<>();
         while (set.size() != size) {
-            int value = getRandomNumber(0, bound);
+            int value = getRandomNumber(0, 100);
             set.add(value);
         }
         return new LinkedList<>(set);

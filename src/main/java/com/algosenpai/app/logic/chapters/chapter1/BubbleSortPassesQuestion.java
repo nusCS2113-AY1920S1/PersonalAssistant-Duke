@@ -13,9 +13,7 @@ public class BubbleSortPassesQuestion extends Question {
     private static int arraySize;
     // The array in the question.
     private static ArrayList<Integer> initialArray;
-    private static String question;
     private static int passes;
-    private static String answer;
 
     BubbleSortPassesQuestion() {
         // Determines a random size for the array between 5 and 9.
@@ -27,11 +25,6 @@ public class BubbleSortPassesQuestion extends Question {
         questionFormatter();
         bubbleSort(initialArray, passes);
         answer = initialArray.toString();
-    }
-
-    @Override
-    public QuestionModel execute() {
-        return new QuestionModel(question, answer, new ReviewTracingListModel());
     }
 
     @Override

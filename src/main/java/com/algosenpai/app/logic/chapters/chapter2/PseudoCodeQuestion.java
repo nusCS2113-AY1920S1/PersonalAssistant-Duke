@@ -1,8 +1,6 @@
 package com.algosenpai.app.logic.chapters.chapter2;
 
 import com.algosenpai.app.logic.chapters.Question;
-import com.algosenpai.app.logic.models.QuestionModel;
-import com.algosenpai.app.logic.models.ReviewTracingListModel;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -10,8 +8,6 @@ import java.util.LinkedList;
 
 public class PseudoCodeQuestion extends Question {
 
-    private static String question;
-    private static String answer;
     private static ArrayList<Integer> array;
 
     PseudoCodeQuestion() {
@@ -24,11 +20,6 @@ public class PseudoCodeQuestion extends Question {
         generatePseudoCode(pseudoCode);
         question += printPseudoCode(pseudoCode);
         answer = calculateSum(array, pseudoCode);
-    }
-
-    @Override
-    public QuestionModel execute() {
-        return new QuestionModel(question, answer, new ReviewTracingListModel());
     }
 
     @Override

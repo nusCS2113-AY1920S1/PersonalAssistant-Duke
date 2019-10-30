@@ -1,8 +1,6 @@
 package com.algosenpai.app.logic.chapters.chapter1;
 
 import com.algosenpai.app.logic.chapters.Question;
-import com.algosenpai.app.logic.models.QuestionModel;
-import com.algosenpai.app.logic.models.ReviewTracingListModel;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -11,9 +9,7 @@ public class InsertionSortSwapQuestion extends Question {
 
     private static int arraySize;
     private static ArrayList<Integer> initialArray;
-    private static String question;
     private static int swaps;
-    private static String answer;
 
     InsertionSortSwapQuestion() {
         // Generates a size to be used for the array between 4 and 8.
@@ -26,11 +22,6 @@ public class InsertionSortSwapQuestion extends Question {
         questionFormatter();
         insertionSort(initialArray, swaps);
         answer = initialArray.toString();
-    }
-
-    @Override
-    public QuestionModel execute() {
-        return new QuestionModel(question, answer, new ReviewTracingListModel());
     }
 
     @Override

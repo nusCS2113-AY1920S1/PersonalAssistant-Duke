@@ -1,8 +1,6 @@
 package com.algosenpai.app.logic.chapters.chapter2;
 
 import com.algosenpai.app.logic.chapters.Question;
-import com.algosenpai.app.logic.models.QuestionModel;
-import com.algosenpai.app.logic.models.ReviewTracingListModel;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -11,8 +9,6 @@ import java.util.LinkedList;
 public class QueuePopPushQuestion extends Question {
 
     private static int queueSize;
-    private static String question;
-    private static String answer;
 
     QueuePopPushQuestion() {
         //Generates a size for the queue between 4 and 8.
@@ -31,11 +27,6 @@ public class QueuePopPushQuestion extends Question {
         //Updates the queue according to the question.
         changeQueue(instructions, queue);
         answer = String.valueOf(queue.getLast());
-    }
-
-    @Override
-    public QuestionModel execute() {
-        return new QuestionModel(question, answer, new ReviewTracingListModel());
     }
 
     @Override
