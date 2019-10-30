@@ -305,9 +305,8 @@ public class Storage {
      * Read from the file CAP.txt and put the details into a HashMap
      *
      * @return Returns the HashMap of contacts, key is the contact name and the value is the phone number
-     * @throws IOException catch the error if the read file fails.
      */
-    public HashMap<String, ArrayList<CAPCommand>> readFromCAPFile() throws IOException {
+    public HashMap<String, ArrayList<CAPCommand>> readFromCAPFile() {
         HashMap<String, ArrayList<CAPCommand>> CAPList = new HashMap<String, ArrayList<CAPCommand>>();
         InputStream inputStream = Storage.class.getResourceAsStream(absolutePath_CAP);
             Scanner sc = new Scanner(inputStream);

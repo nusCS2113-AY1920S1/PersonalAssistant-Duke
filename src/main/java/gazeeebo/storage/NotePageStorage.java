@@ -12,17 +12,19 @@ import java.util.Scanner;
 
 public class NotePageStorage {
     public static void writeToGoalFile() throws IOException {
-        FileWriter file = new FileWriter("/goal.txt");
+        FileWriter file = new FileWriter(NotePageStorage.class.getResource("/goal.txt").getPath());
         file.write(GeneralNotePage.goal);
         file.close();
     }
 
-    public static void readFromGoalFile() {
+    public static void readFromGoalFile() throws IOException {
         InputStream inputStream = NoteStorage.class.getResourceAsStream("/goal.txt");
         Scanner txtFile = new Scanner(inputStream);
         if (txtFile.hasNextLine()) {
             GeneralNotePage.goal = txtFile.nextLine();
         }
+        inputStream.close();
+        txtFile.close();
     }
 
     public static void writeToModulesFile() throws IOException {
