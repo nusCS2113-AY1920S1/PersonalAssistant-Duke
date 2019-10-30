@@ -33,72 +33,48 @@ public class MainWindow extends AnchorPane{
     private TextArea console;
     @FXML
     private static PrintStream ps;
-
     @FXML
     private Button sendButton;
-
     @FXML
     private Button task;
-
     @FXML
     private Button taskCompletionMode;
-
     @FXML
     private Button achievement;
-
     @FXML
     private Button statistics;
-
     @FXML
     private Button avatar;
-
     @FXML
     private Button shop;
-
     @FXML
     private Button arena;
-
-//    @FXML
-//    private Button settings;
-
     @FXML
     private ImageView menu;
-
     @FXML
     private ImageView timer;
-
     @FXML
     private ImageView trophy;
-
     @FXML
     private ImageView spiderGraph;
-
     @FXML
     private ImageView profile;
-
     @FXML
     private ImageView trolley;
-
     @FXML
     private ImageView swords;
-
-
     @FXML
     private AnchorPane rootPane;
-
     @FXML
     private FlowPane welcomeScreen;
-
-    private Hustler hustler;
-
     @FXML
     private FlowPane flowPane = new FlowPane();
-
     @FXML
     private ScrollPane scrollPANEE;
-
     @FXML
     private FlowPane heading;
+
+    private Hustler hustler;
 
     /**
      * Initializes essential components to run Hustler.
@@ -174,31 +150,18 @@ public class MainWindow extends AnchorPane{
      * Handles operations after each user's input.
      */
     @FXML
-    public void handleUserInput() throws IOException{
-
-        if (!userInput.getText().isEmpty()) {
+    public void handleUserInput() {
+        String input = userInput.getText();
+        if (!input.isBlank()) {
             removeWelcome();
             sendClicked();
             flowPane.setStyle("-fx-background-color:#ffffff");
-            String input = userInput.getText();
-            String token[] = input.split(" ");
-//            if (input.equals("/achievement")) {
-//                achievementAction();
-//            } else {
-//                Hustler.run(input);
-//                scrollPANEE.setContent(console);
-//                console.prefHeightProperty().bind(scrollPANEE.heightProperty());
-//                rootPane.getChildren().remove(pointBar);
-//                rootPane.getChildren().remove(medal);
-//                rootPane.getChildren().remove(pointLabel);
-//                pointGrid.getChildren().remove(points);
-//                rootPane.getChildren().remove(pointGrid);
-//            }
-            if(userInput.equals("/achievements")) {
+            //console.clear();
+            if (input.equals("/achievements")) {
                 achievementAction();
-            } else if(userInput.equals("/avatar")) {
+            } else if (input.equals("/avatar")) {
                 avatarAction();
-            } else if(userInput.equals("list")) {
+            } else if(input.equals("/list")) {
                 taskAction();
             } else {
                 Hustler.run(input);
@@ -229,7 +192,7 @@ public class MainWindow extends AnchorPane{
     }
 
     @FXML
-    public void taskAction() throws IOException{
+    public void taskAction() {
         heading.getChildren().clear();
         Text title1 = new Text("TASKS");
         title1.setFont(Font.font("Gill Sans", 15));
@@ -241,109 +204,7 @@ public class MainWindow extends AnchorPane{
         titlePane.getChildren().addAll(title1);
         heading.getChildren().addAll(titlePane);
 
-        //Hustler.run(userInput.getText());
-//        flowPane.getChildren().clear();
-//        flowPane.setStyle("-fx-background-color:#ffffff");
-//
-//        Rectangle whiteSpace0 = new Rectangle();
-//        whiteSpace0.setOpacity(0.0);
-//        whiteSpace0.setHeight(10);
-//        whiteSpace0.widthProperty().bind(scrollPANEE.widthProperty());
-//        flowPane.getChildren().add(whiteSpace0);
-//
-//
-//        Image dateTimeIcon = new Image(new FileInputStream("src/main/resources/images/datetime.png"));
-//
-//
-//        flowPane.setVgap(10);
-//        for(int i = 0; i < Hustler.list.size(); i += 1) {
-//            ImageView imageView = new ImageView();
-//            imageView.setImage(dateTimeIcon);
-//            imageView.setFitHeight(10);
-//            imageView.setFitWidth(10);
-//            StackPane stackPane = new StackPane();
-//            Rectangle rect = new Rectangle();
-//
-//            Text text = new Text(i + 1 + ". " + Hustler.list.get(i).getDescription());
-//            text.setFont(Font.font("Gill Sans", 20));
-//            text.setFill(Color.WHITE);
-//            rect.setOpacity(0.3);
-//            rect.setHeight(50);
-//            rect.widthProperty().bind(scrollPANEE.widthProperty());
-//            rect.setArcHeight(30.0);
-//            rect.setArcWidth(30.0);
-//            rect.setStyle("#ffffff");
-//
-//            stackPane.setMargin(text,new Insets(0,0,3,50));
-//            stackPane.setAlignment(text,Pos.CENTER_LEFT);
-//
-//            Image notDoneCheck = new Image(new FileInputStream("src/main/resources/images/notDone.png"));
-//            ImageView notdoneCheckImage = new ImageView();
-//            notdoneCheckImage.setFitHeight(20);
-//            notdoneCheckImage.setFitWidth(20);
-//            notdoneCheckImage.setImage(notDoneCheck);
-//
-//
-//            Image doneCheck = new Image(new FileInputStream("src/main/resources/images/done.png"));
-//            ImageView doneCheckImage = new ImageView();
-//            doneCheckImage.setFitHeight(25);
-//            doneCheckImage.setFitWidth(30);
-//            doneCheckImage.setImage(doneCheck);
-//
-//            Button doneButton = new Button();
-//            doneButton.setGraphic(notdoneCheckImage);
-//            doneButton.setBackground(Background.EMPTY);
-//            stackPane.setAlignment(doneButton,Pos.CENTER_LEFT);
-//            stackPane.setMargin(doneButton, new Insets(0,0,0,10));
-//
-//            if(Hustler.list.get(i).getStatusIcon().contains("\u2713")) {
-//                doneButton.setGraphic(doneCheckImage);
-//                stackPane.setMargin(doneButton, new Insets(0,0,0,5));
-//                text.setStrikethrough(true);
-//                text.setOpacity(0.5);
-//            }
-//            if(Hustler.list.get(i).getDateTime() == null) {
-//                stackPane.getChildren().addAll(rect, text,doneButton);
-//                flowPane.getChildren().add(stackPane);
-//            }
-//            else if(Hustler.list.get(i).getDateTime() != null) {
-//                Text dateTime = new Text(DateTimeParser.convertDateTime(Hustler.list.get(i).getDateTime()));
-//                stackPane.setMargin(dateTime, new Insets(0,0,3,70));
-//                stackPane.setAlignment(dateTime,Pos.BOTTOM_LEFT);
-//                stackPane.setMargin(imageView, new Insets(0,0,3,53));
-//                stackPane.setAlignment(imageView,Pos.BOTTOM_LEFT);
-//
-//                dateTime.setFont(Font.font("Gill Sans", 10));
-//                ColorAdjust colorAdjust = new ColorAdjust();
-//                if(Reminders.checkOverdue(i)) {
-//                    colorAdjust.setContrast(0.12);
-//                    colorAdjust.setHue(-0.02);
-//                    colorAdjust.setSaturation(0.81);
-//                    imageView.setEffect(colorAdjust);
-//                    dateTime.setFill(Color.RED);
-//                } else if(Reminders.checkThirty(i)) {
-//                    colorAdjust.setContrast(0.12);
-//                    colorAdjust.setHue(0.2);
-//                    colorAdjust.setSaturation(0.81);
-//                    imageView.setEffect(colorAdjust);
-//                    dateTime.setFill(Color.ORANGE);
-//                } else if(Reminders.checkLastDay(i)) {
-//                    colorAdjust.setContrast(0.14);
-//                    colorAdjust.setHue(0.33);
-//                    colorAdjust.setSaturation(0.81);
-//                    imageView.setEffect(colorAdjust);
-//                    dateTime.setFill(Color.YELLOW);
-//                } else {
-//                    dateTime.setFill(Color.WHITE);
-//                }
-//                stackPane.getChildren().addAll(rect, text, dateTime,imageView, doneButton);
-//                flowPane.getChildren().add(stackPane);
-//            }
-//        }
-//
-//        flowPane.prefWidthProperty().bind(scrollPANEE.widthProperty());
-//        scrollPANEE.setContent(flowPane);
-
+        Hustler.run(userInput.getText());
 
         ColorAdjust color = new ColorAdjust();
         color.setContrast(0.35);
@@ -439,15 +300,7 @@ public class MainWindow extends AnchorPane{
     }
 
     @FXML
-    public void achievementAction() throws IOException {
-
-
-//        rootPane.getChildren().add(pointBar);
-//        rootPane.getChildren().add(medal);
-//        rootPane.getChildren().add(pointLabel);
-//        points.setText(Integer.toString(Achievements.totalPoints));
-//        pointGrid.getChildren().add(points);
-//        rootPane.getChildren().add(pointGrid);
+    public void achievementAction() {
         heading.getChildren().clear();
         Text title1 = new Text("ACHIEVEMENTS");
         title1.setFont(Font.font("Gill Sans", 15));
@@ -457,112 +310,6 @@ public class MainWindow extends AnchorPane{
         titlePane.prefHeightProperty().bind(heading.prefHeightProperty());
         titlePane.prefWidthProperty().bind(heading.widthProperty());
         titlePane.getChildren().addAll(title1);
-        heading.getChildren().addAll(titlePane);
-//
-//
-//
-//        Image lock = new Image(new FileInputStream("src/main/resources/images/locked_padlock.png"));
-//        flowPane.setStyle("-fx-background-color:#ffffff");
-//        flowPane.getChildren().clear();
-//        Hustler.run("/achievement");
-//
-//        flowPane.setVgap(10);
-//
-//        Rectangle whiteSpace0 = new Rectangle();
-//        whiteSpace0.setOpacity(0.0);
-//        whiteSpace0.setHeight(10);
-//        whiteSpace0.widthProperty().bind(scrollPANEE.widthProperty());
-//        flowPane.getChildren().add(whiteSpace0);
-//
-//        StackPane SP = new StackPane();
-//        Rectangle R = new Rectangle();
-//        Text T = new Text("ACHIEVEMENTS UNLOCKED");
-//        T.setFont(Font.font("Gill Sans", 20));
-//        T.setFill(Color.WHITE);
-//        R.setOpacity(0.3);
-//        R.setHeight(30);
-//
-//        R.widthProperty().bind(scrollPANEE.widthProperty());
-//        R.setArcHeight(30.0);
-//        R.setArcWidth(30.0);
-//        R.setStyle("#ffffff");
-//
-//
-//        SP.setAlignment(T,Pos.CENTER);
-//        SP.getChildren().addAll(R,T);
-//        flowPane.getChildren().add(SP);
-//
-//        for(int i = 0; i < Hustler.achievementList.size(); i += 1) {
-//            if(!Hustler.achievementList.get(i).checkLock()) {
-//                StackPane stackPane = new StackPane();
-//                Rectangle rect = new Rectangle();
-//                Text text = new Text(Hustler.achievementList.get(i).toString());
-//                text.setFont(Font.font("Gill Sans", 20));
-//                text.setFill(Color.WHITE);
-//                rect.setOpacity(0.3);
-//                rect.setHeight(50);
-//                rect.widthProperty().bind(scrollPANEE.widthProperty());
-//                rect.setArcHeight(30.0);
-//                rect.setArcWidth(30.0);
-//                rect.setStyle("#ffffff");
-//                stackPane.setMargin(text,new Insets(0,0,0,50));
-//                stackPane.setAlignment(text,Pos.CENTER_LEFT);
-//                stackPane.getChildren().addAll(rect, text);
-//                flowPane.getChildren().add(stackPane);
-//            }
-//        }
-//        Rectangle whiteSpace1 = new Rectangle();
-//        whiteSpace1.setOpacity(0.0);
-//        whiteSpace1.setHeight(10);
-//        whiteSpace1.widthProperty().bind(scrollPANEE.widthProperty());
-//        flowPane.getChildren().add(whiteSpace1);
-//
-//        StackPane StackPanel = new StackPane();
-//        Rectangle Rec = new Rectangle();
-//        Text Txt = new Text("ACHIEVEMENTS LOCKED");
-//        Txt.setFont(Font.font("Gill Sans", 20));
-//        Txt.setFill(Color.WHITE);
-//        Rec.setOpacity(0.3);
-//        Rec.setHeight(50);
-//        Rec.widthProperty().bind(scrollPANEE.widthProperty());
-//        Rec.setArcHeight(30.0);
-//        Rec.setArcWidth(30.0);
-//        Rec.setStyle("#ffffff");
-//        StackPanel.setAlignment(Txt,Pos.CENTER);
-//        StackPanel.getChildren().addAll(Rec,Txt);
-//        flowPane.getChildren().add(StackPanel);
-//
-//        for(int i = 0; i < Hustler.achievementList.size(); i += 1) {
-//            if(Hustler.achievementList.get(i).checkLock()) {
-//                ImageView imageview = new ImageView();
-//                imageview.setImage(lock);
-//                imageview.setFitHeight(30);
-//                imageview.setFitWidth(30);
-//                imageview.setOpacity(0.3);
-//                StackPane stackPane = new StackPane();
-//                Rectangle rect = new Rectangle();
-//                Text text = new Text(Hustler.achievementList.get(i).toString());
-//                text.setFont(Font.font("Gill Sans", 20));
-//                text.setStyle("-fx-fill: white");
-//                text.setOpacity(0.3);
-//                rect.setOpacity(0.3);
-//                rect.setHeight(50);
-//                rect.widthProperty().bind(flowPane.widthProperty());
-//                rect.setArcHeight(30.0);
-//                rect.setArcWidth(30.0);
-//                rect.setStyle("#ffffff");
-//                stackPane.setMargin(text,new Insets(0,0,0,80));
-//                stackPane.setAlignment(text, Pos.CENTER_LEFT);
-//                stackPane.setMargin(imageview, new Insets(0,0,0,30));
-//                stackPane.setAlignment(imageview,Pos.CENTER_LEFT);
-//                stackPane.getChildren().addAll(rect,text,imageview);
-//                flowPane.getChildren().addAll(stackPane);
-//            }
-//
-//        }
-
-//        flowPane.prefWidthProperty().bind(scrollPANEE.widthProperty());
-//        scrollPANEE.setContent(flowPane);
 
         ColorAdjust color = new ColorAdjust();
         color.setContrast(0.35);
@@ -783,7 +530,6 @@ public class MainWindow extends AnchorPane{
         titlePane.getChildren().addAll(title1);
         heading.getChildren().addAll(titlePane);
 
-
         flowPane.setStyle("-fx-background-color:#ffffff");
         flowPane.getChildren().clear();
 
@@ -819,60 +565,4 @@ public class MainWindow extends AnchorPane{
         arena.textFillProperty().setValue(Paint.valueOf("#ffffff"));
         //settings.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
     }
-
-//    @FXML
-//    public void settingsAction() {
-//        rootPane.getChildren().remove(pointBar);
-//        rootPane.getChildren().remove(medal);
-//        rootPane.getChildren().remove(pointLabel);
-//        pointGrid.getChildren().remove(points);
-//        rootPane.getChildren().remove(pointGrid);
-//        heading.getChildren().clear();
-//        Text title1 = new Text("SETTINGS");
-//        title1.setFont(Font.font("Gill Sans", 15));
-//        title1.setFill(Color.GRAY);
-//        StackPane titlePane = new StackPane();
-//        titlePane.setAlignment(title1, Pos.CENTER);
-//        titlePane.prefHeightProperty().bind(heading.prefHeightProperty());
-//        titlePane.prefWidthProperty().bind(heading.widthProperty());
-//        titlePane.getChildren().addAll(title1);
-//        heading.getChildren().addAll(titlePane);
-//
-//        flowPane.setStyle("-fx-background-color:#ffffff");
-//        flowPane.getChildren().clear();
-//
-//        ColorAdjust color = new ColorAdjust();
-//        color.setContrast(0.35);
-//        color.setHue(-0.21);
-//        color.setBrightness(0.09);
-//        color.setSaturation(1.0);
-//
-//        menu.setEffect(null);
-//        timer.setEffect(null);
-//        trophy.setEffect(null);
-//        spiderGraph.setEffect(null);
-//        profile.setEffect(null);
-//        trolley.setEffect(null);
-//        swords.setEffect(null);
-//        gear.setEffect(color);
-//
-//
-//        task.setStyle("-fx-background-color:#34495E");
-//        taskCompletionMode.setStyle("-fx-background-color:#34495E");
-//        achievement.setStyle("-fx-background-color:#34495E");
-//        statistics.setStyle("-fx-background-color:#34495E");
-//        avatar.setStyle("-fx-background-color:#34495E");
-//        shop.setStyle("-fx-background-color:#34495E");
-//        arena.setStyle("-fx-background-color:#34495E");
-//        settings.setStyle("-fx-background-color:#243342");
-//
-//        achievement.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
-//        task.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
-//        taskCompletionMode.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
-//        statistics.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
-//        avatar.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
-//        shop.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
-//        arena.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
-//        settings.textFillProperty().setValue(Paint.valueOf("#ffffff"));
-//    }
 }
