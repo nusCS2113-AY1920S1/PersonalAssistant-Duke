@@ -240,7 +240,7 @@ Brings up the achievement page that shows the user the lists of achievements tha
 
 === 3B.6 Avatar : `/avatar` +
 
-This command will show user all information related to 
+This command shows the user all information related to his/ her avatar, from level and experience to stats. Additionally, this command also shows the weapon and armor equipped, if any.
 
 == 4. FAQ
 
@@ -265,4 +265,5 @@ This command will show user all information related to
 * *Sort*: `/sort SORTTYPE` +
   e.g. `/sort priority` `/sort normal` `/sort datetime`
 * *Achievements*: `/achievements`
+* *Avatar*: `/avatar`
 * *Bye*: `/bye`
