@@ -1,11 +1,12 @@
 import duke.command.ByeCommand;
 import duke.command.Command;
-import duke.command.home.HomeNewCommand;
 import duke.command.Parser;
+import duke.command.home.HomeNewCommand;
 import duke.exception.DukeException;
 import duke.ui.context.UiContext;
 import mocks.DoctorCommand;
 import mocks.TestCommands;
+import mocks.ValidEmptyCommand;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -23,7 +24,7 @@ public class ParserTest {
         Parser actualParser = new Parser(new UiContext());
         try {
             assertEquals(ByeCommand.class, actualParser.parse("bye").getClass());
-            assertEquals(actualParser.parse("new -n Hello -b 100 -a world").getClass(),
+            assertEquals(actualParser.parse("new Hello -b 100 -a world").getClass(),
                     HomeNewCommand.class);
         } catch (DukeException excp) {
             fail("Exception thrown while extracting valid commands!");
@@ -44,22 +45,9 @@ public class ParserTest {
     }
 
     @Test
-    public void parseCommands_differentOrder_argumentsExtracted() {
-        try {
-            Command testCmd = uut.parse("doctor -switch World -optswitch Optional Hello");
-            DoctorCommand docCmd = (DoctorCommand) testCmd;
-            assertEquals("Hello", docCmd.getArg());
-            assertEquals("World", docCmd.getSwitchVal("switch"));
-            assertEquals("Optional", docCmd.getSwitchVal("optswitch"));
-        } catch (DukeException excp) {
-            fail("Exception thrown while extracting arguments in different order!");
-        }
-    }
-
-    @Test
     public void parseCommands_optionalOmitted_argumentsExtracted() {
         try {
-            Command testCmd = uut.parse("doctor -switch World Hello");
+            Command testCmd = uut.parse("doctor Hello -switch World");
             DoctorCommand docCmd = (DoctorCommand) testCmd;
             assertEquals("Hello", docCmd.getArg());
             assertEquals("World", docCmd.getSwitchVal("switch"));
@@ -71,12 +59,22 @@ public class ParserTest {
     @Test
     public void parseCommands_stringsAndEscapes_argumentsExtracted() {
         try {
-            Command testCmd = uut.parse("doctor \"Hello\\\\World\" -switch \"double \\\" quote\"");
+            Command testCmd = uut.parse("doctor Hello\\\\World -switch double \\\" quote");
             DoctorCommand docCmd = (DoctorCommand) testCmd;
             assertEquals("Hello\\World", docCmd.getArg());
             assertEquals("double \" quote", docCmd.getSwitchVal("switch"));
         } catch (DukeException excp) {
             fail("Exception thrown when parsing strings and escapes!");
+        }
+    }
+
+    @Test
+    public void parseCommands_validEmptyCommand_errorNotThrown() {
+        try {
+            Command testCmd = uut.parse("empty");
+            assertEquals(ValidEmptyCommand.class, testCmd.getClass());
+        } catch (DukeException excp) {
+            fail("Exception thrown when parsing valid empty command!");
         }
     }
 }
