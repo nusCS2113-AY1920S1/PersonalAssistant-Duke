@@ -241,7 +241,7 @@ public class MainWindow extends AnchorPane{
         titlePane.getChildren().addAll(title1);
         heading.getChildren().addAll(titlePane);
 
-        Hustler.run(userInput.getText());
+        //Hustler.run(userInput.getText());
 //        flowPane.getChildren().clear();
 //        flowPane.setStyle("-fx-background-color:#ffffff");
 //
@@ -376,7 +376,7 @@ public class MainWindow extends AnchorPane{
         arena.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
        // settings.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
         ps = new PrintStream(new Console(console));
-
+        Hustler.run("/list");
         console.clear();
         scrollPANEE.setContent(console);
     }
@@ -435,7 +435,6 @@ public class MainWindow extends AnchorPane{
 
         ps = new PrintStream(new Console(console));
         console.clear();
-        Hustler.run("/list");
         scrollPANEE.setContent(console);
     }
 
