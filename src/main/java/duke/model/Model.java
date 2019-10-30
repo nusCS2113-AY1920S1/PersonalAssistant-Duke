@@ -59,7 +59,7 @@ public interface Model {
     String undo();
 
     /**
-     * Restores the address book to its previously undone state.
+     * Restores BakingHome to its previously undone state.
      * @return the commit message of the previous state.
      */
     String redo();
@@ -325,6 +325,8 @@ public interface Model {
      * @param emptyList an empty list
      */
     void clearShoppingList(List<Item<Ingredient>> emptyList);
+
+    Double computeTotalCost(ArrayList<Item<Ingredient>> ingredientList);
 
     //=========Shortcut operations=======
 

@@ -4,6 +4,7 @@ import duke.commons.core.Message;
 import duke.commons.core.index.Index;
 import duke.logic.command.CommandResult;
 import duke.logic.command.exceptions.CommandException;
+import duke.logic.message.InventoryMessageUtils;
 import duke.model.Model;
 import duke.model.commons.Item;
 import duke.model.inventory.Ingredient;
@@ -15,7 +16,6 @@ import static java.util.Objects.requireNonNull;
 public class DeleteInventoryCommand extends InventoryCommand {
 
     public static final String COMMAND_WORD = "remove";
-    public static final String MESSAGE_SUCCESS = "%s is removed from the inventory list";
 
     private final Index index;
 
@@ -37,8 +37,10 @@ public class DeleteInventoryCommand extends InventoryCommand {
         Item<Ingredient> toDelete = inventoryList.get(index.getZeroBased());
 
         model.deleteInventory(toDelete);
+        model.commit(InventoryMessageUtils.MESSAGE_COMMIT_REMOVE_INVENTORY);
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toDelete.getItem().getName()),
+        return new CommandResult(String.format(InventoryMessageUtils.MESSAGE_SUCCESS_REMOVE_INVENTORY,
+                toDelete.getItem().getName()),
                 CommandResult.DisplayedPage.INVENTORY);
     }
 }
