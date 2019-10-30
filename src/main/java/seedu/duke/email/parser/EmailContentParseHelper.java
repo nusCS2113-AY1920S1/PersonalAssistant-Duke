@@ -85,11 +85,14 @@ public class EmailContentParseHelper {
         int occurrence = 0;
         for (int i = 0; i < keywordPair.getExpressions().size(); i++) {
             String expression = keywordPair.getExpressions().get(i);
-            Pattern expressionPattern = Pattern.compile("(^|.*\\W)" + expression + "(\\W.*|$)",
+            String processedInput = input;
+            Pattern expressionPattern = Pattern.compile("(^|\\W)" + expression + "(\\W|$)",
                     Pattern.CASE_INSENSITIVE);
-            Matcher expressionMatcher = expressionPattern.matcher(input);
+            Matcher expressionMatcher = expressionPattern.matcher(processedInput);
             while (expressionMatcher.find()) {
                 occurrence++;
+                processedInput = expressionMatcher.replaceFirst(" ");
+                expressionMatcher = expressionPattern.matcher(processedInput);
             }
         }
         return occurrence;

@@ -48,9 +48,11 @@ public class SimpleServer {
     }
 
     public static void stopServer() {
-        System.out.println("server stopping...");
-        server.stop(1);
-        httpThreadPool.shutdown();
+        if (server != null) {
+            System.out.println("server stopping...");
+            server.stop(1);
+            httpThreadPool.shutdown();
+        }
     }
 
     public static int getPort() {

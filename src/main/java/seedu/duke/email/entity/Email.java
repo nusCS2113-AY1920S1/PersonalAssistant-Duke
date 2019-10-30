@@ -195,11 +195,17 @@ public class Email {
     private String addHighlightToExpressions(String emailContent, ArrayList<String> expressions) {
         String content = emailContent;
         for (String expression : expressions) {
-            //UI.getInstance().showDebug(expression);
-            Pattern colorPattern = Pattern.compile("(" + expression + ")", Pattern.CASE_INSENSITIVE);
+            Pattern colorPattern = Pattern.compile("(^|\\W)(?!<mark style=\"color:black;"
+                            + "background-color:yellow\">)(" + expression + ")(?!</mark>)(\\W|$)",
+                    Pattern.CASE_INSENSITIVE);
             Matcher colorMatcher = colorPattern.matcher(content);
-            content = colorMatcher.replaceAll("<mark style=\"color:black;background-color:yellow\">"
-                    + expression + "</mark>");
+            while (colorMatcher.find()) {
+                content = colorMatcher.replaceFirst("$1<mark style=\"color:black;background-color:yellow\">"
+                        + expression + "</mark>$3");
+                colorMatcher = colorPattern.matcher(content);
+            }
+            //content = colorMatcher.replaceAll("$1<mark style=\"color:black;background-color:yellow\">"
+            //        + expression + "</mark>$3");
         }
         return content;
     }
