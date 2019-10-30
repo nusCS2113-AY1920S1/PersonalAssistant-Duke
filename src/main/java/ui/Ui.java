@@ -3,6 +3,7 @@ package ui;
 import booking.Booking;
 import booking.BookingList;
 import control.Duke;
+import exception.DukeException;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -11,6 +12,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import room.Room;
+import room.RoomList;
 
 /**
  * Controller for ui.MainWindow. Provides the layout for the other controls.
@@ -40,9 +43,8 @@ public class Ui extends AnchorPane {
      * Do on application start. Prints a welcome message.
      */
     @FXML
-    public void initialize() {
+    public void initialize() throws DukeException {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
-        scrollPane2.vvalueProperty().bind(listContainer.heightProperty());
 
         dialogContainer.getChildren().addAll(
                 DialogBox.getDukeDialog(showWelcome(), dukeImage)
@@ -58,7 +60,7 @@ public class Ui extends AnchorPane {
      * appends them to the dialog container. Clears the user input after processing.
      */
     @FXML
-    private void handleUserInput() {
+    private void handleUserInput() throws DukeException {
         String input = userInput.getText();
         String response = duke.getResponse(input);
         dialogContainer.getChildren().addAll(
@@ -66,14 +68,31 @@ public class Ui extends AnchorPane {
                 DialogBox.getDukeDialog(response, dukeImage)
         );
         userInput.clear();
-        if (input.equals("list")) {
+        switch (input) {
+        case "list":
             listContainer.getChildren().clear();
             BookingList bookingList = duke.getBookingList();
             showList(bookingList);
+            break;
+        case "listroom":
+            listContainer.getChildren().clear();
+            RoomList roomList = duke.getRoomList();
+            showRoomList(roomList);
+            break;
         }
     }
 
-    private void showList(BookingList bookingList) {
+    private void showRoomList(RoomList roomList) throws DukeException {
+        addToList(new RoomListBox("S/N", "Room Code", "Date", "From", "To"));
+        Integer index = 1;
+        for (Room i : roomList) {
+            addToList(new RoomListBox(index.toString(), i.getRoomcode(), i.getDateStart().toString(),
+                    i.getTimeStart().toString(), i.getTimeEnd().toString()));
+            index++;
+        }
+    }
+
+    private void showList(BookingList bookingList) throws DukeException {
         addToList(new ListBox("S/N", "Name", "Venue", "Date", "From",
                 "To", "Status"));
         Integer index = 1;
@@ -86,6 +105,10 @@ public class Ui extends AnchorPane {
 
     private void addToList(ListBox listBox) {
         listContainer.getChildren().addAll(listBox);
+    }
+
+    private void addToList(RoomListBox roomListBox) {
+        listContainer.getChildren().addAll(roomListBox);
     }
 
     public void showLoadingError() {
@@ -104,7 +127,7 @@ public class Ui extends AnchorPane {
      * Prints user input to GUI.
      * @param string string to display
      */
-    public void showUserInput(String string) {
+    public void showUserInput(String string) throws DukeException {
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(string, userImage)
         );

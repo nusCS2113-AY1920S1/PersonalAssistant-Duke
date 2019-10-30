@@ -2,7 +2,6 @@
 package command;
 
 import inventory.Inventory;
-import inventory.Item;
 
 import booking.Booking;
 import booking.BookingList;
@@ -11,7 +10,7 @@ import room.RoomList;
 import storage.Constants;
 import storage.Storage;
 import ui.Ui;
-import user.User;
+import user.UserList;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -36,8 +35,8 @@ public class ApproveCommand extends Command {
      * @throws IOException when entry is incorrect
      */
     public ApproveCommand(String input, String[] splitStr) throws DukeException, IOException {
-        if (splitStr.length <= 1) {
-            throw new DukeException("☹ OOPS!!! Please create the booking you want to edit with the following format: "
+        if (splitStr.length <= 2) {
+            throw new DukeException("☹ OOPS!!! Please create the booking you want to approve with the following format: "
                     + "name, roomcode, start date and time");
         }
         splitC = input.split(" ", 5);
@@ -46,8 +45,8 @@ public class ApproveCommand extends Command {
     }
 
     @Override
-    public void execute(Inventory inventory, RoomList roomList, BookingList bookingList, Ui ui,
-                        Storage inventoryStorage, Storage bookingstorage, Storage roomstorage, User user)
+    public void execute(UserList userList, Inventory inventory, RoomList roomList, BookingList bookingList, Ui ui,
+                        Storage userStorage, Storage inventoryStorage, Storage bookingstorage, Storage roomstorage)
             throws DukeException, IOException, ParseException {
         if (!roomList.checkRoom(roomcode)) {
             throw new DukeException(Constants.UNHAPPY + "OOPS!!! This room doesn't exist!");

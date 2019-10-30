@@ -1,24 +1,6 @@
 package control;
 
-import command.ByeCommand;
-import command.Command;
-import command.ListRoomCommand;
-import command.AddBookingCommand;
-import command.AddRoomCommand;
-import command.ApproveCommand;
-import command.CreateAccountCommand;
-import command.DeleteBookingCommand;
-import command.EditBookingCommand;
-import command.FindBookingCommand;
-import command.FindBookingIndexCommand;
-import command.ListBookingDailyCommand;
-import command.ListBookingMonthCommand;
-import command.ListCommand;
-import command.LoginCommand;
-import command.LogoutCommand;
-import command.RejectCommand;
-import command.DeleteRoomCommand;
-import command.AddInventoryCommand;
+import command.*;
 import exception.DukeException;
 import storage.Constants;
 import java.io.IOException;
@@ -34,7 +16,7 @@ public class Parser {
      * @return Command to be executed
      * @throws DukeException if user enters wrong input format
      */
-    public static Command parse(String input, boolean loginStatus) throws DukeException, IOException {
+    public static Command parse(String input) throws DukeException, IOException {
         String[] splitStr = input.split(" ");
         switch (splitStr[0]) {
         case "bye":
@@ -73,6 +55,10 @@ public class Parser {
             return new DeleteRoomCommand(input, splitStr);
         case "addinventory":
             return new AddInventoryCommand(input, splitStr);
+        case "adduser":
+                return new AddUserCommand(input, splitStr);
+        case "rmuser":
+                return new RemoveUserCommand(input, splitStr);
 
         default:
             throw new DukeException(Constants.UNHAPPY + " OOPS!!! I'm sorry, but I don't know what that means :-(");
