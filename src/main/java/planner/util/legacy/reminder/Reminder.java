@@ -3,10 +3,8 @@
 package planner.util.legacy.reminder;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 import planner.logic.exceptions.legacy.ModTimeIntervalTooCloseException;
-import planner.logic.modules.legacy.task.Task;
 import planner.util.legacy.periods.TimeInterval;
 
 public abstract class Reminder {
