@@ -15,4 +15,4 @@ image::docs/images/Ui.png[width="600", align="center"]
 
 == Acknowledgements
 
-* Libraries used: https://github.com/junit-team/junit5[JUnit5]
+* Libraries used: https://github.com/junit-team/junit5[JUnit5], https://github.com/ical4j/ical4j[ical4j]
