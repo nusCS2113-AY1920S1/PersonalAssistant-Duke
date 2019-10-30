@@ -21,11 +21,11 @@ By: `AY1920S1-CS2113T-F10-3` Since: `Aug 2019` Licence: `NUS`
 
 === About AlphaNUS
 
-NUS treasurers often come face to face with piles of payment forms for claims and also need to
+NUS treasurers often come face to face with piles of payment forms filled with payments for claims and also need to
 keep track of their statuses. Having to manage and allocate club funds to multiple projects, treasurers
 may find it a chore to keep up to date with their finances.
 
-AlphaNUS is a financial management system for treasurers to keep track of payment forms made by payees as well manage the club's funds for projects.
+*AlphaNUS* is a financial management assistant for treasurers to keep track of payment forms made by payees as well as manage the club's funds for projects.
 
 This developer guide includes detailed documentation on the designs and implementations of the project and how developers can make changes it.
 
