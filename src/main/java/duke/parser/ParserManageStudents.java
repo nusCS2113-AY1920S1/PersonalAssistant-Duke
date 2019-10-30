@@ -64,7 +64,7 @@ public class ParserManageStudents implements IParser {
             break;
 
         case "search":
-            final int limit = 15;
+            final int limit = 5;
             String searchName = input.substring(limit);
             students.findName(searchName);
             break;
