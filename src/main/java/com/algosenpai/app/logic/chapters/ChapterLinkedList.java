@@ -17,7 +17,7 @@ class ChapterLinkedList {
      * Generates a random question related to linked lists.
      * @return a question model according to the random number being generated.
      */
-    static QuestionModel generateQuestions() {
+    public static QuestionModel generateQuestions() {
         int questionType = getRandomNumber(0, 4);
         switch (questionType) {
         case 0:

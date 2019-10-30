@@ -20,7 +20,7 @@ class ChapterSorting {
      * @return A question class that contains the question and expected answer.
      */
 
-    static QuestionModel generateQuestions() {
+    public static QuestionModel generateQuestions() {
         int questionType = getRandomNumber(0, 3);
         switch (questionType) {
         case 0:

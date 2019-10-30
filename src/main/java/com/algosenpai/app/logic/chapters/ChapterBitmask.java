@@ -13,7 +13,7 @@ class ChapterBitmask {
      * Generates a random question related to bitmasking.
      * @return A question model containing to the random number being generated.
      */
-    static QuestionModel generateQuestions() {
+    public static QuestionModel generateQuestions() {
         int questionType = getRandomNumber(0,5);
         switch (questionType) {
         case 0 :

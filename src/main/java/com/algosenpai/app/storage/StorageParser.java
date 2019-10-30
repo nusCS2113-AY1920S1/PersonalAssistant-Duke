@@ -3,7 +3,7 @@ package com.algosenpai.app.storage;
 import com.algosenpai.app.stats.ChapterStat;
 import java.util.Scanner;
 
-public class UserStorageParser {
+public class StorageParser {
 
     //The scanner which is used for reading in from the file.
     private Scanner inputScanner;
@@ -11,7 +11,7 @@ public class UserStorageParser {
     /**
      * Initialises everything so that Scanner works.
      */
-    public UserStorageParser() {
+    public StorageParser() {
         this.inputScanner = new Scanner(this.getClass().getResourceAsStream("/data/UserData.txt"));
     }
 
