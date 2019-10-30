@@ -21,15 +21,11 @@ import ducats.commands.OverlayGroupGroup;
 import ducats.commands.RedoCommand;
 import ducats.commands.UndoCommand;
 import ducats.commands.ViewCommand;
-<<<<<<< HEAD
 import ducats.commands.AsciiCommand;
 import ducats.commands.OverlayGroupGroup;
 import java.util.ArrayList;
 import java.util.HashMap;
 import ducats.components.WordGetter;
-=======
-import ducats.components.Jaccard;
->>>>>>> 0bcca5d8fdce877df531455adf5b9ca1e08c737a
 
 /**
  * A class used to interpret the incoming messages and translate them into the appropriate duke.Commands.
