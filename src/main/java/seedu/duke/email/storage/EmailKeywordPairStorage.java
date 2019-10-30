@@ -43,9 +43,6 @@ public class EmailKeywordPairStorage implements Storage {
     public static EmailKeywordPairList readKeywordPairList() throws IOException, JSONException {
         Path path = Storage.prepareDataPath(keywordPairFilename);
         String content = Storage.readFromFile(path);
-        if ("".equals(content)) {
-            return new EmailKeywordPairList();
-        }
         return parseKeywordPairJson(new JSONObject(content));
     }
 

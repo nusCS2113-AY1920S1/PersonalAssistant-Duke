@@ -104,7 +104,7 @@ public class EmailContentParseHelper {
                 return EmailKeywordPairStorage.readKeywordPairList();
             } catch (IOException | JSONException e) {
                 e.printStackTrace();
-                UI.getInstance().showDebug("Keyword list file reading with error. Default used...");
+                UI.getInstance().showDebug("Keyword list file is empty or in wrong format. Default used...");
             }
         }
         EmailKeywordPairList keywordList = getDefaultKeywordPairList();
