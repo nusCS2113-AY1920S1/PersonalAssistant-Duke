@@ -39,10 +39,10 @@ public class DeleteCommand extends Command {
                 }
             }
             if (!isWithinData) {
-                throw new DukeException("Task number is out of bounds [Delete]");
+                throw new CakeException("Task number is out of bounds [Delete]");
             }
         } catch (NumberFormatException e) {
-            throw new DukeException("Task number is invalid! [Delete]");
+            throw new CakeException("Task number is invalid! [Delete]");
         }*/
         return "";
     }
