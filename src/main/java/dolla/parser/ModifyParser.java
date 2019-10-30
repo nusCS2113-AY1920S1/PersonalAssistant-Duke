@@ -20,10 +20,11 @@ public class ModifyParser extends Parser {
 
     public ModifyParser(String inputLine) {
         super(inputLine);
+        this.mode = mode;
     }
 
     @Override
-    public Command handleInput(String mode) {
+    public Command parseInput() {
         String modeToModify = mode.split(" ")[1];
 
         switch (modeToModify) {

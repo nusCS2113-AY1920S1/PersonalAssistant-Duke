@@ -1,6 +1,5 @@
 package dolla.parser;
 
-import dolla.Tag;
 import dolla.ui.Ui;
 
 import dolla.command.Command;
@@ -32,16 +31,14 @@ public class MainParser {
      * @param mode The mode Dolla is currently on.
      * @return a command corresponding to the user input.
      */
-    public static Command handleInput(String mode, String inputLine) { // TODO: Rename to something else
+    public static Command handleInput(String mode, String inputLine) {
 
         //Scanner input = new Scanner(System.in);
         //String inputLine = input.nextLine();
         String[] inputArray = inputLine.split(SPACE);
         String command = inputArray[0];
-        boolean isExitCommand = command.equalsIgnoreCase(COMMAND_BYE);
-        boolean isSwitchMode = command.equalsIgnoreCase(MODE_DOLLA) || command.equals(MODE_ENTRY)
-                || command.equals(MODE_LIMIT) || command.equals(MODE_DEBT)
-                || command.equals(MODE_SHORTCUT);
+        boolean isExitCommand = isExitCommand(command);
+        boolean isSwitchMode = isSwitchModeCommand(command);
         if (isExitCommand) {
             exit(); // TODO: change
             //return new ExitCommand();
@@ -49,28 +46,26 @@ public class MainParser {
             return new SwitchModeCommand(command); // TODO
         }
 
-        Tag tag = new Tag(inputLine);
-        tag.parseTag();
         switch (mode) {
         case MODE_DOLLA:
             DollaParser dollaParser = new DollaParser(inputLine);
             //System.out.println("Running DollaParser...");
-            return dollaParser.handleInput(mode);
+            return dollaParser.parseInput();
         case MODE_ENTRY:
             EntryParser entryParser = new EntryParser(inputLine);
-            return entryParser.handleInput(mode);
+            return entryParser.parseInput();
         case MODE_DEBT:
             DebtsParser debtsParser = new DebtsParser(inputLine);
-            return debtsParser.handleInput(mode);
+            return debtsParser.parseInput();
         case MODE_LIMIT:
             LimitParser limitParser = new LimitParser(inputLine);
-            return limitParser.handleInput(mode);
+            return limitParser.parseInput();
         case MODE_MODIFY_ENTRY:
         case MODE_MODIFY_LIMIT:
         case MODE_MODIFY_DEBT:
         case MODE_MODIFY_SHORTCUT:
             ModifyParser modifyParser = new ModifyParser(inputLine);
-            return modifyParser.handleInput(mode);
+            return modifyParser.parseInput();
         default:
             Ui.printInvalidCommandError();
             return new ErrorCommand();
@@ -182,6 +177,16 @@ public class MainParser {
         return commandToRun;
     }
     */
+
+    private static boolean isExitCommand(String command) {
+        return command.equalsIgnoreCase(COMMAND_BYE);
+    }
+
+    private static boolean isSwitchModeCommand(String command) {
+        return command.equalsIgnoreCase(MODE_DOLLA) || command.equalsIgnoreCase(MODE_ENTRY)
+                || command.equalsIgnoreCase(MODE_LIMIT) || command.equalsIgnoreCase(MODE_DEBT)
+                || command.equalsIgnoreCase(MODE_SHORTCUT);
+    }
 
     /**
      * This method will exit the entire program after printing a goodbye message.

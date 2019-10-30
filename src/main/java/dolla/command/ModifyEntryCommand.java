@@ -36,4 +36,9 @@ public class ModifyEntryCommand extends Command {
         Ui.echoAddRecord(newEntry);
         dollaData.updateMode("entry");
     }
+
+    @Override
+    public String getCommandInfo() {
+        return null;
+    }
 }
