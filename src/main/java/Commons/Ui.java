@@ -158,7 +158,7 @@ public class Ui {
         } else {
             String message = "Here are the following events/deadline with the keyword " + keyword + "\n";
             for (int i = 1; i <= list.size(); i++) {
-                message = message + i + "." + list.get(i - 1) + "\n";
+                message +=  i + ". " + list.get(i - 1) + "\n";
             }
             return message;
         }
@@ -197,18 +197,22 @@ public class Ui {
         return workloadSchedule;
     }
 
+    /**
+     * Display the previous list of commands requested by the user
+     * @param outputList list of all the commands user request
+     * @return the list requested by user
+     */
     public String showPrevious(ArrayList<String> outputList) {
         int size = outputList.size();
-        System.out.println(size);
         if (size == 0) {
             String message = "There are no such input type in previous command";
             return message;
         } else {
-            String output = "";
-            for (int i = 0; i < size; i++) {
-                output += (i + 1) + ". " + outputList.get(i);
-            }
-            return output;
+        String output = "";
+        for (int i = 0; i < size; i++) {
+            output += (i + 1) + ". " + outputList.get(i);
+        }
+        return output;
         }
     }
 
