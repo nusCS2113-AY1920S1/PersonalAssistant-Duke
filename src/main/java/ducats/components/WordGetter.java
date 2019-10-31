@@ -22,7 +22,7 @@ public class WordGetter implements Serializable {
         String [] commandList = {"bye", "list", "delete", "deletebar","edit",
                                     "find","done", "new","help","view","addbar",
                                     "overlay","group","overlay_bar_group",
-                                    "overlay_group_group","overlay_bar_song","ascii","redo","undo"};
+                                    "overlay_group_group","overlay_bar_song","ascii","redo","undo", "copy"};
         double maximumVal = 0;
         String commandName = "sasaff";
         Jaccard similarityChecker = new Jaccard();
