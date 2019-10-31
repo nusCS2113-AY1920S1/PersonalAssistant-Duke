@@ -1,7 +1,6 @@
 package duke.logic.parsers;
 
 import duke.commons.Messages;
-import duke.commons.exceptions.DukeUnknownCommandException;
 import duke.commons.exceptions.ParseException;
 import duke.logic.conversations.Conversation;
 import duke.logic.conversations.DeleteConversation;

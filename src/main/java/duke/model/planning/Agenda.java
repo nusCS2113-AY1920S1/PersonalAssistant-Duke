@@ -10,48 +10,37 @@ import java.util.List;
  */
 public class Agenda extends VenueList {
     private List<Todo> todoList;
-    private int number;
+    private int day;
 
     /**
      * Constructor to initialise new Day object.
      */
-    public Agenda(List<Todo> todoList, List<Venue> venueList, int number) {
-        super();
-        addList(venueList);
-        this.number = number;
+    public Agenda(List<Todo> todoList, List<Venue> venueList, int day) {
+        super(venueList);
+        this.day = day;
         this.todoList = todoList;
     }
 
-    public int getNumber() {
-        return number;
+    public int getDay() {
+        return day;
     }
 
     public List<Todo> getTodoList() {
         return this.todoList;
     }
 
-    @Override
-    public List<Venue> getVenueList() {
-        return super.getVenueList();
-    }
-
     public void setTodo(int index, Todo todo) {
         todoList.set(index,todo);
     }
 
-    @Override
-    public void setVenueList(Venue venue, int index) {
-        super.setVenueList(venue, index);
-    }
-
-    public void setNumber(int newNum) {
-        this.number = newNum;
+    public void setDay(int day) {
+        this.day = day;
     }
 
     @Override
     public String toString() {
         StringBuilder result = new StringBuilder();
-        result.append("Agenda |").append(this.getNumber()).append("\n");
+        result.append("Agenda |").append(this.getDay()).append("\n");
         for (Venue venue : this.getVenueList()) {
             result.append(venue.toString());
             result.append("\n");

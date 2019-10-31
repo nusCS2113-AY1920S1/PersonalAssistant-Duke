@@ -61,14 +61,13 @@ public class Itinerary extends AgendaList {
      */
     public String printItinerary() {
 
-        int days = this.getNumberOfDays();
+        int days = getNumberOfDays();
 
         StringBuilder result = new StringBuilder("Here are the list of Locations in "
-                +  days + " days around " + this.getHotelLocation().getAddress() + " with name " + this.name + ": \n");
-        for (int i = 0; i < this.getList().size(); i++) {
-            Agenda list1 = this.getList().get(i);
+                +  days + " days around " + getHotelLocation().getAddress() + " with name " + this.name + ": \n");
+        for (Agenda list1 : super.getList()) {
             result.append("\n");
-            result.append("Day ").append(list1.getNumber()).append(":").append("\n \n");
+            result.append("Day ").append(list1.getDay()).append(":").append("\n \n");
             result.append("Venues: ").append("\n");
             for (Venue venue : list1.getVenueList()) {
                 result.append(venue.getAddress()).append("\n");

@@ -215,8 +215,7 @@ public class Storage {
     /**
      * Reads the profile from filepath. Creates new empty profile if file doesnt exist.
      */
-    public void readProfile() throws StorageFileNotFoundException,
-            ParseException, CategoryNotFoundException {
+    private void readProfile() throws ParseException, CategoryNotFoundException {
         profileCard = new ProfileCard();
         try {
             File f = new File(PROFILE_FILE_PATH);
@@ -365,7 +364,7 @@ public class Storage {
      * Writes the specified itineraries name to the table of contents.
      *
      * @param itinerary This itineraries name is to be stored.
-     * @throws FileNotSavedException      If the file fails to save.
+     * @throws FileNotSavedException If the file fails to save.
      */
     public void writeItinerarySave(Itinerary itinerary) throws FileNotSavedException {
         try {

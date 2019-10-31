@@ -114,8 +114,8 @@ public class Parser {
         case "routeNodeNearby":
             return new RouteNodeNeighboursCommand(ParserUtil.getIntegerIndexInList(0, 2, getWord(input)),
                     ParserUtil.getIntegerIndexInList(1, 2, getWord(input)));
-        case "addThisList":
-            return new AddSampleItineraryCommand();
+        //case "addThisList":
+            //return new AddSampleItineraryCommand();
         case "newItinerary":
             return new CreateNewItineraryParser(input).parse();
         case "listItinerary":
