@@ -124,14 +124,14 @@ public class Ui extends AnchorPane {
     }
     private void showListDay (BookingList bookingList, String date) throws DukeException {
         addToList(new ListBox("S/N", "Name", "Venue", "Date", "From",
-                "To", "Status"));
+                "To", "Status", "Purpose"));
         Integer index = 1;
         DateTimeFormatter formatterStart = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         LocalDate dateStart = LocalDate.parse(date, formatterStart);
         for (Booking i : bookingList) {
             if (i.getDateStart() == dateStart) {
                 addToList(new ListBox(index.toString(), i.getName(), i.getVenue(), i.getDateStart().toString(),
-                        i.getTimeStart().toString(), i.getTimeEnd().toString(), i.getStatus()));
+                        i.getTimeStart().toString(), i.getTimeEnd().toString(), i.getStatus(), i.getDescription()));
                 index++;
             }
         }
@@ -139,14 +139,14 @@ public class Ui extends AnchorPane {
 
     private void showListYear (BookingList bookingList, String date) throws DukeException {
         addToList(new ListBox("S/N", "Name", "Venue", "Date", "From",
-                "To", "Status"));
+                "To", "Status", "Purpose"));
         Integer index = 1;
         DateTimeFormatter formatterStart = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         LocalDate dateStart = LocalDate.parse(date, formatterStart);
         for (Booking i : bookingList) {
             if (i.getStartYear() == dateStart.getYear()) {
                 addToList(new ListBox(index.toString(), i.getName(), i.getVenue(), i.getDateStart().toString(),
-                        i.getTimeStart().toString(), i.getTimeEnd().toString(), i.getStatus()));
+                        i.getTimeStart().toString(), i.getTimeEnd().toString(), i.getStatus(), i.getDescription()));
                 index++;
             }
         }
@@ -154,13 +154,13 @@ public class Ui extends AnchorPane {
 
     private void showListMonth (BookingList bookingList, String month) throws DukeException {
         addToList(new ListBox("S/N", "Name", "Venue", "Date", "From",
-                "To", "Status"));
+                "To", "Status", "Purpose"));
         Integer index = 1;
         int intMonth = Integer.parseInt(month.substring(10));
         for (Booking i : bookingList) {
             if (i.getStartMonth() == intMonth) {
                 addToList(new ListBox(index.toString(), i.getName(), i.getVenue(), i.getDateStart().toString(),
-                        i.getTimeStart().toString(), i.getTimeEnd().toString(), i.getStatus()));
+                        i.getTimeStart().toString(), i.getTimeEnd().toString(), i.getStatus(), i.getDescription()));
                 index++;
             }
         }
