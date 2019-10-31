@@ -132,7 +132,7 @@ public class CommandUtils {
                 throw new DukeException("I have only " + ((count == 1) ? ("1 patient") : (count + "patients")) + " in "
                         + "my list!");
             }
-            return (Patient) patientList.get(index - 1);
+            return patientList.get(index - 1);
         } else {
             // TODO proper searching
             return core.patientMap.findPatient(nameOrIdx).get(0);
