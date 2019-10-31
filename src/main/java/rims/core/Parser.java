@@ -19,10 +19,15 @@ import rims.resource.ReservationList;
 public class Parser {
     Ui ui;
     ResourceList resources;
+    Command prevCommand;
 
     public Parser(Ui ui, ResourceList resources) {
         this.ui = ui;
         this.resources = resources;
+    }
+
+    public void setPrevCommand(Command c) {
+        if (c.canChangeData()) { prevCommand = c; }
     }
 
     /**
@@ -219,7 +224,7 @@ public class Parser {
             }
             c = new ReturnCommand(userId, resourcesToReturn, reservationsToCancel);
         } else if (words[0].equals("undo")) {
-            c = new UndoCommand(new ListCommand());
+            c = new UndoCommand(prevCommand);
         } else {
             throw new RimsException("Please enter a recognizable command!");
         }

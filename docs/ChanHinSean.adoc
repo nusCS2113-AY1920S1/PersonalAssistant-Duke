@@ -10,8 +10,6 @@
 My team and I were tasked with morphing or enhancing a basic command line interface (CLI) desktop personal assistant application for
 our Software Engineering project.
 
-.Figure 1. Interface for RIMS
-
 We chose to morph it into _RIMS_, a Resource and Inventory Management System written in Java. It is a logistic
 management system designed to assist logistics managers and ease the tedium of
 work by digitizing the accounting of their inventory.
