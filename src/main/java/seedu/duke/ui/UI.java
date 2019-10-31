@@ -163,6 +163,13 @@ public class UI {
     }
 
     /**
+     * Updates email content shown on gui.
+     */
+    public void updateHtml() {
+        mainWindow.updateHtml();
+    }
+
+    /**
      * Updates the emails displayed in GUI when read from file/Outlook server or after user input handled.
      *
      * @param emailStringList list of emails in string form to be displayed

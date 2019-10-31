@@ -212,28 +212,16 @@ public class MainWindow extends AnchorPane {
         String input = userInput.getText();
         UI.getInstance().respond(input);
         UI.getInstance().syncWithModel();
-        //updateTasksList();
-        //updateEmailsList();
         setInputPrefix();
-        if (input.contains("clear")) {
-            dialogContainer.getChildren().clear();
-        }
-        if (input.contains("email show")) {
-            updateHtml();
-        }
-        if (input.contains("bye")) {
-            exit();
-        }
         updateInputList(input);
     }
 
-    private void updateHtml() {
+    /**
+     * Updates the email content shown in gui.
+     */
+    public void updateHtml() {
         webEngine.loadContent(UI.getInstance().getEmailContent());
         showHtml();
-    }
-
-    private void exit() {
-        UI.getInstance().exit();
     }
 
     /**
