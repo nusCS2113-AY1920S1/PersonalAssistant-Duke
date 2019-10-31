@@ -2,12 +2,10 @@ package javacake.commands;
 
 import com.joestelmach.natty.DateGroup;
 import com.joestelmach.natty.Parser;
-import javacake.exceptions.DukeException;
+import javacake.exceptions.CakeException;
 import javacake.Logic;
-import javacake.storage.Profile;
 import javacake.storage.StorageManager;
 import javacake.ui.Ui;
-import javacake.storage.Storage;
 import javacake.tasks.Task;
 
 import java.text.SimpleDateFormat;
@@ -24,9 +22,9 @@ public class ViewScheduleCommand extends Command {
     }
 
     @Override
-    public String execute(Logic logic, Ui ui, StorageManager storageManager) throws DukeException {
+    public String execute(Logic logic, Ui ui, StorageManager storageManager) throws CakeException {
         if (input.length() == 12) {
-            throw new DukeException("     ☹ OOPS!!! The description of a viewschedule cannot be empty.");
+            throw new CakeException("     ☹ OOPS!!! The description of a viewschedule cannot be empty.");
         }
         input = input.substring(13);
         Date currDate = getDate(input);
@@ -79,14 +77,14 @@ public class ViewScheduleCommand extends Command {
         });
     }
 
-    private Date getDate(String input) throws DukeException {
+    private Date getDate(String input) throws CakeException {
         Date date;
         try {
             Parser parser = new Parser();
             List<DateGroup> groups = parser.parse(input);
             date = groups.get(0).getDates().get(0);
         } catch (Exception e) {
-            throw new DukeException("   Date cannot be parsed: " + input);
+            throw new CakeException("   Date cannot be parsed: " + input);
         }
         return date;
     }

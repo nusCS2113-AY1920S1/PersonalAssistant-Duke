@@ -1,11 +1,9 @@
 package javacake.commands;
 
 import javacake.Logic;
-import javacake.exceptions.DukeException;
-import javacake.storage.Profile;
+import javacake.exceptions.CakeException;
 import javacake.storage.StorageManager;
 import javacake.ui.Ui;
-import javacake.storage.Storage;
 
 public class DoneCommand extends Command {
 
@@ -19,13 +17,13 @@ public class DoneCommand extends Command {
      * @param logic TaskList containing current tasks
      * @param ui the Ui responsible for outputting messages
      * @param storageManager storage container
-     * @throws DukeException Shows error when task number is invalid
+     * @throws CakeException Shows error when task number is invalid
      * @return
      */
     @Override
-    public String execute(Logic logic, Ui ui, StorageManager storageManager) throws DukeException {
+    public String execute(Logic logic, Ui ui, StorageManager storageManager) throws CakeException {
         if (input.length() <= 5) {
-            throw new DukeException("[!] No deadline mentioned!");
+            throw new CakeException("[!] No deadline mentioned!");
         }
         input = input.substring(5);
         try {
@@ -59,10 +57,10 @@ public class DoneCommand extends Command {
 
             if (!isInsideData) {
                 ui.showError("Task number is out of bounds! [Done]");
-                throw new DukeException("[!] Not a valid Task Number!");
+                throw new CakeException("[!] Not a valid Task Number!");
             }
         } catch (NumberFormatException e) {
-            throw new DukeException("[!] Not a valid Task Number!");
+            throw new CakeException("[!] Not a valid Task Number!");
         }
         return "";
     }

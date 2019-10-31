@@ -1,7 +1,7 @@
 package javacake;
 
 import edu.emory.mathcs.backport.java.util.Collections;
-import javacake.exceptions.DukeException;
+import javacake.exceptions.CakeException;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -52,7 +52,7 @@ public class Logic {
     /**
      * Stores all files in the currentFilePath into listOfFiles.
      */
-    public void loadFiles() throws DukeException {
+    public void loadFiles() throws CakeException {
         String[] tempListFiles = currentFilePath.split("/");
         int currFileSlashCounter = tempListFiles.length;
         listOfFiles.clear();
@@ -95,7 +95,7 @@ public class Logic {
                 br.close();
             }
         } catch (NullPointerException | IOException e) {
-            throw new DukeException("Content not found!" + "\nPls key 'back' or 'list' to view previous content!");
+            throw new CakeException("Content not found!" + "\nPls key 'back' or 'list' to view previous content!");
         }
     }
 
@@ -121,12 +121,12 @@ public class Logic {
      * @param index Index of the new path found in filePathQueries.
      * @return the particular filePath based on the input index.
      */
-    public String gotoFilePath(int index) throws DukeException {
+    public String gotoFilePath(int index) throws CakeException {
 
         try {
             return listOfFiles.get(index);
         } catch (IndexOutOfBoundsException e) {
-            throw new DukeException(e.getMessage() + "\n Pls key 'back' or 'list' to view previous content");
+            throw new CakeException(e.getMessage() + "\n Pls key 'back' or 'list' to view previous content");
         }
     }
 
@@ -168,9 +168,9 @@ public class Logic {
         for (int i = 0; i < filesCapture.length - 1; i++) {
             reducedFilePath.append(filesCapture[i]).append("/");
         }
-        String finalTrim = reducedFilePath.toString();
-        finalTrim = finalTrim.substring(0, finalTrim.length() - 1);
-        return finalTrim;
+        String parentFilePath = reducedFilePath.toString();
+        parentFilePath = parentFilePath.substring(0, parentFilePath.length() - 1);
+        return parentFilePath;
     }
 
 
@@ -190,9 +190,9 @@ public class Logic {
     /**
      * Reads the content in content text file.
      *
-     * @throws DukeException When the text file in currentFilePath is not found.
+     * @throws CakeException When the text file in currentFilePath is not found.
      */
-    public String readQuery() throws DukeException {
+    public String readQuery() throws CakeException {
         try {
             InputStream inputStream = ClassLoader.getSystemClassLoader().getResourceAsStream(currentFilePath);
             BufferedReader br = new BufferedReader(new InputStreamReader(inputStream));
@@ -204,7 +204,7 @@ public class Logic {
             br.close();
             return sb.toString();
         } catch (IOException e) {
-            throw new DukeException("Unable to read text file");
+            throw new CakeException("Unable to read text file");
         }
     }
 
@@ -227,9 +227,9 @@ public class Logic {
      * If directory, display all the file names within the directory.
      * Else read the content of the text file.
      * @return String of formatted file names or text file content.
-     * @throws DukeException when file or directory is not found.
+     * @throws CakeException when file or directory is not found.
      */
-    public String processQueries() throws DukeException {
+    public String processQueries() throws CakeException {
         insertQueries();
         if (isDirectory) {
             return displayDirectories();
@@ -244,7 +244,7 @@ public class Logic {
      * Update isDirectory if current directory contains directories.
      * Adds new list of file names in filePathQueries to be processed.
      */
-    public void insertQueries() throws DukeException {
+    public void insertQueries() throws CakeException {
         clearQueries();
         loadFiles();
         for (String listOfFile : listOfFiles) {

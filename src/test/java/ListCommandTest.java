@@ -1,9 +1,7 @@
-import javacake.exceptions.DukeException;
+import javacake.exceptions.CakeException;
 import javacake.Logic;
 import javacake.storage.StorageManager;
 import javacake.ui.Ui;
-import javacake.storage.Profile;
-import javacake.storage.Storage;
 import javacake.commands.ListCommand;
 import org.junit.jupiter.api.Test;
 
@@ -36,7 +34,7 @@ public class ListCommandTest {
             ListCommand lc = new ListCommand();
             String actualOutput = lc.execute(logic, ui, sm);
             assertEquals(expectedOutput.trim(), actualOutput.trim());
-        } catch (DukeException e) {
+        } catch (CakeException e) {
             e.printStackTrace();
         }
     }

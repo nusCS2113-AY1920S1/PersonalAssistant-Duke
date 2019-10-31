@@ -1,10 +1,8 @@
 package javacake.commands;
 
-import javacake.Duke;
+import javacake.JavaCake;
 import javacake.Logic;
-import javacake.exceptions.DukeException;
-import javacake.storage.Profile;
-import javacake.storage.Storage;
+import javacake.exceptions.CakeException;
 import javacake.storage.StorageManager;
 import javacake.ui.Ui;
 
@@ -37,10 +35,10 @@ public class EditNoteCommand extends Command {
      * If former checks passed, update nameOfEditFile and currentFilePath variables.
      * Else inform user to either provide valid file name or valid EditNoteCommand.
      * @param inputCommand Input command from the user.
-     * @throws DukeException if invalid command or invalid file name.
+     * @throws CakeException if invalid command or invalid file name.
      */
-    public EditNoteCommand(String inputCommand) throws DukeException {
-        Duke.logger.log(Level.INFO, "Processing EditNoteCommand: " + inputCommand);
+    public EditNoteCommand(String inputCommand) throws CakeException {
+        JavaCake.logger.log(Level.INFO, "Processing EditNoteCommand: " + inputCommand);
         type = CmdType.EDITNOTE;
         String[] wordsInInputCommand = inputCommand.split("\\s+");
         if (wordsInInputCommand.length == 2) {
@@ -48,12 +46,12 @@ public class EditNoteCommand extends Command {
                 nameOfEditFile = wordsInInputCommand[1];
                 createCurrentFilePath();
             } else {
-                Duke.logger.log(Level.INFO, wordsInInputCommand[1] + " contains illegal file name.");
-                throw new DukeException("Pls enter a valid file name! Type 'listnote' to view available notes!");
+                JavaCake.logger.log(Level.INFO, wordsInInputCommand[1] + " contains illegal file name.");
+                throw new CakeException("Pls enter a valid file name! Type 'listnote' to view available notes!");
             }
         } else {
-            Duke.logger.log(Level.INFO, inputCommand + " invalid EditNoteCommand.");
-            throw new DukeException("Pls enter a valid editnote command:"
+            JavaCake.logger.log(Level.INFO, inputCommand + " invalid EditNoteCommand.");
+            throw new CakeException("Pls enter a valid editnote command:"
                     + " 'editnote - [name of the file you wish you edit]'");
         }
     }
@@ -65,12 +63,12 @@ public class EditNoteCommand extends Command {
      */
     private boolean fileExist(String fileName) {
         File file = new File(defaultDirectoryPath + fileName + ".txt");
-        Duke.logger.log(Level.INFO, "Checking if file: " + fileName + " exist.");
+        JavaCake.logger.log(Level.INFO, "Checking if file: " + fileName + " exist.");
         if (file.exists()) {
-            Duke.logger.log(Level.INFO, fileName + " exist.");
+            JavaCake.logger.log(Level.INFO, fileName + " exist.");
             return true;
         }
-        Duke.logger.log(Level.INFO, fileName + " does not exist.");
+        JavaCake.logger.log(Level.INFO, fileName + " does not exist.");
         return false;
     }
 
@@ -94,9 +92,9 @@ public class EditNoteCommand extends Command {
     /**
      * Read content stored in text file to be edited.
      * @return String of the content stored in the text file.
-     * @throws DukeException if the file does not exist.
+     * @throws CakeException if the file does not exist.
      */
-    private String displayContentInFile() throws DukeException {
+    private String displayContentInFile() throws CakeException {
         try {
             File file = new File(currentFilePath);
             BufferedReader br = new BufferedReader(new FileReader(file));
@@ -108,7 +106,7 @@ public class EditNoteCommand extends Command {
             br.close();
             return sb.toString();
         } catch (IOException e) {
-            throw new DukeException(e.getMessage());
+            throw new CakeException(e.getMessage());
         }
     }
 
@@ -116,9 +114,9 @@ public class EditNoteCommand extends Command {
      * For CLI only.
      * Read input from user and write into specified note file.
      * If '/save' is called, file will be saved.
-     * @throws DukeException File does not exist.
+     * @throws CakeException File does not exist.
      */
-    private void readAndSaveNewContent() throws DukeException {
+    private void readAndSaveNewContent() throws CakeException {
         BufferedWriter bw;
         try {
             Ui ui = new Ui();
@@ -130,7 +128,7 @@ public class EditNoteCommand extends Command {
             }
             bw.close();
         } catch (IOException e) {
-            throw new DukeException(e.getMessage());
+            throw new CakeException(e.getMessage());
         }
     }
 
@@ -142,12 +140,12 @@ public class EditNoteCommand extends Command {
      * @param ui the Ui responsible for outputting messages
      * @param storageManager storage container
      * @return endingMessage if CLI is used, else return !@#_EDIT_NOTE to request MainWindow class to handle.
-     * @throws DukeException File does not exist.
+     * @throws CakeException File does not exist.
      */
     @Override
-    public String execute(Logic logic, Ui ui, StorageManager storageManager) throws DukeException {
+    public String execute(Logic logic, Ui ui, StorageManager storageManager) throws CakeException {
 
-        if (Duke.isCliMode()) {
+        if (JavaCake.isCliMode()) {
             if (checkFileIsEmpty(currentFilePath)) {
                 ui.showMessage("Write your notes below!\n");
                 ui.showMessage("To save edited content, type '/save' and enter!\n");
@@ -171,9 +169,9 @@ public class EditNoteCommand extends Command {
      * If file is empty, print headingMessage.
      * Else, print secondHeadingMessage and the content of the edit file.
      * @return String containing heading message and content if available.
-     * @throws DukeException if the file does not exists.
+     * @throws CakeException if the file does not exists.
      */
-    public static String getHeadingMessage() throws DukeException {
+    public static String getHeadingMessage() throws CakeException {
         if (checkFileIsEmpty(currentFilePath)) {
             return headingMessage;
         } else {
@@ -187,23 +185,23 @@ public class EditNoteCommand extends Command {
     /**
      * Removes all content of text file before user can edit file.
      * EditFileCommand does not append content to file.
-     * @throws DukeException File does not exist.
+     * @throws CakeException File does not exist.
      */
-    public static void clearTextFileContent() throws DukeException {
+    public static void clearTextFileContent() throws CakeException {
         try {
             PrintWriter pw = new PrintWriter(currentFilePath);
             pw.close();
         } catch (FileNotFoundException e) {
-            throw new DukeException(e.getMessage());
+            throw new CakeException(e.getMessage());
         }
     }
 
     /**
      * Read content in the text file to be edited.
      * @return String of all the content in file to be edited.
-     * @throws DukeException File does not exist.
+     * @throws CakeException File does not exist.
      */
-    private static String readTextFileContent() throws DukeException {
+    private static String readTextFileContent() throws CakeException {
         try {
             BufferedReader br = new BufferedReader(new FileReader(new File(currentFilePath)));
             String line;
@@ -214,7 +212,7 @@ public class EditNoteCommand extends Command {
             br.close();
             return sb.toString();
         } catch (IOException e) {
-            throw new DukeException(e.getMessage());
+            throw new CakeException(e.getMessage());
         }
     }
 
@@ -224,9 +222,9 @@ public class EditNoteCommand extends Command {
      * Read new content in the file to be edited.
      * @param input notes from the user.
      * @return heading message and new content in text file.
-     * @throws DukeException File does not exist.
+     * @throws CakeException File does not exist.
      */
-    public static String writeSaveGui(String input) throws DukeException {
+    public static String writeSaveGui(String input) throws CakeException {
         BufferedWriter bw;
         try {
             bw = new BufferedWriter(new FileWriter(new File(currentFilePath), true));
@@ -234,7 +232,7 @@ public class EditNoteCommand extends Command {
             bw.newLine();
             bw.close();
         } catch (IOException e) {
-            throw new DukeException(e.getMessage());
+            throw new CakeException(e.getMessage());
         }
 
         return headingMessage + readTextFileContent();

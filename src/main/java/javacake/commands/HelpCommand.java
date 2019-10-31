@@ -1,7 +1,7 @@
 package javacake.commands;
 
 import javacake.Logic;
-import javacake.exceptions.DukeException;
+import javacake.exceptions.CakeException;
 import javacake.storage.StorageManager;
 import javacake.ui.Ui;
 
@@ -23,14 +23,15 @@ public class HelpCommand extends Command {
      * @param logic tracks current location in program
      * @param ui the Ui responsible for outputting messages
      * @param storageManager storage container
-     * @throws DukeException Error thrown when unable to close reader
+     * @throws CakeException Error thrown when unable to close reader
      * @return method for the related help requested.
      */
     @Override
-    public String execute(Logic logic, Ui ui, StorageManager storageManager) throws DukeException {
+    public String execute(Logic logic, Ui ui, StorageManager storageManager) throws CakeException {
         switch (input) {
         case "help" : return mainHelp();
-        case "help back" : return exitHelp();
+        case "help back" : return backHelp();
+        case "help exit" : return exitHelp();
         case "help goto": return gotoHelp();
         case "help help": return helpHelp();
         case "help list": return listHelp();
@@ -39,7 +40,7 @@ public class HelpCommand extends Command {
         case "help createnote": return createNoteHelp();
         case "help editnote": return editNoteHelp();
         case "help listnote": return listNoteHelp();
-        default: throw new DukeException("No such command found. Try again.");
+        default: throw new CakeException("No such command found. Try again.");
         }
     }
 

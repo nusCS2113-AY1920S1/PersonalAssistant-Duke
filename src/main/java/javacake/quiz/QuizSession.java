@@ -1,10 +1,10 @@
 package javacake.quiz;
 
-import javacake.Duke;
+import javacake.JavaCake;
 import javacake.Logic;
 import javacake.Parser;
 import javacake.commands.Command;
-import javacake.exceptions.DukeException;
+import javacake.exceptions.CakeException;
 import javacake.storage.Profile;
 import javacake.storage.StorageManager;
 import javacake.ui.TopBar;
@@ -38,7 +38,7 @@ public class QuizSession implements QuizManager {
      * @param questionType the topic of the quiz.
      */
     public QuizSession(QuestionType questionType, QuestionDifficulty questionDifficulty, boolean isCli)
-            throws DukeException {
+            throws CakeException {
         questionList = new QuestionList(questionType);
         qnType = questionType;
         qnDifficulty = questionDifficulty;
@@ -63,10 +63,10 @@ public class QuizSession implements QuizManager {
      * @param index question index between 0 and MAX_QUESTIONS-1.
      * @param input user input, either as user's answer or commands available on results page.
      * @return command identifier if on result page, null otherwise.
-     * @throws DukeException if user answer is not integer value during quiz, or command is invalid on results page.
+     * @throws CakeException if user answer is not integer value during quiz, or command is invalid on results page.
      */
     @Override
-    public String parseInput(int index, String input) throws DukeException {
+    public String parseInput(int index, String input) throws CakeException {
         if (isQuizComplete) {
             switch (input) {
             case ("review"):
@@ -75,7 +75,7 @@ public class QuizSession implements QuizManager {
                 // TODO tie BackCommand identifier to MainWindow
                 return "!@#_BACK";
             default:
-                throw new DukeException("[!] Invalid command at this point in the program [!]\n"
+                throw new CakeException("[!] Invalid command at this point in the program [!]\n"
                         + "    Try \"review\" or \"back\"."
                         + "\n\n" + getQuizResult());
             }
@@ -99,9 +99,9 @@ public class QuizSession implements QuizManager {
      * @param ui the UI responsible for inputs and outputs of the program.
      * @param storageManager storage container.
      * @return execution of next command from input at results screen.
-     * @throws DukeException Error thrown when there is a problem with score calculation.
+     * @throws CakeException Error thrown when there is a problem with score calculation.
      */
-    public String execute(Logic logic, Ui ui, StorageManager storageManager) throws DukeException {
+    public String execute(Logic logic, Ui ui, StorageManager storageManager) throws CakeException {
         logic.insertQueries();
         assert !logic.containsDirectory();
         this.filePath = logic.getFullFilePath();
@@ -117,7 +117,7 @@ public class QuizSession implements QuizManager {
             ui.showLine();
         }
         if (currScore > MAX_QUESTIONS) {
-            throw new DukeException("Something went wrong when calculating the score:\n"
+            throw new CakeException("Something went wrong when calculating the score:\n"
                     + "Calculated score is greater than maximum possible score.");
         }
 
@@ -136,7 +136,7 @@ public class QuizSession implements QuizManager {
     /**
      * Method to execute but for GUI.
      */
-    public void runGui() throws DukeException {
+    public void runGui() throws CakeException {
         totalNumOfQns = logic.getNumOfFiles();
     }
 
@@ -145,9 +145,9 @@ public class QuizSession implements QuizManager {
      * if it's less than the current totalScore.
      * @param totalScore new totalScore of user
      * @param profile profile object of user
-     * @throws DukeException error if question type is undefined
+     * @throws CakeException error if question type is undefined
      */
-    public void overwriteOldScore(int totalScore, Profile profile) throws DukeException {
+    public void overwriteOldScore(int totalScore, Profile profile) throws CakeException {
         int individualTopicIdx;
         int overallTopicIdx;
         switch (qnType) {
@@ -164,7 +164,7 @@ public class QuizSession implements QuizManager {
             overallTopicIdx = 3;
             break;
         default:
-            throw new DukeException("Topic Idx out of bounds!");
+            throw new CakeException("Topic Idx out of bounds!");
         }
 
         switch (qnDifficulty) {
@@ -178,7 +178,7 @@ public class QuizSession implements QuizManager {
             individualTopicIdx = overallTopicIdx * levelsOfDifficulty + 2;
             break;
         default:
-            throw new DukeException("Topic Idx out of bounds!");
+            throw new CakeException("Topic Idx out of bounds!");
         }
 
         if (totalScore > profile.getIndividualContentMarks(individualTopicIdx)) {
@@ -196,10 +196,10 @@ public class QuizSession implements QuizManager {
 
             profile.setOverallMarks(overallTopicIdx, totalScore);
 
-            if (!Duke.isCliMode()) {
+            if (!JavaCake.isCliMode()) {
                 switch (overallTopicIdx) {
                 case 0:
-                    Duke.logger.log(Level.INFO, totalScore + " YEET");
+                    JavaCake.logger.log(Level.INFO, totalScore + " YEET");
                     TopBar.progValueA = (double) totalScore / TotalMaxQuestions;
                     break;
                 case 1:
@@ -223,13 +223,13 @@ public class QuizSession implements QuizManager {
      * Method to set user answer and check if answer is correct.
      * If it is, then update the score.
      * @param input the answer inputted by the user
-     * @throws DukeException error thrown if user inputs wrong type of answer.
+     * @throws CakeException error thrown if user inputs wrong type of answer.
      */
-    private void checkAnswer(int index, String input) throws DukeException {
+    private void checkAnswer(int index, String input) throws CakeException {
         if (!isNumeric(input)) {
             String userWarning = "[!] Please input answers in the form of integer [!]\n";
             String qnAgain = getQuestion(index);
-            throw new DukeException(userWarning + qnAgain);
+            throw new CakeException(userWarning + qnAgain);
         }
         if (questionList.setAndCheckUserAnswer(index, input)) {
             currScore++;
@@ -248,9 +248,9 @@ public class QuizSession implements QuizManager {
     /**
      * Method to get the results of the quiz.
      * @return String containing what Cake said about the quiz.
-     * @throws DukeException error thrown if failed to overwrite score.
+     * @throws CakeException error thrown if failed to overwrite score.
      */
-    public String getQuizResult() throws DukeException {
+    public String getQuizResult() throws CakeException {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("This is your score:");
         stringBuilder.append("    ").append(currScore).append(" / ").append(MAX_QUESTIONS).append("\n");

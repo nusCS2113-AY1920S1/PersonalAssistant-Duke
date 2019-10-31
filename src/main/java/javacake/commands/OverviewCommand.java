@@ -1,9 +1,7 @@
 package javacake.commands;
 
 import javacake.Logic;
-import javacake.exceptions.DukeException;
-import javacake.storage.Profile;
-import javacake.storage.Storage;
+import javacake.exceptions.CakeException;
 import javacake.storage.StorageManager;
 import javacake.ui.Ui;
 
@@ -45,52 +43,76 @@ public class OverviewCommand extends Command {
      * @param ui the Ui responsible for outputting messages
      * @param storageManager storage container
      * @return formatted directory of content.
-     * @throws DukeException when file is not found.
+     * @throws CakeException when file is not found.
      */
-    public String execute(Logic logic, Ui ui, StorageManager storageManager) throws DukeException {
+    public String execute(Logic logic, Ui ui, StorageManager storageManager) throws CakeException {
 
         logic.setDefaultFilePath();
         logic.insertQueries();
 
         StringBuilder sb = new StringBuilder();
         sb.append("Here is the lesson directory!").append("\n");
+        CodeSource src = Logic.class.getProtectionDomain().getCodeSource();
+        if (runningFromJar()) { //jar
+            sb.append(processJarFile(src));
+        } else {
+            sb.append(processNonJarFile());
+        }
+        return sb.toString();
+    }
 
+    /**
+     * Processes Jar Files by unzipping the jar file.
+     * Looks for file names that corresponds to current file path.
+     * @param src Source of the code.
+     * @return String of names of directories.
+     * @throws CakeException If file path does not exist.
+     */
+    private String processJarFile(CodeSource src) throws CakeException {
         List<String> collectionOfNames = new ArrayList<>();
-
+        StringBuilder sb = new StringBuilder();
         try {
-            CodeSource src = Logic.class.getProtectionDomain().getCodeSource();
-            if (runningFromJar()) { //jar
-                URL jar = src.getLocation();
-                ZipInputStream zip = new ZipInputStream(jar.openStream());
-                while (true) {
-                    ZipEntry e = zip.getNextEntry();
-                    if (e == null) {
-                        break;
-                    }
-                    String name = e.getName();
-                    if (name.startsWith(currentFilePath)) {
-                        collectionOfNames.add(name);
-                    }
+            URL jar = src.getLocation();
+            ZipInputStream zip = new ZipInputStream(jar.openStream());
+            while (true) {
+                ZipEntry e = zip.getNextEntry();
+                if (e == null) {
+                    break;
                 }
-                List<String> result = processFileNames(collectionOfNames);
-                sb.append(String.join("\n", result)).append("\n");
-                sb.append(getEndingMessage());
-            } else {
-                try {
-                    Stream<Path> walk = Files.walk(Paths.get("src/main/resources/content/MainList"));
-                    List<String> result = walk.filter(Files::isDirectory)
-                            .map(x -> x.toString()).collect(Collectors.toList());
-                    result = processFileNamesIfNotJar(result);
-                    sb.append(String.join("\n", result)).append("\n");
-                    sb.append(getEndingMessage());
-                } catch (IOException e) {
-                    e.printStackTrace();
+                String name = e.getName();
+                if (name.startsWith(currentFilePath)) {
+                    collectionOfNames.add(name);
                 }
             }
-            return sb.toString();
+            List<String> result = processFileNames(collectionOfNames);
+            sb.append(String.join("\n", result)).append("\n");
+            sb.append(getEndingMessage());
         } catch (IOException e) {
-            throw new DukeException(e.getMessage());
+            throw new CakeException(e.getMessage());
         }
+        return sb.toString();
+    }
+
+    /**
+     * Processes in Non-Jar files such as IDEs.
+     * Uses Depth-First-Search to process files that are directories.
+     * Returns the list of names used for processing.
+     * @return String of names of directories.
+     * @throws CakeException If file path does not exist.
+     */
+    private String processNonJarFile() throws CakeException {
+        StringBuilder sb = new StringBuilder();
+        try {
+            Stream<Path> walk = Files.walk(Paths.get("src/main/resources/content/MainList"));
+            List<String> result = walk.filter(Files::isDirectory)
+                    .map(x -> x.toString()).collect(Collectors.toList());
+            result = processFileNamesIfNotJar(result);
+            sb.append(String.join("\n", result)).append("\n");
+            sb.append(getEndingMessage());
+        } catch (IOException e) {
+            throw new CakeException(e.getMessage());
+        }
+        return sb.toString();
     }
 
     /**

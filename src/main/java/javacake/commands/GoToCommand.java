@@ -1,7 +1,7 @@
 package javacake.commands;
 
-import javacake.Duke;
-import javacake.exceptions.DukeException;
+import javacake.JavaCake;
+import javacake.exceptions.CakeException;
 import javacake.quiz.QuestionDifficulty;
 import javacake.quiz.QuestionType;
 import javacake.quiz.QuizSession;
@@ -9,6 +9,7 @@ import javacake.Logic;
 import javacake.storage.StorageManager;
 import javacake.ui.Ui;
 
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -18,17 +19,33 @@ public class GoToCommand extends Command {
 
     /**
      * constructor for goto command. Contains a queue of index in which user wants to navigate into.
+     * Splits command into 2, space delimiter, max size of inputDivider = 2
      * @param inputCommand Parsed goto command by user
      */
-    public GoToCommand(String inputCommand) throws DukeException {
-        if (inputCommand.matches("\\d+")) { //check if input is numeric
-            indexQueue.add(inputCommand);
+    public GoToCommand(String inputCommand) throws CakeException {
+        String[] inputDivider = inputCommand.split("\\s+", 2);
+        String gotoIndex;
+
+        if (inputDivider.length == 1) { // no goto index
+            throw new CakeException("Please specify the index you wish to go!");
         } else {
-            String[] buffer = inputCommand.split("\\.");
-            for (int i = 0; i < buffer.length; i++) {
-                indexQueue.add(buffer[i]);
-            }
+            gotoIndex = inputDivider[1];
         }
+        if (gotoIndex.matches("\\d+")) { //check if input is numeric
+            indexQueue.add(gotoIndex);
+        } else {
+            processMultipleIndexes(gotoIndex);
+        }
+    }
+
+
+    /**
+     * Queues the index when multiple indexes are detected.
+     * @param gotoIndex Index user wants to view.
+     */
+    private void processMultipleIndexes(String gotoIndex) {
+        String[] buffer = gotoIndex.split("\\.");
+        indexQueue.addAll(Arrays.asList(buffer));
     }
 
     /**
@@ -36,17 +53,17 @@ public class GoToCommand extends Command {
      * @param logic tracks current location in program
      * @param ui the Ui responsible for outputting messages
      * @param storageManager storage container.
-     * @throws DukeException Error thrown when unable to close reader or error in quiz format
+     * @throws CakeException Error thrown when unable to close reader or error in quiz format
      */
     public String execute(Logic logic, Ui ui, StorageManager storageManager)
-            throws DukeException {
+            throws CakeException {
         int intIndex = Integer.parseInt(indexQueue.poll()) - 1;
         logic.updateFilePath(logic.gotoFilePath(intIndex));
         String filePath = logic.getFullFilePath();
         if (filePath.contains("Quiz")) {
             QuizSession.setProfile(storageManager.profile);
             if (!filePath.substring(filePath.length() - 4).equals("Quiz")) {
-                throw new DukeException("Sorry, please type 'back' or 'list' instead.");
+                throw new CakeException("Sorry, please type 'back' or 'list' instead.");
             }
             return handleQuiz(logic, ui, storageManager);
         }
@@ -65,7 +82,7 @@ public class GoToCommand extends Command {
         }
     }
 
-    private String handleQuiz(Logic logic, Ui ui, StorageManager storageManager) throws DukeException {
+    private String handleQuiz(Logic logic, Ui ui, StorageManager storageManager) throws CakeException {
         String filePath = logic.getFullFilePath();
         QuestionType qnType;
         QuestionDifficulty qnDifficulty;
@@ -88,8 +105,8 @@ public class GoToCommand extends Command {
             qnDifficulty = QuestionDifficulty.HARD;
         }
 
-        if (Duke.isCliMode()) {
-            return new QuizSession(qnType, qnDifficulty, Duke.isCliMode())
+        if (JavaCake.isCliMode()) {
+            return new QuizSession(qnType, qnDifficulty, JavaCake.isCliMode())
                     .execute(logic, ui, storageManager);
         } else {
             String response = null;

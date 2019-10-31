@@ -1,7 +1,7 @@
 package javacake.commands;
 
 import javacake.Logic;
-import javacake.exceptions.DukeException;
+import javacake.exceptions.CakeException;
 import javacake.storage.StorageManager;
 import javacake.ui.Ui;
 
@@ -14,27 +14,13 @@ public abstract class Command {
      */
     public enum CmdType {
         EXIT, LIST, FIND, DONE, DELETE, TODO, DEADLINE, REMIND, VIEWSCH,
-        EDIT, BACK, GOTO, HELP, TREE, CREATENOTE, EDITNOTE, DELETENOTE
+        EDIT, BACK, GOTO, QUIZ, HELP, TREE, CREATENOTE, EDITNOTE, LISTNOTE,
+        DELETENOTE
     }
 
     public abstract String execute(Logic logic, Ui ui, StorageManager storageManager)
-            throws DukeException;
+            throws CakeException;
 
-    /**
-     * Method to get the type of command.
-     * @return Type of command
-     */
-    public CmdType type() {
-        return type;
-    }
-
-    /**
-     * Method to get the input inside the command.
-     * @return String containing user input in command
-     */
-    public String input() {
-        return input;
-    }
 
     /**
      * Method to check whether command is of type exit.

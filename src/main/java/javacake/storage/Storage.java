@@ -1,7 +1,7 @@
 package javacake.storage;
 
-import javacake.Duke;
-import javacake.exceptions.DukeException;
+import javacake.JavaCake;
+import javacake.exceptions.CakeException;
 import javacake.notes.Note;
 import javacake.tasks.Task;
 import org.apache.commons.io.FileUtils;
@@ -34,7 +34,7 @@ public class Storage {
     /**
      * Constructor for storage.
      */
-    public Storage() throws DukeException {
+    public Storage() throws CakeException {
         this(defaultFilePath);
     }
 
@@ -42,9 +42,9 @@ public class Storage {
      * Initialises the 'data' based on previous data
      * from filepath.
      * @param altPath The storage path of the saved data
-     * @throws DukeException Exception when file is not found
+     * @throws CakeException Exception when file is not found
      */
-    public Storage(String altPath) throws DukeException {
+    public Storage(String altPath) throws CakeException {
         this.currentTaskData = new TaskList();
         defaultFilePath = altPath;
         //Initialise new deadline file
@@ -53,7 +53,7 @@ public class Storage {
         //Initialise new notes directory
         File notesFile = new File(defaultFilePath + "/notes/");
         generateFolder(notesFile);
-        Duke.logger.log(Level.INFO,"Filepath: " + filepath);
+        JavaCake.logger.log(Level.INFO,"Filepath: " + filepath);
         try {
             if (!tasksFile.getParentFile().getParentFile().exists()) {
                 tasksFile.getParentFile().getParentFile().mkdir();
@@ -68,11 +68,11 @@ public class Storage {
                 tasksFile.createNewFile();
                 //System.out.println("C" + tasksFile.getPath());
             } else {
-                Duke.logger.log(Level.INFO, filepath + " is found!");
+                JavaCake.logger.log(Level.INFO, filepath + " is found!");
             }
         } catch (IOException e) {
-            Duke.logger.log(Level.WARNING, "Unable to create deadline file");
-            throw new DukeException("Failed to create storage.");
+            JavaCake.logger.log(Level.WARNING, "Unable to create deadline file");
+            throw new CakeException("Failed to create storage.");
         }
 
         try {
@@ -115,8 +115,8 @@ public class Storage {
             }
             reader.close();
         } catch (IOException e) {
-            Duke.logger.log(Level.WARNING, "Unable to find deadline file");
-            throw new DukeException("Failed to create storage.");
+            JavaCake.logger.log(Level.WARNING, "Unable to find deadline file");
+            throw new CakeException("Failed to create storage.");
         }
 
     }
@@ -124,20 +124,20 @@ public class Storage {
     /**
      * Method to hard reset profile.
      */
-    public static void resetStorage() throws DukeException {
+    public static void resetStorage() throws CakeException {
         try {
             FileUtils.deleteDirectory(new File(defaultFilePath));
             tempTaskData.clear();
             currentTaskData.getData().clear();
         } catch (IOException e) {
-            throw new DukeException("Unable to reset Storage");
+            throw new CakeException("Unable to reset Storage");
         }
     }
 
     /**
      * Generates starting folder when program starts.
      * @param sampleFile File that is auto-generated when program starts.
-     * @throws DukeException If file does not exist.
+     * @throws CakeException If file does not exist.
      */
     public static void generateFolder(File sampleFile) {
         if (!sampleFile.getParentFile().exists()) {
@@ -160,9 +160,9 @@ public class Storage {
      * Writes current taskList onto the save file.
      * @param tasks ArrayList of Tasks needing to be written
      *              onto the save file
-     * @throws DukeException when no file is found
+     * @throws CakeException when no file is found
      */
-    public void write(ArrayList<Task> tasks) throws DukeException {
+    public void write(ArrayList<Task> tasks) throws CakeException {
         try {
             PrintWriter out = new PrintWriter(filepath);
             for (Task task : tempTaskData) {
@@ -174,7 +174,7 @@ public class Storage {
 
             out.close();
         } catch (FileNotFoundException e) {
-            throw new DukeException("No file found");
+            throw new CakeException("No file found");
         }
     }
 

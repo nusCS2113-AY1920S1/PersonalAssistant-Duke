@@ -4,11 +4,9 @@ package javacake.commands;
 import com.joestelmach.natty.DateGroup;
 import com.joestelmach.natty.Parser;
 import javacake.Logic;
-import javacake.exceptions.DukeException;
-import javacake.storage.Profile;
+import javacake.exceptions.CakeException;
 import javacake.storage.StorageManager;
 import javacake.ui.Ui;
-import javacake.storage.Storage;
 
 import java.util.Date;
 import java.util.List;
@@ -26,9 +24,9 @@ public class EditCommand extends Command {
     }
 
     @Override
-    public String execute(Logic logic, Ui ui, StorageManager storageManager) throws DukeException {
+    public String execute(Logic logic, Ui ui, StorageManager storageManager) throws CakeException {
         if (input.length() <= 6) {
-            throw new DukeException("[!] No deadline mentioned!");
+            throw new CakeException("[!] No deadline mentioned!");
         }
         input = input.substring(6);
         try {
@@ -38,7 +36,7 @@ public class EditCommand extends Command {
             int num = Integer.parseInt(buffer[1]);
             --num;
             if (!buffer[2].equals("/by")) {
-                throw new DukeException("[!] Wrong format\nPlease input:\n'deadline TASK /by TASK_DATE'");
+                throw new CakeException("[!] Wrong format\nPlease input:\n'deadline TASK /by TASK_DATE'");
             }
             String newDateString = "";
             for (int i = 0; i < buffer.length; ++i) {
@@ -61,7 +59,7 @@ public class EditCommand extends Command {
                 storageManager.storage.write(storageManager.storage.getData());
                 isInsideData = true;
             } catch (Exception e) {
-                throw new DukeException("[!] Date cannot be parsed: " + newDateString);
+                throw new CakeException("[!] Date cannot be parsed: " + newDateString);
             }
             /*for (int i = 0; i < progressStack.size(); ++i) {
                 if (i == num) {
@@ -75,10 +73,10 @@ public class EditCommand extends Command {
                 }
             }*/
             if (!isInsideData) {
-                throw new DukeException("[!] Task number is out of bounds [Edit]");
+                throw new CakeException("[!] Task number is out of bounds [Edit]");
             }
         } catch (NumberFormatException e) {
-            throw new DukeException("[!] Task number is invalid! [Edit]");
+            throw new CakeException("[!] Task number is invalid! [Edit]");
         }
         return "";
     }

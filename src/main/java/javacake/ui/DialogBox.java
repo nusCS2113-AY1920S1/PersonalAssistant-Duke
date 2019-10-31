@@ -173,7 +173,7 @@ public class DialogBox extends HBox {
      * @param img Image of Cake
      * @return a DialogBox containing both of them
      */
-    public static DialogBox getDukeDialog(String text, Image img) {
+    public static DialogBox getJavaCakeDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();
         return db;

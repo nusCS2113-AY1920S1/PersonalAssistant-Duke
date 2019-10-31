@@ -1,4 +1,4 @@
-import javacake.exceptions.DukeException;
+import javacake.exceptions.CakeException;
 import javacake.storage.Profile;
 import javacake.storage.Storage;
 import javacake.tasks.Task;
@@ -45,7 +45,7 @@ public class StorageTest {
         try {
             profile = new Profile(profileFile.getPath());
             assertEquals("NEW_USER_!@#", profile.getUsername());
-        } catch (DukeException e) {
+        } catch (CakeException e) {
             System.out.println(e.getMessage());
         }
     }
@@ -60,7 +60,7 @@ public class StorageTest {
             assertEquals(0, profile.getOverallContentMarks(2));
             assertEquals(0, profile.getOverallContentMarks(3));
             assertEquals(0, profile.getTotalProgress());
-        } catch (DukeException e) {
+        } catch (CakeException e) {
             System.out.println(e.getMessage());
         }
     }
@@ -72,7 +72,7 @@ public class StorageTest {
             storage = new Storage(storageFile.getPath());
             assertEquals(new ArrayList<Task>(), storage.getData());
             assertEquals(0, Storage.getInternalDataSize());
-        } catch (DukeException e) {
+        } catch (CakeException e) {
             System.out.println(e.getMessage());
         }
     }

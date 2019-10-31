@@ -1,7 +1,7 @@
 package javacake.quiz;
 
 import javacake.commands.BackCommand;
-import javacake.exceptions.DukeException;
+import javacake.exceptions.CakeException;
 import javacake.storage.Profile;
 import javacake.Logic;
 import javacake.storage.Storage;
@@ -42,10 +42,10 @@ public class ReviewSession implements QuizManager {
      * @param index index of current question. Unused.
      * @param input user input which can be index which is valid between 1 and MAX_QUESTIONS, or "back".
      * @return Valid question index between 0 and MAX_QUESTIONS-1, or BackCommand identifier.
-     * @throws DukeException if input is neither a valid question index or "back".
+     * @throws CakeException if input is neither a valid question index or "back".
      */
     @Override
-    public String parseInput(int index, String input) throws DukeException {
+    public String parseInput(int index, String input) throws CakeException {
         if (input.equals("back")) {
             // TODO tie BackCommand identifier to MainWindow
             return "!@#_BACK";
@@ -53,7 +53,7 @@ public class ReviewSession implements QuizManager {
             int tmp = Integer.parseInt(input) - 1;
             return String.valueOf(tmp); // echo back input with proper indexing for the next getQuestion
         } else {
-            throw new DukeException("Invalid command at this point in the program.");
+            throw new CakeException("Invalid command at this point in the program.");
         }
     }
 
@@ -64,9 +64,9 @@ public class ReviewSession implements QuizManager {
      * @param ui the UI responsible for inputs and outputs of the program.
      * @param storageManager storage container.
      * @return execution of back command when input is equal to "back".
-     * @throws DukeException This method does not throw this exception.
+     * @throws CakeException This method does not throw this exception.
      */
-    public String execute(Logic logic, Ui ui, StorageManager storageManager) throws DukeException {
+    public String execute(Logic logic, Ui ui, StorageManager storageManager) throws CakeException {
         int index = 0;
         while (!isExitReview) {
             ui.showLine();

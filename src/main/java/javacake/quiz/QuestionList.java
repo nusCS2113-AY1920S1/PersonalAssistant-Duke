@@ -1,6 +1,6 @@
 package javacake.quiz;
 
-import javacake.exceptions.DukeException;
+import javacake.exceptions.CakeException;
 
 import java.io.InputStream;
 import java.io.BufferedReader;
@@ -22,9 +22,9 @@ public class QuestionList {
     /**
      * Initialize a list of randomly chosen questions.
      * @param type the type of question to choose.
-     * @throws DukeException when there is an error loading files.
+     * @throws CakeException when there is an error loading files.
      */
-    public QuestionList(QuestionType type) throws DukeException {
+    public QuestionList(QuestionType type) throws CakeException {
         questionType = type;
         this.filePath = logic.getFullFilePath();
         totalNumOfQns = logic.getNumOfFiles();
@@ -54,7 +54,7 @@ public class QuestionList {
     /**
      * Method to get all questions in the given directory.
      */
-    public void loadQuestions() throws DukeException {
+    public void loadQuestions() throws CakeException {
         for (int i = 1; i <= totalNumOfQns; i++) {
             try {
                 String fileContentPath = filePath + "/Qn" + i + ".txt";
@@ -69,7 +69,7 @@ public class QuestionList {
                 String[] questions = stringBuilder.toString().substring(0,stringBuilder.length() - 1).split("\\|\\s*");
                 this.tempList.add(new Question(questions[0], questions[1]));
             } catch (Exception e) {
-                throw new DukeException("Error in loading file :(");
+                throw new CakeException("Error in loading file :(");
             }
         }
         assert tempList.size() > 0;
