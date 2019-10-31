@@ -88,25 +88,7 @@ public class MainWindow extends AnchorPane{
         console.setEditable(false);
         onPrinting();
         Hustler.initialize();
-
-        StackPane stackPane = new StackPane();
-        Rectangle whiteSpace = new Rectangle();
-        welcomeScreen.setStyle("-fx-background-color:#2dcb70");
-        whiteSpace.setOpacity(0.0);
-        whiteSpace.setHeight(50);
-        whiteSpace.widthProperty().bind(flowPane.widthProperty());
-
-        Text text = new Text("Hi, I am Hustler!\n What can I do for you?");
-        text.setFont(Font.font("Gill Sans", 30));
-        text.setFill(Color.WHITE);
-        text.setTextAlignment(TextAlignment.CENTER);
-
-        stackPane.setMargin(text,new Insets(0,50,0,50));
-        stackPane.setAlignment(text,Pos.CENTER);
-        stackPane.getChildren().addAll(text);
-        stackPane.prefWidthProperty().bind(welcomeScreen.widthProperty());
-
-        welcomeScreen.getChildren().addAll(whiteSpace,stackPane);
+        showWelcome();
     }
 
     public void setHustler(Hustler h) {
@@ -158,6 +140,11 @@ public class MainWindow extends AnchorPane{
         String input = userInput.getText();
         String[] timerModeCommands = {"/timer", "/resumertimer", "/stoptimer", "/pausetimer", "/update",
                                       "/resumetimer", "/showtimer", "/addFromList", "/remove"};
+
+        String[] avatarModeCommands = {"/setname", "/avatar", "/equip"};
+
+        String[] shopModeCommands = {"/shop", "/buy"};
+
         String command = input.split(" ")[0];
 
         if (!input.isBlank()) {
@@ -169,9 +156,9 @@ public class MainWindow extends AnchorPane{
                 taskCompletionModeAction();
             } else if (input.equals("/achievements")) {
                 achievementAction();
-            } else if (input.equals("/avatar")) {
+            } else if (Arrays.asList(avatarModeCommands).contains(command)) {
                 avatarAction();
-            } else if (input.equals("/shop")) {
+            } else if (Arrays.asList(shopModeCommands).contains(command)) {
                 shopAction();
             } else {
                 taskAction();
@@ -195,6 +182,28 @@ public class MainWindow extends AnchorPane{
         ColorAdjust color = new ColorAdjust();
         color.setBrightness(0);
         sendButton.setEffect(color);
+    }
+
+    @FXML
+    public void showWelcome() {
+        StackPane stackPane = new StackPane();
+        Rectangle whiteSpace = new Rectangle();
+        welcomeScreen.setStyle("-fx-background-color:#2dcb70");
+        whiteSpace.setOpacity(0.0);
+        whiteSpace.setHeight(50);
+        whiteSpace.widthProperty().bind(flowPane.widthProperty());
+
+        Text text = new Text("Hi, I am Hustler!\n What can I do for you?");
+        text.setFont(Font.font("Gill Sans", 30));
+        text.setFill(Color.WHITE);
+        text.setTextAlignment(TextAlignment.CENTER);
+
+        stackPane.setMargin(text,new Insets(0,50,0,50));
+        stackPane.setAlignment(text,Pos.CENTER);
+        stackPane.getChildren().addAll(text);
+        stackPane.prefWidthProperty().bind(welcomeScreen.widthProperty());
+
+        welcomeScreen.getChildren().addAll(whiteSpace,stackPane);
     }
 
     @FXML
