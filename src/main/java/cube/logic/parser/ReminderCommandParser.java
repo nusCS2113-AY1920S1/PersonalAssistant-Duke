@@ -1,11 +1,21 @@
 package cube.logic.parser;
 
 import cube.logic.command.ReminderCommand;
+import cube.logic.parser.exception.ParserErrorMessage;
 import cube.logic.parser.exception.ParserException;
 
 public class ReminderCommandParser implements ParserPrototype<ReminderCommand> {
 
     public ReminderCommand parse(String[] args) throws ParserException {
+        String[] params = new String[]{"-s","-d"};
+
+        if(ParserUtil.hasInvalidParameters(args,params)){
+            throw new ParserException(ParserErrorMessage.INVALID_PARAMETER);
+        }
+        if(ParserUtil.hasRepetitiveParameters(args)){
+            throw new ParserException(ParserErrorMessage.REPETITIVE_PARAMETER);
+        }
+
         int daysToExpiryIndex = -1;
         int stockIndex = -1;
         for (int i = 1; i < args.length; i ++) {

@@ -17,6 +17,15 @@ public class AddCommandParser implements ParserPrototype<AddCommand> {
 		int priceIndex = -1;
 		int stockIndex = -1;
 		int expiryDateIndex = -1;
+		String[] params = new String[]{"-t","-p","-s","-e"};
+
+		if(ParserUtil.hasInvalidParameters(args,params)){
+			throw new ParserException(ParserErrorMessage.INVALID_PARAMETER);
+		}
+		if(ParserUtil.hasRepetitiveParameters(args)){
+			throw new ParserException(ParserErrorMessage.REPETITIVE_PARAMETER);
+		}
+
 		for (int i = 1; i < args.length; i ++) {
 			if (args[i].equals("-t")) {
 				foodTypeIndex = i;

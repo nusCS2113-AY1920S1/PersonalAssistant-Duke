@@ -10,6 +10,14 @@ import cube.storage.config.LogConfig;
 public class ConfigCommandParser implements ParserPrototype<ConfigCommand> {
 
     public ConfigCommand parse(String[] args) throws ParserException {
+        String[] params = new String[]{"-h","-w","-s","-c","-l"};
+
+        if(ParserUtil.hasInvalidParameters(args,params)){
+            throw new ParserException(ParserErrorMessage.INVALID_PARAMETER);
+        }
+        if(ParserUtil.hasRepetitiveParameters(args)){
+            throw new ParserException(ParserErrorMessage.REPETITIVE_PARAMETER);
+        }
         if (args.length == 1) {
             return new ConfigCommand(ConfigType.VIEW);
         }
