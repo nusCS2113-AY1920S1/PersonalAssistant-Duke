@@ -14,6 +14,7 @@ import duke.model.ModelManager;
 
 import javafx.scene.input.KeyCode;
 
+import java.io.FileNotFoundException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -41,7 +42,7 @@ public class LogicManager extends Logic {
      * @param userInput The input string from user.
      * @return CommandResult Object containing information for Ui to display.
      */
-    public CommandResult setup(String userInput) throws DukeException {
+    public CommandResult setup(String userInput) throws DukeException, FileNotFoundException {
         Command c;
         conversationManager.converse(userInput);
         c = conversationManager.getCommand();
@@ -56,9 +57,8 @@ public class LogicManager extends Logic {
      * @param userInput The input string from user.
      * @return CommandResult Object containing information for Ui to display.
      */
-    public CommandResult execute(String userInput) throws DukeException {
+    public CommandResult execute(String userInput) throws DukeException, FileNotFoundException {
         String input = userInput;
-
         Command c;
         if (EditorManager.isActive()) {
             logger.log(Level.INFO, "editing...");

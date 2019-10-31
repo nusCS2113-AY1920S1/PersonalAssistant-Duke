@@ -8,6 +8,7 @@ import duke.model.planning.Itinerary;
 
 import org.junit.jupiter.api.Test;
 
+import java.io.File;
 import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -22,12 +23,16 @@ class RecommendationsCommandTest {
         Venue hotel = new Venue("YEW TEE INDUSTRIAL ESTATE", 1.3973210291170202,
                 103.753758637401, 0, 0);
 
-        Itinerary itinerary = new Itinerary(startDate,endDate,hotel);
+        Itinerary itinerary = new Itinerary(startDate,endDate,hotel, "Test");
         RecommendationsCommand recommendationsCommand = new RecommendationsCommand(itinerary);
         CommandResultText commandResult = recommendationsCommand.execute(model);
         String result1 = commandResult.getMessage();
 
-        assertEquals(result1, itinerary.printItinerary().toString());
+        assertEquals(result1, itinerary.printItinerary());
+
+        File file = new File("testSamples.txt");
+        file.delete();
+
     }
 
 }

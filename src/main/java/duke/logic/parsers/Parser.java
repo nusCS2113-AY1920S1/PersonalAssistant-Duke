@@ -8,23 +8,26 @@ import duke.logic.commands.EditorCommand;
 import duke.logic.commands.ExitCommand;
 import duke.logic.commands.HelpCommand;
 import duke.logic.commands.ListCommand;
+import duke.logic.commands.ListItineraryCommand;
+import duke.logic.commands.NewItineraryCommand;
 import duke.logic.commands.ProfileSetPreferenceCommand;
 import duke.logic.commands.ProfileShowCommand;
 import duke.logic.commands.QuickEditCommand;
+import duke.logic.commands.RouteManagerCommand;
 import duke.logic.commands.RouteManagerExitCommand;
 import duke.logic.commands.RouteManagerHelpCommand;
 import duke.logic.commands.RouteManagerInfoCommand;
+import duke.logic.commands.RouteManagerNearbyCommand;
 import duke.logic.commands.RouteManagerNodeBackCommand;
 import duke.logic.commands.RouteManagerNodeInfoCommand;
-import duke.logic.commands.RouteManagerNearbyCommand;
 import duke.logic.commands.RouteManagerNodeNextCommand;
 import duke.logic.commands.RouteManagerNodeSelectorCommand;
 import duke.logic.commands.RouteManagerReturnCommand;
 import duke.logic.commands.RouteManagerSelectorCommand;
 import duke.logic.commands.RouteNodeNeighboursCommand;
 import duke.logic.commands.RouteNodeShowCommand;
-import duke.logic.commands.RouteManagerCommand;
 import duke.logic.commands.RouteShowCommand;
+import duke.logic.commands.ShowItineraryCommand;
 import duke.logic.commands.ViewScheduleCommand;
 import duke.logic.parsers.commandparser.AddEventParser;
 import duke.logic.parsers.commandparser.AddProfileParser;
@@ -157,6 +160,12 @@ public class Parser {
             return new RouteManagerExitCommand();
         case "addThisList":
             return new AddSampleItineraryCommand();
+        case "newItinerary":
+            return new NewItineraryCommand(ParserUtil.createNewItinerary(input));
+        case "listItinerary":
+            return new ListItineraryCommand();
+        case "showItinerary":
+            return new ShowItineraryCommand(getWord(input));
         case "profile":
             return new AddProfileParser(inputBody).parse();
         case "profileShow":

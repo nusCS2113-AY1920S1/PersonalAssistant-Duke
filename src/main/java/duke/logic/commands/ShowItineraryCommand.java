@@ -8,17 +8,17 @@ import duke.model.planning.Itinerary;
 import java.io.FileNotFoundException;
 
 /**
- * Creates a new custom itinerary.
+ * Shows the requested Itinerary.
  */
-public class NewItineraryCommand extends Command {
-    private Itinerary itinerary;
+public class ShowItineraryCommand extends Command {
+    private String number;
 
     /**
-     * Constructs the command with the given sample itinerary.
+     * Constructs the command with the given itinerary name.
      *
      */
-    public NewItineraryCommand(Itinerary itinerary) {
-        this.itinerary = itinerary;
+    public ShowItineraryCommand(String number) {
+        this.number = number;
     }
 
     /**
@@ -28,8 +28,7 @@ public class NewItineraryCommand extends Command {
      */
     @Override
     public CommandResultText execute(Model model) throws DukeException, FileNotFoundException {
-        model.saveItinerary(itinerary);
-        model.itineraryListSave(itinerary);
-        return new CommandResultText("New Itinerary Created :" + itinerary.printItinerary());
+        Itinerary itinerary = model.getItinerary(number);
+        return new CommandResultText(itinerary.printItinerary());
     }
 }

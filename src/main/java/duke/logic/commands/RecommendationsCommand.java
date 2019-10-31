@@ -34,12 +34,6 @@ public class RecommendationsCommand extends Command {
 
         String result = itinerary.printItinerary();
 
-        // Until more locations are added
-
-        if (itinerary.getNumberOfDays() > 7) {
-            throw new DukeException("Too many days, enter less than 8 ");
-        }
-
         return new CommandResultText(result);
     }
 }

@@ -26,6 +26,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.io.FileNotFoundException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -123,8 +124,7 @@ public class MainWindow extends UiPart<Stage> {
                 if (result instanceof CommandResultMap) {
                     new MapWindow((CommandResultMap) result).show();
                 }
-
-            } catch (DukeException e) {
+            } catch (DukeException | FileNotFoundException e) {
                 sgTravelShow(e.getMessage());
             }
         });
@@ -134,7 +134,7 @@ public class MainWindow extends UiPart<Stage> {
         try {
             CommandResult result = logic.setup(input);
             sgTravelShow(result);
-        } catch (DukeException e) {
+        } catch (DukeException | FileNotFoundException e) {
             sgTravelShow(e.getMessage());
         }
     }

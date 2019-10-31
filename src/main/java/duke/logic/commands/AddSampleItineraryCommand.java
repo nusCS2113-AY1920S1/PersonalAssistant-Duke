@@ -1,11 +1,13 @@
 package duke.logic.commands;
 
 import duke.commons.exceptions.DukeDateTimeParseException;
+import duke.commons.exceptions.DukeException;
 import duke.commons.exceptions.FileLoadFailException;
 import duke.logic.commands.results.CommandResultText;
 import duke.model.Model;
 import duke.model.planning.Itinerary;
-import duke.storage.Storage;
+
+import java.io.FileNotFoundException;
 
 /**
  * Adds the given recommended list to users itineraries.
@@ -20,7 +22,7 @@ public class AddSampleItineraryCommand extends Command {
      * @throws FileLoadFailException If the file cannot be loaded.
      */
     public AddSampleItineraryCommand() throws DukeDateTimeParseException, FileLoadFailException {
-        this.itinerary = Storage.readRecommendations();
+        this.itinerary = null;
     }
 
     /**
@@ -29,8 +31,11 @@ public class AddSampleItineraryCommand extends Command {
      * @param model The model object containing information about the user.
      */
     @Override
-    public CommandResultText execute(Model model) {
+    public CommandResultText execute(Model model) throws DukeException, FileNotFoundException {
         // Add to the list of Itineraries
+        itinerary = model.readRecommendations();
+        model.itineraryListSave(itinerary);
+        model.saveItinerary(itinerary);
         return new CommandResultText("Successfully added this itinerary: " + "\n"
                 + itinerary.printItinerary());
     }

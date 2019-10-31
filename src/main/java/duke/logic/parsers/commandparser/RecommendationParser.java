@@ -51,7 +51,7 @@ public class RecommendationParser extends CommandParser {
         LocalDateTime end = ParserTimeUtil.parseStringToDate(itineraryDetails[2].strip());
         Venue hotelLocation = ApiParser.getLocationSearch(itineraryDetails[0].strip());
         logger.log(Level.FINE, hotelLocation.getAddress());
-        return new Itinerary(start, end, hotelLocation);
+        return new Itinerary(start, end, hotelLocation, "New Recommendation");
     }
 
     /**

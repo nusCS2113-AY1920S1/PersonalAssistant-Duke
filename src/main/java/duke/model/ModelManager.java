@@ -1,7 +1,10 @@
 package duke.model;
 
+import duke.commons.exceptions.DukeDateTimeParseException;
 import duke.commons.exceptions.DukeException;
+import duke.commons.exceptions.FileLoadFailException;
 import duke.commons.exceptions.FileNotSavedException;
+import duke.commons.exceptions.ItineraryInsufficientAgendasException;
 import duke.logic.TransportationMap;
 import duke.commons.exceptions.RouteDuplicateException;
 import duke.logic.RouteManager;
@@ -16,6 +19,7 @@ import duke.model.transports.BusService;
 import duke.model.transports.Route;
 import duke.storage.Storage;
 
+import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.List;
 
@@ -84,9 +88,10 @@ public class ModelManager implements Model {
 
     @Override
     public List<Agenda> getRecommendations(int numDays, Itinerary itinerary) throws DukeException {
+
         List<Agenda> recommendations = storage.readVenues(numDays);
         itinerary.setTasks(recommendations);
-        storage.writeRecommendations(itinerary);
+        storage.writeItineraries(itinerary, 2);
         return recommendations;
     }
 
@@ -103,6 +108,50 @@ public class ModelManager implements Model {
     @Override
     public RouteManager getRouteManager() {
         return routeManager;
+    }
+
+    /**
+     * Save a newly created Itinerary to storage.
+     *
+     * @param itinerary The itinerary to be stored.
+     */
+    @Override
+    public void saveItinerary(Itinerary itinerary)  throws FileNotSavedException,
+            ItineraryInsufficientAgendasException {
+        storage.writeItineraries(itinerary, 1);
+    }
+
+    /**
+     * Save the newly created itinerary to the Itinerary Lists table of contents.
+     *
+     * @param itinerary The itinerary to be stored.
+     */
+    @Override
+    public void itineraryListSave(Itinerary itinerary) throws FileNotSavedException, FileNotFoundException {
+        storage.writeItinerarySave(itinerary);
+    }
+
+    /**
+     * Shows the Stored Itineraries Table of Contents.
+     */
+    @Override
+    public String listItineraries() throws FileLoadFailException {
+        return storage.readItineraryList();
+    }
+
+    /**
+     * Shows the Itinerary specified by a give serial number.
+     *
+     * @param number The serial number of the Itinerary.
+     */
+    @Override
+    public Itinerary getItinerary(String number) throws DukeException {
+        return storage.getItinerary(number);
+    }
+
+    @Override
+    public Itinerary readRecommendations() throws FileLoadFailException, DukeDateTimeParseException {
+        return storage.readRecommendations();
     }
 
     /**
