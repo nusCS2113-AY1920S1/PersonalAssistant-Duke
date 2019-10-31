@@ -5,11 +5,19 @@ import compal.logic.command.exceptions.CommandException;
 import compal.model.tasks.Task;
 import compal.model.tasks.TaskList;
 import net.fortuna.ical4j.data.CalendarOutputter;
-import net.fortuna.ical4j.model.*;
+import net.fortuna.ical4j.model.Calendar;
+import net.fortuna.ical4j.model.DateTime;
 import net.fortuna.ical4j.model.component.VAlarm;
 import net.fortuna.ical4j.model.component.VEvent;
-import net.fortuna.ical4j.model.component.VToDo;
-import net.fortuna.ical4j.model.property.*;
+import net.fortuna.ical4j.model.property.Action;
+import net.fortuna.ical4j.model.property.CalScale;
+import net.fortuna.ical4j.model.property.Description;
+import net.fortuna.ical4j.model.property.DtEnd;
+import net.fortuna.ical4j.model.property.DtStart;
+import net.fortuna.ical4j.model.property.ProdId;
+import net.fortuna.ical4j.model.property.Summary;
+import net.fortuna.ical4j.model.property.Uid;
+import net.fortuna.ical4j.model.property.Version;
 import net.fortuna.ical4j.util.RandomUidGenerator;
 import net.fortuna.ical4j.util.UidGenerator;
 
@@ -21,7 +29,10 @@ import java.util.ArrayList;
 
 public class ExportCommand extends Command {
 
-    private String ICAL_FILE_NAME;
+    private String fileName;
+    public static final String MESSAGE_UNABLE_CREATE_FILE = "Error: Unable to create file! Try again!";
+    public static final String MESSAGE_UNABLE_CREATE_CAL = "Error: Unable to output to calender!";
+    public static final String MESSAGE_SUCCESS = "Export command successfully executed!\n";
 
     /**
      * Construct the ExportCommand class.
@@ -29,7 +40,7 @@ public class ExportCommand extends Command {
      * @param fileName the file to be exported to
      */
     public ExportCommand(String fileName) {
-        this.ICAL_FILE_NAME = fileName.concat(".ics");
+        this.fileName = fileName.concat(".ics");
     }
 
 
@@ -40,43 +51,48 @@ public class ExportCommand extends Command {
         Calendar calendar = createCalendar(taskList);
         System.out.println(calendar);
 
-
-        FileOutputStream fout = null;
+        FileOutputStream fileOutput;
         try {
-            fout = new FileOutputStream("mycalendar.ics");
+            fileOutput = new FileOutputStream(fileName);
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            throw new CommandException(MESSAGE_UNABLE_CREATE_FILE);
         }
 
-        CalendarOutputter outputter = new CalendarOutputter();
+        CalendarOutputter calendarOutputter = new CalendarOutputter();
         try {
-            outputter.output(calendar, fout);
+            calendarOutputter.output(calendar, fileOutput);
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new CommandException(MESSAGE_UNABLE_CREATE_CAL);
         }
 
-        return new CommandResult("HI", false);
+        return new CommandResult(MESSAGE_SUCCESS.concat("Your file is saved to " + fileName), false);
     }
 
+    /**
+     * Create ics calender object.
+     *
+     * @param taskList the current tasklist
+     * @return ics calendar
+     */
     public static Calendar createCalendar(TaskList taskList) {
-        ArrayList<Task> toList = taskList.getArrList();
+
         Calendar calendar = new Calendar();
         calendar.getProperties().add(new ProdId("-//Ben Fortuna//iCal4j 1.0//EN"));
         calendar.getProperties().add(Version.VERSION_2_0);
         calendar.getProperties().add(CalScale.GREGORIAN);
 
+        ArrayList<Task> toList = taskList.getArrList();
         for (Task t : toList) {
-
-
             VEvent event = new VEvent();
             event.getProperties().add(new Summary(t.getDescription()));
-            event.getProperties().add(new Description(t.getDescription() + " [" + t.getPriority() + "]"));
+            event.getProperties().add(new Description(" Priority:" + t.getPriority()));
             final DtStart dtStart;
-            if (t.getSymbol().equals("E")) {
+            if ("E".equals(t.getSymbol())) {
                 dtStart = new DtStart(new net.fortuna.ical4j.model.DateTime(t.getStartTime()));
             } else {
                 dtStart = new DtStart(new net.fortuna.ical4j.model.DateTime(t.getEndTime()));
             }
+
             event.getProperties().add(dtStart);
 
             final DtEnd dtEnd = new DtEnd(new net.fortuna.ical4j.model.DateTime(t.getEndTime()));
@@ -85,6 +101,19 @@ public class ExportCommand extends Command {
             UidGenerator ug = new RandomUidGenerator();
             Uid uid = ug.generateUid();
             event.getProperties().add(uid);
+
+            if (t.hasReminder()) {
+                VAlarm reminder;
+                if (t.getSymbol().equals("E")) {
+                    reminder = new VAlarm(new DateTime(t.getStartTime()));
+                } else {
+                    reminder = new VAlarm(new DateTime(t.getEndTime()));
+                }
+                reminder.getProperties(t.getDescription());
+                reminder.getProperties().add(Action.DISPLAY);
+                reminder.getProperties().add(new Description(t.getDescription()));
+                event.getAlarms().add(reminder);
+            }
             calendar.getComponents().add(event);
 
         }

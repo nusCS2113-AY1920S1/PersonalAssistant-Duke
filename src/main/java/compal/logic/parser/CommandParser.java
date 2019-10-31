@@ -450,6 +450,8 @@ public interface CommandParser {
     //@@author SholihinK
 
     /**
+     * check if file name to create is valid.
+     *
      * @param fileName the name of file
      * @return string of file name
      * @throws ParserException if fileName is not valid
