@@ -87,8 +87,6 @@ public class Duke {
         while (!isExit) {
             try {
                 ui.showOptions();
-
-
                 ui.showLine();
                 fullCommand = ui.readCommand();
                 ui.clearScreen();
@@ -113,7 +111,6 @@ public class Duke {
                     case "b": {
                         // ui.showIngredientsInFridge(fridge.getAllIngredients());
                         ui.showIngredientTask();
-
                         while (true) {
                             try {
                                 fullCommand = ui.readCommand();
@@ -122,13 +119,10 @@ public class Duke {
                                     break;
                                 }
                                 if (fullCommand.trim().equals("q")) {
-
                                     Cmd command = new ExitCommand();
                                     command.execute(null, ui, null);
                                     isExit = command.isExit();
                                     break;
-
-
                                 }
                                 if (fullCommand.trim().equals("show")) {
                                     ui.showIngredientsInFridge(fridge.getAllIngredients());
@@ -138,7 +132,6 @@ public class Duke {
                                     ui.showIngredientTemplate();
                                     continue;
                                 }
-
                                 Cmd<Ingredient> command = Parser.parse(fullCommand, Type.INGREDIENT);
                                 command.execute(fridge.getAllIngredients(), ui, fridgeStorage);
                             } catch (DukeException e) {
@@ -166,11 +159,7 @@ public class Duke {
                     }
                     default:
                         throw new DukeException("wrong input");
-
-
                 }
-
-
             } catch (DukeException | IOException e) {
                 ui.showError(e.getMessage());
             } finally {

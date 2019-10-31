@@ -344,7 +344,7 @@ public class Ui {
     }
 
     /**
-     * everytime this method is executed, it clears the console screen
+     * Every time this method is executed, it clears the console screen.
      * @throws IOException
      * @throws InterruptedException
      */

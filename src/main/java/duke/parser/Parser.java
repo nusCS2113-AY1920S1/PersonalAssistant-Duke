@@ -54,7 +54,6 @@ public class Parser {
                     return new UseCommand(new Ingredient(splitted[1], Integer.parseInt(splitted[2]), new Date()));
                 } else
                     throw new DukeException("not a valid command for an Ingredient");
-
             }
             case DISH: {
                 splitted = fullCommand.split(" ", 2);
@@ -89,7 +88,6 @@ public class Parser {
                 }
                 else
                     throw new DukeException("not a valid command for a Dish");
-
             }
             case ORDER: {
                 splitted = fullCommand.split(" ", 4);
@@ -103,7 +101,6 @@ public class Parser {
                     return new DeleteCommand<Order>(Integer.parseInt(splitted[1]));
                 } else
                     throw new DukeException("not a valid command for an Ingredient");
-
             }
             default:
                 throw new DukeException("not a valid type");
