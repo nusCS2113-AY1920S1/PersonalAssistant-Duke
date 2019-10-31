@@ -8,11 +8,11 @@ import java.util.Map;
 
 public class AddPlacesCommand {
     /**
-     * This method allows add new contact into the contact page
+     * This method allows add a new place
      *
      * @param ui      the object that deals with printing things to the user.
      * @param storage the object that deals with storing data.
-     * @param places  Map each name to its own phone number
+     * @param places  Map each place to a location
      * @throws IOException catch any error if read file fails
      */
     public AddPlacesCommand(Ui ui, Storage storage, Map<String, String> places) {
