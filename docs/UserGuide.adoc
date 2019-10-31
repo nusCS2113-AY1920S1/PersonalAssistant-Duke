@@ -72,13 +72,11 @@ Examples:
 === Listing all words inside dictionary : `list`
 
 Shows a list of words categorised as specified. +
-Format: `list [t/EXISTING_TAG] [o/ORDER]`
+Format: `list [o/ORDER]`
 
-Example: `list t/emotions o/asc` shows the list of words tagged “emotions” in alphabetical displayOrder +
+Example: `list o/asc` shows the list of words tagged “emotions” in alphabetical displayOrder +
 
 [TIP]
-Not supplying any tags will show a list containing all words listed in alphabetical displayOrder. ++
-
 List of possible o/ORDER values: +
  `asc` - displayOrder the list in ascending alphabetical displayOrder +
  `desc` - displayOrder the list in descending alphabetical displayOrder
@@ -115,6 +113,20 @@ Examples:
 Returns `a liquid for consumption`
 * `search w/potatoes` +
 Returns suggestion of `potato`
+
+=== Checking search frequency: `freq`
+
+Displays the list of words in ascending or descending order of search count.
+
+Examples:
+
+* `freq o/asc` +
+Returns a list of words in ascending order of search count (from lowest to highest search count).
+
+[TIP]
+List of possible o/ORDER values: +
+ `asc` - displayOrder the list in ascending alphabetical displayOrder +
+ `desc` - displayOrder the list in descending alphabetical displayOrder
 
 === Generating quizzes: `quiz`
 
