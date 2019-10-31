@@ -24,7 +24,7 @@ public class DollaData implements ModeStringList {
     private int modifyIndex;
 
     /**
-     * Creates an instance of DollaDota to store and manipulate data.
+     * Creates an instance of DollaData to store and manipulate data.
      */
     public DollaData() {
         //this.entryList = new EntryList(new ArrayList<Record>());
@@ -160,15 +160,5 @@ public class DollaData implements ModeStringList {
 
     public int getModifyIndex() {
         return modifyIndex;
-    }
-
-    /**
-     * Remove limit.
-     *
-     * @param type     the type of limit to remove
-     * @param duration the duration of the limit to remove
-     */
-    public void removeLimit(String type, String duration) {
-        //remove limit from list
     }
 }
