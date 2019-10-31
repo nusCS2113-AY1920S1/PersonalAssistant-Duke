@@ -59,12 +59,12 @@ public class SoldCommand extends Command{
 		int originalQty = toSold.getStock();
 		double revenue = quantity * toSold.getPrice();
 		toSold.setStock(originalQty - quantity);
-		// old function
-		// Food.updateRevenue(Food.getRevenue() + revenue);
+		// old function Food.updateRevenue(Food.getRevenue() + revenue);
 		// new function
 		double tempRevenue = toSold.getFoodRevenue();
 		tempRevenue += revenue;
 		toSold.setFoodRevenue(tempRevenue);
+
 		double profit = revenue - quantity * toSold.getCost();
 		Sale saleRecord = new Sale(foodName, quantity, revenue, profit, soldDate);
 		salesHistory.add(saleRecord);
