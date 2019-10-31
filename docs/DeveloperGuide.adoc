@@ -608,7 +608,7 @@ message according to the specified logging level method called.
 
 * Currently all the log messages are store in the log file located in the logs directory
 
-The `log4j2.properties` file in the resource folder is used configure the following
+The `log4j2.properties` file in the resource folder is used configure the following:
 
 * RootLogger level - The level root logger to be shown in the log file. Currently it is set to `all`
 
