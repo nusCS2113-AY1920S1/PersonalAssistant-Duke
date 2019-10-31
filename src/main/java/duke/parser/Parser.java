@@ -137,7 +137,16 @@ public class Parser {
                     if (splitted.length != 3)
                         throw new DukeException("follow the template: use <ingredient name> <amount>");
                     return new UseCommand(new Ingredient(splitted[1], Integer.parseInt(splitted[2]), new Date()));
-                } else
+                } else if (splitted[0].equals("listtoday")) {
+                    if (splitted.length != 1)
+                        throw new DukeException("follow the template: listtoday");
+                    return new FindToday();
+                } else if(splitted[0].equals("find")) {
+                    if(splitted.length != 2)
+                        throw new DukeException("follow the template: find <ingredient name>");
+                    return new FindIngredientCommand(splitted[1]);
+                }
+                else
                     throw new DukeException("not a valid command for an Ingredient");
 
             }
@@ -179,14 +188,14 @@ public class Parser {
             case ORDER: {
                 splitted = fullCommand.split(" ", 4);
                 if (splitted.length > 4)
-                    throw new DukeException("must specify order name, amount and expiry date");
+                    throw new DukeException("must specify order name and amount");
                 else if (splitted[0].equals("add"))
                     //return new AddCommand<Order>(new Order(splitted[1]));
                 if (splitted[0].equals("remove")) {
                     // for(int i=0)
                     return new DeleteCommand<Order>(Integer.parseInt(splitted[1]));
                 } else
-                    throw new DukeException("not a valid command for an Ingredient");
+                    throw new DukeException("not a valid command for an Order");
 
             }
             default:
