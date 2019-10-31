@@ -228,6 +228,7 @@ The `logic.command.card` package consist of `Card` classes with the following fe
 `Main` will call the specific `Card` command class that will construct the *required parameters* before calling the
 `Profile` class in `Model` to *execute*.
 
+// tag::goals_class[]
 .Goals Command Class Diagram
 image::LogicCommandGoalsPackage.png[width="800"]
 
@@ -240,6 +241,7 @@ The `logic.command.goals` package consist of `Goals` classes with the following 
 
 `Main` will call the specific `Goal` command class that will construct the *required parameters* before calling the
 `Profile` class in `Model` to *execute*.
+// end::goals_class[]
 
 .Find Command Class Diagram
 image::LogicCommandFindPackage.png[width="800"]
@@ -821,26 +823,26 @@ Use case ends.
 
 
 *Actor: User* +
-[[UC-2]] *Use case: UC2 - Add bank account* +
+[[UC-2]] *Use case: UC2 - Add [.underline]#bank# (savings / investment) account* +
 *Preconditions:*
 
 * *User has a profile created*
 
 *Main success scenario:*
 
-. User chooses to add a bank account.
-. System requests for bank account details.
-. User enters details for the new bank account.
-. System creates a new bank account with the details specified.
+. User chooses to add a [.underline]#bank# (savings / investment) account.
+. System requests for [.underline]#bank# (savings / investment) details.
+. User enters details for the new [.underline]#bank# (savings / investment) account.
+. System creates a new [.underline]#bank# (savings / investment) account with the details specified.
 +
 Use case ends.
 
 *Extensions*
 [none]
-* 3a. System detects invalid details for the new bank account.
+* 3a. System detects invalid details for the new [.underline]#bank# (savings / investment) account.
 ** 3a1. System requests for the correct details.
-** 3a2. User re-enters the details for new bank account.
-** Steps 3a1-3a2 are repeated until the details for new bank account is entered correctly.
+** 3a2. User re-enters the details for new [.underline]#bank# (savings / investment) account.
+** Steps 3a1-3a2 are repeated until the details for new [.underline]#bank# (savings / investment) account is entered correctly.
 ** Use case resumes from step 4.
 
 
@@ -902,27 +904,27 @@ Use case ends.
 
 
 *Actor: Existing User* +
-[[UC-5]] *Use case: UC5 - Edit bank account details* +
+[[UC-5]] *Use case: UC5 - Edit [.underline]#bank# (savings / investment) account details* +
 *Preconditions:*
 
 *  *User has a profile created* +
-*  *User has an existing bank account* +
+*  *User has an existing [.underline]#bank# (savings / investment) account* +
 
 *Main success scenario:*
 
-. User chooses to edit his/her bank account details.
-. System requests for new bank account details.
-. User enters new bank account details.
-. System update the bank account details.
+. User chooses to edit his/her [.underline]#bank# (savings / investment) account details.
+. System requests for new [.underline]#bank# (savings / investment) account details.
+. User enters new [.underline]#bank# (savings / investment) account details.
+. System update the [.underline]#bank# (savings / investment) account details.
 +
 Use case ends.
 
 *Extensions*
 [none]
-* 3a. System detects invalid bank account details.
-** 3a1. System requests for the correct bank account details.
-** 3a2. User re-enters the bank account details.
-** Steps 3a1-3a2 are repeated until the bank account details entered are correct.
+* 3a. System detects invalid [.underline]#bank# (savings / investment) accounts details.
+** 3a1. System requests for the correct [.underline]#bank# (savings / investment) account details.
+** 3a2. User re-enters the [.underline]#bank# (savings / investment) account details.
+** Steps 3a1-3a2 are repeated until the [.underline]#bank# (savings / investment) account details entered are correct.
 ** Use case resumes from step 4.
 
 
@@ -1089,6 +1091,7 @@ Use case ends.
 ** Steps 3a1-3a2 are repeated until the keyword to be search is entered correctly.
 ** Use case resumes from step 4.
 
+// tag::goals_usecase[]
 
 *Actor: Existing user* +
 [[UC-12]] *Use case: UC12 - Set short or long term financial goal* +
@@ -1156,7 +1159,7 @@ Use case ends.
 ** Use case resumes from step 6.
 
 
-
+// end::goals_usecase[]
 
 
 *Actor: Existing user* +
@@ -1766,6 +1769,14 @@ Use case ends.
 . System displays the information in a table format.
 +
 Use case ends.
+
+
+
+
+
+
+
+
 
 [appendix]
 == Non Functional Requirements

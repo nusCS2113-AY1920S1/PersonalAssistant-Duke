@@ -874,6 +874,7 @@ To find out which expenditure to delete, use the `/list` or `/find` function to 
 
 Deletes an expenditure from `POBB Tomorrow Card` with transaction number `1`.
 
+
 ===== Adding monthly credit card bill to savings account /add /cardbill
 
 Charge your credit card monthly bill to your savings account! This will add a credit card bill expenditure and also
@@ -935,9 +936,10 @@ If you specify an incorrect `/depno`, it will be deleted immediately if `/expno`
 Deletes credit card bill expenditure `1` and rebate deposit `2` from `JunBank Savings Account`. All credit card
 expenditures from `10/2019` will be marked as unpaid from `POBB Tomorrow Card`.
 
+// tag::goals[]
 ==== Financial Goal Management
-In this section, you'll be introduced to commands and parameters that help you to create financial goals to
-achieve your short and long term goals in *OwlMoney*.
+In this section, you'll be introduced to commands and parameters that can get you started
+create financial goals to achieve your short and long term goals in *OwlMoney*.
 
 Below is a list of command parameters that you can expect to use for the commands in this section.
 [cols="18%,37%,45%"]
@@ -989,9 +991,9 @@ Take note that there is a maximum of *30* character limit.
 
 ===== Adding financial goals `/add /goals`
 
-Have financial goals that you want to achieve? We can certainly help you with that!
-Regardless of it being short-term goals like saving for a holiday or long-term goals
-like saving for your wedding or retirement, we got you covered!
+Have a financial goal that you wish to achieve? We can certainly help you with that!
+Regardless whether it's a short-term goal _like saving for a holiday_ or a long-term goal
+_like saving for your wedding or retirement_, we've got you covered!
 
 *Command Syntax*
 
@@ -1008,6 +1010,7 @@ like saving for your wedding or retirement, we got you covered!
 
 `TARGET_AMOUNT` is based on the total amount of money you aim to have in your savings bank account.
 
+YOU CAN ONLY ADD UP TO *20* GOALS
 ====
 
 *Example*
@@ -1022,12 +1025,12 @@ Adds a goal named `BTO at Punggol Downpayment` which aims to save $`20000` by `1
 
 * `/add /goals /name GRAD TRIP /amount 2000 /by 30/12/2020 /from JunBank Savings Account`
 
-Adds a goal named GRAD TRIP which aims to save $`2000` by `30/12/2020` and tie it to a savings account named `JunBank
+Adds a goal named GRAD TRIP which aims to save $`2000` by `30/12/2020` and ties it to a savings account named `JunBank
 Savings Account`.
 
 ===== Editing financial goals `/edit /goals`
 
-Changing your life goals? We can certainly help you with that!
+Made changes to one of your goals? Amend it easily with our `edit` feature!
 
 *Command Syntax*
 
@@ -1046,15 +1049,15 @@ At least one of `/newname`, `/amount`, `/in`, `/by` or `/from` must be used.
 
 * `/edit /goals /name BTO at Punggol Downpayment /newname BTO at Tampines Downpayment`
 
-Edits the name of the goals from `BTO at Punggol Downpayment` to `BTO at Tampines Downpayment`.
+Edits the name of the goal from `BTO at Punggol Downpayment` to `BTO at Tampines Downpayment`.
 
 * `/edit /goals /name BTO at Punggol Downpayment /amount 27500`
 
-Edits the goals of `BTO at Punggol Downpayment` amount to $`27500`.
+Edits the goal of `BTO at Punggol Downpayment` amount to $`27500`.
 
-* `/edit /goals /name BTO at Punggol Downpayment /by 11/11/2021`
+* `/edit /goal /name BTO at Punggol Downpayment /by 11/11/2021`
 
-Edits the goals of `BTO at Punggol Downpayment` to a new date of `11/11/2021`.
+Edits the goal of `BTO at Punggol Downpayment` to a new date of `11/11/2021`.
 
 * `/edit /goals /name BTO at Punggol Downpayment /from POBB Savings Account`
 
@@ -1062,13 +1065,13 @@ Edits the savings account tied to `BTO at Punggol Downpayment` to `POBB Savings 
 
 [TIP]
 ====
-You can also add a savings account if the existing goal has no account linked to it.
+You can also add a savings account if your existing goal has no account linked to it.
 ====
 
 ===== Deleting financial goals `/delete /goals`
 
 Are your goals not relevant to you anymore? +
-Achieved your goals? You can safely delete them!
+Or achieved your goal? You can safely delete them!
 
 *Command Syntax*
 
@@ -1079,11 +1082,13 @@ Achieved your goals? You can safely delete them!
 * `/delete /goals /name BTO at Punggol Downpayment`
 
 Deletes a goal named `BTO at Punggol Downpayment`.
+// end::goals[]
 
+// tag::edit_profile[]
 ==== Profile Management
 ===== Editing profile details `/edit /profile`
 
-Thought of a new profile name? Change it now!
+Thought of a new idea for your profile name? Change it now!
 
 *Command Syntax*
 
@@ -1094,7 +1099,7 @@ Thought of a new profile name? Change it now!
 `/edit /profile /name Jun /newname JUNNY`
 
 Edits the profile name from `Jun` to `JUNNY`
-
+// end::edit_profile[]
 === Utility Commands
 
 *OwlMoney* provides commands that are available for usage throughout the application.
@@ -1904,7 +1909,3 @@ user*
 | `/delete /recurexpenditure /from JunBank Savings Account /transno 1`
 
 |======
-
-
-
-
