@@ -20,9 +20,11 @@ public class WordGetter implements Serializable {
      */
     public String closestWord(String stringToCheck) {
         String [] commandList = {"bye", "list", "delete", "deletebar","edit",
-                                    "find","done", "new","help","view","addbar",
-                                    "overlay","group","overlay_bar_group",
-                                    "overlay_group_group","overlay_bar_song","ascii","redo","undo", "copy"};
+            "find","done", "new","help","view","addbar",
+            "overlay","group","overlay_bar_group", "metronome",
+            "overlay_group_group", "overlay_bar_song", "ascii",
+            "redo", "undo", "open",
+            "copy", "insertbar", "swap"};
         double maximumVal = 0;
         String commandName = "sasaff";
         Jaccard similarityChecker = new Jaccard();
