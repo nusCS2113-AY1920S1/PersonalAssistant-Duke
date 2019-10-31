@@ -9,7 +9,7 @@ Your one stop solution to module planning through out your university tenure!
 
 **Sample Mockup**
 
-![Mockup Sample](https://github.com/namiwa/main/blob/namiwa-readme-1/docs/images/Ui.png)
+![Mockup Sample](https://github.com/AY1920S1-CS2113T-F10-1/main/blob/master/docs/images/Ui.png)
 
 
 
