@@ -12,12 +12,6 @@ import task.DoAfterTasks;
 import task.Task;
 import task.WithinPeriodTask;
 import ui.Ui;
-
-<<<<<<< HEAD
-=======
-import javax.swing.*;
-import java.lang.reflect.Array;
->>>>>>> 7b9814344521bd3d1329b1277c4a0ad36a573088
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
