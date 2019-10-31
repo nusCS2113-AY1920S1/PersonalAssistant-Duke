@@ -1,6 +1,7 @@
 package list;
 import exception.DukeException;
 import parser.Parser;
+import storage.Storage;
 import task.Task;
 import task.TaskList;
 
@@ -83,27 +84,29 @@ public class DegreeList implements Serializable, Cloneable {
      * @param input The degree as specified by the user.
      * @throws DukeException The degree does not exist?
      */
-    public void add_custom(String input) throws DukeException {
+    public void add_custom(String input, Storage storage) throws DukeException, IOException {
 
-            BufferedWriter bw = null;
-            FileWriter fw = null;
-            try {
-                File file = new File(filename);
-                if(!file.exists()) {
-                    file.createNewFile();
-                }
-
-                fw = new FileWriter(file.getAbsoluteFile(), true);
-                bw = new BufferedWriter(fw);
+//            BufferedWriter bw = null;
+//            FileWriter fw = null;
+//            try {
+//                File file = new File(filename);
+//                if(!file.exists()) {
+//                    file.createNewFile();
+//                }
+//
+//                fw = new FileWriter(file.getAbsoluteFile(), true);
+//                bw = new BufferedWriter(fw);
                 list.add(input);
                 System.out.print("Added ");
                 System.out.print(input);
                 System.out.println(" to your choices of degrees");
                 String data = "degree-"+input + "-" + list.indexOf(input) + "\n";
-                bw.write(data);
+                storage.add_degree(data);
+              // bw.write(data);
                 i = i + 1;
+
         }
-        catch (Exception e)
+      /*  catch (Exception e)
         {
             throw new DukeException(e.getLocalizedMessage());
         } finally {
@@ -118,7 +121,7 @@ public class DegreeList implements Serializable, Cloneable {
                     e.printStackTrace();
                 }
             }
-    }
+    } */
 
     /**
      * Displays the degree specified by the user.
