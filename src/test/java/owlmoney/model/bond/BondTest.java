@@ -132,6 +132,8 @@ class BondTest {
         Bond testBond = new Bond("TEST BOND",1000,1.8,testDate,3);
         Date actualDate = testBond.getNextDateToCreditInterest();
         Calendar calendarExpectedDate = Calendar.getInstance();
+        calendarExpectedDate.add(Calendar.MONTH,-6);
+        calendarExpectedDate.add(Calendar.MONTH,6);
         Date expectedDate = calendarExpectedDate.getTime();
         assertEquals(expectedDate.toString(), actualDate.toString());
     }
@@ -143,6 +145,8 @@ class BondTest {
         Date testDate = calendarTestDate.getTime();
         Bond testBond = new Bond("TEST BOND",1000,1.8,testDate,3);
         Calendar calendarExpectedDate = Calendar.getInstance();
+        calendarExpectedDate.add(Calendar.MONTH,-6);
+        calendarExpectedDate.add(Calendar.MONTH,6);
         Date expectedDate = calendarExpectedDate.getTime();
         testBond.setNextDateToCreditInterest(expectedDate);
         assertEquals(expectedDate.toString(), testBond.getNextDateToCreditInterest().toString());
