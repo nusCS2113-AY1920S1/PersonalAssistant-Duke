@@ -3,7 +3,7 @@ package optix.commons.model;
 public class Seat {
     private double ticketPrice;
     private String seatTier;
-    private boolean isBooked;
+    private boolean isSold;
 
     /**
      * the seat object.
@@ -11,20 +11,20 @@ public class Seat {
      * @param seatTier tier of the seat. Higher tier seat is more precious.
      */
     public Seat(String seatTier) {
-        this.isBooked = false;
+        this.isSold = false;
         this.seatTier = seatTier;
     }
 
-    public void setBooked(boolean booked) {
-        isBooked = booked;
+    public void setSold(boolean sold) {
+        isSold = sold;
     }
 
-    public boolean isBooked() {
-        return isBooked;
+    public boolean isSold() {
+        return isSold;
     }
 
     private String getStatusIcon() {
-        return isBooked ? "✓" : "✘";
+        return isSold ? "✓" : "✘";
     }
 
     public String getSeat() {

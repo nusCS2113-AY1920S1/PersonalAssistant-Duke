@@ -58,18 +58,24 @@ e.g. if the command specifies `SHOW_NAME|SHOW_DATE`, `SHOW_DATE|SHOW_NAME` is in
 * All *COMMAND* and `SHOW_NAME` are case insensitive.
 
 === Generic Commands
+The following set of commands
 
 ==== Viewing Help: `help`
 As a new or returning user you may be unsure about the commands.
 The `help` command displays descriptions of all the available commands. +
 Format: `help`
 
+==== Tab navigation: `show`, `finance`, `archive`
+Hate clicking? Simply type in the tab headers to achieve fast navigation
+between the various tabs! +
+Format: `show`, `finance`, `archive`
+
 ==== Exiting the program: `bye`
 Saves all the shows and statuses of the seats within the show list, then exits the program.  +
 Format: `bye`
 
 === Show Commands
-
+The following set of commands helps with managing shows within the theatre.
 
 ==== Adding shows: `add`
 Let's say that a new event is coming up and you'd like to add it to the application showlist.
@@ -77,7 +83,7 @@ Use the `add` command to add shows to the current show list. +
 Format: `add SHOW_NAME|SEATS_BASE_PRICE|DATE1|DATE2|...`
 
 [TIP]
-use `DATE1|DATE2|DATE3|...` to easily add multiple dates for the show
+use `DATE1|DATE2|...` to easily add multiple dates for the show
 * `SEATS_BASE_PRICE` represents the lowest cost of a seat in the venue.
 * There must be no other show on that `DATE`.
 * The `DATE` must be in the future.
@@ -85,11 +91,11 @@ use `DATE1|DATE2|DATE3|...` to easily add multiple dates for the show
 * Shows of the same name can be added.
 
 ===== Examples:
+*Add a single show*: +
+`add Phantom of the Opera|20|5/5/2020` +
+*Add multiple shows*: +
+`add Lion King|30|6/5/2020|7/5/2020|8/5/2020`
 
-----
-add Phantom of the Opera|20|5/5/2020
-add Lion King|30|6/5/2020|7/5/2020|8/5/2020
-----
 ==== Deleting shows: `delete`
 In the event a show is cancelled, you can remove it from the list using the `delete` command. It
 deletes shows for specific dates. +
@@ -117,7 +123,7 @@ Use `list` before you type other commands so you can see all the show names and 
 ==== Listing dates for specific show: `list`
 
 You can also search for all listings of a particular show with the `list` command!
-Current shows with the specified name will be listed. +
+Scheduled shows with the specified name will be listed. +
 Format: `list SHOW_NAME`
 
 ===== Examples:
@@ -125,17 +131,23 @@ Format: `list SHOW_NAME`
 list Phantom of the Opera
 list Lion King
 ----
+
 ==== Listing shows for a specific month: `list`
 You can also search for all listings of a particular month!
 Lists all the shows for a specific month. +
+
+[TIP]
+use numbers or abbreviations to represent the month instead of spelling it out!
+
 Format: `list MONTH YEAR` +
 
 * Examples:
-
 ----
-list August 2019
+list 12 2020
+list Dec 2020
 list December 2020
 ----
+
 ==== Postpone a show to a later date: `postpone`
 Use the `postpone` command to postpone the requested
 current show in the showlist to a specified date.  +
@@ -146,10 +158,10 @@ Format: `postpone SHOW_NAME|OLD_DATE|NEW_DATE`
 * Invalid if `NEW_DATE` has already passed.
 
 ===== Examples:
-
 ----
 postpone Phantom of the Opera|5/5/2020|10/5/2020
 ----
+
 ==== Editing a show’s name: `edit`
 If you made a spelling error while adding an event, there is no need to delete and add it again.
 Use `edit` to change its name. +
@@ -170,19 +182,41 @@ Phanom of the Opera is intentionally mispelled
 ====
 
 === Seats Commands
+The following set of commands helps with managing ticketing for any show that is scheduled
+to perform in the theatre.
+
+==== View the seats for a show: `view`
+You can use the `view` command to check seat availabilities for shows.
+The layout of the seats within the theatre will be displayed. +
+Format: `view SHOW_NAME|SHOW_DATE`
+
+* Displays the layout of the specified `SHOW_NAME` on `SHOW_DATE` in a 2D array format.
+* The layout will not be displayed if the specified `SHOW_DATE` does not
+correspond to the actual show date of the indicated `SHOW_NAME`.
+* The layout will not be displayed if the specified `SHOW_DATE` does not have any show scheduled for the day.
+
+===== Examples:
+----
+view Lion King | 11/10/2020
+----
+
+image::images/UG_view_success.png[width ="600", align="center"]
+
+[NOTE]
+red seats indicates that seat has been sold, while blue seats
+indicates that seat is still available for booking.
 
 ==== Sell seats: `sell`
-The `sell` command can be used to mark seats as sold. It is useful for selling seats to customers and tracking the availability of the seats +
+The `sell` command can be used to record bookings. It is useful for managing seats sold to customers and for tracking the availability of the seats +
 Format: `sell SHOW_NAME|SHOW_DATE|SEAT …`
 
 [TIP]
-Use the `view` command for a visual representation of the statuses of all the seats
+Use the `view` command for a visual representation of the statuses of all the seats to ensure successful purchase of seats
 
 * Sells `SEAT` specified by customers for the indicated `SHOW_NAME` on `SHOW_DATE`.
 * Each `SEAT` is represented by an alphabet followed by an integer e.g. A1
 * Multiple `SEAT` can be entered in the parameter `SEAT ...` to book all those seats
-* `SEAT` sold are marked with  `✓` to represent a “booked” status.
-* `SEAT` marked with `✓` cannot be booked by other people.
+
 
 ===== Examples:
 Sell a single seat: +
@@ -191,21 +225,6 @@ Sell a single seat: +
 Sell multiple seats in a single command: +
 `sell Lion King|6/5/2020| A1 A2 A3 A4`
 
-
-==== View the seats for a show: `view`
-You can use the `view` command to check seat availabilities for shows.
-The layout of the seats within the theatre will be displayed. +
-Format: `view SHOW_NAME|SHOW_DATE`
-
-* Displays the layout of the specified `SHOW_NAME` on `SHOW_DATE` in a 2D array format.
-* Seats that have been booked are mark with `✓` and seats that are available for booking are marked with `✕`.
-* The layout will not be displayed if the specified `SHOW_DATE` does not
-correspond to the actual show date of the indicated `SHOW_NAME`.
-
-===== Examples:
-----
-view Phantom of the Opera | 5/5/2020
-----
 ==== Reassign seat for a show: `reassign-seat`
 Changes the seat of a customer. +
 Format: `reassign-seat SHOW_NAME|SHOW_DATE|OLD_SEAT|NEW_SEAT`
@@ -224,22 +243,28 @@ reassign-seat Lion King|10/5/2020|D6|A1
 ----
 
 === Finance Commands
+The following set of commands helps with tracking the finance of the theatre.
 
 ==== View the profit of a show: `view-profit`
 
-Displays the profit earned from that particular show. +
+Displays the profit earned from that particular show.
 Format: `view-profit SHOW_NAME|SHOW_DATE`
 
 * Displays the profit for the specified `SHOW_NAME` on `SHOW_DATE`
-* Displays projected earnings if `SHOW_DATE` is in the future.
+* Displays projected earnings for a show if `SHOW_DATE` is in the future.
 
-===== Example
+===== Examples:
 ----
 view-profit Lion King|5/5/2020
 ----
+
 ==== View the amount earned for a particular month: `view-monthly`
 
-Displays the profit earned for that particular month. +
+Displays the profit earned for a particular month. +
+
+[TIP]
+use numbers or abbreviations to represent the month instead of spelling it out!
+
 Format: `view-monthly MONTH YEAR`
 
 * Displays the total profit collected for all the shows in MONTH YEAR
@@ -247,9 +272,11 @@ Format: `view-monthly MONTH YEAR`
 
 ===== Examples:
 ----
-view-monthly May 2020
+view-monthly 1 2020
+view-monthly Jan 2020
 view-monthly January 2018
 ----
+
 === Alias Commands
 Aliases help you to create shortcuts for commands, hence enabling
 you to to input commands with less effort!
@@ -281,29 +308,29 @@ Assigning an command keyword as an alias is also not allowed: +
 
 image::images/UG_add-alias_illegal.png[width ="600", align="center"]
 
-==== Remove alias: remove-alias
+==== Remove alias: `remove-alias`
 
 Let's say you changed your mind after adding the alias.
 Use the `remove-alias` command to delete an existing alias. +
 Format: `remove-alias ALIAS|COMMAND`
 
 * Remove the `ALIAS` for `COMMAND`
-* Examples:
 
+===== Examples:
 ----
 remove-alias t|add
 ----
 
-image::images/UG-remove_alias-success.png[width ="600", align="center"]
+image::images/UG_remove-alias_success.png[width ="600", align="center"]
 
-==== List alias: list-alias
+==== List alias: `list-alias`
 If you forgot the aliases you set, or would like to view the default aliases,
 use the `list-alias` command! +
 Format: `list-alias`
 
 image::images/UG_list-alias_success.png[width ="600", align="center"]
 
-==== Reset alias: reset-alias
+==== Reset alias: `reset-alias`
 To undo all your alias modifications, use the `reset-alias` command
 to set them back to the defaults. After the reset, use `list-alias` to
 view the default aliases. +
@@ -314,8 +341,8 @@ image::images/UG_reset-alias_success.png[width ="600", align="center"]
 
 == FAQ
 
-*Q: *How do I transfer my data to another computer? +
-*A: *Install the app in the other computer and replace the empty data file created with the file that contains the data of your previous Optix folder.
+*Q*: How do I transfer my data to another computer? +
+*A*: Download the link:{repoURL}/releases[optix.jar] in the other computer and paste the file that contains the data from the previous Optix folder in the same folder as the jar file.
 
 == Command summary
 

@@ -57,8 +57,8 @@ class TheatreTest {
         assertEquals(expected, theatre.getSeatingArrangement());
         assertEquals(60, theatre.getProfit());
         Seat[][] seats = theatre.getSeats();
-        assertTrue(seats[0][0].isBooked());
-        assertTrue(seats[0][1].isBooked());
+        assertTrue(seats[0][0].isSold());
+        assertTrue(seats[0][1].isSold());
 
         theatre.sellSeats("A0"); // test none existent seat
         assertEquals(expected, theatre.getSeatingArrangement());

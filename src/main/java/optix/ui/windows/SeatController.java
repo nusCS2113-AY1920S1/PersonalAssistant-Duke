@@ -37,7 +37,7 @@ public class SeatController extends StackPane {
         seatNumber = getRow(row) + getCol(col);
         labelNumber.setText(seatNumber);
 
-        if (seat.isBooked()) {
+        if (seat.isSold()) {
             setBooked();
         }
     }

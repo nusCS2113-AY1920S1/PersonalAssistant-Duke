@@ -163,7 +163,7 @@ public class Storage {
 
         for (int i = 0; i < seats.length; i++) {
             for (int j = 0; j < seats[i].length; j++) {
-                if (seats[i][j].isBooked()) {
+                if (seats[i][j].isSold()) {
                     wr.write(String.format("%d | %d\n", i, j));
                 }
             }

@@ -6,7 +6,7 @@ This is a group project as part of this module. We are an egoless team.
 ## Project Team
 ### Nicholas Liu
 
-image::images/nicholasliu97.png[width="150", align="left"]
+image::images/aboutus/nicholasliu97.png[width="150", align="left"]
 {empty}[https://https://github.com/NicholasLiu97[github]]
 
 Role: Team Lead
@@ -15,7 +15,7 @@ Responsibilities: Deliverables & Deadlines
 
 ### Kennedy Oung
 
-image::images/oungkennedy.png[width="150", align="left"]
+image::images/aboutus/oungkennedy.png[width="150", align="left"]
 {empty}[https://https://github.com/OungKennedy[github]]
 
 Role: Developer
@@ -34,7 +34,7 @@ Responsibilities: Scheduling & Tracking
 
 ### Brian
 
-image::images/cheesengg.png[width ="150", align="left"]
+image::images/aboutus/cheesengg.png[width ="150", align="left"]
 {empty}[https://https://github.com/CheeSengg[github]]
 
 Role: Developer

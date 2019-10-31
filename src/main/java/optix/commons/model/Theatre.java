@@ -116,7 +116,7 @@ public class Theatre {
      * @param col       desired seat column
      */
     public void setSeat(int row, int col) {
-        seats[row][col].setBooked(true);
+        seats[row][col].setSold(true);
         switch (seats[row][col].getSeatTier()) {
         case "1":
             tierOneSeats--;
@@ -178,9 +178,9 @@ public class Theatre {
 
         double revenue = show.getProfit();
 
-        if (!seats[row][col].isBooked()) {
+        if (!seats[row][col].isSold()) {
             Seat soldSeat = seats[row][col];
-            soldSeat.setBooked(true);
+            soldSeat.setSold(true);
             costOfSeat = soldSeat.getSeatPrice(seatBasePrice);
             revenue += costOfSeat;
             this.setSeat(row, col);
@@ -252,12 +252,12 @@ public class Theatre {
             return message.toString();
         }
 
-        if (!seats[oldSeatRow][oldSeatCol].isBooked()) { //if the seat has not been booked yet.
+        if (!seats[oldSeatRow][oldSeatCol].isSold()) { //if the seat has not been booked yet.
             message.append(String.format("The seat %1$s is still available for booking.\n", oldSeat));
             return message.toString();
         }
 
-        if (seats[newSeatRow][newSeatCol].isBooked()) { // if the new seat has already been booked.
+        if (seats[newSeatRow][newSeatCol].isSold()) { // if the new seat has already been booked.
             message.append(String.format("☹ OOPS!!! Seat %1$s is unavailable. Use the View Command to"
                     + " view the available seats.\n", newSeat));
             return message.toString();
@@ -291,13 +291,13 @@ public class Theatre {
 
         if (row == -1 || col == -1) {
             return seatPrice;
-        } else if (!seats[row][col].isBooked()) {
+        } else if (!seats[row][col].isSold()) {
             seatPrice = 0;
             return seatPrice;
         }
         double currRevenue = show.getProfit();
         seatPrice = seats[row][col].getSeatPrice(seatBasePrice);
-        seats[row][col].setBooked(false);
+        seats[row][col].setSold(false);
         show.setProfit(currRevenue - seatPrice);
 
         switch (seats[row][col].getSeatTier()) {

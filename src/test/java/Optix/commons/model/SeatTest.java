@@ -16,7 +16,7 @@ class SeatTest {
     @Test
     void testGetSeat() {
         assertEquals("[✘]", seat.getSeat());
-        seat.setBooked(true);
+        seat.setSold(true);
         assertEquals("[✓]", seat.getSeat());
     }
 
