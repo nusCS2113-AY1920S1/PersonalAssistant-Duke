@@ -4,18 +4,24 @@ import Commons.LookupTable;
 import Commons.Storage;
 import Commons.Ui;
 import Tasks.TaskList;
+import javafx.util.Pair;
 
 import java.util.ArrayList;
 
 public class RetrieveFreeTimesCommand extends Command {
     private Integer option;
     private static String selectedOption;
+    private static String selectedOptionCommand;
+    private final String emptyFreeTimeList = "Please find free times by invoking the command shown below\n" +
+            "Find 'x' hours, where 'x' is a digit between 1 - 16\n" +
+            "Followed by the command\n" +
+            "retrieve/ft 'x', where 'x' is a digit between 1- 5";
 
     public RetrieveFreeTimesCommand(Integer option) {
         this.option = option;
     }
 
-    private boolean checkIsEmpty (ArrayList<String> retrievedFreeTimes){
+    private boolean checkIsEmpty (ArrayList<Pair<String, String>> retrievedFreeTimes){
         return (retrievedFreeTimes.size() == 0) ? true : false;
     }
 
@@ -33,14 +39,15 @@ public class RetrieveFreeTimesCommand extends Command {
      */
     @Override
     public String execute(LookupTable LT, TaskList events, TaskList deadlines, Ui ui, Storage storage) {
-        ArrayList<String> retrievedFreeTimes = FindFreeTimesCommand.getCompiledFreeTimesList();
-        if (checkIsEmpty(retrievedFreeTimes))return "Please find free times";
+        ArrayList<Pair<String, String>> retrievedFreeTimes = FindFreeTimesCommand.getCompiledFreeTimesList();
+        if (checkIsEmpty(retrievedFreeTimes))return ui.showSelectionOptionEmptyList();
         else if(checkIfInvalidOption()) return "Please select options between 1 - 5";
-        selectedOption = retrievedFreeTimes.get(option-1);
-        return "Selected option " + option + "\n" + selectedOption;
+        selectedOption = retrievedFreeTimes.get(option-1).getKey();
+        selectedOptionCommand = retrievedFreeTimes.get(option-1).getValue();
+        return ui.showSelectionOption(option, selectedOption);
     }
 
     public static String getSelectedOption() {
-        return selectedOption;
+        return selectedOptionCommand;
     }
 }

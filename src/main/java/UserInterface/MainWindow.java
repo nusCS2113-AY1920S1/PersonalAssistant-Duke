@@ -8,7 +8,10 @@ import Commons.LookupTable;
 import Commons.Storage;
 import Commons.WeekList;
 import DukeExceptions.DukeIOException;
+import DukeExceptions.DukeInvalidFormatException;
+import Parser.WeekParse;
 import Tasks.Assignment;
+import Tasks.Deadline;
 import Tasks.TaskList;
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
@@ -30,8 +33,9 @@ import javafx.scene.text.Text;
 import javafx.util.Duration;
 import javafx.util.Pair;
 
-import java.io.*;
-import java.net.URISyntaxException;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.net.URL;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -74,6 +78,8 @@ public class MainWindow extends BorderPane implements Initializable {
     @FXML
     private TableColumn<DeadlineView, String> overdueTaskColumn;
     @FXML
+    private TableColumn<DeadlineView, String> overdueDaysColumn;
+    @FXML
     private TableView<DukeResponseView> dukeResponseTable;
     @FXML
     private TableColumn<DukeResponseView, String> dukeResponseColumn;
@@ -109,36 +115,31 @@ public class MainWindow extends BorderPane implements Initializable {
 
             retrieveList();
             openReminderBox();
-            setDeadlineTable();
 
-            overdueDateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
-            overdueTaskColumn.setCellValueFactory(new PropertyValueFactory<>("task"));
-            overdueTable.setItems(setOverdueTable());
+            setDeadlineTableContents();
             setProgressContainer();
-        } catch (NullPointerException | IOException e) {
+        } catch (NullPointerException | IOException | ParseException e) {
             LOGGER.log(Level.SEVERE, e.toString(), e);
         }
     }
 
     private void displayQuoteOfTheDay(){
         try {
-            ArrayList<String> listOfQuotes = new ArrayList<>();
-            InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("documents/quotes.txt");
-            InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
-            BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-            StringBuffer sb = new StringBuffer();
-            String firstLine;
-            String line;
-            while ((line = bufferedReader.readLine()) != null){
-                listOfQuotes.add(line);
+            File path = new File(System.getProperty("user.dir") + File.separator + "data" + File.separator + "quotes.txt");
+            Scanner scanner = new Scanner(path);
+            String firstLine = scanner.nextLine();
+            FileWriter writer = new FileWriter(path);
+
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                if (line != firstLine)
+                    writer.write(line + "\n");
             }
-            Random random = new Random();
-            int result = random.nextInt(68);
-            firstLine = listOfQuotes.get(result);
+            writer.write(firstLine+"\n");
             AlertBox.display("Quote of the day", "Quote of the day !!", firstLine, Alert.AlertType.INFORMATION);
-            bufferedReader.close();
-            inputStreamReader.close();
-            inputStream.close();
+
+            scanner.close();
+            writer.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -200,51 +201,43 @@ public class MainWindow extends BorderPane implements Initializable {
 
     private ObservableList<DukeResponseView> betterDukeResponse = FXCollections.observableArrayList();
 
-    private ObservableList<DeadlineView> setDeadlineTable()  {
-        String to;
-        String description;
-        String activity;
-        ObservableList<DeadlineView> deadlineViews = FXCollections.observableArrayList();
-        for (Assignment task : deadlines) {
-            activity = task.toString();
-            DateFormat dateFormat = new SimpleDateFormat("E dd/MM/yyyy hh:mm a");
-            DateFormat timeFormat= new SimpleDateFormat("dd/MM/yyyy HH:mm");
-            Date date = null;
-            try {
-                date = dateFormat.parse(activity.substring(activity.indexOf("by:") + 4, activity.indexOf(')')));
-            } catch (ParseException e) {
-                LOGGER.log(Level.SEVERE, e.toString(), e);
-            }
-            to = timeFormat.format(date);
-            description = task.getDescription();
-            if (overdueCheck(date) && activity.contains("\u2718")) {
-                overdue.add(task);
-            } else {
-                deadlineViews.add(new DeadlineView(to, description));
-            }
-        }
-        return deadlineViews;
+    private void setDeadlineTableContents() throws ParseException {
+        overdueDateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
+        overdueTaskColumn.setCellValueFactory(new PropertyValueFactory<>("task"));
+        overdueDaysColumn.setCellValueFactory(new PropertyValueFactory<>("overDays"));
+        overdueTable.setItems(setDeadlineTable());
     }
 
-    private ObservableList<DeadlineView> setOverdueTable() {
-        String daysDue;
-        String description;
-        String activity;
-        ObservableList<DeadlineView> overdueViews = FXCollections.observableArrayList();
-        for (Assignment task : overdue) {
-            activity = task.toString();
-            DateFormat dateFormat = new SimpleDateFormat("E dd/MM/yyyy hh:mm a");
-            Date date = null;
-            try {
-                date = dateFormat.parse(activity.substring(activity.indexOf("by:") + 4, activity.indexOf(')')));
-            } catch (ParseException e) {
-                LOGGER.log(Level.SEVERE, e.toString(), e);
+    private ObservableList<DeadlineView> setDeadlineTable() throws ParseException {
+        String dateTime;
+        String modCodeAndTask;
+        String overDays;
+        boolean status;
+
+        ObservableList<DeadlineView> deadlineViews = FXCollections.observableArrayList();
+        for(Assignment assignment: deadlines) {
+            status = assignment.getStatus();
+
+            modCodeAndTask = assignment.getModCode() + "\n" + assignment.getDescription();
+            dateTime = assignment.getDateTime();
+            if(status == true) {
+                overDays = "-";
+            } else {
+                DateFormat timeFormat= new SimpleDateFormat("E dd/MM/yyyy HH:mm a");
+                Date taskDateTime = timeFormat.parse(dateTime);
+                overDays = String.valueOf(daysBetween(taskDateTime));
+                Integer daysToOrPast = Integer.parseInt(overDays);
+                if(daysToOrPast <= 0) overDays = "-";
             }
-            daysDue = String.valueOf(daysBetween(date));
-            description = task.getDescription();
-            overdueViews.add(new DeadlineView(daysDue, description));
+            Text textModCodeAndTask = new Text(modCodeAndTask);
+            textModCodeAndTask.setWrappingWidth(overdueTaskColumn.getWidth()-5);
+            Text textDateTime = new Text(dateTime);
+            textDateTime.setWrappingWidth(overdueDateColumn.getWidth()-5);
+            Text textOverDays = new Text(overDays);
+            textOverDays.setWrappingWidth(overdueDaysColumn.getWidth()-5);
+            deadlineViews.add(new DeadlineView(textModCodeAndTask, textDateTime, textOverDays));
         }
-        return overdueViews;
+        return deadlineViews;
     }
 
     private void openReminderBox() {
@@ -283,37 +276,36 @@ public class MainWindow extends BorderPane implements Initializable {
         dukeResponseColumn = new TableColumn<>();
         dukeResponseColumn.setText("Duke Response");
         dukeResponseColumn.setSortable(false);
+        /*dukeResponseColumn.setCellFactory((param) -> new TableCell<>() {
+            @Override
+            protected void updateItem(String item, boolean empty) {
+                if (item != null) {
+                    setText(item);
+                    if (dukeResponseTable.getSelectionModel().getFocusedIndex() == getTableRow().getIndex()) {
+                        setStyle("-fx-background-color: red;");
+                    } else {
+                        setStyle(null);
+                    }
+                }
+                super.updateItem(item, empty);
+            }
+        });*/
         dukeResponseColumn.setCellValueFactory(new PropertyValueFactory("response"));
         dukeResponseTable.setItems(betterDukeResponse);
         dukeResponseTable.getColumns().add(dukeResponseColumn);
+        dukeResponseTable.scrollTo(betterDukeResponse.size()-1);
+        dukeResponseTable.getSelectionModel().select(betterDukeResponse.size()-1);
+        dukeResponseTable.getSelectionModel().getFocusedIndex();
     }
 
     @FXML
-    private void handleUserInput() throws IOException {
+    private void handleUserInput() throws IOException, DukeInvalidFormatException, ParseException {
         String input = userInput.getText();
         String response = duke.getResponse(input);
         if(input.startsWith("Week")) {
-            Integer digit = -1;
-            boolean isDigit = true;
-            try {
-                String strInput = input.replaceFirst("Week", "");
-                if(!strInput.isEmpty()) {
-                    if(strInput.charAt(0) == ' ') {
-                        strInput = strInput.trim();
-                        digit = Integer.parseInt(strInput);
-                    } else {
-                        isDigit = false;
-                    }
-                }
-            } catch (NumberFormatException e){
-                isDigit = false;
-                userInput.clear();
-                throw new NumberFormatException("Invalid Week");
-            } finally {
-                if (isDigit && digit > 0 && digit < 14) {
-                    week = "Week " + digit;
-                    setWeek(false, week);
-                }
+            if(WeekParse.isValid(input)) {
+                week = input;
+                setWeek(false, week);
             }
         }
 
@@ -322,16 +314,21 @@ public class MainWindow extends BorderPane implements Initializable {
         updateListView();
 
         outputList = ShowPreviousCommand.getOutputList();
-        setDeadlineTable();
+        retrieveList();
+
+        overdueTable.getColumns().clear();
         overdueDateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
         overdueTaskColumn.setCellValueFactory(new PropertyValueFactory<>("task"));
-        overdueTable.setItems(setOverdueTable());
+        overdueDaysColumn.setCellValueFactory(new PropertyValueFactory<>("overDays"));
+        overdueTable.getColumns().addAll(overdueTaskColumn,overdueDateColumn, overdueDaysColumn);
+        overdueTable.setItems(setDeadlineTable());
 
-        retrieveList();
+
+        //add/d CS1000 mod /by 01/11/2019 1500
         setProgressContainer();
         if(!response.isEmpty()) {
             Text temp = new Text(response);
-            temp.setWrappingWidth(dukeResponseColumn.getWidth() - 15);
+            temp.setWrappingWidth(dukeResponseColumn.getWidth() - 20);
             Integer index = betterDukeResponse.size() + 1;
             betterDukeResponse.add(new DukeResponseView(index.toString(), temp));
             setDukeResponse();
@@ -344,7 +341,7 @@ public class MainWindow extends BorderPane implements Initializable {
         }
         userInput.clear();
 
-        if (input.contains("retrieve/previous")) {
+        if (input.contains("retrieve previous")) {
             String previousInput = Duke.getPreviousInput();
             userInput.setText(previousInput);
         } else if (input.startsWith("retrieve/ft ")) {
