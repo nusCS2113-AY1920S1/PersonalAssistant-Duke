@@ -8,6 +8,8 @@ import moomoo.task.category.CategoryList;
 import moomoo.task.Storage;
 import moomoo.task.Ui;
 
+import java.time.LocalDate;
+
 public class GraphTotalCommand extends Command {
     private final String fullBlock = "H";
     private final String halfBlock = "l";
@@ -36,11 +38,11 @@ public class GraphTotalCommand extends Command {
             throw new MooMooException("OOPS!!! MooMoo cannot find any category data :(");
         }
         
-        double grandTotal = catList.getTotal(1, 2019);
+        double grandTotal = catList.getTotal();
         if (grandTotal == 0) {
             grandTotal = 1;
         }
-        int maxAxisUnit = (int) ((catList.getLargestExpenditure(1) / grandTotal) * 100) + 1;
+        int maxAxisUnit = (int) ((catList.getLargestExpenditure(LocalDate.now().getMonthValue()) / grandTotal) * 100) + 1;
         for (int i = 0; i < maxAxisUnit; i += 1) {
             horizontalAxisTop += topBorder;
             horizontalAxisBottom += bottomBorder;
@@ -54,7 +56,7 @@ public class GraphTotalCommand extends Command {
         
         for (int i = 0; i < catList.size(); i += 1) {
             Category cat = catList.get(i);
-            double percentage = 100 * (cat.getTotal(1) / grandTotal);
+            double percentage = 100 * (cat.getTotal() / grandTotal);
             percentage = roundToTwoDp(percentage);
             
             String categoryName = catList.get(i).toString();
