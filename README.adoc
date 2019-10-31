@@ -10,7 +10,7 @@ image::docs/images/GUI_current_as_at_30_10_2019.png[width="600", align="center"]
 * https://github.com/AY1920S1-CS2113-T13-3/main/blob/master/docs/UserGuide.adoc[User Guide]
 * <<DeveloperGuide#, Developer Guide>>
 * <<LearningOutcomes#, Learning Outcomes>>
-* <<AboutUs#, About Us>>
+* https://github.com/AY1920S1-CS2113-T13-3/main/blob/master/docs/AboutUs.adoc[AboutUs]
 * <<ContactUs#, Contact Us>>
 
 == Acknowledgements
