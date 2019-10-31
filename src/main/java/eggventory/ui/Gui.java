@@ -57,50 +57,60 @@ public class Gui extends Ui  {
             outputTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
             printIntro();
 
-            // Event handler for UP and DOWN arrow keys.
-            stage.addEventFilter(KeyEvent.KEY_PRESSED, keyEvent -> {
-                if (keyEvent.getCode() == KeyCode.UP) {
-                    if (inputField.getAllText().equals("")) {
-                        // Can't cycle through command possibilities when
-                        // inputField is empty.
-                        return;
-                    }
-                    inputField.appendText("", -1);
-                } else if (keyEvent.getCode() == KeyCode.DOWN) {
-                    if (inputField.getAllText().equals("")) {
-                        // Can't cycle through command possibilities when
-                        // inputField is empty.
-                        return;
-                    }
-                    inputField.appendText("", 1);
-                } else if (keyEvent.getCode() == KeyCode.BACK_SPACE) {
-                    inputField.removeFromWord();
-                    keyEvent.consume();
-                }
-            });
+            // Event handler for all keypresses
+            stage.addEventFilter(KeyEvent.ANY, keyEvent -> {
+                if (keyEvent.getEventType() == KeyEvent.KEY_RELEASED) {
+                    // Handling keypresses apart from typed characters.
+                    switch (keyEvent.getCode()) {
+                    case ENTER:
+                        if (inputField.getAllText().equals("")) {
+                            // No input is parsed if there is no text input
+                            // in inputField.
+                            break;
+                        }
+                        runMethod.run();
+                        break;
 
-            // Event handler for all other keys.
-            stage.addEventFilter(KeyEvent.KEY_TYPED, keyEvent ->  {
-                switch ((int) keyEvent.getCharacter().charAt(0)) {
-                case 13: // ENTER
-                    if (inputField.getAllText().equals("")) {
-                        // No input is parsed if there is no text input
-                        // in inputField.
+                    case BACK_SPACE:
+                        inputField.removeFromWord();
+                        break;
+
+                    case TAB:
+                        if (inputField.getAllText().equals("")) {
+                            // Prevents autocompletion when user has not even input anything.
+                            break;
+                        }
+                        inputField.acceptSearchText();
+                        break;
+
+                    case UP:
+                        if (inputField.getAllText().equals("")) {
+                            // Can't cycle through command possibilities when
+                            // inputField is empty.
+                            break;
+                        }
+                        inputField.appendText("", -1);
+                        break;
+
+                    case DOWN:
+                        if (inputField.getAllText().equals("")) {
+                            // Can't cycle through command possibilities when
+                            // inputField is empty.
+                            break;
+                        }
+                        inputField.appendText("", 1);
+                        break;
+                    default:
+                        // To appease mr. travis
                         break;
                     }
-                    runMethod.run();
-                    break;
-                case 9: // TAB
-                    if (inputField.getAllText().equals("")) {
-                        // Prevents autocompletion when user has not even input anything.
+                } else if (keyEvent.getEventType() == KeyEvent.KEY_TYPED) {
+                    char inputChar = keyEvent.getCharacter().charAt(0);
+                    // Ignoring all inputs that are not standard type-able characters
+                    if (!(inputChar >= ' ' && inputChar <= '~')) {
                         return;
                     }
-                    inputField.acceptSearchText();
-                    keyEvent.consume();
-                    break;
-                default: // All other characters
                     inputField.appendText(keyEvent.getCharacter(), 0);
-                    break;
                 }
             });
         });
@@ -125,7 +135,6 @@ public class Gui extends Ui  {
     public String print(String printString) {
         String output = printFormatter(printString);
         outputField.appendText("\n" + output);
-
         return output;
     }
 
@@ -142,7 +151,6 @@ public class Gui extends Ui  {
         outputTable.getColumns().add(mainColumn);
 
         // Iterating through columns to setup all columns.
-        System.out.println(tableStruct.getTableColumnSize());
         for (int i = 0; i < tableStruct.getTableColumnSize(); i++) {
             // Creating column with header
             TableColumn<ArrayList<String>, String> column = new TableColumn<>(tableStruct.getColumnName(i));
@@ -165,3 +173,4 @@ public class Gui extends Ui  {
         }
     }
 }
+//@@author
