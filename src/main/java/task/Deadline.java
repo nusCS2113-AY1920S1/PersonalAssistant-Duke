@@ -1,6 +1,7 @@
 package task;
 
 import java.io.Serializable;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -17,12 +18,11 @@ public class Deadline extends Task implements Serializable {
      * Creates a Deadline instance and initialises the required attributes.
      * @param description Description of the deadline.
      */
-    public Deadline(String description) {
+    public Deadline(String description, String by) throws ParseException {
         super(description);
-        this.by = null;
+        this.by = by;
+        this.date = dataformat.parse(by);
         this.type = "D";
-        this.inVoice = null;
-        this.isInVoice = false;
     }
 
     /**

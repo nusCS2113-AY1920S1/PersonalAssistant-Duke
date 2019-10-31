@@ -10,6 +10,30 @@ import java.util.HashMap;
  */
 public abstract class PaymentManager {
 
+    private static Field strToField(String str) {
+        switch (str) {
+            case ("PAYEE"):
+                return Field.PAYEE;
+            case ("EMAIL"):
+                return Field.EMAIL;
+            case ("MATRIC"):
+                return Field.MATRIC;
+            case ("PHONE"):
+                return Field.PHONE;
+            case ("ITEM"):
+                return Field.ITEM;
+            case ("COST"):
+                return Field.COST;
+            case ("INVOICE"):
+                return Field.INV;
+            case ("STATUS"):
+                return Field.STATUS;
+            case ("DEADLINE"):
+                return Field.DEADLINE;
+        }
+        throw new IllegalArgumentException();
+    }
+
     /**
      * Finds the Payments objects containing a payee name and returns a list of Payments.
      *
@@ -24,7 +48,8 @@ public abstract class PaymentManager {
     /**
      * Edits the Payments object details, may overload string to take different ways of inputs.
      */
-    public void editPayee(String payee, String inv, Field field, String replace, HashMap<String, Payee> managermap) {
+    public static void editPayee(String payee, String inv, String fieldToAmend, String replace, HashMap<String, Payee> managermap) {
+        Field field = strToField(fieldToAmend);
         if (inv.isEmpty()) {
             if (field == Field.PAYEE) {
                 managermap.get(payee).payee = replace;
