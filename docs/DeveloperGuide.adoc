@@ -236,7 +236,7 @@ The task index numbers (1, 2) , assignee indexes (1, 2, 3) and unassigned indexe
 // image::StorageClassDiagram.png[]
 
 // *API* : 
-// link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
+link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
 
 //The `Storage` component,
 
