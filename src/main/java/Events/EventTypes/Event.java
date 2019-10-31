@@ -1,6 +1,7 @@
 package Events.EventTypes;
 
 import Events.Formatting.EventDate;
+import Events.Storage.Checklist;
 import Events.Storage.Goal;
 import Events.Storage.Contact;
 
@@ -19,7 +20,7 @@ public abstract class Event implements Comparable<Event> {
     protected ArrayList<Goal> goalsList;
     protected ArrayList<Contact> contactList;
 
-    private ArrayList<String> checklist;
+    private Checklist checklist;
 
     /**
      * Creates event with one date input (e.g todo)
@@ -36,7 +37,7 @@ public abstract class Event implements Comparable<Event> {
         this.eventType = 'T'; //event with no end date can only be ToDo
         this.goalsList = new ArrayList<>();
         this.contactList = new ArrayList<>();
-        this.checklist = new ArrayList<>();
+        this.checklist = new Checklist();
     }
 
     /**
@@ -55,7 +56,7 @@ public abstract class Event implements Comparable<Event> {
         this.eventType = eventType;
         this.goalsList = new ArrayList<>();
         this.contactList = new ArrayList<>();
-        this.checklist = new ArrayList<>();
+        this.checklist = new Checklist();
     }
 
     /**
@@ -165,18 +166,24 @@ public abstract class Event implements Comparable<Event> {
         }
     }
 
-    //@@author
+    //@@author ZhangYihanNus
     public void addChecklist(String newChecklist) {
-        System.out.println(newChecklist);
-        this.checklist.add(newChecklist);
+        this.checklist.addItem(newChecklist);
     }
 
-    public ArrayList<String> getChecklist() { return this.checklist; }
+    public ArrayList<String> getChecklist() {
+        return this.checklist.getChecklist();
+    }
 
-    public void editChecklist(int checklistIndex, String newChecklist) { this.checklist.set(checklistIndex, newChecklist); }
+    public void editChecklist(int checklistIndex, String newChecklist) {
+        this.checklist.editItem(checklistIndex, newChecklist);
+    }
 
-    public void deleteChecklist(int checklistIndex) { this.checklist.remove(checklistIndex); }
+    public void deleteChecklist(int checklistIndex) {
+        this.checklist.deleteItem(checklistIndex);
+    }
 
+    //@@author
     @Override
     public int compareTo(Event currEvent) {
         if (this.startEventDate.getEventJavaDate().compareTo(currEvent.startEventDate.getEventJavaDate()) > 0) {
