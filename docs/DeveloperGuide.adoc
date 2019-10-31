@@ -187,7 +187,7 @@ will proceed to create an instance of the appropriate command class and return i
 ==== Command
 
 .Bank Command Class Diagram
-image::LogicCommandBankPackage.png[width="970"]
+image::LogicCommandBankPackage.png[width="800"]
 
 The `logic.command.bank` package consist of `Savings` and `Investment` classes which inherits from the `Command` class.
 
@@ -321,7 +321,7 @@ The execution of commands will be elaborated in subsequent diagrams below.
 
 === Adding Savings
 .Sequence Diagram of Adding Savings
-image::AddSavingCommand.png[width="970"]
+image::AddSavingCommand.png[width="800"]
 
 [NOTE]
 The sequence diagram presented above is assumed to be a valid command which will generate in a successful result.
@@ -884,26 +884,26 @@ Use case ends.
 
 
 *Actor: User* +
-[[UC-2]] *Use case: UC2 - Add [.underline]#bank# (savings / investment) account* +
+[[UC-2]] *Use case: UC2 - Add savings account* +
 *Preconditions:*
 
 * *User has a profile created*
 
 *Main success scenario:*
 
-. User chooses to add a [.underline]#bank# (savings / investment) account.
-. System requests for [.underline]#bank# (savings / investment) details.
-. User enters details for the new [.underline]#bank# (savings / investment) account.
-. System creates a new [.underline]#bank# (savings / investment) account with the details specified.
+. User chooses to add a savings account.
+. System requests for savings account details.
+. User enters details for the new savings account.
+. System creates a new savings account with the details specified.
 +
 Use case ends.
 
 *Extensions*
 [none]
-* 3a. System detects invalid details for the new [.underline]#bank# (savings / investment) account.
-** 3a1. System requests for the correct details.
-** 3a2. User re-enters the details for new [.underline]#bank# (savings / investment) account.
-** Steps 3a1-3a2 are repeated until the details for new [.underline]#bank# (savings / investment) account is entered correctly.
+* 3a. System detects invalid details for the new savings account.
+** 3a1. System requests for the correct savings account details.
+** 3a2. User re-enters the details for new savings account.
+** Steps 3a1-3a2 are repeated until the details for new savings account is entered correctly.
 ** Use case resumes from step 4.
 
 
@@ -965,27 +965,28 @@ Use case ends.
 
 
 *Actor: Existing User* +
-[[UC-5]] *Use case: UC5 - Edit [.underline]#bank# (savings / investment) account details* +
+[[UC-5]] *Use case: UC5 - Edit savings account details* +
 *Preconditions:*
 
 *  *User has a profile created* +
-*  *User has an existing [.underline]#bank# (savings / investment) account* +
+*  *User has an existing savings account* +
 
 *Main success scenario:*
 
-. User chooses to edit his/her [.underline]#bank# (savings / investment) account details.
-. System requests for new [.underline]#bank# (savings / investment) account details.
-. User enters new [.underline]#bank# (savings / investment) account details.
-. System update the [.underline]#bank# (savings / investment) account details.
+. User chooses to edit his/her specific savings account details.
+. System requests for the savings account and newly specified information of savings account details.
+. User enters the savings account with new savings account information he/she like to change.
+. System updates the savings account with new savings account details.
 +
 Use case ends.
 
 *Extensions*
 [none]
-* 3a. System detects invalid [.underline]#bank# (savings / investment) accounts details.
-** 3a1. System requests for the correct [.underline]#bank# (savings / investment) account details.
-** 3a2. User re-enters the [.underline]#bank# (savings / investment) account details.
-** Steps 3a1-3a2 are repeated until the [.underline]#bank# (savings / investment) account details entered are correct.
+* 3a. System detects invalid savings account or invalid new savings account details.
+** 3a1. System requests for the correct savings account and savings account details.
+** 3a2. User re-enters the savings account and new savings account details.
+** Steps 3a1-3a2 are repeated until the savings account and savings account details are entered
+correctly.
 ** Use case resumes from step 4.
 
 
