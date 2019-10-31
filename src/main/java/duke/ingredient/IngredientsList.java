@@ -26,7 +26,6 @@ public class IngredientsList extends GenericList<Ingredient> {
         genList.get(Nb).changeDate(date);
     }
 
-
     @Override
     public void addEntry(Ingredient ingredient) {
         if (genList.contains(ingredient) && this.getEntry(ingredient).getExpiryDate().equals(ingredient.getExpiryDate())) {
@@ -51,6 +50,7 @@ public class IngredientsList extends GenericList<Ingredient> {
     public void changeName(int Nb, String name) {
         genList.get(Nb).setName(name);
     }
+
 
     public void changeAmount(int Nb, Integer amount) {
         genList.get(Nb).changeAmount(amount);

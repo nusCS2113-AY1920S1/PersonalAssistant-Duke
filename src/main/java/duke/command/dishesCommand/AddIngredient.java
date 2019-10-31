@@ -29,7 +29,7 @@ public class AddIngredient extends Cmd<Dish> {
             dishList.getEntry(index - 1).addIngredients(ingredient);
             ui.showIngredients(ingredient,dishList.getEntry(index - 1));
         } catch (Exception e) {
-            throw new DukeException("cannot add ingredient");
+            throw new DukeException("cannot add ingredient as the dish is not in list");
         }
     }
 }
