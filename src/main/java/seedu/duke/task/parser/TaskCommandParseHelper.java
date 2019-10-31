@@ -1,11 +1,7 @@
 package seedu.duke.task.parser;
 
 import seedu.duke.CommandParseHelper;
-import seedu.duke.common.command.Command;
-import seedu.duke.common.command.ExitCommand;
-import seedu.duke.common.command.FlipCommand;
-import seedu.duke.common.command.HelpCommand;
-import seedu.duke.common.command.InvalidCommand;
+import seedu.duke.common.command.*;
 import seedu.duke.common.model.Model;
 import seedu.duke.task.command.TaskAddCommand;
 import seedu.duke.task.command.TaskDeleteCommand;
@@ -26,8 +22,7 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static seedu.duke.CommandParseHelper.extractTags;
-import static seedu.duke.CommandParseHelper.extractTime;
+import static seedu.duke.CommandParseHelper.*;
 
 public class TaskCommandParseHelper {
     private static UI ui = UI.getInstance();
@@ -431,17 +426,31 @@ public class TaskCommandParseHelper {
             return new InvalidCommand();
         }
         try {
-            int dayLimit = extractDayLimit(linkCommandMatcher);
-            if (dayLimit < 0) {
-                showError("Reminder day limit cannot be negative. Default is used.");
-                return new TaskReminderCommand();
-            } else {
-                return new TaskReminderCommand(dayLimit);
-            }
-        } catch (NumberFormatException e) {
-            showError("Reminder day limit in wrong format. Default is used.");
-            return new TaskReminderCommand();
+            int index = parseTaskIndex(linkCommandMatcher.group("index"));
+            ArrayList<Integer> emailIndexList = extractEmails(optionList);
+            ArrayList<Integer> taskIndexList = new ArrayList<>();
+            taskIndexList.add(index);
+            return new LinkCommand(taskIndexList, emailIndexList);
+        } catch (NumberFormatException | TaskParseException e) {
+            showError("Unable to find task/email.");
+            return new InvalidCommand();
         }
+    }
+
+    /**
+     * Extracts email index from the option list.
+     *
+     * @param optionList the list of options where the parameters are extracted
+     * @return the ArrayList of email index
+     */
+    public static ArrayList<Integer> extractEmails(ArrayList<Command.Option> optionList) {
+        ArrayList<Integer> emailList = new ArrayList<>();
+        for (Command.Option option : optionList) {
+            if (option.getKey().equals("email")) {
+                emailList.add(Integer.parseInt(option.getValue().strip()));
+            }
+        }
+        return emailList;
     }
 
     /**

@@ -42,6 +42,11 @@ public class Task {
     protected ArrayList<String> tags;
 
     /**
+     * The list of linked emails that the task has.
+     */
+    protected ArrayList<String> linkedEmails;
+
+    /**
      * The priority assigned to the task.
      */
     protected String priority;
@@ -57,6 +62,7 @@ public class Task {
         this.doAfterDescription = null;
         this.tags = new ArrayList<>();
         this.priority = null;
+        this.linkedEmails = new ArrayList<>();
     }
 
     /**
@@ -160,6 +166,14 @@ public class Task {
      */
     public boolean isNear(int dayLimit) {
         return false;
+    }
+
+    public void addLinkedEmails(String email) {
+        linkedEmails.add(email);
+    }
+
+    public ArrayList<String> getLinkedEmails() {
+        return linkedEmails;
     }
 
     public boolean isClash(Task task) {
