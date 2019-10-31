@@ -45,9 +45,7 @@ Since Hustler is a productivity checker, the first thing you would want to do is
 
 The syntax for adding a task to the list is as follows:
 
----
 */add <task description>*
----
 
 On issuing this command in the command-lie text box at the bottom, a task will be added to the list.
 
