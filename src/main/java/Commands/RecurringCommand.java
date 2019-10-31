@@ -62,13 +62,18 @@ public class RecurringCommand extends Command {
         if (!eventMap.containsKey(modCode)) {
             throw new DukeException("Sorry, you have no such recurring mod task to be removed");
         } else if (!eventMap.get(modCode).containsKey(dateOfTask)) {
-            throw new DukeException("Sorry, you have no such timing of the recurring task to be removed");
+            throw new DukeException("Sorry, you have no such date of the recurring task to be removed");
         } else {
-            return true;
+            for (Assignment taskInList : eventMap.get(modCode).get(dateOfTask)) {
+                if (taskInList.getDateTime().equals(task.getDateTime())) {
+                    return true;
+                }
+            }
+            throw new DukeException("Sorry, you have no timing of the mod task to be removed");
         }
     }
 
-    private boolean isInsideMapAdd (HashMap<String, HashMap<String, ArrayList<Assignment>>> eventMap, Assignment task) throws DukeException {
+    private boolean isInsideMapAdd ( HashMap<String, HashMap<String, ArrayList<Assignment>>> eventMap, Assignment task) throws DukeException {
         String modCode = task.getModCode();
         String dateOfTask = task.getDate();
         if (eventMap.containsKey(modCode) && eventMap.get(modCode).containsKey(dateOfTask)) {
@@ -79,7 +84,7 @@ public class RecurringCommand extends Command {
     }
 
     @Override
-    public String execute(LookupTable LT,TaskList events, TaskList deadlines, Ui ui, Storage storage) throws Exception {
+    public String execute(LookupTable LT, TaskList events, TaskList deadlines, Ui ui, Storage storage) throws Exception {
         SimpleDateFormat dateFormat = new SimpleDateFormat("E dd/MM/yyyy");
         Date startDate = dateFormat.parse(startDateString);
         Date endDate = dateFormat.parse(endDateString);
@@ -87,12 +92,14 @@ public class RecurringCommand extends Command {
         Date startOfFollowingWeek;
         Date startOfNextWeek;
         HashMap<String, HashMap<String, ArrayList<Assignment>>> eventMap = events.getMap();
+        ArrayList<Assignment> temp = new ArrayList<>();
+
 
         if (isRecur && isBiweekly) {
             do {
                 Assignment task = new Event(description, startDateString, startTimeString, endTimeString);
                 isInsideMapAdd(eventMap, task);
-                events.addTask(task);
+                temp.add(task);
                 startOfFollowingWeek = getFollowingWeekDate(startDate);
                 startDateString = dateFormat.format(startOfFollowingWeek);
                 startDate = startOfFollowingWeek;
@@ -102,7 +109,7 @@ public class RecurringCommand extends Command {
             do {
                 Assignment task = new Event(description, startDateString, startTimeString, endTimeString);
                 isInsideMapAdd(eventMap, task);
-                events.addTask(task);
+                temp.add(task);
                 startOfNextWeek = getNextWeekDate(startDate);
                 startDateString = dateFormat.format(startOfNextWeek);
                 startDate = startOfNextWeek;
@@ -112,7 +119,7 @@ public class RecurringCommand extends Command {
             do {
                 Assignment task = new Event(description, startDateString, startTimeString, endTimeString);
                 isInsideMapRemove(eventMap, task);
-                events.removeTask(task);
+                temp.add(task);
                 startOfFollowingWeek = getFollowingWeekDate(startDate);
                 startDateString = dateFormat.format(startOfFollowingWeek);
                 startDate = startOfFollowingWeek;
@@ -123,13 +130,24 @@ public class RecurringCommand extends Command {
             do {
                 Assignment task = new Event(description, startDateString, startTimeString, endTimeString);
                 isInsideMapRemove(eventMap, task);
-                events.removeTask(task);
+                temp.add(task);
                 startOfNextWeek = getNextWeekDate(startDate);
                 startDateString = dateFormat.format(startOfNextWeek);
                 startDate = startOfNextWeek;
             }
             while (startOfNextWeek.before(endDate) || startOfNextWeek.equals(endDate));
         }
+
+        if (isRecur) {
+            for (Assignment taskInList : temp) {
+                events.addTask(taskInList);
+            }
+        } else {
+            for (Assignment taskInList : temp) {
+                events.removeTask(taskInList);
+            }
+        }
+
         storage.updateEventList(events);
         return ui.showRecurring(description, oldStartDateString, endDateString, isBiweekly, isRecur);
     }
