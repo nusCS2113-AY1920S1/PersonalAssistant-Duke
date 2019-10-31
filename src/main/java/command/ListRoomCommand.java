@@ -2,7 +2,6 @@
 package command;
 
 import inventory.Inventory;
-import inventory.Item;
 
 
 import booking.BookingList;
@@ -10,7 +9,7 @@ import exception.DukeException;
 import room.RoomList;
 import storage.Storage;
 import ui.Ui;
-import user.User;
+import user.UserList;
 
 
 public class ListRoomCommand extends Command {
@@ -23,13 +22,12 @@ public class ListRoomCommand extends Command {
      * @param ui user interface
      * @param bookingstorage booking storage in command execution
      * @param roomstorage room storage in command execution
-     * @param user Current user
      * @throws DukeException when entry is invalid due to formatting
      */
 
     @Override
-    public void execute(Inventory inventory, RoomList roomList, BookingList bookingList, Ui ui,
-                        Storage inventoryStorage, Storage bookingstorage, Storage roomstorage, User user)
+    public void execute(UserList userList, Inventory inventory, RoomList roomList, BookingList bookingList, Ui ui,
+                        Storage userStorage, Storage inventoryStorage, Storage bookingstorage, Storage roomstorage)
             throws DukeException {
         if (roomList.isEmpty()) {
             throw new DukeException("The room list is empty. Please add a room.");

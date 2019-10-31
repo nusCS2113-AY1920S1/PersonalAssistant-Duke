@@ -1,5 +1,6 @@
 package ui;
 
+import exception.DukeException;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
@@ -34,16 +35,16 @@ public class ListBox extends HBox {
      * @param status approve/reject status
      */
     public ListBox(String index, String name, String venue, String date,
-                   String timeStart, String timeEnd, String status) {
+                   String timeStart, String timeEnd, String status) throws DukeException {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Ui.class.getResource("/view/ListBox.fxml"));
             fxmlLoader.setController(this);
             fxmlLoader.setRoot(this);
             fxmlLoader.load();
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new DukeException("RoomListBox not available");
         }
-        indexLabel.setText(index.toString() + ".");
+        indexLabel.setText(index + ".");
         nameLabel.setText(name);
         venueLabel.setText(venue);
         dateLabel.setText(date);
@@ -64,7 +65,7 @@ public class ListBox extends HBox {
      * @return new item
      */
     public static ListBox getItem(String index, String name, String venue, String date,
-        String timeStart, String timeEnd, String status) {
+        String timeStart, String timeEnd, String status) throws DukeException {
         return new ListBox(index, name, venue, date, timeStart, timeEnd, status);
     }
 }

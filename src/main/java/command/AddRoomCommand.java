@@ -2,7 +2,6 @@
 package command;
 
 import inventory.Inventory;
-import inventory.Item;
 
 import booking.BookingList;
 import exception.DukeException;
@@ -10,7 +9,7 @@ import storage.Storage;
 import room.Room;
 import room.RoomList;
 import ui.Ui;
-import user.User;
+import user.UserList;
 
 import java.io.IOException;
 
@@ -57,13 +56,12 @@ public class AddRoomCommand extends Command {
      * @param ui user interface
      * @param bookingstorage booking storage in command execution
      * @param roomstorage room storage in command execution
-     * @param user current user
      * @throws IOException if input entry is incorrect
      */
     @Override
 
-    public void execute(Inventory inventory, RoomList roomList, BookingList bookingList, Ui ui, 
-                        Storage inventoryStorage, Storage bookingstorage, Storage roomstorage, User user)
+    public void execute(UserList userList, Inventory inventory, RoomList roomList, BookingList bookingList, Ui ui,
+                        Storage userStorage, Storage inventoryStorage, Storage bookingstorage, Storage roomstorage)
             throws IOException {
         Room addroom = new Room(roomcode, dateStartTime, endTime);
         roomList.add(addroom);

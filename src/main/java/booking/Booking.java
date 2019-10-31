@@ -17,6 +17,7 @@ public class Booking {
     protected LocalTime timeEnd;
     protected String venue;
     protected String name;
+
     private String description;
     private String status;
 
@@ -32,7 +33,7 @@ public class Booking {
     public Booking(String username, String roomcode, String description, String dateTimeStart, String dateTimeEnd) {
         this.venue = roomcode;
         DateTimeFormatter formatterStart = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
-        DateTimeFormatter formatterEnd = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
+        DateTimeFormatter formatterEnd = DateTimeFormatter.ofPattern("HHmm");
         this.dateTimeStart = LocalDateTime.parse(dateTimeStart, formatterStart);
         this.dateStart = this.dateTimeStart.toLocalDate();
         this.timeEnd = LocalTime.parse(dateTimeEnd, formatterEnd);
@@ -125,6 +126,10 @@ public class Booking {
 
     public LocalTime getTimeStart() {
         return dateTimeStart.toLocalTime();
+    }
+
+    public String getDescription() {
+        return description;
     }
 
 

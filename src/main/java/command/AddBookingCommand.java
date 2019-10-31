@@ -2,7 +2,6 @@
 package command;
 
 import inventory.Inventory;
-import inventory.Item;
 
 import exception.DukeException;
 import room.RoomList;
@@ -11,8 +10,7 @@ import storage.Storage;
 import ui.Ui;
 import booking.Booking;
 import booking.BookingList;
-import user.Login;
-import user.User;
+import user.UserList;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -72,13 +70,12 @@ public class AddBookingCommand extends Command {
      * @param ui user interface
      * @param bookingstorage booking storage in command execution
      * @param roomstorage room storage in command execution
-     * @param user current user
      * @throws DukeException if a clash in booking is found
      * @throws IOException if input entry is incorrect
      */
     @Override
-    public void execute(Inventory inventory, RoomList roomList, BookingList bookingList, Ui ui,
-                        Storage inventoryStorage, Storage bookingstorage, Storage roomstorage, User user)
+    public void execute(UserList userList, Inventory inventory, RoomList roomList, BookingList bookingList, Ui ui,
+                        Storage userStorage, Storage inventoryStorage, Storage bookingstorage, Storage roomstorage)
             throws DukeException, IOException, ParseException {
         Booking newBooking = new Booking(name, room, description, timeStart, datetime[1]);
         boolean clash = BookingList.checkBooking(bookingList, room, timeStart, datetime[1]);

@@ -3,6 +3,7 @@ package ui;
 import java.io.IOException;
 import java.util.Collections;
 
+import exception.DukeException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -29,14 +30,14 @@ public class DialogBox extends HBox {
     @FXML
     private ImageView displayPicture;
 
-    private DialogBox(String text, Image img) {
+    private DialogBox(String text, Image img) throws DukeException {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Ui.class.getResource("/view/DialogBox.fxml"));
             fxmlLoader.setController(this);
             fxmlLoader.setRoot(this);
             fxmlLoader.load();
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new DukeException("RoomListBox not available");
         }
 
         dialog.setText(text);
@@ -60,7 +61,7 @@ public class DialogBox extends HBox {
      * @param img user's image
      * @return user's input displayed with image like a chat message
      */
-    public static DialogBox getUserDialog(String text, Image img) {
+    public static DialogBox getUserDialog(String text, Image img) throws DukeException {
         var db = new DialogBox(text, img);
         db.dialog.setBackground(new Background(new BackgroundFill(Color.SKYBLUE, new CornerRadii(3), null)));
         return db;
@@ -72,7 +73,7 @@ public class DialogBox extends HBox {
      * @param img chatbot's image
      * @return chatbot's input displayed with image like a chat message
      */
-    public static DialogBox getDukeDialog(String text, Image img) {
+    public static DialogBox getDukeDialog(String text, Image img) throws DukeException {
         var db = new DialogBox(text, img);
         db.dialog.setBackground(new Background(new BackgroundFill(Color.LIGHTYELLOW, new CornerRadii(3), null)));
         db.flip();
