@@ -1,11 +1,8 @@
 package scene;
 
-import command.SetReminderCommand;
 import dictionary.Bank;
 import command.Command;
-import dictionary.WordCount;
 import exception.WordUpException;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import parser.Parser;
 import ui.Ui;
@@ -20,8 +17,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import storage.Storage;
-
-import java.awt.*;
 
 public abstract class NewScene {
     protected ScrollPane scrollPane;
@@ -59,7 +54,6 @@ public abstract class NewScene {
         this.storage = storage;
 
         dialogContainer = new VBox();
-//        dialogContainer.getChildren().add(new Rectangle().setFill(Color.web(204, 255, 252)));
 
         scrollPane = new ScrollPane();
         scrollPane.setContent(dialogContainer);

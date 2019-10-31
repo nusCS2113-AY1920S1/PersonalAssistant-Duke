@@ -2,6 +2,7 @@ package command;
 
 import dictionary.Bank;
 import exception.ReminderSetupException;
+import exception.ReminderWrongDateFormatException;
 import parser.Parser;
 import reminder.Reminder;
 import storage.Storage;
@@ -9,7 +10,6 @@ import ui.Ui;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Set;
 
 /**
  * Represents a command from user to add a task.
