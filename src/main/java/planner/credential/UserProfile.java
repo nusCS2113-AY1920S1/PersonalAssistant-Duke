@@ -6,6 +6,7 @@ import planner.logic.modules.cca.CcaList;
 import planner.logic.modules.legacy.task.Task;
 import planner.logic.modules.module.ModuleTask;
 import planner.ui.cli.PlannerUi;
+import planner.util.storage.Storage;
 
 import java.util.HashMap;
 import java.util.List;
@@ -16,6 +17,17 @@ public class UserProfile {
     private int currentSemester;
     private HashMap<Integer, HashMap<String, List<? extends Task>>> modulesAndCcas;
     private static Hasher hasher = new Hasher();
+    private static Storage storage = new Storage();
+    @SuppressWarnings("unchecked")
+    private static HashMap<String, HashMap<String, UserProfile>> users =
+            storage.readGson("data/users.json", HashMap.class);
+
+    static {
+        if (users == null) {
+            UserProfile.users = new HashMap<>();
+            UserProfile.users.put("users", new HashMap<>());
+        }
+    }
 
     static UserProfile createProfile(String userName, String password, PlannerUi plannerUi) {
         if (UserProfile.userExists(userName)) {
@@ -23,7 +35,7 @@ public class UserProfile {
         }
         UserProfile userProfile = new UserProfile();
         userProfile.userName = userName;
-        userProfile.password = password;
+        userProfile.password = UserProfile.hasher.getHashString(password);
         int year = plannerUi.yearPrompt();
         int semester = plannerUi.semesterPrompt();
         userProfile.currentSemester = (year << 1) + semester - 2;
@@ -31,17 +43,23 @@ public class UserProfile {
     }
 
     private static UserProfile loadProfile(String userName, String password) {
+        UserProfile userProfile = UserProfile.users.get("users").get(userName);
+        if (UserProfile.isValidPassword(password, userProfile.password)) {
+            return userProfile;
+        }
         return null;
     }
 
     public void saveProfile() {
+        UserProfile.users.get("users").put(this.getUserName(), this);
+        storage.writeGson(UserProfile.users, "data/users.json");
     }
 
     public static boolean userExists(String userName) {
-        return false;
+        return UserProfile.users.get("users").containsKey(userName);
     }
 
-    public boolean isValidPassword(String password, String passwordHash) {
+    public static boolean isValidPassword(String password, String passwordHash) {
         return passwordHash.equals(UserProfile.hasher.getHashString(password));
     }
 

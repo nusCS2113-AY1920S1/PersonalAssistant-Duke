@@ -2,6 +2,11 @@
 
 package planner.util.storage;
 
+import com.google.gson.Gson;
+
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -21,6 +26,8 @@ public class Storage {
 
     private boolean dataPathExists = false;
     private boolean fileExists = false;
+
+    private static Gson gson = new Gson();
 
     /**
      * Default Constructor for storage class.
@@ -60,7 +67,7 @@ public class Storage {
         dataPathExists = Files.isRegularFile(dataPath);
     }
 
-    private void makeFile(Path path) throws IOException {
+    public void makeFile(Path path) throws IOException {
         Files.createDirectories(path.getParent());
         Files.createFile(path);
     }
@@ -81,4 +88,47 @@ public class Storage {
         }
     }
 
+    //@@author LongLeCE
+
+    /**
+     * Write an object to file.
+     * @param object object to write
+     * @param path file path
+     */
+    public void writeGson(Object object, String path) {
+        FileWriter writer = null;
+        try {
+            makeFile(Paths.get(path));
+        } catch (IOException ex) {
+            ex.getMessage();
+        }
+        try {
+            writer = new FileWriter(path);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        gson.toJson(object, writer);
+        try {
+            assert writer != null;
+            writer.flush();
+            writer.close();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    /**
+     * Read an object from file.
+     * @param path file path
+     * @param clazz Class of object
+     */
+    public <E> E readGson(String path, Class<E> clazz) {
+        FileReader reader;
+        try {
+            reader = new FileReader(path);
+        } catch (FileNotFoundException ex) {
+            return null;
+        }
+        return gson.fromJson(reader, clazz);
+    }
 }
