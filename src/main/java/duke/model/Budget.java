@@ -107,7 +107,7 @@ public class Budget {
 
     private void updateBudgetObservableList() {
         budgetObservableList.clear();
-        budgetObservableList.add("Overall monthly budget: $" + monthlyBudget.toString());
+        budgetObservableList.add("MONTHLY BUDGET: $" + monthlyBudget.toString());
         for (String category : budgetCategory.keySet()) {
             budgetObservableList.add(category + ": $" + budgetCategory.get(category));
         }

@@ -27,7 +27,6 @@
                     <Label fx:id="filterLabel"/>
                 </VBox>
                 <VBox>
-                    <ListView fx:id="budgetListView" prefHeight="200"/>
                     <Pane fx:id="paneView" prefHeight="200"/>
                 </VBox>
             </HBox>

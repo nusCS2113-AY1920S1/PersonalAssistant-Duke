@@ -12,11 +12,13 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class BudgetCommand extends Command {
-    private static final String name = "budget";
+    private static final String name = "addBudget";
     private static final String description = "sets a budget";
     private static final String usage = "budget $amount";
 
     private static final String COMPLETE_MESSAGE = "Set the budget!";
+    private static final String DUPLICATE_MESSAGE = "Updated the budget!";
+
 
 
     private enum SecondaryParam {
@@ -45,7 +47,7 @@ public class BudgetCommand extends Command {
             BigDecimal amount = new BigDecimal(commandParams.getMainParam());
             BigDecimal scaledAmount = amount.setScale(2, RoundingMode.HALF_UP);
             if (commandParams.containsParams(SecondaryParam.TAG.name)) {
-                String category = commandParams.getParam(SecondaryParam.TAG.name);
+                String category = commandParams.getParam(SecondaryParam.TAG.name).toUpperCase();
                 model.setCategoryBudget(category, amount);
             } else {
                 model.setMonthlyBudget(scaledAmount);
@@ -56,6 +58,10 @@ public class BudgetCommand extends Command {
             throw new DukeException(String.format(DukeException.MESSAGE_BUDGET_AMOUNT_INVALID,
                     commandParams.getMainParam()));
         }
-        return new CommandResult(COMPLETE_MESSAGE, CommandResult.DisplayedPane.EXPENSE);
+        if(model.getBudgetCategory().containsKey(commandParams.getParam(SecondaryParam.TAG.name))) {
+            return new CommandResult(DUPLICATE_MESSAGE, CommandResult.DisplayedPane.BUDGET);
+        } else {
+            return new CommandResult(COMPLETE_MESSAGE, CommandResult.DisplayedPane.BUDGET);
+        }
     }
 }
