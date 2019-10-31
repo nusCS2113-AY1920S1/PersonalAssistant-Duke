@@ -15,4 +15,4 @@ image::docs/images/GUI_current_as_at_30_10_2019.png[width="600", align="center"]
 
 == Acknowledgements
 
-* Libraries used: https://github.com/junit-team/junit5[JUnit5], https://github.com/ical4j/ical4j[ical4j],https://github.com/google/gson[Gson]
+* Libraries used: https://github.com/junit-team/junit5[JUnit5], https://github.com/ical4j/ical4j[ical4j], https://github.com/google/gson[Gson]
