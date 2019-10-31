@@ -34,8 +34,14 @@ My role as a team leader was to perform project management as well as to write t
 started. On top of that, I was also in charge of writing codes for the `investment`, `bonds`, `storage` and
 some parts of the `commands` section. +
 The following sections illustrates these enhancements in more details,
-illustrates the relevant sections I have contributed to the project as a whole, as well as the relevant sections I have added to the
-user and developer guides in relation to these enhancements.
+illustrates the relevant sections I have contributed to the project as a whole, as well as the relevant sections I
+have added to the user and developer guides in relation to these enhancements.
+
+=== Understanding this Project Portfolio
+
+The following symbols are used through this project portfolio:
+
+include::../UserGuide.adoc[tag=user_guide_common_logo]
 
 === Summary of Contributions
 This section shows a summary of my coding, documentation, and other helpful contributions to the team project.
@@ -97,7 +103,7 @@ link:{forumURL}/57[#57], link:{forumURL}/26[#26], link:{forumURL}/8[#8])
 & https://codecov.io/gh/AY1920S1-CS2113T-W17-3/main[Codecov] *Code coverage* tools. (examples: PRs {prURL}/133[#133])
 ** Integrated https://app.codacy.com/manual/OwlMoney/main/dashboard[Codacy] *Code analytics* tool.
 ** Integrated https://app.netlify.com/sites/ay1920s1-cs2113t-w17-3/deploys[Netlify]
-& https://github.com/shamussy/main/deployments[GitHub Deployment] *Deployment preview* tool to the
+& https://github.com/shamussy/main/deployments[GitHub Deployment] *Deployment preview* tools to the
 team's repository (examples: PRs {prURL}/119[#119], {prURL}/101[#101], {prURL}/103[#103])
 ** Updated *Gradle build configuration* to automate and simplify the build process
 (examples: PRs link:{prURL}/101[#101])

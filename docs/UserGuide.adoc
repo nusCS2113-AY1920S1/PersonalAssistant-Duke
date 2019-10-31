@@ -44,6 +44,7 @@ commands.
 You can use the Table of Contents above to navigate effortlessly between the sections.
 
 Look out for the following icons that could aid you in this user guide:
+// tag::user_guide_common_logo[]
 [NOTE]
 ====
 This symbol denotes information that you may want to take note of.
@@ -62,7 +63,7 @@ Additionally, you may also encounter the following text styles:
 * Commands, parameters, and file paths will be in this `format`
 * Important messages will be *bold*
 ====
-
+// end::user_guide_common_logo[]
 === Navigating Around Our Application
 *OwlMoney* comes with a very clean and easy to use CLI , so don’t worry even if you are a new user!
 You can expect to navigate around our application with ease!
