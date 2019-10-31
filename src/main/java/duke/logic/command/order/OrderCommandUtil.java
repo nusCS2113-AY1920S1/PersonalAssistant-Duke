@@ -8,6 +8,7 @@ import duke.model.order.Customer;
 import duke.model.order.Order;
 import duke.model.product.Product;
 import javafx.collections.ObservableList;
+import org.ocpsoft.prettytime.shade.org.apache.commons.lang.StringUtils;
 
 import java.util.Date;
 import java.util.HashSet;
@@ -33,10 +34,12 @@ class OrderCommandUtil {
 
         Set<Item<Product>> products = new HashSet<>();
         for (Item<String> item : items) {
-            if (!allProducts.contains(new Product(item.getItem()))) {
+            String capitalizedItemName = StringUtils.capitalize(item.getItem().toLowerCase());
+
+            if (!allProducts.contains(new Product(capitalizedItemName))) {
                 throw new CommandException(String.format(MESSAGE_ITEM_NOT_FOUND, item.getItem()));
             } else {
-                products.add(new Item<>(allProducts.get(allProducts.indexOf(new Product(item.getItem()))),
+                products.add(new Item<>(allProducts.get(allProducts.indexOf(new Product(capitalizedItemName))),
                         item.getQuantity()
                 ));
             }

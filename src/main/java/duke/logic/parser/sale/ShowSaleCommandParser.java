@@ -10,6 +10,7 @@ import duke.logic.parser.exceptions.ParseException;
 public class ShowSaleCommandParser implements Parser<ShowSaleCommand> {
     @Override
     public ShowSaleCommand parse(String args) throws ParseException {
+        System.out.println(args);
         ArgumentMultimap map = ArgumentTokenizer.tokenize(args);
 
         if (!map.getPreamble().isBlank()) {

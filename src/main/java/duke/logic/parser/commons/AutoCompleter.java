@@ -253,9 +253,6 @@ public class AutoCompleter {
         try {
             return (String) commandClass.getField("AUTO_COMPLETE_INDICATOR").get(null);
         } catch (NoSuchFieldException | IllegalAccessException e) {
-            logger.warning(String.format("Field AUTO_COMPLETE_INDICATOR is not declared in %s",
-                commandClass.toString()));
-
             return "";
         }
     }
@@ -264,9 +261,6 @@ public class AutoCompleter {
         try {
             return Optional.of((String) commandClass.getField("COMMAND_WORD").get(null));
         } catch (NoSuchFieldException | IllegalAccessException e) {
-            logger.warning(String.format("Field COMMAND_WORD is not declared in %s",
-                commandClass.toString()));
-
             return Optional.empty();
         }
     }
@@ -277,9 +271,6 @@ public class AutoCompleter {
                     .getField("AUTO_COMPLETE_PARAMETERS")
                     .get(null));
         } catch (NoSuchFieldException | IllegalAccessException e) {
-            logger.warning(String.format("Field AUTO_COMPLETE_PARAMETERS is not declared in %s",
-                commandClass.toString()));
-
             return Optional.empty();
         }
     }

@@ -18,12 +18,9 @@ import static duke.logic.parser.shopping.ShoppingParserUtil.createShoppingDescri
 
 public class EditShoppingCommandParser implements Parser<EditShoppingCommand> {
 
-    private static final String EMPTY_STRING = "";
-
     @Override
     public EditShoppingCommand parse(String args) throws ParseException {
         ArgumentMultimap map = ArgumentTokenizer.tokenize(args,
-                PREFIX_SHOPPING_INDEX,
                 PREFIX_SHOPPING_NAME,
                 PREFIX_SHOPPING_QUANTITY,
                 PREFIX_SHOPPING_REMARKS,
@@ -33,7 +30,7 @@ public class EditShoppingCommandParser implements Parser<EditShoppingCommand> {
         Index index;
 
         try {
-            index = ParserUtil.parseIndex(map.getValue(PREFIX_SHOPPING_INDEX).orElse(EMPTY_STRING));
+            index = ParserUtil.parseIndex(map.getPreamble());
         } catch (ParseException e) {
             throw new ParseException(Message.MESSAGE_INVALID_COMMAND_FORMAT);
         }

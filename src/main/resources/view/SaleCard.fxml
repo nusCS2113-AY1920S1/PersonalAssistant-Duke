@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -8,71 +10,98 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+
 <AnchorPane maxHeight="1.7976931348623157E308" prefWidth="650.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <AnchorPane fx:id="innerPane" prefWidth="200.0" style="-fx-border-color: brown;" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="10.0">
+        <AnchorPane fx:id="innerPane" prefWidth="200.0" style="-fx-border-color: beige;" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="10.0">
             <children>
                 <VBox prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <GridPane alignment="CENTER">
+                  <GridPane style="-fx-background-color: B5651D;">
                     <columnConstraints>
-                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" percentWidth="15.0" prefWidth="50.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" />
+                        <ColumnConstraints hgrow="SOMETIMES" prefWidth="120.0" />
                     </columnConstraints>
                     <rowConstraints>
-                      <RowConstraints minHeight="25.0" vgrow="SOMETIMES" />
-                      <RowConstraints minHeight="50.0" vgrow="SOMETIMES" />
-                      <RowConstraints minHeight="50.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <StackPane minHeight="30.0" style="-fx-background-color: B5651D;">
+                        <StackPane prefHeight="150.0" prefWidth="200.0">
                            <children>
-                              <Label fx:id="id" alignment="CENTER" contentDisplay="CENTER" text="Sale ID">
+                              <Label fx:id="index" text="{index}" StackPane.alignment="CENTER_LEFT">
+                                 <font>
+                                    <Font name="Consolas" size="18.0" />
+                                 </font>
+                                 <padding>
+                                    <Insets left="10.0" />
+                                 </padding>
+                              </Label>
+                           </children>
+                        </StackPane>
+                        <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="1">
+                           <children>
+                              <Label fx:id="date" text="{saledate}">
                                  <font>
                                     <Font name="Consolas" size="18.0" />
                                  </font>
                               </Label>
                            </children>
                         </StackPane>
-                        <StackPane minHeight="30.0" style="-fx-background-color: B5651D;" GridPane.columnIndex="1">
+                        <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="2">
                            <children>
-                              <Label fx:id="value" text="Value">
+                              <Label fx:id="id" alignment="CENTER" contentDisplay="CENTER" text="{id}" StackPane.alignment="CENTER_RIGHT">
                                  <font>
                                     <Font name="Consolas" size="18.0" />
                                  </font>
-                              </Label>
-                           </children>
-                        </StackPane>
-                        <StackPane minHeight="30.0" style="-fx-background-color: B5651D;" GridPane.columnIndex="2">
-                           <children>
-                              <Label fx:id="saleDate" alignment="CENTER" contentDisplay="CENTER" text="Sale Date">
-                                 <font>
-                                    <Font name="Consolas" size="18.0" />
-                                 </font>
-                              </Label>
-                           </children>
-                        </StackPane>
-                        <StackPane GridPane.columnSpan="3" GridPane.rowIndex="1">
-                           <children>
-                              <Label fx:id="description" text="Description" StackPane.alignment="TOP_LEFT">
-                                 <font>
-                                    <Font name="Consolas" size="18.0" />
-                                 </font>
-                              </Label>
-                           </children>
-                        </StackPane>
-                        <StackPane GridPane.columnSpan="3" GridPane.rowIndex="2">
-                           <children>
-                              <Label fx:id="remarks" text="Remarks" StackPane.alignment="TOP_LEFT">
-                                 <font>
-                                    <Font name="Consolas" size="18.0" />
-                                 </font>
+                                 <padding>
+                                    <Insets right="10.0" />
+                                 </padding>
                               </Label>
                            </children>
                         </StackPane>
                      </children>
                   </GridPane>
+                  <Separator layoutX="10.0" layoutY="132.0" prefWidth="200.0" />
+                  <StackPane>
+                     <children>
+                        <Label fx:id="description" prefHeight="40.0" text="{description}" StackPane.alignment="TOP_LEFT">
+                           <font>
+                              <Font name="Consolas" size="18.0" />
+                           </font>
+                           <StackPane.margin>
+                              <Insets left="10.0" />
+                           </StackPane.margin>
+                        </Label>
+                     </children>
+                  </StackPane>
+                  <Separator prefWidth="200.0" />
+                  <StackPane alignment="TOP_LEFT">
+                     <children>
+                        <Label fx:id="value" text="{value}">
+                           <font>
+                              <Font name="Consolas" size="18.0" />
+                           </font>
+                           <StackPane.margin>
+                              <Insets left="10.0" />
+                           </StackPane.margin>
+                        </Label>
+                     </children>
+                  </StackPane>
+                  <Separator prefWidth="200.0" />
+                  <StackPane>
+                     <children>
+                        <Label fx:id="remarks" prefHeight="40.0" text="{remarks}" StackPane.alignment="TOP_LEFT">
+                           <font>
+                              <Font name="Consolas" size="18.0" />
+                           </font>
+                           <StackPane.margin>
+                              <Insets left="10.0" />
+                           </StackPane.margin>
+                        </Label>
+                     </children>
+                  </StackPane>
+                  <Separator layoutX="10.0" layoutY="110.0" prefWidth="200.0" />
                </children>
                 </VBox>
             </children>
