@@ -10,7 +10,6 @@ import duke.logic.parser.commons.ParserUtil;
 import duke.logic.parser.exceptions.ParseException;
 
 import static duke.logic.parser.commons.CliSyntax.PREFIX_SHOPPING_COST;
-import static duke.logic.parser.commons.CliSyntax.PREFIX_SHOPPING_INDEX;
 import static duke.logic.parser.commons.CliSyntax.PREFIX_SHOPPING_NAME;
 import static duke.logic.parser.commons.CliSyntax.PREFIX_SHOPPING_QUANTITY;
 import static duke.logic.parser.commons.CliSyntax.PREFIX_SHOPPING_REMARKS;

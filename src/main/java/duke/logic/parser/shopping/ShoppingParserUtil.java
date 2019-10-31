@@ -27,12 +27,14 @@ public class ShoppingParserUtil {
             shoppingDescriptor.setName(map.getValue(PREFIX_SHOPPING_NAME).get());
         }
         if (map.getValue(PREFIX_SHOPPING_QUANTITY).isPresent()) {
+            checkValidQuantity(map.getValue(PREFIX_SHOPPING_QUANTITY).get());
             shoppingDescriptor.setQuantity(Double.parseDouble(map.getValue(PREFIX_SHOPPING_QUANTITY).get()));
         }
         if (map.getValue(PREFIX_SHOPPING_REMARKS).isPresent()) {
             shoppingDescriptor.setRemarks(map.getValue(PREFIX_SHOPPING_REMARKS).get());
         }
         if (map.getValue(PREFIX_SHOPPING_COST).isPresent()) {
+            checkValidCost(map.getValue(PREFIX_SHOPPING_COST).get());
             shoppingDescriptor.setUnitCost(Double.parseDouble(map.getValue(PREFIX_SHOPPING_COST).get()));
         }
 

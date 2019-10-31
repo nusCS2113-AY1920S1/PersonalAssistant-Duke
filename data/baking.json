@@ -9,7 +9,14 @@
     },
     "amount" : 5.0
   } ],
-  "shoppingList" : [ ],
+  "shoppingList" : [ {
+    "ingredient" : {
+      "name" : "As",
+      "unitPrice" : 0.0,
+      "remarks" : "as"
+    },
+    "amount" : 0.0
+  } ],
   "sales" : [ ],
   "shortcuts" : [ ]
 }

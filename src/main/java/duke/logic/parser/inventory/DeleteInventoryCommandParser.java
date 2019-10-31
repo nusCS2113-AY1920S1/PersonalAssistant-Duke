@@ -11,8 +11,6 @@ import duke.logic.parser.exceptions.ParseException;
 
 import java.util.Set;
 
-import static duke.logic.parser.commons.CliSyntax.PREFIX_INVENTORY_INDEX;
-
 public class DeleteInventoryCommandParser implements Parser<DeleteInventoryCommand> {
 
     private static final String MESSAGE_EMPTY_INDICES = "Indices cannot be empty.";

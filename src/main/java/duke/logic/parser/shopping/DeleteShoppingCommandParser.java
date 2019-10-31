@@ -11,8 +11,6 @@ import duke.logic.parser.exceptions.ParseException;
 
 import java.util.Set;
 
-import static duke.logic.parser.commons.CliSyntax.PREFIX_SHOPPING_INDEX;
-
 public class DeleteShoppingCommandParser implements Parser<DeleteShoppingCommand> {
 
     private static final String MESSAGE_EMPTY_INDICES = "Indices cannot be empty.";

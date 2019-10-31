@@ -11,8 +11,6 @@ import duke.logic.parser.exceptions.ParseException;
 
 import java.util.Set;
 
-import static duke.logic.parser.commons.CliSyntax.PREFIX_SHOPPING_INDEX;
-
 public class BuyShoppingCommandParser implements Parser<BuyShoppingCommand> {
 
     @Override
