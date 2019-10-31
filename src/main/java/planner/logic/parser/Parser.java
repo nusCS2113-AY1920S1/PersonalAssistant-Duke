@@ -73,10 +73,24 @@ public class Parser {
                 .addSubparsers()
                 .dest("toAdd")
                 .help("add command options");
-        addParsers.addParser("module")
-                .help("Add a module")
-                .addArgument("moduleCode")
+        Subparser addParser = addParsers.addParser("module")
+                .help("Add a module");
+        addParser.addArgument("moduleCode")
                 .help("Codename of module to add");
+        addParser.addArgument("--begin")
+                //.required(true)
+                .nargs("+")
+                .action(this.joinString)
+                .help("Begin time");
+        addParser.addArgument("--end")
+                //.required(true)
+                .nargs("+")
+                .action(this.joinString)
+                .help("End time");
+        addParser.addArgument("--dayOfWeek")
+                //.required(true)
+                .help("Day of week on which the module takes place");
+
         Subparser addCcaParser = addParsers.addParser("cca")
                 .help("Add a cca");
         addCcaParser.addArgument("name")
@@ -152,6 +166,11 @@ public class Parser {
                 .help("What to use for sorting");
         sortParsers.addParser("ccas")
                 .help("Sort your CCAs");
+        sortParsers.addParser("times")
+                .help("Sort your modules and ccas to days of the week")
+                .addArgument("DayOfTheWeek")
+                .choices("monday","tuesday","wednesday","thursday","friday","saturday","sunday")
+                .help("Day of the week");
 
         getSubParser("cap")
                 .help("Calculate your CAP")

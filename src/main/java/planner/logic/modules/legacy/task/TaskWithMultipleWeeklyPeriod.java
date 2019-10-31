@@ -26,6 +26,10 @@ public class TaskWithMultipleWeeklyPeriod extends TaskWithMultiplePeriods<TimePe
         this.addPeriod(period);
     }
 
+    public TaskWithMultipleWeeklyPeriod(String task) {
+        super(task);
+    }
+
     public TaskWithMultipleWeeklyPeriod(String task, DayOfWeek dayOfWeek) {
         super(task);
         this.addPeriod(dayOfWeek);
