@@ -14,7 +14,7 @@ import java.util.ArrayList;
 /**
  * A class representing the command to swap two bars of notes in the current song.
  */
-public class SwapCommand extends Command<SongList> {
+public class SwapBarCommand extends Command<SongList> {
 
     private int songIndex;
 
@@ -22,7 +22,7 @@ public class SwapCommand extends Command<SongList> {
      * Constructor for the command to swap two bars in the current song.
      * @param message the input message that resulted in the creation of the duke.Commands.Command
      */
-    public SwapCommand(String message) {
+    public SwapBarCommand(String message) {
         this.message = message;
         this.songIndex = 0;
     }
@@ -45,7 +45,7 @@ public class SwapCommand extends Command<SongList> {
             songIndex = songList.getActiveIndex();
             Song song = songList.getSongIndex(songIndex);
 
-            String[] sections = message.substring(5).split(" ");
+            String[] sections = message.substring(8).split(" ");
             barNo1 = Integer.parseInt(sections[0].substring(4));
             barNo2 = Integer.parseInt(sections[1].substring(4));
             Bar tempBar1 = song.getBars().get(barNo1 - 1);
