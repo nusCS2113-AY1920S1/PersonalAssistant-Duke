@@ -109,13 +109,13 @@ the team's link:{repoURL}/projects/[Project Board]
 |_The following sections illustrate my ability in writing documentation targeting end-users to guide them in using the various features of the application._
 |===
 
-===
+=== {nbsp}
 
-====
+==== {nbsp}
 
 include::../UserGuide.adoc[tag=investment_management]
 
-====
+==== {nbsp}
 
 == Contributions to Developer Guide
 
