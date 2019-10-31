@@ -41,8 +41,11 @@ public class SetBudgetCommand extends Command {
         for (int i = 0; i < categories.size(); ++i) {
             String categoryName = categories.get(i).toLowerCase();
             double categoryBudget = budgets.get(i);
-
             if (catList.get(categoryName) != null) {
+                if (categoryBudget <= 0) {
+                    outputValue += "Please set your budget for " + categoryName + " to a value more than 0\n";
+                    continue;
+                }
                 isUpdated = true;
                 budget.addNewBudget(categoryName, categoryBudget);
                 outputValue += "You have set $" + df.format(categoryBudget) + " as the budget for "
