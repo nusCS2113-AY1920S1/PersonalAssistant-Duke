@@ -3,7 +3,7 @@ package controllers;
 import repositories.ProjectRepository;
 import util.CommandHelper;
 import util.ViewHelper;
-import util.log.DukeLogger;
+import util.log.ArchDukeLogger;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -32,7 +32,7 @@ public class ConsoleInputController implements IController {
      */
     @Override
     public String[] onCommandReceived(String input) {
-        DukeLogger.logInfo(ConsoleInputController.class, "input:'" + input + "'");
+        ArchDukeLogger.logInfo(ConsoleInputController.class.getName(), "User input: '" + input + "'");
         Scanner inputReader = new Scanner(input);
         String command = inputReader.next();
 
@@ -59,6 +59,7 @@ public class ConsoleInputController implements IController {
      * @param input To read the input from the user.
      */
     private String[] commandCreate(String input) {
+        ArchDukeLogger.logDebug(ConsoleInputController.class.getName(), "[commandCreate] User input: '" + input + "'");
         boolean isProjectCreated = projectRepository.addToRepo(input);
         if (!isProjectCreated) {
             return new String[] {"Creation of Project failed. Please check parameters given!"};
@@ -72,6 +73,7 @@ public class ConsoleInputController implements IController {
      * that are currently created or stored.
      */
     private String[] commandList() {
+        ArchDukeLogger.logDebug(ConsoleInputController.class.getName(), "[commandList]");
         ArrayList<ArrayList<String>> allProjectsDetails = projectRepository.getAllProjectsDetailsForTable();
         if (allProjectsDetails.size() == 0) {
             return new String[] {"You currently have no projects!"};
@@ -86,9 +88,12 @@ public class ConsoleInputController implements IController {
      * @param inputReader To read the input from the user.
      */
     private String[] commandManage(Scanner inputReader) {
+        ArchDukeLogger.logDebug(ConsoleInputController.class.getName(), "[commandManage] User input: " + inputReader);
         if (inputReader.hasNext()) {
             this.managingProjectIndex = inputReader.next();
             try {
+                ArchDukeLogger.logInfo(ConsoleInputController.class.getName(), "Managing project: "
+                        + projectRepository.getItem(Integer.parseInt(managingProjectIndex)).getName());
                 return new String[] {"Now managing "
                         + projectRepository.getItem(Integer.parseInt(managingProjectIndex)).getName()};
             } catch (IndexOutOfBoundsException err) {
@@ -105,6 +110,7 @@ public class ConsoleInputController implements IController {
      * @param inputReader To read the input from the user.
      */
     private String[] commandDelete(Scanner inputReader) {
+        ArchDukeLogger.logDebug(ConsoleInputController.class.getName(), "[commandDelete] User input: " + inputReader);
         if (inputReader.hasNext()) {
             int projectIndex = Integer.parseInt(inputReader.next());
             boolean isProjectDeleted = this.projectRepository.deleteItem(projectIndex);
@@ -132,7 +138,7 @@ public class ConsoleInputController implements IController {
      * Method to be called when user says bye to exit the program.
      */
     public String[] end() {
-        DukeLogger.logInfo(ConsoleInputController.class, "ArchDuke have stopped.");
+        ArchDukeLogger.logInfo(ConsoleInputController.class.getName(), "ArchDuke have stopped.");
         return new String[] { "Bye. Hope to see you again soon!" };
     }
 
