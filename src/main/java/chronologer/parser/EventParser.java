@@ -16,10 +16,21 @@ import java.time.format.DateTimeParseException;
  * @version v1.0
  */
 public class EventParser extends DescriptionParser {
-
+    
+    /**
+     * creates new parser for Event.
+     * 
+     * @param userInput  input from user
+     * @param command    command type
+     */
     public EventParser(String userInput, String command) {
         super(userInput, command);
         this.checkType = Flag.AT.getFlag();
+        if (userInput.contains("/m")) {
+            this.hasModCode = true;
+        } else {
+            this.hasModCode = false;
+        }
     }
 
     @Override
@@ -35,6 +46,10 @@ public class EventParser extends DescriptionParser {
             logger.writeLog(e.toString(), this.getClass().getName(), userInput);
             UiTemporary.printOutput(ChronologerException.emptyDateOrTime());
             throw new ChronologerException(ChronologerException.emptyDateOrTime());
+        }
+        if (hasModCode) {
+            String modCode = extractModCode(taskFeatures);
+            return new AddCommand(command, taskDescription, fromDate, toDate, modCode);
         }
         assert toDate != null;
         assert fromDate != null;
@@ -62,6 +77,5 @@ public class EventParser extends DescriptionParser {
             throw new ChronologerException(ChronologerException.wrongDateOrTime());
         }
     }
-
 
 }

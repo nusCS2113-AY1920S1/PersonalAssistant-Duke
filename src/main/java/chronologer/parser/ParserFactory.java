@@ -46,7 +46,7 @@ public class ParserFactory {
             }
             return new TodoParser(userInput, command).parse();
         case "deadline":
-            return new DeadlineParser(userInput, command, false).parse();
+            return new DeadlineParser(userInput, command).parse();
         case "event":
             return new EventParser(userInput, command).parse();
         case "find":
@@ -84,11 +84,15 @@ public class ParserFactory {
         case "export":
             return new ExportCommand();
         case "assignment":
-            return new DeadlineParser(userInput, command, true).parse();
+            return new DeadlineParser(userInput, command).parse();
         case "undo":
             return new UndoCommand();
         case "redo":
             return new RedoCommand();
+        case "exam": //fallthrough
+        case "examination":
+            command = "exam";
+            return new EventParser(userInput, command).parse();
         default:
             // Empty string or unknown command.
             UiTemporary.printUnknownInput();
