@@ -228,6 +228,7 @@ The `logic.command.card` package consist of `Card` classes with the following fe
 `Main` will call the specific `Card` command class that will construct the *required parameters* before calling the
 `Profile` class in `Model` to *execute*.
 
+// tag::goals_class[]
 .Goals Command Class Diagram
 image::LogicCommandGoalsPackage.png[width="800"]
 
@@ -240,6 +241,7 @@ The `logic.command.goals` package consist of `Goals` classes with the following 
 
 `Main` will call the specific `Goal` command class that will construct the *required parameters* before calling the
 `Profile` class in `Model` to *execute*.
+// end::goals_class[]
 
 .Find Command Class Diagram
 image::LogicCommandFindPackage.png[width="800"]
@@ -739,8 +741,13 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |10|* * *|organised user|list my expenditure|have a view of my spending
 |11|* * *|existing user|search for specific transaction by category, description or date|search and view specific
 transaction records.
+
+// tag::goals_userstory[]
+
 |12|* *|existing user|set short and long term financial goals|I can achieve financial stability.
 |13|* *|indecisive user|edit my existing financial goals|adapt to any changes
+// end::goals_userstory[]
+
 |14|* *|existing user|undo my last command|revert back to the previous state in the event of a mistake
 |15|* *|existing user|compare overall expenditure of different month|review my spending
 |16|* *|credit card user|add new credit cards to my account|credit my spending till the end of the month
@@ -1089,7 +1096,7 @@ Use case ends.
 
 
 
-
+// tag::goals_usecase[]
 *Actor: Existing user* +
 [[UC-12]] *Use case: UC12 - Set short or long term financial goal* +
 *Preconditions:*
@@ -1156,7 +1163,7 @@ Use case ends.
 ** Use case resumes from step 6.
 
 
-
+// end::goals_usecase[]
 
 
 *Actor: Existing user* +
