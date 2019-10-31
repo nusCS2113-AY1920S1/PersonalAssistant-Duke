@@ -1,5 +1,6 @@
 package owlmoney.logic.command;
 
+import owlmoney.model.bank.exception.BankException;
 import owlmoney.model.profile.Profile;
 import owlmoney.ui.Ui;
 
@@ -14,9 +15,10 @@ public class UpdateCommand extends Command {
      * @param profile Profile of the user.
      * @param ui      Ui of OwlMoney.
      * @return False so OwlMoney does not terminate yet.
+     * @throws BankException If cannot update income.
      */
     @Override
-    public boolean execute(Profile profile, Ui ui) {
+    public boolean execute(Profile profile, Ui ui) throws BankException {
         profile.profileUpdate(ui);
         return isExit;
     }

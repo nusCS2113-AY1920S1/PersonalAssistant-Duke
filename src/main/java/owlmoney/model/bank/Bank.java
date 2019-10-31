@@ -294,7 +294,7 @@ public abstract class Bank {
      *
      * @param ui Used for printing.
      */
-    abstract void updateRecurringTransactions(Ui ui);
+    abstract void updateRecurringTransactions(Ui ui) throws BankException;
 
     /**
      * Adds a new recurring expenditure to a savings account.
