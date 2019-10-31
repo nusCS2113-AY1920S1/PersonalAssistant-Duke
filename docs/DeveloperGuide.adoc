@@ -358,6 +358,18 @@ of the *successful* addition of the savings object.
 
 // tag::editing_bonds[]
 === Editing Bonds
+
+The `/edit /bonds` feature aims to help users update the specific details of the investment `bonds` that they
+purchase. This is to enable them to not go through the trouble of deleting and re-adding the `bond` if they enter the
+details wrongly by mistake.
+
+==== Current Implementation
+
+The current implementation of editing `bonds` only allows for the edition of `rate` and `year` where the `year`
+parameter can only be changed to a higher integer than the original `year` currently stored. The reason behind only
+allowing these *2* parameters to be changed was because we wanted consistency across all records of crediting
+interest throughout the lifespan of the investment `bond`.
+
 .Sequence Diagram of Editing Bonds
 image::editBondCommand.png[width="970"]
 
@@ -405,6 +417,55 @@ maturity through the method `editBondYear`.
 
 . Once the bond object has been edited, the updated details of that bond object will be displayed to inform the user
 of the *successful* editing of the bond.
+
+==== Design Considerations
+
+This section describes the various design considerations taken when implementing the `/edit /bonds` feature.
+
+*Aspect: Choice of whether to allow editing of the bond to tie to which investment account as well as its name*
+[cols="18%,37%,45%"]
+|======
+| *Approach* | *Pros* | *Cons*
+
+| *1.* Allowing changing of the investment bank account that the bond ties to.
+
+a| * More room for customisability from the user's perspective.
+
+a| * Difficult to implement, have to take care of issues such as whether there is enough space to store bonds in
+the other bank account.
+
+* All transaction records have to be migrated over to the other bank account and might cause issues such as
+transaction records not appearing in order.
+
+
+| *2.* Allowing the changing of bond's name.
+
+a| * Allows the user to change the name of the bond if the user entered it wrongly the first time.
+
+a| * If interest has already been credited, it is not feasible to change the names of past records as it might cause
+confusion and conflict to the end user, especially when the names clash with the name of another bond which has
+expired prior to making this edit. This might confuse users as they might think that they earned much more interest
+from the same bond.
+a|
+
+*3.* Disallowing the changing of both parameters.
+a| * Easier to implement in terms of code.
+
+* Users are less likely to get confused after editing records to become conflicting.
+
+a|
+
+* Less flexibility for the user.
+
+After weighting the pros and cons, *approach 3* was taken.
+
+Firstly, doing so would reduce the coupling and dependencies between transactions and investment banks. Although it may
+seem restrictive to limit the type and number of parameters that can be changed, it is beneficial both to you, the
+developer and the user, when developing and using the program. Developing the alternative ideas would result in a
+high risk of logic and coding errors, leaving room for bugs to be exploited.
+
+|======
+
 
 // end::editing_bonds[]
 
@@ -1800,3 +1861,112 @@ Windows, Linux, Unix, OS-X
 
 [appendix]
 == Instructions for Manual Testing
+
+[NOTE]
+These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
+
+Persistent Storage for card related function are not enabled.
+
+=== Launch and Shutdown
+
+. Initial launch
+
+.. Download `OwlMoney-v1.3.jar` file and copy into an empty folder.
+.. Open a *Command Prompt* or *Powershell*, navigate to the folder where you placed `OwlMoney-v1.3.jar`
+in and type `java -jar ./OwlMoney-v1.3.jar` to start *OwlMoney*. +
+   Expected: Shows the CLI stating that a profile cannot be loaded since this is the first time *OwlMoney* is
+starting up. *Maximise* the *Command Prompt* or *Powershell* to enjoy the best experience *OwlMoney* has to offer.
+.. Enter your name to create your profile for the first time. (e.g. john)
+
+=== Adding a savings account
+
+. Adding a new `savings` account
+
+.. Prerequisites: There are currently no `savings` or `investment` account with the same name.
+
+.. Test case: `/add /savings /name JunBank Savings Account /amount 15000 /income 5000` +
+Expected: New `savings` account is added into the profile.
+
+. Adding a duplicate `savings` account
+
+.. Prerequisites: A `savings` or `investment` account with the same name has already been created.
+
+.. Test case: `/add /savings /name JunBank Savings Account /amount 15000 /income 5000` +
+Expected: Error saying that there is already an existing bank account with the same name.
+
+=== Adding an investment account
+
+. Adding a new `investment` account
+
+.. Prerequisites: There are currently no `investment` or `savings` account with the
+same name.
+
+.. Test case: `/add /investment /name DBB Vickers Account /amount 20000` +
+Expected: New `investment` is added into the profile.
+
+. Adding a duplicate `investment` account
+
+.. Prerequisites: A `savings` or `investment` account with the same name has already been created.
+
+.. Test case: `/add /investment /name DBB Vickers Account /amount 20000` +
+Expected: Error saying that there is already an existing bank account with the same name.
+
+=== Editing a savings account
+
+. Editing the name of a `savings` account
+
+.. Prerequisites: There is an existing `savings` account to be edited.
+
+.. Test case: `/edit /savings /name JunBank Savings Account /newname BunBank Savings Account` +
+Expected: Updated name of the `savings` account being displayed after being edited.
+
+. Editing the amount of a `savings` account
+
+.. Prerequisites: There is an existing `savings` account to be edited.
+
+.. Test case: `/edit /savings /name BunBank Savings Account /amount 21000` +
+Expected: Updated amount of the `savings` account being displayed after being edited.
+
+=== Editing an investment account
+
+. Editing the name of a `investment` account
+
+.. Prerequisites: There is an existing `investment` account to be edited.
+
+.. Test case: `/edit /investment /name DBB Vickers Account /newname BBB Vickers Account` +
+Expected: Updated name of the `investment` account being displayed after being edited.
+
+. Editing the amount of a `investment` account
+
+.. Prerequisites: There is an existing `investment` account to be edited.
+
+.. Test case: `/edit /investment /name BBB Vickers Account /amount 21000` +
+Expected: Updated amount of the `investment` account being displayed after being edited.
+
+=== Adding an investment bond
+
+. Adding a new `investment` `bond` tied to an existing `investment account`
+
+.. Prerequisites: There is an existing `investment` account to tie the `bond` to.
+
+.. Test case:
+`/add /bonds /name September SSB /amount 1000 /rate 1.65 /year 7 /date 1/10/2019 /from BBB Vickers Account` +
+Expected: New details of the September SSB `bond` being displayed after being added.
+
+=== Editing an investment bond
+
+. Editing the rate of an existing `investment` `bond` tied to an existing `investment account`
+
+.. Prerequisites: There is an existing `bond` tied to an existing `investment` account.
+
+.. Test case:
+`/edit /bonds /from BBB Vickers Account /name September SSB /rate 1.90` +
+Expected: Updated rate of the September SSB `bond` being displayed after being edited.
+
+. Editing the years of an existing `investment` `bond` tied to an existing `investment account`
+
+.. Prerequisites: There is an existing `bond` tied to an existing `investment` account.
+
+.. Test case:
+`/edit /bonds /from BBB Vickers Account /name September SSB /year 10` +
+Expected: Updated years of the September SSB `bond` being displayed after being edited.
