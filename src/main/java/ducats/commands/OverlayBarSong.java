@@ -104,7 +104,7 @@ public class OverlayBarSong  extends Command<SongList>  {
                 Bar overlayingBarToBeCopied = barListAddFrom.get(barIndexToAddFrom);
                 Bar overlayingBar = overlayingBarToBeCopied.copy(overlayingBarToBeCopied);
 
-                if (sections.length > 2 && sections[2].equals("repeat")) {
+                if (sections.length > 5 && sections[4].equals("repeat")) {
                     Iterator<Bar> iterator1 = barListAddTo.iterator();
                     int i = 0;
                     while (iterator1.hasNext()) {

@@ -124,7 +124,7 @@ public class OverlayGroupGroup  extends Command<SongList>  {
 
                 //Bar overlayingBar = barList.get(barIndexToAdd);
                 //System.out.println("adjjdsa");
-                if (sections.length > 2 && sections[2].equals("repeat")) {
+                if (sections.length > 4 && sections[4].equals("repeat")) {
                     Iterator<Group> iterator1 = groupListAddTo.iterator();
                     int i = 0;
                     while (iterator1.hasNext()) {
