@@ -20,7 +20,7 @@ public class Duke {
     private TaskList tasks;
     private UndoStack undoStack;
 
-    public Duke(String filepath) throws FileNotFoundException {
+    public Duke(String filepath){
         ui = new Ui();
         undoStack = new UndoStack();
         storage = new Storage(filepath);
@@ -32,7 +32,7 @@ public class Duke {
         }
     }
 
-    public static void main(String[] args) throws FileNotFoundException {
+    public static void main(String[] args) {
         new Duke("tasks.json").run();
     }
 
