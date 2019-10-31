@@ -1,5 +1,8 @@
 package owlmoney.logic.command.cardbill;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.YearMonth;
 import java.util.Date;
 
@@ -35,11 +38,23 @@ public class AddCardBillCommand extends Command {
     public AddCardBillCommand(String card, YearMonth date, String bank) {
         this.card = card;
         this.cardDate = date;
-        this.expDate = new Date();
+        this.expDate = getCurrentDate();
         this.bank = bank;
         this.type = "bank";
         this.expDescription = "Payment for Credit Card Bill - " + card + " " + date;
         this.category = "Credit Card";
+    }
+
+    private Date getCurrentDate() {
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        String dateString = dateFormat.format(new Date());
+        Date currentDate = null;
+        try {
+            currentDate = dateFormat.parse(dateString);
+        } catch (ParseException e) {
+            // Error will never happen as there is no user input
+        }
+        return currentDate;
     }
 
     /**

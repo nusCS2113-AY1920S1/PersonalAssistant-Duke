@@ -36,10 +36,10 @@ public class CardTest {
             + "Amount          Date                 Category             " + NEWLINE;
     private static final String NO_PAID_EXPENDITURE =
             "There are no paid expenditures in this card.";
-    private static final String EXPECTED_BUT_NO_PAID_EXPENDITURE =
-            "Paid Expenditures:\nThere are no paid expenditures in this card.";
-    private static final String EXPECTED_BUT_NO_UNPAID_EXPENDITURE =
-            "Unpaid Expenditures:\nThere are no unpaid expenditures in this card.";
+    private static final String EXPECTED_BUT_NO_PAID_EXPENDITURE = "Paid Expenditures:" + NEWLINE
+            + "There are no paid expenditures in this card.";
+    private static final String EXPECTED_BUT_NO_UNPAID_EXPENDITURE = "Unpaid Expenditures:" + NEWLINE
+            + "There are no unpaid expenditures in this card.";
     private static final String HEADER_EDIT_EXPENDITURE = "Edited details of the specified expenditure:"
             + NEWLINE + "Item No.             Description                                             "
             + "Amount          Date                 Category             " + NEWLINE;
