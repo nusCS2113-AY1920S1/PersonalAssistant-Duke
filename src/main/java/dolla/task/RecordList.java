@@ -4,7 +4,7 @@ import dolla.DollaData;
 
 import java.util.ArrayList;
 
-public abstract class RecordList {
+public class RecordList {
     protected ArrayList<Record> list;
 
     public RecordList(ArrayList<Record> importEntryList) {
@@ -44,5 +44,7 @@ public abstract class RecordList {
         list.add(modifyIndex, newRecord);
     }
 
-    public abstract int findExistingRecordIndex(DollaData dollaData, Record record, String mode);
+    public int findExistingRecordIndex(DollaData dollaData, Record record, String mode) {
+        return 0;
+    }
 }
