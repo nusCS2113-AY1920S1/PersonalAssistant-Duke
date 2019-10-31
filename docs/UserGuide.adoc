@@ -214,6 +214,56 @@ There are couple of things to take note with the current /find function:
 *	It will only find exact word-for-word for tags
 *	It can find tasks that partly consists of the keyword of the task description (querying for “proj” will yield the same result as above.
 
+=== 3.5 Task Completion
+
+Hustlers main feature in boosting productivity is in its task completion mode which can be summarized under the /timer command.
+
+IMPORTANT: Note that you can also manually complete task by typing /done <index> as shown above. However, we encourage you to use the recommended schedule with the timer integrated in order to complete the tasks.
+
+=== 3.5.1 Timer feature: `/timer`
+
+After collecting all the tasks you have added, you can use Hustler to help you decide which tasks to finish first. To begin, tell Hustler the number of hours you have available to work with. This can be done with the help of the `/timer command`.
+
+The syntax of the command is as follows:
+
+TIP: */timer <hours> <minutes> <seconds>*
+
+This command starts a countdown with the stipulated duration.
+
+After a timer has been started, these related commands can be executed as well.
+
+TIP: */pausetimer*
+
+This command pauses a running timer.
+
+TIP: */resumetimer*
+
+This command resumes a paused timer.
+
+TIP: */stoptimer*
+
+This prematurely ends a running timer.
+
+=== 3.5.2 Recommended schedule
+
+After supplying the amount of time available to work on tasks using the `/timer` command, a recommended schedule pops up. This recommended schedule is a list of incomplete tasks that Hustler recommends you work on.
+
+Hustler keeps track of the amount of time remaining for a task, the amount of time you have spent on the task and the difficulty of the task to make recommendations. You can edit this schedule to your liking before sitting down and setting yourself up for work. In order to explain the next few commands the following list of tasks in the “Tasks” section will be considered as shown.
+
+=== Separate
+=== Separate
+=== Separate
+=== Separate
+=== Separate
+=== Separate
+=== Separate
+=== Separate
+=== Separate
+=== Separate
+=== Separate
+=== Separate
+
+
 === 3A.4 Marking a task as done : `/done`
 
 Marks a task in the task list as done. DoAfter tasks can only be marked as done when the task before it has been marked as done. +
