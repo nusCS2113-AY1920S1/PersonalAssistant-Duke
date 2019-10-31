@@ -21,8 +21,9 @@ public class AddCommandAnomaly extends DetectAnomaly {
             if (splitInput.contains("/d")) {
                 int difficultyIndex = splitInput.indexOf("/d") + 1;
                 String difficulty = splitInput.get(difficultyIndex);
-                if (!(difficulty.equals("H") || difficulty.equals("E") || difficulty.equals("M"))) {
-                    throw new CommandLineException("Difficulty should be H, M or E.");
+                if (!(difficulty.equalsIgnoreCase("e") || difficulty.equalsIgnoreCase("h")
+                        || difficulty.equalsIgnoreCase("m"))) {
+                    throw new CommandLineException("Difficulty should be E, M or H.");
                 }
             }
 

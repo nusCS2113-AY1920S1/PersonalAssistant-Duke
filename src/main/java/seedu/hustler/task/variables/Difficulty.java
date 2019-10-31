@@ -1,7 +1,8 @@
 package seedu.hustler.task.variables;
 
 /**
- * The class that stores the difficulty of the task.
+ * The class that stores the difficulty of the task. Difficulties levels are
+ * easy, medium and hard.
  */
 public class Difficulty {
 
@@ -9,7 +10,7 @@ public class Difficulty {
      * Enumerator that separates the level of the difficulty.
      */
     enum Level {
-        L,
+        E,
         M,
         H
     }
@@ -27,17 +28,14 @@ public class Difficulty {
      */
     public Difficulty(String difficulty) {
         switch (difficulty.toLowerCase()) {
-        case "l":
-        case "low":
-            this.level = Level.L;
+        case "e":
+            this.level = Level.E;
             break;
         case "m":
-        case "medium":
         default:
             this.level = Level.M;
             break;
         case "h":
-        case "high":
             this.level = Level.H;
         }
     }
