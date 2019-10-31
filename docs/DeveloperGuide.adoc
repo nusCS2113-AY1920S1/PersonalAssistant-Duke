@@ -111,13 +111,17 @@ It should finish with the `BUILD SUCCESSFUL` message. This will generate the res
 
 == 2. Design
 
-=== 2.1. Architecture Design
+=== Architecture Design
+ArchDuke was implemented using the N-tier architecture approach. Having a N-tier application architecture helped s to
+flexibly create the application by segregating the application into tiers. Hence instead of reworking the entire application
+when the application is modified, we only had to rework the specific layer dealing with the modification. This approach also
+helped us in logically structuring the elements which made up ArchDuke. The Architecture Diagram given below explains the
+high-level design of ArchDuke.
 
 .Architecture Diagram
 image::images/ArchDuke_Architecture.png[]
 
-The Architecture Diagram given above explains the high-level design of ArchDuke. ArchDuke is based on the n-tier
-architecture design. Below is a quick overview of each component based on our Architecture.
+Below is a quick overview of each component based on our Architecture.
 
 Not included in the diagram is the `Main` program in the folder *_launcher_*. The Main program is responsible for
 initializing the `View` layer.
@@ -128,7 +132,7 @@ initializing the `View` layer.
 
 * `Factory` classes : Used mainly by `Repositories` and `Controllers` to create objects based on user input.
 * `Logger` classes: Used by all classes to write log messages to ArchDuke's log file.
-* `ParserHelper` class: Used by all classes for user user input parsing
+* `ParserHelper` class: Used by all classes for user input parsing
 * `SortHelper` class: Used primarily by `Repositories` and `Controllers` for sorting objects based on description
 before a Response model is generated for the `View` layer.
 * `DateTimeHelper` class: Used for handling anything that is related to Date objects or parsing inputs for Date objects
@@ -163,7 +167,7 @@ Each layer will be discussed in detail below.
 
 // The sections below give more details of each component.
 
-=== 2.2. View Layer
+=== 2.1. View Layer
 Our main UI Component is a class called CLIView. It is mainly responsible for reading the user input and displaying
 formatted messages to the user.
 
@@ -183,28 +187,42 @@ the commands by coordinating all other components.
 // *API* :
 // link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
-==== 2.3.1 ConsoleInputController
-
-==== 2.3.2 ProjectInputController
-ProjectInputController is a class which acts as a parser for commands related to the members and the tasks of a given project.
-
-==== 2.3.3 AssignmentController
-AssignmentController is a class which manages the assignment of tasks to group members.
+==== 2.2.1 ConsoleInputController
+`ConsoleInputController` is the class which deals with the CRUD functionalities for all the projects of the user.
 
 *Rationale for implementation*
 
-Before the implementation of AssignmentController, the parsing of assign commands was planned to be done within the
+==== 2.2.2 ProjectInputController
+`ProjectInputController` is the class which deals with the management of a specific project.
+
+*Rationale for implementation*
+
+We realized that the commands related to managing a project are extremely complex. Hence we had to segregate the methods related
+to managing a project from the `ConsoleInputController` and this resulted in the creation of the `ProjectInputController`.
+
+When the project is being managed, all the commands input by the user are directly handled by the `ProjectInputController`.
+Hence, `ProjectInputController` acts like a parser for commands dealing with the CRUD functionalities for Members, Tasks,
+Task Assignments and Reminders.
+
+==== 2.2.3 AssignmentController
+`AssignmentController` is a class which manages the assignment of tasks to group members.
+
+*Rationale for implementation*
+
+Before the implementation of `AssignmentController`, the parsing of assign commands was planned to be done within the
 ProjectInputController class. However, we realised that parsing for assignment commands would be extremely complex due
 to the potentially high number of arguments.
 
 * Example command: `assign task -i 1 2 -to 1 2 3 -rm 4 5`
 
-The task index numbers (1, 2) , assignee indexes (1, 2, 3) and unassigned indexes (4, 5) must be parsed. They should also be validated to ensure that the index numbers exist, and do not cause errors/exceptions such as IndexOutOfBoundException. From the parsed input, task assignments can then be managed. Therefore, the AssignmentController was created for the following reasons:
+The task index numbers (1, 2) , assignee indexes (1, 2, 3) and unassigned indexes (4, 5) must be parsed. They should also be
+validated to ensure that the index numbers exist, and do not cause errors/exceptions such as IndexOutOfBoundException. From
+the parsed input, task assignments can then be managed. Therefore, the `AssignmentController` was created for the following reasons:
 
 1. To ensure that these 3 parts of the input can be easily managed
 2. To isolate the assignment commands to avoid making the code in projectInputController too long
 
-=== 2.4. Repository layer
+=== 2.3. Repository layer
 
 // .Structure of the Model Component
 // image::ModelClassDiagram.png[]
@@ -223,7 +241,7 @@ The task index numbers (1, 2) , assignee indexes (1, 2, 3) and unassigned indexe
 //  +
 // image:BetterModelClassDiagram.png[]
 
-=== 2.5. Data Layer
+=== 2.4. Data Layer
 
 // .Structure of the Storage Component
 // image::StorageClassDiagram.png[]
@@ -237,7 +255,7 @@ The task index numbers (1, 2) , assignee indexes (1, 2, 3) and unassigned indexe
 // * can save the Address Book data in json format and read it back.
 
 //[[Design-Commons]]
-//=== 2.6. Common classes
+//=== 2.5. Common classes
 
 //Classes used by multiple components are in the `seedu.addressbook.commons` package.
 
@@ -305,35 +323,73 @@ differences, listed below:
 ArchDuke allows users to manage each individual project in the `ProjectRepository`.
 
 image::images/ManageProject_Sequence.png[]
-
-=== 3.2. CRUD functionality for Tasks
+=== 3.2 CRUD functionality for Members
 ==== Implementation
 
-CRUD Task functions are handled by `Task`, `TaskList` and `TaskFactory`,`Project` and `ProjectInputController`.
+CRUD Member functions are handled by Member, MemberList, MemberFactory, Project and ProjectInputController.
+It allows ArchDuke to perform simple CRUD function for Member in the Project, these simple functions include Create, Read,
+Update and Delete. ProjectInputController will read the relevant command related to the member function and call the relevant methods in ParserHelper.
+
+It implements the following commands:
+
+* `add member -n MEMBER_NAME [-i MEMBER_PHONE_NUMBER] [-e MEMBER_EMAIL]` -- Creates a new Member with the member name, phone number (optional)
+ and email address (optional).
+* `edit member MEMBER_INDEX [-n MEMBER_NAME] [-i PHONE_NUMBER] [-e MEMBER_EMAIL]` -- Updates an existing member details
+based on the member index with the new attributes specified.
+* `view members`-- Displays all the members in the current project.
+* `view credits`-- Displays the compiled credits of all members from their individually assigned tasks.
+* `role INDEX -n MEMBER_NAME`-- Assigns roles to specific members using their names.
+* `delete member MEMBER_INDEX`--Deletes a member from the current project using the member index.
+
+The example usage scenario will explain in detail the data flow and how the program behaves at each step of CRUD
+functions with regards to a `Member` object.
+
+Step 1) The user creates a new project and chooses to manage it.
+
+Step 2) The user executes the command `add member -n Charles Wong -i 95674325 -e charles@gmail.com` to create a new member
+with the name "Charles Wong" whose phone number is "95674325" and whose email address is "charles@gmail.com".
+
+Step 3) The `ProjectInputController.manageProject()` method triggers the `MemberFactory` which does the validation of the input.
+
+Step 4) `MemberFactory` then goes on to call `parser.parseMemberDetails()` to do a simple parsing which will clean up
+the flags and will return an `ArrayList<String>` for MemberFactory to create the member.
+
+Step 5) `MemberFactory` will create the member based on the information provided by the user. The created member will
+subsequently be added into `memberList` which holds all the members in the current project. Upon doing successfully or
+unsuccessfully doing so, a String message will be returned.
+
+image::images/CreateMember_Sequence.png[]
+
+=== 3.3. CRUD functionality for Tasks
+==== Implementation
+
+CRUD Task functions are handled by `Task`, `TaskList`, `TaskFactory`, `Project` and `ProjectInputController`.
 It allows ArchDuke to perform simple CRUD function for Task in the Project, these simple functions include Create, Read,
-Update and Delete. `TaskFactory` will create the relevant task with the apporatied input from the user which will then be
+Update and Delete. `TaskFactory` will create the relevant task with the appropriate input from the user which will then be
 added into the `TaskList` managed by the `Project`. `ProjectInputController` will read the relevant command related to task
 function and call the relevant methods in `TaskFactory` And `ParserHelper`.
 
 It implements the following commands:
 
-* `add task -t TASK_NAME  -p TASK_PRIORITY-c TASK_CREDIT -d TASK_DUEDATE -s TASK_STATE -r TASK_REQUIREMENT1` -- Creation of a
-new Task with the task name, priority, credit, due date (optional), state(optional) and additional requirements (if any)
+* `add task -t TASK_NAME  -p TASK_PRIORITY -c TASK_CREDIT [-d TASK_DUE_DATE] [-s TASK_STATE] [-r TASK_REQUIREMENTS]` -- Creates a
+new Task with the task name, priority, credit, due date (optional), state(optional) and additional requirements (if any).
 
-* `edit task TASK_INDEX -t TASK_NAME -p TASK_PRIORITY -c TASK_CREDIT -s TASK_STATE` -- Edits existing task with the new input
-values
+* `edit task TASK_INDEX -t TASK_NAME -p TASK_PRIORITY -c TASK_CREDIT [-d TASK_DUE_DATE] [-s TASK_STATE]` -- Updates existing task attributes with the new input
+values.
 
-* `view tasks` -- Viewing of all tasks in current project
+* `view tasks` -- Displays all tasks in current project.
 
-* `view task requirements TASK_INDEX` -- Viewing of all additional requirements of a specified task
+* `view tasks /MODIFIER` -- Displays tasks sorted based on the attribute specified by the user.
 
-* `edit task requirements TASK_INDEX rm/TASK_INDEXES r/TASK_REQUIREMENT1` -- Edits task requirements of specified task by
-removing unwanted requirements and adding new ones
+* `view task requirements TASK_INDEX` -- Displays all additional requirements of a specified task.
 
-* `delete task TASK_INDEX` -- Deletion of task with stated index
+* `edit task requirements TASK_INDEX rm/TASK_INDEXES r/TASK_REQUIREMENT1` -- Updates task requirements of specified task by
+removing unwanted requirements and adding new ones.
+
+* `delete task TASK_INDEX` -- Deletes task with stated index.
 
 The example usage scenario below will explain in detail the data flow and how the program behaves at each step of CRUD
-functions with regards to a Task object.
+functions with regards to a `Task` object.
 
 Step 1) Assuming Project have been created and the user is currently managing a specific project.
 
@@ -353,10 +409,9 @@ The following sequence diagram show how `create task` operation works.
 
 image::images/CreateTask_Sequence.png[]
 
-=== 3.3. CRUD functionality for Reminder [Plan to do]
+=== 3.4. CRUD functionality for Reminder [Plan to do]
 ==== Implementation
 
-Implementation
 CRUD Reminder functions are handled by `Reminder`, `ReminderList` and `ReminderFactory`,`Project` and `ProjectInputController`.
 It allows ArchDuke to perform simple CRUD function for Reminder in the Project, these simple functions include Create, Read,
 Update and Delete. `TaskFactory` will create the relevant task with the apporatied input from the user which will then be
@@ -469,7 +524,7 @@ assignments.
 
 // end::dataencryption[]
 
-=== 3.5. UI functionality for displaying information
+=== 3.6. UI functionality for displaying information
 
 ==== Implementation
 
@@ -523,7 +578,7 @@ The following sequence diagram show how `list` operation works.
 
 image::images/ViewAllProjects_Sequence.png[]
 
-=== 3.2. Logging
+=== 3.7. Logging
 
 We are using `org.apache.logging.log4j` package for logging. The `DukeLogger` class under `Utility` layer is used for
 logging every step that ArchDuke takes so that debugging will be easier.
@@ -547,6 +602,10 @@ logging every step that ArchDuke takes so that debugging will be easier.
 == 4. Documentation
 
 // Refer to the guide <<Documentation#, here>>.
+We chose to use AsciiDoc to write the documentation. This is because Ascii syntax is consistent and there is a flexibility offered
+for essential syntax unlike MarkDown.
+
+
 
 == 5. Testing
 

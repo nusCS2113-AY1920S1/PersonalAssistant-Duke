@@ -26,6 +26,7 @@ public class ProjectInputController implements IController {
     private Scanner manageProjectInput;
     private ProjectRepository projectRepository;
     private MemberFactory memberFactory;
+    private TaskFactory taskFactory;
     private boolean isManagingAProject;
     private ViewHelper viewHelper;
 
@@ -38,6 +39,7 @@ public class ProjectInputController implements IController {
         this.manageProjectInput = new Scanner(System.in);
         this.projectRepository = projectRepository;
         this.memberFactory = new MemberFactory();
+        this.taskFactory = new TaskFactory();
         this.isManagingAProject = true;
         this.viewHelper = new ViewHelper();
     }
@@ -244,7 +246,6 @@ public class ProjectInputController implements IController {
      */
     public String[] projectAddTask(Project projectToManage, String projectCommand) {
         try {
-            TaskFactory taskFactory = new TaskFactory();
             ITask newTask = taskFactory.createTask(projectCommand.substring(9));
             if (newTask.getDetails() != null) {
                 projectToManage.addTask((Task) newTask);
