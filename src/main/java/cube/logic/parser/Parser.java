@@ -48,7 +48,7 @@ public class Parser {
 				return new FindCommandParser().parse(inputs);
 			case "update":
 				return new UpdateCommandParser().parse(inputs);
-			case "revenue" :
+			case "revenue":
 				return new GenerateRevenueCommandParser().parse(inputs);
 			case "delete":
 				return new DeleteCommandParser().parse(inputs);
