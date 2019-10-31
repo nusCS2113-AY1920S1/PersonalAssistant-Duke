@@ -159,6 +159,7 @@ public class MainWindow extends AnchorPane{
             removeWelcome();
             sendClicked();
             flowPane.setStyle("-fx-background-color:#ffffff");
+            console.clear();
             if (input.equals("/achievements")) {
                 achievementAction();
             } else if (input.equals("/avatar")) {
@@ -261,8 +262,6 @@ public class MainWindow extends AnchorPane{
         flowPane.setStyle("-fx-background-color:#ffffff");
         flowPane.getChildren().clear();
 
-        console.clear();
-
         ColorAdjust color = new ColorAdjust();
         color.setContrast(0.35);
         color.setHue(-0.21);
@@ -294,8 +293,6 @@ public class MainWindow extends AnchorPane{
         shop.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
         arena.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
         //settings.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
-
-        console.clear();
     }
 
     @FXML
@@ -311,6 +308,8 @@ public class MainWindow extends AnchorPane{
         titlePane.prefHeightProperty().bind(heading.prefHeightProperty());
         titlePane.prefWidthProperty().bind(heading.widthProperty());
         titlePane.getChildren().addAll(achievementTitle);
+
+        heading.getChildren().addAll(titlePane);
 
         ColorAdjust color = new ColorAdjust();
         color.setContrast(0.35);
@@ -344,7 +343,6 @@ public class MainWindow extends AnchorPane{
         arena.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
         //settings.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
 
-        console.clear();
         Hustler.run("/achievements");
     }
 
@@ -398,8 +396,6 @@ public class MainWindow extends AnchorPane{
         shop.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
         arena.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
         //settings.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
-
-        console.clear();
     }
 
     @FXML
@@ -509,7 +505,6 @@ public class MainWindow extends AnchorPane{
         arena.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
         //settings.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
 
-        console.clear();
         Hustler.run("/shop");
     }
 
