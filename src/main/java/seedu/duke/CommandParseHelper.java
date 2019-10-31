@@ -85,7 +85,7 @@ public class CommandParseHelper {
      * @return list of all options specified in the command.
      */
     public static ArrayList<Option> parseOptions(String input) {
-        String userInput = input;
+        String userInput = input.strip();
         ArrayList<Option> optionList = new ArrayList<>();
         Pattern optionPattern = Pattern.compile(".*(?<key>-[\\w]+)\\s+(?<value>[\\w]+[\\s|\\w/]*)\\s*");
         Matcher optionMatcher = optionPattern.matcher(userInput);
@@ -117,7 +117,8 @@ public class CommandParseHelper {
         return parseCommandOfType(commandString, userInputType);
     }
 
-    private static Command parseCommandOfType(String commandString, InputType userInputType) throws CommandParseException {
+    private static Command parseCommandOfType(String commandString, InputType userInputType)
+            throws CommandParseException {
         if (!isCommandFormat(commandString)) {
             return new InvalidCommand("Command is in wrong format");
         }

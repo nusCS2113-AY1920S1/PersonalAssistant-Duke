@@ -103,13 +103,13 @@ public class MainWindow extends AnchorPane {
 
     private String loadDefaultWebView() {
         try {
-            String htmlDir = "." + File.separator + "src" + File.separator + "main" + File.separator +
-                    "resources" + File.separator + "html" + File.separator + "defaultWebView.html";
+            String htmlDir = "." + File.separator + "src" + File.separator + "main" + File.separator
+                    + "resources" + File.separator + "html" + File.separator + "defaultWebView.html";
             File htmlFile = new File(htmlDir);
             FileInputStream in = new FileInputStream(htmlFile);
             Scanner scanner = new Scanner(in);
             String content = "";
-            while(scanner.hasNextLine()) {
+            while (scanner.hasNextLine()) {
                 content += scanner.nextLine();
             }
             return content;

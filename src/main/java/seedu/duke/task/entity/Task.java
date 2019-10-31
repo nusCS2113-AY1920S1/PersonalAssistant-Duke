@@ -25,7 +25,7 @@ public class Task {
      * The enumeration of all task type.
      */
     public enum TaskType {
-        ToDo, Deadline, Event
+        TODO, DEADLINE, EVENT
     }
 
     /**
@@ -57,6 +57,11 @@ public class Task {
     protected ArrayList<String> tags;
 
     /**
+     * The list of linked emails that the task has.
+     */
+    protected ArrayList<String> linkedEmails;
+
+    /**
      * The priority assigned to the task.
      */
     protected String priority;
@@ -77,6 +82,7 @@ public class Task {
         this.doAfterDescription = null;
         this.tags = new ArrayList<>();
         this.priority = null;
+        this.linkedEmails = new ArrayList<>();
         this.level = null;
     }
 
@@ -120,7 +126,7 @@ public class Task {
      * @param duration the duration to snooze the task by
      */
     public void snooze(int duration) {
-        if (taskType == TaskType.ToDo) {
+        if (taskType == TaskType.TODO) {
             return;
         }
     }
@@ -181,6 +187,14 @@ public class Task {
      */
     public boolean isNear(int dayLimit) {
         return false;
+    }
+
+    public void addLinkedEmails(String email) {
+        linkedEmails.add(email);
+    }
+
+    public ArrayList<String> getLinkedEmails() {
+        return linkedEmails;
     }
 
     public boolean isClash(Task task) {
