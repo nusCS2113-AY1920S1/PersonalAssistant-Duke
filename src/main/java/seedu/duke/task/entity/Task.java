@@ -13,6 +13,21 @@ import java.util.Locale;
  * Super class of all kinds of tasks, with the basic functionality that all tasks share.
  */
 public class Task {
+
+    /**
+     * The enumeration of priority level.
+     */
+    public enum Priority {
+        HIGH, MED, LOW
+    }
+
+    /**
+     * The enumeration of all task type.
+     */
+    public enum TaskType {
+        ToDo, Deadline, Event
+    }
+
     /**
      * A date format that is shared by all tasks to parse and out the date involved in the task.
      */
@@ -47,6 +62,11 @@ public class Task {
     protected String priority;
 
     /**
+     * The level of priority.
+     */
+    protected Priority level;
+
+    /**
      * Instantiation of a task with the name and the default false value if isDone attribute.
      *
      * @param name the name of the task
@@ -57,6 +77,7 @@ public class Task {
         this.doAfterDescription = null;
         this.tags = new ArrayList<>();
         this.priority = null;
+        this.level = null;
     }
 
     /**
@@ -66,14 +87,14 @@ public class Task {
      *
      * @param dateString an input string to be parsed
      * @return parsed result from the input string
-     * @throws CommandParseHelper.UserInputException an exception when the parsing is failed, most likely due to a
-     *                                          wrong format
+     * @throws CommandParseHelper.CommandParseException an exception when the parsing is failed, most likely
+     *                                                  due to a wrong format
      */
-    public static LocalDateTime parseDate(String dateString) throws CommandParseHelper.UserInputException {
+    public static LocalDateTime parseDate(String dateString) throws CommandParseHelper.CommandParseException {
         try {
             return LocalDateTime.parse(dateString, format);
         } catch (DateTimeParseException e) {
-            throw new CommandParseHelper.UserInputException("Wrong Date Time format");
+            throw new CommandParseHelper.CommandParseException("Wrong Date Time format");
         }
     }
 
@@ -182,14 +203,15 @@ public class Task {
         this.doAfterDescription = description;
     }
 
-    public void setPriorityTo(String priority) {
-        this.priority = priority;
+    public void setPriorityTo(Priority priority) {
+        if (priority == null) {
+            this.priority = "";
+        } else {
+            this.priority = priority.name();
+        }
     }
 
-    /**
-     * The enumeration of all task type.
-     */
-    public enum TaskType {
-        ToDo, Deadline, Event
+    public void setPriorityLevelTo(Priority level) {
+        this.level = level;
     }
 }

@@ -26,11 +26,12 @@ public class ToDo extends Task {
      * @param tags     tag associated with the task
      * @param priority priority level of the task
      */
-    public ToDo(String name, String doAfter, ArrayList<String> tags, String priority) {
+    public ToDo(String name, String doAfter, ArrayList<String> tags, Priority priority) {
         super(name);
         setDoAfterDescription(doAfter);
         this.taskType = TaskType.ToDo;
         setTags(tags);
+        setPriorityLevelTo(priority);
         setPriorityTo(priority);
     }
 
@@ -45,7 +46,7 @@ public class ToDo extends Task {
         String output = "";
         output = "[T]" + this.getStatus();
         if (this.doAfterDescription != null && !this.doAfterDescription.equals("")) {
-            output += "\n\tAfter which: " + doAfterDescription;
+            output += System.lineSeparator() + "\tAfter which: " + doAfterDescription;
         }
         for (String tagName : tags) {
             output += " #" + tagName;

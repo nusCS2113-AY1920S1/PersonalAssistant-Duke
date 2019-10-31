@@ -1,10 +1,12 @@
 package seedu.duke.task.command;
 
 import seedu.duke.CommandParseHelper;
-import seedu.duke.Duke;
 import seedu.duke.common.command.Command;
+import seedu.duke.common.model.Model;
 import seedu.duke.task.TaskList;
 import seedu.duke.task.entity.Task;
+import seedu.duke.task.parser.TaskCommandParseHelper;
+import seedu.duke.ui.UI;
 
 import java.util.ArrayList;
 
@@ -23,8 +25,8 @@ public class TaskUpdateCommand extends Command {
      * @param descriptions what to modify to
      * @param attributes   what attribute to modify ==== BASE ====
      */
-    TaskUpdateCommand(int index, ArrayList<String> descriptions,
-                      ArrayList<TaskUpdateCommand.Attributes> attributes) {
+    public TaskUpdateCommand(int index, ArrayList<String> descriptions,
+                             ArrayList<TaskUpdateCommand.Attributes> attributes) {
         this.index = index;
         this.descriptions = descriptions;
         this.attributes = attributes;
@@ -36,8 +38,8 @@ public class TaskUpdateCommand extends Command {
      * @return true if successful, false otherwise
      */
     @Override
-    public boolean execute() {
-        TaskList taskList = Duke.getModel().getTaskList();
+    public boolean execute(Model model) {
+        TaskList taskList = model.getTaskList();
         String msg = "";
         responseMsg = "";
         try {
@@ -63,41 +65,42 @@ public class TaskUpdateCommand extends Command {
                     break;
                 }
             }
-            responseMsg += msg + "\n";
-        } catch (CommandParseHelper.UserInputException e) {
+            responseMsg += msg + System.lineSeparator();
+        } catch (CommandParseHelper.CommandParseException e) {
             if (!silent) {
-                Duke.getUI().showError(e.getMessage());
+                UI.getInstance().showError(e.getMessage());
             }
             return false;
         }
         if (!silent) {
-            Duke.getUI().showResponse(msg);
+            UI.getInstance().showResponse(msg);
         }
         return true;
     }
 
-    private String updatePriority(TaskList taskList, int i) throws CommandParseHelper.UserInputException {
+    private String updatePriority(TaskList taskList, int i) throws CommandParseHelper.CommandParseException {
         String msg;
-        msg = taskList.setPriority(index, descriptions.get(i));
+        Task.Priority level = TaskCommandParseHelper.getPriorityLevel(descriptions.get(i));
+        msg = taskList.setPriority(index, level);
         return msg;
     }
 
-    private String updateDoAfter(TaskList taskList, int i) throws CommandParseHelper.UserInputException {
+    private String updateDoAfter(TaskList taskList, int i) throws CommandParseHelper.CommandParseException {
         String msg;
         msg = taskList.setDoAfter(index, descriptions.get(i));
         return msg;
     }
 
-    private String updateTime(TaskList taskList, int i) throws CommandParseHelper.UserInputException {
+    private String updateTime(TaskList taskList, int i) throws CommandParseHelper.CommandParseException {
         String msg;
         if (taskList.get(index).getTaskType() == Task.TaskType.ToDo) {
-            throw new CommandParseHelper.UserInputException("Time cannot be added to Todo task.");
+            throw new CommandParseHelper.CommandParseException("Time cannot be added to Todo task.");
         }
         msg = taskList.setTime(index, descriptions.get(i));
         return msg;
     }
 
-    private String updateTags(TaskList taskList, int i) throws CommandParseHelper.UserInputException {
+    private String updateTags(TaskList taskList, int i) throws CommandParseHelper.CommandParseException {
         String msg;
         ArrayList<String> tags = new ArrayList<>();
         for (int j = i; j < descriptions.size(); j++) {

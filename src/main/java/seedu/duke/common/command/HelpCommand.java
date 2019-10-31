@@ -1,6 +1,7 @@
 package seedu.duke.common.command;
 
-import seedu.duke.Duke;
+import seedu.duke.common.model.Model;
+import seedu.duke.ui.UI;
 
 import java.util.ArrayList;
 
@@ -23,7 +24,7 @@ public class HelpCommand extends Command {
      * @return the long text of help message to be displayed to the user
      */
     public String toString() {
-        String output = "Note: only A-Z a-z 0-9 \'_\' and \' \' are allowed for user input!\n";
+        String output = "Note: only A-Z a-z 0-9 \'_\' and \' \' are allowed for user input!" + System.lineSeparator();
         ArrayList<String> categories = divideCategories();
         String commandStrings = formatCommandStrings(categories);
         output += commandStrings;
@@ -33,13 +34,13 @@ public class HelpCommand extends Command {
     private String formatCommandStrings(ArrayList<String> categories) {
         String commandStrings = "";
         for (String category : categories) {
-            commandStrings += category + " command: \n";
+            commandStrings += category + " command: " + System.lineSeparator();
             for (CommandInfo commandInfo : commandInfoList) {
                 if (commandInfo.getCategory() == category) {
-                    commandStrings += commandInfo.toString() + "\n\n";
+                    commandStrings += commandInfo.toString() + System.lineSeparator() + System.lineSeparator();
                 }
             }
-            commandStrings += "\n";
+            commandStrings += System.lineSeparator();
         }
         return commandStrings;
     }
@@ -61,9 +62,9 @@ public class HelpCommand extends Command {
     }
 
     @Override
-    public boolean execute() {
+    public boolean execute(Model model) {
         responseMsg = this.toString();
-        Duke.getUI().showTextPopup(responseMsg);
+        UI.getInstance().showTextPopup(responseMsg);
         return true;
     }
 
@@ -72,6 +73,7 @@ public class HelpCommand extends Command {
                 + "commands. "));
         commandInfoList.add(new CommandInfo("Common", "flip", "Change between task or email commands"));
         commandInfoList.add(new CommandInfo("Common", "bye", "Safely exits the program"));
+        commandInfoList.add(new CommandInfo("Common", "clear chat", "Clear dialogue box"));
 
         commandInfoList.add(new CommandInfo("Task", "list", "List all tasks"));
         commandInfoList.add(new CommandInfo("Task", "done \'index\'", "Mark a task at the given index as "
@@ -82,35 +84,37 @@ public class HelpCommand extends Command {
         commandInfoList.add(new CommandInfo("Task", "reminder [\'daylimit\']", "Show the tasks that are "
                 + "near, which is closer than the number of days (daylimit) given. If the daylimit is not "
                 + "given, the default of 3 days will be used."));
-        commandInfoList.add(new CommandInfo("Task", "doafter \'index\'\n"
+        commandInfoList.add(new CommandInfo("Task", "doafter \'index\'" + System.lineSeparator()
                 + "\t-msg \'message\'\t\t(Must) The event/time when the task is to be do after", "Mark a "
                 + "task with the given index as to be done after the given description"));
-        commandInfoList.add(new CommandInfo("Task", "snooze \'index\'\n"
+        commandInfoList.add(new CommandInfo("Task", "snooze \'index\'" + System.lineSeparator()
                 + "\t-by \'duration\'\t\t(Optional) The duration to snooze the task by", "Snooze "
                 + "the task at the given index according to the duration. If no duration is keyed, task "
                 + "would be snoozed by 3 days"));
-        commandInfoList.add(new CommandInfo("Task", "set \'index\'\n"
+        commandInfoList.add(new CommandInfo("Task", "set \'index\'" + System.lineSeparator()
                 + "\t-priority \'priority\'\t\t(Must) The priority level of the task in string", "Set a "
                 + "task to the given priority"));
-        commandInfoList.add(new CommandInfo("Task", "todo \'name\'\n"
+        commandInfoList.add(new CommandInfo("Task", "todo \'name\'" + System.lineSeparator()
                 + "\t[-tag \'tag content\']\t\t(Optional) Add a tag to the task created. Multiple tags can "
                 + "be added to a single todo. "
-                + "\n\t[-doafter \'message\']\t\t(Optional) Add the event/time after which the task should "
-                + "be done", "Create a todo. "));
-        commandInfoList.add(new CommandInfo("Task", "deadline \'name\'\n"
-                + "\t-time \'dd/MM/uuuu HHmm\'\t\t (Must) The time of the deadline\n"
-                + "or\t-time \'day HHmm\'\t\t (Optional) The time of the deadline\n"
+                + System.lineSeparator() + "\t[-doafter \'message\']\t\t(Optional) Add the event/time after "
+                + "which the task should be done", "Create a todo. "));
+        commandInfoList.add(new CommandInfo("Task", "deadline \'name\'" + System.lineSeparator()
+                + "\t-time \'dd/MM/uuuu HHmm\'\t\t (Must) The time of the deadline" + System.lineSeparator()
+                + "or\t-time \'day HHmm\'\t\t (Optional) The time of the deadline" + System.lineSeparator()
                 + "\t[-tag \'tag content\']\t\t(Optional) Add a tag to the task created. Multiple tags "
                 + "can be added to a single deadline. "
-                + "\n\t[-doafter \'message\']\t\t(Optional) Add the event/time after which the task should "
-                + "be done", "Create a deadline."));
-        commandInfoList.add(new CommandInfo("Task", "event \'name\'\n"
-                + "\t-time \'dd/MM/uuuu HHmm\'\t\t (Must) The time of the event\n"
-                + "or\t-time \'day HHmm\'\t\t (Optional) The time of the event\n"
+                + System.lineSeparator() + "\t[-doafter \'message\']\t\t(Optional) Add the event/time after "
+                + "which the task should be done", "Create a deadline."));
+        commandInfoList.add(new CommandInfo("Task", "event \'name\'" + System.lineSeparator()
+                + "\t-time \'dd/MM/uuuu HHmm\'\t\t (Must) The time of the event" + System.lineSeparator()
+                + "or\t-time \'day HHmm\'\t\t (Optional) The time of the event" + System.lineSeparator()
                 + "\t[-tag \'tag content\']\t\t(Optional) Add a tag to the task created. Multiple tags "
                 + "can be added to a single event. "
-                + "\n\t[-doafter \'message\']\t\t(Optional) Add the event/time after which the task should "
-                + "be done", "Create a event."));
+                + System.lineSeparator() + "\t[-doafter \'message\']\t\t(Optional) Add the event/time after "
+                + "which the task should be done", "Create a event."));
+        commandInfoList.add(new CommandInfo("Task", "clear", "Clear task list"));
+
 
         commandInfoList.add(new CommandInfo("Email", "list", "List all the emails."));
         commandInfoList.add(new CommandInfo("Email", "show \'index\'", "Show a email content at the given "
@@ -160,7 +164,7 @@ public class HelpCommand extends Command {
          */
         public String toString() {
             String output = "";
-            output += "\t$" + description + "\n";
+            output += "\t$" + description + System.lineSeparator();
             output += "\t" + format;
             return output;
         }

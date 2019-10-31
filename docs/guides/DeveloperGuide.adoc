@@ -207,6 +207,7 @@ added to the email as a tag by calling `addTag(keywordPair, relevanceScore)`.
 === Design considerations
 
 Aspect: Handling updating of tags
+
 * Alternative 1 (current choice): if at least one tag is entered as part of the command, it will overwrite all current tags of the task being modified.
 ** Pros: makes it consistent with other parameters of the update command and gives users an option to replace/remove tags
 ** Cons: if there are many tags, and the user only wants to add on an extra tag, the user will need to retype all existing tags into the command.

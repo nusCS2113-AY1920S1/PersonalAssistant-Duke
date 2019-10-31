@@ -1,8 +1,9 @@
 package seedu.duke.task.command;
 
-import seedu.duke.Duke;
 import seedu.duke.common.command.Command;
+import seedu.duke.common.model.Model;
 import seedu.duke.task.TaskList;
+import seedu.duke.ui.UI;
 
 public class TaskReminderCommand extends Command {
     private int dayLimit = 3; //default limit is 3 days
@@ -12,7 +13,7 @@ public class TaskReminderCommand extends Command {
      *
      * @param dayLimit the maximum number of days from now for a task to be considered as near
      */
-    TaskReminderCommand(int dayLimit) {
+    public TaskReminderCommand(int dayLimit) {
         this.dayLimit = dayLimit;
     }
 
@@ -30,12 +31,12 @@ public class TaskReminderCommand extends Command {
      * @return true as the command can always be correctly executed
      */
     @Override
-    public boolean execute() {
-        TaskList taskList = Duke.getModel().getTaskList();
+    public boolean execute(Model model) {
+        TaskList taskList = model.getTaskList();
         TaskList nearTasks = taskList.findNear(dayLimit);
         responseMsg = constructReminderMessage(nearTasks);
         if (!silent) {
-            Duke.getUI().showResponse(responseMsg);
+            UI.getInstance().showResponse(responseMsg);
         }
         return true;
     }
@@ -45,7 +46,7 @@ public class TaskReminderCommand extends Command {
         if (nearTasks.size() == 0) {
             msg += "There is no near event or deadline. ";
         } else {
-            msg += "There are near events or deadlines within " + dayLimit + " days: \n";
+            msg += "There are near events or deadlines within " + dayLimit + " days: " + System.lineSeparator();
             msg += nearTasks.toString();
         }
         return msg;
