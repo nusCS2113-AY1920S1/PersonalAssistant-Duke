@@ -1,9 +1,7 @@
 package scene;
 
-import command.SetReminderCommand;
 import dictionary.Bank;
 import command.Command;
-import dictionary.WordCount;
 import exception.WordUpException;
 import javafx.stage.Stage;
 import parser.Parser;
@@ -27,8 +25,8 @@ public abstract class NewScene {
     protected Button sendButton;
     protected Scene scene;
     protected AnchorPane layout;
-    protected Image user = new Image(this.getClass().getResourceAsStream("/images/user.jpg"));
-    protected Image duke = new Image(this.getClass().getResourceAsStream("/images/duke.jpg"));
+    protected Image user = new Image(this.getClass().getResourceAsStream("/images/girl.png"));
+    protected Image duke = new Image(this.getClass().getResourceAsStream("/images/robot.png"));
     protected Ui ui;
     protected Bank bank;
     protected Storage storage;
@@ -54,8 +52,10 @@ public abstract class NewScene {
         this.ui = ui;
         this.bank = bank;
         this.storage = storage;
-        scrollPane = new ScrollPane();
+
         dialogContainer = new VBox();
+
+        scrollPane = new ScrollPane();
         scrollPane.setContent(dialogContainer);
 
         userInput = new TextField();
