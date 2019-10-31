@@ -22,8 +22,7 @@ public class AddEntryCommand extends Command {
     private String description;
     private LocalDate date;
     private int prevPosition;
-    private static String mode;
-
+    private static final String mode = ModeStringList.MODE_ENTRY;
 
     /**
      * Creates an instance of AddEntryCommand.
@@ -40,7 +39,6 @@ public class AddEntryCommand extends Command {
         this.description = description;
         this.date = date;
         this.prevPosition = prevPosition;
-        mode = ModeStringList.MODE_ENTRY;
     }
 
     @Override

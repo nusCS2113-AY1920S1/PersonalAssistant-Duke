@@ -15,8 +15,8 @@ public class AddLimitCommand extends Command {
     private String type;
     private double amount;
     private String duration;
-    private static String mode;
-
+    private static final String mode = ModeStringList.MODE_LIMIT;
+    
     /**
      * Instantiates a new AddLimitCommand.
      * @param type type of limit
@@ -27,12 +27,12 @@ public class AddLimitCommand extends Command {
         this.type = type;
         this.amount = amount;
         this.duration = duration;
-        mode = ModeStringList.MODE_LIMIT;
     }
 
     @Override
     public void execute(DollaData dollaData) {
         Limit newLimit = new Limit(type, amount, duration);
+
         LimitList limitList = (LimitList) dollaData.getRecordList(mode);
         //todo: need to add budget and show and deduct money every time there is an expense entry
         int existingLimitIndex = limitList.findExistingLimit(dollaData, newLimit, mode);

@@ -5,7 +5,7 @@ import dolla.task.Entry;
 //@@author omupenguin
 public class EntryUi extends Ui {
 
-    private static final String MSG_EXISTING_ENTRY = "\tOOPS! You already have the entry:";
+    private static final String MSG_EXISTING_ENTRY = "\tOOPS! You already have the following entry:";
     private static final String MSG_MODIFY_ENTRY = "\tWould you like to modify it instead?";
 
     /**

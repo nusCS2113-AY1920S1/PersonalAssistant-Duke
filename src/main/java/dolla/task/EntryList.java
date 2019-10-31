@@ -36,7 +36,7 @@ public class EntryList extends RecordList {
      * Method to check if input entry already exists.
      * @param dollaData The storage container for all the lists.
      * @param entry The entry being input by user.
-     * @param mode The mode the user is on.
+     * @param mode The mode the user is on (entry).
      * @return index of the currently existing entry (is - 1 if not found)
      */
     public int findExistingEntry(DollaData dollaData, Entry entry, String mode) {
@@ -48,8 +48,10 @@ public class EntryList extends RecordList {
             double currAmount = currEntry.amount;
             String currDescription = currEntry.description;
             LocalDate currDate = currEntry.date;
-            if (currType.equals(entry.type) && currAmount == entry.amount
-                && currDescription.equals(entry.description) && currDate.equals(entry.date)) {
+            if (currType.equals(entry.type)
+                && currAmount == entry.amount
+                && currDescription.equals(entry.description)
+                && currDate.equals(entry.date)) {
                 index = i;
                 break;
             }
