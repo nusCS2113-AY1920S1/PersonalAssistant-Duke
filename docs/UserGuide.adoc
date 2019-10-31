@@ -44,6 +44,7 @@ commands.
 You can use the Table of Contents above to navigate effortlessly between the sections.
 
 Look out for the following icons that could aid you in this user guide:
+// tag::user_guide_common_logo[]
 [NOTE]
 ====
 This symbol denotes information that you may want to take note of.
@@ -62,7 +63,7 @@ Additionally, you may also encounter the following text styles:
 * Commands, parameters, and file paths will be in this `format`
 * Important messages will be *bold*
 ====
-
+// end::user_guide_common_logo[]
 === Navigating Around Our Application
 *OwlMoney* comes with a very clean and easy to use CLI , so don’t worry even if you are a new user!
 You can expect to navigate around our application with ease!
@@ -137,6 +138,12 @@ which can be used as:
 .. `/add /bankexpenditure /amount 13.50 /from JunBank Savings Account /date 1/1/2019 /desc bubble tea [/category
 entertainment]` (with optional `category` parameter)
 .. `/add /savings /name JunBank Savings Account /amount 218.90 /income 0` (without optional `category` parameter)
+
+[TIP]
+====
+Many of our command parameters can be rearranged! Feel free to rearrange the order of entering parameters as you read
+along this user guide!
+====
 
 [WARNING]
 ====
@@ -455,6 +462,8 @@ To find out which recurring expenditure to delete, use the `/list` or `/find` fu
 
 Deletes a `deposit` with transaction number `11` from `JunBank Savings Account`.
 // end::deleteDeposit[]
+
+// tag::investment_management[]
 ==== Investment Account Management
 In this section, you'll be introduced to commands and parameters that help you to manage your investment account
 and bonds that you can track in *OwlMoney*.
@@ -514,7 +523,7 @@ Take note that there is a maximum of *30* character limit.
 
 
 
-// tag::investment_management[]
+
 
 ===== Adding investment bank account `/add /investment`
 Want to start *investing* to grow your wealth? No problem!
