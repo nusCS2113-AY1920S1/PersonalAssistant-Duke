@@ -3,33 +3,45 @@
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-== PROJECT: Sports Manager - Level 3
+== PROJECT: Coach Manager
 
 ---
 
 == Overview
 
-[Name TBC] - Level 3 is a [function, Eg:a desktop address book application used for teaching Software Engineering principles. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.]
+This portfolio serves to document my contributions in a Software Engineering project for CS2113T.
+The team consist of 4 members and we were tasked to develop a working application within 8 weeks.
+Throughout the project, we were challenged to incorporate a Software Engineering project into a product of our own.
+We decided to morph the existing application to a task manager called Coach Manager.
+
+Our team have decided to come up with Coach Manager.
+Coach Manager is an application that is used for trainers to manage their classes and students for better organization.
+Trainers are able create classes, manage their students and also create training plans. This helps coaches to ease
+their administrative matters for their classes.
+
+My role was to design a feature that Manages student `details` and `progress` which allow trainers to better organise
+their students and keep track of their training progress.
 
 == Summary of contributions
 
-* *Major enhancement*: added *the ability to ...*
-** What it does: allows the user to ...
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+* *Feature*: Added Manage Student Feature.
+** What it does: It allows the trainer to manage any relevant information that involves the students.
+** Justification: This feature allows the trainer to add a new student and their details, add their training progress and additional notes to a particular student and they are also able to search any keywords in the section.
+The commands for this feature can be view from the User Guide {Insert User Guid Link}.
 
-* *Minor enhancement*: added a ... command that allows the user to ...
+* *Feature*: Added a Menu-based feature.
+** What it does: This feature allows the trainer to navigate through respective sections of the app easily.
+This feature is implemented through the ParserCommand class.
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Code contributed*:
+ ** [https://github.com/AY1920S1-CS2113T-W13-1/main/blob/master/src/main/java/duke/parser/ParserCommand.java[ParserCommand code]] [https://github.com[Test Code]]
+ ** [https://github.com/AY1920S1-CS2113T-W13-1/main/blob/master/src/main/java/duke/parser/ParserManageStudents.java[ParserManageStudents]] [https://github.com[Test Code]]
 
-* *Other contributions*:
-
-** Project management:(Edit as we go along)
-*** Eg: Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
+** Project management:
+*** Managed releases `v1.1` - `v1.3` on GitHub.
+*** Refactoring of main code.
 ** Enhancements to existing features:
-*** Eg: Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Eg: Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+*** {To be added}
 ** Documentation:
 *** Eg: Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
 ** Community:
@@ -38,21 +50,130 @@
 *** Eg: Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
 *** Eg: Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
 ** Tools:
-*** Eg: Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Eg: Integrated a new Github plugin (CircleCI) to the team repo
+*** Installed Travis.
 
-_{you can add/remove categories in the list above}_
 
 == Contributions to the User Guide
 
 
+_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+
+*1. View all students:* `list`  +
+Shows a list of all the students in the coach manager.
+
+** *Format*: `list`
+** *Examples*:
 |===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|`list` +
+
+Here are your list of students: +
+1. Danish +
+2. Eddie +
+3. Scott +
+4. Jing Sen +
+5. Edmund
+|===
+*2. Locating a student by name:* `find`  +
+Find a student whose names contain any of the given keywords.
+
+** *Format:* `find [KEYWORDS]`
+
+* Short-form will still be matched.  e.g Dan will match Danish
+* The search is case insensitive. e.g danish will match Danish
+* Only the name is searched
+
+** *Examples*:
+|===
+|`find Dan` +
+
+Returns Danish and Danial
 |===
 
-include::../UserGuide.adoc[tag=delete]
+*3. Adding a student:* `add` +
+Add a new student to the list of students.
 
-include::../UserGuide.adoc[tag=dataencryption]
+** *Format:* `add [STUDENT NAME], [AGE], [ADDRESS]`
+
+** *Example:*
+
+|===
+|add Danish, 22, Woodlands +
+
+Student have been added: +
+Name: danish eddie +
+Age: 22 +
+Address: woodlands +
+Now you have 1 students in your list.
+|===
+
+*2.3.4. Deleting a student:* delete *(v1.2)* +
+Deleting a specific student from the list of students using the index.
+
+*Format:* delete [INDEX]
+
+* Deletes student at the specific INDEX
+* The index refers to the index number shown in the displayed student list
+* Index must be a positive integer 1, 2, 3,...
+
+Examples:
+
+* student-list
+* delete 3
+Deletes the 3rd student on the list
+
+*2.3.5. View student particulars:* particulars *(v2.0)* +
+To view the details of specific students.
+
+*Format:* particulars [INDEX]
+
+* All the particulars of the student will be listed. e.g Name, Age, Address
+
+Example:
+
+* list
+* Particulars 2
+Particulars of the student  at index 2 will be displayed. +
+Danish Eddie Particulars: +
+Age: 22 +
+Home Address: Blk 555 Woodlands Dr 5
+
+*2.3.6. Edit student particulars:* edit *(v2.0)* +
+Editing the particulars for a student.
+
+*Format: *edit [INDEX] [ADDRESS]
+
+* Needs to select the student index on the list and the details intended to edit.
+
+Example:
+
+* list
+* edit 2 address
+* New Address: Clementi Ave 6
+Danish Address has been updated: +
+Address: Clementi Ave 6
+
+
+*2.3.7 Add progress to a student: *add progress *(2.0)* +
+To add the training progress of a particular student
+
+*Format*: add progress [INDEX] /n [PROGRESS DETAILS]
+
+Example:
+
+* add progress 2
+* Able to swim breastroke proficiently
+* Progress added for Danish
+
+*2.3.8 View a student progress: *view progress *(2.0)* +
+Able to view all the progress of the student
+
+*Format*: view progress [INDEX]
+
+Example:
+
+* view progress 2
+* Progress for Danish:
+. Able to swim breastroke proficiently.
 
 == Contributions to the Developer Guide
 
