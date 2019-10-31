@@ -160,12 +160,12 @@ Examples: `viewrecipe garlic prawn`
 
 Output Result:
 
-* Title: garlic prawn
-* Rating: Unrated
-* Preparation Steps: +
-No preparation steps provided yet.
-* Required Ingredients: +
-1. garlic [1.0 | G | No additional information.]
+* `Title: garlic prawn`
+* `Rating: Unrated`
+* `Preparation Steps:`
+* `No preparation steps provided yet.`
+* `Required Ingredients:`
+* `1. garlic [1.0 | G | No additional information.]`
 
 === Viewing required recipe ingredient: `viewreqingredient`
 
@@ -177,19 +177,19 @@ Example: `viewreqingredient chicken rice, duck rice`
 
 Output Result:
 
-* Recipe Title: chicken rice
-* Required Ingredients:
-1. rice [1.0 | G | 50% brown rice]
-2. brown rice [1.0 | G | No additional information.]
-3. jasmine rice [11.0 | G | fried with garlic]
-4. Recipe Title: duck rice
-* Required Ingredients:
-1. jasmine rice [10.0 | G | No additional information.]
-2. brown rice [1.0 | G | No additional information.]
-* Combined list of ingredients with the respective amount:
-1. jasmine rice | 21.0
-2. rice | 1.0
-3. brown rice | 2.0
+* `Recipe Title: chicken rice`
+* `Required Ingredients:`
+* `1. rice [1.0 | G | 50% brown rice]`
+* `2. brown rice [1.0 | G | No additional information.]`
+* `3. jasmine rice [11.0 | G | fried with garlic]`
+* `Recipe Title: duck rice`
+* `Required Ingredients:`
+* `1. jasmine rice [10.0 | G | No additional information.]`
+* `2. brown rice [1.0 | G | No additional information.]`
+* `Combined list of ingredients with the respective amount:`
+* `1. jasmine rice | 21.0`
+* `2. rice | 1.0`
+* `3. brown rice | 2.0`
 
 ====
 *Managing Inventory*
