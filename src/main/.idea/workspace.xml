@@ -2,13 +2,19 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6cbcb4ae-7334-45d4-bfc3-214bd06813c0" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/$PRODUCT_WORKSPACE_FILE$" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/$PRODUCT_WORKSPACE_FILE$" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/java/duke/Duke.java" beforeDir="false" afterPath="$PROJECT_DIR$/java/duke/Duke.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/duke/command/dishesCommand/AddDishCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/java/duke/command/dishesCommand/AddDishCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/duke/command/dishesCommand/AddIngredient.java" beforeDir="false" afterPath="$PROJECT_DIR$/java/duke/command/dishesCommand/AddIngredient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/duke/command/dishesCommand/DeleteDishCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/java/duke/command/dishesCommand/DeleteDishCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/duke/command/dishesCommand/InitCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/java/duke/command/dishesCommand/InitCommand.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/java/duke/command/dishesCommand/ListDishCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/java/duke/command/dishesCommand/ListDishCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/duke/command/ingredientCommand/DeleteCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/java/duke/command/ingredientCommand/DeleteCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/duke/command/ingredientCommand/ExitCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/java/duke/command/ingredientCommand/ExitCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/duke/command/ingredientCommand/FindIngredientCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/java/duke/command/ingredientCommand/FindIngredientCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/duke/command/ingredientCommand/FindToday.java" beforeDir="false" afterPath="$PROJECT_DIR$/java/duke/command/ingredientCommand/FindToday.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/duke/command/ingredientCommand/ListCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/java/duke/command/ingredientCommand/ListCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/duke/command/ingredientCommand/RemoveAllExpired.java" beforeDir="false" afterPath="$PROJECT_DIR$/java/duke/command/ingredientCommand/RemoveAllExpired.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/duke/command/ingredientCommand/ViewCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/java/duke/command/ingredientCommand/ViewCommand.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/java/duke/command/orderCommand/AlterDateCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/java/duke/command/orderCommand/AlterDateCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/java/duke/parser/Parser.java" beforeDir="false" afterPath="$PROJECT_DIR$/java/duke/parser/Parser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/java/duke/ui/Ui.java" beforeDir="false" afterPath="$PROJECT_DIR$/java/duke/ui/Ui.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -67,7 +73,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1572541431241</updated>
-      <workItem from="1572541433117" duration="1845000" />
+      <workItem from="1572541433117" duration="2081000" />
     </task>
     <servers />
   </component>

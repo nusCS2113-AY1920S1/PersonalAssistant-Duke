@@ -68,6 +68,42 @@ public class Parser {
                     throw new DukeException("not a valid command for an Ingredient");
 
             }
+            case DISH: {
+                splitted = fullCommand.split(" ", 2);
+                switch (splitted[0]) {
+                    case "add":
+                        if(splitted.length < 2) {
+                            throw new DukeException("specify dish name");
+                        }
+                        else
+                            splitted[1] = splitted[1].replaceAll("\\s+", " ");
+                        return new AddDishCommand(new Dish(splitted[1]));
+                    case "remove":
+                        try {
+                            return new DeleteDishCommand(Integer.parseInt(splitted[1]));
+                        } catch (ArrayIndexOutOfBoundsException | NumberFormatException e) {
+                            throw new DukeException("enter a valid index");
+                        }
+                    case "list":
+                        return new ListDishCommand();
+                    case "initialize":
+                        return new InitCommand();
+                    case "ingredient":
+                        String[] getIng = splitted[1].split(" ", 3);
+                        int amount = 0;
+                        int index = 0;
+                        try {
+                            amount = Integer.parseInt(getIng[1]);
+                            index = Integer.parseInt(getIng[2]);
+                        } catch (NumberFormatException e) {
+                            throw new DukeException("enter a valid amount/index");
+                        }
+                        return new AddIngredient(new Ingredient(getIng[0], amount, new Date()), index);
+                    default:
+                        throw new DukeException("not a valid command for a Dish");
+                }
+
+            }
             case ORDER: {
                 splitted = fullCommand.split(" ", 2);
                 if (splitted.length > 4)
@@ -102,7 +138,7 @@ public class Parser {
                     }
                     return new AlterDateCommand(orderIndex,orderDate);
 
-                } else if (splitted[0].equals("done")) {
+                } else if (splitted[0].equals("done")) {//done an order
                     if (splitted.length==1) { throw new DukeException("Must specify order number! *starting from 1*"); }
                     try {
                         int orderIndex = Integer.parseInt(splitted[1]);
@@ -110,7 +146,7 @@ public class Parser {
                     } catch (NumberFormatException e) {
                         throw new DukeException("enter a valid index");
                     }
-                } else if (splitted[0].equals("remove")) {
+                } else if (splitted[0].equals("remove")) {//remove an order
                     if (splitted.length==1) { throw new DukeException("Must specify order number! *starting from 1*"); }
                     try {
                         int orderIndex = Integer.parseInt(splitted[1]);
@@ -118,7 +154,7 @@ public class Parser {
                     } catch (NumberFormatException e) {
                         throw new DukeException("enter a valid index");
                     }
-                } else if (splitted[0].equals("list")) {
+                } else if (splitted[0].equals("list")) {//list orders
                     if (splitted.length==1) { return new ListOrderCommand("all"); }
                     String listType = splitted[1];
                     String[] split2 = listType.split(" ",2);

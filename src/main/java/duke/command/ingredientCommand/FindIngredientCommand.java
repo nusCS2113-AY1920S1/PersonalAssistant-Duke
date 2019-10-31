@@ -3,14 +3,11 @@ package duke.command.ingredientCommand;
 import duke.command.Cmd;
 import duke.exception.DukeException;
 import duke.ingredient.Ingredient;
-import duke.ingredient.IngredientsList;
 import duke.list.GenericList;
 import duke.storage.Storage;
-import duke.task.TaskList;
 import duke.ui.Ui;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
 
 /**
  * Represents a specific {@link Cmd} used to find a String occurring in the {@link Ingredient}.

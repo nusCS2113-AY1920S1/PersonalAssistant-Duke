@@ -2,7 +2,6 @@ package duke.command.ingredientCommand;
 
 import duke.command.Cmd;
 import duke.ingredient.Ingredient;
-import duke.ingredient.IngredientsList;
 import duke.list.GenericList;
 import duke.storage.Storage;
 import duke.task.TaskList;
