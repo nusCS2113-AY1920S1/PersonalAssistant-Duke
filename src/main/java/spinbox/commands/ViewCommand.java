@@ -186,7 +186,6 @@ public class ViewCommand extends Command {
                     + oldTrace.toString() + " to " + newTrace.toString());
         }
 
-
         return ui.showFormatted(outputList);
     }
 }

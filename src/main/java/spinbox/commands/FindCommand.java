@@ -41,28 +41,6 @@ public class FindCommand extends Command {
         this.type = content.split(" ")[0].toLowerCase();
     }
 
-    /**
-     * Searches for tasks using a keyword.
-     * @param taskList TaskList instance
-     * @param storage Storage instance
-     * @param ui Ui instance
-     * @param guiMode boolean to check if in gui mode.
-     */
-    @Override
-    public String execute(TaskList taskList, Storage storage, Ui ui, boolean guiMode) {
-        int resultCount = 0;
-        ArrayList<String> formattedOutput = new ArrayList<>();
-        formattedOutput.add("Here are the matching tasks in your list:");
-        List<Task> tasks = taskList.getList();
-
-        for (Task task : tasks) {
-            if (task.getName().contains(keyword)) {
-                formattedOutput.add((resultCount++ + 1) + ". " + task.toString());
-            }
-        }
-        return ui.showFormatted(formattedOutput);
-    }
-
     @Override
     public String execute(ModuleContainer moduleContainer, ArrayDeque<String> pageTrace, Ui ui, boolean guiMode) throws
             SpinBoxException {
