@@ -33,52 +33,52 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.TaskListTest.snooze">
-    <configuration name="TaskListTest.find" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="JUnit.TaskCreatorTest.updateTask">
+    <configuration name="TaskCreatorTest.create" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="test" />
       <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="TaskListTest" />
-      <option name="METHOD_NAME" value="find" />
+      <option name="MAIN_CLASS_NAME" value="TaskCreatorTest" />
+      <option name="METHOD_NAME" value="create" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="TaskListTest.reorder" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="TaskCreatorTest.extractDate" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="test" />
       <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="TaskListTest" />
-      <option name="METHOD_NAME" value="reorder" />
+      <option name="MAIN_CLASS_NAME" value="TaskCreatorTest" />
+      <option name="METHOD_NAME" value="extractDate" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="TaskListTest.replace" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="TaskCreatorTest.extractPriority" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="test" />
       <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="TaskListTest" />
-      <option name="METHOD_NAME" value="replace" />
+      <option name="MAIN_CLASS_NAME" value="TaskCreatorTest" />
+      <option name="METHOD_NAME" value="extractPriority" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="TaskListTest.setPriority" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="TaskCreatorTest.extractType" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="test" />
       <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="TaskListTest" />
-      <option name="METHOD_NAME" value="setPriority" />
+      <option name="MAIN_CLASS_NAME" value="TaskCreatorTest" />
+      <option name="METHOD_NAME" value="extractType" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="TaskListTest.snooze" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="TaskCreatorTest.updateTask" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="test" />
       <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="TaskListTest" />
-      <option name="METHOD_NAME" value="snooze" />
+      <option name="MAIN_CLASS_NAME" value="TaskCreatorTest" />
+      <option name="METHOD_NAME" value="updateTask" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -86,11 +86,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.TaskListTest.snooze" />
-        <item itemvalue="JUnit.TaskListTest.replace" />
-        <item itemvalue="JUnit.TaskListTest.reorder" />
-        <item itemvalue="JUnit.TaskListTest.setPriority" />
-        <item itemvalue="JUnit.TaskListTest.find" />
+        <item itemvalue="JUnit.TaskCreatorTest.updateTask" />
+        <item itemvalue="JUnit.TaskCreatorTest.create" />
+        <item itemvalue="JUnit.TaskCreatorTest.extractDate" />
+        <item itemvalue="JUnit.TaskCreatorTest.extractType" />
+        <item itemvalue="JUnit.TaskCreatorTest.extractPriority" />
       </list>
     </recent_temporary>
   </component>
