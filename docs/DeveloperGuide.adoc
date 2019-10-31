@@ -80,17 +80,19 @@ dialog first)
 This section describes some noteworthy details on how certain features are implemented.
 
 === [Proposed] View Monthly Revenue Feature
+Allows user to view their profit for a specific month.
 
 ==== Proposed Implementation
 Viewing the monthly revenue is executed by the `ViewMonthlyCommand`, which extends from the abstract class `Command` and
-is stored under the Command package. +
-Additionally, it implements the following operations based on the query date: +
-* Model#findMonthly() -- Retrieves the list of shows in the month specified by the input. +
-* Model#getShows() -- Retrieves the current list of shows should the user query be in the future. +
-* Model#getShowshistory() -- Retrieves the archive list should the user query be in the past. +
-* OptixDateFormatter#getMonth() -- get the integer value of the month. +
-* OptixDateFormatter#getYear() -- get the integer value of the year. +
-* Theatre#getProfit() -- get the profit earned for the show. +
+is stored under the commands package. +
+Additionally, it implements the following operations based on the query date:
+
+* Model#findMonthly() -- Retrieves the list of shows in the month specified by the input.
+* Model#getShows() -- Retrieves the current list of shows should the user query be in the future.
+* Model#getShowshistory() -- Retrieves the archive list should the user query be in the past.
+* OptixDateFormatter#getMonth() -- get the integer value of the month.
+* OptixDateFormatter#getYear() -- get the integer value of the year.
+* Theatre#getProfit() -- get the profit earned for the show.
 
 Given below is an example usage scenario of the `ViewMonthlyCommand` at each step.
 
@@ -112,17 +114,17 @@ The profit for each of the shows in the remaining list is then added up in `Mode
 
 The following sequence diagram shows how the view-monthly operation works:
 
-image::images/SequenceDiagram_ViewMonthly.png[width ="600", align="center"]
+image::images/devguide/DG_ViewMonthly_SequenceDiagram.png[width ="600", align="center"]
 
 The following activity diagram summarizes what happens when a user executes the ViewMonthly Command:
 
-image::images/ActivityDiagram_ViewMonthly.png[width ="600", align="center"]
+image::images/devguide/DG_ViewMonthly_ActivityDiagram.png[width ="300", align="center"]
 
 ==== Design Considerations
 
-*Aspect: How view-monthly executes* +
+*Aspect: How view-monthly executes*
 
-* Alternative 1 (current choice): Saves the archive shows and current shows separately. +
+* Alternative 1 (current choice): Saves the archive shows and current shows separately.
 ** Pros: Reduces search time Optix knows which list to search from.
 ** Cons: Archive list does not need any methods and certain parameters since it is only a list to store show names and
 revenue. Have to insert dummy values for Archive list since Archive and current list are from the same class and now
@@ -132,12 +134,77 @@ use the same parameters.
 ** Pros: Archive list and current list will have their own class and reduces dependency.
 ** Cons: Certain code needs to be repeated which may be confusing.
 
+=== [Proposed] Sell Seats Feature
+Allows user to sell seats for a specific show.
 
+==== Proposed Implementation
+Selling of seats is executed by the `SellSeatCommand`, which extends from an abstract class `Command` and
+is stored under the commands package. Additionally, it implements the following operations based on the user input.
 
+* OptixDateFormatter#isValidDate -- Ensures that the date keyed is valid.
+* Model#containsKey -- Check if the date has any show scheduled.
+* Model#hasSameName -- Check if the show name matches the show in the TreeMap for the specified date.
+* Model#sellSeat -- Sell seats corresponding to the seat number that is keyed by user.
 
+Given below is an example usage scenario and how the sell seat mechanism behaves at each step.
 
+*Step 1* +
+The user executes `sell Phantom of the Opera|5/5/2020|C1 D6 E10` command to sell the following seats C1 D6 E10
+for the show Phantom of the Opera on 5th May 2020. The `SellSeatCommand` command calls `OptixDateFormatter#isValidDate(String date)`
+to first check if the given date is a valid date.
 
+*Step 2* +
+Once verified, the `SellSeatCommand` command calls `Model#containsKey(LocalDate date)` and `Model#hasSameName(LocalDate date, String showName)`
+to check if the show in query exist within `Model`.
 
+*Step 3* +
+Once it has been confirmed that the show exist, the `SellSeatCommand` command calls `Model#sellSeats(LocalDate date, String[] seats)`
+to query if the seats have been booked. Whenever a seat has been purchased successfully, the revenue obtained from
+the show will then be updated accordingly.
+
+The following activity diagram summarizes what happens when a user executes sell seat command.
+
+image::images/devguide/DG_SellSeat_ActivityDiagram.png[width ="300", align="center"]
+
+==== Design Considerations
+
+*Aspect: How sell seat executes* +
+
+* Alternative 1 (current choice)
+** Format: `sell Harry Potter | 5/5/2020 | A1 A2 A3 A4`
+
+** Pros:
+*** Easy to implement and less buggy.
+*** Simplicity of code allows it to handle exception and edge cases more efficiently.
+*** Ability to bulk purchase seats.
+
+** Cons:
+*** Less intuitive. User has to carry out one additional command view before carrying out the booking.
+
+* Alternative 2 (previous choice):
+** Format: `sell Harry Potter | 5/5/2020`
+** Alternative: `sell Harry Potter | 5/5/2020 | A1 A2 A3 A4`
+
+** Pros:
+*** More flexible. Seating arrangement will be shown without explicit command for it.
+*** Ability to bulk purchase seats.
+
+** Cons:
+*** Incompatible with GUI as code requires CLI query for seats, causing GUI to hang once command is used.
+*** Code is deeply-nested which violates coding standards.
+*** User has to key in the seats 1 by 1.
+
+Below is the code snippet for our previous implementation:
+
+image::images/devguide/DG_SellSeat_CodeBlock.png[align="center"]
+
+*Choice for current implementation:* +
+
+While *Alternative 2* is more intuitive and allows for better control over the sales of seats,
+ultimately we have chosen *Alternative 1* as it is more compatible with our GUI codebase.
+Furthermore with the implementation of GUI, it would also be more intuitive for the users
+to get the seating arrangements for a particular show before they attempt to make any sales for the seat
+as it would be impossible for them to memorise all the seats that they have sold.
 
 
 

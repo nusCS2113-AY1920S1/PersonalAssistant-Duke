@@ -66,8 +66,8 @@ class ViewMonthlyCommandTest {
     @Test
     @DisplayName("Valid Test for Current Month Profits")
     void testCurrentMonthProfit() {
-        String expected = "The current earnings for October 2019 is $200.00.\n";
-        new ViewMonthlyCommand("10 2019").execute(model, ui, storage);
+        String expected = "The current earnings for November 2019 is $200.00.\n";
+        new ViewMonthlyCommand("11 2019").execute(model, ui, storage);
         assertEquals(expected, ui.getMessage());
     }
 
