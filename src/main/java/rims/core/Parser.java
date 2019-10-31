@@ -1,6 +1,10 @@
 package rims.core;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.text.SimpleDateFormat;
+import java.text.DateFormat;
 
 import rims.command.*;
 import rims.exception.RimsException;
@@ -20,9 +24,49 @@ public class Parser {
     Ui ui;
     ResourceList resources;
 
+    /**
+     * Constructor for the Parser.
+     * @param ui An instance of the user interface class.
+     * @param resource An instance of the resource list.
+     */
     public Parser(Ui ui, ResourceList resources) {
         this.ui = ui;
         this.resources = resources;
+    }
+
+    /**
+     * Converts a 'natural date' (just a day and date) into a String version of a date,
+     * in the format DD/MM/YYYY HHmm by finding the next date of the requested day.
+     * @param day the day whose next date is to be obtained.
+     * @param time the time to be appended to the date obtained above.
+     * @return a String version of the requested date, in DD/MM/YYYY HHmm format.
+     * @throws RimsException if the day requested is not one of the 7 days of the week.
+     */
+    public String convertNaturalDate(String day, String time) throws RimsException {
+        Date todayDate = new Date(System.currentTimeMillis());
+        String stringDate = null;
+        boolean validDay = false;
+        for (int i = 0; i < 7; i++) {
+            if (new SimpleDateFormat("EEEEE").format(todayDate).equals(day)) {
+                validDay = true;
+                DateFormat format = new SimpleDateFormat("dd/MM/yyyy HHmm");
+                stringDate = format.format(todayDate);
+                stringDate = stringDate.substring(0, stringDate.length() - 4);
+                stringDate += time;
+            }
+            else {
+                Calendar cal = Calendar.getInstance();
+                cal.setTime(todayDate);
+                cal.add(Calendar.DATE, 1);
+                todayDate = cal.getTime();
+            }
+        }
+        if (!(validDay) || stringDate == null) {
+            throw new RimsException("Please enter a valid day / time.");
+        }
+        else {
+            return stringDate;
+        }
     }
 
     /**
@@ -48,13 +92,20 @@ public class Parser {
             c = new ListCommand();
         //@@author aarushisingh1
         } else if (words[0].equals("list") && words.length > 1) {
-            String paramType = words[1].substring(1);
-            if (paramType.equals("room") || paramType.equals("item") || paramType.equals("date")) {
+            String paramType = words[1];
+            if (paramType.equals("room") || paramType.equals("item")) {
                 String param = ui.getInput("Enter the name of the resource you'd like to view a detailed list of:");
+                c = new ListCommand(paramType, param);
+            } else if (paramType.equals("date")) {
+                String param = ui.getInput("Enter the date you'd like to view the list of resources for, in the format DD/MM/YYYY HHmm, OR in the format: Tuesday HHmm");
+                if (param.length() < 15) {
+                    String[] splitDate = param.split(" ");
+                    param = convertNaturalDate(splitDate[0], splitDate[1]);
+                }
                 c = new ListCommand(paramType, param);
             } else {
                 throw new RimsException(
-                    "Invalid list parameter! Please specify '/list' or '/item' to view a detailed list of a resource.");
+                    "Invalid list parameter! Please specify 'item', 'room' or 'date' to view a detailed list of a resource.");
             }
         }
          //@@author hin1
@@ -103,7 +154,11 @@ public class Parser {
                 }
                 ui.printLine();
                 String dateTill = ui.getInput(
-                    "Enter the date you wish to return this room, in the format: DD/MM/YYYY HHmm");
+                    "Enter the date you wish to return this room, in the format: DD/MM/YYYY HHmm, OR in the format: Tuesday HHmm");
+                if (dateTill.length() < 15) {
+                    String[] splitDateTill = dateTill.split(" ");
+                    dateTill = convertNaturalDate(splitDateTill[0], splitDateTill[1]);
+                }
                 int userId = Integer.parseInt(ui.getInput("Enter your user ID:"));
                 c = new ReserveCommand(roomName, dateTill, userId);
             } else if (roomOrItem.equals("item")) {
@@ -131,7 +186,11 @@ public class Parser {
                 int qty = Integer.parseInt(ui.getInput(
                     "Enter the quantity of this item that you wish to borrow:"));
                 String dateTill = ui.getInput(
-                    "Enter the date you wish to return this item, in the format: DD/MM/YYYY HHmm");
+                    "Enter the date you wish to return this item, in the format: DD/MM/YYYY HHmm, OR in the format: Tuesday HHmm");
+                if (dateTill.length() < 15) {
+                    String[] splitDateTill = dateTill.split(" ");
+                    dateTill = convertNaturalDate(splitDateTill[0], splitDateTill[1]);
+                }
                 int userId = Integer.parseInt(ui.getInput("Enter your user ID:"));
                 c = new ReserveCommand(itemName, qty, dateTill, userId);
             } else {
@@ -158,9 +217,17 @@ public class Parser {
                 }
                 ui.printLine();
                 String dateFrom = ui.getInput(
-                    "Enter the date from which you wish to reserve this room, in the format: DD/MM/YYYY HHmm");
+                    "Enter the date from which you wish to reserve this room, in the format: DD/MM/YYYY HHmm, OR in the format: Tuesday HHmm");
+                if (dateFrom.length() < 15) {
+                    String[] splitDateFrom = dateFrom.split(" ");
+                    dateFrom = convertNaturalDate(splitDateFrom[0], splitDateFrom[1]);
+                }
                 String dateTill = ui.getInput(
-                    "Enter the date you wish to return this room, in the format: DD/MM/YYYY HHmm");
+                    "Enter the date you wish to return this item, in the format: DD/MM/YYYY HHmm, OR in the format: Tuesday HHmm");
+                if (dateTill.length() < 15) {
+                    String[] splitDateTill = dateTill.split(" ");
+                    dateTill = convertNaturalDate(splitDateTill[0], splitDateTill[1]);
+                }
                 int userId = Integer.parseInt(ui.getInput("Enter your user ID:"));
                 c = new ReserveCommand(roomName, dateFrom, dateTill, userId);
             } else if (roomOrItem.equals("item")) {
@@ -188,9 +255,17 @@ public class Parser {
                 int qty = Integer.parseInt(ui.getInput(
                     "Enter the quantity of this item that you wish to reserve:"));
                 String dateFrom = ui.getInput(
-                    "Enter the date from which you wish to reserve this room, in the format: DD/MM/YYYY HHmm");
+                    "Enter the date from which you wish to reserve this room, in the format: DD/MM/YYYY HHmm, OR in the format: Tuesday HHmm");
+                if (dateFrom.length() < 15) {
+                    String[] splitDateFrom = dateFrom.split(" ");
+                    dateFrom = convertNaturalDate(splitDateFrom[0], splitDateFrom[1]);
+                }
                 String dateTill = ui.getInput(
-                    "Enter the date you wish to return this item, in the format: DD/MM/YYYY HHmm");
+                    "Enter the date you wish to return this item, in the format: DD/MM/YYYY HHmm, OR in the format: Tuesday HHmm");
+                if (dateTill.length() < 15) {
+                    String[] splitDateTill = dateTill.split(" ");
+                    dateTill = convertNaturalDate(splitDateTill[0], splitDateTill[1]);
+                }
                 int userId = Integer.parseInt(ui.getInput("Enter your user ID:"));
                 c = new ReserveCommand(itemName, qty, dateFrom, dateTill, userId);
             } else {
@@ -218,6 +293,8 @@ public class Parser {
                 reservationsToCancel.add(thisReservationId);
             }
             c = new ReturnCommand(userId, resourcesToReturn, reservationsToCancel);
+        } else if (words[0].equals("undo")) {
+            c = new UndoCommand(new ListCommand());
         } else {
             throw new RimsException("Please enter a recognizable command!");
         }
