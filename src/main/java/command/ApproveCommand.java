@@ -54,13 +54,18 @@ public class ApproveCommand extends Command {
         datetimeStartString = splitC[3] + " " + splitC[4];
         DateTimeFormatter formatterStart = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
         this.dateTimeStart = LocalDateTime.parse(datetimeStartString, formatterStart);
+        boolean found = false;
         for (Booking i: bookingList) {
             if ((i.getVenue() == roomcode) && (i.getDateTimeStart() == dateTimeStart) && (i.getName() == name)) {
+                found = true;
                 i.setStatus("A");
-                ui.addToOutput("This request has been approved!");
+                ui.addToOutput("This request has been approved!" + "\n" + i.toString());
                 bookingstorage.saveToFile(bookingList);
                 break;
             }
+        }
+        if (!found) {
+            ui.addToOutput("This request does not exist");
         }
     }
 }
