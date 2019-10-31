@@ -1,2 +1,8 @@
 Restriction functionality:
-    Sorry please refer to the User guide for the time being
+    #add         :Adds genre to restrictions
+    #remove      :Removes genre from restrictions
+    #clear       :Clears all restrictions
+
+    usage: restriction add [-g genreName]
+           restriction remove [-g genreName]
+           restriction clear
