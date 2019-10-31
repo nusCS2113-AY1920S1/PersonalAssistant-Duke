@@ -33,7 +33,7 @@ WordUp (WU) is a desktop-based application for english language learners who pre
 
 * *`list`* : shows the list of words currently stored in the Word Bank in alphabetical displayOrder or otherwise customised in the app settings
 * **`add`**`w/life m/the existence of an individual human being or animal` : adds a word tagged by “w/” with its corresponding meaning tagged “m/” into the Word Bank
-* **`delete`**`freedom` : deletes the Word Bank entry of the word “freedom”
+* **`delete`**`w/freedom` : deletes the Word Bank entry of the word “freedom”
 * *`exit`* : exits the application
 
 .  Refer to <<Features>> for in-depth details for more commands.
@@ -143,9 +143,9 @@ Format: `clear`
 
 
 // tag::schedule[]
-=== Setting a study reminder : `schedule`
+=== Scheduling words to study : `schedule`
 
-Sets a reminder given a user specified date and time, tagged to a list of words to be revised. +
+Schedules reminders for a selected list of words given a user specified date and time. +
 Format: `schedule`
 
 ****
@@ -205,14 +205,18 @@ _{explain how the user can enable/disable data encryption}_
 e.g. `add w/life m/the existence of an individual human being or animal.`
 * *Delete* : `delete w/word` +
 e.g. `delete w/life`
-* *Edit* : `edit w/WORD m/NEW_MEANGING` +
+* *Add Synonym* : `addsyn w/WORD s/SYNONYM1 SYNONYM2 SYNONYM3 ...` +
+e.g. `addsyn w/water s/liquid beverage drink`* 
+*Edit* : `edit w/WORD m/NEW_MEANGING` +
 e.g. `edit w/life m/the existence of a living thing.`
-* *Find* : `search w/WORD` +
+* *Search* : `search w/WORD` +
 e.g. `search w/life`
 * *Tag* : `tag w/WORD t/TAG1 t/TAG2 t/TAG3` +
 e.g. `tag w/happy t/emotion t/delight`
-* *Add Synonym* : `addsyn w/WORD s/SYNONYM1 SYNONYM2 SYNONYM3 ...` +
-e.g. `addsyn w/water s/liquid beverage drink`
+* *History* : `history {int}` +
+e.g. `history 5`
+* *Schedule* : `schedule` -> `WORD ... [Enter blank line]` -> `DATE TIME`
+e.g. `schedule` -> `happy [Enter] unhappy [Enter] bipolar [Enter][Enter]` -> `29-10-2019 2359`
 * *Quiz* : `quiz` -> `start`
 * *List* : `list`
 * *Help* : `help`
