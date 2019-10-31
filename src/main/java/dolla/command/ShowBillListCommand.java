@@ -4,7 +4,6 @@ import dolla.DollaData;
 import dolla.task.RecordList;
 import dolla.ui.DebtUi;
 import dolla.ui.ListUi;
-import dolla.ui.Ui;
 
 import java.util.ArrayList;
 

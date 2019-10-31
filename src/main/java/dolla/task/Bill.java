@@ -1,6 +1,5 @@
 package dolla.task;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 //@@author tatayu
@@ -70,8 +69,8 @@ public class Bill extends Record {
      * @return a string that contains all the name from the nameList.
      */
     public String nameString(ArrayList<String> nameList) {
-        String nameStore = new String();
-        for (int i = 0; i < nameList.size(); i++) {
+        String nameStore = nameList.get(0) + ", ";
+        for (int i = 1; i < nameList.size(); i++) {
             if (i == nameList.size() - 1) {
                 nameStore += nameList.get(i);
             } else {

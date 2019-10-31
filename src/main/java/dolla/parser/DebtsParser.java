@@ -17,7 +17,6 @@ import dolla.task.Debt;
 import dolla.ui.DebtUi;
 import dolla.action.Repeat;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 //@@author tatayu
@@ -37,11 +36,11 @@ public class DebtsParser extends Parser {
 
     @Override
     public Command parseInput() {
-        if (commandToRun.equals("debts")) { //show debt list
+        if (commandToRun.equals(DEBT_COMMAND_LIST)) { //show debt list
             return new ShowListCommand(mode);
-        } else if (commandToRun.equals("bills"))  { //show bill list
+        } else if (commandToRun.equals(BILL_COMMAND_LIST))  { //show bill list
             return new ShowBillListCommand(mode);
-        } else if (commandToRun.equals("owe") || commandToRun.equals("borrow")) {
+        } else if (commandToRun.equals(DEBT_COMMAND_OWE) || commandToRun.equals(DEBT_COMMAND_BORROW)) {
             String type = commandToRun;
             String name;
             double amount;
@@ -68,7 +67,7 @@ public class DebtsParser extends Parser {
             Debt debt = new Debt(type, name, amount, description, date);
             t.handleTag(inputLine, inputArray, debt);
             return processAdd(type, name, amount);
-        } else if (commandToRun.equals("bill")) {
+        } else if (commandToRun.equals(BILL_COMMAND_BILL)) {
             ArrayList<String> nameList = new ArrayList<String>();
             String type = inputArray[0];
             int people = Integer.parseInt(inputArray[1]);
@@ -78,8 +77,6 @@ public class DebtsParser extends Parser {
                 nameList.add(name);
             }
             return new AddBillCommand(type, people, amount, nameList);
-        } else if (commandToRun.equals("bills")) {
-            return null;//bill list
         } else if (commandToRun.equals(COMMAND_MODIFY)) {
             if (verifyFullModifyCommand()) {
                 return new InitialModifyCommand(inputArray[1]);
@@ -92,7 +89,7 @@ public class DebtsParser extends Parser {
             return new SearchCommand(mode, component, content);
         } else if (commandToRun.equals(COMMAND_SORT)) {
             return new SortCommand(mode, inputArray[1]);
-        } else if (commandToRun.equals("remove")) {
+        } else if (commandToRun.equals(COMMAND_REMOVE)) {
             return new RemoveCommand(mode, inputArray[1]);
         } else if (commandToRun.equals(DEBT_COMMAND_REDO)
                 || commandToRun.equals(DEBT_COMMAND_UNDO)

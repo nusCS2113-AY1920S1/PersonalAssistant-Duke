@@ -20,6 +20,9 @@ public interface ParserStringList {
     // Commands specific to Debt mode
     static final String DEBT_COMMAND_OWE = "owe";
     static final String DEBT_COMMAND_BORROW = "borrow";
+    static final String DEBT_COMMAND_LIST = "debts";
+    static final String BILL_COMMAND_BILL = "bill";
+    static final String BILL_COMMAND_LIST = "bills";
 
     // Shared Commands
     static final String COMMAND_MODIFY = "modify";

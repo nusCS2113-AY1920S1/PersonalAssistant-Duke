@@ -2,7 +2,6 @@ package dolla.ui;
 
 import dolla.task.RecordList;
 
-import javax.rmi.ssl.SslRMIClientSocketFactory;
 import java.util.ArrayList;
 
 //@@author: tatayu
@@ -29,7 +28,7 @@ public class DebtUi extends Ui {
         System.out.println("\tHere is the bill per person after splitting: " + "$" + amount / people);
         System.out.println("\tHere is the name list: ");
         for (int i = 0; i < people; i++) {
-            System.out.println("\t" + i + 1 + ". " + nameList.get(i));
+            System.out.println("\t" + (i + 1) + ". " + nameList.get(i));
         }
         System.out.println(line);
     }
