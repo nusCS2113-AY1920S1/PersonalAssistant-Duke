@@ -8,3 +8,4 @@
 7,I,ball
 8,I,ball
 9,I,ball
+10,I,pot
