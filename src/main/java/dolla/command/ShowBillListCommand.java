@@ -3,6 +3,7 @@ package dolla.command;
 import dolla.DollaData;
 import dolla.task.RecordList;
 import dolla.ui.DebtUi;
+import dolla.ui.ListUi;
 import dolla.ui.Ui;
 
 import java.util.ArrayList;
@@ -26,7 +27,7 @@ public class ShowBillListCommand extends Command {
         boolean listIsEmpty = (recordList.size() == 0);
 
         if (listIsEmpty) { // TODO: Place this in proper place
-            Ui.printEmptyListError(mode);
+            ListUi.printEmptyListError(mode);
             return;
         } else {
             DebtUi.printBillList(recordList);

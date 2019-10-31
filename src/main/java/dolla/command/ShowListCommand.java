@@ -1,7 +1,7 @@
 package dolla.command;
 
 import dolla.DollaData;
-import dolla.ui.Ui;
+import dolla.ui.ListUi;
 
 import dolla.task.RecordList;
 
@@ -56,19 +56,19 @@ public class ShowListCommand extends Command {
         boolean listIsEmpty = (recordList.size() == 0);
 
         if (listIsEmpty) { // TODO: Place this in proper place
-            Ui.printEmptyListError(mode);
+            ListUi.printEmptyListError(mode);
             return;
         //} else if (mode.equals("entries")) {
             //Ui.printList(mode, entryList);
         } else if (mode.equals("entry")) {
-            Ui.printList(mode, recordList);
+            ListUi.printList(mode, recordList);
             return;
         } else if (mode.equals("debt")) {
-            Ui.printList(mode, recordList);
+            ListUi.printList(mode, recordList);
             //System.out.println(recordList.get().size());//test
             return;
         } else if (mode.equals("limit")) {
-            Ui.printList(mode, recordList);
+            ListUi.printList(mode, recordList);
         }
     }
 

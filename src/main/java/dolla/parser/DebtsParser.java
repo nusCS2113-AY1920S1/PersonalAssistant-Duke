@@ -2,7 +2,17 @@ package dolla.parser;
 
 import dolla.Tag;
 import dolla.Time;
-import dolla.command.*;
+import dolla.command.Command;
+import dolla.command.InitialModifyCommand;
+import dolla.command.ShowListCommand;
+import dolla.command.ShowBillListCommand;
+import dolla.command.ErrorCommand;
+import dolla.command.AddDebtsCommand;
+import dolla.command.AddBillCommand;
+import dolla.command.SortCommand;
+import dolla.command.AddActionCommand;
+import dolla.command.RemoveCommand;
+import dolla.command.SearchCommand;
 import dolla.task.Debt;
 import dolla.ui.DebtUi;
 import dolla.action.Repeat;
@@ -70,11 +80,17 @@ public class DebtsParser extends Parser {
             return new AddBillCommand(type, people, amount, nameList);
         } else if (commandToRun.equals("bills")) {
             return null;//bill list
-        } else if (commandToRun.equals("search")) {
+        } else if (commandToRun.equals(COMMAND_MODIFY)) {
+            if (verifyFullModifyCommand()) {
+                return new InitialModifyCommand(inputArray[1]);
+            } else {
+                return new ErrorCommand();
+            }
+        } else if (commandToRun.equals(COMMAND_SEARCH)) {
             String component = inputArray[1];
             String content = inputArray[2];
             return new SearchCommand(mode, component, content);
-        } else if (commandToRun.equals("sort")) {
+        } else if (commandToRun.equals(COMMAND_SORT)) {
             return new SortCommand(mode, inputArray[1]);
         } else if (commandToRun.equals("remove")) {
             return new RemoveCommand(mode, inputArray[1]);

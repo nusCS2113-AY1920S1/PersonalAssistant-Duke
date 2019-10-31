@@ -1,7 +1,10 @@
 package dolla.parser;
 
+import dolla.ModeStringList;
 import dolla.Time;
+import dolla.ui.EntryUi;
 import dolla.ui.Ui;
+import dolla.ui.ModifyUi;
 import dolla.command.Command;
 import dolla.command.ErrorCommand;
 
@@ -13,13 +16,7 @@ import java.time.format.DateTimeParseException;
  * It also ensures that the user's input for the command is valid, such as by checking the format
  * of the input, and the utilisation of correct terms.
  */
-public abstract class Parser {
-
-    protected static final String MODE_DOLLA = "dolla";
-    protected static final String MODE_ENTRY = "entry";
-    protected static final String MODE_LIMIT = "limit";
-    protected static final String MODE_DEBT = "debt";
-    protected static final String MODE_SHORTCUT = "shortcut";
+public abstract class Parser implements ParserStringList, ModeStringList {
 
     protected String mode;
     protected LocalDate date;
@@ -107,7 +104,7 @@ public abstract class Parser {
         if (s.equals("income") || s.equals("expense")) {
             return s;
         } else {
-            Ui.printInvalidEntryType();
+            EntryUi.printInvalidEntryType();
             throw new Exception("invalid type");
         }
     }
@@ -123,7 +120,7 @@ public abstract class Parser {
             stringToDouble(inputArray[2]);
             extractDescTime();
         } catch (IndexOutOfBoundsException e) {
-            Ui.printInvalidEntryFormatError();
+            EntryUi.printInvalidEntryFormatError();
             return false;
         } catch (Exception e) {
             return false; // If error occurs, stop the method!
@@ -132,15 +129,14 @@ public abstract class Parser {
     }
 
     /**
-     * Verifies modify command. //todo: edit javadoc
-     * @return
+     * Returns true if the only element in the input that follows 'modify' is a number.
+     * @return true if the only element in the input that follows 'modify' is a number.
      */
-    public boolean verifyModifyCommand() {
+    public boolean verifyFullModifyCommand() {
         try {
             Integer.parseInt(inputArray[1]);
-            // TODO: Add support for modifying specific categories
         } catch (Exception e) {
-            Ui.printInvalidModifyFormatError();
+            ModifyUi.printInvalidModifyFormatError();
             return false;
         }
         return true;
