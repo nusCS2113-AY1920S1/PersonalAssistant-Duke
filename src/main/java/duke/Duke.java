@@ -86,9 +86,8 @@ public class Duke {
         boolean back = false;
         while (!isExit) {
             try {
+                ui.chefDrawing();
                 ui.showOptions();
-
-
                 ui.showLine();
                 fullCommand = ui.readCommand();
                 ui.clearScreen();
@@ -157,17 +156,34 @@ public class Duke {
                         break;
                     }
                     case "d": {
-                        ui.showDishTemplate();
-                        fullCommand = ui.readCommand();
-                        ui.clearScreen();
-                        Cmd<Dish> command = Parser.parse(fullCommand, Type.DISH);
-                        command.execute(dish, ui, orderStorage);
+                        while(true) {
+                            try {
+                                ui.showDishTemplate();
+                                fullCommand = ui.readCommand();
+                                ui.clearScreen();
+                                if(fullCommand.trim().equals("q")) {
+                                    Cmd command = new ExitCommand();
+                                    command.execute(null, ui, null);
+                                    isExit = command.isExit();
+                                    break;
+                                }
+                                if(fullCommand.trim().equals("back")) {
+                                    break;
+                                }
+                                if(fullCommand.trim().equals("template")) {
+                                    ui.clearScreen();
+                                    continue;
+                                }
+                                Cmd<Dish> command = Parser.parse(fullCommand, Type.DISH);
+                                command.execute(dish, ui, orderStorage);
+                            } catch (DukeException e) {
+                                System.out.println(e.getLocalizedMessage());
+                            }
+                        }
                         break;
                     }
                     default:
                         throw new DukeException("wrong input");
-
-
                 }
 
 
