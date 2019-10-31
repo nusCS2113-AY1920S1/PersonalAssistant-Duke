@@ -94,6 +94,14 @@ public class Ui {
         System.out.println("                     `-._______.-                                      ");
         System.out.println("\n");
     }
+    public void orderDrawing() {
+        System.out.println( "\t ╭━━━╮╱╱╱╱╱╱╱╱╱╭╮╱╱╱╱╱╱╱╱╱╱╱\n" +
+                "\t ┃╭━╮┃╱╱╱╱╱╱╱╱╱┃┃╱╱╱╱╱╱╱╱╱╱╱\n" +
+                "\t ┃┃╱┃┃╱╱╭━╮╱╱╭━╯┃╱╱╭━━╮╱╱╭━╮\n" +
+                "\t ┃┃╱┃┃╱╱┃╭╯╱╱┃╭╮┃╱╱┃┃━┫╱╱┃╭╯\n" +
+                "\t ┃╰━╯┃╱╱┃┃╱╱╱┃╰╯┃╱╱┃┃━┫╱╱┃┃╱\n" +
+                "\t ╰━━━╯╱╱╰╯╱╱╱╰━━╯╱╱╰━━╯╱╱╰╯╱\n");
+    }
 
     /**
      * Used to print the greeting message from {@link Duke}.
@@ -166,6 +174,26 @@ public class Ui {
         System.out.println("\t template");
         showLine();
     }
+    public void showOrderTemplate() {
+        orderDrawing();
+        showLine();
+        System.out.println("\t Continue by adding, removing, listing, altering, marking done order \n\t Template: ");
+        showLine();
+        System.out.println("\t add <dish1 name>*<dish1 amount>, <dish2 name>*<dish2 amount>, ... , <dishN name>*<dishN amount>" +
+                " /on <order date: DD/MM/YYYY>");
+        System.out.println("\t list <list type: all, undone, today, undoneToday>");
+        System.out.println("\t list dish <filtering dish name>");
+        System.out.println("\t list date <filtering order serving date: DD/MM/YYYY>");
+
+        System.out.println("\t alter <order index> <order date: DD/MM/YYYY>");
+        System.out.println("\t done <order index>");
+        System.out.println("\t remove <order index>");
+
+
+        System.out.println("\t initialize (REMOVES all entries in the order list)");
+        System.out.println("\t ***** Note: order index starts from 1 *****");
+        showLine();
+    }
     public void showIngredientsInFridge(IngredientsList ingredientsList) {
         if (ingredientsList.isEmpty())
             System.out.println("\t The fridge is empty, better go buy some ingredients! ");
@@ -207,22 +235,21 @@ public class Ui {
     /**
      * Show that this task is marked.
      *
-     * @param doneTask The task that is marked as done
+     * @param doneOrder The description of the order that is marked as done
      */
-    public void showMarkDone(String doneTask) {
-        System.out.println("\t Nice! I've marked this task as done:");
-        System.out.println("\t " + doneTask);
+    public void showMarkDoneOrder(String doneOrder) {
+        System.out.println("\t Nice! I've marked this order as done:");
+        System.out.println("\t " + doneOrder);
     }
 
     /**
-     * Show the task that has been snoozed.
+     * Show that this task is marked.
      *
-     * @param date        the date
-     * @param changedTask the task that has been changed
+     * @param task The description of the task that is marked as done
      */
-    public void showChangedDate(String date, String changedTask) {
-        System.out.println("\t Nice! I've snoozed this task as until " + date + ":");
-        System.out.println("\t " + changedTask);
+    public void showMarkDone(String task) {
+        System.out.println("\t Nice! I've marked this task as done:");
+        System.out.println("\t " + task);
     }
 
     /**
@@ -281,12 +308,12 @@ public class Ui {
     /**
      * Shows that a order has been added.
      *
-     * @param command ay
-     * @param size    ya
+     * @param description information of the order be added
+     * @param size  current size of the whole order list
      */
-    public void showAddOrder(String command, int size) {
+    public void showAddOrder(String description, int size) {
         System.out.println("\t Got it. I've added this order: ");
-        System.out.println("\t " + command);
+        System.out.println("\t " + description);
         showOrderListSize(size);
     }
 

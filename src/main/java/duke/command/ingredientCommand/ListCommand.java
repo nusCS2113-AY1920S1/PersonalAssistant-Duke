@@ -2,10 +2,10 @@ package duke.command.ingredientCommand;
 
 import duke.command.Cmd;
 import duke.exception.DukeException;
-import duke.list.GenericList;
-import duke.storage.Storage;
 import duke.ingredient.Ingredient;
 import duke.ingredient.IngredientsList;
+import duke.list.GenericList;
+import duke.storage.Storage;
 import duke.ui.Ui;
 
 /**

@@ -7,6 +7,7 @@ import duke.list.GenericList;
 import duke.dish.Dish;
 import duke.parser.Convert;
 
+import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -49,7 +50,7 @@ public class OrderList extends GenericList<Order> {
      * @return  {@link ArrayList} of {@link Order}
      */
     public List<Order> getAllUndoneOrders() {
-        List<Order> undoneOrderList = null;
+        List<Order> undoneOrderList = new ArrayList<>();
         for (Order order : genList) {
             if (!order.isDone()) {
                 undoneOrderList.add(order);
@@ -63,7 +64,7 @@ public class OrderList extends GenericList<Order> {
      * @return  {@link ArrayList} of {@link Order}
      */
     public List<Order> getTodayOrders() {
-        List<Order> todayOrderList = null;
+        List<Order> todayOrderList = new ArrayList<>();
         for (Order order : genList) {
             if (order.isToday()) { todayOrderList.add(order); }
         }
@@ -74,18 +75,11 @@ public class OrderList extends GenericList<Order> {
      * Returns a list of all the {@link Order}s on some date in the {@link OrderList}.
      * @return  {@link ArrayList} of {@link Order}
      */
-    public List<Order> findOrderByDate(String s) {
-        List<Order> theOrderList = null;
-
-        Date queryDate = Convert.stringToDate(s);
-        LocalDate qDate = queryDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        LocalDate orderDate;
-
-        for (Order order : genList) {
-            orderDate = order.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-            if (orderDate.isEqual(qDate)) { theOrderList.add(order); }
-        }
-
+    public List<Order> findOrderByDate(Date queryDate) {
+        List<Order> theOrderList = new ArrayList<>();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        String qDate = simpleDateFormat.format(queryDate);
+        for (Order order : genList) { if (qDate.equals(order.getDate())) { theOrderList.add(order); } }
         return theOrderList;
     }
 
@@ -93,10 +87,10 @@ public class OrderList extends GenericList<Order> {
      * Returns a list of all the {@link Order}s containing some dishes in the {@link OrderList}.
      * @return  {@link ArrayList} of {@link Order}
      */
-    public List<Order> findOrderByDishes(Dish dish) {
-        List<Order> theOrderList = null;
+    public List<Order> findOrderByDishes(String dishName) {
+        List<Order> theOrderList = new ArrayList<>();
         for (Order order : genList) {
-            if (order.hasDishes(dish)) { theOrderList.add(order); }
+            if (order.hasDishes(dishName)) { theOrderList.add(order); }
         }
         return theOrderList;
     }
@@ -107,7 +101,7 @@ public class OrderList extends GenericList<Order> {
      * @return  {@link ArrayList} of {@link Order}
      */
     public List<Order> getTodayUndoneOrders() {
-        List<Order> todayOrderList = null;
+        List<Order> todayOrderList = new ArrayList<>();
         for (Order order : genList) {
             if (order.isToday()&&(!order.isDone())) {
                 todayOrderList.add(order);
@@ -122,7 +116,7 @@ public class OrderList extends GenericList<Order> {
      * @param newDate reset date of the {@link Order}.
      * @throws DukeException if the date is before the date today.
      */
-    public void changeOrderDate(int orderNb, String newDate) throws DukeException {
+    public void changeOrderDate(int orderNb, Date newDate) throws DukeException {
         genList.get(orderNb).setDate(newDate);
     }
 
@@ -130,30 +124,30 @@ public class OrderList extends GenericList<Order> {
      * Add dishes to the {@link Order}.
      * Add one more if not specifying the amount.
      * @param orderNb order index
-     * @param dish dishes
+     * @param dishName dishes
      */
-    public void addOrderDish(int orderNb, Dish dish) {
-        genList.get(orderNb).addDish(dish);
+    public void addOrderDish(int orderNb, String dishName) {
+        genList.get(orderNb).addDish(dishName);
     }
 
     /**
      * Add dishes to the {@link Order}.
      * @param orderNb order index
-     * @param dish dishes
+     * @param dishName dishes
      * @param amount add amount of that dishes
      */
-    public void addOrderDish(int orderNb, Dish dish, int amount) {
-        genList.get(orderNb).addDish(dish, amount);
+    public void addOrderDish(int orderNb, String dishName, int amount) {
+        genList.get(orderNb).addDish(dishName, amount);
     }
 
     /**
      * Find dishes amount in the {@link Order}.
      * @param orderNb order index
-     * @param dishes dishes
+     * @param dishName dishes
      * @return the amount of that dishes
      */
-    public int findDishesAmount(int orderNb, Dish dishes) {
-        return genList.get(orderNb).getDishesAmount(dishes);
+    public int findDishesAmount(int orderNb, String dishName) {
+        return genList.get(orderNb).getDishesAmount(dishName);
     }
 
 

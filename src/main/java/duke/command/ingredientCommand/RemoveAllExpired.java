@@ -6,7 +6,6 @@ import duke.fridge.Fridge;
 import duke.ingredient.Ingredient;
 import duke.ingredient.IngredientsList;
 import duke.list.GenericList;
-import duke.storage.FridgeStorage;
 import duke.storage.Storage;
 import duke.ui.Ui;
 

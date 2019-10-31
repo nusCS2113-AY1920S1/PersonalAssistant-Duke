@@ -148,11 +148,31 @@ public class Duke {
                         break;
                     }
                     case "c": {
-                        ui.showIngredientTask();
-                        fullCommand = ui.readCommand();
-                        ui.clearScreen();
-                        Cmd<Order> command = Parser.parse(fullCommand, Type.ORDER);
-                        command.execute(order, ui, orderStorage);
+                        ui.showOrderTemplate();
+                        while (true) {
+                            try {
+                                fullCommand = ui.readCommand();
+                                ui.clearScreen();
+                                if (fullCommand.trim().equals("back")) {
+                                    break;
+                                }
+                                if (fullCommand.trim().equals("q")) {
+
+                                    Cmd command = new ExitCommand();
+                                    command.execute(null, ui, null);
+                                    isExit = command.isExit();
+                                    break;
+                                }
+                                if (fullCommand.trim().equals("template")) {
+                                    ui.showOrderTemplate();
+                                    continue;
+                                }
+                                Cmd<Order> command = Parser.parse(fullCommand, Type.ORDER);
+                                command.execute(order, ui, orderStorage);
+                            } catch (DukeException e) {
+                                System.out.println(e.getLocalizedMessage());
+                            }
+                        }
                         break;
                     }
                     case "d": {

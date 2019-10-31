@@ -1,23 +1,19 @@
 package duke.order;
 
-import duke.dish.Dish;
 import duke.Duke;
 import duke.exception.DukeException;
-import duke.parser.Convert;
 import duke.storage.Printable;
-
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.ZoneId;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
  * Represents a general Order to be added by {@link Duke}.
  */
 public class Order implements Printable {
-    private Map<Dish, Integer> content;
+    private Map<String, Integer> content;
     private boolean isDone;
     private Date date;
+    private String dateToString;
 
     /**
      * The constructor method for {@link Order}.
@@ -25,39 +21,40 @@ public class Order implements Printable {
     public Order() {
         this.isDone = false;
         this.date = new Date();
-        this.content = new HashMap<>();
+        this.content = new LinkedHashMap<>();
+
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        this.dateToString = simpleDateFormat.format(this.date);
     }
 
     /**
      * The constructor method for the {@link Order} in reservation case.
      * @param date date of serving the {@link Order}.
      */
-    public Order(String date) {
-        this.date = (date=="")? new Date():Convert.stringToDate(date);
+    public Order(Date date) {
+        if (date.before(new Date())) {date = new Date();}
+        this.date = date;
         this.isDone = false;
-        this.content = new HashMap<>();
+        this.content = new LinkedHashMap<>();
+
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        this.dateToString = simpleDateFormat.format(this.date);
+
     }
 
     /**
      * Used to get the serving date of the {@link Order}.
      */
-    public Date getDate() { return this.date;}
+    public String getDate() { return this.dateToString;}
 
     /**
      * Used to alter the serving date of the {@link Order}.
      * @param date reset date of the {@link Order}.
      */
-    public void setDate(String date) throws DukeException {
-        try {
-            Date setDate = Convert.stringToDate(date);
-            Date todayDate = new Date();
-            if (setDate.before(todayDate)) {
-                throw new DukeException("Date invalid!");
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
+    public void setDate(Date date) throws DukeException {
+        Date setDate = date;
+        Date todayDate = new Date();
+        if (setDate.before(todayDate)) { throw new DukeException("Must set date equal or after today"); }
     }
 
     /**
@@ -66,12 +63,11 @@ public class Order implements Printable {
      * @return boolean true if it is today's order, false otherwise (i.e., pre-order)
      */
     public boolean isToday() {
-        LocalDate todayDate = LocalDate.now();
-        Instant instant = date.toInstant();
-        ZoneId zoneId = ZoneId.systemDefault();
-        LocalDate orderDate = instant.atZone(zoneId).toLocalDate();
-        if (todayDate==orderDate) return true;
-        return false;
+        Date today = new Date();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        String todayToString = simpleDateFormat.format(today);
+        if (this.dateToString.equals(todayToString)) { return true;}
+        else return false;
     }
 
     /**
@@ -99,7 +95,7 @@ public class Order implements Printable {
      * Returns the content of the {@link Order}.
      * @return content of the Order
      */
-    public Map<Dish, Integer> getOrderContent() { return this.content; }
+    public Map<String, Integer> getOrderContent() { return this.content; }
 
     /**
      * Returns the content of the {@link Order}
@@ -108,14 +104,15 @@ public class Order implements Printable {
      */
     public String toString() {
         String description;
-//        description = "["+this.getStatusIcon()+"] Order at " + this.date + ": ";
         description = "["+this.getStatusIcon()+"] ";
-        if (this.isToday()) description += "Order today: ";
-        else description += "Order at " + this.date + ": ";
-        for (Map.Entry<Dish, Integer> entry : content.entrySet()) {
-            Dish dish = entry.getKey();
+        if (this.isToday()) { description += "Order today "; }
+        else { description += "Order /on " + dateToString + " "; }
+        int count=0;
+        for (Map.Entry<String, Integer> entry : content.entrySet()) {
+            String dishName = entry.getKey();
             int amount = entry.getValue();
-            description += "\n"+"    - " + amount + " \u2718 " + dish.getDishname();
+            count++;
+            description += "\n\t"+"    (" + count + ") " + dishName + " " + amount;
         }
         return description;
     }
@@ -127,12 +124,12 @@ public class Order implements Printable {
      */
     public String printInFile() {
         String description;
-        if (this.isDone()) { description = "O|1|" + this.date; }
-        else { description = "O|0|" + this.date; }
-        for (Map.Entry<Dish, Integer> entry : content.entrySet()) {
-            Dish dish = entry.getKey();
+        if (this.isDone()) { description = "1|" + dateToString; }
+        else { description = "0|" + dateToString; }
+        for (Map.Entry<String, Integer> entry : content.entrySet()) {
+            String dishName = entry.getKey();
             int amount = entry.getValue();
-            description += "\nD|" +dish.getDishname() + "|" + amount;
+            description += "\nD|" + dishName + "|" + amount;
         }
         return description;
     }
@@ -141,14 +138,14 @@ public class Order implements Printable {
      * Returns a boolean indicating whether the {@link Order} has that dishes.
      * @return boolean true if the order has that dishes, false otherwise.
      */
-    public boolean hasDishes(Dish dishes) { return content.containsKey(dishes); }
+    public boolean hasDishes(String dishes) { return content.containsKey(dishes); }
 
     /**
      * Returns the amount of the dishes ordered in the {@link Order}
      * @param dishes dishes
      * @return dishes amount
      */
-    public int getDishesAmount(Dish dishes) {
+    public int getDishesAmount(String dishes) {
         if (this.hasDishes(dishes)) {
             return content.get(dishes);
         } else {return 0; }
@@ -161,7 +158,7 @@ public class Order implements Printable {
      * simply add a new element in the content map.
      * If the order is done, do nothing.
      */
-    public void addDish(Dish dishes){
+    public void addDish(String dishes){
         if (!this.isDone())
             if (!this.hasDishes(dishes)) {
                 content.put(dishes, 1);
@@ -177,7 +174,7 @@ public class Order implements Printable {
      * simply add a new element in the content map.
      * If the order is done, do nothing.
      */
-    public void addDish(Dish dishes, int addAmount){
+    public void addDish(String dishes, int addAmount){
         if (!this.isDone())
             if (!content.containsKey(dishes)) {
                 content.put(dishes, addAmount);

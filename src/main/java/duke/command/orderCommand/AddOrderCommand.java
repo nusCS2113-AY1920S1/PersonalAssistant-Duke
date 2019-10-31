@@ -1,35 +1,24 @@
 package duke.command.orderCommand;
 
 import duke.command.Cmd;
-import duke.command.dishesCommand.AddDishCommand;
-import duke.command.ingredientCommand.AddCommand;
-import duke.dish.Dish;
 import duke.exception.DukeException;
-import duke.ingredient.Ingredient;
 import duke.list.GenericList;
 import duke.order.Order;
 import duke.order.OrderList;
 import duke.storage.Storage;
 import duke.ui.Ui;
 
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-
 public class AddOrderCommand extends Cmd<Order> {
 
     private Order order;
-    private String content;
 
     /**
      * The constructor method for AddOrderCommand.
      *
      * @param order : the {@link Order} to be added in the list
      */
-    public AddOrderCommand(Order order, String command) {
-        //super(order);
+    public AddOrderCommand(Order order) {
         this.order = order;
-        this.content = command;
     }
 
     /**
@@ -42,47 +31,13 @@ public class AddOrderCommand extends Cmd<Order> {
      */
     @Override
     public void execute(GenericList<Order> orderList, Ui ui, Storage storage) throws DukeException {
-
-        Map<Dish, Integer> dishList = parse();
-
-        for (Map.Entry<Dish, Integer> entry : dishList.entrySet()) {
-            Dish dish = entry.getKey();
-            int amount = entry.getValue();
-            order.addDish(dish, amount);
-            new AddDishCommand(dish);
-        }
-
         orderList.addEntry(order);
         ui.showAddOrder(order.toString(), orderList.size());
 
-        try {
-            storage.addInFile(order.printInFile());
+        // to do:
+        // 1. store the new order into file
 
-            //To do
-            //how to read from order.txt
-            //separate storage from task storage class
 
-        } catch (IOException e) {
-            throw new DukeException("Error while adding the command to the orders.txt file");
-        }
     }
-
-    public Map<Dish, Integer> parse() {
-        String[] splitted = content.split(", ");
-        Map<Dish, Integer> dishList = new HashMap<>();
-        for (String s: splitted) {
-            String dishName = s.split("\\*", 2)[0];
-            Dish dishes = findDishes(dishName);
-            int dishAmount = Integer.parseInt(s.split("\\*", 2)[1]);
-            dishList.put(dishes, dishAmount);
-        }
-        return dishList;
-    }
-
-    public Dish findDishes(String dishName) {
-        // to do
-        return new Dish(dishName);
-    }
-
 
 }
