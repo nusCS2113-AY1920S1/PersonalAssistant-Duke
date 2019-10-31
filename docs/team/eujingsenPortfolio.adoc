@@ -3,6 +3,8 @@
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
+This document is used to record my contributions to the Coach Manager project and also to display my ability to code in Java and in object-orientated concept
+
 == PROJECT: Coach Manager
 
 == Overview
@@ -51,16 +53,16 @@ activities that users will use to train their students with.
 * *Other contributions*:
 
 ** Documentation:
-*** Eg: Did cosmetic tweaks to existing contents of the User Guide in terms of line or space formatting between header, sub-header and other information to
+*** Eg: I made cosmetic tweaks to existing contents of the User Guide in terms of line or space formatting between header, sub-header and other information to
 standardize our formatting.
 ** Community:
-*** Eg : Helped to clear Checkstyle violations that our team faced in our code
+*** Eg : I helped to clear Checkstyle violations that our team faced in our code
 
 
 == Contributions to the User Guide
 
 |===
-|_Given below are the sections I contributed to the User Guide based on the enhancements I made._
+|_ The sections given below is what I contributed to the User Guide based on the enhancements I made. There are many commands that I have created, but I will list out the main features below_
 |===
 
 * *Creating a new training plan*: `new`
