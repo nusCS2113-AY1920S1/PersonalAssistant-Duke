@@ -18,7 +18,7 @@ By: `Team T14-3`      Since: `August 2019`      Licence: `MIT`
 
 == Introduction
 
-WordUp (WU) is a desktop-based application for english language learners who prefer having a digital version of a personal vocabulary booklet. More importantly, WU is great for on-the-go revision, which is not easily achieved with traditional hardcopy wordbanks. WU provides convenience and efficiency of adding words in a wordbank, and allows users to manage their word collection faster with a Command Line Interface (CLI), as well as having a Graphical User Interface (GUI) for more interactive functions and for better visualisation of content stored.
+WordUp (WU) is a desktop-based application for english language learners who prefer having a digital version of a personal vocabulary booklet (otherwise known as a word bank). More importantly, WU is great for on-the-go revision, which is not easily achieved with traditional hardcopy word banks. WU provides convenience and efficiency of adding words in a word bank, and allows users to manage their word collection faster with a Command Line Interface (CLI), as well as having a Graphical User Interface (GUI) for more interactive functions and for better visualisation of content stored.
 
 == Quick Start
 
