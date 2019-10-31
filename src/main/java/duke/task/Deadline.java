@@ -1,5 +1,7 @@
 package duke.task;
 
+import duke.dukeexception.DukeException;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.text.ParseException;
@@ -30,9 +32,9 @@ public class Deadline extends Task {
      *
      * @param description The description of the task.
      * @param by The date/time of the task.
-     * @throws ParseException  If there is an error converting the date/time.
+     * @throws DukeException  If there is an error converting the date/time.
      */
-    public Deadline(String description, String by) throws ParseException {
+    public Deadline(String description, String by) throws DukeException {
         super(description);
         Date dateTime;
         try {
@@ -41,7 +43,7 @@ public class Deadline extends Task {
         } catch (ParseException e) {
             logr.log(Level.WARNING,"Error reading date/time, please use this format \"d/MM/yyyy HHmm\"", e);
             System.out.println("Error reading date/time, please use this format \"d/MM/yyyy HHmm\"");
-            throw e;
+            throw new DukeException("Error reading date/time, please use this format \"d/MM/yyyy HHmm\"");
         }
     }
 
