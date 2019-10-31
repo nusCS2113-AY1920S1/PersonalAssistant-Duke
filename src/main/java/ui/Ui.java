@@ -114,11 +114,11 @@ public class Ui extends AnchorPane {
 
     private void showList(BookingList bookingList) throws DukeException {
         addToList(new ListBox("S/N", "Name", "Venue", "Date", "From",
-                "To", "Status"));
+                "To", "Status", "Purpose"));
         Integer index = 1;
         for (Booking i : bookingList) {
             addToList(new ListBox(index.toString(), i.getName(), i.getVenue(), i.getDateStart().toString(),
-                    i.getTimeStart().toString(), i.getTimeEnd().toString(), i.getStatus()));
+                    i.getTimeStart().toString(), i.getTimeEnd().toString(), i.getStatus(), i.getDescription()));
             index++;
         }
     }

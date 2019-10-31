@@ -16,6 +16,7 @@ public class DeleteRoomCommand extends Command {
     private int index;
     private Room deletedRoom;
 
+    //@@author zkchang97
     /**
      * Deletes a room from the room list based on index (1-based).
      * @param input user input

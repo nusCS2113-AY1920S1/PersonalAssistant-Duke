@@ -133,4 +133,13 @@ public class Booking {
         return description;
     }
 
+
+    public void approveStatus() {
+        status = "A";
+    }
+
+    public void rejectStatus() {
+        status = "R";
+    }
+
 }
