@@ -25,39 +25,33 @@ public class DegreeListStorage {
      * The Degreelist of the user is then updated based on the rank each degree is given by the user/
      *
      */
-    public void ReadFile() {
-        try {
-            BufferedReader br = new BufferedReader(new FileReader(filename));
-            String st;
-            while ((st = br.readLine()) != null) {
-                String[] data = st.split("-");
-                if (data[0].equals("degree")) {
-                    if(data.length < 4) {
-                        store.add(new Pair<String, Integer>(data[1], Integer.parseInt(data[2])));
-                    }
+    public void ReadFile(List<String> st) {
+        for(int i = 0; i < st.size(); i++) {
+            String[] data = st.get(i).split("-");
+            if (data[0].equals("degree")) {
+                if(data.length < 4) {
+                    store.add(new Pair<String, Integer>(data[1], Integer.parseInt(data[2])));
                 }
             }
-            store.sort(new Comparator<Pair<String, Integer>>() {
-                @Override
-                public int compare(Pair<String, Integer> o1, Pair<String, Integer> o2) {
-                    if (o1.getValue() < o2.getValue()) {
-                        return -1;
-                    } else if (o1.getValue().equals(o2.getValue())) {
-                        return 0; // You can change this to make it then look at the
-                        //words alphabetical order
-                    } else {
-                        return 1;
-                    }
-                }
-            });
-
-            for(int i = 0; i < store.size(); i++) {
-                list.add(store.get(i).getKey());
-            }
-
-        } catch (IOException e) {
-            e.printStackTrace();
         }
+        store.sort(new Comparator<Pair<String, Integer>>() {
+            @Override
+            public int compare(Pair<String, Integer> o1, Pair<String, Integer> o2) {
+                if (o1.getValue() < o2.getValue()) {
+                    return -1;
+                } else if (o1.getValue().equals(o2.getValue())) {
+                    return 0; // You can change this to make it then look at the
+                    //words alphabetical order
+                } else {
+                    return 1;
+                }
+            }
+        });
+
+        for(int i = 0; i < store.size(); i++) {
+            list.add(store.get(i).getKey());
+        }
+
     }
 
     /**

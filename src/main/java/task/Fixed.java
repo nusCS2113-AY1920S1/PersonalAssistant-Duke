@@ -35,9 +35,11 @@ public class Fixed extends Task {
      * @param duration     String contains duration for the task
      */
     public Fixed(String bool, String description, String duration) throws DukeException {
-        this.description = description;
+//        this.description = description;
+        super(description);
         this.duration = duration;
         this.isDone = (1 == Integer.parseInt(bool));
+
     }
 
     /**

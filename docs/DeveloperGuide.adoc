@@ -20,7 +20,7 @@ By: `Team F10-2`      Since: `August 2019`      Licence: `MIT`
 == Introduction
 === Purpose
 
-This document illustrates on the architecture designs and the software decisions implemented for the desktop application D2. Duke 2.0 (D2), or Duke Jr.? is a desktop application which enables the prospective applicants of NUS Faculty of Engineering to better plan out their university life. It is an extended task manager, which not only allows for prospective applicants to manage their deadlines and events pertaining to the freshman orientations and document submission, but also provides a coherent and concise platform to compare two engineering degrees of their choice and explore many other details related to the degree. Students can also create lists of engineering degrees of their choice and update it as per their choice. The developer guide will provide you with information such as an overall view of the system hierarchy, logical view of the system’s components, and a process view of the system’s communications that will enable you to help contribute to it too. 
+This document illustrates on the architecture designs and the software decisions implemented for the desktop application D2. Duke 2.0 (D2) is a desktop application which enables the prospective applicants of NUS Faculty of Engineering to better plan out their university life. It is an extended task manager, which not only allows for prospective applicants to manage their deadlines and events pertaining to the freshman orientations and document submission, but also provides a coherent and concise platform to compare two engineering degrees of their choice and explore many other details related to the degree. Students can also create lists of engineering degrees of their choice and update it as per their choice. The developer guide will provide you with information such as an overall view of the system hierarchy, logical view of the system’s components, and a process view of the system’s communications that will enable you to help contribute to it too. 
 
 === Scope
 
@@ -87,14 +87,14 @@ Given below is an example usage scenario and how the undo/redo mechanism behaves
 
 *Step 1*: The user launches the application, and duke initializes an empty `CommandList`. The `undoRedoPointer` points to -1 as there are currently no elements in `CommandList`.
 
-image::UndoImage1.png[width="900", align="left"]
+image::https://raw.githubusercontent.com/AY1920S1-CS2113T-F10-2/main/master/docs/images/UndoImage1.png[width="900", align="left"]
     
 
 *Step 2*: The user inputs "todo Sleep". This adds a todo task to the `TaskList` and constructs an `AddCommand` object to be executed. Once that `AddCommand` is executed, it saves the current `TaskList` into a memento object, and then it adds "todo Sleep" into the `TaskList`.
 
 *Step 3*: After command execution, the `AddCommand` object is added to `CommandList`. The `undoRedoPointer` increments by 1 and now points to the newly added `AddCommand` at index 0.
 
-image::UndoImage2.png[width="900", align="left"]
+image::https://raw.githubusercontent.com/AY1920S1-CS2113T-F10-2/main/master/docs/images/UndoImage2.png[width="900", align="left"]
 
 TIP: `CommandList` supports modifications to both task and degree lists. Undo simply undoes the modification to one of the lists in order of commands.
 
@@ -104,34 +104,34 @@ TIP: `CommandList` supports modifications to both task and degree lists. Undo si
 
 *Step 6*: After command execution, the `ModCommand` object is added to `CommandList`. The `undoRedoPointer` increments by 1 and now points to the newly added `ModCommand` at index 1.
 
-image::UndoImage3.png[width="900", align="left"]
+image::https://raw.githubusercontent.com/AY1920S1-CS2113T-F10-2/main/master/docs/images/UndoImage3.png[width="900", align="left"]
 
 
 *Step 7*: The user now inputs "undo" to undo the task marking. This will call the `undo` method of `CommandList`, gets the command that `undoRedoPointer` is pointing to (which is `ModCommand` in this case) and unexecute it. `ModCommand` will call its `memento` object and replace the current `TaskList`. The `undoRedoPointer` decrements by 1, and now points to index 0. Note that `ModCommand` is not removed to facilitate redos.
 
-image::UndoImage4.png[width="900", align="left"]
+image::https://raw.githubusercontent.com/AY1920S1-CS2113T-F10-2/main/master/docs/images/UndoImage4.png[width="900", align="left"]
 
 
 *Step 8*: The user inputs another "undo" to undo the task addition. Similar to step 7, it will call the `undo` method of `CommandList` again and unexecutes the command that `undoRedoPointer` is pointing to. `AddCommand` will call its `memento` object and replace the current `TaskList` with the one that does not have the new task. The `undoRedoPointer` decrements by 1, and now points to index -1.
 
-image::UndoImage5.png[width="900", align="left"]
+image::https://raw.githubusercontent.com/AY1920S1-CS2113T-F10-2/main/master/docs/images/UndoImage5.png[width="900", align="left"]
 
 NOTE: Attempting to undo when there is nothing left to undo will return an error message. Similarly, attempting to redo when there is nothing left to redo will also return an error message.
 
 
 *Step 9*: The user now inputs "redo" to undo the undo. This will call the `redo` method of `CommandList`. It will first increment the `undoRedoPointer` by 1, and it will then execute the command at the pointed element. This will add "todo Sleep" back to the `TaskList`.
 
-image::UndoImage6.png[width="900", align="left"]
+image::https://raw.githubusercontent.com/AY1920S1-CS2113T-F10-2/main/master/docs/images/UndoImage6.png[width="900", align="left"]
 
 
 *Step 10*: The user now inputs "done 1" to mark the 1st task as done. Since its now a different command from "done 3" and not "redo", `CommandList` will check if there are commands past `undoRedoPointer`. Currently, `ModCommand` is the element after the one at `undoRedoPointer`, thus `CommandList` will pop all commands from the back of the Stack until `undoRedoPointer`. 
 
-image::UndoImage7.png[width="900", align="left"]
+image::https://raw.githubusercontent.com/AY1920S1-CS2113T-F10-2/main/master/docs/images/UndoImage7.png[width="900", align="left"]
 
 
 *Step 11*: Once the excess commands are removed, it will proceed back to normal by executing a new `ModCommand` and adding it to `CommandList`, and incrementing `undoRedoPointer` by 1.
 
-image::UndoImage8.png[width="900", align="left"]
+image::https://raw.githubusercontent.com/AY1920S1-CS2113T-F10-2/main/master/docs/images/UndoImage8.png[width="900", align="left"]
 
 
 ==== Design Considerations
@@ -182,7 +182,7 @@ Data Structure to support undo/redo:
 
 The actions involving Degree-Related Tasks are performed mostly using the `DegreeTask` class. It extends the `Task` class, eventhough it does not use many methods from the aforementioned class. 
 
-image::DegreeTaskuml.png[width="900", align="left"]
+image::https://raw.githubusercontent.com/AY1920S1-CS2113T-F10-2/main/master/docs/images/DegreeTaskuml.png[width="900", align="left"]
 
 
 This was done in preparation for some proposed additional changes to this feature that will be discussed later in the document.
@@ -299,7 +299,235 @@ Aspect: [Proposed] Priority for Tasks
 
 ** Con: Requires saving different states of the list, or introducing more sorting commands
 
+=== Degreelist Feature
+==== Implementation (Subjected to change later) 
 
+(Diagrams to be added in later)
+
+The degree list is a customizable list for the users to maintain a list to keep track of the degrees they are interested in and they can rank them in order of their preference as well. The degree list functionalities are facilitated by the class `DegreeList`. It makes use of a private static ArrayList of Strings to keep track of all the degrees entered. It implements the following methods that are needed for the user to add, remove or re-arrange degrees: 
+
+`DegreeList#add_custom(String input)`: This function takes in the parameter which is the degree inputted by the user and adds the degree to the ArrayList, following which it is written to the text file to keep a record. It is written to the text file using `BufferedWriter`. 
+
+`DegreeList#delete(String input, DegreeListStorage dd)`: This function takes in two parameters, the first being a string which contains index of the degree the user wishes to remove from the degree list and the second being the class DegreeListStorage (to be changed and linked to main Storage). This function not only deletes the degree the user wishes to remove from the ArrayList, but the function AddRemoved also updates the text file and adds the word ‘REMOVED’ next to the degree removed and is not considered in further analysis. 
+
+`DegreeList#swap(String input, DegreeListStorage dd)`: This function takes in an input string, which is then split using the support of the `Parser Class` and the indices of the degrees to be swapped are obtains and are then swapped using the Collections.swap() function. A method from the DegreeListStorage is then called in order to update the text file with the current index of the degree after the swap. 
+
+=== Module Feature
+==== Implementation
+The module class stores default type of module information, represented by 2 Strings and an Integer. This module string should be of the accepted module code type (2-3 Letters followed by 4 digits and a suffix letter, or 2-3 letters followed by one digit and 3 'x's). The module class is extended to 2 other types, the Conjuntive module and NonDescriptive Module. Module and it's children are stored in the class ModuleList.
+Given below is an example scenario where module will be constructed.
+*Step 1*: The user launches the application, and duke initializes the list of degrees, the degrees contain ModuleList, which will contain Modules.
+*Step 2*: If a degree's csv file is parsed successfully, it will fetch the module data in the form of a string consisting of code and name, separated by a space, as well as an integer indicating the module credits allocated to that module. The check for valid module code will be done in the degree calling it.
+*Step 3*: The Module is created and can be used as part of a ModuleList.
+
+`Module#print(void)`: This function outputs the user friendly view for people to know which module is it. It fetches the module code and name, and adds them together with a space separating them, it then adds spaces until it is of the maximum allowable length - 4, the module's credits are then appended.
+The result is printed.
+The result is returned as a string.
+
+`Module#getCode(void)`: This function returns the module's code as a string.
+
+`Module#getName(void)`: This function returns the module's name.
+
+`Module#getMc(void)`: This function returns an int, representing the module's credits.
+
+`Module#toString(void)`: This function returns a string, which is the result of getCode. The module's code is returned.
+
+`Module#equals(Object obj)`: This function returns an boolean, representing if the object compared to it is equivalent to it. It checks if the toString result of the module matches the other module.
+
+`Module#compareTo(Module other)`: This function returns an int, indicating whether the other module is greater lesser or equivalent to it. It compares  the results of the getCode function of both modules, ordering them in lexicographical order.
+
+==== Design Considerations
+How module is implemented:
+* Alternative 1 (Current Choice): Separated code and name and credits.
+** Pros:
+*** Able to access information of each component separately.
+*** Easier to make comparison based methods based on one of these 3 components.
+** Cons:
+*** Extra handling required to return a printable result
+
+* Alternative 2: Save the module code name and integer as a space separated string.
+** Pros:
+*** Module is saved as is, and returned as is.
+*** Module is extremely sensitive to differences between itself and other modules. 
+** Cons:
+*** Extra work required to separate it into various components.
+*** Too sensitive, codes which match whereas the names do not will be flagged as different modules.
+
+=== Conjunctive Module Feature
+==== Implementation
+The conjunctive module class is an extension of module. It stores modules which are co-listed as requirements, represented by a Map of Strings to Strings and an Integer. The Map will have the a Code as a key, with a name as its value. This module's strings should be of the accepted module code type (2-3 Letters followed by 4 digits and a suffix letter, or 2-3 letters followed by one digit and 3 'x's). Each module's code and name should be separated by an " OR ". It can be stored in the class ModuleList as an extension of Module.
+Given below is an example scenario where module will be constructed.
+*Step 1*: The user launches the application, and duke initializes the list of degrees, the degrees contain ModuleList, which will contain Modules.
+*Step 2*: If a degree's csv file is parsed successfully, it will fetch the module data in the form of a string consisting of multiple code and name, separated by a " OR ", as well as an integer indicating the module credits allocated to that module. The check for valid conjunctive module string will be done in the degree calling it.
+*Step 3*: The Module is created and can be used as part of a ModuleList.
+
+`Module#print(void)`: This function outputs the user friendly view for people to know which module is it. It fetches the module code and name, and adds them together with a space separating them. It does this for every module in the Map, and adds an " OR " between each module. It then adds spaces until it is of the maximum allowable length - 4, the module's credits are then appended.
+The result is printed.
+The result is returned as a string.
+
+`Module#getCode(void)`: This function iterates through every code in the Map and returns the codes separated by a "|".
+
+==== Design Considerations
+Data structure used to hold modules:
+* Alternative 1 (Current Choice): Treemap data structure.
+** Pros:
+*** Consistent and sorted iteration through codes and modules
+*** No extra work required from user after placing the pairs in the list
+** Cons:
+*** Slightly more heavy memory usage.
+
+* Alternative 2: ArrayList.
+** Pros:
+*** Simple data structure for beginners to understand.
+*** Not memory intensive.
+** Cons:
+*** Extra work required to sort.
+*** Needs to use a non default data type, Pair, to store the code and name separately.
+
+* Alternative 3: HashMap.
+** Pros:
+*** O(1) amortized access and storage.
+** Cons:
+*** Memory intensive (To maintain low load factor, needs twice the amount of space devoted to the keys).
+*** Randomized iteration is the nature of HashMap, requires further sorting of results after getting them.
+
+=== NonDescriptive Module Feature
+==== Implementation
+The non-descriptive module class is an extension of module. It stores modules which do not follow the standard format. They can be placeholders for modules which are not named or belong to a certain group. It can be stored in the class ModuleList as an extension of Module.
+Given below is an example scenario where module will be constructed.
+*Step 1*: The user launches the application, and duke initializes the list of degrees, the degrees contain ModuleList, which will contain Modules.
+*Step 2*: If a degree's csv file is parsed successfully, it will fetch the module data in the form of a string consisting of multiple code and name, separated by a " OR ", as well as an integer indicating the module credits allocated to that module. The check for valid module string will be done in the degree calling it. If determined it is not a valid module string it will be created as a NonDescriptive Module.
+*Step 3*: The Module is created and can be used as part of a ModuleList.
+
+`Module#toString(void)`: This function returns the module code and the credits allocated to it separated by a space.
+
+==== Design Considerations
+
+How NonDescriptive is implemented:
+* Alternative 1 (Current Choice): Name field is empty.
+** Pros:
+*** Taps upon existing Module methods for printing and comparison
+*** Able to implement class specific methods in the future.
+
+* Alternative 2: Non-empty name, uses the same string as code field.
+** Pros:
+*** Leverages module class functions which require the name field to be used
+** Cons:
+*** Have to write a custom printing method for the class
+*** Does not capture the essence that Non-Descriptive is different from module because it had only one string /code.
+
+=== ModuleList Feature
+==== Implementation
+The module list stores modules. It also has helper functions to determine the difference between itself and another instance of the modulelist
+Given below is an example scenario where module will be constructed.
+*Step 1*: The user launches the application, and duke initializes the list of degrees, the degrees contain ModuleList, which will contain Modules.
+*Step 2*: If a degree's csv file is parsed successfully, it will fetch the module data.
+*Step 3*: The Module is created and can be used as part of a ModuleList.
+*Step 4*: The modules are placed in the appropriate ModuleList in the degree class
+
+`Module#add(Module wry)`: This function adds a module to the ModuleList class. It also adds the new module's credits to the current sum of module credits.
+
+`Module#getModules(void)`: This function returns the set of modules which the ModuleList contains.
+
+`Module#compare( ModuleList other)`: This function compares itself to another instance of ModuleList. It returns the set of modules which are the same, as well as a pair of the set of modules which are not the same from each ModuleList.
+
+`Module#setDifference(Set<Module> subset)`: This function returns the set of modules which are not contained within the Set of modules passed in.
+
+`Module#getSum(void)`: This function returns the sum of the modules in ModuleList.
+
+`Module#updateSum(Integer mc)`: This function increments the current sum by the integer passed in.
+
+==== Design Considerations
+
+How ModuleList is implemented:
+
+Data Structures used for ModuleList:
+* Alternative 1 (Current Choice): TreeSet of modules.
+** Pros:
+*** It is self sorting.
+*** Able to use set method, retainAll().
+** Cons:
+*** Takes a longer time in searching for modules in the set
+
+* Alternative 2: HashSet of modules.
+** Pros:
+*** Fast access to any module in the set.
+*** Able to use set method, retainAll().
+** Cons:
+*** Random iteration through set.
+*** Set is not in order.
+
+=== Degree Feature
+==== Implementation (Subjected to change later) 
+
+Degree are a class which contains ModuleList class and other auxiliary information related to the degree. When being constructed, it accepts a list of Strings and validates that it is a .csv file type with the correct number of columns. Additionally it implements the following operations:
+
+`Degree#addAlias(String input)`: This function takes in the parameter which is the alias the degree should be referred to, this input is stored into a List of Strings within Degree.
+
+`Degree#addToList(Integer list, String module, String mcs)`: This function takes in three parameters, the first being an Integer which indicates which Module List the Module should be added to. The second and third parameters are Strings which are expected to contain the Module and th Module Credits respectively. This function is called when a new Degree is created with the csv file being input into it as a List of Strings. This function calls createNewModule and adds the (valid) Module result into the appropiate List suggested by the Integer parameter list.
+
+`Degree#createNewModule(String in, String mcs)`: This function takes in the string in and the string mcs. The String mcs is validated by validInt to ensure it is a validInt, following which the in string is checked for a " OR ". If an " OR " is found, it indicates the module is a conjunctive module and each module string is then checked for validity by this method. If all the strings checked are valid, a conjunctive module is returned. Otherwise, having validated that the String is a proper module, a default module is returned. Otherwise, a NonDescriptive Module is returned.
+
+`Degree#validateModule(String[] input)`: This function takes in the list of strings input. Each String in the list is checked by the validateModule(String input) function to ensure that it is of the proper format. If any String did not pass this check, an exception is thrown.
+
+`Degree#validateModule(String input)`: This function takes in the string input. It then splits the Strings into 2 portions, the first String up to the first white space, will be considered as the Module's code. The remainder of the String is the module's name. The Module Code will be checked against the Regular Expression in the Parser class to ensure that it is of the correct format. The name is checked to ensure it is not empty. If both of these conditions are passed it returns a true result. Otherwise an exception will be thrown.
+
+`Degree#setUem(String in)`: This function takes in the string input. If the string is blank, it assumes that no UEM value is to be set. If the uem value in Degree has already been set, it will throw an exception as there should not be multiple UEM values. It will otherwise ensure that the String is a valid Integer, then set the value resulting from validInt.
+
+`Degree#validInt(String in)`: This function takes in the string input. If the string is is parsed successfully as an Integer, it checks to ensure that it is non negative. If integer is not parsed sucessfully or it is negative, exceptions are thrown. It then returns the valid result.
+
+`Degree#validList(List<String> input)`: This function takes in a list of strings. First, the input is checked to make sure it is not null or empty, or only consists of one string. Then each string is then checked for the following criteria. Then the second string is checked to make sure it has 12 comma separated values.
+
+`Degree#print(void)`: This function prints the degree list. It first prints out the hardcoded information, then it prints out the list headers by printListHeader, then the related list with printList.
+
+`Degree#printListHeader(String front, Integer sum)`: This function prints out the List header and the sum associated with it.
+
+`Degree#printList(ModuleList modList)`: This prints out the List of Modules in lexicographical order.
+
+Given below is an example usage scenario and how the degree mechanism behaves at each step.
+
+*Step 1*: The user launches the application, and Duke will initialize an instance of Set of Strings of degrees and a Map of Strings to Degrees. Duke will call the `setDegrees` method, and it will fetch the data of list of degrees from listdegrees.csv in the data folder.
+
+*Step 2*: Duke will continue refer to this list of Degrees in order to determine where to get the degree information from. The csv file is expected to match the strings in the set.
+
+*Step 3*: The degrees are created using the data from the csv files. It will then be linked via its key (the name of the Degree) to the Degree.
+
+*Step 4*: If no errors occured, the map of degrees will be initialized, if not the maps and sets will be cleared and there will be a request to contact the System Adminstrator for assistance.
+
+==== Design Considerations
+
+How Degree executes:
+
+* Alternative 1 (Current Choice): Degrees checks its own inputs and determines if they are valid.
+** Pros: 
+*** No dependency on other classes for validation. 
+*** Easier to implement when new commands are added.
+*** Common method for complex classes which utilize other classes.
+** Cons: 
+*** Extension of the class is necessary if the degree format changes or there are multiple formats.
+* Alternative 2: Let the Parser class handle all validation and return the sanitized input if available.
+** Pros: 
+*** Maintenance and edits only need to be done in the Parser class. 
+*** No work needed when new commands are added.
+** Cons: 
+*** Bloats the Parser class further.
+*** Parser class is not directly related to the Degree class yet it determines the validity of Degree.
+
+Data Structure to support degree's listing of modules:
+
+* Alternative 1 (Current Choice): `ModuleList` class which maintains lists of Modules for Degree. And other auxiliary primitive data types
+** Pros:
+*** Abstracts away the need to maintain the Lists of Modules and the information associated with it within the Degree class.
+*** More control than primitive data types, supports differential operations.
+** Cons:
+*** Have to create and maintain a new class.
+
+* Alternative 2: Primitive data containers used to contain modules, in addition to other auxiliary primitive data types.
+** Pros:
+*** Less work needed to write methods as it uses a pre-existing data structure.
+*** Easier for newer developers to understand how the undo/redo function works.
+** Cons:
+*** Have to do all the work of adding, removing and choosing commands within another class, and can result in messy implementations.
 
 == Testing
 
@@ -344,7 +572,7 @@ Aspect: [Proposed] Priority for Tasks
 |As a user who prefers side by side comparisons, I would want to be able to compare between any two majors simultaneously, without the need to switch tabs so as to not get confused. 
 |High
 
-|As a novice user, I can type a “help” command and receive all the possible commands that DukeJr provides so that I can use the software to its fullest potential 
+|As a novice user, I can type a “help” command and receive all the possible commands that Duke 2.0 provides so that I can use the software to its fullest potential 
 |Medium
 
 |As a student applying to NUS and having specific interests, I want to see if the core modules have any overlap with my interests so that I am better able to decide which engineering disciplines suits me the most
@@ -359,7 +587,7 @@ Aspect: [Proposed] Priority for Tasks
 |As a student, I would want to be able to view the complexity of each module in the major and an overall calculation for the complexity of the entire degree so as to see other students’ perceptions regarding the major
 |Medium
 
-|As a careless typer, I can type mistakes into the command without DukeJr. crashing so that I do not have to re-run the program at every mistake.
+|As a careless typer, I can type mistakes into the command without Duke 2.0 crashing so that I do not have to re-run the program at every mistake.
 |Medium
 
 |As a user, I can save my personal module selection list onto the hard drive so that I can go back to it when I turn on the program the next time.

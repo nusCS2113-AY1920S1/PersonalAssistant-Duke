@@ -9,6 +9,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Task class.
@@ -21,11 +22,13 @@ import java.util.Date;
 public class Task implements Serializable {
     String description;
     boolean isDone;
+    Integer taskPriority;
     //protected String dueDate;
     private Date dueDate = null;
     private ArrayList<Date> tentativeDates = new ArrayList<>();
     protected static DateFormat dateFormatter = new SimpleDateFormat("dd-MM-yyyy HHmm");
     protected static DateFormat dateFormatter_event = new SimpleDateFormat("dd-MM-yyyy HHmm-HHmm");
+
 
     /**
      * Task initialization with string as input.
@@ -35,6 +38,8 @@ public class Task implements Serializable {
     public Task(String description) {
         this.description = description;
         this.isDone = false;
+        this.taskPriority = 1;
+
     }
 
     /**
@@ -158,6 +163,8 @@ public class Task implements Serializable {
         return this.isDone;
     }
 
+
+
     /**
      * Returns description.
      *
@@ -185,6 +192,40 @@ public class Task implements Serializable {
         } else {
             return "";
         }
+    }
+
+
+
+    public void setTaskPriority(Integer taskPriority) {
+        this.taskPriority = taskPriority;
+    }
+
+
+    public Integer getTaskPriority() {
+        return taskPriority;
+    }
+
+
+    public void assignPriority(){
+        Integer daysAway = (int)getDifferenceDays(this.dueDate);
+        if (daysAway <= 3){
+            this.taskPriority = 7;
+        }
+        else if(daysAway <= 5){
+            this.taskPriority = 5;
+        }
+        else if (daysAway <= 7){
+            this.taskPriority = 3;
+        }
+        else{
+            this.taskPriority = 2;
+        }
+    }
+
+    public static long getDifferenceDays(Date d1) {
+        Date d2 = new Date();
+        long diff = d2.getTime() - d1.getTime();
+        return TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
     }
 
     public Date getTentativeDate(int index) {
