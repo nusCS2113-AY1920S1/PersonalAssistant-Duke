@@ -208,7 +208,7 @@ class ProfileTest {
             profileTest.findBond("2", "Test Investment Account", uiTest);
 
             String expectedOutput = "Item No.             Bond Name                      "
-                    + "Amount          Rate       Date of Purchased    Number of Years " + NEWLINE
+                    + "Amount          Rate       Date of Purchase     Number of Years " + NEWLINE
                     + "-------------------------------------------------------------------------------"
                     + "--------------------------------------------------" + NEWLINE
                     + "1                    TEST BOND 2                    $1000.00        "

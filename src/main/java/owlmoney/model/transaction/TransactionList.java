@@ -597,7 +597,13 @@ public class TransactionList {
         return OBJ_DOES_NOT_EXIST;
     }
 
-    public Transaction getExpenditureObjByYearMonth(int index) {
+    /**
+     * Returns an expenditure object from transaction list for the specified YearMonth date.
+     *
+     * @param index Transaction number of the expenditure.
+     * @return an expenditure object from transaction list for the specified YearMonth date.
+     */
+    public Transaction getExpenditureObjectByYearMonth(int index) {
         return transactionLists.get(index);
     }
 }

@@ -213,11 +213,6 @@ public class GoalsTest {
         Date actualDateInDateFormat = testGoals.getGoalsDateInDateFormat();
         Date expectedDateInDateFormat = new Date("10/20/2020");
         assertEquals(expectedDateInDateFormat, actualDateInDateFormat);
-
-
-        int actualDaysLeft = testGoals.convertDateToDays();
-        int expectedDaysLeft = 356;
-        assertEquals(expectedDaysLeft, actualDaysLeft);
     }
 
     @Test

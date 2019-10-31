@@ -356,6 +356,7 @@ bank objects.
 . Once the savings object has been added, the details of the new savings object will be displayed to inform the user
 of the *successful* addition of the savings object.
 
+// tag::editing_bonds[]
 === Editing Bonds
 .Sequence Diagram of Editing Bonds
 image::editBondCommand.png[width="970"]
@@ -404,6 +405,8 @@ maturity through the method `editBondYear`.
 
 . Once the bond object has been edited, the updated details of that bond object will be displayed to inform the user
 of the *successful* editing of the bond.
+
+// end::editing_bonds[]
 
 === Deleting Credit Card
 .Model Component Diagram
@@ -741,13 +744,8 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |10|* * *|organised user|list my expenditure|have a view of my spending
 |11|* * *|existing user|search for specific transaction by category, description or date|search and view specific
 transaction records.
-
-// tag::goals_userstory[]
-
 |12|* *|existing user|set short and long term financial goals|I can achieve financial stability.
 |13|* *|indecisive user|edit my existing financial goals|adapt to any changes
-// end::goals_userstory[]
-
 |14|* *|existing user|undo my last command|revert back to the previous state in the event of a mistake
 |15|* *|existing user|compare overall expenditure of different month|review my spending
 |16|* *|credit card user|add new credit cards to my account|credit my spending till the end of the month
@@ -804,20 +802,20 @@ Use case ends.
 
 *Extensions*
 [none]
-* 3a. System detects invalid user input in personal details.
-** 3a1. System requests for the correct user input.
-** 3a2. User re-enters input.
-** Steps 3a1-3a2 are repeated until the input entered are correct.
+* 3a. System detects invalid personal details.
+** 3a1. System requests for the correct personal details.
+** 3a2. User re-enters the personal details.
+** Steps 3a1-3a2 are repeated until the personal details entered are correct.
 ** Use case resumes from step 4.
-* 5a. System detects invalid user input in bank account details.
-** 5a1. System requests for the correct user input.
-** 5a2. User re-enters input.
-** Steps 5a1-5a2 are repeated until the input entered are correct.
+* 5a. System detects invalid bank account details.
+** 5a1. System requests for the correct bank account details.
+** 5a2. User re-enters the bank account details.
+** Steps 5a1-5a2 are repeated until the bank account details entered are correct.
 ** Use case resumes from step 6.
-* 7a. System detects invalid user input in income details.
-** 7a1. System requests for the correct user input.
-** 7a2. User re-enters input.
-** Steps 7a1-7a2 are repeated until the input entered are correct.
+* 7a. System detects invalid income details.
+** 7a1. System requests for the correct income details.
+** 7a2. User re-enters the income details.
+** Steps 7a1-7a2 are repeated until the income details entered are correct.
 ** Use case resumes from step 8.
 
 
@@ -825,26 +823,26 @@ Use case ends.
 
 
 *Actor: User* +
-[[UC-2]] *Use case: UC2 - Add bank account* +
+[[UC-2]] *Use case: UC2 - Add [.underline]#bank# (savings / investment) account* +
 *Preconditions:*
 
 * *User has a profile created*
 
 *Main success scenario:*
 
-. User chooses to add a bank account.
-. System requests for bank account details.
-. User enters details for the new bank account.
-. System creates a new bank account with the details specified.
+. User chooses to add a [.underline]#bank# (savings / investment) account.
+. System requests for [.underline]#bank# (savings / investment) details.
+. User enters details for the new [.underline]#bank# (savings / investment) account.
+. System creates a new [.underline]#bank# (savings / investment) account with the details specified.
 +
 Use case ends.
 
 *Extensions*
 [none]
-* 3a. System detects invalid user input.
-** 3a1. System requests for the correct user input.
-** 3a2. User re-enters input.
-** Steps 3a1-3a2 are repeated until the input entered are correct.
+* 3a. System detects invalid details for the new [.underline]#bank# (savings / investment) account.
+** 3a1. System requests for the correct details.
+** 3a2. User re-enters the details for new [.underline]#bank# (savings / investment) account.
+** Steps 3a1-3a2 are repeated until the details for new [.underline]#bank# (savings / investment) account is entered correctly.
 ** Use case resumes from step 4.
 
 
@@ -868,10 +866,10 @@ Use case ends.
 
 *Extensions*
 [none]
-* 3a. System detects invalid user input.
-** 3a1. System requests for the correct user input.
-** 3a2. User re-enters input.
-** Steps 3a1-3a2 are repeated until the input entered are correct.
+* 3a. System detects invalid income details.
+** 3a1. System requests for the correct income details.
+** 3a2. User re-enters the income details.
+** Steps 3a1-3a2 are repeated until the income details entered are correct.
 ** Use case resumes from step 4.
 
 
@@ -895,10 +893,10 @@ Use case ends.
 
 *Extensions*
 [none]
-* 3a. System detects invalid user input.
-** 3a1. System requests for the correct user input.
-** 3a2. User re-enters input.
-** Steps 3a1-3a2 are repeated until the input entered are correct.
+* 3a. System detects invalid profile details.
+** 3a1. System requests for the correct profile details.
+** 3a2. User re-enters the profile details.
+** Steps 3a1-3a2 are repeated until the profile details entered are correct.
 ** Use case resumes from step 4.
 
 
@@ -906,27 +904,27 @@ Use case ends.
 
 
 *Actor: Existing User* +
-[[UC-5]] *Use case: UC5 - Edit bank account details* +
+[[UC-5]] *Use case: UC5 - Edit [.underline]#bank# (savings / investment) account details* +
 *Preconditions:*
 
 *  *User has a profile created* +
-*  *User has an existing bank account* +
+*  *User has an existing [.underline]#bank# (savings / investment) account* +
 
 *Main success scenario:*
 
-. User chooses to edit his/her bank account details.
-. System requests for new bank account details.
-. User enters new bank account details.
-. System update the bank account details.
+. User chooses to edit his/her [.underline]#bank# (savings / investment) account details.
+. System requests for new [.underline]#bank# (savings / investment) account details.
+. User enters new [.underline]#bank# (savings / investment) account details.
+. System update the [.underline]#bank# (savings / investment) account details.
 +
 Use case ends.
 
 *Extensions*
 [none]
-* 3a. System detects invalid user input.
-** 3a1. System requests for the correct user input.
-** 3a2. User re-enters input.
-** Steps 3a1-3a2 are repeated until the input entered are correct.
+* 3a. System detects invalid [.underline]#bank# (savings / investment) accounts details.
+** 3a1. System requests for the correct [.underline]#bank# (savings / investment) account details.
+** 3a2. User re-enters the [.underline]#bank# (savings / investment) account details.
+** Steps 3a1-3a2 are repeated until the [.underline]#bank# (savings / investment) account details entered are correct.
 ** Use case resumes from step 4.
 
 
@@ -937,8 +935,8 @@ Use case ends.
 [[UC-6]] *Use case: UC6 - Edit income* +
 *Preconditions:*
 
-* * User has a profile created
-* * User has an existing income account
+* *User has a profile created*
+* *User has an existing income account*
 
 *Main success scenario:*
 
@@ -951,10 +949,10 @@ Use case ends.
 
 *Extensions*
 [none]
-* 3a. System detects invalid user input.
-** 3a1. System requests for the correct user input.
-** 3a2. User re-enters input.
-** Steps 3a1-3a2 are repeated until the input entered are correct.
+* 3a. System detects invalid income details.
+** 3a1. System requests for the correct income details.
+** 3a2. User re-enters the income details.
+** Steps 3a1-3a2 are repeated until the income details entered are correct.
 ** Use case resumes from step 4.
 
 
@@ -978,10 +976,10 @@ Use case ends.
 
 *Extensions*
 [none]
-* 3a. System detects invalid user input.
-** 3a1. System requests for the correct user input.
-** 3a2. User re-enters input.
-** Steps 3a1-3a2 are repeated until the input entered are correct.
+* 3a. System detects invalid expenditure details.
+** 3a1. System requests for the correct expenditure details.
+** 3a2. User re-enters the expenditure details.
+** Steps 3a1-3a2 are repeated until the expenditure details entered are correct.
 ** Use case resumes from step 4.
 
 
@@ -998,18 +996,18 @@ Use case ends.
 *Main success scenario:*
 
 . User chooses to edit expenditure record.
-. System requests new expenditure details.
-. User enters new expenditure details.
+. System requests for the new expenditure details and the expenditure to be edited.
+. User enters new expenditure details and the expenditure to be edited.
 . System updates the expenditure record.
 +
 Use case ends.
 
 *Extensions*
 [none]
-* 3a. System detects invalid user input.
-** 3a1. System requests for the correct user input.
-** 3a2. User re-enters input.
-** Steps 3a1-3a2 are repeated until the input entered are correct.
+* 3a. System detects invalid expenditure details or expenditure to be edited.
+** 3a1. System requests for the correct expenditure details and expenditure to be edited.
+** 3a2. User re-enters the expenditure details and expenditure to be edited.
+** Steps 3a1-3a2 are repeated until the expenditure details and expenditure to be edited entered are correct.
 ** Use case resumes from step 4.
 
 
@@ -1034,10 +1032,10 @@ Use case ends.
 
 *Extensions*
 [none]
-* 3a. System detects invalid user input.
-** 3a1. System requests for the correct user input.
-** 3a2. User re-enters input.
-** Steps 3a1-3a2 are repeated until the input entered are correct.
+* 3a. System detects invalid expenditure to be deleted.
+** 3a1. System requests for the correct expenditure to be deleted.
+** 3a2. User re-enters the expenditure to be deleted.
+** Steps 3a1-3a2 are repeated until the expenditure to be deleted is entered correctly.
 ** Use case resumes from step 4.
 
 
@@ -1062,10 +1060,10 @@ Use case ends.
 
 *Extensions*
 [none]
-* 3a. System detects invalid user input.
-** 3a1. System requests for the correct user input.
-** 3a2. User re-enters input.
-** Steps 3a1-3a2 are repeated until the input entered are correct.
+* 3a. System detects invalid type of expenditure to be listed.
+** 3a1. System requests for the correct type of expenditure to be listed.
+** 3a2. User re-enters the type of expenditure to be listed.
+** Steps 3a1-3a2 are repeated until the type of expenditure to be listed is entered correctly.
 ** Use case resumes from step 4.
 
 
@@ -1087,16 +1085,14 @@ Use case ends.
 
 *Extensions*
 [none]
-* 3a. System detects invalid user input.
-** 3a1. System requests for the correct user input.
-** 3a2. User re-enters input.
-** Steps 3a1-3a2 are repeated until the input entered are correct.
+* 3a. System detects invalid keyword to be search.
+** 3a1. System requests for the correct keyword to be search.
+** 3a2. User re-enters the keyword to be search.
+** Steps 3a1-3a2 are repeated until the keyword to be search is entered correctly.
 ** Use case resumes from step 4.
 
-
-
-
 // tag::goals_usecase[]
+
 *Actor: Existing user* +
 [[UC-12]] *Use case: UC12 - Set short or long term financial goal* +
 *Preconditions:*
@@ -1116,15 +1112,15 @@ Use case ends.
 
 *Extensions*
 [none]
-* 3a. System detects invalid user input.
-** 3a1. System requests for the correct user input.
-** 3a2. User re-enters input.
-** Steps 3a1-3a2 are repeated until the input entered are correct.
+* 3a. System detects invalid type of financial goal to be set.
+** 3a1. System requests for the correct type of financial goal to be set.
+** 3a2. User re-enters the type of financial goal to be set.
+** Steps 3a1-3a2 are repeated until the type of financial goal to be set is entered correctly.
 ** Use case resumes from step 4.
-* 5a. System detects invalid user input.
-** 5a1. System requests for the correct user input.
-** 5a2. User re-enters input.
-** Steps 5a1-5a2 are repeated until the input entered are correct.
+* 5a. System detects invalid information required for setting the financial goal.
+** 5a1. System requests for the correct information required for setting the financial goal.
+** 5a2. User re-enters the information required for setting the financial goal.
+** Steps 5a1-5a2 are repeated until the information required for setting the financial goal is entered correctly.
 ** Use case resumes from step 6.
 
 
@@ -1151,15 +1147,15 @@ Use case ends.
 
 *Extensions*
 [none]
-* 3a. System detects invalid user input.
-** 3a1. System requests for the correct user input.
-** 3a2. User re-enters input.
-** Steps 3a1-3a2 are repeated until the input entered are correct.
+* 3a. System detects invalid financial goal to be edited.
+** 3a1. System requests for the correct financial goal to be edited.
+** 3a2. User re-enters the financial goal to be edited.
+** Steps 3a1-3a2 are repeated until the financial goal to be edited is entered correctly.
 ** Use case resumes from step 4.
-* 5a. System detects invalid user input.
-** 5a1. System requests for the correct user input.
-** 5a2. User re-enters input.
-** Steps 5a1-5a2 are repeated until the input entered are correct.
+* 5a. System detects invalid information to be updated.
+** 5a1. System requests for the correct information to be updated.
+** 5a2. User re-enters the information to be updated.
+** Steps 5a1-5a2 are repeated until the information to be updated is entered correctly.
 ** Use case resumes from step 6.
 
 
@@ -1180,9 +1176,6 @@ Use case ends.
 +
 Use case ends.
 
-*Extensions*
-
-* None
 
 
 
@@ -1206,10 +1199,10 @@ Use case ends.
 
 *Extensions*
 [none]
-* 3a. System detects invalid user input.
-** 3a1. System requests for the correct user input.
-** 3a2. User re-enters input.
-** Steps 3a1-3a2 are repeated until the input entered are correct.
+* 3a. System detects invalid months to be compared.
+** 3a1. System requests for the correct months to be compared.
+** 3a2. User re-enters the months to be compared.
+** Steps 3a1-3a2 are repeated until the months to be compared is entered correctly.
 ** Use case resumes from step 4.
 
 
@@ -1233,10 +1226,10 @@ Use case ends.
 
 *Extensions*
 [none]
-* 3a. System detects invalid user input.
-** 3a1. System requests for the correct user input.
-** 3a2. User re-enters input.
-** Steps 3a1-3a2 are repeated until the input entered are correct.
+* 3a. System detects invalid details for creating credit card.
+** 3a1. System requests for the correct details for creating credit card.
+** 3a2. User re-enters the details for creating credit card.
+** Steps 3a1-3a2 are repeated until the details for creating credit card is entered correctly.
 ** Use case resumes from step 4.
 
 
@@ -1261,15 +1254,11 @@ Use case ends.
 
 *Extensions*
 [none]
-* 3a. System detects invalid user input.
-** 3a1. System requests for the correct user input.
-** 3a2. User re-enters input.
-** Steps 3a1-3a2 are repeated until the input entered are correct.
+* 3a. System detects invalid expenditure information.
+** 3a1. System requests for the correct expenditure information.
+** 3a2. User re-enters the expenditure information.
+** Steps 3a1-3a2 are repeated until the expenditure information is entered correctly.
 ** Use case resumes from step 4.
-
-
-
-
 
 *Actor: Credit card user* +
 [[UC-18]] *Use case: UC18 - Edit credit card details* +
@@ -1289,10 +1278,10 @@ Use case ends.
 
 *Extensions*
 [none]
-* 3a. System detects invalid user input.
-** 3a1. System requests for the correct user input.
-** 3a2. User re-enters input.
-** Steps 3a1-3a2 are repeated until the input entered are correct.
+* 3a. System detects invalid credit card details.
+** 3a1. System requests for the correct credit card details.
+** 3a2. User re-enters the credit card details.
+** Steps 3a1-3a2 are repeated until the credit card details is entered correctly.
 ** Use case resumes from step 4.
 
 
@@ -1312,9 +1301,6 @@ Use case ends.
 +
 Use case ends.
 
-*Extensions*
-
-* None
 
 
 
@@ -1337,10 +1323,10 @@ Use case ends.
 
 *Extensions*
 [none]
-* 3a. System detects invalid user input.
-** 3a1. System requests for the correct user input.
-** 3a2. User re-enters input.
-** Steps 3a1-3a2 are repeated until the input entered are correct.
+* 3a. System detects invalid details of recurring expenditure.
+** 3a1. System requests for the correct details of recurring expenditure.
+** 3a2. User re-enters the details of recurring expenditure.
+** Steps 3a1-3a2 are repeated until the details of recurring expenditure is entered correctly.
 ** Use case resumes from step 4.
 
 
@@ -1364,10 +1350,10 @@ Use case ends.
 
 *Extensions*
 [none]
-* 3a. System detects invalid user input.
-** 3a1. System requests for the correct user input.
-** 3a2. User re-enters input.
-** Steps 3a1-3a2 are repeated until the input entered are correct.
+* 3a. System detects invalid details of recurring income.
+** 3a1. System requests for the correct details of recurring income.
+** 3a2. User re-enters the details of recurring income.
+** Steps 3a1-3a2 are repeated until the details of recurring income is entered correctly.
 ** Use case resumes from step 4.
 
 
@@ -1388,9 +1374,6 @@ Use case ends.
 +
 Use case ends.
 
-*Extensions*
-
-* None
 
 
 
@@ -1409,10 +1392,6 @@ Use case ends.
 . System displays all recurring income in chronological order.
 +
 Use case ends.
-
-*Extensions*
-
-* None
 
 
 
@@ -1438,15 +1417,15 @@ Use case ends.
 
 *Extensions*
 [none]
-* 3a. System detects invalid user input.
-** 3a1. System requests for the correct user input.
-** 3a2. User re-enters input.
-** Steps 3a1-3a2 are repeated until the input entered are correct.
+* 3a. System detects invalid recurring expenditure being specified.
+** 3a1. System requests for the correct recurring expenditure.
+** 3a2. User re-enters the recurring expenditure.
+** Steps 3a1-3a2 are repeated until the recurring expenditure entered are correct.
 * Use case resumes from step 4.
-* 5a. System detects invalid user input.
-** 5a1. System requests for the correct user input.
-** 5a2. User re-enters input.
-** Steps 5a1-5a2 are repeated until the input entered are correct.
+* 5a. System detects invalid recurring expenditure details.
+** 5a1. System requests for the correct recurring expenditure details.
+** 5a2. User re-enters the recurring expenditure details.
+** Steps 5a1-5a2 are repeated until the recurring expenditure details is entered correctly.
 ** Use case resumes from step 6.
 
 
@@ -1471,15 +1450,15 @@ Use case ends.
 
 *Extensions*
 [none]
-* 3a. System detects invalid user input.
-** 3a1. System requests for the correct user input.
-** 3a2. User re-enters input.
-** Steps 3a1-3a2 are repeated until the input entered are correct.
+* 3a. System detects invalid recurring income being specified.
+** 3a1. System requests for the correct recurring income.
+** 3a2. User re-enters the recurring income.
+** Steps 3a1-3a2 are repeated until the recurring income entered are correct.
 ** Use case resumes from step 4.
-* 5a. System detects invalid user input.
-** 5a1. System requests for the correct user input.
-** 5a2. User re-enters input.
-** Steps 5a1-5a2 are repeated until the input entered are correct.
+* 5a. System detects invalid recurring income details.
+** 5a1. System requests for the correct recurring income details.
+** 5a2. User re-enters the recurring income details.
+** Steps 5a1-5a2 are repeated until the recurring income details entered are correct.
 ** Use case resumes from step 6.
 
 
@@ -1500,9 +1479,6 @@ Use case ends.
 +
 Use case ends.
 
-*Extensions*
-
-* None
 
 
 
@@ -1525,10 +1501,10 @@ Use case ends.
 
 *Extensions*
 [none]
-* 3a. System detects invalid user input.
-** 3a1. System requests for the correct user input.
-** 3a2. User re-enters input.
-** Steps 3a1-3a2 are repeated until the input entered are correct.
+* 3a. System detects invalid months being specified.
+** 3a1. System requests for the correct months.
+** 3a2. User re-enters the months.
+** Steps 3a1-3a2 are repeated until the months entered are correct.
 ** Use case resumes from step 4.
 
 
@@ -1545,9 +1521,6 @@ Use case ends.
 +
 Use case ends.
 
-*Extensions*
-
-* None
 
 
 
@@ -1570,10 +1543,10 @@ Use case ends.
 
 *Extensions*
 [none]
-* 3a. System detects invalid user input.
-** 3a1. System requests for the correct user input.
-** 3a2. User re-enters input.
-** Steps 3a1-3a2 are repeated until the input entered are correct.
+* 3a. System detects invalid type of achievement.
+** 3a1. System requests for the correct type of achievement.
+** 3a2. User re-enters the type of achievement.
+** Steps 3a1-3a2 are repeated until the type of achievement entered are correct.
 ** Use case resumes from step 4.
 
 
@@ -1597,10 +1570,10 @@ Use case ends.
 
 *Extensions*
 [none]
-* 3a. System detects invalid user input.
-** 3a1. System requests for the correct user input.
-** 3a2. User re-enters input.
-** Steps 3a1-3a2 are repeated until the input entered are correct.
+* 3a. System detects invalid achievement being specified.
+** 3a1. System requests for the correct achievement.
+** 3a2. User re-enters the achievement.
+** Steps 3a1-3a2 are repeated until the achievement entered are correct.
 ** Use case resumes from step 4.
 
 
@@ -1620,10 +1593,10 @@ Use case ends.
 
 *Extensions*
 [none]
-* 3a. System detects invalid user input in personal details.
-** 3a1. System requests for the correct user input.
-** 3a2. User re-enters input.
-** Steps 3a1-3a2 are repeated until the input entered are correct.
+* 3a. System detects invalid investment account details.
+** 3a1. System requests for the correct investment account details.
+** 3a2. User re-enters the investment account details.
+** Steps 3a1-3a2 are repeated until the investment account details entered are correct.
 ** Use case resumes from step 4.
 
 
@@ -1641,10 +1614,10 @@ Use case ends.
 
 *Extensions*
 [none]
-* 3a. System detects invalid user input in personal details.
-** 3a1. System requests for the correct user input.
-** 3a2. User re-enters input.
-** Steps 3a1-3a2 are repeated until the input entered are correct.
+* 3a. System detects invalid investment account details.
+** 3a1. System requests for the correct investment account details.
+** 3a2. User re-enters the investment account details.
+** Steps 3a1-3a2 are repeated until the investment account details entered are correct.
 ** Use case resumes from step 4.
 
 
@@ -1663,10 +1636,10 @@ Use case ends.
 
 *Extensions*
 [none]
-* 3a. System detects invalid user input in personal details.
-** 3a1. System requests for the correct user input.
-** 3a2. User re-enters input.
-** Steps 3a1-3a2 are repeated until the input entered are correct.
+* 3a. System detects invalid investment account being selected for deletion.
+** 3a1. System requests for the correct investment account to be deleted.
+** 3a2. User re-enters the investment account to be deleted.
+** Steps 3a1-3a2 are repeated until the investment account to be deleted is entered correctly.
 ** Use case resumes from step 4.
 
 
@@ -1682,31 +1655,24 @@ Use case ends.
 +
 Use case ends.
 
-*Extensions*
-
-* None
-
-
-
-
 
 *Actor: Existing user* +
 [[UC-35]] *Use case: UC35 - Transfer money between different bank accounts* +
 *Main success scenario:*
 
 . User choose to transfer money to another bank account.
-. System requests for destination account and amount to transfer.
-. User enters the details of destination account and amount to transfer.
+. System requests for sender account, receiver account and amount to transfer.
+. User enters the sender account, receiver account and amount to transfer.
 . System transfers the amount to the specified account.
 +
 Use case ends.
 
 *Extensions*
 [none]
-* 3a. System detects invalid user input in personal details.
-** 3a1. System requests for the correct user input.
-** 3a2. User re-enters input.
-** Steps 3a1-3a2 are repeated until the input entered are correct.
+* 3a. System detects invalid sender account, receiver account or amount to transfer.
+** 3a1. System requests for the correct sender account, receiver account and amount to transfer.
+** 3a2. User re-enters the sender account, receiver account and amount to transfer.
+** Steps 3a1-3a2 are repeated until the sender account, receiver account and amount to transfer is entered correctly.
 ** Use case resumes from step 4.
 
 
@@ -1726,10 +1692,6 @@ Use case ends.
 . System displays all credit card details.
 +
 Use case ends.
-
-*Extensions*
-
-* None
 
 
 
@@ -1754,10 +1716,10 @@ Use case ends.
 
 *Extensions*
 
-* 3a. System detects invalid user input.
-** 3a1. System requests for the correct user input.
-** 3a2. User re-enters input.
-** Steps 3a1-3a2 are repeated until the input entered are correct.
+* 3a. System detects invalid name of the card for the expenditure to be listed.
+** 3a1. System requests for the correct name of the card for the expenditure to be listed.
+** 3a2. User re-enters the name of the card for the expenditure to be listed.
+** Steps 3a1-3a2 are repeated until the name of the card for the expenditure to be listed is entered correctly.
 ** Use case resumes from step 4.
 
 
@@ -1784,10 +1746,10 @@ Use case ends.
 
 *Extensions*
 [none]
-* 3a. System detects invalid user input.
-** 3a1. System requests for the correct user input.
-** 3a2. User re-enters input.
-** Steps 3a1-3a2 are repeated until the input entered are correct.
+* 3a. System detects invalid keyword to be used for searching.
+** 3a1. System requests for the correct keyword to be used for searching.
+** 3a2. User re-enters the keyword to be used for searching.
+** Steps 3a1-3a2 are repeated until the keyword to be used for searching is entered correctly.
 ** Use case resumes from step 4.
 
 
@@ -1807,6 +1769,14 @@ Use case ends.
 . System displays the information in a table format.
 +
 Use case ends.
+
+
+
+
+
+
+
+
 
 [appendix]
 == Non Functional Requirements

@@ -5,20 +5,21 @@
 :repoURL: https://github.com/AY1920S1-CS2113T-W17-3/main
 :experimental:
 
-Hello I am Valerie, currently pursuing Information Security in the
-National University of Singapore (NUS).
+Hello I am Valerie, currently pursuing Information Security in the National University of Singapore (NUS).
+
+This portfolio aims to provide a detailed outline of my contributions while developing an application, *OwlMoney*.
+We are a team of five, led by<<shamussy#,Shamus Neo Zhi Kai>> and comprises of <<briantkm#,Brian Tan Kian Ming>>,
+<<mong-nus#,Mong Zheng Wei>>, <<terencetan#, Terence Tan Wee Kheng>> and <<valerietyj#,myself>>.
 
 == About the project
-[.underline]*OwlMoney* is specially created and developed for our Software Engineering and Object-Oriented Project,
-focused on designing and implementing a command-line based personal assistant. We are a team of five, led by
-<<shamussy#,Shamus Neo Zhi Kai>> and comprises of <<briantkm#,Brian Tan Kian Ming>>, <<mong-nus#,Mong Zheng Wei>>,
-<<terencetan#, Terence Tan Wee Kheng>> and <<valerietyj#,myself>>.
+[.underline]*OwlMoney* is specially created and developed for our Software Engineering
+and Object-Oriented Project, focused on designing and implementing a command-line based personal assistant.
 
 We decided to name it [.underline]*OwlMoney* as it equipped with the mission to help Undergraduates / Fresh Graduates
 manage and *_track their finances efficiently, effectively, and more conveniently._*
 
-At first start, OwlMoney provides user with a fresh look and thereafter, a
-direct way of entering and accessing their finances:
+At first start, OwlMoney provides users with a fresh look and thereafter, a
+direct way of entering and accessing the features in OwlMoney:
 [[CLI]]
 .OwlMoney's Command Line Interface
 image::UiReadMe.png[width="800"]
@@ -65,6 +66,7 @@ model real-life setting of having goals and target.
 Highlights::
 `goals` works well with future implementations and enhancement for OwlMoney such as linking to other accounts or
 unlocking new achievements.
+
 `goals` are meant to motivate users to save and properly manage their finances for any financial goals that they wish
 to achieve. There were several challenges faced due to design considerations of `goals`.
 
@@ -72,32 +74,30 @@ Credits::
 Collaborated with <<briantkm#, Brian Tan Kian Ming>> on the linking of user's goal to savings account.
 
 === Other contributions
+
 * Documentation:
 ** As a team, we worked together on the User Guide and Developer Guide,
 ensuring they are bug-free and reader-friendliness.
-* Teamwork:
+* Team contribution:
 ** Reviewed Pull Requests
-** Fixed bugs on Developer Guide, User Guide
+** Fixed bugs and errors on Developer Guide, User Guide as per Tutor's advice
 ** Fixed code bugs and implemented ability to edit profile.
-** Designed the Graphic User Interface (GUI) for v2.0
 
 
 
 == Contributions to User Guide
 |===
-|_Listed below are my additions to OwlMoney's User Guide that are specific to end-users
-and useful for them to get started with OwlMoney._
+|_Listed below are my additions to OwlMoney's User Guide that are specific to end-users which is helpful for them
+to get started with OwlMoney._
 |===
 
 include::../UserGuide.adoc[tag=goals]
 
 == Contributions to Developer Guide
 |===
-|_Listed below are the areas which I have contributed to goals in the Developer Guide
-to guide end-users with the _
+|_These are the currently the areas which I have contributed to `goals` features in the Developer Guide.
+to guide end-users with the_
 |===
 include::../DeveloperGuide.adoc[tag=goals_class]
-
-include::../DeveloperGuide.adoc[tag=goals_userstory]
 
 include::../DeveloperGuide.adoc[tag=goals_usecase]

@@ -32,8 +32,8 @@ class RecurringExpenditureListTest {
         }
         DateFormat temp = new SimpleDateFormat("dd MMMM yyyy");
         String printedMessage = "Added expenditure with the following details:" + NEWLINE + "Item No.        "
-                + "     Description                                             Amount          Date         "
-                + "        Category             " + NEWLINE + "----------------------------------------------"
+                + "     Description                                             Amount          Next Expense "
+                + "Date    Category             " + NEWLINE + "----------------------------------------------"
                 + "-----------------------------------------------------------------------------------"
                 + NEWLINE + "1                    test                                                    [-]"
                 + " $1.00       " + temp.format(newDate) + "      test                 " + NEWLINE + "-------"
@@ -108,13 +108,13 @@ class RecurringExpenditureListTest {
         }
         DateFormat temp = new SimpleDateFormat("dd MMMM yyyy");
         String deletedMessage = "Deleted expenditure with the following details:" + NEWLINE + "Item No.      "
-                + "       Description                                             Amount          Date       "
-                + "          Category             " + NEWLINE + "--------------------------------------------"
-                + "-------------------------------------------------------------------------------------"
-                + NEWLINE + "1                    test                                                    [-]"
-                + " $1.00       " + temp.format(newDate) + "      test                 " + NEWLINE + "-------"
+                + "       Description                                             Amount          Next "
+                + "Expense Date    Category             " + NEWLINE + "--------------------------------------"
                 + "------------------------------------------------------------------------------------------"
-                + "--------------------------------" + NEWLINE;
+                + "-" + NEWLINE + "1                    test                                                 "
+                + "   [-] $1.00       " + temp.format(newDate) + "      test                 " + NEWLINE
+                + "------------------------------------------------------------------------------------------"
+                + "---------------------------------------" + NEWLINE;
         assertEquals(deletedMessage, outContent.toString());
         assertEquals(0, testList.getListSize());
     }
@@ -150,7 +150,7 @@ class RecurringExpenditureListTest {
         DateFormat temp = new SimpleDateFormat("dd MMMM yyyy");
 
         String outputMessage = "Transaction No.      Description                                             "
-                + "Amount          Date                 Category             " + NEWLINE + "-----------------"
+                + "Amount          Next Expense Date    Category             " + NEWLINE + "-----------------"
                 + "------------------------------------------------------------------------------------------"
                 + "----------------------" + NEWLINE + "1                    test                            "
                 + "                        [-] $1.00       " + temp.format(newDate) + "      test            "
