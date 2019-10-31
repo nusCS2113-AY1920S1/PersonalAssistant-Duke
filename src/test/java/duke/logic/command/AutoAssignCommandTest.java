@@ -1,20 +1,11 @@
-package duke.extensions;
+package duke.logic.command;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import duke.exception.DukeException;
-import duke.logic.AbnormalityChecker;
-import duke.storage.Storage;
-import duke.task.Event;
-import duke.tasklist.TaskList;
-import duke.ui.Ui;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintStream;
 import java.time.LocalDateTime;
@@ -26,12 +17,14 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import duke.exception.DukeException;
+import duke.extensions.Recurrence;
 import duke.storage.Storage;
-import duke.task.Event;
+import duke.task.Task;
 import duke.tasklist.TaskList;
 import duke.ui.Ui;
 
-class AbnormalityCheckerTest {
+class AutoAssignCommandTest {
+
     private static final String FILE_PATH = "data/editCommandTest.json";
 
     private static final Ui ui = new Ui();
@@ -88,35 +81,60 @@ class AbnormalityCheckerTest {
         String description3 = "cs2113 homework 2";
         String description4 = "More cs homework";
 
-        t.add(new Event(empty, dateTime1, recurrenceDaily, description1, 4));
-        t.add(new Event(Optional.of("cs"), dateTime3, recurrenceDaily, description3, 4));
-        t.add(new Event(Optional.of("cs"), dateTime2, recurrenceNone, description2, 5));
-        t.add(new Event(empty, dateTime2, recurrenceNone, description4, 5));
+        t.add(new Task(empty, dateTime1, recurrenceDaily, description1, 4));
+        t.add(new Task(Optional.of("cs"), dateTime3, recurrenceDaily, description3, 4));
+        t.add(new Task(Optional.of("cs"), dateTime2, recurrenceNone, description2, 5));
+        t.add(new Task(empty, dateTime2, recurrenceNone, description4, 5));
 
         return t;
     }
 
     @Test
-    void checkEventClashTrue() throws DukeException {
+    public void execute_autoAssignFilterName_success() throws DukeException, IOException {
         TaskList tasks = createTaskList();
-        AbnormalityChecker abnormalityChecker = new AbnormalityChecker(tasks);
-        Recurrence recurrenceNone = new Recurrence(Optional.empty());
-        Optional<LocalDateTime> dateTime = Optional.of(LocalDateTime.of(2018, Month.OCTOBER, 29,
-                0, 0));
-
-        Event clashingEvent = new Event(Optional.empty(), dateTime, recurrenceNone, "abc", 5);
-        assertTrue(abnormalityChecker.checkEventClash(clashingEvent));
+        AutoAssignCommand autoAssignCommand = new AutoAssignCommand("4");
+        final String input = "Y";
+        provideInput(input);
+        autoAssignCommand.execute(tasks, ui, storage);
+        Optional<String> expectedTaskFilter = Optional.of("cs");
+        Optional<String> actualTaskFilter = tasks.get(3).getFilter();
+        assertEquals(expectedTaskFilter.get(), actualTaskFilter.get());
     }
 
     @Test
-    void checkEventClashFalse() throws DukeException {
+    public void execute_autoAssignFilterNameReject_success() throws DukeException, IOException {
         TaskList tasks = createTaskList();
-        AbnormalityChecker abnormalityChecker = new AbnormalityChecker(tasks);
-        Recurrence recurrenceNone = new Recurrence(Optional.empty());
-        Optional<LocalDateTime> dateTime = Optional.of(LocalDateTime.of(2030, Month.OCTOBER, 29,
-                0, 0));
-
-        Event clashingEvent = new Event(Optional.empty(), dateTime, recurrenceNone, "abc", 5);
-        assertFalse(abnormalityChecker.checkEventClash(clashingEvent));
+        AutoAssignCommand autoAssignCommand = new AutoAssignCommand("4");
+        final String input = "N";
+        provideInput(input);
+        autoAssignCommand.execute(tasks, ui, storage);
+        Optional<String> actualTaskFilter = tasks.get(3).getFilter();
+        assertFalse(actualTaskFilter.isPresent());
     }
+
+    @Test
+    public void execute_autoAssignCosineSimilarity_success() throws DukeException, IOException {
+        TaskList tasks = createTaskList();
+        AutoAssignCommand autoAssignCommand = new AutoAssignCommand("1");
+        final String input = "Y";
+        provideInput(input);
+        autoAssignCommand.execute(tasks, ui, storage);
+        Optional<String> expectedTaskFilter = Optional.of("cs");
+        Optional<String> actualTaskFilter = tasks.get(0).getFilter();
+        assertEquals(expectedTaskFilter.get(), actualTaskFilter.get());
+    }
+
+    @Test
+    public void execute_autoAssignRejectFilterAcceptCosine_success() throws DukeException, IOException {
+        TaskList tasks = createTaskList();
+        AutoAssignCommand autoAssignCommand = new AutoAssignCommand("4");
+        final String input = "N\nY";
+        provideInput(input);
+        autoAssignCommand.execute(tasks, ui, storage);
+        Optional<String> expectedTaskFilter = Optional.of("cs");
+        Optional<String> actualTaskFilter = tasks.get(3).getFilter();
+        assertEquals(expectedTaskFilter.get(), actualTaskFilter.get());
+    }
+
+
 }

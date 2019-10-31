@@ -1,4 +1,4 @@
-import duke.parser.DuqueParser;
+import duke.logic.parser.DuqueParser;
 
 import org.junit.jupiter.api.Test;
 

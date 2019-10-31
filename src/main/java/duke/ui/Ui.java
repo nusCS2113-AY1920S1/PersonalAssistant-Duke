@@ -23,12 +23,12 @@ public class Ui {
      * Greets the user upon initialisation of the task manager
      */
     public void showWelcome() {
-        System.out.println("Hello! I'm Duke");
+        System.out.println("Hello! I'm El Duque");
         System.out.println("What can I do for you?");
     }
 
     /**
-     * Reads the user input and returns it in a String form to be parsed by the duke.parser.Parser class
+     * Reads the user input and returns it in a String form to be parsed by the duke.logic.parser.Parser class
      *
      * @return String the use input
      */
