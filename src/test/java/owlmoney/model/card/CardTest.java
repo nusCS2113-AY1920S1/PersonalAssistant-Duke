@@ -29,6 +29,22 @@ public class CardTest {
     private static final String HEADER_LIST_EXPENDITURE = "Transaction No.      "
             + "Description                                             "
             + "Amount          Date                 Category             " + NEWLINE;
+    private static final String HEADER_LIST_PAID_EXPENDITURE = "Paid Expenditures:" + NEWLINE
+            + "Transaction No.      "
+            + "Description                                             "
+            + "Amount          Date                 Category             " + NEWLINE;
+    private static final String HEADER_LIST_UNPAID_EXPENDITURE = "Unpaid Expenditures:" + NEWLINE
+            + "Transaction No.      "
+            + "Description                                             "
+            + "Amount          Date                 Category             " + NEWLINE;
+    private static final String NO_PAID_EXPENDITURE =
+            "There are no paid expenditures in this card.";
+    private static final String NO_UNPAID_EXPENDITURE =
+            "There are no unpaid expenditures in this card.";
+    private static final String EXPECTED_BUT_NO_PAID_EXPENDITURE =
+            "Paid Expenditures:\nThere are no paid expenditures in this card.";
+    private static final String EXPECTED_BUT_NO_UNPAID_EXPENDITURE =
+            "Unpaid Expenditures:\nThere are no unpaid expenditures in this card.";
     private static final String HEADER_EDIT_EXPENDITURE = "Edited details of the specified expenditure:"
             + NEWLINE + "Item No.             Description                                             "
             + "Amount          Date                 Category             " + NEWLINE;
@@ -140,7 +156,8 @@ public class CardTest {
         } catch (CardException error) {
             System.out.println("Expected no exceptions, but exception thrown: " + error.getMessage());
         }
-        String expectedOutput = HEADER_LIST_EXPENDITURE + DIVIDER
+        String expectedOutput = "Paid Expenditures:" + NEWLINE + NO_PAID_EXPENDITURE + NEWLINE + NEWLINE
+                + HEADER_LIST_UNPAID_EXPENDITURE + DIVIDER
                 + "2                    Curry Rice                                              "
                 + "[-] $200.00     06 June 2019         Food                 " + NEWLINE
                 + "1                    Chicken Rice                                            "
@@ -168,7 +185,8 @@ public class CardTest {
         } catch (CardException error) {
             System.out.println("Expected no exceptions, but exception thrown: " + error.getMessage());
         }
-        String expectedOutput = HEADER_LIST_EXPENDITURE + DIVIDER
+        String expectedOutput = EXPECTED_BUT_NO_PAID_EXPENDITURE + NEWLINE + NEWLINE
+                + HEADER_LIST_UNPAID_EXPENDITURE + DIVIDER
                 + "2                    Curry Rice                                              "
                 + "[-] $200.00     06 June 2019         Food                 " + NEWLINE
                 + DIVIDER;
@@ -180,12 +198,15 @@ public class CardTest {
     void listAllExpenditure_printWhenNoTransactions_throwsException() {
         Card testCard = new Card("Test Card", 500, 0.05);
         Ui testUi = new Ui();
-        TransactionException exception = assertThrows(TransactionException.class, () ->
-                        testCard.listAllExpenditure(testUi, -10),
-               "Expected listAllExpenditure to throw TransactionException because "
-                        + "there are no transactions in bank account, but it did not throw");
-        assertEquals("There are no expenditures in this card.",
-                exception.toString());
+        try {
+            System.setOut(new PrintStream(outContent));
+            testCard.listAllExpenditure(testUi, -10);
+        } catch (TransactionException error) {
+            System.out.println("Expected no exceptions, but exception thrown: " + error.getMessage());
+        }
+        String expectedOutput = EXPECTED_BUT_NO_PAID_EXPENDITURE + NEWLINE + NEWLINE
+                + EXPECTED_BUT_NO_UNPAID_EXPENDITURE + NEWLINE;
+        assertEquals(expectedOutput, outContent.toString());
     }
 
     @Test
@@ -483,15 +504,15 @@ public class CardTest {
                 dateFormat.parse("06/06/2019"), "Food");
         Expenditure newExpenditure3 = new Expenditure("Fried Rice", 300,
                 dateFormat.parse("10/07/2019"), "Food");
-        String expectedOutput = HEADER_LIST_EXPENDITURE + DIVIDER
-                + "1                    Fried Rice                                              "
-                + "[-] $300.00     10 July 2019         Food                 " + NEWLINE
-                + DIVIDER
-                + HEADER_LIST_EXPENDITURE + DIVIDER
+        String expectedOutput = HEADER_LIST_PAID_EXPENDITURE + DIVIDER
                 + "2                    Curry Rice                                              "
                 + "[-] $200.00     06 June 2019         Food                 " + NEWLINE
                 + "1                    Chicken Rice                                            "
                 + "[-] $100.00     05 June 2019         Food                 " + NEWLINE
+                + DIVIDER + NEWLINE
+                + HEADER_LIST_UNPAID_EXPENDITURE + DIVIDER
+                + "1                    Fried Rice                                              "
+                + "[-] $300.00     10 July 2019         Food                 " + NEWLINE
                 + DIVIDER;
 
         try {
@@ -501,7 +522,6 @@ public class CardTest {
             System.setOut(new PrintStream(outContent));
             testCard.transferExpUnpaidToPaid(YearMonth.parse("2019-06"), "bank");
             testCard.listAllExpenditure(testUi, 10);
-            testCard.listAllPaidExpenditure(testUi, 10);
         } catch (CardException | TransactionException error) {
             System.out.println("Expected no exceptions, but exception thrown: " + error.getMessage());
         }
@@ -513,143 +533,125 @@ public class CardTest {
     void transferExpUnpaidToPaid_dateNoMatchExpenditure_NoTransferHappen() throws ParseException {
         Card testCard = new Card("Test Card", 500, 0.05);
         Ui testUi = new Ui();
-        Expenditure newExpenditure1 = new Expenditure("Chicken Rice", 100,
+        Expenditure newExpenditure0 = new Expenditure("Chicken Rice", 100,
                 dateFormat.parse("05/06/2019"), "Food");
-        Expenditure newExpenditure2 = new Expenditure("Curry Rice", 200,
+        Expenditure newExpenditure1 = new Expenditure("Curry Rice", 200,
                 dateFormat.parse("06/06/2019"), "Food");
-        Expenditure newExpenditure3 = new Expenditure("Fried Rice", 300,
+        Expenditure newExpenditure2 = new Expenditure("Fried Rice", 300,
                 dateFormat.parse("10/07/2019"), "Food");
-        String expectedOutput = HEADER_LIST_EXPENDITURE + DIVIDER
-                + "3                    Fried Rice                                              "
-                + "[-] $300.00     10 July 2019         Food                 " + NEWLINE
-                + "2                    Curry Rice                                              "
-                + "[-] $200.00     06 June 2019         Food                 " + NEWLINE
-                + "1                    Chicken Rice                                            "
-                + "[-] $100.00     05 June 2019         Food                 " + NEWLINE
-                + DIVIDER;
         try {
+            testCard.addInExpenditure(newExpenditure0, testUi, "card");
             testCard.addInExpenditure(newExpenditure1, testUi, "card");
             testCard.addInExpenditure(newExpenditure2, testUi, "card");
-            testCard.addInExpenditure(newExpenditure3, testUi, "card");
-            System.setOut(new PrintStream(outContent));
             testCard.transferExpUnpaidToPaid(YearMonth.parse("2019-10"), "bank");
-            testCard.listAllExpenditure(testUi, 10);
         } catch (CardException | TransactionException error) {
             System.out.println("Expected no exceptions, but exception thrown: " + error.getMessage());
         }
-        assertEquals(expectedOutput, outContent.toString());
-        outContent.reset();
-        TransactionException exception = assertThrows(TransactionException.class, () ->
-                        testCard.listAllPaidExpenditure(testUi, 10),
-                "Expected editExpenditureDetails to throw TransactionException"
-                        + "because there are no transactions in the card, but it did not throw");
-        assertEquals("There are no expenditures in this card.", exception.toString());
+        assertEquals(0, testCard.getPaidSize());
+        assertEquals(3, testCard.getUnpaidSize());
+        assertEquals(newExpenditure0, testCard.getUnpaid(0));
+        assertEquals(newExpenditure1, testCard.getUnpaid(1));
+        assertEquals(newExpenditure2, testCard.getUnpaid(2));
     }
 
     @Test
-    void transferExpUnpaidToPaid_noExpendituresInCard_NoTransferHappen() throws ParseException {
+    void transferExpUnpaidToPaid_noExpendituresInUnpaid_NoTransferHappen() throws ParseException {
         Card testCard = new Card("Test Card", 500, 0.05);
         Ui testUi = new Ui();
+        Expenditure newExpenditure0 = new Expenditure("Chicken Rice", 100,
+                dateFormat.parse("05/06/2019"), "Food");
+        Expenditure newExpenditure1 = new Expenditure("Curry Rice", 200,
+                dateFormat.parse("06/06/2019"), "Food");
+        Expenditure newExpenditure2 = new Expenditure("Fried Rice", 300,
+                dateFormat.parse("10/07/2019"), "Food");
         try {
-            testCard.transferExpUnpaidToPaid(YearMonth.parse("2019-10"), "bank");
-            testCard.listAllExpenditure(testUi, 10);
-        } catch (TransactionException error) {
+            testCard.addInPaidExpenditure(newExpenditure0, testUi, "card");
+            testCard.addInPaidExpenditure(newExpenditure1, testUi, "card");
+            testCard.addInPaidExpenditure(newExpenditure2, testUi, "card");
+            testCard.transferExpPaidToUnpaid(YearMonth.parse("2019-10"), "bank");
+        } catch (CardException | TransactionException error) {
             System.out.println("Expected no exceptions, but exception thrown: " + error.getMessage());
         }
-        TransactionException exception = assertThrows(TransactionException.class, () ->
-                        testCard.listAllPaidExpenditure(testUi, 10),
-                "Expected editExpenditureDetails to throw TransactionException"
-                        + "because there are no transactions in the card, but it did not throw");
-        assertEquals("There are no expenditures in this card.", exception.toString());
+        assertEquals(3, testCard.getPaidSize());
+        assertEquals(0, testCard.getUnpaidSize());
+        assertEquals(newExpenditure0, testCard.getPaid(0));
+        assertEquals(newExpenditure1, testCard.getPaid(1));
+        assertEquals(newExpenditure2, testCard.getPaid(2));
     }
 
     @Test
     void transferExpPaidToUnpaid_correctParameters_successfulTransfer() throws ParseException {
         Card testCard = new Card("Test Card", 500, 0.05);
         Ui testUi = new Ui();
-        Expenditure newExpenditure1 = new Expenditure("Chicken Rice", 100,
+        Expenditure newExpenditure0 = new Expenditure("Chicken Rice", 100,
                 dateFormat.parse("05/06/2019"), "Food");
-        Expenditure newExpenditure2 = new Expenditure("Curry Rice", 200,
+        Expenditure newExpenditure1 = new Expenditure("Curry Rice", 200,
                 dateFormat.parse("06/06/2019"), "Food");
-        Expenditure newExpenditure3 = new Expenditure("Fried Rice", 300,
+        Expenditure newExpenditure2 = new Expenditure("Fried Rice", 300,
                 dateFormat.parse("10/07/2019"), "Food");
-        String expectedOutput = HEADER_LIST_EXPENDITURE + DIVIDER
-                + "2                    Curry Rice                                              "
-                + "[-] $200.00     06 June 2019         Food                 " + NEWLINE
-                + "1                    Chicken Rice                                            "
-                + "[-] $100.00     05 June 2019         Food                 " + NEWLINE
-                + DIVIDER
-                + HEADER_LIST_EXPENDITURE + DIVIDER
-                + "1                    Fried Rice                                              "
-                + "[-] $300.00     10 July 2019         Food                 " + NEWLINE
-                + DIVIDER;
         try {
+            testCard.addInPaidExpenditure(newExpenditure0, testUi, "card");
             testCard.addInPaidExpenditure(newExpenditure1, testUi, "card");
-            testCard.addInPaidExpenditure(newExpenditure2, testUi, "card");
-            testCard.addInPaidExpenditure(newExpenditure3, testUi, "card");
-            System.setOut(new PrintStream(outContent));
+            testCard.addInPaidExpenditure(newExpenditure2, testUi, "card");;
             testCard.transferExpPaidToUnpaid(YearMonth.parse("2019-06"), "bank");
-            testCard.listAllExpenditure(testUi, 10);
-            testCard.listAllPaidExpenditure(testUi, 10);
         } catch (CardException | TransactionException error) {
             System.out.println("Expected no exceptions, but exception thrown: " + error.getMessage());
         }
-        assertEquals(expectedOutput, outContent.toString());
-        outContent.reset();
+        assertEquals(1, testCard.getPaidSize());
+        assertEquals(2, testCard.getUnpaidSize());
+        assertEquals(newExpenditure2, testCard.getPaid(0));
+        assertEquals(newExpenditure0, testCard.getUnpaid(0));
+        assertEquals(newExpenditure1, testCard.getUnpaid(1));
     }
 
     @Test
     void transferExpPaidToUnpaid_dateNoMatchExpenditure_NoTransferHappen() throws ParseException {
         Card testCard = new Card("Test Card", 500, 0.05);
         Ui testUi = new Ui();
-        Expenditure newExpenditure1 = new Expenditure("Chicken Rice", 100,
+        Expenditure newExpenditure0 = new Expenditure("Chicken Rice", 100,
                 dateFormat.parse("05/06/2019"), "Food");
-        Expenditure newExpenditure2 = new Expenditure("Curry Rice", 200,
+        Expenditure newExpenditure1 = new Expenditure("Curry Rice", 200,
                 dateFormat.parse("06/06/2019"), "Food");
-        Expenditure newExpenditure3 = new Expenditure("Fried Rice", 300,
+        Expenditure newExpenditure2 = new Expenditure("Fried Rice", 300,
                 dateFormat.parse("10/07/2019"), "Food");
-        String expectedOutput = HEADER_LIST_EXPENDITURE + DIVIDER
-                + "3                    Fried Rice                                              "
-                + "[-] $300.00     10 July 2019         Food                 " + NEWLINE
-                + "2                    Curry Rice                                              "
-                + "[-] $200.00     06 June 2019         Food                 " + NEWLINE
-                + "1                    Chicken Rice                                            "
-                + "[-] $100.00     05 June 2019         Food                 " + NEWLINE
-                + DIVIDER;
         try {
+            testCard.addInPaidExpenditure(newExpenditure0, testUi, "card");
             testCard.addInPaidExpenditure(newExpenditure1, testUi, "card");
             testCard.addInPaidExpenditure(newExpenditure2, testUi, "card");
-            testCard.addInPaidExpenditure(newExpenditure3, testUi, "card");
-            System.setOut(new PrintStream(outContent));
             testCard.transferExpPaidToUnpaid(YearMonth.parse("2019-10"), "bank");
-            testCard.listAllPaidExpenditure(testUi, 10);
         } catch (CardException | TransactionException error) {
             System.out.println("Expected no exceptions, but exception thrown: " + error.getMessage());
         }
-        assertEquals(expectedOutput, outContent.toString());
-        outContent.reset();
-        TransactionException exception = assertThrows(TransactionException.class, () ->
-                        testCard.listAllExpenditure(testUi, 10),
-                "Expected editExpenditureDetails to throw TransactionException"
-                        + "because there are no transactions in the card, but it did not throw");
-        assertEquals("There are no expenditures in this card.", exception.toString());
+        assertEquals(3, testCard.getPaidSize());
+        assertEquals(0, testCard.getUnpaidSize());
+        assertEquals(newExpenditure0, testCard.getPaid(0));
+        assertEquals(newExpenditure1, testCard.getPaid(1));
+        assertEquals(newExpenditure2, testCard.getPaid(2));
     }
 
     @Test
-    void transferExpPaidToUnpaid_noExpendituresInCard_NoTransferHappen() throws ParseException {
+    void transferExpPaidToUnpaid_noExpendituresInPaid_NoTransferHappen() throws ParseException, TransactionException {
         Card testCard = new Card("Test Card", 500, 0.05);
         Ui testUi = new Ui();
+        Expenditure newExpenditure0 = new Expenditure("Chicken Rice", 100,
+                dateFormat.parse("05/06/2019"), "Food");
+        Expenditure newExpenditure1 = new Expenditure("Curry Rice", 200,
+                dateFormat.parse("06/06/2019"), "Food");
+        Expenditure newExpenditure2 = new Expenditure("Fried Rice", 300,
+                dateFormat.parse("10/07/2019"), "Food");
         try {
+            testCard.addInExpenditure(newExpenditure0, testUi, "card");
+            testCard.addInExpenditure(newExpenditure1, testUi, "card");
+            testCard.addInExpenditure(newExpenditure2, testUi, "card");
             testCard.transferExpPaidToUnpaid(YearMonth.parse("2019-10"), "bank");
-            testCard.listAllExpenditure(testUi, 10);
-        } catch (TransactionException error) {
+        } catch (CardException | TransactionException error) {
             System.out.println("Expected no exceptions, but exception thrown: " + error.getMessage());
         }
-        TransactionException exception = assertThrows(TransactionException.class, () ->
-                        testCard.listAllPaidExpenditure(testUi, 10),
-                "Expected editExpenditureDetails to throw TransactionException"
-                        + "because there are no transactions in the card, but it did not throw");
-        assertEquals("There are no expenditures in this card.", exception.toString());
+        assertEquals(0, testCard.getPaidSize());
+        assertEquals(3, testCard.getUnpaidSize());
+        assertEquals(newExpenditure0, testCard.getUnpaid(0));
+        assertEquals(newExpenditure1, testCard.getUnpaid(1));
+        assertEquals(newExpenditure2, testCard.getUnpaid(2));
     }
 }
 

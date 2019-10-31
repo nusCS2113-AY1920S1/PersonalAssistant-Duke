@@ -23,6 +23,7 @@ public class AddCardBillCommand extends Command {
     private final String type;
     private final String expDescription;
     private final String category;
+    private static final int PERCENTAGE_TO_DECIMAL = 100;
 
     /**
      * Creates an instance of AddExpenditureCommand.
@@ -69,10 +70,10 @@ public class AddCardBillCommand extends Command {
      */
     public boolean execute(Profile profile, Ui ui) throws CardException, BankException, TransactionException {
         profile.checkCardExists(card);
-        String depDescription = "Rebate for Credit Card (" + profile.getCardRebateAmount(card) + ") - "
+        String depDescription = "Rebate for Credit Card (" + profile.getCardRebateAmount(card) + "%) - "
                 + card + " " + cardDate;
         double billAmount = profile.getCardUnpaidBillAmount(card, cardDate);
-        double rebateAmount = profile.getCardRebateAmount(card) * billAmount;
+        double rebateAmount = (profile.getCardRebateAmount(card)/PERCENTAGE_TO_DECIMAL) * billAmount;
         checkBillAmountZero(billAmount, card, cardDate);
         Expenditure newExpenditure =
                 new Expenditure(this.expDescription, billAmount, this.expDate, this.category);

@@ -21,6 +21,7 @@ public class Card {
     private TransactionList unpaid;
     private static final int OBJ_DOES_NOT_EXIST = -1;
     private static final int ONE_ARRAY_INDEX = 1;
+    private static final int DIVIDE_BY_2 = 2;
 
     /**
      * Creates a Card with details of name, limit and rebate.
@@ -135,19 +136,26 @@ public class Card {
     }
 
     /**
-     * Lists all the unpaid expenditures in the current credit card.
+     * Lists all the paid and unpaid expenditures in the current credit card.
      *
      * @param ui         Ui of OwlMoney.
      * @param displayNum Number of expenditure to list.
      * @throws TransactionException If no expenditure is found or no expenditure is in the list.
      */
     void listAllExpenditure(Ui ui, int displayNum) throws TransactionException {
+        int displayNumHalf = displayNum / DIVIDE_BY_2;
         try {
-            unpaid.listExpenditure(ui, displayNum);
+            ui.printMessage("Paid Expenditures:");
+            paid.listExpenditure(ui, displayNumHalf);
         } catch (TransactionException e) {
-            throw new TransactionException("There are no expenditures in this card.");
+            ui.printMessage("There are no paid expenditures in this card.");
         }
-
+        try {
+            ui.printMessage("\nUnpaid Expenditures:");
+            unpaid.listExpenditure(ui, displayNumHalf);
+        } catch (TransactionException e) {
+            ui.printMessage("There are no unpaid expenditures in this card.");
+        }
     }
 
     /**
@@ -275,18 +283,14 @@ public class Card {
      * @throws TransactionException If invalid transaction when deleting.
      */
     void transferExpUnpaidToPaid(YearMonth cardDate, String type) throws TransactionException {
-        try {
-            for (int i = 0; i < unpaid.getSize(); i++) {
-                int id = unpaid.getExpenditureIdByYearMonth(cardDate);
-                if (id != OBJ_DOES_NOT_EXIST) {
-                    Transaction exp = unpaid.getExpenditureObjectByYearMonth(id);
-                    paid.addExpenditureToList(exp, type);
-                    unpaid.deleteExpenditureFromList(id + ONE_ARRAY_INDEX);
-                    i -= ONE_ARRAY_INDEX;
-                }
+        for (int i = 0; i < unpaid.getSize(); i++) {
+            int id = unpaid.getExpenditureIdByYearMonth(cardDate);
+            if (id != OBJ_DOES_NOT_EXIST) {
+                Transaction exp = unpaid.getExpenditureObjectByYearMonth(id);
+                paid.addExpenditureToList(exp, type);
+                unpaid.deleteExpenditureFromList(id + ONE_ARRAY_INDEX);
+                i -= ONE_ARRAY_INDEX;
             }
-        } catch (TransactionException e) {
-            throw new TransactionException("There are no expenditures in this card.");
         }
     }
 
@@ -298,18 +302,52 @@ public class Card {
      * @throws TransactionException If invalid transaction when deleting.
      */
     void transferExpPaidToUnpaid(YearMonth cardDate, String type) throws TransactionException {
-        try {
-            for (int i = 0; i < paid.getSize(); i++) {
-                int id = paid.getExpenditureIdByYearMonth(cardDate);
-                if (id != OBJ_DOES_NOT_EXIST) {
-                    Transaction exp = paid.getExpenditureObjectByYearMonth(id);
-                    unpaid.addExpenditureToList(exp, type);
-                    paid.deleteExpenditureFromList(id + ONE_ARRAY_INDEX);
-                    i -= ONE_ARRAY_INDEX;
-                }
+        for (int i = 0; i < paid.getSize(); i++) {
+            int id = paid.getExpenditureIdByYearMonth(cardDate);
+            if (id != OBJ_DOES_NOT_EXIST) {
+                Transaction exp = paid.getExpenditureObjectByYearMonth(id);
+                unpaid.addExpenditureToList(exp, type);
+                paid.deleteExpenditureFromList(id + ONE_ARRAY_INDEX);
+                i -= ONE_ARRAY_INDEX;
             }
-        } catch (TransactionException e) {
-            throw new TransactionException("There are no expenditures in this card.");
         }
+    }
+
+    /**
+     * Gets the transaction object from the unpaid transactionList by specifying the transaction index.
+     *
+     * @param index The index of the object in the transactionList.
+     * @return The transaction object from the unpaid transactionList.
+     */
+    Transaction getUnpaid(int index) {
+        return unpaid.get(index);
+    }
+
+    /**
+     * Gets the transaction object from the paid transactionList by specifying the transaction index.
+     *
+     * @param index The index of the object in the transactionList.
+     * @return The transaction object from the paid transactionList.
+     */
+    Transaction getPaid(int index) {
+        return paid.get(index);
+    }
+
+    /**
+     * Gets the size of the unpaid transactionList.
+     *
+     * @return The size of the unpaid transactionList.
+     */
+    int getUnpaidSize() {
+        return unpaid.getSize();
+    }
+
+    /**
+     * Gets the size of the paid transactionList.
+     *
+     * @return The size of the paid transactionList.
+     */
+    int getPaidSize() {
+        return paid.getSize();
     }
 }
