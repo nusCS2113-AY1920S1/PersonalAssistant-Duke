@@ -9,6 +9,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Task class.
@@ -193,12 +194,38 @@ public class Task implements Serializable {
         }
     }
 
+
+
     public void setTaskPriority(Integer taskPriority) {
         this.taskPriority = taskPriority;
     }
 
+
     public Integer getTaskPriority() {
         return taskPriority;
+    }
+
+
+    public void assignPriority(){
+        Integer daysAway = (int)getDifferenceDays(this.dueDate);
+        if (daysAway <= 3){
+            this.taskPriority = 7;
+        }
+        else if(daysAway <= 5){
+            this.taskPriority = 5;
+        }
+        else if (daysAway <= 7){
+            this.taskPriority = 3;
+        }
+        else{
+            this.taskPriority = 2;
+        }
+    }
+
+    public static long getDifferenceDays(Date d1) {
+        Date d2 = new Date();
+        long diff = d2.getTime() - d1.getTime();
+        return TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
     }
 
     public Date getTentativeDate(int index) {

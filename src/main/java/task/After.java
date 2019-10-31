@@ -35,7 +35,8 @@ public class After extends Task {
      * @param following   String contains what needs to be done first before this task
      */
     public After(String bool, String description, String following) throws DukeException {
-        this.description = description;
+//        this.description = description;
+        super(description);
         this.following = following;
         this.isDone = (1 == Integer.parseInt(bool));
     }
