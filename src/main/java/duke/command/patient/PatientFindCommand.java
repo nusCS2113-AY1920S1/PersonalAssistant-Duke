@@ -49,9 +49,13 @@ public class PatientFindCommand extends ArgCommand {
         for (int i = 0; i < searchResult.size(); i++) {
             information += (i + 1) + ". " + searchResult.get(i).getName() + "\n";
         }*/
-        SearchResult search = new SearchResult(searchTerm, searchResult, patient);
-        core.uiContext.setContext(Context.SEARCH, search);
-        core.ui.print("Returning result of search of " + searchTerm);
+        if (!searchResult.isEmpty()) {
+            SearchResult search = new SearchResult(searchTerm, searchResult, patient);
+            core.uiContext.setContext(Context.SEARCH, search);
+            core.ui.print("Returning result of search of " + searchTerm);
+        } else {
+            throw new DukeException("No results found in this patient context.");
+        }
 
         //core.ui.print(findStr + information);
     }
