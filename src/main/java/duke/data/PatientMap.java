@@ -33,6 +33,14 @@ public class PatientMap {
                 mapElement.getValue().initObservables();
                 mapElement.getValue().initChild();
             }
+            if (patient.getPrimaryDiagnosis() != null) {
+                String primaryDiagnosisID = patient.getPrimaryDiagnosis().getName();
+                try {
+                    patient.setPrimaryDiagnosis(primaryDiagnosisID);
+                } catch (DukeException e) {
+                    e.printStackTrace();
+                }
+            }
         }
     }
 

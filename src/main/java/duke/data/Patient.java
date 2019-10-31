@@ -284,25 +284,25 @@ public class Patient extends DukeObject {
         StringBuilder informationString;
         informationString = new StringBuilder("\tName of patient: " + getName() + "\n");
         informationString.append("\tBed Number: ").append(this.bedNo).append("\n");
-        if (this.height != null) {
+        if (this.height != -1) {
             informationString.append("\tHeight: ").append(this.height).append("\n");
         }
-        if (this.weight != null) {
+        if (this.weight != -1) {
             informationString.append("\tWeight: ").append(this.weight).append("\n");
         }
-        if (this.allergies != null) {
+        if (!this.allergies.equals("")) {
             informationString.append("\tAllergies: ").append(this.allergies).append("\n");
         }
-        if (this.age != null) {
+        if (this.age != -1) {
             informationString.append("\tAge: ").append(this.age).append("\n");
         }
-        if (this.number != null) {
+        if (this.number != -1) {
             informationString.append("\tNumber: ").append(this.number).append("\n");
         }
-        if (this.address != null) {
+        if (!this.address.equals("")) {
             informationString.append("\tAddress: ").append(this.address).append("\n");
         }
-        if (this.history != null) {
+        if (!this.history.equals("")) {
             informationString.append("\tHistory: ").append(this.history).append("\n");
         }
         if (this.primaryDiagnosis != null) {
