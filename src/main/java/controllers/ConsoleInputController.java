@@ -29,7 +29,7 @@ public class ConsoleInputController implements IController {
      */
     @Override
     public String[] onCommandReceived(String input) {
-        ArchDukeLogger.logInfo(ConsoleInputController.class.getName(), "input:'" + input + "'");
+        ArchDukeLogger.logInfo(ConsoleInputController.class.getName(), "User input: '" + input + "'");
         Scanner inputReader = new Scanner(input);
         String command = inputReader.next();
 
@@ -56,6 +56,7 @@ public class ConsoleInputController implements IController {
      * @param input To read the input from the user.
      */
     private String[] commandCreate(String input) {
+        ArchDukeLogger.logInfo(ConsoleInputController.class.getName(), "[commandCreate] User input: '" + input + "'");
         boolean isProjectCreated = projectRepository.addToRepo(input);
         if (!isProjectCreated) {
             return new String[] {"Creation of Project failed. Please check parameters given!"};
@@ -69,6 +70,7 @@ public class ConsoleInputController implements IController {
      * that are currently created or stored.
      */
     private String[] commandList() {
+        ArchDukeLogger.logInfo(ConsoleInputController.class.getName(), "[commandList]");
         ArrayList<ArrayList<String>> allProjectsDetails = projectRepository.getAllProjectsDetailsForTable();
         if (allProjectsDetails.size() == 0) {
             return new String[] {"You currently have no projects!"};
@@ -83,6 +85,7 @@ public class ConsoleInputController implements IController {
      * @param inputReader To read the input from the user.
      */
     private String[] commandManage(Scanner inputReader) {
+        ArchDukeLogger.logInfo(ConsoleInputController.class.getName(), "[commandManage] User input: " + inputReader);
         if (inputReader.hasNext()) {
             this.managingProjectIndex = inputReader.next();
             try {
@@ -104,6 +107,7 @@ public class ConsoleInputController implements IController {
      * @param inputReader To read the input from the user.
      */
     private String[] commandDelete(Scanner inputReader) {
+        ArchDukeLogger.logInfo(ConsoleInputController.class.getName(), "[commandDelete] User input: " + inputReader);
         if (inputReader.hasNext()) {
             int projectIndex = Integer.parseInt(inputReader.next());
             boolean isProjectDeleted = this.projectRepository.deleteItem(projectIndex);
@@ -130,6 +134,7 @@ public class ConsoleInputController implements IController {
      * Method to be called when user says bye to exit the program.
      */
     public String[] end() {
+        ArchDukeLogger.logInfo(ConsoleInputController.class.getName(), "[end]");
         ArchDukeLogger.logInfo(ConsoleInputController.class.getName(), "ArchDuke have stopped.");
         return new String[] { "Bye. Hope to see you again soon!" };
     }
