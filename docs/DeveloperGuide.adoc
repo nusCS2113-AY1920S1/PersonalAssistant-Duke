@@ -433,7 +433,7 @@ The current implementation is fixed to only request data for the current academi
 
 ==== Current implementation
 
-This diagrams illustrate the `Cca` class:
+These diagrams illustrate the `Cca` class:
 
 image::CcaClassDiagram1.png[]
 image::CcaClassDiagram2.png[]
