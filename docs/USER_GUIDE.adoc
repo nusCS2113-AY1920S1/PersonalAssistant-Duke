@@ -224,6 +224,24 @@ Returns member(s) whose major is `Computer Engineering`
 * `findmajor Engineering` +
 Returns member(s) whose major contains the keyword `Engineering`
 
+==== Finding and searching for lockers: `find`
+
+Finds lockers based on their serial number, area and zone +
+Format: `find s/SERIALNUMBER a/AREA z/zone`
+
+****
+* The search is case insensitive. e.g `computer` will match `Computer`
+* SERIAL NUMBER will only accept numeric characters such as s/12345
+* AREA will only accept alphanumeric characters such as a/COM1
+* ZONE will only accept alphanumeric characters such as z/A1
+****
+
+Examples:
+
+* `find s/123 a/COM1 z/A` +
+* `find s/987 a/COM2 z/B2` +
+Returns a list of lockers(s) that contains those parameters.
+
 ==== Filtering members with tags: `findmembertag`
 
 Finds members whose description containt a tag. +
