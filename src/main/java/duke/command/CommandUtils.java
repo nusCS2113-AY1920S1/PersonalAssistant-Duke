@@ -3,8 +3,12 @@ package duke.command;
 import duke.DukeCore;
 import duke.data.DukeObject;
 import duke.data.Patient;
+import duke.data.SearchResult;
 import duke.exception.DukeException;
+import duke.exception.DukeUtilException;
+import duke.ui.context.Context;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
@@ -205,6 +209,7 @@ public class CommandUtils {
         return d[len1 + 1][len2 + 1];
     }
 
+    // TODO might move these to respective DukeObjects
 
     /**
      * Find a {@code Patient} with the supplied identifier. Only 1 of either bed number or displayed index
@@ -212,28 +217,38 @@ public class CommandUtils {
      *
      * @param core  DukeCore object.
      * @param bedNo Bed number of patient.
-     * @param index Displayed index of patient (Home context).
+     * @param nameOrIdx Displayed index of patient (Home context), or name of Patient.
      * @return Patient object
      * @throws DukeException If 1 of the following 3 conditions applies.
      *                       1. No identifier is provided.
      *                       2. 2 identifiers are provided.
      *                       3. 1 unique identifier is provided but said patient does not exist.
      */
-    public static Patient findPatient(DukeCore core, String bedNo, int index) throws DukeException {
-        if (bedNo == null && index == -1) {
-            throw new DukeException("You must provide a unique identifier (bed number OR index) for a patient!");
-        } else if (bedNo != null && index != -1) {
-            throw new DukeException("Please provide only 1 unique identifier (bed number OR index) for the patient "
-                    + "you are looking for!");
-        } else if (bedNo != null) {
+    public static Patient findFromHome(DukeCore core, String bedNo, String nameOrIdx) throws DukeException {
+        if (nameOrIdx == null && bedNo == null) {
+            throw new DukeUtilException("Please provide a way to identify the patient! Patients can be searched for"
+                    + "by name/index or by bed.");
+        }
+        if (nameOrIdx != null && bedNo != null) {
+            throw new DukeUtilException("I don't know if you want me to find the patient ");
+        }
+
+        if (bedNo != null) {
             return core.patientMap.getPatient(bedNo);
-        } else {
+        }
+        int index = idxFromString(nameOrIdx);
+        if (index != -1) {
             // TODO: Law of demeter
-            try {
-                return (Patient) core.ui.getIndexedList("patient").get(index - 1);
-            } catch (IndexOutOfBoundsException e) {
-                throw new DukeException("I cannot find a patient with the identifier you provided!");
+            List<DukeObject> patientList = core.ui.getIndexedList("patient");
+            int count = patientList.size();
+            if (index > count) {
+                throw new DukeException("I have only " + ((count == 1) ? ("1 patient") : (count + "patients")) + " in "
+                        + "my list!");
             }
+            return (Patient) patientList.get(index - 1);
+        } else {
+            // TODO proper searching
+            return core.patientMap.findPatient(nameOrIdx).get(0);
         }
     }
 
@@ -244,37 +259,44 @@ public class CommandUtils {
      * @param core    DukeCore object.
      * @param patient Patient object.
      * @param type    Type of DukeObject.
-     * @param name    Name of DukeObject.
-     * @param index   Displayed index of DukeObject.
+     * @param nameOrIdx   Name of DukeObject or displayed index.
      * @return DukeObject object,
      * @throws DukeException If 1 of the following 3 conditions applies.
      *                       1. No identifier is provided.
      *                       2. 2 identifiers are provided.
      *                       3. 1 unique identifier is provided but said DukeObject does not exist.
      */
-    public static DukeObject findObject(DukeCore core, Patient patient, String type, String name, int index)
+    public static DukeObject findFromPatient(DukeCore core, Patient patient, String type, String nameOrIdx)
             throws DukeException {
-        if (name == null && index == -1) {
-            throw new DukeException("You must provide a unique identifier (name OR index)!");
-        } else if (name != null && index != -1) {
-            throw new DukeException("Please provide only 1 unique identifier (name OR index)!");
-        } else if (name != null) {
-            if ("impression".equals(type)) {
-                return patient.getImpression(name);
-            } else if ("critical".equals(type)) {
-                // TODO: Get critical
-            } else {
-                // TODO: Get investigation
-            }
-        } else {
+        int index = idxFromString(nameOrIdx);
+        if (index != -1) {
             try {
                 return core.ui.getIndexedList(type).get(index - 1);
             } catch (IndexOutOfBoundsException e) {
                 throw new DukeException("No such " + type + " exists in the list!");
             }
-        }
+        } else {
+            // TODO proper search
+            ArrayList<DukeObject> resultList = new ArrayList<DukeObject>();
+            if (type == null) {
+                resultList.addAll(patient.findImpressionsByName(nameOrIdx));
+                resultList.addAll(patient.findCriticalsByName(nameOrIdx));
+                resultList.addAll(patient.findFollowUpsByName(nameOrIdx));
+            }
 
-        return null;
+            if ("impression".equals(type)) {
+                resultList.addAll(patient.findImpressionsByName(nameOrIdx));
+            } else if ("critical".equals(type)) {
+                resultList.addAll(patient.findCriticalsByName(nameOrIdx));
+            } else {
+                resultList.addAll(patient.findFollowUpsByName(nameOrIdx));
+            }
+
+            if (resultList.size() == 0) {
+                throw new DukeUtilException("Can't find anything with those search parameters!");
+            }
+            return resultList.get(0);
+        }
     }
 
     /**

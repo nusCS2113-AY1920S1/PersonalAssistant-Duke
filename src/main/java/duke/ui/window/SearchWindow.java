@@ -61,7 +61,6 @@ class SearchWindow extends UiElement<Region> {
             this.searchResults = searchResults;
             setSearchWindow();
         }
-
     }
 
     private void setSearchWindow() {

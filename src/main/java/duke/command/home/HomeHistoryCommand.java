@@ -19,8 +19,7 @@ public class HomeHistoryCommand extends ArgCommand {
         super.execute(core);
 
         String bed = getSwitchVal("bed");
-        int index = switchToInt("index");
-        Patient patient = CommandUtils.findPatient(core, bed, index);
+        Patient patient = CommandUtils.findFromHome(core, bed, getArg());
         String patientDetails = getArg() + ", " + patient.getName();
         String message = getSwitchVal("message");
         String rewrite = getSwitchVal("rewrite");
