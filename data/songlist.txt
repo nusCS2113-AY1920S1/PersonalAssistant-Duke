@@ -1,1 +1,1 @@
-twinkle Aminor 120 [[UAs],[UA],[UA],[UA],[RTs],[RT],[RT],[RT]] [[UBs],[UB],[UB],[UB],[RTs],[RT],[MCs],[MC]] 
+twinkle aminor 123 [[UAs],[UA],[UAs],[UA],[UAs],[UA],[UAs],[UA]] [[UAs],[UA],[UAs],[UA],[UAs],[UA],[UAs],[UA]] 

@@ -27,7 +27,8 @@ public class AddBarCommand extends Command<SongList> {
     }
 
     /**
-     * Modifies the song in the song list and returns the messages intended to be displayed.
+     * Modifies a song in the song list by adding a new bar at the end of the song and
+     * returns the messages intended to be displayed.
      *
      * @param songList the duke.components.SongList object that contains the song list
      * @param ui the Ui object responsible for the reading of user input and the display of
@@ -42,21 +43,18 @@ public class AddBarCommand extends Command<SongList> {
             throw new DucatsException(message);
         }
         try {
-            String[] sections = message.substring(7).split(" ");
-
             songIndex = songList.getActiveIndex();
-            Song song = songList.getSongIndex(songIndex);
+            Song activeSong = songList.getSongIndex(songIndex);
 
+            String[] sections = message.substring(7).split(" ");
             int notesIndex = message.indexOf(sections[1]);
-            barNo = song.getNumBars() + 1;
+            barNo = activeSong.getNumBars() + 1;
             Bar newBar = new Bar(barNo, message.substring(notesIndex));
-            song.addBar(newBar);
-
-            storage.updateFile(songList);
-            System.out.println(notesIndex);
+            activeSong.addBar(newBar);
+            
             storage.updateFile(songList);
             ArrayList<Song> temp = songList.getSongList();
-            return ui.formatAddBar(temp, newBar, song);
+            return ui.formatAddBar(temp, newBar, activeSong);
 
         } catch (Exception e) {
             throw new DucatsException(message, "addbar");

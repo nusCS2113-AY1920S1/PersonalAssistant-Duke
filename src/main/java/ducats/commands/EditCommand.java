@@ -27,7 +27,8 @@ public class EditCommand extends Command<SongList> {
     }
 
     /**
-     * Modifies the song in the song list and returns the messages intended to be displayed.
+     * Modifies a song in the song list by editing an existing bar and
+     * returns the messages intended to be displayed.
      *
      * @param songList the duke.components.SongList object that contains the song list
      * @param ui the Ui object responsible for the reading of user input and the display of
