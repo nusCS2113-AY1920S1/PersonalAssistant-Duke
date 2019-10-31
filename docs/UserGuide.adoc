@@ -59,19 +59,21 @@ Apart from have simple ToDo commands, you will most likely have time constraints
 [width="90"]
 |===
 
+| S/N | Command | Elaboration.
+
 | 1. | */add <task description>* | Todo task, with default difficulty set to medium.
 
-| 2. | */add <task description> /by <date> <time>* | Deadline task. Date format is DD/MM/YY and time format is HHmm. Where D stands for day, M stands for month, Y stands for year, H stands for hour in 24-hour format and m stands for minutes. Uses the /by keyword.
+| 2. | */add <task description> /by <date> <time>* | Deadline task. Date format is DD/MM/YY and time format is HHmm. Where D stands for day, M stands for month, Y stands for year, H stands for hour in 24-hour format and m stands for minutes. Uses the `/by` keyword.
 
-| 3. | */add <task description> /at <date> <time> | Event task. The date time format is the same as the one for deadline. Uses the /at keyword.
+| 3. | */add <task description> /at <date> <time> | Event task. The date time format is the same as the one for deadline. Uses the `/at` keyword.
 
-| 4. | */add <task description> /by <date> <time> /every <frequency>* | Recurring Deadline where the format of <frequency> is <number> followed by minutes/hours/days/weeks/months. Uses the /every keyword.
+| 4. | */add <task description> /by <date> <time> /every <frequency>* | Recurring Deadline where the format of <frequency> is <number> followed by minutes/hours/days/weeks/months. Uses the `/every` keyword.
 
-| 5. | */add <task description> /at <date> <time> /every <frequency>* | Recurring Event where the formatting is the same as that of recurrent deadline. Uses the /every keyword.
+| 5. | */add <task description> /at <date> <time> /every <frequency>* | Recurring Event where the formatting is the same as that of recurrent deadline. Uses the `/every` keyword.
 
 | 6. | */add <task description> /tag <one-word tag>* | Tags the task with a one-word tag. It can be any word consisting of alphanumeric letters.
 
-| 7. | */add <task description> /d <L/M/H>* | States the difficulty of the task where <E/M/H> can be either replaced with H which stands for high, M which stands for medium and E which stands for easy. Uses the /d keyword.
+| 7. | */add <task description> /d <L/M/H>* | States the difficulty of the task where <E/M/H> can be either replaced with H which stands for high, M which stands for medium and E which stands for easy. Uses the `/d` keyword.
 
 |===
 // end::base-alt[]
