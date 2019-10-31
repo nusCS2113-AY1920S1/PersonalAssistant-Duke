@@ -415,10 +415,8 @@ public class TaskList implements Serializable, Cloneable {
         Collections.sort(this.list, new Comparator<Task>() {
             @Override
             public int compare(Task o1, Task o2) {
-//                System.out.println(o1.getTaskPriority());
-//                System.out.println(o2.getTaskPriority());
-//                return (o1.getTaskPriority() - o2.getTaskPriority());
-                return o1.getDescription().compareTo(o2.getDescription());
+                return (o2.taskPriority - o1.taskPriority);
+//                return o1.getDescription().compareTo(o2.getDescription());
             }
         });
     }
