@@ -28,7 +28,7 @@ If you are a busy computing student who is tired of receiving too many emails, y
 
 [#img-UI]
 [caption="Figure N: UI"]
-image::Ui.png[UI, 600]
+image::Ui.png[UI, 800]
 
 == About User Guide
 This user guide shows you how to get started with Email Manager. It introduces you to the features of Email Manager and provides you with examples, that you will become an expert user very soon! +
@@ -104,11 +104,15 @@ Format: `bye` +
 Exits the program and closes the window.
 
 [WARNING]
-If the program is closed without using the bye command, the program will exit without saving the data.
+If the program is closed without using the `bye` command, the program will exit without saving the data.
+
+==== Changing between task and email mode: `flip`
+Format: `flip` +
+Changes the mode of the manager.
 
 ==== Apply colour code: `colour` (coming in v2.0)
 Format: `colour ITEM_NUMBER COLOUR` +
-The specified item will be shown in the colour from the command.
+The specified item will be shown in the colour specified in the command.
 
 === Task Mode
 
