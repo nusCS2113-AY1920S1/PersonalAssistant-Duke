@@ -208,6 +208,7 @@ Executing the `/find` command:
 IMPORTANT: Note that the parser is only able to recognize dates in DD/MM/YYYY format, and inputting /find 1/11/2019 instead will not yield the correct result.
 
 There are couple of things to take note with the current /find function:
+
 *	It is only able to recognize dates in DD/MM/YYYY format
 *	It is only able to recognize time in 24-hour clock HHMM format
 *	It will only find exact word-for-word for tags
