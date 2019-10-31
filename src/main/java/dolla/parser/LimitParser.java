@@ -21,13 +21,7 @@ public class LimitParser extends Parser {
         this.mode = MODE_LIMIT;
     }
 
-    protected static final String SEARCH_COMMAND = "search";
-
-    private static final String LIMIT_COMMAND_LIST = "limits";
-    private static final String LIMIT_COMMAND_SET = "set";
     //private static final String LIMIT_COMMAND_REMOVE = "remove";
-    private static final String LIMIT_COMMAND_SORT = "sort";
-
 
     private static final String LIMIT_TYPE_S = "saving";
     private static final String LIMIT_TYPE_B = "budget";
@@ -71,11 +65,19 @@ public class LimitParser extends Parser {
             }
             return new RemoveLimitCommand(limitType, duration);
          */
-        } else if (commandToRun.equals(SEARCH_COMMAND)) {
+        } else if (commandToRun.equals(COMMAND_MODIFY)) {
+            if (verifyFullModifyCommand()) {
+                // TODO: Update when ready
+                //return new InitialModifyCommand(inputArray[1]);
+                return new ErrorCommand();
+            } else {
+                return new ErrorCommand();
+            }
+        } else if (commandToRun.equals(COMMAND_SEARCH)) {
             String component = inputArray[1];
             String content = inputArray[2];
             return new SearchCommand(mode, component, content);
-        } else if (commandToRun.equalsIgnoreCase(LIMIT_COMMAND_SORT)) {
+        } else if (commandToRun.equalsIgnoreCase(COMMAND_SORT)) {
             return new SortCommand(mode, inputArray[1]);
         }
         return null;

@@ -10,6 +10,7 @@ import dolla.command.ErrorCommand;
 
 import java.time.LocalDate;
 
+//@@author omupenguin
 public class DollaParser extends Parser {
 
     public DollaParser(String inputLine) {
@@ -20,7 +21,7 @@ public class DollaParser extends Parser {
     @Override
     public Command parseInput() {
 
-        if (commandToRun.equals("add")) {
+        if (commandToRun.equals(ENTRY_COMMAND_ADD)) {
             if (verifyAddCommand() == true) {
                 return new AddEntryCommand(inputArray[1], stringToDouble(inputArray[2]), description, date, -1);
             } else {
@@ -38,7 +39,7 @@ public class DollaParser extends Parser {
             }
             */
 
-        } else if (commandToRun.equals("owe") || commandToRun.equals("borrow")) {
+        } else if (commandToRun.equals(DEBT_COMMAND_OWE) || commandToRun.equals(DEBT_COMMAND_BORROW)) {
             String type = commandToRun;
             String name = null;
             double amount = 0.0;

@@ -2,6 +2,8 @@ package dolla.parser;
 
 import dolla.Tag;
 import dolla.Time;
+
+import dolla.command.InitialModifyCommand;
 import dolla.task.Debt;
 import dolla.ui.DebtUi;
 import dolla.action.Repeat;
@@ -60,11 +62,17 @@ public class DebtsParser extends Parser {
             Debt debt = new Debt(type, name, amount, description, date);
             t.handleTag(inputLine, inputArray, debt);
             return processAdd(type, name, amount);
-        } else if (commandToRun.equals("search")) {
+        } else if (commandToRun.equals(COMMAND_MODIFY)) {
+            if (verifyFullModifyCommand()) {
+                return new InitialModifyCommand(inputArray[1]);
+            } else {
+                return new ErrorCommand();
+            }
+        } else if (commandToRun.equals(COMMAND_SEARCH)) {
             String component = inputArray[1];
             String content = inputArray[2];
             return new SearchCommand(mode, component, content);
-        } else if (commandToRun.equals("sort")) {
+        } else if (commandToRun.equals(COMMAND_SORT)) {
             return new SortCommand(mode, inputArray[1]);
         } else if (commandToRun.equals("remove")) {
             return new RemoveCommand(mode, inputArray[1]);
