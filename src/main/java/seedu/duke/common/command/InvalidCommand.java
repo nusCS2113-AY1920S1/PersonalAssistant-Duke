@@ -13,7 +13,8 @@ public class InvalidCommand extends Command {
         this.msg = msg;
     }
 
-    public InvalidCommand(){}
+    public InvalidCommand() {
+    }
 
     /**
      * Simply returns false. The UI output is currently disabled.

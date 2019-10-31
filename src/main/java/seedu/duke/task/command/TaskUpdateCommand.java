@@ -93,7 +93,7 @@ public class TaskUpdateCommand extends Command {
 
     private String updateTime(TaskList taskList, int i) throws CommandParseHelper.CommandParseException {
         String msg;
-        if (taskList.get(index).getTaskType() == Task.TaskType.ToDo) {
+        if (taskList.get(index).getTaskType() == Task.TaskType.TODO) {
             throw new CommandParseHelper.CommandParseException("Time cannot be added to Todo task.");
         }
         msg = taskList.setTime(index, descriptions.get(i));
