@@ -381,19 +381,12 @@ public class Ui {
      */
     public void printListSerialNumber(String str) {
         System.out.print("|");
-        if (str.length() == 4) {
-            printEmptySpace(4);
-            System.out.print(str);
-            printEmptySpace(5);
-        } else if (str.length() == 5) {
-            printEmptySpace(4);
-            System.out.print(str);
-            printEmptySpace(4);
-        } else {
-            printEmptySpace(4);
-            System.out.print(str);
-            printEmptySpace(3);
-        }
+        int trailingSpaces = (13 - str.length()) / 2;
+        int endingSpaces = 13 - trailingSpaces - str.length();
+        printEmptySpace(trailingSpaces);
+        System.out.print(str);
+        printEmptySpace(endingSpaces);
+
     }
 
     /**
