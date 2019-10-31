@@ -3,6 +3,7 @@ package duke.parser;
 import duke.models.students.ManageStudents;
 import duke.models.students.MyStudent;
 import java.util.Scanner;
+import duke.view.CliView;
 
 /**
  * This is the parser for manage students.
@@ -47,6 +48,7 @@ public final class ParserManageStudents implements IParser {
             System.out.println("Insert [Name],[Age],[Address] "
                     + "to add new student.\n"
                     + "Insert 1 to exit.");
+            new CliView().showDontKnow();
             addCommand();
             break;
         // Format: student delete [index]
