@@ -41,6 +41,7 @@ public class TaskList {
      * Deletes a task from the list. Task to be deleted is specified by the index that is input into this method
      * Will not perform any operations if the index does not exist in the list.
      * @param index Index of task in the list to be deleted
+     * @param deletedList temporary storage list for the deleted items so they can be restored
      * @throws RoomShareException If the index cannot be found in the list of tasks.
      */
     public void delete(int[] index, TempDeleteList deletedList) throws RoomShareException {
@@ -64,6 +65,8 @@ public class TaskList {
     }
     /**
      * Lists out all tasks in the current list in the order they were added into the list.
+     * shows all information related to the tasks
+     * @throws RoomShareException when the list is empty
      */
     public void list() throws RoomShareException {
         sortTasks();
@@ -134,12 +137,19 @@ public class TaskList {
         return tasks;
     }
 
+    /**
+     * replaces the task at the specified index with a new task
+     * @param index index of the task to be replaced
+     * @param replacement the replacement task
+     */
     public void replace(int index, Task replacement) {
         tasks.set(index, replacement);
     }
 
     /**
-     * Sets priority of task
+     * Sets priority of task at an index to a new priority
+     * @param info the information of the task index and the priority it should be set to
+     * @throws RoomShareException when the priority specified is wrong or index is out of bounds
      */
     public void setPriority(String[] info) throws RoomShareException {
         try {
@@ -181,6 +191,7 @@ public class TaskList {
 
     /**
      * Sorts the list based on current sort mode
+     * @throws IllegalArgumentException when the sort type is not of priority, alphabetical or by deadline
      */
     public static void sortTasks() {
         switch (sortType) {
@@ -261,6 +272,7 @@ public class TaskList {
      * @param index the index of the task to be snoozed
      * @param amount the amount of time to snooze
      * @param timeUnit unit for snooze time: month, day, hour, minute
+     * @throws IndexOutOfBoundsException when the specified index is not within the task list indices
      */
     public void snooze (int index, int amount, TimeUnit timeUnit) throws RoomShareException {
         try {
@@ -307,7 +319,8 @@ public class TaskList {
     /**
      * Retrieve a task from the list
      * @param index the index of the task
-     * @return
+     * @return the task at the specified index of the task list
+     * @throws RoomShareException when the index specified is out of bounds
      */
     public Task get(int index) throws RoomShareException{
         try {
@@ -317,12 +330,4 @@ public class TaskList {
         }
     }
 
-    /**
-     * Update a task inside the task list
-     * @param index index of the task to be updated
-     * @param newTask the new task
-     */
-    public void update(int index, Task newTask) {
-        tasks.set(index, newTask);
-    }
 }

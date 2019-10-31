@@ -176,7 +176,7 @@ public abstract class Task{
 
     /**
      * Returns both the status icon and the description of the task.
-     * @return
+     * @return the information of the task, consisting of status icon, description and assignee
      */
     public String toString() {
         if (hasRecurring)

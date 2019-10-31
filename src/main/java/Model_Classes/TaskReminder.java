@@ -1,10 +1,5 @@
 package Model_Classes;
 
-import CustomExceptions.RoomShareException;
-import Enums.Priority;
-import Enums.RecurrenceScheduleType;
-import Enums.TimeUnit;
-import Model_Classes.Task;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.awt.Toolkit;
@@ -14,14 +9,19 @@ public class TaskReminder {
     private int duration;
     private String description;
 
-    public TaskReminder() {
-    }
-
+    /**
+     * constructor for the TaskReminder class
+     * @param description description of the reminder
+     * @param duration duration of the reminder
+     */
     public TaskReminder(String description, int duration) {
         this.duration = duration;
         this.description = description;
     }
 
+    /**
+     * schedules a timer to play a sound when the time is up
+     */
     public void start() {
         timer.schedule(new TimerTask() {
             public void run() {
