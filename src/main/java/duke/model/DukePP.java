@@ -9,7 +9,6 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 
 import java.math.BigDecimal;
-import java.security.PublicKey;
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.Predicate;
@@ -283,9 +282,9 @@ public class DukePP implements Model {
         payments.setPredicate(weekPredicate);
     }
 
-    public void setOutOfDatePredicate() {
-        PaymentOutOfDatePredicate outOfDatePredicate = new PaymentOutOfDatePredicate();
-        payments.setPredicate(outOfDatePredicate);
+    public void setOverduePredicate() {
+        PaymentOverduePredicate overduePredicate = new PaymentOverduePredicate();
+        payments.setPredicate(overduePredicate);
     }
 
     public void setSearchKeyword(String keyword) {

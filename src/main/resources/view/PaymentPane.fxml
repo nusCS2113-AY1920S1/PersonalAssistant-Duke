@@ -10,7 +10,7 @@
    <children>
       <HBox layoutY="63.0" prefHeight="30.0" prefWidth="500.0" AnchorPane.bottomAnchor="544.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="500.0" AnchorPane.topAnchor="63.0">
          <children>
-            <Label fx:id="outdatedLabel" alignment="CENTER" opacity="0.2" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: #000000;" text="OVERDUE" textFill="WHITE">
+            <Label fx:id="overdueLabel" alignment="CENTER" opacity="0.2" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: #000000;" text="OVERDUE" textFill="WHITE">
                <font>
                   <Font name="Helvetica Neue" size="18.0" />
                </font>

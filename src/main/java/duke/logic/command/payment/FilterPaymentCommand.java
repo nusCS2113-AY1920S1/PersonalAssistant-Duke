@@ -16,7 +16,7 @@ public class FilterPaymentCommand extends Command {
     private static final String description = "View coming Payments in future";
     private static final String usage = "viewPayment $timeScope";
 
-    private static final String OUF_OF_DATE_SCOPE = "outdated";
+    private static final String OVERDUE_SCOPE = "overdue";
     private static final String WEEK_SCOPE = "week";
     private static final String MONTH_SCOPE = "month";
     private static final String ALL_SCOPE = "all";
@@ -38,7 +38,7 @@ public class FilterPaymentCommand extends Command {
     /**
      * Constructs a {@code FilterPaymentCommand} object
      * given the time scope of coming payments in future to be showed.
-     * The time scope includes out of date, week, month and all.
+     * The time scope includes overdue, week, month and all.
      */
     public FilterPaymentCommand() {
         super(name, description, usage, Stream.of(SecondaryParam.values())
@@ -54,8 +54,8 @@ public class FilterPaymentCommand extends Command {
         String timeScope = commandParams.getMainParam().toLowerCase();
 
         switch (timeScope) {
-            case OUF_OF_DATE_SCOPE:
-                model.setOutOfDatePredicate();
+            case OVERDUE_SCOPE:
+                model.setOverduePredicate();
                 break;
             case WEEK_SCOPE:
                 model.setWeekPredicate();

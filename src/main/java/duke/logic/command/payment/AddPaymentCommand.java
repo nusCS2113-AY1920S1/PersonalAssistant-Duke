@@ -25,7 +25,7 @@ public class AddPaymentCommand extends Command {
         DUE("due", "the due date of affording the payment"),
         PRIORITY("priority", "the priority of the payment"),
         RECEIVER("receiver", "the receiver of the payment"),
-        TAG("tag", "remark of the pending payment");
+        TAG("tag", "tag of the pending payment");
 
         private String name;
         private String description;

@@ -42,7 +42,8 @@ public class PaymentBox extends UiPart<AnchorPane> {
     @FXML
     private Label tagLabel;
 
-    @FXML Label overdueLabel;
+    @FXML
+    private Label overdueLabel;
 
     public PaymentBox(Payment payment, int displayedIndex) {
         super(FXML_FILE_NAME, null);
