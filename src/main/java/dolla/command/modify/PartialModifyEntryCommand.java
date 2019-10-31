@@ -27,7 +27,7 @@ public class PartialModifyEntryCommand extends Command {
      * @param date date.
      */
     public PartialModifyEntryCommand(int recordNum, String type, double amount, String description, LocalDate date) {
-        this.index = recordNum-1;
+        this.index = recordNum - 1;
         this.type = type;
         this.amount = amount;
         this.description = description;
