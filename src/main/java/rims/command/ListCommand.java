@@ -137,7 +137,6 @@ public class ListCommand extends Command {
             }
             ui.printLine();
         }
-
         else if (listType.equals("date")) {
             ArrayList<String> coveredResources = new ArrayList<String>();
             ui.print("CURRENTLY AVAILABLE ON THIS DATE:");

@@ -1,5 +1,6 @@
 package rims.command;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import rims.core.ResourceList;
@@ -38,7 +39,9 @@ public class DeleteCommand extends Command {
      * @throws RimsException if the resource IDs specified by the user are invalid
      */
     @Override
-    public void execute(Ui ui, Storage storage, ResourceList resources) throws RimsException {
+    public void execute(Ui ui, Storage storage, ResourceList resources) throws RimsException, IOException {
+        storage.saveToFile(resources.getResources());
+
         if (resourceType.equals("room")) {
             Resource thisResource = resources.getResourceByName(resourceName);
             resources.deleteResourceByName(resourceName);
