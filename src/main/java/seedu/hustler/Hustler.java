@@ -93,7 +93,6 @@ public class Hustler extends Application {
      * Displays reminders at the start of Hustler.
      */
     public static void initialize() throws IOException {
-        ui.showOpeningString();
         Folder.checkDirectory();
         loadStorage();
         memorymanager.createBackup();
