@@ -17,7 +17,6 @@ public class QuizSession implements QuizManager {
     public String filePath;
     private QuestionType qnType;
     private QuestionDifficulty qnDifficulty;
-    public static int TotalMaxQuestions = 5;
     private int currScore = 0;
     private static Profile profile;
     public ScoreGrade scoreGrade;
@@ -27,7 +26,8 @@ public class QuizSession implements QuizManager {
     public static final int MAX_QUESTIONS = 5;
     public static final double PERCENTAGE_1 = 0.5;
     public static final double PERCENTAGE_2 = 1.0;
-    public final int levelsOfDifficulty = 3;
+    public static final int levelsOfDifficulty = 3;
+    public static int TotalMaxQuestions = MAX_QUESTIONS * levelsOfDifficulty;
 
     public enum ScoreGrade {
         BAD, OKAY, GOOD
@@ -75,7 +75,9 @@ public class QuizSession implements QuizManager {
                 // TODO tie BackCommand identifier to MainWindow
                 return "!@#_BACK";
             default:
-                throw new CakeException("Invalid command at this point in the program. Try \"review\" or \"back\".");
+                throw new CakeException("[!] Invalid command at this point in the program [!]\n"
+                        + "    Try \"review\" or \"back\"."
+                        + "\n\n" + getQuizResult());
             }
         } else {
             checkAnswer(index, input);
@@ -225,7 +227,9 @@ public class QuizSession implements QuizManager {
      */
     private void checkAnswer(int index, String input) throws CakeException {
         if (!isNumeric(input)) {
-            throw new CakeException("Please input answers in the form of integer");
+            String userWarning = "[!] Please input answers in the form of integer [!]\n";
+            String qnAgain = getQuestion(index);
+            throw new CakeException(userWarning + qnAgain);
         }
         if (questionList.setAndCheckUserAnswer(index, input)) {
             currScore++;

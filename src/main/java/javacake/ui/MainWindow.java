@@ -14,21 +14,16 @@ import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.PauseTransition;
 import javafx.animation.Timeline;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import javafx.scene.input.MouseButton;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import org.w3c.dom.Text;
-
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -71,7 +66,8 @@ public class MainWindow extends AnchorPane {
     public static boolean isChanged = false;
     public static boolean doneDialog = false;
 
-    private JavaCake JavaCake;
+    //private Handler handler;
+    private JavaCake javaCake;
     private Stage primaryStage;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
@@ -118,7 +114,7 @@ public class MainWindow extends AnchorPane {
     }
 
     public void setJavaCake(JavaCake d) {
-        JavaCake = d;
+        javaCake = d;
     }
 
     public void setStage(Stage stage) {
@@ -155,43 +151,11 @@ public class MainWindow extends AnchorPane {
             } else if (isWritingNote) {
                 handleWriteNote();
             } else if (isResult) { // On results screen
-                response = quizSession.parseInput(0, input);
-                if (response.equals("!@#_REVIEW")) {
-                    handleResultsScreenInput();
-                } else if (response.equals("!@#_BACK")) {
-                    handleBackCommand();
-                }
+                handleIsResult();
             } else if (isReview) {
-                response = reviewSession.parseInput(0, input);
-                if (isNumeric(response)) {
-                    handleGetReviewQuestion();
-                } else if (response.equals("!@#_BACK")) {
-                    handleBackCommand();
-                }
+                handleIsReview();
             } else {
-                JavaCake.logger.log(Level.INFO, "executing normal(else) mode!");
-                response = JavaCake.getResponse(input);
-                if (isDeadlineRelated()) {
-                    //handles "deadline" and "reminder"
-                    JavaCake.logger.log(Level.INFO, "deadline setting");
-                } else if (isFirstQuiz()) {
-                    JavaCake.logger.log(Level.INFO, "First Quiz Incoming!");
-                } else if (isFirstResetRequest()) {
-                    JavaCake.logger.log(Level.INFO, "Reset command executed!");
-                } else if (!isQuiz || isStarting) {
-                    //default start: finding of response
-                    isStarting = false;
-                    JavaCake.logger.log(Level.INFO, "Response: " + response);
-                    //response = JavaCake.getResponse(input);
-                    if (response.contains("!@#_EDIT_NOTE")) {
-                        handleEditNote();
-                    } else {
-                        handleNormalCommand();
-                    }
-                } else if (isQuiz) {
-                    handleQuiz();
-                }
-                //System.out.println("End->Next");
+                handleOtherProcesses();
             }
         } catch (CakeException e) {
             response = e.getMessage();
@@ -231,6 +195,61 @@ public class MainWindow extends AnchorPane {
         }
     }
 
+    private void handleOtherProcesses() throws CakeException {
+        JavaCake.logger.log(Level.INFO, "executing normal(else) mode!");
+        response = javaCake.getResponse(input);
+        if (isDeadlineRelated()) {
+            //handles "deadline" and "reminder"
+            JavaCake.logger.log(Level.INFO, "deadline setting");
+        } else if (isFirstQuiz()) {
+            JavaCake.logger.log(Level.INFO, "First Quiz Incoming!");
+        } else if (isFirstResetRequest()) {
+            JavaCake.logger.log(Level.INFO, "Reset command executed!");
+        } else if (!isQuiz || isStarting) {
+            //default start: finding of response
+            isStarting = false;
+            JavaCake.logger.log(Level.INFO, "Response: " + response);
+            //response = JavaCake.getResponse(input);
+            if (response.contains("!@#_EDIT_NOTE")) {
+                handleEditNote();
+            } else {
+                handleNormalCommand();
+            }
+        } else if (isQuiz) {
+            handleQuiz();
+        }
+    }
+
+    /*static void setExitToTrue() {
+        isExit = true;
+    }
+
+    static void setResponse(String userResponse) {
+        response = userResponse;
+    }
+
+    static String getInput() {
+        return input;
+    }*/
+
+
+    private void handleIsResult() throws CakeException {
+        response = quizSession.parseInput(0, input);
+        if (response.equals("!@#_REVIEW")) {
+            handleResultsScreenInput();
+        } else if (response.equals("!@#_BACK")) {
+            handleBackCommand();
+        }
+    }
+
+    private void handleIsReview() throws CakeException {
+        response = reviewSession.parseInput(0, input);
+        if (isNumeric(response)) {
+            handleGetReviewQuestion();
+        } else if (response.equals("!@#_BACK")) {
+            handleBackCommand();
+        }
+    }
 
     private String initQuizSession(String cmdMode) throws CakeException {
         QuestionType qnType;
@@ -259,7 +278,7 @@ public class MainWindow extends AnchorPane {
     }
 
     private void handleDeleteNote() throws CakeException {
-        response = JavaCake.getResponse(input);
+        response = javaCake.getResponse(input);
         showContentContainer();
         showListNotesBox();
     }
@@ -329,7 +348,7 @@ public class MainWindow extends AnchorPane {
 
     private void handleCreateNote() throws CakeException {
         JavaCake.logger.log(Level.INFO, "`createnote` command");
-        response = JavaCake.getResponse(input);
+        response = javaCake.getResponse(input);
         showContentContainer();
         showListNotesBox();
     }
@@ -339,7 +358,7 @@ public class MainWindow extends AnchorPane {
         JavaCake.logger.log(Level.INFO, "EXITING PROGRAM!");
         // find out if exit condition
         isExit = true;
-        response = JavaCake.getResponse(input);
+        response = javaCake.getResponse(input);
         showContentContainer();
         PauseTransition pause = new PauseTransition(Duration.seconds(2));
         pause.setOnFinished(e -> primaryStage.hide());
@@ -363,7 +382,7 @@ public class MainWindow extends AnchorPane {
             //resets
             Profile.resetProfile();
             Storage.resetStorage();
-            JavaCake = new JavaCake();
+            //JavaCake = new JavaCake();
             //            JavaCake.profile = new Profile();
             JavaCake.userProgress = JavaCake.storageManager.profile.getTotalProgress();
             JavaCake.userName = JavaCake.storageManager.profile.getUsername();
@@ -382,7 +401,8 @@ public class MainWindow extends AnchorPane {
     }
 
     private void handleGuiQuiz() throws CakeException {
-        quizSession.parseInput(index++, input);
+        quizSession.parseInput(index, input);
+        index++;
         if (index < MAX_QUESTIONS) {
             response = quizSession.getQuestion(index);
         } else {
@@ -414,7 +434,7 @@ public class MainWindow extends AnchorPane {
         isResult = false;
         isReview = false;
         index = 0;
-        response = JavaCake.getResponse("back");
+        response = javaCake.getResponse("back");
         showContentContainer();
     }
 
@@ -427,7 +447,7 @@ public class MainWindow extends AnchorPane {
     private void showContentContainer() {
         dialogContainer.getChildren().clear();
         dialogContainer.getChildren().add(
-                DialogBox.getDukeDialog(response, JavaCakeImage));
+                DialogBox.getJavaCakeDialog(response, JavaCakeImage));
     }
 
     private void showTaskContainer() {
@@ -462,7 +482,7 @@ public class MainWindow extends AnchorPane {
             //response = JavaCake.getResponse(input);
             System.out.println(response);
             if (!response.contains("[!]")) {
-                response = JavaCake.getResponse("reminder");
+                response = javaCake.getResponse("reminder");
                 System.out.println(response);
                 //CHECKSTYLE:OFF
                 response = response.replaceAll("✓", "\u2713");
