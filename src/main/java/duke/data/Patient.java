@@ -151,14 +151,60 @@ public class Patient extends DukeObject {
      * @return the list of impressions
      */
     public ArrayList<Impression> findImpressionsByName(String searchTerm) {
-        ArrayList<Impression> searchResult = new ArrayList<>();
+        ArrayList<Impression> resultList = new ArrayList<>();
         String lowerSearchTerm = searchTerm.toLowerCase();
         for (Map.Entry<String, Impression> entry : this.observableImpressions.entrySet()) {
             if (entry.getKey().toLowerCase().contains(lowerSearchTerm)) {
-                searchResult.add(entry.getValue());
+                resultList.add(entry.getValue());
             }
         }
-        return searchResult;
+        return resultList;
+    }
+
+    /**
+     * This function finds critical items in this patient whose names contain the searchTerm.
+     *
+     * @param searchTerm the search term
+     * @return the list of critical items
+     */
+    public ArrayList<DukeData> findCriticalsByName(String searchTerm) {
+        ArrayList<DukeData> resultList = new ArrayList<>();
+        String lowerSearchTerm = searchTerm.toLowerCase();
+        for (Map.Entry<String, Impression> entry : this.observableImpressions.entrySet()) {
+            for (Map.Entry<String, Evidence> evidenceEntry : entry.getValue().getEvidences().entrySet()) {
+                if (evidenceEntry.getKey().toLowerCase().contains(lowerSearchTerm)
+                        && evidenceEntry.getValue().getPriority() == 1) {
+                    resultList.add(evidenceEntry.getValue());
+                }
+            }
+            for (Map.Entry<String, Treatment> treatmentEntry : entry.getValue().getTreatments().entrySet()) {
+                if (entry.getKey().toLowerCase().contains(lowerSearchTerm)
+                        && treatmentEntry.getValue().getPriority() == 1) {
+                    resultList.add(treatmentEntry.getValue());
+                }
+            }
+        }
+        return resultList;
+    }
+
+    /**
+     * This function finds follow-up items (Investigations for now) whose names contain the searchTerm.
+     *
+     * @param searchTerm the search term
+     * @return the list of follow-up items
+     */
+    public ArrayList<DukeData> findFollowUpsByName(String searchTerm) {
+        ArrayList<DukeData> resultList = new ArrayList<>();
+        String lowerSearchTerm = searchTerm.toLowerCase();
+        for (Impression imp : this.observableImpressions.values()) {
+            for (Map.Entry<String, Treatment> treatmentEntry : imp.getTreatments().entrySet()) {
+                if (treatmentEntry.getKey().toLowerCase().contains(lowerSearchTerm)
+                        && treatmentEntry.getValue().getClass() == Investigation.class) {
+                    resultList.add(treatmentEntry.getValue());
+                }
+            }
+        }
+        return resultList;
     }
 
     /**

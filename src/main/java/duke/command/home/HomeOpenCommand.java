@@ -20,7 +20,7 @@ public class HomeOpenCommand extends ArgCommand {
         super.execute(core);
 
         String bed = getSwitchVal("bed");
-        Patient patient = CommandUtils.findPatient(core, bed, getArg());
+        Patient patient = CommandUtils.findFromHome(core, bed, getArg());
 
         if (isSwitchSet("impression")) {
             Impression primaryDiagnosis = patient.getPrimaryDiagnosis();

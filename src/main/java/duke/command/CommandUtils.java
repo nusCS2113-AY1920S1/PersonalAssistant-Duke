@@ -8,6 +8,7 @@ import duke.exception.DukeException;
 import duke.exception.DukeUtilException;
 import duke.ui.context.Context;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
@@ -208,6 +209,8 @@ public class CommandUtils {
         return d[len1 + 1][len2 + 1];
     }
 
+    // TODO might move these to respective DukeObjects
+
     /**
      * Find a {@code Patient} with the supplied identifier. Only 1 of either bed number or displayed index
      * should be used to identify said patient.
@@ -221,7 +224,7 @@ public class CommandUtils {
      *                       2. 2 identifiers are provided.
      *                       3. 1 unique identifier is provided but said patient does not exist.
      */
-    public static Patient findPatient(DukeCore core, String bedNo, String nameOrIdx) throws DukeException {
+    public static Patient findFromHome(DukeCore core, String bedNo, String nameOrIdx) throws DukeException {
         if (nameOrIdx == null && bedNo == null) {
             throw new DukeUtilException("Please provide a way to identify the patient! Patients can be searched for"
                     + "by name/index or by bed.");
@@ -263,7 +266,7 @@ public class CommandUtils {
      *                       2. 2 identifiers are provided.
      *                       3. 1 unique identifier is provided but said DukeObject does not exist.
      */
-    public static DukeObject findObject(DukeCore core, Patient patient, String type, String nameOrIdx)
+    public static DukeObject findFromPatient(DukeCore core, Patient patient, String type, String nameOrIdx)
             throws DukeException {
         int index = idxFromString(nameOrIdx);
         if (index != -1) {
@@ -273,15 +276,27 @@ public class CommandUtils {
                 throw new DukeException("No such " + type + " exists in the list!");
             }
         } else {
-            if ("impression".equals(type)) {
-                return patient.getImpression(nameOrIdx);
-            } else if ("critical".equals(type)) {
-                // TODO: Get critical
-            } else {
-                // TODO: Get investigation
+            // TODO proper search
+            ArrayList<DukeObject> resultList = new ArrayList<DukeObject>();
+            if (type == null) {
+                resultList.addAll(patient.findImpressionsByName(nameOrIdx));
+                resultList.addAll(patient.findCriticalsByName(nameOrIdx));
+                resultList.addAll(patient.findFollowUpsByName(nameOrIdx));
             }
+
+            if ("impression".equals(type)) {
+                resultList.addAll(patient.findImpressionsByName(nameOrIdx));
+            } else if ("critical".equals(type)) {
+                resultList.addAll(patient.findCriticalsByName(nameOrIdx));
+            } else {
+                resultList.addAll(patient.findFollowUpsByName(nameOrIdx));
+            }
+
+            if (resultList.size() == 0) {
+                throw new DukeUtilException("Can't find anything with those search parameters!");
+            }
+            return resultList.get(0);
         }
-        return null;
     }
 
     /**

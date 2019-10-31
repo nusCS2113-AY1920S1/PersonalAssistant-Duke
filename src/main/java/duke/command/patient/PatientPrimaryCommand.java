@@ -19,7 +19,7 @@ public class PatientPrimaryCommand extends ArgCommand {
         super.execute(core);
 
         Patient patient = (Patient) core.uiContext.getObject();
-        Impression impression = (Impression) CommandUtils.findObject(core, patient, "impression", getArg());
+        Impression impression = (Impression) CommandUtils.findFromPatient(core, patient, "impression", getArg());
         patient.setPrimaryDiagnosis(impression.getName());
         patient.updateAttributes();
         core.writeJsonFile();
