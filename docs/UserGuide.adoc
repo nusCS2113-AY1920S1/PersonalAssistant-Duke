@@ -131,8 +131,7 @@ Format: `delete w/WORD [t/TAG]`
 
 Examples:
 
-* `list` +
-`delete w/drink` +
+* `delete w/drink` +
 Deletes the drink object from dictionary.
 
 // end::delete[]
@@ -155,6 +154,11 @@ Format: `addsyn w/WORD_TO_BE_TAGGED s/SYNONYM`
 
 Assigns a tag to an existing word in the database. +
 Format: `tag w/WORD_TO_BE_TAGGED t/NEW_TAG`
+
+Examples:
+
+* `tag w/banana t/fruit` +
+Assigns the word banana with tag fruit.
 
 === Viewing history : `history`
 
@@ -186,19 +190,20 @@ _{explain how the user can enable/disable data encryption}_
 
 * *Add* `add w/WORD m/MEANING [t/TAG]...` +
 e.g. `add w/life m/the existence of an individual human being or animal.`
+* *Add Synonym* : `addsyn w/WORD s/SYNONYM1 SYNONYM2 SYNONYM3 ...` +
+e.g. `addsyn w/water s/liquid beverage drink`
 * *Delete* : `delete w/word` +
 e.g. `delete w/life`
 * *Edit* : `edit w/WORD m/NEW_MEANGING` +
 e.g. `edit w/life m/the existence of a living thing.`
-* *Find* : `search w/WORD` +
+* *exit* : `exit`
+* *Freq* : `freq o/ORDER`
+* *Help* : `help [COMMAND]`
+e.g. `help add`
+* *History* : `history INTEGER`
+* *List* : `list`
+* *Quiz* : `quiz` -> `start`
+* *Search* : `search w/WORD` +
 e.g. `search w/life`
 * *Tag* : `tag w/WORD t/TAG1 t/TAG2 t/TAG3` +
 e.g. `tag w/happy t/emotion t/delight`
-* *Add Synonym* : `addsyn w/WORD s/SYNONYM1 SYNONYM2 SYNONYM3 ...` +
-e.g. `addsyn w/water s/liquid beverage drink`
-* *Quiz* : `quiz` -> `start`
-* *List* : `list`
-* *Help* : `help [COMMAND]`
-* *Search* : `search w/WORD`
-* *History* : `history INTEGER`
-* *freq* : `freq o/ORDER`
