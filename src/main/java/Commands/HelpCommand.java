@@ -19,20 +19,22 @@ import java.util.logging.Logger;
  */
 public class HelpCommand extends Command{
     private static final Logger LOGGER = Logger.getLogger(LookupTable.class.getName());
-    private static  String help = new String();
+    private static String out;
 
     public HelpCommand(){
+         String help = new String();
         try {
             String line;
             InputStream is = this.getClass().getClassLoader().getResourceAsStream("documents/Help.txt");
             InputStreamReader isr = new InputStreamReader(is);
             BufferedReader reader = new BufferedReader(isr);
             while ((line = reader.readLine()) != null) {
-                this.help += line + "\n";
+                help += line + "\n";
             }
             reader.close();
             isr.close();
             is.close();
+            this.out = help;
         } catch (
                 IOException e) {
             LOGGER.log(Level.SEVERE, e.toString(), e);
@@ -48,7 +50,8 @@ public class HelpCommand extends Command{
      */
     @Override
     public String execute(LookupTable LT,TaskList events, TaskList deadlines, Ui ui, Storage storage) throws Exception {
-        return ui.showHelp(help);
+
+        return ui.showHelp(out);
 
     }
 }
