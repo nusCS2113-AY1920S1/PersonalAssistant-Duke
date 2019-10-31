@@ -28,8 +28,8 @@ public class NewItineraryCommand extends Command {
      */
     @Override
     public CommandResultText execute(Model model) throws DukeException, FileNotFoundException {
-        model.saveItinerary(this.itinerary);
-        model.itineraryListSave(this.itinerary);
-        return new CommandResultText("New Itinerary Created :" + this.itinerary.printItinerary());
+        model.saveItinerary(itinerary);
+        model.itineraryListSave(itinerary);
+        return new CommandResultText("New Itinerary Created :" + itinerary.printItinerary());
     }
 }

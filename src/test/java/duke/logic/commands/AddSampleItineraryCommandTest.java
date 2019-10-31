@@ -32,8 +32,8 @@ class AddSampleItineraryCommandTest {
 
         assertEquals(model.getItinerary("Test").getName(), itinerary.getName());
 
-        File file = new File("testSamples.txt");
-        file.delete();
+//        File file = new File("testSamples.txt");
+//        file.delete();
 
     }
 

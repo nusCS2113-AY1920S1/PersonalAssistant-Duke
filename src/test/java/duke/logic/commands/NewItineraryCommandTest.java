@@ -44,10 +44,10 @@ class NewItineraryCommandTest {
         ModelStub model = new ModelStub();
         newItineraryCommand.execute(model);
         assertEquals(model.getItinerary("Test").getName(), itinerary.getName());
-        File file = new File("testItineraries.txt");
-        file.delete();
-        File file1 = new File("testItineraryTable.txt");
-        file1.delete();
+//        File file = new File("testItineraries.txt");
+//        file.delete();
+//        File file1 = new File("testItineraryTable.txt");
+//        file1.delete();
     }
 
 }

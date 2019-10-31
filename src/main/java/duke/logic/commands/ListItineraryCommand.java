@@ -7,7 +7,7 @@ import duke.model.Model;
 import java.io.FileNotFoundException;
 
 /**
- * Creates a new custom itinerary.
+ * Lists the stored itineraries names an serial number
  */
 public class ListItineraryCommand extends Command {
 

@@ -33,9 +33,9 @@ public class AddSampleItineraryCommand extends Command {
     @Override
     public CommandResultText execute(Model model) throws DukeException, FileNotFoundException {
         // Add to the list of Itineraries
-        this.itinerary = model.readRecommendations();
-        model.itineraryListSave(this.itinerary);
-        model.saveItinerary(this.itinerary);
+        itinerary = model.readRecommendations();
+        model.itineraryListSave(itinerary);
+        model.saveItinerary(itinerary);
         return new CommandResultText("Successfully added this itinerary: " + "\n"
                 + itinerary.printItinerary());
     }
