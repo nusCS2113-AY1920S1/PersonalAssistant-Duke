@@ -31,10 +31,8 @@ public class CommandTaskEdit extends CommandChangeTask {
             throw new FarmioException("Invalid Task ID!");
         }
         farmer.getTasks().editTask(taskID, task);
-        farmio.getSimulation().simulate(farmio.getLevel().getPath(),
-                farmio.getLevel().getNarratives().size() - 1);
+        super.saveTaskandResetScreen(farmio);
         Ui ui = farmio.getUi();
         ui.showInfo("Successfully edited task!");
-        super.saveTask(farmio);
     }
 }
