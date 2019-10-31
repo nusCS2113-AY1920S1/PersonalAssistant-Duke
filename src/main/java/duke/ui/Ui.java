@@ -149,14 +149,6 @@ public class Ui {
         printDash();
     }
 
-    private void showList(List<Locker> listOfTasks) {
-        System.out.println();
-        for (int i = 0; i < listOfTasks.size(); i++) {
-            printSpaces(" " + listOfTasks.get(i).toString());
-        }
-        printDash();
-    }
-
     /**
      * This function prints the exit message every time Duke is closed.
      */
@@ -338,6 +330,153 @@ public class Ui {
         showOtherSyntax();
         showSyntaxLegends();
         showSyntaxNote();
+        printDash();
+    }
+
+    /**
+     * This function prints required number of empty spaces.
+     * @param num represents the number of wanted empty space.
+     */
+    public void printEmptySpace(int num) {
+        for (int i = 0; i < num; i++) {
+            System.out.print(" ");
+        }
+    }
+
+    /**
+     * This function prints the borders for table of lockers.
+     */
+    public void printListBorder() {
+        String str = "";
+        for (int i = 0; i < 75; i++) {
+            if (i == 0 || i == 14 || i == 28 || i == 33 || i == 74) {
+                str += "+";
+            } else {
+                str += "-";
+            }
+        }
+        printSpaces(str);
+    }
+
+    /**
+     * This function prints the headers for table of lockers.
+     */
+    public void printListHeader() {
+        System.out.print("|");
+        System.out.print("SERIAL NUMBER");
+        System.out.print("|");
+        printEmptySpace(5);
+        System.out.print("TAG");
+        printEmptySpace(5);
+        System.out.print("|");
+        System.out.print("ZONE");
+        System.out.print("|");
+        printEmptySpace(18);
+        System.out.print("AREA");
+        printEmptySpace(18);
+        System.out.print("|");
+    }
+
+    /**
+     * This function prints the serial number of a locker for table of lockers.
+     * @param str stores the serial number of a locker.
+     */
+    public void printListSerialNumber(String str) {
+        System.out.print("|");
+        if (str.length() == 4) {
+            printEmptySpace(4);
+            System.out.print(str);
+            printEmptySpace(5);
+        } else if (str.length() == 5) {
+            printEmptySpace(4);
+            System.out.print(str);
+            printEmptySpace(4);
+        } else {
+            printEmptySpace(4);
+            System.out.print(str);
+            printEmptySpace(3);
+        }
+    }
+
+    /**
+     * This function prints the tag of a locker for table of lockers.
+     * @param str stores the tag of a locker.
+     */
+    public void printListTag(String str) {
+        System.out.print("|");
+        if (str.equalsIgnoreCase("not-in-use")) {
+            printEmptySpace(2);
+            System.out.print(str);
+            printEmptySpace(1);
+        } else if (str.equalsIgnoreCase("in-use")) {
+            printEmptySpace(4);
+            System.out.print(str);
+            printEmptySpace(3);
+        } else if (str.equalsIgnoreCase("unauthorized")) {
+            printEmptySpace(1);
+            System.out.print(str);
+        } else {
+            printEmptySpace(4);
+            System.out.print(str);
+            printEmptySpace(3);
+        }
+    }
+
+    /**
+     * This function prints the located zone of a locker for table of lockers.
+     * @param str stores the located zone of a locker.
+     */
+    public void printListZone(String str) {
+        System.out.print("|");
+        printEmptySpace(1);
+        System.out.print(str);
+        printEmptySpace(2);
+    }
+
+    /**
+     * This function prints the located area of a locker for table of lockers.
+     * @param str stores the located area of a locker.
+     */
+    public void printListArea(String str) {
+        System.out.print("|");
+        if (str.length() < 38) {
+            int numberOfSpaces = 40 - str.length();
+            if (numberOfSpaces % 2 == 0) {
+                printEmptySpace(numberOfSpaces / 2);
+                System.out.print(str);
+                printEmptySpace(numberOfSpaces / 2);
+            } else {
+                printEmptySpace((int) Math.floor(numberOfSpaces / 2));
+                System.out.print(str);
+                printEmptySpace((int) Math.ceil(numberOfSpaces / 2) + 1);
+            }
+        } else {
+            System.out.print(str.substring(0, 37));
+            System.out.print("...");
+        }
+        System.out.print("|");
+    }
+
+    /**
+     * This function shows a table of all lockers stored in the system.
+     * @param  listOfLockers stores the list of lockers
+     */
+    public void showList(List<Locker> listOfLockers) {
+
+        printListBorder();
+        System.out.print("    ");
+        printListHeader();
+        System.out.println();
+        printListBorder();
+        for (int i = 0; i < listOfLockers.size(); i++) {
+            System.out.print("    ");
+            printListSerialNumber(listOfLockers.get(i).serialNumberToString());
+            printListTag(listOfLockers.get(i).tagToString());
+            printListZone(listOfLockers.get(i).zoneToString());
+            printListArea(listOfLockers.get(i).areaToString());
+            System.out.println();
+        }
+        printListBorder();
         printDash();
     }
 }
