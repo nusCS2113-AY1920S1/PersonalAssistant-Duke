@@ -22,7 +22,8 @@ public class Parser {
 	 * generaterevenue -i index / -n foodName / -t foodType
 	 * delete -i index / -n foodName / -t foodType
 	 * sold -n foodName -q quantity
-	 * reminder
+	 * reminder -d daysToExpiry -s stock
+	 * promotion -n foodName -% discount -s startDate -e endDate
 	 * help
 	 * bye / exit / quit
 	 *

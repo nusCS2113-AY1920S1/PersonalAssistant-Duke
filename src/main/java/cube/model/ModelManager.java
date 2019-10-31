@@ -1,11 +1,13 @@
 package cube.model;
 
 import cube.model.food.FoodList;
+import cube.model.promotion.PromotionList;
 import cube.model.sale.SalesHistory;
 
 public class ModelManager {
 	private FoodList foodList;
 	private SalesHistory salesHistory;
+	private PromotionList promotionList;
 
 	/**
 	 * Default constructor.
@@ -14,15 +16,17 @@ public class ModelManager {
 	public ModelManager() {
 		this.foodList = new FoodList();
 		this.salesHistory = new SalesHistory();
+		this.promotionList =  new PromotionList();
 	}
 
 	/**
 	 * Constructor with 2 arguments.
 	 * Creates a new instance of Food & Revenue Storage Classes.
 	 */
-	public ModelManager(FoodList foodList, SalesHistory salesHistory) {
+	public ModelManager(FoodList foodList, SalesHistory salesHistory, PromotionList promotionList) {
 		this.foodList = foodList;
 		this.salesHistory = salesHistory;
+		this.promotionList = promotionList;
 	}
 
 	public FoodList getFoodList() {
@@ -37,4 +41,5 @@ public class ModelManager {
 		return salesHistory;
 	}
 
+	public PromotionList getPromotionList() { return promotionList; }
 }

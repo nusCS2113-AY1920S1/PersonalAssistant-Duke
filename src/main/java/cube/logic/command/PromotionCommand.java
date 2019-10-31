@@ -6,24 +6,26 @@ import cube.logic.command.util.CommandUtil;
 import cube.model.ModelManager;
 import cube.model.food.Food;
 import cube.model.food.FoodList;
+import cube.model.promotion.Promotion;
+import cube.model.promotion.PromotionList;
 import cube.storage.StorageManager;
 
 import java.util.Calendar;
 import java.util.Date;
 
 public class PromotionCommand extends Command{
-    String foodName
-    double discount;
-    Date startDate;
-    Date endDate;
-    Food promotionFood;
-    double newPrice;
+    private final Promotion newPromotion;
+    public Food promotionFood;
+    public static final String MESSAGE_SUCCESS = "New promotion added: \n"
+            + "%1$s\n"
+            + "Now you have %2$s promotional items in the list.\n";
 
-    public PromotionCommand(String foodName, double discount, Date startDate, Date endDate) {
-        this.foodName = foodName;
-        this.discount = discount;
-        this.startDate = startDate;
-        this.endDate = endDate;
+    /**
+     * Default constructor.
+     * @param promotion the promotion to be added.
+     */
+    public PromotionCommand(Promotion promotion) {
+        this.newPromotion = promotion;
     }
 
     /**
@@ -31,24 +33,30 @@ public class PromotionCommand extends Command{
      * @param list The food list.
      * @throws CommandException
      */
-    public void obtainFoodSold(FoodList list) throws CommandException {
-        CommandUtil.requireValidName(list, foodName);
-        promotionFood = list.get(foodName);
+    public void obtainPromotionFood(FoodList list) throws CommandException {
+        CommandUtil.requireValidName(list, newPromotion.getName());
+        promotionFood = list.get(newPromotion.getName());
     }
 
 
+    /**
+     * Adds promotion to promotionList and store it if the promotion does not already exist, otherwise throws Command exception.
+     * @param storage The storage we have
+     * @return Message feedback to user.
+     * @throws CommandException
+     */
     @Override
     public CommandResult execute(ModelManager model, StorageManager storage) throws CommandException {
+        FoodList list = model.getFoodList();
+        PromotionList promotionList = model.getPromotionList();
+        obtainPromotionFood(list);
         double tempPrice = promotionFood.getPrice();
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(new Date());
+        double newPrice;
+        newPrice = (newPromotion.getDiscount()/100)*tempPrice;
+        newPromotion.setPromotionalPrice(newPrice);
 
-        if (cal.getTime().before(endDate) && cal.getTime().after(startDate)) {
-            newPrice = (discount/100)*tempPrice;
-        }
-    }
+        promotionList.add(newPromotion);
 
-    public double getPromotionPrice() {
-        return newPrice;
+        return new CommandResult(String.format(MESSAGE_SUCCESS, newPromotion, promotionList.size()));
     }
 }

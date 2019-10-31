@@ -5,6 +5,7 @@ import java.util.Date;
 public class Promotion {
     protected String foodName;
     protected double discount;
+    protected double promotionalPrice;
     protected Date startDate;
     protected Date endDate;
 
@@ -42,6 +43,27 @@ public class Promotion {
     public double getDiscount() {
         return discount;
     }
+
+    /**
+     * Sets the new promotional price of the product.
+     *
+     * @param promotionalPrice The new promotional price of the product.
+     */
+
+    public void setPromotionalPrice(double promotionalPrice) {
+        this.promotionalPrice = promotionalPrice;
+    }
+
+    /**
+     * Gets the promotional price of the product.
+     *
+     * @return the promotional price of the product.
+     */
+
+    public double getPromotionalPrice() {
+        return promotionalPrice;
+    }
+
 
     /**
      * Sets the start date of the promotional period for the food item.

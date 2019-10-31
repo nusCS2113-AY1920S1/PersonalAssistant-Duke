@@ -3,6 +3,7 @@ package cube.logic.parser;
 import cube.logic.command.PromotionCommand;
 import cube.logic.parser.exception.ParserErrorMessage;
 import cube.logic.parser.exception.ParserException;
+import cube.model.promotion.Promotion;
 
 import java.util.Date;
 
@@ -32,14 +33,32 @@ public class PromotionCommandParser implements ParserPrototype<PromotionCommand>
             }
         }
 
-        if (discountIndex == -1 || endDateIndex == -1) {
+        if (foodNameIndex == -1 && discountIndex == -1 && startDateIndex == -1 && endDateIndex == -1) {
+            //print list of promotions
+            //return;
+        }
+
+        if (foodNameIndex == -1 || discountIndex == -1 || endDateIndex == -1) {
             throw new ParserException(ParserErrorMessage.NOT_ENOUGH_PARAMETER);
         }
 
-        if (startDateIndex == -1) {
-            return new PromotionCommand(args[foodNameIndex+1], Double.parseDouble(args[discountIndex+1]), new Date(), ParserUtil.parseStringToDate(args[endDateIndex+1]));
+        String foodName = ParserUtil.findFullString(args, foodNameIndex);
+        Promotion tempPromotion = new Promotion(foodName);
+
+        if (discountIndex != -1) {
+            tempPromotion.setDiscount(Double.parseDouble(args[discountIndex+1]));
         }
 
-        return new PromotionCommand(args[foodNameIndex+1], Double.parseDouble(args[discountIndex+1]), ParserUtil.parseStringToDate(args[startDateIndex+1]), ParserUtil.parseStringToDate(args[endDateIndex+1]));
+        if (startDateIndex != -1) {
+            tempPromotion.setStartDate(ParserUtil.parseStringToDate(args[startDateIndex+1]));
+        } else {
+            tempPromotion.setStartDate(new Date());
+        }
+
+        if (endDateIndex != -1) {
+            tempPromotion.setEndDate(ParserUtil.parseStringToDate(args[endDateIndex+1]));
+        }
+
+        return new PromotionCommand(tempPromotion);
     }
 }
