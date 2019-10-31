@@ -10,17 +10,15 @@ public class CalendarView {
     private List<Queue<Event>> eventsOfTheWeek = new ArrayList<>(7);
 
     private ArrayList<String> daysToDisplay = new ArrayList<>();
-    private ArrayList<String> datesToDisplay = new ArrayList<>();
+    public ArrayList<String> datesToDisplay = new ArrayList<>();
     private String stringForOutput;
     static final int MONDAY = 0, TUESDAY = 1, WEDNESDAY = 2, THURSDAY = 3, FRIDAY = 4, SATURDAY = 6, SUNDAY = 7;
 
-    public CalendarView(EventList eventList, EventDate eventDate) {
+    public CalendarView(EventList eventList, EventDate startDate) {
         ArrayList<Event> eventArrayList = eventList.getEventArrayList();
         for (int i = 0; i < 7; i++) {
             eventsOfTheWeek.add(new LinkedList<>());
         }
-//        EventDate today = new EventDate(new Date());
-        EventDate startDate = eventDate;
         setDaysAndDatesList(startDate);
         getEventsOfTheWeek(eventArrayList, startDate);
     }
@@ -36,11 +34,11 @@ public class CalendarView {
      * @param startDay          The current day.
      */
     private void getEventsOfTheWeek(ArrayList<Event> eventArrayList, EventDate startDay) {
-        EventDate yesterday = startDay;
+        EventDate yesterday = new EventDate(startDay.getEventJavaDate());
         yesterday.addDaysAndSetMidnight(-1);
-        EventDate endOfWeek = startDay;
+        EventDate endOfWeek = new EventDate(startDay.getEventJavaDate());
         endOfWeek.addDaysAndSetMidnight(6);
-        EventDate thisDay = startDay;
+        EventDate thisDay = new EventDate(startDay.getEventJavaDate());
         int thisDayNum = 0;
         thisDay.addDaysAndSetMidnight(thisDayNum);
 
@@ -49,7 +47,7 @@ public class CalendarView {
             if ((thisEvent.getStartDate().compare(endOfWeek) <= 0) && (thisEvent.getStartDate().compare(yesterday) > 0)) {
                 while ((thisEvent.getStartDate().compare(thisDay) > 0) && (thisDayNum < 7)) {
                     thisDayNum++;
-                    thisDay.addDaysAndSetMidnight(thisDayNum);
+                    thisDay.addDaysAndSetMidnight(1);
                 }
                 if (thisDayNum < 7) {
                     eventsOfTheWeek.get(thisDayNum).offer(thisEvent);
@@ -105,11 +103,11 @@ public class CalendarView {
             this.daysToDisplay.add(weekdays[(startDay + i) % 7]);
         }
 
-        EventDate tempDay = startDate;
+        EventDate tempDay = new EventDate(startDate.getEventJavaDate());
         for (int i = 0; i < 7; i++) {
-            tempDay.addDaysAndSetMidnight(i);
             String thisDate = tempDay.getUserInputDateString().split(" ")[0];
             this.datesToDisplay.add("   " + thisDate + "   ");
+            tempDay.addDaysAndSetMidnight(1);
         }
     }
 

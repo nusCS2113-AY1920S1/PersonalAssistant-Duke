@@ -133,9 +133,7 @@ public class Command {
                 break;
 
             case "calendar":
-                EventDate today = new EventDate(new Date());
-                printCalendar(events, ui, today);
-                changesMade = false;
+                printCalendar(events, ui);
                 break;
 
             case "budget":
@@ -217,8 +215,23 @@ public class Command {
         }
     }
 
-    private void printCalendar(EventList events, UI ui, EventDate today) {
-        CalendarView calendarView = new CalendarView(events, today);
+    private void printCalendar(EventList events, UI ui) {
+        CalendarView calendarView = null;
+        if (continuation.isEmpty()) {
+            EventDate today = new EventDate(new Date());
+            calendarView = new CalendarView(events, today);
+        } else if (continuation.equals("next")) {
+            EventDate nextWeek = new EventDate(new Date());
+            nextWeek.addDaysAndSetMidnight(7);
+            calendarView = new CalendarView(events, nextWeek);
+        } else if (continuation.equals("last")) {
+            EventDate lastWeek = new EventDate(new Date());
+            lastWeek.addDaysAndSetMidnight(-7);
+            calendarView = new CalendarView(events, lastWeek);
+        } else {
+            ui.printInvalidCommand();
+        }
+
         calendarView.setCalendarInfo();
         ui.printCalendar(calendarView.getStringForOutput());
     }

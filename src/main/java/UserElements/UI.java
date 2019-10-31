@@ -351,7 +351,7 @@ public class UI {
 
     public void printCalendar(String calendarInfo) {
         System.out.print(lineSeparation);
-        System.out.println("Here is the calendar of the next 7 days!");
+        System.out.println("Here is the calendar of the 7 days!");
         System.out.println(calendarInfo);
         System.out.println("\nEnter a command:");
     }
