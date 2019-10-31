@@ -33,8 +33,11 @@ Using Hustler, you can easily and effectively manage your tasks, deadlines and p
 
 *Command Formats*
 
-* `/add` +
-  A grey highlight refers to a command keyword that will be taken from the command line, at textbox at the bottom of the GUI.
+[NOTE]
+====
+`/add` +
+A grey highlight refers to a command keyword that will be taken from the command line, at textbox at the bottom of the GUI.
+====
 
 * <task description> +
   Texts enclosed by angular brackets are fields that have to be replaced with the user input. For example, <task description> can be “read a book”, while <time> can be “1200”.
