@@ -1,66 +1,12 @@
 {
   "orders" : [ {
-    "id" : 1572357595669,
-    "creationDate" : "2019-10-29T13:59:55.669+0000",
-    "name" : "Jiajun",
-    "contact" : "12390912",
-    "remarks" : "No nuts",
-    "deliveryDate" : "2019-11-05T13:55:26.486+0000",
-    "status" : "ACTIVE",
-    "total" : 25.0,
-    "items" : [ {
-      "product" : {
-        "productName" : "Tart",
-        "ingredientItems" : [ {
-          "ingredient" : {
-            "name" : "Sugar",
-            "unitPrice" : 0.0,
-            "remarks" : "-"
-          },
-          "amount" : 15.0
-        }, {
-          "ingredient" : {
-            "name" : "Egg",
-            "unitPrice" : 0.0,
-            "remarks" : "-"
-          },
-          "amount" : 1.0
-        }, {
-          "ingredient" : {
-            "name" : "Sour cream",
-            "unitPrice" : 0.0,
-            "remarks" : "-"
-          },
-          "amount" : 20.0
-        }, {
-          "ingredient" : {
-            "name" : "Plain flour",
-            "unitPrice" : 0.0,
-            "remarks" : "-"
-          },
-          "amount" : 50.0
-        }, {
-          "ingredient" : {
-            "name" : "Butter",
-            "unitPrice" : 0.0,
-            "remarks" : "-"
-          },
-          "amount" : 15.0
-        } ],
-        "ingredientCost" : 3.2,
-        "retailPrice" : 5.0,
-        "status" : "ACTIVE"
-      },
-      "amount" : 5.0
-    } ]
-  }, {
-    "id" : 1572357772448,
-    "creationDate" : "2019-10-29T14:02:52.448+0000",
+    "id" : 1572494997807,
+    "creationDate" : "2019-10-31T04:09:57.807+0000",
     "name" : "Arron",
     "contact" : "81029010",
     "remarks" : "For birthday party",
     "deliveryDate" : "2019-10-30T14:02:52.448+0000",
-    "status" : "ACTIVE",
+    "status" : "COMPLETED",
     "total" : 85.0,
     "items" : [ {
       "product" : {
@@ -242,6 +188,70 @@
       },
       "amount" : 5.0
     } ]
+  }, {
+    "id" : 1572357595669,
+    "creationDate" : "2019-10-29T13:59:55.669+0000",
+    "name" : "Jiajun",
+    "contact" : "12390912",
+    "remarks" : "No nuts",
+    "deliveryDate" : "2019-11-05T13:55:26.486+0000",
+    "status" : "ACTIVE",
+    "total" : 25.0,
+    "items" : [ {
+      "product" : {
+        "productName" : "Tart",
+        "ingredientItems" : [ {
+          "ingredient" : {
+            "name" : "Sugar",
+            "unitPrice" : 0.0,
+            "remarks" : "-"
+          },
+          "amount" : 15.0
+        }, {
+          "ingredient" : {
+            "name" : "Egg",
+            "unitPrice" : 0.0,
+            "remarks" : "-"
+          },
+          "amount" : 1.0
+        }, {
+          "ingredient" : {
+            "name" : "Sour cream",
+            "unitPrice" : 0.0,
+            "remarks" : "-"
+          },
+          "amount" : 20.0
+        }, {
+          "ingredient" : {
+            "name" : "Plain flour",
+            "unitPrice" : 0.0,
+            "remarks" : "-"
+          },
+          "amount" : 50.0
+        }, {
+          "ingredient" : {
+            "name" : "Butter",
+            "unitPrice" : 0.0,
+            "remarks" : "-"
+          },
+          "amount" : 15.0
+        } ],
+        "ingredientCost" : 3.2,
+        "retailPrice" : 5.0,
+        "status" : "ACTIVE"
+      },
+      "amount" : 5.0
+    } ]
+  }, {
+    "id" : 1572495131229,
+    "creationDate" : "2019-10-31T04:12:11.229+0000",
+    "name" : "customer",
+    "contact" : "N/A",
+    "remarks" : "hi",
+    "deliveryDate" : "2019-10-31T03:05:28.635+0000",
+    "status" : "ACTIVE",
+    "total" : 0.0,
+    "items" : [ ]
   } ],
   "products" : [ {
     "productName" : "Tart",
@@ -434,12 +444,32 @@
     "ingredientCost" : 4.0,
     "retailPrice" : 3.0,
     "status" : "ACTIVE"
+  }, {
+    "productName" : "Ice cream",
+    "ingredientItems" : [ {
+      "ingredient" : {
+        "name" : "Sugar",
+        "unitPrice" : 0.0,
+        "remarks" : ""
+      },
+      "amount" : 4.0
+    }, {
+      "ingredient" : {
+        "name" : "Butter milk",
+        "unitPrice" : 0.0,
+        "remarks" : ""
+      },
+      "amount" : 5.0
+    } ],
+    "ingredientCost" : 0.0,
+    "retailPrice" : 6.7,
+    "status" : "ACTIVE"
   } ],
   "inventory" : [ {
     "ingredient" : {
       "name" : "Butter",
-      "unitPrice" : 0.0,
-      "remarks" : "gram"
+      "unitPrice" : 0.08,
+      "remarks" : ""
     },
     "amount" : 200.0
   }, {
@@ -448,28 +478,28 @@
       "unitPrice" : 0.0,
       "remarks" : "gram"
     },
-    "amount" : 258.0
+    "amount" : 38.0
   }, {
     "ingredient" : {
       "name" : "Egg",
-      "unitPrice" : 0.0,
+      "unitPrice" : 0.3,
       "remarks" : ""
     },
-    "amount" : 30.0
+    "amount" : 217.0
   }, {
     "ingredient" : {
       "name" : "Sugar",
       "unitPrice" : 0.0,
       "remarks" : "gram"
     },
-    "amount" : 500.0
+    "amount" : 310.0
   }, {
     "ingredient" : {
       "name" : "Strawberry",
       "unitPrice" : 0.0,
       "remarks" : ""
     },
-    "amount" : 10.0
+    "amount" : 7.0
   }, {
     "ingredient" : {
       "name" : "Skimmed milk",
@@ -485,7 +515,52 @@
     },
     "amount" : 6000.0
   } ],
-  "shoppingList" : [ ],
-  "sales" : [ ],
-  "shortcuts" : [ ]
+  "shoppingList" : [ {
+    "ingredient" : {
+      "name" : "Butter",
+      "unitPrice" : 0.08,
+      "remarks" : ""
+    },
+    "amount" : 0.0
+  }, {
+    "ingredient" : {
+      "name" : "Egg",
+      "unitPrice" : 0.3,
+      "remarks" : ""
+    },
+    "amount" : 0.0
+  }, {
+    "ingredient" : {
+      "name" : "Sugar",
+      "unitPrice" : 0.0,
+      "remarks" : ""
+    },
+    "amount" : 0.0
+  }, {
+    "ingredient" : {
+      "name" : "Butter milk",
+      "unitPrice" : 0.0,
+      "remarks" : ""
+    },
+    "amount" : 0.0
+  } ],
+  "sales" : [ {
+    "id" : 1572494997862,
+    "description" : "Order 1572494997807 completed.",
+    "value" : 85.0,
+    "isSpend" : false,
+    "saleDate" : "2019-10-30T14:02:52.448+0000",
+    "remarks" : "For birthday party"
+  }, {
+    "id" : 1572495050244,
+    "description" : "Ingredients purchased.",
+    "value" : -76.0,
+    "isSpend" : true,
+    "saleDate" : "2019-10-31T04:10:50.244+0000",
+    "remarks" : "Ingredients are: -Butter -Egg "
+  } ],
+  "shortcuts" : [ {
+    "name" : "demo",
+    "userInputs" : [ "order add -name jj", " order show" ]
+  } ]
 }

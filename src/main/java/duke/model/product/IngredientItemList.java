@@ -3,6 +3,8 @@ package duke.model.product;
 import duke.model.commons.Item;
 import duke.model.inventory.Ingredient;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 
 public class IngredientItemList extends ArrayList<Item<Ingredient>> {
@@ -33,6 +35,7 @@ public class IngredientItemList extends ArrayList<Item<Ingredient>> {
         if (this == o) {
             return true;
         }
+
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
@@ -40,10 +43,11 @@ public class IngredientItemList extends ArrayList<Item<Ingredient>> {
         if (list.size() != this.size()) {
             return false;
         }
+        String content = "|";
         boolean result = true;
         for (int i = 0; i < this.size(); i++) {
-            if (this.get(i).getItem().getName() != list.get(i).getItem().getName()
-                || this.get(i).getQuantity() != list.get(i).getQuantity()) {
+            if (!this.get(i).getItem().getName().equals(list.get(i).getItem().getName())
+                || !this.get(i).getQuantity().getNumber().equals(list.get(i).getQuantity().getNumber())) {
                 result = false;
                 break;
             }
