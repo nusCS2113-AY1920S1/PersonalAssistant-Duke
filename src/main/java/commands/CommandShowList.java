@@ -17,6 +17,7 @@ public class CommandShowList extends Command {
      * @throws FarmioFatalException if Simulation file cannot be found.
      */
     @Override
+
     public void execute(Farmio farmio) throws FarmioFatalException {
         Ui ui = farmio.getUi();
         double level = farmio.getFarmer().getLevel();

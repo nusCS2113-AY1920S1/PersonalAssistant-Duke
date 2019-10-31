@@ -1,0 +1,17 @@
+
+---------------------Task Commands--------------------
+
+Eg: TASK = 'do gotomarket'
+
+[delete X] - X is the index of the task to be deleted
+[delete all] - clears all task in <CODE>
+[insert X TASK] - insert task at index X
+[edit X TASK] - replaces task at index X
+[TASK] - create task
+
+
+
+                        _[_]_  
+             \|/         (")          \|/ 
+              |         ,(_)'          | 
+     ==|_\|/__|__\|/_|== -"-  ==|_\|/__|__\|/_|==

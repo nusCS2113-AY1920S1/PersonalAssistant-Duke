@@ -14,7 +14,8 @@
     "Enter [Do GoToMarket] to create a task that tells Farmer + to drive to the market.~"
   ],
   "feedback": [
-     "you have succesfully went to the market by using the [do] command ",
+    "you have succesfully went to the market by using the [do] command ",
+    "Note that your goal changed from white to green whent it is completed (ubuntu only)",
   ],
   "gold": 0,
   "seeds": 0,
