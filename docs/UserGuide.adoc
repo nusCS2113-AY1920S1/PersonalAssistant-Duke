@@ -125,7 +125,7 @@ Format: `semester /add YEAR /name SEMESTER /from START_DATE /to END_DATE`
 
 Example:
 
-* `semester /add 19/20 /name Semester 2 /from 01-01-2020 /to 05-05-2020`
+* `semester /add 19/20 /name Semester 2 /from 01-01-2020 /to 05-05-2020` 
 
 [[SemesterAdd]]
 .Adding a semester
@@ -151,7 +151,7 @@ Format: `semester /delete INDEX`
 
 Example:
 
-* `semester delete 2`
+* `semester delete 2` 
 
 [[SemesterDelete]]
 .D
@@ -166,7 +166,7 @@ Format: `semester /select INDEX`
 
 Example:
 
-* `semester /select 1`
+* `semester /select 1` 
 
 [[SemesterSelect]]
 .Selecting a semester
@@ -189,7 +189,7 @@ Format: `module /add MODULE_CODE /name MODULE_NAME`
 
 Example:
 
-* `module /add CS2107 /name Introduction to Information Security`
+* `module /add CS2107 /name Introduction to Information Security` 
 
 [[ModuleAdd]]
 .Adding a module
@@ -215,7 +215,7 @@ Format: `module /delete INDEX`
 
 Example:
 
-* `module /delete 4`
+* `module /delete 4` 
 
 [[ModuleDelete]]
 .Deleting a module
@@ -232,7 +232,7 @@ Format: `module /select INDEX`
 
 Example:
 
-* `module /select 3`
+* `module /select 3` 
 
 [[ModuleSelect]]
 .Selecting a module
@@ -282,7 +282,7 @@ Format: `lesson /delete INDEX`
 
 Example:
 
-* `lesson /delete 1`
+* `lesson /delete 1` 
 
 [[LessonDelete]]
 .Deleting a lesson
@@ -305,7 +305,7 @@ Requires a module to be selected using `module /select`.
 
 Example:
 
-* `assessment final examination /from 31-10-2019 16:00 /to 31-10-2019 18:00`
+* `assessment final examination /from 31-10-2019 16:00 /to 31-10-2019 18:00` 
 
 Adds an assessment with name, start and end time as `final examination`, `25-11-2019 13:00`, `25-11-2019 15:00` respectively.
 
@@ -327,7 +327,7 @@ Requires a module to be selected using `module /select`.
 
 Example:
 
-* `assignment lab /by 23-11-2019 23:59`
+* `assignment lab /by 23-11-2019 23:59` 
 
 [[AssignmentAdd]]
 .Adding an assignment
@@ -410,7 +410,7 @@ The task will require you to enter the frequency of recurrence in this manner af
 
 Example:
 
-+1.+ The user enters `recurring 4 3`
++1.+ The user enters `recurring 4 3` 
 
 [[Recurring]]
 .Example to show recurring feature's usage
@@ -512,13 +512,13 @@ Example:
 +1.+ Type `free 30-10-2019` as a command press kbd:[ENTER]
 
 [[FreeTimeExample]]
-.Typing free 30-10-2019 into OOF
+.Typing free 30-10-2019 into OOF 
 image::FreeTimeExample.png[FreeTimeExample, width="890"]
 
-+2.+ `OOF` displays all the free time slots that you have.
++2.+ `OOF` displays all the free time slots that you have. 
 
 [[FreeTimeDisplay]]
-.Typing free with a valid date in the valid format of DD-MM-YYYY
+.Typing free with a valid date in the valid format of DD-MM-YYYY 
 image::FreeTimeDisplay.png[FreeTimeDisplay, width="890"]
 
 ==== Setting reminders for upcoming deadlines: `NIL`
@@ -658,7 +658,7 @@ image::ViewweekDefault.png[ViewweekDefault]
 image::ViewweekParam.png[ViewweekParam]
 
 ====  Viewing all tasks in calendar view: `calendar`
-You can view all your tasks for any month so that you are aware of your schedule for that month.
+You can view all your tasks for any month so that you are aware of your schedule for that month. 
 
 Format: `calendar MM YYYY`
 
@@ -718,7 +718,7 @@ Example:
 Adds a do-after task called `buy groceries` that will be displayed once the 1st task in the list has been completed.
 
 ==== Adding a task: `range`
-You can add a task that needs to be completed within a certain time period
+You can add a task that needs to be completed within a certain time period 
 
 Format: `range DESCRIPTION /from DD-MM-YYYY HH:MM /to DD-MM-YYYY HH:MM`
 
@@ -731,12 +731,12 @@ Example:
 Adds a task with description and time period to `study for exam` and between `01-10-2019 21:00` to `05-10-2019 11:00`.
 
 ==== Viewing two different calendars side-by-side: `viewDual`
-Transforms all current tasks into two calendar views, one for tutor tasks and one for student tasks.
+Transforms all current tasks into two calendar views, one for tutor tasks and one for student tasks. 
 
 Format: `viewDual`
 
 ==== Exporting the calendar: `export`
-You can export all current tasks recorded into a shareable format in calendar view.
+You can export all current tasks recorded into a shareable format in calendar view.  
 
 Format: `export`
 
@@ -888,7 +888,7 @@ Exit *OOF* by using this command.
 
 * *ViewUndone*: `viewUndone`
 
-* *Range*: `range`
+* *Range*: `range` 
 
 * *ViewDual*: `viewDual`
 
