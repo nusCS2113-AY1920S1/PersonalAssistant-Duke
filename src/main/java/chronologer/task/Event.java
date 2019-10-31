@@ -62,9 +62,9 @@ public class Event extends Task implements Serializable, Comparable<Event> {
     public String toString() {
         String message = "";
         if (modCode.isBlank()) {
-            message = super.getPriorityIcon() + "[T]" + "[" + super.getStatusIcon() + "] " + this.description;
+            message = super.getPriorityIcon() + "[E]" + "[" + super.getStatusIcon() + "] " + this.description;
         } else {
-            message = super.getPriorityIcon() + "[T]" + "[" + super.getStatusIcon() + "] " + this.modCode + " "
+            message = super.getPriorityIcon() + "[E]" + "[" + super.getStatusIcon() + "] " + this.modCode + " "
                     + this.description;
         }
         String dateString = "(at: " + this.startDate.format(DateTimeExtractor.DATE_FORMATTER) + "-"
