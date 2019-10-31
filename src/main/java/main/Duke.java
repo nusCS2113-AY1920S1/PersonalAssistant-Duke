@@ -1,6 +1,6 @@
 package main;
 
-import command.Command;
+import command.*;
 import degree.Degree;
 import exception.DukeException;
 import javafx.application.Application;
@@ -15,10 +15,7 @@ import list.DegreeList;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * The JavaFX.Main.Duke class inherits methods from Applications and allows it to be called by another class.
@@ -43,6 +40,7 @@ public class Duke extends Application {
     private ArrayList<String> mydegrees = new ArrayList<>();
     private UniversityTaskHandler universityTaskHandler = new UniversityTaskHandler();
     private DegreeListStorage DegreeListStorage = new DegreeListStorage();
+    private CommandList commandList = new CommandList();
     public ArrayList<String> getTasks() {
         return mydegrees;
     }
@@ -198,8 +196,32 @@ public class Duke extends Application {
                     System.out.println();
                 }
             }*/
-            Command c = Parser.parse(line);
-            c.execute(this.myList, this.ui, this.storage, this.lists);
+            Scanner temp = new Scanner(line);
+            String command;
+            if (!temp.hasNext()) {
+                throw new DukeException("Empty Command!");
+            } else {
+                command = temp.next();
+            }
+
+            if (command.matches("undo")) {
+                commandList.undo();
+                this.myList = commandList.getTaskList();
+                this.lists = commandList.getDegreeLists();
+            } else if (command.matches("redo")) {
+                commandList.redo();
+                this.myList = commandList.getTaskList();
+                this.lists = commandList.getDegreeLists();
+            } else {
+                Command c = Parser.parse(line);
+
+                if ((c.getClass() == AddCommand.class) | (c.getClass() == ModCommand.class)
+                        | (c.getClass() == SortCommand.class) | (c.getClass() == SwapCommand.class)) {
+                    commandList.addCommand(c, this.myList, this.ui, this.storage, this.lists, line);
+                } else {
+                    c.execute(this.myList, this.ui, this.storage, this.lists);
+                }
+            }
         } catch (DukeException | NullPointerException | IOException e) {
             ui.showError(e.getLocalizedMessage());
         } finally {

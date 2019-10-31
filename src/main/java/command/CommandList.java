@@ -102,7 +102,7 @@ public class CommandList {
      */
     public void undo() throws DukeException {
         if (undoRedoPointer == -1) {
-            System.out.println("There are no commands to undo!");
+            throw new DukeException("There are no commands to undo!");
         }
         Command command = commandList.get(undoRedoPointer);
         System.out.println("Undo this command: \"" + inputList.get(undoRedoPointer) + "\"");
@@ -119,7 +119,7 @@ public class CommandList {
      */
     public void redo() throws DukeException, IOException {
         if (undoRedoPointer == commandList.size() - 1) {
-            System.out.println("There are no more commands to redo!");
+            throw new DukeException("There are no more commands to redo!");
         }
         undoRedoPointer++;
         Command command = commandList.get(undoRedoPointer);
