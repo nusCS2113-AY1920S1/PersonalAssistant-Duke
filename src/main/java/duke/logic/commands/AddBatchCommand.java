@@ -22,6 +22,10 @@ public class AddBatchCommand extends Command {
     @Override
     public void execute(LockerList lockerList, Ui ui, FileHandling storage) throws DukeException {
 
+        if (lockerList.areLockersPresent(batchOfLockers)) {
+            throw new DukeException("Duplicate entries not allowed. Serial number "
+                    + " for every locker should be unique");
+        }
         lockerList.addAllLockersInList(batchOfLockers);
         ui.printBatch(batchOfLockers.size());
         storage.saveData(lockerList);

@@ -3,27 +3,61 @@ package duke.parser;
 import duke.exceptions.DukeException;
 import duke.logic.commands.Command;
 import duke.logic.commands.EditLockerCommand;
+import duke.logic.commands.EditLockerCommand.EditLocker;
+import duke.models.locker.SerialNumber;
+import duke.parser.utilities.MapTokensToArguments;
+import duke.parser.utilities.ParserTokenizer;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import static duke.parser.utilities.Syntax.TOKEN_ADDRESS;
+import static duke.parser.utilities.Syntax.TOKEN_CONDITION;
+import static duke.parser.utilities.Syntax.TOKEN_SERIAL;
+import static duke.parser.utilities.Syntax.TOKEN_ZONE;
+import static java.util.Objects.requireNonNull;
 
 public class EditLockerCommandParser {
-    private List<String> splitInput;
 
     /**
      * This function is used to parse the user input for editing the status of a locker.
-     * @param fullCommand stores the user input
+     * @param userInput stores the user input
      * @return reference to the class EditLockerCommand
      * @throws DukeException when the user input is invalid
      */
+    public Command parse(String userInput) throws DukeException {
+        requireNonNull(userInput);
+        MapTokensToArguments mapTokensToArguments = ParserTokenizer
+                .tokenize(userInput, TOKEN_SERIAL, TOKEN_ADDRESS, TOKEN_ZONE,
+                        TOKEN_CONDITION);
+        SerialNumber serialNumber = ParserCheck.parseSerialNumber(mapTokensToArguments
+                .getTextBeforeFirstToken().trim());
+        EditLocker editLocker = new EditLocker();
+        getParametersForLocker(editLocker, mapTokensToArguments);
+        if (!editLocker.checkAnyFieldUpdated()) {
+            throw new DukeException(" At least one field must be provided for editing lockers");
+        }
+        return new EditLockerCommand(serialNumber, editLocker);
+    }
 
-    public Command parse(String fullCommand) throws DukeException {
-        if (fullCommand.trim().length() == 4) {
-            throw new DukeException(" The description of edit command cant be empty");
+    private void getParametersForLocker(EditLocker editLocker,
+                                        MapTokensToArguments mapTokensToArguments) throws DukeException {
+        if (mapTokensToArguments.getValue(TOKEN_SERIAL).isPresent()) {
+            editLocker.setSerialNumber(ParserCheck.parseSerialNumber(
+                    mapTokensToArguments.getValue(TOKEN_SERIAL).get()));
         }
 
-        splitInput = new ArrayList<String>(Arrays.asList(fullCommand.split(" ")));
-        return new EditLockerCommand(splitInput);
+        if (mapTokensToArguments.getValue(TOKEN_ADDRESS).isPresent()) {
+            editLocker.setAddress(ParserCheck.parseAddress(
+                    mapTokensToArguments.getValue(TOKEN_ADDRESS).get()));
+        }
+
+        if (mapTokensToArguments.getValue(TOKEN_ZONE).isPresent()) {
+            editLocker.setZone(ParserCheck.parseZone(
+                    mapTokensToArguments.getValue(TOKEN_ZONE).get()));
+        }
+
+        if (mapTokensToArguments.getValue(TOKEN_CONDITION).isPresent()) {
+            editLocker.setCondition(ParserCheck.parseStatus(
+                    mapTokensToArguments.getValue(TOKEN_CONDITION).get()));
+        }
+
     }
 }

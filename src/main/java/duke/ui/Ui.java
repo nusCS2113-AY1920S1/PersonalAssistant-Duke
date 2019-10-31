@@ -96,10 +96,25 @@ public class Ui {
      * @param locker stores the string to show the locker that has been assigned
      */
     public void printSuccessfulAllocation(String locker) {
-        printSpaces(" I have successfully assigned a locker to the student. "
+        printSpaces(" I have successfully assigned a new locker to the student. "
                 + "Here are the details:");
         printSpaces(" " + locker);
         printDash();
+    }
+
+    /**
+     * prints the message for successful editing of lockers.
+     * @param editedLocker stores the data of the edited locker
+     */
+    public void showSuccessfullyEdited(String editedLocker) {
+        printSpaces(" I have successfully edited the locker properties.");
+        printSpaces(" " + editedLocker);
+        printDash();
+    }
+
+    public void showNoAvailableLockers() {
+        printSpaces(" There are no available lockers at the moment. ");
+        printSpaces(" Unfortunately I will have to terminate the subscription of the student");
     }
 
     /**

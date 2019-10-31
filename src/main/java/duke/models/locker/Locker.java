@@ -3,6 +3,7 @@ package duke.models.locker;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import duke.models.student.Student;
 import duke.models.tag.Tag;
 
 
@@ -61,6 +62,23 @@ public class Locker {
     }
 
     /**
+     * checks if the locker is already present in the lockerList.
+     * @param other to check if the object is already present
+     * @return true if the object is present, false otherwise
+     */
+    public boolean isPresent(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof Locker)) {
+            return false;
+        }
+
+        return this.getSerialNumber().equals(((Locker) other).getSerialNumber());
+    }
+
+    /**
      * This function is used to convert the locker info into displayable strings.
      *
      * @return a string in a format that can be used for printing out the current locker
@@ -108,7 +126,7 @@ public class Locker {
         return otherLocker.getSerialNumber().equals(this.getSerialNumber())
                 && otherLocker.getAddress().equals(this.getAddress())
                 && otherLocker.getZone().equals(this.getZone())
-                && otherLocker.getTag().equals(this.getTag()); //handles checks for equality
+                && otherLocker.getTag().equals(this.getTag());//handles checks for equality
     }
 
     @Override

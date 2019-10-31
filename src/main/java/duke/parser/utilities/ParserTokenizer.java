@@ -75,6 +75,7 @@ public class ParserTokenizer {
                                           PositionOfToken nextPos) {
         Token token = currentPos.getToken();
         int startIndex = currentPos.getStartPosition() + token.getToken().length();
-        return arg.substring(startIndex,nextPos.getStartPosition()).trim();
+        return (arg.substring(startIndex,nextPos.getStartPosition()).trim());
     }
+
 }

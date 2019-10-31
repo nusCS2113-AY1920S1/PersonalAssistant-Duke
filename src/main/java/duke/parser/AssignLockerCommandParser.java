@@ -58,6 +58,7 @@ public class AssignLockerCommandParser {
                 TOKEN_END_DATE).get());
         List<Zone> getPreferences = ParserCheck.parsePreferences(mapTokensToArguments.getValue(
                 TOKEN_PREFERENCES).get());
+        ParserCheck.parseDifferenceBetweenStartAndEndDate(startDate,endDate);
         Student student = new Student(name,matricNumber,email,major);
         return new AssignLockerCommand(student,startDate,endDate,getPreferences);
     }

@@ -46,6 +46,19 @@ public class InUseLocker extends Locker {
     }
 
     @Override
+    public boolean isPresent(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof InUseLocker)) {
+            return false;
+        }
+
+        return this.getSerialNumber().equals(((InUseLocker) other).getSerialNumber());
+    }
+
+    @Override
     public String toString() {
         return super.toString() + "\n" + " Name: " + student.getName().getStudentName()
                 + " StudentID:" + student.getMatricNumber().getStudentCourse();

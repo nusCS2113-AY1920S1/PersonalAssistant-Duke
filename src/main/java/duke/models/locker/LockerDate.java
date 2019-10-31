@@ -5,6 +5,7 @@ import duke.exceptions.DukeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.time.temporal.ChronoUnit;
 
 import static java.util.Objects.requireNonNull;
 
@@ -40,6 +41,27 @@ public class LockerDate {
         try {
             LocalDate.parse(date,checkDateFormat);
         } catch (DateTimeParseException e) {
+            return false;
+        }
+        return true;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    /**
+     * This function is used to check if the there is a difference of at least 7 days
+     * between the two dates.
+     * @param startDate the starting date of locker subscription
+     * @param endDate the end date of locker subscription
+     * @return true if the difference is valid, false otherwise
+     */
+    public static boolean isDifferenceBetweenDatesValid(String startDate,String endDate) {
+        LocalDate localStartDate = LocalDate.parse(startDate,checkDateFormat);
+        LocalDate localEndDate = LocalDate.parse(endDate,checkDateFormat);
+        long daysBetween = localStartDate.until(localEndDate, ChronoUnit.DAYS);
+        if (daysBetween <= 6 || daysBetween > 365) {
             return false;
         }
         return true;
