@@ -20,13 +20,13 @@ public class ModifyParser extends Parser {
         String modeToModify = mode.split(" ")[1];
 
         switch (modeToModify) {
-            case MODE_ENTRY:
+        case MODE_ENTRY:
                 if (verifyAddCommand() == true) {
                     return new FullModifyEntryCommand(inputArray[1], stringToDouble(inputArray[2]), inputArray[3], date);
                 } else {
                     return new ErrorCommand();
                 }
-            case MODE_DEBT:
+        case MODE_DEBT:
                 // need to compress
                 String type = commandToRun;
                 String name;
@@ -45,7 +45,7 @@ public class ModifyParser extends Parser {
                     return new ErrorCommand();
                 }
                 return new FullModifyDebtCommand(type, name, amount, description, date);
-            case MODE_LIMIT:
+        case MODE_LIMIT:
                 /* TODO
                 String limitType;
                 double amount;
@@ -68,7 +68,7 @@ public class ModifyParser extends Parser {
                 }
                 return new AddLimitCommand(limitType, amount, duration);
                  */
-            case MODE_SHORTCUT:
+        case MODE_SHORTCUT:
                 // TODO
             default:
                 return new ErrorCommand();

@@ -58,8 +58,8 @@ public abstract class Ui {
         System.out.println("\tGot it! Mode changed to " + newMode + "!");
         System.out.println(line);
         System.out.println();
-        System.out.println(ANSI_CYAN + "\t°º¤ø,¸¸,ø¤º°`°º¤ø,¸ MODE:  " + newMode.toUpperCase() +
-                "  ¸,ø¤°º¤ø,¸¸,ø¤º°`°º¤ø,¸" + ANSI_RESET);
+        System.out.println(ANSI_CYAN + "\t°º¤ø,¸¸,ø¤º°`°º¤ø,¸ MODE:  " + newMode.toUpperCase()
+                + "  ¸,ø¤°º¤ø,¸¸,ø¤º°`°º¤ø,¸" + ANSI_RESET);
     }
 
     // TODO: DELETE

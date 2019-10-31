@@ -104,22 +104,22 @@ public class DollaData implements ModeStringList {
     public void modifyRecordList(Record newRecord) {
 
         switch (mode) {
-            case MODE_ENTRY:
-                entryList.removeFromList(modifyIndex);
-                entryList.addWithIndex(modifyIndex, newRecord);
-                break;
-            case MODE_LIMIT:
-                // TODO
-                break;
-            case MODE_DEBT:
-                debtList.removeFromList(modifyIndex);
-                debtList.addWithIndex(modifyIndex, newRecord);
-                break;
-            case MODE_SHORTCUT:
-                // TODO
-                break;
-            default: 
-                break;
+        case MODE_ENTRY:
+            entryList.removeFromList(modifyIndex);
+            entryList.addWithIndex(modifyIndex, newRecord);
+            break;
+        case MODE_LIMIT:
+            // TODO
+            break;
+        case MODE_DEBT:
+            debtList.removeFromList(modifyIndex);
+            debtList.addWithIndex(modifyIndex, newRecord);
+            break;
+        case MODE_SHORTCUT:
+            // TODO
+            break;
+        default:
+            break;
         }
     }
 

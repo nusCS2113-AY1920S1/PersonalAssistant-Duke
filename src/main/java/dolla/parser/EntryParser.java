@@ -65,6 +65,11 @@ public class EntryParser extends Parser {
         }
     }
 
+    /**
+     * Returns true if the input has no formatting issues.
+     * Also designates the correct information to the relevant variables.
+     * @return true if the input has no formatting issues.
+     */
     public boolean verifyPartialModifyEntryCommand() {
         // TODO
         //int recordNum;

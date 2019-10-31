@@ -1,7 +1,7 @@
 package dolla.ui;
 
 //@@author omupenguin
-public class EntryUi extends Ui{
+public class EntryUi extends Ui {
 
     /**
      * Prints error message when the user did not properly specify the type of entry to add.
