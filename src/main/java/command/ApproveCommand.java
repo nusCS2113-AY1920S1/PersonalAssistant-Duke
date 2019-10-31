@@ -54,5 +54,6 @@ public class ApproveCommand extends Command {
         ui.addToOutput("This request has been approved");
         ui.addToOutput(bookingList.get(index).toString());
         bookingstorage.saveToFile(bookingList);
+
     }
 }
