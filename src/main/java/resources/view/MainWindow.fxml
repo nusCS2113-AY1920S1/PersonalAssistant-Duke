@@ -8,16 +8,13 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.DropShadow?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="719.0" prefWidth="998.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UserInterface.MainWindow">
    <bottom>
@@ -57,30 +54,10 @@
          <children>
             <HBox prefHeight="66.0" prefWidth="1000.0" VBox.vgrow="ALWAYS">
                <children>
-                  <Label fx:id="currentWeek" prefHeight="20.0" prefWidth="722.0" text="Label">
+                  <Label fx:id="currentWeek" prefHeight="20.0" prefWidth="996.0" text="Label">
                      <font>
                         <Font name="System Bold" size="13.0" />
                      </font></Label>
-                  <HBox fx:id="timerBox" prefHeight="50.0" prefWidth="277.0">
-                     <children>
-                        <StackPane prefHeight="50.0" prefWidth="275.0">
-                           <children>
-                              <AnchorPane fx:id="timerPane" prefHeight="200.0" prefWidth="200.0">
-                                 <children>
-                                    <Label prefHeight="50.0" prefWidth="247.0" text="CountDown" />
-                                    <Text fx:id="currentTime" layoutX="82.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="125.22900390625" />
-                                    <Label layoutY="32.0" text="Break" />
-                                    <Text fx:id="currentTime1" layoutX="82.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="125.22900390625" />
-                                 </children>
-                              </AnchorPane>
-                              <AnchorPane fx:id="blankPane" prefHeight="28.0" prefWidth="275.0" style="-fx-background-color: F0F0F0;">
-                                 <children>
-                                    <Label layoutX="49.0" />
-                                 </children>
-                              </AnchorPane>
-                           </children>
-                        </StackPane>
-                     </children></HBox>
                </children>
             </HBox>
             <ScrollPane hbarPolicy="NEVER" minHeight="-Infinity" prefHeight="100.0" prefWidth="1000.0" vbarPolicy="NEVER">
