@@ -4,12 +4,14 @@ import command.Command;
 import exception.DukeException;
 import inventory.Inventory;
 import room.RoomList;
+import storage.Constants;
 import storage.Storage;
 import ui.Ui;
 import booking.BookingList;
 import user.User;
 import user.UserList;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.ParseException;
@@ -42,6 +44,17 @@ public class Duke {
         roomStorage = new Storage(roomListFile);
         inventoryStorage = new Storage(inventoryFile);
         userStorage = new Storage(userFile);
+
+        File dir = new File(Constants.DIRECTORY);
+        if (!dir.exists()) {
+            ui.addToOutput("Could not find data directory. Trying to create /data/");
+            if (dir.mkdir()) {
+                ui.addToOutput("Created /data/");
+            } else {
+                ui.addToOutput("Failed to create director. "
+                        + "Please manually create directory in order to continue");
+            }
+        }
 
         try {
             bookingList = new BookingList(bookingStorage.load());
