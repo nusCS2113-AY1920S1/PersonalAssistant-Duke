@@ -1,8 +1,7 @@
 AlgoSenpai Adventures Overall Report
 
-abcde
-boy
-<<<<<<< HEAD
+Matthew
+girl
 1
 0
 
@@ -13,24 +12,3 @@ Total Questions correct : 0
 Total Questions wrong : 0
 Percentage of Questions correct : 0.0
 Comments : ""
-
-Chapter 2 : Linked List
-Total Attempts made : 0
-Total Questions answered : 0
-Total Questions correct : 0
-Total Questions wrong : 0
-Percentage of Questions correct : 0.0
-Comments : ""
-
-Chapter 3 : Bitmask
-Total Attempts made : 0
-Total Questions answered : 0
-Total Questions correct : 0
-Total Questions wrong : 0
-Percentage of Questions correct : 0.0
-Comments : ""
-=======
-
-null
-null
->>>>>>> da770fdd6718a3b17125511862c77b1104ab05a3

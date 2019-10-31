@@ -44,14 +44,9 @@ public class MainApp extends Application {
         }
     }
 
-    public MainApp()  {
-    }
-
-    private void initialize()  {
-
-        stats = UserStats.parseString(Storage.loadData("./UserData.txt"));
+    private void initialize() throws IOException {
+        stats = new UserStats("./UserData.txt");
         logic = new Logic(stats);
-
     }
 
     @Override

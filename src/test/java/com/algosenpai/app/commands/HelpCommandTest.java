@@ -29,7 +29,7 @@ public class HelpCommandTest extends ApplicationTest {
         AnchorPane ap = fxmlLoader.load();
         Scene scene = new Scene(ap, 500, 650);
         stage.setScene(scene);
-        UserStats stats = UserStats.parseString(Storage.loadData("UserData.txt"));
+        UserStats stats = new UserStats("./UserData.txt");
         Logic logic = new Logic(stats);
         fxmlLoader.<Ui>getController().setLogic(logic, stats);
         stage.setResizable(false);
@@ -48,35 +48,35 @@ public class HelpCommandTest extends ApplicationTest {
 
     @Test
     void testHelpMousePress() {
-        clickOn("#userInput").write("help 1");
+        clickOn("#userInput").write("help sorting");
         clickOn("#sendButton");
         VBox container = find();
         DialogBox dialogBox = (DialogBox) container.getChildren().get(1);
         String actualText = dialogBox.getDialog().getText();
-        Assertions.assertEquals("help 1", actualText);
+        Assertions.assertEquals("help sorting", actualText);
     }
 
     @Test
     void testHelpKeyPress() {
-        clickOn("#userInput").write("help 1").press(KeyCode.ENTER);
+        clickOn("#userInput").write("help sorting").press(KeyCode.ENTER);
         VBox container = find();
         DialogBox dialogBox = (DialogBox) container.getChildren().get(1);
         String actualText = dialogBox.getDialog().getText();
-        Assertions.assertEquals("help 1", actualText);
+        Assertions.assertEquals("help sorting", actualText);
     }
 
     @Test
     void testHelpWithSpace() {
-        clickOn("#userInput").write(" help 1 ").clickOn("#sendButton");
+        clickOn("#userInput").write(" help sorting ").clickOn("#sendButton");
         VBox container = find();
         DialogBox dialogBox = (DialogBox) container.getChildren().get(1);
         String actualText = dialogBox.getDialog().getText();
-        Assertions.assertEquals(" help 1 ", actualText);
+        Assertions.assertEquals(" help sorting ", actualText);
     }
 
     @Test
     void testHelpOutputChapter1() {
-        clickOn("#userInput").write("help 1").clickOn("#sendButton");
+        clickOn("#userInput").write("help sorting").clickOn("#sendButton");
         VBox container = find();
         DialogBox dialogBox = (DialogBox) container.getChildren().get(2);
         String actualText = dialogBox.getDialog().getText();
@@ -86,12 +86,22 @@ public class HelpCommandTest extends ApplicationTest {
 
     @Test
     void testHelpOutputChapter2() {
-        clickOn("#userInput").write("help 2").clickOn("#sendButton");
+        clickOn("#userInput").write("help linkedlist").clickOn("#sendButton");
         VBox container = find();
         DialogBox dialogBox = (DialogBox) container.getChildren().get(2);
         String actualText = dialogBox.getDialog().getText();
         Assertions.assertEquals("Try solving these problems on Kattis:\n"
                 + "coconut, integerlists, joinstrings", actualText);
+    }
+
+    @Test
+    void testHelpOutputChapter3() {
+        clickOn("#userInput").write("help bitmask").clickOn("#sendButton");
+        VBox container = find();
+        DialogBox dialogBox = (DialogBox) container.getChildren().get(2);
+        String actualText = dialogBox.getDialog().getText();
+        Assertions.assertEquals("Try solving these problems on Kattis:\n"
+                + "committeeassignment, pebblesolitaire", actualText);
     }
 
     <T extends Node> T find() {

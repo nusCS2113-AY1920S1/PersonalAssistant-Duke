@@ -30,8 +30,8 @@ public class UserStats {
     private String userDataFilePath;
     private String userName;
     private String gender;
-    private int level;
-    private int expLevel;
+    private String level;
+    private String expLevel;
 
     // Array of chapter stats
     private ArrayList<ChapterStat> chapterData;
@@ -54,22 +54,41 @@ public class UserStats {
         this.chapterNumber.put("bitmask", 3);
         this.userDataFilePath = userDataFilePath;
 
-        File file = new File(String.valueOf(userDataFilePath));
+        File file = new File(userDataFilePath);
         if (!file.isFile()) {
             this.userName = "Default";
             this.gender = "???";
-            this.level = 1;
-            this.expLevel = 0;
+            this.level = "1";
+            this.expLevel = "0";
+            chapterData.add(new ChapterStat("Sorting",1,0,0,0,0,0,""));
+            chapterData.add(new ChapterStat("Linked List",2,0,0,0,0,0,""));
+            chapterData.add(new ChapterStat("Bitmask",3,0,0,0,0,0,""));
+            Storage.saveData("./UserData.txt", this.toString());
         } else {
-            //String contentsInFile = Storage.loadData(userDataFilePath);
-            // parseString(userDataFilePath);
+            String fileContents = Storage.loadData("./UserData.txt");
+
+            // Get the first 6 lines. 6th line contains the chapterData.
+            String [] tokens = fileContents.split("\n",8);
+            this.userName = tokens[2];
+            this.gender = tokens[3];
+            this.level = tokens[4];
+            this.expLevel = tokens[5];
+
+            // No chapters in the list, so exit early, otherwise will cause parsing error.
+            if (tokens.length > 7) {
+                // Each chapter's data is separated by 2 newlines, so split like this to get the chapterData
+                String[] chapterDataTokens = tokens[7].split("\n\n");
+                for (String chapterString: chapterDataTokens) {
+                    this.chapterData.add(ChapterStat.parseString(chapterString));
+                }
+            }
         }
     }
 
     /**
      * Constructor. Needs no explanation.
      */
-    public UserStats(String username, String gender, int level, int expLevel,
+    public UserStats(String username, String gender, String level, String expLevel,
                      ArrayList<ChapterStat> chapterData) {
         this.userName = username;
         this.gender = gender;
@@ -203,19 +222,19 @@ public class UserStats {
     }
 
     public int getUserLevel() {
-        return this.level;
+        return Integer.parseInt(this.level);
     }
 
     public void setUserLevel(int level) {
-        this.level = level;
+        this.level = Integer.toString(level);
     }
 
     public int getUserExp() {
-        return this.expLevel;
+        return Integer.parseInt(this.expLevel);
     }
 
     public void setUserExp(int expLevel) {
-        this.expLevel = expLevel;
+        this.expLevel = Integer.toString(expLevel);
     }
 
     /**
@@ -256,8 +275,8 @@ public class UserStats {
         String [] tokens = string.split("\n",8);
         String userName = tokens[2];
         String gender = tokens[3];
-        int level = Integer.parseInt(tokens[4]);
-        int expLevel = Integer.parseInt(tokens[5]);
+        String level = tokens[4];
+        String expLevel = tokens[5];
 
         // No chapters in the list, so exit early, otherwise will cause parsing error.
         if (tokens.length < 8) {
@@ -276,12 +295,12 @@ public class UserStats {
      * Get the default UserStats (if the user launches the game for the first time).
      * @return The UserStats object.
      */
-    public static UserStats getDefaultUserStats() {
+    public static UserStats getDefaultUserStats(String username, String gender) {
         ArrayList<ChapterStat> chapters = new ArrayList<>();
         chapters.add(new ChapterStat("Sorting",1,0,0,0,0,0,""));
         chapters.add(new ChapterStat("Linked List",2,0,0,0,0,0,""));
         chapters.add(new ChapterStat("Bitmask",3,0,0,0,0,0,""));
-        return new UserStats("Default", "????", 1, 0, chapters);
+        return new UserStats(username, gender, "1", "0", chapters);
     }
 
     /**
