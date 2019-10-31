@@ -113,7 +113,11 @@ public class RoomShare {
             case restore:
                 Ui.clearScreen();
                 int restoreIndex = parser.getIndex();
-                tempDeleteList.restore(restoreIndex, taskList);
+                try {
+                    tempDeleteList.restore(restoreIndex, taskList);
+                } catch (RoomShareException e) {
+                    ui.showError(e);
+                }
                 listRoutine.list();
                 break;
 

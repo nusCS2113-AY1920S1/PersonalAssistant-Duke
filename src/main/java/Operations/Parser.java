@@ -275,10 +275,16 @@ public class Parser {
 
     }
 
+    /**
+     * Closes the scanner used in Parser class
+     */
     public void close() {
         scanner.close();
     }
 
+    /**
+     * Consumes the next character up to the next whitespace
+     */
     public void discardNext() {
         scanner.next();
     }
