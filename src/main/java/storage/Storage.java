@@ -33,8 +33,10 @@ public class Storage {
     private File saveFile;
     private String saveFileString;
     private String input = "";
-    private final Path folder = Paths.get("..\\data\\");
-    private final String folderName = "..\\data\\";
+    private final Path folder = Paths.get("../data/");
+    private final String folderName = "../data/";
+    //private final Path folder = Paths.get("..\\data\\");
+    //private final String folderName = "..\\data\\";
     private HashMap<String, List<String>> data = new HashMap<>();
     private HashMap<String, String> readable = new HashMap<>();
     private List<String> fileNames = new ArrayList<>();
@@ -83,11 +85,13 @@ public class Storage {
         this.saveFile = new File(saveFileString);
     }
 
+
+
     /**
      * This method reads the folder.
      *
      */
-    private void load() throws DukeException {
+    public void load() throws DukeException {
         try (DirectoryStream<Path> directoryStream = Files.newDirectoryStream(folder)) {
             for (Path path : directoryStream) {
                 String file = path.toString().substring(folderName.length());
@@ -174,11 +178,41 @@ public class Storage {
         }
     }
 
-    /**
-     * Valid File Name checker
-     *
-     * @returns true if the file name is valid
-     */
+    public void add_degree(String data) throws DukeException {
+            BufferedWriter bw = null;
+            FileWriter fw = null;
+            try {
+                File file = new File(folderName+"savedegree.txt");
+                if(!file.exists()) {
+                    file.createNewFile();
+                }
+
+                fw = new FileWriter(file.getAbsoluteFile(), true);
+                bw = new BufferedWriter(fw);
+             bw.write(data);
+            } catch (Exception e) {
+            throw new DukeException(e.getLocalizedMessage());
+            } finally {
+              try {
+                  if (bw != null) {
+                      bw.close();
+                  }
+                  if (fw != null) {
+                      fw.close();
+                  }
+              } catch (IOException e) {
+                  e.printStackTrace();
+              }
+          }
+  }
+
+
+
+  /**
+   * Valid File Name checker
+   *
+   * @returns true if the file name is valid
+   */
     private boolean validateFile (String file) {
         if(file.isBlank()) {
             return true;

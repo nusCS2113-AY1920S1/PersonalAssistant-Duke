@@ -3,9 +3,11 @@ package command;
 import degree.DegreeManager;
 import exception.DukeException;
 import storage.Storage;
+import task.UniversityTaskHandler;
 import ui.UI;
 import task.TaskList;
 import list.DegreeList;
+import list.DegreeListStorage;
 
 /**
  * ModCommand Class extends the abstract Command class.
@@ -18,6 +20,7 @@ import list.DegreeList;
 public class ModCommand extends Command {
     private String command;
     private String input;
+    private DegreeListStorage dd = new DegreeListStorage();
     private int listType = 0;
 
     public ModCommand(String command, String input) {
@@ -32,7 +35,7 @@ public class ModCommand extends Command {
      * @param ui      UI prints messages
      * @param storage Storage loads and saves files
      * @param lists DegreeList has the array for the user to maintain a list of their degree choices.
-     * @param degreesManager
+     * @param degreesManager is the class which holds all information about degrees
      * @throws DukeException DukeException throws exception
      */
     public void execute(TaskList tasks, UI ui, Storage storage, DegreeList lists, DegreeManager degreesManager) throws DukeException {
@@ -45,8 +48,9 @@ public class ModCommand extends Command {
 
             degreesBuffer = lists.deepClone();
             memento = new Memento(degreesBuffer);
-
-            lists.delete(this.input);
+            UniversityTaskHandler universityTaskHandler = new UniversityTaskHandler();
+            universityTaskHandler.removeDegreeTasks(this.input, lists, tasks);
+            lists.delete(this.input, this.dd);
             break;
         case "done":
             this.listType = 0;

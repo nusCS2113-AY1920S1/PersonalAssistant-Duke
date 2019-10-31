@@ -70,6 +70,16 @@ public class HelpCommand extends Command {
             } else if (this.arguments.matches("add")) {
                 System.out.println("add DEGREE [t/TAG]...: To add a newly chosen degree programme into "
                         + "your personalised degree list.");
+                System.out.println("Here are the possible degrees that you can add to your personalised degree list:\n" +
+                        "Biomedical Engineering\n" +
+                        "Chemical Engineering\n" +
+                        "Civil Engineering\n" +
+                        "Computer Engineering\n" +
+                        "Electrical Engineering\n" +
+                        "Environmental Engineering\n" +
+                        "Industrial and Systems Engineering\n" +
+                        "Mechanical Engineering\n" +
+                        "Materials Science and Engineering\n");
             } else if (this.arguments.matches("degreelist")) {
                 System.out.println("degreelist: Shows a list of all degrees in the list.");
             } else if (this.arguments.matches("swap")) {

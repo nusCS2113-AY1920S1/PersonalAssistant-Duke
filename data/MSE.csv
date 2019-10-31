@@ -1,9 +1,9 @@
-﻿Unrestricted Electives,Faculty Requirements:,Faculty Requirement MCs:,Common Core,Common Core MCs,Core Modules:,Core Modules MCs:,Design and Project Modules:,Design and Project Modules MCs:,Electives:,Elective MCs:
-32,EG2401A Engineering Professionalism,2,MA1512 Differential Equations for Engineering,2,MLE2101 Introduction to Structure of Materials,4,MLE4102A Design Project,8,Pathway Requirements (PPP) ,8
-,ES1531 Critical Thinking and Writing,4,MA1513 Linear Algebra with Differential Equations,2,MLE2102 Thermodynamics and Phase Diagrams,4,MLE4101A B.Eng. Dissertation,6,EG3611A Industrial Attachment,10
-,ES2531 Critical Thinking & Writing,4,PC1432 Physics IIE,4,MLE2103 Phase Transformation and Kinetics,3,Technical Electives,4,,
-,EG1311 Design and Make,4,CM1501 Organic Chemistry for Engineers or CM1121 Organic Chemistry 1,4,MLE2104 Mechanical Properties of Materials,4,MSE3XXX,4,,
-,IE2211 Systems Thinking and Dynamics,4,MLE1001A Materials Science & Engineering Principles & Practise I,4,MLE2105 Electronic Properties of Materials,4,,,,
-,EE2211 Introduction to Machine Learning,4,MLE2001 Materials Science & Engineering Principles & Practise II,4,MLE3101 Materials Characterization Laboratory,3,,,,
-,MLE1010 Materials Engineering Principles and Practice,4,,,MLE3111 Materials Properties and Processing Laboratory,4,,,,
-,CS1010E Programming Methodology,4,,,,,,,,
+Unrestricted Electives,Faculty Requirements:,Faculty Requirement MCs:,Common Core,Common Core MCs,Core Modules:,Core Modules MCs:,Design and Project Modules:,Design and Project Modules MCs:,Electives:,Elective MCs:,Common Aliases:
+32,EG2401A Engineering Professionalism,2,MA1512 Differential Equations for Engineering,2,MLE2101 Introduction to Structure of Materials,4,MLE4102A Design Project,8,Pathway Requirements (PPP),8,Material Science Engineering
+,ES1531 Critical Thinking and Writing,4,MA1513 Linear Algebra with Differential Equations,2,MLE2102 Thermodynamics and Phase Diagrams,4,MLE4101A B.Eng. Dissertation,6,EG3611A Industrial Attachment,10,MSE
+,ES2531 Critical Thinking & Writing,4,PC1432 Physics IIE,4,MLE2103 Phase Transformation and Kinetics,3,Technical Electives,4,,,
+,EG1311 Design and Make,4,CM1501 Organic Chemistry for Engineers or CM1121 Organic Chemistry 1,4,MLE2104 Mechanical Properties of Materials,4,MSE3XXX,4,,,
+,IE2211 Systems Thinking and Dynamics,4,MLE1001A Materials Science & Engineering Principles & Practise I,4,MLE2105 Electronic Properties of Materials,4,,,,,
+,EE2211 Introduction to Machine Learning,4,MLE2001 Materials Science & Engineering Principles & Practise II,4,MLE3101 Materials Characterization Laboratory,3,,,,,
+,MLE1010 Materials Engineering Principles and Practice,4,,,MLE3111 Materials Properties and Processing Laboratory,4,,,,,
+,CS1010E Programming Methodology,4,,,,,,,,,

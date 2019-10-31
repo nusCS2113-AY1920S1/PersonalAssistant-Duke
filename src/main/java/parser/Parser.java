@@ -2,7 +2,6 @@ package parser;
 
 import command.*;
 import exception.DukeException;
-
 import java.util.Scanner;
 
 /**
@@ -20,6 +19,7 @@ public class Parser {
     public static String taskSeparator = "\\s*\\|\\s*";
     public static String dateSeparator = "\\s*\\&\\s*";
     public static String postpone = "\\s*/to\\s*";
+    public static String swap = "\\s*\\s*\\s*";
     public static String newLine = "\n";
     public static int windowWidth = 80;
     public static String acceptedExtensions = "txt|csv";
@@ -76,7 +76,7 @@ public class Parser {
                 }
             }
         } else if (command.matches("todo|deadline|event|done|delete|find|select|recurring|after|within|fixed"
-                + "|snooze|schedule|add|remove")) {
+                + "|snooze|schedule|add|remove|swap|sort")) {
             if (!temp.hasNextLine()) {
                 throw new DukeException("☹ OOPS!!! The description of a " + command + " cannot be empty.");
             }
@@ -96,6 +96,10 @@ public class Parser {
                     return new SearchCommand(command, input);
                 } else if (command.matches("detail")) {
                     return new PrintCommand(command, input);
+                } else if (command.matches("swap")) {
+                    return new SwapCommand(command, input);
+                } else if (command.matches("sort")) {
+                    return new SortCommand(command, input);
                 }
             }
         }

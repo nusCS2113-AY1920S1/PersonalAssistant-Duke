@@ -6,12 +6,15 @@ import exception.DukeException;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import list.DegreeList;
+import list.DegreeListStorage;
 import parser.Parser;
 import storage.Storage;
+import task.UniversityTaskHandler;
 import task.TaskList;
 import ui.UI;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.PrintStream;
 import java.util.ArrayList;
 
@@ -35,11 +38,12 @@ public class Duke extends Application {
     private Parser parse;
     private DegreeList lists;
     private ArrayList<String> mydegrees = new ArrayList<>();
-
+    private UniversityTaskHandler universityTaskHandler = new UniversityTaskHandler();
+    private DegreeListStorage DegreeListStorage = new DegreeListStorage();
     public ArrayList<String> getTasks() {
         return mydegrees;
     }
-    
+
     /**
      * The constructor that is called when the GUI is starting up.
      * It will initialise all the classes related to the management of user input and save data.
@@ -57,6 +61,7 @@ public class Duke extends Application {
             myList = new TaskList(storage.getTaskList());
         } catch (DukeException e) {
             myList = new TaskList();
+            ui.showLoadingError();
         }
         try{
             degreesManager = new DegreeManager(this.storage);
@@ -66,7 +71,14 @@ public class Duke extends Application {
             System.out.println(e.getLocalizedMessage());
             System.out.println("Degree Information Failed to Load, please contact Administrator");
         }
+        try {
+            universityTaskHandler.loadDegreeTasks(storage.fetchListOutput("degreeTasks")); //loads information from degreeTasks.txt
+        } catch (DukeException e) {
+            System.out.println(e.getLocalizedMessage());
+        }
         this.lists = new DegreeList();
+        DegreeListStorage.ReadFile(storage.fetchListOutput("savedegree"));
+
     }
 
 

@@ -1,6 +1,11 @@
 package javafx;
 
 import exception.DukeException;
+import javafx.collections.ObservableList;
+import javafx.scene.control.Label;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Priority;
+import javafx.scene.text.TextFlow;
 import main.Duke;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -8,6 +13,11 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import org.controlsfx.control.textfield.CustomTextField;
+import org.controlsfx.control.textfield.TextFields;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -29,6 +39,9 @@ public class MainWindow extends AnchorPane {
 
     private Duke duke;
 
+    //We want this to be accessed outside so that it can be cleared manually by the user
+    public List<String> autoSuggestion = new ArrayList<>();
+
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
@@ -45,6 +58,21 @@ public class MainWindow extends AnchorPane {
 
         duke = d;
 
+        autoSuggestion.add("list");
+        autoSuggestion.add("detail");
+        autoSuggestion.add("help");
+        autoSuggestion.add("todo");
+        autoSuggestion.add("delete");
+        autoSuggestion.add("clear");
+        autoSuggestion.add("add");
+        autoSuggestion.add("swap");
+        autoSuggestion.add("bye");
+        autoSuggestion.add("replace");
+
+        //Initialize autocompletion field
+        TextFields.bindAutoCompletion(
+                this.userInput,
+                autoSuggestion);
 
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
@@ -97,6 +125,15 @@ public class MainWindow extends AnchorPane {
                 System.exit(0);
             }).start();
         }
+
+        //Learn new auto suggestions based on user inputs
+        if (!autoSuggestion.contains(input)) {
+            autoSuggestion.add(input);
+            TextFields.bindAutoCompletion(
+                    this.userInput,
+                    autoSuggestion);
+        }
+
         userInput.clear();
     }
 }

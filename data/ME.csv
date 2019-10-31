@@ -1,11 +1,11 @@
-﻿Unrestricted Electives,Faculty Requirements:,Faculty Requirement MCs:,Common Core,Common Core MCs,Core Modules:,Core Modules MCs:,Design and Project Modules:,Design and Project Modules MCs:,Electives:,Elective MCs:
-32,EG2401A Engineering Professionalism,2,MA1505       Mathematics I,4,ME2102       Engineering Innovation and Modelling,4,ME3103       Mechanical Systems Design OR ME4101A     B.Eng Dissertation,8,Technical Elective,12
-,ES1531 Critical Thinking and Writing,4,MA1512       Differential Equations for Engineering,2,ME2112       Strength of Materials,4,EG3611A      Industrial Attachment3,10,ME4102       Standards in Mechanical Engineering,4
-,,,MA1513       Linear Algebra & Differential Equations,2,ME2115       Mechanics of Machines,4,,,ME4103       Mechanical Engineering and Society,4
-,,,CS1010E     Programming Methodology,4,ME2121       Engineering Thermodynamics,4,,,,
-,,,ME1102       Engineering Principles & Practice I,4,ME2134       Fluid Mechanics I,4,,,,
-,,,ME2104       Engineering Principles & Practice II,4,ME2142       Feedback Control Systems,4,,,,
-,,,EG1311       Design and Make,4,ME3162       Manufacturing Processes,4,,,,
-,,,MLE1010     Materials Engineering Principles & Practice,4,,,,,,
-,,,EE2211        Introduction to Machine Learning,4,,,,,,
-,,,IE2141         Systems Thinking and Dynamics,4,,,,,,
+Unrestricted Electives,Faculty Requirements:,Faculty Requirement MCs:,Common Core,Common Core MCs,Core Modules:,Core Modules MCs:,Design and Project Modules:,Design and Project Modules MCs:,Electives:,Elective MCs:,Common Aliases:
+32,EG2401A Engineering Professionalism,2,MA1505 Mathematics I,4,ME2102 Engineering Innovation and Modelling,4,ME3103 Mechanical Systems Design OR ME4101A B.Eng Dissertation,8,Technical Elective,12,Mechanical Engineering
+,ES1531 Critical Thinking and Writing,4,MA1512 Differential Equations for Engineering,2,ME2112 Strength of Materials,4,EG3611A Industrial Attachment,10,ME4102 Standards in Mechanical Engineering,4,MechEng
+,,,MA1513 Linear Algebra & Differential Equations,2,ME2115 Mechanics of Machines,4,,,ME4103 Mechanical Engineering and Society,4,ME
+,,,CS1010E Programming Methodology,4,ME2121 Engineering Thermodynamics,4,,,,,
+,,,ME1102 Engineering Principles & Practice I,4,ME2134 Fluid Mechanics I,4,,,,,
+,,,ME2104 Engineering Principles & Practice II,4,ME2142 Feedback Control Systems,4,,,,,
+,,,EG1311 Design and Make,4,ME3162 Manufacturing Processes,4,,,,,
+,,,MLE1010 Materials Engineering Principles & Practice,4,,,,,,,
+,,,EE2211 Introduction to Machine Learning,4,,,,,,,
+,,,IE2141 Systems Thinking and Dynamics,4,,,,,,,
