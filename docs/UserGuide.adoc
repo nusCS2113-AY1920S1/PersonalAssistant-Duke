@@ -232,7 +232,7 @@ Format: `clear`
 <<<
 === Custom user commands: `custom`
 
-User can customize a word to be evaluated as a phrase to be executed with additional parameters. +
+You can customize a word to be evaluated as a phrase to be executed with additional parameters. +
 Format: `custom KEYWORD KEYPHRASE`
 
 Examples:
@@ -242,6 +242,16 @@ When `s2` is called, `swap 1 2` is returned and executed.
 
 * `custom cC diff CEG` +
 When `cC EE` is called, `diff CEG EE` is returned and executed.
+
+=== Undoing a command: `undo`
+
+You can undo previous commands if you are not happy with the changes. +
+Format: `undo`
+
+=== Undoing a command: `redo`
+
+You can also redo previous undone commands if you wish to revert back the undo. Redo will reset when a new command is entered. +
+Format: `redo`
 
 === Exiting the program : `bye`
 
