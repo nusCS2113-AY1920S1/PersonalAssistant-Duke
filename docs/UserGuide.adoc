@@ -59,7 +59,7 @@ Examples:
 === Adding a word: `add`
 
 Adds a word to the Word Bank. +
-Format: `add w/WORD w/MEANING [r/REMINDER] [t/TAG]...`
+Format: `add w/WORD m/MEANING [r/REMINDER] [t/TAG]...`
 
 Examples:
 
@@ -113,6 +113,21 @@ Returns `a liquid for consumption`
 * `search w/potatoes` +
 Returns suggestion of `potato`
 
+=== Searching for words with their begin: `search_begin`
+
+Search for the list words that in the dictionary that have a specific part. +
+Format: `search_begin w/WORD`
+
+****
+* The search is case insensitive as they will be converted to lowercase. e.g `HaNs` will match `hans`
+* Full words will be matched and given a result immediately.
+****
+
+Examples:
+
+* `search  w/d` +
+Returns `drink, dog, do, etc`
+
 === Generating quizzes: `quiz`
 
 Generate quizzes from the wordBank to test the user's understanding. +
@@ -133,6 +148,9 @@ Examples:
 
 * `delete w/drink` +
 Deletes the drink object from dictionary.
+
+* `delete w/drink t/action` +
+Deletes the tag action from word drink.
 
 // end::delete[]
 === [Not supported] Clearing all entries : `clear`
