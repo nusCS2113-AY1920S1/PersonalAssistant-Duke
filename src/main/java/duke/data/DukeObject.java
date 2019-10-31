@@ -24,8 +24,7 @@ public abstract class DukeObject {
      * @return the String representation of the object
      */
     public String toString() {
-        String informationString = "Name: " + this.name + "\n";
-        return informationString;
+        return "Name: " + this.name + "\n";
     }
 
     /*

@@ -126,7 +126,7 @@ public class CommandUtils {
         int index = idxFromString(nameOrIdx);
         if (index != -1) {
             // TODO: Law of demeter
-            List<Patient> patientList = core.ui.getIndexedList("patient");
+            List<DukeObject> patientList = core.ui.getIndexedList("patient");
             int count = patientList.size();
             if (index > count) {
                 throw new DukeException("I have only " + ((count == 1) ? ("1 patient") : (count + "patients")) + " in "
@@ -143,17 +143,18 @@ public class CommandUtils {
      * Find a {@code DukeObject} with the supplied identifier. Only 1 of either name or displayed index should be used
      * to identify said DukeObject.
      *
-     * @param core         DukeCore object.
-     * @param patient      Patient object.
-     * @param type         Type of DukeObject.
-     * @param nameOrIdx    Name or displayed index of DukeObject.
+     * @param core    DukeCore object.
+     * @param patient Patient object.
+     * @param type    Type of DukeObject.
+     * @param name    Name of DukeObject.
+     * @param index   Displayed index of DukeObject.
      * @return DukeObject object,
      * @throws DukeException If 1 of the following 3 conditions applies.
      *                       1. No identifier is provided.
      *                       2. 2 identifiers are provided.
      *                       3. 1 unique identifier is provided but said DukeObject does not exist.
      */
-    public static DukeObject findObject(DukeCore core, Patient patient, String type, String nameOrIdx)
+    public static DukeObject findObject(DukeCore core, Patient patient, String type, String name, int index)
             throws DukeException {
         if (name == null && index == -1) {
             throw new DukeException("You must provide a unique identifier (name OR index)!");
@@ -164,7 +165,6 @@ public class CommandUtils {
                 return patient.getImpression(name);
             } else if ("critical".equals(type)) {
                 // TODO: Get critical
-
             } else {
                 // TODO: Get investigation
             }

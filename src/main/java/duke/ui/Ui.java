@@ -47,5 +47,5 @@ public interface Ui {
      * @param type DukeObject type.
      * @return Indexed list of DukeObjects.
      */
-    <T extends DukeObject> List<T> getIndexedList(String type);
+    List<DukeObject> getIndexedList(String type);
 }
