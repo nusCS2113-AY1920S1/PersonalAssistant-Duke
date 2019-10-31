@@ -396,7 +396,7 @@ If the arguement read for `toShow` is "ue", an iterator loops through the array 
 If the arguement read for `toShow` is "module", an iterator loops through the array list of `ModuleTask`. It then prints out the entire list of modules being added.
 ****
 
-Below is a Sequence Diagram showing how `ShowCommand` works.
+Below is a Sequence Diagram showing how `ShowCommand` works. ShowCommand inherits the attributes and methods from the ModuleCommand, which is shown by the 1.1arg arrow connecting ShowCommand and ModuleCommand. The ModuleCommand calls itself as it uses its own attributes method as shown by 1.1.1 args. The ShowCommand also calls certain methods of PlannerUi as shown by the arrows from 1.2 to 1.11 args.
 
 image::ShowCommandSequenceDiagram.png[width="600"]
 
