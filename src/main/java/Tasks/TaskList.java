@@ -44,9 +44,15 @@ public class TaskList {
     }
 
     public void removeTask(Assignment task) {
-        for(Assignment taskInList : this.map.get(task.getModCode()).get(task.getDate())) {
-            if(taskInList.getDescription().equals(task.getDescription())) {
+        for (Assignment taskInList : this.map.get(task.getModCode()).get(task.getDate())) {
+            if (taskInList.getDateTime().equals(task.getDateTime())) {
                 this.map.get(task.getModCode()).get(task.getDate()).remove(taskInList);
+                if (this.map.get(task.getModCode()).get(task.getDate()).size() == 0) {
+                    this.map.get(task.getModCode()).remove(task.getDate());
+                    if (this.map.get(task.getModCode()).size() == 0) {
+                        this.map.remove(task.getModCode());
+                    }
+                }
                 break;
             }
         }
@@ -76,7 +82,6 @@ public class TaskList {
     }
 
     public int taskListSize() {
-
         int size = 0;
         for (String modCode : map.keySet()) {
             for (String date : map.get(modCode).keySet()) {
