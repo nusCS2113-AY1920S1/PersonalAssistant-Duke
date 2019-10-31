@@ -206,11 +206,128 @@ Furthermore with the implementation of GUI, it would also be more intuitive for 
 to get the seating arrangements for a particular show before they attempt to make any sales for the seat
 as it would be impossible for them to memorise all the seats that they have sold.
 
+=== Delete Show Feature
+Allows users to delete shows from the shows ShowMap.
+
+==== Implementation
+It is executed by the `DeleteCommand`, which is extended from the abstract class `Command`, and is stored under the
+Command package. Additionally, it implements the following operations based on the user input:
+
+* DeleteCommand#hasValidDate -- checks if the input date is of a valid format
+* Model#containsKey -- Checks for key in ShowMap.
+* Model#hasSameName -- Checks for the existence of the show for the specified date in ShowMap.
+* Model#deleteShow -- Removes the show from ShowMap.
+
+Given below is an example usage scenario and how the sell seat mechanism behaves at each step.
+
+*Step 1* +
+The user inputs `delete Phantom of the Opera|5/5/2020|6/5/2020`, with the intention to delete shows dated on 5th May 2020
+and 6th May 2020. The `DeleteCommand` is initialised with `Phantom of the Opera|5/5/2020|6/5/2020` as the `details`
+attribute. The `details` string is parsed into the show name, and the individual dates.
+
+image::images/devguide/DG_Delete_ObjectDiagram.png[width ="300", align="center"]
+
+*Step 2* +
+`DeleteCommand` iterates through the dates. It formats and verifies them through
+`OptixDateFormatter#hasValidDate(String date)` to ensure the given dates are valid(that the date follows the format
+DD/MM/YYYY). `LocalDate` instances are generated from these date strings.
 
 
+*Step 3* +
+`DeleteCommand` checks if the specified show exists on the verified dates using
+`Model#containsKey(LocalDate showLocalDate)` and `Model#hasSameName(LocalDate showLocalDate, LocalDate showName)`. If it
+exists, `Model#deleteShow(LocalDate showLocalDate)` is called to remove the show from the shows ShowMap. The details are
+also appended to message to record the successful deletion. If it does not exist, then the date is added to
+`missingShows`.
 
+*Step 4* +
+`DeleteCommand` checks if the specified show exists on the verified dates using
+`Model#containsKey(LocalDate showLocalDate)` and `Model#hasSameName(LocalDate showLocalDate, LocalDate showName)`.
 
+The activity diagram below illustrates the logic process of the `DeleteCommand`:
 
+image::images/devguide/DG_Delete_ActivityDiagram.png[width ="300", align="center"]
+
+The following code snippet highlights the key logic of the `DeleteCommand`.
+
+image::images/devguide/DG_Delete_CodeBlock.png[width ="300", align="center"]
+
+==== Design Considerations
+
+* Aspect: How delete works
+
+* *Alternative 1*: Splitting the delete feature into `delete-one` and `delete-all`. I.e. Splitting the delete feature
+into the 2 abilities: to delete 1 specific show, and to delete all shows of the specified show name. +
+This design would use 2 separate commands, `DeleteOneCommand` and `DeleteAllCommand`. The user would use
+`delete-one SHOW_NAME|SHOW_DATE`, and `delete SHOW_NAME` as the input format for the function to delete one
+show, and to delete all the specified shows respectively.
+
+** Pros: `delete-all` would enable the user to delete all the shows of specified show name with less hassle, without
+having to input all the dates.
+** Cons: Having 2 delete functions is less intuitive and may confuse new users, making them more prone to deleting
+multiple shows unintentionally.
+
+* *Alternative 2 (Current Implementation)*: One common delete feature that can delete multiple shows at once.
+
+** Pros: This method is intuitive and flexible, as it enables users to delete multiple shows with a single command.
+This makes deletions faster, and users will save time by typing less. This is important since this is a command-line
+based application.
+** Cons: If the user wishes to delete all shows of a specific name, the user has to input all of the dates which the
+show is scheduled for. This can in turn slow down the user instead. However, the instances of this happening is less
+likely.
+
+=== Command Aliasing
+Enabling users to set up aliases for the commands.
+
+==== Implementation
+Command aliasing is executed primarily by the `Parser`, which is stored under the `util` package. Some features related
+to command aliasing such as adding, removing, or listing of aliases is executed via commands. The aliases for commands
+are stored in the `commandAliasMap` within the Parser object. These pairs are also saved within a text file,
+`ParserPreferences.txt`, so that the user can continue to use the aliases after the application is restarted. The
+location of `ParserPreferences.txt` is decided in `Optix.java`. By default, it is located in `src/main/data`.
+
+The following operations are operations related to command aliasing:
+
+* Parser#addAlias(NEW_ALIAS, COMMAND) -- adds a alias-command pair to the commandAliasMap.
+* Parser#removeAlias(NEW_ALIAS, COMMAND) -- removes a alias-command pair from the commandAliasMAp.
+* Parser#loadPreferences() -- loads all alias-command pairs from `ParserPreferences.txt`. `ParserPreferences.txt` is the
+file where all the alias-command pairs are saved.
+* Parser#resetPreferences() -- clears all alias-command pairs from `commandAliasMap` and adds in the default
+alias-command pairs. This method does not access `ParserPreferences.txt`.
+
+Given below is an example usage scenario of where command aliasing is used.
+
+*Step 1* +
+The user starts the application. A parser object will be initialised, and `loadPreferences()` will be called as part of
+the initialisation process for it. If `ParserPreferences.txt` does not exist, it is created, and `resetPreferences()` is
+called. `CommandAliasMap` is populated, and these pairs are also written to `ParserPreferences.txt`.
+
+*Step 2* +
+The user adds a new alias. An example input would be `add-alias q|add`. This command would associate the character
+q with the command `add`. This calls the `AddAliasCommand`, which verifies that ‘q’ and “add” are valid aliases and
+commands respectively (more on valid aliases and commands below). After the alias-command pair is verified, the pair
+is put in the `commandAliasList`, and a success message is presented.
+
+*Step 3* +
+The user uses the alias by replacing “add” with “q” for any input. An example would be to use
+`q The Lion King|20|31/12/2019` instead of `add The Lion King|20|31/12/2019`.
+
+*Step 4* +
+The user decides that setting this alias was a mistake, and decides to remove it with the input `remove-alias q|add`.
+This calls the `RemoveAliasCommand()`. The command verifies that this pair exists, and can be removed. It then
+removes this pair from the `commandAliasList`.
+
+*Step 5* +
+The user decides to list all aliases with the input `list-alias`. This calls the `ListAliasCommand`, which prints
+all alias-command pairs in the `commandAliasList`.
+
+*Step 6* +
+The user decides that he has too many self-added aliases which he no longer wants. He uses the reset alias function
+to reset his aliases to the default settings, with the input `reset-alias`. This calls the `ResetAliasCommand`, which
+clears all existing aliases, and adds in the default aliases, which are defined in the `resetPreferences()` method in
+the `Parser` class.
+
+image::images/devguide/DG_Alias_CodeBlock.png[width ="300", align="center"]
 
 
 [appendix]
