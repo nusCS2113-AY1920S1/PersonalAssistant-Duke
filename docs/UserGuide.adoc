@@ -451,10 +451,51 @@ Extends the loan period of an item/room that is currently loaned out.
 ////
 
 ==== List items/rooms and their status: `list`
-View all items and rooms recorded and whether they are available or not.
+View a list of all resources or a list of resources by either item/room/date.
 
 .*Format*:
-. `list`
+To view the various lists:
+
+. To view a list of all resources, enter `list` then press kbd:[Enter].
+.. RIMS will display a list of all the resources that are currently available or currently booked.
++
+====
+
+
+image::list/list1.jpeg[width="500", align="left"]
+====
+
+. To view a more specific list of resources, enter  `list` followed by a space and either the word `item`, `room` or `date` depending on the type of list you wish to obtain.
+
+. If `item` is the user input:
+.. RIMS will prompt the user to enter the `ITEM NAME`, e.g. `pen`.
+.. RIMS will display a list of all items by that name and all their bookings/availabilities.
++
+====
+
+image::list/list3.jpeg[width="500", align="left"]
+====
+
+. If `room` is the user input:
+.. RIMS will prompt the user to enter the `ROOM NAME`, e.g. `seminar room 1`.
+.. RIMS will display a list of all rooms by that name and all their bookings/availabilities.
+
++
+====
+
+image::list/listbyroomnew.jpeg[width="500", align="left"]
+====
+
+
+. If `date` is the user input:
+.. RIMS will prompt the user to enter the `DATE`, e.g. `29/10/2019 1000`.
+.. RIMS will display a list of all the items and rooms that are booked/available on that date.
+
++
+====
+
+image::list/listbydatenew.jpeg[width="500", align="left"]
+====
 
 ==== View calendar: `calendar`
 View a calendar representation showing what items/rooms are in use/booked for the month.
