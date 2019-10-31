@@ -40,18 +40,6 @@ public class ListCommand extends Command {
         this.resourceDetail = resourceDetail;
     }
 
-
-    /**
-     * Converts a date and time inputted by the user in String format, into a Date object.
-     * @param stringDate the date and time inputted by the user in String format.
-     * @return a Date object representing the date and time inputted by the user.
-     */
-    public Date stringToDate(String stringDate) throws ParseException {
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HHmm");
-        Date dateValue = formatter.parse(stringDate);
-        return dateValue;
-    }
-
     /**
      * Depending on the type of list desired, either prints out a basic list of all Resources in the ResourceList,
      * or a detailed list of an individual Resource containing all of its current and future Reservations.
@@ -94,7 +82,7 @@ public class ListCommand extends Command {
                     }
                 }
             }
-            ui.printLine();      
+            ui.printLine();
 
         }
         //@@author aarushisingh1
@@ -118,7 +106,6 @@ public class ListCommand extends Command {
             }
             ui.printDash();
             ui.printLine();
-       
         }
 
         else if (listType.equals("room")) {
@@ -142,7 +129,7 @@ public class ListCommand extends Command {
             ui.print("CURRENTLY AVAILABLE ON THIS DATE:");
             ui.printEmptyLine();
             String checkedDate = resourceDetail;
-            Date date = stringToDate(checkedDate);
+            Date date = resources.stringToDate(checkedDate);
             for (int i = 0; i < resources.size(); i++) {
                 Resource thisResource = resources.getResourceByIndex(i);
                 int availableNumberOfResource = resources.getAvailableNumberOfResourceForDate(thisResource.getName(), checkedDate);
