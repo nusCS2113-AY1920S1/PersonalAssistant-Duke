@@ -4,17 +4,19 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.text.ParseException;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.Calendar;
 import java.util.concurrent.TimeUnit;
 
 import rims.exception.RimsException;
 
+//@@author rabhijit
 /**
  * This class represents an instance of a Resource. Contains the name of the Resource, its resource ID, type,
  * and a list of Reservation objects representing the reservations made for the Resource.
  */
-public abstract class Resource {
+public abstract class Resource{
     protected String name;
     protected int resourceId;
     protected String type;
@@ -102,6 +104,15 @@ public abstract class Resource {
      */
     public boolean isCurrentlyAvailable() {
         return reservations.isCurrentlyAvailable();
+    }
+
+    //@@author aarushisingh1
+    /**
+     * Checks if this Resource is currently available for booking on a certain date.
+     * @return a boolean indicating whether this Resource is currently not booked.
+     */
+    public boolean isAvailableOnDate(Date checkedDate){
+        return reservations.isAvailableOnDate(checkedDate);
     }
 
     /**

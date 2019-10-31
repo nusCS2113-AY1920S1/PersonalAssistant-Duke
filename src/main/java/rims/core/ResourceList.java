@@ -14,6 +14,7 @@ import rims.resource.Item;
 import rims.resource.Room;
 import rims.exception.RimsException;
 
+//@@author rabhijit
 /**
  * Stores an array of the Resources created thus far, as well as functions to
  * search, find for, create and delete Resources.
@@ -22,6 +23,7 @@ public class ResourceList {
     protected Ui ui;
     protected ArrayList<Resource> resources;
 
+    //@@author hin1
     /**
      * Constructor for the ResourceList. Takes in an array of Resources from the Storage instance
      * and saves it.
@@ -52,6 +54,7 @@ public class ResourceList {
         ui.printLine();
     }
 
+    //@@author rabhijit
     /**
      * Adds a new Resource to the ResourceList.
      * @param thisResource the newly created Resource.
@@ -80,9 +83,10 @@ public class ResourceList {
         }
     }
 
+    //@@author isbobby
     /**
      * Removes a Resource from the ResourceList, as specified by the ID of that resource.
-     * @param resourceID the ID of the Resource
+     * @param resourceId the ID of the Resource
      * @throws RimsException if there is no such resource with that ID.
      */
     public void deleteResourceById(int resourceId) throws RimsException {
@@ -100,6 +104,7 @@ public class ResourceList {
         }
     }
 
+    //@@author rabhijit
     /**
      * Returns the ResourceList itself.
      * @return the array of Resources.
@@ -107,6 +112,12 @@ public class ResourceList {
     public ArrayList<Resource> getResources() {
         return resources;
     }
+
+    /**
+     * Assigns a new ArrayList of Resources within ResourceList
+     * @param resources
+     */
+    public void setResources(ArrayList<Resource> resources) { this.resources = resources; }
 
     /**
      * Returns the number of items in the ResourceList.
@@ -124,8 +135,7 @@ public class ResourceList {
         for (int i = 0; i < size(); i++) {
             try {
                 Resource thisResource = getResourceById(i);
-            }
-            catch (RimsException e) {
+            } catch (RimsException e) {
                 return i;
             }
         }
@@ -159,7 +169,7 @@ public class ResourceList {
 
     /**
      * Returns a Resource in the Resource array by its ID number.
-     * @param resourceID the resource ID of the desired Resource.
+     * @param resourceId the resource ID of the desired Resource.
      * @return the Resource itself.
      * @throws RimsException if no such resource has that ID.
      */
@@ -196,7 +206,7 @@ public class ResourceList {
     }
 
     /**
-     * Returns an array of all the resources of a certain name
+     * Returns an array of all the resources of a certain name.
      * @param resourceName the name of the Resources to be obtained.
      * @return an array of all the Resources with that name.
      */
@@ -211,6 +221,7 @@ public class ResourceList {
         return allOfResource;
     }
 
+    //@@author isbobby
     /**
      * Returns the number of resources of a certain name.
      * @param resourceName the name of the Resources to be counted.
@@ -237,6 +248,25 @@ public class ResourceList {
         int number = 0;
         for (int i = 0; i < allOfResource.size(); i++) {
             if (allOfResource.get(i).isCurrentlyAvailable()) {
+                number++;
+            }
+        }
+        return number;
+    }
+
+    //@@author aarushisingh1
+    /**
+     * Returns the number of resources of a certain name that are currently available to be booked.
+     * @param resourceName the name of the Resource in question.
+     * @param date the date that is being checked.
+     * @return the number of available Resources with that name on that date.
+     */
+    public int getAvailableNumberOfResourceForDate(String resourceName, String date) throws ParseException {
+        ArrayList<Resource> allOfResource = getAllOfResource(resourceName);
+        Date checkedDate = stringToDate(date);
+        int number = 0;
+        for (int i = 0; i < allOfResource.size(); i++) {
+            if (allOfResource.get(i).isAvailableOnDate(checkedDate)) {
                 number++;
             }
         }
@@ -277,6 +307,26 @@ public class ResourceList {
         }
         return number;
     }
+
+    //@@author aarushisingh1
+    /**
+     * Returns the number of resources of a certain name that are currently booked.
+     * @param resourceName the name of the Resource in question.
+     * @param date the date that that is being checked
+     * @return the number of booked Resources with that name on that date.
+     */
+    public int getBookedNumberOfResourceForDate(String resourceName, String date) throws ParseException {
+        ArrayList<Resource> allOfResource = getAllOfResource(resourceName);
+        Date checkedDate = stringToDate(date);
+        int number = 0;
+        for (int i = 0; i < allOfResource.size(); i++) {
+            if (!allOfResource.get(i).isAvailableOnDate(checkedDate)) {
+                number++;
+            }
+        }
+        return number;
+    }
+
 
     /**
      * Returns the list of reservations made by a user, given the user's ID.
@@ -349,7 +399,8 @@ public class ResourceList {
         DateFormat dayFormat = new SimpleDateFormat("d");
         int day = Integer.parseInt(dayFormat.format(date)) % 10;
         String suffix = day == 1 ? "st" : (day == 2 ? "nd" : (day == 3 ? "rd" : "th"));
-        String stringDate = (new SimpleDateFormat("EEEEE, ")).format(date) + (dayFormat.format(date)) + suffix + " of " + (new SimpleDateFormat("MMMMM yyyy, hh:mm aaa")).format(date);
+        String stringDate = (new SimpleDateFormat("EEEEE, ")).format(date) + (dayFormat.format(date))
+            + suffix + " of " + (new SimpleDateFormat("MMMMM yyyy, hh:mm aaa")).format(date);
         return stringDate;
     }
 

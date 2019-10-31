@@ -1,5 +1,6 @@
 package rims.command;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import rims.resource.Resource;
@@ -10,6 +11,7 @@ import rims.core.Storage;
 import rims.core.Ui;
 import rims.exception.RimsException;
 
+//@@author isbobby
 /**
  * Implements the returning of multiple Resources by removing the relevant Reservation objects.
  */
@@ -39,7 +41,9 @@ public class ReturnCommand extends Command {
      * @throws RimsException if either the resource ID or reservation ID specified is invalid.
      */
     @Override
-    public void execute(Ui ui, Storage storage, ResourceList resources) throws RimsException {
+    public void execute(Ui ui, Storage storage, ResourceList resources) throws RimsException, IOException {
+        storage.saveToFile(resources.getResources());
+
         ArrayList<Reservation> cancelledReservations = new ArrayList<Reservation>();
         for (int i = 0; i < resourceIds.size(); i++) {
             Resource thisResource = resources.getResourceById(resourceIds.get(i));
