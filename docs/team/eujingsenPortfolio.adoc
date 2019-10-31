@@ -3,14 +3,13 @@
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-This document is used to record my contributions to the Coach Manager project and also to display my ability to code in Java and in object-orientated concept
+This portfolio serves to document my contributions to the team-based software engineering project for the module CS2113T and also to display my ability to code in Java and in object-orientated concept
 
 == PROJECT: Coach Manager
 
 == Overview
 
-My team of 4 computer engineering students and I were tasked with creating a basic command line interface desktop application for our
-software engineering project. Our team decided on creating an application called Coach Manager that functions as a planner to manage
+My team of 4 computer engineering students and I were tasked with creating a basic Command Line Interface (CLI) desktop application for our software engineering project. Our team decided on creating an application called Coach Manager that functions as a planner to manage
 information that a trainer or coach would need to handle, and will be used by them. This planner can serve as a timetable for users
 to check their schedule for any specified day, save information of students into the system, or to manage pre-specified plans that would
 simplify the demands of users all in a single platform tailored to the specific needs of sports managers or coaches.
@@ -20,6 +19,8 @@ For our application, we have 3 main features. The schedule feature, student feat
 feature comprises of mainly the calendar function, and can be used to integrate information from the other 2 features. The student
 feature manages student information, while the training circuit feature manages the training plans for a user to use.
 
+Shown below is what our project interface looks like.
+image::Ui.png[align="Center"]
 
 |===
 |*Note* the following formatting used in this document:
