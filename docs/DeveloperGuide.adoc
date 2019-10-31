@@ -830,19 +830,19 @@ Use case ends.
 
 *Main success scenario:*
 
-. User chooses to add a [.underline]#bank# (savings / investment) account.
-. System requests for [.underline]#bank# (savings / investment) details.
-. User enters details for the new [.underline]#bank# (savings / investment) account.
-. System creates a new [.underline]#bank# (savings / investment) account with the details specified.
+. User chooses to add a [.underline]#bank# account.
+. System requests for [.underline]#bank# details.
+. User enters details for the new [.underline]#bank# account.
+. System creates a new [.underline]#bank# account with the details specified.
 +
 Use case ends.
 
 *Extensions*
 [none]
-* 3a. System detects invalid details for the new [.underline]#bank# (savings / investment) account.
+* 3a. System detects invalid details for the new [.underline]#bank# account.
 ** 3a1. System requests for the correct details.
-** 3a2. User re-enters the details for new [.underline]#bank# (savings / investment) account.
-** Steps 3a1-3a2 are repeated until the details for new [.underline]#bank# (savings / investment) account is entered correctly.
+** 3a2. User re-enters the details for new [.underline]#bank# account.
+** Steps 3a1-3a2 are repeated until the details for new [.underline]#bank# account is entered correctly.
 ** Use case resumes from step 4.
 
 
@@ -912,19 +912,21 @@ Use case ends.
 
 *Main success scenario:*
 
-. User chooses to edit his/her [.underline]#bank# (savings / investment) account details.
-. System requests for new [.underline]#bank# (savings / investment) account details.
-. User enters new [.underline]#bank# (savings / investment) account details.
-. System update the [.underline]#bank# (savings / investment) account details.
+. User chooses to edit his/her specific [.underline]#bank# account details.
+. System requests for [.underline]#bank# account name together with newly specified information of
+[.underline]#bank# account details.
+. User enters [.underline]#bank# account name with new [.underline]#bank# account information he/she like to change.
+. System update the [.underline]#bank# account with new [.underline]#bank#  account details.
 +
 Use case ends.
 
 *Extensions*
 [none]
-* 3a. System detects invalid [.underline]#bank# (savings / investment) accounts details.
-** 3a1. System requests for the correct [.underline]#bank# (savings / investment) account details.
-** 3a2. User re-enters the [.underline]#bank# (savings / investment) account details.
-** Steps 3a1-3a2 are repeated until the [.underline]#bank# (savings / investment) account details entered are correct.
+* 3a. System detects invalid [.underline]#bank# account or invalid new [.underline]#bank# account details.
+** 3a1. System requests for the correct [.underline]#bank# account and [.underline]#bank# account details.
+** 3a2. User re-enters the [.underline]#bank# account and new [.underline]#bank# account details.
+** Steps 3a1-3a2 are repeated until the [.underline]#bank# account and [.underline]#bank# account details are entered
+correctly.
 ** Use case resumes from step 4.
 
 
