@@ -29,7 +29,7 @@ public class DeleteCommand extends Command {
         this.list = list;
     }
 
-    private boolean isInsideMapRemove (HashMap<String, HashMap<String, ArrayList<Assignment>>> map, Assignment task) throws DukeException {
+    private boolean isInsideMapDone (HashMap<String, HashMap<String, ArrayList<Assignment>>> map, Assignment task) throws DukeException {
         String modCode = task.getModCode();
         String dateOfTask = task.getDate();
         if (!map.containsKey(modCode)) {
@@ -62,12 +62,12 @@ public class DeleteCommand extends Command {
            HashMap<String, HashMap<String, ArrayList<Assignment>>> deadlineMap = deadlines.getMap();
 
            if (list.equals("event")) {
-               isInsideMapRemove(eventMap, task);
+               isInsideMapDone(eventMap, task);
                events.removeTask(task);
                storage.updateEventList(events);
                listToChange = events;
            } else if (list.equals("deadline")) {
-               isInsideMapRemove(deadlineMap, task);
+               isInsideMapDone(deadlineMap, task);
                deadlines.removeTask(task);
                storage.updateDeadlineList(deadlines);
                listToChange = deadlines;
