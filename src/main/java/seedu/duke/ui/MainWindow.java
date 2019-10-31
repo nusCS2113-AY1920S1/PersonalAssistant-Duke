@@ -73,13 +73,6 @@ public class MainWindow extends AnchorPane {
 
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
 
-        String welcome = "Hi, I'm Duke!" + System.lineSeparator() + "How may I help you?";
-
-        // show welcome message
-        dialogContainer.getChildren().addAll(
-                DialogBox.getDukeDialog(welcome, dukeImage)
-        );
-
         // show email
         webEngine = webView.getEngine();
         //webEngine.load("https://www.google.com");
