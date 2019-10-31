@@ -1,0 +1,481 @@
+= El Duque - Developer Guide
+:site-section: DeveloperGuide
+:toc:
+:toc-title:
+:toc-placement: preamble
+:sectnums:
+:imagesDir: images
+:stylesDir: stylesheets
+:xrefstyle: full
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:warning-caption: :warning:
+endif::[]
+:repoURL: https://github.com/se-edu/addressbook-level3/tree/master
+
+By: `CS2113-T16-2`      Since: `Aug 2019`      Licence: `MIT`
+
+== Setting up
+
+Refer to the guide <<SettingUp#, here>>.
+
+== Design
+
+[[Design-Architecture]]
+=== Architecture
+
+.Architecture Diagram
+image::ArchitectureDiagram.png[]
+
+The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
+
+[TIP]
+The `.puml` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder.
+Refer to the <<UsingPlantUml#, Using PlantUML guide>> to learn how to create and edit diagrams.
+
+`Main` has two classes called link:{repoURL}/src/main/java/seedu/address/Main.java[`Main`] and link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp`]. It is responsible for,
+
+* At app launch: Initializes the components in the correct sequence, and connects them up with each other.
+* At shut down: Shuts down the components and invokes cleanup method where necessary.
+
+<<Design-Commons,*`Commons`*>> represents a collection of classes used by multiple other components.
+The following class plays an important role at the architecture level:
+
+* `LogsCenter` : Used by many classes to write log messages to the App's log file.
+
+The rest of the App consists of four components.
+
+* <<Design-Ui,*`UI`*>>: The UI of the App.
+* <<Design-Logic,*`Logic`*>>: The command executor.
+* <<Design-Model,*`Model`*>>: Holds the data of the App in-memory.
+* <<Design-Storage,*`Storage`*>>: Reads data from, and writes data to, the hard disk.
+
+Each of the four components
+
+* Defines its _API_ in an `interface` with the same name as the Component.
+* Exposes its functionality using a `{Component Name}Manager` class.
+
+For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
+
+.Class Diagram of the Logic Component
+image::LogicClassDiagram.png[]
+
+[discrete]
+==== How the architecture components interact with each other
+
+The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
+
+.Component interactions for `delete 1` command
+image::ArchitectureSequenceDiagram.png[]
+
+The sections below give more details of each component.
+
+[[Design-Ui]]
+=== UI component
+
+.Structure of the UI Component
+image::UiClassDiagram.png[]
+
+*API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
+
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+
+The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+
+The `UI` component,
+
+* Executes user commands using the `Logic` component.
+* Listens for changes to `Model` data so that the UI can be updated with the modified data.
+
+[[Design-Logic]]
+=== Logic component
+
+[[fig-LogicClassDiagram]]
+.Structure of the Logic Component
+image::LogicClassDiagram.png[]
+
+*API* :
+link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
+
+.  `Logic` uses the `AddressBookParser` class to parse the user command.
+.  This results in a `Command` object which is executed by the `LogicManager`.
+.  The command execution can affect the `Model` (e.g. adding a person).
+.  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
+.  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
+
+Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
+
+.Interactions Inside the Logic Component for the `delete 1` Command
+image::DeleteSequenceDiagram.png[]
+
+NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+[[Design-Model]]
+=== Model component
+
+.Structure of the Model Component
+image::ModelClassDiagram.png[]
+
+*API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
+
+The `Model`,
+
+* stores a `UserPref` object that represents the user's preferences.
+* stores the Address Book data.
+* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* does not depend on any of the other three components.
+
+[NOTE]
+As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
+ +
+image:BetterModelClassDiagram.png[]
+
+[[Design-Storage]]
+=== Storage component
+
+.Structure of the Storage Component
+image::StorageClassDiagram.png[]
+
+*API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
+
+The `Storage` component,
+
+* can save `UserPref` objects in json format and read it back.
+* can save the Address Book data in json format and read it back.
+
+[[Design-Commons]]
+=== Common classes
+
+Classes used by multiple components are in the `seedu.addressbook.commons` package.
+
+== Implementation
+
+This section describes some noteworthy details on how certain features are implemented.
+
+// tag::undoredo[]
+=== Filtering
+==== Implementation
+
+The filter mechanism involves attaching filters to tasks or events which is facilitated by `Parser` and `AddCommand`.
+
+`Parser` reads user input and if the first word in the user input starts with a `-` character, `Parser` will identify the first word as a filter and carry out the remaining command using the filter.
+This enables the following user commands:
+
+* `[<filter>] task/event [<description>] [<labels>]` -- Creates a new task or event with relevant description and modifications as well as a filter for the task.
+* `[<filter>] list [<labels>]` -- List all tasks and events with the relevant filter and labels
+* `[<filter>] edit [<index>/<description>] [<labels>]` -- Edit a task or event seen in the relevant filtered list by its index in that list or by its description.
+
+Given below is an example usage scenario and how the filter mechanism behaves at each step:
+----
+-CS2113 task DG submission -d 2 -t 251019 2359
+-CS2113 list
+-CS2113 edit 1
+----
+
+. The user launches the application for the first time. The `Duke` main class will be initialized, and the `Ui` class will prompt the user to key in input.
+
+. The user executes `-CS2113 task DG submission -d 2 -t 251019 2359` command to add a new task called `DG submission` which will have a `filter` `CS2113`, a `duration` of `2 hours` to complete, and a deadline at `25/10/2019 23:59`.
+---
+[NOTE]
+If the user's system somehow crashes after executing the above command, the new task entry will still be saved into the JSON storage file and can be recovered on the next launch of the application.
+---
+. The user executes `-CS2113 list` to view all tasks and events associated with `CS2113`.
+
+. The user now decides that setting the duration of `DG submission` to be only 2 hours was a mistake, and decides to increase the duration needed by executing `-CS2113 edit 1 -d 4`. The `edit` command will call `EditCommand`, which will search for the corresponding task in the `TaskList`, updating whatever values the user has input, in this case updating the `duration` to `4 hours`.
+
+==== Design Considerations
+
+===== Aspect: How filter works
+
+* **Alternative 1 (current choice):** Use an `Optional<String>` attribute within `Task` to keep track of what filter each `Task` has.
+** Pros: Easy to implement.
+** Cons: May have performance issues in terms of speed when calling list because a new list must be filtered from all existing tasks within the current `TaskList`.
+* **Alternative 2:** When a new `filter` is created, create a new `TaskList` specific to that `filter` to store those tasks.
+** Pros: Will be faster to show filtered list to the user
+** Cons: Must change implementation of `TaskList`, `TaskListPrinter`, `AddCommand`, `EditCommand` to facilitate this. We must ensure that the implementation of each individual command is correct.
+
+=== Undo
+==== Implementation
+
+The undo mechanism is facilitated by `Duke`, `UndoStack`, and `UndoCommand`. `UndoStack` stores the current undo history internally as a `java.util.Stack` object. `UndoStack` only stores undo information for when the user executes a command that we consider "undo-able". Undo-able commands include the following: `AddCommand`, `DeleteCommand`, `EditCommand`, and `DoneCommand`. Undo information is actually mirror `Command` classes that will do the opposite of what the current command has done. For example, the mirror of `AddCommand` is `DeleteCommand`. This storing of undo information is facilitated by `Duke`. `Duke` calls the `savePrevState()` method of these commands to create respective mirror classes.
+
+When `UndoCommand` is executed, it will check whether `UndoStack` contains any commands using the `UndoStack` method `isEmpty()`. If `UndoStack` is not empty, `UndoCommand` will call the `UndoStack` method `retrieveRecent()` to obtain the most recent undo-able command that the user called. `UndoCommand` will then execute that command, undoing the user's most recent undo-able command.
+
+Given below is an example usage scenario and how the undo mechanism behaves at each stage:
+----
+task mistake
+undo
+----
+
+. The user launches the application for the first time. The `Duke` main class will be initialized, and the `Ui` class will prompt the user to key in input.
+
+. The user executes `task mistake` command to add a new task called `mistake`. `AddCommand` will be executed to create the task and add it to the current `TaskList`. `Duke` will call the method `savePrevState()` on the `AddCommand` created, which will store a mirror `DeleteCommand` that corresponds to the newly added task into the `UndoStack`.
+
+. The user realises that adding that task was a mistake and wants to undo his action of adding the task. The user now executes `undo` command to undo his previous action of adding the mistake task.
+
+. `UndoCommand` will be created and executed. `UndoCommand` calls the `isEmpty()` method of `UndoStack` and realises that there is at least one command that can be undone. `UndoCommand` then calls `retrieveRecent()` method of `UndoStack` to obtain the most recent undo-able command's mirror command. `UndoCommand` will execute this mirror command and undo the recent adding of the task `mistake`.
+
+==== Design Considerations
+
+===== Aspect: How undo works
+
+* **Alternative 1 (current choice):** Use a `java.util.Stack` to store mirror commands that facilitate the undoing of undo-able commands.
+** Pros: Easy to implement.
+** Cons: May have performance issues in terms of speed when calling list because a new list must be filtered from all existing tasks within the current `TaskList`.
+* **Alternative 2:** When a new `filter` is created, create a new `TaskList` specific to that `filter` to store those tasks.
+** Pros: Will be faster to show filtered list to the user
+** Cons: Must change implementation of `TaskList`, `TaskListPrinter`, `AddCommand`, `EditCommand` to facilitate this. We must ensure that the implementation of each individual command is correct.
+
+=== Editing
+==== Implementation
+The edit feature extends `Command` class. This commands takes in the filter and a string containing the attributes and it’s update field. 
+
+Given below is an example usage scenario of an edit that includes a filter and how it behaves at each step. The command given is:
+----
+-cs edit 5 -priority 2
+----
+
+. `Parser` separates the full command into a filter, `-cs` and the string, `edit 5 -priority 2`. Parse`r subsequently returns an `EditCommand` with these two strings as parameters. 
+
+. `Duke` calls `Command.execute()`, which runs the overridden function in `EditCommand` and takes in `TaskList`, `UI` and `Storage`.
+
+. `Edit` command will call 3 functions to get the relevant fields. `getParameters()` which splits the command by regex `“ -”` and returns a string array, in this case `“priority”`. `getIndexFromCommand()` returns an integer of the index in the command, `5`. `getIndexFromTaskList()` takes in the filter, index from command and the list of tasks. It will loop through `TaskList` and finds tasks with the priority filter and matches the index specified by the user to the actual index in the task list.
+
+. `EditCommand` will access the specified task using the index and calls `setPriority` to update the priority of the task. 
+
+The following sequence diagram summarises how the edit operation works:
+
+.Sequence Diagram for Edit Command
+image::EditSequenceDiagram.png[]
+
+==== Design Considerations
+===== Aspect: How actual index of task is found when given an index based on the filtered list
+* **Alternative 1 (current choice):** Using 2 separate counters to keep track of actual index versus filtered index
+** Pros: Easy to implement.
+** Cons: Harder to understand.
+* **Alternative 2:** Saves a copy of the filtered list
+** Pros: Clearer to understand. 
+** Cons: Have to deal with multiple lists.
+
+===== Aspect: How the task are updated
+* **Alternative 1 (current choice):** Updating each attribute of a task separately.
+** Pros: Reduces the dependency needed, `EditCommand` only needs to call a setter function instead of a getter for existing attributes followed by `AddCommand`.
+** Cons: Have to create a setter for each attribute of task
+* **Alternative 2:** Create a new task with updated fields.
+** Pros: Won’t need to call individual setters for each attribute.
+** Cons: Have to deal with AddCommand class to create a new task. 
+
+=== Finding
+==== Implementation
+The `FindCommand` feature is an extension of the `ListCommand`. As the name suggests, it allows the user to list tasks whose description matches the text.
+
+Given below is an example usage scenario of FindCommand: 
+----
+-cs find tutorial
+----
+
+. The command `-cs find tutorial` is parsed into `Parser`. `Parser` then splits the command into two parts delimited by the first `“ “`.
+Filter contains "cs" and command contains “find tutorial”. 
+
+. `Parser` will return `FindCommand` with the two parameters to duke. The two parameters are keyword which is “tutorial” and filter which is “cs”. `FindCommand` will then create a `ListCommand` with the filter.
+
+. The actual execution begins. First initialize new `TaskList` foundTasks to store tasks whose description matches the keyword. Next, pass foundTasks to `ListCommand` to show the relevant tasks.
+
+==== Design Considerations
+FindCommand uses the ListCommand object as an attribute. This can be seen as a HAS-A or composition relationship. We chose not to use inheritance as FindCommand is not strictly a ListCommand. Also, this follows the composition over inheritance principle in object-oriented programming.
+Care was taken not to mutate the “main” TaskList in place, but rather, create a new TaskList to store tasks that match the keyword.
+
+=== Future Scope (Next Milestone)
+Use similar idea of substring matching with other commands. E.g. done tutorial => show user all the tasks that contain tutorial and ask him to choose which one he has completed.
+
+=== Off-By-One
+==== Implementation
+It is possible that the user typed the command wrongly. E.g. “tasl” instead of “task”. The user will be prompted `(Y/N)` for the correct command name. Helps save time - type a letter instead of full command. Off by one means off by 1 substitution
+
+The `FindCommand` feature is an extension of the `ListCommand`. As the name suggests, it allows the user to list tasks whose description matches the text.
+
+Given below is an example usage scenario of `Off-By-One`:
+----
+-cs tasl tutorial
+> Did you mean task? (Y/N)
+Y
+----
+
+
+. The command “tasl tutorial” is parsed into `Parser`. `Parser` then splits command into two parts delimited by the first “ “. Filter contains cs and command contains “tasl tutorial”. 
+
+
+. The `Parser` always uses `OffByOneChecker` to check if the keyword is off by one. How this works is simple. For each possible command, check the number of identical characters. E.g. for “task” and “tasi”, the number of characters is 3. If number of identical characters == length of command, just return the keyword. If number of identical characters == length of command - 1, prompt user (Y/N). If Y, return command, else if N, return keyword. If number of identical characters != (length of command or length of command - 1) for all commands, just return keyword.
+
+
+. Execute the command as per normal. In this case. “tutorial” task is created under “cs”.
+
+
+==== Design Considerations
+The `OffByOne` is designed such that regardless of a valid command, off by one command or wrong command, the expected results are consistent. Hence, we always call `OffByOneChecker` on each input/keyword
+
+=== Future Scope (Next Milestone)
+Use a more efficient data structure. Extend this to other keywords like “priority”.
+
+== Documentation
+
+Refer to the guide <<Documentation#, here>>.
+
+== Testing
+
+Refer to the guide <<Testing#, here>>.
+
+== Dev Ops
+
+Refer to the guide <<DevOps#, here>>.
+
+[appendix]
+== Product Scope
+
+*Target user profile*:
+
+* has a need to manage a significant number of contacts
+* prefer desktop apps over other types
+* can type fast
+* prefers typing over mouse input
+* is reasonably comfortable using CLI apps
+
+*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+
+[appendix]
+== User Stories
+
+Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
+
+[width="59%",cols="22%,<23%,<25%,<30%",options="header",]
+|=======================================================================
+|Priority |As a ... |I want to ... |So that I can...
+|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+
+|`* * *` |user |add a new person |
+
+|`* * *` |user |delete a person |remove entries that I no longer need
+
+|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+
+|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+
+|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|=======================================================================
+
+_{More to be added}_
+
+[appendix]
+== Use Cases
+
+(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+
+[discrete]
+=== Use case: Delete person
+
+*MSS*
+
+1.  User requests to list persons
+2.  AddressBook shows a list of persons
+3.  User requests to delete a specific person in the list
+4.  AddressBook deletes the person
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+* 3a. The given index is invalid.
++
+[none]
+** 3a1. AddressBook shows an error message.
++
+Use case resumes at step 2.
+
+_{More to be added}_
+
+[appendix]
+== Non Functional Requirements
+
+.  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
+.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+
+_{More to be added}_
+
+[appendix]
+== Glossary
+
+[[mainstream-os]] Mainstream OS::
+Windows, Linux, Unix, OS-X
+
+[[private-contact-detail]] Private contact detail::
+A contact detail that is not meant to be shared with others
+
+[appendix]
+== Product Survey
+
+*Product Name*
+
+Author: ...
+
+Pros:
+
+* ...
+* ...
+
+Cons:
+
+* ...
+* ...
+
+[appendix]
+== Instructions for Manual Testing
+
+Given below are instructions to test the app manually.
+
+[NOTE]
+These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
+
+=== Launch and Shutdown
+
+. Initial launch
+
+.. Download the jar file and copy into an empty folder
+.. Double-click the jar file +
+   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+
+. Saving window preferences
+
+.. Resize the window to an optimum size. Move the window to a different location. Close the window.
+.. Re-launch the app by double-clicking the jar file. +
+   Expected: The most recent window size and location is retained.
+
+_{ more test cases ... }_
+
+=== Deleting a person
+
+. Deleting a person while all persons are listed
+
+.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+.. Test case: `delete 1` +
+   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `delete 0` +
+   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+   Expected: Similar to previous.
+
+_{ more test cases ... }_
+
+=== Saving data
+
+. Dealing with missing/corrupted data files
+
+.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+
+_{ more test cases ... }_

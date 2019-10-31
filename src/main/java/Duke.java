@@ -1,10 +1,11 @@
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.PrintStream;
 import java.text.ParseException;
 
-import duke.command.Command;
+import duke.logic.command.Command;
 import duke.exception.DukeException;
-import duke.parser.DuqueParser;
+import duke.logic.parser.DuqueParser;
 import duke.storage.Storage;
 import duke.storage.UndoStack;
 import duke.tasklist.TaskList;
@@ -19,7 +20,7 @@ public class Duke {
     private TaskList tasks;
     private UndoStack undoStack;
 
-    public Duke(String filepath) {
+    public Duke(String filepath) throws FileNotFoundException {
         ui = new Ui();
         undoStack = new UndoStack();
         storage = new Storage(filepath);
@@ -31,8 +32,8 @@ public class Duke {
         }
     }
 
-    public static void main(String[] args) {
-        new Duke("data/duke.json").run();
+    public static void main(String[] args) throws FileNotFoundException {
+        new Duke("tasks.json").run();
     }
 
     /**

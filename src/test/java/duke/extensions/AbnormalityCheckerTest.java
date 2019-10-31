@@ -1,9 +1,9 @@
 package duke.extensions;
 
 import duke.exception.DukeException;
+import duke.logic.AbnormalityChecker;
 import duke.storage.Storage;
 import duke.task.Event;
-import duke.task.Task;
 import duke.tasklist.TaskList;
 import duke.ui.Ui;
 import org.junit.jupiter.api.AfterEach;

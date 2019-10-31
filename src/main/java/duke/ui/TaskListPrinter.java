@@ -125,20 +125,17 @@ public class TaskListPrinter {
         while (filterLength-- > 0) {
             result.append("-");
         }
-        return result + " | -------- | ---------- | -------- | ----- | -----------\"";
+        return result + " | -------- | ---------- | -------- | ----- | -----------";
     }
 
     private static String padFilter(Optional<String> filter, int filterLength) {
-        int currLength;
         StringBuilder result;
         if (filter.isEmpty()) {
-            result = new StringBuilder("NA");
-            currLength = 2;
+            result = new StringBuilder("");
         } else {
             result = new StringBuilder(filter.get());
-            currLength = filter.get().length();
         }
-        int difference = filterLength - currLength;
+        int difference = filterLength - result.length();
         int front = difference % 2 == 0 ? difference / 2 : difference / 2 + 1;
         int back = difference / 2;
         while (front-- > 0) {

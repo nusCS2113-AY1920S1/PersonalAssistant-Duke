@@ -1,4 +1,4 @@
-import duke.command.SetCommand;
+import duke.logic.command.SetCommand;
 import duke.exception.DukeException;
 import duke.extensions.Recurrence;
 import duke.storage.Storage;
