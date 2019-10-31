@@ -621,11 +621,11 @@ Snooze:
 
 Sorting:
 
-*	/normal
+*	`/normal`
 
-*	/chronological
+*	`/chronological`
 
-*	/prioritize
+*	`/prioritize`
 
 Timer:
 
@@ -649,13 +649,13 @@ Task completion:
 
 Undo and Redo:
 
-•	/undo
+•	`/undo`
 
-•	/redo
+•	`/redo`
 
 Achievements:
 
-•	/achievement
+•	`/achievement`
 
 Avatar:
 
@@ -675,3 +675,46 @@ Shop:
 
 *	`/buy` <index>
 **	Possible input: */buy 1*
+
+=== 9. Glossary
+
+// tag::base-alt[]
+[width="90"]
+|===
+
+| Term | Description
+
+| Command keyword | The keyword to trigger an action. It is usually the first word input and starts off with a “/” before writing the keyword.
+
+| Avatar | Avatar	An icon or figure representing the User in Hustler.
+
+| Attack Damage | Attack damage is the attacking stat that determines the amount of physical damage dealt by basic attacks.
+
+| Defence | A stat that determines the chance to block an enemy attack.
+
+| Speed | A stat that determines if the User gets to start his attack first.
+
+| Endurance | Endurance is the stat that determines if the User’s avatar can still battle. If it goes to 0, the User loses.
+
+| Points | Points is Hustler’s in-game currency which allows users to purchase assets in the in-game shop.
+
+| Arena | Arena is the stage that the Users’ avatars are fought in the battle simulation.
+
+| NPC | Non-player character
+
+| GUI | Graphical user interface (GUI) a form of user interface that allows users to interact with Hustler through graphical icons and visual indicators.
+
+| Command Line | Command line is an interface for typing commands directly to a computer's operating system.
+
+| RPG | Role-Playing Game
+
+| ToDo | ToDo is a type of task that only includes the description of the task.
+
+| Deadline | Deadline is a type of task that includes the latest date and time the task should be completed by.
+
+| Event | Event is a type of task that is planned beforehand and occurs at a specific date and time.
+
+| XP | XP is the experience points of the user’s avatar.
+
+|===
+// end::base-alt[]
