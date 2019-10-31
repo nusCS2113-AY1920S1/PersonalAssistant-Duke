@@ -1,4 +1,11 @@
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import duke.exception.DukeException;
+import duke.extensions.Recurrence;
+import duke.logic.command.SetCommand;
+import duke.storage.Storage;
+import duke.task.Task;
+import duke.tasklist.TaskList;
+import duke.ui.Ui;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -6,15 +13,8 @@ import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.Optional;
 
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import duke.command.SetCommand;
-import duke.exception.DukeException;
-import duke.extensions.Recurrence;
-import duke.storage.Storage;
-import duke.task.Task;
-import duke.tasklist.TaskList;
-import duke.ui.Ui;
 
 class SetCommandTest {
     private static final String FILE_PATH = "data/duke-test.json";
