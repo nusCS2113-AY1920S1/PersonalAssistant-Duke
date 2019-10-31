@@ -30,10 +30,10 @@ public class AddCommand extends Command {
      */
     @Override
     public String execute(Logic logic, Ui ui, StorageManager storageManager) throws DukeException {
-        String output = TaskList.runDeadline(storageManager.storage.currentTaskData.getData(),
+        String output = TaskList.runDeadline(storageManager.storage.getData(),
                 input, TaskList.TaskState.NOT_DONE);
         Storage.generateFolder(new File("data/tasks/"));
-        storageManager.storage.write(storageManager.storage.currentTaskData.getData());
+        storageManager.storage.write(storageManager.storage.getData());
         return output;
 
 

@@ -67,7 +67,15 @@ public class Deadline extends Task {
 
     @Override
     public void changeDate(String newDate) { 
-        this.by = newDate; 
+        this.by = newDate;
+        try {
+            Parser parser = new Parser();
+            List<DateGroup> groups = parser.parse(by);
+            dateNow = groups.get(0).getDates().get(0);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
+
 
 }

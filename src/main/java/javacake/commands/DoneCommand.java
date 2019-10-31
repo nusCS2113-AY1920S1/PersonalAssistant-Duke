@@ -24,10 +24,14 @@ public class DoneCommand extends Command {
      */
     @Override
     public String execute(Logic logic, Ui ui, StorageManager storageManager) throws DukeException {
+        if (input.length() <= 5) {
+            throw new DukeException("[!] No deadline mentioned!");
+        }
         input = input.substring(5);
         try {
             int num = Integer.parseInt(input);
             --num;
+            System.out.println(num);
             boolean isInsideData = false;
             /*for (int i = 0; i < progressStack.size(); ++i) {
                 if (i == num) {
@@ -44,11 +48,21 @@ public class DoneCommand extends Command {
                     break;
                 }
             }*/
+            for (int i = 0; i < storageManager.storage.getData().size(); ++i) {
+                if (i == num) {
+                    storageManager.storage.getData().get(i).markAsDone();
+                    storageManager.storage.write(storageManager.storage.getData());
+                    isInsideData = true;
+                    break;
+                }
+            }
+
             if (!isInsideData) {
                 ui.showError("Task number is out of bounds! [Done]");
+                throw new DukeException("[!] Not a valid Task Number!");
             }
         } catch (NumberFormatException e) {
-            throw new DukeException("Not a valid Task Number!");
+            throw new DukeException("[!] Not a valid Task Number!");
         }
         return "";
     }
