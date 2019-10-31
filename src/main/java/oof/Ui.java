@@ -45,7 +45,6 @@ public class Ui {
     private static final int LEAST_COL_SIZE = 19;
     private static final int TIME = 0;
     private static final int DESCRIPTION = 1;
-    private static final int TEN_MINUTES_BLOCK = 10;
     private static final int FIRST_VAR = 0;
     private static final int SEGMENT_SIZE = 10;
     private static final String ANSI_RESET = "\u001B[0m";
@@ -1009,7 +1008,7 @@ public class Ui {
             if (timeTaken < SEGMENT_SIZE) {
                 System.out.print("| ");
             } else {
-                int segmentedTimeTaken = timeTaken / TEN_MINUTES_BLOCK;
+                int segmentedTimeTaken = timeTaken / SEGMENT_SIZE;
                 printTrackerDiagramBar(segmentedTimeTaken);
             }
             String moduleCode = moduleTracker.getModuleCode();

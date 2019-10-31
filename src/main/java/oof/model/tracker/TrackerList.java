@@ -108,7 +108,7 @@ public class TrackerList {
      * Checks if index is within bounds of trackerList.
      *
      * @param index Index of trackerList.
-     * @return True if index is within bounds of trackerList, false otherwise.
+     * @return if index is within bounds of trackerList.
      */
     public boolean isIndexValid(int index) {
         return index < this.getSize() && index >= 0;
@@ -116,7 +116,7 @@ public class TrackerList {
 
     /**
      * Check if trackerList is empty.
-     * @return  true if trackerList is empty.
+     * @return if trackerList is empty.
      */
     public boolean isEmpty() {
         return trackerList.isEmpty();

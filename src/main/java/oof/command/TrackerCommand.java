@@ -18,12 +18,11 @@ public class TrackerCommand extends Command {
 
     String description;
     private static final long DEFAULT_TIMETAKEN = 0;
-    private static final int ARGUMENT_FIRST = 0;
-    private static final int ARGUMENT_SECOND = 1;
-    private static final int ARGUMENT_THIRD = 2;
+    private static final int INDEX_INSTRUCTION = 0;
+    private static final int INDEX_MODULE_CODE = 1;
+    private static final int INDEX_DESCRIPTION = 2;
     private static final int SPLIT_INPUT = 3;
     private static final int SPLIT_DESCRIPTION = 2;
-    private static final int EMPTY = 0;
     private static final int NOT_FOUND = -1;
     private static final String START_COMMAND = "/start";
     private static final String STOP_COMMAND = "/stop";
@@ -34,16 +33,6 @@ public class TrackerCommand extends Command {
         this.description = description;
     }
 
-    /**
-     * Invokes other Command subclasses based on the input given by the user.
-     *
-     * @param semesterList Instance of SemesterList that stores Semester objects.
-     * @param taskList     Instance of TaskList that stores Task objects.
-     * @param ui           Instance of Ui that is responsible for visual feedback.
-     * @param storage      Instance of Storage that enables the reading and writing of Task
-     *                     objects to hard disk.
-     * @throws OofException Catches invalid commands given by user.
-     */
     @Override
     public void execute(SemesterList semesterList, TaskList taskList, Ui ui, Storage storage) throws OofException {
         if (description.isEmpty()) {
@@ -52,18 +41,18 @@ public class TrackerCommand extends Command {
 
         TrackerList trackerList = storage.readTrackerList();
         String[] input = description.split(" ", SPLIT_INPUT);
-        String trackerCommand = input[ARGUMENT_FIRST].toLowerCase();
+        String trackerCommand = input[INDEX_INSTRUCTION].toLowerCase();
 
         if (trackerCommand.equals(VIEW_COMMAND)) {
             TrackerList moduleTrackerList = timeSpentByModule(trackerList);
-            if (moduleTrackerList.getSize() == EMPTY) {
+            if (moduleTrackerList.isEmpty()) {
                 throw new OofException("There are no completed Assignments!");
             }
             TrackerList sortedTL = sortAscending(moduleTrackerList);
             ui.printTrackerDiagram(sortedTL);
         } else {
-            String moduleCode = input[ARGUMENT_SECOND].toLowerCase();
-            String moduleDescription = input[ARGUMENT_THIRD].toLowerCase();
+            String moduleCode = input[INDEX_MODULE_CODE].toLowerCase();
+            String moduleDescription = input[INDEX_DESCRIPTION].toLowerCase();
 
             if (input.length < SPLIT_INPUT) {
                 throw new OofException("Invalid input!");
@@ -127,14 +116,15 @@ public class TrackerCommand extends Command {
      * @param moduleDescription     module description given by User.
      * @param moduleCode            module code given by User.
      * @param tasks                 TaskList object.
-     * @return                      new Tracker object.
+     * @return Tracker object.
      */
     private Tracker addNewTracker(String moduleDescription, String moduleCode, TaskList tasks) {
         for (int i = 0; i < tasks.getSize(); i++) {
             Task t = tasks.getTask(i);
             if (t instanceof Assignment) {
                 Date current = new Date();
-                return new Tracker(moduleCode, moduleDescription, current, current, DEFAULT_TIMETAKEN);
+                Tracker tracker = new Tracker(moduleCode, moduleDescription, current, current, DEFAULT_TIMETAKEN);
+                return tracker;
             }
         }
         return null;
@@ -178,7 +168,7 @@ public class TrackerCommand extends Command {
      * Check if tracker has been started.
      *
      * @param tracker   Tracker object.
-     * @return          if Tracker object has a start date.
+     * @return if Tracker object has a start date.
      */
     private boolean isStarted(Tracker tracker) {
         return tracker.getStartDate() != null;
@@ -188,7 +178,7 @@ public class TrackerCommand extends Command {
      * Check if Assignment is done.
      *
      * @param assignment    Assignment object.
-     * @return              Assignment object status.
+     * @return Assignment object status.
      */
     private boolean isAssignmentCompleted(Assignment assignment) {
         return assignment.getStatus();
@@ -200,7 +190,7 @@ public class TrackerCommand extends Command {
      * @param moduleDescription     description of Assignment.
      * @param moduleCode            module code of Assignment.
      * @param taskList              TaskList of Task objects.
-     * @return                      Assignment object that matches in both moduleDescription and moduleCode.
+     * @return Assignment object that matches in both moduleDescription and moduleCode.
      */
     private Assignment findAssignment(String moduleDescription, String moduleCode, TaskList taskList) {
         for (int i = 0; i < taskList.getSize(); i++) {
@@ -208,7 +198,7 @@ public class TrackerCommand extends Command {
             if (task instanceof Assignment) {
                 Assignment assignment = (Assignment) task;
                 String[] description = assignment.getDescription().toLowerCase().split(" ", SPLIT_DESCRIPTION);
-                String currentDescription = description[1];
+                String currentDescription = description[INDEX_DESCRIPTION];
                 String currentModuleCode = assignment.getModuleCode().toLowerCase();
                 if (moduleDescription.equals(currentDescription) && moduleCode.equals(currentModuleCode)) {
                     return assignment;
@@ -220,8 +210,9 @@ public class TrackerCommand extends Command {
 
     /**
      * Calculate total time spent on various modules.
+     *
      * @param trackerList     list of Tracker objects.
-     * @return          TrackerList of Tracker objects.
+     * @return TrackerList of Tracker objects.
      */
     private TrackerList timeSpentByModule(TrackerList trackerList) {
         TrackerList moduleTrackerList = new TrackerList();
@@ -237,11 +228,12 @@ public class TrackerCommand extends Command {
     }
 
     /**
-     * Update ModuleTracker object.
-     * @param moduleTrackerList     ModuleTrackerList object.
+     * Update Tracker object.
+     *
+     * @param moduleTrackerList     TrackerList object.
      * @param tracker               Tracker object.
      * @param moduleCode            String containing module code.
-     * @return                      created or updated ModuleTracker object.
+     * @return Tracker object.
      */
     private Tracker updateModuleTrackerList(TrackerList moduleTrackerList,
                                                   Tracker tracker, String moduleCode) {
@@ -257,7 +249,7 @@ public class TrackerCommand extends Command {
             timeTaken = tracker.getTimeTaken();
         }
 
-        if (moduleTrackerList.getSize() == EMPTY || i == NOT_FOUND) {
+        if (moduleTrackerList.isEmpty() || i == NOT_FOUND) {
             moduleTracker = new Tracker(moduleCode,timeTaken);
         } else {
             moduleTracker = moduleTrackerList.getTracker(i);
@@ -269,10 +261,11 @@ public class TrackerCommand extends Command {
     }
 
     /**
-     * Check if ModuleTracker objects have the same ModuleCode.
-     * @param moduleTrackerList     ModuleTrackerList of Tracker objects.
+     * Check if Tracker objects have the same ModuleCode.
+     *
+     * @param moduleTrackerList     TrackerList of Tracker objects.
      * @param moduleCode            Module code in process.
-     * @return                      index of Tracker object found in TrackerList that matches ModuleCode.
+     * @return index of Tracker object found in TrackerList that matches ModuleCode.
      */
     private int matchModuleTracker(TrackerList moduleTrackerList, String moduleCode) {
         for (int i = 0; i < moduleTrackerList.getSize(); i++) {
@@ -287,8 +280,9 @@ public class TrackerCommand extends Command {
 
     /**
      * Sort trackerList by timeTaken in ascending order.
+     *
      * @param moduleTrackerList   ArrayList of Tracker objects.
-     * @return              sorted TrackerList object.
+     * @return TrackerList object.
      */
     private TrackerList sortAscending(TrackerList moduleTrackerList) {
         ArrayList<Tracker> list = new ArrayList<>();
@@ -297,10 +291,10 @@ public class TrackerCommand extends Command {
             list.add(mt);
         }
         Collections.sort(list, moduleTrackerList.timeTakenComparator);
-        TrackerList sortedTL = new TrackerList();
+        TrackerList sortedTrackerList = new TrackerList();
         for (Tracker moduleTracker : list) {
-            sortedTL.addTracker(moduleTracker);
+            sortedTrackerList.addTracker(moduleTracker);
         }
-        return sortedTL;
+        return sortedTrackerList;
     }
 }

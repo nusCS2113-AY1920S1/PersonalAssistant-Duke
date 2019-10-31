@@ -79,11 +79,11 @@ public class Storage {
     private static final int INDEX_TASK_TIME_END = 6;
     private static final int DEFAULT_THRESHOLD = 24;
     private static final int INDEX_TASK_STATUS = 1;
-    private static final int ARGUMENT_FIRST = 0;
-    private static final int ARGUMENT_SECOND = 1;
-    private static final int ARGUMENT_THIRD = 2;
-    private static final int ARGUMENT_FOURTH = 3;
-    private static final int ARGUMENT_FIFTH = 4;
+    private static final int INDEX_TRACKER_MODULECODE = 0;
+    private static final int INDEX_TRACKER_DESCRIPTION = 1;
+    private static final int INDEX_TRACKER_STARTDATE = 2;
+    private static final int INDEX_TRACKER_LASTUPDATED = 3;
+    private static final int INDEX_TRACKER_TIMETAKEN = 4;
 
     /**
      * Constructor for Storage class.
@@ -259,11 +259,11 @@ public class Storage {
         Date start;
 
         String[] processed = line.split(DELIMITER_TRACKER);
-        String moduleCode = processed[ARGUMENT_FIRST];
-        String description = processed[ARGUMENT_SECOND];
-        String startDate = processed[ARGUMENT_THIRD];
-        String lastUpdated = processed[ARGUMENT_FOURTH];
-        long timeTaken = Long.parseLong(processed[ARGUMENT_FIFTH]);
+        String moduleCode = processed[INDEX_TRACKER_MODULECODE];
+        String description = processed[INDEX_TRACKER_DESCRIPTION];
+        String startDate = processed[INDEX_TRACKER_STARTDATE];
+        String lastUpdated = processed[INDEX_TRACKER_LASTUPDATED];
+        long timeTaken = Long.parseLong(processed[INDEX_TRACKER_TIMETAKEN]);
 
         if (startDate.equals("null")) {
             start = null;
