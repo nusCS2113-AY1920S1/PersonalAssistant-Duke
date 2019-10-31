@@ -11,7 +11,7 @@ Hello I am Valerie, currently pursuing Information Security in the National Univ
 This portfolio aims to provide a detailed outline of my contributions during the development of our group's
 application, *OwlMoney*.
 We are a team of five, led by<<shamussy#,Shamus Neo Zhi Kai>> and comprises of <<briantkm#,Brian Tan Kian Ming>>,
-<<mong-nus#,Mong Zheng Wei>>, <<terencetan#, Terence Tan Wee Kheng>> and <<valerietyj#,myself>>.
+<<mong-nus#,Mong Zheng Wei>>, <<terencetan#, Terence Tan Wee Theng>> and <<valerietyj#,myself>>.
 
 == About the project
 [.underline]*OwlMoney* is specially created and developed for our Software Engineering
