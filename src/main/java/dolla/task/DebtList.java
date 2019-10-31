@@ -1,6 +1,6 @@
 package dolla.task;
 
-import dolla.Storage;
+import dolla.storage.StorageWrite;
 
 import java.util.ArrayList;
 
@@ -17,18 +17,18 @@ public class DebtList extends RecordList {
     @Override
     public void add(Record newRecord) {
         super.add(newRecord);
-        Storage.setDebts(get()); //save
+        StorageWrite.setDebts(get()); //save
     }
 
     @Override
     public void insertPrevPosition(int prevPosition, Record newRecord) {
         super.insertPrevPosition(prevPosition, newRecord);
-        Storage.setDebts(get()); //save
+        StorageWrite.setDebts(get()); //save
     }
 
     @Override
     public void removeFromList(int index) {
         super.removeFromList(index);
-        Storage.setDebts(get()); //save
+        StorageWrite.setDebts(get()); //save
     }
 }

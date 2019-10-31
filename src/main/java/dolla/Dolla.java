@@ -2,8 +2,7 @@ package dolla;
 
 import dolla.command.Command;
 import dolla.parser.MainParser;
-
-import static dolla.Storage.load;
+import dolla.storage.StorageRead;
 
 import java.util.Scanner;
 
@@ -29,7 +28,7 @@ public class Dolla {
      */
     private Dolla() {
         //tasks = new TaskList(Storage.load());
-        load(); //load from save TODO: add load for tag also (for now it can add to tagList but cant store to harddrive)
+        StorageRead.load(); //TODO: add load for tag also (for now it can add to tagList but cant store to harddrive)
     }
 
     /**
