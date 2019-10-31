@@ -67,7 +67,7 @@ public class Storage {
         dataPathExists = Files.isRegularFile(dataPath);
     }
 
-    private void makeFile(Path path) throws IOException {
+    public void makeFile(Path path) throws IOException {
         Files.createDirectories(path.getParent());
         Files.createFile(path);
     }
