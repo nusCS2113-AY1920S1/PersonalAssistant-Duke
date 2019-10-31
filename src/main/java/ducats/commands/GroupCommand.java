@@ -29,6 +29,10 @@ public class GroupCommand extends Command<SongList> {
         this.message = message.trim();
     }
 
+    public GroupCommand() {
+
+    }
+
     /**
      * Saves the range of bars as a verse with the specified name and returns the messages intended to be displayed.
      *
