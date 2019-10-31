@@ -351,8 +351,8 @@ public class EventList {
         logger.log(Level.INFO, "The deleted event is added back to the list");
     }
 
-
     public Budgeting getBudgeting() {
         return budgeting;
     }
+
 }

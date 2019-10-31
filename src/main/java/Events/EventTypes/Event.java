@@ -1,6 +1,7 @@
 package Events.EventTypes;
 
 import Events.Formatting.EventDate;
+import Events.Storage.Checklist;
 import Events.Storage.Goal;
 import Events.Storage.Contact;
 
@@ -22,7 +23,7 @@ public abstract class Event implements Comparable<Event> {
     protected ArrayList<Goal> goalsList;
     protected ArrayList<Contact> contactList;
 
-    private ArrayList<String> checklist;
+    private Checklist checklist;
 
     /**
      * Creates event with one date input (e.g todo)
@@ -39,7 +40,7 @@ public abstract class Event implements Comparable<Event> {
         this.eventType = 'T'; //event with no end date can only be ToDo
         this.goalsList = new ArrayList<>();
         this.contactList = new ArrayList<>();
-        this.checklist = new ArrayList<>();
+        this.checklist = new Checklist();
     }
 
     /**
@@ -58,7 +59,7 @@ public abstract class Event implements Comparable<Event> {
         this.eventType = eventType;
         this.goalsList = new ArrayList<>();
         this.contactList = new ArrayList<>();
-        this.checklist = new ArrayList<>();
+        this.checklist = new Checklist();
     }
 
     /**
@@ -149,6 +150,14 @@ public abstract class Event implements Comparable<Event> {
         return goalsList;
     }
 
+    public void editGoalList(Goal goalInput, int index) {
+        goalsList.set(index, goalInput);
+    }
+
+    public void updateGoalAchieved(int goalID) {
+        goalsList.get(goalID).setAchieved();
+    }
+
     //@@author YuanJiayi
     public void addContact(Contact contactInput) {
         contactList.add(contactInput);
@@ -176,14 +185,15 @@ public abstract class Event implements Comparable<Event> {
         }
     }
 
-    //@@author
+    //@@author ZhangYihanNus
     public void addChecklist(String newChecklist) {
-        System.out.println(newChecklist);
         this.checklist.add(newChecklist);
         logger.log(Level.INFO, "The new checklist is added to the list");
     }
 
-    public ArrayList<String> getChecklist() { return this.checklist; }
+    public ArrayList<String> getChecklist() {
+        return this.checklist.getChecklist();
+    }
 
     public void editChecklist(int checklistIndex, String newChecklist) {
         this.checklist.set(checklistIndex, newChecklist);
@@ -195,6 +205,7 @@ public abstract class Event implements Comparable<Event> {
         logger.log(Level.INFO, "The checklist is removed form the list");
     }
 
+    //@@author
     @Override
     public int compareTo(Event currEvent) {
         if (this.startEventDate.getEventJavaDate().compareTo(currEvent.startEventDate.getEventJavaDate()) > 0) {

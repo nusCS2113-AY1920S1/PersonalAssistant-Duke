@@ -133,6 +133,7 @@ public class EventDate {
      */
     public void addDaysAndSetMidnight(int noOfDays) {
         Calendar c = Calendar.getInstance();
+        c.setTime(this.javaDate);
 
         //sets calender class date to midnight.
         c.add(Calendar.DATE, noOfDays);
