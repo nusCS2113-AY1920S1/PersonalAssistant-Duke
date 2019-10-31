@@ -52,14 +52,9 @@ public class UI {
      * Initializes ui.
      */
     public void initUi() {
-        String logo = " ____        _        " + System.lineSeparator()
-                + "|  _ \\ _   _| | _____ "  + System.lineSeparator()
-                + "| | | | | | | |/ / _ \\"  + System.lineSeparator()
-                + "| |_| | |_| |   <  __/"  + System.lineSeparator()
-                + "|____/ \\__,_|_|\\_\\___|"  + System.lineSeparator();
-        logo = "Hello from" + System.lineSeparator() + logo + System.lineSeparator();
-        logo += "What can I do for you?";
-        showMessage(logo);
+        String helloMsg = "Hello from Email Manager" + System.lineSeparator();
+        helloMsg += "What can I do for you?";
+        showMessage(helloMsg);
         mainWindow.setInputPrefix();
     }
 
@@ -117,7 +112,7 @@ public class UI {
     public void showError(String msg) {
         String errorMsg = ANSI_RED + msg + ANSI_RESET;
         System.out.println(errorMsg);
-        showGui(errorMsg);
+        showGui(msg);
     }
 
     /**
