@@ -1,6 +1,5 @@
 package seedu.duke.common.command;
 
-import seedu.duke.CommandParseHelper;
 import seedu.duke.common.model.Model;
 import seedu.duke.email.EmailList;
 import seedu.duke.email.entity.Email;
@@ -17,8 +16,8 @@ public class LinkCommand extends Command{
     /**
      * Instantiates link command with all the necessary variables.
      *
-     * @param taskIndexList the index of task that is to be deleted
-     * @param emailIndexList
+     * @param taskIndexList  the index of tasks that is to be linked together.
+     * @param emailIndexList the index of emails that is to be linked.
      */
     public LinkCommand(ArrayList<Integer> taskIndexList, ArrayList<Integer> emailIndexList) {
         this.taskIndexList = taskIndexList;
@@ -28,7 +27,8 @@ public class LinkCommand extends Command{
     /**
      * Executes the link command.
      *
-     * @return a flag whether linking is done successfully. Returns false otherwise.
+     * @param model allows access the taskList and emailList
+     * @return      a flag whether linking is done successfully. Returns false otherwise.
      */
     @Override
     public boolean execute(Model model) {

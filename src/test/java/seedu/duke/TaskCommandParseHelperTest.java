@@ -4,13 +4,7 @@ import org.junit.jupiter.api.Test;
 import seedu.duke.common.command.Command;
 import seedu.duke.common.command.InvalidCommand;
 import seedu.duke.task.TaskList;
-import seedu.duke.task.command.TaskDeleteCommand;
-import seedu.duke.task.command.TaskDoAfterCommand;
-import seedu.duke.task.command.TaskDoneCommand;
-import seedu.duke.task.command.TaskReminderCommand;
-import seedu.duke.task.command.TaskSnoozeCommand;
-import seedu.duke.task.command.TaskAddCommand;
-import seedu.duke.task.command.TaskFindCommand;
+import seedu.duke.task.command.*;
 import seedu.duke.task.entity.Task;
 
 import java.lang.reflect.Field;
@@ -190,7 +184,7 @@ public class TaskCommandParseHelperTest {
             Class<?> parser = Class.forName("seedu.duke.task.parser.TaskCommandParseHelper");
             Method method = parser.getDeclaredMethod("parseReminderCommand", String.class);
             method.setAccessible(true);
-            //positive cass
+            //positive cases
             assertTrue(method.invoke(null, "reminder 1") instanceof TaskReminderCommand);
             assertTrue(method.invoke(null, "reminder 1000000000000000") instanceof TaskReminderCommand);
             assertTrue(method.invoke(null, "reminder 00 ") instanceof TaskReminderCommand);
@@ -395,4 +389,36 @@ public class TaskCommandParseHelperTest {
             fail("No Access");
         }
     }
+
+//    @Test
+//    public void parseUpdateCommandTest() {
+//        try {
+//            Class<?> parser = Class.forName("seedu.duke.task.parser.TaskCommandParseHelper");
+//            Method method = parser.getDeclaredMethod("parseUpdateCommand", String.class, ArrayList.class);
+//            method.setAccessible(true);
+//
+//            ArrayList<String> descriptions = new ArrayList<>(Arrays.asList("HIGH", "11/12/2019 1220",
+//                    "abc", "123", "something else"));
+//            ArrayList<TaskUpdateCommand.Attributes> attributes = new ArrayList<>(Arrays.asList(
+//                    TaskUpdateCommand.Attributes.PRIORITY, TaskUpdateCommand.Attributes.TIME,
+//                    TaskUpdateCommand.Attributes.TAG, TaskUpdateCommand.Attributes.TAG,
+//                    TaskUpdateCommand.Attributes.DO_AFTER));
+//
+//            //positive cases
+//            assertTrue(method.invoke(null, descriptions, attributes) instanceof TaskUpdateCommand);
+//            //negative cases
+//            //invalid character at the end
+//            assertTrue(method.invoke("a", null, attributes) instanceof InvalidCommand);
+//            //no name
+//            assertTrue(method.invoke(null, descriptions, null) instanceof InvalidCommand);
+//        } catch (ClassNotFoundException e) {
+//            fail("No such class");
+//        } catch (NoSuchMethodException e) {
+//            fail("No such method");
+//        } catch (InvocationTargetException e) {
+//            fail(e.getMessage());
+//        } catch (IllegalAccessException e) {
+//            fail("No Access");
+//        }
+//    }
 }
