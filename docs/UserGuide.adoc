@@ -87,7 +87,7 @@ image::add/add2.jpeg[width="500", align="left"]
 ====
 RIMS will prompt for the quantity of the item specified to be added. +
 
-image::add/add3.jpeg[width="500", align="left"]
+image::add/add3.jpeg[width="650", align="left"]
 ====
 +
 .. Enter the `QUANTITY` of the item to be added into RIMS into the console.
@@ -105,7 +105,7 @@ image::add/add4.jpeg[width="500", align="left"]
 ====
 RIMS will prompt for the room name that the user wants to add. +
 
-image::add/addRoom2.jpeg[width="500", align="left"]
+image::add/addRoom2.jpeg[width="650", align="left"]
 ====
 +
 .. Enter the `ROOM NAME` to be added into the console e.g. `seminar room 2`
@@ -113,7 +113,7 @@ image::add/addRoom2.jpeg[width="500", align="left"]
 ====
 RIMS will display item(s) and the quantity that have been added. +
 
-image::add/addRoom3.jpeg[width="500", align="left"]
+image::add/addRoom3.jpeg[width="650", align="left"]
 ====
 
 ==== Delete item/room: `delete`
@@ -146,11 +146,11 @@ image::delete/delete2.jpeg[width="500", align="left"]
 ====
 RIMS will display all items corresponding to that name and their respective statuses (on loan, reserved, available). +
 
-image::delete/delete3.jpeg[width="800", align="left"]
+image::delete/delete3.jpeg[width="1000", align="left"]
 
 RIMS will then prompt for resource ID(s) corresponding to the one or more of the items on the list displayed.
 
-image::delete/delete4.jpeg[width="800", align="left"]
+image::delete/delete4.jpeg[width="1000", align="left"]
 
 ====
 +
@@ -159,7 +159,7 @@ image::delete/delete4.jpeg[width="800", align="left"]
 ====
 RIMS will display item(s) and their resource ID(s) that have been deleted. +
 
-image::delete/delete5.jpeg[width="500", align="left"]
+image::delete/delete5.jpeg[width="450", align="left"]
 ====
 +
 . If `room` is the user input:
@@ -169,7 +169,7 @@ image::delete/delete5.jpeg[width="500", align="left"]
 ====
 RIMS will prompt for the room name that the user wants to delete. +
 
-image:delete/deleteRoom1.jpeg[width="500", align="left"]
+image:delete/deleteRoom1.jpeg[width="550", align="left"]
 ====
 +
 .. Enter the `ROOM NAME` to be added into the console.
