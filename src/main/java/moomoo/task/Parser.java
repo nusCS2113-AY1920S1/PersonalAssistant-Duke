@@ -85,7 +85,9 @@ public class Parser {
                 if (input.startsWith("d/")) {
                     String inputDate = input.substring(2);
                     if (!inputDate.equals("") && 0 < Integer.parseInt(inputDate) && Integer.parseInt(inputDate) < 13) {
-                        return new GraphCategoryCommand(inputCategory, Integer.parseInt(inputDate), LocalDate.now().getYear());
+                        return new GraphCategoryCommand(inputCategory,
+                                Integer.parseInt(inputDate),
+                                LocalDate.now().getYear());
                     } else {
                         throw new MooMooException("Month must be from 1 to 12 (inclusive)!");
                     }
@@ -93,7 +95,9 @@ public class Parser {
                     throw new MooMooException("Please enter in this format: d/[MONTH]");
                 }
             } else {
-                return new GraphCategoryCommand(inputCategory, LocalDate.now().getMonthValue(), LocalDate.now().getYear());
+                return new GraphCategoryCommand(inputCategory,
+                        LocalDate.now().getMonthValue(),
+                        LocalDate.now().getYear());
             }
             
         } else {

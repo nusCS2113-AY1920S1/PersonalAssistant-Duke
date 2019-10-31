@@ -204,9 +204,5 @@ public class CategoryList {
             Category newCategory = new Category(population.get(i));
             categoryList.add(newCategory);
         }
-//        Category gameCategory = new Category("Games");
-//        gameCategory.testPopulate();
-//        categoryList.add(gameCategory);
-        
     }
 }

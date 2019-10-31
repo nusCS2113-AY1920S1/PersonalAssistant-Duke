@@ -42,7 +42,6 @@ public class GraphCategoryCommand extends Command {
     public void execute(ScheduleList calendar, Budget budget, CategoryList catList,
                         Category category, Ui ui, Storage storage)
             throws MooMooException {
-        catList.testPopulate();
         Category cat;
         try {
             cat = catList.get(categoryName);

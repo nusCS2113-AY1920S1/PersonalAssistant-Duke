@@ -32,8 +32,6 @@ public class GraphTotalCommand extends Command {
                         Category category, Ui ui, Storage storage)
             throws MooMooException {
 
-        catList.testPopulate();
-
         if (catList.size() == 0) {
             throw new MooMooException("OOPS!!! MooMoo cannot find any category data :(");
         }
