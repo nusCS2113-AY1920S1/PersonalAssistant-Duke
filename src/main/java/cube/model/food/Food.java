@@ -1,10 +1,15 @@
+//@@author LL-Pengfei
+/**
+ * Food.java
+ * Model the food object.
+ */
 package cube.model.food;
 
+import cube.model.ModelManager;
 import java.util.Date;
 
 public class Food {
 
-	//Identity fields
 	protected String name;
 	protected String type;
 	protected double price;
@@ -12,97 +17,86 @@ public class Food {
 	protected int stock;
 	protected Date expiryDate;
 	protected double foodRevenue;
-	//Data fields
-	protected static double revenue;
-
 
     /**
-     * Default constructor.
-     * Calls another constructor with (null) as argument.
+     * The default constructor.
+     * Call the other constructor (overloading constructor) with (null) as argument.
      */
 	public Food() {
 	    this(null);
     }
 
 	/**
-	 * Constructor with one argument.
+	 * The constructor with the name of the food object as the argument.
 	 *
-	 * @param name Name of the food product.
+	 * @param name Name of the food object.
 	 */
-
 	public Food(String name) {
 		this.name = name;
-		this.foodRevenue = 350; //ad hoc
+		this.foodRevenue = 0;
 	}
 
 	/**
-	 * Gets the name of the food product.
+	 * Getter for the name of the food.
 	 *
-	 * @return the name of the food product.
+	 * @return the name of the food.
 	 */
-
 	public String getName() {
 		return name;
 	}
 
 	/**
-	 * Sets the type of the product.
+	 * Setter for the type of the food.
 	 *
-	 * @param type The type of the product.
+	 * @param type The type of the food to be set.
 	 */
-
 	public void setType(String type) {
 		this.type = type;
 	}
 
 	/**
-	 * Gets the type of the product.
+	 * Getter for the type of the food.
 	 *
-	 * @return the type of the product.
+	 * @return the type of the food.
 	 */
-
 	public String getType() {
 		return type;
 	}
 
 
 	/**
-	 * Sets/changes the price of the product.
+	 * Setter for the price of the food.
 	 *
-	 * @param price The price of the product.
+	 * @param price The price of the food to be set.
 	 */
-
 	public void setPrice (double price) {
 		this.price = price;
 	}
 
 	/**
-	 * Gets the price of the product.
+	 * Getter for the price of the food.
 	 *
-	 * @return the price of the product.
+	 * @return the price of the food.
 	 */
-
 	public double getPrice() {
 		return price;
 	}
 
 
 	/**
-	 * Sets/updates the expiry date of the product.
+	 * Setter for the expiry date of the food.
 	 *
-	 * @param expiryDate The expiry date of the product.
+	 * @param expiryDate The expiry date of the food to be set.
 	 */
-
 	public void setExpiryDate (Date expiryDate) {
 		this.expiryDate = expiryDate;
 	}
 
 	/**
-	 * Gets the expiry date of the product.
+	 * Getter for the expiry date of the food.
 	 *
-	 * @return the expiry date of the product.
+	 * @return the expiry date of the food.
 	 */
-
 	public Date getExpiryDate() {
 		return expiryDate;
 	}
@@ -113,21 +107,33 @@ public class Food {
 	 *
 	 * @param newRevenue New total revenue made from selling the product.
 	 */
+	/*
 	public static void updateRevenue(double newRevenue) {
-		revenue = newRevenue;
+			revenue = newRevenue;
 	}
+    */
 
 	/**
-	 * Gets the revenue earned from selling the product.
+	 * Generates the total revenue earned from selling the product.
 	 *
-	 * @return the revenue earned from selling the product.
+	 * @return the total revenue earned from selling the product.
 	 */
 	public static double getRevenue() {
+		FoodList list = ModelManager.getFoodList();
+		int size = list.size();
+		double revenue = 0;
+		for (int i = 0; i < size; ++i) {
+			revenue += list.get(i).foodRevenue;
+		}
 		return revenue;
 	}
 
 	public double getFoodRevenue() {
 		return foodRevenue;
+	}
+
+	public void setFoodRevenue(double revenue) {
+		this.foodRevenue = revenue;
 	}
 
 

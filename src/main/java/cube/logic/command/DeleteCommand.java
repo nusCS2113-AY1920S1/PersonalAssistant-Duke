@@ -1,3 +1,8 @@
+//@@author LL-Pengfei
+/**
+ * DeleteCommand.java
+ * Support commands related to deletion.
+ */
 package cube.logic.command;
 
 import cube.model.food.FoodList;

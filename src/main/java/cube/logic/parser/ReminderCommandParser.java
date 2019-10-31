@@ -1,8 +1,6 @@
 package cube.logic.parser;
 
 import cube.logic.command.ReminderCommand;
-import cube.logic.command.SoldCommand;
-import cube.logic.parser.exception.ParserErrorMessage;
 import cube.logic.parser.exception.ParserException;
 
 public class ReminderCommandParser implements ParserPrototype<ReminderCommand> {

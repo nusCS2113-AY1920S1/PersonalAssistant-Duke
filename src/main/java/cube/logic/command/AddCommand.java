@@ -41,7 +41,8 @@ public class AddCommand extends Command{
 		CommandUtil.requireNameNotExists(list, toAdd.getName());
 		list.add(toAdd);
 		// what is this for? not possible that a new food has revenue
-		Food.updateRevenue(Food.getRevenue() + toAdd.getFoodRevenue());
+		//Food.updateRevenue(Food.getRevenue() + toAdd.getFoodRevenue());
+
 		storage.storeFoodList(list);
 		return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd, list.size()));
 	}
