@@ -20,6 +20,14 @@ This user guide aims to help you learn your way around our app, making the learn
  
 == 3. Features
 
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:important-caption: :heavy_exclamation_mark:
+:caution-caption: :fire:
+:warning-caption: :warning:
+endif::[]
+
 Using Hustler, you can easily and effectively manage your tasks, deadlines and personal projections. This section aims to introduce the various important features of Hustler. However, before we do that there are some command formats that will be used from here on out. They are:
 
 
@@ -41,28 +49,16 @@ Using Hustler, you can easily and effectively manage your tasks, deadlines and p
 
 Since Hustler is a productivity checker, the first thing you would want to do is to add your tasks for the next few days. In order to do so, you must issue commands in the command line at the bottom.
 
-ifdef::env-github[]
-:tip-caption: :bulb:
-:note-caption: :information_source:
-:important-caption: :heavy_exclamation_mark:
-:caution-caption: :fire:
-:warning-caption: :warning:
-endif::[]
-
 IMPORTANT: Though Hustler v1.4 features a GUI, most of the user input is taken from the command line at the bottom. Hence, you need to know the command syntax to provide an input.
 
 
 The syntax for adding a task to the list is as follows:
 
-*/add <task description>*
+TIP: */add <task description>*
 
 On issuing this command in the command-lie text box at the bottom, a task will be added to the list.
 
-Note:
-
-* Though Hustler v1.4 features a GUI, most of the user input is taken from the command line at the bottom. Hence, you need to know the command syntax to provide an input.
-
-* Hustler has several task types. It also has a difficulty level for each task. By default, if you issue the above command, Hustler sets the task to type ToDo and the difficulty to medium. 
+IMPORTANT: Hustler has several task types. It also has a difficulty level for each task. By default, if you issue the above command, Hustler sets the task to type ToDo and the difficulty to medium. 
 
 === 3.1.1	Adding commands of different types
 
