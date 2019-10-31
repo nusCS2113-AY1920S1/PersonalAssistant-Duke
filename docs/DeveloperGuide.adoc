@@ -187,7 +187,7 @@ will proceed to create an instance of the appropriate command class and return i
 ==== Command
 
 .Bank Command Class Diagram
-image::LogicCommandBankPackage.png[width="970"]
+image::LogicCommandBankPackage.png[width="800"]
 
 The `logic.command.bank` package consist of `Savings` and `Investment` classes which inherits from the `Command` class.
 
@@ -321,7 +321,7 @@ The execution of commands will be elaborated in subsequent diagrams below.
 
 === Adding Savings
 .Sequence Diagram of Adding Savings
-image::AddSavingCommand.png[width="970"]
+image::AddSavingCommand.png[width="800"]
 
 [NOTE]
 The sequence diagram presented above is assumed to be a valid command which will generate in a successful result.
