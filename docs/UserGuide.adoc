@@ -59,7 +59,7 @@ Apart from have simple ToDo commands, you will most likely have time constraints
 [width="90"]
 |===
 
-| S/N | Command | Elaboration.
+| S/N | Command | Elaboration
 
 | 1. | */add <task description>* | Todo task, with default difficulty set to medium.
 
@@ -78,31 +78,42 @@ Apart from have simple ToDo commands, you will most likely have time constraints
 |===
 // end::base-alt[]
 
+----
+The tagging and difficulty settings are optional and can be appended to every other types of task given. 
+----
 
+----
+By making these changes to the syntax of the command additions can be made to the task type.
+----
 
+While using keywords, the order in which the keywords are issued is important. First the `/at` or `/by` keywords are to be added followed by `/every` if the task is recurring. 
 
-
-
-
-
-
-
-
-
-Format: `/add DESCRIPTION` to add a ToDo task
-        `/add DESCRIPTION /by dd/mm/yyyy hhmm` to add a Deadline task  
-        `/add DESCRIPTION /at dd/mm/yyyy hhmm` to add a Event task
-        
-  - `DESCRIPTION` is the description of the task.
-  - `dd/mm/yyyy hhmm` is the day/month/year and time(24hrs) of the task e.g. `9/9/2019 1200`
+Some trivial examples can be seen below:
   
 Examples:
 
-* `/add read book`
-* `/add homework /by 8/8/2019 2359`
-* `/add team meeting /at 20/8/2019 1500`
+*	 */add read book* (ToDo)
+*	 */add Homework /by 8/8/2019 2359* (Deadline)
+*	 */add Lab report /by 13/8/2019 1700 /every 1 weeks* (Recurring Deadline)
+*	 */add Team meeting /at 10/8/2019 1500* (Event)
+*  */add Family dinner /at 15/8/2019 1800 /every 2 weeks* (Recurring Event)
 
 === 3A.2 Deleting a task : `/delete`
+
+Sometimes you might want to delete a task because you no longer have to perform it. In order to do so, a `/delete` command can be issued in the command line. The syntax of the delete keyword is as follows.
+
+*/delete <index>*
+
+1.	Look at the index of the command you want to delete.
+2.	Type in the above command.
+3.	Press Enter.
+
+The command will disappear from the list and the index gets readjusted. In addition, you can also mass delete tasks. Below are the two additional ways on how to mass delete tasks.
+
+*	*/delete all* clears your task list.
+*	*/delete done* deletes all tasks that have been marked as completed.
+
+
 Deletes the specified task from the task list. +
 Format: `/delete INDEX`
 
@@ -118,7 +129,46 @@ Examples:
    `/delete 2` +
    Deletes the 2nd task in the task list.
   
+=== 3A.3 4.3	Marking tasks as done
+
+If you ended up completing the task, you might want to mark the task as done. Issue the /done command to do so. The syntax of the command is as follows:
+
+*/done <index>*
+  
+1.	Look at the index of the command you want to mark.
+2.	Type in the above command.
+3.	Press Enter.
+
+A confirmation message pops up to confirm the change.
+
+----
+Although the task has been marked done, it is not deleted from the list. If you wish for it to disappear then delete the task using the /delete command as stated above.
+----
+  
 === 3A.3 Finding tasks : `/find`
+
+When dealing with multiple tasks, it is hard to find older ones even if you sort it in a particular way. To find tasks, you can use the /find command:
+
+*/find <keyword>*
+
+The command takes in your input <keyword> which Is present in the task you want to find. Currently, this feature is able to find tagged words, dates, time and words in the task description.
+
+Example:
+
+Suppose it is the date 31/10/2019, and you remember there is an assignment due tomorrow but not sure what. Here are the steps to find out what do you have due tomorrow.
+
+1.	Type /find <date>. For this example, we have to type /find 01/11/2019 as shown and hit the Enter button on your computer.
+----
+Note that the parser is only able to recognize dates in DD/MM/YYYY format, and inputting /find 1/11/2019 instead will not yield the correct result.
+----
+2.	The list of things that is due on 1st November 2019 will be shown on the screen.
+
+There are couple of things to take note with the current /find function:
+*	It is only able to recognize dates in DD/MM/YYYY format
+*	It is only able to recognize time in 24-hour clock HHMM format
+*	It will only find exact word-for-word for tags
+*	It can find tasks that partly consists of the keyword of the task description (querying for “proj” will yield the same result as above.
+
 
 Finds tasks whose description contains the given keyword. + 
 Format: `/find KEYWORD`
@@ -250,6 +300,63 @@ User's hero run animation will be played on the screen.
 
 === 3B.4 Timer : `/timer` +
 
+Hustlers main feature in boosting productivity is in its task completion mode which can be summarized under the /timer command.
+
+----
+Note that you can also manually complete task by typing /done <index> as shown above. However, we encourage you to use the recommended schedule with the timer integrated in order to complete the tasks.
+----
+
+====3B.4.1 Using the /timer command
+
+After collecting all the tasks, you have added, you can use Hustler to help you finish tasks. To begin, tell Hustler the number of hours you have available to work. This can be done with the help of the /timer command. The syntax of the command is as follows:
+
+====3B.4.2 Recommended schedule
+
+After supplying the amount of time available to work on tasks using the /timer command, a recommended schedule pops up which is a list of incomplete tasks that Hustler recommends you work on. Hustler keeps track of the amount of time remaining for a task, the amount of time you have spent on the task and the difficulty of the task to make recommendations. You can edit this schedule to your liking before sitting down and setting yourself up for work. In order to explain the next few commands the following list of tasks in the “Tasks” section will be considered as shown.
+
+=====3B.4.2.1 Adding tasks to the schedule using the /addFromList command
+
+The recommended schedule that pops up after using the /timer command sometimes might not be to your liking. Sometimes you might feel like working on more tasks. As such, you can add tasks from the “Tasks” section to the schedule using the /addFromList command. The syntax of the /addFromList command is as follows:
+
+*/addFromList <index in “Task” section>*
+
+The task that you referred to from the “Task” section pops up in the schedule and the time allotted to each task is updated.
+For example, on running the command:
+
+*/timer 5 0 0*
+
+Hustler is specified that you have 5 hours available for work and the following recommended schedule is shown on the list of tasks specified.
+
+=====3B.4.2.2 Removing tasks from the schedule using the /remove command
+
+In case you do not feel like working on a task, you can remove it from the recommended schedule. In order to do so the /remove command can be run using the following syntax:
+
+*/remove <index>*
+
+The task at the supplied index will be removed and the updated schedule will be shown.
+For example:
+
+If you want to remove task at index 4 from Figure 3, the following command can be run:
+
+*/remove 4*
+
+As a result, “create notes for 2101” will be removed from this schedule can be seen below
+
+=====3B.4.2.3	Update the time allotted to a command using the /update command
+
+You might be in a situation in which you need to change the amount of time that has been allotted to a task. In order to do so, the /update command is used. The syntax of the update command is as follows:
+
+*/update <index> <duration H:M:S>*
+
+On running this command the time allotted to task at index specified is changed to a duration in the format <hours:minutes:seconds>. 
+For example:
+
+In order to change the time allotted to 3 in Figure 4 from 1 hour 40 minutes to 1 hour the following command can be run.
+
+*/update 3 1:0:0*
+
+
+
 Starts a exitable countdown that can be paused and resumed. Upon starting a new timer, HUSTLER recommends some tasks for doing depending on the amount of time set. +
 Format: `/timer HH MM SS`
 
@@ -276,21 +383,21 @@ Examples:
 
 === 3B.5 Sort : `/sort` +
 
-Sorts the tasks in the tasklist according to a parameter specified by the user (either normal, datetime or priority).
+There are 3 ways in which tasks can be sorted, in the normal order based on the time it was added, chronological order based on time and a prioritize order that prioritizes tasks based on the amount of time available with respect to the current time and the difficulty of the task.
+
+*	`/normal` sorts the tasks based on when the user input the tasks.
+*	`/chronological` sorts the tasks based on the date and time of the tasks.
+*	`/prioritize` sorts the tasks based on amount of time available and difficulty.
+
 
 Examples:
 
-****
-* `/sort normal` +
-  Sorts the tasks in order of which was entered first.
-  
-* `/sort datetime` +
-  Sorts the tasks in order of which is more urgent/ due sooner.
+Let’s say you want to focus on the most upcoming tasks and want to know which tasks are nearest to the current date. Instead of having to scroll and view each task in the task list to determine which is the earliest task, you can easily view the tasks in chronological order by the /sort command you have entered.
 
-* `/sort priority` +
-  Sorts the tasks in order of their priority, with the task assigned with higher priority showing first. Tasks can be assigned priority   levels by the user.
-  
-****
+To sort:
+1.	Type /sort datetime into the command box and press the Enter button on your keyboard to execute it.
+2.	The result box will display the message “Task list has been successfully sorted!”.
+3.	The newly sorted task list will be displayed on the screen. You can now view the tasks in chronological order.
 
 === 3B.6 Achievements : `/achievement` +
 
