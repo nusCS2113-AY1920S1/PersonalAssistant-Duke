@@ -162,7 +162,6 @@ public class CategoryList {
      * Sorts the category list in alphabetical order.
      */
     public void sortByName() {
-        categoryList.sort(Comparator.comparing(Category::toString));
         for (Category category : categoryList) {
             category.sort("name");
         }
@@ -172,7 +171,6 @@ public class CategoryList {
      * Sorts the category list from largest to smallest total expenditure for the month.
      */
     public void sortByValue() {
-        categoryList.sort(Comparator.comparing(o -> String.valueOf(o.getTotal())));
         for (Category category : categoryList) {
             category.sort("value");
         }
@@ -182,9 +180,8 @@ public class CategoryList {
      * Sorts the category list in chronological order.
      */
     public void sortByTime() {
-        categoryList.sort(Comparator.comparing(Category::toString));
         for (Category category : categoryList) {
-            category.sort("time");
+            category.sort("date");
         }
     }
 }

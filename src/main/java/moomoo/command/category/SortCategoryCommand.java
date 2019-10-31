@@ -19,9 +19,9 @@ public class SortCategoryCommand extends Command {
                         Storage storage) {
         if (input.startsWith("by name")) {
             categoryList.sortByName();
-        } else if (input.startsWith("by value")) {
+        } else if (input.startsWith("by cost")) {
             categoryList.sortByValue();
-        } else if (input.startsWith("by time")) {
+        } else if (input.startsWith("by date")) {
             categoryList.sortByTime();
         }
     }

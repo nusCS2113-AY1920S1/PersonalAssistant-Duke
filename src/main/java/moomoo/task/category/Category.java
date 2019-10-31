@@ -119,13 +119,12 @@ public class Category {
             category.sort(Comparator.comparing(Expenditure::toString));
             return;
         }
-        case "value": {
-            category.sort(Comparator.comparing(o -> String.valueOf(o.getCost())));
+        case "cost": {
+            category.sort(Comparator.comparing(Expenditure::costToString));
             return;
         }
-        case "time": {
-            category.sort(Comparator.comparing(Expenditure::toString));
-            return;
+        case "date": {
+            category.sort(Comparator.comparing(Expenditure::dateToString));
         }
         default:
         }

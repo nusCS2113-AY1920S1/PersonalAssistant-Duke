@@ -8,7 +8,6 @@ import java.time.LocalDate;
 public class ExpenditureStub extends Expenditure {
     private String name;
     private double cost;
-    private LocalDateTime dateTime;
     private LocalDate date;
 
     /**

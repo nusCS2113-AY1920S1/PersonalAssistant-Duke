@@ -1,8 +1,6 @@
 package moomoo.task.category;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.concurrent.ThreadLocalRandom;
 
 public class Expenditure {
     
@@ -52,6 +50,14 @@ public class Expenditure {
   
     public String toString() {
         return name;
+    }
+
+    String dateToString() {
+        return "0";
+    }
+
+    String costToString() {
+        return String.valueOf(cost);
     }
     
     public double getCost() {
