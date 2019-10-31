@@ -26,8 +26,10 @@ public enum CommandType {
     EXPENDEDMONTH(CommandGetSpendingByMonth.class),
     EXPENDEDYEAR(CommandGetSpendingByYear.class),
     CONVERT(CommandConvert.class),
+    LISTMY(CommandListMonYear.class),
     ERROR(CommandError.class),
     WEATHER(CommandWeather.class);
+
 
     private final Class commandClass;
 
