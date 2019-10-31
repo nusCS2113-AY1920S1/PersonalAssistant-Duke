@@ -263,6 +263,15 @@ Format: `scheduleCca INDEX --begin BEGIN_TIME --end END_TIME --DAY_OF_WEEK`
 * Example: `scheduleCca 1 --begin 13:00 --end 15:00 Tuesday`
 ****
 
+=== Updating module data : `update`
+
+Allows the user to directly update the module data. +
+Format: `update YEAR_SEM_1-YEAR_SEM_2`
+
+****
+* YEAR_SEM_1 and YEAR_SEM_2 must both be in the format YYYY, ie `2019-2020`
+****
+
 === Exiting the program : `bye`
 
 Exits the program. +
@@ -462,6 +471,9 @@ e.g `grade CS101 A-` +
 * *Schedule CCA* :
 ** `scheduleCca INDEX --begin BEGIN_TIME --end END_TIME --DAY_OF_WEEK` +
 e.g `scheduleCca 1 --begin 13:00 --end 15:00 Tuesday`
+* *Update* :
+** `update YEAR_SEM_1-YEAR_SEM_2`
+*** e.g `update 2019-2020`
 * *Exit* :
 ** `bye`
 

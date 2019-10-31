@@ -3,6 +3,9 @@
 package planner.util.logger;
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.logging.FileHandler;
 import java.util.logging.Formatter;
 import java.util.logging.Level;
@@ -10,6 +13,7 @@ import java.util.logging.Logger;
 
 import planner.logic.exceptions.legacy.ModException;
 import planner.util.logger.formatter.LoggerFormatter;
+import planner.util.storage.Storage;
 
 public class PlannerLogger {
 
@@ -25,8 +29,11 @@ public class PlannerLogger {
      * Setup up for our logger file, will continue to add logs after initial run.
      * @throws IOException when log file is failed to be made.
      */
-    public static void setLogFile() throws IOException {
-        Logger rootLogger = Logger.getLogger("");
+    public static void setLogFile(Storage store) throws IOException {
+        Path log = Paths.get("data/logging.log");
+        if (!Files.isRegularFile(log)) {
+            store.makeFile(log);
+        }
         logger.setUseParentHandlers(false);
         fileText = new FileHandler("data/logging.log", 8096, 1, true);
         fileText.setFormatter(formatter);
