@@ -5,8 +5,6 @@
  */
 package cube.logic.command;
 
-// need to change the name to revenue for user friendliness (by LL-Pengfei
-
 import cube.logic.command.exception.CommandException;
 import cube.model.food.FoodList;
 import cube.model.food.Food;

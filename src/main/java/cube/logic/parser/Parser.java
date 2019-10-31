@@ -23,7 +23,7 @@ public class Parser {
 	 * config
 	 * list -sort expiry/name/stock
 	 * find -i index / -n foodName / -t foodType --sort expiry/name/stock
-	 * generaterevenue -i index / -n foodName / -t foodType
+	 * revenue -i index / -n foodName / -t foodType
 	 * delete -i index / -n foodName / -t foodType
 	 * sold -n foodName -q quantity
 	 * reminder -d daysToExpiry -s stock
@@ -44,7 +44,7 @@ public class Parser {
 				return new AddCommandParser().parse(inputs);
 			case "batch":
 				return new BatchCommandParser().parse(inputs);
-				case "reminder":
+			case "reminder":
 				return new ReminderCommandParser().parse(inputs);
 			case "config":
 				return new ConfigCommandParser().parse(inputs);
