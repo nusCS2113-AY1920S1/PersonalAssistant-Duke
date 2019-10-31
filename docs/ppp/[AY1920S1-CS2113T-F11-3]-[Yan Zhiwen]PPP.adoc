@@ -1,0 +1,215 @@
+= Project Portfolio Page
+= Email Manager - User Guide
+:site-section: DeveloperGuide
+:toc:
+:toc-title:
+:toc-placement: preamble
+:sectnums:
+:imagesDir: ..\images
+:stylesDir: stylesheets
+:xrefstyle: full
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:warning-caption: :warning:
+endif::[]
+
+By: F11-3 Yan Zhiwen +
+Since: Oct 2019
+
+== Product Overview
+
+[#gui]
+[caption="Figure 1: GUI interface of Email Manager"]
+image::MainWindow.png[Gui, 400]
+
+After being constantly spammed by the school emails and missing all kinds of important emails, our group
+decided to develop this email manager to better organize our mailbox as a NUS Computing student.
+
+Email Manager is an email and task manager app, specifically designed for NUS School of Computing students
+to manage their emails and busy schedules. As a text-based application, it is optimized for those who
+prefer typing and working with Command Line Interface (CLI). Email Manager also has a developed Graphical
+User Interface (GUI) that allows users to view email and task details in an appealing, well-organized
+format. If you can type fast, Email Manager can get your emails and tasks organized quickly and easily.
+
+== Summary of Contributions
+
+* https://nuscs2113-ay1920s1.github.io/dashboard/#=undefined&search=jokeryan[Code Contributed]
+* Feature Implemented (starting from the most significant):
+. Email format and content(keyword) auto parsing
+. Email keyword adding and highlighting
+. Email fuzzy search
+. Task reminder
+. Infrastructure on Email fetching over Internet, Storage, Command Parsing etc.
+* Other Contributions
+. Cross-platform and project structure of release
+
+== Contributions to User Guide
+
+
+=== Quick Start
+
+This section serves as a tutorial for a new user to Email Manager.
+
+[#installation]
+==== Installation
+
+. Ensure you have Java version 11 or later installed in your computer.
+. Download the latest email_manager.zip https://github.com/AY1920S1-CS2113T-F11-3/main/releases[here] and
+extract it to a folder.
+. If the download is too slow, please download it from https://drive.google.com[google drive].
+
+[#run-email-manager]
+==== Run Email Manager
+
+[WARNING]
+The program might freeze for a while when fetching and parsing the email. Please wait patiently.
+
+===== Windows User
+
+. Double click the jar file in the extracted folder.
+. If any error occurs, try to follow the mac/linux user instructions to run the program from command line.
+
+==== Mac/Linux User
+
+. Open the command prompt.
+. Change the working directory of the command prompt to the extracted program folder using `cd` command.
+. Check java version using `java -version` command. It should be java 11.
+. Run `java -jar email_manager-1.3.jar` and you are good to go.
+
+[WARNING]
+Make sure that your command prompt is at the directory of the folder extracted, otherwise the data
+structure might not be recognised. Creating data file structure coming in v1.4
+
+[TIP]
+Please send an email to jokeryan1997@gmail.com if you cannot successfully run the program.
+
+===== Use and Test with/without Internet
+
+Our product can automatically parse and manage the emails in your mailbox. It is best to be used and tested
+with Internet connection. If you do not have Internet connection, we have also prepared some data for you to
+test offline.
+
+* If you have Internet connection:
+. You will be directed to a web page to authorize our access to your mailbox. Please login to the *dummy
+email* we provided to you.
+
+. Close the browser and return back to the Email Manager. Wait for a while for the email to be fetched
+and parsed.
+
+[WARNING]
+Our product does not support non UTF-8 characters. Using your own mailbox for
+testing may lead to redundant saving and loading with the current version. More charsets will be supported
+in v2.0
+
+* If you do not have Internet connection:
+. Paste everything under `test_data` file in the program folder, to the `data` folder. Replace all the files
+in the `data` folder.
+. Close the Email Manager and Start it again.
+. Wait for a while for all the emails to be parsed.
+
+==== Introducing the Interface
+
+.Main Window
+[#main-window]
+[caption="Figure 2: Main window of Email Manager"]
+image::MainWindow.png[Main Window, 800]
+
+As shown in Figure 2, the main window of Email Manager has three sections.
+
+* On the left, it is the command interface, where you should be entering your command and get response from
+the Email Manager.
+* In the middle, it is the task list, which displays all tasks information.
+* On the right, it is the email list and content display. You can press `Esc` key on your keyboard any time
+to switch display between the list and content view of emails.
+
+=== Email Features
+
+The command listed here can only be used under email mode/prefix. Use `flip` command to toggle the mode.
+
+==== Auto parsing and tagging of emails
+This feature is automatically triggered by fetching emails from Outlook Server and adding new kayword. It
+will automatically parse "keywords" that might be  shown in your emails in different forms/expressions.
+
+For example, the keyword `CS2113T` might be in the expression of `CS2113T`, `CS2113`, `Akshay Narayan`,
+`Akshay` etc. All emails containing these expressions will be recognized as containing the keyword
+`CS2113T`. This helps the email manager to better categorize your emails. For example, some emails might not
+explicitly include the module code, still belong to that module as it is sent by the lecturer.
+
+For easier usage and testing, we have prepared a few default keyword + expressions pair as shown in Figure
+3, which will be loaded when the program starts.
+
+[#default-keywords]
+[caption="Figure 3: Default keywords of email auto-parsing"]
+image::defaultKeywords.png[Default Keywords, 400]
+
+If the email contains some expressions, the respective keyword will be used to tag that email. It can be
+seen from the `#` sign on the email list. When showing the email using `show` command, the parsed
+expressions will also be highlighted in yellow.
+
+[NOTE]
+The parsing only allows exact matching of words, which means expression `2113` will not be matched with
+text `CS2113`. Any extra characters before and after the word will not be accepted. This is to avoid
+unintentional match for short expressions. Please add more expressions if you want more matching patterns.
+
+[NOTE]
+Some emails have pictures in it, and obviously we do not intend to capture the words in those pictures.
+
+[TIP]
+To test this feature, you are recommended to use `addKeyword` command, or sending email to the dummy
+mailbox. Remember to call `fetch` command after sending and leave a few seconds for the email to be
+transmitted before calling the `fetch`.
+
+==== Add Keyword: `addKeyword`
+Format: `addKeyword KEYWORD -exp EXPRESSION1 [-exp EXPRESSION2]...` +
+Adds a keyword or expressions to the keyword list. If the keyword is already in the list, the expression
+will be added to the expressions belonging to that keyword. So this is a command to add both keyword and
+expression.
+
+[TIP]
+The easiest way to verify whether this command is working properly is to check whether the email
+containing the expression has a tag of this keyword in the email list, or just use `show ITEM_NUMBER`
+command to see whether the expressions are correctly highlighted.
+
+[NOTE]
+All emails will be parsed again upon the updates in keyword and expression, so the window might freeze for
+a while. Please wait patiently.
+
+== Contribution to Developer Guide
+
+=== Email Management
+
+==== Email Auto Parsing
+
+The emails fetched or stored locally will be automatically parsed to extract important information for
+tagging, task creation and reminder purposes. The parsing consists of two stages, the *format parsing* and
+*content parsing*. Email format parsing is to parse the email components like subject, sender and body from
+the raw string fetched from the server or stored in local file. The content parsing is to parse the keyword
+included all components of email.
+
+===== Email Format Parsing
+.Email Format Parsing
+[#img-email-format-parsing]
+[caption="Figure N: "]
+image::EmailFormatParseHelper.png[Format Parsing, 800]
+The email format parsing starts at the call of `ParseFetchResponse(response)`. The variable `response` here
+is a string of the http response from the Outlook server to the fetch API call.
+
+It first creates an `EmailList` to store all the emails parsed from the response. This function only
+returns the list instead of directly adding the
+email parsed to the model because the storage or network component will decide whether and how the emails
+are to added to the model.
+
+Then each email contained in the response of is parsed to a `JSONObject` called `emailJson` for easier
+manipulation.
+
+With this `emailJson`, `parseComponentsToEmail(emailJson)` is called to extract different components of the
+json and instantiate an `Email` object to be added to the `emailList` created earlier.
+
+This process repeats until all the email information in the response is processed.
+
+===== Email Content Parsing
+.Email Content Parsing
+[#img-email-content-parsing]
+[caption="Figure N+1: "]
+image::EmailContentParseHelper.png[Content Parsing, 800]

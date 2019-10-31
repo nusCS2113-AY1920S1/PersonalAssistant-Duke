@@ -72,6 +72,12 @@ public class KeywordPair {
         this.expressions.add(newExpression);
     }
 
+    /**
+     * Converts to JSON Object.
+     *
+     * @return JSON Object
+     * @throws JSONException when unable to convert
+     */
     public JSONObject toJsonObject() throws JSONException {
         JSONObject json = new JSONObject();
         json.put("keyword", this.keyword);

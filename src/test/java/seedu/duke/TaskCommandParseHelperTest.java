@@ -4,13 +4,7 @@ import org.junit.jupiter.api.Test;
 import seedu.duke.common.command.Command;
 import seedu.duke.common.command.InvalidCommand;
 import seedu.duke.task.TaskList;
-import seedu.duke.task.command.TaskDeleteCommand;
-import seedu.duke.task.command.TaskDoAfterCommand;
-import seedu.duke.task.command.TaskDoneCommand;
-import seedu.duke.task.command.TaskReminderCommand;
-import seedu.duke.task.command.TaskSnoozeCommand;
-import seedu.duke.task.command.TaskAddCommand;
-import seedu.duke.task.command.TaskFindCommand;
+import seedu.duke.task.command.*;
 import seedu.duke.task.entity.Task;
 import seedu.duke.task.parser.TaskCommandParseHelper;
 
@@ -192,7 +186,7 @@ public class TaskCommandParseHelperTest {
             Class<?> parser = Class.forName("seedu.duke.task.parser.TaskCommandParseHelper");
             Method method = parser.getDeclaredMethod("parseReminderCommand", String.class);
             method.setAccessible(true);
-            //positive cass
+            //positive cases
             assertTrue(method.invoke(null, "reminder 1") instanceof TaskReminderCommand);
             assertTrue(method.invoke(null, "reminder 1000000000000000") instanceof TaskReminderCommand);
             assertTrue(method.invoke(null, "reminder 00 ") instanceof TaskReminderCommand);

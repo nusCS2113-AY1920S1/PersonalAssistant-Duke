@@ -17,8 +17,8 @@ public class TaskClearListCommand extends Command {
     /**
      * Executes the clear command by calling the clear list function of task list.
      *
-     * @return a flag whether clearing of task list is done successfully. Returns false if the delete function
-     * of task list throws an exception
+     * @return a flag whether clearing of task list is done successfully. Returns false if the delete
+     *     function of task list throws an exception
      */
     @Override
     public boolean execute(Model model) {
