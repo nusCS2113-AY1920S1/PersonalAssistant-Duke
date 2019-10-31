@@ -1,9 +1,5 @@
 package duke.commons.file;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-
-import java.lang.reflect.Type;
 import java.util.EnumSet;
 import java.util.HashMap;
 
@@ -12,9 +8,6 @@ import java.util.HashMap;
  * will be used in the storage component.
  */
 public class FilePaths {
-
-    private static Gson gson = new Gson();
-    private static Type type = new TypeToken<HashMap<FilePathNames, String>>(){}.getType();
 
     protected static HashMap<FilePathNames, String> filePathsConfigMap = new HashMap<FilePathNames, String>();
 
@@ -27,8 +20,8 @@ public class FilePaths {
      * Also ensures all path names are stored in cross-system compatible file directories.
      */
     public static void setFilePathsConfigMap() {
-        EnumSet.allOf(FilePathNames.class).forEach(FilePathName
-                -> filePathsConfigMap.put(FilePathName, FilePathName.toString()));
+        EnumSet.allOf(FilePathNames.class).forEach(filePathName ->
+                filePathsConfigMap.put(filePathName, filePathName.toString()));
         for (FilePathNames pathName : filePathsConfigMap.keySet()) {
             String defaultPathStr = filePathsConfigMap.get(pathName);
             String crossCompatiblePathStr = FileUtil.getSystemFilePathStr(defaultPathStr);
