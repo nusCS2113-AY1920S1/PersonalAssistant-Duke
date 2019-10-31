@@ -158,7 +158,7 @@ public class Ui {
         } else {
             String message = "Here are the following events/deadline with the keyword " + keyword + "\n";
             for (int i = 1; i <= list.size(); i++) {
-                message = message + i + "." + list.get(i - 1) + "\n";
+                message +=  i + ". " + list.get(i - 1) + "\n";
             }
             return message;
         }
