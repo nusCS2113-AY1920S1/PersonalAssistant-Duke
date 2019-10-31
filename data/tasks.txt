@@ -8,7 +8,7 @@
   },
   {
     "name": "Job B",
-    "isDone": false,
+    "isDone": true,
     "memberList": [
       "P2"
     ],
