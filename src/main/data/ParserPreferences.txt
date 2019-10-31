@@ -10,4 +10,5 @@ p|postpone
 re|reassign-seat
 arc|archive
 s|sell
+t|add
 v|view
