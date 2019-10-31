@@ -68,7 +68,7 @@ checkstyle {
 //}
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "email_manager"
     archiveVersion = "1.3"
     archiveClassifier = null
     archiveAppendix = null

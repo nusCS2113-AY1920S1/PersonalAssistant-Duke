@@ -92,6 +92,7 @@ public class TaskStorage implements Storage {
         addCommand.setSilent();
         addCommand.execute(Model.getInstance());
     }
+
     /**
      * Exception that belongs to the process of storing and reading of file.
      */
