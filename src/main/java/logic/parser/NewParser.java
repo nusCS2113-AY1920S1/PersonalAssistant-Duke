@@ -18,8 +18,8 @@ public class NewParser {
     private static final String LIST_COMMAND_WORD = "LIST";
     private static final String DELETE_COMMAND_WORD = "DELETE";
     private static final String DONE_COMMAND_WORD = "DONE";
-    //private static final String SNOOZE_COMMAND_WORD = "SNOOZE";
-    //private static final String RENAME_COMMAND_WORD = "RENAME";
+    private static final String SNOOZE_COMMAND_WORD = "SNOOZE";
+    private static final String RENAME_COMMAND_WORD = "RENAME";
     public static final String LINK_COMMAND_WORD = "LINK";
     public static final String UNLINK_COMMAND_WORD = "UNLINK";
     public static final String HELP_COMMAND_WORD = "HELP";
@@ -63,10 +63,10 @@ public class NewParser {
             return ListCommandParser.parseListCommand(arguments);
         case DONE_COMMAND_WORD:
             return DoneCommandParser.parseDoneCommand(arguments);
-        //case SNOOZE_COMMAND_WORD:
-            //return SnoozeCommandParser.parseSnoozeCommand(arguments);
-        //case RENAME_COMMAND_WORD:
-            //return RenameCommandParser.parseRenameCommand(arguments);
+        case SNOOZE_COMMAND_WORD:
+            return SnoozeCommandParser.parseSnoozeCommand(arguments);
+        case RENAME_COMMAND_WORD:
+            return RenameCommandParser.parseRenameCommand(arguments);
         case LINK_COMMAND_WORD:
             return LinkCommandParser.parseLinkCommand(arguments);
         case UNLINK_COMMAND_WORD:

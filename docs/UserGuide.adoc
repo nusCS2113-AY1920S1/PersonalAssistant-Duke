@@ -42,7 +42,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will list the command you can use.
 * `list tasks` : lists all tasks
 * `add task complete event banners /at 12/12/2019 1000` : adds a task to the list
 * `done 1` : marks the 1st task shown in the current list as done
-* `delete 1` : removes the 1st task shown in the current list
+* `delete task 1` : removes the 1st task shown in the current list
 * `bye` : exits the app
 .  Refer to <<Features>> for details of each command.
 

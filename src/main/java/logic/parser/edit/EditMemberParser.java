@@ -26,7 +26,7 @@ public class EditMemberParser {
     public static Command parseEditMember(String partialCommand) throws DukeException {
         final Matcher matcher = BASIC_ADD_COMMAND_FORMAT.matcher(partialCommand.trim());
         if (!matcher.matches()) {
-            throw new DukeException("Message is invalid");
+            throw new DukeException("Message is invalid" + "\n" + EDIT_USAGE + "\n");
         }
 
         String editType = matcher.group("commandWord");
