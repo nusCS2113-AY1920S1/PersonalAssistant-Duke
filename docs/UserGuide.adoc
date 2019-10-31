@@ -120,7 +120,7 @@ Examples:
 === Recommend an Itinerary: `recommend`
 
 Get a recommended Itinerary List from SGTravel +
-Format: `recommend HOTELLOCATION between STARTDATE and ENDDATE`
+Format: `recommend HOTEL_LOCATION between START_DATE and END_DATE`
 
 Examples:
 
@@ -144,11 +144,11 @@ Examples:
 
 An itinerary with muliple days. 
 
-* `newItinerary 23/04/15 25/04/15 MBS TwoDayHoliday 1 /venue Simei /do dancing /and singing /and swinging 2 /venue Bedok /do running /and jumping /and swinging`
+* `newItinerary 23/04/15 25/04/15 MBS TwoDayHoliday 1 /venue Orchard /do dancing /and singing /and swinging 2 /venue Changi /do running /and jumping /and swinging`
 
 A itinerary with multiple venues in 1 day.
 
-* `newItinerary 23/04/15 24/04/15 Bedok SundayVacay 1 /venue Bedok /do swimming /and jumping /and swinging /venue Semei /do jogging /and running`
+* `newItinerary 23/04/15 24/04/15 Bedok SundayVacay 1 /venue Bedok /do swimming /and jumping /and swinging /venue Simei /do jogging /and running`
 
 === List Saved Itineraries: `listItinerary`
 
