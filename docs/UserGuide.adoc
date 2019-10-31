@@ -41,13 +41,13 @@ Using Hustler, you can easily and effectively manage your tasks, deadlines and p
 
 Since Hustler is a productivity checker, the first thing you would want to do is to add your tasks for the next few days. In order to do so, you must issue commands in the command line at the bottom.
 
-[NOTE]
-====
-A sample note admonition.
-We can use gemoji icons in the Asciidoctor markup.
-We assign an icon name to the document
-attributes `tip-caption`, `note-caption` and `important-caption`.
-====
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:important-caption: :heavy_exclamation_mark:
+:caution-caption: :fire:
+:warning-caption: :warning:
+endif::[]
 
 IMPORTANT: Though Hustler v1.4 features a GUI, most of the user input is taken from the command line at the bottom. Hence, you need to know the command syntax to provide an input.
 
