@@ -370,23 +370,6 @@ The Recipebook contains 2 classes, Ingredient and IngredientsList.
 | dateAsString: String | A string to store the date as a string |
 
 
-#### 2.10 Fridge Component
-API: `Fridge.java`
-
-The Fridge class allows access and modification of the `Ingredient`s used by the chef. By keeping track of the Ingredients' expiry date, it allows the user to know which products have expired, and remove them. It allows for less ingredient waste, as it can return the most recently expiring ingredients, so that they can be used first. 
-
-![Fridge](https://github.com/AY1920S1-CS2113-T14-2/main/blob/master/docs/images/fridgeUML.png)
-
-#### 2.11 GenericList
-
-This abstract class allows for creation of different types of lists, and basic list entry manipulations. It is extended by multiple classes, including `IngredientsList.java`, `TaksList.java`, `OrderList.java` and `DishList.java`. All of these classes inherit the basic methods from the Generic List and extend it with their specific methods, eg.  `allUndoneOrders()` from`OrderList.java`, or `changeAmount()` from `IngredientsList.java`. A UML Class Diagram is shown below.
-
-![GenericList](https://github.com/AY1920S1-CS2113-T14-2/main/blob/master/docs/images/GenericListUML.png)
-
-### 3. Implementation
-
-
-
 
 | Constructor                       | Description                                               |
 | --------------------------------- | --------------------------------------------------------- |
@@ -394,31 +377,46 @@ This abstract class allows for creation of different types of lists, and basic l
 
 
 
-| Methods                             | Description                               |
-| ----------------------------------- | ----------------------------------------- |
-| Ingredient(String, Integer, String) | Converts the Date into String             |
-| getAmount(): int                    | Returns amount of ingredient              |
-| getName(): String                   | Returns name of the Ingredient            |
-| changeDate(Date): void              | Changes the expiry date of the ingredient |
-| setName(String): void               | Sets the name of the ingredient           |
-| changeAmount(Integer):              | Changes the amount of the ingredient      |
-| getExpiryDate(): Date               | Returns the expiry date of the ingredient |
+| Methods                             | Description                                                  |
+| ----------------------------------- | ------------------------------------------------------------ |
+| Ingredient(String, Integer, String) | Converts the Date into String                                |
+| getAmount(): int                    | Returns amount of ingredient                                 |
+| getName(): String                   | Returns name of the Ingredient                               |
+| changeDate(Date): void              | Changes the expiry date of the ingredient                    |
+| setName(String): void               | Sets the name of the ingredient                              |
+| changeAmount(Integer): void         | Changes the amount of the ingredient                         |
+| getExpiryDate(): Date               | Returns the expiry date of the ingredient                    |
+| equals(Object): Boolean             | Returns true or false when comparing 2 objects<br />True: Object names are identical<br />False: Otherwise |
+| isExpired(): Date                   | Returns the expiry date                                      |
+| equalsCompletely(Object): Boolean   | Returns true or false when comparing 2 objects<br />True: Objects have same name and expiry date<br />False: Otherwise |
 
 **<u>IngredientsList Class</u>**
 
-| Constructor                                       | Description                                                |
-| ------------------------------------------------- | ---------------------------------------------------------- |
-| IngredientsList(List<Ingredient> ingredientsList) | Initializes the IngredientsList as a new List<Ingredients> |
+A child class of Ingredients and inherits(extends) the attributes and methods of the Ingredients class.
+
+| Constructor                                       | Description                                               |
+| ------------------------------------------------- | --------------------------------------------------------- |
+| IngredientsList(List<Ingredient> ingredientsList) | Initializes the IngredientsList as a new List<Ingredient> |
 
 
 
-| Methods                          | Description                                                |
-| -------------------------------- | ---------------------------------------------------------- |
-| changeIngredientsDate(int, Date) | Changes the date of the Ingredient using an Index number   |
-| changeName(int, String)          | Changes the name of the ingredient using an Index number   |
-| changeAmount(int, String)        | Changes the amount of the ingredient using an index number |
+| Methods                                                      | Description                                                  |
+| ------------------------------------------------------------ | ------------------------------------------------------------ |
+| changeIngredientsDate(int, Date): void                       | Changes the date of the Ingredient using an Index number     |
+| changeName(int, String): void                                | Changes the name of the ingredient using an Index number     |
+| changeAmount(int, String): void                              | Changes the amount of the ingredient using an index number   |
+| addEntry(Ingredient Object): void                            | Adds a new Ingredient of Ingredients attributes into the Ingredient List |
+| hasEnough(Ingredient Object): Boolean                        | Returns true or false when comparing 2 Objects.<br />True: We have enough of the required Ingredient<br />False: Otherwise |
+| getEntry(Ingredient Object): Ingredient Object               | Looks for the queried ingredient and returns it              |
+| getNonExpiredEntry(Ingredient ingredient): Ingredient Object | Looks for the queried Ingredient in the list that is not expired and returns it |
+| sortByExpiryDate(): Ingredient Object                        | Sorts the Ingredient lists accordingly by a descending amount |
+| removeEntry(Ingredient Object):  Boolean                     | Looks for the queried Ingredient in the list and remove the amount that we want to use.<br />True:  Enough amount of the queried ingredient<br />False: Not enough amount  of the queriedingredient |
 
 //!add commands such as FindIngredient()
+
+### 3. Implementation
+
+
 
 #### 2.15 Statistics
 
