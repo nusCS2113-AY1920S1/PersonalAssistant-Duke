@@ -185,9 +185,7 @@ public class Parser {
     }
 
     /**
-     * Used to generate a DoTask from the user's input. The function first breaks the input string into the
-     * taskType and the action, and validates both. If both are valid, then the corresponding DoTask is created
-     * and returned
+     * Used to generate a DoTask from the user's input.
      *
      * @param userInput user input String
      * @return Task corresponding to the user input
@@ -213,9 +211,7 @@ public class Parser {
     }
 
     /**
-     * Parses Conditional Tasks. The function first breaks the input String into three parts,
-     * the taskType, condition, and action.
-     * If all are valid, then the corresponding Task is created and returned
+     * Creates a Conditional Task from the user input.
      *
      * @param userInput user input String
      * @return Task corresponding to the user input
@@ -259,10 +255,8 @@ public class Parser {
     }
 
     /**
-     * Parses commands meant to edit any Task in the TaskList. The function uses regex to validate
-     * if the input String is of the correct format, then breaks it into three parts, the keyword "edit",
-     * the taskID to be edited, and the description of the Task to replace the current Task.
-     * The task description is validated using the parseTask() function.
+     * Parses commands meant to edit any Task in the TaskList.
+     * Edit commands must be of the form 'edit [TaskID] [taskType] [Condition] do [Action].
      *
      * @param userInput user input String
      * @return Command that will edit the Task in the TaskList with the specified ID when executed

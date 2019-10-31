@@ -97,6 +97,12 @@ public class Simulation {
         }
     }
 
+    public void simulateBack(String framePath, int startFrame, int endFrame) throws FarmioFatalException {
+        for (int i =  startFrame; i >= endFrame; i--) {
+            simulate(framePath, i);
+        }
+    }
+
     /**
      * Shows a frame with a delay as specified.
      * @param delay in milliseconds for program to sleep after frame is shown.

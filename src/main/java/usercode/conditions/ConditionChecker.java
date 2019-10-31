@@ -8,12 +8,6 @@ public class ConditionChecker {
     public ConditionChecker() {
     }
 
-    /**
-     * Checks the condition.
-     * @param condition something
-     * @param farmio something
-     * @return
-     */
     public static boolean check(BooleanConditionType condition, Farmio farmio) {
         if (condition == BooleanConditionType.hasSeeds) {
             return farmio.getFarmer().getWheatFarm().hasSeeds();
@@ -33,17 +27,8 @@ public class ConditionChecker {
         return false;
     }
 
-    /**
-     * Something.
-     * @param valueConditionType something
-     * @param comparator something
-     * @param val something
-     * @param farmio something
-     * @return
-     * @throws FarmioException something
-     */
-    public static boolean check(ValueConditionType valueConditionType, Comparator comparator, int val, Farmio farmio) {
-        //throws FarmioException {
+
+    public static boolean check(ValueConditionType valueConditionType, Comparator comparator, int val, Farmio farmio) throws FarmioException {
         int assetValue = 0;
         switch (valueConditionType) {
         case gold:
@@ -60,10 +45,8 @@ public class ConditionChecker {
             return assetValue > val;
         case greaterThanOrEquals:
             return assetValue >= val;
-        default:
-            return false; //not sure what the default should be
         }
-        //throw new FarmioException("Error validating condition!");
+        throw new FarmioException("Error validating condition!");
     }
 
 }
