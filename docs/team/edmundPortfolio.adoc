@@ -3,13 +3,17 @@
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-== PROJECT: [Sports Manager] - Level 3
+The purpose of this portfolio is to showcase my contributions to the Coach Manager project for the Software Engineering & Object-Oriented Programming module CS2113T, as well as to display my ability to code in Java and apply OOP (Object-Oriented Programming) concepts.
 
----
+== PROJECT: Coach Manager
 
 == Overview
 
-[Sports Manager] - Level 3 is a ...
+My team of 4 software engineering students and I were tasked with enhancing a basic command line based personal assistant for our project in our Software Engineering and Object-Oriented Programming module, CS2113T. We chose to morph it into a graphical user interface (GUI), but the Coach Manager can still be operated via the command line. This enhanced application enables coaches to use the coach manager easily to keep track of the classes and students which the coach is in charge of. The schedule and lessons to be taught can be viewed by the coach, and training plans can even be adjusted as per requirements. In addition, the coach manager helps the trainer track the progress of the students by making comparisons between their current standards to past records or personal best. There are also goals of the day as well as the lessons learnt for the day for the coach to keep track of personal progress in coaching.
+
+Shown below is what our project interface looks like.
+
+{screenshot}
 
 == Summary of contributions
 
