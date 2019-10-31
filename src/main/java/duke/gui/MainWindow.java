@@ -135,6 +135,9 @@ public class MainWindow extends AnchorPane {
     private TextField assignTaskUuidField;
     @FXML
     private VBox helpGuideContainer;
+    @FXML
+    private ScrollPane helpGuideScrollPane;
+
     String currentDir = System.getProperty("user.dir");
 
     private final Duke duke = new Duke(currentDir);
@@ -591,9 +594,10 @@ public class MainWindow extends AnchorPane {
      * Handler for HelpGuide tab.
      */
     public void showHelpGuide() {
-        helpGuideContainer.getChildren().clear();
-        helpGuideContainer.getChildren().addAll(
-                HelpBox.getHelpGuide());
+        for (HelpBox newHelpBox : HelpBox.getHelpGuide()) {
+            helpGuideContainer.getChildren().addAll(newHelpBox);
+            helpGuideScrollPane.setContent(helpGuideContainer);
+        }
     }
 
 }
