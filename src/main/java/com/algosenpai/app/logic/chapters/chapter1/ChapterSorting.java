@@ -15,7 +15,7 @@ public class ChapterSorting {
      */
 
     public static QuestionModel generateQuestions() {
-        int questionType = random.nextInt(3);
+        int questionType = random.nextInt(4);
         switch (questionType) {
         case 0:
             return new BubbleSortPassesQuestion().execute();

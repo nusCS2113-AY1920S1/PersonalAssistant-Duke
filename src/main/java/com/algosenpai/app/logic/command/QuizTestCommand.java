@@ -37,7 +37,8 @@ public class QuizTestCommand extends QuizCommand {
      * @param isNewQuiz is quiz initialize.
      */
     public QuizTestCommand(ArrayList<String> inputs, ArrayList<QuestionModel> quizList,
-                           AtomicInteger questionNumber, AtomicBoolean isQuizMode, AtomicBoolean isNewQuiz, int chapterNumber) {
+                           AtomicInteger questionNumber, AtomicBoolean isQuizMode, AtomicBoolean isNewQuiz,
+                           int chapterNumber) {
         this(inputs);
         this.quizList = quizList;
         this.isQuizMode = isQuizMode;
@@ -68,7 +69,7 @@ public class QuizTestCommand extends QuizCommand {
         UserStats userStats = UserStats.parseString(Storage.loadData("UserData.txt"));
         userStats.updateChapter(chapterNumber,10,correctCount);
         userStats.setUserExp(userStats.getUserExp() + correctCount);
-        userStats.setUserLevel(userStats.getUserExp()/20);
+        userStats.setUserLevel(userStats.getUserExp() / 20);
         userStats.saveUserStats("UserData.txt");
         // End of updating
 

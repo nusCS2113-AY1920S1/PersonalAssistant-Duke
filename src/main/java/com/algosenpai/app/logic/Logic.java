@@ -86,7 +86,7 @@ public class Logic {
      * @param input user input.
      * @return the command object to be executed.
      */
-    public Command executeCommand(String input){
+    public Command executeCommand(String input) {
         ArrayList<String> inputs = Parser.parseInput(input);
         historyList.add(input);
 
@@ -143,7 +143,8 @@ public class Logic {
                 if (inputs.get(1).equals("next") || inputs.get(1).equals("back")) {
                     return new QuizNextCommand(inputs, quizList, questionNumber);
                 } else {
-                    return new QuizTestCommand(inputs, quizList, questionNumber, isQuizMode, isNewQuiz, chapterNumber.get());
+                    return new QuizTestCommand(
+                            inputs, quizList, questionNumber, isQuizMode, isNewQuiz, chapterNumber.get());
                 }
             } else {
                 return new QuizCommand(inputs);
