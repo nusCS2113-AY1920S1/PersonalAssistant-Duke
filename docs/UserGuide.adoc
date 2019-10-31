@@ -122,34 +122,21 @@ The syntax for adding a task to the list is as follows:
 
 TIP: */delete <index>*
 
-----
 Executing a `/delete` command:
-1.	Look at the index of the command you want to delete.
-2.	Type in the above command.
-3.	Press Enter.
+----
+1. Look at the index of the command you want to delete.
+2. Type in the above command.
+3. Press Enter.
 ----
 
 The command will disappear from the list and the index gets readjusted. In addition, you can also mass delete tasks. Below are the two additional ways on how to mass delete tasks.
 
-*	*/delete all* clears your task list.
-*	*/delete done* deletes all tasks that have been marked as completed.
+TIP: */delete all*
+This command clears your task list.
 
+TIP:	*/delete done*
+This command deletes all tasks that have been marked as completed.
 
-Deletes the specified task from the task list. +
-Format: `/delete INDEX`
-
-****
-* Deletes the task at the specified `INDEX`.
-* The index refers to the index shown in the displayed task list.
-* The index must be a positive integer 1, 2, 3, ...
-****
-
-Examples:
-
- * `/list` +
-   `/delete 2` +
-   Deletes the 2nd task in the task list.
-  
 === 3A.3 4.3	Marking tasks as done
 
 If you ended up completing the task, you might want to mark the task as done. Issue the /done command to do so. The syntax of the command is as follows:
