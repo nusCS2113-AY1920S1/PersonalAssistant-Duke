@@ -16,6 +16,10 @@ By: `Team AY1920S1-CS2113T-F11-3`      Since: `Sept 2019`
 
 Welcome to the *Email Manager* Developer Guide!
 
+[#img-UI]
+[caption="Figure N: UI"]
+image::UI.png[UI, 800]
+
 *Email Manager* is an email and task manager app, specifically designed for NUS School of Computing Students
 to manage their emails and busy schedules. As a text-based application, it is optimized for those who prefer
 typing and working with Command Line Interface (CLI). Email Manager also has a developed Graphical User
