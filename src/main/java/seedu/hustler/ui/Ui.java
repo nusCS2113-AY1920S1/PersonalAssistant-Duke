@@ -85,20 +85,6 @@ public class Ui {
     }
 
     /**
-     * A hello message when hustler is ran.
-     */
-    public void showOpeningString() {
-        String logo = " _   _   _    _     _____  ______   _       ___      ___\n"
-                + "|  | |  | | |  |  |  / ____/ |__   __|  | |     |  __|  / __  \\\n"
-                + "|  |_| | | |  |  |   |  \\___      |  |    | |      | |__  | |__/ /\n"
-                + "|  _  | | |   |  |   \\____ \\     |  |    | |     |  __|  |  _  /\n"
-                + "|  | | | |  \\_/ |    ___/  |     |  |    | |___ |  |__  | / \\ \\\n"
-                + "|_| |_|  \\___/  /_____/      |_|     |____||____| |_|  \\_\\\n";
-
-        System.out.println("Hello from\n" + logo);
-    }
-
-    /**
      * Prints a message if list is empty.
      */
     public void showListEmpty() {
