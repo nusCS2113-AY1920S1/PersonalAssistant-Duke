@@ -42,16 +42,22 @@ public class AddCommandParser implements ParserPrototype<AddCommand> {
 		}
 		String foodName = ParserUtil.findFullString(args,foodNameIndex);
 		if (foodName.equals("")) {
-			throw new ParserException(ParserErrorMessage.NOT_ENOUGH_PARAMETER);
+			throw new ParserException(ParserErrorMessage.INVALID_NAME);
 		}
 		Food tempFood = new Food(foodName);
 		if (foodTypeIndex != -1) {
 			tempFood.setType(ParserUtil.findFullString(args,foodTypeIndex+1));
 		}
 		if (priceIndex != -1) {
+            if(!ParserUtil.isValidNumber(args[priceIndex+1])){
+                throw new ParserException(ParserErrorMessage.INVALID_NUMBER);
+            }
 			tempFood.setPrice(Integer.parseInt(args[priceIndex+1]));
 		}
 		if (stockIndex != -1) {
+		    if(!ParserUtil.isValidNumber(args[stockIndex+1])){
+		        throw new ParserException(ParserErrorMessage.INVALID_NUMBER);
+            }
 			tempFood.setStock(Integer.parseInt(args[stockIndex+1]));
 		}
 		if (expiryDateIndex != -1) {

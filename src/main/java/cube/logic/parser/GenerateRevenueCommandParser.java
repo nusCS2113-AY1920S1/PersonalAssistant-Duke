@@ -24,6 +24,9 @@ public class GenerateRevenueCommandParser implements ParserPrototype<GenerateRev
             case "-all":
                 return new GenerateRevenueCommand("ALL");
             case "-i":
+                if(!ParserUtil.isValidNumber(args[2])){
+                    throw new ParserException(ParserErrorMessage.INVALID_NUMBER);
+                }
                 return new GenerateRevenueCommand(Integer.parseInt(args[2]),"INDEX");
             case "-n":
                 return new GenerateRevenueCommand(String.join(" ", Arrays.copyOfRange(args,2,args.length)),"NAME");

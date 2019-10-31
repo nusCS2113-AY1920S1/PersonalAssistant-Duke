@@ -11,4 +11,8 @@ public class ParserErrorMessage {
             = "OOPS!!! Your input contains invalid parameter";
     public static final String REPETITIVE_PARAMETER
             = "OOPS!!! Your input contains repetitive parameter";
+    public static final String INVALID_NAME
+            = "OOPS!!! The name should only contains alphanumeric characters and spaces, and cannot be blank or start with '-'";
+    public static final String INVALID_NUMBER
+            = "OOPS!!! The number inside input should only be non-negative numerical.";
 }

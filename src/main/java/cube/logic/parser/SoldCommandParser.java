@@ -36,7 +36,16 @@ public class SoldCommandParser implements ParserPrototype<SoldCommand> {
 		}
 
 		if(dateIndex == -1) {
+			if(!ParserUtil.isValidNumber(args[quantityIndex + 1])){
+				throw new ParserException(ParserErrorMessage.INVALID_NUMBER);
+			}
 			return new SoldCommand(args[foodNameIndex+1],Integer.parseInt(args[quantityIndex+1]), new Date());
+		}
+		if(!ParserUtil.isValidNumber(args[dateIndex + 1])){
+			throw new ParserException(ParserErrorMessage.INVALID_NUMBER);
+		}
+		if(!ParserUtil.isValidNumber(args[quantityIndex + 1])){
+			throw new ParserException(ParserErrorMessage.INVALID_NUMBER);
 		}
 		return new SoldCommand(args[foodNameIndex+1],Integer.parseInt(args[quantityIndex+1]), ParserUtil.parseStringToDate(args[dateIndex+1]));
 	}
