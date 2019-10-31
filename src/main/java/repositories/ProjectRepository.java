@@ -1,26 +1,21 @@
 package repositories;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
-import controllers.ConsoleInputController;
+import exceptions.DukeException;
 import models.project.IProject;
 import models.project.Project;
 import util.factories.ProjectFactory;
+import util.json.JsonConverter;
 import util.log.DukeLogger;
 
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class ProjectRepository implements IRepository<Project> {
     private ArrayList<Project> allProjects;
     private ProjectFactory projectFactory;
-    private String filePath = System.getProperty("user.dir") + "/savedProjects.json";
+    private JsonConverter jsonConverter = new JsonConverter();
 
     public ProjectRepository() {
-        loadProjectsData();
+        allProjects = jsonConverter.loadAllProjectsData();
         this.projectFactory = new ProjectFactory();
     }
 
@@ -33,13 +28,13 @@ public class ProjectRepository implements IRepository<Project> {
     public boolean addToRepo(String input) {
         IProject newProject = projectFactory.create(input);
         DukeLogger.logDebug(ProjectRepository.class, "New project created with name: '"
-                + newProject.getDescription() + "'");
-        if (newProject.getDescription() == null || newProject.getMembers() == null) {
+                + newProject.getName() + "'");
+        if (newProject.getName() == null || newProject.getMembers() == null) {
             return false;
         }
         Project newlyCreatedProject = (Project) newProject;
         allProjects.add(newlyCreatedProject);
-        saveProjectsData();
+        jsonConverter.saveProject(newlyCreatedProject);
         return true;
     }
 
@@ -59,11 +54,10 @@ public class ProjectRepository implements IRepository<Project> {
      */
     public boolean deleteItem(int projectNumber) {
         try {
+            jsonConverter.deleteProject(allProjects.get(projectNumber - 1));
             this.allProjects.remove(projectNumber - 1);
-            saveProjectsData();
             return true;
-        } catch (IndexOutOfBoundsException err) {
-            saveProjectsData();
+        } catch (IndexOutOfBoundsException | DukeException err) {
             return false;
         }
     }
@@ -77,7 +71,7 @@ public class ProjectRepository implements IRepository<Project> {
         ArrayList<ArrayList<String>> toPrintAll = new ArrayList<>();
         for (int projNum = 0; projNum < allProjects.size(); projNum++) {
             ArrayList<String> toPrint = new ArrayList<>();
-            toPrint.add("Project " + (projNum + 1) + ": " + allProjects.get(projNum).getDescription());
+            toPrint.add("Project " + (projNum + 1) + ": " + allProjects.get(projNum).getName());
             toPrint.add("Members: ");
             if (allProjects.get(projNum).getNumOfMembers() == 0) {
                 toPrint.add(" --");
@@ -110,43 +104,5 @@ public class ProjectRepository implements IRepository<Project> {
             toPrintAll.add(toPrint);
         }
         return toPrintAll;
-    }
-
-    /**
-     * Method that is responsible for saving Projects Data by using GSON library to convert to a human editable JSON
-     * file.
-     */
-    private void saveProjectsData() {
-        Gson gson = new GsonBuilder()
-                .setPrettyPrinting()
-                .create();
-        try {
-            DukeLogger.logDebug(ConsoleInputController.class, "Saving to file.");
-            FileWriter fileWriter = new FileWriter(filePath);
-            gson.toJson(this.allProjects, fileWriter);
-            fileWriter.flush();
-            fileWriter.close();
-            DukeLogger.logDebug(ConsoleInputController.class, "File saved.");
-        } catch (IOException err) {
-            DukeLogger.logError(ConsoleInputController.class, "savedProjects file is not found.");
-        }
-    }
-
-    /**
-     * Method responsible for loading Projects Data from hard coded directory where savedProjects.json file is located
-     */
-    private void loadProjectsData() {
-        Gson gson = new Gson();
-        try (FileReader fileReader = new FileReader(filePath)) {
-            DukeLogger.logDebug(ConsoleInputController.class, "Loading saved file.");
-            this.allProjects = gson.fromJson(fileReader, new TypeToken<ArrayList<Project>>(){}.getType());
-            if (this.allProjects == null) {
-                this.allProjects = new ArrayList<>();
-            }
-            DukeLogger.logDebug(ConsoleInputController.class, "Saved file loaded.");
-        } catch (IOException err) {
-            DukeLogger.logError(ConsoleInputController.class, "Saved file not loaded");
-            this.allProjects = new ArrayList<>();
-        }
     }
 }

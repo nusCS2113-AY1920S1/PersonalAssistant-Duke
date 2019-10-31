@@ -36,7 +36,7 @@ class ProjectRepositoryTest {
         projectRepository.addToRepo(simulatedUserinput);
         Project simulatedProject = projectRepository.getItem(1);
         Project expectedProject = new Project("Thor Fanclub");
-        assertEquals(expectedProject.getDescription(), simulatedProject.getDescription());
+        assertEquals(expectedProject.getName(), simulatedProject.getName());
         assertEquals(expectedProject.getNumOfMembers(), simulatedProject.getNumOfMembers());
         assertEquals(expectedProject.getNumOfTasks(), simulatedProject.getNumOfTasks());
         assertEquals(expectedProject.getMembers().getAllMemberDetails(),
@@ -63,7 +63,7 @@ class ProjectRepositoryTest {
         projectRepository.addToRepo(simulatedUserinput);
         Project expectedProject = new Project("Ironman Fanclub");
         Project simulatedProject = projectRepository.getItem(1);
-        assertEquals(expectedProject.getDescription(), simulatedProject.getDescription());
+        assertEquals(expectedProject.getName(), simulatedProject.getName());
         assertEquals(expectedProject.getNumOfMembers(), simulatedProject.getNumOfMembers());
         assertEquals(expectedProject.getNumOfTasks(), simulatedProject.getNumOfTasks());
         assertEquals(expectedProject.getMembers().getAllMemberDetails(),
