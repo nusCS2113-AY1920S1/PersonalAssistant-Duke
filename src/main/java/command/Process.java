@@ -12,8 +12,6 @@ import task.DoAfterTasks;
 import task.Task;
 import task.WithinPeriodTask;
 import ui.Ui;
-
-import java.lang.reflect.Array;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -22,7 +20,6 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Calendar;
-import java.util.LinkedHashMap;
 
 public class Process {
     public SimpleDateFormat dataformat = new SimpleDateFormat("dd/MM/yyyy HHmm");
@@ -225,6 +222,17 @@ public class Process {
         }
     }
 
+    /**
+     * Show the current fund status.
+     * @param input Input from the user.
+     * @param ui Ui that interacts with the user.
+     * @param fund the total fund the that the organisation owns
+     */
+    public void showFund(String input, Ui ui, Fund fund) {
+        System.out.println(Ui.line);
+        System.out.print(fund.giveFund());
+        System.out.println(Ui.line);
+    }
     //===========================* Deadline *================================
 
     /**
@@ -289,16 +297,27 @@ public class Process {
      */
     public void deadline(String input, TaskList tasklist, Ui ui) {
         try {
-            String[] splitspace = input.split("d/", 2);
+            String[] splitspace = input.split("d/|by/");
             String taskDescription = splitspace[1];
-            Deadline deadline = new Deadline(taskDescription);
+            String date = splitspace[2];
+            Deadline deadline = new Deadline(taskDescription,date);
             tasklist.addTask(deadline);
             ui.printAddedMessage(deadline, tasklist);
-        } catch (ArrayIndexOutOfBoundsException e) {
+        } catch (ArrayIndexOutOfBoundsException | ParseException e) {
             ui.exceptionMessage("     ☹ OOPS!!! The description of a deadline cannot be empty.");
         }
     }
 
+
+    public void deleteTask(String input, TaskList tasklist, Ui ui) {
+        try {
+            String[] splitspace = input.split("id/", 2);
+            int id = Integer.parseInt(splitspace[1]) - 1;
+            tasklist.deleteTask(id);
+        }catch (ArrayIndexOutOfBoundsException e){
+            ui.exceptionMessage("     ☹ OOPS!!! The id of a deadline cannot be empty.");
+        }
+    }
     /**
      * Processes the DoAfter command and adds a task,
      * which has to be done after another task or a specific date and time,
@@ -479,22 +498,27 @@ public class Process {
                     + "Format:'postpone <index> <the new scheduled time in dd/mm/yyyy HHmm>");
         }
     }
-
-    public void edit(String input, TaskList tasklist, Ui ui) {
+*/
+    /**
+     * Processes the edit command, amends the data of a payee or payment already exisiting in the records.
+     * INPUT FORMAT: edit p/PAYEE v/INVOICE f/FIELD r/REPLACEMENT
+     * @param input Input from the user.
+     * @param managermap HashMap containing all Payees and their Payments.
+     * @param ui Ui that interacts with the user.
+     */
+    public void edit(String input, Ui ui) {
         try {
-            String[] splitspace = input.split(" ", 2);
-            String[] splitedit = splitspace[1].split(" d/", 2);
-            int nedit = Integer.parseInt(splitedit[0]) - 1;
-            String description = splitedit[1];
-            tasklist.get(nedit).setDescription(description);
-            ui.printEditMessage(tasklist.get(nedit));
-        } catch (ArrayIndexOutOfBoundsException e) {
-            ui.exceptionMessage("     ☹ OOPS!!! Please input the correct command format (refer to user guide)");
-        } catch (NumberFormatException e) {
+            HashMap<String, Payee> managermap = projectmanager.getCurrentProjectManagerMap();
+            String[] splitspace = input.split("edit ", 2);
+            String[] splitpayments = splitspace[1].split("p/|v/|f/|r/");
+            splitpayments = cleanStrStr(splitpayments);
+            PaymentManager.editPayee(splitpayments[1], splitpayments[2], splitpayments[3], splitpayments[4], managermap);
+        }
+        catch (IllegalArgumentException e){
             ui.exceptionMessage("     ☹ OOPS!!! Please input the correct command format (refer to user guide)");
         }
     }
-*/
+
 
     //===========================* Payments *================================
 
@@ -614,7 +638,7 @@ public class Process {
      * processes the input command and stores it in a text file.
      * @param input Input from the user.
      * @param ui Ui that interacts with the user.
-     * @param storage Storage that stores the input commands entered by the user.
+     * @param storage command.Storage that stores the input commands entered by the user.
      */
 
     public void commandHistory(String input, Ui ui, Storage storage) {
