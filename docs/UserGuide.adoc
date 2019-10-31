@@ -207,7 +207,7 @@ This edits a specific item in the checklist of an event.
 `checklist delete <event index> <item index>`
 This deletes an item from the checklist of an event.
 
-==== viewing monthly costs of concerts
+=== viewing monthly costs of concerts
 The total cost of concerts each month can be viewed by the user using the
 `budget` command.
 
