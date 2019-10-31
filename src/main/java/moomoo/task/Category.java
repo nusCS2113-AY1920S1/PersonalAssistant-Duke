@@ -38,7 +38,7 @@ public class Category {
         category.add(newExpenditure);
     }
 
-    public void deleteExpenditure(int expenditureNumber) {
+    public void delete(int expenditureNumber) {
         category.remove(expenditureNumber);
     }
 

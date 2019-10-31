@@ -31,11 +31,10 @@ public class GraphTotalCommand extends Command {
     public void execute(ScheduleList calendar, Budget budget, CategoryList catList,
                         Category category, Ui ui, Storage storage)
             throws MooMooException {
-        
+        catList.testPopulate();
         if (catList.size() == 0) {
             throw new MooMooException("OOPS!!! MooMoo cannot find any category data :(");
         }
-        
         double grandTotal = catList.getGrandMonthTotal(1);
         int maxAxisUnit = (int) ((catList.getLargestExpenditure(1) / grandTotal) * 100) + 1;
         for (int i = 0; i < maxAxisUnit; i += 1) {

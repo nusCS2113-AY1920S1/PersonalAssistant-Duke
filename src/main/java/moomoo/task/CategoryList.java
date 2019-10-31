@@ -36,7 +36,6 @@ public class CategoryList {
     
     /**
      * Return the total sum of all expenditure across all categories for the current month.
-     *
      * @return total The total sum
      */
     public double getGrandMonthTotal(int month) {
@@ -78,7 +77,6 @@ public class CategoryList {
     
     /**
      * Get the length of the name of the Category with the longest name.
-     *
      * @return Length of the name of the Category with the longest name
      */
     public int getLongestCategory() {
@@ -95,23 +93,7 @@ public class CategoryList {
         
         return longestName;
     }
-
-    /**
-     * Calculates the total of all expenditures from all categories for selected month and year.
-     * @param month month to check
-     * @return total expenditure for the month
-     */
-    public double getMonthlyGrandTotal(int month, int year) {
-        double total = 0;
-        for (Category category : categoryList) {
-            total += category.getCategoryTotalPerMonthYear(month, year);
-        }
-        return total;
-    }
-
-    public void deleteCategory(int categoryNumber) {
-        categoryList.remove(categoryNumber);
-    }
+    
 
     /**
      * Returns the category if it currently exists.
@@ -144,7 +126,6 @@ public class CategoryList {
         }
         Category gameCategory = new Category("Games");
         gameCategory.testPopulate();
-        gameCategory.setCategoryMonthTotal();
         categoryList.add(gameCategory);
         
     }
