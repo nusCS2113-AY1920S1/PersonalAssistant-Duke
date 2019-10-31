@@ -250,7 +250,7 @@ image::images/devguide/DG_Delete_ActivityDiagram.png[width ="300", align="center
 
 The following code snippet highlights the key logic of the `DeleteCommand`.
 
-image::images/devguide/DG_Delete_CodeBlock.png[width ="300", align="center"]
+image::images/devguide/DG_Delete_CodeBlock.png[align="center"]
 
 ==== Design Considerations
 
@@ -327,7 +327,7 @@ to reset his aliases to the default settings, with the input `reset-alias`. This
 clears all existing aliases, and adds in the default aliases, which are defined in the `resetPreferences()` method in
 the `Parser` class.
 
-image::images/devguide/DG_Alias_CodeBlock.png[width ="300", align="center"]
+image::images/devguide/DG_Alias_CodeBlock.png[align="center"]
 
 
 [appendix]
