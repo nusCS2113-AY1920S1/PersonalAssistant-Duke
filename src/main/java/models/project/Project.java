@@ -112,18 +112,6 @@ public class Project implements IProject {
         this.taskList.editTaskRequirements(taskIndexNumber, updatedTaskRequirements);
     }
 
-    @Override
-    public ArrayList<String> getAssignedTaskList() {
-        ArrayList<String> assignedTaskListString = new ArrayList<>();
-        for (HashMap.Entry<Task, ArrayList<Member>> task: taskAndListOfMembersAssigned.entrySet()) {
-            assignedTaskListString.add(task.getKey().getTaskName() + " is assigned to: ");
-            for (Member member: task.getValue()) {
-                assignedTaskListString.add(member.getName());
-            }
-        }
-        return assignedTaskListString;
-    }
-
     /**
      * Returns the member names with the credits of their assigned tasks.
      * @return The member names with the credits of their assigned tasks.

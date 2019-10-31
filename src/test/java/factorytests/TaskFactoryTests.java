@@ -1,5 +1,10 @@
 package factorytests;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
+
+import java.text.ParseException;
+import java.util.ArrayList;
 import models.task.ITask;
 import models.task.NullTask;
 import models.task.Task;
@@ -7,12 +12,6 @@ import models.task.TaskState;
 import org.junit.jupiter.api.Test;
 import util.date.DateTimeHelper;
 import util.factories.TaskFactory;
-
-import java.text.ParseException;
-import java.util.ArrayList;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
 
 class TaskFactoryTests {
     private TaskFactory taskFactory;
@@ -78,7 +77,6 @@ class TaskFactoryTests {
             assertEquals(expectedTask.getTaskPriority(), simulatedTask.getTaskPriority());
             assertEquals(expectedTask.getDueDate(), simulatedTask.getDueDate());
             assertEquals(expectedTask.getTaskState(), simulatedTask.getTaskState());
-            assertEquals(expectedTask.getAssignedMembers(), simulatedTask.getAssignedMembers());
             assertEquals(expectedTask.getTaskRequirements(), simulatedTask.getTaskRequirements());
         } catch (ParseException e) {
             fail("ParseException was detected when it shouldn't have");
