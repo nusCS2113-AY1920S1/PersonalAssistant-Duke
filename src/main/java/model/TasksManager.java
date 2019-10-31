@@ -220,6 +220,19 @@ public class TasksManager implements Serializable {
         return showScheduleOfTaskList(todoTasks);
     }
 
+    /**
+     * Sets the reminder time in the task of index given
+     * @param taskIndex Index of task
+     * @param reminder Date of reminder
+     */
+    public void addReminder(int taskIndex, Date reminder)	{
+    	taskList.get(taskIndex).setReminder(reminder);
+    }
+    
+    public void clearReminder(int taskIndex)	{
+    	taskList.get(taskIndex).setReminder(null);
+    }
+    
 
     private ArrayList<Task> sortByTime(ArrayList<Task> toSort) {
         ArrayList<Task> sorted = new ArrayList<>();

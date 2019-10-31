@@ -1,0 +1,133 @@
+package logic;
+
+import java.util.ArrayList;
+import java.util.Date;
+
+import common.LoggerController;
+import gui.Window;
+import model.Model;
+
+//@@author AugGust
+public class ReminderController {
+	private static ReminderController instance;
+	private Model model;
+	private Thread reminderThread;
+	private ReminderProcessor reminderProcessor;
+	private Reminder activeReminder;
+	
+	public ReminderController(Model model)	{
+		this.model = model;
+		instance = this;
+		refreshReminders();
+	}
+	
+	public static void remindNow()	{
+		String reminder = "Reminder!\n";
+		int taskIndex = ReminderController.instance.activeReminder.getIndex();
+		reminder += ReminderController.instance.model.getTasksManager().getTaskById(taskIndex).toString() + '\n';
+		Window.instance.setOutputArea(reminder);
+		ReminderController.instance.model.getTasksManager().getTaskById(taskIndex).setReminder(null);
+		ReminderController.instance.model.save();
+		refreshAllReminders();
+	}
+	
+	/**
+	 * Reloads the reminders. Kills the reminders thread and sleeps it until time for next reminder
+	 */
+	public void refreshReminders()	{
+		if (reminderThread != null)	{
+			reminderThread.interrupt();
+		}
+		
+		activeReminder = getEarliestReminder();
+		if (activeReminder == null)	{
+			return;
+		}
+		
+		reminderProcessor = new ReminderProcessor(activeReminder.getTime());
+		reminderThread = new Thread(reminderProcessor);
+		reminderThread.start();
+	}
+	
+	/**
+	 * Gets the earliest reminder in all tasks in the model
+	 * @return
+	 */
+	public Reminder getEarliestReminder() {
+		Reminder earliest = null;
+		
+		for (int i = 0; i < model.getTaskList().size(); i++)	{
+			if (model.getTaskList().get(i).getReminder() != null)	{
+				if (earliest == null)	{
+					earliest = new Reminder(model.getTaskList().get(i).getReminder(), i);
+				}
+				else	{
+					if (earliest.getTime().after(model.getTaskList().get(i).getReminder()))	{
+						earliest = new Reminder(model.getTaskList().get(i).getReminder(), i);
+					}
+				}
+			}
+		}
+		
+		return earliest;
+	}
+	
+	/**
+	 * To refresh state of reminders, to be called statically
+	 */
+	public static void refreshAllReminders()	{
+		instance.refreshReminders();
+	}
+	
+	class ReminderProcessor implements Runnable	{
+		private long sleepDuration;
+		
+		public ReminderProcessor(Date timeToWake)	{
+			sleepDuration = timeToWake.getTime() - new Date().getTime();
+		}
+		
+		@Override
+		public void run() {
+			LoggerController.logInfo(getClass(), "Started new reminder thread");
+			try {
+				Thread.sleep(sleepDuration);
+				ReminderController.remindNow();
+			} catch (InterruptedException e) {
+				LoggerController.logInfo(getClass(), "Terminated reminder thread");
+				return;
+			}
+		}
+		
+	}
+	
+	class Reminder	{
+		Date reminderTime;
+		int index;
+		
+		/**
+		 * Creates new reminder object
+		 * @param reminderTime time to be reminded
+		 * @param index index of task to be reminded
+		 */
+		public Reminder(Date reminderTime, int index)	{
+			this.reminderTime = reminderTime;
+			this.index = index;
+		}
+		
+		/**
+		 * gets the time of the reminder
+		 * @return time of reminder
+		 */
+		public Date getTime()	{
+			return this.reminderTime;
+		}
+		
+		/**
+		 * gets the index of the task for the reminder
+		 * @return index of task
+		 */
+		public int getIndex()	{
+			return this.index;
+		}
+	}
+}

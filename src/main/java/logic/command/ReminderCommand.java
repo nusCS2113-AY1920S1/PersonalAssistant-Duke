@@ -1,5 +1,9 @@
 package logic.command;
 
+import java.util.Calendar;
+import java.util.Date;
+
+import logic.ReminderController;
 import model.Model;
 import model.Task;
 
@@ -42,6 +46,33 @@ public class ReminderCommand extends Command {
                 feedback += " days ";
             }
             feedback += "before it's due";
+            
+            //Check for valid date
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(model.getTasksManager().getTaskById(taskIndex - 1).getTime());
+            
+            if (beforeMult == 'm')	{
+            	cal.add(Calendar.MINUTE, -1 * beforeInt);
+            }
+            else if (beforeMult == 'h')	{
+            	cal.add(Calendar.HOUR, -1 * beforeInt);
+            }
+            else	{
+            	cal.add(Calendar.HOUR, -24 * beforeInt);
+            }
+            
+            Date reminderTime = cal.getTime();
+            
+            Date now = new Date();
+            if (reminderTime.compareTo(now) <= 0)	{
+            	return new CommandOutput("You can't set a reminder earlier than the current time!");
+            }
+            
+            model.getTasksManager().addReminder(taskIndex - 1, reminderTime);
+            model.save();
+            
+            ReminderController.refreshAllReminders();
+            
             return new CommandOutput(feedback);
         }
 
