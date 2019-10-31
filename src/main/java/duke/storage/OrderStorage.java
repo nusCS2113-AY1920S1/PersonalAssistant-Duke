@@ -4,6 +4,7 @@ import duke.exception.DukeException;
 import duke.ingredient.Ingredient;
 import duke.list.GenericList;
 import duke.order.Order;
+import duke.order.OrderList;
 
 public class OrderStorage extends Storage<Order> {
     /**
@@ -13,6 +14,7 @@ public class OrderStorage extends Storage<Order> {
      */
     public OrderStorage(String fp) {
         super(fp);
+        entries = new OrderList();
     }
 
     @Override
@@ -28,3 +30,11 @@ public class OrderStorage extends Storage<Order> {
         return entries;
     }
 }
+
+
+
+//    public Fridge(FridgeStorage fridgeStorage) throws DukeException {
+//        this.fridgeStorage=fridgeStorage;
+//        currentIngredients=new IngredientsList(fridgeStorage.load().getAllEntries());
+//        expiredIngredients=getExpiredIngredients();
+//    }

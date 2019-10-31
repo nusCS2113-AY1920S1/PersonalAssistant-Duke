@@ -165,6 +165,20 @@ public class Ui {
         System.out.println("\t initialize (REMOVES all entries in the list)");
         showLine();
     }
+    public void showOrderTemplate() {
+        showLine();
+        System.out.println("\t Continue by adding, removing, listing, altering, marking done order \n\t Template: ");
+        showLine();
+        System.out.println("\t add <order content>");
+        System.out.println("\t remove <order index>");
+        System.out.println("\t list <list type: all, undone, today, or undoneToday>");
+        System.out.println("\t list <filtering dish name>");
+        System.out.println("\t list <filtering order serving date: DD/MM/YYYY>");
+        System.out.println("\t alter <order index> <order serving date: DD/MM/YYYY>");
+        System.out.println("\t initialize (REMOVES all entries in the order list)");
+        System.out.println("\t done <order index>");
+        showLine();
+    }
     public void showIngredientsInFridge(IngredientsList ingredientsList) {
         if (ingredientsList.isEmpty())
             System.out.println("\t The fridge is empty, better go buy some ingredients! ");
