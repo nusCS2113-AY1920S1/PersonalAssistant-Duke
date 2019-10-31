@@ -5,6 +5,7 @@ import dictionary.Bank;
 import command.Command;
 import dictionary.WordCount;
 import exception.WordUpException;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import parser.Parser;
 import ui.Ui;
@@ -20,6 +21,8 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import storage.Storage;
 
+import java.awt.*;
+
 public abstract class NewScene {
     protected ScrollPane scrollPane;
     protected VBox dialogContainer;
@@ -27,8 +30,8 @@ public abstract class NewScene {
     protected Button sendButton;
     protected Scene scene;
     protected AnchorPane layout;
-    protected Image user = new Image(this.getClass().getResourceAsStream("/images/user.jpg"));
-    protected Image duke = new Image(this.getClass().getResourceAsStream("/images/duke.jpg"));
+    protected Image user = new Image(this.getClass().getResourceAsStream("/images/girl.png"));
+    protected Image duke = new Image(this.getClass().getResourceAsStream("/images/robot.png"));
     protected Ui ui;
     protected Bank bank;
     protected Storage storage;
@@ -54,8 +57,11 @@ public abstract class NewScene {
         this.ui = ui;
         this.bank = bank;
         this.storage = storage;
-        scrollPane = new ScrollPane();
+
         dialogContainer = new VBox();
+//        dialogContainer.getChildren().add(new Rectangle().setFill(Color.web(204, 255, 252)));
+
+        scrollPane = new ScrollPane();
         scrollPane.setContent(dialogContainer);
 
         userInput = new TextField();

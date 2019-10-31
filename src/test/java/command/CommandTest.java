@@ -36,7 +36,7 @@ public class CommandTest {
      */
     @BeforeEach
     public void createWordUpTestFile() throws FileNotFoundException, UnsupportedEncodingException {
-        filename = "C:\\Users\\user\\gitclones\\main\\src\\test\\WordUpTest.txt";
+        filename = "C:\\Users\\zyueh\\Documents\\Y2S2_CS2113\\main\\data\\WordUpTest.txt";
         PrintWriter writer = new PrintWriter(filename, "UTF-8");
         writer.println("apple: red fruit");
         writer.println("orange: orange fruit");
@@ -159,7 +159,7 @@ public class CommandTest {
     public void deleteWordUpTestFile() {
         File file = new File(filename);
         if (file.delete()) {
-            System.out.println("File deleted successfully");
+            System.out.println("File deleted successfully"); //note the test/file being used
         } else {
             System.out.println("Failed to delete the file");
         }

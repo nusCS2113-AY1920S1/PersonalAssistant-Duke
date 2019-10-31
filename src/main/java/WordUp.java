@@ -5,6 +5,8 @@ import ui.Ui;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
+import java.util.logging.Logger;
+
 
 public class WordUp extends Application {
 
