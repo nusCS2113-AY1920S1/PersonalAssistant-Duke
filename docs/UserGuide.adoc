@@ -32,7 +32,7 @@ This app may not work with older major Java releases such as Java 10, 9, 8 etc.
 .  Copy the file to the folder you want to use as the home folder for your SGTravel.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
-image::Ui.PNG[width="600" height="400"]
+image::Ui.png[width="600" height="400"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it.
 .  Some example commands you can try:
@@ -50,9 +50,33 @@ image::Ui.PNG[width="600" height="400"]
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `todo NAME`, `NAME` is a parameter which can be used as `todo Go Geylang`.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `find KEYWORD`, `KEYWORD` is a parameter which can be used as `find Zoo`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `TAG...` (i.e. 0 times), `friend`, `friend family fish` etc.
 ====
+
+=== Help: `help`
+
+SGTravel shows the available commands to the user. +
+Format: `help`
+
+==== Listing all places to visit : `list`
+
+SGTravel shows a list of all the places to visit in SGTravel. +
+Format: `list`
+
+==== Finding certain events you have: `find`
+
+SGTravel shows the events whose names contain any of the given keywords. +
+Format: `find KEYWORD`
+
+****
+* The search is case sensitive. e.g `Changi Airport` will match `Changi Airport`
+****
+
+Examples:
+
+* `find Singapore` +
+Returns `Singapore` and `Singapore Bishan`
 
 === Setting a profile: `profile`
 
@@ -65,7 +89,7 @@ Examples:
 
 === Showing a profile: `profileShow`
 
-Shows the current profile +
+SGTravel shows the current profile +
 Format: `profileShow`
 
 Examples:
@@ -74,7 +98,7 @@ Examples:
 
 === Set the preference in profile: `profileSet`
 
-Set the preferences of activity the users prefer to do in profile
+SGTravel set the preferences of activity the users prefer to do in profile
 Format: `profileSet CATEGORY STATE`
 
 Vaild CATEGORY:
@@ -93,32 +117,22 @@ Examples:
 
 * `profileSet sports true`
 
-=== Adding a task: `todo`
-
-Adds a task to SGTravel +
-Format: `todo TASK`
-
-Examples:
-
-* `todo Go Geylang`
-
-
 === Adding an event: `event`
 
 Adds an event to SGTravel +
-Format: `event TASK /at DESCRIPTOR`
+Format: `event VENUE between DATE and DATE`
 
 Examples:
 
-* `event Ferris wheel /at Singapore Flyer tomorrow`
+* `event Geylang between Mon and Wed`
 
-=== Deleting a task/destination : `delete`
+=== Deleting an event : `delete`
 
-Deletes the specified task/destination from SGTravel. +
+Deletes the specified event from SGTravel. +
 Format: `delete INDEX`
 
 ****
-* Deletes the task at the specified `INDEX`.
+* Deletes the event at the specified `INDEX`.
 * The index refers to the index number shown in the displayed task list.
 * The index *must be a positive integer* 1, 2, 3, ...
 ****
@@ -127,15 +141,15 @@ Examples:
 
 * `list` +
 `delete 2` +
-Deletes the 2nd task/destination in SGTravel.
+Deletes the 2nd event in SGTravel.
 
-=== Marking a task : `done`
+=== Marking an event : `done`
 
-Mark the specified task as done on SGTravel. +
+Mark the specified event as done on SGTravel. +
 Format: `done INDEX`
 
 ****
-* Marks the task done at the specified `INDEX`.
+* Marks the event done at the specified `INDEX`.
 * The index refers to the index number shown in the displayed task list.
 * The index *must be a positive integer* 1, 2, 3, ...
 ****
@@ -144,28 +158,17 @@ Examples:
 
 * `list` +
 `done 2` +
-Marks the 2nd task as done in SGTravel.
+Marks the 2nd event as done in SGTravel.
 
+=== List nearby bus stops of destination: `busStop`
 
-=== List nearby bus stops of destination: `busstop`
-
-SGTravel recommends nearby bus stops of a certain location. +
-Format: `busstop LOCATION`
-
-Examples:
-
-* `busstop Sentosa`
-* `busstop J-Cube`
-
-=== List nearby MRT stops of destination: `mrtstop`
-
-SGTravel recommends nearby MRT stops of a certain location. +
-Format: `mrtstop LOCATION`
+SGTravel shows the information of current bus stop. +
+Format: `busStop BUSCODE`
 
 Examples:
 
-* `mrtstop Sentosa`
-* `mrtstop J-Cube`
+* `busStop 17009`
+* `busstop 17001`
 
 === Shows the bus route of a bus service: `busRoute`
 
@@ -177,32 +180,45 @@ Examples:
 * `busRoute 96`
 * `busRoute 193`
 
-=== Create a bus travel plan for user: `bustour`
-
-SGTravel recommends a travelling plan (short path) based on the user's input of destinations. +
-Format: `bustour`
-
 Examples:
 
-* `bustour`
+* `help`
 
-=== Create a mrt travel plan for user: `mrttour`
+=== Exiting the program : `bye`
 
-SGTravel recommends a travelling plan (short path) based on the user's input of destinations. +
-Format: `mrttour`
+Exits the program. +
+Format: `bye`
 
-Examples:
+=== Saving the data
 
-* `mrttour`
+SGTravel data are saved in the hard disk automatically after any command that changes the data. +
+There is no need to save manually.
 
-=== Create a travel plan for user: `tour`
+=== Viewing calendar
 
-SGTravel recommends a travelling plan (short path) based on the user's input of destinations which may include both bus and train services. +
-Format: `tour`
+SGTravel will automatically display calendar when the relevant commands are invoke. +
+There is also a button located at the top left corner of the application to call the calendar manually.
 
-Examples:
+=== Viewing Singapore map
 
-* `tour`
+SGTravel will automatically display Singapore map when the relevant commands are invoke. +
+There is also a button located at the top left corner of the application to call the map manually.
+
+=== Viewing of information
+
+All relevant information will be displayed on a side panel of the SGTravel application. +
+SGTravel users can use the different commands to render and manipluate the information displayed on the side panel.
+
+==== Editing places of visit: `edit`
+
+Panel will automatically select an intial location and the selected location will be glowing. +
+Users will use `up, down, left, right or AWSD and Enter` key to then select the place of visit they want to edit. +
+Upon enter key pressed, a template will be generated on the console input for user to edit. +
+Alternatively, user can use `edit INDEX [startdate DATE enddate DATE venue LOCATION]` +
+Where INDEX is the index of the place of visit and startdate, enddate and venue are optional fields. +
+Not putting any optional fields will result in the place of visit being deleted instead.
+
+== Features that are coming in version 2.0!
 
 === List the fastest bus route, time and cost from a given location to destination: `busride`
 
@@ -238,97 +254,6 @@ SGTravel redos the last undo. +
 Examples:
 
 * `redo`
-
-=== Help: `help`
-
-SGTravel shows this page to the user. +
-Format: `help`
-
-Examples:
-
-* `help`
-
-=== Exiting the program : `bye`
-
-Exits the program. +
-Format: `bye`
-
-=== Saving the data
-
-SGTravel data are saved in the hard disk automatically after any command that changes the data. +
-There is no need to save manually.
-
-=== Viewing calendar
-
-SGTravel will automatically display calendar when the relevant commands are invoke. +
-There is also a button located at the top left corner of the application to call the calendar manually.
-
-=== Viewing Singapore map
-
-SGTravel will automatically display Singapore map when the relevant commands are invoke. +
-There is also a button located at the top left corner of the application to call the map manually.
-
-=== Autocorrect
-
-SGTravel will help you autocorrect your spelling mistakes and users can tab to autocomplete!
-
-=== Viewing of information
-
-All relevant information will be displayed on a side panel of the SGTravel application. +
-SGTravel users can use the different commands to render and manipluate the information displayed on the side panel.
-
-==== Listing all places to visit : `list`
-
-Panel shows a list of all the places to visit in SGTravel. +
-Red color indicates places that are yet to be visited. +
-And green color indicates places that are already visited. +
-Format: `list`
-
-==== Finding certain places to visit: `find`
-
-Panel shows the places to visit whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
-
-****
-* The search is case sensitive. e.g `Changi Airport` will match `Changi Airport`
-* The order of the keywords does not matter. e.g. `Airport Changi` will match `Changi Airport`
-* Places matching at least one keyword will be returned (i.e. `OR` search). e.g. `Changi Airport` will return `Changi Beach`, `Seletar Airport`
-****
-
-Examples:
-
-* `find Singapore` +
-Returns `Singapore` and `Singapore Bishan`
-* `find Tengah Gedong Singapore` +
-Returns any tasks containing names `Tengah`, `Gedong`, or `Singapore`
-
-==== Finding specific places to visit: `findOnly`
-
-Panel shows the places to visit whose names exactly matches the keyword. +
-Format: `findOnly KEYWORD`
-
-****
-* The search is case sensitive. e.g `Changi Airport` will match `Changi Airport`
-* Only results that exactly matches the keyword would be returned. e.g. `Gardens by the bay` will only match `Gardens by the bay`
-****
-
-Examples:
-
-* `findOnly Singapore` +
-Returns `Singapore` and `Singapore Bishan`
-* `findOnly Tengah Gedong Singapore` +
-Returns `Tengah Gedong Singapore` and `Tengah Gedong Singapore Bishan`
-
-==== Editing places of visit: `edit`
-
-Panel will automatically select an intial location and the selected location will be glowing. +
-Users will use `up, down, left, right or AWSD and Enter` key to then select the place of visit they want to edit. +
-Upon enter key pressed, a template will be generated on the console input for user to edit. +
-Alternatively, user can use `edit INDEX [startdate DATE enddate DATE venue LOCATION]` +
-Where INDEX is the index of the place of visit and startdate, enddate and venue are optional fields. +
-Not putting any optional fields will result in the place of visit being deleted instead.
-
-== Features that are coming in version 2.0!
 
 === PSI alerts: `psi`
 
@@ -423,8 +348,6 @@ Examples:
 
 == Command Summary
 
-* *Todo* `todo TASK` +
-e.g. `todo Go Jurong Point`
 * *Event* `event TASK /at DESCRIPTOR` +
 e.g. `event Ferris wheel /at Singapore Flyer tomorrow`
 * *Delete* : `delete INDEX` +
