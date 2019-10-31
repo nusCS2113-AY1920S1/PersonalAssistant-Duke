@@ -26,8 +26,8 @@ public class Concert extends Event {
 
     @Override
     public String toStringForFile() {
-        return getDoneSymbol() + getType() + " " + getDescription() + " " +
-                getStartDate().getUserInputDateString() + " " + getEndDate().getUserInputDateString() + " " +
+        return getDoneSymbol() + getType() + "/" + getDescription() + "/" +
+                getStartDate().getUserInputDateString() + "/" + getEndDate().getUserInputDateString() + "/" +
                 this.cost;
     }
 }

@@ -9,14 +9,13 @@ import Events.EventTypes.EventSubclasses.RecurringEventSubclasses.Practice;
 import Events.EventTypes.EventSubclasses.ToDo;
 import Events.Formatting.CalendarView;
 import Events.Formatting.EventDate;
-import Events.Storage.ClashException;
-import Events.Storage.EndBeforeStartException;
-import Events.Storage.EventList;
-import Events.Storage.Goal;
-import Events.Storage.Storage;
+import Events.Storage.*;
+import Events.Storage.Instruments.*;
 import UserElements.ConcertBudgeting.CostExceedsBudgetException;
 
+
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.Queue;
@@ -68,7 +67,7 @@ public class Command {
      * @param ui      Class containing all relevant user interface instructions.
      * @param storage Class containing access to the storage file and related instructions.
      */
-    public void execute(EventList events, UI ui, Storage storage) {
+    public void execute(EventList events, UI ui, Storage storage, InstrumentList instruments) {
         boolean changesMade = true;
         switch (command) {
             case "list":
@@ -140,7 +139,6 @@ public class Command {
                 printCalendar(events, ui);
                 break;
 
-
             case "budget":
                 showBudget(events, ui);
                 break;
@@ -149,6 +147,18 @@ public class Command {
                 goalsManagement(events, ui);
                 break;
 
+            case "contact":
+                contactManagement(events, ui);
+                break;
+
+            case "checklist":
+                checklistManagement(events, ui);
+                break;
+                
+            case "instrument":
+            	instrumentManagement(instruments, ui);
+            	break;
+                
             default:
                 ui.printInvalidCommand();
                 changesMade = false;
@@ -157,6 +167,54 @@ public class Command {
         if (changesMade) {
             events.sortList();
             storage.saveToFile(events, ui);
+        }
+    }
+
+    private void checklistManagement(EventList events, UI ui) {
+        if (continuation.isEmpty()) {
+            ui.eventDescriptionEmpty();
+        } else {
+            try {
+                String[] splitChecklist = continuation.split("/");
+                String[] checklistCommand = splitChecklist[0].split(" ");
+                int eventIndex = Integer.parseInt(checklistCommand[1]) - 1;
+//                if(!((events.getEvent(eventIndex).getType()=='P') || (events.getEvent(eventIndex).getType()=='L'))) {
+//                    ui.noSuchEvent();
+//                    return;
+//                }
+                if (checklistCommand.length == 3) {
+                    int checklistIndex = Integer.parseInt(checklistCommand[2]);
+                    switch (checklistCommand[0]) {
+                        case "delete":
+                            events.getEvent(eventIndex).deleteChecklist(checklistIndex - 1);
+                            ui.checklistDeleted(eventIndex);
+                            break;
+
+                        case "edit":
+                            events.getEvent(eventIndex).editChecklist(checklistIndex - 1, splitChecklist[1]);
+                            ui.checklistEdited(splitChecklist[1], eventIndex);
+                            break;
+                    }
+                } else {
+                    switch (checklistCommand[0]) {
+                        case "add":
+                            events.getEvent(eventIndex).addChecklist(splitChecklist[1]);
+                            System.out.println(splitChecklist[1] + "___" + eventIndex);
+                            ui.checklistAdded(splitChecklist[1], eventIndex);
+                            break;
+
+                        case "view":
+                            //print goals list
+                            ArrayList<String> thisChecklist = events.getEvent(eventIndex).getChecklist();
+                            ui.printEventChecklist(thisChecklist, eventIndex, events.getEvent(eventIndex));
+                            break;
+                    }
+                }
+            } catch (IndexOutOfBoundsException ne) {
+                ui.noSuchEvent();
+            } catch (NumberFormatException numE) {
+                ui.notAnInteger();
+            }
         }
     }
 
@@ -371,6 +429,12 @@ public class Command {
         }
     }
 
+    //@@author YuanJiayi
+    /**
+     * Reschedules the date and time of an existing event.
+     *
+     * @param events The event list.
+     */
     public void rescheduleEvent(EventList events, UI ui) {
         Event copyOfEvent = null, newEvent = null;
         EventDate copyOfStartDate;
@@ -419,6 +483,7 @@ public class Command {
         }
     }
 
+    //@@author
     /**
      * Manages the goals of an existing event.
      *
@@ -472,6 +537,116 @@ public class Command {
         }
     }
 
+    //@@author YuanJiayi
+    /**
+     * Manage the contacts of an existing event.
+     *
+     * @param events The event list.
+     */
+    private void contactManagement(EventList events, UI ui) {
+        if (continuation.isEmpty()) {
+            ui.noSuchEvent();
+            return;
+        }
+        try {
+            String[] splitContact = continuation.split("/");
+            String[] contactCommand = splitContact[0].split(" ");
+            int eventIndex = Integer.parseInt(contactCommand[1]) - 1;
+            if (contactCommand.length == 2) {
+                switch (contactCommand[0]) {
+                    case "add":
+                        String[] contactDetails = splitContact[1].split(",");
+                        Contact newContact = new Contact(contactDetails[0], contactDetails[1], contactDetails[2]);
+                        events.getEvent(eventIndex).addContact(newContact);
+                        ui.contactAdded();
+                        break;
+
+                    case "view":
+                        if (events.getEvent(eventIndex).getContactList().isEmpty()) {
+                            ui.noContactInEvent();
+                        } else {
+                            ui.printEventContacts(events.getEvent(eventIndex));
+                        }
+                        break;
+                }
+            } else {
+                int contactIndex = Integer.parseInt(contactCommand[2]) - 1;
+                switch (contactCommand[0]) {
+                    case "delete":
+                        events.getEvent(eventIndex).removeContact(contactIndex);
+                        ui.contactDeleted();
+                        break;
+                    case "edit":
+                        char editType = ' ';
+                        switch (contactCommand[3]) {
+                            case "name":
+                                editType = 'N';
+                                break;
+                            case "email":
+                                editType = 'E';
+                                break;
+                            case "phone":
+                                editType = 'P';
+                                break;
+                        }
+                        events.getEvent(eventIndex).editContact(contactIndex, editType, splitContact[1]);
+                        ui.contactEdited(events.getEvent(eventIndex).getContactList().get(contactIndex));
+                        break;
+                }
+            }
+        } catch (IndexOutOfBoundsException e) {
+            ui.noSuchEvent();
+        } catch (NumberFormatException en) {
+            ui.notAnInteger();
+        }
+    }
+    
+    //@@author Dng132FEI
+    public void instrumentManagement(InstrumentList instruments, UI ui) {
+    	try {
+	    	if (continuation.isEmpty()) {
+	            ui.noSuchEvent();
+	            return;
+	    	}
+	    	String splitInstrument[] = continuation.split("/");
+	    	String instrumentCommand[] = continuation.split(" ");
+	    	int instrumentIndex;
+	    	String instrumentIndexAndName;
+	    	switch (instrumentCommand[0]) {
+	    	    case "add":
+	    			instrumentIndex = instruments.addInstrument(splitInstrument[1]);
+	    			instrumentIndexAndName = instruments.getIndexAndInstrument(instrumentIndex);
+	    			ui.instrumentAdded(instrumentIndexAndName);
+	    			break;
+	    	    case "service":
+	    	    	instrumentIndex = Integer.parseInt(instrumentCommand[1]);
+	    	    	EventDate inputDate = new EventDate(splitInstrument[2]);
+	    	    	int serviceIndex = instruments.service(instrumentIndex, inputDate, splitInstrument[1]);
+	    	    	instrumentIndexAndName = instruments.getIndexAndInstrument(instrumentIndex);
+	    	    	String serviceIndexAndName = instruments.getIndexAndService(instrumentIndex, serviceIndex);
+	    	    	ui.serviceAdded(serviceIndexAndName, instrumentIndexAndName);
+	    	    	break;
+	    	    case "view":
+	    	    	switch (instrumentCommand[1]) {
+	    	    	    case "instruments":
+	    	    	    	String listOfInstruments = instruments.getInstruments();
+	    	                ui.printInstruments(listOfInstruments);
+	    	                break;
+	    	    	    case "services":
+	    	    	    	instrumentIndex = Integer.parseInt(instrumentCommand[2]);
+	    	                String listOfServices = instruments.getInstrumentServiceInfo(instrumentIndex);
+	    	                instrumentIndexAndName = instruments.getIndexAndInstrument(instrumentIndex);
+	    	                ui.printServices(listOfServices, instrumentIndexAndName);
+	    	                break;
+	    	    	}
+	    	    	break;
+	    	}
+    	} catch (IndexOutOfBoundsException e) {
+            ui.noSuchEvent();
+        }
+    }
+
+    //@@author
     public void remindEvents(EventList events, UI ui) {
         ui.printReminder(events);
     }

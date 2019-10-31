@@ -85,6 +85,11 @@ public class Budgeting {
      * @return created map.
      */
     private void createMap(ArrayList<Event> eventList) {
+        if (eventList.isEmpty() || !hasConcerts(eventList)) { //if empty list, initialize map and return
+            monthlyCosts = new HashMap<>();
+            return;
+        }
+
         monthlyCosts = new HashMap<>();
         EventDate monthlyDate = null; //stores a date of a day in the month we are currently checking for
         ArrayList<Event> listOfConcerts = new ArrayList<Event>(); //to store the concerts in a given month
@@ -108,6 +113,19 @@ public class Budgeting {
         }
 
         this.monthlyCosts.put(monthAndYear, new MonthlyBudget(listOfConcerts));
+    }
+
+    /**
+     * Checks list of events for concerts.
+     */
+    private boolean hasConcerts(ArrayList<Event> eventList) {
+        for (Event event : eventList) {
+            if (event.getType() == 'C') {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     private boolean isSameMonth(EventDate eventDateA, EventDate eventDateB) {

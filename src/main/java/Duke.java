@@ -1,4 +1,5 @@
 import Events.Storage.EventList;
+import Events.Storage.Instruments.InstrumentList;
 import Events.Storage.Storage;
 import UserElements.Command;
 import UserElements.Parser;
@@ -12,6 +13,7 @@ public class Duke {
     private static UI ui = new UI();
     private static Storage storage;
     private static EventList tasks;
+    private static InstrumentList instruments = new InstrumentList();
 
     /**
      * main Duke method
@@ -23,7 +25,7 @@ public class Duke {
         String userInput = parser.readUserInput().toLowerCase();
         while (!userInput.equals("bye")) {
             Command currCommand = parser.parseInput(userInput);
-            currCommand.execute(tasks, ui, storage);
+            currCommand.execute(tasks, ui, storage, instruments);
             userInput = parser.readUserInput();
         }
 

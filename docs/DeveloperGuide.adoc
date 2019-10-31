@@ -94,6 +94,28 @@ The following logic diagram shows how check free days is implemented.
 image::DGCheck.png[width = 100%]
 ====
 
+=== Checklists
+Checklist of each event can be used to remind users of certain items (e.g. bring glasses to concert).
+This is implemented by storing an array list of strings in `Event` objects.
+
+Checklist implementation contains 4 operations:
+
+==== add checklist item
+`checklist add <event index>/<checklist item>`
+This adds an item into a specific event's checklist.
+
+==== view checklist
+`checklist view <event index>`
+This prints on the screen the checklist of an event.
+
+==== edit checklist item
+`checklist edit <event index> <item index>/<new item>`
+This edits a specific item in the checklist of an event.
+
+==== delete checklist item
+`checklist delete <event index> <item index>`
+This deletes an item from the checklist of an event.
+
 === Clash handling
 ==== Activity diagram
 ====
@@ -546,6 +568,23 @@ Expected: Prints the next 3 days without any events.
 Key in `calendar`.+
 Expected: Prints the calendar table containing all events of the next 7 days,
 where the first column of the table is the current day.
+
+=== Contact management
+. Add contact to an event in the list +
+Key in `contact add <event index> /<name>, <email>, <phone number>` +
+Expected: Prints the success of adding the contact.
+
+. Delete contact +
+Key in `contact delete <event index> <contact index> /` +
+Expected: Prints the success of deleting the contact.
+
+. View contact +
+Key in `contact view <event index> /` +
+Expected: Prints the contacts information in the event.
+
+. Edit contact +
+Key in `contact edit <event index> <contact index> <edit type> /<new contact information>` +
+Expected: Prints the success of editing the contact.
 
 [appendix]
 == Instructions for Manual Testing
