@@ -63,10 +63,6 @@ public class Event extends TaskWithDates implements Serializable {
         }
 
         return otherTask != null
-                && otherTask.getDescription().equals(getDescription())
-                && otherTask instanceof Event
-                && ((TaskWithDates) otherTask).getStartDate().isEqual(getStartDate())
-                && ((TaskWithDates) otherTask).getEndDate().isEqual(getEndDate())
                 && ((Event) otherTask).getLocation().equals(getLocation());
     }
 }

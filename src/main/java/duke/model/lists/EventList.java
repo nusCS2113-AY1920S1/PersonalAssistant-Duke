@@ -97,6 +97,10 @@ public class EventList implements Iterable<Event>, Listable<Event>, Serializable
         return true;
     }
 
+    public boolean isUnique() {
+        return eventsAreUnique(events);
+    }
+
     public Event remove(int index) {
         return events.remove(index);
     }

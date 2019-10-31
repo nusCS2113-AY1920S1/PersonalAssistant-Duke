@@ -30,7 +30,7 @@ public class EditCommand extends Command {
      */
     @Override
     public CommandResultText execute(Model model) throws FileNotSavedException, CorruptedFileException {
-        if (canSave) {
+        if (canSave && events.isUnique()) {
             model.setEvents(events);
             model.save();
             logger.log(Level.FINE, "Event list is saved.");
