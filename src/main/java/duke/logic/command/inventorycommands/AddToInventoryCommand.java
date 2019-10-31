@@ -44,7 +44,8 @@ public class AddToInventoryCommand extends Command<InventoryList, Ui, InventoryS
                     arrayList.add(ERROR_MESSAGE_INGREDIENT_INCOMPLETE);
                 } else {
                     if (isParsable(quantity) && isKnownUnit(unit)) {
-                        if (!inventoryList.containsInventoryIngredient(ingredientName).equals("")) {
+//                        !inventoryList.containsInventoryIngredient(ingredientName).equals("")
+                        if (inventoryList.containsIngredient(ingredientName)) {
                             String temp = inventoryList.containsInventoryIngredient(ingredientName);
                             double currentQuan = inventoryList.calculateMass(quantity, unit);
                             System.out.println(currentQuan);
