@@ -3,6 +3,7 @@ package dolla.parser;
 import dolla.ModeStringList;
 import dolla.Time;
 import dolla.ui.EntryUi;
+import dolla.ui.SearchUi;
 import dolla.ui.Ui;
 import dolla.ui.ModifyUi;
 import dolla.command.Command;
@@ -131,6 +132,21 @@ public abstract class Parser implements ParserStringList, ModeStringList {
             return false; // If error occurs, stop the method!
         }
         return true;
+    }
+
+    /**
+     * Checks if the first word after is either 'owe' or 'borrow'.
+     * @param s String to be analysed.
+     * @return Either 'owe' or 'borrow' if either are passed in.
+     * @throws Exception ???
+     */
+    public static String verifyDebtType(String s) throws Exception {
+        if (s.equals("owe") || s.equals("borrow")) {
+            return s;
+        } else {
+            EntryUi.printInvalidEntryType();
+            throw new Exception("invalid type");
+        }
     }
 
     /**
@@ -332,4 +348,13 @@ public abstract class Parser implements ParserStringList, ModeStringList {
         return tempStr;
     }
 
+    public String verifySearchCommand(String s) throws Exception {
+        if (s.equals("description") || s.equals("date") || s.equals("name")
+        || s.equals("duration")) {
+            return s;
+        } else {
+            SearchUi.printInvalidSearchFormat();
+            throw new Exception("invalid component");
+        }
+    }
 }

@@ -16,6 +16,7 @@ import dolla.command.SearchCommand;
 import dolla.task.Debt;
 import dolla.ui.DebtUi;
 import dolla.action.Repeat;
+import dolla.ui.SearchUi;
 
 import java.util.ArrayList;
 
@@ -51,7 +52,6 @@ public class DebtsParser extends Parser {
                 String[] desc = inputLine.split(inputArray[2] + " ");
                 String[] dateString = desc[1].split(" /due ");
                 description = dateString[0];
-
                 if (inputLine.contains(t.getPrefixTag())) {
                     String[] dateAndTag = dateString[1].split(t.getPrefixTag());
                     date = Time.readDate(dateAndTag[0].trim());
@@ -68,15 +68,23 @@ public class DebtsParser extends Parser {
             t.handleTag(inputLine, inputArray, debt);
             return processAdd(type, name, amount);
         } else if (commandToRun.equals(BILL_COMMAND_BILL)) {
+            int people = 0;
+            double amount = 0;
             ArrayList<String> nameList = new ArrayList<String>();
-            String type = inputArray[0];
-            int people = Integer.parseInt(inputArray[1]);
-            double amount = stringToDouble(inputArray[2]);
-            for (int i = 3; i < 3 + people; i++) {
-                String name = inputArray[i];
-                nameList.add(name);
+            try {
+                people = Integer.parseInt(inputArray[1]);
+                amount = stringToDouble(inputArray[2]);
+                for (int i = 3; i < 3 + people; i++) {
+                    String name = inputArray[i];
+                    nameList.add(name);
+                }
+            } catch (IndexOutOfBoundsException e) {
+                DebtUi.printInvalidBillFormatError();
+                return new ErrorCommand();
+            } catch (Exception e) {
+                return new ErrorCommand();
             }
-            return new AddBillCommand(type, people, amount, nameList);
+            return new AddBillCommand(BILL_COMMAND_BILL, people, amount, nameList);
         } else if (commandToRun.equals(COMMAND_MODIFY)) {
             if (verifyFullModifyCommand()) {
                 return new InitialModifyCommand(inputArray[1]);
@@ -84,8 +92,17 @@ public class DebtsParser extends Parser {
                 return new ErrorCommand();
             }
         } else if (commandToRun.equals(COMMAND_SEARCH)) {
-            String component = inputArray[1];
-            String content = inputArray[2];
+            String component;
+            String content;
+            try {
+                component = verifySearchCommand(inputArray[1]);
+                content = inputArray[2];
+            } catch (IndexOutOfBoundsException e) {
+                SearchUi.printInvalidSearchFormat();
+                return new ErrorCommand();
+            } catch (Exception e) {
+                return new ErrorCommand();
+            }
             return new SearchCommand(mode, component, content);
         } else if (commandToRun.equals(COMMAND_SORT)) {
             return new SortCommand(mode, inputArray[1]);

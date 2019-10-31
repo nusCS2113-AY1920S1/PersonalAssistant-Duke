@@ -25,6 +25,7 @@ public class SearchUi extends Ui {
                 System.out.println("\t" + listNum + ". " + recordList.get().get(i).getRecordDetail());
             }
         }
+        System.out.println(line);
     }
 
     /**
@@ -46,6 +47,7 @@ public class SearchUi extends Ui {
                 System.out.println("\t" + listNum + ". " + recordList.get().get(i).getRecordDetail());
             }
         }
+        System.out.println(line);
     }
 
     /**
@@ -66,6 +68,7 @@ public class SearchUi extends Ui {
                 System.out.println("\t" + listNum + ". " + recordList.get().get(i).getRecordDetail());
             }
         }
+        System.out.println(line);
     }
 
     /**
@@ -85,7 +88,25 @@ public class SearchUi extends Ui {
                 System.out.println("\t" + listNum + ". " + recordList.get().get(i).getRecordDetail());
             }
         }
+        System.out.println(line);
     }
 
+    /**
+     * Print error message when the search command is invalid.
+     */
+    public static void printInvalidSearchFormat() {
+        System.out.println(line);
+        System.out.println("\tplease follow the format "
+                + "'search [COMPONENT] [CONTENT]'");
+        System.out.println(line);
+    }
 
+    /**
+     * Prints error message when the user did not properly specify the component to search from.
+     */
+    public static void printInvalidSearchComponent() {
+        System.out.print(line);
+        System.out.println("\tPlease specify the component to search from: description, date, name, duration.");
+        System.out.print(line);
+    }
 }

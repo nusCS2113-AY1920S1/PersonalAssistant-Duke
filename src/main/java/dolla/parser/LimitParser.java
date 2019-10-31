@@ -13,6 +13,7 @@ import dolla.command.SearchCommand;
 
 import dolla.task.Limit;
 import dolla.ui.LimitUi;
+import dolla.ui.SearchUi;
 
 /**
  * This class handles all limit related parsing (set, edit, remove).
@@ -61,8 +62,17 @@ public class LimitParser extends Parser {
                 return new ErrorCommand();
             }
         } else if (commandToRun.equals(ParserStringList.COMMAND_SEARCH)) {
-            String component = inputArray[1];
-            String content = inputArray[2];
+            String component;
+            String content;
+            try {
+                component = verifySearchCommand(inputArray[1]);
+                content = inputArray[2];
+            } catch (IndexOutOfBoundsException e) {
+                SearchUi.printInvalidSearchFormat();
+                return new ErrorCommand();
+            } catch (Exception e) {
+                return new ErrorCommand();
+            }
             return new SearchCommand(mode, component, content);
         } else if (commandToRun.equalsIgnoreCase(ParserStringList.COMMAND_SORT)) {
             return new SortCommand(mode, inputArray[1]);

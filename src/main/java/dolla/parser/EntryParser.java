@@ -13,6 +13,7 @@ import dolla.command.SearchCommand;
 import dolla.command.RemoveCommand;
 import dolla.command.modify.PartialModifyEntryCommand;
 import dolla.task.Entry;
+import dolla.ui.SearchUi;
 
 public class EntryParser extends Parser {
 
@@ -49,9 +50,18 @@ public class EntryParser extends Parser {
             }
         } else if (commandToRun.equals(COMMAND_SORT)) {
             return new SortCommand(mode, inputArray[1]);
-        } else if (commandToRun.equals("search")) {
-            String component = inputArray[1];
-            String content = inputArray[2];
+        } else if (commandToRun.equals(COMMAND_SEARCH)) {
+            String component;
+            String content;
+            try {
+                component = verifySearchCommand(inputArray[1]);
+                content = inputArray[2];
+            } catch (IndexOutOfBoundsException e) {
+                SearchUi.printInvalidSearchFormat();
+                return new ErrorCommand();
+            } catch (Exception e) {
+                return new ErrorCommand();
+            }
             return new SearchCommand(mode, component, content);
         } else if (commandToRun.equals(COMMAND_REMOVE)) { //TODO: indexoutofbound exception
             return new RemoveCommand(mode, inputArray[1]);
