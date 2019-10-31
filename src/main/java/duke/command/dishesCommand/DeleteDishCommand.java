@@ -20,6 +20,7 @@ public class DeleteDishCommand extends Cmd<Dish> {
         //super(dishNb);
         this.Nb = dishNb;
     }
+
     @Override
     public void execute(GenericList<Dish> dish1, Ui ui, Storage storage) throws DukeException {
         try {
