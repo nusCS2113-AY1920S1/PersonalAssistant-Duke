@@ -17,7 +17,7 @@ public abstract class UiCard extends AnchorPane {
     @FXML
     private Label indexLabel;
 
-    private final String cardType;
+    private String cardType;
 
     /**
      * Constructs a UiCard object with the specified {@code DukeObject}'s details.
@@ -35,7 +35,9 @@ public abstract class UiCard extends AnchorPane {
             throw new AssertionError(e);
         }
 
-        cardType = indexLabel.getText();
+        if (indexLabel != null) {
+            cardType = indexLabel.getText();
+        }
     }
 
     /**

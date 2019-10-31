@@ -1,9 +1,9 @@
 package duke.ui.window;
 
 import duke.exception.DukeException;
-import duke.ui.AutoCompleteTextField;
 import duke.ui.UiElement;
 import javafx.fxml.FXML;
+import javafx.scene.control.TextArea;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Region;
 
@@ -18,7 +18,7 @@ import java.util.Scanner;
 /* @@author gowgos5 */
 public abstract class InputHistoryWindow extends UiElement<Region> {
     @FXML
-    protected AutoCompleteTextField inputTextField;
+    protected TextArea inputTextField;
 
     private List<String> inputHistory;
     private int historyPointer;

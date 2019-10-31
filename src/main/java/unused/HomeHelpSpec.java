@@ -1,9 +1,10 @@
-package duke.command.home;
+package unused;
 
 import duke.command.ArgLevel;
 import duke.command.ArgSpec;
 import duke.command.Switch;
 
+/* @@author JeremyKwok */
 public class HomeHelpSpec extends ArgSpec {
 
     private static final HomeHelpSpec spec = new HomeHelpSpec();

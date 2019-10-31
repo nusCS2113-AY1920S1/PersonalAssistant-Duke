@@ -4,9 +4,11 @@ import duke.DukeCore;
 import duke.command.Executor;
 import duke.command.Parser;
 import duke.data.DukeObject;
+import duke.data.GsonStorage;
 import duke.data.Impression;
 import duke.data.Patient;
 import duke.data.SearchResult;
+import duke.exception.DukeException;
 import duke.ui.UiElement;
 import duke.ui.context.Context;
 import duke.ui.context.UiContext;
@@ -15,6 +17,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.util.List;
@@ -32,12 +35,15 @@ public class MainWindow extends UiElement<Stage> {
     private TabPane contextWindowHolder;
     @FXML
     private AnchorPane homeWindowHolder;
+    @FXML
+    private VBox helpWindowHolder;
 
     private Stage primaryStage;
     private UiContext uiContext;
     private ObservableMap<String, Patient> patientObservableMap;
     private Executor executor;
     private Parser parser;
+    private GsonStorage storage;
 
     private CommandWindow commandWindow;
     private HomeWindow homeWindow;
@@ -62,6 +68,7 @@ public class MainWindow extends UiElement<Stage> {
         this.patientObservableMap = core.patientMap.getPatientObservableMap();
         this.executor = new Executor(core);
         this.parser = new Parser(core.uiContext);
+        this.storage = core.storage;
 
         placeChildUiElements();
     }
@@ -70,12 +77,19 @@ public class MainWindow extends UiElement<Stage> {
      * Places child UI elements in the main UI window.
      */
     private void placeChildUiElements() {
-        commandWindow = new CommandWindow(parser, executor);
-        commandWindowHolder.getChildren().add(commandWindow.getRoot());
-
         homeWindow = new HomeWindow(patientObservableMap);
         homeTab = new Tab("Home", homeWindow.getRoot());
         contextWindowHolder.getTabs().add(homeTab);
+
+        commandWindow = new CommandWindow(parser, executor);
+        commandWindowHolder.getChildren().add(commandWindow.getRoot());
+
+        try {
+            HelpWindow helpWindow = new HelpWindow(storage, commandWindow.getInputTextField(), uiContext);
+            helpWindowHolder.getChildren().add(helpWindow.getRoot());
+        } catch (DukeException e) {
+            print(e.getMessage());
+        }
 
         patientWindow = new PatientWindow(null);//, commandWindow);
         patientTab = new Tab("Patient", patientWindow.getRoot());
@@ -160,15 +174,10 @@ public class MainWindow extends UiElement<Stage> {
             return homeWindow.getIndexedPatientList();
         case PATIENT:
             return patientWindow.getIndexedList(type);
-        case EVIDENCE:
-        case TREATMENT:
         case IMPRESSION:
-        case INVESTIGATION:
         default:
-            break;
+            return null;
         }
-
-        return null;
     }
 
     public Stage getPrimaryStage() {

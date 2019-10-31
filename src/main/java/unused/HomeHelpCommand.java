@@ -1,4 +1,4 @@
-package duke.command.home;
+package unused;
 
 import duke.DukeCore;
 import duke.command.ArgCommand;
@@ -9,6 +9,7 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
+/* @@author JeremyKwok */
 public class HomeHelpCommand extends ArgCommand {
     private final String filePath = "data" + File.separator + "helpDetails.json";
 

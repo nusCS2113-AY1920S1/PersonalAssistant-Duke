@@ -4,25 +4,31 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.Scene?>
 <?import javafx.stage.Stage?>
-<fx:root xmlns:fx="http://javafx.com/fxml/1" minHeight="600" minWidth="1073" title="Dr. Duke" type="javafx.stage.Stage"
-         resizable="false" xmlns="http://javafx.com/javafx/11.0.1">
+
+<fx:root xmlns:fx="http://javafx.com/fxml/1" minHeight="600" minWidth="1473.0" resizable="false" title="Dr. Duke"
+         type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.1">
     <icons>
         <Image url="@/images/icon.png"/>
     </icons>
     <scene>
         <Scene>
-            <BorderPane prefHeight="600.0" prefWidth="1073.0">
-                <right>
-                    <AnchorPane fx:id="commandWindowHolder" prefHeight="600.0" prefWidth="400.0"
-                                BorderPane.alignment="CENTER"/>
-                </right>
-                <center>
-                    <TabPane fx:id="contextWindowHolder" prefHeight="600.0" prefWidth="673.0"
-                             tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+            <BorderPane prefHeight="600.0" prefWidth="1473.0">
+                <left>
+                    <TabPane fx:id="contextWindowHolder" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="600.0"
+                             prefWidth="673.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
                     </TabPane>
+                </left>
+                <center>
+                    <AnchorPane fx:id="commandWindowHolder" maxHeight="-Infinity" maxWidth="-Infinity"
+                                prefHeight="600.0" prefWidth="400.0" BorderPane.alignment="CENTER"/>
                 </center>
+                <right>
+                    <VBox fx:id="helpWindowHolder" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+                          minWidth="-Infinity" prefHeight="600.0" prefWidth="400.0" BorderPane.alignment="CENTER"/>
+                </right>
             </BorderPane>
         </Scene>
     </scene>
