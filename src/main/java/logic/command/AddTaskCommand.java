@@ -4,6 +4,7 @@ import model.Model;
 import model.Task;
 import common.DukeException;
 import common.LoggerController;
+import logic.ReminderController;
 
 import java.util.*;
 

@@ -2,8 +2,8 @@ package logic.parser.schedule;
 
 import common.DukeException;
 import logic.command.Command;
-import logic.command.ScheduleTeamAllCommand;
-import logic.command.ScheduleTeamTodoCommand;
+import logic.command.schedule.ScheduleTeamAllCommand;
+import logic.command.schedule.ScheduleTeamTodoCommand;
 
 
 public class ScheduleTeamParser {

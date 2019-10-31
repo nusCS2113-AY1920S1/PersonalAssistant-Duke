@@ -1,16 +1,17 @@
-package logic.parser;
+package logic.parser.edit;
 
-import logic.command.Command;
 import common.DukeException;
+import logic.command.Command;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class DeleteCommandParser {
+public class EditCommandParser {
 
     private static final Pattern BASIC_ADD_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
-    public static final String DELETE_USAGE = "Usage: delete [task/member] [index/member name]";
+    public static final String EDIT_USAGE = "Usage: edit [member] [name/bio/email/phone] [index] /to ... "
+                                            + "or: edit [task] [time/des] [index] /to ...";
     public static final String TASK = "task";
     public static final String MEMBER = "member";
 
@@ -21,24 +22,24 @@ public class DeleteCommandParser {
      * @return a delete command
      * @throws DukeException exception
      */
-    public static Command parseDeleteCommand(String partialCommand) throws DukeException {
+    public static Command parseEditCommand(String partialCommand) throws DukeException {
         final Matcher matcher = BASIC_ADD_COMMAND_FORMAT.matcher(partialCommand.trim());
         if (!matcher.matches()) {
-            throw new DukeException("Message is invalid");
+            throw new DukeException("Message is invalid" + "\n" + EDIT_USAGE + "\n");
         }
 
-        String deleteType = matcher.group("commandWord");
+        String editType = matcher.group("commandWord");
         String arguments = matcher.group("arguments");
 
-        deleteType = deleteType.trim();
+        editType = editType.trim();
 
-        switch (deleteType) {
+        switch (editType) {
         case TASK:
-            return DeleteTaskParser.parseDeleteTask(arguments);
+            return EditTaskParser.parseEditTask(arguments);
         case MEMBER:
-            return DeleteMemberParser.parseDeleteMember(arguments);
+            return EditMemberParser.parseEditMember(arguments);
         default:
-            throw new DukeException(DELETE_USAGE);
+            throw new DukeException(EDIT_USAGE);
         }
 
     }
