@@ -62,15 +62,31 @@ This is assuming you have a JDK version of `11` and above.
 
 === Architecture
 
-Our integration approach would be bottom-up, since we are morphing the original Duke Assistant into our ModPlanner application, some of the components can be adapted and reused of other purposes. +
-
-The high-level UML Diagram of ModPlan can be seen below:
-
-image::Architecture.png[]
+Our integration approach would be bottom-up, as some of the components we have utilised from a previous project can be adapted and reused of other purposes. +
 
 In that way, our implementation approach would also be incremental as oppose to big-bang, since we would need to gradually alter and test out which portions of Duke is reusable in ModPlanner.
 
+The *architecture diagram* of ModPlan can be seen in the below diagram, where it shows the high-level architecture design of our project:
 
+image::ArchitectureDiagram.png[]
+
+As seen here, the user interacts with the *Parser* through the command line interface (CLI), which sorts through the user input and calls various commands under the *Command* section. 
+
+The classes within *Command* will then utilise data pulled from the *Storage* and *JsonWrapper*, who pull data both locally as well as from NUSMODS API through the *RequestsData*.
+
+Following which, the *Command* classes perform their execution of the feature, and update the *Storage* to store data that has changed. It also shows the user the completed function by printing any necessary information/feedback to the user through the *PlannerUi*.
+
+To read more about the various packages shown in the architecture diagram, please continue reading the below sections 
+<<JsonWrapper>> 
+<<Storage>> 
+<<Parser>>
+<<PlannerUi>> 
+<<Command>> 
+<<CCA>>.
+
+For a more in depth look into the various classes we have in our project, please refer to the below overall design diagram:
+
+image::Architecture.png[]
 
 === JsonWrapper
 
