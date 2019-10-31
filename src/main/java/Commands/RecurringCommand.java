@@ -3,13 +3,16 @@ package Commands;
 import Commons.LookupTable;
 import Commons.Storage;
 import Commons.Ui;
+import DukeExceptions.DukeException;
 import Tasks.Assignment;
 import Tasks.Event;
 import Tasks.TaskList;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 
 /**
  * Represents the command to add recurring tasks to the events TaskList.
@@ -53,18 +56,42 @@ public class RecurringCommand extends Command {
         return followingWeek;
     }
 
+    private boolean isInsideMapRemove (HashMap<String, HashMap<String, ArrayList<Assignment>>> eventMap, Assignment task) throws DukeException {
+        String modCode = task.getModCode();
+        String dateOfTask = task.getDate();
+        if (!eventMap.containsKey(modCode)) {
+            throw new DukeException("Sorry, you have no such recurring mod task to be removed");
+        } else if (!eventMap.get(modCode).containsKey(dateOfTask)) {
+            throw new DukeException("Sorry, you have no such timing of the recurring task to be removed");
+        } else {
+            return true;
+        }
+    }
+
+    private boolean isInsideMapAdd (HashMap<String, HashMap<String, ArrayList<Assignment>>> eventMap, Assignment task) throws DukeException {
+        String modCode = task.getModCode();
+        String dateOfTask = task.getDate();
+        if (eventMap.containsKey(modCode) && eventMap.get(modCode).containsKey(dateOfTask)) {
+            throw new DukeException("Sorry, you have similar event at the same time on the same day");
+        } else {
+            return true;
+        }
+    }
+
     @Override
-    public String execute(LookupTable LT,TaskList events, TaskList deadlines, Ui ui, Storage storage) throws ParseException {
+    public String execute(LookupTable LT,TaskList events, TaskList deadlines, Ui ui, Storage storage) throws Exception {
         SimpleDateFormat dateFormat = new SimpleDateFormat("E dd/MM/yyyy");
         Date startDate = dateFormat.parse(startDateString);
         Date endDate = dateFormat.parse(endDateString);
         String oldStartDateString = startDateString;
         Date startOfFollowingWeek;
         Date startOfNextWeek;
+        HashMap<String, HashMap<String, ArrayList<Assignment>>> eventMap = events.getMap();
 
         if (isRecur && isBiweekly) {
             do {
                 Assignment task = new Event(description, startDateString, startTimeString, endTimeString);
+                isInsideMapAdd(eventMap, task);
                 events.addTask(task);
                 startOfFollowingWeek = getFollowingWeekDate(startDate);
                 startDateString = dateFormat.format(startOfFollowingWeek);
@@ -74,6 +101,7 @@ public class RecurringCommand extends Command {
         } else if (isRecur) {
             do {
                 Assignment task = new Event(description, startDateString, startTimeString, endTimeString);
+                isInsideMapAdd(eventMap, task);
                 events.addTask(task);
                 startOfNextWeek = getNextWeekDate(startDate);
                 startDateString = dateFormat.format(startOfNextWeek);
@@ -83,15 +111,18 @@ public class RecurringCommand extends Command {
         } else if (isBiweekly) {
             do {
                 Assignment task = new Event(description, startDateString, startTimeString, endTimeString);
+                isInsideMapRemove(eventMap, task);
                 events.removeTask(task);
                 startOfFollowingWeek = getFollowingWeekDate(startDate);
                 startDateString = dateFormat.format(startOfFollowingWeek);
                 startDate = startOfFollowingWeek;
+
             }
             while (startOfFollowingWeek.before(endDate) || startOfFollowingWeek.equals(endDate));
         } else {
             do {
                 Assignment task = new Event(description, startDateString, startTimeString, endTimeString);
+                isInsideMapRemove(eventMap, task);
                 events.removeTask(task);
                 startOfNextWeek = getNextWeekDate(startDate);
                 startDateString = dateFormat.format(startOfNextWeek);

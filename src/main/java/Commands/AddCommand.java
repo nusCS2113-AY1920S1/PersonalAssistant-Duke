@@ -53,10 +53,9 @@ public class AddCommand extends Command {
                     }
                 }
             }
-            int size = events.taskListSize();
-
             if (conflict.size() == 0) {
                 events.addTask(this.task);
+                int size = events.taskListSize();
                 out = ui.showAdd(this.task,size);
                 storage.updateEventList(events);
             }else{
@@ -71,7 +70,6 @@ public class AddCommand extends Command {
             deadlines.addTask(this.task);
             out = ui.showAdd(this.task, deadlines.taskListSize());
             storage.updateDeadlineList(deadlines);
-
         }
         return out;
     }
