@@ -5,6 +5,7 @@ import seedu.duke.task.command.TaskParseNaturalDateHelper;
 import seedu.duke.task.entity.Deadline;
 import seedu.duke.task.entity.Event;
 import seedu.duke.task.entity.Task;
+import seedu.duke.task.parser.TaskCommandParseHelper;
 import seedu.duke.ui.UI;
 
 import java.util.ArrayList;
@@ -26,7 +27,7 @@ public class TaskList extends ArrayList<Task> {
         if (this.size() == 0) {
             return "There is nothing in your task list.";
         }
-        String msg = "Here are the tasks in your task list:";
+        String msg = this.size()+ "Here are the tasks in your task list:";
         for (int i = 0; i < this.size(); i++) {
             msg += System.lineSeparator() + (i + 1);
             msg += ". " + this.get(i);
@@ -218,7 +219,7 @@ public class TaskList extends ArrayList<Task> {
      * @return Confirmation message that priority level has been added
      * @throws CommandParseHelper.CommandParseException when input is in wrong format
      */
-    public String setPriority(int index, String priority) throws CommandParseHelper.CommandParseException {
+    public String setPriority(int index, Task.Priority priority) throws CommandParseHelper.CommandParseException {
         validateIndex(index);
         Task task = this.get(index);
         task.setPriorityTo(priority);
@@ -231,8 +232,8 @@ public class TaskList extends ArrayList<Task> {
         }
     }
 
-    private String constructSetPriorityMessage(String priority, int size) {
-        return "Priority of task " + size + " is set to " + priority;
+    private String constructSetPriorityMessage(Task.Priority priority, int size) {
+        return "Priority of task " + size + " is set to " + priority.name();
     }
 
     /**
@@ -268,5 +269,25 @@ public class TaskList extends ArrayList<Task> {
             }
         }
         return clashTasks;
+    }
+
+    /**
+     * Clears the task list by deleting the task one by one.
+     *
+     * @return a string message to be printed
+     */
+    public String clearList() {
+        if (this.size() == 0) {
+            return "The task list has already been cleared";
+        } else {
+            while(this.size() != 0) {
+                this.remove(0);
+            }
+        }
+        return constructClearListMessage();
+    }
+
+    private String constructClearListMessage() {
+        return "Task List has been cleared";
     }
 }

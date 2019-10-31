@@ -16,6 +16,10 @@ Licence: `MIT`
 
 Welcome to the *Email Manager* Developer Guide!
 
+[#img-UI]
+[caption="Figure N: UI"]
+image::Ui.png[UI, 800]
+
 *Email Manager* is an email and task manager app, specifically designed for NUS School of Computing Students
 to manage their emails and busy schedules. As a text-based application, it is optimized for those who prefer
 typing and working with Command Line Interface (CLI). Email Manager also has a developed Graphical User
@@ -203,6 +207,7 @@ added to the email as a tag by calling `addTag(keywordPair, relevanceScore)`.
 === Design considerations
 
 Aspect: Handling updating of tags
+
 * Alternative 1 (current choice): if at least one tag is entered as part of the command, it will overwrite all current tags of the task being modified.
 ** Pros: makes it consistent with other parameters of the update command and gives users an option to replace/remove tags
 ** Cons: if there are many tags, and the user only wants to add on an extra tag, the user will need to retype all existing tags into the command.

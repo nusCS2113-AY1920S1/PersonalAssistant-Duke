@@ -21,7 +21,7 @@ public class TaskAddCommand extends Command {
     private LocalDateTime time;
     private String doAfter;
     private ArrayList<String> tags;
-    private String priority;
+    private Task.Priority priority;
     private boolean done;
 
     /**
@@ -36,7 +36,7 @@ public class TaskAddCommand extends Command {
      * @param priority priority level of the task
      */
     public TaskAddCommand(Task.TaskType taskType, String name, LocalDateTime time,
-                          String doAfter, ArrayList<String> tags, String priority) {
+                          String doAfter, ArrayList<String> tags, Task.Priority priority) {
         this.taskType = taskType;
         this.name = name;
         this.time = time;
