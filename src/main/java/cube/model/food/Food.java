@@ -15,7 +15,6 @@ public class Food {
 	protected Date expiryDate;
 	protected double foodRevenue;
 	//Data fields
-
 	//protected static double revenue;
 
 
@@ -35,7 +34,7 @@ public class Food {
 
 	public Food(String name) {
 		this.name = name;
-		this.foodRevenue = 350; //ad hoc
+		this.foodRevenue = 0;
 	}
 
 	/**
@@ -139,6 +138,10 @@ public class Food {
 
 	public double getFoodRevenue() {
 		return foodRevenue;
+	}
+
+	public void setFoodRevenue(double revenue) {
+		this.foodRevenue = revenue;
 	}
 
 

@@ -51,7 +51,7 @@ public class SoldCommand extends Command{
 	@Override
 	public CommandResult execute(ModelManager model, StorageManager storage) throws CommandException {
 		//TODO: check if the user has set price and cost
-		FoodList list = model.getFoodList();
+		FoodList list = ModelManager.getFoodList();
 		SalesHistory salesHistory = model.getSalesHistory();
 		obtainFoodSold(list);
 		CommandUtil.requireValidQuantity(toSold, quantity);
@@ -60,8 +60,11 @@ public class SoldCommand extends Command{
 		double revenue = quantity * toSold.getPrice();
 		toSold.setStock(originalQty - quantity);
 		// old function
-		Food.updateRevenue(Food.getRevenue() + revenue);
+		// Food.updateRevenue(Food.getRevenue() + revenue);
 		// new function
+		double tempRevenue = toSold.getFoodRevenue();
+		tempRevenue += revenue;
+		toSold.setFoodRevenue(tempRevenue);
 		double profit = revenue - quantity * toSold.getCost();
 		Sale saleRecord = new Sale(foodName, quantity, revenue, profit, soldDate);
 		salesHistory.add(saleRecord);
