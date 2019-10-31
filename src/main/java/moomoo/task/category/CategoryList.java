@@ -3,6 +3,7 @@ package moomoo.task.category;
 import moomoo.task.MooMooException;
 import moomoo.task.Ui;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Comparator;
 
@@ -36,13 +37,13 @@ public class CategoryList {
      * @param value Name of category to return.
      * @return The category with name equal to value, or null if it is not found.
      */
-    public Category get(String value) {
+    public Category get(String value) throws MooMooException {
         for (Category iterCategory : categoryList) {
             if (iterCategory.toString().equalsIgnoreCase(value)) {
                 return iterCategory;
             }
         }
-        return null;
+        throw new MooMooException("Sorry I could not find a category named " + value);
     }
 
     public Category get(int i) throws IndexOutOfBoundsException {
@@ -69,13 +70,35 @@ public class CategoryList {
     public double getTotal(int month, int year) {
         double total = 0;
         for (Category category : categoryList) {
-            total += category.getTotal(month);
+            total += category.getTotal(month, year);
         }
         return total;
     }
 
-    public double getCategoryTotal(int month, int year) {
-        return 1;
+    public double getTotal(int month) {
+        return getTotal(month, LocalDate.now().getYear());
+    }
+
+    public double getTotal() {
+        return getTotal(LocalDate.now().getMonthValue(), LocalDate.now().getYear());
+    }
+
+    /**
+     * Gets the total expenditure of a single category.
+     * @param month specified month
+     * @param year specified year
+     * @return total expenditure of the category from specified month and year
+     */
+    private double getCategoryTotal(String categoryName, int month, int year) throws MooMooException {
+        return get(categoryName).getTotal(month, year);
+    }
+
+    public double getCategoryTotal(String categoryName, int month) throws MooMooException {
+        return getCategoryTotal(categoryName, month, LocalDate.now().getYear());
+    }
+
+    public double getCategoryTotal(String categoryName) throws MooMooException {
+        return getCategoryTotal(categoryName, LocalDate.now().getMonthValue(), LocalDate.now().getYear());
     }
     
     /**

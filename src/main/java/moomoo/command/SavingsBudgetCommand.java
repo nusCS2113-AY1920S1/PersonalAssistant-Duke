@@ -1,11 +1,12 @@
 package moomoo.command;
 
 import moomoo.task.Budget;
-import moomoo.task.category.Category;
-import moomoo.task.category.CategoryList;
 import moomoo.task.ScheduleList;
 import moomoo.task.Storage;
 import moomoo.task.Ui;
+import moomoo.task.MooMooException;
+import moomoo.task.category.Category;
+import moomoo.task.category.CategoryList;
 
 import java.text.DecimalFormat;
 import java.time.LocalDate;
@@ -39,7 +40,7 @@ public class SavingsBudgetCommand extends Command {
 
     @Override
     public void execute(ScheduleList calendar, Budget budget, CategoryList catList, Category category,
-                        Ui ui, Storage storage) {
+                        Ui ui, Storage storage) throws MooMooException {
         String[] outputArray;
         String outputValue = "";
         double totalSavings = 0;

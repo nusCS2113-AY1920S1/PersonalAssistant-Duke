@@ -12,10 +12,15 @@ public class CategoryStub extends Category {
     private ArrayList<ExpenditureStub> category;
 
     public CategoryStub() {
-
+        super("");
     }
 
+    /**
+     * Creates a category.
+     * @param name name of category
+     */
     public CategoryStub(String name) {
+        super("");
         this.category = new ArrayList<>();
         this.name = name;
     }

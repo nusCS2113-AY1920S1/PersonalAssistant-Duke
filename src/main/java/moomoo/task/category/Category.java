@@ -5,12 +5,8 @@ import java.util.ArrayList;
 import java.util.Comparator;
 
 public class Category {
-    private double monthTotal;
     private String categoryName;
     private ArrayList<Expenditure> category;
-
-    public Category() {
-    }
 
     /**
      * Initializes a new category with a name, an empty list of expenditures, and a monthly total.
@@ -19,7 +15,14 @@ public class Category {
     public Category(String name) {
         this.categoryName = name;
         this.category = new ArrayList<>();
-        this.monthTotal = 0.00;
+    }
+
+    public void add(Expenditure newExpenditure) {
+        category.add(newExpenditure);
+    }
+
+    public void delete(int expenditureNumber) {
+        category.remove(expenditureNumber);
     }
 
     public int size() {
@@ -32,36 +35,6 @@ public class Category {
 
     public String toString() {
         return categoryName;
-    }
-
-    public void add(Expenditure newExpenditure) {
-        monthTotal += newExpenditure.getCost();
-        category.add(newExpenditure);
-    }
-
-    public void delete(int expenditureNumber) {
-        category.remove(expenditureNumber);
-    }
-
-    /**
-     * Calculates the total expenditure for every entry in the category.
-     * @return totalCost
-     */
-    public double getTotal() {
-        double totalCost = 0.00;
-        for (Expenditure expenditure : category) {
-            LocalDate date = expenditure.getDate();
-            LocalDate now = LocalDate.now(); // Now see if the month and year match.
-            if (date.getMonth() == now.getMonth() && date.getYear() == now.getYear()) {
-                // You have a hit.
-                totalCost += expenditure.getCost();
-            }
-        }
-        return totalCost;
-    }
-
-    public double getTotal(int month) {
-        return monthTotal;
     }
 
     /**
@@ -79,6 +52,14 @@ public class Category {
             }
         }
         return totalCost;
+    }
+
+    public double getTotal(int month) {
+        return getTotal(month, LocalDate.now().getYear());
+    }
+
+    public double getTotal() {
+        return getTotal(LocalDate.now().getMonthValue(), LocalDate.now().getYear());
     }
     
     /**
@@ -114,20 +95,12 @@ public class Category {
     }
 
     void sort(String type) {
-        switch (type) {
-        case "name": {
+        if ("name".equals(type)) {
             category.sort(Comparator.comparing(Expenditure::toString));
-            return;
-        }
-        case "cost": {
+        } else if ("cost".equals(type)) {
             category.sort(Comparator.comparing(Expenditure::costToString));
-            return;
-        }
-        case "date": {
+        } else if ("date".equals(type)) {
             category.sort(Comparator.comparing(Expenditure::dateToString));
-            return;
-        }
-        default:
         }
     }
 
@@ -142,9 +115,8 @@ public class Category {
         population.add("Far:Automata");
         population.add("League of Mobile Legends");
         for (int i = 0; i < 5; i += 1) {
-            Expenditure newExp = new Expenditure(population.get(i), i * 100 / (i + 3), null);
+            Expenditure newExp = new Expenditure(population.get(i), i * 100 / (i + 3), LocalDate.now());
             category.add(newExp);
         }
-        monthTotal = 75;
     }
 }

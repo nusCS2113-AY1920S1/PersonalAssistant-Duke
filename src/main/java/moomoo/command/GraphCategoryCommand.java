@@ -19,6 +19,7 @@ public class GraphCategoryCommand extends Command {
     private String output = "";
     private String categoryName = "";
     private int month = 0;
+    private int year = 0;
     
     /**
      * Constructor requires the category for which to display the graph, and the respective date.
@@ -26,10 +27,11 @@ public class GraphCategoryCommand extends Command {
      * @param categoryName The name of the category that the user enters
      * @param month        The user's desired month
      */
-    public GraphCategoryCommand(String categoryName, int month) {
+    public GraphCategoryCommand(String categoryName, int month, int year) {
         super(false, "");
         this.categoryName = categoryName;
         this.month = month;
+        this.year = year;
     }
     
     public static double roundToTwoDp(double d) {
@@ -51,7 +53,7 @@ public class GraphCategoryCommand extends Command {
             throw new MooMooException("OOPS!!! MooMoo cannot find any expenditure data :(");
         }
         
-        double grandTotal = cat.getTotal();
+        double grandTotal = cat.getTotal(month, year);
         int maxAxisUnit = (int) ((cat.getLargestExpenditure() / grandTotal) * 100) + 1;
         for (int i = 0; i < maxAxisUnit; i += 1) {
             horizontalAxisTop += topBorder;
