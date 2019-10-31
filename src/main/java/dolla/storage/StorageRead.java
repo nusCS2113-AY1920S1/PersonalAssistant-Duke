@@ -1,6 +1,5 @@
 package dolla.storage;
 
-import dolla.ModeStringList;
 import dolla.Time;
 import dolla.parser.MainParser;
 import dolla.task.Debt;
@@ -115,17 +114,9 @@ public class StorageRead extends Storage {
                 //break;
                 default:
                     StorageUi.printErrorReadingSaveMessage();
+                    break;
                 }
-
-                if (type.equals(INCOME_TYPE) || type.equals((EXPENSE_TYPE)) || type.equals("RI") || type.equals("RE")) {
-                    entries.add(newRecord);
-                } else if (type.equals(BUDGET_TYPE) || type.equals(SAVING_TYPE)) {
-                    limits.add(newRecord);
-                } else if (type.equals(OWE_TYPE) || type.equals(BUDGET_TYPE)) {
-                    debts.add(newRecord);
-                } else if (type.equals(SHORTCUT)) {
-                    shortcuts.add(newRecord);
-                }
+                addToList(type, newRecord);
             }
             StorageWrite.save();
 
@@ -137,5 +128,18 @@ public class StorageRead extends Storage {
             MainParser.exit(); // TODO: Find out what is supposed to happen here
         }
         Ui.printMsg(msg);
+    }
+
+    private static void addToList(String type, Record newRecord) {
+        if (type.equals(INCOME_TYPE) || type.equals((EXPENSE_TYPE))
+                || type.equals(RECURRING_INCOME_TYPE) || type.equals(RECURRING_EXPENSE_TYPE)) {
+            entries.add(newRecord);
+        } else if (type.equals(BUDGET_TYPE) || type.equals(SAVING_TYPE)) {
+            limits.add(newRecord);
+        } else if (type.equals(OWE_TYPE) || type.equals(BUDGET_TYPE)) {
+            debts.add(newRecord);
+        } else if (type.equals(SHORTCUT)) {
+            shortcuts.add(newRecord);
+        }
     }
 }

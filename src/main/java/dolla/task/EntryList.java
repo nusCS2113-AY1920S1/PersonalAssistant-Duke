@@ -1,6 +1,5 @@
 package dolla.task;
 
-import dolla.storage.Storage;
 import dolla.storage.StorageWrite;
 
 import java.util.ArrayList;
