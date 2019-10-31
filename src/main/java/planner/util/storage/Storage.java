@@ -88,7 +88,7 @@ public class Storage {
         }
     }
 
-//@@author LongLeCE
+    //@@author LongLeCE
 
     /**
      * Write an object to file.
