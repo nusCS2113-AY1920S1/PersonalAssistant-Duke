@@ -85,11 +85,11 @@ public abstract class Event implements Comparable<Event> {
 
     public String toStringForFile() { //string that is to be saved to file.
         if (getEndDate() == null) {
-            return getDoneSymbol() + getType() + " " + getDescription() + " " +
+            return getDoneSymbol() + getType() + "/" + getDescription() + "/" +
                     getStartDate().getUserInputDateString();
         }
-        return getDoneSymbol() + getType() + " " + getDescription() + " " +
-                getStartDate().getUserInputDateString() + " " + getEndDate().getUserInputDateString();
+        return getDoneSymbol() + getType() + "/" + getDescription() + "/" +
+                getStartDate().getUserInputDateString() + "/" + getEndDate().getUserInputDateString();
     }
 
     public char getType() {
@@ -140,6 +140,7 @@ public abstract class Event implements Comparable<Event> {
         return goalsList;
     }
 
+    //@@author YuanJiayi
     public void addContact(Contact contactInput) {
         contactList.add(contactInput);
     }
@@ -164,6 +165,7 @@ public abstract class Event implements Comparable<Event> {
         }
     }
 
+    //@@author
     public void addChecklist(String newChecklist) {
         System.out.println(newChecklist);
         this.checklist.add(newChecklist);
