@@ -13,6 +13,21 @@ import java.util.Locale;
  * Super class of all kinds of tasks, with the basic functionality that all tasks share.
  */
 public class Task {
+
+    /**
+     * The enumeration of priority level.
+     */
+    public enum Priority {
+        HIGH, MED, LOW
+    }
+
+    /**
+     * The enumeration of all task type.
+     */
+    public enum TaskType {
+        ToDo, Deadline, Event
+    }
+
     /**
      * A date format that is shared by all tasks to parse and out the date involved in the task.
      */
@@ -47,6 +62,11 @@ public class Task {
     protected String priority;
 
     /**
+     * The level of priority.
+     */
+    protected Priority level;
+
+    /**
      * Instantiation of a task with the name and the default false value if isDone attribute.
      *
      * @param name the name of the task
@@ -57,6 +77,7 @@ public class Task {
         this.doAfterDescription = null;
         this.tags = new ArrayList<>();
         this.priority = null;
+        this.level = null;
     }
 
     /**
@@ -186,10 +207,8 @@ public class Task {
         this.priority = priority;
     }
 
-    /**
-     * The enumeration of all task type.
-     */
-    public enum TaskType {
-        ToDo, Deadline, Event
+    public void setPriorityLevel(Priority level) {
+        this.level = level;
     }
+
 }

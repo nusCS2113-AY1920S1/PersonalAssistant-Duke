@@ -329,10 +329,6 @@ public class TaskCommandParseHelper {
         return priority;
     }
 
-    public enum Priority {
-        HIGH, MED, LOW
-    }
-
     /**
      * Checks if the input priority is valid.
      *
@@ -341,7 +337,7 @@ public class TaskCommandParseHelper {
      */
     public static boolean validPriority(String input) {
         input = input.toUpperCase();
-        for (Priority priority : Priority.values()) {
+        for (Task.Priority priority : Task.Priority.values()) {
             if (priority.name().equals(input)) {
                 return true;
             }
