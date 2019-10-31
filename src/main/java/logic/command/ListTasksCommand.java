@@ -5,6 +5,8 @@ import model.Task;
 
 import java.util.ArrayList;
 
+import gui.Window;
+
 public class ListTasksCommand extends Command {
     public static final String COMMAND_WORD = "tasks";
     public static final String EMPTY_TASKS_LIST = "There are currently no tasks in project manager";
@@ -16,6 +18,7 @@ public class ListTasksCommand extends Command {
 
     @Override
     public CommandOutput execute(Model model) {
+        Window.instance.showTaskView(true);
         return new CommandOutput(convertArrayListToText(model.getTaskList()));
     }
 
@@ -32,7 +35,7 @@ public class ListTasksCommand extends Command {
                 finalOutput += (task.isDone() ? "[\u2713] " : "[\u2715] ")
                         + (i + 1) + ": "
                         + task.getName() + "\n"
-                        + (task.getTime() != null ? "Time: " + task.getTime()  + "\n" : "")
+                        + (task.getTime() != null ? "Time: " + task.getTime() + "\n" : "")
                         + (task.getMemberList().size() != 0
                         ? "Assigned to: " + task.getMemberList().toString() + "\n" : "")
                         + "\n";

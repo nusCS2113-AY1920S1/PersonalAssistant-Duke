@@ -21,7 +21,7 @@ public class Task {
 
     /**
      * add javadoc please
-     * */
+     */
     public void addMember(String toAdd) {
         if (!memberList.contains(toAdd)) {
             memberList.add(toAdd);
@@ -30,7 +30,7 @@ public class Task {
 
     /**
      * add javadoc please
-     * */
+     */
     public void deleteMember(String toDelete) {
         System.out.println(memberList);
         memberList.remove(toDelete);
@@ -66,12 +66,11 @@ public class Task {
 
     /**
      * change task to string to show on window
+     *
      * @return string of task
      */
     public String toString() {
-        return "[" + this.getStatusIcon() + "] "
-                + this.name
-                + " (at: " + time + ")";
+        return "[" + this.getStatusIcon() + "] " + this.name + (time == null ? "" : (" (at: " + time + ")"));
     }
 
     /**
