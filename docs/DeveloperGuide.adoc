@@ -84,10 +84,6 @@ To read more about the various packages shown in the architecture diagram, pleas
 <<Command>> 
 <<CCA>>.
 
-For a more in depth look into the various classes we have in our project, please refer to the below overall design diagram:
-
-image::Architecture.png[]
-
 === JsonWrapper
 
 The main wrapper over requesting data from NUSMODS API, Gson library for JSON parsing. Dependant on Storage class for writing data files obtained.
@@ -129,6 +125,8 @@ The `ModuleCommand` class also receives arguments based on the arguments passed 
 These arguments change how some of the classes function as well, using a switch case system to sort through the different argument types received. These will changes will be explained further under the Implementation section here <<Implementation>>.
 
 image::Command.png[]
+
+The above diagram shows the various Command classes in ModPlan, as well as their depedencies (mostly on `ModuleCommand`).
 
 === CCA
 
@@ -223,7 +221,11 @@ As the `argparse4j` 's library itself is very robust and powerful, we currently 
 
 ***
 
-=== GradeCommand
+=== Grading
+
+==== Overview
+Grading is a feature implemented to allow users to store their letter grades with the modules they have taken. The letter grades are parsed and its validity deemed according to the attributes of the modules they are storing it in. For example, if a module can be S/U-ed then the feature will allow user's to grade that module with a 'S' or 'U' grade.
+
 ==== Current Implementation
 The `grade` feature is operated by the `GradeCommand` class, which is called by the `Parser` class. Upon user input of `grade MODULECODE LETTERGRADE`, the Parser will return a new `GradeCommand`.
 
@@ -233,7 +235,7 @@ From the `Parser`, `GradeCommand` also receives two additional variable inputs f
 . The module code of the module to be graded.
 . The letter grade attained for the module that the user specifies above.
 
-There are two ways that the execute method can execute, depending upon whether the moduleCode the user enters is in their moduleTaskList or not.
+There are two ways that the execute method can execute, depending upon whether the moduleCode the user enters is in their moduleTaskList or not. In both cases the updated grade is stored along with the module details in the `Storage` package.
 
 ****
 
@@ -262,9 +264,16 @@ image::GradeCommandSequenceDiagram.png[]
 Checks had to be implemented to check if the module can be S/U-ed, as well as if the `letterGrade` the user inputs is a valid grade according to NUS specifications.
 These checks were implemented into the `ModuleInfoDetailed` class itself, which `ModuleTask` inherits as the baseline of the module task list. This way, other classes are able to use the methods and checks to set the letter grade for the respective module.
 
+* Pros: This checking system can be used by other classes/methods just by calling the method under `ModuleInfoDetailed`.
+* Cons: Calling the method requires a much deeper reach to extract the method/check needed, and may impact the code simplicity.
+
+Other alternatives would be to have the checks directly in the `GradeCommand` class, however this alternative was disregarded as other `Command` that had use for these checks were created, such as the `CapCommand` class.
+
 ***
 
-=== CapCommand
+=== Cap Calculation
+==== Overview
+This feature allows users to calculate their Cumulative Average Point (NUS's version of GPA) from their inputted data. It uses various external data, as well as prerequisite and preclusion module checks to determine the user's CAP in three different ways.
 ==== Current Implementation
 The `cap` feature is operated by the `CapCommand` class, which is called by the `Parser` class. Upon user input of `cap TYPE`, the Parser will return a new `CapCommand`. +
 
@@ -493,12 +502,13 @@ image::CcaClassDiagram2.png[]
 
 [[Documentation]] 
 == Documentation
-
-(TBD)
+We utilise AsciiDoc as the default to write our documentation, as the layout is more variable and aesthetically pleasing to view compared to other alternatives such as MarkDown. Additionally our preferred IDE IntelliJ has AsciiDoc support, and is thus easier for us to code and preview changes in.
 
 [[Testing]] 
 == Testing
-
+=== Overview
+We used JUnit testing to perform our testing.
+=== Running Tests
 (TBD)
 
 [[DevOps]] 
@@ -517,6 +527,15 @@ image::CcaClassDiagram2.png[]
 *A better module planner*
 
 We aim to fulfill a need that is currently lacking in module planning, which in this case the is ability to plan ahead for more semesters up until graduation. Additional features would likely include the ability to generate a projection report for CAP computation and CCA planning.
+
+*Target Users*: NUS CEG Students
+* have a need for additional module planning aside from utilising NUSMODS.
+* comfortable with using CLI
+* can type fast
+* prefers desktop applications
+* has a computer with Internet access available
+
+*Value proposition: * Provides many more features that NUSMODS currently does not have, which we have deemed to still be important to target users.
 
 [appendix]
 == User Stories
