@@ -11,7 +11,7 @@ public class CommandGetSpendingByYear extends Command {
 
     /**
      * Constructor to explain about the method.
-     * @param userInput userInput
+     * @param userInput userInput from CLI
      */
     public CommandGetSpendingByYear(String userInput) {
         this.commandType = CommandType.EXPENDEDYEAR;
