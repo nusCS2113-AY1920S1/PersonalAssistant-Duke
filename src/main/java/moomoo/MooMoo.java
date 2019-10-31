@@ -2,9 +2,9 @@ package moomoo;
 
 import moomoo.command.Command;
 import moomoo.task.Budget;
-import moomoo.task.Expenditure;
-import moomoo.task.Category;
-import moomoo.task.CategoryList;
+import moomoo.task.category.Expenditure;
+import moomoo.task.category.Category;
+import moomoo.task.category.CategoryList;
 import moomoo.task.MooMooException;
 import moomoo.task.Parser;
 import moomoo.task.ScheduleList;
