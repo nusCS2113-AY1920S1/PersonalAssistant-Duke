@@ -93,7 +93,7 @@ public class StorageRead extends Storage {
             entries.add(newRecord);
         } else if (type.equals(BUDGET_TYPE) || type.equals(SAVING_TYPE)) {
             limits.add(newRecord);
-        } else if (type.equals(OWE_TYPE) || type.equals(BUDGET_TYPE)) {
+        } else if (type.equals(OWE_TYPE) || type.equals(BORROW_TYPE)) {
             debts.add(newRecord);
         } else if (type.equals(SHORTCUT)) {
             shortcuts.add(newRecord);
