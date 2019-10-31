@@ -5,9 +5,7 @@ import com.algosenpai.app.storage.Storage;
 import javafx.util.Pair;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -55,6 +53,9 @@ public class UserStats {
     public UserStats(String userDataFilePath) throws IOException {
         chapterData = new ArrayList<>();
         chapterNumber = new HashMap<>();
+        chapterNumber.put("sorting", 1);
+        chapterNumber.put("linkedlist", 2);
+        chapterNumber.put("bitmask", 3);
         this.userDataFilePath = userDataFilePath;
 
         File file = new File(String.valueOf(userDataFilePath));
@@ -288,8 +289,11 @@ public class UserStats {
      * @return The UserStats object.
      */
     public static UserStats getDefaultUserStats() {
-        // TODO Currently it returns an empty object, but it should ideally be a list of all chapters, with 0 attempts.
-        return new UserStats("Name", "nil", "1", "0", new ArrayList<>());
+        ArrayList<ChapterStat> chapters = new ArrayList<>();
+        chapters.add(new ChapterStat("Sorting",1,0,0,0,0,0,""));
+        chapters.add(new ChapterStat("Linked List",2,0,0,0,0,0,""));
+        chapters.add(new ChapterStat("Bitmask",3,0,0,0,0,0,""));
+        return new UserStats("DefaultName", "male", "1", "0", chapters);
     }
 
     /**
