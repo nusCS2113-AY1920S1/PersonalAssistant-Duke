@@ -169,7 +169,7 @@ Format: `add DEGREE`
 
 
 ****
-* The search is case sensitive, e.g Computer engineering will throw an erroR. Ensure it is in the format as show in the examples.
+* The search is case sensitive, e.g Computer engineering will throw an error. Ensure it is in the format as show in the examples.
 ****
 
 
@@ -196,7 +196,7 @@ Format `swap INDEX1 INDEX2`
 
 Examples:
 
-* `swap 1 2`+
+* `swap 1 2` +
 Replaces the degree at index 1 with the degree that is already existing in index 2 and the degree at index 2 is now the degree at index 1
 
 <<<
