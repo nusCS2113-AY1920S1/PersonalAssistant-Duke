@@ -1,14 +1,17 @@
 package duke.models.student;
 
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonSetter;
+
 import java.util.Objects;
 
 import static java.util.Objects.requireNonNull;
 
 public class Student {
-    private final Name name;
-    private final MatricNumber matricNumber;
-    private final Email email;
-    private final Major major;
+    private Name name;
+    private MatricNumber matricNumber;
+    private Email email;
+    private Major major;
 
     /**
      * This constructor instantiates the student and all its properties.
@@ -28,20 +31,48 @@ public class Student {
         this.major = major;
     }
 
+    public Student() {
+
+    }
+
+    @JsonGetter("studentName")
     public Name getName() {
         return name;
     }
 
+    @JsonSetter("studentName")
+    public void setName(Name name) {
+        this.name = name;
+    }
+
+    @JsonGetter("studentId")
     public MatricNumber getMatricNumber() {
         return matricNumber;
     }
 
+    @JsonSetter("studentId")
+    public void setMatricNumber(MatricNumber matricNumber) {
+        this.matricNumber = matricNumber;
+    }
+
+    @JsonGetter("studentEmail")
     public Email getEmail() {
         return email;
     }
 
+    @JsonSetter("studentEmail")
+    public void setEmail(Email email) {
+        this.email = email;
+    }
+
+    @JsonGetter("studentMajor")
     public Major getMajor() {
         return major;
+    }
+
+    @JsonSetter("studentMajor")
+    public void setMajor(Major major) {
+        this.major = major;
     }
 
     /* We need to override function equals() and hashCode() in order to account

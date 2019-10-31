@@ -1,8 +1,7 @@
 package duke.models.locker;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonSetter;
 import duke.exceptions.DukeException;
 
 import static java.util.Objects.requireNonNull;
@@ -14,20 +13,23 @@ public class SerialNumber {
 
     public static final String CHECK_REGEX = "[0-9]+";
 
-    public final String serialNumberForLocker;
+    public String serialNumberForLocker;
 
     /**
      * This constructor is used to instantiate the class with the serial number passed to it.
      * @param serialNumber stores the serialnumber assigned to a locker
      * @throws DukeException when the serial number is in invalid format
      */
-    @JsonCreator
-    public SerialNumber(@JsonProperty("serialNumber") String serialNumber) throws DukeException {
+    public SerialNumber(String serialNumber) throws DukeException {
         requireNonNull(serialNumber);
         if (!checkIsValidSerialNumber(serialNumber)) {
             throw new DukeException(ERROR_MESSAGE);
         }
         this.serialNumberForLocker = serialNumber;
+    }
+
+    public SerialNumber() {
+
     }
 
     public static boolean checkIsValidSerialNumber(String serialNumberForLocker) {
@@ -38,6 +40,11 @@ public class SerialNumber {
     @JsonGetter("serialNumber")
     public String getSerialNumberForLocker() {
         return serialNumberForLocker;
+    }
+
+    @JsonSetter("serialNumber")
+    public void setSerialNumberForLocker(String serialNumberForLocker) {
+        this.serialNumberForLocker = serialNumberForLocker;
     }
 
     /* We need to override functions equals() and hashCode() in order to account for

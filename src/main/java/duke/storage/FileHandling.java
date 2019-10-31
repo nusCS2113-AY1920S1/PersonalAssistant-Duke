@@ -29,14 +29,14 @@ public class FileHandling {
         try {
             FileInputStream readFile = new FileInputStream(this.file);
             LockerList lockers = getObjectMapper().readValue(readFile, LockerList.class);
+            readFile.close();
             return lockers;
 
         } catch (FileNotFoundException e) {
             throw new DukeException(" Could not find the file. Invalid file name/file path... "
                     + "Will continue with an empty list");
         } catch (IOException e) {
-            throw new DukeException(" Error while reading data from the file. "
-                    + "Will continue with an empty list");
+            throw new DukeException(" Unable to read file. Will start with an empty list");
         }
     }
 

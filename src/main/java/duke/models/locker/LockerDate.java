@@ -1,5 +1,7 @@
 package duke.models.locker;
 
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonSetter;
 import duke.exceptions.DukeException;
 
 import java.time.LocalDate;
@@ -18,7 +20,7 @@ public class LockerDate {
     private static final DateTimeFormatter checkDateFormat =
             DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
-    public final String date;
+    public String date;
 
     /**
      * This constructor is used to instantiate a valid Date.
@@ -31,6 +33,10 @@ public class LockerDate {
             throw new DukeException(ERROR_MESSAGE);
         }
         this.date = date;
+    }
+
+    public LockerDate() {
+
     }
 
     /**
@@ -47,8 +53,14 @@ public class LockerDate {
         return true;
     }
 
+    @JsonGetter("date")
     public String getDate() {
         return date;
+    }
+
+    @JsonSetter("date")
+    public void setDate() {
+        this.date = date;
     }
 
     /**

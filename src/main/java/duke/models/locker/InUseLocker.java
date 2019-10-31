@@ -1,5 +1,7 @@
 package duke.models.locker;
 
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonSetter;
 import duke.models.student.Student;
 import duke.models.tag.Tag;
 
@@ -8,9 +10,9 @@ import java.util.Objects;
 import static java.util.Objects.requireNonNull;
 
 public class InUseLocker extends Locker {
-    private final Student student;
-    private final LockerDate startDate;
-    private final LockerDate endDate;
+    private Student student;
+    private LockerDate startDate;
+    private LockerDate endDate;
 
     /**
      * This constructor instantiates a locker that is currently being used by a student.
@@ -33,16 +35,39 @@ public class InUseLocker extends Locker {
         this.endDate = endDate;
     }
 
+    public InUseLocker() {
+
+    }
+
+
+    @JsonGetter("student")
     public Student getStudent() {
         return student;
     }
 
+    @JsonSetter("student")
+    public void setStudent(Student student) {
+        this.student  = student;
+    }
+
+    @JsonGetter("startDate")
     public LockerDate getStartDate() {
         return startDate;
     }
 
+    @JsonSetter("startDate")
+    public void setStartDate(LockerDate startDate) {
+        this.startDate = startDate;
+    }
+
+    @JsonGetter("endDate")
     public LockerDate getEndDate() {
         return endDate;
+    }
+
+    @JsonSetter("endDate")
+    public void setEndDate(LockerDate endDate) {
+        this.endDate = endDate;
     }
 
     @Override
@@ -60,7 +85,7 @@ public class InUseLocker extends Locker {
 
     @Override
     public String toString() {
-        return super.toString() + "\n" + " Name: " + student.getName().getStudentName()
+        return super.toString() + "\n      " + "Name: " + student.getName().getName()
                 + " StudentID:" + student.getMatricNumber().getStudentCourse();
     }
 
