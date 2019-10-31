@@ -73,7 +73,7 @@ public abstract class Task {
      * @return a symbol specifying whether a task has been completed or not.
      */
     public String getStatusIcon() {
-        return (isDone ? "\u2713" : "\u2718"); //return tick or X symbols
+        return (isDone ? "+" : "-");
     }
 
     /**
