@@ -28,7 +28,7 @@ This user guide aims to help you learn your way around our app, making the learn
 
 * <task description> +
   Texts enclosed by angular brackets are replaced by the user input. For example, <task description> can be “read a book”, while <time> can be “1200”.
-* /add <task description> /at <date> <time> +
+* */add <task description> /at <date> <time>* +
   Text written in bold are full command line inputs that trigger an action based on the command keyword specified.
 * “GUI Reference” +
   Words enclosed by a pair of double quotes refer to words seen on the GUI.
