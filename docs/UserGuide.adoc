@@ -62,12 +62,12 @@ Examples:
 === Adding a word: `add`
 
 Adds a word to the Word Bank. +
-Format: `add w/WORD w/MEANING [r/REMINDER] [t/TAG]...`
+Format: `add w/WORD w/MEANING [t/TAG]...`
 
 Examples:
 
 * `add w/life m/the existence of an individual human being or animal t/meaningoflife t/livingit` +
-* `add w/happy m/a state of joy r/24/02/2300 0900 t/lesson3`
+* `add w/happy m/a state of joy t/lesson3`
 
 === Listing all words inside dictionary : `list`
 
@@ -222,7 +222,7 @@ Format: `history INTEGER`
 
 === Viewing search frequency : `freq`
 
-Shows search frequency of each word. +
+Shows search frequency of each word in specified order. +
 Format: `freq o/ORDER`
 
 === Saving the data
@@ -251,9 +251,8 @@ e.g. `addsyn w/water s/liquid beverage drink`
 e.g. `delete w/life`
 * *Add Synonym* : `addsyn w/WORD s/SYNONYM1 SYNONYM2 SYNONYM3 ...` +
 e.g. `addsyn w/water s/liquid beverage drink`* 
-*Edit* : `edit w/WORD m/NEW_MEANGING` +
+* *Edit* : `edit w/WORD m/NEW_MEANGING` +
 e.g. `edit w/life m/the existence of a living thing.`
-
 * *Help* : `help [COMMAND]`
 e.g. `help add`
 * *List* : `list`
