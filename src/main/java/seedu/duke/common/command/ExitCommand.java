@@ -13,9 +13,10 @@ public class ExitCommand extends Command {
      * @return always false.
      */
     @Override
-    public boolean execute(Model moel) {
+    public boolean execute(Model model) {
         responseMsg = "Bye, hope to see you again.";
         UI.getInstance().showResponse(responseMsg);
+        UI.getInstance().exit();
         return false;
     }
 }
