@@ -90,7 +90,7 @@ use `DATE1|DATE2|...` to easily add multiple dates for the show
 * The format of `DATE` must be dd/mm/yyyy
 * Shows of the same name can be added.
 
-===== Examples:
+Examples:
 *Add a single show*: +
 `add Phantom of the Opera|20|5/5/2020` +
 *Add multiple shows*: +
@@ -107,11 +107,16 @@ use `DATE1|DATE2|DATE3|...` to easily remove multiple dates for the show
 * Removes `SHOW_NAME` on the specified `DATE`
 * The exact `SHOW_NAME` and `DATE` must be entered for show to be removed successfully. +
 
-===== Examples:
+Examples:
 *Delete a single show*: +
-`Delete Lion King|10/10/2020` +
+----
+Delete Lion King|10/10/2020
+----
+
 *Delete multiple shows*: +
-`delete Phantom of the Opera|5/5/2020|6/5/2020`
+----
+delete Phantom of the Opera|5/5/2020|6/5/2020
+----
 
 ==== Listing shows: `list`
 The `list` command allows you to view all current shows. +
@@ -126,7 +131,7 @@ You can also search for all listings of a particular show with the `list` comman
 Scheduled shows with the specified name will be listed. +
 Format: `list SHOW_NAME`
 
-===== Examples:
+Examples:
 ----
 list Phantom of the Opera
 list Lion King
@@ -141,7 +146,7 @@ use numbers or abbreviations to represent the month instead of spelling it out!
 
 Format: `list MONTH YEAR` +
 
-* Examples:
+Examples:
 ----
 list 12 2020
 list Dec 2020
@@ -157,7 +162,7 @@ Format: `postpone SHOW_NAME|OLD_DATE|NEW_DATE`
 * Invalid if the date of `SHOW_NAME` does not match `OLD_DATE`
 * Invalid if `NEW_DATE` has already passed.
 
-===== Examples:
+Example:
 ----
 postpone Phantom of the Opera|5/5/2020|10/5/2020
 ----
@@ -171,7 +176,7 @@ Format: `edit OLD_SHOW_NAME|SHOW_DATE|NEW_SHOW_NAME`
 
 * Invalid if the date of `OLD_SHOW_NAME` does not match `SHOW_DATE`
 
-===== Examples:
+Example:
 ----
 edit Phanom of the Opera|5/5/2020|Phantom of the Opera
 ----
@@ -195,12 +200,13 @@ Format: `view SHOW_NAME|SHOW_DATE`
 correspond to the actual show date of the indicated `SHOW_NAME`.
 * The layout will not be displayed if the specified `SHOW_DATE` does not have any show scheduled for the day.
 
-===== Examples:
+Examples:
 ----
-view Lion King | 11/10/2020
+view Lion King|11/10/2020
+view Phantom of the Opera|20/11/2021
 ----
 
-image::images/UG_view_success.png[width ="600", align="center"]
+image::images/userguide/UG_view_success.png[width ="600", align="center"]
 
 [NOTE]
 red seats indicates that seat has been sold, while blue seats
@@ -218,12 +224,16 @@ Use the `view` command for a visual representation of the statuses of all the se
 * Multiple `SEAT` can be entered in the parameter `SEAT ...` to book all those seats
 
 
-===== Examples:
+Examples: +
 Sell a single seat: +
-`sell Phantom of the Opera|5/5/2020|C1`
+----
+sell Phantom of the Opera|5/5/2020|C1
+----
 
 Sell multiple seats in a single command: +
-`sell Lion King|6/5/2020| A1 A2 A3 A4`
+----
+sell Lion King|6/5/2020| A1 A2 A3 A4
+----
 
 ==== Reassign seat for a show: `reassign-seat`
 Changes the seat of a customer. +
@@ -236,7 +246,7 @@ Format: `reassign-seat SHOW_NAME|SHOW_DATE|OLD_SEAT|NEW_SEAT`
 ** `OLD_SEAT`/`NEW_SEAT` does not exist
 ** Both `OLD_SEAT` and `NEW_SEAT` are the same.
 
-===== Examples:
+Examples:
 ----
 reassign-seat Phantom of the Opera|5/5/2020|A1|A2
 reassign-seat Lion King|10/5/2020|D6|A1
@@ -253,7 +263,7 @@ Format: `view-profit SHOW_NAME|SHOW_DATE`
 * Displays the profit for the specified `SHOW_NAME` on `SHOW_DATE`
 * Displays projected earnings for a show if `SHOW_DATE` is in the future.
 
-===== Examples:
+Example:
 ----
 view-profit Lion King|5/5/2020
 ----
@@ -270,7 +280,7 @@ Format: `view-monthly MONTH YEAR`
 * Displays the total profit collected for all the shows in MONTH YEAR
 * Displays projected earnings if MONTH YEAR is in the future.
 
-===== Examples:
+Examples:
 ----
 view-monthly 1 2020
 view-monthly Jan 2020
@@ -292,9 +302,11 @@ Format: `add-alias ALIAS|COMMAND`
 * The alias must not already be in use.
 * The alias must not be the name of a command.
 
-===== Examples:
+Examples: +
 Give the command `add` an alias 't': +
-`add-alias t|add` +
+----
+add-alias t|add
+----
 
 image::images/userguide/UG_add-alias_success.png[width ="600", align="center"]
 
@@ -316,7 +328,7 @@ Format: `remove-alias ALIAS|COMMAND`
 
 * Remove the `ALIAS` for `COMMAND`
 
-===== Examples:
+Example:
 ----
 remove-alias t|add
 ----
