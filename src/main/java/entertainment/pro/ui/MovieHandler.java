@@ -640,9 +640,10 @@ public class MovieHandler extends Controller implements RequestListener {
                     controller.getPosterImageView().setImage(posterImage);
 
                 } else {
-                  //  System.out.println("hi1");
-                    Image posterImage = new Image(this.getClass().getResourceAsStream("../../../../EPdata/FakeMoviePoster.png"));
-                   // System.out.println("hi2");
+                    System.out.println("hi1");
+                    File fakePoster = new File("./data/FakeMoviePoster.png");
+                    Image posterImage = new Image(fakePoster.toURI().toString());
+                    System.out.println("hi2");
                     posterImage.progressProperty().addListener((observable, oldValue, newValue) -> {
                         try {
                             updateProgressBar(movie, newValue.doubleValue());
@@ -853,7 +854,7 @@ public class MovieHandler extends Controller implements RequestListener {
             // set the movie info
             MoviePosterController controller = loader.getController();
             try {
-                File fakePoster = new File("./FakeMoviePoster.png");
+                File fakePoster = new File("./data/FakeMoviePoster.png");
                 Image posterImage = new Image(fakePoster.toURI().toString());
                 posterImage.progressProperty().addListener((observable, oldValue, newValue) -> {
                     try {
