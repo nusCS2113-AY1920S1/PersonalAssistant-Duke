@@ -40,7 +40,7 @@ public class Parser {
         String [] commandList = {"bye", "list", "delete", "deletebar","edit",
                                     "find","done", "new","help","view","addbar",
                                     "overlay","group","overlay_bar_group", "metronome",
-                                    "overlay_group_group","overlay_bar_song","ascii","redo","undo", "open"};
+                                    "overlay_group_group","overlay_bar_song","ascii","redo","undo", "open", "copy"};
         double maximumVal = 0;
         String commandName = "";
         Jaccard similarityChecker = new Jaccard();
