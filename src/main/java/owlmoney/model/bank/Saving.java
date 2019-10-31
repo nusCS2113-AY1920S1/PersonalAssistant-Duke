@@ -11,6 +11,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 import owlmoney.model.bank.exception.BankException;
+import owlmoney.model.transaction.Deposit;
 import owlmoney.model.transaction.Expenditure;
 import owlmoney.model.transaction.RecurringExpenditureList;
 import owlmoney.model.transaction.Transaction;
@@ -31,9 +32,9 @@ public class Saving extends Bank {
     private RecurringExpenditureList recurringExpenditures;
     private static final String SAVING_TRANSACTION_LIST_FILE_NAME = "_saving_transactionList.csv";
     private static final String SAVING_RECURRING_TRANSACTION_LIST_FILE_NAME = "_saving_recurring_transactionList.csv";
-
     private Storage storage;
     private static final String FILE_PATH = "data/";
+    private static final String INCOME_CATEGORY = "Income";
 
     /**
      * Creates an instance of a savings account.
@@ -62,11 +63,13 @@ public class Saving extends Bank {
      * Updates the next income date and current amount if an income has been earned.
      *
      * @return If there is an update to the income.
+     * @throws BankException If unable to add income.
      */
-    private boolean earnedIncome() {
+    private boolean earnedIncome(Ui ui) throws BankException {
         if (new Date().compareTo(nextIncomeDate) >= 0) {
             if (income > 0) {
-                addToAmount(income);
+                Deposit addIncome = new Deposit("Income", this.income, this.nextIncomeDate, INCOME_CATEGORY);
+                addDepositTransaction(addIncome, ui, ACCOUNT_TYPE);
             }
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(nextIncomeDate);
@@ -276,14 +279,15 @@ public class Saving extends Bank {
      * Updates all recurring expenditures in the bank.
      *
      * @param ui Used for printing.
+     * @throws BankException If unable to add income.
      */
     @Override
-    void updateRecurringTransactions(Ui ui) {
+    void updateRecurringTransactions(Ui ui) throws BankException {
         boolean outdatedIncome;
         boolean outdatedExpenditure;
         do {
             outdatedExpenditure = false;
-            outdatedIncome = earnedIncome();
+            outdatedIncome = earnedIncome(ui);
             for (int i = 0; i < recurringExpenditures.getListSize(); i++) {
                 try {
                     outdatedExpenditure = savingUpdateRecurringExpenditure(

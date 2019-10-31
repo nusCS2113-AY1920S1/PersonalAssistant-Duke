@@ -326,7 +326,11 @@ class SavingTest {
         } catch (TransactionException errorMessage) {
             System.out.println("Expects success but error was thrown");
         }
-        savingTest.updateRecurringTransactions(testUi);
+        try {
+            savingTest.updateRecurringTransactions(testUi);
+        } catch (BankException errorMessage) {
+            System.out.println("Expects success but error was thrown");
+        }
         assertEquals(80, savingTest.getCurrentAmount());
     }
 
