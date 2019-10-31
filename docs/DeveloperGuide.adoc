@@ -190,12 +190,12 @@ the commands by coordinating all other components.
 ==== 2.2.1 ConsoleInputController
 `ConsoleInputController` is the class which deals with the CRUD functionalities for all the projects of the user.
 
-=== Rationale for implementation
+*Rationale for implementation*
 
 ==== 2.2.2 ProjectInputController
 `ProjectInputController` is the class which deals with the management of a specific project.
 
-=== Rationale for implementation
+*Rationale for implementation*
 We realized that the commands related to managing a project are extremely complex. Hence we had to segregate the methods related
 to managing a project from the `ConsoleInputController` and this resulted in the creation of the `ProjectInputController`.
 
@@ -206,7 +206,7 @@ Task Assignments and Reminders.
 ==== 2.2.3 AssignmentController
 `AssignmentController` is a class which manages the assignment of tasks to group members.
 
-=== Rationale for implementation
+*Rationale for implementation*
 
 Before the implementation of `AssignmentController`, the parsing of assign commands was planned to be done within the
 ProjectInputController class. However, we realised that parsing for assignment commands would be extremely complex due
