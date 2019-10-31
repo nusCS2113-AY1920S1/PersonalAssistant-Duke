@@ -68,6 +68,9 @@ public class MainWindow extends AnchorPane {
         autoSuggestion.add("swap");
         autoSuggestion.add("bye");
         autoSuggestion.add("replace");
+        autoSuggestion.add("undo");
+        autoSuggestion.add("redo");
+        autoSuggestion.add("sort");
 
         //Initialize autocompletion field
         TextFields.bindAutoCompletion(
