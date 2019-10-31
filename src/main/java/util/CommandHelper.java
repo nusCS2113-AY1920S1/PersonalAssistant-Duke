@@ -4,6 +4,10 @@ import java.util.ArrayList;
 
 public class CommandHelper {
 
+    /**
+     * Get list of commands to be printed to user at Console stage.
+     * @return ArrayList of Strings containing information of commands at Console stage.
+     */
     public ArrayList<String> getCommandsForConsole() {
         ArrayList<String> helpList = new ArrayList<>();
         helpList.add("List of commands available:");
@@ -27,6 +31,10 @@ public class CommandHelper {
         return helpList;
     }
 
+    /**
+     * Get list of commands to be printed to user at Project stage.
+     * @return ArrayList of Strings containing information of commands at Project 4stage.
+     */
     public ArrayList<String> getCommandsForProject() {
         ArrayList<String> helpList = new ArrayList<>();
         helpList.add("List of commands available:");
@@ -43,11 +51,11 @@ public class CommandHelper {
 
         helpList.add(" - view tasks [/MODIFIER]");
         helpList.add("");
-        helpList.add(" - add task -t TASK_NAME -p TASK_PRIORITY -c TASK_CREDIT [-d TASK_DUEDATE-(dd/mm/yyyy)] " +
-                "[-s STATE] [-r TASK_REQUIREMENT1] [-r TASK_REQUIREMENT2]");
+        helpList.add(" - add task -t TASK_NAME -p TASK_PRIORITY -c TASK_CREDIT [-d TASK_DUEDATE-(dd/mm/yyyy)] "
+                + "[-s STATE] [-r TASK_REQUIREMENT1] [-r TASK_REQUIREMENT2]");
         helpList.add("");
-        helpList.add(" - edit task TASK_INDEX [-t TASK_NAME] [-p TASK_PRIORITY] [-d TASK_DUEDATE] [-c TASK_CREDIT] " +
-                "[-s STATE]");
+        helpList.add(" - edit task TASK_INDEX [-t TASK_NAME] [-p TASK_PRIORITY] [-d TASK_DUEDATE] [-c TASK_CREDIT] "
+                + "[-s STATE]");
         helpList.add("");
         helpList.add(" - delete task TASK_INDEX");
         helpList.add("");
@@ -65,8 +73,8 @@ public class CommandHelper {
         helpList.add("");
         helpList.add(" - add reminder -n reminder_NAME [-d TASK_DUEDATE-(dd/mm/yyyy) -l REMINDER_LIST_NAME]");
         helpList.add("");
-        helpList.add(" - edit reminder INDEX_NUMBER -n REMINDER_NAME [-d REMINDER_DUEDATE-(dd/mm/yyyy) " +
-                "-l REMINDER_LIST_NAME]");
+        helpList.add(" - edit reminder INDEX_NUMBER -n REMINDER_NAME [-d REMINDER_DUEDATE-(dd/mm/yyyy) "
+                + "-l REMINDER_LIST_NAME]");
         helpList.add("");
         helpList.add(" - delete reminder INDEX_NUMBER");
         helpList.add("");
