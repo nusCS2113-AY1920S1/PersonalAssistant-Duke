@@ -27,11 +27,13 @@ public class ToDo extends Task {
      * @param tags     tag associated with the task
      * @param priority priority level of the task
      */
-    public ToDo(String name, String doAfter, ArrayList<String> tags, String priority, ArrayList<String> linkedEmails) {
+    public ToDo(String name, String doAfter, ArrayList<String> tags, Priority priority,
+                ArrayList<String> linkedEmails) {
         super(name);
         setDoAfterDescription(doAfter);
         this.taskType = TaskType.TODO;
         setTags(tags);
+        setPriorityLevelTo(priority);
         setPriorityTo(priority);
         for (String email : linkedEmails) {
             addLinkedEmails(email);

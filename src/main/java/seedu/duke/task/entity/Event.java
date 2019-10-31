@@ -36,12 +36,13 @@ public class Event extends Task {
      * @param linkedEmails emails to be linked to the task
      */
     public Event(String name, LocalDateTime time, String doAfter, ArrayList<String> tags,
-                 String priority, ArrayList<String> linkedEmails) {
+                 Priority priority, ArrayList<String> linkedEmails) {
         super(name);
         this.time = time;
         setDoAfterDescription(doAfter);
         this.taskType = TaskType.EVENT;
         setTags(tags);
+        setPriorityLevelTo(priority);
         setPriorityTo(priority);
         for (String email : linkedEmails) {
             addLinkedEmails(email);

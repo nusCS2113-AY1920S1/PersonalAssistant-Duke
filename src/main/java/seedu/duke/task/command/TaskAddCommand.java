@@ -22,7 +22,7 @@ public class TaskAddCommand extends Command {
     private String doAfter;
     private ArrayList<String> tags;
     private ArrayList<String> links;
-    private String priority;
+    private Task.Priority priority;
     private boolean done;
 
     /**
@@ -38,7 +38,7 @@ public class TaskAddCommand extends Command {
      * @param links    linked emails of the task
      */
     public TaskAddCommand(Task.TaskType taskType, String name, LocalDateTime time, String doAfter,
-                          ArrayList<String> tags, String priority, ArrayList<String> links) {
+                          ArrayList<String> tags, Task.Priority priority, ArrayList<String> links) {
         this.taskType = taskType;
         this.name = name;
         this.time = time;

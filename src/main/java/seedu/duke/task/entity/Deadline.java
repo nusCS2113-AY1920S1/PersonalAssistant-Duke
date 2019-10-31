@@ -37,12 +37,13 @@ public class Deadline extends Task {
      *
      */
     public Deadline(String name, LocalDateTime time, String doAfter, ArrayList<String> tags,
-                    String priority, ArrayList<String> linkedEmails) {
+                    Priority priority, ArrayList<String> linkedEmails) {
         super(name);
         this.taskType = TaskType.DEADLINE;
         this.time = time;
         setDoAfterDescription(doAfter);
         setTags(tags);
+        setPriorityLevelTo(priority);
         setPriorityTo(priority);
         for (String email : linkedEmails) {
             addLinkedEmails(email);
