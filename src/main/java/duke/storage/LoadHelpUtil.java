@@ -1,6 +1,6 @@
 package duke.storage;
 
-import duke.commons.FileUtil;
+import duke.commons.file.FileUtil;
 import duke.commons.file.FilePaths;
 
 import java.io.BufferedReader;

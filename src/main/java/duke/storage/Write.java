@@ -2,7 +2,7 @@ package duke.storage;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import duke.commons.FileUtil;
+import duke.commons.file.FileUtil;
 import duke.commons.exceptions.DukeException;
 import duke.commons.file.FilePaths;
 import duke.model.Goal;
