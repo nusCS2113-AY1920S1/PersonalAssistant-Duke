@@ -18,6 +18,7 @@ import javafx.scene.text.TextAlignment;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
+import java.util.Arrays;
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
@@ -155,12 +156,18 @@ public class MainWindow extends AnchorPane{
     @FXML
     public void handleUserInput() {
         String input = userInput.getText();
+        String[] timerModeCommands = {"/timer", "/resumertimer", "/stoptimer", "/pausetimer", "/update",
+                                      "/resumetimer", "/showtimer", "/addFromList", "/remove"};
+        String command = input.split(" ")[0];
+
         if (!input.isBlank()) {
             removeWelcome();
             sendClicked();
             flowPane.setStyle("-fx-background-color:#ffffff");
             console.clear();
-            if (input.equals("/achievements")) {
+            if (Arrays.asList(timerModeCommands).contains(command)) {
+                taskCompletionModeAction();
+            } else if (input.equals("/achievements")) {
                 achievementAction();
             } else if (input.equals("/avatar")) {
                 avatarAction();
@@ -168,8 +175,8 @@ public class MainWindow extends AnchorPane{
                 shopAction();
             } else {
                 taskAction();
-                Hustler.run(input);
             }
+            Hustler.run(input);
             scrollPANEE.setContent(console);
             userInput.clear();
             sendReleased();
@@ -342,8 +349,6 @@ public class MainWindow extends AnchorPane{
         shop.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
         arena.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
         //settings.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
-
-        Hustler.run("/achievements");
     }
 
     @FXML
@@ -448,9 +453,6 @@ public class MainWindow extends AnchorPane{
         shop.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
         arena.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
         //settings.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
-
-        console.clear();
-        Hustler.run("/avatar");
     }
 
     @FXML
@@ -504,8 +506,6 @@ public class MainWindow extends AnchorPane{
         shop.textFillProperty().setValue(Paint.valueOf("#ffffff"));
         arena.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
         //settings.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
-
-        Hustler.run("/shop");
     }
 
     @FXML
