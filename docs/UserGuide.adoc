@@ -33,8 +33,59 @@ This user guide aims to help you learn your way around our app, making the learn
 * “GUI Reference” +
   Words enclosed by a pair of double quotes refer to words seen on the GUI.
 
-=== 3A.1 Adding a task : `/add`
-Adds a todo/deadline/event to the tasklist depending on the input format.
+=== 3A.1 Adding a task: `/add`
+
+Since Hustler is a productivity checker, the first thing you would want to do is to add your tasks for the next few days. In order to do so, you must issue commands in the command line at the bottom.
+
+----
+Though Hustler v1.4 features a GUI, most of the user input is taken from the command line at the bottom. Hence, you need to know the command syntax to provide an input.
+----
+
+The syntax for adding a task to the list is as follows:
+
+* */add <task description>*
+
+On issuing this command in the command-lie text box at the bottom, a task will be added to the list.
+
+----
+Hustler has several task types. It also has a difficulty level for each task. By default, if you issue the above command, Hustler sets the task to type ToDo and the difficulty to medium. 
+----
+
+==== 3A.1.1	Adding commands of different types
+
+Apart from have simple ToDo commands, you will most likely have time constraints. Hustler allows you to add Deadlines and Events and make them recurrent so they repeat themselves every set time periods. The difficulty of the task can also be added. All of this can be done with a simple addition to the syntax.
+
+// tag::base-alt[]
+[width="90"]
+|===
+
+| 1. | */add <task description>* | Todo task, with default difficulty set to medium.
+
+| 2. | */add <task description> /by <date> <time>* | Deadline task. Date format is DD/MM/YY and time format is HHmm. Where D stands for day, M stands for month, Y stands for year, H stands for hour in 24-hour format and m stands for minutes. Uses the /by keyword.
+
+| 3. | */add <task description> /at <date> <time> | Event task. The date time format is the same as the one for deadline. Uses the /at keyword.
+
+| 4. | */add <task description> /by <date> <time> /every <frequency>* | Recurring Deadline where the format of <frequency> is <number> followed by minutes/hours/days/weeks/months. Uses the /every keyword.
+
+| 5. | */add <task description> /at <date> <time> /every <frequency>* | Recurring Event where the formatting is the same as that of recurrent deadline. Uses the /every keyword.
+
+| 6. | */add <task description> /tag <one-word tag>* | Tags the task with a one-word tag. It can be any word consisting of alphanumeric letters.
+
+| 7. | */add <task description> /d <L/M/H>* | States the difficulty of the task where <E/M/H> can be either replaced with H which stands for high, M which stands for medium and E which stands for easy. Uses the /d keyword.
+
+|===
+// end::base-alt[]
+
+
+
+
+
+
+
+
+
+
+
 
 Format: `/add DESCRIPTION` to add a ToDo task
         `/add DESCRIPTION /by dd/mm/yyyy hhmm` to add a Deadline task  
