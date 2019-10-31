@@ -1,8 +1,7 @@
 package command;
 
 import storage.Storage;
-import task.DegreeTask;
-import task.Task;
+import task.UniversityTaskHandler;
 import ui.UI;
 import task.TaskList;
 import exception.DukeException;
@@ -61,8 +60,8 @@ public class AddCommand extends Command {
 
             if(this.arguments.matches("Biomedical Engineering|Chemical Engineering|Civil Engineering|Computer Engineering|Electrical Engineering|Environmental Engineering|Industrial and Systems Engineering|Mechanical Engineering|Materials Science and Engineering")) {
                 lists.add_custom(this.arguments, storage);
-                DegreeTask degreeTask = new DegreeTask();
-                degreeTask.addDegreeTasks(this.arguments, tasks);
+                UniversityTaskHandler universityTaskHandler = new UniversityTaskHandler();
+                universityTaskHandler.addDegreeTasks(this.arguments, tasks);
             }
             else {
                 throw new DukeException("Wrong formatting convention is used to add degree. The correct format is e.g. Computer Engineering");

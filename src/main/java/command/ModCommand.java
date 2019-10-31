@@ -2,8 +2,7 @@ package command;
 
 import exception.DukeException;
 import storage.Storage;
-import task.DegreeTask;
-import task.Task;
+import task.UniversityTaskHandler;
 import ui.UI;
 import task.TaskList;
 import list.DegreeList;
@@ -47,8 +46,8 @@ public class ModCommand extends Command {
 
             degreesBuffer = lists.deepClone();
             memento = new Memento(degreesBuffer);
-            DegreeTask degreeTask = new DegreeTask();
-            degreeTask.removeDegreeTasks(this.input, lists, tasks);
+            UniversityTaskHandler universityTaskHandler = new UniversityTaskHandler();
+            universityTaskHandler.removeDegreeTasks(this.input, lists, tasks);
             lists.delete(this.input, this.dd);
             break;
         case "done":

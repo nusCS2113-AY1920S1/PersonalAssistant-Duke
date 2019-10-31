@@ -14,7 +14,7 @@ import java.util.*;
  * It adds all relevant tasks related to a particular degree, and puts them into the user's tasklist
  * it removes all tasks from the user's tasklist related to a removed degree
  */
-public class DegreeTask extends Task {
+public class UniversityTaskHandler {
     public static ArrayList<TaskList> fullDegreeTasklist = new ArrayList<TaskList>();
 
     // this map relates all the engineering programmes with an arbitrary integer
