@@ -5,7 +5,6 @@
 :toc-title:
 :toc-placement: preamble
 :sectnums:
-:imagesDir: screenshots
 :stylesDir: stylesheets
 :xrefstyle: full
 :experimental:
@@ -91,25 +90,31 @@ use `DATE1|DATE2|DATE3|...` to easily add multiple dates for the show
 add Phantom of the Opera|20|5/5/2020
 add Lion King|30|6/5/2020|7/5/2020|8/5/2020
 ----
-==== 3.2.2 Deleting shows: `delete`
-Cancelled events can be handled in our application via the `delete` command. It
+==== Deleting shows: `delete`
+In the event a show is cancelled, you can remove it from the list using the `delete` command. It
 deletes shows for specific dates. +
-Format: delete SHOW_NAME|DATE1|DATE2|...
+Format: `delete SHOW_NAME|DATE1|DATE2|...`
 
-* Remove SHOW_NAME on the specified DATE
-* The exact SHOW_NAME and DATE must be entered for show to be removed successfully. +
+[TIP]
+use `DATE1|DATE2|DATE3|...` to easily remove multiple dates for the show
+
+* Removes `SHOW_NAME` on the specified `DATE`
+* The exact `SHOW_NAME` and `DATE` must be entered for show to be removed successfully. +
 
 ===== Examples:
-Delete a single show: +
+*Delete a single show*: +
 `Delete Lion King|10/10/2020` +
-Delete multiple shows: +
+*Delete multiple shows*: +
 `delete Phantom of the Opera|5/5/2020|6/5/2020`
 
-==== 3.2.3 Listing shows: `list`
+==== Listing shows: `list`
 The `list` command allows you to view all current shows. +
 Format: `list`
 
-==== 3.2.4 Listing dates for specific show: `list`
+[TIP]
+Use `list` before you type other commands so you can see all the show names and show dates
+
+==== Listing dates for specific show: `list`
 
 You can also search for all listings of a particular show with the `list` command!
 Current shows with the specified name will be listed. +
@@ -120,7 +125,7 @@ Format: `list SHOW_NAME`
 list Phantom of the Opera
 list Lion King
 ----
-==== 3.2.5 Listing shows for a specific month: `list`
+==== Listing shows for a specific month: `list`
 You can also search for all listings of a particular month!
 Lists all the shows for a specific month. +
 Format: `list MONTH YEAR` +
@@ -131,8 +136,8 @@ Format: `list MONTH YEAR` +
 list August 2019
 list December 2020
 ----
-==== 3.2.6 Postpone show to a later date: `postpone`
-Use the `postpone` commmand to postpone the date of a
+==== Postpone a show to a later date: `postpone`
+Use the `postpone` command to postpone the requested
 current show in the showlist to a specified date.  +
 Format: `postpone SHOW_NAME|OLD_DATE|NEW_DATE`
 
@@ -145,9 +150,9 @@ Format: `postpone SHOW_NAME|OLD_DATE|NEW_DATE`
 ----
 postpone Phantom of the Opera|5/5/2020|10/5/2020
 ----
-==== 3.2.7 Editing a show’s name: `edit`
+==== Editing a show’s name: `edit`
 If you made a spelling error while adding an event, there is no need to delete and add it again.
-Use `edit` to change it's name. +
+Use `edit` to change its name. +
 Format: `edit OLD_SHOW_NAME|SHOW_DATE|NEW_SHOW_NAME`
 
 * Changes the name of the specified `SHOW_DATE` with `OLD_SHOW_NAME` to `NEW_SHOW_NAME`
@@ -201,8 +206,8 @@ correspond to the actual show date of the indicated `SHOW_NAME`.
 ----
 view Phantom of the Opera | 5/5/2020
 ----
-==== 3.3.3 Reassign seat for a show: `reassign-seat`
-If a customers  wants to change seats, this can be achieved through the `reassign-seat` command. +
+==== Reassign seat for a show: `reassign-seat`
+Changes the seat of a customer. +
 Format: `reassign-seat SHOW_NAME|SHOW_DATE|OLD_SEAT|NEW_SEAT`
 
 * Reassign a booked seat to another available seat for the show.
@@ -217,7 +222,6 @@ Format: `reassign-seat SHOW_NAME|SHOW_DATE|OLD_SEAT|NEW_SEAT`
 reassign-seat Phantom of the Opera|5/5/2020|A1|A2
 reassign-seat Lion King|10/5/2020|D6|A1
 ----
-
 
 === Finance Commands
 
@@ -246,11 +250,11 @@ Format: `view-monthly MONTH YEAR`
 view-monthly May 2020
 view-monthly January 2018
 ----
-=== 3.5 Alias Commands
+=== Alias Commands
 Aliases help you to create shortcuts for commands, hence enabling
 you to to input commands with less effort!
 
-==== 3.5.1 Add new alias: `add-alias`
+==== Add new alias: `add-alias`
 As a user, you can give a Command an alternate name for easy access.
 You can add them with `add-alias` to an existing command.
 After adding the alias, it is immediately available for use! +
@@ -262,7 +266,7 @@ Format: `add-alias ALIAS|COMMAND`
 * The alias must not be the name of a command.
 
 ===== Examples:
-Give the command `add` an alias of 't': +
+Give the command `add` an alias 't': +
 `add-alias t|add` +
 
 image::images/UG_add-alias_success.png[width ="600", align="center"]
@@ -277,7 +281,7 @@ Assigning an command keyword as an alias is also not allowed: +
 
 image::images/UG_add-alias_illegal.png[width ="600", align="center"]
 
-==== 3.5.2 Remove alias: remove-alias
+==== Remove alias: remove-alias
 
 Let's say you changed your mind after adding the alias.
 Use the `remove-alias` command to delete an existing alias. +
@@ -289,16 +293,17 @@ Format: `remove-alias ALIAS|COMMAND`
 ----
 remove-alias t|add
 ----
+
 image::images/UG-remove_alias-success.png[width ="600", align="center"]
 
-==== 3.5.3 List alias: list-alias
+==== List alias: list-alias
 If you forgot the aliases you set, or would like to view the default aliases,
 use the `list-alias` command! +
 Format: `list-alias`
 
 image::images/UG_list-alias_success.png[width ="600", align="center"]
 
-==== 3.5.4 Reset alias: reset-alias
+==== Reset alias: reset-alias
 To undo all your alias modifications, use the `reset-alias` command
 to set them back to the defaults. After the reset, use `list-alias` to
 view the default aliases. +

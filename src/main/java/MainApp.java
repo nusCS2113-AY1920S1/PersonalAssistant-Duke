@@ -22,17 +22,12 @@ public class MainApp extends Application {
     }
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(Stage primaryStage) {
         Parent root = new MainWindow(optix);
         Scene scene = new Scene(root);
 
         primaryStage.setTitle("Optix");
         primaryStage.setScene(scene);
         primaryStage.show();
-    }
-
-    @Override
-    public void stop() throws Exception {
-        super.stop();
     }
 }
