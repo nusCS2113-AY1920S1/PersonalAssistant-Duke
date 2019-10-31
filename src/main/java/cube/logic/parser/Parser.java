@@ -1,3 +1,4 @@
+//@@author ZKathrynx
 package cube.logic.parser;
 
 import cube.logic.command.*;
@@ -44,6 +45,8 @@ public class Parser {
 				return new ListCommandParser().parse(inputs);
 			case "find":
 				return new FindCommandParser().parse(inputs);
+			case "update":
+				return new UpdateCommandParser().parse(inputs);
 			case "generaterevenue" :
 				return new GenerateRevenueCommandParser().parse(inputs);
 			case "delete":

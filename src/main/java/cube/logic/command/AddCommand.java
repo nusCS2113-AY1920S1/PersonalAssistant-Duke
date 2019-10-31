@@ -32,7 +32,6 @@ public class AddCommand extends Command{
 	 * Adds food to foodList and store it if the food does not already exists, otherwise throws
 	 * Command exception.
 	 *
-	 * @param list The food list.
 	 * @param storage The current Storage.
 	 * @return The message feedback to user before Programme Exit.
 	 */

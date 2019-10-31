@@ -1,3 +1,4 @@
+//@@author ZKathrynx
 package cube.logic.parser;
 
 import cube.logic.command.FindCommand;
