@@ -25,7 +25,7 @@ public class Ui {
      * Prints the exit message.
      */
     public void showExit() {
-        typeWriter("Good bye.", false);
+        typeWriter("Goodbye.", false);
     }
 
     /**
