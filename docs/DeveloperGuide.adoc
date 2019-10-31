@@ -216,8 +216,8 @@ The `history` feature is implemented to keep track of the list of all input comm
 This feature supports the following commands:
 
 * `history` - lists all the input commands(with the date and time beside) entered by the user.
-* `view history h/DATE to DATE` - lists the input commands entered by the user during a certain time period.
-* (proposed) `delete history h/DATE to DATE` - deletes the input commands entered by the user during a certain time period.
+* `view history h/DATE to DATE` - lists the input commands entered by the user during a certain period.
+* (proposed) `delete history h/DATE to DATE` - deletes the input commands entered by the user during a certain period.
 
 The use case for the `history` command is given below to show how each component interacts with each other.
 
