@@ -28,7 +28,8 @@ public class DateTimeExtractor {
      *
      * @param dateTimeFromUser A string containing only the date segment of the user
      *                         input.
-     * @return String A string containing the end time of an event will also returned.
+     * @return String A string containing the end time of an event will also
+     *         returned.
      * @throws ParseException The ParseException is called if the date or time
      *                        format provided by the user is incorrect!
      */
@@ -51,8 +52,11 @@ public class DateTimeExtractor {
         } else if (command.equals("schedule")) {
             return LocalDateTime.parse(dateTimeFromUser, DATE_FORMATTER);
         } else if (command.equals("assignment")) {
-            dateView = LocalDateTime.parse(dateTimeFromUser, DATE_FORMATTER);
-            return dateView;
+            dateDeadline = LocalDateTime.parse(dateTimeFromUser, DATE_FORMATTER);
+            return dateDeadline;
+        } else if (command.equals("exam")) {
+            dateEvent = LocalDateTime.parse(dateTimeFromUser, DATE_FORMATTER);
+            return dateEvent;
         }
         // Allows the developer to know that a command other than deadline or event was
         // passed to the function!

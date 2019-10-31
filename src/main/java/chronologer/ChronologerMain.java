@@ -33,7 +33,7 @@ public class ChronologerMain extends Application implements Serializable {
         ui = new UiManager(this);
         try {
             this.storage = new Storage(file);
-            this.tasks = new TaskList(storage.loadFile(file));
+            this.tasks = storage.loadFile(file);
             ChronologerStateList.addState(SerializationUtils.clone(tasks.getTasks()));
         } catch (ChronologerException e) {
             this.tasks = new TaskList(new ArrayList<>());

@@ -117,6 +117,13 @@ public class AddCommand extends Command {
                 throw new ChronologerException(ChronologerException.taskClash());
             }
             break;
+        case "exam":
+            task = new Event(taskDescription, formattedStartDate, formattedEndDate, modCode);
+            if (tasks.isClash(task)) {
+                UiTemporary.printOutput(ChronologerException.taskClash());
+                throw new ChronologerException(ChronologerException.taskClash());
+            }
+            break;
         default:
             UiTemporary.printOutput(ChronologerException.unknownUserCommand());
             throw new ChronologerException(ChronologerException.unknownUserCommand());
