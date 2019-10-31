@@ -202,16 +202,21 @@ public class Process {
      */
     public void assignFund(String input, Ui ui, Fund fund) {
         try {
-            String[] split = input.split("pr/|am/");
+            String[] split = input.split("pr/| am/");
             String projectname = split[1];
             Double amount = Double.parseDouble(split[2]);
-            Project project = projectmanager.projectmap.get(projectname);
-            if ( fund.getFundRemaining() >= amount ) {
-                fund.takeFund(amount);
-                project.addBudget(amount);
-                ui.printAssignFundMessage(fund, amount, project);
+            if (!projectmanager.projectmap.containsKey(projectname)) {
+                System.out.println("\t" + "Project does not exist!");
+                return;
             } else {
-                ui.exceptionMessage("     ☹ OOPS!!! There is not enough fund. Please decrease the amount of fund assigned)");
+                if (fund.getFundRemaining() >= amount) {
+                    fund.takeFund(amount);
+                    projectmanager.assignBudget(projectname, amount);
+                    ui.printAssignFundMessage(fund, amount,  projectmanager.projectmap.get(projectname));
+                } else {
+                    ui.exceptionMessage("     ☹ OOPS!!! There is not enough fund. Please decrease the amount of fund assigned)");
+                    System.out.print(fund.giveFund());
+                }
             }
         } catch (ArrayIndexOutOfBoundsException e) {
             ui.exceptionMessage("     ☹ OOPS!!! Please input the correct command format (refer to user guide)");
@@ -636,7 +641,7 @@ public class Process {
         Date date_second = sdf.parse(date2);
         commandList = storage.load();
         ArrayList<String> viewhistory = new ArrayList<String>();
-        for(int i = 0; i < commandList.size(); i = i + 1){
+        for(int i = 0; i < commandList.size() - 1; i = i + 1){
             String token = null;
             String token1 = null;
             String[] splitdate_command = commandList.get(i).split("~",2);

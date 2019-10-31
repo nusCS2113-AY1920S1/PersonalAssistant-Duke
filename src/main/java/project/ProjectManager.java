@@ -79,8 +79,8 @@ public class ProjectManager {
     }
 
     //TODO --> assign budget
-    public void assignBudget() {
-
+    public void assignBudget(String projectname, Double amount) {
+        projectmap.get(projectname).addBudget(amount);
     }
 
     /**
