@@ -61,23 +61,22 @@ public class EventList {
         for (String currLine : inputList) {
             boolean isDone = currLine.substring(0, 1).equals("V");
             char eventType = currLine.charAt(1);
+            String[] splitString = currLine.split("/");
 
             if (eventType == TODO) {
-                String[] splitString = currLine.split(" ");
                 String description = splitString[1];
                 String date = splitString[2];
                 eventArrayList.add(new ToDo(description, isDone, date));
 
             } else { //for all other events
-                String[] splitString = currLine.split(" ");
                 String description = splitString[1];
-                String startDateAndTime = splitString[2] + " " + splitString[3];
-                String endDateAndTime = splitString[4] + " " + splitString[5];
+                String startDateAndTime = splitString[2];
+                String endDateAndTime = splitString[3];
 
                 switch (eventType) {
                     case CONCERT:
                         eventArrayList.add(new Concert(description, isDone, startDateAndTime, endDateAndTime,
-                                Integer.parseInt(splitString[6])));
+                                Integer.parseInt(splitString[4])));
                         break;
 
                     case LESSON:
@@ -140,9 +139,11 @@ public class EventList {
         this.eventArrayList.add(event);
     }
 
+    //@@author YuanJiayi
     /**
      * Adds recurring events to the list.
-     *  @param event  Event to be added as recursion.
+     *
+     * @param event  Event to be added as recursion.
      * @param period Period of the recursion.
      */
     public void addRecurringEvent(Event event, int period) throws ClashException {
@@ -179,6 +180,7 @@ public class EventList {
         this.eventArrayList.addAll(tempEventList);
     }
 
+    //@@author
     /**
      * Checks the list of events for any clashes with the newly added event. If
      * there is a clash, return a reference to the event, if not, return null.
@@ -300,7 +302,7 @@ public class EventList {
         int j;
         for (int i = 0; i < eventArrayList.size(); ++i) {
             if (eventArrayList.get(i) == null) continue;
-            else if (!predicate.check(eventArrayList.get(i).getStartDate())) continue; 
+            else if (!predicate.check(eventArrayList.get(i).getStartDate())) continue;
             j = i + 1;
             filteredEvents += j + ". " + this.getEvent(i).toString() + "\n";
         }

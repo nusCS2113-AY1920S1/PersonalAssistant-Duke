@@ -559,7 +559,7 @@ where the first column of the table is the current day.
 
 === Contact management
 . Add contact to an event in the list +
-Key in `contact add <event index> /<contact information>` +
+Key in `contact add <event index> /<name>, <email>, <phone number>` +
 Expected: Prints the success of adding the contact.
 
 . Delete contact +

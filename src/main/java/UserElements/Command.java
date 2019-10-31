@@ -10,7 +10,9 @@ import Events.EventTypes.EventSubclasses.ToDo;
 import Events.Formatting.CalendarView;
 import Events.Formatting.EventDate;
 import Events.Storage.*;
+import Events.Storage.Instruments.*;
 import UserElements.ConcertBudgeting.CostExceedsBudgetException;
+
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -65,7 +67,7 @@ public class Command {
      * @param ui      Class containing all relevant user interface instructions.
      * @param storage Class containing access to the storage file and related instructions.
      */
-    public void execute(EventList events, UI ui, Storage storage) {
+    public void execute(EventList events, UI ui, Storage storage, InstrumentList instruments) {
         boolean changesMade = true;
         switch (command) {
             case "list":
@@ -152,7 +154,11 @@ public class Command {
             case "checklist":
                 checklistManagement(events, ui);
                 break;
-
+                
+            case "instrument":
+            	instrumentManagement(instruments, ui);
+            	break;
+                
             default:
                 ui.printInvalidCommand();
                 changesMade = false;
@@ -423,6 +429,12 @@ public class Command {
         }
     }
 
+    //@@author YuanJiayi
+    /**
+     * Reschedules the date and time of an existing event.
+     *
+     * @param events The event list.
+     */
     public void rescheduleEvent(EventList events, UI ui) {
         Event copyOfEvent = null, newEvent = null;
         EventDate copyOfStartDate;
@@ -471,6 +483,7 @@ public class Command {
         }
     }
 
+    //@@author
     /**
      * Manages the goals of an existing event.
      *
@@ -518,6 +531,12 @@ public class Command {
         }
     }
 
+    //@@author YuanJiayi
+    /**
+     * Manage the contacts of an existing event.
+     *
+     * @param events The event list.
+     */
     private void contactManagement(EventList events, UI ui) {
         if (continuation.isEmpty()) {
             ui.noSuchEvent();
@@ -537,7 +556,11 @@ public class Command {
                         break;
 
                     case "view":
-                        ui.printEventContacts(events.getEvent(eventIndex));
+                        if (events.getEvent(eventIndex).getContactList().isEmpty()) {
+                            ui.noContactInEvent();
+                        } else {
+                            ui.printEventContacts(events.getEvent(eventIndex));
+                        }
                         break;
                 }
             } else {
@@ -571,7 +594,53 @@ public class Command {
             ui.notAnInteger();
         }
     }
+    
+    //@@author Dng132FEI
+    public void instrumentManagement(InstrumentList instruments, UI ui) {
+    	try {
+	    	if (continuation.isEmpty()) {
+	            ui.noSuchEvent();
+	            return;
+	    	}
+	    	String splitInstrument[] = continuation.split("/");
+	    	String instrumentCommand[] = continuation.split(" ");
+	    	int instrumentIndex;
+	    	String instrumentIndexAndName;
+	    	switch (instrumentCommand[0]) {
+	    	    case "add":
+	    			instrumentIndex = instruments.addInstrument(splitInstrument[1]);
+	    			instrumentIndexAndName = instruments.getIndexAndInstrument(instrumentIndex);
+	    			ui.instrumentAdded(instrumentIndexAndName);
+	    			break;
+	    	    case "service":
+	    	    	instrumentIndex = Integer.parseInt(instrumentCommand[1]);
+	    	    	EventDate inputDate = new EventDate(splitInstrument[2]);
+	    	    	int serviceIndex = instruments.service(instrumentIndex, inputDate, splitInstrument[1]);
+	    	    	instrumentIndexAndName = instruments.getIndexAndInstrument(instrumentIndex);
+	    	    	String serviceIndexAndName = instruments.getIndexAndService(instrumentIndex, serviceIndex);
+	    	    	ui.serviceAdded(serviceIndexAndName, instrumentIndexAndName);
+	    	    	break;
+	    	    case "view":
+	    	    	switch (instrumentCommand[1]) {
+	    	    	    case "instruments":
+	    	    	    	String listOfInstruments = instruments.getInstruments();
+	    	                ui.printInstruments(listOfInstruments);
+	    	                break;
+	    	    	    case "services":
+	    	    	    	instrumentIndex = Integer.parseInt(instrumentCommand[2]);
+	    	                String listOfServices = instruments.getInstrumentServiceInfo(instrumentIndex);
+	    	                instrumentIndexAndName = instruments.getIndexAndInstrument(instrumentIndex);
+	    	                ui.printServices(listOfServices, instrumentIndexAndName);
+	    	                break;
+	    	    	}
+	    	    	break;
+	    	}
+    	} catch (IndexOutOfBoundsException e) {
+            ui.noSuchEvent();
+        }
+    }
 
+    //@@author
     public void remindEvents(EventList events, UI ui) {
         ui.printReminder(events);
     }
