@@ -60,6 +60,9 @@ public class AddEventCommand extends Command {
             throw new OofException("OOPS!!! The event needs an end date.");
         }
         String description = lineSplit[INDEX_DESCRIPTION].trim();
+        if (exceedsMaxLength(description)) {
+            throw new OofException("Task exceeds maximum description length!");
+        }
         String[] dateSplit = lineSplit[INDEX_DATES].split(" /to ");
         String startDate = parseTimeStamp(dateSplit[INDEX_DATE_START]);
         String endDate = parseTimeStamp(dateSplit[INDEX_DATE_END]);

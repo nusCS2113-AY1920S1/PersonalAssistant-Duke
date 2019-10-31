@@ -52,6 +52,10 @@ public class AddSemesterCommand extends Command {
         }
         String year = yearSplit[INDEX_YEAR].trim();
         String name = nameSplit[INDEX_NAME].trim();
+        String description = year + " " + name;
+        if (exceedsMaxLength(description)) {
+            throw new OofException("Task exceeds maximum description length!");
+        }
         String startDate = dateSplit[INDEX_DATE_START].trim();
         String endDate = dateSplit[INDEX_DATE_END].trim();
         if (isDateValid(startDate) && isDateValid(endDate) && (hasClashes(semesterList, startDate, endDate))) {

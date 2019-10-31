@@ -9,7 +9,6 @@ import oof.Storage;
 import oof.model.task.TaskList;
 import oof.Ui;
 import oof.exception.OofException;
-import oof.model.tracker.TrackerList;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -61,15 +60,13 @@ public class RecurringCommand extends Command {
             throw new OofException("OOPS!!! Please select a valid task!");
         } else if (!isCountValid(this.count)) {
             throw new OofException("OOPS!!! The valid number of recurrences is from 1-10!");
+        } else if (!isFrequencyValid(this.frequency)) {
+            throw new OofException("OOPS!!! Please enter a valid number!");
         } else {
             try {
-                if (!isFrequencyValid(this.frequency)) {
-                    throw new OofException("OOPS!!! Please enter a valid number!");
-                } else {
-                    setRecurringTask(ui, taskList, this.index, this.count, this.frequency);
-                    ui.printRecurringMessage(taskList);
-                    storage.writeTaskList(taskList);
-                }
+                setRecurringTask(ui, taskList, this.index, this.count, this.frequency);
+                ui.printRecurringMessage(taskList);
+                storage.writeTaskList(taskList);
             } catch (InputMismatchException e) {
                 throw new OofException("OOPS!!! Please enter a valid number!");
             }

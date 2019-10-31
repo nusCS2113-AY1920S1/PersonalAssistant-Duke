@@ -51,6 +51,9 @@ public class AddDeadlineCommand extends Command {
             throw new OofException("OOPS!!! The deadline needs a due date.");
         }
         String description = lineSplit[INDEX_DESCRIPTION].trim();
+        if (exceedsMaxLength(description)) {
+            throw new OofException("Task exceeds maximum description length!");
+        }
         String date = parseTimeStamp(lineSplit[INDEX_DATE_BY].trim());
         if (isDateValid(date)) {
             Task task = new Deadline(description, date);
