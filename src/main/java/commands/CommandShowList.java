@@ -20,60 +20,7 @@ public class CommandShowList extends Command {
     public void execute(Farmio farmio) throws FarmioFatalException {
         Ui ui = farmio.getUi();
         double level = farmio.getFarmer().getLevel();
-
-        if(filePath.equals("ActionList")) {
-            if(level == 1.1) {
-                farmio.getSimulation().simulate(filePath, 11,false);
-            }
-            if(level == 1.2) {
-                farmio.getSimulation().simulate(filePath, 12,false);
-            }
-            if(level == 1.3) {
-                farmio.getSimulation().simulate(filePath, 13,false);
-            }
-            if(level == 1.4) {
-                farmio.getSimulation().simulate(filePath, 14,false);
-            }
-            if(level == 1.5) {
-                farmio.getSimulation().simulate(filePath, 15,false);
-            }
-            if(level == 1.6) {
-                farmio.getSimulation().simulate(filePath, 15,false);
-            }
-        }
-
-        if(filePath.equals("ConditionList")) {
-            if(level == 1.1) {
-                farmio.getSimulation().simulate(filePath, 11,false);
-            }
-            if(level == 1.2) {
-                farmio.getSimulation().simulate(filePath, 11,false);
-            }
-            if(level == 1.3) {
-                farmio.getSimulation().simulate(filePath, 11,false);
-            }
-            if(level == 1.4) {
-                farmio.getSimulation().simulate(filePath, 14,false);
-            }
-            if(level == 1.5) {
-                farmio.getSimulation().simulate(filePath, 16,false);
-            }
-            if(level == 1.6) {
-                farmio.getSimulation().simulate(filePath, 16,false);
-            }
-        }
-
-        if(filePath.equals("MarketList")) {
-            if(level < 1.5) {
-                farmio.getSimulation().simulate(filePath, 4,false);
-            } else if(level < 2) {
-                farmio.getSimulation().simulate(filePath, 1, false);
-            } else if(level < 3) {
-                farmio.getSimulation().simulate(filePath, 2,false);
-            } else if(level < 4) {
-                farmio.getSimulation().simulate(filePath, 3,false);
-            }
-        }
+        farmio.getSimulation().simulate(filePath, (int)(level * 10),false);
 
         ui.show("Press [Enter] to go back to game");
     }

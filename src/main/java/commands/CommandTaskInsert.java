@@ -24,8 +24,7 @@ public class CommandTaskInsert extends CommandChangeTask {
     @Override
     public void execute(Farmio farmio) throws FarmioException, FarmioFatalException {
         farmio.getFarmer().getTasks().insertTask(taskID, task);
-        farmio.getSimulation().simulate();
+        super.saveTaskandResetScreen(farmio);
         farmio.getUi().showInfo("You have added a new task: " + task.toString() + " at position " + taskID);
-        super.saveTask(farmio);
     }
 }

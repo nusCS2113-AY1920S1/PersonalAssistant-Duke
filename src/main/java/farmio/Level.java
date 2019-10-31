@@ -295,9 +295,8 @@ public class Level {
      * @return
      */
 
-    public List<String> getFeedback(Farmio farmio) {
+    public List<String> getFeedback(Farmio farmio, ObjectiveResult currentLevelState) {
         Farmer farmer = farmio.getFarmer();
-        ObjectiveResult currentLevelState = farmio.getLevel().getLevelState();
 
         List<String> output = new ArrayList<String>();
         if (currentLevelState == ObjectiveResult.DONE) {

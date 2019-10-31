@@ -27,8 +27,7 @@ public class CommandTaskCreate extends CommandChangeTask {
         Storage storage = farmio.getStorage();
         Farmer farmer = farmio.getFarmer();
         farmer.getTasks().addTask(task);
-        farmio.getSimulation().simulate(farmio.getLevel().getPath(), farmio.getLevel().getNarratives().size() - 1);
+        super.saveTaskandResetScreen(farmio);
         ui.showInfo("Task [" + task.toString() + "] added! \nYou now have " + farmer.getTasks().size() + " tasks!");
-        super.saveTask(farmio);
     }
 }

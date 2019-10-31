@@ -1,0 +1,9 @@
+         GOLD                     BOOLEAN
+______________________________________________________
+ greaterThanOrEquals | 
+ greaterThan         |          
+ lessThan            |          
+ lessThanOrEquals    |
+_____________________|________________________________
+
+Eg: [If gold greaterThanOrEquals 10 do buySeeds]
