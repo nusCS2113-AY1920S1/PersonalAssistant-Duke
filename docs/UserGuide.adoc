@@ -23,10 +23,12 @@ WordUp (WU) is a desktop-based application for english language learners who pre
 == Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `wordup.jar` link:{repoURL}/releases[here].
+.  Download the latest `wordup.jar` https://github.com/AY1920S1-CS2113-T14-3/main/releases/tag/v1.3[here].
 .  Copy the file to the folder you want to use as the home folder for your WordUp.
-.  Double-click the file to start the app. The GUI should appear in a few seconds.
-.  Type the command in the command box and press Enter to execute it. e.g. typing help and pressing Enter opens up the window showing a list of commands available. +
+.  Ensure that you have JavaFX installed.
+.  [Windows] Open command prompt by typing cmd in the start bar. 
+.  Enter the following command: `java --module-path [path to javafx lib folder]C:\Java\javafx-sdk-11.0.2\lib --add-modules=javafx.controls -jar [path to home folder of WordUp]C:\home\wordup-v1.3.jar`
+.  Type the command in the command box and press Enter to execute it. e.g. typing `help` and pressing `Enter` opens up the window showing a list of commands available. +
 .  Some example commands you can try:
 
 * *`list`* : shows the list of words currently stored in the Word Bank in alphabetical displayOrder or otherwise customised in the app settings
@@ -113,6 +115,7 @@ Returns suggestion of `potato`
 Generate quizzes from the wordBank to test the user's understanding. +
 Format: `quiz`
 
+
 // tag::delete[]
 === Deleting a word object : `delete`
 
@@ -131,10 +134,49 @@ Examples:
 Deletes the drink object from dictionary.
 
 // end::delete[]
+
+
 === [Not supported] Clearing all entries : `clear`
 
 Clears all entries from the dictionary. +
 Format: `clear`
+
+
+// tag::schedule[]
+=== Setting a study reminder : `schedule`
+
+Sets a reminder given a user specified date and time, tagged to a list of words to be revised. +
+Format: `schedule`
+
+****
+* Users can set a reminder for multiple words at one go.
+****
+
+Examples:
+
+* Enter `schedule` +
+Enter a list of 'enter key' separated words: `life\n is\n great\n` +
+Enter a date and time for the reminder: `31/10/2019 2359` +
+Reminder is set. Summary of reminder details is shown. Reminder pop up will be shown at time set.
+// end::schedule[]
+
+
+// tag::history[]
+=== Checking recently added words : `history`
+
+Shows a list of recently added words by the user. +
+Format: `history {number of past entries to be shown}`
+
+****
+* Entering a number larger than the number of words in the word bank returns all the words in the word bank.
+* List is shown with the latest added words at the top.
+****
+
+Examples:
+
+* `history 5` +
+Shows the list of the last 5 words added, with the latest entry first.
+// end::history[]
 
 === Exiting the program : `exit`
 
