@@ -196,6 +196,7 @@ the commands by coordinating all other components.
 `ProjectInputController` is the class which deals with the management of a specific project.
 
 *Rationale for implementation*
+
 We realized that the commands related to managing a project are extremely complex. Hence we had to segregate the methods related
 to managing a project from the `ConsoleInputController` and this resulted in the creation of the `ProjectInputController`.
 
