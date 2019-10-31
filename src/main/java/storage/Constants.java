@@ -4,10 +4,10 @@ package storage;
  * Contains project-wide constants.
  */
 public class Constants {
-    public static final String FILENAME = "data\\duke.txt";
     public static final String ROOMFILENAME = "data\\roomlist.txt";
     public static final String INVENTORYFILENAME = "data\\inventory.txt";
     public static final String USERFILENAME = "data\\users.txt";
+    public static final String DIRECTORY = "data";
     public static final int TYPE = 0;
     public static final int ISDONE = 1;
     public static final int DESCRIPTION = 2;
