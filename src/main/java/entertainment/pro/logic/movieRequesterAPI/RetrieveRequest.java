@@ -11,6 +11,7 @@ import entertainment.pro.model.MovieInfoObject;
 
 import java.io.*;
 import java.net.MalformedURLException;
+import java.net.SocketTimeoutException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.text.ParseException;
@@ -46,6 +47,7 @@ public class RetrieveRequest implements InfoFetcher {
     private static final String TO_SPECIFY_UK = "GB";
     private static final String TO_SPECIFY_US = "US";
     private static final String TO_SPECIFY_CERTIFICATION = "certification";
+    private static final String TO_SPECIFY_RELEASE_DATES = "release_dates";
 
     // General Data Request URL's
     private static final String RELEASE_DATES_URL = "/release_dates?api_key=";
@@ -73,7 +75,7 @@ public class RetrieveRequest implements InfoFetcher {
     // Data Keys for both movie and TV shows
     private static final String MOVIE_TITLE = "title";
     private static final String TV_TITLE = "original_name";
-    private static final String RELEASE_DATE = "release_dates";
+    private static final String RELEASE_DATE = "release_date";
     private static final String DATA_ID = "id";
     private static final String GENRES = "genre_ids";
     private static final String SUMMARY = "overview";
@@ -319,7 +321,7 @@ public class RetrieveRequest implements InfoFetcher {
                 Iterator<Map.Entry> itr1 = certMap.entrySet().iterator();
                 while (itr1.hasNext()) {
                     Map.Entry pair = itr1.next();
-                    if (pair.getKey().equals(RELEASE_DATE)) {
+                    if (pair.getKey().equals(TO_SPECIFY_RELEASE_DATES)) {
                         certStrings = pair.getValue().toString();
                     }
                 }
@@ -427,9 +429,10 @@ public class RetrieveRequest implements InfoFetcher {
      */
     @Override
     public void fetchedJSON(String json) {
-        // check for null string returned due to a lack of internet connection
         String data = "";
         JSONObject movieData = new JSONObject();
+        JSONParser parser = new JSONParser();
+        JSONArray movies = new JSONArray();
         if (json == null) {
             //mListener.requestFailed();
             //System.out.println("so far not ok");
@@ -437,7 +440,12 @@ public class RetrieveRequest implements InfoFetcher {
             isOffline = true;
             OfflineSearchStorage offlineSearchStorage = new OfflineSearchStorage();
             try {
-                data = offlineSearchStorage.load();
+                if (getType.equals(MoviesRequestType.SEARCH_MOVIES)) {
+                    movies = offlineSearchStorage.getSearchData();
+                } else {
+                    data = offlineSearchStorage.load();
+                    System.out.println("ok so far");
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -445,22 +453,27 @@ public class RetrieveRequest implements InfoFetcher {
             isOffline = false;
             data = json;
         }
-        //start parsing data into JSONObject
-        JSONParser parser = new JSONParser();
+
         try {
-            movieData = (JSONObject) parser.parse(data);
+            if (!(isOffline && getType.equals(MoviesRequestType.SEARCH_MOVIES))) {
+                movieData = (JSONObject) parser.parse(data);
+                movies = (JSONArray) movieData.get(KEYWORD_FOR_SEARCH_REQUESTS);
+
+            }
         } catch (org.json.simple.parser.ParseException e) {
             e.printStackTrace();
         }
-        JSONArray movies = new JSONArray();
-        movies = (JSONArray) movieData.get(KEYWORD_FOR_SEARCH_REQUESTS);
-
 
         ArrayList<MovieInfoObject> parsedMovies = new ArrayList(20);
+        int size = 0;
         for (int i = 0; i < movies.size(); i++) {
+            if (size > 20) {
+                break;
+            }
             // add results that meet user stated preferences
             if (checkCondition((JSONObject) movies.get(i))) {
                 parsedMovies.add(parseMovieJSON((JSONObject) movies.get(i)));
+                size += 1;
                 //System.out.println("yeesss");
             }
         }
@@ -577,6 +590,7 @@ public class RetrieveRequest implements InfoFetcher {
             try {
                 SimpleDateFormat formatter1 = new SimpleDateFormat("yyyy-MM-dd");
                 releaseDate = formatter1.parse(releaseDateString);
+                //System.out.println("this is " + releaseDate);
                 //System.out.println(releaseDate);
             } catch (ParseException e) {
                 releaseDate = null;
@@ -770,6 +784,15 @@ public class RetrieveRequest implements InfoFetcher {
 
     private boolean checkCondition(JSONObject entryInfo) {
 
+        //System.out.println(searchProfile.getName());
+        if ((isOffline) && getType.equals(MoviesRequestType.SEARCH_MOVIES)) {
+            String searchName = searchProfile.getName().toLowerCase();
+            String entryInfoName = ((String) entryInfo.get("title")).toLowerCase();
+          //  if (searchName.indexOf(entryInfoName) == -1) {
+            if (!(searchName.equals(entryInfoName))) {
+                return false;
+            }
+        }
         Set<Long> genrePref = new HashSet<>();
         Set<Long> genreRestric = new HashSet<>();
         boolean haveGenrePref = true;

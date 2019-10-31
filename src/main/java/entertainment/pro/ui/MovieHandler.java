@@ -70,9 +70,9 @@ public class MovieHandler extends Controller implements RequestListener {
     private Label userPlaylistsLabel;
 
     @FXML
-    Text autoCompleteText;
+    Label autoCompleteLabel;
     @FXML
-    Text generalFeedbackText;
+    Label generalFeedbackLabel;
 
     @FXML
     private TextFlow genreListText;
@@ -233,7 +233,7 @@ public class MovieHandler extends Controller implements RequestListener {
 //                System.out.println("Tab presjenksjessed");
 //                event.consume();
 //            } else if (event.getCode().equals(KeyCode.DOWN)) {
-//                mMoviesScrollPane.requestFocus();
+//                mMoviesScrollPne.requestFocus();
 //                mMoviesFlowPane.getChildren().get(0).setStyle("-fx-border-color: white");
 //            }
 //        }
@@ -317,7 +317,7 @@ public class MovieHandler extends Controller implements RequestListener {
                 mSearchTextField.clear();
                 String cmd = CommandStack.nextCommand();
                 if (cmd == null) {
-                    setAutoCompleteText("You dont have any commands in history!");
+                    setAutoCompleteLabel("You dont have any commands in history!");
                 } else {
                     mSearchTextField.clear();
                     mSearchTextField.setText(cmd);
@@ -334,9 +334,9 @@ public class MovieHandler extends Controller implements RequestListener {
                     LOGGER.log(Level.SEVERE , "Exception in parsing command" + e);
                 } catch (EmptyCommandException e) {
                     LOGGER.log(Level.SEVERE , PromptMessages.MISSING_COMMAND + e);
-                    setFeedbackText(PromptMessages.MISSING_COMMAND);
+                    setGeneralFeedbackLabel(PromptMessages.MISSING_COMMAND);
                 } catch (MissingInfoException e) {
-                    setFeedbackText(PromptMessages.MISSING_ARGUMENTS);
+                    setGeneralFeedbackLabel(PromptMessages.MISSING_ARGUMENTS);
                 }
                 clearSearchTextField();
             } else if (event.getCode().equals(KeyCode.DOWN)) {
@@ -363,7 +363,7 @@ public class MovieHandler extends Controller implements RequestListener {
             System.out.println("textfield changed from " + oldValue + " to " + newValue);
         });
 
-        System.out.println(generalFeedbackText.getText());
+        System.out.println(generalFeedbackLabel.getText());
 
 //        //Enter is Pressed
 //        mSearchTextField.setOnKeyPressed(new KeyboardClick(this));
@@ -599,6 +599,7 @@ public class MovieHandler extends Controller implements RequestListener {
         }
         //  mMoviesScrollPane.setFitToWidth(true);
         mMoviesScrollPane.setContent(mMoviesFlowPane);
+        mMoviesScrollPane.setFitToWidth(true);
         mMoviesScrollPane.setVvalue(0);
     }
 
@@ -640,9 +641,12 @@ public class MovieHandler extends Controller implements RequestListener {
                     controller.getPosterImageView().setImage(posterImage);
 
                 } else {
-                    //  System.out.println("hi1");
-                    Image posterImage = new Image(this.getClass().getResourceAsStream("../../../../EPdata/FakeMoviePoster.png"));
-                    // System.out.println("hi2");
+
+                    System.out.println("hi1");
+                    File fakePoster = new File("./data/FakeMoviePoster.png");
+                    Image posterImage = new Image(fakePoster.toURI().toString());
+                    System.out.println("hi2");
+
                     posterImage.progressProperty().addListener((observable, oldValue, newValue) -> {
                         try {
                             updateProgressBar(movie, newValue.doubleValue());
@@ -853,7 +857,7 @@ public class MovieHandler extends Controller implements RequestListener {
             // set the movie info
             MoviePosterController controller = loader.getController();
             try {
-                File fakePoster = new File("./FakeMoviePoster.png");
+                File fakePoster = new File("./data/FakeMoviePoster.png");
                 Image posterImage = new Image(fakePoster.toURI().toString());
                 posterImage.progressProperty().addListener((observable, oldValue, newValue) -> {
                     try {
@@ -940,7 +944,7 @@ public class MovieHandler extends Controller implements RequestListener {
             controller.getMovieCastLabel().setText(cast);
             controller.getMovieCertLabel().setText(movie.getCertInfo());
 
-            ArrayList<Long>genres = movie.getGenreIdInfo();
+            ArrayList<Long> genres = movie.getGenreIdInfo();
             String genreText = "";
             for (int i = 0; i < genres.size(); i += 1) {
                 Long getGenre = genres.get(i);
@@ -1054,7 +1058,7 @@ public class MovieHandler extends Controller implements RequestListener {
             output += "\n";
 
         }
-        generalFeedbackText.setText(output);
+        generalFeedbackLabel.setText(output);
     }
 
     /**
@@ -1062,13 +1066,13 @@ public class MovieHandler extends Controller implements RequestListener {
      *
      * @param txt which is the string text to be printed.
      */
-    public void setFeedbackText(String txt) {
-        generalFeedbackText.setText(txt);
+    public void setGeneralFeedbackLabel(String txt) {
+        generalFeedbackLabel.setText(txt);
     }
 
 
-    public void setAutoCompleteText(String text) {
-        autoCompleteText.setText(text);
+    public void setAutoCompleteLabel(String text) {
+        autoCompleteLabel.setText(text);
     }
 
     /**
@@ -1086,7 +1090,7 @@ public class MovieHandler extends Controller implements RequestListener {
             output += "\n";
 
         }
-        autoCompleteText.setText(output);
+        autoCompleteLabel.setText(output);
     }
 
     /**

@@ -89,7 +89,7 @@ public class SetCommand extends CommandSuper {
             movieHandler.setLabels();
         } catch (SetExceptions e) {
             System.out.println(e);
-            movieHandler.setFeedbackText(e.getMessage());
+            movieHandler.setGeneralFeedbackLabel(e.getMessage());
         }
         movieHandler.clearSearchTextField();
 
@@ -141,7 +141,7 @@ public class SetCommand extends CommandSuper {
             System.out.println(i);
             WatchlistHandler.markIndexAsDone(i, (MovieHandler)(this.getUiController()));
         } catch (NullPointerException | IndexOutOfBoundsException e) {
-            ((MovieHandler)(this.getUiController())).setFeedbackText("please enter a valid duke.task number");
+            ((MovieHandler)(this.getUiController())).setGeneralFeedbackLabel("please enter a valid duke.task number");
         }
     }
 }

@@ -161,7 +161,7 @@ public abstract class CommandSuper {
             subRootCommand = cmds.getSubRootCommand();
             setExecute(false);
             if (uicontroller != null) {
-                ((MovieHandler) uicontroller).setAutoCompleteText(getDidYouMeanText(commandArr));
+                ((MovieHandler) uicontroller).setAutoCompleteLabel(getDidYouMeanText(commandArr));
             }
 
             return true;

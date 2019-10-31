@@ -30,7 +30,7 @@ public class ViewCommand extends CommandSuper {
                 WatchlistHandler.print_list((MovieHandler) (this.getUiController()));
                 break;
             case blacklist:
-                ((MovieHandler) this.getUiController()).setFeedbackText(Blacklist.printList());
+                ((MovieHandler) this.getUiController()).setGeneralFeedbackLabel(Blacklist.printList());
                 break;
             case entry:
                 executeEntryCommands(Integer.parseInt(getPayload()));

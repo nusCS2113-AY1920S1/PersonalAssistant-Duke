@@ -1,7 +1,9 @@
 package entertainment.pro.logic.parsers.commands;
 
+import entertainment.pro.commons.PromptMessages;
 import entertainment.pro.commons.exceptions.DateTimeParseExceptions;
 import entertainment.pro.commons.exceptions.Exceptions;
+import entertainment.pro.commons.exceptions.InvalidFormatCommandExceptions;
 import entertainment.pro.logic.movieRequesterAPI.RetrieveRequest;
 import entertainment.pro.model.SearchProfile;
 import entertainment.pro.storage.utils.ProfileCommands;
@@ -10,6 +12,7 @@ import entertainment.pro.ui.MovieHandler;
 import entertainment.pro.commons.enums.COMMANDKEYS;
 import entertainment.pro.logic.parsers.CommandStructure;
 import entertainment.pro.logic.parsers.CommandSuper;
+import org.json.simple.parser.ParseException;
 
 import java.util.ArrayList;
 import java.io.IOException;
@@ -23,6 +26,7 @@ public class SearchCommand extends CommandSuper {
     private static String GET_UPCOMING = "/upcoming";
     private static String GET_TRENDING = "/trend";
     private static String GET_POPULAR = "/popular";
+    private static String GET_RATED = "/rated";
     private static String GET_PREF = "-p";
     private static String GET_NEW_GENRE_PREF = "-g";
     private static String GET_NEW_GENRE_RESTRICT = "-r";
@@ -50,7 +54,7 @@ public class SearchCommand extends CommandSuper {
      * @throws Exceptions
      */
     @Override
-    public void executeCommands() throws Exceptions {
+    public void executeCommands() throws Exceptions{
         String payload = getPayload();
         MovieHandler movieHandler = ((MovieHandler) this.getUiController());
         SearchProfile searchProfile = movieHandler.getSearchProfile();
@@ -66,7 +70,8 @@ public class SearchCommand extends CommandSuper {
             executeTvSearch(payload, movieHandler, searchProfile);
             break;
         default:
-            break;
+            movieHandler.setGeneralFeedbackLabel(PromptMessages.INVALID_FORMAT);
+            throw new InvalidFormatCommandExceptions();
         }
     }
 
@@ -83,15 +88,23 @@ public class SearchCommand extends CommandSuper {
                                     SearchProfile searchProfile) throws Exceptions {
         movieHandler.setSearchProfile(searchProfile);
         if (payload.equals(GET_CURRENT)) {
-            movieHandler.getAPIRequester().beginSearchRequest(RetrieveRequest.MoviesRequestType.CURRENT_MOVIES);
+            movieHandler.showCurrentMovies();
+            movieHandler.setGeneralFeedbackLabel(PromptMessages.VIEW_CURRENT_MOVIES_SUCCESS);
         } else if (payload.equals(GET_UPCOMING)) {
             movieHandler.getAPIRequester().beginSearchRequest(RetrieveRequest.MoviesRequestType.UPCOMING_MOVIES);
+            movieHandler.setGeneralFeedbackLabel(PromptMessages.VIEW_UPCOMING_MOVIES_SUCCESS);
         } else if (payload.equals(GET_TRENDING)) {
             movieHandler.getAPIRequester().beginSearchRequest(RetrieveRequest.MoviesRequestType.TRENDING_MOVIES);
+            movieHandler.setGeneralFeedbackLabel(PromptMessages.VIEW_TRENDING_MOVIES_SUCCESS);
         } else if (payload.equals(GET_POPULAR)) {
             movieHandler.getAPIRequester().beginSearchRequest(RetrieveRequest.MoviesRequestType.POPULAR_MOVIES);
+            movieHandler.setGeneralFeedbackLabel(PromptMessages.VIEW_POPULAR_MOVIES_SUCCESS);
+        } else if (payload.equals(GET_RATED)) {
+            movieHandler.getAPIRequester().beginSearchRequest(RetrieveRequest.MoviesRequestType.TOP_RATED_MOVIES);
+            movieHandler.setGeneralFeedbackLabel(PromptMessages.VIEW_TOP_RATED_MOVIES_SUCCESS);
         } else {
             movieHandler.getAPIRequester().beginSearchRequest(RetrieveRequest.MoviesRequestType.SEARCH_MOVIES);
+            movieHandler.setGeneralFeedbackLabel(PromptMessages.VIEW_SEARCH_MOVIES_SUCCESS);
         }
     }
 
@@ -145,6 +158,7 @@ public class SearchCommand extends CommandSuper {
                 }
             }
         } else {
+
             if (this.getFlagMap().containsKey(GET_NEW_GENRE_PREF)) {
                 getGenresPrefForSearch(searchProfile);
             }

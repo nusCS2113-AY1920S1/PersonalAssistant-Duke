@@ -162,7 +162,7 @@ public class CommandParser {
                 break;
             default:
                 CommandPair pair = CommandDebugger.commandSpellChecker(commandArr , COMMANDKEYS.none , uicontroller);
-                ((MovieHandler) uicontroller).setFeedbackText("Sorry we are unable to process your command. " +
+                ((MovieHandler) uicontroller).setGeneralFeedbackLabel("Sorry we are unable to process your command. " +
                         "Please check help for more details!");
 
         }
@@ -284,9 +284,9 @@ public class CommandParser {
 
     private static void askUserConfirmation(CommandPair pair, Controller uicontroller, String[] commandArr) {
         if (pair.getSubRootCommand() == COMMANDKEYS.none) {
-            ((MovieHandler) uicontroller).setAutoCompleteText("Did you mean :" + pair.getRootCommand());
+            ((MovieHandler) uicontroller).setAutoCompleteLabel("Did you mean :" + pair.getRootCommand());
         } else {
-            ((MovieHandler) uicontroller).setAutoCompleteText("Did you mean :" + pair.getRootCommand() + " "
+            ((MovieHandler) uicontroller).setAutoCompleteLabel("Did you mean :" + pair.getRootCommand() + " "
                     + pair.getSubRootCommand() + " "
                     + String.join(" ", Arrays.copyOfRange(commandArr, 2, commandArr.length)));
         }

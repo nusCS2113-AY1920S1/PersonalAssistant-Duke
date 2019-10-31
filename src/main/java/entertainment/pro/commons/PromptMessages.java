@@ -5,17 +5,19 @@ package entertainment.pro.commons;
  *
  */
 public class PromptMessages {
-    public static final String VIEW_CURRENT_MOVIES_SUCCESS = "Alright! Displaying currently showing movies...";
-    public static final String VIEW_UPCOMING_MOVIES_SUCCESS = "Alright! Displaying upcoming movies...";
-    public static final String VIEW_TRENDING_MOVIES_SUCCESS = "Alright! Displaying trending movies...";
-    public static final String VIEW_POPULAR_MOVIES_SUCCESS = "Alright! Displaying popular movies...";
-    public static final String VIEW_TOP_RATED_MOVIES_SUCCESS = "Alright! Displaying top-rated movies...";
+    public static final String VIEW_CURRENT_MOVIES_SUCCESS = "Alright! I'm displaying currently showing movies...";
+    public static final String VIEW_UPCOMING_MOVIES_SUCCESS = "Alright! I'm displaying upcoming movies...";
+    public static final String VIEW_TRENDING_MOVIES_SUCCESS = "Alright! I'm displaying trending movies...";
+    public static final String VIEW_POPULAR_MOVIES_SUCCESS = "Alright! I'm displaying popular movies...";
+    public static final String VIEW_TOP_RATED_MOVIES_SUCCESS = "Alright! I'm displaying top-rated movies...";
+    public static final String VIEW_SEARCH_MOVIES_SUCCESS = "Alright! I'm displaying movies related to the title " +
+            "entered by you...";
 
-    public static final String VIEW_CURRENT_TV_SUCCESS = "Alright! Displaying currently showing TV shows...";
-    public static final String VIEW_UPCOMING_TV_SUCCESS = "Alright! Displaying upcoming TV shows...";
-    public static final String VIEW_TRENDING_TV_SUCCESS = "Alright! Displaying trending TV shows...";
-    public static final String VIEW_POPULAR_TV_SUCCESS = "Alright! Displaying popular TV shows...";
-    public static final String VIEW_TOP_RATED_TV_SUCCESS = "Alright! Displaying top-rated TV shows...";
+    public static final String VIEW_CURRENT_TV_SUCCESS = "Alright! I'm displaying currently showing TV shows...";
+    public static final String VIEW_UPCOMING_TV_SUCCESS = "Alright! I'm displaying upcoming TV shows...";
+    public static final String VIEW_TRENDING_TV_SUCCESS = "Alright! I'm displaying trending TV shows...";
+    public static final String VIEW_POPULAR_TV_SUCCESS = "Alright! I'm displaying popular TV shows...";
+    public static final String VIEW_TOP_RATED_TV_SUCCESS = "Alright! I'm displaying top-rated TV shows...";
 
     public static final String SORT_SUCCESS = "Nice! You have successfully updated your sort preferences";
     public static final String PREFERNCES_SUCCESS = "Nice! You have successfully updated your preferences";
@@ -38,7 +40,7 @@ public class PromptMessages {
     public static final String MISSING_COMMAND = "You have entered an empty command!";
 
     public static final String FILE_NOT_FOUND = "File not found!";
-    public static final String FILES_NOT_FOUND  = "Entire Help directory is missing!";
+    public static final String FILES_NOT_FOUND  = "File not found! Please wait for next update!";
 
 
 
