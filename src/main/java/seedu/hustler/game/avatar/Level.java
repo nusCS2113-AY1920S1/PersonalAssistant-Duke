@@ -47,9 +47,6 @@ public class Level implements Convertible {
      */
     public Level increaseXp() {
         this.xp++;
-        if (this.canLevel()) {
-            this.levelUp();
-        }
         return this;
     }
 
@@ -57,8 +54,9 @@ public class Level implements Convertible {
      * Levels up by 1.
      * @return the current level.
      */
-    public Level levelUp() {
-        return new Level(this.level + 1, this.xp);
+    public Level upLevel() {
+        this.level++;
+        return this;
     }
 
     /**

@@ -81,21 +81,12 @@ public class Avatar implements Convertible {
     }
 
     /**
-     * Gets the integer level of the avatar.
-     * @return the level of the avatar in integer.
+     * Increases avatar xp by 1.
+     * @return the updated avatar.
      */
-    public int getLevelInt() {
-        return this.level.getLevel();
-    }
-
-    /**
-     * Increases avatar xp by 1. Avatar levels up which also
-     * raises the stats if the xp reaches level up threshold.
-     * @return the level of the avatar.
-     */
-    public Level gainXp() {
+    public Avatar gainXp() {
         this.level = level.increaseXp();
-        return this.level;
+        return this;
     }
 
     /**
@@ -112,12 +103,20 @@ public class Avatar implements Convertible {
         return this;
     }
 
+    /**
+     * Checks if the avatar can level up.
+     * @return true if avatar can level up; false if otherwise.
+     */
     public Boolean canLevel() {
         return this.level.canLevel();
     }
 
+    /**
+     * Completes the levelling up by increasing the level and stats of the avatar.
+     * @return the new updated avatar.
+     */
     public Avatar levelUp() {
-        this.level.levelUp();
+        this.level.upLevel();
         this.stats.upStats(this.level.getLevel());
         return this;
     }

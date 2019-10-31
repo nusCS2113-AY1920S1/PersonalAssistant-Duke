@@ -40,7 +40,6 @@ public class DoneCommand extends Command {
         Ui ui = new Ui();
         try {
             anomaly.detect(userInput);
-            int oldLevel = Hustler.avatar.getLevelInt();
             int taskIndex = Integer.parseInt(userInput[1]) - 1;
             Hustler.list.doTask(taskIndex);
             Hustler.avatar.gainXp();
