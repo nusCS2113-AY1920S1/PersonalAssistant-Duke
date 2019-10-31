@@ -4,8 +4,9 @@ import dolla.Storage;
 
 import java.util.ArrayList;
 
-public class BillList extends RecordList{
+//@@author tata
 
+public class BillList extends RecordList{
 
     public BillList(ArrayList<Record> importBillList) {
         super(importBillList);

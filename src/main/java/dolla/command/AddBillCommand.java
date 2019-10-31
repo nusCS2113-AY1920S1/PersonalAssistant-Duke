@@ -15,6 +15,13 @@ public class AddBillCommand extends Command {
     private double average;
     private ArrayList<String> nameList;
 
+    /**
+     * Instantiates AddBillCommand.
+     * @param type type of debt (is bill in this case).
+     * @param people number of people.
+     * @param amount the total amount.
+     * @param nameList the namelist.
+     */
     public AddBillCommand(String type, int people, double amount, ArrayList<String> nameList) {
         this.type = type;
         this.people = people;

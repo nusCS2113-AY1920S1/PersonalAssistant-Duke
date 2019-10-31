@@ -7,6 +7,10 @@ import dolla.ui.Ui;
 
 import java.util.ArrayList;
 
+//@@author tatayu
+/**
+ * This class shows the bill list
+ */
 public class ShowBillListCommand extends Command {
 
     private String mode;

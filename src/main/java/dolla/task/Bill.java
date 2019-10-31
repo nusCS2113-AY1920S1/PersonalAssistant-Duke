@@ -4,6 +4,9 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 //@@author tatayu
+/**
+ * Bill is a Class that stores an instance of the user's bill split case.
+ */
 public class Bill extends Record {
 
     protected String type;
@@ -13,6 +16,14 @@ public class Bill extends Record {
     protected double average;
     protected ArrayList<String> nameList;
 
+    /**
+     * Instantiates a new bill.
+     * @param type Type of the debt (is bill in this case).
+     * @param people The number of people.
+     * @param amount The total amount.
+     * @param average The average amount per person after splitting.
+     * @param nameList The name list.
+     */
     public Bill(String type, int people, double amount, double average, ArrayList<String> nameList) {
         this.type = type;
         this.people = people;
@@ -21,6 +32,11 @@ public class Bill extends Record {
         this.nameList = nameList;
     }
 
+    /**
+     * Returns a string to with information about the bill to be displayed
+     * to the user.
+     * @return String with information of bill
+     */
     @Override
     public String getRecordDetail() {
         return "[" + type + "] "
@@ -30,6 +46,10 @@ public class Bill extends Record {
                 + nameList;
     }
 
+    /**
+     * Returns a string with information about the bill to be saved.
+     * @return String with information of bill in save format.
+     */
     @Override
     public String formatSave() {
         return "BI" + " | " +

@@ -63,8 +63,8 @@ public class Debt extends Record {
     }
 
     /**
-     * Returns a string with information about the entry to be saved.
-     * @return String with information of entry in save format.
+     * Returns a string with information about the debt to be saved.
+     * @return String with information of debt in save format.
      */
     @Override
     public String formatSave() {
