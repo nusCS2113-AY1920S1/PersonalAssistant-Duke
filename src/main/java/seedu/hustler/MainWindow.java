@@ -131,6 +131,7 @@ public class MainWindow extends AnchorPane{
 
         public void appendText(String valueOf) {
             Platform.runLater(() -> console.appendText(valueOf));
+
         }
 
         public void write(int b) {
