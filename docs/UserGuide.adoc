@@ -71,11 +71,11 @@ Customise various features of Dolla, like how many items to show per page on a l
 *Command Format*
 
 * Uppercase word in square brackets are the parameter to be inputed by the you. +
-e.g. `*add expense* [AMOUNT] [DESCRIPTION] /on[DATE]`, the `[AMOUNT]`, `[DESCRIPTION]` and `[DATE]` are parameters which the you can input as `*add expense* $5 dinner /on 11/11/2019`.
+e.g. `*add expense* [AMOUNT] [DESCRIPTION] /on[DATE]`, the `[AMOUNT]`, `[DESCRIPTION]` and `[DATE]` are parameters which the you can input as `*add expense* 5 dinner /on 11/11/2019`.
 * Item in curly braces are optional. +
-e.g. `*add income* [AMOUNT] [DESCRIPTION] /on [DATE] {/tag [TAG]}` can be `add income $40 TA salary for CS1010 /on 10/10/2019 /tag salary` or `*add income* $40 TA salary for CS1010 /on 10/10/2019`.
+e.g. `*add income* [AMOUNT] [DESCRIPTION] /on [DATE] {/tag [TAG]}` can be `add income 40 TA salary for CS1010 /on 10/10/2019 /tag salary` or `*add income* 40 TA salary for CS1010 /on 10/10/2019`.
 * Parameters should be in the correct order. +
-e.g. `*add recurring expense* [AMOUNT] [DESCRIPTION] /every [DURATION]` should be `*add recurring expense* $45 phone bill /every month` and should not be `*add recurring expense* phone bill $45 /every month`.
+e.g. `*add recurring expense* [AMOUNT] [DESCRIPTION] /every [DURATION]` should be `*add recurring expense* 45 phone bill /every month` and should not be `*add recurring expense* phone bill 45 /every month`.
 
 *NOTE*: Words in *bold* are the keywords that define the type of command to be executed. e.g. `*remove* [LIST NO.]` `*remove*` is the keyword that will execute the remove command.
 
@@ -102,8 +102,7 @@ available in certain mode.
 
 === Show the list of records in each mode
 
-You can check the list of records added for the mode that you are currently in.
-
+You can check the list of records added for the mode that you are currently in. +
 Format: +
 `*entries*` `*debts*` `*limits*` `*shortcuts*`
 
@@ -115,7 +114,7 @@ Undo a previous command in a particular mode. +
 Format: +
 `*undo*`
 
-*NOTE*: This command is only valid if you have previously execute a `"add"` type of command or `remove` command
+*NOTE*: This command is only valid if you have previously execute a `"add"` type of command or `remove` command.
 
 Example:
 
@@ -280,8 +279,8 @@ Format: +
 
 Examples:
 
-* `add expense $45 MRT concession pass /on 24/09/2019 /tag transport`
-* `add income $500 part time tuition /on 01/09/2019`
+* `add expense 45 MRT concession pass /on 24/09/2019 /tag transport`
+* `add income 500 part time tuition /on 01/09/2019`
 
 ==== Add a new entry to the shortcut: `create shortcut expense`, `create shortcut income` `[Coming in 1.4]`
 
@@ -306,9 +305,9 @@ Format: +
 
 Examples:
 
-* `add recurring expense $59 phone bill /every month /starting 01/01/2019 /tag bill`
+* `add recurring expense 59 phone bill /every month /starting 01/01/2019 /tag bill`
 
-* `add recurring income $800 part time job /every month`
+* `add recurring income 800 part time job /every month`
 
 ==== Reminders:
 
@@ -325,9 +324,9 @@ Format: +
 
 Examples:
 
-* `owe xx $4 bubble tea`
+* `owe xx 4 bubble tea`
 
-* `borrow xx $10 lunch`
+* `borrow xx 10 lunch`
 
 ==== View statistics: `stats`, `view` `[Coming in 1.4]`
 
@@ -502,15 +501,15 @@ e.g. `search monthly`
 * *modify:* `modify [LIST NO.] {COMPONENT}` +
 e.g. `modify 4 tag`
 * *sort date:* `sort date` +
-e.g. sort date
+e.g. `sort date`
 * *sort tag:* `sort tag` +
-e.g. sort tag
+e.g. `sort tag`
 * *sort amount:* `sort amount` +
-e.g. sort amount
+e.g. `sort amount`
 * *sort description:* `sort description` +
-e.g. sort description
+e.g. `sort description`
 * *sort name:* `sort name` +
-e.g. sort name
+e.g. `sort name`
 * *add recurring expense:* `add recurring expense [AMOUNT] [DESCRIPTION] /every [DURATION] {/starting [STARTDATE]} {/tag [TAG]}` +
 e.g. `add recurring expense $59 phone bill /every month /starting 01/01/2019 /tag bill`
 * *add recurring income:* `add recurring income [AMOUNT] [DESCRIPTION] /every [DURATION] {/starting [STARTDATE]} {/tag [TAG]}` +
