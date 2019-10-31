@@ -1,5 +1,6 @@
 package seedu.duke.task.parser;
 
+import javafx.util.Pair;
 import seedu.duke.CommandParseHelper;
 import seedu.duke.common.command.Command;
 import seedu.duke.common.command.ExitCommand;
@@ -445,4 +446,29 @@ public class TaskCommandParseHelper {
             super(msg);
         }
     }
+
+    /**
+     * Parses timeString to get day and time respectively.
+     *
+     * @param timeString the input string
+     * @return a pair containing day and time
+     */
+    public static Pair<String, String> checkTimeString(String timeString) {
+        Pair<String, String> dateTime = new Pair<>(null, null);
+        String day = dateTime.getKey();
+        String timing = dateTime.getValue();
+        if (!timeString.contains("/") && !timeString.isEmpty()) {
+            String timeStr = timeString.substring(0, 1).toUpperCase() + timeString.substring(1).toLowerCase();
+            if (timeStr.contains(" ")) {
+                String[] tokens = timeStr.split("\\s+", 3);
+                day = tokens[0];
+                timing = tokens[1];
+            } else {
+                day = timeStr;
+            }
+        }
+        dateTime = new Pair<>(day, timing);
+        return dateTime;
+    }
+
 }

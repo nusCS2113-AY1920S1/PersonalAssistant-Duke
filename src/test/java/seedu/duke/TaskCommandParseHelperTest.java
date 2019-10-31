@@ -12,7 +12,7 @@ import seedu.duke.task.command.TaskSnoozeCommand;
 import seedu.duke.task.command.TaskAddCommand;
 import seedu.duke.task.command.TaskFindCommand;
 import seedu.duke.task.entity.Task;
-import seedu.duke.task.command.TaskCommandParseHelper;
+import seedu.duke.task.parser.TaskCommandParseHelper;
 
 
 import java.lang.reflect.Field;
