@@ -6,8 +6,7 @@
   {
     "name": "P2",
     "taskList": [
-      "Job A",
-      "Job B"
+      "Job A"
     ]
   }
 ]
