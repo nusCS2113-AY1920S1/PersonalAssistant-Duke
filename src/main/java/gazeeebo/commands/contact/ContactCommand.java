@@ -64,7 +64,7 @@ public class ContactCommand extends Command {
             } else if (ui.fullCommand.equals("help")) {
                 System.out.println(helpContact);
             } else {
-                System.out.println("Incorrect format");
+                System.out.println("Command not found:\n" + helpContact);
             }
             String toStore = "";
             for (String key : contactList.keySet()) {
