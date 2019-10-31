@@ -73,7 +73,7 @@ public class AddCardBillCommand extends Command {
         String depDescription = "Rebate for Credit Card (" + profile.getCardRebateAmount(card) + "%) - "
                 + card + " " + cardDate;
         double billAmount = profile.getCardUnpaidBillAmount(card, cardDate);
-        double rebateAmount = (profile.getCardRebateAmount(card)/PERCENTAGE_TO_DECIMAL) * billAmount;
+        double rebateAmount = (profile.getCardRebateAmount(card) / PERCENTAGE_TO_DECIMAL) * billAmount;
         checkBillAmountZero(billAmount, card, cardDate);
         Expenditure newExpenditure =
                 new Expenditure(this.expDescription, billAmount, this.expDate, this.category);
