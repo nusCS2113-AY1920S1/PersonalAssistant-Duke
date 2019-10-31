@@ -16,7 +16,7 @@ public class Word {
     /**
      * Maximum ratio of difference allowed for 2 words to be considered close.
      */
-    private static final double MAX_DIF_ALLOWED = 0.5;
+    private static final double MAX_DIF_ALLOWED = 0.6;
 
     /**
      * Number of times that a word is searched.
@@ -87,19 +87,32 @@ public class Word {
     }
 
     /**
-     * Counts the number of different characters with another word.
+     * Measure the difference between 2 words.
      * @param another string represents word to be compared
-     * @return number of different characters between 2 words
+     * @return edit distance between 2 words divided by the length of shorter word
      */
     private double differenceToWord(String another) {
-        int lengthOfShorterWord = Math.min(another.length(), word.length());
-        int count = 0;
-        for (int i = 0; i < lengthOfShorterWord; i++) {
-            if (word.charAt(i) != another.charAt(i)) {
-                count++;
+        int[][] dp = new int[word.length() + 1][another.length() + 1];
+
+        for (int i = 0; i <= word.length(); i++) {
+            for (int j = 0; j <= another.length(); j++) {
+                if (i == 0) {
+                    dp[i][j] = j;
+                } else if (j == 0) {
+                    dp[i][j] = i;
+                } else {
+                    dp[i][j] = dp[i - 1][j - 1] + ((word.charAt(i - 1) != another.charAt(j - 1)) ? 1 : 0);
+                    if (dp[i][j] > dp[i - 1][j] + 1) {
+                        dp[i][j] = dp[i - 1][j] + 1;
+                    } else if (dp[i][j] > dp[i][j - 1] + 1) {
+                        dp[i][j] = dp[i][j - 1] + 1;
+                    }
+
+                }
             }
         }
-        return count * 1.0 / lengthOfShorterWord;
+        int lengthOfShorterWord = Math.min(another.length(), word.length());
+        return dp[word.length()][another.length()] * 1.0 / lengthOfShorterWord;
     }
 
     /**
