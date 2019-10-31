@@ -1,4 +1,4 @@
-= Brian Tan Kian Ming - Project Portfolio
+= Tan Kian Ming Brian - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
@@ -12,7 +12,134 @@ ifdef::env-github[]
 :warning-caption: :warning:
 endif::[]
 
-
 == PROJECT: OwlMoney
 
-Hello there I am Brian.
+Hello there I am Brian. I am a current student from National University of Singapore. I am currently pursuing a
+degree in Information Security.
+
+I have collaborated with
+link:{repoURL}/blob/master/docs/team/shamussy.adoc[Shamus Neo Zhi Kai],
+link:{repoURL}/blob/master/docs/team/mong-nus.adoc[Mong Zheng Wei],
+link:{repoURL}/blob/master/docs/team/terencetanwt.adoc[Tan Wee Theng, Terence]
+and link:{repoURL}/blob/master/docs/team/valerietyj.adoc[Valerie Tan Yi Jia]
+to work on a project for the module CS2113T (Software Engineering & Object-Oriented Programming).
+
+=== About the project
+My team and I were tasked to enhance a basic command line interface desktop personal assistance, named Duke, for our
+project. We have decided to morph it into a finance tracker, which mainly targets undergraduates and fresh graduates, called OwlMoney.
+This morphed product allows the users to keep track of their finances, while also allowing them to set goals for themselves to achieve.
+
+My role was to design and implement the `add`, `edit`, `delete` and `list` functions for the `Savings` account,
+`expenditures`, `deposit` and recurring bank expenditures, `recurbankexp`. The following sections illustrates these implementations in more detail, as well as the relevant documentation I have added to the User Guide and Developer Guide in relation to these implementations.
+
+=== Summary of contributions
+This section shows the summary of my contributions to the project which include the coding, documentation and other helpful contributions.
+
+*Features implemented:* I have implemented the ability to `add`, `edit`, `delete` and `list` `Savings` account
+
+* What it does: The `add`, `edit`, `delete` and `list` commands on a `savings` account allows the user to manage all
+savings accounts in the profile.
+* Justification: The savings account is a common account that many users own. Additionally, many transactions are
+performed in this account. Because of these reasons, the implementation of the `Savings` account will cater to a
+large number of users.
+* Highlights: The bank account also keeps track of the user's monthly income so that it can automatically be credited
+into the `Savings` account. This prevents errors such as forgetting to add a deposit for the monthly income.
+* Credits: A majority of this class inherits from the parent class `bank` which was collaborated by
+link:{repoURL}/blob/master/docs/team/shamussy.adoc[Shamus Neo Zhi Kai],
+link:{repoURL}/blob/master/docs/team/mong-nus.adoc[Mong Zheng Wei],
+link:{repoURL}/blob/master/docs/team/terencetanwt.adoc[Tan Wee Theng, Terence]
+and link:{repoURL}/blob/master/docs/team/valerietyj.adoc[Valerie Tan Yi Jia]
+.
+
+*Features implemented:* I have implemented the ability to `add`, `edit`, `delete` and `list` transactions, which consists of
+`expenditures`, `deposit`, and `recurbankexp`.
+
+* What it does: The `add`, `edit`, `delete` and `list` commands on transaction objects allows the user to manage all
+transactions within the bank or card accounts.
+* Justification: Transactions which are performed on a bank account will affect the amount of money in it. By
+implementing the transactions features, the user will be able to add any transactions which has been performed to the
+specified bank account. This enables the ability to track the user's finances.
+* Highlights: This enhancement automatically adjusts the current amount in the bank automatically when a transaction
+is added, modified or deleted. This allows effective tracking of the user's finances in the account without the need
+to manually edit the bank amount.
+
+*Code contributed:*
+[https://nuscs2113-ay1920s1.github.io/dashboard/#=undefined&search=briantkm[RepoSense]],
+[link:{repoURL}/commits?author=briantkm[Commits]],
+ [link:{repoURL}/pulls?q=author%3ABrianTKM[Pull Requests]]
+
+*Other contributions:*
+
+* Project Management:
+** Managed Issue tracker.
+* Enhancement made to existing features:
+** Fixed error in the Ui of the program. (Pull Request )
+* Documentation:
+** Corrected mistakes in the Developer Guide. (Pull Request
+https://github.com/AY1920S1-CS2113T-W17-3/main/pull/163[#163])
+** Planned the initial user stories and use cases of the project. (Collaborated with link:{repoURL}/blob/master/docs/team/shamussy.adoc[Shamus],
+{repoURL}/blob/master/docs/team/mong-nus.adoc[Zheng Wei], {repoURL}/blob/master/docs/team/terencetanwt.adoc[Terence] and {repoURL}/blob/master/docs/team/valerietyj.adoc[Valerie]
+) (Issue https://github.com/AY1920S1-CS2113T-W17-3/main/issues/24[#24],
+https://github.com/AY1920S1-CS2113T-W17-3/main/issues/26[#26],
+https://github.com/AY1920S1-CS2113T-W17-3/main/issues/27[#27])
+* Community:
+** Reviewed the User Guide and Developer Guide of other groups.
+* Team Collaboration:
+** Reported bugs on team member's code. (Issue
+https://github.com/AY1920S1-CS2113T-W17-3/main/issues/138[#138])
+** Collaborated with team members on other features. (Pull Request
+https://github.com/AY1920S1-CS2113T-W17-3/main/pull/74[#74])
+** Designed the flow of how commands are executed. (Pull Request
+https://github.com/AY1920S1-CS2113T-W17-3/main/pull/64/files[#64],
+https://github.com/AY1920S1-CS2113T-W17-3/main/pull/67/files[#67])
+** Some parts of my code were referenced by my group members.
+** Resolved bugs in the program. (Pull Request
+https://github.com/AY1920S1-CS2113T-W17-3/main/pull/90/files[#90])
+
+==== {nbsp}
+
+=== Contributions to the User Guide
+The User Guide had to be updated to reflect the instructions on how to use the morphed product, OwlMoney.
+The following is a portion of the User Guide which shows the commands for managing `Savings`, `expenditures`,
+`deposit` and `bankrecurexp`.
+
+Note the following symbols and formatting used in the User Guide.
+[NOTE]
+====
+This symbol denotes information that you may want to take note of.
+====
+[TIP]
+====
+This symbol denotes a tip that you may find useful when using our application.
+====
+[WARNING]
+====
+This symbol denotes a warning message which you need to be careful of when using our application.
+====
+
+====
+* Commands, parameters, and file paths will be in this `format`
+* Important messages will be *bold*
+====
+include::../UserGuide.adoc[tag=savingsSyntax]
+
+include::../UserGuide.adoc[tag=deleteSavings]
+
+==== {nbsp}
+
+include::../UserGuide.adoc[tag=deleteExpenditure]
+
+==== {nbsp}
+
+include::../UserGuide.adoc[tag=deleteDeposit]
+
+==== {nbsp}
+
+include::../UserGuide.adoc[tag=recurringExpenditureSyntax]
+
+==== {nbsp}
+
+=== Contributions to the Developer Guide
+The following section shows my contribution to the Developer guide for the `Savings` feature.
+
+include::../DeveloperGuide.adoc[tag=add_savings]
