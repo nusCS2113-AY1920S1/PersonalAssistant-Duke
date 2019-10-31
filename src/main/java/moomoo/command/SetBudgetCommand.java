@@ -41,7 +41,7 @@ public class SetBudgetCommand extends Command {
         for (int i = 0; i < categories.size(); ++i) {
             String categoryName = categories.get(i).toLowerCase();
             double categoryBudget = budgets.get(i);
-            if (catList.getCategory(categoryName) != null) {
+            if (catList.get(categoryName) != null) {
                 if (categoryBudget <= 0) {
                     outputValue += "Please set your budget for " + categoryName + " to a value more than 0\n";
                     continue;
