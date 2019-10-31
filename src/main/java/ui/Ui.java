@@ -184,13 +184,13 @@ public class Ui {
      * @param payee the name of the payee to whom Payment was being made to
      * @param size the number of payments in the record for this Payee after deletion
      */
-    public void printDeletePaymentMessage(String payee, Payments payment, int size) {
+    public void printDeletePaymentMessage(String payee, Payments payment, int size, String currentProjectName) {
         System.out.print(line + "     Noted. I've removed this payment: \n");
         System.out.println("\t" + "Payee: " + payee);
         System.out.println("\t" + "Item: " + payment.item);
         System.out.println("\t" + "Cost: " + payment.cost);
         System.out.println("\t" + "Invoice: " + payment.inv);
-        System.out.print("\t" + payee + " now has " + size + " payments in the record." + "\n");
+        System.out.print("\t" + payee + " now has " + size + " payments in project " + currentProjectName + ".\n");
         System.out.print(line);
     }
 
@@ -273,7 +273,7 @@ public class Ui {
      * @param payee name of entity Payment is directed to
      * @param payment the new Payment containing the relevant information added to Payee object.
      */
-    public void printAddPaymentMessage(String payee, Payments payment, int size) {
+    public void printAddPaymentMessage(String payee, Payments payment, int size, String currentProjectName) {
         System.out.print(line);
         System.out.println("\t" + "Got it. I've added this payment:");
         System.out.println("\t" + "Payee: " + payee);
@@ -282,7 +282,7 @@ public class Ui {
         System.out.println("\t" + "Invoice: " + payment.inv);
         System.out.println("\t" + "Deadline: " + payment.deadline);
         System.out.println("\t" + "Status: " + payment.status);
-        System.out.print("\t" + payee + " now has " + size + " payments in the record." + "\n");
+        System.out.print("\t" + payee + " now has " + size + " payments in project " + currentProjectName + ".\n");
         System.out.print(line);
     }
 
@@ -291,14 +291,14 @@ public class Ui {
      * @param payee Payee containing identification information of Payee.
      * @param name the name of Payee to make Payments to.
      */
-    public void printAddPayeeMessage(String name, Payee payee, int payeesize) {
+    public void printAddPayeeMessage(String name, Payee payee, int payeesize, String currentProjectName) {
         System.out.print(line);
         System.out.println("\t" + "Got it. I've added this payee:");
         System.out.println("\t" + "Payee: " + name);
         System.out.println("\t" + "Email: " + payee.email);
         System.out.println("\t" + "Matric No: " + payee.matricNum);
         System.out.println("\t" + "Phone No: " + payee.phoneNum);
-        System.out.print("\t" + "There are " + payeesize + " payees in the record." + "\n");
+        System.out.print("\t" + "There are " + payeesize + " payees in project " + currentProjectName + ".\n");
         System.out.print(line);
     }
 
@@ -317,14 +317,14 @@ public class Ui {
      * @param payee Payee containing identification information of Payee.
      * @param name the name of Payee to make Payments to.
      */
-    public void printdeletePayeeMessage(String name, Payee payee, int payeesize) {
+    public void printdeletePayeeMessage(String name, Payee payee, int payeesize, String currentProjectName) {
         System.out.print(line);
         System.out.println("\t" + "Got it. I've deleted this payee:");
         System.out.println("\t" + "Payee: " + name);
         System.out.println("\t" + "Email: " + payee.email);
         System.out.println("\t" + "Matric No: " + payee.matricNum);
         System.out.println("\t" + "Phone No: " + payee.phoneNum);
-        System.out.print("\t" + "There are " + payeesize + " payees in the record." + "\n");
+        System.out.print("\t" + "There are " + payeesize + " payees in project " + currentProjectName + ".\n");
         System.out.print(line);
     }
 
@@ -364,13 +364,28 @@ public class Ui {
      * Prints out the statement of accounts.
      * @param managermap managermap containing Payee and Payments information.
      */
-    public static void generateStatementofAccounts(HashMap<String, Payee> managermap) {
+    public void generateStatementofAccounts(HashMap<String, Payee> managermap) {
         System.out.print("Item\tExpense\n");
         for (Payee payee : managermap.values()) {
             for (Payments payment : payee.payments) {
                 System.out.println(payment.item + "\t" + payment.cost);
             }
         }
+    }
+
+    public void printHelpMessage() {
+        System.out.print(line);
+        System.out.println("\t" + "*Help*");
+        System.out.println("\t" + "Add Project:          " + commandFormat.addProjectFormat());
+        System.out.println("\t" + "Delete Project:       " + commandFormat.deleteProjectFormat());
+        System.out.println("\t" + "List Projects:        " + commandFormat.listProjectFormat());
+        System.out.println("\t" + "Go to a Project:      " + commandFormat.gotoProjectFormat());
+        System.out.println("\t" + "Add Payee:            " + commandFormat.addPayeeFormat());
+        System.out.println("\t" + "Add Payment:          " + commandFormat.addPaymentFormat());
+        System.out.println("\t" + "Delete Payee:         " + commandFormat.deletePayeeFormat());
+        System.out.println("\t" + "History of Commands:  " + commandFormat.historyFormat());
+        System.out.println("\t" + "Exit:                 " + commandFormat.exitFormat());
+        System.out.print(line);
     }
 
     /**
