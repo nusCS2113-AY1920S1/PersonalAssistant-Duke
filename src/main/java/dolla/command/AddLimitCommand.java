@@ -1,17 +1,21 @@
 package dolla.command;
 
 import dolla.DollaData;
+import dolla.ModeStringList;
 import dolla.task.Limit;
+import dolla.task.LimitList;
 import dolla.ui.LimitUi;
 
 /**
  * AddLimitCommand is used to create a new Limit entity.
  */
+//@@author Weng-Kexin
 public class AddLimitCommand extends Command {
 
     private String type;
     private double amount;
     private String duration;
+    private static final String mode = ModeStringList.MODE_LIMIT;
 
     /**
      * Instantiates a new AddLimitCommand.
@@ -28,9 +32,17 @@ public class AddLimitCommand extends Command {
     @Override
     public void execute(DollaData dollaData) {
         Limit newLimit = new Limit(type, amount, duration);
-        dollaData.addToRecordList("limit", newLimit);
+
+        LimitList limitList = (LimitList) dollaData.getRecordList(mode);
         //todo: need to add budget and show and deduct money every time there is an expense entry
-        LimitUi.echoAddRecord(newLimit);
+        int duplicateLimitIndex = limitList.findExistingRecordIndex(dollaData, newLimit, mode);
+        if (recordDoesNotExist(duplicateLimitIndex)) {
+            dollaData.addToRecordList(mode, newLimit);
+            LimitUi.echoAddRecord(newLimit);
+        } else {
+            Limit existingLimit = (Limit) limitList.getFromList(duplicateLimitIndex);
+            LimitUi.existingLimitPrinter(existingLimit);
+        }
     }
 
     @Override

@@ -40,7 +40,6 @@ public abstract class Parser implements ParserStringList, ModeStringList {
         this.commandToRun = inputArray[0];
     }
 
-
     public abstract Command parseInput();
 
     /**

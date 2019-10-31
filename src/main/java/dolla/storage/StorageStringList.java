@@ -1,5 +1,6 @@
 package dolla.storage;
 
+//@@author yetong1895
 public interface StorageStringList {
     String PATH = "./data/dolla.txt";
     String DATA = "data";
@@ -13,6 +14,7 @@ public interface StorageStringList {
     String BORROW_TYPE = "B";
     String RECURRING_INCOME_TYPE = "RI";
     String RECURRING_EXPENSE_TYPE = "RE";
+    String BILL_TYPE = "BI";
 
     String SHORTCUT = "shortcut";
     String INCOME = "income";

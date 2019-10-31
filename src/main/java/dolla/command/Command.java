@@ -44,10 +44,6 @@ public abstract class Command {
         return newInt;
     }
 
-    public void extractDesc(String inputLine) {
-
-    }
-
     /**
      * This method will call the resetUndoFlag method in the respective mode.
      */
@@ -60,5 +56,9 @@ public abstract class Command {
      */
     protected void resetRedoFlag() {
         Parser.resetRedoFlag();
+    }
+
+    protected Boolean recordDoesNotExist(int recordIndex) {
+        return (recordIndex == - 1);
     }
 }
