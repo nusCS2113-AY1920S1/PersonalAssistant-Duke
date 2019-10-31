@@ -6,6 +6,7 @@ import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 import duke.exception.DukeException;
 import duke.exception.DukeFatalException;
+import duke.exception.DukeResetException;
 
 import java.io.File;
 import java.io.FileReader;
@@ -44,7 +45,7 @@ public class GsonStorage {
      *
      * @throws DukeFatalException If data file cannot be setup.
      */
-    public GsonStorage(String path) throws DukeFatalException {
+    public GsonStorage(String path) throws DukeFatalException, DukeResetException {
         /*typeAdapterFactory = RuntimeTypeAdapterFactory
                 .of(DukeObject.class, "type")
                 .registerSubtype(Patient.class, "type1")

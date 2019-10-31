@@ -48,22 +48,22 @@ public class ImpressionEditCommand extends DukeDataCommand {
             // TODO: select by index
 
             String editDataName = getSwitchVal(editType);
-            List<DukeData> searchResults = ImpressionUtils.getImpression(core).find(editDataName);
+            List<DukeData> resultList = ImpressionUtils.getImpression(core).find(editDataName);
             switch (editType) {
             case "plan":
-                editData = findDataOfClass(searchResults, Plan.class);
+                editData = findDataOfClass(resultList, Plan.class);
                 break;
             case "medicine":
-                editData = findDataOfClass(searchResults, Medicine.class);
+                editData = findDataOfClass(resultList, Medicine.class);
                 break;
             case "investigation":
-                editData = findDataOfClass(searchResults, Investigation.class);
+                editData = findDataOfClass(resultList, Investigation.class);
                 break;
             case "result":
-                editData = findDataOfClass(searchResults, Result.class);
+                editData = findDataOfClass(resultList, Result.class);
                 break;
             case "observation":
-                editData = findDataOfClass(searchResults, Observation.class);
+                editData = findDataOfClass(resultList, Observation.class);
                 break;
             default:
                 throw new DukeException("Invalid data type!");
@@ -191,8 +191,8 @@ public class ImpressionEditCommand extends DukeDataCommand {
     // TODO proper searching
     // simply gets the first search result with a matching class
     // this is a terrible method, kill it and replace it with proper disambiguation as soon as possible
-    private DukeData findDataOfClass(List<DukeData> searchResults, Class dataClass) {
-        for (DukeData result : searchResults) {
+    private DukeData findDataOfClass(List<DukeData> resultList, Class dataClass) {
+        for (DukeData result : resultList) {
             if (result.getClass() == dataClass) {
                 return result;
             }

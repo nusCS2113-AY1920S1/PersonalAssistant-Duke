@@ -5,6 +5,7 @@ import duke.command.ArgCommand;
 import duke.command.ArgSpec;
 import duke.command.CommandUtils;
 import duke.data.DukeObject;
+import duke.data.Impression;
 import duke.data.Patient;
 import duke.exception.DukeException;
 import duke.ui.context.Context;
@@ -33,31 +34,21 @@ public class PatientOpenCommand extends ArgCommand {
                 if (type == null) {
                     type = condition.getKey();
                 } else {
-                    throw new DukeException("Please provide only 1 unique type (IMPRESSION, CRITICAL or INVESTIGATION "
-                            + "that you wish to open!");
+                    throw new DukeException("Please provide at most 1 unique type (IMPRESSION, CRITICAL or "
+                            + "INVESTIGATION that you wish to open!");
                 }
             }
         }
 
-        if (type == null) {
-            throw new DukeException("You must provide 1 unique type (IMPRESSION, CRITICAL or INVESTIGATION) that you "
-                    + "wish to open!");
-        }
-
         Patient patient = (Patient) core.uiContext.getObject();
-        DukeObject object = CommandUtils.findObject(core, patient, type, getSwitchVal("name"),
-                switchToInt("index"));
+        DukeObject object = CommandUtils.findFromPatient(core, patient, type, getArg());
 
-        if ("impression".equals(type)) {
+        if (object instanceof Impression) {
             core.uiContext.setContext(Context.IMPRESSION, object);
-        } else if ("critical".equals(type)) {
-            // TODO: Get critical
-            core.uiContext.setContext(Context.IMPRESSION, object.getParent());
         } else {
-            // TODO: Get investigation
             core.uiContext.setContext(Context.IMPRESSION, object.getParent());
         }
 
-        core.ui.print("Accessing " + type + " of Bed " + patient.getBedNo());
+        core.ui.print("Accessing " + object.getClass().getName() + " of Bed " + patient.getBedNo());
     }
 }

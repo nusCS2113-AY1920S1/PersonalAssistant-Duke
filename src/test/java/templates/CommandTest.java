@@ -4,6 +4,7 @@ import duke.DukeCore;
 import duke.command.ArgCommand;
 import duke.data.GsonStorage;
 import duke.data.PatientMap;
+import duke.exception.DukeException;
 import duke.exception.DukeFatalException;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
@@ -35,7 +36,7 @@ public abstract class CommandTest {
             core.patientMap = new PatientMap();
             core.storage = new GsonStorage(testFilePath);
             core.writeJsonFile();
-        } catch (DukeFatalException excp) {
+        } catch (DukeException excp) {
             fail("Could not setup storage for testing!");
         }
     }

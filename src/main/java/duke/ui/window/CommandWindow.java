@@ -53,7 +53,7 @@ public class CommandWindow extends InputHistoryWindow {
      */
     @Override
     protected void handleAction() {
-        String input = inputTextField.getText().trim();
+        String input = inputTextField.getText().strip();
 
         if (!input.isEmpty()) {
             storeInput(input);

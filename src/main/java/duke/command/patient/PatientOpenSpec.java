@@ -13,13 +13,11 @@ public class PatientOpenSpec extends ArgSpec {
 
     private PatientOpenSpec() {
         emptyArgMsg = "You did not tell me what I should open!";
-        cmdArgLevel = ArgLevel.NONE;
+        cmdArgLevel = ArgLevel.REQUIRED;
         initSwitches(
                 new Switch("impression", String.class, true, ArgLevel.NONE, "im"),
                 new Switch("critical", String.class, true, ArgLevel.NONE, "c"),
-                new Switch("investigation", String.class, true, ArgLevel.NONE, "inv"),
-                new Switch("index", Integer.class, true, ArgLevel.REQUIRED, "i"),
-                new Switch("name", String.class, true, ArgLevel.REQUIRED, "n")
+                new Switch("investigation", String.class, true, ArgLevel.NONE, "inv")
         );
     }
 }

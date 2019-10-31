@@ -151,14 +151,60 @@ public class Patient extends DukeObject {
      * @return the list of impressions
      */
     public ArrayList<Impression> findImpressionsByName(String searchTerm) {
-        ArrayList<Impression> searchResult = new ArrayList<>();
+        ArrayList<Impression> resultList = new ArrayList<>();
         String lowerSearchTerm = searchTerm.toLowerCase();
         for (Map.Entry<String, Impression> entry : this.observableImpressions.entrySet()) {
             if (entry.getKey().toLowerCase().contains(lowerSearchTerm)) {
-                searchResult.add(entry.getValue());
+                resultList.add(entry.getValue());
             }
         }
-        return searchResult;
+        return resultList;
+    }
+
+    /**
+     * This function finds critical items in this patient whose names contain the searchTerm.
+     *
+     * @param searchTerm the search term
+     * @return the list of critical items
+     */
+    public ArrayList<DukeData> findCriticalsByName(String searchTerm) {
+        ArrayList<DukeData> resultList = new ArrayList<>();
+        String lowerSearchTerm = searchTerm.toLowerCase();
+        for (Map.Entry<String, Impression> entry : this.observableImpressions.entrySet()) {
+            for (Map.Entry<String, Evidence> evidenceEntry : entry.getValue().getEvidences().entrySet()) {
+                if (evidenceEntry.getKey().toLowerCase().contains(lowerSearchTerm)
+                        && evidenceEntry.getValue().getPriority() == 1) {
+                    resultList.add(evidenceEntry.getValue());
+                }
+            }
+            for (Map.Entry<String, Treatment> treatmentEntry : entry.getValue().getTreatments().entrySet()) {
+                if (entry.getKey().toLowerCase().contains(lowerSearchTerm)
+                        && treatmentEntry.getValue().getPriority() == 1) {
+                    resultList.add(treatmentEntry.getValue());
+                }
+            }
+        }
+        return resultList;
+    }
+
+    /**
+     * This function finds follow-up items (Investigations for now) whose names contain the searchTerm.
+     *
+     * @param searchTerm the search term
+     * @return the list of follow-up items
+     */
+    public ArrayList<DukeData> findFollowUpsByName(String searchTerm) {
+        ArrayList<DukeData> resultList = new ArrayList<>();
+        String lowerSearchTerm = searchTerm.toLowerCase();
+        for (Impression imp : this.observableImpressions.values()) {
+            for (Map.Entry<String, Treatment> treatmentEntry : imp.getTreatments().entrySet()) {
+                if (treatmentEntry.getKey().toLowerCase().contains(lowerSearchTerm)
+                        && treatmentEntry.getValue().getClass() == Investigation.class) {
+                    resultList.add(treatmentEntry.getValue());
+                }
+            }
+        }
+        return resultList;
     }
 
     /**
@@ -238,25 +284,25 @@ public class Patient extends DukeObject {
         StringBuilder informationString;
         informationString = new StringBuilder("\tName of patient: " + getName() + "\n");
         informationString.append("\tBed Number: ").append(this.bedNo).append("\n");
-        if (this.height != null) {
+        if (this.height != -1) {
             informationString.append("\tHeight: ").append(this.height).append("\n");
         }
-        if (this.weight != null) {
+        if (this.weight != -1) {
             informationString.append("\tWeight: ").append(this.weight).append("\n");
         }
-        if (this.allergies != null) {
+        if (!this.allergies.equals("")) {
             informationString.append("\tAllergies: ").append(this.allergies).append("\n");
         }
-        if (this.age != null) {
+        if (this.age != -1) {
             informationString.append("\tAge: ").append(this.age).append("\n");
         }
-        if (this.number != null) {
+        if (this.number != -1) {
             informationString.append("\tNumber: ").append(this.number).append("\n");
         }
-        if (this.address != null) {
+        if (!this.address.equals("")) {
             informationString.append("\tAddress: ").append(this.address).append("\n");
         }
-        if (this.history != null) {
+        if (!this.history.equals("")) {
             informationString.append("\tHistory: ").append(this.history).append("\n");
         }
         if (this.primaryDiagnosis != null) {

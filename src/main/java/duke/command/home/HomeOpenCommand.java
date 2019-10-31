@@ -20,8 +20,7 @@ public class HomeOpenCommand extends ArgCommand {
         super.execute(core);
 
         String bed = getSwitchVal("bed");
-        int index = switchToInt("index");
-        Patient patient = CommandUtils.findPatient(core, bed, index);
+        Patient patient = CommandUtils.findFromHome(core, bed, getArg());
 
         if (isSwitchSet("impression")) {
             Impression primaryDiagnosis = patient.getPrimaryDiagnosis();
@@ -29,13 +28,13 @@ public class HomeOpenCommand extends ArgCommand {
             if (primaryDiagnosis != null) {
                 core.uiContext.setContext(Context.PATIENT, patient);
                 core.uiContext.setContext(Context.IMPRESSION, primaryDiagnosis);
-                core.ui.print("Accessing primary diagnosis of Bed " + patient.getBedNo());
+                core.ui.print("Accessing primary diagnosis of " + patient.getName());
             } else {
-                throw new DukeException("The specified patient has no primary diagnosis at the moment!");
+                throw new DukeException(patient.getName() + " has no primary diagnosis at the moment!");
             }
         } else {
             core.uiContext.setContext(Context.PATIENT, patient);
-            core.ui.print("Accessing details of Bed " + patient.getBedNo());
+            core.ui.print("Accessing details of " + patient.getName());
         }
     }
 }

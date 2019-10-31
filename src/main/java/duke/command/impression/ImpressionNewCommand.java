@@ -10,6 +10,7 @@ import duke.data.Observation;
 import duke.data.Plan;
 import duke.data.Result;
 import duke.exception.DukeException;
+import duke.exception.DukeHelpException;
 import duke.ui.context.Context;
 
 import java.time.LocalDate;
@@ -26,6 +27,9 @@ public class ImpressionNewCommand extends DukeDataCommand {
     public void execute(DukeCore core) throws DukeException {
         super.execute(core);
         String addType = uniqueDataType();
+        if (addType == null) {
+            throw new DukeHelpException("No data type specified!", this);
+        }
         checkTypeSwitches(addType);
         Impression impression = ImpressionUtils.getImpression(core);
         DukeData newData;
@@ -48,7 +52,7 @@ public class ImpressionNewCommand extends DukeDataCommand {
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM yyyy");
                 setSwitchVal("date", LocalDate.now().format(formatter));
             }
-            Medicine medicine = new Medicine(getSwitchVal("name"), impression, priority, status,
+            Medicine medicine = new Medicine(getArg(), impression, priority, status,
                     getSwitchVal("dose"), getSwitchVal("date"), getSwitchVal("duration"));
             impression.addNewTreatment(medicine);
             newData = medicine;
@@ -57,7 +61,7 @@ public class ImpressionNewCommand extends DukeDataCommand {
 
         case "plan":
             status = ImpressionUtils.processStatus(getSwitchVal("status"), Plan.getStatusArr());
-            Plan plan = new Plan(getSwitchVal("name"), impression, priority, status,
+            Plan plan = new Plan(getArg(), impression, priority, status,
                     getSwitchVal("summary"));
             impression.addNewTreatment(plan);
             newData = plan;
@@ -66,7 +70,7 @@ public class ImpressionNewCommand extends DukeDataCommand {
 
         case "investigation":
             status = ImpressionUtils.processStatus(getSwitchVal("status"), Investigation.getStatusArr());
-            Investigation invx = new Investigation(getSwitchVal("name"), impression, priority, status,
+            Investigation invx = new Investigation(getArg(), impression, priority, status,
                     getSwitchVal("summary"));
             impression.addNewTreatment(invx);
             newData = invx;
@@ -74,7 +78,7 @@ public class ImpressionNewCommand extends DukeDataCommand {
             break;
 
         case "result":
-            Result result = new Result(getSwitchVal("name"), impression, priority,
+            Result result = new Result(getArg(), impression, priority,
                     getSwitchVal("summary"));
             impression.addNewEvidence(result);
             newData = result;
@@ -83,7 +87,7 @@ public class ImpressionNewCommand extends DukeDataCommand {
 
         case "observation":
             boolean isObjective = !isSwitchSet("subjective"); //default to objective
-            Observation obsv = new Observation(getSwitchVal("name"), impression, priority,
+            Observation obsv = new Observation(getArg(), impression, priority,
                     getSwitchVal("summary"), isObjective);
             impression.addNewEvidence(obsv);
             newData = obsv;
