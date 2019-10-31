@@ -27,16 +27,11 @@ public class Goal {
     public Goal() {
     }
 
-    public Goal(String[] splitLine) throws DukeException {
-        startDate = splitLine[0];
-        endDate = splitLine[1];
-        try {
-            weightTarget = Double.parseDouble(splitLine[2]);
-            calorieTarget = Integer.parseInt(splitLine[3]);
-            activityLevelTarget = Integer.parseInt(splitLine[4]);
-        } catch (Exception e) {
-            throw new DukeException(e.getMessage());
-        }
+    public Goal(HashMap<String, String> argumentsMap) {
+        startDate = argumentsMap.get("startdate");
+        endDate = argumentsMap.get("enddate");
+        weightTarget = Double.parseDouble(argumentsMap.get("weight"));
+        activityLevelTarget = Integer.parseInt(argumentsMap.get("activity"));
     }
 
     public void setStartDate(String startDate) {

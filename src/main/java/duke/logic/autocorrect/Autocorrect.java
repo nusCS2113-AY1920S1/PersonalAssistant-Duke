@@ -46,10 +46,12 @@ public class Autocorrect {
                 for (String data : splitString1) {
                     if (data.trim().length() != 0) {
                         String[] partitionedData = data.split(" ", 2);
-                        setWord(partitionedData[0]);
-                        execute();
-                        String nutrient = getWord();
-                        userInput = userInput.replace("/" + partitionedData[0], "/" + nutrient);
+                        if (partitionedData[0].matches("[a-zA-Z]+")) {
+                            setWord(partitionedData[0]);
+                            execute();
+                            String nutrient = getWord();
+                            userInput = userInput.replace("/" + partitionedData[0], "/" + nutrient);
+                        }
                     }
                 }
             } else {

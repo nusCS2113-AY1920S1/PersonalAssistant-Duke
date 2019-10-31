@@ -10,7 +10,7 @@ import java.util.regex.Pattern;
  */
 public class ArgumentSplitter {
 
-    private static final String argPatternStr = "/[a-zA-Z]+";
+    private static final String argPatternStr = " /[a-zA-Z]+";
     private static final Pattern argPattern = Pattern.compile(argPatternStr);
 
     /**
@@ -53,6 +53,7 @@ public class ArgumentSplitter {
      */
     public static HashMap<String, String> splitForwardSlashArguments(String userInputStr) {
         HashMap<String, String> argumentsMap = new HashMap<>();
+        userInputStr = " " + userInputStr;
         String[] tempSplitStrings = userInputStr.split(argPatternStr);
         ArrayList<String> valueStrings = new ArrayList<>();
 
@@ -75,7 +76,7 @@ public class ArgumentSplitter {
         }
 
         for (int idx = 0; idx < argNameStrings.size();idx++) {
-            String argNameStr = argNameStrings.get(idx);
+            String argNameStr = argNameStrings.get(idx).trim();
             if (idx < valueStrings.size()) {
                 String argValueStr = valueStrings.get(idx);
                 argumentsMap.put(argNameStr, argValueStr);
