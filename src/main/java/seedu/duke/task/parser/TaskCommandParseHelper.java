@@ -9,6 +9,7 @@ import seedu.duke.common.command.HelpCommand;
 import seedu.duke.common.command.InvalidCommand;
 import seedu.duke.common.model.Model;
 import seedu.duke.task.command.TaskAddCommand;
+import seedu.duke.task.command.TaskClearListCommand;
 import seedu.duke.task.command.TaskDeleteCommand;
 import seedu.duke.task.command.TaskDoAfterCommand;
 import seedu.duke.task.command.TaskDoneCommand;
@@ -72,6 +73,8 @@ public class TaskCommandParseHelper {
             return parseUpdateCommand(input, optionList);
         } else if (input.startsWith("set")) {
             return parsePriorityCommand(input, optionList);
+        } else if ("clear".equals(input)) {
+            return new TaskClearListCommand();
         }
         return new InvalidCommand("Invalid command word. Please enter \'help\' for more information");
     }

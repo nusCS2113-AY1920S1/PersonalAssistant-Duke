@@ -208,7 +208,7 @@ public class MainWindow extends AnchorPane {
         //updateTasksList();
         //updateEmailsList();
         setInputPrefix();
-        if (input.contains("clear")) {
+        if (input.contains("clear chat")) {
             dialogContainer.getChildren().clear();
         }
         if (input.contains("email show")) {

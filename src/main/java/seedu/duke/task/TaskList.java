@@ -26,7 +26,7 @@ public class TaskList extends ArrayList<Task> {
         if (this.size() == 0) {
             return "There is nothing in your task list.";
         }
-        String msg = "Here are the tasks in your task list:";
+        String msg = this.size()+ "Here are the tasks in your task list:";
         for (int i = 0; i < this.size(); i++) {
             msg += System.lineSeparator() + (i + 1);
             msg += ". " + this.get(i);
@@ -268,5 +268,25 @@ public class TaskList extends ArrayList<Task> {
             }
         }
         return clashTasks;
+    }
+
+    /**
+     * Clears the task list by deleting the task one by one.
+     *
+     * @return a string message to be printed
+     */
+    public String clearList() {
+        if (this.size() == 0) {
+            return "The task list has already been cleared";
+        } else {
+            while(this.size() != 0) {
+                this.remove(0);
+            }
+        }
+        return constructClearListMessage();
+    }
+
+    private String constructClearListMessage() {
+        return "Task List has been cleared";
     }
 }
