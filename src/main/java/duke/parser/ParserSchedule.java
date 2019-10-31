@@ -146,6 +146,8 @@ public class ParserSchedule {
 
     /**
      * Method to parse the command input from the menu.
+     * @throws ParseException Parse
+     * @throws FileNotFoundException File not found
      */
     public void parseCommand() throws ParseException, FileNotFoundException {
         final int dailySchedule = 1;

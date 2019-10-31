@@ -74,6 +74,13 @@ public class CliView {
     }
 
     /**
+     * Print line.
+     */
+    public void printLine() {
+        System.out.println("____________________________________________________");
+    }
+
+    /**
      * This function prints out the goodbye message of Duke.
      */
     public void showGoodBye() {
@@ -114,7 +121,7 @@ public class CliView {
             + "1. Student List - View all students available "
             + "and edit student particulars (Cmd: list)\n"
             + "2. Add student - Adding a new student to the list "
-            + "with main details (Cmd: add) (\n"
+            + "with main details (Cmd: add) \n"
             + "3. Remove Student - Remove a student in a list "
             + "(Cmd: delete [index of student in the list])\n"
             + "4. Search Student - Finding a particular student in the list "
@@ -134,6 +141,40 @@ public class CliView {
             + "3. Edit plan - Edit a specified plan by adding new "
             + "activities or switching activity positions "
             + "(Cmd: plan edit [intensity level] [plan number])");
+    }
+
+    /**
+     * Show plan list when option 1 is chosen from trainingProgramHeading.
+     */
+    public void planListHeading() {
+        System.out.flush();
+        System.out.println("PLAN LIST:");
+    }
+
+    /**
+     * Prompt user input when option 2 is chosen from trainingProgramHeading.
+     */
+    public void createPlanHeading() {
+        System.out.flush();
+        System.out.println("Input an intensity level for the new plan:\n"
+                + "high, moderate, relaxed");
+    }
+
+    /**
+     * Prompt user to choose a plan to edit when option 3 is chosen.
+     */
+    public void editPlanHeading() {
+        System.out.flush();
+        System.out.println("Choose a plan from below to edit:\n"
+                + " To be created...");
+    }
+
+    /**
+     * Prompt user to choose the correct option from trainingProgramHeading.
+     */
+    public void showCorrectPlanHeading() {
+        System.out.flush();
+        System.out.println("Choose only options 1, 2 and 3 for training plans");
     }
 
     /**
@@ -438,6 +479,15 @@ public class CliView {
      * Prints error message when there is incomplete daily list.
      */
     public void showEmptyList() {
-        System.out.println("Sorry, there are no days matching what you have entered.");
+        System.out.println("Sorry, there are no days matching"
+                + "what you have entered.");
+    }
+
+    /**
+     * Adding student format.
+     */
+    public void addStudentFormat() {
+        System.out.println("Insert [Name],[Age],[Address] to add new student.\n"
+                + "Insert 1 to exit.");
     }
 }
