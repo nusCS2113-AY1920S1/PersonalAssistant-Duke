@@ -18,7 +18,8 @@
    12. Fridge Component
    13. GenericList
    14. Ingredient
-   15. Statistics
+   15. ingredientCommand Component
+   16. Statistics
 
 3. Implementation
 
@@ -433,7 +434,19 @@ A child class of Ingredients and inherits(extends) the attributes and methods of
 | sortByExpiryDate(): Ingredient Object                        | Sorts the Ingredient lists accordingly by a descending amount |
 | removeEntry(Ingredient Object):  Boolean                     | Looks for the queried Ingredient in the list and remove the amount that we want to use.<br />True:  Enough amount of the queried ingredient<br />False: Not enough amount  of the queriedingredient |
 
-//!add commands such as FindIngredient()
+#### 2.15 ingredientCommand Component
+
+API: `AddCommand.java`, `DeleteCommand.java`, `FindToday.java`, `ListCommand.java`, `RemoveAllExpired.java,FindIngredientCommand.java, UseCommand.java,`
+
+The ingredientCommand classes inherits from the `Command` class. They overwrite the abstract method `execute` of the class `Cmd`. The ingredientCommand classes includes:
+
+- AddCommand: This command adds an entry of an ingredient to the IngredientsList. The IngredientsList can also be read from the file when initializing.
+- DeteleCommand: This command deletes an entry of an ingredient from the IngredientsList. 
+- FindToday: This command is used to look for expired ingredients on the date itself.
+- ListCommand: This command is used to show the chef's entire IngredientsList.
+- RemoveAllExpired: The command is used to remove all expired ingredients from the IngredientsList
+- FindIngredientCommand: This command is used to find all ingredients with the queried keyword entered by the chef.
+- UseCommand: This command is used to delete the specified amount off an ingredient when it is used. Otherwise, if there is not enough of the required amount entered by the chef, the program will prompt it to the chef.
 
 ### 3. Implementation
 

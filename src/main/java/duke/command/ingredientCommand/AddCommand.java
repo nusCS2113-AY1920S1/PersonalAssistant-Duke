@@ -44,6 +44,5 @@ public class AddCommand<T> extends Cmd<T> {
         ui.showAddCommand(list.getEntry(entry).toString(), list.size());
 
         storage.update();
-
     }
 }
