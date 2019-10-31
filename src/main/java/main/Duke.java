@@ -53,10 +53,10 @@ public class Duke extends Application {
      * @param filePath The file path of the save file.
      */
     //Method to initialize all important classes and data on startup
-    public Duke(String filePath) {
+    public Duke(String filePath, String another_filePath) {
 
         ui = new UI(); //initialize ui class that handles input from user
-        this.storage = new Storage(filePath);
+        this.storage = new Storage(filePath, another_filePath);
         try {
             myList = new TaskList(storage.getTaskList());
         } catch (DukeException e) {
@@ -151,7 +151,7 @@ public class Duke extends Application {
      */
     public static void main(String[] args) {
 
-        new Duke("save.txt").run();
+        new Duke("save.txt", "savedegree.txt").run();
         System.exit(0);
     }
 

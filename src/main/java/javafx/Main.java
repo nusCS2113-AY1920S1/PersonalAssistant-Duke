@@ -26,7 +26,7 @@ import java.util.concurrent.TimeUnit;
  */
 public class Main extends Application {
 
-    private Duke duke = new Duke("save.txt");
+    private Duke duke = new Duke("save.txt", "savedegree.txt");
 
     public Main() throws DukeException {
     }
