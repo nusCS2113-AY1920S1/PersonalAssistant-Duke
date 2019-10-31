@@ -23,7 +23,7 @@ public class BuySeedAction extends Action {
         criteriaFeedbackList.add(new Pair<>(farmer.getGold() < Market.PRICE_OF_SEED, "Error! you have attempted to buy seeds despite not having enough money"));
         criteriaFeedbackList.add(new Pair<>(!farmer.getLocation().equals("Market"), "Error! you have attempted to buy seeds despite not being at the market"));
         checkActionCriteria(ui, farmer, simulation, criteriaFeedbackList);
-        simulation.simulate("BuySeedSimulation", 0, 5);
+        simulation.simulate("BuySeedSimulation", 0, 9);
         farmer.getWheatFarm().buySeeds();
         farmer.spendGold(Market.PRICE_OF_SEED);
         simulation.simulate();
