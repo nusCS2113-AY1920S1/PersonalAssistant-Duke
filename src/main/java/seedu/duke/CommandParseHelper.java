@@ -85,7 +85,7 @@ public class CommandParseHelper {
      * @return list of all options specified in the command.
      */
     public static ArrayList<Option> parseOptions(String input) {
-        String userInput = input;
+        String userInput = input.strip();
         ArrayList<Option> optionList = new ArrayList<>();
         Pattern optionPattern = Pattern.compile(".*(?<key>-[\\w]+)\\s+(?<value>[\\w]+[\\s|\\w/]*)\\s*");
         Matcher optionMatcher = optionPattern.matcher(userInput);
