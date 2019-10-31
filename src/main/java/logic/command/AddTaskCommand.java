@@ -33,8 +33,16 @@ public class AddTaskCommand extends Command {
         if (this.time != null) {
             newTask.setTime(this.time);
         }
+        String memberMissingMessage = "";
         if (members != null) {
-            //TODO add functionality to add members on the go
+            String[] membersString = members.split(" ");
+            for (int i = 0; i < membersString.length; i++) {
+                if (model.getMemberManager().hasMember(membersString[i])) {
+                    newTask.addMember(membersString[i]);
+                } else {
+                    memberMissingMessage += "Warning: member " + membersString[i] + " do not exist.\n";
+                }
+            }
         }
         model.save();
 
@@ -44,6 +52,6 @@ public class AddTaskCommand extends Command {
         } else {
             LoggerController.logDebug(AddTaskCommand.class, "Task not added");
         }
-        return new CommandOutput(FEEDBACK_MESSAGE + taskName);
+        return new CommandOutput(memberMissingMessage + FEEDBACK_MESSAGE + taskName);
     }
 }
