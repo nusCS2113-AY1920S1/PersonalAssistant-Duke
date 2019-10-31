@@ -39,7 +39,7 @@ public class Main {
         wallet = new Wallet();
         try {
             storage = new Storage();
-            storage.load(meals, user);
+            storage.loadMealInfo(meals);
         } catch (DukeException e) {
             ui.showMessage(e.getMessage());
             meals = new MealList();
@@ -57,7 +57,7 @@ public class Main {
             ui.showMessage(e.getMessage());
         }
         try {
-            storage.loadTransactions(transactions, wallet);
+            storage.loadTransactions(wallet);
         } catch (DukeException e) {
             ui.showLoadingTransactionError();
         }
@@ -73,6 +73,11 @@ public class Main {
             setup.initialise(info);
         }
         user = setup.getUser();
+        try {
+            storage.updateUser(user);
+        } catch (DukeException e) {
+            ui.showMessage(e.getMessage());
+        }
         boolean isExit = false;
         Parser userParser = new Parser(autocorrect);
         while (!isExit) {

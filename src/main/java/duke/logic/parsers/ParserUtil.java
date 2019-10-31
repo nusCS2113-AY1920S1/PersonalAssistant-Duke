@@ -11,7 +11,7 @@ public class ParserUtil {
     private Autocorrect autocorrect;
     private HistoryCommand history = new HistoryCommand();
     private String command;
-    private String userInput;
+    private String argument;
 
     /**
      * Constructor for ParserUtil.
@@ -27,19 +27,19 @@ public class ParserUtil {
      * @throws DukeException if the full command cannot be parsed
      */
     public void parse(String fullCommand) throws DukeException {
-        userInput = "";
+        argument = "";
         try {
             String[] splitCommand = fullCommand.split(" ", 2);
             if (splitCommand.length != 2) {
                 splitCommand = new String[]{splitCommand[0], ""};
             }
             command = splitCommand[0];
-            userInput = splitCommand[1];
+            argument = splitCommand[1];
         } catch (Exception e) {
             throw new DukeException("A parser error has been encountered.");
         }
         command = autocorrect.runOnCommand(command);
-        userInput = autocorrect.runOnArgument(userInput);
+        argument = autocorrect.runOnArgument(argument);
         history.addCommand(command);
     }
 
@@ -55,8 +55,8 @@ public class ParserUtil {
      * Getter for argument.
      * @return argument The string containing the arguments made by the user.
      */
-    public String getUserInput() {
-        return userInput;
+    public String getArgument() {
+        return argument;
     }
 
     /**

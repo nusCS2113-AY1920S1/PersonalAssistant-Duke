@@ -1,0 +1,46 @@
+{
+  "transactions": {
+    "calendarDate": {
+      "year": 2019,
+      "month": 9,
+      "dayOfMonth": 31,
+      "hourOfDay": 17,
+      "minute": 7,
+      "second": 16
+    },
+    "currentDate": "31/10/2019",
+    "transactionTracker": {
+      "": [
+        {
+          "transactionAmount": 200,
+          "type": "DEP",
+          "date": ""
+        },
+        {
+          "transactionAmount": 2000,
+          "type": "DEP",
+          "date": ""
+        },
+        {
+          "transactionAmount": 500,
+          "type": "PAY",
+          "date": ""
+        },
+        {
+          "transactionAmount": 500,
+          "type": "PAY",
+          "date": ""
+        },
+        {
+          "transactionAmount": 200,
+          "type": "PAY",
+          "date": ""
+        }
+      ]
+    }
+  },
+  "account": {
+    "amount": 1000,
+    "currency": "SGD"
+  }
+}

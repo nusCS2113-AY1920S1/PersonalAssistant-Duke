@@ -5,7 +5,6 @@ import duke.commons.file.FilePaths;
 import duke.logic.autocorrect.Autocorrect;
 import duke.model.meal.MealList;
 import duke.model.user.User;
-import duke.model.wallet.TransactionList;
 import duke.model.wallet.Wallet;
 
 import java.util.ArrayList;
@@ -27,9 +26,9 @@ public class Storage {
     /**
      * This is a function that will load all info required to initialize a MealList object.
      */
-    public void load(MealList meals, User user) throws DukeException {
-        loader.loadFile(meals, filePaths.getFilePathStr(FilePaths.FilePathNames.FILE_PATH_USER_MEALS_FILE));
-        loader.loadFile(meals, filePaths.getFilePathStr(FilePaths.FilePathNames.FILE_PATH_DEFAULT_MEAL_FILE));
+    public void loadMealInfo(MealList meals) throws DukeException {
+        loader.loadMealListData(meals);
+        loader.loadDefaultMealData(meals);
     }
 
     /**
@@ -52,7 +51,7 @@ public class Storage {
         loader.loadHelp(lines, specifiedHelp);
     }
 
-    public void loadTransactions(TransactionList transactions, Wallet wallet) throws DukeException {
+    public void loadTransactions(Wallet wallet) throws DukeException {
         loader.loadTransactions(wallet);
     }
 
@@ -83,7 +82,7 @@ public class Storage {
      * This is a function that will store the user information into a file.
      * @param user the user class that contains all personal information to be stored.
      */
-    public void saveUser(User user) throws DukeException {
+    public void updateUser(User user) throws DukeException {
         writer.writeUser(user);
     }
 

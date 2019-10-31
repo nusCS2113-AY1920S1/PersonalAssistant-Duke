@@ -11,15 +11,15 @@ public class DepositCommandParser implements ParserInterface<AddTransactionComma
 
     /**
      * Parse user input and return AddTransactionCommand.
-     * @param userInput String input by user.
+     * @param userInputStr String input by user.
      * @return <code>AddTransactionCommand</code> Command object encapsulating the amount to be deposited
      */
     @Override
 
-    public AddTransactionCommand parse(String userInput) {
+    public AddTransactionCommand parse(String userInputStr) {
         try {
-            InputValidator.validate(userInput);
-            String[] amountAndDate = ArgumentSplitter.splitArguments(userInput, "/date");
+            InputValidator.validate(userInputStr);
+            String[] amountAndDate = ArgumentSplitter.splitArguments(userInputStr, "/date");
             return new AddTransactionCommand(new Deposit(amountAndDate[0], amountAndDate[1]));
         } catch (DukeException e) {
             return new AddTransactionCommand(false,"Please enter the amount to deposit for today's date or date"

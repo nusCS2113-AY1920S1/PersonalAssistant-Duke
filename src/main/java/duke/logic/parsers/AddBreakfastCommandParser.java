@@ -11,14 +11,14 @@ public class AddBreakfastCommandParser implements ParserInterface<AddCommand> {
 
     /**
      * Parses user input and returns an AddCommand encapsulating a breakfast object.
-     * @param userInput String input by user.
+     * @param userInputStr String input by user.
      * @return <code>AddCommand</code> Command object encapsulating a breakfast object
      */
     @Override
-    public AddCommand parse(String userInput) {
+    public AddCommand parse(String userInputStr) {
         try {
-            InputValidator.validate(userInput);
-            String[] mealNameAndInfo = ArgumentSplitter.splitMealArguments(userInput);
+            InputValidator.validate(userInputStr);
+            String[] mealNameAndInfo = ArgumentSplitter.splitMealArguments(userInputStr);
             return new AddCommand(new Breakfast(mealNameAndInfo[0], mealNameAndInfo[1]),"0");
         } catch (DukeException e) {
             return new AddCommand(false,e.getMessage());

@@ -104,6 +104,7 @@ public class AddGoalCommand extends Command {
                     isDone = true;
                     throw new DukeException("There is a problem with the setgoal command.");
             }
+            storage.updateGoal(user);
             ui.showLine();
             stage++;
         } catch (DukeException e) {

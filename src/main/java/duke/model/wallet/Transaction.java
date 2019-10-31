@@ -1,14 +1,11 @@
 package duke.model.wallet;
 
 import java.math.BigDecimal;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 
 public class Transaction {
     protected BigDecimal transactionAmount;
     protected String type = "";
-    protected SimpleDateFormat dateParser = new SimpleDateFormat("dd/MM/yyyy");
-    protected String date = dateParser.format(Calendar.getInstance().getTime());
+    protected String date;
 
     public Transaction(String amountString, String dateString) {
         this.transactionAmount = new BigDecimal(amountString);

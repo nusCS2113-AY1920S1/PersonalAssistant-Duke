@@ -1,10 +1,11 @@
 package duke.model.meal;
 
-import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+
+import static duke.commons.constants.DateConstants.DATE_FORMAT;
 
 /**
  * Task is a public class that represents the tasks in duke.
@@ -15,8 +16,7 @@ public class Meal {
     protected String description;
     protected String type = "";
     protected boolean isDone;
-    protected SimpleDateFormat dateparser = new SimpleDateFormat("dd/MM/yyyy");
-    protected String date = dateparser.format(Calendar.getInstance().getTime());
+    protected String date;
     protected HashMap<String, Integer> nutritionValue = new HashMap<String, Integer>();
     protected String cost;
 
@@ -25,6 +25,8 @@ public class Meal {
      * @param description the description of the task
      */
     public Meal(String description, String details) {
+        SimpleDateFormat dateparser = DATE_FORMAT;
+        this.date = dateparser.format(Calendar.getInstance().getTime());
         this.description = description.trim();
         //todo: date input can only be accepted at the back of the statement
         if (details.contains("/date")) {
@@ -51,26 +53,9 @@ public class Meal {
         }
     }
 
-    /**
-     * This is the secondary constructor of Task object.
-     * used mainly in storage parsing
-     * @param description the description of the task
-     */
-    public Meal(String description, String[] details) {
-        this.description = description.trim();
-        try {
-            Date day;
-            day = dateparser.parse(details[1]);
-            this.date = dateparser.format(day);
-        } catch (Exception e) {
-            //toDo exception catching added here
-        }
-        for (int i = 2; i < details.length; i += 2) {
-            nutritionValue.put(details[i], Integer.valueOf(details[i + 1]));
-        }
-    }
-
     public Meal(String description, HashMap<String, Integer> nutritionValue) {
+        SimpleDateFormat dateparser = DATE_FORMAT;
+        this.date = dateparser.format(Calendar.getInstance().getTime());
         this.description = description.trim();
         this.nutritionValue = nutritionValue;
     }

@@ -15,14 +15,4 @@ public class Lunch extends Meal {
         super.type = "L";
         super.cost = "0";
     }
-
-    /**
-     * This is the secondary constructor of lunch object for storage parsing.
-     * @param description the description of the lunch object
-     */
-    public Lunch(String description, String[] details) {
-        super(description, details);
-        super.type = "L";
-        super.cost = "0";
-    }
 }

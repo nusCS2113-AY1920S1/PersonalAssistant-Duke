@@ -1,6 +1,5 @@
 package duke.logic.parsers;
 
-import duke.commons.exceptions.DukeException;
 import duke.logic.commands.ListCommand;
 
 import java.text.ParseException;

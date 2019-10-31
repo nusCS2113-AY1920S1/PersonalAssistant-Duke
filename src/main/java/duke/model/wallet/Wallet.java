@@ -13,6 +13,10 @@ public class Wallet {
         return transactions;
     }
 
+    public Account getAccount() {
+        return account;
+    }
+
     public BigDecimal getAccountBalance() {
         return this.account.getAmount();
     }
@@ -28,6 +32,11 @@ public class Wallet {
         } else if (transaction.getType().equals("DEP")) {
             this.account.deposit(transactionAmount);
         }
+    }
+
+    public void updateAccountBalance(Wallet wallet) {
+        this.transactions = wallet.getTransactions();
+        this.account = wallet.getAccount();
     }
 
     public void addTransactions(String cost, String date) {

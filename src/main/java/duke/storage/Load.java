@@ -1,24 +1,23 @@
 package duke.storage;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
+import duke.commons.file.FileUtil;
 import duke.commons.exceptions.DukeException;
 import duke.commons.file.FilePaths;
-import duke.commons.file.FileUtil;
 import duke.logic.autocorrect.Autocorrect;
+import duke.model.Goal;
+import duke.model.meal.Meal;
 import duke.model.meal.MealList;
 import duke.model.user.User;
-import duke.model.wallet.TransactionList;
 import duke.model.wallet.Wallet;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.HashMap;
 
 import static duke.commons.file.FilePaths.FilePathNames;
 
@@ -31,6 +30,8 @@ public class Load {
     private static FilePaths filePaths;
     // Flag to set if jar resource should be called if user file does not exist in host system.
     private static final boolean useResourceAsBackup = true;
+    private Gson gson = new GsonBuilder().setPrettyPrinting().create();
+
 
     public Load() {
         filePaths = new FilePaths();
@@ -41,61 +42,89 @@ public class Load {
      * to be added in that MealList.
      * @throws DukeException if either the object is unable to open file or it is unable to read the file
      */
-    public void loadFile(MealList meals, String fileStr) throws DukeException {
-        bufferedReader = FileUtil.readFile(fileStr, useResourceAsBackup);
+    public void loadMealListData(MealList meals) throws DukeException {
+        String userMealFilePathStr = filePaths.getFilePathStr(FilePathNames.FILE_PATH_USER_MEALS_FILE);
+        Type mealListHashMap = new TypeToken<HashMap<String, ArrayList<Meal>>>(){}.getType();
+        bufferedReader = FileUtil.readFile(userMealFilePathStr, useResourceAsBackup);
         try {
-            List<String> lines = bufferedReader.lines().collect(Collectors.toList());
-            LoadLineParser.parseMealList(meals, lines);
-            bufferedReader.close();
-        } catch (FileNotFoundException e) {
-            throw new DukeException("Unable to open file");
-        } catch (IOException e) {
-            throw new DukeException("Error reading file. Unable to close file.");
+            HashMap<String, ArrayList<Meal>> data = gson.fromJson(bufferedReader,mealListHashMap);
+            if (data != null) {
+                meals.setMealTracker(data);
+                bufferedReader.close();
+            }
+        } catch (Exception e) {
+            throw new DukeException("It appears the savefile has been corrupted. "
+                    + "Previously recorded meals will not be loaded.");
+        }
+    }
+
+    /**
+     * The function will act to load txt file specified by the filepath, parse it and store it in a new task ArrayList
+     * to be added in that MealList.
+     * @throws DukeException if either the object is unable to open file or it is unable to read the file
+     */
+    public void loadDefaultMealData(MealList meals) throws DukeException {
+        String defaultMealFilePathStr = filePaths.getFilePathStr(FilePaths.FilePathNames.FILE_PATH_DEFAULT_MEAL_FILE);
+        Type defaultItemHashMap = new TypeToken<HashMap<String, HashMap<String, Integer>>>(){}.getType();
+        bufferedReader = FileUtil.readFile(defaultMealFilePathStr, useResourceAsBackup);
+        try {
+            HashMap<String, HashMap<String, Integer>> data = gson.fromJson(bufferedReader,defaultItemHashMap);
+            if (data != null) {
+                meals.setStoredItems(data);
+                bufferedReader.close();
+            }
+        } catch (Exception e) {
+            throw new DukeException("It appears the savefile has been corrupted. "
+                    + "Default meal values will not be loaded.");
         }
     }
 
     public void loadGoals(User user) throws DukeException {
         String goalFilePathStr = filePaths.getFilePathStr(FilePathNames.FILE_PATH_GOAL_FILE);
+        Type goalType = new TypeToken<Goal>(){}.getType();
         bufferedReader = FileUtil.readFile(goalFilePathStr, useResourceAsBackup);
         try {
-            lineStr = bufferedReader.readLine();
-            LoadLineParser.parseGoal(user, lineStr);
-        } catch (IOException e) {
-            throw new DukeException("Error reading file");
+            Goal goal = gson.fromJson(bufferedReader, goalType);
+            bufferedReader.close();
+            if (goal != null) {
+                user.setGoal(goal, true);
+            }
+        } catch (Exception e) {
+            throw new DukeException("Error reading goal file");
         }
     }
 
 
     public void loadTransactions(Wallet wallet) throws DukeException {
-        String transactionFilePathStr = filePaths.getFilePathStr(FilePathNames.FILE_PATH_TRANSACTION_FILE);
-        bufferedReader = FileUtil.readFile(transactionFilePathStr, useResourceAsBackup);
+        String transactionsFilePathStr = filePaths.getFilePathStr(FilePathNames.FILE_PATH_TRANSACTION_FILE);
+        Type walletType = new TypeToken<Wallet>(){}.getType();
+        bufferedReader = FileUtil.readFile(transactionsFilePathStr, useResourceAsBackup);
         try {
-            lineStr = bufferedReader.readLine();
-            wallet.setAccountBalance(lineStr);
-            while ((lineStr = bufferedReader.readLine()) != null) {
-                LoadLineParser.parseTransactions(lineStr, wallet);
-            }
+            Wallet data = gson.fromJson(bufferedReader, walletType);
             bufferedReader.close();
-        } catch (IOException e) {
-            e.printStackTrace();
+            if (data != null) {
+                wallet.updateAccountBalance(data);
+            }
+        } catch (Exception e) {
+            throw new DukeException("Error reading transactions file");
         }
     }
 
     public User loadUser() throws DukeException {
         String userFileStr = filePaths.getFilePathStr(FilePathNames.FILE_PATH_USER_FILE);
-        User tempUser;
+        User data;
+        Type userType = new TypeToken<User>() {}.getType();
         bufferedReader = FileUtil.readFile(userFileStr, useResourceAsBackup);
         try {
-            lineStr = bufferedReader.readLine();
-            tempUser = LoadLineParser.parseUser(lineStr);
-            while ((lineStr = bufferedReader.readLine()) != null) {
-                String[] splitWeightInfo = lineStr.split("\\|");
-                tempUser.setWeight(Integer.parseInt(splitWeightInfo[1]), splitWeightInfo[0]);
-            }
+            data = gson.fromJson(bufferedReader, userType);
             bufferedReader.close();
-            return tempUser;
+            if (data != null) {
+                return data;
+            } else {
+                return new User();
+            }
         } catch (Exception e) {
-            throw new DukeException(e.getMessage());
+            throw new DukeException("Error reading user file.");
         }
     }
 
@@ -121,19 +150,6 @@ public class Load {
             bufferedReader.close();
         } catch (IOException e) {
             throw new DukeException("Error reading help file");
-        }
-    }
-
-    private void validateFile(File directory) throws DukeException {
-        try {
-            bufferedReader = new BufferedReader(new FileReader(directory));
-        } catch (FileNotFoundException e) {
-            try {
-                BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(directory));
-                bufferedReader = new BufferedReader(new FileReader(directory));
-            } catch (Exception f) {
-                throw new DukeException("Failed to load file");
-            }
         }
     }
 }
