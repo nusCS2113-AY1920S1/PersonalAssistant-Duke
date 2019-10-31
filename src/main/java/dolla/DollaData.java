@@ -6,9 +6,9 @@ import dolla.task.LimitList;
 import dolla.task.Record;
 import dolla.task.RecordList;
 
-import static dolla.Storage.getDebtsFromSave;
-import static dolla.Storage.getEntriesFromSave;
-import static dolla.Storage.getLimitsFromSave;
+import static dolla.storage.Storage.getDebtsFromSave;
+import static dolla.storage.Storage.getEntriesFromSave;
+import static dolla.storage.Storage.getLimitsFromSave;
 
 public class DollaData implements ModeStringList {
 
