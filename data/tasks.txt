@@ -3,7 +3,6 @@
     "name": "Job A",
     "isDone": true,
     "memberList": [
-      "P1",
       "P2"
     ]
   },
