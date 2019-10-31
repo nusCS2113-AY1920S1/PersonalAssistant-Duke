@@ -2,7 +2,6 @@ package list;
 import exception.DukeException;
 import parser.Parser;
 import storage.Storage;
-import task.Task;
 import task.TaskList;
 
 import java.io.*;
@@ -18,7 +17,7 @@ public class DegreeList implements Serializable, Cloneable {
         return list;
     }
 
-    private static final String filename = "../data/savedegree.txt";
+    //private static final String filename = "../data/savedegree.txt";
 
 
     public DegreeList(){}
@@ -84,44 +83,10 @@ public class DegreeList implements Serializable, Cloneable {
      * @param input The degree as specified by the user.
      * @throws DukeException The degree does not exist?
      */
-    public void add_custom(String input, Storage storage) throws DukeException, IOException {
-
-//            BufferedWriter bw = null;
-//            FileWriter fw = null;
-//            try {
-//                File file = new File(filename);
-//                if(!file.exists()) {
-//                    file.createNewFile();
-//                }
-//
-//                fw = new FileWriter(file.getAbsoluteFile(), true);
-//                bw = new BufferedWriter(fw);
-                list.add(input);
-                System.out.print("Added ");
-                System.out.print(input);
-                System.out.println(" to your choices of degrees");
-                String data = "degree-"+input + "-" + list.indexOf(input) + "\n";
-                storage.add_degree(data);
-              // bw.write(data);
-                i = i + 1;
-
-        }
-      /*  catch (Exception e)
-        {
-            throw new DukeException(e.getLocalizedMessage());
-        } finally {
-                try {
-                    if (bw != null) {
-                        bw.close();
-                    }
-                    if (fw != null) {
-                        fw.close();
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-    } */
+    public void add_custom(String input, Storage storage) throws DukeException {
+        list.add(input);
+        System.out.print("Added " + input + " to your choice of degrees");
+    }
 
     /**
      * Displays the degree specified by the user.
@@ -159,7 +124,7 @@ public class DegreeList implements Serializable, Cloneable {
                 String imp = conversion(request);
                 System.out.println("Noted. I've removed this degree:\n"
                         + "  " + list.get(request));
-                dd.processing(imp);
+                //dd.processing(imp);
                 this.list.remove(request);
                 System.out.println("Now you have " + this.list.size() + " degrees you are interested in.");
 
@@ -168,8 +133,6 @@ public class DegreeList implements Serializable, Cloneable {
             throw new DukeException(e.getLocalizedMessage());
         } catch (NumberFormatException e) {
             throw new DukeException("That is NOT a valid integer");
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 
@@ -204,21 +167,21 @@ public class DegreeList implements Serializable, Cloneable {
                 String first_index = split[0];
                 String second_index = split[2];
                 int request = Integer.parseInt(first_index);
-                String degree = list.get(request - 1);
+                //String degree = list.get(request - 1);
                 int request1 = Integer.parseInt(second_index);
-                String degree1 = list.get(request1 - 1);
+                //String degree1 = list.get(request1 - 1);
                 Collections.swap(list, request - 1, request1 - 1);
                 System.out.println("Swap complete!");
-            try {
-                dd.work(degree, Integer.toString(request1 - 1));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            try {
-                dd.work(degree1, Integer.toString(request - 1));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+//            try {
+//                //dd.work(degree, Integer.toString(request1 - 1));
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//            try {
+//               // dd.work(degree1, Integer.toString(request - 1));
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
         }
     }
 

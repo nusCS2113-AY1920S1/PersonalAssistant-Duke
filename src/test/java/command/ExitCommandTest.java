@@ -1,5 +1,6 @@
 package command;
 
+import degree.DegreeManager;
 import exception.DukeException;
 import list.DegreeList;
 import org.junit.jupiter.api.AfterEach;
@@ -27,6 +28,7 @@ class ExitCommandTest {
     //Variable to catch system.out.println, must be converted to string to be usable
     private ByteArrayOutputStream systemOutput = new ByteArrayOutputStream();
     private PrintStream originalOut = System.out;
+    private DegreeManager degreesManager = new DegreeManager();
 
     @BeforeEach
     void setUpStreams() {
@@ -45,7 +47,7 @@ class ExitCommandTest {
     void testExecute() throws DukeException {
 //        testUi.showWelcome();
         try {
-            testCommand.execute(testTaskList, testUi, testStorage, testList);
+            testCommand.execute(testTaskList, testUi, testStorage, testList, this.degreesManager);
         } catch (Exception e) {
             assertEquals("Exit Error: Storage Attempt Failed", e.getMessage());
         }

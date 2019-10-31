@@ -3,6 +3,8 @@ package storage;
 import degree.Degree;
 import exception.DukeException;
 import javafx.util.Pair;
+import list.DegreeList;
+import main.Duke;
 import parser.Parser;
 import task.TaskList;
 
@@ -31,8 +33,11 @@ import java.util.Map;
  */
 public class Storage {
     private File saveFile;
+    private File another_saveFile;
     private String saveFileString;
+    private String another_saveFileString;
     private String input = "";
+    private String another_input = "";
     private final Path folder = Paths.get("../data/");
     private final String folderName = "../data/";
     //private final Path folder = Paths.get("..\\data\\");
@@ -47,15 +52,21 @@ public class Storage {
      *
      * @param filePath is name of save file as a string
      */
-    public Storage(String filePath) {
+    public Storage(String filePath, String another_FilePath) {
         try {
             if(filePath.isBlank()) {
+                throw new DukeException("Save File Must be specified");
+            }
+            if(another_FilePath.isBlank()) {
                 throw new DukeException("Save File Must be specified");
             }
             if(validateFile(filePath)) {
                 throw new DukeException("Invalid File Name");
             }
-            setSaveFile(filePath);
+            if (validateFile(another_FilePath)) {
+                throw new DukeException("Invalid File Name");
+            }
+            setSaveFile(filePath, another_FilePath);
         } catch (DukeException e) {
             System.out.println(e.getLocalizedMessage());
             System.out.println("Initializing save.txt");
@@ -63,7 +74,7 @@ public class Storage {
         finally
         {
             if(input.isBlank()) {
-                setSaveFile("save.txt");
+                setSaveFile("save.txt", "savedegree.txt");
             }
         }
         try {
@@ -73,16 +84,21 @@ public class Storage {
         }
     }
 
+
+
     /**
      * Sets up a save file for the lists of tasks
      *
      * @param file is the name of the save file
      */
-    private void setSaveFile(String file)
+    private void setSaveFile(String file, String another_file)
     {
         this.input = file.substring(0, file.indexOf('.'));
+        this.another_input = another_file.substring(0, file.indexOf('.'));
         this.saveFileString = folderName + file;
+        this.another_saveFileString = folderName + another_file;
         this.saveFile = new File(saveFileString);
+        this.another_saveFile = new File(another_saveFileString);
     }
 
 
@@ -178,34 +194,24 @@ public class Storage {
         }
     }
 
-    public void add_degree(String data) throws DukeException, IOException {
-            BufferedWriter bw = null;
-            FileWriter fw = null;
-            try {
-                File file = new File(folderName+"savedegree.txt");
-                if(!file.exists()) {
-                    file.createNewFile();
-                }
-
-                fw = new FileWriter(file.getAbsoluteFile(), true);
-                bw = new BufferedWriter(fw);
-             bw.write(data);
-            } catch (Exception e) {
-            throw new DukeException(e.getLocalizedMessage());
-            } finally {
-              try {
-                  if (bw != null) {
-                      bw.close();
-                  }
-                  if (fw != null) {
-                      fw.close();
-                  }
-              } catch (IOException e) {
-                  e.printStackTrace();
-              }
-          }
-  }
-
+  /**
+   * Adds a degree to storage
+   *
+   * @params degrees
+   * @throws DukeException
+   */
+    public void add_degrees(DegreeList degrees) throws DukeException {
+        ArrayList<String> degree_list = degrees.getDegrees();
+        try(BufferedWriter bw = new BufferedWriter(new FileWriter(this.another_saveFile))) {
+            for(int i = 0; i < degree_list.size(); i++) {
+                String fileContent = "degree-"+degree_list.get(i)+"-"+i;
+                bw.write(fileContent);
+                bw.newLine();
+            }
+        } catch (IOException e) {
+            throw new DukeException("Storage failed");
+        }
+    }
 
 
   /**

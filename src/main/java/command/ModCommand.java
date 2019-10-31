@@ -1,5 +1,6 @@
 package command;
 
+import degree.DegreeManager;
 import exception.DukeException;
 import storage.Storage;
 import task.UniversityTaskHandler;
@@ -34,9 +35,10 @@ public class ModCommand extends Command {
      * @param ui      UI prints messages
      * @param storage Storage loads and saves files
      * @param lists DegreeList has the array for the user to maintain a list of their degree choices.
+     * @param degreesManager is the class which holds all information about degrees
      * @throws DukeException DukeException throws exception
      */
-    public void execute(TaskList tasks, UI ui, Storage storage, DegreeList lists) throws DukeException {
+    public void execute(TaskList tasks, UI ui, Storage storage, DegreeList lists, DegreeManager degreesManager) throws DukeException {
         DegreeList degreesBuffer;
         TaskList tasksBuffer;
 

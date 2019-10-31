@@ -1,14 +1,12 @@
 package command;
 
+import degree.DegreeManager;
 import exception.DukeException;
 import list.DegreeList;
 import storage.Storage;
-import task.Task;
 import task.TaskList;
 import ui.UI;
 
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Stack;
 
 /**
@@ -31,6 +29,7 @@ public class CommandList {
     private Storage storage;
     private DegreeList lists;
     private String input;
+    private DegreeManager degreesManager = new DegreeManager();
 
     public CommandList() {
     }
@@ -48,14 +47,14 @@ public class CommandList {
      * @throws DukeException
      */
     public void addCommand(Command newCommand, TaskList tasks, UI ui, Storage storage, DegreeList lists, String input)
-            throws DukeException, IOException {
+            throws DukeException {
         this.tasks = tasks;
         this.ui = ui;
         this.storage = storage;
         this.lists = lists;
         this.input = input;
         deleteElementsAfterPointer(undoRedoPointer);
-        newCommand.execute(tasks, ui, storage, lists);
+        newCommand.execute(tasks, ui, storage, lists, this.degreesManager);
         commandList.push(newCommand);
         inputList.push(input);
         undoRedoPointer++;
@@ -117,13 +116,13 @@ public class CommandList {
      *
      * @throws DukeException throws when incorrect number of arguments passed.
      */
-    public void redo() throws DukeException, IOException {
+    public void redo() throws DukeException {
         if (undoRedoPointer == commandList.size() - 1) {
             System.out.println("There are no more commands to redo!");
         }
         undoRedoPointer++;
         Command command = commandList.get(undoRedoPointer);
         System.out.println("Redo this command: \"" + inputList.get(undoRedoPointer) + "\"");
-        command.execute(tasks, ui, storage, lists);
+        command.execute(tasks, ui, storage, lists, this.degreesManager);
     }
 }

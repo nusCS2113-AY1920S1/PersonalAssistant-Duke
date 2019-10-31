@@ -1,5 +1,6 @@
 package command;
 
+import degree.DegreeManager;
 import exception.DukeException;
 import org.junit.jupiter.api.Test;
 import storage.Storage;
@@ -19,13 +20,15 @@ class BadCommandTest {
     private UI testUi = new UI();
     private Storage testStorage = new Storage("dummy.txt");
     private DegreeList testList = new DegreeList();
+    private DegreeManager degreesManager = new DegreeManager();
+
     BadCommandTest() throws DukeException {
     }
 
     @Test
     void testExecute() {
         try {
-            testCommand.execute(testTaskList, testUi, testStorage, testList);
+            testCommand.execute(testTaskList, testUi, testStorage, testList, this.degreesManager);
         } catch (Exception e) {
             assertEquals("☹ OOPS!!! I'm sorry, but I don't know what that means :-(", e.getMessage());
         }
