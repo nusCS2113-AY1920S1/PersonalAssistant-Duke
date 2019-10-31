@@ -49,10 +49,15 @@ WordUp (WU) is a desktop-based application for english language learners who pre
 * Items in square brackets are optional e.g. `r/REMINDERDATE [TIME]` can be used as `r/24/02/2300 0900` or `r/24/02/2300`.
 * Items with `…` after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `t/negative`, `t/emotions`, `t/lesson3`
 ====
-
 === Viewing help : `help`
 
-Format: `help`
+Shows available commands and their usage. +
+Format: `help [COMMAND]`
+
+Examples:
+
+* `help` shows all available commands. +
+* `help delete` shows the description and usage of delete command.
 
 === Adding a word: `add`
 
@@ -130,8 +135,7 @@ Format: `delete w/WORD [t/TAG]`
 
 Examples:
 
-* `list` +
-`delete w/drink` +
+* `delete w/drink` +
 Deletes the drink object from dictionary.
 
 // end::delete[]
@@ -184,6 +188,31 @@ Shows the list of the last 5 words added, with the latest entry first.
 Exits the program. +
 Format: `exit`
 
+=== Adding synonyms of a word : `addsym`
+
+Adds one or many synonyms to an existing word in the database. +
+Format: `addsyn w/WORD_TO_BE_TAGGED s/SYNONYM`
+
+=== Adding tags to a word : `tag`
+
+Assigns a tag to an existing word in the database. +
+Format: `tag w/WORD_TO_BE_TAGGED t/NEW_TAG`
+
+Examples:
+
+* `tag w/banana t/fruit` +
+Assigns the word banana with tag fruit.
+
+=== Viewing history : `history`
+
+Shows adding history. +
+Format: `history INTEGER`
+
+=== Viewing search frequency : `freq`
+
+Shows search frequency of each word. +
+Format: `freq o/ORDER`
+
 === Saving the data
 
 Dictionary data are saved in the hard disk automatically after any command that changes the data. +
@@ -204,20 +233,28 @@ _{explain how the user can enable/disable data encryption}_
 
 * *Add* `add w/WORD m/MEANING [t/TAG]...` +
 e.g. `add w/life m/the existence of an individual human being or animal.`
+* *Add Synonym* : `addsyn w/WORD s/SYNONYM1 SYNONYM2 SYNONYM3 ...` +
+e.g. `addsyn w/water s/liquid beverage drink`
 * *Delete* : `delete w/word` +
 e.g. `delete w/life`
 * *Add Synonym* : `addsyn w/WORD s/SYNONYM1 SYNONYM2 SYNONYM3 ...` +
 e.g. `addsyn w/water s/liquid beverage drink`* 
 *Edit* : `edit w/WORD m/NEW_MEANGING` +
 e.g. `edit w/life m/the existence of a living thing.`
+
+* *Help* : `help [COMMAND]`
+e.g. `help add`
+* *List* : `list`
+* *Quiz* : `quiz` -> `start`
 * *Search* : `search w/WORD` +
 e.g. `search w/life`
 * *Tag* : `tag w/WORD t/TAG1 t/TAG2 t/TAG3` +
 e.g. `tag w/happy t/emotion t/delight`
-* *History* : `history {int}` +
+* *History* : `history INTEGER` +
 e.g. `history 5`
 * *Schedule* : `schedule` -> `WORD ... [Enter blank line]` -> `DATE TIME` +
 e.g. `schedule` -> `happy [Enter] unhappy [Enter] bipolar [Enter][Enter]` -> `29-10-2019 2359`
-* *Quiz* : `quiz` -> `start`
-* *List* : `list`
-* *Help* : `help`
+* *Search Frequency* : `freq o/ORDER` +
+e.g. `freq o/asc`
+* *Exit* : `exit`
+
