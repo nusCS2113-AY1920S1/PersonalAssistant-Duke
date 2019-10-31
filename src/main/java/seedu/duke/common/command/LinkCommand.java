@@ -44,7 +44,14 @@ public class LinkCommand extends Command{
                 } else {
                     msg.append("Here are your linked emails:" + System.lineSeparator());
                     int i = 1;
-                    for (String name : linkedEmails) {
+                    for (String filename : linkedEmails) {
+                        String name = null;
+                        for (int j = 0; j < emailList.size(); j++) {
+                            if (filename.equals(emailList.get(j).getShaHash())) {
+                                name = emailList.get(j).getSubject();
+                                break;
+                            }
+                        }
                         msg.append(i + ". " + name + System.lineSeparator());
                         i++;
                     }
@@ -62,16 +69,10 @@ public class LinkCommand extends Command{
                     for (int j = 0; j < emailIndexList.size(); j++) {
                         Email email = emailList.get(emailIndexList.get(j));
                         msg.append(email.getSubject() + System.lineSeparator());
-                        boolean isInList = false;
-                        for (int k = 0; k < task.getLinkedEmails().size(); k++) {
-                            if (task.getLinkedEmails().get(k).equals(email.getSubject())) {
-                                isInList = true;
-                                break;
-                            }
+                        if (task.getLinkedEmails().contains(email.getShaHash())) {
+                            continue;
                         }
-                        if (!isInList) {
-                            task.addLinkedEmails(email.getSubject());
-                        }
+                        task.addLinkedEmails(email.getShaHash());
                     }
                 }
                 if (!silent) {

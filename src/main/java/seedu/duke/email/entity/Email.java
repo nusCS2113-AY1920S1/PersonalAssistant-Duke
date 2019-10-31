@@ -265,6 +265,10 @@ public class Email {
         return body;
     }
 
+    public String getShaHash() {
+        return shaHash(this.subject);
+    }
+
     private String shaHash(String input) {
         try {
             MessageDigest md = MessageDigest.getInstance("SHA-256");
