@@ -119,7 +119,7 @@ Deletes the word object (inclusive of all meaning, synonyms and tags) from dicti
 Format: `delete w/WORD`
 
 ****
-* Deletes the WORD object directly from the program and storage`.
+* Deletes the WORD object directly from the program and storage.
 ****
 
 Examples:
@@ -169,6 +169,6 @@ e.g. `search w/life`
 e.g. `tag w/happy t/emotion t/delight`
 * *Add Synonym* : `addsyn w/WORD s/SYNONYM1 SYNONYM2 SYNONYM3 ...` +
 e.g. `addsyn w/water s/liquid beverage drink`
-* *Quiz* : 'quiz' -> 'start'
+* *Quiz* : `quiz` -> `start`
 * *List* : `list`
 * *Help* : `help`
