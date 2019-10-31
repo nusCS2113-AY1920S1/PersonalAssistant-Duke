@@ -1,8 +1,10 @@
 package moomoo.task;
 
+import moomoo.task.category.Category;
+import moomoo.task.category.Expenditure;
+
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.text.DecimalFormat;
@@ -49,17 +51,22 @@ public class Storage {
      * @throws MooMooException Thrown when the file does not exist
      */
     public ArrayList<Category> loadCategories() throws MooMooException {
-        ArrayList<Category> categoryArrayList = new ArrayList<Category>();
+        ArrayList<Category> categoryArrayList = new ArrayList<>();
         try {
             File myNewFile = new File(categoryFilePath);
             if (myNewFile.createNewFile()) {
-                return new ArrayList<>();
+                return populateDefaultCategories(categoryArrayList);
             } else {
                 List<String> input = Files.readAllLines(Paths.get(this.categoryFilePath));
-                Category newCategory = new Category("Misc");
+                Category newCategory = new Category("misc");
                 for (String s : input) {
-                    newCategory = new Category(s);
-                    categoryArrayList.add(newCategory);
+                    if (s.startsWith("c/")) {
+                        newCategory = new Category(s.replace("c/", ""));
+                        categoryArrayList.add(newCategory);
+                    } else if (categoryArrayList.isEmpty()) {
+                        categoryArrayList.add(newCategory);
+                        saveCategoryToFile("misc");
+                    }
                 }
                 return categoryArrayList;
             }
@@ -69,16 +76,33 @@ public class Storage {
     }
 
     /**
+     * Creates a populated array of default categories.
+     * @param categoryArrayList category list
+     * @return populated category list
+     * @throws MooMooException throws exception if file cannot be found
+     */
+    private ArrayList<Category> populateDefaultCategories(ArrayList<Category> categoryArrayList)
+            throws MooMooException {
+        categoryArrayList.add(new Category("misc"));
+        categoryArrayList.add(new Category("food"));
+        categoryArrayList.add(new Category("transportation"));
+        categoryArrayList.add(new Category("bills"));
+        saveCategoryToFile("misc");
+        saveCategoryToFile("food");
+        saveCategoryToFile("transportation");
+        saveCategoryToFile("bills");
+        return categoryArrayList;
+    }
+
+    /**
      * Loads in budgetFile not found. New file will be created from an existing file into a created HashMap object.
      * @return HashMap object consisting of the categories and corresponding budget read from file.
-     * @throws MooMooException Thrown when the file does not exist
      */
     public HashMap<String, Double> loadBudget(ArrayList<Category> catList, Ui ui) {
         try {
             if (Files.isRegularFile(Paths.get(this.budgetFilePath))) {
                 HashMap<String, Double> loadedBudgets = new HashMap<String, Double>();
                 List<String> readInput = Files.readAllLines(Paths.get(this.budgetFilePath));
-
                 String category = "";
                 double budget = 0;
 
@@ -109,7 +133,6 @@ public class Storage {
     /**
      * Loads scheduled payments from file into an ArrayList object.
      * @return ArrayList object consisting of the scheduled payments read from the file
-     * @throws MooMooException Thrown when file does not exist
      */
     public ArrayList<SchedulePayment> loadCalendar(Ui ui) {
         ArrayList<SchedulePayment> scheduleArray = new ArrayList<>();
@@ -120,7 +143,7 @@ public class Storage {
                     if (s.startsWith("d/")) {
                         String[] splitInput = s.split(" ", 2);
                         String date = splitInput[0].replace("d/","");
-                        String task = splitInput[1].replace("t/", "");
+                        String task = splitInput[1].replace("n/", "");
                         SchedulePayment day = new SchedulePayment(date, task);
                         scheduleArray.add(day);
                     }
@@ -177,8 +200,7 @@ public class Storage {
         createFileAndDirectory(this.categoryFilePath);
         try {
             String newCategory = Files.readString(Paths.get(this.categoryFilePath));
-            //newCategory += ("c/" + category + "\n");
-            newCategory += (category + "\n");
+            newCategory = ("c/" + category + "\n" + newCategory);
             Files.writeString(Paths.get(this.categoryFilePath), newCategory);
         } catch (IOException e) {
             throw new MooMooException("Unable to write to file. Please retry again.");
@@ -230,9 +252,8 @@ public class Storage {
         createFileAndDirectory(this.scheduleFilePath);
 
         String list = "Schedule: \n";
-        System.out.println(calendar.fullSchedule.size());
         for (SchedulePayment c : calendar.fullSchedule) {
-            list += "d/" + c.date + " t/" + c.tasks + "\n";
+            list += "d/" + c.date + " n/" + c.tasks + "\n";
         }
         try {
             Files.writeString(Paths.get(this.scheduleFilePath), list);

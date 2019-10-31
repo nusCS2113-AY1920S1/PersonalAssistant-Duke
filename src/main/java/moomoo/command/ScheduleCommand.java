@@ -1,10 +1,10 @@
 package moomoo.command;
 
-import moomoo.task.Category;
+import moomoo.task.category.Category;
 import moomoo.task.ScheduleList;
 import moomoo.task.Budget;
 import moomoo.task.MooMooException;
-import moomoo.task.CategoryList;
+import moomoo.task.category.CategoryList;
 import moomoo.task.Storage;
 import moomoo.task.Ui;
 import moomoo.task.SchedulePayment;
@@ -27,15 +27,15 @@ public class ScheduleCommand extends Command {
                         Ui ui, Storage storage) throws MooMooException {
         if (input.length() < 8) {
             throw new MooMooException("OOPS!!! To create a schedule payment, "
-                    + "please indicate the d/<date in dd/mm/yyyy> a/<amount> t/<type of payment>.");
+                    + "please indicate the d/<date in dd/mm/yyyy> a/<amount> n/<description of payment>.");
         }
         input = input.substring(8);
         if (!input.contains("d/")) {
             throw new MooMooException("OOPS!!! Please indicate the scheduled date using d/<dd/mm/yy>");
         } else if (!input.contains("a/")) {
             throw new MooMooException("OOPS!!! Please indicate the amount to be paid using a/<amount>");
-        } else if (!input.contains("t/")) {
-            throw new MooMooException("OOPS!!! Please indicate the type of payment using t/<type of payment>");
+        } else if (!input.contains("n/")) {
+            throw new MooMooException("OOPS!!! Please indicate the type of payment using n/<description of payment>");
         }
 
         /*
@@ -49,10 +49,10 @@ public class ScheduleCommand extends Command {
         date = date.replace("d/", "");
         String amount;
         amount = arr[2];
-        task = task.replace("t/", "") + " " + amount.replace("a/", "");
+        task = task.replace("n/", "") + " " + amount.replace("a/", "");
         SchedulePayment newTask = new SchedulePayment(date, task);
         calendar.addToCalendar(newTask);
-        ui.setOutput("You have scheduled a payment on " + date + " for " + task);
+        ui.setOutput("You have scheduled a payment on " + date + " for " + task + " dollars.");
         storage.saveScheduleToFile(calendar);
     }
 }
