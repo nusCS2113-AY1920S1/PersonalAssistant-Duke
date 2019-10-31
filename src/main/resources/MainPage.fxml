@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
@@ -8,16 +11,16 @@
 <?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.*?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
-<?import javafx.scene.text.TextFlow?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="485.0" prefWidth="676.0" stylesheets="Main_Styles.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="entertainment.pro.ui.MovieHandler">
-
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="485.0" prefWidth="676.0" stylesheets="Main_Styles.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="entertainment.pro.ui.MovieHandler">
   <bottom>
     <HBox alignment="BOTTOM_LEFT" spacing="10.0" BorderPane.alignment="CENTER">
       <children>
@@ -91,10 +94,10 @@
                     <Insets bottom="5.0" />
                   </VBox.margin>
                 </Label>
-                <ScrollPane prefHeight="200.0" prefWidth="200.0">
-                  <content>
-                    <TextFlow fx:id="genreListText" prefHeight="34.0" prefWidth="109.0" />
-                  </content>
+                <ScrollPane content="$null" prefHeight="200.0" prefWidth="200.0" />
+                <content>
+                  <TextFlow fx:id="genreListText" prefHeight="34.0" prefWidth="109.0" />
+                </content>
                 </ScrollPane>
               </children>
               <VBox.margin>
@@ -157,64 +160,43 @@
     </VBox>
   </left>
   <top>
-    <VBox fx:id="mainVBox" prefHeight="173.0" BorderPane.alignment="CENTER">
+    <VBox fx:id="mainVBox" maxHeight="1.7976931348623157E308" prefHeight="139.0" BorderPane.alignment="CENTER">
       <children>
         <MenuBar fx:id="menuBar">
           <menus>
-            <Menu fx:id="fileMenu" mnemonicParsing="false" text="File">
+            <Menu mnemonicParsing="false" text="File" fx:id="fileMenu">
               <items>
                 <MenuItem mnemonicParsing="false" text="Close" />
               </items>
             </Menu>
-            <Menu fx:id="helpMenu" mnemonicParsing="false" text="Help">
+            <Menu mnemonicParsing="false" text="Help" fx:id="helpMenu">
               <items>
                 <MenuItem mnemonicParsing="false" text="About" />
               </items>
             </Menu>
           </menus>
         </MenuBar>
-        <VBox id="vbox0" fx:id="searchCommandVBox" prefHeight="140.0" prefWidth="676.0">
+        <VBox id="vbox0" fx:id="searchCommandVBox" prefHeight="103.0" prefWidth="676.0">
           <children>
             <TextField fx:id="mSearchTextField" prefHeight="28.0" prefWidth="656.0" promptText="Enter a command here...">
               <VBox.margin>
                 <Insets bottom="2.0" left="10.0" right="10.0" top="2.0" />
               </VBox.margin>
             </TextField>
-            <VBox fx:id="autoCompleteVBox" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-1.0" prefHeight="40.0" prefWidth="666.0" VBox.vgrow="ALWAYS">
+            <VBox id="autoCompleteVBox" fx:id="feedbackVBox" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-1.0" prefHeight="50.0" prefWidth="666.0" VBox.vgrow="ALWAYS">
               <children>
-                <Label fx:id="autoCompleteLabel" font="$x15" text="Auto Completion &amp; Spell Checker Feedback:" textFill="WHITE">
+                <Label fx:id="autoCompleteLabel" text="Label" wrapText="true" VBox.vgrow="SOMETIMES" />
+                <Label fx:id="generalFeedbackLabel" text="Label" VBox.vgrow="SOMETIMES">
                   <VBox.margin>
-                    <Insets top="3.0" fx:id="x11" />
+                    <Insets top="5.0" fx:id="x2" />
                   </VBox.margin>
                 </Label>
-                <Text fx:id="autoCompleteText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Start typing a command &amp; press 'tab' to explore more..." VBox.vgrow="ALWAYS">
-                  <VBox.margin>
-                    <Insets top="5.0" fx:id="x12" />
-                  </VBox.margin>
-                </Text>
               </children>
               <padding>
                 <Insets fx:id="x3" />
               </padding>
               <VBox.margin>
                 <Insets left="10.0" top="5.0" fx:id="x20" />
-              </VBox.margin>
-            </VBox>
-            <VBox fx:id="generalFeedbackVBox" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-1.0" prefHeight="40.0" prefWidth="666.0" VBox.vgrow="ALWAYS">
-              <children>
-                <Label fx:id="generalFeedbackLabel" font="$x15" text="Command Feedback:" textFill="WHITE">
-                  <VBox.margin>
-                    <Insets left="3.0" fx:id="x4" />
-                  </VBox.margin>
-                </Label>
-                <Text id="text" fx:id="generalFeedbackText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Text">
-                  <VBox.margin>
-                    <Insets top="5.0" fx:id="x14" />
-                  </VBox.margin>
-                </Text>
-              </children>
-              <VBox.margin>
-                <Insets left="10.0" top="5.0" fx:id="x13" />
               </VBox.margin>
             </VBox>
           </children>
