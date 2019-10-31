@@ -1,7 +1,6 @@
 package duke.command.orderCommand;
 
 import duke.command.Cmd;
-import duke.dish.Dish;
 import duke.exception.DukeException;
 import duke.list.GenericList;
 import duke.order.Order;
@@ -9,7 +8,6 @@ import duke.storage.Storage;
 import duke.ui.Ui;
 
 import java.util.Date;
-import java.util.Map;
 
 /**
  * Represents a specific {@link Cmd} used to alter the {@link Order} serving date.
@@ -22,7 +20,7 @@ public class AlterDateCommand extends Cmd<Order> {
     /**
      * The constructor method for {@link AlterDateCommand}.
      *
-     * @param orderIndex order index number, starting from 1, maximum orderList.size()
+     * @param orderNumber order index number, starting from 1, maximum orderList.size()
      * @param newDate new serving date of the {@link Order}
      */
     public AlterDateCommand(int orderNumber, Date newDate) {

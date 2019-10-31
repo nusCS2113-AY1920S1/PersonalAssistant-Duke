@@ -7,9 +7,11 @@ import duke.exception.DukeException;
 import duke.list.GenericList;
 import duke.order.Order;
 import duke.order.OrderList;
+import duke.parser.Convert;
 import duke.storage.Storage;
 import duke.ui.Ui;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -44,28 +46,21 @@ public class ListOrderCommand extends ListCommand<Order> {
 
     public List<Order> parse(OrderList orderList) {
         List<Order> tmp = null;
-        if (listType == "undone") {
+        if (listType == "all") {
+            tmp = orderList.getAllEntries();
+        } else if (listType == "undone") {
             tmp = orderList.getAllUndoneOrders();
         } else if (listType == "today") {
             tmp = orderList.getTodayOrders();
         } else if (listType == "undoneToday") {
             tmp = orderList.getTodayUndoneOrders();
-        } else if (listType.startsWith("date")) {
-            String date = listType.split(" ",2)[1];
+        } else if (listType.split("/", 2).length==3) {
+            Date date = Convert.stringToDate(listType);
             tmp = orderList.findOrderByDate(date);
-        } else if (listType.startsWith("dishes")) {
-            String dishName = listType.split(" ",2)[1];
-
-            //to do
-            //should use a function to find <Dish> dishes by the string dishName
-
-            Dish dishes = null;
-            tmp = orderList.findOrderByDishes(dishes);
         } else {
-            tmp = orderList.getAllEntries();
+            String dishName = listType;
+            tmp = orderList.findOrderByDishes(dishName);
         }
-
-
         return tmp;
     }
 

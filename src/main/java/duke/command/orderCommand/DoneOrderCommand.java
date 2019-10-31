@@ -1,16 +1,12 @@
 package duke.command.orderCommand;
 
 import duke.command.Cmd;
-import duke.command.ingredientCommand.DoneCommand;
-import duke.dish.Dish;
 import duke.exception.DukeException;
 import duke.list.GenericList;
 import duke.order.Order;
 import duke.order.OrderList;
 import duke.storage.Storage;
 import duke.ui.Ui;
-
-import java.util.Map;
 
 /**
  * Represents a specific {@link Cmd} used to mark a {@link Order} as done.
@@ -24,7 +20,7 @@ public class DoneOrderCommand extends Cmd<Order> {
      * @param orderNumber order number in the order list
      */
     public DoneOrderCommand(int orderNumber) {
-        this.orderIndex = orderNumber-1;
+        this.orderIndex = orderNumber;
     }
 
     @Override
@@ -33,9 +29,10 @@ public class DoneOrderCommand extends Cmd<Order> {
             throw new DukeException("No order in the list! No order can be done!");
         }
         if (orderIndex < orderList.size() && orderIndex >= 0) {
-            Order doneOrder = orderList.getEntry(orderIndex-1);
+            Order doneOrder = orderList.getEntry(orderIndex);
             if (doneOrder.isDone()) {
-                throw new DukeException("Order "+orderIndex+" has already been done!");
+                int number = orderIndex+1;
+                throw new DukeException("Order "+number+" has already been done!");
             }
 
             // to do

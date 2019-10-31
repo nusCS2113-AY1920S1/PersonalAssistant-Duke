@@ -1,15 +1,12 @@
 package duke.command.orderCommand;
 
 import duke.command.Cmd;
-import duke.dish.Dish;
 import duke.exception.DukeException;
 import duke.list.GenericList;
 import duke.order.Order;
 import duke.order.OrderList;
 import duke.storage.Storage;
 import duke.ui.Ui;
-
-import java.io.IOException;
 
 public class AddOrderCommand extends Cmd<Order> {
 

@@ -74,10 +74,8 @@ public class OrderList extends GenericList<Order> {
      * Returns a list of all the {@link Order}s on some date in the {@link OrderList}.
      * @return  {@link ArrayList} of {@link Order}
      */
-    public List<Order> findOrderByDate(String s) {
+    public List<Order> findOrderByDate(Date queryDate) {
         List<Order> theOrderList = null;
-
-        Date queryDate = Convert.stringToDate(s);
         LocalDate qDate = queryDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         LocalDate orderDate;
 
