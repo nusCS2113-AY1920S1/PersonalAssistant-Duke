@@ -1,20 +1,17 @@
 package javacake;
 
 import javacake.commands.Command;
-import javacake.exceptions.DukeException;
-import javacake.storage.Profile;
-import javacake.storage.Storage;
+import javacake.exceptions.CakeException;
 import javacake.storage.StorageManager;
 import javacake.ui.Ui;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class Duke  {
+public class JavaCake {
     private static Ui ui;
     private static Logic logic;
     private static boolean isCliMode = true;
@@ -31,8 +28,8 @@ public class Duke  {
     /**
      * Constructor for main class to initialise the settings.
      */
-    public Duke() {
-        logger.log(Level.INFO, "Starting Duke Constructor!");
+    public JavaCake() {
+        logger.log(Level.INFO, "Starting JavaCake Constructor!");
         ui = new Ui();
         try {
             logic = Logic.getInstance();
@@ -43,7 +40,7 @@ public class Duke  {
             userName = storageManager.profile.getUsername();
             // Default username when creating new profile
             checkIfNewUser("NEW_USER_!@#");
-        } catch (DukeException e) {
+        } catch (CakeException e) {
             ui.showLoadingError();
             logger.log(Level.WARNING, "Profile set-up failed.");
         }
@@ -73,7 +70,7 @@ public class Duke  {
             try {
                 storageManager.profile.overwriteName(userName);
                 ui.showLine();
-            } catch (DukeException e) {
+            } catch (CakeException e) {
                 ui.showError(e.getMessage());
                 logger.log(Level.WARNING, "Profile overwrite failed.");
             }
@@ -88,7 +85,7 @@ public class Duke  {
         try {
             ui.showMessage(Ui.getTextFile(new BufferedReader(
                     new FileReader("src/main/resources/content/cake.txt"))));
-        } catch (DukeException | FileNotFoundException e) {
+        } catch (CakeException | FileNotFoundException e) {
             ui.showError(e.getMessage());
             logger.log(Level.WARNING, "Failed to load cake.txt!");
         }
@@ -108,7 +105,7 @@ public class Duke  {
                 Command c = Parser.parse(fullCommand);
                 ui.showMessage(c.execute(logic, ui, storageManager));
                 isExit = c.isExit();
-            } catch (DukeException e) {
+            } catch (CakeException e) {
                 ui.showError(e.getMessage());
             } finally {
                 ui.showLine();
@@ -127,7 +124,7 @@ public class Duke  {
         try {
             Command c = Parser.parse(input);
             return c.execute(logic, ui, storageManager);
-        } catch (DukeException e) {
+        } catch (CakeException e) {
             return e.getMessage();
         }
     }
@@ -144,6 +141,6 @@ public class Duke  {
      * Program Start.
      */
     public static void main(String[] args) {
-        new Duke().runAsCli();
+        new JavaCake().runAsCli();
     }
 }

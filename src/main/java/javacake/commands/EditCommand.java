@@ -2,11 +2,9 @@
 package javacake.commands;
 
 import javacake.Logic;
-import javacake.exceptions.DukeException;
-import javacake.storage.Profile;
+import javacake.exceptions.CakeException;
 import javacake.storage.StorageManager;
 import javacake.ui.Ui;
-import javacake.storage.Storage;
 
 /**
  * EDIT commands should be of the following format:
@@ -21,7 +19,7 @@ public class EditCommand extends Command {
     }
 
     @Override
-    public String execute(Logic logic, Ui ui, StorageManager storageManager) throws DukeException {
+    public String execute(Logic logic, Ui ui, StorageManager storageManager) throws CakeException {
         input = input.substring(5);
         try {
             int num = Integer.parseInt(input.substring(0,1));
@@ -39,10 +37,10 @@ public class EditCommand extends Command {
                 }
             }*/
             if (!isWithinData) {
-                throw new DukeException("Task number is out of bounds [Edit]");
+                throw new CakeException("Task number is out of bounds [Edit]");
             }
         } catch (NumberFormatException e) {
-            throw new DukeException("Task number is invalid! [Edit]");
+            throw new CakeException("Task number is invalid! [Edit]");
         }
         return "";
     }

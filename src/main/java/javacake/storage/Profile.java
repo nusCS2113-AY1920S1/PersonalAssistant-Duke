@@ -1,7 +1,7 @@
 package javacake.storage;
 
-import javacake.Duke;
-import javacake.exceptions.DukeException;
+import javacake.JavaCake;
+import javacake.exceptions.CakeException;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -21,20 +21,20 @@ public class Profile {
     int levelsOfDifficulty = 3;
 
 
-    public Profile() throws DukeException {
+    public Profile() throws CakeException {
         this("data");
     }
 
     /**
      * Constructor for profile.
      * @param filename String of filepath
-     * @throws DukeException when unable to create profile
+     * @throws CakeException when unable to create profile
      */
-    public Profile(String filename) throws DukeException {
+    public Profile(String filename) throws CakeException {
         filepath = filename;
         filepath += "/save/savefile.txt";
         File file = new File(filepath);
-        Duke.logger.log(Level.INFO,"Filepath: " + filepath);
+        JavaCake.logger.log(Level.INFO,"Filepath: " + filepath);
         try {
             try {
                 if (!file.getParentFile().getParentFile().exists()) {
@@ -53,12 +53,12 @@ public class Profile {
                     initialiseUser();
                     System.out.println("C" + file.getPath());
                 } else {
-                    Duke.logger.log(Level.INFO, filepath + " is found!");
+                    JavaCake.logger.log(Level.INFO, filepath + " is found!");
                 }
 
             } catch (IOException e) {
                 System.out.println("before reader");
-                throw new DukeException("Failed to create new file");
+                throw new CakeException("Failed to create new file");
             }
 
             BufferedReader reader = new BufferedReader(new FileReader(filepath));
@@ -77,7 +77,7 @@ public class Profile {
             reader.close();
         } catch (IOException e) {
             System.out.println("after reader");
-            throw new DukeException("Failed to close reader");
+            throw new CakeException("Failed to close reader");
         }
     }
 
@@ -99,9 +99,9 @@ public class Profile {
     /**
      * Method to overwrite Username.
      * @param oldname old username
-     * @throws DukeException when unable to write progress
+     * @throws CakeException when unable to write progress
      */
-    public void overwriteName(String oldname) throws DukeException {
+    public void overwriteName(String oldname) throws CakeException {
         username = oldname;
         writeProgress();
     }
@@ -109,14 +109,14 @@ public class Profile {
     /**
      * Method to set topic score.
      * @param contentIdx idx of content
-     * @throws DukeException when unable to write progress
+     * @throws CakeException when unable to write progress
      */
-    public void setOverallMarks(int contentIdx, int marks) throws DukeException {
+    public void setOverallMarks(int contentIdx, int marks) throws CakeException {
         overalltopicsDone.set(contentIdx, marks);
         writeProgress();
     }
 
-    public void setIndividualMarks(int contentIdx, int marks) throws DukeException {
+    public void setIndividualMarks(int contentIdx, int marks) throws CakeException {
         individualTopicsDone.set(contentIdx, marks);
         writeProgress();
     }
@@ -150,7 +150,7 @@ public class Profile {
     /**
      * Method that creates data to be written into savefile.txt.
      */
-    private void initialiseUser() throws DukeException {
+    private void initialiseUser() throws CakeException {
         username = "NEW_USER_!@#";
         try {
             PrintWriter out = new PrintWriter(filepath);
@@ -160,11 +160,11 @@ public class Profile {
             }
             out.close();
         } catch (FileNotFoundException e) {
-            throw new DukeException("Cannot initialise file");
+            throw new CakeException("Cannot initialise file");
         }
     }
 
-    private void writeProgress() throws DukeException {
+    private void writeProgress() throws CakeException {
         try {
             PrintWriter out = new PrintWriter(filepath);
             out.println(username);
@@ -176,7 +176,7 @@ public class Profile {
             }
             out.close();
         } catch (FileNotFoundException e) {
-            throw new DukeException("Cannot initialise file");
+            throw new CakeException("Cannot initialise file");
         }
     }
 }

@@ -1,4 +1,4 @@
-import javacake.exceptions.DukeException;
+import javacake.exceptions.CakeException;
 import javacake.quiz.Question;
 import javacake.quiz.QuestionDifficulty;
 import javacake.quiz.QuestionList;
@@ -16,7 +16,7 @@ import java.util.Set;
 public class QuestionListTest {
     // TODO this test is dummied out until a reliable unit test can be written.
     @Test
-    public void initializeBasicQuizTest() throws DukeException {
+    public void initializeBasicQuizTest() throws CakeException {
         /*
         QuestionList test = new QuestionList(QuestionType.BASIC);
 

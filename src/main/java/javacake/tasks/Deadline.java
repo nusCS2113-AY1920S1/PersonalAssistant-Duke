@@ -2,7 +2,7 @@ package javacake.tasks;
 
 import com.joestelmach.natty.DateGroup;
 import com.joestelmach.natty.Parser;
-import javacake.exceptions.DukeException;
+import javacake.exceptions.CakeException;
 
 import java.util.Date;
 import java.util.List;
@@ -17,7 +17,7 @@ public class Deadline extends Task {
      *                    of the task inputted by user
      * @param by The details of when task is to be done
      */
-    public Deadline(String description, String by) throws DukeException {
+    public Deadline(String description, String by) throws CakeException {
         super(description);
         this.by = by;
         taskType = TaskType.DEADLINE;
@@ -26,7 +26,7 @@ public class Deadline extends Task {
             List<DateGroup> groups = parser.parse(by);
             dateNow = groups.get(0).getDates().get(0);
         } catch (Exception e) {
-            throw new DukeException("[!] Date cannot be parsed: " + by);
+            throw new CakeException("[!] Date cannot be parsed: " + by);
         }
     }
 
