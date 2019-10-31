@@ -1,20 +1,19 @@
 package modeltests.task;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 import controllers.AssignmentController;
-import models.project.Project;
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Date;
 import models.member.Member;
+import models.project.Project;
 import models.task.Task;
 import models.task.TaskList;
 import models.task.TaskState;
 import org.junit.jupiter.api.Test;
 import util.date.DateTimeHelper;
-
-import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.Date;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 class TaskListTest {
     private Project project;
@@ -169,9 +168,6 @@ class TaskListTest {
                     TaskState.TODO, taskRequirements));
             project.addMember(new Member("Dillen", "9999", "dillen@gmail.com",1, "member"));
             project.addMember(new Member("Jerry", "9999", "jerryn@gmail.com",2, "member"));
-            project.getTask(1).assignMember(project.getMembers().getMember(1));
-            project.getTask(1).assignMember(project.getMembers().getMember(2));
-            project.getTask(2).assignMember(project.getMembers().getMember(1));
             AssignmentController assignmentController = new AssignmentController(project);
             assignmentController.assignAndUnassign("assign task -i 1 -to 1 2".substring(12));
             AssignmentController assignmentController2 = new AssignmentController(project);

@@ -1,14 +1,10 @@
 package models.task;
 
-import models.member.ListOfMembersAssignedToTask;
-import models.member.Member;
-import util.date.DateTimeHelper;
-
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.Objects;
+import util.date.DateTimeHelper;
 
 public class Task implements ITask {
     private String taskName;
@@ -16,7 +12,6 @@ public class Task implements ITask {
     private Date dueDate;
     private int taskCredit;
     private TaskState taskState;
-    private ListOfMembersAssignedToTask listOfMembersAssignedToTask;
     private ArrayList<String> taskRequirements;
     private DateTimeHelper dateTimeHelper;
 
@@ -56,7 +51,6 @@ public class Task implements ITask {
         this.dueDate = dueDate;
         this.taskCredit = taskCredit;
         this.taskState = taskState;
-        this.listOfMembersAssignedToTask = new ListOfMembersAssignedToTask();
         this.taskRequirements = taskRequirements;
         this.dateTimeHelper = new DateTimeHelper();
     }
@@ -98,22 +92,6 @@ public class Task implements ITask {
 
     public int getTaskCredit() {
         return this.taskCredit;
-    }
-
-    public ListOfMembersAssignedToTask getAssignedMembers() {
-        return listOfMembersAssignedToTask;
-    }
-
-    public HashSet<Integer> getAssignedIndexes() {
-        return this.listOfMembersAssignedToTask.getAssignedMembersIndexNumbers();
-    }
-
-    public void assignMember(Member member) {
-        this.listOfMembersAssignedToTask.addMember(member);
-    }
-
-    public void removeMember(Member memberToRemove) {
-        this.listOfMembersAssignedToTask.removeMember(memberToRemove);
     }
 
     /**

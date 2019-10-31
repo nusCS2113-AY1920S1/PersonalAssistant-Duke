@@ -1,11 +1,7 @@
 package models.task;
 
-import models.member.ListOfMembersAssignedToTask;
-import models.member.Member;
-
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
 
 public class NullTask implements ITask {
     @Override
@@ -36,30 +32,6 @@ public class NullTask implements ITask {
     @Override
     public int getTaskCredit() {
         return 0;
-    }
-
-    @Override
-    public ListOfMembersAssignedToTask getAssignedMembers() {
-        return null;
-    }
-
-    @Override
-    public HashSet<Integer> getAssignedIndexes() {
-        return null;
-    }
-
-    @Override
-    public void assignMember(Member member) {
-        /**
-         * Empty method
-         */
-    }
-
-    @Override
-    public void removeMember(Member memberToRemove) {
-        /**
-         * Empty method
-         */
     }
 
     @Override

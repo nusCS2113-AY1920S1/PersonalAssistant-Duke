@@ -435,13 +435,16 @@ class ProjectInputControllerTest {
         simulatedUserInput = "add member -n Dillen -i 911 -e dillen@hotmail.com";
         projectInputController.projectAddMember(project, simulatedUserInput);
         simulatedUserInput = "assign task -i 1 -to 1 2";
-        projectInputController.projectAssignTask(project, simulatedUserInput);
-        actualOutput = "";
-        for (String message : project.getAssignedTaskList().toArray(new String[0])) {
-            actualOutput += message;
-        }
-        expectedOutput = "Documentation for product is assigned to: Jerry ZhangDillen";
-        assertEquals(expectedOutput, actualOutput);
+        String[] output = projectInputController.projectAssignTask(project, simulatedUserInput);
+        assertEquals("For task 1 (Documentation for product):", output[0]);
+        assertEquals("Assigned to member 1 (Jerry Zhang).", output[1]);
+        assertEquals("Assigned to member 2 (Dillen).", output[2]);
+
+        simulatedUserInput = "assign task -i";
+        output = projectInputController.projectAssignTask(project, simulatedUserInput);
+        assertEquals("Insufficient parameters! Indicate the member whom you wish to assign or remove!",
+            output[0]);
+
     }
 
     @Test
