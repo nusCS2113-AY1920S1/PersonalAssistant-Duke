@@ -1,6 +1,8 @@
 package duke.models.locker;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import duke.exceptions.DukeException;
 
@@ -20,7 +22,8 @@ public class SerialNumber {
      * @param serialNumber stores the serialnumber assigned to a locker
      * @throws DukeException when the serial number is in invalid format
      */
-    public SerialNumber(String serialNumber) throws DukeException {
+    @JsonCreator
+    public SerialNumber(@JsonProperty("serialNumber") String serialNumber) throws DukeException {
         requireNonNull(serialNumber);
         if (!checkIsValidSerialNumber(serialNumber)) {
             throw new DukeException(ERROR_MESSAGE);
@@ -42,10 +45,10 @@ public class SerialNumber {
         return serialNumberForLocker;
     }
 
-    @JsonSetter("serialNumber")
+    /*@JsonSetter("serialNumber")
     public void setSerialNumberForLocker(String serialNumberForLocker) {
         this.serialNumberForLocker = serialNumberForLocker;
-    }
+    }*/
 
     /* We need to override functions equals() and hashCode() in order to account for
        used defined checking for equality while using streams

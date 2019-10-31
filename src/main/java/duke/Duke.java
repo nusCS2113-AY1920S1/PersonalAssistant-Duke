@@ -7,6 +7,8 @@ import duke.parser.Parser;
 import duke.storage.FileHandling;
 import duke.ui.Ui;
 
+import java.io.IOException;
+
 public class Duke {
     private Ui ui;
     private FileHandling storage;

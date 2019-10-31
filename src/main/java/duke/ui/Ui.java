@@ -12,6 +12,7 @@ public class Ui {
         return sc.nextLine();
     }
 
+
     /**
      * This function responsible for printing a line.
      */
@@ -60,14 +61,11 @@ public class Ui {
     }
 
     /**
-     * This function tells the user that Duke has added the task to the list.
-     * @param listOfTasks used for printing the number of tasks in the list.
-     * @param taskA stores the task that is to be added to the list.
+     * This function is used to indicate the user that the usage has been deleted.
      */
-    public void printAddTask(List<Locker> listOfTasks, String taskA) {
-        printSpaces(" Got it. I have added this task:");
-        printSpaces("  " + taskA);
-        showNumTasks(listOfTasks);
+    public void showDeleteUsage() {
+        printSpaces(" I have successfully deleted the usage of the locker.");
+        printDash();
     }
 
     /**
@@ -142,9 +140,9 @@ public class Ui {
 
     }
 
-    private void showNumTasks(List<Locker> listOfTasks) {
-        printSpaces(" Now you have " + listOfTasks.size()
-                + ((listOfTasks.size() == 1) ? " locker in the list." : " lockers in "
+    private void showNumTasks(int size) {
+        printSpaces(" Now you have " + size
+                + ((size == 1) ? " locker in the list." : " lockers in "
                 + "the list"));
         printDash();
     }
@@ -186,13 +184,13 @@ public class Ui {
 
     /**
      * This function tells the user that SpongeBob has deleted the lockers from the list.
-     * @param lockerList used for showing the number of lockers left in the list.
+     * @param numLockers used for showing the number of lockers left in the list.
      * @param lockerA stores the locker that is deleted.
      */
-    public void deleteMessage(List<Locker> lockerList, String lockerA) {
+    public void deleteMessage(int numLockers, String lockerA) {
         printSpaces(" Noted. I have removed this locker:");
         printSpaces("  " + lockerA);
-        showNumTasks(lockerList);
+        showNumTasks(numLockers);
     }
 
     /**

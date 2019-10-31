@@ -16,6 +16,7 @@ public class LockerList {
     private List<Locker> lockerList;
 
     public LockerList(List<Locker> lockerList) {
+        requireNonNull(lockerList);
         this.lockerList = lockerList;
     }
 
