@@ -330,6 +330,21 @@ Since `SortCommand` inherits the `ModuleCommand` class, it must override the `ex
 * The object to sort, e.g. modules or cca.
 * The type of sorting the user specifies.
 ****
+There are four methods that can be executed depending on the `TOSORT` and `TYPE` that the user inputs.
+
+****
+* Case 1: `sort ccas` +
+If the argument read for `TOSORT` is “ccas”, the added ccas will be sorted in ascending order and printed to the users.
+
+* Case 2: `sort modules code` +
+If the argument read for `TOSORT` is “modules” and `TYPE` is “ code”, the added modules will be sorted in ascending order of their module codes and printed to the users.
+
+* Case 3: `sort modules level` +
+If the argument read for `TOSORT` is “modules” and `TYPE` is “level”, the added modules will be sorted in ascending order of their module levels (just the numerical part of the module code) and printed to the users.
+
+* Case 4: `sort modules mc` +
+If the argument read for `TOSORT` is “modules” and `TYPE` is “mc”, the added modules will be sorted in ascending order of their modular credits and printed to the users.
+****
 
 Below is a Sequence Diagram showing how `SortCommand` works.
 
@@ -416,10 +431,12 @@ This also extends to choosing the right data type for modelling our module infor
 the data type found in the returned JSON string is strictly `boolean` or `double`.
 
 To allow for quick access to the module information classes, after parsing module information into a list of `ModuleInfoDetailed`, it would then be converted into a `HashMap`, where the key-value pair
-is the string containing the module code, and the value is the `ModuleInfoDetailed`. This is what is exposed to all the command classes during runtime, and this is done automatically on startup so that the module
-data is accessible directly to the user. This functionality is handled by
+is the string containing the module code, and the value is the `ModuleInfoDetailed`.
 
-==== RequestsData
+This is what is exposed to all the command classes during runtime, and this is done automatically on startup so that the module
+data is accessible directly to the user. This functionality is handled by `JsonWrapper` since it involves parsing JSON files into direct Java Objects.
+
+==== RequestData
 
 Internally, this class is responsible for requesting data from the `NUSMODS API` and thus uses Java's Native `HTTPRequest` Library.
 
@@ -427,6 +444,24 @@ image::FutureRequests.png[]
 
 The current implementation is fixed to only request data for the current academic year, but this is subject to change in the coming versions to allow for users to choose to update the data once it gets outdated.
 
+A better implementation might be considered so that the class itself can be more customized for `ModPlanner`.
+=======
+The remove further dependency on the Internet for making API calls to NUSMODS, in future this implementation would be modified to use provided the data in the JAR resources.
+
+For the proposed implementation of updating user data, there are a few alternatives which could be considered:
+
+****
+* Alternative 1: There would be a prompt for the user on startup to check if they wish to update their module data. If the user decides to do so, they enter `yes` and it would be updated.
+** Since this may be distracting for users on every startup, once they user entered `no`, it would no longer prompt for the data update.
+** This implementation requires our application to remember user settings preferences which can be added as an additional feature.
+
+* Alternative 2: Automatic prompting, where the initial startup date is recorded, and would be mapped to a particular semester.
+** Once the semester has been completed, it would prompt the user to update the data. Since this requires and internet connection, this prompt is necessary.
+
+* Alternative 3 (Selected): The base data is packaged into the resources package, thus the JAR would be able to generate the HashMap of ModuleInfoDetailed directly without needed to query from NUSMODS API.
+** The existing implementation to connect to NUSMODS to obtain the module data would be converted to an Update command, giving the user flexibility to choose when to update their module data.
+****
+=======
 === Cca
 
 `Cca` is a class designed for managing user-defined CCAs. All instances of `Cca` are stored in a `List`-like structure `CcaList` which inherits from `ArrayList`.
@@ -439,26 +474,6 @@ image::CcaClassDiagram1.png[]
 image::CcaClassDiagram2.png[]
 
 `Cca` is a child class of the legacy class `TaskWithMultipleWeeklyPeriod` which belongs to our implementation of `Duke`. Since `Cca` itself does not differ much from the parent class except for some `String` representations, it is recommended to refer to the parent class's implementation instead which can be found in <<Legacy>>.
-
-==== Design consideration
-
-It is generally not recommended to modify this class as it inherits from a legacy class. However, a fresh re-implementation might be considered so that the class itself can be customized more for `ModPlanner`.
-
-=======
-
-The remove further dependency on the Internet for making API calls to NUSMODS, in future this implementation would be modified to use provided the data in the JAR resources.
-
-For the proposed implementation of updating user data, there are a few alternatives which could be considered:
-
-****
-* Alternative 1: There would be a prompt for the user on startup to check if they wish to update their module data. If the user decides to do so, they enter `yes` and it would be updated.
-    ** Since this may be distracting for users on every startup, once they user entered `no`, it would no longer prompt for the data update.
-    ** This implementation requires our application to remember user settings preferences which can be added as an additional feature.
-
-* Alternative 2: Automatic prompting, where the initial startup date is recorded, and would be mapped to a particular semester.
-    ** Once the semester has been completed, it would prompt the user to update the data. Since this requires and internet connection, this prompt is necessary.
-
-****
 
 [[Documentation]] 
 == Documentation

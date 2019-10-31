@@ -218,15 +218,25 @@ Example: +
 
 Sorts out modules or ccas accordingly.
 
-==== Sorting and printing the modules : `sort module`
-
-Sorts the module list according to alphabetical order and numerical order and prints the module list. + 
-Format: `sort module`
-
-==== Sorting and printing the CCAs : `sort cca`
+==== Sorting and printing the CCAs : `sort ccas`
 
 Sorts the cca list according to alphabetical order and prints the cca list. + 
-Format: `sort cca` 
+Format: `sort ccas` 
+
+==== Sorting and printing the modules : `sort modules code`
+
+Sorts the module list according to alphabetical order and prints the module list. + 
+Format: `sort modules`
+
+==== Sorting and printing the modules : `sort modules level`
+
+Sorts the module list by the numerical order and prints the module list. + 
+Format: `sort modules`
+
+==== Sorting and printing the modules : `sort modules mc`
+
+Sorts the module list according to the number of mcs and prints the module list. + 
+Format: `sort modules`
 
 === Clearing the data : `clear`
 
@@ -270,7 +280,7 @@ There is no need to save manually.
 [[Errors]]
 == Errors
 *Error Handling*
-* When you input commands or parameters in a way that the program does not understand, errors will be thrown, which let you know what is wrong.
+When you input commands or parameters in a way in which the program does not understand, errors will be thrown, informing the user what was causing the error.
 
 [TIP]
 If you follow what the errors tell you to fix in your command, you can get the program to work as intended!
@@ -378,8 +388,10 @@ eg. `cap module` +
 e.g `grade CS101 A-` +
 `grade CS1231 S`
 * *Sort* : 
-** `sort module`
-** `sort cca`
+** `sort ccas`
+** `sort modules code`
+** `sort modules level`
+** `sort modules mc`
 * *Clear* :
 ** `clear modules`
 ** `clear ccas`

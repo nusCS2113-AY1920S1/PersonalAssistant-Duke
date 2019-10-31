@@ -309,7 +309,6 @@ public class PlannerUi {
         System.out.println("Got it, graded " + moduleCode + " with grade: " + letterGrade);
     }
 
-
     /**
      * Message to print the sorted module list.
      */
@@ -318,7 +317,7 @@ public class PlannerUi {
     }
 
     /**
-     * Sorts by ascending order and prints to the users.
+     * Sorts by the order the user indicates and prints to the users.
      */
     public void showSorted(List<?> list) {
         showLine();
@@ -392,24 +391,6 @@ public class PlannerUi {
         for (Task temp : taskList) {
             System.out.println(count + ". " + temp);
             count++;
-        }
-    }
-
-    /**
-     * Message to print the sorted module list.
-     */
-    public void sortModuleMsg() {
-        System.out.println("Here are your modules in your requested orders!");
-    }
-
-    /**
-     * Sorts the module by the requested order and prints to the users.
-     * @param mods List of modules the student is taking.
-     */
-    public void showSortedModules(List<ModuleTask> mods) {
-        showLine();
-        for (ModuleTask hold : mods) {
-            System.out.println(hold);
         }
     }
 
