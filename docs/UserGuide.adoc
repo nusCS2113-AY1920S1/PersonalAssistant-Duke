@@ -287,6 +287,16 @@ view-monthly Jan 2020
 view-monthly January 2018
 ----
 
+image::images/userguide/UG_ViewMonthly_CLI.png[width ="600", align="center"]
+
+As shown in the figure above, entering the `view-monthly` command would cause Optix to 
+respond with the profit of that month.
+
+image::images/userguide/UG_ViewMonthly_GUI.png[width ="600", align="center"]
+
+As shown in the figure above, the GUI would also display the shows performed in that month, together with
+the revenue of each show 
+
 === Alias Commands
 Aliases help you to create shortcuts for commands, hence enabling
 you to to input commands with less effort!
