@@ -208,9 +208,9 @@ If a _<search string>_ is used, the first result that matches the search string 
 ==== `edit` - Edit one of the details of the Patient [[patient-edit]]
 
 Format: `edit <switch> [<new value>] [<switch> [<new value>]]* *[-app[end]]*` +
-Example: `edit -height 180 -w 60 -history "memes" -app`
+Example: `edit *-height* 180 *-weight* 60 *-history* "memes" *-app*`
 
-For string-valued fields, `-app` will append the field's `<new value>` to its current value.
+For string-valued fields, `*-app*` will append the field's `<new value>` to its current value.
 
 Switches and corresponding new value format:
 
@@ -371,7 +371,7 @@ This will open a new context for the specific Treatment or Evidence identified.
 
 ==== `edit` - Edit one of the details of the Impression
 
-Format: `edit [-app[end]] [<<type, _type_>> <<_string_or_idx_, string_or_idx>>] <switch> [<new value>] [<switch> [<new value>]]`
+Format: `edit *[-app[end]]* [<<type, _type_>> <<_string_or_idx_, string_or_idx>>] <switch> [<new value>] [<switch> [<new value>]]`
 
 If input without `<<type, _type_>> <<_string_or_idx_, string_or_idx>>`, the switches and corresponding new value formats are as follows:
 
