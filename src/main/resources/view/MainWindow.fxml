@@ -31,7 +31,7 @@
    <right>
       <VBox prefHeight="518.0" prefWidth="200.0" style="-fx-border-color: black;" BorderPane.alignment="CENTER">
          <children>
-            <TableView fx:id="dukeResponseTable" prefHeight="243.0" prefWidth="200.0" style="-fx-border-color: black; -fx-selection-bar: pink; -fx-selection-bar-non-focused: salmon;" VBox.vgrow="ALWAYS">
+            <TableView fx:id="dukeResponseTable" prefHeight="243.0" prefWidth="200.0" style="-fx-border-color: black; -fx-selection-bar: pink; -fx-selection-bar-non-focused: pink;" VBox.vgrow="ALWAYS">
                <columns>
                   <TableColumn fx:id="dukeResponseColumn" editable="false" prefWidth="198.0" resizable="false" sortable="false" style="-fx-alignment: center;" text="Response" />
                </columns>
@@ -41,8 +41,9 @@
             </TableView>
             <TableView fx:id="overdueTable" prefHeight="282.0" prefWidth="200.0" style="-fx-border-color: black;" VBox.vgrow="ALWAYS">
                <columns>
-                  <TableColumn fx:id="overdueDateColumn" editable="false" prefWidth="77.0" style="-fx-alignment: center;" text="Days Past" />
-                  <TableColumn fx:id="overdueTaskColumn" prefWidth="117.0" style="-fx-alignment: center;" text="Deadlines Overdue" />
+                  <TableColumn fx:id="overdueTaskColumn" maxWidth="-1.0" minWidth="83.0" prefWidth="-1.0" resizable="false" style="-fx-alignment: center;" text="Description" />
+                  <TableColumn fx:id="overdueDateColumn" maxWidth="-1.0" minWidth="71.0" prefWidth="-1.0" resizable="false" style="-fx-alignment: center;" text="Date" />
+                  <TableColumn fx:id="overdueDaysColumn" editable="false" maxWidth="-1.0" minWidth="27.0" prefWidth="-1.0" resizable="false" style="-fx-alignment: center;" text="OD" />
                </columns>
                <columnResizePolicy>
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

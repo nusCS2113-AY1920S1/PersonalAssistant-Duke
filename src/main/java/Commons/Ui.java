@@ -80,12 +80,22 @@ public class Ui {
 
     /**
      * Displays the invalid chosen week message.
-     * @param message The chosen week
      * @return The invalid week entry with the proper format
      */
-    public String showWeeksInvalidEntry(String message){
+    public String showWeeksInvalidEntry(){
         return "Invalid week\n" + "Please enter the command in the format:\n" +
                 "Week 'x', where 'x' is a digit between 1 - 13";
+    }
+
+    public String showSelectionOption(Integer option, String selectedOption ) {
+        return "Selected option " + option + "\n" + selectedOption;
+    }
+
+    public String showSelectionOptionEmptyList(){
+        return "Please find free times by invoking the command shown below\n" +
+                "Find 'x' hours, where 'x' is a digit between 1 - 16\n" +
+                "Followed by the command\n" +
+                "retrieve/ft 'x', where 'x' is a digit between 1- 5";
     }
 
     /**
