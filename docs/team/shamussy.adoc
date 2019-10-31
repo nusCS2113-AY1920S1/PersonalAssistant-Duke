@@ -1,4 +1,4 @@
-== Shamus Neo Zhi Kai - Project Portfolio for OwlMoney
+= Shamus Neo Zhi Kai - Project Portfolio for OwlMoney
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
@@ -59,8 +59,6 @@ a common parent class `bank` which was coded by both <<briantkm#,Brian Tan Kian 
 
 *Code contributed:*
 
-=== *Code Contributed*:
-
 * [link:{repoURL}/commits?author=shamussy[Commits]] [link:{repoURL}/pulls?q=is%3Apr+is%3Aclosed+author%3Ashamussy[Pull
 Requests]] [https://nuscs2113-ay1920s1.github.io/dashboard/#search=shamussy[RepoSense Code Contribution Dashboard]]
 
@@ -106,13 +104,21 @@ team's repository (examples: PRs {prURL}/119[#119], {prURL}/101[#101], {prURL}/1
 the team's link:{repoURL}/projects/[Project Board]
 
 == Contributions to User Guide
+
 |===
 |_The following sections illustrate my ability in writing documentation targeting end-users to guide them in using the various features of the application._
 |===
 
+===
+
+====
+
 include::../UserGuide.adoc[tag=investment_management]
 
+====
+
 == Contributions to Developer Guide
+
 |===
 |_The following sections illustrate my ability in writing documentation to provide developers insights on the design
 of the application. It also showcase the technical depth of my contributions to the project._

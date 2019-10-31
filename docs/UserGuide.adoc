@@ -514,8 +514,8 @@ Take note that there is a maximum of *30* character limit.
 
 
 
-
 // tag::investment_management[]
+
 ===== Adding investment bank account `/add /investment`
 Want to start *investing* to grow your wealth? No problem!
 All you need to do is to add an investment account! +
