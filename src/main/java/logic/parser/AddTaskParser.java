@@ -38,7 +38,7 @@ public class AddTaskParser {
                 throw new DukeException("Time format error. Should be: " + TIME_PATTERN);
             }
         }
-        String members = argumentMultimap.get("/member");
+        String members = argumentMultimap.get("/to");
         if (members != null) {
             command.setMembers(members);
         }
