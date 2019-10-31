@@ -36,7 +36,6 @@ public class Executor {
             c = (Command) commandType.getCommandClass().getDeclaredConstructor(String.class).newInstance(
                     userInput);
         } catch (Exception e) {
-            e.printStackTrace();
             c = new CommandError(userInput);
         }
         return c;
