@@ -106,7 +106,7 @@ public class OverlayBarGroup  extends Command<SongList>  {
                 Bar overlayingBar = overlayingBarToBeCopied.copy(overlayingBarToBeCopied);
                 //Bar overlayingBar = barList.get(barIndexToAdd);
                 //System.out.println("adjjdsa");
-                if (sections.length > 2 && sections[2].equals("repeat")) {
+                if (sections.length > 3 && sections[2].equals("repeat")) {
                     Iterator<Group> iterator1 = groupList.iterator();
                     int i = 0;
                     while (iterator1.hasNext()) {
