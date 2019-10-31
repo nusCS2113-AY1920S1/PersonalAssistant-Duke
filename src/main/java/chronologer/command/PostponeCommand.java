@@ -89,7 +89,6 @@ public class PostponeCommand extends Command {
      * Check whether index of list item within current list range.
      *
      * @param tasks Current task list
-     *
      */
     private void isIndexValid(TaskList tasks) throws ChronologerException {
         if (!isIndexValid(indexOfTask, tasks.getSize())) {
@@ -100,6 +99,7 @@ public class PostponeCommand extends Command {
 
     /**
      * Determine if the date to be postponed is clashing with another deadline.
+     *
      * @param description Description of the deadline
      * @param startDate   Start date  of the deadline
      * @param tasks       Current task list
@@ -112,6 +112,7 @@ public class PostponeCommand extends Command {
 
     /**
      * Determine if the date to be postponed is clashing with another event.
+     *
      * @param description Description of the event
      * @param startDate   Start date  of the event
      * @param tasks       Current task list
@@ -124,15 +125,16 @@ public class PostponeCommand extends Command {
 
     /**
      * Postpone task with a specific date range eg: event, todo with period.
+     *
      * @param taskToBePostponed The task to have its date postponed
      * @param startDate         Start date of the task
      * @param toDate            End date of the task
      * @param tasks             Current task list
      * @param storage           Storage component
-     * @throws ChronologerException  If errors occur in storage component
+     * @throws ChronologerException If errors occur in storage component
      */
-    private void postponeDateRange(Task taskToBePostponed, LocalDateTime startDate
-        , LocalDateTime toDate, TaskList tasks, Storage storage) throws ChronologerException{
+    private void postponeDateRange(Task taskToBePostponed, LocalDateTime startDate,
+                                   LocalDateTime toDate, TaskList tasks, Storage storage) throws ChronologerException {
         taskToBePostponed.setStartDate(startDate);
         taskToBePostponed.setEndDate(toDate);
         ChronologerStateList.addState((tasks.getTasks()));
@@ -143,11 +145,12 @@ public class PostponeCommand extends Command {
 
     /**
      * Postpone task with a single date eg: deadline.
+     *
      * @param taskToBePostponed The task to have its date postponed
      * @param startDate         Start date of the task
      * @param tasks             Current task list
      * @param storage           Storage component
-     * @throws ChronologerException  If errors occur in storage component
+     * @throws ChronologerException If errors occur in storage component
      */
     private void postponeDate(Task taskToBePostponed, LocalDateTime startDate,
                               TaskList tasks, Storage storage) throws ChronologerException {
