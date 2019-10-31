@@ -7,8 +7,8 @@ package cube.storage;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import cube.model.Food;
-import cube.model.FoodList;
+import cube.model.food.FoodList;
+import cube.model.sale.SalesHistory;
 
 public class StorageManager {
 	@JsonProperty
@@ -17,6 +17,8 @@ public class StorageManager {
 	private RevenueStorage revenueStorage;
 	@JsonProperty
 	private ConfigStorage configStorage;
+	@JsonProperty
+	private SaleStorage saleStorage;
 
 	/**
 	 * Default constructor.
@@ -26,15 +28,17 @@ public class StorageManager {
 		this.foodStorage = new FoodStorage();
 		this.revenueStorage = new RevenueStorage();
 		this.configStorage = new ConfigStorage();
+		this.saleStorage = new SaleStorage();
 	}
 
 	/**
 	 * Constructor with 2 arguments.
 	 * Creates a new instance of Food & Revenue Storage Classes.
 	 */
-	public StorageManager(FoodStorage foodStorage, RevenueStorage revenueStorage, ConfigStorage configStorage) {
+	public StorageManager(FoodStorage foodStorage, RevenueStorage revenueStorage, SaleStorage saleStorage, ConfigStorage configStorage) {
 		this.foodStorage = foodStorage;
 		this.revenueStorage = revenueStorage;
+		this.saleStorage = saleStorage;
 		this.configStorage = configStorage;
 	}
 
@@ -45,13 +49,6 @@ public class StorageManager {
 	@JsonIgnore
 	public FoodList getFoodList() {
 		return foodStorage.getFoodList();
-	}
-
-	/**
-	 * Appends a Food Item Object into the FoodStorage.
-	 */
-	public void appendFood(Food food) {
-		foodStorage.appendFood(food);
 	}
 
 	/**
@@ -80,12 +77,38 @@ public class StorageManager {
 	}
 
 	/**
+	 * Retrieves the past sales histories stored in SaleStorage.
+	 * @return SalesHistory object containing past sale histories stored in SaleStroage.
+	 */
+	@JsonIgnore
+	public SalesHistory getSalesHistory() {
+		return saleStorage.getSalesHistory();
+	}
+
+	/**
+	 * Stores the SalesHistory object into SaleStorage.
+	 * @param salesHistory SalesHistory object to be stored in the SaleStorage.
+	 */
+	public void storeSalesHistory(SalesHistory salesHistory) {
+		saleStorage.storeSalesHistory(salesHistory);
+	}
+
+	/**
 	 * Retrieves the configuration storage containing user-defined configurations.
 	 * @return ConfigStorage object containing the user-defined configurations.
 	 */
 	@JsonIgnore
 	public ConfigStorage getConfig() {
 		return configStorage;
+	}
+
+	/**
+	 * Sets the configuration storage containing user-defined configurations.
+	 * @return ConfigStorage object containing the user-defined configurations.
+	 */
+	@JsonIgnore
+	public void setConfig(ConfigStorage configStorage) {
+		this.configStorage = configStorage;
 	}
 
 }

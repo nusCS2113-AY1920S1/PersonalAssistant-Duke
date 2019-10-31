@@ -1,4 +1,4 @@
-package cube.model;
+package cube.model.food;
 
 import java.util.Date;
 
@@ -8,8 +8,10 @@ public class Food {
 	protected String name;
 	protected String type;
 	protected double price;
+	protected double cost;
 	protected int stock;
 	protected Date expiryDate;
+	protected double foodRevenue;
 	//Data fields
 	protected static double revenue;
 
@@ -30,8 +32,7 @@ public class Food {
 
 	public Food(String name) {
 		this.name = name;
-		this.revenue = 0;
-		this.stock = 0;
+		this.foodRevenue = 350; //ad hoc
 	}
 
 	/**
@@ -112,7 +113,6 @@ public class Food {
 	 *
 	 * @param newRevenue New total revenue made from selling the product.
 	 */
-
 	public static void updateRevenue(double newRevenue) {
 		revenue = newRevenue;
 	}
@@ -122,9 +122,12 @@ public class Food {
 	 *
 	 * @return the revenue earned from selling the product.
 	 */
-
 	public static double getRevenue() {
 		return revenue;
+	}
+
+	public double getFoodRevenue() {
+		return foodRevenue;
 	}
 
 
@@ -145,6 +148,14 @@ public class Food {
 
 	public int getStock() {
 		return stock;
+	}
+
+	public void setCost(double cost) {
+		this.cost = cost;
+	}
+
+	public double getCost() {
+		return cost;
 	}
 
 	/**
@@ -171,6 +182,25 @@ public class Food {
 				"\n  Price: $" + price +
 				"\n  Stock: " + stock +
 				"\n  Expiry Date: " + expiryDate;
+	}
+
+	@Override
+	// for Junit test use
+	public boolean equals(Object other) {
+		if (other == this) {
+			return true;
+		}
+		if (other instanceof Food) {
+			Food b = (Food) other;
+			return name.equals(b.name)
+					&& ((type == null && b.type == null) || (type != null && type.equals(b.type)))
+					&& price == b.price
+					&& cost == b.cost
+					&& stock == b.stock
+					&& expiryDate == b.expiryDate;
+		} else {
+			return false;
+		}
 	}
 
 }
