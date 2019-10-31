@@ -1,22 +1,19 @@
 package main;
 
 import command.Command;
-import degree.Degree;
+import degree.DegreeManager;
 import exception.DukeException;
 import javafx.application.Application;
 import javafx.stage.Stage;
+import list.DegreeList;
 import parser.Parser;
 import storage.Storage;
 import task.TaskList;
 import ui.UI;
-import list.DegreeList;
+
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 /**
  * The JavaFX.Main.Duke class inherits methods from Applications and allows it to be called by another class.
@@ -31,13 +28,12 @@ import java.util.Map;
  */
 public class Duke extends Application {
 
+    private DegreeManager degreesManager;
     private TaskList myList;
     private Storage storage;
     private UI ui;
     private Parser parse;
     private DegreeList lists;
-    private Map<String, List<String>> degrees = new HashMap<>();
-    private Map<String, Degree> degreeInfo = new HashMap<>();
     private ArrayList<String> mydegrees = new ArrayList<>();
 
     public ArrayList<String> getTasks() {
@@ -63,87 +59,16 @@ public class Duke extends Application {
             myList = new TaskList();
         }
         try{
-            setDegrees(storage.fetchListOutput("listdegrees"));
-            loadDegrees();
+            degreesManager = new DegreeManager(this.storage);
         } catch (DukeException e) {
             ui.showLoadingError();
-            degrees.clear();
-            degreeInfo.clear();
+            degreesManager = new DegreeManager();
             System.out.println(e.getLocalizedMessage());
             System.out.println("Degree Information Failed to Load, please contact Administrator");
         }
         this.lists = new DegreeList();
     }
 
-    /**
-     * According to each item in degrees list, fetch data from storage and add it
-     *
-     * @throws DukeException is thrown when unable to fetch the related data
-     */
-    private void loadDegrees() throws DukeException {
-        for(Map.Entry<String, List<String>> pair : degrees.entrySet())
-        {
-            initDegree(pair.getKey(), pair.getValue());
-        }
-    }
-
-    private void initDegree(String degree, List<String> options) throws DukeException {
-        try {
-            if (options == null) {
-                degreeInfo.put(degree, new Degree(storage.fetchListOutput(degree)));
-            } else {
-                for (String x : options) {
-                    //Mysterious Java Lang Reflect InvocationTarget Exception
-                    //List of Strings can be fetched
-                    //Degree cannot be created for any multi option Degree (at all)
-                    //degreeInfo.put(x, new Degree(storage.fetchListOutput(x)));
-                }
-            }
-        } catch (DukeException e) {
-            throw new DukeException("Degree: " + degree + ": " + e.getLocalizedMessage());
-        }
-    }
-
-
-    /**
-     * Sets up the degrees which are available to the user from storage
-     *
-     * @param listdegrees is the csv file containing the information of each degree file
-     *                     a degree can have multiple options, in that case, it is mapped to non null
-     * @throws DukeException is thrown when listdegrees csv cannot be found
-     */
-    private void setDegrees(List<String> listdegrees) throws DukeException {
-        if(listdegrees == null)
-            throw new DukeException("listdegrees.csv file not found");
-        for (String listdegree : listdegrees) {
-            String[] split = listdegree.split(",");
-            addDegree(split);
-        }
-
-    }
-
-    /**
-     * Adds a new Degree to the list of degree information
-     *
-     * @param split is the comma separated file containing information about the degree and its options
-     * @throws DukeException is thrown if there is no degree information in the first column
-     */
-    private void addDegree(String[] split) throws DukeException {
-        if(split.length == 1)
-            degrees.put(split[0], null);
-        else
-        {
-            if(split[0].isBlank())
-                throw new DukeException("Unable to find main degree");
-            List<String> temp = new ArrayList<>();
-            for(int i = 1; i < split.length; i ++)
-            {
-                if(!split[i].isBlank())
-                    temp.add(split[i]);
-            }
-            degrees.put(split[0], temp);
-        }
-    }
 
     public String reminder() {
         ByteArrayOutputStream output = new ByteArrayOutputStream();
@@ -174,24 +99,8 @@ public class Duke extends Application {
         System.setOut(ps);
         try {
             ui.showLine();
-            Degree temp = new Degree(storage.fetchListOutput("ISEP1"));
-            for(Map.Entry<String, List<String>> pair : degrees.entrySet())
-            {
-                String degree = pair.getKey();
-                List<String> options = pair.getValue();
-                if(options == null)
-                    System.out.println(degree);
-                else
-                {
-                    System.out.print(degree + ": ");
-                    for (String option: options) {
-                        System.out.print(option + " ");
-                    }
-                    System.out.println();
-                }
-            }
             Command c = Parser.parse(line);
-            c.execute(this.myList, this.ui, this.storage, this.lists);
+            c.execute(this.myList, this.ui, this.storage, this.lists, this.degreesManager);
         } catch (DukeException | NullPointerException e) {
             ui.showError(e.getLocalizedMessage());
         } finally {
@@ -212,7 +121,7 @@ public class Duke extends Application {
                 ui.showLine();
                 Command c = Parser.parse(line);
                 isExit = c.isExit();
-                c.execute(this.myList, this.ui, this.storage, this.lists);
+                c.execute(this.myList, this.ui, this.storage, this.lists, this.degreesManager);
             } catch (DukeException | NullPointerException e) {
                 ui.showError(e.getLocalizedMessage());
             } finally {

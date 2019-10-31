@@ -1,5 +1,6 @@
 package command;
 
+import degree.DegreeManager;
 import exception.DukeException;
 import list.DegreeList;
 import org.junit.jupiter.api.AfterEach;
@@ -27,6 +28,7 @@ class PrintCommandTest {
     //Variable to catch system.out.println, must be converted to string to be usable
     private ByteArrayOutputStream systemOutput = new ByteArrayOutputStream();
     private PrintStream originalOut = System.out;
+    private DegreeManager degreesManager = new DegreeManager();
 
     PrintCommandTest() throws DukeException {
     }
@@ -43,7 +45,7 @@ class PrintCommandTest {
 
     @Test
     void testExecute() throws DukeException {
-        testCommand.execute(testTaskList, testUi, testStorage, testList);
+        testCommand.execute(testTaskList, testUi, testStorage, testList, this.degreesManager);
         assertEquals("1. [T][N] Send even more Help\r\n"
                 + "2. [R][N] Deliver Help (Every: Day)\r\n"
                 + "3. [A][N] Send less help (After: Sending Enough)\r\n"

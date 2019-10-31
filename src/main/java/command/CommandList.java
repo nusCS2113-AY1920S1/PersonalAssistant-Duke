@@ -1,13 +1,12 @@
 package command;
 
+import degree.DegreeManager;
 import exception.DukeException;
 import list.DegreeList;
 import storage.Storage;
-import task.Task;
 import task.TaskList;
 import ui.UI;
 
-import java.util.ArrayList;
 import java.util.Stack;
 
 /**
@@ -30,6 +29,7 @@ public class CommandList {
     private Storage storage;
     private DegreeList lists;
     private String input;
+    private DegreeManager degreesManager = new DegreeManager();
 
     public CommandList() {
     }
@@ -54,7 +54,7 @@ public class CommandList {
         this.lists = lists;
         this.input = input;
         deleteElementsAfterPointer(undoRedoPointer);
-        newCommand.execute(tasks, ui, storage, lists);
+        newCommand.execute(tasks, ui, storage, lists, this.degreesManager);
         commandList.push(newCommand);
         inputList.push(input);
         undoRedoPointer++;
@@ -123,6 +123,6 @@ public class CommandList {
         undoRedoPointer++;
         Command command = commandList.get(undoRedoPointer);
         System.out.println("Redo this command: \"" + inputList.get(undoRedoPointer) + "\"");
-        command.execute(tasks, ui, storage, lists);
+        command.execute(tasks, ui, storage, lists, this.degreesManager);
     }
 }

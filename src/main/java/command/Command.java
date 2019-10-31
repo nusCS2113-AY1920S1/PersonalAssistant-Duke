@@ -1,5 +1,6 @@
 package command;
 
+import degree.DegreeManager;
 import ui.UI;
 import task.TaskList;
 import storage.Storage;
@@ -31,9 +32,10 @@ public abstract class Command {
      * @param ui      UI.UI prints messages
      * @param storage Storage.Storage loads and saves files
      * @param lists DegreeList has the array for the user to maintain a list of their degree choices.
+     * @param degreesManager
      * @throws DukeException DukeException throws exception
      */
-    public abstract void execute(TaskList tasks, UI ui, Storage storage, DegreeList lists) throws DukeException;
+    public abstract void execute(TaskList tasks, UI ui, Storage storage, DegreeList lists, DegreeManager degreesManager) throws DukeException;
 
     /**
      * unexecutes default.

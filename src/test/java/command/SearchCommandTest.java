@@ -1,5 +1,6 @@
 package command;
 
+import degree.DegreeManager;
 import exception.DukeException;
 import list.DegreeList;
 import org.junit.jupiter.api.AfterEach;
@@ -27,6 +28,7 @@ class SearchCommandTest {
     //Variable to catch system.out.println, must be converted to string to be usable
     private ByteArrayOutputStream systemOutput = new ByteArrayOutputStream();
     private PrintStream originalOut = System.out;
+    private DegreeManager degreesManager = new DegreeManager();
 
     SearchCommandTest() throws DukeException {
     }
@@ -44,7 +46,7 @@ class SearchCommandTest {
     @Test
     void testFind() throws DukeException {
         testCommand = new SearchCommand("find", "Sleep");
-        testCommand.execute(testTaskList, testUi, testStorage, testList);
+        testCommand.execute(testTaskList, testUi, testStorage, testList, this.degreesManager);
         assertEquals("Here are the matching tasks in your list:\r\n"
                 + "4. [E][N] Sleeping (At: 01-01-1970 2200)\r\n", systemOutput.toString());
     }
@@ -52,7 +54,7 @@ class SearchCommandTest {
     @Test
     void testSchedule() throws DukeException {
         testCommand = new SearchCommand("schedule", "01-01-1970");
-        testCommand.execute(testTaskList, testUi, testStorage, testList);
+        testCommand.execute(testTaskList, testUi, testStorage, testList, this.degreesManager);
         assertEquals("Here's what the day looks like:\r\n"
                 + "4. [E][N] Sleeping (At: 01-01-1970 2200)\r\n", systemOutput.toString());
     }
