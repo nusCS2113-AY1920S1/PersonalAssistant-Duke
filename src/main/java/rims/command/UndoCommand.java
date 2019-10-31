@@ -49,4 +49,12 @@ public class UndoCommand extends Command {
         ui.print("The previous command has been undone!");
         ui.printLine();
     }
+
+    @Override
+    public boolean canChangeData() {
+        return false;
+    }
+
+    @Override
+    public String commandUserInput() { return "undo"; }
 }

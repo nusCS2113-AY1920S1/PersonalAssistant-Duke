@@ -24,19 +24,23 @@ public class AddCommand extends Command {
      * @param roomName the name of the new Room to be added to the ResourceList.
      */
     public AddCommand(String roomName) {
-        this.resourceName = roomName;
-        this.resourceType = "room";
+        resourceName = roomName;
+        resourceType = "room";
+        canModifyData = true;
+        commandUserInput = "add " + roomName + " (room)";
     }
 
     /**
      * Constructor of a new AddCommand for a new Item.
      * @param itemName the name of the new Item to be added to the ResourceList.
-     * @param qty the quantity of the new Item to be added.
+     * @param quantity the quantity of the new Item to be added.
      */
-    public AddCommand(String itemName, int qty) {
-        this.resourceName = itemName;
-        this.resourceType = "item";
-        this.qty = qty;
+    public AddCommand(String itemName, int quantity) {
+        resourceName = itemName;
+        resourceType = "item";
+        qty = quantity;
+        canModifyData = true;
+        commandUserInput = "add " + qty + " " + itemName + " (item)";
     }
 
     /**
