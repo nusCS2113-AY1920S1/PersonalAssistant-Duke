@@ -32,8 +32,6 @@ public class GraphTotalCommand extends Command {
                         Category category, Ui ui, Storage storage)
             throws MooMooException {
 
-        catList.testPopulate();
-
         if (catList.size() == 0) {
             throw new MooMooException("OOPS!!! MooMoo cannot find any category data :(");
         }
@@ -42,8 +40,7 @@ public class GraphTotalCommand extends Command {
         if (grandTotal == 0) {
             grandTotal = 1;
         }
-        int maxAxisUnit = (int) ((catList.getLargestExpenditure(LocalDate.now().getMonthValue()) / grandTotal) * 100)
-                + 1;
+        int maxAxisUnit = (int) ((catList.getLargestExpenditure(LocalDate.now().getMonthValue()) / grandTotal) * 100);
         for (int i = 0; i < maxAxisUnit; i += 1) {
             horizontalAxisTop += topBorder;
             horizontalAxisBottom += bottomBorder;

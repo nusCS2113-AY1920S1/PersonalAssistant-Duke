@@ -17,8 +17,8 @@ import moomoo.command.category.DeleteCategoryCommand;
 import moomoo.command.category.ListCategoryCommand;
 import moomoo.task.category.CategoryParser;
 import moomoo.command.MainDisplayCommand;
-
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
@@ -75,23 +75,35 @@ public class Parser {
         } catch (Exception e) {
             throw new MooMooException("Try adding c/[CATEGORY] d/[MONTH] or \"total\"!");
         }
-        switch (input) {
-        case "total":
+        
+        if (input.equals("total")) {
             return new GraphTotalCommand();
-        default:
-            String month;
-            try {
-                month = scanner.next();
-                if (0 < Integer.parseInt(month) && Integer.parseInt(month) < 13) {
-                    return new GraphCategoryCommand(input, Integer.parseInt(month));
+        } else if (input.startsWith("c/")) {
+            String inputCategory = input.substring(2);
+            if (scanner.hasNext()) {
+                input = scanner.next();
+                if (input.startsWith("d/")) {
+                    String inputDate = input.substring(2);
+                    if (!inputDate.equals("") && 0 < Integer.parseInt(inputDate) && Integer.parseInt(inputDate) < 13) {
+                        return new GraphCategoryCommand(inputCategory,
+                                Integer.parseInt(inputDate),
+                                LocalDate.now().getYear());
+                    } else {
+                        throw new MooMooException("Month must be from 1 to 12 (inclusive)!");
+                    }
                 } else {
-                    throw new MooMooException("Month must be from 1 to 12 inclusive!");
+                    throw new MooMooException("Please enter in this format: d/[MONTH]");
                 }
-            } catch (Exception e) {
-                throw new MooMooException("Try adding c/[CATEGORY] d/[MONTH] or \"total\"!");
+            } else {
+                return new GraphCategoryCommand(inputCategory,
+                        LocalDate.now().getMonthValue(),
+                        LocalDate.now().getYear());
             }
             
+        } else {
+            throw new MooMooException("Please enter in this format: c/[CATEGORY]");
         }
+        
     }
     
     private static Command parseDelete(Scanner scanner, Ui ui) throws MooMooException {
@@ -170,7 +182,7 @@ public class Parser {
                     + "c/[Category Name]");
         }
     }
-
+    
     private static String removeSuffix(String noSpaceInput) throws MooMooException {
         String categoryName;
         try {
@@ -286,13 +298,13 @@ public class Parser {
 
     private static Command listBudget(Scanner scanner) throws MooMooException {
         ArrayList<String> categories = new ArrayList<>();
-
+        
         String input;
         try {
             input = scanner.next();
         } catch (Exception e) {
             return new ListBudgetCommand(false, categories);
-
+            
         }
         String inputCategory = "";
         
@@ -385,7 +397,7 @@ public class Parser {
         if (!"".equals(endMonth) && endDate == null) {
             throw new MooMooException("Please set an end month and year in this format \"e/01/2019\"\n");
         }
- 
+        
         return new SavingsBudgetCommand(false, categories, startDate, endDate);
     }
     
