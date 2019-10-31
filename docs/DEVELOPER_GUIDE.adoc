@@ -102,7 +102,11 @@ Use of Data Structures:
 
 *B. Find Feature*
 
+
+1. Implementation of Find Feature.
+
 1. Implementation
+
 
 The find mechanism is facilitated by the FindCommand. It extends upon Command.
 Use cases for the find feature:
@@ -110,7 +114,12 @@ Use cases for the find feature:
 - Find the locker details based on name.
 - Find the locker details based on other tags like availability.
 
+
+2.
+Design Considerations
+
 2. Design Considerations
+
 
 How the find feature executes:
 
@@ -124,7 +133,11 @@ How the find feature executes:
 
 *C. Sort Feature*
 
+
+1. Implementation of Sort Feature.
+
 1. Implementation
+
 
 The sort mechanism is facilitated by the SortCommand. It extends upon Command.
 Use cases for the sort feature:
