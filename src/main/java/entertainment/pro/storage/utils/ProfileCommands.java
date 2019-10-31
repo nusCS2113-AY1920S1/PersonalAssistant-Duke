@@ -7,6 +7,10 @@ import entertainment.pro.model.GenreId;
 import entertainment.pro.model.UserProfile;
 import entertainment.pro.ui.Controller;
 import entertainment.pro.ui.MovieHandler;
+import org.json.simple.JSONArray;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+import org.json.simple.JSONObject;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -380,37 +384,89 @@ public class ProfileCommands {
      * to find genreId for corresponding genre name.
      */
     public static Integer findGenreID(String genreName) throws IOException {
-        genreName = genreName.trim();
-        ObjectMapper mapper = new ObjectMapper();
-        InputStream inputStream = new FileInputStream("EPdata/GenreId.json");
-        TypeReference<ArrayList<GenreId>> typeReference = new TypeReference<ArrayList<GenreId>>() {
-        };
-        ArrayList<GenreId> genreIds = mapper.readValue(inputStream, typeReference);
-        for (GenreId log : genreIds) {
-            if (log.getGenre().equalsIgnoreCase(genreName)) {
-                inputStream.close();
-                return log.getId();
-            }
+//        genreName = genreName.trim();
+        InputStream inputStream = ProfileCommands.class.getResourceAsStream("/data/GenreId.json");
+        InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+        BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+        String genreListString = "";
+        String line;
+        while ((line = bufferedReader.readLine()) != null) {
+            genreListString += line;
         }
+        bufferedReader.close();
+        inputStreamReader.close();
         inputStream.close();
-        return 0;
+
+//        JSONParser parser = new JSONParser();
+//        JSONObject jsonObject = new JSONObject();
+//        try {
+//            jsonObject = (JSONObject) parser.parse(new FileReader("./GenreId.json"));
+//        } catch (ParseException e) {
+//            e.printStackTrace();
+//        }
+        return Integer.parseInt(parseToId(genreListString, genreName.trim()));
     }
 
     public static String findGenreName(int id) throws IOException {
-        ObjectMapper mapper = new ObjectMapper();
-        InputStream inputStream = new FileInputStream("EPdata/GenreId.json");
-        TypeReference<ArrayList<GenreId>> typeReference = new TypeReference<ArrayList<GenreId>>() {
-        };
-        ArrayList<GenreId> genreIds = mapper.readValue(inputStream, typeReference);
-        for (GenreId log : genreIds) {
-            if (log.getId() == id) {
-                inputStream.close();
-                return log.getGenre();
+        InputStream inputStream = ProfileCommands.class.getResourceAsStream("/data/GenreId.json");
+        InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+        BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+        String genreListString = "";
+        String line;
+        while ((line = bufferedReader.readLine()) != null) {
+            genreListString += line;
+        }
+        bufferedReader.close();
+        inputStreamReader.close();
+        inputStream.close();
+
+//        JSONParser parser = new JSONParser();
+//        JSONObject jsonObject = new JSONObject();
+//        try {
+//            jsonObject = (JSONObject) parser.parse(new FileReader("./GenreId.json"));
+//        } catch (ParseException e) {
+//            e.printStackTrace();
+//        }
+        return parseToName(genreListString, Integer.toString(id));
+    }
+
+    private static String parseToName(String genreListString, String id) {
+        JSONParser parser = new JSONParser();
+        JSONArray jsonArray = new JSONArray();
+        try {
+            jsonArray = (JSONArray) parser.parse(genreListString);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        for (int i = 0; i < jsonArray.size(); i++) {
+            JSONObject jsonObject = (JSONObject) jsonArray.get(i);
+            String genreId = (String) jsonObject.get("id");
+            if (genreId.equals(id)) {
+                return (String) jsonObject.get("genre");
             }
         }
-        inputStream.close();
         return "0";
     }
+
+    private static String parseToId(String genreListString, String name) {
+        JSONParser parser = new JSONParser();
+        JSONArray jsonArray = new JSONArray();
+        try {
+            jsonArray = (JSONArray) parser.parse(genreListString);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        for (int i = 0; i < jsonArray.size(); i++) {
+            JSONObject jsonObject = (JSONObject) jsonArray.get(i);
+            String genreName = (String) jsonObject.get("genre");
+            if (genreName.equalsIgnoreCase(name)) {
+                return (String) jsonObject.get("id");
+            }
+        }
+        return "0";
+    }
+
+
 
     /**
      * to get Label text for genres.

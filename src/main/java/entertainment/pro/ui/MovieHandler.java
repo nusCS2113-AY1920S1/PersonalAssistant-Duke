@@ -37,8 +37,8 @@ import javafx.scene.text.TextFlow;
 import entertainment.pro.logic.parsers.CommandParser;
 import org.json.simple.parser.ParseException;
 
-import java.io.File;
-import java.io.IOException;
+import javax.imageio.ImageIO;
+import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.logging.Level;
@@ -640,9 +640,10 @@ public class MovieHandler extends Controller implements RequestListener {
                     controller.getPosterImageView().setImage(posterImage);
 
                 } else {
-                  //  System.out.println("hi1");
-                    Image posterImage = new Image(this.getClass().getResourceAsStream("../../../../EPdata/FakeMoviePoster.png"));
-                   // System.out.println("hi2");
+                    System.out.println("hi1");
+                    File fakePoster = new File("./data/FakeMoviePoster.png");
+                    Image posterImage = new Image(fakePoster.toURI().toString());
+                    System.out.println("hi2");
                     posterImage.progressProperty().addListener((observable, oldValue, newValue) -> {
                         try {
                             updateProgressBar(movie, newValue.doubleValue());
@@ -853,8 +854,7 @@ public class MovieHandler extends Controller implements RequestListener {
             // set the movie info
             MoviePosterController controller = loader.getController();
             try {
-                File fakePoster = new File("./FakeMoviePoster.png");
-                Image posterImage = new Image(fakePoster.toURI().toString());
+                Image posterImage = new Image("/images/FakeMoviePoster.png");
                 posterImage.progressProperty().addListener((observable, oldValue, newValue) -> {
                     try {
                         updateProgressBar(movie, newValue.doubleValue());
@@ -1003,23 +1003,20 @@ public class MovieHandler extends Controller implements RequestListener {
                 controller.getMovieDateLabel().setText("N/A");
             }
             controller.getMovieSummaryLabel().setText(movie.getSummaryInfo());
-            String[] genres = RetrieveRequest.getGenreStrings(movie);
-            StringBuilder builder = new StringBuilder();
-            try {
-                for (String genre : genres) {
-                    builder.append(genre);
-                    System.out.println(genre + "  " + genres.length);
-                    // if not last string in array, append a ,
-                    if (genres.length == 0) {
-                        System.out.println("no genres");
-                    } else if (!genres[genres.length - 1].equals(genre)) {
-                        builder.append(", ");
-                    }
+            ArrayList<Long> genreList = movie.getGenreIdInfo();
+            String genres = "";
+            for (int i = 0; i < genreList.size(); i++) {
+                if (genreList.size() == 0) {
+                    genres = "no genres";
                 }
-            } catch (NullPointerException ex) {
-
+                if (i != genreList.size() - 1) {
+                    genres += ProfileCommands.findGenreName(genreList.get(i).intValue());
+                    genres += " , ";
+                } else {
+                    genres += ProfileCommands.findGenreName(genreList.get(i).intValue());
+                }
             }
-            controller.getMovieGenresLabel().setText(builder.toString());
+            controller.getMovieGenresLabel().setText(genres);
             mMoviesScrollPane.setContent(controller.getPlaylistMovieInfoAnchorPane());
             mMoviesScrollPane.setVvalue(0);
             pageTracker.setToPlaylistMovieInfo();

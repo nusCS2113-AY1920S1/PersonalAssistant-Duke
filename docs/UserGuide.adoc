@@ -1,4 +1,4 @@
-= Entertainment-Pro : User Guide
+= EntertainmentPro : User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -13,6 +13,7 @@ ifdef::env-github[]
 :note-caption: :information_source:
 endif::[]
 :repoURL: https://github.com/AY1920S1-CS2113T-T09-4/main
+:hide-uri-scheme:
 
 By: `CS2113T-T09-4`      Since: `Sep 2019`
 
@@ -22,7 +23,7 @@ Our Javafx app is primarily targeted at people in Singapore who have huge love a
 
 Most importantly, the app is also intended for people who prefer desktop apps over other types of apps, have the ability to type fast and prefer typing over other means of input. As such, the app will have a GUI (Graphical User Interface) but most of the user interactions will happen using a CLI (Command Line Interface). 
 
-Interested? Jump to the Section 2, “Quick Start” to get started. Enjoy!
+Interested? Jump to <<Quick Start>>  to get started. Enjoy!
 
 == Quick Start
 
@@ -32,20 +33,29 @@ Interested? Jump to the Section 2, “Quick Start” to get started. Enjoy!
 Only Java 11+ is supported. +
 This app may not work with older major Java releases such as Java 10, 9, 8 etc.
 +
-. Download the latest entertainmentpro.jar here.
-. Copy the file to the folder you want to use as the home folder for your Address Book.
+. Download the latest entertainmentpro.jar link:https://github.com/AY1920S1-CS2113T-T09-4/main/releases[here].
+. Place the file in the designated folder that you want to use as the home folder for EntertainmentPro.
 . Double-click the file to start the app. The GUI should appear in a few seconds.
 . Type the command in the command box and press Enter to execute it.
      e.g. typing help and pressing Enter will open the help window.
-. Some example entertainment.pro.logic.parsers.commands you can try:
-* *`search new movie:`* displays all the current movies that are showing on cinemas 
-* *`search upcoming movie:`* displays all the upcoming movies
-* *`display cinema:`* displays the location of all the nearby cinemas
-* *`exit the apprch new movie:`* displays all the current movies that are showing on cinemas 
-. Refer to Section 4, “Features” for details of each command.
+. Some example commands you can try:
+* *`search movies /current`:* displays all the current movies that are showing on cinemas
+* *`view cinema`*: displays the location of all cinemas in Singapore
+* *`help me`*: displays all available root commands
+. Refer to <<Features for Movies and TV shows>> for details of each command.
+
+=== Overview of our GUI
+
+image::GUI.png[gui]
+
+. Command Box: This is where users type commands.
+. Feedback Box: This shows the result of command execution in addition to useful tips and error messages.
+. User Profile: This shows the list of preferences users have set in the app.
+. Info Display: This displays either the set of movies or information related to a particular movie with respect to user's commands.
+
 
 [[Features]]
-== Features
+== Features for Movies and TV shows
 
 *Command Format*
 
@@ -79,6 +89,7 @@ Examples:
 * `help preference`
 
 === User Personalisation
+image::userprofile.png[user profile]
 
 ==== Setting user profile: `set`
 
@@ -86,12 +97,12 @@ Sets values to the individual components of the user profile. +
 *_All existing values will be overwritten by the new value._*
 
 * *name* +
-Sets name to user profile. +
+Sets name of user profile. +
 Format: `set name USER_NAME` +
 Examples: `set name Duke` +
 
 * *age* +
-Sets age to user profile. +
+Sets age of user profile. +
 Format: `set age USER_AGE` +
 Examples: `set age 20` +
 ** `USER_AGE` *must be a positive integer*.
@@ -182,7 +193,7 @@ Format: `restriction clear`
 
 Searches for movies or TV shows using keywords and optionally, results can be filtered using specific genres and user profile.
 
-==== *Searching for movies*: `movies` +
+==== *Searching for movies*: `movies`
 
 * *Searching within _standard lists_* +
 Search within the standard provided lists of movies given. +
@@ -197,7 +208,7 @@ Examples: +
 *** `rated` indicates to search within the list of top-rated movies.+
 
 * *Searching within standard lists _without filtering_* +
-Format: `search movies [/LIST_TYPE` +
+Format: `search movies [/LIST_TYPE]` +
 Examples: `search movies /current`
 
 * *Searching within standard lists _using pre-set user profile_* +
@@ -226,7 +237,7 @@ Examples: `search movies harry potter`
 
 * *Searching using keywords _using pre-set user profile_* +
 Format: `search movies KEYWORDS -p` +
-Examples: `searhc movies harry potter -p`
+Examples: `search movies harry potter -p`
 
 * *Searching using keywords _using new unsaved set of filter flags_* +
 Format: `search movies KEYWORDS [-g PREFERENCE_GENRE_NAME ...] [-r RESTRICT_GENRE_NAME ...] [-a ADULT_FILER]` +
@@ -237,42 +248,290 @@ Examples: +
 ** `PREFERENCE_GENRE_NAME` and `RESTRICTION_GENRE_NAME` must be valid genre names.
 ** `[-a ADULT_FILTER]` will only be applied if user's age is > 21.
 
-==== *Searching for TV shows*: `tvshows` +
-* *current*: +
-Search within movies currently showing in cinemas.
-** *Without filtering* +
-Format: `search shows /current`
-** *Filtering according to pre-set user profile* +
-Format: `search shows /current -p`
-** *Filtering using new unsaved set of filter flags* +
-Format: `search shows /current [-g PREFERENCE_GENRE_NAME ...] [-r RESTRICT_GENRE_NAME ...] [-a ADULT_FILER]` +
+==== *Searching for TV shows*: `tvshows`
+
+* *Searching within _standard lists_* +
+Search within the standard provided lists of TV shows given. +
+Format: `search tvshows [/LIST_TYPE]` +
 Examples: +
-`search shows \current -g comedy -r horror , fantasy , -a yes` +
-`search shows \current -r romance , -a no` +
-*** `PREFERENCE_GENRE_NAME` and `RESTRICTION_GENRE_NAME` cannot have any overlaps.
-*** `PREFERENCE_GENRE_NAME` and `RESTRICTION_GENRE_NAME` must be valid genre names.
-*** `[-a ADULT_FILTER]` will only be applied if user's age is > 21.
+`search tvshows /current` +
+`search tvshows /upcoming` +
+** `LIST_TYPE` must be one of the following valid inputs: +
+*** `current` indicates to search within the list of TV shows that are currently airing on television. +
+*** `upcoming` indicates to search within the list of upcoming TV shows. +
+*** `trend` indicates to search within the list of trending TV shows. +
+*** `rated` indicates to search within the list of top-rated TV shows.+
 
-=== View more information about particular movie/TV show: `view`
+* *Searching within standard lists _without filtering_* +
+Format: `search tvshows [/LIST_TYPE]` +
+Examples: `search tvshows /current`
 
+* *Searching within standard lists _using pre-set user profile_* +
+Format: `search tvshows [/LIST_TYPE] -p` +
+Examples: `search tvshows /rated -p`
 
+* *Searching within standard lists _using new unsaved set of filter flags_* +
+Format: `search tvshows [/LIST_TYPE] [-g PREFERENCE_GENRE_NAME ...] [-r RESTRICT_GENRE_NAME ...] [-a ADULT_FILER]` +
+Examples: +
+`search tvshows \current -g comedy -r horror , fantasy , -a yes` +
+`search tvshows \current -r romance , -a no` +
+** `PREFERENCE_GENRE_NAME` and `RESTRICTION_GENRE_NAME` cannot have any overlaps.
+** `PREFERENCE_GENRE_NAME` and `RESTRICTION_GENRE_NAME` must be valid genre names.
+** `[-a ADULT_FILTER]` will only be applied if user's age is > 21.
 
+* *Searching using _keywords_* +
+Search for TV shows using keywords and returns shows with titles that contains the keywords. +
+Format: `search tvshows KEYWORDS` +
+Examples: +
+`search tvshows simpsons` +
+`search tvshows greys anatomy`
 
-=== View information on movies and TV shows
+* *Searching using keywords _with no preferences_* +
+Format: `search tvshows KEYWORDS` +
+Examples: `search tvshows greys anatomy`
 
-EntertainmentPro allows you to get full details on specific details and TV shows. +
-The details include:
+* *Searching using keywords _using pre-set user profile_* +
+Format: `search tvshows KEYWORDS -p` +
+Examples: `search tvshows harry potter -p`
 
-. title:            the title of the movie or show
-. summary:          a short description of the movie or show
-. release date:     the date of release for the movie or show
-. ratings:          the average given rating of the movie or show (max: 10.0)
-. genres:           the genres of the movie or show
-. cert:
+* *Searching using keywords _using new unsaved set of filter flags_* +
+Format: `search movies KEYWORDS [-g PREFERENCE_GENRE_NAME ...] [-r RESTRICT_GENRE_NAME ...] [-a ADULT_FILER]` +
+Examples: +
+`search movies harry potter -g comedy -r horror , fantasy , -a yes` +
+`search movies harry potter -r romance , -a no` +
+** `PREFERENCE_GENRE_NAME` and `RESTRICTION_GENRE_NAME` cannot have any overlaps.
+** `PREFERENCE_GENRE_NAME` and `RESTRICTION_GENRE_NAME` must be valid genre names.
+** `[-a ADULT_FILTER]` will only be applied if user's age is > 21.
 
-== Overview of the interface
-. Command Box: This is where users type entertainment.pro.logic.parsers.commands.
-. Command Feedback: This shows the result of command execution in addition to useful tips and error messages.
-. Preferences List: This shows the list of preferences users have set in the app.
-. Movies List: This displays either the set of movies or information related to a particular movie with respect to users’ command.
+=== View information: `view`
 
+==== *View information on particular movie/TV show*
+View more information about a movie or TV show from the resulting list.
+Format: `view entry NUM` +
+Examples: `view entry 3` +
+
+* `NUM` must be a positive integer < 20.
+* `NUM` corresponds to the unique integer attached to the movie or TV (below its poster and title).
+
+==== *Nearby Cinemas and theatres*
+Displays the list of cinemas and theatres nearby the location specified. +
+Format: `view cinema LOCATION` +
+Examples: `view cinema clementi` +
+
+* `LOCATION` must be a valid location in Singapore.
+
+[TIP]
+Keying in `view cinema` displays the list of all cinemas and theatres in Singapore
+
+=== Personal Playlists: `playlist`
+
+==== Create playlist: `create`
+Creates a new playlist with a unique name. +
+Format: `playlist create PLAYLIST_NAME` +
+Examples: `playlist create high iq movies` +
+
+* `PLAYLIST_NAME` must be a new name not used by any other existing playlists.
+
+==== Delete playlists: `delete`
+Deletes an existing playlist. +
+Format: `playlist delete PLAYLIST_NAME` +
+Examples: `playlist delete high iq movies` +
+
+* `PLAYLIST_NAME` must be the name of an existing playlist.
+
+==== Setting details of a playlist: `set`
+Sets values to the details components of a playlist. +
+*_All existing values will be overwritten by the new value._*
+
+* *rename playlist* +
+Renames playlist to a different name. +
+Format: `playlist set CURRENT_PLAYLIST_NAME [-n NEW_PLAYLIST_NAME]` +
+Examples: `playlist set high iq movies -n higher iq movies` +
+** `CURRENT_PLAYLIST_NAME` must be the name of an existing playlist.
+** `NEW_PLAYLIST_NAME` must not be a name of any existing playlist.
+
+* *description of playlist* +
+Sets description of the playlist. +
+Format: `playlist set PLAYLIST_NAME [-d PLAYLIST_DESCRIPTION]` +
+Examples: `playlist set high iq movies -d only for high iq` +
+** `PLAYLIST_NAME` must be the name of an existing playlist.
+** `PLAYLIST_DESCRIPTION` is a short description or summary of the playlist.
+
+[TIP]
+Commands with the same root command, sub-root and payload can be appended together by adding on the flags to the end of the command. +
+eg. To rename a playlist and edit its description at the same time, use the command: `playlist set CURRENT_PLAYLIST_NAME [-n NEW_PLAYLIST_NAME] [-d DESCRIPTION]`.
+
+==== Populate playlist content
+
+* *add* +
+Adds movies and TV shows to a playlist. +
+*_Valid inout values will not overwrite existing values, but will be appended on to existing values._* +
+Format: `playlist add PLAYLIST_NAME [-m SHOW_INDEX ...]` +
+Examples: +
+`playlist add high iq movies -m 1` +
+`playlist add high iq movies -m 2 , 4` +
+** `PLAYLIST_NAME` must be the name of an existing playlist. +
+** `MOVIE_INDEX` must be a valid show index.
+
+* *remove* +
+Remove movies and TV shows from a playlist. +
+*_Valid inout values will not overwrite existing values, but will remove equivalent existing values._* +
+Format: `playlist remove [-m SHOW_INDEX ...]` +
+Examples: `playlist remove -m 6` +
+** `PLAYLIST_NAME` must be the name of an existing playlist. +
+** `SHOW_INDEX` must be a positive integer ≤ no. of items in the playlist.
+
+* *clear* +
+Clears all movies and TV shows from a playlist. +
+*_All existing items will be removed._* +
+Format: `playlist clear PLAYLIST_NAME` +
+Examples: `playlist clear high iq movies` +
+** `PLAYLIST_NAME` must be the name of an existing playlist.
+
+==== View playlists and their content
+To view the list of playlists created. +
+Format: `playlist list` +
+
+[TIP]
+Navigate between playlists using kbd:[<-] kbd:[->] and press kbd:[enter] to select a playlist.
+
+==== Return to information page of playlist
+To return to the information page of the playlist when user is viewing details of a show in the playlist. +
+Format: `playlist back` +
+
+* This command only works when the user had navigated to the show's details page from the playlist information page.
+
+=== Blacklist: `blacklist`
+Users can add movies or TV shows they dislike into blacklist so that they will never appear in the search results.
+
+==== Adding to blacklist: `add`
+* *Adding to blacklist using _titles_* +
+Movies and TV shows of that title will be blacklisted. +
+Format: `blacklist add [TITLE]` +
+Examples: `blacklist add harry potter and the chamber of secrets`
+
+* *Adding to blacklist using _keywords_* +
+Movies and TV shows containing the keywords in their title will be blacklisted. +
+Format: `blacklist add [KEYWORDS] -k` +
+Examples: `blacklist add harry potter -k`
+
+*  *Adding to blacklist using _search index_* +
+Using the search index generated from a search query, the movie or TV show it represents will be blacklisted. +
+Format: `blacklist add SEARCH_INDEX` +
+Examples: `blacklist add 4` +
+** `SEARCH_INDEX` must be a valid search index generated.
+
+==== Removing from blacklist: `remove`
+* *Removing from blacklist using _titles_* +
+Movies and TV shows of that title will be un-blacklisted. +
+Format: `blacklist add [TITLE]` +
+Examples: `blacklist add harry potter and the chamber of secrets`
+** `TITLE` must be the title of a currently blacklisted movie or TV show.
+
+* *Removing from blacklist using _keywords_* +
+Movies and TV shows containing the keywords in their title will be un-blacklisted. +
+Format: `blacklist add [KEYWORDS] -k` +
+Examples: `blacklist add harry potter -k`
+** `KEYWORDS` must be keywords that are currently blacklisted.
+
+==== View blacklist: `view`
+Displays the blacklist to user. +
+Format: `view blacklist`
+
+=== Watchlist: `watchlist`
+* *Add to watchlist*: `add`
+** *Adding _deadline events_* +
+Deadline events allows users to set a deadline to watch the movie or TV show by.
+Format: `watchlist add SHOW_TITLE -t D [-e DEADLINE]` +
+Examples: `watchlist add joker -t D -e 20/10/2019 22:00` +
+*** `DEADLINE` must be in the format: DD/MM/YYY HH:MM
+
+** *Adding _periodic event_* +
+Periodic events allows users to set a deadline period to watch the movie or TV show between certain dates and times. +
+Format: `watchlist add SHOW_TITLE -t D [-s START_DATE_TIME] [-e END_DATE_TIME]` +
+Examples: `watchlist add joker -t D -s 20/09/2019 22:00 -e 20/10/2019 22:000` +
+*** `SHOW_TITLE` must be the title of one of the movie or TV shows from the results of a `search` command.
+*** `START_DATE_TIME` and `END_DATE_TIME` must be in the format: DD/MM/YYY HH:MM
+
+* *Viewing watchlist*: `view` +
+To display the content of the watchlist.
+Format: `view watchlist`
+
+* *Set task as done*: `set` +
+To set task in watchlist as done.
+
+** *Set task as done using _task index_* +
+Format: `watchlist set [-i TASK_INDEX]` +
+Examples: `watchlist set [-i 2] +
+*** `TASK_INDEX` must be a valid task index in the watchlist.
+*** This command can only be done after `view watchlist`.
+
+** *Set task as done using _show title_* +
+Format: `watchlist set MOVIE_SHOW_TITLE` +
+Examples: `watchlist set joker` +
+*** `MOVIE_SHOW_TITLE` must be the title of an existing movie or TV show in watchlist.
+
+* *Remove from watchlist*: `delete` +
+Removes a movie or TV show from watchlist. +
+Format: `watchlist delete MOVIE_SHOW_TITLE` +
+Examples: `watchlist delete joker`
+
+=== Recommendations
+Users can get a list of top 5 movies or TV shows recommended for them bases on their search results. +
+Format: `view recommendations`
+
+== Other Features
+=== Spell checker
+* Misspelled commands can be detected and the next closest command will be suggested to the user.
+* To accept the suggestion, users can simply use the command `yes` to execute the suggested command.
+* Examples: +
+. Misspelled command: `viewer prefjfdsefe` +
+Suggested command: `view preferences` +
+. Misspelled command: `brackrist afdd joker -k` +
+Suggested command: `blacklist add joker -k`
+
+[TIP]
+You can make use of this feature to find shortcuts for your commands!
+
+=== Auto-complete
+* Users will be allowed to have movies or TV show titles, and commands auto-completed for them by pressing kbd:[tab].
+* If only one possibility fits the criteria of the already entered command, pressing kbd:[tab] will auto complete the field for the user.
+* Otherwise, the list of possibilities is given to the user under the feedback box.
+* Examples: +
+. `search mo` + kbd:[tab] -> `search movies` +
+. `search movies har` + kbd:[tab] -> `search movies harry potter` +
+.. feedback box: +
+... harry potter - a history of magic
+... harry potter and the chamber of secrets
+... harry potter: witchcraft repackaged
+... harry potter and the philosopher's stone
+... harry potter and the goblet of fire
+... harry potter and the order of the phoenix
+... harry potter and the half-blood prince
+... harry potter and the deathly hallows: part 1
+... harry potter and the prisoner of azkaban
+... harry potter: the making of diagon alley
+... harry potter und ein stein
+... harry potter and the deathly hallows: part 2
+... harry potter and the ten years later
+
+== FAQ
+* How do I transfer my data to another computer?
+----
+Install the app in the other computer and overwrite the empty data files it creates with the files that contains the data of your previous EntertainmentPro app. Normally, it will be located in the data/ folder in the root directory.
+----
+
+* How can I be notified with the latest releases?
+----
+You can watch or follow our repository on github if you want to hear of our latest releases.
+----
+
+* I found a bug/have a suggestion! What do I do?
+----
+Feel free to report bugs/suggest enhancements using the Issue Tracker, or simply dropping an email to one of the developers.
+----
+
+* How do I contact the authors? +
+----
+Our contacts are given in the About Us and Contact Us page; drop by as we’d love to get to know you!
+----
