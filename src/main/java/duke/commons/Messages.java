@@ -87,6 +87,7 @@ public class Messages {
     public static final String ERROR_VENUE_EMPTY = "There are no Venues. VenueList is empty.";
     public static final String ERROR_EVENT_OUT_OF_BOUND = "The index is out of bounds for the EventList.";
     public static final String ERROR_EVENT_NOT_SELECTED = "There are no events selected.";
+    public static final String ERROR_NULL_RESULT = "Nothing could be found.";
     /**
      * Messages sent via Prompt by Duke.
      * Format is PROMPT_TYPE_DESCRIPTION

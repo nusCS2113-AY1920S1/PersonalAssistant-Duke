@@ -1,8 +1,6 @@
 package duke.logic.commands;
 
 import duke.ModelStub;
-import duke.commons.exceptions.ApiNullRequestException;
-import duke.commons.exceptions.ApiTimeoutException;
 import duke.commons.exceptions.DukeException;
 import duke.logic.parsers.Parser;
 import duke.model.Model;

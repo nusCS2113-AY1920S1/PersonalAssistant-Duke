@@ -1,6 +1,5 @@
 package duke.logic.edits;
 
-import duke.commons.exceptions.ApiNullRequestException;
 import duke.commons.exceptions.DukeDateTimeParseException;
 import duke.commons.exceptions.DukeException;
 import duke.commons.exceptions.EventSelectionOutOfBoundsException;

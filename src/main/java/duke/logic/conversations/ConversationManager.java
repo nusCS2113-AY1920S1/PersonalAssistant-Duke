@@ -35,7 +35,6 @@ public class ConversationManager {
         if (tryStartConversation(input)) {
             return;
         }
-        logger.log(Level.INFO, input + " " + conversation.getClass());
         conversation.execute(input);
         tryEndConversation();
     }

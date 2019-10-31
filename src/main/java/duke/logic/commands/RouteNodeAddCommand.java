@@ -1,9 +1,6 @@
 package duke.logic.commands;
 
 import duke.commons.exceptions.ApiException;
-import duke.commons.exceptions.ApiFailedRequestException;
-import duke.commons.exceptions.ApiNullRequestException;
-import duke.commons.exceptions.ApiTimeoutException;
 import duke.commons.exceptions.CorruptedFileException;
 import duke.commons.exceptions.FileNotSavedException;
 import duke.commons.exceptions.QueryFailedException;

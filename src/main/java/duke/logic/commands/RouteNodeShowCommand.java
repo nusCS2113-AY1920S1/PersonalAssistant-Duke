@@ -2,9 +2,6 @@ package duke.logic.commands;
 
 import duke.commons.Messages;
 import duke.commons.exceptions.ApiException;
-import duke.commons.exceptions.ApiFailedRequestException;
-import duke.commons.exceptions.ApiNullRequestException;
-import duke.commons.exceptions.ApiTimeoutException;
 import duke.commons.exceptions.QueryOutOfBoundsException;
 import duke.logic.api.ApiParser;
 import duke.logic.commands.results.CommandResultImage;
