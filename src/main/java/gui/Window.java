@@ -34,6 +34,8 @@ import javax.swing.JLabel;
 
 //@@author AugGust
 public class Window {
+    public boolean initialized = false;
+
     private boolean isShowingTasks = true;
 
     private JFrame frame;
@@ -207,6 +209,8 @@ public class Window {
             }
         };
         inputField.getActionMap().put(key, downPressed);
+
+        initialized = true;
     }
 
     /**

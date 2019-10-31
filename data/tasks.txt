@@ -20,11 +20,5 @@
     "name": "Job C",
     "isDone": false,
     "memberList": []
-  },
-  {
-    "name": "Job D",
-    "isDone": false,
-    "memberList": [],
-    "time": "Oct 31, 2019, 1:30:00 PM"
   }
 ]

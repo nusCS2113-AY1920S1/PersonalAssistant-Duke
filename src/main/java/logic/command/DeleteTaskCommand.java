@@ -2,6 +2,7 @@ package logic.command;
 
 import model.Model;
 import common.DukeException;
+import logic.ReminderController;
 
 public class DeleteTaskCommand extends Command {
     private static final String SUCCESS_MSSAGE = "you have removed a task: ";
@@ -21,6 +22,7 @@ public class DeleteTaskCommand extends Command {
                 return new CommandOutput(INVALID_MSSAGE);
             } else {
                 taskName = model.deleteTask(taskIndexInList);
+                ReminderController.refreshAllReminders();
                 return new CommandOutput(SUCCESS_MSSAGE + taskName);
             }
         } catch (Exception e) {

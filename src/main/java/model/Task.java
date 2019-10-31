@@ -63,13 +63,13 @@ public class Task {
     public void setTime(Date time) {
         this.time = time;
     }
-    
-    public Date getReminder()	{
-    	return reminder;
+
+    public Date getReminder() {
+        return reminder;
     }
-    
-    public void setReminder(Date time)	{
-    	this.reminder = time;
+
+    public void setReminder(Date time) {
+        this.reminder = time;
     }
 
     /**
