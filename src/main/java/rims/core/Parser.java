@@ -43,11 +43,13 @@ public class Parser {
         else if (input.equals("deadlines") && words.length == 1) {
             c = new ViewDeadlinesCommand();
         }
-        else if (words[0].equals("cal") && words.length == 1) {
+        //@@author danielcyc
+        else if (words[0].equals("calendar") && words.length == 1) {
             CalendarCommand.printCal();
             c = new ListCommand();
+        }
         //@@author aarushisingh1
-        } else if (words[0].equals("list") && words.length > 1) {
+        else if (words[0].equals("list") && words.length > 1) {
             String paramType = words[1].substring(1);
             if (paramType.equals("room") || paramType.equals("item") || paramType.equals("date")) {
                 String param = ui.getInput("Enter the name of the resource you'd like to view a detailed list of:");

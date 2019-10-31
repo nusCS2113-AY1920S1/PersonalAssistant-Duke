@@ -28,7 +28,7 @@ public abstract class CalendarCommand extends Command{
     private static String MidRight = "╣";
     private static String MidLeft = "╠";
 */
-    private static String Vert = "│";
+    /*private static String Vert = "│";
     private static String Horz = "─";
     private static String TopLeft = "┌";
     private static String TopRight = "┐";
@@ -39,6 +39,19 @@ public abstract class CalendarCommand extends Command{
     private static String BotCentre = "┴";
     private static String MidRight = "┤";
     private static String MidLeft = "├";
+*/
+
+    private static String Vert = "#";
+    private static String Horz = "*";
+    private static String TopLeft = "*";
+    private static String TopRight = "*";
+    private static String BotRight = "*";
+    private static String BotLeft = "*";
+    private static String Centre = "*";
+    private static String TopCentre = "*";
+    private static String BotCentre = "*";
+    private static String MidRight = "*";
+    private static String MidLeft = "*";
 
     private static String[][] data = {
             {"mon12345678910111213", "a", "h"},
