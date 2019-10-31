@@ -49,6 +49,6 @@ public class PatientOpenCommand extends ArgCommand {
             core.uiContext.setContext(Context.IMPRESSION, object.getParent());
         }
 
-        core.ui.print("Accessing " + object.getClass().getName() + " of Bed " + patient.getBedNo());
+        core.updateUi("Accessing " + object.getClass().getName() + " of Bed " + patient.getBedNo());
     }
 }

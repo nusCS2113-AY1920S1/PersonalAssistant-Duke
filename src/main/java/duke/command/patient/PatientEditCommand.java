@@ -56,6 +56,6 @@ public class PatientEditCommand extends ArgCommand {
 
         patient.updateAttributes();
         core.writeJsonFile();
-        core.ui.print("Edited specified details of patient!");
+        core.updateUi("Edited specified details of patient!");
     }
 }

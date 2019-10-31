@@ -11,7 +11,6 @@ import duke.data.Patient;
 import duke.data.Plan;
 import duke.data.Result;
 import duke.data.SearchResult;
-import duke.ui.UiElement;
 import duke.ui.UiStrings;
 import duke.ui.card.ImpressionCard;
 import duke.ui.card.InvestigationCard;
@@ -25,13 +24,14 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Region;
+
+import java.util.List;
 
 /**
  * UI window for the Patient context.
  */
-class SearchWindow extends UiElement<Region> {
-    private static final String FXML = "SearchWindow.fxml";
+class SearchContextWindow extends ContextWindow {
+    private static final String FXML = "SearchContextWindow.fxml";
 
     @FXML
     private Label parentTypeLabel;
@@ -54,8 +54,9 @@ class SearchWindow extends UiElement<Region> {
     /**
      * Constructs the search UI window.
      */
-    SearchWindow(SearchResult searchResults) {
-        super(FXML, null);
+    SearchContextWindow(SearchResult searchResults) {
+        super(FXML);
+
         if (searchResults != null) {
             this.parent = searchResults.getParent();
             this.searchResults = searchResults;
@@ -130,5 +131,15 @@ class SearchWindow extends UiElement<Region> {
         searchDetails.append(System.lineSeparator());
         searchDetails.append("There are ").append(searchResults.getTreatmentList().size()).append(" treatment(s)");
         return searchDetails.toString();
+    }
+
+    @Override
+    public void updateUi() {
+        // TODO
+    }
+
+    @Override
+    public List<DukeObject> getIndexedList(String type) {
+        return null;
     }
 }

@@ -45,6 +45,9 @@ public class DukeCore extends Application {
         }
     }
 
+    /**
+     * TODO.
+     */
     public void showSearchResults(String searchTerm, List<? extends DukeObject> resultList,
                                          DukeObject parent) throws DukeUtilException {
         if (resultList == null) {
@@ -62,6 +65,13 @@ public class DukeCore extends Application {
      */
     public void writeJsonFile() throws DukeFatalException {
         storage.writeJsonFile(patientMap.getPatientHashMap());
+    }
+
+    /**
+     * Update UI.
+     */
+    public void updateUi(String message) {
+        ui.updateUi(message);
     }
 
     /**

@@ -49,6 +49,6 @@ public class ImpressionStatusCommand extends ArgCommand {
         treatment.setStatusIdx(status);
 
         core.writeJsonFile();
-        core.ui.print("Status of '" + treatment.getName() + "' updated to '" + statusList.get(status) + "'");
+        core.updateUi("Status of '" + treatment.getName() + "' updated to '" + statusList.get(status) + "'");
     }
 }

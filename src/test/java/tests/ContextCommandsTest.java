@@ -2,7 +2,6 @@ package tests;
 
 import duke.command.ByeCommand;
 import duke.command.Parser;
-import duke.command.home.HomeHelpCommand;
 import duke.command.home.HomeNewCommand;
 import duke.exception.DukeException;
 import duke.ui.context.Context;
@@ -27,8 +26,6 @@ public class ContextCommandsTest {
             assertEquals(ByeCommand.class, actualParser.parse("bye").getClass());
             assertEquals(actualParser.parse("new Hello -b 100 -a world").getClass(),
                     HomeNewCommand.class);
-            assertEquals(actualParser.parse("help").getClass(),
-                    HomeHelpCommand.class);
         } catch (DukeException excp) {
             fail("Exception thrown while extracting valid commands!");
         }

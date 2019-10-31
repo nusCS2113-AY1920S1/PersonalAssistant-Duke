@@ -23,6 +23,6 @@ public class PatientPrimaryCommand extends ArgCommand {
         patient.setPrimaryDiagnosis(impression.getName());
         patient.updateAttributes();
         core.writeJsonFile();
-        core.ui.print("Primary diagnosis set!");
+        core.updateUi("Primary diagnosis set!");
     }
 }

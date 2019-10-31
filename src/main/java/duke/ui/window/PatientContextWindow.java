@@ -11,7 +11,6 @@ import duke.data.Patient;
 import duke.data.Plan;
 import duke.data.Result;
 import duke.data.Treatment;
-import duke.ui.UiElement;
 import duke.ui.UiStrings;
 import duke.ui.card.EvidenceCard;
 import duke.ui.card.ImpressionCard;
@@ -25,7 +24,6 @@ import javafx.collections.MapChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
-import javafx.scene.layout.Region;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,8 +31,8 @@ import java.util.List;
 /**
  * UI window for the Patient context.
  */
-public class PatientWindow extends UiElement<Region> {
-    private static final String FXML = "PatientWindow.fxml";
+public class PatientContextWindow extends ContextWindow {
+    private static final String FXML = "PatientContextWindow.fxml";
 
     @FXML
     private Label nameLabel;
@@ -69,8 +67,8 @@ public class PatientWindow extends UiElement<Region> {
     /**
      * Constructs the patient UI window.
      */
-    public PatientWindow(Patient patient) {
-        super(FXML, null);
+    public PatientContextWindow(Patient patient) {
+        super(FXML);
 
         this.patient = patient;
         this.indexedImpressionList = new ArrayList<>();
@@ -81,8 +79,9 @@ public class PatientWindow extends UiElement<Region> {
             return;
         }
 
-        updatePatientWindow();
-        attachPatientWindowListener();
+        updateUi();
+        //updatePatientWindow();
+        //attachPatientWindowListener();
     }
 
     private void updatePatientWindow() {
@@ -182,23 +181,6 @@ public class PatientWindow extends UiElement<Region> {
     }
 
     /**
-     * Retrieves indexed list of {@code DukeObject}.
-     *
-     * @return Indexed list of DukeObject.
-     */
-    public List<DukeObject> getIndexedList(String type) {
-        if ("impression".equals(type)) {
-            return indexedImpressionList;
-        } else if ("critical".equals(type)) {
-            return indexedCriticalList;
-        } else if ("investigation".equals(type)) {
-            return indexedInvestigationList;
-        } else {
-            return null;
-        }
-    }
-
-    /**
      * This function returns the new card added dependent on the class instance.
      *
      * @param evidence the evidence
@@ -227,6 +209,29 @@ public class PatientWindow extends UiElement<Region> {
             return new MedicineCard((Medicine) treatment);
         } else if (treatment instanceof Plan) {
             return new PlanCard((Plan) treatment);
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public void updateUi() {
+        updatePatientWindow();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public List<DukeObject> getIndexedList(String type) {
+        if ("impression".equals(type)) {
+            return indexedImpressionList;
+        } else if ("critical".equals(type)) {
+            return indexedCriticalList;
+        } else if ("investigation".equals(type)) {
+            return indexedInvestigationList;
         } else {
             return null;
         }

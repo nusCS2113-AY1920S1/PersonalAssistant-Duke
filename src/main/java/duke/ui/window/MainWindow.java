@@ -45,14 +45,9 @@ public class MainWindow extends UiElement<Stage> {
     private Parser parser;
     private GsonStorage storage;
 
+    private ContextWindow currentContextWindow;
+    private Tab currentTab;
     private CommandWindow commandWindow;
-    private HomeWindow homeWindow;
-    private PatientWindow patientWindow;
-    private ImpressionWindow impressionWindow;
-    private Tab homeTab;
-    private Tab patientTab;
-    private Tab impressionTab;
-    private Tab searchTab;
 
     /**
      * Constructs the main UI window to house child UI elements.
@@ -77,9 +72,9 @@ public class MainWindow extends UiElement<Stage> {
      * Places child UI elements in the main UI window.
      */
     private void placeChildUiElements() {
-        homeWindow = new HomeWindow(patientObservableMap);
-        homeTab = new Tab("Home", homeWindow.getRoot());
-        contextWindowHolder.getTabs().add(homeTab);
+        currentContextWindow = new HomeContextWindow(patientObservableMap);
+        currentTab = new Tab("Home", currentContextWindow.getRoot());
+        contextWindowHolder.getTabs().add(currentTab);
 
         commandWindow = new CommandWindow(parser, executor);
         commandWindowHolder.getChildren().add(commandWindow.getRoot());
@@ -91,57 +86,35 @@ public class MainWindow extends UiElement<Stage> {
             print(e.getMessage());
         }
 
-        patientWindow = new PatientWindow(null);//, commandWindow);
-        patientTab = new Tab("Patient", patientWindow.getRoot());
-        contextWindowHolder.getTabs().add(patientTab);
-
-        impressionTab = new Tab("Impression", new ImpressionWindow(null, null).getRoot());
-        contextWindowHolder.getTabs().add(impressionTab);
-
-        searchTab = new Tab("Search", new SearchWindow(null).getRoot());
-        contextWindowHolder.getTabs().add(searchTab);
-
         // TODO: Add contexts here.
         uiContext.addListener(event -> {
+            contextWindowHolder.getTabs().remove(currentTab);
+
             switch ((Context) event.getNewValue()) {
             case HOME:
-                contextWindowHolder.getTabs().remove(homeTab);
-                homeTab = new Tab("Home", new HomeWindow(patientObservableMap).getRoot());
-                contextWindowHolder.getTabs().add(0, homeTab);
-                contextWindowHolder.getSelectionModel().select(homeTab);
+                currentContextWindow = new HomeContextWindow(patientObservableMap);
+                currentTab = new Tab("Home", currentContextWindow.getRoot());
                 break;
             case PATIENT:
-                if (patientTab != null) {
-                    contextWindowHolder.getTabs().remove(patientTab);
-                }
-
-                patientWindow = new PatientWindow((Patient) uiContext.getObject());
-                patientTab = new Tab("Patient", patientWindow.getRoot());
-                contextWindowHolder.getTabs().add(1, patientTab);
-                contextWindowHolder.getSelectionModel().select(patientTab);
+                currentContextWindow = new PatientContextWindow((Patient) uiContext.getObject());
+                currentTab = new Tab("Patient", currentContextWindow.getRoot());
                 break;
             case IMPRESSION:
-                if (impressionTab != null) {
-                    contextWindowHolder.getTabs().remove(impressionTab);
-                }
-
                 Impression impression = (Impression) uiContext.getObject();
-                // TODO: parent is transient. Issue #264.
-                impressionWindow = new ImpressionWindow(impression, (Patient) impression.getParent());
-                impressionTab = new Tab("Impression", impressionWindow.getRoot());
-                contextWindowHolder.getTabs().add(2, impressionTab);
-                contextWindowHolder.getSelectionModel().select(impressionTab);
+                currentContextWindow = new ImpressionContextWindow(impression, (Patient) impression.getParent());
+                currentTab = new Tab("Impression", currentContextWindow.getRoot());
                 break;
             case SEARCH:
-                contextWindowHolder.getTabs().remove(searchTab);
                 SearchResult searchResult = (SearchResult) uiContext.getObject();
-                searchTab = new Tab("Search", new SearchWindow(searchResult).getRoot());
-                contextWindowHolder.getTabs().add(3, searchTab);
-                contextWindowHolder.getSelectionModel().select(searchTab);
+                currentContextWindow = new SearchContextWindow(searchResult);
+                currentTab = new Tab("Search", currentContextWindow.getRoot());
                 break;
             default:
-                break;
+                return;
             }
+
+            contextWindowHolder.getTabs().add(currentTab);
+            contextWindowHolder.getSelectionModel().select(currentTab);
         });
     }
 
@@ -162,6 +135,14 @@ public class MainWindow extends UiElement<Stage> {
     }
 
     /**
+     * Update UI window.
+     */
+    public void updateUi(String message) {
+        print(message);
+        currentContextWindow.updateUi();
+    }
+
+    /**
      * Retrieves indexed list of DukeObjects.
      * List is dependent on the current {@code UiContext}.
      *
@@ -169,18 +150,6 @@ public class MainWindow extends UiElement<Stage> {
      * @return Indexed list of DukeObjects.
      */
     public List<DukeObject> getIndexedList(String type) {
-        switch (uiContext.getContext()) {
-        case HOME:
-            return homeWindow.getIndexedPatientList();
-        case PATIENT:
-            return patientWindow.getIndexedList(type);
-        case IMPRESSION:
-        default:
-            return null;
-        }
-    }
-
-    public Stage getPrimaryStage() {
-        return primaryStage;
+        return currentContextWindow.getIndexedList(type);
     }
 }

@@ -160,7 +160,9 @@ public class ImpressionEditCommand extends DukeDataCommand {
 
             }
         }
+
         core.writeJsonFile();
+        core.updateUi("Details updated");
     }
 
     private void editStatus(DukeData editData, List<String> statusList) throws DukeUtilException {
