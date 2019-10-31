@@ -18,11 +18,13 @@ public class CommandHelp extends Command {
     @Override
     public void execute(TaskList taskList) {
         for (String s : CommandType.getNames()) {
-            CommandType commandType = CommandType.valueOf(s);
-            Command c = Executor.createCommand(commandType, "null");
-            String commandDesc = c.getDescription();
+            if (!s.equals("ERROR") && !s.equals("TASK") && !s.equals("BLANK")) {
+                CommandType commandType = CommandType.valueOf(s);
+                Command c = Executor.createCommand(commandType, "null");
+                String commandDesc = c.getDescription();
 
-            System.out.println(s.toUpperCase() + " - " + commandDesc);
+                System.out.println(s.toUpperCase() + " - " + commandDesc);
+            }
         }
         Ui.printSeparator();
     }

@@ -21,7 +21,7 @@ public class CommandError extends Command {
      */
     @Override
     public void execute(TaskList taskList) {
-        Ui.dukeSays("Duke has encountered an error");
+        Ui.dukeSays("Please enter a valid Command. Type 'help' to see the list of Commands");
         Ui.printSeparator();
     }
 
