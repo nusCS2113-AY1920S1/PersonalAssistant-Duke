@@ -245,9 +245,11 @@ Here's how you can use the `/add /savings` command.
 
 [WARNING]
 ====
-A profile needs to be created first before you are eligible to add an account
+A profile needs to be created first before you are eligible to add an account.
 
-A savings account is compulsory as most features in *OwlMoney* requires it
+A savings account is compulsory as most features in *OwlMoney* requires it.
+
+There can only be a maximum of *7* savings account.
 ====
 
 *Example*
@@ -512,7 +514,7 @@ Take note that there is a maximum of *30* character limit.
 
 
 
-
+// tag::investment_management[]
 
 ===== Adding investment bank account `/add /investment`
 Want to start *investing* to grow your wealth? No problem!
@@ -522,6 +524,11 @@ Here's how you can use the `/add /investment` command.
 *Command Syntax*
 
 `/add /investment /name ACCOUNT_NAME /amount AMOUNT`
+
+[WARNING]
+====
+There can only be a maximum of *3* investment accounts.
+====
 
 *Example*
 
@@ -635,6 +642,8 @@ Sold your bonds? Delete it from *OwlMoney*!
 
 Deletes the bond named `June SSB` charged to `DBB Vickers Account`.
 
+// end::investment_management[]
+
 ==== Credit Card Management
 In this section, you'll be introduced to commands and parameters that help you to manage your credit cards and
 expenditures associated with it in *OwlMoney*.
@@ -742,6 +751,8 @@ Here's how you can use the `/add /card` command.
 [WARNING]
 ====
 *OwlMoney* only supports cards with a credit limit to encourage you to spend less!
+
+There can only be a maximum of *20* credit cards.
 ====
 
 *Example*
