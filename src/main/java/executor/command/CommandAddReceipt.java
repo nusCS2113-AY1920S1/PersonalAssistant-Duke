@@ -14,7 +14,11 @@ public abstract class CommandAddReceipt extends Command {
     Double extractIncome(CommandType commandType, String userInput) {
         String incomeStr = Parser.parseForPrimaryInput(commandType, userInput);
         incomeStr = removeDollarSign(incomeStr);
-        return Double.parseDouble(incomeStr);
+        try {
+            return Double.parseDouble(incomeStr);
+        } catch (Exception e) {
+            return 0.0;
+        }
     }
 
     LocalDate extractDate(String userInput) {

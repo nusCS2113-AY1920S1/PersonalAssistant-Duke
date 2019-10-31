@@ -1,6 +1,7 @@
 package executor.command;
 
 import executor.task.TaskList;
+import ui.Ui;
 import ui.Wallet;
 
 public class CommandHelp extends Command {
@@ -23,6 +24,7 @@ public class CommandHelp extends Command {
 
             System.out.println(s.toUpperCase() + " - " + commandDesc);
         }
+        Ui.printSeparator();
     }
 
     @Override

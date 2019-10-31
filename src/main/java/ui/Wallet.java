@@ -1,6 +1,6 @@
 package ui;
 
-import java.util.ArrayList;
+import java.text.DecimalFormat;
 
 public class Wallet {
     private Double balance;
@@ -55,9 +55,11 @@ public class Wallet {
     /**
      * Setter for balance property of Wallet Object.
      * @param input The value to be set as balance
+     * @return
      */
-    public void setBalance(Double input) {
+    public DecimalFormat setBalance(Double input) {
         this.balance = input;
+        return null;
     }
 
     /**
