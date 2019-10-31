@@ -59,9 +59,10 @@ public class Ducats {
     }
 
     /**
-     * Runs the program, constantly asking for and responding to user input, finally terminating
+     * Runs the program, constantly asking for and responding to user input, finally terminating.
      * upon the word "Bye".
      */
+
     private void run() {
         System.out.println(ui.showWelcomeMessage());
         boolean isExit = false;
@@ -119,4 +120,9 @@ public class Ducats {
     }
 
 
+    public SongList getSongs() {
+        return this.songs;
+    }
+
+    //@@author
 }

@@ -104,7 +104,7 @@ public class OverlayGroupGroup  extends Command<SongList>  {
 
         try {
             //the command consists of overlay 10 repeat
-            //the command consists of overlay_group_song 1 2 1 1 refers to overlay song 1 group 2 onto song 1 group 1
+            //the command consists of overlay_group_group 1 2 1 1 refers to overlay song 1 group 2 onto song 1 group 1
 
             String[] sections = message.substring(20).split(" ");
             int songIndexToAddFrom = Integer.parseInt(sections[0]) - 1;
@@ -124,7 +124,7 @@ public class OverlayGroupGroup  extends Command<SongList>  {
 
                 //Bar overlayingBar = barList.get(barIndexToAdd);
                 //System.out.println("adjjdsa");
-                if (sections.length > 2 && sections[2].equals("repeat")) {
+                if (sections.length > 4 && sections[4].equals("repeat")) {
                     Iterator<Group> iterator1 = groupListAddTo.iterator();
                     int i = 0;
                     while (iterator1.hasNext()) {
