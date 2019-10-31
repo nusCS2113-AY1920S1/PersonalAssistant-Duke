@@ -48,7 +48,7 @@ public class SimpleServer {
     }
 
     /**
-     * Stops access to server
+     * Stops access to server.
      */
     public static void stopServer() {
         if (server != null) {

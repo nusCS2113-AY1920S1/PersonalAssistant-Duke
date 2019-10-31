@@ -9,7 +9,7 @@ import seedu.duke.ui.UI;
 
 import java.util.ArrayList;
 
-public class LinkCommand extends Command{
+public class LinkCommand extends Command {
     private ArrayList<Integer> taskIndexList;
     private ArrayList<Integer> emailIndexList;
 
