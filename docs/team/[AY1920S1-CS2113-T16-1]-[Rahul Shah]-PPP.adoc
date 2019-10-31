@@ -163,7 +163,7 @@ but that would limit its potential utility
 
 
 * *Implementation for Find:*
-To find a task by keyword : `find KEYWORD`
+To find a task by keyword: `find KEYWORD`
 
 The find command allows the user to search for tasks by keyword.
 The command will return a list of tasks, ordered by ascending relevancy.
