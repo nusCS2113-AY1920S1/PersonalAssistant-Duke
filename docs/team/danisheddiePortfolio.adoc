@@ -97,7 +97,7 @@ Add a new student to the list of students.
 ** *Example:*
 
 |===
-|'add Danish, 22, Woodlands' +
+|`add Danish, 22, Woodlands` +
 
 Student have been added: +
 Name: danish eddie +
