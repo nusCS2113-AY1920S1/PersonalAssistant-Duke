@@ -22,9 +22,7 @@ public class AlphaNUS {
     private static TaskList tasklist;
     private static Fund fund;
     private static Storage storage;
-    private static HashMap<String, Payee> managermap;
     private static ArrayList<String> commandList;
-    private static LinkedHashMap<String, Project> projectmap;
 
     /**
      * Creates a AlphaNUS instance and initialises the required attributes.
@@ -36,10 +34,8 @@ public class AlphaNUS {
         //ArrayList<Task> arraylist = storage.load(); <-- Giving file not found exception, to remove
         tasklist = new TaskList();
         fund = new Fund(); //TODO the fund need to be stored in the text file.
-        //managermap = new HashMap<String, Payee>();
-        ArrayList<String> commandList = storage.load();
-        //projectmap = new LinkedHashMap<String, Project>();//To replace managermap in main class
-        run();
+        commandList = storage.load();
+
     }
 
     /**
