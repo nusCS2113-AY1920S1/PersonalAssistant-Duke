@@ -1,21 +1,23 @@
 package seedu.duke.email.command;
 
-import seedu.duke.Duke;
 import seedu.duke.common.command.Command;
-import seedu.duke.email.EmailStorage;
+import seedu.duke.common.model.Model;
+import seedu.duke.email.storage.EmailStorage;
+import seedu.duke.ui.UI;
 
 public class EmailFetchCommand extends Command {
 
-    EmailFetchCommand() {
+    public EmailFetchCommand() {
     }
 
     @Override
-    public boolean execute() {
+    public boolean execute(Model model) {
         if (!silent) {
             EmailStorage.syncWithServer();
-            responseMsg = "Fetching emails and syncing with local storage...\n\n";
-            responseMsg += Duke.getModel().getEmailList().toString();
-            Duke.getUI().showResponse(responseMsg);
+            responseMsg = "Fetching emails and syncing with local storage..." + System.lineSeparator()
+                    + System.lineSeparator();
+            responseMsg += model.getEmailList().toString();
+            UI.getInstance().showResponse(responseMsg);
         }
         return true;
     }

@@ -1,6 +1,6 @@
 package seedu.duke.task.entity;
 
-import seedu.duke.Duke;
+import seedu.duke.ui.UI;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -34,12 +34,13 @@ public class Event extends Task {
      * @param tags     tag associated with the task
      * @param priority priority level of the task
      */
-    public Event(String name, LocalDateTime time, String doAfter, ArrayList<String> tags, String priority) {
+    public Event(String name, LocalDateTime time, String doAfter, ArrayList<String> tags, Priority priority) {
         super(name);
         this.time = time;
         setDoAfterDescription(doAfter);
         this.taskType = TaskType.Event;
         setTags(tags);
+        setPriorityLevelTo(priority);
         setPriorityTo(priority);
     }
 
@@ -62,7 +63,7 @@ public class Event extends Task {
         String output = "";
         output = "[E]" + this.getStatus() + " (by: " + formatDate() + ")";
         if (this.doAfterDescription != null && !this.doAfterDescription.equals("")) {
-            output += "\n\tAfter which: " + doAfterDescription;
+            output += System.lineSeparator() + "\tAfter which: " + doAfterDescription;
         }
         for (String tagName : tags) {
             output += " #" + tagName;
@@ -148,7 +149,7 @@ public class Event extends Task {
                 }
             }
         } catch (Exception e) {
-            Duke.getUI().showError("Error when finding clashes of tasks.");
+            UI.getInstance().showError("Error when finding clashes of tasks.");
         }
         return false;
     }

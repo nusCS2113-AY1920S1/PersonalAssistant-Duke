@@ -7,3 +7,7 @@ before_install:
 script:
   - ./gradlew check
   - ./gradlew test
+
+after_success:
+  - ./gradlew jacocoTestReport coveralls
+

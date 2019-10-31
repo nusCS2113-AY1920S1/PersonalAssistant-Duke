@@ -3,11 +3,10 @@ package seedu.duke.common.network;
 import javafx.application.Platform;
 import org.json.JSONException;
 import org.json.JSONObject;
-import seedu.duke.Duke;
-import seedu.duke.email.EmailFormatParseHelper;
+import seedu.duke.email.parser.EmailFormatParseHelper;
 import seedu.duke.email.EmailList;
-
-import seedu.duke.email.EmailStorage;
+import seedu.duke.email.storage.EmailStorage;
+import seedu.duke.ui.UI;
 
 import java.awt.Desktop;
 import java.io.BufferedReader;
@@ -33,7 +32,7 @@ public class Http {
     private static String refreshToken = null;
     private static String clientId = "feacc09e-5364-4386-92e5-78ee25d2188d";
     private static String clientSecret = "8dhu0-v80Ic-ZrQpACgWLEPg:??1MGkc";
-    private static String redirect = "http://localhost:3000";
+    private static String redirect = "http://localhost:" + SimpleServer.getPort();
     private static String scope = "openid+Mail.Read+offline_access";
 
     /**
@@ -54,7 +53,7 @@ public class Http {
      * @param code teh new authentication code
      */
     public static void setAuthCode(String code) {
-        //Duke.getUI().showDebug("Auth Code Set: " + code);
+        //UI.getInstance().showDebug("Auth Code Set: " + code);
         authCode = code;
         getAccess();
     }
@@ -65,7 +64,7 @@ public class Http {
      * @param token the new access token
      */
     private static void setAccessToken(String token) {
-        //Duke.getUI().showDebug("Access Token Set: " + token);
+        //UI.getInstance().showDebug("Access Token Set: " + token);
         accessToken = token;
         //Solves the problem of HTTP not on the same thread as the FX
         Platform.runLater(new Runnable() {
@@ -99,7 +98,7 @@ public class Http {
             EmailList emailList = EmailFormatParseHelper.parseFetchResponse(httpResponse);
             return emailList;
         } catch (EmailFormatParseHelper.EmailParsingException e) {
-            Duke.getUI().showError(e.toString());
+            UI.getInstance().showError(e.toString());
         }
         return new EmailList();
     }
@@ -113,7 +112,7 @@ public class Http {
             }
             apiParams.put("orderby", "receivedDateTime%20desc");
         } catch (JSONException e) {
-            Duke.getUI().showError("Api parameter error...");
+            UI.getInstance().showError("Api parameter error...");
         }
         return apiParams;
     }
@@ -146,11 +145,11 @@ public class Http {
             String response = getConnectionResponse(conn);
             setTokensFromResponse(response);
         } catch (MalformedURLException e) {
-            Duke.getUI().showError("Access Code url in wrong format...");
+            UI.getInstance().showError("Access Code url in wrong format...");
         } catch (IOException e) {
-            Duke.getUI().showError("Access Code url failed to open...");
+            UI.getInstance().showError("Access Code url failed to open...");
         } catch (JSONException e) {
-            Duke.getUI().showError("Access code response in wrong format...");
+            UI.getInstance().showError("Access code response in wrong format...");
         }
     }
 
@@ -165,14 +164,14 @@ public class Http {
         try {
             HttpURLConnection conn = setupRefreshConnection();
             String response = getConnectionResponse(conn);
-            Duke.getUI().showDebug(response);
+            UI.getInstance().showDebug(response);
             setTokensFromResponse(response);
         } catch (MalformedURLException e) {
-            Duke.getUI().showError("Refresh Access Code url in wrong format...");
+            UI.getInstance().showError("Refresh Access Code url in wrong format...");
         } catch (IOException e) {
-            Duke.getUI().showError("Refresh Access Code url failed to open...");
+            UI.getInstance().showError("Refresh Access Code url failed to open...");
         } catch (JSONException e) {
-            Duke.getUI().showError("Refresh Access code response in wrong format...");
+            UI.getInstance().showError("Refresh Access code response in wrong format...");
         }
     }
 
@@ -188,18 +187,18 @@ public class Http {
         String url = "";
         try {
             url = prepareApiUrl(params);
-            //Duke.getUI().showDebug(url);
+            //UI.getInstance().showDebug(url);
             HttpURLConnection conn = setupEmailConnection(url);
             String content = getConnectionResponse(conn);
             return content;
         } catch (JSONException e) {
-            Duke.getUI().showError("Api params serializing error...");
+            UI.getInstance().showError("Api params serializing error...");
         } catch (MalformedURLException e) {
-            Duke.getUI().showError("Wrong URL format...");
+            UI.getInstance().showError("Wrong URL format...");
         } catch (ProtocolException e) {
-            Duke.getUI().showError("Protocol exception encountered...");
+            UI.getInstance().showError("Protocol exception encountered...");
         } catch (IOException e) {
-            Duke.getUI().showError("HTTP connection failed...");
+            UI.getInstance().showError("HTTP connection failed...");
         }
         return "";
     }
@@ -259,6 +258,7 @@ public class Http {
     private static void configurePostRequestConnection(HttpURLConnection conn, String params) throws IOException {
         byte[] postData = params.getBytes(StandardCharsets.UTF_8);
         int postDataLength = postData.length;
+        conn.setConnectTimeout(5000);
         conn.setDoOutput(true);
         conn.setInstanceFollowRedirects(false);
         conn.setRequestMethod("POST");
@@ -315,11 +315,11 @@ public class Http {
                     desktop.browse(url);
                     return true;
                 } catch (Exception e) {
-                    Duke.getUI().showError(e.toString());
+                    UI.getInstance().showError(e.toString());
                 }
             }
         } catch (URISyntaxException e) {
-            Duke.getUI().showError("Wrong URI format...");
+            UI.getInstance().showError("Wrong URI format...");
         }
         return false;
     }
