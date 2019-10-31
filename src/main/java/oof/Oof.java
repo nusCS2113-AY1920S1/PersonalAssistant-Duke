@@ -6,6 +6,7 @@ import oof.command.Command;
 import oof.exception.OofException;
 import oof.model.module.SemesterList;
 import oof.model.task.TaskList;
+import oof.storage.StorageManager;
 
 /**
  * Represents a Personal Assistant bot. An Oof object corresponds to three other classes,
@@ -13,7 +14,7 @@ import oof.model.task.TaskList;
  */
 public class Oof {
 
-    private Storage storage;
+    private StorageManager storageManager;
     private SemesterList semesterList;
     private Ui ui;
     private Reminder reminder;
@@ -24,15 +25,15 @@ public class Oof {
      */
     public Oof() {
         ui = new Ui();
-        storage = new Storage();
+        storageManager = new StorageManager();
         reminder = new Reminder();
         try {
-            semesterList = new SemesterList(storage.readSemesterList());
+            semesterList = new SemesterList(storageManager.readSemesterList());
         } catch (IOException | OofException e) {
             semesterList = new SemesterList();
         }
         try {
-            taskList = new TaskList(storage.readTaskList(semesterList));
+            taskList = new TaskList(storageManager.readTaskList(semesterList));
         } catch (IOException | OofException e) {
             taskList = new TaskList();
         }
@@ -46,7 +47,7 @@ public class Oof {
      */
     public boolean executeCommand(String line) throws OofException {
         Command command = CommandParser.parse(line);
-        command.execute(semesterList, taskList, ui, storage);
+        command.execute(semesterList, taskList, ui, storageManager);
         return command.isExit();
     }
 
@@ -55,7 +56,7 @@ public class Oof {
      */
     private void run() {
         ui.hello();
-        reminder.checkDeadline(taskList, ui, storage);
+        reminder.checkDeadline(taskList, ui, storageManager);
         boolean isExit = false;
         while (!isExit) {
             try {
@@ -72,8 +73,8 @@ public class Oof {
         return taskList;
     }
 
-    public Storage getStorage() {
-        return storage;
+    public StorageManager getStorageManager() {
+        return storageManager;
     }
 
     /**

@@ -2,16 +2,17 @@ package oof.command;
 
 import oof.model.module.SemesterList;
 import oof.Ui;
-import oof.Storage;
 import oof.exception.OofException;
 import oof.model.task.Task;
 import oof.model.task.TaskList;
+import oof.storage.StorageManager;
 
 /**
  * Represents a Command to delete a specific Task.
  */
 public class DeleteTaskCommand extends Command {
 
+    public static final String COMMAND_WORD = "delete";
     private int index;
 
     /**
@@ -30,18 +31,19 @@ public class DeleteTaskCommand extends Command {
      * @param semesterList Instance of SemesterList that stores Semester objects.
      * @param taskList     Instance of TaskList that stores Task objects.
      * @param ui           Instance of Ui that is responsible for visual feedback.
-     * @param storage      Instance of Storage that enables the reading and writing of Task
+     * @param storageManager      Instance of Storage that enables the reading and writing of Task
      *                     objects to hard disk.
      * @throws OofException if user input invalid commands.
      */
-    public void execute(SemesterList semesterList, TaskList taskList, Ui ui, Storage storage) throws OofException {
+    public void execute(SemesterList semesterList, TaskList taskList, Ui ui, StorageManager storageManager)
+            throws OofException {
         if (!taskList.isIndexValid(this.index)) {
             throw new OofException("OOPS!!! Invalid number!");
         }
         Task task = taskList.getTask(this.index);
         taskList.deleteTask(this.index);
         ui.deleteMessage(task, taskList.getSize());
-        storage.writeTaskList(taskList);
+        storageManager.writeTaskList(taskList);
     }
 
 }

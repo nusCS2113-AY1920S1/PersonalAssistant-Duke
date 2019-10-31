@@ -1,5 +1,5 @@
-TODO||Y||borrow another book||13-10-2019||||||||
-DEADLINE||N||homework||13-10-2019||23:59||||||
+TODO||N||borrow another book||30-12-2019||||||||
+DEADLINE||Y||homework||13-10-2019||23:59||||||
 EVENT||N||lecture||08-10-2019||10:00||08-10-2019||12:00||
 EVENT||N||tutorial||09-10-2019||17:00||09-10-2019||18:00||
 EVENT||N||test||10-10-2019||09:00||10-10-2019||10:00||
@@ -20,3 +20,29 @@ EVENT||N||lecture||08-11-2019||10:00||08-11-2019||12:00||
 ASSESSMENT||N||CS2106||final examination||31-10-2019||16:00||31-10-2019||18:00
 ASSIGNMENT||N||CS2106||lab||23-11-2019||23:59||||
 ASSIGNMENT||Y||CS2101||PPP||31-10-2019||08:35||||
+DEADLINE||N||homework||20-10-2019||23:59||||||
+TODO||N||borrow another book||14-10-2019||||||||
+EVENT||N||lecture||08-11-2019||10:00||08-11-2019||12:00||
+DEADLINE||N||homework||20-10-2019||23:59||||||
+TODO||N||borrow another book||14-10-2019||||||||
+EVENT||N||lecture||08-11-2019||10:00||08-11-2019||12:00||
+DEADLINE||N||homework||20-10-2019||23:59||||||
+TODO||N||borrow another book||14-10-2019||||||||
+EVENT||N||lecture||08-11-2019||10:00||08-11-2019||12:00||
+DEADLINE||N||homework||20-10-2019||23:59||||||
+TODO||N||borrow another book||14-10-2019||||||||
+EVENT||N||lecture||08-11-2019||10:00||08-11-2019||12:00||
+DEADLINE||N||homework||20-10-2019||23:59||||||
+TODO||N||borrow another book||14-10-2019||||||||
+EVENT||N||lecture||08-11-2019||10:00||08-11-2019||12:00||
+DEADLINE||N||homework||20-10-2019||23:59||||||
+TODO||N||borrow another book||14-10-2019||||||||
+EVENT||N||lecture||08-11-2019||10:00||08-11-2019||12:00||
+DEADLINE||N||homework||20-10-2019||23:59||||||
+TODO||N||borrow another book||14-10-2019||||||||
+EVENT||N||lecture||08-11-2019||10:00||08-11-2019||12:00||
+DEADLINE||N||homework||20-10-2019||23:59||||||
+TODO||N||borrow another book||14-10-2019||||||||
+EVENT||N||lecture||08-11-2019||10:00||08-11-2019||12:00||
+TODO||N||borrow another book||31-12-2019||||||||
+TODO||N||borrow another book||31-12-2019||||||||

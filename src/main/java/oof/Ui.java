@@ -1,5 +1,6 @@
 package oof;
 
+import java.io.FileNotFoundException;
 import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
 import java.time.YearMonth;
@@ -13,13 +14,12 @@ import oof.model.module.Lesson;
 import oof.model.module.Module;
 import oof.model.module.Semester;
 import oof.model.module.SemesterList;
-import oof.model.task.Assessment;
-import oof.model.task.Assignment;
 import oof.model.task.Event;
 import oof.model.task.Task;
 import oof.model.task.TaskList;
 import oof.model.tracker.Tracker;
 import oof.model.tracker.TrackerList;
+import oof.storage.StorageManager;
 
 /**
  * Represents a Ui class that is responsible for Input/Output operations.
@@ -42,7 +42,6 @@ public class Ui {
     private static final int DESCRIPTION_SHORT_END = 11;
     private static final int DESCRIPTION_LONG_START = 0;
     private static final int DESCRIPTION_LONG_END = 17;
-    private static final int LEAST_COL_SIZE = 19;
     private static final int TIME = 0;
     private static final int DESCRIPTION = 1;
     private static final int FIRST_VAR = 0;
@@ -59,7 +58,7 @@ public class Ui {
     private static final String ANSI_BG_BLACK = "\u001B[40m";
     private static final String[] colouredText = {ANSI_BRIGHT_RED, ANSI_BRIGHT_GREEN, ANSI_BRIGHT_YELLOW,
             ANSI_BRIGHT_BLUE, ANSI_BRIGHT_PURPLE, ANSI_BRIGHT_CYAN, ANSI_BRIGHT_WHITE};
-    private Storage storage = new Storage();
+    private StorageManager storageManager = new StorageManager();
 
     public Ui() {
         scan = new Scanner(System.in);
@@ -210,25 +209,10 @@ public class Ui {
     }
 
     /**
-     * Prints a continue prompt and waits for user input.
-     *
-     * @return User input if it is equals to "Y" or "N"
-     */
-    public String printContinuePrompt() {
-        String input = "";
-        while (true) {
-            System.out.println(" Continue anyway? (Y/N)");
-            input = scanLine();
-            if (input.equals("Y") || input.equals("N")) {
-                return input;
-            }
-        }
-    }
-
-    /**
      * Prints a warning regarding event clashes.
      */
     public void printClashWarning(ArrayList<Event> eventClashes) {
+        printLine();
         System.out.println(" Warning! Event being added clashes with the following events:");
         for (Event e : eventClashes) {
             System.out.println(" \t" + e.toString());
@@ -297,12 +281,13 @@ public class Ui {
      * Prints list of options for the recurring frequency of a task.
      */
     public void printRecurringOptions() {
+        printLine();
         String options = " Here are the available options for recurring tasks:\n"
                 + " \t1. Daily\n"
                 + " \t2. Weekly\n"
                 + " \t3. Monthly\n"
                 + " \t4. Yearly\n"
-                + " \tPlease choose one of the four options for your recurring frequency.\n";
+                + " \tPlease choose one of the four options for your recurring frequency.";
         System.out.println(options);
     }
 
@@ -333,10 +318,9 @@ public class Ui {
     /**
      * Prints and applies format for command list available to user.
      *
-     * @throws OofException if readManual method fails.
      */
-    public void printHelpCommands() throws OofException {
-        ArrayList<String> commands = storage.readManual();
+    public void printHelpCommands() throws FileNotFoundException {
+        ArrayList<String> commands = storageManager.readManual();
         printLine();
         for (String command : commands) {
             System.out.println(" \t" + command);
@@ -842,7 +826,7 @@ public class Ui {
      *
      * @param threshold The threshold for upcoming deadlines requested by the user.
      */
-    public void printUpdatedThreshold(String threshold) {
+    public void printUpdatedThreshold(int threshold) {
         printLine();
         System.out.println(" Threshold has been updated to " + threshold);
     }
@@ -952,27 +936,6 @@ public class Ui {
     public void printLessonRemovalMessage(String moduleCode, Lesson lesson) {
         printLine();
         System.out.println(" " + moduleCode + " " + lesson.getLessonName() + " has been removed.");
-    }
-
-    /**
-     * Prints notification for added Assignment.
-     *
-     * @param assignment Assignment object being added.
-     */
-    public void printAssignmentAddedMessage(Assignment assignment) {
-        printLine();
-        System.out.println(" \"" + assignment.getModuleCode() + " " + assignment.getDescription()
-                + "\" has been added!");
-    }
-
-    /**
-     * Prints notification for added Assessment.
-     *
-     * @param assessment Assessment object being added.
-     */
-    public void printAssessmentAddedMessage(Assessment assessment) {
-        printLine();
-        System.out.println(" \"" + assessment.toString() + "\" has been added!");
     }
 
     public void printSelectSemesterMessage(Semester semester) {

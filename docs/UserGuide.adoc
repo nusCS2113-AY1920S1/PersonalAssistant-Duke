@@ -154,7 +154,8 @@ Example:
 * `semester delete 2` 
 
 [[SemesterDelete]]
-.D
+.Deleting a Semester.
+image::SemesterDelete.png[SemesterDelete]
 
 
 ==== Selecting a semester: `semester /select`
@@ -503,16 +504,16 @@ Changes the threshold of the program to 48 hours.
 ==== Viewing free time slots: `free`
 You can view the time slots you are available on a specific day so that you can plan project meetings with your friends.
 
-Format: `free DD-MM-YYYY`
+Format: `free DATE`
 
-* `Date` has to *strictly* be in the format as stated above.
+* `DATE` has to *strictly* be in the format `DD-MM-YYYY`.
 
 Example:
 
-+1.+ Type `free 30-10-2019` as a command press kbd:[ENTER]
++1.+ Type `free 08-11-2019` as a command press kbd:[ENTER]
 
 [[FreeTimeExample]]
-.Typing free 30-10-2019 into OOF 
+.Typing free 08-11-2019 into OOF
 image::FreeTimeExample.png[FreeTimeExample, width="890"]
 
 +2.+ `OOF` displays all the free time slots that you have. 

@@ -1,17 +1,20 @@
 package oof.command;
 
-import oof.Storage;
-import oof.model.module.SemesterList;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+
 import oof.Ui;
 import oof.exception.OofException;
+import oof.model.module.SemesterList;
 import oof.model.task.TaskList;
-
-import java.util.ArrayList;
+import oof.storage.StorageManager;
 
 /**
  * Represents a Command to print a help manual.
  */
 public class HelpCommand extends Command {
+
+    public static final String COMMAND_WORD = "help";
     private String keyword;
     private static final int COMMANDS_BEGIN = 8;
 
@@ -31,18 +34,23 @@ public class HelpCommand extends Command {
      * @param semesterList Instance of SemesterList that stores Semester objects.
      * @param taskList     Instance of TaskList that stores Task objects.
      * @param ui           Instance of Ui that is responsible for visual feedback.
-     * @param storage      Instance of Storage that enables the reading and writing of Task
+     * @param storageManager      Instance of Storage that enables the reading and writing of Task
      *                     objects to hard disk.
      * @throws OofException if user input invalid commands.
      */
     @Override
-    public void execute(SemesterList semesterList, TaskList taskList, Ui ui, Storage storage) throws OofException {
-        ArrayList<String> commands = storage.readManual();
-        if (keyword.isEmpty()) {
-            ui.printHelpCommands();
-        } else {
-            String description = individualQuery(keyword, commands);
-            ui.printHelpCommand(description);
+    public void execute(SemesterList semesterList, TaskList taskList, Ui ui, StorageManager storageManager)
+            throws OofException {
+        try {
+            ArrayList<String> commands = storageManager.readManual();
+            if (keyword.isEmpty()) {
+                ui.printHelpCommands();
+            } else {
+                String description = individualQuery(keyword, commands);
+                ui.printHelpCommand(description);
+            }
+        } catch (FileNotFoundException e) {
+            throw new OofException("Manual Unavailable!");
         }
     }
 

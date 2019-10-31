@@ -4,7 +4,6 @@ import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-import oof.Storage;
 import oof.Ui;
 import oof.exception.OofException;
 import oof.model.module.SemesterList;
@@ -13,12 +12,14 @@ import oof.model.task.Event;
 import oof.model.task.Task;
 import oof.model.task.TaskList;
 import oof.model.task.Todo;
+import oof.storage.StorageManager;
 
 /**
  * Represents a Command to print calendar.
  */
 public class CalendarCommand extends Command {
 
+    public static final String COMMAND_WORD = "calendar";
     private int month;
     private int year;
     private static final int INDEX_DATE = 0;
@@ -26,6 +27,8 @@ public class CalendarCommand extends Command {
     private static final int INDEX_DAY = 0;
     private static final int INDEX_MONTH = 1;
     private static final int INDEX_YEAR = 2;
+    private static final int INDEX_ARGUMENT_MONTH = 0;
+    private static final int INDEX_ARGUMENT_YEAR = 1;
     private static final int MONTH_JANUARY = 1;
     private static final int MONTH_DECEMBER = 12;
     private static final int SIZE_CALENDAR = 32;
@@ -36,21 +39,22 @@ public class CalendarCommand extends Command {
     /**
      * Constructor for CalendarCommand.
      *
-     * @param argumentArray Array of command arguments input by user.
+     * @param input Array of command arguments input by user.
      */
-    public CalendarCommand(String[] argumentArray) {
+    public CalendarCommand(String input) {
         while (calendarTasks.size() != SIZE_CALENDAR) {
             calendarTasks.add(new ArrayList<>());
         }
+        String[] arguments = input.split(" ");
         Calendar calendar = Calendar.getInstance();
         try {
-            this.month = Integer.parseInt(argumentArray[INDEX_MONTH]);
-            this.year = Integer.parseInt(argumentArray[INDEX_YEAR]);
+            this.month = Integer.parseInt(arguments[INDEX_ARGUMENT_MONTH]);
+            this.year = Integer.parseInt(arguments[INDEX_ARGUMENT_YEAR]);
             if (month < MONTH_JANUARY || month > MONTH_DECEMBER) {
                 throw new OofException("Invalid month");
             }
         } catch (IndexOutOfBoundsException | NumberFormatException | OofException e) {
-            // 0-based indexing to 1-based indexing
+            // The current month and year will be used if there is an invalid input.
             this.month = calendar.get(Calendar.MONTH) + 1;
             this.year = calendar.get(Calendar.YEAR);
         }
@@ -61,12 +65,12 @@ public class CalendarCommand extends Command {
      * @param semesterList Instance of SemesterList that stores Semester objects.
      * @param taskList     Instance of TaskList that stores Task objects.
      * @param ui           Instance of Ui that is responsible for visual feedback.
-     * @param storage      Instance of Storage that enables the reading and writing of Task
+     * @param storageManager      Instance of Storage that enables the reading and writing of Task
      */
     @Override
-    public void execute(SemesterList semesterList, TaskList taskList, Ui ui, Storage storage) {
+    public void execute(SemesterList semesterList, TaskList taskList, Ui ui, StorageManager storageManager) {
         YearMonth yearMonth = YearMonth.of(year, month);
-        for (Task task : taskList.getTasks()) {
+        for (Task task : taskList.getTaskList()) {
             String description = task.getDescription();
             String[] dateSplit = {};
             String time = "";

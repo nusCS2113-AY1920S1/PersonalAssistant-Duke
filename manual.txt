@@ -44,6 +44,8 @@ Delete Semester             semester /delete INDEX
 
 Select Semester             semester /select INDEX
 
+View Selected Semester      semester
+
 Add Module                  module /add MODULE_CODE /name MODULE_NAME
 
 View Module                 module /view
@@ -52,9 +54,11 @@ Delete Module               module /delete INDEX
 
 Select Module               module /select INDEX
 
+View Selected Module        module
+
 Add Lesson                  lesson /add NAME /day DAY /from START_TIME /to END_TIME
 
-View Lesson                 lesson
+View Lessons                lesson
 
 Delete Lesson               lesson /delete INDEX
 

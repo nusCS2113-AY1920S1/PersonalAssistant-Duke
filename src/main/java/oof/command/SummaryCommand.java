@@ -1,22 +1,22 @@
 package oof.command;
 
-import oof.Storage;
-import oof.model.module.SemesterList;
-import oof.model.task.TaskList;
-import oof.Ui;
-import oof.exception.OofException;
-import oof.model.task.Deadline;
-import oof.model.task.Event;
-import oof.model.task.Task;
-import oof.model.task.Todo;
-import oof.model.tracker.TrackerList;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
+import oof.Ui;
+import oof.exception.OofException;
+import oof.model.module.SemesterList;
+import oof.model.task.Deadline;
+import oof.model.task.Event;
+import oof.model.task.Task;
+import oof.model.task.TaskList;
+import oof.model.task.Todo;
+import oof.storage.StorageManager;
+
 public class SummaryCommand extends Command {
 
+    public static final String COMMAND_WORD = "summary";
     private static final int ADD_A_DAY = 1;
     private TaskList summary = new TaskList();
 
@@ -74,12 +74,13 @@ public class SummaryCommand extends Command {
      * @param semesterList Instance of SemesterList that stores Semester objects.
      * @param taskList    Instance of TaskList that stores Task objects.
      * @param ui           Instance of Ui that is responsible for visual feedback.
-     * @param storage      Instance of Storage that enables the reading and writing of Task
+     * @param storageManager      Instance of Storage that enables the reading and writing of Task
      *                     objects to hard disk.
      * @throws OofException if there are no tasks scheduled for tomorrow.
      */
     @Override
-    public void execute(SemesterList semesterList, TaskList taskList, Ui ui, Storage storage) throws OofException {
+    public void execute(SemesterList semesterList, TaskList taskList, Ui ui, StorageManager storageManager)
+            throws OofException {
         String tomorrow = getTomorrowDate();
         TaskList summary = getSummary(tomorrow, taskList);
         if (summary.isEmpty()) {
