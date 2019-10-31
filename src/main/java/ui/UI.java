@@ -30,7 +30,8 @@ public class UI {
      */
     public void showWelcome(TaskList task) {
         this.sc = new Scanner(System.in);
-        System.out.println("Hello! I'm Duke\n");
+        System.out.println("Hello! Welcome to Degree.NUS\n");
+
         task.printReminders();
         System.out.println("What can I do for you?\n");
     }
