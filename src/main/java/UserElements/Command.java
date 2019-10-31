@@ -306,7 +306,7 @@ public class Command {
             if (isFree) {
                 daysFree.add(dayToCheckIfFreeObject.getFormattedDateString());
             }
-            dayToCheckIfFreeObject.addDaysAndSetMidnight(nextDays);
+            dayToCheckIfFreeObject.addDaysAndSetMidnight(1);
             nextDays++;
         }
         ui.printFreeDays(daysFree);

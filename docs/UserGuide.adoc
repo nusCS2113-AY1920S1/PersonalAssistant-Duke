@@ -90,6 +90,15 @@ Format: `<type of event> <name of event> /dd-MM-yyyy HHmm HHmm /period(days)`
 E.g. “lesson Theory class /18-09-2019 0900 1030 /7”
 adds a weekly recurring event from 9:00am to 10:30am, starting on 18 September 2019.
 
+=== Calendar Table
+The calendar table is generated from the `EventList`. It prints on the screen a table of calendar of 7 days
+starting from a specified day, including the events within this time period. +
+
+==== Commands for CalendarView
+- `calendar` This prints the calendar table of this 7 days.
+- `calendar next` This prints the calendar table of the next 7 days.
+- `calendar last` This prints the calendar table of the last 7 days.
+
 
 === Viewing schedules : `view`
 
