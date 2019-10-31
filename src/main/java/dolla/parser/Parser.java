@@ -150,7 +150,7 @@ public abstract class Parser implements ParserStringList, ModeStringList {
      */
     protected boolean verifySort() {
         try {
-            if(inputArray[1] != null) {
+            if (inputArray[1] != null) {
                 return true;
             } else {
                 return false;
