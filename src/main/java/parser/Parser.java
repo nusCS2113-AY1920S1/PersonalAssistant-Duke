@@ -55,7 +55,10 @@ public class Parser {
     public static Command parse(String input) {
         try {
             String[] taskInfo = input.trim().split(" ", 2);
-            String userCommand = taskInfo[0].trim();
+            for (int i = 0; i < taskInfo.length; i++) {
+                taskInfo[i] = taskInfo[i].trim();
+            }
+            String userCommand = taskInfo[0];
             Command command;
             if (userCommand.equals("exit")) {
                 command = new ExitCommand();
