@@ -39,6 +39,10 @@ public class WeekParse extends Parse {
 
     public static boolean isValid(String fullCommand) throws DukeInvalidFormatException {
         String strWeek = fullCommand.replaceFirst("Week", "");
+        if(!strWeek.isEmpty()) {
+            char checkSpace = strWeek.charAt(0);
+            if (checkSpace != ' ') return false;
+        }
         strWeek = strWeek.trim();
         if(strWeek.isEmpty()) {
             //throw new DukeInvalidFormatException(invalidInput);

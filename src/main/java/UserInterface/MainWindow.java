@@ -315,12 +315,6 @@ public class MainWindow extends BorderPane implements Initializable {
 
         outputList = ShowPreviousCommand.getOutputList();
         retrieveList();
-        overdueDateColumn = new TableColumn<>();
-        overdueDateColumn.setText("Date");
-        overdueTaskColumn = new TableColumn<>();
-        overdueTaskColumn.setText("Description");
-        overdueDaysColumn = new TableColumn<>();
-        overdueDaysColumn.setText("Over Days");
 
         overdueTable.getColumns().clear();
         overdueDateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
