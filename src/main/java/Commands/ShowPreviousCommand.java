@@ -18,7 +18,6 @@ public class ShowPreviousCommand extends Command{
      */
     public ShowPreviousCommand(String fullCommand) {
         this.fullCommand = fullCommand;
-
     }
 
     /**
@@ -33,7 +32,7 @@ public class ShowPreviousCommand extends Command{
         String userInput;
         for (int j = 0; j < size; j ++) {
             userInput = userInputList.get(j);
-            if (userInput.contains(string)) {
+            if (userInput.startsWith(string)) {
                 outputList.add(userInput + " \n");
             }
         }
@@ -53,8 +52,8 @@ public class ShowPreviousCommand extends Command{
      */
     @Override
     public String execute(LookupTable LT, TaskList events, TaskList deadlines, Ui ui, Storage storage) throws DukeInvalidCommandException {
-        fullCommand = fullCommand.replace("show/previous", "");
-        fullCommand = fullCommand.trim();
+//        fullCommand = fullCommand.replace("show/previous", "");
+//        fullCommand = fullCommand.trim();
 
         boolean isNumber = true;
         int number = 0;
@@ -115,10 +114,10 @@ public class ShowPreviousCommand extends Command{
             result = previousCommandsHandler(updatedUserInputList, outputList, "list");
         } else if (fullCommand.equals("done")) {
             result = previousCommandsHandler(updatedUserInputList, outputList, "done");
-        } else if (fullCommand.equals("Available")) {
-            result = previousCommandsHandler(updatedUserInputList, outputList, "Available");
-        } else if (fullCommand.equals("show previous")) {
-            result = previousCommandsHandler(updatedUserInputList, outputList, "show previous");
+        } else if (fullCommand.equals("find")) {
+            result = previousCommandsHandler(updatedUserInputList, outputList, "find");
+        } else if (fullCommand.equals("show/previous")) {
+            result = previousCommandsHandler(updatedUserInputList, outputList, "show/previous");
         } else if (fullCommand.equals("Week")) {
             result = previousCommandsHandler(updatedUserInputList, outputList, "Week");
         }
