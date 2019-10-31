@@ -25,7 +25,7 @@ public class LimitParser extends Parser {
     private static final String LIMIT_COMMAND_LIST = "limits";
     private static final String LIMIT_COMMAND_SET = "set";
     private static final String LIMIT_COMMAND_REMOVE = "remove";
-    private static final String LIMIT_COMMAND_SORT = "sort";
+    //private static final String LIMIT_COMMAND_SORT = "sort";
 
     private static final String LIMIT_TYPE_S = "saving";
     private static final String LIMIT_TYPE_B = "budget";
@@ -146,10 +146,4 @@ public class LimitParser extends Parser {
     private Boolean verifySetLimitCommand(String limitType, double limitAmount, String limitDuration) {
         return verifyLimitType(limitType) && verifyLimitAmount(limitAmount) && verifyLimitDuration(limitDuration);
     }
-
-    /*
-    private Boolean verifyRemoveLimitCommand(String limitType, String limitDuration) {
-        return verifyLimitType(limitType) && verifyLimitDuration(limitDuration);
-    }
-     */
 }

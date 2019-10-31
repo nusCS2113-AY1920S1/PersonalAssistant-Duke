@@ -1,7 +1,10 @@
 package dolla.command;
 
 import dolla.DollaData;
+import dolla.ModeStringList;
 import dolla.Time;
+import dolla.task.EntryList;
+import dolla.ui.EntryUi;
 import dolla.ui.Ui;
 import dolla.action.Redo;
 import dolla.action.Undo;
@@ -19,6 +22,8 @@ public class AddEntryCommand extends Command {
     private String description;
     private LocalDate date;
     private int prevPosition;
+    private static String mode;
+
 
     /**
      * Creates an instance of AddEntryCommand.
@@ -35,29 +40,36 @@ public class AddEntryCommand extends Command {
         this.description = description;
         this.date = date;
         this.prevPosition = prevPosition;
+        mode = ModeStringList.MODE_ENTRY;
     }
 
     @Override
     public void execute(DollaData dollaData) {
-        String mode = "entry";
         Entry newEntry = new Entry(type, amount, description, date);
+        EntryList entryList = (EntryList) dollaData.getRecordList(mode);
+        int existingEntryIndex = entryList.findExistingEntry(dollaData, newEntry, mode);
 
-        if (prevPosition == -1) {
-            dollaData.addToRecordList(mode, newEntry);
-            index = dollaData.getRecordList(mode).size();
-            Undo.removeCommand(mode, index);
-            Redo.clearRedo(mode);
-        } else if (prevPosition == -2) {
-            dollaData.addToRecordList(mode, newEntry);
-            index = dollaData.getRecordList(mode).size();
-            Undo.removeCommand(mode, index);
-            prevPosition = -1; //reset to -1
+        if (existingEntryIndex == - 1) {
+            if (prevPosition == -1) {
+                dollaData.addToRecordList(mode, newEntry);
+                index = dollaData.getRecordList(mode).size();
+                Undo.removeCommand(mode, index);
+                Redo.clearRedo(mode);
+            } else if (prevPosition == -2) {
+                dollaData.addToRecordList(mode, newEntry);
+                index = dollaData.getRecordList(mode).size();
+                Undo.removeCommand(mode, index);
+                prevPosition = -1; //reset to -1
+            } else {
+                dollaData.addToPrevPosition(mode, newEntry, prevPosition);
+                Redo.removeCommand(mode, prevPosition);
+                prevPosition = -1; //reset to -1
+            }
+            Ui.echoAddRecord(newEntry);
         } else {
-            dollaData.addToPrevPosition(mode, newEntry, prevPosition);
-            Redo.removeCommand(mode,prevPosition);
-            prevPosition = -1; //reset to -1
+            Entry existingEntry = (Entry) entryList.getFromList(existingEntryIndex);
+            EntryUi.existingEntryPrinter(existingEntry);
         }
-        Ui.echoAddRecord(newEntry);
     }
 
     @Override

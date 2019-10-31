@@ -9,6 +9,7 @@ import java.util.ArrayList;
 /**
  * A class that contains methods regarding the LimitList (add, remove, check for existing limits).
  */
+//@@author Weng-Kexin
 public class LimitList extends RecordList {
 
     public LimitList(ArrayList<Record> importLimitList) {
@@ -30,13 +31,13 @@ public class LimitList extends RecordList {
     /**
      * Method checks to see if the input limit already exists.
      * @param dollaData The storage container for all the lists.
-     * @param limitType The limit type input by user.
-     * @param limitDuration The limit duration input by user.
-     * @return
+     * @param inputLimit The limit being input by user.
+     * @param mode The mode the user is on.
+     * @return index of the currently existing limit (is - 1 if not found)
      */
-    public int findExistingLimitIndex(DollaData dollaData, String limitType, String limitDuration) {
+    public int findExistingLimit(DollaData dollaData, Limit inputLimit, String mode) {
         int index = - 1;
-        LimitList limitList = (LimitList) dollaData.getRecordList(ModeStringList.MODE_LIMIT);
+        LimitList limitList = (LimitList) dollaData.getRecordList(mode);
         Limit currLimit;
         String currType;
         String currDuration;
@@ -44,7 +45,7 @@ public class LimitList extends RecordList {
             currLimit = (Limit) limitList.getFromList(i);
             currType = currLimit.type;
             currDuration = currLimit.duration;
-            if (currType.equals(limitType) && currDuration.equals(limitDuration)) {
+            if (currType.equals(inputLimit.type) && currDuration.equals(inputLimit.duration)) {
                 index = i;
                 break;
             }

@@ -1,7 +1,11 @@
 package dolla.task;
 
+import dolla.Dolla;
+import dolla.DollaData;
+import dolla.ModeStringList;
 import dolla.Storage;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 /**
@@ -28,5 +32,30 @@ public class EntryList extends RecordList {
     public void removeFromList(int index) {
         super.removeFromList(index);
         Storage.setEntries(get());
+    }
+
+    /**
+     * Method to check if input entry already exists.
+     * @param dollaData The storage container for all the lists.
+     * @param entry The entry being input by user.
+     * @param mode The mode the user is on.
+     * @return index of the currently existing entry (is - 1 if not found)
+     */
+    public int findExistingEntry(DollaData dollaData, Entry entry, String mode) {
+        int index = - 1;
+        EntryList entryList = (EntryList) dollaData.getRecordList(mode);
+        for (int i = 0; i < entryList.size(); i++) {
+            Entry currEntry = (Entry) (entryList.getFromList(i));
+            String currType = currEntry.type;
+            double currAmount = currEntry.amount;
+            String currDescription = currEntry.description;
+            LocalDate currDate = currEntry.date;
+            if (currType.equals(entry.type) && currAmount == entry.amount
+                && currDescription.equals(entry.description) && currDate.equals(entry.date)) {
+                index = i;
+                break;
+            }
+        }
+        return index;
     }
 }
