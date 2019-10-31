@@ -11,7 +11,7 @@ public abstract class Reminder {
     TimeInterval remindBefore;
     TimeInterval checkEvery;
     Thread thread;
-    static final TimeInterval minBefore = TimeInterval.ofMinutes(1);
+    TimeInterval minBefore;
     volatile boolean kill;
 
     /**
@@ -21,7 +21,8 @@ public abstract class Reminder {
      */
     public Reminder(TimeInterval remindBefore, TimeInterval checkEvery)
             throws ModTimeIntervalTooCloseException {
-        if (remindBefore.isLessThan(Reminder.minBefore)) {
+        this.minBefore = TimeInterval.ofMinutes(1);
+        if (remindBefore.isLessThan(this.minBefore)) {
             throw new ModTimeIntervalTooCloseException();
         }
         this.remindBefore = remindBefore;
