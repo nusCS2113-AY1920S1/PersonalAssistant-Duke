@@ -1,30 +1,38 @@
 package UserInterface;
 
+import javafx.scene.text.Text;
+
 public class DeadlineView {
-    private String date;
-    private String task;
+    private Text date;
+    private Text task;
+    private Text overDays;
 
     /**
      * This creates DeadlineView object.
      */
-    public DeadlineView(String date, String task){
+    public DeadlineView(Text task, Text date, Text overDays){
         this.date = date;
         this.task = task;
+        this.overDays = overDays;
     }
 
-    public String getDate() {
+    public Text getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(Text date) {
         this.date = date;
     }
 
-    public String getTask() {
+    public Text getTask() {
         return task;
     }
 
-    public void setTask(String task) {
+    public void setTask(Text task) {
         this.task = task;
+    }
+
+    public Text getOverDays() {
+        return overDays;
     }
 }

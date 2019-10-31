@@ -171,8 +171,8 @@ public class Storage {
                 DateFormat format = new SimpleDateFormat("E dd/MM/yyyy");
                 SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm a");
                 String dateFromData = string.substring(string.indexOf("at:") + 4, string.indexOf("time:")).trim();
-                String startTimeFromData = string.substring(string.indexOf("time:") + 6, string.indexOf("to"));
-                String endTimeFromData = string.substring(string.indexOf("to") + 3, string.indexOf(')')).trim();
+                String startTimeFromData = string.substring(string.indexOf("time:") + 6, string.indexOf("to:"));
+                String endTimeFromData = string.substring(string.indexOf("to:") + 3, string.indexOf(')')).trim();
                 Date startTime = timeFormat.parse(startTimeFromData);
                 Date endTime = timeFormat.parse(endTimeFromData);
                 Date date = format.parse(dateFromData);
