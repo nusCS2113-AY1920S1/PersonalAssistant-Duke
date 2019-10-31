@@ -150,8 +150,11 @@ public abstract class Parser implements ParserStringList, ModeStringList {
      */
     protected boolean verifySort() {
         try {
-            String temp = inputArray[1];
-            return true;
+            if(inputArray[1] != null) {
+                return true;
+            } else {
+                return false;
+            }
         } catch (ArrayIndexOutOfBoundsException e) {
             SortUi.printInvalidSort(mode);
             return false;

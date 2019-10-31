@@ -13,7 +13,6 @@ import dolla.command.SearchCommand;
 import dolla.command.RemoveCommand;
 import dolla.command.modify.PartialModifyEntryCommand;
 import dolla.task.Entry;
-import dolla.ui.SortUi;
 //import dolla.ui.ModifyUi;
 
 public class EntryParser extends Parser {
