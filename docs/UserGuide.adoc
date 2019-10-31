@@ -157,47 +157,61 @@ Executing a `/done` command:
 A confirmation message pops up to confirm the change.
 
 
-IMPORTANT: Although the task has been marked done, it is not deleted from the list. If you wish for it to disappear then delete the task using the /delete command as stated above.
-
+IMPORTANT: Although the task has been marked done, it is not deleted from the list. If you wish for it to disappear then delete the task using the /delete command as stated above.  
   
-=== 3A.3 Finding tasks : `/find`
+=== 3.4 Sort: `/sort`
 
-When dealing with multiple tasks, it is hard to find older ones even if you sort it in a particular way. To find tasks, you can use the /find command:
+There are 3 ways in which tasks can be sorted, in the normal order based on the time it was added, chronological order based on time and a prioritize order that prioritizes tasks based on the amount of time available with respect to the current time and the difficulty of the task.
 
-*/find <keyword>*
+The syntax of the command is as follows:
+
+TIP: */sort <sort type>*
+
+Listed below are the sort types available.
+
+*	`/normal` sorts the tasks based on when the user input the tasks.
+*	`/chronological` sorts the tasks based on the date and time of the tasks.
+*	`/prioritize` sorts the tasks based on amount of time available and difficulty.
+
+
+Examples Scenario:
+
+Let’s say you want to focus on the most upcoming tasks and want to know which tasks are nearest to the current date. Instead of having to scroll and view each task in the task list to determine which is the earliest task, you can easily view the tasks in chronological order by the /sort command you have entered.
+
+Executing the `/sort` command:
+----
+1.	Type /sort datetime into the command box and press the Enter button on your keyboard to execute it.
+2.	The result box will display the message “Task list has been successfully sorted!”.
+3.	The newly sorted task list will be displayed on the screen. You can now view the tasks in chronological order.
+----
+
+=== 3.5 Finding tasks: `/find`
+
+When dealing with multiple tasks, it is hard to find older ones even if you sort it in a particular way. To find tasks, you can use the `/find` command:
+
+The syntax of the command is as follows:
+
+TIP: */find <keyword>*
 
 The command takes in your input <keyword> which Is present in the task you want to find. Currently, this feature is able to find tagged words, dates, time and words in the task description.
 
-Example:
+Example Scenario:
 
 Suppose it is the date 31/10/2019, and you remember there is an assignment due tomorrow but not sure what. Here are the steps to find out what do you have due tomorrow.
 
+Executing the `/find` command:
+----
 1.	Type /find <date>. For this example, we have to type /find 01/11/2019 as shown and hit the Enter button on your computer.
-----
-Note that the parser is only able to recognize dates in DD/MM/YYYY format, and inputting /find 1/11/2019 instead will not yield the correct result.
-----
 2.	The list of things that is due on 1st November 2019 will be shown on the screen.
+----
+
+IMPORTANT: Note that the parser is only able to recognize dates in DD/MM/YYYY format, and inputting /find 1/11/2019 instead will not yield the correct result.
 
 There are couple of things to take note with the current /find function:
 *	It is only able to recognize dates in DD/MM/YYYY format
 *	It is only able to recognize time in 24-hour clock HHMM format
 *	It will only find exact word-for-word for tags
 *	It can find tasks that partly consists of the keyword of the task description (querying for “proj” will yield the same result as above.
-
-
-Finds tasks whose description contains the given keyword. + 
-Format: `/find KEYWORD`
-
-****
-* The search is case sensitive. e.g. `Book` will not match `book`
-* Only the description is searched.
-* Only full words will be matched e.g. `books` will not match `book`
-****
-
-Examples:
-
-* `/find book` +  
-  Returns any task with the descriptions containing the keyword.
 
 === 3A.4 Marking a task as done : `/done`
 
