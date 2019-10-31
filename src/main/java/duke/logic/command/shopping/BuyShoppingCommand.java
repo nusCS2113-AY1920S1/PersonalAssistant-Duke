@@ -19,6 +19,8 @@ public class BuyShoppingCommand extends ShoppingCommand {
 
     public static final String COMMAND_WORD = "buy";
 
+    private static final String MESSAGE_INDEX_OUT_OF_BOUND = "Index [%d] is out of bound.";
+
     private static final Double ZERO_QUANTITY = 0.00;
     private final Set<Index> indices;
     private Double totalCost = 0.00;
@@ -39,14 +41,13 @@ public class BuyShoppingCommand extends ShoppingCommand {
 
         for (Index index : indices) {
             if (index.getZeroBased() >= shoppingList.size()) {
-                throw new CommandException(Message.MESSAGE_INVALID_INDEX);
+                throw new CommandException(String.format(MESSAGE_INDEX_OUT_OF_BOUND, index.getOneBased()));
             }
         }
 
         for (Index index : indices) {
             Item<Ingredient> toBuy = shoppingList.get(index.getZeroBased());
             toBuyList.add(toBuy);
-            //totalCost += toBuy.getTotalPrice();
 
             if (inventoryList.contains(toBuy)) {
                 Double addedQuantity = toBuy.getQuantity().getNumber();

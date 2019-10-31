@@ -31,7 +31,7 @@ public class EditShoppingCommandParser implements Parser<EditShoppingCommand> {
         try {
             index = ParserUtil.parseIndex(map.getPreamble());
         } catch (ParseException e) {
-            throw new ParseException(Message.MESSAGE_INVALID_COMMAND_FORMAT);
+            throw new ParseException(Message.MESSAGE_INVALID_INDEX);
         }
 
         return new EditShoppingCommand(index, createShoppingDescriptor(map));

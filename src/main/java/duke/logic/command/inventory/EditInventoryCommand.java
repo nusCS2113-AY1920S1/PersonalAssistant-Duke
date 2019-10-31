@@ -19,6 +19,8 @@ public class EditInventoryCommand extends InventoryCommand {
 
     public static final String COMMAND_WORD = "edit";
 
+    private static final String MESSAGE_INDEX_OUT_OF_BOUND = "Index [%d] is out of bound.";
+
     public static final String AUTO_COMPLETE_INDICATOR = InventoryCommand.COMMAND_WORD + " " + COMMAND_WORD;
     public static final Prefix[] AUTO_COMPLETE_PARAMETERS = {
         CliSyntax.PREFIX_INVENTORY_NAME,
@@ -42,7 +44,7 @@ public class EditInventoryCommand extends InventoryCommand {
         List<Item<Ingredient>> lastShownList = model.getFilteredInventoryList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Message.MESSAGE_INVALID_INDEX);
+            throw new CommandException(String.format(MESSAGE_INDEX_OUT_OF_BOUND, index.getOneBased()));
         }
 
         Item<Ingredient> toEdit = lastShownList.get(index.getZeroBased());

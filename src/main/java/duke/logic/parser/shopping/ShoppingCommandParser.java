@@ -27,13 +27,13 @@ public class ShoppingCommandParser implements SubCommandParser<ShoppingCommand> 
         case EditShoppingCommand.COMMAND_WORD:
             return new EditShoppingCommandParser().parse(args);
         case ClearShoppingCommand.COMMAND_WORD:
-            return new ClearShoppingCommand();
+            return new ClearShoppingCommandParser().parse(args);
         case BuyShoppingCommand.COMMAND_WORD:
             return new BuyShoppingCommandParser().parse(args);
         case ShowShoppingCommand.COMMAND_WORD:
             return new ShowShoppingCommandParser().parse(args);
         case ListShoppingCommand.COMMAND_WORD:
-            return new ListShoppingCommand();
+            return new ListShoppingCommandParser().parse(args);
         default:
             throw new ParseException(Message.MESSAGE_UNKNOWN_COMMAND);
         }
