@@ -291,7 +291,7 @@ image::reserve/reserve4.jpeg[width:"500", align="left"]
 ====
 RIMS will prompt for the name of the room that you wish to reserve.
 
-image::reserve/reserve2.jpeg[width="500", align="left"]
+image::reserve/reserveRoom1.jpeg[width="500", align="left"]
 ====
 +
 .. Enter the `ROOM NAME` to be reserved.
@@ -299,11 +299,11 @@ image::reserve/reserve2.jpeg[width="500", align="left"]
 ====
 RIMS will display the current booking status of the requested room.
 
-image::reserve/reserve3.jpeg[width="500", align="left"]
+image::reserve/reserveRoom2.jpeg[width="500", align="left"]
 
 RIMS will then prompt for the date from which the item is to be reserved.
 
-image::reserve/reserve4.jpeg[width:"500", align="left"]
+image::reserve/reserveRoom3.jpeg[width:"500", align="left"]
 ====
 +
 
@@ -328,7 +328,7 @@ image::reserve/reserve6.jpeg[width:"500", align="left"]
 ====
 RIMS will then display a message confirming that the quantity of the requested resource has been registered as reserved, between the two specified dates.
 
-image::loan/loan7.png[width: "500", align="left"]
+image::reserve/reserve7.jpeg[width: "500", align="left"]
 ====
 +
 
