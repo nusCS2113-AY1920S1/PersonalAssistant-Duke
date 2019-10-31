@@ -9,8 +9,7 @@ import java.util.logging.Level;
 public class Handler {
 
     private static JavaCake javaCake;
-
-     /*public void handleExit() {
+    /*public void handleExit() {
         System.out.println("EXIT");
         JavaCake.logger.log(Level.INFO, "EXITING PROGRAM!");
         // find out if exit condition
@@ -21,4 +20,5 @@ public class Handler {
         pause.setOnFinished(e -> MainWindow.primaryStage.hide());
         pause.play();
     }*/
+
 }

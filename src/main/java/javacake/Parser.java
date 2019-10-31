@@ -34,25 +34,25 @@ public class Parser {
         String commandWord = buffer[0];
         helper(commandWord);
         switch (commandWord) {
-            case ("exit"): return new ExitCommand();
-            case ("list"): return new ListCommand();
-            case ("back"): return new BackCommand();
-            case ("score"): return new ScoreCommand();
-            case ("reset"): return new ResetCommand();
-            case ("help"): return new HelpCommand(inputCommand);
-            case ("overview"): return new OverviewCommand();
-            case ("listnote"): return new ListNoteCommand();
-            case ("reminder"): return new ReminderCommand();
-            case ("goto"): return new GoToCommand(inputCommand);
-            case ("createnote"): return new CreateNoteCommand(inputCommand);
-            case ("editnote"): return new EditNoteCommand(inputCommand);
-            case ("deletenote"): return new DeleteNoteCommand(inputCommand);
-            case ("deadline"): return new AddCommand(inputCommand);
-            case ("change"):
-                MainWindow.isChanged = true;
-                return new ChangeColorCommand();
-            default:
-                throw new CakeException("OOPS!!! I'm sorry, but I don't know what that means.");
+        case ("exit"): return new ExitCommand();
+        case ("list"): return new ListCommand();
+        case ("back"): return new BackCommand();
+        case ("score"): return new ScoreCommand();
+        case ("reset"): return new ResetCommand();
+        case ("help"): return new HelpCommand(inputCommand);
+        case ("overview"): return new OverviewCommand();
+        case ("listnote"): return new ListNoteCommand();
+        case ("reminder"): return new ReminderCommand();
+        case ("goto"): return new GoToCommand(inputCommand);
+        case ("createnote"): return new CreateNoteCommand(inputCommand);
+        case ("editnote"): return new EditNoteCommand(inputCommand);
+        case ("deletenote"): return new DeleteNoteCommand(inputCommand);
+        case ("deadline"): return new AddCommand(inputCommand);
+        case ("change"):
+            MainWindow.isChanged = true;
+            return new ChangeColorCommand();
+        default:
+            throw new CakeException("OOPS!!! I'm sorry, but I don't know what that means.");
         }
     }
 

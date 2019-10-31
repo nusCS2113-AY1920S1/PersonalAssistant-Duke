@@ -71,7 +71,7 @@ public class MainWindow extends AnchorPane {
     private Stage primaryStage;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image JavaCakeImage = new Image(this.getClass().getResourceAsStream("/images/padoru.png"));
+    private Image javaCakeImage = new Image(this.getClass().getResourceAsStream("/images/padoru.png"));
 
     private QuizSession quizSession;
     private ReviewSession reviewSession;
@@ -122,8 +122,8 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing JavaCake's reply and then appends them to
-     * the dialog container. Clears the user input after processing.
+     * Creates two dialog boxes, one echoing user input and the other containing JavaCake's reply
+     * and then appends them to the dialog container. Clears the user input after processing.
      */
     @FXML
     private void handleUserInput() {
@@ -447,7 +447,7 @@ public class MainWindow extends AnchorPane {
     private void showContentContainer() {
         dialogContainer.getChildren().clear();
         dialogContainer.getChildren().add(
-                DialogBox.getJavaCakeDialog(response, JavaCakeImage));
+                DialogBox.getJavaCakeDialog(response, javaCakeImage));
     }
 
     private void showTaskContainer() {
