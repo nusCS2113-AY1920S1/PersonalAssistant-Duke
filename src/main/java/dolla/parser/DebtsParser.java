@@ -94,7 +94,11 @@ public class DebtsParser extends Parser {
                 return new ErrorCommand();
             }
         } else if (commandToRun.equals(COMMAND_REMOVE)) {
-            return new RemoveCommand(mode, inputArray[1]);
+            if (verifyRemove()) {
+                return new RemoveCommand(mode, inputArray[1]);
+            } else {
+                return new ErrorCommand();
+            }
         } else if (commandToRun.equals(DEBT_COMMAND_REDO)
                 || commandToRun.equals(DEBT_COMMAND_UNDO)
                 || commandToRun.equals(DEBT_COMMAND_REPEAT)) {

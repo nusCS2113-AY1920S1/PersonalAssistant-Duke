@@ -132,18 +132,6 @@ public abstract class Ui {
     }
 
     /**
-     * Echo remove.
-     *
-     * @param record the record
-     */
-    public static void echoRemove(String record) {
-        System.out.println(line);
-        System.out.println("\tNoted. I've removed this record: ");
-        System.out.println("\t" + record);
-        System.out.println(line);
-    }
-
-    /**
      * Prints an error message when date in not in the format 'DD/MM/YYYY HHmm'.
      */
     public static void printDateTimeFormatError() {
@@ -274,44 +262,12 @@ public abstract class Ui {
     }
 
     /**
-     * Print sorted list.
-     *
-     * @param list the list to be printed
-     * @param type the type of input of the list
-     */
-    public static void printSortedList(ArrayList<Record> list, String type) {
-        System.out.println(line);
-        if (type.equals(SORT_DATE)) {
-            System.out.println("sorting date.........");
-        } else if (type.equals(SORT_DESCRIPTION)) {
-            System.out.println("sorting description.........");
-        } else if (type.equals(SORT_NAME)) {
-            System.out.println("sorting name.........");
-        }
-
-        for (int i = 0; i < list.size(); i++) {
-            int listNum = i + 1;
-            System.out.println("\t" + listNum + ". " + list.get(i).getRecordDetail());
-        }
-    }
-
-    /**
      * Print no reminder msg.
      */
     public static void printNoReminderMsg() {
         System.out.println(line);
         System.out.println("\tThere are no reminders :)");
         System.out.println(line);
-    }
-
-    //@@author yetong1895
-    /**
-     * This method will print the error message if user is trying trying to remove a non-existing record.
-     * @param number the total number of record.
-     */
-    public static void printRemoveError(int number) {
-        System.out.println(line);
-        System.out.println("\tSorry, you only have " + number + " record(s).");
     }
 
     //@@author
