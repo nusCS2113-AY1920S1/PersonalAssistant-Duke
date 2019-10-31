@@ -20,7 +20,7 @@ public class Parser {
 	 * add foodName -t foodType -p price -s stock -e expiryDate
 	 * list -sort expiry/name/stock
 	 * find -i index / -n foodName / -t foodType --sort expiry/name/stock
-	 * generaterevenue -i index / -n foodName / -t foodType
+	 * revenue -i index / -n foodName / -t foodType
 	 * delete -i index / -n foodName / -t foodType
 	 * sold -n foodName -q quantity
 	 * reminder -d daysToExpiry -s stock
@@ -48,7 +48,7 @@ public class Parser {
 				return new FindCommandParser().parse(inputs);
 			case "update":
 				return new UpdateCommandParser().parse(inputs);
-			case "generaterevenue" :
+			case "revenue" :
 				return new GenerateRevenueCommandParser().parse(inputs);
 			case "delete":
 				return new DeleteCommandParser().parse(inputs);
