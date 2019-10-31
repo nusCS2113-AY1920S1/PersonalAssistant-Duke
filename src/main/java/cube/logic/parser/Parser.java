@@ -18,6 +18,9 @@ public class Parser {
 	 *
 	 * Format:
 	 * add foodName -t foodType -p price -s stock -e expiryDate
+	 * update foodName -t foodType -p price -s stock -e expiryDate
+	 * batch -i / -o
+	 * config
 	 * list -sort expiry/name/stock
 	 * find -i index / -n foodName / -t foodType --sort expiry/name/stock
 	 * profit -t1 time1 -t2 time2 -i index / -n foodName / -t foodType / -all All
@@ -29,8 +32,6 @@ public class Parser {
 	 * help
 	 * bye / exit / quit
 	 *
-	 * Assumption: no repetitive parameters given.
-	 *
 	 * @param fullCommand the command that user inputs.
 	 * @return corresponding command.
 	 */
@@ -39,8 +40,7 @@ public class Parser {
 		String command = inputs[0];
 		command = command.trim().toLowerCase();
 		switch (command) {
-			case "reminder":
-				return new ReminderCommandParser().parse(inputs);
+			//Alphabetical order
 			case "add":
 				return new AddCommandParser().parse(inputs);
 			case "list":
@@ -59,6 +59,8 @@ public class Parser {
 				return new SoldCommandParser().parse(inputs);
 			case "batch":
 				return new BatchCommandParser().parse(inputs);
+			case "reminder":
+				return new ReminderCommandParser().parse(inputs);
 			case "config":
 				return new ConfigCommandParser().parse(inputs);
 			case "help":

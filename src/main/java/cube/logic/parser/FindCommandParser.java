@@ -9,12 +9,23 @@ import cube.model.food.FoodList;
 public class FindCommandParser implements ParserPrototype<FindCommand> {
 
     public FindCommand parse(String[] args) throws ParserException {
+        String[] params = new String[]{"-i","-n","-t","-sort"};
+
+        if(ParserUtil.hasInvalidParameters(args,params)){
+            throw new ParserException(ParserErrorMessage.INVALID_PARAMETER);
+        }
+        if(ParserUtil.hasRepetitiveParameters(args)){
+            throw new ParserException(ParserErrorMessage.REPETITIVE_PARAMETER);
+        }
         if (args.length < 3) {
             throw new ParserException(ParserErrorMessage.NOT_ENOUGH_PARAMETER);
         }
 
         switch (args[1]) {
             case "-i":
+                if(!ParserUtil.isValidNumber(args[2])){
+                    throw new ParserException(ParserErrorMessage.INVALID_NUMBER);
+                }
                 return new FindCommand(Integer.parseInt(args[2]),"INDEX");
             case "-n":
                 return new FindCommand(new ParserUtil().findFullString(args,2),"NAME");

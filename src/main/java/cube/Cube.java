@@ -43,8 +43,7 @@ public class Cube {
             storageManager = storage.load();
             foodList = storageManager.getFoodList();
             salesHistory = storageManager.getSalesHistory();
-            // Temporary Fix TODO: implement Promotion to storage manager.
-            promotionList = new PromotionList();
+            promotionList = storageManager.getPromotionList();
             modelManager = new ModelManager(foodList, salesHistory, promotionList);
         } catch (CubeException e) {
             logger.warning(e.getMessage());

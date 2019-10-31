@@ -10,6 +10,14 @@ import cube.storage.config.LogConfig;
 public class ConfigCommandParser implements ParserPrototype<ConfigCommand> {
 
     public ConfigCommand parse(String[] args) throws ParserException {
+        String[] params = new String[]{"-h","-w","-s","-c","-l"};
+
+        if(ParserUtil.hasInvalidParameters(args,params)){
+            throw new ParserException(ParserErrorMessage.INVALID_PARAMETER);
+        }
+        if(ParserUtil.hasRepetitiveParameters(args)){
+            throw new ParserException(ParserErrorMessage.REPETITIVE_PARAMETER);
+        }
         if (args.length == 1) {
             return new ConfigCommand(ConfigType.VIEW);
         }
@@ -56,9 +64,15 @@ public class ConfigCommandParser implements ParserPrototype<ConfigCommand> {
 
                 LogConfig logConfig = new LogConfig();
                 if (maxFileCountIndex != -1) {
+                    if(!ParserUtil.isValidNumber(args[maxFileCountIndex + 1])){
+                        throw new ParserException(ParserErrorMessage.INVALID_NUMBER);
+                    }
                     logConfig.setMaxFileCount(Integer.parseInt(args[maxFileCountIndex + 1]));
                 }
                 if (maxFileSizeIndex != -1) {
+                    if(!ParserUtil.isValidNumber(args[maxFileSizeIndex + 1])){
+                        throw new ParserException(ParserErrorMessage.INVALID_NUMBER);
+                    }
                     logConfig.setMaxFileSizeMB(Integer.parseInt(args[maxFileSizeIndex + 1]));
                 }
                 if (currentLogLevelIndex != -1) {
