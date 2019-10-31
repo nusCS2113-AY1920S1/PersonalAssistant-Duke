@@ -27,32 +27,24 @@ Additionally, it is able to list out all the modules or modules in a particular 
 find modules base on the semester or module's code and 
 delete modules. When the user list out his modules, the CAP will be shown at the bottom of the list.
 
-**Justification:
+** Justification:
 This feature improves the product significantly because a user
 can now keep track of his grades and see which semester he is falling behind by viewing his CAP.
 Additionally, students especially Year 1 students can know which modules to S/U by marking so that they can make
 an informed decision on which modules to S/U to acheive a better CAP.
-**Highlights:
+** Highlights:
 It requires an in-depth analysis of design alternatives.
 The implementation too was challenging as it required changes to existing commands.
 
-**Credits: http://www.nus.edu.sg/registrar/education-at-nus/modular-system.html[NUS Grading System]
+** Credits: http://www.nus.edu.sg/registrar/education-at-nus/modular-system.html[NUS Grading System]
 
-*Minor enhancement:* +
-1. Password login system. +
-User needs to type in the correct password to enter Gazeeebo. +
-User is able to change the password. +
-2. Added contact feature. +
-User is able to add/list/delete/find contact(s). +
-There are two inbuilt categories NUS and CEG specially catered for CEG students. +
-3. Added recurring feature. +
-When a tasks has keyword weekly/monthly/yearly, when the task is being marked as done, the tasks will be replaced by another with the 
-date updated to be next week/month/year.
-4. Added edit feature. +
-User is able to edit the task's decription or time or both of them. +
-This saves user the hassle of deleting and create another task because he made a mistake when creating the task.
+* *Minor enhancement:* ++
+** 1. Password login system: User needs to type in the correct password to enter Gazeeebo and the User is able to change the password.
+** 2. Added contact feature: User is able to add/list/delete/find contact(s). There are also two inbuilt categories NUS and CEG specially catered for CEG students.
+** 3. Added recurring feature: When a tasks has keyword weekly/monthly/yearly, when the task is being marked as done, the tasks will be replaced by another with the updated date of the next event.
+** 4. Added edit feature: User is able to edit the task's decription or time or both of them. This saves user the hassle of deleting and create another task because he made a mistake when creating the task.
 
-*Code contributed:*
+* *Code contributed:* ++
 [https://nuscs2113-ay1920s1.github.io/dashboard/#search=JasonLeeWeiHern&sort=groupTitle&sortWithin=title&since=2019-09-21&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&until=2019-10-30&tabOpen=false[Reposense]] +
 
 *Project management:* +
