@@ -89,7 +89,7 @@ public class ProductPage extends UiPart<AnchorPane> {
         costColumn.setResizable(true);
         costColumn.setCellValueFactory(new PropertyValueFactory<>("ingredientCost"));
 
-        TableColumn<Product, Double> statusColumn = new TableColumn<>("status");
+        TableColumn<Product, Double> statusColumn = new TableColumn<>("Status");
         statusColumn.setResizable(true);
         statusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
 

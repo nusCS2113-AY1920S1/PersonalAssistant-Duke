@@ -22,7 +22,7 @@ public class SearchProductCommandParser implements Parser<SearchProductCommand> 
         if (!map.getValue(PREFIX_PRODUCT_SEARCH).isPresent()) {
             throw new ParseException(ProductMessageUtils.MESSAGE_MISSING_SEARCH_PREFIX);
         }
-        keyword = map.getValue(PREFIX_PRODUCT_SEARCH).get();
+        keyword = map.getValue(PREFIX_PRODUCT_SEARCH).get().toLowerCase();
         if (keyword.isEmpty() || keyword.isBlank()) {
             throw new ParseException(ProductMessageUtils.MESSAGE_MISSING_KEYWORD);
         }
