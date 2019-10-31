@@ -320,7 +320,7 @@ public class FindFreeTimesCommand extends Command {
         generateFreeTime();
     }
 
-    private static final ArrayList<String> compiledFreeTimes = new ArrayList<>();
+    private static final ArrayList<Pair<String, String>> compiledFreeTimes = new ArrayList<>();
 
     /**
      * This method generates the output to be shown
@@ -329,19 +329,19 @@ public class FindFreeTimesCommand extends Command {
         compiledFreeTimes.clear();
         for (int i = 0; i < freeTimeData.size(); i++) {
             String compiledFreeTimeToShow;
-            String compiledFreeTime;
+            String compiledFreeTimeCommand;
             compiledFreeTimeToShow = dateTimeFormat12.format(freeTimeData.get(i).getKey()) + " until " + timeFormat12.format(freeTimeData.get(i).getValue());
             message += (i+1) + ". " + compiledFreeTimeToShow + "\n";
             String dateTime = dateTimeFormat24.format(freeTimeData.get(i).getKey());
             String[] spiltDateTime = dateTime.split(" ", 3);
-            compiledFreeTime =  "/at " + spiltDateTime[1]+ " /from " + spiltDateTime[2] + " /to "+ timeFormat24.format(freeTimeData.get(i).getValue());
-            compiledFreeTimes.add(compiledFreeTime);
+            compiledFreeTimeCommand =  "/at " + spiltDateTime[1]+ " /from " + spiltDateTime[2] + " /to "+ timeFormat24.format(freeTimeData.get(i).getValue());
+            compiledFreeTimes.add(new Pair<>(compiledFreeTimeToShow, compiledFreeTimeCommand));
         }
     }
 
 
 
-    public static ArrayList<String> getCompiledFreeTimesList() {
+    public static ArrayList<Pair<String, String>> getCompiledFreeTimesList() {
         return compiledFreeTimes;
     }
 }
