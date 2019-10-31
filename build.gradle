@@ -38,9 +38,12 @@ checkstyle {
 
 shadowJar {
     archiveBaseName = "FG"
-    archiveVersion = "v1.3"
+    archiveVersion = "v1.3.1"
     archiveClassifier = null
     archiveAppendix = null
+    from('src/main/resoources'){
+        include 'moneyAccount.txt'
+    }
 }
 
 group 'seedu.duke'
@@ -50,10 +53,14 @@ repositories {
     mavenCentral()
 }
 
-//javafx {
-//    version = "11.0.2"
-//    modules = [ 'javafx.controls', 'javafx.fxml' ]
+//sourceSets {
+//    main {
+//        resources {
+//            srcDirs = ['src/main/java/']
+//        }
+//    }
 //}
+
 
 application {
     // Change this to your main class.

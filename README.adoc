@@ -1,6 +1,6 @@
 = Financial Ghost (FG) - Financial Planner for Fresh Graduates
 
-image:https://api.codacy.com/project/badge/Grade/e3d7320e89d647509be872ab120ebeee["Codacy code quality", link="https://www.codacy.com/manual/cctt1014/main?utm_source=github.com&utm_medium=referral&utm_content=cctt1014/main&utm_campaign=Badge_Grade"]
+image:https://api.codacy.com/project/badge/Grade/bd1534d41d7a4bbe98af4eedbbc7806d["Codacy code quality", link="https://www.codacy.com/manual/cctt1014/main_2?utm_source=github.com&utm_medium=referral&utm_content=AY1920S1-CS2113T-W12-2/main&utm_campaign=Badge_Grade"]
 
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 
