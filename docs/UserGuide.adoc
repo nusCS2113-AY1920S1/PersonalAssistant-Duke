@@ -61,7 +61,7 @@ Examples:
 * `add w/life m/the existence of an individual human being or animal t/meaningoflife t/livingit` +
 * `add w/happy m/a state of joy r/24/02/2300 0900 t/lesson3`
 
-=== Listing all persons : `list`
+=== Listing all words inside dictionary : `list`
 
 Shows a list of words categorised as specified. +
 Format: `list [t/EXISTING_TAG] [o/ORDER]`
@@ -75,71 +75,63 @@ List of possible o/ORDER values: +
  `asc` - displayOrder the list in ascending alphabetical displayOrder +
  `desc` - displayOrder the list in descending alphabetical displayOrder
 
-=== Editing a person : `edit`
+=== Editing the meaning of a word : `edit`
 
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+Edits a meaning of a word currently present in the dictionary. +
+Format: `edit w/WORD m/NEW_MEANING`
 
 ****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
+* Both the WORD and NEW_MEANING must be provided for the edit to be successful.
 ****
 
 Examples:
 
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+* `edit w/drink m/a liquid for consumption` +
+Edits the word 'drink' and updates the meaning to "liquid for consumption".
 
-=== Locating persons by name: `find`
+=== Searching for the meaning of words: `search`
 
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
+Search for the meaning of words that is present in the dictionary.If word is not present, it will try to search the internet. +
+Format: `search w/WORD`
 
 ****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The displayOrder of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+* The search is case insensitive as they will be converted to lowercase. e.g `HaNs` will match `hans`
+* Full words will be matched and given a result immediately.
+* If word is similar to a record in the dictionary, a suggestion of similar words will be prompted.
 ****
 
 Examples:
 
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
+* `search  w/drink` +
+Returns `a liquid for consumption`
+* `search w/potatoes` +
+Returns suggestion of `potato`
+
+=== Generating quizzes: `quiz`
+
+Generate quizzes from the wordBank to test the user's understanding. +
+Format: `quiz`
 
 // tag::delete[]
-=== Deleting a person : `delete`
+=== Deleting a word object : `delete`
 
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
+Deletes the word object (inclusive of all meaning, synonyms and tags) from dictionary. +
+Format: `delete w/WORD`
 
 ****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
+* Deletes the WORD object directly from the program and storage`.
 ****
 
 Examples:
 
 * `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
+`delete w/drink` +
+Deletes the drink object from dictionary.
 
 // end::delete[]
-=== Clearing all entries : `clear`
+=== [Not supported] Clearing all entries : `clear`
 
-Clears all entries from the address book. +
+Clears all entries from the dictionary. +
 Format: `clear`
 
 === Exiting the program : `exit`
@@ -149,30 +141,34 @@ Format: `exit`
 
 === Saving the data
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
+Dictionary data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
+// tag::Excel Integration[]
+=== Full integration into Excel/CSV `[coming in v2.0]`
 
 _{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
+// end::Excel Integration[]
 
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+*A*: Install the app in the other computer and place the data folder from the previous computer into the other Computer.
 
 == Command Summary
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
+* *Add* `add w/WORD m/MEANING [t/TAG]...` +
+e.g. `add w/life m/the existence of an individual human being or animal.`
+* *Delete* : `delete w/word` +
+e.g. `delete w/life`
+* *Edit* : `edit w/WORD m/NEW_MEANGING` +
+e.g. `edit w/life m/the existence of a living thing.`
+* *Find* : `search w/WORD` +
+e.g. `search w/life`
+* *Tag* : `tag w/WORD t/TAG1 t/TAG2 t/TAG3` +
+e.g. `tag w/happy t/emotion t/delight`
+* *Add Synonym* : `addsyn w/WORD s/SYNONYM1 SYNONYM2 SYNONYM3 ...` +
+e.g. `addsyn w/water s/liquid beverage drink`
+* *Quiz* : 'quiz' -> 'start'
 * *List* : `list`
 * *Help* : `help`
