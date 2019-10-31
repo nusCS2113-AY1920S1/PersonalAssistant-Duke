@@ -5,9 +5,9 @@ import dolla.command.Command;
 
 public class PartialModifyEntryCommand extends Command {
 
-    //public PartialModifyEntryCommand() {
-    // TODO
-    //}
+    public PartialModifyEntryCommand(String type, double amount, String description) {
+        // TODO
+    }
 
     @Override
     public void execute(DollaData dollaData) {

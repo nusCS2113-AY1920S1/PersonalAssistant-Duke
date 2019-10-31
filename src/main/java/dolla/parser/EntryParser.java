@@ -1,6 +1,7 @@
 package dolla.parser;
 
 import dolla.Tag;
+import dolla.Time;
 import dolla.action.Repeat;
 import dolla.command.Command;
 import dolla.command.AddEntryCommand;
@@ -13,9 +14,17 @@ import dolla.command.SearchCommand;
 import dolla.command.RemoveCommand;
 import dolla.command.modify.PartialModifyEntryCommand;
 import dolla.task.Entry;
-//import dolla.ui.ModifyUi;
+import dolla.ui.ModifyUi;
+
+import java.util.ArrayList;
 
 public class EntryParser extends Parser {
+
+    private static final String COMPONENT_TYPE = "/type";
+    private static final String COMPONENT_DESC = "/desc";
+    private static final String COMPONENT_AMOUNT = "/amount";
+    private static final String COMPONENT_DATE = "/on";
+    private static final String COMPONENT_TAG = "/tag";
 
     private static final String ENTRY_COMMAND_REDO = "redo";
     private static final String ENTRY_COMMAND_UNDO = "undo";
@@ -44,7 +53,7 @@ public class EntryParser extends Parser {
             if (verifyFullModifyCommand()) {
                 return new InitialModifyCommand(inputArray[1]);
             } else if (verifyPartialModifyEntryCommand()) {
-                return new PartialModifyEntryCommand();
+                return new PartialModifyEntryCommand(type, amount, description, date);
             } else {
                 return new ErrorCommand();
             }
@@ -72,7 +81,13 @@ public class EntryParser extends Parser {
      */
     public boolean verifyPartialModifyEntryCommand() {
         // TODO
-        /*
+
+        //ArrayList<String> errorList = new ArrayList<String>();
+        type = null;
+        amount = -1;
+        description = null;
+        date = null;
+
         int recordNum;
         try {
             recordNum = Integer.parseInt(inputArray[1]);
@@ -80,8 +95,56 @@ public class EntryParser extends Parser {
             ModifyUi.printInvalidModifyFormatError();
             return false;
         }
-        */
+
+        for (int i = 0; i < inputArray.length; i += 1) {
+            String currStr = inputArray[i];
+
+            if (isEntryComponent(currStr)) {
+                String nextStr = inputArray[i+1];
+                try {
+                    switch (currStr) {
+                    case COMPONENT_TYPE:
+                        type = verifyAddType(nextStr);
+                    case COMPONENT_AMOUNT:
+                        amount = stringToDouble(nextStr);
+                    case COMPONENT_DESC:
+                        description = parseEntryDesc(inputArray, i+1);
+                    case COMPONENT_DATE:
+                        date = Time.readDate(nextStr);
+                    case COMPONENT_TAG:
+                        //TODO
+                    }
+                } catch (Exception e) {
+                    ModifyUi.printInvalidModifyFormatError();
+                    return false;
+                }
+            }
+        }
+
         return false;
+    }
+
+    public boolean isEntryComponent(String s) {
+        switch (s) {
+        case COMPONENT_TYPE:
+        case COMPONENT_AMOUNT:
+        case COMPONENT_DESC:
+        case COMPONENT_DATE:
+        case COMPONENT_TAG:
+            return true;
+        }
+        return false;
+    }
+
+    public String parseEntryDesc(String[] inputArray, int index) {
+        String tempStr = "";
+        for (int i = 0; i < inputArray.length; i += 1) {
+            if (isEntryComponent(inputArray[i])) {
+                break;
+            }
+            tempStr = tempStr.concat(inputArray[i]);
+        }
+        return tempStr;
     }
 
     //@@author yetong1895

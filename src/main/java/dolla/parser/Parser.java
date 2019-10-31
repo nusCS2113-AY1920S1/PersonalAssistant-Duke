@@ -22,6 +22,8 @@ public abstract class Parser implements ParserStringList, ModeStringList {
     protected LocalDate date;
     protected String description;
     protected String inputLine;
+    protected String type;
+    protected double amount;
     protected String[] inputArray;
     protected String commandToRun;
     protected static final String SPACE = " ";
