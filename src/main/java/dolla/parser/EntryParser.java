@@ -44,7 +44,7 @@ public class EntryParser extends Parser {
         } else if (commandToRun.equals(COMMAND_MODIFY)) {
             if (verifyFullModifyCommand()) {
                 return new InitialModifyCommand(inputArray[1]);
-            } else if (verifyPartialModifyCommand(mode)) {
+            } else if (verifyPartialModifyCommand()) {
                 return new PartialModifyEntryCommand(modifyRecordNum, type, amount, description, date);
             } else {
                 return new ErrorCommand();

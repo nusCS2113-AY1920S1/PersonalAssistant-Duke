@@ -11,6 +11,7 @@ import dolla.command.ErrorCommand;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
+//@@author omupenguin
 /**
  * Parser is an abstract class that loads the appropriate command according to the user's input.
  * It also ensures that the user's input for the command is valid, such as by checking the format
@@ -188,7 +189,7 @@ public abstract class Parser implements ParserStringList, ModeStringList {
      * Also designates the correct information to the relevant variables.
      * @return true if the input has no formatting issues.
      */
-    public boolean verifyPartialModifyCommand(String mode) {
+    public boolean verifyPartialModifyCommand() {
 
         boolean hasComponents = false;
         //ArrayList<String> errorList = new ArrayList<String>();
