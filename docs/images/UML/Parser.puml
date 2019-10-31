@@ -1,0 +1,45 @@
+@startuml
+skinparam arrowThickness 1.1
+skinparam arrowColor #A09143
+skinparam classBackgroundColor #A09143
+
+hide footbox
+hide members
+hide circle
+
+skinparam MinClassWidth 50
+skinparam ParticipantPadding 10
+skinparam Shadowing false
+skinparam DefaultTextAlignment center
+skinparam packageStyle Rectangle
+
+
+package Main {
+Class MooMoo
+Class UI
+}
+
+package Parser {
+Class Parser
+}
+
+package Command {
+Class "{abstract}\nCommand" as Command
+Class CommandType
+}
+
+package Storage {
+Class Storage
+}
+
+UI ..> Parser
+Parser ..right> CommandType : returns
+note left of CommandType: CommandType =\n AddCategoryCommand,\nSetBudgetCommand etc.
+
+MooMoo ..> Command : executes
+CommandType -|> Command
+Command ..> Storage : write
+MooMoo ..> UI
+MooMoo ..> Storage : read
+UI ..> Command : displays
+@enduml

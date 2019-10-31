@@ -1,0 +1,56 @@
+@startuml
+
+skinparam arrowThickness 1.1
+skinparam arrowColor #A09143
+skinparam classBackgroundColor #A09143
+skinparam Class {
+    FontColor #FFFFFF
+    BorderThickness 1
+    BorderColor #FFFFFF
+}
+
+hide footbox
+hide members
+hide circle
+
+skinparam MinClassWidth 50
+skinparam ParticipantPadding 10
+skinparam Shadowing false
+skinparam DefaultTextAlignment center
+skinparam packageStyle Rectangle
+
+Package BudgetCommand {
+    Class "{abstract}\nCommand" as Command
+    Class SetBudgetCommand
+    Class EditBudgetCommand
+    Class ListBudgetCommand
+    Class SavingsBudgetCommand
+
+}
+Package Budget {
+Class Budget
+Class CategoryBudgets
+Class TotalBudget
+}
+
+Package Storage {
+    Class Storage
+}
+
+SetBudgetCommand -up-|> Command
+EditBudgetCommand -up-|> Command
+ListBudgetCommand -up-|> Command
+SavingsBudgetCommand -up-|> Command
+
+Class HiddenOutside #FFFFFF
+HiddenOutside ..> Command
+
+Budget *-> CategoryBudgets
+Budget *-> TotalBudget
+
+SetBudgetCommand --> Storage
+EditBudgetCommand --> Storage
+
+Command o-down-> Budget
+
+@enduml
