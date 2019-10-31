@@ -134,11 +134,18 @@ public class MainWindow extends AnchorPane {
      * @param command the command executed to produce this message
      */
     public void showGuiMessage(String msg, String input, String command) {
-        dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(command + System.lineSeparator() + System.lineSeparator() + msg,
-                        dukeImage)
-        );
+        if (input.length() <= 0) {
+            dialogContainer.getChildren().addAll(
+                    DialogBox.getDukeDialog(command + System.lineSeparator() + System.lineSeparator() + msg,
+                            dukeImage)
+            );
+        } else {
+            dialogContainer.getChildren().addAll(
+                    DialogBox.getUserDialog(input, userImage),
+                    DialogBox.getDukeDialog(command + System.lineSeparator() + System.lineSeparator() + msg,
+                            dukeImage)
+            );
+        }
     }
 
     public void setKeyBinding(Scene scene) {
@@ -205,9 +212,8 @@ public class MainWindow extends AnchorPane {
         String input = userInput.getText();
         UI.getInstance().respond(input);
         UI.getInstance().syncWithModel();
-        //updateTasksList();
-        //updateEmailsList();
         setInputPrefix();
+<<<<<<< HEAD
         if (input.contains("clear chat")) {
             dialogContainer.getChildren().clear();
         }
@@ -217,16 +223,17 @@ public class MainWindow extends AnchorPane {
         if (input.contains("bye")) {
             exit();
         }
+=======
+>>>>>>> 1411b0c2ed4d449899cbeec32a4c885999316b07
         updateInputList(input);
     }
 
-    private void updateHtml() {
+    /**
+     * Updates the email content shown in gui.
+     */
+    public void updateHtml() {
         webEngine.loadContent(UI.getInstance().getEmailContent());
         showHtml();
-    }
-
-    private void exit() {
-        UI.getInstance().exit();
     }
 
     /**

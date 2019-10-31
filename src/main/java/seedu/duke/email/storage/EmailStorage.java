@@ -121,7 +121,7 @@ public class EmailStorage implements Storage, TimestampHelper {
         try {
             Path indexPath = Storage.prepareDataPath(assignIndexDirIfNotExist(indexDir));
             List<String> emailStringList = Storage.readLinesFromFile(indexPath);
-            for (int i = 1; i < emailStringList.size(); i++) {
+            for (int i = 0; i < emailStringList.size(); i++) {
                 readAndAddEmailWithIndexString(emailList, emailStringList.get(i));
             }
             UI.getInstance().showMessage("Saved email file successfully loaded...");

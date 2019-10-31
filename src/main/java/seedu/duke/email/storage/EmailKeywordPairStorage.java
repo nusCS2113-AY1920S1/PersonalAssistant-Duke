@@ -6,7 +6,6 @@ import org.json.JSONObject;
 import seedu.duke.common.storage.Storage;
 import seedu.duke.common.storage.TimestampHelper;
 import seedu.duke.email.EmailKeywordPairList;
-import seedu.duke.email.EmailList;
 import seedu.duke.email.entity.KeywordPair;
 
 import java.io.IOException;
