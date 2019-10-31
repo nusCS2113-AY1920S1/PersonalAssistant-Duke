@@ -76,10 +76,10 @@ The documentation below uses the following notation to describe the structure of
 
 The following italicised words refer to specific repeated patterns:
 
-* _patient_id_ -> `(<patient's index> | <part of name> | *-b[ed]* <bed number>)`
-* _string_or_idx_ -> `(<index> | "<search string>")`
+* _patient_id_ -> `(<patient's index> | <part of name> | *-b[ed]* <bed number>)` [[patient_id]]
+* _string_or_idx_ -> `(<index> | "<search string>")` [[string_or_idx]]
 ** `<index>` refers to the index assigned to the object in the display. `<search string>` will be searched for in the names of all relevant objects.
-* _type_ -> (`-m[edicine]` | `-in[v(x | estigation)]` | `-p[lan]` | `-o[bservation]` | `-r[esult]`)
+* _type_ -> (`*-m[edicine]*` | `*-in[v(x | estigation)]*` | `*-p[lan]*` | `*-o[bservation]*` | `*-r[esult]*`)
 
 Parsing rules:
 
@@ -93,7 +93,7 @@ The subsections below describe the available commands in each context.
 
 === Home [[home]]
 
-Displays up to *150* indexed panels of `Patients`.
+Displays up to *100* indexed panels of `Patients`.
 Each panel provides the user with a summary of the main details of a particular `Patient`.
 They are as follows.
 
@@ -102,20 +102,12 @@ They are as follows.
 . Primary diagnosis
 . Number of critical issues
 
-==== `help` - Display a context-specific list of commands and options [[home-help]]
+==== `new` - Add a new Patient
 
-Format: `help`
+Format: `new "<name>" *-b[ed]* <bed number> *-a[llerg(y | ies)]* "<allergies>" *[<optional switch>]**` +
+Example: `new John Doe *-b* A103 *-a* paracetamol *-h* 175 *-w* 60 *-ag* 35 *-hi* Heart disease`
 
-_Available in:_ <<Home>>, <<Patient>>, <<Impression>>, <<Treatment and Evidence>>
-
-This command is available in every context.
-It functions essentially the same way, just with different commands.
-
-==== `new` - Add a new Patient to the system
-
-Format: `new *-n[ame]* "<name>" *-b[ed]* <bed number> *-a[llerg(y | ies)]* "<allergies>" *[<optional switch>]**`
-
-Optional switches:
+Optional switches*:
 
 * `*-g[o]*`
 * `*-h[eight]* <height>`
@@ -131,16 +123,18 @@ The `*-g[o]*` switch opens the <<Patient, Patient>>'s context for the newly adde
 
 ==== `open` - Go to a more detailed view of a particular Patient
 
-Format: `open _patient_id_ *[-im[pression]]*`
+Format: `open <<patient_id, _patient_id_>> *[-im[pression]]*` +
+Example: `open 1 *-imp*`
 
-If the optional `*-im[pression]*` switch is provided, access the <<impression, primary impression>> for that particular Patient.
+If the optional `*-im[pression]*` switch is provided, access the <<impression, primary diagnosis>> for that particular Patient.
 
 // TODO: Complete documentation
 ==== `find`
 
 ==== `history` - Add miscellaneous notes to a patient's history [[home-history]]
 
-Format: `history _patient_id_ *-m[essage]* "<notes>" *[-r[ewrite]]*`
+Format: `history <<patient_id, _patient_id_>> *-m[essage]* "<notes>" *[-r[ewrite]]*` +
+Example: `history -b A203 -m "Hospitalised before" -r "y"`
 
 Quickly append notes to a patient's history.
 If the optional `*-r[ewrite]*` command is provided, the patient's history will be rewritten instead.
@@ -149,13 +143,14 @@ It is not for correcting serious mistakes that need the patient's entire history
 
 ==== `discharge` - Generate a discharge report for the patient and delete him/her from the system [[home-discharge]]
 
-Format: `discharge _patient_id_ *[-sum[mary]]* "<discharge summary>"]`
+Format: `discharge <<patient_id, _patient_id_>> *[-sum[mary]]* "<discharge summary>"]` +
+Example: `discharge 5 -sum "Patient will return again at 02/11/2019 for final consultation"`
 
 The discharge report contains all of the information being tracked regarding the Patient.
 An optional discharge summary may be specified in the command to add additional information.
-In v2.0, they will be <<home-archive, archived>>.
+In *v2.0*, they will be <<home-archive, archived>>.
 
-==== `undo` - Undo the previous command [v1.4] [[home-undo]]
+==== `undo` - Undo the previous command [*v1.4*] [[home-undo]]
 
 Format: `undo <number of commands>`
 
@@ -164,7 +159,7 @@ _Available in:_ <<Home>>, <<Patient>>, <<Impression>>, <<Treatment and Evidence>
 You may undo up to the last 10 commands.
 Only commands that affect the state of the system count against this limit (e.g. adding new Patients or editing data, not navigating across contexts).
 
-==== `redo` - Redo a command that has been undone [v1.4] [[home-redo]]
+==== `redo` - Redo a command that has been undone [*v1.4*] [[home-redo]]
 
 Format: `redo <number of commands>`
 
@@ -173,11 +168,11 @@ _Available in:_ <<Home>>, <<Patient>>, <<Impression>>, <<Treatment and Evidence>
 After an <<home-undo, undo>> command is executed, any commands (other than `undo` or `redo`) sent will clear the `redo` stack.
 The undone commands cannot be redone from that point onwards.
 
-==== `critical` - Display all critical observations and plans of all patients [v2.0]
+==== `critical` - Display all critical observations and plans of all patients [*v2.0*]
 
 Format: `critical`
 
-==== `archive` - Display all discharged patients [[home-archive]] [v2.0]
+==== `archive` - Display all discharged patients [[home-archive]] [*v2.0*]
 
 Format: `archive`
 
