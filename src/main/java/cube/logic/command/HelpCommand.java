@@ -7,7 +7,7 @@ import cube.logic.command.util.CommandResult;
 
 public class HelpCommand extends Command{
 
-	String MESSAGE_SUCCESS = "Currently we support the following commands: (all command ignore cases)\n"
+	public static final String MESSAGE_SUCCESS = "Currently we support the following commands: (all command ignore cases)\n"
 			+ "Manipulate food:\n"
 			+ String.format("%1$-50s", "  'add <food name> -t <food type> -p <price> -s <stock> -e <expiry date>' ") + "add a new food product with all details/description\n"
 			+ String.format("%1$-50s", "  'generaterevenue -all OR -i <number> OR -n <food name> OR -t <food type>'") + "generate the revenue for the specified food product in the list, -all for total revenue\n"
@@ -20,7 +20,7 @@ public class HelpCommand extends Command{
 			+ String.format("%1$-50s", "  'promotion'") + "adds a new promotion item\n"
 			+ "Miscellaneous:\n"
 			+ String.format("%1$-50s", "  'batch -i <filename> OR -o <filename>'") + "batch imports or outputs the list of food products as the filename in CSV.\n"
-			+ String.format("%1$-50s", "  'config VIEW'") + "lists all the stored user configurations.\n"
+			+ String.format("%1$-50s", "  'config'") + "lists all the stored user configurations.\n"
 			+ String.format("%1$-50s", "  'config UI -h <height> -w <width>'") + "updates the default window size configuration with specified values.\n"
 			+ String.format("%1$-50s", "  'config LOG -c <log count> -s <size in MB> -l <level>'") + "updates the logging configuration with specified values.\n"
 			+ String.format("%1$-50s", "  'bye' OR 'exit' OR 'quit'") + "to exit the programme\n"

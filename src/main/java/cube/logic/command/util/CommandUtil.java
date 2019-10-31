@@ -47,7 +47,7 @@ public class CommandUtil {
      */
     public static void requireValidType(FoodList list, String foodType) throws CommandException {
         if (!list.existsType(foodType)) {
-            throw new CommandException(CommandErrorMessage.FOOD_NOT_EXISTS);
+            throw new CommandException(CommandErrorMessage.INVALID_TYPE);
         }
     }
 
@@ -60,7 +60,7 @@ public class CommandUtil {
      */
     public static void requireValidIndex(FoodList list, int index) throws CommandException {
         if (index < 0 || index >= list.size()) {
-            throw new CommandException(CommandErrorMessage.FOOD_NOT_EXISTS);
+            throw new CommandException(CommandErrorMessage.INVALID_INDEX);
         }
     }
 

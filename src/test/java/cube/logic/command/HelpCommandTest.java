@@ -15,23 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static cube.testutil.Assert.assertThrowEquals;
 
-public class ListCommandTest {
-    private class FoodListStub extends FoodList{
-    }
-	private class ModelStub extends ModelManager{
-        FoodListStub list = new FoodListStub();
-        @Override
-        public FoodListStub getFoodList(){
-            return list;
-        }
-	}
-
-    @Test
-    public void construct_sortType_successful() {
-        SortType type = SortType.EXPIRY;
-        ListCommand command = new ListCommand(type);
-    	assertEquals(command.sortType, type);
-    }
+public class HelpCommandTest {
 
     /** 
      * Dependent on correct implementation of following class:
@@ -40,13 +24,9 @@ public class ListCommandTest {
      */
     @Test
     public void execute_list_noSort() throws CommandException {
-        FoodListStub list = new FoodListStub();
-        ModelStub model = new ModelStub();
-
-    	ListCommand command = new ListCommand();
-    	CommandResult result = command.execute(model, new StorageManager());
-        
-    	CommandResult expectedResult = new CommandResult(String.format(ListCommand.MESSAGE_SUCCESS, list, Food.getRevenue()), false, false);
+    	HelpCommand command = new HelpCommand();
+    	CommandResult result = command.execute(new ModelManager(), new StorageManager());
+    	CommandResult expectedResult = new CommandResult(HelpCommand.MESSAGE_SUCCESS, true, false);
     	assertEquals(result, expectedResult);
     }
 

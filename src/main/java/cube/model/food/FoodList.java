@@ -99,6 +99,10 @@ public class FoodList{
 		}
 	}
 
+	public void clear(){
+		foodArrayList.clear();
+	}
+
 	@Override
 	public String toString() {
 		String result = "";

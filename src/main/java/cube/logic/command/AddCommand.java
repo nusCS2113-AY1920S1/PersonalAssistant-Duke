@@ -32,7 +32,6 @@ public class AddCommand extends Command{
 	 * Adds food to foodList and store it if the food does not already exists, otherwise throws
 	 * Command exception.
 	 *
-	 * @param list The food list.
 	 * @param storage The current Storage.
 	 * @return The message feedback to user before Programme Exit.
 	 */
@@ -42,7 +41,8 @@ public class AddCommand extends Command{
 		CommandUtil.requireNameNotExists(list, toAdd.getName());
 		list.add(toAdd);
 		// what is this for? not possible that a new food has revenue
-		Food.updateRevenue(Food.getRevenue() + toAdd.getFoodRevenue());
+		//Food.updateRevenue(Food.getRevenue() + toAdd.getFoodRevenue());
+
 		storage.storeFoodList(list);
 		return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd, list.size()));
 	}

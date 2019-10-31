@@ -4,6 +4,7 @@ import cube.exception.CubeException;
 import cube.logic.command.Command;
 import cube.logic.command.util.CommandResult;
 import cube.logic.parser.Parser;
+import cube.model.food.Food;
 import cube.model.food.FoodList;
 import cube.model.sale.SalesHistory;
 import cube.model.ModelManager;
@@ -19,6 +20,7 @@ public class MainWindow extends UiManager<Stage> {
 
     private Stage primaryStage;
     private ResultDisplay resultDisplay;
+    private OverviewDisplay overviewDisplay;
     private ListPanel listPanel;
 
     @FXML
@@ -26,6 +28,9 @@ public class MainWindow extends UiManager<Stage> {
 
     @FXML
     private StackPane resultDisplayPlaceholder;
+
+    @FXML
+    private StackPane overviewDisplayPlaceholder;
 
     @FXML
     private StackPane listPanelPlaceholder;
@@ -69,6 +74,9 @@ public class MainWindow extends UiManager<Stage> {
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
+        overviewDisplay = new OverviewDisplay(foodList.size(), Food.getRevenue(), Food.getRevenue());
+        overviewDisplayPlaceholder.getChildren().add(overviewDisplay.getRoot());
+
         listPanel = new ListPanel(foodList);
         listPanelPlaceholder.getChildren().add(listPanel.getRoot());
     }
@@ -78,7 +86,9 @@ public class MainWindow extends UiManager<Stage> {
             Command c = Parser.parse(command);
             CommandResult result = c.execute(modelManager, storageManager);
             resultDisplay.setResultText(result.getFeedbackToUser());
+            // Updates GUI components
             listPanel.updateProductList(storageManager.getFoodList());
+            overviewDisplay.updateOverview(foodList.size(), Food.getRevenue(), Food.getRevenue());
 
             if (result.isShowHelp()) {
                 handleHelp();
