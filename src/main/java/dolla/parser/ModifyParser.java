@@ -12,7 +12,7 @@ import dolla.ui.DebtUi;
 public class ModifyParser extends Parser {
 
     private String modeToModify;
-    private final String CANCEL_MODIFY = "CANCEL";
+    private static final String CANCEL_MODIFY = "CANCEL";
 
     public ModifyParser(String mode, String inputLine) {
         super(inputLine);
