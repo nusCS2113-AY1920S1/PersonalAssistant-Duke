@@ -123,13 +123,13 @@ e.g `done 1 3 5 7`
 ==== Deleting a task : `delete`
 
 Deletes the specified task from the schedule list. +
-`delete [TASK_NAME] ...` +
+`delete task [INDEX] ...` +
 
-{to be implemented: now just support one index
- Deletes the task at the specified INDEX.
- The index refers to the index number shown in the displayed schedule list.
- The index must be a positive integer 1, 2, 3, …​
-}
+****
+* Deletes the task at the specified INDEX.
+* The index refers to the index number shown in the displayed schedule list.
+* The index must be a positive integer 1, 2, 3, …​
+****
 
 ==== Editing the DateTime of deadline or event: `snooze`
 `snooze [TASK INDEX] /to [DATETIME]` +
@@ -150,8 +150,8 @@ e.g `snooze 1 /to 1/6/2020 1200
 e.g `add member Alice`
 
 ==== Removing a team member: `delete`
-`delete [MEMBER_NAME]` +
-e.g `delete Alice`
+`delete member [MEMBER_INDEX]` +
+e.g `delete member 1`
 
 ==== Assigning a task to a member: `link`
 `link [TASK_INDEX] ... /to [MEMBER_NAME] ...` +
@@ -224,7 +224,7 @@ A: Install the app in the other computer and overwrite the empty data file it cr
 ** with member(s): `add task [TASKNAME] /to [MEMBER_NAME] ...`
 ** with both time and member(s)： `add task [TASKNAME] /at [TIME] /to [MEMBER_NAME] ...`
 * Adding a new member: `add member [MEMBER_NAME]`
-* Removing a task or member: `delete {task/member} {[TASK_NAME]/[MEMBER_NAME]}
+* Removing a task or member: `delete {task/member} [INDEX]...`
 * Listing: `list {tasks/members}
 * Find Task by Name: `find [KEYWORD]`
 * Mark Task as Complete: `done [INDEX] ...`

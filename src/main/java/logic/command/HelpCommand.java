@@ -17,7 +17,7 @@ public class HelpCommand extends Command {
                         + "1. basic add: add {task/member} [NAME]\n"
                         + "2. find: find [KEYWOED]\n"
                         + "3. done: done [INDEX]\n"
-                        + "4. delete: delete {task/member} {[TASK_NAME]/[MEMBER_NAME]}\n"
+                        + "4. delete: delete {task/member} [INDEX]...\n"
                         + "5. link: link [INDEX] ... /to [MEMBER_NAME] ...\n"
                         + "6. unlink: unlink [INDEX] ... /from [MEMBER_NAME] ... \n"
                         + "7. list: list {tasks/members}"
