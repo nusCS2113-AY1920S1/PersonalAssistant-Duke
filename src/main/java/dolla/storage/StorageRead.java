@@ -29,9 +29,6 @@ public class StorageRead extends Storage {
         ArrayList<String> msg = new ArrayList<String>();
 
         try {
-            //            InputStream inputStream = Storage.class.getResourceAsStream("/dolla.txt");
-            //            InputStreamReader isReader = new InputStreamReader(inputStream);
-            //            BufferedReader inStream = new BufferedReader(isReader);
             FileReader inFile = new FileReader(PATH);
             BufferedReader inStream = new BufferedReader(inFile);
             StorageUi.printStorageLoadMessage();
@@ -48,12 +45,6 @@ public class StorageRead extends Storage {
                         newRecord = new Entry(INCOME, stringToDouble(inArray[1]), inArray[2],
                                 Time.readDate(inArray[3])); //income [AMOUNT] [DESCRIPTION] /on [DATE]
                     }
-                    /*
-                    else if (numOfElements == 5) {
-                        newRecord = new income(inArray[1],inArray[2],Time.readDate(inArray[3]),inArray[4]);
-                        //income [AMOUNT] [DESCRIPTION] /on [DATE] /tag [TAG]
-                    }
-                     */
                     break;
                 case EXPENSE_TYPE: //check if there is a tag
                     if (numOfElements == 4) {
@@ -61,42 +52,8 @@ public class StorageRead extends Storage {
                                 Time.readDate(inArray[3])); //expense [AMOUNT] [DESCRIPTION] /on [DATE]
                     }
                     break;
-                /*
-                else if (numOfElements == 5) {
-                    newRecord = new expense(inArray[1],inArray[2],Time.readDate(inArray[3]),inArray[4]);
-                    //expense [AMOUNT] [DESCRIPTION] /on [DATE] /tag [TAG]
-                }
-                break;
-            case "RI"://no start date, check if there is a tag
-                if(numOfElements == 4) {
-                    newRecord = new recurringIncome(inArray[1],inArray[2],Time.readDate(inArray[3]));
-                    //recurringIncome [AMOUNT] [DESCRIPTION] /on [DATE]
-                } else if(numOfElements == 5) {
-                    newRecord = new recurringIncome(inArray[1],inArray[2],Time.readDate(inArray[3]),inArray[4]);
-                    //recurringIncome [AMOUNT] [DESCRIPTION] /on [DATE] /tag [TAG]
-                }
-                break;
-            case "RE"://no start date, check if there is a tag
-                if(numOfElements == 4) {
-                    newRecord = new recurringExpanse(inArray[1],inArray[2],Time.readDate(inArray[3]));
-                    //recurringExpense [AMOUNT] [DESCRIPTION] /on [DATE]
-                } else if (numOfElements == 5) {
-                    newRecord = new recurringExpense(inArray[1],inArray[2],Time.readDate(inArray[3]),inArray[4]);
-                    //recurringExpense [AMOUNT] [DESCRIPTION] /on [DATE] /tag [TAG]
-                }
-                break;
-                */
                 case BUDGET_TYPE: //must include 3 additional word, every,for and tag
-                    //if (inArray[3].equals("every")) {
                     newRecord = new Limit(BUDGET,stringToDouble(inArray[1]), inArray[2]);
-                    /*
-                    }
-                    else if (inArray[3].equals("for")) {
-                        newRecord = new budgetFor(inArray[1],Time.readDate(inArray[2]));
-                    } else if (inArray[3].equals("tag")) {
-                        newRecord = new budgetTag(inArray[1],inArray[2]);
-                    }
-                     */
                     break;
                 case SAVING_TYPE:
                     newRecord = new Limit(SAVING, stringToDouble(inArray[1]), inArray[2]);
