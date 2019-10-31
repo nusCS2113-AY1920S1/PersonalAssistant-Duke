@@ -28,8 +28,12 @@ Class "{abstract}\nCommand" as Command
 Class CommandType
 }
 
+package Storage {
+Class Storage
+}
+
 UI ..> Parser
-Parser ..> CommandType : returns
+Parser ..right> CommandType : returns
 note left of CommandType: CommandType =\n AddCategoryCommand,\nSetBudgetCommand etc.
 
 MooMoo ..> Command : executes
@@ -38,6 +42,4 @@ Command ..> Storage : write
 MooMoo ..> UI
 MooMoo ..> Storage : read
 UI ..> Command : displays
-
-
 @enduml
