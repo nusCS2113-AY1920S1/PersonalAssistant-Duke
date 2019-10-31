@@ -168,43 +168,29 @@ public class ModelController implements Model {
     //@@author yuyanglin28
     /**
      * This method is to delete member in member list and also in task list corresponding member name
-     * @param name the member name to be deleted
      * @return if success (the member name exists), return true.
      *         if fail (the member name doesn't exist), return false.
      */
     @Override
-    public boolean deleteMember(String name) throws DukeException {
+    public String deleteMember(int index) {
+        String name = memberManager.getMemberNameById(index);
         tasksManager.deleteMemberInTasks(name);
-        Member toDelete = memberManager.getMemberByName(name);
-        if (toDelete != null) {
-            if (memberManager.deleteMember(toDelete)) {
-                return true;
-            } else {
-                throw new DukeException("fail to delete member");
-            }
-        } else {
-            return false;
-        }
+        Member toDelete = memberManager.getMemberById(index);
+        memberManager.deleteMember(toDelete);
+        return name;
     }
 
     //@@author yuyanglin28
-
     /**
      * javadoc
      */
     @Override
-    public boolean deleteTask(String name) throws DukeException {
+    public String deleteTask(int index) {
+        String name = tasksManager.getTaskNameById(index);
         memberManager.deleteTaskInMembers(name);
         Task toDelete = tasksManager.getTaskByName(name);
-        if (toDelete != null) {
-            if (tasksManager.deleteTask(toDelete)) {
-                return true;
-            } else {
-                throw new DukeException("fail to delete task");
-            }
-        } else {
-            return false;
-        }
+        tasksManager.deleteTask(toDelete);
+        return name;
     }
 
 

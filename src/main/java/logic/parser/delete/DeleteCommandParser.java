@@ -2,6 +2,7 @@ package logic.parser.delete;
 
 import logic.command.Command;
 import common.DukeException;
+import logic.command.delete.DeleteMemberCommand;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -32,11 +33,27 @@ public class DeleteCommandParser {
 
         deleteType = deleteType.trim();
 
+        int[] indexes = null;
+
+        if (arguments != null) {
+            arguments = arguments.trim();
+            String[] indexesString = arguments.split("\\s+");
+            indexes = new int[indexesString.length];
+            for (int i = 0; i < indexes.length; i++) {
+                try {
+                    int index = Integer.parseInt(indexesString[i]);
+                    indexes[i] = index;
+                } catch (NumberFormatException e) {
+                    throw new DukeException("Wrong number format, please check.");
+                }
+            }
+        }
+
         switch (deleteType) {
         case TASK:
-            return DeleteTaskParser.parseDeleteTask(arguments);
+            return DeleteTaskParser.parseDeleteTask(indexes);
         case MEMBER:
-            return DeleteMemberParser.parseDeleteMember(arguments);
+            return DeleteMemberParser.parseDeleteMember(indexes);
         default:
             throw new DukeException(DELETE_USAGE);
         }

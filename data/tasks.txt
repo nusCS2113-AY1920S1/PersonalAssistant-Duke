@@ -1,9 +1,1 @@
-[
-  {
-    "name": "test",
-    "description": "test test test",
-    "isDone": false,
-    "memberList": [],
-    "time": "Dec 12, 2012, 12:12:00 AM"
-  }
-]
+[]

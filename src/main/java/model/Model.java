@@ -56,9 +56,9 @@ public interface Model {
 
     void unlink(int tasksIndexes, String memberNames);
 
-    boolean deleteTask(String name) throws DukeException;
+    String deleteTask(int index) throws DukeException;
 
-    boolean deleteMember(String name) throws DukeException;
+    String deleteMember(int index) throws DukeException;
 
     String scheduleMemberAll(String memberName) throws DukeException;
 

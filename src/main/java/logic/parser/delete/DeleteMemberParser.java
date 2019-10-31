@@ -13,15 +13,13 @@ public class DeleteMemberParser {
 
     /**
      * parse delete member command, pass member name to command
-     * @param argument input of user
      * @return delete member command
      * @throws DukeException exception
      */
-    public static Command parseDeleteMember(String argument) throws DukeException {
+    public static Command parseDeleteMember(int[] indexes) throws DukeException {
 
-        if (argument != null) {
-            String name = argument.trim();
-            return new DeleteMemberCommand(name);
+        if (indexes != null) {
+            return new DeleteMemberCommand(indexes);
         } else {
             throw new DukeException(MEMBER_NO_NAME_MESSAGE);
         }

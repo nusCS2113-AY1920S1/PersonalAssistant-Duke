@@ -13,15 +13,13 @@ public class DeleteTaskParser {
     //@@author yuyanglin28
     /**
      * parse the delete task command, pass the index (in task list) to command
-     * @param argument index of the task (string) to be deleted
      * @return delete task command
      * @throws DukeException exception
      */
-    public static Command parseDeleteTask(String argument) throws DukeException {
+    public static Command parseDeleteTask(int[] indexes) throws DukeException {
 
-        if (argument != null) {
-            String name = argument.trim();
-            return new DeleteTaskCommand(name);
+        if (indexes != null) {
+            return new DeleteTaskCommand(indexes);
         } else {
             throw new DukeException(TASK_INDEX_NO_EMPTY_MESSAGE);
         }

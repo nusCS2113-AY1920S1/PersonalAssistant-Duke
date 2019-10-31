@@ -7,36 +7,30 @@ import common.DukeException;
 
 public class DeleteTaskCommand extends Command {
     private static final String SUCCESS_MSSAGE = "you have removed a task: ";
-    private static final String INVALID_MSSAGE = "invalid task index";
+    private static final String INVALID_MSSAGE = " is an invalid task index";
     private static final String FAIL_MESSAGE = "fail to delete task";
-    private int taskIndexInList;
+    private int[] taskIndexInList;
     private String taskName;
 
-    public DeleteTaskCommand(String name) {
-        this.taskName = name;
+    public DeleteTaskCommand(int[] taskIndexInList) {
+        this.taskIndexInList = taskIndexInList;
     }
 
     @Override
     public CommandOutput execute(Model model) throws DukeException {
-        /*try {
-            if (taskIndexInList > model.getTaskListSize() || taskIndexInList < 1) {
-                return new CommandOutput(INVALID_MSSAGE);
-            } else {
-                taskName = model.deleteTask(taskIndexInList);
-                model.save();
-                return new CommandOutput(SUCCESS_MSSAGE + taskName);
-            }
-        } catch (Exception e) {
-            throw new DukeException(FAIL_MESSAGE);
-        }*/
-
+        String output = "";
         try {
-            if (model.deleteTask(taskName)) {
-                model.save();
-                return new CommandOutput(SUCCESS_MSSAGE + taskName);
-            } else {
-                return new CommandOutput(taskName + INVALID_MSSAGE);
+            for (int i = 0; i < taskIndexInList.length; i++) {
+                if (checkTaskIndex(taskIndexInList[i], model)) {
+                    taskName = model.deleteTask(taskIndexInList[i] - 1);
+                    model.save();
+                    output += SUCCESS_MSSAGE + taskName + "\n";
+                } else {
+                    output += taskIndexInList[i] + INVALID_MSSAGE + "\n";
+                }
+
             }
+            return new CommandOutput(output);
 
         } catch (Exception e) {
             throw new DukeException(FAIL_MESSAGE);
