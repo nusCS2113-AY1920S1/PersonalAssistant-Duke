@@ -31,21 +31,17 @@ public class StorageTest {
 
     @Test
     public void saveData_fileDoesNotExist() {
-        try {
-            new File(TEST_PATH).delete();
-            Storage.saveData(TEST_PATH,getDummyUserStats().toString());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
+        new File(TEST_PATH).delete();
+        Storage.saveData(TEST_PATH,getDummyUserStats().toString());
+
     }
 
     @Test
     public void saveData_randomTest() {
-        try {
-            Storage.saveData(TEST_PATH,getRandomUserStats().toString());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
+        Storage.saveData(TEST_PATH,getRandomUserStats().toString());
+
     }
 
     /**
@@ -57,13 +53,11 @@ public class StorageTest {
         // create the file.
         UserStats userStats = getRandomUserStats();
 
-        try {
-            Storage.saveData(TEST_PATH,userStats.toString());
-            UserStats copy = UserStats.parseString(Storage.loadData(TEST_PATH));
-            assertEquals(userStats,copy);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
+        Storage.saveData(TEST_PATH,userStats.toString());
+        UserStats copy = UserStats.parseString(Storage.loadData(TEST_PATH));
+        assertEquals(userStats,copy);
+
     }
 
     /**
@@ -74,13 +68,11 @@ public class StorageTest {
     public void saveAndLoad_emptyUserStats() {
         UserStats userStats = getEmptyUserStats();
 
-        try {
-            Storage.saveData(TEST_PATH,userStats.toString());
-            UserStats copy = UserStats.parseString(Storage.loadData(TEST_PATH));
-            assertEquals(userStats,copy);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
+        Storage.saveData(TEST_PATH,userStats.toString());
+        UserStats copy = UserStats.parseString(Storage.loadData(TEST_PATH));
+        assertEquals(userStats,copy);
+
     }
 
     /**
@@ -90,12 +82,10 @@ public class StorageTest {
     public void loadData_fileDoesNotExist_shouldCreateFileWithDefaultStats() {
         new File(TEST_PATH).delete();
         UserStats defaultStats = UserStats.getDefaultUserStats();
-        try {
-            UserStats loadedStats = UserStats.parseString(Storage.loadData(TEST_PATH));
-            assertEquals(defaultStats,loadedStats);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
+        UserStats loadedStats = UserStats.parseString(Storage.loadData(TEST_PATH));
+        assertEquals(defaultStats,loadedStats);
+
     }
 
     private UserStats getEmptyUserStats() {
