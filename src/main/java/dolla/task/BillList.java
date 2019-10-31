@@ -1,6 +1,6 @@
 package dolla.task;
 
-import dolla.Storage;
+import dolla.storage.StorageWrite;
 
 import java.util.ArrayList;
 
@@ -15,6 +15,6 @@ public class BillList extends RecordList{
     @Override
     public void add(Record newRecord) {
         super.add(newRecord);
-        Storage.setBill(get()); //save
+        StorageWrite.setBill(get()); //save
     }
 }

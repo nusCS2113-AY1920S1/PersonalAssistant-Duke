@@ -7,10 +7,10 @@ import dolla.task.Record;
 import dolla.task.RecordList;
 import dolla.task.BillList;
 
-import static dolla.Storage.getEntriesFromSave;
-import static dolla.Storage.getLimitsFromSave;
-import static dolla.Storage.getDebtsFromSave;
-import static dolla.Storage.getBillsFromSave;
+import static dolla.storage.Storage.getDebtsFromSave;
+import static dolla.storage.Storage.getEntriesFromSave;
+import static dolla.storage.Storage.getLimitsFromSave;
+import static dolla.storage.Storage.getBillsFromSave;
 
 public class DollaData implements ModeStringList {
 
