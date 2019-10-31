@@ -19,7 +19,10 @@ public class Storage {
     protected static ArrayList<Record> shortcuts = new ArrayList<Record>();
     protected static ArrayList<Record> storage = new ArrayList<Record>();
 
-    //@@author yetong1895
+    protected static final String PATH = "./data/dolla.txt";
+    protected static final String DATA = "data";
+    protected static final String DELIMITER = "\\|";
+
     protected static double stringToDouble(String str) {
         double newDouble = 0.0;
         try {
@@ -30,6 +33,7 @@ public class Storage {
         return newDouble;
     }
 
+    //@@author yetong1895
     /**
      * This method will return the ArrayList containing the entries.
      * @return entries the ArrayList containing all the entries.
@@ -66,12 +70,10 @@ public class Storage {
      * Create save file called data in root folder.
      */
     protected static  void createFolder() {
-        File f = new File("data");
+        File f = new File(DATA);
         if (!f.exists()) {
-            boolean result = false;
             try {
                 f.mkdir();
-                result = true;
             } catch (SecurityException e) { //security exception?
 
             }

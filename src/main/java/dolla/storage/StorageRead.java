@@ -6,34 +6,22 @@ import dolla.task.Debt;
 import dolla.task.Entry;
 import dolla.task.Limit;
 import dolla.task.Record;
+import dolla.ui.StorageUi;
 import dolla.ui.Ui;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.FileInputStream;
-import java.io.InputStreamReader;
+//import java.io.InputStream;
+//import java.io.FileInputStream;
+//import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 public class StorageRead extends Storage {
 
     /**
-     * TODO: UPDATE THIS!
-     * Returns a duke.task.TaskList containing tasks from a save file (if available, else create one),
-     * else returns an empty duke.task.TaskList.
-     * <p>
-     *     This method first tries to read from ./data/duke.txt. For every line
-     *     in the file, this method checks the type of task stored, and then converts
-     *     them into a task accordingly and stores into a duke.task.TaskList.
-     * </p>
-     * <p>
-     *     If ./data/duke.txt is not found, an empty duke.task.TaskList will be returned.
-     * </p>
-     * <p>
-     *     If an error occurs while reading from ./data/duke.txt, exit duke.
-     * </p>
+     * This method will extract the data from the save file and load into the respective ArrayList.
      */
     public static void load() {
 
@@ -41,16 +29,16 @@ public class StorageRead extends Storage {
         ArrayList<String> msg = new ArrayList<String>();
 
         try {
-            InputStream inputStream = Storage.class.getResourceAsStream("/dolla.txt");
-            InputStreamReader isReader = new InputStreamReader(inputStream);
-            BufferedReader inStream = new BufferedReader(isReader);
-            //            FileReader inFile = new FileReader("./data/dolla.txt");
-            //            BufferedReader inStream = new BufferedReader(inFile);
-            msg.add("Your save data has been loaded :)");
+            //            InputStream inputStream = Storage.class.getResourceAsStream("/dolla.txt");
+            //            InputStreamReader isReader = new InputStreamReader(inputStream);
+            //            BufferedReader inStream = new BufferedReader(isReader);
+            FileReader inFile = new FileReader(PATH);
+            BufferedReader inStream = new BufferedReader(inFile);
+            StorageUi.printStorageLoadMessage();
             String inLine;
 
             while ((inLine = inStream.readLine()) != null) {
-                String[] inArray = inLine.split(" \\| ");
+                String[] inArray = inLine.split(DELIMITER);
                 int numOfElements = inArray.length;
                 String type = inArray[0];
                 Record newRecord = null;
@@ -125,7 +113,7 @@ public class StorageRead extends Storage {
                 //newRecord = new shortcut(inArray[1]);
                 //break;
                 default:
-                    System.out.println("save file corrupted");
+                    StorageUi.printErrorReadingSaveMessage();
                 }
 
                 if (type.equals("I") || type.equals(("E")) || type.equals("RI") || type.equals("RE")) {
@@ -141,10 +129,10 @@ public class StorageRead extends Storage {
             }
 
         } catch (FileNotFoundException e) {
-            msg.add("Looks like it's your first time, let me create a save file for you :)");
+            StorageUi.printCreateFolderMessage();
             createFolder();
         } catch (IOException e) { // exception handling
-            System.out.println("*** there was an error reading dolla.txt ***");
+            StorageUi.printErrorReadingSaveMessage();
             MainParser.exit(); // TODO: Find out what is supposed to happen here
         }
         Ui.printMsg(msg);
