@@ -2,6 +2,7 @@ package Operations;
 
 import Enums.SortType;
 import Enums.TimeUnit;
+import Model_Classes.ProgressBar;
 
 import java.io.IOException;
 
@@ -250,6 +251,10 @@ public class Ui {
 
     public void showLogSuccess(String filePath) {
         System.out.println("Log has been successfully written to " + filePath);
+    }
+
+    public static void showProgress(TaskList taskList) {
+        new ProgressBar(taskList.getSize(), taskList.getDoneSize()).showBar();
     }
 
     public static void clearScreen() throws IOException, InterruptedException {
