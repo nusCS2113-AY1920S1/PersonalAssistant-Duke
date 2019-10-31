@@ -166,7 +166,7 @@ Reminder is set. Summary of reminder details is shown. Reminder pop up will be s
 === Checking recently added words : `history`
 
 Shows a list of recently added words by the user. +
-Format: `history {number of past entries to be shown}`
+Format: `history {(int)number of past entries to be shown}`
 
 ****
 * Entering a number larger than the number of words in the word bank returns all the words in the word bank.
