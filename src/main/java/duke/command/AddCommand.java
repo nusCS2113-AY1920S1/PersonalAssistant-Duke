@@ -21,7 +21,7 @@ public class AddCommand {
     /**
      * The scanner object responsible for taking in user input.
      */
-    private Scanner addScan;
+     private Scanner addScan = new Scanner(System.in);
 
     //@@author nottherealedmund
     /**

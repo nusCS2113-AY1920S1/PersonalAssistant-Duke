@@ -21,7 +21,7 @@ public class DeleteCommand {
     /**
      * The scanner object responsible for taking in user input.
      */
-    private Scanner deleteScan;
+    private Scanner deleteScan = new Scanner(System.in);
 
     //@@author nottherealedmund
     /**
