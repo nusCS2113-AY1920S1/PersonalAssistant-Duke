@@ -69,19 +69,6 @@ public class AddAssessmentCommand extends AddEventCommand {
     }
 
     /**
-     * Checks if description and module code exceeds the maximum description length.
-     *
-     * @return True if maximum description length is exceeded, false otherwise.
-     */
-    @Override
-    public boolean exceedsMaxLength(String description) {
-        if (description.length() >= description_length_max) {
-            return true;
-        }
-        return false;
-    }
-
-    /**
      * Checks if input has a name.
      *
      * @param lineSplit processed user input.
