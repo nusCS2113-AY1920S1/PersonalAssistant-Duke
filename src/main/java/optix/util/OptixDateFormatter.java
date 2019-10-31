@@ -26,9 +26,6 @@ public class OptixDateFormatter {
             char c = date.charAt(i);
             if (Character.isDigit(c)) {
                 format.append(timeType[padCount]);
-                if (padCount >= 3) {
-                    padCount += 1;
-                }
             } else {
                 format.append(c);
                 padCount += 1;
@@ -73,9 +70,18 @@ public class OptixDateFormatter {
             return false;
         }
 
-        int yr = Integer.parseInt(splitStr[2]);
+        int yr;
         int mth = Integer.parseInt(splitStr[1]);
         int dy = Integer.parseInt(splitStr[0]);
+        try {
+            yr = Integer.parseInt(splitStr[2]);
+        } catch (NumberFormatException e) {
+            return false;
+        }
+
+        if (yr >= LocalDate.now().getYear() + 100) {
+            return false;
+        }
 
         if (mth == 2) {
             return (isLeap(yr) && dy <= 29) || (!isLeap(yr) && dy <= 28);
