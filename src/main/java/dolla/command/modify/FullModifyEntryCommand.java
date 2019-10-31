@@ -7,6 +7,7 @@ import dolla.task.Entry;
 
 import java.time.LocalDate;
 
+//@@author omupenguin
 public class FullModifyEntryCommand extends Command {
 
     private String type;
