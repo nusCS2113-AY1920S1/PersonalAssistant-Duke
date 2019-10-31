@@ -54,6 +54,13 @@ public class UiManager implements Ui {
         }
     }
 
+    @Override
+    public void updateUi(String message) {
+        if (mainWindow != null) {
+            mainWindow.updateUi(message);
+        }
+    }
+
     /**
      * {@inheritDoc}
      */

@@ -51,6 +51,7 @@ public class DukeCore extends Application {
      * @param resultList The search results obtained.
      * @param parent The parent object that the search was performed in.
      * @throws DukeUtilException If the search result list is null.
+     * TODO finish up
      */
     public void showSearchResults(String searchTerm, List<? extends DukeObject> resultList,
                                          DukeObject parent) throws DukeUtilException {
@@ -69,6 +70,13 @@ public class DukeCore extends Application {
      */
     public void writeJsonFile() throws DukeFatalException {
         storage.writeJsonFile(patientMap.getPatientHashMap());
+    }
+
+    /**
+     * Update UI.
+     */
+    public void updateUi(String message) {
+        ui.updateUi(message);
     }
 
     /**

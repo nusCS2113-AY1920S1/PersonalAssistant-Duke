@@ -28,13 +28,13 @@ public class HomeOpenCommand extends ArgCommand {
             if (primaryDiagnosis != null) {
                 core.uiContext.setContext(Context.PATIENT, patient);
                 core.uiContext.setContext(Context.IMPRESSION, primaryDiagnosis);
-                core.ui.print("Accessing primary diagnosis of " + patient.getName());
+                core.updateUi("Accessing primary diagnosis of " + patient.getName());
             } else {
                 throw new DukeException(patient.getName() + " has no primary diagnosis at the moment!");
             }
         } else {
             core.uiContext.setContext(Context.PATIENT, patient);
-            core.ui.print("Accessing details of " + patient.getName());
+            core.updateUi("Accessing details of " + patient.getName());
         }
     }
 }

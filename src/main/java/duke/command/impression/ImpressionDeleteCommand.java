@@ -28,6 +28,6 @@ public class ImpressionDeleteCommand extends ArgCommand {
             impression.deleteTreatment(delData.getName());
         }
         core.writeJsonFile();
-        core.ui.print(delMsg);
+        core.updateUi(delMsg);
     }
 }

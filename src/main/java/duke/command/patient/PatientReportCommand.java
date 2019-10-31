@@ -16,6 +16,6 @@ public class PatientReportCommand extends Command {
     public void execute(DukeCore core) throws DukeException {
         DukeObject patient = core.uiContext.getObject();
         HomeReportCommand.createReport((Patient) patient, header, explanation, null);
-        core.ui.print("Patient report created for " + patient.getName());
+        core.updateUi("Patient report created for " + patient.getName());
     }
 }

@@ -21,6 +21,6 @@ public class ImpressionPriorityCommand extends ArgCommand {
         ImpressionUtils.checkPriority(priority);
         prioData.setPriority(priority);
         core.writeJsonFile();
-        core.ui.print("Updated '" + prioData.getName() + "' priority to " + priority + "!");
+        core.updateUi("Updated '" + prioData.getName() + "' priority to " + priority + "!");
     }
 }

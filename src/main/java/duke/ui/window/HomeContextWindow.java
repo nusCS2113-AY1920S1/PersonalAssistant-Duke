@@ -4,13 +4,11 @@ import com.jfoenix.controls.JFXMasonryPane;
 import com.jfoenix.controls.JFXScrollPane;
 import duke.data.DukeObject;
 import duke.data.Patient;
-import duke.ui.UiElement;
 import duke.ui.card.PatientCard;
 import javafx.collections.MapChangeListener;
 import javafx.collections.ObservableMap;
 import javafx.fxml.FXML;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.layout.Region;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,8 +16,8 @@ import java.util.List;
 /**
  * UI window for the Home context.
  */
-public class HomeWindow extends UiElement<Region> {
-    private static final String FXML = "HomeWindow.fxml";
+public class HomeContextWindow extends ContextWindow {
+    private static final String FXML = "HomeContextWindow.fxml";
 
     @FXML
     private JFXMasonryPane patientListPanel;
@@ -34,15 +32,11 @@ public class HomeWindow extends UiElement<Region> {
      *
      * @param patientObservableMap ObservableMap of {@code Patient} objects.
      */
-    public HomeWindow(ObservableMap<String, Patient> patientObservableMap) {
-        super(FXML, null);
-
+    public HomeContextWindow(ObservableMap<String, Patient> patientObservableMap) {
+        super(FXML);
         this.patientObservableMap = patientObservableMap;
-
-        fillPatientList();
-        attachPatientListListener();
-
         JFXScrollPane.smoothScrolling(scrollPane);
+        updateUi();
     }
 
     /**
@@ -60,6 +54,22 @@ public class HomeWindow extends UiElement<Region> {
     }
 
     /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void updateUi() {
+        fillPatientList();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public List<DukeObject> getIndexedList(String type) {
+        return indexedPatientList;
+    }
+
+    /**
      * Attaches a listener to the patient hashmap.
      * This listener updates the {@code patientListPanel} whenever the patient hashmap is updated.
      */
@@ -67,14 +77,5 @@ public class HomeWindow extends UiElement<Region> {
         patientObservableMap.addListener((MapChangeListener<String, Patient>) change -> {
             fillPatientList();
         });
-    }
-
-    /**
-     * Retrieves indexed list of {@code Patient}.
-     *
-     * @return Indexed list of Patient.
-     */
-    public List<DukeObject> getIndexedPatientList() {
-        return indexedPatientList;
     }
 }

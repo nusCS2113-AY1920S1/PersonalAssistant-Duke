@@ -58,6 +58,7 @@ public class HomeFindCommand extends ArgCommand {
             }
             information.append(resultList.get(i).getName()).append(System.lineSeparator());
         }*/
+
         core.showSearchResults(searchTerm, resultList, null);
     }
 }

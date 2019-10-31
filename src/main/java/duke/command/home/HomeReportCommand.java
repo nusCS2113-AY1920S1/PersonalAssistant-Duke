@@ -27,7 +27,7 @@ public class HomeReportCommand extends ArgCommand {
         if (core.patientMap.getPatient(getSwitchVal("bed")) != null) {
             createReport(core.patientMap.getPatient(getSwitchVal("bed")), header, explanation,
                     getSwitchVal("summary"));
-            core.ui.print("Patient report created for "
+            core.updateUi("Patient report created for "
                     + core.patientMap.getPatient(getSwitchVal("bed")).getName());
         }
     }
