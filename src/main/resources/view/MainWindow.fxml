@@ -53,12 +53,9 @@
          <font>
             <Font name="System Bold Italic" size="12.0" />
          </font></Button>
-      <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" hvalue="1.0" layoutY="27.0" prefHeight="530.0" prefWidth="440.0" vvalue="1.0" AnchorPane.leftAnchor="440.0">
+      <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" hvalue="1.0" layoutY="27.0" prefHeight="570.0" prefWidth="440.0" vvalue="1.0" AnchorPane.leftAnchor="440.0">
          <content>
-            <VBox fx:id="dialogContainer" prefHeight="513.0" prefWidth="428.0" spacing="10.0">
-               <padding>
-                  <Insets bottom="5.0" />
-               </padding></VBox>
+            <VBox fx:id="dialogContainer" prefHeight="513.0" prefWidth="428.0" />
          </content>
       </ScrollPane>
       <SplitPane dividerPositions="0.64" orientation="VERTICAL" prefHeight="600.0" prefWidth="440.0" AnchorPane.bottomAnchor="45.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="440.0" AnchorPane.topAnchor="28.0">
@@ -81,7 +78,7 @@
                     <content>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="339.0" prefWidth="437.0">
                            <children>
-                              <ListView fx:id="listT" onMouseClicked="#onMouseClick_ListView" prefHeight="340.0" prefWidth="438.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <ListView fx:id="listT" maxWidth="1000.0" onMouseClicked="#onMouseClick_ListView" prefHeight="340.0" prefWidth="438.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <contextMenu>
                                     <ContextMenu>
                                       <items>
@@ -89,7 +86,8 @@
                                           <MenuItem fx:id="menuDeleteNotes" mnemonicParsing="false" onAction="#onMouseClick_DeleteNotes" text="Delete Notes" />
                                       </items>
                                     </ContextMenu>
-                                 </contextMenu></ListView>
+                                 </contextMenu>
+                              </ListView>
                            </children>
                         </AnchorPane>
                     </content>

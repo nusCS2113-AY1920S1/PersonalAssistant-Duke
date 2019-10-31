@@ -11,6 +11,8 @@ import duke.task.FixedDuration;
 import duke.ui.Ui;
 
 import java.text.ParseException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 //@@author talesrune
 /**
@@ -22,6 +24,7 @@ public class UpdateCommand extends Command {
     protected String typeDesc;
     protected int typeOfUpdate;
     protected int index;
+    private static final Logger logr = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
     /**
      * Creates a command with the specified parameters to update.
@@ -52,6 +55,9 @@ public class UpdateCommand extends Command {
             if (typeOfUpdate == 1) {
                 items.get(index).setDescription(taskDesc);
             } else if (typeOfUpdate == 2) {
+                if (items.get(index) instanceof Todo || items.get(index) instanceof FixedDuration) {
+                    throw new DukeException("     (>_<) OOPS!!! This task does not have date and time!");
+                }
                 items.get(index).setDateTime(dateDesc);
             } else if (typeOfUpdate == 3) {
                 Task newtaskObj = null;
@@ -104,10 +110,14 @@ public class UpdateCommand extends Command {
      */
     @Override
     public String executeGui(TaskList items, Ui ui) {
+        String str = "";
         try {
             if (typeOfUpdate == 1) {
                 items.get(index).setDescription(taskDesc);
             } else if (typeOfUpdate == 2) {
+                if (items.get(index) instanceof Todo || items.get(index) instanceof FixedDuration) {
+                    return "     (>_<) OOPS!!! This task does not have date and time!";
+                }
                 items.get(index).setDateTime(dateDesc);
             } else if (typeOfUpdate == 3) {
                 Task newtaskObj;
@@ -144,12 +154,18 @@ public class UpdateCommand extends Command {
                 }
                 items.setTaskType(index, newtaskObj);
             }
+            str = Ui.showUpdateGui(items, index);
         } catch (ParseException e) {
             e.printStackTrace();
+            logr.log(Level.WARNING,"Error found when updating task's date", e);
+            str = "     Error found when updating task's date, please use this format \"d/MM/yyyy HHmm\"";
         } catch (Exception e) {
             ui.showErrorMsg(e.getMessage());
+            str = "     New error found when updating task, please fix.";
+            logr.log(Level.SEVERE,"New error found when updating task", e);
+
         }
-        String str = Ui.showUpdateGui(items, index);
+
         return str;
     }
 

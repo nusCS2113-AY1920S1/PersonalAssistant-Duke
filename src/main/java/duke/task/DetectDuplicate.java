@@ -25,7 +25,8 @@ public class DetectDuplicate {
      * @return Boolean that states if the input is a duplicate.
      */
     public boolean isDuplicate(String command, String description) {
-        if ("todo".equals(command) || "fixedduration".equals(command)) {
+        if ("todo".equals(command) || "fixedduration".equals(command)
+                || "deadline".equals(command) || "repeat".equals(command)) {
             for (int i = ZERO; i < items.size(); i++) {
                 if (items.get(i).isContain(description)) {
                     //contains, is implemented in Task.java

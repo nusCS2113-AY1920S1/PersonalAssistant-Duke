@@ -111,8 +111,8 @@ public class MainWindow extends AnchorPane {
         toolTip = new Tooltip();
         toolTip.setText("");
         listT.setTooltip(toolTip);
-        toolTip.setShowDelay(Duration.millis(75.0));
-        toolTip.setShowDuration(Duration.millis(0.0));
+        toolTip.setShowDelay(Duration.millis(70.0));
+        toolTip.setShowDuration(Duration.millis(0.001));
 
         dialogContainer.getChildren().add(
                 DialogBox.getDukeDialog(Ui.showWelcomeGui(), dukeImage)

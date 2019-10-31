@@ -118,7 +118,13 @@ public class Parser {
             if (arr.length == ONE) {
                 throw new DukeException("     (>_<) OOPS!!! The task number cannot be empty.");
             } else {
-                int tasknum = Integer.parseInt(arr[ONE]) - ONE;
+                int tasknum;
+                try {
+                    tasknum = Integer.parseInt(arr[ONE]) - ONE;
+                } catch (NumberFormatException e) {
+                    logr.log(Level.WARNING,"The task number must be an integer");
+                    throw new  DukeException("     (>_<) OOPS!!! The task number must be an integer!");
+                }
                 if (tasknum < ZERO || tasknum >= items.size()) {
                     throw new DukeException("     (>_<) OOPS!!! Invalid task number.");
                 } else {
@@ -163,7 +169,14 @@ public class Parser {
             if (arr.length == ONE) {
                 throw new DukeException("     (>_<) OOPS!!! The task number cannot be empty.");
             } else {
-                int tasknum = Integer.parseInt(arr[ONE]) - ONE;
+                int tasknum;
+                try {
+                    tasknum  = Integer.parseInt(arr[ONE]) - ONE;
+                } catch (NumberFormatException e) {
+                    logr.log(Level.WARNING,"The task number must be an integer");
+                    throw new DukeException("     (>_<) OOPS!!! The task number must be an integer!");
+                }
+
                 if (tasknum < ZERO || tasknum >= items.size()) {
                     throw new DukeException("     (>_<) OOPS!!! Invalid task number.");
                 } else if (arr.length < THREE) {
@@ -213,19 +226,18 @@ public class Parser {
         } else if (arr.length > ZERO && arr[ZERO].equals("todo")) {
             String[] getDescription = sentence.split(" ", TWO);
             DetectDuplicate detectDuplicate = new DetectDuplicate(items);
-            if (detectDuplicate.isDuplicate(getDescription[ZERO], getDescription[ONE])) {
+            for (int i = ONE; i < arr.length; i++) {
+                taskDesc += arr[i] + " ";
+            }
+            taskDesc = taskDesc.trim();
+            if (taskDesc.isEmpty()) {
+                throw new DukeException("     (>_<) OOPS!!! The description of a todo cannot be empty.");
+            } else if (detectDuplicate.isDuplicate(getDescription[ZERO], getDescription[ONE])) {
                 return new DuplicateFoundCommand();
             } else {
-                for (int i = ONE; i < arr.length; i++) {
-                    taskDesc += arr[i] + " ";
-                }
-                taskDesc = taskDesc.trim();
-                if (taskDesc.isEmpty()) {
-                    throw new DukeException("     (>_<) OOPS!!! The description of a todo cannot be empty.");
-                } else {
-                    Task taskObj = new Todo(taskDesc);
-                    return new AddCommand(taskObj);
-                }
+                Task taskObj = new Todo(taskDesc);
+                return new AddCommand(taskObj);
+
             }
         } else if (arr.length > ZERO && (arr[ZERO].equals("deadline")
                 || arr[ZERO].equals("dl"))) {
@@ -242,11 +254,14 @@ public class Parser {
             }
             taskDesc = taskDesc.trim();
             dateDesc = dateDesc.trim();
+            DetectDuplicate detectDuplicate = new DetectDuplicate(items);
             if (taskDesc.isEmpty()) {
                 throw new DukeException("     (>_<) OOPS!!! The description of a " + arr[ZERO] + " cannot be empty.");
             } else if (dateDesc.isEmpty()) {
                 throw new DukeException("     (>_<) OOPS!!! The description of date/time for "
                         + arr[ZERO] + " cannot be empty.");
+            } else if (detectDuplicate.isDuplicate(arr[ZERO], taskDesc)) {
+                return new DuplicateFoundCommand();
             } else {
                 Task taskObj;
                 taskObj = new Deadline(taskDesc, dateDesc);
@@ -261,7 +276,7 @@ public class Parser {
                 return new AddCommand(taskObj);
             }
         } else if (arr.length > ZERO && (arr[ZERO].equals("repeat") || arr[ZERO].equals("rep"))) {
-            //repeat <task> /from <date time> /for 3 <day/week/month>
+            DetectDuplicate detectDuplicate = new DetectDuplicate(items);
             for (int i = ONE; i < arr.length; i++) {
                 if ((arr[i].trim().isEmpty() || !arr[i].substring(ZERO, ONE).equals("/")) && !getDate) {
                     taskDesc += arr[i] + " ";
@@ -313,19 +328,29 @@ public class Parser {
                         }
                     }
                 }
+                if (detectDuplicate.isDuplicate(arr[ZERO], taskDesc)) {
+                    return new DuplicateFoundCommand();
+                }
                 return new AddMultipleCommand(repeatList);
             }
         } else if (arr.length > ZERO && (arr[ZERO].equals("fixedduration") || arr[ZERO].equals("fd"))) {
             //fixedduration <task> /for <duration> <unit>
             String description = "";
-            String durDesc;
             int duration;
             String unit;
             for (int i = ONE; i < arr.length; i++) {
                 description += arr[i] + " ";
             }
+            if (description.isEmpty()) {
+                throw new DukeException("     (>_<) OOPS!!! The description of a " + arr[ZERO] + " cannot be empty.");
+            }
+            String[] descarr = description.split(" /for ");
+            if (descarr.length < 2) {
+                throw new DukeException("     (>_<) OOPS!!! The duration description of a "
+                        + arr[ZERO] + " cannot be empty.");
+            }
             taskDesc = description.split(" /for ")[ZERO].trim();
-            durDesc = description.split(" /for ")[ONE].trim();
+            String durDesc = description.split(" /for ")[ONE].trim();
             DetectDuplicate detectDuplicate = new DetectDuplicate(items);
 
             if (taskDesc.isEmpty()) {
@@ -342,8 +367,12 @@ public class Parser {
                     logr.log(Level.WARNING,"Format is in: fixedduration <task> /for <duration> <unit>");
                     throw new DukeException("Format is in: fixedduration <task> /for <duration> <unit>");
                 }
+                String[] durationarr = durDesc.split(" ");
+                if (durationarr.length < 2) {
+                    throw new DukeException("     (>_<) OOPS!!! The unit of a " + arr[ZERO] + " cannot be empty.");
+                }
                 unit = durDesc.split(" ")[ONE].trim();
-                if (unit.isEmpty() || (!unit.toLowerCase().contains("min") && ! unit.toLowerCase().contains("h"))) {
+                if (unit.isEmpty() || (!unit.toLowerCase().contains("min") && !unit.toLowerCase().contains("h"))) {
                     throw new DukeException("Format is in: fixedduration <task> /for <duration> <unit>");
                 } else {
                     if (unit.contains("min")) {

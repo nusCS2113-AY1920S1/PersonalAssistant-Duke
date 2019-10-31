@@ -579,6 +579,16 @@ public class Ui {
     }
 
     /**
+     * Outputs an alert when a duplicated inout is detected (GUI).
+     *
+     * @return String to be outputted to the user.
+     */
+    public String showDuplicateMsgGui() {
+        String str = "     The same task is already in the list!";
+        return str;
+    }
+
+    /**
      * Outputs the contact details that are most recently added.
      *
      * @param contactList The list of contacts.
