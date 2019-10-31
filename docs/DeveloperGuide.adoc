@@ -512,24 +512,50 @@ image::CcaClassDiagram2.png[]
 
 [[Documentation]] 
 == Documentation
-We utilise AsciiDoc as the default to write our documentation, as the layout is more variable and aesthetically pleasing to view compared to other alternatives such as MarkDown. Additionally our preferred IDE IntelliJ has AsciiDoc support, and is thus easier for us to code and preview changes in.
+We utilise AsciiDoc as the default to write our documentation, as the layout is more flexible and aesthetically pleasing to view compared to other alternatives such as MarkDown. Additionally our preferred IDE IntelliJ has AsciiDoc support, and is thus easier for us to code and preview changes in.
 
 [[Testing]] 
 == Testing
 === Overview
-We used JUnit testing to perform our testing.
+We used JUnit to code our test cases, and Jacoco to monitor the test coverage of our project. 
+
+There are two ways to run tests.
+
+*Method 1: Using IntelliJ JUnit test runner*
+
+* To run all tests, right-click on the `src/test/java` folder and choose `Run 'All Tests'`
+* To run a subset of tests, you can right-click on a test package, test class, or a test and choose `Run 'specificTest'`
+
+*Method 2: Using Gradle*
+
+* Open a console and run the command `gradlew clean allTests` (Mac/Linux: `./gradlew clean allTests`)
+
 === Running Tests
-(TBD)
+
 
 [[DevOps]] 
 == Dev Ops
+=== Build Automation
+We use Gradle to automate our build process, as well as to create our release .JAR file.
 
-(TBD)
+=== Continuous Integration
+We use https://travis-ci.org/[Travis CI] to perform continuous integration on our project through GitHub. 
 
-[[Legacy]]
-== Legacy Classes
+=== Code Coverage Reporting
+We use https://www.eclemma.org/jacoco/[Jacoco] to check the code coverage of our project.
 
-(TBD)
+=== Making a Release
+
+Here are the steps to create a new release.
+
+*  Update the version number in link:{repoURL}/src/main/java/planner/main[`ModPlan.java`].
+*  Generate a JAR file using gradle.
+*  Tag the repo with the version number. e.g. `v0.1`
+*  https://help.github.com/articles/creating-releases/[Create a new release using GitHub] and upload the JAR file you created.
+//[[Legacy]]
+//== Legacy Classes
+
+//(TBD)
 
 [appendix]
 == Product Scope
