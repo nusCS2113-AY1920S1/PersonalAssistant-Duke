@@ -30,6 +30,7 @@ public class ChartThread implements Runnable {
     @Override
     public void run() {
         printPieChart(expenseList);
+        System.out.print("\n");
         printBarGraph(expenseList);
         stop();
     }
@@ -174,24 +175,32 @@ public class ChartThread implements Runnable {
      */
     public static void drawTable(double[] categoryAmount, float[] percentage) {
         String[] category = new String[5];
+        String[] categorySymbols = new String[5];
+
         category[0] = "FOOD";
         category[1] = "BILLS";
         category[2] = "SHOPPING";
         category[3] = "TRANSPORT";
         category[4] = "OTHERS";
 
+        categorySymbols[0] = "%";
+        categorySymbols[1] = "-";
+        categorySymbols[2] = "@";
+        categorySymbols[3] = "*";
+        categorySymbols[4] = ".";
+
         int index = 0;
-        System.out.println("------------------------------------------------------"
+        System.out.println("--------------------------------------------------------"
                 + "------\n"
-                + "|  #  |   Category     |   Expense Amount     |     %     |\n"
-                + "|----------------------------------------------------------");
+                + "|  #  |   Category  |   Expense Amount     |     %   |Symbol|\n"
+                + "|-------------------------------------------------------------");
         for (int i = 0; i < percentage.length; i++) {
             if (percentage[i] != 0) {
-                System.out.printf("| %-4d | %-13s | %-20s |  %-8.2f |\n",
-                        ++index, category[i], categoryAmount[i], percentage[i] * 100);
+                System.out.printf("| %-4d | %-10s | %-20s | %-7.2f |   %s  |\n",
+                        ++index, category[i], categoryAmount[i], percentage[i] * 100, categorySymbols[i]);
             }
         }
-        System.out.println("------------------------------------------------------"
+        System.out.println("--------------------------------------------------------"
                 + "------\n");
     }
 
