@@ -7,6 +7,7 @@ import javafx.util.Pair;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.io.File;
 
 /**
  * Handles temporary storage of user stats while the program is running.
@@ -26,6 +27,7 @@ import java.util.HashMap;
  * </p>
  */
 public class UserStats {
+    private String userDataFilePath;
     private String userName;
     private String gender;
     private int level;
@@ -38,7 +40,31 @@ public class UserStats {
     private ChapterStat currentChapter;
 
     //Maps the chapter names to an index value
-    private HashMap<String, Integer> chapterNumber;
+    private HashMap<String, Integer> chapterNumber = new HashMap<>();
+
+    /**
+     * Constructs a new UserStats by reading in from the UserData text file.
+     * If the text file doesn't exist, the UserStats variables are populated with default values.
+     * @param userDataFilePath the file path to the text file.
+     */
+    public UserStats(String userDataFilePath) throws IOException {
+        chapterData = new ArrayList<>();
+        this.chapterNumber.put("sorting", 1);
+        this.chapterNumber.put("linkedlist", 2);
+        this.chapterNumber.put("bitmask", 3);
+        this.userDataFilePath = userDataFilePath;
+
+        File file = new File(String.valueOf(userDataFilePath));
+        if (!file.isFile()) {
+            this.userName = "Default";
+            this.gender = "???";
+            this.level = 1;
+            this.expLevel = 0;
+        } else {
+            //String contentsInFile = Storage.loadData(userDataFilePath);
+            // parseString(userDataFilePath);
+        }
+    }
 
     /**
      * Constructor. Needs no explanation.
@@ -50,7 +76,6 @@ public class UserStats {
         this.level = level;
         this.expLevel = expLevel;
         this.chapterData = chapterData;
-        chapterNumber = new HashMap<>();
         for (ChapterStat stat : chapterData) {
             chapterNumber.put(stat.chapterName, stat.chapterNumber);
         }
@@ -256,7 +281,7 @@ public class UserStats {
         chapters.add(new ChapterStat("Sorting",1,0,0,0,0,0,""));
         chapters.add(new ChapterStat("Linked List",2,0,0,0,0,0,""));
         chapters.add(new ChapterStat("Bitmask",3,0,0,0,0,0,""));
-        return new UserStats("DefaultName", "male", 1, 0, chapters);
+        return new UserStats("Default", "????", 1, 0, chapters);
     }
 
     /**

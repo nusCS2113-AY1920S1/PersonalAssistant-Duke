@@ -14,7 +14,7 @@ image::nwjbrandon.png[width="150", align="left"]
 {empty}[http://github.com/nwjbrandon[github]] [<<nwjbrandon#, portfolio>>]
 
 Role: Software Developer (Testing, Documentation, Git Expert)
-Responsibilities: Game scene and sound effect
+Responsibilities: GUI and Integration.
 
 '''
 

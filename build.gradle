@@ -5,6 +5,7 @@ plugins {
     id 'com.github.johnrengelman.shadow' version '5.1.0'
     id 'org.openjfx.javafxplugin' version '0.0.8'
     id 'org.asciidoctor.convert' version '1.5.6'
+    id 'jacoco'
 }
 
 checkstyle {
@@ -47,21 +48,21 @@ dependencies {
     testImplementation 'org.testfx:openjfx-monocle:jdk-11+26'
 }
 
-test {
-    useJUnitPlatform()
-    testLogging {
-        exceptionFormat = 'full'
-    }
-    testLogging.showStandardStreams = true
-    testLogging {
-        events "passed", "skipped", "failed"
-    }
-
-    systemProperty 'java.awt.headless', 'true'
-    systemProperty 'testfx.robot', 'glass'
-    systemProperty 'testfx.headless', 'true'
-    systemProperty 'prism.order', 'sw'
-    systemProperty 'prism.text', 't2k'
-    systemProperty 'testfx.setup.timeout', '2500'
-
-}
+//test {
+//    useJUnitPlatform()
+//    testLogging {
+//        exceptionFormat = 'full'
+//    }
+//    testLogging.showStandardStreams = true
+//    testLogging {
+//        events "passed", "skipped", "failed"
+//    }
+//
+//    systemProperty 'java.awt.headless', 'true'
+//    systemProperty 'testfx.robot', 'glass'
+//    systemProperty 'testfx.headless', 'true'
+//    systemProperty 'prism.order', 'sw'
+//    systemProperty 'prism.text', 't2k'
+//    systemProperty 'testfx.setup.timeout', '2500'
+//
+//}

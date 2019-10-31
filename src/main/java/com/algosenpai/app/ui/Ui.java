@@ -62,15 +62,15 @@ public class Ui extends AnchorPane {
 
     private Logic logic;
     private UserStats stats;
-    // private double userExp = stats.getUserExp()/10.0;
-    //private String userName = stats.getUsername();
-    //private int level = stats.getUserLevel();
-    //private String userGender = stats.getGender();
+    private double userExp = 0.0;
+    private String userName = "";
+    private int level = 1;
+    private String userGender = "";
     private int idleMinutesMax = 180;
 
     private static final String GREETING_MESSAGE = "Welcome to AlgoSenpai Adventures!"
-                                                   + "Type 'hello' followed by your name and gender"
-                                                   + "(boy or girl) to start!";
+                                                   + " Type 'hello' followed by your name and gender"
+                                                   + " (boy or girl) to start!";
     private static final String BOY_PROFILE_PICTURE_PATH = "/images/boyplayer.jpg";
     private static final String GIRL_PROFILE_PICTURE_PATH = "/images/girlplayer.png";
     private static final String DEFAULT_PROFILE_PICTURE_PATH = "/images/unknown.png";
@@ -90,21 +90,11 @@ public class Ui extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
-        UserStats tempStats = UserStats.parseString(Storage.loadData("UserData.txt"));
-        if (tempStats.getUsername().equals("DefaultName")) {
-            dialogContainer.getChildren().add(DialogBox.getSenpaiDialog(GREETING_MESSAGE, senpaiImage));
-            userPic.setImage(userImage);
-            levelProgress.setProgress(0);
-            playerLevel.setText("You are Level 1");
-        } else {
-            dialogContainer.getChildren().add(DialogBox.getSenpaiDialog(
-                    "Welcome back " + tempStats.getUsername(), senpaiImage));
-            userPic.setImage(userImage);
-            levelProgress.setProgress(0);
-            playerLevel.setText("You are Level " + tempStats.getUserLevel());
-        }
-
-
+        dialogContainer.getChildren().add(DialogBox.getSenpaiDialog(GREETING_MESSAGE, senpaiImage));
+        handle();
+        userPic.setImage(userImage);
+        levelProgress.setProgress(0);
+        playerLevel.setText("You are Level 1");
         handle();
     }
 
@@ -261,8 +251,8 @@ public class Ui extends AnchorPane {
      * @param expGain the double representing the gain in EXP to be reflected.
      */
     private void updateLevelProgress(double expGain) {
-        //userExp += expGain;
-        //levelProgress.setProgress(userExp);
+        userExp += expGain;
+        levelProgress.setProgress(userExp);
     }
 
     /**
