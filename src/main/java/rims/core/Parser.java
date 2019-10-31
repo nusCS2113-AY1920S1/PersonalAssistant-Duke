@@ -293,6 +293,8 @@ public class Parser {
                 reservationsToCancel.add(thisReservationId);
             }
             c = new ReturnCommand(userId, resourcesToReturn, reservationsToCancel);
+        } else if (words[0].equals("undo")) {
+            c = new UndoCommand(new ListCommand());
         } else {
             throw new RimsException("Please enter a recognizable command!");
         }
