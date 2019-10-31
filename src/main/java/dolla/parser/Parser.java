@@ -42,7 +42,6 @@ public abstract class Parser {
         this.commandToRun = inputArray[0];
     }
 
-
     public abstract Command parseInput();
 
     /**

@@ -19,8 +19,7 @@ public class Dolla {
 
     private static final String COMMAND_BYE = "bye";
     private DollaData dollaData = new DollaData();
-    public static TagList tagList = new TagList(); //todo: change
-
+    protected static TagList tagList = new TagList(); //todo: change
 
     //private TaskList tasks = new TaskList(new ArrayList<Task>());
     //Storage storage = new Storage();

@@ -8,21 +8,9 @@ public class LimitUi extends Ui {
 
     public static final String MSG_INVALID_COMMAND_FORMAT = "\tOOPS! Please follow the format 'set [limitType] [AMOUNT] [DURATION]'";
     public static final String MSG_INVALID_LIMIT_AMOUNT = "\tOOPS! Please input the amount correctly!";
-    public static final String MSG_INVALID_LIMIT_TYPE = "\tOOPS! Please specify the type of limit you want to set!";
-    public static final String MSG_INVALID_LIMIT_DURATION = "\tOOPS! Please specify the duration you want to set to your limit!";
-
-    /**
-     * Prints remove limit message.
-     *
-     * @param type     the type of limit
-     * @param duration the duration
-     */
-    public static void echoRemoveLimit(String type, String duration) {
-        System.out.println(line);
-        System.out.println("\tGot it. I've removed this Limit: ");
-        System.out.println("\t" + duration + " " + type); //todo: change to the limit that is removed
-        System.out.println(line);
-    }
+    public static final String MSG_INVALID_LIMIT_TYPE = "\tOOPS! Please specify the type of limit! (saving/budget)";
+    public static final String MSG_INVALID_LIMIT_DURATION = "\tOOPS! Please specify the duration of your limit! (daily/weekly/monthly)";
+    public static final String MSG_LIMIT_DOES_NOT_EXIST = "\tOOPS! The limit you want to remove does not exist!";
 
     /**
      * Prints invalid amount message.
@@ -57,6 +45,15 @@ public class LimitUi extends Ui {
     public static void invalidLimitDurationPrinter() {
         System.out.println(line);
         System.out.println(MSG_INVALID_LIMIT_DURATION);
+        System.out.println(line);
+    }
+
+    /**
+     * Prints message to inform user that limit does not exist.
+     */
+    public static void limitNotFoundPrinter() {
+        System.out.println(line);
+        System.out.println(MSG_LIMIT_DOES_NOT_EXIST);
         System.out.println(line);
     }
 }
