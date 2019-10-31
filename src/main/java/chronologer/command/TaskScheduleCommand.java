@@ -1,5 +1,6 @@
 package chronologer.command;
 
+import chronologer.TaskScheduler;
 import chronologer.exception.ChronologerException;
 import chronologer.storage.Storage;
 import chronologer.task.Task;
@@ -85,44 +86,7 @@ public class TaskScheduleCommand extends Command {
             throw new ChronologerException("The selected deadline is overdue!");
         }
 
-        ArrayList<Event> dateList = tasks.obtainEventList(deadlineDate);
-        if (dateList.size() == 0) {
-            UiTemporary.printOutput("You can schedule this task from now till the deadline.\n");
-            return;
-        }
-
-        Long duration;
-        LocalDateTime nextStartDate = dateList.get(0).getStartDate();
-        duration = ChronoUnit.HOURS.between(LocalDateTime.now(), nextStartDate);
-        if (durationToSchedule <= duration) {
-            UiTemporary.printOutput("You can schedule this task from now till " + nextStartDate);
-            return;
-        }
-
-        boolean isFreeBetweenEvents = false;
-        for (int i = 0; i < dateList.size(); i++) {
-            LocalDateTime currentEndDate = dateList.get(i).getEndDate();
-            if (i == dateList.size() - 1) {
-                nextStartDate = deadlineDate;
-                if (currentEndDate.isAfter(deadlineDate)) {
-                    currentEndDate = deadlineDate;
-                }
-            } else {
-                nextStartDate = dateList.get(i + 1).getStartDate();
-            }
-
-            duration = ChronoUnit.HOURS.between(currentEndDate, nextStartDate);
-            if (durationToSchedule <= duration) {
-                isFreeBetweenEvents = true;
-                UiTemporary.printOutput("You can schedule this task from " + currentEndDate
-                        + " till " + nextStartDate);
-                break;
-            }
-        }
-
-        if (!isFreeBetweenEvents) {
-            UiTemporary.printOutput("There is no free slot to insert the task. Consider freeing up your schedule.");
-        }
+        TaskScheduler.scheduleByDeadline(tasks, durationToSchedule, deadlineDate);
     }
 
     // TODO: Figure a way for GUI to accept subsequent inputs
