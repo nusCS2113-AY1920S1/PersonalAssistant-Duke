@@ -3,9 +3,9 @@ package duke.model.payment;
 import java.time.LocalDate;
 import java.util.function.Predicate;
 
-public class PaymentOutOfDatePredicate implements Predicate<Payment> {
+public class PaymentOverduePredicate implements Predicate<Payment> {
 
-    public PaymentOutOfDatePredicate() {
+    public PaymentOverduePredicate() {
 
     }
 

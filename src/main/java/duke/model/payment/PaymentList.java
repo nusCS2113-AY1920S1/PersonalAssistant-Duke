@@ -59,12 +59,6 @@ public class PaymentList {
         }
     }
 
-    /*
-    private enum DisplayMode {
-        FILTERED_LIST, SEARCH_RESULT;
-    }
-     */
-
     public PaymentList() {
         logger.info("1.0");
         this.internalTimeSortedList = new ArrayList<>();
@@ -79,7 +73,6 @@ public class PaymentList {
 
         filteredList = new FilteredList<>(unfilteredList);
         filteredList.setPredicate(PREDICATE_SHOW_ALL_PAYMENTS);
-        // searchResult = new FilteredList<>(unfilteredList);
         sortIndicator.add(sortCriteria.toString());
         predicateIndicator.add(PREDICATE_SHOW_ALL_PAYMENTS);
     }
@@ -93,8 +86,6 @@ public class PaymentList {
         fetchInternalListToUnfilteredList();
         filteredList = new FilteredList<>(unfilteredList);
         filteredList.setPredicate(PREDICATE_SHOW_ALL_PAYMENTS);
-        // searchResult = new FilteredList<>(unfilteredList);
-        // displayMode = DisplayMode.FILTERED_LIST;
         sortIndicator.add(sortCriteria.toString());
         predicateIndicator.add(PREDICATE_SHOW_ALL_PAYMENTS);
     }
@@ -145,18 +136,14 @@ public class PaymentList {
     }
 
     public void setPredicate(Predicate<Payment> predicate) {
-        // displayMode = DisplayMode.FILTERED_LIST;
         filteredList.setPredicate(predicate);
         predicateIndicator.set(0, predicate);
     }
 
     public void setSearchPredicate(String keyword) {
-        // displayMode = DisplayMode.SEARCH_RESULT;
         SearchKeywordPredicate searchPredicate = new SearchKeywordPredicate(keyword);
         filteredList.setPredicate(searchPredicate);
         predicateIndicator.set(0, searchPredicate);
-        // searchKeywordIndicator.clear();
-        // searchKeywordIndicator.add(keyword);
     }
 
 

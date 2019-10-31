@@ -1,7 +1,5 @@
 package duke.commons;
 
-// borrowed from AddressBook Level_3
-
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.logging.ConsoleHandler;
@@ -10,6 +8,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 
+// Adopted from reference project addressbook-level3
 /**
  * Configures and manages loggers and handlers, including their logging level
  * Named {@link Logger}s can be obtained from this class<br>

@@ -26,7 +26,7 @@ public class PaymentPane extends UiPart<AnchorPane> {
     // private ObservableList<String> searchKeywordIndicator;
 
     @FXML
-    private Label outdatedLabel;
+    private Label overdueLabel;
 
     @FXML
     private Label weekLabel;
@@ -113,32 +113,32 @@ public class PaymentPane extends UiPart<AnchorPane> {
     }
 
     private void highlightPredicateLabel(Predicate<Payment> predicate) {
-        if (predicate instanceof PaymentOutOfDatePredicate) {
-            outdatedLabel.setOpacity(1);
+        if (predicate instanceof PaymentOverduePredicate) {
+            overdueLabel.setOpacity(1);
             weekLabel.setOpacity(0.2);
             monthLabel.setOpacity(0.2);
             allLabel.setOpacity(0.2);
             searchLabel.setOpacity(0.2);
         } else if (predicate instanceof PaymentInWeekPredicate) {
-            outdatedLabel.setOpacity(0.2);
+            overdueLabel.setOpacity(0.2);
             weekLabel.setOpacity(1);
             monthLabel.setOpacity(0.2);
             allLabel.setOpacity(0.2);
             searchLabel.setOpacity(0.2);
         } else if (predicate instanceof PaymentInMonthPredicate) {
-            outdatedLabel.setOpacity(0.2);
+            overdueLabel.setOpacity(0.2);
             weekLabel.setOpacity(0.2);
             monthLabel.setOpacity(1);
             allLabel.setOpacity(0.2);
             searchLabel.setOpacity(0.2);
         } else if (predicate instanceof SearchKeywordPredicate) {
-            outdatedLabel.setOpacity(0.2);
+            overdueLabel.setOpacity(0.2);
             weekLabel.setOpacity(0.2);
             monthLabel.setOpacity(0.2);
             allLabel.setOpacity(0.2);
             searchLabel.setOpacity(1);
         } else {
-            outdatedLabel.setOpacity(0.2);
+            overdueLabel.setOpacity(0.2);
             weekLabel.setOpacity(0.2);
             monthLabel.setOpacity(0.2);
             allLabel.setOpacity(1);

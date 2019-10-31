@@ -39,15 +39,12 @@ public interface Logic {
     Map<Integer, String> getBudgetViewCategory();
 
     BigDecimal getBudgetTag(String category);
+
     ObservableList<Payment> getFilteredPaymentList();
 
-    // ObservableList<Payment> getPaymentSearchResult();
+    ObservableList<String> getSortIndicator();
 
-    public ObservableList<String> getSortIndicator();
-
-    public ObservableList<Predicate<Payment>> getPredicateIndicator();
-
-    // public ObservableList<String> getSearchKeywordIndicator();
+    ObservableList<Predicate<Payment>> getPredicateIndicator();
 
     StringProperty getExpenseListTotalString();
 

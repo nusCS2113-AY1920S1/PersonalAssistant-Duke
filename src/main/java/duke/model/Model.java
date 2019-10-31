@@ -98,7 +98,7 @@ public interface Model {
 
     public void setWeekPredicate();
 
-    public void setOutOfDatePredicate();
+    public void setOverduePredicate();
 
     public void setSearchKeyword(String keyword);
 
@@ -106,15 +106,11 @@ public interface Model {
 
     public FilteredList<Payment> getFilteredPaymentList();
 
-    // public FilteredList<Payment> getSearchResult();
-
     public PaymentList getPaymentList();
 
     public ObservableList<String> getSortIndicator();
 
     public ObservableList<Predicate<Payment>> getPredicateIndicator();
-
-    // public ObservableList<String> getSearchKeywordIndicator();
 
 
     //******************************** IncomeList operations
