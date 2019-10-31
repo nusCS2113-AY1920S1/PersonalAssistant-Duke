@@ -11,6 +11,7 @@ import java.util.ArrayList;
 //=======New Imports for new structure
 import gui.UiController;
 import logic.LogicController;
+import logic.ReminderController;
 import model.ModelController;
 import storage.Storage;
 
@@ -25,6 +26,7 @@ public class Duke {
     protected Model modelController;
     protected LogicController logicController;
     protected UiController uiController;
+    protected ReminderController reminderController;
     protected Storage storage;
 
     public static Duke instance;
@@ -38,6 +40,7 @@ public class Duke {
         modelController = new ModelController();
         logicController = new LogicController(modelController);
         uiController = new UiController(logicController, storage);
+        reminderController = new ReminderController(modelController);
         Duke.instance = this;
     }
 
