@@ -614,8 +614,9 @@ public class Profile {
      * Updates all outdated objects in the profile.
      *
      * @param ui Used for printing.
+     * @throws BankException If cannot add income.
      */
-    public void profileUpdate(Ui ui) {
+    public void profileUpdate(Ui ui) throws BankException {
         bankList.bankListUpdateRecurringTransactions(ui);
         //card update recurring
         ui.printMessage("Profile has been updated");

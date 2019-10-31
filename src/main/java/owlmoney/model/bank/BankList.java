@@ -849,8 +849,9 @@ public class BankList {
      * Updates all recurring transactions from all banks.
      *
      * @param ui Used for printing,
+     * @throws BankException If income cannot be added.
      */
-    public void bankListUpdateRecurringTransactions(Ui ui) {
+    public void bankListUpdateRecurringTransactions(Ui ui) throws BankException {
         for (int i = 0; i < getBankListSize(); i++) {
             bankLists.get(i).updateRecurringTransactions(ui);
             try {
