@@ -4,7 +4,7 @@ import cube.model.food.FoodList;
 import cube.model.sale.SalesHistory;
 
 public class ModelManager {
-	private FoodList foodList;
+	private static FoodList foodList;
 	private SalesHistory salesHistory;
 
 	/**
@@ -25,7 +25,7 @@ public class ModelManager {
 		this.salesHistory = salesHistory;
 	}
 
-	public FoodList getFoodList() {
+	public static FoodList getFoodList() {
 		return foodList;
 	}
 

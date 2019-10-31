@@ -1,3 +1,8 @@
+//@@author LL-Pengfei
+/**
+ * DeleteCommand.java
+ * Support commands related to deletion.
+ */
 package cube.logic.command;
 
 import cube.model.food.FoodList;
@@ -62,7 +67,6 @@ public class DeleteCommand extends Command {
 	/**
 	 * The class removes the food the user wishes to remove.
 	 *
-	 * @param list The food list.
 	 * @param storage The storage we have.
 	 * @return The Feedback to User for Delete Command.
 	 * @throws CommandException If deletion is unsuccessful.
