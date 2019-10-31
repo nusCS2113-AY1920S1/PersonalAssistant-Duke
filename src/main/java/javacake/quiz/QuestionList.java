@@ -79,7 +79,7 @@ public class QuestionList {
      * Randomly selects MAX_QUESTIONS number of questions of the specified topic from the list of all questions.
      * @return ArrayList of Question of specified topic of size MAX_QUESTIONS.
      */
-    public ArrayList<Question> pickQuestions() {
+    private ArrayList<Question> pickQuestions() {
         Random rand = new Random();
         ArrayList<Integer> chosenNumbers = new ArrayList<>();
         ArrayList<Question> tempList2 = new ArrayList<>();
