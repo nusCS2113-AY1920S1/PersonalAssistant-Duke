@@ -42,7 +42,8 @@ public class GraphTotalCommand extends Command {
         if (grandTotal == 0) {
             grandTotal = 1;
         }
-        int maxAxisUnit = (int) ((catList.getLargestExpenditure(LocalDate.now().getMonthValue()) / grandTotal) * 100) + 1;
+        int maxAxisUnit = (int) ((catList.getLargestExpenditure(LocalDate.now().getMonthValue()) / grandTotal) * 100)
+                + 1;
         for (int i = 0; i < maxAxisUnit; i += 1) {
             horizontalAxisTop += topBorder;
             horizontalAxisBottom += bottomBorder;
