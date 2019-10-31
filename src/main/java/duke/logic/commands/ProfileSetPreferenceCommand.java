@@ -1,5 +1,6 @@
 package duke.logic.commands;
 
+import duke.commons.Messages;
 import duke.commons.exceptions.DukeException;
 import duke.commons.exceptions.ParseException;
 import duke.logic.commands.results.CommandResult;
@@ -27,7 +28,7 @@ public class ProfileSetPreferenceCommand extends Command {
         }
         if (!this.category.equals("sports") && !this.category.equals("entertainment")
                 && !this.category.equals("arts") && !this.category.equals("lifestlye")) {
-            throw new ParseException();
+            throw new ParseException(Messages.ERROR_CATEGORY_NOT_FOUND);
         }
     }
 

@@ -1,5 +1,6 @@
 package duke.logic.parsers;
 
+import duke.commons.Messages;
 import duke.commons.enumerations.TimePatternType;
 import duke.commons.exceptions.ParseException;
 
@@ -51,6 +52,6 @@ public class ParserTimeUtil {
                 ++i;
             }
         }
-        throw new ParseException();
+        throw new ParseException(Messages.ERROR_INPUT_INVALID_FORMAT);
     }
 }

@@ -14,5 +14,5 @@ interface Listable<T> {
 
     int size();
 
-    T get(int index);
+    T get(int index) throws IndexOutOfBoundsException;
 }

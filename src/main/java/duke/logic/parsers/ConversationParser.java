@@ -1,6 +1,8 @@
 package duke.logic.parsers;
 
+import duke.commons.Messages;
 import duke.commons.exceptions.DukeUnknownCommandException;
+import duke.commons.exceptions.ParseException;
 import duke.logic.conversations.Conversation;
 import duke.logic.conversations.DeleteConversation;
 import duke.logic.conversations.FindConversation;
@@ -21,9 +23,9 @@ public class ConversationParser {
      * Parses the input and returns a Conversation object.
      * @param input The user input from Ui.
      * @return A conversation object.
-     * @throws DukeUnknownCommandException If input is undefined.
+     * @throws ParseException If input is undefined.
      */
-    public static Conversation parse(String input) throws DukeUnknownCommandException {
+    public static Conversation parse(String input) throws ParseException {
         switch (input) {
         case "done":
             return new MarkDoneConversation();
@@ -46,7 +48,7 @@ public class ConversationParser {
         case "routeEdit":
             return new RouteEditConversation();
         default:
-            throw new DukeUnknownCommandException();
+            throw new ParseException(Messages.ERROR_INPUT_INVALID_FORMAT);
         }
     }
 }

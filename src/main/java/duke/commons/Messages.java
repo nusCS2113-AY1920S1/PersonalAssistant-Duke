@@ -39,41 +39,41 @@ public class Messages {
      * Error messages.
      * Format is ERROR_TYPE_DESCRIPTION
      */
-    public static final String ERROR_COMMAND_UNKNOWN = "☹ I'm sorry, but I don't know what that means :-(";
-    public static final String ERROR_CONSTRAINT_UNKNOWN = "☹ I'm sorry, but I don't know what constraint this is :-(";
-    public static final String ERROR_DESCRIPTION_EMPTY = "⛔ The description cannot be empty. :-(";
-    public static final String ERROR_FIELD_UNKNOWN = "☹ I'm sorry, but I don't know what you want to edit :-(";
-    public static final String ERROR_FIELDS_EMPTY = "☹ I'm sorry, but one of the fields for this command is empty :-(";
+    public static final String ERROR_COMMAND_UNKNOWN = "I'm sorry, but I don't know what that means :-(";
+    public static final String ERROR_CONSTRAINT_UNKNOWN = "I'm sorry, but I don't know what constraint this is :-(";
+    public static final String ERROR_DESCRIPTION_EMPTY = "The description cannot be empty. :-(";
+    public static final String ERROR_FIELD_UNKNOWN = "I'm sorry, but I don't know what you want to edit :-(";
+    public static final String ERROR_FIELDS_EMPTY = "I'm sorry, but one of the fields for this command is empty :-(";
 
-    public static final String ERROR_INPUT_INVALID_FORMAT = "⚡ Invalid format. Refer to help for command formats. :-(";
-    public static final String ERROR_INDEX_OUT_OF_BOUNDS = "⚠ Index requested is out of bounds! :-(";
+    public static final String ERROR_INPUT_INVALID_FORMAT = "Invalid format. :-(";
+    public static final String ERROR_INDEX_OUT_OF_BOUNDS = "Index requested is out of bounds! :-(";
 
-    public static final String ERROR_DATA_CORRUPTED = "☢ Data cannot be converted! :-( ";
-    public static final String ERROR_FILE_NOT_FOUND = "☢ File not found! ";
-    public static final String ERROR_FILE_NOT_SAVED = "✋ File not saved! :-(";
+    public static final String ERROR_DATA_CORRUPTED = "Data cannot be converted! :-( ";
+    public static final String ERROR_FILE_NOT_FOUND = "File not found! ";
+    public static final String ERROR_FILE_NOT_SAVED = "File not saved! :-(";
 
-    public static final String ERROR_RESOURCE_NOT_FOUND = "☢ Resource not found! :-( Missing: ";
-    public static final String ERROR_OBJECT_NOT_CREATED = "✇ Item could not be created! :-(";
+    public static final String ERROR_RESOURCE_NOT_FOUND = "Resource not found! :-( Missing: ";
+    public static final String ERROR_OBJECT_NOT_CREATED = "Item could not be created! :-(";
 
-    public static final String ERROR_TASK_CORRUPTED = "✇ Task cannot be converted to String! :-(";
-    public static final String ERROR_TASK_DUPLICATED = "✇ Task already exists! :-(";
-    public static final String ERROR_TASK_NOT_FOUND = "☢ Task not found! :-(";
+    public static final String ERROR_TASK_CORRUPTED = "Task cannot be converted to String! :-(";
+    public static final String ERROR_TASK_DUPLICATED = "Task already exists! :-(";
+    public static final String ERROR_TASK_NOT_FOUND = "Task not found! :-(";
 
-    public static final String ERROR_ROUTE_CORRUPTED = "✇ Route cannot be converted to String! :-(";
-    public static final String ERROR_ROUTE_DUPLICATE = "✇ Route already exists! :-(";
-    public static final String ERROR_ROUTE_NOT_FOUND = "☢ Route not found! :-(";
+    public static final String ERROR_ROUTE_CORRUPTED = "Route cannot be converted to String! :-(";
+    public static final String ERROR_ROUTE_DUPLICATE = "Route already exists! :-(";
+    public static final String ERROR_ROUTE_NOT_FOUND = "Route not found! :-(";
 
-    public static final String ERROR_ROUTE_NODE_CORRUPTED = "✇ Route Node cannot be converted to String! :-(";
-    public static final String ERROR_ROUTE_NODE_DUPLICATE = "✇ Node already exists! :-(";
+    public static final String ERROR_ROUTE_NODE_CORRUPTED = "Route Node cannot be converted to String! :-(";
+    public static final String ERROR_ROUTE_NODE_DUPLICATE = "Node already exists! :-(";
     public static final String ERROR_ROUTE_NODE_NOT_FOUND = "☢ Route not found! :-(";
 
-    public static final String ERROR_CATEGORY_NOT_FOUND = "✇ Category does not exists! :-(";
+    public static final String ERROR_CATEGORY_NOT_FOUND = "Category does not exists! :-(";
 
     public static final String ANOMALY_FOUND = "⚡ Anomaly detected! Please check your tasks. :-(";
 
     public static final String ERROR_API_REQUEST_FAILED =
             "☹ I'm sorry, something went wrong while fetching data. :-(";
-    public static final String ERROR_API_DATA_NULL = "☹ I'm sorry, but nothing could be found. :-(";
+    public static final String ERROR_API_DATA_NULL = "I'm sorry, but nothing could be found. :-(";
     public static final String ERROR_API_TIMEOUT = "☹ I'm sorry, but the request has timed out... :-(";
 
     public static final String ERROR_TASK_NOT_HOLIDAY = "Sorry, the numbers you entered are not a holiday destination.";
@@ -228,12 +228,12 @@ public class Messages {
     public static final String STARTUP_WELCOME_MESSAGE = "Welcome to SGTravel\n";
     public static final String PROMPT_CANCEL = "Current conversation has ended.";
 
-    public static final String ITINERARY_INSUFFICIENT_AGENDAS = "☹ I'm sorry, but you have entered wrong number of"
+    public static final String ITINERARY_INSUFFICIENT_AGENDAS = "I'm sorry, but you have entered wrong number of"
             + " days :-(";
-    public static final String ITINERARY_EMPTY_TODOLIST = "☹ I'm sorry, but entering todos for a day is compulsory";
-    public static final String ITINERARY_FAIL_CREATION = "☹ I'm sorry, but you have not entered your "
+    public static final String ITINERARY_EMPTY_TODOLIST = "I'm sorry, but entering todos for a day is compulsory";
+    public static final String ITINERARY_FAIL_CREATION = "I'm sorry, but you have not entered your "
             + "itinerary properly";
-    public static final String ITINERARY_INCORRECT_COMMAND = "☹ I'm sorry, but your command syntax is wrong ";
+    public static final String ITINERARY_INCORRECT_COMMAND = "I'm sorry, but your command syntax is wrong ";
 
-    public static final String RECOMMENDATION_DAY_EXCEEDED = "☹ I'm sorry, but your stay is too long ";
+    public static final String RECOMMENDATION_DAY_EXCEEDED = "I'm sorry, but your stay is too long ";
 }

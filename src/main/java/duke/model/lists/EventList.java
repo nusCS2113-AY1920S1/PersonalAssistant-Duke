@@ -49,7 +49,7 @@ public class EventList implements Iterable<Event>, Listable<Event>, Serializable
     }
 
     @Override
-    public Event get(int index) {
+    public Event get(int index) throws IndexOutOfBoundsException {
         return events.get(index);
     }
 

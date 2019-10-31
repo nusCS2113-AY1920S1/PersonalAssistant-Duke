@@ -1,5 +1,6 @@
 package duke.logic.commands;
 
+import duke.commons.Messages;
 import duke.commons.exceptions.DukeException;
 import duke.commons.exceptions.ParseException;
 import duke.logic.api.ApiParser;
@@ -60,7 +61,7 @@ public class NewItineraryCommand extends Command {
                     venueList.add(ApiParser.getLocationSearch(itineraryDetails[i++]));
                     StringBuilder todos = new StringBuilder();
                     if (i == itineraryDetails.length - 1 || itineraryDetails[i].matches("-?\\d+")) {
-                        throw new ParseException();
+                        throw new ParseException(Messages.ITINERARY_EMPTY_TODOLIST);
                     }
                     todos.append(itineraryDetails[++i]).append("|");
                     i++;
@@ -79,8 +80,10 @@ public class NewItineraryCommand extends Command {
                 Agenda agenda = new Agenda(todoList, venueList, number);
                 agendaList.add(agenda);
             }
-        } catch (ArrayIndexOutOfBoundsException | NumberFormatException e) {
-            throw new ParseException();
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new ParseException(Messages.ITINERARY_FAIL_CREATION);
+        } catch (NumberFormatException e) {
+            throw new ParseException(Messages.ITINERARY_INCORRECT_COMMAND);
         }
         itinerary.setTasks(agendaList);
 

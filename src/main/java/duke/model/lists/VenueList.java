@@ -45,7 +45,7 @@ public class VenueList implements Iterable<Venue>, Listable<Venue> {
     }
 
     @Override
-    public Venue get(int index) {
+    public Venue get(int index) throws IndexOutOfBoundsException {
         return list.get(index);
     }
 

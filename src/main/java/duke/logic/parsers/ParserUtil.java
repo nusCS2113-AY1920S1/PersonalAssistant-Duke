@@ -1,5 +1,6 @@
 package duke.logic.parsers;
 
+import duke.commons.Messages;
 import duke.commons.enumerations.Constraint;
 import duke.commons.exceptions.ParseException;
 import duke.logic.commands.RouteAddCommand;
@@ -23,14 +24,14 @@ public class ParserUtil {
         try {
             String[] withinDetails = userInput.strip().split("at | with ", 2);
             if (withinDetails.length != 2) {
-                throw new ParseException();
+                throw new ParseException(Messages.ERROR_INPUT_INVALID_FORMAT);
             }
 
             String[] indexes = withinDetails[0].split(" ");
 
             String type = userInput.substring(withinDetails[0].length()).strip().substring(0, 4);
             if (!("with".equals(type) || "at".equals(type.substring(0, 2)))) {
-                throw new ParseException();
+                throw new ParseException(Messages.ERROR_INPUT_INVALID_FORMAT);
             }
 
             String[] details;
@@ -42,7 +43,7 @@ public class ParserUtil {
                 case "MRT":
                     return new TrainStation(new ArrayList<>(), details[0].strip(), null, 0, 0);
                 default:
-                    throw new ParseException();
+                    throw new ParseException(Messages.ERROR_INPUT_INVALID_FORMAT);
                 }
             } else {
                 details = withinDetails[1].split("by ");
@@ -55,9 +56,9 @@ public class ParserUtil {
                 }
             }
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new ParseException();
+            throw new ParseException(Messages.ERROR_OBJECT_NOT_CREATED);
         }
-        throw new ParseException();
+        throw new ParseException(Messages.ERROR_OBJECT_NOT_CREATED);
     }
 
     /**
@@ -100,10 +101,10 @@ public class ParserUtil {
             try {
                 return new RouteGenerateCommand(details[0], details[1], Constraint.valueOf(details[2].toUpperCase()));
             } catch (IllegalArgumentException e) {
-                throw new ParseException();
+                throw new ParseException(Messages.ERROR_CONSTRAINT_UNKNOWN);
             }
         }
-        throw new ParseException();
+        throw new ParseException(Messages.ERROR_FIELDS_EMPTY);
     }
 
     /**
@@ -121,10 +122,10 @@ public class ParserUtil {
                 return fields[index].strip();
             }
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new ParseException();
+            throw new ParseException(Messages.ERROR_INPUT_INVALID_FORMAT);
         }
 
-        throw new ParseException();
+        throw new ParseException(Messages.ERROR_INPUT_INVALID_FORMAT);
     }
 
     /**
@@ -142,10 +143,10 @@ public class ParserUtil {
                 return Integer.parseInt(fields[index].strip());
             }
         } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
-            throw new ParseException();
+            throw new ParseException(Messages.ERROR_INPUT_INVALID_FORMAT);
         }
 
-        throw new ParseException();
+        throw new ParseException(Messages.ERROR_INPUT_INVALID_FORMAT);
     }
 
     /**
@@ -163,8 +164,8 @@ public class ParserUtil {
                 return Integer.parseInt(fields[index].strip()) - 1;
             }
         } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
-            throw new ParseException();
+            throw new ParseException(Messages.ERROR_INPUT_INVALID_FORMAT);
         }
-        throw new ParseException();
+        throw new ParseException(Messages.ERROR_INPUT_INVALID_FORMAT);
     }
 }

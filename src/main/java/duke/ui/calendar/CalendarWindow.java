@@ -67,7 +67,7 @@ public class CalendarWindow extends UiPart<Stage> {
      * Sets the title of the calendar according to a specific month and year.
      */
     private void setCalendarTitle(int year, String month) {
-        calendarTitle.setText("♒" + month + " " + year + "♒");
+        calendarTitle.setText(" " + month + " " + year + " ");
         pane.setId(currentMonth);
     }
 

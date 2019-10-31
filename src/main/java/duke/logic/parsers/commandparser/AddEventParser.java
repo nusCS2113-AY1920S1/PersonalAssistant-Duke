@@ -1,5 +1,6 @@
 package duke.logic.parsers.commandparser;
 
+import duke.commons.Messages;
 import duke.commons.exceptions.ApiException;
 import duke.commons.exceptions.ParseException;
 import duke.logic.commands.AddCommand;
@@ -32,20 +33,20 @@ public class AddEventParser extends CommandParser {
     public static Event createEvent(String userInput) throws ParseException {
         String[] withinDetails = userInput.substring("event".length()).strip().split("between| and");
         if (withinDetails.length == 1) {
-            throw new ParseException();
+            throw new ParseException(Messages.ERROR_DESCRIPTION_EMPTY);
         }
         if (withinDetails.length != 3 || withinDetails[1] == null || withinDetails[2] == null) {
-            throw new ParseException();
+            throw new ParseException(Messages.ERROR_INPUT_INVALID_FORMAT);
         }
         if (withinDetails[0].strip().isEmpty()) {
-            throw new ParseException();
+            throw new ParseException(Messages.ERROR_DESCRIPTION_EMPTY);
         }
         LocalDateTime start = ParserTimeUtil.parseStringToDate(withinDetails[1].strip());
         LocalDateTime end = ParserTimeUtil.parseStringToDate(withinDetails[2].strip());
         try {
             return new Event(withinDetails[0].strip(), start, end);
         } catch (ApiException e) {
-            throw new ParseException();
+            throw new ParseException(Messages.ERROR_API_DATA_NULL);
         }
     }
 

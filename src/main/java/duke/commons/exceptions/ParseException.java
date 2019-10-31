@@ -2,7 +2,7 @@ package duke.commons.exceptions;
 
 public class ParseException extends DukeException {
 
-    public ParseException() {
-        super("Refer to help for format of instructions.");
+    public ParseException(String message) {
+        super(message + "\nRefer to help for format of instructions.");
     }
 }

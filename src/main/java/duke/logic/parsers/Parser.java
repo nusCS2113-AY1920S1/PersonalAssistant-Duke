@@ -11,17 +11,6 @@ import duke.logic.commands.ListCommand;
 import duke.logic.commands.ListItineraryCommand;
 import duke.logic.commands.ProfileSetPreferenceCommand;
 import duke.logic.commands.ProfileShowCommand;
-import duke.logic.commands.RouteManagerCommand;
-import duke.logic.commands.RouteManagerExitCommand;
-import duke.logic.commands.RouteManagerHelpCommand;
-import duke.logic.commands.RouteManagerInfoCommand;
-import duke.logic.commands.RouteManagerNearbyCommand;
-import duke.logic.commands.RouteManagerNodeBackCommand;
-import duke.logic.commands.RouteManagerNodeInfoCommand;
-import duke.logic.commands.RouteManagerNodeNextCommand;
-import duke.logic.commands.RouteManagerNodeSelectorCommand;
-import duke.logic.commands.RouteManagerReturnCommand;
-import duke.logic.commands.RouteManagerSelectorCommand;
 import duke.logic.commands.RouteNodeNeighboursCommand;
 import duke.logic.commands.RouteNodeShowCommand;
 import duke.logic.commands.RouteShowCommand;
@@ -141,7 +130,7 @@ public class Parser {
             return new ProfileSetPreferenceCommand(ParserUtil.getFieldInList(0,2,getWord(input)),
                         ParserUtil.getFieldInList(1,2,getWord(input)));
         default:
-            throw new ParseException();
+            throw new ParseException(Messages.ERROR_INPUT_INVALID_FORMAT);
         }
     }
 
@@ -165,7 +154,7 @@ public class Parser {
         try {
             return userInput.strip().split(" ", 2)[1];
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new ParseException();
+            throw new ParseException(Messages.ERROR_DESCRIPTION_EMPTY);
         }
     }
 }

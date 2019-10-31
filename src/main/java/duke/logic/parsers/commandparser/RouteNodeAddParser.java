@@ -1,5 +1,6 @@
 package duke.logic.parsers.commandparser;
 
+import duke.commons.Messages;
 import duke.commons.exceptions.ParseException;
 import duke.logic.commands.Command;
 import duke.logic.commands.RouteNodeAddCommand;
@@ -36,14 +37,14 @@ public class RouteNodeAddParser extends CommandParser {
         try {
             String[] withinDetails = userInput.strip().split("at | with ", 2);
             if (withinDetails.length != 2) {
-                throw new ParseException();
+                throw new ParseException(Messages.ERROR_INPUT_INVALID_FORMAT);
             }
 
             String[] indexes = withinDetails[0].split(" ");
 
             String type = userInput.substring(withinDetails[0].length()).strip().substring(0, 4);
             if (!("with".equals(type) || "at".equals(type.substring(0, 2)))) {
-                throw new ParseException();
+                throw new ParseException(Messages.ERROR_INPUT_INVALID_FORMAT);
             }
 
             String[] details;
@@ -55,7 +56,7 @@ public class RouteNodeAddParser extends CommandParser {
                 case "MRT":
                     return new TrainStation(new ArrayList<>(), details[0].strip(), null, 0, 0);
                 default:
-                    throw new ParseException();
+                    throw new ParseException(Messages.ERROR_INPUT_INVALID_FORMAT);
                 }
             } else {
                 details = withinDetails[1].split("by ");
@@ -68,10 +69,10 @@ public class RouteNodeAddParser extends CommandParser {
                 }
             }
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new ParseException();
+            throw new ParseException(Messages.ERROR_OBJECT_NOT_CREATED);
         }
 
-        throw new ParseException();
+        throw new ParseException(Messages.ERROR_OBJECT_NOT_CREATED);
     }
 
     /**

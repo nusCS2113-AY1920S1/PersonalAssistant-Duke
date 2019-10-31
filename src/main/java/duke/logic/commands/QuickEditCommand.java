@@ -31,11 +31,15 @@ public class QuickEditCommand extends Command {
     public CommandResultText execute(Model model) throws ApiException,
             FileNotSavedException, CorruptedFileException, EventSelectionOutOfBoundsException,
             ParseException {
-        Event event = model.getEvents().get(index);
-        Editor.edit(descriptors[DESCRIPTION], event, DESCRIPTION);
-        Editor.edit(descriptors[START_DATE], event, START_DATE);
-        Editor.edit(descriptors[END_DATE], event, END_DATE);
-        model.save();
-        return new CommandResultText(MESSAGE_EDIT_SUCCESS + event);
+        try {
+            Event event = model.getEvents().get(index);
+            Editor.edit(descriptors[DESCRIPTION], event, DESCRIPTION);
+            Editor.edit(descriptors[START_DATE], event, START_DATE);
+            Editor.edit(descriptors[END_DATE], event, END_DATE);
+            model.save();
+            return new CommandResultText(MESSAGE_EDIT_SUCCESS + event);
+        } catch (IndexOutOfBoundsException e) {
+            throw new EventSelectionOutOfBoundsException();
+        }
     }
 }

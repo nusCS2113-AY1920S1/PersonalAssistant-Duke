@@ -1,6 +1,7 @@
 package duke.logic.conversations;
 
 import duke.commons.exceptions.DukeException;
+import duke.commons.exceptions.ParseException;
 import duke.logic.commands.Command;
 import duke.logic.parsers.ConversationParser;
 import duke.logic.parsers.Parser;
@@ -30,8 +31,9 @@ public class ConversationManager {
      * Starts or continues a conversation with Duke.
      *
      * @param input The user input.
+     * @throws ParseException If no conversation could be started.
      */
-    public void converse(String input) throws DukeException {
+    public void converse(String input) throws ParseException {
         if (tryStartConversation(input)) {
             return;
         }
@@ -54,9 +56,9 @@ public class ConversationManager {
      *
      * @param input The user input from ui.
      * @return true if a conversation is started, false otherwise.
-     * @throws DukeException If no conversation could be started.
+     * @throws ParseException If no conversation could be started.
      */
-    private boolean tryStartConversation(String input) throws DukeException {
+    private boolean tryStartConversation(String input) throws ParseException {
         if (isFinished) {
             startConversation(input);
             isFinished = false;
@@ -70,8 +72,9 @@ public class ConversationManager {
      * Creates a Conversation object based on input.
      *
      * @param input The words from user input.
+     * @throws ParseException If the input cannot be parsed.
      */
-    private void startConversation(String input) throws DukeException {
+    private void startConversation(String input) throws ParseException {
         conversation = ConversationParser.parse(input);
     }
 

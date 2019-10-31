@@ -1,5 +1,6 @@
 package duke.logic.parsers.commandparser;
 
+import duke.commons.Messages;
 import duke.commons.exceptions.ParseException;
 import duke.logic.commands.Command;
 import duke.logic.commands.RecommendationsCommand;
@@ -27,15 +28,15 @@ public class RecommendationParser extends CommandParser {
     private String[] createRecommendation(String userInput) throws ParseException {
         String[] itineraryDetails = userInput.substring("recommend".length()).strip().split("between| and");
         if (itineraryDetails.length == 1) {
-            throw new ParseException();
+            throw new ParseException(Messages.ERROR_DESCRIPTION_EMPTY);
         }
 
         if (itineraryDetails.length != 3 || itineraryDetails[1] == null || itineraryDetails[2] == null) {
-            throw new ParseException();
+            throw new ParseException(Messages.ERROR_INPUT_INVALID_FORMAT);
         }
 
         if (itineraryDetails[0].strip().isEmpty()) {
-            throw new ParseException();
+            throw new ParseException(Messages.ERROR_DESCRIPTION_EMPTY);
         }
         return itineraryDetails;
     }
