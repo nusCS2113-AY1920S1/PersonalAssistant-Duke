@@ -70,8 +70,8 @@ public class TaskAssigner {
             System.out.println("There are no suitable filters to assign.");
             return;
         }
-        System.out.println(String.format("The closest filter is \"%s\" with cosine similarity of %f.",
-                closestFilter, cosine_similarity(taskVector, filterVectorCounts.get(closestFilter))));
+        System.out.println(String.format("The closest filter is \"%s\" based on similar words.",
+                closestFilter));
         System.out.println(String.format("Would you like to assign task \"%s\" to filter \"%s\"? (Y/N)",
                 task.getDescription(), closestFilter));
         toUpdate = scanner.nextLine().toUpperCase();
