@@ -330,6 +330,21 @@ Since `SortCommand` inherits the `ModuleCommand` class, it must override the `ex
 * The object to sort, e.g. modules or cca.
 * The type of sorting the user specifies.
 ****
+There are four methods that can be executed depending on the `TOSORT` and `TYPE` that the user inputs.
+
+****
+* Case 1: `sort ccas` +
+If the argument read for `TOSORT` is “ccas”, the added ccas will be sorted in ascending order and printed to the users.
+
+* Case 2: `sort modules codes` +
+If the argument read for `TOSORT` is “modules” and `TYPE` is “ codes”, the added modules will be sorted in ascending order of their module codes and printed to the users.
+
+* Case 3: `sort modules levels` +
+If the argument read for `TOSORT` is “modules” and `TYPE` is “levels”, the added modules will be sorted in ascending order of their module levels (just the numerical part of the module code) and printed to the users.
+
+* Case 4: `sort modules mcs` +
+If the argument read for `TOSORT` is “modules” and `TYPE` is “mcs”, the added modules will be sorted in ascending order of their modular credits and printed to the users.
+****
 
 Below is a Sequence Diagram showing how `SortCommand` works.
 
