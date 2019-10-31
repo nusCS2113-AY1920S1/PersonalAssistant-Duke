@@ -124,7 +124,7 @@ public class MainWindow extends BorderPane implements Initializable {
         try {
             ArrayList<String> listOfQuotes = new ArrayList<>();
             InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("documents/quotes.txt");
-            InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+            InputStreamReader inputStreamReader = new InputStreamReader(inputStream, "UTF-8");
             BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
             StringBuffer sb = new StringBuffer();
             String firstLine;
