@@ -10,6 +10,7 @@ checkstyle {
     toolVersion ='8.23'
 }
 
+
 shadowJar {
     archiveBaseName = "eggventory"
     archiveVersion = "0.1.3"

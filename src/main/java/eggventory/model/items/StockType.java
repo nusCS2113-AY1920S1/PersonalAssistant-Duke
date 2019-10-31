@@ -311,4 +311,5 @@ public class StockType {
         }
         return dataArray;
     }
+    //@@author
 }

@@ -37,6 +37,7 @@ public class CommandDictionary {
         commandDict.add(new Pair<>("list loan", null));
         commandDict.add(new Pair<>("list template", null));
         commandDict.add(new Pair<>("list lost", null));
+        commandDict.add(new Pair<>("list person", null));
 
         // Find Commands
         commandDict.add(new Pair<>("find stock", "<Query>"));

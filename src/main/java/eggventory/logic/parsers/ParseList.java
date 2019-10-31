@@ -2,6 +2,7 @@ package eggventory.logic.parsers;
 
 import eggventory.commons.exceptions.InsufficientInfoException;
 import eggventory.logic.commands.Command;
+import eggventory.logic.commands.list.ListPersonCommand;
 import eggventory.logic.commands.list.ListStockCommand;
 import eggventory.logic.commands.list.ListStockTypeCommand;
 import eggventory.commons.enums.CommandType;
@@ -9,11 +10,13 @@ import eggventory.commons.exceptions.BadInputException;
 
 public class ParseList {
 
+    private final String listErrorMessageGeneric = "Usage of list: 'list stock', 'list stocktype all', "
+            + "'list stocktype <Stock Type>', or 'list person'";
+
     private Command processListStock(String input) throws BadInputException {
         String[] inputArr = input.split(" ");
         if (inputArr.length > 1) { // Checking if anything extraneous is after stock
-            throw new BadInputException("Usage of list: 'list stock', 'list stocktype all' or "
-                    + "'list stocktype <Stock Type>'");
+            throw new BadInputException(listErrorMessageGeneric);
         }
         return new ListStockCommand(CommandType.LIST);
     }
@@ -21,10 +24,19 @@ public class ParseList {
     private Command processListStockType(String input) throws BadInputException {
         String[] inputArr = input.split(" ");
         if (inputArr.length > 2) { // Checking for extra arguments
-            throw new BadInputException("Usage of list: 'list stock', 'list stocktype all' or "
-                    + "'list stocktype <Stock Type>'");
+            throw new BadInputException(listErrorMessageGeneric);
         }
         return new ListStockTypeCommand(CommandType.LIST, inputArr[0]);
+    }
+
+    private Command processListPerson(String input) throws BadInputException {
+        String[] inputArr = input.split(" +");
+        if (inputArr.length > 1) {
+            throw new BadInputException(listErrorMessageGeneric);
+        }
+
+        return new ListPersonCommand(CommandType.LIST);
+
     }
 
     /**
@@ -54,6 +66,10 @@ public class ParseList {
             listCommand = processListStockType(inputArr[1]);
             break;
 
+        case "person":
+            listCommand = processListPerson(inputArr[0]);
+            break;
+
         default:
             throw new BadInputException("Usage of list: 'list stock', 'list stocktype all' or "
                     + "'list stocktype <Stock Type>'");
@@ -61,4 +77,6 @@ public class ParseList {
 
         return listCommand;
     }
+
+
 }

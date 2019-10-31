@@ -3,7 +3,10 @@ package eggventory.model;
 import eggventory.commons.enums.PersonProperty;
 import eggventory.commons.exceptions.BadInputException;
 import eggventory.model.loans.Person;
+import eggventory.ui.TableStruct;
+
 import java.util.ArrayList;
+import java.util.Collections;
 
 //@@author Raghav-B
 public final class PersonList {
@@ -88,5 +91,47 @@ public final class PersonList {
 
         return -1;
     }
+
+    //@@author Deculsion
+    public static int getSize() {
+        return personList.size();
+    }
+
+    /**
+     * Creates a tablestruct of all persons in personlist.
+     * @return A tablestruct object.
+     */
+    public static TableStruct getAllPersonStruct() {
+        TableStruct tableStruct = new TableStruct("Person List");
+        tableStruct.setTableColumns("Matriculation No.", "Full Name");
+
+        ArrayList<ArrayList<String>> dataArray = new ArrayList<>();
+        for (Person person: personList) {
+            dataArray.add(person.getDataAsArray());
+        }
+
+        tableStruct.setTableData(dataArray);
+
+        return tableStruct;
+    }
+
+    /**
+     * Converts the person list to a string.
+     * @return A string representing all data in personlist.
+     */
+    public static String listToString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("List of people registered\n");
+        sb.append("------------------------\n");
+
+        for (int i = 0; i < personList.size(); i++) {
+            sb.append(String.format("%d: %s\n",
+                    i + 1, personList.get(i).toString())
+            );
+        }
+
+        return sb.toString();
+    }
+    //@@author
 
 }
