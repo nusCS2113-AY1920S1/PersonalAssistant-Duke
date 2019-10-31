@@ -151,7 +151,8 @@ public class Card {
             ui.printMessage("There are no paid expenditures in this card.");
         }
         try {
-            ui.printMessage("\nUnpaid Expenditures:");
+            ui.printMessage("");
+            ui.printMessage("Unpaid Expenditures:");
             unpaid.listExpenditure(ui, displayNumHalf);
         } catch (TransactionException e) {
             ui.printMessage("There are no unpaid expenditures in this card.");
