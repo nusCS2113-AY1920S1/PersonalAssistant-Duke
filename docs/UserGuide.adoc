@@ -280,7 +280,7 @@ image::list/list3.jpeg[width="500", align="left"]
 +
 ====
 
-image::list/listbyroomnew.jpg[width="500", align="left"]
+image::list/listbyroomnew.jpeg[width="500", align="left"]
 ====
 
 
@@ -291,7 +291,7 @@ image::list/listbyroomnew.jpg[width="500", align="left"]
 +
 ====
 
-image::list/listbydate.jpg[width="500", align="left"]
+image::list/listbydatenew.jpeg[width="500", align="left"]
 ====
 
 
