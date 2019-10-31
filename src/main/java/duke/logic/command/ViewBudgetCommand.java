@@ -50,7 +50,7 @@ public class ViewBudgetCommand extends Command {
             throw new DukeException(String.format(DukeException.MESSAGE_BUDGET_VIEW_INVALID, view));
         }
 
-        String category = commandParams.getParam(SecondaryParam.TAG.name);
+        String category = commandParams.getParam(SecondaryParam.TAG.name).toUpperCase();
         model.setBudgetView(view, category);
 
         storage.saveBudgetView(model.getBudgetView());

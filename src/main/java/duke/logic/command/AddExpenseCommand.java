@@ -65,7 +65,7 @@ public class AddExpenseCommand extends Command {
         }
 
         if (commandParams.containsParams(SecondaryParam.TAG.name)) {
-            expenseBuilder.setTag(commandParams.getParam(SecondaryParam.TAG.name));
+            expenseBuilder.setTag(commandParams.getParam(SecondaryParam.TAG.name).toUpperCase());
         }
 
         if (commandParams.containsParams(SecondaryParam.TIME.name)) {
