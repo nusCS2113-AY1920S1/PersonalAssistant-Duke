@@ -1,6 +1,6 @@
 package ui;
 
-import command.Storage;
+import common.CommandFormat;
 import common.TaskList;
 import payment.Payee;
 import payment.Payments;
@@ -8,9 +8,6 @@ import project.Fund;
 import project.Project;
 import task.Task;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
@@ -20,6 +17,7 @@ import java.util.Scanner;
  */
 public class Ui {
     private static final String line = "    ____________________________________________________________\n";
+    private static CommandFormat commandFormat = new CommandFormat();
     Scanner in;
 
     /**
