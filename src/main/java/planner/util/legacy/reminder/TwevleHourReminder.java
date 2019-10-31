@@ -41,7 +41,7 @@ public class TwevleHourReminder extends Reminder {
     public void execute(LocalDateTime now) {
         try {
             now = LocalDateTime.now();
-            this.thread.sleep(43200000);
+            Thread.sleep(43200000);
             this.thread.notify();
             new PlannerUi().reminderMsg();
         } catch (InterruptedException e) {

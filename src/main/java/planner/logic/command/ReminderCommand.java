@@ -1,3 +1,4 @@
+//@@author kyawtsan99
 package planner.logic.command;
 
 import planner.logic.modules.cca.CcaList;
@@ -9,6 +10,7 @@ import planner.util.legacy.reminder.ThirtyMinReminder;
 import planner.util.legacy.reminder.OneHourReminder;
 import planner.util.legacy.reminder.TwevleHourReminder;
 import planner.util.legacy.reminder.OneDayReminder;
+import planner.util.legacy.reminder.Reminder;
 
 import planner.logic.modules.module.ModuleInfoDetailed;
 import planner.logic.modules.module.ModuleTasksList;
@@ -25,6 +27,7 @@ public class ReminderCommand extends ModuleCommand {
     private OneHourReminder oneHourReminder;
     private TwevleHourReminder twevleHourReminder;
     private OneDayReminder oneDayReminder;
+    private Reminder reminder;
 
     @Override
     public void execute(HashMap<String, ModuleInfoDetailed> detailedMap,

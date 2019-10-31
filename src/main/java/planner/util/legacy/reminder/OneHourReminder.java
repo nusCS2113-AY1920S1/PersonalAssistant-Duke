@@ -42,7 +42,7 @@ public class OneHourReminder extends Reminder {
     public void execute(LocalDateTime now) {
         try {
             now = LocalDateTime.now();
-            this.thread.sleep(3600000);
+            Thread.sleep(3600000);
             this.thread.notify();
             new PlannerUi().reminderMsg();
         } catch (InterruptedException e) {

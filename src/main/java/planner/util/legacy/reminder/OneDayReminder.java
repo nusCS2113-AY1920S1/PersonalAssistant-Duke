@@ -42,7 +42,7 @@ public class OneDayReminder extends Reminder {
     public void execute(LocalDateTime now) {
         try {
             now = LocalDateTime.now();
-            this.thread.sleep(86400000);
+            Thread.sleep(86400000);
             this.thread.notify();
             new PlannerUi().reminderMsg();
         } catch (InterruptedException e) {
