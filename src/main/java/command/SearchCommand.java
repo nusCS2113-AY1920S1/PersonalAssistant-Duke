@@ -27,8 +27,8 @@ public class SearchCommand extends Command {
     public String execute(Ui ui, Bank bank, Storage storage) {
         try {
             String meaning = bank.searchWordBankForMeaning(this.searchTerm);
-            Word word = bank.getWordBankObject().getWord(this.searchTerm);
-            if (bank.getWordFromWordBank(searchTerm).getNumberOfSearches() == 0) {
+            Word word = bank.getWordFromWordBank(this.searchTerm);
+            if (word.getNumberOfSearches() == 0) {
                 storage.updateFile(word.toString(),"");
                 storage.writeFile(word.toString(),true);
             }
