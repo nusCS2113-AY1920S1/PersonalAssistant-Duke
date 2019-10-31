@@ -1,5 +1,6 @@
 package rims.core;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 
 import rims.command.*;
@@ -31,7 +32,7 @@ public class Parser {
      * @return a Command that can be executed to carry out the necessary tasks
      * @throws RimsException if the input is in a wrong format or does not make sense.
      */
-    public Command parseInput(String input) throws RimsException {
+    public Command parseInput(String input) throws RimsException, ParseException {
         Command c;
         String[] words = input.split(" ");
 
@@ -45,7 +46,7 @@ public class Parser {
         }
         //@@author danielcyc
         else if (words[0].equals("calendar") && words.length == 1) {
-            CalendarCommand.printCal();
+            CalendarCommand.printCal(resources, ui);
             c = new ListCommand();
         }
         //@@author aarushisingh1
