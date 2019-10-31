@@ -10,12 +10,11 @@ import cube.storage.config.LogConfig;
 public class ConfigCommandParser implements ParserPrototype<ConfigCommand> {
 
     public ConfigCommand parse(String[] args) throws ParserException {
-        if (args.length < 2) {
-            throw new ParserException(ParserErrorMessage.NOT_ENOUGH_PARAMETER);
+        if (args.length == 1) {
+            return new ConfigCommand(ConfigType.VIEW);
         }
 
         int configTypeIndex = 1;
-
         ConfigType configType = ConfigType.valueOf(args[configTypeIndex]);
 
         switch (configType) {
