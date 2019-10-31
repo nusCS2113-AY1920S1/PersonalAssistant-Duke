@@ -103,9 +103,7 @@ image::addClass.png[align="left"]
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-=== Features
-
-==== Menu
+=== Menu
 *Description:* The trainer is able to navigate across the different features of the app easily. He may also see the list of commands for each featured menu.
 
 *Format: `_[MENU NUMBER]_`*
