@@ -1,5 +1,6 @@
 package rims.command;
 
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -14,6 +15,7 @@ import rims.resource.ReservationList;
 import rims.resource.Resource;
 import rims.exception.RimsException;
 
+//@@author isbobby
 /**
  * Creates a Reservation for a Resource in the ResourceList, given the ID of the user,
  * the name of the Resource and the dates between which the Reservation is valid.
@@ -27,6 +29,7 @@ public class ReserveCommand extends Command {
     protected String stringDateTill;
     protected int userId;
 
+    //@@author rabhijit
     /**
      * Constructor for a ReserveCommand, for a Room which is to be loaned from effective immediately
      * till a certain future date.
@@ -77,7 +80,7 @@ public class ReserveCommand extends Command {
     /**
      * Constructor for a ReserveCommand, for an Item which is to be reserved from a given date in the future
      * till a further future date.
-     * @param roomName the name of the Item to be reserved.
+     * @param itemName the name of the Item to be reserved.
      * @param qty the quantity of the Item to be reserved.
      * @param stringDateFrom the date from which the Item is to be loaned out, in String format.
      * @param stringDateTill the date by which the Item must be returned, in String format.
@@ -91,6 +94,7 @@ public class ReserveCommand extends Command {
         this.userId = userId;
     }
 
+    //@@author isbobby
     /**
      * Checks if the reservation is possible given the number of available Resources and Reservations
      * that are already in place, and if it is possible, creates a Reservation for the desired number of 
@@ -103,7 +107,9 @@ public class ReserveCommand extends Command {
      * @throws ParseException if the dates specified are invalid.
      */
     @Override
-    public void execute(Ui ui, Storage storage, ResourceList resources) throws RimsException, ParseException {
+    public void execute(Ui ui, Storage storage, ResourceList resources) throws RimsException, ParseException, IOException {
+        storage.saveToFile(resources.getResources());
+
         if (!(stringDateFrom == null)) {
             dateFrom = resources.stringToDate(stringDateFrom);
         }
@@ -132,8 +138,7 @@ public class ReserveCommand extends Command {
                 ui.print(bookedResources.get(i).toString() + " (ID: " + bookedResources.get(i).getResourceId() + ")");
             }
             ui.printLine();
-        }
-        else {
+        } else {
             throw new RimsException("This item is not available between the dates you've selected!");
         }
     }

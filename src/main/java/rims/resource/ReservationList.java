@@ -11,6 +11,7 @@ import java.util.concurrent.TimeUnit;
 
 import rims.exception.RimsException;
 
+//@@author isbobby
 /**
  * This class contains all the Reservations made for a particular Resource.
  * This ReservationList is stored as an attribute in its corresponding Resource, for which it stores its reservations.
@@ -36,16 +37,16 @@ public class ReservationList {
 
     /**
      * Returns a Reservation in the Reservation array by its index number in the array.
-     * @param indexNo the index number of the desired Reservation.
+     * @param i the index number of the desired Reservation.
      * @return the Reservation itself.
      */
-    public Reservation getReservationByIndex(int i) {
-        return reservations.get(i);
+    public Reservation getReservationByIndex(int indexNo) {
+        return reservations.get(indexNo);
     }
 
     /**
      * Returns a Reservation in the Reservation array by its reservation ID.
-     * @param indexNo the reservation ID of the desired Reservation.
+     * @param reservationId the reservation ID of the desired Reservation.
      * @return the Reservation itself.
      * @throws RimsException if no reservation has such an ID.
      */
@@ -61,7 +62,7 @@ public class ReservationList {
 
     /**
      * Adds a new Reservation to the ReservationList.
-     * @param thisResource the newly created Reservation.
+     * @param newReservation the newly created Reservation.
      */
     public void add(Reservation newReservation) {
         reservations.add(newReservation);
@@ -78,7 +79,8 @@ public class ReservationList {
      * @throws ParseException if the dates given are in an invalid format.
      * @throws RimsException if the date of return is before the date of borrowing.
      */
-    public void createReservation(int reservationId, int resourceId, int userId, Date startDate, Date endDate) throws ParseException, RimsException {
+    public void createReservation(int reservationId, int resourceId, int userId, 
+        Date startDate, Date endDate) throws ParseException, RimsException {
         Date currentDate = new Date(System.currentTimeMillis());
         if (startDate.after(endDate)) {
             throw new RimsException("Your date of return must be after your date of borrowing!");
@@ -109,6 +111,7 @@ public class ReservationList {
         }
     }
 
+    //@@author rabhijit
     /**
      * Returns the number of Reservations made for this particular Resource.
      * @return the size of the ReservationList.
@@ -133,7 +136,24 @@ public class ReservationList {
         Date currentDate = new Date(System.currentTimeMillis());
         for (int i = 0; i < size(); i++) {
             Reservation thisReservation = getReservationByIndex(i);
-            if ((currentDate.after(thisReservation.getStartDate()) && currentDate.before(thisReservation.getEndDate())) || thisReservation.isOverdue()) {
+            if ((currentDate.after(thisReservation.getStartDate()) && currentDate.before(thisReservation.getEndDate())) 
+                || thisReservation.isOverdue()) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    //@@author aarushisingh1
+    /**
+     * Checks if this Resource is currently booked under a Reservation, or is overdue from a previous Reservation on the date entered by the user.
+     * @param checkedDate The date entered by the user that is being checked
+     * @return a boolean indicating whether this Resource is currently not booked on that date.
+     */
+    public boolean isAvailableOnDate(Date checkedDate) {
+        for (int i = 0; i < size(); i++) {
+            Reservation thisReservation = getReservationByIndex(i);
+            if ((checkedDate.after(thisReservation.getStartDate()) && checkedDate.before(thisReservation.getEndDate()))) {
                 return false;
             }
         }
@@ -152,7 +172,9 @@ public class ReservationList {
         }
         for (int i = 0; i < size(); i++) {
             Reservation thisReservation = getReservationByIndex(i);
-            if (((startDate.after(thisReservation.getStartDate()) && startDate.before(thisReservation.getEndDate())) || (endDate.after(thisReservation.getStartDate()) && endDate.before(thisReservation.getEndDate()))) || thisReservation.isOverdue()) {
+            if (((startDate.after(thisReservation.getStartDate()) && startDate.before(thisReservation.getEndDate()))
+                || (endDate.after(thisReservation.getStartDate()) && endDate.before(thisReservation.getEndDate()))) 
+                || thisReservation.isOverdue()) {
                 return false;
             }
         }
@@ -168,13 +190,15 @@ public class ReservationList {
         Date currentDate = new Date(System.currentTimeMillis());
         for (int i = 0; i < size(); i++) {
             Reservation thisReservation = getReservationByIndex(i);
-            if ((currentDate.after(thisReservation.getStartDate()) && currentDate.before(thisReservation.getEndDate())) || thisReservation.isOverdue()) {
+            if ((currentDate.after(thisReservation.getStartDate()) && currentDate.before(thisReservation.getEndDate())) 
+                || thisReservation.isOverdue()) {
                 return thisReservation;
             }
         }
         throw new RimsException("Item is not currently booked!");
     }
 
+    //@@author isbobby
     /**
      * Gets the list of Reservations that a certain user has made for this particular Resource.
      * @param userId the ID of the user whose Reservations for this Resource are being obtained.
@@ -191,6 +215,7 @@ public class ReservationList {
         return userReservations;
     }
 
+    //@@author rabhijit
     /**
      * Returns the list of currently active Reservations, including overdue Reservations, which are expiring
      * in a given number of days.

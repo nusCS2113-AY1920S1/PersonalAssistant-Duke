@@ -8,6 +8,9 @@ import rims.resource.Room;
 import rims.resource.ReservationList;
 import rims.resource.Resource;
 
+import java.io.IOException;
+
+//@@author hin1
 /**
  * Implements the addition of a new Resource to the ResourceList.
  */
@@ -27,7 +30,7 @@ public class AddCommand extends Command {
 
     /**
      * Constructor of a new AddCommand for a new Item.
-     * @param roomName the name of the new Item to be added to the ResourceList.
+     * @param itemName the name of the new Item to be added to the ResourceList.
      * @param qty the quantity of the new Item to be added.
      */
     public AddCommand(String itemName, int qty) {
@@ -44,7 +47,9 @@ public class AddCommand extends Command {
      * @param resources The ResourceList, containing all the created Resources thus far.
      */
     @Override
-    public void execute(Ui ui, Storage storage, ResourceList resources) {
+    public void execute(Ui ui, Storage storage, ResourceList resources) throws IOException {
+        storage.saveToFile(resources.getResources());
+
         if (resourceType.equals("room")) {
             int resourceId = resources.generateResourceId();
             Room newRoom = new Room(resourceId, resourceName);
@@ -53,8 +58,7 @@ public class AddCommand extends Command {
             ui.print("The following room has been successfully added:");
             ui.print(newRoom.toString());
             ui.printLine();
-        }
-        else if (resourceType.equals("item")) {
+        } else if (resourceType.equals("item")) {
             for (int i = 0; i < qty; i++) {
                 int resourceId = resources.generateResourceId();
                 Item newItem = new Item(resourceId, resourceName);
