@@ -1,9 +1,9 @@
-= John Doe - Project Portfolio
+= Zhang Yue Han - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-== PROJECT: AddressBook - Level 3
+== PROJECT: WordUp - Your personal vocabulary management app
 
 ---
 
@@ -30,31 +30,26 @@ To integrate this into the code, the state of the setup has to be tracked in the
 * *Minor enhancement*: added the ability to track the number of searches for each word.
 ** What it does: Allows the user to see the list of word bank words in ascending or descending order of number of queries for each word.
 ** Justification: This feature is targeted at statistically oriented users who want to see which words they have been searching for a lot recently and can serve as an extension for future enhancements where for example, there is a test mode in the quiz function that allows our app to specifically target words which the user most frequently searched for (indicating unfamiliarity with its meaning since the meaning had to be repeatedly queried). The search count for correct words can then be reduced to reflect a level of mastery for the word. Currently this feature allows interested users to keep a mental note of the words which they were most unfamiliar with or searched for most for some reason, or to take note of past added words which are least searched for a quick revision of the meaning of a list of words rather than querying for them specifically.
-** Highlights: While it seemed straightforward to implement at first, by adding a variable tracking the number of searches to each Word object, it would require a long operating time to sort the original treemap by , particularly since we are expecting a lot of words in the word bank over time. This sorting would also have to occur everytime the user uses the search count feature, and makes the execution of the command rather inefficient. Moreover, the updating of search count for each word everytime a word is queried with the 'search command' would also cost much time.
-As a treemap structure is used to keep track of just the words themselves, where the 'key' is 'String word' and the 'value' is the 'Word word', a new way to store the data efficiently and for fast retrieval is required. Hence, to save processing time of the 'search count command', a single 
+** Highlights: While it seemed straightforward to implement at first, where a variable to track the number of searches in each Word object could be added, this would require a long operating time to re-sort the original treemap by the 'value' when we want to obtain the word count, particularly since we are expecting a lot of words in the word bank over time. This sorting would also have to occur everytime the user uses the search count feature, and makes the execution of the command rather inefficient. Moreover, the word count has to be updated every time a word is queried in 'search'. A new collection is thus required to store the word and their word count efficiently for fast retrieval and updating of search count and the respective words.
 ** Credits: me
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Code contributed*: [https://github.com/tessa-z/main[Functional code]] [https://github.com[Test code]]
 
 * *Other contributions*:
 
 ** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
+*** Managed releases `v1.1` - `v1.3` (3 releases) on GitHub
 ** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+*** Updated the GUI avatar photos (Pull requests https://github.com[#33], https://github.com[#34])
+*** Wrote Parser test, which had a 58% LOC coverage of the class (Pull requests https://github.com[#85], https://github.com[#94])
 ** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+*** Wrote the first draft of UserGuide (Luminus)
+*** Did major restructuring to the DeveloperGuide after first draft (Luminus)
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
+*** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S1-CS2113-T14-3/main/pull/59[#59]
 *** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
 ** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
-
-_{you can add/remove categories in the list above}_
+*** shadowJar execution and jar file management
 
 == Contributions to the User Guide
 
@@ -76,10 +71,3 @@ include::../UserGuide.adoc[tag=dataencryption]
 include::../DeveloperGuide.adoc[tag=undoredo]
 
 include::../DeveloperGuide.adoc[tag=dataencryption]
-
-
-== PROJECT: PowerPointLabs
-
----
-
-_{Optionally, you may include other projects in your portfolio.}_
