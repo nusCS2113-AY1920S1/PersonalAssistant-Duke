@@ -19,6 +19,7 @@ import command.SetReminderCommand;
 import dictionary.Word;
 import exception.CommandInvalidException;
 import exception.EmptyWordException;
+import exception.InvalidHistoryIndexException;
 import exception.WordUpException;
 import exception.WrongAddFormatException;
 import exception.WrongAddSynonymFormatException;
@@ -228,18 +229,21 @@ public class Parser {
      * @throws ZeroHistoryRequestException when the requested number of entries to be shown is zero
      */
     protected static Command parseHistory(String[] taskInfo)
-            throws WrongHistoryFormatException, ZeroHistoryRequestException {
+            throws WrongHistoryFormatException, ZeroHistoryRequestException, InvalidHistoryIndexException {
         int numberOfWordsToDisplay;
         if (taskInfo.length == 1) {
             throw new WrongHistoryFormatException();
-        }
-        if (taskInfo[1].equals("0")) {
-            throw new ZeroHistoryRequestException();
         }
         try {
             numberOfWordsToDisplay = Integer.parseInt(taskInfo[1]);
         } catch (NumberFormatException nfe) {
             throw new WrongHistoryFormatException();
+        }
+        if (numberOfWordsToDisplay < 0) {
+            throw new InvalidHistoryIndexException();
+        }
+        if (numberOfWordsToDisplay == 0) {
+            throw new ZeroHistoryRequestException();
         }
         return new HistoryCommand(numberOfWordsToDisplay);
     }
