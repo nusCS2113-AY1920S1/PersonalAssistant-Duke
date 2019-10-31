@@ -1,7 +1,6 @@
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
-:media: screen
 :repoURL: https://github.com/AY1920S1-CS2113T-W17-3/main
 :prURL: {repoURL}/pull
 :forumURL: https://github.com/nusCS2113-AY1920S1/forum/issues
