@@ -173,7 +173,7 @@ Examples:
 Edits any field `FIELD` of payee named `PAYEE`, replacing the existing data in that field with `REPLACEMENT`+
 If only the payee fields are being modified, `INVOICE` should be blank. +
 The following payee fields are acceptable: `PAYEE`, `EMAIL`, `MATRIC`, `PHONE` +
-The following payment fields are acceptable: `ITEM`, `COST`, `INV`, `DEADLINE`, `STATUS` +
+The following payment fields are acceptable: `ITEM`, `COST`, `INVOICE`, `DEADLINE`, `STATUS` +
 
 Format: `edit p/PAYEE v/INVOICE f/FIELD r/REPLACEMENT`
 

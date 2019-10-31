@@ -175,7 +175,7 @@ The feature is also supported by 2 enum objects, `Field`; +
 ** PHONE
 ** ITEM
 ** COST
-** INV
+** INVOICE
 ** DEADLINE
 ** STATUS
 

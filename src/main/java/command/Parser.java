@@ -109,7 +109,7 @@ public class Parser {
                 //process.reminder(input, tasklist, ui);
                 process.commandHistory(input, ui, storage);
             } else if (instr.isEdit(input)) {
-                // process.edit(input,tasklist,ui);
+                process.edit(input,ui);
                 process.commandHistory(input, ui, storage);
             } else if (instr.isAddPayment(input)) {
                 process.addPayment(input, ui);
