@@ -1,19 +1,21 @@
 package moomoo.task;
 
-import moomoo.command.AddCategoryCommand;
-import moomoo.command.AddExpenditureCommand;
 import moomoo.command.Command;
-import moomoo.command.DeleteCategoryCommand;
-import moomoo.command.EditBudgetCommand;
-import moomoo.command.ExitCommand;
 import moomoo.command.GraphCategoryCommand;
 import moomoo.command.GraphTotalCommand;
+import moomoo.command.EditBudgetCommand;
 import moomoo.command.ListBudgetCommand;
-import moomoo.command.ListCategoryCommand;
 import moomoo.command.SavingsBudgetCommand;
-import moomoo.command.ScheduleCommand;
 import moomoo.command.SetBudgetCommand;
+import moomoo.command.ExitCommand;
+import moomoo.command.HelpCommand;
+import moomoo.command.ScheduleCommand;
 import moomoo.command.TotalCommand;
+import moomoo.command.category.AddCategoryCommand;
+import moomoo.command.category.AddExpenditureCommand;
+import moomoo.command.category.DeleteCategoryCommand;
+import moomoo.command.category.ListCategoryCommand;
+import moomoo.task.category.CategoryParser;
 import moomoo.command.MainDisplayCommand;
 
 import java.time.LocalDate;
@@ -43,20 +45,22 @@ public class Parser {
             return new ExitCommand(true);
         case ("budget"):
             return parseBudget(scanner);
-        case ("categories"):
-            return new ListCategoryCommand();
         case ("schedule"):
             return new ScheduleCommand(false, input);
         case ("add"):
             return parseAdd(scanner, ui);
         case ("delete"):
             return parseDelete(scanner, ui);
+        case ("sort"):
+            return CategoryParser.parseSort(scanner, ui);
         case ("list"):
-            return parseList(scanner, ui);
+            return new ListCategoryCommand();
         case ("graph"):
             return parseGraph(scanner);
         case ("total"):
             return new TotalCommand();
+        case ("help"):
+            return new HelpCommand();
         case ("view"):
             return parseView(scanner, ui);
         default:
@@ -90,22 +94,13 @@ public class Parser {
         }
     }
     
-    private static Command parseList(Scanner scanner, Ui ui) throws MooMooException {
-        String text = "What do you wish to list?" + "\n(c/) category" + "\n(n/) expenditure";
-        String input = parseInput(scanner, ui, text);
-        if (input.equals("c/")) {
-            return new ListCategoryCommand();
-        }
-        throw new MooMooException("Sorry I did not recognize that command.");
-    }
-    
     private static Command parseDelete(Scanner scanner, Ui ui) throws MooMooException {
         String text = "What do you wish to delete?" + "\n(c/) category" + "\n(n/) expenditure";
         String input = parseInput(scanner, ui, text);
         if (input.startsWith("c/")) {
-            String categoryNumber = removeSuffix(input);
+            String categoryName = removeSuffix(input);
             try {
-                return new DeleteCategoryCommand(Integer.parseInt(categoryNumber));
+                return new DeleteCategoryCommand(categoryName);
             } catch (NumberFormatException e) {
                 throw new MooMooException("Try a command like delete c/[Category Number]");
             }

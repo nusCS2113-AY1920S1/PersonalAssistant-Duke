@@ -1,9 +1,9 @@
 package moomoo.command;
 
 import moomoo.task.Budget;
-import moomoo.task.Category;
-import moomoo.task.CategoryList;
-import moomoo.task.Expenditure;
+import moomoo.task.category.Category;
+import moomoo.task.category.CategoryList;
+import moomoo.task.category.Expenditure;
 import moomoo.task.MooMooException;
 import moomoo.task.ScheduleList;
 import moomoo.task.Storage;
@@ -42,12 +42,12 @@ public class GraphCategoryCommand extends Command {
             throws MooMooException {
         
         try {
-            Category cat = catList.getCategory(categoryName);
+            Category cat = catList.get(categoryName);
             if (cat.size() == 0) {
                 throw new MooMooException("OOPS!!! MooMoo cannot find any expenditure data :(");
             }
             
-            double grandTotal = cat.getCategoryMonthTotal();
+            double grandTotal = cat.getTotal();
             int maxAxisUnit = (int) ((cat.getLargestExpenditure() / grandTotal) * 100) + 1;
             for (int i = 0; i < maxAxisUnit; i += 1) {
                 horizontalAxisTop += topBorder;

@@ -1,5 +1,7 @@
 package moomoo.task;
 
+import moomoo.task.category.CategoryList;
+
 public class MainDisplay {
 
     private static final String ANSI_RESET = "\u001B[0m";
@@ -158,7 +160,7 @@ public class MainDisplay {
                 output += "             |";
             }
 
-            double tot = categoryList.get(row).getCategoryMonthTotal();
+            double tot = categoryList.get(row).getTotal();
             double sav = bud - tot;
             if (sav != 0.0) {
                 blankSpaceSav = "";

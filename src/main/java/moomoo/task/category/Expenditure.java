@@ -1,4 +1,4 @@
-package moomoo.task;
+package moomoo.task.category;
 
 import java.time.LocalDate;
 
@@ -7,10 +7,6 @@ public class Expenditure {
     private double cost;
     private String name;
     public LocalDate date;
-
-    public Expenditure() {
-        this.cost = 0.0;
-    }
 
     /**
      * Initializes name, value and date of expenditure if given by user.
@@ -26,6 +22,14 @@ public class Expenditure {
 
     public String toString() {
         return name;
+    }
+
+    String dateToString() {
+        return "0";
+    }
+
+    String costToString() {
+        return String.valueOf(cost);
     }
 
     public double getCost() {
