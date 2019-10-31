@@ -65,7 +65,6 @@ public class CategoryList {
 
     /**
      * Return the total sum of all expenditure across all categories for the current month.
-     *
      * @return total The total sum
      */
     public double getTotal(int month, int year) {
@@ -119,7 +118,6 @@ public class CategoryList {
     
     /**
      * Get the length of the name of the Category with the longest name.
-     *
      * @return Length of the name of the Category with the longest name
      */
     public int getLongestCategory() {
@@ -206,9 +204,5 @@ public class CategoryList {
             Category newCategory = new Category(population.get(i));
             categoryList.add(newCategory);
         }
-        Category gameCategory = new Category("Games");
-        gameCategory.testPopulate();
-        categoryList.add(gameCategory);
-        
     }
 }
