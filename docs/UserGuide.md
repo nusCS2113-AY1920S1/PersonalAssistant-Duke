@@ -247,7 +247,7 @@ To be able to execute the fridge commands the user must choose, type `'a'- remov
 
  while in mode `b`:
 
-by using the template, typing `template`, the user can see how to use which command
+by typing `template`, the user can see how to use which command
 
 by typing `show`, the user gets a list of all of the ingredients currently in the fridge, indexed and sorted by expiry date
 
