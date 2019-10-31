@@ -193,6 +193,8 @@ public class UI {
             return;
         }
         mainWindow.showGuiMessage(msg, input, command);
+        input = "";
+        command = "";
     }
 
     /**

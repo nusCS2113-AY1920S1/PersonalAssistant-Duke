@@ -134,11 +134,18 @@ public class MainWindow extends AnchorPane {
      * @param command the command executed to produce this message
      */
     public void showGuiMessage(String msg, String input, String command) {
-        dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(command + System.lineSeparator() + System.lineSeparator() + msg,
-                        dukeImage)
-        );
+        if (input.length() <= 0) {
+            dialogContainer.getChildren().addAll(
+                    DialogBox.getDukeDialog(command + System.lineSeparator() + System.lineSeparator() + msg,
+                            dukeImage)
+            );
+        } else {
+            dialogContainer.getChildren().addAll(
+                    DialogBox.getUserDialog(input, userImage),
+                    DialogBox.getDukeDialog(command + System.lineSeparator() + System.lineSeparator() + msg,
+                            dukeImage)
+            );
+        }
     }
 
     public void setKeyBinding(Scene scene) {
