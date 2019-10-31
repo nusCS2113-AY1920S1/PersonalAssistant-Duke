@@ -75,7 +75,8 @@ Format: `exam <name of exam> /dd-MM-yyyy HHmm HHmm`
 Format: `recital <name of recital> /dd-MM-yyyy HHmm HHmm`
 +
 . Concerts : `concert` +
-Format: `concert <name of concert> /dd-MM-yyyy HHmm HHmm`
+Format: `concert <concert name> /dd-MM-yyyy HHmm HHmm/<cost of concert>` +
+Note: Cost of concert must be an integer (for simplicity regarding budgeting).
 
 
 === Recurring events :
@@ -89,6 +90,15 @@ Format: `<type of event> <name of event> /dd-MM-yyyy HHmm HHmm /period(days)`
 
 E.g. “lesson Theory class /18-09-2019 0900 1030 /7”
 adds a weekly recurring event from 9:00am to 10:30am, starting on 18 September 2019.
+
+=== Calendar Table
+The calendar table is generated from the `EventList`. It prints on the screen a table of calendar of 7 days
+starting from a specified day, including the events within this time period. +
+
+==== Commands for CalendarView
+- `calendar` This prints the calendar table of this 7 days.
+- `calendar next` This prints the calendar table of the next 7 days.
+- `calendar last` This prints the calendar table of the last 7 days.
 
 
 === Viewing schedules : `view`
@@ -112,7 +122,8 @@ Format: `check`
 
 === Marking a task as done: `done`
 
-Marks a ToDo in the list as completed, denoted by a tick when displaying the task. +
+Marks a ToDo in the list as completed, denoted by a tick when displaying the task.
+This functionality does not work for events that are not ToDos. +
 
 Format: `done <task index>` +
 E.g. “done 5” marks task number 5 as done.
@@ -155,9 +166,10 @@ Format: `searchfree 4h`
 
 === Search
 
-The user will be able to search for a specific task using keywords.
+The user is able to search for a specific event/task using keywords.
 
-Format: `find <keyword>`
+Format: `find <keyword>` will display all events/tasks previously entered
+containing the desired keyword.
 
 === Edit an event/ToDo
 The user is able to edit the name of the event/ToDo he entered in case he entered it wrongly.
@@ -204,6 +216,14 @@ This edits a specific item in the checklist of an event.
 `checklist delete <event index> <item index>`
 This deletes an item from the checklist of an event.
 
+=== viewing monthly costs of concerts
+The total cost of concerts each month can be viewed by the user using the
+`budget` command.
+
+Format: `budget MM-yyyy` symbolising the month and year the user wishes to take a look at. +
+Note: MM must be a two digit value. For example, the month of may, 2019 must be entered as
+`05-2019` instead of `5-2019`.
+
 === Exiting the program : `bye`
 
 Exits the program. +
@@ -234,6 +254,20 @@ and specifying which type they would like to be displayed. +
 
 E.g. “reminder exam”
 displays a reminder of all exam events within the next 3 days.
+
+=== Budget handling system
+
+The system allows for the user to handle their own monthly budget. There is a set budget
+for each month (fixed at $50 initially) that stops users from entering new concerts into
+the schedule if that new concert would cause the costs of concerts for the month to exceed
+the stipulated budget.
+
+For example, if the list contains a concert on the 4th of July, 2019 that costs $49,
+entering a new concert that costs more than a dollar would causes the system to cancel the
+operation as it would lead to monthly costs of $51 that exceeds the monthly budget of $50.
+
+The user also has the ability to change the stipulated budget for each month or universally if
+he/she wishes to (Coming in v1.4).
 
 == FAQ
 *Q:* How do I transfer my data to another Computer? +

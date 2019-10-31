@@ -26,11 +26,11 @@ public class DukeTest {
     public void clashTest(){
         ArrayList<String> readFromFile = new ArrayList<String>();
         String fileContent;
-        fileContent = "✗T fawpeifwe 02-12-2019\n";
+        fileContent = "XT/fawpeifwe/02-12-2019";
         readFromFile.add(fileContent);
-        fileContent = "✗P apiejfpwiefw 03-12-2019 1500 03-12-2019 1800\n";
+        fileContent = "XP/apiejfpwiefw/03-12-2019 1500/03-12-2019 1800";
         readFromFile.add(fileContent);
-        fileContent = "✗C halloween 04-12-2019 1600 04-12-2019 1930\n";
+        fileContent = "XC/halloween/04-12-2019 1600/04-12-2019 1930/13";
         readFromFile.add(fileContent);
 
         EventList eventListTest = new EventList(readFromFile);
@@ -52,11 +52,11 @@ public class DukeTest {
     public void clashTestRecurring(){
         ArrayList<String> readFromFile = new ArrayList<String>();
         String fileContent;
-        fileContent = "✗T fawpeifwe 02-12-2019\n";
+        fileContent = "XT/fawpeifwe/02-12-2019";
         readFromFile.add(fileContent);
-        fileContent = "✗P apiejfpwiefw 03-12-2019 1500 03-12-2019 1800\n";
+        fileContent = "XP/apiejfpwiefw/03-12-2019 1500/03-12-2019 1800";
         readFromFile.add(fileContent);
-        fileContent = "✗C halloween 04-12-2019 1600 04-12-2019 1930\n";
+        fileContent = "XC/halloween/04-12-2019 1600/04-12-2019 1930/3";
         readFromFile.add(fileContent);
 
         EventList eventListTest = new EventList(readFromFile);
@@ -75,11 +75,11 @@ public class DukeTest {
     public void testSorting() throws Exception{
         ArrayList<String> readFromFile = new ArrayList<String>();
         String fileContent;
-        fileContent = "✗T fawpeifwe 02-12-2019\n";
+        fileContent = "XT/fawpeifwe/02-12-2019";
         readFromFile.add(fileContent);
-        fileContent = "✗P apiejfpwiefw 03-12-2019 1500 03-12-2019 1800\n";
+        fileContent = "XP/apiejfpwiefw/03-12-2019 1500/03-12-2019 1800";
         readFromFile.add(fileContent);
-        fileContent = "✗C halloween 04-12-2019 1600 04-12-2019 1930\n";
+        fileContent = "XC/halloween/04-12-2019 1600/04-12-2019 1930/5";
         readFromFile.add(fileContent);
 
         EventList eventListTest = new EventList(readFromFile);
@@ -108,7 +108,6 @@ public class DukeTest {
 //            System.out.println(currEvent.toString());
 //            System.out.println(eventListCompare.get(i).toString());
             if (!currEvent.toString().equals(eventListCompare.get(i).toString())) {
-                System.out.println("hi" + i);
                 succeeded = false;
             }
             ++i;
