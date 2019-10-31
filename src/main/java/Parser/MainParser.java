@@ -40,15 +40,18 @@ public class MainParser {
 
             case "list":
             case "done":
-                return  null;
+                return new DoneParse(fullCommand).parse();
 
             case "find":
                 return new FindFreeTimesParse(fullCommand).parse();
-            case "show previous":
-                return new ShowPreviousCommand(fullCommand);
+
+            case "show/previous":
+                return new ShowPreviousParse(fullCommand).parse();
+            
             case "retrieve/ft":
                 return new RetrieveFreeTimesParse(fullCommand).parse();
-            case "retrieve previous":
+
+            case "retrieve/previous":
                 return new RetrievePreviousCommand(fullCommand);
             case "Week":
                 return new WeekParse(fullCommand).parse();//WeekCommand(fullCommand);

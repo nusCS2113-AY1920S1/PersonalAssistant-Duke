@@ -15,6 +15,7 @@ import java.util.Set;
 public class FilterCommand extends Command{
     private String keyword;
 
+
     /**
      * Creates FilterCommand object.
      * @param Command The full command that calls FilterCommand.
@@ -44,7 +45,7 @@ public class FilterCommand extends Command{
                 for(Assignment task : temp) {
                     if (task.toString().toLowerCase().contains(keyword)|
                             task.toString().toUpperCase().contains(keyword) ){
-                        out.add(task.toString());
+                        out.add(task.getDescription()+ " " +task.getModCode() + " " + task.getDateTime() );
                     }
                 }
             }
@@ -58,7 +59,7 @@ public class FilterCommand extends Command{
                 for(Assignment task : temp) {
                     if (task.toString().toLowerCase().contains(keyword)|
                             task.toString().toUpperCase().contains(keyword) ){
-                        out.add(task.toString());
+                        out.add(task.getDescription()+ " " +task.getModCode() + " " + task.getDateTime() );
                     }
                 }
             }
