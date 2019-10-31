@@ -1,8 +1,5 @@
-//@@author carrieng0323852
-
 package com.algosenpai.app.logic;
 
-import com.algosenpai.app.logic.chapters.QuizGenerator;
 import com.algosenpai.app.logic.chapters.QuizGenerator;
 import com.algosenpai.app.logic.command.ArchiveCommand;
 import com.algosenpai.app.logic.command.VolumeCommand;
@@ -39,7 +36,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class Logic {
     private UserStats userStats;
-    private QuizGenerator quizMaker;
+    private QuizGenerator quizMaker = new QuizGenerator();
 
     //All variables for the settings of the program
 
@@ -52,19 +49,16 @@ public class Logic {
     private int prevResult = -1;
 
     // VariabReview features;
-    private ArrayList<QuestionModel> archiveList;
+    private ArrayList<QuestionModel> archiveList = new ArrayList<>();
 
     // History features;
-    private ArrayList<String> historyList;
+    private ArrayList<String> historyList = new ArrayList<>();
 
     /**
      * Initializes logic for the application with all the different components.
      */
     public Logic(UserStats stats) {
         this.userStats = stats;
-        quizMaker = new QuizGenerator();
-        historyList = new ArrayList<>();
-        archiveList = new ArrayList<>();
     }
 
     /**
@@ -134,6 +128,11 @@ public class Logic {
 
     }
 
+    /**
+     * Executes the Quiz commands during the quiz.
+     * @param inputs user input.
+     * @return the Quiz command object to be executed.
+     */
     private Command getQuizCommand(ArrayList<String> inputs) {
         if (!isNewQuiz.get()) {
             if (inputs.get(0).equals("quiz")) {
