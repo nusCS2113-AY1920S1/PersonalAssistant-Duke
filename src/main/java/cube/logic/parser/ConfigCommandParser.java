@@ -64,9 +64,15 @@ public class ConfigCommandParser implements ParserPrototype<ConfigCommand> {
 
                 LogConfig logConfig = new LogConfig();
                 if (maxFileCountIndex != -1) {
+                    if(!ParserUtil.isValidNumber(args[maxFileCountIndex + 1])){
+                        throw new ParserException(ParserErrorMessage.INVALID_NUMBER);
+                    }
                     logConfig.setMaxFileCount(Integer.parseInt(args[maxFileCountIndex + 1]));
                 }
                 if (maxFileSizeIndex != -1) {
+                    if(!ParserUtil.isValidNumber(args[maxFileSizeIndex + 1])){
+                        throw new ParserException(ParserErrorMessage.INVALID_NUMBER);
+                    }
                     logConfig.setMaxFileSizeMB(Integer.parseInt(args[maxFileSizeIndex + 1]));
                 }
                 if (currentLogLevelIndex != -1) {
