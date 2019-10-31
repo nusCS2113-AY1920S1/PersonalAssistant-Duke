@@ -99,9 +99,6 @@ Exports a list of lockers as csv. +
 Format: `export`
 
 
-<<<<<<< HEAD
-== Main Features
-
 //tag::addLocker[]
 === Adding Lockers
 This feature enables the user to add more lockers to SpongeBob. The lockers are by default
@@ -237,7 +234,7 @@ will delete the rental information.
 //end::deleteUsage[]
 
 //tag::findLockers[]
-==== Finding and searching for lockers: `find`
+=== Finding and searching for lockers:`find`
 
 Finds lockers based on their serial number, area and zone +
 Format: `find s/SERIALNUMBER a/AREA z/zone`
