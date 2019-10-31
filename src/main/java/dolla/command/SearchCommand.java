@@ -1,10 +1,9 @@
 package dolla.command;
 
 import dolla.DollaData;
+import dolla.task.RecordList;
 import dolla.ui.ListUi;
 import dolla.ui.SearchUi;
-import dolla.ui.Ui;
-import dolla.task.RecordList;
 
 import java.util.ArrayList;
 

@@ -1,14 +1,7 @@
 package dolla.parser;
 
 //@@author omupenguin
-public interface CommandStringList {
-
-    // Modes
-    static final String MODE_DOLLA = "dolla";
-    static final String MODE_ENTRY = "entry";
-    static final String MODE_LIMIT = "limit";
-    static final String MODE_DEBT = "debt";
-    static final String MODE_SHORTCUT = "shortcut";
+public interface ParserStringList {
 
     // Modify specific modes
     static final String MODE_MODIFY_ENTRY = "modify entry";

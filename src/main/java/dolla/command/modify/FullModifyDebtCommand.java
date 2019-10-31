@@ -16,7 +16,7 @@ public class FullModifyDebtCommand extends Command {
     private String description;
     private LocalDate date;
     private int prevPosition;
-    private String mode = "debt";
+    //private String mode = "debt";
 
     /**
      * Instantiates a new FullModifyDebtCommand.

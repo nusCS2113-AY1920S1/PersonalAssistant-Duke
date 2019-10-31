@@ -1,5 +1,6 @@
 package dolla.parser;
 
+import dolla.ModeStringList;
 import dolla.ui.Ui;
 
 import dolla.command.Command;
@@ -9,7 +10,7 @@ import dolla.command.SwitchModeCommand;
 /**
  * MainParser directs the program to the appropriate parser depending on the current mode and the user's input.
  */
-public class MainParser implements CommandStringList {
+public class MainParser implements ParserStringList, ModeStringList {
 
     protected static final String SPACE = " ";
     protected static final String COMMAND_BYE = "bye";

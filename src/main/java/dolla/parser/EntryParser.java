@@ -67,9 +67,9 @@ public class EntryParser extends Parser {
 
     public boolean verifyPartialModifyEntryCommand() {
         // TODO
-        int recordNum;
+        //int recordNum;
         try {
-            recordNum = Integer.parseInt(inputArray[1]);
+            //recordNum = Integer.parseInt(inputArray[1]);
         } catch (Exception e) {
             ModifyUi.printInvalidModifyFormatError();
             return false;

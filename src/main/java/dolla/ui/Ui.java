@@ -1,8 +1,7 @@
 package dolla.ui;
 
-import dolla.task.Task;
 import dolla.task.Record;
-import dolla.task.RecordList;
+import dolla.task.Task;
 
 import java.util.ArrayList;
 import java.util.Arrays;

@@ -10,7 +10,7 @@ import static dolla.Storage.getDebtsFromSave;
 import static dolla.Storage.getEntriesFromSave;
 import static dolla.Storage.getLimitsFromSave;
 
-public class DollaData {
+public class DollaData implements ModeStringList {
 
     private String mode = "dolla";
     private EntryList entryList; // TODO: Find out alternatives to using a public variable
@@ -37,11 +37,11 @@ public class DollaData {
      * @return The RecordList according to the specified mode.
      */
     public RecordList getRecordList(String mode) {
-        if (mode.equals("entry")) {
+        if (mode.equals(MODE_ENTRY)) {
             return entryList;
-        } else if (mode.equals("debt")) {
+        } else if (mode.equals(MODE_DEBT)) {
             return debtList;
-        } else if (mode.equals("limit")) {
+        } else if (mode.equals(MODE_LIMIT)) {
             return limitList;
         }
         return null; // placeholder so that Dolla can compile
@@ -54,11 +54,11 @@ public class DollaData {
      * @param newRecord The new Record to be added into the relevant RecordList.
      */
     public void addToRecordList(String mode, Record newRecord) {
-        if (mode.equals("entry")) {
+        if (mode.equals(MODE_ENTRY)) {
             entryList.add(newRecord);
-        } else if (mode.equals("debt")) {
+        } else if (mode.equals(MODE_DEBT)) {
             debtList.add(newRecord);
-        } else if (mode.equals("limit")) {
+        } else if (mode.equals(MODE_LIMIT)) {
             limitList.add(newRecord);
         }
     }
@@ -71,11 +71,11 @@ public class DollaData {
      * @param prevPosition the prev position
      */
     public void addToPrevPosition(String mode, Record newRecord, int prevPosition) {
-        if (mode.equals("entry")) {
+        if (mode.equals(MODE_ENTRY)) {
             entryList.insertPrevPosition(prevPosition, newRecord);
-        } else if (mode.equals("debt")) {
+        } else if (mode.equals(MODE_DEBT)) {
             debtList.insertPrevPosition(prevPosition, newRecord);
-        } else if (mode.equals("limit")) {
+        } else if (mode.equals(MODE_LIMIT)) {
             limitList.insertPrevPosition(prevPosition, newRecord);
         }
     }
@@ -87,11 +87,11 @@ public class DollaData {
      * @param index the index
      */
     public void removeFromRecordList(String mode, int index) {
-        if (mode.equals("entry")) {
+        if (mode.equals(MODE_ENTRY)) {
             entryList.removeFromList(index);
-        } else if (mode.equals("debt")) {
+        } else if (mode.equals(MODE_DEBT)) {
             debtList.removeFromList(index);
-        } else if (mode.equals("limit")) {
+        } else if (mode.equals(MODE_LIMIT)) {
             limitList.removeFromList(index);
         }
     }
@@ -102,16 +102,24 @@ public class DollaData {
      * @param newRecord the new record to replace the current item on the list.
      */
     public void modifyRecordList(Record newRecord) {
-        if (prevMode.equals("entry")) {
-            entryList.removeFromList(modifyIndex);
-            entryList.addWithIndex(modifyIndex, newRecord);
-        } else if (prevMode.equals("limit")){
-            // TODO
-        } else if (prevMode.equals("debt")) {
-            debtList.removeFromList(modifyIndex);
-            debtList.addWithIndex(modifyIndex, newRecord);
-        } else if (prevMode.equals("favourite")) {
-            // TODO
+
+        switch (mode) {
+            case MODE_ENTRY:
+                entryList.removeFromList(modifyIndex);
+                entryList.addWithIndex(modifyIndex, newRecord);
+                break;
+            case MODE_LIMIT:
+                // TODO
+                break;
+            case MODE_DEBT:
+                debtList.removeFromList(modifyIndex);
+                debtList.addWithIndex(modifyIndex, newRecord);
+                break;
+            case MODE_SHORTCUT:
+                // TODO
+                break;
+            default: 
+                break;
         }
     }
 
