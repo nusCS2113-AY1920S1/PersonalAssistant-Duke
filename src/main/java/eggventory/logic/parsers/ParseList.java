@@ -23,7 +23,7 @@ public class ParseList {
 
     private Command processListStockType(String input) throws BadInputException {
         String[] inputArr = input.split(" ");
-        if (inputArr.length > 2) { // Checking for extra arguments
+        if (inputArr.length > 1) { // Checking for extra arguments
             throw new BadInputException(listErrorMessageGeneric);
         }
         return new ListStockTypeCommand(CommandType.LIST, inputArr[0]);
