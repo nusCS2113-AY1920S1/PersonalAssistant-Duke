@@ -26,6 +26,7 @@ public class RouteDeleteConversation extends Conversation {
             index = input;
             prompt = Messages.PROMPT_ROUTE_DELETE_SUCCESS;
             buildResult();
+            setFinished(true);
         }
 
         tryCancelConversation(input);
@@ -38,11 +39,7 @@ public class RouteDeleteConversation extends Conversation {
      */
     @Override
     protected void buildResult() {
-        if (index != null) {
-            result = command + " " + index;
-            setFinished(true);
-        } else {
-            attempts++;
-        }
+        assert (index != null);
+        result = command + " " + index;
     }
 }

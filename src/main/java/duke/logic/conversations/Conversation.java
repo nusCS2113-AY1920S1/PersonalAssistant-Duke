@@ -2,12 +2,8 @@ package duke.logic.conversations;
 
 import duke.commons.Messages;
 import duke.commons.enumerations.Constraint;
-import duke.commons.exceptions.DukeDateTimeParseException;
-import duke.commons.exceptions.InputNotIntException;
 import duke.commons.exceptions.ParseException;
-import duke.commons.exceptions.QueryOutOfBoundsException;
 import duke.logic.parsers.ParserTimeUtil;
-import duke.logic.parsers.ParserUtil;
 
 /**
  * Abstract class representing an individual Conversation.
@@ -62,9 +58,9 @@ public abstract class Conversation {
      */
     protected Boolean isIntInput(String input) {
         try {
-            ParserUtil.getIntegerIndexInList(0, 2, input);
+            Integer.parseInt(input);
             return true;
-        } catch (ParseException e) {
+        } catch (NumberFormatException e) {
             attempts++;
             prompt = Messages.PROMPT_NOT_INT;
             return false;

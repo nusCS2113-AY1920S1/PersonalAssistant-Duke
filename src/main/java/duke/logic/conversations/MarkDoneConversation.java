@@ -26,23 +26,15 @@ public class MarkDoneConversation extends Conversation {
         if (isIntInput(input)) {
             index = input;
             buildResult();
+            setFinished(true);
         }
 
         tryCancelConversation(input);
     }
 
-    /**
-     * Gets result of prompt.
-     *
-     * @return result The result.
-     */
     @Override
     protected void buildResult() {
-        if (index != null) {
-            result = command + " " + index;
-            setFinished(true);
-        } else {
-            attempts++;
-        }
+        assert (index != null);
+        result = command + " " + index;
     }
 }

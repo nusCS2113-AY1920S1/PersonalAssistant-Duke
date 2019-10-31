@@ -19,9 +19,6 @@ public class RouteAddConversation extends Conversation {
         prompt = Messages.PROMPT_ROUTE_ADD_STARTER;
     }
 
-    /**
-     * Executes Prompt and returns a String reply.
-     */
     @Override
     public void execute(String input) {
         switch (state) {
@@ -44,11 +41,6 @@ public class RouteAddConversation extends Conversation {
         tryCancelConversation(input);
     }
 
-    /**
-     * Gets result of prompt.
-     *
-     * @return result The result.
-     */
     @Override
     protected void buildResult() {
         result = command + " " + name + " desc " + description;

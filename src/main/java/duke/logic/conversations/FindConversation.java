@@ -24,6 +24,7 @@ public class FindConversation extends Conversation {
     public void execute(String input) {
         keyword = input;
         buildResult();
+        setFinished(true);
     }
 
     /**
@@ -33,11 +34,7 @@ public class FindConversation extends Conversation {
      */
     @Override
     protected void buildResult() {
-        if (keyword != null) {
-            result = command + " " + keyword;
-            setFinished(true);
-        } else {
-            attempts++;
-        }
+        assert  (keyword != null);
+        result = command + " " + keyword;
     }
 }

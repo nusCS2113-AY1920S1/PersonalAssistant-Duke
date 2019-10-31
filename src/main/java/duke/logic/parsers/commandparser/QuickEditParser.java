@@ -17,6 +17,7 @@ public class QuickEditParser extends CommandParser {
         secondField = ParserUtil.getFieldInList(2, 4, inputBody);
         thirdField = ParserUtil.getFieldInList(3, 4, inputBody);
     }
+
     @Override
     public Command parse() {
         return new QuickEditCommand(index, firstField, secondField,thirdField);

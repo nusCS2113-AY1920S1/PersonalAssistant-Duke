@@ -1,6 +1,6 @@
 package duke.logic.api;
 
-import duke.logic.TransportationMap;
+import duke.model.transports.TransportationMap;
 import duke.model.locations.BusStop;
 import duke.model.locations.TrainStation;
 import duke.model.locations.Venue;

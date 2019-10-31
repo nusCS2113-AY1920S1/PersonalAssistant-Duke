@@ -19,9 +19,6 @@ public class RouteEditConversation extends Conversation {
         prompt = Messages.PROMPT_ROUTE_EDIT_STARTER;
     }
 
-    /**
-     * Executes Prompt and returns a String reply.
-     */
     @Override
     public void execute(String input) {
         switch (state) {
@@ -30,6 +27,7 @@ public class RouteEditConversation extends Conversation {
                 index = input;
                 prompt = Messages.PROMPT_ROUTE_EDIT_FIELD;
                 state++;
+                attempts = 0;
             }
 
             break;
@@ -38,6 +36,7 @@ public class RouteEditConversation extends Conversation {
                 field = input;
                 prompt = Messages.PROMPT_ROUTE_EDIT_FIELD;
                 state++;
+                attempts = 0;
             }
 
             break;
@@ -55,11 +54,6 @@ public class RouteEditConversation extends Conversation {
         tryCancelConversation(input);
     }
 
-    /**
-     * Gets result of prompt.
-     *
-     * @return result The result.
-     */
     @Override
     protected void buildResult() {
         result = command + " " + index + " " + field + " " + newValue;

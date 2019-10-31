@@ -1,30 +1,29 @@
 package duke.logic.conversations;
 
 import duke.commons.exceptions.DukeException;
-import duke.logic.RouteManager;
 import duke.logic.commands.Command;
 import duke.logic.parsers.ConversationParser;
 import duke.logic.parsers.Parser;
 import duke.logic.parsers.PromptParser;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  * Manages two-way communications between SGTravel and the user.
  */
 public class ConversationManager {
+    private static final Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
     private boolean isFinished;
     private boolean isInConversation;
     private Conversation conversation;
-    private RouteManager routeManager;
 
     /**
      * Constructs the ConversationManager object and include the RouteManager.
-     *
-     * @param routeManager The RouteManager object.
      */
-    public ConversationManager(RouteManager routeManager) {
+    public ConversationManager() {
         isFinished = true;
         isInConversation = false;
-        this.routeManager = routeManager;
     }
 
     /**
@@ -36,6 +35,7 @@ public class ConversationManager {
         if (tryStartConversation(input)) {
             return;
         }
+        logger.log(Level.INFO, input + " " + conversation.getClass());
         conversation.execute(input);
         tryEndConversation();
     }
@@ -73,7 +73,7 @@ public class ConversationManager {
      * @param input The words from user input.
      */
     private void startConversation(String input) throws DukeException {
-        conversation = ConversationParser.parse(input, routeManager);
+        conversation = ConversationParser.parse(input);
     }
 
     /**

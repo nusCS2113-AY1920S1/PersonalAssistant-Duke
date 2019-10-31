@@ -14,13 +14,6 @@ public class AddSampleItineraryCommand extends Command {
     private Itinerary itinerary;
 
     /**
-     * Constructs the command with the given sample itinerary.
-     */
-    public AddSampleItineraryCommand() {
-        this.itinerary = null;
-    }
-
-    /**
      * Executes this command on the given task list and user interface.
      *
      * @param model The model object containing information about the user.

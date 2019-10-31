@@ -10,7 +10,7 @@ import duke.commons.exceptions.ItineraryInsufficientAgendasException;
 import duke.commons.exceptions.RecommendationDayExceededException;
 import duke.commons.exceptions.RouteNodeDuplicateException;
 import duke.commons.exceptions.StorageFileNotFoundException;
-import duke.logic.TransportationMap;
+import duke.model.transports.TransportationMap;
 import duke.logic.parsers.ParserStorageUtil;
 import duke.logic.parsers.ParserTimeUtil;
 import duke.model.Event;

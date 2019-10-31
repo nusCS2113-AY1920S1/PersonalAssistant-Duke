@@ -24,15 +24,9 @@ public class StaticMapCommand extends Command {
      * Creates a new StaticMapCommand for the given location query.
      *
      * @param location The location to query.
-     * @throws ApiException
      */
-    public StaticMapCommand(String location) throws ApiException {
+    public StaticMapCommand(String location) {
         this.param = location;
-        Venue query = ApiParser.getLocationSearch(location);
-        this.image = ApiParser.getStaticMap(ApiParser.generateStaticMapParams(DIMENSIONS, DIMENSIONS, ZOOM_LEVEL,
-                String.valueOf(query.getLatitude()), String.valueOf(query.getLongitude()), "", "",
-                ApiParser.createStaticMapPoint(String.valueOf(query.getLatitude()),
-                String.valueOf(query.getLongitude()), RED_VALUE, GREEN_VALUE, BLUE_VALUE, location)));
     }
 
     /**
@@ -42,7 +36,12 @@ public class StaticMapCommand extends Command {
      * @return The CommandResult containing the image from StaticMap.
      */
     @Override
-    public CommandResultImage execute(Model model) {
+    public CommandResultImage execute(Model model) throws ApiException {
+        Venue query = ApiParser.getLocationSearch(param);
+        this.image = ApiParser.getStaticMap(ApiParser.generateStaticMapParams(DIMENSIONS, DIMENSIONS, ZOOM_LEVEL,
+                String.valueOf(query.getLatitude()), String.valueOf(query.getLongitude()), "", "",
+                ApiParser.createStaticMapPoint(String.valueOf(query.getLatitude()),
+                        String.valueOf(query.getLongitude()), RED_VALUE, GREEN_VALUE, BLUE_VALUE, param)));
         return new CommandResultImage("Showing map of " + param, image);
     }
 }

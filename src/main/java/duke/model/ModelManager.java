@@ -1,12 +1,11 @@
 package duke.model;
 
-import duke.commons.exceptions.DukeDateTimeParseException;
 import duke.commons.exceptions.DukeException;
 import duke.commons.exceptions.FileLoadFailException;
 import duke.commons.exceptions.FileNotSavedException;
 import duke.commons.exceptions.ItineraryInsufficientAgendasException;
 import duke.commons.exceptions.ParseException;
-import duke.logic.TransportationMap;
+import duke.model.transports.TransportationMap;
 import duke.commons.exceptions.RouteDuplicateException;
 import duke.logic.RouteManager;
 import duke.model.lists.EventList;

@@ -5,7 +5,7 @@ import duke.commons.exceptions.DukeException;
 import duke.commons.exceptions.FileLoadFailException;
 import duke.commons.exceptions.FileNotSavedException;
 import duke.commons.exceptions.ItineraryInsufficientAgendasException;
-import duke.logic.TransportationMap;
+import duke.model.transports.TransportationMap;
 import duke.commons.exceptions.QueryFailedException;
 import duke.commons.exceptions.RouteDuplicateException;
 import duke.logic.RouteManager;

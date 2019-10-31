@@ -20,9 +20,6 @@ public class FindPathConversation extends Conversation {
         prompt = Messages.PROMPT_FIND_STARTER;
     }
 
-    /**
-     * Executes Prompt and returns a String reply.
-     */
     @Override
     public void execute(String input) {
         switch (state) {
@@ -53,17 +50,9 @@ public class FindPathConversation extends Conversation {
         tryCancelConversation(input);
     }
 
-    /**
-     * Gets result of prompt.
-     *
-     * @return result The result.
-     */
     @Override
     protected void buildResult() {
-        if (constraint != null && startPointIndex != null && endPointIndex != null) {
-            result = command + " " + constraint + " " + startPointIndex + " " + endPointIndex;
-        } else {
-            attempts++;
-        }
+        assert (constraint != null && startPointIndex != null && endPointIndex != null);
+        result = command + " " + constraint + " " + startPointIndex + " " + endPointIndex;
     }
 }

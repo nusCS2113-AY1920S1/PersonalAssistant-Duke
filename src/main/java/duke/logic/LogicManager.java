@@ -30,7 +30,7 @@ public class LogicManager extends Logic {
      */
     public LogicManager() {
         model = new ModelManager();
-        conversationManager = new ConversationManager(model.getRouteManager());
+        conversationManager = new ConversationManager();
     }
 
     /**
@@ -46,9 +46,6 @@ public class LogicManager extends Logic {
             logger.log(Level.INFO, "editing...");
             c = EditorManager.edit(input);
         } else  {
-            if (model.getRouteManager().isActivated() && !conversationManager.isInConversation()) {
-                input = model.getRouteManager().getConversationPrefix() + input;
-            }
             try {
                 c = Parser.parseComplexCommand(input);
                 conversationManager.clearContext();

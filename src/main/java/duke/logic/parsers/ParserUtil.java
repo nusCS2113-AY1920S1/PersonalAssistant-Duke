@@ -1,24 +1,15 @@
 package duke.logic.parsers;
 
 import duke.commons.enumerations.Constraint;
-import duke.commons.exceptions.ApiException;
 import duke.commons.exceptions.ParseException;
-import duke.logic.api.ApiParser;
 import duke.logic.commands.RouteAddCommand;
 import duke.logic.commands.RouteGenerateCommand;
 import duke.logic.commands.RouteNodeAddCommand;
-import duke.model.lists.AgendaList;
 import duke.model.locations.BusStop;
 import duke.model.locations.RouteNode;
 import duke.model.locations.TrainStation;
-import duke.model.locations.Venue;
-import duke.model.planning.Agenda;
-import duke.model.planning.Itinerary;
-import duke.model.planning.Todo;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -175,56 +166,5 @@ public class ParserUtil {
             throw new ParseException();
         }
         throw new ParseException();
-    }
-
-    /**
-     * Gets the integer index at index in a String list delimited by whitespace.
-     *
-     * @param userInput The users entered command which contains details of the Itinerary.
-     * @return The Itinerary object created.
-     */
-    public static Itinerary createNewItinerary(String userInput) throws ParseException, ApiException {
-        String[] itineraryDetails = userInput.substring("newItinerary".length()).strip().split(" ");
-        LocalDateTime start = ParserTimeUtil.parseStringToDate(itineraryDetails[0].strip());
-        LocalDateTime end = ParserTimeUtil.parseStringToDate(itineraryDetails[1].strip());
-        Venue hotelLocation = ApiParser.getLocationSearch(itineraryDetails[2].strip());
-        String name = itineraryDetails[3].strip();
-        Itinerary itinerary = new Itinerary(start, end, hotelLocation, name);
-        AgendaList agendaList = new AgendaList();
-        int i = 4;
-        try {
-            while (i < itineraryDetails.length) {
-                List<Venue> venueList = new ArrayList<>();
-                List<Todo> todoList = new ArrayList<>();
-                final int number = Integer.parseInt(itineraryDetails[i++]);
-                while (itineraryDetails[i].equals("/venue")) {
-                    i++;
-                    venueList.add(ApiParser.getLocationSearch(itineraryDetails[i++]));
-                    StringBuilder todos = new StringBuilder();
-                    if (i == itineraryDetails.length - 1 || itineraryDetails[i].matches("-?\\d+")) {
-                        throw new ParseException();
-                    }
-                    todos.append(itineraryDetails[++i]).append("|");
-                    i++;
-                    while (itineraryDetails[i].equals("/and")) {
-                        i++;
-                        todos.append(itineraryDetails[i++]).append("|");
-                        if (i >= itineraryDetails.length) {
-                            break;
-                        }
-                    }
-                    todoList = ParserStorageUtil.getTodoListFromStorage(todos.toString());
-                    if (i >= itineraryDetails.length) {
-                        break;
-                    }
-                }
-                Agenda agenda = new Agenda(todoList, venueList, number);
-                agendaList.add(agenda);
-            }
-        } catch (ArrayIndexOutOfBoundsException | NumberFormatException e) {
-            throw new ParseException();
-        }
-        itinerary.setTasks(agendaList);
-        return itinerary;
     }
 }

@@ -11,6 +11,7 @@ import duke.model.locations.RouteNode;
 import duke.model.locations.TrainStation;
 import duke.model.locations.Venue;
 import duke.model.transports.BusService;
+import duke.model.transports.TransportationMap;
 
 import java.util.ArrayList;
 import java.util.Collections;

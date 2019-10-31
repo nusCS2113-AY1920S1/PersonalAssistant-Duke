@@ -10,16 +10,15 @@ import duke.model.locations.Venue;
  * Tests the URL connection.
  */
 public class LocationSearchCommand extends Command {
-    private Venue venue;
+    private String location;
 
     /**
      *  Creates a new LocationSearchCommand with the given location.
      *
      * @param location The location to search.
-     * @throws ApiException
      */
-    public LocationSearchCommand(String location) throws ApiException {
-        venue = ApiParser.getLocationSearch(location);
+    public LocationSearchCommand(String location) {
+        this.location = location;
     }
 
     /**
@@ -29,7 +28,8 @@ public class LocationSearchCommand extends Command {
      * @return The CommandResultText.
      */
     @Override
-    public CommandResultText execute(Model model) {
+    public CommandResultText execute(Model model) throws ApiException {
+        Venue venue = ApiParser.getLocationSearch(location);
         return new CommandResultText("These are the coordinates of your search:\n"
                 + venue.getAddress() + "\n" + venue.getLatitude() + " "
                 + venue.getLongitude());

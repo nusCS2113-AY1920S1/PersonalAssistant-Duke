@@ -1,9 +1,8 @@
-package duke.logic;
+package duke.model.transports;
 
 import duke.commons.exceptions.QueryFailedException;
 import duke.model.locations.BusStop;
 import duke.model.locations.TrainStation;
-import duke.model.transports.BusService;
 
 import java.util.ArrayList;
 import java.util.Comparator;

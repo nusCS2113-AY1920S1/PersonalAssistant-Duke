@@ -23,7 +23,7 @@ public class StaticMapParser extends CommandParser {
      * @return StaticMapCommand object
      */
     @Override
-    public Command parse() throws ApiException {
+    public Command parse() {
         return new StaticMapCommand(location);
     }
 }

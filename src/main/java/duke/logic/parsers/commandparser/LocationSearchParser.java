@@ -22,7 +22,7 @@ public class LocationSearchParser extends CommandParser<LocationSearchCommand> {
      * @return LocationSearchCommand object
      */
     @Override
-    public LocationSearchCommand parse() throws ApiException {
+    public LocationSearchCommand parse() {
         return new LocationSearchCommand(location);
     }
 }
