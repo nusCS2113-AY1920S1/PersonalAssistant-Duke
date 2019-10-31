@@ -483,7 +483,7 @@ public class Command {
         }
     }
 
-    //@@author
+    //@@author yenpeichih
     /**
      * Manages the goals of an existing event.
      *
