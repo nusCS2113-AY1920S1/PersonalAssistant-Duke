@@ -5,7 +5,6 @@ import Events.EventTypes.EventSubclasses.Concert;
 import Events.Storage.Contact;
 import Events.Storage.EventList;
 import Events.Storage.Goal;
-import Events.Storage.Instruments.InstrumentList;
 
 import java.util.ArrayList;
 import java.util.Queue;
@@ -86,23 +85,6 @@ public class UI {
         System.out.print(lineSeparation);
         System.out.println("Sorry! I don't know what that means.");
         System.out.print(lineSeparation);
-    }
-
-    public void printEventGoals(Event viewEventGoal) {
-        System.out.println("Here is the list of goals for the following event: " + viewEventGoal.toString());
-        int goalIndex = 1;
-        for (Goal goalObject : viewEventGoal.getGoalList()) {
-            System.out.println(goalIndex + ". " + goalObject.getGoal());
-            goalIndex += 1;
-        }
-    }
-
-    public void goalAdded() {
-        System.out.println("Ok, the goal has been added to the event.");
-    }
-
-    public void goalDeleted() {
-        System.out.println("Ok, the goal has been deleted from the event.");
     }
 
     public void contactAdded() {
@@ -392,10 +374,14 @@ public class UI {
 
     public void printEventGoals(Event viewEventGoal) {
         System.out.println("Here is the list of goals for the following event: " + viewEventGoal.toString());
-        int goalIndex = 1;
-        for (Goal goalObject : viewEventGoal.getGoalList()) {
-            System.out.println(goalIndex + ". " + goalObject.getGoal() + "Achieved?" + goalObject.getStatus());
-            goalIndex += 1;
+        if (!viewEventGoal.getGoalList().isEmpty()) {
+            int goalIndex = 1;
+            for (Goal goalObject : viewEventGoal.getGoalList()) {
+                System.out.println(goalIndex + ". " + goalObject.getGoal() + " - " + "Achieved: " + goalObject.getStatus());
+                goalIndex += 1;
+            }
+        } else {
+            System.out.println("You currently have no goals for this event.");
         }
     }
 
@@ -413,6 +399,10 @@ public class UI {
 
     public void goalSetAsAchieved() {
         System.out.println("Ok, the goal has been set as achieved. Congratulations for achieving the goal!");
+    }
+
+    public void noSuchGoal() {
+        System.out.println("Sorry, the specified goal does not exist!");
     }
   
     public void checklistDeleted(int eventIndex) {
