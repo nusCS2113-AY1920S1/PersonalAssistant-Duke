@@ -33,17 +33,17 @@ Duke is targeted towards restaurant chefs who wants to be able to consolidate mo
 
 4. Use the command prompt and navigate to the path where the application is downloaded
 
-5. runthe command `java -jar mid-v1.3.1` , application will then be executed 
+5. run the command `java -jar v1.3` , application will then be executed 
 
    ![UI]( https://github.com/AY1920S1-CS2113-T14-2/main1/blob/master/docs/images/Ui.png )
 
-6. Type into the INPUT box some commands and press ENTER to execute
+6. Type some commands and press ENTER to execute
 
 7. Some example commands
 
    1. given various options in menu, user can type these commands`option` ,`q`, `a`, `b`, `c`, `d`.
-   2. user enters `d` then `add chicken rice`, dish is then added to the list
-   3. user enters `d` then `list`, outputs the the dishes and the ingredients associated to the dish in table form
+   2. user enters `d` then `add chicken rice`, dish is then added to the list
+   3. user enters `d` then `list`, outputs the the dishes and the ingredients associated to the dish in table form
 
 8. Refer to Section 4 for the full list of commands
 
@@ -51,23 +51,23 @@ Duke is targeted towards restaurant chefs who wants to be able to consolidate mo
 
 **command format**
 
-- commands are in `UPPER_CASE` are to be provided by the user eg. `todo d/DESC`, `DESC` is a parameter which can be used as `todo d/buy groceries`
--
+- commands are in `UPPER_CASE` are to be provided by the user eg. `add/DESC`, `DESC` is a parameter which can be used as `add noodle`.
 
-### 3.1 Menu
+### 3.1 Main Menu
 
-the user is greeted depending on the time of day, `good morning` , `good evening` etc. Upon start up, if there are any expired ingredients in the fridge, the application will prompt the user to clear the expired ingredients. In the Main menu, the user is given various options to enter:
+the user is greeted depending on the time of day, `good morning` , `good evening` etc. Upon start up, if there are any expired ingredients in the fridge, the application will prompt the user to clear the expired ingredients. In the Main menu, the user is given various options to enter:
 
-1. `option`, outputs a **list of commands** user can enter 
-2. `q` , **exits** the application
-3. `a`, remove the **expired** ingredients 
-4. `b` , proceed to **fridge** commands
-5. `c`, proceeds to **order** commands 
-6. `d`, proceeds to **dish** commands
+- `q` , **exits** the application
+- `a`, remove the **expired** ingredients 
+- `b` , proceed to **fridge** commands
+- `c`, proceeds to **order** commands 
+- `d`, proceeds to **dish** commands
 
 ### 3.2 Adding Dish: `add`
 
-User needs to enter `d` in the menu first. To add a dish to the DishList, user needs to execute command below:
+user needs to enter `d` in main menu first.
+
+To add a dish to the DishList, user needs to execute command below:
 
 Format: `add d/DESC`
 
@@ -93,7 +93,9 @@ Examples:
 
 ### 3.3 Adding Ingredient to Dish: `ingredient`
 
-User needs to enter `d` in the menu first. Executing this command associates an ingredient to a certain Dish. user needs to execute the command below:
+user needs to enter `d` in main menu first.
+
+Executing this command associates an ingredient to a certain Dish. user needs to execute the command below:
 
 Format: `ingredient d/DESC n/AMOUNT i/INDEX`
 
@@ -113,7 +115,9 @@ Examples:
 
 ### 3.4 List all Dishes: `list`
 
-User needs to enter `d` in the menu first. Then user needs to enter the command below:
+user needs to enter `d` in main menu first.
+
+user needs to enter the command below:
 
 Format:`list`
 
@@ -151,11 +155,13 @@ if user enters a valid command,
 
 
 
-### 3.3 Initializing the Dish List:`init`
+### 3.5 Initializing the Dish List:`initialize`
 
-User needs to enter `d` in the menu first. Then user needs to enter the command below:
+user needs to enter `d` in main menu first.
 
-Format: `init`
+user needs to enter the command below:
+
+Format: `initialize`
 
 user is then asked to confirm as this command deletes all the entries in the dish
 
@@ -175,9 +181,11 @@ no
          LIST IS NOT CLEARED
 ```
 
-### 3.4 Removing Dish
+### 3.6 Removing Dish:`remove`
 
-User needs to enter `d` in the menu first. Then user needs to enter the command below:
+user needs to enter `d` in main menu first.
+
+user needs to enter the command below:
 
 Format: `remove i/INDEX`
 
@@ -206,7 +214,7 @@ if user enters a valid command,
          _________________________________________________________________________________________
 ```
 
-### 3.13 Error Handling 
+### 3.7 Error Handling 
 
 handles unexpected commands from the user such as unknown/incomplete command. if user enters an invalid command, the application will output a message that corresponds to what the user entered wrongly.
 
@@ -237,11 +245,10 @@ things to include in version 2:
 
 Index | Keyword  | Usage 
 ----- | -------- | ----------
-9 | remind | remind
-10 | stats | stats 
-11 | order | order <desc> <index> 
-12 | preorder | preorder <desc> <indx> 
-14 | help | help 
+1 | back | back 
+2 | template | template 
+ |  |                                    
+ |            |  
 15 | add | dishadd <desc> 
 16 | remove | remove <indx> 
 17 | list | list 

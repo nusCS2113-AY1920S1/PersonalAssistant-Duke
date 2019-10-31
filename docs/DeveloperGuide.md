@@ -59,10 +59,10 @@
 - at app launch: Loads all the data in storage into the application, initialize the  components, reads the commands and executes them correctly.
 - at shut down: shuts down all component and exits the application
 
-The Application consist of 6 other components 
+The Application consist of 11 other components 
 
 - `command`: executes the command that is read from the user
-  - `dishesCommand`
+- `dishesCommand`
   - `orderCommand`
   - `ingredientCommand`
 - `exception`: handle error messages
@@ -151,10 +151,11 @@ each of the above class has its own implementation of the `execute` method
 
 API: `Parser.java`
 
+makes sense of the data that is read by the user from the Duke Class. 
+
 this component gets the command from the user through the Duke Class. This component will then make sense of the command by splitting the command into different parts as well as determining the command type.
 
 depending on the content of the splitted value and command type, Parser class will execute different commands.
-
 #### 2.5 Storage Component
 
 API: `Storage.java` 
@@ -162,7 +163,7 @@ API: `Storage.java`
 
 This component  stores entries in a certain format, tasks, ingredients that are already in the Fridge, and anything else that needs to be saved on the hard disk.
 
-It is modeled as an abstract class,  with `TaskStorage.java` and `FridgeStorage.java` both inheriting from it. It allows data (tasks in the list, ingredients in the fridge, recipes in the recipeBook...) to be saved and remembered by our program.  
+It is modelled as an abstract class,  with `TaskStorage.java` and `FridgeStorage.java` both inheriting from it. It allows data (tasks in the list, ingredients in the fridge, recipes in the recipe Book...) to be saved and remembered by our program.  
 
 An example for the format of saving for tasks is :
 
@@ -206,13 +207,9 @@ This class holds the name of the dish as well the ingredients that are associate
 | rating: float                    | the overall rating for that dish                |
 | ingredientList: `IngredientList` | a list of ingredients associated with that dish |
 
-
-
 | Constructor    | Description                              |
 | -------------- | ---------------------------------------- |
 | Dishes(String) | assigns the name of the dish with String |
-
-
 
 | Methods                      | Description                                                  |
 | ---------------------------- | ------------------------------------------------------------ |
@@ -220,7 +217,6 @@ This class holds the name of the dish as well the ingredients that are associate
 | getDishName(): String        | returns the name of the dish                                 |
 | addIngredients(String): void | takes a string and adds into ingredientlist                  |
 | toString(): String           | it returns a String of all the ingredients that the dish contains |
-
 **<u>DishList Class</u>**
 
 this class inherits the GenericList class  which takes in a List of Dish. this class holds all the dishes that is stored in the csv file thus this acts as a menu for the chef
@@ -390,7 +386,20 @@ The Recipebook contains 2 classes, Ingredient and IngredientsList.
 | expiryDate: Date     | Expiry date of the given ingredient    |
 | dateAsString: String | A string to store the date as a string |
 
+#### 2.10 Fridge Component
+API: `Fridge.java`
 
+The Fridge class allows access and modification of the `Ingredient`s used by the chef. By keeping track of the Ingredients' expiry date, it allows the user to know which products have expired, and remove them. It allows for less ingredient waste, as it can return the most recently expiring ingredients, so that they can be used first. 
+
+![Fridge](https://github.com/AY1920S1-CS2113-T14-2/main/blob/master/docs/images/fridgeUML.png)
+
+#### 2.11 GenericList
+
+This abstract class allows for creation of different types of lists, and basic list entry manipulations. It is extended by multiple classes, including `IngredientsList.java`, `TaksList.java`, `OrderList.java` and `DishList.java`. All of these classes inherit the basic methods from the Generic List and extend it with their specific methods, eg.  `allUndoneOrders()` from`OrderList.java`, or `changeAmount()` from `IngredientsList.java`. A UML Class Diagram is shown below.
+
+![GenericList](https://github.com/AY1920S1-CS2113-T14-2/main/blob/master/docs/images/GenericListUML.png)
+
+##### <u>Ingredient Class</u>
 
 | Constructor                       | Description                                               |
 | --------------------------------- | --------------------------------------------------------- |

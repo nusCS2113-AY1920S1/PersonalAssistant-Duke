@@ -19,6 +19,14 @@ shadowJar {
     archiveAppendix = null
 }
 
+sourceSets{
+    main {
+        resources {
+            srcDirs = ['src/main/java']
+        }
+    }
+}
+
 checkstyle {
     toolVersion = '8.23'
 }

@@ -112,7 +112,6 @@ public class Ui {
         } else if (timeOfDay >= 21 && timeOfDay < 24) {
             greeting = "Good Night";
         }
-        chefDrawing();
         System.out.println("\t " + greeting + " chef! I'm Duke");
 
     }
@@ -163,6 +162,8 @@ public class Ui {
         System.out.println("\t list");
         System.out.println("\t ingredient <ingredient to be added> <amount of ingredient> <index of dish where ingredient is to be added to>");
         System.out.println("\t initialize (REMOVES all entries in the list)");
+        System.out.println("\t back, return to maim menu");
+        System.out.println("\t template");
         showLine();
     }
     public void showIngredientsInFridge(IngredientsList ingredientsList) {
