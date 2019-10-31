@@ -21,22 +21,22 @@ It is written in Java, and has about 10kLoC.
 
 === Summary of contributions
 
-*Major enhancement 1: added CAP feature* +
-_What it does:_ +
-Allows the user to add module's code, module's credit, module's grade and the semester when the module is taken.
+* *Major enhancement : added CAP feature* ++
+** What it does: Allows the user to add module's code, module's credit, module's grade and the semester when the module is taken.
 Additionally, it is able to list out all the modules or modules in a particular sem, 
 find modules base on the semester or module's code and 
 delete modules. When the user list out his modules, the CAP will be shown at the bottom of the list.
 
-_Justification:_ +
+**Justification:
 This feature improves the product significantly because a user
 can now keep track of his grades and see which semester he is falling behind by viewing his CAP.
-Additionally, students especially Year 1 students can know which modules to S/U by playing around with grades so that they can make
-an informed decision on which modules to SU to acheive a better result. +
-_Highlights:_ +
+Additionally, students especially Year 1 students can know which modules to S/U by marking so that they can make
+an informed decision on which modules to S/U to acheive a better CAP.
+**Highlights:
 It requires an in-depth analysis of design alternatives.
-The implementation too was challenging as it required changes to existing commands. +
-_Credits: http://www.nus.edu.sg/registrar/education-at-nus/modular-system.html[NUS Grading System]_ +
+The implementation too was challenging as it required changes to existing commands.
+
+**Credits: http://www.nus.edu.sg/registrar/education-at-nus/modular-system.html[NUS Grading System]
 
 *Minor enhancement:* +
 1. Password login system. +
@@ -53,7 +53,7 @@ User is able to edit the task's decription or time or both of them. +
 This saves user the hassle of deleting and create another task because he made a mistake when creating the task.
 
 *Code contributed:*
-[https://nuscs2113-ay1819s2.github.io/dashboard-beta/#search=nicholasleeeee[Reposense]] +
+[https://nuscs2113-ay1920s1.github.io/dashboard/#search=JasonLeeWeiHern&sort=groupTitle&sortWithin=title&since=2019-09-21&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&until=2019-10-30&tabOpen=false[Reposense]] +
 
 *Project management:* +
 1. Managed merge and release of `v1.4` on GitHub. +
