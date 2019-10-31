@@ -36,6 +36,7 @@ public class SearchCommand extends Command {
             return ui.showSearch(this.searchTerm, meaning);
         } catch (NoWordFoundException e) {
             StringBuilder stringBuilder = new StringBuilder();
+            //Look up Oxford dictionary.
             stringBuilder.append("Unable to locate \"" + searchTerm
                     + "\" in local dictionary.\nLooking up Oxford dictionary.\n\n");
             try {
@@ -45,8 +46,8 @@ public class SearchCommand extends Command {
                 stringBuilder.append("Failed to find the word from Oxford dictionary.\n");
             }
 
+            // Spell checking. Look up similar words from local dictionary.
             ArrayList<String> arrayList = bank.getClosedWords(this.searchTerm);
-
             if (arrayList.size() > 0) {
                 stringBuilder.append("\nAre you looking for these words instead?\n");
             }

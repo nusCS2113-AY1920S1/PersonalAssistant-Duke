@@ -87,9 +87,9 @@ public class Word {
     }
 
     /**
-     * Counts the number of different characters with another word.
+     * Measure the difference between 2 words.
      * @param another string represents word to be compared
-     * @return eit distance between 2 words
+     * @return edit distance between 2 words divided by the length of shorter word
      */
     private double differenceToWord(String another) {
         int[][] dp = new int[word.length() + 1][another.length() + 1];
