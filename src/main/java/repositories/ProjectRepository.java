@@ -5,7 +5,7 @@ import models.project.IProject;
 import models.project.Project;
 import util.factories.ProjectFactory;
 import util.json.JsonConverter;
-import util.log.DukeLogger;
+import util.log.ArchDukeLogger;
 
 import java.util.ArrayList;
 
@@ -27,7 +27,7 @@ public class ProjectRepository implements IRepository<Project> {
     @Override
     public boolean addToRepo(String input) {
         IProject newProject = projectFactory.create(input);
-        DukeLogger.logDebug(ProjectRepository.class, "New project created with name: '"
+        ArchDukeLogger.logDebug(ProjectRepository.class.getName(), "New project created with name: '"
                 + newProject.getName() + "'");
         if (newProject.getName() == null || newProject.getMembers() == null) {
             return false;

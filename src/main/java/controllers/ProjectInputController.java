@@ -15,7 +15,7 @@ import util.ViewHelper;
 import util.factories.MemberFactory;
 import util.factories.ReminderFactory;
 import util.factories.TaskFactory;
-import util.log.DukeLogger;
+import util.log.ArchDukeLogger;
 
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -50,7 +50,7 @@ public class ProjectInputController implements IController {
      */
     @Override
     public String[] onCommandReceived(String input) {
-        //DukeLogger.logInfo(ProjectInputController.class, "Managing project: " + input);
+        //ArchDukeLogger.logInfo(ProjectInputController.class, "Managing project: " + input);
         int projectNumber;
         try {
             projectNumber = Integer.parseInt(input);
@@ -72,7 +72,7 @@ public class ProjectInputController implements IController {
         String[] responseToView = {"Please enter a command."};
         if (manageProjectInput.hasNextLine()) {
             String projectFullCommand = manageProjectInput.nextLine();
-            DukeLogger.logInfo(ProjectInputController.class, "Managing:"
+            ArchDukeLogger.logInfo(ProjectInputController.class.getName(), "Managing:"
                     + projectToManage.getName() + ",input:'"
                     + projectFullCommand + "'");
             if (projectFullCommand.matches("exit")) {
@@ -217,7 +217,7 @@ public class ProjectInputController implements IController {
         ArrayList<String> allMemberDetailsForTable = projectToManage.getMembers().getAllMemberDetailsForTable();
         String header = "Members of " + projectToManage.getName() + ":";
         allMemberDetailsForTable.add(0, header);
-        DukeLogger.logDebug(ProjectInputController.class, allMemberDetailsForTable.toString());
+        ArchDukeLogger.logDebug(ProjectInputController.class.getName(), allMemberDetailsForTable.toString());
         ArrayList<ArrayList<String>> tablesToPrint = new ArrayList<>();
         tablesToPrint.add(allMemberDetailsForTable);
         return viewHelper.consolePrintTable(tablesToPrint);
@@ -229,7 +229,7 @@ public class ProjectInputController implements IController {
      */
     public String[] projectViewCredits(IProject projectToManage) {
         ArrayList<String> allCredits = projectToManage.getCredits();
-        DukeLogger.logDebug(ProjectInputController.class, allCredits.toString());
+        ArchDukeLogger.logDebug(ProjectInputController.class.getName(), allCredits.toString());
         if (allCredits.isEmpty()) {
             allCredits.add(0, "There are no members in this project.");
         } else {
@@ -394,7 +394,7 @@ public class ProjectInputController implements IController {
                 ArrayList<String> allTaskDetailsForTable
                         = projectToManage.getTasks().getAllTaskDetailsForTable(tasksAndAssignedMembers, "/PRIORITY");
                 allTaskDetailsForTable.add(0, "Tasks of " + projectToManage.getName() + ":");
-                DukeLogger.logDebug(ProjectInputController.class, allTaskDetailsForTable.toString());
+                ArchDukeLogger.logDebug(ProjectInputController.class.getName(), allTaskDetailsForTable.toString());
                 tableToPrint.add(allTaskDetailsForTable);
                 return viewHelper.consolePrintTable(tableToPrint);
             } else if (projectCommand.length() >= 11) {
@@ -403,7 +403,7 @@ public class ProjectInputController implements IController {
                 ArrayList<ArrayList<String>> tableToPrint = new ArrayList<>();
                 ArrayList<String> allTaskDetailsForTable =
                         projectToManage.getTasks().getAllTaskDetailsForTable(tasksAndAssignedMembers, sortCriteria);
-                DukeLogger.logDebug(ProjectInputController.class, allTaskDetailsForTable.toString());
+                ArchDukeLogger.logDebug(ProjectInputController.class.getName(), allTaskDetailsForTable.toString());
                 allTaskDetailsForTable.add(0, "Tasks of " + projectToManage.getName() + ":");
                 tableToPrint.add(allTaskDetailsForTable);
                 return viewHelper.consolePrintTable(tableToPrint);

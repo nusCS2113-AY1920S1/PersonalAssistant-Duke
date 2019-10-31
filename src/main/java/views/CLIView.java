@@ -3,7 +3,7 @@ package views;
 import controllers.ConsoleInputController;
 import controllers.ProjectInputController;
 import repositories.ProjectRepository;
-import util.log.DukeLogger;
+import util.log.ArchDukeLogger;
 
 import java.util.Scanner;
 
@@ -23,7 +23,7 @@ public class CLIView {
      * Method to call when View model is started.
      */
     public void start() {
-        DukeLogger.logInfo(CLIView.class, "ArchDuke have started.");
+        ArchDukeLogger.logInfo(CLIView.class.getName(), "ArchDuke have started.");
         Scanner sc = new Scanner(System.in);
         boolean isDukeRunning = true;
         consolePrint("Hello! I'm Duke", "What can I do for you?");

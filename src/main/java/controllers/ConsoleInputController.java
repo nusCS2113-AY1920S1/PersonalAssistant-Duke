@@ -2,7 +2,7 @@ package controllers;
 
 import repositories.ProjectRepository;
 import util.ViewHelper;
-import util.log.DukeLogger;
+import util.log.ArchDukeLogger;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -29,7 +29,7 @@ public class ConsoleInputController implements IController {
      */
     @Override
     public String[] onCommandReceived(String input) {
-        DukeLogger.logInfo(ConsoleInputController.class, "input:'" + input + "'");
+        ArchDukeLogger.logInfo(ConsoleInputController.class.getName(), "input:'" + input + "'");
         Scanner inputReader = new Scanner(input);
         String command = inputReader.next();
 
@@ -128,7 +128,7 @@ public class ConsoleInputController implements IController {
      * Method to be called when user says bye to exit the program.
      */
     public String[] end() {
-        DukeLogger.logInfo(ConsoleInputController.class, "ArchDuke have stopped.");
+        ArchDukeLogger.logInfo(ConsoleInputController.class.getName(), "ArchDuke have stopped.");
         return new String[] { "Bye. Hope to see you again soon!" };
     }
 

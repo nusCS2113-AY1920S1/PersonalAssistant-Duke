@@ -1,6 +1,6 @@
 package util.date;
 
-import util.log.DukeLogger;
+import util.log.ArchDukeLogger;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -41,7 +41,7 @@ public class DateTimeHelper {
         try {
             currentDate = formatter.parse(formatter.format(currentDate));
         } catch (ParseException e) {
-            DukeLogger.logDebug(DateTimeHelper.class, e.getMessage());
+            ArchDukeLogger.logDebug(DateTimeHelper.class.getName(), e.getMessage());
         }
         long diff = currentDate.getTime() - taskDate.getTime();
         long totalDays = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
