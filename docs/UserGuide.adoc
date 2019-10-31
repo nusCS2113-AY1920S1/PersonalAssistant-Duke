@@ -647,7 +647,7 @@ Format: `tracker /view`
 .Displays Assignment Tracker by Module Code
 image::ViewTracker.png[ViewTracker]
 
-Format: `viewTracker TIME_PERIOD [_coming soon in v1.4_]`
+Format: `tracker /view TIME_PERIOD [_coming soon in v1.4_]`
 
 *Options for TIME_PERIOD* +
 [horizontal]

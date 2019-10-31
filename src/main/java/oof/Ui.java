@@ -48,7 +48,7 @@ public class Ui {
     private static final int DESCRIPTION = 1;
     private static final int TEN_MINUTES_BLOCK = 10;
     private static final int FIRST_VAR = 0;
-    private static final int LESS_THAN_TEN_MINUTES = 0;
+    private static final int SEGMENT_SIZE = 10;
     private static final String ANSI_RESET = "\u001B[0m";
     private static final String ANSI_BRIGHT_RED = "\u001B[91m";
     private static final String ANSI_BRIGHT_GREEN = "\u001B[92m";
@@ -1007,8 +1007,12 @@ public class Ui {
         for (int i = 0; i < moduleTrackerList.getSize(); i++) {
             ModuleTracker moduleTracker = moduleTrackerList.getModuleTracker(i);
             int timeTaken = (int) moduleTracker.getTotalTimeTaken();
-            int segmentedTimeTaken = timeTaken / TEN_MINUTES_BLOCK;
-            printTrackerDiagramBar(segmentedTimeTaken);
+            if (timeTaken < SEGMENT_SIZE) {
+                System.out.print("| ");
+            } else {
+                int segmentedTimeTaken = timeTaken / TEN_MINUTES_BLOCK;
+                printTrackerDiagramBar(segmentedTimeTaken);
+            }
             String moduleCode = moduleTracker.getModuleCode();
             System.out.print("\t" + moduleCode + " -- " + timeTaken + " minutes\n");
         }
@@ -1020,9 +1024,6 @@ public class Ui {
      * @param segmentedTimeTaken    number of 10 minute blocks.
      */
     private void printTrackerDiagramBar(int segmentedTimeTaken) {
-        if (segmentedTimeTaken == LESS_THAN_TEN_MINUTES) {
-            System.out.print("| ");
-        }
         for (int i = 0; i < segmentedTimeTaken; i++) {
             if (i == FIRST_VAR) {
                 System.out.println("| ");
