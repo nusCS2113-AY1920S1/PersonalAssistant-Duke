@@ -188,25 +188,35 @@ the commands by coordinating all other components.
 // link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
 ==== 2.2.1 ConsoleInputController
+`ConsoleInputController` is the class which deals with the CRUD functionalities for all the projects of the user.
+
+=== Rationale for implementation
 
 ==== 2.2.2 ProjectInputController
-ProjectInputController is a class which acts as a parser for commands related to the members and the tasks of a given project.
+`ProjectInputController` is the class which deals with the management of a specific project.
 
-*Rationale for implementation*
+=== Rationale for implementation
+We realized that the commands related to managing a project are extremely complex. Hence we had to segregate the methods related
+to managing a project from the `ConsoleInputController` and this resulted in the creation of the `ProjectInputController`.
 
+When the project is being managed, all the commands input by the user are directly handled by the `ProjectInputController`.
+Hence, `ProjectInputController` acts like a parser for commands dealing with the CRUD functionalities for Members, Tasks,
+Task Assignments and Reminders.
 
 ==== 2.2.3 AssignmentController
-AssignmentController is a class which manages the assignment of tasks to group members.
+`AssignmentController` is a class which manages the assignment of tasks to group members.
 
-*Rationale for implementation*
+=== Rationale for implementation
 
-Before the implementation of AssignmentController, the parsing of assign commands was planned to be done within the
+Before the implementation of `AssignmentController`, the parsing of assign commands was planned to be done within the
 ProjectInputController class. However, we realised that parsing for assignment commands would be extremely complex due
 to the potentially high number of arguments.
 
 * Example command: `assign task -i 1 2 -to 1 2 3 -rm 4 5`
 
-The task index numbers (1, 2) , assignee indexes (1, 2, 3) and unassigned indexes (4, 5) must be parsed. They should also be validated to ensure that the index numbers exist, and do not cause errors/exceptions such as IndexOutOfBoundException. From the parsed input, task assignments can then be managed. Therefore, the AssignmentController was created for the following reasons:
+The task index numbers (1, 2) , assignee indexes (1, 2, 3) and unassigned indexes (4, 5) must be parsed. They should also be
+validated to ensure that the index numbers exist, and do not cause errors/exceptions such as IndexOutOfBoundException. From
+the parsed input, task assignments can then be managed. Therefore, the `AssignmentController` was created for the following reasons:
 
 1. To ensure that these 3 parts of the input can be easily managed
 2. To isolate the assignment commands to avoid making the code in projectInputController too long
@@ -236,7 +246,7 @@ The task index numbers (1, 2) , assignee indexes (1, 2, 3) and unassigned indexe
 // image::StorageClassDiagram.png[]
 
 // *API* : 
-link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
+// link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
 
 //The `Storage` component,
 
