@@ -16,7 +16,13 @@ import java.time.format.DateTimeParseException;
  * @version v1.0
  */
 public class EventParser extends DescriptionParser {
-
+    
+    /**
+     * creates new parser for Event.
+     * 
+     * @param userInput  input from user
+     * @param command    command type
+     */
     public EventParser(String userInput, String command) {
         super(userInput, command);
         this.checkType = Flag.AT.getFlag();

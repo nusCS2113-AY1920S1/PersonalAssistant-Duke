@@ -18,11 +18,10 @@ import java.time.format.DateTimeParseException;
 public class DeadlineParser extends DescriptionParser {
 
     /**
-     * creates new paerser for deadline.
+     * creates new parser for deadline.
      * 
      * @param userInput  input from user
      * @param command    command type
-     * @param hasModCode if task has a module code associated
      */
     public DeadlineParser(String userInput, String command) {
         super(userInput, command);
