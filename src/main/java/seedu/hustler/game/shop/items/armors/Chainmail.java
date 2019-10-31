@@ -4,6 +4,7 @@ package seedu.hustler.game.shop.items.armors;
  * The highest tiered armor in the shop.
  */
 public class Chainmail extends Armor {
+
     /**
      * The defence increment of the Chainmail.
      */

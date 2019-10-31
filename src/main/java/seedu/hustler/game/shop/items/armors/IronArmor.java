@@ -4,6 +4,7 @@ package seedu.hustler.game.shop.items.armors;
  * The second tiered armor in the shop.
  */
 public class IronArmor extends Armor {
+
     /**
      * The defence increment of the iron armor.
      */
