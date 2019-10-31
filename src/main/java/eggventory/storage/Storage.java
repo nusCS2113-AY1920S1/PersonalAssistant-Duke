@@ -15,10 +15,10 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Scanner;
 
+//@@author yanprosobo
 /**
  * Handles reading and writing the stockList to file.
  */
-
 public class Storage {
     private String stockFilePath;
     private String stockTypesFilePath;

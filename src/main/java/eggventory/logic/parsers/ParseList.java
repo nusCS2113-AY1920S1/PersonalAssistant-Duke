@@ -8,6 +8,7 @@ import eggventory.logic.commands.list.ListStockTypeCommand;
 import eggventory.commons.enums.CommandType;
 import eggventory.commons.exceptions.BadInputException;
 
+//@@author yanprosobo
 public class ParseList {
 
     private final String listErrorMessageGeneric = "Usage of list: 'list stock', 'list stocktype all', "
@@ -77,6 +78,5 @@ public class ParseList {
 
         return listCommand;
     }
-
-
+    //@@author
 }
