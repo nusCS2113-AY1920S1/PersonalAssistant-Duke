@@ -21,26 +21,32 @@ public class Deadline extends Task {
     public Deadline(String name, LocalDateTime time) {
         super(name);
         this.time = time;
-        this.taskType = TaskType.Deadline;
+        this.taskType = TaskType.DEADLINE;
     }
 
     /**
      * Instantiates the Deadline with the name and the time. Time must be in during the instantiation as it
      * cannot be changed later. This method accepts another task to be done after the first task.
      *
-     * @param name     name of the Deadline
-     * @param time     time of the Deadline
-     * @param doAfter  task to be done after main task
-     * @param tags     tag associated with the task
-     * @param priority priority level of the task
+     * @param name         name of the Deadline
+     * @param time         time of the Deadline
+     * @param doAfter      task to be done after main task
+     * @param tags         tag associated with the task
+     * @param priority     priority level of the task
+     * @param linkedEmails emails to be linked to the task
+     *
      */
-    public Deadline(String name, LocalDateTime time, String doAfter, ArrayList<String> tags, String priority) {
+    public Deadline(String name, LocalDateTime time, String doAfter, ArrayList<String> tags,
+                    String priority, ArrayList<String> linkedEmails) {
         super(name);
-        this.taskType = TaskType.Deadline;
+        this.taskType = TaskType.DEADLINE;
         this.time = time;
         setDoAfterDescription(doAfter);
         setTags(tags);
         setPriorityTo(priority);
+        for (String email : linkedEmails) {
+            addLinkedEmails(email);
+        }
     }
 
     public LocalDateTime getTime() {
@@ -89,6 +95,9 @@ public class Deadline extends Task {
         for (String tagName : tags) {
             output += " -tag " + tagName;
         }
+        for (String email : linkedEmails) {
+            output += " -link " + email;
+        }
         if (this.priority != null && !this.priority.equals("")) {
             output += " -priority " + priority;
         }
@@ -134,14 +143,14 @@ public class Deadline extends Task {
     @Override
     public boolean isClash(Task task) {
         try {
-            if (task.taskType.equals(TaskType.Deadline)) {
+            if (task.taskType.equals(TaskType.DEADLINE)) {
                 Deadline deadlineTask = (Deadline) task;  // downcasting task to Deadline in order to use
                 // getTime().
                 if (this.time.compareTo(deadlineTask.getTime()) == 0) {
                     return true;
                 }
             }
-            if (task.taskType.equals(TaskType.Event)) {
+            if (task.taskType.equals(TaskType.EVENT)) {
                 Event eventTask = (Event) task;  // downcasting task to Event in order to use getTime().
                 if (this.time.compareTo(eventTask.getTime()) == 0) {
                     return true;

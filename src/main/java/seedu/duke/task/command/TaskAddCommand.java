@@ -21,6 +21,7 @@ public class TaskAddCommand extends Command {
     private LocalDateTime time;
     private String doAfter;
     private ArrayList<String> tags;
+    private ArrayList<String> links;
     private String priority;
     private boolean done;
 
@@ -34,15 +35,17 @@ public class TaskAddCommand extends Command {
      * @param doAfter  task to be done after main task
      * @param tags     tag associated with the task
      * @param priority priority level of the task
+     * @param links    linked emails of the task
      */
-    public TaskAddCommand(Task.TaskType taskType, String name, LocalDateTime time,
-                          String doAfter, ArrayList<String> tags, String priority) {
+    public TaskAddCommand(Task.TaskType taskType, String name, LocalDateTime time, String doAfter,
+                          ArrayList<String> tags, String priority, ArrayList<String> links) {
         this.taskType = taskType;
         this.name = name;
         this.time = time;
         this.doAfter = doAfter;
         this.tags = tags;
         this.priority = priority;
+        this.links = links;
         this.done = false;
     }
 
@@ -76,14 +79,14 @@ public class TaskAddCommand extends Command {
     private Task prepareTaskByType() {
         Task task;
         switch (taskType) {
-        case ToDo:
-            task = new ToDo(name, doAfter, tags, priority);
+        case TODO:
+            task = new ToDo(name, doAfter, tags, priority, links);
             break;
-        case Deadline:
-            task = new Deadline(name, time, doAfter, tags, priority);
+        case DEADLINE:
+            task = new Deadline(name, time, doAfter, tags, priority, links);
             break;
-        case Event:
-            task = new Event(name, time, doAfter, tags, priority);
+        case EVENT:
+            task = new Event(name, time, doAfter, tags, priority, links);
             break;
         default:
             task = null;

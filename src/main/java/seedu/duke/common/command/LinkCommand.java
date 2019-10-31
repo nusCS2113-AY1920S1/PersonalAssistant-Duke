@@ -58,6 +58,7 @@ public class LinkCommand extends Command{
                     Task task = taskList.get(taskIndexList.get(i));
                     msg.append(task.getName());
                     msg.append(" with email(s):" + System.lineSeparator());
+
                     for (int j = 0; j < emailIndexList.size(); j++) {
                         Email email = emailList.get(emailIndexList.get(j));
                         msg.append(email.getSubject() + System.lineSeparator());
@@ -79,6 +80,11 @@ public class LinkCommand extends Command{
                 }
                 return true;
             }
+        } catch (NullPointerException e) {
+            if (!silent) {
+                UI.getInstance().showError("Email index out of bounds");
+            }
+            return false;
         } catch (Exception e) {
             if (!silent) {
                 UI.getInstance().showError(e.getMessage());

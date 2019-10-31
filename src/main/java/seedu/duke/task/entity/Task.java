@@ -105,7 +105,7 @@ public class Task {
      * @param duration the duration to snooze the task by
      */
     public void snooze(int duration) {
-        if (taskType == TaskType.ToDo) {
+        if (taskType == TaskType.TODO) {
             return;
         }
     }
@@ -204,6 +204,6 @@ public class Task {
      * The enumeration of all task type.
      */
     public enum TaskType {
-        ToDo, Deadline, Event
+        TODO, DEADLINE, EVENT
     }
 }
