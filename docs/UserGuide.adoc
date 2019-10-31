@@ -28,7 +28,7 @@ WordUp (WU) is a desktop-based application for english language learners who pre
 .  Ensure that you have `JavaFX` installed.
 .  [Windows] Open command prompt by typing cmd in the start bar. 
 .  Enter the following command: `java --module-path [path to javafx lib folder]C:\Java\javafx-sdk-11.0.2\lib --add-modules=javafx.controls -jar [path to home folder of WordUp]C:\home\wordup-v1.3.jar`
-.  If you encounter a module not found error, please check that you do not have a spacing in your file path to `javafx\lib`. 
+.  If you encounter a `Module Not Found` error, please check that you do not have a spacing in your file path to `javafx\lib`. 
 .  Type the command in the command box and press Enter to execute it. e.g. typing `help` and pressing `Enter` opens up the window showing a list of commands available. +
 .  Some example commands you can try:
 
