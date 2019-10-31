@@ -11,8 +11,9 @@ import static java.util.Objects.requireNonNull;
 
 public class LockerDate {
 
-    public static final String ERROR_MESSAGE = " The date should be a valid date as per the"
-            + " Gregorian Calendar and should be in the format <DD-MM-YYYY>";
+    public static final String ERROR_MESSAGE = " The date should satisfy the following constraints:"
+            + "\n\n      1. Should be a valid date as per the Gregorian Calendar."
+            + "\n      2. Should be in the format of <DD-MM-YYYY>";
 
     private static final DateTimeFormatter checkDateFormat =
             DateTimeFormatter.ofPattern("dd-MM-yyyy");

@@ -43,7 +43,9 @@ public class AssignLockerCommandParser {
                 TOKEN_EMAIL, TOKEN_STUDENT_COURSE,TOKEN_START_DATE,
                 TOKEN_END_DATE,TOKEN_PREFERENCES)
                 || !mapTokensToArguments.getTextBeforeFirstToken().isEmpty()) {
-            throw new DukeException(" Invalid command format");
+            throw new DukeException(" Invalid command format."
+                    + "\n     1.All tokens should be present "
+                    + "\n     2.There should not include any text between the command word and the first token");
         }
 
         Name name = ParserCheck.parseName(mapTokensToArguments.getValue(TOKEN_STUDENT_NAME).get());

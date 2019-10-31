@@ -38,7 +38,9 @@ public class AddBatchCommandParser {
         if (!checkAllTokensPresent(mapTokensToArguments,
                 TOKEN_SIZE, TOKEN_SERIAL, TOKEN_ADDRESS, TOKEN_ZONE)
                 || !mapTokensToArguments.getTextBeforeFirstToken().isEmpty()) {
-            throw new DukeException(" Invalid command format");
+            throw new DukeException(" Invalid command format."
+                    + "\n     1.All tokens should be present "
+                    + "\n     2.There should not include any text between the command word and the first token");
         }
 
         SerialNumber serialNumber = ParserCheck.parseSerialNumber(

@@ -96,7 +96,7 @@ public class AssignLockerCommand extends Command {
                 findLockersInAnyZone());
 
         if (freeLockersInAnyZone.size() == 0) {
-            throw new DukeException(" There are no available lockers at the moment");
+            throw new DukeException(" There are no available lockers at the moment.");
         }
         //We need to inform the user that a locker has been assigned not in the preferred
         //location

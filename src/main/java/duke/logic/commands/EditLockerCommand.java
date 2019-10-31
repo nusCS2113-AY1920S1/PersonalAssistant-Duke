@@ -27,14 +27,13 @@ public class EditLockerCommand extends Command {
 
     private static final String EDIT_LOCKER_ERROR = " The following constraints are to be satisfied"
             + " for editing locker states:"
-            + "\n 1. If a locker is currently not in the InUse state then its state cannot"
+            + "\n     1. If a locker is currently not in the InUse state then its state cannot"
             + " be edited to InUse state"
-            + "\n 2. A locker currently in InUse state can only be changed to broken state"
-            + "\n 3. If a state change from InUse to Broken does take place then a new locker is"
-            + " allocated to the student, if there are available locker at the moment."
-            + "\n 4. If there are no available lockers for the student, then his/hers subscription"
-            + "\n is terminated.";
-
+            + "\n     2. A locker currently in InUse state can only be changed to broken state"
+            + "\n     3. If case you change InUse to Broken then a new locker is"
+            + " allocated to the student, if there are available lockers."
+            + "\n     4. If there are no available lockers for the student, then his/hers subscription"
+            + " is terminated.";
 
     /**
      * This contructor instantiates the editLockerCommand object.

@@ -17,7 +17,7 @@ public class Ui {
      */
     public void printDash() {
         String str = "";
-        for (int i = 0; i < 75; i++) {
+        for (int i = 0; i < 120; i++) {
             str += "_";
         }
         printSpaces(str);

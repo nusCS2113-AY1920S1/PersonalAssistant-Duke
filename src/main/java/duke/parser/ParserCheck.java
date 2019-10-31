@@ -18,6 +18,10 @@ import java.util.List;
 import static java.util.Objects.requireNonNull;
 
 public class ParserCheck {
+    public static final String ERROR_IN_DATE_DIFFERENCE = " The start and end date for"
+            + " rentals should satisfy the following constraints:\n"
+            + "\n     1. The end date should be after the start date."
+            + "\n     2. The rental period should be between 7 to 365 days (inclusive)";
 
     /**
      * This function is used to parse the serial number for the locker.
@@ -206,8 +210,9 @@ public class ParserCheck {
                                                              LockerDate endDate) throws DukeException {
         if (!LockerDate.isDifferenceBetweenDatesValid(startDate.getDate(),
                 endDate.getDate())) {
-            throw new DukeException(" There should be a difference of at least 7 days "
-                   + "and at most 365 days between the starting and ending dates of lockers");
+
+            throw new DukeException(ERROR_IN_DATE_DIFFERENCE);
+
         }
     }
 }

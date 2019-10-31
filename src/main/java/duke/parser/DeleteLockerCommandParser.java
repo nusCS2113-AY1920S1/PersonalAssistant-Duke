@@ -14,7 +14,7 @@ public class DeleteLockerCommandParser {
      * This function is used to parse the user input for deleting a locker from the list.
      * @param fullCommand stores the user input
      * @return reference to the class DeleteLockerCommand
-     * @throws DukeException when the command format is invalid
+     * @throws DukeException when the command format is invalidd
      */
 
     public Command parse(String fullCommand) throws DukeException {
