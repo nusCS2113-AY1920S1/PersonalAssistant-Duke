@@ -26,7 +26,7 @@ public class Storage {
      *
      * @param file the Path object representing the path to the file being used to store the task list.
      */
-    Storage(Path file) {
+    public Storage(Path file) {
         this.file = file;
     }
 
@@ -76,16 +76,27 @@ public class Storage {
         return result;
     }
 
-    void loadToList(SongList songList) throws DucatsException {
+    /**
+     * A function that gets from a text file and loads into the song list.
+     *
+     * @param songList - This is the list of songs by the user.
+     */
+
+    public void loadToList(SongList songList) throws DucatsException {
         // loads data into list
         ArrayList<String> data = readStringsFromFile();
         for (String line: data) {
             songList.add(convertSongFromString(line));
         }
     }
+    /**
+     * A function that converts a string into a Song element.
+     *
+     * @param s - this is the string to be converted to a song.
+     */
 
     // twinkle [[UAs;UAs],[UA;UA],[UAs;UAs],[UA;UA],[UAs;UAs],[UA;UA],[UAs;UAs],[UA;UA]]
-    private Song convertSongFromString(String s) throws DucatsException {
+    public Song convertSongFromString(String s) throws DucatsException {
         String[] sections = s.split(" ");
         if (sections.length == 1) {
             throw new DucatsException("io","");

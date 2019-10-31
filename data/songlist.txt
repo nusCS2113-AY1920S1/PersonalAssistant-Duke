@@ -1,1 +1,3 @@
-jingle aminor 123 [[UGs],[UG],[LGs],[LG],[UEs],[UE],[LEs],[LE]] [[MCs],[MC],[MC],[MC],[MC],[MC],[MC],[MC]] [[UGs],[UG],[LGs],[LG],[UEs],[UE],[LEs],[LE]] [[MCs],[MC],[MC],[MC],[MC],[MC],[MC],[MC]] [[UGs],[UG],[LGs],[LG],[UEs],[UE],[LEs],[LE]] [[MCs],[MC],[MC],[MC],[MC],[MC],[MC],[MC]] 
+twinkle Aminor 120 [[UAs],[UA],[UA],[UA],[RTs],[RT],[RT],[RT]] [[UBs],[UB],[UB],[UB],[RTs],[RT],[MCs],[MC]]
+
+jingle Aminor 120 [[UAs],[UB],[UB],[UC],[RTs],[RT],[RT],[RT]] [[UBs],[UB],[UB],[UB],[RTs],[RT],[MCs],[MC]] 
