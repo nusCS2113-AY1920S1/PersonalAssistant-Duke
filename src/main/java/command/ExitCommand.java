@@ -6,6 +6,8 @@ import task.TaskList;
 import exception.DukeException;
 import list.DegreeList;
 
+import java.io.IOException;
+
 /**
  * ExitCommand Class extends the abstract Command class.
  * Called when user wants to exit.
@@ -32,7 +34,8 @@ public class ExitCommand extends Command {
         boolean isClose = true;
         try {
             storage.store(tasks);
-        } catch (DukeException e) {
+            storage.add_degrees(lists);
+        } catch (DukeException | IOException e) {
             isClose = false;
             throw new DukeException("Exit Error: " + e.getLocalizedMessage());
         } finally {
