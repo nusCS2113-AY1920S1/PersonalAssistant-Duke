@@ -5,15 +5,18 @@ import interpreter.Parser;
 import executor.command.Command;
 import executor.command.CommandType;
 import executor.task.TaskList;
-import storage.Storage;
+import storage.StorageTask;
+import storage.StorageWallet;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class Ui {
-    private Storage storage;
+    private StorageTask storetask;
+    private StorageWallet storewallet;
     private TaskList taskList;
+    private ReceiptTracker receiptTracker;
     private Wallet wallet;
     private Scanner scanner;
     private Boolean exitRequest;
@@ -30,10 +33,13 @@ public class Ui {
     /**
      * Constructor for the 'Ui' Class.
      */
-    public Ui(String dataPath) {
-        this.storage = new Storage(dataPath);
-        this.taskList = storage.loadData();
-        this.wallet = new Wallet();
+    public Ui(String taskPath, String walletPath) {
+
+        this.storetask = new StorageTask(taskPath);
+        this.storewallet = new StorageWallet(walletPath);
+        this.taskList = this.storetask.loadData();
+        this.wallet = this.storewallet.loadData();
+        //this.wallet = new Wallet();
         this.scanner = new Scanner(System.in);
         this.exitRequest = false;
         this.userInputHistory = new ArrayList<String>();
@@ -76,7 +82,8 @@ public class Ui {
      */
     private void exitUi() {
         this.scanner.close();
-        this.storage.saveData(this.taskList);
+        this.storetask.saveData(this.taskList);
+        this.storewallet.saveData(this.wallet);
         this.exitRequest = true;
     }
 

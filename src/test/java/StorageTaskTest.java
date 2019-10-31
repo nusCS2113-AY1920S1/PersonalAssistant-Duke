@@ -1,7 +1,7 @@
 import executor.task.Task;
 import executor.task.TaskList;
 import executor.task.TaskType;
-import storage.Storage;
+import storage.StorageTask;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
@@ -10,12 +10,12 @@ import java.util.Scanner;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class StorageTest {
+public class StorageTaskTest {
 
     @Test
     void loadData() {
-        Storage storage = new Storage("testDataLoad.txt");
-        TaskList taskListResult = storage.loadData();
+        StorageTask storagetask = new StorageTask("testDataLoad.txt");
+        TaskList taskListResult = storagetask.loadData();
         final SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HHmm");
         //TODO yoda things/ tmrw at last@|@false
         Task taskResult = taskListResult.getList().get(0);
@@ -64,8 +64,8 @@ public class StorageTest {
     void saveData() {
         // testDataLoad is the test Data
         // Follow the Storage Format when inputting new test cases
-        Storage storageExpected = new Storage("testDataLoad.txt");
-        Storage storageSaved = new Storage("testDataSave.txt");
+        StorageTask storageExpected = new StorageTask("testDataLoad.txt");
+        StorageTask storageSaved = new StorageTask("testDataSave.txt");
         TaskList taskList = storageExpected.loadData();
 
         storageSaved.saveData(taskList);
