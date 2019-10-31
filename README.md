@@ -1,7 +1,5 @@
 # DEGREES.NUS
 
-image::docs/images/logo.png[]
-                            
 An application developed in Java for prospective applicants to NUS Faculty of Engineering, who prefer to use a desktop application in order to research on degrees offered by NUS' Faculty of Engineering and pertaining information. 
 
 ## Features
