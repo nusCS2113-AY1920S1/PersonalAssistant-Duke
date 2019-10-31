@@ -90,4 +90,12 @@ public class TaskList {
     public boolean isIndexValid(int index) {
         return index < tasks.size() && index >= 0;
     }
+
+    /**
+     * Checks if TaskList is empty.
+     * @return  true if empty, false otherwise.
+     */
+    public boolean isEmpty() {
+        return tasks.isEmpty();
+    }
 }
