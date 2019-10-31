@@ -1,12 +1,13 @@
 package command;
 
 import storage.Storage;
-import task.DegreeTask;
-import task.Task;
+import task.UniversityTaskHandler;
 import ui.UI;
 import task.TaskList;
 import exception.DukeException;
 import list.DegreeList;
+
+import java.io.IOException;
 
 /**
  * AddCommand Class extends the abstract Command class.
@@ -38,7 +39,7 @@ public class AddCommand extends Command {
      * @param storage Storage loads and saves files.
      * @throws DukeException DukeException throws exception.
      */
-    public void execute(TaskList tasks, UI ui, Storage storage, DegreeList lists) throws DukeException {
+    public void execute(TaskList tasks, UI ui, Storage storage, DegreeList lists) throws DukeException, IOException {
         TaskList tasksBuffer;
         DegreeList degreesBuffer;
 
@@ -57,10 +58,14 @@ public class AddCommand extends Command {
             degreesBuffer = lists.deepClone();
             memento = new Memento(degreesBuffer);
 
-            lists.add_custom(this.arguments);
-            DegreeTask degreeTask = new DegreeTask();
-            degreeTask.addDegreeTasks (this.arguments, tasks);
-
+            if(this.arguments.matches("Biomedical Engineering|Chemical Engineering|Civil Engineering|Computer Engineering|Electrical Engineering|Environmental Engineering|Industrial and Systems Engineering|Mechanical Engineering|Materials Science and Engineering")) {
+                lists.add_custom(this.arguments, storage);
+                UniversityTaskHandler universityTaskHandler = new UniversityTaskHandler();
+                universityTaskHandler.addDegreeTasks(this.arguments, tasks);
+            }
+            else {
+                throw new DukeException("Wrong formatting convention is used to add degree. The correct format is e.g. Computer Engineering");
+            }
         }
         else {
             this.listType = 0;
