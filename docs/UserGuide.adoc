@@ -3,8 +3,6 @@
 == 1. Introduction
 Our project aims to develop a task tracking application that monitors and encourages productivity. The application will be easy to use, with intuitive ways of adding, finding and tracking tasks that have been added. This easy convenience is definitely helpful in our often busy lives, so give this app a chance to help you!
 
-
-
 This user guide aims to help you learn your way around our app, making the learning process smooth and effortless. So what are you waiting for? Let's go!
 
 == 2. Quick Start  
@@ -20,7 +18,7 @@ This user guide aims to help you learn your way around our app, making the learn
 * **`/delete`**`1` : deletes the 1st task in the current list
 * *`/bye`* : exits the app
  
-== 3. Features
+== 3. Task Management Features
 
 ifdef::env-github[]
 :tip-caption: :bulb:
@@ -372,11 +370,140 @@ TIP: */snooze <index> <date> <time>*
 
 This command postpones the deadline to a fixed date and time, such as 24/12/2019 1700.
 
-IMPORTANT: This command snoozes a task in the task list. +
+[NOTE]
+====
+This command snoozes a task in the task list.
+
 *	<index> refers to the index shown in the displayed task list.
 *	<date> must follow the format dd/MM/yyyy.
 *	<time> must be in 24hrs format HHmm.
 *	<unit> is the duration in minutes, hours, days, weeks or months
+====
+
+Example Scenario:
+
+Let’s say that a team meeting has been rescheduled to a day later to the original date and time. Instead of having to delete the task and re-entering the task’s information all over again, you can easily change the date and time of the task by the snooze command you have just entered.
+
+Eecuting the `/snooze` command:
+----
+1.	Type /list into the command box and press the Enter to execute it.
+2.	The result box will display a list of all the tasks with their respective index. 
+3.	Type /snooze <index> <integer> <unit>, whereby <index> is the index of the task to be snoozed, <integer> is the number of <unit> you want to snooze. Available <unit> are minutes, hours, days, weeks or months.
+4.	The screen will display the snoozed task’s information with the new date and time.
+----
+
+=== 4. Your Personal Experience
+
+Hustler not only helps you manage and complete tasks in a productive environment but also has a bunch of personalization features that separate you from the rest based on your productivity.
+
+=== 4.1 Achievements
+
+Hustler provides incentive to be more productive by giving you achievements. There is a list of achievements for you to unlock and their requirements for unlocking. The achievement section can be seen by clicking on the “Achievements” in the navigation bar or alternatively, by entering the `/achievements` command in the command line at the bottom. On achieving an accomplishment, you generate points which is an in-app currency whose use will be explained in the shop section. 
+
+=== 4.1.1 Showing locked achievements and unlocked achievements command
+
+This command `/achievement` shows the list of achievements that the user have unlocked and did not unlock.
+
+Unlocking achievements commands: `/add`, `/done`
+
+To unlock achievements, the users have to use Hustler actively. This can be achieve by frequently logging tasks using Hustler as well as keep track of the number of tasks they have completed. 
+
+When the user logs up to 5 tasks into Hustler using the `/add` command, the condition for “Busybee” is met and the user unlocks achievement “Busybee” with “Bronze” achievement level.
+
+To attain BusyBee Bronze level: 
+----
+1.	Type /add <description of task> 5 times. This will log 5 tasks into Hustler. 
+2.	The main panel will display the message “Congratulations, you have unlocked this achievement! Busybee Bronze”. 
+3.	Type /achievement to see the updated achievement list. The points have been updated and Busybee bronze level have been unlocked.
+4.	User can unlock silver by adding 10 tasks and points by adding 15 tasks.
+5.	In order to unlock Completionist, users have to complete n* 5 tasks to unlock “Completionist”. Users have to type in command /done in order to mark a task as done.
+6.	As for “Dedicated to the art” achievement, user have to login for n* 5 consecutive days. If the user logins within a day, the number of consecutive logins will not be counted. Similarly, if the user logins 2 days later when he/she last login, consecutive login will not be counted and will reset to 0. Users have to login n* 5 days to unlock “Dedicated to the art”.
+----
+
+IMPORTANT: n is an integer from 1 to 3.
+
+=== 4.2 Avatar
+
+Hustler has an RPG like gaming concept to motivate and entertain you. You have an avatar, which is your in-game character that has its own level and stats, namely, Damage, Defence, Speed and Endurance. 
+
+
+=== 4.2.1 Avatar statistics
+
+The stats correlate directly with your avatar’s level and the items that you have purchased which can be seen in the Shop section. Your avatar grows stronger as you complete more tasks. (tip: you’ll level up the first time after 5 completions!)
+
+Here is how you view the avatar statistics:
+
+TIP: */avatar*
+
+This command will cause Avatar details to pop up on screen.
+
+=== 4.2.2 Changing the Avatar’s name
+
+TIP: */setname <name>*
+
+This command customizes the user’s experience by allow them to change the name of the avatar.
+
+By default, the avatar’s name will be “Avatar”. However, if you feel connected with the avatar and would wish to have a sense of “owning” the avatar, here is how to do it:
+
+Executing the `/setname` command:
+----
+1.	Type /setname <name> into the command box, and hit Enter to execute it. For example, I would like to set my name to “Nystera”.
+2.	The result box will display the success message to informs the user that it is completed.
+3.	Typing /avatar now will reflect the name change.
+----
+
+IMPORTANT: If that the user made an invalid input, (such as by typing /setname with no name to be changed) Hustler will catch the exception and informs the user that the name change is invalid.
+
+=== 4.2.3 Inventory
+
+All of the items you have purchased are reflected in your inventory. Here is an example on how to view the items you have bought so far:
+
+Executing the `/inventory` command:
+----
+1.	Type /inventory in the command line and hit enter
+2.	You can now take a look at your current inventory
+----
+
+=== 4.2.4 Equipment
+
+TP: */equip <index>*
+
+This command allows the user to wield stronger equipment as they earn more points to purchase them.
+
+Example Scenario:
+
+You have always been saving up points to purchase the Moonlight Sword (upgrading from a normal Broadsword). Here are the steps on how to wield your newly purchased weapo.
+
+Executing the `/equip` command:
+----
+1.	Type /inventory and hit enter to execute the command.
+2.	You can now take a look at the list of items you have currently purchased.
+3.	Type /equip <index> to wield the item on that index. For this example, you want to wield your newest addition to the list, the Moonlight Sword. Type /equip 2, which will allow the following prompt will show up:
+4.	You can verify that you’ve equipped the Moonlight Sword which increased your Avatar’s stats by typing the command /avatar.
+----
+
+=== 4.3 Points system
+
+Finishing achievements not only gives you the satisfaction you deserve, but also in-app currency in the form of points. Each achievement gives you points depending on the achievement level.
+
+=== 4.3.1 Shop
+
+From the points generated on finishing an achievement, you can buy items for the avatar from the “Shop” section.
+
+Example Scenario:
+
+You just unlocked an achievement, and have enough points to purchase a new item for your avatar to wield. Here are the steps on how to purchase an item in the shop assuming you have enough points.
+
+Executing the `/buy` command:
+----
+1.	Type /shop to show the list of items available, you will also be shown your total accumulated points:
+2.	Looking at the shop, purchase the desired item by typing /buy <index>. Assuming you would like to purchase the Chainmail, type /buy 6 and hit enter.
+3.	If you have enough points, the successful purchase text will be shown on the UI.
+4.	You can now check your inventory by typing /inventory which will reflect your recent purchase.
+----
+
+That brings us to the end of the feature list of v1.4. However, there are a lot of features planned for v2.0.
+
 
 
 
@@ -462,29 +589,6 @@ Examples:
 
 Shows a list of all the tasks in the task list. + 
 Format: `/list`
-
-=== 3A.6 Snoozing a task : `/snooze`
-
-Provides a way to easily snooze/postpone/reschedule a task. +
-Format: `/snooze INDEX` +
-        `NUMBER minutes/hours/days/weeks/months` OR `dd/mm/yyyy hhmm`
-        
-****
-* Snoozes the task as done at the specified `INDEX`
-* The index refers to the index shown in the displayed task list.
-* `NUMBER` refers to the quantity of the `minutes/hours/days/weeks/months`
-* `dd/mm/yyyy hhmm` is the day/month/year and time(24hrs) of the task e.g. `9/9/2019 1200`
-****
-
-Examples:
-
-  * `/snooze 1` +  
-    `1 weeks` +
-    Snoozes the 1st task in the task list by 1 week.
-    
-  * `/snooze 2` +
-    `9/9/2019 1200` +
-    Reschedules the 2nd task in the task list to the input date (9/9/2019 1200).
   
 === 3A.7 Reminders : `/remind`
 
@@ -557,128 +661,7 @@ User's hero run animation will be played on the screen.
 ****
 
 
-=== 3B.4 Timer : `/timer` +
 
-Hustlers main feature in boosting productivity is in its task completion mode which can be summarized under the /timer command.
-
-----
-Note that you can also manually complete task by typing /done <index> as shown above. However, we encourage you to use the recommended schedule with the timer integrated in order to complete the tasks.
-----
-
-====3B.4.1 Using the /timer command
-
-After collecting all the tasks, you have added, you can use Hustler to help you finish tasks. To begin, tell Hustler the number of hours you have available to work. This can be done with the help of the /timer command. The syntax of the command is as follows:
-
-====3B.4.2 Recommended schedule
-
-After supplying the amount of time available to work on tasks using the /timer command, a recommended schedule pops up which is a list of incomplete tasks that Hustler recommends you work on. Hustler keeps track of the amount of time remaining for a task, the amount of time you have spent on the task and the difficulty of the task to make recommendations. You can edit this schedule to your liking before sitting down and setting yourself up for work. In order to explain the next few commands the following list of tasks in the “Tasks” section will be considered as shown.
-
-=====3B.4.2.1 Adding tasks to the schedule using the /addFromList command
-
-The recommended schedule that pops up after using the /timer command sometimes might not be to your liking. Sometimes you might feel like working on more tasks. As such, you can add tasks from the “Tasks” section to the schedule using the /addFromList command. The syntax of the /addFromList command is as follows:
-
-*/addFromList <index in “Task” section>*
-
-The task that you referred to from the “Task” section pops up in the schedule and the time allotted to each task is updated.
-For example, on running the command:
-
-*/timer 5 0 0*
-
-Hustler is specified that you have 5 hours available for work and the following recommended schedule is shown on the list of tasks specified.
-
-=====3B.4.2.2 Removing tasks from the schedule using the /remove command
-
-In case you do not feel like working on a task, you can remove it from the recommended schedule. In order to do so the /remove command can be run using the following syntax:
-
-*/remove <index>*
-
-The task at the supplied index will be removed and the updated schedule will be shown.
-For example:
-
-If you want to remove task at index 4 from Figure 3, the following command can be run:
-
-*/remove 4*
-
-As a result, “create notes for 2101” will be removed from this schedule can be seen below
-
-=====3B.4.2.3	Update the time allotted to a command using the /update command
-
-You might be in a situation in which you need to change the amount of time that has been allotted to a task. In order to do so, the /update command is used. The syntax of the update command is as follows:
-
-*/update <index> <duration H:M:S>*
-
-On running this command the time allotted to task at index specified is changed to a duration in the format <hours:minutes:seconds>. 
-For example:
-
-In order to change the time allotted to 3 in Figure 4 from 1 hour 40 minutes to 1 hour the following command can be run.
-
-*/update 3 1:0:0*
-
-
-
-Starts a exitable countdown that can be paused and resumed. Upon starting a new timer, HUSTLER recommends some tasks for doing depending on the amount of time set. +
-Format: `/timer HH MM SS`
-
-****
-* User earns points based off how long the countdown was given.
-****
-
-Examples:
-
-****
-* `/timer 01 30 45` +
-   Start a countdown for 1 hour, 30 minutes and 45 seconds.
-   
-* `/pausetimer` +
-   Pauses a running timer. This command is invalid and does nothing if there are no timers currently running.
-   
-* `/resumetimer` +
-   Resumes a timer that has been paused. This command is invalid if there are no timers currently paused.
-   
-* `/stoptimer` +
-   Prematurely stops a running timer, resetting it. This command is invalid if there are no timers currently running.
-
-****
-
-=== 3B.5 Sort : `/sort` +
-
-There are 3 ways in which tasks can be sorted, in the normal order based on the time it was added, chronological order based on time and a prioritize order that prioritizes tasks based on the amount of time available with respect to the current time and the difficulty of the task.
-
-*	`/normal` sorts the tasks based on when the user input the tasks.
-*	`/chronological` sorts the tasks based on the date and time of the tasks.
-*	`/prioritize` sorts the tasks based on amount of time available and difficulty.
-
-
-Examples:
-
-Let’s say you want to focus on the most upcoming tasks and want to know which tasks are nearest to the current date. Instead of having to scroll and view each task in the task list to determine which is the earliest task, you can easily view the tasks in chronological order by the /sort command you have entered.
-
-To sort:
-1.	Type /sort datetime into the command box and press the Enter button on your keyboard to execute it.
-2.	The result box will display the message “Task list has been successfully sorted!”.
-3.	The newly sorted task list will be displayed on the screen. You can now view the tasks in chronological order.
-
-=== 3B.6 Achievements : `/achievement` +
-
-Brings up the achievement page that shows the user the lists of achievements that have been unlocked and unlocked as well as the total number of points the user has accumalated.
-
-****
-* Points can be earned from completing tasks, adding tasks and logging into Hustler on consecutive days.
-****
-
-=== 3B.6 Avatar : `/avatar` +
-
-This command shows the user all information related to his/ her avatar, from level and experience to stats. Additionally, this command also shows the weapon and armor equipped, if any.
-
-Other avatar related commands:
-
-****
-* `/avatar` : show avatar stats
-* `/setname NAME` : changes the avatar name
-* `/buy INDEX` : purchase items
-* `/inventory` : shows what you own
-* `/equip INDEX` : equips the item in the inventory
-****
 
 == 4. FAQ
 
