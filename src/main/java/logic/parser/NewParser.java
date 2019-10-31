@@ -2,6 +2,8 @@ package logic.parser;
 
 import logic.command.Command;
 import common.DukeException;
+import logic.parser.delete.DeleteCommandParser;
+import logic.parser.edit.EditCommandParser;
 import logic.parser.schedule.ScheduleCommandParser;
 
 import java.util.regex.Matcher;
@@ -25,6 +27,7 @@ public class NewParser {
     public static final String BYE_COMMAND_WORD = "BYE";
     public static final String SCHEDULE_COMMAND_WORD = "SCHEDULE";
     public static final String REMINDER_COMMAND_WORD = "REMINDER";
+    public static final String EDIT_COMMAND_WORD = "EDIT";
 
     //@@author JustinChia1997
 
@@ -80,6 +83,8 @@ public class NewParser {
             return ScheduleCommandParser.parseScheduleCommand(arguments);
         case REMINDER_COMMAND_WORD:
             return ReminderCommandParser.parseReminder(arguments);
+        case EDIT_COMMAND_WORD:
+            return EditCommandParser.parseEditCommand(arguments);
 
         default:
             throw new DukeException("Command not found");

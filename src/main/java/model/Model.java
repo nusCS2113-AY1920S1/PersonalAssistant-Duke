@@ -16,12 +16,11 @@ public interface Model {
 
     int getTaskListSize();
 
+    String getTaskNameById(int index);
+
     TasksManager getTasksManager();
 
     Task addTask(String name) throws DukeException;
-
-    String deleteTask(int taskIndexInList) throws DukeException;
-
 
     boolean hasTask(String name) throws DukeException;
 
@@ -31,20 +30,24 @@ public interface Model {
 
     String scheduleTeamTodo() throws DukeException;
 
-    String scheduleMemberAll(String memberName) throws DukeException;
-
-    String scheduleMemberTodo(String memberName) throws DukeException;
+    String updateTaskDes(int index, String des);
 
     //==================Member Interface======================
     ArrayList<Member> getMemberList();
 
     int getMemberListSize();
 
+    String getMemberNameById(int index);
+
     MemberManager getMemberManager();
 
     void addMember(String name) throws DukeException;
 
-    boolean deleteMember(String name) throws DukeException;
+    String updateMemberBio(int index, String bio);
+
+    String updateMemberEmail(int index, String email) throws DukeException;
+
+    String updateMemberPhone(int index, String phone);
 
     boolean hasMember(String name) throws DukeException;
 
@@ -52,4 +55,13 @@ public interface Model {
     void link(int tasksIndexes, String memberNames);
 
     void unlink(int tasksIndexes, String memberNames);
+
+    String deleteTask(int index) throws DukeException;
+
+    String deleteMember(int index) throws DukeException;
+
+    String scheduleMemberAll(String memberName) throws DukeException;
+
+    String scheduleMemberTodo(String memberName) throws DukeException;
+
 }

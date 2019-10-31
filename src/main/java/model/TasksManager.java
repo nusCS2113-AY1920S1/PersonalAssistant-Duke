@@ -22,7 +22,6 @@ public class TasksManager implements Serializable {
     }
 
     //@@author JustinChia1997
-
     /**
      * Add a new task with name.
      *
@@ -57,11 +56,10 @@ public class TasksManager implements Serializable {
     /**
      * Delete a task from the task list.
      *
-     * @param taskIndexInList The task index in tasklist to be deleted.
      */
-    public Task deleteTask(int taskIndexInList) {
+    public boolean deleteTask(Task toDelete) {
 
-        return taskList.remove(taskIndexInList - 1);
+        return taskList.remove(toDelete);
     }
 
     /**
@@ -94,7 +92,6 @@ public class TasksManager implements Serializable {
     }
 
     //@@author yuyanglin28
-
     /**
      * delete member (person in charge) in task list
      *
@@ -116,6 +113,10 @@ public class TasksManager implements Serializable {
         return taskList.size();
     }
 
+    public String getTaskNameById(int index) {
+        return getTaskById(index).getName();
+    }
+
 
     //@@author JustinChia1997
 
@@ -132,7 +133,6 @@ public class TasksManager implements Serializable {
     }
 
     //@@author JustinChia1997
-
     /**
      * Finds Task from task list. returns null if no match was found
      *
@@ -152,6 +152,17 @@ public class TasksManager implements Serializable {
         return task.getName();
     }
 
+
+    public void updateTaskDes(int index, String des) {
+        Task task = getTaskById(index);
+        task.setDescription(des);
+    }
+
+    public String getTaskDes(int index) {
+        Task task = getTaskById(index);
+        return task.getDescription();
+    }
+
     //@@author yuyanglin28
 
     /**
@@ -161,10 +172,10 @@ public class TasksManager implements Serializable {
      * @return a string shows the task list contain keyword
      */
     public String getTasksByKeyword(String keyword) {
-        ArrayList<Task> tasks = new ArrayList<>();
         String result = "";
         for (int i = 0; i < taskList.size(); i++) {
-            if (taskList.get(i).getName().contains(keyword)) {
+            if (taskList.get(i).getName().contains(keyword)
+                    || taskList.get(i).getDescription().contains(keyword)) {
                 result += "\n" + taskList.get(i);
             }
         }
@@ -227,8 +238,7 @@ public class TasksManager implements Serializable {
         for (int i = 0; i < tasksName.size(); i++) {
             allTasks.add(getTaskByName(tasksName.get(i)));
         }
-        ArrayList<Task> todoTasks = new ArrayList<>();
-        todoTasks = pickTodo(allTasks);
+        ArrayList<Task> todoTasks = pickTodo(allTasks);
         return showScheduleOfTaskList(todoTasks);
     }
 
@@ -278,9 +288,8 @@ public class TasksManager implements Serializable {
     }
 
     private String showScheduleOfTaskList(ArrayList<Task> toSorted) {
-        ArrayList<Task> tasks = new ArrayList<>();
         String result = "";
-        tasks = sortByTime(toSorted);
+        ArrayList<Task> tasks = sortByTime(toSorted);
         for (int i = 0; i < tasks.size(); i++) {
             result += "\n" + tasks.get(i);
         }
