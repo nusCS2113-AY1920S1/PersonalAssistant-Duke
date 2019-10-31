@@ -139,6 +139,9 @@ public class Parser {
         if (userInput.equals("market")) {
             return new CommandShowList("MarketList");
         }
+        if (userInput.equals("task commands") || userInput.equals("task command")) {
+            return new CommandShowList("TaskCommands");
+        }
         if (userInput.startsWith("do") || userInput.startsWith("if")
                 || userInput.startsWith("for") || userInput.startsWith("while")) {
             return new CommandTaskCreate(parseTask(userInput));

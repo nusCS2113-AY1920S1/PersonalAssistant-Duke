@@ -1,19 +1,17 @@
-_______________________________________________________
-           __________
-       _.-"`         `"-._
-     .'_  _  _  _ _  _   _'.
-    / |_ |_||_|| | | |  | | \     
-   /  |  | || \|   | |  |_|  \    MENU:
-  ;                           \     Save Game
-  |                            |    Load Game
-  |     _.                     |    Quit Game
-  ;    /__\    ,_              ;    
-   \   |= |;._.}{__           /     Conditions
- _.-""-|.' # '. `  `.-"{}<._/       Actions
-       /       \    \  x   `"       Market
-  ----/         \_.-'|--X----
-  -=_ |         |   |- X.  =_
- - __ |_________|_.-'|_X-X##
-     `'-._|_|;:;_.-'` '::.  `"-
-  .:;.      .:.   ::.     '::.
- _______________________________________________________
+
+------------------------MENU---------------------------
+ [Save Game]     - save the game
+ [Load Game]     - load the game
+ [Quit Game]     - quit the game
+
+ [Conditions]    - show full list of conditions
+ [Actions]       - show full list of actions
+ [Market]        - show the the market rates of items
+ [Hint]          - show hints on the current level
+
+ [Task Commands] - show full list of task commands 
+
+                        _[_]_  
+             \|/         (")          \|/ 
+              |         ,(_)'          | 
+     ==|_\|/__|__\|/_|== -"-  ==|_\|/__|__\|/_|==
