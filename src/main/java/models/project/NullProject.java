@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class NullProject implements IProject {
     @Override
-    public String getDescription() {
+    public String getName() {
         return null;
     }
 

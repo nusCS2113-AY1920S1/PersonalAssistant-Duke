@@ -87,7 +87,7 @@ public class ConsoleInputController implements IController {
             this.managingProjectIndex = inputReader.next();
             try {
                 return new String[] {"Now managing "
-                        + projectRepository.getItem(Integer.parseInt(managingProjectIndex)).getDescription()};
+                        + projectRepository.getItem(Integer.parseInt(managingProjectIndex)).getName()};
             } catch (IndexOutOfBoundsException err) {
                 return new String[] {"Please enter the correct index of an existing Project!"};
             }

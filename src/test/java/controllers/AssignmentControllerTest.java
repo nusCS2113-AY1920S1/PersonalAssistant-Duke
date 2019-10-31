@@ -37,7 +37,7 @@ public class AssignmentControllerTest {
 
     @Test
     void testSetupOfProjectAndMembers() {
-        assertEquals("Test Project", project.getDescription());
+        assertEquals("Test Project", project.getName());
         assertEquals("1. Tom (Phone: NIL | Email: NIL | Role: member)",
             member1.getDetails());
         assertEquals("2. Dick (Phone: NIL | Email: NIL | Role: member)",
