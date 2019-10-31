@@ -102,8 +102,12 @@ Add a new student to the list of students.
 ** *Example:*
 
 |===
+
 |Enter the command `add Danish, 22, Woodlands` once you are in Manage Student menu. +
 | Output: +
+
+|`add Danish, 22, Woodlands` +
+
 Student have been added: +
 Name: danish eddie +
 Age: 22 +

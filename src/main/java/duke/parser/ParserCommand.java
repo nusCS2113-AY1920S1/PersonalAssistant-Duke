@@ -16,12 +16,7 @@ public class ParserCommand implements IParser {
      * Declaring type ManageStudentsParser.
      */
     private ParserManageStudents parserManageStudents
-        = new ParserManageStudents();
-    /**
-     * Declaring ParserTrainingPLan type.
-     */
-    private ParserTrainingPlan parserTrainingPlan
-        = new ParserTrainingPlan();
+            = new ParserManageStudents();
 
     /**
      * Parse the respective command.
@@ -45,13 +40,15 @@ public class ParserCommand implements IParser {
                 parserManageStudents.parseCommand(studentsInput);
                 break;
             case "3":
+                ParserTrainingPlan parserTrainingPlan
+                        = new ParserTrainingPlan();
                 cliView.trainingProgramHeading();
                 String trainingInput = sc.nextLine();
                 parserTrainingPlan.parseCommand(trainingInput);
                 break;
             default:
                 System.out.println("OOPS!!! I'm sorry,"
-                    + "but I don't know what that means :-(");
+                        + "but I don't know what that means :-(");
                 break;
             }
         } catch (FileNotFoundException | ParseException e) {
