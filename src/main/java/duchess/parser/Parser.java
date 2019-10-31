@@ -27,6 +27,9 @@ public class Parser {
      */
     public static final String LIST_USAGE =
             "Usage: list (tasks | modules | grades /module <module_code>)";
+    public static final String LESSON_USAGE =
+            "Usage: lesson /code <module_code> /type <lesson_type> "
+                    + "\n    /time <start_date> <start_time> /to <end_date> <end_time>";
     public static final String DELETE_USAGE =
             "Usage: delete (task | module | grade /module <module_code>) /no <number>"
                     + "\n    Usage: delete (lesson) /type <lesson_type> /code <module_code>";

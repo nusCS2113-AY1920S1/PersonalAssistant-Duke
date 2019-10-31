@@ -3,6 +3,7 @@ package duchess.parser.commands;
 import duchess.exceptions.DuchessException;
 import duchess.logic.commands.AddLessonCommand;
 import duchess.logic.commands.Command;
+import duchess.parser.Parser;
 import duchess.parser.Util;
 
 import java.time.LocalDateTime;
@@ -17,11 +18,24 @@ public class LessonCommandParser {
      * @throws DuchessException if the user input is invalid
      */
     public static Command parse(Map<String, String> parameters) throws DuchessException {
-        String description = parameters.get("type");
-        String moduleCode = parameters.get("add");
-        LocalDateTime startTimeString = Util.parseDateTime(parameters.get("time"));
-        LocalDateTime endTimeString = Util.parseDateTime(parameters.get("to"));
+        try {
+            String description = parameters.get("type");
+            String moduleCode = parameters.get("code");
 
-        return new AddLessonCommand(description, startTimeString, endTimeString, moduleCode);
+            String timeFirst = parameters.get("time");
+            String timeSecond = parameters.get("to");
+
+            if (timeFirst == null || timeSecond == null
+                    || description == null || moduleCode == null) {
+                throw new IllegalArgumentException();
+            }
+
+            LocalDateTime startTimeString = Util.parseDateTime(timeFirst);
+            LocalDateTime endTimeString = Util.parseDateTime(timeSecond);
+
+            return new AddLessonCommand(description, startTimeString, endTimeString, moduleCode);
+        } catch (IllegalArgumentException e) {
+            throw new DuchessException(Parser.LESSON_USAGE);
+        }
     }
 }
