@@ -105,7 +105,7 @@ public class RecurHandler {
      * @param currentTime current time of the system as a string
      * @param check Task to be time checked
      * @param isEdited boolean variable describing if the task list has been edited in anyway
-     * @return
+     * @return isPassed boolean variable describing if the recurrence date has been passed.
      */
     private boolean dateHasPassedOthers(String currentTime, Task check, boolean isEdited) {
         boolean isPassed = false;
