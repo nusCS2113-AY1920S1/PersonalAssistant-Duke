@@ -102,7 +102,7 @@ public class Food {
 	}
 
 	/**
-	 * Generate the total revenue earned from selling the food.
+	 * Getter for the total revenue earned from selling the food.
 	 *
 	 * @return the total revenue earned from selling the food.
 	 */
@@ -116,10 +116,19 @@ public class Food {
 		return revenue;
 	}
 
+	/**
+	 * Getter for the revenue of a food.
+	 *
+	 * @return the revenue of a food.
+	 */
 	public double getFoodRevenue() {
 		return foodRevenue;
 	}
 
+	/**
+	 *
+	 * @param revenue
+	 */
 	public void setFoodRevenue(double revenue) {
 		this.foodRevenue = revenue;
 	}
