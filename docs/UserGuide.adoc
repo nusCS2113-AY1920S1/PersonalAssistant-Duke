@@ -154,13 +154,13 @@ Schedules reminders for a selected list of words given a user specified date and
 Format: `schedule`
 
 ****
-* Users can set a reminder for multiple words at one go.
+* Users can set a reminder for multiple words at one go. Terminate word input by entering blank line.
 ****
 
 Examples:
 
 * Enter `schedule` +
-Enter a list of 'enter key' separated words: `life\n is\n great\n` +
+Enter a list of 'enter key' separated words: `life[Enter] is[Enter] great[Enter][Enter]` +
 Enter a date and time for the reminder: `31/10/2019 2359` +
 Reminder is set. Summary of reminder details is shown. Reminder pop up will be shown at time set.
 // end::schedule[]
@@ -170,7 +170,7 @@ Reminder is set. Summary of reminder details is shown. Reminder pop up will be s
 === Checking recently added words : `history`
 
 Shows a list of recently added words by the user. +
-Format: `history {(int)number of past entries to be shown}`
+Format: `history INTEGER(number of past entries to be shown)`
 
 ****
 * Entering a number larger than the number of words in the word bank returns all the words in the word bank.
@@ -253,7 +253,7 @@ e.g. `tag w/happy t/emotion t/delight`
 * *History* : `history INTEGER` +
 e.g. `history 5`
 * *Schedule* : `schedule` -> `WORD ... [Enter blank line]` -> `DATE TIME` +
-e.g. `schedule` -> `happy [Enter] unhappy [Enter] bipolar [Enter][Enter]` -> `29-10-2019 2359`
+e.g. `schedule` -> `happy[Enter] unhappy[Enter] bipolar[Enter][Enter]` -> `29-10-2019 2359`
 * *Search Frequency* : `freq o/ORDER` +
 e.g. `freq o/asc`
 * *Exit* : `exit`
