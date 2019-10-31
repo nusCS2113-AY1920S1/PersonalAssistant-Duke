@@ -46,10 +46,6 @@ public class ApproveCommand extends Command {
     @Override
     public void execute(UserList userList, Inventory inventory, RoomList roomList, BookingList bookingList, Ui ui,
                         Storage userStorage, Storage inventoryStorage, Storage bookingstorage, Storage roomstorage)
-            throws DukeException, IOException, ParseException {
-        if (!roomList.checkRoom(roomcode)) {
-            throw new DukeException(Constants.UNHAPPY + "OOPS!!! This room doesn't exist!");
-                        Storage inventoryStorage, Storage bookingstorage, Storage roomstorage, User user)
             throws DukeException, IOException {
         if (index < 0 || index >= bookingList.size()) {
             throw new DukeException("OOPS!!! The index you have entered is out of bounds");
