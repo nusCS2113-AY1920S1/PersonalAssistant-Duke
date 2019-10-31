@@ -470,7 +470,6 @@ Extensions 5.1: User inputs an invalid rating.
 . User enters a command to view all events in the next 7 days.
 . System shows all events in the next 7 days in a calendar table.
 
-
 [appendix]
 == Non-functional requirements
 . System should work on windows and linux.
