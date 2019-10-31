@@ -39,21 +39,26 @@ public class Parser {
             c = new CloseCommand();
         } else if (input.equals("list") && words.length == 1) {
             c = new ListCommand();
-        } else if (words[0].equals("cal") && words.length == 1) {
+        } 
+        else if (input.equals("deadlines") && words.length == 1) {
+            c = new ViewDeadlinesCommand();
+        }
+        else if (words[0].equals("cal") && words.length == 1) {
             CalendarCommand.printCal();
             c = new ListCommand();
         //@@author aarushisingh1
         } else if (words[0].equals("list") && words.length > 1) {
             String paramType = words[1].substring(1);
-            if (paramType.equals("date") || paramType.equals("room") || paramType.equals("item")) {
+            if (paramType.equals("room") || paramType.equals("item") || paramType.equals("date")) {
                 String param = ui.getInput("Enter the name of the resource you'd like to view a detailed list of:");
                 c = new ListCommand(paramType, param);
             } else {
                 throw new RimsException(
                     "Invalid list parameter! Please specify '/list' or '/item' to view a detailed list of a resource.");
             }
-        //@@author hin1
-        } else if (words[0].equals("add")) {
+        }
+         //@@author hin1
+        else if (words[0].equals("add")) {
             String roomOrItem = ui.getInput("Would you like to add an item or a room to the inventory?");
             if (roomOrItem.equals("room")) {
                 String roomName = ui.getInput("Enter the name of the room you wish to add:");
