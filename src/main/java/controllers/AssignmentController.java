@@ -32,6 +32,7 @@ public class AssignmentController {
      */
     public void assignAndUnassign(String input) {
         ArrayList<ArrayList<Integer>> assignmentParams = parserHelper.parseAssignmentParams(input, project);
+        errorMessages.addAll(parserHelper.getErrorMessages());
         ArrayList<Integer> validTaskIndexes = assignmentParams.get(0);
         ArrayList<Integer> validAssignees = assignmentParams.get(1);
         ArrayList<Integer> validUnassignees = assignmentParams.get(2);
