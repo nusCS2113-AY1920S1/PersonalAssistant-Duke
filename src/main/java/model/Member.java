@@ -17,6 +17,9 @@ public class Member {
     private String email;
     private String phone;
 
+    /**
+     * Member object model
+     */
     public Member(String name) {
         this.name = name;
         this.taskList = new ArrayList<>();
@@ -25,7 +28,7 @@ public class Member {
 
     /**
      * add javadoc please
-     * */
+     */
     public void addTask(String toAdd) {
         if (!taskList.contains(toAdd)) {
             taskList.add(toAdd);
@@ -34,7 +37,7 @@ public class Member {
 
     /**
      * add javadoc please
-     * */
+     */
     public void deleteTask(String toDelete) {
         if (taskList != null) {
             taskList.remove(toDelete);
@@ -68,6 +71,7 @@ public class Member {
 
     /**
      * set email
+     *
      * @param email email of the member
      * @throws DukeException exception
      */
@@ -88,13 +92,15 @@ public class Member {
     }
 
     //@@author JustinChia1997
+
+    /**
+     * Checks if member has a skill
+     *
+     * @param skillName is the skillname you are searching for
+     */
     public boolean hasSkill(String skillName) {
-        if(skillList!=null) {
-            if (skillList.contains(skillName)) {
-                return true;
-            } else {
-                return false;
-            }
+        if (skillList != null) {
+            return skillList.contains(skillName);
         }
         return false;
     }

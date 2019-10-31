@@ -17,6 +17,9 @@ public class Task {
     private Date time;
     private Date reminder;
 
+    /**
+     * Task object model
+     * */
     public Task(String name) {
         this.name = name.trim();
         this.memberList = new ArrayList<>();

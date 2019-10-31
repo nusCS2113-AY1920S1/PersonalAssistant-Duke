@@ -39,7 +39,7 @@ public class MatchCommand extends Command {
         for (int i = 0; i < matchedMembers.size(); i += 1) {
             userOutput += (i + 1) + ": " + matchedMembers.get(i) + "\n";
         }
-        if(matchedMembers.size()==0){
+        if (matchedMembers.size() == 0) {
             userOutput = "No matching members who have the skills or task has required no skills assigned";
         }
         return new CommandOutput(userOutput);

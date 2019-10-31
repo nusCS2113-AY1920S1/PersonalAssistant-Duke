@@ -140,5 +140,13 @@
       "kill",
       "asdf"
     ]
+  },
+  {
+    "name": "weioroirweoir",
+    "isDone": false,
+    "memberList": [],
+    "skillReqList": [
+      "aerial"
+    ]
   }
 ]
