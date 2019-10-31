@@ -15,7 +15,6 @@ import oof.model.task.TaskList;
 public class DeleteLessonCommand extends Command {
 
     private int index;
-    private static final int EMPTY = 0;
 
     /**
      * Constructor for DeleteLessonCommand.
