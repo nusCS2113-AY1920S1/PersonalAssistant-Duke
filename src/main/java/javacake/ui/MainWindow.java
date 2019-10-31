@@ -357,6 +357,7 @@ public class MainWindow extends AnchorPane {
         System.out.println("EXIT");
         JavaCake.logger.log(Level.INFO, "EXITING PROGRAM!");
         // find out if exit condition
+        AvatarScreen.avatarMode = AvatarScreen.AvatarMode.SAD;
         isExit = true;
         response = javaCake.getResponse(input);
         showContentContainer();
@@ -382,12 +383,12 @@ public class MainWindow extends AnchorPane {
             //resets
             Profile.resetProfile();
             Storage.resetStorage();
-            //JavaCake = new JavaCake();
-            //            JavaCake.profile = new Profile();
+            this.javaCake = new JavaCake();
             JavaCake.userProgress = JavaCake.storageManager.profile.getTotalProgress();
             JavaCake.userName = JavaCake.storageManager.profile.getUsername();
             JavaCake.isFirstTimeUser = true;
             showRemindersBox();
+            showListNotesBox();
             response = "Reset confirmed!\nPlease type in new username:\n";
             TopBar.resetProgress();
             isStarting = true;
@@ -482,14 +483,41 @@ public class MainWindow extends AnchorPane {
             //response = JavaCake.getResponse(input);
             System.out.println(response);
             if (!response.contains("[!]")) {
-                response = javaCake.getResponse("reminder");
-                System.out.println(response);
-                //CHECKSTYLE:OFF
-                response = response.replaceAll("✓", "\u2713");
-                response = response.replaceAll("✗", "\u2717");
-                //CHECKSTYLE:ON
-                showTaskContainer();
+                deadlineExtracted();
                 JavaCake.logger.log(Level.INFO, "Adding deadlines setting");
+            } else {
+                response += "\nType 'reminder' to view deadlines";
+                showTaskContainer();
+                JavaCake.logger.log(Level.WARNING, "Deadline is not properly parsed!");
+            }
+            return true;
+        } else if (input.length() >= 4 && input.substring(0, 4).equals("done")) {
+            System.out.println(response);
+            if (!response.contains("[!]")) {
+                deadlineExtracted();
+                JavaCake.logger.log(Level.INFO, "Removing deadlines setting");
+            } else {
+                response += "\nType 'reminder' to view deadlines";
+                showTaskContainer();
+                JavaCake.logger.log(Level.WARNING, "Deadline is not properly parsed!");
+            }
+            return true;
+        } else if (input.length() >= 6 && input.substring(0, 6).equals("delete")) {
+            System.out.println(response);
+            if (!response.contains("[!]")) {
+                deadlineExtracted();
+                JavaCake.logger.log(Level.INFO, "Removing deadlines setting");
+            } else {
+                response += "\nType 'reminder' to view deadlines";
+                showTaskContainer();
+                JavaCake.logger.log(Level.WARNING, "Deadline is not properly parsed!");
+            }
+            return true;
+        } else if (input.length() >= 6 && input.substring(0, 6).equals("snooze")) {
+            System.out.println(response);
+            if (!response.contains("[!]")) {
+                deadlineExtracted();
+                JavaCake.logger.log(Level.INFO, "Changing deadlines setting");
             } else {
                 response += "\nType 'reminder' to view deadlines";
                 showTaskContainer();
@@ -504,6 +532,16 @@ public class MainWindow extends AnchorPane {
             return true;
         }
         return false;
+    }
+
+    private void deadlineExtracted() {
+        response = javaCake.getResponse("reminder");
+        System.out.println(response);
+        //CHECKSTYLE:OFF
+        response = response.replaceAll("✓", "\u2713");
+        response = response.replaceAll("✗", "\u2717");
+        //CHECKSTYLE:ON
+        showTaskContainer();
     }
 
     private boolean isFirstQuiz() throws CakeException {
