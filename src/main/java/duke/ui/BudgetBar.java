@@ -115,7 +115,7 @@ public class BudgetBar extends UiPart<Region> {
                 vBox4.getChildren().addAll(category, bar, remaining);
                 vBox4.setSpacing(10);
             } else if(viewPane == 5) {
-                vBox4.getChildren().addAll(category, bar, remaining);
+                vBox5.getChildren().addAll(category, bar, remaining);
                 vBox5.setSpacing(10);
             } else {
                 vBox6.getChildren().addAll(category, bar, remaining);
