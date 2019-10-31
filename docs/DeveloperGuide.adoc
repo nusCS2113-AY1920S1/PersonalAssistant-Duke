@@ -79,14 +79,6 @@ dialog first)
 == Implementation
 This section describes some noteworthy details on how certain features are implemented.
 
-=== [Proposed] Sell Seats Feature
-Allows users to sell seats for a specific show.
-
-==== Proposed implementation
-//todo
-==== Design Considerations
-//todo
-
 === [Proposed] View Monthly Revenue Feature
 
 ==== Proposed Implementation
@@ -140,22 +132,6 @@ use the same parameters.
 ** Pros: Archive list and current list will have their own class and reduces dependency.
 ** Cons: Certain code needs to be repeated which may be confusing.
 
-=== Delete Show Feature
-Allows users to delete shows from the shows ShowMap.
-
-==== Implementation
-//todo
-
-===  Design Considerations
-//todo
-
-== Command Aliasing
-Enable users to set up aliases for the commands.
-
-=== Implementation
-//todo
-
-=== Design Considerations
 
 
 
