@@ -597,14 +597,30 @@ image::images/ViewAllProjects_Sequence.png[]
 
 === 3.7. Logging
 
-We are using `org.apache.logging.log4j2` package for logging. The `ArchDukeLogger` class under `Utility` layer is used for
+We are using `org.apache.logging.log4j` package for logging. The `ArchDukeLogger` class under `Utility` layer is used for
 logging every step that ArchDuke takes so that debugging will be easier.
+
+* The logging level is controlled by property name `rootLogger.level` in `log4j2.properties`. Currently the level is set to all.
+(Show all log level message)
+
+* The `ArchDukeLogger` call by using ArchDukeLogger.logInfo(className, Message); function which will log the
+message according to the specified logging level method called.
+
+* Currently all the log messages are store in the log file located in the logs directory
+
+The `log4j2.properties` file in the resource folder is used configure the following
+
+* RootLogger level - The level root logger to be shown in the log file. Currently it is set to `all`
+
+* File Appender - The file direction and log file name. The log file can be found in the logs folder.
+
+* PatternLayout - The output format message displayed in the log file
 
 The following shows the class diagram of ArchDukeLogger
 
 image::images/classDiagram/ArchDukeLogger_ClassDiagram.png[]
 
-Currently the log level can only be set on the log4j.properties file on the line  with
+If any bugs or errors are encountered, do create an issue and upload the logs file located is the `logs` directory.
 
 //* The logging level can be controlled using the `logLevel` setting in the configuration file (See <<Implementation-Configuration>>)
 //* The `Logger` for a class can be obtained using `LogsCenter.getLogger(Class)` which will log messages according to the specified logging level
