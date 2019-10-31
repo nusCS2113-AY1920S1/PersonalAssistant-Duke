@@ -47,7 +47,7 @@ public class BudgetCommand extends Command {
             BigDecimal amount = new BigDecimal(commandParams.getMainParam());
             BigDecimal scaledAmount = amount.setScale(2, RoundingMode.HALF_UP);
             if (commandParams.containsParams(SecondaryParam.TAG.name)) {
-                String category = commandParams.getParam(SecondaryParam.TAG.name);
+                String category = commandParams.getParam(SecondaryParam.TAG.name).toUpperCase();
                 model.setCategoryBudget(category, amount);
             } else {
                 model.setMonthlyBudget(scaledAmount);
