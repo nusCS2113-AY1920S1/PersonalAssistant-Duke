@@ -4,6 +4,7 @@ package seedu.hustler.game.shop.items.weapons;
  * The second tier weapon.
  */
 public class Mace extends Weapon {
+
     /**
      * The damage increment of the Mace.
      */

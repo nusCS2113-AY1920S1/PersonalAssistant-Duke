@@ -4,6 +4,7 @@ package seedu.hustler.game.shop.items.weapons;
  * The cheapest weapon in the shop which gives the least damage.
  */
 public class Broadsword extends Weapon {
+
     /**
      * The damage increment of Broadsword.
      */

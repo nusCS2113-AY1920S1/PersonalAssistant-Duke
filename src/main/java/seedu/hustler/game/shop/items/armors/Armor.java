@@ -1,13 +1,13 @@
 package seedu.hustler.game.shop.items.armors;
 
 import seedu.hustler.game.shop.items.ShopItem;
-
 import java.util.Optional;
 
 /**
  * The abstract class that all armor that the avatar yields inherits from.
  */
 public abstract class Armor extends ShopItem {
+
     /**
      * The defence increment of the armor.
      */
@@ -32,6 +32,11 @@ public abstract class Armor extends ShopItem {
         this.STA_INCR = staIcr;
     }
 
+    /**
+     * Obtains the instance of an armor depending on the string given.
+     * @param name the name of the armor.
+     * @return the armor with the given name, if any.
+     */
     public static Optional<Armor> getArmor(String name) {
         if (name.contains("Chainmail")) {
             return Optional.of(new Chainmail());

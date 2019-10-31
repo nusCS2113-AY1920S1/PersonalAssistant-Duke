@@ -30,16 +30,18 @@ public class ShopList {
     }
 
     /**
-     * Prints out the list of ShopItems available in the store.
+     * Gets the shop item list of the shop.
+     * @return the array list containing all of the shop items.
      */
     public ArrayList<ShopItem> getShopList() {
         return this.shopList;
     }
 
     /**
-     * Purchase the current item in the shop in the given index.
+     * Purchase the current item in the shop in the given index
+     * with the given current points obtained by the user.
      * @param index the index of the item in the list.
-     * @return the ShopItem in the given index; null if IndexOfOfBounds exception is caught.
+     * @return the ShopItem that is purchased, if any.
      */
     public Optional<ShopItem> buy(int index) {
         if (!shopList.get(index).isPurchased()) {
@@ -71,7 +73,7 @@ public class ShopList {
     }
 
     /**
-     * Obtain all the isPurchased value of every ShopItem to update in the txtfile.
+     * Writes all the isPurchased value of every ShopItem to update in the txtfile.
      * @return the String to be written in shop.txt.
      */
     public String itemsStatus() {
@@ -82,6 +84,10 @@ public class ShopList {
         return toWrite;
     }
 
+    /**
+     * Gets the array list of purchased shop items.
+     * @return the array list of the shop items that has been purchased.
+     */
     public ArrayList<ShopItem> getPurchasedItems() {
         ArrayList<ShopItem> itemsPurchased = new ArrayList<>();
         for (ShopItem item : shopList) {

@@ -5,9 +5,10 @@ import seedu.hustler.game.shop.items.weapons.Weapon;
 import java.util.Optional;
 
 /**
- * Class that deals with the stats of avatar.
+ * The stats component which determine the strength of the avatar.
  */
 public class Stats implements Convertible {
+
     /**
      * Stat that deals damage.
      */
