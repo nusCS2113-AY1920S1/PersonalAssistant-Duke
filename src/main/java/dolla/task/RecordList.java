@@ -1,7 +1,7 @@
 package dolla.task;
 
+import java.time.LocalDate;
 import dolla.DollaData;
-
 import java.util.ArrayList;
 
 public class RecordList {
@@ -34,6 +34,22 @@ public class RecordList {
 
     public Record getFromList(int index) {
         return list.get(index);
+    }
+
+    public void setTypeInRecord(int index, String s) {
+        list.get(index).setType(s);
+    }
+
+    public void setAmountInRecord(int index, double d) {
+        list.get(index).setAmount(d);
+    }
+
+    public void setDescInRecord(int index, String s) {
+        list.get(index).setDescription(s);
+    }
+
+    public void setDateInRecord(int index, LocalDate ld) {
+        list.get(index).setDate(ld);
     }
 
     public void removeFromList(int index) {

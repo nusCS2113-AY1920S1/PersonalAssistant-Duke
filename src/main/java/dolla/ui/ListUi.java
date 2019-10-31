@@ -41,7 +41,7 @@ public class ListUi extends Ui {
      */
     public static void printNoRecordAssocError(int index, String mode) {
         System.out.println(line);
-        System.out.println("\t" + mode + " number " + index + 1 + " doesn't seem to exist in my records!");
+        System.out.println("\t" + mode + " number " + (index + 1) + " doesn't seem to exist in my records!");
         System.out.println("\tTry looking through the list of " + mode + "again.");
         System.out.println(line);
     }

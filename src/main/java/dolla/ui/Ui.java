@@ -40,12 +40,16 @@ public abstract class Ui {
         + "\n\tI help keep track of your finance!\n"
         + "\tWhat can I do for you?";
 
+    private static String dollaMode = ANSI_CYAN + "\t\n°º¤ø,¸¸,ø¤º°`°º¤ø,¸ MODE: DOLLA "
+            + "  ¸,ø¤°º¤ø,¸¸,ø¤º°`°º¤ø,¸\n" + ANSI_RESET;
+
     /**
      * Prints DOLLA logo and welcome message.
      */
     public static void showWelcome() {
         System.out.println(welcomeMsg);
         System.out.println(line);
+        System.out.println(dollaMode);
     }
 
     /**
@@ -59,7 +63,7 @@ public abstract class Ui {
         System.out.println(line);
         System.out.println();
         System.out.println(ANSI_CYAN + "\t°º¤ø,¸¸,ø¤º°`°º¤ø,¸ MODE:  " + newMode.toUpperCase()
-                + "  ¸,ø¤°º¤ø,¸¸,ø¤º°`°º¤ø,¸" + ANSI_RESET);
+                + "  ¸,ø¤°º¤ø,¸¸,ø¤º°`°º¤ø,¸\n" + ANSI_RESET);
     }
 
     // TODO: DELETE
@@ -123,19 +127,6 @@ public abstract class Ui {
     public static void echoAddRecord(Record currRecord) {
         System.out.println(line);
         System.out.println("\tGot it. I've added this " + currRecord.getRecordType() + ": ");
-        System.out.println("\t" + currRecord.getRecordDetail());
-        System.out.println(line);
-    }
-
-    /**
-     * Prints the details of the specified record and is typically called when a is modified,
-     * so that the user can check the details of the edited record.
-     *
-     * @param currRecord record to be printed, can be an entry, limit or debt.
-     */
-    public static void echoModifyRecord(Record currRecord) {
-        System.out.println(line);
-        System.out.println("\tGot it. I've modified this " + currRecord.getRecordType() + ": ");
         System.out.println("\t" + currRecord.getRecordDetail());
         System.out.println(line);
     }
@@ -351,6 +342,16 @@ public abstract class Ui {
     public static void printAddedTagMsg(String tag) {
         System.out.println(line);
         System.out.println("\tNoted. I have added the tag " + tag);
+        System.out.println(line);
+    }
+
+    /**
+     * Prints a message to inform user that the command is not implemented yet.
+     */
+    public static void printUpcomingFeature() {
+        System.out.println(line);
+        System.out.println("\tSorry, I can't do that yet. Stay tune for a later version and maybe my creators"
+                + "will teach me how to do that. :(");
         System.out.println(line);
     }
 }

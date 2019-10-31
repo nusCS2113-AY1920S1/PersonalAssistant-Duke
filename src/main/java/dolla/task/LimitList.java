@@ -27,6 +27,12 @@ public class LimitList extends RecordList {
         StorageWrite.setLimits(get()); //save
     }
 
+    @Override
+    public void addWithIndex(int modifyIndex, Record newRecord) {
+        super.addWithIndex(modifyIndex, newRecord);
+        StorageWrite.setLimits(get());
+    }
+
     /**
      * Method checks to see if the input limit already exists.
      * @param dollaData The storage container for all the lists.
@@ -54,3 +60,4 @@ public class LimitList extends RecordList {
         return index;
     }
 }
+

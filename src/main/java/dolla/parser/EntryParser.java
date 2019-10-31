@@ -13,7 +13,6 @@ import dolla.command.SearchCommand;
 import dolla.command.RemoveCommand;
 import dolla.command.modify.PartialModifyEntryCommand;
 import dolla.task.Entry;
-//import dolla.ui.ModifyUi;
 
 public class EntryParser extends Parser {
 
@@ -43,8 +42,8 @@ public class EntryParser extends Parser {
         } else if (commandToRun.equals(COMMAND_MODIFY)) {
             if (verifyFullModifyCommand()) {
                 return new InitialModifyCommand(inputArray[1]);
-            } else if (verifyPartialModifyEntryCommand()) {
-                return new PartialModifyEntryCommand();
+            } else if (verifyPartialModifyCommand()) {
+                return new PartialModifyEntryCommand(modifyRecordNum, type, amount, description, date);
             } else {
                 return new ErrorCommand();
             }
@@ -63,25 +62,6 @@ public class EntryParser extends Parser {
         } else {
             return invalidCommand();
         }
-    }
-
-    /**
-     * Returns true if the input has no formatting issues.
-     * Also designates the correct information to the relevant variables.
-     * @return true if the input has no formatting issues.
-     */
-    public boolean verifyPartialModifyEntryCommand() {
-        // TODO
-        /*
-        int recordNum;
-        try {
-            recordNum = Integer.parseInt(inputArray[1]);
-        } catch (Exception e) {
-            ModifyUi.printInvalidModifyFormatError();
-            return false;
-        }
-        */
-        return false;
     }
 
     //@@author yetong1895

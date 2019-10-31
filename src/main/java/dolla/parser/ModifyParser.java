@@ -5,19 +5,28 @@ import dolla.command.Command;
 import dolla.command.ErrorCommand;
 import dolla.command.modify.FullModifyDebtCommand;
 import dolla.command.modify.FullModifyEntryCommand;
+import dolla.command.modify.RevertFromModifyCommand;
 import dolla.ui.DebtUi;
 
 //@@author omupenguin
 public class ModifyParser extends Parser {
 
-    public ModifyParser(String inputLine) {
+    private String modeToModify;
+    private static final String CANCEL_MODIFY = "CANCEL";
+
+    public ModifyParser(String mode, String inputLine) {
         super(inputLine);
         this.mode = mode;
     }
 
     @Override
     public Command parseInput() {
-        String modeToModify = mode.split(" ")[1];
+
+        if (checkCancellation()) {
+            return new RevertFromModifyCommand();
+        }
+
+        getModeToModify();
 
         switch (modeToModify) {
         case MODE_ENTRY:
@@ -74,6 +83,13 @@ public class ModifyParser extends Parser {
             return new ErrorCommand();
         }
 
+    }
 
+    private boolean checkCancellation() {
+        return inputLine.equals(CANCEL_MODIFY);
+    }
+
+    private void getModeToModify() {
+        modeToModify = mode.split(" ")[1];
     }
 }
