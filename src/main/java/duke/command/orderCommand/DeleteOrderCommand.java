@@ -20,7 +20,7 @@ public class DeleteOrderCommand extends Cmd<Order> {
      * @param orderNumber order number in the order list
      */
     public DeleteOrderCommand(int orderNumber) {
-        this.orderIndex = orderNumber-1;
+        this.orderIndex = orderNumber;
     }
 
     @Override
@@ -54,7 +54,7 @@ public class DeleteOrderCommand extends Cmd<Order> {
 //                throw new DukeException("Error while cancelling the order from the hard disc.");
 //            }
         } else {
-            throw new DukeException("Please enter a valid order number between 1 and " + orderList.size() + " to cancel.");
+            throw new DukeException("Please enter a valid order number between 1 and " + orderList.size() + " to remove.");
         }
     }
 

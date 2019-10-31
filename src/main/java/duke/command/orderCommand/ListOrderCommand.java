@@ -2,7 +2,6 @@ package duke.command.orderCommand;
 
 import duke.command.Cmd;
 import duke.command.ingredientCommand.ListCommand;
-import duke.dish.Dish;
 import duke.exception.DukeException;
 import duke.list.GenericList;
 import duke.order.Order;
@@ -33,10 +32,11 @@ public class ListOrderCommand extends ListCommand<Order> {
 
     @Override
     public void execute(GenericList<Order> orderList, Ui ui, Storage storage) throws DukeException {
+        if (orderList.size() == 0) { throw new DukeException("No orders in the order list!");}
         List<Order> filtered = parse((OrderList) orderList);
-
-        if (orderList.size() == 0 || filtered == null) { throw new DukeException("No orders found!");}
-        System.out.println("\t Here are the orders in the order list:");
+        if (filtered.size()==0) { throw new DukeException("No orders found!");}
+        else if (filtered.size()==1) { System.out.println("\t Here are the order in the order list:"); }
+        else System.out.println("\t Here are the orders in the order list:");
         int cnt = 1;
         for (Order order: filtered) { // looping to print all the saved orders
             ui.showTask("\t " + cnt + "." + order.toString());
@@ -46,20 +46,23 @@ public class ListOrderCommand extends ListCommand<Order> {
 
     public List<Order> parse(OrderList orderList) {
         List<Order> tmp = null;
-        if (listType == "all") {
+        if (listType.equals("all")) {
             tmp = orderList.getAllEntries();
-        } else if (listType == "undone") {
+        } else if (listType.equals("undone")) {
             tmp = orderList.getAllUndoneOrders();
-        } else if (listType == "today") {
+        } else if (listType.equals("today")) {
             tmp = orderList.getTodayOrders();
-        } else if (listType == "undoneToday") {
+        } else if (listType.equals("undoneToday")) {
             tmp = orderList.getTodayUndoneOrders();
-        } else if (listType.split("/", 2).length==3) {
-            Date date = Convert.stringToDate(listType);
-            tmp = orderList.findOrderByDate(date);
         } else {
-            String dishName = listType;
-            tmp = orderList.findOrderByDishes(dishName);
+            String s =listType;
+            if (s.split("\\/", 3).length==3) {
+                Date date = Convert.stringToDate(listType);
+                tmp = orderList.findOrderByDate(date);
+            } else {
+                String dishName = listType;
+                tmp = orderList.findOrderByDishes(dishName);
+            }
         }
         return tmp;
     }

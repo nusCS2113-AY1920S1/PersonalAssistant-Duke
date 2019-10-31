@@ -1,14 +1,9 @@
 package duke.order;
 
-import duke.dish.Dish;
 import duke.Duke;
 import duke.exception.DukeException;
-import duke.parser.Convert;
 import duke.storage.Printable;
-
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.ZoneId;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -18,6 +13,7 @@ public class Order implements Printable {
     private Map<String, Integer> content;
     private boolean isDone;
     private Date date;
+    private String dateToString;
 
     /**
      * The constructor method for {@link Order}.
@@ -25,23 +21,31 @@ public class Order implements Printable {
     public Order() {
         this.isDone = false;
         this.date = new Date();
-        this.content = new HashMap<>();
+        this.content = new LinkedHashMap<>();
+
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        this.dateToString = simpleDateFormat.format(this.date);
     }
 
     /**
      * The constructor method for the {@link Order} in reservation case.
      * @param date date of serving the {@link Order}.
      */
-    public Order(String date) {
-        this.date = (date=="")? new Date():Convert.stringToDate(date);
+    public Order(Date date) {
+        if (date.before(new Date())) {date = new Date();}
+        this.date = date;
         this.isDone = false;
-        this.content = new HashMap<>();
+        this.content = new LinkedHashMap<>();
+
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        this.dateToString = simpleDateFormat.format(this.date);
+
     }
 
     /**
      * Used to get the serving date of the {@link Order}.
      */
-    public Date getDate() { return this.date;}
+    public String getDate() { return this.dateToString;}
 
     /**
      * Used to alter the serving date of the {@link Order}.
@@ -59,12 +63,11 @@ public class Order implements Printable {
      * @return boolean true if it is today's order, false otherwise (i.e., pre-order)
      */
     public boolean isToday() {
-        LocalDate todayDate = LocalDate.now();
-        Instant instant = date.toInstant();
-        ZoneId zoneId = ZoneId.systemDefault();
-        LocalDate orderDate = instant.atZone(zoneId).toLocalDate();
-        if (todayDate==orderDate) return true;
-        return false;
+        Date today = new Date();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        String todayToString = simpleDateFormat.format(today);
+        if (this.dateToString.equals(todayToString)) { return true;}
+        else return false;
     }
 
     /**
@@ -103,13 +106,13 @@ public class Order implements Printable {
         String description;
         description = "["+this.getStatusIcon()+"] ";
         if (this.isToday()) { description += "Order today "; }
-        else { description += "Order /on " + this.date + " "; }
+        else { description += "Order /on " + dateToString + " "; }
         int count=0;
         for (Map.Entry<String, Integer> entry : content.entrySet()) {
             String dishName = entry.getKey();
             int amount = entry.getValue();
             count++;
-            description += "\n"+"    (" + count + ") " + dishName + " " + amount;
+            description += "\n\t"+"    (" + count + ") " + dishName + " " + amount;
         }
         return description;
     }
@@ -121,8 +124,8 @@ public class Order implements Printable {
      */
     public String printInFile() {
         String description;
-        if (this.isDone()) { description = "1|" + this.date; }
-        else { description = "0|" + this.date; }
+        if (this.isDone()) { description = "1|" + dateToString; }
+        else { description = "0|" + dateToString; }
         for (Map.Entry<String, Integer> entry : content.entrySet()) {
             String dishName = entry.getKey();
             int amount = entry.getValue();
