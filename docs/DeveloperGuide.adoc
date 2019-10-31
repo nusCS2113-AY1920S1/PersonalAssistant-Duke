@@ -57,9 +57,9 @@ its name and its type (Room or Item represented by an enumeration) are inside. A
 represent types of resources so that more can be accomodated in the future. Classes Room and Item are inherited classes
 from Resource.
 
-==== ReservationList and resource_id
+==== Reservation class and resourceId attribute
 
-The more important attributes of a Resource object is the resource_id and ReservationList. Firstly, the resource_id
+The more important attributes of a Resource object is the resourceId and its Reservations, recorded in a ReservationList. Firstly, the resourceId
 is an integer to identify a single unique Resource. For example, if RIMS has two pens, which were borrowed for different
 durations by different users, I would need to be able to identify which one is available when a third user wants to
 borrow one again.
@@ -74,7 +74,7 @@ as a message to the user.
 
 
 === UI component
-.Class Diagram for Model component
+.Class Diagram for UI component
 [caption="Figure 1.3 "]
 image::UiClassDiagram.png[width="200", align="center"]
 
@@ -110,8 +110,8 @@ Referring to Figure 1.4, the Command class is an abstract class with two main pa
 Command classes.
 
 Firstly, since the main program runs on a loop to evaluate user inputs repeatedly for commands, it needs to know
-when to terminate. The Boolean attribute exitCode helps the main program to check if the Command is a CloseCommand,
-a special Command which instructs RIMS to terminate.
+when to terminate. The Boolean attribute exitCode is inherited in every subclass of Command, and helps the main program
+to check if the Command is a CloseCommand, a special Command which instructs RIMS to terminate.
 
 Secondly, the execute method is an abstract method that applies to all Commands in the RIMS system.
 
