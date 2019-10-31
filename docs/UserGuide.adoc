@@ -64,6 +64,7 @@ Examples:
 Adds a word to the Word Bank. +
 Format: `add w/WORD w/MEANING [t/TAG]...`
 
+
 Examples:
 
 * `add w/life m/the existence of an individual human being or animal t/meaningoflife t/livingit` +
@@ -128,6 +129,22 @@ List of possible o/ORDER values: +
  `asc` - displayOrder the list in ascending alphabetical displayOrder +
  `desc` - displayOrder the list in descending alphabetical displayOrder
 
+=== Searching for words with their begin: `search_begin`
+
+Search for the list words that in the dictionary that have a specific part. +
+Format: `search_begin w/WORD`
+
+****
+* The search is case insensitive as they will be converted to lowercase. e.g `HaNs` will match `hans`
+* Full words will be matched and given a result immediately.
+****
+
+Examples:
+
+* `search  w/d` +
+Returns `drink, dog, do, etc`
+
+
 === Generating quizzes: `quiz`
 
 Generate quizzes from the wordBank to test the user's understanding. +
@@ -149,6 +166,9 @@ Examples:
 
 * `delete w/drink` +
 Deletes the drink object from dictionary.
+
+* `delete w/drink t/action` +
+Deletes the tag action from word drink.
 
 // end::delete[]
 
