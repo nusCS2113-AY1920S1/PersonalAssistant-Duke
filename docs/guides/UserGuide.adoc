@@ -4,7 +4,7 @@
 :toc-title:
 :toc-placement: preamble
 :sectnums:
-:imagesDir: images
+:imagesDir: ..\images
 :stylesDir: stylesheets
 :xrefstyle: full
 ifdef::env-github[]
@@ -25,6 +25,10 @@ Figure 1. GUI Interface
 Email Manager is an email and task manager app, specifically designed for NUS School of Computing students to manage their emails and busy schedules. As a text-based application, it is optimized for those who prefer typing and working with Command Line Interface (CLI). Email Manager also has a developed Graphical User Interface (GUI) that allows users to view email and task details in an appealing, well-organized format. If you can type fast, Email Manager can get your emails and tasks organized quickly and easily.
 
 If you are a busy computing student who is tired of receiving too many emails, you may find this app useful. Jump to [Quick Start] to get started and enjoy!
+
+[#img-UI]
+[caption="Figure N: UI"]
+image::Ui.png[UI, 600]
 
 == About User Guide
 This user guide shows you how to get started with Email Manager. It introduces you to the features of Email Manager and provides you with examples, that you will become an expert user very soon! +
@@ -111,11 +115,19 @@ The specified item will be shown in the colour from the command.
 ==== Add Tasks Commands
 ===== Adding a todo: `todo`
 Format: `todo TASK_NAME [-doafter DOAFTER_TASK][-priority PRIORITY_LEVEL][-tag TAG1]...` +
-Adds a task of todo type.
+Adds a task of todo type. +
+Examples: +
+`todo buy milk` +
+`todo take cat to vet -priority High -tag pet`
+
 
 ===== Adding an deadline: `deadline`
 Format: `deadline TASK_NAME -time dd/mm/yyyy hhMM [-doafter DOAFTER_TASK][-priority PRIORITY_LEVEL][-tag TAG1]...` +
-Adds a task that has a deadline. The task name and deadline are required. A doafter task, priority level or any number of tags are all optional. Order of the modifiers does not matter.
+Adds a task that has a deadline. The task name and deadline are required.
+A doafter task, priority level or any number of tags are all optional.
+Order of the modifiers do not matter. +
+Examples: +
+`deadline categorise -time`
 
 ===== Adding an event: `event`
 Format: `event TASK_NAME -time dd/mm/yyyy hhMM [-doafter DOAFTER_TASK][-priority PRIORITY_LEVEL][-tag TAG1]...` +
@@ -143,7 +155,8 @@ Deletes the item specified.
 
 ==== Find task(s) with keyword: `find`
 Format: `find KEYWORD` +
-Returns a list of items that contains KEYWORD. This feature will search all the attributes of a task. Example: find cat will return cat, tabby #cat, SoCcat, concatenation.
+Returns a list of items that contains KEYWORD. This feature will search all the attributes of a task. +
+Example: `find cat` will return `cat`, `tabby #cat`, `SoCcat`, `concatenation`.
 
 ==== Done a task: `done`
 Format: `done ITEM_NUMBER` +
@@ -151,19 +164,30 @@ Marks the item specified as done.
 
 ==== Reminder for upcoming task(s): `reminder`
 Format: `reminder [-time dd/MM/yyyy HHmm]` +
-By default, it will show tasks due in the next 3 days. If a time modifier is added, it will show all tasks from current date to date specified. Example: if the current date is 14/03/2020, reminder will show hand in homework by: 15/03/2020 2359, presentation at 17/03/2020 1400. reminder 21/03/2020 will show hand in homework by: 15/03/2020 2359, presentation at: 17/03/2020 1400, exam at: 20/03/2020 0900, and flight at: 21/03/2020 1745.
+By default, it will show tasks due in the next 3 days.
+If number of days is added, it will show all tasks in the next n days. +
+Example: if the current date is 14/03/2020, `reminder` will show `hand in homework by: 15/03/2020 2359`,
+`presentation at 17/03/2020 1400`. `reminder 7` will show `hand in homework by: 15/03/2020 2359`,
+`presentation at: 17/03/2020 1400`, `exam at: 20/03/2020 0900`,
+and `flight at: 21/03/2020 1745`.
 
 
 ==== Do after: `doafter`
-Format: `doafter ITEM_NUMBER`  +
-Marks the item specified as done.
+Format: `doafter ITEM_NUMBER -msg DESCRIPTION`  +
+Records a task to be done after the original task is done.
 
 [NOTE]
 Only one doafter task can be added. To modify an existing doafter task, see the update command.
 
 ==== Snooze a task: `snooze`
+Format: `snooze ITEM_NUMBER`
+Use this command to postpone a task by 1 year.
 
-==== Detect Anomalies
+[NOTE]
+You cannot use this command on a todo task.
+
+
+==== Detect Anomalies (coming in v2.0)
 
 ==== Tagging a task: `tag`
 Format: `tag ITEM_NUMBER -tag TAG1 [-tag TAG2]...` +
