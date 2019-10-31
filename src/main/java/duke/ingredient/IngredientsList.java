@@ -39,11 +39,11 @@ public class IngredientsList extends GenericList<Ingredient> {
 
     public boolean hasEnough(Ingredient ingredient) {
         int currAmount = 0;
-        for (Ingredient ing : getAllEntries()) {
-            if (ing.equals(ingredient)&&!ing.isExpired())
-                currAmount += ing.getAmount();
+        for (Ingredient ing : getAllEntries()) {        //for all ingredients,
+            if (ing.equals(ingredient)&&!ing.isExpired())           //if they are the ingredient we want, and it has not expired,
+                currAmount += ing.getAmount();          //adds into count
         }
-        return ingredient.getAmount() <= currAmount;
+        return ingredient.getAmount() <= currAmount;        //if needed amount is less than or equal to amount we have, means we have enough
         // return getAllEntries().contains(ingredient);
     }
 

@@ -13,8 +13,8 @@ repositories {
 }
 
 shadowJar {
-    archiveBaseName = "mid"
-    archiveVersion = "v1.3.1"
+    archiveBaseName = null
+    archiveVersion = "v1.3"
     archiveClassifier = null
     archiveAppendix = null
 }
