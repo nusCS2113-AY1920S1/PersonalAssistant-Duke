@@ -1,6 +1,5 @@
 package rims.core;
 
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -81,7 +80,7 @@ public class Parser {
      * @return a Command that can be executed to carry out the necessary tasks
      * @throws RimsException if the input is in a wrong format or does not make sense.
      */
-    public Command parseInput(String input) throws RimsException, ParseException {
+    public Command parseInput(String input) throws RimsException {
         Command c;
         String[] words = input.split(" ");
 
@@ -93,17 +92,13 @@ public class Parser {
         else if (input.equals("deadlines") && words.length == 1) {
             c = new ViewDeadlinesCommand();
         }
-        //@@author danielcyc
-        else if (words[0].equals("calendar") && words.length == 1) {
-            CalendarCommand.printCal(resources, ui);
+        else if (words[0].equals("cal") && words.length == 1) {
+            CalendarCommand.printCal();
             c = new ListCommand();
-        }
         //@@author aarushisingh1
-
-        else if (words[0].equals("list") && words.length > 1) {
-            String paramType = words[1].substring(1);
-            if (paramType.equals("room") || paramType.equals("item") || paramType.equals("date")) {
-
+        } else if (words[0].equals("list") && words.length > 1) {
+            String paramType = words[1];
+            if (paramType.equals("room") || paramType.equals("item")) {
                 String param = ui.getInput("Enter the name of the resource you'd like to view a detailed list of:");
                 c = new ListCommand(paramType, param);
             } else if (paramType.equals("date")) {
