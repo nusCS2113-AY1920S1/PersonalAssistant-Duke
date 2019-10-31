@@ -14,28 +14,30 @@ skinparam DefaultTextAlignment center
 skinparam packageStyle Rectangle
 
 
-package Parser {
-Class Parser
-Class "{abstract}\nCommand" as Command
-Class parse
-class parseGraph
+package Main {
+Class MooMoo
+Class UI
 }
 
+package Parser {
+Class Parser
+}
 
-UI ..> parse
-parse ..> parseGraph
-parse ..> parseList
-parse ..> parseDelete
-parse ..> parseView
-parse ..> parseAdd
-parse ..> removeSuffix
-parse ..> parseInput
-parse ..> parseBudget
-parse ..> setBudget
-parse ..> editBudget
-parse ..> parseList
+package Command {
+Class "{abstract}\nCommand" as Command
+Class CommandType
+}
 
-parseGraph ..> Command : creates
+UI ..> Parser
+Parser ..> CommandType : returns
+note left of CommandType: CommandType =\n AddCategoryCommand,\nSetBudgetCommand etc.
+
+MooMoo ..> Command : executes
+CommandType -|> Command
+Command ..> Storage : write
+MooMoo ..> UI
+MooMoo ..> Storage : read
+UI ..> Command : displays
 
 
 @enduml
