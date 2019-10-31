@@ -1,6 +1,7 @@
 package duke.logic.commands;
 
 import duke.commons.exceptions.ApiException;
+import duke.commons.exceptions.QueryOutOfBoundsException;
 import duke.logic.api.ApiParser;
 import duke.logic.commands.results.CommandResultImage;
 import duke.model.Model;
@@ -54,7 +55,7 @@ public class RouteNodeNeighboursCommand extends Command {
      * @return The CommandResultText.
      */
     @Override
-    public CommandResultImage execute(Model model) throws ApiException {
+    public CommandResultImage execute(Model model) throws ApiException, QueryOutOfBoundsException {
         ArrayList<Venue> result = getNeighbour(model);
         Image image = getImage(model, result);
 
@@ -83,30 +84,34 @@ public class RouteNodeNeighboursCommand extends Command {
         return image;
     }
 
-    private ArrayList<Venue> getNeighbour(Model model) {
-        ArrayList<Venue> result = new ArrayList<>();
-        ArrayList<Venue> temp = new ArrayList<>();
-        RouteNode node = model.getRoutes().get(indexRoute).getNode(indexNode);
-        for (Map.Entry mapElement : model.getMap().getBusStopMap().entrySet()) {
-            if (node instanceof BusStop && ((BusStop) mapElement.getValue()).getDistance(node) < DISTANCE_THRESHOLD
-                    && !((BusStop) mapElement.getValue()).getBusCode().equals(((BusStop) node).getBusCode())) {
-                temp.add((BusStop) mapElement.getValue());
+    private ArrayList<Venue> getNeighbour(Model model) throws QueryOutOfBoundsException {
+        try {
+            ArrayList<Venue> result = new ArrayList<>();
+            ArrayList<Venue> temp = new ArrayList<>();
+            RouteNode node = model.getRoutes().get(indexRoute).getNode(indexNode);
+            for (Map.Entry mapElement : model.getMap().getBusStopMap().entrySet()) {
+                if (node instanceof BusStop && ((BusStop) mapElement.getValue()).getDistance(node) < DISTANCE_THRESHOLD
+                        && !((BusStop) mapElement.getValue()).equals(node)) {
+                    temp.add((BusStop) mapElement.getValue());
+                }
             }
-        }
 
-        for (Map.Entry mapElement : model.getMap().getTrainMap().entrySet()) {
-            if (((TrainStation) mapElement.getValue()).getDistance(node) < DISTANCE_THRESHOLD
-                    && !((TrainStation) mapElement.getValue()).getAddress().equals(node.getAddress())) {
-                temp.add((TrainStation) mapElement.getValue());
+            for (Map.Entry mapElement : model.getMap().getTrainMap().entrySet()) {
+                if (((TrainStation) mapElement.getValue()).getDistance(node) < DISTANCE_THRESHOLD
+                        && !((TrainStation) mapElement.getValue()).equals(node)) {
+                    temp.add((TrainStation) mapElement.getValue());
+                }
             }
-        }
 
-        temp.sort((Venue o1, Venue o2) -> (int) (o1.getDistance(node) - o2.getDistance(node)));
-        for (int i = 0; i < NEIGHBOUR_MAX_SIZE && i < temp.size(); i++) {
-            result.add(temp.get(i));
-        }
+            temp.sort((Venue o1, Venue o2) -> (int) (o1.getDistance(node) - o2.getDistance(node)));
+            for (int i = 0; i < NEIGHBOUR_MAX_SIZE && i < temp.size(); i++) {
+                result.add(temp.get(i));
+            }
 
-        return result;
+            return result;
+        } catch (IndexOutOfBoundsException e) {
+            throw new QueryOutOfBoundsException(String.valueOf(indexNode));
+        }
     }
 
     /**

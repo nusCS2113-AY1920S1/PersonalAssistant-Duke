@@ -38,9 +38,11 @@ public class FindPathCommand extends Command {
         case "onlyBus":
             this.constraint = Constraint.BUS;
             break;
+        /*
         case "Hybrid":
             this.constraint = Constraint.MIXED;
             break;
+         */
         default:
             this.constraint = Constraint.CAR;
             break;

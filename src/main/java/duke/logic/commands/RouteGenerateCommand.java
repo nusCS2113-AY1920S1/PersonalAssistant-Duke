@@ -8,7 +8,9 @@ import duke.commons.exceptions.FileNotSavedException;
 import duke.commons.exceptions.QueryFailedException;
 import duke.commons.exceptions.QueryOutOfBoundsException;
 import duke.commons.exceptions.RouteDuplicateException;
+import duke.commons.exceptions.RouteGenerateFailException;
 import duke.commons.exceptions.RouteNodeDuplicateException;
+import duke.commons.exceptions.UnknownConstraintException;
 import duke.logic.PathFinder;
 import duke.logic.api.ApiParser;
 import duke.logic.commands.results.CommandResultText;
@@ -46,13 +48,23 @@ public class RouteGenerateCommand extends Command {
     @Override
     public CommandResultText execute(Model model) throws ApiException,
             QueryFailedException, QueryOutOfBoundsException, RouteNodeDuplicateException, FileNotSavedException,
-            CorruptedFileException, RouteDuplicateException {
+            CorruptedFileException, RouteDuplicateException, RouteGenerateFailException, UnknownConstraintException {
         Venue startVenue = ApiParser.getLocationSearch(startPoint);
         Venue endVenue = ApiParser.getLocationSearch(endPoint);
         PathFinder pathFinder = new PathFinder(model.getMap());
+
+        if (type == Constraint.MIXED) {
+            throw new UnknownConstraintException();
+        }
+
         ArrayList<Venue> venueList = pathFinder.execute(startVenue, endVenue, type);
-        if (type == Constraint.BUS) {
-            Collections.reverse(venueList);
+
+        try {
+            if (type == Constraint.BUS) {
+                Collections.reverse(venueList);
+            }
+        } catch (NullPointerException e) {
+            throw new RouteGenerateFailException();
         }
 
         Route route = new Route(startPoint + " to " + endPoint + "  (" + type.toString() + ")", "");
@@ -87,6 +99,12 @@ public class RouteGenerateCommand extends Command {
             previousVenue = venue;
         }
 
+        for (RouteNode node : route.getNodes()) {
+            if (node instanceof TrainStation) {
+                node.setAddress(node.getDescription());
+            }
+        }
+
         updateRouteNodes(route, model);
 
         model.getRoutes().add(route);
@@ -101,18 +119,22 @@ public class RouteGenerateCommand extends Command {
      * @param route The route object.
      * @param target The RouteNode that has a duplicate.
      * @return The route object.
-     * @throws QueryOutOfBoundsException If the node cannot be deleted.
+     * @throws RouteGenerateFailException If the Route fails to generate.
      */
-    private Route pruneDuplicateRoute(Route route, Venue target) throws QueryOutOfBoundsException {
-        for (int i = route.getNumNodes() - 1; i >= 0; i--) {
-            if (!route.getNode(i).equals(target)) {
-                route.deleteNode(i);
-            } else {
-                break;
+    private Route pruneDuplicateRoute(Route route, Venue target) throws RouteGenerateFailException {
+        try {
+            for (int i = route.getNumNodes() - 1; i >= 0; i--) {
+                if (!route.getNode(i).equals(target)) {
+                    route.deleteNode(i);
+                } else {
+                    break;
+                }
             }
-        }
 
-        return route;
+            return route;
+        } catch (QueryOutOfBoundsException e) {
+            throw new RouteGenerateFailException();
+        }
     }
 
     /**
@@ -120,14 +142,19 @@ public class RouteGenerateCommand extends Command {
      *
      * @param route The Route object.
      * @param model The model.
+     * @throws RouteGenerateFailException If the Route fails to generate.
      */
-    private void updateRouteNodes(Route route, Model model) throws QueryFailedException {
-        for (RouteNode routeNode: route.getNodes()) {
-            if (routeNode instanceof BusStop) {
-                ((BusStop) routeNode).fetchData(model);
-            } else if (routeNode instanceof TrainStation) {
-                ((TrainStation) routeNode).fetchData(model);
+    private void updateRouteNodes(Route route, Model model) throws RouteGenerateFailException {
+        try {
+            for (RouteNode routeNode : route.getNodes()) {
+                if (routeNode instanceof BusStop) {
+                    ((BusStop) routeNode).fetchData(model);
+                } else if (routeNode instanceof TrainStation) {
+                    ((TrainStation) routeNode).fetchData(model);
+                }
             }
+        } catch (QueryFailedException e) {
+            throw new RouteGenerateFailException();
         }
     }
 }

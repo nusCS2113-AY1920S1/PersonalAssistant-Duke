@@ -40,8 +40,6 @@ public class RouteNodeAddParser extends CommandParser {
                 throw new ParseException(Messages.ERROR_INPUT_INVALID_FORMAT);
             }
 
-            String[] indexes = withinDetails[0].split(" ");
-
             String type = userInput.substring(withinDetails[0].length()).strip().substring(0, 4);
             if (!("with".equals(type) || "at".equals(type.substring(0, 2)))) {
                 throw new ParseException(Messages.ERROR_INPUT_INVALID_FORMAT);

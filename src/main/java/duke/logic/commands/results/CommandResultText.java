@@ -63,7 +63,7 @@ public class CommandResultText extends CommandResult {
             if (node instanceof BusStop) {
                 message += ((BusStop) node).getBusCode() + " " + node.getAddress() + "\n";
             } else if (node instanceof TrainStation) {
-                message += ((TrainStation) node).getTrainCodes() + " " + node.getDescription() + "\n";
+                message += node.getAddress() + " " + node.getDescription() + "\n";
             } else if (node instanceof CustomNode)  {
                 message += node.getAddress() + "\n";
             }

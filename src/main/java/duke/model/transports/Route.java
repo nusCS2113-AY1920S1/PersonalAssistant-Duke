@@ -144,12 +144,7 @@ public class Route {
     public void addNode(RouteNode newNode, int index) throws RouteNodeDuplicateException, QueryOutOfBoundsException {
         if (index >= 0 && index <= nodes.size()) {
             for (RouteNode node : nodes) {
-                if (node instanceof BusStop && newNode instanceof BusStop
-                        && ((BusStop) node).getBusCode().equals(((BusStop) newNode).getBusCode())) {
-                    throw new RouteNodeDuplicateException();
-                }
-                if (node instanceof TrainStation && newNode instanceof TrainStation
-                        && ((TrainStation) node).getTrainCodes().equals(((TrainStation) newNode).getTrainCodes())) {
+                if (node.equals(newNode)) {
                     throw new RouteNodeDuplicateException();
                 }
             }
@@ -168,12 +163,7 @@ public class Route {
      */
     public void addNode(RouteNode newNode) throws RouteNodeDuplicateException {
         for (RouteNode node: nodes) {
-            if (node instanceof BusStop && newNode instanceof BusStop
-                    && ((BusStop) node).getBusCode().equals(((BusStop) newNode).getBusCode())) {
-                throw new RouteNodeDuplicateException();
-            }
-            if (node instanceof TrainStation && newNode instanceof TrainStation
-                    && ((TrainStation) node).getTrainCodes().equals(((TrainStation) newNode).getTrainCodes())) {
+            if (node.equals(newNode)) {
                 throw new RouteNodeDuplicateException();
             }
         }
