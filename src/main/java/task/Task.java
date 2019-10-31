@@ -18,6 +18,7 @@ public class Task implements Serializable {
     protected String period;
     protected Boolean isInVoice;
     protected String inVoice;
+    protected Date date;
 
     private static SimpleDateFormat dataformat = new SimpleDateFormat("dd/MM/yyyy HHmm");
 

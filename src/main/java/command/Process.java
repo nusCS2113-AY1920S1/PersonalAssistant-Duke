@@ -13,6 +13,7 @@ import task.Task;
 import task.WithinPeriodTask;
 import ui.Ui;
 
+import javax.swing.*;
 import java.lang.reflect.Array;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -225,6 +226,17 @@ public class Process {
         }
     }
 
+    /**
+     * Show the current fund status.
+     * @param input Input from the user.
+     * @param ui Ui that interacts with the user.
+     * @param fund the total fund the that the organisation owns
+     */
+    public void showFund(String input, Ui ui, Fund fund) {
+        System.out.println(Ui.line);
+        System.out.print(fund.giveFund());
+        System.out.println(Ui.line);
+    }
     //===========================* Deadline *================================
 
     /**
@@ -289,16 +301,27 @@ public class Process {
      */
     public void deadline(String input, TaskList tasklist, Ui ui) {
         try {
-            String[] splitspace = input.split("d/", 2);
+            String[] splitspace = input.split("d/|by/");
             String taskDescription = splitspace[1];
-            Deadline deadline = new Deadline(taskDescription);
+            String date = splitspace[2];
+            Deadline deadline = new Deadline(taskDescription,date);
             tasklist.addTask(deadline);
             ui.printAddedMessage(deadline, tasklist);
-        } catch (ArrayIndexOutOfBoundsException e) {
+        } catch (ArrayIndexOutOfBoundsException | ParseException e) {
             ui.exceptionMessage("     ☹ OOPS!!! The description of a deadline cannot be empty.");
         }
     }
 
+
+    public void deleteTask(String input, TaskList tasklist, Ui ui) {
+        try {
+            String[] splitspace = input.split("id/", 2);
+            int id = Integer.parseInt(splitspace[1]) - 1;
+            tasklist.deleteTask(id);
+        }catch (ArrayIndexOutOfBoundsException e){
+            ui.exceptionMessage("     ☹ OOPS!!! The id of a deadline cannot be empty.");
+        }
+    }
     /**
      * Processes the DoAfter command and adds a task,
      * which has to be done after another task or a specific date and time,
