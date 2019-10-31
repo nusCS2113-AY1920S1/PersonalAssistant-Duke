@@ -1,6 +1,7 @@
 [![Build Status](https://travis-ci.org/namiwa/main.svg?branch=master)](https://travis-ci.org/namiwa/main)
 
 
+
 # Module planner for NUS CEG Students
 
 **ModPlan**
@@ -9,11 +10,11 @@ Your one stop solution to module planning through out your university tenure!
 
 **Sample Mockup**
 
-![Mockup Sample](https://github.com/namiwa/main/blob/namiwa-readme-1/docs/images/Ui.png)
+![Mockup Sample](https://github.com/AY1920S1-CS2113T-F10-1/main/blob/master/docs/images/Ui.png)
 
 **Done by:**
   * Evelyn
-  * Iman
+  * Khairul Iman
   * Kyawt Kyawt
   * Hong Long
   * Andrew

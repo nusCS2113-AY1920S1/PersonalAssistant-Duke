@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.util.HashMap;
 
+import planner.credential.CredentialManager;
 import planner.logic.command.EndCommand;
 import planner.logic.command.ModuleCommand;
 import planner.logic.exceptions.legacy.ModException;
@@ -32,6 +33,7 @@ public class CliLauncher {
     private JsonWrapper jsonWrapper;
     private PlannerUi modUi;
     private HashMap<String, ModuleInfoDetailed> modDetailedMap;
+    private CredentialManager credential;
     private transient ByteArrayOutputStream output;
 
 
@@ -45,8 +47,10 @@ public class CliLauncher {
         jsonWrapper = new JsonWrapper();
         modTasks = new ModuleTasksList();
         ccas = new CcaList();
+        credential = new CredentialManager();
         if (gui) {
             this.redirectOutput();
+            //credential.prompt(modUi);
             modUi.helloMsg();
         }
     }
@@ -130,6 +134,7 @@ public class CliLauncher {
     public static void main(String[] args) {
         //TODO: args flag could be passed into program for optional runs
         CliLauncher planner = new CliLauncher();
+        //planner.credential.prompt(planner.modUi);
         planner.modRunArgparse4j();
     }
 }
