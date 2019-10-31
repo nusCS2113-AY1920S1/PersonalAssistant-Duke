@@ -39,9 +39,14 @@ public class AddAssignmentCommand extends Command {
             throw new OofException("OOPS!!! The assignment needs a due date.");
         }
         String name = nameAndDueDate[INDEX_NAME].trim();
+        String moduleCode = module.getModuleCode();
+        String description = moduleCode + " " + name;
+        if (exceedsMaxLength(description)) {
+            throw new OofException("Task exceeds maximum description length!");
+        }
         String date = parseTimeStamp(nameAndDueDate[INDEX_DATE_BY].trim());
         if (isDateValid(date)) {
-            Assignment assignment = new Assignment(module.getModuleCode(), name, date);
+            Assignment assignment = new Assignment(moduleCode, name, date);
             taskList.addTask(assignment);
             module.addAssignment(assignment);
             ui.addTaskMessage(assignment, taskList.getSize());

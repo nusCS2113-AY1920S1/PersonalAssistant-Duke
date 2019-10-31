@@ -53,6 +53,9 @@ public class AddToDoCommand extends Command {
             throw new OofException("OOPS!!! The todo needs a date.");
         }
         String description = lineSplit[INDEX_DESCRIPTION].trim();
+        if (exceedsMaxLength(description)) {
+            throw new OofException("Task exceeds maximum description length!");
+        }
         String onDate = parseTimeStamp(lineSplit[INDEX_DATE_ON].trim());
         if (isDateValid(onDate)) {
             Task task = new Todo(description, onDate);

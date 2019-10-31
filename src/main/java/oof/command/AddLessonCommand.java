@@ -78,8 +78,13 @@ public class AddLessonCommand extends Command {
             throw new OofException("OOPS!! Please select a Module.");
         }
         String name = nameSplit[INDEX_NAME].trim();
+        String moduleCode = module.getModuleCode();
+        String description = moduleCode + " " + name;
+        if (exceedsMaxLength(description)) {
+            throw new OofException("Task exceeds maximum description length!");
+        }
         DayOfWeek dayOfWeek = DayOfWeek.valueOf(daySplit[INDEX_DAY].trim().toUpperCase());
-        Lesson lesson = new Lesson(module.getModuleCode(), name, dayOfWeek, startTime, endTime);
+        Lesson lesson = new Lesson(moduleCode, name, dayOfWeek, startTime, endTime);
         module.addLesson(lesson);
         ui.printLessonAddedMessage(module.getModuleCode(), lesson);
         storage.writeSemesters(semesterList);

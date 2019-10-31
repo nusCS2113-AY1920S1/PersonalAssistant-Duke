@@ -23,6 +23,8 @@ import oof.model.task.Todo;
  */
 public abstract class Command {
 
+    protected static final int description_length_max = 20;
+
     /**
      * Invokes other Command subclasses based on the input given by the user.
      *
@@ -35,6 +37,15 @@ public abstract class Command {
      */
     public abstract void execute(SemesterList semesterList, TaskList taskList, Ui ui, Storage storage)
             throws OofException;
+
+    /**
+     * Checks if description and module code exceeds the maximum description length.
+     *
+     * @return True if maximum description length is exceeded, false otherwise.
+     */
+    public boolean exceedsMaxLength(String description) {
+        return description.length() >= description_length_max;
+    }
 
     /**
      * Parses the Timestamp given by the user and returns the parsed
@@ -57,7 +68,7 @@ public abstract class Command {
      * Parses the Time given by the user and returns the parsed time as a string if the date is valid.
      *
      * @param time String containing time supplied by user.
-     * @return Parsed Time if the Time is valid, else retuns "failed".
+     * @return Parsed Time if the Time is valid, else return "failed".
      */
     public String parseTime(String time) {
         try {

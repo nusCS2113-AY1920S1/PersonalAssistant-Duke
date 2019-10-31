@@ -1,7 +1,5 @@
 package oof.command;
 
-import java.util.Date;
-
 import oof.SelectedInstance;
 import oof.Storage;
 import oof.Ui;
@@ -58,11 +56,29 @@ public class AddAssessmentCommand extends AddEventCommand {
             return;
         }
         String name = argumentSplit[INDEX_NAME].trim();
-        Assessment assessment = new Assessment(module.getModuleCode(), name, startDate, endDate);
+        String moduleCode = module.getModuleCode();
+        String description = moduleCode + " " + name;
+        if (exceedsMaxLength(description)) {
+            throw new OofException("Task exceeds maximum description length!");
+        }
+        Assessment assessment = new Assessment(moduleCode, name, startDate, endDate);
         taskList.addTask(assessment);
         module.addAssessment(assessment);
         ui.addTaskMessage(assessment, taskList.getSize());
         storage.writeTaskList(taskList);
+    }
+
+    /**
+     * Checks if description and module code exceeds the maximum description length.
+     *
+     * @return True if maximum description length is exceeded, false otherwise.
+     */
+    @Override
+    public boolean exceedsMaxLength(String description) {
+        if (description.length() >= description_length_max) {
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -84,18 +100,6 @@ public class AddAssessmentCommand extends AddEventCommand {
     private boolean hasStartTime(String[] lineSplit) {
         return lineSplit.length > 1 && lineSplit[INDEX_TIMES].split(" /to ")[INDEX_START_TIME].trim().length() > 0;
     }
-
-    /**
-     * Checks if start and end date are chronologically accurate.
-     *
-     * @param startTime Start time of event being added.
-     * @param endTime   End time of event being added.
-     * @return true if start date occurs before end date, false otherwise.
-     */
-    private boolean isStartDateBeforeEndDate(Date startTime, Date endTime) {
-        return startTime.compareTo(endTime) <= 0;
-    }
-
 
     /**
      * Checks if input has an end time (argument given after "/to").

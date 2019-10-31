@@ -36,6 +36,10 @@ public class AddModuleCommand extends Command {
         }
         String code = argumentSplit[INDEX_CODE].trim();
         String name = argumentSplit[INDEX_NAME].trim();
+        String description = code + " " + name;
+        if (exceedsMaxLength(description)) {
+            throw new OofException("Task exceeds maximum description length!");
+        }
         SelectedInstance selectedInstance = SelectedInstance.getInstance();
         Semester semester = selectedInstance.getSemester();
         if (semester == null) {

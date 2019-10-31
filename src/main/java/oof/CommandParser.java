@@ -53,6 +53,7 @@ public class CommandParser {
     private static final int INDEX_ARGUMENT_TASK_NUMBER = 1;
     private static final int INDEX_ARGUMENT_COUNT = 2;
     private static final int INDEX_TASK_TYPE = 1;
+    private static final String DELIMITER = "||";
 
     /**
      * Parses the input given by user and calls specific Commands
@@ -63,6 +64,9 @@ public class CommandParser {
      * @throws OofException Catches invalid commands given by user.
      */
     public static Command parse(String line) throws OofException {
+        if (containsIllegalInput(line)) {
+            throw new OofException("Your command contains illegal input!");
+        }
         String[] argumentArray = line.split(" ");
         switch (argumentArray[INDEX_ARGUMENT_COMMAND]) {
         case "bye":
@@ -133,6 +137,18 @@ public class CommandParser {
         default:
             throw new OofException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
+    }
+
+    /**
+     * Checks if user input contains illegal characters.
+     * @param line User input.
+     * @return Returns true if user input contains illegal characters, false otherwise.
+     */
+    private static boolean containsIllegalInput(String line) {
+        if (line.contains(DELIMITER)) {
+            return true;
+        }
+        return false;
     }
 
     /**
