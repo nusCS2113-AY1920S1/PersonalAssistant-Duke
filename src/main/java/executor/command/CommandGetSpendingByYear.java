@@ -7,7 +7,7 @@ import ui.Ui;
 import ui.Wallet;
 
 public class CommandGetSpendingByYear extends Command {
-    protected String userInput;
+    private String userInput;
 
     /**
      * Constructor to explain about the method.
