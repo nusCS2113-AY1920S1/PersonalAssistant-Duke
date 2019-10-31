@@ -1,14 +1,10 @@
 import command.Parser;
 import command.Storage;
 import common.TaskList;
-import payment.Payee;
 import project.Fund;
-import project.Project;
 import ui.Ui;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
 
 /**
  * <h1>AlphaNUS</h1>
@@ -26,12 +22,12 @@ public class AlphaNUS {
 
     /**
      * Creates a AlphaNUS instance and initialises the required attributes.
-     * @param filepath Filepath to the storage.
      */
-    public AlphaNUS(String filepath) {
+    public AlphaNUS() {
         ui = new Ui();
+        String filepath = "duke.txt";
+
         storage = new Storage(filepath);
-        //ArrayList<Task> arraylist = storage.load(); <-- Giving file not found exception, to remove
         tasklist = new TaskList();
         fund = new Fund(); //TODO the fund need to be stored in the text file.
         commandList = storage.load();
@@ -56,6 +52,6 @@ public class AlphaNUS {
      * @param args Unused.
      */
     public static void main(String[] args) {
-        new AlphaNUS("data/duke.txt").run();
+        new AlphaNUS().run();
     }
 }

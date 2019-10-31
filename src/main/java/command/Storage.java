@@ -1,23 +1,16 @@
 package command;
 
-import task.Task;
-
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 
 /**
- * Storage that saves and loads the tasklist of the user.
+ * command.Storage that saves and loads the tasklist of the user.
  */
 public class Storage {
     private static String filepath;
 
     /**
-     * Creates a Storage instance with the required attributes.
+     * Creates a command.Storage instance with the required attributes.
      *
      * @param filepath Filepath to the storage file.
      */
@@ -30,18 +23,26 @@ public class Storage {
      *
      * @return The ArrayList containing the Task object.
      */
-    public static ArrayList<String> load() {
+    public ArrayList<String> load() {
         try {
             String line;
             ArrayList<String> list = new ArrayList<String>();
-            FileReader fileReader = new FileReader(filepath);
-            BufferedReader bufferedReader = new BufferedReader(fileReader);
 
+            //file needs to be in same directory as Storage
+            InputStream is = getClass().getResourceAsStream("duke.txt");
+
+
+            //FileReader fileReader = new FileReader(filepath);
+            //BufferedReader bufferedReader = new BufferedReader(fileReader);
+
+
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(is));
             while ((line = bufferedReader.readLine()) != null) {
                 list.add(line);
             }
-
+            is.close();
             bufferedReader.close();
+
             return list;
             /*FileInputStream file = new FileInputStream(filepath);
             ObjectInputStream out = new ObjectInputStream(file);
@@ -73,16 +74,22 @@ public class Storage {
      * Saves the tasklist of the user as an ArrayList containing the task object.
      *
      */
-    public static void save(String str) {
+    public void save(String str) {
         try {
             FileWriter fileWriter = new FileWriter(filepath, true);
+            //InputStream is = getClass().getResourceAsStream("duke.txt");
+
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+            //BufferedWriter bufferedWriter = new BufferedWriter(new InputStreamWriter(is));
             bufferedWriter.newLine();
             /*for (int i = 0; i < tasklist.size(); i = i + 1) {
                 bufferedWriter.write(tasklist.get(i));
             }
              */
+
             bufferedWriter.write(str);
+
+            //is.close();
             bufferedWriter.close();
             /*FileOutputStream file = new FileOutputStream(filepath);
             ObjectOutputStream out = new ObjectOutputStream(file);
@@ -96,5 +103,8 @@ public class Storage {
         } catch (IOException ex) {
             System.out.println("Error writing to file '" + filepath + "'");
         }
+    }
+    public static void remove(String str){
+        //TODO
     }
 }
