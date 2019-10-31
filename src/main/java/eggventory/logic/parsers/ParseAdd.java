@@ -54,7 +54,7 @@ public class ParseAdd {
 
         if (Parser.isReserved(addInput[0])) {
             throw new BadInputException("'" + addInput[0] + "' is an invalid name as it is a keyword"
-                    + "for an existing command.");
+                    + " for an existing command.");
         }
 
         return new AddPersonCommand(CommandType.ADD, addInput[0], addInput[1]);
@@ -62,8 +62,12 @@ public class ParseAdd {
     //@@author
 
     //@@author cyanoei
-    private Command processAddLoan(String input) {
+    private Command processAddLoan(String input) throws BadInputException {
         String[] addInput = input.split(" +");
+        if (Parser.isReserved(addInput[0])) {
+            throw new BadInputException("'" + addInput[0] + "' is an invalid name as it is a keyword"
+                    + " for an existing command.");
+        }
         return new AddLoanCommand(CommandType.ADD, addInput[0], addInput[1], Integer.parseInt(addInput[2]));
     }
 

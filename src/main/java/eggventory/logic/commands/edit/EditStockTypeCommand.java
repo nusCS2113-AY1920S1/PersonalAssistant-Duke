@@ -1,5 +1,6 @@
 package eggventory.logic.commands.edit;
 
+import eggventory.commons.exceptions.DuplicateEntryException;
 import eggventory.model.StockList;
 import eggventory.storage.Storage;
 import eggventory.logic.commands.Command;
@@ -36,11 +37,12 @@ public class EditStockTypeCommand extends Command {
      * @return
      */
     @Override
-    public String execute(StockList list, Ui ui, Storage storage) {
+    public String execute(StockList list, Ui ui, Storage storage) throws DuplicateEntryException {
         String output;
 
         if (list.isExistingStockType(newName)) {
-            output = String.format("Sorry, \"%s\" is already an existing stock type.", newName);
+            throw new DuplicateEntryException(String.format("Sorry, \"%s\" is already an existing stock type.",
+                    newName));
 
         } else {
             StockType edited = list.setStockType(stockType, newName);
@@ -53,4 +55,5 @@ public class EditStockTypeCommand extends Command {
         ui.drawTable(list.getAllStockTypesStruct());
         return output;
     }
+    //@@author
 }

@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+//@@author Deculsion
 class AddPersonCommandTest {
 
     private StockList testStockList = new StockList();
@@ -40,4 +41,5 @@ class AddPersonCommandTest {
         assertEquals("The Person with the specified matriculation number already exists!\n Did you"
                 + " mean to edit this Person's details instead?", exception.getMessage());
     }
+    //@@author
 }

@@ -1,6 +1,7 @@
 package eggventory.model.items;
 
 import eggventory.commons.enums.StockProperty;
+import eggventory.commons.exceptions.BadInputException;
 
 import java.util.ArrayList;
 
@@ -56,7 +57,6 @@ public class StockType {
 
     /**
      * Deletes a stock of the user's choice.
-     *
      * @param stockCode The code of the stock to be deleted.
      * @return true if some stockCode was found and the corresponding stock removed. false if none were found.
      */
@@ -74,46 +74,101 @@ public class StockType {
         return null;
     }
 
+    //@@author patwaririshab
     /**
      * Accesses and sets a new stockCode of a stock.
-     * @param oldStockCode The current stockcode referring to this stock.
-     * @param newStockCode The new stockcode to change to.
+     * @param oldStockCode The current stockcode referring to this stock
+     * @param newStockCode The new stockcode to change to
+     * @return Stock if stockCode is found, else null
      */
-    public void setStockCode(String oldStockCode, String newStockCode) {
+    public Stock setStockCode(String oldStockCode, String newStockCode) {
         for (Stock stock : stocks) {
             if (stock.getStockCode().equals(oldStockCode)) {
                 stock.setStockCode(newStockCode);
-                return;
+                return stock;
             }
         }
+        return null;
     }
 
     /**
      * Accesses and sets the quantity of a Stock.
      * @param stockCode StockCode of the stock to change
      * @param quantity New quantity of the stock to change
+     * @return Stock if stockCode is found, else null
      */
-    public void setStockQuantity(String stockCode, int quantity) {
+    public Stock setStockQuantity(String stockCode, int quantity) {
         for (Stock stock : stocks) {
             if (stock.getStockCode().equals(stockCode)) {
                 stock.setQuantity(quantity);
-                return;
+                return stock;
             }
         }
+        return null;
     }
 
     /**
-     * Accesses and sets the description of a Stock.
-     * @param stockCode StockCode of the stock to change
-     * @param description New description of the stock to change
+     * Accesses and updates loaned quantity of a stock.
+     * @param stockCode The current stockcode reffering to this stock
+     * @param quantity The new loaned quantity to change to
+     * @return Stock if stockCode is found, else null
      */
-    public void setStockDescription(String stockCode, String description) {
+    public Stock setStockLoaned(String stockCode, int quantity) {
+        for (Stock stock : stocks) {
+            if (stock.getStockCode().equals(stockCode)) {
+                stock.setLoaned(quantity);
+                return stock;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Accesses and updates lost quantity of a stock.
+     * @param stockCode The current stockcode reffering to this stock
+     * @param quantity The new lost quantity to change to
+     * @return Stock if stockCode is found, else null
+     */
+    public Stock setStockLost(String stockCode, int quantity) {
+        for (Stock stock : stocks) {
+            if (stock.getStockCode().equals(stockCode)) {
+                stock.setLost(quantity);
+                return stock;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Accesses and updates stock description of a stock.
+     * @param stockCode The current stockcode reffering to this stock
+     * @param description The new description to change to
+     * @return Stock if stockCode is found, else null
+     */
+    public Stock setStockDescription(String stockCode, String description) {
         for (Stock stock : stocks) {
             if (stock.getStockCode().equals(stockCode)) {
                 stock.setDescription(description);
-                return;
+                return stock;
             }
         }
+        return null;
+    }
+
+    /**
+     * Accesses and updates minimum quantity of a stock.
+     * @param stockCode The current stockcode reffering to this stock
+     * @param quantity The new minimum quantity to change to
+     * @return Stock if stockCode is found, else null
+     */
+    public Stock setStockMinimum(String stockCode, int quantity) {
+        for (Stock stock : stocks) {
+            if (stock.getStockCode().equals(stockCode)) {
+                stock.setMinimum(quantity);
+                return stock;
+            }
+        }
+        return null;
     }
 
     //@@author
@@ -181,35 +236,22 @@ public class StockType {
      * @return The unedited Stock, for printing purpose.
      */
     public Stock setStock(String stockCode, StockProperty property, String newValue) {
-        Stock uneditedStock;
-        for (Stock stock: stocks) {
-            if (stockCode.equals(stock.getStockCode())) {
-                uneditedStock = stock;
-                switch (property) {
-                case STOCKCODE:
-                    stock.setStockCode(newValue);
-                    break;
-                case QUANTITY:
-                    stock.setQuantity(Integer.parseInt(newValue));
-                    break;
-                case LOANED:
-                    stock.setLoaned(Integer.parseInt(newValue));
-                    break;
-                case LOST:
-                    stock.setLost(Integer.parseInt(newValue));
-                    break;
-                case DESCRIPTION:
-                    stock.setDescription(newValue);
-                    break;
-                case MINIMUM:
-                    stock.setMinimum(Integer.parseInt(newValue));
-                    break;
-                default:
-                }
-                return uneditedStock;
-            }
+        switch (property) {
+        case STOCKCODE:
+            return this.setStockCode(stockCode, newValue);
+        case QUANTITY:
+            return this.setStockQuantity(stockCode, Integer.parseInt(newValue));
+        case LOANED:
+            return this.setStockLoaned(stockCode, Integer.parseInt(newValue));
+        case LOST:
+            return this.setStockLost(stockCode, Integer.parseInt(newValue));
+        case DESCRIPTION:
+            return this.setStockDescription(stockCode, newValue);
+        case MINIMUM:
+            return this.setStockMinimum(stockCode, Integer.parseInt(newValue));
+        default:
+            return null;
         }
-        return null;
     }
 
     //@@author cyanoei

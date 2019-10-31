@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+//@@author patwaririshab
 class CommandTest {
     StockList newList = new StockList();
     Cli cli = new Cli();
@@ -42,4 +43,5 @@ class CommandTest {
         new Command(CommandType.LIST).execute(newList, cli, storage);
         assertEquals("1. [T] [X] Test TODO\n", os.toString());
     }*/
+    //@@author
 }

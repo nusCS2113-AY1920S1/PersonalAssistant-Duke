@@ -112,4 +112,5 @@ class StockTest {
     @Test
     void getDataAsArray() {
     }
+    //@@author
 }

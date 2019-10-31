@@ -70,4 +70,5 @@ public class EditStockCommand extends Command {
         ui.drawTable(list.getAllStocksStruct());
         return output;
     }
+    //@@author
 }

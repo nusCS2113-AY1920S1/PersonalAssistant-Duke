@@ -134,11 +134,11 @@ public class StockList {
      * @return the stock before edits, for printing purposes.
      */
     public Stock setStock(String stockCode, StockProperty property, String newValue) {
-        Stock beforeEdits;
+        Stock updatedStock;
         for (StockType stockType : stockList) {
-            beforeEdits = stockType.setStock(stockCode, property, newValue);
-            if (beforeEdits != null) { //The corresponding stockCode was found in the StockList
-                return beforeEdits;
+            updatedStock = stockType.setStock(stockCode, property, newValue);
+            if (updatedStock != null) { //The corresponding stockCode was found in the StockList
+                return updatedStock;
             }
         }
         return null;

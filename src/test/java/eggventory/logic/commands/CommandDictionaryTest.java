@@ -4,11 +4,13 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-//@@author patwaririshab
-class ByeCommandTest {
+class CommandDictionaryTest {
 
     @Test
-    void execute() {
+    void searchDictCommands() {
     }
-    //@@author
+
+    @Test
+    void searchDictArguments() {
+    }
 }

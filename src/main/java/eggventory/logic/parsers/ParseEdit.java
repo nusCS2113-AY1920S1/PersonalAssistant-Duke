@@ -37,8 +37,13 @@ public class ParseEdit {
     private Command processEditStockType(String input) throws BadInputException {
         String[] addInput = input.split(" +", 2);
 
-        if (Parser.isReserved(addInput[1])) {
+
+        if (Parser.isReserved(addInput[0])) {
             throw new BadInputException("'" + addInput[0] + "' is an invalid name as it is a keyword"
+                    + " for an existing command.");
+        }
+        if (Parser.isReserved(addInput[1])) {
+            throw new BadInputException("'" + addInput[1] + "' is an invalid name as it is a keyword"
                     + " for an existing command.");
         }
 
