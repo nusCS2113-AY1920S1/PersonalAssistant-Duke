@@ -18,9 +18,8 @@ import oof.model.task.Assignment;
 import oof.model.task.Event;
 import oof.model.task.Task;
 import oof.model.task.TaskList;
-import oof.model.tracker.ModuleTracker;
-import oof.model.tracker.ModuleTrackerList;
 import oof.model.tracker.Tracker;
+import oof.model.tracker.TrackerList;
 
 /**
  * Represents a Ui class that is responsible for Input/Output operations.
@@ -1002,11 +1001,11 @@ public class Ui {
      *
      * @param moduleTrackerList   ArrayList of Tracker objects.
      */
-    public void printTrackerDiagram(ModuleTrackerList moduleTrackerList) {
+    public void printTrackerDiagram(TrackerList moduleTrackerList) {
         printLine();
         for (int i = 0; i < moduleTrackerList.getSize(); i++) {
-            ModuleTracker moduleTracker = moduleTrackerList.getModuleTracker(i);
-            int timeTaken = (int) moduleTracker.getTotalTimeTaken();
+            Tracker moduleTracker = moduleTrackerList.getTracker(i);
+            int timeTaken = (int) moduleTracker.getTimeTaken();
             if (timeTaken < SEGMENT_SIZE) {
                 System.out.print("| ");
             } else {

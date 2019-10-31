@@ -1,8 +1,5 @@
 package oof.model.tracker;
 
-import oof.model.task.Assignment;
-
-import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -30,6 +27,17 @@ public class Tracker {
         this.description = description;
         this.startDate = startDate;
         this.lastUpdated = lastUpdated;
+        this.timeTaken = timeTaken;
+    }
+
+    /**
+     * Constructor for Tracker.
+     *
+     * @param moduleCode    module code.
+     * @param timeTaken     total time spent on time taken.
+     */
+    public Tracker(String moduleCode, long timeTaken) {
+        this.moduleCode = moduleCode;
         this.timeTaken = timeTaken;
     }
 

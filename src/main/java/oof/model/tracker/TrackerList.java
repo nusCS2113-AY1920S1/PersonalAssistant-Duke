@@ -1,6 +1,7 @@
 package oof.model.tracker;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class TrackerList {
@@ -38,6 +39,23 @@ public class TrackerList {
         }
         return null;
     }
+
+    /**
+     * Compare time taken property between two Tracker objects.
+     */
+    public static Comparator<Tracker> timeTakenComparator = new Comparator<>() {
+        /**
+         * Compare time taken property between two Tracker objects.
+         * @param mt1    Tracker object.
+         * @param mt2    Tracker object.
+         * @return      difference between time taken property between two Tracker objects.
+         */
+        public int compare(Tracker mt1, Tracker mt2) {
+            int timeTaken1 = (int) mt1.getTimeTaken();
+            int timeTaken2 = (int) mt2.getTimeTaken();
+            return timeTaken1 - timeTaken2;
+        }
+    };
 
     /**
      * Retrieves all the Tracker objects in trackerList.
