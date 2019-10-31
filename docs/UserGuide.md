@@ -241,6 +241,84 @@ things to include in version 2:
 
 ...
 
+### 3.2 fridge commands
+
+To be able to execute the fridge commands the user must choose, type `'a'- remove all expired` or `'b' - add/remove/use an ingredient` in the main menu.  
+
+ while in mode `b`:
+
+by using the template, typing `template`, the user can see how to use which command
+
+by typing `show`, the user gets a list of all of the ingredients currently in the fridge, indexed and sorted by expiry date
+
+by typing `back`, he returns to the main menu
+
+#### 3.2.1 add an ingredient to the Fridge
+
+To add an ingredient to the Fridge, user needs to execute command below:
+
+Format: `add <Ingredient_name> <ingredient_amount> <expiry_date: DD/MM/YYYY>`
+
+Examples:
+
+- `add chicken 250 3/11/2019`
+
+- `add cheese 150 11/11/2019`
+
+  If the user adds an expired ingredient,eg. `add cheese 150 2/3/2019`  he is warned by ` WARNING! expired ingredient: cheese, amount is: 100 expired on 2nd of March 2019`
+
+#### 3.2.2 remove an ingredient from the fridge
+
+To remove an ingredient from the Fridge, user needs to execute command below:
+
+Format: `remove <Ingredient_index>`
+
+The ingredient index can be found by typing `show`, see details above.
+
+Examples:
+
+- `remove 2`
+
+  if user enters an invalid index, a similar error message will appear
+
+  ` ☹ OOPS!!! Enter a valid ingredient number after delete, between 1 and 5. 
+  	You can type: 
+  	'template' to see the format of the commands, 
+  	'back' to see all your options, 
+  	'q' to exit`
+
+  
+
+#### 3.2.3 use an ingredient from the fridge
+
+To use an ingredient from the Fridge, user needs to execute command below:
+
+Format: `use <Ingredient_name> <ingredient_amout_to_be_used>`
+
+Examples:
+
+- `use cheese 100`
+
+  The user must use the most recently expiring ingredients in order to prevent food waste.  
+
+### 3.3 remove all expired ingredients from the fridge
+
+From the main menu the user selects `a`, and it will remove all expired ingredients from the fridge.
+
+If there are no expired ingredients, he gets the following message:
+
+`☹ OOPS!!! Seems like you don't have any expired ingredients in the fridge!.` 
+
+When the user loads the program if there are any expired ingredients in the fridge, he is notified by: 
+
+`A gentle reminder you have some  expired ingredients in the fridge`
+	 `Would you like to see the list?`
+
+by typing `yes`, the list of expired ingredients is printed
+
+by typing anything else, the main menu appears where the user can select how he whishes to proceed.
+
+
 ## 4. Command Summary
 
 Index | Keyword  | Usage 
