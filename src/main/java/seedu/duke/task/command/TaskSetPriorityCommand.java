@@ -4,6 +4,7 @@ import seedu.duke.CommandParseHelper;
 import seedu.duke.common.command.Command;
 import seedu.duke.common.model.Model;
 import seedu.duke.task.TaskList;
+import seedu.duke.task.entity.Task;
 import seedu.duke.ui.UI;
 
 /**
@@ -12,7 +13,7 @@ import seedu.duke.ui.UI;
 public class TaskSetPriorityCommand extends Command {
 
     private int index;
-    private String priorityLevel;
+    private Task.Priority priorityLevel;
 
     /**
      * Instantiation of set priority command.
@@ -20,7 +21,7 @@ public class TaskSetPriorityCommand extends Command {
      * @param index         index of task
      * @param priorityLevel priority level set for the task
      */
-    public TaskSetPriorityCommand(int index, String priorityLevel) {
+    public TaskSetPriorityCommand(int index, Task.Priority priorityLevel) {
         this.index = index;
         this.priorityLevel = priorityLevel;
     }

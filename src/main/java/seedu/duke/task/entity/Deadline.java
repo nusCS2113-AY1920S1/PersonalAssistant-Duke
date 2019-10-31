@@ -34,12 +34,13 @@ public class Deadline extends Task {
      * @param tags     tag associated with the task
      * @param priority priority level of the task
      */
-    public Deadline(String name, LocalDateTime time, String doAfter, ArrayList<String> tags, String priority) {
+    public Deadline(String name, LocalDateTime time, String doAfter, ArrayList<String> tags, Priority priority) {
         super(name);
         this.taskType = TaskType.Deadline;
         this.time = time;
         setDoAfterDescription(doAfter);
         setTags(tags);
+        setPriorityLevelTo(priority);
         setPriorityTo(priority);
     }
 

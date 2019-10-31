@@ -34,12 +34,13 @@ public class Event extends Task {
      * @param tags     tag associated with the task
      * @param priority priority level of the task
      */
-    public Event(String name, LocalDateTime time, String doAfter, ArrayList<String> tags, String priority) {
+    public Event(String name, LocalDateTime time, String doAfter, ArrayList<String> tags, Priority priority) {
         super(name);
         this.time = time;
         setDoAfterDescription(doAfter);
         this.taskType = TaskType.Event;
         setTags(tags);
+        setPriorityLevelTo(priority);
         setPriorityTo(priority);
     }
 
