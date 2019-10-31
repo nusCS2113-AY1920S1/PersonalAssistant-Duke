@@ -65,7 +65,7 @@ public class LimitParser extends Parser {
             String content = inputArray[2];
             return new SearchCommand(mode, component, content);
         } else if (commandToRun.equals(ParserStringList.COMMAND_SORT)) {
-            if(verifySort()) {
+            if (verifySort()) {
                 return new SortCommand(mode, inputArray[1]);
             } else {
                 return new ErrorCommand();
