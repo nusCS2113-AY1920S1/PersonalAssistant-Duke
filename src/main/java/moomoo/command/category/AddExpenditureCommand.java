@@ -1,15 +1,16 @@
-package moomoo.command;
+package moomoo.command.category;
 
 import java.time.LocalDate;
 
+import moomoo.command.Command;
 import moomoo.task.MooMooException;
 import moomoo.task.Storage;
 import moomoo.task.Ui;
 import moomoo.task.Budget;
-import moomoo.task.Category;
-import moomoo.task.CategoryList;
+import moomoo.task.category.Category;
+import moomoo.task.category.CategoryList;
 import moomoo.task.ScheduleList;
-import moomoo.task.Expenditure;
+import moomoo.task.category.Expenditure;
 
 public class AddExpenditureCommand extends Command {
 

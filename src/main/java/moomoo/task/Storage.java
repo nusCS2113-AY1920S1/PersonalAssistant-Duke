@@ -1,5 +1,8 @@
 package moomoo.task;
 
+import moomoo.task.category.Category;
+import moomoo.task.category.Expenditure;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -56,7 +59,6 @@ public class Storage {
             } else {
                 List<String> input = Files.readAllLines(Paths.get(this.categoryFilePath));
                 Category newCategory = new Category("misc");
-                Expenditure newExpenditure;
                 for (String s : input) {
                     if (s.startsWith("c/")) {
                         newCategory = new Category(s.replace("c/", ""));
@@ -64,9 +66,6 @@ public class Storage {
                     } else if (categoryArrayList.isEmpty()) {
                         categoryArrayList.add(newCategory);
                         saveCategoryToFile("misc");
-                    } else {
-                        newExpenditure = new Expenditure(4);
-                        newCategory.add(newExpenditure);
                     }
                 }
                 return categoryArrayList;
@@ -82,7 +81,8 @@ public class Storage {
      * @return populated category list
      * @throws MooMooException throws exception if file cannot be found
      */
-    private ArrayList<Category> populateDefaultCategories(ArrayList<Category> categoryArrayList) throws MooMooException {
+    private ArrayList<Category> populateDefaultCategories(ArrayList<Category> categoryArrayList)
+            throws MooMooException {
         categoryArrayList.add(new Category("misc"));
         categoryArrayList.add(new Category("food"));
         categoryArrayList.add(new Category("transportation"));

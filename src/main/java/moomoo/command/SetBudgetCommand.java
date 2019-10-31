@@ -1,8 +1,8 @@
 package moomoo.command;
 
 import moomoo.task.Budget;
-import moomoo.task.Category;
-import moomoo.task.CategoryList;
+import moomoo.task.category.Category;
+import moomoo.task.category.CategoryList;
 import moomoo.task.MooMooException;
 import moomoo.task.ScheduleList;
 import moomoo.task.Storage;
@@ -42,7 +42,7 @@ public class SetBudgetCommand extends Command {
             String categoryName = categories.get(i).toLowerCase();
             double categoryBudget = budgets.get(i);
 
-            if (catList.getCategory(categoryName) != null) {
+            if (catList.get(categoryName) != null) {
                 isUpdated = true;
                 budget.addNewBudget(categoryName, categoryBudget);
                 outputValue += "You have set $" + df.format(categoryBudget) + " as the budget for "

@@ -1,4 +1,4 @@
-package moomoo.task;
+package moomoo.task.category;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -9,12 +9,6 @@ public class Expenditure {
     private double cost;
     private String name;
     public LocalDate date;
-    private LocalDateTime dateTime;
-    
-    public Expenditure() {
-        this.cost = 0.0;
-    }
-
 
     /**
      * Initializes value of expenditure if given by user.

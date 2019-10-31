@@ -1,6 +1,21 @@
 package moomoo.task;
 
-import moomoo.command.*;
+import moomoo.command.Command;
+import moomoo.command.GraphCategoryCommand;
+import moomoo.command.GraphTotalCommand;
+import moomoo.command.EditBudgetCommand;
+import moomoo.command.ListBudgetCommand;
+import moomoo.command.SavingsBudgetCommand;
+import moomoo.command.SetBudgetCommand;
+import moomoo.command.ExitCommand;
+import moomoo.command.HelpCommand;
+import moomoo.command.ScheduleCommand;
+import moomoo.command.TotalCommand;
+import moomoo.command.category.AddCategoryCommand;
+import moomoo.command.category.AddExpenditureCommand;
+import moomoo.command.category.DeleteCategoryCommand;
+import moomoo.command.category.ListCategoryCommand;
+import moomoo.task.category.CategoryParser;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -36,13 +51,15 @@ public class Parser {
         case ("delete"):
             return parseDelete(scanner, ui);
         case ("sort"):
-            return new SortCategoryCommand();
+            return CategoryParser.parseSort(scanner, ui);
         case ("list"):
             return new ListCategoryCommand();
         case ("graph"):
             return parseGraph(scanner);
         case ("total"):
             return new TotalCommand();
+        case ("help"):
+            return new HelpCommand();
         default:
             throw new MooMooException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }

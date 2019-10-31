@@ -1,8 +1,8 @@
 package moomoo.command;
 
 import moomoo.task.Budget;
-import moomoo.task.Category;
-import moomoo.task.CategoryList;
+import moomoo.task.category.Category;
+import moomoo.task.category.CategoryList;
 import moomoo.task.ScheduleList;
 import moomoo.task.Storage;
 import moomoo.task.Ui;
@@ -47,7 +47,7 @@ public class ListBudgetCommand extends Command {
         for (int i = 0; i < categories.size(); ++i) {
             String categoryName = categories.get(i).toLowerCase();
 
-            if (catList.getCategory(categoryName) != null) {
+            if (catList.get(categoryName) != null) {
                 currentBudget = budget.getBudgetFromCategory(categoryName);
                 if (currentBudget == 0) {
                     outputValue += "Budget for " + categoryName + " has not been set.\n";

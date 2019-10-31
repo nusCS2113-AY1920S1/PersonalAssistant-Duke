@@ -1,6 +1,10 @@
-package moomoo.task;
+package moomoo.task.category;
+
+import moomoo.task.MooMooException;
+import moomoo.task.Ui;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 
 public class CategoryList {
     
@@ -17,14 +21,6 @@ public class CategoryList {
     public int size() {
         return categoryList.size();
     }
-    
-    public Category get(int i) throws IndexOutOfBoundsException{
-        return categoryList.get(i);
-    }
-
-    public ArrayList<Category> getCategoryList() {
-        return categoryList;
-    }
 
     public void add(Category newCategory) {
         categoryList.add(newCategory);
@@ -35,7 +31,29 @@ public class CategoryList {
         categoryList.remove(categoryNumber);
     }
 
-    public int find(String categoryName) throws MooMooException {
+    /**
+     * Returns the category if it currently exists.
+     * @param value Name of category to return.
+     * @return The category with name equal to value, or null if it is not found.
+     */
+    public Category get(String value) {
+        for (Category iterCategory : categoryList) {
+            if (iterCategory.toString().equalsIgnoreCase(value)) {
+                return iterCategory;
+            }
+        }
+        return null;
+    }
+
+    public Category get(int i) throws IndexOutOfBoundsException {
+        return categoryList.get(i);
+    }
+
+    public ArrayList<Category> getCategoryList() {
+        return categoryList;
+    }
+
+    private int find(String categoryName) throws MooMooException {
         for (int i = 0; i < size(); i++) {
             if (get(i).toString().contentEquals(categoryName)) {
                 return i;
@@ -49,10 +67,10 @@ public class CategoryList {
      *
      * @return total The total sum
      */
-    public double getGrandMonthTotal(int month) {
+    public double getGrandMonthTotal(int month, int year) {
         double total = 0;
         for (Category category : categoryList) {
-            total += category.getMonthlyTotal(month);
+            total += category.getTotal(month);
         }
         return total;
     }
@@ -65,8 +83,8 @@ public class CategoryList {
     public double getLargestExpenditure(int month) {
         double expenditure = 0;
         for (Category category : categoryList) {
-            if (category.getMonthlyTotal(month) > expenditure) {
-                expenditure = category.getMonthlyTotal(month);
+            if (category.getTotal(month) > expenditure) {
+                expenditure = category.getTotal(month);
             }
         }
         return expenditure;
@@ -81,7 +99,7 @@ public class CategoryList {
         for (int i = 0; i < this.categoryList.size(); i++) {
             categoryList = categoryList.concat("\n" + i + ". "
                     + this.categoryList.get(i).toString()
-                    + " [ $" + this.categoryList.get(i).getCategoryMonthTotal() + " ]");
+                    + " [ $" + this.categoryList.get(i).getTotal() + " ]");
         }
         ui.showCategoryList(categoryList);
     }
@@ -107,24 +125,10 @@ public class CategoryList {
     }
 
     /**
-     * Returns the category if it currently exists.
-     * @param value Name of category to return.
-     * @return
-     */
-    public Category getCategory(String value) {
-        for (Category iterCategory : categoryList) {
-            if (iterCategory.toString().equalsIgnoreCase(value)) {
-                return iterCategory;
-            }
-        }
-        return null;
-    }
-
-    /**
      * Populate the categoryList array with dummy variables. FOR TESTING PURPOSES.
      */
     public void testPopulate() {
-        ArrayList<String> population = new ArrayList<String>();
+        ArrayList<String> population = new ArrayList<>();
         population.add("Drugs");
         population.add("Food");
         population.add("Transportation");
@@ -132,22 +136,55 @@ public class CategoryList {
         population.add("Compartmentalisation");
         for (int i = 0; i < 5; i += 1) {
             Category newCategory = new Category(population.get(i));
-            newCategory.setMonthTotal(i * 100 / (i + 3));
             categoryList.add(newCategory);
         }
         Category gameCategory = new Category("Games");
         gameCategory.testPopulate();
-        gameCategory.setCategoryMonthTotal();
         categoryList.add(gameCategory);
         
     }
 
+    /**
+     * Determines if the category list contains a category with its name matching the query.
+     * @param categoryName Name of the category to be found
+     * @return True if a category is found, false if otherwise
+     */
     public boolean hasCategory(String categoryName) {
         try {
             find(categoryName);
             return true;
         } catch (MooMooException e) {
             return false;
+        }
+    }
+
+    /**
+     * Sorts the category list in alphabetical order.
+     */
+    public void sortByName() {
+        categoryList.sort(Comparator.comparing(Category::toString));
+        for (Category category : categoryList) {
+            category.sort("name");
+        }
+    }
+
+    /**
+     * Sorts the category list from largest to smallest total expenditure for the month.
+     */
+    public void sortByValue() {
+        categoryList.sort(Comparator.comparing(o -> String.valueOf(o.getTotal())));
+        for (Category category : categoryList) {
+            category.sort("value");
+        }
+    }
+
+    /**
+     * Sorts the category list in chronological order.
+     */
+    public void sortByTime() {
+        categoryList.sort(Comparator.comparing(Category::toString));
+        for (Category category : categoryList) {
+            category.sort("time");
         }
     }
 }
