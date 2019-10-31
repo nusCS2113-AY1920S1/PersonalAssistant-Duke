@@ -133,10 +133,7 @@ public class CommandParser {
      * @return Returns true if user input contains illegal characters, false otherwise.
      */
     private static boolean containsIllegalInput(String line) {
-        if (line.contains(DELIMITER)) {
-            return true;
-        }
-        return false;
+        return line.contains(DELIMITER);
     }
 
     /**
