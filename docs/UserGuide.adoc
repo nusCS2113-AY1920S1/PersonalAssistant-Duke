@@ -77,7 +77,7 @@ IMPORTANT: Hustler has several task types. It also has a difficulty level for ea
 Apart from have simple ToDo commands, you will most likely have time constraints. Hustler allows you to add Deadlines and Events and make them recurrent so they repeat themselves every set time periods. The difficulty of the task can also be added. All of this can be done with a simple addition to the syntax.
 
 // tag::base-alt[]
-[width="170"]
+[width="90"]
 |===
 
 | S/N | Command | Elaboration
@@ -99,19 +99,14 @@ Apart from have simple ToDo commands, you will most likely have time constraints
 |===
 // end::base-alt[]
 
-----
-The tagging and difficulty settings are optional and can be appended to every other types of task given. 
-----
 
-----
-By making these changes to the syntax of the command additions can be made to the task type.
-----
+IMPORTANT: The tagging and difficulty settings are optional and can be appended to every other types of task given. 
+
+IMPORTANT: By making these changes to the syntax of the command additions can be made to the task type.
 
 While using keywords, the order in which the keywords are issued is important. First the `/at` or `/by` keywords are to be added followed by `/every` if the task is recurring. 
 
 Some trivial examples can be seen below:
-  
-Examples:
 
 *	 */add read book* (ToDo)
 *	 */add Homework /by 8/8/2019 2359* (Deadline)
@@ -119,11 +114,13 @@ Examples:
 *	 */add Team meeting /at 10/8/2019 1500* (Event)
 *  */add Family dinner /at 15/8/2019 1800 /every 2 weeks* (Recurring Event)
 
-=== 3A.2 Deleting a task : `/delete`
+=== 3.2 Deleting a task : `/delete`
 
-Sometimes you might want to delete a task because you no longer have to perform it. In order to do so, a `/delete` command can be issued in the command line. The syntax of the delete keyword is as follows.
+Sometimes you might want to delete a task because you no longer have to perform it. In order to do so, a `/delete` command can be issued in the command line.
 
-*/delete <index>*
+The syntax for adding a task to the list is as follows:
+
+TIP: */delete <index>*
 
 1.	Look at the index of the command you want to delete.
 2.	Type in the above command.
