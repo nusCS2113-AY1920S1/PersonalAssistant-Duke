@@ -18,9 +18,8 @@ INC @ 30.0 @ Initialize account: OCBC @ 27/7/2017
 INC @ 200.0 @ Deposit to OCBC @ 3/3/2018
 INC @ 200.0 @ Deposit to OCBC @ 3/3/2018
 INC @ 2000.0 @ TA Pay @ 9/10/1997
-EXP @ 70.0 @ Flowers for the lady  @ present  @ 9/10/1997
-EXP @ 50.0 @ Lego for the boy  @ toy  @ 9/10/1997
-EXP @ 50.0 @ Doll for the girl  @ t @ 9/10/1997
+EXP @ 120.0 @ A Jays 5 @ present @ 9/10/1997
+EXP @ 94.0 @ HHN VIP Tickets @ gift @ 4/9/2015
 G @ 100000.0 @ buy Lambo  @ GS @ 10/12/2040 @ MEDIUM
 G @ 100000.0 @ buy Boat  @ GS @ 11/12/2050 @ LOW
 G @ 100000.0 @ buy HDB  @ GS @ 15/1/2050 @ HIGH
