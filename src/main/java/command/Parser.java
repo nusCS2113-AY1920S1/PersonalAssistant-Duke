@@ -90,14 +90,17 @@ public class Parser {
                 process.snooze(input, tasklist, ui);
                 process.commandHistory(input, ui, storage);
                 //storage.save(tasklist.returnArrayList());
-            /*
-            `} else if (instr.isPostpone(input)) {
+
+            } else if (instr.isPostpone(input)) {
                 process.postpone(input, tasklist, ui);
-                storage.save(tasklist.returnArrayList());`
-            */
+                //storage.save(tasklist.returnArrayList());
+                process.commandHistory(input, ui, storage);
             } else if (instr.isReschedule(input)) {
                 // process.reschedule(input, tasklist, ui);
                 //storage.save(tasklist.returnArrayList());
+            } else if (instr.isDeleteTask(input)) {
+                process.deleteTask(input, tasklist, ui);
+                process.commandHistory(input, ui, storage);
             } else if (instr.isViewSchedule(input)) {
                 process.viewSchedule(input, tasklist, ui);
                 process.commandHistory(input, ui, storage);
@@ -134,6 +137,8 @@ public class Parser {
             } else if (instr.isAssignFund(input)) {
                 process.assignFund(input, ui, fund);
                 process.commandHistory(input, ui, storage);
+            } else if (instr.isShowFund(input)) {
+                process.showFund(input, ui, fund);
             } else if (instr.isHelp(input)) {
                 ui.printHelpMessage();
             } else {
