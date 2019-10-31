@@ -303,7 +303,60 @@ TIP: */update <index> <duration H:M:S>*
 
 On running this command the time allotted to task at index specified is changed to a duration in the format <hours:minutes:seconds>. 
 
+Executing the `/update` command:
+----
+1. In order to change the time allotted to 3 in Figure 4 from 1 hour 40 minutes to 1 hour the following command can be run.
+2. Type /update 3 1:0:0 and hit enter.
+3. As a result, the time changes.
+----
 
+IMPORTANT: For the recommendation engine to work properly, please update the tasks and the time spent on them before stopping the timer. The amount of time spent on the tasks get stored in history to help in making future recommendations.
+
+=== 3.7 Undo a previous command
+
+There will be instances where you have deleted a task on accident. Fortunately, Hustler is able to handle such situations as you can trace back your wrong commands.
+
+=== 3.7.1 Undoing a previous command with `/undo`
+
+The `/undo` command allows the user to undo any number of the most recent commands. This command restores HUSTLER back to the state it was in before those undone commands were executed.
+
+The syntax of the command is as follows:
+
+TIP: */undo <optional number (of commands to undo)>*
+
+Example Scenario:
+
+Let’s say that you have been entering new tasks into HUSTLER, and you have accidentally deleted an important task (“Family reunion dinner at 6pm on Thursday”) from your list! Instead of trawling through old text messages in a desperate attempt to recall important information associated with the deleted task and then re-entering said information all over again, you can easily restore all the deleted task and all its details by undoing the `/delete` command you have just entered.
+
+Executing the `/undo` command:
+----
+1.	Type /undo into the command box, and press Enter to execute it.
+2. The text box will display the message “These commands have been undone:” followed by the list of commands that were undone as a result.
+3. And you can see the deleted task (“Family reunion dinner at 6pm on Thursday”) is visible in the list once again.
+----
+
+==== 3.7.2 Redoing an undone command with `/redo`
+
+This command re-executes the series of commands that were undone by the latest `/undo` command, thereby reversing it.
+
+The syntax of the command is as follows:
+
+TIP: */redo*
+
+Example Scenario:
+
+Let’s say you have executed the /delete command to delete the “Family reunion dinner at 6pm on Thursday” task from your list of tasks. You may undo this action and restore the deleted task by executing the `/undo` command. (See Undoing a previous command.)
+
+Then, if you decide that you want the task to remain deleted after all, you may very quickly and easily execute the `/redo` command to reverse the `/undo` command that you had just executed.
+
+Executing the `/redo` command:
+----
+1. Type /redo into the command box, and press Enter to execute it.
+2. The result box will display the message “All previously undone commands have been redone!”
+3. And the task, “Family reunion dinner at 6pm on Thursday”, is again gone from the list.
+----
+
+=== 3.8 Snoozing of tasks
 
 
 === Separate
