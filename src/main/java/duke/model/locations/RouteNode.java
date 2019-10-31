@@ -57,7 +57,11 @@ public abstract class RouteNode extends Venue {
      * @return description The description of the RouteNode.
      */
     public String getDescription() {
-        return description;
+        if (!(description == null || description.equals("null"))) {
+            return description;
+        } else {
+            return "";
+        }
     }
 
     /**

@@ -52,25 +52,29 @@ public class RouteNodeShowCommand extends Command {
     @Override
     public CommandResultImage execute(Model model) throws QueryOutOfBoundsException,
             ApiException {
-        Route route = model.getRoutes().get(indexRoute);
-        RouteNode node = model.getRoutes().get(indexRoute).getNode(indexNode);
-        String rgb = RED_VALUE_OTHER + "," + GREEN_VALUE_OTHER + "," + BLUE_VALUE_OTHER;
+        try {
+            Route route = model.getRoutes().get(indexRoute);
+            RouteNode node = model.getRoutes().get(indexRoute).getNode(indexNode);
+            String rgb = RED_VALUE_OTHER + "," + GREEN_VALUE_OTHER + "," + BLUE_VALUE_OTHER;
 
-        String param;
-        if (node instanceof BusStop) {
-            param = ((BusStop) node).getBusCode();
-        } else {
-            param = node.getAddress();
+            String param;
+            if (node instanceof BusStop) {
+                param = ((BusStop) node).getBusCode();
+            } else {
+                param = node.getAddress();
+            }
+
+            Venue query = ApiParser.getLocationSearch(param);
+            ArrayList<String> points = generateOtherPoints(route, node, indexNode);
+
+            Image image = ApiParser.getStaticMap(ApiParser.generateStaticMapParams(DIMENSIONS, DIMENSIONS, ZOOM_LEVEL,
+                    String.valueOf(query.getLatitude()), String.valueOf(query.getLongitude()), "",
+                    generateLineParam(points, rgb), generatePointParam(route, node)));
+
+            return new CommandResultImage(Messages.PROMPT_ROUTE_SELECTOR_DISPLAY + node.getDisplayInfo(), image);
+        } catch (IndexOutOfBoundsException e) {
+            throw new QueryOutOfBoundsException(String.valueOf(indexNode));
         }
-
-        Venue query = ApiParser.getLocationSearch(param);
-        ArrayList<String> points = generateOtherPoints(route, node, indexNode);
-
-        Image image = ApiParser.getStaticMap(ApiParser.generateStaticMapParams(DIMENSIONS, DIMENSIONS, ZOOM_LEVEL,
-                String.valueOf(query.getLatitude()), String.valueOf(query.getLongitude()), "",
-                generateLineParam(points, rgb), generatePointParam(route, node)));
-
-        return new CommandResultImage(Messages.PROMPT_ROUTE_SELECTOR_DISPLAY + node.getDisplayInfo(),image);
     }
 
     /**

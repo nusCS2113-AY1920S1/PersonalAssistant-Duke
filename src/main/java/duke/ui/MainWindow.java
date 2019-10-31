@@ -120,6 +120,7 @@ public class MainWindow extends UiPart<Stage> {
                 if (result instanceof CommandResultMap) {
                     new MapWindow((CommandResultMap) result).show();
                 }
+
             } catch (DukeException | FileNotFoundException e) {
                 sgTravelShow(e.getMessage());
             }

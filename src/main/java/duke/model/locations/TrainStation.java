@@ -42,11 +42,19 @@ public class TrainStation extends RouteNode {
      * @param model The model.
      */
     public void fetchData(Model model) {
+        String[] addressDetails = this.getAddress().split(" ");
+        StringBuilder addressSB = new StringBuilder();
+        for (String detail : addressDetails) {
+            addressSB.append(detail.toUpperCase(), 0, 1).append(detail.substring(1)).append(" ");
+        }
+        String address = addressSB.toString();
+        address = address.substring(0, address.length() - 1);
+
         HashMap<String, TrainStation> allTrainStations = model.getMap().getTrainMap();
-        if (allTrainStations.containsKey(this.getAddress())) {
-            this.setAddress(allTrainStations.get(this.getAddress()).getAddress());
-            this.setLatitude(allTrainStations.get(this.getAddress()).getLatitude());
-            this.setLongitude(allTrainStations.get(this.getAddress()).getLongitude());
+        if (allTrainStations.containsKey(address)) {
+            this.setAddress(address + " MRT");
+            this.setLatitude(allTrainStations.get(address).getLatitude());
+            this.setLongitude(allTrainStations.get(address).getLongitude());
         }
     }
 }

@@ -53,7 +53,7 @@ public class PathFinder {
         case MRT:
             return findTrainRoute(start, end);
         default:
-            return findMixedRoute(start, end);
+           return findMixedRoute(start, end);
         }
     }
 
@@ -449,6 +449,8 @@ public class PathFinder {
                 break;
             }
         }
+
+
         return result;
     }
 
