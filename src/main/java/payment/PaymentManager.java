@@ -1,5 +1,7 @@
 package payment;
 
+import ui.Ui;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -48,7 +50,7 @@ public abstract class PaymentManager {
     /**
      * Edits the Payments object details, may overload string to take different ways of inputs.
      */
-    public static void editPayee(String payee, String inv, String fieldToAmend, String replace, HashMap<String, Payee> managermap) {
+    public static void editPayee(String payee, String inv, String fieldToAmend, String replace, HashMap<String, Payee> managermap, Ui ui) {
         Field field = strToField(fieldToAmend);
         if (inv.isEmpty()) {
             if (field == Field.PAYEE) {
@@ -60,6 +62,7 @@ public abstract class PaymentManager {
             } else if (field == Field.PHONE) {
                 managermap.get(payee).phoneNum = replace;
             }
+            ui.printEditMessage(managermap.get(payee));
         } else {
             for (Payments payment : managermap.get(payee).payments) {
                 if (payment.inv.equals(inv)) {
@@ -70,10 +73,11 @@ public abstract class PaymentManager {
                     } else if (field == Field.INV) {
                         payment.inv = replace;
                     }
+                    ui.printEditMessage(payment, payee);
                     break;
                 }
-                assert (false); //Invalid invoice number <-- TODO : Raise error
             }
+            assert (false); //Invalid invoice number <-- TODO : Raise error
         }
     }
 
