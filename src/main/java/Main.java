@@ -1,8 +1,16 @@
+import java.awt.*;
 import java.io.IOException;
 import javafx.application.Application;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.SplitPane;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 /**
@@ -23,6 +31,8 @@ public class Main extends Application {
             stage.setTitle("Financial Ghost");
             fxmlLoader.<MainWindow>getController().setDuke(duke);
             stage.show();
+
+
         } catch (IOException e) {
             e.printStackTrace();
         }
