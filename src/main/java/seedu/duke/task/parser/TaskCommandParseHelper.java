@@ -2,7 +2,12 @@ package seedu.duke.task.parser;
 
 import javafx.util.Pair;
 import seedu.duke.CommandParseHelper;
-import seedu.duke.common.command.*;
+import seedu.duke.common.command.InvalidCommand;
+import seedu.duke.common.command.LinkCommand;
+import seedu.duke.common.command.HelpCommand;
+import seedu.duke.common.command.Command;
+import seedu.duke.common.command.FlipCommand;
+import seedu.duke.common.command.ExitCommand;
 import seedu.duke.common.model.Model;
 import seedu.duke.task.command.TaskAddCommand;
 import seedu.duke.task.command.TaskClearListCommand;
@@ -24,7 +29,8 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static seedu.duke.CommandParseHelper.*;
+import static seedu.duke.CommandParseHelper.extractTags;
+import static seedu.duke.CommandParseHelper.extractTime;
 
 public class TaskCommandParseHelper {
     private static UI ui = UI.getInstance();
@@ -168,13 +174,13 @@ public class TaskCommandParseHelper {
      * @return the ArrayList of strings
      */
     public static ArrayList<String> extractLinks(ArrayList<Command.Option> optionList) {
-        ArrayList<String> LinksList = new ArrayList<>();
+        ArrayList<String> linksList = new ArrayList<>();
         for (Command.Option option : optionList) {
             if (option.getKey().equals("link")) {
-                LinksList.add(option.getValue().strip());
+                linksList.add(option.getValue().strip());
             }
         }
-        return LinksList;
+        return linksList;
     }
 
     private static Command parseDoAfterCommand(String input, ArrayList<Command.Option> optionList) {
@@ -209,13 +215,14 @@ public class TaskCommandParseHelper {
     private static Command parsePriorityCommand(String input, ArrayList<Command.Option> optionList) {
         Matcher priorityCommandMatcher = prepareCommandMatcher(input, "^set\\s+(?<index>[\\d]+)\\s*$");
         if (!priorityCommandMatcher.matches()) {
-            return new InvalidCommand("Please enter task index after 'set' and priority level after '-priority' "
-                    + "option");
+            return new InvalidCommand("Please enter task index after 'set' and priority level "
+                    + "after '-priority' option");
         }
         try {
             String priority = extractPriority(optionList);
             if ("".equals(priority)) {
-                return new InvalidCommand("Please enter a priority level to set for the task after \'-priority\' option");
+                return new InvalidCommand("Please enter a priority level to set for the task after"
+                        + " \'-priority\' option");
             }
             int index = parseTaskIndex(priorityCommandMatcher.group("index"));
             return new TaskSetPriorityCommand(index, priority);
@@ -229,7 +236,8 @@ public class TaskCommandParseHelper {
     private static Command parseSnoozeCommand(String input, ArrayList<Command.Option> optionList) {
         Matcher snoozeCommandMatcher = prepareCommandMatcher(input, "^snooze\\s+(?<index>[\\d]+)\\s*$");
         if (!snoozeCommandMatcher.matches()) {
-            return new InvalidCommand("Please enter task index after 'snooze' and duration to snooze after \'-by\' ");
+            return new InvalidCommand("Please enter task index after 'snooze' and duration to "
+                    + "snooze after \'-by\' ");
         }
         try {
             String snooze = extractSnooze(optionList);
@@ -470,7 +478,7 @@ public class TaskCommandParseHelper {
         ArrayList<Integer> emailList = new ArrayList<>();
         for (Command.Option option : optionList) {
             if (option.getKey().equals("email")) {
-                emailList.add(Integer.parseInt(option.getValue().strip())-1);
+                emailList.add(Integer.parseInt(option.getValue().strip()) - 1);
             }
         }
         return emailList;

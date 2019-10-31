@@ -261,9 +261,10 @@ public class Email {
      * @return a string capturing the email info
      */
     public String toCliString() {
-        String output = this.subject + System.lineSeparator() + "\t" + "From: " + this.sender.toString() +
-                System.lineSeparator() + "\tReceivedDateTime: " + getDateTimeString() + System.lineSeparator()
-                + "\t" + "Body: " + body.substring(0, 30) + "..." + System.lineSeparator();
+        String output = this.subject + System.lineSeparator() + "\t" + "From: " + this.sender.toString()
+                + System.lineSeparator() + "\tReceivedDateTime: " + getDateTimeString()
+                + System.lineSeparator() + "\t" + "Body: " + body.substring(0, 30) + "..."
+                + System.lineSeparator();
         return output;
     }
 

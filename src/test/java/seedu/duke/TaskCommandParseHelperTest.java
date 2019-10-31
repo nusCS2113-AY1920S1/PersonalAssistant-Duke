@@ -392,38 +392,6 @@ public class TaskCommandParseHelperTest {
         }
     }
 
-//    @Test
-//    public void parseUpdateCommandTest() {
-//        try {
-//            Class<?> parser = Class.forName("seedu.duke.task.parser.TaskCommandParseHelper");
-//            Method method = parser.getDeclaredMethod("parseUpdateCommand", String.class, ArrayList.class);
-//            method.setAccessible(true);
-//
-//            ArrayList<String> descriptions = new ArrayList<>(Arrays.asList("HIGH", "11/12/2019 1220",
-//                    "abc", "123", "something else"));
-//            ArrayList<TaskUpdateCommand.Attributes> attributes = new ArrayList<>(Arrays.asList(
-//                    TaskUpdateCommand.Attributes.PRIORITY, TaskUpdateCommand.Attributes.TIME,
-//                    TaskUpdateCommand.Attributes.TAG, TaskUpdateCommand.Attributes.TAG,
-//                    TaskUpdateCommand.Attributes.DO_AFTER));
-//
-//            //positive cases
-//            assertTrue(method.invoke(null, descriptions, attributes) instanceof TaskUpdateCommand);
-//            //negative cases
-//            //invalid character at the end
-//            assertTrue(method.invoke("a", null, attributes) instanceof InvalidCommand);
-//            //no name
-//            assertTrue(method.invoke(null, descriptions, null) instanceof InvalidCommand);
-//        } catch (ClassNotFoundException e) {
-//            fail("No such class");
-//        } catch (NoSuchMethodException e) {
-//            fail("No such method");
-//        } catch (InvocationTargetException e) {
-//            fail(e.getMessage());
-//        } catch (IllegalAccessException e) {
-//            fail("No Access");
-//        }
-//    }
-
     @Test
     public void checkTimeStringTest() {
         assertEquals("Mon", TaskCommandParseHelper.checkTimeString("Mon 1212").getKey());

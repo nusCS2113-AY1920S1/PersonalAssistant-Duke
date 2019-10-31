@@ -117,7 +117,8 @@ public class CommandParseHelper {
         return parseCommandOfType(commandString, userInputType);
     }
 
-    private static Command parseCommandOfType(String commandString, InputType userInputType) throws CommandParseException {
+    private static Command parseCommandOfType(String commandString, InputType userInputType)
+            throws CommandParseException {
         if (!isCommandFormat(commandString)) {
             return new InvalidCommand("Command is in wrong format");
         }

@@ -47,6 +47,9 @@ public class SimpleServer {
         Http.setAuthCode(code);
     }
 
+    /**
+     * Stops access to server
+     */
     public static void stopServer() {
         if (server != null) {
             System.out.println("server stopping...");
