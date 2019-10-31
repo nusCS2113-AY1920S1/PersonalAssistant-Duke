@@ -1,4 +1,4 @@
-= DukeGeek - Project Portfolio
+= danisheddie - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
@@ -9,15 +9,15 @@
 
 == Overview
 
-This portfolio serves to document my contributions in a Software Engineering project for CS2113T.
-The team consist of 4 members and we were tasked to develop a working application within 8 weeks.
-Throughout the project, we were challenged to incorporate a Software Engineering project into a product of our own.
-We decided to morph the existing application to a task manager called Coach Manager.
+This portfolio serves to document my contributions in a team-based software engineering project for the module CS2113T. The team comprises of 4 members and we were tasked to develop a working application within 8 weeks. Throughout the project, we were challenged to incorporate a Software Engineering project into a product of our own. We decided to morph the existing application into a task manager, called Coach Manager.
 
-Our team have decided to come up with Coach Manager.
-Coach Manager is an application that is used for trainers to manage their classes and students for better organization.
-Trainers are able create classes, manage their students and also create training plans. This helps coaches to ease
-their administrative matters for their classes.
+To comply with the module requirements, the team is constrained to start from an existing code base – Duke Level 9 and the user must interact with the application via Command Line interface(CLI).
+
+Coach Manager is a desktop application created for trainers to assist them in managing their schedule and the progress of their students.
+
+This is what our project looks like.
+
+image::mainmenu.png[align="Center"]
 
 My role was to design a feature that Manages student `details` and `progress` which allow trainers to better organise
 their students and keep track of their training progress.
@@ -50,7 +50,8 @@ This feature is implemented through the ParserCommand class.
 *** Eg: Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
 *** Eg: Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
 ** Tools:
-*** Installed Travis.
+*** I integrated continuous Integration, code reviews and code analytics tools:
+**** Continuous Integration tools: Travis-CI
 
 
 == Contributions to the User Guide
@@ -64,8 +65,9 @@ Shows a list of all the students in the coach manager.
 ** *Format*: `list`
 ** *Examples*:
 |===
-|`list` +
+|Enter command `list` once you are in Manage Students menu. +
 
+|Output: +
 Here are your list of students: +
 1. Danish +
 2. Eddie +
@@ -84,9 +86,12 @@ Find a student whose names contain any of the given keywords.
 
 ** *Examples*:
 |===
-|`find Dan` +
-
-Returns Danish and Danial
+| Enter command `find Dan` once you are in Manage Students menu. +
+| Output: +
+This will be the output displayed. +
+Here are your matching search: +
+1. Danish +
+2. Danial
 |===
 
 *3. Adding a student:* `add` +
@@ -97,8 +102,8 @@ Add a new student to the list of students.
 ** *Example:*
 
 |===
-|add Danish, 22, Woodlands +
-
+|Enter the command `add Danish, 22, Woodlands` once you are in Manage Student menu. +
+| Output: +
 Student have been added: +
 Name: danish eddie +
 Age: 22 +
@@ -106,79 +111,111 @@ Address: woodlands +
 Now you have 1 students in your list.
 |===
 
-*2.3.4. Deleting a student:* delete *(v1.2)* +
+*4. Deleting a student:* `delete`  +
 Deleting a specific student from the list of students using the index.
 
-*Format:* delete [INDEX]
+** *Format:* `delete [INDEX]`
 
 * Deletes student at the specific INDEX
 * The index refers to the index number shown in the displayed student list
 * Index must be a positive integer 1, 2, 3,...
 
-Examples:
-
-* student-list
-* delete 3
+** *Examples:*
+|===
+| Step 1: Enter command `list` to view your current available student +
+ |Step 2: Let's say you want to delete the 3rd student in the list. Send the command `delete 3` +
+| Output: +
 Deletes the 3rd student on the list
+|===
 
-*2.3.5. View student particulars:* particulars *(v2.0)* +
-To view the details of specific students.
-
-*Format:* particulars [INDEX]
-
-* All the particulars of the student will be listed. e.g Name, Age, Address
-
-Example:
-
-* list
-* Particulars 2
-Particulars of the student  at index 2 will be displayed. +
-Danish Eddie Particulars: +
-Age: 22 +
-Home Address: Blk 555 Woodlands Dr 5
-
-*2.3.6. Edit student particulars:* edit *(v2.0)* +
-Editing the particulars for a student.
-
-*Format: *edit [INDEX] [ADDRESS]
-
-* Needs to select the student index on the list and the details intended to edit.
-
-Example:
-
-* list
-* edit 2 address
-* New Address: Clementi Ave 6
-Danish Address has been updated: +
-Address: Clementi Ave 6
-
-
-*2.3.7 Add progress to a student: *add progress *(2.0)* +
+*5. Add progress to a student:* `add progress` *(To be implemented)* +
 To add the training progress of a particular student
 
-*Format*: add progress [INDEX] /n [PROGRESS DETAILS]
+** *Format*: add progress [INDEX] /n [PROGRESS DETAILS]
 
-Example:
-
-* add progress 2
-* Able to swim breastroke proficiently
-* Progress added for Danish
-
-*2.3.8 View a student progress: *view progress *(2.0)* +
-Able to view all the progress of the student
-
-*Format*: view progress [INDEX]
-
-Example:
-
-* view progress 2
-* Progress for Danish:
-. Able to swim breastroke proficiently.
+** *Example:*
+|===
+| Step 1: Enter command `add progress 2` to add the progress of the student at the second index of the student list.
+| Step 2: Enter the progress pf the student. +
+For example: Able to swim breastroke proficiently
+| Output: +
+ Progress added for Danish
+|===
 
 == Contributions to the Developer Guide
 
 |===
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+(To be edited)
+
+== 2. Setting Up
+
+=== This section provides a step by step walkthrough on how to set up the application.
+
+
+=== 2.1 Prerequisites
+
+
+. JDK 11 or above is required
+
+. IntelliJ IDE is recommended.
+
+=== 2.2 Setting up the project on your computer
+
+
+. Fork and clone the forked remote on your local machine.
+
+. Launch Intellij (If you’re not on the IntelliJ Welcome screen please close your existing project by going to File > Close Project)
+
+. Set up the correct JDK version for Gradle
+
+.. Click Configure > Structure for New Projects
+.. Under Project Settings Click on Project
+
+.. Under Project SDK Click New… and point it to JDK 11 path.
+
+.. Click OK to save the configuration
+
+. Click Import Project
+
+. Locate the build.gradle file and select it. Click Open.
+
+. Open the IntelliJ console/terminal and run the gradle command gradlew processResource on Windows or ./gradlew processResource on Mac/Linux (If you are encountered a permission error: ./gradlew: Permission denied add the executable permission to the shell script by running chmod 744 gradlew in your terminal) It should finish with the BUILD SUCCESSFUL message. This will generate the resources required by the application and tests.
+
+=== 2.3 Verifying the setup
+
+
+. Run Duke to verify and try a few commands. (Refer here {insert link to the command page} the commands)
+
+Run the JUNIT Test/gradlew test command to ensure that all the test case passes.
+
+
+=== 4.1 Manage Students Feature
+
+This feature allows the coaches to handle any relevant details that involves the student such as adding and deleting a student, editing their particulars and adding their progress during training.
+
+==== 4.1.1 Current Implementation
+
+The login mechanism is facilitated by ParserManageStudents, ManageStudents, MyStudent and Storage classes. +
+{Add Class diagram}
+
+==== 4.1.2 Add student and view student list command
+
+This feature allows coaches to add students with their main details such as Name, Age and Address in that order. +
+addStudentCommand creates a profile for the new student and add them to the student list which will be stored in the JSON file. +
+studentList Command views all the available students stored in the JSON file. +
+Given below is an example usage scenario of addStudent.
+|===
+|Step 1. The user keys in the option 2 to direct the ParserCommand into ParserManageStudent.
+|Step 2. The user keys in the command add [NAME], [AGE], [ADDRESS].
+parserManageStudents recognises this command and parse the arguments.
+|Step 3. ParserManageStudents recognises this command and parse the arguments.
+|Step 4. ParserManageStudents will send the parsed arguments to ManageStudents. It will call the method addStudent.
+|Step 5. addStudent command will call studentList to add the new student into the list
+|Step 6. The new student object will be passed into an ArrayList containing all student objects.
+|Step 7. The updated ArrayList will be saved via a text file when Storage calls function saveStudentList. User is able to send viewStudents to view an updated list of their students.
+|Step 8. addStudent will return to Parser saying it is successful.
 |===
 
 include::../DeveloperGuide.adoc[tag=undoredo]
@@ -186,8 +223,4 @@ include::../DeveloperGuide.adoc[tag=undoredo]
 include::../DeveloperGuide.adoc[tag=dataencryption]
 
 
-== PROJECT: PowerPointLabs
 
----
-
-_{Optionally, you may include other projects in your portfolio.}_
