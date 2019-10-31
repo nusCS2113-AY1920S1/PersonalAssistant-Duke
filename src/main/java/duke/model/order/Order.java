@@ -8,7 +8,6 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 
-import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
@@ -140,7 +139,7 @@ public class Order {
     }
 
     private Date generateCreationDate() {
-        return Calendar.getInstance().getTime();
+        return new Date(System.currentTimeMillis());
     }
 
 

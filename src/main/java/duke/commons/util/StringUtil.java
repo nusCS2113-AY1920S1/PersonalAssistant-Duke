@@ -76,4 +76,5 @@ public class StringUtil {
 
         return s.length() <= maxLength && !s.isEmpty();
     }
+
 }
