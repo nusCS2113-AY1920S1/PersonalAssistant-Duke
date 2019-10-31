@@ -1,6 +1,5 @@
 package farmio;
 
-import javafx.util.Pair;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
@@ -25,9 +24,9 @@ public class Level {
     private ObjectiveResult levelState;
 
     /**
-     *  Level Constructor .
-     * @param object something
-     * @param name something
+     * Intitalises variables based off values obtain form the JSON File
+     * @param object JSON Object
+     * @param name player name
      */
     public Level(JSONObject object, String name) {
         JSONArray array = (JSONArray) object.get("narratives");
@@ -65,8 +64,8 @@ public class Level {
         return narratives;
     }
 
-    /** .
-     * Get hint for completing the level
+    /**
+     * Get hint for completing the level.
      * @return the hint
      */
     public String getHint() {
@@ -106,9 +105,9 @@ public class Level {
     }
 
     /**
-     * Summary .
-     * @param farmio something
-     * @return
+     * Checks on the state of the level.
+     * @param farmio Farmio Object
+     * @return enum current state of the level
      */
     public ObjectiveResult checkAnswer(Farmio farmio) {
         if (farmio.getFarmer().isHasfailedCurrentTask()) {
@@ -132,12 +131,10 @@ public class Level {
         return levelState;
     }
 
-    //need to convert into a listString format
-
     /**
-     * Summary.
-     * @param farmer something
-     * @return
+     * Checks for incomplete objectives and returns feedback on objectives.
+     * @param farmer Farmer object
+     * @return Feedback on incomplete objectives
      */
     private String checkIncompleteObjectives(Farmer farmer) {
         //todo -Level-dependant objective checker
@@ -171,9 +168,9 @@ public class Level {
     }
 
     /**
-     * summary.
-     * @param modelAnswer something
-     * @return
+     * Splits string by | to List of Strings.
+     * @param modelAnswer String to be split
+     * @return List of Strings
      */
     public List<String> convertStringToList(String modelAnswer) {
 
@@ -185,9 +182,9 @@ public class Level {
 
     //todo- logical error correction
     /**
-     * Summary.
-     * @param taskList something
-     * @return
+     * Converts numbered format for tasks to a  standard format Strings.
+     * @param taskList  List of strings to be converted
+     * @return newly formatted List of Strings
      */
     public List<String> convertTaskListFormat(List<String> taskList) {
 
@@ -222,13 +219,12 @@ public class Level {
     }
     */
 
-    //todo complete getPermutation Feedback Implementation
 
     /**
-     * Something.
-     * @param farmio something
-     * @param levelNumber something
-     * @return
+     * Returns the feedback based off the different permutations of tasks when the level failes.
+     * @param farmio farmio current state
+     * @param levelNumber the level the game is currently running
+     * @return feedback on failed tasks
      */
     public String getPermutationFeedback(Farmio farmio,double levelNumber) {
         //todo convert to some sort of metric for future iterations
@@ -256,9 +252,9 @@ public class Level {
     //todo convert detailed feedback to List<String>
 
     /**
-     * Summary.
-     * @param farmio something
-     * @return
+     * Feedback on failed objectives.
+     * @param farmio farmio
+     * @return feedback
      */
     public String getDetailedFeedback(Farmio farmio) {
         double levelNumber = farmio.getFarmer().getLevel(); // unsure if this is needed rn
@@ -277,8 +273,8 @@ public class Level {
     }
 
     /**
-     * Summary.
-     * @return something
+     *  Returns feedback for the succesful completion of a level.
+     * @return List of succesfull feedbackS
      */
     public List<String> getSuccessfulFeedback() {
         List<String> output = new ArrayList<String>();
@@ -290,9 +286,10 @@ public class Level {
     }
 
     /**
-     * Summary.
-     * @param farmio something
-     * @return
+     * Returns different feedback based on the levelState.
+     * @param farmio farmio object
+     * @param currentLevelState current state of the level
+     * @return feedback
      */
 
     public List<String> getFeedback(Farmio farmio, ObjectiveResult currentLevelState) {
