@@ -253,7 +253,7 @@ public class TaskCommandParseHelper {
             return new InvalidCommand("Please enter correct task index: " + editMatcher.group(
                     "index"));
         } catch (CommandParseHelper.CommandParseException e) {
-            return new InvalidCommand(e.getMessage());
+            return new InvalidCommand("Index out of bound");
         }
     }
 
@@ -285,8 +285,6 @@ public class TaskCommandParseHelper {
         if (validPriority(priority)) {
             descriptions.add(level.name());
             attributes.add(TaskUpdateCommand.Attributes.PRIORITY);
-        } else {
-            throw new TaskParseException("Invalid priority");
         }
     }
 
@@ -353,8 +351,10 @@ public class TaskCommandParseHelper {
             return level.HIGH;
         } else if (level.MED.name().equals(input)) {
             return level.MED;
-        } else {
+        } else if (level.LOW.name().equals(input)) {
             return level.LOW;
+        } else {
+            return null;
         }
     }
 
@@ -406,21 +406,29 @@ public class TaskCommandParseHelper {
 
     private static Command constructAddCommandByType(String input, String doAfter, LocalDateTime time,
                                                      ArrayList<String> tags, String priority) {
-        Task.Priority level = getPriorityLevel(priority);
-        if ("".equals(priority) | validPriority(priority)) {
-            if (input.startsWith("todo")) {
-                return parseAddToDoCommand(input, doAfter, tags, level);
-            } else if (input.startsWith("deadline")) {
-                return parseAddDeadlineCommand(input, time, doAfter, tags, level);
-            } else if (input.startsWith("event")) {
-                return parseEventCommand(input, time, doAfter, tags, level);
-            } else {
-                return new InvalidCommand("Invalid task type. Only todo, deadline, event are accepted. ");
-            }
+
+        if ("".equals(priority)) {
+            return constructByType(input, doAfter, time, tags, null);
+        } else if (validPriority(priority)) {
+            Task.Priority level = getPriorityLevel(priority);
+            return constructByType(input, doAfter, time, tags, level);
+        }
+        return new InvalidCommand("Invalid priority");
+    }
+
+    private static Command constructByType(String input, String doAfter, LocalDateTime time,
+                                           ArrayList<String> tags, Task.Priority priority) {
+        if (input.startsWith("todo")) {
+            return parseAddToDoCommand(input, doAfter, tags, priority);
+        } else if (input.startsWith("deadline")) {
+            return parseAddDeadlineCommand(input, time, doAfter, tags, priority);
+        } else if (input.startsWith("event")) {
+            return parseEventCommand(input, time, doAfter, tags, priority);
         } else {
-            return new InvalidCommand("Invalid priority");
+            return new InvalidCommand("Invalid task type. Only todo, deadline, event are accepted. ");
         }
     }
+
 
     private static Command parseAddToDoCommand(String input, String doAfter,
                                                ArrayList<String> tags, Task.Priority priority) {
@@ -484,6 +492,7 @@ public class TaskCommandParseHelper {
         public TaskParseException(String msg) {
             super(msg);
         }
+
     }
 
     /**
@@ -509,5 +518,4 @@ public class TaskCommandParseHelper {
         dateTime = new Pair<>(day, timing);
         return dateTime;
     }
-
 }

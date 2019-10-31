@@ -226,11 +226,6 @@ public class TaskList extends ArrayList<Task> {
         return constructSetPriorityMessage(priority, index + 1);
     }
 
-    //public Task.Priority setPriorityLevel(Task.Priority level) {
-    //    if ()
-    //    }
-    //}
-
     private void validateIndex(int index) throws CommandParseHelper.CommandParseException {
         if (index < 0 || index >= this.size()) {
             throw new CommandParseHelper.CommandParseException("Invalid index");

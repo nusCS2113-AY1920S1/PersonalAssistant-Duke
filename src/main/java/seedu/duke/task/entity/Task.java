@@ -204,7 +204,11 @@ public class Task {
     }
 
     public void setPriorityTo(Priority priority) {
-        this.priority = priority.name();
+        if (priority == null) {
+            this.priority = "";
+        } else {
+            this.priority = priority.name();
+        }
     }
 
     public void setPriorityLevelTo(Priority level) {
