@@ -639,7 +639,7 @@ Example: `tracker /stop cs2101 ppp`
 image::StopTracker.png[StopTracker]
 
 === View Assignment Tracker: `tracker`
-You can view a histogram featuring the amount of time you spend on each module in blocks of 10 minutes with `viewtracker`.
+You can view a histogram featuring the amount of time you spend on each module in blocks of 10 minutes with `tracker /view`.
 
 Format: `tracker /view`
 
