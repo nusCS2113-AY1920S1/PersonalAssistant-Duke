@@ -120,7 +120,7 @@ public class Storage {
                     if (s.startsWith("d/")) {
                         String[] splitInput = s.split(" ", 2);
                         String date = splitInput[0].replace("d/","");
-                        String task = splitInput[1].replace("t/", "");
+                        String task = splitInput[1].replace("n/", "");
                         SchedulePayment day = new SchedulePayment(date, task);
                         scheduleArray.add(day);
                     }
@@ -233,7 +233,7 @@ public class Storage {
         String list = "Schedule: \n";
         System.out.println(calendar.fullSchedule.size());
         for (SchedulePayment c : calendar.fullSchedule) {
-            list += "d/" + c.date + " t/" + c.tasks + "\n";
+            list += "d/" + c.date + " n/" + c.tasks + "\n";
         }
         try {
             Files.writeString(Paths.get(this.scheduleFilePath), list);
