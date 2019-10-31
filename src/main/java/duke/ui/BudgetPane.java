@@ -13,6 +13,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.util.Callback;
 
@@ -32,13 +33,16 @@ public class BudgetPane extends UiPart<AnchorPane>  {
     ListView<Income> incomeListView;
 
     @FXML
+    Label incomeLabel;
+
+    @FXML
     Pane paneView;
 
     @FXML
     Pane paneBudgetView;
 
     @FXML
-    //ListView<String> budgetListView;
+    ListView<String> budgetListView;
 
     public Logic logic;
 
@@ -46,13 +50,14 @@ public class BudgetPane extends UiPart<AnchorPane>  {
         super(FXML_FILE_NAME, null);
         logger.info("incomeList has length " + incomeList.size());
         Label emptyIncomeListPlaceholder = new Label();
-        emptyIncomeListPlaceholder.setText("No Income yet. " +
-                "Type \"addIncome #amount\" to add one!");
+        emptyIncomeListPlaceholder.setText("No Income yet!");
         incomeListView.setPlaceholder(emptyIncomeListPlaceholder);
         incomeListView.setItems(incomeList);
         logger.info("Items are set.");
         incomeListView.setCellFactory(incomeListView -> new IncomeListViewCell());
         logger.info("cell factory is set.");
+        incomeLabel.setText("Income");
+        incomeLabel.setFont(new Font("Arial", 20));
 
         this.logic = logic;
 
@@ -84,7 +89,7 @@ public class BudgetPane extends UiPart<AnchorPane>  {
         paneBudgetView.getChildren().clear();
         paneBudgetView.getChildren().add(new BudgetBar(logic).getRoot());
 
-        //budgetListView.setItems(logic.getBudgetObservableList());
+        budgetListView.setItems(logic.getBudgetObservableList());
     }
 
     class IncomeListViewCell extends ListCell<Income> {
