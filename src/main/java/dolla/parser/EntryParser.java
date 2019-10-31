@@ -1,7 +1,6 @@
 package dolla.parser;
 
 import dolla.Tag;
-import dolla.Time;
 import dolla.action.Repeat;
 import dolla.command.Command;
 import dolla.command.AddEntryCommand;
@@ -14,7 +13,6 @@ import dolla.command.SearchCommand;
 import dolla.command.RemoveCommand;
 import dolla.command.modify.PartialModifyEntryCommand;
 import dolla.task.Entry;
-import dolla.ui.ModifyUi;
 
 public class EntryParser extends Parser {
 

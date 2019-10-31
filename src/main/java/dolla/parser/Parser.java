@@ -290,6 +290,7 @@ public abstract class Parser implements ParserStringList, ModeStringList {
                 return true;
             }
             break;
+        /*
         case MODE_LIMIT:
             switch (s) {
                 // TODO
@@ -305,6 +306,7 @@ public abstract class Parser implements ParserStringList, ModeStringList {
                 // TODO
             }
             break;
+        */
         default:
             break;
         }
