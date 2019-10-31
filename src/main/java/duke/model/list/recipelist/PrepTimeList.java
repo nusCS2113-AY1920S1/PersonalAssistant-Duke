@@ -29,10 +29,10 @@ public class PrepTimeList {
     }
 
     public void addPrepTime(String prepTime) throws ParseException {
-        prepTimeList.add(new PrepTime(getSize() + 1, prepTime));
-        int index = prepTimeList.size();
-        msg = " preparation time in the list.";
-        System.out.println(MESSAGE_ADDED + "       " + prepTimeList.get(index - 1) + "\n" + MESSAGE_ITEMS1 + index + msg);
+//        prepTimeList.add(new PrepTime(getSize() + 1, prepTime));
+//        int index = prepTimeList.size();
+//        msg = " preparation time in the list.";
+//        System.out.println(MESSAGE_ADDED + "       " + prepTimeList.get(index - 1) + "\n" + MESSAGE_ITEMS1 + index + msg);
     }
 
     // delete prep step by index on list

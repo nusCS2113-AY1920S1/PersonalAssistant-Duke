@@ -19,7 +19,7 @@ public class RecipeMessages {
     public static final String LABEL_PREPSTEPS = "Preparation Steps: \n";
     public static final String LABEL_REQ_INGREDIENTS = "Required Ingredients: \n";
     public static final String LABEL_FEEDBACK = "Feedback: \n";
-    public static final String LABEL_PREPTIME = "Preparation Time: \n";
+    public static final String LABEL_PREPTIME = "Preparation Time: ";
 
     public static final String COMMAND_LIST_RECIPE_INGREDIENT = "listingredient";
     public static final String COMMAND_DELETE_RECIPE = "deleterecipe";

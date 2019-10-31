@@ -26,7 +26,7 @@ public class EditPrepTimeCommand extends Command<RecipeList, Ui, RecipeStorage> 
             String description = userInput.split("\\s", 2)[1].trim();
             if (description.contains("t/")) {
                 String recipeTitle, prepTime;
-                String[] split = description.split("r/", 2);
+                String[] split = description.split("t/", 2);
                 recipeTitle = split[0].trim();
                 prepTime = split[1].trim();
                 if (recipeTitle.isEmpty()) {
