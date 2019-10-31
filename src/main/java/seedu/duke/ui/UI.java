@@ -6,10 +6,13 @@ import seedu.duke.CommandParseHelper;
 import seedu.duke.Duke;
 import seedu.duke.common.command.Command;
 import seedu.duke.common.model.Model;
+import java.util.logging.*;
 
 import java.util.ArrayList;
 
 public class UI {
+    private static Logger logger = Logger.getLogger("ui");
+
     private static final String ANSI_RESET = "\u001B[0m";
     private static final String ANSI_BLACK = "\u001B[30m";
     private static final String ANSI_RED = "\u001B[31m";
@@ -74,6 +77,7 @@ public class UI {
             command.execute(Model.getInstance());
         } catch (Exception e) {
             e.printStackTrace();
+            logger.log(Level.SEVERE, e.toString());
         }
     }
 
@@ -89,6 +93,7 @@ public class UI {
     public void showMessage(String msg) {
         System.out.println(msg);
         showGui(msg);
+        logger.log(Level.INFO, "[Message] " + msg);
     }
 
     /**
@@ -102,6 +107,7 @@ public class UI {
         System.out.println(msg);
         System.out.println("------------------------------" + System.lineSeparator());
         showGui(msg);
+        logger.log(Level.INFO, "[Response] " + msg);
     }
 
     /**
@@ -113,6 +119,7 @@ public class UI {
         String errorMsg = ANSI_RED + msg + ANSI_RESET;
         System.out.println(errorMsg);
         showGui(msg);
+        logger.log(Level.SEVERE, "[Error] " + errorMsg);
     }
 
     /**
@@ -125,6 +132,7 @@ public class UI {
         if (debug) {
             System.out.println(debugMsg);
         }
+        logger.log(Level.FINE, "[Debug] " + msg);
         //showGui(debugMsg);
     }
 
