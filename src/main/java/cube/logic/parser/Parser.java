@@ -56,6 +56,8 @@ public class Parser {
 				return new ConfigCommandParser().parse(inputs);
 			case "help":
 				return new HelpCommand();
+			case "promotion":
+				return new PromotionCommandParser().parse(inputs);
 			case "bye":
 			case "exit":
 			case "quit":
