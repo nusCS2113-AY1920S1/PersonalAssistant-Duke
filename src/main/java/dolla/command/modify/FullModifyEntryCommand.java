@@ -1,12 +1,14 @@
-package dolla.command;
+package dolla.command.modify;
 
 import dolla.DollaData;
+import dolla.command.Command;
 import dolla.ui.Ui;
 import dolla.task.Entry;
 
 import java.time.LocalDate;
 
-public class ModifyEntryCommand extends Command {
+//@@author omupenguin
+public class FullModifyEntryCommand extends Command {
 
     private String type;
     private double amount;
@@ -14,13 +16,14 @@ public class ModifyEntryCommand extends Command {
     private LocalDate date;
 
     /**
-     * Instantiates a new ModifyEntryCommand.
+     * Instantiates a new FullModifyEntryCommand.
      * @param type type of modification
      * @param amount amount to modify
      * @param description description
      * @param date date
      */
-    public ModifyEntryCommand(String type, double amount, String description, LocalDate date) {
+    public FullModifyEntryCommand(String type, double amount, String description, LocalDate date) {
+        //System.out.println("Creating new FullModifyEntryCommand....");
         this.type = type;
         this.amount = amount;
         this.description = description;
@@ -29,6 +32,7 @@ public class ModifyEntryCommand extends Command {
 
     @Override
     public void execute(DollaData dollaData) {
+        //System.out.println("Executing FullModifyEntryCommand....");
         Entry newEntry = new Entry(type, amount, description, date);
         dollaData.modifyRecordList(newEntry);
         Ui.echoAddRecord(newEntry);

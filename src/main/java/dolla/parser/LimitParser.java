@@ -20,7 +20,7 @@ import dolla.ui.LimitUi;
 //@@author Weng-Kexin
 public class LimitParser extends Parser {
 
-    protected static final String SEARCH_COMMAND = "search";
+    private static final String COMMAND_SEARCH = "search";
 
     private static final String LIMIT_COMMAND_LIST = "limits";
     private static final String LIMIT_COMMAND_SET = "set";
@@ -59,11 +59,19 @@ public class LimitParser extends Parser {
             }
         } else if (commandToRun.equals(LIMIT_COMMAND_REMOVE)) {
             return new RemoveCommand(mode, inputArray[1]);
-        } else if (commandToRun.equals(SEARCH_COMMAND)) {
+        } else if (commandToRun.equals(COMMAND_MODIFY)) {
+            if (verifyFullModifyCommand()) {
+                // TODO: Update when ready
+                //return new InitialModifyCommand(inputArray[1]);
+                return new ErrorCommand();
+            } else {
+                return new ErrorCommand();
+            }
+        } else if (commandToRun.equals(COMMAND_SEARCH)) {
             String component = inputArray[1];
             String content = inputArray[2];
             return new SearchCommand(mode, component, content);
-        } else if (commandToRun.equalsIgnoreCase(LIMIT_COMMAND_SORT)) {
+        } else if (commandToRun.equalsIgnoreCase(COMMAND_SORT)) {
             return new SortCommand(mode, inputArray[1]);
         } else {
             return invalidCommand();

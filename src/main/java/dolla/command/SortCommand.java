@@ -2,6 +2,7 @@ package dolla.command;
 
 import dolla.DollaData;
 import dolla.task.Record;
+import dolla.ui.ListUi;
 import dolla.ui.SortUi;
 import dolla.ui.Ui;
 import dolla.sort.SortAmount;
@@ -91,7 +92,7 @@ public class SortCommand extends Command {
                 break;
             }
         } catch (Exception e) {
-            Ui.printEmptyListError(mode);
+            ListUi.printEmptyListError(mode);
         }
     }
 

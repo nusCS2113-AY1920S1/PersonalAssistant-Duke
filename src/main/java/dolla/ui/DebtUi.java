@@ -1,6 +1,6 @@
 package dolla.ui;
 
-//@@author: tatayu
+//@@author tatayu
 public class DebtUi extends Ui {
 
     /**
