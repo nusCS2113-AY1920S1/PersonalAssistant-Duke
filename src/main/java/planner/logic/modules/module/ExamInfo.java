@@ -1,3 +1,5 @@
+// @@author namiwa
+
 package planner.logic.modules.module;
 
 public class ExamInfo {
@@ -20,6 +22,6 @@ public class ExamInfo {
 
     @Override
     public String toString() {
-        return "{Semester:" + getSemester() + ", " + getExamDate() + " ," + getExamDuration();
+        return "{Semester:" + getSemester() + ", " + getExamDate() + " ," + getExamDuration() + "}";
     }
 }

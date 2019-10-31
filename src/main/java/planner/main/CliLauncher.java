@@ -1,22 +1,23 @@
 package planner.main;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.PrintStream;
 import java.util.HashMap;
 
 import planner.logic.command.EndCommand;
 import planner.logic.command.ModuleCommand;
 import planner.logic.exceptions.legacy.ModException;
-import planner.logic.exceptions.planner.ModBadRequestStatus;
 import planner.logic.exceptions.planner.ModFailedJsonException;
-import planner.logic.modules.module.ModuleInfoDetailed;
 import planner.logic.modules.cca.CcaList;
-import planner.util.crawler.JsonWrapper;
-import planner.ui.cli.PlannerUi;
-import planner.util.legacy.reminder.Reminder;
-import planner.util.storage.Storage;
-import planner.logic.parser.Parser;
+import planner.logic.modules.module.ModuleInfoDetailed;
 import planner.logic.modules.module.ModuleTasksList;
+import planner.logic.parser.Parser;
+import planner.ui.cli.PlannerUi;
+import planner.util.crawler.JsonWrapper;
+import planner.util.legacy.reminder.Reminder;
+import planner.util.logger.PlannerLogger;
+import planner.util.storage.Storage;
 
 public class CliLauncher {
     /**
@@ -28,11 +29,11 @@ public class CliLauncher {
     private ModuleTasksList modTasks;
     private CcaList ccas;
     private Parser argparser;
-    private Reminder reminder;
     private JsonWrapper jsonWrapper;
     private PlannerUi modUi;
     private HashMap<String, ModuleInfoDetailed> modDetailedMap;
     private transient ByteArrayOutputStream output;
+
 
     /**
      * Constructor for Planner class.
@@ -50,7 +51,7 @@ public class CliLauncher {
         }
     }
 
-    private CliLauncher() {
+    public CliLauncher() {
         this(false);
     }
 
@@ -64,15 +65,20 @@ public class CliLauncher {
         System.setErr(printStreamGui);
     }
 
+    /**
+     * Setup data files for module data and logging.
+     */
     private void modSetup() {
         try {
-            jsonWrapper.runRequests(store);
-            modDetailedMap = jsonWrapper.getModuleDetailedMap();
+            modDetailedMap = jsonWrapper.getModuleDetailedMap(true, store);
             modTasks.setTasks(jsonWrapper.readJsonTaskList(store));
-        } catch (ModBadRequestStatus er) {
-            er.printStackTrace();
+            PlannerLogger.setLogFile();
         } catch (ModFailedJsonException ej) {
-            System.out.println(ej.getLocalizedMessage());
+            ej.getMessage();
+            PlannerLogger.log(ej);
+        } catch (IOException eio) {
+            eio.getStackTrace();
+            PlannerLogger.log(eio);
         }
     }
 
@@ -81,12 +87,13 @@ public class CliLauncher {
         modSetup();
         boolean isExit = true;
         while (isExit) {
-            isExit = this.handleInput(modUi.readCommand());
+            isExit = this.handleInput();
         }
     }
 
-    private boolean handleInput(String input) {
+    private boolean handleInput() {
         try {
+            String input = modUi.readInput();
             ModuleCommand c = argparser.parseCommand(input);
             if (c != null) {
                 c.execute(modDetailedMap, modTasks, ccas, modUi, store, jsonWrapper);
@@ -96,6 +103,7 @@ public class CliLauncher {
             }
         } catch (ModException e) {
             System.out.println(e.getMessage());
+            PlannerLogger.log(e);
         } finally {
             modUi.showLine();
         }
@@ -110,7 +118,7 @@ public class CliLauncher {
     public String getResponse(String input) {
         if (input != null) {
             this.output.reset();
-            this.handleInput(input);
+            this.handleInput();
         }
         return this.output.toString();
     }
