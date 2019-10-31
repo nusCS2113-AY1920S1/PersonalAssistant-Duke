@@ -25,9 +25,12 @@ import javafx.stage.Popup;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import seedu.duke.CommandParseHelper;
-import seedu.duke.Duke;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
@@ -70,7 +73,7 @@ public class MainWindow extends AnchorPane {
 
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
 
-        String welcome = "Hi, I'm Duke!\nHow may I help you?";
+        String welcome = "Hi, I'm Duke!" + System.lineSeparator() + "How may I help you?";
 
         // show welcome message
         dialogContainer.getChildren().addAll(
@@ -79,14 +82,15 @@ public class MainWindow extends AnchorPane {
 
         // show email
         webEngine = webView.getEngine();
-        webEngine.load("https://www.google.com");
+        //webEngine.load("https://www.google.com");
+        webEngine.loadContent(loadDefaultWebView());
 
         // initialize GUI with database
         //updateTasksList();
         //updateEmailsList();
 
         userInputHandler = new UserInputHandler(userInput, sendButton);
-        setInputPrefix();
+        //setInputPrefix();
 
         // disable webView so that userInput can get focus
         webView.setDisable(true);
@@ -104,6 +108,24 @@ public class MainWindow extends AnchorPane {
         rootAnchorPane.setPrefWidth(screenWidth);
     }
 
+    private String loadDefaultWebView() {
+        try {
+            String htmlDir = "." + File.separator + "src" + File.separator + "main" + File.separator +
+                    "resources" + File.separator + "html" + File.separator + "defaultWebView.html";
+            File htmlFile = new File(htmlDir);
+            FileInputStream in = new FileInputStream(htmlFile);
+            Scanner scanner = new Scanner(in);
+            String content = "";
+            while(scanner.hasNextLine()) {
+                content += scanner.nextLine();
+            }
+            return content;
+        } catch (FileNotFoundException e) {
+            return "Welcome to Email Manager!";
+        }
+
+    }
+
     /**
      * Display a message on the main window chat box.
      *
@@ -112,10 +134,18 @@ public class MainWindow extends AnchorPane {
      * @param command the command executed to produce this message
      */
     public void showGuiMessage(String msg, String input, String command) {
-        dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(command + "\n\n" + msg, dukeImage)
-        );
+        if (input.length() <= 0) {
+            dialogContainer.getChildren().addAll(
+                    DialogBox.getDukeDialog(command + System.lineSeparator() + System.lineSeparator() + msg,
+                            dukeImage)
+            );
+        } else {
+            dialogContainer.getChildren().addAll(
+                    DialogBox.getUserDialog(input, userImage),
+                    DialogBox.getDukeDialog(command + System.lineSeparator() + System.lineSeparator() + msg,
+                            dukeImage)
+            );
+        }
     }
 
     public void setKeyBinding(Scene scene) {
@@ -180,30 +210,18 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() {
         webView.setDisable(false);
         String input = userInput.getText();
-        Duke.getUI().respond(input);
-        Duke.getUI().syncWithModel();
-        //updateTasksList();
-        //updateEmailsList();
+        UI.getInstance().respond(input);
+        UI.getInstance().syncWithModel();
         setInputPrefix();
-        if (input.contains("clear")) {
-            dialogContainer.getChildren().clear();
-        }
-        if (input.contains("email show")) {
-            updateHtml();
-        }
-        if (input.contains("bye")) {
-            exit();
-        }
         updateInputList(input);
     }
 
-    private void updateHtml() {
-        webEngine.loadContent(Duke.getUI().getEmailContent());
+    /**
+     * Updates the email content shown in gui.
+     */
+    public void updateHtml() {
+        webEngine.loadContent(UI.getInstance().getEmailContent());
         showHtml();
-    }
-
-    private void exit() {
-        Duke.getUI().exit();
     }
 
     /**
@@ -276,8 +294,8 @@ public class MainWindow extends AnchorPane {
      * To begin the userInput textfield with a prefix either as "task" or "email". The prefix is
      * non-deletable, enter "flip" to toggle between them.
      */
-    private void setInputPrefix() {
-        String prefix = Duke.getUI().getPrefix();
+    public void setInputPrefix() {
+        String prefix = UI.getInstance().getPrefix();
         userInputHandler.setUserInputText(prefix);
     }
 
@@ -342,7 +360,6 @@ public class MainWindow extends AnchorPane {
             @Override
             public void handle(ActionEvent event) {
                 popup.hide();
-                System.out.println(popup);
             }
         });
         return button;

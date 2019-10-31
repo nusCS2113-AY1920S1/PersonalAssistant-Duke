@@ -1,9 +1,10 @@
 package seedu.duke.task.command;
 
 import seedu.duke.CommandParseHelper;
-import seedu.duke.Duke;
 import seedu.duke.common.command.Command;
+import seedu.duke.common.model.Model;
 import seedu.duke.task.TaskList;
+import seedu.duke.ui.UI;
 
 /**
  * Adds a priority level for a task.
@@ -19,7 +20,7 @@ public class TaskSetPriorityCommand extends Command {
      * @param index         index of task
      * @param priorityLevel priority level set for the task
      */
-    TaskSetPriorityCommand(int index, String priorityLevel) {
+    public TaskSetPriorityCommand(int index, String priorityLevel) {
         this.index = index;
         this.priorityLevel = priorityLevel;
     }
@@ -30,17 +31,17 @@ public class TaskSetPriorityCommand extends Command {
      * @return true
      */
     @Override
-    public boolean execute() {
+    public boolean execute(Model model) {
         try {
-            TaskList taskList = Duke.getModel().getTaskList();
+            TaskList taskList = model.getTaskList();
             String msg = taskList.setPriority(index, priorityLevel);
             if (!silent) {
-                Duke.getUI().showResponse(msg);
+                UI.getInstance().showResponse(msg);
             }
             return true;
-        } catch (CommandParseHelper.UserInputException e) {
+        } catch (CommandParseHelper.CommandParseException e) {
             if (!silent) {
-                Duke.getUI().showError(e.getMessage());
+                UI.getInstance().showError(e.getMessage());
             }
             return false;
         }
