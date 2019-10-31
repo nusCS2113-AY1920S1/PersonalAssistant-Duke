@@ -73,6 +73,7 @@ public class HelpCommand extends Command {
                 + "commands. "));
         commandInfoList.add(new CommandInfo("Common", "flip", "Change between task or email commands"));
         commandInfoList.add(new CommandInfo("Common", "bye", "Safely exits the program"));
+        commandInfoList.add(new CommandInfo("Common", "clear chat", "Clear dialogue box"));
 
         commandInfoList.add(new CommandInfo("Task", "list", "List all tasks"));
         commandInfoList.add(new CommandInfo("Task", "done \'index\'", "Mark a task at the given index as "
@@ -112,6 +113,8 @@ public class HelpCommand extends Command {
                 + "can be added to a single event. "
                 + System.lineSeparator() + "\t[-doafter \'message\']\t\t(Optional) Add the event/time after "
                 + "which the task should be done", "Create a event."));
+        commandInfoList.add(new CommandInfo("Task", "clear", "Clear task list"));
+
 
         commandInfoList.add(new CommandInfo("Email", "list", "List all the emails."));
         commandInfoList.add(new CommandInfo("Email", "show \'index\'", "Show a email content at the given "

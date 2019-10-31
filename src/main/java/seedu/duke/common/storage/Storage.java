@@ -3,6 +3,7 @@ package seedu.duke.common.storage;
 import seedu.duke.ui.UI;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
@@ -89,5 +90,4 @@ public interface Storage {
     static Path prepareEmailPath(String filename) {
         return Path.of(".", "data", "emails", filename);
     }
-
 }

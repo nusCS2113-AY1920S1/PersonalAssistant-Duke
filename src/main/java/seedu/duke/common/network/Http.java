@@ -32,7 +32,7 @@ public class Http {
     private static String refreshToken = null;
     private static String clientId = "feacc09e-5364-4386-92e5-78ee25d2188d";
     private static String clientSecret = "8dhu0-v80Ic-ZrQpACgWLEPg:??1MGkc";
-    private static String redirect = "http://localhost:3000";
+    private static String redirect = "http://localhost:" + SimpleServer.getPort();
     private static String scope = "openid+Mail.Read+offline_access";
 
     /**
@@ -258,6 +258,7 @@ public class Http {
     private static void configurePostRequestConnection(HttpURLConnection conn, String params) throws IOException {
         byte[] postData = params.getBytes(StandardCharsets.UTF_8);
         int postDataLength = postData.length;
+        conn.setConnectTimeout(5000);
         conn.setDoOutput(true);
         conn.setInstanceFollowRedirects(false);
         conn.setRequestMethod("POST");

@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.duke.email.parser.EmailContentParseHelper.editDistance;
 import static seedu.duke.email.parser.EmailContentParseHelper.keywordInString;
 
-public class EmailContentParserTest {
+public class EmailContentParseHelperTest {
     @Test
     public void editDistanceTest() {
         assertEquals(1, editDistance("a", "b"));
@@ -27,12 +27,16 @@ public class EmailContentParserTest {
 
     @Test
     public void keywordInStringTest() {
-        String input = "CS2113T Akshay Narayan CS2113 TAN KIAN WEI";
+        String input1 = "CS2113T CS2113 Akshay Narayan CS2113 TAN KIAN WEI";
+        String input2 = "CS2113 Tutorial CS2113ABC CS2113";
+        String input3 = "CS2113 CS2113 CS2113 CS2113";
         KeywordPair keywordPair = new KeywordPair(
                 "CS2113T", new ArrayList<String>(List.of("CS2113T", "CS2113", "TAN KIAN WEI, JASON",
                 "Leow Wei Xiang", "Akshay Narayan", "Akshay")));
 
-        assertEquals(4, keywordInString(input, keywordPair));
+        assertEquals(5, keywordInString(input1, keywordPair));
+        assertEquals(2, keywordInString(input2, keywordPair));
+        assertEquals(4, keywordInString(input3, keywordPair));
     }
 
     @Test

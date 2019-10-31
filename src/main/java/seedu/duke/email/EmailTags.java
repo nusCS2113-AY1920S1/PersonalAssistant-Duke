@@ -28,9 +28,10 @@ public class EmailTags {
 
                     if (tagMap.containsKey(rootTagName)) {
                         subTagMap = tagMap.get(rootTagName);
-                    }
-                    if (subTagMap.containsKey(subTagName)) {
-                        subEmailList = subTagMap.get(rootTagName);
+
+                        if (subTagMap.containsKey(subTagName)) {
+                            subEmailList = subTagMap.get(subTagName);
+                        }
                     }
 
                     if (!subEmailList.contains(email)) {
