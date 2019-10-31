@@ -2,8 +2,8 @@ package duke.logic.parsers;
 
 import duke.commons.enumerations.Direction;
 import duke.commons.exceptions.CategoryNotFoundException;
-import duke.commons.exceptions.DukeDateTimeParseException;
 import duke.commons.exceptions.CorruptedFileException;
+import duke.commons.exceptions.ParseException;
 import duke.model.Event;
 import duke.model.planning.Todo;
 import duke.model.locations.BusStop;
@@ -28,7 +28,7 @@ public class ParserStorageUtil {
      * @param line The String description of an Event.
      * @return The corresponding Event object.
      */
-    public static Event createTaskFromStorage(String line) throws DukeDateTimeParseException {
+    public static Event createTaskFromStorage(String line) throws ParseException {
         String[] eventParts = line.split("\\|");
         String type = eventParts[0].strip();
         String status = eventParts[1].strip();
@@ -62,7 +62,7 @@ public class ParserStorageUtil {
      * @return The corresponding ProfileCard object.
      */
     public static ProfileCard createProfileFromStorage(ProfileCard profileCard, String line)
-            throws DukeDateTimeParseException, CategoryNotFoundException {
+            throws ParseException, CategoryNotFoundException {
         String[] token = line.split("\\|");
         switch (token[0].strip()) {
         case "person":

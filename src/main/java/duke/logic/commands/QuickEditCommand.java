@@ -1,11 +1,10 @@
 package duke.logic.commands;
 
-import duke.commons.exceptions.ApiNullRequestException;
-import duke.commons.exceptions.ApiTimeoutException;
+import duke.commons.exceptions.ApiException;
 import duke.commons.exceptions.CorruptedFileException;
-import duke.commons.exceptions.DukeDateTimeParseException;
 import duke.commons.exceptions.EventSelectionOutOfBoundsException;
 import duke.commons.exceptions.FileNotSavedException;
+import duke.commons.exceptions.ParseException;
 import duke.logic.commands.results.CommandResultText;
 import duke.logic.edits.Editor;
 import duke.model.Event;
@@ -29,9 +28,9 @@ public class QuickEditCommand extends Command {
     }
 
     @Override
-    public CommandResultText execute(Model model) throws ApiNullRequestException, ApiTimeoutException,
+    public CommandResultText execute(Model model) throws ApiException,
             FileNotSavedException, CorruptedFileException, EventSelectionOutOfBoundsException,
-            DukeDateTimeParseException {
+            ParseException {
         Event event = model.getEvents().get(index);
         Editor.edit(descriptors[DESCRIPTION], event, DESCRIPTION);
         Editor.edit(descriptors[START_DATE], event, START_DATE);

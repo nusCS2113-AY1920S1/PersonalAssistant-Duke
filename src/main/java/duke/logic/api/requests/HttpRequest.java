@@ -1,6 +1,6 @@
 package duke.logic.api.requests;
 
-import duke.commons.exceptions.DukeApiException;
+import duke.commons.exceptions.ApiException;
 
 /**
  * Abstract class handling individual HTTP requests.
@@ -27,5 +27,5 @@ public abstract class HttpRequest<T> {
      * Executes the HTTP Request.
      * @return response The response from request
      */
-    public abstract T execute() throws DukeApiException;
+    public abstract T execute() throws ApiException;
 }

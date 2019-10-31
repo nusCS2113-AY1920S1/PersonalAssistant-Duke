@@ -1,7 +1,7 @@
 package duke.logic.parsers;
 
 import duke.commons.enumerations.TimePatternType;
-import duke.commons.exceptions.DukeDateTimeParseException;
+import duke.commons.exceptions.ParseException;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
@@ -21,9 +21,9 @@ public class ParserTimeUtil {
      *
      * @param line The input String for Date extraction.
      * @return The date and time, missing information wil be padded with current time information.
-     * @throws DukeDateTimeParseException If the format is invalid.
+     * @throws ParseException If the format is invalid.
      */
-    public static LocalDateTime parseStringToDate(String line) throws DukeDateTimeParseException {
+    public static LocalDateTime parseStringToDate(String line) throws ParseException {
         String[] patterns = {"['next ']['this ']E", "['this ']['next ']EEEE", "dd/MM/yyyy HHmm",
                              "dd/MM/yy HHmm", "HHmm",
                              "dd/MM/yy", "yyyy-MM-dd'T'HH:mm[:ss.n]"};
@@ -51,6 +51,6 @@ public class ParserTimeUtil {
                 ++i;
             }
         }
-        throw new DukeDateTimeParseException();
+        throw new ParseException();
     }
 }

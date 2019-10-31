@@ -5,6 +5,7 @@ import duke.commons.exceptions.DukeException;
 import duke.commons.exceptions.FileLoadFailException;
 import duke.commons.exceptions.FileNotSavedException;
 import duke.commons.exceptions.ItineraryInsufficientAgendasException;
+import duke.commons.exceptions.ParseException;
 import duke.logic.TransportationMap;
 import duke.commons.exceptions.RouteDuplicateException;
 import duke.logic.RouteManager;
@@ -150,7 +151,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Itinerary readRecommendations() throws FileLoadFailException, DukeDateTimeParseException {
+    public Itinerary readRecommendations() throws FileLoadFailException, ParseException {
         return storage.readRecommendations();
     }
 

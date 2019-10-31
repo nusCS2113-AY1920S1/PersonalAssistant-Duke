@@ -1,8 +1,6 @@
 package duke.logic.commands;
 
-import duke.commons.exceptions.ApiFailedRequestException;
-import duke.commons.exceptions.ApiNullRequestException;
-import duke.commons.exceptions.ApiTimeoutException;
+import duke.commons.exceptions.ApiException;
 import duke.logic.commands.results.CommandResultImage;
 import duke.logic.api.ApiParser;
 import duke.model.Model;
@@ -26,11 +24,9 @@ public class StaticMapCommand extends Command {
      * Creates a new StaticMapCommand for the given location query.
      *
      * @param location The location to query.
-     * @throws ApiNullRequestException If request fails.
-     * @throws ApiTimeoutException If request times out.
+     * @throws ApiException
      */
-    public StaticMapCommand(String location) throws ApiNullRequestException, ApiTimeoutException,
-            ApiFailedRequestException {
+    public StaticMapCommand(String location) throws ApiException {
         this.param = location;
         Venue query = ApiParser.getLocationSearch(location);
         this.image = ApiParser.getStaticMap(ApiParser.generateStaticMapParams(DIMENSIONS, DIMENSIONS, ZOOM_LEVEL,
@@ -44,11 +40,9 @@ public class StaticMapCommand extends Command {
      *
      * @param model The Model object containing task list.
      * @return The CommandResult containing the image from StaticMap.
-     * @throws ApiNullRequestException If request fails.
-     * @throws ApiTimeoutException If request times out.
      */
     @Override
-    public CommandResultImage execute(Model model) throws ApiNullRequestException, ApiTimeoutException {
+    public CommandResultImage execute(Model model) {
         return new CommandResultImage("Showing map of " + param, image);
     }
 }

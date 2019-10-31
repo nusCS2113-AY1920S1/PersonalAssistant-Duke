@@ -13,6 +13,10 @@ public class ProfileCard {
     private ArrayList<Itinerary> favourite = new ArrayList<>();
     private boolean isNewUser = true;
 
+    public ProfileCard() {
+        setPerson("User", LocalDateTime.now());
+    }
+
     public void setPreference(Preference preference) {
         this.preference = preference;
     }

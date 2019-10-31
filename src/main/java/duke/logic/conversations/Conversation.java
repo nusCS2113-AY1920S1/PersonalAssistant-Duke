@@ -4,6 +4,7 @@ import duke.commons.Messages;
 import duke.commons.enumerations.Constraint;
 import duke.commons.exceptions.DukeDateTimeParseException;
 import duke.commons.exceptions.InputNotIntException;
+import duke.commons.exceptions.ParseException;
 import duke.commons.exceptions.QueryOutOfBoundsException;
 import duke.logic.parsers.ParserTimeUtil;
 import duke.logic.parsers.ParserUtil;
@@ -63,7 +64,7 @@ public abstract class Conversation {
         try {
             ParserUtil.getIntegerIndexInList(0, 2, input);
             return true;
-        } catch (InputNotIntException | QueryOutOfBoundsException e) {
+        } catch (ParseException e) {
             attempts++;
             prompt = Messages.PROMPT_NOT_INT;
             return false;
@@ -130,7 +131,7 @@ public abstract class Conversation {
         try {
             ParserTimeUtil.parseStringToDate(input);
             return true;
-        } catch (DukeDateTimeParseException e) {
+        } catch (ParseException e) {
             attempts++;
             prompt = Messages.PROMPT_NOT_DATE;
             return false;

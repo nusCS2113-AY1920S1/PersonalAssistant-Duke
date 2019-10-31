@@ -2,12 +2,12 @@ package duke.storage;
 
 import duke.commons.exceptions.CategoryNotFoundException;
 import duke.commons.exceptions.CorruptedFileException;
-import duke.commons.exceptions.DukeDateTimeParseException;
 import duke.commons.exceptions.DukeDuplicateTaskException;
 import duke.commons.exceptions.DukeException;
 import duke.commons.exceptions.FileLoadFailException;
 import duke.commons.exceptions.FileNotSavedException;
 import duke.commons.exceptions.ItineraryInsufficientAgendasException;
+import duke.commons.exceptions.ParseException;
 import duke.commons.exceptions.RecommendationDayExceededException;
 import duke.commons.exceptions.RouteNodeDuplicateException;
 import duke.commons.exceptions.StorageFileNotFoundException;
@@ -78,7 +78,7 @@ public class Storage {
      * Reads all storage file.
      */
     private void read() throws RouteNodeDuplicateException, CorruptedFileException, StorageFileNotFoundException,
-            DukeDuplicateTaskException, DukeDateTimeParseException, CategoryNotFoundException {
+            DukeDuplicateTaskException, ParseException, CategoryNotFoundException {
         readBus();
         readTrain();
         readProfile();
@@ -130,11 +130,11 @@ public class Storage {
     /**
      * Reads events from filepath. Creates empty events if file cannot be read.
      *
-     * @throws DukeDateTimeParseException   If the datetime of an event cannot be parsed.
+     * @throws ParseException   If the datetime of an event cannot be parsed.
      * @throws DukeDuplicateTaskException   If there is a duplicate event.
      * @throws StorageFileNotFoundException If the file cannot be read.
      */
-    private void readEvent() throws DukeDuplicateTaskException, DukeDateTimeParseException,
+    private void readEvent() throws DukeDuplicateTaskException, ParseException,
             StorageFileNotFoundException {
         List<Event> events = new ArrayList<>();
         try {
@@ -216,7 +216,7 @@ public class Storage {
      * Reads the profile from filepath. Creates new empty profile if file doesnt exist.
      */
     public void readProfile() throws StorageFileNotFoundException,
-            DukeDateTimeParseException, CategoryNotFoundException {
+            ParseException, CategoryNotFoundException {
         profileCard = new ProfileCard();
         try {
             File f = new File(PROFILE_FILE_PATH);
@@ -229,7 +229,7 @@ public class Storage {
             s.close();
         } catch (FileNotFoundException e) {
 
-            throw new StorageFileNotFoundException(PROFILE_FILE_PATH);
+            profileCard = new ProfileCard();
 
         }
 
@@ -329,10 +329,10 @@ public class Storage {
     /**
      * Reads recommendations from filepath.
      *
-     * @throws DukeDateTimeParseException If the datetime cannot be parsed.
-     * @throws FileLoadFailException      If the file fails to load.
+     * @throws ParseException If the datetime cannot be parsed.
+     * @throws FileLoadFailException If the file fails to load.
      */
-    public Itinerary readRecommendations() throws DukeDateTimeParseException, FileLoadFailException {
+    public Itinerary readRecommendations() throws ParseException, FileLoadFailException {
         List<Agenda> agendaList = new ArrayList<>();
         Itinerary itinerary;
         try {
@@ -462,7 +462,7 @@ public class Storage {
             assert itinerary != null;
             itinerary.setTasks(agendaList);
             return itinerary;
-        } catch (FileNotFoundException | DukeDateTimeParseException e) {
+        } catch (FileNotFoundException | ParseException e) {
             throw new FileLoadFailException(new File(ITINERARY_LIST_FILE_PATH));
         }
     }

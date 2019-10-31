@@ -1,9 +1,8 @@
 package duke.logic.edits;
 
-import duke.commons.exceptions.ApiNullRequestException;
-import duke.commons.exceptions.ApiTimeoutException;
-import duke.commons.exceptions.DukeDateTimeParseException;
+import duke.commons.exceptions.ApiException;
 import duke.commons.exceptions.EventSelectionOutOfBoundsException;
+import duke.commons.exceptions.ParseException;
 import duke.logic.api.ApiParser;
 import duke.logic.parsers.ParserTimeUtil;
 import duke.model.Event;
@@ -22,12 +21,11 @@ public class Editor {
      * @param event The Event object.
      * @param eventField Integer indicating which field to edit.
      * @throws EventSelectionOutOfBoundsException If the eventField does not corresponds to any component of Event.
-     * @throws ApiNullRequestException If the location does not exist.
-     * @throws ApiTimeoutException If the API request time out.
-     * @throws DukeDateTimeParseException If the date format is invalid.
+     * @throws ApiException
+     * @throws ParseException If the date format is invalid.
      */
     public static void edit(String userInput, Event event, int eventField) throws EventSelectionOutOfBoundsException,
-            ApiNullRequestException, ApiTimeoutException, DukeDateTimeParseException {
+            ApiException, ParseException {
         switch (eventField) {
         case DESCRIPTION:
             editDescription(userInput, event);
@@ -47,11 +45,9 @@ public class Editor {
      * Edits the description of an Event object.
      * @param userInput The new description.
      * @param event The Event object.
-     * @throws ApiNullRequestException If the user input is not a location.
-     * @throws ApiTimeoutException If the request time out.
+     * @throws ApiException
      */
-    private static void editDescription(String userInput, Event event) throws ApiNullRequestException,
-            ApiTimeoutException {
+    private static void editDescription(String userInput, Event event) throws ApiException {
         event.setLocation(ApiParser.getLocationSearch(userInput));
         event.setDescription(userInput);
     }
@@ -60,9 +56,9 @@ public class Editor {
      * Edits the start date of an Event object.
      * @param userInput The new date.
      * @param event The Event object.
-     * @throws DukeDateTimeParseException If the date format of user input is invalid.
+     * @throws ParseException If the date format of user input is invalid.
      */
-    private static void editStartDate(String userInput, Event event) throws DukeDateTimeParseException {
+    private static void editStartDate(String userInput, Event event) throws ParseException {
         event.setStartDate(ParserTimeUtil.parseStringToDate(userInput));
     }
 
@@ -70,9 +66,9 @@ public class Editor {
      * Edits the end date of an Event object.
      * @param userInput The new date.
      * @param event The Event object.
-     * @throws DukeDateTimeParseException If the date format of user input is invalid.
+     * @throws ParseException If the date format of user input is invalid.
      */
-    private static void editEndDate(String userInput, Event event) throws DukeDateTimeParseException {
+    private static void editEndDate(String userInput, Event event) throws ParseException {
         event.setEndDate(ParserTimeUtil.parseStringToDate(userInput));
     }
 }

@@ -1,7 +1,7 @@
 package duke.logic.commands;
 
-import duke.commons.exceptions.CategoryNotFoundException;
 import duke.commons.exceptions.DukeException;
+import duke.commons.exceptions.ParseException;
 import duke.logic.commands.results.CommandResult;
 import duke.logic.commands.results.CommandResultText;
 import duke.model.Model;
@@ -18,7 +18,7 @@ public class ProfileSetPreferenceCommand extends Command {
      * @param category Category of preference to set
      * @param setting Setting which user wish to set preference to
      */
-    public ProfileSetPreferenceCommand(String category, String setting) throws CategoryNotFoundException {
+    public ProfileSetPreferenceCommand(String category, String setting) throws ParseException {
         this.category = category.toLowerCase();
         if (setting.equalsIgnoreCase("true")) {
             this.setting = true;
@@ -27,7 +27,7 @@ public class ProfileSetPreferenceCommand extends Command {
         }
         if (!this.category.equals("sports") && !this.category.equals("entertainment")
                 && !this.category.equals("arts") && !this.category.equals("lifestlye")) {
-            throw new CategoryNotFoundException();
+            throw new ParseException();
         }
     }
 

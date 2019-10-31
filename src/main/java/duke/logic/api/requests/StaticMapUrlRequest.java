@@ -1,7 +1,6 @@
 package duke.logic.api.requests;
 
-import duke.commons.exceptions.ApiFailedRequestException;
-import duke.commons.exceptions.ApiNullRequestException;
+import duke.commons.exceptions.ApiException;
 import javafx.scene.image.Image;
 import java.io.IOException;
 import java.net.URL;
@@ -25,17 +24,16 @@ public class StaticMapUrlRequest extends UrlRequest {
      * Executes the URL request to StaticMap API.
      *
      * @return image The static map image
-     * @throws ApiFailedRequestException If request fails.
-     * @throws ApiNullRequestException If request gives no valid results.
+     * @throws ApiException
      */
     @Override
-    public Image execute() throws ApiFailedRequestException, ApiNullRequestException {
+    public Image execute() throws ApiException {
         Image image;
         try {
             URL url = new URL(API_LINK + param);
             image = new Image(url.toExternalForm(), true);
         } catch (IOException e) {
-            throw new ApiFailedRequestException();
+            throw new ApiException();
         }
 
         return image;

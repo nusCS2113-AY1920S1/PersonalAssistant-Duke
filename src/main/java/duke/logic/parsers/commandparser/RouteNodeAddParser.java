@@ -1,9 +1,6 @@
 package duke.logic.parsers.commandparser;
 
-import duke.commons.Messages;
-import duke.commons.exceptions.DukeException;
-import duke.commons.exceptions.InputNotIntException;
-import duke.commons.exceptions.ObjectCreationFailedException;
+import duke.commons.exceptions.ParseException;
 import duke.logic.commands.Command;
 import duke.logic.commands.RouteNodeAddCommand;
 import duke.logic.parsers.ParserUtil;
@@ -25,7 +22,7 @@ public class RouteNodeAddParser extends CommandParser {
      * Parses user input into parameter for RouteNodeAddCommand.
      * @param input The User input
      */
-    public RouteNodeAddParser(String input) throws DukeException {
+    public RouteNodeAddParser(String input) throws ParseException {
         this.input = input;
         routeNode = createRouteNode(input);
         firstIndex = ParserUtil.getIntegerIndexInList(0, 4, input);
@@ -35,18 +32,18 @@ public class RouteNodeAddParser extends CommandParser {
      * Returns routeNode base on user input.
      *
      */
-    public static RouteNode createRouteNode(String userInput) throws DukeException {
+    public static RouteNode createRouteNode(String userInput) throws ParseException {
         try {
             String[] withinDetails = userInput.strip().split("at | with ", 2);
             if (withinDetails.length != 2) {
-                throw new DukeException(Messages.ERROR_INPUT_INVALID_FORMAT);
+                throw new ParseException();
             }
 
             String[] indexes = withinDetails[0].split(" ");
 
             String type = userInput.substring(withinDetails[0].length()).strip().substring(0, 4);
             if (!("with".equals(type) || "at".equals(type.substring(0, 2)))) {
-                throw new DukeException(Messages.ERROR_INPUT_INVALID_FORMAT);
+                throw new ParseException();
             }
 
             String[] details;
@@ -58,7 +55,7 @@ public class RouteNodeAddParser extends CommandParser {
                 case "MRT":
                     return new TrainStation(new ArrayList<>(), details[0].strip(), null, 0, 0);
                 default:
-                    throw new DukeException(Messages.ERROR_COMMAND_UNKNOWN);
+                    throw new ParseException();
                 }
             } else {
                 details = withinDetails[1].split("by ");
@@ -71,10 +68,10 @@ public class RouteNodeAddParser extends CommandParser {
                 }
             }
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new ObjectCreationFailedException("ROUTE_NODE");
+            throw new ParseException();
         }
 
-        throw new ObjectCreationFailedException("ROUTE_NODE");
+        throw new ParseException();
     }
 
     /**
@@ -82,11 +79,11 @@ public class RouteNodeAddParser extends CommandParser {
      * @return RouteNodeAddCommand The command.
      */
     @Override
-    public Command parse() throws DukeException {
+    public Command parse() {
         try {
             return new RouteNodeAddCommand(routeNode, firstIndex,
                     ParserUtil.getIntegerIndexInList(1, 4, input), false);
-        } catch (InputNotIntException e) {
+        } catch (ParseException e) {
             return new RouteNodeAddCommand(routeNode, firstIndex, 0, true);
         }
     }

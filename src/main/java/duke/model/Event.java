@@ -1,5 +1,6 @@
 package duke.model;
 
+import duke.commons.exceptions.ApiException;
 import duke.commons.exceptions.DukeException;
 import duke.logic.api.ApiParser;
 import duke.model.locations.Venue;
@@ -20,7 +21,7 @@ public class Event extends TaskWithDates implements Serializable {
      * @param startDate Starting date of task
      * @param endDate Ending date of task
      */
-    public Event(String locationDescription, LocalDateTime startDate, LocalDateTime endDate) throws DukeException {
+    public Event(String locationDescription, LocalDateTime startDate, LocalDateTime endDate) throws ApiException {
         super(locationDescription, startDate, endDate);
         this.venue = ApiParser.getLocationSearch(locationDescription);
     }

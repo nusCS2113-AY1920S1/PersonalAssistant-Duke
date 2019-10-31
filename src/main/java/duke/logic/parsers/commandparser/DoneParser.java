@@ -1,6 +1,6 @@
 package duke.logic.parsers.commandparser;
 
-import duke.commons.exceptions.DukeException;
+import duke.commons.exceptions.ParseException;
 import duke.logic.commands.Command;
 import duke.logic.commands.MarkDoneCommand;
 import duke.logic.parsers.ParserUtil;
@@ -16,7 +16,7 @@ public class DoneParser extends CommandParser {
      * Parses user input into index.
      * @param input The User input
      */
-    public DoneParser(String input) throws DukeException {
+    public DoneParser(String input) throws ParseException {
         index = ParserUtil.getIntegerIndexInList(0, 1, input);
     }
 
@@ -24,7 +24,7 @@ public class DoneParser extends CommandParser {
      * Constructs DoneCommand object.
      * @return DoneCommand object
      */
-    public Command parse() throws DukeException {
+    public Command parse() {
         return new MarkDoneCommand(index);
     }
 }

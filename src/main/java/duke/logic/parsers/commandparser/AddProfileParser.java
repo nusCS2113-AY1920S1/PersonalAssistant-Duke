@@ -1,7 +1,6 @@
 package duke.logic.parsers.commandparser;
 
-import duke.commons.exceptions.DukeDateTimeParseException;
-import duke.commons.exceptions.DukeException;
+import duke.commons.exceptions.ParseException;
 import duke.logic.commands.AddProfileCommand;
 import duke.logic.commands.Command;
 import duke.logic.parsers.ParserTimeUtil;
@@ -20,7 +19,7 @@ public class AddProfileParser extends CommandParser {
      * Parses user input into name and birthday.
      * @param input The User input
      */
-    public AddProfileParser(String input) throws DukeDateTimeParseException {
+    public AddProfileParser(String input) throws ParseException {
         String[] token = input.split(" ");
         this.name = "";
         for (int i = 0; i < token.length - 1; i++) {
@@ -34,7 +33,7 @@ public class AddProfileParser extends CommandParser {
      * @return AddProfile object
      */
     @Override
-    public Command parse() throws DukeException {
+    public Command parse() {
         return new AddProfileCommand(name, birthday);
     }
 }

@@ -14,7 +14,7 @@ public class FindParser extends CommandParser {
      * Parses user input into keyword.
      * @param input The User input
      */
-    public FindParser(String input) throws DukeException {
+    public FindParser(String input) {
         keyword = input;
     }
 
@@ -22,7 +22,7 @@ public class FindParser extends CommandParser {
      * Constructs FindCommand object.
      * @return FindCommand object
      */
-    public Command parse() throws DukeException {
+    public Command parse() {
         return new FindCommand(keyword);
     }
 }

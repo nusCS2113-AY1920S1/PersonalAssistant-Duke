@@ -1,5 +1,6 @@
 package duke.logic.commands;
 
+import duke.commons.exceptions.ApiException;
 import duke.commons.exceptions.ApiFailedRequestException;
 import duke.commons.exceptions.ApiNullRequestException;
 import duke.commons.exceptions.ApiTimeoutException;
@@ -16,8 +17,7 @@ public class RouteManagerNearbyCommand extends Command {
      * @param model The model object containing event list.
      */
     @Override
-    public CommandResultImage execute(Model model) throws ApiFailedRequestException, ApiTimeoutException,
-            ApiNullRequestException {
+    public CommandResultImage execute(Model model) throws ApiException {
         int routeIndex = model.getRouteManager().getRouteIndex() - 1;
         int nodeIndex = model.getRouteManager().getNodeIndex() - 1;
         RouteNodeNeighboursCommand command = new RouteNodeNeighboursCommand(routeIndex, nodeIndex);

@@ -31,7 +31,7 @@ public class AgendaList implements Iterable<Agenda> {
      * Adds a Day to the list.
      * The Task must not already exist in the list.
      */
-    public void add(Agenda toAdd) throws DukeException {
+    public void add(Agenda toAdd) {
         //        if (contains(toAdd)) {
         //            throw new DukeDuplicateTaskException();
         //        } else if (hasAnomaly(toAdd)) {

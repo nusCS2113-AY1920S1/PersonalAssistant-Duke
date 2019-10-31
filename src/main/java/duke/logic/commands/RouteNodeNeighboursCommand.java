@@ -1,8 +1,6 @@
 package duke.logic.commands;
 
-import duke.commons.exceptions.ApiFailedRequestException;
-import duke.commons.exceptions.ApiNullRequestException;
-import duke.commons.exceptions.ApiTimeoutException;
+import duke.commons.exceptions.ApiException;
 import duke.logic.api.ApiParser;
 import duke.logic.commands.results.CommandResultImage;
 import duke.model.Model;
@@ -56,16 +54,14 @@ public class RouteNodeNeighboursCommand extends Command {
      * @return The CommandResultText.
      */
     @Override
-    public CommandResultImage execute(Model model) throws ApiNullRequestException, ApiTimeoutException,
-            ApiFailedRequestException {
+    public CommandResultImage execute(Model model) throws ApiException {
         ArrayList<Venue> result = getNeighbour(model);
         Image image = getImage(model, result);
 
         return new CommandResultImage(image, MESSAGE_SUCCESS, result);
     }
 
-    private Image getImage(Model model, ArrayList<Venue> nearbyNodes) throws ApiNullRequestException,
-            ApiTimeoutException, ApiFailedRequestException {
+    private Image getImage(Model model, ArrayList<Venue> nearbyNodes) throws ApiException {
         Route route = model.getRoutes().get(indexRoute);
         RouteNode node = model.getRoutes().get(indexRoute).getNode(indexNode);
         String rgb = RED_VALUE_OTHER + "," + GREEN_VALUE_OTHER + "," + BLUE_VALUE_OTHER;

@@ -2,8 +2,7 @@ package duke.logic.commands;
 
 import duke.commons.Messages;
 import duke.commons.enumerations.Constraint;
-import duke.commons.exceptions.ApiNullRequestException;
-import duke.commons.exceptions.ApiTimeoutException;
+import duke.commons.exceptions.ApiException;
 import duke.commons.exceptions.CorruptedFileException;
 import duke.commons.exceptions.FileNotSavedException;
 import duke.commons.exceptions.QueryFailedException;
@@ -45,7 +44,7 @@ public class RouteGenerateCommand extends Command {
     }
 
     @Override
-    public CommandResultText execute(Model model) throws ApiNullRequestException, ApiTimeoutException,
+    public CommandResultText execute(Model model) throws ApiException,
             QueryFailedException, QueryOutOfBoundsException, RouteNodeDuplicateException, FileNotSavedException,
             CorruptedFileException, RouteDuplicateException {
         Venue startVenue = ApiParser.getLocationSearch(startPoint);

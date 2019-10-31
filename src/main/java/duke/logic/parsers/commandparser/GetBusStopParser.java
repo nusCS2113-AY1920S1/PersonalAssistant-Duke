@@ -14,7 +14,7 @@ public class GetBusStopParser extends CommandParser {
      * Parses user input into busStopNo.
      * @param input The User input
      */
-    public GetBusStopParser(String input) throws DukeException {
+    public GetBusStopParser(String input) {
         busStopNo = input;
     }
 
@@ -23,7 +23,7 @@ public class GetBusStopParser extends CommandParser {
      * @return GetBusStopCommand object
      */
     @Override
-    public Command parse() throws DukeException {
+    public Command parse() {
         return new GetBusStopCommand(busStopNo);
     }
 }

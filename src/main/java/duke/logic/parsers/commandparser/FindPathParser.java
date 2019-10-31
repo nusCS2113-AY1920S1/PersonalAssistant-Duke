@@ -1,6 +1,6 @@
 package duke.logic.parsers.commandparser;
 
-import duke.commons.exceptions.DukeException;
+import duke.commons.exceptions.ParseException;
 import duke.logic.commands.Command;
 import duke.logic.commands.FindPathCommand;
 import duke.logic.parsers.ParserUtil;
@@ -17,7 +17,7 @@ public class FindPathParser extends CommandParser {
      * Parses user input into parameter for FindPathCommand.
      * @param input The User input
      */
-    public FindPathParser(String input) throws DukeException {
+    public FindPathParser(String input) throws ParseException {
         constraint = ParserUtil.getFieldInList(0, 3, input);
         startEventIndex = ParserUtil.getIntegerIndexInList(1, 3, input);
         endEventIndex = ParserUtil.getIntegerIndexInList(2, 3, input);
@@ -28,7 +28,7 @@ public class FindPathParser extends CommandParser {
      * @return FindPathCommand object
      */
     @Override
-    public Command parse() throws DukeException {
+    public Command parse() {
         return new FindPathCommand(constraint, startEventIndex, endEventIndex);
     }
 }

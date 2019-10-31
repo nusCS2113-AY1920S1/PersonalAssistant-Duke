@@ -1,5 +1,6 @@
 package duke.logic.commands;
 
+import duke.commons.exceptions.ApiException;
 import duke.commons.exceptions.ApiFailedRequestException;
 import duke.commons.exceptions.ApiNullRequestException;
 import duke.commons.exceptions.ApiTimeoutException;
@@ -48,8 +49,7 @@ public class RouteNodeAddCommand extends Command {
      */
     @Override
     public CommandResultImage execute(Model model) throws CorruptedFileException, FileNotSavedException,
-            RouteNodeDuplicateException, QueryOutOfBoundsException, QueryFailedException, ApiFailedRequestException,
-            ApiTimeoutException, ApiNullRequestException {
+            RouteNodeDuplicateException, QueryOutOfBoundsException, QueryFailedException, ApiException {
         if (node instanceof BusStop) {
             ((BusStop) node).fetchData(model);
         } else if (node instanceof TrainStation) {

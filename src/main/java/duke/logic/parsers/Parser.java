@@ -1,7 +1,7 @@
 package duke.logic.parsers;
 
-import duke.commons.exceptions.DukeException;
-import duke.commons.exceptions.DukeUnknownCommandException;
+import duke.commons.exceptions.ApiException;
+import duke.commons.exceptions.ParseException;
 import duke.logic.commands.AddSampleItineraryCommand;
 import duke.logic.commands.Command;
 import duke.logic.commands.EditorCommand;
@@ -12,7 +12,6 @@ import duke.logic.commands.ListItineraryCommand;
 import duke.logic.commands.NewItineraryCommand;
 import duke.logic.commands.ProfileSetPreferenceCommand;
 import duke.logic.commands.ProfileShowCommand;
-import duke.logic.commands.QuickEditCommand;
 import duke.logic.commands.RouteManagerCommand;
 import duke.logic.commands.RouteManagerExitCommand;
 import duke.logic.commands.RouteManagerHelpCommand;
@@ -40,6 +39,7 @@ import duke.logic.parsers.commandparser.GetBusRouteParser;
 import duke.logic.parsers.commandparser.GetBusStopParser;
 import duke.logic.parsers.commandparser.LocationSearchParser;
 import duke.logic.parsers.commandparser.PromptParser;
+import duke.logic.parsers.commandparser.QuickEditParser;
 import duke.logic.parsers.commandparser.RecommendationParser;
 import duke.logic.parsers.commandparser.RouteAddParser;
 import duke.logic.parsers.commandparser.RouteDeleteParser;
@@ -61,9 +61,9 @@ public class Parser {
      *
      * @param input Input created by the ConversationManager object or user input.
      * @return The corresponding Command object.
-     * @throws DukeException If userInput is undefined.
+     * @throws ParseException If userInput is undefined.
      */
-    public static Command parseComplexCommand(String input) throws DukeException {
+    public static Command parseComplexCommand(String input) throws ParseException, ApiException {
         String commandWord = getCommandWord(input);
         String inputBody = getWord(input);
 
@@ -79,10 +79,7 @@ public class Parser {
         case "edit":
             return new EditorCommand();
         case "e":
-            return new QuickEditCommand(ParserUtil.getIntegerIndexInList(0, 4, inputBody),
-                    ParserUtil.getFieldInList(1, 4, inputBody),
-                    ParserUtil.getFieldInList(2, 4, inputBody),
-                    ParserUtil.getFieldInList(3, 4, inputBody));
+            return new QuickEditParser(inputBody).parse();
         case "done":
             return new DoneParser(inputBody).parse();
         case "delete":
@@ -174,7 +171,7 @@ public class Parser {
             return new ProfileSetPreferenceCommand(ParserUtil.getFieldInList(0,2,inputBody),
                         ParserUtil.getFieldInList(1,2,inputBody));
         default:
-            throw new DukeUnknownCommandException();
+            throw new ParseException();
         }
     }
 
@@ -194,7 +191,7 @@ public class Parser {
      * @param userInput The userInput read by the user interface.
      * @return The word.
      */
-    private static String getWord(String userInput) throws DukeException {
+    private static String getWord(String userInput) throws ParseException {
         try {
             return userInput.strip().split(" ", 2)[1];
         } catch (ArrayIndexOutOfBoundsException e) {

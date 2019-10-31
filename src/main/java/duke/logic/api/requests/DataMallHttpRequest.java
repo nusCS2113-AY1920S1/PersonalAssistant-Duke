@@ -3,8 +3,7 @@ package duke.logic.api.requests;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import duke.commons.exceptions.DukeApiException;
-import duke.commons.Messages;
+import duke.commons.exceptions.ApiException;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -23,7 +22,7 @@ public class DataMallHttpRequest extends HttpRequest {
     }
 
     @Override
-    public JsonObject execute() throws DukeApiException {
+    public JsonObject execute() throws ApiException {
         String response;
         try {
             URL url = new URL(this.url + "?$skip=" + this.param);
@@ -38,7 +37,7 @@ public class DataMallHttpRequest extends HttpRequest {
             response = in.readLine();
             in.close();
         } catch (IOException e) {
-            throw new DukeApiException(Messages.ERROR_API_REQUEST_FAILED);
+            throw new ApiException();
         }
 
         JsonObject result;
@@ -48,7 +47,7 @@ public class DataMallHttpRequest extends HttpRequest {
             JsonElement root = jp.parse(response);
             result = root.getAsJsonObject();
         } catch (Throwable e) {
-            throw new DukeApiException(Messages.ERROR_API_DATA_NULL);
+            throw new ApiException();
         }
 
         return result;

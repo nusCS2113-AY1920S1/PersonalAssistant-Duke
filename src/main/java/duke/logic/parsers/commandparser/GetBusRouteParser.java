@@ -15,7 +15,7 @@ public class GetBusRouteParser extends CommandParser {
      * Parses user input into busServiceNo.
      * @param input The User input
      */
-    public GetBusRouteParser(String input) throws DukeException {
+    public GetBusRouteParser(String input) {
         busServiceNo = input;
     }
 
@@ -23,7 +23,7 @@ public class GetBusRouteParser extends CommandParser {
      * Constructs GetBusRouteCommand object.
      * @return GetBusRouteCommand object
      */
-    public Command parse() throws DukeException {
+    public Command parse() {
         return new GetBusRouteCommand(busServiceNo);
     }
 }

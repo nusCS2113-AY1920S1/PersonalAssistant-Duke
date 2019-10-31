@@ -1,9 +1,6 @@
 package duke.logic.parsers.commandparser;
 
-import duke.commons.exceptions.ApiFailedRequestException;
-import duke.commons.exceptions.ApiNullRequestException;
-import duke.commons.exceptions.ApiTimeoutException;
-import duke.commons.exceptions.DukeException;
+import duke.commons.exceptions.ApiException;
 import duke.logic.commands.Command;
 import duke.logic.commands.StaticMapCommand;
 
@@ -17,7 +14,7 @@ public class StaticMapParser extends CommandParser {
      * Parses user input into location.
      * @param input The User input
      */
-    public StaticMapParser(String input) throws DukeException {
+    public StaticMapParser(String input) {
         this.location = input;
     }
 
@@ -26,7 +23,7 @@ public class StaticMapParser extends CommandParser {
      * @return StaticMapCommand object
      */
     @Override
-    public Command parse() throws ApiFailedRequestException, ApiTimeoutException, ApiNullRequestException {
+    public Command parse() throws ApiException {
         return new StaticMapCommand(location);
     }
 }

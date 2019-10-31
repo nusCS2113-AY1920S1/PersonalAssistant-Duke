@@ -16,7 +16,7 @@ public class PromptParser extends CommandParser {
      * @return PromptCommand object
      */
     @Override
-    public Command parse() throws DukeException {
+    public Command parse() {
         return new PromptCommand(Messages.PROMPT_CANCEL);
     }
 }

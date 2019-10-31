@@ -1,7 +1,6 @@
 package duke.logic.commands;
 
-import duke.commons.exceptions.ApiNullRequestException;
-import duke.commons.exceptions.ApiTimeoutException;
+import duke.commons.exceptions.ApiException;
 import duke.logic.commands.results.CommandResultText;
 import duke.logic.api.ApiParser;
 import duke.model.Model;
@@ -17,10 +16,9 @@ public class LocationSearchCommand extends Command {
      *  Creates a new LocationSearchCommand with the given location.
      *
      * @param location The location to search.
-     * @throws ApiNullRequestException If the request fails.
-     * @throws ApiTimeoutException If the request times out.
+     * @throws ApiException
      */
-    public LocationSearchCommand(String location) throws ApiNullRequestException, ApiTimeoutException {
+    public LocationSearchCommand(String location) throws ApiException {
         venue = ApiParser.getLocationSearch(location);
     }
 

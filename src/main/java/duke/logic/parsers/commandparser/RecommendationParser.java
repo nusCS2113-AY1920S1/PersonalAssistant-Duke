@@ -1,8 +1,7 @@
 package duke.logic.parsers.commandparser;
 
-import duke.commons.Messages;
-import duke.commons.exceptions.DukeException;
-import duke.commons.exceptions.DukeUnknownCommandException;
+import duke.commons.exceptions.ApiException;
+import duke.commons.exceptions.ParseException;
 import duke.logic.api.ApiParser;
 import duke.logic.commands.Command;
 import duke.logic.commands.RecommendationsCommand;
@@ -23,7 +22,7 @@ public class RecommendationParser extends CommandParser {
      * Parses user input into recommendation.
      * @param input The User input
      */
-    public RecommendationParser(String input) throws DukeException {
+    public RecommendationParser(String input) throws ParseException, ApiException {
         recommendation = createRecommendation(input);
     }
 
@@ -33,18 +32,18 @@ public class RecommendationParser extends CommandParser {
      * @param userInput The userInput read by the user interface.
      * @return The new Itinerary object.
      */
-    public Itinerary createRecommendation(String userInput) throws DukeException {
+    public Itinerary createRecommendation(String userInput) throws ParseException, ApiException {
         String[] itineraryDetails = userInput.substring("recommend".length()).strip().split("between| and");
         if (itineraryDetails.length == 1) {
-            throw new DukeUnknownCommandException();
+            throw new ParseException();
         }
 
         if (itineraryDetails.length != 3 || itineraryDetails[1] == null || itineraryDetails[2] == null) {
-            throw new DukeException(Messages.ERROR_INPUT_INVALID_FORMAT);
+            throw new ParseException();
         }
 
         if (itineraryDetails[0].strip().isEmpty()) {
-            throw new DukeException(Messages.ERROR_DESCRIPTION_EMPTY);
+            throw new ParseException();
         }
 
         LocalDateTime start = ParserTimeUtil.parseStringToDate(itineraryDetails[1].strip());

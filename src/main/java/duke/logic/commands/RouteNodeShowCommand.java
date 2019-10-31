@@ -1,6 +1,7 @@
 package duke.logic.commands;
 
 import duke.commons.Messages;
+import duke.commons.exceptions.ApiException;
 import duke.commons.exceptions.ApiFailedRequestException;
 import duke.commons.exceptions.ApiNullRequestException;
 import duke.commons.exceptions.ApiTimeoutException;
@@ -53,7 +54,7 @@ public class RouteNodeShowCommand extends Command {
      */
     @Override
     public CommandResultImage execute(Model model) throws QueryOutOfBoundsException,
-            ApiNullRequestException, ApiTimeoutException, ApiFailedRequestException {
+            ApiException {
         Route route = model.getRoutes().get(indexRoute);
         RouteNode node = model.getRoutes().get(indexRoute).getNode(indexNode);
         String rgb = RED_VALUE_OTHER + "," + GREEN_VALUE_OTHER + "," + BLUE_VALUE_OTHER;

@@ -1,6 +1,6 @@
 package duke.logic.parsers.commandparser;
 
-import duke.commons.exceptions.DukeException;
+import duke.commons.exceptions.ParseException;
 import duke.logic.commands.Command;
 import duke.logic.commands.RouteDeleteCommand;
 import duke.logic.parsers.ParserUtil;
@@ -15,7 +15,7 @@ public class RouteDeleteParser extends CommandParser {
      * Parses user input into route.
      * @param input The User input
      */
-    public RouteDeleteParser(String input) throws DukeException {
+    public RouteDeleteParser(String input) throws ParseException {
         this.index = ParserUtil.getIntegerIndexInList(0, 1, input);
     }
 
@@ -24,7 +24,7 @@ public class RouteDeleteParser extends CommandParser {
      * @return RouteDeleteCommand object
      */
     @Override
-    public Command parse() throws DukeException {
+    public Command parse() {
         return new RouteDeleteCommand(index);
     }
 }

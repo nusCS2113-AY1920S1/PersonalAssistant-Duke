@@ -1,8 +1,6 @@
 package duke.logic.commands;
 
-import duke.commons.exceptions.DukeDateTimeParseException;
 import duke.commons.exceptions.DukeException;
-import duke.commons.exceptions.FileLoadFailException;
 import duke.logic.commands.results.CommandResultText;
 import duke.model.Model;
 import duke.model.planning.Itinerary;
@@ -17,11 +15,8 @@ public class AddSampleItineraryCommand extends Command {
 
     /**
      * Constructs the command with the given sample itinerary.
-     *
-     * @throws DukeDateTimeParseException If the datetime cannot be parsed.
-     * @throws FileLoadFailException If the file cannot be loaded.
      */
-    public AddSampleItineraryCommand() throws DukeDateTimeParseException, FileLoadFailException {
+    public AddSampleItineraryCommand() {
         this.itinerary = null;
     }
 

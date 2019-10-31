@@ -1,10 +1,9 @@
 package duke.logic;
 
+import duke.commons.exceptions.ParseException;
 import duke.logic.commands.Command;
 import duke.logic.commands.results.CommandResult;
-import duke.commons.exceptions.DukeApiException;
 import duke.commons.exceptions.DukeException;
-import duke.commons.exceptions.DukeUnknownCommandException;
 import duke.logic.commands.results.PanelResult;
 import duke.logic.conversations.ConversationManager;
 import duke.logic.edits.EditorManager;
@@ -25,7 +24,6 @@ public class LogicManager extends Logic {
     private static final Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
     private Model model;
     private ConversationManager conversationManager;
-    public boolean isNewUser;
 
     /**
      * Creates LogicManager instance.
@@ -33,22 +31,6 @@ public class LogicManager extends Logic {
     public LogicManager() {
         model = new ModelManager();
         conversationManager = new ConversationManager(model.getRouteManager());
-        this.isNewUser = model.isNewUser();
-    }
-
-    /**
-     * Gets response from LogicManager during setup.
-     *
-     * @param userInput The input string from user.
-     * @return CommandResult Object containing information for Ui to display.
-     */
-    public CommandResult setup(String userInput) throws DukeException, FileNotFoundException {
-        Command c;
-        conversationManager.converse(userInput);
-        c = conversationManager.getCommand();
-        CommandResult result = (CommandResult) c.execute(model);
-        isNewUser = model.isNewUser();
-        return result;
     }
 
     /**
@@ -70,9 +52,7 @@ public class LogicManager extends Logic {
             try {
                 c = Parser.parseComplexCommand(input);
                 conversationManager.clearContext();
-            } catch (DukeApiException e) {
-                throw new DukeException((e.getMessage()));
-            } catch (DukeUnknownCommandException e) {
+            } catch (ParseException e) {
                 c = getCommandFromConversationManager(input);
             }
         }

@@ -79,11 +79,7 @@ public class MainWindow extends UiPart<Stage> {
     public void initialise(Main main) {
         this.main = main;
         logic = new LogicManager();
-        if (logic.isNewUser) {
-            sgTravelSetup("profile");
-        } else {
-            sgTravelShow(Messages.STARTUP_WELCOME_MESSAGE + logic.getName());
-        }
+        sgTravelShow(Messages.STARTUP_WELCOME_MESSAGE + logic.getName());
     }
 
     /**
@@ -128,15 +124,6 @@ public class MainWindow extends UiPart<Stage> {
                 sgTravelShow(e.getMessage());
             }
         });
-    }
-
-    private void sgTravelSetup(String input) {
-        try {
-            CommandResult result = logic.setup(input);
-            sgTravelShow(result);
-        } catch (DukeException | FileNotFoundException e) {
-            sgTravelShow(e.getMessage());
-        }
     }
 
     /**

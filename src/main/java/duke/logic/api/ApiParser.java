@@ -3,9 +3,7 @@ package duke.logic.api;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import duke.commons.enumerations.Direction;
-import duke.commons.exceptions.ApiFailedRequestException;
-import duke.commons.exceptions.ApiNullRequestException;
-import duke.commons.exceptions.ApiTimeoutException;
+import duke.commons.exceptions.ApiException;
 import duke.logic.api.requests.LocationSearchUrlRequest;
 import duke.commons.exceptions.DukeException;
 import duke.logic.api.requests.DataMallHttpRequest;
@@ -33,10 +31,9 @@ public class ApiParser {
      *
      * @param param The query location.
      * @return The location found.
-     * @throws ApiNullRequestException If the request returns no valid result.
-     * @throws ApiTimeoutException If the request times out.
+     * @throws ApiException
      */
-    public static Venue getLocationSearch(String param) throws ApiNullRequestException, ApiTimeoutException {
+    public static Venue getLocationSearch(String param) throws ApiException {
         LocationSearchUrlRequest req = new LocationSearchUrlRequest(param);
         return req.execute();
     }
@@ -46,7 +43,7 @@ public class ApiParser {
      *
      * @return List of Bus Stops.
      */
-    public static HashMap<String, BusStop> getBusStop() throws DukeException {
+    public static HashMap<String, BusStop> getBusStop() throws ApiException {
         String path = "BusStops";
         int skip = 0;
         HashMap<String, BusStop> allBus = new HashMap<>();
@@ -111,10 +108,9 @@ public class ApiParser {
      *
      * @param param String formatted parameters
      * @return result The image from API
-     * @throws ApiFailedRequestException If the request fails.
-     * @throws ApiNullRequestException If the request returns no valid result.
+     * @throws ApiException
      */
-    public static Image getStaticMap(String param) throws ApiFailedRequestException, ApiNullRequestException {
+    public static Image getStaticMap(String param) throws ApiException {
         StaticMapUrlRequest req = new StaticMapUrlRequest(param);
         return req.execute();
     }

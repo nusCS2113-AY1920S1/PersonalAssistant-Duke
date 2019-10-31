@@ -1,6 +1,6 @@
 package duke.logic.parsers.commandparser;
 
-import duke.commons.exceptions.DukeException;
+import duke.commons.exceptions.ParseException;
 import duke.logic.commands.Command;
 import duke.logic.commands.RouteNodeListCommand;
 import duke.logic.parsers.ParserUtil;
@@ -17,7 +17,7 @@ public class RouteNodeListParser extends CommandParser {
      * Parses user input into parameter for RouteNodeListCommand.
      * @param input The User input
      */
-    public RouteNodeListParser(String input) throws DukeException {
+    public RouteNodeListParser(String input) throws ParseException {
         firstIndex = ParserUtil.getIntegerIndexInList(0, 2, input);
         secondIndex = ParserUtil.getIntegerIndexInList(1, 2, input);
     }

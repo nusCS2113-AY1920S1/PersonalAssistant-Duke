@@ -1,6 +1,5 @@
 package duke.logic.parsers.commandparser;
 
-import duke.commons.exceptions.DukeException;
 import duke.logic.commands.Command;
 import duke.logic.commands.RouteAddCommand;
 
@@ -14,7 +13,7 @@ public class RouteAddParser extends CommandParser {
      * Parses user input into route.
      * @param input The User input
      */
-    public RouteAddParser(String input) throws DukeException {
+    public RouteAddParser(String input) {
         details = input.split("desc", 2);
     }
 
