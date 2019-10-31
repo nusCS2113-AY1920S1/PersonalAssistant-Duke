@@ -35,7 +35,8 @@ public class Within extends Task {
      * @param between     String contains the time window to complete this task
      */
     public Within(String bool, String description, String between) throws DukeException {
-        this.description = description;
+//        this.description = description;
+        super(description);
         this.between = between;
         this.isDone = (1 == Integer.parseInt(bool));
     }
