@@ -1,4 +1,4 @@
-﻿= OOF (Outstanding Organisation Friend) - User Guide
+= OOF (Outstanding Organisation Friend) - User Guide
 :site-section: UserGuide
 :toc:
 :toclevels: 4
@@ -894,4 +894,3 @@ Exit *OOF* by using this command.
 * *ViewDual*: `viewDual`
 
 * *Export*: `export`
-
