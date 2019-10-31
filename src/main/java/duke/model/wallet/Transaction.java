@@ -7,10 +7,9 @@ import java.util.Calendar;
 import static duke.commons.constants.DateConstants.DATE_FORMAT;
 
 public class Transaction {
-    protected SimpleDateFormat dateParser = DATE_FORMAT;
     protected BigDecimal transactionAmount;
     protected String type = "";
-    protected String date = dateParser.format(Calendar.getInstance().getTime());
+    protected String date;
 
     public Transaction(String amountString, String dateString) {
         this.transactionAmount = new BigDecimal(amountString);

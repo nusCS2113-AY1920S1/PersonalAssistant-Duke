@@ -3,6 +3,7 @@ package duke.storage;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import duke.commons.FileUtil;
 import duke.commons.exceptions.DukeException;
 import duke.commons.file.FilePaths;
 import duke.logic.autocorrect.Autocorrect;
@@ -52,7 +53,8 @@ public class Load {
                 bufferedReader.close();
             }
         } catch (Exception e) {
-            throw new DukeException(e.getMessage());
+            throw new DukeException("It appears the savefile has been corrupted. " +
+                    "Previously recorded meals will not be loaded.");
         }
     }
 
@@ -83,35 +85,35 @@ public class Load {
         bufferedReader = FileUtil.readFile(goalFilePathStr, useResourceAsBackup);
         try {
             Goal goal = gson.fromJson(bufferedReader, goalType);
+            bufferedReader.close();
             if (goal != null) {
                 user.setGoal(goal, true);
             }
         } catch (Exception e) {
-            throw new DukeException("Error reading file");
+            throw new DukeException("Error reading goal file");
         }
     }
 
 
     public void loadTransactions(Wallet wallet) throws DukeException {
-        String transactionFilePathStr = filePaths.getFilePathStr(FilePathNames.FILE_PATH_TRANSACTION_FILE);
-        bufferedReader = FileUtil.readFile(transactionFilePathStr, useResourceAsBackup);
+        String transactionsFilePathStr = filePaths.getFilePathStr(FilePathNames.FILE_PATH_TRANSACTION_FILE);
+        Type walletType = new TypeToken<Wallet>(){}.getType();
+        bufferedReader = FileUtil.readFile(transactionsFilePathStr, useResourceAsBackup);
         try {
-            lineStr = bufferedReader.readLine();
-            wallet.setAccountBalance(lineStr);
-            while ((lineStr = bufferedReader.readLine()) != null) {
-                LoadLineParser.parseTransactions(lineStr, wallet);
-            }
+            Wallet data = gson.fromJson(bufferedReader, walletType);
             bufferedReader.close();
-        } catch (IOException e) {
-            e.printStackTrace();
+            if (data != null) {
+                wallet.UpdateAccountBalance(data);
+            }
+        } catch (Exception e) {
+            throw new DukeException("Error reading transactions file");
         }
     }
 
     public User loadUser() throws DukeException {
         String userFileStr = filePaths.getFilePathStr(FilePathNames.FILE_PATH_USER_FILE);
         User data;
-        Type userType = new TypeToken<User>() {
-        }.getType();
+        Type userType = new TypeToken<User>() {}.getType();
         bufferedReader = FileUtil.readFile(userFileStr, useResourceAsBackup);
         try {
             data = gson.fromJson(bufferedReader, userType);
@@ -122,8 +124,7 @@ public class Load {
                 return new User();
             }
         } catch (Exception e) {
-            throw new DukeException("It appears the savefile has been corrupted. " +
-                    "Default meal values will not be loaded.");
+            throw new DukeException("Error reading user file.");
         }
     }
 

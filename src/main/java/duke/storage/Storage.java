@@ -52,7 +52,7 @@ public class Storage {
         loader.loadHelp(lines, specifiedHelp);
     }
 
-    public void loadTransactions(TransactionList transactions, Wallet wallet) throws DukeException {
+    public void loadTransactions(Wallet wallet) throws DukeException {
         loader.loadTransactions(wallet);
     }
 

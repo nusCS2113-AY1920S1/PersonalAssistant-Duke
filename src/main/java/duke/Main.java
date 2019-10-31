@@ -57,7 +57,7 @@ public class Main {
             ui.showMessage(e.getMessage());
         }
         try {
-            storage.loadTransactions(transactions, wallet);
+            storage.loadTransactions(wallet);
         } catch (DukeException e) {
             ui.showLoadingTransactionError();
         }

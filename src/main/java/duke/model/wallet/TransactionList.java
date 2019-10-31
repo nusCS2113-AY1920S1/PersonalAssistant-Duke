@@ -1,18 +1,19 @@
 package duke.model.wallet;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 
+import static duke.commons.constants.DateConstants.DATE_FORMAT;
+
 public class TransactionList {
-    private DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-    private Calendar calendarDate = Calendar.getInstance();
-    private String currentDate = dateFormat.format(calendarDate.getTime());
+    private Calendar calendarDate;
+    private String currentDate ;
     private HashMap<String, ArrayList<Transaction>> transactionTracker = new HashMap<>();
 
     public TransactionList() {
+        calendarDate = Calendar.getInstance();
+        currentDate = DATE_FORMAT.format(calendarDate.getTime());
     }
 
     public Transaction deleteTransaction(String date, int index) {

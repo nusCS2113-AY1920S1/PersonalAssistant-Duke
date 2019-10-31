@@ -13,12 +13,10 @@ import static duke.commons.constants.DateConstants.DATE_FORMAT;
  * the task is done.
  */
 public class Meal {
-    protected transient SimpleDateFormat dateparser = DATE_FORMAT;
-
     protected String description;
     protected String type = "";
     protected boolean isDone;
-    protected String date = dateparser.format(Calendar.getInstance().getTime());
+    protected String date;
     protected HashMap<String, Integer> nutritionValue = new HashMap<String, Integer>();
     protected String cost;
 
@@ -27,6 +25,8 @@ public class Meal {
      * @param description the description of the task
      */
     public Meal(String description, String details) {
+        SimpleDateFormat dateparser = DATE_FORMAT;
+        this.date = dateparser.format(Calendar.getInstance().getTime());
         this.description = description.trim();
         //todo: date input can only be accepted at the back of the statement
         if (details.contains("/date")) {
@@ -54,6 +54,8 @@ public class Meal {
     }
 
     public Meal(String description, HashMap<String, Integer> nutritionValue) {
+        SimpleDateFormat dateparser = DATE_FORMAT;
+        this.date = dateparser.format(Calendar.getInstance().getTime());
         this.description = description.trim();
         this.nutritionValue = nutritionValue;
     }
