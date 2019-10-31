@@ -1,6 +1,7 @@
 package duke.ui.window;
 
 import com.jfoenix.controls.JFXListView;
+import duke.data.DukeObject;
 import duke.data.Evidence;
 import duke.data.Impression;
 import duke.data.Investigation;
@@ -10,7 +11,6 @@ import duke.data.Patient;
 import duke.data.Plan;
 import duke.data.Result;
 import duke.data.Treatment;
-import duke.ui.UiElement;
 import duke.ui.UiStrings;
 import duke.ui.card.EvidenceCard;
 import duke.ui.card.InvestigationCard;
@@ -22,14 +22,14 @@ import duke.ui.card.TreatmentCard;
 import javafx.collections.MapChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.layout.Region;
 
+import java.util.List;
 import java.util.Map;
 
 /**
  * UI window for the Impression context.
  */
-public class ImpressionWindow extends UiElement<Region> {
+public class ImpressionWindow extends Window {
     private static final String FXML = "ImpressionWindow.fxml";
 
     @FXML
@@ -58,12 +58,13 @@ public class ImpressionWindow extends UiElement<Region> {
      * Constructs the patient UI window.
      */
     public ImpressionWindow(Impression impression, Patient patient) {
-        super(FXML, null);
+        super(FXML);
 
         if (impression != null && patient != null) {
             this.patient = patient;
             this.impression = impression;
-            setImpression();
+            //setImpression();
+            updateUi();
         }
     }
 
@@ -152,10 +153,9 @@ public class ImpressionWindow extends UiElement<Region> {
     }
 
     /**
-     * This function update all labels in the Impression Window when called.
-     * Todo May be replaced by listeners.
+     * {@inheritDoc}
      */
-    private void updateUi() {
+    public void updateUi() {
         nameLabel.setText(String.valueOf(impression.getName()));
         patientNameLabel.setText(String.valueOf(patient.getName()));
         patientBedLabel.setText(String.valueOf(patient.getBedNo()));
@@ -173,5 +173,21 @@ public class ImpressionWindow extends UiElement<Region> {
 
         criticalLabel.setText(impression.getCriticalCountStr());
         followUpLabel.setText(impression.getFollowUpCountStr());
+
+
+        evidenceListPanel.getItems().clear();
+        for (Map.Entry<String, Evidence> pair : impression.getEvidences().entrySet()) {
+            evidenceListPanel.getItems().add(newEvidenceCard(pair.getValue()));
+        }
+
+        treatmentListPanel.getItems().clear();
+        for (Map.Entry<String, Treatment> pair : impression.getTreatments().entrySet()) {
+            treatmentListPanel.getItems().add(newTreatmentCard(pair.getValue()));
+        }
+    }
+
+    @Override
+    public List<DukeObject> getIndexedList(String type) {
+        return null;
     }
 }

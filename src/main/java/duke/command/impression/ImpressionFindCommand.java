@@ -47,7 +47,7 @@ public class ImpressionFindCommand extends ArgCommand {
         if (!searchResult.isEmpty()) {
             SearchResult search = new SearchResult(searchTerm, searchResult, impression);
             core.uiContext.setContext(Context.SEARCH, search);
-            core.ui.print("Returning result of search of " + searchTerm);
+            core.updateUi("Returning result of search of " + searchTerm);
         } else {
             throw new DukeException("There were no relevant treatments or evidences.");
         }

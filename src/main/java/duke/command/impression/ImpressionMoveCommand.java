@@ -51,7 +51,7 @@ public class ImpressionMoveCommand extends ArgCommand {
             impression.deleteTreatment(treatment.getName());
         }
 
-        core.ui.print("'" + moveData.getName() + "' moved from '" + impression.getName() + "' to '"
+        core.updateUi("'" + moveData.getName() + "' moved from '" + impression.getName() + "' to '"
                 + newImpression.getName() + "'");
     }
 }

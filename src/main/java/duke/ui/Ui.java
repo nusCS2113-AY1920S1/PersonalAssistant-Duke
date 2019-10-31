@@ -24,6 +24,13 @@ public interface Ui {
     void print(String message);
 
     /**
+     * Update UI of current context.
+     *
+     * @param message Output message.
+     */
+    void updateUi(String message);
+
+    /**
      * Displays an info pop-up dialog on screen.
      *
      * @param title   Title of dialog.

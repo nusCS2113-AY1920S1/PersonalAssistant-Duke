@@ -52,7 +52,7 @@ public class PatientFindCommand extends ArgCommand {
         if (!resultList.isEmpty()) {
             SearchResult search = new SearchResult(searchTerm, resultList, patient);
             core.uiContext.setContext(Context.SEARCH, search);
-            core.ui.print("Returning result of search of " + searchTerm);
+            core.updateUi("Returning result of search of " + searchTerm);
         } else {
             throw new DukeException("No results found in this patient context.");
         }

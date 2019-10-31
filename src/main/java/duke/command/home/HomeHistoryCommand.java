@@ -32,6 +32,6 @@ public class HomeHistoryCommand extends ArgCommand {
             newHistory = patient.appendHistory(message);
         }
         core.writeJsonFile();
-        core.ui.print("History of " + patientDetails + " updated with:\n" + newHistory + "\n");
+        core.updateUi("History of " + patientDetails + " updated with:\n" + newHistory + "\n");
     }
 }

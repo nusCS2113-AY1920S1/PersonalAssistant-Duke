@@ -31,7 +31,7 @@ public class HomeHelpCommand extends ArgCommand {
                 for (int i = 0; i < 3; i++) {
                     helpInfo.append(infoFields[i]).append(": ").append(value.get(infoFields[i])).append("\n");
                 }
-                core.ui.print(helpInfo.toString());
+                core.updateUi(helpInfo.toString());
             }
         } else {
             for (Map.Entry<String, String> mapElement : getSwitchVals().entrySet()) {
@@ -44,7 +44,7 @@ public class HomeHelpCommand extends ArgCommand {
                             helpInfo.append(field).append(": ").append(value.get(field)).append("\n");
                         }
                     }
-                    core.ui.print(helpInfo.toString());
+                    core.updateUi(helpInfo.toString());
                 }
             }
         }

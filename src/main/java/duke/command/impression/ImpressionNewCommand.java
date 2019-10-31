@@ -98,7 +98,7 @@ public class ImpressionNewCommand extends DukeDataCommand {
             throw new DukeException("Invalid data type!");
         }
 
-        core.ui.print(newStr);
+        core.updateUi(newStr);
 
         if (isSwitchSet("go")) {
             switch (addType) {

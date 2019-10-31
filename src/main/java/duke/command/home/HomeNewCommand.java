@@ -38,7 +38,7 @@ public class HomeNewCommand extends ArgCommand {
                 address, history);
         core.patientMap.addPatient(patient);
         core.writeJsonFile();
-        core.ui.print("Patient added.");
+        core.updateUi("Patient added.");
 
         if (isSwitchSet("go")) {
             core.uiContext.setContext(Context.PATIENT, patient);

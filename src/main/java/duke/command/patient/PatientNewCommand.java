@@ -23,7 +23,7 @@ public class PatientNewCommand extends ArgCommand {
         patient.addNewImpression(impression);
         patient.updateAttributes();
         core.writeJsonFile();
-        core.ui.print("Impression added:\n" + patient.getImpression(impression.getName()).toString());
+        core.updateUi("Impression added:\n" + patient.getImpression(impression.getName()).toString());
 
         if (isSwitchSet("go")) {
             core.uiContext.setContext(Context.IMPRESSION, impression);
