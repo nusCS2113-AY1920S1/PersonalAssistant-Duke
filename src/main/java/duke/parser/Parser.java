@@ -45,7 +45,9 @@ public class Parser {
      * @return Command The Command to be executed
      * @throws DukeException for any invalid input
      */
+    //public static Cmd parse(String fullCommand, int size) throws DukeException {
  /*   public static Cmd parse(String fullCommand, int size) throws DukeException {
+>>>>>>> 07cc5da9aa7b9d4958918b61fa2d02c9fc22e062
         //splitted contains the keyword and the rest (description or task number)
         String[] splitted = fullCommand.split(" ", 2);
         //switching on the keyword
@@ -95,7 +97,24 @@ public class Parser {
                 throw new DukeException("I'm sorry, but I don't know what that means :-(");
         }
     }
-*/
+<<<<<<< HEAD
+    /*
+    public static Cmd parse(String fullCommand, int size) throws DukeException
+    {
+        //splitted contains the keyword and the rest (description or task number)
+        String[] splitted = fullCommand.split(" ", 2);
+        //switching on the keyword
+        switch (splitted[0])
+        {
+            case "list":
+                return new ListCommand();
+            case "listtoday":
+                return new FindToday();
+            default:
+                throw new DukeException("I'm sorry, but I don't know what that means :-(");
+        }
+    }
+    */
     public static Cmd parse(String fullCommand, Duke.Type type) throws DukeException {
         String[] splitted;
         //= fullCommand.split(" ", 3);
@@ -108,7 +127,7 @@ public class Parser {
                 if (splitted[0].equals("add")) {
                     if (splitted.length != 4)
                         throw new DukeException("must specify ingredient name, amount and/or expiry date");
-                    return new AddCommand<Ingredient>(new Ingredient(splitted[1], Integer.parseInt(splitted[2]), splitted[3]));
+                    return new AddCommand(new Ingredient(splitted[1], Integer.parseInt(splitted[2]), splitted[3]));
                 }
                 if (splitted[0].equals("remove")) {
                     if (splitted.length != 2)
@@ -126,18 +145,32 @@ public class Parser {
                 splitted = fullCommand.split(" ", 2);
                 if (splitted.length > 4)
                     throw new DukeException("must specify name/index");
-                else if (splitted[0].equals("add"))
+                else if (splitted[0].equals("add")) {
+                    if(splitted.length != 2)
+                        throw new DukeException("description cannot be empty");
                     return new AddDishCommand(new Dish(splitted[1]));
+                }
                 else if (splitted[0].equals("remove"))
-                    return new DeleteDishCommand(Integer.parseInt(splitted[1]));
+                    try {
+                        return new DeleteDishCommand(Integer.parseInt(splitted[1]));
+                    } catch (NumberFormatException e) {
+                        throw new DukeException("enter a valid index");
+                    }
                 else if (splitted[0].equals("list"))
                     return new ListDishCommand();
                 else if (splitted[0].equals("initialize"))
                     return new InitCommand();
                 else if (splitted[0].equals("ingredient")) {
-                    String[] getIng = splitAndCheck(splitted[1], " /add ");
-                    int index = Integer.parseInt(getIng[1]);
-                   return new AddIngredient(new Ingredient(getIng[0], index, new Date()) , index);
+                    String[] getIng = splitted[1].split(" ", 3);
+                    int amount = 0;
+                    int index = 0;
+                    try {
+                        amount = Integer.parseInt(getIng[1]);
+                        index = Integer.parseInt(getIng[2]);
+                    } catch (NumberFormatException e) {
+                        throw new DukeException("enter a valid amount/index");
+                    }
+                    return new AddIngredient(new Ingredient(getIng[0], amount, new Date()) , index);
                 }
                 else
                     throw new DukeException("not a valid command for a Dish");
@@ -148,7 +181,7 @@ public class Parser {
                 if (splitted.length > 4)
                     throw new DukeException("must specify order name, amount and expiry date");
                 else if (splitted[0].equals("add"))
-                    return new AddCommand<Order>(new Order(splitted[1]));
+                    //return new AddCommand<Order>(new Order(splitted[1]));
                 if (splitted[0].equals("remove")) {
                     // for(int i=0)
                     return new DeleteCommand<Order>(Integer.parseInt(splitted[1]));

@@ -2,14 +2,13 @@ package duke.command.ingredientCommand;
 
 import duke.command.Cmd;
 import duke.exception.DukeException;
+import duke.ingredient.IngredientsList;
 import duke.list.GenericList;
 import duke.storage.Storage;
-import duke.task.Task;
-import duke.task.TaskList;
 import duke.ui.Ui;
 
 /**
- * Represents a specific {@link Cmd} used to mark a {@link Task} as done.
+ * Represents a specific {@link Cmd} used to mark a {@link IngredientsList} as done.
  */
 public class DoneCommand<T> extends Cmd<T> {
     private int taskNb;
@@ -19,13 +18,13 @@ public class DoneCommand<T> extends Cmd<T> {
     }
 
     @Override
-    public void execute(GenericList<T> taskList, Ui ui, Storage storage) throws DukeException {
-        if (taskNb < taskList.size() && taskNb >= 0) {
-            ((TaskList)taskList).markTaskDone(taskNb);
-            ui.showMarkDone(taskList.getEntry(taskNb).toString());
+    public void execute(GenericList<T> IngredientsList, Ui ui, Storage storage) throws DukeException {
+        if (taskNb < IngredientsList.size() && taskNb >= 0) {
+            ((duke.ingredient.IngredientsList)IngredientsList).removeEntry(taskNb);
+            ui.showMarkDone(IngredientsList.getEntry(taskNb).toString());
             storage.changeContent(taskNb);
         } else {
-            throw new DukeException("Enter a valid task number after done, between 1 and " + taskList.size());
+            throw new DukeException("Enter a valid task number after done, between 1 and " + IngredientsList.size());
         }
     }
 }

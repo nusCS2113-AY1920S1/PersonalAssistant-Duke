@@ -3,12 +3,12 @@
 1.  Introduction
 2. Quick Start
 3. Features
-   - bye: Exit the program
-   - list: Show all the tasks
-   - done: Mark a task as done
-   - todo: Create a new todo task
-   - deadline: Create a new deadline task
-   - event: Create a new event task
+   - Menu
+   - Adding Dish
+   - Adding Ingredient to Dish
+   - List all Dish
+   - Initialize Dish
+   - Removing Dish
    - Load and save tasks to hard disk
    - Identify dates and times
    - delete: Delete a task
@@ -19,7 +19,7 @@
 
 ## 1. Introduction
 
-Duke is targeted towards restaurant chefs who wants to be able to consolidate most of the things happening in their kitchen such as recipes, ingredients, expiry dates etc. By using this product, you are able to order all the ingredients needed for your kitchen. Additionally, this application takes in customers order/preorder of the restaurants dishes. The customers are able to give their feedback/rating of the dishes. the average rating of all the dishes can be viewed by the restaurant chef. Proceed to the Developer Guide [here]( https://github.com/AY1920S1-CS2113-T14-2/main/blob/master/docs/DeveloperGuide.md ) to learn more about this application. 
+Duke is targeted towards restaurant chefs who wants to be able to consolidate most of the things happening in their kitchen such as recipes, ingredients, expiry dates etc. By using this product, you are able to order all the ingredients needed for your kitchen. Additionally, this application takes in customers order/preorder of the restaurants dishes. Proceed to the Developer Guide [here]( https://github.com/AY1920S1-CS2113-T14-2/main/blob/master/docs/DeveloperGuide.md ) to learn more about this application. 
 
 
 
@@ -31,19 +31,21 @@ Duke is targeted towards restaurant chefs who wants to be able to consolidate mo
 
 3. Copy the file to the folder you want to use as the home folder for your Duke application.
 
-4. Double-click the file to start the app. The GUI should appear in a few seconds.
+4. Use the command prompt and navigate to the path where the application is downloaded
+
+5. runthe command `java -jar mid-v1.3.1` , application will then be executed 
 
    ![UI]( https://github.com/AY1920S1-CS2113-T14-2/main1/blob/master/docs/images/Ui.png )
 
-5. Type into the INPUT box some commands and press ENTER to execute
+6. Type into the INPUT box some commands and press ENTER to execute
 
-6. Some example commands
+7. Some example commands
 
-   1. **list**: lists out all the tasks
-   2. **deadline** prepare new recipe **/by** 1/1/2019: adds a deadline task "prepare new recipe" into your list by "1/1/2019"
-   3. **bye**: exits the program
+   1. given various options in menu, user can type these commands`option` ,`q`, `a`, `b`, `c`, `d`.
+   2. user enters `d` then `add chicken rice`, dish is then added to the list
+   3. user enters `d` then `list`, outputs the the dishes and the ingredients associated to the dish in table form
 
-7. Refer to Section 4 for the full list of commands
+8. Refer to Section 4 for the full list of commands
 
 ## 3. Features
 
@@ -52,100 +54,158 @@ Duke is targeted towards restaurant chefs who wants to be able to consolidate mo
 - commands are in `UPPER_CASE` are to be provided by the user eg. `todo d/DESC`, `DESC` is a parameter which can be used as `todo d/buy groceries`
 -
 
-### 3.1 bye: Exits the program
+### 3.1 Menu
 
-outputs an exit message to the user and terminates the program
+the user is greeted depending on the time of day, `good morning` , `good evening` etc. Upon start up, if there are any expired ingredients in the fridge, the application will prompt the user to clear the expired ingredients. In the Main menu, the user is given various options to enter:
 
-Format: `bye` 
+1. `option`, outputs a **list of commands** user can enter 
+2. `q` , **exits** the application
+3. `a`, remove the **expired** ingredients 
+4. `b` , proceed to **fridge** commands
+5. `c`, proceeds to **order** commands 
+6. `d`, proceeds to **dish** commands
 
-### 3.2 list: Show all the tasks
+### 3.2 Adding Dish: `add`
 
-Shows all the task marked done/undone to the user
+User needs to enter `d` in the menu first. To add a dish to the DishList, user needs to execute command below:
 
-Format: `list`
+Format: `add d/DESC`
 
-shows the user all the tasks that is stored in Duke
+if the dish already exist in the list, message is output:
 
-	 Here are the tasks in your list:
-	 1.[D][✓] return book(by: Monday)
-	 2.[E][✘] meeting(at: U-Town)
-	 3.[P][✓] lecture(from: 1600 to: 1800)
-### 3.3 done: Mark a task as done
+```
+         dish already exist in list
+```
 
-marks a task in list as done.
+Examples: 
 
-Format: `done` <indx>
+- `add chicken rice`
+- ``add tom yum noodles`
 
-eg. `done 1`
-
-	 Nice! I've marked this task as done:
-	 [D][✓] return book(by: Monday)
-### 3.4 todo: Create a new todo task
-
-creates  a new task, todo where user enters the description of the task that needs to be done
-
-Format: `todo` <desc>
-
-eg. `todo order eggs`
-
-	 Got it. I've added this task:
-	 [T][✘] order eggs
-	 Now you have 6 tasks in the list.
-### 3.5 deadline: Create a new deadline task
-
-creates a new task, deadline, where user enters their tasks as well the date that the task needs to be done
-
-Format: `deadline` <desc> `/by` <desc>
-
-eg. `deadline submit review /by 1/1/2019`, stores D|0|submit review|1/1/2019 
-
-output:
-
-	 Got it. I've added this task:
-	 [D][✘ ] submit review(by: 1/1/2019)
-	 Now you have 5 tasks in the list.
-### 3.6 event: Create a new event task
-
-creates a new task, event, where user enters their tasks as well the date that the task needs to be done
-
-Format: `event`<desc> `/at` <desc>
-
-eg. `event birthday /at multi purpose hall`, stores E|0|submit review|multi purpose hall 
-
-output:
-
-	 Got it. I've added this task:
-	 [E][✘] birthday(at: multi purpose hall)
-	 Now you have 4 tasks in the list.
+```
+         _________________________________________________________________________________________
+         you have added the following dish:
+         chicken rice
+         _________________________________________________________________________________________
+```
 
 
-### 3.10 delete: Delete a task
 
-deletes a tasks that was stored in Duke regardless of it being marked as done or undone.
+### 3.3 Adding Ingredient to Dish: `ingredient`
 
-Format: `delete` <indx>
+User needs to enter `d` in the menu first. Executing this command associates an ingredient to a certain Dish. user needs to execute the command below:
 
-eg. `delete 1`, deletes the first task that is stored in Duke
+Format: `ingredient d/DESC n/AMOUNT i/INDEX`
 
-output:
+Examples:
 
-	 Noted. I've removed this task:
-	 [T][✓] read book
-	 Now you have 3 tasks in the list.
-### 3.12 find: Find a task by searching for a keyword
+- `ingredient rice 50 1`, ingredient rice (50g) is now associated to 1st dish
+- `ingredient noodle 50 2` ingredient noodle (50g) is now associated to 2nd dish
 
-finds a task in Duke which contains a specific word or description
+```
+         _________________________________________________________________________________________
+         ingredient: rice
+         added to: chicken rice
+         _________________________________________________________________________________________
+```
 
-Format: `find` <desc>
 
-eg. `find eggs`, iterates through all the task in Duke and if any of the tasks contains the description,
 
-output:
+### 3.4 List all Dishes: `list`
 
-	 	Here are the matching tasks in your list:
-	 1.[T][✘] stock up on eggs
-	 2.[D][✘] buy eggs(by: Monday)
-	 3.[T][✘] create a new egg sandwich
+User needs to enter `d` in the menu first. Then user needs to enter the command below:
+
+Format:`list`
+
+if there are no dishes in list, output message:
+
+```
+        OOPS!!! No Dishes yet!.
+        You can type:
+        'template' to see the format of the commands,
+        'back' to see all your options,
+        'q' to exit
+```
+
+if user enters a valid command,
+
+```
+   ____________________________
+   | Dish          | ingredient|
+   |===========================|
+1. | chicken rice  |           |
+2. | chicken noodle|           |
+3. | pizza         |           |
+4. | aglio olio    |           |
+```
+
+
+
+```
+   _______________________________
+   | Dish          | ingredient   |
+   |==============================|
+1. | chicken rice  | rice,salt,   |
+2. | chicken noodle| noodle,flour,|
+```
+
+
+
+### 3.3 Initializing the Dish List:`init`
+
+User needs to enter `d` in the menu first. Then user needs to enter the command below:
+
+Format: `init`
+
+user is then asked to confirm as this command deletes all the entries in the dish
+
+if user enters yes,
+
+```
+         are you sure you want to clear list? (yes or no)
+yes
+         LIST IS CLEARED
+```
+
+if user enters no,
+
+```
+         are you sure you want to clear list? (yes or no)
+no
+         LIST IS NOT CLEARED
+```
+
+### 3.4 Removing Dish
+
+User needs to enter `d` in the menu first. Then user needs to enter the command below:
+
+Format: `remove i/INDEX`
+
+Examples:
+
+- `remove 1`
+- `remove 2`
+
+if user enters an invalid index, a error message will appear
+
+```
+        OOPS!!! dish does not exist.
+        You can type:
+        'template' to see the format of the commands,
+        'back' to see all your options,
+        'q' to exit
+         _________________________________________________________________________________________
+```
+
+if user enters a valid command,
+
+```
+         _________________________________________________________________________________________
+         The following dish have been removed:
+         chicken rice
+         _________________________________________________________________________________________
+```
+
 ### 3.13 Error Handling 
 
 handles unexpected commands from the user such as unknown/incomplete command. if user enters an invalid command, the application will output a message that corresponds to what the user entered wrongly.
@@ -175,33 +235,20 @@ things to include in version 2:
 
 ## 4. Command Summary
 
-Index | Keyword  | Usage
+Index | Keyword  | Usage 
 ----- | -------- | ----------
-1     | bye      | bye
-2     | list     | list
-3     | done     | done <indx> 
-4     | todo     | todo <desc> 
-5     | deadline | deadline <desc> /by <date> 
-6     | event    | event <desc> /at <date> 
-7     | delete   | delete <desc> 
-8     | find     | find <desc> 
 9 | remind | remind
 10 | stats | stats 
 11 | order | order <desc> <index> 
 12 | preorder | preorder <desc> <indx> 
-13 | cancel | cancel <indx> 
 14 | help | help 
-15 | dishadd | dishadd <desc> /num <indx> 
-16 | dishdelete | dishdelete <indx> 
-17 | dishlist | dishlist 
-18 | addingredient | addingredient <indx> /add <desc> 
+15 | add | dishadd <desc> 
+16 | remove | remove <indx> 
+17 | list | list 
+18 | ingredient | ingredient <desc> <amount> <index> 
 
 # 5. FAQ
 
 Q: how do I transfer data to another computer 
 
 A: install the application on the other computer and an empty recipe.txt will be created under the data folder. Replace this file with the same file found in your previous computer. therefore your data will be transferred  
-
-Q:
-
-A:

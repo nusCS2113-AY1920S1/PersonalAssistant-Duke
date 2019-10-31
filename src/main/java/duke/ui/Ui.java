@@ -20,7 +20,7 @@ import java.util.Scanner;
 public class Ui {
 
     private Scanner scanner;
-    private static final String line = "____________________________________________________________";
+    private static final String line = "_________________________________________________________________________________________";
 
     /**
      * The constructor method for Ui.
@@ -45,6 +45,56 @@ public class Ui {
         System.out.println("\t " + line);
     }
 
+    public void chefDrawing() {
+        System.out.println("                           (c)___c____(c)                           ");
+        System.out.println("                            \\ ........../                           ");
+        System.out.println("                             |.........|                            ");
+        System.out.println("                              |.......|                            ");
+        System.out.println("                              |.......|                            ");
+        System.out.println("                              |=======|                            ");
+        System.out.println("                              |=======|                            ");
+        System.out.println("                             __o)''''::?                            ");
+        System.out.println("                            C__    c)::;                            ");
+        System.out.println("                               >--   ::     /\\                            ");
+        System.out.println("                               (____/      /__\\                            ");
+        System.out.println("                               } /''|      |##|                            ");
+        System.out.println("                    __/       (|V ^ )\\     |##|                            ");
+        System.out.println("                    o | _____/ |#/ / |     |##|                            ");
+        System.out.println("           @        o_|}|_____/|/ /  |     |##|                            ");
+        System.out.println("                          _____/ /   |     ~!!~                            ");
+        System.out.println("              ======ooo}{|______)#   |     /`'\\                            ");
+        System.out.println("          ~~~~ ;    ;          ###---|8     ''                            ");
+        System.out.println("        ____;_____;____        ###====     /:|\\                            ");
+        System.out.println("       (///0///@///@///)       ###@@@@|                            ");
+        System.out.println("       |~~~~~~~~~~~~~~~|       ###@@@@|                            ");
+        System.out.println("        \\             /        ###@@@@|               +                            ");
+        System.out.println("         \\___________/         ###xxxxx      /\\      //                            ");
+        System.out.println("           H H   H  H          ###|| |      /  \\    //                            ");
+        System.out.println("           H H   H  H           | || |     /____\\  /~_^_                            ");
+        System.out.println("           H H   H  H           C |C |     _|@@|_ /__|#|_                            ");
+        System.out.println("           H H   H  H            || ||    /_|@@|_/___|#|/|                            ");
+        System.out.println(" v    \\/   H(o) (o) H            || ::   |:::::::::::::|#|                            ");
+        System.out.println(" ~    ~~  (o)      (o)        Ccc__)__)   |   CHEF      |#|                            ");
+        System.out.println("  \\|/      ~   @* & ~                    |:::::::::::::|/  \\|/                            ");
+        System.out.println("   ~           \\|/        !!        \\ !/  ~~~~~~~~~~~~~    ~~~                            ");
+        System.out.println("               ~~~        ~~         ~~           ~~                            ");
+        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~                            \n");
+    }
+    public void dishDrawing() {
+        System.out.println("            (\\                                      ");
+        System.out.println("             \\ \\                                      ");
+        System.out.println("               \\/ ___,.-------..__                                      ");
+        System.out.println("        //\\\\ _,-'\\\\               `'--._ //\\\\                                      ");
+        System.out.println("        \\\\ ;'      \\\\                   `: //                                      ");
+        System.out.println("         `(          \\\\                   )'                                      ");
+        System.out.println("           :.          \\\\,----,         ,;                                      ");
+        System.out.println("            `.`--.___   (    /  ___.--','                                      ");
+        System.out.println("              `.     ``-----'-''     ,'                                      ");
+        System.out.println("                 -.               ,-                                      ");
+        System.out.println("                     `-._______.-                                      ");
+        System.out.println("\n");
+    }
+
     /**
      * Used to print the greeting message from {@link Duke}.
      */
@@ -62,6 +112,7 @@ public class Ui {
         } else if (timeOfDay >= 21 && timeOfDay < 24) {
             greeting = "Good Night";
         }
+        chefDrawing();
         System.out.println("\t " + greeting + " chef! I'm Duke");
 
     }
@@ -94,14 +145,26 @@ public class Ui {
         System.out.println("\t type 'show' to see all ingredients currently in the fridge");
         System.out.println("\t type 'template' to see the format of the commands");
     }
-public void showIngredientTemplate(){
-    System.out.println("\t Continue by adding, removing or using an ingredient \n\t Template: ");
-    showLine();
-    System.out.println("\t add <Ingredient name> <amount> <expiry date: DD/MM/YYYY>");
-    System.out.println("\t remove <ingredient number>");
-    System.out.println("\t use <ingredient name> <amount> *always use most recently expiring ingredients first, to prevent food waste!*");
-    showLine();
-}
+    public void showIngredientTemplate(){
+        System.out.println("\t Continue by adding, removing or using an ingredient \n\t Template: ");
+        showLine();
+        System.out.println("\t add <Ingredient name> <amount> <expiry date: DD/MM/YYYY>");
+        System.out.println("\t remove <ingredient number>");
+        System.out.println("\t use <ingredient name> <amount> *always use most recently expiring ingredients first, to prevent food waste!*");
+        showLine();
+    }
+    public void showDishTemplate() {
+        dishDrawing();
+        showLine();
+        System.out.println("\t Continue by adding, removing, listing, adding ingredient and initializing \n\t Template: ");
+        showLine();
+        System.out.println("\t add <dish name>");
+        System.out.println("\t remove <dish index>");
+        System.out.println("\t list");
+        System.out.println("\t ingredient <ingredient to be added> <amount of ingredient> <index of dish where ingredient is to be added to>");
+        System.out.println("\t initialize (REMOVES all entries in the list)");
+        showLine();
+    }
     public void showIngredientsInFridge(IngredientsList ingredientsList) {
         if (ingredientsList.isEmpty())
             System.out.println("\t The fridge is empty, better go buy some ingredients! ");
@@ -232,8 +295,8 @@ public void showIngredientTemplate(){
      * @param removed the task
      * @param size    size of list
      */
-    public void showRemovedTask(String removed, int size) {
-        System.out.println("\t Noted. I've removed this task:");
+    public void showRemovedIngredient(String removed, int size) {
+        System.out.println("\t Noted. I've removed this ingredient:");
         System.out.println("\t " + removed);
         showSize(size);
     }
@@ -251,8 +314,15 @@ public void showIngredientTemplate(){
     }
 
     public void showAddedDishes(String dish) {
+        showLine();
         System.out.println("\t you have added the following dish: ");
         System.out.println("\t " + dish);
+        showLine();
+    }
+
+    public void showAddedIngredient(String ingredient) {
+        System.out.println("\t you have added the following ingredient: ");
+        System.out.println("\t " + ingredient);
     }
 
     public void showDishes(String Dish, int Nb) {
@@ -260,13 +330,17 @@ public void showIngredientTemplate(){
     }
 
     public void showDeletedDIsh(String dish) {
+        showLine();
         System.out.println("\t The following dish have been removed:");
         System.out.println("\t " + dish);
+        showLine();
     }
 
     public void showIngredients(Ingredient ingredient, Dish dish) {
+        showLine();
         System.out.println("\t ingredient: " + ingredient.getName()
                 + "\n\t added to: " + dish.getDishname());
+        showLine();
     }
 
     /**

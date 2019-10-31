@@ -3,7 +3,7 @@ package duke.command.ingredientCommand;
 import duke.command.Cmd;
 import duke.list.GenericList;
 import duke.storage.Storage;
-import duke.task.TaskList;
+import duke.ingredient.IngredientsList;
 import duke.ui.Ui;
 
 /**
@@ -17,7 +17,7 @@ public class ExitCommand<T> extends Cmd<T>{
     }
 
     @Override
-    public void execute(GenericList taskList, Ui ui, Storage storage) {
+    public void execute(GenericList IngredientsList, Ui ui, Storage storage) {
         System.out.println("\t Bye. Hope to see you again soon!");
     }
 }
