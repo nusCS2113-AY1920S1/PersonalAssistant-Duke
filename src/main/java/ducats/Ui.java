@@ -152,13 +152,13 @@ public class Ui {
      * the deletebar command.
      *
      * @param song the song after deletion
-     * @param deletedBar the bar that was deleted
+     * @param barIndex the index of the bar that was deleted
      * @return the formatted String to be displayed
      */
-    public String formatDeleteBar(Song song, Bar deletedBar) {
+    public String formatDeleteBar(Song song, int barIndex) {
         String word = (song.getBars().size() == 1) ? "bar" : "bars";
         String result = "Noted! I've removed bar: "
-                + (deletedBar.getId() + 1)
+                + (barIndex)
                 + "\n"
                 + "Now you have "
                 + (song.getBars().size())
@@ -252,6 +252,49 @@ public class Ui {
                 + oldBar.toString()
                 + "\nNow you have "
                 + newBar.toString()
+                + " "
+                + "in the song "
+                + song.getName()
+                + ".";
+        return wrap(result);
+    }
+
+    /**
+     * Returns a String formatted for display that indicates that a duke.components.Bar object has been inserted
+     * by the insert command.
+     *
+     * @param list the song list
+     * @param song the item that was modified
+     * @return the formatted String to be displayed
+     */
+    public String formatInsertBar(ArrayList<Song> list, Bar bar, Song song) {
+        String word = (list.size() == 1) ? "bar" : "bars";
+        String result = "Got it. I've inserted this bar:\n  "
+                + bar.toString()
+                + "\nto "
+                + song.getName()
+                + "\nNow you have "
+                + song.getBars().size()
+                + " "
+                + word
+                + " in the song.";
+        return wrap(result);
+    }
+
+    /**
+     * Returns a String formatted for display that indicates that two duke.components.Bar objects has been swapped
+     * by the swap command.
+     *
+     * @param barOne the first bar to be swap
+     * @param barTwo the second bar to be swapped with
+     * @param song the item that was modified
+     * @return the formatted String to be displayed
+     */
+    public String formatSwap(Bar barOne, Bar barTwo, Song song) {
+        String result = "Got it. I've swap this bar:\n  "
+                + barOne.toString()
+                + "\n With this bar: "
+                + barTwo.toString()
                 + " "
                 + "in the song "
                 + song.getName()

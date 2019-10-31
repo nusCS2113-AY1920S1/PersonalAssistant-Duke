@@ -11,23 +11,22 @@ import java.util.ArrayList;
 
 //@@author jwyf
 /**
- * A class representing the command to edit a bar of notes in the current song.
+ * A class representing the command to insert a new bar of notes between existing bars in the current song.
  */
-public class EditCommand extends Command<SongList> {
-
+public class InsertBarCommand extends Command<SongList> {
     private int songIndex;
 
     /**
-     * Constructor for the command to edit a bar in the current song.
+     * Constructor for the command to insert a new bar to the current song.
      * @param message the input message that resulted in the creation of the duke.Commands.Command
      */
-    public EditCommand(String message) {
+    public InsertBarCommand(String message) {
         this.message = message;
         this.songIndex = 0;
     }
 
     /**
-     * Modifies a song in the song list by editing an existing bar and
+     * Modifies a song in the song list by inserting a new bar between existing bars and
      * returns the messages intended to be displayed.
      *
      * @param songList the duke.components.SongList object that contains the song list
@@ -39,24 +38,25 @@ public class EditCommand extends Command<SongList> {
      */
     public String execute(SongList songList, Ui ui, Storage storage) throws DucatsException {
         int barNo;
+        if (message.length() < 10 || !message.substring(0, 10).equals("insertbar ")) { //exception if not fully spelt
+            throw new DucatsException(message);
+        }
         try {
             songIndex = songList.getActiveIndex();
-            Song song = songList.getSongIndex(songIndex);
+            Song activeSong = songList.getSongIndex(songIndex);
 
-            String[] sections = message.substring(5).split(" ");
+            String[] sections = message.substring(10).split(" ");
             barNo = Integer.parseInt(sections[0].substring(4));
             int notesIndex = message.indexOf(sections[1]);
             Bar newBar = new Bar(barNo, message.substring(notesIndex));
 
-            song.getBars().add(barNo - 1, newBar);
-            Bar oldBar = song.getBars().get(barNo);
-            song.getBars().remove(barNo);
+            activeSong.getBars().add(barNo - 1, newBar);
 
             storage.updateFile(songList);
             ArrayList<Song> temp = songList.getSongList();
-            return ui.formatEdit(oldBar, newBar, song);
+            return ui.formatInsertBar(temp, newBar, activeSong);
         } catch (Exception e) {
-            throw new DucatsException(message, "edit");
+            throw new DucatsException(message, "insertbar");
         }
     }
 
