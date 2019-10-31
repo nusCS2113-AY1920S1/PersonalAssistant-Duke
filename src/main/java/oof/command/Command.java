@@ -23,7 +23,7 @@ import oof.model.task.Todo;
  */
 public abstract class Command {
 
-    protected static final int description_length_max = 20;
+    protected static final int DESCRIPTION_LENGTH_MAX = 20;
 
     /**
      * Invokes other Command subclasses based on the input given by the user.
@@ -44,7 +44,7 @@ public abstract class Command {
      * @return True if maximum description length is exceeded, false otherwise.
      */
     public boolean exceedsMaxLength(String description) {
-        return description.length() >= description_length_max;
+        return description.length() >= DESCRIPTION_LENGTH_MAX;
     }
 
     /**
