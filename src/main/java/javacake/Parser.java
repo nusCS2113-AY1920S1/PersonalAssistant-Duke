@@ -9,6 +9,7 @@ import javacake.commands.DeleteNoteCommand;
 import javacake.commands.EditNoteCommand;
 import javacake.commands.ExitCommand;
 import javacake.commands.GoToCommand;
+import javacake.commands.HelpCommand;
 import javacake.commands.ListCommand;
 import javacake.commands.ListNoteCommand;
 import javacake.commands.OverviewCommand;
@@ -38,6 +39,7 @@ public class Parser {
             case ("back"): return new BackCommand();
             case ("score"): return new ScoreCommand();
             case ("reset"): return new ResetCommand();
+            case ("help"): return new HelpCommand(inputCommand);
             case ("overview"): return new OverviewCommand();
             case ("listnote"): return new ListNoteCommand();
             case ("reminder"): return new ReminderCommand();

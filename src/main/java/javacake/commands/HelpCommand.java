@@ -30,7 +30,8 @@ public class HelpCommand extends Command {
     public String execute(Logic logic, Ui ui, StorageManager storageManager) throws CakeException {
         switch (input) {
         case "help" : return mainHelp();
-        case "help back" : return exitHelp();
+        case "help back" : return backHelp();
+        case "help exit" : return exitHelp();
         case "help goto": return gotoHelp();
         case "help help": return helpHelp();
         case "help list": return listHelp();

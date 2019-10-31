@@ -1,6 +1,6 @@
 package javacake.ui;
 
-import javacake.Duke;
+import javacake.JavaCake;
 import javacake.commands.EditNoteCommand;
 import javacake.exceptions.CakeException;
 import javacake.quiz.QuestionDifficulty;
@@ -71,11 +71,11 @@ public class MainWindow extends AnchorPane {
     public static boolean isChanged = false;
     public static boolean doneDialog = false;
 
-    private Duke duke;
+    private JavaCake JavaCake;
     private Stage primaryStage;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/padoru.png"));
+    private Image JavaCakeImage = new Image(this.getClass().getResourceAsStream("/images/padoru.png"));
 
     private QuizSession quizSession;
     private ReviewSession reviewSession;
@@ -103,12 +103,12 @@ public class MainWindow extends AnchorPane {
         topBar.getChildren().add(new TopBar());
         TopBar.setUpProgressBars();
 
-        if (Duke.isFirstTimeUser) {
-            response = Ui.showWelcomeMsgPhaseA(Duke.isFirstTimeUser);
+        if (JavaCake.isFirstTimeUser) {
+            response = Ui.showWelcomeMsgPhaseA(JavaCake.isFirstTimeUser);
             showContentContainer();
         } else {
-            response = Ui.showWelcomeMsgPhaseA(Duke.isFirstTimeUser)
-                    + Ui.showWelcomeMsgPhaseB(Duke.isFirstTimeUser, Duke.userName, Duke.userProgress);
+            response = Ui.showWelcomeMsgPhaseA(JavaCake.isFirstTimeUser)
+                    + Ui.showWelcomeMsgPhaseB(JavaCake.isFirstTimeUser, JavaCake.userName, JavaCake.userProgress);
             showContentContainer();
         }
         setAvatarDialogLoop();
@@ -117,8 +117,8 @@ public class MainWindow extends AnchorPane {
         playGuiModeLoop();
     }
 
-    public void setDuke(Duke d) {
-        duke = d;
+    public void setJavaCake(JavaCake d) {
+        JavaCake = d;
     }
 
     public void setStage(Stage stage) {
@@ -126,7 +126,7 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
+     * Creates two dialog boxes, one echoing user input and the other containing JavaCake's reply and then appends them to
      * the dialog container. Clears the user input after processing.
      */
     @FXML
@@ -137,7 +137,7 @@ public class MainWindow extends AnchorPane {
             String inputDivider[] = input.split("\\s+");
             // get input first, don't get response first...
             userInput.clear();
-            Duke.logger.log(Level.INFO, "INPUT: " + input);
+            JavaCake.logger.log(Level.INFO, "INPUT: " + input);
             DialogBox.isScrollingText = true;
             AvatarScreen.avatarMode = AvatarScreen.AvatarMode.HAPPY;
             if (input.equals("exit")) {
@@ -148,7 +148,7 @@ public class MainWindow extends AnchorPane {
                 handleDeleteNote();
             } else if (inputDivider[0].equals("createnote")) {
                 handleCreateNote();
-            } else if (isStarting && Duke.isFirstTimeUser) { //set up new username
+            } else if (isStarting && JavaCake.isFirstTimeUser) { //set up new username
                 handleStartAndFirstTime();
             } else if (isTryingReset) { //confirmation of reset
                 handleResetConfirmation();
@@ -169,20 +169,20 @@ public class MainWindow extends AnchorPane {
                     handleBackCommand();
                 }
             } else {
-                Duke.logger.log(Level.INFO, "executing normal(else) mode!");
-                response = duke.getResponse(input);
+                JavaCake.logger.log(Level.INFO, "executing normal(else) mode!");
+                response = JavaCake.getResponse(input);
                 if (isDeadlineRelated()) {
                     //handles "deadline" and "reminder"
-                    Duke.logger.log(Level.INFO, "deadline setting");
+                    JavaCake.logger.log(Level.INFO, "deadline setting");
                 } else if (isFirstQuiz()) {
-                    Duke.logger.log(Level.INFO, "First Quiz Incoming!");
+                    JavaCake.logger.log(Level.INFO, "First Quiz Incoming!");
                 } else if (isFirstResetRequest()) {
-                    Duke.logger.log(Level.INFO, "Reset command executed!");
+                    JavaCake.logger.log(Level.INFO, "Reset command executed!");
                 } else if (!isQuiz || isStarting) {
                     //default start: finding of response
                     isStarting = false;
-                    Duke.logger.log(Level.INFO, "Response: " + response);
-                    //response = duke.getResponse(input);
+                    JavaCake.logger.log(Level.INFO, "Response: " + response);
+                    //response = JavaCake.getResponse(input);
                     if (response.contains("!@#_EDIT_NOTE")) {
                         handleEditNote();
                     } else {
@@ -196,7 +196,7 @@ public class MainWindow extends AnchorPane {
         } catch (CakeException e) {
             response = e.getMessage();
             showContentContainer();
-            Duke.logger.log(Level.WARNING, e.getMessage());
+            JavaCake.logger.log(Level.WARNING, e.getMessage());
         }
         //CHECKSTYLE:ON
     }
@@ -259,19 +259,19 @@ public class MainWindow extends AnchorPane {
     }
 
     private void handleDeleteNote() throws CakeException {
-        response = duke.getResponse(input);
+        response = JavaCake.getResponse(input);
         showContentContainer();
         showListNotesBox();
     }
 
     private void handleNormalCommand() {
-        Duke.logger.log(Level.INFO, "Normal commands mode!");
+        JavaCake.logger.log(Level.INFO, "Normal commands mode!");
         System.out.println("starting BUT not firsttime");
         showContentContainer();
     }
 
     private void handleEditNote() throws CakeException {
-        Duke.logger.log(Level.INFO, "Editing note initialised!");
+        JavaCake.logger.log(Level.INFO, "Editing note initialised!");
         isWritingNote = true;
         response = EditNoteCommand.getHeadingMessage();
         //response.setEditable(false);
@@ -303,7 +303,7 @@ public class MainWindow extends AnchorPane {
 
     private void handleQuiz() throws CakeException {
         //Must be quizCommand: checking of answers
-        Duke.logger.log(Level.INFO, "Quiz Mode!");
+        JavaCake.logger.log(Level.INFO, "Quiz Mode!");
         System.out.println("quiz answer checking");
         DialogBox.isScrollingText = false;
         handleGuiQuiz();
@@ -311,7 +311,7 @@ public class MainWindow extends AnchorPane {
     }
 
     private void handleWriteNote() throws CakeException {
-        Duke.logger.log(Level.INFO, "isWritingNote...");
+        JavaCake.logger.log(Level.INFO, "isWritingNote...");
         DialogBox.isScrollingText = false;
         if (input.equals("/save")) {
             isWritingNote = false;
@@ -323,23 +323,23 @@ public class MainWindow extends AnchorPane {
     }
 
     private void handleListNote() throws CakeException {
-        Duke.logger.log(Level.INFO, "`listnote` command");
+        JavaCake.logger.log(Level.INFO, "`listnote` command");
         showListNotesBox();
     }
 
     private void handleCreateNote() throws CakeException {
-        Duke.logger.log(Level.INFO, "`createnote` command");
-        response = duke.getResponse(input);
+        JavaCake.logger.log(Level.INFO, "`createnote` command");
+        response = JavaCake.getResponse(input);
         showContentContainer();
         showListNotesBox();
     }
 
     private void handleExit() {
         System.out.println("EXIT");
-        Duke.logger.log(Level.INFO, "EXITING PROGRAM!");
+        JavaCake.logger.log(Level.INFO, "EXITING PROGRAM!");
         // find out if exit condition
         isExit = true;
-        response = duke.getResponse(input);
+        response = JavaCake.getResponse(input);
         showContentContainer();
         PauseTransition pause = new PauseTransition(Duration.seconds(2));
         pause.setOnFinished(e -> primaryStage.hide());
@@ -348,34 +348,34 @@ public class MainWindow extends AnchorPane {
 
     private void handleStartAndFirstTime() throws CakeException {
         System.out.println("start and first");
-        Duke.logger.log(Level.INFO, "New user initialising...");
-        Duke.userName = input;
-        Duke.storageManager.profile.overwriteName(Duke.userName);
-        response = Ui.showWelcomeMsgPhaseB(Duke.isFirstTimeUser, Duke.userName, Duke.userProgress);
+        JavaCake.logger.log(Level.INFO, "New user initialising...");
+        JavaCake.userName = input;
+        JavaCake.storageManager.profile.overwriteName(JavaCake.userName);
+        response = Ui.showWelcomeMsgPhaseB(JavaCake.isFirstTimeUser, JavaCake.userName, JavaCake.userProgress);
         showContentContainer();
         isStarting = false;
     }
 
     private void handleResetConfirmation() throws CakeException {
-        Duke.logger.log(Level.INFO, "isTryingReset...");
+        JavaCake.logger.log(Level.INFO, "isTryingReset...");
         System.out.println("resetting time");
         if (input.equals("yes")) {
             //resets
             Profile.resetProfile();
             Storage.resetStorage();
-            duke = new Duke();
-            //            duke.profile = new Profile();
-            Duke.userProgress = Duke.storageManager.profile.getTotalProgress();
-            Duke.userName = Duke.storageManager.profile.getUsername();
-            Duke.isFirstTimeUser = true;
+            JavaCake = new JavaCake();
+            //            JavaCake.profile = new Profile();
+            JavaCake.userProgress = JavaCake.storageManager.profile.getTotalProgress();
+            JavaCake.userName = JavaCake.storageManager.profile.getUsername();
+            JavaCake.isFirstTimeUser = true;
             showRemindersBox();
             response = "Reset confirmed!\nPlease type in new username:\n";
             TopBar.resetProgress();
             isStarting = true;
-            Duke.logger.log(Level.INFO, "Reset Confirmed!");
+            JavaCake.logger.log(Level.INFO, "Reset Confirmed!");
         } else {
             response = "Reset cancelled.\nType 'list' to get list of available commands.";
-            Duke.logger.log(Level.INFO, "Reset Rejected!");
+            JavaCake.logger.log(Level.INFO, "Reset Rejected!");
         }
         showContentContainer();
         isTryingReset = false;
@@ -405,7 +405,7 @@ public class MainWindow extends AnchorPane {
         isReview = true;
         reviewSession = new ReviewSession(tempQuestionList);
         response = reviewSession.getQuestion(0);
-        Duke.logger.log(Level.INFO, "Response: review session initialized");
+        JavaCake.logger.log(Level.INFO, "Response: review session initialized");
         DialogBox.isScrollingText = false;
         showContentContainer();
     }
@@ -414,7 +414,7 @@ public class MainWindow extends AnchorPane {
         isResult = false;
         isReview = false;
         index = 0;
-        response = duke.getResponse("back");
+        response = JavaCake.getResponse("back");
         showContentContainer();
     }
 
@@ -427,7 +427,7 @@ public class MainWindow extends AnchorPane {
     private void showContentContainer() {
         dialogContainer.getChildren().clear();
         dialogContainer.getChildren().add(
-                DialogBox.getDukeDialog(response, dukeImage));
+                DialogBox.getDukeDialog(response, JavaCakeImage));
     }
 
     private void showTaskContainer() {
@@ -459,28 +459,28 @@ public class MainWindow extends AnchorPane {
 
     private boolean isDeadlineRelated() {
         if (input.length() >= 8 && input.substring(0, 8).equals("deadline")) {
-            //response = duke.getResponse(input);
+            //response = JavaCake.getResponse(input);
             System.out.println(response);
             if (!response.contains("[!]")) {
-                response = duke.getResponse("reminder");
+                response = JavaCake.getResponse("reminder");
                 System.out.println(response);
                 //CHECKSTYLE:OFF
                 response = response.replaceAll("✓", "\u2713");
                 response = response.replaceAll("✗", "\u2717");
                 //CHECKSTYLE:ON
                 showTaskContainer();
-                Duke.logger.log(Level.INFO, "Adding deadlines setting");
+                JavaCake.logger.log(Level.INFO, "Adding deadlines setting");
             } else {
                 response += "\nType 'reminder' to view deadlines";
                 showTaskContainer();
-                Duke.logger.log(Level.WARNING, "Deadline is not properly parsed!");
+                JavaCake.logger.log(Level.WARNING, "Deadline is not properly parsed!");
             }
             return true;
         } else if (input.equals("reminder")) {
             response = "Reminders are shown over there! ================>>>\n";
             showContentContainer();
             showRemindersBox();
-            Duke.logger.log(Level.INFO, "Reminder setting");
+            JavaCake.logger.log(Level.INFO, "Reminder setting");
             return true;
         }
         return false;
@@ -490,7 +490,7 @@ public class MainWindow extends AnchorPane {
         if (response.contains("!@#_QUIZ")) {
             //checks for first execution of quizCommand
             isQuiz = true;
-            Duke.logger.log(Level.INFO, "isFirstQuiz(): " + response);
+            JavaCake.logger.log(Level.INFO, "isFirstQuiz(): " + response);
             response = initQuizSession(response);
             DialogBox.isScrollingText = false;
             showContentContainer();
@@ -502,7 +502,7 @@ public class MainWindow extends AnchorPane {
     private boolean isFirstResetRequest() {
         if (response.contains("Confirm reset")) {
             //checks if resetCommand was executed
-            Duke.logger.log(Level.INFO, "isFirstResetRequest(): Awaiting confirmation of reset");
+            JavaCake.logger.log(Level.INFO, "isFirstResetRequest(): Awaiting confirmation of reset");
             isTryingReset = true;
             showContentContainer();
             return true;
@@ -511,12 +511,12 @@ public class MainWindow extends AnchorPane {
     }
 
     private void showListNotesBox() throws CakeException {
-        response = Ui.showNoteList(Duke.storageManager);
+        response = Ui.showNoteList(JavaCake.storageManager);
         showNoteContainer();
     }
 
     private void showRemindersBox() {
-        response = Ui.showDeadlineReminder(Duke.storageManager);
+        response = Ui.showDeadlineReminder(JavaCake.storageManager);
         //CHECKSTYLE:OFF
         response = response.replaceAll("✓", "\u2713");
         response = response.replaceAll("✗", "\u2717");
