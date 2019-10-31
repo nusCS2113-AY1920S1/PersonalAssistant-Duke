@@ -229,4 +229,8 @@ public class Ui {
     public void showInputPrompt(String text) {
         print(text);
     }
+
+    public void printMainDisplay(String newMainDisplay) {
+        print(newMainDisplay);
+    }
 }
