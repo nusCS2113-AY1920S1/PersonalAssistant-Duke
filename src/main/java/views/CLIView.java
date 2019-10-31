@@ -30,7 +30,9 @@ public class CLIView {
         //noinspection InfiniteLoopStatement
         while (isDukeRunning) {
             String commandInput = sc.nextLine();
+            ArchDukeLogger.logInfo(CLIView.class.getName(), "User input: " + commandInput);
             String[] outputMessage = consoleInputController.onCommandReceived(commandInput);
+
             if (outputMessage[0].matches("Now managing.*")) {
                 consolePrint(outputMessage);
 

@@ -2,7 +2,6 @@ package controllers;
 
 import models.member.IMember;
 import models.member.Member;
-import models.project.IProject;
 import models.project.Project;
 import models.reminder.IReminder;
 import models.reminder.Reminder;
@@ -50,7 +49,7 @@ public class ProjectInputController implements IController {
      */
     @Override
     public String[] onCommandReceived(String input) {
-        //ArchDukeLogger.logInfo(ProjectInputController.class, "Managing project: " + input);
+        ArchDukeLogger.logInfo(ProjectInputController.class.getName(), "[onCommandReceived] User input: " + input);
         int projectNumber;
         try {
             projectNumber = Integer.parseInt(input);
@@ -69,6 +68,7 @@ public class ProjectInputController implements IController {
      * @return Boolean variable giving status of whether the exit command is entered.
      */
     private String[] manageProject(Project projectToManage) {
+        ArchDukeLogger.logDebug(ProjectInputController.class.getName(), "[manageProject]");
         String[] responseToView = {"Please enter a command."};
         if (manageProjectInput.hasNextLine()) {
             String projectFullCommand = manageProjectInput.nextLine();
@@ -130,10 +130,11 @@ public class ProjectInputController implements IController {
     /**
      * Adds roles to Members in a Project.
      * @param projectToManage : The project specified by the user.
-     * @param projectFullCommand : User input.
+     * @param projectCommand : User input.
      */
-    public String[] projectRoleMembers(Project projectToManage, String projectFullCommand) {
-        String parsedCommands = projectFullCommand.substring(5);
+    public String[] projectRoleMembers(Project projectToManage, String projectCommand) {
+        ArchDukeLogger.logDebug(ProjectInputController.class.getName(), "[projectRoleMembers] User input: " + projectCommand);
+        String parsedCommands = projectCommand.substring(5);
         String[] commandOptions = parsedCommands.split(" -n ");
         if (commandOptions.length != 2) {
             return new String[] {"Wrong command format! Please enter role INDEX -n ROLE_NAME"};
@@ -151,6 +152,7 @@ public class ProjectInputController implements IController {
      * @param projectCommand The user input.
      */
     public String[] projectAddMember(Project projectToManage, String projectCommand) {
+        ArchDukeLogger.logDebug(ProjectInputController.class.getName(), "[projectToManage] User input: " + projectCommand);
         if (projectCommand.length() < 11) {
             return new String[] {"Add member command minimum usage must be \"add member -n NAME\"!",
                                  "Please refer to user guide for additional details."};
@@ -174,6 +176,7 @@ public class ProjectInputController implements IController {
      * @param projectCommand The user input.
      */
     public String[] projectEditMember(Project projectToManage, String projectCommand) {
+        ArchDukeLogger.logDebug(ProjectInputController.class.getName(), "[projectEditMember] User input: " + projectCommand);
         try {
             int memberIndexNumber = Integer.parseInt(projectCommand.substring(12).split(" ")[0]);
             if (projectToManage.getNumOfMembers() >= memberIndexNumber && memberIndexNumber > 0) {
@@ -184,6 +187,8 @@ public class ProjectInputController implements IController {
                 return new String[] {"The member index entered is invalid."};
             }
         } catch (IndexOutOfBoundsException | NumberFormatException e) {
+            ArchDukeLogger.logError(ProjectInputController.class.getName(), "[projectEditMember] " +
+                    "Please enter the updated member details format correctly.");
             return new String[] {"Please enter the updated member details format correctly."};
         }
     }
@@ -194,6 +199,7 @@ public class ProjectInputController implements IController {
      * @param projectCommand The user input.
      */
     public String[] projectDeleteMember(Project projectToManage, String projectCommand) {
+        ArchDukeLogger.logDebug(ProjectInputController.class.getName(), "[projectDeleteMember] User input: " + projectCommand);
         try {
             int memberIndexNumber = Integer.parseInt(projectCommand.substring(14).split(" ")[0]);
             if (projectToManage.getNumOfMembers() >= memberIndexNumber) {
@@ -204,6 +210,8 @@ public class ProjectInputController implements IController {
                 return new String[]{"The member index entered is invalid."};
             }
         } catch (IndexOutOfBoundsException e) {
+            ArchDukeLogger.logError(ProjectInputController.class.getName(), "[projectEditMember] " +
+                    "Please enter the index number of the member to be deleted correctly.");
             return new String[] {"Please enter the index number of the member to be deleted correctly."};
         }
     }
@@ -214,6 +222,7 @@ public class ProjectInputController implements IController {
      * @param projectToManage The project specified by the user.
      */
     public String[] projectViewMembers(Project projectToManage) {
+        ArchDukeLogger.logDebug(ProjectInputController.class.getName(), "[projectViewMembers]");
         ArrayList<String> allMemberDetailsForTable = projectToManage.getMembers().getAllMemberDetailsForTable();
         String header = "Members of " + projectToManage.getName() + ":";
         allMemberDetailsForTable.add(0, header);
@@ -227,9 +236,10 @@ public class ProjectInputController implements IController {
      * Displays the members’ credits, their index number, name, and name of tasks completed.
      * @param projectToManage The project specified by the user.
      */
-    public String[] projectViewCredits(IProject projectToManage) {
+    public String[] projectViewCredits(Project projectToManage) {
+        ArchDukeLogger.logDebug(ProjectInputController.class.getName(), "[projectViewCredits]");
         ArrayList<String> allCredits = projectToManage.getCredits();
-        ArchDukeLogger.logDebug(ProjectInputController.class.getName(), allCredits.toString());
+        ArchDukeLogger.logDebug(ProjectInputController.class.getName(), "allCredits: " + allCredits.toString());
         if (allCredits.isEmpty()) {
             allCredits.add(0, "There are no members in this project.");
         } else {
@@ -245,6 +255,7 @@ public class ProjectInputController implements IController {
      * @param projectCommand The user input.
      */
     public String[] projectAddTask(Project projectToManage, String projectCommand) {
+        ArchDukeLogger.logDebug(ProjectInputController.class.getName(), "[projectAddTask] User input: " + projectCommand);
         try {
             ITask newTask = taskFactory.createTask(projectCommand.substring(9));
             if (newTask.getDetails() != null) {
@@ -255,6 +266,8 @@ public class ProjectInputController implements IController {
                         + "necessary parameters are given"};
 
         } catch (NumberFormatException | ParseException e) {
+            ArchDukeLogger.logError(ProjectInputController.class.getName(), "[projectAddTask] " +
+                    "Please enter your task format correctly.");
             return new String[] {"Please enter your task format correctly."};
         }
     }
@@ -265,6 +278,7 @@ public class ProjectInputController implements IController {
      * @param projectCommand The user input.
      */
     public String[] projectEditTask(Project projectToManage, String projectCommand) {
+        ArchDukeLogger.logDebug(ProjectInputController.class.getName(), "[projectEditTask] User input: " + projectCommand);
         try {
             int taskIndexNumber = Integer.parseInt(projectCommand.substring(10).split(" ")[0]);
             String updatedTaskDetails = projectCommand.substring(projectCommand.indexOf("-"));
@@ -276,6 +290,8 @@ public class ProjectInputController implements IController {
             return new String[] {"The task index entered is invalid."};
 
         } catch (NumberFormatException e) {
+            ArchDukeLogger.logError(ProjectInputController.class.getName(), "[projectEditTask] " +
+                    "Please enter your task format correctly.");
             return new String[] {"Please enter your task format correctly."};
         }
     }
@@ -286,6 +302,7 @@ public class ProjectInputController implements IController {
      * @param projectCommand The user input.
      */
     public String[] projectDeleteTask(Project projectToManage, String projectCommand) {
+        ArchDukeLogger.logDebug(ProjectInputController.class.getName(), "[projectDeleteTask] User input: " + projectCommand);
         int taskIndexNumber = Integer.parseInt(projectCommand.substring(12).split(" ")[0]);
         if (projectToManage.getNumOfTasks() >= taskIndexNumber) {
             String removedTaskString = "Removed " + projectToManage.getTask(taskIndexNumber).getTaskName();
@@ -302,6 +319,7 @@ public class ProjectInputController implements IController {
      * @param projectCommand The user input.
      */
     public String[] projectEditTaskRequirements(Project projectToManage, String projectCommand) {
+        ArchDukeLogger.logDebug(ProjectInputController.class.getName(), "[projectEditTaskRequirements] User input: " + projectCommand);
         try {
             int taskIndexNumber = Integer.parseInt(projectCommand.substring(23).split(" ")[0]);
             String updatedTaskRequirements = projectCommand.substring(projectCommand.indexOf("-"));
@@ -311,6 +329,8 @@ public class ProjectInputController implements IController {
             }
             return new String[] {"The task index entered is invalid."};
         } catch (NumberFormatException e) {
+            ArchDukeLogger.logError(ProjectInputController.class.getName(), "[projectEditTaskRequirements] " +
+                    "Task index is missing! Please input a proper task index!");
             return new String[] {"Task index is missing! Please input a proper task index!"};
         }
     }
@@ -321,6 +341,7 @@ public class ProjectInputController implements IController {
      * @param projectCommand The user input.
      */
     public String[] projectViewTaskRequirements(Project projectToManage, String projectCommand) {
+        ArchDukeLogger.logDebug(ProjectInputController.class.getName(), "[projectViewTaskRequirements] User input: " + projectCommand);
         if (projectCommand.length() < 23) {
             return new String[] {"Please indicate the index of the task to be viewed."};
         } else {
@@ -336,6 +357,8 @@ public class ProjectInputController implements IController {
                 }
                 return new String[] {"The task index entered is invalid."};
             } catch (NumberFormatException e) {
+                ArchDukeLogger.logError(ProjectInputController.class.getName(), "[projectAssignTask] Input is not a number! " +
+                        "Please input a proper task index!");
                 return new String[] {"Input is not a number! Please input a proper task index!"};
             }
         }
@@ -347,6 +370,7 @@ public class ProjectInputController implements IController {
      * @param projectCommand The user input.
      */
     public String[] projectAssignTask(Project projectToManage, String projectCommand) {
+        ArchDukeLogger.logDebug(ProjectInputController.class.getName(), "[projectAssignTask] User input: " + projectCommand);
         AssignmentController assignmentController = new AssignmentController(projectToManage);
         assignmentController.assignAndUnassign(projectCommand.substring(12));
         ArrayList<String> errorMessages = assignmentController.getErrorMessages();
@@ -360,21 +384,22 @@ public class ProjectInputController implements IController {
     /**
      * Displays list of assignments according to specifications of user.
      * @param projectToManage The project to manage.
-     * @param projectFullCommand The full command by the user.
+     * @param projectCommand The full command by the user.
      */
-    public String[] projectViewAssignments(Project projectToManage, String projectFullCommand) {
-        if (projectFullCommand.length() <= 18) {
+    public String[] projectViewAssignments(Project projectToManage, String projectCommand) {
+        ArchDukeLogger.logDebug(ProjectInputController.class.getName(), "[projectViewAssignments] User input: " + projectCommand);
+        if (projectCommand.length() <= 18) {
             return (new String[]{"Please input the parameters to view assignments:",
                 "-m for viewing by member, -t for viewing by task.",
                 "You may refer to the user guide for the list of possible commands."});
         } else {
-            String input = projectFullCommand.substring(17);
+            String input = projectCommand.substring(17);
             if (input.charAt(0) == '-' && input.charAt(1) == 'm') {
                 return projectViewMembersAssignments(projectToManage,
-                    projectFullCommand.substring(20));
+                        projectCommand.substring(20));
             } else if (input.charAt(0) == '-' && input.charAt(1) == 't') {
                 return projectViewTasksAssignments(projectToManage,
-                    projectFullCommand.substring(20));
+                        projectCommand.substring(20));
             } else {
                 return (new String[] {"Could not understand your command! Please use -m for member, -t for task"});
             }
@@ -387,6 +412,7 @@ public class ProjectInputController implements IController {
      * @param projectCommand The user input.
      */
     public String[] projectViewTasks(Project projectToManage, String projectCommand) {
+        ArchDukeLogger.logDebug(ProjectInputController.class.getName(), "[projectViewTasks] User input: " + projectCommand);
         try {
             if (("view tasks").equals(projectCommand)) {
                 HashMap<Task, ArrayList<Member>> tasksAndAssignedMembers = projectToManage.getTasksAndAssignedMembers();
@@ -409,6 +435,8 @@ public class ProjectInputController implements IController {
                 return viewHelper.consolePrintTable(tableToPrint);
             }
         } catch (IndexOutOfBoundsException e) {
+            ArchDukeLogger.logError(ProjectInputController.class.getName(), "[projectAssignTask] " +
+                    "Currently there are no tasks with the specified attribute.");
             return (new String[] {"Currently there are no tasks with the specified attribute."});
         }
         return null;
@@ -420,6 +448,7 @@ public class ProjectInputController implements IController {
      * @param projectCommand The command by the user containing index numbers of the members to view.
      */
     public String[] projectViewMembersAssignments(Project projectToManage, String projectCommand) {
+        ArchDukeLogger.logDebug(ProjectInputController.class.getName(), "[projectViewMembersAssignments] User input: " + projectCommand);
         ParserHelper parserHelper = new ParserHelper();
         ArrayList<Integer> validMembers = parserHelper.parseMembersIndexes(projectCommand,
             projectToManage.getNumOfMembers());
@@ -436,6 +465,7 @@ public class ProjectInputController implements IController {
      * @param projectCommand The user input.
      */
     private String[] projectViewTasksAssignments(Project projectToManage, String projectCommand) {
+        ArchDukeLogger.logDebug(ProjectInputController.class.getName(), "[projectViewTasksAssignments] User input: " + projectCommand);
         ParserHelper parserHelper = new ParserHelper();
         ArrayList<Integer> validTasks = parserHelper.parseTasksIndexes(projectCommand,
             projectToManage.getNumOfTasks());
@@ -452,6 +482,7 @@ public class ProjectInputController implements IController {
      * @return Boolean variable specifying the exit status.
      */
     public String[] projectExit(Project projectToManage) {
+        ArchDukeLogger.logDebug(ProjectInputController.class.getName(), "[projectExit]");
         return new String[] {"Exited project: " + projectToManage.getName()};
     }
 
@@ -460,6 +491,7 @@ public class ProjectInputController implements IController {
     }
 
     public String[] end() {
+        ArchDukeLogger.logDebug(ProjectInputController.class.getName(), "[end]");
         return new String[] {"Bye. Hope to see you again soon!"};
     }
 
@@ -470,6 +502,7 @@ public class ProjectInputController implements IController {
      * @param projectCommand The user input.
      */
     private String [] projectAddReminder(Project projectToManage, String projectCommand) {
+        ArchDukeLogger.logDebug(ProjectInputController.class.getName(), "[projectAddReminder] User input: " + projectCommand);
         try {
             ReminderFactory reminderFactory = new ReminderFactory();
             IReminder newReminder = reminderFactory.createReminder(projectCommand.substring(13));
@@ -481,6 +514,8 @@ public class ProjectInputController implements IController {
                     + "necessary parameters are given"};
 
         } catch (NumberFormatException | ParseException e) {
+            ArchDukeLogger.logError(ProjectInputController.class.getName(), "[projectAddReminder] " +
+                    "Please enter your reminder date format correctly.");
             return new String[] {"Please enter your reminder date format correctly."};
         }
     }

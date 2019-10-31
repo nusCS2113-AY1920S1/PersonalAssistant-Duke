@@ -86,6 +86,8 @@ public class ConsoleInputController implements IController {
         if (inputReader.hasNext()) {
             this.managingProjectIndex = inputReader.next();
             try {
+                ArchDukeLogger.logInfo(ConsoleInputController.class.getName(), "Managing project: "
+                        + projectRepository.getItem(Integer.parseInt(managingProjectIndex)).getName());
                 return new String[] {"Now managing "
                         + projectRepository.getItem(Integer.parseInt(managingProjectIndex)).getName()};
             } catch (IndexOutOfBoundsException err) {
