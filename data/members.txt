@@ -1,16 +1,16 @@
 [
   {
-    "name": "john",
-    "taskList": [],
-    "skillList": [
-      "hiTest"
+    "name": "user",
+    "taskList": [
+      "testing 1",
+      "testing 2",
+      "testing 3"
     ]
   },
   {
-    "name": "jason",
-    "taskList": [],
-    "skillList": [
-      "kal;sjdfklasdjf"
+    "name": "user2",
+    "taskList": [
+      "testing 1"
     ]
   }
 ]

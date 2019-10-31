@@ -74,9 +74,7 @@ public class Task {
      * @return string of task
      */
     public String toString() {
-        return "[" + this.getStatusIcon() + "] "
-                + this.name
-                + " (at: " + time + ")";
+        return "[" + this.getStatusIcon() + "] " + this.name + (time == null ? "" : (" (at: " + time + ")"));
     }
 
     /**

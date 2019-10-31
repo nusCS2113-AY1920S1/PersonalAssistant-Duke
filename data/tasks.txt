@@ -1,10 +1,22 @@
 [
   {
-    "name": "yo",
-    "isDone": false,
-    "memberList": [],
-    "skillReqList": [
-      "HOLA"
+    "name": "testing 1",
+    "isDone": true,
+    "memberList": [
+      "user",
+      "user2"
     ]
+  },
+  {
+    "name": "testing 2",
+    "isDone": true,
+    "memberList": [
+      "user"
+    ]
+  },
+  {
+    "name": "testing 3",
+    "isDone": false,
+    "memberList": []
   }
 ]
