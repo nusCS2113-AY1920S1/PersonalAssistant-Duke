@@ -12,9 +12,6 @@ import task.DoAfterTasks;
 import task.Task;
 import task.WithinPeriodTask;
 import ui.Ui;
-
-import javax.swing.*;
-import java.lang.reflect.Array;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -23,7 +20,6 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Calendar;
-import java.util.LinkedHashMap;
 
 public class Process {
     public SimpleDateFormat dataformat = new SimpleDateFormat("dd/MM/yyyy HHmm");
@@ -642,7 +638,7 @@ public class Process {
      * processes the input command and stores it in a text file.
      * @param input Input from the user.
      * @param ui Ui that interacts with the user.
-     * @param storage Storage that stores the input commands entered by the user.
+     * @param storage command.Storage that stores the input commands entered by the user.
      */
 
     public void commandHistory(String input, Ui ui, Storage storage) {
