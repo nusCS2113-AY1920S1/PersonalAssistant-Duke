@@ -358,6 +358,26 @@ Executing the `/redo` command:
 
 === 3.8 Snoozing of tasks
 
+This command allows the user to postpone the deadlines of tasks with deadlines.
+
+The syntax of the command is as follows:
+
+TIP: */snooze <index> <integer> <unit>*
+
+This command postpones the deadline by a set unit of time, such as 5 days, 3 hours etc...
+
+TIP: */snooze <index> <date> <time>*
+
+This command postpones the deadline to a fixed date and time, such as 24/12/2019 1700.
+
+IMPORTANT: This command snoozes a task in the task list.
+*	<index> refers to the index shown in the displayed task list.
+*	<date> must follow the format dd/MM/yyyy.
+*	<time> must be in 24hrs format HHmm.
+*	<unit> is the duration in minutes, hours, days, weeks or months
+
+
+
 
 === Separate
 === Separate
