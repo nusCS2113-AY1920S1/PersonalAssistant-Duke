@@ -38,7 +38,7 @@ public class UserStatsTest {
             chapterStats.add(chapterStat);
         }
 
-        UserStats userStats = new UserStats("Test Test Test", "Test test Test",0,0 ,chapterStats);
+        UserStats userStats = new UserStats("Test Test Test", "Test test Test",0,0,chapterStats);
         UserStats copyOfUserStats = UserStats.parseString(userStats.toString());
         assertEquals(userStats,copyOfUserStats);
 
