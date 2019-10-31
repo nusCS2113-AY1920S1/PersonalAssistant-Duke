@@ -2,10 +2,12 @@ package spinbox.commands;
 
 import spinbox.containers.ModuleContainer;
 import spinbox.containers.lists.FileList;
+import spinbox.containers.lists.GradeList;
 import spinbox.containers.lists.TaskList;
 import spinbox.containers.Notepad;
 import spinbox.entities.items.File;
 import spinbox.entities.Module;
+import spinbox.entities.items.GradedComponent;
 import spinbox.entities.items.tasks.Task;
 import spinbox.exceptions.SpinBoxException;
 import spinbox.exceptions.InputException;
@@ -77,6 +79,31 @@ public class RemoveCommand extends Command {
                     int index = Integer.parseInt(content.split(" ")[1]) - 1;
                     notepad.removeLine(index);
                     return HORIZONTAL_LINE + "\n" + NOTE_REMOVED + moduleCode + "\n" + HORIZONTAL_LINE;
+                } catch (NumberFormatException e) {
+                    throw new InputException(INVALID_INDEX);
+                } catch (IndexOutOfBoundsException e) {
+                    throw new InputException(PROVIDE_INDEX);
+                }
+            } else {
+                return NON_EXISTENT_MODULE;
+            }
+
+        case "grade":
+            checkIfOnModulePage(moduleCode);
+            if (moduleContainer.checkModuleExists(moduleCode)) {
+                try {
+                    HashMap<String, Module> modules = moduleContainer.getModules();
+                    Module module = modules.get(moduleCode);
+                    GradeList gradeList = module.getGrades();
+                    int index = Integer.parseInt(content.split(" ")[1]) - 1;
+                    GradedComponent removedComponent = gradeList.get(index);
+                    gradeList.remove(index);
+
+                    return HORIZONTAL_LINE + "\nRemoved task: " + removedComponent.toString() + "\n"
+                            + "You currently have " + gradeList.size()
+                            + ((gradeList.size() == 1) ? " graded component in the list."
+                            : " graded components in the list.") + "\n"
+                            + HORIZONTAL_LINE;
                 } catch (NumberFormatException e) {
                     throw new InputException(INVALID_INDEX);
                 } catch (IndexOutOfBoundsException e) {

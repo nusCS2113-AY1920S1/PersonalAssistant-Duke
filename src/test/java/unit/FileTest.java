@@ -11,9 +11,9 @@ public class FileTest {
     @org.junit.jupiter.api.Test
     void testToString_createAndMarkDoneNewTask() {
         Item item = new File(0, "file1");
-        assertEquals("[✗] file1", item.toString());
+        assertEquals("[NOT DOWNLOADED] file1", item.toString());
         item.markDone();
-        assertEquals("[✓] file1", item.toString());
+        assertEquals("[DOWNLOADED] file1", item.toString());
     }
 
     @org.junit.jupiter.api.Test

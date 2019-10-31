@@ -8,6 +8,7 @@ import spinbox.commands.HelpCommand;
 import spinbox.commands.RemoveCommand;
 import spinbox.commands.RemoveMultipleCommand;
 import spinbox.commands.SetDateCommand;
+import spinbox.commands.ScoreCommand;
 import spinbox.commands.SetNameCommand;
 import spinbox.commands.UpdateCommand;
 import spinbox.commands.UpdateMultipleCommand;
@@ -137,6 +138,9 @@ public class Parser {
             break;
         case "update-*":
             command = new UpdateMultipleCommand(pageDataComponents, content);
+            break;
+        case "score":
+            command = new ScoreCommand(pageDataComponents, content);
             break;
         case "find":
             command = new FindCommand(pageDataComponents, content);

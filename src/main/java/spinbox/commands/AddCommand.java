@@ -4,8 +4,10 @@ import spinbox.DateTime;
 import spinbox.containers.ModuleContainer;
 import spinbox.containers.lists.FileList;
 import spinbox.containers.Notepad;
+import spinbox.containers.lists.GradeList;
 import spinbox.entities.items.File;
 import spinbox.entities.Module;
+import spinbox.entities.items.GradedComponent;
 import spinbox.exceptions.SpinBoxException;
 import spinbox.exceptions.InputException;
 import spinbox.Ui;
@@ -37,6 +39,8 @@ public class AddCommand extends Command {
             + "the full command for adding notes:\n";
     private static final String TODO_ERROR_MESSAGE = "Please ensure that you enter "
             + "the full command for adding todo:\n";
+    private static final String GRADED_COMPONENT_ERROR_MESSAGE = "Please ensure that you enter "
+            + "the full command for adding graded components:\n";
     private static final String DEADLINE_ERROR_MESSAGE = "Please ensure that you enter "
             + "the full command for adding deadlines:\n";
     private static final String EVENT_ERROR_MESSAGE = "Please ensure that you enter "
@@ -45,6 +49,7 @@ public class AddCommand extends Command {
             + "the full command for adding modules:\n";
     private static final String FILE_FORMAT = "add <moduleCode> / file <fileName>";
     private static final String NOTE_FORMAT = "add <moduleCode> / note <fileName>";
+    private static final String GRADED_COMP_FORMAT = "add <moduleCode> / grade <componentName> weightage: <weightage>%";
     private static final String TODO_FORMAT = "add <moduleCode> / todo <fileName>";
     private static final String DEADLINE_FORMAT = "add <moduleCode> / deadline <taskName> by: <MM/DD/YYYY HH:MM>";
     private static final String EVENT_FORMAT = "add <moduleCode> / <eventType> <taskName> at: "
@@ -52,6 +57,7 @@ public class AddCommand extends Command {
     private static final String MODULE_FORMAT = "add / module <moduleCode> <moduleName>";
     private static final String EMPTY_TODO_DESCRIPTION = "☹ OOPS!!! The description of a task cannot be empty.";
     private static final String EMPTY_DEADLINE_DESCRIPTION = "☹ OOPS!!! The description of a deadline cannot be empty.";
+    private static final String EMPTY_GRADE_DESCRIPTION = "☹ OOPS!!! The description of a component cannot be empty.";
     private static final String EMPTY_EVENT_DESCRIPTION = "☹ OOPS!!! The description of an event cannot be empty.";
     private static final String EMPTY_EXAM_DESCRIPTION = "☹ OOPS!!! The description of an exam cannot be empty.";
     private static final String EMPTY_LAB_DESCRIPTION = "☹ OOPS!!! The description of a lab session cannot be empty.";
@@ -80,6 +86,7 @@ public class AddCommand extends Command {
     public String execute(ModuleContainer moduleContainer, ArrayDeque<String> pageTrace, Ui ui, boolean guiMode) throws
             SpinBoxException {
         File fileAdded;
+        GradedComponent gradedComponentAdded;
         Task taskAdded;
         DateTime start;
         DateTime end;
@@ -119,6 +126,38 @@ public class AddCommand extends Command {
                 }
             } catch (IndexOutOfBoundsException e) {
                 throw new InputException(NOTE_ERROR_MESSAGE + NOTE_FORMAT);
+            }
+
+        case "grade":
+            try {
+                checkIfOnModulePage(moduleCode);
+                if (moduleContainer.checkModuleExists(moduleCode)) {
+                    HashMap<String, Module> modules = moduleContainer.getModules();
+                    Module module = modules.get(moduleCode);
+                    GradeList gradeList = module.getGrades();
+                    String gradedComponentDetails = content.replace(type, "").trim();
+                    gradedComponentDetails = gradedComponentDetails.replace("%", "");
+
+                    String gradedComponentName =  gradedComponentDetails.substring(0,
+                            gradedComponentDetails.lastIndexOf(" weightage:"));
+
+                    double weightage = Double.parseDouble(gradedComponentDetails.split("weightage: ")[1]);
+
+                    if (gradedComponentDetails.split(" ")[0].equals("weightage:")) {
+                        throw new InputException(EMPTY_GRADE_DESCRIPTION);
+                    }
+
+                    gradedComponentAdded = gradeList.add(new GradedComponent(gradedComponentName, weightage));
+
+                    return HORIZONTAL_LINE + "\nAdded into " + module.toString() + " grades: "
+                            + gradedComponentAdded.toString() + "\n You currently have " + gradeList.size()
+                            +  ((gradeList.size() == 1) ? " graded component in the list." : " graded components"
+                            + " in the list.") + "\n" + HORIZONTAL_LINE;
+                } else {
+                    return NON_EXISTENT_MODULE;
+                }
+            } catch (IndexOutOfBoundsException e) {
+                throw new InputException(GRADED_COMPONENT_ERROR_MESSAGE + GRADED_COMP_FORMAT);
             }
 
         case "todo":

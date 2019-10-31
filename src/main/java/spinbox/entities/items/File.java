@@ -3,8 +3,12 @@ package spinbox.entities.items;
 import spinbox.exceptions.CorruptedDataException;
 
 public class File extends Item {
+    private static final String BRACKET_OPEN = "[";
+    private static final String BRACKET_CLOSE = "] ";
     private static final String CORRUPTED_FILES_DATA = "Corrupted files data.";
     private static final String DELIMITER_FILTER = " \\| ";
+    private static final String DOWNLOADED = "DOWNLOADED";
+    private static final String NOT_DOWNLOADED = "NOT DOWNLOADED";
 
     /**
      * This constructor is used for recreation of SpinBox.Tasks.FileTask from storage.
@@ -33,8 +37,13 @@ public class File extends Item {
     }
 
     @Override
+    public String getStatusText() {
+        return (this.getDone() ? DOWNLOADED : NOT_DOWNLOADED);
+    }
+
+    @Override
     public String toString() {
-        return super.toString();
+        return BRACKET_OPEN + this.getStatusText() + BRACKET_CLOSE + this.getName();
     }
 
     @Override

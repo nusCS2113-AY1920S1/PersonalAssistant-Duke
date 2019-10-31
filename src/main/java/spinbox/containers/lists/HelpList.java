@@ -43,7 +43,7 @@ public class HelpList {
             + "\t* Adding an item for a specific module (omit module code if current page is the specific module "
             + "page) *\n"
             + "\t2. Add a new file under module CG1111: add CG1111 / file quiz 2 2018\n"
-            + "\t3. Add a new grade component under CG1111: add CG1111 / grade Report : 12.5%\n"
+            + "\t3. Add a new grade component under CG1111: add CG1111 / grade Report weightage: 12.5%\n"
             + "\t4. Add a new note under CG1111: add CG1111 / note bring textbook\n"
             + "\t5. Add a new todo task under module CG1111: add CG1111 / todo finish assignment\n"
             + "\t   -List of task type includes:\n"
@@ -109,7 +109,7 @@ public class HelpList {
             + "Example:\n"
             + "\t* Note: omit module code if current page is the specific module *\n"
             + "\t1. Update a file to downloaded under module CG1111: update CG1111 / file 1 true\n"
-            + "\t2. Update a grade component under CG1111: TBC\n"
+            + "\t2. Update a grade component under CG1111: update CG1111 / grade 1 false\n"
             + "\t3. Update a task to done under module CG1111: update CG1111 / task 1 true\n" + horizontalLine);
 
     public final String updateMultiple = helpOutput.concat(horizontalLine + "\n" + "Command: update-*\n"

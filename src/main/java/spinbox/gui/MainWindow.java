@@ -37,6 +37,7 @@ import spinbox.exceptions.FileCreationException;
 import spinbox.exceptions.InvalidIndexException;
 import spinbox.exceptions.SpinBoxException;
 import spinbox.gui.boxes.FileBox;
+import spinbox.gui.boxes.GradedComponentBox;
 import spinbox.gui.boxes.ModuleBox;
 
 import java.util.ArrayList;
@@ -397,8 +398,12 @@ public class MainWindow extends GridPane {
         modulesTabContainer.add(scrollPane, 1, 1, 1, 1);
 
         VBox gradesList = new VBox();
-        gradesList.setStyle("-fx-background-color: #25274D");
+        for (GradedComponent gradedComponent : gradedComponents) {
+            GradedComponentBox wrappedGradedComponent = GradedComponentBox.getGradedComponentsBox(gradedComponent);
+            gradesList.getChildren().add(wrappedGradedComponent);
+        }
 
+        gradesList.setStyle("-fx-background-color: #25274D");
         scrollPane.setContent(gradesList);
     }
 

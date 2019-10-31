@@ -1,5 +1,6 @@
 package spinbox.containers.lists;
 
+import spinbox.exceptions.InputException;
 import spinbox.storage.Storage;
 import spinbox.exceptions.CorruptedDataException;
 import spinbox.exceptions.DataReadWriteException;
@@ -79,5 +80,16 @@ public class GradeList extends SpinBoxList<GradedComponent> {
         }
 
         return output;
+    }
+
+    public void updateGradeWeightedScore(int index, double yourScore, double maximumScore) throws InputException,
+            DataReadWriteException {
+        list.get(index).updateWeightedScore(yourScore, maximumScore);
+        this.saveData();
+    }
+
+    public void updateGradeWeightedScore(int index, double weightedScore) throws DataReadWriteException {
+        list.get(index).updateWeightedScore(weightedScore);
+        this.saveData();
     }
 }

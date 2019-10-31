@@ -6,8 +6,8 @@ public abstract class Item implements Exportable {
     private static final String STORE_DELIMITER = " | ";
     private static final String BRACKET_OPEN = "[";
     private static final String BRACKET_CLOSE = "] ";
-    private static final String DONE = "✓";
-    private static final String NOT_DONE = "✗";
+    private static final String DONE = "DONE";
+    private static final String NOT_DONE = "NOT DONE";
 
     private String name;
     private Boolean isDone;
@@ -33,12 +33,12 @@ public abstract class Item implements Exportable {
         return isDone;
     }
 
-    protected String getStatusIcon() {
+    protected String getStatusText() {
         return (this.getDone() ? DONE : NOT_DONE);
     }
 
     public String toString() {
-        return BRACKET_OPEN + this.getStatusIcon() + BRACKET_CLOSE + this.getName();
+        return BRACKET_OPEN + this.getStatusText() + BRACKET_CLOSE + this.getName();
     }
 
     @Override

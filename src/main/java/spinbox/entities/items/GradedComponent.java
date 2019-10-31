@@ -12,6 +12,11 @@ public class GradedComponent extends Item {
     private static final String CORRUPTED_GRADES_DATA = "Corrupted grades data.";
     private static final String STORE_DELIMITER = " | ";
     private static final String DELIMITER_FILTER = " \\| ";
+    private static final String BRACKET_OPEN = "[";
+    private static final String BRACKET_CLOSE = "] ";
+    private static final String COMPLETED = "COMPLETED";
+    private static final String NOT_COMPLETED = "NOT COMPLETED";
+
 
     private double weight;
     private boolean scoreKnown;
@@ -47,6 +52,17 @@ public class GradedComponent extends Item {
             throw new CorruptedDataException();
         }
 
+    }
+
+    @Override
+    public String getStatusText() {
+        return (this.getDone() ? COMPLETED : NOT_COMPLETED);
+    }
+
+    @Override
+    public String toString() {
+        return BRACKET_OPEN + this.getStatusText() + BRACKET_CLOSE + this.getName() + "\n"
+                + this.getWeightedScoreAsString() + "/" + Double.toString(this.getWeight());
     }
 
     /**
