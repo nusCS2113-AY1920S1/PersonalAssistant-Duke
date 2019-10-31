@@ -11,6 +11,7 @@ import ducats.commands.DeleteCommand;
 import ducats.commands.EditCommand;
 import ducats.commands.GroupCommand;
 import ducats.commands.HelpCommand;
+import ducats.commands.InsertBarCommand;
 import ducats.commands.ListCommand;
 import ducats.commands.MetronomeCommand;
 import ducats.commands.NewCommand;
@@ -19,6 +20,7 @@ import ducats.commands.OverlayBarGroup;
 import ducats.commands.OverlayBarSong;
 import ducats.commands.OverlayGroupGroup;
 import ducats.commands.RedoCommand;
+import ducats.commands.SwapCommand;
 import ducats.commands.UndoCommand;
 import ducats.commands.ViewCommand;
 import ducats.components.Jaccard;
@@ -40,7 +42,9 @@ public class Parser {
         String [] commandList = {"bye", "list", "delete", "deletebar","edit",
                                     "find","done", "new","help","view","addbar",
                                     "overlay","group","overlay_bar_group", "metronome",
-                                    "overlay_group_group","overlay_bar_song","ascii","redo","undo", "open"};
+                                    "overlay_group_group", "overlay_bar_song", "ascii",
+                                    "redo", "undo", "open",
+                                    "insertbar", "swap"};
         double maximumVal = 0;
         String commandName = "";
         Jaccard similarityChecker = new Jaccard();
@@ -78,6 +82,16 @@ public class Parser {
         case "deletebar":
             if (message.length() >= 11) {
                 return new DeleteBarCommand(message);
+            }
+            break;
+        case "insertbar":
+            if (message.length() >= 11) {
+                return new InsertBarCommand(message);
+            }
+            break;
+        case "swap":
+            if (message.length() >= 6) {
+                return new SwapCommand(message);
             }
             break;
         case "edit":

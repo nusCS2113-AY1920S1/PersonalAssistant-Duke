@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 //@@author jwyf
 /**
- * A class representing the command to add a new bar of notes to the current song.
+ * A class representing the command to add a new bar of notes at the end of the current song.
  */
 public class AddBarCommand extends Command<SongList> {
 

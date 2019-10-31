@@ -260,6 +260,49 @@ public class Ui {
     }
 
     /**
+     * Returns a String formatted for display that indicates that a duke.components.Bar object has been inserted
+     * by the insert command.
+     *
+     * @param list the song list
+     * @param song the item that was modified
+     * @return the formatted String to be displayed
+     */
+    public String formatInsertBar(ArrayList<Song> list, Bar bar, Song song) {
+        String word = (list.size() == 1) ? "bar" : "bars";
+        String result = "Got it. I've inserted this bar:\n  "
+                + bar.toString()
+                + "\nto "
+                + song.getName()
+                + "\nNow you have "
+                + song.getBars().size()
+                + " "
+                + word
+                + " in the song.";
+        return wrap(result);
+    }
+
+    /**
+     * Returns a String formatted for display that indicates that two duke.components.Bar objects has been swapped
+     * by the swap command.
+     *
+     * @param barOne the first bar to be swap
+     * @param barTwo the second bar to be swapped with
+     * @param song the item that was modified
+     * @return the formatted String to be displayed
+     */
+    public String formatSwap(Bar barOne, Bar barTwo, Song song) {
+        String result = "Got it. I've swap this bar:\n  "
+                + barOne.toString()
+                + "\n With this bar: "
+                + barTwo.toString()
+                + " "
+                + "in the song "
+                + song.getName()
+                + ".";
+        return wrap(result);
+    }
+
+    /**
      * Returns a String formatted for display that indicates that
      * a duke.components.AddOverlay object has been created
      * by the group command.
