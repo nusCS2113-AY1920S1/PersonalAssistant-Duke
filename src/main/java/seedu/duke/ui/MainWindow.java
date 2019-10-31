@@ -213,18 +213,6 @@ public class MainWindow extends AnchorPane {
         UI.getInstance().respond(input);
         UI.getInstance().syncWithModel();
         setInputPrefix();
-<<<<<<< HEAD
-        if (input.contains("clear chat")) {
-            dialogContainer.getChildren().clear();
-        }
-        if (input.contains("email show")) {
-            updateHtml();
-        }
-        if (input.contains("bye")) {
-            exit();
-        }
-=======
->>>>>>> 1411b0c2ed4d449899cbeec32a4c885999316b07
         updateInputList(input);
     }
 
