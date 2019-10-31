@@ -1,6 +1,5 @@
-<h1 id="eggventory-user-guide">Eggventory User Guide</h1>
-<p>By: Team F09-03<br> 
-Dated: 24 October 2019</p>
+<h1 id="eggventory-user-guideby-team-f09-03">Eggventory User GuideBy: Team F09-03</h1>
+<p>Dated:  October 2019</p>
 <h2 id="table-of-contents">Table of contents</h2>
 <h3 id="introduction-"><a href="#introduction">1. Introduction </a></h3>
 <h3 id="quick-start-"><a href="#quick-start">2. Quick Start </a></h3>
@@ -10,8 +9,8 @@ Dated: 24 October 2019</p>
 <h5 id="working-with-stocks-"><a href="#working-with-stocks">3.3 Working with Stocks </a></h5>
 <h5 id="managing-your-list-of-people-"><a href="#managing-your-list-of-people">3.4 Managing your list of People </a></h5>
 <h5 id="managing-your-list-of-loans-"><a href="#managing-your-list-of-loans">3.5 Managing your list of Loans </a></h5>
-<h5 id="loaning-using-templates-coming-in-v1.4-"><a href="#loaning-using-templates-coming-in-v1.4">3.6 Loaning using Templates (coming in v1.4) </a></h5>
-<h5 id="marking-stock-as-lost-"><a href="#marking-stock-as-lost">3.7 Marking Stock as Lost </a></h5>
+<h5 id="loaning-using-templates"><a href="#loaning-using-templates-coming-in-v1.4">3.6 Loaning using Templates</a></h5>
+<h5 id="marking-stock-as-lost-"><a href="#marking-stock-as-lost-coming-in-v2.0">3.7 Marking Stock as Lost </a></h5>
 <h5 id="searching-the-inventory-"><a href="#searching-the-inventory">3.8 Searching the Inventory </a></h5>
 <h5 id="using-undo-and-redo-commands-"><a href="#using-undo-and-redo-commands-coming-in-v2.0">3.9 Using Undo and Redo Commands </a></h5>
 <h5 id="setting-autosave-options-"><a href="#setting-autosave-options-coming-in-v2.0">3.10 Setting autosave options </a></h5>
@@ -40,8 +39,10 @@ Dated: 24 October 2019</p>
 <ol start="5">
 <li>
 <h4 id="type-the-command-in-the-command-box-and-press-enter-to-execute-it">Type the command in the command box and press Enter to execute it</h4>
-<p>E.g. typing help and pressing Enter will open the help window.</p>
 </li>
+</ol>
+<p>E.g. typing help and pressing Enter will open the help window.</p>
+<ol start="6">
 <li>
 <h4 id="some-example-commands-you-can-try">Some example commands you can try:</h4>
 </li>
@@ -247,13 +248,13 @@ Optional Parameters:</p>
 <p>This adds a new Loan made by a Person.  is possible to add multiple stocks at once.</p>
 <p>Format: <code>loan add &lt;Matric No.&gt; {&lt;Stock Code&gt; &lt;Quantity&gt;}</code></p>
 <p>eg. <code>loan add A0123456 R500 1000 X123 80</code></p>
-<h4 id="returning-specific-loans-loan-return">3.5.2 Returning specific Loans: <code>loan return</code></h4>
+<h4 id="returning-specific-loans-loan-return-coming-in-v1.4">3.5.2 Returning specific Loans: <code>loan return</code> [coming in v1.4]</h4>
 <p>This marks specific Loans of a Person as returned.</p>
 <p>Format: <code>loan return &lt;Matric No.&gt; {&lt;Stock Code&gt; &lt;Quantity&gt;}</code></p>
-<h4 id="returning-all-loans-loan-returnall">3.5.3 Returning all Loans: <code>loan returnall</code></h4>
+<h4 id="returning-all-loans-loan-returnall-coming-in-v">3.5.3 Returning all Loans: <code>loan returnall</code> [coming in v</h4>
 <p>This marks all Loans of a Person as returned.</p>
 <p>Format: `loan returnall &lt;Matric No</p>
-<h4 id="listing-all-persons-and-their-loans-list-loan">3.5.4 Listing all Persons and their Loans: <code>list loan</code></h4>
+<h4 id="listing-all-persons-and-their-loans-list-loan-coming-in-v.141.4">3.5.4 Listing all Persons and their Loans: <code>list loan</code> [coming in v.141.4]</h4>
 <p>This lists out all loans currently recorded, listed by the Person who made the loan.</p>
 <p>Format: <code>list loan</code></p>
 <hr>
@@ -276,13 +277,12 @@ Optional Parameters:</p>
 <p>This lists out all the templates created in the system.</p>
 <p>Format: <code>list template</code></p>
 <hr>
-<h3 id="marking-stock-as-lost">3.7 Marking Stock as lost</h3>
-<p>[coming in v2.0]<br>
-Marks a certain quantity of a stock as lost. Differs from deleting stock in the fact that the quantity of stock will still be saved in the inventory (eg. for administrative purposes). Lost stock will not be included in tallies of available stock.</p>
+<h3 id="marking-stock-as-lost-coming-in-v2.0">3.7 Marking Stock as lost [coming in v2.0]</h3>
+<p>Marks a certain quantity of a stock as lost. Differs from deleting stock in the fact that the quantity of stock will still be saved in the inventory (eg. for administrative purposes). Lost stock will not be included in tallies of available stock.</p>
 <h4 id="marking-stock-as-lost-lost">3.7.1 Marking Stock as lost: <code>lost</code></h4>
 <p>Format:<code>lost &lt;Stock Code&gt; &lt;Quantity&gt;</code></p>
 <p>eg. <code>lost R500 10</code></p>
-<h4 id="marking-loaned-stock-as-lost-coming-in-v2.0">3.7.2 Marking Loaned Stock as lost: [coming in v2.0]</h4>
+<h4 id="marking-loaned-stock-as-lost">3.7.2 Marking Loaned Stock as lost:</h4>
 <p>This directly marks a quantity of a Person’s Loan as lost. The items are removed from the Loan list and counted as lost within the main inventory.</p>
 <p>Format: [coming in v2.0]</p>
 <h3 id="searching-the-inventory">3.8 Searching the inventory</h3>
@@ -310,98 +310,172 @@ Marks a certain quantity of a stock as lost. Differs from deleting stock in the 
 <p>Format: <code>bye</code></p>
 <h2 id="faq">4. FAQ</h2>
 <h2 id="command-summary">5. Command Summary</h2>
+<h3 id="add-commands">Add Commands</h3>
 
 <table>
 <thead>
 <tr>
-<th>Add Commands</th>
-<th>Description</th>
+<th>Command</th>
+<th>Syntax</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Add Stock</td>
+<td>add stock</td>
 <td><code>add stock &lt;Stock Type&gt; &lt;Stock Code&gt; &lt;Quantity&gt; &lt;Description&gt;</code></td>
 </tr>
 <tr>
-<td>Add Stock Type</td>
-<td>`</td>
+<td>add stocktype</td>
+<td><code>add stocktype &lt;Stock Type&gt;</code></td>
+</tr>
+<tr>
+<td>add template</td>
+<td><code>add template &lt;Template Name&gt; {&lt;Stock Code&gt; &lt;Quantity&gt;}</code></td>
+</tr>
+<tr>
+<td>add person</td>
+<td><code>add person &lt;Matric No.&gt;</code></td>
 </tr>
 </tbody>
-</table><ul>
-<li></li>
-</ul>
-<p>add stocktype <code>Add Template|</code></p>
-<ul>
-<li>
-<p>add template  { }`</p>
-</li>
-<li>
-<p>add person </p></li></ul><ul>
-<li>
-<p>List</p>
-</li>
-<li>
-<p>list stock</p>
-</li>
-<li>
-<p>list stocktypes</p>
-</li>
-<li>
-<p>list stocktype </p>
-</li>
-<li>
-<p>list loan</p>
-</li>
-<li>
-<p>list template</p>
-</li>
-<li>
-<p>list lost</p>
-</li>
-<li>
-<p>Find</p>
-</li>
-<li>
-<p>find stock </p>
-</li>
-<li>
-<p>find stocktype </p>
-</li>
-<li>
-<p>Loan</p>
-</li>
-<li>
-<p>loan add </p></li></ul><p>OR</p>
-<p>loan add </p><ul>
-<li>loan returned </li></ul><p>OR</p>
-<p>loan returned </p><ul>
-<li>
-<p>Lost</p>
-</li>
-<li>
-<p>lost  </p>
-</li>
-<li>
-<p>Undo</p>
-</li>
-<li>
-<p>undo</p>
-</li>
-<li>
-<p>Redo</p>
-</li>
-<li>
-<p>redo</p>
-</li>
-<li>
-<p>Exit</p>
-</li>
-<li>
-<p>bye</p>
-</li>
-</ul>
-<h2 id="glossary">6. Glossary</h2>
+</table><h3 id="delete-commands">Delete Commands</h3>
+
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Syntax</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>stock</td>
+<td><code>delete stock &lt;Stock Code&gt;</code></td>
+</tr>
+<tr>
+<td>delete stocktype</td>
+<td><code>delete stocktype &lt;Stock Type&gt;</code></td>
+</tr>
+<tr>
+<td>delete template</td>
+<td><code>delete template &lt;Template Name&gt;</code></td>
+</tr>
+<tr>
+<td>delete person</td>
+<td><code>delete person &lt;Matric No.&gt;</code></td>
+</tr>
+</tbody>
+</table><h3 id="edit-commands">Edit Commands</h3>
+
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Syntax</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>edit stock</td>
+<td><code>edit stock &lt;Property&gt; &lt;New Value&gt;</code></td>
+</tr>
+<tr>
+<td>edit person</td>
+<td><code>edit person &lt;Property&gt; &lt;New Value&gt;</code></td>
+</tr>
+</tbody>
+</table><h3 id="list-commands">List Commands</h3>
+
+<table>
+<thead>
+<tr>
+<th align="right">Command</th>
+<th>Syntax</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="right">list stocks</td>
+<td><code>list stock all</code></td>
+</tr>
+<tr>
+<td align="right">list stocktypes</td>
+<td><code>list stocktypes</code></td>
+</tr>
+<tr>
+<td align="right">list stocktype</td>
+<td><code>list stocktype &lt;Stock Type&gt;</code></td>
+</tr>
+<tr>
+<td align="right">list loan</td>
+<td><code>list loan</code></td>
+</tr>
+<tr>
+<td align="right">list template</td>
+<td><code>list template</code></td>
+</tr>
+<tr>
+<td align="right">list lost</td>
+<td><code>list lost</code></td>
+</tr>
+</tbody>
+</table><h3 id="loan-commands">Loan Commands</h3>
+
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Syntax</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>loan add</td>
+<td><code>loan add &lt;Matric No.&gt; {&lt;Stock Code&gt; &lt;Quantity&gt;}</code><br> OR  <br><code>loan add &lt;Matric No.&gt; &lt;Template Name&gt;</code></td>
+</tr>
+<tr>
+<td>loan returned</td>
+<td><code>loan returned &lt;Matric No.&gt; {&lt;Stock Code&gt; &lt;Quantity&gt;}</code> <br> OR <br> <code>loan returned &lt;Matric No.&gt; &lt;Template Name&gt;</code></td>
+</tr>
+</tbody>
+</table><h3 id="lost-commands">Lost Commands</h3>
+
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Syntax</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>lost</td>
+<td><code>lost &lt;Stock Code&gt; &lt;Quantity&gt;</code></td>
+</tr>
+</tbody>
+</table><h3 id="other-commands">Other Commands</h3>
+
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Syntax</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>undo last command</td>
+<td><code>undo</code></td>
+</tr>
+<tr>
+<td>redo previous command</td>
+<td><code>redo</code></td>
+</tr>
+<tr>
+<td>exit application</td>
+<td><code>bye</code></td>
+</tr>
+</tbody>
+</table><h2 id="glossary">6. Glossary</h2>
 <p>Matric No.: Matriculation number of student to be added</p>
 <p>Stock: A physical asset to be tracked by Eggventory</p>
 <p>Stock Code: A unique string of characters to identify a stock</p>
