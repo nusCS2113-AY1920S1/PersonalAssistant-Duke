@@ -337,8 +337,8 @@ public class EventList {
         eventArrayList.add(event);
     }
 
-
     public Budgeting getBudgeting() {
         return budgeting;
     }
+
 }

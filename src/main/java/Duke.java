@@ -20,7 +20,7 @@ public class Duke {
      */
     public static void main(String[] args) throws IOException {
         setup();
-        ui.welcome(tasks);
+        ui.welcome();
 
         String userInput = parser.readUserInput().toLowerCase();
         while (!userInput.equals("bye")) {

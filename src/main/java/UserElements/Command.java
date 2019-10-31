@@ -502,12 +502,31 @@ public class Command {
                 int goalIndex = Integer.parseInt(goalCommand[2]);
                 switch (goalCommand[0]) {
                     case "delete":
-                        events.getEvent(eventIndex).removeGoal(goalIndex - 1);
-                        ui.goalDeleted();
+                        if (!events.getEvent(eventIndex).getGoalList().isEmpty()) {
+                            events.getEvent(eventIndex).removeGoal(goalIndex - 1);
+                            ui.goalDeleted();
+                        } else {
+                            ui.noSuchGoal();
+                        }
                         break;
 
                     case "edit":
-                        //edit goal
+                        if (!events.getEvent(eventIndex).getGoalList().isEmpty()) {
+                            Goal newGoal = new Goal(splitGoal[1]);
+                            events.getEvent(eventIndex).editGoalList(newGoal, goalIndex - 1);
+                            ui.goalUpdated();
+                        } else {
+                            ui.noSuchGoal();
+                        }
+                        break;
+
+                    case "achieved":
+                        if (!events.getEvent(eventIndex).getGoalList().isEmpty()) {
+                            events.getEvent(eventIndex).updateGoalAchieved(goalIndex - 1);
+                            ui.goalSetAsAchieved();
+                        } else {
+                            ui.noSuchGoal();
+                        }
                         break;
                 }
             } else {
@@ -519,7 +538,6 @@ public class Command {
                         break;
 
                     case "view":
-                        //print goals list
                         ui.printEventGoals(events.getEvent(eventIndex));
                         break;
                 }
