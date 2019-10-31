@@ -143,8 +143,19 @@ public class WeekCommand extends Command {
             return -1;
         } else if (rightTimeSplit[1].equals("AM")) {
             return 1;
-        } else {
-            return leftSplit[0].compareTo(rightSplit[0]);
+        } else {//PM PM situation
+            //return leftSplit[0].compareTo(rightSplit[0]);
+            String[]leftTimeSplitHourMinute = leftTimeSplit[0].split(":");
+            String[]rightTimeSplitHourMinute = rightTimeSplit[0].split(":");
+            if(leftTimeSplitHourMinute[0].equals("12") && rightTimeSplitHourMinute[0].equals("12")) {
+                return leftTimeSplitHourMinute[1].compareTo(rightTimeSplitHourMinute[1]);
+            } else if(leftTimeSplitHourMinute[0].equals("12")) {
+                return -1;
+            } else if (rightTimeSplitHourMinute[0].equals("12")) {
+                return 1;
+            } else {
+                return leftTimeSplit[0].compareTo(rightTimeSplit[0]);
+            }
         }
     }
 
