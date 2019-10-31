@@ -1,8 +1,16 @@
 package dolla;
 
-import dolla.task.*;
+import dolla.task.DebtList;
+import dolla.task.EntryList;
+import dolla.task.LimitList;
+import dolla.task.Record;
+import dolla.task.RecordList;
+import dolla.task.BillList;
 
-import static dolla.Storage.*;
+import static dolla.Storage.getEntriesFromSave;
+import static dolla.Storage.getLimitsFromSave;
+import static dolla.Storage.getDebtsFromSave;
+import static dolla.Storage.getBillsFromSave;
 
 public class DollaData implements ModeStringList {
 
@@ -67,6 +75,7 @@ public class DollaData implements ModeStringList {
     public void addBillToRecordList(Record newRecord) {
         billList.add(newRecord);
     }
+
     /**
      * Add to prev position.
      *
