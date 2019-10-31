@@ -1,5 +1,5 @@
 /**
  * Package holds all necessary code
- * for the Command abstract class.
+ * for the *Command classes.
  */
 package duke.command;

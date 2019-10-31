@@ -260,6 +260,7 @@ public class Storage {
         }
     }
 
+    //@@author nottherealedmund
     /**
      * Reads filePath, takes in Strings and turns them into a hash map of goals.
      *
@@ -290,6 +291,7 @@ public class Storage {
         }
     }
 
+    //@@author nottherealedmund
     /**
      * This function updates the hash map of goals.
      * Erases the entire hash map that exists presently and rewrites the file.
@@ -324,6 +326,7 @@ public class Storage {
         }
     }
 
+    //@@author nottherealedmund
     /**
      * Reads filePath, takes in Strings and turns them into a
      * hash map of lessons learnt for the day.
@@ -355,6 +358,7 @@ public class Storage {
         }
     }
 
+    //@@author nottherealedmund
     /**
      * This function updates the hash map of lessons learnt for the day.
      * Erases the entire hash map that exists presently and rewrites the file.
