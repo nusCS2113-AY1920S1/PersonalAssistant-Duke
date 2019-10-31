@@ -7,6 +7,7 @@ import java.awt.Rectangle;
 
 import javax.swing.JComponent;
 
+//@@author AugGust
 public class PieChart extends JComponent {
     private float percentage = 0f;
     private float targetPercentage = 0f;

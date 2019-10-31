@@ -1,2 +1,24 @@
-T | 1 | test1 | 0
-D | 0 | test2 | 0 | 25/10/2019 1200
+[
+  {
+    "name": "Job A",
+    "isDone": true,
+    "memberList": [
+      "P1",
+      "P2"
+    ]
+  },
+  {
+    "name": "Job B",
+    "isDone": false,
+    "memberList": [
+      "P2"
+    ],
+    "time": "Oct 31, 2019, 11:59:00 PM",
+    "reminder": "Oct 31, 2019, 11:54:00 PM"
+  },
+  {
+    "name": "Job C",
+    "isDone": false,
+    "memberList": []
+  }
+]
