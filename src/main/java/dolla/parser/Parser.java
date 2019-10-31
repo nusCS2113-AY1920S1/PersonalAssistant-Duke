@@ -288,6 +288,8 @@ public abstract class Parser implements ParserStringList, ModeStringList {
             case COMPONENT_DATE:
             case COMPONENT_TAG:
                 return true;
+            default:
+                break;
             }
             break;
         /*
