@@ -1,7 +1,7 @@
 package project;
 
 /**
- * State the fund of the project
+ * State the fund of the project.
  */
 public class Fund {
     private double fund;
@@ -13,14 +13,14 @@ public class Fund {
     /**
      * Instantiates the fund object.
      */
-    public Fund( ) {
+    public Fund() {
         this.fund = NOFUND;
         this.fundTaken = 0;
         this.fundRemaining = NOFUND;
     }
 
     /**
-     * set fund (again)
+     * set fund (again).
      * @param fund a double number input by the user.
      */
     public void setFund(double fund) {
@@ -66,14 +66,17 @@ public class Fund {
      * get the private attribute fundRemaining.
      * @return the attribute fundRemaining.
      */
-    public double getFundRemaining(){
+    public double getFundRemaining() {
         return fundRemaining;
     }
 
-
-    public String giveFund(){
-        return "\t" + "Total Fund = " + getFund() + "\n" +
-                "\t" + "Allocated Fund = " + getFundTaken() + "\n" +
-                "\t" + "Remaining Fund = " + getFundRemaining() + "\n";
+    /**
+     * Return a string to print as message about status of funds.
+     * @return String containing a message about fund status
+     */
+    public String giveFund() {
+        return "\t" + "Total Fund = " + getFund() + "\n" + "\t" 
+            + "Allocated Fund = " + getFundTaken() + "\n" + "\t" 
+            + "Remaining Fund = " + getFundRemaining() + "\n";
     }
 }

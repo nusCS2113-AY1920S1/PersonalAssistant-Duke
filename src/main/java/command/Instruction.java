@@ -110,13 +110,21 @@ public class Instruction {
         return input.startsWith("add fund");
     }
 
-    public boolean isAssignFund(String input) { return input.startsWith("assign fund"); }
+    public boolean isAssignFund(String input) { 
+        return input.startsWith("assign fund"); 
+    }
 
-    public boolean isShowFund(String input) { return input.startsWith("show fund"); }
+    public boolean isShowFund(String input) { 
+        return input.startsWith("show fund"); 
+    }
 
-    public boolean isViewhistory(String input) { return input.startsWith("view history"); }
+    public boolean isViewhistory(String input) { 
+        return input.startsWith("view history"); 
+    }
 
-    public boolean isDeletehistory(String input) {return input.startsWith("delete history"); }
+    public boolean isDeletehistory(String input) {
+        return input.startsWith("delete history"); 
+    }
 
     public boolean isHelp(String input) {
         return input.equals("help");

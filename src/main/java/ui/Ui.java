@@ -66,6 +66,10 @@ public class Ui {
         System.out.print(line);
     }
 
+    /**
+     * Prints a message to list all projects in the record.
+     * @param projectslist ArrayList containing all projects in record.
+     */
     public void printProjectsList(ArrayList<Project> projectslist) {
         int index = 1;
         System.out.print(line);
@@ -168,9 +172,16 @@ public class Ui {
         }
     }
 
+    /**
+     * Prints dates from which history was cleared.
+     * @param date1 from date to delete history.
+     * @param date2 to date to delete history.
+     */
     public void printdeletehistory(String date1, String date2) {
-        System.out.println("Got it. The input commands from " + date1 + " to " + date2 + " have been deleted from the history");
+        System.out.println("Got it. The input commands from " + date1 + " to " 
+            + date2 + " have been deleted from the history");
     }
+
     /**
      * Prints the list of payments of a payee.
      * @param paymentList paymentList of the payee.
@@ -252,8 +263,8 @@ public class Ui {
     }
 
     /**
-     * Prints message to indicate a task being edited.
-     * @param task Task to be edited.
+     * Prints message to indicate a payee has been edited.
+     * @param payee Payee that had been edited.
      */
     public void printEditMessage(Payee payee) {
         System.out.print(line + "     Got it. I've edited this payee:  \n");
@@ -263,7 +274,11 @@ public class Ui {
         System.out.println("\t" + "Phone No: " + payee.phoneNum);
         System.out.print(line);
     }
-
+    
+    /**
+     * Prints message to indicate a payment has been edited.
+     * @param payment Payment that had been edited
+     */
     public void printEditMessage(Payments payment, String name) {
         System.out.print(line + "     Got it. I've edited this payment:  \n");
         System.out.println("\t" + "Payee: " + name);
@@ -346,8 +361,8 @@ public class Ui {
     }
 
     /**
-     * Prints message of adding a fund to all projects
-     * @param fund the fund for all projects
+     * Prints message of adding a fund to all projects.
+     * @param fund the fund for all projects.
      */
     public void printSetFundMessage(Fund fund) {
         System.out.print(line);
@@ -357,8 +372,8 @@ public class Ui {
     }
 
     /**
-     * Prints message of adding a fund to all projects
-     * @param fund the fund for all projects
+     * Prints message of adding a fund to all projects.
+     * @param fund the fund for all projects.
      */
     public void printAddFundMessage(Fund fund, double amount) {
         System.out.print(line);
@@ -367,7 +382,12 @@ public class Ui {
         System.out.print(line);
     }
 
-
+    /**
+     * Prints message of adding a fund to all projects.
+     * @param fund the fund for all projects.
+     * @param amount amount to be added.
+     * @param project project to be added to.
+     */
     public void printAssignFundMessage(Fund fund, double amount, Project project) {
         System.out.print(line);
         System.out.println("\t" + "Got it. I've assigned " + amount + "to the project:");
@@ -390,6 +410,9 @@ public class Ui {
         }
     }
 
+    /**
+     * Prints out a help message with command formats.
+     */
     public void printHelpMessage() {
         System.out.print(line);
         System.out.println("\t" + "*Help*");

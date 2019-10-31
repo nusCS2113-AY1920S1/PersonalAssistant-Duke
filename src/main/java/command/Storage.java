@@ -1,6 +1,12 @@
 package command;
 
-import java.io.*;
+import java.io.BufferedWriter;
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.FileWriter;
 import java.util.ArrayList;
 
 /**
@@ -26,7 +32,7 @@ public class Storage {
     public ArrayList<String> load() {
         try {
             String line;
-            ArrayList<String> list = new ArrayList<String>();
+            ArrayList<String> list = new ArrayList<>();
 
             //file needs to be in same directory as Storage
             InputStream is = getClass().getResourceAsStream("duke.txt");
@@ -57,7 +63,7 @@ public class Storage {
         } catch (IOException ex) {
             System.out.println("Error reading file '" + filepath + "'");
         }
-        return new ArrayList<String>();
+        return new ArrayList<>();
         /*catch (EOFException e) {
             System.out.println("File is empty");
         } catch (IOException ioe) {
@@ -104,6 +110,12 @@ public class Storage {
             System.out.println("Error writing to file '" + filepath + "'");
         }
     }
+
+    /**
+     * Saves the tasklist of the user as an ArrayList containing the task object.
+     * @param str TODO
+     *
+     */
     public static void remove(String str){
         //TODO
     }
