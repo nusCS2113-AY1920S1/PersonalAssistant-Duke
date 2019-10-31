@@ -12,6 +12,8 @@ import seedu.duke.task.command.TaskSnoozeCommand;
 import seedu.duke.task.command.TaskAddCommand;
 import seedu.duke.task.command.TaskFindCommand;
 import seedu.duke.task.entity.Task;
+import seedu.duke.task.parser.TaskCommandParseHelper;
+
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -394,5 +396,25 @@ public class TaskCommandParseHelperTest {
         } catch (IllegalAccessException e) {
             fail("No Access");
         }
+    }
+
+    @Test
+    public void checkTimeStringTest() {
+        assertEquals("Mon", TaskCommandParseHelper.checkTimeString("Mon 1212").getKey());
+        assertEquals("1212", TaskCommandParseHelper.checkTimeString("Mon 1212").getValue());
+        assertEquals("1212", TaskCommandParseHelper.checkTimeString("Mon 1212  ").getValue());
+        assertEquals("Tue", TaskCommandParseHelper.checkTimeString("Tue").getKey());
+        assertEquals(null, TaskCommandParseHelper.checkTimeString("Tue").getValue());
+        assertEquals("Tue", TaskCommandParseHelper.checkTimeString("Tue   ").getKey());
+        assertEquals("Thu", TaskCommandParseHelper.checkTimeString("thu").getKey());
+        assertEquals("2322", TaskCommandParseHelper.checkTimeString("thu 2322").getValue());
+        assertEquals("Fri", TaskCommandParseHelper.checkTimeString("Fri    2000").getKey());
+        assertEquals("Tue", TaskCommandParseHelper.checkTimeString("Tue tue").getKey());
+        assertEquals(null, TaskCommandParseHelper.checkTimeString("1212").getValue());
+        assertEquals(null, TaskCommandParseHelper.checkTimeString("").getKey());
+        assertEquals(null, TaskCommandParseHelper.checkTimeString("").getValue());
+        assertEquals(null, TaskCommandParseHelper.checkTimeString("").getKey());
+        assertEquals("1212", TaskCommandParseHelper.checkTimeString("1212 1212").getKey());
+        assertEquals("1212", TaskCommandParseHelper.checkTimeString("1212").getKey());
     }
 }

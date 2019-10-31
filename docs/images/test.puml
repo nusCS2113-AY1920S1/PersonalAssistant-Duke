@@ -1,0 +1,49 @@
+@startuml
+!include style.puml
+
+box UI LOGIC_COLOR_T1
+participant ":UI" as UI LOGIC_COLOR
+end box
+
+box Logic LOGIC_COLOR_T1
+participant ":CommandParseHelper" as CommandParseHelper LOGIC_COLOR
+participant ":EmailCommandParser" as EmailCommandParser LOGIC_COLOR
+participant ":EmailTagCommand" as EmailTagCommand LOGIC_COLOR
+end box
+
+box Duke LOGIC_COLOR_T1
+participant ":Duke" as Duke LOGIC_COLOR
+end box
+
+box Model LOGIC_COLOR_T1
+participant ":EmailList" as EmailList LOGIC_COLOR
+participant ":Model" as Model LOGIC_COLOR
+end box
+
+
+UI -> CommandParseHelper : parseCommand("email update 3 -tag Tutorial -tag CS2113T")
+activate CommandParseHelper
+CommandParseHelper -> EmailCommandParser : parseEmailCommand("email update 3", optionList)
+activate EmailCommandParser
+EmailCommandParser -> EmailCommandParser : parseByCommandType()
+EmailCommandParser -> EmailCommandParser : parseEmailTagCommand()
+EmailCommandParser --> CommandParseHelper : EmailTagCommand(3, [Tutorial, CS2113T])
+
+CommandParseHelper --> UI : EmailTagCommand(3, [Tutorial, CS2113T])
+UI --> EmailTagCommand: execute()
+activate EmailTagCommand
+EmailTagCommand -> Duke : getModel()
+activate Duke
+
+Duke -> Model : getEmailList()
+activate Model
+Model --> Duke : emailList
+Duke --> EmailTagCommand : emailList
+
+EmailTagCommand -> EmailList : addTags(3, ["Tutorial" , "CS2113T"])
+activate emailList
+
+EmailList --> EmailTagCommand : responseMsg
+
+
+@enduml

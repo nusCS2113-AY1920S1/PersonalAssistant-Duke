@@ -81,6 +81,9 @@ public class TaskStorage implements Storage {
     }
 
     private static void processTaskString(String line) throws CommandParseHelper.CommandParseException {
+        if (!line.contains(" ")) {
+            return;
+        }
         boolean done = line.split(" ", 2)[0].equals("1");
         String commandString = line.split(" ", 2)[1];
         Command addCommand = CommandParseHelper.parseCommand("task " + commandString,

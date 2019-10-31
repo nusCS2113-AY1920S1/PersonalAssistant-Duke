@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.duke.email.parser.EmailContentParseHelper.editDistance;
 import static seedu.duke.email.parser.EmailContentParseHelper.keywordInString;
 
-public class EmailContentParserTest {
+public class EmailContentParseHelperTest {
     @Test
     public void editDistanceTest() {
         assertEquals(1, editDistance("a", "b"));
