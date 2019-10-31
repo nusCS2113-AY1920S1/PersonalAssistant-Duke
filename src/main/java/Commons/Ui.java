@@ -54,7 +54,6 @@ public class Ui {
      * Displays the delete task message when user wants to delete a task.
      */
     public String showDelete(Assignment task, int listSize){
-        listSize -= 1;
         return "Noted. I've removed this task:\n" + task.toString() + "\n" + "Now you have "
                 + listSize  + (listSize > 1 ? " tasks in the list.\n" : " task in the list.\n");
     }
@@ -151,8 +150,16 @@ public class Ui {
      * @param endDate   end of recurrence
      *
      */
-    public String showRecurring(String description, String startDate, String endDate) {
-        return "Recurring task: " + description + " has been added between " + startDate + " and " + endDate + "\n";
+    public String showRecurring(String description, String startDate, String endDate, boolean isBiweekly, boolean isRecur) {
+        if (isRecur && isBiweekly) {
+            return "Biweekly recurring task: " + description + " has been added between " + startDate + " and " + endDate + "\n";
+        } else if (isRecur) {
+            return "Weekly recurring task: " + description + " has been added between " + startDate + " and " + endDate + "\n";
+        } else if (isBiweekly) {
+            return "Biweekly recurring task: " + description + " has been removed between " + startDate + " and " + endDate + "\n";
+        } else {
+            return "Weekly recurring task: " + description + " has been removed between " + startDate + " and " + endDate + "\n";
+        }
     }
 
     /**
