@@ -36,7 +36,8 @@ public class SearchCommand extends Command {
             return ui.showSearch(this.searchTerm, meaning);
         } catch (NoWordFoundException e) {
             StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.append("Unable to locate \"" + searchTerm + "\" in local dictionary.\nLooking up Oxford dictionary.\n\n");
+            stringBuilder.append("Unable to locate \"" + searchTerm
+                    + "\" in local dictionary.\nLooking up Oxford dictionary.\n\n");
             try {
                 String result = OxfordCall.onlineSearch(searchTerm);
                 stringBuilder.append(ui.showSearch(this.searchTerm, result));

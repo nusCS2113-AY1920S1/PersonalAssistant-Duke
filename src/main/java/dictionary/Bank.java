@@ -103,7 +103,7 @@ public class Bank {
     }
 
     /**
-     * Adds a list of synonyms to a word in WordBank and adds the word to each of the synonyms
+     * Adds a list of synonyms to a word in WordBank and adds the word to each of the synonyms.
      * @param wordDescription word to be added tag
      * @param synonyms list of tags to add
      * @return all synonyms of the word after adding to show to user

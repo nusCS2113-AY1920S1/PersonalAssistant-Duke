@@ -98,12 +98,10 @@ public class Word {
             for (int j = 0; j <= another.length(); j++) {
                 if (i == 0) {
                     dp[i][j] = j;
-                }
-                else if (j == 0) {
+                } else if (j == 0) {
                     dp[i][j] = i;
-                }
-                else {
-                    dp[i][j] = dp[i - 1][j - 1] + ((word.charAt(i - 1)!=another.charAt(j - 1))?1:0);
+                } else {
+                    dp[i][j] = dp[i - 1][j - 1] + ((word.charAt(i - 1) != another.charAt(j - 1)) ? 1 : 0);
                     if (dp[i][j] > dp[i - 1][j] + 1) {
                         dp[i][j] = dp[i - 1][j] + 1;
                     } else if (dp[i][j] > dp[i][j - 1] + 1) {

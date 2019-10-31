@@ -13,7 +13,7 @@ public class SynonymBank {
     }
 
     /**
-     * Adds a word to all synonyms present in the list
+     * Adds a word to all synonyms present in the list.
      * @param wordDescription word that need to be added
      * @param synonyms list that will add the word
      * @author Ng Jian Wei
@@ -27,10 +27,11 @@ public class SynonymBank {
             }
         }
     }
-    /**Delete a word from the list of synonyms belonging to one word
+    /**Delete a word from the list of synonyms belonging to one word.
      * Essentially this removes the selected synonym within the list
      * @param word word to be deleted
      */
+
     public void deleteWordAllSynonyms(Word word) {
         for (String synonym : word.getSynonyms()) {
             synonymBank.get(synonym).remove(word.getWordString());
@@ -41,7 +42,7 @@ public class SynonymBank {
      * Deletes a word from some synonyms of that word.
      * @param deletedSynonyms list of synonyms to delete the word
      * @param deletedWord word to be deleted
-     * We want to delete drink from beverage and alcohol only, leaving the rest stationary
+     *     We want to delete drink from beverage and alcohol only, leaving the rest stationary
      */
     public void deleteWordSomeSynonyms(ArrayList<String> deletedSynonyms, String deletedWord) {
         for (String synonym : deletedSynonyms) {
@@ -52,7 +53,7 @@ public class SynonymBank {
     /**
      * Adds a word to all synonyms in SynonymBank of that the word has.
      * @param word word to add synonym
-     * Ensures that the synonymBank is updated
+     *     Ensures that the synonymBank is updated
      */
     public void addWordAllSynonyms(Word word) {
         for (String synonym : word.getSynonyms()) {
