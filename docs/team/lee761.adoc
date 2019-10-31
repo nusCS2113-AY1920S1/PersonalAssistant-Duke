@@ -9,9 +9,19 @@
 
 ---
 
-== Overview
+== About the Project
 
-AddressBook - Level 3 is a desktop address book application used for teaching Software Engineering principles. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+My team consists of 4 software engineering students, who were tasked with enhancing a basic command line
+interface of a personal task manager (Duke) for our Software Engineering Project. We chose to morph the
+task manager to an email manager called Duke Email Manager, catered exclusively to students in School Of
+Computing to help them better manage their emails. The various features of Duke Email Manager includes a task
+manager and email manager that works together. Duke Email Manager uses Graphical User Interface (GUI) for
+students to use its functionalities by typing in commands.
+
+This is what our project looks like:
+
+
+My role was to write codes for the natural date format feature and
 
 == Summary of contributions
 
