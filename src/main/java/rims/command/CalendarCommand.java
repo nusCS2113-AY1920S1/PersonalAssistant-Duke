@@ -1,5 +1,16 @@
 package rims.command;
 
+import rims.core.ResourceList;
+import rims.core.Ui;
+import rims.command.ListCommand;
+import rims.exception.RimsException;
+
+import java.text.ParseException;
+import java.util.Date;
+
+import static rims.command.ListCommand.getListForSpecificDay;
+import static rims.command.ListCommand.stringToDate;
+
 //@@author danielcyc
 public abstract class CalendarCommand extends Command{
     private static int cellLength = 15;
@@ -9,15 +20,17 @@ public abstract class CalendarCommand extends Command{
 
     private static int DaysInMonth = 31;
 
-    public CalendarCommand(){
+    public CalendarCommand(ResourceList resources, Ui ui) throws ParseException, RimsException {
+        Date day = stringToDate("31/10/2019 1200");
+        getListForSpecificDay(day, resources, ui);
         getData();
-        printCal();
+        //printCal();
     }
   // @Override
     //public void execute(Ui ui, Storage storage, ResourceList resources) {
 
-    /*private static String Vert = "║";
-    private static String Horz = "═";
+    private static String Vert = "║";
+    private static String Horz = "=";
     private static String TopLeft = "╔";
     private static String TopRight = "╗";
     private static String BotRight = "*";
@@ -27,8 +40,8 @@ public abstract class CalendarCommand extends Command{
     private static String BotCentre = "╩";
     private static String MidRight = "╣";
     private static String MidLeft = "╠";
-*/
-    private static String Vert = "│";
+
+    /*private static String Vert = "│";
     private static String Horz = "─";
     private static String TopLeft = "┌";
     private static String TopRight = "┐";
@@ -39,33 +52,42 @@ public abstract class CalendarCommand extends Command{
     private static String BotCentre = "┴";
     private static String MidRight = "┤";
     private static String MidLeft = "├";
+*/
+
 
     private static String[][] data = {
-            {"mon12345678910111213", "a", "h"},
-            {"tue", "b" , "i"},
-            {"wed", "c" , "j", "fl;kj", ";idfolhf"},
-            {"thur", "k"},
-            {"fri", "e", "l"},
-            {"sat"},
-            {"sun", "g", "n"},
-            {"hello", "this", "is"},
-            {"", "", ""},
-            {"all", ""},
-            {"fridfhfghtrwst432q53425435", "fasfae", "l"},
-            {"distinct", "afae", "l"},
-            {"ThisWordIsTooLongToBeDisplayAndThereforeItIsTruncated", "e", "ldfaest3iotu3q8905t"},
-            {},
-            {" "},
-            {""},
-            {" ", "","gap ^ how?", "Dada"},
-            {" ", " Top align?", " ", " "},
-            {"this gap v ", " ", "how?"},
-            {"items"},
+            {"frisbee (2)", "rugby ball", "SR2"},
+            {"Table tennis table"},
+            {"frisbee (1)", "SR2"},
+            {"ball", "SR2"},
             {},
             {},
-            {"item 1", "item 2", "item 3", "item 4", "item 5"},
+            {"MPSH"},
+            {"markers (5)"},
+            {"pen (1)"},
+            {"Basketball court"},
+            {"frisbee (2)", "ball", "SR4"},
+            {"SR1", "SR3"},
             {},
-            {"gfasdfaf","adfasfaefa","fgadfgafaf","fafafafaf","fasfasfas"}
+            {},
+            {"MPSH", "Volleyball (1)"},
+            {},
+            {"MPSH", "Dodgeball(6)"},
+            {"MPSH"},
+            {},
+            {"Badminton Racket (4)", "Shuttlecock (10)", "Badminton Court 1"},
+            {},
+            {"MPSH"},
+            {"Games Room"},
+            {},
+            {"soccer ball (1)", "basketball (3)", "SR1"},
+            {},
+            {},
+            {"MPSH", "Dodgeball(6)"},
+            {"MPSH"},
+            {},
+            {"MPSH"},
+            {}
     };
 
     // todo: check and align days of the week / offset from first box (mon)
@@ -79,7 +101,10 @@ public abstract class CalendarCommand extends Command{
     // todo: add a resize function
     // todo: change month function
 
-    public static void printCal() {
+    public static void printCal(ResourceList resources, Ui ui) throws ParseException, RimsException {
+        Date day = stringToDate("31/10/2019 1200");
+        getListForSpecificDay(day, resources, ui);
+        System.out.print("\n");
         printTopCells();
         for (int row = 2; row < CalHeight; row++) {
            printMidCells(row);
