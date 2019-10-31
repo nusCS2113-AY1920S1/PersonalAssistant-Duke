@@ -50,7 +50,7 @@ public class CliLauncher {
         credential = new CredentialManager();
         if (gui) {
             this.redirectOutput();
-//            credential.prompt(modUi);
+            //credential.prompt(modUi);
             modUi.helloMsg();
         }
     }
@@ -134,7 +134,7 @@ public class CliLauncher {
     public static void main(String[] args) {
         //TODO: args flag could be passed into program for optional runs
         CliLauncher planner = new CliLauncher();
-//        planner.credential.prompt(planner.modUi);
+        //planner.credential.prompt(planner.modUi);
         planner.modRunArgparse4j();
     }
 }

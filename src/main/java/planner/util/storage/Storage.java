@@ -98,11 +98,13 @@ public class Storage {
         FileWriter writer = null;
         try {
             makeFile(Paths.get(path));
-        } catch (IOException ignored) {
+        } catch (IOException ex) {
+            ex.getMessage();
         }
         try {
             writer = new FileWriter(path);
-        } catch (IOException ignored) {
+        } catch (IOException ex) {
+            ex.printStackTrace();
         }
         gson.toJson(object, writer);
         try {
