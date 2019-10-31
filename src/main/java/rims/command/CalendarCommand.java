@@ -98,6 +98,8 @@ public abstract class CalendarCommand extends Command{
     // todo: make dates overflow from previous months
     // todo: make headings - month and year as well as days of the week as the axis
     // todo: make entry span across multiple cells
+    // todo: add a resize function
+    // todo: change month function
 
     public static void printCal(ResourceList resources, Ui ui) throws ParseException, RimsException {
         Date day = stringToDate("31/10/2019 1200");
