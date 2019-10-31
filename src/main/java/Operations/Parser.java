@@ -1,6 +1,9 @@
 package Operations;
 
 import CustomExceptions.RoomShareException;
+import Enums.ExceptionType;
+import Enums.SortType;
+import Enums.TimeUnit;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -10,10 +13,6 @@ import java.time.ZoneId;
 import java.time.temporal.TemporalAdjusters;
 import java.util.Date;
 import java.util.Scanner;
-
-import Enums.ExceptionType;
-import Enums.SortType;
-import Enums.TimeUnit;
 
 /**
  * A class for handling all parsing for Duke. Makes sure that inputs by the user
@@ -280,4 +279,7 @@ public class Parser {
         scanner.close();
     }
 
+    public void discardNext() {
+        scanner.next();
+    }
 }
