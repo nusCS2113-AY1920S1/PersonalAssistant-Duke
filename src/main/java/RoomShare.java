@@ -206,9 +206,9 @@ public class RoomShare {
                 try {
                     int index = parser.getIndex();
                     String input = parser.getCommandLine().trim();
-                    System.out.println(input);
                     Task oldTask = taskList.get(index);
                     taskCreator.updateTask(input,oldTask);
+                    ui.showUpdated(index+1);
                 } catch (RoomShareException e) {
                     ui.showError(e);
                 }

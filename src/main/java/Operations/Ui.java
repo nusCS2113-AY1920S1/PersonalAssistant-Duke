@@ -253,6 +253,10 @@ public class Ui {
         System.out.println("Log has been successfully written to " + filePath);
     }
 
+    public void showUpdated (int index) {
+        System.out.println("Great! I've updated task " + index);
+    }
+
     public static void showProgress(TaskList taskList) {
         new ProgressBar(taskList.getSize(), taskList.getDoneSize()).showBar();
     }
