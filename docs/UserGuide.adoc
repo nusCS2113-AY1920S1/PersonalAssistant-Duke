@@ -26,13 +26,13 @@ RIMS (Resource and Inventory Management System) is a *command-line* logistic man
 
 .  Ensure you have Java `11` or above installed in your Computer.
 .  Download the latest `RIMS.jar` link:{repoURL}[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
-.  Double-click the file to start the app. The GUI should appear in a few seconds.
+.  Copy the file to the folder you want to use as the home folder for your local RIMS.
+.  Double-click the file to start the app. The UI should appear in a few seconds.
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
-e.g. typing *`list`* and pressing kbd:[Enter] will show you a list of all the rooms and items with their status (booked/reserved/available).
+e.g. typing *`list`* and pressing kbd:[Enter] will show you a list of all the resources with their status (booked/reserved/available).
 .  Some example commands you can try:
 
-* *`list`* : lists all items/rooms and their status (booked/reserved/available)
+* *`list`* : lists all resources and their status (booked/reserved/available)
 * *`bye`* : exits the app
 
 .  Refer to <<Features, Features>> for details of each command.
@@ -54,9 +54,9 @@ e.g. `*ROOM NAME*` is a parameter which can be a name of a room, such as `*semin
 
 ====
 
-=== Adding or Removing Items/Rooms
+=== Adding or Removing Resource(s)
 
-==== Add item/room: `add`
+==== Add resource: `add`
 Add new item(s) or a new room available for loan/booking in RIMS.
 
 .*Format*:
@@ -116,7 +116,7 @@ RIMS will display item(s) and the quantity that have been added. +
 image::add/addRoom3.jpeg[width="650", align="left"]
 ====
 
-==== Delete item/room: `delete`
+==== Delete resource: `delete`
 Delete item(s) or room available for loan/booking in RIMS.
 
 To delete an existing resource:
@@ -181,7 +181,7 @@ image::delete/deleteRoom2.jpeg[width="500", align="left"]
 ====
 
 
-=== Item/Room Status
+=== Resource Status
 
 // ==== Loan out item/book room: `lend`
 // Registers an item / room as having been lent out, and is unavailable for further loaning until it is returned.
@@ -451,7 +451,7 @@ image::list/listbyroomnew.jpeg[width="1000", align="left"]
 
 . If `date` is the user input:
 .. RIMS will prompt the user to enter the `DATE`, e.g. `29/10/2019 1000`.
-.. RIMS will display a list of all the items and rooms that are booked/available on that date.
+.. RIMS will display a list of all the resources that are booked/available on that date.
 
 +
 ====
@@ -460,7 +460,7 @@ image::list/listbydatenew.jpeg[width="1000", align="left"]
 ====
 
 ==== View calendar: `calendar`
-View a calendar representation showing what items/rooms are in use/booked for the month.
+View a calendar representation showing what resources are in use/booked for the month.
 
 .*Format*:
 To view calendar: +
@@ -480,13 +480,13 @@ image::Calendar/Calendar screenshot.png[width="1000", align="left"]
 Terminates RIMS.
 
 .*Format*:
-`bye`
+. Enter `bye` followed by kbd:[Enter] to exit RIMS.
 
 ==== Reminders
-Reminds user about items or rooms due within a specific period of time, upon starting up RIMS.
+Reminds user about resources due within a specific period of time, upon starting up RIMS.
 
 ==== Saving data
-With the execution of any command, any changes in data on items, rooms and their statuses will be updated on external text files (`.txt`) within the hard drive, to ensure data persistence and retention even after termination of RIMS. Saving manually is not required.
+With the execution of any command, any changes in data on resources and their statuses will be updated on external text files (`.txt`) within the hard drive, to ensure data persistence and retention even after termination of RIMS. Saving manually is not required.
 
 == FAQ
 
@@ -495,12 +495,12 @@ With the execution of any command, any changes in data on items, rooms and their
 
 == Command Summary
 
-* *Add item/room*: `add`
-* *Delete item/room*: `delete`
-* *Loan out item/room*: `loan`
-* *Return item/room*: `return`
-* *Reserve item/room*: `reserve`
+* *Add resources*: `add`
+* *Delete resources*: `delete`
+* *Loan out resources*: `loan`
+* *Return resources*: `return`
+* *Reserve resources*: `reserve`
 //* *Extend an existing loan*: `extend /item ITEM /qty QUANTITY /by DEADLINE` +
-* *List items/rooms and their status*: `list`
+* *List resources and their status*: `list`
 * *View calendar*: `calendar`
 * *Exiting the program*: `bye`
