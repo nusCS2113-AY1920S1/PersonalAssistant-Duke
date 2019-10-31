@@ -46,10 +46,15 @@ WordUp (WU) is a desktop-based application for english language learners who pre
 * Items in square brackets are optional e.g. `r/REMINDERDATE [TIME]` can be used as `r/24/02/2300 0900` or `r/24/02/2300`.
 * Items with `…` after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `t/negative`, `t/emotions`, `t/lesson3`
 ====
-
 === Viewing help : `help`
 
-Format: `help`
+Shows available commands and their usage. +
+Format: `help [COMMAND]`
+
+Examples:
+
+* `help` shows all available commands. +
+* `help delete` shows the description and usage of delete command.
 
 === Adding a word: `add`
 
@@ -141,6 +146,26 @@ Format: `clear`
 Exits the program. +
 Format: `exit`
 
+=== Adding synonyms of a word : `addsym`
+
+Adds one or many synonyms to an existing word in the database. +
+Format: `addsyn w/WORD_TO_BE_TAGGED s/SYNONYM`
+
+=== Adding tags to a word : `tag`
+
+Assigns a tag to an existing word in the database. +
+Format: `tag w/WORD_TO_BE_TAGGED t/NEW_TAG`
+
+=== Viewing history : `history`
+
+Shows adding history. +
+Format: `history INTEGER`
+
+=== Viewing search frequency : `freq`
+
+Shows search frequency of each word. +
+Format: `freq o/ORDER`
+
 === Saving the data
 
 Dictionary data are saved in the hard disk automatically after any command that changes the data. +
@@ -173,4 +198,7 @@ e.g. `tag w/happy t/emotion t/delight`
 e.g. `addsyn w/water s/liquid beverage drink`
 * *Quiz* : `quiz` -> `start`
 * *List* : `list`
-* *Help* : `help`
+* *Help* : `help [COMMAND]`
+* *Search* : `search w/WORD`
+* *History* : `history INTEGER`
+* *freq* : `freq o/ORDER`
