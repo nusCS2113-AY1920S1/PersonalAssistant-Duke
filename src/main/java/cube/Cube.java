@@ -43,7 +43,7 @@ public class Cube {
             foodList = storageManager.getFoodList();
             salesHistory = storageManager.getSalesHistory();
             modelManager = new ModelManager(foodList, salesHistory);
-            Food.updateRevenue(storageManager.getRevenue());
+            //food.updateRevenue(storageManager.getRevenue());
         } catch (CubeException e) {
             logger.warning(e.getMessage());
             ui.showLoadingError(filePath);
