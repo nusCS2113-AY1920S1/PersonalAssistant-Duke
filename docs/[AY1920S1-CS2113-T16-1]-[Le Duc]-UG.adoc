@@ -239,6 +239,7 @@ Example:
 
 Output:
 
+```
 Here are some statistics about your task list:
 
 Number of tasks: 13.0
@@ -254,7 +255,7 @@ Number of Uncompleted Tasks: 13.0
 Number of Completed Tasks: 0.0
 
 Percent Complete: 0.0%
-
+```
 
 === Sort by: `sort`
 

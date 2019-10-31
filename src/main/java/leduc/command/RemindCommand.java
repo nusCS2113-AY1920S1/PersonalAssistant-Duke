@@ -4,6 +4,7 @@ import leduc.Ui;
 import leduc.task.TaskList;
 import leduc.task.Task;
 import java.util.ArrayList;
+
 /**
  * Represents a Remind Command.
  * Allow to remind user of upcoming tasks in the list.
