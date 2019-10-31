@@ -36,7 +36,7 @@ My team consisting of 4 computer engineering students including myself was taske
 ** Project management:
 *** Managed releases `v1.1` - `v1.3` (3 releases) on GitHub
 ** Enhancements to existing features:
-*** Wrote the code for recipe list and recipe
+*** Wrote some code for recipe list and recipe
 *** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
 ** Documentation:
 *** Did formatting to existing contents of the User Guide: https://github.com[#14]
