@@ -33,7 +33,7 @@ public class MainApp extends Application {
     //Initialise the different components here
     private Logic logic;
     private static MusicController musicController;
-    private UserStats stats = new UserStats("./UserData.txt");
+    private UserStats stats;
 
     static {
         try {
@@ -44,16 +44,14 @@ public class MainApp extends Application {
         }
     }
 
-    public MainApp() throws IOException {
+    public MainApp()  {
     }
 
-    private void initialize() throws IOException {
-        try {
-            logic = new Logic(stats);
-            Storage.loadData("./UserData.txt");
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
+    private void initialize()  {
+
+        stats = UserStats.parseString(Storage.loadData("./UserData.txt"));
+        logic = new Logic(stats);
+
     }
 
     @Override

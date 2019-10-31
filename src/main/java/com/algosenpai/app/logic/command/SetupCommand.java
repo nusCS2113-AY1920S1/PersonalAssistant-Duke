@@ -46,7 +46,7 @@ public class SetupCommand extends Command {
             return "Could you enter the setup command again with the appropriate gender?";
         }
 
-        stats.saveUserStats();
+        stats.saveUserStats("UserData.txt");
         String responseString = "Hello " + gender + userName + "!";
         return responseString;
     }

@@ -2,6 +2,7 @@ package com.algosenpai.app.commands;
 
 import com.algosenpai.app.logic.Logic;
 import com.algosenpai.app.stats.UserStats;
+import com.algosenpai.app.storage.Storage;
 import com.algosenpai.app.ui.Ui;
 import com.algosenpai.app.ui.components.DialogBox;
 
@@ -28,7 +29,7 @@ public class HelpCommandTest extends ApplicationTest {
         AnchorPane ap = fxmlLoader.load();
         Scene scene = new Scene(ap, 500, 650);
         stage.setScene(scene);
-        UserStats stats = new UserStats("UserData.txt");
+        UserStats stats = UserStats.parseString(Storage.loadData("UserData.txt"));
         Logic logic = new Logic(stats);
         fxmlLoader.<Ui>getController().setLogic(logic, stats);
         stage.setResizable(false);
