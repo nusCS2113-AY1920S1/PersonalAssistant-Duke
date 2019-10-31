@@ -16,7 +16,8 @@ remind/rm modCode Description /by (date) HHmm /to (date) HHmm
 8)To show next's week workload, enter command in the format below
 /show workload
 9)To add a recurring event, enter command in the format below
-recur/e modCode Description /start (date) /to (date) /from HHmm /to HHmm
+recur/(fill) modCode Description /start (date) /to (date) /from HHmm /to HHmm
+replace (fill) with either: weekly, biweekly, rmweekly, rmbiweekly
 10)To show previous 3 commands, enter command in the format below
 show/previous 3
 11)To find free time, enter command in the format below
