@@ -77,6 +77,16 @@ public class MainWindow extends UiElement<Stage> {
         homeTab = new Tab("Home", homeWindow.getRoot());
         contextWindowHolder.getTabs().add(homeTab);
 
+        patientWindow = new PatientWindow(null);//, commandWindow);
+        patientTab = new Tab("Patient", patientWindow.getRoot());
+        contextWindowHolder.getTabs().add(patientTab);
+
+        impressionTab = new Tab("Impression", new ImpressionWindow(null, null).getRoot());
+        contextWindowHolder.getTabs().add(impressionTab);
+
+        searchTab = new Tab("Search", new SearchWindow(null).getRoot());
+        contextWindowHolder.getTabs().add(searchTab);
+
         // TODO: Add contexts here.
         uiContext.addListener(event -> {
             switch ((Context) event.getNewValue()) {
