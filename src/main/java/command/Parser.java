@@ -134,6 +134,8 @@ public class Parser {
             } else if (instr.isAssignFund(input)) {
                 process.assignFund(input, ui, fund);
                 process.commandHistory(input, ui, storage);
+            } else if (instr.isHelp(input)) {
+                ui.printHelpMessage();
             } else {
                 throw new AlphaNUSException("\t" + "OOPS!!! I'm sorry, but I don't know what that means :-(");
             }

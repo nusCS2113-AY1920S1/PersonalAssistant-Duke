@@ -112,4 +112,8 @@ public class Instruction {
 
     public boolean isViewhistory(String input) { return input.startsWith("view history"); }
 
+    public boolean isHelp(String input) {
+        return input.equals("help");
+    }
+
 }

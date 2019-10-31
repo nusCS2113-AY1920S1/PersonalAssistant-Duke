@@ -364,13 +364,28 @@ public class Ui {
      * Prints out the statement of accounts.
      * @param managermap managermap containing Payee and Payments information.
      */
-    public static void generateStatementofAccounts(HashMap<String, Payee> managermap) {
+    public void generateStatementofAccounts(HashMap<String, Payee> managermap) {
         System.out.print("Item\tExpense\n");
         for (Payee payee : managermap.values()) {
             for (Payments payment : payee.payments) {
                 System.out.println(payment.item + "\t" + payment.cost);
             }
         }
+    }
+
+    public void printHelpMessage() {
+        System.out.print(line);
+        System.out.println("\t" + "*Help*");
+        System.out.println("\t" + "Add Project:          " + commandFormat.addProjectFormat());
+        System.out.println("\t" + "Delete Project:       " + commandFormat.deleteProjectFormat());
+        System.out.println("\t" + "List Projects:        " + commandFormat.listProjectFormat());
+        System.out.println("\t" + "Go to a Project:      " + commandFormat.gotoProjectFormat());
+        System.out.println("\t" + "Add Payee:            " + commandFormat.addPayeeFormat());
+        System.out.println("\t" + "Add Payment:          " + commandFormat.addPaymentFormat());
+        System.out.println("\t" + "Delete Payee:         " + commandFormat.deletePayeeFormat());
+        System.out.println("\t" + "History of Commands:  " + commandFormat.historyFormat());
+        System.out.println("\t" + "Exit:                 " + commandFormat.exitFormat());
+        System.out.print(line);
     }
 
     /**

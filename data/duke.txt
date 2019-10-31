@@ -72,3 +72,11 @@ set fund am/200  | 29-10-2019 01:25:37
 add fund add/200  | 29-10-2019 01:26:07
 assign fund p/trial am/300  | 29-10-2019 01:26:27
 
+
+add project pr/PROJECT_NAME ~ 31-10-2019 15:35:44
+add project pr/ag ~ 31-10-2019 15:35:49
+goto project pr/PROJECT_NAME ~ 31-10-2019 15:36:01
+assign fund p/trial am/300  | 29-10-2019 01:26:27 ~ 31-10-2019 16:05:10
+assign fund p/trial am/300  ~ 31-10-2019 16:05:21
+add project pr/Rag ~ 31-10-2019 16:06:34
+assign fund p/Rag am/300 ~ 31-10-2019 16:06:58
