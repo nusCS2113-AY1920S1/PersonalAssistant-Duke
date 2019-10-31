@@ -12,7 +12,6 @@ public class AddBillCommand extends Command {
     private String type;
     private int people;
     private double amount;
-    private double average;
     private ArrayList<String> nameList;
 
     /**
@@ -26,7 +25,6 @@ public class AddBillCommand extends Command {
         this.type = type;
         this.people = people;
         this.amount = amount;
-        this.average = amount / people;
         this.nameList = nameList;
     }
 

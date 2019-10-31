@@ -12,7 +12,6 @@ public class Bill extends Record {
     protected String name;
     protected int people;
     protected double amount;
-    protected double average;
     protected ArrayList<String> nameList;
 
     /**
