@@ -66,11 +66,6 @@ public class EntryParser extends Parser {
         }
     }
 
-
-
-
-
-
     //@@author yetong1895
     private Command processAdd() {
         Command addEntry;

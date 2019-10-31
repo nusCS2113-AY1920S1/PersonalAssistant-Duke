@@ -5,10 +5,12 @@ import dolla.task.EntryList;
 import dolla.task.LimitList;
 import dolla.task.Record;
 import dolla.task.RecordList;
+import dolla.task.BillList;
 
-import static dolla.Storage.getDebtsFromSave;
-import static dolla.Storage.getEntriesFromSave;
-import static dolla.Storage.getLimitsFromSave;
+import static dolla.storage.Storage.getDebtsFromSave;
+import static dolla.storage.Storage.getEntriesFromSave;
+import static dolla.storage.Storage.getLimitsFromSave;
+import static dolla.storage.Storage.getBillsFromSave;
 
 public class DollaData implements ModeStringList {
 
@@ -16,18 +18,21 @@ public class DollaData implements ModeStringList {
     private EntryList entryList; // TODO: Find out alternatives to using a public variable
     private DebtList debtList;
     private LimitList limitList;
+    private BillList billList;
 
     private String prevMode;
     private int modifyIndex;
 
     /**
-     * Creates an instance of DollaDota to store and manipulate data.
+     * Creates an instance of DollaData to store and manipulate data.
      */
     public DollaData() {
         //this.entryList = new EntryList(new ArrayList<Record>());
         this.entryList = new EntryList(getEntriesFromSave()); //Import from save file
         this.limitList = new LimitList(getLimitsFromSave()); //Import from save file
         this.debtList = new DebtList(getDebtsFromSave()); //Import from save file
+        this.billList = new BillList(getBillsFromSave()); //Import from save file
+
     }
 
     /**
@@ -58,6 +63,10 @@ public class DollaData implements ModeStringList {
         return null; // placeholder so that Dolla can compile
     }
 
+    public RecordList getBillRecordList() {
+        return billList;
+    }
+
     /**
      * Adds a new Record (ie. Entry) into the relevant RecordList (ie. EntryList) according to the specified mode.
      *
@@ -72,6 +81,10 @@ public class DollaData implements ModeStringList {
         } else if (mode.equals(MODE_LIMIT)) {
             limitList.add(newRecord);
         }
+    }
+
+    public void addBillToRecordList(Record newRecord) {
+        billList.add(newRecord);
     }
 
     /**
@@ -161,15 +174,5 @@ public class DollaData implements ModeStringList {
 
     public String getPrevMode() {
         return prevMode;
-    }
-
-    /**
-     * Remove limit.
-     *
-     * @param type     the type of limit to remove
-     * @param duration the duration of the limit to remove
-     */
-    public void removeLimit(String type, String duration) {
-        //remove limit from list
     }
 }

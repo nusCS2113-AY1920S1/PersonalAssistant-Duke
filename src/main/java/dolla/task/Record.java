@@ -72,4 +72,6 @@ public abstract class Record {
     public void setDate(LocalDate ld) {
         date = ld;
     }
+
+    public abstract String amountToMoney();
 }

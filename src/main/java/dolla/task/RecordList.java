@@ -1,6 +1,7 @@
 package dolla.task;
 
 import java.time.LocalDate;
+import dolla.DollaData;
 import java.util.ArrayList;
 
 public class RecordList {
@@ -16,7 +17,7 @@ public class RecordList {
     }
 
     public ArrayList<Record> getCloneList() {
-        return (ArrayList<Record>) list.clone();
+        return new ArrayList<>(list);
     }
 
     public void add(Record newRecord) {
@@ -57,5 +58,9 @@ public class RecordList {
 
     public void addWithIndex(int modifyIndex, Record newRecord) {
         list.add(modifyIndex, newRecord);
+    }
+
+    public int findExistingRecordIndex(DollaData dollaData, Record record, String mode) {
+        return 0;
     }
 }
