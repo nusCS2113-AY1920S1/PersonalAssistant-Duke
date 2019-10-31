@@ -55,7 +55,7 @@ public class CurrencyCommandTest {
         CurrencyCommand currencyCommand = new CurrencyCommand(currency.getCountry().toLowerCase());
         currencyCommand.execute(testWallet);
 
-        for (int i = 0; i <1000000000; i++) {
+        for (int i = 0; i < 1000000000; i++) {
 
         }
 
