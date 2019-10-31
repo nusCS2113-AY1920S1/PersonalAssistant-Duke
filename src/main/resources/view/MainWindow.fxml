@@ -29,9 +29,9 @@
       </HBox>
    </bottom>
    <right>
-      <VBox prefHeight="518.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <VBox prefHeight="518.0" prefWidth="200.0" style="-fx-border-color: black;" BorderPane.alignment="CENTER">
          <children>
-            <TableView fx:id="dukeResponseTable" prefHeight="243.0" prefWidth="200.0" style="-fx-border-color: black;" VBox.vgrow="ALWAYS">
+            <TableView fx:id="dukeResponseTable" prefHeight="243.0" prefWidth="200.0" style="-fx-border-color: black; -fx-selection-bar: pink; -fx-selection-bar-non-focused: salmon;" VBox.vgrow="ALWAYS">
                <columns>
                   <TableColumn fx:id="dukeResponseColumn" editable="false" prefWidth="198.0" resizable="false" sortable="false" style="-fx-alignment: center;" text="Response" />
                </columns>
@@ -41,8 +41,8 @@
             </TableView>
             <TableView fx:id="overdueTable" prefHeight="282.0" prefWidth="200.0" style="-fx-border-color: black;" VBox.vgrow="ALWAYS">
                <columns>
-                  <TableColumn fx:id="overdueDateColumn" prefWidth="72.0" style="-fx-alignment: center;" text="Days Due" />
-                  <TableColumn fx:id="overdueTaskColumn" prefWidth="124.0" style="-fx-alignment: center;" text="Overdue" />
+                  <TableColumn fx:id="overdueDateColumn" editable="false" prefWidth="77.0" style="-fx-alignment: center;" text="Days Past" />
+                  <TableColumn fx:id="overdueTaskColumn" prefWidth="117.0" style="-fx-alignment: center;" text="Deadlines Overdue" />
                </columns>
                <columnResizePolicy>
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -72,9 +72,9 @@
                                     <Text fx:id="currentTime1" layoutX="82.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="125.22900390625" />
                                  </children>
                               </AnchorPane>
-                              <AnchorPane fx:id="blankPane" prefHeight="28.0" prefWidth="275.0" style="-fx-background-color: #9aabab;">
+                              <AnchorPane fx:id="blankPane" prefHeight="28.0" prefWidth="275.0" style="-fx-background-color: F0F0F0;">
                                  <children>
-                                    <Label layoutX="49.0" text="Blank" />
+                                    <Label layoutX="49.0" />
                                  </children>
                               </AnchorPane>
                            </children>
@@ -159,7 +159,7 @@
                </rowConstraints>
                <children>
                   <ListView fx:id="sunEventView" prefWidth="150.0" GridPane.columnIndex="6" />
-                  <ListView fx:id="monEventView" prefWidth="150.0" />
+                  <ListView fx:id="monEventView" prefHeight="472.0" prefWidth="152.0" />
                   <ListView fx:id="tueEventView" prefWidth="150.0" GridPane.columnIndex="1" />
                   <ListView fx:id="wedEventView" prefWidth="150.0" GridPane.columnIndex="2" />
                   <ListView fx:id="thuEventView" prefWidth="150.0" GridPane.columnIndex="3" />
