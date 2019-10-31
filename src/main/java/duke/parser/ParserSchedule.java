@@ -165,13 +165,13 @@ public class ParserSchedule {
                 while (runDaily) {
                     cliView.dailyScheduleHeading();
                     input = sc.nextInt();
-                    if (input == dailySchedule) { //access daily schedule
+                    if (input == 1) { //access daily schedule
                         dailySchedule();
-                    } else if (input == weeklySchedule) { //access daily goals
+                    } else if (input == 2) { //access daily goals
                         new ParserGoal().runGoal();
-                    } else if (input == monthlySchedule) { //access daily lesson
+                    } else if (input == 3) { //access daily lessons
                         new ParserLesson().runLesson();
-                    } else if (input == back) { //back
+                    } else if (input == 4) { //back
                         runDaily = false;
                     } else {
                         cliView.showDontKnow();

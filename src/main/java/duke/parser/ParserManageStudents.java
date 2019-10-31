@@ -2,15 +2,34 @@ package duke.parser;
 
 import duke.models.students.ManageStudents;
 import duke.models.students.MyStudent;
-
 import java.util.Scanner;
+import duke.view.CliView;
 
-public class ParserManageStudents implements IParser {
+/**
+ * This is the parser for manage students.
+ * @author danisheddie
+ */
+public final class ParserManageStudents implements IParser {
+    /**
+     * Boolean status to check if the class can exit.
+     */
+    private boolean isRunning = true;
+    /**
+     * Declaring Manage Students Object.
+     */
+    private ManageStudents students;
+    /**
+     * The scanner object to take input.
+     */
+    private Scanner sc;
 
     /**
-     * Declaring the type.
+     * Constructor for Manage Students Parser.
      */
-    private ManageStudents students = new ManageStudents();
+    ParserManageStudents() {
+        students = new ManageStudents();
+        sc = new Scanner(System.in);
+    }
 
     /**
      * To parse ManageStudents commands.
@@ -21,20 +40,17 @@ public class ParserManageStudents implements IParser {
     public void parseCommand(final String input) {
         String[] word = input.split(" ");
         String cmd = word[0];
+        boolean runManageStudent = true;
         switch (cmd) {
         case "add":
-            System.out.println("Insert Name, Age, Address:\n");
-            Scanner sc = new Scanner(System.in);
-            String newStudent = sc.nextLine();
-            String[] splitByComma = newStudent.split(",");
-            String name = splitByComma[0];
-            String age = splitByComma[1];
-            String address = splitByComma[2];
-            MyStudent myNewStudent = new MyStudent(
-                name, age, address);
-            students.addStudent(myNewStudent);
+            System.out.println("____________________________"
+                   + "________________________");
+            System.out.println("Insert [Name],[Age],[Address] "
+                    + "to add new student.\n"
+                    + "Insert 1 to exit.");
+            new CliView().showDontKnow();
+            addCommand();
             break;
-
         // Format: student delete [index]
         case "delete":
             students.deleteStudent(Integer.parseInt(word[1]));
@@ -42,12 +58,11 @@ public class ParserManageStudents implements IParser {
 
         case "details":
             System.out.println("Details for: ");
-            Scanner scan = new Scanner(System.in);
-            if (scan.equals("add details")) {
+            if (sc.equals("add details")) {
                 System.out.println("Details for: ");
 
             }
-            String studentName = scan.nextLine();
+            String studentName = sc.nextLine();
             students.findName(studentName);
             //add student details
             break;
@@ -83,12 +98,25 @@ public class ParserManageStudents implements IParser {
             break;
 
         case "back":
-            ParserCommand parserCommand = new ParserCommand();
-            parserCommand.parseCommand(cmd);
+            runManageStudent = false;
             break;
 
         default:
             System.out.println("Incorrect Command.");
         }
+    }
+
+    /**
+     * Method to parse add command.
+     */
+    public void addCommand() {
+        String newStudent = sc.nextLine();
+        String[] splitByComma = newStudent.split(",");
+        String name = splitByComma[0];
+        String age = splitByComma[1];
+        String address = splitByComma[2];
+        MyStudent myNewStudent = new MyStudent(
+                name, age, address);
+        students.addStudent(myNewStudent);
     }
 }
