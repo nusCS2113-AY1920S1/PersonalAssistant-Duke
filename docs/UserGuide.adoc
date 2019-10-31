@@ -4,10 +4,11 @@
 :toc-title:
 :toc-placement: preamble
 :sectnums:
-:imagesDir: images
+:imagesDir: images/UserGuide
 :stylesDir:
 :xrefstyle: full
 :experimental:
+:return: &#9166;
 ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
@@ -32,10 +33,9 @@ e.g. typing *`list`* and pressing kbd:[Enter] will show you a list of all the ro
 .  Some example commands you can try:
 
 * *`list`* : lists all items/rooms and their status (booked/reserved/available)
-* **`add`**`/item football /qty 2` : adds 2 footballs to RIMS.
 * *`bye`* : exits the app
 
-.  Refer to <<Features>> for details of each command.
+.  Refer to <<Features, Features>> for details of each command.
 
 [[Features]]
 == Features
@@ -43,19 +43,14 @@ e.g. typing *`list`* and pressing kbd:[Enter] will show you a list of all the ro
 ====
 *Command Format*
 
-* The first word of each input string is the *command* or *action* requested by the user.
-+
-e.g. the word `*return*` in `*return* /room seminar room 1`
-* Words in `UPPER_CASE` are the *arguments* to be supplied by the user.
-+
-e.g. in `return /room *ROOM*`, `*ROOM*` is a parameter which can be used as `return /room *seminar room 1*`.
-* Arguments always follow a *parameter*, which is denoted by a phrase starting with a forward slash `/`.
-+
-e.g. in `deadline */date* _DATE_`, `*/date*` denotes that `_DATE_` is a parameter denoting a date and time, as in `deadline */date* _23/01/2020_`.
-* Different commands features different parameters.
-* Parameters can be in any order.
-+
-e.g. if the command specifies `add */item ITEM* _/qty QUANTITY_`, `add _/qty QUANTITY_ */item ITEM*` is also acceptable.
+* Each command is executed by multiple consecutive user inputs. For every input, the user enters the information prompted by the RIMS user interface,
+followed by entering kbd:[Enter] to move on to the next input required.
+* The first input is the *command* or *action* requested by the user. +
+e.g. `*return*` or `*add*`
+
+* Words in `*UPPER_CASE*` are the *arguments* to be supplied by the user. +
+e.g. `*ROOM NAME*` is a parameter which can be a name of a room, such as `*seminar room 1*`.
+
 
 ====
 
@@ -65,28 +60,31 @@ e.g. if the command specifies `add */item ITEM* _/qty QUANTITY_`, `add _/qty QUA
 Add new item(s) or a new room available for loan/booking in RIMS.
 
 .*Format*:
-. `add /item ITEM /qty QUANTITY`
-. `add /room ROOM /cap CAPACITY`
-* If the item or room already exists in RIMS, then its quantity will be updated accordingly.
-* Quantity or capacity must be a positive integer.
+To add a new item:
 
-.*Examples*:
-* `add /item book /qty 5`
-* `add /room multi purpose sports hall /cap 100`
+. Enter `add` into the console, then press kbd:[Enter] to execute the command.
++
+====
+RIMS will prompt for the resource type that the user wants to add. +
 
-==== Add a borrowed item/room: `borrow`
-Add new item(s) or a new room available for loan/booking in RIMS for a limited time (borrowed/leased from third parties).
+image::add/add1.jpeg[width="500", align="left"]
+====
++
+. Enter the `ITEM NAME` to be added into the console.
++
+====
+RIMS will prompt for the resource name that the user wants to add. +
 
-.*Format*:
-. `add /item ITEM /qty QUANTITY /by DEADLINE`
-. `add /room ROOM /cap CAPACITY /by DEADLINE`
-* If the item or room already exists in RIMS, then its quantity will be updated accordingly.
-* Quantity or capacity must be a positive integer.
-* Deadline must be formatted dd/mm/yyyy hhmm in 24-hour time format.
+image::add/add2.jpeg[width="500", align="left"]
+====
++
+. Enter the `QUANTITY` of the resource specified to be added into RIMS into the console.
++
+====
+RIMS will display resource and the quantity that have been added. +
 
-.*Examples*:
-* `add /item book /qty 5 /by 19/10/2019 2000`
-* `add /item multi purpose sports hall /cap 100 /by 01/01/2020 0000`
+image::add/add3.jpeg[width="500", align="left"]
+====
 
 ==== Delete item/room: `delete`
 Delete item(s) or room available for loan/booking in RIMS.
@@ -148,7 +146,8 @@ Registers an item as having been reserved (loaned in advance) from a future date
 .*Examples*:
 * `reserve /item basketball /qty 1 /from 01/10/2019 2300 /to 03/10/2019 2300`
 * `reserve /room basketball court /from 01/10/2019 2300 /to 03/10/2019 2300`
-
+////
+to be implemented
 ==== Extend existing loan of an item / room: `extend`
 Extends the loan period of an item/room that is currently loaned out.
 
@@ -163,17 +162,7 @@ Extends the loan period of an item/room that is currently loaned out.
 .*Examples*:
 * `extend /item basketball /qty 1 /by 05/10/2019 2300`
 * `extend /room basketball court /by 06/10/2019 0000`
-
-==== View deadline of item/room: `due`
-View which items/rooms are due on a certain date using this command.
-
-.*Format*:
-. `due DATE`
-* If the date is left blank then the UI will send a message to inform the user.
-* Date must be in DD/MM/YYYY format
-
-.*Examples*:
-* `due 07/10/2019`
+////
 
 ==== List items/rooms and their status: `list`
 View all items and rooms recorded and whether they are available or not.
@@ -208,22 +197,12 @@ With the execution of any command, any changes in data on items, rooms and their
 
 == Command Summary
 
-* *Add item/room*: `resource add /item ITEM /qty QUANTITY` +
-e.g. `add /item book /qty 5`
-* *Add a borrowed item/room*: `add /item ITEM /qty QUANTITY /by DEADLINE` +
-e.g. `add /item book /qty 5 /by 19/10/2019 2000`
-* *Delete item/room*: `delete /item ITEM /qty QUANTITY` +
-e.g. `delete /item book /qty 5`
-* *Loan out item/room*: `lend /item ITEM /qty QUANTITY /by DEADLINE` +
-e.g. `lend /item frisbee /qty 5 /by 01/10/2019 2300`
-* *Return item/room*: `return /item ITEM /qty QUANTITY` +
-e.g. `return /item frisbee /qty 3`
-* *Reserve item/room*: `reserve /item ITEM /qty QUANTITY /from DATE /to DEADLINE` +
-e.g. `reserve /item basketball /qty 1 /from 01/10/2019 2300 /to 03/10/2019 2300`
-* *Extend an existing loan*: `extend /item ITEM /qty QUANTITY /by DEADLINE` +
-e.g. `extend /item basketball /qty 1 /by 05/10/2019 2300`
-* *View deadline of item/room*: `due DATE` +
-	e.g. `due 04/05/2019`
+* *Add item/room*: `add`
+* *Delete item/room*: `delete`
+* *Loan out item/room*: `loan`
+* *Return item/room*: `return`
+* *Reserve item/room*: `reserve`
+//* *Extend an existing loan*: `extend /item ITEM /qty QUANTITY /by DEADLINE` +
 * *List items/rooms and their status*: `list`
 * *View calendar*: `calendar`
 * *Exiting the program*: `bye`

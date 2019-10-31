@@ -139,7 +139,10 @@ public class ListCommand extends Command {
                 ui.print("No bookings for this resource yet!");
             }
             ui.printLine();
-        } else if (listType.equals("date")) {
+
+        }
+        else if (listType.equals("date")) {
+
             ArrayList<String> coveredResources = new ArrayList<String>();
             ui.print("CURRENTLY AVAILABLE ON THIS DATE:");
             ui.printEmptyLine();
