@@ -22,7 +22,7 @@ public class HomeFindCommand extends ArgCommand {
         super.execute(core);
         String searchTerm = getArg();
         String findStr = "Here are the objects that contain '" + getArg() + "':\n";
-        ArrayList<DukeObject> resultList= new ArrayList<>();
+        ArrayList<DukeObject> resultList = new ArrayList<>();
         if (getSwitchVals().isEmpty()) {
             resultList = core.patientMap.find(searchTerm);
         } else {
@@ -59,5 +59,5 @@ public class HomeFindCommand extends ArgCommand {
             information.append(resultList.get(i).getName()).append(System.lineSeparator());
         }*/
         core.showSearchResults(searchTerm, resultList, null);
-   }
+    }
 }

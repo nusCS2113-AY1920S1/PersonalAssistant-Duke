@@ -45,6 +45,13 @@ public class DukeCore extends Application {
         }
     }
 
+    /**
+     * Displays results of a search.
+     * @param searchTerm The term that was used to perform the search.
+     * @param resultList The search results obtained.
+     * @param parent The parent object that the search was performed in.
+     * @throws DukeUtilException If the search result list is null.
+     */
     public void showSearchResults(String searchTerm, List<? extends DukeObject> resultList,
                                          DukeObject parent) throws DukeUtilException {
         if (resultList == null) {
