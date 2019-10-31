@@ -1,4 +1,3 @@
-= Shamus Neo Zhi Kai - Project Portfolio for OwlMoney
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
@@ -12,7 +11,7 @@ ifdef::env-github[]
 :warning-caption: :warning:
 endif::[]
 
-== {nbsp}
+== Shamus Neo Zhi Kai - Project Portfolio for OwlMoney
 
 Hello there, I am __Shamus__.
 I am currently pursuing a degree in Information Security at the National University of Singapore (NUS). +
