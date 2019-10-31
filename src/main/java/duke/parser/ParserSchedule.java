@@ -169,7 +169,7 @@ public class ParserSchedule {
                         dailySchedule();
                     } else if (input == 2) { //access daily goals
                         new ParserGoal().runGoal();
-                    } else if (input == 3) { //access daily lesson
+                    } else if (input == 3) { //access daily lessons
                         new ParserLesson().runLesson();
                     } else if (input == 4) { //back
                         runDaily = false;
