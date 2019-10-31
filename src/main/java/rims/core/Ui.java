@@ -25,7 +25,7 @@ public class Ui {
         + "*****************************************************************************";
     protected String tab = "\t";
     protected ArrayList<String> welcomeMsg = new ArrayList<String>(Arrays.asList("Welcome to RIMS, your Resource"
-        + "& Inventory Management System.",
+        + " & Inventory Management System.",
         "How can I help you?"));
     protected ArrayList<String> commands = new ArrayList<String>(Arrays.asList("add - add a new resource to inventory",
         "delete - delete an existing resource from inventory",
@@ -166,7 +166,7 @@ public class Ui {
         String logo = "\n" 
                 +
                 tab + "          _____                    _____"
-                + "_____                    _____          \n"
+                + "                    _____                    _____          \n"
                 +
                 tab + "         /\\    \\                  /\\    \\"
                 + "                  /\\    \\                  /\\    \\         \n"
