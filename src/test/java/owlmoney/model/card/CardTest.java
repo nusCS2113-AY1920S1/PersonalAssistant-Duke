@@ -26,9 +26,9 @@ public class CardTest {
     private static final String HEADER_ADDED_EXPENDITURE = "Added expenditure with the following details:"
             + NEWLINE  + "Item No.             Description                                             "
             + "Amount          Date                 Category             " + NEWLINE;
-    private static final String HEADER_LIST_EXPENDITURE = "Transaction No.      "
-            + "Description                                             "
-            + "Amount          Date                 Category             " + NEWLINE;
+    //private static final String HEADER_LIST_EXPENDITURE = "Transaction No.      "
+            //+ "Description                                             "
+            //+ "Amount          Date                 Category             " + NEWLINE;
     private static final String HEADER_LIST_PAID_EXPENDITURE = "Paid Expenditures:" + NEWLINE
             + "Transaction No.      "
             + "Description                                             "
@@ -39,8 +39,8 @@ public class CardTest {
             + "Amount          Date                 Category             " + NEWLINE;
     private static final String NO_PAID_EXPENDITURE =
             "There are no paid expenditures in this card.";
-    private static final String NO_UNPAID_EXPENDITURE =
-            "There are no unpaid expenditures in this card.";
+    //private static final String NO_UNPAID_EXPENDITURE =
+            //"There are no unpaid expenditures in this card.";
     private static final String EXPECTED_BUT_NO_PAID_EXPENDITURE =
             "Paid Expenditures:\nThere are no paid expenditures in this card.";
     private static final String EXPECTED_BUT_NO_UNPAID_EXPENDITURE =
@@ -592,7 +592,7 @@ public class CardTest {
         try {
             testCard.addInPaidExpenditure(newExpenditure0, testUi, "card");
             testCard.addInPaidExpenditure(newExpenditure1, testUi, "card");
-            testCard.addInPaidExpenditure(newExpenditure2, testUi, "card");;
+            testCard.addInPaidExpenditure(newExpenditure2, testUi, "card");
             testCard.transferExpPaidToUnpaid(YearMonth.parse("2019-06"), "bank");
         } catch (CardException | TransactionException error) {
             System.out.println("Expected no exceptions, but exception thrown: " + error.getMessage());
