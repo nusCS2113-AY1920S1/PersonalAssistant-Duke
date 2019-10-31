@@ -73,7 +73,11 @@ public class DebtsParser extends Parser {
             String content = inputArray[2];
             return new SearchCommand(mode, component, content);
         } else if (commandToRun.equals(COMMAND_SORT)) {
-            return new SortCommand(mode, inputArray[1]);
+            if(verifySort()) {
+                return new SortCommand(mode, inputArray[1]);
+            } else {
+                return new ErrorCommand();
+            }
         } else if (commandToRun.equals("remove")) {
             return new RemoveCommand(mode, inputArray[1]);
         } else if (commandToRun.equals(DEBT_COMMAND_REDO)

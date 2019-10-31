@@ -13,6 +13,7 @@ import dolla.command.SearchCommand;
 import dolla.command.RemoveCommand;
 import dolla.command.modify.PartialModifyEntryCommand;
 import dolla.task.Entry;
+import dolla.ui.SortUi;
 //import dolla.ui.ModifyUi;
 
 public class EntryParser extends Parser {
@@ -49,7 +50,11 @@ public class EntryParser extends Parser {
                 return new ErrorCommand();
             }
         } else if (commandToRun.equals(COMMAND_SORT)) {
-            return new SortCommand(mode, inputArray[1]);
+            if(verifySort()) {
+                return new SortCommand(mode, inputArray[1]);
+            } else {
+                return new ErrorCommand();
+            }
         } else if (commandToRun.equals("search")) {
             String component = inputArray[1];
             String content = inputArray[2];

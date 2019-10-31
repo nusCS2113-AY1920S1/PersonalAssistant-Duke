@@ -3,6 +3,7 @@ package dolla.parser;
 import dolla.ModeStringList;
 import dolla.Time;
 import dolla.ui.EntryUi;
+import dolla.ui.SortUi;
 import dolla.ui.Ui;
 import dolla.ui.ModifyUi;
 import dolla.command.Command;
@@ -143,6 +144,22 @@ public abstract class Parser implements ParserStringList, ModeStringList {
     }
 
     //@@author yetong1895
+
+    /**
+     * This method will check if the input contain an type to sort.
+     * @return true is inputArray[1] contain something, false if inputArray[1] is invalid.
+     */
+    protected boolean verifySort() {
+        try {
+            String temp = inputArray[1];
+            return true;
+        } catch (ArrayIndexOutOfBoundsException e) {
+            SortUi.printInvalidSort(mode);
+            return false;
+        }
+    }
+
+
     /**
      * This method will set the prevPosition int in this class.
      * @param prevPosition the prevPosition of a deleted input.

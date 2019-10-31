@@ -16,7 +16,7 @@ Dolla -> StorageRead : load()
 deactivate Dolla
 
 activate StorageRead
-StorageRead -> Storage
+StorageRead -> Storage : addToList()
 activate Storage
 
 create DollaData
