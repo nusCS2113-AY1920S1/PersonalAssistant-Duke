@@ -114,7 +114,7 @@ Some trivial examples can be seen below:
 *	 */add Team meeting /at 10/8/2019 1500* (Event)
 *  */add Family dinner /at 15/8/2019 1800 /every 2 weeks* (Recurring Event)
 
-=== 3.2 Deleting a task : `/delete`
+=== 3.2 Deleting a task: `/delete`
 
 Sometimes you might want to delete a task because you no longer have to perform it. In order to do so, a `/delete` command can be issued in the command line.
 
@@ -139,21 +139,26 @@ TIP:	*/delete done*
 
 This command deletes all tasks that have been marked as completed.
 
-=== 3A.3 4.3	Marking tasks as done
+=== 3.3	Marking tasks as done: `/done`
 
-If you ended up completing the task, you might want to mark the task as done. Issue the /done command to do so. The syntax of the command is as follows:
+If you ended up completing the task, you might want to mark the task as done. Issue the `/done` command to do so.
 
-*/done <index>*
-  
+The syntax of the command is as follows:
+
+TIP: */done <index>*
+
+Executing a `/done` command:
+----
 1.	Look at the index of the command you want to mark.
 2.	Type in the above command.
 3.	Press Enter.
+----
 
 A confirmation message pops up to confirm the change.
 
-----
-Although the task has been marked done, it is not deleted from the list. If you wish for it to disappear then delete the task using the /delete command as stated above.
-----
+
+IMPORTANT: Although the task has been marked done, it is not deleted from the list. If you wish for it to disappear then delete the task using the /delete command as stated above.
+
   
 === 3A.3 Finding tasks : `/find`
 
