@@ -1,4 +1,6 @@
+//@@author yueyuu
 package gazeeebo.commands.schedule;
+import gazeeebo.notes.NoteList;
 import gazeeebo.storage.Storage;
 import gazeeebo.tasks.Deadline;
 import gazeeebo.tasks.Event;
@@ -17,10 +19,8 @@ import java.util.Stack;
 /**
  * Lists out all the tasks that the user has in a specified month.
  */
-public class ScheduleMonthlyCommand extends Command {
+public class ScheduleMonthlyCommand extends ScheduleDailyCommand {
     //format for the command: scheduleMonthly <yyyy-MM>
-    protected LocalDate startMonth;
-    protected LocalDate endMonth;
 
     /**
      * This is the main body of the ScheduleMonthly command.
@@ -31,13 +31,15 @@ public class ScheduleMonthlyCommand extends Command {
      * @throws NullPointerException if tDate doesn't get updated.
      */
     @Override
-    public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<String> commandStack, ArrayList<Task> deletedTask, TriviaManager triviaManager) throws NullPointerException {
+    public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<ArrayList<Task>> commandStack, ArrayList<Task> deletedTask, TriviaManager triviaManager) throws NullPointerException {
         DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         String[] command = ui.fullCommand.split(" ");
         if (command.length > 2) {
             System.out.println("The command should be in the format \"scheduleMonthly yyyy-MM\".");
             return;
         }
+        LocalDate startMonth;
+        LocalDate endMonth;
         try {
             startMonth = LocalDate.parse(command[1]+"-01", fmt);
             String lengthOfMonth = Integer.toString(startMonth.lengthOfMonth());
@@ -53,13 +55,13 @@ public class ScheduleMonthlyCommand extends Command {
         for (Task t: list) {
             LocalDate tDate = null;
             switch (t.getClass().getName()) {
-            case "gazeeebo.tasks.Event":
+            case EVENT:
                 tDate = ((Event) t).date;
                 break;
-            case "gazeeebo.tasks.Deadline":
+            case DEADLINE:
                 tDate = ((Deadline) t).by.toLocalDate();
                 break;
-            case "gazeeebo.tasks.Timebound":
+            case TIMEBOUND:
                 LocalDate startDate = ((Timebound) t).dateStart;
                 LocalDate endDate = ((Timebound) t).dateEnd;
                 if (!(endDate.isBefore(startMonth) || startDate.isAfter(endMonth))) {
@@ -80,6 +82,8 @@ public class ScheduleMonthlyCommand extends Command {
                 System.out.println((i+1) + "." + schedule.get(i).listFormat());
             }
         }
+        System.out.println(LIST_NOTE_MESSAGE);
+        printNotes(NoteList.monthly, startMonth);
     }
 
     /**

@@ -17,7 +17,7 @@ import java.util.Stack;
 
 public class EventCommand extends Command {
     @Override
-    public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<String> commandStack, ArrayList<Task> deletedTask, TriviaManager triviaManager) throws DukeException, ParseException, IOException, NullPointerException {
+    public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<ArrayList<Task>> commandStack, ArrayList<Task> deletedTask, TriviaManager triviaManager) throws DukeException, ParseException, IOException {
         String description;
         try {
             if (ui.fullCommand.length() == 5) {
@@ -29,6 +29,7 @@ public class EventCommand extends Command {
             String at = ui.fullCommand.split("/at ")[1];
             Event ev = new Event(description, at);
 
+            //@@author yueyuu
             //CHECKING FOR SCHEDULE ANOMALIES------------------------------------------------------------------
             ArrayList<Event> clash = new ArrayList<Event>(); //to store events that clash with the incoming event
             for (Task t : list) {
@@ -47,6 +48,7 @@ public class EventCommand extends Command {
                 System.out.println("");
             }
             //--------------------------------------------------------------------------------------------------
+            //@@author
 
             list.add(ev);
             System.out.println("Got it. I've added this task:");
@@ -64,19 +66,7 @@ public class EventCommand extends Command {
             Ui.showEventDateFormatError();
         }
     }
-    public void undo(String command, ArrayList<Task> list, Storage storage) throws IOException {
-        for (Task it : list) {
-            if (it.description.contains(command.substring(7).trim())) {
-                list.remove(it);
-                break;
-            }
-        }
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < list.size(); i++) {
-            sb.append(list.get(i).toString() + "\n");
-        }
-        storage.writeToSaveFile(sb.toString());
-    }
+
     @Override
     public boolean isExit() {
         return false;

@@ -15,7 +15,7 @@ public class DeleteCAPCommand {
      * @param ui      prints things to the user.
      * @param CAPList deals stores semNumber, moduleCode, moduleCredits and GPA score.
      */
-    public DeleteCAPCommand(Ui ui, Map<String, ArrayList<CAPCommand>> CAPList) {
+    public DeleteCAPCommand(final Ui ui, final Map<String, ArrayList<CAPCommand>> CAPList) {
         boolean haveDeleted = false;
         String moduleName = ui.fullCommand.split(" ")[1];
         for (String key : CAPList.keySet()) {

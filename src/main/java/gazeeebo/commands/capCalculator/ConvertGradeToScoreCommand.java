@@ -4,12 +4,13 @@ package gazeeebo.commands.capCalculator;
  * Coverts Grade to Integer score.
  */
 public class ConvertGradeToScoreCommand {
+
     /**
      * Converts the alphabetical score to integer score.
      * @param grade alphabetical score of the module
      * @return the integer score of the grade according to NUS score syytem
      */
-    public double converter(String grade) {
+    public double converter(final String grade) {
         double score;
         switch (grade) {
             case "A+":

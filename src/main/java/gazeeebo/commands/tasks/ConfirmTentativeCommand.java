@@ -17,7 +17,7 @@ import java.util.Stack;
 public class ConfirmTentativeCommand extends Command {
 
     @Override
-    public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<String> commandStack, ArrayList<Task> deletedTask,TriviaManager triviaManager) throws DukeException, ParseException, IOException, NullPointerException {
+    public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<ArrayList<Task>> commandStack, ArrayList<Task> deletedTask, TriviaManager triviaManager) throws DukeException, ParseException, IOException {
         try {
             int index = 0;
             Event ev;
@@ -58,44 +58,10 @@ public class ConfirmTentativeCommand extends Command {
                     }
                 }
                 storage.writeToSaveFile(sb.toString());
-                commandStack.push("confirm"+"~"+ev.toString()+"~"+tev.toString());
             }
         catch (DukeException e) {
             System.out.println(e.getMessage());
         }
-    }
-    public void undo(String command, ArrayList<Task> list,Storage storage) throws IOException {
-        String[] splitCommand = command.split("~");
-        String[] details = splitCommand[1].split("\\|");
-        Event e = new Event(details[2].trim(), details[3].substring(3).trim());
-        if (details[1].equals("D")) {
-            e.isDone = true;
-        } else {
-            e.isDone = false;
-        }
-        for (Task it : list) {
-            if (it.toString().equals(e.toString())) {
-                list.remove(it);
-                break;
-            }
-        }
-        ArrayList<String> timeslots = new ArrayList<String>();
-        String[] TEdetails = splitCommand[2].split("\\|");
-        for(int i=3;i<TEdetails.length;i++){
-            timeslots.add(TEdetails[i]);
-        }
-        TentativeEvent TE = new TentativeEvent(TEdetails[2].trim(),timeslots);
-        if (details[1].equals("D")) {
-            TE.isDone = true;
-        } else {
-            TE.isDone = false;
-        }
-        list.add(TE);
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < list.size(); i++) {
-            sb.append(list.get(i).toString() + "\n");
-        }
-        storage.writeToSaveFile(sb.toString());
     }
 
     @Override

@@ -2,7 +2,6 @@ package gazeeebo.commands.contact;
 
 import gazeeebo.UI.Ui;
 
-import java.io.IOException;
 import java.util.Map;
 
 /**
@@ -16,7 +15,8 @@ public class DeleteContactCommand {
      * @param ui      deals with printing things to the user.
      * @param contactList map each name to its own phone number
      */
-    public DeleteContactCommand(Ui ui, Map<String, String> contactList) {
+    public DeleteContactCommand(final Ui ui,
+                                final Map<String, String> contactList) {
         String nameToDelete = "";
         for (int i = 1; i < ui.fullCommand.split(" ").length; i++) {
             if (i != ui.fullCommand.split(" ").length - 1) {
@@ -29,7 +29,7 @@ public class DeleteContactCommand {
             System.out.print("Incorrect format: delete name\n");
         } else if (contactList.containsKey(nameToDelete)) {
             contactList.remove(nameToDelete);
-            System.out.print("Successfully deleted: "+ nameToDelete + "\n");
+            System.out.print("Successfully deleted: " + nameToDelete + "\n");
         } else {
             System.out.print(nameToDelete + " is not found in the list.\n");
         }

@@ -13,7 +13,7 @@ import java.util.Stack;
 
 public class FindCommand extends Command {
     @Override
-    public void execute(final ArrayList<Task> list, final Ui ui, final Storage storage, final Stack<String> commandStack, final ArrayList<Task> deletedTask, final TriviaManager triviaManager) throws DukeException, ParseException, IOException, NullPointerException {
+    public void execute(final ArrayList<Task> list, final Ui ui, final Storage storage, final Stack<ArrayList<Task>> commandStack, final ArrayList<Task> deletedTask, final TriviaManager triviaManager) throws DukeException, ParseException, IOException {
         try {
             if (ui.fullCommand.length() == 5) {
                 throw new DukeException("OOPS!!! The description of a search cannot be empty.");

@@ -28,11 +28,11 @@ public class DeleteCommand extends Command {
      * @throws NullPointerException
      */
     @Override
-    public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<String> commandStack, ArrayList<Task> deletedTask, TriviaManager triviaManager) throws DukeException, ParseException, IOException, NullPointerException {
+    public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<ArrayList<Task>> commandStack, ArrayList<Task> deletedTask, TriviaManager triviaManager) throws DukeException, ParseException, IOException {
         if (ui.fullCommand.length() == 6) {
             throw new DukeException("OOPS!!! The description of a deletion cannot be empty.");
         } else {
-            if (ui.fullCommand.length() == 8) {
+            if (ui.fullCommand.length() > 6) {
                 int index = Integer.parseInt(ui.fullCommand.substring(6).trim()) - 1;
                 deletedTask.add(list.get(index));
                 String taskremoved = list.get(index).listFormat();
@@ -83,14 +83,7 @@ public class DeleteCommand extends Command {
             storage.writeToSaveFile(sb.toString());
         }
     }
-    public void undo(ArrayList<Task> list, Storage storage,ArrayList<Task> deletedTask) throws IOException {
-        list.addAll(deletedTask);
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < list.size(); i++) {
-            sb.append(list.get(i).toString() + "\n");
-        }
-        storage.writeToSaveFile(sb.toString());
-    }
+
     @Override
     public boolean isExit() {
         return false;

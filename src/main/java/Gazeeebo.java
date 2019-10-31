@@ -18,11 +18,10 @@ public class Gazeeebo {
      * Returns main function for duke.
      *
      * @param args a String array that takes in input from the command line
-     * @throws DukeException | ParseException | IOException | NullPointerException
      */
     public static void main(String[] args) throws IOException {
         ArrayList<Task> list;
-        Stack<String> CommandStack = new Stack<String>();
+        Stack<ArrayList<Task>> CommandStack = new Stack<ArrayList<Task>>();
         ArrayList<Task> deletedTask = new ArrayList<Task>();
         Storage store = new Storage();
         TriviaManager triviaManager = new TriviaManager(store);
@@ -30,7 +29,7 @@ public class Gazeeebo {
         Ui ui = new Ui();
         try {
             ui.showWelcome();
-            list = store.realFromSaveFile();
+            list = store.readFromSaveFile();
             NoteStorage.readFromFile("NoteDaily.txt", NoteList.daily);
             NoteStorage.readFromFile("NoteWeekly.txt", NoteList.weekly);
             NoteStorage.readFromFile("NoteMonthly.txt", NoteList.monthly);
@@ -44,13 +43,10 @@ public class Gazeeebo {
                 Command c = Parser.parse(command, ui);
                 if (c != null) {
                     c.execute(list, ui, store, CommandStack, deletedTask, triviaManager);
-                    if (!command.equals("undo") && !command.equals("list") && !command.contains("confirm")) {
-                        CommandStack.push(command);
-                    }
                     isExit = c.isExit();
                 }
             }
-        } catch (DukeException | ParseException | IOException | NullPointerException e) {
+        } catch (DukeException | ParseException | IOException e) {
             if (e instanceof ParseException) {
                 ui.showDateFormatError();
             } else if (e instanceof IOException) {

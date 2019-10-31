@@ -40,16 +40,12 @@ public class Ui {
                 + "\n__________________________________________\n"
                 + logo
                 + "\n__________________________________________\n";
-
         while (true) {
-
             readCommand();
             ArrayList<StringBuilder> password_list;
             Storage store = new Storage();
             password_list = store.readFromPasswordFile();
             if (fullCommand.equals(password_list.get(0).toString())) {
-
-
                 System.out.println(welcomemessage);
                 LocalDate a = LocalDate.now();
                 System.out.println("Today is " + a.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL)));
@@ -58,8 +54,6 @@ public class Ui {
             } else {
                 System.out.println("Incorrect password, please try again:");
             }
-
-
         }
         return welcomemessage;
     }
@@ -92,11 +86,11 @@ public class Ui {
         ArrayList<Event> EventList = new ArrayList<Event>();
 
         for (Task task : list) {
-            if (task.getClass().getName().equals("gazeeebo.Tasks.Deadline") && !task.isDone) {
+            if (task.getClass().getName().equals("gazeeebo.tasks.Deadline") && !task.isDone) {
                 Deadline deadline = new Deadline(task.description, task.toString().split("by:")[1].trim());
                 deadline.isDone = task.isDone;
                 DeadlineList.add(deadline);
-            } else if (task.getClass().getName().equals("gazeeebo.Tasks.Event") && !task.isDone) {
+            } else if (task.getClass().getName().equals("gazeeebo.tasks.Event") && !task.isDone) {
                 Event event = new Event(task.description, task.toString().split("at:")[1].trim());
                 event.isDone = task.isDone;
                 EventList.add(event);

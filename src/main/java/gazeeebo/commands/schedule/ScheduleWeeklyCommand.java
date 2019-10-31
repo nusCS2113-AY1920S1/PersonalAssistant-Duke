@@ -1,4 +1,6 @@
+//@@author yueyuu
 package gazeeebo.commands.schedule;
+import gazeeebo.notes.NoteList;
 import gazeeebo.storage.Storage;
 import gazeeebo.tasks.Deadline;
 import gazeeebo.tasks.Event;
@@ -16,14 +18,11 @@ import static java.time.temporal.ChronoUnit.DAYS;
 import java.util.ArrayList;
 import java.util.Stack;
 
-
 /**
  * Lists out all the tasks that the user has in a specified week.
  */
-public class ScheduleWeeklyCommand extends Command {
+public class ScheduleWeeklyCommand extends ScheduleDailyCommand {
     //format for the command: scheduleWeekly <yyyy-MM-dd(Mon) yyyy-MM-dd(Sun)>
-    protected LocalDate mon;
-    protected LocalDate sun;
     private static final int ONE_WEEK = 7;
 
     /**
@@ -35,8 +34,10 @@ public class ScheduleWeeklyCommand extends Command {
      * @throws NullPointerException if tDate doesn't get updated.
      */
     @Override
-    public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<String> commandStack, ArrayList<Task> deletedTask, TriviaManager triviaManager) throws NullPointerException {
+    public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<ArrayList<Task>> commandStack, ArrayList<Task> deletedTask, TriviaManager triviaManager) throws NullPointerException {
         DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate mon;
+        LocalDate sun;
         try {
             String[] date = ui.fullCommand.split(" ");
             if (date.length > 3) {
@@ -82,11 +83,14 @@ public class ScheduleWeeklyCommand extends Command {
         ArrayList<Task> schedule = new ArrayList<Task>();
         for (Task t: list) {
             LocalDate tDate = null;
-            if (t.getClass().getName().equals("gazeeebo.tasks.Event")) {
+            switch (t.getClass().getName()) {
+            case EVENT:
                 tDate = ((Event) t).date;
-            } else if (t.getClass().getName().equals("gazeeebo.tasks.Deadline")) {
+                break;
+            case DEADLINE:
                 tDate = ((Deadline) t).by.toLocalDate();
-            } else if (t.getClass().getName().equals("gazeeebo.tasks.Timebound")) {
+                break;
+            case TIMEBOUND:
                 LocalDate startDate = ((Timebound) t).dateStart;
                 LocalDate endDate = ((Timebound) t).dateEnd;
                 if (endDate.equals(mon) || (startDate.isBefore(mon) && endDate.isAfter(mon)) ||
@@ -94,6 +98,7 @@ public class ScheduleWeeklyCommand extends Command {
                         startDate.equals(sun)) {
                     schedule.add(t);
                 }
+                break;
             }
             if (tDate != null && (tDate.equals(mon) || (tDate.isAfter(mon) &&
                     tDate.isBefore(sun)) || tDate.equals(sun))) {
@@ -108,6 +113,8 @@ public class ScheduleWeeklyCommand extends Command {
                 System.out.println((i+1) + "." + schedule.get(i).listFormat());
             }
         }
+        System.out.println(LIST_NOTE_MESSAGE);
+        printNotes(NoteList.weekly, mon);
     }
 
     /**

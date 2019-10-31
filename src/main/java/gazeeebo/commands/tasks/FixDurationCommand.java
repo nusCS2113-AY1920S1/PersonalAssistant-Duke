@@ -24,7 +24,7 @@ public class FixDurationCommand extends Command {
      * @throws NullPointerException if tDate doesn't get updated.
      */
     @Override
-    public void execute(final ArrayList<Task> list, final Ui ui, final Storage storage, final Stack<String> commandStack, final ArrayList<Task> deletedTask, final TriviaManager triviaManager) throws DukeException, ParseException, IOException, NullPointerException {
+    public void execute(final ArrayList<Task> list, final Ui ui, final Storage storage, final Stack<ArrayList<Task>> commandStack, final ArrayList<Task> deletedTask, final TriviaManager triviaManager) throws DukeException, ParseException, IOException {
         String description = "";
         String duration = "";
         String[] splitstring;
@@ -44,19 +44,6 @@ public class FixDurationCommand extends Command {
         storage.writeToSaveFile(sb.toString());
     }
 
-    public void undo(final String command, final ArrayList<Task> list, final Storage storage) throws IOException {
-        for (Task it : list) {
-            if (it.description.contains(command.split("/requires")[0].trim())) {
-                list.remove(it);
-                break;
-            }
-        }
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < list.size(); i++) {
-            sb.append(list.get(i).toString() + "\n");
-        }
-        storage.writeToSaveFile(sb.toString());
-    }
     /**
      * Tells the main Duke class that the system
      * should not exit and continue running.

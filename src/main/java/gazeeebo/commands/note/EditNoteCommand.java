@@ -1,3 +1,4 @@
+//@@author yueyuu
 package gazeeebo.commands.note;
 
 import gazeeebo.storage.NoteStorage;
@@ -44,7 +45,7 @@ public class EditNoteCommand extends AddNoteCommand {
                 }
             }
         }
-        throw new DukeException("OOPS!!! There are no gazeeebo.notes for this " + period + " to edit from.");
+        throw new DukeException("OOPS!!! There are no notes for this " + period + " to edit from.");
     }
 
     /**
@@ -60,7 +61,7 @@ public class EditNoteCommand extends AddNoteCommand {
 
     /** The main method that executes all the sub methods. */
     @Override
-    public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<String> commandStack, ArrayList<Task> deletedTask, TriviaManager triviaManager) throws IOException {
+    public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<ArrayList<Task>> commandStack, ArrayList<Task> deletedTask, TriviaManager triviaManager) throws IOException {
         //editNote day/week/month yyyy-MM-dd <note_num = index+1>
         //<the note they want to edit to become>
         String[] command = ui.fullCommand.split(" ");
@@ -84,11 +85,14 @@ public class EditNoteCommand extends AddNoteCommand {
         String usersNote = ui.fullCommand;
         try {
             switch (command[1]) {
-            case "day": editNoteInList(noteNum, NoteList.daily, userDate, usersNote, command[1], "NoteDaily.txt");
+            case DAY:
+                editNoteInList(noteNum, NoteList.daily, userDate, usersNote, command[1], NOTE_DAILY);
                 break;
-            case "week": editNoteInList(noteNum, NoteList.weekly, userDate, usersNote, command[1], "NoteWeekly.txt");
+            case WEEK:
+                editNoteInList(noteNum, NoteList.weekly, userDate, usersNote, command[1], NOTE_WEEKLY);
                 break;
-            case "month": editNoteInList(noteNum, NoteList.monthly, userDate, usersNote, command[1], "NoteMonthly.txt");
+            case MONTH:
+                editNoteInList(noteNum, NoteList.monthly, userDate, usersNote, command[1], NOTE_MONTHLY);
                 break;
             default: System.out.println("Bug in EditNoteCommand");
                 System.exit(1);

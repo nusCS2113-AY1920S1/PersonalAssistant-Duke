@@ -28,7 +28,7 @@ public class AddPlacesCommand {
             for (String key : places.keySet()) {
                 toStore = toStore.concat(key + "|" + places.get(key) + "\n");
             }
-            storage.Storages_Places(toStore);
+            storage.storagesPlaces(toStore);
         } catch (IOException|ArrayIndexOutOfBoundsException e) {
            System.out.println("Please Input in the correct format");
         }

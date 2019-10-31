@@ -7,27 +7,41 @@ import gazeeebo.UI.Ui;
 import gazeeebo.commands.Command;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Stack;
+import java.util.HashMap;
+import java.util.TreeMap;
+import java.util.Map;
 
 /**
  * Deals with the user input in the contacts page.
  */
 public class ContactCommand extends Command {
-    private static final String LINEBREAK = "------------------------------------------\n";
+    private static final String LINEBREAK
+            = "------------------------------------------\n";
     /**
-     * This method is the list of all the contact numbers and you got add/find/delete contacts.
+     * This method is the list of all the
+     * contact numbers and you got add/find/delete contacts.
      *
      * @param list    list of all tasks
      * @param ui      the object that deals with printing things to the user.
      * @param storage the object that deals with storing data.
+     * @param commandStack
      * @throws IOException Catch error if the read file fails
      */
     @Override
-    public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<String> commandStack, ArrayList<Task> deletedTask, TriviaManager triviaManager) throws IOException {
-        HashMap<String, String> map = storage.readFromContactFile(); //Read the file
+    public void execute(final ArrayList<Task> list,
+                        final Ui ui,
+                        final Storage storage,
+                        final Stack<ArrayList<Task>> commandStack,
+                        final ArrayList<Task> deletedTask,
+                        final TriviaManager triviaManager) throws IOException {
+        HashMap<String, String> map
+                = storage.readFromContactFile(); //Read the file
         Map<String, String> contactList = new TreeMap<String, String>(map);
 
-        System.out.print("Welcome to your contacts page! What would you like to do?\n\n");
+        System.out.print("Welcome to your contacts page! "
+                + "What would you like to do?\n\n");
         String helpContact = "__________________________________________________________\n"
                 + "1. Add contacts: add\n"
                 + "2. Find contacts base on name: find name\n"
@@ -49,14 +63,14 @@ public class ContactCommand extends Command {
                 new DeleteContactCommand(ui, contactList);
             } else if (ui.fullCommand.equals("help")) {
                 System.out.println(helpContact);
-            }
-            else {
+            } else {
                 System.out.println("Incorrect format");
             }
             String toStore = "";
             for (String key : contactList.keySet()) {
 
-                toStore = toStore.concat(key + "|" + contactList.get(key) + "\n");
+                toStore = toStore.concat(key
+                        + "|" + contactList.get(key) + "\n");
             }
             storage.writeToContactFile(toStore);
             System.out.println("What do you want to do next ?");

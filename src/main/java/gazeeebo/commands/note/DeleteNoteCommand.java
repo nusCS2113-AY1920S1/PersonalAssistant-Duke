@@ -1,3 +1,4 @@
+//@@author yueyuu
 package gazeeebo.commands.note;
 
 import gazeeebo.storage.NoteStorage;
@@ -48,7 +49,7 @@ public class DeleteNoteCommand extends EditNoteCommand {
                 }
             }
         }
-        throw new DukeException("OOPS!!! There are no gazeeebo.notes for this " + period + " to delete.");
+        throw new DukeException("OOPS!!! There are no notes for this " + period + " to delete.");
     }
 
     /**
@@ -64,7 +65,7 @@ public class DeleteNoteCommand extends EditNoteCommand {
 
     /** The main method that executes all the sub methods. */
     @Override
-    public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<String> commandStack, ArrayList<Task> deletedTask, TriviaManager triviaManager) throws IOException {
+    public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<ArrayList<Task>> commandStack, ArrayList<Task> deletedTask, TriviaManager triviaManager) throws IOException {
         //deleteNote day/week/month yyyy-MM-dd <note_num>
         String[] command = ui.fullCommand.split(" ");
         LocalDate userDate;
@@ -86,14 +87,14 @@ public class DeleteNoteCommand extends EditNoteCommand {
         String noteToBeDeleted;
         try {
             switch (command[1]) {
-            case "day":
-                noteToBeDeleted = deleteNoteInList(noteNum, NoteList.daily, userDate, command[1], "NoteDaily.txt");
+            case DAY:
+                noteToBeDeleted = deleteNoteInList(noteNum, NoteList.daily, userDate, command[1], NOTE_DAILY);
                 break;
-            case "week" :
-                noteToBeDeleted = deleteNoteInList(noteNum, NoteList.weekly, userDate, command[1], "NoteWeekly.txt");
+            case WEEK :
+                noteToBeDeleted = deleteNoteInList(noteNum, NoteList.weekly, userDate, command[1], NOTE_WEEKLY);
                 break;
-            case "month":
-                noteToBeDeleted = deleteNoteInList(noteNum, NoteList.monthly, userDate, command[1], "NoteMonthly.txt");
+            case MONTH:
+                noteToBeDeleted = deleteNoteInList(noteNum, NoteList.monthly, userDate, command[1], NOTE_MONTHLY);
                 break;
             default: noteToBeDeleted = null;
                 break;
