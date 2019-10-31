@@ -1,5 +1,6 @@
 package wallet.logic.parser;
 
+import wallet.exception.InsufficientParameters;
 import wallet.logic.LogicManager;
 import wallet.logic.command.AddCommand;
 import wallet.model.contact.Contact;
@@ -25,11 +26,16 @@ public class AddCommandParser implements Parser<AddCommand> {
      * @throws ParseException ParseException.
      */
     @Override
-    public AddCommand parse(String input) throws ParseException {
+    public AddCommand parse(String input) throws ParseException, InsufficientParameters {
         String[] arguments = input.split(" ", 2);
         switch (arguments[0]) {
         case "expense":
-            Expense expense = parseExpense(arguments[1]);
+            Expense expense;
+            try {
+                expense = parseExpense(arguments[1]);
+            } catch (ArrayIndexOutOfBoundsException err) {
+                throw new InsufficientParameters("There are no arguments when adding expenses!");
+            }
             if (expense != null) {
                 return new AddCommand(expense);
             } else {
@@ -37,19 +43,28 @@ public class AddCommandParser implements Parser<AddCommand> {
             }
 
         case "contact":
-            Contact contact = parseContact(arguments[1]);
+            Contact contact;
+            try {
+                contact = parseContact(arguments[1]);
+            } catch (ArrayIndexOutOfBoundsException err) {
+                throw new InsufficientParameters("There are no arguments when adding contacts!");
+            }
             if (contact != null) {
                 return new AddCommand(contact);
             } else {
                 break;
             }
         case "loan":
-            Loan loan = parseLoan(arguments[1]);
+            Loan loan;
+            try {
+                loan = parseLoan(arguments[1]);
+            } catch (ArrayIndexOutOfBoundsException err) {
+                throw new InsufficientParameters("There are no arguments when adding loans!");
+            }
             if (loan != null) {
                 return new AddCommand(loan);
-            } else {
-                break;
             }
+            break;
         default:
             System.out.println(AddCommand.MESSAGE_USAGE);
             return null;
@@ -116,7 +131,7 @@ public class AddCommandParser implements Parser<AddCommand> {
      * @throws ArrayIndexOutOfBoundsException Out of index.
      * @throws ParseException                 ParseException.
      */
-    Loan parseLoan(String input) throws ArrayIndexOutOfBoundsException, ParseException {
+    Loan parseLoan(String input) throws InsufficientParameters, ParseException {
         //@@author A0171206R
         Loan loan = null;
         Boolean isLend = false;

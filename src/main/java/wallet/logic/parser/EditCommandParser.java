@@ -1,5 +1,7 @@
 package wallet.logic.parser;
 
+import wallet.exception.InsufficientParameters;
+import wallet.exception.WrongParameterFormat;
 import wallet.logic.LogicManager;
 import wallet.logic.command.EditCommand;
 import wallet.model.Wallet;
@@ -7,6 +9,7 @@ import wallet.model.contact.Contact;
 import wallet.model.record.Category;
 import wallet.model.record.Expense;
 import wallet.model.record.Loan;
+import wallet.ui.Ui;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -20,11 +23,16 @@ public class EditCommandParser implements Parser<EditCommand> {
     public static final String MESSAGE_ERROR_EDIT_CONTACT = "Error in input format when editing contact.";
 
     @Override
-    public EditCommand parse(String input) {
+    public EditCommand parse(String input) throws InsufficientParameters {
         String[] arguments = input.split(" ", 2);
         switch (arguments[0]) {
         case "expense":
-            Expense expense = parseExpense(arguments[1]);
+            Expense expense;
+            try {
+                expense = parseExpense(arguments[1]);
+            } catch (ArrayIndexOutOfBoundsException err) {
+                throw new InsufficientParameters("There are no arguments when editing the expense!");
+            }
             if (expense != null) {
                 return new EditCommand(expense);
             } else {
@@ -32,14 +40,24 @@ public class EditCommandParser implements Parser<EditCommand> {
             }
 
         case "loan":
-            Loan loan = parseLoan(arguments[1]);
+            Loan loan;
+            try {
+                loan = parseLoan(arguments[1]);
+            } catch (ArrayIndexOutOfBoundsException err) {
+                throw new InsufficientParameters("There are no arguments when editing the loan!");
+            }
             if (loan != null) {
                 return new EditCommand(loan);
             }
             break;
 
         case "contact":
-            Contact contact = parseContact(arguments[1]);
+            Contact contact;
+            try {
+                contact = parseContact(arguments[1]);
+            } catch (ArrayIndexOutOfBoundsException err) {
+                throw new InsufficientParameters("There are no arguments when editing the contact!");
+            }
             if (contact != null) {
                 return new EditCommand(contact);
             } else {
@@ -91,12 +109,20 @@ public class EditCommandParser implements Parser<EditCommand> {
      *
      * @param input User input arguments
      */
-    Loan parseLoan(String input) throws NumberFormatException, ArrayIndexOutOfBoundsException {
+    Loan parseLoan(String input) throws NumberFormatException, InsufficientParameters {
         //@@author A0171206R
         Loan loan = new Loan();
+        int loanId;
+        boolean isValid = true;
 
         String[] arguments = input.split(" ", 2);
-        int loanId = Integer.parseInt(arguments[0].trim());
+        String[] check = input.split(" ");
+        try {
+            loanId = Integer.parseInt(arguments[0].trim());
+        } catch (NumberFormatException err) {
+            throw new WrongParameterFormat("You need to provide a valid ID (Number) when editing your loans!");
+        }
+
         loan.setId(loanId);
         String parameters = arguments[1].trim();
 

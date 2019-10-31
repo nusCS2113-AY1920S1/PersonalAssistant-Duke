@@ -247,4 +247,14 @@ public class Ui {
                 + "--------------------------------------------------------");
         //@@author
     }
+
+    /**
+     * Prints an error message with the given content.
+     *
+     * @param exceptionMessage The specifics of the error.
+     */
+    public static void printError(String exceptionMessage) {
+        System.out.println("OOPS!!! " + exceptionMessage);
+    }
+
 }

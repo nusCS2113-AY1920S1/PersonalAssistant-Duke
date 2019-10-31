@@ -2,7 +2,11 @@
 
 package wallet.logic.parser;
 
+import wallet.exception.InsufficientParameters;
+import wallet.exception.WrongParameterFormat;
 import wallet.logic.command.DoneCommand;
+import wallet.ui.Ui;
+
 import java.text.ParseException;
 
 /**
@@ -20,10 +24,19 @@ public class DoneCommandParser implements Parser<DoneCommand> {
      * @throws ParseException ParseException.
      */
     @Override
-    public DoneCommand parse(String input) throws ParseException {
-        String[] arguments = input.split(" ", 2);
-
-        int id = Integer.parseInt(arguments[1]);
-        return new DoneCommand(id);
+    public DoneCommand parse(String input) throws InsufficientParameters, ParseException {
+        String[] arguments = input.split(" ");
+        int id;
+        if (arguments[0].equals("loan")) {
+            try {
+                id = Integer.parseInt(arguments[1]);
+            } catch (NumberFormatException err) {
+                throw new WrongParameterFormat("You need to provide a valid ID (Number) when settling your loans!");
+            }
+            return new DoneCommand(id);
+        } else {
+            Ui.printError("DONE command can only be applied to loans!");
+            return null;
+        }
     }
 }

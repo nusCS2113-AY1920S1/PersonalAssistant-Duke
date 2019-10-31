@@ -67,6 +67,7 @@ public class ExpenseParser {
                                 e.getAmount(), e.getCategory(), false, null);
                     }
                     new AddCommand(expense).execute(wallet);
+
                     expenseDate = expenseDate.plusDays(1);
                 }
             } else if (e.getRecFrequency().equals("WEEKLY")) {
@@ -89,7 +90,9 @@ public class ExpenseParser {
                         expense = new Expense(e.getDescription(), expenseDate,
                                 e.getAmount(), e.getCategory(), false, null);
                     }
+
                     new AddCommand(expense).execute(wallet);
+
                     expenseDate = expenseDate.plusDays(7);
                 }
             } else if (e.getRecFrequency().equals("MONTHLY")) {
