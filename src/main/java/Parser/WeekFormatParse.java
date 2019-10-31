@@ -13,7 +13,7 @@ public class WeekFormatParse {
         if (weekDate.equalsIgnoreCase("reading") || weekDate.equalsIgnoreCase("exam")
                 || weekDate.equalsIgnoreCase("week") || weekDate.equalsIgnoreCase("recess")) {
 
-            weekDate = LT.getValue(date) ;
+            weekDate = LT.getValue(date) + " ";
         } else {
             weekDate = date;
         }
