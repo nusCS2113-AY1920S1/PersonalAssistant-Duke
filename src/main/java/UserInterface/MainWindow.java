@@ -8,6 +8,8 @@ import Commons.LookupTable;
 import Commons.Storage;
 import Commons.WeekList;
 import DukeExceptions.DukeIOException;
+import DukeExceptions.DukeInvalidFormatException;
+import Parser.WeekParse;
 import Tasks.Assignment;
 import Tasks.TaskList;
 import javafx.animation.PauseTransition;
@@ -30,8 +32,9 @@ import javafx.scene.text.Text;
 import javafx.util.Duration;
 import javafx.util.Pair;
 
-import java.io.*;
-import java.net.URISyntaxException;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.net.URL;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -122,23 +125,21 @@ public class MainWindow extends BorderPane implements Initializable {
 
     private void displayQuoteOfTheDay(){
         try {
-            ArrayList<String> listOfQuotes = new ArrayList<>();
-            InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("documents/quotes.txt");
-            InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
-            BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-            StringBuffer sb = new StringBuffer();
-            String firstLine;
-            String line;
-            while ((line = bufferedReader.readLine()) != null){
-                listOfQuotes.add(line);
+            File path = new File(System.getProperty("user.dir") + File.separator + "data" + File.separator + "quotes.txt");
+            Scanner scanner = new Scanner(path);
+            String firstLine = scanner.nextLine();
+            FileWriter writer = new FileWriter(path);
+
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                if (line != firstLine)
+                    writer.write(line + "\n");
             }
-            Random random = new Random();
-            int result = random.nextInt(68);
-            firstLine = listOfQuotes.get(result);
+            writer.write(firstLine+"\n");
             AlertBox.display("Quote of the day", "Quote of the day !!", firstLine, Alert.AlertType.INFORMATION);
-            bufferedReader.close();
-            inputStreamReader.close();
-            inputStream.close();
+
+            scanner.close();
+            writer.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -283,16 +284,33 @@ public class MainWindow extends BorderPane implements Initializable {
         dukeResponseColumn = new TableColumn<>();
         dukeResponseColumn.setText("Duke Response");
         dukeResponseColumn.setSortable(false);
+        /*dukeResponseColumn.setCellFactory((param) -> new TableCell<>() {
+            @Override
+            protected void updateItem(String item, boolean empty) {
+                if (item != null) {
+                    setText(item);
+                    if (dukeResponseTable.getSelectionModel().getFocusedIndex() == getTableRow().getIndex()) {
+                        setStyle("-fx-background-color: red;");
+                    } else {
+                        setStyle(null);
+                    }
+                }
+                super.updateItem(item, empty);
+            }
+        });*/
         dukeResponseColumn.setCellValueFactory(new PropertyValueFactory("response"));
         dukeResponseTable.setItems(betterDukeResponse);
         dukeResponseTable.getColumns().add(dukeResponseColumn);
+        dukeResponseTable.scrollTo(betterDukeResponse.size()-1);
+        dukeResponseTable.getSelectionModel().select(betterDukeResponse.size()-1);
+        dukeResponseTable.getSelectionModel().getFocusedIndex();
     }
 
     @FXML
-    private void handleUserInput() throws IOException {
+    private void handleUserInput() throws IOException, DukeInvalidFormatException {
         String input = userInput.getText();
         String response = duke.getResponse(input);
-        if(input.startsWith("Week")) {
+        /*if(input.startsWith("Week")) {
             Integer digit = -1;
             boolean isDigit = true;
             try {
@@ -315,6 +333,12 @@ public class MainWindow extends BorderPane implements Initializable {
                     setWeek(false, week);
                 }
             }
+        }*/
+        if(input.startsWith("Week")) {
+            if(WeekParse.isValid(input)) {
+                week = input;
+                setWeek(false, week);
+            }
         }
 
         duke.getResponse(week);
@@ -323,6 +347,10 @@ public class MainWindow extends BorderPane implements Initializable {
 
         outputList = ShowPreviousCommand.getOutputList();
         setDeadlineTable();
+        overdueDateColumn = new TableColumn<>();
+        overdueDateColumn.setText("Overdue");
+        overdueTaskColumn = new TableColumn<>();
+        overdueTaskColumn.setText("TASK");
         overdueDateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
         overdueTaskColumn.setCellValueFactory(new PropertyValueFactory<>("task"));
         overdueTable.setItems(setOverdueTable());
@@ -331,7 +359,7 @@ public class MainWindow extends BorderPane implements Initializable {
         setProgressContainer();
         if(!response.isEmpty()) {
             Text temp = new Text(response);
-            temp.setWrappingWidth(dukeResponseColumn.getWidth() - 15);
+            temp.setWrappingWidth(dukeResponseColumn.getWidth() - 20);
             Integer index = betterDukeResponse.size() + 1;
             betterDukeResponse.add(new DukeResponseView(index.toString(), temp));
             setDukeResponse();
@@ -344,7 +372,7 @@ public class MainWindow extends BorderPane implements Initializable {
         }
         userInput.clear();
 
-        if (input.contains("retrieve/previous")) {
+        if (input.contains("retrieve previous")) {
             String previousInput = Duke.getPreviousInput();
             userInput.setText(previousInput);
         } else if (input.startsWith("retrieve/ft ")) {
