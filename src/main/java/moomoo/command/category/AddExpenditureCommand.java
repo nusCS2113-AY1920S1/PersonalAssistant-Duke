@@ -3,6 +3,7 @@ package moomoo.command.category;
 import java.time.LocalDate;
 
 import moomoo.command.Command;
+import moomoo.command.NotificationCommand;
 import moomoo.task.MooMooException;
 import moomoo.task.Storage;
 import moomoo.task.Ui;
@@ -43,7 +44,7 @@ public class AddExpenditureCommand extends Command {
                 Expenditure newExpenditure = new Expenditure(expenditureName, amount, date);
                 categoryList.get(i).add(newExpenditure);
                 Category cat = categoryList.get(i);
-                NotificationCommand alert = new NotificationCommand(categoryName, cat.getCategoryMonthTotal());
+                NotificationCommand alert = new NotificationCommand(categoryName, cat.getTotal());
                 alert.execute(calendar, budget, categoryList, category, ui, storage);
                 storage.saveExpenditureToFile(newExpenditure, categoryName);
                 ui.showNewExpenditureMessage(expenditureName, categoryName);

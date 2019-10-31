@@ -247,4 +247,8 @@ public class Ui {
                 + "total";
         print(text);
     }
+
+    public void printMainDisplay(String newMainDisplay) {
+        print(newMainDisplay);
+    }
 }

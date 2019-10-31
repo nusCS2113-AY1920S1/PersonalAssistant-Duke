@@ -125,6 +125,7 @@ public class Category {
         }
         case "date": {
             category.sort(Comparator.comparing(Expenditure::dateToString));
+            return;
         }
         default:
         }
