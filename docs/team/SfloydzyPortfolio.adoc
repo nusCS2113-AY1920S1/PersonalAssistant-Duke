@@ -3,38 +3,59 @@
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-== PROJECT: Sports Manager
-
----
+== PROJECT: Coach Manager
 
 == Overview
 
-Coach Manager is a [function, Eg:a desktop address book application used for teaching Software Engineering principles. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.]
+This portfolio serves to document my contributions in a team-based software engineering project for the module CS2113T. The team comprises of 4 members ad we were tasked to develop a working application within 8 weeks. Throughout the project, we were challenged to incorporate a Software Engineering project into a product of our own. We decided to morph the existing application into a task manager, called Coach Manager.
+
+To comply with the module requirements, the team is constrained to start from an existing code base – Duke Level 9 and the user must interact with the application via Command Line interface(CLI).
+
+Coach Manager is a desktop application created for trainers to assist them in managing their schedule and the progress of their students.
+
+This is what our project looks like.
+
+image::Ui.png[align="Center"]
+
+My role was to manage the overall project and manage the Git Repo. I also ensured code quality across pull requests. I designed and wrote the code for the `Schedule Manager`, `GUI` and `Storage` features. I have added to the user guide and developer guides in relation to these features as well.
 
 == Summary of contributions
 
-* *Major enhancement*: supplied main code from Duke levels 1-9 as code source
-** Main code source to operate Duke
+* *Feature*: Supplied code source of the project
+** Provided the code outline for the OOP interaction between classes
 
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+* *Feature*: Schedule Manager
+*** What it does: Manages all the schedule classes and represents them in a daily/weekly/monthly view that is easy to see
+
+* *Feature*: GUI
+*** What it does: Provides a graphic user interface that is easy to see and navigate.
+*** Justification: Clearly represents the system for the user. Navigation and accessibility of functions are graphically represented. No mistakes from the user side will be made when keying in commands.
+*** Highlights: This feature works to be implemented in the future v2.0 update.
+
 
 * *Major enhancement*: Created the JavaFX UI with FXML files.
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Code contributed*:
+** [https://github.com/AY1920S1-CS2113T-W13-1/main/blob/master/src/main/java/duke/parser/ParserSchedule.java[ParserSchedule]] [https://www.youtube.com/watch?v=dQw4w9WgXcQ[Test Code]]
+** [https://github.com/AY1920S1-CS2113T-W13-1/main/blob/master/src/main/java/duke/models/Schedule.java[Schedule]] [https://www.youtube.com/watch?v=dQw4w9WgXcQ[Test Code]]
+** [https://github.com/AY1920S1-CS2113T-W13-1/main/blob/master/src/main/java/duke/launcher/gui/Controller.java[Gui Controller]] [https://www.youtube.com/watch?v=dQw4w9WgXcQ[Test Code]]
+** [https://github.com/AY1920S1-CS2113T-W13-1/main/tree/master/src/main/resources/view[FXML View Files for GUI]]
 
-* *Other contributions*:
 
-** Project management:
-*** Managed releases 1.0 - 1.3 on GitHub
-** Enhancements to existing features:
-*** Eg: Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Eg: Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
-** Documentation:
-*** Eg: Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+* *Project management*:
+** Managed releases 1.0 - 1.3 on GitHub
+*** Refactoring main code
+*** Maintaining code quality with CheckStyle https://github.com/AY1920S1-CS2113T-W13-1/main/pull/208[#208]
+** Tools:
+*** Installed Travis on Git Repo for Continuous Integration
 
-**Contributions to Developer Guide
-== Implementation
+== Contributions to Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+=== Implementation
 This section describes some noteworthy details on how certain features are implemented.
 
 === Scheduler
@@ -57,7 +78,7 @@ In this feature there are a few main commands.
 
 The flow of these commands and how they are executed will be described below. A sequence diagram will be given to help illustrate the process.
 
-1. <<addDay>>
+
 
 ==== addDay
 The TimeSlot Class implements the login feature by creating an object that represents a scheduled class in a day.
@@ -78,17 +99,6 @@ The following sequence diagram below shows the flow of `addDay`.
 image::addClass.png[align="left"]
 
 
-** Community:
-*** Eg: PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Eg: Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Eg: Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Eg: Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-** Tools:
-*** Eg: Integrated a third party library (Travis) to the project (https://github.com[#42])
-*** Eg: Integrated a new Github plugin (CircleCI) to the team repo
-
-_{you can add/remove categories in the list above}_
-
 == Contributions to the User Guide
 
 
@@ -103,16 +113,54 @@ include::../UserGuide.adoc[tag=dataencryption]
 == Contributions to the Developer Guide
 
 |===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
+=== Features
 
-include::../DeveloperGuide.adoc[tag=undoredo]
+==== Menu
+*Description:* The trainer is able to navigate across the different features of the app easily. He may also see the list of commands for each featured menu.
 
-include::../DeveloperGuide.adoc[tag=dataencryption]
+*Format: `_[MENU NUMBER]_`*
+
+* Navigates from the list of menu options to the listed menu option.
+
+Example:
 
 
-== PROJECT: PowerPointLabs
+
+* Entering “1” will direct user to “Training Schedule Menu”
+
+
+
+=== Training Schedule
+**Description: ** Feature allows the trainer to add or remove training days to a training schedule. The manager may select to view the schedule by the day/week/month. After creating a training day, they will be able to add students to the class.
+
+*Must be inside the Training Schedule Menu*
+
+*View schedule for days*
+
+Able to see all the days given in the month.
+
+** *Option:* `1`
+
+*** See which day is the present day
+*** highlights which days have classes
+
+
+*View all days in the week*
+
+Able to see all the days given in the present week.
+
+* *Option:* `2`
+
+**  See which day in the week has classes
+
+*View next/previous week/month*
+
+Able to see all the days upcoming or prior week/month.
+
+* *Option:* `3`
+*** Shows a calendar of the present month
 
 ---
 
-_{Optionally, you may include other projects in your portfolio.}_
