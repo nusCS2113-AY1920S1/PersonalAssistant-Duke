@@ -4,15 +4,15 @@ import common.DukeException;
 import core.Duke;
 
 import java.util.ArrayList;
-//@@authorJustinChia1997
+
 /**
  * Exposes the api of Model, this falls in line with open close policy, allowing the different implementations of
  * model to be used, without having to change other major parts of the code
- *
- * */
+ */
 public interface Model {
-
+    //@@author JustinChia1997
     //==================Storage Interface======================
+
     void load();
 
     void save();
@@ -41,6 +41,10 @@ public interface Model {
 
     String scheduleMemberTodo(String memberName) throws DukeException;
 
+    //TODO look into using exceptions instead?
+    boolean addTaskReqSkill(String taskName, String skillName);
+
+
     //==================Member Interface======================
     ArrayList<Member> getMemberList();
 
@@ -53,6 +57,8 @@ public interface Model {
     boolean deleteMember(String name) throws DukeException;
 
     boolean hasMember(String name) throws DukeException;
+
+    boolean addMemberSkill(String memberName, String skillName);
 
     //==================Task and Member Interface======================
     void link(int tasksIndexes, String memberNames);

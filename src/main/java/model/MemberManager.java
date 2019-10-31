@@ -3,7 +3,6 @@ package model;
 import common.DukeException;
 
 import java.util.ArrayList;
-
 //@@author chenyuheng
 public class MemberManager {
     public static final String MESSAGE_DUPLICATED_MEMBER_NAME = "Duplicated member name.";
@@ -35,6 +34,7 @@ public class MemberManager {
         }
     }
 
+    //@@author JustinChia1997
     /**
      * Get the Member object by its name.
      *
@@ -147,6 +147,14 @@ public class MemberManager {
 
     public ArrayList<String> getTaskListOfMember(String memberName) {
         return getMemberByName(memberName).getTaskList();
+    }
+
+    public boolean addSkill(String memberName, String skillName){
+        if(hasMember(memberName)) {
+            return getMemberByName(memberName).addSkill(skillName);
+        } else {
+            return false;
+        }
     }
 
     //@@author JasonChanWQ

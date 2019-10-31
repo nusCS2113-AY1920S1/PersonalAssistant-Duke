@@ -12,7 +12,7 @@ public class TasksManager implements Serializable {
 
     /**
      * add javadoc please
-     * */
+     */
     public TasksManager(ArrayList<Task> taskList) {
         if (taskList != null) {
             this.taskList = taskList;
@@ -55,6 +55,17 @@ public class TasksManager implements Serializable {
     }
 
     /**
+     * @return true if skill req was sucessfully added
+     */
+    public boolean addReqSkill(String taskName, String skillName) {
+        if(hasTask(taskName)){
+            return getTaskByName(taskName).addReqSkill(skillName);
+        } else {
+            return false;
+        }
+    }
+
+    /**
      * Delete a task from the task list.
      *
      * @param taskIndexInList The task index in tasklist to be deleted.
@@ -82,7 +93,7 @@ public class TasksManager implements Serializable {
      * Delete link(s) from task(s) to member(s). Non-existing link won't be deleted.
      * This is the reverse method of <code>addMember(Task[] tasks, Member[] toAdd)</code> method.
      *
-     * @param tasks arraylist
+     * @param tasks    arraylist
      * @param toDelete arraylist
      */
     public void deleteMember(Task[] tasks, String[] toDelete) {
@@ -97,6 +108,7 @@ public class TasksManager implements Serializable {
 
     /**
      * delete member (person in charge) in task list
+     *
      * @param memberName member name to be deleted
      */
     public void deleteMemberInTasks(String memberName) {
@@ -117,9 +129,10 @@ public class TasksManager implements Serializable {
 
 
     //@@author JustinChia1997
+
     /**
      * checks if task is present in task list
-     * */
+     */
     public boolean hasTask(String name) {
         for (int i = 0; i < taskList.size(); i += 1) {
             if (taskList.get(i).getName().equals(name.trim())) {
@@ -151,8 +164,10 @@ public class TasksManager implements Serializable {
     }
 
     //@@author yuyanglin28
+
     /**
      * get the tasks contain keyword
+     *
      * @param keyword keyword to be searched
      * @return a string shows the task list contain keyword
      */
@@ -168,22 +183,26 @@ public class TasksManager implements Serializable {
     }
 
     //@@author yuyanglin28
+
     /**
      * schedule all task list
+     *
      * @return a string shows the scheduled task list
      */
     public String scheduleTeamAll() {
-        ArrayList<Task> taskListCopy = (ArrayList<Task>)taskList.clone();
+        ArrayList<Task> taskListCopy = (ArrayList<Task>) taskList.clone();
         return showScheduleOfTaskList(taskListCopy);
     }
 
     //@@author yuyanglin28
+
     /**
      * schedule todo task list
+     *
      * @return a string shows the scheduled todo task list
      */
     public String scheduleTeamTodo() {
-        ArrayList<Task> taskListCopy = (ArrayList<Task>)taskList.clone();
+        ArrayList<Task> taskListCopy = (ArrayList<Task>) taskList.clone();
         ArrayList<Task> todoTasks = new ArrayList<>();
         todoTasks = pickTodo(taskListCopy);
         return showScheduleOfTaskList(todoTasks);
@@ -191,10 +210,12 @@ public class TasksManager implements Serializable {
     }
 
     //@@author yuyanglin28
+
     /**
      * schedule tasks supplied by task name
+     *
      * @param tasksName tasks to be scheduled
-     * @return  a string shows the scheduled task list
+     * @return a string shows the scheduled task list
      */
     public String scheduleAllTasks(ArrayList<String> tasksName) {
         ArrayList<Task> allTasks = new ArrayList<>();
@@ -205,8 +226,10 @@ public class TasksManager implements Serializable {
     }
 
     //@@author yuyanglin28
+
     /**
      * schedule todo tasks supplied by task name
+     *
      * @param tasksName tasks to be scheduled (contain finished tasks)
      * @return a string shows the scheduled todo task list
      */

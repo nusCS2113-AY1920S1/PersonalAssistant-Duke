@@ -20,7 +20,6 @@ public class Task {
         this.name = name.trim();
         this.memberList = new ArrayList<>();
         this.skillReqList = new ArrayList<String>();
-        addReqSkill("HOLA");
     }
 
     /**
@@ -96,7 +95,7 @@ public class Task {
         //TODO add regex to check for skillName
         if (!skillReqList.contains(skillName)) {
             skillReqList.add(skillName);
-            LoggerController.logDebug(Task.class, "Added skill" + skillReqList.get(0));
+            LoggerController.logDebug(Task.class, "Added skill all the way " + skillName);
             return true;
         } else {
             return false;

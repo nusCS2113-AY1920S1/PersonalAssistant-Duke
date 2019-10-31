@@ -6,7 +6,7 @@ import java.util.HashMap;
 
 //@@author chenyuheng
 public class ArgumentTokenizer {
-    public static final String[] TOKENS = new String[]{"/to", "/at", "/from"};
+    public static final String[] TOKENS = new String[]{"/to", "/at", "/from", "/skill"};
 
     /**
      * add javadocs

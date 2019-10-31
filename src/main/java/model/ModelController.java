@@ -65,12 +65,16 @@ public class ModelController implements Model {
         return newTask;
     }
 
-
     @Override
     public boolean hasTask(String name) throws DukeException {
         return tasksManager.hasTask(name);
+
     }
 
+    @Override
+    public boolean addTaskReqSkill(String taskName, String skillName) {
+        return tasksManager.addReqSkill(taskName, skillName);
+    }
 
 
     //=================Member interfaces=============================================
@@ -101,9 +105,15 @@ public class ModelController implements Model {
         return memberManager.hasMember(name);
     }
 
+    @Override
+    public boolean addMemberSkill(String memberName, String skillName) {
+        return memberManager.addSkill(memberName, skillName);
+    }
 
-    //============================
 
+    //============================ Task and member interfaces =================================
+
+    //@@author JustinChia1997
     @Override
     public void link(int taskIndex, String memberName) {
         tasksManager.getTaskById(taskIndex).addMember(memberName);

@@ -42,6 +42,10 @@ public class AddTaskParser {
         if (members != null) {
             command.setMembers(members);
         }
+        String skills = argumentMultimap.get("/skill");
+        if (skills != null) {
+            command.setReqSkill(skills);
+        }
         return command;
     }
 

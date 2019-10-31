@@ -97,7 +97,7 @@ public class Member {
         //TODO add regex to check for skillName
         if (!skillList.contains(skillName)) {
             skillList.add(skillName);
-            //LoggerController.logDebug(Member.class, "skill added");
+            LoggerController.logDebug(Member.class, "Added all the way " + skillName);
             return true;
         } else {
             return false;

@@ -25,6 +25,7 @@ public class NewParser {
     public static final String BYE_COMMAND_WORD = "BYE";
     public static final String SCHEDULE_COMMAND_WORD = "SCHEDULE";
     public static final String REMINDER_COMMAND_WORD = "REMINDER";
+    public static final String MATCH_COMMAND_WORD = "MATCH";
 
     //@@author JustinChia1997
 
@@ -80,6 +81,8 @@ public class NewParser {
             return ScheduleCommandParser.parseScheduleCommand(arguments);
         case REMINDER_COMMAND_WORD:
             return ReminderCommandParser.parseReminder(arguments);
+        case MATCH_COMMAND_WORD:
+            return MatchCommandParser.parseMatch(arguments);
 
         default:
             throw new DukeException("Command not found");

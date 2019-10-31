@@ -5,13 +5,14 @@ import model.Task;
 import common.DukeException;
 import common.LoggerController;
 
-import java.util.Date;
+import java.util.*;
 
 public class AddTaskCommand extends Command {
 
     public static final String FEEDBACK_MESSAGE = "You have created a new task: ";
     private String taskName;
     private String members;
+    private List<String> reqSkill;
     private Date time;
 
     public AddTaskCommand(String taskName) {
@@ -27,6 +28,12 @@ public class AddTaskCommand extends Command {
     }
 
     //@@author JustinChia1997
+    public void setReqSkill(String fullSkill) {
+        reqSkill = Arrays.asList(fullSkill.split("\\s+"));
+        LoggerController.logDebug(AddTaskCommand.class, "Added skill " + reqSkill.get(0));
+    }
+
+    //@@author chenyuheng
     @Override
     public CommandOutput execute(Model model) throws DukeException {
         Task newTask = model.addTask(taskName);
@@ -44,8 +51,13 @@ public class AddTaskCommand extends Command {
                 }
             }
         }
+        if (reqSkill.size() != 0) {
+            for (int i = 0; i < reqSkill.size(); i += 1) {
+                model.addTaskReqSkill(taskName, reqSkill.get(i));
+            }
+        }
         model.save();
-
+        //@@author JustinChia1997
         if (model.hasTask(taskName)) {
             LoggerController.logInfo(AddTaskCommand.class, "Task "
                     + taskName + " has been added successfully");
