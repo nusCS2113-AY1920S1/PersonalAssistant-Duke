@@ -1,29 +1,68 @@
 @startuml
+Note "*" --* "1" Chord : composes of
+Chord "*" --* "1" Bar : composes of
+Bar "*" --* "1" Song : composes of
 
-SongList *-right- Song
-Song o-- Bar
-Song o-right- Group
-Bar *-- Chord
-Bar -left-* Group
-Chord *-right- Note
-Pitch .. Note
+Bar "*" --o "1" Group : aggregation of
+Group "*" --* "1" Song : composes of
 
-enum Pitch {
-    UPPER_C,
-    UPPER_B,
-    UPPER_A,
-    UPPER_G,
-    UPPER_F,
-    UPPER_E,
-    UPPER_D,
-    MIDDLE_C,
-    LOWER_B,
-    LOWER_A,
-    LOWER_G,
-    LOWER_F,
-    LOWER_E,
-    LOWER_D,
-    LOWER_C
+Note ..> Pitch
+
+
+class Note {
+  -pitch: Pitch
+  -duration: String
 }
 
+class Chord {
+  -notes: ArrayList<Note>
+}
+
+class Bar {
+  -barId: int
+  -chords: ArrayList<Chord>
+}
+
+class Song {
+  -name: String
+  -key: String
+  -tempo: int
+}
+
+class Group {
+  -name: String
+  -bars: ArrayList<Bar>
+}
+
+enum Pitch <<enumeration>> {
+  LOWER_C
+  LOWER_D
+  LOWER_E
+  LOWER_F
+  LOWER_G
+  LOWER_A
+  LOWER_B
+  MIDDLE_C
+  UPPER_D
+  UPPER_E
+  UPPER_F
+  UPPER_G
+  UPPER_A
+  UPPER_B
+  UPPER_C
+  REST
+}
+
+Note -[hidden]> Chord
+Note -[hidden]-> Pitch
+Group -[hidden]> Song
+
+skinparam class {
+  BackgroundColor LightCyan
+  BorderColor Black
+}
+skinparam stereotypeCBackgroundColor LightGreen
+
+skinparam classAttributeIconSize 0
+hide empty members
 @enduml

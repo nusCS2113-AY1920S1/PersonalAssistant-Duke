@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 //@@author jwyf
 /**
- * A class representing the command to add a new bar of notes to the current song.
+ * A class representing the command to add a new bar of notes at the end of the current song.
  */
 public class AddBarCommand extends Command<SongList> {
 
@@ -27,7 +27,8 @@ public class AddBarCommand extends Command<SongList> {
     }
 
     /**
-     * Modifies the song in the song list and returns the messages intended to be displayed.
+     * Modifies a song in the song list by adding a new bar at the end of the song and
+     * returns the messages intended to be displayed.
      *
      * @param songList the duke.components.SongList object that contains the song list
      * @param ui the Ui object responsible for the reading of user input and the display of
@@ -42,30 +43,16 @@ public class AddBarCommand extends Command<SongList> {
             throw new DucatsException(message);
         }
         try {
-            String[] sections = message.substring(7).split(" ");
-            barNo = Integer.parseInt(sections[0].substring(4));
-
-            int notesIndex = message.indexOf(sections[1]);
-
-            Bar newBar = new Bar(barNo, message.substring(notesIndex));
             songIndex = songList.getActiveIndex();
-            Song song = songList.getSongIndex(songIndex);
+            Song activeSong = songList.getSongIndex(songIndex);
 
-            song.addBar(newBar);
-            storage.updateFile(songList);
-            System.out.println(notesIndex);
-            try {
-                ArrayList<Song> temp = songList.getSongList();
-                System.out.println("i have gotten the song list");
-                //return ui.formatAddBar(temp, newBar, song);
-            } catch (Exception e) {
-                //System.out.println(e.getMessage());
-                return "hello myfddafadf ";
-            }
-            //
+            barNo = activeSong.getNumBars() + 1;
+            Bar newBar = new Bar(barNo, message.substring(7));
+            activeSong.addBar(newBar);
+
             storage.updateFile(songList);
             ArrayList<Song> temp = songList.getSongList();
-            return ui.formatAddBar(temp, newBar, song);
+            return ui.formatAddBar(temp, newBar, activeSong);
 
         } catch (Exception e) {
             throw new DucatsException(message, "addbar");
