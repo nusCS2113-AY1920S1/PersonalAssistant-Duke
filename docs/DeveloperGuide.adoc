@@ -443,9 +443,9 @@ transaction records not appearing in order.
 a| * Allows the user to change the name of the bond if the user entered it wrongly the first time.
 
 a| * If interest has already been credited, it is not feasible to change the names of past records as it might cause
-confusion and conflict to the end user, especially when the names clash with the name of another bond which has
-expired prior to making this edit. This might confuse users as they might think that they earned much more interest
-from the same bond.
+confusion to the end user. This becomes more apparent when the names clash with the name of another investment bond
+which had expired prior to making this edit. This might confuse users as they might think that they earned much more
+interest from the same bond.
 a|
 
 *3.* Disallowing the changing of both parameters.
@@ -457,15 +457,14 @@ a|
 
 * Less flexibility for the user.
 
+|======
+
 After weighting the pros and cons, *approach 3* was taken.
 
 Firstly, doing so would reduce the coupling and dependencies between transactions and investment banks. Although it may
 seem restrictive to limit the type and number of parameters that can be changed, it is beneficial both to you, the
 developer and the user, when developing and using the program. Developing the alternative ideas would result in a
 high risk of logic and coding errors, leaving room for bugs to be exploited.
-
-|======
-
 
 // end::editing_bonds[]
 

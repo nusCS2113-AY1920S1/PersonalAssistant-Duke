@@ -15,8 +15,7 @@ endif::[]
 
 Hello there, I am __Shamus__.
 I am currently pursuing a degree in Information Security at the National University of Singapore (NUS). +
-I enjoy server and network administration as well as building and breaking applications.
-
+I enjoy server and network administration as well as building and breaking applications. +
 This portfolio serves to document my extensive involvement and contribution in a team-based project CS2113T (Software
 Engineering & Object-Oriented Programming) module by NUS.
 This project spans over a period of about eight weeks, and was completed together with a team of five members
@@ -26,13 +25,16 @@ This project spans over a period of about eight weeks, and was completed togethe
 === About the project
 
 My team and I were tasked with enhancing a basic Command Line Interface (CLI) based personal assistant, named Duke
-for our Software Engineering Project. We chose to morph it into a financial tracker and management application called
-*OwlMoney*. This enhanced application targets undergraduates and fresh graduates and aims to help them track and manage
-their finances. Some features of *OwlMoney* include tracking of both expenses and expenditures as well as tracking
+for our Software Engineering Project. We chose to morph it into a financial tracker and investment management
+application called *OwlMoney*. This enhanced application targets undergraduates and fresh graduates and aims to help
+them track and manage their finances. +
+Some features of *OwlMoney* include tracking of both expenses and expenditures as well as tracking
 credit cards and investments such as investment bonds. +
 My role as a team leader was to perform project management as well as to write the baseline code for the team to get
 started. On top of that, I was also in charge of writing codes for the `investment`, `bonds`, `storage` and
 some parts of the `commands` section. +
+Lastly, I played a major role while collaborating with my team to implement a *custom string parser*, which was
+instrumental in enabling users to be able to enter the parameters of complex commands in any order.
 The following sections illustrates these enhancements in more details,
 illustrates the relevant sections I have contributed to the project as a whole, as well as the relevant sections I
 have added to the user and developer guides in relation to these enhancements.
@@ -116,11 +118,7 @@ the team's link:{repoURL}/projects/[Project Board]
 |_The following sections illustrate my ability in writing documentation targeting end-users to guide them in using the various features of the application._
 |===
 
-==== {nbsp}
-
 include::../UserGuide.adoc[tag=investment_management]
-
-==== {nbsp}
 
 === Contributions to Developer Guide
 
@@ -130,5 +128,3 @@ of the application. It also showcase the technical depth of my contributions to 
 |===
 
 include::../DeveloperGuide.adoc[tag=editing_bonds]
-
-==== {nbsp}

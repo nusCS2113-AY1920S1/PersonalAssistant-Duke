@@ -139,6 +139,12 @@ which can be used as:
 entertainment]` (with optional `category` parameter)
 .. `/add /savings /name JunBank Savings Account /amount 218.90 /income 0` (without optional `category` parameter)
 
+[TIP]
+====
+Many of our command parameters can be rearranged! Feel free to rearrange the order of entering parameters as you read
+along this user guide!
+====
+
 [WARNING]
 ====
 Parameter values cannot be empty (unless otherwise stated).
@@ -456,6 +462,8 @@ To find out which recurring expenditure to delete, use the `/list` or `/find` fu
 
 Deletes a `deposit` with transaction number `11` from `JunBank Savings Account`.
 
+// tag::investment_management[]
+
 ==== Investment Account Management
 In this section, you'll be introduced to commands and parameters that help you to manage your investment account
 and bonds that you can track in *OwlMoney*.
@@ -515,7 +523,7 @@ Take note that there is a maximum of *30* character limit.
 
 
 
-// tag::investment_management[]
+
 
 ===== Adding investment bank account `/add /investment`
 Want to start *investing* to grow your wealth? No problem!
