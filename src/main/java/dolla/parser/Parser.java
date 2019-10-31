@@ -158,12 +158,7 @@ public abstract class Parser implements ParserStringList, ModeStringList {
      * @return true is inputArray[1] contain something, false if inputArray[1] is invalid.
      */
     protected boolean verifySort() {
-        try {
-            return inputArray[1].equals(null);
-        } catch (ArrayIndexOutOfBoundsException e) {
-            SortUi.printInvalidSort(mode);
-            return false;
-        }
+        return inputArray.length != 2;
     }
 
 
