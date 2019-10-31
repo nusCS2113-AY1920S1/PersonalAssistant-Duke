@@ -913,7 +913,7 @@ Use case ends.
 *Main success scenario:*
 
 . User chooses to edit his/her specific [.underline]#bank# account details.
-. System requests for [.underline]#bank# account name together with newly specified information of
+. System requests for [.underline]#bank# account together with newly specified information of
 [.underline]#bank# account details.
 . User enters [.underline]#bank# account name with new [.underline]#bank# account information he/she like to change.
 . System update the [.underline]#bank# account with new [.underline]#bank#  account details.
