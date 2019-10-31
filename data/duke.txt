@@ -80,3 +80,14 @@ assign fund p/trial am/300  | 29-10-2019 01:26:27 ~ 31-10-2019 16:05:10
 assign fund p/trial am/300  ~ 31-10-2019 16:05:21
 add project pr/Rag ~ 31-10-2019 16:06:34
 assign fund p/Rag am/300 ~ 31-10-2019 16:06:58
+add project pr/rag ~ 31-10-2019 16:29:35
+add payee p/yh e/lqwe@asda m/a100203 ph/0999123 ~ 31-10-2019 16:30:08
+add payee p/yh e/lqwe@asda m/a100203 ph/0999123 ~ 31-10-2019 16:30:29
+goto project pr/rag ~ 31-10-2019 16:31:02
+add payee p/yh e/lqwe@asda m/a100203 ph/0999123 ~ 31-10-2019 16:31:09
+list ~ 31-10-2019 16:31:28
+add payment p/yh i/toy c/10000.00 v/a102312 ~ 31-10-2019 16:34:13
+add payee p/yh e/e013021@qweqcc m/A123012 ph/1929929 ~ 31-10-2019 16:34:19
+add project pr/rag ~ 31-10-2019 16:36:17
+add payee p/yh e/e013021@qweqcc m/A123012 ph/1929929 ~ 31-10-2019 16:36:24
+add payment p/yh i/toy c/10000.00 v/a102312 ~ 31-10-2019 16:36:29

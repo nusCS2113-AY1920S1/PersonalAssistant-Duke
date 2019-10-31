@@ -26,6 +26,9 @@ public class ProjectManager {
     public Project addProject(String projectname) {
         Project newProject = new Project(projectname);
         projectmap.put(projectname, newProject);
+        if (currentProject == null) {
+            currentProject = newProject;
+        }
         return newProject;
     }
 

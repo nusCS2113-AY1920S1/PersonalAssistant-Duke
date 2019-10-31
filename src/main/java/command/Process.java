@@ -199,7 +199,6 @@ public class Process {
      * @param input Input from the user.
      * @param ui Ui that interacts with the user.
      * @param fund the total fund the that the organisation owns
-     * @param projectmap Hashmap containing projects.
      */
     public void assignFund(String input, Ui ui, Fund fund) {
         try {
@@ -502,11 +501,12 @@ public class Process {
      */
     public void deletePayment(String input, Ui ui) {
         HashMap<String, Payee> managermap = projectmanager.getCurrentProjectManagerMap();
+        String currentProjectName = projectmanager.currentProject.projectname;
         String[] arr = input.split("payment ", 2);
         String[] split = arr[1].split("p/|i/");
         split = cleanStrStr(split);
         Payments deleted = PaymentManager.deletePayments(split[1], split[2], managermap);
-        ui.printDeletePaymentMessage(split[1], deleted, managermap.get(split[1]).payments.size());
+        ui.printDeletePaymentMessage(split[1], deleted, managermap.get(split[1]).payments.size(), currentProjectName);
     }
 
     /**
@@ -518,6 +518,7 @@ public class Process {
     public void addPayment(String input, Ui ui) {
         try {
             HashMap<String, Payee> managermap = projectmanager.getCurrentProjectManagerMap();
+            String currentProjectName = projectmanager.currentProject.projectname;
             String[] splitspace = input.split("payment ", 2);
             String[] splitpayments = splitspace[1].split("p/|i/|c/|v/");
             splitpayments = cleanStrStr(splitpayments);
@@ -527,7 +528,7 @@ public class Process {
             String invoice = splitpayments[4];
             Payments payment = PaymentManager.addPayments(payee, item, cost, invoice, managermap);
             int paymentsSize = managermap.get(payee).payments.size();
-            ui.printAddPaymentMessage(splitpayments[1], payment, paymentsSize);
+            ui.printAddPaymentMessage(splitpayments[1], payment, paymentsSize, currentProjectName);
         } catch (ArrayIndexOutOfBoundsException e) {
             ui.exceptionMessage("     ☹ OOPS!!! Please input the correct command format (refer to user guide)");
         } catch (NullPointerException e) {
@@ -544,6 +545,7 @@ public class Process {
     public void addPayee(String input, Ui ui) {
         try {
             HashMap<String, Payee> managermap = projectmanager.getCurrentProjectManagerMap();
+            String currentProjectName = projectmanager.currentProject.projectname;
             String[] splitspace = input.split("payee ", 2);
             String[] splitpayments = splitspace[1].split("p/|e/|m/|ph/");
             splitpayments = cleanStrStr(splitpayments);
@@ -553,7 +555,7 @@ public class Process {
             String phoneNum = splitpayments[4];
             Payee payee = PaymentManager.addPayee(payeename, email, matricNum, phoneNum, managermap);
             int payeesize = managermap.size();
-            ui.printAddPayeeMessage(splitpayments[1], payee, payeesize);
+            ui.printAddPayeeMessage(splitpayments[1], payee, payeesize, currentProjectName);
         } catch (ArrayIndexOutOfBoundsException e) {
             ui.exceptionMessage("     ☹ OOPS!!! Please input the correct command format (refer to user guide)");
         } catch (NullPointerException e) {
@@ -570,13 +572,14 @@ public class Process {
     public void deletePayee(String input, Ui ui) {
         try {
             HashMap<String, Payee> managermap = projectmanager.getCurrentProjectManagerMap();
+            String currentProjectName = projectmanager.currentProject.projectname;
             String[] splitspace = input.split("payee ", 2);
             String[] splitpayments = splitspace[1].split("p/");
             splitpayments = cleanStrStr(splitpayments);
             String payeename = splitpayments[1];
             Payee payee = PaymentManager.deletePayee(payeename, managermap);
             int payeesize = managermap.size();
-            ui.printdeletePayeeMessage(splitpayments[1], payee, payeesize);
+            ui.printdeletePayeeMessage(splitpayments[1], payee, payeesize, currentProjectName);
         } catch (ArrayIndexOutOfBoundsException e) {
             ui.exceptionMessage("     ☹ OOPS!!! Please input the correct command format (refer to user guide)");
         } catch (NullPointerException e) {
