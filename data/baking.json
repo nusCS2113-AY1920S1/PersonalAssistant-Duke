@@ -1,0 +1,15 @@
+{
+  "orders" : [ ],
+  "products" : [ ],
+  "inventory" : [ ],
+  "shoppingList" : [ {
+    "ingredient" : {
+      "name" : "Sdvnkjnsdvsdvsdv",
+      "unitPrice" : 0.0,
+      "remarks" : ""
+    },
+    "amount" : 0.0
+  } ],
+  "sales" : [ ],
+  "shortcuts" : [ ]
+}
