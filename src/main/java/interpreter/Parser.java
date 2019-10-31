@@ -3,6 +3,7 @@ package interpreter;
 import executor.command.CommandType;
 
 import executor.task.Task;
+import ui.Receipt;
 
 /**
  * Parser will parse through user inputs.
@@ -174,6 +175,53 @@ public class Parser {
             queuedTaskString.append(encodeTask(queuedTask));
         }
         return queuedTaskString.toString();
+    }
+
+
+    /**
+     * Encodes the Receipt for Storage.
+     * FORMAT: (commandType) (cashSpent) (date) /(tags)
+     * @param receipt Receipt object
+     * @return String to be stored/saved
+     */
+    public static String encodeReceipt(Receipt receipt) {
+        StringBuilder strSave = new StringBuilder();
+        strSave.append(encodeMainReceipt(receipt));
+        strSave.append("\n");
+        return strSave.toString();
+    }
+
+    private static String encodeMainReceipt(Receipt receipt) {
+
+        String strSave = "";
+
+        if (receipt.getCashSpent() < 0) {
+            strSave += "in";
+            strSave += " $"
+                    + -receipt.getCashSpent();
+        } else if (receipt.getCashSpent() >= 0) {
+            strSave += "out";
+            strSave += " $"
+                    + receipt.getCashSpent();
+        }
+
+        if (receipt.getDate() != null && receipt.getTags() != null) {
+            strSave += ' ';
+        }
+        if (receipt.getDate() != null) {
+            strSave += "/date "
+                    + receipt.getDate();
+        }
+        strSave += " ";
+        if (receipt.getTags() != null) {
+            strSave += "/tags";
+
+            for (String tag : receipt.getTags()) {
+                strSave += " ";
+                strSave += tag;
+            }
+        }
+        return strSave;
     }
 
     /**

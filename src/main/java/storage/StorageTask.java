@@ -8,15 +8,15 @@ import java.io.File;
 import java.io.FileWriter;
 import java.util.Scanner;
 
-public class Storage {
+public class StorageTask {
     protected String filePath;
 
     /**
-     * * Constrctor for the 'Storage' Class.
+     * * Constrctor for the 'StorageTask' Class.
      *
      * @param filePath The file path to be used to store and load data
      */
-    public Storage(String filePath) {
+    public StorageTask(String filePath) {
         this.filePath = filePath;
     }
 
@@ -69,7 +69,7 @@ public class Storage {
      * @param loadedInput The saved String to be converted
      * @return Task Object from String
      */
-    public static Task loadTaskFromStorageString(String loadedInput) {
+    public Task loadTaskFromStorageString(String loadedInput) {
         TaskList queuedTasks = new TaskList();
         Task newTask = null;
         Task queuedTask = null;
