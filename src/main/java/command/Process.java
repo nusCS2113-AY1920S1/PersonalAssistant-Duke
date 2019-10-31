@@ -663,4 +663,36 @@ public class Process {
         }
         ui.printArrayList(viewhistory);
     }
+    public void deletehistory(String input, Ui ui, ArrayList<String> commandList, Storage storage) throws ParseException {
+        String[] splitspace = input.split(" ", 3);
+        String[] splitslash = splitspace[2].split("/", 2);
+        String[] splitdates = splitslash[1].split(" ", 3);
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+        String date1 = splitdates[0];
+        Date date_first = sdf.parse(date1);
+        String date2 = splitdates[2];
+        Date date_second = sdf.parse(date2);
+        commandList = storage.load();
+        for(int i = 0; i < commandList.size() - 1; i = i + 1){
+            String token = null;
+            String token1 = null;
+            String[] splitdate_command = commandList.get(i).split("~",2);
+            for(int j = 0; j < splitdate_command.length; j = j + 1){
+                token = splitdate_command[j];
+            }
+            String[] splitdate_time = token.split(" ", 3);
+            for(int k = 0; k < splitdate_time.length; k = k + 1){
+                if(k == 1){
+                    token1 = splitdate_time[k];
+                }
+            }
+            Date date_command = sdf.parse(token1);
+            if((date_command.compareTo(date_first)) >= 0){
+                if((date_command.compareTo(date_second)) <= 0){
+                    Storage.remove(commandList.get(i));
+                }
+            }
+        }
+        ui.printdeletehistory(date1, date2);
+    }
 }

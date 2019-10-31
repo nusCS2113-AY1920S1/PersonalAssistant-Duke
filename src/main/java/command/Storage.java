@@ -97,4 +97,7 @@ public class Storage {
             System.out.println("Error writing to file '" + filepath + "'");
         }
     }
+    public static void remove(String str){
+        //TODO
+    }
 }

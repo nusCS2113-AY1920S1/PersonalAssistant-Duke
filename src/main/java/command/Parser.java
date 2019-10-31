@@ -47,6 +47,8 @@ public class Parser {
                 return true;
             } else if (instr.isViewhistory(input)) {
                 process.viewhistory(input, ui, commandList, storage);
+            } else if (instr.isDeletehistory(input)) {
+                process.deletehistory(input, ui, commandList, storage);
             } else if (instr.isHistory(input)) {
                 process.history(ui,commandList, storage);
             } else if (instr.isListProjects(input)){

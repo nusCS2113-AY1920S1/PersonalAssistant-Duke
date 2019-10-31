@@ -168,6 +168,9 @@ public class Ui {
         }
     }
 
+    public void printdeletehistory(String date1, String date2) {
+        System.out.println("Got it. The input commands from " + date1 + " to " + date2 + " have been deleted from the history");
+    }
     /**
      * Prints the list of payments of a payee.
      * @param paymentList paymentList of the payee.
@@ -384,6 +387,7 @@ public class Ui {
         System.out.println("\t" + "Add Payment:          " + commandFormat.addPaymentFormat());
         System.out.println("\t" + "Delete Payee:         " + commandFormat.deletePayeeFormat());
         System.out.println("\t" + "History of Commands:  " + commandFormat.historyFormat());
+        System.out.println("\t" + "History of Commands:  " + commandFormat.viewhistoryFormat());
         System.out.println("\t" + "Exit:                 " + commandFormat.exitFormat());
         System.out.print(line);
     }
