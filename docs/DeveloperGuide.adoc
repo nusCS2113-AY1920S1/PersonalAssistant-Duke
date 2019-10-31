@@ -336,14 +336,14 @@ There are four methods that can be executed depending on the `TOSORT` and `TYPE`
 * Case 1: `sort ccas` +
 If the argument read for `TOSORT` is “ccas”, the added ccas will be sorted in ascending order and printed to the users.
 
-* Case 2: `sort modules codes` +
-If the argument read for `TOSORT` is “modules” and `TYPE` is “ codes”, the added modules will be sorted in ascending order of their module codes and printed to the users.
+* Case 2: `sort modules code` +
+If the argument read for `TOSORT` is “modules” and `TYPE` is “ code”, the added modules will be sorted in ascending order of their module codes and printed to the users.
 
-* Case 3: `sort modules levels` +
-If the argument read for `TOSORT` is “modules” and `TYPE` is “levels”, the added modules will be sorted in ascending order of their module levels (just the numerical part of the module code) and printed to the users.
+* Case 3: `sort modules level` +
+If the argument read for `TOSORT` is “modules” and `TYPE` is “level”, the added modules will be sorted in ascending order of their module levels (just the numerical part of the module code) and printed to the users.
 
-* Case 4: `sort modules mcs` +
-If the argument read for `TOSORT` is “modules” and `TYPE` is “mcs”, the added modules will be sorted in ascending order of their modular credits and printed to the users.
+* Case 4: `sort modules mc` +
+If the argument read for `TOSORT` is “modules” and `TYPE` is “mc”, the added modules will be sorted in ascending order of their modular credits and printed to the users.
 ****
 
 Below is a Sequence Diagram showing how `SortCommand` works.
