@@ -62,8 +62,15 @@
 The Application consist of 6 other components 
 
 - `command`: executes the command that is read from the user
-
-- `exception`: handle error messages 
+  - `dishesCommand`
+  - `orderCommand`
+  - `ingredientCommand`
+- `exception`: handle error messages
+- `dish`: contains the dishlist as well the the dish class 
+- `fridge`: contains 
+- `ingredient`: contains ingredient list 
+- `list`: a class which contains a generic list. this list is used by various other classes
+- `order`:  
 - `parser`: determine the next course of action from the user command
 - `storage`: Reads, writes data from and to the hard disk
 - `task`: stores a list of deadline/event/todo that needs to be done
@@ -104,7 +111,7 @@ The Ui will reply to the User with the following messages:
 The Ui class consists of methods that outputs messages to the user as a response when the user enters a certain command
 
 - reads and return s user input using `scanner.nextLine()`
-- outputs messages to the user as a response such as `showAddCommand`, `showRemoveCommand`, etc
+- outputs messages to the user as a response such as `AddDishCommand ` `DeleteDishCommand`, etc
 
 #### 2.3 Command Component
 
@@ -114,13 +121,29 @@ In the project, it has three types of commands: Ingredient Command, Dishes Comma
 
 The Command class is used as an abstract class for other classes, its method `execute` is also declared as an abstract method. that is used by the following classes 
 
-- DoneCommand
-- ExitCommand
-- FindCommand
-- ListCommand
-- RemindCommand
-- Snooze
-- ViewCommand
+- DishCommand
+  - AddDishCommand
+  - DeleteDishCommand
+  - ListDishCommand
+  - InitCommand
+  - AddIngredient
+- OrderCommand
+  - AddOrderCommand
+  - AlterOrderCommand
+  - DeleteOrderCommand
+  - DoneOrderCommand
+  - ListOrderCommand
+- IngredientCommand
+  - AddCommand
+  - DeleteCommand
+  - DoneCommand
+  - ExitCommand
+  - FindIngredientCommand
+  - FindToday
+  - ListCommand
+  - RemoveAllExpired
+  - UseCommand
+  - ViewCommand
 
 each of the above class has its own implementation of the `execute` method
 
@@ -128,7 +151,9 @@ each of the above class has its own implementation of the `execute` method
 
 API: `Parser.java`
 
+this component gets the command from the user through the Duke Class. This component will then make sense of the command by splitting the command into different parts as well as determining the command type.
 
+depending on the content of the splitted value and command type, Parser class will execute different commands.
 
 #### 2.5 Storage Component
 
@@ -189,16 +214,12 @@ This class holds the name of the dish as well the ingredients that are associate
 
 
 
-| Methods                       | Description                                                  |
-| ----------------------------- | ------------------------------------------------------------ |
-| getTotalNumberOfOrders(): int | returns `total` which is an int                              |
-| setNumberofOrders(int): void  | takes in an `int` and increment `total` number of orders     |
-| clearOrders(): void           | clears the ingredient list                                   |
-| getDishName(): String         | returns the name of the dish                                 |
-| setRating(int): void          | takes in an `int` and sets the new overall rating of the dish |
-| getRating(): float            | returns the rating of that dish                              |
-| addIngredients(String): void  | takes a string and adds into ingredientlist                  |
-| toString(): String            | it returns a String of all the ingredients that the dish contains |
+| Methods                      | Description                                                  |
+| ---------------------------- | ------------------------------------------------------------ |
+| clearOrders(): void          | clears the ingredient list                                   |
+| getDishName(): String        | returns the name of the dish                                 |
+| addIngredients(String): void | takes a string and adds into ingredientlist                  |
+| toString(): String           | it returns a String of all the ingredients that the dish contains |
 
 **<u>DishList Class</u>**
 
@@ -416,22 +437,9 @@ A child class of Ingredients and inherits(extends) the attributes and methods of
 
 ### 3. Implementation
 
-
-
-#### 2.15 Statistics
-
-
-#### 
-
-### 3. Implementation
-
 ### 4. Documentation
 
-
-
 ### 5. Testing
-
-
 
 ### 6. Dev Ops 
 
