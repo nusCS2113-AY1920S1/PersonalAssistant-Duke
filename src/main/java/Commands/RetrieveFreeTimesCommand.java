@@ -12,6 +12,10 @@ public class RetrieveFreeTimesCommand extends Command {
     private Integer option;
     private static String selectedOption;
     private static String selectedOptionCommand;
+    private final String emptyFreeTimeList = "Please find free times by invoking the command shown below\n" +
+            "Find 'x' hours, where 'x' is a digit between 1 - 16\n" +
+            "Followed by the command\n" +
+            "retrieve/ft 'x', where 'x' is a digit between 1- 5";
 
     public RetrieveFreeTimesCommand(Integer option) {
         this.option = option;
@@ -36,14 +40,11 @@ public class RetrieveFreeTimesCommand extends Command {
     @Override
     public String execute(LookupTable LT, TaskList events, TaskList deadlines, Ui ui, Storage storage) {
         ArrayList<Pair<String, String>> retrievedFreeTimes = FindFreeTimesCommand.getCompiledFreeTimesList();
-        if (checkIsEmpty(retrievedFreeTimes))return "Please find free times by invoking the command shown below\n" +
-                "Find 'x' hours, where 'x' is a digit between 1 - 16\n" +
-                "Followed by the command\n" +
-                "retrieve/ft 'x', where 'x' is a digit between 1- 5";
+        if (checkIsEmpty(retrievedFreeTimes))return ui.showSelectionOptionEmptyList();
         else if(checkIfInvalidOption()) return "Please select options between 1 - 5";
         selectedOption = retrievedFreeTimes.get(option-1).getKey();
         selectedOptionCommand = retrievedFreeTimes.get(option-1).getValue();
-        return "Selected option " + option + "\n" + selectedOption;
+        return ui.showSelectionOption(option, selectedOption);
     }
 
     public static String getSelectedOption() {

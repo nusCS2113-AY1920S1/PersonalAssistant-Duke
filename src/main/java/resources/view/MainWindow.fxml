@@ -8,16 +8,13 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.DropShadow?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="719.0" prefWidth="998.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UserInterface.MainWindow">
    <bottom>
@@ -31,7 +28,7 @@
    <right>
       <VBox prefHeight="518.0" prefWidth="200.0" style="-fx-border-color: black;" BorderPane.alignment="CENTER">
          <children>
-            <TableView fx:id="dukeResponseTable" prefHeight="243.0" prefWidth="200.0" style="-fx-border-color: black; -fx-selection-bar: pink; -fx-selection-bar-non-focused: salmon;" VBox.vgrow="ALWAYS">
+            <TableView fx:id="dukeResponseTable" prefHeight="243.0" prefWidth="200.0" style="-fx-border-color: black; -fx-selection-bar: pink; -fx-selection-bar-non-focused: pink;" VBox.vgrow="ALWAYS">
                <columns>
                   <TableColumn fx:id="dukeResponseColumn" editable="false" prefWidth="198.0" resizable="false" sortable="false" style="-fx-alignment: center;" text="Response" />
                </columns>
@@ -41,8 +38,9 @@
             </TableView>
             <TableView fx:id="overdueTable" prefHeight="282.0" prefWidth="200.0" style="-fx-border-color: black;" VBox.vgrow="ALWAYS">
                <columns>
-                  <TableColumn fx:id="overdueDateColumn" editable="false" prefWidth="77.0" style="-fx-alignment: center;" text="Days Past" />
-                  <TableColumn fx:id="overdueTaskColumn" prefWidth="117.0" style="-fx-alignment: center;" text="Deadlines Overdue" />
+                  <TableColumn fx:id="overdueTaskColumn" maxWidth="-1.0" minWidth="83.0" prefWidth="-1.0" resizable="false" style="-fx-alignment: center;" text="Description" />
+                  <TableColumn fx:id="overdueDateColumn" maxWidth="-1.0" minWidth="71.0" prefWidth="-1.0" resizable="false" style="-fx-alignment: center;" text="Date" />
+                  <TableColumn fx:id="overdueDaysColumn" editable="false" maxWidth="-1.0" minWidth="27.0" prefWidth="-1.0" resizable="false" style="-fx-alignment: center;" text="OD" />
                </columns>
                <columnResizePolicy>
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -56,30 +54,10 @@
          <children>
             <HBox prefHeight="66.0" prefWidth="1000.0" VBox.vgrow="ALWAYS">
                <children>
-                  <Label fx:id="currentWeek" prefHeight="20.0" prefWidth="722.0" text="Label">
+                  <Label fx:id="currentWeek" prefHeight="20.0" prefWidth="996.0" text="Label">
                      <font>
                         <Font name="System Bold" size="13.0" />
                      </font></Label>
-                  <HBox fx:id="timerBox" prefHeight="50.0" prefWidth="277.0">
-                     <children>
-                        <StackPane prefHeight="50.0" prefWidth="275.0">
-                           <children>
-                              <AnchorPane fx:id="timerPane" prefHeight="200.0" prefWidth="200.0">
-                                 <children>
-                                    <Label prefHeight="50.0" prefWidth="247.0" text="CountDown" />
-                                    <Text fx:id="currentTime" layoutX="82.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="125.22900390625" />
-                                    <Label layoutY="32.0" text="Break" />
-                                    <Text fx:id="currentTime1" layoutX="82.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="125.22900390625" />
-                                 </children>
-                              </AnchorPane>
-                              <AnchorPane fx:id="blankPane" prefHeight="28.0" prefWidth="275.0" style="-fx-background-color: F0F0F0;">
-                                 <children>
-                                    <Label layoutX="49.0" />
-                                 </children>
-                              </AnchorPane>
-                           </children>
-                        </StackPane>
-                     </children></HBox>
                </children>
             </HBox>
             <ScrollPane hbarPolicy="NEVER" minHeight="-Infinity" prefHeight="100.0" prefWidth="1000.0" vbarPolicy="NEVER">

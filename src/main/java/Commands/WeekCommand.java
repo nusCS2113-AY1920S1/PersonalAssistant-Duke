@@ -10,7 +10,6 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class WeekCommand extends Command {
@@ -155,10 +154,10 @@ public class WeekCommand extends Command {
 
     @Override
     public String execute(LookupTable LT, TaskList events, TaskList deadlines, Ui ui, Storage storage) throws Exception {
-        String intWeek = week.replaceFirst("Week", "");
-        intWeek = intWeek.trim();
-        Integer duration = Integer.parseInt(intWeek);
-        if(duration < 1 || duration > 13) return ui.showWeeksInvalidEntry(intWeek);
+//        String intWeek = week.replaceFirst("Week", "");
+//        intWeek = intWeek.trim();
+//        Integer duration = Integer.parseInt(intWeek);
+//        if(duration < 1 || duration > 13) return ui.showWeeksInvalidEntry();
         setListView(LT, events);
         sortList();
         weekList = new WeekList(monList, tueList, wedList, thuList, friList, satList, sunList);

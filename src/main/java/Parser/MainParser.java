@@ -23,7 +23,10 @@ public class MainParser {
             case "done/d":
                 return new DoneParse(fullCommand).parse();
 
-            case "recur/e":
+            case "recur/weekly":
+            case "recur/biweekly":
+            case "recur/rmweekly":
+            case "recur/rmbiweekly":
                 return new RecurParse(fullCommand).parse();
 
             case "remind/set":
