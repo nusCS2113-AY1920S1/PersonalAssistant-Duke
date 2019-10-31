@@ -15,7 +15,7 @@ Coach Manager is a desktop application created for trainers to assist them in ma
 
 This is what our project looks like.
 
-image::Ui.png[align="Center"]
+image::mainmenu.png[align="Center"]
 
 My role was to manage the overall project and manage the Git Repo. I also ensured code quality across pull requests. I designed and wrote the code for the `Schedule Manager`, `GUI` and `Storage` features. I have added to the user guide and developer guides in relation to these features as well.
 
