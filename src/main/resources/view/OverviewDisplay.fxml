@@ -7,29 +7,34 @@
 <?import javafx.scene.layout.VBox?>
 
 <StackPane fx:id="placeHolder" styleClass="pane-with-border" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
-   <HBox minHeight="50.0">
-      <padding>
-         <Insets bottom="5" left="15" right="5" top="5" />
-      </padding>
+   <VBox prefHeight="50.0" prefWidth="600.0">
       <children>
-         <VBox prefHeight="200.0" prefWidth="200.0">
+         <HBox minHeight="50.0" prefWidth="1122.0">
+            <padding>
+               <Insets bottom="5" left="15" right="5" top="5" />
+            </padding>
             <children>
-               <Label text="No. of Products" />
-               <Label fx:id="productQty" text="productQty" />
+               <VBox prefHeight="200.0" prefWidth="200.0">
+                  <children>
+                     <Label text="No. of Products:" />
+                     <Label fx:id="productQty" text="productQty" />
+                  </children>
+               </VBox>
+               <VBox prefHeight="200.0" prefWidth="200.0">
+                  <children>
+                     <Label text="Total Profit:" />
+                     <Label fx:id="profit" text="profit" />
+                  </children>
+               </VBox>
+               <VBox prefHeight="200.0" prefWidth="200.0">
+                  <children>
+                     <Label text="Total Revenue:" />
+                     <Label fx:id="revenue" text="revenue" />
+                  </children>
+               </VBox>
             </children>
-         </VBox>
-         <VBox prefHeight="200.0" prefWidth="200.0">
-            <children>
-               <Label text="Total Profit" />
-               <Label fx:id="profit" text="profit" />
-            </children>
-         </VBox>
-         <VBox prefHeight="200.0" prefWidth="200.0">
-            <children>
-               <Label text="Total Revenue" />
-               <Label fx:id="revenue" text="revenue" />
-            </children>
-         </VBox>
+         </HBox>
+         <HBox prefHeight="100.0" prefWidth="200.0" />
       </children>
-   </HBox>
+   </VBox>
 </StackPane>
