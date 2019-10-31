@@ -44,23 +44,23 @@ public class ReminderCommand extends ModuleCommand {
             }
 
             case ("one") : {
-                thirtyMinReminder.execute(LocalDateTime.now());
+                thirtyMinReminder.run();
                 break;
             }
 
             case ("two") : {
-                oneHourReminder.execute(LocalDateTime.now());
+                oneHourReminder.run();
                 break;
             }
 
             case ("three") : {
-                twevleHourReminder.execute(LocalDateTime.now());
+                twevleHourReminder.run();
                 break;
             }
 
             case "four" :
             default: {
-                oneDayReminder.execute(LocalDateTime.now());
+                oneDayReminder.run();
                 break;
             }
         }
