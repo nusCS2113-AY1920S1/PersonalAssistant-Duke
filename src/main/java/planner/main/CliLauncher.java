@@ -29,7 +29,6 @@ public class CliLauncher {
     private ModuleTasksList modTasks;
     private CcaList ccas;
     private Parser argparser;
-    private Reminder reminder;
     private JsonWrapper jsonWrapper;
     private PlannerUi modUi;
     private HashMap<String, ModuleInfoDetailed> modDetailedMap;
@@ -94,7 +93,7 @@ public class CliLauncher {
 
     private boolean handleInput() {
         try {
-            String input = modUi.readCommand();
+            String input = modUi.readInput();
             ModuleCommand c = argparser.parseCommand(input);
             if (c != null) {
                 c.execute(modDetailedMap, modTasks, ccas, modUi, store, jsonWrapper);
