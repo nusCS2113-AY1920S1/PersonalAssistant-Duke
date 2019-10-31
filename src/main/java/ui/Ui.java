@@ -39,11 +39,11 @@ public class Ui {
      * Prints starting message for the AlphaNUS program.
      */
     public void startMessage() {
-        String logo = line
-                + "     Hello! I'm AlphaNUS\n"
-                + "     What can I do for you?\n"
-                + line;
-        System.out.print(logo);
+        System.out.print(line);
+        System.out.println("\t" + "Hello! I'm AlphaNUS");
+        System.out.println("");
+        System.out.println("\t" + "Enter \"help\" to see things that I can do!");
+        System.out.print(line);
     }
 
     /**
@@ -376,6 +376,7 @@ public class Ui {
     public void printHelpMessage() {
         System.out.print(line);
         System.out.println("\t" + "*Help*");
+        System.out.println("");
         System.out.println("\t" + "Add Project:          " + commandFormat.addProjectFormat());
         System.out.println("\t" + "Delete Project:       " + commandFormat.deleteProjectFormat());
         System.out.println("\t" + "List Projects:        " + commandFormat.listProjectFormat());
