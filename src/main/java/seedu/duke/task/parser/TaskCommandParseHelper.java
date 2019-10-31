@@ -203,6 +203,8 @@ public class TaskCommandParseHelper {
             String priority = extractPriority(optionList);
             if ("".equals(priority)) {
                 return new InvalidCommand("Please enter a priority level to set for the task after \'-priority\' option");
+            } else if (!validPriority(priority)) {
+                return new InvalidCommand("Invalid priority");
             }
             int index = parseTaskIndex(priorityCommandMatcher.group("index"));
             return new TaskSetPriorityCommand(index, priority);
@@ -275,18 +277,19 @@ public class TaskCommandParseHelper {
 
     private static void addPriorityToUpdateCommand(ArrayList<Command.Option> optionList,
                                                    ArrayList<TaskUpdateCommand.Attributes> attributes,
-                                                   ArrayList<String> descriptions)
-            throws TaskParseException {
-        if (!extractPriority(optionList).equals("")) {
-            descriptions.add(extractPriority(optionList));
+                                                   ArrayList<String> descriptions) throws TaskParseException {
+        String priority = extractPriority(optionList);
+        if (validPriority(priority)) {
+            descriptions.add(priority);
             attributes.add(TaskUpdateCommand.Attributes.PRIORITY);
+        } else {
+            throw new TaskParseException("Invalid priority");
         }
     }
 
     private static void addTagsToUpdateCommand(ArrayList<Command.Option> optionList,
                                                ArrayList<TaskUpdateCommand.Attributes> attributes,
-                                               ArrayList<String> descriptions)
-            throws TaskParseException {
+                                               ArrayList<String> descriptions) {
         ArrayList<String> tags = extractTags(optionList);
         if (!tags.isEmpty()) {
             for (String tag : tags) {
@@ -312,8 +315,7 @@ public class TaskCommandParseHelper {
         return doafter;
     }
 
-    private static String extractPriority(ArrayList<Command.Option> optionList)
-            throws TaskParseException {
+    private static String extractPriority(ArrayList<Command.Option> optionList) throws TaskParseException {
         String priority = "";
         for (Command.Option option : optionList) {
             if (option.getKey().equals("priority")) {
@@ -325,6 +327,26 @@ public class TaskCommandParseHelper {
             }
         }
         return priority;
+    }
+
+    public enum Priority {
+        HIGH, MED, LOW
+    }
+
+    /**
+     * Checks if the input priority is valid.
+     *
+     * @param input priority extracted from input
+     * @return true is priority is valid
+     */
+    public static boolean validPriority(String input) {
+        input = input.toUpperCase();
+        for (Priority priority : Priority.values()) {
+            if (priority.name().equals(input)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private static String extractSnooze(ArrayList<Command.Option> optionList) {
@@ -375,14 +397,18 @@ public class TaskCommandParseHelper {
 
     private static Command constructAddCommandByType(String input, String doAfter, LocalDateTime time,
                                                      ArrayList<String> tags, String priority) {
-        if (input.startsWith("todo")) {
-            return parseAddToDoCommand(input, doAfter, tags, priority);
-        } else if (input.startsWith("deadline")) {
-            return parseAddDeadlineCommand(input, time, doAfter, tags, priority);
-        } else if (input.startsWith("event")) {
-            return parseEventCommand(input, time, doAfter, tags, priority);
+        if ("".equals(priority) | validPriority(priority)) {
+            if (input.startsWith("todo")) {
+                return parseAddToDoCommand(input, doAfter, tags, priority);
+            } else if (input.startsWith("deadline")) {
+                return parseAddDeadlineCommand(input, time, doAfter, tags, priority);
+            } else if (input.startsWith("event")) {
+                return parseEventCommand(input, time, doAfter, tags, priority);
+            } else {
+                return new InvalidCommand("Invalid task type. Only todo, deadline, event are accepted. ");
+            }
         } else {
-            return new InvalidCommand("Invalid task type. Only todo, deadline, event are accepted. ");
+            return new InvalidCommand("Invalid priority");
         }
     }
 
