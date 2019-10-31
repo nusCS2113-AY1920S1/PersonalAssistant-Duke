@@ -48,6 +48,7 @@ public class CommandHelper {
         helpList.add("");
         helpList.add(" - edit task TASK_INDEX [-t TASK_NAME] [-p TASK_PRIORITY] [-d TASK_DUEDATE] [-c TASK_CREDIT] " +
                 "[-s STATE]");
+        helpList.add("");
         helpList.add(" - delete task TASK_INDEX");
         helpList.add("");
         helpList.add(" - view task requirements TASK_INDEX");
@@ -72,6 +73,12 @@ public class CommandHelper {
 
         helpList.add(" - view credits");
         helpList.add("");
+
+        helpList.add(" - exit");
+        helpList.add("");
+
+        helpList.add(" - bye");
+
         return helpList;
     }
 }
