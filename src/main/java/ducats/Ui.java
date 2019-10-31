@@ -152,13 +152,13 @@ public class Ui {
      * the deletebar command.
      *
      * @param song the song after deletion
-     * @param deletedBar the bar that was deleted
+     * @param barIndex the index of the bar that was deleted
      * @return the formatted String to be displayed
      */
-    public String formatDeleteBar(Song song, Bar deletedBar) {
+    public String formatDeleteBar(Song song, int barIndex) {
         String word = (song.getBars().size() == 1) ? "bar" : "bars";
         String result = "Noted! I've removed bar: "
-                + (deletedBar.getId() + 1)
+                + (barIndex)
                 + "\n"
                 + "Now you have "
                 + (song.getBars().size())

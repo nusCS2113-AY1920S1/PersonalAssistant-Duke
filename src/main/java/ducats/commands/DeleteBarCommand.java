@@ -3,7 +3,6 @@ package ducats.commands;
 import ducats.DucatsException;
 import ducats.Storage;
 import ducats.Ui;
-import ducats.components.Bar;
 import ducats.components.Song;
 import ducats.components.SongList;
 
@@ -50,14 +49,13 @@ public class DeleteBarCommand extends Command<SongList> {
         if (barIndex > songList.getSongIndex(songList.getActiveIndex()).getBars().size() || barIndex < 1) {
             throw new DucatsException("", "index");
         } else {
-            Bar deletedBar = activeSong.getBars().get(barIndex - 1);
             activeSong.getBars().remove(barIndex - 1);
             try {
                 storage.updateFile(songList);
             } catch (Exception e) {
                 throw new DucatsException("","io");
             }
-            return ui.formatDeleteBar(activeSong, deletedBar);
+            return ui.formatDeleteBar(activeSong, barIndex);
         }
     }
 
