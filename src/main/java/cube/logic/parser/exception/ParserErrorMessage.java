@@ -7,4 +7,8 @@ public class ParserErrorMessage {
             = "OOPS!!! The date format is invalid. Please specify date in 'dd/mm/yy'";
     public static final String INVALID_COMMAND
             = "OOPS!!! The command is invalid. Enter 'help' to view the list of command";
+    public static final String INVALID_PARAMETER
+            = "OOPS!!! Your input contains invalid parameter";
+    public static final String REPETITIVE_PARAMETER
+            = "OOPS!!! Your input contains repetitive parameter";
 }

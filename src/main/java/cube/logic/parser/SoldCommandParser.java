@@ -12,6 +12,14 @@ public class SoldCommandParser implements ParserPrototype<SoldCommand> {
 		int foodNameIndex = -1;
 		int quantityIndex = -1;
 		int dateIndex = -1;
+		String[] params = new String[]{"-n","-q","-t"};
+
+		if(ParserUtil.hasInvalidParameters(args,params)){
+			throw new ParserException(ParserErrorMessage.INVALID_PARAMETER);
+		}
+		if(ParserUtil.hasRepetitiveParameters(args)){
+			throw new ParserException(ParserErrorMessage.REPETITIVE_PARAMETER);
+		}
 		for (int i = 1; i < args.length; i ++) {
 			if (args[i].equals("-n")) {
 				foodNameIndex = i;
