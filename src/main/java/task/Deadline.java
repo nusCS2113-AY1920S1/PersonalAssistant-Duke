@@ -45,6 +45,7 @@ public class Deadline extends Task {
         this.description = description;
         this.readDate(dueDate);
         this.isDone = (1 == Integer.parseInt(bool));
+        this.taskPriority = 1;
     }
 
 

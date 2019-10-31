@@ -29,9 +29,6 @@ public class SortCommand extends Command {
     @Override
     public void execute(TaskList tasks, UI ui, Storage storage, DegreeList lists) throws DukeException {
         if (this.arguments.matches("priority")){
-            System.out.println(tasks.get(9).getDueDate());
-            tasks.get(9).setTaskPriority(5);
-            System.out.println(tasks.get(9).getTaskPriority());
             tasks.sortPriority();
         }
     }
