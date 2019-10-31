@@ -31,7 +31,7 @@ checkstyle {
 
 shadowJar {
     archiveBaseName = "moomoo"
-    archiveVersion = "1.2"
+    archiveVersion = "1.3"
     archiveClassifier = null
     archiveAppendix = null
 }
