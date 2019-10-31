@@ -214,13 +214,13 @@ There are couple of things to take note with the current /find function:
 *	It will only find exact word-for-word for tags
 *	It can find tasks that partly consists of the keyword of the task description (querying for “proj” will yield the same result as above.
 
-=== 3.5 Task Completion
+=== 3.6 Task Completion
 
 Hustlers main feature in boosting productivity is in its task completion mode which can be summarized under the /timer command.
 
 IMPORTANT: Note that you can also manually complete task by typing /done <index> as shown above. However, we encourage you to use the recommended schedule with the timer integrated in order to complete the tasks.
 
-=== 3.5.1 Timer feature: `/timer`
+=== 3.6.1 Timer feature: `/timer`
 
 After collecting all the tasks you have added, you can use Hustler to help you decide which tasks to finish first. To begin, tell Hustler the number of hours you have available to work with. This can be done with the help of the `/timer command`.
 
@@ -230,7 +230,7 @@ TIP: */timer <hours> <minutes> <seconds>*
 
 This command starts a countdown with the stipulated duration.
 
-After a timer has been started, these related commands can be executed as well.
+After a timer has been started, these related commands can be executed as well. The syntax of these commands are as follows:
 
 TIP: */pausetimer*
 
@@ -244,12 +244,116 @@ TIP: */stoptimer*
 
 This prematurely ends a running timer.
 
-=== 3.5.2 Recommended schedule
+=== 3.6.2 Recommended schedule
 
 After supplying the amount of time available to work on tasks using the `/timer` command, a recommended schedule pops up. This recommended schedule is a list of incomplete tasks that Hustler recommends you work on.
 
 Hustler keeps track of the amount of time remaining for a task, the amount of time you have spent on the task and the difficulty of the task to make recommendations. You can edit this schedule to your liking before sitting down and setting yourself up for work. In order to explain the next few commands the following list of tasks in the “Tasks” section will be considered as shown.
 
+[NOTE]
+====
+1. Watch CS3243 Lecture.
+2. Read a Book.
+3. Work on Hustler.
+4. Create Notes for CS2101
+====
+
+=== 3.6.2.1 Adding tasks to the schedule using the `/addFromList` command
+
+The recommended schedule that pops up after using the `/timer command` sometimes might not be to your liking. Sometimes you might feel like working on more tasks. As such, you can add tasks from the “Tasks” section to the schedule using the `/addFromList` command.
+
+The syntax of the command is as follows:
+
+TIP: */addFromList <index in “Task” section>*
+
+The task that you referred to from the “Task” section pops up in the schedule and the time allotted to each task is updated.
+
+Executing the `/timer` command:
+----
+1. Type "/timer 5 0 0" and press enter.
+2. A timer set for five hours begins.
+3. Hustler is specified that you have 5 hours available for work and the following recommended schedule is shown on the list of tasks specified.
+4. Now if you want to add “4. create notes for 2101” to the recommended schedule, the following command can be run: /addFromList 4
+5. This adds the task to the schedule.
+----
+
+=== 3.6.2.1 Removing tasks from the schedule using the /remove command
+
+In case you do not feel like working on a task, you can remove it from the recommended schedule.
+
+The syntax of the command is as follows:
+
+TIP: */remove <index>*
+
+The task at the supplied index will then be removed and the updated schedule will be shown.
+
+Executing the `/remove` command:
+----
+1. If you want to remove task at index 4 from Figure 3, type /remove 4 and hit enter.
+2. The 4th task will be removed from this schedule.
+----
+
+=== 3.6.2.3 Update the time allotted to a command using the /update command
+
+You might be in a situation in which you need to change the amount of time that has been allotted to a task. In order to do so, the /update command is used.
+
+The syntax of the command is as follows:
+
+TIP: */update <index> <duration H:M:S>*
+
+On running this command the time allotted to task at index specified is changed to a duration in the format <hours:minutes:seconds>. 
+
+
+
+
+=== Separate
+=== Separate
+=== Separate
+=== Separate
+=== Separate
+=== Separate
+=== Separate
+=== Separate
+=== Separate
+=== Separate
+=== Separate
+=== Separate
+=== Separate
+=== Separate
+=== Separate
+=== Separate
+=== Separate
+=== Separate
+=== Separate
+=== Separate
+=== Separate
+=== Separate
+=== Separate
+=== Separate
+=== Separate
+=== Separate
+=== Separate
+=== Separate
+=== Separate
+=== Separate
+=== Separate
+=== Separate
+=== Separate
+=== Separate
+=== Separate
+=== Separate
+=== Separate
+=== Separate
+=== Separate
+=== Separate
+=== Separate
+=== Separate
+=== Separate
+=== Separate
+=== Separate
+=== Separate
+=== Separate
+=== Separate
 === Separate
 === Separate
 === Separate
