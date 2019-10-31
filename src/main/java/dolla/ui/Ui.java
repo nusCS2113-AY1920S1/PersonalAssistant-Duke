@@ -40,8 +40,11 @@ public abstract class Ui {
         + "\n\tI help keep track of your finance!\n"
         + "\tWhat can I do for you?";
 
-    private static String dollaMode = ANSI_CYAN + "\t\n°º¤ø,¸¸,ø¤º°`°º¤ø,¸ MODE: DOLLA "
-            + "  ¸,ø¤°º¤ø,¸¸,ø¤º°`°º¤ø,¸\n" + ANSI_RESET;
+    //private static String dollaMode = ANSI_CYAN + "\t\n°º¤ø,¸¸,ø¤º°`°º¤ø,¸ MODE: DOLLA "
+    //        + "  ¸,ø¤°º¤ø,¸¸,ø¤º°`°º¤ø,¸\n" + ANSI_RESET;
+
+    private static String dollaMode = ANSI_CYAN + "\n\t( •_•)O ~~ MODE: DOLLA "
+            + " ~~ \n" + ANSI_RESET;
 
     /**
      * Prints DOLLA logo and welcome message.
@@ -62,8 +65,10 @@ public abstract class Ui {
         System.out.println("\tGot it! Mode changed to " + newMode + "!");
         System.out.println(line);
         System.out.println();
-        System.out.println(ANSI_CYAN + "\t°º¤ø,¸¸,ø¤º°`°º¤ø,¸ MODE:  " + newMode.toUpperCase()
-                + "  ¸,ø¤°º¤ø,¸¸,ø¤º°`°º¤ø,¸\n" + ANSI_RESET);
+        //System.out.println(ANSI_CYAN + "\t°º¤ø,¸¸,ø¤º°`°º¤ø,¸ MODE:  " + newMode.toUpperCase()
+        //        + "  ¸,ø¤°º¤ø,¸¸,ø¤º°`°º¤ø,¸\n" + ANSI_RESET);
+        System.out.println(ANSI_CYAN + "\t( •_•)O ~~ MODE:  " + newMode.toUpperCase()
+                + "  \n" + ANSI_RESET);
     }
 
     // TODO: DELETE
