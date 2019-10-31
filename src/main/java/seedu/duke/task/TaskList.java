@@ -5,6 +5,7 @@ import seedu.duke.task.command.TaskParseNaturalDateHelper;
 import seedu.duke.task.entity.Deadline;
 import seedu.duke.task.entity.Event;
 import seedu.duke.task.entity.Task;
+import seedu.duke.task.parser.TaskCommandParseHelper;
 import seedu.duke.ui.UI;
 
 import java.util.ArrayList;
@@ -218,12 +219,17 @@ public class TaskList extends ArrayList<Task> {
      * @return Confirmation message that priority level has been added
      * @throws CommandParseHelper.CommandParseException when input is in wrong format
      */
-    public String setPriority(int index, String priority) throws CommandParseHelper.CommandParseException {
+    public String setPriority(int index, Task.Priority priority) throws CommandParseHelper.CommandParseException {
         validateIndex(index);
         Task task = this.get(index);
         task.setPriorityTo(priority);
         return constructSetPriorityMessage(priority, index + 1);
     }
+
+    //public Task.Priority setPriorityLevel(Task.Priority level) {
+    //    if ()
+    //    }
+    //}
 
     private void validateIndex(int index) throws CommandParseHelper.CommandParseException {
         if (index < 0 || index >= this.size()) {
@@ -231,8 +237,8 @@ public class TaskList extends ArrayList<Task> {
         }
     }
 
-    private String constructSetPriorityMessage(String priority, int size) {
-        return "Priority of task " + size + " is set to " + priority;
+    private String constructSetPriorityMessage(Task.Priority priority, int size) {
+        return "Priority of task " + size + " is set to " + priority.name();
     }
 
     /**

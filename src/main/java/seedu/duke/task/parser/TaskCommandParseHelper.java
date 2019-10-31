@@ -8,6 +8,7 @@ import seedu.duke.common.command.FlipCommand;
 import seedu.duke.common.command.HelpCommand;
 import seedu.duke.common.command.InvalidCommand;
 import seedu.duke.common.model.Model;
+import seedu.duke.task.TaskList;
 import seedu.duke.task.command.TaskAddCommand;
 import seedu.duke.task.command.TaskClearListCommand;
 import seedu.duke.task.command.TaskDeleteCommand;
@@ -201,13 +202,14 @@ public class TaskCommandParseHelper {
         }
         try {
             String priority = extractPriority(optionList);
+            Task.Priority level = getPriorityLevel(priority);
             if ("".equals(priority)) {
                 return new InvalidCommand("Please enter a priority level to set for the task after \'-priority\' option");
             } else if (!validPriority(priority)) {
                 return new InvalidCommand("Invalid priority");
             }
             int index = parseTaskIndex(priorityCommandMatcher.group("index"));
-            return new TaskSetPriorityCommand(index, priority);
+            return new TaskSetPriorityCommand(index, level);
         } catch (TaskParseException e) {
             return new InvalidCommand(e.getMessage());
         } catch (NumberFormatException e) {
@@ -279,8 +281,9 @@ public class TaskCommandParseHelper {
                                                    ArrayList<TaskUpdateCommand.Attributes> attributes,
                                                    ArrayList<String> descriptions) throws TaskParseException {
         String priority = extractPriority(optionList);
+        Task.Priority level = getPriorityLevel(priority);
         if (validPriority(priority)) {
-            descriptions.add(priority);
+            descriptions.add(level.name());
             attributes.add(TaskUpdateCommand.Attributes.PRIORITY);
         } else {
             throw new TaskParseException("Invalid priority");
@@ -326,7 +329,7 @@ public class TaskCommandParseHelper {
                 }
             }
         }
-        return priority;
+        return priority.toUpperCase();
     }
 
     /**
@@ -336,13 +339,23 @@ public class TaskCommandParseHelper {
      * @return true is priority is valid
      */
     public static boolean validPriority(String input) {
-        input = input.toUpperCase();
         for (Task.Priority priority : Task.Priority.values()) {
             if (priority.name().equals(input)) {
                 return true;
             }
         }
         return false;
+    }
+
+    public static Task.Priority getPriorityLevel(String input) {
+        Task.Priority level = null;
+        if (level.HIGH.name().equals(input)) {
+            return level.HIGH;
+        } else if (level.MED.name().equals(input)) {
+            return level.MED;
+        } else {
+            return level.LOW;
+        }
     }
 
     private static String extractSnooze(ArrayList<Command.Option> optionList) {
@@ -393,13 +406,14 @@ public class TaskCommandParseHelper {
 
     private static Command constructAddCommandByType(String input, String doAfter, LocalDateTime time,
                                                      ArrayList<String> tags, String priority) {
+        Task.Priority level = getPriorityLevel(priority);
         if ("".equals(priority) | validPriority(priority)) {
             if (input.startsWith("todo")) {
-                return parseAddToDoCommand(input, doAfter, tags, priority);
+                return parseAddToDoCommand(input, doAfter, tags, level);
             } else if (input.startsWith("deadline")) {
-                return parseAddDeadlineCommand(input, time, doAfter, tags, priority);
+                return parseAddDeadlineCommand(input, time, doAfter, tags, level);
             } else if (input.startsWith("event")) {
-                return parseEventCommand(input, time, doAfter, tags, priority);
+                return parseEventCommand(input, time, doAfter, tags, level);
             } else {
                 return new InvalidCommand("Invalid task type. Only todo, deadline, event are accepted. ");
             }
@@ -409,7 +423,7 @@ public class TaskCommandParseHelper {
     }
 
     private static Command parseAddToDoCommand(String input, String doAfter,
-                                               ArrayList<String> tags, String priority) {
+                                               ArrayList<String> tags, Task.Priority priority) {
         Task.TaskType taskType = Task.TaskType.ToDo;
         Matcher toDoMatcher = prepareCommandMatcher(input, "todo\\s+(?<name>\\w+[\\s+\\w+]*)\\s*");
         if (!toDoMatcher.matches()) {
@@ -421,7 +435,7 @@ public class TaskCommandParseHelper {
 
     private static Command parseAddDeadlineCommand(String input,
                                                    LocalDateTime time, String doAfter,
-                                                   ArrayList<String> tags, String priority) {
+                                                   ArrayList<String> tags, Task.Priority priority) {
         Task.TaskType taskType = Task.TaskType.Deadline;
         Matcher deadlineMatcher = prepareCommandMatcher(input, "deadline\\s+(?<name>\\w+[\\s+\\w+]*)\\s*");
         if (!deadlineMatcher.matches()) {
@@ -435,7 +449,7 @@ public class TaskCommandParseHelper {
     }
 
     private static Command parseEventCommand(String input, LocalDateTime time,
-                                             String doAfter, ArrayList<String> tags, String priority) {
+                                             String doAfter, ArrayList<String> tags, Task.Priority priority) {
         Task.TaskType taskType = Task.TaskType.Event;
         Matcher eventMatcher = prepareCommandMatcher(input, "event\\s+(?<name>\\w+[\\s+\\w+]*)\\s*");
         if (!eventMatcher.matches()) {

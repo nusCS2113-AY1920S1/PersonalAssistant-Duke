@@ -203,12 +203,11 @@ public class Task {
         this.doAfterDescription = description;
     }
 
-    public void setPriorityTo(String priority) {
-        this.priority = priority;
+    public void setPriorityTo(Priority priority) {
+        this.priority = priority.name();
     }
 
-    public void setPriorityLevel(Priority level) {
+    public void setPriorityLevelTo(Priority level) {
         this.level = level;
     }
-
 }
