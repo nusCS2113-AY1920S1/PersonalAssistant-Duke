@@ -1,6 +1,7 @@
 package controllers;
 
 import repositories.ProjectRepository;
+import util.CommandHelper;
 import util.ViewHelper;
 import util.log.ArchDukeLogger;
 
@@ -12,6 +13,7 @@ public class ConsoleInputController implements IController {
     private ProjectRepository projectRepository;
     private String managingProjectIndex;
     private ViewHelper viewHelper;
+    private CommandHelper commandHelper;
 
     /**
      * Constructor.
@@ -21,6 +23,7 @@ public class ConsoleInputController implements IController {
         this.projectRepository = projectRepository;
         this.managingProjectIndex = "";
         this.viewHelper = new ViewHelper();
+        this.commandHelper = new CommandHelper();
     }
 
     /**
@@ -125,9 +128,10 @@ public class ConsoleInputController implements IController {
      * Displays the set of the commands which can be used.
      */
     private String[] commandHelp() {
-        // TODO help page displaying all commands available
-        // Not implemented
-        return new String[] {"Not implemented"};
+        ArrayList<ArrayList<String>> toPrintAll = new ArrayList<>();
+        toPrintAll.add(commandHelper.getCommandsForConsole());
+
+        return viewHelper.consolePrintTable(toPrintAll);
     }
 
     /**

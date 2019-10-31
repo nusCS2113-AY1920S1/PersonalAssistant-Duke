@@ -9,6 +9,7 @@ import models.task.ITask;
 import models.task.Task;
 import repositories.ProjectRepository;
 import util.AssignmentViewHelper;
+import util.CommandHelper;
 import util.ParserHelper;
 import util.ViewHelper;
 import util.factories.MemberFactory;
@@ -28,6 +29,7 @@ public class ProjectInputController implements IController {
     private TaskFactory taskFactory;
     private boolean isManagingAProject;
     private ViewHelper viewHelper;
+    private CommandHelper commandHelper;
 
     /**
      * Constructor for ProjectInputController takes in a View model and a ProjectRepository.
@@ -41,6 +43,7 @@ public class ProjectInputController implements IController {
         this.taskFactory = new TaskFactory();
         this.isManagingAProject = true;
         this.viewHelper = new ViewHelper();
+        this.commandHelper = new CommandHelper();
     }
 
     /**
@@ -119,6 +122,8 @@ public class ProjectInputController implements IController {
             } else if (projectFullCommand.matches("add reminder.*")) {
                 responseToView = projectAddReminder(projectToManage,projectFullCommand);
                 // jsonConverter.saveProject(projectToManage);
+            } else if (projectFullCommand.matches("help")) {
+                responseToView = projectHelp();
             } else if (projectFullCommand.matches("bye")) {
                 return end();
             } else {
@@ -126,6 +131,12 @@ public class ProjectInputController implements IController {
             }
         }
         return responseToView;
+    }
+
+    private String[] projectHelp() {
+        ArrayList<ArrayList<String>> toPrintAll = new ArrayList<>();
+        toPrintAll.add(commandHelper.getCommandsForProject());
+        return viewHelper.consolePrintTable(toPrintAll);
     }
 
     /**
