@@ -1,7 +1,22 @@
 package moomoo.task;
 
-import moomoo.MooMoo;
-import moomoo.command.*;
+import moomoo.command.Command;
+import moomoo.command.GraphCategoryCommand;
+import moomoo.command.GraphTotalCommand;
+import moomoo.command.EditBudgetCommand;
+import moomoo.command.ListBudgetCommand;
+import moomoo.command.SavingsBudgetCommand;
+import moomoo.command.SetBudgetCommand;
+import moomoo.command.ExitCommand;
+import moomoo.command.HelpCommand;
+import moomoo.command.ScheduleCommand;
+import moomoo.command.TotalCommand;
+import moomoo.command.category.AddCategoryCommand;
+import moomoo.command.category.AddExpenditureCommand;
+import moomoo.command.category.DeleteCategoryCommand;
+import moomoo.command.category.ListCategoryCommand;
+import moomoo.task.category.CategoryParser;
+import moomoo.command.MainDisplayCommand;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -31,20 +46,24 @@ public class Parser {
             return new ExitCommand(true);
         case ("budget"):
             return parseBudget(scanner);
-        case ("categories"):
-            return new ListCategoryCommand();
         case ("schedule"):
             return new ScheduleCommand(false, input);
         case ("add"):
             return parseAdd(scanner, ui);
         case ("delete"):
             return parseDelete(scanner, ui);
+        case ("sort"):
+            return CategoryParser.parseSort(scanner, ui);
         case ("list"):
-            return parseList(scanner, ui);
+            return new ListCategoryCommand();
         case ("graph"):
             return parseGraph(scanner);
         case ("total"):
             return new TotalCommand();
+        case ("help"):
+            return new HelpCommand();
+        case ("view"):
+            return parseView(scanner, ui);
         default:
             throw new MooMooException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
@@ -84,29 +103,47 @@ public class Parser {
         
     }
     
-    private static Command parseList(Scanner scanner, Ui ui) throws MooMooException {
-        String text = "What do you wish to list?" + "\n(c/) category" + "\n(n/) expenditure";
-        String input = parseInput(scanner, ui, text);
-        if (input.equals("c/")) {
-            return new ListCategoryCommand();
-        }
-        throw new MooMooException("Sorry I did not recognize that command.");
-    }
-    
     private static Command parseDelete(Scanner scanner, Ui ui) throws MooMooException {
         String text = "What do you wish to delete?" + "\n(c/) category" + "\n(n/) expenditure";
         String input = parseInput(scanner, ui, text);
         if (input.startsWith("c/")) {
-            String categoryNumber = removeSuffix(input);
+            String categoryName = removeSuffix(input);
             try {
-                return new DeleteCategoryCommand(Integer.parseInt(categoryNumber));
+                return new DeleteCategoryCommand(categoryName);
             } catch (NumberFormatException e) {
                 throw new MooMooException("Try a command like delete c/[Category Number]");
             }
         }
         throw new MooMooException("Sorry I did not recognize that command.");
     }
-    
+
+    private static Command parseView(Scanner scanner, Ui ui) throws MooMooException {
+        String text = "Which month's summary do you wish to view?" + "(m/) month" + "(y/) year";
+        String input = parseInput(scanner, ui, text);
+        LocalDate now = LocalDate.now();
+        if (input.startsWith("m/") || input.startsWith("y/")) {
+            int month = now.getMonthValue();
+            int year = now.getYear();
+            String[] tokens = input.split("/|\\s+");
+            int tokenCount = tokens.length;
+            for (int i = 0; i < tokenCount; i++) {
+                if (tokens[i].equals("m")) {
+                    month = Integer.parseInt(tokens[i + 1]);
+                } else if (tokens[i].equals("y")) {
+                    year = Integer.parseInt(tokens[i + 1]);
+                }
+            }
+            if (month != 0 && year != 0) {
+                return new MainDisplayCommand(month, year);
+            }
+        } else if (input.equals("current")) {
+            int month = now.getMonth().getValue();
+            int year = now.getYear();
+            return new MainDisplayCommand(month, year);
+        }
+        throw new MooMooException("Sorry i did not recognize that command.");
+    }
+
     private static Command parseAdd(Scanner scanner, Ui ui) throws MooMooException {
         String text = "What do you wish to add?" + "\n(c/) category" + "\n(n/) expenditure";
         String input = parseInput(scanner, ui, text);
@@ -135,16 +172,6 @@ public class Parser {
                 }
             }
 
-            /*
-            for (int j = 0; j < tokenCount; j++) { //for testing
-                System.out.println("Split Output: "+ tokens[j]); //for testing
-            }
-            System.out.println(categoryName);  //for testing
-            System.out.println(expenditureName);  //for testing
-            System.out.println(amount);  //for testing
-            System.out.println(date);  //for testing
-             */
-            
             if (!categoryName.isBlank() && !expenditureName.isBlank() && !amount.equals(0.0)) {
                 return new AddExpenditureCommand(expenditureName, amount, date, categoryName);
             }
@@ -162,18 +189,7 @@ public class Parser {
         }
         return categoryName;
     }
-    
-    /*
-    private static Command parseAddExpenditure(Ui ui) {
-        ui.showAddExpenditureMessage();
-        String input = ui.readCommand();
-        String[] parts = input.split("-");
-        String expenditureName = parts[0];
-        String amount = parts[1];
-        
-        return new AddExpenditureCommand(false, amount, expenditureName);
-    }
-*/
+
     private static String parseInput(Scanner scanner, Ui ui, String text) {
         String input;
         try {

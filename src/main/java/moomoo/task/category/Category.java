@@ -1,7 +1,8 @@
-package moomoo.task;
+package moomoo.task.category;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Comparator;
 
 public class Category {
     private double monthTotal;
@@ -46,7 +47,7 @@ public class Category {
      * Calculates the total expenditure for every entry in the category.
      * @return totalCost
      */
-    public double getCategoryMonthTotal() {
+    public double getTotal() {
         double totalCost = 0.00;
         for (Expenditure expenditure : category) {
             LocalDate date = expenditure.getDate();
@@ -58,9 +59,26 @@ public class Category {
         }
         return totalCost;
     }
-    
-    public void setCategoryMonthTotal() {
-        monthTotal = getCategoryMonthTotal();
+
+    public double getTotal(int month) {
+        return monthTotal;
+    }
+
+    /**
+     * Returns the total expenditure for the given month and year.
+     * @param month integer value representing the month
+     * @param year integer value representing the value.
+     * @return total expenditure spent for corresponding month and year
+     */
+    public double getTotal(int month, int year) {
+        double totalCost = 0.00;
+        for (Expenditure currExpenditure : category) {
+            if (currExpenditure.getDate().getMonthValue() == month
+                    && currExpenditure.getDate().getYear() == year) {
+                totalCost += currExpenditure.getCost();
+            }
+        }
+        return totalCost;
     }
     
     /**
@@ -95,41 +113,29 @@ public class Category {
         return longestName;
     }
 
-    /**
-     * Returns the total expenditure for the given month and year.
-     * @param month integer value representing the month
-     * @param year integer value representing the value.
-     * @return total expenditure spent for corresponding month and year
-     */
-    public double getCategoryTotalPerMonthYear(int month, int year) {
-        double totalCost = 0.00;
-        for (int i = 0; i < category.size(); i++) {
-            Expenditure currExpenditure = category.get(i);
-            if (currExpenditure.getDate().getMonthValue() == month
-                    && currExpenditure.getDate().getYear() == year) {
-                totalCost += currExpenditure.getCost();
-            }
+    void sort(String type) {
+        switch (type) {
+        case "name": {
+            category.sort(Comparator.comparing(Expenditure::toString));
+            return;
         }
-        return totalCost;
+        case "cost": {
+            category.sort(Comparator.comparing(Expenditure::costToString));
+            return;
+        }
+        case "date": {
+            category.sort(Comparator.comparing(Expenditure::dateToString));
+            return;
+        }
+        default:
+        }
     }
 
-    public double getMonthlyTotal(int month) {
-        return monthTotal;
-    }
-
-    /**
-     * Set the month total (FOR TESTING PURPOSES).
-     * @param value The value to be set
-     */
-    public void setMonthTotal(int value) {
-        monthTotal = value;
-    }
-    
     /**
      * Populate the categoryList array with dummy variables. FOR TESTING PURPOSES.
      */
-    public void testPopulate() {
-        ArrayList<String> population = new ArrayList<String>();
+    void testPopulate() {
+        ArrayList<String> population = new ArrayList<>();
         population.add("SanicTheHodgepodge");
         population.add("MetalGearLiquid");
         population.add("GTB");
