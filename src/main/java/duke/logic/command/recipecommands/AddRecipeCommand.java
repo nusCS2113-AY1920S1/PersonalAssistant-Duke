@@ -22,7 +22,6 @@ public class AddRecipeCommand extends Command<RecipeList, Ui, RecipeStorage> { /
         ArrayList<String> arrayList = new ArrayList<>();
         if (userInput.trim().equals(COMMAND_ADD_RECIPE)) {
             arrayList.add(ERROR_MESSAGE_GENERAL + MESSAGE_FOLLOWUP_NUll);
-            System.out.println("stuck here 7");
         } else if (userInput.trim().charAt(9) == ' ') {
             String description = userInput.split("\\s", 2)[1].trim();
             if (recipeList.containsRecipe(description)) {

@@ -51,7 +51,6 @@ public class Recipe {
             this.rating = Rating.DELICIOUS;
         } else {
             this.rating = Rating.UNRATED;
-            System.out.println("entered unrated");
         }
     }
 
@@ -81,6 +80,10 @@ public class Recipe {
                 + LABEL_REQ_INGREDIENTS + this.requiredIngredients.toViewString()
                 + "\n"
                 + LABEL_FEEDBACK + this.feedback.toString();
+    }
+
+    public String getViewReqString() {
+        return LABEL_REQ_INGREDIENTS + this.requiredIngredients.toViewString();
     }
 
     private Rating assignRating(String rating) { // can try switch statements too.

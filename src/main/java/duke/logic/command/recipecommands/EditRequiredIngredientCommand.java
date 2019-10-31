@@ -79,9 +79,7 @@ public class EditRequiredIngredientCommand extends Command<RecipeList, Ui, Recip
                              }
                          } else {
                              String prevIngredient = recipeList.containsRecipeIngredient(recipeTitle, ingredientName);
-                             System.out.println(prevIngredient);
                              String[] part = prevIngredient.split(",", 5);
-                             System.out.println(part[0] + "..." + part[1] + "..." + part[2] + "..." + part[3] + "...");
                              String index = part[4].trim();
                              if (quantity.isEmpty()) {
                                  quantity = part[1].trim();
@@ -164,9 +162,7 @@ public class EditRequiredIngredientCommand extends Command<RecipeList, Ui, Recip
                              }
                          } else {
                              String prevIngredient = recipeList.containsRecipeIngredient(recipeTitle, ingredientName);
-                             System.out.println(prevIngredient);
                              String[] part = prevIngredient.split(",", 5);
-                             System.out.println(part[0] + "..." + part[1] + "..." + part[2] + "..." + part[3] + "...");
                              String index = part[4].trim();
                              if (quantity.isEmpty()) {
                                  quantity = part[1].trim();

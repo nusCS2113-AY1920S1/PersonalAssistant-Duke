@@ -45,7 +45,6 @@ public class RecipeList {
         for (String ingredient : arrayList) {
             String[] check = ingredient.split(",", 2);
             if (check[0].trim().equals(recipeIngredient)) {
-                System.out.println("this is the position of the duplicate ingredient " + arrayList.indexOf(recipeIngredient));
                 temp = ingredient + " , " + i;
             }
             i++;
@@ -64,8 +63,13 @@ public class RecipeList {
     public void editFeedback(String recipeTitle, String feedback) {
         this.recipeLHM.get(recipeTitle).editFeedback(feedback);
     }
+
     public String viewRecipe(String recipeTitle) {
         return this.recipeLHM.get(recipeTitle).getViewString();
+    }
+
+    public String viewReqIngredient(String recipeTitle) {
+        return this.recipeLHM.get(recipeTitle).getViewReqString();
     }
 
     public void insertReqIngredient(String recipeTitle, String position, String ingredientName, String quantity, String unit, String additionalInfo) {

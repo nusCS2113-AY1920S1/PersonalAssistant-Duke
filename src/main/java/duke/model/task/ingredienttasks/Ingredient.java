@@ -25,6 +25,10 @@ public class Ingredient {
         return this.ingredientName;
     }
 
+    public String getAdditionalInfo() {
+        return this.additionalInfo;
+    }
+
     public UnitOfMeasurement getUnit() {
         return this.unit;
     }
@@ -58,7 +62,7 @@ public class Ingredient {
     }
 
     public String toSaveString() {
-        return ingredientName + " , " + quantity + " , " + unit + " , " + additionalInfo;
+        return ingredientName + " | " + quantity + " | " + unit + " | " + additionalInfo;
     }
 
     public String toString() {
