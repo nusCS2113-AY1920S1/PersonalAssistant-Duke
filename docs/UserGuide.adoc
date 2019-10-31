@@ -18,9 +18,18 @@ By: `Team F10-3`      Since: `Aug 2019`
 
 == Introduction
 
-AlphaNUS is a personal assistant for NUS club treasurers to easily manage their payment forms to be submitted.
+NUS treasurers often come face to face with piles of payment forms filled with payments for claims and also need to
+keep track of their statuses. Having to manage and allocate club funds to multiple projects, treasurers
+may find it a chore to keep up to date with their finances.
+
+*AlphaNUS* is a financial management assistant for treasurers to keep track of payment forms made by payees as well as manage the club's funds for projects.
 
 == Quick Start
+.  Ensure you have Java `11` or above installed in your Computer.
+.  Download the latest `alphanus.jar` link:{repoURL}/releases[here].
+.  Copy the file to the folder you want to use as the home folder.
+.  Run the commmand `java -jar alphanus.jar` on your terminal in the home folder.
+
 .  Some example commands you can try:
 
 * *`list`* : lists all submission deadlines
@@ -40,7 +49,54 @@ AlphaNUS is a personal assistant for NUS club treasurers to easily manage their 
 * Items in `square brackets` are optional e.g `d/DESCRIPTION [p/PAYMENT_DETAIL]` can be used as `d/welcome tea p/food 12` or as `d/welcome tea`
 
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[p/PAYMENT_DETAIL]…`​ can be used as `` ``(i.e. 0 times), `p/food 12`, `p/food 12 p/drinks 7` etc
+
 ====
+
+=== Adding a project: `add project`
+Adds a project called `PROJECT_NAME` to the record. +
+Format: `add project pr/PROJECT_NAME`
+
+[TIP]
+You can use more than one word for `PROJECT_NAME`.
+
+[TIP]
+You may not add a new project with `PROJECT_NAME` if a project named `PROJECT_NAME` already exists.
+
+
+Examples:
+
+* `add project pr/Rag`
+* `add project pr/Arts Night`
+
+=== Deleting a project: `delete project`
+
+Deletes a project called `PROJECT_NAME` from the record +
+Format: `delete project pr/PROJECT_NAME`
+
+Examples:
+
+* `delete project pr/Rag`
+* `delete project pr/Arts Night`
+
+=== Going to a project to edit it: `goto project`
+
+Goes to a project called `PROJECT_NAME` in the record +
+Format: `goto project pr/PROJECT_NAME`
+
+Examples:
+
+* `goto project pr/Rag`
+* `goto project pr/Arts Night`
+
+=== List all projects: `list projects`
+
+List all projects in the record +
+Format: `list projects`
+
+Examples:
+
+* `list projects`
+
 
 === Adding a new payee: `add payee`
 
@@ -221,6 +277,28 @@ Examples:
 
 view input commands entered by the user from the start till the present +
 Format: `history`
+
+image::history.png[]
+
+=== View previous input commands within a certain period: `view history`
+
+view input commands entered by the user from a start date to an end date, provided in the input +
+Format: `view history h/DATE_1 to DATE_2`
+
+[TIP]
+the format of the date should be dd-MM-yyyy
+[TIP]
+to view the history of a specific date rather than a period: DATE_1 = DATE_2
+
+Examples:
+
+* `view history h/24-10-2019 to 25-10-2019`
+
+image::view_history2.png[]
+
+* `view history h/25-10-2019 to 25-10-2019`
+
+image::view_history.png[]
 
 === Exit command: `bye`
 

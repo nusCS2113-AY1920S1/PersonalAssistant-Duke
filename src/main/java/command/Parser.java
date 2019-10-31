@@ -18,7 +18,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-
+import java.util.LinkedHashMap;
 /**
  * Parser that parses input from the user.
  */
@@ -26,7 +26,6 @@ public class Parser {
     private static Instruction instr = new Instruction();
     private static Process process = new Process();
 
-    private static Project currentProject = null;
 
     /**
      * Method that parses input from the user and executes processes based on the input.
@@ -39,34 +38,27 @@ public class Parser {
      * @throws AlphaNUSException if input is not valid.
      */
 
-    public static boolean parse(String input, TaskList tasklist, Ui ui, Fund fund, Storage storage, ArrayList<String> commandList,
-                                HashMap<String, Payee> managermap, HashMap<String, Project> projectmap) {
+    public static boolean parse(String input, TaskList tasklist, Ui ui, Fund fund, Storage storage, ArrayList<String> commandList) {
         try {
             if (instr.isBye(input)) {
                 //print bye message
                 ui.byeMessage();
                 ui.getIn().close();
                 return true;
+            } else if (instr.isViewhistory(input)) {
+                process.viewhistory(input, ui, commandList, storage);
             } else if (instr.isHistory(input)) {
                 process.history(ui,commandList, storage);
+            } else if (instr.isListProjects(input)){
+                process.listProjects(ui);
             } else if (instr.isAddProject(input)) {
                 process.commandHistory(input, ui, storage);
-                if (currentProject == null) {
-                    currentProject = process.addProject(input, ui, projectmap);
-                } else {
-                    process.addProject(input, ui, projectmap);
-                }
+                process.addProject(input, ui);
             } else if (instr.isDeleteProject(input)) {
-                Project deletedProject = process.deleteProject(input, ui, projectmap);
+                process.deleteProject(input, ui);
                 process.commandHistory(input, ui, storage);
-                if (currentProject == deletedProject) {
-                    currentProject = null;
-                }
             } else if (instr.isGoToProject(input)) {
-                if (currentProject == null) {
-                    process.noProject(ui);
-                }
-                currentProject = process.goToProject(input, ui, projectmap);
+                process.goToProject(input, ui);
                 process.commandHistory(input, ui, storage);
             } else if (instr.isList(input)) {
                 ui.printList(tasklist, "list");
@@ -83,7 +75,7 @@ public class Parser {
                 process.doAfter(input, tasklist, ui);
                 //Storage.save(tasklist.returnArrayList());
             } else if (instr.isDeletePayment(input)) {
-                process.deletePayment(input, managermap, ui);
+                process.deletePayment(input, ui);
                 process.commandHistory(input, ui, storage);
                 //storage.save(tasklist.returnArrayList());
 
@@ -114,19 +106,19 @@ public class Parser {
                 //process.reminder(input, tasklist, ui);
                 process.commandHistory(input, ui, storage);
             } else if (instr.isEdit(input)) {
-                // process.edit(input,tasklist,ui);
+                process.edit(input,ui);
                 process.commandHistory(input, ui, storage);
             } else if (instr.isAddPayment(input)) {
-                process.addPayment(input, managermap, ui);
+                process.addPayment(input, ui);
                 process.commandHistory(input, ui, storage);
             } else if (instr.isgetpayee(input)) {
-                process.findPayee(input, ui, managermap);
+                process.findPayee(input, ui);
                 process.commandHistory(input, ui, storage);
             } else if (instr.isAddPayee(input)) {
-                process.addPayee(input, managermap, ui);
+                process.addPayee(input, ui);
                 process.commandHistory(input, ui, storage);
             } else if (instr.isDeletePayee(input)) {
-                process.deletePayee(input, managermap, ui);
+                process.deletePayee(input, ui);
                 process.commandHistory(input, ui, storage);
             } else if (instr.isInvoice(input)) {
                 process.inVoice(input, tasklist, ui);
@@ -135,15 +127,24 @@ public class Parser {
                 process.commandHistory(input, ui, storage);
             } else if (instr.isSetFund(input)) {
                 process.setFund(input, ui, fund);
+                process.commandHistory(input, ui, storage);
             } else if (instr.isAddFund(input)) {
                 process.addFund(input, ui, fund);
+                process.commandHistory(input, ui, storage);
+            } else if (instr.isAssignFund(input)) {
+                process.assignFund(input, ui, fund);
+                process.commandHistory(input, ui, storage);
+            } else if (instr.isHelp(input)) {
+                ui.printHelpMessage();
             } else {
-                throw new AlphaNUSException("     ☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+                throw new AlphaNUSException("\t" + "OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
         } catch (AlphaNUSException e) {
-            process.homePageMessage(currentProject.projectname, projectmap.size(), ui);
+            ui.exceptionMessage(e.getMessage());
         } catch (NullPointerException e) {
-            process.homePageMessage(null, projectmap.size(), ui);
+            ui.exceptionMessage("NULLPOINTEREXCEPTION");
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
         return false;
     }

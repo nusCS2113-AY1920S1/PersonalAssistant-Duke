@@ -84,6 +84,10 @@ public class Instruction {
         return input.startsWith("history");
     }
 
+    public boolean isListProjects(String input) {
+        return input.equals("list projects");
+    }
+
     public boolean isAddProject(String input) {
         return input.startsWith("add project");
     }
@@ -102,6 +106,14 @@ public class Instruction {
 
     public boolean isAddFund(String input) {
         return input.startsWith("add fund");
+    }
+
+    public boolean isAssignFund(String input) { return input.startsWith("assign fund"); }
+
+    public boolean isViewhistory(String input) { return input.startsWith("view history"); }
+
+    public boolean isHelp(String input) {
+        return input.equals("help");
     }
 
 }
