@@ -86,6 +86,10 @@ public class Task {
     }
 
     //@@author JustinChia1997
+    public ArrayList<String> getReqSkills() {
+        return this.skillReqList;
+    }
+
     /**
      * Adds a required skill to required skills array
      *

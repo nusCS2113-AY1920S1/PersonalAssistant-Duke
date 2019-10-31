@@ -66,5 +66,22 @@
     "skillReqList": [
       "sing"
     ]
+  },
+  {
+    "name": "run",
+    "isDone": false,
+    "memberList": [],
+    "skillReqList": [
+      "run"
+    ]
+  },
+  {
+    "name": "fly",
+    "isDone": false,
+    "memberList": [],
+    "skillReqList": [
+      "fly",
+      "run"
+    ]
   }
 ]

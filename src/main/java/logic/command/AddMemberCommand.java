@@ -32,6 +32,7 @@ public class AddMemberCommand extends Command {
                 model.addMemberSkill(name, skills.get(i));
             }
         }
+        model.save();
         return new CommandOutput(FEEDBACK_MESSAGE + name);
     }
 }

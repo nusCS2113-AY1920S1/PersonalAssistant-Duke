@@ -149,6 +149,7 @@ public class MemberManager {
         return getMemberByName(memberName).getTaskList();
     }
 
+
     public boolean addSkill(String memberName, String skillName){
         if(hasMember(memberName)) {
             return getMemberByName(memberName).addSkill(skillName);

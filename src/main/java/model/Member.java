@@ -88,6 +88,17 @@ public class Member {
     }
 
     //@@author JustinChia1997
+    public boolean hasSkill(String skillName) {
+        if(skillList!=null) {
+            if (skillList.contains(skillName)) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+        return false;
+    }
+
     /**
      * Adds a required skill to member skill array
      *
