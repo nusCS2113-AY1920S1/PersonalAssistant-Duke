@@ -7,7 +7,7 @@ import cube.logic.command.util.CommandResult;
 
 public class HelpCommand extends Command{
 
-	String MESSAGE_SUCCESS = "Currently we support the following commands: (all command ignore cases)\n"
+	public static final String MESSAGE_SUCCESS = "Currently we support the following commands: (all command ignore cases)\n"
 			+ "Manipulate food:\n"
 			+ String.format("%1$-50s", "  'add <food name> -t <food type> -p <price> -s <stock> -e <expiry date>' ") + "add a new food product with all details/description\n"
 			+ String.format("%1$-50s", "  'generaterevenue -all OR -i <number> OR -n <food name> OR -t <food type>'") + "generate the revenue for the specified food product in the list, -all for total revenue\n"
