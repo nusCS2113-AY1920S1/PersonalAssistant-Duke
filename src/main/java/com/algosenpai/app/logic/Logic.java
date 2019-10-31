@@ -29,8 +29,10 @@ import com.algosenpai.app.logic.command.UndoCommand;
 import com.algosenpai.app.logic.models.QuestionModel;
 import com.algosenpai.app.logic.parser.Parser;
 import com.algosenpai.app.stats.UserStats;
+import com.algosenpai.app.storage.Storage;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -40,7 +42,6 @@ public class Logic {
     private QuizGenerator quizMaker;
 
     //All variables for the settings of the program
-    private double playerExp = 0.0;
 
     //All variables for the quiz function
     private AtomicInteger chapterNumber = new AtomicInteger(-1);
@@ -59,7 +60,7 @@ public class Logic {
     /**
      * Initializes logic for the application with all the different components.
      */
-    public Logic(UserStats stats) throws FileNotFoundException {
+    public Logic(UserStats stats) {
         this.userStats = stats;
         quizMaker = new QuizGenerator();
         historyList = new ArrayList<>();
@@ -79,13 +80,6 @@ public class Logic {
         }
     }
 
-    /**
-     * Gets the player exp level.
-     * @return the double value representing the exp level.
-     */
-    public double getPlayerExp() {
-        return this.playerExp;
-    }
 
     /**
      * Executes the command.
@@ -136,6 +130,8 @@ public class Logic {
         default:
             return new InvalidCommand(inputs);
         }
+
+
     }
 
     private Command getQuizCommand(ArrayList<String> inputs) {
@@ -147,14 +143,15 @@ public class Logic {
                 if (inputs.get(1).equals("next") || inputs.get(1).equals("back")) {
                     return new QuizNextCommand(inputs, quizList, questionNumber);
                 } else {
-                    return new QuizTestCommand(inputs, quizList, questionNumber, isQuizMode, isNewQuiz);
+                    return new QuizTestCommand(
+                            inputs, quizList, questionNumber, isQuizMode, isNewQuiz, chapterNumber.get());
                 }
             } else {
                 return new QuizCommand(inputs);
             }
         }
         quizList = quizMaker.generateQuiz(chapterNumber.get(), quizList);
-        return new QuizTestCommand(inputs, quizList, questionNumber, isQuizMode, isNewQuiz);
+        return new QuizTestCommand(inputs, quizList, questionNumber, isQuizMode, isNewQuiz,chapterNumber.get());
     }
 
     /**

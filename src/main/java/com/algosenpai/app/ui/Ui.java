@@ -9,6 +9,7 @@ import com.algosenpai.app.logic.command.UndoCommand;
 import com.algosenpai.app.logic.command.QuizTestCommand;
 import com.algosenpai.app.stats.UserStats;
 import com.algosenpai.app.logic.parser.Parser;
+import com.algosenpai.app.storage.Storage;
 import com.algosenpai.app.ui.controller.AnimationTimerController;
 import com.algosenpai.app.ui.components.DialogBox;
 import javafx.animation.PauseTransition;
@@ -89,10 +90,21 @@ public class Ui extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
-        dialogContainer.getChildren().add(DialogBox.getSenpaiDialog(GREETING_MESSAGE, senpaiImage));
-        userPic.setImage(userImage);
-        levelProgress.setProgress(0);
-        playerLevel.setText("You are Level 1");
+        UserStats tempStats = UserStats.parseString(Storage.loadData("UserData.txt"));
+        if (tempStats.getUsername().equals("DefaultName")) {
+            dialogContainer.getChildren().add(DialogBox.getSenpaiDialog(GREETING_MESSAGE, senpaiImage));
+            userPic.setImage(userImage);
+            levelProgress.setProgress(0);
+            playerLevel.setText("You are Level 1");
+        } else {
+            dialogContainer.getChildren().add(DialogBox.getSenpaiDialog(
+                    "Welcome back " + tempStats.getUsername(), senpaiImage));
+            userPic.setImage(userImage);
+            levelProgress.setProgress(0);
+            playerLevel.setText("You are Level " + tempStats.getUserLevel());
+        }
+
+
         handle();
     }
 

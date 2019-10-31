@@ -1,6 +1,8 @@
 package com.algosenpai.app.logic.command;
 
 import com.algosenpai.app.logic.models.QuestionModel;
+import com.algosenpai.app.stats.UserStats;
+import com.algosenpai.app.storage.Storage;
 
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -15,6 +17,8 @@ public class QuizTestCommand extends QuizCommand {
     AtomicBoolean isQuizMode;
 
     AtomicBoolean isNewQuiz;
+
+    int chapterNumber;
 
     /**
      * Create new command.
@@ -33,12 +37,14 @@ public class QuizTestCommand extends QuizCommand {
      * @param isNewQuiz is quiz initialize.
      */
     public QuizTestCommand(ArrayList<String> inputs, ArrayList<QuestionModel> quizList,
-                           AtomicInteger questionNumber, AtomicBoolean isQuizMode, AtomicBoolean isNewQuiz) {
+                           AtomicInteger questionNumber, AtomicBoolean isQuizMode, AtomicBoolean isNewQuiz,
+                           int chapterNumber) {
         this(inputs);
         this.quizList = quizList;
         this.isQuizMode = isQuizMode;
         this.questionNumber = questionNumber;
         this.isNewQuiz = isNewQuiz;
+        this.chapterNumber = chapterNumber;
     }
 
 
@@ -58,7 +64,17 @@ public class QuizTestCommand extends QuizCommand {
                     + quizList.get(questionNumber.get()).getUserAnswer();
         }
         int correctCount = calculateScore();
+
+        // Updating all the user stats one shot in here
+        UserStats userStats = UserStats.parseString(Storage.loadData("UserData.txt"));
+        userStats.updateChapter(chapterNumber,10,correctCount);
+        userStats.setUserExp(userStats.getUserExp() + correctCount);
+        userStats.setUserLevel(userStats.getUserExp() / 20);
+        userStats.saveUserStats("UserData.txt");
+        // End of updating
+
         reset();
+
         return "You got " + correctCount + "/10 questions correct!\n"
                 + "You have gained " + correctCount + " EXP points!";
 
