@@ -32,9 +32,6 @@ My role was to manage the overall project and manage the Git Repo. I also ensure
 *** Justification: Clearly represents the system for the user. Navigation and accessibility of functions are graphically represented. No mistakes from the user side will be made when keying in commands.
 *** Highlights: This feature works to be implemented in the future v2.0 update.
 
-
-* *Major enhancement*: Created the JavaFX UI with FXML files.
-
 * *Code contributed*:
 ** [https://github.com/AY1920S1-CS2113T-W13-1/main/blob/master/src/main/java/duke/parser/ParserSchedule.java[ParserSchedule]] [https://www.youtube.com/watch?v=dQw4w9WgXcQ[Test Code]]
 ** [https://github.com/AY1920S1-CS2113T-W13-1/main/blob/master/src/main/java/duke/models/Schedule.java[Schedule]] [https://www.youtube.com/watch?v=dQw4w9WgXcQ[Test Code]]
