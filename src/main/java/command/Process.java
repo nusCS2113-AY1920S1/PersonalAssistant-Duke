@@ -199,20 +199,24 @@ public class Process {
      * @param input Input from the user.
      * @param ui Ui that interacts with the user.
      * @param fund the total fund the that the organisation owns
-     * @param projectmap Hashmap containing projects.
      */
     public void assignFund(String input, Ui ui, Fund fund) {
         try {
-            String[] split = input.split("pr/|am/");
+            String[] split = input.split("pr/| am/");
             String projectname = split[1];
             Double amount = Double.parseDouble(split[2]);
-            Project project = projectmanager.projectmap.get(projectname);
-            if ( fund.getFundRemaining() >= amount ) {
-                fund.takeFund(amount);
-                project.addBudget(amount);
-                ui.printAssignFundMessage(fund, amount, project);
+            if (!projectmanager.projectmap.containsKey(projectname)) {
+                System.out.println("\t" + "Project does not exist!");
+                return;
             } else {
-                ui.exceptionMessage("     ☹ OOPS!!! There is not enough fund. Please decrease the amount of fund assigned)");
+                if (fund.getFundRemaining() >= amount) {
+                    fund.takeFund(amount);
+                    projectmanager.assignBudget(projectname, amount);
+                    ui.printAssignFundMessage(fund, amount,  projectmanager.projectmap.get(projectname));
+                } else {
+                    ui.exceptionMessage("     ☹ OOPS!!! There is not enough fund. Please decrease the amount of fund assigned)");
+                    System.out.print(fund.giveFund());
+                }
             }
         } catch (ArrayIndexOutOfBoundsException e) {
             ui.exceptionMessage("     ☹ OOPS!!! Please input the correct command format (refer to user guide)");

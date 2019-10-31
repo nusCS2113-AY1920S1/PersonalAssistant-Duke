@@ -74,3 +74,12 @@ set fund am/200  | 29-10-2019 01:25:37
 add fund add/200  | 29-10-2019 01:26:07
 assign fund p/trial am/300  | 29-10-2019 01:26:27
 >>>>>>> 0047133360198f4e0871153a22269d86438c2e95
+
+add project pr/trial  | 31-10-2019 02:04:48
+set fund am/200  | 31-10-2019 02:05:20
+assign fund pr/trial am/100  | 31-10-2019 02:05:51
+assign fund pr/trialam/100  | 31-10-2019 02:06:30
+assign fund pr/trialam/200  | 31-10-2019 02:07:11
+add project pr/trial  | 31-10-2019 02:08:54
+set fund am/200  | 31-10-2019 02:09:02
+assign fund pr/trial am/300  | 31-10-2019 02:09:22
