@@ -253,10 +253,24 @@ View all items and rooms recorded and whether they are available or not.
 . `list`
 
 ==== View calendar: `calendar`
-View a table-format calendar which shows when items/rooms are in use.
+View a calendar representation showing what items/rooms are in use/booked for the month.
 
 .*Format*:
-. `calendar`
+To view calendar: +
+
+ . Enter  `calendar` into the console, then press kbd:[Enter] to execute the command.
+
++
+====
+RIMS will display the calendar of the bookings for the current month +
+
+image::Calendar/Calendar screenshot.png[width="500", align="left"]
+====
+
+
+
+
+
 
 === Others
 

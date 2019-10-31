@@ -76,6 +76,8 @@ public abstract class CalendarCommand extends Command{
     // todo: make dates overflow from previous months
     // todo: make headings - month and year as well as days of the week as the axis
     // todo: make entry span across multiple cells
+    // todo: add a resize function
+    // todo: change month function
 
     public static void printCal() {
         printTopCells();
