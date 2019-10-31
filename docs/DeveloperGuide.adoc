@@ -271,7 +271,7 @@ These checks were implemented into the `ModuleInfoDetailed` class itself, which 
 * Pros: This checking system can be used by other classes/methods just by calling the method under `ModuleInfoDetailed`.
 * Cons: Calling the method requires a much deeper reach to extract the method/check needed, and may impact the code simplicity.
 
-Other alternatives would be to have the checks directly in the `GradeCommand` class, however this alternative was disregarded as other `Command` that had use for these checks were created, such as the `CapCommand` class.
+Other alternatives would be to have the checks directly in the `GradeCommand` class, however this alternative was disregarded as other `Command` that required use of these checks were created, such as the `CapCommand` class.
 
 ***
 
@@ -346,6 +346,9 @@ In this case, the modules the user needs to take are: +
 Below is a sequence diagram showing how `CapCommand` works. +
 
 image::CapCommandSequenceDiagram.png[]
+
+As seen `CapCommand` uses three different CAP calculation methods contained within itself to generate the CAP reports, in addition to all the sub-methods such as `letterGradeToCap` and `parsePrerequisiteTree`, and then pushes the information to `PlannerUi` for printing. 
+It also instantiates different `Exception` classes to feedback to the user if anything is wrong.
 
 === SortCommand
 
@@ -440,14 +443,18 @@ image::PackageCrawler.png[]
 
 To prevent multiple requests to NUSMODS, our implementation would check if the user has previously downloaded the module data before. If they have not, only then would `JsonWrapper` call `RequestsData` to initialize the module data file.
 
+The sequence diagram of this implementation is shown below:
+
+image::JsonWrapperSequenceDiag.png[]
+
 The above function is done in the `CliLauncher` class, during the setup function call.
 
-Since `Gson` is able to internally read a JSON file when given the same template within a Java object class, it would be able to map the value fields to each of the same keys in the Java Object.
+Since `Gson` is able to internally read a JSON file and when given the same template within a Java object class, it would be able to map the value fields to each of the same keys in the Java Object.
 
 This allows the application to have a direct access to all the modules which are currently offered in NUS, by reading the returned JSON string and parsing it directly into a list of Module information. Since the data had to be modelled, the
 following ModuleInfoDetailed and ModuleInfoSummary was created to capture the data in the JSON file to be used during runtime.
 
-image::PackageModules.png[]
+image::PackageModule.png[]
 
 Since some modules may not contain data for every field, each of the module classes above are required to have default values on initialisation so as to prevent `NullPointerExceptions` during runtime when such module data is accessed.
 
@@ -489,18 +496,7 @@ For the proposed implementation of updating user data, there are a few alternati
 ****
 =======
 
-=== Logger
-
-The follow dependency diagram shows the relationship Logger has with the rest of the other classes.
-
-image::Logger.png[]
-
-`LoggerFormatter` formats the logging standard which all logging entries uses. `PlannerLogger` is called on every exception handling errors which occurs in `Parser`, `JsonWrapper` and the main `CliLauncher` class.
-
-It is present to capture all `ModException` errors as `WARNING`, while any other unhandled exceptions would be deemed as `SEVERE`.
-
-The logging data is written to the `logging.log` file found in the data folder when the application is started.
-
+// tag::Cca[]
 
 === Cca
 
