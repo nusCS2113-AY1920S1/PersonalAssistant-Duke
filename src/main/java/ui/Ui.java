@@ -275,12 +275,11 @@ public class Ui {
             return "Add tags of a specific word.\n"
                     + "Format: tag w/WORD t/TAG...\n"
                     + "For more than one tag, please append \"t/\" before each tag";
-        } else if(instruction.equals("addsyn")){
+        } else if (instruction.equals("addsyn")) {
             return "Add synonyms to a word.\n"
                     + "Format: addsyn w/WORD s/synonyms\n"
                     + "For more than one synonym, you may separate them by a space";
-        }
-        else if (instruction.equals("quiz")) {
+        } else if (instruction.equals("quiz")) {
             return "Take a quiz to test yourself.\n"
                     + "Format: quiz";
         } else {
