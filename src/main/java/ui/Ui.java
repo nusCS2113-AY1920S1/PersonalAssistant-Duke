@@ -20,6 +20,7 @@ import java.util.Scanner;
  */
 public class Ui {
     private static final String line = "    ____________________________________________________________\n";
+    private static CommandFormat commandFormat = new CommandFormat();
     Scanner in;
 
     /**
