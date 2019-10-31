@@ -1,9 +1,9 @@
 package duke.parser;
 
-
 import duke.models.MyPlan;
 import duke.view.CliView;
-
+import java.util.Scanner;
+import duke.data.Storage;
 import java.io.FileNotFoundException;
 
 public class ParserTrainingPlan implements IParser {
@@ -14,17 +14,35 @@ public class ParserTrainingPlan implements IParser {
     private CliView cliView;
 
     /**
+     * A scanner to handle user input.
+     */
+    private Scanner sc;
+    /**
+     * MyPlan object.
+     */
+    private MyPlan plan;
+
+    /**
+     * Constructor for ParserTrainingPlan.
+     * @throws FileNotFoundException File does not exist
+     */
+    public ParserTrainingPlan() throws FileNotFoundException {
+        cliView = new CliView();
+        plan = new MyPlan(new Storage(
+                ".\\src\\main\\java\\duke\\data\\plan.txt").loadPlans());
+        sc = new Scanner(System.in);
+    }
+
+    /**
      * To parse training plan command.
-     *
      * @param input command.
-     * @throws FileNotFoundException in the event the file is not able to be
-     *                               located in the directory
+     * @throws FileNotFoundException File not found
      */
     @Override
     public void parseCommand(final String input) throws FileNotFoundException {
-        MyPlan plan = new MyPlan();
         String[] word = input.split(" ");
         String cmd = word[0];
+
         switch (cmd) {
         case "plan":
             if (word[1].equals("view")) {
@@ -34,10 +52,6 @@ public class ParserTrainingPlan implements IParser {
                 plan.createPlan(word[2].toLowerCase());
             } else if (word[1].equals("edit")) {
                 System.out.println("To be created...");
-            } else if (word[1].equals("save")) {
-                //String fp = plan.getFilePath();
-                //new Storage(fp).savePlans(plan.getMap());
-                cliView.showSavePlanToMap();
             }
             break;
         case "training":
@@ -52,8 +66,8 @@ public class ParserTrainingPlan implements IParser {
             case "add-activity":
                 int num = 2;
                 System.out.println(plan.addActivity(word[num],
-                    Integer.parseInt(word[++num]),
-                    Integer.parseInt(word[++num])));
+                        Integer.parseInt(word[++num]),
+                        Integer.parseInt(word[++num])));
                 break;
             case "delete":
                 System.out.println("To be added.");

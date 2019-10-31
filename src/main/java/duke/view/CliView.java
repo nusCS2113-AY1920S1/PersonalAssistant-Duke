@@ -144,6 +144,40 @@ public class CliView {
     }
 
     /**
+     * Show plan list when option 1 is chosen from trainingProgramHeading.
+     */
+    public void planListHeading() {
+        System.out.flush();
+        System.out.println("PLAN LIST:");
+    }
+
+    /**
+     * Prompt user input when option 2 is chosen from trainingProgramHeading.
+     */
+    public void createPlanHeading() {
+        System.out.flush();
+        System.out.println("Input an intensity level for the new plan:\n"
+                + "high, moderate, relaxed");
+    }
+
+    /**
+     * Prompt user to choose a plan to edit when option 3 is chosen.
+     */
+    public void editPlanHeading() {
+        System.out.flush();
+        System.out.println("Choose a plan from below to edit:\n"
+                + " To be created...");
+    }
+
+    /**
+     * Prompt user to choose the correct option from trainingProgramHeading.
+     */
+    public void showCorrectPlanHeading() {
+        System.out.flush();
+        System.out.println("Choose only options 1, 2 and 3 for training plans");
+    }
+
+    /**
      * Displays student from student list that is matching to search.
      *
      * @param foundStudent Name of student that has been found.
@@ -445,7 +479,8 @@ public class CliView {
      * Prints error message when there is incomplete daily list.
      */
     public void showEmptyList() {
-        System.out.println("Sorry, there are no days matching what you have entered.");
+        System.out.println("Sorry, there are no days matching"
+                + "what you have entered.");
     }
 
     /**
