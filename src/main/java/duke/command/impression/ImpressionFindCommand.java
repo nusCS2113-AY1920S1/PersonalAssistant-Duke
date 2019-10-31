@@ -44,7 +44,7 @@ public class ImpressionFindCommand extends ArgCommand {
             information.append(searchResult.get(i).getName()).append(System.lineSeparator());
         }
         core.ui.print(findStr + information.toString());*/
-        if (!searchResult.isEmpty()){
+        if (!searchResult.isEmpty()) {
             SearchResult search = new SearchResult(searchTerm, searchResult, impression);
             core.uiContext.setContext(Context.SEARCH, search);
             core.ui.print("Returning result of search of " + searchTerm);
