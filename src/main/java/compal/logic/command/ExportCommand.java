@@ -1,6 +1,7 @@
 package compal.logic.command;
 
 
+import compal.commons.LogUtils;
 import compal.logic.command.exceptions.CommandException;
 import compal.model.tasks.Task;
 import compal.model.tasks.TaskList;
@@ -25,14 +26,17 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Logger;
 
 
 public class ExportCommand extends Command {
 
-    private String fileName;
     public static final String MESSAGE_UNABLE_CREATE_FILE = "Error: Unable to create file! Try again!";
     public static final String MESSAGE_UNABLE_CREATE_CAL = "Error: Unable to output to calender!";
-    public static final String MESSAGE_SUCCESS = "Export command successfully executed!\n";
+    public static final String MESSAGE_SUCCESS = "Your COMPal schedule has been successfully exported!\n";
+
+    private String fileName;
+    private static final Logger logger = LogUtils.getLogger(ExportCommand.class);
 
     /**
      * Construct the ExportCommand class.
@@ -46,7 +50,7 @@ public class ExportCommand extends Command {
 
     @Override
     public CommandResult commandExecute(TaskList taskList) throws CommandException {
-
+        logger.info("Attempting to execute export command");
 
         Calendar calendar = createCalendar(taskList);
         System.out.println(calendar);
@@ -65,6 +69,7 @@ public class ExportCommand extends Command {
             throw new CommandException(MESSAGE_UNABLE_CREATE_CAL);
         }
 
+        logger.info("Successfully executed export command");
         return new CommandResult(MESSAGE_SUCCESS.concat("Your file is saved to " + fileName), false);
     }
 

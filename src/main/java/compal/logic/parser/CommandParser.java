@@ -7,6 +7,8 @@ import compal.logic.parser.exceptions.ParserException;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.text.DateFormat;
 import java.text.ParseException;
 
@@ -64,9 +66,7 @@ public interface CommandParser {
     String MESSAGE_INVALID_TYPE = "Error: The type does not exist!";
     String MESSAGE_INVALID_PRIORITY = "Invalid Priority Input";
     String MESSAGE_LIMIT_EXCEEDED = "Error: Input entered is out of range!";
-    String MESSAGE_INVALID_FILE_NAME_FORMAT = "Invalid file name!";
-
-
+    String MESSAGE_INVALID_FILE_NAME_FORMAT = "Invalid file name for export!";
     /**
      * Method specification for different command parsers to parse user input.
      *
@@ -450,10 +450,10 @@ public interface CommandParser {
     //@@author SholihinK
 
     /**
-     * check if file name to create is valid.
+     *  check if file name to read/write is valid.
      *
      * @param fileName the name of file
-     * @return string of file name
+     * @return string of file name to write
      * @throws ParserException if fileName is not valid
      */
     default String getFileName(String fileName) throws ParserException {
@@ -465,6 +465,7 @@ public interface CommandParser {
             throw new ParserException(MESSAGE_INVALID_FILE_NAME_FORMAT);
         }
     }
+
 
     /**
      * MISCELLANEOUS METHODS BELOW

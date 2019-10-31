@@ -3,7 +3,6 @@ package compal.logic.parser;
 import compal.commons.LogUtils;
 import compal.logic.command.Command;
 import compal.logic.command.ExportCommand;
-import compal.logic.command.ListCommand;
 import compal.logic.parser.exceptions.ParserException;
 
 import java.util.logging.Logger;
