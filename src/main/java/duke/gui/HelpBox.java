@@ -56,7 +56,7 @@ public class HelpBox extends HBox {
 
         int alternator = 0;
         for (String command : new HelpCommand().getHelpCommands()) {
-            if (alternator%2 == 0) {
+            if (alternator % 2 == 0) {
                 HelpBox newHelpBox = new HelpBox(command, "#000000");
                 newHelpBox.setPadding(new Insets(0, 5, 10, 5));
                 helpCommands.add(newHelpBox);
