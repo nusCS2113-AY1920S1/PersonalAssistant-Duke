@@ -1,11 +1,10 @@
-= Brian Tan Kian Ming - Project Portfolio
+= Tan Kian Ming Brian - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 :repoURL: https://github.com/AY1920S1-CS2113T-W17-3/main
 :prURL: {repoURL}/pull
 :forumURL: https://github.com/AY1920S1-CS2113T-W17-3/forum/issues
-:budgeterURL: https://github.com/AY1920S1-CS2113T-W17-3/main
 :experimental:
 ifdef::env-github[]
 :tip-caption: :bulb:
@@ -16,4 +15,86 @@ endif::[]
 
 == PROJECT: OwlMoney
 
-Hello there I am Brian.
+Hello there I am Brian. I am a current student from National University of Singapore. I am currently pursuing a
+degree in Information Security.
+
+I have collaborated with
+link:{repoURL}/blob/master/docs/team/shamussy.adoc[Shamus Neo Zhi Kai],
+link:{repoURL}/blob/master/docs/team/mong-nus.adoc[Mong Zheng Wei],
+link:{repoURL}/blob/master/docs/team/terencetanwt.adoc[Tan Wee Theng, Terence]
+and link:{repoURL}/blob/master/docs/team/valerietyj.adoc[Valerie Tan Yi Jia]
+to work on a project for the module CS2113T (Software Engineering & Object-Oriented Programming).
+
+=== About the project
+My team and I were tasked to enhance a basic command line interface desktop personal assistance, named Duke, for our
+project. We have decided to morph it into a finance tracker, which mainly targets undergraduates and fresh graduates, called OwlMoney. This morphed product allows the users to keep track of their finances, while also allowing them to set goals for themselves to achieve.
+This is what our project looks like:
+
+[[CLI]]
+.The graphical interface of OwlMoney
+ifndef::env-github[]
+image::images/UiReadMe.png[width="970"]
+endif::[]
+
+My role was to design and implement the `add`, `edit`, `delete` and `list` functions for the `Savings` account,
+`expenditures`, `deposit` and recurring bank expenditures, `recurbankexp`. The following sections illustrates these implementations in more detail, as well as the relevant documentation I have added to the User Guide and Developer Guide in relation to these implementations.
+
+=== Summary of contributions
+This section shows the summary of my contributions to the project which include the coding, documentation and other helpful contributions.
+
+*Features implemented:* I have implemented the ability to `add`, `edit`, `delete` and `list` `Savings` account
+
+* What it does: The `add`, `edit`, `delete` and `list` commands on a `savings` account allows the user to manage all
+savings accounts in the profile.
+* Justification: The savings account is a common account that many users own. Additionally, many transactions are
+performed in this account. Because of these reasons, the implementation of the `Savings` account will cater to a
+large number of users.
+* Highlights:
+* Credits:
+
+*Features implemented:* I have implemented the ability to `add`, `edit`, `delete` and `list` transactions, which consists of
+`expenditures`, `deposit`, and `recurbankexp`.
+
+* What it does: The `add`, `edit`, `delete` and `list` commands on transaction objects allows the user to manage all
+transactions within the bank or card accounts.
+* Justification: Transactions which are performed on a bank account will affect the amount of money in it. By
+implementing the transactions features, the user will be able to add any transactions which has been performed to the
+specified bank account. This enables the ability to track the user's finances.
+* Highlights:
+
+*Code contributed:*
+[https://nuscs2113-ay1920s1.github.io/dashboard/#=undefined&search=briantkm[RepoSense]],
+[link:{repoURL}/commits?author=briantkm[Commits]],
+ [link:{repoURL}/pulls?q=author%3ABrianTKM[Pull Requests]]
+
+*Other contributions:*
+
+* Project Management:
+* Enhancement made to existing features:
+** Fixed error in the Ui of the program. (Pull Request )
+* Documentation:
+** Corrected mistakes in the Developer Guide. (Pull Request
+https://github.com/AY1920S1-CS2113T-W17-3/main/pull/163[#163])
+** Planned the initial user stories and use cases of the project. (Collaborated with link:{repoURL}/blob/master/docs/team/shamussy.adoc[Shamus],
+{repoURL}/blob/master/docs/team/mong-nus.adoc[Zheng Wei], {repoURL}/blob/master/docs/team/terencetanwt.adoc[Terence] and {repoURL}/blob/master/docs/team/valerietyj.adoc[Valerie]
+) (Issue https://github.com/AY1920S1-CS2113T-W17-3/main/issues/24[#24],
+https://github.com/AY1920S1-CS2113T-W17-3/main/issues/26[#26],
+https://github.com/AY1920S1-CS2113T-W17-3/main/issues/27[#27])
+* Community:
+** Reviewed the User Guide and Developer Guide of other groups.
+* Team Collaboration:
+** Reported bugs on team member's code. (Issue
+https://github.com/AY1920S1-CS2113T-W17-3/main/issues/138[#138])
+** Collaborated with team members on other features. (Pull Request
+https://github.com/AY1920S1-CS2113T-W17-3/main/pull/74[#74])
+** Designed the flow of how commands are executed. (Pull Request
+https://github.com/AY1920S1-CS2113T-W17-3/main/pull/64/files[#64],
+https://github.com/AY1920S1-CS2113T-W17-3/main/pull/67/files[#67])
+** Some parts of my code were referenced by my group members.
+** Resolved bugs in the program. (Pull Request
+https://github.com/AY1920S1-CS2113T-W17-3/main/pull/90/files[#90])
+
+=== Contributions to the User Guide
+include::../UserGuide.adoc[tag=savingsSyntax]
+
+include::../UserGuide.adoc[tag=recurringExpenditureSyntax]
