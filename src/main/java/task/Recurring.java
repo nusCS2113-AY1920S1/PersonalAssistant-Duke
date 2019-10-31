@@ -35,7 +35,8 @@ public class Recurring extends Task {
      * @param frequency   String contains the frequency of this recurring task
      */
     public Recurring(String bool, String description, String frequency) throws DukeException {
-        this.description = description;
+//        this.description = description;
+        super(description);
         this.frequency = frequency;
         this.isDone = (1 == Integer.parseInt(bool));
     }

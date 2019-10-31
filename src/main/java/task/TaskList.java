@@ -403,15 +403,13 @@ public class TaskList implements Serializable, Cloneable {
     /**
      * sorts this Tasklist according to the priority of all the tasks in descending order
      */
-    public void sortPriority (){
+    public void sortPriority(){
         for (int i = 0 ; i < this.list.size(); i++){
-            if (this.list.get(i).getTaskPriority() == null){
-                this.list.get(i).setTaskPriority(2);
-                System.out.println(this.list.get(i).toList());
-                System.out.println(this.list.get(i).getTaskPriority());
-            }
+////            if (this.list.get(i).getTaskPriority() == null){
+////                this.list.get(i).setTaskPriority(2);
+//                System.out.println(this.list.get(i).toList());
+//                System.out.println(this.list.get(i).getTaskPriority());
         }
-        this.list.get(9).setTaskPriority(5);
         Collections.sort(this.list, new Comparator<Task>() {
             @Override
             public int compare(Task o1, Task o2) {
@@ -419,7 +417,11 @@ public class TaskList implements Serializable, Cloneable {
 //                return o1.getDescription().compareTo(o2.getDescription());
             }
         });
+        System.out.println("Done! Your tasks have been sorted by priority; the most important one is at the top:\n");
+        print();
     }
+
+
 
     /**
      * Deletes the entire taskList.

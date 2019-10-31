@@ -23,6 +23,7 @@ public class Event extends Task {
             this.isDone = false;
             this.description = split[0];
             this.readDate(Arrays.copyOfRange(split, 1, split.length));
+            this.assignPriority();
         }
         /*        else if (split.length > 2) {
             throw new DukeException("Too many /at in String");
@@ -40,7 +41,7 @@ public class Event extends Task {
         this.description = description;
         this.readDate(dueDate);
         this.isDone = (1 == Integer.parseInt(bool));
-        this.taskPriority = 1;
+        this.assignPriority();
     }
 
     /**

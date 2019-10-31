@@ -1,3 +1,6 @@
+/*
+@@author woblek
+ */
 package command;
 
 import exception.DukeException;
@@ -30,6 +33,9 @@ public class SortCommand extends Command {
     public void execute(TaskList tasks, UI ui, Storage storage, DegreeList lists) throws DukeException {
         if (this.arguments.matches("priority")){
             tasks.sortPriority();
+        }
+        else{
+            throw new DukeException("That is not a valid way to sort your tasks!\n\n\n");
         }
     }
 }

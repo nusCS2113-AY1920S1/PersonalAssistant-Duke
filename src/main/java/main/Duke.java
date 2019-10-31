@@ -1,7 +1,6 @@
 package main;
 
 import command.Command;
-import command.CommandList;
 import degree.Degree;
 import exception.DukeException;
 import javafx.application.Application;
@@ -9,14 +8,13 @@ import javafx.stage.Stage;
 import list.DegreeListStorage;
 import parser.Parser;
 import storage.Storage;
-import task.DegreeTask;
+import task.UniversityTaskHandler;
 import task.TaskList;
 import ui.UI;
 import list.DegreeList;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -43,7 +41,7 @@ public class Duke extends Application {
     private Map<String, List<String>> degrees = new HashMap<>();
     private Map<String, Degree> degreeInfo = new HashMap<>();
     private ArrayList<String> mydegrees = new ArrayList<>();
-    private DegreeTask degreeTask = new DegreeTask();
+    private UniversityTaskHandler universityTaskHandler = new UniversityTaskHandler();
     private DegreeListStorage DegreeListStorage = new DegreeListStorage();
     public ArrayList<String> getTasks() {
         return mydegrees;
@@ -71,7 +69,7 @@ public class Duke extends Application {
             ui.showLoadingError();
         }
         try{
-            degreeTask.loadDegreeTasks(storage.fetchListOutput("degreeTasks")); //loads information from degreeTasks.txt
+            universityTaskHandler.loadDegreeTasks(storage.fetchListOutput("degreeTasks")); //loads information from degreeTasks.txt
             setDegrees(storage.fetchListOutput("listdegrees"));
             loadDegrees();
         } catch (DukeException e) {
