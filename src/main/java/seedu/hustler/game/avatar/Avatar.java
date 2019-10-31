@@ -95,10 +95,6 @@ public class Avatar implements Convertible {
      */
     public Level gainXp() {
         this.level = level.increaseXp();
-        if (this.level.canLevel()) {
-            this.level = level.levelUp();
-            this.stats = stats.upStats(this.level.getLevel());
-        }
         return this.level;
     }
 
@@ -113,6 +109,16 @@ public class Avatar implements Convertible {
         } else if (equipment.getType().equals("Armor")) {
             this.armor = Optional.of((Armor) equipment);
         }
+        return this;
+    }
+
+    public Boolean canLevel() {
+        return this.level.canLevel();
+    }
+
+    public Avatar levelUp() {
+        this.level.levelUp();
+        this.stats.upStats(this.level.getLevel());
         return this;
     }
 

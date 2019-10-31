@@ -39,7 +39,7 @@ public class EquipCommand extends Command {
         try {
             anomaly.detect(this.userInput);
             int parsedInt = Integer.parseInt(this.userInput[1]);
-            AvatarStorage.save(Hustler.avatar.equip(inventory.get(parsedInt - 1)));
+            Hustler.avatar.equip(inventory.get(parsedInt - 1));
             ui.showEquipped(Hustler.inventory.get(parsedInt - 1));
         } catch (CommandLineException e) {
             ui.showMessage(e.getMessage());
