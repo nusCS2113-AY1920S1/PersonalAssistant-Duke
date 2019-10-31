@@ -1,22 +1,32 @@
-= John Doe - Project Portfolio
+= Lim Jia Wei - Project Portfolio for ChefDuke
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-== PROJECT: AddressBook - Level 3
+== PROJECT: ChefDuke - V 1.3
 
 ---
 
 == Overview
 
-AddressBook - Level 3 is a desktop address book application used for teaching Software Engineering principles. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+My team consisting of 4 computer engineering students including myself was tasked with enhancing a basic task manager Duke. We decided to go in the direction of morphing Duke into an application which aims to help private home chefs manage their business. ChefDuke, our enhanced application, keeps track of three main components which are the customer bookings, recipes and inventories of the user. Other than basic storage of components, our application allows the user to deconflict booking schedules, and also update their inventory automatically when a recipe is used so that the inventory list is always up to date. The application has a GUI created with JavaFX and the user interacts with it using a CLI.
 
 == Summary of contributions
 
-* *Major enhancement*: added *the ability to undo/redo previous commands*
-** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
+* *Major enhancement 1*: added *the ability to add/delete/list ingredients to/from the inventory*
+
+** What it does: Allows the user to add an ingredient into his inventory list, delete an ingredient from his inventory list and list all current ingredients in his inventory. Important details such as the quantity of the ingredients is keep tracked of.
+** Justification: This feature allows the user to always have an up to date inventory list which can let them know how much of each ingredient they currently have. Additional information like the expiry date can also be keep tracked of.
+
+** Highlights: This enhancement does the basic storage of inventory components but is a feature which is necessary as a baseline for other existing/future commands and features. The implementation of the Ingredients required some pre-planning on what details are essential as the same ingredient object will also be used in the recipes. 
+
+* *Major enhancement 2*: added *the ability to update the inventory based on recipes/orders used*
+
+** What it does: Allows the user to add an ingredient into his inventory list, delete an ingredient from his inventory list and list all current ingredients in his inventory. Important details such as the quantity of the ingredients is keep tracked of.
+** Justification: This feature allows the user to always have an up to date inventory list which can let them know how much of each ingredient they currently have. Additional information like the expiry date can also be keep tracked of.
+
+** Highlights: This enhancement does the basic storage of inventory components but is a feature which is necessary as a baseline for other existing/future commands and features. The implementation of the Ingredients required some pre-planning on what details are essential as the same ingredient object will also be used in the recipes. 
+
 ** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
 
 * *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
