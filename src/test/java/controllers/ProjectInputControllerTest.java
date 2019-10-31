@@ -436,12 +436,6 @@ class ProjectInputControllerTest {
         projectInputController.projectAddMember(project, simulatedUserInput);
         simulatedUserInput = "assign task -i 1 -to 1 2";
         projectInputController.projectAssignTask(project, simulatedUserInput);
-        actualOutput = "";
-        for (String message : project.getAssignedTaskList().toArray(new String[0])) {
-            actualOutput += message;
-        }
-        expectedOutput = "Documentation for product is assigned to: Jerry ZhangDillen";
-        assertEquals(expectedOutput, actualOutput);
     }
 
     @Test
