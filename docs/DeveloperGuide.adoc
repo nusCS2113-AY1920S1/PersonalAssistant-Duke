@@ -45,7 +45,7 @@ Users can use this app to manage projects faster than a typical mouse/gui driven
 API: No Interface for now
 
 1. `LogicController` uses the `NewParser` class to parse the user command.
-2. This results in a `Command` object which is executed by the `LogicController`.  
+2. This results in a `Command` object which is executed by the `LogicController`.
 3. The command execution talks to `Model` and do some behavior to get desired result and return it back.
 4. The command execution talks to `Storage` (if necessary, e.g. adding a member) throw `Model` (e.g. a save() method in `Model` API).
 5. The result of the command execution is encapsulated as a `CommandOutput` object which is passed back to the `Ui`.

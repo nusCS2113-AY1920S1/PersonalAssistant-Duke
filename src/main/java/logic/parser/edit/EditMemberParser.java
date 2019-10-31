@@ -21,7 +21,7 @@ public class EditMemberParser {
      * parse delete command, divide to task or member
      * @param partialCommand argument part of the command
      * @return a delete command
-     * @throws DukeException exception
+     * @throws DukeException ex ception
      */
     public static Command parseEditMember(String partialCommand) throws DukeException {
         final Matcher matcher = BASIC_ADD_COMMAND_FORMAT.matcher(partialCommand.trim());
