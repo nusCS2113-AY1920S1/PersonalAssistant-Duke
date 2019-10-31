@@ -35,7 +35,6 @@ public class DeleteCommand extends Command {
                 storage.updateFile(word.toString() + "\r","");
                 return ui.showDeleted(word);
             } else {                                    //delete tags
-                bank.deleteWordFromBank(word);
                 ArrayList<String> nullTags = new ArrayList<>();
                 ArrayList<String> deletedTags = new ArrayList<>();
                 bank.deleteTags(deletedWord, tags, deletedTags, nullTags);
