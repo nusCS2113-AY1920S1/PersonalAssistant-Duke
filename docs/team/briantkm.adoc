@@ -12,7 +12,6 @@ ifdef::env-github[]
 :warning-caption: :warning:
 endif::[]
 
-
 == PROJECT: OwlMoney
 
 Hello there I am Brian. I am a current student from National University of Singapore. I am currently pursuing a
@@ -29,13 +28,6 @@ to work on a project for the module CS2113T (Software Engineering & Object-Orien
 My team and I were tasked to enhance a basic command line interface desktop personal assistance, named Duke, for our
 project. We have decided to morph it into a finance tracker, which mainly targets undergraduates and fresh graduates, called OwlMoney.
 This morphed product allows the users to keep track of their finances, while also allowing them to set goals for themselves to achieve.
-This is what our project looks like:
-
-[[CLI]]
-.The graphical interface of OwlMoney
-ifndef::env-github[]
-image::images/UiReadMe.png[width="970"]
-endif::[]
 
 My role was to design and implement the `add`, `edit`, `delete` and `list` functions for the `Savings` account,
 `expenditures`, `deposit` and recurring bank expenditures, `recurbankexp`. The following sections illustrates these implementations in more detail, as well as the relevant documentation I have added to the User Guide and Developer Guide in relation to these implementations.
@@ -130,6 +122,18 @@ This symbol denotes a warning message which you need to be careful of when using
 * Important messages will be *bold*
 ====
 include::../UserGuide.adoc[tag=savingsSyntax]
+
+include::../UserGuide.adoc[tag=deleteSavings]
+
+==== {nbsp}
+
+include::../UserGuide.adoc[tag=deleteExpenditure]
+
+==== {nbsp}
+
+include::../UserGuide.adoc[tag=deleteDeposit]
+
+==== {nbsp}
 
 include::../UserGuide.adoc[tag=recurringExpenditureSyntax]
 

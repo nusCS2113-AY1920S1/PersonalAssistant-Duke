@@ -279,7 +279,7 @@ At least one of `/newname`, `/amount` or `/income` must be used.
 * `/edit /savings /name JunBank Savings Account /newname JulyBank Savings Account`
 
 Edits `JunBank Savings Account` name to `JulyBank Savings Account`.
-
+// end::savingsSyntax[]
 * `/edit /savings /name JunBank Savings Account /newname JulyBank Savings Account /amount 2000.25`
 
 Edits `JunBank Savings Account` name to `JulyBank Savings Account` and sets the new amount in the account to $`2000.25`.
@@ -300,7 +300,7 @@ Edits `JunBank Savings Account` by setting the new amount in the account to $`20
 * `/edit /savings /name JunBank Savings Account /income 5000`
 
 Edits `JunBank Savings Account` by setting the income to $`5000`.
-
+// tag::deleteSavings[]
 ===== Deleting savings bank account `/delete /savings`
 Closed your savings bank account? You can reflect that on `OwlMoney` as well!
 
@@ -365,7 +365,7 @@ To find out which transaction to edit, use the `/list` or `/find` function to fi
 * `/edit /bankexpenditure /from JunBank Savings Account /transno 2 /desc Uniwlo Shirt`
 
 Edits expenditure `2` that was charged to `JunBank Savings Account` to a new description of `Uniwlo Shirt`.
-
+// end::deleteSavings[]
 * `/edit /bankexpenditure /from JunBank Savings Account /transno 4 /category miscellaneous`
 
 Edits expenditure `4` that was charged to `JunBank Savings Account` to a new category of `miscellaneous`.
@@ -373,7 +373,7 @@ Edits expenditure `4` that was charged to `JunBank Savings Account` to a new cat
 * `/edit /bankexpenditure /from JunBank Savings Account /transno 5 /amount 3.50`
 
 Edits expenditure `5` that was charged to `JunBank Savings Account` to an amount of $`3.50`.
-
+// tag::deleteExpenditure[]
 ===== Deleting expenditures for savings bank account `/delete /bankexpenditure`
 
 Accidentally added a transaction that did not happen? You can delete it!
@@ -431,11 +431,11 @@ To find which to deposit to edit, use the `/list` or `/find` function to find th
 
 Edits the `deposit` with transaction number `11` deposited to `JunBank Savings Account` to a new description of
 `FREELANCE WORK`, setting a new amount of $`270` and a new date of `29/11/2019`
-
+// end::deleteExpenditure[]
 * `/edit /deposit /from JunBank Savings Account /transno 11 /amount 500`
 
 Edits the `deposit` with transaction number `11` deposited to `JunBank Savings Account` to a new amount of $`500`.
-
+// tag::deleteDeposit[]
 ===== Deleting deposit for savings bank account `/delete /deposit`
 
 Accidentally added a deposit that you have not done? You can delete it here!
@@ -454,7 +454,7 @@ To find out which recurring expenditure to delete, use the `/list` or `/find` fu
 * `/delete /deposit /from JunBank Savings Account /transno 11`
 
 Deletes a `deposit` with transaction number `11` from `JunBank Savings Account`.
-// end::savingsSyntax[]
+// end::deleteDeposit[]
 ==== Investment Account Management
 In this section, you'll be introduced to commands and parameters that help you to manage your investment account
 and bonds that you can track in *OwlMoney*.
