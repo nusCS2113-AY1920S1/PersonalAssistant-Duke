@@ -27,7 +27,7 @@ public class FindAnomaly extends DetectAnomaly {
     public void detect(String[] userInput) throws CommandLineException {
         if (userInput.length == 1 || userInput[1].isBlank()) {
             throw new CommandLineException(MESSAGE_INVALID_COMMAND_FORMAT);
-        } else if (userInput.length != 2) {
+        } else if (userInput[1].split(" ").length != 1) {
             throw new CommandLineException(MESSAGE_ONE_KEYWORD_ONLY);
         }
     }
