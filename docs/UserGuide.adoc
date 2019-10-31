@@ -79,7 +79,7 @@ The following italicised words refer to specific repeated patterns:
 * _patient_id_ -> `(<patient's index> | <part of name> | *-b[ed]* <bed number>)` [[patient_id]]
 * _string_or_idx_ -> `(<index> | "<search string>")` [[string_or_idx]]
 ** `<index>` refers to the index assigned to the object in the display. `<search string>` will be searched for in the names of all relevant objects.
-* _type_ -> (`*-m[edicine]*` | `*-in[v(x | estigation)]*` | `*-p[lan]*` | `*-o[bservation]*` | `*-r[esult]*`)
+* _type_ -> (`*-m[edicine]*` | `*-in[v(x | estigation)]*` | `*-p[lan]*` | `*-o[bservation]*` | `*-r[esult]*`) [[type]]
 
 Parsing rules:
 
@@ -143,7 +143,7 @@ It is not for correcting serious mistakes that need the patient's entire history
 
 ==== `discharge` - Generate a discharge report for the patient and delete him/her from the system [[home-discharge]]
 
-Format: `discharge <<patient_id, _patient_id_>> *[-sum[mary]]* "<discharge summary>"]` +
+Format: `discharge <<patient_id, _patient_id_>> [*-sum[mary]]* "<discharge summary>"]` +
 Example: `discharge 5 -sum "Patient will return again at 02/11/2019 for final consultation"`
 
 The discharge report contains all of the information being tracked regarding the Patient.
@@ -192,17 +192,23 @@ Inherits: <<home-help,`help`>>, <<home-undo,`undo`>>, <<home-redo,`redo`>>
 
 ==== `new` - Add a new Impression for this Patient
 
-Format: `new *-n[ame]* "<name>" *-desc[ription]* "<description>" *[-g[o]]*`
+Format: `new "<name>" *-desc[ription]* "<description>" *[-g[o]]*` +
+Example: `new "Dengue Fever" *-desc* "High fever and back pain" *-g*`
 
 Opens the new <<Impression, Impression>>'s context if `-g[o]` is specified.
 
 ==== `open` - Open a critical (`Treatment` / `Evidence`) or `Investigation` item listed on the page, or an `Impression`
 
-Format: `open ("<search string>" | *-c[ritical]* _string_or_idx_ | *-i[nv(x|estigation)]* _string_or_idx_ | *-im[pression]* _string_or_idx_)`
+Format: `open ("<search string>" | <<string_or_idx, _string_or_idx_>> *-c[ritical]* | <<string_or_idx, _string_or_idx_>> *-i[nv(x|estigation)]* | <<string_or_idx, _string_or_idx_>> *-im[pression]*)` +
+Example 1: `open 3 -im` +
+Example 2: `open "Fever"`
+
+If a <search string> is used, the first result that matches the search string will be immediately accessed.
 
 ==== `edit` - Edit one of the details of the Patient [[patient-edit]]
 
-Format: `edit <switch> [<new value>] [<switch> [<new value>]]* *[-app[end]]*`
+Format: `edit <switch> [<new value>] [<switch> [<new value>]]* *[-app[end]]*` +
+Example: `edit -height 180 -w 60 -history "memes" -app`
 
 For string-valued fields, `-app` will append the field's `<new value>` to its current value.
 
@@ -219,25 +225,30 @@ Switches and corresponding new value format:
 * `*-hi[story]* "<history>"`
 * `*-a[llerg(y | ies)]* "<allergies>"`
 
-In v1.4, if a `<new value>` is not supplied, a text box with the current value loaded inside will be displayed for the user to edit.
+In [*v1.4*], if a `<new value>` is not supplied, a text box with the current value loaded inside will be displayed for the user to edit.
 
-==== `delete` - Delete a critical (`Treatment` / `Evidence`) or `Investigation` item listed on the page, or an `Impression`
+==== `delete` - Delete a critical (`Treatment` / `Evidence`) or `Investigation` item listed on the page, or an `Impression` [*v1.4*]
 
-Format: `delete ("<search string>" | *-c[ritical]* _string_or_idx_ | *-i[nv(x|estigation)]* _string_or_idx_ | *-im[pression]* _string_or_idx_)`
+Format: `delete ("<search string>" | <<string_or_idx, _string_or_idx_>> *-c[ritical]* | <<string_or_idx, _string_or_idx_>> *-i[nv(x|estigation)]* | <<string_or_idx, _string_or_idx_>> *-im[pression]*)` + 
+
+If a <search string> is used, the first result that matches the search string will be immediately accessed.
 
 ==== `history` - Append miscellaneous notes to a patient's medical history
 
-Format: `history <additional notes>`
+Format: `history <additional notes>` +
+Example: `history ggwp`
 
 Functionally the same as <<home-history,`history` in the Home context>>.
 
 ==== `primary` - Set a particular Impression as the primary diagnosis for the Patient
 
-Format: `primary _string_or_idx_`
+Format: `primary <<string_or_idx, _string_or_idx_>>`
+Example: `primary 1`
 
 ==== `find` - Find items matching certain criteria
 
-Format: `find ["<search string>"][-im[pressions]] [_type_]* [-pri[ority] <priority>] [-sta[tus] ("<status name>" | <status idx>)]`
+Format: `find ["<search string>"][*-im[pressions]*] [_type_]* [*-pri[ority]* <priority>] [-sta[tus] ("<status name>" | <status idx>)]` +
+Example: `find fever -im`
 
 Display a list of all Impressions, Treatments and Evidence matching the criteria specified in the search.
 If none of the `_type_` or `im[pression]` switches are used, all types of objects will be listed.
@@ -245,7 +256,8 @@ If at least one of them is listed, only objects whose type is used as a switch w
 
 ==== `discharge` - Generate a discharge report for the Patient and delete him/her from the system
 
-Format: `discharge *[-sum[mary]* <discharge summary>]`
+Format: `discharge [*-sum[mary]* <discharge summary>]` + 
+Example: discharge -sum "Patient is A-OK"`
 
 Functionally the same as <<home-discharge,`discharge` in the Home context>>.
 
@@ -254,7 +266,7 @@ Functionally the same as <<home-discharge,`discharge` in the Home context>>.
 Format: `report`
 
 A report will be generated in the format required by the hospital's internal systems.
-In v2.0, the hospital's required format can be specified.
+In [*v2.0*], the hospital's required format can be specified.
 
 _Available in:_ <<Patient>>, <<Impression>>, <<Treatment and Evidence>>
 
@@ -300,7 +312,7 @@ Inherits: <<home-help,`help`>>, <<patient-back,`back`>>, <<patient-up,`up`>>, <<
 
 ==== `new` - Add a new Treatment or Evidence item to this Impression
 
-Format: `new _type_ <relevant switches> [-g[o]]`
+Format: `new <<type, _type_>> <relevant switches> [-g[o]]`
 
 Open the new Treatment or Evidence item's context if `-g[o]` is specified.
 Relevant switches for various types are as follows.
@@ -353,15 +365,15 @@ a|
 
 ==== `open` - Open a Treatment or Evidence item listed on this page
 
-Format: `open ("<search string>" | -e[vidence] _string_or_idx_ | -t[reatment] _string_or_idx_)`
+Format: `open ("<search string>" | -e[vidence] <<_string_or_idx_, string_or_idx>> | -t[reatment] <<_string_or_idx_, string_or_idx>>)`
 
 This will open a new context for the specific Treatment or Evidence identified.
 
 ==== `edit` - Edit one of the details of the Impression
 
-Format: `edit [-app[end]] [_type_ _string_or_idx_] <switch> [<new value>] [<switch> [<new value>]]`
+Format: `edit [-app[end]] [<<type, _type_>> <<_string_or_idx_, string_or_idx>>] <switch> [<new value>] [<switch> [<new value>]]`
 
-If input without `_type_ _string_or_idx_`, the switches and corresponding new value formats are as follows:
+If input without `<<type, _type_>> <<_string_or_idx_, string_or_idx>>`, the switches and corresponding new value formats are as follows:
 
 * `-n[ame] "<name>"`
 * `-desc[ription] "<description>"`
@@ -371,7 +383,7 @@ The possible values for `<switch>` and `<new value>` can be found in the associa
 
 ==== `delete` - Delete a Treatment or Evidence item listed on this page
 
-Format: `delete ("<search string>" | -e[vidence] _string_or_idx_ | -t[reatment] _string_or_idx_)`
+Format: `delete ("<search string>" | -e[vidence] <<_string_or_idx_, string_or_idx>>  | -t[reatment] <<_string_or_idx_, string_or_idx>> )`
 
 ==== `primary` - Set this Impression as the primary Impression for the Patient
 
@@ -379,26 +391,26 @@ Format: `primary`
 
 ==== `move` - Move a Treatment or Evidence to a different Impression
 
-Format: `move ("<search string>" | -e[vidence] _string_or_idx_ | -t[reatment] _string_or_idx_) [-im[pression] "<search string>"]`
+Format: `move ("<search string>" | -e[vidence] <<_string_or_idx_, string_or_idx>> | -t[reatment] <<_string_or_idx_, string_or_idx>>) [-im[pression] <<_string_or_idx_, string_or_idx>>]`
 
 If a Treatment or Evidence is assigned incorrectly, it can be moved to a different Impression via this command.
-If the `-im[pression]` switch is not used to specify the Impression to move it to, a window listing all Impressions will appear, and the user can select the correct Impression using its list index.
+If the `-im[pression]` switch is not used to specify the Impression to move it to, a window listing all Impressions will appear, and the user can select the correct Impression using its list index [*v1.4*].
 
 ==== `priority` - Mark a Treatment or Evidence as a certain priority level
 
-Format: `priority ("<search string>" | -e[vidence] _string_or_idx_ | -t[reatment] _string_or_idx_) -s <new priority>`
+Format: `priority ("<search string>" | -e[vidence] <<_string_or_idx_, string_or_idx>> | -t[reatment] <<_string_or_idx_, string_or_idx>>) -s <new priority>`
 
 `<new priority>` must be a non-negative integer.
 
 ==== `status` - Update the completion status of a Treatment
 
-Format: `status _string_or_idx_ [-s ("<status name>" | <status idx>)]`
+Format: `status <<_string_or_idx_, string_or_idx>> [-s ("<status name>" | <status idx>)]`
 
 If `-s` is not specified, `status` will be incremented by 1, unless it is at the maximum value.
 
 ==== `result` - Convert an Investigation that has been completed into a Result
 
-Format: `result _string_or_idx_ -sum[mary] "<result summary>"`
+Format: `result <<_string_or_idx_, string_or_idx>> -sum[mary] "<result summary>"`
 
 _idx_ in this scope will refer to an index in the Treatment list.
 The result summary will be appended to the Investigation summary.
@@ -411,7 +423,7 @@ Display a list of all Treatments and Evidence matching the criteria specified in
 If none of the `_type_` switches are used, all types of objects will be listed.
 If at least one of them is listed, only objects whose type is used as a switch will be listed.
 
-=== Treatment and Evidence
+=== Treatment and Evidence [*v1.4*]
 
 All Treatment and Evidence contexts (one for each type of Treatment and each type of Evidence) behave in essentially the same way: they display all their data in full.
 This section will list the commands that they have in common.
@@ -438,7 +450,7 @@ Format: `priority <new priority>`
 
 `<new priority>` must be a non-negative integer.
 
-=== Treatment
+=== Treatment [*v1.4*]
 
 Contains everything in <<Treatment and Evidence>>.
 
@@ -448,7 +460,7 @@ Format: `status [("<status name>" | <status idx>)]`
 
 If no `<status name>` or `<status idx>` is specified, `status` will be incremented by 1, unless it is at the maximum value.
 
-=== Investigation
+=== Investigation [*v1.4*]
 
 Contains everything in <<Treatment and Evidence>>.
 
