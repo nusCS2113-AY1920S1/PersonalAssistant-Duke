@@ -164,28 +164,33 @@ General commands will work in either mode.
 
 ==== Viewing help: `help`
 Format: `help` +
+
 A pop up window appears and gives information on what commands are available and its respective format.
 (The help page might be outdated, please use this guide instead.)
 
 ==== Change Mode: `flip`
 Format: `flip` +
+
 Flips/toggles between email mode and task mode. The prefix of the command in the text box will also be
 changed.
 
 ==== Exiting the program: `bye`
 Format: `bye` +
+
 Exits the program and closes the window.
 
 ==== Apply colour code: `colour` (coming in v2.0)
 Format: `colour ITEM_NUMBER COLOUR` +
+
 The specified item will be shown in the colour specified in the command.
 
 === Task Mode
-
 ==== Add Tasks Commands
 ===== Adding a todo: `todo`
 Format: `todo TASK_NAME [-doafter DOAFTER_TASK][-priority PRIORITY_LEVEL][-tag TAG1]...` +
+
 Adds a task of todo type. +
+
 Examples: +
 `todo buy milk` +
 `todo take cat to vet -priority High -tag pet` +
@@ -199,14 +204,15 @@ PRIORITY_LEVEL is restricted to *high*, *med*, *low*. Any other PRIORITY_LEVEL w
 
 ===== Adding an deadline: `deadline`
 Format: `deadline TASK_NAME -time dd/mm/yyyy hhMM [-doafter DOAFTER_TASK][-priority PRIORITY_LEVEL][-tag TAG1]...` +
+
 Adds a task that has a deadline. The task name and deadline are required.
 A doafter task, priority level or any number of tags are all optional.
 Order of the modifiers do not matter. +
+
 Examples: +
 `deadline categorise -time` +
 `deadline submission -time 31/10/2019 2359 -doafter coding -priority high -tag fun` +
 `deadline submission -time Thu 2359`
-
 
 [TIP]
 Parameters other than item number can be entered in any order. +
@@ -220,7 +226,9 @@ Format: `event TASK_NAME -time dd/mm/yyyy hhMM [-doafter DOAFTER_TASK][-priority
 
 Adds a task of event type.
 
-Example: `event PE -time 31/10/2019 2359 -doafter coding -priority high -tag fun` | `event PE -time Thu 2359`
+Example:
+`event PE -time 31/10/2019 2359 -doafter coding -priority high -tag fun` +
+`event PE -time Thu 2359`
 
 [TIP]
 Parameters other than item number can be entered in any order.
@@ -244,11 +252,12 @@ Example: +
 
 [TIP]
 Option parameters starting with `-` can be entered in any order, but all of them must be entered after the
-main command body. For example, `deadline 123 -time 11/11/2020 1100 -tag CS` and `deadline 123 -tag CS
+main command body. +
+For example, `deadline 123 -time 11/11/2020 1100 -tag CS` and `deadline 123 -tag CS
 -time 11/11/2020 1100` are both valid, but `deadline -time 11/11/2020 1100 123 -tag CS` is not.
+
 [NOTE]
-If there are more than one `time`, `doafter` or `priority` parameters,
-only the last one will be valid.
+If there are more than one `time`, `doafter` or `priority` parameters, only the last one will be valid.
 
 [WARNING]
 Any tags in the command will overwrite *all* current tags in the task
@@ -263,30 +272,34 @@ Example: +
 
 ==== Find task(s) with keyword: `find`
 Format: `find KEYWORD` +
+
 Returns a list of items that contains KEYWORD. This feature will search all the attributes of a task. +
-Example: `find cat` will return `cat`, `tabby #cat`, `SoCcat`, `concatenation`.
+
+Example: +
+`find cat` will return `cat`, `tabby #cat`, `SoCcat`, `concatenation`
 
 ==== Done a task: `done`
 Format: `done ITEM_NUMBER` +
 
 Marks the item specified as done.
 
-Example: `done 1`
+Example: +
+`done 1`
 
 ==== Reminder for upcoming task(s): `reminder`
-Format: `reminder [-time dd/MM/yyyy HHmm]` +
-By default, it will show tasks due in the next 3 days.
-If number of days is added, it will show all tasks in the next n days. +
-Example: if the current date is 14/03/2020, `reminder` will show `hand in homework by: 15/03/2020 2359`,
-`presentation at 17/03/2020 1400`. `reminder 7` will show `hand in homework by: 15/03/2020 2359`,
-`presentation at: 17/03/2020 1400`, `exam at: 20/03/2020 0900`,
-and `flight at: 21/03/2020 1745`.
+Format: `reminder NO_OF_DAYS` +
+
+Shows the deadline or event tasks for the next NO_OF_DAYS days. +
+
+Example: `reminder 4`
 
 ==== Do after: `doafter`
 Format: `doafter ITEM_NUMBER -msg DESCRIPTION`  +
+
 Records a task to be done after the original task is done. +
+
 Example: +
- `doafter 2 -msg work on project`
+`doafter 2 -msg work on project`
 
 [NOTE]
 Only one doafter task can be added. To modify an existing doafter task, see the update command.
@@ -325,6 +338,7 @@ and vice versa.
 
 ==== Tagging a task: `tag`
 Format: `tag ITEM_NUMBER -tag TAG1 [-tag TAG2]...` +
+
 Tags the specified item with the tag(s) minimum number of tags is 1.
 
 Example: +
@@ -332,6 +346,7 @@ Example: +
 
 ==== Linking with emails: `link`
 Format: `link ITEM_NUMBER [-email EMAIL_NUMBER]...` +
+
 Notes which email is related to the task specified. If there is no email parameter,
 the command will return a list of the emails linked to the task.
 
@@ -341,12 +356,14 @@ Examples: +
 
 ==== Clear task list: `clear`
 Format: `clear` +
+
 This command deletes all tasks in the list.
 
 === Email Mode
 
 ==== Listing all emails: `list`
 Format: `list` +
+
 Gives a complete list of emails.
 
 ==== Showing an email: `show`
@@ -354,7 +371,8 @@ Format: `show INDEX_NUMBER` +
 
 Show the email at the index number in the email list.
 
-Example: `show 3`
+Example: +
+`show 3`
 
 ==== Fetching emails from server: `fetch`
 Format: `fetch` +
@@ -423,6 +441,7 @@ Example:
 
 ==== Tagging Email: `update`
 Format: `update ITEM_NUMBER -tag TAG1 [-tag TAG2]...`
+
 Tags the specified item with the tag(s) minimum number of tags is 1.
 
 ==== Sending Email (coming in v2.0)
