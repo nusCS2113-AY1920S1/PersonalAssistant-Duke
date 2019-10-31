@@ -7,3 +7,4 @@ MODULE||CS2105||Introduction to Computer Networks
 LESSON||CS2105||tutorial||WEDNESDAY||15:00||18:00
 MODULE||CS2106||Introduction to Operating Systems
 LESSON||CS2106||lecture||WEDNESDAY||14:00||16:00
+MODULE||CS2101||Effective Communication for Computing Professionals

@@ -502,7 +502,7 @@ This is where the tracker diagram will be printed.
 
 The following activity diagram summarises what will happen when a user executes a `ViewTracker` command:
 
-image::viewTrackerCommandActivityDiagram.png[]
+image::ViewTrackerCommandActivityDiagram.png[]
 
 ==== Design Considerations
 * *Creating `tracker.csv` to store past entries and their associated information*

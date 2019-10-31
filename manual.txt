@@ -36,12 +36,38 @@ ViewWeek                    viewweek DD MM YYYY e.g. viewweek 30 10 2019
 
 Calendar                    calendar MM YYYY
 
-Start Assignment Tracker    start MODULE_CODE ASSIGNMENT_DESCRIPTION
+Add Semester                semester /add YEAR /name SEMESTER /from START_DATE /to END_DATE
 
-Pause Assignment Tracker    pause MODULE_CODE ASSIGNMENT_DESCRIPTION
+View Semester               semester /view
 
-Stop Assignment Tracker     stop MODULE_CODE ASSIGNMENT_DESCRIPTION
+Delete Semester             semester /delete INDEX
 
-View Assignment Tracker     viewtracker
+Select Semester             semester /select INDEX
+
+Add Module                  module /add MODULE_CODE /name MODULE_NAME
+
+View Module                 module /view
+
+Delete Module               module /delete INDEX
+
+Select Module               module /select INDEX
+
+Add Lesson                  lesson /add NAME /day DAY /from START_TIME /to END_TIME
+
+View Lesson                 lesson
+
+Delete Lesson               lesson /delete INDEX
+
+Add Assessment              assessment DESCRIPTION /from DD-MM-YYYY HH:MM /to DD-MM-YYYY HH:MM
+
+Add Assignment              assignment DESCRIPTION /by DD-MM-YYYY HH:MM
+
+Start Assignment Tracker    tracker /start MODULE_CODE ASSIGNMENT_DESCRIPTION
+
+Pause Assignment Tracker    tracker /pause MODULE_CODE ASSIGNMENT_DESCRIPTION
+
+Stop Assignment Tracker     tracker /stop MODULE_CODE ASSIGNMENT_DESCRIPTION
+
+View Assignment Tracker     tracker /view
 
 Exit                        bye

@@ -1,6 +1,5 @@
 package oof;
 
-import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
 import java.time.YearMonth;
@@ -19,9 +18,8 @@ import oof.model.task.Assignment;
 import oof.model.task.Event;
 import oof.model.task.Task;
 import oof.model.task.TaskList;
-import oof.model.tracker.ModuleTracker;
-import oof.model.tracker.ModuleTrackerList;
 import oof.model.tracker.Tracker;
+import oof.model.tracker.TrackerList;
 
 /**
  * Represents a Ui class that is responsible for Input/Output operations.
@@ -47,8 +45,8 @@ public class Ui {
     private static final int LEAST_COL_SIZE = 19;
     private static final int TIME = 0;
     private static final int DESCRIPTION = 1;
-    private static final int TEN_MINUTES_BLOCK = 10;
     private static final int FIRST_VAR = 0;
+    private static final int SEGMENT_SIZE = 10;
     private static final String ANSI_RESET = "\u001B[0m";
     private static final String ANSI_BRIGHT_RED = "\u001B[91m";
     private static final String ANSI_BRIGHT_GREEN = "\u001B[92m";
@@ -1002,13 +1000,17 @@ public class Ui {
      *
      * @param moduleTrackerList   ArrayList of Tracker objects.
      */
-    public void printTrackerDiagram(ModuleTrackerList moduleTrackerList) {
+    public void printTrackerDiagram(TrackerList moduleTrackerList) {
         printLine();
         for (int i = 0; i < moduleTrackerList.getSize(); i++) {
-            ModuleTracker moduleTracker = moduleTrackerList.getModuleTracker(i);
-            int timeTaken = (int) moduleTracker.getTotalTimeTaken();
-            int segmentedTimeTaken = timeTaken / TEN_MINUTES_BLOCK;
-            printTrackerDiagramBar(segmentedTimeTaken);
+            Tracker moduleTracker = moduleTrackerList.getTracker(i);
+            int timeTaken = (int) moduleTracker.getTimeTaken();
+            if (timeTaken < SEGMENT_SIZE) {
+                System.out.print("| ");
+            } else {
+                int segmentedTimeTaken = timeTaken / SEGMENT_SIZE;
+                printTrackerDiagramBar(segmentedTimeTaken);
+            }
             String moduleCode = moduleTracker.getModuleCode();
             System.out.print("\t" + moduleCode + " -- " + timeTaken + " minutes\n");
         }

@@ -608,56 +608,54 @@ image::AssignmentAdd.png[AssignmentAdd]
 
 Adds an assignment `lab` for the selected module with the due date as `23-11-2019 23:59`.
 
-=== Start Assignment Tracker: `start`
-You can start your tracking of an assignment from the current time.
+=== Start/Stop/Pause Assignment Tracker: `tracker`
+You can track an assignment from the current time.
 
-Format: `start MODULE_CODE ASSIGNMENT_DESCRIPTION`
+Format: `tracker /INSTRUCTION MODULE_CODE ASSIGNMENT_DESCRIPTION`
 
-Example: `start cs2113t user guide`
+*Options for INSTRUCTION* +
+[horizontal]
+start:: begin tracking an assignment from the current time.
+pause:: pause tracking an assignment from the current time.
+stop:: stop tracking an assignment from the current time.
+view:: view a histogram featuring the total amount fo time spent on each module.
+
+Example: `tracker /start cs2101 ppp`
 
 [[StartTracker]]
-.Output of StartTracker command
+.Starts Assignment Tracker
 image::StartTracker.png[StartTracker]
 
-=== Pause Assignment Tracker: `pause`
-You can pause your tracking of an assignment at the current time.
-
-Format: `pause MODULE_CODE ASSIGNMENT_DESCRIPTION`
-
-Example: `pause cs2113t user guide`
+Example: `tracker /pause cs2101 ppp`
 
 [[PauseTracker]]
-.Output of PauseTracker command
+.Pauses Assignment Tracker
 image::PauseTracker.png[PauseTracker]
 
-=== Stop Assignment Tracker: `stop`
-You can stop your tracking of an assignment at the current time with `stop`.
-
-Format: `stop MODULE_CODE ASSIGNMENT_DESCRIPTION`
-
-Example: `stop cs2113t user guide`
+Example: `tracker /stop cs2101 ppp`
 
 [[StopTracker]]
-.Output of StopTracker command
+.Stops Assignment Tracker
 image::StopTracker.png[StopTracker]
 
-=== View Assignment Tracker: `viewTracker`
-You can view a histogram featuring the amount of time you spend on each module in blocks of 10 minutes with `viewtracker`.
+=== View Assignment Tracker: `tracker`
+You can view a histogram featuring the amount of time you spend on each module in blocks of 10 minutes with `tracker /view`.
 
-Format: `viewTracker`
+Format: `tracker /view`
 
 [[ViewTracker]]
-.Output of ViewTracker command
+.Displays Assignment Tracker by Module Code
 image::ViewTracker.png[ViewTracker]
 
-Format: `viewTracker TIME_PERIOD [_coming soon in v1.4_]`
+Format: `tracker /view TIME_PERIOD [_coming soon in v1.4_]`
 
 *Options for TIME_PERIOD* +
 [horizontal]
-Day:: filter time spent on each `Module` today
-Week:: filter time spent on each `Module` over the last 7 days
+day:: filter time spent on each `Module` today.
+week:: filter time spent on each `Module` over the last 7 days.
+all:: filter time spent on each `Module` over all entries.
 
-Example: `viewTracker Day`
+Example: `tracker /view day`
 
 === Exiting the program: `bye`
 Exits the program.
@@ -864,23 +862,23 @@ This feature runs in the background thus no input is needed from you.
 
 Starts assignment tracker. 
 
-* *Start Assignment Tracker*: `start MODULE_CODE ASSIGNMENT_DESCRIPTION` +
-e.g. `start cs2113t user guide`
+* *Start Assignment Tracker*: `tracker /start MODULE_CODE ASSIGNMENT_DESCRIPTION` +
+e.g. `tracker /start cs2113t user guide`
 
 Pauses assignment tracker. 
 
-* *Pause Assignment Tracker*: `pause MODULE_CODE ASSIGNMENT_DESCRIPTION` +
-e.g. `pause cs2113t user guide`
+* *Pause Assignment Tracker*: `tracker /pause MODULE_CODE ASSIGNMENT_DESCRIPTION` +
+e.g. `tracker /pause cs2113t user guide`
 
 Stops assignment tracker. 
 
-* *Stop Assignment Tracker*: `stop MODULE_CODE ASSIGNMENT_DESCRIPTION` +
-e.g. `stop cs2113t user guide`
+* *Stop Assignment Tracker*: `tracker /stop MODULE_CODE ASSIGNMENT_DESCRIPTION` +
+e.g. `tracker /stop cs2113t user guide`
 
 View assignment tracker diagram. 
 
-* *View Assignment Tracker*: `viewtracker` +
-e.g. `viewtracker`
+* *View Assignment Tracker*: `tracker /view` +
+e.g. `tracker /view`
 
 Exit *OOF* by using this command. 
 

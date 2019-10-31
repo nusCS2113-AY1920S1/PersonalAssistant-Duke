@@ -1,8 +1,5 @@
 package oof.model.tracker;
 
-import oof.model.task.Assignment;
-
-import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -34,20 +31,32 @@ public class Tracker {
     }
 
     /**
+     * Constructor for Tracker.
+     *
+     * @param moduleCode    module code.
+     * @param timeTaken     total time spent on time taken.
+     */
+    public Tracker(String moduleCode, long timeTaken) {
+        this.moduleCode = moduleCode;
+        this.timeTaken = timeTaken;
+    }
+
+    /**
      * Get time difference between start date of a tracked Assignment object and current datetime.
      * @param start     start time in Date format.
-     * @return          number of minutes between start and end time of a tracked Assignment.
+     * @return number of minutes between start and end time of a tracked Assignment.
      */
     public String getDateDiff(Date start) {
         Date end = new Date();
         long diff = end.getTime() - start.getTime();
         int diffMin = (int) (diff / TO_MINUTES);
-        return Integer.toString(diffMin);
+        String difference = Integer.toString(diffMin);
+        return difference;
     }
 
     /**
      * Store details of Tracker in desired format.
-     * @return  formatted details of Tracker
+     * @return formatted details of Tracker
      */
     public String toStorageString() {
         SimpleDateFormat writeFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm");
@@ -65,8 +74,10 @@ public class Tracker {
         String lastUpdated = writeFormat.format(updated);
         String timeTaken = Long.toString(getTimeTaken());
 
-        return moduleCode + DELIMITER + description + DELIMITER + startDate + DELIMITER
+        String line = moduleCode + DELIMITER + description + DELIMITER + startDate + DELIMITER
                 + lastUpdated + DELIMITER + timeTaken;
+
+        return line;
     }
 
     /**
