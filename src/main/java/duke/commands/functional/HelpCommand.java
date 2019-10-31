@@ -20,29 +20,29 @@ public class HelpCommand implements Command {
      * Lists all available commands + their respective formats for the user.
      */
     public HelpCommand() {
-        userCommandList.add("Create a task: `add task :<description>`");
-        userCommandList.add("Create a patient profile: `add patient "
+        userCommandList.add("Create a task:\n `add task :<description>`");
+        userCommandList.add("Create a patient profile:\n `add patient "
                 + ":<patient name> :<patient NRIC> :<patient room> :<patient remark>`");
-        userCommandList.add("Assign a patient to a deadline task: `assign deadline task "
+        userCommandList.add("Assign a patient to a deadline task:\n `assign deadline task "
                 + ":<patient ID> :<task ID> :<dd/MM/yyyy HHmm>`");
-        userCommandList.add("Assign a patient to a period task: `assign period task task "
+        userCommandList.add("Assign a patient to a period task:\n `assign period task task "
                 + ":<patient ID> :<task ID> :<dd/MM/yyyy HHmm> :<dd/MM/yyyy HHmm>`");
-        userCommandList.add("List patients: `list patients`");
-        userCommandList.add("List tasks: `list tasks`");
-        userCommandList.add("Delete a patient: `delete patient :#<patient ID>`");
-        userCommandList.add("Delete a task: `delete task :#<task ID>`");
-        userCommandList.add("Delete an assigned task: `delete assigned task :#<assigned task ID>`");
-        userCommandList.add("Find a patient: `find patient :#<patient ID> OR <patient name>`");
-        userCommandList.add("Find a task: `find task :#<task ID> OR <task description>");
-        userCommandList.add("Find a patient's assigned tasks: `find assigned tasks "
+        userCommandList.add("List patients:\n `list patients`");
+        userCommandList.add("List tasks:\n `list tasks`");
+        userCommandList.add("Delete a patient:\n `delete patient :#<patient ID>`");
+        userCommandList.add("Delete a task:\n `delete task :#<task ID>`");
+        userCommandList.add("Delete an assigned task:\n `delete assigned task :#<assigned task ID>`");
+        userCommandList.add("Find a patient:\n `find patient :#<patient ID> OR <patient name>`");
+        userCommandList.add("Find a task:\n `find task :#<task ID> OR <task description>");
+        userCommandList.add("Find a patient's assigned tasks:\n `find assigned tasks "
                 + ":#<patient ID>");
-        userCommandList.add("Update a patient's data: `update patient :#<patient id> "
+        userCommandList.add("Update a patient's data:\n `update patient :#<patient id> "
                 + ":<name/NRIC/room/remark> :<new information>`");
-        userCommandList.add("Update a task's description: `update task :#<task id>"
+        userCommandList.add("Update a task's description:\n `update task :#<task id>"
                 + ":<new description>`");
-        userCommandList.add("Undo an action: `undo`");
-        userCommandList.add("View help guide: `help`");
-        userCommandList.add("Exit the program: `bye`");
+        userCommandList.add("Undo an action:\n `undo`");
+        userCommandList.add("View help guide:\n `help`");
+        userCommandList.add("Exit the program:\n `bye`");
 
 
     }
@@ -59,12 +59,8 @@ public class HelpCommand implements Command {
      * Gives a string output with all available commands + formats.
      * @return String with commands + input formats.
      */
-    public String getHelpCommands() {
-        String output = "Here is the available list of user commands and their respective formats:\n\n";
-        for (String command : userCommandList) {
-            output += "- " + command + "\n";
-        }
-        return output;
+    public ArrayList<String> getHelpCommands() {
+        return userCommandList;
     }
 
     @Override

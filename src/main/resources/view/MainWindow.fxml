@@ -202,48 +202,48 @@
                                         <TextField fx:id="deleteTaskIdField" layoutX="88.0" layoutY="184.0" promptText="Enter Task ID Here" AnchorPane.bottomAnchor="493.0" AnchorPane.leftAnchor="88.0" AnchorPane.rightAnchor="24.5" AnchorPane.topAnchor="184.0" />
                                         <Button layoutX="18.0" layoutY="223.0" mnemonicParsing="false" onAction="#handleDeleteTaskButton" prefHeight="27.0" prefWidth="227.0" text="Delete Task" AnchorPane.bottomAnchor="454.0" AnchorPane.leftAnchor="18.0" AnchorPane.rightAnchor="28.0" AnchorPane.topAnchor="223.0" />
                                         <Button layoutX="65.0" layoutY="299.0" mnemonicParsing="false" onAction="#handleListTasksButton" prefHeight="68.0" prefWidth="134.0" text="List Tasks" AnchorPane.leftAnchor="65.0" />
-                              <Separator layoutX="32.0" layoutY="279.0" prefWidth="217.0" />
-                              <Separator layoutX="32.0" layoutY="178.0" prefWidth="200.0" />
-                              <Separator layoutX="31.0" layoutY="65.0" prefWidth="200.0" />
+                                        <Separator layoutX="32.0" layoutY="279.0" prefWidth="217.0" />
+                                        <Separator layoutX="32.0" layoutY="178.0" prefWidth="200.0" />
+                                        <Separator layoutX="31.0" layoutY="65.0" prefWidth="200.0" />
                                     </children>
                                 </AnchorPane>
                             </content>
                         </Tab>
-                  <Tab text="Assign Task">
-                    <content>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                           <children>
-                              <Button layoutX="20.0" layoutY="298.0" mnemonicParsing="false" onAction="#handleAssignTaskButton" prefHeight="27.0" prefWidth="234.0" text="Assign Period Task" />
-                              <Text layoutX="15.0" layoutY="111.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Task ID:" wrappingWidth="49.22900390625" />
-                              <TextField fx:id="assignTaskIdField" layoutX="94.0" layoutY="93.0" promptText="Enter Task ID Here" />
-                              <Text layoutX="17.0" layoutY="150.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Assign to:" wrappingWidth="63.0" />
-                              <TextField fx:id="assignTaskPatientIdField" layoutX="94.0" layoutY="132.0" promptText="Enter Patient Name Here" />
-                              <Text layoutX="8.0" layoutY="225.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Start:" wrappingWidth="43.376953125" />
-                              <Text layoutX="15.0" layoutY="268.0" strokeType="OUTSIDE" strokeWidth="0.0" text="End:" />
-                              <TextField fx:id="assignTaskStartTimeField" layoutX="191.0" layoutY="207.0" prefHeight="27.0" prefWidth="63.0" promptText="Time" />
-                              <TextField fx:id="assignTaskEndTimeField" layoutX="191.0" layoutY="255.0" prefHeight="27.0" prefWidth="63.0" promptText="Time" />
-                              <DatePicker fx:id="assignTaskStartDatePicker" layoutX="51.0" layoutY="207.0" prefHeight="27.0" prefWidth="126.0" promptText="Date" />
-                              <DatePicker fx:id="assignTaskEndDatePicker" layoutX="51.0" layoutY="255.0" prefHeight="27.0" prefWidth="126.0" promptText="Date" />
-                              <Text layoutX="82.0" layoutY="372.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Set  Deadline Here" wrappingWidth="110.0" />
-                              <DatePicker fx:id="assignDeadlineTaskDatePicker" layoutX="20.0" layoutY="388.0" prefHeight="27.0" prefWidth="158.0" promptText="Date" />
-                              <Button layoutX="20.0" layoutY="438.0" mnemonicParsing="false" onAction="#handleDeadlineTaskButton" prefHeight="27.0" prefWidth="234.0" text="Assign Deadline Task" />
-                              <TextField fx:id="assignDeadlineTaskTimeField" layoutX="191.0" layoutY="388.0" prefHeight="27.0" prefWidth="63.0" promptText="Time" />
-                              <Button layoutX="20.0" layoutY="543.0" mnemonicParsing="false" onAction="#handleDeleteUuidTaskButton" prefHeight="22.0" prefWidth="233.0" text="Delete Assign Task " />
-                              <TextField fx:id="assignTaskUuidField" layoutX="94.0" layoutY="504.0" promptText="Enter UUID Here" />
-                              <Text layoutX="30.0" layoutY="522.0" strokeType="OUTSIDE" strokeWidth="0.0" text="UUID:" wrappingWidth="37.22900390625" />
-                              <Text layoutX="8.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Assign Task Command Shortcut" wrappingWidth="274.22900390625">
-                                 <font>
-                                    <Font size="19.0" />
-                                 </font>
-                              </Text>
-                              <Separator layoutX="37.0" layoutY="66.0" prefWidth="200.0" />
-                              <Separator layoutX="37.0" layoutY="181.0" prefWidth="200.0" />
-                              <Separator layoutX="45.0" layoutY="342.0" prefWidth="200.0" />
-                              <Separator layoutX="45.0" layoutY="489.0" prefWidth="200.0" />
-                           </children>
-                        </AnchorPane>
-                    </content>
-                  </Tab>
+                        <Tab text="Assign Task">
+                            <content>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                    <children>
+                                        <Button layoutX="20.0" layoutY="298.0" mnemonicParsing="false" onAction="#handleAssignTaskButton" prefHeight="27.0" prefWidth="234.0" text="Assign Period Task" />
+                                        <Text layoutX="15.0" layoutY="111.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Task ID:" wrappingWidth="49.22900390625" />
+                                        <TextField fx:id="assignTaskIdField" layoutX="94.0" layoutY="93.0" promptText="Enter Task ID Here" />
+                                        <Text layoutX="17.0" layoutY="150.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Assign to:" wrappingWidth="63.0" />
+                                        <TextField fx:id="assignTaskPatientIdField" layoutX="94.0" layoutY="132.0" promptText="Enter Patient Name Here" />
+                                        <Text layoutX="8.0" layoutY="225.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Start:" wrappingWidth="43.376953125" />
+                                        <Text layoutX="15.0" layoutY="268.0" strokeType="OUTSIDE" strokeWidth="0.0" text="End:" />
+                                        <TextField fx:id="assignTaskStartTimeField" layoutX="191.0" layoutY="207.0" prefHeight="27.0" prefWidth="63.0" promptText="Time" />
+                                        <TextField fx:id="assignTaskEndTimeField" layoutX="191.0" layoutY="255.0" prefHeight="27.0" prefWidth="63.0" promptText="Time" />
+                                        <DatePicker fx:id="assignTaskStartDatePicker" layoutX="51.0" layoutY="207.0" prefHeight="27.0" prefWidth="126.0" promptText="Date" />
+                                        <DatePicker fx:id="assignTaskEndDatePicker" layoutX="51.0" layoutY="255.0" prefHeight="27.0" prefWidth="126.0" promptText="Date" />
+                                        <Text layoutX="82.0" layoutY="372.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Set  Deadline Here" wrappingWidth="110.0" />
+                                        <DatePicker fx:id="assignDeadlineTaskDatePicker" layoutX="20.0" layoutY="388.0" prefHeight="27.0" prefWidth="158.0" promptText="Date" />
+                                        <Button layoutX="20.0" layoutY="438.0" mnemonicParsing="false" onAction="#handleDeadlineTaskButton" prefHeight="27.0" prefWidth="234.0" text="Assign Deadline Task" />
+                                        <TextField fx:id="assignDeadlineTaskTimeField" layoutX="191.0" layoutY="388.0" prefHeight="27.0" prefWidth="63.0" promptText="Time" />
+                                        <Button layoutX="20.0" layoutY="543.0" mnemonicParsing="false" onAction="#handleDeleteUuidTaskButton" prefHeight="22.0" prefWidth="233.0" text="Delete Assign Task " />
+                                        <TextField fx:id="assignTaskUuidField" layoutX="94.0" layoutY="504.0" promptText="Enter UUID Here" />
+                                        <Text layoutX="30.0" layoutY="522.0" strokeType="OUTSIDE" strokeWidth="0.0" text="UUID:" wrappingWidth="37.22900390625" />
+                                        <Text layoutX="8.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Assign Task Command Shortcut" wrappingWidth="274.22900390625">
+                                            <font>
+                                                <Font size="19.0" />
+                                            </font>
+                                        </Text>
+                                        <Separator layoutX="37.0" layoutY="66.0" prefWidth="200.0" />
+                                        <Separator layoutX="37.0" layoutY="181.0" prefWidth="200.0" />
+                                        <Separator layoutX="45.0" layoutY="342.0" prefWidth="200.0" />
+                                        <Separator layoutX="45.0" layoutY="489.0" prefWidth="200.0" />
+                                    </children>
+                                </AnchorPane>
+                            </content>
+                        </Tab>
                         <Tab text="Statistic">
                             <content>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
@@ -256,9 +256,17 @@
                         </Tab>
                         <Tab text="Help Guide">
                             <content>
-                                <AnchorPane fx:id="helpAnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                <AnchorPane fx:id="helpAnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="690.0" prefWidth="275.0">
                                     <children>
-                                        <VBox fx:id="helpGuideContainer" layoutY="-1.0" prefHeight="704.0" prefWidth="273.0" />
+                                        <ScrollPane fx:id="helpGuideScrollPane" hbarPolicy="NEVER" prefHeight="690.0" prefWidth="275.0">
+                                            <content>
+                                                <AnchorPane fx:id="helpScrollPane" minHeight="0.0" minWidth="0.0" prefHeight="690.0" prefWidth="270.0">
+                                                    <children>
+                                                        <VBox fx:id="helpGuideContainer" prefHeight="0.0" prefWidth="275.0" />
+                                                    </children>
+                                                </AnchorPane>
+                                            </content>
+                                        </ScrollPane>
                                     </children>
                                 </AnchorPane>
                             </content>
@@ -270,6 +278,6 @@
                 </TabPane>
             </children>
         </AnchorPane>
-      <Button layoutX="1050.0" layoutY="690.0" mnemonicParsing="false" onAction="#handleUndoButton" prefHeight="32.0" prefWidth="249.0" text="Undo" AnchorPane.bottomAnchor="0.0" />
+        <Button layoutX="1050.0" layoutY="690.0" mnemonicParsing="false" onAction="#handleUndoButton" prefHeight="32.0" prefWidth="249.0" text="Undo" AnchorPane.bottomAnchor="0.0" />
     </children>
 </AnchorPane>
