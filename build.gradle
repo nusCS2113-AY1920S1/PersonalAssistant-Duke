@@ -62,6 +62,8 @@ jacocoTestReport {
 coveralls {
     jacocoReportPath 'build/reports/jacoco/jacocoTestReport/jacocoTestReport.xml'
 }
+
+
 application {
     // Change this to your main class.
     mainClassName = "planner.main.CliLauncher"
