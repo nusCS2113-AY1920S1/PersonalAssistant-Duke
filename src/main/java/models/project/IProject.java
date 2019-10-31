@@ -37,8 +37,6 @@ public interface IProject {
 
     void editTaskRequirements(int taskIndexNumber, String updatedTaskRequirements);
 
-    ArrayList<String> getAssignedTaskList();
-
     ArrayList<String> getCredits();
 
     void createAssignment(Task task, Member member);

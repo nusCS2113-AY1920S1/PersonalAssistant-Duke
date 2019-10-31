@@ -94,11 +94,6 @@ public class NullProject implements IProject {
     }
 
     @Override
-    public ArrayList<String> getAssignedTaskList() {
-        return null;
-    }
-
-    @Override
     public ArrayList<String> getCredits() {
         return null;
     }
