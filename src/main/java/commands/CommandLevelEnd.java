@@ -5,6 +5,7 @@ import farmio.Farmio;
 import farmio.Level;
 import farmio.Farmer;
 import farmio.Storage;
+import frontend.AsciiColours;
 
 public class CommandLevelEnd extends Command {
     /**
@@ -14,8 +15,12 @@ public class CommandLevelEnd extends Command {
      */
     @Override
     public void execute(Farmio farmio) throws FarmioFatalException {
-        farmio.getUi().typeWriter("Farmer " + farmio.getFarmer().getName() + " is now ready for their next adventure! "
-                + "Press [ENTER] for the narrative or enter [SKIP] to skip the story", false);
+        farmio.getUi().typeWriter("",true);
+        farmio.getUi().getInput();
+        farmio.getSimulation().simulate("LevelEnd", 0,4);
+        farmio.getUi().show(AsciiColours.GREEN + AsciiColours.UNDERLINE +  "Level Ended" + AsciiColours.SANE);
+        farmio.getUi().typeWriter("Farmer "+ farmio.getFarmer().getName()+" is now ready for his next adventure! "
+                + "\nPress [ENTER] to continue or enter [SKIP] to skip the story", false);
         Storage storage = farmio.getStorage();
         Farmer farmer = farmio.getFarmer();
         Level level = new Level(storage.getLevel(farmer.nextLevel()),farmer.getName());

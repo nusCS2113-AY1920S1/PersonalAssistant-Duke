@@ -22,10 +22,11 @@ public class SellWheatAction extends Action {
         criteriaFeedbackList.add(new Pair<>(!farmer.getWheatFarm().hasGrain(), "Error! you have attempted to sell grain despite not having any grain"));
         criteriaFeedbackList.add(new Pair<>(!farmer.getLocation().equals("Market"), "Error! you have attempted to sell grain despite not being at the market"));
         checkActionCriteria(ui, farmer, simulation, criteriaFeedbackList);
-        simulation.simulate("SellWheatSimulation", 0, 6);
+        simulation.simulate("SellWheatSimulation", 0, 7);
         ui.typeWriter("Selling grain!", false);
-        ui.sleep(1000);
+        ui.sleep(700);
         farmer.earnGold(farmer.getWheatFarm().sell());
-        simulation.simulate(1000, "SellWheatSimulation", 7);
+        simulation.simulate();
+        ui.sleep(700);
     }
 }

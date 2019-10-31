@@ -8,7 +8,7 @@ import exceptions.FarmioException;
 import frontend.Ui;
 import usercode.tasks.Task;
 
-public class CommandTaskCreate extends Command {
+public class CommandTaskCreate extends CommandChangeTask {
     private Task task;
 
     public CommandTaskCreate(Task task) {
@@ -27,7 +27,7 @@ public class CommandTaskCreate extends Command {
         Storage storage = farmio.getStorage();
         Farmer farmer = farmio.getFarmer();
         farmer.getTasks().addTask(task);
-        farmio.getSimulation().simulate(farmio.getLevel().getPath(), farmio.getLevel().getNarratives().size() - 1);
+        super.saveTaskandResetScreen(farmio);
         ui.showInfo("Task [" + task.toString() + "] added! \nYou now have " + farmer.getTasks().size() + " tasks!");
     }
 }

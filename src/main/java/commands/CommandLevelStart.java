@@ -2,6 +2,7 @@ package commands;
 
 import exceptions.FarmioFatalException;
 import farmio.Farmio;
+import frontend.AsciiColours;
 import frontend.Ui;
 import farmio.Storage;
 import farmio.Farmer;
@@ -22,10 +23,12 @@ public class CommandLevelStart extends Command {
         Level level = new Level(storage.getLevel(farmer.getLevel()),farmer.getName());
         farmio.setLevel(level);
         int frameId = 0;
+        int lastFrameId = level.getNarratives().size() - 1;
         for (String narrative: level.getNarratives()) {
             String userInput = ui.getInput();
             if (userInput.equals("skip")) {
-                farmio.getSimulation().simulate(level.getPath(), level.getNarratives().size() - 1);
+                farmio.getSimulation().simulate(level.getPath(), lastFrameId);
+                ui.typeWriter(level.getNarratives().get(lastFrameId), false);
                 break;
             }
             farmio.getSimulation().simulate(level.getPath(), frameId++);

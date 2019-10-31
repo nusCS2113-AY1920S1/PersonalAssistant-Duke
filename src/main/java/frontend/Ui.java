@@ -82,6 +82,12 @@ public class Ui {
         }
     }
 
+    public void showHint(String text) {
+        show(AsciiColours.YELLOW + "Hint:" + AsciiColours.SANE);
+        show(text);
+        show("~.Enter [Start] when you are ready to complete the objective");
+    }
+
     /**
      * Prints text to the terminal type writer style.
      * @param text to be printed.
@@ -89,10 +95,9 @@ public class Ui {
      */
     public void typeWriter(String text, boolean hasPressEnter) { //TODO clean this method up
         final char LEVEL_BEGIN_PLACEHOLDER = '~';
-        final char NAME_PLACEHOLDER = '+';
         boolean isNewline = false;
         int lineLength = 0;
-        System.out.print(">>> ");
+        if (!text.isBlank()) System.out.print(">>> ");
         sleep(150);
         for (int i = 0; i < text.length(); i++) {
             lineLength++;
@@ -105,13 +110,14 @@ public class Ui {
             } else if (text.charAt(i) == LEVEL_BEGIN_PLACEHOLDER) {
                 System.out.println("\n" + " ".repeat(GameConsole.FULL_CONSOLE_WIDTH / 2 - 8) + AsciiColours.GREEN
                         + AsciiColours.UNDERLINE + "[LEVEL BEGIN]" + AsciiColours.SANE + "\n");
+                show("       Enter [Start] if you are ready to complete the objective or Enter [HINT] if you get stuck!");
                 return;
             }
             else {
                 System.out.printf("%c", text.charAt(i));
             }
             if (isNewline) {
-                System.out.print("    ");
+                System.out.print("\n    ");
                 isNewline = false;
             }
             sleep(10);

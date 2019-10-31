@@ -4,7 +4,7 @@ import exceptions.FarmioException;
 import exceptions.FarmioFatalException;
 import farmio.Farmio;
 
-public class CommandTaskDelete extends Command {
+public class CommandTaskDelete extends CommandChangeTask {
     int taskID;
 
     public CommandTaskDelete(int taskID) {
@@ -24,7 +24,7 @@ public class CommandTaskDelete extends Command {
         }
         try {
             String taskToString = farmio.getFarmer().getTasks().removeTask(taskID);
-            farmio.getSimulation().simulate();
+            super.saveTaskandResetScreen(farmio);
             farmio.getUi().showInfo("You have deleted task: " + taskToString);
         } catch (Exception e) {
             throw new FarmioException("Error deleting task!");

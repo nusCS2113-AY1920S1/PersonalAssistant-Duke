@@ -20,14 +20,12 @@ public class CommandAddName extends Command {
         if (name.equals("MENU")) {
             ui.typeWriter("Keywords cannot be used as a character name.", false);
             ui.typeWriter("Enter your name:", false);
-        }
-        else if (name.length() <= 15 && name.length() > 0 && (name.matches("[a-zA-Z0-9]+") || name.contains("_"))) {
+        } else if (name.length() <= 15 && name.length() > 0 && (name.matches("[a-zA-Z0-9]+") || name.contains("_"))) {
             farmio.getFarmer().inputName(name);
             ui.typeWriter("Welcome Farmer "
                     + name
                     + ", please press [ENTER] to begin the tutorial"
-                    +
-                    " or enter [skip] to skip the story", false);
+                    + " or enter [SKIP] to skip the story", false);
             farmio.setStage(Farmio.Stage.LEVEL_START);
         } else if (name.length() == 0) {
             ui.typeWriter("Provide a name.", false);
@@ -35,8 +33,7 @@ public class CommandAddName extends Command {
         } else if (name.length() > 15) {
             ui.typeWriter("Your name can have a maximum of 15 characters.", false);
             ui.typeWriter("Enter your name:", false);
-        }
-        else {
+        } else {
             ui.typeWriter("Special Characters are not allowed", false);
             ui.typeWriter("Enter your name:", false);
         }

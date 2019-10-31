@@ -8,4 +8,3 @@ _____________________|________________________________
 
 Eg: [If gold greaterThanOrEquals 10 do buySeeds]
 
-[PRESS 'ENTER' TO GO BACK TO MENU]

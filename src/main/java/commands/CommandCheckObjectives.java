@@ -3,6 +3,7 @@ package commands;
 import exceptions.FarmioFatalException;
 import farmio.Farmio;
 import farmio.Level;
+import frontend.AsciiColours;
 
 import java.util.List;
 
@@ -14,22 +15,21 @@ public class CommandCheckObjectives extends Command {
      */
     @Override
     public void execute(Farmio farmio) throws FarmioFatalException {
-        Level.objectiveResult answer = farmio.getLevel().checkAnswer(farmio);
-        farmio.getSimulation().simulate();
+        Level.ObjectiveResult answer = farmio.getLevel().checkAnswer(farmio);
         //farmio.getUi().typeWriter(farmio.getLevel().getFeedback(farmio), false); // feedbacks
 
-        List<String> feedback = farmio.getLevel().getFeedback(farmio);
-        for(String i : feedback){
+        List<String> feedback = farmio.getLevel().getFeedback(farmio, answer);
+        for (String i : feedback) {
             farmio.getUi().typeWriter(i,false);
         }
 
-        if (answer == Level.objectiveResult.NOT_DONE) {
+        if (answer == Level.ObjectiveResult.NOT_DONE) {
             farmio.setStage(Farmio.Stage.DAY_END);
-        } else if (answer == Level.objectiveResult.DONE) {
+        } else if (answer == Level.ObjectiveResult.DONE) {
             farmio.setStage(Farmio.Stage.LEVEL_END);
-        } else if (answer == Level.objectiveResult.FAILED) {
+        } else if (answer == Level.ObjectiveResult.FAILED) {
             farmio.setStage(Farmio.Stage.LEVEL_FAILED);
-        } else if (answer == Level.objectiveResult.INVALID) {
+        } else if (answer == Level.ObjectiveResult.INVALID) {
             farmio.setStage(Farmio.Stage.LEVEL_FAILED);
         }
     }

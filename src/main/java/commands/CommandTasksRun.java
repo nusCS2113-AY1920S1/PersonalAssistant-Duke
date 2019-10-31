@@ -13,8 +13,8 @@ public class CommandTasksRun extends Command {
     @Override
     public void execute(Farmio farmio) throws FarmioFatalException {
         farmio.getFarmer().startDay(farmio);
-        farmio.getUi().show(AsciiColours.MAGENTA + AsciiColours.UNDERLINE +  "Day Ended" + AsciiColours.SANE);
-        farmio.getUi().sleep(1000);
+        farmio.getUi().sleep(300);
+        farmio.getSimulation().simulate("DayStart", 1);
         farmio.setStage(Farmio.Stage.CHECK_OBJECTIVES);
     }
 }

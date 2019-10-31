@@ -34,7 +34,7 @@ public class Storage {
      * @return True is save.json exist and false if save.json does not exist.
      */
     public boolean getSaveExist() {
-        System.out.println(new File(appDir.concat(jsonName)).toString());
+//        System.out.println(new File(appDir.concat(jsonName)).toString());
         return new File(appDir.concat(jsonName)).exists();
     }
 

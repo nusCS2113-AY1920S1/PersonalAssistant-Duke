@@ -24,7 +24,7 @@ public class GotoMarketAction extends Action {
             simulation.simulate("GotoMarketSimulation", 12);
             ui.typeWriter("You have arrived at the market", false);
         }
-        ui.sleep(1000);
+        ui.sleep(200);
     }
 }
 

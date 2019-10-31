@@ -8,7 +8,7 @@ import usercode.tasks.Task;
 import farmio.Storage;
 import farmio.Farmer;
 
-public class CommandTaskEdit extends Command {
+public class CommandTaskEdit extends CommandChangeTask {
     private Task task;
     private int taskID;
 
@@ -31,8 +31,7 @@ public class CommandTaskEdit extends Command {
             throw new FarmioException("Invalid Task ID!");
         }
         farmer.getTasks().editTask(taskID, task);
-        farmio.getSimulation().simulate(farmio.getLevel().getPath(),
-                farmio.getLevel().getNarratives().size() - 1);
+        super.saveTaskandResetScreen(farmio);
         Ui ui = farmio.getUi();
         ui.showInfo("Successfully edited task!");
     }

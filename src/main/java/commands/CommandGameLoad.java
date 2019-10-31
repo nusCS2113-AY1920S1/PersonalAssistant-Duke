@@ -23,8 +23,9 @@ public class CommandGameLoad extends Command {
             farmio.setFarmer(farmer);
             Level level = new Level(storage.getLevel(farmer.getLevel()), farmer.getName());
             farmio.setLevel(level);
-            farmio.getSimulation().simulate("GameLoad", 0);
-            ui.typeWriter("Load Game Success!", true);
+            farmio.getSimulation().simulate("GameLoad", 0, 8, true);
+            farmio.getSimulation().simulate("GameLoad", 9);
+            ui.typeWriter("Load Game Successful!, press [ENTER] to continue or enter [SKIP] to skip the story..", false);
         } catch (FarmioException e) {
             if (farmio.getStage() == Farmio.Stage.MENU_START) {
                 farmio.getSimulation().simulate("GameNew", 0, true);

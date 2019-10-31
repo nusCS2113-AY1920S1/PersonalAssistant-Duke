@@ -2,11 +2,11 @@ package commands;
 
 import exceptions.FarmioFatalException;
 import farmio.Farmio;
+import farmio.Menu;
 import frontend.Ui;
 
 public class CommandShowList extends Command {
     private String filePath;
-
     public CommandShowList(String listPath) {
         filePath = listPath;
     }
@@ -19,7 +19,10 @@ public class CommandShowList extends Command {
     @Override
     public void execute(Farmio farmio) throws FarmioFatalException {
         Ui ui = farmio.getUi();
-        farmio.getSimulation().simulate(filePath, (int)farmio.getFarmer().getLevel());
-        ui.show("Press [Enter] to go back");
+        double level = farmio.getFarmer().getLevel();
+        farmio.getSimulation().simulate(filePath, (int)(level * 10),false);
+
+        ui.show("Press [Enter] to go back to game");
     }
+
 }
