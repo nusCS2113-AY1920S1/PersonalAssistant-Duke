@@ -52,7 +52,7 @@ public class ScheduleCommand extends Command {
         task = task.replace("n/", "") + " " + amount.replace("a/", "");
         SchedulePayment newTask = new SchedulePayment(date, task);
         calendar.addToCalendar(newTask);
-        ui.setOutput("You have scheduled a payment on " + date + " for " + task);
+        ui.setOutput("You have scheduled a payment on " + date + " for " + task + " dollars.");
         storage.saveScheduleToFile(calendar);
     }
 }

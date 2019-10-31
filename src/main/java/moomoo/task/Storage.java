@@ -231,7 +231,6 @@ public class Storage {
         createFileAndDirectory(this.scheduleFilePath);
 
         String list = "Schedule: \n";
-        System.out.println(calendar.fullSchedule.size());
         for (SchedulePayment c : calendar.fullSchedule) {
             list += "d/" + c.date + " n/" + c.tasks + "\n";
         }
