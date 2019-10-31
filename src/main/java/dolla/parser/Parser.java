@@ -226,10 +226,14 @@ public abstract class Parser implements ParserStringList, ModeStringList {
             break;
         case MODE_LIMIT:
             // TODO
-            break;
+            Ui.printUpcomingFeature();
+            return false;
+            //break;
         case MODE_DEBT:
             // TODO
-            break;
+            Ui.printUpcomingFeature();
+            return false;
+            //break;
         case MODE_SHORTCUT:
             // TODO
             break;
