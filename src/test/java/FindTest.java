@@ -5,6 +5,7 @@ import money.*;
 import moneycommands.*;
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.ParseException;
@@ -24,7 +25,7 @@ public class FindTest {
     private LocalDate testDate = LocalDate.parse("9/10/2015", dateTimeFormatter);
     private LocalDate testDate2 = LocalDate.parse("9/10/2050", dateTimeFormatter);
 
-    FindTest(){
+    FindTest() throws IOException {
         ui = new Ui();
         Path currentDir = Paths.get("data/account-test.txt");
         String filePath = currentDir.toAbsolutePath().toString();
