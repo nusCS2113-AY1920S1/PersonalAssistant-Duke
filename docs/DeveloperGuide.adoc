@@ -191,7 +191,7 @@ Step 3. `Parser` receives the command, matches it against a suitable `ModuleComm
 
 Step 4. Upon successful command matching and arguments extracting, `Parser` initializes an instance of `Arguments` with a `Namespace` object containing parsed arguments as parameters and make a call to the Constructor of the corresponding `ModuleCommand` child class with the `Arguments` object as parameter.
 
-Step 5. If the call succeeds, `Parser` will return the parsed `ModuleCommand` object. Any exceptions thrown during this call will be caught by `Parser` and either converted to a suitable `ModException` object ot logged to the console.
+Step 5. If the call succeeds, `Parser` will return the parsed `ModuleCommand` object. Any exceptions thrown during this call will be caught by `Parser` and either converted to a suitable `ModException` object or logged to the console.
 
 A sequence diagram for `parseCommand` can be found below.
 
