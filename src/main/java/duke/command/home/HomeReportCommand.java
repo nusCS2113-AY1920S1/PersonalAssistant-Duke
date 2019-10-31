@@ -33,11 +33,11 @@ public class HomeReportCommand extends ArgCommand {
     }
 
     /**
-     * Creates a report file for a patient
-     * @param patient the patient that the report will be created for
-     * @param header the header of the report
-     * @param explanation an explination that describes what the report will contain
-     * @param summary a summary that the doctor can write for the report, for example why the report is written
+     * Creates a report file for a patient.
+     * @param patient The patient that the report will be created for.
+     * @param header The header of the report.
+     * @param explanation An explanation that describes what the report will contain.
+     * @param summary A summary that the doctor can write for the report, for example why the report is written.
      */
     public static void createReport(Patient patient, String header, String explanation, String summary)
             throws DukeFatalException {
