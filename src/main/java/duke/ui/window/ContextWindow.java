@@ -6,13 +6,13 @@ import javafx.scene.layout.Region;
 
 import java.util.List;
 
-public abstract class Window extends UiElement<Region> {
+public abstract class ContextWindow extends UiElement<Region> {
     /**
      * Constructs a generic UI window.
      *
      * @param fxmlFileName Name of FXML file.
      */
-    public Window(String fxmlFileName) {
+    public ContextWindow(String fxmlFileName) {
         super(fxmlFileName, null);
     }
 

@@ -24,13 +24,12 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * UI window for the Impression context.
  */
-public class ImpressionWindow extends Window {
-    private static final String FXML = "ImpressionWindow.fxml";
+public class ImpressionContextWindow extends ContextWindow {
+    private static final String FXML = "ImpressionContextWindow.fxml";
 
     @FXML
     private Label nameLabel;
@@ -57,7 +56,7 @@ public class ImpressionWindow extends Window {
     /**
      * Constructs the patient UI window.
      */
-    public ImpressionWindow(Impression impression, Patient patient) {
+    public ImpressionContextWindow(Impression impression, Patient patient) {
         super(FXML);
 
         if (impression != null && patient != null) {
@@ -85,71 +84,80 @@ public class ImpressionWindow extends Window {
             updateUi();
         });
 
-        for (Map.Entry<String, Evidence> pair : impression.getObservableEvidences().entrySet()) {
-            evidenceListPanel.getItems().add(newEvidenceCard(pair.getValue()));
-
-        }
-
-        for (Map.Entry<String, Treatment> pair : impression.getObservableTreatments().entrySet()) {
-            treatmentListPanel.getItems().add(newTreatmentCard(pair.getValue()));
-        }
-
-        // TODO: optimise by tracking critical and follow-up count in impression
-        impression.getObservableEvidences().addListener((MapChangeListener<String, Evidence>) change -> {
-            if (change.wasAdded() && newEvidenceCard(change.getValueAdded()) != null) {
-                evidenceListPanel.getItems().add(newEvidenceCard(change.getValueAdded()));
-            } else if (change.wasRemoved() && newEvidenceCard(change.getValueRemoved()) != null) {
-                evidenceListPanel.getItems().remove(newEvidenceCard(change.getValueRemoved()));
-            }
-            criticalLabel.setText(impression.getCriticalCountStr());
-        });
-
-        impression.getObservableTreatments().addListener((MapChangeListener<String, Treatment>) change -> {
-            if (change.wasAdded() && newTreatmentCard(change.getValueAdded()) != null) {
-                treatmentListPanel.getItems().add(newTreatmentCard(change.getValueAdded()));
-            } else if (change.wasRemoved() && newTreatmentCard(change.getValueAdded()) != null) {
-                treatmentListPanel.getItems().remove(newTreatmentCard(change.getValueRemoved()));
-            }
-            criticalLabel.setText(impression.getCriticalCountStr());
-            followUpLabel.setText(impression.getFollowUpCountStr());
-        });
+        //        for (Map.Entry<String, Evidence> pair : impression.getObservableEvidences().entrySet()) {
+        //            evidenceListPanel.getItems().add(newEvidenceCard(pair.getValue()));
+        //
+        //        }
+        //
+        //        for (Map.Entry<String, Treatment> pair : impression.getObservableTreatments().entrySet()) {
+        //            treatmentListPanel.getItems().add(newTreatmentCard(pair.getValue()));
+        //        }
+        //
+        //        // TODO: optimise by tracking critical and follow-up count in impression
+        //        impression.getObservableEvidences().addListener((MapChangeListener<String, Evidence>) change -> {
+        //            if (change.wasAdded() && newEvidenceCard(change.getValueAdded()) != null) {
+        //                evidenceListPanel.getItems().add(newEvidenceCard(change.getValueAdded()));
+        //            } else if (change.wasRemoved() && newEvidenceCard(change.getValueRemoved()) != null) {
+        //                evidenceListPanel.getItems().remove(newEvidenceCard(change.getValueRemoved()));
+        //            }
+        //            criticalLabel.setText(impression.getCriticalCountStr());
+        //        });
+        //
+        //        impression.getObservableTreatments().addListener((MapChangeListener<String, Treatment>) change -> {
+        //            if (change.wasAdded() && newTreatmentCard(change.getValueAdded()) != null) {
+        //                treatmentListPanel.getItems().add(newTreatmentCard(change.getValueAdded()));
+        //            } else if (change.wasRemoved() && newTreatmentCard(change.getValueAdded()) != null) {
+        //                treatmentListPanel.getItems().remove(newTreatmentCard(change.getValueRemoved()));
+        //            }
+        //            criticalLabel.setText(impression.getCriticalCountStr());
+        //            followUpLabel.setText(impression.getFollowUpCountStr());
+        //        });
     }
 
     /**
      * This function returns the new card added dependent on the class instance.
-     * @param evidence the evidence
+     *
+     * @param evidence Evidence object
+     * @param index    Displayed index.
      * @return ObservationCard/ResultCard
      */
-    private EvidenceCard newEvidenceCard(Evidence evidence) {
+    private EvidenceCard newEvidenceCard(Evidence evidence, int index) {
+        EvidenceCard evidenceCard;
+
         if (evidence instanceof Observation) {
-            // TODO: index
-            return new ObservationCard((Observation) evidence);
+            evidenceCard = new ObservationCard((Observation) evidence);
         } else if (evidence instanceof Result) {
-            // TODO: index
-            return new ResultCard((Result) evidence);
+            evidenceCard = new ResultCard((Result) evidence);
         } else {
             return null;
         }
+
+        evidenceCard.setIndex(index);
+        return evidenceCard;
     }
 
     /**
      * This function returns the new card added dependent on the class instance.
-     * @param treatment the treatment
+     *
+     * @param treatment Treatment object.
+     * @param index     Displayed index.
      * @return InvestigationCard/MedicineCard/PlanCard
      */
-    private TreatmentCard newTreatmentCard(Treatment treatment) {
+    private TreatmentCard newTreatmentCard(Treatment treatment, int index) {
+        TreatmentCard treatmentCard;
+
         if (treatment instanceof Investigation) {
-            // TODO: index
-            return new InvestigationCard((Investigation) treatment);
+            treatmentCard = new InvestigationCard((Investigation) treatment);
         } else if (treatment instanceof Medicine) {
-            // TODO: index
-            return new MedicineCard((Medicine) treatment);
+            treatmentCard = new MedicineCard((Medicine) treatment);
         } else if (treatment instanceof Plan) {
-            // TODO: index
-            return new PlanCard((Plan) treatment);
+            treatmentCard = new PlanCard((Plan) treatment);
         } else {
             return null;
         }
+
+        treatmentCard.setIndex(index);
+        return treatmentCard;
     }
 
     /**
@@ -176,13 +184,15 @@ public class ImpressionWindow extends Window {
 
 
         evidenceListPanel.getItems().clear();
-        for (Map.Entry<String, Evidence> pair : impression.getEvidences().entrySet()) {
-            evidenceListPanel.getItems().add(newEvidenceCard(pair.getValue()));
+        for (Evidence evidence : impression.getEvidences().values()) {
+            int index = (evidence.getPriority() == 1) ? 1 : evidenceListPanel.getItems().size() + 1;
+            evidenceListPanel.getItems().add(newEvidenceCard(evidence, index));
         }
 
         treatmentListPanel.getItems().clear();
-        for (Map.Entry<String, Treatment> pair : impression.getTreatments().entrySet()) {
-            treatmentListPanel.getItems().add(newTreatmentCard(pair.getValue()));
+        for (Treatment treatment : impression.getTreatments().values()) {
+            int index = (treatment.getPriority() == 1) ? 1 : treatmentListPanel.getItems().size() + 1;
+            treatmentListPanel.getItems().add(newTreatmentCard(treatment, index));
         }
     }
 

@@ -45,7 +45,7 @@ public class MainWindow extends UiElement<Stage> {
     private Parser parser;
     private GsonStorage storage;
 
-    private Window currentWindow;
+    private ContextWindow currentContextWindow;
     private Tab currentTab;
     private CommandWindow commandWindow;
 
@@ -72,8 +72,8 @@ public class MainWindow extends UiElement<Stage> {
      * Places child UI elements in the main UI window.
      */
     private void placeChildUiElements() {
-        currentWindow = new HomeWindow(patientObservableMap);
-        currentTab = new Tab("Home", currentWindow.getRoot());
+        currentContextWindow = new HomeContextWindow(patientObservableMap);
+        currentTab = new Tab("Home", currentContextWindow.getRoot());
         contextWindowHolder.getTabs().add(currentTab);
 
         commandWindow = new CommandWindow(parser, executor);
@@ -92,23 +92,25 @@ public class MainWindow extends UiElement<Stage> {
 
             switch ((Context) event.getNewValue()) {
             case HOME:
-                currentWindow = new HomeWindow(patientObservableMap);
-                currentTab = new Tab("Home", currentWindow.getRoot());
+                currentContextWindow = new HomeContextWindow(patientObservableMap);
+                currentTab = new Tab("Home", currentContextWindow.getRoot());
                 break;
             case PATIENT:
-                currentWindow = new PatientWindow((Patient) uiContext.getObject());
-                currentTab = new Tab("Patient", currentWindow.getRoot());
+                currentContextWindow = new PatientContextWindow((Patient) uiContext.getObject());
+                currentTab = new Tab("Patient", currentContextWindow.getRoot());
                 break;
             case IMPRESSION:
                 Impression impression = (Impression) uiContext.getObject();
-                currentWindow = new ImpressionWindow(impression,(Patient) impression.getParent());
-                currentTab = new Tab("Impression", currentWindow.getRoot());
+                currentContextWindow = new ImpressionContextWindow(impression, (Patient) impression.getParent());
+                currentTab = new Tab("Impression", currentContextWindow.getRoot());
                 break;
             case SEARCH:
                 SearchResult searchResult = (SearchResult) uiContext.getObject();
-                currentWindow = new SearchWindow(searchResult);
-                currentTab = new Tab("Search", currentWindow.getRoot());
+                currentContextWindow = new SearchContextWindow(searchResult);
+                currentTab = new Tab("Search", currentContextWindow.getRoot());
                 break;
+            default:
+                return;
             }
 
             contextWindowHolder.getTabs().add(currentTab);
@@ -137,7 +139,7 @@ public class MainWindow extends UiElement<Stage> {
      */
     public void updateUi(String message) {
         print(message);
-        currentWindow.updateUi();
+        currentContextWindow.updateUi();
     }
 
     /**
@@ -148,6 +150,6 @@ public class MainWindow extends UiElement<Stage> {
      * @return Indexed list of DukeObjects.
      */
     public List<DukeObject> getIndexedList(String type) {
-        return currentWindow.getIndexedList(type);
+        return currentContextWindow.getIndexedList(type);
     }
 }

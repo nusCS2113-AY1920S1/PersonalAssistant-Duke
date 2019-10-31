@@ -30,8 +30,8 @@ import java.util.List;
 /**
  * UI window for the Patient context.
  */
-class SearchWindow extends Window {
-    private static final String FXML = "SearchWindow.fxml";
+class SearchContextWindow extends ContextWindow {
+    private static final String FXML = "SearchContextWindow.fxml";
 
     @FXML
     private Label parentTypeLabel;
@@ -54,7 +54,7 @@ class SearchWindow extends Window {
     /**
      * Constructs the search UI window.
      */
-    SearchWindow(SearchResult searchResults) {
+    SearchContextWindow(SearchResult searchResults) {
         super(FXML);
 
         if (searchResults != null) {

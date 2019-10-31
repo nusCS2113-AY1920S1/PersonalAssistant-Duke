@@ -31,8 +31,8 @@ import java.util.List;
 /**
  * UI window for the Patient context.
  */
-public class PatientWindow extends Window {
-    private static final String FXML = "PatientWindow.fxml";
+public class PatientContextWindow extends ContextWindow {
+    private static final String FXML = "PatientContextWindow.fxml";
 
     @FXML
     private Label nameLabel;
@@ -67,7 +67,7 @@ public class PatientWindow extends Window {
     /**
      * Constructs the patient UI window.
      */
-    public PatientWindow(Patient patient) {
+    public PatientContextWindow(Patient patient) {
         super(FXML);
 
         this.patient = patient;

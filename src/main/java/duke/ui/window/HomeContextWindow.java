@@ -16,8 +16,8 @@ import java.util.List;
 /**
  * UI window for the Home context.
  */
-public class HomeWindow extends Window {
-    private static final String FXML = "HomeWindow.fxml";
+public class HomeContextWindow extends ContextWindow {
+    private static final String FXML = "HomeContextWindow.fxml";
 
     @FXML
     private JFXMasonryPane patientListPanel;
@@ -32,7 +32,7 @@ public class HomeWindow extends Window {
      *
      * @param patientObservableMap ObservableMap of {@code Patient} objects.
      */
-    public HomeWindow(ObservableMap<String, Patient> patientObservableMap) {
+    public HomeContextWindow(ObservableMap<String, Patient> patientObservableMap) {
         super(FXML);
         this.patientObservableMap = patientObservableMap;
         JFXScrollPane.smoothScrolling(scrollPane);
