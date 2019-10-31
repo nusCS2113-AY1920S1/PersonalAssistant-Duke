@@ -23,11 +23,6 @@ import ducats.commands.RedoCommand;
 import ducats.commands.SwapCommand;
 import ducats.commands.UndoCommand;
 import ducats.commands.ViewCommand;
-import ducats.commands.AsciiCommand;
-import ducats.commands.OverlayGroupGroup;
-import java.util.ArrayList;
-import java.util.HashMap;
-
 import ducats.components.Jaccard;
 import ducats.components.WordGetter;
 
