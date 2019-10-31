@@ -1,0 +1,16 @@
+calorie
+calcium
+bye
+breakfast
+lunch
+dinner
+list
+done
+find
+delete
+bye
+update
+clear
+edit
+history
+suggest
