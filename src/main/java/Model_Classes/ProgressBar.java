@@ -1,5 +1,6 @@
 package Model_Classes;
 
+import java.text.DecimalFormat;
 import java.util.Arrays;
 
 public class ProgressBar {
@@ -18,7 +19,8 @@ public class ProgressBar {
     }
 
     /**
-     * Displays the progress bar
+     * Displays the number of tasks completed to the total number of task in
+     * a progress bar format.
      */
     public String showBar() {
         for (int i=0; i<50; i++) {
@@ -31,7 +33,7 @@ public class ProgressBar {
                 bar[i] = "=";
             }
         }
-
-        return Arrays.toString(bar).replace(",", "").trim() + " " + percentage*100 + "%";
+        DecimalFormat df = new DecimalFormat("#.#");
+        return Arrays.toString(bar).replace(",", "").trim() + " " + Float.valueOf(df.format(percentage*100)) + "%";
     }
 }

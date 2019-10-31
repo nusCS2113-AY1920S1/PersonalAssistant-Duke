@@ -68,6 +68,8 @@ public class RoomShare {
             }
             switch (type) {
             case help:
+                Ui.clearScreen();
+                ui.startUp();
                 help.helpCommandList();
                 help.showHelp(parser.getCommandLine());
                 break;
@@ -85,6 +87,7 @@ public class RoomShare {
 
             case done:
                 Ui.clearScreen();
+                ui.startUp();
                 try {
                     taskList.done(parser.getIndexRange());
                     ui.showDone();
@@ -96,6 +99,7 @@ public class RoomShare {
 
             case delete:
                 Ui.clearScreen();
+                ui.startUp();
                 try {
                     int[] index = parser.getIndexRange();
                     taskList.delete(index, tempDeleteList);
@@ -122,6 +126,7 @@ public class RoomShare {
 
             case priority:
                 Ui.clearScreen();
+                ui.startUp();
                 boolean success = true;
                 try {
                     taskList.list();
@@ -142,6 +147,7 @@ public class RoomShare {
 
             case add:
                 Ui.clearScreen();
+                ui.startUp();
                 try {
                     String input = parser.getCommandLine();
                     if(!(CheckAnomaly.checkTask((taskCreator.create(input))))) {
@@ -158,6 +164,7 @@ public class RoomShare {
 
             case snooze :
                 Ui.clearScreen();
+                ui.startUp();
                 try {
                     int index = parser.getIndex();
                     int amount = parser.getAmount();
@@ -172,6 +179,7 @@ public class RoomShare {
 
             case reorder:
                 Ui.clearScreen();
+                ui.startUp();
                 int firstIndex = parser.getIndex();
                 parser.discardNext();
                 int secondIndex = parser.getIndex();
@@ -182,6 +190,7 @@ public class RoomShare {
 
             case subtask:
                 Ui.clearScreen();
+                ui.startUp();
                 try {
                     int index = parser.getIndexSubtask();
                     String subTasks = parser.getCommandLine();
@@ -197,9 +206,9 @@ public class RoomShare {
                 try {
                     int index = parser.getIndex();
                     String input = parser.getCommandLine().trim();
-                    System.out.println(input);
                     Task oldTask = taskList.get(index);
                     taskCreator.updateTask(input,oldTask);
+                    ui.showUpdated(index+1);
                 } catch (RoomShareException e) {
                     ui.showError(e);
                 }
