@@ -12,8 +12,10 @@ ifdef::env-github[]
 :warning-caption: :warning:
 endif::[]
 
-Hello there, I am __Shamus__. I am currently pursuing a degree in Information Security at the National University of
-Singapore (NUS). +
+== {nbsp}
+
+Hello there, I am __Shamus__.
+I am currently pursuing a degree in Information Security at the National University of Singapore (NUS). +
 I enjoy server and network administration as well as building and breaking applications.
 
 This portfolio serves to document my extensive involvement and contribution in a team-based project CS2113T (Software
