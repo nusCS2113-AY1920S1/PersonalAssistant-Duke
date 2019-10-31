@@ -62,6 +62,9 @@ public class DebtUi extends Ui {
         System.out.println(line);
     }
 
+    /**
+     * Print error message for invalid bill input.
+     */
     public static void printInvalidBillFormatError() {
         System.out.println(line);
         System.out.println("\tplease follow the format "

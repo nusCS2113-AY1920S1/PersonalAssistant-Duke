@@ -135,21 +135,6 @@ public abstract class Parser implements ParserStringList, ModeStringList {
     }
 
     /**
-     * Checks if the first word after is either 'owe' or 'borrow'.
-     * @param s String to be analysed.
-     * @return Either 'owe' or 'borrow' if either are passed in.
-     * @throws Exception ???
-     */
-    public static String verifyDebtType(String s) throws Exception {
-        if (s.equals("owe") || s.equals("borrow")) {
-            return s;
-        } else {
-            EntryUi.printInvalidEntryType();
-            throw new Exception("invalid type");
-        }
-    }
-
-    /**
      * Returns true if the only element in the input that follows 'modify' is a number.
      * @return true if the only element in the input that follows 'modify' is a number.
      */
@@ -348,13 +333,19 @@ public abstract class Parser implements ParserStringList, ModeStringList {
         return tempStr;
     }
 
+    /**
+     * To check if the component in the search command is valid.
+     * @param s the string to be checked.
+     * @return any of the component if the command is any of these choices.
+     * @throws Exception invalid component.
+     */
     public String verifySearchCommand(String s) throws Exception {
-        if (s.equals("description") || s.equals("date") || s.equals("name")
-        || s.equals("duration")) {
+        if (s.equals(SEARCH_DESCRIPTION) || s.equals(SEARCH_DATE) || s.equals(SEARCH_NAME)
+            || s.equals(SEARCH_DURATION)) {
             return s;
         } else {
             SearchUi.printInvalidSearchFormat();
-            throw new Exception("invalid component");
+            throw new Exception();
         }
     }
 }

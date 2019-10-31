@@ -37,4 +37,9 @@ public interface ParserStringList {
     static final String COMPONENT_DATE = "/on";
     static final String COMPONENT_TAG = "/tag";
 
+    //Search Components
+    static final String SEARCH_DESCRIPTION = "description";
+    static final String SEARCH_DATE = "date";
+    static final String SEARCH_NAME = "name";
+    static final String SEARCH_DURATION = "duration";
 }
