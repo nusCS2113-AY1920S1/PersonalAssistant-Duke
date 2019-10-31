@@ -1,21 +1,22 @@
 [
   {
-    "name": "testing 1",
+    "name": "Job A",
     "isDone": true,
     "memberList": [
-      "user",
-      "user2"
+      "P2"
     ]
   },
   {
-    "name": "testing 2",
-    "isDone": true,
+    "name": "Job B",
+    "isDone": false,
     "memberList": [
-      "user"
-    ]
+      "P2"
+    ],
+    "time": "Oct 31, 2019, 11:59:00 PM",
+    "reminder": "Oct 31, 2019, 11:54:00 PM"
   },
   {
-    "name": "testing 3",
+    "name": "Job C",
     "isDone": false,
     "memberList": []
   }

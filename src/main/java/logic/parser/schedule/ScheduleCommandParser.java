@@ -24,7 +24,7 @@ public class ScheduleCommandParser {
 
         final Matcher matcher = BASIC_ADD_COMMAND_FORMAT.matcher(partialCommand.trim());
         if (!matcher.matches()) {
-            throw new DukeException("Message is invalid");
+            throw new DukeException("Message is invalid" + "\n" + SCHEDULE_USAGE + "\n");
         }
 
         String scheduleType = matcher.group("commandWord");

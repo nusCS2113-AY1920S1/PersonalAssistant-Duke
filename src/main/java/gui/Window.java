@@ -34,6 +34,8 @@ import javax.swing.JLabel;
 
 //@@author AugGust
 public class Window {
+    public boolean initialized = false;
+
     private boolean isShowingTasks = true;
 
     private JFrame frame;
@@ -207,6 +209,8 @@ public class Window {
             }
         };
         inputField.getActionMap().put(key, downPressed);
+
+        initialized = true;
     }
 
     /**
@@ -220,7 +224,7 @@ public class Window {
     /**
      * Sets output area to desired text
      */
-    private void setOutputArea(String outputString) {
+    public void setOutputArea(String outputString) {
         outputArea.setText(outputArea.getText() + "\n\n" + outputString);
     }
 

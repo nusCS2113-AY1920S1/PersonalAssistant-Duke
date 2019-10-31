@@ -1,16 +1,13 @@
 [
   {
-    "name": "user",
-    "taskList": [
-      "testing 1",
-      "testing 2",
-      "testing 3"
-    ]
+    "name": "P1",
+    "taskList": []
   },
   {
-    "name": "user2",
+    "name": "P2",
     "taskList": [
-      "testing 1"
+      "Job A",
+      "Job B"
     ]
   }
 ]

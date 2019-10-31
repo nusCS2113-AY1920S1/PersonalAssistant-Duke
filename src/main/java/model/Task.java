@@ -7,12 +7,13 @@ import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Date;
 
-//@@author chenyuheng
 public class Task {
     private String name;
+    private String description;
     private boolean isDone;
     private ArrayList<String> memberList;
     private Date time;
+    private Date reminder;
 
     public Task(String name) {
         this.name = name.trim();
@@ -56,12 +57,28 @@ public class Task {
         isDone = true;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public Date getTime() {
         return time;
     }
 
     public void setTime(Date time) {
         this.time = time;
+    }
+
+    public Date getReminder() {
+        return reminder;
+    }
+
+    public void setReminder(Date time) {
+        this.reminder = time;
     }
 
     /**

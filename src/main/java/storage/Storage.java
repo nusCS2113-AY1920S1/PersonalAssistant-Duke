@@ -27,7 +27,7 @@ public class Storage {
     //TODO temporary storage file path
     private String taskFilePath = "data/tasks.txt";
     private String memberFilePath = "data/members.txt";
-
+    
     /**
      * file that store the data
      */

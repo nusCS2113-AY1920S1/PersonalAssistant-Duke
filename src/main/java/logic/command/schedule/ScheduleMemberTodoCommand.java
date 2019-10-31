@@ -1,6 +1,8 @@
-package logic.command;
+package logic.command.schedule;
 
 import common.DukeException;
+import logic.command.Command;
+import logic.command.CommandOutput;
 import model.Model;
 
 public class ScheduleMemberTodoCommand extends Command {
