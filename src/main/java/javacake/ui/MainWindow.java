@@ -383,12 +383,12 @@ public class MainWindow extends AnchorPane {
             //resets
             Profile.resetProfile();
             Storage.resetStorage();
-            //JavaCake = new JavaCake();
-            //            JavaCake.profile = new Profile();
+            this.javaCake = new JavaCake();
             JavaCake.userProgress = JavaCake.storageManager.profile.getTotalProgress();
             JavaCake.userName = JavaCake.storageManager.profile.getUsername();
             JavaCake.isFirstTimeUser = true;
             showRemindersBox();
+            showListNotesBox();
             response = "Reset confirmed!\nPlease type in new username:\n";
             TopBar.resetProgress();
             isStarting = true;
