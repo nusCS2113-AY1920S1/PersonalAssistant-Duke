@@ -21,6 +21,7 @@ public class MenuCommand extends Command {
                     + "hello\n"
                     + "help\n"
                     + "select\n"
+                    + "quiz\n"
                     + "result\n"
                     + "history\n"
                     + "undo\n"
@@ -39,7 +40,9 @@ public class MenuCommand extends Command {
             case "help":
                 return "help <level of difficulty>";
             case "select":
-                return "select <chapter number>";
+                return "select <chapter name>";
+            case "quiz":
+                return "quiz";
             case "result":
                 return "result";
             case "history":

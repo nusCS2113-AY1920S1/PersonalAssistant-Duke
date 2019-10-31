@@ -3,20 +3,20 @@
 package com.algosenpai.app.logic.constant;
 
 public enum Commands {
+    hello,
     menu,
-    start,
     select,
-    report,
+    quiz,
     result,
     history,
-    clear,
-    quiz,
-    back,
     undo,
-    help,
-    setup,
+    clear,
+    reset,
+    save,
+    exit,
     print,
-    bye;
+    archive,
+    review;
 
     /**
      * Returns the valid commands in a string.
