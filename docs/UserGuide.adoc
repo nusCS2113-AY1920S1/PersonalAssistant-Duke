@@ -126,7 +126,7 @@ Examples:
 
 * `recommend orchard between 23/04/19 and 25/04/19`
 
-=== Save a Recommended Itinerary: `addThisList`
+=== Save a Recommended Itinerary: `addThisList` **NOT AVAILABLE AT THE MOMENT**
 
 After SGTravel shows a recommended list, you can save this list using this command +
 Format: `addThisList`
@@ -399,22 +399,26 @@ There is no need to save manually.
 === Viewing calendar
 
 SGTravel will automatically display calendar when the relevant commands are invoke. +
-There is also a button located at the top left corner of the application to call the calendar manually.
 
 === Viewing Singapore map
 
 SGTravel will automatically display Singapore map when the relevant commands are invoke. +
-There is also a button located at the top left corner of the application to call the map manually.
 
 === Viewing of information
 
-All relevant information will be displayed on a side panel of the SGTravel application. +
-SGTravel users can use the different commands to render and manipluate the information displayed on the side panel.
+All relevant information will be displayed on a side panel of the SGTravel application when the relevant commands are invoke. +
 
 === Editing places of visit: `edit`
 
-Panel will automatically select an intial location and the selected location will be glowing. +
-Users will use `up, down, left, right or AWSD and Enter` key to then select the place of visit they want to edit. +
+Panel will automatically select an intial location and the selected location will be glowing green in color. +
+Users will use `up, down, left, right or ESC and Enter` key to then select the place of visit they want to edit. +
+`Enter` selects and `ESC` deselects`. +
+Once an event is selected, simply type in the new VENUE/DATE depending on what is currently highlighted. 
++
+image::Ui.png[width="300" height="200"] 
++
+To save the edits, type `save` or `done` or `x`. +
+To discard the changes, type `close` or `end` or `X`.+
 Alternatively, user can use `e INDEX LOCATION START_DATE END_DATE` +
 Where INDEX is the index of the event, LOCATION is the new location of the event, the START_DATE is the start date of the event, the END_DATE of the end date of the event. 
 
