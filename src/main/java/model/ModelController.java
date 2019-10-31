@@ -80,9 +80,10 @@ public class ModelController implements Model {
         return tasksManager.addReqSkill(taskName, skillName);
     }
 
+
     /**
      * javadoc please
-     * */
+     */
     public String updateTaskDes(int index, String des) {
         String oldDes = tasksManager.getTaskDes(index);
         tasksManager.updateTaskDes(index, des);
@@ -141,7 +142,9 @@ public class ModelController implements Model {
         return memberManager.addSkill(memberName, skillName);
     }
 
-    @Override
+    /**
+     * javadoc please
+     * */
     public String updateMemberBio(int index, String bio) {
         String oldBio = memberManager.getMemberBio(index);
         memberManager.updateMemberBio(index, bio);
