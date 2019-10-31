@@ -14,7 +14,7 @@ import java.util.*;
  * It adds all relevant tasks related to a particular degree, and puts them into the user's tasklist
  * it removes all tasks from the user's tasklist related to a removed degree
  */
-public class DegreeTask extends Task {
+public class UniversityTaskHandler {
     public static ArrayList<TaskList> fullDegreeTasklist = new ArrayList<TaskList>();
 
     // this map relates all the engineering programmes with an arbitrary integer
@@ -69,9 +69,12 @@ public class DegreeTask extends Task {
         }
         for (int i = 0; i < n; i++) {
             Task toAppend = fullDegreeTasklist.get(degreeMap.get(degreeName)).get(i);
-            userTasklist.add(toAppend);
+            if (!isDuplicate(toAppend, userTasklist)){
+                userTasklist.add(toAppend);
+            }
+
         }
-        checkDuplicates(degreeName, userTasklist);
+
     }
 
     /**
@@ -94,7 +97,22 @@ public class DegreeTask extends Task {
 
     }
 
-
-    public void checkDuplicates (String degreeName, TaskList userTasklist){
+    /**
+     * returns true if the task that you are trying to add to the user's tasklist is a duplicate
+     * @param task
+     * @param userTasklist
+     * @return
+     * @throws DukeException
+     */
+    public boolean isDuplicate (Task task, TaskList userTasklist) throws DukeException {
+        if (userTasklist.size() == 0){
+            return false;
+        }
+        for (int i = 0; i < userTasklist.size(); i++){
+            if (task.toList().equals(userTasklist.get(i).toList())){
+                return true;
+            }
+        }
+        return false;
     }
 }
