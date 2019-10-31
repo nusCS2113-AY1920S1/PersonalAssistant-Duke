@@ -59,7 +59,7 @@ public class Gui extends Ui  {
 
             // Event handler for all keypresses
             stage.addEventFilter(KeyEvent.ANY, keyEvent -> {
-                if (keyEvent.getEventType() == KeyEvent.KEY_RELEASED) {
+                if (keyEvent.getEventType() == KeyEvent.KEY_PRESSED) {
                     // Handling keypresses apart from typed characters.
                     switch (keyEvent.getCode()) {
                     case ENTER:
