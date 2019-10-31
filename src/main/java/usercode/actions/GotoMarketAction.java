@@ -19,9 +19,9 @@ public class GotoMarketAction extends Action {
             ui.typeWriter("You are already at the market", false);
         } else {
             farmer.changeLocation("Traveling");
-            simulation.simulate("GotoMarketSimulation", 1, 11);
+            simulation.simulateBack("GotoMarketSimulation", 12, 1);
             farmer.changeLocation("Market");
-            simulation.simulate("GotoMarketSimulation", 12);
+            simulation.simulate("GotoMarketSimulation", 1);
             ui.typeWriter("You have arrived at the market", false);
         }
         ui.sleep(200);
