@@ -134,7 +134,8 @@ public class CommandUtils {
             }
             return (Patient) patientList.get(index - 1);
         } else {
-            core.patientMap.findPatient();
+            // TODO proper searching
+            return core.patientMap.findPatient(nameOrIdx).get(0);
         }
     }
 
