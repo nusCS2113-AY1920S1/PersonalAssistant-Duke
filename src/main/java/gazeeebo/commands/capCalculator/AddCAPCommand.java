@@ -25,18 +25,22 @@ public class AddCAPCommand {
                 + "semNumber,Module_Code,total_MC,CAP\n");
         ui.readCommand();
         String[] splitAddInput = ui.fullCommand.split(",");
-        String semNumber = splitAddInput[0];
-        String moduleCode = splitAddInput[1];
-        int moduleCredit = Integer.parseInt(splitAddInput[2]);
-        String grade = splitAddInput[3];
-        CAPCommand newCAP = new CAPCommand(moduleCode, moduleCredit, grade);
-        if (caplist.containsKey(semNumber)) {
-            caplist.get(semNumber).add(newCAP);
+        if (splitAddInput.length != 4) {
+            System.out.print("Incorrect format.\n");
         } else {
-            ArrayList<CAPCommand> semInfo = new ArrayList<>();
-            semInfo.add(newCAP);
-            caplist.put(semNumber, semInfo);
+            String semNumber = splitAddInput[0];
+            String moduleCode = splitAddInput[1];
+            int moduleCredit = Integer.parseInt(splitAddInput[2]);
+            String grade = splitAddInput[3];
+            CAPCommand newCAP = new CAPCommand(moduleCode, moduleCredit, grade);
+            if (caplist.containsKey(semNumber)) {
+                caplist.get(semNumber).add(newCAP);
+            } else {
+                ArrayList<CAPCommand> semInfo = new ArrayList<>();
+                semInfo.add(newCAP);
+                caplist.put(semNumber, semInfo);
+            }
+            System.out.print("Successfully added: " + moduleCode + "\n");
         }
-        System.out.print("Successfully added: " + moduleCode + "\n");
     }
 }
