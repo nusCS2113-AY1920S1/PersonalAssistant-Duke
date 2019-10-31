@@ -591,6 +591,10 @@ logging every step that ArchDuke takes so that debugging will be easier.
 == 4. Documentation
 
 // Refer to the guide <<Documentation#, here>>.
+We chose to use AsciiDoc to write the documentation. This is because Ascii syntax is consistent and there is a flexibility offered
+for essential syntax unlike MarkDown.
+
+
 
 == 5. Testing
 
