@@ -46,7 +46,7 @@ public class Limit extends Record {
                 + duration;
     }
 
-    private String amountToMoney() {
+    public String amountToMoney() {
         return "$" + amount;
     }
 

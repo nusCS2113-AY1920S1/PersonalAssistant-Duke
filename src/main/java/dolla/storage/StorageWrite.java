@@ -29,10 +29,19 @@ public class StorageWrite extends Storage {
 
     /**
      * This method will set the ArrayList of debts in this class.
-     * @param debts the ArrayList this method going to set to.
+     * @param debts the ArrayList this method is going to set to.
      */
     public static void setDebts(ArrayList<Record> debts) {
         Storage.debts = debts;
+        save();
+    }
+
+    /**
+     * This method will set the ArrayList of bills in this class.
+     * @param bills the ArrayList this method is going to set to.
+     */
+    public static void setBill(ArrayList<Record> bills) {
+        Storage.bills = bills;
         save();
     }
 
@@ -54,6 +63,7 @@ public class StorageWrite extends Storage {
             storage.addAll(debts);
             storage.addAll(limits);
             storage.addAll(shortcuts);
+            storage.addAll(bills);
 
             for (Record currSave : storage) {
                 String fileContent = currSave.formatSave();

@@ -18,8 +18,11 @@ public interface ParserStringList {
     String LIMIT_COMMAND_SET = "set";
 
     // Commands specific to Debt mode
-    String DEBT_COMMAND_OWE = "owe";
-    String DEBT_COMMAND_BORROW = "borrow";
+    static final String DEBT_COMMAND_OWE = "owe";
+    static final String DEBT_COMMAND_BORROW = "borrow";
+    static final String DEBT_COMMAND_LIST = "debts";
+    static final String BILL_COMMAND_BILL = "bill";
+    static final String BILL_COMMAND_LIST = "bills";
 
     // Shared Commands
     String COMMAND_MODIFY = "modify";

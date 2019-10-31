@@ -6,6 +6,7 @@ import dolla.task.Debt;
 import dolla.task.Entry;
 import dolla.task.Limit;
 import dolla.task.Record;
+import dolla.task.Bill;
 import dolla.ui.StorageUi;
 import dolla.ui.Ui;
 
@@ -69,6 +70,15 @@ public class StorageRead extends Storage {
                 //case SHORTCUT: //special case for shortcut,only one string
                 //newRecord = new shortcut(inArray[1]);
                 //break;
+                case BILL_TYPE:
+                    ArrayList<String> temp = new ArrayList<String>();
+                    String [] names = inArray[4].split(", ");
+                    for (int i = 0; i < names.length; i++) {
+                        temp.add(names[i]);
+                    }
+                    newRecord = new Bill("bill", Integer.parseInt(inArray[1]),
+                            stringToDouble(inArray[2]), temp);
+                    break;
                 default:
                     StorageUi.printErrorReadingSaveMessage();
                     break;
@@ -97,6 +107,8 @@ public class StorageRead extends Storage {
             debts.add(newRecord);
         } else if (type.equals(SHORTCUT)) {
             shortcuts.add(newRecord);
+        } else if (type.equals(BILL_TYPE)) {
+            bills.add(newRecord);
         }
     }
 }

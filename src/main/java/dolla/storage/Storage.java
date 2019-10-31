@@ -18,6 +18,7 @@ public class Storage implements StorageStringList {
     protected static ArrayList<Record> debts = new ArrayList<Record>();
     protected static ArrayList<Record> shortcuts = new ArrayList<Record>();
     protected static ArrayList<Record> storage = new ArrayList<Record>();
+    protected static ArrayList<Record> bills = new ArrayList<Record>();
 
     protected static double stringToDouble(String str) {
         double newDouble = 0.0;
@@ -52,6 +53,14 @@ public class Storage implements StorageStringList {
      */
     public static ArrayList<Record> getDebtsFromSave() {
         return debts;
+    }
+
+    /**
+     * This method will return the ArrayList containing the debts.
+     * @return bills the ArrayList containing all the bills.
+     */
+    public static ArrayList<Record> getBillsFromSave() {
+        return bills;
     }
 
     /**

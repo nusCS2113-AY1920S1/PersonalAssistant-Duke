@@ -23,11 +23,11 @@ public class AddDebtsCommand extends Command {
 
     /**
      * Instantiates AddDebtsCommand.
-     * @param type type of debt
-     * @param name name of debtor
-     * @param amount amount of debt
-     * @param description description of debt
-     * @param date date of debt
+     * @param type type of debt.
+     * @param name name of debtor.
+     * @param amount amount of debt.
+     * @param description description of debt.
+     * @param date date of debt.
      * @param prevPosition previous position of a deleted input that is passed from an undo command;
      *                     -1 if the input is not from undo command.
      */
