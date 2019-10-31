@@ -10,9 +10,9 @@ import java.util.Arrays;
 public class DeleteCommandParser implements ParserPrototype<DeleteCommand> {
 
 	public DeleteCommand parse(String[] args) throws ParserException {
-		/*if (args.length < 3) {
+		if (args.length == 1 || (args.length == 2 && args[1] != "-a")) {
 			throw new ParserException(ParserErrorMessage.NOT_ENOUGH_PARAMETER);
-		}*/
+		}
 
 		switch (args[1]) {
 			case "-i":
