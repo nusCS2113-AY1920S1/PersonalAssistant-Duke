@@ -1,6 +1,9 @@
 package dolla.command;
 
 import dolla.DollaData;
+import dolla.ModeStringList;
+import dolla.task.DebtList;
+import dolla.ui.DebtUi;
 import dolla.ui.Ui;
 import dolla.action.Redo;
 import dolla.action.Undo;
@@ -16,7 +19,7 @@ public class AddDebtsCommand extends Command {
     private String description;
     private LocalDate date;
     private int prevPosition;
-    private String mode = "debt";
+    private String mode;
 
     /**
      * Instantiates AddDebtsCommand.
@@ -36,6 +39,7 @@ public class AddDebtsCommand extends Command {
         this.description = description;
         this.date = date;
         this.prevPosition = prevPosition;
+        mode = ModeStringList.MODE_DEBT;
     }
 
     @Override
@@ -43,20 +47,28 @@ public class AddDebtsCommand extends Command {
         Debt newDebt = new Debt(type, name, amount, description, date);
         index = dollaData.getRecordList(mode).size();
 
-        if (prevPosition == -1) {
-            dollaData.addToRecordList(mode, newDebt);
-            Undo.removeCommand(mode,index);
-            Redo.clearRedo(mode);
-        } else if (prevPosition == -2) {
-            dollaData.addToRecordList(mode, newDebt);
-            Undo.removeCommand(mode,index);
-            prevPosition = -1;
-        } else { //from undo
-            dollaData.addToPrevPosition(mode, newDebt, prevPosition);
-            Redo.removeCommand(mode, prevPosition);
-            prevPosition = -1;
+        DebtList debtList = (DebtList) dollaData.getRecordList(mode);
+        int duplicateDebtIndex = debtList.findExistingRecordIndex(dollaData, newDebt, mode);
+
+        if (recordDoesNotExist(duplicateDebtIndex)) {
+            if (prevPosition == -1) {
+                dollaData.addToRecordList(mode, newDebt);
+                Undo.removeCommand(mode, index);
+                Redo.clearRedo(mode);
+            } else if (prevPosition == -2) {
+                dollaData.addToRecordList(mode, newDebt);
+                Undo.removeCommand(mode, index);
+                prevPosition = -1;
+            } else { //from undo
+                dollaData.addToPrevPosition(mode, newDebt, prevPosition);
+                Redo.removeCommand(mode, prevPosition);
+                prevPosition = -1;
+            }
+            Ui.echoAddRecord(newDebt);
+        } else {
+            Debt existingDebt = (Debt) debtList.getFromList(duplicateDebtIndex);
+            DebtUi.existingDebtPrinter(existingDebt);
         }
-        Ui.echoAddRecord(newDebt);
     }
 
     @Override
