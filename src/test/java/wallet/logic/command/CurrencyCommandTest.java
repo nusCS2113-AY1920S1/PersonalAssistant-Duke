@@ -15,7 +15,6 @@ import wallet.model.record.ExpenseList;
 import wallet.model.record.LoanList;
 import wallet.model.record.RecordList;
 import wallet.storage.CurrencyStorage;
-import wallet.thread.CurrencyThread;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
