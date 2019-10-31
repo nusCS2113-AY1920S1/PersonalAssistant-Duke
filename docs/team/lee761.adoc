@@ -5,37 +5,102 @@
 
 == PROJECT: Duke Email Manager
 
-*The following is placeholder text*
-
----
-
 == About the Project
 
 My team consists of 4 software engineering students, who were tasked with enhancing a basic command line
 interface of a personal task manager (Duke) for our Software Engineering Project. We chose to morph the
 task manager to an email manager called Duke Email Manager, catered exclusively to students in School Of
 Computing to help them better manage their emails. The various features of Duke Email Manager includes a task
-manager and email manager that works together. Duke Email Manager uses Graphical User Interface (GUI) for
-students to use its functionalities by typing in commands.
+manager and email manager that are switchable between each other. Duke Email Manager uses Graphical User
+Interface (GUI) for students to use its functionalities by typing in commands.
 
 This is what our project looks like:
 
 
-My role was to write codes for the natural date format feature and
+My role was to write codes to enhance the task manager in our project. These includes codes for more
+natural date format feature and priority feature. The following sections illustrate these
+implementations in more detail, as well as relevant documentation I have added to the user and developer
+guides in relation to these implementations.
 
+Note the following symbols and formatting used in this document:
+|===
+|💡|This is a tip. Follow these tips to aid your development of Email Manager.
+
+|===
+
+|===
+|ℹ️|This is a note. Read these for additional information.
+
+|===
+
+|===
+|⚠️|This is a warning. Heed these warnings to avoid making mistakes that will hamper your development efforts.
+
+|===
 == Summary of contributions
 
-* *Major enhancement*: added *the ability to undo/redo previous commands*
-** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+This section summarizes the contribution I made towards the project. They mainly include, but not
+limited to coding, documentation, and other helpful contributions to the team project.
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+=== *Enhancement Added*
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+==== Natural Date Format feature
+* *What it does:* Students can define the date (where needed) in International Organization for
+Standardization (ISO) date format, or define the date in terms of a day of the week. The natural date
+format assumes that the student wants to input the date of the next nearest day of the week.
 
-* *Other contributions*:
+** For example, if the date today is Thursday, 31/10/2019, and the input date is "Wed", the date will be
+saved as 06/11/2019, which is the date of the coming Wednesday.
++
+This feature also include the time. If no time is inputted after a day of the week, the time will be
+indicated as 0000.
+
+** For example, "Thu" will give a date and time of '31/10/2019 0000', while "Thu 1200" will give
+'31/10/2019 1200'.
+
+* *Justification:* This feature significantly reduces the time and effort needed to input the date and
+time, especially if students are not exactly sure of the time. It gives more flexibility to students when
+inputting dates.
+
+* *Highlights:* This feature also works well with other commands like `update`, where students can update
+the date and time of the task using natural date format as well.
+
+* *Code contributed:* Please click the links below to examine code contributed to the creation and
+maintenance of this feature:
+
+** Initial implementation of natural date format
++
+https://github.com/AY1920S1-CS2113T-F11-3/main/pull/91
+** Renamed variable and fix bug which causes error in Todo task
++
+https://github.com/AY1920S1-CS2113T-F11-3/main/pull/92
+** Fix code to allow update command to take in natural date format
++
+https://github.com/AY1920S1-CS2113T-F11-3/main/pull/93
+** Refactor all methods related to natural date into the same class
++
+https://github.com/AY1920S1-CS2113T-F11-3/main/pull/99
+** Refactor natural date class to allow easier testing
++
+https://github.com/AY1920S1-CS2113T-F11-3/main/pull/117
+
+==== Priority feature
+* *What it does:* Students can set priorities for tasks according to its urgency or severity. (Future
+implementation: Tasks will be sorted and displayed in the GUI according to the priorities.)
+
+* *Justification:* With so many tasks in hand, students need a way to indicate which tasks are of higher
+priority so that they can complete those tasks first before proceeding to the lower priorities ones.
+
+* *Code contributed:* Please click the links below to examine code contributed to the creation and
+maintenance of this feature:
+
+** Initial implementation of priority feature
++
+https://github.com/AY1920S1-CS2113T-F11-3/main/pull/79
+**
+
+
+* *Other contributions:*
 
 ** Project management:
 *** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
