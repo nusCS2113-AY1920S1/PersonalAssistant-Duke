@@ -3,10 +3,8 @@ package duke.command;
 import duke.DukeCore;
 import duke.data.DukeObject;
 import duke.data.Patient;
-import duke.data.SearchResult;
 import duke.exception.DukeException;
 import duke.exception.DukeUtilException;
-import duke.ui.context.Context;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -248,7 +246,7 @@ public class CommandUtils {
             return (Patient) patientList.get(index - 1);
         } else {
             // TODO proper searching
-            return core.patientMap.findPatient(nameOrIdx).get(0);
+            return core.patientMap.findPatientsByName(nameOrIdx).get(0);
         }
     }
 
