@@ -64,4 +64,10 @@ public class DebtList extends RecordList {
         }
         return index;
     }
+
+    @Override
+    public void addWithIndex(int modifyIndex, Record newRecord) {
+        super.addWithIndex(modifyIndex, newRecord);
+        StorageWrite.setDebts(get());
+    }
 }

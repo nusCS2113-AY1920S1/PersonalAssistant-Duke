@@ -25,8 +25,16 @@ public interface ParserStringList {
     static final String BILL_COMMAND_LIST = "bills";
 
     // Shared Commands
-    String COMMAND_MODIFY = "modify";
-    String COMMAND_SORT = "sort";
-    String COMMAND_SEARCH = "search";
-    String COMMAND_REMOVE = "remove";
+    static final String COMMAND_MODIFY = "modify";
+    static final String COMMAND_SORT = "sort";
+    static final String COMMAND_SEARCH = "search";
+    static final String COMMAND_REMOVE = "remove";
+
+    // Components used in modify
+    static final String COMPONENT_TYPE = "/type";
+    static final String COMPONENT_DESC = "/desc";
+    static final String COMPONENT_AMOUNT = "/amount";
+    static final String COMPONENT_DATE = "/on";
+    static final String COMPONENT_TAG = "/tag";
+
 }
