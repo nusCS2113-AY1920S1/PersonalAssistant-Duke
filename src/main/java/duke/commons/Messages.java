@@ -148,7 +148,7 @@ public class Messages {
     public static final String PROMPT_DELETE_STARTER = "What would you like to delete?";
     public static final String PROMPT_DELETE_SUCCESS = "Trying to delete task...";
 
-    public static final String PROMPT_FINDPATH_STARER = "Where do you want to go?";
+    public static final String PROMPT_FINDPATH_STARER = "What transport do you like?";
     public static final String PROMPT_FINDPATH_SUCCESS = "Here is the path:";
 
     public static final String PROMPT_FREETIME_STARTER = "How long of free time are you looking for?";
