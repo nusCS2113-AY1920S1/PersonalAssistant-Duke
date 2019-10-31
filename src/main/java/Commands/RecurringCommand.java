@@ -3,6 +3,7 @@ package Commands;
 import Commons.LookupTable;
 import Commons.Storage;
 import Commons.Ui;
+import Tasks.Assignment;
 import Tasks.Event;
 import Tasks.TaskList;
 
@@ -18,6 +19,8 @@ public class RecurringCommand extends Command {
     private final String startTimeString;
     private final String endTimeString;
     private final String endDateString;
+    private boolean isBiweekly;
+    private boolean isRecur;
     private String startDateString;
 
     /**
@@ -27,18 +30,27 @@ public class RecurringCommand extends Command {
      * @param endDateString End date of a task
      * @param startTimeString Start time of a task
      * @param endTimeString End time of a task
+     * @param isBiweekly whether the task is biweekly
+     * @param isRecur whether the task needs to be added
      */
-    public RecurringCommand(String description, String startDateString, String endDateString, String startTimeString, String endTimeString) {
+    public RecurringCommand(String description, String startDateString, String endDateString, String startTimeString, String endTimeString, boolean isBiweekly, boolean isRecur) {
         this.description = description;
         this.startDateString = startDateString;
         this.endDateString = endDateString;
         this.startTimeString = startTimeString;
         this.endTimeString = endTimeString;
+        this.isBiweekly = isBiweekly;
+        this.isRecur = isRecur;
     }
 
     private Date getNextWeekDate (Date inDate) {
         Date nextWeek = new Date(inDate.getTime() + 7 * 24 * 60 * 60 * 1000);
         return nextWeek;
+    }
+
+    private Date getFollowingWeekDate (Date inDate) {
+        Date followingWeek = new Date(inDate.getTime() + 14 * 24 * 60 * 60 * 1000);
+        return followingWeek;
     }
 
     @Override
@@ -48,16 +60,46 @@ public class RecurringCommand extends Command {
         Date endDate = dateFormat.parse(endDateString);
         String oldStartDateString = startDateString;
         Date startOfFollowingWeek;
+        Date startOfNextWeek;
 
-        do {
-            events.addTask(new Event(description, startDateString, startTimeString, endTimeString));
-            storage.updateEventList(events);
-            startOfFollowingWeek = getNextWeekDate(startDate);
-            startDateString = dateFormat.format(startOfFollowingWeek);
-            startDate = startOfFollowingWeek;
+        if (isRecur && isBiweekly) {
+            do {
+                Assignment task = new Event(description, startDateString, startTimeString, endTimeString);
+                events.addTask(task);
+                startOfFollowingWeek = getFollowingWeekDate(startDate);
+                startDateString = dateFormat.format(startOfFollowingWeek);
+                startDate = startOfFollowingWeek;
+            }
+            while (startOfFollowingWeek.before(endDate) || startOfFollowingWeek.equals(endDate));
+        } else if (isRecur) {
+            do {
+                Assignment task = new Event(description, startDateString, startTimeString, endTimeString);
+                events.addTask(task);
+                startOfNextWeek = getNextWeekDate(startDate);
+                startDateString = dateFormat.format(startOfNextWeek);
+                startDate = startOfNextWeek;
+            }
+            while (startOfNextWeek.before(endDate) || startOfNextWeek.equals(endDate));
+        } else if (isBiweekly) {
+            do {
+                Assignment task = new Event(description, startDateString, startTimeString, endTimeString);
+                events.removeTask(task);
+                startOfFollowingWeek = getFollowingWeekDate(startDate);
+                startDateString = dateFormat.format(startOfFollowingWeek);
+                startDate = startOfFollowingWeek;
+            }
+            while (startOfFollowingWeek.before(endDate) || startOfFollowingWeek.equals(endDate));
+        } else {
+            do {
+                Assignment task = new Event(description, startDateString, startTimeString, endTimeString);
+                events.removeTask(task);
+                startOfNextWeek = getNextWeekDate(startDate);
+                startDateString = dateFormat.format(startOfNextWeek);
+                startDate = startOfNextWeek;
+            }
+            while (startOfNextWeek.before(endDate) || startOfNextWeek.equals(endDate));
         }
-        while (startOfFollowingWeek.before(endDate) || startOfFollowingWeek.equals(endDate));
-
-        return ui.showRecurring(description, oldStartDateString, endDateString);
+        storage.updateEventList(events);
+        return ui.showRecurring(description, oldStartDateString, endDateString, isBiweekly, isRecur);
     }
 }
