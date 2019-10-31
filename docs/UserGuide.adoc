@@ -3,6 +3,10 @@
 == 1. Introduction
 Our project aims to develop a task tracking application that monitors and encourages productivity. The application will be easy to use, with intuitive ways of adding, finding and tracking tasks that have been added. This easy convenience is definitely helpful in our often busy lives, so give this app a chance to help you!
 
+* test
+** test
+*** test
+
 This user guide aims to help you learn your way around our app, making the learning process smooth and effortless. So what are you waiting for? Let's go!
 
 == 2. Quick Start  
@@ -18,18 +22,22 @@ This user guide aims to help you learn your way around our app, making the learn
 * **`/delete`**`1` : deletes the 1st task in the current list
 * *`/bye`* : exits the app
  
-== 3A. Features 
-*Command Format*
+== 3. Features
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `todo DESCRIPTION`,
-  `DESCRIPTION` is a parameter which can be used as `todo read book`.
+Using Hustler, you can easily and effectively manage your tasks, deadlines and personal projections. This section aims to introduce the various important features of Hustler. However, before we do that there are some command formats that will be used from here on out. They are:
+
+
+*Command Formats*
+
 * `/add` +
   A grey highlight refers to a command keyword that will be taken from the command line, at textbox at the bottom of the GUI.
 
 * <task description> +
-  Texts enclosed by angular brackets are replaced by the user input. For example, <task description> can be “read a book”, while <time> can be “1200”.
+  Texts enclosed by angular brackets are fields that have to be replaced with the user input. For example, <task description> can be “read a book”, while <time> can be “1200”.
+  
 * */add <task description> /at <date> <time>* +
-  Text written in bold are full command line inputs that trigger an action based on the command keyword specified.
+  Texts written in bold are full command line inputs that trigger an action based on the command keyword specified.
+  
 * “GUI Reference” +
   Words enclosed by a pair of double quotes refer to words seen on the GUI.
 
@@ -38,7 +46,7 @@ This user guide aims to help you learn your way around our app, making the learn
 Since Hustler is a productivity checker, the first thing you would want to do is to add your tasks for the next few days. In order to do so, you must issue commands in the command line at the bottom.
 
 ----
-Though Hustler v1.4 features a GUI, most of the user input is taken from the command line at the bottom. Hence, you need to know the command syntax to provide an input.
+Note: Though Hustler v1.4 features a GUI, most of the user input is taken from the command line at the bottom. Hence, you need to know the command syntax to provide an input.
 ----
 
 The syntax for adding a task to the list is as follows:
