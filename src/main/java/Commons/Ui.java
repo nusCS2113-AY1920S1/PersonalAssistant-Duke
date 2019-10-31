@@ -197,18 +197,22 @@ public class Ui {
         return workloadSchedule;
     }
 
+    /**
+     * Display the previous list of commands requested by the user
+     * @param outputList list of all the commands user request
+     * @return the list requested by user
+     */
     public String showPrevious(ArrayList<String> outputList) {
         int size = outputList.size();
-        System.out.println(size);
         if (size == 0) {
             String message = "There are no such input type in previous command";
             return message;
         } else {
-            String output = "";
-            for (int i = 0; i < size; i++) {
-                output += (i + 1) + ". " + outputList.get(i);
-            }
-            return output;
+        String output = "";
+        for (int i = 0; i < size; i++) {
+            output += (i + 1) + ". " + outputList.get(i);
+        }
+        return output;
         }
     }
 
