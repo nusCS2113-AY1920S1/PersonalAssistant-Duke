@@ -3,6 +3,7 @@ package duke.models.tag;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonSetter;
 import duke.exceptions.DukeException;
 
 import static java.util.Objects.requireNonNull;
@@ -25,13 +26,16 @@ public class Tag {
      * @param tagName stores a valid tagName
      * @throws DukeException when the tagName is invalid
      */
-    @JsonCreator
-    public Tag(@JsonProperty("tagName") String tagName) throws DukeException {
+    public Tag(String tagName) throws DukeException {
         requireNonNull(tagName);
         if (!checkValidTagName(tagName)) {
             throw new DukeException(INVALID_TAG_NAME);
         }
         this.tagName = tagName;
+    }
+
+    public Tag() {
+
     }
 
     public static boolean checkValidTagName(String test) {
@@ -48,9 +52,14 @@ public class Tag {
         return tagName;
     }
 
+    @JsonSetter("tagName")
+    public void setTagName(String tagName) {
+        this.tagName = tagName;
+    }
+
     /* We need to override function equals() and hashCode() in order to account
-      for user defined checks for equality while using streams
-    */
+          for user defined checks for equality while using streams
+        */
     @Override
     public boolean equals(Object other) {
         return this == other //short circuit for being the same object

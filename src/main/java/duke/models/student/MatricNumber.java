@@ -1,5 +1,7 @@
 package duke.models.student;
 
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonSetter;
 import duke.exceptions.DukeException;
 
 import static java.util.Objects.requireNonNull;
@@ -15,7 +17,7 @@ public class MatricNumber {
 
     public static final String CHECK_REGEX = "[Aa]\\d{7}[a-zA-Z]";
 
-    public final String matricId;
+    public String matricId;
 
     /**
      * This constructor instantiates the student ID / the matric number of the student.
@@ -27,6 +29,20 @@ public class MatricNumber {
         if (!checkIsValidMatricNumber(matricId)) {
             throw new DukeException(ERROR_MESSAGE);
         }
+        this.matricId = matricId;
+    }
+
+    public MatricNumber() {
+
+    }
+
+    @JsonGetter("id")
+    public String getMatricId() {
+        return matricId;
+    }
+
+    @JsonSetter("id")
+    public void setMatricId(String matricId) {
         this.matricId = matricId;
     }
 

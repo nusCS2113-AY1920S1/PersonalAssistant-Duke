@@ -19,8 +19,9 @@ bin/
 /text-ui-test/EXPECTED.txt
 /text-ui-test/input.txt
 /text-ui-test/storeData.txt
-/storeData.json
-/out.csv
+/data/storeData.json
+/data/out.csv
+/src/main/java/data/
 
 
 

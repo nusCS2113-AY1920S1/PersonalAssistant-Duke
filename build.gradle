@@ -15,7 +15,7 @@ checkstyle {
 
 shadowJar {
     archiveBaseName = "spongeBob"
-    archiveVersion = "1.2.1"
+    archiveVersion = "1.2.5"
     archiveClassifier = null
     archiveAppendix = null
 }
@@ -40,7 +40,13 @@ dependencies {
     implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'linux'
     compile 'com.opencsv:opencsv:5.0'
 }
-
+sourceSets {
+    main {
+        resources {
+            srcDirs = ['src/main/java/data/']
+        }
+    }
+}
 
 
 

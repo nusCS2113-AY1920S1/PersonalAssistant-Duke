@@ -1,5 +1,7 @@
 package duke.models.student;
 
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonSetter;
 import duke.exceptions.DukeException;
 
 import static java.util.Objects.requireNonNull;
@@ -18,7 +20,7 @@ public class Email {
     public static final String VALID_REGEX = "^[\\w" + "!#$%&'*+/=?`{|}~^.-" + "]+" + "@"
             + "[^\\W_]" +  "[a-zA-Z0-9.-]*" + "[^\\W_]$";
 
-    public final String email;
+    public String email;
 
     /**
      * This constructor instantiates the email id of a student.
@@ -33,13 +35,27 @@ public class Email {
         this.email = email;
     }
 
+    public Email() {
+
+    }
+
     public static boolean checkIsValidEmail(String email) {
         return email.matches(VALID_REGEX);
     }
 
+    @JsonGetter("email")
+    public String getEmail() {
+        return email;
+    }
+
+    @JsonSetter("email")
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     /* We need to override functions equals and hashCode() in order to account
-       user defined checks for equality while using streams.
-     */
+               user defined checks for equality while using streams.
+             */
     @Override
     public boolean equals(Object other) {
         return this == other //short circuit if both objects are the same
