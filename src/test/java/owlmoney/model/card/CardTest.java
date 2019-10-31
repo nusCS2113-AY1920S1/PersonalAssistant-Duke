@@ -26,9 +26,6 @@ public class CardTest {
     private static final String HEADER_ADDED_EXPENDITURE = "Added expenditure with the following details:"
             + NEWLINE  + "Item No.             Description                                             "
             + "Amount          Date                 Category             " + NEWLINE;
-    //private static final String HEADER_LIST_EXPENDITURE = "Transaction No.      "
-            //+ "Description                                             "
-            //+ "Amount          Date                 Category             " + NEWLINE;
     private static final String HEADER_LIST_PAID_EXPENDITURE = "Paid Expenditures:" + NEWLINE
             + "Transaction No.      "
             + "Description                                             "
