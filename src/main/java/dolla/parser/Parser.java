@@ -31,6 +31,9 @@ public abstract class Parser implements ParserStringList, ModeStringList {
     protected static int redoFlag = 0;
     protected static int prevPosition;
 
+    protected int modifyRecordNum;
+
+
     /**
      * Creates an instance of a parser.
      * @param inputLine The entire string containing the user's input.
@@ -178,4 +181,143 @@ public abstract class Parser implements ParserStringList, ModeStringList {
     public static void resetRedoFlag() {
         redoFlag = 0;
     }
+
+    //@@author omupenguin
+    /**
+     * Returns true if the input has no formatting issues.
+     * Also designates the correct information to the relevant variables.
+     * @return true if the input has no formatting issues.
+     */
+    public boolean verifyPartialModifyCommand(String mode) {
+
+        boolean hasComponents = false;
+        //ArrayList<String> errorList = new ArrayList<String>();
+        type = null;
+        amount = -1;
+        description = null;
+        date = null;
+
+        try {
+            modifyRecordNum = Integer.parseInt(inputArray[1]);
+        } catch (Exception e) {
+            ModifyUi.printInvalidFullModifyFormatError();
+            return false;
+        }
+
+        switch (mode) {
+        case MODE_ENTRY:
+            hasComponents = findEntryComponents();
+            break;
+        case MODE_LIMIT:
+            // TODO
+            break;
+        case MODE_DEBT:
+            // TODO
+            break;
+        case MODE_SHORTCUT:
+            // TODO
+            break;
+        }
+
+        if (!hasComponents) {
+            ModifyUi.printInvalidPartialModifyFormatError();
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    /**
+     * Returns true if the input contains a component to be edited in the current mode, demarcated with strings like "/type".
+     * Also designates the correct information to the relevant variables.
+     * @return true if the input contains a component to be edited in the current mode.
+     */
+    private boolean findEntryComponents() {
+        boolean hasComponents = false;
+        for (int i = 0; i < inputArray.length; i += 1) {
+            String currStr = inputArray[i];
+
+            if (isComponent(currStr)) {
+                String nextStr = inputArray[i+1];
+                try {
+                    switch (currStr) {
+                        case COMPONENT_TYPE:
+                            type = verifyAddType(nextStr);
+                            break;
+                        case COMPONENT_AMOUNT:
+                            amount = stringToDouble(nextStr);
+                            break;
+                        case COMPONENT_DESC:
+                            description = parseDesc(i+1);
+                            break;
+                        case COMPONENT_DATE:
+                            date = Time.readDate(nextStr);
+                            break;
+                        case COMPONENT_TAG:
+                            //TODO
+                            break;
+                    }
+                } catch (Exception e) {
+                    ModifyUi.printInvalidPartialModifyFormatError();
+                    return false;
+                }
+                hasComponents = true;
+            }
+        }
+        return hasComponents;
+    }
+
+    /**
+     * Returns true if the specified string is a editable component for the current mode.
+     * @param s the string to be checked.
+     * @return true if the specified string is a editable component for the current mode.
+     */
+    private boolean isComponent(String s) {
+        switch (mode) {
+        case MODE_ENTRY:
+            switch (s) {
+                case COMPONENT_TYPE:
+                case COMPONENT_AMOUNT:
+                case COMPONENT_DESC:
+                case COMPONENT_DATE:
+                case COMPONENT_TAG:
+                    return true;
+            }
+            break;
+        case MODE_LIMIT:
+            switch (s) {
+                // TODO
+            }
+            break;
+        case MODE_DEBT:
+            switch (s) {
+                // TODO
+            }
+            break;
+        case MODE_SHORTCUT:
+            switch (s) {
+                // TODO
+            }
+            break;
+        }
+        return false;
+    }
+
+    /**
+     * Extracts and returns a string containing the new description of the record to be modified.
+     * @param index The index of element in inputArray to start extracting from.
+     * @return string containing the new description of the record to be modified.
+     */
+    private String parseDesc(int index) {
+        String tempStr = "";
+        for (int i = index; i < inputArray.length; i += 1) {
+            if (isComponent(inputArray[i])) {
+                break;
+            }
+            tempStr = tempStr.concat(inputArray[i] + " ");
+        }
+        tempStr = tempStr.substring(0, tempStr.length()-1);
+        return tempStr;
+    }
+
 }

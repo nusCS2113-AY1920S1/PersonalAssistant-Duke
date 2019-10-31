@@ -344,4 +344,14 @@ public abstract class Ui {
         System.out.println("\tNoted. I have added the tag " + tag);
         System.out.println(line);
     }
+
+    /**
+     * Prints a message to inform user that the command is not implemented yet.
+     */
+    public static void printUpcomingFeature() {
+        System.out.println(line);
+        System.out.println("\tSorry, I can't do that yet. Stay tune for a later version and maybe my creators"
+                + "will teach me how to do that. :(");
+        System.out.println(line);
+    }
 }

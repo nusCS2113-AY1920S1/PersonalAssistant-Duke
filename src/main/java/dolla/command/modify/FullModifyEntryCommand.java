@@ -17,8 +17,8 @@ public class FullModifyEntryCommand extends Command {
 
     /**
      * Instantiates a new FullModifyEntryCommand.
-     * @param type type of modification
-     * @param amount amount to modify
+     * @param type type of entry
+     * @param amount of money
      * @param description description
      * @param date date
      */

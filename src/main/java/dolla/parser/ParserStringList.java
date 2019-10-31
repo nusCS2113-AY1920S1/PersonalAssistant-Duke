@@ -27,5 +27,11 @@ public interface ParserStringList {
     static final String COMMAND_SEARCH = "search";
     static final String COMMAND_REMOVE = "remove";
 
+    // Components used in modify
+    static final String COMPONENT_TYPE = "/type";
+    static final String COMPONENT_DESC = "/desc";
+    static final String COMPONENT_AMOUNT = "/amount";
+    static final String COMPONENT_DATE = "/on";
+    static final String COMPONENT_TAG = "/tag";
 
 }
