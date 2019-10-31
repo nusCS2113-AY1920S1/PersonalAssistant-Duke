@@ -77,7 +77,7 @@ IMPORTANT: Hustler has several task types. It also has a difficulty level for ea
 Apart from have simple ToDo commands, you will most likely have time constraints. Hustler allows you to add Deadlines and Events and make them recurrent so they repeat themselves every set time periods. The difficulty of the task can also be added. All of this can be done with a simple addition to the syntax.
 
 // tag::base-alt[]
-[width="90"]
+[width="170"]
 |===
 
 | S/N | Command | Elaboration
