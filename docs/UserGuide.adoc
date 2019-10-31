@@ -60,7 +60,7 @@ e.g. `*ROOM NAME*` is a parameter which can be a name of a room, such as `*semin
 Add new item(s) or a new room available for loan/booking in RIMS.
 
 .*Format*:
-To add a new item:
+To add a new resource:
 
 . Enter `add` into the console, then press kbd:[Enter] to execute the command.
 +
@@ -70,24 +70,115 @@ RIMS will prompt for the resource type that the user wants to add. +
 image::add/add1.jpeg[width="500", align="left"]
 ====
 +
-. Enter the `ITEM NAME` to be added into the console.
+. Enter the resource type that is to be added into RIMS, either `item` or `room`.
++
+. If `item` is the user input:
++
+.. The following display will be shown:
 +
 ====
-RIMS will prompt for the resource name that the user wants to add. +
+RIMS will prompt for the item name that the user wants to add. +
 
 image::add/add2.jpeg[width="500", align="left"]
 ====
 +
-. Enter the `QUANTITY` of the resource specified to be added into RIMS into the console.
+.. Enter the `ITEM NAME` to be added into the console e.g. `ball`
 +
 ====
-RIMS will display resource and the quantity that have been added. +
+RIMS will prompt for the quantity of the item specified to be added. +
 
 image::add/add3.jpeg[width="500", align="left"]
+====
++
+.. Enter the `QUANTITY` of the item to be added into RIMS into the console.
++
+====
+RIMS will display item(s) and the quantity that have been added. +
+
+image::add/add4.jpeg[width="500", align="left"]
+====
++
+. If `room` is the user input:
++
+.. The following display will be shown:
++
+====
+RIMS will prompt for the room name that the user wants to add. +
+
+image::add/addRoom2.jpeg[width="500", align="left"]
+====
++
+.. Enter the `ROOM NAME` to be added into the console e.g. `seminar room 2`
++
+====
+RIMS will display item(s) and the quantity that have been added. +
+
+image::add/addRoom3.jpeg[width="500", align="left"]
 ====
 
 ==== Delete item/room: `delete`
 Delete item(s) or room available for loan/booking in RIMS.
+
+To delete an existing resource:
+
+. Enter `delete` into the console, then press kbd:[Enter] to execute the command.
++
+====
+RIMS will prompt for the resource type that the user wants to delete. +
+
+image::delete/delete1.jpeg[width="500", align="left"]
+====
++
+. Enter the resource type that is to be added into RIMS, either `item` or `room`.
++
+. If `item` is the user input:
++
+.. The following display will be shown:
++
+====
+RIMS will prompt for the item name that the user wants to delete. +
+
+image::delete/delete2.jpeg[width="500", align="left"]
+====
++
+.. Enter the `ITEM NAME` to be deleted into the console.
++
+====
+RIMS will display all items corresponding to that name and their respective statuses (on loan, reserved, available). +
+
+image::delete/delete3.jpeg[width="800", align="left"]
+
+RIMS will then prompt for resource ID(s) corresponding to the one or more of the items on the list displayed.
+
+image::delete/delete4.jpeg[width="800", align="left"]
+
+====
++
+.. Enter the `QUANTITY` of the resource to be added into RIMS into the console.
++
+====
+RIMS will display item(s) and their resource ID(s) that have been deleted. +
+
+image::delete/delete5.jpeg[width="500", align="left"]
+====
++
+. If `room` is the user input:
++
+.. The following display will be shown:
++
+====
+RIMS will prompt for the room name that the user wants to delete. +
+
+image:delete/deleteRoom1.jpeg[width="500", align="left"]
+====
++
+.. Enter the `ROOM NAME` to be added into the console.
++
+====
+RIMS will display the room that has been deleted. +
+
+image::delete/deleteRoom2.jpeg[width="500", align="left"]
+====
 
 .*Format*:
 . `delete /item ITEM /qty QUANTITY`
