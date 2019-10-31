@@ -1,18 +1,10 @@
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
-import java.io.IOException;
-import java.text.ParseException;
-import java.time.LocalDateTime;
-import java.time.Month;
-import java.util.Optional;
-
-import org.junit.jupiter.api.Test;
-
-import duke.command.AddCommand;
-import duke.command.Command;
-import duke.command.DeleteCommand;
-import duke.command.UndoCommand;
+import duke.logic.command.AddCommand;
+import duke.logic.command.Command;
+import duke.logic.command.DeleteCommand;
+import duke.logic.command.UndoCommand;
 import duke.exception.DukeException;
 import duke.extensions.Recurrence;
 import duke.storage.Storage;
@@ -20,6 +12,13 @@ import duke.storage.UndoStack;
 import duke.task.Task;
 import duke.tasklist.TaskList;
 import duke.ui.Ui;
+import org.junit.jupiter.api.Test;
+
+import java.io.IOException;
+import java.text.ParseException;
+import java.time.LocalDateTime;
+import java.time.Month;
+import java.util.Optional;
 
 class UndoCommandTest {
     private static final String FILE_PATH = "data/duke-test.json";

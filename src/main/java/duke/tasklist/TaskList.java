@@ -186,7 +186,7 @@ public class TaskList {
                 }
             }
         }
-        return new TaskList(temp);
+        return new TaskList(temp).undoneView();
     }
 
     /**
@@ -206,7 +206,7 @@ public class TaskList {
                 }
             }
         }
-        return new TaskList(temp);
+        return new TaskList(temp).undoneView();
     }
 
     /**

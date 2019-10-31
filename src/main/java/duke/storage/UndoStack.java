@@ -2,7 +2,7 @@ package duke.storage;
 
 import java.util.Stack;
 
-import duke.command.Command;
+import duke.logic.command.Command;
 
 /**
  * Class UndoStack which contains all the mirror commands of commands which can be undone
