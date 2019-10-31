@@ -1,11 +1,7 @@
 package dolla;
 
-
 import dolla.parser.MainParser;
-import dolla.task.Debt;
-import dolla.task.Entry;
-import dolla.task.Limit;
-import dolla.task.Record;
+import dolla.task.*;
 import dolla.ui.Ui;
 
 import java.io.BufferedReader;
@@ -31,6 +27,7 @@ public class Storage {
     private static ArrayList<Record> debts = new ArrayList<Record>();
     private static ArrayList<Record> shortcuts = new ArrayList<Record>();
     private static ArrayList<Record> storage = new ArrayList<Record>();
+    private static ArrayList<Record> bills = new ArrayList<Record>();
 
     //@@author yetong1895
     private static double stringToDouble(String str) {
@@ -152,7 +149,16 @@ public class Storage {
                 //case"shortcut": //special case for shortcut,only one string
                     //newRecord = new shortcut(inArray[1]);
                     //break;
+                case "BI":
+                    ArrayList<String> temp = new ArrayList<String>();
+                    String [] names = inArray[4].split(", ");
+                    for (int i = 0; i < names.length; i ++) {
+                        temp.add(names[i]);
+                    }
+                    newRecord = new Bill("bill", Integer.parseInt(inArray[1]), stringToDouble(inArray[2]), stringToDouble(inArray[3]), temp);
+                    break;
                 default:
+
                     System.out.println("save file corrupted");
                 }
 
@@ -164,6 +170,8 @@ public class Storage {
                     debts.add(newRecord);
                 } else if (type.equals("shortcut")) {
                     shortcuts.add(newRecord);
+                } else if (type.equals("BI")) {
+                    bills.add(newRecord);
                 }
                 save();
             }
@@ -198,15 +206,23 @@ public class Storage {
 
     /**
      * This method will return the ArrayList containing the debts.
-     * @return entries the ArrayList containing all the debts.
+     * @return debts the ArrayList containing all the debts.
      */
     public static ArrayList<Record> getDebtsFromSave() {
         return debts;
     }
 
     /**
+     * This method will return the ArrayList containing the debts.
+     * @return bills the ArrayList containing all the bills.
+     */
+    public static ArrayList<Record> getBillsFromSave() {
+        return bills;
+    }
+
+    /**
      * This method will return the ArrayList containing the shortcuts.
-     * @return entries the ArrayList containing all the shortcuts.
+     * @return shortcuts the ArrayList containing all the shortcuts.
      */
     public static ArrayList<Record> getShortcutsFromSave() {
         return shortcuts;
@@ -239,6 +255,10 @@ public class Storage {
         save();
     }
 
+    public static void setBill(ArrayList<Record> bills) {
+        Storage.bills = bills;
+        save();
+    }
     /**
      * This method will set the ArrayList of debts in this class.
      * @param shortcuts the ArrayList this method going to set to.
@@ -258,6 +278,7 @@ public class Storage {
             storage.addAll(debts);
             storage.addAll(limits);
             storage.addAll(shortcuts);
+            storage.addAll(bills);
 
             for (Record currSave : storage) {
                 String fileContent = currSave.formatSave();

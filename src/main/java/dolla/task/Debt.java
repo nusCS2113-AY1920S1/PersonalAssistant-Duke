@@ -27,7 +27,7 @@ public class Debt extends Record {
         this.amount = amount;
         this.description = description;
         this.date = date;
-        this.recordType = "debt";
+        this.recordType = RECORD_DEBT;
         this.userInput = type + " " + name + " " + amount + " " + description + " " + "/due " + Time.dateToString(date);
     }
 

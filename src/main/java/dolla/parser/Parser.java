@@ -15,6 +15,13 @@ import java.time.format.DateTimeParseException;
  */
 public abstract class Parser {
 
+    protected static final String MODE_DOLLA = "dolla";
+    protected static final String MODE_ENTRY = "entry";
+    protected static final String MODE_LIMIT = "limit";
+    protected static final String MODE_DEBT = "debt";
+    protected static final String MODE_SHORTCUT = "shortcut";
+
+    protected String mode;
     protected LocalDate date;
     protected String description;
     protected String inputLine;
@@ -24,7 +31,6 @@ public abstract class Parser {
     protected static int undoFlag = 0;
     protected static int redoFlag = 0;
     protected static int prevPosition;
-
 
     /**
      * Creates an instance of a parser.
@@ -36,8 +42,8 @@ public abstract class Parser {
         this.commandToRun = inputArray[0];
     }
 
-    public abstract Command handleInput(String mode);
 
+    public abstract Command parseInput();
 
     /**
      * Splits the input from the user and assigns the relevant data into description and date variables.
@@ -46,7 +52,7 @@ public abstract class Parser {
     public void extractDescTime() throws Exception {
         // dataArray[0] is command, amount and description, dataArray[1] is time and tag
         String[] dataArray = inputLine.split(" /on ");
-        String dateString = (dataArray[1].split("/tag"))[0];
+        String dateString = (dataArray[1].split(" /tag "))[0];
         description = dataArray[0].split(inputArray[2] + " ")[1];
         try {
             date = Time.readDate(dateString);

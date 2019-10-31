@@ -1,6 +1,9 @@
 package dolla.ui;
 
+import dolla.task.RecordList;
+
 import javax.rmi.ssl.SslRMIClientSocketFactory;
+import java.util.ArrayList;
 
 //@@author: tatayu
 public class DebtUi extends Ui {
@@ -15,9 +18,25 @@ public class DebtUi extends Ui {
         System.out.println(line);
     }
 
-    public static void printAverageAmount(int people, double amount) {
+    public static void printAverageAmount(int people, double amount, ArrayList<String> nameList) {
         System.out.println((line));
-        System.out.println("Here is the bill per person after splitting: " + "$" + amount/people);
+        System.out.println("\tGot it! Total amount: $" + amount + " Number of people: " + people);
+        System.out.println("\tHere is the bill per person after splitting: " + "$" + amount/people);
+        System.out.println("\tHere is the name list: ");
+        for(int i = 0 ; i < people; i ++) {
+            System.out.println("\t" + i+1 + ". " + nameList.get(i));
+        }
+        System.out.println(line);
+    }
+
+    public static void printBillList(RecordList recordList) {
+
+        System.out.println(line);
+        System.out.println("\tHere is the list of bills you have added:");
+        for (int i = 0; i < recordList.size(); i++) {
+            int listNum = i + 1;
+            System.out.println("\t" + listNum + ". " + recordList.get().get(i).getRecordDetail());
+        }
         System.out.println(line);
     }
 }

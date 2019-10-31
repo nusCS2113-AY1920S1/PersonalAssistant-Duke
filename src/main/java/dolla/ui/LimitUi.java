@@ -3,6 +3,7 @@ package dolla.ui;
 /**
  * LimitUi is a class that handles all limit related user interactions.
  */
+//@@author Weng-Kexin
 public class LimitUi extends Ui {
 
     /**
@@ -37,11 +38,20 @@ public class LimitUi extends Ui {
     }
 
     /**
-     * Invalid remove command printer.
+     * Invalid limit type printer.
      */
-    public static void invalidRemoveCommandPrinter() {
+    public static void invalidLimitTypePrinter() {
         System.out.println(line);
-        System.out.println("\tOOPS! Please follow the format 'remove [DURATION] [limitType]'");
+        System.out.println("\tOOPS! Please specify the type of limit you want to set!");
+        System.out.println(line);
+    }
+
+    /**
+     * Invalid limit duration printer.
+     */
+    public static void invalidLimitDurationPrinter() {
+        System.out.println(line);
+        System.out.println("\tOOPS! Please specify the duration you want to set to your limit!");
         System.out.println(line);
     }
 }
