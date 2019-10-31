@@ -99,9 +99,9 @@ public class Storage {
      * @param farmer Farmer instance to be updated to from json data.
      * @return True if save is successful.
      */
-    public boolean storeFarmerPartial(Farmer farmer) {
+    public String storeFarmerPartial(Farmer farmer) {
         if(jsonFarmer == null){
-            return false;
+            return null;
         }
         FileWriter file;
         try {
@@ -110,9 +110,9 @@ public class Storage {
             file.write(jsonFarmer.toJSONString());
             file.close();
         } catch (IOException e) {
-            return false;
+            return null;
         }
-        return true;
+        return appDir.concat(jsonName);
     }
 
     /**

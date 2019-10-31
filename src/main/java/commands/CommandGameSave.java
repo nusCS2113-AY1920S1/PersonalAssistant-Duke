@@ -13,9 +13,10 @@ public class CommandGameSave extends Command {
     @Override
     public void execute(Farmio farmio) throws FarmioFatalException {
         Ui ui = farmio.getUi();
-        if (farmio.getStorage().storeFarmerPartial(farmio.getFarmer())) {
+        String location = farmio.getStorage().storeFarmerPartial(farmio.getFarmer());
+        if (location != null) {
             farmio.getSimulation().simulate();
-            ui.show("Game saved successfully!");
+            ui.show("Game saved successfully!\nGame save location:\n" + location);
         } else {
             farmio.getSimulation().simulate();
             ui.show("Game save failed!! Try again later.");
