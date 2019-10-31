@@ -362,10 +362,11 @@ public class ProjectInputController implements IController {
         assignmentController.assignAndUnassign(projectCommand.substring(12));
         ArrayList<String> errorMessages = assignmentController.getErrorMessages();
         ArrayList<String> successMessages = assignmentController.getSuccessMessages();
-        if (!errorMessages.isEmpty()) {
-            return errorMessages.toArray(new String[0]);
+        errorMessages.addAll(successMessages);
+        if (errorMessages.isEmpty()) {
+            return new String[]{"No valid assignment input detected! Please refer to the user guide for help."};
         }
-        return successMessages.toArray(new String[0]);
+        return errorMessages.toArray(new String[0]);
     }
 
     /**
