@@ -1,18 +1,4 @@
-degree-ceg--REMOVED
-degree-ceg--REMOVED
-degree-ceg--REMOVED
-degree-ceg--REMOVED
-degree-ceg--REMOVED
-degree-ceg--REMOVED
-degree-ceg--REMOVED
-degree-ceg--REMOVED
-degree-ceg--REMOVED
-degree-ceg--REMOVED
-degree-ceg--REMOVED
-degree-ceg--REMOVED
-degree-ceg--REMOVED
-degree-come-10
-degree-come-10
-degree-bme-14
-degree-come-10
-degree-come-10
+degree-Biomedical Engineering-0
+degree-Electrical Engineering-1
+degree-Mechanical Engineering-2
+
