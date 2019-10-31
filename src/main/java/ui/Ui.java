@@ -16,7 +16,7 @@ import java.util.Scanner;
  * Ui to interact with the user.
  */
 public class Ui {
-    private static final String line = "    ____________________________________________________________\n";
+    public static final String line = "    ____________________________________________________________\n";
     private static CommandFormat commandFormat = new CommandFormat();
     Scanner in;
 
@@ -383,7 +383,11 @@ public class Ui {
         System.out.println("\t" + "Add Payee:            " + commandFormat.addPayeeFormat());
         System.out.println("\t" + "Add Payment:          " + commandFormat.addPaymentFormat());
         System.out.println("\t" + "Delete Payee:         " + commandFormat.deletePayeeFormat());
+        System.out.println("\t" + "Set Fund:         " + commandFormat.setFundFormat());
+        System.out.println("\t" + "Add Fund:         " + commandFormat.addFundFormat());
+        System.out.println("\t" + "Assign Fund:         " + commandFormat.assignFundFormat());
         System.out.println("\t" + "History of Commands:  " + commandFormat.historyFormat());
+        System.out.println("\t" + "View History:         " + commandFormat.viewhistoryFormat());
         System.out.println("\t" + "Exit:                 " + commandFormat.exitFormat());
         System.out.print(line);
     }

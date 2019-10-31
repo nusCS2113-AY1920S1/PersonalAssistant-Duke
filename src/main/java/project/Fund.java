@@ -8,7 +8,7 @@ public class Fund {
     private double fundTaken;
     private double fundRemaining;
 
-    private static final double NOFUND = 0.0;
+    public static final double NOFUND = 0.0;
 
     /**
      * Instantiates the fund object.

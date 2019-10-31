@@ -34,6 +34,18 @@ public class CommandFormat {
         return "delete payee p/PAYEE";
     }
 
+    public String setFundFormat() {
+        return "set fund am/AMOUNT";
+    }
+
+    public String addFundFormat() {
+        return "add fund add/AMOUNT";
+    }
+
+    public String assignFundFormat() {
+        return "assign fund pr/PROJECT_NAME am/AMOUNT";
+    }
+
     public String historyFormat() {
         return "history";
     }

@@ -93,3 +93,11 @@ add project pr/rag ~ 31-10-2019 16:36:17
 add payee p/yh e/e013021@qweqcc m/A123012 ph/1929929 ~ 31-10-2019 16:36:24
 add payment p/yh i/toy c/10000.00 v/a102312 ~ 31-10-2019 16:36:29
 
+
+list ~ 31-10-2019 21:34:26
+deadline d/deadcnhs by/31/10/2019 2100 ~ 31-10-2019 21:45:14
+set fund 2000 ~ 31-10-2019 21:52:31
+set fund am/2000 ~ 31-10-2019 21:52:41
+add fund add/200 ~ 31-10-2019 21:52:47
+add project pr/new ~ 31-10-2019 21:53:30
+assign fund pr/new am/150 ~ 31-10-2019 21:53:49

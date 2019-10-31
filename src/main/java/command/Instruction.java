@@ -38,11 +38,13 @@ public class Instruction {
         return input.startsWith("snooze");
     }
 
-    /*
     public boolean isPostpone(String input) {
         return input.startsWith("postpone");
     }
-    */
+
+    public  boolean isDeleteTask(String input) {
+        return input.startsWith("delete task");
+    }
 
     public boolean isReschedule(String input) {
         return input.startsWith("reschedule");
@@ -109,6 +111,8 @@ public class Instruction {
     }
 
     public boolean isAssignFund(String input) { return input.startsWith("assign fund"); }
+
+    public boolean isShowFund(String input) { return input.startsWith("show fund"); }
 
     public boolean isViewhistory(String input) { return input.startsWith("view history"); }
 
