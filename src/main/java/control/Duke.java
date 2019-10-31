@@ -63,7 +63,7 @@ public class Duke {
         }
         try {
             userList = new UserList(userStorage.load());
-        }catch (FileNotFoundException e) {
+        } catch (FileNotFoundException e) {
             ui.showLoadingError();
             userList = new UserList();
         }
