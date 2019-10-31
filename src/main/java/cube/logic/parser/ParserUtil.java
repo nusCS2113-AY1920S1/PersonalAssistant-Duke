@@ -48,6 +48,7 @@ public class ParserUtil {
 		}
 	}
 
+	//@@author ZKathrynx
 	/**
 	 * Find the full name/type until next parameter/end of input.
 	 * @param inputs tokens containing the full string to be found.
