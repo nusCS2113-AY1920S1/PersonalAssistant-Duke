@@ -1,6 +1,5 @@
 package duke.model;
 
-import duke.commons.exceptions.DukeException;
 import duke.model.meal.Meal;
 import duke.model.meal.MealList;
 

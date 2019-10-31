@@ -3,9 +3,10 @@ package duke.storage;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
-import duke.commons.file.FileUtil;
 import duke.commons.exceptions.DukeException;
+import duke.commons.file.FilePathNames;
 import duke.commons.file.FilePaths;
+import duke.commons.file.FileUtil;
 import duke.logic.autocorrect.Autocorrect;
 import duke.model.Goal;
 import duke.model.meal.Meal;
@@ -18,8 +19,6 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
-
-import static duke.commons.file.FilePaths.FilePathNames;
 
 /**
  * This object is in charge of all reading from save operations.
@@ -64,7 +63,7 @@ public class Load {
      * @throws DukeException if either the object is unable to open file or it is unable to read the file
      */
     public void loadDefaultMealData(MealList meals) throws DukeException {
-        String defaultMealFilePathStr = filePaths.getFilePathStr(FilePaths.FilePathNames.FILE_PATH_DEFAULT_MEAL_FILE);
+        String defaultMealFilePathStr = filePaths.getFilePathStr(FilePathNames.FILE_PATH_DEFAULT_MEAL_FILE);
         Type defaultItemHashMap = new TypeToken<HashMap<String, HashMap<String, Integer>>>(){}.getType();
         bufferedReader = FileUtil.readFile(defaultMealFilePathStr, useResourceAsBackup);
         try {

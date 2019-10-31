@@ -1,7 +1,8 @@
 package duke.storage;
 
-import duke.commons.file.FileUtil;
+import duke.commons.file.FilePathNames;
 import duke.commons.file.FilePaths;
+import duke.commons.file.FileUtil;
 
 import java.io.BufferedReader;
 
@@ -22,7 +23,7 @@ public class LoadHelpUtil {
         }
 
         FilePaths filePaths = new FilePaths();
-        String masterHelpFileStr = filePaths.getFilePathStr(FilePaths.FilePathNames.FILE_PATH_MASTER_HELP_FILE);
+        String masterHelpFileStr = filePaths.getFilePathStr(FilePathNames.FILE_PATH_MASTER_HELP_FILE);
         String helpFilePathStr = FileUtil.concatPaths(masterHelpFileStr, helpFileRelativePathStr);
 
         BufferedReader bufferedReader = FileUtil.readResourceFile(helpFilePathStr);
