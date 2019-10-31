@@ -3,7 +3,7 @@ package dolla.command.modify;
 import dolla.DollaData;
 import dolla.command.Command;
 import dolla.task.Debt;
-import dolla.ui.Ui;
+import dolla.ui.ModifyUi;
 
 import java.time.LocalDate;
 
@@ -40,7 +40,7 @@ public class FullModifyDebtCommand extends Command {
     public void execute(DollaData dollaData) {
         Debt newDebt = new Debt(type, name, amount, description, date);
         dollaData.modifyRecordList(newDebt);
-        Ui.echoAddRecord(newDebt);
+        ModifyUi.echoModifyRecord(newDebt);
         dollaData.updateMode("debt");
     }
 

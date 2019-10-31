@@ -4,7 +4,7 @@ import dolla.DollaData;
 import dolla.command.Command;
 import dolla.task.Entry;
 import dolla.task.Record;
-import dolla.ui.Ui;
+import dolla.ui.ModifyUi;
 
 import java.time.LocalDate;
 
@@ -33,7 +33,7 @@ public class PartialModifyEntryCommand extends Command {
         overwriteComponents(originalEntry);
         Entry newEntry = new Entry(type, amount, description, date);
         dollaData.modifyRecordList(newEntry);
-        Ui.echoAddRecord(newEntry);
+        ModifyUi.echoModifyRecord(newEntry);
         dollaData.updateMode("entry");
     }
 

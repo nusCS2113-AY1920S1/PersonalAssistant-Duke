@@ -132,19 +132,6 @@ public abstract class Ui {
     }
 
     /**
-     * Prints the details of the specified record and is typically called when a is modified,
-     * so that the user can check the details of the edited record.
-     *
-     * @param currRecord record to be printed, can be an entry, limit or debt.
-     */
-    public static void echoModifyRecord(Record currRecord) {
-        System.out.println(line);
-        System.out.println("\tGot it. I've modified this " + currRecord.getRecordType() + ": ");
-        System.out.println("\t" + currRecord.getRecordDetail());
-        System.out.println(line);
-    }
-
-    /**
      * Echo remove.
      *
      * @param record the record

@@ -159,6 +159,10 @@ public class DollaData implements ModeStringList {
         modifyIndex = index;
     }
 
+    public String getPrevMode() {
+        return prevMode;
+    }
+
     /**
      * Remove limit.
      *

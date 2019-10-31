@@ -5,6 +5,7 @@ import dolla.command.Command;
 import dolla.command.ErrorCommand;
 import dolla.command.modify.FullModifyDebtCommand;
 import dolla.command.modify.FullModifyEntryCommand;
+import dolla.command.modify.RevertFromModifyComand;
 import dolla.ui.DebtUi;
 import dolla.ui.ModifyUi;
 
@@ -21,8 +22,8 @@ public class ModifyParser extends Parser {
     @Override
     public Command parseInput() {
 
-        if (isCancelModify()) {
-            //return new RevertFromModifyComand();
+        if (checkCancellation()) {
+            return new RevertFromModifyComand();
         }
 
         getModeToModify();
@@ -84,7 +85,7 @@ public class ModifyParser extends Parser {
 
     }
 
-    private boolean isCancelModify() {
+    private boolean checkCancellation() {
         return inputLine.equals("CANCEL");
     }
 

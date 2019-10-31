@@ -1,5 +1,7 @@
 package dolla.ui;
 
+import dolla.task.Record;
+
 //@@author omupenguin
 public class ModifyUi extends Ui {
 
@@ -31,12 +33,29 @@ public class ModifyUi extends Ui {
     public static void printInitialModifyMsg(String mode) {
         System.out.println(line);
         System.out.println("\tWhat would you want to change this " + mode + " to?");
+        System.out.println("\tPS: You can cancel the modifying of the record by entering 'CANCEL'.");
         System.out.println(line);
     }
 
-    public static void printSingleStringModifyError() {
+    /**
+     * Prints a message to alert the user that the modify command has been cancelled.
+     */
+    public static void printCancelModifyMsg() {
         System.out.println(line);
-        System.out.println("\tPlease write your corrected record as if you're recreating a whole new one!");
+        System.out.println("\tOkay, modify command is cancelled! Sorry for the troubles!");
+        System.out.println(line);
+    }
+
+    /**
+     * Prints the details of the specified record and is typically called when a is modified,
+     * so that the user can check the details of the edited record.
+     *
+     * @param currRecord record to be printed, can be an entry, limit or debt.
+     */
+    public static void echoModifyRecord(Record currRecord) {
+        System.out.println(line);
+        System.out.println("\tGot it. I've modified this " + currRecord.getRecordType() + ": ");
+        System.out.println("\t" + currRecord.getRecordDetail());
         System.out.println(line);
     }
 }
