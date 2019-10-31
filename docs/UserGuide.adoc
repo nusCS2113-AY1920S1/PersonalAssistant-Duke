@@ -180,15 +180,6 @@ RIMS will display the room that has been deleted. +
 image::delete/deleteRoom2.jpeg[width="500", align="left"]
 ====
 
-.*Format*:
-. `delete /item ITEM /qty QUANTITY`
-* If the item or room does not exist in RIMS, then the UI will send a message to inform the user.
-* Quantity must be a positive integer.
-* Quantity must be less than the total number of items available in RIMS, else it will be reduced to zero.
-
-.*Examples*:
-* `delete /item book /qty 5`
-* `delete /room multi purpose sports hall`
 
 === Item/Room Status
 
