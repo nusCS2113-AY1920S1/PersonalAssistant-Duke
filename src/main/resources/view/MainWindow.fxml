@@ -19,7 +19,7 @@
 
 <AnchorPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="601.0" prefWidth="590.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.hustler.MainWindow">
     <children>
-        <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" hvalue="1.0" layoutY="-32.0" prefHeight="590.0" prefWidth="558.0" vvalue="1.0">
+        <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" hvalue="1.0" layoutX="176.0" layoutY="524.0" prefHeight="79.0" prefWidth="415.0" vvalue="1.0">
             <content>
                 <VBox fx:id="dialogContainer" />
             </content>
@@ -42,7 +42,7 @@
          <children>
             <ImageView fitHeight="66.0" fitWidth="91.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="2">
                <image>
-                  <Image url="@../../../../src/main/resources/images/ICON.png" />
+                  <Image url="@/images/ICON.png" />
                </image>
                <GridPane.margin>
                   <Insets left="50.0" right="50.0" />
@@ -69,14 +69,14 @@
       </GridPane>
       <AnchorPane fx:id="stack" minWidth="100.0" prefHeight="601.0" prefWidth="176.0" style="-fx-background-color: #34495e;">
          <children>
-            <Button fx:id="task" layoutY="88.0" mnemonicParsing="false" onAction="#taskAction" onMouseClicked="#removeWelcome" prefHeight="62.0" prefWidth="176.0" style="-fx-background-color: #34495e; -fx-background-image: ../../../../images/notDone.png;" text=" TASK" textFill="#95a5a6" wrapText="true">
+            <Button fx:id="task" layoutY="88.0" mnemonicParsing="false" onAction="#taskAction" onMouseClicked="#removeWelcome" prefHeight="62.0" prefWidth="176.0" style="-fx-background-color: #34495e;" text=" TASK" textFill="#95a5a6" wrapText="true">
                <font>
                   <Font name="Helvetica Neue" size="13.0" />
                </font>
                <graphic>
                   <ImageView fx:id="menu" fitHeight="41.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../src/main/resources/images/Menus.png" />
+                        <Image url="@/images/Menus.png" />
                      </image>
                      <effect>
                         <ColorAdjust />
@@ -94,7 +94,7 @@
                <graphic>
                   <ImageView fx:id="timer" fitHeight="46.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../src/main/resources/images/Timers.png" />
+                        <Image url="@/images/Timers.png" />
                      </image>
                      <viewport>
                         <Rectangle2D minX="1.0" minY="1.0" />
@@ -112,7 +112,7 @@
                <graphic>
                   <ImageView fx:id="trophy" fitHeight="68.0" fitWidth="42.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../src/main/resources/images/trophies.png" />
+                        <Image url="@/images/trophies.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -124,7 +124,7 @@
                <graphic>
                   <ImageView fx:id="spiderGraph" fitHeight="108.0" fitWidth="51.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../src/main/resources/images/Statistics.png" />
+                        <Image url="@/images/Statistics.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -136,7 +136,7 @@
                <graphic>
                   <ImageView fx:id="profile" fitHeight="46.0" fitWidth="42.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../src/main/resources/images/Avatars.png" />
+                        <Image url="@/images/Avatars.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -148,7 +148,7 @@
                <graphic>
                   <ImageView fx:id="trolley" fitHeight="75.0" fitWidth="43.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../src/main/resources/images/Shops.png" />
+                        <Image url="@/images/Shops.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -160,24 +160,12 @@
                <graphic>
                   <ImageView fx:id="swords" fitHeight="44.0" fitWidth="42.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../src/main/resources/images/Arena.png" />
+                        <Image url="@/images/Arena.png" />
                      </image>
                   </ImageView>
                </graphic>
                <padding>
                   <Insets right="60.0" />
-               </padding>
-            </Button>
-            <Button fx:id="settings" layoutY="522.0" mnemonicParsing="false" onAction="#settingsAction" onMouseClicked="#removeWelcome" prefHeight="62.0" prefWidth="176.0" style="-fx-background-color: #34495e;" text="SETTINGS" textFill="#95a5a6" wrapText="true">
-               <graphic>
-                  <ImageView fx:id="gear" fitHeight="49.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../../src/main/resources/images/Settings.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-               <padding>
-                  <Insets right="40.0" />
                </padding>
             </Button>
          </children>
@@ -194,11 +182,11 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
       </GridPane>
-      <ScrollPane fx:id="scrollPANEE" layoutY="133.0" prefHeight="425.0" prefWidth="414.0" AnchorPane.bottomAnchor="43.0" AnchorPane.leftAnchor="176.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="133.0">
+      <ScrollPane fx:id="scrollPANEE" fitToHeight="true" fitToWidth="true" layoutY="133.0" prefHeight="425.0" prefWidth="414.0" AnchorPane.bottomAnchor="43.0" AnchorPane.leftAnchor="176.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="133.0">
          <content>
             <FlowPane fx:id="flowPane" prefHeight="466.0" prefWidth="414.0" style="-fx-background-color: #ffffff;" />
          </content>
       </ScrollPane>
-      <FlowPane fx:id="welcomeScreen" layoutX="176.0" layoutY="91.0" prefHeight="45.0" prefWidth="414.0" AnchorPane.bottomAnchor="43.0" AnchorPane.leftAnchor="176.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="91.0" />
+      <FlowPane fx:id="welcomeScreen" prefHeight="45.0" prefWidth="414.0" AnchorPane.bottomAnchor="43.0" AnchorPane.leftAnchor="176.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="90.0" />
     </children>
 </AnchorPane>

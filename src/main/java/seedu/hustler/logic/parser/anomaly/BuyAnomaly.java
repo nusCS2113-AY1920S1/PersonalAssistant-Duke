@@ -25,7 +25,7 @@ public class BuyAnomaly extends DetectAnomaly {
            if (index <= 0 || index > Hustler.shopList.size()) {
                throw new CommandLineException(OUT_OF_BOUNDS_MSG);
            }
-        } catch (NumberFormatException e) {
+        } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
             throw new CommandLineException(WRONG_FORMAT_MSG);
         }
     }

@@ -28,7 +28,7 @@ public class ByeCommand extends Command {
             byeAnomaly.detect(userInput);
             ui.showByeMessage();
             Platform.exit();
-        } catch(CommandLineException e) {
+        } catch (CommandLineException e) {
             ui.showMessage(e.getMessage());
         }
 

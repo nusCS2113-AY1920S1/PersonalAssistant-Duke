@@ -36,15 +36,16 @@ public class RemoveEntry extends Command {
         Ui ui = new Ui();
         try {
             anomaly.detect(this.userInput);
-        } catch(CommandLineException e){
+
+            int index = Integer.parseInt(this.userInput[1]);
+            index--;
+
+            RecommendedSchedule.recommended.remove(index);
+            RecommendedSchedule.reTime();
+            RecommendedSchedule.displayRecommendedSchedule();
+        } catch (CommandLineException e) {
             ui.showMessage(e.getMessage());
             return;
         }
-        int index = Integer.parseInt(this.userInput[1]);
-        index--;
-
-        RecommendedSchedule.recommended.remove(index);
-        RecommendedSchedule.reTime();
-        RecommendedSchedule.displayRecommendedSchedule();
     }
 }

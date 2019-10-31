@@ -108,7 +108,7 @@ public class Avatar implements Convertible {
      * @return the avatar with the updated items.
      */
     public Avatar equip(ShopItem equipment) {
-        if(equipment.getType().equals("Weapon")) {
+        if (equipment.getType().equals("Weapon")) {
             this.weapon = Optional.of((Weapon) equipment);
         } else if (equipment.getType().equals("Armor")) {
             this.armor = Optional.of((Armor) equipment);

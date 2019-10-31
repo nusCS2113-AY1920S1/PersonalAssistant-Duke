@@ -36,14 +36,13 @@ public class AddEntry extends Command {
     public void execute() {
         Ui ui = new Ui();
         try {
-           anomaly.detect(userInput); 
-        } catch(CommandLineException e) {
+            anomaly.detect(userInput);
+            int index = Integer.parseInt(this.userInput[1]);
+            index--;
+            RecommendedSchedule.addFromTaskList(index);
+            RecommendedSchedule.displayRecommendedSchedule();
+        } catch (CommandLineException e) {
             ui.showMessage(e.getMessage());
-            return;
         }
-        int index = Integer.parseInt(this.userInput[1]);
-        index--;
-        RecommendedSchedule.addFromTaskList(index);
-        RecommendedSchedule.displayRecommendedSchedule();
     }
 }

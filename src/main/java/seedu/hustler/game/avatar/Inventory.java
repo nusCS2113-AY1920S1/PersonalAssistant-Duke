@@ -28,6 +28,7 @@ public class Inventory {
      */
     public int getSize() { return items.size(); }
 
+
     /**
      * Gets the shop item with the given index.
      * @param index the index of the item in the array list.
@@ -43,10 +44,6 @@ public class Inventory {
         return this.items;
     }
 
-    /**
-     * Updates the inventory of the user by checking the purchased items in the shop.
-     * @return the updated inventory.
-     */
     public Inventory updateInventory() {
         this.items = Hustler.shopList.getPurchasedItems();
         return this;

@@ -91,9 +91,9 @@ public class AvatarStorage {
                     stats = new Stats(Integer.parseInt(backupTxt[1]), Integer.parseInt(backupTxt[2]),
                             Integer.parseInt(backupTxt[3]), Integer.parseInt(backupTxt[4]));
                 } else if (backupTxt[0].equals("Weapon")) {
-                      weapon = Weapon.getWeapon(backupTxt[1]);
+                    weapon = Weapon.getWeapon(backupTxt[1]);
                 } else if (backupTxt[0].equals("Armor")) {
-                      armor = Armor.getArmor(backupTxt[1]);
+                    armor = Armor.getArmor(backupTxt[1]);
                 }
             }
             avatarBackupTxt.close();
