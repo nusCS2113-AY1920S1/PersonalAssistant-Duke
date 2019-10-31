@@ -86,7 +86,6 @@ public class GenerateRevenueCommand extends Command {
     /**
      * The class generates the revenue for food whose revenue the user wishes to generate.
      *
-     * @param list The food list.
      * @param storage The storage we have.
      * @return The Feedback to User for Generate Revenue Command.
      * @throws CommandException If Generating Revenue is unsuccessful.

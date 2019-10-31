@@ -1,5 +1,7 @@
 package cube.model.food;
 
+import cube.model.ModelManager;
+
 import java.util.Date;
 
 public class Food {
@@ -13,7 +15,8 @@ public class Food {
 	protected Date expiryDate;
 	protected double foodRevenue;
 	//Data fields
-	protected static double revenue;
+
+	//protected static double revenue;
 
 
     /**
@@ -113,16 +116,24 @@ public class Food {
 	 *
 	 * @param newRevenue New total revenue made from selling the product.
 	 */
+	/*
 	public static void updateRevenue(double newRevenue) {
-		revenue = newRevenue;
+			revenue = newRevenue;
 	}
+    */
 
 	/**
-	 * Gets the revenue earned from selling the product.
+	 * Generates the total revenue earned from selling the product.
 	 *
-	 * @return the revenue earned from selling the product.
+	 * @return the total revenue earned from selling the product.
 	 */
 	public static double getRevenue() {
+		FoodList list = ModelManager.getFoodList();
+		int size = list.size();
+		double revenue = 0;
+		for (int i = 0; i < size; ++i) {
+			revenue += list.get(i).foodRevenue;
+		}
 		return revenue;
 	}
 

@@ -44,7 +44,6 @@ public class SoldCommand extends Command{
 	 * If parameters are valid, this method will generate a sale record and adjust the quantity
 	 * of food toSold. Finally, changes sale record and food will be saved in storage.
 	 *
-	 * @param list The food list.
 	 * @param storage The storage we have.
 	 * @return The Feedback to User for Delete Command.
 	 * @throws CommandException If deletion is unsuccessful.
