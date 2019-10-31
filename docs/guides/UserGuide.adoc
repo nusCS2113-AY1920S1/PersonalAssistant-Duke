@@ -50,7 +50,7 @@ This section serves as a tutorial for a new user to Email Manager.
 . Ensure you have Java version 11 or later installed in your computer.
 . Download the latest email_manager.zip https://github.com/AY1920S1-CS2113T-F11-3/main/releases[here] and
 extract it to a folder.
-. If the download is too slow, please download it from https://drive.google.com[google drive].
+. If the download is too slow, please download it from https://drive.google.com/open?id=1LUnpR3H-xxBTJ6nAnYmk0bCf4j0kuu4N[google drive].
 
 [#run-email-manager]
 === Run Email Manager
