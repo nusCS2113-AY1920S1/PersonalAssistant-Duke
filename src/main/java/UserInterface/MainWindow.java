@@ -305,16 +305,18 @@ public class MainWindow extends BorderPane implements Initializable {
         if(input.startsWith("Week")) {
             if(WeekParse.isValid(input)) {
                 week = input;
-                setWeek(false, week);
+                // //if Week Recess need make till Recess Week normal case: Week 7
+                setWeek(false, WeekParse.getWeek(input));
             }
         }
-
+        retrieveList();
+        //if(week.contains(" Week")) week = WeekParse.invertWeek(week);
         duke.getResponse(week);
         outputWeekList = WeekCommand.getWeekList();
         updateListView();
 
         outputList = ShowPreviousCommand.getOutputList();
-        retrieveList();
+
 
         overdueTable.getColumns().clear();
         overdueDateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
@@ -341,7 +343,7 @@ public class MainWindow extends BorderPane implements Initializable {
         }
         userInput.clear();
 
-        if (input.contains("retrieve previous")) {
+        if (input.contains("retrieve/previous")) {
             String previousInput = Duke.getPreviousInput();
             userInput.setText(previousInput);
         } else if (input.startsWith("retrieve/ft ")) {
@@ -383,7 +385,7 @@ public class MainWindow extends BorderPane implements Initializable {
         }
         else{
             currentWeek.setText(selectedWeek + " ( " + LT.getValue(selectedWeek.toLowerCase()) + " )");
-            week = selectedWeek;
+            //week = selectedWeek;
         }
     }
 
