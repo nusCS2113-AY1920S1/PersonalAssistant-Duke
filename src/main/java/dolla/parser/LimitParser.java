@@ -20,13 +20,6 @@ import dolla.ui.LimitUi;
 //@@author Weng-Kexin
 public class LimitParser extends Parser {
 
-    private static final String COMMAND_SEARCH = "search";
-
-    private static final String LIMIT_COMMAND_LIST = "limits";
-    private static final String LIMIT_COMMAND_SET = "set";
-    private static final String LIMIT_COMMAND_REMOVE = "remove";
-    //private static final String LIMIT_COMMAND_SORT = "sort";
-
     private static final String LIMIT_TYPE_S = "saving";
     private static final String LIMIT_TYPE_B = "budget";
 
@@ -41,9 +34,9 @@ public class LimitParser extends Parser {
 
     @Override
     public Command parseInput() {
-        if (commandToRun.equalsIgnoreCase(LIMIT_COMMAND_LIST)) {
+        if (commandToRun.equals(ParserStringList.LIMIT_COMMAND_LIST)) {
             return new ShowListCommand(mode);
-        } else if (commandToRun.equalsIgnoreCase(LIMIT_COMMAND_SET)) {
+        } else if (commandToRun.equals(ParserStringList.LIMIT_COMMAND_SET)) {
             String limitType = findLimitType(inputArray[1]);
             double limitAmount = findLimitAmount();
             String limitDuration = findLimitDuration(inputArray[3]);
@@ -57,7 +50,7 @@ public class LimitParser extends Parser {
             } else {
                 return new ErrorCommand();
             }
-        } else if (commandToRun.equals(LIMIT_COMMAND_REMOVE)) {
+        } else if (commandToRun.equals(ParserStringList.COMMAND_REMOVE)) {
             return new RemoveCommand(mode, inputArray[1]);
         } else if (commandToRun.equals(COMMAND_MODIFY)) {
             if (verifyFullModifyCommand()) {
@@ -67,11 +60,11 @@ public class LimitParser extends Parser {
             } else {
                 return new ErrorCommand();
             }
-        } else if (commandToRun.equals(COMMAND_SEARCH)) {
+        } else if (commandToRun.equals(ParserStringList.COMMAND_SEARCH)) {
             String component = inputArray[1];
             String content = inputArray[2];
             return new SearchCommand(mode, component, content);
-        } else if (commandToRun.equalsIgnoreCase(COMMAND_SORT)) {
+        } else if (commandToRun.equalsIgnoreCase(ParserStringList.COMMAND_SORT)) {
             return new SortCommand(mode, inputArray[1]);
         } else {
             return invalidCommand();

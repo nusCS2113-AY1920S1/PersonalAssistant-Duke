@@ -1,8 +1,10 @@
 package dolla.task;
 
+import dolla.DollaData;
+
 import java.util.ArrayList;
 
-public class RecordList {
+public abstract class RecordList {
     protected ArrayList<Record> list;
 
     public RecordList(ArrayList<Record> importEntryList) {
@@ -41,4 +43,6 @@ public class RecordList {
     public void addWithIndex(int modifyIndex, Record newRecord) {
         list.add(modifyIndex, newRecord);
     }
+
+    public abstract int findExistingRecordIndex(DollaData dollaData, Record record, String mode);
 }

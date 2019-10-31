@@ -35,11 +35,13 @@ public class EntryList extends RecordList {
     /**
      * Method to check if input entry already exists.
      * @param dollaData The storage container for all the lists.
-     * @param entry The entry being input by user.
+     * @param inputRecord The entry being input by user.
      * @param mode The mode the user is on (entry).
      * @return index of the currently existing entry (is - 1 if not found)
      */
-    public int findExistingEntry(DollaData dollaData, Entry entry, String mode) {
+    @Override
+    public int findExistingRecordIndex(DollaData dollaData, Record inputRecord, String mode) {
+        Entry entry = (Entry) inputRecord;
         int index = - 1;
         EntryList entryList = (EntryList) dollaData.getRecordList(mode);
         for (int i = 0; i < entryList.size(); i++) {

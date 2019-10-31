@@ -45,9 +45,9 @@ public class AddEntryCommand extends Command {
     public void execute(DollaData dollaData) {
         Entry newEntry = new Entry(type, amount, description, date);
         EntryList entryList = (EntryList) dollaData.getRecordList(mode);
-        int existingEntryIndex = entryList.findExistingEntry(dollaData, newEntry, mode);
+        int duplicateEntryIndex = entryList.findExistingRecordIndex(dollaData, newEntry, mode);
 
-        if (existingEntryIndex == - 1) {
+        if (recordDoesNotExist(duplicateEntryIndex)) {
             if (prevPosition == -1) {
                 dollaData.addToRecordList(mode, newEntry);
                 index = dollaData.getRecordList(mode).size();
@@ -65,7 +65,7 @@ public class AddEntryCommand extends Command {
             }
             Ui.echoAddRecord(newEntry);
         } else {
-            Entry existingEntry = (Entry) entryList.getFromList(existingEntryIndex);
+            Entry existingEntry = (Entry) entryList.getFromList(duplicateEntryIndex);
             EntryUi.existingEntryPrinter(existingEntry);
         }
     }

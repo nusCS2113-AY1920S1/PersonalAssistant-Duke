@@ -61,4 +61,8 @@ public abstract class Command {
     protected void resetRedoFlag() {
         Parser.resetRedoFlag();
     }
+
+    Boolean recordDoesNotExist(int recordIndex) {
+        return (recordIndex == - 1);
+    }
 }

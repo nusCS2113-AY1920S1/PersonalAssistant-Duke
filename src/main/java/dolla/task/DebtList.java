@@ -37,11 +37,13 @@ public class DebtList extends RecordList {
     /**
      * Method to check if input debt already exists.
      * @param dollaData The storage container for all the lists.
-     * @param debt The debt being input by the user.
+     * @param inputRecord The debt being input by the user.
      * @param mode The mode the user is on (debt).
      * @return index of the currently existing debt (is - 1 if not found)
      */
-    public int findExistingDebt(DollaData dollaData, Debt debt, String mode) {
+    @Override
+    public int findExistingRecordIndex(DollaData dollaData, Record inputRecord, String mode) {
+        Debt debt = (Debt) inputRecord;
         int index = - 1;
         DebtList debtList = (DebtList) dollaData.getRecordList(mode);
         for (int i = 0; i < debtList.size(); i++) {

@@ -48,9 +48,9 @@ public class AddDebtsCommand extends Command {
         index = dollaData.getRecordList(mode).size();
 
         DebtList debtList = (DebtList) dollaData.getRecordList(mode);
-        int existingDebtIndex = debtList.findExistingDebt(dollaData, newDebt, mode);
+        int duplicateDebtIndex = debtList.findExistingRecordIndex(dollaData, newDebt, mode);
 
-        if (existingDebtIndex == - 1) {
+        if (recordDoesNotExist(duplicateDebtIndex)) {
             if (prevPosition == -1) {
                 dollaData.addToRecordList(mode, newDebt);
                 Undo.removeCommand(mode, index);
@@ -66,7 +66,7 @@ public class AddDebtsCommand extends Command {
             }
             Ui.echoAddRecord(newDebt);
         } else {
-            Debt existingDebt = (Debt) debtList.getFromList(existingDebtIndex);
+            Debt existingDebt = (Debt) debtList.getFromList(duplicateDebtIndex);
             DebtUi.existingDebtPrinter(existingDebt);
         }
     }
