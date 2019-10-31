@@ -14,21 +14,16 @@ public class HelpCommand extends Command {
     public CommandOutput execute(Model model) {
         String output =
                 "Available Commands\n"
-                        + "1. add task/member\n"
-                        + "2. find\n"
-                        + "3. done\n"
-                        + "4. delete\n"
-                        + "5. snooze\n"
-                        + "6. reminder\n"
-                        + "7. remove\n"
-                        + "8. member\n"
-                        + "9. link\n"
-                        + "10. unlink\n"
-
-                        + "11. list\n"
-                        + "12. schedule\n"
-                        + "13. check\n"
-                        + "14. bye\n";
+                        + "1. basic add: add {task/member} [NAME]\n"
+                        + "2. find: find [KEYWOED]\n"
+                        + "3. done: done [INDEX]\n"
+                        + "4. delete: delete {task/member} {[TASK_NAME]/[MEMBER_NAME]}\n"
+                        + "5. link: link [INDEX] ... /to [MEMBER_NAME] ...\n"
+                        + "6. unlink: unlink [INDEX] ... /from [MEMBER_NAME] ... \n"
+                        + "7. list: list {tasks/members}"
+                        + "8. edit: edit {task/member} {{time/des}/{bio/email/phone}} INDEX /to [change content]\n"
+                        + "8. schedule: schedule {team/member} {all/todo} ([MEMBER_NAME])\n"
+                        + "9. bye: bye\n";
 
         return new CommandOutput(output);
     }
