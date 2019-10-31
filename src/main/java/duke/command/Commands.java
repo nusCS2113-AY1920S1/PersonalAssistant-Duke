@@ -4,7 +4,6 @@ package duke.command;
 
 import duke.command.home.HomeDischargeCommand;
 import duke.command.home.HomeFindCommand;
-import duke.command.home.HomeHelpCommand;
 import duke.command.home.HomeHistoryCommand;
 import duke.command.home.HomeNewCommand;
 import duke.command.home.HomeOpenCommand;
@@ -68,8 +67,6 @@ public class Commands {
                 return new HomeDischargeCommand();
             case "history":
                 return new HomeHistoryCommand();
-            case "help":
-                return new HomeHelpCommand();
             default:
                 return null;
             }

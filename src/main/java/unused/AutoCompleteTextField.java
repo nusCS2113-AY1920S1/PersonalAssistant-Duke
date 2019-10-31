@@ -1,4 +1,4 @@
-package duke.ui;
+package unused;
 
 import javafx.geometry.Side;
 import javafx.scene.control.ContextMenu;
@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
+/* @@author gowgos5 */
 /**
  * TextField with an autocomplete feature.
  */
@@ -19,8 +20,8 @@ public class AutoCompleteTextField extends TextArea {
     private ContextMenu menu;
 
     /**
-     * Constructs a new textfield with autocomplete.
-     * TODO: Populate entries in constructor for the full menu.
+     * Constructs a new textfield with autocomplete feature.
+     * TODO: Populate entries in the constructor for the full menu.
      */
     public AutoCompleteTextField() {
         entries = new TreeSet<>();
