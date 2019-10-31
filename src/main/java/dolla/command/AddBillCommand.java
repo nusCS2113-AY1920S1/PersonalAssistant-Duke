@@ -26,7 +26,7 @@ public class AddBillCommand extends Command {
         this.type = type;
         this.people = people;
         this.amount = amount;
-        this.average = amount/people;
+        this.average = amount / people;
         this.nameList = nameList;
     }
 

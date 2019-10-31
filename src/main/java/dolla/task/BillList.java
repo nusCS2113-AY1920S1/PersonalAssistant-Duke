@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 //@@author tata
 
-public class BillList extends RecordList{
+public class BillList extends RecordList {
 
     public BillList(ArrayList<Record> importBillList) {
         super(importBillList);

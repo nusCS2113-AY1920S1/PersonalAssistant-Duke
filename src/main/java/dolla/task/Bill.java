@@ -28,7 +28,7 @@ public class Bill extends Record {
         this.type = type;
         this.people = people;
         this.amount = amount;
-        this.average = amount/people;
+        this.average = amount / people;
         this.nameList = nameList;
     }
 
@@ -52,22 +52,27 @@ public class Bill extends Record {
      */
     @Override
     public String formatSave() {
-        return "BI" + " | " +
-                people + " | " +
-                amount + " | " +
-                amount/people + " | " +
-                nameString(nameList);
+        return "BI" + " | "
+                + people + " | "
+                + amount + " | "
+                + amount / people + " | "
+                + nameString(nameList);
     }
 
     @Override
     public String amountToMoney() {
-        return "$" + amount/people;
+        return "$" + amount / people;
     }
 
+    /**
+     * This method changes the arraylist of name to a string.
+     * @param nameList the name list.
+     * @return a string that contains all the name from the nameList.
+     */
     public String nameString(ArrayList<String> nameList) {
         String nameStore = new String();
-        for(int i = 0; i < nameList.size(); i++) {
-            if(i == nameList.size() - 1){
+        for (int i = 0; i < nameList.size(); i++) {
+            if (i == nameList.size() - 1) {
                 nameStore += nameList.get(i);
             } else {
                 nameStore += nameList.get(i) + ", ";

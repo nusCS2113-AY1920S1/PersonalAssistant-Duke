@@ -73,7 +73,7 @@ public class DebtsParser extends Parser {
             String type = inputArray[0];
             int people = Integer.parseInt(inputArray[1]);
             double amount = stringToDouble(inputArray[2]);
-            for(int i = 3; i < 3 + people; i++){
+            for (int i = 3; i < 3 + people; i++) {
                 String name = inputArray[i];
                 nameList.add(name);
             }

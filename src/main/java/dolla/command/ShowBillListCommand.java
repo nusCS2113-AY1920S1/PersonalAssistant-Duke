@@ -10,11 +10,12 @@ import java.util.ArrayList;
 
 //@@author tatayu
 /**
- * This class shows the bill list
+ * This class shows the bill list.
  */
 public class ShowBillListCommand extends Command {
 
     private String mode;
+
     public ShowBillListCommand(String mode) {
         this.mode = mode;
     }

@@ -26,10 +26,10 @@ public class DebtUi extends Ui {
     public static void printAverageAmount(int people, double amount, ArrayList<String> nameList) {
         System.out.println((line));
         System.out.println("\tGot it! Total amount: $" + amount + " Number of people: " + people);
-        System.out.println("\tHere is the bill per person after splitting: " + "$" + amount/people);
+        System.out.println("\tHere is the bill per person after splitting: " + "$" + amount / people);
         System.out.println("\tHere is the name list: ");
-        for(int i = 0 ; i < people; i ++) {
-            System.out.println("\t" + i+1 + ". " + nameList.get(i));
+        for (int i = 0; i < people; i++) {
+            System.out.println("\t" + i + 1 + ". " + nameList.get(i));
         }
         System.out.println(line);
     }
