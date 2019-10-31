@@ -84,7 +84,7 @@ public class UiManager implements Ui {
      * {@inheritDoc}
      */
     @Override
-    public <T extends DukeObject> List<T> getIndexedList(String type) {
+    public List<DukeObject> getIndexedList(String type) {
         return mainWindow.getIndexedList(type);
     }
 
