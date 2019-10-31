@@ -1,4 +1,3 @@
-//@@author LL-Pengfei
 package cube.logic.parser;
 
 import cube.logic.command.GenerateRevenueCommand;
@@ -9,7 +8,7 @@ import java.util.Arrays;
 
 public class GenerateRevenueCommandParser implements ParserPrototype<GenerateRevenueCommand> {
     public GenerateRevenueCommand parse(String[] args) throws ParserException {
-        if (args.length < 2 || (args.length < 3 && !(args[1].equals("-all"))) {
+        if (args.length < 2 || (args.length < 3 && !(args[1].equals("-all")))) {
             throw new ParserException(ParserErrorMessage.NOT_ENOUGH_PARAMETER);
         }
 
