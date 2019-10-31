@@ -255,9 +255,23 @@ public class Ui {
      * Prints message to indicate a task being edited.
      * @param task Task to be edited.
      */
-    public void printEditMessage(Task task) {
-        System.out.print(line + "     Got it. I've edited this task:  \n");
-        System.out.print("       " + task.giveTask() + "\n");
+    public void printEditMessage(Payee payee) {
+        System.out.print(line + "     Got it. I've edited this payee:  \n");
+        System.out.println("\t" + "Payee: " + payee.payee);
+        System.out.println("\t" + "Email: " + payee.email);
+        System.out.println("\t" + "Matric No: " + payee.matricNum);
+        System.out.println("\t" + "Phone No: " + payee.phoneNum);
+        System.out.print(line);
+    }
+
+    public void printEditMessage(Payments payment, String name) {
+        System.out.print(line + "     Got it. I've edited this payment:  \n");
+        System.out.println("\t" + "Payee: " + name);
+        System.out.println("\t" + "Item: " + payment.item);
+        System.out.println("\t" + "Cost: " + payment.cost);
+        System.out.println("\t" + "Invoice: " + payment.inv);
+        System.out.println("\t" + "Deadline: " + payment.deadline);
+        System.out.println("\t" + "Status: " + payment.status);
         System.out.print(line);
     }
 
