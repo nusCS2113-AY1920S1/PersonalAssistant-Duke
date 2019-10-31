@@ -5,6 +5,8 @@ import model.Model;
 
 import java.util.ArrayList;
 
+import gui.Window;
+
 public class ListMembersCommand extends Command {
 
     public static final String COMMAND_WORD = "members";
@@ -17,13 +19,15 @@ public class ListMembersCommand extends Command {
 
     @Override
     public CommandOutput execute(Model model) {
+        Window.instance.showTaskView(false);
         return new CommandOutput(convertArrayListToText(model.getMemberList()));
     }
 
     //@@author JustinChia1997
+
     /**
      * Converts arraylist of members to a displayable text format
-     * */
+     */
     public String convertArrayListToText(ArrayList<Member> members) {
         String finalOutput = "";
         if (members.size() > 0) {
