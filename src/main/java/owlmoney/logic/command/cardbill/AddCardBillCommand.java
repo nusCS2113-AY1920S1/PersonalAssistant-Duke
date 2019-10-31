@@ -1,5 +1,8 @@
 package owlmoney.logic.command.cardbill;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.YearMonth;
 import java.util.Date;
 
@@ -23,6 +26,7 @@ public class AddCardBillCommand extends Command {
     private final String type;
     private final String expDescription;
     private final String category;
+    private static final int PERCENTAGE_TO_DECIMAL = 100;
 
     /**
      * Creates an instance of AddExpenditureCommand.
@@ -34,11 +38,23 @@ public class AddCardBillCommand extends Command {
     public AddCardBillCommand(String card, YearMonth date, String bank) {
         this.card = card;
         this.cardDate = date;
-        this.expDate = new Date();
+        this.expDate = getCurrentDate();
         this.bank = bank;
         this.type = "bank";
         this.expDescription = "Payment for Credit Card Bill - " + card + " " + date;
         this.category = "Credit Card";
+    }
+
+    private Date getCurrentDate() {
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        String dateString = dateFormat.format(new Date());
+        Date currentDate = null;
+        try {
+            currentDate = dateFormat.parse(dateString);
+        } catch (ParseException e) {
+            // Error will never happen as there is no user input
+        }
+        return currentDate;
     }
 
     /**
@@ -69,10 +85,10 @@ public class AddCardBillCommand extends Command {
      */
     public boolean execute(Profile profile, Ui ui) throws CardException, BankException, TransactionException {
         profile.checkCardExists(card);
-        String depDescription = "Rebate for Credit Card (" + profile.getCardRebateAmount(card) + ") - "
+        String depDescription = "Rebate for Credit Card (" + profile.getCardRebateAmount(card) + "%) - "
                 + card + " " + cardDate;
         double billAmount = profile.getCardUnpaidBillAmount(card, cardDate);
-        double rebateAmount = profile.getCardRebateAmount(card) * billAmount;
+        double rebateAmount = (profile.getCardRebateAmount(card) / PERCENTAGE_TO_DECIMAL) * billAmount;
         checkBillAmountZero(billAmount, card, cardDate);
         Expenditure newExpenditure =
                 new Expenditure(this.expDescription, billAmount, this.expDate, this.category);
