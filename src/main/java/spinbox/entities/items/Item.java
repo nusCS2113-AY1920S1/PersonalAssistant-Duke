@@ -1,6 +1,8 @@
 package spinbox.entities.items;
 
-public abstract class Item {
+import spinbox.exporter.Exportable;
+
+public abstract class Item implements Exportable {
     private static final String STORE_DELIMITER = " | ";
     private static final String BRACKET_OPEN = "[";
     private static final String BRACKET_CLOSE = "] ";
@@ -37,6 +39,11 @@ public abstract class Item {
 
     public String toString() {
         return BRACKET_OPEN + this.getStatusIcon() + BRACKET_CLOSE + this.getName();
+    }
+
+    @Override
+    public String exportString() {
+        return this.toString();
     }
 
     public String storeString() {

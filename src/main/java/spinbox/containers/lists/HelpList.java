@@ -17,6 +17,7 @@ public class HelpList {
             + "\t6. help / set-name : To set task/grade/file/note name to a new name\n"
             + "\t7. help / update : To update a task/grade/file component to a value\n"
             + "\t8. help / update-* : To update multiple task/grade/file components to a value\n"
+            + "\t9. help / export : To export a current snapshot of a module's tasks/grades/files\n"
             + horizontalLine);
 
     public final String view = helpOutput.concat(horizontalLine + "\n" + "Command: view\n"
@@ -119,5 +120,14 @@ public class HelpList {
             + "\t1. Update the first 2 files under module CG1111: update-* CG1111 / file 1,2 true\n"
             + "\t2. Update the first 2 grade components under CG1111: TBC\n"
             + "\t3. Update the first 2 tasks under module CG1111: update-* CG1111 / task 1,2 true\n"
+            + horizontalLine);
+
+    public final String export = helpOutput.concat(horizontalLine + "\n" + "Command: export\n"
+            + "Function: To export a snapshot of the current tasks/files/grades within a module\n"
+            + "Format: export <module code> / <item type>\n"
+            + "Example:\n"
+            + "\t* Note: omit module code if current page is the specific module *\n"
+            + "\t1. Export the files under module CG1111: export CG1111 / files\n"
+            + "\t2. Export the tasks under module CG1111, while viewing CG1111:  export / tasks\n"
             + horizontalLine);
 }

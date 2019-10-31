@@ -1,6 +1,6 @@
 package spinbox.storage;
 
-public interface StorableEntity {
+public interface Storable {
     String storeString();
 
     void fromStoredString(String fromStorage);
