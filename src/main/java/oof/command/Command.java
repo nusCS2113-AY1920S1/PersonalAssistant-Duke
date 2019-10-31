@@ -6,7 +6,6 @@ import java.time.DateTimeException;
 import java.util.Comparator;
 import java.util.Date;
 
-import oof.Storage;
 import oof.Ui;
 import oof.exception.OofException;
 import oof.model.module.SemesterList;
@@ -15,6 +14,7 @@ import oof.model.task.Event;
 import oof.model.task.Task;
 import oof.model.task.TaskList;
 import oof.model.task.Todo;
+import oof.storage.StorageManager;
 
 /**
  * Represents a Command object that corresponds to specific commands
@@ -28,14 +28,14 @@ public abstract class Command {
     /**
      * Invokes other Command subclasses based on the input given by the user.
      *
-     * @param semesterList Instance of SemesterList that stores Semester objects.
-     * @param taskList     Instance of TaskList that stores Task objects.
-     * @param ui           Instance of Ui that is responsible for visual feedback.
-     * @param storage      Instance of Storage that enables the reading and writing of Task
-     *                     objects to hard disk.
+     * @param semesterList   Instance of SemesterList that stores Semester objects.
+     * @param taskList       Instance of TaskList that stores Task objects.
+     * @param ui             Instance of Ui that is responsible for visual feedback.
+     * @param storageManager Instance of Storage that enables the reading and writing of Task
+     *                       objects to hard disk.
      * @throws OofException Catches invalid commands given by user.
      */
-    public abstract void execute(SemesterList semesterList, TaskList taskList, Ui ui, Storage storage)
+    public abstract void execute(SemesterList semesterList, TaskList taskList, Ui ui, StorageManager storageManager)
             throws OofException;
 
     /**
@@ -51,12 +51,28 @@ public abstract class Command {
      * Parses the Timestamp given by the user and returns the parsed
      * date as a string if the date is valid.
      *
-     * @param date Timestamp supplied by user.
+     * @param dateTime Timestamp supplied by user.
      * @return Parsed Timestamp if the Timestamp is valid, else returns "failed".
      */
-    public String parseTimeStamp(String date) {
+    public String parseDateTime(String dateTime) {
         try {
             SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+            Date parsed = format.parse(dateTime);
+            return format.format(parsed);
+        } catch (ParseException | DateTimeException e) {
+            return "failed";
+        }
+    }
+
+    /**
+     * Parses the Date input by user and returns the parsed date if the date is valid.
+     *
+     * @param date Date input by user
+     * @return Parsed Date if the Date is valid, else returns "failed".
+     */
+    public String parseDate(String date) {
+        try {
+            SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
             Date parsed = format.parse(date);
             return format.format(parsed);
         } catch (ParseException | DateTimeException e) {
