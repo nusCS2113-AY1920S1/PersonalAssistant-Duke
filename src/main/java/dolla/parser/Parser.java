@@ -135,10 +135,13 @@ public abstract class Parser implements ParserStringList, ModeStringList {
      * @return true if the only element in the input that follows 'modify' is a number.
      */
     public boolean verifyFullModifyCommand() {
+        if (inputArray.length != 2) {
+            return false;
+        }
         try {
             Integer.parseInt(inputArray[1]);
         } catch (Exception e) {
-            ModifyUi.printInvalidModifyFormatError();
+            ModifyUi.printInvalidFullModifyFormatError();
             return false;
         }
         return true;

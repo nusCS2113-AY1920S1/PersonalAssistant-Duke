@@ -6,6 +6,8 @@ import java.time.LocalDate;
  * A class that is inherited from all forms of recording, ie. entry, Limit and debt so that we can perform polymorphism.
  */
 public abstract class Record {
+
+    protected String type;
     protected String description;
     protected LocalDate date;
     protected String name;
@@ -35,6 +37,10 @@ public abstract class Record {
         return name;
     }
 
+    public String getType() {
+        return type;
+    }
+
     public String getRecordType() {
         return recordType;
     }
@@ -49,5 +55,21 @@ public abstract class Record {
 
     public double getAmount() {
         return amount;
+    }
+
+    public void setDescription(String s) {
+        description = s;
+    }
+
+    public void setAmount(double d) {
+        amount = d;
+    }
+
+    public void setType(String s) {
+        type = s;
+    }
+
+    public void setDate(LocalDate ld) {
+        date = ld;
     }
 }

@@ -40,12 +40,16 @@ public abstract class Ui {
         + "\n\tI help keep track of your finance!\n"
         + "\tWhat can I do for you?";
 
+    private static String dollaMode = ANSI_CYAN + "\t\n°º¤ø,¸¸,ø¤º°`°º¤ø,¸ MODE: DOLLA "
+            + "  ¸,ø¤°º¤ø,¸¸,ø¤º°`°º¤ø,¸\n" + ANSI_RESET;
+
     /**
      * Prints DOLLA logo and welcome message.
      */
     public static void showWelcome() {
         System.out.println(welcomeMsg);
         System.out.println(line);
+        System.out.println(dollaMode);
     }
 
     /**
@@ -59,7 +63,7 @@ public abstract class Ui {
         System.out.println(line);
         System.out.println();
         System.out.println(ANSI_CYAN + "\t°º¤ø,¸¸,ø¤º°`°º¤ø,¸ MODE:  " + newMode.toUpperCase()
-                + "  ¸,ø¤°º¤ø,¸¸,ø¤º°`°º¤ø,¸" + ANSI_RESET);
+                + "  ¸,ø¤°º¤ø,¸¸,ø¤º°`°º¤ø,¸\n" + ANSI_RESET);
     }
 
     // TODO: DELETE

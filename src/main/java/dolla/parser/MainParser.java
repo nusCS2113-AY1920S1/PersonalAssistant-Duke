@@ -54,7 +54,7 @@ public class MainParser implements ParserStringList, ModeStringList {
         case MODE_MODIFY_LIMIT:
         case MODE_MODIFY_DEBT:
         case MODE_MODIFY_SHORTCUT:
-            ModifyParser modifyParser = new ModifyParser(inputLine);
+            ModifyParser modifyParser = new ModifyParser(mode, inputLine);
             return modifyParser.parseInput();
         default:
             Ui.printInvalidCommandError();

@@ -47,6 +47,17 @@ public class DollaData implements ModeStringList {
         return null; // placeholder so that Dolla can compile
     }
 
+    public Record getRecordFromList(String mode, int index) {
+        if (mode.equals(MODE_ENTRY)) {
+            return entryList.getFromList(index);
+        } else if (mode.equals(MODE_DEBT)) {
+            return debtList.getFromList(index);
+        } else if (mode.equals(MODE_LIMIT)) {
+            return limitList.getFromList(index);
+        }
+        return null; // placeholder so that Dolla can compile
+    }
+
     /**
      * Adds a new Record (ie. Entry) into the relevant RecordList (ie. EntryList) according to the specified mode.
      *
@@ -102,7 +113,7 @@ public class DollaData implements ModeStringList {
      * @param newRecord the new record to replace the current item on the list.
      */
     public void modifyRecordList(Record newRecord) {
-
+        System.out.println(modifyIndex);
         switch (prevMode) {
         case MODE_ENTRY:
             entryList.removeFromList(modifyIndex);
@@ -145,8 +156,8 @@ public class DollaData implements ModeStringList {
         modifyIndex = index;
     }
 
-    public int getModifyIndex() {
-        return modifyIndex;
+    public void setModifyIndex(int index) {
+        modifyIndex = index;
     }
 
     /**

@@ -16,9 +16,9 @@ import dolla.command.modify.PartialModifyEntryCommand;
 import dolla.task.Entry;
 import dolla.ui.ModifyUi;
 
-import java.util.ArrayList;
-
 public class EntryParser extends Parser {
+
+    private int recordNum;
 
     private static final String COMPONENT_TYPE = "/type";
     private static final String COMPONENT_DESC = "/desc";
@@ -53,7 +53,7 @@ public class EntryParser extends Parser {
             if (verifyFullModifyCommand()) {
                 return new InitialModifyCommand(inputArray[1]);
             } else if (verifyPartialModifyEntryCommand()) {
-                return new PartialModifyEntryCommand(type, amount, description, date);
+                return new PartialModifyEntryCommand(recordNum, type, amount, description, date);
             } else {
                 return new ErrorCommand();
             }
@@ -80,19 +80,18 @@ public class EntryParser extends Parser {
      * @return true if the input has no formatting issues.
      */
     public boolean verifyPartialModifyEntryCommand() {
-        // TODO
 
+        boolean flag = false;
         //ArrayList<String> errorList = new ArrayList<String>();
         type = null;
         amount = -1;
         description = null;
         date = null;
 
-        int recordNum;
         try {
             recordNum = Integer.parseInt(inputArray[1]);
         } catch (Exception e) {
-            ModifyUi.printInvalidModifyFormatError();
+            ModifyUi.printInvalidFullModifyFormatError();
             return false;
         }
 
@@ -101,27 +100,38 @@ public class EntryParser extends Parser {
 
             if (isEntryComponent(currStr)) {
                 String nextStr = inputArray[i+1];
+                //System.out.println(currStr +" "+ nextStr);
                 try {
                     switch (currStr) {
                     case COMPONENT_TYPE:
                         type = verifyAddType(nextStr);
+                        break;
                     case COMPONENT_AMOUNT:
                         amount = stringToDouble(nextStr);
+                        break;
                     case COMPONENT_DESC:
                         description = parseEntryDesc(inputArray, i+1);
+                        break;
                     case COMPONENT_DATE:
                         date = Time.readDate(nextStr);
+                        break;
                     case COMPONENT_TAG:
                         //TODO
+                        break;
                     }
                 } catch (Exception e) {
-                    ModifyUi.printInvalidModifyFormatError();
+                    ModifyUi.printInvalidPartialModifyFormatError();
                     return false;
                 }
+                flag = true;
             }
         }
 
-        return false;
+        if (flag == false) {
+            ModifyUi.printInvalidPartialModifyFormatError();
+            return false;
+        }
+        return true;
     }
 
     public boolean isEntryComponent(String s) {
@@ -138,12 +148,14 @@ public class EntryParser extends Parser {
 
     public String parseEntryDesc(String[] inputArray, int index) {
         String tempStr = "";
-        for (int i = 0; i < inputArray.length; i += 1) {
+        for (int i = index; i < inputArray.length; i += 1) {
             if (isEntryComponent(inputArray[i])) {
                 break;
             }
-            tempStr = tempStr.concat(inputArray[i]);
+            tempStr = tempStr.concat(inputArray[i] + " ");
         }
+        // TODO: Remove the whitespace at the back
+        tempStr = tempStr.substring(0, tempStr.length()-1);
         return tempStr;
     }
 
