@@ -27,11 +27,19 @@ public class LimitList extends RecordList {
         Storage.setLimits(get()); //save
     }
 
+    /**
+     * Method checks to see if the input limit already exists.
+     * @param dollaData The storage container for all the lists.
+     * @param limitType The limit type input by user.
+     * @param limitDuration The limit duration input by user.
+     * @return
+     */
     public int findExistingLimitIndex(DollaData dollaData, String limitType, String limitDuration) {
         int index = - 1;
         LimitList limitList = (LimitList) dollaData.getRecordList(ModeStringList.MODE_LIMIT);
         Limit currLimit;
-        String currType, currDuration;
+        String currType;
+        String currDuration;
         for (int i = 0; i < limitList.size(); i++) {
             currLimit = (Limit) limitList.getFromList(i);
             currType = currLimit.type;

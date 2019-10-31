@@ -8,12 +8,12 @@ import dolla.task.Limit;
 //@@author Weng-Kexin
 public class LimitUi extends Ui {
 
-    private static final String MSG_INVALID_FORMAT = "\tOOPS! Please follow the format " +
-                                                     "'set [limitType] [AMOUNT] [DURATION]'";
+    private static final String MSG_INVALID_FORMAT = "\tOOPS! Please follow the format "
+                                                     + "'set [limitType] [AMOUNT] [DURATION]'";
     private static final String MSG_INVALID_AMOUNT = "\tOOPS! Please input the amount correctly!";
     private static final String MSG_INVALID_TYPE = "\tOOPS! Please specify the type of limit! (saving/budget)";
-    private static final String MSG_INVALID_DURATION = "\tOOPS! Please specify the duration of your limit! " +
-                                                       "(daily/weekly/monthly)";
+    private static final String MSG_INVALID_DURATION = "\tOOPS! Please specify the duration of your limit! "
+                                                       + "(daily/weekly/monthly)";
     private static final String MSG_EXISTING_LIMIT = "\tOOPS! You already have a limit set for that duration:";
     private static final String MSG_MODIFY_LIMIT = "\tWould you like to modify it?";
 

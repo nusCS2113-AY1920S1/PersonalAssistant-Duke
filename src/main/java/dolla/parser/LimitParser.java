@@ -129,8 +129,8 @@ public class LimitParser extends Parser {
     }
 
     private Boolean verifyLimitType(String limitType) {
-        return limitType.equals(LIMIT_TYPE_S) ||
-               limitType.equals(LIMIT_TYPE_B);
+        return limitType.equals(LIMIT_TYPE_S)
+               || limitType.equals(LIMIT_TYPE_B);
     }
 
     private Boolean verifyLimitDuration(String limitDuration) {
