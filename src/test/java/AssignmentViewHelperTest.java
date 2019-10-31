@@ -46,7 +46,7 @@ public class AssignmentViewHelperTest {
 
     @Test
     void testSetupOfProjectAndMembers() {
-        assertEquals("Test Project", project.getDescription());
+        assertEquals("Test Project", project.getName());
         assertEquals("1. Tom (Phone: -- | Email: -- | Role: member)",
             member1.getDetails());
         assertEquals("2. Dick (Phone: -- | Email: -- | Role: member)",

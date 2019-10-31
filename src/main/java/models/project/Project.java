@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Project implements IProject {
-    private String description;
+    private String name;
     private MemberList memberList;
     private TaskList taskList;
     private ReminderList reminderList;
@@ -20,10 +20,10 @@ public class Project implements IProject {
 
     /**
      * Class representing a task in a project.
-     * @param description The description of the project.
+     * @param name The description of the project.
      */
-    public Project(String description) {
-        this.description = description;
+    public Project(String name) {
+        this.name = name;
         this.memberList = new MemberList();
         this.taskList = new TaskList();
         this.reminderList = new ReminderList();
@@ -32,8 +32,8 @@ public class Project implements IProject {
     }
 
     @Override
-    public String getDescription() {
-        return this.description;
+    public String getName() {
+        return this.name;
     }
 
     @Override
@@ -184,24 +184,6 @@ public class Project implements IProject {
     @Override
     public HashMap<Task, ArrayList<Member>> getTasksAndAssignedMembers() {
         return this.taskAndListOfMembersAssigned;
-    }
-
-    /**
-     * Verifies that a member with a given index number exists.
-     * @param index The given member index number.
-     * @return true if the project has a member with the given index number.
-     */
-    public boolean hasMemberIndex(Integer index) {
-        return index > 0 && index <= getNumOfMembers();
-    }
-
-    /**
-     * Verifies that a task with a given index number exists.
-     * @param indexNumber The given task index number.
-     * @return true if the project has a task with the given index number.
-     */
-    public boolean hasTaskIndex(Integer indexNumber) {
-        return indexNumber > 0 && indexNumber <= getNumOfTasks();
     }
 
     public void addReminderToList(Reminder reminder) {

@@ -442,7 +442,7 @@ class ProjectInputControllerTest {
 
         simulatedUserInput = "assign task -i";
         output = projectInputController.projectAssignTask(project, simulatedUserInput);
-        assertEquals("No valid assignment input detected! Please refer to the user guide for help.",
+        assertEquals("Insufficient parameters! Indicate the member whom you wish to assign or remove!",
             output[0]);
 
     }

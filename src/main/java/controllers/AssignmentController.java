@@ -37,6 +37,12 @@ public class AssignmentController {
         ArrayList<Integer> validAssignees = assignmentParams.get(1);
         ArrayList<Integer> validUnassignees = assignmentParams.get(2);
 
+        if (validAssignees.size() == 0 && validUnassignees.size() == 0) {
+            errorMessages.add("Insufficient parameters! Indicate the member whom you wish to assign or remove!");
+            errorMessages.add("Format is \"assign task -i TASK_INDEX -to [MEMBER_INDEX] -rm [MEMBER_INDEX]");
+            errorMessages.add("You must either assign a task to someone, or remove, or both!");
+        }
+
         Project project = this.project;
         for (Integer taskIndex : validTaskIndexes) {
             Task task = project.getTask(taskIndex);
