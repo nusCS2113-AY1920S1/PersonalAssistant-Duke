@@ -39,17 +39,13 @@ public class AddExpenditureCommand extends Command {
     @Override
     public void execute(ScheduleList calendar, Budget budget, CategoryList categoryList, Category category,
                         Ui ui, Storage storage) throws MooMooException {
-        for (int i = 0; i < categoryList.size(); i++) {
-            if (categoryList.get(i).toString().equals(categoryName)) {
-                Expenditure newExpenditure = new Expenditure(expenditureName, amount, date);
-                categoryList.get(i).add(newExpenditure);
-                Category cat = categoryList.get(i);
-                NotificationCommand alert = new NotificationCommand(categoryName, cat.getTotal());
-                alert.execute(calendar, budget, categoryList, category, ui, storage);
-                storage.saveExpenditureToFile(newExpenditure, categoryName);
-                ui.showNewExpenditureMessage(expenditureName, categoryName);
-            }
-        }
+        Category cat = categoryList.get(categoryName);
+        Expenditure newExpenditure = new Expenditure(expenditureName, amount, date);
+        cat.add(newExpenditure);
+        NotificationCommand alert = new NotificationCommand(categoryName, cat.getTotal());
+        alert.execute(calendar, budget, categoryList, category, ui, storage);
+        storage.saveExpenditureToFile(newExpenditure, categoryName);
+        ui.showNewExpenditureMessage(expenditureName, categoryName);
     }
 }
 
