@@ -8,6 +8,7 @@ import java.util.List;
 
 import planner.logic.modules.cca.Cca;
 import planner.logic.modules.cca.CcaList;
+import planner.logic.modules.legacy.task.Task;
 import planner.logic.modules.module.ModuleInfoDetailed;
 import planner.logic.modules.module.ModuleTask;
 import planner.logic.modules.module.ModuleTasksList;
@@ -37,6 +38,11 @@ public class SortCommand extends ModuleCommand {
                 hold.sort(Comparator.comparing((Object t) -> ((Cca) t).getTask()));
                 break;
             }
+            //case ("times"): {
+            //hold = ccas;
+            //List<?> temp = tasks.getTasks();
+            //hold.sort(Comparator.comparing((Object t) -> ((Task) t).getTime()));
+            //}
             case ("modules"):
             default: {
                 hold = tasks.getTasks();
@@ -58,7 +64,6 @@ public class SortCommand extends ModuleCommand {
                 break;
             }
         }
-        //hold.sort(Comparator.comparing(ModuleTask::getModuleCredit));
         plannerUi.showSorted(hold);
     }
 }
