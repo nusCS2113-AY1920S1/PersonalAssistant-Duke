@@ -22,8 +22,8 @@ public class HelpCommand extends Command {
                         + "6. unlink: unlink [INDEX] ... /from [MEMBER_NAME] ... \n"
                         + "7. list: list {tasks/members}"
                         + "8. edit: edit {task/member} {{time/des}/{bio/email/phone}} INDEX /to [change content]\n"
-                        + "8. schedule: schedule {team/member} {all/todo} ([MEMBER_NAME])\n"
-                        + "9. bye: bye\n";
+                        + "9. schedule: schedule {team/member} {all/todo} ([MEMBER_NAME])\n"
+                        + "10. bye: bye\n";
 
         return new CommandOutput(output);
     }

@@ -22,7 +22,6 @@ public class TasksManager implements Serializable {
     }
 
     //@@author JustinChia1997
-
     /**
      * Add a new task with name.
      *
@@ -227,8 +226,7 @@ public class TasksManager implements Serializable {
         for (int i = 0; i < tasksName.size(); i++) {
             allTasks.add(getTaskByName(tasksName.get(i)));
         }
-        ArrayList<Task> todoTasks = new ArrayList<>();
-        todoTasks = pickTodo(allTasks);
+        ArrayList<Task> todoTasks = pickTodo(allTasks);
         return showScheduleOfTaskList(todoTasks);
     }
 
@@ -264,9 +262,8 @@ public class TasksManager implements Serializable {
     }
 
     private String showScheduleOfTaskList(ArrayList<Task> toSorted) {
-        ArrayList<Task> tasks = new ArrayList<>();
         String result = "";
-        tasks = sortByTime(toSorted);
+        ArrayList<Task> tasks = sortByTime(toSorted);
         for (int i = 0; i < tasks.size(); i++) {
             result += "\n" + tasks.get(i);
         }
