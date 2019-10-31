@@ -166,4 +166,38 @@ public class MemberManager {
     public int getMemberListSize() {
         return memberList.size();
     }
+
+    public String getMemberNameById(int index) {
+        return getMemberById(index).getName();
+    }
+
+    public String getMemberBio(int index) {
+        Member member = getMemberById(index);
+        return member.getBiography();
+    }
+
+    public void updateMemberBio(int index, String bio) {
+        Member member = getMemberById(index);
+        member.setBiography(bio);
+    }
+
+    public String getMemberEmail(int index) {
+        Member member = getMemberById(index);
+        return member.getEmail();
+    }
+
+    public void updateMemberEmail(int index, String email) throws DukeException {
+        Member member = getMemberById(index);
+        member.setEmail(email);
+    }
+
+    public String getMemberPhone(int index) {
+        Member member = getMemberById(index);
+        return member.getPhone();
+    }
+
+    public void updateMemberPhone(int index, String phone) {
+        Member member = getMemberById(index);
+        member.setPhone(phone);
+    }
 }

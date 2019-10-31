@@ -2,8 +2,7 @@ package logic.parser.schedule;
 
 import common.DukeException;
 import logic.command.Command;
-import logic.command.ScheduleMemberAllCommand;
-import logic.command.ScheduleMemberTodoCommand;
+import logic.command.schedule.ScheduleMemberTodoCommand;
 
 public class ScheduleMemberTodoParser {
 

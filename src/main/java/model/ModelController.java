@@ -52,6 +52,10 @@ public class ModelController implements Model {
         return tasksManager.getTaskListSize();
     }
 
+    public String getTaskNameById(int index) {
+        return tasksManager.getTaskNameById(index);
+    }
+
     @Override
     public TasksManager getTasksManager() {
         return tasksManager;
@@ -75,6 +79,24 @@ public class ModelController implements Model {
     public boolean addTaskReqSkill(String taskName, String skillName) {
         return tasksManager.addReqSkill(taskName, skillName);
     }
+    public String updateTaskDes(int index, String des) {
+        String oldDes = tasksManager.getTaskDes(index);
+        tasksManager.updateTaskDes(index, des);
+        return oldDes;
+    }
+
+    public String getTasksByKeyword(String keyword) {
+        return tasksManager.getTasksByKeyword(keyword);
+    }
+
+    public String scheduleTeamAll() {
+        return tasksManager.scheduleTeamAll();
+    }
+
+    public String scheduleTeamTodo() {
+        return tasksManager.scheduleTeamTodo();
+    }
+
 
 
     //=================Member interfaces=============================================
@@ -87,6 +109,11 @@ public class ModelController implements Model {
     @Override
     public int getMemberListSize() {
         return memberManager.getMemberListSize();
+    }
+
+    @Override
+    public String getMemberNameById(int index) {
+        return memberManager.getMemberNameById(index);
     }
 
     @Override
@@ -106,8 +133,28 @@ public class ModelController implements Model {
     }
 
     @Override
+
     public boolean addMemberSkill(String memberName, String skillName) {
         return memberManager.addSkill(memberName, skillName);
+    }
+    public String updateMemberBio(int index, String bio) {
+        String oldBio = memberManager.getMemberBio(index);
+        memberManager.updateMemberBio(index, bio);
+        return oldBio;
+    }
+
+    @Override
+    public String updateMemberEmail(int index, String email) throws DukeException {
+        String oldEmail = memberManager.getMemberEmail(index);
+        memberManager.updateMemberEmail(index, email);
+        return oldEmail;
+    }
+
+    @Override
+    public String updateMemberPhone(int index, String phone) {
+        String oldPhone = memberManager.getMemberPhone(index);
+        memberManager.updateMemberPhone(index, phone);
+        return oldPhone;
     }
 
 
@@ -127,41 +174,34 @@ public class ModelController implements Model {
         memberManager.getMemberByName(memberName).deleteTask(memberName);
     }
 
-    @Override
     //@@author yuyanglin28
-    public boolean deleteMember(String name) {
-        tasksManager.deleteMemberInTasks(name);
-        Member toDelete = memberManager.getMemberByName(name);
-        if (memberManager.deleteMember(toDelete)) {
-            storage.saveMembers(memberManager.getMemberList());
-            storage.saveTasks(tasksManager.getTaskList());
-            return true;
-        } else {
-            return false;
-        }
-    }
-
+    /**
+     * This method is to delete member in member list and also in task list corresponding member name
+     * @return if success (the member name exists), return true.
+     *         if fail (the member name doesn't exist), return false.
+     */
     @Override
-    public String deleteTask(int taskIndexInList) throws DukeException {
-        Task toDelete = tasksManager.deleteTask(taskIndexInList);
-        String toDeleteName = tasksManager.getNameByTask(toDelete);
-        memberManager.deleteTaskInMembers(toDeleteName);
-        storage.saveMembers(memberManager.getMemberList());
-        storage.saveTasks(tasksManager.getTaskList());
-        return toDeleteName;
+    public String deleteMember(int index) {
+        String name = memberManager.getMemberNameById(index);
+        tasksManager.deleteMemberInTasks(name);
+        Member toDelete = memberManager.getMemberById(index);
+        memberManager.deleteMember(toDelete);
+        return name;
     }
 
-    public String getTasksByKeyword(String keyword) {
-        return tasksManager.getTasksByKeyword(keyword);
+    //@@author yuyanglin28
+    /**
+     * javadoc
+     */
+    @Override
+    public String deleteTask(int index) {
+        String name = tasksManager.getTaskNameById(index);
+        memberManager.deleteTaskInMembers(name);
+        Task toDelete = tasksManager.getTaskByName(name);
+        tasksManager.deleteTask(toDelete);
+        return name;
     }
 
-    public String scheduleTeamAll() {
-        return tasksManager.scheduleTeamAll();
-    }
-
-    public String scheduleTeamTodo() {
-        return tasksManager.scheduleTeamTodo();
-    }
 
     public String scheduleMemberAll(String memberName) {
         ArrayList<String> tasksName = memberManager.getTaskListOfMember(memberName);

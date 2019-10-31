@@ -42,7 +42,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will list the command you can use.
 * `list tasks` : lists all tasks
 * `add task complete event banners /at 12/12/2019 1000` : adds a task to the list
 * `done 1` : marks the 1st task shown in the current list as done
-* `delete 1` : removes the 1st task shown in the current list
+* `delete task 1` : removes the 1st task shown in the current list
 * `bye` : exits the app
 .  Refer to <<Features>> for details of each command.
 
@@ -52,8 +52,10 @@ e.g. typing *`help`* and pressing kbd:[Enter] will list the command you can use.
 ====
 *Command Format*
 
+* Words in parenthesis means optional, depends on the previous choice
+* Words in curly braces means can choose one
 * Words in *UPPER_CASE* are the parameters to be supplied by the user e.g. in `delete INDEX`, `INDEX` is a parameter which can be used as `delete 1`.
-* Items in square brackets means can have space e.g `add todo [TASK_NAME` can be used as `add todo read book`.
+* Items in square brackets means can have space e.g `add todo [TASK_NAME]` can be used as `add todo read book`.
 * Items with …​ after them can be used multiple times (>=1) e.g. [PREREQUISITE TASK(s) index]…​ can be used as `1`, `1 2`, `1 2 3` etc.
 * DateTime has to be of pattern “dd/MM/yyyy HHmm” or "dd/MM/yyyy"
 * There are roughly three parts of commands, dealing with tasks, members, and some commands combining them together.
@@ -93,7 +95,7 @@ e.g `add task restructure parsers /at 30/10/2019 2359 /to Alice Bob Carol`
 
 ==== Finding a task with key word : `find`
 
-Finds persons whose names contain any of the given keywords. +
+Finds tasks whose names or description contain any of the given keywords. +
 `find [KEYWORD]` +
 e.g `find defence`
 
@@ -121,9 +123,8 @@ e.g `done 1 3 5 7`
 ==== Deleting a task : `delete`
 
 Deletes the specified task from the schedule list. +
-`delete [INDEX] ...` +
-e.g `delete 1` +
-e.g `delete 1 3 5`
+`delete task [INDEX] ...` +
+
 ****
 * Deletes the task at the specified INDEX.
 * The index refers to the index number shown in the displayed schedule list.
@@ -137,6 +138,10 @@ e.g `snooze 1 /to 1/6/2020 1200
 * Changes the DATETIME of deadline or event with the specified TASKNAME.
 * The DATETIME has to be of pattern “dd/MM/yyyy HHmm”​
 ****
+{change it}
+
+==== Editing the details of Task :
+`edit task {time/des} TASK_INDEX /to [change content]`
 
 === Commands related to members
 
@@ -145,8 +150,8 @@ e.g `snooze 1 /to 1/6/2020 1200
 e.g `add member Alice`
 
 ==== Removing a team member: `delete`
-`delete [MEMBER_NAME]` +
-e.g `delete Alice`
+`delete member [MEMBER_INDEX]` +
+e.g `delete member 1`
 
 ==== Assigning a task to a member: `link`
 `link [TASK_INDEX] ... /to [MEMBER_NAME] ...` +
@@ -157,6 +162,9 @@ e.g `link 2 3 /to Alice Bob` +
 `unlink [TASK_INDEX] ... /from [MEMBER_NAME] ...` +
 e.g `unlink 1 /from Alice` +
 e.g `unlink 2 3 /from Alice Bob` +
+
+==== Editing the profile of member: `edit`
+`edit member {bio/email/phone} MEMBER_INDEX /to [change content]`
 
 === Commands related to both tasks and members
 
@@ -178,16 +186,20 @@ Below are coming in v1.4: +
 
 ==== Viewing Schedule for the whole team or a member: `schedule`
 
-* view all tasks in chronological order +
-`schedule /all`
-* view all tasks for a specific member +
-`schedule /member MEMBER_NAME`
-* view tasks that has a DATETIME in chronological order. Providing an optional DATE will only show tasks on that date +
-`schedule /all [DATE]` +
-`schedule /member MEMBER_NAME [DATE]`
+* view the whole team tasks in chronological order +
+`schedule team {all/todo}`
+* view tasks for a specific member +
+`schedule member {all/todo} ([MEMBER_NAME])`
+
 ****
-The DATE has to be of pattern “dd/MM/yyyy”
+* The DATE has to be of pattern “dd/MM/yyyy”
 ****
+
+{to be implemented :
+ view tasks that has a DATETIME in chronological order. Providing an optional DATE will only show tasks on that date +
+`schedule team all [DATE]` +
+`schedule member all MEMBER_NAME [DATE]`
+}
 
 
 {to be implemented: take has done task into consideration or not}
@@ -211,26 +223,16 @@ A: Install the app in the other computer and overwrite the empty data file it cr
 ** with time: `add task [TASKNAME] /at [TIME]`
 ** with member(s): `add task [TASKNAME] /to [MEMBER_NAME] ...`
 ** with both time and member(s)： `add task [TASKNAME] /at [TIME] /to [MEMBER_NAME] ...`
+* Adding a new member: `add member [MEMBER_NAME]`
+* Removing a task or member: `delete {task/member} [INDEX]...`
+* Listing: `list {tasks/members}
 * Find Task by Name: `find [KEYWORD]`
 * Mark Task as Complete: `done [INDEX] ...`
-* Deleting a Task: `delete [INDEX]`
-* Editing the DateTime of deadline or event: `snooze [TASKNAME] /to [DATETIME]`
-
-* Adding a new member: `add member [MEMBER_NAME]`
-* Removing a member: `delete [MEMBER_NAME]`
 * Linking task to a member: `link [INDEX] ... /to [MEMBER_NAME] ...`
 * Unlinking task from a member: `unlink [INDEX] ... /from [MEMBER_NAME] ...`
-
-* Listing
-** List all tasks: `list tasks`
-** List all members: `list members`
-* View Schedule
-** Schedule all tasks: `schedule /all`
-** Schedule all tasks of one day: `schedule /all [DATE]`
-** Schedule all tasks of one member: `schedule /member MEMBER_NAME`
-** Schedule all tasks of one member of one day: `schedule /member MEMBER_NAME [DATE]`
-
-* Exiting the program: bye
+* Editing task or member details: `edit {task/member} {{time/des}/{bio/email/phone}} INDEX /to [change content]
+* View Schedule: `schedule {team/member} {all/todo} ([MEMBER_NAME])`
+* Exiting the program: `bye`
 
 
 
