@@ -103,7 +103,7 @@ public class DollaData implements ModeStringList {
      */
     public void modifyRecordList(Record newRecord) {
 
-        switch (mode) {
+        switch (prevMode) {
         case MODE_ENTRY:
             entryList.removeFromList(modifyIndex);
             entryList.addWithIndex(modifyIndex, newRecord);
