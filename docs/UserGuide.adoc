@@ -59,12 +59,12 @@ image::Ui.png[width="600" height="400"]
 SGTravel shows the available commands to the user. +
 Format: `help`
 
-==== Listing all places to visit : `list`
+=== Listing all places to visit : `list`
 
 SGTravel shows a list of all the places to visit in SGTravel. +
 Format: `list`
 
-==== Finding certain events you have: `find`
+=== Finding certain events you have: `find`
 
 SGTravel shows the events whose names contain any of the given keywords. +
 Format: `find KEYWORD`
@@ -209,14 +209,12 @@ There is also a button located at the top left corner of the application to call
 All relevant information will be displayed on a side panel of the SGTravel application. +
 SGTravel users can use the different commands to render and manipluate the information displayed on the side panel.
 
-==== Editing places of visit: `edit`
+=== Editing places of visit: `edit`
 
 Panel will automatically select an intial location and the selected location will be glowing. +
 Users will use `up, down, left, right or AWSD and Enter` key to then select the place of visit they want to edit. +
-Upon enter key pressed, a template will be generated on the console input for user to edit. +
-Alternatively, user can use `edit INDEX [startdate DATE enddate DATE venue LOCATION]` +
-Where INDEX is the index of the place of visit and startdate, enddate and venue are optional fields. +
-Not putting any optional fields will result in the place of visit being deleted instead.
+Alternatively, user can use `e INDEX LOCATION START_DATE END_DATE` +
+Where INDEX is the index of the event, LOCATION is the new location of the event, the START_DATE is the start date of the event, the END_DATE of the end date of the event. 
 
 == Features that are coming in version 2.0!
 
