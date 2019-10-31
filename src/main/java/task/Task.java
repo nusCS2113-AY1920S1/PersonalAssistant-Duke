@@ -37,7 +37,7 @@ public class Task implements Serializable {
     public Task(String description) {
         this.description = description;
         this.isDone = false;
-        this.taskPriority = 0;
+        this.taskPriority = 1;
 
     }
 
