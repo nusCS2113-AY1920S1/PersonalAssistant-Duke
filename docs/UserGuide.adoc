@@ -122,9 +122,12 @@ The syntax for adding a task to the list is as follows:
 
 TIP: */delete <index>*
 
+----
+Executing a `/delete` command:
 1.	Look at the index of the command you want to delete.
 2.	Type in the above command.
 3.	Press Enter.
+----
 
 The command will disappear from the list and the index gets readjusted. In addition, you can also mass delete tasks. Below are the two additional ways on how to mass delete tasks.
 
