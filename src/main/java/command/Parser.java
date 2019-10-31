@@ -45,6 +45,8 @@ public class Parser {
                 ui.byeMessage();
                 ui.getIn().close();
                 return true;
+            } else if (instr.isViewhistory(input)) {
+                process.viewhistory(input, ui, commandList, storage);
             } else if (instr.isHistory(input)) {
                 process.history(ui,commandList, storage);
             } else if (instr.isListProjects(input)){
@@ -139,6 +141,8 @@ public class Parser {
             ui.exceptionMessage(e.getMessage());
         } catch (NullPointerException e) {
             ui.exceptionMessage("NULLPOINTEREXCEPTION");
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
         return false;
     }
