@@ -369,17 +369,11 @@ image::ShowCommandSequenceDiagram.png[width="600"]
 
 ==== Current implementation
 
-`JsonWrapper` contains our usage of the `Gson` library for JSON file processing, as well as to call `RequestsData` to obtained the module data consolidated by `NUSMODS API`.
+`JsonWrapper` contains our usage of the `Gson` library for JSON file processing, as well as to call `RequestData` to obtained the module data consolidated by `NUSMODS API`.
 
 image::PackageCrawler.png[]
 
-To prevent multiple requests to NUSMODS, our implementation would check if the user has previously downloaded the module data before. If they have not, only then would `JsonWrapper` call `RequestsData` to initialize the module data file.
-
-The sequence diagram of this implementation is shown below:
-
-image::JsonWrapperSequenceDiag.png[]
-
-The above function is done in the `CliLauncher` class, during the setup function call.
+To prevent multiple requests to NUSMODS, our implementation would check if the user has previously downloaded the module data before. If they have not, only then would `JsonWrapper` call `RequestData` to initialize the module data file.
 
 Since `Gson` is able to internally read a JSON file and when given the same template within a Java object class, it would be able to map the value fields to each of the same keys in the Java Object.
 
@@ -396,10 +390,12 @@ This also extends to choosing the right data type for modelling our module infor
 the data type found in the returned JSON string is strictly `boolean` or `double`.
 
 To allow for quick access to the module information classes, after parsing module information into a list of `ModuleInfoDetailed`, it would then be converted into a `HashMap`, where the key-value pair
-is the string containing the module code, and the value is the `ModuleInfoDetailed`. This is what is exposed to all the command classes during runtime, and this is done automatically on startup so that the module
-data is accessible directly to the user. This functionality is handled by
+is the string containing the module code, and the value is the `ModuleInfoDetailed`.
 
-==== RequestsData
+This is what is exposed to all the command classes during runtime, and this is done automatically on startup so that the module
+data is accessible directly to the user. This functionality is handled by `JsonWrapper` since it involves parsing JSON files into direct Java Objects.
+
+==== RequestData
 
 Internally, this class is responsible for requesting data from the `NUSMODS API` and thus uses Java's Native `HTTPRequest` Library.
 
@@ -417,7 +413,7 @@ The current implementation is fixed to only request data for the current academi
 
 ==== Design consideration
 
-It is generally not recommended to modify this class as it inherits from a legacy class. However, a fresh re-implementation might be considered so that the class itself can be customized more for `ModPlanner`.
+A better implementation might be considered so that the class itself can be more customized for `ModPlanner`.
 =======
 The remove further dependency on the Internet for making API calls to NUSMODS, in future this implementation would be modified to use provided the data in the JAR resources.
 
@@ -431,7 +427,10 @@ For the proposed implementation of updating user data, there are a few alternati
 * Alternative 2: Automatic prompting, where the initial startup date is recorded, and would be mapped to a particular semester.
     ** Once the semester has been completed, it would prompt the user to update the data. Since this requires and internet connection, this prompt is necessary.
 
+* Alternative 3 (Selected): The base data is packaged into the resources package, thus the JAR would be able to generate the HashMap of ModuleInfoDetailed directly without needed to query from NUSMODS API.
+    ** The existing implementation to connect to NUSMODS to obtain the module data would be converted to an Update command, giving the user flexibility to choose when to update their module data.
 ****
+=======
 
 [[Documentation]] 
 == Documentation
