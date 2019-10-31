@@ -44,7 +44,6 @@ public class ListCommand extends Command {
         this.resourceDetail = resourceDetail;
     }
 
-
     /**
      * Converts a date and time inputted by the user in String format, into a Date object.
      *
@@ -124,7 +123,11 @@ public class ListCommand extends Command {
             }
             ui.printDash();
             ui.printLine();
-        } else if (listType.equals("room")) {
+
+        }
+
+        else if (listType.equals("room")) {
+
             if (!resources.isRoom(resourceDetail)) {
                 throw new RimsException("There is no such room!");
             }
@@ -146,7 +149,7 @@ public class ListCommand extends Command {
             ui.print("CURRENTLY AVAILABLE ON THIS DATE:");
             ui.printEmptyLine();
             String checkedDate = resourceDetail;
-            Date date = stringToDate(checkedDate);
+            Date date = resources.stringToDate(checkedDate);
             for (int i = 0; i < resources.size(); i++) {
                 Resource thisResource = resources.getResourceByIndex(i);
                 int availableNumberOfResource = resources.getAvailableNumberOfResourceForDate(thisResource.getName(), checkedDate);

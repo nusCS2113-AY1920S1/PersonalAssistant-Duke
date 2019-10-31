@@ -60,7 +60,7 @@ e.g. `*ROOM NAME*` is a parameter which can be a name of a room, such as `*semin
 Add new item(s) or a new room available for loan/booking in RIMS.
 
 .*Format*:
-To add a new item:
+To add a new resource:
 
 . Enter `add` into the console, then press kbd:[Enter] to execute the command.
 +
@@ -70,34 +70,116 @@ RIMS will prompt for the resource type that the user wants to add. +
 image::add/add1.jpeg[width="500", align="left"]
 ====
 +
-. Enter the `ITEM NAME` to be added into the console.
+. Enter the resource type that is to be added into RIMS, either `item` or `room`.
++
+. If `item` is the user input:
++
+.. The following display will be shown:
 +
 ====
-RIMS will prompt for the resource name that the user wants to add. +
+RIMS will prompt for the item name that the user wants to add. +
 
 image::add/add2.jpeg[width="500", align="left"]
 ====
 +
-. Enter the `QUANTITY` of the resource specified to be added into RIMS into the console.
+.. Enter the `ITEM NAME` to be added into the console e.g. `ball`
 +
 ====
-RIMS will display resource and the quantity that have been added. +
+RIMS will prompt for the quantity of the item specified to be added. +
 
 image::add/add3.jpeg[width="500", align="left"]
+====
++
+.. Enter the `QUANTITY` of the item to be added into RIMS into the console.
++
+====
+RIMS will display item(s) and the quantity that have been added. +
+
+image::add/add4.jpeg[width="500", align="left"]
+====
++
+. If `room` is the user input:
++
+.. The following display will be shown:
++
+====
+RIMS will prompt for the room name that the user wants to add. +
+
+image::add/addRoom2.jpeg[width="500", align="left"]
+====
++
+.. Enter the `ROOM NAME` to be added into the console e.g. `seminar room 2`
++
+====
+RIMS will display item(s) and the quantity that have been added. +
+
+image::add/addRoom3.jpeg[width="500", align="left"]
 ====
 
 ==== Delete item/room: `delete`
 Delete item(s) or room available for loan/booking in RIMS.
 
-.*Format*:
-. `delete /item ITEM /qty QUANTITY`
-* If the item or room does not exist in RIMS, then the UI will send a message to inform the user.
-* Quantity must be a positive integer.
-* Quantity must be less than the total number of items available in RIMS, else it will be reduced to zero.
+To delete an existing resource:
 
-.*Examples*:
-* `delete /item book /qty 5`
-* `delete /room multi purpose sports hall`
+. Enter `delete` into the console, then press kbd:[Enter] to execute the command.
++
+====
+RIMS will prompt for the resource type that the user wants to delete. +
+
+image::delete/delete1.jpeg[width="500", align="left"]
+====
++
+. Enter the resource type that is to be added into RIMS, either `item` or `room`.
++
+. If `item` is the user input:
++
+.. The following display will be shown:
++
+====
+RIMS will prompt for the item name that the user wants to delete. +
+
+image::delete/delete2.jpeg[width="500", align="left"]
+====
++
+.. Enter the `ITEM NAME` to be deleted into the console.
++
+====
+RIMS will display all items corresponding to that name and their respective statuses (on loan, reserved, available). +
+
+image::delete/delete3.jpeg[width="800", align="left"]
+
+RIMS will then prompt for resource ID(s) corresponding to the one or more of the items on the list displayed.
+
+image::delete/delete4.jpeg[width="800", align="left"]
+
+====
++
+.. Enter the `QUANTITY` of the resource to be added into RIMS into the console.
++
+====
+RIMS will display item(s) and their resource ID(s) that have been deleted. +
+
+image::delete/delete5.jpeg[width="500", align="left"]
+====
++
+. If `room` is the user input:
++
+.. The following display will be shown:
++
+====
+RIMS will prompt for the room name that the user wants to delete. +
+
+image:delete/deleteRoom1.jpeg[width="500", align="left"]
+====
++
+.. Enter the `ROOM NAME` to be added into the console.
++
+====
+RIMS will display the room that has been deleted. +
+
+image::delete/deleteRoom2.jpeg[width="500", align="left"]
+====
+
 
 === Item/Room Status
 
@@ -130,22 +212,208 @@ Registers an item / room as having been returned, and is thus available to be lo
 * `return /item frisbee /qty 3`
 * `return /room seminar room 1`
 
-==== Reserve an item / room: `reserve`
-Registers an item as having been reserved (loaned in advance) from a future date to another future date.
+////
+
+=== Adding or Removing Items/Rooms
+
+==== Add item/room: `add`
+Add new item(s) or a new room available for loan/booking in RIMS.
 
 .*Format*:
-. `reserve /item ITEM /qty QUANTITY /from DATE /to DEADLINE`
-. `reserve /room ROOM /from DATE /to DEADLINE`
-* While loans take effect from the current date to a specified deadline, reservations specify a future time-frame for an item to be loaned out.
-* Quantity must be a positive integer.
-* If the user requests a quantity that is greater than the existing amount of that item in the inventory, the UI will send an error message to the user.
-* If the item or room does not exist in the inventory, the UI will send an error message to the user.
-* Rooms are unique and thus do not require quantities.
-* Deadline must be formatted dd/mm/yyyy hhmm in 24-hour time format.
+To add a new item:
 
-.*Examples*:
-* `reserve /item basketball /qty 1 /from 01/10/2019 2300 /to 03/10/2019 2300`
-* `reserve /room basketball court /from 01/10/2019 2300 /to 03/10/2019 2300`
+. Enter `add` into the console, then press kbd:[Enter] to execute the command.
++
+====
+RIMS will prompt for the resource type that the user wants to add. +
+
+image::add/add1.jpeg[width="500", align="left"]
+====
++
+. Enter the `ITEM NAME` to be added into the console.
++
+====
+RIMS will prompt for the resource name that the user wants to add. +
+
+image::add/add2.jpeg[width="500", align="left"]
+====
++
+. Enter the `QUANTITY` of the resource specified to be added into RIMS into the console.
++
+====
+RIMS will display resource and the quantity that have been added. +
+
+image::add/add3.jpeg[width="500", align="left"]
+====
+
+////
+
+==== Loan an item / room: `loan`
+Registers a resource as having been loaned out from the current date till a user-specified future date.
+
+.*Format*:
+To register a resource as having been loaned out:
+
+. Enter `loan` into the console, then press kbd:[Enter] to execute the command.
++
+====
+RIMS will prompt for the type of resource that the user wants to loan out. +
+
+image::loan/loan1.png[width="500", align="left"]
+====
++
+. Enter `item` to register that you wish to loan out an item, or `room` to register that you wish to loan out a room.
+. If you typed `item` to register the loan of an item:
++
+====
+RIMS will prompt for the name of the item that you wish to loan out.
+
+image::loan/loan2.png[width="500", align="left"]
+====
++
+.. Enter the `ITEM NAME` to be loaned out.
++
+====
+RIMS will display all quantities of the requested item currently present in its inventory.
+
+image::loan/loan3.png[width="500", align="left"]
+
+RIMS will then prompt for the quantity of the item to be loaned out.
+
+image::loan/loan4.png[width="500", align="left"]
+====
++
+.. Enter, in integer format, the quantity of the item to be loaned out.
++
+====
+RIMS will prompt for the date by which the loaned item is to be returned.
+
+image::loan/loan5.png[width:"500", align="left"]
+====
++
+. If you typed `room` to register the loan of a room:
++
+====
+RIMS will prompt for the name of the room that you wish to loan out.
+
+image::loan/room/loanRoom1.png[width="500", align="left"]
+====
++
+.. Enter the `ROOM NAME` to be loaned out.
++
+====
+RIMS will display the current booking status of the requested room.
+
+image::loan/room/loanRoom2.png[width="500", align="left"]
+
+RIMS will then prompt for the date by which the loaned room is to be returned.
+
+image::loan/room/loanRoom3.png[width:"500", align="left"]
+====
++
+. Enter the date by which the loaned resource is to be returned, in the format `DD/MM/YYYY HHmm`.
++
+====
+RIMS will then prompt for a unique identification number by which to identify the requester of the resource.
+
+image::loan/loan6.png[width: "500", align="left"]
+====
++
+. Enter the unique identification number in integer format.
++
+====
+RIMS will then display a message confirming that the quantity of the requested resource has been registered as loaned out, till the specified date.
+
+image::loan/loan7.png[width: "500", align="left"]
+====
++
+
+
+==== Reserve an item / room: `reserve`
+Registers a resource as having been reserved (loaned in advance) from a future date to a further future date.
+
+.*Format*:
+To register an item as having been reserved:
+
+. Enter `reserve` into the console, then press kbd:[Enter] to execute the command.
++
+====
+RIMS will prompt for the type of resource that the user wants to reserve. +
+
+image::reserve/reserve1.jpeg[width="500", align="left"]
+====
++
+. Enter `item` to register that you wish to reserve an item, or `room` to register that you wish to reserve a room.
+. If you typed `item` to register the reservation of an item:
++
+====
+RIMS will prompt for the name of the item that you wish to reserve.
+
+image::reserve/reserve2.jpeg[width="500", align="left"]
+====
++
+.. Enter the `ITEM NAME` to be reserved.
++
+====
+RIMS will display all quantities of the requested item currently present in its inventory, and prompt for the quantity of the item to be reserved.
+
+image::reserve/reserve3.jpeg[width="500", align="left"]
+====
++
+.. Enter, in integer format, the quantity of the item to be reserved.
++
+====
+RIMS will prompt for the date from which the item is to be reserved.
+
+image::reserve/reserve4.jpeg[width:"500", align="left"]
+====
++
+. If you typed `room` to register the reservation of an room:
++
+====
+RIMS will prompt for the name of the room that you wish to reserve.
+
+image::reserve/reserveRoom1.jpeg[width="500", align="left"]
+====
++
+.. Enter the `ROOM NAME` to be reserved.
++
+====
+RIMS will display the current booking status of the requested room.
+
+image::reserve/reserveRoom2.jpeg[width="500", align="left"]
+
+RIMS will then prompt for the date from which the item is to be reserved.
+
+image::reserve/reserveRoom3.jpeg[width:"500", align="left"]
+====
++
+
+. Enter the date from which the resource is to be reserved, in the format `DD/MM/YYYY HHmm`.
++
+====
+RIMS will prompt for the date on which the reservation of the item will end.
+
+image::reserve/reserve5.jpeg[width:"500", align="left"]
+====
++
+. Enter the date on which the reservation of the resource should end, in the format `DD/MM/YYYY HHmm`.
++
+====
+RIMS will then prompt for a unique identification number by which to identify the requester of the resource.
+
+image::reserve/reserve6.jpeg[width:"500", align="left"]
+====
++
+. Enter the unique identification number in integer format.
++
+====
+RIMS will then display a message confirming that the quantity of the requested resource has been registered as reserved, between the two specified dates.
+
+image::reserve/reserve7.jpeg[width: "500", align="left"]
+====
++
+
 ////
 to be implemented
 ==== Extend existing loan of an item / room: `extend`
