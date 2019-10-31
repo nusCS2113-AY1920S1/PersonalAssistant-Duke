@@ -1,10 +1,6 @@
 package duke.model.wallet;
 
 import java.math.BigDecimal;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-
-import static duke.commons.constants.DateConstants.DATE_FORMAT;
 
 public class Transaction {
     protected BigDecimal transactionAmount;

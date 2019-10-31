@@ -53,8 +53,8 @@ public class Load {
                 bufferedReader.close();
             }
         } catch (Exception e) {
-            throw new DukeException("It appears the savefile has been corrupted. " +
-                    "Previously recorded meals will not be loaded.");
+            throw new DukeException("It appears the savefile has been corrupted. "
+                    + "Previously recorded meals will not be loaded.");
         }
     }
 
@@ -74,8 +74,8 @@ public class Load {
                 bufferedReader.close();
             }
         } catch (Exception e) {
-            throw new DukeException("It appears the savefile has been corrupted. " +
-                    "Default meal values will not be loaded.");
+            throw new DukeException("It appears the savefile has been corrupted. "
+                    + "Default meal values will not be loaded.");
         }
     }
 
@@ -103,7 +103,7 @@ public class Load {
             Wallet data = gson.fromJson(bufferedReader, walletType);
             bufferedReader.close();
             if (data != null) {
-                wallet.UpdateAccountBalance(data);
+                wallet.updateAccountBalance(data);
             }
         } catch (Exception e) {
             throw new DukeException("Error reading transactions file");

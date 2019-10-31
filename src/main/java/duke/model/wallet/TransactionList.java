@@ -8,7 +8,7 @@ import static duke.commons.constants.DateConstants.DATE_FORMAT;
 
 public class TransactionList {
     private Calendar calendarDate;
-    private String currentDate ;
+    private String currentDate;
     private HashMap<String, ArrayList<Transaction>> transactionTracker = new HashMap<>();
 
     public TransactionList() {

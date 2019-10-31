@@ -77,7 +77,7 @@ public class UserSetup {
             }
             setActivity(activity);
         }
-        if (user.valid()){
+        if (user.valid()) {
             isDone = true;
             ui.showUserSetupDone(user);
             ui.showWelcome();

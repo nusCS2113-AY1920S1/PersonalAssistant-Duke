@@ -5,7 +5,6 @@ import duke.commons.file.FilePaths;
 import duke.logic.autocorrect.Autocorrect;
 import duke.model.meal.MealList;
 import duke.model.user.User;
-import duke.model.wallet.TransactionList;
 import duke.model.wallet.Wallet;
 
 import java.util.ArrayList;

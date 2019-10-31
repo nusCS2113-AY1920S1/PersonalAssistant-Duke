@@ -75,7 +75,7 @@ public class Main {
         user = setup.getUser();
         try {
             storage.updateUser(user);
-        } catch (DukeException e){
+        } catch (DukeException e) {
             ui.showMessage(e.getMessage());
         }
         boolean isExit = false;

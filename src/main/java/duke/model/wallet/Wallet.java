@@ -34,7 +34,7 @@ public class Wallet {
         }
     }
 
-    public void UpdateAccountBalance(Wallet wallet) {
+    public void updateAccountBalance(Wallet wallet) {
         this.transactions = wallet.getTransactions();
         this.account = wallet.getAccount();
     }
