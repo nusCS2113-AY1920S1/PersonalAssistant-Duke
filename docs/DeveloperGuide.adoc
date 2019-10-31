@@ -92,13 +92,13 @@ Allows users to sell seats for a specific show.
 ==== Proposed Implementation
 Viewing the monthly revenue is executed by the `ViewMonthlyCommand`, which extends from the abstract class `Command` and
 is stored under the Command package. +
-Additionally, it implements the following operations based on the query date:
-* Model#findMonthly() -- Retrieves the list of shows in the month specified by the input.
-* Model#getShows() -- Retrieves the current list of shows should the user query be in the future.
-* Model#getShowshistory() -- Retrieves the archive list should the user query be in the past.
-* OptixDateFormatter#getMonth() -- get the integer value of the month.
-* OptixDateFormatter#getYear() -- get the integer value of the year.
-* Theatre#getProfit() -- get the profit earned for the show.
+Additionally, it implements the following operations based on the query date: +
+* Model#findMonthly() -- Retrieves the list of shows in the month specified by the input. +
+* Model#getShows() -- Retrieves the current list of shows should the user query be in the future. +
+* Model#getShowshistory() -- Retrieves the archive list should the user query be in the past. +
+* OptixDateFormatter#getMonth() -- get the integer value of the month. +
+* OptixDateFormatter#getYear() -- get the integer value of the year. +
+* Theatre#getProfit() -- get the profit earned for the show. +
 
 Given below is an example usage scenario of the `ViewMonthlyCommand` at each step.
 
