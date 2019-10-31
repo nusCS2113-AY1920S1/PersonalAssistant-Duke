@@ -65,7 +65,7 @@ public class SavingsBudgetCommand extends Command {
             }
 
             if (end == null) {
-                outputArray = viewSingleMonthSavings(budget, iteratorCategory, currentCategory,  outputValue);
+                outputArray = viewSingleMonthSavings(budget, iteratorCategory, currentCategory, outputValue);
                 outputValue = outputArray[0];
             } else {
                 outputArray = viewMultiMonthSaving(budget, iteratorCategory, currentCategory, outputValue);
@@ -74,8 +74,10 @@ public class SavingsBudgetCommand extends Command {
 
             totalSavings += Double.parseDouble(outputArray[1]);
         }
-        if (totalSavings >= 0) {
+        if (totalSavings > 0) {
             outputValue += "Your total savings: $" + df.format(totalSavings) + "\n";
+        } else if (totalSavings == 0) {
+            outputValue += "Your total savings : $0";
         } else {
             outputValue += "You have overspent your total budget by: $" + df.format(Math.abs(totalSavings)) + "\n";
         }

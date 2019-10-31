@@ -37,6 +37,10 @@ public class ListBudgetCommand extends Command {
             for (int i = 0; i < catList.getCategoryList().size(); ++i) {
                 String categoryName = catList.getCategoryList().get(i).toString();
                 currentBudget = budget.getBudgetFromCategory(categoryName);
+                if (currentBudget == 0) {
+                    outputValue += "Budget for " + categoryName + " has not been set\n";
+                    continue;
+                }
                 outputValue += "Budget for " + categoryName + " is $"
                         + df.format(currentBudget) + "\n";
             }

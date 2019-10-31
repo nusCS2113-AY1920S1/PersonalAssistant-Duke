@@ -42,6 +42,9 @@ public class AddExpenditureCommand extends Command {
             if (categoryList.get(i).toString().equals(categoryName)) {
                 Expenditure newExpenditure = new Expenditure(expenditureName, amount, date);
                 categoryList.get(i).add(newExpenditure);
+                Category cat = categoryList.get(i);
+                NotificationCommand alert = new NotificationCommand(categoryName, cat.getCategoryMonthTotal());
+                alert.execute(calendar, budget, categoryList, category, ui, storage);
                 storage.saveExpenditureToFile(newExpenditure, categoryName);
                 ui.showNewExpenditureMessage(expenditureName, categoryName);
             }
