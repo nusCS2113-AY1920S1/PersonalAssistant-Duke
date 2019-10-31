@@ -2,6 +2,7 @@ package executor.command;
 
 import executor.task.TaskList;
 import ui.IncomeReceipt;
+import ui.Ui;
 import ui.Wallet;
 
 import java.time.LocalDate;
@@ -30,5 +31,6 @@ public class CommandAddIncomeReceipt extends CommandAddReceipt {
     public void execute(Wallet wallet) {
         IncomeReceipt r = new IncomeReceipt(this.cash, this.date, this.tags);
         wallet.addReceipt(r);
+        Ui.dukeSays("Added Receipt: $" + r.getCashGained().toString() + "with tags: " + r.getTags().toString());
     }
 }

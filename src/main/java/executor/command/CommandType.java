@@ -21,7 +21,15 @@ public enum CommandType {
     EVENT(CommandNewTask.class),
     TODO(CommandNewTask.class),
     RECUR(CommandNewTask.class),
-    FDURATION(CommandNewTask.class);
+    FDURATION(CommandNewTask.class),
+    TAGLIST(CommandListTag.class),
+    EXPENDEDMONTH(CommandGetSpendingByMonth.class),
+    EXPENDEDYEAR(CommandGetSpendingByYear.class),
+    CONVERT(CommandConvert.class),
+    LISTMY(CommandListMonYear.class),
+    ERROR(CommandError.class),
+    WEATHER(CommandWeather.class);
+
 
     private final Class commandClass;
 

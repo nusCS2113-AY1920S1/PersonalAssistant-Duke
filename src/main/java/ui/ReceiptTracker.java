@@ -2,6 +2,7 @@ package ui;
 
 import duke.exception.DukeException;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -80,14 +81,46 @@ public class ReceiptTracker extends ArrayList<Receipt> {
      * @param tag Specific String to be filtered with.
      * @return ArrayList containing all the Receipts with the specific tag
      */
-    public ArrayList<Receipt> findReceiptsByTag(String tag) {
-        ArrayList<Receipt> taggedReceipts = new ArrayList<>();
+    public ReceiptTracker findReceiptsByTag(String tag) {
+        ReceiptTracker taggedReceipts = new ReceiptTracker();
         for (Receipt receipt : this) {
             if (receipt.containsTag(tag)) {
-                taggedReceipts.add(receipt);
+                taggedReceipts.addReceipt(receipt);
             }
         }
         return taggedReceipts;
+    }
+
+    /**
+     * Finds all the receipts that corresponds to that month and year.
+     * @param month is the month given by the user
+     * @param year is the year given by the user
+     * @return ArrayList containing all the receipts which corresponds to year and month
+     */
+    public ReceiptTracker findReceiptByMonthYear(int month, int year) {
+        ReceiptTracker receiptByMonthYear = new ReceiptTracker();
+        for (Receipt receipt : this) {
+            if ((receipt.getDate().getMonthValue() == month) && (receipt.getDate().getYear() == year)) {
+                receiptByMonthYear.addReceipt(receipt);
+            }
+        }
+        return receiptByMonthYear;
+    }
+
+
+    /**
+     * Finds all the receipts that corresponds to that year.
+     * @param year is the year given by the user
+     * @return ArrayList containing all the receipts which corresponds to the year given by user
+     */
+    public ReceiptTracker findReceiptByYear(int year) {
+        ReceiptTracker receiptByYear = new ReceiptTracker();
+        for (Receipt receipt : this) {
+            if (receipt.getDate().getYear() == year) {
+                receiptByYear.addReceipt(receipt);
+            }
+        }
+        return receiptByYear;
     }
 
     // -- Boolean Functions

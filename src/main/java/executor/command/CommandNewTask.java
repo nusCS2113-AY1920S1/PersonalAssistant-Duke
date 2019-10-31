@@ -19,12 +19,12 @@ public class CommandNewTask extends Command {
     public CommandNewTask(String userInput) {
         this.userInput = userInput;
         this.commandType = CommandType.TASK;
-        this.taskType = TaskType.valueOf(Parser.parseForCommandType(userInput).toString());
+        this.taskType = extractTaskType();
+        this.description = "Adds user entry to the list";
     }
 
     @Override
     public void execute(Wallet wallet) {
-
     }
 
     @Override
@@ -50,11 +50,20 @@ public class CommandNewTask extends Command {
      * @param input this is the user's input
      * @throws DukeException this shows the error message and gives the format to follow
      */
-    public void checkForwardSlash(String input) throws DukeException {
+    private void checkForwardSlash(String input) throws DukeException {
         if (this.taskType.equals(TaskType.FDURATION)) {
             if (!Parser.containsForwardSlash(input)) {
                 throw new DukeException("Check your format!!! Correct format is: fduration <description> / <time>");
             }
+        }
+    }
+
+    private TaskType extractTaskType() {
+        CommandType specificCommandType = Parser.parseForCommandType(this.userInput);
+        if (specificCommandType == null) {
+            return TaskType.BLANK;
+        } else {
+            return TaskType.valueOf(specificCommandType.toString());
         }
     }
 }

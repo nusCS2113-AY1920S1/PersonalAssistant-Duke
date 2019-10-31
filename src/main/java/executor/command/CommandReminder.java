@@ -12,9 +12,15 @@ public class CommandReminder extends Command {
     //private String[] reminders;
     protected Date currentDate = Calendar.getInstance().getTime();
 
+    /**
+     * Constructor for CommandReminder subCommand Class.
+     * @param userInput The user input from the CLI
+     */
     public CommandReminder(String userInput) {
         this.userInput = userInput;
         this.currentDate.setTime(0);
+        this.commandType = CommandType.REMINDER;
+        this.description = "Loops through list and checks if current date matches date linked with task and prints it";
     }
 
     @Override
