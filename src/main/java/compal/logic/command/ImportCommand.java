@@ -16,10 +16,8 @@ import java.util.logging.Logger;
 public class ImportCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "You have successfully imported your schedule!\n";
-
     public static final String MESSAGE_FILE_NON_EXIST = "Error: File specified to import does not exist!";
     public static final String MESSAGE_FILE_NON_ICS = "Error: File is not a ICS file format that can be read from!";
-
 
     private String fileName;
     private static final Logger logger = LogUtils.getLogger(ImportCommand.class);
@@ -57,7 +55,7 @@ public class ImportCommand extends Command {
         final String icsEndEvent = "END:VEVENT";
 
         BufferedReader reader;
-        StringBuffer eventString = new StringBuffer();
+        StringBuilder eventString = new StringBuilder();
 
         try {
             reader = new BufferedReader(new FileReader(fileName));
@@ -117,7 +115,7 @@ public class ImportCommand extends Command {
      *
      * @param eventString The string of the event read from ics
      */
-    public void createTasks(String eventString, TaskList taskList) {
+    private void createTasks(String eventString, TaskList taskList) {
 
         if (eventString.isEmpty()) {
             return;
@@ -125,49 +123,15 @@ public class ImportCommand extends Command {
 
         String taskDesc = getDesc(eventString);
         Task.Priority taskPriority = getPriority(eventString);
-
-        final String startToken = "DTSTART:";
-        String taskStartTime = "";
-        String taskStartDate = "";
-        if (eventString.contains(startToken)) {
-            int startPoint = eventString.indexOf(startToken);
-            String statusStartInput = eventString.substring(startPoint);
-            Scanner scanner = new Scanner(statusStartInput);
-            String temp = scanner.nextLine();
-            String[] parts = temp.split(":");
-            String[] dateTime = parts[1].split("T");
-
-            String year = dateTime[0].substring(0, 4);
-            String month = dateTime[0].substring(4, 6);
-            String day = dateTime[0].substring(6);
-            taskStartTime = dateTime[1].substring(0, 4);
-            taskStartDate = day + "/" + month + "/" + year;
-        }
-
-        final String endToken = "DTEND:";
-        String taskEndTime = "";
-        String taskEndDate = "";
-        if (eventString.contains(endToken)) {
-            int startPoint = eventString.indexOf(endToken);
-            String statusStartInput = eventString.substring(startPoint);
-            Scanner scanner = new Scanner(statusStartInput);
-            String temp = scanner.nextLine();
-            String[] parts = temp.split(":");
-            String[] dateTime = parts[1].split("T");
-
-
-            String year = dateTime[0].substring(0, 4);
-            String month = dateTime[0].substring(4, 6);
-            String day = dateTime[0].substring(6);
-            taskEndTime = dateTime[1].substring(0, 4);
-            taskEndDate = day + "/" + month + "/" + year;
-        }
+        String taskStartTime = getStartTime(eventString);
+        String taskStartDate = getStartDate(eventString);
+        String taskEndTime = getEndTime(eventString);
+        String taskEndDate = getEndDate(eventString);
 
 
         if (taskStartDate.isEmpty() || taskStartTime.isEmpty()) {
             return;
         }
-
 
         if (taskEndDate.isEmpty()) {
             taskEndDate = taskStartDate;
@@ -184,6 +148,7 @@ public class ImportCommand extends Command {
             Event isEvent = new Event(taskDesc, taskPriority, taskStartDate, taskEndDate, taskStartTime, taskEndTime);
             taskList.addTask(isEvent);
         }
+
     }
 
     private String getDesc(String eventString) {
@@ -200,7 +165,7 @@ public class ImportCommand extends Command {
         return taskDesc;
     }
 
-    private Task.Priority getPriority(String eventString){
+    private Task.Priority getPriority(String eventString) {
         final String descToken = "DESCRIPTION:";
         final String priorityToken = "Priority:";
         Task.Priority taskPriority = Task.Priority.low;
@@ -211,17 +176,89 @@ public class ImportCommand extends Command {
             String temp = scanner.nextLine();
             String[] parts = temp.split(":");
 
-            String tempPrio = parts[1];
-            if (tempPrio.equals("high")) {
+            String tempPriority = parts[1];
+            switch (tempPriority) {
+            case "high":
                 taskPriority = Task.Priority.high;
-            } else if (tempPrio.equals("medium")) {
+                break;
+            case "medium":
                 taskPriority = Task.Priority.medium;
-            } else if (tempPrio.equals("low")) {
+                break;
+            case "low":
                 taskPriority = Task.Priority.low;
+                break;
             }
-        } else if (eventString.contains(descToken)) {
-            taskPriority = Task.Priority.low;
         }
         return taskPriority;
+    }
+
+    private String getStartTime(String eventString) {
+        final String startToken = "DTSTART:";
+        String taskStartTime = "";
+
+        if (eventString.contains(startToken)) {
+            int startPoint = eventString.indexOf(startToken);
+            String statusStartInput = eventString.substring(startPoint);
+            Scanner scanner = new Scanner(statusStartInput);
+            String temp = scanner.nextLine();
+            String[] parts = temp.split(":");
+            String[] dateTime = parts[1].split("T");
+
+            taskStartTime = dateTime[1].substring(0, 4);
+
+        }
+        return taskStartTime;
+    }
+
+    private String getStartDate(String eventString) {
+        final String startToken = "DTSTART:";
+        String taskStartDate = "";
+        if (eventString.contains(startToken)) {
+            int startPoint = eventString.indexOf(startToken);
+            String statusStartInput = eventString.substring(startPoint);
+            Scanner scanner = new Scanner(statusStartInput);
+            String temp = scanner.nextLine();
+            String[] parts = temp.split(":");
+            String[] dateTime = parts[1].split("T");
+
+            String year = dateTime[0].substring(0, 4);
+            String month = dateTime[0].substring(4, 6);
+            String day = dateTime[0].substring(6);
+            taskStartDate = day + "/" + month + "/" + year;
+        }
+        return taskStartDate;
+    }
+
+    private String getEndDate(String eventString) {
+        final String endToken = "DTEND:";
+        String taskEndDate = "";
+        if (eventString.contains(endToken)) {
+            int startPoint = eventString.indexOf(endToken);
+            String statusStartInput = eventString.substring(startPoint);
+            Scanner scanner = new Scanner(statusStartInput);
+            String temp = scanner.nextLine();
+            String[] parts = temp.split(":");
+            String[] dateTime = parts[1].split("T");
+            String year = dateTime[0].substring(0, 4);
+            String month = dateTime[0].substring(4, 6);
+            String day = dateTime[0].substring(6);
+            taskEndDate = day + "/" + month + "/" + year;
+        }
+        return taskEndDate;
+    }
+
+    private String getEndTime(String eventString) {
+        final String endToken = "DTEND:";
+        String taskEndTime = "";
+        if (eventString.contains(endToken)) {
+            int startPoint = eventString.indexOf(endToken);
+            String statusStartInput = eventString.substring(startPoint);
+            Scanner scanner = new Scanner(statusStartInput);
+            String temp = scanner.nextLine();
+            String[] parts = temp.split(":");
+            String[] dateTime = parts[1].split("T");
+            taskEndTime = dateTime[1].substring(0, 4);
+        }
+        return taskEndTime;
     }
 }

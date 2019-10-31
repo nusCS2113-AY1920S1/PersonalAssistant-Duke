@@ -53,7 +53,6 @@ public class ExportCommand extends Command {
         logger.info("Attempting to execute export command");
 
         Calendar calendar = createCalendar(taskList);
-        System.out.println(calendar);
 
         FileOutputStream fileOutput;
         try {
