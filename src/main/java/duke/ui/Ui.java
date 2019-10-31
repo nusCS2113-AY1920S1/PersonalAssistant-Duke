@@ -243,6 +243,16 @@ public class Ui {
     }
 
     /**
+     * Show that this task is marked.
+     *
+     * @param task The description of the task that is marked as done
+     */
+    public void showMarkDone(String task) {
+        System.out.println("\t Nice! I've marked this task as done:");
+        System.out.println("\t " + task);
+    }
+
+    /**
      * Show the order that has been changed serving date.
      *
      * @param date         the newly set date for serving the order

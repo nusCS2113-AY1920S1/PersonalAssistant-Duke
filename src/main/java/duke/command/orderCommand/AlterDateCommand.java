@@ -4,6 +4,7 @@ import duke.command.Cmd;
 import duke.exception.DukeException;
 import duke.list.GenericList;
 import duke.order.Order;
+import duke.parser.Convert;
 import duke.storage.Storage;
 import duke.ui.Ui;
 
@@ -34,7 +35,7 @@ public class AlterDateCommand extends Cmd<Order> {
             Order order = orderList.getEntry(index);
             if (order.isDone()) { throw new DukeException("Order done already. Date alteration is not expected."); }
             order.setDate(date);
-            ui.showOrderChangedDate(date,orderList.getEntry(index).toString());
+            ui.showOrderChangedDate(order.getDate(),orderList.getEntry(index).toString());
 
             // to do:
             // 1. store the new order into file
