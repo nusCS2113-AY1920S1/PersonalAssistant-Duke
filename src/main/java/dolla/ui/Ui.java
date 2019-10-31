@@ -26,16 +26,20 @@ public abstract class Ui {
     protected static final String SORT_NAME = "name";
 
     private static String logo =
-        " ____    _   _  _   _       \n"
-        + "|  _  \\/ _ \\| || | /  \\      \n"
-        + "| | | | | | | || |/ /\\ \\  \n"
-        + "| |_| | |_| | || |  __  | \n"
-        + "|____/ \\ _ /|_||_|_|  |_|       \n";
+        "\t ____    _   _  _   _       \n"
+        + "\t|  _  \\/ _ \\| || | /  \\      \n"
+        + "\t| | | | | | | || |/ /\\ \\  \n"
+        + "\t| |_| | |_| | || |  __  | \n"
+        + "\t|____/ \\ _ /|_||_|_|  |_|       \n";
+
     protected static String line = "\t____________________________________________________________";
+
+    private static String version = "\tVersion 1.3\n";
 
     private static String welcomeMsg =
         "\tHello from\n"
         + logo
+        + version
         + line
         + "\n\tI help keep track of your finance!\n"
         + "\tWhat can I do for you?";
