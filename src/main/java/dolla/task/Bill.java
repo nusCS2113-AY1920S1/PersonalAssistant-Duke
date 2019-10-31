@@ -20,14 +20,14 @@ public class Bill extends Record {
      * @param type Type of the debt (is bill in this case).
      * @param people The number of people.
      * @param amount The total amount.
-     * @param average The average amount per person after splitting.
      * @param nameList The name list.
      */
-    public Bill(String type, int people, double amount, double average, ArrayList<String> nameList) {
+    public Bill(String type, int people, double amount, ArrayList<String> nameList) {
+        double average = amount / people;
         this.type = type;
         this.people = people;
         this.amount = amount;
-        this.average = amount / people;
+        this.average = average;
         this.nameList = nameList;
     }
 

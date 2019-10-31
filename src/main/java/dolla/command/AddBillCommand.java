@@ -32,7 +32,7 @@ public class AddBillCommand extends Command {
 
     @Override
     public void execute(DollaData dollaData) throws Exception {
-        Bill newBill = new Bill(type, people, amount, average, nameList);
+        Bill newBill = new Bill(type, people, amount, nameList);
         dollaData.addBillToRecordList(newBill);
         DebtUi.printAverageAmount(people, amount, nameList);
     }

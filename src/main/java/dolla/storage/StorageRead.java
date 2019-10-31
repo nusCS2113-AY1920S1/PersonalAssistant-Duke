@@ -77,7 +77,7 @@ public class StorageRead extends Storage {
                         temp.add(names[i]);
                     }
                     newRecord = new Bill("bill", Integer.parseInt(inArray[1]),
-                            stringToDouble(inArray[2]), stringToDouble(inArray[3]), temp);
+                            stringToDouble(inArray[2]), temp);
                     break;
                 default:
                     StorageUi.printErrorReadingSaveMessage();
