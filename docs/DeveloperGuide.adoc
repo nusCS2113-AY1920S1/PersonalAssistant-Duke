@@ -85,7 +85,6 @@ image::DGCalendarTableRow.png[width = 75%]
 - `calendar next` This prints the calendar table of the next 7 days.
 - `calendar last` This prints the calendar table of the last 7 days.
 
-
 === Check Free Days
 CheckFreeDays is a command that allows the program to search for the next 3 days without any
 events (except ToDos). +
