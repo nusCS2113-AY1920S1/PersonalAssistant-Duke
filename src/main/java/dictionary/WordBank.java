@@ -82,17 +82,18 @@ public class WordBank extends Bank {
      */
     public String searchWordMeaning(String word) throws WordBankEmptyException, NoWordFoundException {
         word = word.toLowerCase();
-        String s = "";
         if (wordBank.isEmpty()) {
             throw new WordBankEmptyException();
+        } else if (!(wordBank.containsKey(word))) {
+            throw new NoWordFoundException(word);
         }
-        if (!(wordBank.containsKey(word))) {
-            s = "Unable to locate \"" + word + "\" in local dictionary. Looking up Oxford dictionary\n";
-            String result = OxfordCall.onlineSearch(word);
-            Word temp = new Word(word, result);
-            wordBank.put(word, temp);
-        }
-        return s + wordBank.get(word).getMeaning();
+//        if (!(wordBank.containsKey(word))) {
+//            s = "Unable to locate \"" + word + "\" in local dictionary. Looking up Oxford dictionary\n";
+//            String result = OxfordCall.onlineSearch(word);
+//            Word temp = new Word(word, result);
+//            wordBank.put(word, temp);
+//        }
+        return wordBank.get(word).getMeaning();
     }
 
     /**

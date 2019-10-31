@@ -103,7 +103,7 @@ public class Word {
                     dp[i][j] = i;
                 }
                 else {
-                    dp[i][j] = dp[i - 1][j - 1] + ((word.charAt(i - 1)==another.charAt(j - 1))?1:0);
+                    dp[i][j] = dp[i - 1][j - 1] + ((word.charAt(i - 1)!=another.charAt(j - 1))?1:0);
                     if (dp[i][j] > dp[i - 1][j] + 1) {
                         dp[i][j] = dp[i - 1][j] + 1;
                     } else if (dp[i][j] > dp[i][j - 1] + 1) {
