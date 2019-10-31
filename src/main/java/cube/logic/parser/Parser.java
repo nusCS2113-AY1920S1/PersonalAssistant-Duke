@@ -1,3 +1,4 @@
+//@@author ZKathrynx
 package cube.logic.parser;
 
 import cube.logic.command.*;
@@ -22,7 +23,8 @@ public class Parser {
 	 * revenue -i index / -n foodName / -t foodType
 	 * delete -i index / -n foodName / -t foodType
 	 * sold -n foodName -q quantity
-	 * reminder
+	 * reminder -d daysToExpiry -s stock
+	 * promotion -n foodName -% discount -s startDate -e endDate
 	 * help
 	 * bye / exit / quit
 	 *
@@ -44,6 +46,8 @@ public class Parser {
 				return new ListCommandParser().parse(inputs);
 			case "find":
 				return new FindCommandParser().parse(inputs);
+			case "update":
+				return new UpdateCommandParser().parse(inputs);
 			case "revenue" :
 				return new GenerateRevenueCommandParser().parse(inputs);
 			case "delete":
@@ -56,6 +60,8 @@ public class Parser {
 				return new ConfigCommandParser().parse(inputs);
 			case "help":
 				return new HelpCommand();
+			case "promotion":
+				return new PromotionCommandParser().parse(inputs);
 			case "bye":
 			case "exit":
 			case "quit":

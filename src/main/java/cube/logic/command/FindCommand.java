@@ -1,3 +1,4 @@
+//@@author ZKathrynx
 package cube.logic.command;
 
 import cube.logic.command.exception.CommandException;
