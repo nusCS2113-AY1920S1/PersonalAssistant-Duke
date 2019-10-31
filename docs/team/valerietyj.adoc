@@ -1,15 +1,17 @@
-= *Valerie Tan* - Project Portfolio for OwlMoney
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 :repoURL: https://github.com/AY1920S1-CS2113T-W17-3/main
 :experimental:
 
+= *Valerie Tan* - Project Portfolio for OwlMoney
+
 Hello I am Valerie, currently pursuing Information Security in the National University of Singapore (NUS).
 
-This portfolio aims to provide a detailed outline of my contributions while developing an application, *OwlMoney*.
+This portfolio aims to provide a detailed outline of my contributions during the development of our group's
+application, *OwlMoney*.
 We are a team of five, led by<<shamussy#,Shamus Neo Zhi Kai>> and comprises of <<briantkm#,Brian Tan Kian Ming>>,
-<<mong-nus#,Mong Zheng Wei>>, <<terencetan#, Terence Tan Wee Kheng>> and <<valerietyj#,myself>>.
+<<mong-nus#,Mong Zheng Wei>>, <<terencetan#, Terence Tan Wee Theng>> and <<valerietyj#,myself>>.
 
 == About the project
 [.underline]*OwlMoney* is specially created and developed for our Software Engineering
@@ -75,6 +77,8 @@ Collaborated with <<briantkm#, Brian Tan Kian Ming>> on the linking of user's go
 
 === Other contributions
 
+* Project Management:
+** Assist in coordinating team meetings and documenting meeting notes.
 * Documentation:
 ** As a team, we worked together on the User Guide and Developer Guide,
 ensuring they are bug-free and reader-friendliness.
