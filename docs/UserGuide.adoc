@@ -241,7 +241,8 @@ Format: `routeNodeAdd INDEXROUTE INDEXNODE at LOCATION by CONSTRAINT`
 * If `CONSTRAINT` is `mrt` instead, the `LOCATION` must correspond to the name of the MRT station.
 ****
 
-Valid Constraints:
+Valid CONSTRAINT:
+
 * `bus`
 * `mrt`
 
@@ -260,14 +261,14 @@ Format: `routeGenerate STARTLOCATION to ENDLOCATION by CONSTRAINT`
 * `CONSTRAINT` refers to the mode of transport.
 ****
 
-Valid Constraints:
+Valid CONSTRAINT:
+
 * `bus`
 * `mrt`
 
 Examples:
 
 * `routeGenerate amk hub to clementi by bus`
-
 
 === Listing the information of a Route: `routeList`
 
@@ -307,7 +308,6 @@ Format: `routeShow INDEX_ROUTE`
 Examples:
 
 * `routeShow 1`
-
 
 === Showing the information of a RouteNode with image: `routeNodeShow`
 
