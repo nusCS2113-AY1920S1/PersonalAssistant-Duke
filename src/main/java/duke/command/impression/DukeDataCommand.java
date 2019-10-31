@@ -35,9 +35,6 @@ public abstract class DukeDataCommand extends ArgCommand {
                 addType = type;
             }
         }
-        if (addType == null) {
-            throw new DukeHelpException("No data type specified!", this);
-        }
         return addType;
     }
 

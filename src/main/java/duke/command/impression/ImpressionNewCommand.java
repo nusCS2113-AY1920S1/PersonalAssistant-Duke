@@ -10,6 +10,7 @@ import duke.data.Observation;
 import duke.data.Plan;
 import duke.data.Result;
 import duke.exception.DukeException;
+import duke.exception.DukeHelpException;
 import duke.ui.context.Context;
 
 import java.time.LocalDate;
@@ -26,6 +27,9 @@ public class ImpressionNewCommand extends DukeDataCommand {
     public void execute(DukeCore core) throws DukeException {
         super.execute(core);
         String addType = uniqueDataType();
+        if (addType == null) {
+            throw new DukeHelpException("No data type specified!", this);
+        }
         checkTypeSwitches(addType);
         Impression impression = ImpressionUtils.getImpression(core);
         DukeData newData;
