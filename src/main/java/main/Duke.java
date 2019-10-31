@@ -44,7 +44,7 @@ public class Duke extends Application {
     private Map<String, Degree> degreeInfo = new HashMap<>();
     private ArrayList<String> mydegrees = new ArrayList<>();
     private DegreeTask degreeTask = new DegreeTask();
-
+    private DegreeListStorage DegreeListStorage = new DegreeListStorage();
     public ArrayList<String> getTasks() {
         return mydegrees;
     }
@@ -64,8 +64,8 @@ public class Duke extends Application {
         this.storage = new Storage(filePath);
         try {
             myList = new TaskList(storage.getTaskList());
-            DegreeListStorage degreeListStorage = new DegreeListStorage();
-            degreeListStorage.ReadFile();
+            //DegreeListStorage degreeListStorage = new DegreeListStorage();
+            //degreeListStorage.ReadFile();
         } catch (DukeException e) {
             myList = new TaskList();
             ui.showLoadingError();
@@ -81,6 +81,8 @@ public class Duke extends Application {
             System.out.println("Degree Information Failed to Load, please contact Administrator");
         }
         this.lists = new DegreeList();
+        DegreeListStorage.ReadFile(storage.fetchListOutput("savedegree"));
+
     }
 
     /**
