@@ -30,6 +30,7 @@ public class ChartThread implements Runnable {
     @Override
     public void run() {
         printPieChart(expenseList);
+        System.out.print("\n");
         printBarGraph(expenseList);
         stop();
     }
@@ -55,6 +56,9 @@ public class ChartThread implements Runnable {
         percentage[3] = 0f;
         percentage[4] = 0f;
 
+        float smallestPercentage = 100f;
+        int smallestPercentageSymbol = 0;
+
         float totalExpensesAmount = 0;
         double[] categoryAmount = new double[5];
 
@@ -67,26 +71,46 @@ public class ChartThread implements Runnable {
             switch (category) {
             case FOOD:
                 percentage[0] += e.getAmount() / totalExpensesAmount;
+                if (percentage[0] < smallestPercentage) {
+                    smallestPercentage = percentage[0];
+                    smallestPercentageSymbol = 0;
+                }
                 categoryAmount[0] += e.getAmount();
                 break;
 
             case BILLS:
                 percentage[1] += e.getAmount() / totalExpensesAmount;
+                if (percentage[1] < smallestPercentage) {
+                    smallestPercentage = percentage[1];
+                    smallestPercentageSymbol = 1;
+                }
                 categoryAmount[1] += e.getAmount();
                 break;
 
             case SHOPPING:
                 percentage[2] += e.getAmount() / totalExpensesAmount;
+                if (percentage[2] < smallestPercentage) {
+                    smallestPercentage = percentage[2];
+                    smallestPercentageSymbol = 2;
+                }
                 categoryAmount[2] += e.getAmount();
                 break;
 
             case TRANSPORT:
                 percentage[3] += e.getAmount() / totalExpensesAmount;
+                if (percentage[3] < smallestPercentage) {
+                    smallestPercentage = percentage[3];
+                    smallestPercentageSymbol = 3;
+                }
                 categoryAmount[3] += e.getAmount();
                 break;
 
             case OTHERS:
                 percentage[4] += e.getAmount() / totalExpensesAmount;
+                if (percentage[4] < smallestPercentage) {
+                    smallestPercentage = percentage[4];
+                    smallestPercentageSymbol = 4;
+                }
                 categoryAmount[4] += e.getAmount();
                 break;
 
@@ -101,8 +125,12 @@ public class ChartThread implements Runnable {
                 for (float x = -radius; x < radius; x++) {
                     if (x * x + y * y < radius * radius) {
                         double angle = Math.atan2(y, x) / Math.PI / 2 + .5f;
-                        character = set(fill, percentage, angle);
-                        System.out.print(character); //Prints circle content
+                        if (angle == 1) {
+                            System.out.print(fill[smallestPercentageSymbol]);
+                        } else {
+                            character = set(fill, percentage, angle);
+                            System.out.print(character); //Prints circle content
+                        }
                     } else {
                         character = ' ';
                         System.out.print(character); //Prints spaces
@@ -124,12 +152,7 @@ public class ChartThread implements Runnable {
      * @return could return a space, a symbol or recursively run function for the next symbol.
      */
     public static char set(char[] fill, float[] percentage, double angle) {
-
-        if (percentage.length == 0) {
-            return ' ';
-        }
-
-        if (angle < percentage[0]) {
+        if (angle <= percentage[0]) {
             return fill[0];
         }
 
@@ -152,24 +175,32 @@ public class ChartThread implements Runnable {
      */
     public static void drawTable(double[] categoryAmount, float[] percentage) {
         String[] category = new String[5];
+        String[] categorySymbols = new String[5];
+
         category[0] = "FOOD";
         category[1] = "BILLS";
         category[2] = "SHOPPING";
         category[3] = "TRANSPORT";
         category[4] = "OTHERS";
 
+        categorySymbols[0] = "%";
+        categorySymbols[1] = "-";
+        categorySymbols[2] = "@";
+        categorySymbols[3] = "*";
+        categorySymbols[4] = ".";
+
         int index = 0;
-        System.out.println("------------------------------------------------------"
+        System.out.println("--------------------------------------------------------"
                 + "------\n"
-                + "|  #  |   Category     |   Expense Amount     |     %     |\n"
-                + "|----------------------------------------------------------");
+                + "|  #  |   Category  |   Expense Amount     |     %   |Symbol|\n"
+                + "|-------------------------------------------------------------");
         for (int i = 0; i < percentage.length; i++) {
             if (percentage[i] != 0) {
-                System.out.printf("| %-4d | %-13s | %-20s |  %-8.2f |\n",
-                        ++index, category[i], categoryAmount[i], percentage[i] * 100);
+                System.out.printf("| %-4d | %-10s | %-20s | %-7.2f |   %s  |\n",
+                        ++index, category[i], categoryAmount[i], percentage[i] * 100, categorySymbols[i]);
             }
         }
-        System.out.println("------------------------------------------------------"
+        System.out.println("--------------------------------------------------------"
                 + "------\n");
     }
 

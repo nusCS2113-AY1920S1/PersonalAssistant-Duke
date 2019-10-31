@@ -16,7 +16,6 @@ import wallet.model.record.LoanList;
 import wallet.model.record.RecordList;
 import wallet.storage.CurrencyStorage;
 
-import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -55,8 +54,8 @@ public class CurrencyCommandTest {
         CurrencyCommand currencyCommand = new CurrencyCommand(currency.getCountry().toLowerCase());
         currencyCommand.execute(testWallet);
 
-        for (int i = 0; i < 1000000; i++) {
-            //Do a slight delay for all expenses to update first...
+        for (int i = 0; i < 1000000000; i++) {
+
         }
 
         assertEquals(String.format("%.2f", 0.66), String.format("%.2f",
