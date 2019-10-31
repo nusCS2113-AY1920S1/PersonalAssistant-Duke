@@ -9,7 +9,9 @@ import duke.model.Model;
 import duke.model.commons.Item;
 import duke.model.inventory.Ingredient;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import static java.util.Objects.requireNonNull;
 
@@ -17,30 +19,38 @@ public class DeleteInventoryCommand extends InventoryCommand {
 
     public static final String COMMAND_WORD = "remove";
 
-    private final Index index;
+    private static final String MESSAGE_INDEX_OUT_OF_BOUND = "Index [%d] is out of bound.";
 
-    public DeleteInventoryCommand(Index index) {
-        requireNonNull(index);
-        this.index = index;
+    private final Set<Index> indices;
+    private ArrayList<Item<Ingredient>> toDeleteList;
+
+    public DeleteInventoryCommand(Set<Index> indices) {
+        requireNonNull(indices);
+        this.indices = indices;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+        toDeleteList = new ArrayList<>();
 
         List<Item<Ingredient>> inventoryList = model.getFilteredInventoryList();
 
-        if (index.getZeroBased() >= inventoryList.size()) {
-            throw new CommandException(Message.MESSAGE_INVALID_INDEX);
+        for (Index index: indices) {
+            if (index.getZeroBased() >= inventoryList.size()) {
+                throw new CommandException(String.format(MESSAGE_INDEX_OUT_OF_BOUND, index.getOneBased()));
+            }
+            toDeleteList.add(inventoryList.get(index.getZeroBased()));
         }
 
-        Item<Ingredient> toDelete = inventoryList.get(index.getZeroBased());
+        for (Item<Ingredient> toDelete : toDeleteList) {
+            model.deleteInventory(toDelete);
+        }
 
-        model.deleteInventory(toDelete);
         model.commit(InventoryMessageUtils.MESSAGE_COMMIT_REMOVE_INVENTORY);
 
         return new CommandResult(String.format(InventoryMessageUtils.MESSAGE_SUCCESS_REMOVE_INVENTORY,
-                toDelete.getItem().getName()),
+                indices.size()),
                 CommandResult.DisplayedPage.INVENTORY);
     }
 }

@@ -11,20 +11,16 @@ import duke.logic.parser.exceptions.ParseException;
 
 import java.util.Set;
 
-import static duke.logic.parser.commons.CliSyntax.PREFIX_SHOPPING_INDEX;
-
 public class BuyShoppingCommandParser implements Parser<BuyShoppingCommand> {
-
-    private static final String EMPTY_STRING = "";
 
     @Override
     public BuyShoppingCommand parse(String args) throws ParseException {
-        ArgumentMultimap map = ArgumentTokenizer.tokenize(args, PREFIX_SHOPPING_INDEX);
+        ArgumentMultimap map = ArgumentTokenizer.tokenize(args);
 
         Set<Index> indices;
 
         try {
-            indices = ParserUtil.getIndices(map.getValue(PREFIX_SHOPPING_INDEX).orElse(EMPTY_STRING));
+            indices = ParserUtil.getIndices(map.getPreamble());
         } catch (ParseException e) {
             throw new ParseException(Message.MESSAGE_INVALID_COMMAND_FORMAT);
         }

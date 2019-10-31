@@ -9,24 +9,29 @@ import duke.logic.parser.commons.Parser;
 import duke.logic.parser.commons.ParserUtil;
 import duke.logic.parser.exceptions.ParseException;
 
-import static duke.logic.parser.commons.CliSyntax.PREFIX_SHOPPING_INDEX;
+import java.util.Set;
 
 public class DeleteShoppingCommandParser implements Parser<DeleteShoppingCommand> {
 
-    private static final String EMPTY_STRING = "";
+    private static final String MESSAGE_EMPTY_INDICES = "Indices cannot be empty.";
+    private static final String MESSAGE_INDEX_OUT_OF_BOUND = "Index 0 is out of bound";
 
     @Override
     public DeleteShoppingCommand parse(String args) throws ParseException {
-        ArgumentMultimap map = ArgumentTokenizer.tokenize(args, PREFIX_SHOPPING_INDEX);
+        ArgumentMultimap map = ArgumentTokenizer.tokenize(args);
 
-        Index index;
+        Set<Index> indices;
 
-        try {
-            index = ParserUtil.parseIndex(map.getValue(PREFIX_SHOPPING_INDEX).orElse(EMPTY_STRING));
-        } catch (ParseException e) {
-            throw new ParseException(Message.MESSAGE_INVALID_COMMAND_FORMAT);
+        if (map.getPreamble().isBlank()) {
+            throw new ParseException(MESSAGE_EMPTY_INDICES);
         }
 
-        return new DeleteShoppingCommand(index);
+        try {
+            indices = ParserUtil.getIndices(map.getPreamble());
+        } catch (IndexOutOfBoundsException e) {
+            throw new ParseException(MESSAGE_INDEX_OUT_OF_BOUND);
+        }
+
+        return new DeleteShoppingCommand(indices);
     }
 }

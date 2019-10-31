@@ -1,6 +1,5 @@
 package duke.logic.command.shopping;
 
-import duke.commons.core.Message;
 import duke.commons.core.index.Index;
 import duke.logic.command.CommandResult;
 import duke.logic.command.exceptions.CommandException;
@@ -9,7 +8,9 @@ import duke.model.Model;
 import duke.model.commons.Item;
 import duke.model.inventory.Ingredient;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import static java.util.Objects.requireNonNull;
 
@@ -17,30 +18,38 @@ public class DeleteShoppingCommand extends ShoppingCommand {
 
     public static final String COMMAND_WORD = "remove";
 
-    private final Index index;
+    private static final String MESSAGE_INDEX_OUT_OF_BOUND = "Index [%d] is out of bound.";
 
-    public DeleteShoppingCommand(Index index) {
-        requireNonNull(index);
-        this.index = index;
+    private final Set<Index> indices;
+    private ArrayList<Item<Ingredient>> toDeleteList;
+
+    public DeleteShoppingCommand(Set<Index> indices) {
+        requireNonNull(indices);
+        this.indices = indices;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+        toDeleteList = new ArrayList<>();
 
         List<Item<Ingredient>> shoppingList = model.getFilteredShoppingList();
 
-        if (index.getZeroBased() >= shoppingList.size()) {
-            throw new CommandException(Message.MESSAGE_INVALID_INDEX);
+        for (Index index: indices) {
+            if (index.getZeroBased() >= shoppingList.size()) {
+                throw new CommandException(String.format(MESSAGE_INDEX_OUT_OF_BOUND, index.getOneBased()));
+            }
+            toDeleteList.add(shoppingList.get(index.getZeroBased()));
         }
 
-        Item<Ingredient> toDelete = shoppingList.get(index.getZeroBased());
+        for (Item<Ingredient> toDelete : toDeleteList) {
+            model.deleteShoppingList(toDelete);
+        }
 
-        model.deleteShoppingList(toDelete);
         model.commit(ShoppingMessageUtils.MESSAGE_COMMIT_REMOVE_SHOPPING);
 
         return new CommandResult(String.format(ShoppingMessageUtils.MESSAGE_SUCCESS_REMOVE_SHOPPING,
-                toDelete.getItem().getName()),
+                indices.size()),
                 CommandResult.DisplayedPage.SHOPPING);
     }
 }
