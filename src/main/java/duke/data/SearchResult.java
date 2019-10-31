@@ -1,10 +1,11 @@
 package duke.data;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class SearchResult extends DukeObject {
 
-    private ArrayList<DukeObject> searchList;
+    private List<? extends DukeObject> searchList;
     private ArrayList<Patient> patientList;
     private ArrayList<Impression> impressionList;
     private ArrayList<Evidence> evidenceList;
@@ -19,7 +20,7 @@ public class SearchResult extends DukeObject {
      * @param name the list of DukeObjects
      * @param searchList the impression object the data is tagged to
      */
-    public SearchResult(String name, ArrayList<DukeObject> searchList, DukeObject parent) {
+    public SearchResult(String name, List<? extends DukeObject> searchList, DukeObject parent) {
         super(name, parent);
         this.searchList = searchList;
         this.patientList = new ArrayList<>();
@@ -29,7 +30,7 @@ public class SearchResult extends DukeObject {
         initList();
     }
 
-    public ArrayList<DukeObject> getSearchList() {
+    public List<? extends DukeObject> getSearchList() {
         return searchList;
     }
 
@@ -59,7 +60,13 @@ public class SearchResult extends DukeObject {
         return "";
     }
 
+    /*
+    public Object parseUserChoice(String inputStr) {
+
+    }*/
+
     private void initList() {
+        // TODO: index
         for (DukeObject object : searchList) {
             if (object instanceof Patient) {
                 patientList.add((Patient) object);
@@ -68,7 +75,6 @@ public class SearchResult extends DukeObject {
             } else if (object instanceof Observation || object instanceof Result) {
                 evidenceList.add((Evidence) object);
             } else if (object instanceof Investigation || object instanceof Medicine || object instanceof Plan) {
-                // TODO: index
                 treatmentList.add((Treatment) object);
             }
         }

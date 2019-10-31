@@ -69,6 +69,14 @@ ArgCommand *-- "1" ArgSpec : < specifies parameters of
 
 class Parser {
     -commands : Commands
+    -uiContext : UiContext
+    -argParser : ArgParser
+    +Parser(UIContext uiContext, Commands commands)   
+    +Parser(UiContext uiContext)   
+    +parse(String inputStr) : Command
+}
+
+class ArgParser {
     -currCommand : ArgCommand 
     -elementBuilder : StringBuilder 
     -state : ParseState 
@@ -76,24 +84,24 @@ class Parser {
     -isEscaped : boolean 
     -switchMap : Map<String, Switch> 
     -switchVals : HashMap<String, String>
-    +Parser(Context context, Commands commands)   
-    +Parser(Context context)   
-    +parse(String inputStr) : Command
-    -parseArgument(String inputStr) : void
+    -parseArgument(ArgCommand command, String inputStr) : void
     -handleEmpty() : void
     -handleArg() : void
-    -handleString() : void
+    -handleCmdArg() : void
     -handleSwitch() : void
     -writeElement() : void
     -addSwitch() : void
-    -checkInputAllowed() : void
+    -checkArgAllowed() : void
+    -checkSwitchAllowed() : void
+    -checkEmptyString() : void
     -checkCommandValid() : void
+    -setCmdArg() : void
 }
 
 class ParseState <<enumeration>> {
     EMPTY
     ARG
-    STRING
+    CMDARG
     SWITCH
 }
 
@@ -101,16 +109,17 @@ class Commands {
     +getCommand(String cmdStr, Context context)
 }
 
-class CommandHelpers {
+class CommandUtils {
     {static} +findSwitch(String word, ArgCommand command) : String
     {static} +disambiguate(String word, ArrayList<String> suggestions,\nSet<String> valid) : String
     {static} -stringDistance(String str1, String str2) : int
 }
 
 Parser o-- "1" Commands : < maps names to commands for
-ParseState <.. Parser
-Switch <.. Parser
-ArgCommand <.. Parser
-CommandHelpers <.. Parser
+Parser *-- "1" ArgParser : < parses arguments for
+ParseState <.. ArgParser
+Switch <.. ArgParser
+ArgCommand <.. ArgParser
+CommandUtils <.. ArgParser
 
 @enduml

@@ -21,8 +21,7 @@ public class HomeDischargeCommand extends ArgCommand {
     @Override
     public void execute(DukeCore core) throws DukeException {
         String bed = getSwitchVal("bed");
-        int index = switchToInt("index");
-        Patient patient = CommandUtils.findPatient(core, bed, index);
+        Patient patient = CommandUtils.findFromHome(core, bed, getArg());
 
         HomeReportCommand.createReport(patient, header, explanation, getSwitchVal("summary"));
         core.patientMap.deletePatient(patient.getBedNo());
