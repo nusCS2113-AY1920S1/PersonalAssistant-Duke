@@ -1,7 +1,9 @@
 package dolla.command;
 
 import dolla.DollaData;
+import dolla.ModeStringList;
 import dolla.task.Limit;
+import dolla.task.LimitList;
 import dolla.ui.LimitUi;
 
 /**
@@ -28,9 +30,17 @@ public class AddLimitCommand extends Command {
     @Override
     public void execute(DollaData dollaData) {
         Limit newLimit = new Limit(type, amount, duration);
-        dollaData.addToRecordList("limit", newLimit);
+        LimitList limitList = (LimitList) dollaData.getRecordList(ModeStringList.MODE_LIMIT);
         //todo: need to add budget and show and deduct money every time there is an expense entry
-        LimitUi.echoAddRecord(newLimit);
+        int existingLimitIndex = limitList.findExistingLimitIndex(dollaData, type, duration);
+        int NON_EXISTING_INDEX = -1;
+        if (existingLimitIndex == NON_EXISTING_INDEX) {
+            dollaData.addToRecordList(ModeStringList.MODE_LIMIT, newLimit);
+            LimitUi.echoAddRecord(newLimit);
+        } else {
+            Limit existingLimit = (Limit) limitList.getFromList(existingLimitIndex);
+            LimitUi.existingLimitPrinter(existingLimit);
+        }
     }
 
     @Override
