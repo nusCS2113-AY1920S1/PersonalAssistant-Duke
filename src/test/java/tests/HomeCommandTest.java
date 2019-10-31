@@ -1,3 +1,5 @@
+package tests;
+
 import duke.command.ArgCommand;
 import duke.command.home.HomeNewCommand;
 import duke.data.Patient;

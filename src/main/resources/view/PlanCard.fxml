@@ -7,7 +7,6 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
-
 <fx:root fx:id="cardView" maxWidth="-Infinity" prefWidth="168.0" style="-fx-border-color:black; -fx-border-width: 1; -fx-border-style: solid;" type="javafx.scene.layout.AnchorPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <Label fx:id="statusLabel" layoutX="52.0" layoutY="125.0" prefHeight="20.0" prefWidth="118.0" text="Status">
