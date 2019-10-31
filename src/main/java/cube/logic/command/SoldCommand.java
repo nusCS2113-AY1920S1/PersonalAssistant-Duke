@@ -2,6 +2,8 @@ package cube.logic.command;
 
 import cube.model.food.FoodList;
 import cube.model.food.Food;
+import cube.model.promotion.Promotion;
+import cube.model.promotion.PromotionList;
 import cube.model.sale.Sale;
 import cube.model.sale.SalesHistory;
 import cube.model.ModelManager;
@@ -9,6 +11,8 @@ import cube.storage.StorageManager;
 import cube.logic.command.exception.CommandException;
 import cube.logic.command.util.CommandResult;
 import cube.logic.command.util.CommandUtil;
+
+import java.util.Calendar;
 import java.util.Date;
 
 public class SoldCommand extends Command{
@@ -16,6 +20,7 @@ public class SoldCommand extends Command{
 	int quantity;
 	Date soldDate;
 	Food toSold;
+	Promotion promotion;
 
 	public static final String MESSAGE_SUCCESS = "%1$d of %2$s have been sold with $%3$f\n"
 		+ "you have earn $%4$f";	
@@ -52,12 +57,28 @@ public class SoldCommand extends Command{
 	public CommandResult execute(ModelManager model, StorageManager storage) throws CommandException {
 		//TODO: check if the user has set price and cost
 		FoodList list = ModelManager.getFoodList();
+		PromotionList promotionList = model.getPromotionList();
 		SalesHistory salesHistory = model.getSalesHistory();
 		obtainFoodSold(list);
 		CommandUtil.requireValidQuantity(toSold, quantity);
-		
+
+		double price;
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(new Date());
+
+		if (promotionList.existsName(foodName)) {
+			promotion = promotionList.get(foodName);
+			if (cal.getTime().before(promotion.getEndDate()) && cal.getTime().after(promotion.getStartDate())) {
+				price = promotion.getPromotionalPrice();
+			} else {
+				price = toSold.getPrice();
+			}
+		} else {
+			price = toSold.getPrice();
+		}
+
 		int originalQty = toSold.getStock();
-		double revenue = quantity * toSold.getPrice();
+		double revenue = quantity * price;
 		toSold.setStock(originalQty - quantity);
 		// old function Food.updateRevenue(Food.getRevenue() + revenue);
 		// new function

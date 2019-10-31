@@ -23,7 +23,8 @@ public class Parser {
 	 * generaterevenue -i index / -n foodName / -t foodType
 	 * delete -i index / -n foodName / -t foodType
 	 * sold -n foodName -q quantity
-	 * reminder
+	 * reminder -d daysToExpiry -s stock
+	 * promotion -n foodName -% discount -s startDate -e endDate
 	 * help
 	 * bye / exit / quit
 	 *
@@ -59,6 +60,8 @@ public class Parser {
 				return new ConfigCommandParser().parse(inputs);
 			case "help":
 				return new HelpCommand();
+			case "promotion":
+				return new PromotionCommandParser().parse(inputs);
 			case "bye":
 			case "exit":
 			case "quit":
