@@ -17,7 +17,6 @@ import javafx.util.Duration;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.net.URL;
 
 /**
  * A one scene chatbot GUI.
@@ -38,7 +37,8 @@ public class MainApp extends Application {
 
     static {
         try {
-            musicController = new MusicController();
+            musicController = MusicController.getMusicController();
+            musicController.playMusic();
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }

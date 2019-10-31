@@ -6,6 +6,7 @@ import com.algosenpai.app.logic.command.ClearCommand;
 import com.algosenpai.app.logic.command.Command;
 import com.algosenpai.app.logic.command.SetupCommand;
 import com.algosenpai.app.logic.command.UndoCommand;
+import com.algosenpai.app.logic.command.QuizTestCommand;
 import com.algosenpai.app.stats.UserStats;
 import com.algosenpai.app.logic.parser.Parser;
 import com.algosenpai.app.ui.controller.AnimationTimerController;
@@ -24,6 +25,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
+
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -65,7 +67,9 @@ public class Ui extends AnchorPane {
     //private String userGender = stats.getGender();
     private int idleMinutesMax = 180;
 
-    private static final String GREETING_MESSAGE = "Welcome to AlgoSenpai Adventures! Type 'hello' to start!";
+    private static final String GREETING_MESSAGE = "Welcome to AlgoSenpai Adventures!"
+                                                   + "Type 'hello' followed by your name and gender"
+                                                   + "(boy or girl) to start!";
     private static final String BOY_PROFILE_PICTURE_PATH = "/images/boyplayer.jpg";
     private static final String GIRL_PROFILE_PICTURE_PATH = "/images/girlplayer.png";
     private static final String DEFAULT_PROFILE_PICTURE_PATH = "/images/unknown.png";
@@ -132,6 +136,9 @@ public class Ui extends AnchorPane {
         } else if (commandGenerated instanceof SetupCommand) {
             setPlayerGender(response);
             playerName.setText(response);
+            printToGui(input, response, userImage, senpaiImage);
+        } else if (commandGenerated instanceof QuizTestCommand) {
+            logic.setUserAnswer(input);
             printToGui(input, response, userImage, senpaiImage);
         } else if (response.startsWith("You got ")) {
             double expGain = ((double) Integer.parseInt(response.substring(8, 9)) / 10) * 5;

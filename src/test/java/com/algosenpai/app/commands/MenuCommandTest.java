@@ -80,22 +80,20 @@ public class MenuCommandTest extends ApplicationTest {
         DialogBox dialogBox = (DialogBox) container.getChildren().get(2);
         String actualText = dialogBox.getDialog().getText();
         Assertions.assertEquals("Senpai will teach you! Try these commands\n"
-                + "MENU\n"
-                + "START\n"
-                + "SELECT\n"
-                + "RESULT\n"
-                + "REPORT\n"
-                + "BACK\n"
-                + "HISTORY\n"
-                + "UNDO\n"
-                + "CLEAR\n"
-                + "RESET\n"
-                + "SAVE\n"
-                + "HELP\n"
-                + "EXIT\n"
-                + "PRINT\n"
-                + "ARCHIVE\n"
-                + "INVALID\n", actualText);
+                + "hello\n"
+                + "help\n"
+                + "select\n"
+                + "result\n"
+                + "history\n"
+                + "undo\n"
+                + "clear\n"
+                + "reset\n"
+                + "save\n"
+                + "exit\n"
+                + "print\n"
+                + "archive\n"
+                + "review\n"
+                + "menu <command>\n", actualText);
     }
 
     <T extends Node> T find() {
