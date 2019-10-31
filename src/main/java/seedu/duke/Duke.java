@@ -13,7 +13,6 @@ import seedu.duke.ui.UI;
  * The main class of the program, which provides the entry point.
  */
 public class Duke {
-    private static UI ui;
     private static Duke duke;
 
     private Duke() {
@@ -36,6 +35,7 @@ public class Duke {
      * Exits the entire program.
      */
     public void exit() {
+        SimpleServer.stopServer();
         Model.getInstance().saveModel();
         PauseTransition delay = new PauseTransition(Duration.seconds(1));
         delay.setOnFinished(event -> Platform.exit());
@@ -46,8 +46,7 @@ public class Duke {
      * Main function of the GUI program.
      */
     private void run() {
-        ui = UI.getInstance();
-        ui.initUi();
+        UI.getInstance().initUi();
         Model.getInstance().initModel();
         Http.startAuthProcess();
     }

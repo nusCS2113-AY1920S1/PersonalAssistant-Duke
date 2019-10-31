@@ -20,6 +20,7 @@ public class EmailShowCommand extends Command {
         responseMsg = parsedMsg[0];
         UI.getInstance().showResponse(parsedMsg[0]);
         UI.getInstance().setEmailContent(parsedMsg[1]);
+        UI.getInstance().updateHtml();
         return true;
     }
 }

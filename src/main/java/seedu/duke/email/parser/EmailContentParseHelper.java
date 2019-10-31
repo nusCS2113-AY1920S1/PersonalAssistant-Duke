@@ -85,11 +85,14 @@ public class EmailContentParseHelper {
         int occurrence = 0;
         for (int i = 0; i < keywordPair.getExpressions().size(); i++) {
             String expression = keywordPair.getExpressions().get(i);
-            Pattern expressionPattern = Pattern.compile("(^|.*\\W)" + expression + "(\\W.*|$)",
+            String processedInput = input;
+            Pattern expressionPattern = Pattern.compile("(^|\\W)" + expression + "(\\W|$)",
                     Pattern.CASE_INSENSITIVE);
-            Matcher expressionMatcher = expressionPattern.matcher(input);
+            Matcher expressionMatcher = expressionPattern.matcher(processedInput);
             while (expressionMatcher.find()) {
                 occurrence++;
+                processedInput = expressionMatcher.replaceFirst(" ");
+                expressionMatcher = expressionPattern.matcher(processedInput);
             }
         }
         return occurrence;
@@ -104,7 +107,7 @@ public class EmailContentParseHelper {
                 return EmailKeywordPairStorage.readKeywordPairList();
             } catch (IOException | JSONException e) {
                 e.printStackTrace();
-                UI.getInstance().showDebug("Keyword list file reading with error. Default used...");
+                UI.getInstance().showDebug("Keyword list file is empty or in wrong format. Default used...");
             }
         }
         EmailKeywordPairList keywordList = getDefaultKeywordPairList();

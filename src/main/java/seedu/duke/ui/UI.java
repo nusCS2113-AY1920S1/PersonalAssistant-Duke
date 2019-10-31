@@ -76,7 +76,6 @@ public class UI {
         try {
             setInput(input);
             Command command = CommandParseHelper.parseCommand(input);
-            //setCommand(command.toString());
             command.execute(Model.getInstance());
         } catch (Exception e) {
             e.printStackTrace();
@@ -131,7 +130,7 @@ public class UI {
         if (debug) {
             System.out.println(debugMsg);
         }
-        showGui(debugMsg);
+        //showGui(debugMsg);
     }
 
     public String getEmailContent() {
@@ -161,6 +160,13 @@ public class UI {
      */
     public void updateTaskList(ArrayList<String> taskStringList) {
         mainWindow.updateTasksList(taskStringList);
+    }
+
+    /**
+     * Updates email content shown on gui.
+     */
+    public void updateHtml() {
+        mainWindow.updateHtml();
     }
 
     /**
@@ -194,6 +200,8 @@ public class UI {
             return;
         }
         mainWindow.showGuiMessage(msg, input, command);
+        input = "";
+        command = "";
     }
 
     /**

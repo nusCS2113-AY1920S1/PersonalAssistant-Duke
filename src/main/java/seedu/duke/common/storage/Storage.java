@@ -90,5 +90,4 @@ public interface Storage {
     static Path prepareEmailPath(String filename) {
         return Path.of(".", "data", "emails", filename);
     }
-
 }

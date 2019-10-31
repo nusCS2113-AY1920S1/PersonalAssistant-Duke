@@ -8,7 +8,6 @@ import seedu.duke.ui.UI;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.InetSocketAddress;
-import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -49,9 +48,11 @@ public class SimpleServer {
     }
 
     public static void stopServer() {
-        System.out.println("server stopping...");
-        server.stop(1);
-        httpThreadPool.shutdown();
+        if (server != null) {
+            System.out.println("server stopping...");
+            server.stop(1);
+            httpThreadPool.shutdown();
+        }
     }
 
     public static int getPort() {
