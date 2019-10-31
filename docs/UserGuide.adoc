@@ -216,7 +216,7 @@ e.g. `search w/life`
 e.g. `tag w/happy t/emotion t/delight`
 * *History* : `history {int}` +
 e.g. `history 5`
-* *Schedule* : `schedule` -> `WORD ... [Enter blank line]` -> `DATE TIME`
+* *Schedule* : `schedule` -> `WORD ... [Enter blank line]` -> `DATE TIME` +
 e.g. `schedule` -> `happy [Enter] unhappy [Enter] bipolar [Enter][Enter]` -> `29-10-2019 2359`
 * *Quiz* : `quiz` -> `start`
 * *List* : `list`
