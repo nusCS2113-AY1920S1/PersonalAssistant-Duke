@@ -93,10 +93,10 @@ public class OrderList extends GenericList<Order> {
      * Returns a list of all the {@link Order}s containing some dishes in the {@link OrderList}.
      * @return  {@link ArrayList} of {@link Order}
      */
-    public List<Order> findOrderByDishes(Dish dish) {
+    public List<Order> findOrderByDishes(String dishName) {
         List<Order> theOrderList = null;
         for (Order order : genList) {
-            if (order.hasDishes(dish)) { theOrderList.add(order); }
+            if (order.hasDishes(dishName)) { theOrderList.add(order); }
         }
         return theOrderList;
     }
@@ -122,7 +122,7 @@ public class OrderList extends GenericList<Order> {
      * @param newDate reset date of the {@link Order}.
      * @throws DukeException if the date is before the date today.
      */
-    public void changeOrderDate(int orderNb, String newDate) throws DukeException {
+    public void changeOrderDate(int orderNb, Date newDate) throws DukeException {
         genList.get(orderNb).setDate(newDate);
     }
 
@@ -130,30 +130,30 @@ public class OrderList extends GenericList<Order> {
      * Add dishes to the {@link Order}.
      * Add one more if not specifying the amount.
      * @param orderNb order index
-     * @param dish dishes
+     * @param dishName dishes
      */
-    public void addOrderDish(int orderNb, Dish dish) {
-        genList.get(orderNb).addDish(dish);
+    public void addOrderDish(int orderNb, String dishName) {
+        genList.get(orderNb).addDish(dishName);
     }
 
     /**
      * Add dishes to the {@link Order}.
      * @param orderNb order index
-     * @param dish dishes
+     * @param dishName dishes
      * @param amount add amount of that dishes
      */
-    public void addOrderDish(int orderNb, Dish dish, int amount) {
-        genList.get(orderNb).addDish(dish, amount);
+    public void addOrderDish(int orderNb, String dishName, int amount) {
+        genList.get(orderNb).addDish(dishName, amount);
     }
 
     /**
      * Find dishes amount in the {@link Order}.
      * @param orderNb order index
-     * @param dishes dishes
+     * @param dishName dishes
      * @return the amount of that dishes
      */
-    public int findDishesAmount(int orderNb, Dish dishes) {
-        return genList.get(orderNb).getDishesAmount(dishes);
+    public int findDishesAmount(int orderNb, String dishName) {
+        return genList.get(orderNb).getDishesAmount(dishName);
     }
 
 
