@@ -84,4 +84,11 @@ public class Member {
         this.phone = phone;
     }
 
+    //@@ JasonChanWQ
+    @Override
+    public boolean equals(Object obj) {
+        return this == obj // if this == obj return true
+                || (obj instanceof Member && name.equals(((Member) obj).name));
+    }
 }
+

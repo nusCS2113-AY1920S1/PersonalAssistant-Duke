@@ -35,7 +35,7 @@ public class EditTaskParser {
 
         switch (editType) {
         case TIME:
-            return EditTaskTimeParser.parseEditTaskTime(arguments);
+            return EditTaskDateTimeParser.parseEditTaskDateTime(arguments);
         case DES:
             return EditTaskDesParser.parseEditTaskDes(arguments);
         default:
