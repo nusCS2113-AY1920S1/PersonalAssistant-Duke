@@ -1,11 +1,7 @@
 package models.task;
 
-import models.member.ListOfMembersAssignedToTask;
-import models.member.Member;
-
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
 
 public interface ITask {
     String getTaskName();
@@ -19,14 +15,6 @@ public interface ITask {
     TaskState getTaskState();
 
     int getTaskCredit();
-
-    ListOfMembersAssignedToTask getAssignedMembers();
-
-    HashSet<Integer> getAssignedIndexes();
-
-    void assignMember(Member member);
-
-    void removeMember(Member memberToRemove);
 
     ArrayList<String> getTaskRequirements();
 
