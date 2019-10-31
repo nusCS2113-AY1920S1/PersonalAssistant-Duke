@@ -278,6 +278,8 @@ Examples:
 view input commands entered by the user from the start till the present +
 Format: `history`
 
+image::history.png[]
+
 === View previous input commands within a certain period: `view history`
 
 view input commands entered by the user from a start date to an end date, provided in the input +
@@ -290,7 +292,13 @@ to view the history of a specific date rather than a period: DATE_1 = DATE_2
 
 Examples:
 
-* `view history h/24-10-2019 to 26-10-2019`
+* `view history h/24-10-2019 to 25-10-2019`
+
+image::view_history2.png[]
+
+* `view history h/25-10-2019 to 25-10-2019`
+
+image::view_history.png[]
 
 === Exit command: `bye`
 
