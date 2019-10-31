@@ -13,10 +13,7 @@ import Events.Storage.*;
 import UserElements.ConcertBudgeting.CostExceedsBudgetException;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.LinkedList;
-import java.util.Queue;
+import java.util.*;
 
 
 /**
@@ -134,7 +131,9 @@ public class Command {
                 break;
 
             case "calendar":
-                printCalendar(events, ui);
+                EventDate today = new EventDate(new Date());
+                printCalendar(events, ui, today);
+                changesMade = false;
                 break;
 
             case "budget":
@@ -212,8 +211,8 @@ public class Command {
         }
     }
 
-    private void printCalendar(EventList events, UI ui) {
-        CalendarView calendarView = new CalendarView(events);
+    private void printCalendar(EventList events, UI ui, EventDate today) {
+        CalendarView calendarView = new CalendarView(events, today);
         calendarView.setCalendarInfo();
         ui.printCalendar(calendarView.getStringForOutput());
     }

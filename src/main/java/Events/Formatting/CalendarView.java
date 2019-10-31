@@ -1,3 +1,4 @@
+//@@author ZhangYihanNus
 package Events.Formatting;
 
 import Events.EventTypes.Event;
@@ -13,14 +14,15 @@ public class CalendarView {
     private String stringForOutput;
     static final int MONDAY = 0, TUESDAY = 1, WEDNESDAY = 2, THURSDAY = 3, FRIDAY = 4, SATURDAY = 6, SUNDAY = 7;
 
-    public CalendarView(EventList eventList) {
+    public CalendarView(EventList eventList, EventDate eventDate) {
         ArrayList<Event> eventArrayList = eventList.getEventArrayList();
         for (int i = 0; i < 7; i++) {
             eventsOfTheWeek.add(new LinkedList<>());
         }
-        EventDate today = new EventDate(new Date());
-        setDaysAndDatesList(today);
-        getEventsOfTheWeek(eventArrayList, today);
+//        EventDate today = new EventDate(new Date());
+        EventDate startDate = eventDate;
+        setDaysAndDatesList(startDate);
+        getEventsOfTheWeek(eventArrayList, startDate);
     }
 
     public String getStringForOutput() {
@@ -31,14 +33,14 @@ public class CalendarView {
      * Find all the events in the coming 7 days.
      *
      * @param eventArrayList List of all events.
-     * @param today          The current day.
+     * @param startDay          The current day.
      */
-    private void getEventsOfTheWeek(ArrayList<Event> eventArrayList, EventDate today) {
-        EventDate yesterday = new EventDate(new Date());
+    private void getEventsOfTheWeek(ArrayList<Event> eventArrayList, EventDate startDay) {
+        EventDate yesterday = startDay;
         yesterday.addDaysAndSetMidnight(-1);
-        EventDate endOfWeek = new EventDate(new Date());
+        EventDate endOfWeek = startDay;
         endOfWeek.addDaysAndSetMidnight(6);
-        EventDate thisDay = new EventDate(new Date());
+        EventDate thisDay = startDay;
         int thisDayNum = 0;
         thisDay.addDaysAndSetMidnight(thisDayNum);
 
@@ -61,10 +63,10 @@ public class CalendarView {
     /**
      * Sets the two ArrayLists containing days and dates info for the coming 7 days.
      *
-     * @param today The current day.
+     * @param startDate The current day.
      */
-    private void setDaysAndDatesList(EventDate today) {
-        String currDay = today.getEventJavaDate().toString().split(" ")[0];
+    private void setDaysAndDatesList(EventDate startDate) {
+        String currDay = startDate.getEventJavaDate().toString().split(" ")[0];
         String[] weekdays = new String[] {"    <Monday>    ", "   <Tuesday>    ", "   <Wednesday>  ",
                 "   <Thursday>   ", "    <Friday>    ", "   <Saturday>   ", "    <Sunday>    "};
 
@@ -103,7 +105,7 @@ public class CalendarView {
             this.daysToDisplay.add(weekdays[(startDay + i) % 7]);
         }
 
-        EventDate tempDay = today;
+        EventDate tempDay = startDate;
         for (int i = 0; i < 7; i++) {
             tempDay.addDaysAndSetMidnight(i);
             String thisDate = tempDay.getUserInputDateString().split(" ")[0];
