@@ -34,7 +34,7 @@ public class GraphTotalCommand extends Command {
             throw new MooMooException("OOPS!!! MooMoo cannot find any category data :(");
         }
         
-        double grandTotal = catList.getGrandMonthTotal(1, 2019);
+        double grandTotal = catList.getTotal(1, 2019);
         int maxAxisUnit = (int) ((catList.getLargestExpenditure(1) / grandTotal) * 100) + 1;
         for (int i = 0; i < maxAxisUnit; i += 1) {
             horizontalAxisTop += topBorder;

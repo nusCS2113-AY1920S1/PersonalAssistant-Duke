@@ -43,7 +43,7 @@ public class CategoryListStub extends CategoryList {
     }
 
     @Override
-    public double getGrandMonthTotal(int month, int year) {
+    public double getTotal(int month, int year) {
         double total = 0;
         for (Category category : newArrayList) {
             total += category.getTotal(month, year);

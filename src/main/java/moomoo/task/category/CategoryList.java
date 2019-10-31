@@ -67,12 +67,16 @@ public class CategoryList {
      *
      * @return total The total sum
      */
-    public double getGrandMonthTotal(int month, int year) {
+    public double getTotal(int month, int year) {
         double total = 0;
         for (Category category : categoryList) {
             total += category.getTotal(month);
         }
         return total;
+    }
+
+    public double getCategoryTotal(int month, int year) {
+        return 1;
     }
     
     /**
@@ -88,20 +92,6 @@ public class CategoryList {
             }
         }
         return expenditure;
-    }
-    
-    /**
-     * Prints the current list of categories.
-     * @param ui MooMoo's ui
-     */
-    public void list(Ui ui) {
-        String categoryList = "";
-        for (int i = 0; i < this.categoryList.size(); i++) {
-            categoryList = categoryList.concat("\n" + i + ". "
-                    + this.categoryList.get(i).toString()
-                    + " [ $" + this.categoryList.get(i).getTotal() + " ]");
-        }
-        ui.showCategoryList(categoryList);
     }
     
     /**
@@ -125,23 +115,17 @@ public class CategoryList {
     }
 
     /**
-     * Populate the categoryList array with dummy variables. FOR TESTING PURPOSES.
+     * Prints the current list of categories.
+     * @param ui MooMoo's ui
      */
-    public void testPopulate() {
-        ArrayList<String> population = new ArrayList<>();
-        population.add("Drugs");
-        population.add("Food");
-        population.add("Transportation");
-        population.add("Individualistically");
-        population.add("Compartmentalisation");
-        for (int i = 0; i < 5; i += 1) {
-            Category newCategory = new Category(population.get(i));
-            categoryList.add(newCategory);
+    public void list(Ui ui) {
+        String categoryList = "";
+        for (int i = 0; i < this.categoryList.size(); i++) {
+            categoryList = categoryList.concat("\n" + i + ". "
+                    + this.categoryList.get(i).toString()
+                    + " [ $" + this.categoryList.get(i).getTotal() + " ]");
         }
-        Category gameCategory = new Category("Games");
-        gameCategory.testPopulate();
-        categoryList.add(gameCategory);
-        
+        ui.showCategoryList(categoryList);
     }
 
     /**
@@ -183,5 +167,25 @@ public class CategoryList {
         for (Category category : categoryList) {
             category.sort("date");
         }
+    }
+
+    /**
+     * Populate the categoryList array with dummy variables. FOR TESTING PURPOSES.
+     */
+    public void testPopulate() {
+        ArrayList<String> population = new ArrayList<>();
+        population.add("Drugs");
+        population.add("Food");
+        population.add("Transportation");
+        population.add("Individualistically");
+        population.add("Compartmentalisation");
+        for (int i = 0; i < 5; i += 1) {
+            Category newCategory = new Category(population.get(i));
+            categoryList.add(newCategory);
+        }
+        Category gameCategory = new Category("Games");
+        gameCategory.testPopulate();
+        categoryList.add(gameCategory);
+        
     }
 }

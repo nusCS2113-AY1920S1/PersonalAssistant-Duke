@@ -24,7 +24,7 @@ public class DeleteCategoryCommand extends Command {
             categoryList.delete(input);
             ui.showRemovedCategoryMessage(input);
         } catch (IndexOutOfBoundsException e) {
-            throw new MooMooException("Please enter a valid category number.");
+            throw new MooMooException("Please enter a valid category name.");
         }
     }
 }
