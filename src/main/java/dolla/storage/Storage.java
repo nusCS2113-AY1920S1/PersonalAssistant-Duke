@@ -11,17 +11,13 @@ import java.util.ArrayList;
  * duke.Storage handles the saving and loading of data from ./data/duke.txt,
  * as well as creating a new save file if it does not exist.
  */
-public class Storage {
+public class Storage implements StorageStringList {
 
     protected static ArrayList<Record> entries = new ArrayList<Record>();
     protected static ArrayList<Record> limits = new ArrayList<Record>();
     protected static ArrayList<Record> debts = new ArrayList<Record>();
     protected static ArrayList<Record> shortcuts = new ArrayList<Record>();
     protected static ArrayList<Record> storage = new ArrayList<Record>();
-
-    protected static final String PATH = "./data/dolla.txt";
-    protected static final String DATA = "data";
-    protected static final String DELIMITER = "\\|";
 
     protected static double stringToDouble(String str) {
         double newDouble = 0.0;

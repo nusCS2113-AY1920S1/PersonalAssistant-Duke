@@ -1,5 +1,6 @@
 package dolla.storage;
 
+import dolla.ModeStringList;
 import dolla.Time;
 import dolla.parser.MainParser;
 import dolla.task.Debt;
@@ -43,9 +44,9 @@ public class StorageRead extends Storage {
                 String type = inArray[0];
                 Record newRecord = null;
                 switch (type) {
-                case "I": //check if there is a tag
+                case INCOME_TYPE: //check if there is a tag
                     if (numOfElements == 4) {
-                        newRecord = new Entry("income", stringToDouble(inArray[1]), inArray[2],
+                        newRecord = new Entry(INCOME, stringToDouble(inArray[1]), inArray[2],
                                 Time.readDate(inArray[3])); //income [AMOUNT] [DESCRIPTION] /on [DATE]
                     }
                     /*
@@ -55,9 +56,9 @@ public class StorageRead extends Storage {
                     }
                      */
                     break;
-                case "E": //check if there is a tag
+                case EXPENSE_TYPE: //check if there is a tag
                     if (numOfElements == 4) {
-                        newRecord = new Entry("expense", stringToDouble(inArray[1]), inArray[2],
+                        newRecord = new Entry(EXPENSE, stringToDouble(inArray[1]), inArray[2],
                                 Time.readDate(inArray[3])); //expense [AMOUNT] [DESCRIPTION] /on [DATE]
                     }
                     break;
@@ -86,9 +87,9 @@ public class StorageRead extends Storage {
                 }
                 break;
                 */
-                case "BU": //must include 3 additional word, every,for and tag
+                case BUDGET_TYPE: //must include 3 additional word, every,for and tag
                     //if (inArray[3].equals("every")) {
-                    newRecord = new Limit("budget",stringToDouble(inArray[1]), inArray[2]);
+                    newRecord = new Limit(BUDGET,stringToDouble(inArray[1]), inArray[2]);
                     /*
                     }
                     else if (inArray[3].equals("for")) {
@@ -98,35 +99,35 @@ public class StorageRead extends Storage {
                     }
                      */
                     break;
-                case "S":
-                    newRecord = new Limit("saving", stringToDouble(inArray[1]), inArray[2]);
+                case SAVING_TYPE:
+                    newRecord = new Limit(SAVING, stringToDouble(inArray[1]), inArray[2]);
                     break;
-                case "O":
-                    newRecord = new Debt("owe", inArray[1], stringToDouble(inArray[2]), inArray[3],
+                case OWE_TYPE:
+                    newRecord = new Debt(OWE, inArray[1], stringToDouble(inArray[2]), inArray[3],
                             Time.readDate(inArray[4]));
                     break;
-                case"B":
-                    newRecord = new Debt("borrow", inArray[1], stringToDouble(inArray[2]), inArray[3],
+                case BORROW_TYPE:
+                    newRecord = new Debt(BORROW, inArray[1], stringToDouble(inArray[2]), inArray[3],
                             Time.readDate(inArray[4]));
                     break;
-                //case"shortcut": //special case for shortcut,only one string
+                //case SHORTCUT: //special case for shortcut,only one string
                 //newRecord = new shortcut(inArray[1]);
                 //break;
                 default:
                     StorageUi.printErrorReadingSaveMessage();
                 }
 
-                if (type.equals("I") || type.equals(("E")) || type.equals("RI") || type.equals("RE")) {
+                if (type.equals(INCOME_TYPE) || type.equals((EXPENSE_TYPE)) || type.equals("RI") || type.equals("RE")) {
                     entries.add(newRecord);
-                } else if (type.equals("BU") || type.equals("S")) {
+                } else if (type.equals(BUDGET_TYPE) || type.equals(SAVING_TYPE)) {
                     limits.add(newRecord);
-                } else if (type.equals("O") || type.equals("B")) {
+                } else if (type.equals(OWE_TYPE) || type.equals(BUDGET_TYPE)) {
                     debts.add(newRecord);
-                } else if (type.equals("shortcut")) {
+                } else if (type.equals(SHORTCUT)) {
                     shortcuts.add(newRecord);
                 }
-                StorageWrite.save();
             }
+            StorageWrite.save();
 
         } catch (FileNotFoundException e) {
             StorageUi.printCreateFolderMessage();

@@ -1,6 +1,7 @@
 package dolla.storage;
 
 import dolla.task.Record;
+import dolla.ui.StorageUi;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -48,7 +49,7 @@ public class StorageWrite extends Storage {
      * This method will save all the ArrayList into an external text file.
      */
     protected static void save() {
-        try (FileWriter file = new FileWriter("./data/dolla.txt")) {
+        try (FileWriter file = new FileWriter(PATH)) {
             storage.addAll(entries);
             storage.addAll(debts);
             storage.addAll(limits);
@@ -62,7 +63,7 @@ public class StorageWrite extends Storage {
             storage.clear();
 
         } catch (IOException e) {
-            System.out.println("***Error writing to dolla.txt***");
+            StorageUi.printErrorWritingSaveMessage();
         }
     }
 }
