@@ -1,3 +1,5 @@
+import org.gradle.api.tasks.testing.logging.TestLogEvent
+
 plugins {
     id 'java'
     id 'application'
@@ -52,6 +54,40 @@ test {
     useJUnitPlatform()
 }
 
+task coverage(type: JacocoReport) {
+    sourceDirectories.from files(sourceSets.main.allSource.srcDirs)
+    classDirectories.from files(sourceSets.main.output)
+    executionData.from files(jacocoTestReport.executionData)
+    afterEvaluate {
+        classDirectories.from files(classDirectories.files.collect {
+            fileTree(dir: it, exclude: ['**/*.jar'])
+        })
+    }
+    reports {
+        html.enabled = true
+        xml.enabled = true
+    }
+}
+
+
+test {
+    testLogging {
+        events TestLogEvent.FAILED, TestLogEvent.SKIPPED
+
+        // Prints the currently running test's name in the CI's build log,
+        // so that we can check if tests are being silently skipped or
+        // stalling the build.
+        if (System.env.'CI') {
+            events << TestLogEvent.STARTED
+        }
+    }
+
+    jacoco {
+        destinationFile = new File("${buildDir}/jacoco/test.exec")
+    }
+}
+
+
 jacocoTestReport {
     reports {
         xml.enabled = true
@@ -60,7 +96,8 @@ jacocoTestReport {
 }
 
 coveralls {
-    jacocoReportPath 'build/reports/jacoco/jacocoTestReport/jacocoTestReport.xml'
+    sourceDirs = sourceSets.main.allSource.srcDirs.absolutePath
+    jacocoReportPath = "${buildDir}/reports/jacoco/jacocoRootReport/jacocoRootReport.xml"
 }
 
 

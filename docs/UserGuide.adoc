@@ -270,7 +270,7 @@ There is no need to save manually.
 [[Errors]]
 == Errors
 *Error Handling*
-* When you input commands or parameters in a way that the program does not understand, errors will be thrown, which let you know what is wrong.
+When you input commands or parameters in a way in which the program does not understand, errors will be thrown, informing the user what was causing the error.
 
 [TIP]
 If you follow what the errors tell you to fix in your command, you can get the program to work as intended!
