@@ -183,34 +183,52 @@ image::delete/deleteRoom2.jpeg[width="500", align="left"]
 
 === Item/Room Status
 
-==== Loan out item/book room: `lend`
-Registers an item / room as having been lent out, and is unavailable for further loaning until it is returned.
+// ==== Loan out item/book room: `lend`
+// Registers an item / room as having been lent out, and is unavailable for further loaning until it is returned.
 
-.*Format*:
-. `lend /item ITEM /qty QUANTITY /by DEADLINE`
-. `lend /room ROOM /by DEADLINE`
-* If the item or room does not exist in RIMS, then the UI will send a message to inform the user.
-* Quantity must be a positive integer.
-* Quantity must be less than the total number of items available in RIMS, else it will be reduced to zero.
+// .*Format*:
+// . `lend /item ITEM /qty QUANTITY /by DEADLINE`
+// . `lend /room ROOM /by DEADLINE`
+// * If the item or room does not exist in RIMS, then the UI will send a message to inform the user.
+// * Quantity must be a positive integer.
+// * Quantity must be less than the total number of items available in RIMS, else it will be reduced to zero.
 
-.*Examples*:
-* `delete /item book /qty 5`
-* `delete /room multi purpose sports hall`
+// .*Examples*:
+// * `delete /item book /qty 5`
+// * `delete /room multi purpose sports hall`
 
 ==== Return an item / room: `return`
 Registers an item / room as having been returned, and is thus available to be loaned again.
 
 .*Format*:
-. `return /item ITEM /qty QUANTITY`
-. `return /room ROOM`
-* Quantity must be a positive integer.
-* Rooms are unique and thus do not require quantities.
-* If the user attempts to return a room / a quantity of items that have not been borrowed, the UI will send an error message to the user.
+To register a resource as having been loaned out:
 
+. Enter `return` into the console, then press kbd:[Enter] to execute the command.
++
+====
+RIMS will prompt for the type of resource that the user wants to loan out. +
 
-.*Examples*:
-* `return /item frisbee /qty 3`
-* `return /room seminar room 1`
+image::return/return1.jpeg[width="500", align="left"]
+====
++
+. Enter a unique user ID in intger `item` and press kbd:[Enter] to execute the command, this will display all reservations made by this user.
++
+====
+RIMS will display for all reservations under this user ID, and prompt you to choose one, or multiple reservations to remove.
+
+image::return/return2.jpeg[width="500", align="left"]
+====
++
++
+. Enter one single reservation ID, or multiple reservation IDs separated by space and press kbd:[Enter] to select the reservations, this removes all selected reservations. 
++
+====
+RIMS will remove for all selected reservations selected.
+
+image::return/return3.jpeg[width="500", align="left"]
+====
++
+
 
 ////
 
