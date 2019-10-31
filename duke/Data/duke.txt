@@ -1,0 +1,16 @@
+{
+  "31/10/2019": [
+    {
+      "description": "burger",
+      "type": "L",
+      "isDone": false,
+      "date": "31/10/2019",
+      "nutritionValue": {
+        "sodium": 20,
+        "fats": 20,
+        "calorie": 400
+      },
+      "cost": "0"
+    }
+  ]
+}

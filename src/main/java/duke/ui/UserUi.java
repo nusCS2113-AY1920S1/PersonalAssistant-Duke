@@ -50,12 +50,6 @@ public class UserUi {
         System.out.println(boundary);
     }
 
-    public void showMaintain() {
-        System.out.println(boundary);
-        System.out.println("     Would you like to lose weight?(Y/N)");
-        System.out.println(boundary);
-    }
-
     public void showWelcome() {
         System.out.println(boundary);
         System.out.println(padding + "Hello! I'm DIYeats");

@@ -34,7 +34,7 @@ public class Write {
 
     public void writeGoal(User user) throws DukeException {
         Goal goal = user.getGoal();
-        String toWriteStr = goal.toString();
+        String toWriteStr = gson.toJson(goal);
         FileUtil.writeFile(toWriteStr, filePaths.getFilePathStr(FilePaths.FilePathNames.FILE_PATH_GOAL_FILE));
     }
 

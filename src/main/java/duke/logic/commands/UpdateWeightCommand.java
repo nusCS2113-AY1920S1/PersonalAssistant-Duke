@@ -76,7 +76,7 @@ public class UpdateWeightCommand extends Command {
             ui.showLine();
         }
         try {
-            storage.saveUser(user);
+            storage.updateUser(user);
         } catch (DukeException e) {
             ui.showMessage(e.getMessage());
         }
@@ -96,7 +96,7 @@ public class UpdateWeightCommand extends Command {
         }
         isDone = true;
         try {
-            storage.saveUser(user);
+            storage.updateUser(user);
         } catch (DukeException e) {
             ui.showMessage(e.getMessage());
         }

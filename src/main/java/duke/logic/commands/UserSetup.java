@@ -77,9 +77,11 @@ public class UserSetup {
             }
             setActivity(activity);
         }
-        isDone = true;
-        ui.showUserSetupDone(user);
-        ui.showWelcome();
+        if (user.valid()){
+            isDone = true;
+            ui.showUserSetupDone(user);
+            ui.showWelcome();
+        }
     }
 
     public void setName(String name) {
@@ -109,7 +111,6 @@ public class UserSetup {
 
     public void setActivity(int level) {
         user.setActivityLevel(level);
-        ui.showMaintain();
     }
 
     public User getUser() {

@@ -73,6 +73,11 @@ public class Main {
             setup.initialise(info);
         }
         user = setup.getUser();
+        try {
+            storage.updateUser(user);
+        } catch (DukeException e){
+            ui.showMessage(e.getMessage());
+        }
         boolean isExit = false;
         Parser userParser = new Parser(autocorrect);
         while (!isExit) {

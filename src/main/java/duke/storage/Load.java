@@ -6,6 +6,7 @@ import com.google.gson.reflect.TypeToken;
 import duke.commons.exceptions.DukeException;
 import duke.commons.file.FilePaths;
 import duke.logic.autocorrect.Autocorrect;
+import duke.model.Goal;
 import duke.model.meal.Meal;
 import duke.model.meal.MealList;
 import duke.model.user.User;
@@ -78,11 +79,14 @@ public class Load {
 
     public void loadGoals(User user) throws DukeException {
         String goalFilePathStr = filePaths.getFilePathStr(FilePathNames.FILE_PATH_GOAL_FILE);
+        Type goalType = new TypeToken<Goal>(){}.getType();
         bufferedReader = FileUtil.readFile(goalFilePathStr, useResourceAsBackup);
         try {
-            lineStr = bufferedReader.readLine();
-            LoadLineParser.parseGoal(user, lineStr);
-        } catch (IOException e) {
+            Goal goal = gson.fromJson(bufferedReader, goalType);
+            if (goal != null) {
+                user.setGoal(goal, true);
+            }
+        } catch (Exception e) {
             throw new DukeException("Error reading file");
         }
     }
@@ -105,19 +109,21 @@ public class Load {
 
     public User loadUser() throws DukeException {
         String userFileStr = filePaths.getFilePathStr(FilePathNames.FILE_PATH_USER_FILE);
-        User tempUser;
+        User data;
+        Type userType = new TypeToken<User>() {
+        }.getType();
         bufferedReader = FileUtil.readFile(userFileStr, useResourceAsBackup);
         try {
-            lineStr = bufferedReader.readLine();
-            tempUser = LoadLineParser.parseUser(lineStr);
-            while ((lineStr = bufferedReader.readLine()) != null) {
-                String[] splitWeightInfo = lineStr.split("\\|");
-                tempUser.setWeight(Integer.parseInt(splitWeightInfo[1]), splitWeightInfo[0]);
-            }
+            data = gson.fromJson(bufferedReader, userType);
             bufferedReader.close();
-            return tempUser;
+            if (data != null) {
+                return data;
+            } else {
+                return new User();
+            }
         } catch (Exception e) {
-            throw new DukeException(e.getMessage());
+            throw new DukeException("It appears the savefile has been corrupted. " +
+                    "Default meal values will not be loaded.");
         }
     }
 

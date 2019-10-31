@@ -13,10 +13,16 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 
+import static duke.commons.constants.DateConstants.DATE_FORMAT;
+
 /**
  * This is a class that will store user information to be used for processing.
  */
 public class User {
+    private transient String lastDate = DATE_FORMAT.format(Calendar.getInstance().getTime());
+    private transient Goal goal = null;
+    private transient Account account;
+
     private HashMap<String, Double> weight = new HashMap();
     private int height = 0;
     private int age = 0;
@@ -25,9 +31,6 @@ public class User {
     private String name = null;
     private int activityLevel = 5;
     private double[] factor = {1.2, 1.375, 1.55, 1.725, 1.9};
-    private Account account;
-    private Goal goal = null;
-    private String lastDate;
     private double originalWeight = 0;
 
     /**
@@ -57,6 +60,17 @@ public class User {
         this.activityLevel = activityLevel;
         this.originalWeight = originalWeight;
         this.lastDate = lastDate;
+    }
+
+    public boolean valid() {
+        if (name != null && age != 0 && getAllWeight().size() != 0
+                && height != 0 && gender != null && activityLevel != 5) {
+            isSetup = true;
+            return true;
+        } else {
+            isSetup = false;
+            return false;
+        }
     }
 
     /**
