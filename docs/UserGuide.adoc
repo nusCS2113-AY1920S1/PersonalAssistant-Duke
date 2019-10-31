@@ -12,9 +12,9 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3
+:repoURL: https://github.com/AY1920S1-CS2113-T14-3/main/releases
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team T14-3`      Since: `August 2019`      Licence: `MIT`
 
 == Introduction
 
@@ -34,7 +34,7 @@ WordUp (WU) is a desktop-based application for english language learners who pre
 * **`delete`**`freedom` : deletes the Word Bank entry of the word “freedom”
 * *`exit`* : exits the application
 
-.  Refer to <<Features>> for details of each command.
+.  Refer to <<Features>> for in-depth details for more commands.
 
 [[Features]]
 == Features
@@ -91,7 +91,8 @@ Edits the word 'drink' and updates the meaning to "liquid for consumption".
 
 === Searching for the meaning of words: `search`
 
-Search for the meaning of words that is present in the dictionary.If word is not present, it will try to search the internet. +
+Search for the meaning of words that is present in the dictionary. If word is not present, it will try to search the internet. +
+Please note that this search feature works on the singular form of words only. (E.g 'search w/potato' instead of 'search/potatoes') +
 Format: `search w/WORD`
 
 ****
@@ -116,10 +117,11 @@ Format: `quiz`
 === Deleting a word object : `delete`
 
 Deletes the word object (inclusive of all meaning, synonyms and tags) from dictionary. +
-Format: `delete w/WORD`
+Format: `delete w/WORD [t/TAG]`
 
 ****
-* Deletes the WORD object directly from the program and storage.
+* Deletes the WORD object directly from the program and storage if no tags are included.
+* If one or more tags are included in the command, only the tags will be deleted from the word.
 ****
 
 Examples:
