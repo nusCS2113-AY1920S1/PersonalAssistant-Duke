@@ -31,7 +31,7 @@ public class CommandListMonYear extends Command {
     @Override
     public void execute(Wallet wallet) {
         ReceiptTracker listReceipts = new ReceiptTracker();
-        int month = Integer.parseInt(Parser.parseForPrimaryInput(this.CommandType.LISTMY, userInput));
+        int month = Integer.parseInt(Parser.parseForPrimaryInput(this.commandType, userInput));
         int year = Integer.parseInt(Parser.parseForFlag("year", userInput));
         listReceipts = wallet.getReceipts().findReceiptByMonthYear(month, year);
         Ui.dukeSays("You have the following receipts for" + userInput);
