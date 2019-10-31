@@ -24,4 +24,10 @@ public class LimitList extends RecordList {
         super.removeFromList(index);
         Storage.setLimits(get()); //save
     }
+
+    @Override
+    public void addWithIndex(int modifyIndex, Record newRecord) {
+        super.addWithIndex(modifyIndex, newRecord);
+        Storage.setLimits(get());
+    }
 }

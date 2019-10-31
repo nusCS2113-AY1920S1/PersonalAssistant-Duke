@@ -31,4 +31,10 @@ public class DebtList extends RecordList {
         super.removeFromList(index);
         Storage.setDebts(get()); //save
     }
+
+    @Override
+    public void addWithIndex(int modifyIndex, Record newRecord) {
+        super.addWithIndex(modifyIndex, newRecord);
+        Storage.setDebts(get());
+    }
 }

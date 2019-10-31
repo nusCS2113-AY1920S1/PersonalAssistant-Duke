@@ -100,7 +100,6 @@ public class EntryParser extends Parser {
 
             if (isEntryComponent(currStr)) {
                 String nextStr = inputArray[i+1];
-                //System.out.println(currStr +" "+ nextStr);
                 try {
                     switch (currStr) {
                     case COMPONENT_TYPE:

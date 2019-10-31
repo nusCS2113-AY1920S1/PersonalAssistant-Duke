@@ -113,7 +113,6 @@ public class DollaData implements ModeStringList {
      * @param newRecord the new record to replace the current item on the list.
      */
     public void modifyRecordList(Record newRecord) {
-        System.out.println(modifyIndex);
         switch (prevMode) {
         case MODE_ENTRY:
             entryList.removeFromList(modifyIndex);

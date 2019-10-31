@@ -29,4 +29,10 @@ public class EntryList extends RecordList {
         super.removeFromList(index);
         Storage.setEntries(get());
     }
+
+    @Override
+    public void addWithIndex(int modifyIndex, Record newRecord) {
+        super.addWithIndex(modifyIndex, newRecord);
+        Storage.setEntries(get());
+    }
 }
