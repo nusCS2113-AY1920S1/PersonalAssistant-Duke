@@ -24,7 +24,6 @@ public class AddGoalCommandParser implements ParserInterface<AddGoalCommand> {
     @Override
     public AddGoalCommand parse(String userInputStr) {
         HashMap<String, String> argumentsMap = ArgumentSplitter.splitForwardSlashArguments(userInputStr);
-        List<String> validArguments = Arrays.asList("startdate", "enddate", "weight", "activity");
         //validate startdate argument
         if (argumentsMap.containsKey("startdate")) {
             String dateStr = argumentsMap.get("startdate");
@@ -74,14 +73,16 @@ public class AddGoalCommandParser implements ParserInterface<AddGoalCommand> {
             }
         }
 
+        List<String> validArguments = Arrays.asList("startdate", "enddate", "weight", "activity");
+
         if (argumentsMap.keySet().containsAll(validArguments)) {
             return new AddGoalCommand(argumentsMap);
         } else if (argumentsMap.size() < validArguments.size()) {
-            return new AddGoalCommand(true, "Some arguments are missing" +
-                    ". Type `help goal` to get command syntax.");
+            return new AddGoalCommand(true, "Some arguments are missing"
+                    + ". Type `help goal` to get command syntax.");
         } else if (argumentsMap.size() != 0) {
-            return new AddGoalCommand(true, "Invalid arguments present" +
-                    ". Type `help goal` to get command syntax.");
+            return new AddGoalCommand(true, "Invalid arguments present"
+                    + ". Type `help goal` to get command syntax.");
         } else {
             return new AddGoalCommand();
         }
