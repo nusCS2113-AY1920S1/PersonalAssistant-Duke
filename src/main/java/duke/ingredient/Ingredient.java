@@ -4,6 +4,7 @@ import duke.exception.DukeException;
 import duke.parser.Convert;
 import duke.storage.Printable;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Ingredient implements Printable {
@@ -26,6 +27,9 @@ public class Ingredient implements Printable {
         dateAsString = expiryDate;
     }
 
+    public Date getDate() {
+        return expiryDate;
+    }
     public int getAmount() {
         return amount;
     }
@@ -71,6 +75,15 @@ public class Ingredient implements Printable {
 
     public boolean isExpired() {
         return !expiryDate.after(new Date());
+    }
+
+    public boolean isExpiredToday(String DateInQuestion){
+
+        Date today = new Date();
+        String pattern = "dd/MM/yyyy";
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+        String TodayDate = simpleDateFormat.format(today);
+        return ((DateInQuestion).equals(TodayDate));
     }
 
     public boolean equalsCompletely(Ingredient other) {
