@@ -41,28 +41,18 @@ public class FindCommand extends Command {
      */
     public void execute(SemesterList semesterList, TaskList taskList, Ui ui, StorageManager storageManager)
             throws OofException {
-        String[] lineSplit = argument.split(" ");
-        if (!hasDescription(lineSplit)) {
+        if (argument.isEmpty()) {
             throw new OofException("OOPS!!! The find command needs a description.");
         }
-        String item = lineSplit[1].trim();
+        String[] lineSplit = argument.split(" ");
         ArrayList<Task> matchedTasks = new ArrayList<>();
         for (int i = 0; i < taskList.getSize(); i++) {
-            if (taskList.getTask(i).getDescription().contains(item)) {
-                matchedTasks.add(taskList.getTask(i));
+            for (int j = 0; j < lineSplit.length; j++) {
+                if (taskList.getTask(i).getDescription().contains(lineSplit[j].trim())) {
+                    matchedTasks.add(taskList.getTask(i));
+                }
             }
         }
         ui.printMatchingTasks(matchedTasks);
     }
-
-    /**
-     * Checks if input has a description.
-     *
-     * @param lineSplit processed user input.
-     * @return true if description is more than length 0 and is not whitespace.
-     */
-    private boolean hasDescription(String[] lineSplit) {
-        return lineSplit.length != 1;
-    }
-
 }

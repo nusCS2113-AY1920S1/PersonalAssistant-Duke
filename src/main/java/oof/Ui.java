@@ -281,12 +281,13 @@ public class Ui {
      * Prints list of options for the recurring frequency of a task.
      */
     public void printRecurringOptions() {
+        printLine();
         String options = " Here are the available options for recurring tasks:\n"
                 + " \t1. Daily\n"
                 + " \t2. Weekly\n"
                 + " \t3. Monthly\n"
                 + " \t4. Yearly\n"
-                + " \tPlease choose one of the four options for your recurring frequency.\n";
+                + " \tPlease choose one of the four options for your recurring frequency.";
         System.out.println(options);
     }
 

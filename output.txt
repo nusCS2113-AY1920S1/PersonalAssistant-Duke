@@ -1,4 +1,4 @@
-TODO||Y||borrow another book||13-10-2019||||||||
+TODO||N||borrow another book||30-12-2019||||||||
 DEADLINE||Y||homework||13-10-2019||23:59||||||
 EVENT||N||lecture||08-10-2019||10:00||08-10-2019||12:00||
 EVENT||N||tutorial||09-10-2019||17:00||09-10-2019||18:00||
@@ -44,3 +44,5 @@ EVENT||N||lecture||08-11-2019||10:00||08-11-2019||12:00||
 DEADLINE||N||homework||20-10-2019||23:59||||||
 TODO||N||borrow another book||14-10-2019||||||||
 EVENT||N||lecture||08-11-2019||10:00||08-11-2019||12:00||
+TODO||N||borrow another book||31-12-2019||||||||
+TODO||N||borrow another book||31-12-2019||||||||
