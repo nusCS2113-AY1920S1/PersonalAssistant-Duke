@@ -22,6 +22,7 @@ import planner.logic.command.SearchThenAddCommand;
 import planner.logic.command.ShowCommand;
 import planner.logic.command.SortCommand;
 import planner.logic.command.UpdateModuleInfo;
+import planner.logic.command.ReminderCommand;
 import planner.logic.exceptions.legacy.ModException;
 import planner.logic.parser.action.Join;
 import planner.util.logger.PlannerLogger;
@@ -61,6 +62,7 @@ public class Parser {
         mapCommand("cap", CapCommand.class);
         mapCommand("grade", GradeCommand.class);
         mapCommand("update", UpdateModuleInfo.class);
+        mapCommand("reminder", ReminderCommand.class);
     }
 
     /**
@@ -170,6 +172,12 @@ public class Parser {
                 .help("Update modules database")
                 .addArgument("academicYear")
                 .help("Academic year of your choice, in format 2018-2019");
+
+        getSubParser("reminder")
+                .help("Setting reminders")
+                .addArgument("toReminder")
+                .help("When do you want to set the reminder again");
+
     }
 
     private void initBuiltinActions() {
