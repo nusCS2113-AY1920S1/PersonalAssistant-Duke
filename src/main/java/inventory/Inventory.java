@@ -16,7 +16,7 @@ public class Inventory extends ArrayList<Item> {
      */
     public Inventory(ArrayList<String> loader) { //loads previous inventory data stored in text file
         for (String line : loader) {
-            String[] splitStr = line.split("\\|", 2);
+            String[] splitStr = line.split(" \\| ", 2);
             this.add(new Item(splitStr[Constants.ITEMNAME], Integer.parseInt(splitStr[Constants.ITEMQTY])));
         }
     }
