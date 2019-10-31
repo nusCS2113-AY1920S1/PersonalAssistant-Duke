@@ -1,6 +1,7 @@
 package model;
 
 import common.DukeException;
+import common.LoggerController;
 
 import java.util.ArrayList;
 
@@ -11,6 +12,7 @@ public class Member {
 
     private String name;
     private ArrayList<String> taskList;
+    private ArrayList<String> skillList;
     private String biography;
     private String email;
     private String phone;
@@ -18,6 +20,7 @@ public class Member {
     public Member(String name) {
         this.name = name;
         this.taskList = new ArrayList<>();
+        this.skillList = new ArrayList<String>();
     }
 
     /**
@@ -82,6 +85,26 @@ public class Member {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    //@@author JustinChia1997
+    /**
+     * Adds a required skill to member skill array
+     *
+     * @return a boolean if addition was successful
+     */
+    public boolean addSkill(String skillName) {
+        //TODO add regex to check for skillName
+        if (!skillList.contains(skillName)) {
+            skillList.add(skillName);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public ArrayList<String> getSkillList() {
+        return skillList;
     }
 
 }

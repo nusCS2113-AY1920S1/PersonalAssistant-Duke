@@ -1,5 +1,6 @@
 package model;
 
+import common.LoggerController;
 import model.Member;
 import common.DukeException;
 
@@ -12,16 +13,19 @@ public class Task {
     private String name;
     private boolean isDone;
     private ArrayList<String> memberList;
+    private ArrayList<String> skillReqList;
     private Date time;
 
     public Task(String name) {
         this.name = name.trim();
         this.memberList = new ArrayList<>();
+        this.skillReqList = new ArrayList<String>();
+        addReqSkill("HOLA");
     }
 
     /**
      * add javadoc please
-     * */
+     */
     public void addMember(String toAdd) {
         if (!memberList.contains(toAdd)) {
             memberList.add(toAdd);
@@ -30,7 +34,7 @@ public class Task {
 
     /**
      * add javadoc please
-     * */
+     */
     public void deleteMember(String toDelete) {
         System.out.println(memberList);
         memberList.remove(toDelete);
@@ -66,6 +70,7 @@ public class Task {
 
     /**
      * change task to string to show on window
+     *
      * @return string of task
      */
     public String toString() {
@@ -82,4 +87,27 @@ public class Task {
     public String getStatusIcon() {
         return (isDone ? "\u2713" : "\u2715");
     }
+
+    //@@author JustinChia1997
+    /**
+     * Adds a required skill to required skills array
+     *
+     * @return a boolean if addition was successful
+     */
+    public boolean addReqSkill(String skillName) {
+        //TODO add regex to check for skillName
+        if (!skillReqList.contains(skillName)) {
+            skillReqList.add(skillName);
+            LoggerController.logDebug(Task.class, "Added skill" + skillReqList.get(0));
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public ArrayList<String> getSkillReqList() {
+        return skillReqList;
+    }
+
+
 }

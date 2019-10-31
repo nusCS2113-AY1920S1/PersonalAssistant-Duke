@@ -4,8 +4,14 @@ import common.DukeException;
 import core.Duke;
 
 import java.util.ArrayList;
-
+//@@authorJustinChia1997
+/**
+ * Exposes the api of Model, this falls in line with open close policy, allowing the different implementations of
+ * model to be used, without having to change other major parts of the code
+ *
+ * */
 public interface Model {
+
     //==================Storage Interface======================
     void load();
 
