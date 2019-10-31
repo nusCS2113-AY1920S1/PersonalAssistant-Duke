@@ -23,7 +23,7 @@ This project spans over a period of about eight weeks, and was completed togethe
 (consisting of <<mong-nus#,Mong Zheng Wei>>, <<briantkm#,Brian Tan Kian Ming>>, <<terencetanwt#,Terence Tan Wee Theng>>,
 <<valerietyj#,Valerie Tan Yi Jia>> and myself).
 
-== About the project
+=== About the project
 
 My team and I were tasked with enhancing a basic Command Line Interface (CLI) based personal assistant, named Duke
 for our Software Engineering Project. We chose to morph it into a financial tracker and management application called
@@ -37,7 +37,7 @@ The following sections illustrates these enhancements in more details,
 illustrates the relevant sections I have contributed to the project as a whole, as well as the relevant sections I have added to the
 user and developer guides in relation to these enhancements.
 
-== Summary of Contributions
+=== Summary of Contributions
 This section shows a summary of my coding, documentation, and other helpful contributions to the team project.
 
 *Enhancement added:* I added the ability to add `investment` accounts and `bonds`.
@@ -104,13 +104,11 @@ team's repository (examples: PRs {prURL}/119[#119], {prURL}/101[#101], {prURL}/1
 ** Added a new *Github plugin* (https://github.com/apps/project-bot[project-bot]) to automate triaging of issues in
 the team's link:{repoURL}/projects/[Project Board]
 
-== Contributions to User Guide
+=== Contributions to User Guide
 
 |===
 |_The following sections illustrate my ability in writing documentation targeting end-users to guide them in using the various features of the application._
 |===
-
-=== {nbsp}
 
 ==== {nbsp}
 
@@ -118,7 +116,7 @@ include::../UserGuide.adoc[tag=investment_management]
 
 ==== {nbsp}
 
-== Contributions to Developer Guide
+=== Contributions to Developer Guide
 
 |===
 |_The following sections illustrate my ability in writing documentation to provide developers insights on the design
@@ -126,3 +124,5 @@ of the application. It also showcase the technical depth of my contributions to 
 |===
 
 include::../DeveloperGuide.adoc[tag=editing_bonds]
+
+==== {nbsp}
