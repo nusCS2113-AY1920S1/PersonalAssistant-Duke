@@ -19,6 +19,10 @@ public class MainParser {
             case "delete/d":
                 return new DeleteParse(fullCommand).parse();
 
+            case "done/e":
+            case "done/d":
+                return new DoneParse(fullCommand).parse();
+
             case "recur/e":
                 return new RecurParse(fullCommand).parse();
 
@@ -49,10 +53,8 @@ public class MainParser {
 
             case "retrieve/previous":
                 return new RetrievePreviousCommand(fullCommand);
-
             case "Week":
-                return new WeekCommand(fullCommand);
-
+                return new WeekParse(fullCommand).parse();//WeekCommand(fullCommand);
             case "bye":
                 return new ByeCommand();
 

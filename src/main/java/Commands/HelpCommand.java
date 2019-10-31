@@ -4,10 +4,20 @@ import Commons.LookupTable;
 import Commons.Storage;
 import Commons.Ui;
 import Tasks.TaskList;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  * Represents the command to display a guide to all commands
  */
 public class HelpCommand extends Command{
+    private static final Logger LOGGER = Logger.getLogger(LookupTable.class.getName());
+    private static  String help = new String();
     /**
      * Executes the displaying of guide to all commands
      * @param events The TaskList object for events
@@ -18,21 +28,21 @@ public class HelpCommand extends Command{
      */
     @Override
     public String execute(LookupTable LT,TaskList events, TaskList deadlines, Ui ui, Storage storage) throws Exception {
-        String help;
-        help = "Here is a guide of how to use the different commands\n";
-        help += "1) To add events, enter command in the format below\n " +
-                "add/e modCode Description /at (date) /from HHmm /to HHmm\n\n"+
-                "2) To add deadlines, enter command in the format below\n " +
-                "add/d modCode Description /by (date) HHmm\n\n" +
-                "3) To delete events, enter command in the format below\n " +
-                "delete/e modCode Description /at (date) /from HHmm /to HHmm\n\n" +
-                "4) To delete deadlines, enter command in the format below\n " +
-                "delete/d modCode Description /by (date) HHmm\n\n" +
-                "5) To filter keywords, enter command in the format below\n " +
-                "filter (keyword) \n\n";
-
-         help += "date format can be in the form dd/mm/yyyy or week X day according to NUS academic calender";
-
+        try {
+        String line;
+        InputStream is = this.getClass().getClassLoader().getResourceAsStream("documents/Help.txt");
+        InputStreamReader isr = new InputStreamReader(is);
+        BufferedReader reader = new BufferedReader(isr);
+        while ((line = reader.readLine()) != null) {
+         help += line + "\n";
+        }
+        reader.close();
+        isr.close();
+        is.close();
+    } catch (
+    IOException e) {
+        LOGGER.log(Level.SEVERE, e.toString(), e);
+    }
 
         return ui.showHelp(help);
     }
