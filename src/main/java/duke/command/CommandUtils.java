@@ -256,36 +256,31 @@ public class CommandUtils {
      * @param core    DukeCore object.
      * @param patient Patient object.
      * @param type    Type of DukeObject.
-     * @param name    Name of DukeObject.
-     * @param index   Displayed index of DukeObject.
+     * @param nameOrIdx   Name of DukeObject or displayed index.
      * @return DukeObject object,
      * @throws DukeException If 1 of the following 3 conditions applies.
      *                       1. No identifier is provided.
      *                       2. 2 identifiers are provided.
      *                       3. 1 unique identifier is provided but said DukeObject does not exist.
      */
-    public static DukeObject findObject(DukeCore core, Patient patient, String type, String name, int index)
+    public static DukeObject findObject(DukeCore core, Patient patient, String type, String nameOrIdx)
             throws DukeException {
-        if (name == null && index == -1) {
-            throw new DukeException("You must provide a unique identifier (name OR index)!");
-        } else if (name != null && index != -1) {
-            throw new DukeException("Please provide only 1 unique identifier (name OR index)!");
-        } else if (name != null) {
-            if ("impression".equals(type)) {
-                return patient.getImpression(name);
-            } else if ("critical".equals(type)) {
-                // TODO: Get critical
-            } else {
-                // TODO: Get investigation
-            }
-        } else {
+        int index = idxFromString(nameOrIdx);
+        if (index != -1) {
             try {
                 return core.ui.getIndexedList(type).get(index - 1);
             } catch (IndexOutOfBoundsException e) {
                 throw new DukeException("No such " + type + " exists in the list!");
             }
+        } else {
+            if ("impression".equals(type)) {
+                return patient.getImpression(nameOrIdx);
+            } else if ("critical".equals(type)) {
+                // TODO: Get critical
+            } else {
+                // TODO: Get investigation
+            }
         }
-
         return null;
     }
 
@@ -302,5 +297,4 @@ public class CommandUtils {
             return -1;
         }
     }
-
 }

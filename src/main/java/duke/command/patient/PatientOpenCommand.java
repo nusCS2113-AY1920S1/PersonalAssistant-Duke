@@ -45,8 +45,7 @@ public class PatientOpenCommand extends ArgCommand {
         }
 
         Patient patient = (Patient) core.uiContext.getObject();
-        DukeObject object = CommandUtils.findObject(core, patient, type, getSwitchVal("name"),
-                switchToInt("index"));
+        DukeObject object = CommandUtils.findObject(core, patient, type, getArg());
 
         if ("impression".equals(type)) {
             core.uiContext.setContext(Context.IMPRESSION, object);
