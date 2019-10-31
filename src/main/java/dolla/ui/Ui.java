@@ -47,7 +47,7 @@ public abstract class Ui {
     //private static String dollaMode = ANSI_CYAN + "\t\n°º¤ø,¸¸,ø¤º°`°º¤ø,¸ MODE: DOLLA "
     //        + "  ¸,ø¤°º¤ø,¸¸,ø¤º°`°º¤ø,¸\n" + ANSI_RESET;
 
-    private static String dollaMode = ANSI_CYAN + "\n\t( •_•)O ~~ MODE: DOLLA "
+    private static String dollaMode = ANSI_CYAN + "\n\t( o_o)O ~~ MODE: DOLLA "
             + " ~~ \n" + ANSI_RESET;
 
     /**
@@ -71,7 +71,7 @@ public abstract class Ui {
         System.out.println();
         //System.out.println(ANSI_CYAN + "\t°º¤ø,¸¸,ø¤º°`°º¤ø,¸ MODE:  " + newMode.toUpperCase()
         //        + "  ¸,ø¤°º¤ø,¸¸,ø¤º°`°º¤ø,¸\n" + ANSI_RESET);
-        System.out.println(ANSI_CYAN + "\t( •_•)O ~~ MODE:  " + newMode.toUpperCase()
+        System.out.println(ANSI_CYAN + "\t( *_*)O ~~ MODE:  " + newMode.toUpperCase()
                 + "  \n" + ANSI_RESET);
     }
 
