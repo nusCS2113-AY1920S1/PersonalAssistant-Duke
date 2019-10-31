@@ -21,27 +21,32 @@ public class Event extends Task {
     public Event(String name, LocalDateTime time) {
         super(name);
         this.time = time;
-        this.taskType = TaskType.Event;
+        this.taskType = TaskType.EVENT;
     }
 
     /**
      * Instantiates the Event class with name and time. Time must be passed in during the instantiation as it
      * cannot be changed later. Supports adding a task to be done after the first main task.
      *
-     * @param name     name of the Event
-     * @param time     time of the Event that is going to happen
-     * @param doAfter  task to be done after the main task
-     * @param tags     tag associated with the task
-     * @param priority priority level of the task
+     * @param name         name of the Event
+     * @param time         time of the Event that is going to happen
+     * @param doAfter      task to be done after the main task
+     * @param tags         tag associated with the task
+     * @param priority     priority level of the task
+     * @param linkedEmails emails to be linked to the task
      */
-    public Event(String name, LocalDateTime time, String doAfter, ArrayList<String> tags, Priority priority) {
+    public Event(String name, LocalDateTime time, String doAfter, ArrayList<String> tags,
+                 Priority priority, ArrayList<String> linkedEmails) {
         super(name);
         this.time = time;
         setDoAfterDescription(doAfter);
-        this.taskType = TaskType.Event;
+        this.taskType = TaskType.EVENT;
         setTags(tags);
         setPriorityLevelTo(priority);
         setPriorityTo(priority);
+        for (String email : linkedEmails) {
+            addLinkedEmails(email);
+        }
     }
 
     public LocalDateTime getTime() {
@@ -90,6 +95,9 @@ public class Event extends Task {
         for (String tagName : tags) {
             output += " -tag " + tagName;
         }
+        for (String email : linkedEmails) {
+            output += " -link " + email;
+        }
         if (this.priority != null && !this.priority.equals("")) {
             output += " -priority " + priority;
         }
@@ -135,14 +143,14 @@ public class Event extends Task {
     @Override
     public boolean isClash(Task task) {
         try {
-            if (task.taskType.equals(TaskType.Deadline)) {
+            if (task.taskType.equals(TaskType.DEADLINE)) {
                 Deadline deadlineTask = (Deadline) task;  // downcasting task to Deadline in order to use
                 // getTime().
                 if (this.time.compareTo(deadlineTask.getTime()) == 0) {
                     return true;
                 }
             }
-            if (task.taskType.equals(TaskType.Event)) {
+            if (task.taskType.equals(TaskType.EVENT)) {
                 Event eventTask = (Event) task;  // downcasting task to Event in order to use getTime().
                 if (this.time.compareTo(eventTask.getTime()) == 0) {
                     return true;

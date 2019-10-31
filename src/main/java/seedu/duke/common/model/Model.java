@@ -19,6 +19,11 @@ public class Model {
     private Model() {
     }
 
+    /**
+     * Returns the current instance of the model. If there are none, it instantiates a new model.
+     *
+     * @return instance of model
+     */
     public static Model getInstance() {
         if (model == null) {
             model = new Model();

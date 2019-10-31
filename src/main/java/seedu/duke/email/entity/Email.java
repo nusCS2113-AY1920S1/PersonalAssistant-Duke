@@ -261,14 +261,19 @@ public class Email {
      * @return a string capturing the email info
      */
     public String toCliString() {
-        String output = this.subject + System.lineSeparator() + "\t" + "From: " + this.sender.toString() +
-                System.lineSeparator() + "\tReceivedDateTime: " + getDateTimeString() + System.lineSeparator()
-                + "\t" + "Body: " + body.substring(0, 30) + "..." + System.lineSeparator();
+        String output = this.subject + System.lineSeparator() + "\t" + "From: " + this.sender.toString()
+                + System.lineSeparator() + "\tReceivedDateTime: " + getDateTimeString()
+                + System.lineSeparator() + "\t" + "Body: " + body.substring(0, 30) + "..."
+                + System.lineSeparator();
         return output;
     }
 
     public String getBody() {
         return body;
+    }
+
+    public String getShaHash() {
+        return shaHash(this.subject);
     }
 
     private String shaHash(String input) {
