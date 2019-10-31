@@ -107,6 +107,22 @@ public class ReceiptTracker extends ArrayList<Receipt> {
         return receiptByMonthYear;
     }
 
+
+    /**
+     * Finds all the receipts that corresponds to that year.
+     * @param year is the year given by the user
+     * @return ArrayList containing all the receipts which corresponds to the year given by user
+     */
+    public ReceiptTracker findReceiptByYear(int year) {
+        ReceiptTracker receiptByYear = new ReceiptTracker();
+        for (Receipt receipt : this) {
+            if (receipt.getDate().getYear() == year) {
+                receiptByYear.addReceipt(receipt);
+            }
+        }
+        return receiptByYear;
+    }
+
     // -- Boolean Functions
     /**
      * Checks if a tag has been registered previously.

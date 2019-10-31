@@ -23,10 +23,13 @@ public enum CommandType {
     RECUR(CommandNewTask.class),
     FDURATION(CommandNewTask.class),
     TAGLIST(CommandListTag.class),
-    EXPENDED(CommandGetSpendingByMonth.class),
+    EXPENDEDMONTH(CommandGetSpendingByMonth.class),
+    EXPENDEDYEAR(CommandGetSpendingByYear.class),
     CONVERT(CommandConvert.class),
     LISTMY(CommandListMonYear.class),
-    ERROR(CommandError.class);
+    ERROR(CommandError.class),
+    WEATHER(CommandWeather.class);
+
 
     private final Class commandClass;
 
