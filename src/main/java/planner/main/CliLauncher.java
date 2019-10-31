@@ -15,7 +15,6 @@ import planner.logic.modules.module.ModuleTasksList;
 import planner.logic.parser.Parser;
 import planner.ui.cli.PlannerUi;
 import planner.util.crawler.JsonWrapper;
-import planner.util.legacy.reminder.Reminder;
 import planner.util.logger.PlannerLogger;
 import planner.util.storage.Storage;
 
@@ -72,7 +71,7 @@ public class CliLauncher {
         try {
             modDetailedMap = jsonWrapper.getModuleDetailedMap(true, store);
             modTasks.setTasks(jsonWrapper.readJsonTaskList(store));
-            PlannerLogger.setLogFile();
+            PlannerLogger.setLogFile(store);
         } catch (ModFailedJsonException ej) {
             ej.getMessage();
             PlannerLogger.log(ej);
