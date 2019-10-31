@@ -26,17 +26,18 @@ public class CommandWeather extends Command {
         this.description = "Command that displays weather for now, tomorrow or later";
         setFullWeatherData(storeWeatherDataFromJson());
     }
+    
+    @Override
+    public void execute(Wallet wallet) {
+        printWeatherDataOutput();
+
+    }
 
     @Override
     public void execute(TaskList taskList) {
 
     }
 
-    @Override
-    public void execute(Wallet wallet) {
-        printWeatherDataOutput();
-
-    }
 
     /**
      * getWhichWeatherDataUserWants parses to see until when user wants weather forecast.
