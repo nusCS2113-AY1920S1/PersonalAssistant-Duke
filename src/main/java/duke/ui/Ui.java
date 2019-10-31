@@ -2,8 +2,8 @@ package duke.ui;
 
 import duke.models.locker.Locker;
 
-import java.util.Scanner;
 import java.util.List;
+import java.util.Scanner;
 
 public class Ui {
     private Scanner sc = new Scanner(System.in);
@@ -36,6 +36,7 @@ public class Ui {
         printDash();
         printSpaces(" Hello! I am SpongeBob. I am here to manage lockers for you!");
         printSpaces(" What can I do for you?");
+        printSpaces(" If you need any assistance, please type 'help' to access to User Manual.");
         printDash();
     }
 
@@ -149,8 +150,9 @@ public class Ui {
     }
 
     private void showList(List<Locker> listOfTasks) {
+        System.out.println();
         for (int i = 0; i < listOfTasks.size(); i++) {
-            printSpaces(" " + (i + 1) + ". " + listOfTasks.get(i).toString());
+            printSpaces(" " + listOfTasks.get(i).toString());
         }
         printDash();
     }
@@ -159,7 +161,7 @@ public class Ui {
      * This function prints the exit message every time Duke is closed.
      */
     public void exitDuke() {
-        printSpaces(" Bye.Hope to see you again soon.");
+        printSpaces(" Bye! Hope to see you again.");
         printDash();
     }
 
@@ -233,6 +235,109 @@ public class Ui {
     public void showLoadingError(String message) {
         printDash();
         printSpaces(message);
+        printDash();
+    }
+
+    /**
+     * This function prints the syntax for addlocker command.
+     */
+    public void showAddSyntax() {
+        printSpaces("To add a locker into the system:");
+        printSpaces("  addlocker s/__ a/__ z/__");
+        System.out.println();
+    }
+
+    /**
+     * This function prints the syntax for addbatch command.
+     */
+    public void showAddBatchSyntax() {
+        printSpaces("To add a batch of lockers into the system:");
+        printSpaces("  addbatch s/__ u/__ a/__ z/__");
+        System.out.println();
+    }
+
+    /**
+     * This function prints the syntax for deletelocker command.
+     */
+    public void showDeleteSyntax() {
+        printSpaces("To delete a locker from the system:");
+        printSpaces("  deletelocker XXXX");
+        System.out.println();
+    }
+
+    /**
+     * This function prints the syntax for editlocker command.
+     */
+    public void showEditSyntax() {
+        printSpaces("To edit the information of a locker:");
+        printSpaces("  editlocker XXXX s/__ a/__ z/__ c/__");
+        printSpaces("(Note: You can choose to change one or more tokens of the locker");
+        System.out.println();
+    }
+
+    /**
+     * This function prints the syntax for assign command.
+     */
+    public void showAssignSyntax() {
+        printSpaces("To assign a locker for rental to a student:");
+        printSpaces("  assign n/__ i/__ e/__ m/__ f/__ t/__ p/__");
+        System.out.println();
+    }
+
+    /**
+     * This function prints the syntax for list and bye command.
+     */
+    public void showOtherSyntax() {
+        printSpaces("To show the list of lockers:");
+        printSpaces("  list");
+        System.out.println();
+        printSpaces("To exit SpongeBob:");
+        printSpaces("  bye");
+        System.out.println();
+    }
+
+    /**
+     * This function prints the legends for help manual.
+     */
+    public void showSyntaxLegends() {
+        printSpaces("-LEGENDS-");
+        printSpaces("XXXX - serial number of selected locker");
+        printSpaces("s - serial number (addlocker) OR starting serial number (addbatch)");
+        printSpaces("u - size");
+        printSpaces("a - area");
+        printSpaces("z - zone");
+        printSpaces("c - condition/tags");
+        printSpaces("n - name");
+        printSpaces("i - id(matric number)");
+        printSpaces("e - email");
+        printSpaces("m - major of study");
+        printSpaces("f - rental start date");
+        printSpaces("t - rental end date");
+        printSpaces("p - preferences");
+        System.out.println();
+    }
+
+    /**
+     * This function prints the notes in help manual.
+     */
+    public void showSyntaxNote() {
+        printSpaces("(Note: All the tokens can be assigned in any order.)");
+    }
+
+    /**
+     * This function prints the help manual when requested by the user.
+     */
+    public void printHelp() {
+        printSpaces("HELP MANUAL");
+        System.out.println();
+        showAddSyntax();
+        showAddBatchSyntax();
+        showDeleteSyntax();
+        showEditSyntax();
+        showAssignSyntax();
+        showOtherSyntax();
+        showSyntaxLegends();
+        showSyntaxNote();
         printDash();
     }
 }

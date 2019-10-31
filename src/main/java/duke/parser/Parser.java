@@ -1,7 +1,6 @@
 package duke.parser;
 
 import duke.exceptions.DukeException;
-
 import duke.logic.commands.Command;
 
 import java.util.regex.Matcher;
@@ -21,6 +20,7 @@ public class Parser {
     private static final String LIST_COMMAND = "list";
     private static final String EXIT_COMMAND = "bye";
     private static final String EXPORT_LOCKER_COMMAND = "export";
+    private static final String HELP_COMMAND = "help";
     /**
      * this function is used to parse the command entered by the user.
      *
@@ -54,6 +54,8 @@ public class Parser {
             return new ListCommandParser().parse();
         case EXIT_COMMAND:
             return new ByeCommandParser().parse();
+        case HELP_COMMAND:
+            return new HelpCommandParser().parse();
         case EXPORT_LOCKER_COMMAND:
             return new ExportLockerCommandParser().parse();
         default:
