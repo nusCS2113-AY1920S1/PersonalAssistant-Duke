@@ -57,7 +57,11 @@ public class CommandConvert extends Command {
      */
     private Double extractAmount(CommandType commandType, String userInput) {
         String amountStr = Parser.parseForPrimaryInput(commandType, userInput);
-        return Double.parseDouble(amountStr);
+        try {
+            return Double.parseDouble(amountStr);
+        } catch (Exception e) {
+            return 0.0;
+        }
     }
 
     /**

@@ -109,7 +109,7 @@ public class CommandWeather extends Command {
             }
             return completeJson;
         } catch (Exception ex) {
-            ex.printStackTrace();
+            //ex.printStackTrace();
             return null;
         }
     }
