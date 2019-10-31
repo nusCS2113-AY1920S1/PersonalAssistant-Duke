@@ -370,7 +370,7 @@ TIP: */snooze <index> <date> <time>*
 
 This command postpones the deadline to a fixed date and time, such as 24/12/2019 1700.
 
-IMPORTANT: This command snoozes a task in the task list.
+IMPORTANT: This command snoozes a task in the task list. +
 *	<index> refers to the index shown in the displayed task list.
 *	<date> must follow the format dd/MM/yyyy.
 *	<time> must be in 24hrs format HHmm.
