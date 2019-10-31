@@ -22,6 +22,12 @@ This document details my overall contribution to the project. The code repositor
 ** The user would also be able to independently update their module data anytime to any available year based on NUSMODS API so that they have the flexibility of having the most up to date module information at all times.
 ** This forms the backbone of our application, since without up-to-date module data, we would not be able to efficiently manage the user's module queries.
 
+=== Rational for implementation
+* Initially, I had originally intended to parse the returned JSON data from NUSMODS directly into a Java Object, hence skipping the step of saving the data as a JSON file.
+    ** This proved to be extremely difficult, since we had no way to inspect the data if it was malformed or incomplete.
+    ** Thus, following the discussion made in https://github.com/AY1920S1-CS2113T-F10-1/main/issues/74[#74], I had decided to store the information within a JSON file, before using GSON to parse the data into a `List` object.
+    ** Based on the discussion, I implemented to store the module data in a `HashMap` for ease of access.
+
 * Implemented persistent data storage
 ** Through the `Storage` and `Logger` classes, user's current data would be instantly stored in JSON file format. This process is done automatically without
 needing the user to be aware of the process.
@@ -30,8 +36,8 @@ needing the user to be aware of the process.
 
 * *Feature Enhancement*:
     ** Managed feature support for persistent data storage
-    ** Added integration for NUSMODS API Requests, for obtaining current NUS module data information
-    ** Added integration for Google's GSON library, for efficient JSON data parsing
+    ** Added integration for NUSMODS API Requests, for obtaining current NUS module data information https://github.com/AY1920S1-CS2113T-F10-1/main/pull/123[#123]
+    ** Added integration for Google's GSON library, for efficient JSON data parsing https://github.com/AY1920S1-CS2113T-F10-1/main/pull/67[#67]
         *** Implemented framework for processing JSON data returned by NUSMODS API
     ** Implemented framework to unit test user inputs directly https://github.com/AY1920S1-CS2113T-F10-1/main/issues/124[#124]
 * *Code contributed*:
@@ -39,23 +45,25 @@ needing the user to be aware of the process.
     ** Package https://github.com/AY1920S1-CS2113T-F10-1/main/tree/master/src/main/java/planner/logic/modules/module[Modules] for mapping module data to Java Object during run time
 
 * *Other contributions*:
-    ** Added support for Gradle build automation, to ensuring ease of project builds
-    ** Added support for TravisCI, for continuous integration
-    ** Added support for Coveralls, for efficient tracking of code coverage
+    ** Added support for Gradle build automation, to ensuring ease of project builds https://github.com/AY1920S1-CS2113T-F10-1/main/pull/9[#9]
+    ** Added support for TravisCI, for continuous integration https://github.com/AY1920S1-CS2113T-F10-1/main/pull/49[#49]
+    ** Added support for checkstyle in TravisCI for code quality monitoring https://github.com/AY1920S1-CS2113T-F10-1/main/pull/53[#53]
+    ** Added support for Coveralls, for efficient tracking of code coverage https://github.com/AY1920S1-CS2113T-F10-1/main/pull/122[#122]
 
 * Project management:
-    ** Managed releases `mid-v1.1`, `v1.1` and `v1.2.1`
+    ** Managed releases https://github.com/AY1920S1-CS2113T-F10-1/main/releases/tag/A-Jar[`mid-v1.1`], https://github.com/AY1920S1-CS2113T-F10-1/main/releases/tag/v1.1[`v1.1`] and https://github.com/AY1920S1-CS2113T-F10-1/main/releases/tag/v1.2.1[`v1.2.1`]
     ** Handled team issue tracking regarding:
         *** Improvements to implemented features
         *** General bug reporting
         *** Patch releases to fix to discovered bugs
 * Documentation:
-    *** Added UML Diagrams for overall product design in Developer Guide
+    *** Added UML Diagrams for overall product design in Developer Guide https://github.com/AY1920S1-CS2113T-F10-1/main/pull/126[#126]
+    *** Wrote section on JsonParser, RequestData and Logger in Developer Guide
 
 * Community:
     ** Requested permission to utilize NUSMODS API in the course forum https://github.com/nusCS2113-AY1920S1/forum/issues/53[#53]
 * Tools:
-*** Integrated a third party library (Natty) to the project, for improved date parsing
+*** Integrated a third party library (Natty) to the project, for improved date parsing https://github.com/AY1920S1-CS2113T-F10-1/main/pull/59[#59]
 *** Integrated Github plugins (TravisCI and Coveralls) to the team repository
 
 == Contributions to the User Guide
