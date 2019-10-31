@@ -74,7 +74,7 @@ public class Todo extends Task implements Serializable {
                 + "(for " + duration + " hours)";
         }
         if (!comment.isBlank()) {
-            message = message + "  Note to self: " + comment;
+            message = message + "\n  Note to self: " + comment;
         }
         return message;
     }

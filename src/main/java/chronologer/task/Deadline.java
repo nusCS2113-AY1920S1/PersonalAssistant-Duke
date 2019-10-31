@@ -54,7 +54,7 @@ public class Deadline extends Task implements Serializable {
         }
         String dateString = " (by: " + this.startDate.format(DateTimeExtractor.DATE_FORMATTER) + ")";
         if (!comment.isBlank()) {
-            dateString = dateString + "  Note to self: " + comment;
+            dateString = dateString + "\n  Note to self: " + comment;
         }
         return message.concat(dateString);
     }

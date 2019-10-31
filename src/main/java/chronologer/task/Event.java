@@ -32,6 +32,25 @@ public class Event extends Task implements Serializable, Comparable<Event> {
     }
 
     /**
+     * creates a new Event task.
+     *
+     * @param description description of task
+     * @param startDate   end time of task
+     * @param endDate     start time of task
+     * @param modCode     module code of task
+     */
+    public Event(String description, LocalDateTime startDate, LocalDateTime endDate, String modCode) {
+        super(description);
+        this.endDate = endDate;
+        this.startDate = startDate;
+        this.modCode = modCode;
+        if (!modCode.isBlank()) {
+            this.priority = Priority.HIGH;
+        }
+        setReminder(3);
+    }
+
+    /**
      * Custom comparator for sorting.
      */
     @Override
@@ -41,11 +60,17 @@ public class Event extends Task implements Serializable, Comparable<Event> {
 
     @Override
     public String toString() {
-        String message = super.getPriorityIcon() + "[E]" + "[" + super.getStatusIcon() + "] " + this.description;
+        String message = "";
+        if (modCode.isBlank()) {
+            message = super.getPriorityIcon() + "[T]" + "[" + super.getStatusIcon() + "] " + this.description;
+        } else {
+            message = super.getPriorityIcon() + "[T]" + "[" + super.getStatusIcon() + "] " + this.modCode + " "
+                    + this.description;
+        }
         String dateString = "(at: " + this.startDate.format(DateTimeExtractor.DATE_FORMATTER) + "-"
-            + this.endDate.format(DateTimeExtractor.DATE_FORMATTER) + ")";
+                + this.endDate.format(DateTimeExtractor.DATE_FORMATTER) + ")";
         if (!comment.isBlank()) {
-            dateString = dateString + "  Note to self: " + comment;
+            dateString = dateString + "\n  Note to self: " + comment;
         }
         return message.concat(dateString);
     }
