@@ -125,6 +125,8 @@ image::CCA.png[]
 == Implementation
 This section explains and shows diagrams of how certain features of ModPlan are implemented.
 
+// tag::Parser[]
+
 === Parser
 User inputs are recorded by `PlannerUi` and then handled and interpreted by `Parser` class, which is a wrapper for the `argparse4j` library for customized parsing behaviours such as command calling or custom `Action` definition.
 
@@ -132,7 +134,7 @@ User inputs are recorded by `PlannerUi` and then handled and interpreted by `Par
 
 The following diagram illustrates the `Parser` class:
 
-image::ParseCommandClassDiagram.png[]
+image::ParseCommandClassDiagram.png
 
 [[Attributes]]
 
@@ -204,6 +206,8 @@ The `ModuleCommand` class is not seen in the diagram because `Parser` might not 
 * *Cons*: No easy way to format help messages.
 
 As the `argparse4j` 's library itself is very robust and powerful, we currently have no plan to modify `Parser` 's implementation. However, addition of custom `Action` will be considered as currently only `Join` is being used for parsing of multiple words `String` arguments.
+
+// end::Parser[]
 
 ***
 
