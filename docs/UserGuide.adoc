@@ -131,10 +131,10 @@ Executing a `/delete` command:
 
 The command will disappear from the list and the index gets readjusted. In addition, you can also mass delete tasks. Below are the two additional ways on how to mass delete tasks.
 
-TIP: */delete all*
+TIP: */delete all* +
 This command clears your task list.
 
-TIP:	*/delete done*
+TIP:	*/delete done* +
 This command deletes all tasks that have been marked as completed.
 
 === 3A.3 4.3	Marking tasks as done
