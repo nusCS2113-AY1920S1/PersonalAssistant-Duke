@@ -42,7 +42,7 @@ public class Parser {
     public static MoneyCommand moneyParse(String cmd, boolean isNewUser) throws DukeException, ParseException {
         MoneyCommand moneyCommand = null;
 
-        if (cmd.equals("start")) {
+        if (cmd.startsWith("start")) {
             moneyCommand = new startCommand(isNewUser);
         } else if (cmd.startsWith("init")) {
             moneyCommand = new initCommand(cmd, isNewUser);

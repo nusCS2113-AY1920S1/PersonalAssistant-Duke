@@ -23,7 +23,6 @@ import java.util.TreeSet;
  * Controller for MainWindow. Provides the layout for the other controls.
  */
 public class MainWindow extends AnchorPane {
-
     @FXML
     private ScrollPane scrollPane;
     @FXML

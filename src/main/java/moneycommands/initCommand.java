@@ -6,6 +6,8 @@ import money.Account;
 public class initCommand extends MoneyCommand{
 
     private String inputString;
+    private float userSavings;
+    private float avgExp;
 
     //@@author therealnickcheong
     public initCommand(String cmd, boolean isNewUser) throws DukeException {
@@ -21,10 +23,15 @@ public class initCommand extends MoneyCommand{
     }
 
     @Override
-    public void execute(Account account, Ui ui, MoneyStorage storage) {
+    public void execute(Account account, Ui ui, MoneyStorage storage) throws DukeException {
+        try {
+            userSavings = Float.parseFloat(inputString.split(" ")[1]);
+            avgExp = Float.parseFloat(inputString.split(" ")[2]);
+        }catch(ArrayIndexOutOfBoundsException | NumberFormatException e){
+            throw new DukeException("Please enter in the format: " +
+                    "init [existing savings] [Avg Monthly Expenditure]\n");
+        }
 
-        float userSavings = Float.parseFloat(inputString.split(" ")[1]);
-        float avgExp = Float.parseFloat(inputString.split(" ")[2]);
         account.initialize(userSavings,avgExp);
         storage.writeToFile(account);
 
