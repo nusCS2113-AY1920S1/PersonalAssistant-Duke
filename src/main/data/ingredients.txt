@@ -1,6 +1,3 @@
-<<<<<<< HEAD
 apple | 14012.0 | G | No additional information.
-=======
 orange | 1010.0 | G | No additional information.
-apple | 4018.0 | G | No additional information.
->>>>>>> c926b34004e8235e477799565129c9cc90cdc07e
+
