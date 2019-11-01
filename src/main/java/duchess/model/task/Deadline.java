@@ -1,6 +1,8 @@
 package duchess.model.task;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import duchess.model.TimeFrame;
 import duchess.parser.Util;
@@ -14,6 +16,11 @@ public class Deadline extends Task {
     public Deadline(String description, LocalDateTime deadline) {
         this.description = description;
         this.deadline = deadline;
+    }
+
+    @JsonCreator
+    public Deadline(@JsonProperty("deadline") String deadline) {
+        this.deadline = LocalDateTime.parse(deadline);
     }
 
     @Override
