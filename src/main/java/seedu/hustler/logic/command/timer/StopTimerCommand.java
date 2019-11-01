@@ -15,8 +15,6 @@ public class StopTimerCommand extends Command {
      * each task based on the schedule of work.
      */
     public void execute() {
-        RecommendedSchedule.confirm();
-        Scheduler.displayEntries();
         TimerManager.stopTimer();
     }
 }
