@@ -31,12 +31,14 @@ public class CommandResult {
         this(feedbackToUser, DisplayedPage.SAME, false);
     }
 
-    public CommandResult(boolean exit) {
+    public CommandResult(boolean isExiting) {
 
         //Dummy values to word around the field not declared exception.
         this("", DisplayedPage.ORDER, true);
 
-        System.exit(0);
+        if (isExiting) {
+            Runtime.getRuntime().exit(0);
+        }
     }
 
     public String getFeedbackToUser() {
