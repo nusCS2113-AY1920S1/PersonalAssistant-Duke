@@ -1,8 +1,11 @@
 package rims.core;
 
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FilenameFilter;
 import java.io.IOException;
 import java.text.ParseException;
+import java.util.ArrayList;
 
 import rims.command.Command;
 import rims.exception.RimsException;
@@ -47,7 +50,7 @@ public class Rims{
             try {
                 Command c = parser.parseInput(ui.getInput());
                 c.execute(ui, storage, resources);
-                parser.setPrevCommand(c);
+                //parser.setPrevCommand(c);
                 toExit = c.getExitCode();
             } catch (RimsException e) {
                 e.displayError();

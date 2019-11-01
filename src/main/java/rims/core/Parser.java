@@ -37,7 +37,7 @@ public class Parser {
     }
 
     public void setPrevCommand(Command c) {
-        if (c.canChangeData()) { prevCommand = c; }
+        //if (c.canChangeData()) { prevCommand = c; }
     }
 
     /**
