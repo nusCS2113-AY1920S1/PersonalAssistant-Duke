@@ -194,7 +194,13 @@ public class Storage {
         }
     }
 
-    public void add_degrees(DegreeList degrees) throws DukeException, IOException {
+  /**
+   * Adds a degree to storage
+   *
+   * @params degrees
+   * @throws DukeException
+   */
+    public void add_degrees(DegreeList degrees) throws DukeException {
         ArrayList<String> degree_list = degrees.getDegrees();
         try(BufferedWriter bw = new BufferedWriter(new FileWriter(this.another_saveFile))) {
             for(int i = 0; i < degree_list.size(); i++) {

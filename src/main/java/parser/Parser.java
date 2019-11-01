@@ -2,9 +2,7 @@ package parser;
 
 import command.*;
 import exception.DukeException;
-
 import java.util.Scanner;
-
 
 /**
  * Parser class.
@@ -94,14 +92,14 @@ public class Parser {
                     return new AddCommand(command, input);
                 } else if (command.matches("done|delete|select|snooze|remove")) {
                     return new ModCommand(command, input);
-                } else if (command.matches("find")) { //reading task list
+                } else if (command.matches("find|schedule")) { //reading task list
                     return new SearchCommand(command, input);
-                } else if (command.matches("schedule")) {
-                    return new SearchCommand(command, input);
+                } else if (command.matches("detail")) {
+                    return new PrintCommand(command, input);
                 } else if (command.matches("swap")) {
                     return new SwapCommand(command, input);
-                } else if (command.matches("sort")){
-                    return new SortCommand(command,input);
+                } else if (command.matches("sort")) {
+                    return new SortCommand(command, input);
                 }
             }
         }

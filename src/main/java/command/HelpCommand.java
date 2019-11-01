@@ -1,5 +1,6 @@
 package command;
 
+import degree.DegreeManager;
 import storage.Storage;
 import ui.UI;
 import task.TaskList;
@@ -41,9 +42,10 @@ public class HelpCommand extends Command {
      * @param tasks TasksList has tasks.
      * @param ui UI prints messages.
      * @param storage Storage loads and saves files.
+     * @param degreesManager
      * @throws DukeException DukeException throws exception.
      */
-    public void execute(TaskList tasks, UI ui, Storage storage, DegreeList lists) throws DukeException {
+    public void execute(TaskList tasks, UI ui, Storage storage, DegreeList lists, DegreeManager degreesManager) throws DukeException {
         if (this.arguments.matches("")) {
             System.out.println("help: Displays a full list of possible commands.\n"
                             + "detail DEGREE|MODULE: View detailed information about a degree or module\n"
@@ -75,11 +77,11 @@ public class HelpCommand extends Command {
                         "Computer Engineering\n" +
                         "Electrical Engineering\n" +
                         "Environmental Engineering\n" +
-                        "Industrial and Systems Engineering\n" +
+                        "Industrial Systems Engineering\n" +
                         "Mechanical Engineering\n" +
-                        "Materials Science and Engineering\n");
-            } else if (this.arguments.matches("degreelist")) {
-                System.out.println("degreelist: Shows a list of all degrees in the list.");
+                        "Materials Science Engineering\n");
+            } else if (this.arguments.matches("choices")) {
+                System.out.println("choices: Shows a list of all degrees in the list.");
             } else if (this.arguments.matches("swap")) {
                 System.out.println("swap INDEX INDEX: Swaps the position of two degrees in the degree list.");
             } else if (this.arguments.matches("replace")) {

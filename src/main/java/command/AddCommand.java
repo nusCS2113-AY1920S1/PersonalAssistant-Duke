@@ -1,13 +1,12 @@
 package command;
 
+import degree.DegreeManager;
 import storage.Storage;
 import task.UniversityTaskHandler;
 import ui.UI;
 import task.TaskList;
 import exception.DukeException;
 import list.DegreeList;
-
-import java.io.IOException;
 
 /**
  * AddCommand Class extends the abstract Command class.
@@ -37,9 +36,10 @@ public class AddCommand extends Command {
      * @param tasks TasksList has tasks.
      * @param ui UI prints messages.
      * @param storage Storage loads and saves files.
+     * @param degreesManager is the class which holds all information of degrees
      * @throws DukeException DukeException throws exception.
      */
-    public void execute(TaskList tasks, UI ui, Storage storage, DegreeList lists) throws DukeException, IOException {
+    public void execute(TaskList tasks, UI ui, Storage storage, DegreeList lists, DegreeManager degreesManager) throws DukeException {
         TaskList tasksBuffer;
         DegreeList degreesBuffer;
 
