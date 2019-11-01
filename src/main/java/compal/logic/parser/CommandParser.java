@@ -242,6 +242,24 @@ public interface CommandParser {
         }
     }
 
+    default boolean isFutureDate(Date date) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+        Date currentDate = calendar.getTime();
+        Calendar inputDate = Calendar.getInstance();
+        inputDate.setTime(date);
+
+        if (date.after(currentDate) || date.equals(currentDate)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+
     /**
      * Parses through user input for description field, and returns the description if present.
      *
