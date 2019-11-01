@@ -72,6 +72,21 @@ public class Ui {
     }
 
     /**
+     * Returns an appropriate message regarding whether the data file has been successfully indentified or, if absent,
+     * created.
+     *
+     * @param fileCreated a boolean corresponding to whether a new file was created
+     * @return the message to be displayed
+     */
+    static String showSaveStatus(boolean fileCreated) {
+        if (fileCreated) {
+            return "Data file for created songs not found. New file created.";
+        } else {
+            return "Data loaded successfully!";
+        }
+    }
+
+    /**
      * Returns the String but wrapped in between two horizontal lines for enhanced
      * reading and display on the command line interface.
      *
