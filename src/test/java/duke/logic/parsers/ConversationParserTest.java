@@ -8,7 +8,6 @@ import duke.logic.conversations.GetBusStopConversation;
 import duke.logic.conversations.MarkDoneConversation;
 import duke.logic.conversations.SearchConversation;
 
-import duke.model.lists.RouteList;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;

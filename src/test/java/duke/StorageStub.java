@@ -39,10 +39,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
-import java.util.logging.Logger;
 
 public class StorageStub {
-    private static final Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
     private EventList events;
     private RouteList routes;
     private TransportationMap map;
@@ -111,63 +109,6 @@ public class StorageStub {
         }
         s.close();
         this.map = new TransportationMap(busStopData, busData);
-    }
-
-    /**
-     * Reads events from filepath. Creates empty events if file cannot be read.
-     *
-     * @throws DukeDuplicateTaskException   If there is a duplicate event.
-     * @throws StorageFileNotFoundException If the file cannot be read.
-     */
-    private void readEvent() throws DukeDuplicateTaskException, StorageFileNotFoundException {
-        List<Event> events = new ArrayList<>();
-        try {
-            File f = new File(EVENTS_FILE_PATH);
-            Scanner s = new Scanner(f);
-            while (s.hasNext()) {
-                events.add(ParserStorageUtil.createTaskFromStorage(s.nextLine()));
-            }
-            s.close();
-        } catch (FileNotFoundException | ParseException e) {
-            throw new StorageFileNotFoundException(EVENTS_FILE_PATH);
-        }
-        this.events.setEvents(events);
-    }
-
-    /**
-     * Reads routes from filepath. Creates empty routes if file cannot be read.
-     *
-     * @throws RouteNodeDuplicateException  If there is a duplicate route that is read.
-     * @throws CorruptedFileException       If the reading has failed.
-     * @throws StorageFileNotFoundException If the storage file cannot be found.
-     */
-    private void readRoutes() throws RouteNodeDuplicateException, CorruptedFileException, StorageFileNotFoundException {
-        List<Route> newRoutes = new ArrayList<>();
-        try {
-            File f = new File(ROUTES_FILE_PATH);
-            Scanner s = new Scanner(f);
-            Route newRoute = new Route(new ArrayList<>(), "", "");
-            while (s.hasNext()) {
-                String input = s.nextLine();
-                if (input.split("\\|", 2)[0].strip().equals("route")) {
-                    if (newRoute.getNumNodes() != 0) {
-                        newRoutes.add(newRoute);
-                    }
-                    newRoute = ParserStorageUtil.createRouteFromStorage(input);
-                } else {
-                    newRoute.addNode(ParserStorageUtil.createNodeFromStorage(input));
-                }
-            }
-            if (!newRoute.getName().equals("")) {
-                newRoutes.add(newRoute);
-            }
-
-            s.close();
-        } catch (FileNotFoundException e) {
-            throw new StorageFileNotFoundException(ROUTES_FILE_PATH);
-        }
-
-        routes.setRoutes(newRoutes);
     }
 
     /**
