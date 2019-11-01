@@ -22,6 +22,9 @@ import duke.logic.parser.sale.SaleCommandParser;
 import duke.logic.parser.shopping.ShoppingCommandParser;
 import duke.logic.parser.shortcut.ExecuteShortcutCommandParser;
 import duke.logic.parser.shortcut.SetShortcutCommandParser;
+import duke.logic.parser.system.ExitCommandParser;
+import duke.logic.parser.undo.RedoCommandParser;
+import duke.logic.parser.undo.UndoCommandParser;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -77,11 +80,11 @@ public class BakingHomeParser {
         case ExecuteShortcutCommand.COMMAND_WORD:
             return new ExecuteShortcutCommandParser().parse(subCommandAndArgs);
         case UndoCommand.COMMAND_WORD:
-            return new UndoCommand();
+            return new UndoCommandParser().parse(subCommandAndArgs);
         case RedoCommand.COMMAND_WORD:
-            return new RedoCommand();
+            return new RedoCommandParser().parse(subCommandAndArgs);
         case ExitCommand.COMMAND_WORD:
-            return new ExitCommand();
+            return new ExitCommandParser().parse(subCommandAndArgs);
         default:
             throw new ParseException(Message.MESSAGE_UNKNOWN_COMMAND);
         }
