@@ -23,7 +23,7 @@ public class Tag {
         return PREFIX_TAG;
     }
 
-    public String getTagName() {
+    private String getTagName() {
         return tagName;
     }
 

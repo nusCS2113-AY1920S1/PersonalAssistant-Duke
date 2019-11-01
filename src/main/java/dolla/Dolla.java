@@ -31,7 +31,7 @@ public class Dolla {
      * Runs the main program of duke.Dolla
      * @throws Exception when exceptional condition happens
      */
-    public void run() throws Exception {
+    private void run() throws Exception {
         boolean isExit = false;
         Reminder reminder = new Reminder("debt");
         reminder.showReminder(dollaData);
