@@ -37,6 +37,7 @@ public class ResourceList {
         printResourcesDueSoon(3);
     }
 
+    //@author rabhijit
     public void printResourcesDueSoon(int daysDue) throws RimsException {
         ReservationList allDueReservations = new ReservationList();
         for (int i = 0; i < size(); i++) {
@@ -70,7 +71,6 @@ public class ResourceList {
         ui.printLine();
     }
 
-    //@@author rabhijit
     /**
      * Adds a new Resource to the ResourceList.
      * @param thisResource the newly created Resource.
