@@ -2,7 +2,6 @@ package dolla.command;
 
 import dolla.DollaData;
 import dolla.ui.RemoveUi;
-import dolla.ui.Ui;
 import dolla.action.Redo;
 import dolla.action.Undo;
 import dolla.task.RecordList;

@@ -3,6 +3,8 @@ package dolla;
 import dolla.task.Record;
 import dolla.ui.Ui;
 
+import static dolla.ModeStringList.PREFIX_TAG;
+
 /**
  * This class handles tag related methods.
  */
@@ -10,7 +12,6 @@ import dolla.ui.Ui;
 public class Tag {
 
     private String tagName;
-    private static final String PREFIX_TAG = "/tag"; //todo: change
 
     /**
      * Instantiates a new Tag.
@@ -23,7 +24,7 @@ public class Tag {
         return PREFIX_TAG;
     }
 
-    public String getTagName() {
+    private String getTagName() {
         return tagName;
     }
 
@@ -43,8 +44,8 @@ public class Tag {
     }
 
     private void extractTagName(String inputLine) {
-        String[] tempArray = inputLine.split(PREFIX_TAG);
-        tagName = tempArray[1].trim();
+        String[] tagArray = inputLine.split(PREFIX_TAG);
+        tagName = tagArray[1].trim();
     }
 
     /**
