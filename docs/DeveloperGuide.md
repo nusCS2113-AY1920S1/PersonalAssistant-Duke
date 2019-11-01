@@ -1,17 +1,27 @@
-## Developers Guide
-
+# Developers Guide
+![](https://github.com/AY1920S1-CS2113T-W12-4/main/blob/master/docs/images/DG%20images/logo.png)
 ```
 V 1.3
 ```
-# Prepared by:
- Lionel Lim
- Darren Ong
- Yang Kai Ze
-Jerry Ho
- Michelle Toh
-
 _The purpose of this guide is to show a detailed outline of the functionality of the application
 BetterDuke and some of its key features._
+
+
+
+
+
+
+
+
+
+# Prepared by:
+ Lionel Lim,
+ Darren Ong,
+ Yang Kai Ze,
+ Jerry Ho,
+ Michelle Toh
+
+
 
 
 ## Table of Contents
@@ -22,14 +32,14 @@ BetterDuke and some of its key features._
 - Setting up
    - Prerequisite
    - Setting up
-- 2. Design
+- Design
    - 2.1 Architecture
          - How the architecture components interact with each other
    - 2.2 Duke component
    - 2.3 Parser component
    - 2.4 Storage component
    - 2.5 UI component
-- 3. Implementation
+- Implementation
    - 3.1 [Proposed] Filter by Keyword feature
       - 3.1.1 How the feature is implemented.
 - Appendix A: Product Scope
