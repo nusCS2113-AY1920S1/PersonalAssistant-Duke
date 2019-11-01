@@ -28,7 +28,7 @@ public class ManageStudents {
      *
      * @return list of all the students.
      */
-    private ArrayList<MyStudent> getStudentList() {
+    public ArrayList<MyStudent> getStudentList() {
         return studentList;
     }
 
@@ -66,7 +66,6 @@ public class ManageStudents {
      *
      * @param name of the new student added
      */
-    @SuppressWarnings("checkstyle:LineLength")
     public void addStudent(final MyStudent name) {
         studentList.add(name);
         System.out.println("Student have been added: \n"
@@ -87,10 +86,6 @@ public class ManageStudents {
                 + " has been removed from the list.");
             if ((getStudentListSize() - 1) == 0) {
                 System.out.println("\nNow you have no student in your list.");
-            } else if ((getStudentListSize() - 1) == 1) {
-                System.out.println("\nNow you have "
-                    + (getStudentListSize() - 1)
-                    + " student in your list.");
             } else {
                 System.out.println("\nNow you have "
                     + (getStudentListSize() - 1)
@@ -100,11 +95,7 @@ public class ManageStudents {
         } catch (IndexOutOfBoundsException e) {
             if (getStudentListSize() == 0) {
                 System.err.println("Oops! "
-                    + "You only have no student in the list!");
-            } else if (getStudentListSize() == 1) {
-                System.err.println("Oops! You only have "
-                    + getStudentListSize()
-                    + " student in the list!");
+                    + "You have no student in the list!");
             } else {
                 System.err.println("Oops! You only have "
                     + getStudentListSize()
@@ -114,32 +105,6 @@ public class ManageStudents {
         }
     }
 
-    /**
-     * A method to find a specific student in the list.
-     *
-     * @param name of student to search
-     * @return the name of student search
-     */
-    public final String findName(final String name) {
-        /*
-        StringBuilder listString = new StringBuilder();
-         */
-        int index = 1;
-        for (MyStudent i : getStudentList()) {
-            if (i.getName().contains(name)) {
-                if (index == 1) {
-                    System.out.println(
-                        "Here are the matching names in your list:");
-                }
-                System.out.println(index++ + ". " + i.getName());
-            }
-        }
-
-        if (index == 1) {
-            System.out.println(
-                "Sorry, there are no names matching your search");
-        }
-        return name;
-    }
-
 }
+
+
