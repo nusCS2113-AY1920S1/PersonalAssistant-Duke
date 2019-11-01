@@ -24,36 +24,40 @@ public class OfflineSearchStorage {
     private static String TRENDING_TV_DATA_FILEPATH = "/data/TrendingTV.json";
     private static String TOP_RATED_TV_DATA_FILEPATH = "/data/RatedTV.json";
     private static String MOVIES_DATABASE_FILEPATH = "/data/movieData/";
+    private static final String KEYWORD_FOR_SEARCH_REQUESTS = "results";
 
     /**
      * load and fetch appropriate string data for search requests.
      */
-    public String load() throws IOException {
+    public JSONArray load() throws IOException {
         String dataFromJSON = "";
+        JSONArray searchData = new JSONArray();
         RetrieveRequest.MoviesRequestType type = RetrieveRequest.getGetType();
         String filename = getFileName(type);
+        if (type.equals(RetrieveRequest.MoviesRequestType.SEARCH_MOVIES)) {
+            searchData = getSearchData();
+            return searchData;
+        }
         InputStream inputStream = getClass().getResourceAsStream(filename);
         InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
         BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
         String line;
-
         while ((line = bufferedReader.readLine()) != null) {
             dataFromJSON += line;
         }
         bufferedReader.close();
         inputStreamReader.close();
         inputStream.close();
-
         JSONParser jsonParser = new JSONParser();
         JSONObject jsonObject = new JSONObject();
         try {
-            //parse into JSONObject.
             jsonObject = (JSONObject) jsonParser.parse(dataFromJSON);
+            searchData = (JSONArray) jsonObject.get(KEYWORD_FOR_SEARCH_REQUESTS);
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        //return jsonObject;
-        return dataFromJSON;
+        //return jsonArray;
+        return searchData;
     }
 
     /**
@@ -99,54 +103,13 @@ public class OfflineSearchStorage {
     }
 
     /**
-     * private String getDataForSearchMovies() throws IOException {
-     * // String filename = MOVIES_DATABASE_FILEPATH;
-     * String dataForMovies = "";
-     * for (int i = 1; i <= 2; i += 1) {
-     * String filename = MOVIES_DATABASE_FILEPATH;
-     * filename += i + ".json";
-     * InputStream inputStream = getClass().getResourceAsStream(filename);
-     * System.out.println(filename);
-     * InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
-     * BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-     * String line = "";
-     * int j = 1;
-     * String prevline = "";
-     * while ((line = bufferedReader.readLine()) != null) {
-     * dataForMovies += prevline;
-     * if ((i > 1) && (j > 1))  {
-     * System.out.println("come on2");
-     * prevline = line;
-     * //dataForMovies += line;
-     * j += 1;
-     * } else if (i == 1) {
-     * prevline = line;
-     * } else if ((i > 1) && (j == 1)) {
-     * System.out.println("come on");
-     * j += 1;
-     * System.out.println(j);
-     * }
-     * }
-     * bufferedReader.close();
-     * inputStreamReader.close();
-     * inputStream.close();
-     * if (i == 2) {
-     * dataForMovies += prevline;
-     * } else {
-     * dataForMovies += ",";
-     * }
-     * System.out.println(dataForMovies);
-     * <p>
-     * }
-     * return dataForMovies;
-     * <p>
-     * }
-     **/
-
+     *
+     * @return
+     */
     public JSONArray getSearchData() {
-        JSONArray total = new JSONArray();
+        JSONArray searchResults = new JSONArray();
         for (int i = 1; i <= 500; i += 1) {
-            String filename = "data/movieData/";
+            String filename = MOVIES_DATABASE_FILEPATH;
             filename += i + ".json";
             System.out.println(filename);
             JSONParser parser = new JSONParser();
@@ -160,10 +123,10 @@ public class OfflineSearchStorage {
             }
             for (int j = 0; j < jsonArray.size(); j += 1) {
                 JSONObject jsonObject = (JSONObject) jsonArray.get(j);
-                total.add(jsonObject);
+                searchResults.add(jsonObject);
             }
         }
-        return total;
+        return searchResults;
     }
 }
 

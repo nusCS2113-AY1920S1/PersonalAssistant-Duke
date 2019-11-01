@@ -92,19 +92,14 @@ public class SearchCommand extends CommandSuper {
             movieHandler.setGeneralFeedbackText(PromptMessages.VIEW_CURRENT_MOVIES_SUCCESS);
         } else if (payload.equals(GET_UPCOMING)) {
             movieHandler.getAPIRequester().beginSearchRequest(RetrieveRequest.MoviesRequestType.UPCOMING_MOVIES);
-            movieHandler.setGeneralFeedbackText(PromptMessages.VIEW_UPCOMING_MOVIES_SUCCESS);
         } else if (payload.equals(GET_TRENDING)) {
             movieHandler.getAPIRequester().beginSearchRequest(RetrieveRequest.MoviesRequestType.TRENDING_MOVIES);
-            movieHandler.setGeneralFeedbackText(PromptMessages.VIEW_TRENDING_MOVIES_SUCCESS);
         } else if (payload.equals(GET_POPULAR)) {
             movieHandler.getAPIRequester().beginSearchRequest(RetrieveRequest.MoviesRequestType.POPULAR_MOVIES);
-            movieHandler.setGeneralFeedbackText(PromptMessages.VIEW_POPULAR_MOVIES_SUCCESS);
         } else if (payload.equals(GET_RATED)) {
             movieHandler.getAPIRequester().beginSearchRequest(RetrieveRequest.MoviesRequestType.TOP_RATED_MOVIES);
-            movieHandler.setGeneralFeedbackText(PromptMessages.VIEW_TOP_RATED_MOVIES_SUCCESS);
         } else {
             movieHandler.getAPIRequester().beginSearchRequest(RetrieveRequest.MoviesRequestType.SEARCH_MOVIES);
-            movieHandler.setGeneralFeedbackText(PromptMessages.VIEW_SEARCH_MOVIES_SUCCESS);
         }
     }
 

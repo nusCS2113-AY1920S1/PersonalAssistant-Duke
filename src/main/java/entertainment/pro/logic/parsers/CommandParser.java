@@ -284,9 +284,9 @@ public class CommandParser {
 
     private static void askUserConfirmation(CommandPair pair, Controller uicontroller, String[] commandArr) {
         if (pair.getSubRootCommand() == COMMANDKEYS.none) {
-            ((MovieHandler) uicontroller).setAutoCompleteLabel("Did you mean :" + pair.getRootCommand());
+            ((MovieHandler) uicontroller).setAutoCompleteText("Did you mean :" + pair.getRootCommand());
         } else {
-            ((MovieHandler) uicontroller).setAutoCompleteLabel("Did you mean :" + pair.getRootCommand() + " "
+            ((MovieHandler) uicontroller).setAutoCompleteText("Did you mean :" + pair.getRootCommand() + " "
                     + pair.getSubRootCommand() + " "
                     + String.join(" ", Arrays.copyOfRange(commandArr, 2, commandArr.length)));
         }

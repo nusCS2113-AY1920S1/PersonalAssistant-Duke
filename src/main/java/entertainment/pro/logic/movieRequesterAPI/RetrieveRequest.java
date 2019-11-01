@@ -4,6 +4,7 @@ import entertainment.pro.commons.PromptMessages;
 import entertainment.pro.commons.exceptions.Exceptions;
 import entertainment.pro.model.SearchProfile;
 import entertainment.pro.storage.utils.OfflineSearchStorage;
+import entertainment.pro.ui.MovieHandler;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -25,12 +26,13 @@ import java.util.logging.Logger;
  */
 public class RetrieveRequest implements InfoFetcher {
     private static final String DEFAULT_IMAGE_FILENAME = "/images/cross.png";
-    private RequestListener mListener;
-    private ArrayList<MovieInfoObject> p_Movies;
+    private RequestListener requestListener;
+    private ArrayList<MovieInfoObject> finalSearchResults = new ArrayList<>();
     private SearchProfile searchProfile;
     private static RetrieveRequest.MoviesRequestType getType;
     private boolean isOffline = false;
     private static String UNAVAILABLE_INFO = "N/A";
+    private static String PRINT_SUITABLE_FOR = "Suitable for";
 
     // API Usage constants
     private static final String MAIN_URL = "http://api.themoviedb.org/3/";
@@ -48,6 +50,7 @@ public class RetrieveRequest implements InfoFetcher {
     private static final String TO_SPECIFY_US = "US";
     private static final String TO_SPECIFY_CERTIFICATION = "certification";
     private static final String TO_SPECIFY_RELEASE_DATES = "release_dates";
+
 
     // General Data Request URL's
     private static final String RELEASE_DATES_URL = "/release_dates?api_key=";
@@ -90,22 +93,22 @@ public class RetrieveRequest implements InfoFetcher {
     private final static String CONFIG_URL = MAIN_URL + "configuration?api_key=" + API_KEY;
 
     // Config constants
-    private static final int DAYS_TILL_RECACHE = 5;
-    private static final String CONFIG_FILE_NAME = "config.dat";
+    private static final int DAYS_TILL_RECACHE = 10;
+    private static final String CONFIG_FILENAME = "config.dat";
 
     // Config Keys
-    private static final String kCONFIG_BASE_URL = "base_url";
-    private static final String kCONFIG_SECURE_BASE_URL = "secure_base_url";
-    private static final String kCONFIG_BACKDROP_SIZES = "backdrop_sizes";
-    private static final String kCONFIG_POSTER_SIZES = "poster_sizes";
+    private static final String CONFIG_BASE_URL = "base_url";
+    private static final String CONFIG_SECURE_BASE_URL = "secure_base_url";
+    private static final String CONFIG_BACKDROP_SIZES = "backdrop_sizes";
+    private static final String CONFIG_POSTER_SIZES = "poster_sizes";
 
     // Config values
-    private static Date mLastConfigCacheDate;
-    private static String mImageBaseURL;
-    private static String mImageSecureBaseURL;
-    private static String[] mPosterSizes;
-    private static String[] mBackdropSizes;
-    private boolean mConfigWasRead;
+    private static Date lastConfigCachedDate;
+    private static String imageBaseURL;
+    private static String imageSecureBaseURL;
+    private static String[] resultsPosterSizes;
+    private static String[] resultsBackdropSizes;
+    private boolean configWasRead;
 
 
     /**
@@ -143,8 +146,8 @@ public class RetrieveRequest implements InfoFetcher {
      * @throws Exceptions
      */
     public RetrieveRequest(RequestListener listener) throws Exceptions {
-        mListener = listener;
-        // Check if config is needed
+        requestListener = listener;
+        // Check if configuration is needed
         checkIfConfigNeeded();
     }
 
@@ -387,7 +390,7 @@ public class RetrieveRequest implements InfoFetcher {
             URLRetriever retrieve = new URLRetriever();
             String json = retrieve.readURLAsString(new URL(url));
             fetchedJSON(json);
-            return p_Movies.get(0).getTitle();
+            return finalSearchResults.get(0).getTitle();
         } catch (UnsupportedEncodingException | MalformedURLException ex) {
             ex.printStackTrace();
         }
@@ -416,90 +419,101 @@ public class RetrieveRequest implements InfoFetcher {
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
-        return p_Movies;
+        return finalSearchResults;
     }
 
 
+    @Override
+    public void fetchOfflineData() {
+        isOffline = true;
+        JSONArray resultsJSON = new JSONArray();
+        OfflineSearchStorage offlineSearchStorage = new OfflineSearchStorage();
+        try {
+            resultsJSON = offlineSearchStorage.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        parseJSON(resultsJSON);
+
+    }
+
     /**
      * Called after JSON data has been fetched by the fetcher.
-     * If JSON is empty, calls the apprpriate function to extract offline data.
-     * Extracts and filters results according to user's preferences.
+     * Parse the data into a JSONArray.
      *
      * @param json String that contains all the data extracted by fetcher.
      */
     @Override
     public void fetchedJSON(String json) {
-        String data = "";
-        JSONObject movieData = new JSONObject();
+        isOffline = false;
+        JSONObject data = new JSONObject();
         JSONParser parser = new JSONParser();
-        JSONArray movies = new JSONArray();
-        if (json == null) {
-            //mListener.requestFailed();
-            //System.out.println("so far not ok");
-            //return;
-            isOffline = true;
-            OfflineSearchStorage offlineSearchStorage = new OfflineSearchStorage();
-            try {
-                if (getType.equals(MoviesRequestType.SEARCH_MOVIES)) {
-                    movies = offlineSearchStorage.getSearchData();
-                } else {
-                    data = offlineSearchStorage.load();
-                    System.out.println("ok so far");
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        } else {
-            isOffline = false;
-            data = json;
-        }
-
+        JSONArray searchResults = new JSONArray();
         try {
-            if (!(isOffline && getType.equals(MoviesRequestType.SEARCH_MOVIES))) {
-                movieData = (JSONObject) parser.parse(data);
-                movies = (JSONArray) movieData.get(KEYWORD_FOR_SEARCH_REQUESTS);
-
-            }
+            data = (JSONObject) parser.parse(json);
+            searchResults = (JSONArray) data.get(KEYWORD_FOR_SEARCH_REQUESTS);
         } catch (org.json.simple.parser.ParseException e) {
             e.printStackTrace();
         }
+        parseJSON(searchResults);
+    }
 
+    /**
+     * Responsible for calling another function to extract and filter results according to user's preferences.
+     * Also responsible for sorting results according to user's preferences.
+     * @param searchResults JSONArray that contains data about all the search results.
+     */
+    private void parseJSON(JSONArray searchResults) {
         ArrayList<MovieInfoObject> parsedMovies = new ArrayList(20);
         int size = 0;
-        for (int i = 0; i < movies.size(); i++) {
+        for (int i = 0; i < searchResults.size(); i++) {
             if (size > 20) {
                 break;
             }
             // add results that meet user stated preferences
-            if (checkCondition((JSONObject) movies.get(i))) {
-                parsedMovies.add(parseMovieJSON((JSONObject) movies.get(i)));
+            if (checkCondition((JSONObject) searchResults.get(i))) {
+                parsedMovies.add(parseMovieJSON((JSONObject) searchResults.get(i)));
                 size += 1;
                 //System.out.println("yeesss");
             }
         }
-        p_Movies = parsedMovies;
+        finalSearchResults = parsedMovies;
         if (searchProfile.isSortByAlphabetical()) {
             sortByAlphaOrder();
         } else if (searchProfile.isSortByLatestRelease()) {
-            parsedMovies.sort(new Comparator<MovieInfoObject>() {
-                public int compare(MovieInfoObject v1, MovieInfoObject v2) {
-                    return v2.getReleaseDateInfo().compareTo(v1.getReleaseDateInfo());
-                }
-            });
+            sortByLatestRelease();
         } else if (searchProfile.isSortByHighestRating()) {
-            parsedMovies.sort(new Comparator<MovieInfoObject>() {
-                public int compare(MovieInfoObject v1, MovieInfoObject v2) {
-                    return Double.compare(v2.getRatingInfo(), v1.getRatingInfo());
-                }
-            });
+            sortByHighestRating();
         }
-        mListener.requestCompleted(parsedMovies);
+        if (isOffline) {
+            // to print a message that offline data is being used
+            requestListener.requestTimedOut();
+        } else {
+            // to print message that data was extracted from API successfully
+            requestListener.requestCompleted();
+        }
+        requestListener.obtainedResultsData(finalSearchResults);
+    }
 
+    private void sortByHighestRating() {
+        finalSearchResults.sort(new Comparator<MovieInfoObject>() {
+            public int compare(MovieInfoObject v1, MovieInfoObject v2) {
+                return Double.compare(v2.getRatingInfo(), v1.getRatingInfo());
+            }
+        });
+    }
+
+    private void sortByLatestRelease() {
+        finalSearchResults.sort(new Comparator<MovieInfoObject>() {
+            public int compare(MovieInfoObject v1, MovieInfoObject v2) {
+                return v2.getReleaseDateInfo().compareTo(v1.getReleaseDateInfo());
+            }
+        });
     }
 
 
     private void sortByAlphaOrder() {
-        p_Movies.sort(new Comparator<MovieInfoObject>() {
+        finalSearchResults.sort(new Comparator<MovieInfoObject>() {
             public int compare(MovieInfoObject v1, MovieInfoObject v2) {
                 return v1.getTitle().compareTo(v2.getTitle());
             }
@@ -511,15 +525,6 @@ public class RetrieveRequest implements InfoFetcher {
         return getType;
     }
 
-    /**
-     * Called when the fetcher reported a connection time out.
-     * Responisble for notify the request listener.
-     */
-    @Override
-    public void connectionTimedOut() {
-        //isOffline = true;
-        mListener.requestTimedOut();
-    }
 
     /**
      * Called to fetch data from API for search requests.
@@ -623,8 +628,8 @@ public class RetrieveRequest implements InfoFetcher {
                     posterPath, backdropPath, rating, genreID, searchProfile.isAdult());
         }
         // If the base url was fetched and loaded, set the root path and poster size
-        if (mImageBaseURL != null) {
-            movieInfo.setPosterRootPath(mImageBaseURL, mPosterSizes[mPosterSizes.length - 3], isOffline);
+        if (imageBaseURL != null) {
+            movieInfo.setPosterRootPath(imageBaseURL, resultsPosterSizes[resultsPosterSizes.length - 3], isOffline);
         }
 
         return movieInfo;
@@ -635,21 +640,21 @@ public class RetrieveRequest implements InfoFetcher {
         boolean configNeeded = true;
 
         // Get last cache date and reconfig if more than 5 days passed
-        File configFile = new File(CONFIG_FILE_NAME);
+        File configFile = new File(CONFIG_FILENAME);
 
         if (configFile.exists() && !configFile.isDirectory()) {
             readConfigData();
 
             // Parse date and if more than 5 days passed, a recache is required
             Date now = new Date();
-            int diffInDays = (int) (now.getTime() - mLastConfigCacheDate.getTime()) / (1000 * 3600 * 24);
+            int diffInDays = (int) (now.getTime() - lastConfigCachedDate.getTime()) / (1000 * 3600 * 24);
 
             if (diffInDays < DAYS_TILL_RECACHE) {
                 configNeeded = false;
             }
         }
 
-        if (configNeeded || !mConfigWasRead) {
+        if (configNeeded || !configWasRead) {
             //System.out.println("Config recache needed");
             reCacheConfigData();
         } else {
@@ -662,23 +667,23 @@ public class RetrieveRequest implements InfoFetcher {
     // Reads in the config data from disk
     private void readConfigData() {
         try {
-            ObjectInputStream file = new ObjectInputStream(new FileInputStream(CONFIG_FILE_NAME));
-            mLastConfigCacheDate = (Date) file.readObject();
-            mImageBaseURL = file.readUTF();
-            mImageSecureBaseURL = file.readUTF();
-            mPosterSizes = (String[]) file.readObject();
-            mBackdropSizes = (String[]) file.readObject();
+            ObjectInputStream file = new ObjectInputStream(new FileInputStream(CONFIG_FILENAME));
+            lastConfigCachedDate = (Date) file.readObject();
+            imageBaseURL = file.readUTF();
+            imageSecureBaseURL = file.readUTF();
+            resultsPosterSizes = (String[]) file.readObject();
+            resultsBackdropSizes = (String[]) file.readObject();
 
-            mConfigWasRead = true;
+            configWasRead = true;
             file.close();
         } catch (FileNotFoundException ex) {
             // No file found, config will be recached
-            mConfigWasRead = false;
+            configWasRead = false;
         } catch (IOException ex) {
             // Error reading - config will be recached
-            mConfigWasRead = false;
+            configWasRead = false;
         } catch (ClassNotFoundException ex) {
-            mConfigWasRead = false;
+            configWasRead = false;
         }
     }
 
@@ -686,12 +691,12 @@ public class RetrieveRequest implements InfoFetcher {
     // NOTE: Only call after all config data was recached
     private void writeConfigData() {
         try {
-            ObjectOutputStream file = new ObjectOutputStream(new FileOutputStream(CONFIG_FILE_NAME));
+            ObjectOutputStream file = new ObjectOutputStream(new FileOutputStream(CONFIG_FILENAME));
             file.writeObject(new Date());
-            file.writeUTF(mImageBaseURL);
-            file.writeUTF(mImageSecureBaseURL);
-            file.writeObject(mPosterSizes);
-            file.writeObject(mBackdropSizes);
+            file.writeUTF(imageBaseURL);
+            file.writeUTF(imageSecureBaseURL);
+            file.writeObject(resultsPosterSizes);
+            file.writeObject(resultsBackdropSizes);
             file.close();
         } catch (IOException ex) {
             // Failed to write, data will be not be cached and will be recached on next run
@@ -714,14 +719,14 @@ public class RetrieveRequest implements InfoFetcher {
                     JSONObject imageConfigData = (JSONObject) configRootData.get("images");
 
                     // Get the base url data
-                    mImageBaseURL = (String) imageConfigData.get(kCONFIG_BASE_URL);
-                    mImageSecureBaseURL = (String) imageConfigData.get(kCONFIG_SECURE_BASE_URL);
+                    imageBaseURL = (String) imageConfigData.get(CONFIG_BASE_URL);
+                    imageSecureBaseURL = (String) imageConfigData.get(CONFIG_SECURE_BASE_URL);
 
                     // Get the string arrays for the poster and backdrop size strings
-                    JSONArray posterSizesData = (JSONArray) imageConfigData.get(kCONFIG_POSTER_SIZES);
-                    JSONArray backdropSizesData = (JSONArray) imageConfigData.get(kCONFIG_BACKDROP_SIZES);
-                    mPosterSizes = Arrays.copyOf(posterSizesData.toArray(), posterSizesData.toArray().length, String[].class);
-                    mBackdropSizes = Arrays.copyOf(backdropSizesData.toArray(), backdropSizesData.toArray().length, String[].class);
+                    JSONArray posterSizesData = (JSONArray) imageConfigData.get(CONFIG_POSTER_SIZES);
+                    JSONArray backdropSizesData = (JSONArray) imageConfigData.get(CONFIG_BACKDROP_SIZES);
+                    resultsPosterSizes = Arrays.copyOf(posterSizesData.toArray(), posterSizesData.toArray().length, String[].class);
+                    resultsBackdropSizes = Arrays.copyOf(backdropSizesData.toArray(), backdropSizesData.toArray().length, String[].class);
 
                     writeConfigData();
                 } catch (org.json.simple.parser.ParseException ex) {

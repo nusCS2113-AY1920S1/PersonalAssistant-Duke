@@ -297,7 +297,7 @@ public class MovieHandler extends Controller implements RequestListener {
                 mSearchTextField.clear();
                 String cmd = CommandStack.nextCommand();
                 if (cmd == null) {
-                    setAutoCompleteLabel("You dont have any commands in history!");
+                    setAutoCompleteText("You dont have any commands in history!");
                 } else {
                     mSearchTextField.clear();
                     mSearchTextField.setText(cmd);
@@ -306,6 +306,8 @@ public class MovieHandler extends Controller implements RequestListener {
 
                 mSearchTextField.positionCaret(mSearchTextField.getText().length());
             } else if (event.getCode() == KeyCode.ENTER) {
+                clearGeneralFeedbackText();
+                clearAutoCompleteFeedbackText();
 
                 command = mSearchTextField.getText();
                 try {
@@ -319,8 +321,7 @@ public class MovieHandler extends Controller implements RequestListener {
                     setGeneralFeedbackText(PromptMessages.MISSING_ARGUMENTS);
                 }
                 clearSearchTextField();
-                clearGeneralFeedbackText();
-                clearAutoCompleteFeedbackText();
+
             } else if (event.getCode().equals(KeyCode.DOWN)) {
                 mMoviesScrollPane.requestFocus();
                 mMoviesFlowPane.getChildren().get(0).setStyle("-fx-border-color: white");
@@ -446,14 +447,27 @@ public class MovieHandler extends Controller implements RequestListener {
             }
         });
     }
+    /**
+     * This function is called when data for the movies/tv shows failed to fetch due to timed out.
+     */
+    @Override
+    public void requestTimedOut() {
+        setGeneralFeedbackText(PromptMessages.API_TIME_OUT);
+    }
+
+
 
     /**
      * This function is called when data for the movies/tv shows has been fetched.
      */
     @Override
-    public void requestCompleted(ArrayList<MovieInfoObject> moviesInfo) {
+    public void requestCompleted() {
         // Build the Movie poster views and add to the flow pane on the main thread
         //System.out.print("Request received");
+        setGeneralFeedbackText(PromptMessages.API_SUCCESS);
+    }
+
+    public void obtainedResultsData(ArrayList<MovieInfoObject> moviesInfo) {
         ArrayList<MovieInfoObject> filteredMovies = Blacklist.filter(moviesInfo);
         final ArrayList<MovieInfoObject> MoviesFinal = filteredMovies;
         mMovies.clear();
@@ -465,36 +479,6 @@ public class MovieHandler extends Controller implements RequestListener {
         //System.out.print("Request rsdceceived");
         SearchResultContext.addResults(MoviesFinal);
         mMovies = MoviesFinal;
-
-//        if (isViewBackMoreInfo) {
-//            Platform.runLater(new Runnable() {
-//                @Override
-//                public void run() {
-//                    // Update UI here.
-//                    PastCommandStructure pastCommandStructure = getPastCommands().getMap().get(
-//                            getPastCommands().getMap().size() - 2);
-//                    String command = pastCommandStructure.getQuery();
-//                    String[] getStrips = command.split(" ");
-//                    int num = 0;
-//                    if (getPastCommands().getMap().get(getPastCommands().getMap().size() - 2)
-//                            .getQuery().startsWith("view entry")) {
-//                        num = Integer.parseInt(getStrips[2]);
-//                    }
-//                    try {
-//                        showMovie(num);
-//                    } catch (Exceptions exceptions) {
-//                        exceptions.printStackTrace();
-//                    }
-//                    isViewBackMoreInfo = false;
-//                        getPastCommands().getMap().remove(getPastCommands().getMap().size() - 1);
-//                        getPastCommands().getMap().remove(getPastCommands().getMap().size() - 1);
-//                        PastUserCommands.update(pastCommands);
-//                        isViewBack = false;
-//                }
-//            });
-//
-//        } else {
-        //System.out.println("this is size: " + mMovies.size());
         mImagesLoadingProgress = new double[mMovies.size()];
         Platform.runLater(() -> {
             try {
@@ -504,12 +488,6 @@ public class MovieHandler extends Controller implements RequestListener {
                 exceptions.printStackTrace();
             }
         });
-//        if (isViewBack == true) {
-//            getPastCommands().getMap().remove(getPastCommands().getMap().size() - 1);
-//            getPastCommands().getMap().remove(getPastCommands().getMap().size() - 1);
-//            PastUserCommands.update(pastCommands);
-//            isViewBack = false;
-//        }
     }
 
     /**
@@ -527,21 +505,6 @@ public class MovieHandler extends Controller implements RequestListener {
         });
     }
 
-    /**
-     * This function is called when data for the movies/tv shows failed to fetch due to timed out.
-     */
-    @Override
-    public void requestTimedOut() {
-        setGeneralFeedbackText(PromptMessages.API_TIME_OUT);
-    }
-
-    /**
-     * This function is called when data for the movies/tv shows failed due to internet connection.
-     */
-    @Override
-    public void requestFailed() {
-        setGeneralFeedbackText(PromptMessages.API_OFFLINE);
-    }
 
     /**
      * This funcion is called to print a message when the data for movies/tv shows is unavailable due to
@@ -1048,14 +1011,6 @@ public class MovieHandler extends Controller implements RequestListener {
 
 
     /**
-     * Sets text in the UI under autoCompleteText.
-     * @param txt The text to be printed.
-     */
-    public void setAutoCompleteLabel(String txt) {
-        autoCompleteText.setText(txt);
-    }
-
-    /**
      * Clears the text displayed under the generalFeedbackText.
      */
     public void clearGeneralFeedbackText() {
@@ -1069,6 +1024,9 @@ public class MovieHandler extends Controller implements RequestListener {
         autoCompleteText.setText("");
     }
 
+    public void setAutoCompleteText(String text) {
+        autoCompleteText.setText(text);
+    }
     /**
      * checkstyle made me put javadoc here >:( whoever made this function pls edit the the javadoc tqtq -wh.
      */

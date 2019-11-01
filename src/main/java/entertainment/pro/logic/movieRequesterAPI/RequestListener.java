@@ -11,17 +11,17 @@ public interface RequestListener {
 
     /**
      * Called when data has been successfully fetched from the MovieDB API.
-     * @param moviesInfo List of either movie or TV items extracted from the API
      */
-    void requestCompleted(ArrayList<MovieInfoObject> moviesInfo);
+    void requestCompleted();
 
     /**
-     * Called when data has not been extracted from the MovieDB API due to bad internet connection.
+     * Called when data has not been extracted from the MovieDB API due to bad/no internet connection.
      */
     void requestTimedOut();
 
     /**
-     * Called when data has not been extracted from the MovieDB API due to no internet connection.
+     * Called to transmit search results data to be displayed in the UI.
+     * @param resultData contains all the search results data to be displayed in the UI.
      */
-    void requestFailed();
+    void obtainedResultsData(ArrayList<MovieInfoObject> resultData);
 }

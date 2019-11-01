@@ -55,7 +55,7 @@ public class CinemaRetrieveRequest implements CinemaInfoFetcher {
     @Override
     public void fetchedCinemasJSON(String json) {
         if (json == null) {
-            variableListener.requestFailed();
+            variableListener.requestTimedOut();
             return;
         }
         JSONParser parser = new JSONParser();

@@ -7,5 +7,5 @@ package entertainment.pro.logic.movieRequesterAPI;
  */
 public interface InfoFetcher {
     void fetchedJSON(String json);
-    void connectionTimedOut();
+    void fetchOfflineData();
 }

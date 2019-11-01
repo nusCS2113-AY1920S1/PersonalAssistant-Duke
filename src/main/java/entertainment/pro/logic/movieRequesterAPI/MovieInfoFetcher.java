@@ -38,10 +38,7 @@ public class MovieInfoFetcher implements Runnable {
             movieRequestListener.fetchedJSON(json);
             //System.out.println("passed");
         } catch (Exceptions ex) {
-            // Notify the listener that the connection have timed out.
-            movieRequestListener.connectionTimedOut();
-            json = null;
-            movieRequestListener.fetchedJSON(json);
+            movieRequestListener.fetchOfflineData();
             }
         }
     }
