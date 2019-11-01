@@ -22,7 +22,7 @@ public class ListPanel extends UiManager<ListView> {
         super(FXML);
         ObservableList<Food> observableList = FXCollections.observableArrayList(foodList.getFoodList());
         productListView.setItems(observableList);
-        //productListView.setCellFactory(listView -> new ListViewCell());
+        productListView.setCellFactory(listView -> new ListViewCell());
     }
 
     public void updateProductList(FoodList foodList) {
