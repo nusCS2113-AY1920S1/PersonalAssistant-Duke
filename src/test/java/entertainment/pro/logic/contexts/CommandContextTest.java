@@ -30,6 +30,11 @@ public class CommandContextTest {
     }
 
     @Test
+    void getPossibiititlyies_validInputs_success() {
+
+    }
+
+    @Test
     public void testGetRoot(){
         CommandContext.initialiseContext();
         ArrayList<COMMANDKEYS> a = new ArrayList<>();

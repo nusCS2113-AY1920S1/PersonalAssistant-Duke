@@ -1,7 +1,14 @@
 Set functionality:
-    #name
-    #age
-    #preferences
+    #name        :Sets user's name
+    #age         :Sets user's age
+    #adult       :Sets user's preference for adult content
+    #preference  :Sets user's genre preferences
+    #restriction :Sets user's genre restrictions
+    #sort        :Sets user's preferred sorting method
 
-    usage: set name <YOUR_NAME>
-           set age  <YOUR_AGE>
+    usage: set name USER_NAME
+           set age USER_AGE
+           set adult YES/NO
+           set preference [-a YES/NO] [-g GENRE_NAME]
+           set restriction [-g GENRE_NAME]
+           set sort [1/2/3]
