@@ -329,6 +329,9 @@ public abstract class Task implements Serializable {
         if (getStringStartTime().equals("-")) {
             strCase = 1;
         }
+        if (!getStringTrailingDate().equals("-") && !getStringMainDate().equals(getStringTrailingDate())) {
+            strCase = 2;
+        }
 
         switch (strCase) {
         case 1:
@@ -336,6 +339,13 @@ public abstract class Task implements Serializable {
                 + " \nTask ID:" + getId()
                 + " \nDate: " + getStringMainDate() + " \nEnd Time: " + getStringEndTime()
                 + " \nPriority: " + getPriority() + "\n***************";
+        case 2:
+            return "\n" + "[" + getSymbol() + "]" + "[" + getStatusIcon() + "] " + getDescription()
+                + " \nTask ID:" + getId()
+                + " \nStart Date: " + getStringMainDate() + " \nStart Time: " + getStringStartTime()
+                + "\nEnd Date:" + getStringTrailingDate()
+                + " \nEnd Time: " + getStringEndTime() + " \nPriority: " + getPriority()
+                + "\n***************";
         default:
             return "\n" + "[" + getSymbol() + "]" + "[" + getStatusIcon() + "] " + getDescription()
                 + " \nTask ID:" + getId()
