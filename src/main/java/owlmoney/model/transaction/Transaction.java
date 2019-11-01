@@ -201,9 +201,6 @@ public abstract class Transaction {
      * @return True if this transaction is a card bill.
      */
     public boolean isCardBillTransaction() {
-        if (getTransactionCardID() == null) {
-            return false;
-        }
-        return true;
+        return getTransactionCardID() != null;
     }
 }

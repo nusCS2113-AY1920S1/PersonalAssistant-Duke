@@ -490,10 +490,7 @@ public class Saving extends Bank {
                 isDepositFound = true;
             }
         }
-        if (isExpenditureFound && isDepositFound) {
-            return true;
-        }
-        return false;
+        return isExpenditureFound && isDepositFound;
     }
 
     /**

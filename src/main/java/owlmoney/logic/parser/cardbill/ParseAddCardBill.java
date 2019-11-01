@@ -12,7 +12,6 @@ import owlmoney.logic.parser.exception.ParserException;
  */
 public class ParseAddCardBill extends ParseCardBill {
     private YearMonth yearMonth;
-    private static final String ADD = "/add";
 
     /**
      * Creates an instance of ParseAddCardBill.

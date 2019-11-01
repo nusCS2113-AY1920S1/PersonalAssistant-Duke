@@ -26,7 +26,6 @@ public class AddCardBillCommand extends Command {
     private final String bank;
     private final String type;
     private final String expDescription;
-    private final String category;
     private static final int PERCENTAGE_TO_DECIMAL = 100;
 
     /**
@@ -43,7 +42,6 @@ public class AddCardBillCommand extends Command {
         this.bank = bank;
         this.type = "bank";
         this.expDescription = "Payment for Credit Card Bill - " + card + " " + date;
-        this.category = "Credit Card";
     }
 
     private Date getCurrentDate() {
