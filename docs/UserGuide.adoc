@@ -86,7 +86,7 @@ Apart from have simple ToDo commands, you will most likely have time constraints
 
 | 2. | */add <task description> /by <date> <time>* | Deadline task. Date format is DD/MM/YY and time format is HHmm. Where D stands for day, M stands for month, Y stands for year, H stands for hour in 24-hour format and m stands for minutes. Uses the `/by` keyword.
 
-| 3. | */add <task description> /at <date> <time> | Event task. The date time format is the same as the one for deadline. Uses the `/at` keyword.
+| 3. | */add <task description> /at <date> <time>* | Event task. The date time format is the same as the one for deadline. Uses the `/at` keyword.
 
 | 4. | */add <task description> /by <date> <time> /every <frequency>* | Recurring Deadline where the format of <frequency> is <number> followed by minutes/hours/days/weeks/months. Uses the `/every` keyword.
 
@@ -170,8 +170,8 @@ TIP: */sort <sort type>*
 Listed below are the sort types available.
 
 *	`/normal` sorts the tasks based on when the user input the tasks.
-*	`/chronological` sorts the tasks based on the date and time of the tasks.
-*	`/prioritize` sorts the tasks based on amount of time available and difficulty.
+*	`/datetime` sorts the tasks based on the date and time of the tasks.
+*	`/priority` sorts the tasks based on amount of time available and difficulty.
 
 
 Examples Scenario:
@@ -258,13 +258,13 @@ Hustler keeps track of the amount of time remaining for a task, the amount of ti
 4. Create Notes for CS2101
 ====
 
-=== 3.6.2.1 Adding tasks to the schedule using the `/addFromList` command
+=== 3.6.2.1 Adding tasks to the schedule using the `/addfromlist` command
 
-The recommended schedule that pops up after using the `/timer command` sometimes might not be to your liking. Sometimes you might feel like working on more tasks. As such, you can add tasks from the “Tasks” section to the schedule using the `/addFromList` command.
+The recommended schedule that pops up after using the `/timer command` sometimes might not be to your liking. Sometimes you might feel like working on more tasks. As such, you can add tasks from the “Tasks” section to the schedule using the `/addfromlist` command.
 
 The syntax of the command is as follows:
 
-TIP: */addFromList <index in “Task” section>*
+TIP: */addfromlist <index in “Task” section>*
 
 The task that you referred to from the “Task” section pops up in the schedule and the time allotted to each task is updated.
 
@@ -273,7 +273,7 @@ Executing the `/timer` command:
 1. Type "/timer 5 0 0" and press enter.
 2. A timer set for five hours begins.
 3. Hustler is specified that you have 5 hours available for work and the following recommended schedule is shown on the list of tasks specified.
-4. Now if you want to add “4. create notes for 2101” to the recommended schedule, the following command can be run: /addFromList 4
+4. Now if you want to add “4. create notes for 2101” to the recommended schedule, the following command can be run: /addfromlist 4
 5. This adds the task to the schedule.
 ----
 
@@ -621,11 +621,11 @@ Snooze:
 
 Sorting:
 
-*	`/normal`
+*	`/sort normal`
 
-*	`/chronological`
+*	`/sort datetime`
 
-*	`/prioritize`
+*	`/sort priority`
 
 Timer:
 
@@ -635,9 +635,9 @@ Timer:
 
 Task completion:
 
-*	`/addFromList` <index>
+*	`/addfromlist` <index>
 
-**	Possible input: */addFromList 3*
+**	Possible input: */addfromlist 3*
 
 *	`/remove` <index>
 
