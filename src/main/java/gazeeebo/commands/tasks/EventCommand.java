@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Stack;
 
 public class EventCommand extends Command {
+    //@@author jessteoxizhi
     @Override
     public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<ArrayList<Task>> commandStack, ArrayList<Task> deletedTask, TriviaManager triviaManager) throws DukeException, ParseException, IOException {
         String description;
