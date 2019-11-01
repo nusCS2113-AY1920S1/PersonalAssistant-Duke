@@ -48,7 +48,7 @@ public abstract class Command {
      * or ReservationLists in Resources.
      * @return true if type of Command may change data.
      */
-    public boolean canModifyData() {
+    public boolean canChangeData() {
         return canModifyData;
     }
 
@@ -57,7 +57,7 @@ public abstract class Command {
      * the user as a string
      * @return The string with the command details and arguments
      */
-    public String getCommandUserInput() {
+    public String commandUserInput() {
         return commandUserInput;
     }
 
