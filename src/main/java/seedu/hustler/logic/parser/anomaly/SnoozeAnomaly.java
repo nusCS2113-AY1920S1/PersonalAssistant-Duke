@@ -5,6 +5,7 @@ import seedu.hustler.logic.CommandLineException;
 import seedu.hustler.logic.command.Command;
 import seedu.hustler.task.ToDo;
 
+import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 
@@ -23,6 +24,8 @@ public class SnoozeAnomaly extends DetectAnomaly {
             + "Valid <unit> are minutes/hours/days/weeks/months.";
     private static final String MESSAGE_INVALID_TASK_TYPE = "You cannot snooze a ToDo Task!";
     private static final String MESSAGE_INVALID_INTEGER = "Please enter an integer for <index>!";
+    private static final String MESSAGE_PASSED_DATE_TIME = "A past date and time has been provided.\n"
+            + "\tPlease only provide upcoming date and time.";
 
     /**
      * Detects anomalies in snooze command input.
@@ -59,24 +62,27 @@ public class SnoozeAnomaly extends DetectAnomaly {
 
         // 1st method to snooze
         if (parsedInput[1].contains("/")) {
-            String dateTime = parsedInput[1] + " " + parsedInput[2];
+            String dateTimeString = parsedInput[1] + " " + parsedInput[2];
             try {
-                getDateTime(dateTime);
+                LocalDateTime dateTime = getDateTime(dateTimeString);
+                if (LocalDateTime.now().isAfter(dateTime)) {
+                    throw new CommandLineException(MESSAGE_PASSED_DATE_TIME);
+                }
             } catch (DateTimeParseException e) {
                 throw new CommandLineException(MESSAGE_INVALID_DATE_TIME);
             }
-            return;
         } else {
             // 2nd method to snooze
             try {
                 Integer.parseInt(parsedInput[1]);
-                String unit = parsedInput[2];
-                String[] validUnits = {"minutes", "hours", "days", "weeks", "months"};
-                if (!Arrays.asList(validUnits).contains(unit)) {
-                    throw new CommandLineException(MESSAGE_INVALID_PERIOD);
-                }
             } catch (NumberFormatException e) {
                 throw new CommandLineException(MESSAGE_INVALID_INTEGER);
+            }
+
+            String unit = parsedInput[2];
+            String[] validUnits = {"minutes", "hours", "days", "weeks", "months"};
+            if (!Arrays.asList(validUnits).contains(unit.toLowerCase())) {
+                throw new CommandLineException(MESSAGE_INVALID_PERIOD);
             }
         }
     }
