@@ -12,8 +12,8 @@
    
 # External Documentation
 *These files will be added to github soon*
-- [User Guide](https://docs.google.com/document/d/1A5LLKNmbI2uFIMQNCFIRgSmn4wSs3a05lRpn5Q7jw3w/edit#heading=h.2gracqy3d779)
-- [Developer Guide](https://docs.google.com/document/d/1A5LLKNmbI2uFIMQNCFIRgSmn4wSs3a05lRpn5Q7jw3w/edit#heading=h.yit8fu8g8j0n)
+- [User Guide](https://docs.google.com/document/d/1xiQUX2HJMN3cd5_PY24htwjMp_kq8afxU9yFSMxg5HM/edit?usp=sharing)
+- [Developer Guide](https://docs.google.com/document/d/1mJ96fHeCPpRcTUcLgL7Ie91fS1g6XyZMAKG5TqJqiLA/edit?usp=sharing)
 
 ---
 Through fun and interactive gameplay, we hope that FarmLogic can help children who are new to programming understand and learn to apply the basics of programming while having fun. 
