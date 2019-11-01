@@ -1,5 +1,12 @@
-lala | 1 | 3
-yy
-hh
-haha
-testname | 7
+[
+  {
+    "name": "P1",
+    "taskList": []
+  },
+  {
+    "name": "P2",
+    "taskList": [
+      "Job A"
+    ]
+  }
+]

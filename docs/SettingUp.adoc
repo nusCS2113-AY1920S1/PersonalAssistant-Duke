@@ -1,4 +1,4 @@
-= Duke Pro - Setting Up
+= Team Manager - Setting Up
 :site-section: SettingUp
 :toc:
 :toc-title:
