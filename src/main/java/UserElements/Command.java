@@ -8,16 +8,18 @@ import Events.EventTypes.EventSubclasses.RecurringEventSubclasses.Lesson;
 import Events.EventTypes.EventSubclasses.RecurringEventSubclasses.Practice;
 import Events.EventTypes.EventSubclasses.ToDo;
 import Events.Formatting.CalendarView;
+import Events.Formatting.DateStringValidator;
 import Events.Formatting.EventDate;
 import Events.Storage.*;
 import Events.Storage.Instruments.InstrumentList;
 import UserElements.ConcertBudgeting.CostExceedsBudgetException;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.logging.Logger;
 
-
+//@@author
 /**
  * Represents a command that is passed via user input.
  * Multiple types of commands are possible, executed using switch case method.
@@ -44,7 +46,7 @@ public class Command {
      * @param command      The Model_Class.Command type
      * @param continuation The Model_Class.Command specific instructions
      */
-    public Command(String command, String continuation) {
+    Command(String command, String continuation) {
         this.command = command;
         this.continuation = continuation;
     }
@@ -55,7 +57,7 @@ public class Command {
      *
      * @param command The Model_Class.Command type
      */
-    public Command(String command) {
+    Command(String command) {
         this.command = command;
         this.continuation = "";
     }
@@ -143,7 +145,7 @@ public class Command {
             case "budget":
                 showBudget(events, ui);
                 break;
-            
+
             case "goal":
                 goalsManagement(events, ui);
                 break;
@@ -155,11 +157,11 @@ public class Command {
             case "checklist":
                 checklistManagement(events, ui);
                 break;
-                
+
             case "instrument":
-            	instrumentManagement(instruments, ui);
-            	break;
-                
+                instrumentManagement(instruments, ui);
+                break;
+
             default:
                 ui.printInvalidCommand();
                 changesMade = false;
@@ -259,6 +261,10 @@ public class Command {
         }
     }
 
+    //@@author Ryan-Wong-Ren-Wei
+    /**
+     * passes budget to UI for printing to output
+     */
     private void showBudget(EventList events, UI ui) {
         if (continuation.isEmpty()) {
             ui.eventDescriptionEmpty();
@@ -276,6 +282,7 @@ public class Command {
         }
     }
 
+    //@@author
     private void searchEvents(EventList events, UI ui) {
         if (continuation.isEmpty()) {
             ui.eventDescriptionEmpty();
@@ -299,7 +306,7 @@ public class Command {
     /**
      * Finds the next 3 free days in the schedule and passes them to UI class to be printed.
      */
-    public void checkFreeDays(EventList events, UI ui) {
+    private void checkFreeDays(EventList events, UI ui) {
         Calendar dayToCheckIfFree = Calendar.getInstance();
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
         String currentDay = formatter.format(dayToCheckIfFree.getTime());
@@ -326,7 +333,7 @@ public class Command {
     /**
      * Searches list for events found in a singular date, passes to UI for printing.
      */
-    public void viewEvents(EventList events, UI ui) {
+    private void viewEvents(EventList events, UI ui) {
         if (continuation.isEmpty()) {
             ui.eventDescriptionEmpty();
 //            logger.log(Level.WARNING, "The description of viewEvents is empty");
@@ -346,7 +353,8 @@ public class Command {
         }
     }
 
-    public void addNewEvent(EventList events, UI ui, char eventType) {
+    //@@author Ryan-Wong-Ren-Wei
+    private void addNewEvent(EventList events, UI ui, char eventType) {
         if (continuation.isEmpty()) {
             ui.eventDescriptionEmpty();
 //            logger.log(Level.WARNING, "The description of the addNewEvent is empty");
@@ -374,7 +382,7 @@ public class Command {
             } catch (CostExceedsBudgetException e) { //budget exceeded in attempt to add concert
                 ui.costExceedsBudget(e.getConcert(), e.getBudget());
 //                logger.log(Level.WARNING, e.getMessage(), e);
-            } catch (StringIndexOutOfBoundsException | ArrayIndexOutOfBoundsException | NullPointerException e) {
+            } catch (StringIndexOutOfBoundsException | ArrayIndexOutOfBoundsException | ParseException e) {
                 ui.newEntryFormatWrong();
 //                logger.log(Level.WARNING, e.getMessage(), e);
             } catch (EndBeforeStartException e) { //start time is after end time
@@ -384,6 +392,7 @@ public class Command {
         }
     }
 
+    //@@author Ryan-Wong-Ren-Wei
     /**
      * Instantiates a new event based on details passed as parameter
      *
@@ -418,7 +427,7 @@ public class Command {
         return newEvent;
     }
 
-    public void addNewTodo(EventList events, UI ui) {
+    private void addNewTodo(EventList events, UI ui) {
         if (continuation.isEmpty()) {
             ui.eventDescriptionEmpty();
 //            logger.log(Level.WARNING, "The description of createNewTodo is empty");
@@ -429,12 +438,13 @@ public class Command {
             Event newToDo = new ToDo(entryForToDo.getDescription(), entryForToDo.getDate());
             events.addNewTodo(newToDo);
             ui.eventAdded(newToDo, events.getNumEvents());
-        } catch (StringIndexOutOfBoundsException | ArrayIndexOutOfBoundsException | NullPointerException e) {
+        } catch (StringIndexOutOfBoundsException | ArrayIndexOutOfBoundsException | ParseException e) {
             ui.newEntryFormatWrong();
         }
     }
 
-    public void deleteEvent(EventList events, UI ui) {
+    //@@author
+    private void deleteEvent(EventList events, UI ui) {
         try {
             int eventNo = Integer.parseInt(continuation);
             Event currEvent = events.getEvent(eventNo - 1);
@@ -449,7 +459,7 @@ public class Command {
         }
     }
 
-    public void markEventAsDone(EventList events, UI ui) {
+    private void markEventAsDone(EventList events, UI ui) {
         try {
             int eventNo = Integer.parseInt(continuation);
             if (events.getEvent(eventNo - 1) instanceof ToDo) {
@@ -469,13 +479,14 @@ public class Command {
     }
 
     //@@author YuanJiayi
+
     /**
      * Reschedules the date and time of an existing event.
      *
      * @param events The event list.
      */
-    public void rescheduleEvent(EventList events, UI ui) {
-        Event copyOfEvent = null, newEvent = null;
+    private void rescheduleEvent(EventList events, UI ui) {
+        Event newEvent;
         EventDate copyOfStartDate;
         EventDate copyOfEndDate;
         try {
@@ -526,12 +537,13 @@ public class Command {
     }
 
     //@@author yenpeichih
+
     /**
      * Manages the goals of an existing event.
      *
      * @param events The event list.
      */
-    public void goalsManagement(EventList events, UI ui) {
+    private void goalsManagement(EventList events, UI ui) {
         if (continuation.isEmpty()) {
             ui.noSuchEvent();
 //            logger.log(Level.INFO, "The description of goalManagement is empty");
@@ -595,6 +607,7 @@ public class Command {
     }
 
     //@@author YuanJiayi
+
     /**
      * Manage the contacts of an existing event.
      *
@@ -660,63 +673,64 @@ public class Command {
 //            logger.log(Level.WARNING, en.getMessage(), en);
         }
     }
-    
+
     //@@author Dng132FEI
     public void instrumentManagement(InstrumentList instruments, UI ui) {
-    	try {
-	    	if (continuation.isEmpty()) {
-	            ui.noSuchEvent();
+        try {
+            if (continuation.isEmpty()) {
+                ui.noSuchEvent();
 //	            logger.log(Level.WARNING, "The description of instrumentManagement is empty");
-	            return;
-	    	}
-	    	String splitInstrument[] = continuation.split("/");
-	    	String instrumentCommand[] = continuation.split(" ");
-	    	int instrumentIndex;
-	    	String instrumentIndexAndName;
-	    	switch (instrumentCommand[0]) {
-	    	    case "add":
-	    			instrumentIndex = instruments.addInstrument(splitInstrument[1]);
-	    			instrumentIndexAndName = instruments.getIndexAndInstrument(instrumentIndex);
-	    			ui.instrumentAdded(instrumentIndexAndName);
-	    			break;
-	    	    case "service":
-	    	    	instrumentIndex = Integer.parseInt(instrumentCommand[1]);
-	    	    	EventDate inputDate = new EventDate(splitInstrument[2]);
-	    	    	int serviceIndex = instruments.service(instrumentIndex, inputDate, splitInstrument[1]);
-	    	    	instrumentIndexAndName = instruments.getIndexAndInstrument(instrumentIndex);
-	    	    	String serviceIndexAndName = instruments.getIndexAndService(instrumentIndex, serviceIndex);
-	    	    	ui.serviceAdded(serviceIndexAndName, instrumentIndexAndName);
-	    	    	break;
-	    	    case "view":
-	    	    	switch (instrumentCommand[1]) {
-	    	    	    case "instruments":
-	    	    	    	String listOfInstruments = instruments.getInstruments();
-	    	                ui.printInstruments(listOfInstruments);
-	    	                break;
-	    	    	    case "services":
-	    	    	    	instrumentIndex = Integer.parseInt(instrumentCommand[2]);
-	    	                String listOfServices = instruments.getInstrumentServiceInfo(instrumentIndex);
-	    	                instrumentIndexAndName = instruments.getIndexAndInstrument(instrumentIndex);
-	    	                ui.printServices(listOfServices, instrumentIndexAndName);
-	    	                break;
-	    	    	}
-	    	    	break;
-	    	}
-    	} catch (IndexOutOfBoundsException e) {
+                return;
+            }
+            String splitInstrument[] = continuation.split("/");
+            String instrumentCommand[] = continuation.split(" ");
+            int instrumentIndex;
+            String instrumentIndexAndName;
+            switch (instrumentCommand[0]) {
+                case "add":
+                    instrumentIndex = instruments.addInstrument(splitInstrument[1]);
+                    instrumentIndexAndName = instruments.getIndexAndInstrument(instrumentIndex);
+                    ui.instrumentAdded(instrumentIndexAndName);
+                    break;
+                case "service":
+                    instrumentIndex = Integer.parseInt(instrumentCommand[1]);
+                    EventDate inputDate = new EventDate(splitInstrument[2]);
+                    int serviceIndex = instruments.service(instrumentIndex, inputDate, splitInstrument[1]);
+                    instrumentIndexAndName = instruments.getIndexAndInstrument(instrumentIndex);
+                    String serviceIndexAndName = instruments.getIndexAndService(instrumentIndex, serviceIndex);
+                    ui.serviceAdded(serviceIndexAndName, instrumentIndexAndName);
+                    break;
+                case "view":
+                    switch (instrumentCommand[1]) {
+                        case "instruments":
+                            String listOfInstruments = instruments.getInstruments();
+                            ui.printInstruments(listOfInstruments);
+                            break;
+                        case "services":
+                            instrumentIndex = Integer.parseInt(instrumentCommand[2]);
+                            String listOfServices = instruments.getInstrumentServiceInfo(instrumentIndex);
+                            instrumentIndexAndName = instruments.getIndexAndInstrument(instrumentIndex);
+                            ui.printServices(listOfServices, instrumentIndexAndName);
+                            break;
+                    }
+                    break;
+            }
+        } catch (IndexOutOfBoundsException e) {
             ui.noSuchEvent();
 //            logger.log(Level.WARNING, e.getMessage(), e);
         }
     }
 
     //@@author
-    public void remindEvents(EventList events, UI ui) {
+    private void remindEvents(EventList events, UI ui) {
         ui.printReminder(events);
     }
 
-    public void listEvents(EventList events, UI ui) {
+    private void listEvents(EventList events, UI ui) {
         UI.printListOfEvents(events);
     }
 
+    //@@author Ryan-Wong-Ren-Wei
     /**
      * Contains all info concerning a new entry an event.
      */
@@ -731,19 +745,19 @@ public class Command {
             return description;
         }
 
-        public String getStartDate() {
+        String getStartDate() {
             return startDate;
         }
 
-        public String getEndDate() {
+        String getEndDate() {
             return endDate;
         }
 
-        public int getPeriod() {
+        int getPeriod() {
             return period;
         }
 
-        public int getCost() {
+        int getCost() {
             return cost;
         }
 
@@ -752,7 +766,7 @@ public class Command {
          *
          * @return organized entryForEvent information
          */
-        public EntryForEvent invoke() {
+        private EntryForEvent invoke() throws ParseException {
             int NON_RECURRING = -1;
             String[] splitEvent = continuation.split("/");
             description = splitEvent[0];
@@ -763,12 +777,12 @@ public class Command {
             if (splitDate.length == 3) {
                 startDate = splitDate[0] + " " + splitDate[1];
                 endDate = splitDate[0] + " " + splitDate[2];
-            } else if (splitDate.length == 2) {
-                startDate = splitDate[0] + " " + splitDate[1];
-                endDate = "";
-            } else {
-                startDate = splitDate[0];
-                endDate = "";
+            }
+
+            if (DateStringValidator.isValidDateForEvent(startDate) ||
+                    DateStringValidator.isValidDateForEvent(endDate)) {
+
+                throw new ParseException("Invalid date for Event", 0);
             }
 
             if (splitEvent.length == 2) {//cant find period extension of command, event is non-recurring
@@ -806,11 +820,15 @@ public class Command {
          *
          * @return organized entryForEvent information
          */
-        public EntryForToDo invoke() {
+        public EntryForToDo invoke() throws ParseException{
             String[] splitEvent = continuation.split("/");
             description = splitEvent[0];
             date = splitEvent[1];
-            return this;
+            if (DateStringValidator.isValidDateForToDo(date)) {
+                return this;
+            } else {
+                throw new ParseException("Date is invalid", 0);
+            }
         }
     }
 }

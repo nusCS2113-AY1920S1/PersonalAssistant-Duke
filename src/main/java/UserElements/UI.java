@@ -269,6 +269,7 @@ public class UI {
         System.out.println("Please enter the date in the format 'dd-MM-yyyy HHmm HHmm' for Event" +
                 " or 'dd-MM-yyyy' for ToDo.\n" +
                 "For Event entry, first time entered is start time, second time entered is end time.");
+        System.out.println("Please also ensure that the date you entered is valid.");
         System.out.print(lineSeparation);
     }
 
