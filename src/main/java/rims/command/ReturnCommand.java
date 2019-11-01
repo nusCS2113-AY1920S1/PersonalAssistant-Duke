@@ -61,7 +61,7 @@ public class ReturnCommand extends Command {
     }
 
     @Override
-    public boolean canChangeData() {
+    public boolean canModifyData() {
         return true;
     }
 }
