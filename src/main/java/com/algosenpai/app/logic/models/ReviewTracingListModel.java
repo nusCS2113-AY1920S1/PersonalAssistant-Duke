@@ -16,10 +16,9 @@ public class ReviewTracingListModel {
 
     @Override
     public String toString() {
-        int counter = 1;
         StringBuilder totalString = new StringBuilder();
         for (String x: reviewMethodList) {
-            totalString.append(counter++).append(". ").append(x).append("\n");
+            totalString.append(x).append("\n");
         }
         return totalString.toString();
     }

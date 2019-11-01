@@ -1,6 +1,7 @@
 package com.algosenpai.app.logic.chapters.chapter1;
 
 import com.algosenpai.app.logic.chapters.Question;
+import com.algosenpai.app.logic.models.ReviewTracingListModel;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -22,13 +23,15 @@ public class InsertionSortSwapQuestion extends Question {
         questionFormatter();
         insertionSort(initialArray, swaps);
         answer = initialArray.toString();
+        answer = answer.substring(1, answer.length() - 1);
     }
 
     @Override
     public void questionFormatter() {
         question = "An array of " + arraySize + " elements underwent the following Insertion Sort Algorithm : \n"
                 + initialArray + "\n";
-        question += "What would be the new configuration of the elements after " + swaps + " swaps?\n\n";
+        question += "What would be the new configuration of the elements after " + swaps + " swaps?\n"
+                + "Please provide your answer in comma-separated format. e.g. x, y, z, ...\n\n";
         question += "int i, key, j;\n" + "for (i = 1; i < n; i++) {\n" + "    key = arr[i];\n"
                 + "    j = i - 1;\n" + "    while (j >= 0 && arr[j] > key) {\n" + "        arr[j + 1] = arr[j];\n"
                 + "        j = j - 1;\n" + "    }\n" + "    arr[j + 1] = key;\n" + "} \n\n";
@@ -56,26 +59,43 @@ public class InsertionSortSwapQuestion extends Question {
      * @param swaps The number of swaps to be performed before the algorithm
      */
     private static void insertionSort(ArrayList<Integer> arr, int swaps) {
+        rtlm = new ReviewTracingListModel();
+        rtlm.addReviewTracingModel("This is the array at the start.");
+        rtlm.addReviewTracingModel(arr.toString());
         int i;
         int key;
         int j;
         int counter = 0;
+        rtlm.addReviewTracingModel("Counter = " + counter + ".");
         for (i = 1; i < arr.size(); i++) {
             key = arr.get(i);
+            rtlm.addReviewTracingModel("Pick " + key + ".");
             j = i - 1;
+            rtlm.addReviewTracingModel("Traverse backwards");
             while (j >= 0 && arr.get(j) > key) {
+                rtlm.addReviewTracingModel("Since " + arr.get(j) + " is more than " + key + ", swap.");
                 arr.set(j + 1, arr.get(j));
                 j = j - 1;
                 counter++;
+                rtlm.addReviewTracingModel("Counter = " + counter + ".");
                 if (counter == swaps) {
+                    rtlm.addReviewTracingModel("Since counter == swaps, stop.");
                     break;
                 }
             }
             arr.set(j + 1, key);
             if (counter == swaps) {
+                rtlm.addReviewTracingModel("This is the final array.");
+                rtlm.addReviewTracingModel(arr.toString());
                 return;
             }
+            if (j == -1) {
+                rtlm.addReviewTracingModel("Since we have reached the front, check next.");
+            } else {
+                rtlm.addReviewTracingModel("Since " + arr.get(j) + " is smaller than " + arr.get(i) + ", check next.");
+            }
         }
+
     }
 
 }

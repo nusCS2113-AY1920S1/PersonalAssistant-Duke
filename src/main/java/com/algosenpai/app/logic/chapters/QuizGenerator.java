@@ -20,7 +20,6 @@ public class QuizGenerator {
 
     public ArrayList<QuestionModel> generateQuiz(int selectedChapters, ArrayList<QuestionModel> questionList) {
         questionList = new ArrayList<>();
-
         ChapterSorting chapterSorting = new ChapterSorting();
         ChapterLinkedList chapterLinkedList = new ChapterLinkedList();
         ChapterBitmask chapterBitmask = new ChapterBitmask();
@@ -41,7 +40,6 @@ public class QuizGenerator {
             }
             break;
         default :
-
             //by default, it will pick a mix of questions
             Random random = new Random();
             for (int i = 0; i < 10; i++) {
