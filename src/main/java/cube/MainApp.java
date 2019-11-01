@@ -20,7 +20,6 @@ public class MainApp extends Application {
 
         try {
             storageManager = storage.load();
-            //Food.updateRevenue(storageManager.getRevenue());
         } catch (CubeException e) {
             storageManager = new StorageManager();
         }

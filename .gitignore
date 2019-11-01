@@ -19,5 +19,6 @@ src/main/java/META-INF/MANIFEST.MF
 
 # Log files
 *.log
+*.log.*
 *.lck
 logs/

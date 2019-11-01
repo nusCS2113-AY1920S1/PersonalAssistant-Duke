@@ -5,6 +5,7 @@ import cube.logic.parser.exception.ParserErrorMessage;
 import cube.logic.parser.exception.ParserException;
 
 import java.text.ParseException;
+import java.util.HashSet;
 import java.util.Locale;
 import java.util.Date;
 import java.util.TimeZone;
@@ -70,5 +71,70 @@ public class ParserUtil {
 		}
 
 		return fullString;
+	}
+
+	/**
+	 * Find the full name/type until next parameter/end of input.
+	 * @param inputs tokens containing the full string to be found.
+	 * @param params set of possible parameters.
+	 * @return true if the input has parameter that is not within possible parameter set.
+	 *         false otherwise.
+	 */
+	public static boolean hasInvalidParameters (String[] inputs, String[] params) {
+		boolean flag;
+		for (int i = 0; i < inputs.length; i ++) {
+			if(inputs[i].matches("-(.*)")) {
+				flag = false;
+				for(int j = 0; j < params.length; j ++){
+					if(inputs[i].equals(params[j])){
+						flag = true;
+						break;
+					}
+				}
+				if(!flag){
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * Find the full name/type until next parameter/end of input.
+	 * @param inputs tokens containing the full string to be found.
+	 * @return true if the input has parameter that is not within possible parameter set.
+	 *         false otherwise.
+	 */
+	public static boolean hasRepetitiveParameters (String[] inputs) {
+		HashSet<String> table = new HashSet<String>();
+		for (int i = 0; i < inputs.length; i ++) {
+			if(inputs[i].matches("-(.*)")) {
+				if(table.contains(inputs[i])){
+					return true;
+				}else{
+					table.add(inputs[i]);
+				}
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * Find the full name/type until next parameter/end of input.
+	 * @param input tokens containing the full string to be found.
+	 * @return true if the input has parameter that is not within possible parameter set.
+	 *         false otherwise.
+	 */
+	public static boolean isValidNumber (String input) {
+		int number;
+		try{
+			number = Integer.parseInt(input);
+			if (number<0){
+				return false;
+			}
+			return true;
+		}catch (Exception e) {
+			return false;
+		}
 	}
 }

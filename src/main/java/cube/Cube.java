@@ -1,8 +1,8 @@
 package cube;
 
-import cube.model.food.Food;
 import cube.model.food.FoodList;
 import cube.model.sale.SalesHistory;
+import cube.model.promotion.PromotionList;
 import cube.model.ModelManager;
 import cube.ui.Ui;
 import cube.logic.parser.Parser;
@@ -23,6 +23,7 @@ public class Cube {
     private FileUtilJson<StorageManager> storage;
     private FoodList foodList;
     private SalesHistory salesHistory;
+    private PromotionList promotionList;
     private Ui ui;
     private final Logger logger = LogUtil.getLogger(Cube.class);
 
@@ -42,8 +43,8 @@ public class Cube {
             storageManager = storage.load();
             foodList = storageManager.getFoodList();
             salesHistory = storageManager.getSalesHistory();
-            modelManager = new ModelManager(foodList, salesHistory);
-            //food.updateRevenue(storageManager.getRevenue());
+            promotionList = storageManager.getPromotionList();
+            modelManager = new ModelManager(foodList, salesHistory, promotionList);
         } catch (CubeException e) {
             logger.warning(e.getMessage());
             ui.showLoadingError(filePath);

@@ -6,6 +6,7 @@ import cube.logic.command.util.CommandResult;
 import cube.logic.parser.Parser;
 import cube.model.food.Food;
 import cube.model.food.FoodList;
+import cube.model.promotion.PromotionList;
 import cube.model.sale.SalesHistory;
 import cube.model.ModelManager;
 import cube.storage.StorageManager;
@@ -40,6 +41,7 @@ public class MainWindow extends UiManager<Stage> {
     private FileUtilJson<StorageManager> storage;
     private FoodList foodList;
     private SalesHistory salesHistory;
+    private PromotionList promotionList;
     private ModelManager modelManager;
 
     public MainWindow (Stage primaryStage) {
@@ -57,7 +59,9 @@ public class MainWindow extends UiManager<Stage> {
         this.configStorage = storageManager.getConfig();
         this.foodList = storageManager.getFoodList();
         this.salesHistory = storageManager.getSalesHistory();
-        this.modelManager = new ModelManager(foodList, salesHistory);
+        // Temporary Fix TODO: implement Promotion to storage manager.
+        this.promotionList = new PromotionList();
+        this.modelManager = new ModelManager(foodList, salesHistory, promotionList);
     }
 
     public void show() {
