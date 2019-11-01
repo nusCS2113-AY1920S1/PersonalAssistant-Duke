@@ -50,7 +50,11 @@ public class LimitParser extends Parser {
                 return new ErrorCommand();
             }
         } else if (commandToRun.equals(ParserStringList.COMMAND_REMOVE)) {
-            return new RemoveCommand(mode, inputArray[1]);
+            if (verifyRemove()) {
+                return new RemoveCommand(mode, inputArray[1]);
+            } else {
+                return new ErrorCommand();
+            }
         } else if (commandToRun.equals(COMMAND_MODIFY)) {
             if (verifyFullModifyCommand()) {
                 // TODO: Update when ready
