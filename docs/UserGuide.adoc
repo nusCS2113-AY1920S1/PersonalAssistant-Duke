@@ -307,7 +307,9 @@ Edits `JunBank Savings Account` by setting the new amount in the account to $`20
 * `/edit /savings /name JunBank Savings Account /income 5000`
 
 Edits `JunBank Savings Account` by setting the income to $`5000`.
+
 // tag::deleteSavings[]
+
 ===== Deleting savings bank account `/delete /savings`
 Closed your savings bank account? You can reflect that on `OwlMoney` as well!
 
@@ -380,7 +382,9 @@ Edits expenditure `4` that was charged to `JunBank Savings Account` to a new cat
 * `/edit /bankexpenditure /from JunBank Savings Account /transno 5 /amount 3.50`
 
 Edits expenditure `5` that was charged to `JunBank Savings Account` to an amount of $`3.50`.
+
 // tag::deleteExpenditure[]
+
 ===== Deleting expenditures for savings bank account `/delete /bankexpenditure`
 
 Accidentally added a transaction that did not happen? You can delete it!
@@ -438,11 +442,15 @@ To find which to deposit to edit, use the `/list` or `/find` function to find th
 
 Edits the `deposit` with transaction number `11` deposited to `JunBank Savings Account` to a new description of
 `FREELANCE WORK`, setting a new amount of $`270` and a new date of `29/11/2019`
+
 // end::deleteExpenditure[]
+
 * `/edit /deposit /from JunBank Savings Account /transno 11 /amount 500`
 
 Edits the `deposit` with transaction number `11` deposited to `JunBank Savings Account` to a new amount of $`500`.
+
 // tag::deleteDeposit[]
+
 ===== Deleting deposit for savings bank account `/delete /deposit`
 
 Accidentally added a deposit that you have not done? You can delete it here!
@@ -461,9 +469,11 @@ To find out which recurring expenditure to delete, use the `/list` or `/find` fu
 * `/delete /deposit /from JunBank Savings Account /transno 11`
 
 Deletes a `deposit` with transaction number `11` from `JunBank Savings Account`.
+
 // end::deleteDeposit[]
 
 // tag::investment_management[]
+
 ==== Investment Account Management
 In this section, you'll be introduced to commands and parameters that help you to manage your investment account
 and bonds that you can track in *OwlMoney*.
@@ -1108,7 +1118,9 @@ Thought of a new idea for your profile name? Change it now!
 `/edit /profile /name Jun /newname JUNNY`
 
 Edits the profile name from `Jun` to `JUNNY`
+
 // end::edit_profile[]
+
 === Utility Commands
 
 *OwlMoney* provides commands that are available for usage throughout the application.
