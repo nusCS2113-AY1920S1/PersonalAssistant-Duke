@@ -106,8 +106,8 @@ starting from a specified day, including the events within this time period. +
 
 Brings up a list of tasks for a particular date. +
 
-Format: `view dd/MM/yyyy` +
-E.g. “view 18/09/2019”
+Format: `view dd-MM-yyyy` +
+E.g. “view 18-09-2019”
 displays all events/todos on/by the date 18 September 2019.
 
 
@@ -243,6 +243,30 @@ This edits a specific item in the checklist of an event.
 ==== delete checklist item
 `checklist delete <event index> <item index>`
 This deletes an item from the checklist of an event.
+
+=== Goals list
+Goals list of each event helps the user keep track of the outcome that they wishes to achieve by the end of the event.
+The user is able to add, edit, delete or set a goal as achieved.
+
+==== Adding a goal
+`goal add <event index>/<input goal>`
+This adds a goal to a specific event.
+
+==== Editing a goal
+`goal edit <event index> <goal index>/<new input goal>`
+This edits an existing goal.
+
+==== Deleting a goal
+`goal delete <event index> <goal index>`
+This deletes a specified goal.
+
+==== Setting a goal as achieved
+`goal achieved <event index> <goal index>`
+This sets the specified goal as achieved.
+
+==== Viewing the goal list
+`goal view <event index>`
+This displays the goals list of a specified event along with their status - whether a goal is achieved or not.
 
 === viewing monthly costs of concerts
 The total cost of concerts each month can be viewed by the user using the
