@@ -75,7 +75,7 @@ public class Profile {
         this.ui = ui;
         try {
             loadBanksFromImportedData();
-        } catch (BankException exceptionMessage) {
+        } catch (BankException | ParseException exceptionMessage) {
             ui.printError("Error importing banks");
         }
         try {
@@ -734,9 +734,10 @@ public class Profile {
      *
      * @throws BankException if there are errors importing data.
      */
-    private void loadBanksFromImportedData() throws BankException {
+    private void loadBanksFromImportedData() throws BankException, ParseException {
         if (storage.isFileExist(PROFILE_BANK_LIST_FILE_NAME)) {
             List<String[]> importData = importListDataFromStorage(PROFILE_BANK_LIST_FILE_NAME,ui);
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
             for (String[] importDataRow : importData) {
                 String bankName = importDataRow[0];
                 String bankType = importDataRow[1];
@@ -748,7 +749,9 @@ public class Profile {
                     Bank newInvestment = new Investment(bankName, doubleAmount);
                     profileImportNewBank(newInvestment);
                 } else if (bankType.equals(SAVING)) {
-                    Bank newSaving = new Saving(bankName, doubleAmount, doubleIncome);
+                    String stringNextIncomeDate = importDataRow[4];
+                    Date nextIncomeDate = dateFormat.parse(stringNextIncomeDate);
+                    Bank newSaving = new Saving(bankName, doubleAmount, doubleIncome, nextIncomeDate);
                     profileImportNewBank(newSaving);
                 } else {
                     throw new BankException("Error importing banks, "

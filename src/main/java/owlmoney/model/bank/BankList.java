@@ -5,6 +5,7 @@ import java.math.RoundingMode;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import owlmoney.model.bank.exception.BankException;
@@ -1001,14 +1002,19 @@ public class BankList {
      *
      * @return ArrayList of String arrays for containing each bank in the bank list.
      */
-    private ArrayList<String[]> prepareExportBankListNamesAndType() {
+    private ArrayList<String[]> prepareExportBankListNamesAndType() throws BankException {
         ArrayList<String[]> exportArrayList = new ArrayList<>();
         DecimalFormat decimalFormat = new DecimalFormat(".00");
         decimalFormat.setRoundingMode(RoundingMode.DOWN);
-        exportArrayList.add(new String[]{"accountName","type","amount","income"});
+        SimpleDateFormat exportDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        String nextIncomeDate = "";
+        exportArrayList.add(new String[]{"accountName","type","amount","income","nextIncomeDate"});
         for (int i = 0; i < getBankListSize(); i++) {
             String accountName = bankLists.get(i).getAccountName();
             String accountType = bankLists.get(i).getType();
+            if(SAVING.equals(accountType)) {
+                nextIncomeDate = exportDateFormat.format(bankLists.get(i).getNextIncomeDate());
+            }
             double amount = bankLists.get(i).getCurrentAmount();
             double income = 0;
             String stringAmount = decimalFormat.format(amount);
@@ -1018,7 +1024,8 @@ public class BankList {
                 income = 0;
             }
             String stringIncome = decimalFormat.format(income);
-            exportArrayList.add(new String[]{accountName,accountType,stringAmount,stringIncome});
+            exportArrayList.add(new String[]{accountName,accountType,stringAmount,stringIncome
+                    ,nextIncomeDate});
         }
         return exportArrayList;
     }
@@ -1028,7 +1035,7 @@ public class BankList {
      *
      * @throws IOException when unable to write to file.
      */
-    private void exportBankList() throws IOException {
+    private void exportBankList() throws IOException, BankException {
         ArrayList<String[]> inputData = prepareExportBankListNamesAndType();
         storage.writeFile(inputData,PROFILE_BANK_LIST_FILE_NAME);
     }

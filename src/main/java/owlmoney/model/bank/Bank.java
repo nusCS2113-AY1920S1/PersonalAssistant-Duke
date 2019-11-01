@@ -5,6 +5,7 @@ import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import owlmoney.model.bank.exception.BankException;
 import owlmoney.model.bond.Bond;
@@ -498,6 +499,16 @@ public abstract class Bank {
      * @throws BankException If used on savings account.
      */
     boolean investmentIsBondListFull() throws BankException {
+        throw new BankException("This account does not support this feature");
+    }
+
+    /**
+     * Gets the next income date of the bank account.
+     *
+     * @return The next income date of the bank account.
+     * @throws BankException If used on investment account.
+     */
+    Date getNextIncomeDate() throws BankException {
         throw new BankException("This account does not support this feature");
     }
 }

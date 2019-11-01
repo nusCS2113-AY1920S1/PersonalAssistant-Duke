@@ -60,6 +60,29 @@ public class Saving extends Bank {
     }
 
     /**
+     * Creates an instance of a savings account.
+     *
+     * @param name          The name of the bank account.
+     * @param currentAmount The current amount of money in  the bank account.
+     * @param income        The amount of money that is credited monthly into the account.
+     */
+    public Saving(String name, double currentAmount, double income, Date nextIncomeDate) {
+        super(name, currentAmount);
+        this.income = income;
+        this.type = SAVING;
+        this.transactions = new TransactionList();
+        this.recurringExpenditures = new RecurringExpenditureList();
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.DATE, 1);
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.add(Calendar.MONTH, 1);
+        this.nextIncomeDate = nextIncomeDate;
+        this.storage = new Storage(FILE_PATH);
+    }
+
+    /**
      * Updates the next income date and current amount if an income has been earned.
      *
      * @return If there is an update to the income.
@@ -461,5 +484,15 @@ public class Saving extends Bank {
      */
     double getExpAmountById(int expenditureId) throws TransactionException {
         return transactions.getExpenditureAmount(expenditureId);
+    }
+
+    /**
+     * Gets the next income date of the bank account.
+     *
+     * @return the nextIncomeDate of the savings account.
+     */
+    @Override
+    Date getNextIncomeDate() {
+        return this.nextIncomeDate;
     }
 }
