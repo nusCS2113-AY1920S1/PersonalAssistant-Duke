@@ -5,6 +5,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.YearMonth;
 import java.util.Date;
+import java.util.UUID;
 
 import owlmoney.logic.command.Command;
 import owlmoney.model.bank.exception.BankException;
@@ -79,21 +80,22 @@ public class AddCardBillCommand extends Command {
      * @param profile Profile of the user.
      * @param ui      Ui of OwlMoney.
      * @return        False so OwlMoney will not terminate yet.
-     * @throws CardException        If credit card does not exist.
+     * @throws CardException        If credit card does not exist, or error in paying of card bill.
      * @throws BankException        If bank account does not exist.
      * @throws TransactionException If invalid transaction when deleting.
      */
     public boolean execute(Profile profile, Ui ui) throws CardException, BankException, TransactionException {
         profile.checkCardExists(card);
+        UUID cardId = profile.getCardId(card);
         String depDescription = "Rebate for Credit Card (" + profile.getCardRebateAmount(card) + "%) - "
                 + card + " " + cardDate;
         double billAmount = profile.getCardUnpaidBillAmount(card, cardDate);
         double rebateAmount = (profile.getCardRebateAmount(card) / PERCENTAGE_TO_DECIMAL) * billAmount;
         checkBillAmountZero(billAmount, card, cardDate);
         Expenditure newExpenditure =
-                new Expenditure(this.expDescription, billAmount, this.expDate, this.category);
-        Deposit newDeposit = new Deposit(depDescription, rebateAmount, this.expDate, this.category);
-        profile.payCardBill(card, bank, newExpenditure, newDeposit, cardDate, ui, type);
+                new Expenditure(this.expDescription, billAmount, this.expDate, cardId, this.cardDate);
+        Deposit newDeposit = new Deposit(depDescription, rebateAmount, this.expDate, cardId, this.cardDate);
+        profile.addCardBill(card, bank, newExpenditure, newDeposit, cardDate, ui, type);
         return this.isExit;
     }
 }

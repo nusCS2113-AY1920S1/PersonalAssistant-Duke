@@ -3,6 +3,7 @@ package owlmoney.model.card;
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
+import java.util.UUID;
 
 import owlmoney.model.card.exception.CardException;
 import owlmoney.model.transaction.Transaction;
@@ -19,6 +20,7 @@ public class Card {
     private double rebate;
     private TransactionList paid;
     private TransactionList unpaid;
+    private UUID id;
     private static final int OBJ_DOES_NOT_EXIST = -1;
     private static final int ONE_ARRAY_INDEX = 1;
     private static final int DIVIDE_BY_2 = 2;
@@ -36,6 +38,16 @@ public class Card {
         this.rebate = rebate;
         this.paid = new TransactionList();
         this.unpaid = new TransactionList();
+        this.id = UUID.randomUUID();
+    }
+
+    /**
+     * Gets the card id of the credit card.
+     *
+     * @return id of the credit card.
+     */
+    UUID getId() {
+        return id;
     }
 
     /**

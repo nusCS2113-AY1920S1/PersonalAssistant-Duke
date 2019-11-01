@@ -22,8 +22,6 @@ public class ParseAddCardBill extends ParseCardBill {
      */
     public ParseAddCardBill(String data) throws ParserException {
         super(data);
-        checkRedundantParameter(EXPNO, ADD);
-        checkRedundantParameter(DEPNO, ADD);
         checkFirstParameter();
     }
 
@@ -39,8 +37,7 @@ public class ParseAddCardBill extends ParseCardBill {
         while (cardBillIterator.hasNext()) {
             String key = cardBillIterator.next();
             String value = cardBillParameters.get(key);
-            if ((CARD.equals(key) || BANK.equals(key) || DATE.equals(key))
-                    && (value.isBlank() || value.isEmpty())) {
+            if (value.isBlank() || value.isEmpty()) {
                 throw new ParserException(key + " cannot be empty when adding making a card bill payment!");
             }
             if (CARD.equals(key)) {
