@@ -14,7 +14,8 @@ public class Parser {
      * @return ArrayList of the user inputs.
      */
     public static ArrayList<String> parseInput(String input) {
-        ArrayList<String> inputs = new ArrayList<>(
+        ArrayList<String> inputs;
+        inputs = new ArrayList<>(
                 Arrays.asList(input.trim().replaceAll(" +", " ").split(" ")));
         inputs.set(0, inputs.get(0).toLowerCase());
         return inputs;
