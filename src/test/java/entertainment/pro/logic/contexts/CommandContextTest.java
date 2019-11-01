@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import entertainment.pro.logic.contexts.CommandContext;
 import entertainment.pro.commons.enums.COMMANDKEYS;
-import entertainment.pro.logic.Contexts.CommandContext;
+import entertainment.pro.logic.contexts.CommandContext;
 import entertainment.pro.logic.parsers.CommandStructure;
 import org.junit.jupiter.api.Test;
 
@@ -26,6 +26,11 @@ public class CommandContextTest {
         assertEquals(possibleRoots3.get(0) , "watchlist");
         assertEquals(possibleRoots4.get(0) , "search");
         assertEquals(possibleRoots5.size() , 0);
+
+    }
+
+    @Test
+    void getPossibiititlyies_validInputs_success() {
 
     }
 

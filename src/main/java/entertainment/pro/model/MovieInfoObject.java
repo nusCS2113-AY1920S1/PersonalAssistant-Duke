@@ -20,7 +20,7 @@ public class MovieInfoObject extends MovieModel {
     private boolean isAdultContent;
     private String certInfo;
     private ArrayList<String> castInfo;
-    private String DEFAULT_IMAGE_FILENAME = "/images/cross.png";
+    private String DEFAULT_IMAGE_FILENAME = "/images/FakeMoviePoster.png";
 
 
     /**
