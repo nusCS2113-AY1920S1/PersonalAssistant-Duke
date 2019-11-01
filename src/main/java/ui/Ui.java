@@ -168,6 +168,9 @@ public class Ui {
         }
     }
 
+    public void printdeletehistory(String date1, String date2) {
+        System.out.println("Got it. The input commands from " + date1 + " to " + date2 + " have been deleted from the history");
+    }
     /**
      * Prints the list of payments of a payee.
      * @param paymentList paymentList of the payee.
@@ -252,9 +255,23 @@ public class Ui {
      * Prints message to indicate a task being edited.
      * @param task Task to be edited.
      */
-    public void printEditMessage(Task task) {
-        System.out.print(line + "     Got it. I've edited this task:  \n");
-        System.out.print("       " + task.giveTask() + "\n");
+    public void printEditMessage(Payee payee) {
+        System.out.print(line + "     Got it. I've edited this payee:  \n");
+        System.out.println("\t" + "Payee: " + payee.payee);
+        System.out.println("\t" + "Email: " + payee.email);
+        System.out.println("\t" + "Matric No: " + payee.matricNum);
+        System.out.println("\t" + "Phone No: " + payee.phoneNum);
+        System.out.print(line);
+    }
+
+    public void printEditMessage(Payments payment, String name) {
+        System.out.print(line + "     Got it. I've edited this payment:  \n");
+        System.out.println("\t" + "Payee: " + name);
+        System.out.println("\t" + "Item: " + payment.item);
+        System.out.println("\t" + "Cost: " + payment.cost);
+        System.out.println("\t" + "Invoice: " + payment.inv);
+        System.out.println("\t" + "Deadline: " + payment.deadline);
+        System.out.println("\t" + "Status: " + payment.status);
         System.out.print(line);
     }
 
@@ -388,7 +405,7 @@ public class Ui {
         System.out.println("\t" + "Add Fund:             " + commandFormat.addFundFormat());
         System.out.println("\t" + "Assign Fund:          " + commandFormat.assignFundFormat());
         System.out.println("\t" + "History of Commands:  " + commandFormat.historyFormat());
-        System.out.println("\t" + "View History:         " + commandFormat.viewhistoryFormat());
+        System.out.println("\t" + "View History within a certain period:         " + commandFormat.viewhistoryFormat());
         System.out.println("\t" + "Exit:                 " + commandFormat.exitFormat());
         System.out.print(line);
     }
