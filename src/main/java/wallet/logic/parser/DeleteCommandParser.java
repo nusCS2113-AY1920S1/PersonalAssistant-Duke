@@ -1,5 +1,7 @@
 package wallet.logic.parser;
 
+import wallet.exception.InsufficientParameters;
+import wallet.exception.WrongParameterFormat;
 import wallet.logic.LogicManager;
 import wallet.logic.command.DeleteCommand;
 import wallet.model.record.Loan;
@@ -25,7 +27,27 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
     @Override
     public DeleteCommand parse(String input) throws ParseException {
         String[] arguments = input.split(" ", 2);
-        int id = Integer.parseInt(arguments[1]);
+        int id = 0;
+        try {
+            id = Integer.parseInt(arguments[1]);
+        } catch (ArrayIndexOutOfBoundsException err) {
+            if (arguments[0].equals("contact")) {
+                throw new InsufficientParameters("You need to provide an ID when deleting contact!");
+            } else if (arguments[0].equals("loan")) {
+                throw new InsufficientParameters("You need to provide an ID when deleting loan!");
+            } else if (arguments[0].equals("expense")) {
+                throw new InsufficientParameters("You need to provide an ID when deleting expense!");
+            }
+        } catch (NumberFormatException err) {
+            if (arguments[0].equals("contact")) {
+                throw new WrongParameterFormat("You need to provide a valid ID (Number) when deleting contact!");
+            } else if (arguments[0].equals("loan")) {
+                throw new WrongParameterFormat("You need to provide a valid ID (Number) when deleting loan!");
+            } else if (arguments[0].equals("expense")) {
+                throw new WrongParameterFormat("You need to provide a valid ID (Number) when deleting expense!");
+            }
+        }
+    
         //@@author Xdecosee
         switch (arguments[0]) {
 
@@ -37,6 +59,7 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
 
         default:
             return new DeleteCommand(arguments[0], id);
+            
         }
         //@@author
     }

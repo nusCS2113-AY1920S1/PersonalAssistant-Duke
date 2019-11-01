@@ -1,5 +1,6 @@
 package wallet.logic.parser;
 
+import wallet.exception.InsufficientParameters;
 import wallet.logic.command.AddCommand;
 import wallet.logic.command.Command;
 import wallet.logic.command.CurrencyCommand;
@@ -60,7 +61,11 @@ public class ParserManager {
             return new ReminderCommandParser().parse(arguments[1]);
 
         case DoneCommand.COMMAND_WORD:
-            return new DoneCommandParser().parse(arguments[1]);
+            try {
+                return new DoneCommandParser().parse(arguments[1]);
+            } catch (ArrayIndexOutOfBoundsException err) {
+                throw new InsufficientParameters("done command currently has no parameters!");
+            }
 
         case ExportCommand.COMMAND_WORD:
             return new ExportCommandParser().parse(arguments[1]);

@@ -1,5 +1,7 @@
 package wallet.logic;
 
+import wallet.exception.InsufficientParameters;
+import wallet.exception.WrongParameterFormat;
 import wallet.logic.command.Command;
 import wallet.logic.parser.ExpenseParser;
 import wallet.logic.parser.ParserManager;
@@ -14,7 +16,9 @@ import wallet.model.record.RecordList;
 import wallet.reminder.Reminder;
 import wallet.storage.CurrencyStorage;
 import wallet.storage.StorageManager;
+import wallet.ui.Ui;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 
 //save wallet state first before doing command
@@ -92,7 +96,9 @@ public class LogicManager {
                         walletList.setState(state);
                     }
                 }
+
                 isExit = command.execute(walletList.getWalletList().get(walletList.getState()));
+
                 ExpenseParser.updateRecurringRecords(walletList.getWalletList().get(walletList.getState()));
                 boolean isModified = newStorageManager.save(walletList.getWalletList().get(walletList.getState()));
                 if (isModified) {
@@ -101,8 +107,10 @@ public class LogicManager {
             } else {
                 System.out.println(MESSAGE_ERROR_COMMAND);
             }
+        } catch (WrongParameterFormat | InsufficientParameters | ParseException err) {
+            Ui.printError(err.toString());
         } catch (Exception e) {
-            System.out.println(MESSAGE_ERROR_COMMAND);
+            e.printStackTrace();
         }
         return isExit;
         //@@author
@@ -115,7 +123,6 @@ public class LogicManager {
      */
     public void removeUnusedNodes(WalletList walletList) {
         //@@author A0171206R
-        System.out.println("Removing unwanted wallet nodes");
         int maxState = walletList.getWalletList().size() - 1;
         int currentState = walletList.getState();
         int loops = maxState - currentState;
@@ -170,7 +177,6 @@ public class LogicManager {
     public static StorageManager getStorageManager() {
         return storageManager;
     }
-
 
 
 }
