@@ -225,7 +225,13 @@ public class RoomShare {
             case sort:
                 Ui.clearScreen();
                 ui.startUp();
-                SortType sortType = parser.getSort();
+                SortType sortType;
+                try {
+                    sortType = parser.getSort();
+                } catch (RoomShareException e) {
+                    ui.showError(e);
+                    sortType = SortType.priority;
+                }
                 TaskList.changeSort(sortType);
                 ui.showChangeInPriority(sortType);
                 listRoutine.list();
