@@ -27,7 +27,7 @@ public class Rims{
      * @throws ParseException if data is stored in an invalid format and is thus unable to be parsed
      */
     public Rims(String resourceFilePath, String reserveFilePath)
-        throws FileNotFoundException, ParseException, RimsException {
+        throws FileNotFoundException, ParseException, RimsException, IOException {
         ui = new Ui();
         storage = new Storage(resourceFilePath, reserveFilePath);
         resources = new ResourceList(ui, storage.getResources());
