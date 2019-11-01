@@ -93,28 +93,32 @@ This project follows oss-generic coding standards. IntelliJ’s default style is
 compliant with ours but it uses a different import order from ours. To rectify,
 ```
 
-1. Go to ​File​ >​ Settings...​ (Windows/Linux), or ​IntelliJ IDEA​ >
-    Preferences...​ (macOS)
-2. Select ​Editor​ > ​Code Style​ > ​Java
-3. Click on the Imports tab to set the order
-    a. For ​Class count to use import with '*'​ and ​Names
-       count to use static import with '*':​ Set to ​ 999 ​ to
-       prevent IntelliJ from contracting the import statements
-    b. For ​Import Layout​: The order is ​import static all other
-       imports​, ​import java.*​, ​import javafx.*​, ​import
-       org.*, import com.*​, ​import all other imports​. Add a
-       <blank line>​ between each ​import​.
-Optionally, you can follow the UsingCheckstyle.adoc document to configure
-Intellij to check style-compliance as you write code.
-1.4.2 Updating documentation to match your fork
-After forking the repo, links in the documentation will still point to the
-AY1920S1-CS2113T-W12-4/main repo. If you plan to develop this as a separate
-product (i.e. instead of contributing to the AY1920S1-CS2113T-W12-4/main) ,
-you should replace the URL in the variable ​repoURL​ in DeveloperGuide.pdf and
-UserGuide.pdf with the URL of your fork.
+    1. Go to ​File​ >​ Settings...​ (Windows/Linux), or ​IntelliJ IDEA​ >
+        Preferences...​ (macOS)
+    2. Select ​Editor​ > ​Code Style​ > ​Java
+    3. Click on the Imports tab to set the order
+        a. For ​Class count to use import with '*'​ and ​Names
+           count to use static import with '*':​ Set to ​ 999 ​ to
+           prevent IntelliJ from contracting the import statements
+        b. For ​Import Layout​: The order is ​import static all other
+           imports​, ​import java.*​, ​import javafx.*​, ​import
+           org.*, import com.*​, ​import all other imports​. Add a
+           <blank line>​ between each ​import​.
+    Optionally, you can follow the UsingCheckstyle.adoc document to configure
+    Intellij to check style-compliance as you write code.
+ ```
+ 1.4.2 Updating documentation to match your fork
+ ```
+    After forking the repo, links in the documentation will still point to the
+    AY1920S1-CS2113T-W12-4/main repo. If you plan to develop this as a separate
+    product (i.e. instead of contributing to the AY1920S1-CS2113T-W12-4/main) ,
+    you should replace the URL in the variable ​repoURL​ in DeveloperGuide.pdf and
+    UserGuide.pdf with the URL of your fork.
+```
 1.4.3 Getting started with coding
-When you are ready to start coding, we recommend that you get some sense of
-the overall design by reading about BetterDuke’s architecture.
+```
+    When you are ready to start coding, we recommend that you get some sense of
+    the overall design by reading about BetterDuke’s architecture.
 
 
 ## 2. Design
@@ -135,42 +139,38 @@ architecture level:
 ```
 
 ● LookupTable​ : Used by many classes to convert academic dates
-to standard date time format and vice versa.
-The app consists of five ​components​:
-● Logic : The command executor
-● Model : Modifies and stores data of App in-memory
-● Storage : Read data from and write data to files
-● UI: The UI of the App
-● DukeExceptions: Custom Duke exceptions that may
-be raised from contextual errors while executing
-commands in BetterDuke.
-For example, the ​Parser​ component (see the class diagram given below)
-defines it’s API in the ​MainParser.java​ interface and exposes its
-functionality using the ​Duke.java​ class.
-Figure 2. Class Diagram of Logic Component
-_Event- Driven design_
+to standard date time format and vice versa.  
+The app consists of five ​components​:  
+● Logic : The command executor  
+● Model : Modifies and stores data of App in-memory  
+● Storage : Read data from and write data to files  
+● UI: The UI of the App  
+● DukeExceptions: Custom Duke exceptions that may be raised from contextual errors 
+ while executing commands in BetterDuke.  
+For example, the ​Parser​ component (see the class diagram given below)  
+defines it’s API in the ​MainParser.java​ interface and exposes its functionality 
+using the ​Duke.java​ class.  
+Figure 2. Class Diagram of Logic Component  
+_Event- Driven design_  
 
 
 **How the architecture components interact with each other**
-Figure 3: The ​ _Sequence Diagram_ ​ below shows how the components interact with
-each other for the scenario where the user issues the command ​Add/e A​.
+Figure 3: The ​ _Sequence Diagram_ ​ below shows how the components interact with  
+each other for the scenario where the user issues the command ​Add/e A​.  
 
 
 ### 2.2 Duke component
 
-```
-The ​UI​ consists of​ Main​, ​MainWindow​ and ​AlertBox​. ​MainWindow​ makes
-use of ​DeadlineView​, ​DukeResponseView​ and ​ProgressController
-which handles all displays and interactions with users.
-The ​UI​ component uses ​JavaFx​ ​UI​ framework. The layout of these ​UI​ parts are
-defined in matching ​.fxml​ files that are in the ​src/main/resources/view
-folder. For example, the layout of ​MainWindow​ is specified in
-Mainwindow.fxml​.
-The UI component,
-● Executes user commands using the Logic component.
-● Listens for changes to Model data so that the UI can be updated with the
-modified data.
-```
+    The ​UI​ consists of​ Main​, ​MainWindow​ and ​AlertBox​. ​MainWindow​ makes use of ​DeadlineView​, 
+    ​DukeResponseView​ and ​ProgressController which handles all displays and interactions with users.
+    The ​UI​ component uses ​JavaFx​ ​UI​ framework. The layout of these ​UI​ parts are defined in 
+    matching ​.fxml​ files that are in the ​src/main/resources/view folder.
+    For example, the layout of ​MainWindow​ is specified in Mainwindow.fxml​.
+    The UI component,  
+    ● Executes user commands using the Logic component.  
+    ● Listens for changes to Model data so that the UI can be updated with the
+    modified data.  
+
 
 ### 2.3 Parser component
 
@@ -189,19 +189,20 @@ Command objects.
 
 ### 2.4 Storage component
 
-Figure 5: Class Diagram for Model component
-_Classes involved: Storage_
-The Storage class ensures data persistence upon termination of BetterDuke and is the
-intermediary between the external files and the Model component.
-**2.4.1. External files**
-Data in BetterDuke is saved and loaded from two main text (.txt) files.
-● deadline..txt: Contains the current list of deadlines
-● event.txt: Contains the current list of events
-**2.4.2. Storage attributes and methods (Loading and Saving)**
-Loading and saving to/from the above mentioned external files are vital for Storage to
-function. In order to do both, Storage has attributes of File type which records the paths
-to the local external files. There is also a temporary hashmap created to retrieve and
-store data from the Model component.
+    Figure 5: Class Diagram for Model component
+    _Classes involved: Storage_
+    The Storage class ensures data persistence upon termination of BetterDuke and is the
+    intermediary between the external files and the Model component.
+    
+   #### **2.4.1. External files**
+    Data in BetterDuke is saved and loaded from two main text (.txt) files.
+    ● deadline..txt: Contains the current list of deadlines
+    ● event.txt: Contains the current list of events
+   #### **2.4.2. Storage attributes and methods (Loading and Saving)**
+    Loading and saving to/from the above mentioned external files are vital for Storage to
+    function. In order to do both, Storage has attributes of File type which records the paths
+    to the local external files. There is also a temporary hashmap created to retrieve and
+    store data from the Model component.
 
 
 For loading from files, we need to read and write both external files mentioned above,
@@ -214,32 +215,33 @@ so dedicated methods for deadline.txt and event.txt are present
 
 ### 3.1 [Proposed] Filter by Keyword feature
 
-```
-3.1.1 How the feature is implemented.
-The filter mechanism is facilitated by FilterCommand, which extends the Command
-Abstract class.
-The format of the command is as follows: filter “keyword”
-Below is a step by step sequence of what happens when a user enters a filter command.
-```
-1. The user enters a filter command using the following command line input
-    filter keyword​. After command has been parsed, FilterCommand is created.
-2. FilterCommand#execute() then operates 2 For loops for both events list and
-    deadline list.
-3. The tasks are converted to string form using Tasklist#toString() method to
-    facilitate easy searching.
-4. The keyword is then match to the events and deadlines using Java function
-    .contain().
-5. A String message is then returned back by calling Ui#showFilter() from
-    FilterCommand for display by JavaFx graphic user interface.
-6. If the keyword is not found in any of the task, an alertbox will be returned
-    indicating a mismatched keyword.
-* This function matches both uppercase and lowercase matches of the keyword to the
-task in string format.
-3.1.2 Why it is implemented that way.
-It is implemented this way to allow user to enter a short command for easy usability. The
-user may enter the keyword in both uppercase and lowercase and both uppercase and
-lowercase instances of the keyword would be returned. ​As long as the keyword or
-phrase is a sub-string in the description field, the task is returned as a match.
+
+#### 3.1.1 How the feature is implemented.
+    The filter mechanism is facilitated by FilterCommand, which extends the Command
+    Abstract class.
+    The format of the command is as follows: filter “keyword”
+    Below is a step by step sequence of what happens when a user enters a filter command.
+
+    1. The user enters a filter command using the following command line input
+        filter keyword​. After command has been parsed, FilterCommand is created.
+    2. FilterCommand#execute() then operates 2 For loops for both events list and
+        deadline list.
+    3. The tasks are converted to string form using Tasklist#toString() method to
+        facilitate easy searching.
+    4. The keyword is then match to the events and deadlines using Java function
+        .contain().
+    5. A String message is then returned back by calling Ui#showFilter() from
+        FilterCommand for display by JavaFx graphic user interface.
+    6. If the keyword is not found in any of the task, an alertbox will be returned
+        indicating a mismatched keyword.
+    * This function matches both uppercase and lowercase matches of the keyword to the
+    task in string format.
+    
+ #### 3.1.2 Why it is implemented that way.
+    It is implemented this way to allow user to enter a short command for easy usability. The
+    user may enter the keyword in both uppercase and lowercase and both uppercase and
+    lowercase instances of the keyword would be returned. ​As long as the keyword or
+    phrase is a sub-string in the description field, the task is returned as a match.
 
 
 The following sequence diagram shows how the filter operation works.
@@ -247,49 +249,32 @@ The following sequence diagram shows how the filter operation works.
 
 The following activity diagram summarizes what happens when a user executes a
 command:
-3.1.3 How the feature works
+
+#### 3.1.3 How the feature works
 Step 1: Input Command in the Command textbox and press submit
 Step 2:System will display response with keyword “cs2113” in the response box
 
+##### 3.1.4 Design Considerations
+<table>
+ <tr>
+  <th>Aspect</th>
+  <th>Alternative 1(Current Choice)</th>
+  <th>Alternative 2</th>
+ </tr>
+ <tr>
+  <td> 1)Function to use for search
+  function</td>
+  <td>Search using Java contains to match substring of task<br />
+    Pros: Efficient, results can be retrieved in O (1) time<br />  
+    Cons: May return inconsequential results<br />   
+   (filter 1 may return cs2101, 123, task1)</td>
+  <td>Search using Java regex to match specific word<br />  
+   Pros: Results returned are more specific, only words are returned<br />
+   Cons: Inefficient, especially if there are many tasks, O(n) time</td>
+ </tr> 
+</table>
 
-3.1.4 Design Considerations
-Design Considerations
-Aspect Alternative 1(Current Choice) Alternative 2
-1)Function to use for search
-function
-Search using Java contains to
-match substring of task
-Pros: Efficient, results can be
-retrieved in O (1) time
-Cons: May return
-inconsequential results (filter 1
-may return cs2101, 123, task1)
-Search using Java regex to
-match specific word
-Pros: Results returned are
-more specific, only words
-are returned
-Cons: Inefficient, especially
-if there are many tasks,
-O(n) time
-
-
-```
-2)Data structure to support
-the undo/redo commands
-Search by arraylist
-Pros: Easy to implement
-Cons: Inefficient, especially if
-there are many tasks, O(n) time
-Search by HashMap
-Pros: Efficient, results can
-be retrieved in O(1) time
-Cons: Searching by Key
-may not return all instances
-of keyword
-Difficult and tedious to map
-by keyword
-3.1.5 Future Optimisations/ Version 2.
+#### 3.1.5 Future Optimisations/ Version 2.
 ● Implementing filter feature using multiple keywords
 ```
 - Allows users to enter multiple keywords so as to better specific tasks that
@@ -1119,5 +1104,3 @@ environments.
 ## Appendix G:References
 
 ## Appendix H:Product survey(optional: TBC)
-
-
