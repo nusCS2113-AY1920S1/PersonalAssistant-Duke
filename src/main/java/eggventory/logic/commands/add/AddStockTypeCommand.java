@@ -7,6 +7,8 @@ import eggventory.ui.Ui;
 import eggventory.logic.commands.Command;
 import eggventory.commons.enums.CommandType;
 
+//@@author Deculsion
+
 public class AddStockTypeCommand extends Command {
     private String name;
 

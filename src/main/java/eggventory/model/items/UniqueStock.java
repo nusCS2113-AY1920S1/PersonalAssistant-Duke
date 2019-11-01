@@ -2,7 +2,8 @@ package eggventory.model.items;
 
 import java.util.ArrayList;
 
-//@@author yanprosobo
+//@@author cyanoei
+
 /**
  * A child of the Stock class.
  * A UniqueStock is a group of many items (eg. Arduino Uno) that share the same stockCode, description etc.,
@@ -104,18 +105,4 @@ public class UniqueStock extends Stock {
         return getStockType() + "/" + getStockCode() + "/" + getQuantity()
                 + "/" + getDescription() + "/" + getMinimum();
     }
-
-    /*
-        way to access individual stock
-        get/set id
-        add stock
-            update total quantity ++
-        update loan/lost status
-            update total loan/lost by +/-
-        delete stock
-            update total quantity --
-            check if min, give warning.
-     */
-
-
 }

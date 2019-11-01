@@ -1,5 +1,7 @@
 package eggventory.model.items;
 
+//@@author cyanoei
+
 /**
  * An item of unique stock. Has its own index (unique among items of that stock), loan and lost status.
  */

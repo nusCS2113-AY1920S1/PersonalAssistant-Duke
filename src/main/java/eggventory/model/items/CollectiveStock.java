@@ -1,5 +1,7 @@
 package eggventory.model.items;
 
+//@@author cyanoei
+
 /**
  Child of the Stock class.
  * A CollectiveStock (eg. 330ohm resistor) may consist of many individual items (multiple resistors),

@@ -60,7 +60,6 @@ public class ParseAdd {
 
         return new AddPersonCommand(CommandType.ADD, addInput[0], addInput[1]);
     }
-    //@@author
 
     //@@author cyanoei
     private Command processAddLoan(String input) throws BadInputException {
