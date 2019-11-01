@@ -1,12 +1,7 @@
 package compal.model.tasks;
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+
 import java.util.ArrayList;
-import java.util.BitSet;
 import java.util.Date;
 
 
@@ -36,13 +31,6 @@ public class TaskList {
         //make sure any user edits are brought over to the binary file as well
         taskIdManager.synchronizeTaskIds(this);
     }
-
-
-    //----------------------->
-
-    //***FUNCTIONS FOR ADDING TASKS***----------------------------------------------------------------------------------
-    //------------------------------------------------------------------------------------------------------------------
-    //----------------------------------------------------------------------------------------------------------------->
 
     //@@author jaedonkey
     /**
@@ -78,14 +66,14 @@ public class TaskList {
     /**
      * Removes a task that has an id value of id.
      */
-    public Task removeTaskById(int id) {
+    public void removeTaskById(int id) {
         //search for task with id of id
         for (Task t : arrlist) {
             if (t.getId() == id) {
                 arrlist.remove(t);
+                break;
             }
         }
-        throw null;
     }
 
     /**
@@ -110,7 +98,7 @@ public class TaskList {
         return this.arrlist;
     }
 
-    //@@author Sholihin
+    //@@author SholihinK
     /**
      * Sorts all the tasks in arrlist by date.
      *
@@ -122,8 +110,8 @@ public class TaskList {
         while (!sorted) {
             sorted = true;
             for (int i = 0; i < arraySize - 1; i++) {
-                Date task1Date = arrlist.get(i).getDate();
-                Date task2Date = arrlist.get(i + 1).getDate();
+                Date task1Date = arrlist.get(i).getMainDate();
+                Date task2Date = arrlist.get(i + 1).getMainDate();
                 Task.Priority priority1 = arrlist.get(i).getPriority();
                 Task.Priority priority2 = arrlist.get(i + 1).getPriority();
 

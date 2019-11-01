@@ -9,16 +9,19 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
+//@@author Catherinetan99
 public class FindFreeSlotCommand extends Command {
 
     public static final String MESSAGE_USAGE = "findfreeslot\n\t"
-            + "Format: findfreeslot /date dd/mm/yyyy /hour <num> /min <num>\n\n\t"
+            + "Format: findfreeslot /date <dd/mm/yyyy> /hour <num> /min <num>\n\n\t"
             + "Note: content in \"<>\": need to be fulfilled by the user\n\t"
             + "dd/mm/yyyy is the date format. e.g. 01/01/2000\n\n"
             + "This command will show all free time slots on that day with <num> hours <num> minutes\n"
             + "Examples:\n\t"
             + "findfreeslot /date 01/01/2019 /hour 1 /min 10\n\t\t"
             + "find all free time slots which is longer than 1h10min on 01/01/2019";
+    public static final String MESSAGE_LIMIT_EXCEEDED = "Error: Input entered is out of range!";
+    private static final long MAX_DURATION = 86400000;
 
     private Date date;
     private int hour;
@@ -55,7 +58,7 @@ public class FindFreeSlotCommand extends Command {
         Date currentDateAndTime = calendar.getTime();
 
         for (Task task : taskList.getArrList()) {
-            if (task.getDate().equals(date) && !task.getStringEndTime().equals("-")
+            if (task.getMainDate().equals(date) && !task.getStringEndTime().equals("-")
                     && !task.getStringStartTime().equals("-") && task.getEndTime().after(currentDateAndTime)) {
                 arrayList.add(task);
             }
@@ -66,7 +69,9 @@ public class FindFreeSlotCommand extends Command {
         Date currentDate = calendar.getTime();
 
         if (isEqualDate(date, currentDate)) {
-            if (arrayList.get(0).getEndTime().after(currentDateAndTime)) {
+            if (arrayList.isEmpty()) {
+                startPointer = currentDateAndTime;
+            } else if (arrayList.get(0).getEndTime().after(currentDateAndTime)) {
                 startPointer = arrayList.get(0).getEndTime();
             } else {
                 startPointer = currentDateAndTime;
@@ -81,7 +86,10 @@ public class FindFreeSlotCommand extends Command {
         }
 
         ArrayList<String> finalList;
-        int duration = hour * 60 + min;
+        long duration = calculateDuration(hour, min);
+        if ((duration > MAX_DURATION) || (hour > 24) || (min > 1440)) {
+            throw new CommandException(MESSAGE_LIMIT_EXCEEDED);
+        }
 
         finalList = getFreeSlots(arrayList, startPointer, oneDayAfter, duration);
         String result = printResult(finalList);
@@ -98,13 +106,14 @@ public class FindFreeSlotCommand extends Command {
      * @param duration duration of time slot needed
      * @return
      */
-    public ArrayList<String> getFreeSlots(ArrayList<Task> arrayList, Date startTime, Date endTime, int duration) {
+    public ArrayList<String> getFreeSlots(ArrayList<Task> arrayList, Date startTime, Date endTime, long duration) {
         Date startPointer = startTime;
         Date endPointer;
         ArrayList<String> stringArrayList = new ArrayList<>();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HHmm");
 
         if (arrayList.isEmpty()) {
+            stringArrayList.add("Empty");
             return stringArrayList;
         }
 
@@ -138,14 +147,18 @@ public class FindFreeSlotCommand extends Command {
     public String printResult(ArrayList<String> arrayList) {
         StringBuilder finalList = new StringBuilder();
 
-        if (arrayList.isEmpty()) {
-            return ("You are free for the entire day!");
-        }
-
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
         String stringDate = simpleDateFormat.format(date);
 
-        finalList.append("Here are the available time slots for " + stringDate + " :\n");
+        if (arrayList.isEmpty()) {
+            return ("You have no available slots on " + stringDate + " ! :(");
+        }
+
+        if (arrayList.get(0).equals("Empty")) {
+            return ("You are free for the entire day! You have no tasks on " + stringDate + "!");
+        }
+
+        finalList.append("Here are the available time slots for " + stringDate + ":\n");
         for (int i = 1; i <= arrayList.size(); i++) {
             finalList.append(i + ". " + arrayList.get(i - 1));
         }
@@ -165,12 +178,13 @@ public class FindFreeSlotCommand extends Command {
     }
 
     /**
-     * Converts milliseconds to minutes. Returns number of minutes.
+     * Gets duration in milliseconds.
      *
-     * @param milliseconds Number of milliseconds
-     * @return Number of minutes
+     * @param hour Hour input
+     * @param min Minute input
+     * @return Duration in milliseconds
      */
-    public long convertMsToMin(long milliseconds) {
-        return milliseconds / 60000;
+    public long calculateDuration(int hour, int min) {
+        return (hour * 60 + min) * 60000;
     }
 }

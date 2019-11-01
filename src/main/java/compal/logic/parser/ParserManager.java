@@ -13,25 +13,21 @@ import java.text.ParseException;
 public class ParserManager {
     //***Class Properties/Variables***--------------------------------------------------------------------------------->
     public static final String CMD_EXIT = "bye";
-    public static final String CMD_CLEAR = "clear";
     public static final String CMD_DONE = "done";
     public static final String CMD_DELETE = "delete";
     public static final String CMD_EVENT = "event";
     public static final String CMD_DEADLINE = "deadline";
-    public static final String CMD_RECUR_TASK = "recurtask";
     public static final String CMD_VIEW = "view";
     public static final String CMD_FIND = "find";
     public static final String CMD_SET_REMINDER = "set-reminder";
     public static final String CMD_VIEW_REMINDER = "view-reminder";
-    public static final String CMD_LECT = "lect";
-    public static final String CMD_TUT = "tut";
-    public static final String CMD_SECT = "sect";
-    public static final String CMD_LAB = "lab";
     public static final String CMD_HELP = "help";
     public static final String CMD_FIND_FREE_SLOT = "findfreeslot";
     public static final String CMD_EDIT = "edit";
+    public static final String CMD_LIST = "list";
+    public static final String CMD_EXPORT = "export";
+    public static final String CMD_IMPORT = "import";
 
-    public static final String MESSAGE_INVALID_COMMAND = "Error: Unknown command input detected!";
 
     /**
      * Processes command input by user.
@@ -54,11 +50,11 @@ public class ParserManager {
         case CMD_VIEW:
             return new ViewCommandParser().parseCommand(restOfInput);
         case CMD_SET_REMINDER:
-            return new SetReminderParser().parseCommand(restOfInput);
+            return new SetReminderCommandParser().parseCommand(restOfInput);
         case CMD_VIEW_REMINDER:
-            return new ViewReminderParser().parseCommand(restOfInput);
+            return new ViewReminderCommandParser().parseCommand(restOfInput);
         case CMD_FIND_FREE_SLOT:
-            return new FindFreeSlotParser().parseCommand(restOfInput);
+            return new FindFreeSlotCommandParser().parseCommand(restOfInput);
         case CMD_DEADLINE:
             return new DeadlineCommandParser().parseCommand(restOfInput);
         case CMD_DONE:
@@ -69,10 +65,18 @@ public class ParserManager {
             return new EventCommandParser().parseCommand(restOfInput);
         case CMD_EDIT:
             return new EditCommandParser().parseCommand(restOfInput);
+        case CMD_LIST:
+            return new ListCommandParser().parseCommand(restOfInput);
+        case CMD_DELETE:
+            return new DeleteCommandParser().parseCommand(restOfInput);
+        case CMD_EXPORT:
+            return new ExportCommandParser().parseCommand(restOfInput);
+        case CMD_IMPORT:
+            return new ImportCommandParser().parseCommand(restOfInput);
         default:
             return new HelpCommandParser().parseCommand(restOfInput);
-            //suppose to return helpCommand();
-            //throw new ParserException(MESSAGE_INVALID_COMMAND);
+        //suppose to return helpCommand();
+        //throw new ParserException(MESSAGE_INVALID_COMMAND);
         }
 
     }

@@ -17,7 +17,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.TextAlignment;
 
-
+//@@author SholihinK
 /**
  * Create a timetable drawing onto DailyView scroll-pane within tab-pane.
  */
@@ -43,9 +43,10 @@ class DailyCalUi {
     private double[][] storedXAxis = new double[25][5];
     private double[][] storedYAxis = new double[25][5];
     private int startTime = 8;
-    private int endTime = 19;
+    private int endTime = 17;
     private ArrayList<Task> tempOriginalList;
     private ArrayList<Task> dailyCalArrayList = new ArrayList<>();
+    private ArrayList<Task> deadlineArrayList = new ArrayList<>();
 
 
     DailyCalUi() {
@@ -81,18 +82,64 @@ class DailyCalUi {
      * Only display non-deadline events.
      */
     private void createDailyArrayList() {
+
         Comparator<Task> compareByStartTime = Comparator.comparing(Task::getPriority);
         for (Task t : tempOriginalList) {
-            if (t.getStringDate().equals(dateToDisplay)) {
-                if (t.getSymbol().equals("D")) {
-                    continue;
+            if (t.getStringMainDate().equals(dateToDisplay)) {
+                if (t.getSymbol().equals("D") && !t.getisDone()) {
+                    deadlineArrayList.add(t);
+                } else if ((t.getSymbol().equals("E") && !t.getisDone())) {
+                    if (!t.getStringMainDate().equals(t.getStringTrailingDate())) {
+                        t.setEndTime("2359");
+                    }
+                    dailyCalArrayList.add(t);
                 }
-                t.calculateAndSetPriorityScore();
-                dailyCalArrayList.add(t);
+            } else if (t.getStringTrailingDate().equals(dateToDisplay)) {
+                if ((t.getSymbol().equals("E") && !t.getisDone())) {
+                    t.setStartTime("0000");
+                    dailyCalArrayList.add(t);
+                }
             }
         }
         dailyCalArrayList.sort(compareByStartTime);
+        deadlineArrayList.sort(compareByStartTime);
     }
+
+    private void buildDeadline() {
+        colOneYLayout -= 50;
+        int plus = 75;
+        Text header = new Text();
+        header.setText("Due today:");
+        header.setY(colOneYLayout + 50);
+        header.setX(colOneXLayout);
+        groupRoot.getChildren().add(header);
+
+        int counter = 0;
+        for (Task t : deadlineArrayList) {
+            if (counter == 6) {
+                break;
+            }
+            Rectangle rectangle = new Rectangle(100, 50);
+            rectangle.setFill(Color.ROSYBROWN);
+            rectangle.setStroke(Color.BLACK);
+
+            final StackPane stack = new StackPane();
+            final Text text = new Text(t.getDescription() + "\nDue:" + t.getStringEndTime());
+            text.setFont(Font.font("Georgia Italic", 12));
+            text.setTextAlignment(TextAlignment.CENTER);
+            stack.getChildren().addAll(rectangle, text);
+            stack.setLayoutY(colOneYLayout + 25);
+            stack.setLayoutX(colOneXLayout + plus);
+
+
+            groupRoot.getChildren().add(stack);
+            plus += 100;
+            counter += 1;
+        }
+        colOneYLayout += 100;
+
+    }
+
 
     /**
      * Call the require functions to create final state of timetable.
@@ -102,7 +149,9 @@ class DailyCalUi {
     private ScrollPane buildTimeTable() {
         setTime();
         genDateSLot();
+        buildDeadline();
         genTimeSlot();
+
         for (int i = startTime; i < endTime; i++) {
             drawScheduleSquare(i);
         }
@@ -194,22 +243,32 @@ class DailyCalUi {
      *
      * @return Final title to be display for each block on GUI
      */
-    private String createTitle(Task task) {
+    private String createTitle(Task t) {
         String blockTitle = "";
 
-        if (task.getSymbol().equals("E")) {
+        if (t.getDescription().matches("(?i:.*lec.*)")) {
+            blockTitle = "[Lecture]\n";
+        } else if (t.getDescription().matches("(?i:.*tut.*)")) {
+            blockTitle = "[Tut]\n";
+        } else if (t.getDescription().matches("(?i:.*sect.*)")) {
+            blockTitle = "[Sect]\n";
+        } else if (t.getDescription().matches("(?i:.*lab.*)")) {
+            blockTitle = "[Lab]\n";
+        } else if (t.getDescription().matches("(?i:.*rt.*)")) {
+            blockTitle = "[RT]\n";
+        } else if (t.getSymbol().equals("E")) {
             blockTitle = "[Event]\n";
         }
 
-        if (task.getPriority().equals(Task.Priority.high)) {
+        if (t.getPriority().equals(Task.Priority.high)) {
             blockTitle += "[Priority: High]\n";
-        } else if (task.getPriority().equals(Task.Priority.medium)) {
+        } else if (t.getPriority().equals(Task.Priority.medium)) {
             blockTitle += "[Priority: Medium]\n";
         } else {
             blockTitle += "[Priority: Low]\n";
         }
 
-        if (task.getisDone().equals(true)) {
+        if (t.getisDone().equals(true)) {
             String tick = "\u2713";
             blockTitle += "[" + tick + "]\n";
         } else {
@@ -217,7 +276,7 @@ class DailyCalUi {
             blockTitle += "[" + wrong + "]\n";
         }
 
-        blockTitle += task.getDescription();
+        blockTitle += t.getDescription();
         return blockTitle;
     }
 
@@ -269,7 +328,7 @@ class DailyCalUi {
                     eventCounter++;
                 }
                 stack.setLayoutX(storedXAxis[currentTime][eventCounter]);
-                stack.setLayoutY(storedYAxis[currentTime][eventCounter]);
+                stack.setLayoutY(50 + storedYAxis[currentTime][eventCounter]);
 
                 groupRoot.getChildren().add(stack);
                 eventCounter++;
@@ -281,8 +340,17 @@ class DailyCalUi {
      * Set color of rectangle to depending on the scenario below.
      */
     private Color colorFill(Task t) {
-        if (t.getisDone().equals(true)) {
-            return Color.DARKSEAGREEN;
+
+        if (t.getDescription().matches("(?i:.*lec.*)")) {
+            return Color.GOLDENROD;
+        } else if (t.getDescription().matches("(?i:.*tut.*)")) {
+            return Color.DEEPPINK;
+        } else if (t.getDescription().matches("(?i:.*sect.*)")) {
+            return Color.VIOLET;
+        } else if (t.getDescription().matches("(?i:.*lab.*)")) {
+            return Color.INDIANRED;
+        } else if (t.getDescription().matches("(?i:.*rt.*)")) {
+            return Color.LEMONCHIFFON;
         } else if (t.getPriority().equals(Task.Priority.medium)) {
             return Color.GOLDENROD;
         } else if (t.getPriority().equals(Task.Priority.high)) {

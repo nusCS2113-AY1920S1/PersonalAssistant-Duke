@@ -5,6 +5,8 @@ import compal.logic.command.Command;
 import compal.model.tasks.Task;
 import compal.logic.parser.exceptions.ParserException;
 
+import java.io.File;
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
 
@@ -27,7 +29,6 @@ public interface CommandParser {
      * TOKENS FOR PARSING BELOW.
      */
     String TOKEN_TASK_ID = "/id";
-    String TOKEN_COMMAND = "/command";
     String TOKEN_STATUS = "/status";
     String TOKEN_SLASH = "/";
     String TOKEN_END_TIME = "/end";
@@ -40,6 +41,7 @@ public interface CommandParser {
     String TOKEN_TYPE = "/type";
     String TOKEN_HOUR = "/hour";
     String TOKEN_MIN = "/min";
+    String TOKEN_INTERVAL = "/interval";
 
 
     String EMPTY_INPUT_STRING = "";
@@ -50,14 +52,19 @@ public interface CommandParser {
      */
     String MESSAGE_MISSING_TOKEN = "Error: Missing token!";
     String MESSAGE_MISSING_INPUT = "Error: Missing input!";
+    String MESSAGE_INVALID_TIME_FORMAT = "Invalid Time input!";
     String MESSAGE_INVALID_DATE_FORMAT = "Invalid Date input!";
     String MESSAGE_MISSING_DATE_ARG = "ArgumentError: Missing /date";
     String MESSAGE_EXCESSIVE_DATES = "Too many dates! Please limit to less than 7.";
     String MESSAGE_MISSING_START_TIME_ARG = "ArgumentError: Missing /start";
     String MESSAGE_MISSING_END_TIME_ARG = "ArgumentError: Missing /end";
-    String MESSAGE_MISSING_FINAL_DATE_ARG = "ArgumentError: Missing /final-date";
+    String MESSAGE_MISSING_STATUS_ARG = "ArgumentError: Missing /status";
+    String MESSAGE_MISSING_ID_ARG = "ArgumentError: Missing /id";
+    String MESSAGE_MISSING_TYPE_ARG = "ArgumentError: Missing /type";
     String MESSAGE_INVALID_TYPE = "Error: The type does not exist!";
-
+    String MESSAGE_INVALID_PRIORITY = "Invalid Priority Input";
+    String MESSAGE_LIMIT_EXCEEDED = "Error: Input entered is out of range!";
+    String MESSAGE_INVALID_FILE_NAME_FORMAT = "Invalid file name for export!";
     /**
      * Method specification for different command parsers to parse user input.
      *
@@ -70,6 +77,8 @@ public interface CommandParser {
     /**
      * GETTERS FOR TOKENS BELOW
      */
+
+    //@@author SholihinK
 
     /**
      * Returns the type of task.
@@ -103,9 +112,11 @@ public interface CommandParser {
             throw new ParserException(MESSAGE_INVALID_TYPE);
 
         } else {
-            throw new ParserException(MESSAGE_MISSING_TOKEN);
+            throw new ParserException(MESSAGE_MISSING_TYPE_ARG);
         }
     }
+
+    //@@author Catherinetan99
 
     /**
      * Returns the reminder status in the String input.
@@ -127,7 +138,7 @@ public interface CommandParser {
             String statusField = scanner.next();
             return statusField;
         } else {
-            throw new ParserException(MESSAGE_MISSING_TOKEN);
+            throw new ParserException(MESSAGE_MISSING_STATUS_ARG);
         }
     }
 
@@ -160,7 +171,7 @@ public interface CommandParser {
      * @return taskID
      * @throws ParserException if the token (/id) or id number is missing
      */
-    default int getTokenTaskID(String restOfInput) throws ParserException {
+    default int getTaskID(String restOfInput) throws ParserException {
         return getIntInput(restOfInput, TOKEN_TASK_ID);
     }
 
@@ -170,7 +181,7 @@ public interface CommandParser {
      * @param restOfInput String input of user after command word
      * @param token       token to extract result from
      * @return result extracted based on token
-     * @throws ParserException if token or input is missing
+     * @throws ParserException if token or input is missing or invalid
      */
     private int getIntInput(String restOfInput, String token) throws ParserException {
         if (restOfInput.contains(token)) {
@@ -182,13 +193,21 @@ public interface CommandParser {
                 throw new ParserException(MESSAGE_MISSING_INPUT);
             }
             String input = scanner.next();
+            if (input.length() >= 10) {
+                throw new ParserException(MESSAGE_LIMIT_EXCEEDED);
+            }
             if (input.equals(EMPTY_INPUT_STRING) || input.contains(TOKEN_SLASH)) {
                 throw new ParserException(MESSAGE_MISSING_INPUT);
             }
-            int intInput = Integer.parseInt(input);
+            int intInput;
+            if (Pattern.matches("[0-9]+", input)) {
+                intInput = Integer.parseInt(input);
+            } else {
+                throw new ParserException("Invalid " + token.substring(1) + " input!");
+            }
             return intInput;
         } else {
-            throw new ParserException(MESSAGE_MISSING_TOKEN);
+            throw new ParserException("ArgumentError: Missing " + token);
         }
     }
 
@@ -243,6 +262,32 @@ public interface CommandParser {
     }
 
     //@@author yueyeah
+
+    /**
+     * Parses user input for optional interval token, and returns the interval specified.
+     *
+     * @param restOfInput String input of user after command word.
+     * @return Interval between each recurring Task if specified, 0 if not specified.
+     * @throws ParserException if the token is present but interval is not specified.
+     */
+    default int getTokenInterval(String restOfInput) throws ParserException {
+        int interval = DEFAULT_WEEK_NUMBER_OF_DAYS;
+        if (restOfInput.contains(TOKEN_INTERVAL)) {
+            int splitPoint = restOfInput.indexOf(TOKEN_INTERVAL);
+            String intervalStartInput = restOfInput.substring(splitPoint);
+            Scanner scanner = new Scanner(intervalStartInput);
+            scanner.next();
+            if (!scanner.hasNext()) {
+                throw new ParserException(MESSAGE_MISSING_INPUT);
+            } else {
+                interval = scanner.nextInt();
+            }
+        }
+        return interval;
+    }
+
+    //@@author yueyeah
+
     /**
      * Returns a date string if specified in the task.
      *
@@ -266,6 +311,9 @@ public interface CommandParser {
             while (scanner.hasNext()) {
                 String eachDateString = scanner.next();
                 if (eachDateString.charAt(0) == TOKEN_SLASH_CHAR) {
+                    if (dateCount == 0) {
+                        throw new ParserException(MESSAGE_MISSING_INPUT);
+                    }
                     break;
                 }
                 dateCount++;
@@ -302,7 +350,11 @@ public interface CommandParser {
                 throw new ParserException(MESSAGE_MISSING_INPUT);
             }
             String commandPriority = scanner.next();
-            priorityField = Task.Priority.valueOf(commandPriority.toLowerCase());
+            if (isPriorityValid(commandPriority)) {
+                priorityField = Task.Priority.valueOf(commandPriority.toLowerCase());
+            } else {
+                throw new ParserException(MESSAGE_INVALID_PRIORITY);
+            }
         } else {
             priorityField = Task.Priority.low;
         }
@@ -310,6 +362,7 @@ public interface CommandParser {
     }
 
     //@@author yueyeah
+
     /**
      * Parses through user input for /start token and return the start time.
      *
@@ -327,7 +380,11 @@ public interface CommandParser {
                 throw new ParserException(MESSAGE_MISSING_INPUT);
             }
             String startTimeField = scanner.next();
-            return startTimeField;
+            if (isTimeValid(startTimeField)) {
+                return startTimeField;
+            } else {
+                throw new ParserException(MESSAGE_INVALID_TIME_FORMAT);
+            }
         } else {
             throw new ParserException(MESSAGE_MISSING_START_TIME_ARG);
         }
@@ -350,13 +407,18 @@ public interface CommandParser {
                 throw new ParserException(MESSAGE_MISSING_INPUT);
             }
             String endTimeField = scanner.next();
-            return endTimeField;
+            if (isTimeValid(endTimeField)) {
+                return endTimeField;
+            } else {
+                throw new ParserException(MESSAGE_INVALID_TIME_FORMAT);
+            }
         } else {
             throw new ParserException(MESSAGE_MISSING_END_TIME_ARG);
         }
     }
 
     //@@author yueyeah
+
     /**
      * Parses through the user input for /final-date token and return the final date of iteration of events/deadline.
      * The presence of the /final-date token must be checked first in the specialised
@@ -383,9 +445,31 @@ public interface CommandParser {
         }
     }
 
+    //@@author SholihinK
+
+    /**
+     *  check if file name to read/write is valid.
+     *
+     * @param fileName the name of file
+     * @return string of file name to write
+     * @throws ParserException if fileName is not valid
+     */
+    default String getFileName(String fileName) throws ParserException {
+        File f = new File(fileName);
+        try {
+            f.getCanonicalPath();
+            return fileName;
+        } catch (IOException e) {
+            throw new ParserException(MESSAGE_INVALID_FILE_NAME_FORMAT);
+        }
+    }
+
+
     /**
      * MISCELLANEOUS METHODS BELOW
      */
+
+    //@@author SholihinK
 
     /**
      * Checks if input date and time is after current date time.
@@ -409,6 +493,8 @@ public interface CommandParser {
 
         return inputDateAndTime.after(currDateAndTime);
     }
+
+    //@@author SholihinK
 
     /**
      * Check if the date input is of valid format.
@@ -438,26 +524,38 @@ public interface CommandParser {
         }
     }
 
+    //@@author yueyeah
+
     /**
-     * Returns the command in the String input.
+     * Check if the time input is of valid format.
      *
-     * @param restOfInput String input of user after command word
-     * @return command
-     * @throws ParserException if the command input is missing
+     * @param time The time input in the form of a String.
+     * @return True if the time is of valid format, false if not.
      */
-    default String getCommand(String restOfInput) throws ParserException {
-        int startPoint = restOfInput.indexOf(TOKEN_COMMAND);
-        String typeStartInput = restOfInput.substring(startPoint);
-        Scanner scanner = new Scanner(typeStartInput);
-        scanner.next();
-        if (!scanner.hasNext()) {
-            throw new ParserException(MESSAGE_MISSING_INPUT);
-        }
-        String command = scanner.next();
-        return command;
+    default boolean isTimeValid(String time) {
+        String regex = "^(0[0-9]|1[0-9]|2[0-3])[0-5][0-9]$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(time);
+        return matcher.matches();
     }
 
     //@@author yueyeah
+
+    /**
+     * Check if the priority input is valid.
+     *
+     * @param priority The priority input in the form of a String.
+     * @return True if the priority is valid, false if not.
+     */
+    default boolean isPriorityValid(String priority) {
+        String regex = "^(low|medium|high)$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(priority);
+        return matcher.matches();
+    }
+
+    //@@author yueyeah
+
     /**
      * Check if the user input contains the token. Used to check for optional arguments like /final-date.
      *

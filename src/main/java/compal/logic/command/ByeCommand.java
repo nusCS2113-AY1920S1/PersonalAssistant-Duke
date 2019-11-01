@@ -3,7 +3,7 @@ package compal.logic.command;
 import compal.logic.command.exceptions.CommandException;
 import compal.model.tasks.TaskList;
 
-
+//@@author SholihinK
 public class ByeCommand extends Command {
     public static final String MESSAGE_USAGE = "Bye\n\t"
             + "Format: bye\n\t"

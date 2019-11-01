@@ -1,10 +1,14 @@
 package compal.model.tasks;
 
+import compal.commons.CompalUtils;
+import compal.commons.LogUtils;
+
 import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.logging.Logger;
 
 /**
  * Represents task with description, status and reminder.
@@ -16,13 +20,15 @@ public abstract class Task implements Serializable {
     //***Class Properties/Variables***--------------------------------------------------------------------------------->
     protected String symbol;
     private String description;
-    private Date date;   //For now, we only process dates in the format dd/mm/yyyy hhmm. See TaskList class for details
+    private Date mainDate;
+    private Date trailingDate;
     private Date startTime;
     private Date endTime;
     private boolean hasReminder;
     private Priority priority;
     private long priorityScore;
     private int id;
+    private static final Logger logger = LogUtils.getLogger(Task.class);
 
 
     /**
@@ -139,40 +145,61 @@ public abstract class Task implements Serializable {
      *
      * @return Date of task.
      */
-    public Date getDate() {
-        /*Calendar calendar = Calendar.getInstance();
-        calendar.setTime(this.date);
-        calendar.set(Calendar.HOUR_OF_DAY, 23);
-        calendar.set(Calendar.MINUTE, 59);
-        this.date = calendar.getTime();*/
-        return this.date;
+    public Date getMainDate() {
+        return this.mainDate;
     }
 
     /**
-     * Formats dateInput then sets date as dateInput.
+     * Formats dateInput then sets date as mainDate.
      *
      * @param dateInput Input date of task.
      */
-    public void setDate(String dateInput) {
-        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-        Date date = null;
-        try {
-            date = format.parse(dateInput);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        this.date = date;
+    public void setMainDate(String dateInput) {
+        Date mainDate = CompalUtils.stringToDate(dateInput);
+        this.mainDate = mainDate;
     }
 
     /**
-     * Gets date of task in string.
+     * Gets mainDate of task in string.
      *
-     * @return Date of task.
+     * @return mainDate of task.
      */
-    public String getStringDate() {
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-        String stringDate = formatter.format(this.date);
-        return stringDate;
+    public String getStringMainDate() {
+        String mainDateString = CompalUtils.dateToString(this.mainDate);
+        return mainDateString;
+    }
+
+    /**
+     * Gets trailingDate of Event in date format.
+     *
+     * @return trailingDate. Used for Event object only.
+     */
+    public Date getTrailingDate() {
+        return this.trailingDate;
+    }
+
+    /**
+     * Formats dateInput then sets date as trailingDate.
+     *
+     * @param dateInput Input date for event. Used as the end date for event.
+     */
+    public void setTrailingDate(String dateInput) {
+        Date trailingDate = CompalUtils.stringToDate(dateInput);
+        this.trailingDate = trailingDate;
+    }
+
+    /**
+     * Gets trailingDate of task in string.
+     *
+     * @return trailingDate of task.
+     */
+    public String getStringTrailingDate() {
+        if (this.trailingDate == null) {
+            return "-";
+        } else {
+            String trailingDateString = CompalUtils.dateToString(this.trailingDate);
+            return trailingDateString;
+        }
     }
 
     /**
@@ -191,6 +218,8 @@ public abstract class Task implements Serializable {
         return hasReminder;
     }
 
+    //@@author Catherinetan99
+
     /**
      * Gets start time of task in date format.
      *
@@ -201,7 +230,7 @@ public abstract class Task implements Serializable {
             return null;
         }
         Calendar calendar = Calendar.getInstance();
-        calendar.setTime(date);
+        calendar.setTime(mainDate);
         String startTime = getStringStartTime();
         int hour = Integer.parseInt(startTime.substring(0, 2));
         int min = Integer.parseInt(startTime.substring(2, 4));
@@ -221,6 +250,7 @@ public abstract class Task implements Serializable {
         try {
             time = format.parse(timeInput);
         } catch (ParseException e) {
+            logger.severe("Invalid start time input receive from tasks.txt!");
             e.printStackTrace();
         }
         this.startTime = time;
@@ -273,6 +303,14 @@ public abstract class Task implements Serializable {
     }
 
     /**
+     * Sets isDone as false.
+     */
+    public void markAsNotDone() {
+        isDone = false;
+    }
+
+
+    /**
      * Sets HasReminder.
      */
     public void setHasReminder(Boolean status) {
@@ -296,12 +334,12 @@ public abstract class Task implements Serializable {
         case 1:
             return "\n" + "[" + getSymbol() + "]" + "[" + getStatusIcon() + "] " + getDescription()
                 + " \nTask ID:" + getId()
-                + " \nDate: " + getStringDate() + " \nEnd Time: " + getStringEndTime()
+                + " \nDate: " + getStringMainDate() + " \nEnd Time: " + getStringEndTime()
                 + " \nPriority: " + getPriority() + "\n***************";
         default:
             return "\n" + "[" + getSymbol() + "]" + "[" + getStatusIcon() + "] " + getDescription()
                 + " \nTask ID:" + getId()
-                + " \nDate: " + getStringDate() + " \nStart Time: " + getStringStartTime()
+                + " \nDate: " + getStringMainDate() + " \nStart Time: " + getStringStartTime()
                 + " \nEnd Time: " + getStringEndTime() + " \nPriority: " + getPriority()
                 + "\n***************";
         }
@@ -310,6 +348,7 @@ public abstract class Task implements Serializable {
     }
 
     //@@author jaedonkey
+
     /**
      * Gets all the details of the task as a string, for saving into the text file.
      *
@@ -327,7 +366,9 @@ public abstract class Task implements Serializable {
         list.append("_");
         list.append(getPriority().toString());
         list.append("_");
-        list.append(getStringDate());
+        list.append(getStringMainDate());
+        list.append("_");
+        list.append(getStringTrailingDate());
         list.append("_");
         list.append(getStringStartTime());
         list.append("_");
@@ -338,6 +379,7 @@ public abstract class Task implements Serializable {
     }
 
     //@@author jaedonkey
+
     /**
      * Calculates the priority of the task based on the user defined priority (high/med/low) as well as
      * the time remaining until the date set for the task.
@@ -364,12 +406,14 @@ public abstract class Task implements Serializable {
         }
 
         Date d = new Date();
-        long diff = d.getTime() - this.date.getTime();
+        long diff = d.getTime() - this.mainDate.getTime();
         long diffHours = diff / (60 * 60 * 1000);
         //System.out.println("Task:LOG: Difference is " + diffHours);
         score += diffHours;
         this.priorityScore = score;
     }
+
+    //@@author Catherinetan99
 
     /**
      * Gets the end time for the task.
@@ -378,7 +422,11 @@ public abstract class Task implements Serializable {
      */
     public Date getEndTime() {
         Calendar calendar = Calendar.getInstance();
-        calendar.setTime(date);
+        try {
+            calendar.setTime(trailingDate);
+        } catch (NullPointerException e) {
+            calendar.setTime(mainDate);
+        }
         String endTime = getStringEndTime();
         int hour = Integer.parseInt(endTime.substring(0, 2));
         int min = Integer.parseInt(endTime.substring(2, 4));
@@ -398,6 +446,7 @@ public abstract class Task implements Serializable {
         try {
             time = format.parse(timeInput);
         } catch (ParseException e) {
+            logger.severe("Invalid end time input receive from tasks.txt!");
             e.printStackTrace();
         }
         this.endTime = time;
@@ -424,7 +473,7 @@ public abstract class Task implements Serializable {
      * @return string object of date and start time.
      */
     public String getStringDateAndStartTime() {
-        return getStringDate() + " " + getStringStartTime();
+        return getStringMainDate() + " " + getStringStartTime();
     }
 
     /**
@@ -433,7 +482,7 @@ public abstract class Task implements Serializable {
      * @return string object of date and end time.
      */
     public String getStringDateAndEndTime() {
-        return getStringDate() + " " + getStringEndTime();
+        return getStringMainDate() + " " + getStringEndTime();
     }
 
 

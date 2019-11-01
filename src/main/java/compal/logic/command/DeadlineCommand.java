@@ -1,6 +1,7 @@
 package compal.logic.command;
 
 import compal.commons.CompalUtils;
+import compal.commons.LogUtils;
 import compal.logic.command.exceptions.CommandException;
 import compal.model.tasks.Deadline;
 import compal.model.tasks.Task;
@@ -8,15 +9,18 @@ import compal.model.tasks.TaskList;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.logging.Logger;
 
+//@@author LTPZ
+//@@author yueyeah
 /**
  * Add a deadline type task.
  */
 public class DeadlineCommand extends Command {
 
     public static final String MESSAGE_USAGE = "deadline\n\t"
-            + "Format: deadline <description> /date dd/mm/yyyy... /end hhhh "
-            + "[/priority low|medium|high] [/final-date dd/mm/yyyy]\n\n\t"
+            + "Format: deadline <description> /date <dd/mm/yyyy>... /end <hhhh> [/interval <num>] "
+            + "[/priority <low|medium|high>] [/final-date <dd/mm/yyyy>]\n\n\t"
             + "Note: content in \"[]\": optional\n\t"
             + "content in \"<>\": need to be fulfilled by the user\n\t"
             + "content separated by \"|\": must choose exactly one from them\n\t"
@@ -26,18 +30,22 @@ public class DeadlineCommand extends Command {
             + "This command will add a task which has a deadline date and time\n"
             + "Examples:\n\t"
             + "deadline cs2106as /date 01/01/2019 /end 1000\n\t\t"
-            + "add a task which ends at 01/01/2019 10:00am with default priority low\n"
+            + "add a task which ends at 01/01/2019 10:00am with default priority low\n\t"
             + "deadline dinner /date 01/01/2019 02/01/2019 /end 1800 /final-date 10/01/2019\n\t\t"
-            + "add a task which ends on 01/01/2019 and 02/01/2019 6pm and repeat weekly until 10/01/2019\n"
+            + "add a task which ends on 01/01/2019 and 02/01/2019 6pm and repeat weekly(default) until 10/01/2019\n\t"
+            + "deadline diary /date 01/01/2019 /end 2359 /final-date 10/01/2019 /interval 1\n\t\t"
+            + "add a task which ends on 01/01/2019 23:59pm and repeat daily until 10/01/2019\n\t"
             + "deadline cs2106as /date 01/01/2019 /end 1000 /priority high\n\t\t"
             + "dd a task which ends at 01/01/2019 10:00am with priority high";
     private static final String MESSAGE_GREETING = "The following tasks were added: \n";
-    private static final int DEFAULT_WEEK_INTERVAL = 7;
     private String description;
     private ArrayList<String> startDateList;
     private Task.Priority priority;
     private String endTime;
     private String finalDateString;
+    private int interval;
+
+    private static final Logger logger = LogUtils.getLogger(DeadlineCommand.class);
 
     /**
      * This is the constructor.
@@ -48,16 +56,18 @@ public class DeadlineCommand extends Command {
      * @param endTime       end time of deadline.
      */
     public DeadlineCommand(String description, Task.Priority priority, ArrayList<String> startDateList,
-                           String endTime, String finalDateString) {
+                           String endTime, String finalDateString, int interval) {
         this.description = description;
         this.priority = priority;
         this.startDateList = startDateList;
         this.endTime = endTime;
         this.finalDateString = finalDateString;
+        this.interval = interval;
     }
 
     @Override
     public CommandResult commandExecute(TaskList taskList) {
+        logger.info("Executing deadline command");
         String finalList = MESSAGE_GREETING;
         Date finalDate = CompalUtils.stringToDate(finalDateString);
         for (String startDateString : startDateList) {
@@ -67,7 +77,7 @@ public class DeadlineCommand extends Command {
                 Deadline indivDeadline = new Deadline(description, priority, startDateString, endTime);
                 taskList.addTask(indivDeadline);
                 finalList += indivDeadline.toString();
-                startDate = incrementDateByDays(startDate, DEFAULT_WEEK_INTERVAL);
+                startDate = CompalUtils.incrementDateByDays(startDate, interval);
             }
         }
         return new CommandResult(finalList, true);

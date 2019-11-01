@@ -30,6 +30,7 @@ Welcome to the **COMPal** Developer Guide! This Developer Guide is still being w
 
 [**5. Implementation**](/docs/DeveloperGuide.md#5-implementation)
  + [5.1 View Feature](/docs/DeveloperGuide.md#51-view-feature)
+ + [5.4 Reminder Feature](/docs/DeveloperGuide.md#54-reminder-feature)
  + [5.5 Find Feature](/docs/DeveloperGuide.md#55-find-feature)
 
 
@@ -157,7 +158,7 @@ The rest of the App consists of four components.
 
 For example, the `Parser` component (see the class diagram given below) defines it’s API in the `CommandParser.java` interface and exposes its functionality using the `ParserManager.java` class.
 
-<img src="https://github.com/AY1920S1-CS2113T-W17-1/main/blob/master/docs/diagrams/LogicClassDiagram.png" alt="Overview of Logic parser" width="700"/>
+<img src="/docs/diagrams/LogicClassDiagram.png" alt="Overview of Logic parser" width="700"/>
 Figure 2. Class Diagram of Logic Parser Component
 
 **Events-Driven nature of the design**
@@ -190,17 +191,17 @@ The  `UI`  component,
 - Display ​daily calendar of the user via `DailyCalender`. 
 
 ### 4.3. Logic component
-<img src="https://github.com/AY1920S1-CS2113T-W17-1/main/blob/master/docs/diagrams/LogicClassDiagram.png" alt="logic Diagram" width="700"/>
+<img src="/docs/diagrams/LogicClassDiagram.png" alt="logic Diagram" width="700"/>
 Figure 6. Structure of the Logic component
 
-**API**  :  [`CommandParser.java`](https://github.com/AY1920S1-CS2113T-W17-1/main/blob/master/src/main/java/compal/logic/parser/CommandParser.java)
+The  `Logic`  component handles the parsing of user input and interacts with the Task objects.
 
-The  `Logic`  component,
+1. Uses the `CommandParser` class to parse user input. 
+    - This results in a `Command` object which is executed.
+2. The execution of `Command` can affect a `Task` object (e.g. adding a `Task` to the `TaskList`)
+3. The result of the `Command` execution is encapsulated as a `CommandResult` object which is passed to the `UI` to be rendered as output for the user. 
 
-- Set up `ParserManager` to parse the user command.
-- `ParserManager` creates respective `xCommand` class.
-- `xCommand` class can execute the command and can affect the `model`.
-- `xCommand` class can instruct the `ui` to print information.
+A Sequence Diagram for interactions within the `Logic` component will be uploaded soon.
 
 ### 4.4. Commons Component
 Classes used by multiple components are in the [`commons`](/src/main/java/compal/commons) package. It contains 2 important classes: [`Compal`](/src/main/java/compal/commons/Compal.java) and [`Messages`](/src/main/java/compal/commons/Messages.java).
@@ -221,10 +222,10 @@ While it might be viewed as primitive, the advantage of this approach is that it
 
 ### 4.6. Model Component
 
-<img src="https://github.com/AY1920S1-CS2113T-W17-1/main/blob/master/docs/diagrams/DG_ArchitectureDiagram_Task.png" width="700" alt="Overall structure of the Model Component"/>
+<img src="/docs/diagrams/DG_ArchitectureDiagram_Task.png" width="700" alt="Overall structure of the Model Component"/>
 Figure 2. Overall structure of the Model Component
 
-**API**: [`Model`](https://github.com/AY1920S1-CS2113T-W17-1/main/tree/master/src/main/java/compal/model)
+**API**: [`Model`](/src/main/java/compal/model)
  
  The `Model` component
  - stores a `TaskList` object that represents the list of user's tasks
@@ -362,11 +363,119 @@ Though the current implementation has much prevent cluttering the application wh
 1.  `Weekly View Tab` of _task_ in a  weekly schedule GUI format
     
 2.  `Monthly View Tab` of _task_ in a  monthly schedule GUI format
+
+#### [](LINK) 5.4. Reminder feature 
+
+This feature allows users to keep track of undone tasks that are urgent or important. 
+
+Undone tasks that are due within the week and overdue tasks are preset to be included. Additionally, users can manually turn on reminders for important tasks they want to keep track of. 
+
+- To manually turn on/off reminders, the format is `set-reminder /id <TASK ID> /status <Y/N>`. This edits the reminder settings of the task with the specified task ID to the specified status. (on/off)
+
+- To view urgent and important tasks, the format is `view-reminder`. This displays the list of undone tasks that are either overdue, due within the week, or have the reminder settings turned on.
+
+This section will detail how this feature is implemented.​
+
+#### []() 5.4.1. Current Implementation
+
+##### []()Command: `set-reminder`  
+
+Upon invoking the  `set-reminder`  command with valid parameters (refer to  [UserGuide.adoc](LINK)  for  `set-reminder`  usage), a sequence of events is then executed. 
+
+For clarity, the sequence of events will be in reference to the execution of a  `set-reminder /id 1 /status Y`  command. A graphical representation is included in the Sequence Diagram below for your reference when following through the sequence of events. The sequence of events are as follows:
+
+1.  The `set-reminder /id 1 /status Y`  command is passed into the  `logicExecute`  function of  `LogicManager`  to be parsed.
     
+2.  `LogicManager`  then invokes the  `processCmd`  function of  `ParserManager`.
+    
+3.  `ParserManager`  in turn invokes the  `parseCommand`  function of the appropriate parser for the  `set-reminder`  command which in this case, is  `SetReminderCommandParser`.
+    
+4.  Once the parsing is done,  `SetReminderCommandParser`  would instantiate the  `SetReminderCommand`  object which would be returned to the  `LogicManager`.
+    
+5.  `LogicManager`  is then able to invoke the  `commandExecute`  function of the returned  `SetReminderCommand`  object.
+    
+6.  In the  `commandExecute`  function of the  `SetReminderCommand`  object, task data will be retrieved from the  `TaskList`  component.  
+    
+7.  Now that the  `SetReminderCommand`  object has the data of the current task of the user, it is able to invoke the  `setHasReminder`  method.
+    
+8.  With the output returned from the  `setHasReminder`, the  `CommandResult`  object will be instantiated.
+    
+9.  The  `CommandResult`  object would then be returned to the  `LogicManager`  which then returns the same  `CommandResult`  object back to the  `UI`  component.
+    
+10.  Finally, the  `UI`  component would display the contents of the  `CommandResult`  object to the user. 
+    
+
+![SetReminderSequenceDiagram.png](https://github.com/AY1920S1-CS2113T-W17-1/main/blob/master/docs/diagrams/SetReminderSequenceDiagram.png?raw=true)
+
+Figure X. Sequence Diagram executing the  `set-reminder`  command.
+
+##### []()Command: `view-reminder` 
+
+Upon invoking the  `view-reminder`  (refer to  [UserGuide.adoc](LINK)  for  `view-reminder`  usage), a sequence of events is then executed. 
+
+A graphical representation is included in the Sequence Diagram below for your reference when following through the sequence of events. The sequence of events are as follows:
+
+1.  The `view-reminder`  command is passed into the  `logicExecute`  function of  `LogicManager`  to be parsed.
+    
+2.  `LogicManager`  then invokes the  `processCmd`  function of  `ParserManager`.
+    
+3.  `ParserManager`  in turn invokes the  `parseCommand`  function of the appropriate parser for the  `view-reminder`  command which in this case, is  `ViewReminderCommandParser`.
+    
+4.  Once the parsing is done,  `ViewReminderCommandParser`  would instantiate the  `ViewReminderCommand`  object which would be returned to the  `LogicManager`.
+    
+5.  `LogicManager`  is then able to invoke the  `commandExecute`  function of the returned  `ViewReminderCommand`  object.
+    
+6.  In the  `commandExecute`  function of the  `ViewReminderCommand`  object, task data will be retrieved from the  `TaskList`  component.  
+    
+7.  Now that the  `ViewReminderCommand`  object has the data of the current tasks of the user, it is able to invoke the  `getTaskReminders`  method.
+    
+8.  With the output returned from the  `getTaskReminders`, the  `CommandResult`  object will be instantiated.
+    
+9.  The  `CommandResult`  object would then be returned to the  `LogicManager`  which then returns the same  `CommandResult`  object back to the  `UI`  component.
+    
+10.  Finally, the  `UI`  component would display the contents of the  `CommandResult`  object to the user. 
+    
+
+![ViewReminderSequenceDiagram.png](https://github.com/AY1920S1-CS2113T-W17-1/main/blob/master/docs/diagrams/ViewReminderSequenceDiagram.png?raw=true)
+
+Figure X. Sequence Diagram executing the  `view-reminder`  command.
+
+
+#### []()5.4.2. Design Considerations
+
+This section details our considerations for the implementation of the  `set-reminder` and `view-reminder` feature.
+
+##### []()Aspect: Functionality of  `set-reminder`  command
+
+- `set-reminder` has a `/status` field so that the user can choose to turn on/off the reminder for the specified task.
+
+##### []()Aspect: Functionality of  `view-reminder`  command
+
+-   **Alternative 1 (current choice):**  Shows the user undone tasks that are either overdue, due within the week, or have reminder settings turned on.
+
+	-   Pros: Overdue tasks and tasks that are due within the week are automatically included in the `view-reminder` command. The user does not have to manually turn on the reminder settings for each upcoming task.
+	
+    -   Cons: There are some restrictions on the user as the user cannot exclude overdue tasks or tasks due within a week from the `view-reminder` command.
+    
+-   **Alternative 2 :**  Shows the user only tasks that have reminder settings turned on. 
+    
+    -   Pros: The user can entirely dictate whether the tasks are shown when `view-reminder` command is executed by turning the reminder settings on/off.
+        
+    -   Cons: It is troublesome for the user to change each task's reminder settings one by one every time the tasks are near their deadlines. The user might also forget to turn on reminders at times, missing important deadlines.
+
+Alternative 1 was chosen as it is more user-friendly. By automatically including upcoming and overdue tasks, the user can easily keep track of the more urgent tasks that need to be completed. 
+The user can also include important tasks in the reminders by turning the reminder settings on for the respective tasks.​
+
+#### []()5.4.3 Future Implementation
+
+1.  Allow the automatic addition of tasks due within a certain time period to reminders to be user-defined. 
+Example: If the user inputs 14 days, tasks due within 14 days will be automatically included in the `view-reminder` command.
+   
+
 ### 5.5 Find Feature
   This feature allows the user to search for a keyword or phrase in the description field belonging to all of the tasks.
 
-#### [](LINK)5.5.1. Current Implementation
+#### 5.5.1. Current Implementation
 The current implementation matches the keyword or phrase exactly to the description. As long as the keyword or phrase is a sub-string in the description field, the task is returned as a match. Likeness of the words are not considered at the moment e.g 'frst' will not match 'first'. 
 
 1. Upon the user entering the find command with a valid keyword, the `LogicManager` is called and sends the user input to `ParserManager`. 
