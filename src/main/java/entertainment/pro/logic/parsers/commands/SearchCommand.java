@@ -70,7 +70,7 @@ public class SearchCommand extends CommandSuper {
             executeTvSearch(payload, movieHandler, searchProfile);
             break;
         default:
-            movieHandler.setGeneralFeedbackLabel(PromptMessages.INVALID_FORMAT);
+            movieHandler.setGeneralFeedbackText(PromptMessages.INVALID_FORMAT);
             throw new InvalidFormatCommandExceptions();
         }
     }
@@ -89,22 +89,22 @@ public class SearchCommand extends CommandSuper {
         movieHandler.setSearchProfile(searchProfile);
         if (payload.equals(GET_CURRENT)) {
             movieHandler.showCurrentMovies();
-            movieHandler.setGeneralFeedbackLabel(PromptMessages.VIEW_CURRENT_MOVIES_SUCCESS);
+            movieHandler.setGeneralFeedbackText(PromptMessages.VIEW_CURRENT_MOVIES_SUCCESS);
         } else if (payload.equals(GET_UPCOMING)) {
             movieHandler.getAPIRequester().beginSearchRequest(RetrieveRequest.MoviesRequestType.UPCOMING_MOVIES);
-            movieHandler.setGeneralFeedbackLabel(PromptMessages.VIEW_UPCOMING_MOVIES_SUCCESS);
+            movieHandler.setGeneralFeedbackText(PromptMessages.VIEW_UPCOMING_MOVIES_SUCCESS);
         } else if (payload.equals(GET_TRENDING)) {
             movieHandler.getAPIRequester().beginSearchRequest(RetrieveRequest.MoviesRequestType.TRENDING_MOVIES);
-            movieHandler.setGeneralFeedbackLabel(PromptMessages.VIEW_TRENDING_MOVIES_SUCCESS);
+            movieHandler.setGeneralFeedbackText(PromptMessages.VIEW_TRENDING_MOVIES_SUCCESS);
         } else if (payload.equals(GET_POPULAR)) {
             movieHandler.getAPIRequester().beginSearchRequest(RetrieveRequest.MoviesRequestType.POPULAR_MOVIES);
-            movieHandler.setGeneralFeedbackLabel(PromptMessages.VIEW_POPULAR_MOVIES_SUCCESS);
+            movieHandler.setGeneralFeedbackText(PromptMessages.VIEW_POPULAR_MOVIES_SUCCESS);
         } else if (payload.equals(GET_RATED)) {
             movieHandler.getAPIRequester().beginSearchRequest(RetrieveRequest.MoviesRequestType.TOP_RATED_MOVIES);
-            movieHandler.setGeneralFeedbackLabel(PromptMessages.VIEW_TOP_RATED_MOVIES_SUCCESS);
+            movieHandler.setGeneralFeedbackText(PromptMessages.VIEW_TOP_RATED_MOVIES_SUCCESS);
         } else {
             movieHandler.getAPIRequester().beginSearchRequest(RetrieveRequest.MoviesRequestType.SEARCH_MOVIES);
-            movieHandler.setGeneralFeedbackLabel(PromptMessages.VIEW_SEARCH_MOVIES_SUCCESS);
+            movieHandler.setGeneralFeedbackText(PromptMessages.VIEW_SEARCH_MOVIES_SUCCESS);
         }
     }
 

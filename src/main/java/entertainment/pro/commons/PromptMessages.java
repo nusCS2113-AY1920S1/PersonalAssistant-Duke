@@ -47,9 +47,10 @@ public class PromptMessages {
     //API Messages
     public static final String API_FAIL_GENERAL = "☹ I'sorry, but something went wrong when fetching data";
     public static final String API_FAIL_EMPTY = "☹ I'sorry, but I could not find anything related to your request";
-    public static final String API_TIME_OUT = "☹ I'sorry, but your request took so long";
-    public static final String API_OFFLINE = "☹ I'sorry, no internet connection detected. "
-            + "So, the app will operate in offline mode";
+    public static final String API_TIME_OUT = "☹ I'sorry, weak internet connection detected. " +
+            "The app will operate in offline mode. As such, some of the items may not contain posters.";
+    public static final String API_OFFLINE = "☹ I'sorry, weak/no internet connection detected. "
+            + "So, the app will operate in offline mode. As such, some of the items may not contain posters.";
     public static final String API_INVALID_REQUEST = "☹ I'sorry, but your request is either unclear or invalid";
 
     //PlaylistExceptions messages

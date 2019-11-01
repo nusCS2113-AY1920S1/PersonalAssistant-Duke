@@ -83,9 +83,16 @@
             </HBox>
             <HBox prefHeight="28.0" prefWidth="130.0">
               <children>
-                <Text fx:id="userPlaylistsText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Playlists: " />
+                <Text fx:id="userPlaylistsText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Playlists: ">
+                  <HBox.margin>
+                    <Insets fx:id="x3" />
+                  </HBox.margin>
+                </Text>
                 <Label fx:id="userPlaylistsLabel" text="Label" />
               </children>
+              <VBox.margin>
+                <Insets top="5.0" fx:id="x2" />
+              </VBox.margin>
             </HBox>
             <VBox fx:id="genresVBox" prefHeight="89.0" prefWidth="125.0">
               <children>
@@ -93,13 +100,13 @@
                   <VBox.margin>
                     <Insets bottom="5.0" />
                   </VBox.margin>
-                  <ScrollPane content="$null" prefHeight="200.0" prefWidth="200.0" >
-                    <content>
-                      <TextFlow fx:id="genreListText" prefHeight="34.0" prefWidth="109.0" />
-                    </content>
-                  </ScrollPane>
                 </Label>
               </children>
+              <ScrollPane content="$null" prefHeight="200.0" prefWidth="200.0" >
+                <content>
+                  <TextFlow fx:id="genreListText" prefHeight="34.0" prefWidth="109.0" />
+                </content>
+              </ScrollPane>
               <VBox.margin>
                 <Insets top="5.0" fx:id="x18" />
               </VBox.margin>
@@ -160,7 +167,7 @@
     </VBox>
   </left>
   <top>
-    <VBox fx:id="mainVBox" prefHeight="127.0" BorderPane.alignment="CENTER">
+    <VBox fx:id="mainVBox" maxHeight="1.7976931348623157E308" prefHeight="127.0" BorderPane.alignment="CENTER">
       <children>
         <MenuBar fx:id="menuBar">
           <menus>
@@ -176,7 +183,7 @@
             </Menu>
           </menus>
         </MenuBar>
-        <VBox id="vbox0" fx:id="searchCommandVBox" prefHeight="101.0" prefWidth="676.0">
+        <VBox id="vbox0" fx:id="searchCommandVBox" maxHeight="1.7976931348623157E308" prefHeight="101.0" prefWidth="676.0" VBox.vgrow="SOMETIMES">
           <children>
             <TextField fx:id="mSearchTextField" prefHeight="28.0" prefWidth="656.0" promptText="Enter a command here...">
               <VBox.margin>
@@ -185,16 +192,12 @@
             </TextField>
             <VBox fx:id="autoCompleteVBox" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-1.0" prefHeight="40.0" prefWidth="666.0" VBox.vgrow="ALWAYS">
               <children>
-                <Label fx:id="autoCompleteLabel" text="Welcome to Entertainment-Pro! Start enterting a command now..." textFill="WHITE" wrapText="true" VBox.vgrow="SOMETIMES">
-                  <VBox.margin>
-                    <Insets top="3.0" fx:id="x11" />
-                  </VBox.margin>
-                </Label>
-                <Label fx:id="generalFeedbackLabel" text="" wrapText="true" VBox.vgrow="SOMETIMES">
+                <Text fx:id="autoCompleteText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome to Entertainment-Pro! I'm currently displaying movies showing in cinemas now. Want to explore more? Start entering a command above..." wrappingWidth="620.0" />
+                <Text fx:id="generalFeedbackText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="" wrappingWidth="620.0">
                   <VBox.margin>
                     <Insets top="5.0" fx:id="x2" />
                   </VBox.margin>
-                </Label>
+                </Text>
               </children>
               <padding>
                 <Insets fx:id="x3" />

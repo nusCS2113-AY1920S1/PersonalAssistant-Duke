@@ -28,10 +28,10 @@ public class RemoveCommand extends CommandSuper {
             System.out.println(mov);
             if (WatchlistHandler.removeFromWatchlist(mov, (MovieHandler)(this.getUiController()))) {
                 ((MovieHandler) getUiController())
-                        .setGeneralFeedbackLabel("Successfully removed the movie from WatchList: " + mov);
+                        .setGeneralFeedbackText("Successfully removed the movie from WatchList: " + mov);
             } else {
                 ((MovieHandler) getUiController())
-                        .setGeneralFeedbackLabel("Such a movie does not exist in your WatchList. Check your spelling?");
+                        .setGeneralFeedbackText("Such a movie does not exist in your WatchList. Check your spelling?");
             }
             break;
         case blacklist:

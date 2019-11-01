@@ -29,7 +29,7 @@ public class GetCommand extends CommandSuper {
                 break;
             }
         } catch (Exception e) {
-            ((MovieHandler) this.getUiController()).setGeneralFeedbackLabel("file unable to be found");
+            ((MovieHandler) this.getUiController()).setGeneralFeedbackText("file unable to be found");
         }
     }
 
@@ -46,6 +46,6 @@ public class GetCommand extends CommandSuper {
         for (int i = 0; i < constant; i++) {
             feedback += i + 1 + ". " + movies.get(i).getTitle() + "\n";
         }
-        movieHandler.setGeneralFeedbackLabel(feedback);
+        movieHandler.setGeneralFeedbackText(feedback);
     }
 }

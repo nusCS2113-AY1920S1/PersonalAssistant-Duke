@@ -11,7 +11,6 @@ import entertainment.pro.logic.contexts.SearchResultContext;
 import entertainment.pro.logic.execution.CommandStack;
 import entertainment.pro.logic.movieRequesterAPI.RequestListener;
 import entertainment.pro.logic.movieRequesterAPI.RetrieveRequest;
-import entertainment.pro.logic.movieRequesterAPI.MovieResultFilter;
 import entertainment.pro.model.*;
 import entertainment.pro.storage.user.Blacklist;
 import entertainment.pro.storage.utils.*;
@@ -35,10 +34,8 @@ import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import entertainment.pro.logic.parsers.CommandParser;
-import org.json.simple.parser.ParseException;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.logging.Level;
@@ -70,9 +67,9 @@ public class MovieHandler extends Controller implements RequestListener {
     private Label userPlaylistsLabel;
 
     @FXML
-    Label autoCompleteLabel;
+    Text autoCompleteText;
     @FXML
-    Label generalFeedbackLabel;
+    Text generalFeedbackText;
 
     @FXML
     private TextFlow genreListText;
@@ -90,23 +87,7 @@ public class MovieHandler extends Controller implements RequestListener {
     private AnchorPane movieAnchorPane;
 
 
-//    @FXML
-//    private VBox vbox0, vBox1, vBox2, vBox3, gneresVBox, mainVBox, searchCommandVBox, generalFeedbackVBox, autoCompleteVBox;
-//
-//    @FXML
-//    private HBox nameHBox, adultHBox, genresHBox, alphaSortHBox, latestDatesHBox, highestRatingHBox;
-
-//    @FXML
-//    private Label userPreferenceLabel, userAdultLabel1, userAdultLabel2,
-//            userGenreLabel, sortAlphaOrderLabel, sortLatestDateLabel, sortHighestRatingLabel,
-//            sortHighestRatingText, autoCompleteLabel, generalFeedbackLabel, userNameLabel, userAgeLabel
-
     private final static Logger LOGGER = Logger.getLogger(MovieHandler.class.getName());
-
-
-//    @FXML
-//    private Text userPreferenceText, userNameText, userAgeText,
-//            sortAlphaOrderText, sortLatestDateText,  autoCompleteText, generalFeedbackText;
 
 
     private boolean isViewBack = false;
@@ -128,7 +109,6 @@ public class MovieHandler extends Controller implements RequestListener {
     private static UserProfile userProfile;
     private ArrayList<String> playlists;
     private String playlistName = "";
-    private MovieResultFilter filter = new MovieResultFilter(new ArrayList<>(), new ArrayList<>());
     private PageTracker pageTracker = new PageTracker();
     private FlowPane mMoviesFlowPane;
     private VBox playlistVBox = new VBox();
@@ -334,11 +314,13 @@ public class MovieHandler extends Controller implements RequestListener {
                     LOGGER.log(Level.SEVERE , "Exception in parsing command" + e);
                 } catch (EmptyCommandException e) {
                     LOGGER.log(Level.SEVERE , PromptMessages.MISSING_COMMAND + e);
-                    setGeneralFeedbackLabel(PromptMessages.MISSING_COMMAND);
+                    setGeneralFeedbackText(PromptMessages.MISSING_COMMAND);
                 } catch (MissingInfoException e) {
-                    setGeneralFeedbackLabel(PromptMessages.MISSING_ARGUMENTS);
+                    setGeneralFeedbackText(PromptMessages.MISSING_ARGUMENTS);
                 }
                 clearSearchTextField();
+                clearGeneralFeedbackText();
+                clearAutoCompleteFeedbackText();
             } else if (event.getCode().equals(KeyCode.DOWN)) {
                 mMoviesScrollPane.requestFocus();
                 mMoviesFlowPane.getChildren().get(0).setStyle("-fx-border-color: white");
@@ -363,7 +345,7 @@ public class MovieHandler extends Controller implements RequestListener {
             System.out.println("textfield changed from " + oldValue + " to " + newValue);
         });
 
-        System.out.println(generalFeedbackLabel.getText());
+        System.out.println(generalFeedbackText.getText());
 
 //        //Enter is Pressed
 //        mSearchTextField.setOnKeyPressed(new KeyboardClick(this));
@@ -473,7 +455,6 @@ public class MovieHandler extends Controller implements RequestListener {
         // Build the Movie poster views and add to the flow pane on the main thread
         //System.out.print("Request received");
         ArrayList<MovieInfoObject> filteredMovies = Blacklist.filter(moviesInfo);
-        filteredMovies = filter.filter(filteredMovies);
         final ArrayList<MovieInfoObject> MoviesFinal = filteredMovies;
         mMovies.clear();
         System.out.println("cleared");
@@ -551,7 +532,7 @@ public class MovieHandler extends Controller implements RequestListener {
      */
     @Override
     public void requestTimedOut() {
-        Platform.runLater(() -> showDownloadFailureAlert("Request timed out"));
+        setGeneralFeedbackText(PromptMessages.API_TIME_OUT);
     }
 
     /**
@@ -559,7 +540,7 @@ public class MovieHandler extends Controller implements RequestListener {
      */
     @Override
     public void requestFailed() {
-        //Platform.runLater(() -> showDownloadFailureAlert("No internet connection"));
+        setGeneralFeedbackText(PromptMessages.API_OFFLINE);
     }
 
     /**
@@ -857,8 +838,7 @@ public class MovieHandler extends Controller implements RequestListener {
             // set the movie info
             MoviePosterController controller = loader.getController();
             try {
-                File fakePoster = new File("./data/FakeMoviePoster.png");
-                Image posterImage = new Image(fakePoster.toURI().toString());
+                Image posterImage = new Image("/images/FakeMoviePoster.png");
                 posterImage.progressProperty().addListener((observable, oldValue, newValue) -> {
                     try {
                         updateProgressBar(movie, newValue.doubleValue());
@@ -1006,23 +986,20 @@ public class MovieHandler extends Controller implements RequestListener {
                 controller.getMovieDateLabel().setText("N/A");
             }
             controller.getMovieSummaryLabel().setText(movie.getSummaryInfo());
-            String[] genres = RetrieveRequest.getGenreStrings(movie);
-            StringBuilder builder = new StringBuilder();
-            try {
-                for (String genre : genres) {
-                    builder.append(genre);
-                    System.out.println(genre + "  " + genres.length);
-                    // if not last string in array, append a ,
-                    if (genres.length == 0) {
-                        System.out.println("no genres");
-                    } else if (!genres[genres.length - 1].equals(genre)) {
-                        builder.append(", ");
-                    }
+            ArrayList<Long> genreList = movie.getGenreIdInfo();
+            String genres = "";
+            for (int i = 0; i < genreList.size(); i++) {
+                if (genreList.size() == 0) {
+                    genres = "no genres";
                 }
-            } catch (NullPointerException ex) {
-
+                if (i != genreList.size() - 1) {
+                    genres += ProfileCommands.findGenreName(genreList.get(i).intValue());
+                    genres += " , ";
+                } else {
+                    genres += ProfileCommands.findGenreName(genreList.get(i).intValue());
+                }
             }
-            controller.getMovieGenresLabel().setText(builder.toString());
+            controller.getMovieGenresLabel().setText(genres);
             mMoviesScrollPane.setContent(controller.getPlaylistMovieInfoAnchorPane());
             mMoviesScrollPane.setVvalue(0);
             pageTracker.setToPlaylistMovieInfo();
@@ -1058,21 +1035,38 @@ public class MovieHandler extends Controller implements RequestListener {
             output += "\n";
 
         }
-        generalFeedbackLabel.setText(output);
+        generalFeedbackText.setText(output);
     }
 
     /**
-     * Prints message in UI.
-     *
-     * @param txt which is the string text to be printed.
+     * Sets text in the UI under generalFeedbackText.
+     * @param txt The text to be printed.
      */
-    public void setGeneralFeedbackLabel(String txt) {
-        generalFeedbackLabel.setText(txt);
+    public void setGeneralFeedbackText(String txt) {
+        generalFeedbackText.setText(txt);
     }
 
 
-    public void setAutoCompleteLabel(String text) {
-        autoCompleteLabel.setText(text);
+    /**
+     * Sets text in the UI under autoCompleteText.
+     * @param txt The text to be printed.
+     */
+    public void setAutoCompleteLabel(String txt) {
+        autoCompleteText.setText(txt);
+    }
+
+    /**
+     * Clears the text displayed under the generalFeedbackText.
+     */
+    public void clearGeneralFeedbackText() {
+        generalFeedbackText.setText("");
+    }
+
+    /**
+     * CLears the text stored under the autoCompleteText.
+     */
+    public void clearAutoCompleteFeedbackText() {
+        autoCompleteText.setText("");
     }
 
     /**
@@ -1090,7 +1084,7 @@ public class MovieHandler extends Controller implements RequestListener {
             output += "\n";
 
         }
-        autoCompleteLabel.setText(output);
+        autoCompleteText.setText(output);
     }
 
     /**
@@ -1255,14 +1249,6 @@ public class MovieHandler extends Controller implements RequestListener {
             default:
                 break;
         }
-    }
-
-    public MovieResultFilter getFilter() {
-        return filter;
-    }
-
-    public void setFilter(MovieResultFilter filter) {
-        this.filter = filter;
     }
 
     public PageTracker getPageTracker() {
