@@ -75,8 +75,10 @@ This command is for new users, users who are still learning the console commands
 Format: `menu`
 
 === Start the quiz : `quiz`
-This command allows you to start the quiz. You will need to specify which Chapter you want to play using the `select`
-command first. If not, you will be prompted to do so by the program. +
+This command allows you to start the quiz. By default, the quiz will have a mix of questions from all the three
+chapters (Sorting, Linked List and Bitmask). If you would like to only attempt the quiz on a specific chapter,
+you will need to specify which Chapter you want to play using the `select`
+command first. +
 Format: `quiz`
 
 === Entering a quiz answer : `quiz ANSWER`

@@ -41,6 +41,8 @@ public class QuizGenerator {
             }
             break;
         default :
+
+            //by default, it will pick a mix of questions
             Random random = new Random();
             for (int i = 0; i < 10; i++) {
                 int chapterToPick = random.nextInt(3);
