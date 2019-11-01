@@ -25,13 +25,15 @@ public class SelectionSortSwapQuestion extends Question {
         questionFormatter();
         selectionSort(initialArray, swaps);
         answer = initialArray.toString();
+        answer = answer.substring(1, answer.length() - 1);
     }
 
     @Override
     public void questionFormatter() {
         question = "An array of " + arraySize + " elements underwent the following Selection Sort Algorithm : \n"
                 + initialArray + "\n";
-        question += "What would be the new configuration of the elements after " + swaps + " swaps?\n";
+        question += "What would be the new configuration of the elements after " + swaps + " swaps?\n"
+                + "Please provide your answer in comma-separated format. e.g. x, y, z, ...\n";
         question += "int i, j, min_idx;\n" + "for (i = 0; i < n-1; i++) {\n" + "\tmin_idx = i;\n"
                 + "\tfor (j = i+1; j < n; j++) {\n" + "\t\tif (arr[j] < arr[min_idx]) {\n" + "\t\t\tmin_idx = j;\n"
                 + "\t\t}\n" + "\t}\n" + "\tif (min_idx != i) {\n" + "\t\tswap(arr[min_idx], arr[i]);\n" + "\t}\n"

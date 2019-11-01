@@ -67,7 +67,7 @@ public class QuizTestCommand extends QuizCommand {
                         return calculateScore();
                     }
                     QuestionModel currQuestionDisplayed = quizList.get(questionNumber.get() - 1);
-                    String userAnswer = inputs.get(1);
+                    String userAnswer = extractUserAnswerFromInput();
                     currQuestionDisplayed.setUserAnswer(userAnswer);
                 }
                 return quizList.get(questionNumber.get()).getQuestion()
@@ -85,6 +85,15 @@ public class QuizTestCommand extends QuizCommand {
                 return calculateScore();
             }
         }
+    }
+
+    private String extractUserAnswerFromInput() {
+        StringBuilder answer = new StringBuilder();
+        for (int i = 1; i < inputs.size() - 1; i++) {
+            answer.append(inputs.get(i)).append(" ");
+        }
+        answer.append(inputs.get(inputs.size() - 1));
+        return answer.toString();
     }
 
 

@@ -23,13 +23,15 @@ public class InsertionSortSwapQuestion extends Question {
         questionFormatter();
         insertionSort(initialArray, swaps);
         answer = initialArray.toString();
+        answer = answer.substring(1, answer.length() - 1);
     }
 
     @Override
     public void questionFormatter() {
         question = "An array of " + arraySize + " elements underwent the following Insertion Sort Algorithm : \n"
                 + initialArray + "\n";
-        question += "What would be the new configuration of the elements after " + swaps + " swaps?\n\n";
+        question += "What would be the new configuration of the elements after " + swaps + " swaps?\n"
+                + "Please provide your answer in comma-separated format. e.g. x, y, z, ...\n\n";
         question += "int i, key, j;\n" + "for (i = 1; i < n; i++) {\n" + "    key = arr[i];\n"
                 + "    j = i - 1;\n" + "    while (j >= 0 && arr[j] > key) {\n" + "        arr[j + 1] = arr[j];\n"
                 + "        j = j - 1;\n" + "    }\n" + "    arr[j + 1] = key;\n" + "} \n\n";

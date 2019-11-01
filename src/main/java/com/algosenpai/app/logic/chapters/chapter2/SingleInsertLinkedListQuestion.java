@@ -1,6 +1,7 @@
 package com.algosenpai.app.logic.chapters.chapter2;
 
 import com.algosenpai.app.logic.chapters.Question;
+import com.algosenpai.app.logic.models.ReviewTracingListModel;
 
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -22,19 +23,27 @@ public class SingleInsertLinkedListQuestion extends Question {
         //Populates the linked list with values.
         LinkedList<Integer> ll = createList(listSize);
         question += printList(ll);
+        rtlm = new ReviewTracingListModel();
+        rtlm.addReviewTracingModel("This is the current list.");
+        rtlm.addReviewTracingModel(printList(ll));
+        rtlm.addReviewTracingModel("Since the position at which to append is " + positionToAdd + ".");
         if (positionToAdd.equals("head")) {
             ll.addFirst(valueToAdd);
         } else {
             ll.addLast(valueToAdd);
         }
-        answer = printList(ll);
+        rtlm.addReviewTracingModel("This is the new linked list.");
+        answer = ll.toString();
+        answer = answer.substring(1,answer.length() - 1);
+        rtlm.addReviewTracingModel(printList(ll));
     }
 
     @Override
     public void questionFormatter() {
         question = "Consider the Singly Linked List of size " + listSize + " below.\n"
                 + "It undergoes an insertion of value " + valueToAdd + " at the " + positionToAdd
-                + ".\nWhat would be the new sequence of integers?\n";
+                + ".\nWhat would be the new sequence of integers?\n"
+                + "Please provide your answer in comma-separated format. e.g. x, y, z, ...\n";
     }
 
     /**

@@ -25,6 +25,7 @@ public class ReviewCommand extends Command {
             return "There is no current quiz available!";
         }
         int index = Integer.parseInt(inputs.get(1)) - 1;
-        return quizList.get(index).getRtlm().toString();
+        return quizList.get(index).getAnswer() + " vs " + quizList.get(index).getUserAnswer() + "\n"
+                + quizList.get(index).getRtlm().toString();
     }
 }

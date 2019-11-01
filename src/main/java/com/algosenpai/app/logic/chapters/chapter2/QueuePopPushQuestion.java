@@ -1,6 +1,7 @@
 package com.algosenpai.app.logic.chapters.chapter2;
 
 import com.algosenpai.app.logic.chapters.Question;
+import com.algosenpai.app.logic.models.ReviewTracingListModel;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -89,7 +90,7 @@ public class QueuePopPushQuestion extends Question {
         for (int i : queue) {
             q.append("[").append(i).append("] -> ");
         }
-        q.append("Front");
+        q.append("Front\n");
         return q.toString();
     }
 
@@ -119,15 +120,25 @@ public class QueuePopPushQuestion extends Question {
      *                     instructions given.
      */
     private static void changeQueue(ArrayList<String> instructions, LinkedList<Integer> queue) {
+        rtlm = new ReviewTracingListModel();
+        rtlm.addReviewTracingModel("This is the current queue.");
+        rtlm.addReviewTracingModel(printQueue(queue));
         for (String cmd : instructions) {
+            rtlm.addReviewTracingModel("Consider step : " + cmd);
             if (cmd.contains("Pop")) {
+                rtlm.addReviewTracingModel("Removing this element : " + queue.pollLast() + ".");
                 queue.removeLast();
             } else {
                 String number = cmd.substring(5, cmd.length() - 2);
+                rtlm.addReviewTracingModel("Adding this number to the back : " + number + ".");
                 int valuetoadd = Integer.parseInt(number);
                 queue.addFirst(valuetoadd);
             }
+            rtlm.addReviewTracingModel("This is the new queue.");
+            rtlm.addReviewTracingModel(printQueue(queue));
         }
+        rtlm.addReviewTracingModel("This is the final queue.");
+        rtlm.addReviewTracingModel(printQueue(queue));
     }
 
 }

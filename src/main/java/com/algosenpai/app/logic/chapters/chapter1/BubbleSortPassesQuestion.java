@@ -35,9 +35,7 @@ public class BubbleSortPassesQuestion extends Question {
         BubbleSortPassesQuestion.arraySize = arraySize;
         BubbleSortPassesQuestion.initialArray = initialArray;
         BubbleSortPassesQuestion.passes = passes;
-        questionFormatter();
-        bubbleSort(initialArray, passes);
-        answer = initialArray.toString();
+        run();
     }
 
     /**
@@ -47,13 +45,15 @@ public class BubbleSortPassesQuestion extends Question {
         questionFormatter();
         bubbleSort(initialArray, passes);
         answer = initialArray.toString();
+        answer = answer.substring(1, answer.length() - 1);
     }
 
     @Override
     public void questionFormatter() {
         question = "An array of " + arraySize + " elements underwent the following Bubble Sort Algorithm : "
                 + initialArray + "\n";
-        question += "What would be the new configuration of the elements after " + passes + " passes?\n\n";
+        question += "What would be the new configuration of the elements after " + passes + " passes?\n"
+                + "Please provide your answer in comma-separated format. e.g. x, y, z, ...\n\n";
         question += "for (int i = 0; i < passes; i++) {\n" + "   for (int j = 0; j < arr.size - 1 - i; j ++) {\n"
                 + "       if (arr[j] > arr[j + 1]) {\n" + "            swap (arr[j], arr[j+1]);\n" + "       }\n"
                 + "   }\n" + "}\n\n";
