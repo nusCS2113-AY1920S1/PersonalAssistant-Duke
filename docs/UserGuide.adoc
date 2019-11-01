@@ -391,14 +391,15 @@ Examples:
 Exits the program. +
 Format: `bye`
 
+=== Viewing calendar : `view`
+
+SGTravel will display a calendar containing the events. +
+Format: `view`
+
 === Saving the data
 
 SGTravel data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
-
-=== Viewing calendar
-
-SGTravel will automatically display calendar when the relevant commands are invoke. +
 
 === Viewing Singapore map
 
