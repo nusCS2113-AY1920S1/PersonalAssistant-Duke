@@ -63,10 +63,10 @@
 
 ## Usage
 You can refer to our user guide at this link:
-*   [User Guide](./docs/UserGuide.adoc)
+*   [User Guide](./docs/[AY1920S1-CS2113-T13-1]-ArchDuke-DG.pdf)
 
 For more advanced users and developers, do refer to our Developer Guide:
-*   [Developer Guide](./docs/DeveloperGuide.adoc)
+*   [Developer Guide](./docs/[AY1920S1-CS2113-T13-1]-ArchDuke-UG.pdf)
 
 ## Acknowledgements 
   * This application was written as submission for our Team project under the module CS2113 Software Engineering and
