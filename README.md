@@ -27,8 +27,8 @@ A command input style for users to give instructions to the application for sche
 A reminder to trigger forgetful users' memory about upcoming tasks so that they would remember complete their tasking or activity.
 
 ## Site map
-* [User Guide]()
-* [Developer Guide]()
+* [User Guide](docs/UserGuide.md)
+* [Developer Guide](docs/DeveloperGuide.md)
 * [About Us](docs/AboutUs.md)
 
 ## Acknowledgements
