@@ -45,7 +45,7 @@ WordUp (WU) is a desktop-based application for english language learners who pre
 ====
 *Command Format*
 
-Caution: The tags and synonyms are currently not written to the storage file due to some issues on our side, so we have disabled the writing, all tags and synonyms will be cleared when the program is closed. We will fix this issue by Week 12 after we re-enable the saving
+*Caution*: The tags and synonyms are currently not written to the storage file due to some issues on our side, so we have disabled the writing, all tags and synonyms will be cleared when the program is closed. We will fix this issue by Week 12 after we re-enable the saving
 
 * Words in `UPPER_CASE` are parameter values to be supplied by the user e.g. in `add w/WORD m/MEANING`, `WORD` and `MEANING` are parameters to be replaced by user input, such as in the form of `w/life` and `m/the existence of an individual human being or animal`.
 * Items in square brackets are optional e.g. `r/REMINDERDATE [TIME]` can be used as `r/24/02/2300 0900` or `r/24/02/2300`.
@@ -219,7 +219,7 @@ Shows the list of the last 5 words added, with the latest entry first.
 
 // tag::synonyms[]
 === Adding synonyms of a word : `addsym`
-*Caution: The synonyms are currently not written to the storage file due to some issues on our side, so we have disabled the writing, all synonyms will be cleared when the program is closed. We will fix this issue by Week 12 after we re-enable the saving
+*Caution*: The synonyms are currently not written to the storage file due to some issues on our side, so we have disabled the writing, all synonyms will be cleared when the program is closed. We will fix this issue by Week 12 after we re-enable the saving
 
 Adds one or many synonyms to an existing word in the database. +
 Format: `addsyn w/WORD_TO_BE_TAGGED s/SYNONYM1 SYNONYM2` +
@@ -229,7 +229,7 @@ If there are more than one synonym to be added, please separate them by spaces.
 //end::synonyms[]
 
 === Adding tags to a word : `tag`
-*Caution: The tags are currently not written to the storage file due to some issues on our side, so we have disabled the writing, all tags will be cleared when the program is closed. We will fix this issue by Week 12 after we re-enable the saving
+*Caution*: The tags are currently not written to the storage file due to some issues on our side, so we have disabled the writing, all tags will be cleared when the program is closed. We will fix this issue by Week 12 after we re-enable the saving
 
 Assigns a tag to an existing word in the database. +
 Format: `tag w/WORD_TO_BE_TAGGED t/NEW_TAG`
