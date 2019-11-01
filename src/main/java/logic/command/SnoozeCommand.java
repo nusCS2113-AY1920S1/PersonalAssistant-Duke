@@ -4,7 +4,7 @@ import common.DukeException;
 import model.Model;
 import java.util.Date;
 
-//@@ JasonChanWQ
+//@@author JasonChanWQ
 
 public class SnoozeCommand extends Command {
 
@@ -18,7 +18,7 @@ public class SnoozeCommand extends Command {
         this.newDate = newDate;
     }
 
-    //@@ JasonChanWQ
+    //@@author JasonChanWQ
 
     @Override
     public CommandOutput execute(Model model) throws DukeException {
@@ -26,6 +26,8 @@ public class SnoozeCommand extends Command {
             return new CommandOutput(INDEX_NOT_IN_TASKlIST_MESSAGE);
         } else {
             model.getTaskList().get(taskIndex - 1).setTime(newDate);
+            model.getTaskList().get(taskIndex - 1).setReminder(null);
+            model.save();
             return new CommandOutput(SUCCESS_MESSAGE + newDate);
         }
     }

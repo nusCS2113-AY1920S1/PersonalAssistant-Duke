@@ -9,15 +9,7 @@
   {
     "name": "Job B",
     "isDone": false,
-    "memberList": [
-      "P2"
-    ],
-    "time": "Oct 31, 2019, 11:59:00 PM",
-    "reminder": "Oct 31, 2019, 11:54:00 PM"
-  },
-  {
-    "name": "Job C",
-    "isDone": false,
-    "memberList": []
+    "memberList": [],
+    "time": "Nov 1, 2019, 2:00:00 AM"
   }
 ]
