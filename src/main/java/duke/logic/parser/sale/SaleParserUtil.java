@@ -28,6 +28,7 @@ class SaleParserUtil {
             + MAX_DESC_LENGTH + " characters.";
     private static final String MESSAGE_VAL_EXCEED_LIMIT = "Numbers should be a positive double no more than "
             + MAX_VAL;
+    private static final String MESSAGE_TRUTH_VALUE_INVALID = "-spend should take an argument either true or false ";
     private static final String MESSAGE_REMARKS_EXCEED_LIMIT = "Remarks should be less than "
             + MAX_REMARKS_LENGTH + " characters.";
 
@@ -46,6 +47,8 @@ class SaleParserUtil {
             descriptor.setValue(parseValue(map.getValue(PREFIX_SALE_VALUE).get()));
         }
         if (map.getValue(PREFIX_SALE_IS_SPEND).isPresent()) {
+            String value = map.getValue(PREFIX_SALE_IS_SPEND).get();
+            checkBoolean(value, MESSAGE_TRUTH_VALUE_INVALID);
             descriptor.setSpend(Boolean.parseBoolean(map.getValue(PREFIX_SALE_IS_SPEND).get()));
         }
         if (map.getValue(PREFIX_SALE_DATE).isPresent()) {
@@ -89,6 +92,19 @@ class SaleParserUtil {
             throw new ParseException(MESSAGE_VAL_EXCEED_LIMIT);
         }
     }
+
+    /**
+     * Checks if string really has boolean.
+     * @throws ParseException if string is not "true" or "false".
+     */
+    private static void checkBoolean(String truth, String message) throws ParseException {
+        if (truth.equals("true") || truth.equals("false")) {
+            return;
+        } else {
+            throw new ParseException(message);
+        }
+    }
+
 
     public static Pair<Date, Date> createFilterDate(ArgumentMultimap map) {
         Date from = null;

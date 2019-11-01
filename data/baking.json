@@ -30,13 +30,6 @@
     },
     "amount" : 0.0
   } ],
-  "sales" : [ {
-    "id" : 1572576245037,
-    "description" : "blueberry pie",
-    "value" : 12.99,
-    "isSpend" : false,
-    "saleDate" : "2019-10-20T02:44:05.037+0000",
-    "remarks" : "added chocolate toppings"
-  } ],
+  "sales" : [ ],
   "shortcuts" : [ ]
 }
