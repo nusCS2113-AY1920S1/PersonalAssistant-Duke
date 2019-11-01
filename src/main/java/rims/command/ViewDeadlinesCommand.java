@@ -54,8 +54,9 @@ public class ViewDeadlinesCommand extends Command {
             }
         });
         for(int j = 0; j < sortedList.size();  j ++){
-            ui.print(sortedList.get(j).getName() + ":");
+            ui.print(sortedList.get(j).toString() + ":");
             ui.print("\t" + sortedList.get(j).getReservations().getCurrentBooking().toString());
         }
+        ui.printLine();
     }
 }

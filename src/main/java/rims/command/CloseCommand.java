@@ -27,8 +27,8 @@ public class CloseCommand extends Command {
     }
 
     @Override
-    public boolean canChangeData() { return true; }
+    public boolean canModifyData() { return true; }
 
     @Override
-    public String commandUserInput() { return "bye"; }
+    public String getCommandUserInput() { return "bye"; }
 }
