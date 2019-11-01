@@ -10,12 +10,13 @@ import Events.EventTypes.EventSubclasses.ToDo;
 import Events.Formatting.CalendarView;
 import Events.Formatting.EventDate;
 import Events.Storage.*;
-import Events.Storage.Instruments.*;
+import Events.Storage.Instruments.InstrumentList;
 import UserElements.ConcertBudgeting.CostExceedsBudgetException;
-
 
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 /**
@@ -25,6 +26,7 @@ import java.util.*;
 public class Command {
 
     private static Logger logger = Logger.getLogger("Command");
+
 
     /**
      * The String representing the type of command e.g add/delete event
@@ -68,7 +70,7 @@ public class Command {
      */
     public void execute(EventList events, UI ui, Storage storage, InstrumentList instruments) {
         boolean changesMade = true;
-        logger.log(Level.INFO, "Read in the command");
+        logger.log(Level.OFF, "Read in the command");
         switch (command) {
             case "list":
                 listEvents(events, ui);
@@ -413,7 +415,7 @@ public class Command {
                         entryForEvent.getEndDate());
                 break;
         }
-        logger.log(Level.INFO, "New event is created");
+        logger.log(Level.OFF, "New event is created");
         return newEvent;
     }
 
@@ -452,7 +454,7 @@ public class Command {
                 ui.eventDone(events.getEvent(eventNo - 1));
             } else {
                 ui.noSuchEvent();
-                logger.log(Level.INFO, "Do not have the event in the list");
+                logger.log(Level.OFF, "Do not have the event in the list");
             }
         } catch (IndexOutOfBoundsException outOfBoundsE) {
             ui.noSuchEvent();
@@ -529,7 +531,7 @@ public class Command {
     public void goalsManagement(EventList events, UI ui) {
         if (continuation.isEmpty()) {
             ui.noSuchEvent();
-            logger.log(Level.INFO, "The description of goalManagement is empty");
+            logger.log(Level.OFF, "The description of goalManagement is empty");
             return;
         }
         try {
@@ -774,7 +776,7 @@ public class Command {
                     period = NON_RECURRING;
                 } else {
                     period = Integer.parseInt(splitEvent[2]);
-                    logger.log(Level.INFO, "The event to be added is recurring");
+                    logger.log(Level.OFF, "The event to be added is recurring");
                 }
             }
             return this;

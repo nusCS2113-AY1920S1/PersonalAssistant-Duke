@@ -45,14 +45,14 @@ public class Storage {
             this.scanFile = new Scanner(file);
             fileAssigned = true;
             System.out.println("Event list loaded!");
-            logger.log(Level.INFO, "The event list is loaded from the existing data file");
+            logger.log(Level.OFF, "The event list is loaded from the existing data file");
         } catch (FileNotFoundException FNFe) {
 
             System.out.println("No Duke file found!\nCreating new file...");
 
             try {
                 file.createNewFile();
-                logger.log(Level.INFO, "A new file is created");
+                logger.log(Level.OFF, "A new file is created");
             } catch (IOException IOe) {
                 System.out.println("Failed! Please ensure data folder exists, then try again!");
                 logger.log(Level.WARNING, IOe.getMessage(), IOe);
@@ -91,7 +91,7 @@ public class Storage {
             FileWriter writer = new FileWriter(file);
             writer.write(toWriteToFile);
             writer.close();
-            logger.log(Level.INFO, "The data is stored in the file");
+            logger.log(Level.OFF, "The data is stored in the file");
         } catch (IOException IOe) {
             ui.errorWritingToFile();
             logger.log(Level.WARNING, IOe.getMessage(), IOe);

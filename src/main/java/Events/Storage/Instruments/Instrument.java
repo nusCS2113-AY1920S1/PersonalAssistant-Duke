@@ -29,7 +29,7 @@ public class Instrument {
     public int addService (EventDate date, String description) {
     	ServiceInfo newServiceInfo = new ServiceInfo(date, description);
         serviceInfoList.add(newServiceInfo);
-        logger.log(Level.INFO, "The new service info is added to the list");
+        logger.log(Level.OFF, "The new service info is added to the list");
         return serviceInfoList.size();
     }
     

@@ -67,13 +67,13 @@ public class EventDate {
                     this.formattedDateString = userInputDateString;
                 }
             }
-            logger.log(Level.INFO, "Format the eventDate from String type to Date type");
+            logger.log(Level.OFF, "Format the eventDate from String type to Date type");
         } else if (identifier == DATE_TO_STRING) { //convert date object to input string format and store both.
             SimpleDateFormat formatter = new SimpleDateFormat("EEE, dd MMM yyyy, HH:mm", Locale.ENGLISH);
             this.formattedDateString = formatter.format(javaDate);
             formatter = new SimpleDateFormat("dd-MM-yyyy HHmm");
             this.userInputDateString = formatter.format(javaDate);
-            logger.log(Level.INFO, "Format the eventDate from Date type to String type");
+            logger.log(Level.OFF, "Format the eventDate from Date type to String type");
         }
     }
 

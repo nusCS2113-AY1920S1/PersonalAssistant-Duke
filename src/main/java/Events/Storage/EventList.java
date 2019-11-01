@@ -348,7 +348,7 @@ public class EventList {
             //ignore exception, will never happen
         }
         eventArrayList.add(event);
-        logger.log(Level.INFO, "The deleted event is added back to the list");
+        logger.log(Level.OFF, "The deleted event is added back to the list");
     }
 
     public Budgeting getBudgeting() {

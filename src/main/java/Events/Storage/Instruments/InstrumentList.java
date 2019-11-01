@@ -33,7 +33,7 @@ public class InstrumentList {
     public int addInstrument(String name) {
     	Instrument newInstrument = new Instrument(name);
     	instrumentList.add(newInstrument);
-    	logger.log(Level.INFO, "The new instrument is added to the list");
+    	logger.log(Level.OFF, "The new instrument is added to the list");
     	return instrumentList.size();
     }
     
