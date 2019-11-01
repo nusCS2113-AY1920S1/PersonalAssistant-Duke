@@ -183,13 +183,16 @@ The user is able to add, delete, view, and edit contacts information of an event
 A contact includes name, email address, and phone number.
 
 ==== Add contact item
-Format: `contact add <event index> /<name>, <email>, <phone number>`
+Format: `contact add <event index> /<name>, <email>, <phone number>` +
+Users can type kbd:[Space] instead of `<name>` or `<email>` or `<phone number>` if the user do not want to write in one
+or two type of information. (e.g. `contact add 1 /name, ,12345678` adds a contact set without email address to the
+first event)
 
 ==== Delete contact item
-Format: `contact delete <event index> <contact index> /`
+Format: `contact delete <event index> <contact index>`
 
 ==== View contact
-Format: `contact view <event index> /`
+Format: `contact view <event index>`
 
 ==== Edit contact item
 Format: `contact edit <event index> <contact index> <edit type> /<new contact information>` +
