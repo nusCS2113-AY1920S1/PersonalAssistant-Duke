@@ -221,11 +221,11 @@ At this point, the user can choose to remove the degree programme from his list 
 *Step 5*: The tasks related to this degree programme are removed from his TaskList
 
 
-==== [Proposed] Priority for Tasks
+==== Priority for Tasks
 
-In addition to the adding and removing of degree-related tasks, there will be a passive feature of prioritising tasks that have closer dates, or that relate to degree programmes that are higher on the user's degree list.
+In addition to the adding and removing of degree-related tasks, there is a feature for prioritising tasks that have closer dates, or that relate to degree programmes that are higher on the user's degree list.
 
-This mechanism is facilitated by the `TaskRanking` class. It extends `TaskList` and has an internal list of integers that correspond with each task on the user's tasklist. This list is internally stored as `PriorityList`.
+This mechanism is facilitated by the `SortCommand` class. It extends `Command` and calls the `sortPriority()` method in the `TaskList` class. 
 
 The priority will be calculated by giving each task points that correspond with higher priority.
 |===
