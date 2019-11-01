@@ -8,7 +8,6 @@ import duke.commons.exceptions.ItineraryInsufficientAgendasException;
 import duke.model.transports.TransportationMap;
 import duke.commons.exceptions.QueryFailedException;
 import duke.commons.exceptions.RouteDuplicateException;
-import duke.logic.RouteManager;
 import duke.model.Model;
 import duke.model.lists.EventList;
 import duke.model.lists.RouteList;

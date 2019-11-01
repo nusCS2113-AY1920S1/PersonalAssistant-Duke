@@ -60,7 +60,7 @@ public class Parser {
             return new ListCommand();
         case "help":
             return new HelpCommand();
-        case "fetch":
+        case "view":
             return new ViewScheduleCommand();
         case "edit":
             return new EditorCommand();

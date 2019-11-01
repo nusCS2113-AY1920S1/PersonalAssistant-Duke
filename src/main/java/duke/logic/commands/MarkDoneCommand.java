@@ -37,7 +37,7 @@ public class MarkDoneCommand extends Command {
             model.save();
             return new CommandResultText(MESSAGE_MARK_DONE + event);
         } catch (IndexOutOfBoundsException e) {
-            throw new QueryOutOfBoundsException("Event");
+            throw new QueryOutOfBoundsException();
         }
     }
 }

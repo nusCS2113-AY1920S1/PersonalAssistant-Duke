@@ -45,7 +45,7 @@ public class RouteNodeDeleteCommand extends Command {
             model.save();
             return new CommandResultText(MESSAGE_DELETION + address);
         } catch (IndexOutOfBoundsException e) {
-            throw new QueryOutOfBoundsException("ROUTE_NODE");
+            throw new QueryOutOfBoundsException();
         }
     }
 }

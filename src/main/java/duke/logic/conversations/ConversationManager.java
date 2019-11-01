@@ -16,7 +16,6 @@ import java.util.logging.Logger;
 public class ConversationManager {
     private static final Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
     private boolean isFinished;
-    private boolean isInConversation;
     private Conversation conversation;
 
     /**
@@ -24,7 +23,6 @@ public class ConversationManager {
      */
     public ConversationManager() {
         isFinished = true;
-        isInConversation = false;
     }
 
     /**
@@ -47,7 +45,6 @@ public class ConversationManager {
     private void tryEndConversation() {
         if (conversation.isFinished()) {
             isFinished = true;
-            isInConversation = false;
         }
     }
 
@@ -62,7 +59,6 @@ public class ConversationManager {
         if (isFinished) {
             startConversation(input);
             isFinished = false;
-            isInConversation = true;
             return true;
         }
         return false;
@@ -126,14 +122,5 @@ public class ConversationManager {
      */
     public boolean isFinished() {
         return isFinished;
-    }
-
-    /**
-     * Returns whether there is an ongoing conversation.
-     *
-     * @return Whether there is an ongoing conversation.
-     */
-    public boolean isInConversation() {
-        return isInConversation;
     }
 }

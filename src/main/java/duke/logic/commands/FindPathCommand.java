@@ -75,7 +75,7 @@ public class FindPathCommand extends Command {
             commandResult.setRoute(nodes);
             return commandResult;
         } catch (IndexOutOfBoundsException e) {
-            throw new QueryOutOfBoundsException("EVENT");
+            throw new QueryOutOfBoundsException();
         }
     }
 }

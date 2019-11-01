@@ -49,7 +49,7 @@ public class Messages {
     public static final String ERROR_INDEX_OUT_OF_BOUNDS = "Index requested is out of bounds! :-(";
 
     public static final String ERROR_DATA_CORRUPTED = "Data cannot be converted! :-( ";
-    public static final String ERROR_FILE_NOT_FOUND = "File not found! ";
+    public static final String ERROR_FILE_NOT_FOUND = "\nFile not found! ";
     public static final String ERROR_FILE_NOT_SAVED = "File not saved! :-(";
 
     public static final String ERROR_RESOURCE_NOT_FOUND = "Resource not found! :-( Missing: ";

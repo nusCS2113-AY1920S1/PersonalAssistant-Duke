@@ -59,7 +59,7 @@ public class RouteEditCommand extends Command {
             model.save();
             return new CommandResultText(MESSAGE_SUCCESS);
         } catch (IndexOutOfBoundsException e) {
-            throw new QueryOutOfBoundsException("ROUTE");
+            throw new QueryOutOfBoundsException();
         }
     }
 }
