@@ -376,7 +376,7 @@ allowing these *2* parameters to be changed was because we wanted consistency ac
 interest throughout the lifespan of the investment `bond`.
 
 .Sequence Diagram of Editing Bonds
-image::editBondCommand.png[width="970"]
+image::editBondCommand.png[width="800"]
 
 [NOTE]
 The sequence diagram presented above is assumed to be a valid command which will produce a successful result.
