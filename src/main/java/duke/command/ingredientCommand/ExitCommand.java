@@ -3,7 +3,6 @@ package duke.command.ingredientCommand;
 import duke.command.Cmd;
 import duke.list.GenericList;
 import duke.storage.Storage;
-import duke.ingredient.IngredientsList;
 import duke.ui.Ui;
 
 /**

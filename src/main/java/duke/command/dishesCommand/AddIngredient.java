@@ -1,12 +1,9 @@
 package duke.command.dishesCommand;
 
-import duke.command.ingredientCommand.AddCommand;
-import duke.dish.Dish;
-import duke.dish.DishList;
 import duke.command.Cmd;
+import duke.dish.Dish;
 import duke.exception.DukeException;
 import duke.ingredient.Ingredient;
-import duke.ingredient.IngredientsList;
 import duke.list.GenericList;
 import duke.storage.Storage;
 import duke.ui.Ui;
@@ -29,7 +26,7 @@ public class AddIngredient extends Cmd<Dish> {
             dishList.getEntry(index - 1).addIngredients(ingredient);
             ui.showIngredients(ingredient,dishList.getEntry(index - 1));
         } catch (Exception e) {
-            throw new DukeException("cannot add ingredient");
+            throw new DukeException("cannot add ingredient as the dish is not in list");
         }
     }
 }

@@ -1,8 +1,7 @@
 package duke.command.dishesCommand;
 
-import duke.dish.Dish;
-import duke.dish.DishList;
 import duke.command.Cmd;
+import duke.dish.Dish;
 import duke.exception.DukeException;
 import duke.list.GenericList;
 import duke.storage.Storage;

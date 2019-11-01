@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement />
+  <nodes>
+    <node x="1542.5" y="106.0">duke.command.ingredientCommand.Snooze</node>
+    <node x="1139.0" y="253.0">duke.exception.DukeException</node>
+    <node x="1093.5" y="106.0">duke.command.ingredientCommand.ListCommand</node>
+    <node x="303.5" y="106.0">duke.command.FindIngredientCommand</node>
+    <node x="545.0" y="329.0">duke.ingredient.Ingredient</node>
+    <node x="0.0" y="400.0">duke.parser.Parser</node>
+    <node x="651.5" y="182.0">duke.command.dishesCommand.AddDishCommand</node>
+    <node x="1397.5" y="106.0">duke.command.ingredientCommand.ViewCommand</node>
+    <node x="1238.5" y="106.0">duke.command.ingredientCommand.RemindCommand</node>
+    <node x="134.0" y="400.0">duke.Duke</node>
+    <node x="665.5" y="106.0">duke.command.ingredientCommand.AddCommand</node>
+    <node x="303.0" y="329.0">duke.dish.DishList</node>
+    <node x="0.0" y="329.0">duke.ingredient.IngredientsList</node>
+    <node x="832.5" y="0.0">duke.command.Cmd</node>
+    <node x="1464.0" y="253.0">duke.fridge.Fridge</node>
+    <node x="969.0" y="329.0">duke.storage.TaskStorage</node>
+    <node x="683.0" y="329.0">duke.order.Order</node>
+    <node x="549.0" y="253.0">duke.storage.Printable</node>
+    <node x="173.0" y="329.0">duke.order.OrderList</node>
+    <node x="451.0" y="329.0">duke.dish.Dish</node>
+    <node x="803.5" y="106.0">duke.command.ingredientCommand.ExitCommand</node>
+    <node x="810.0" y="329.0">duke.storage.FridgeStorage</node>
+    <node x="1079.5" y="182.0">duke.command.dishesCommand.ListDishCommand</node>
+    <node x="173.5" y="106.0">duke.command.ingredientCommand.FindToday</node>
+    <node x="14.5" y="106.0">duke.command.ingredientCommand.DeleteCommand</node>
+    <node x="948.5" y="106.0">duke.command.dishesCommand.InitCommand</node>
+    <node x="165.5" y="253.0">duke.list.GenericList</node>
+    <node x="520.5" y="106.0">duke.command.ingredientCommand.DoneCommand</node>
+    <node x="1323.0" y="253.0">duke.parser.Convert</node>
+    <node x="0.0" y="182.0">duke.command.dishesCommand.DeleteDishCommand</node>
+    <node x="907.5" y="253.0">duke.storage.Storage</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="duke.command.dishesCommand.DeleteDishCommand" target="duke.command.ingredientCommand.DeleteCommand">
+      <point x="0.0" y="-13.0" />
+      <point x="0.0" y="13.0" />
+    </edge>
+    <edge source="duke.command.FindIngredientCommand" target="duke.command.Cmd">
+      <point x="0.0" y="-13.0" />
+      <point x="402.0" y="66.0" />
+      <point x="847.7272727272727" y="66.0" />
+      <point x="-18.272727272727252" y="13.0" />
+    </edge>
+    <edge source="duke.order.OrderList" target="duke.list.GenericList">
+      <point x="0.0" y="-13.0" />
+      <point x="0.0" y="13.0" />
+    </edge>
+    <edge source="duke.storage.FridgeStorage" target="duke.storage.Storage">
+      <point x="0.0" y="-13.0" />
+      <point x="879.5" y="304.0" />
+      <point x="931.5" y="304.0" />
+      <point x="-24.0" y="13.0" />
+    </edge>
+    <edge source="duke.command.ingredientCommand.RemindCommand" target="duke.command.Cmd">
+      <point x="0.0" y="-13.0" />
+      <point x="1308.0" y="66.0" />
+      <point x="884.2727272727273" y="66.0" />
+      <point x="18.272727272727252" y="13.0" />
+    </edge>
+    <edge source="duke.order.Order" target="duke.storage.Printable">
+      <point x="0.0" y="-13.0" />
+      <point x="724.0" y="304.0" />
+      <point x="640.6666666666666" y="304.0" />
+      <point x="36.66666666666663" y="13.0" />
+    </edge>
+    <edge source="duke.command.dishesCommand.AddDishCommand" target="duke.command.ingredientCommand.AddCommand">
+      <point x="0.0" y="-13.0" />
+      <point x="0.0" y="13.0" />
+    </edge>
+    <edge source="duke.storage.TaskStorage" target="duke.storage.Storage">
+      <point x="0.0" y="-13.0" />
+      <point x="1031.5" y="304.0" />
+      <point x="979.5" y="304.0" />
+      <point x="24.0" y="13.0" />
+    </edge>
+    <edge source="duke.command.ingredientCommand.AddCommand" target="duke.command.Cmd">
+      <point x="0.0" y="-13.0" />
+      <point x="724.5" y="86.0" />
+      <point x="859.9090909090909" y="86.0" />
+      <point x="-6.090909090909122" y="13.0" />
+    </edge>
+    <edge source="duke.command.ingredientCommand.DoneCommand" target="duke.command.Cmd">
+      <point x="0.0" y="-13.0" />
+      <point x="583.0" y="76.0" />
+      <point x="853.8181818181819" y="76.0" />
+      <point x="-12.18181818181813" y="13.0" />
+    </edge>
+    <edge source="duke.command.ingredientCommand.Snooze" target="duke.command.Cmd">
+      <point x="0.0" y="-13.0" />
+      <point x="1587.0" y="46.0" />
+      <point x="896.4545454545455" y="46.0" />
+      <point x="30.454545454545496" y="13.0" />
+    </edge>
+    <edge source="duke.command.ingredientCommand.ViewCommand" target="duke.command.Cmd">
+      <point x="0.0" y="-13.0" />
+      <point x="1460.0" y="56.0" />
+      <point x="890.3636363636364" y="56.0" />
+      <point x="24.363636363636374" y="13.0" />
+    </edge>
+    <edge source="duke.command.ingredientCommand.ListCommand" target="duke.command.Cmd">
+      <point x="0.0" y="-13.0" />
+      <point x="1156.0" y="76.0" />
+      <point x="878.1818181818182" y="76.0" />
+      <point x="12.181818181818244" y="13.0" />
+    </edge>
+    <edge source="duke.dish.DishList" target="duke.list.GenericList">
+      <point x="0.0" y="-13.0" />
+      <point x="354.5" y="304.0" />
+      <point x="269.66666666666663" y="304.0" />
+      <point x="41.66666666666666" y="13.0" />
+    </edge>
+    <edge source="duke.command.ingredientCommand.FindToday" target="duke.command.Cmd">
+      <point x="0.0" y="-13.0" />
+      <point x="228.5" y="56.0" />
+      <point x="841.6363636363636" y="56.0" />
+      <point x="-24.363636363636374" y="13.0" />
+    </edge>
+    <edge source="duke.ingredient.IngredientsList" target="duke.list.GenericList">
+      <point x="0.0" y="-13.0" />
+      <point x="76.5" y="304.0" />
+      <point x="186.33333333333334" y="304.0" />
+      <point x="-41.66666666666666" y="13.0" />
+    </edge>
+    <edge source="duke.command.ingredientCommand.DeleteCommand" target="duke.command.Cmd">
+      <point x="0.0" y="-13.0" />
+      <point x="84.0" y="46.0" />
+      <point x="835.5454545454545" y="46.0" />
+      <point x="-30.454545454545496" y="13.0" />
+    </edge>
+    <edge source="duke.dish.Dish" target="duke.storage.Printable">
+      <point x="0.0" y="-13.0" />
+      <point x="488.0" y="304.0" />
+      <point x="567.3333333333334" y="304.0" />
+      <point x="-36.66666666666663" y="13.0" />
+    </edge>
+    <edge source="duke.ingredient.Ingredient" target="duke.storage.Printable">
+      <point x="0.0" y="-13.0" />
+      <point x="0.0" y="13.0" />
+    </edge>
+    <edge source="duke.command.ingredientCommand.ExitCommand" target="duke.command.Cmd">
+      <point x="0.0" y="-13.0" />
+      <point x="0.0" y="13.0" />
+    </edge>
+    <edge source="duke.command.dishesCommand.ListDishCommand" target="duke.command.ingredientCommand.ListCommand">
+      <point x="0.0" y="-13.0" />
+      <point x="0.0" y="13.0" />
+    </edge>
+    <edge source="duke.command.dishesCommand.InitCommand" target="duke.command.Cmd">
+      <point x="0.0" y="-13.0" />
+      <point x="1011.0" y="86.0" />
+      <point x="872.0909090909091" y="86.0" />
+      <point x="6.090909090909122" y="13.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.7000000000000001" x="1138.5714285714284" y="457.85714285714283" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Fields</Category>
+    <Category>Constructors</Category>
+    <Category>Methods</Category>
+    <Category>Properties</Category>
+    <Category>Inner Classes</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
