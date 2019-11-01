@@ -12,7 +12,6 @@ import java.util.ArrayList;
 
 import static compal.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static compal.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static org.junit.jupiter.api.Assertions.*;
 
 
 class ExportCommandParserTest {
