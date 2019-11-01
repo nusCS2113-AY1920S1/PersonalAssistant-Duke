@@ -1,6 +1,8 @@
 /**
  * A sale object represents a transaction.
  *
+ * Implements: Comparable
+ *
  * @author tygq13
  */
 package cube.model.sale;

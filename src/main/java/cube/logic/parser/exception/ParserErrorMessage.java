@@ -5,6 +5,8 @@ public class ParserErrorMessage {
             = "OOPS!!! The parameter you input is not enough";
     public static final String INVALID_DATE_FORMAT
             = "OOPS!!! The date format is invalid. Please specify date in 'dd/mm/yy'";
+    public static final String INVALID_DATE_VALUE
+            = "OOPS!!! The date value is invalid. Please don't use negative value or type an non-existen date";
     public static final String INVALID_COMMAND
             = "OOPS!!! The command is invalid. Enter 'help' to view the list of command";
     public static final String INVALID_PARAMETER
