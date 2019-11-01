@@ -92,7 +92,8 @@ public class MainWindow extends UiManager<Stage> {
             resultDisplay.setResultText(result.getFeedbackToUser());
             // Updates GUI components
             listPanel.updateProductList(storageManager.getFoodList());
-            overviewDisplay.updateOverview(foodList.size(), Food.getRevenue(), Food.getRevenue());
+            // TODO: Updated profits and revenue respectively
+            overviewDisplay.updateOverview(foodList.size(), 0, 0);
 
             if (result.isShowHelp()) {
                 handleHelp();
