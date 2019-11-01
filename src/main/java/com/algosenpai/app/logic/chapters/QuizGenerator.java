@@ -20,6 +20,7 @@ public class QuizGenerator {
 
     public ArrayList<QuestionModel> generateQuiz(int selectedChapters, ArrayList<QuestionModel> questionList) {
         questionList = new ArrayList<>();
+
         ChapterSorting chapterSorting = new ChapterSorting();
         ChapterLinkedList chapterLinkedList = new ChapterLinkedList();
         ChapterBitmask chapterBitmask = new ChapterBitmask();
