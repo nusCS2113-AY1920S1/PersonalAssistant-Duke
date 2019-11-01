@@ -1154,8 +1154,8 @@ public class BankList {
      */
     public int bankListGetCardBillExpenditureId(String bankName, UUID cardId, YearMonth billDate)
             throws BankException {
-        for(int i = 0; i < bankLists.size(); i++) {
-            if(bankLists.get(i).getAccountName().equals(bankName)) {
+        for (int i = 0; i < bankLists.size(); i++) {
+            if (bankLists.get(i).getAccountName().equals(bankName)) {
                 return bankLists.get(i).getCardBillExpenditureId(cardId, billDate);
             }
         }
@@ -1174,8 +1174,8 @@ public class BankList {
      */
     public int bankListGetCardBillDepositId(String bankName, UUID cardId, YearMonth billDate)
             throws BankException {
-        for(int i = 0; i < bankLists.size(); i++) {
-            if(bankLists.get(i).getAccountName().equals(bankName)) {
+        for (int i = 0; i < bankLists.size(); i++) {
+            if (bankLists.get(i).getAccountName().equals(bankName)) {
                 return bankLists.get(i).getCardBillDepositId(cardId, billDate);
             }
         }

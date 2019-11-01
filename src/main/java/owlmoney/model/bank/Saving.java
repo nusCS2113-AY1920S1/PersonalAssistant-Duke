@@ -481,16 +481,16 @@ public class Saving extends Bank {
             UUID transactionCardId = transactions.get(i).getTransactionCardID();
             YearMonth transactionCardBillDate = transactions.get(i).getTransactionCardBillDate();
             boolean isExpenditure = transactions.get(i).getSpent();
-            if(transactionCardId.equals(cardId) && transactionCardBillDate.equals(billDate)
+            if (transactionCardId.equals(cardId) && transactionCardBillDate.equals(billDate)
                     && isExpenditure) {
                 isExpenditureFound = true;
             }
-            if(transactionCardId.equals(cardId) && transactionCardBillDate.equals(billDate)
+            if (transactionCardId.equals(cardId) && transactionCardBillDate.equals(billDate)
                     && !isExpenditure) {
                 isDepositFound = true;
             }
         }
-        if(isExpenditureFound && isDepositFound) {
+        if (isExpenditureFound && isDepositFound) {
             return true;
         }
         return false;
@@ -510,10 +510,10 @@ public class Saving extends Bank {
             UUID transactionCardId = transactions.get(i).getTransactionCardID();
             YearMonth transactionCardBillDate = transactions.get(i).getTransactionCardBillDate();
             boolean isExpenditure = transactions.get(i).getSpent();
-            if(transactionCardId == null) {
+            if (transactionCardId == null) {
                 continue;
             }
-            if(transactionCardId.equals(cardId) && transactionCardBillDate.equals(billDate)
+            if (transactionCardId.equals(cardId) && transactionCardBillDate.equals(billDate)
                     && isExpenditure) {
                 return i;
             }
@@ -535,10 +535,10 @@ public class Saving extends Bank {
             UUID transactionCardId = transactions.get(i).getTransactionCardID();
             YearMonth transactionCardBillDate = transactions.get(i).getTransactionCardBillDate();
             boolean isExpenditure = transactions.get(i).getSpent();
-            if(transactionCardId == null) {
+            if (transactionCardId == null) {
                 continue;
             }
-            if(transactionCardId.equals(cardId) && transactionCardBillDate.equals(billDate)
+            if (transactionCardId.equals(cardId) && transactionCardBillDate.equals(billDate)
                     && !isExpenditure) {
                 return i;
             }
