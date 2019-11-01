@@ -197,6 +197,10 @@ public class Duke extends Application {
 
     }
 
+    public TaskList getTaskList() {
+        return this.myList;
+    }
+
 }
 
 

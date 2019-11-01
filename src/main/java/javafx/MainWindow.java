@@ -4,6 +4,9 @@ import exception.DukeException;
 import impl.org.controlsfx.autocompletion.AutoCompletionTextFieldBinding;
 import impl.org.controlsfx.autocompletion.SuggestionProvider;
 
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.scene.control.TableView;
 import main.Duke;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -11,6 +14,8 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import task.Task;
+import task.TaskList;
 
 import java.util.*;
 
@@ -32,11 +37,17 @@ public class MainWindow extends AnchorPane {
     @FXML
     private Button sendButton;
 
+    @FXML
+    private TableView<TaskFX> tableView;
+
     private Duke duke;
+    private TaskList taskList;
 
     public Set<String> autoSuggestion = new HashSet<>(Arrays.asList("list", "detail", "help", "todo", "delete", "clear",
             "add", "swap", "bye", "replace", "undo", "redo", "sort"));
     private SuggestionProvider<String> provider = SuggestionProvider.create(autoSuggestion);
+
+
 
     @FXML
     public void initialize() {
@@ -50,12 +61,14 @@ public class MainWindow extends AnchorPane {
      * @param d The duke helper that is going to be initialized
      */
     //This method initializes duke
-    public void setDuke(Duke d) {
+    public void setDuke(Duke d) throws DukeException {
 
         duke = d;
 
 
         new AutoCompletionTextFieldBinding<>(this.userInput, provider);
+        ObservableList<TaskFX> data = tableView.getItems();
+
 
         /*
         //Initialize autocompletion field
@@ -87,6 +100,15 @@ public class MainWindow extends AnchorPane {
         dialogContainer.getChildren().addAll(
                 DialogBox.getDukeDialog(welcome)
         );
+
+        this.taskList = duke.getTaskList();
+
+        for (int i = 0; i < this.taskList.size(); i++) {
+            Task newTask = this.taskList.get(i);
+            data.add(new TaskFX(Integer.toString(i + 1), newTask.getStatusIcon(), newTask.getType(),
+                    newTask.getDescription(), newTask.getDueDate()));
+        }
+
     }
 
 
@@ -128,7 +150,19 @@ public class MainWindow extends AnchorPane {
             provider.clearSuggestions();
             provider.addPossibleSuggestions(autoSuggestion);
         }
-
         userInput.clear();
+
+        ObservableList<TaskFX> data = tableView.getItems();
+
+        this.taskList = duke.getTaskList();
+        data.clear();
+
+        for (int i = 0; i < this.taskList.size(); i++) {
+            Task newTask = this.taskList.get(i);
+            data.add(new TaskFX(Integer.toString(i + 1), newTask.getStatusIcon(), newTask.getType(),
+                    newTask.getDescription(), newTask.getDueDate()));
+        }
+
+
     }
 }
