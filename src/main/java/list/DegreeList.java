@@ -85,7 +85,7 @@ public class DegreeList implements Serializable, Cloneable {
      */
     public void add_custom(String input, Storage storage) throws DukeException {
         list.add(input);
-        System.out.print("Added " + input + " to your choice of degrees");
+        System.out.print("Added " + input + " to your choice of degrees.\n");
     }
 
     /**

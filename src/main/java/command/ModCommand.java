@@ -101,7 +101,7 @@ public class ModCommand extends Command {
      * @throws DukeException
      */
     @Override
-    public void unExecute(TaskList tasks, UI ui, Storage storage, DegreeList lists) throws DukeException {
+    public void unExecute(TaskList tasks, UI ui, Storage storage, DegreeList lists, DegreeManager degreeManager) throws DukeException {
         if (this.listType == 0) {
             TaskList tasksBuffer = memento.getTaskState();
             tasks.clear();
