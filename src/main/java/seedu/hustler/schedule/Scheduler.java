@@ -19,7 +19,7 @@ public class Scheduler {
      * priority.
      */
     public static ArrayList<ScheduleEntry> schedule 
-        = new ArrayList<ScheduleEntry>();
+        = new ArrayList<>();
 
     /**
      * Add an entry to the schedule based on the task

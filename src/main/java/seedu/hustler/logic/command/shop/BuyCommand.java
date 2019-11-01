@@ -14,19 +14,18 @@ import seedu.hustler.ui.Ui;
 public class BuyCommand extends Command {
 
     /**
-     * User input to parse.
+     * The given user input containing the index of the item to purchase.
      */
     private String[] userInput;
 
     /**
-     * Detect anomalies for input.
+     * The anomaly class to check if the user input is valid.
      */
     private BuyAnomaly anomaly = new BuyAnomaly();
 
     /**
      * Constructs a buyCommand with the index of the item.
-     *
-     * @param userInput initialization of the userInput
+     * @param userInput the given user input.
      */
     public BuyCommand(String[] userInput) {
         this.userInput = userInput;

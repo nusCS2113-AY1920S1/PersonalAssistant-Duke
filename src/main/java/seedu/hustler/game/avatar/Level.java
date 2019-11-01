@@ -4,13 +4,14 @@ package seedu.hustler.game.avatar;
  * Class representing the level of the avatar. Also contains the current xp.
  */
 public class Level implements Convertible {
+
     /**
      * Integer level of avatar.
      */
     private int level;
+
     /**
-     * Integer value of XP. Avatar has to hit this threshold
-     * to level up.
+     * Integer value of XP.
      */
     private int xp;
 
@@ -24,9 +25,8 @@ public class Level implements Convertible {
 
     /**
      * Constructs Level with the given level and xp.
-     *
-     * @param level the current level of the avatar.
-     * @param xp the current xp of the avatar.
+     * @param level the level of the avatar.
+     * @param xp the xp of the avatar.
      */
     public Level(int level, int xp) {
         this.level = level;
@@ -43,7 +43,6 @@ public class Level implements Convertible {
 
     /**
      * Increment xp by 1.
-     *
      * @return the current Level.
      */
     public Level increaseXp() {
@@ -53,16 +52,15 @@ public class Level implements Convertible {
 
     /**
      * Levels up by 1.
-     *
      * @return the current level.
      */
-    public Level levelUp() {
-        return new Level(this.level + 1, this.xp);
+    public Level upLevel() {
+        this.level++;
+        return this;
     }
 
     /**
      * Checks if avatar can reach the next level.
-     *
      * @return true if avatar can gain a level; false if otherwise.
      */
     public boolean canLevel() {
@@ -76,7 +74,6 @@ public class Level implements Convertible {
     /**
      * The simple algorithm to calculate the xp needed for the
      * next level.
-     *
      * @param level the level of the avatar.
      * @return the xp needed to hit the next level.
      */

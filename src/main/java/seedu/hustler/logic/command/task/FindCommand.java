@@ -7,30 +7,28 @@ import seedu.hustler.logic.parser.anomaly.FindAnomaly;
 import seedu.hustler.ui.Ui;
 
 /**
- * Command that lists tasks in TaskList instance.
+ * Command that list given tasks with the given keyword.
  */
 public class FindCommand extends Command {
     /**
-     * User input that contains keyword to search for in list.
+     * User input that contains keyword to search for in the task list.
      */
     private String[] userInput;
 
     /**
-     * Detect anomalies for input.
+     * The anomaly class to check if the given command is valid.
      */
     private FindAnomaly anomaly = new FindAnomaly();
+
     /**
      * Initializes userInput.
-     *
      * @param userInput the array of users inputs to initialize with.
      */
     public FindCommand(String[] userInput) {
         this.userInput = userInput;
     }
     
-    /**
-     * Lists commands which contain keyword.
-     */
+    @Override
     public void execute() {
         Ui ui = new Ui();
         try {
