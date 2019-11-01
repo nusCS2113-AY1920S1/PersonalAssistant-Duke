@@ -8,7 +8,7 @@ import ducats.commands.Command;
 import ducats.commands.CopyCommand;
 import ducats.commands.DeleteBarCommand;
 import ducats.commands.DeleteCommand;
-import ducats.commands.EditCommand;
+import ducats.commands.EditBarCommand;
 import ducats.commands.GroupCommand;
 import ducats.commands.HelpCommand;
 import ducats.commands.InsertBarCommand;
@@ -19,7 +19,7 @@ import ducats.commands.OverlayBarGroup;
 import ducats.commands.OverlayBarSong;
 import ducats.commands.OverlayGroupGroup;
 import ducats.commands.RedoCommand;
-import ducats.commands.SwapCommand;
+import ducats.commands.SwapBarCommand;
 import ducats.commands.UndoCommand;
 import ducats.commands.ViewCommand;
 import ducats.components.SongList;
@@ -82,8 +82,8 @@ public class Ducats {
                         || c instanceof DeleteCommand
                         || c instanceof DeleteBarCommand
                         || c instanceof InsertBarCommand
-                        || c instanceof SwapCommand
-                        || c instanceof EditCommand
+                        || c instanceof SwapBarCommand
+                        || c instanceof EditBarCommand
                         || c instanceof HelpCommand
                         || c instanceof GroupCommand
                         || c instanceof CopyCommand
