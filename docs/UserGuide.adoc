@@ -147,6 +147,7 @@ Output Result: +
 ====  Adding a new recipe: `addrecipe`
 
 Adds a new recipe into the recipe list. Duplicate recipes are not allowed. +
+
 Format:
 
 * `addrecipe <recipe_name>`
@@ -157,6 +158,7 @@ Examples: `addrecipe garlic prawn`
 ====  Deleting a recipe: `deleterecipe`
 
 Deletes a new recipe in the recipe list +
+
 Format:
 
 * `deleterecipe <recipe_name>`
@@ -195,6 +197,45 @@ Example:
 * `editreqingredient fried rice ins/ 1 n/ rice q/u/a/ fried with garlic`
 * `editreqingredient fried rice app/n/ rice q/u/kg a/`
 
+==== Editing a recipe rating: `editrating`
+
+Edits the rating of a recipe +
+
+Format: `editrating [recipe name] r/ [rating]`
+
+Example: `editrating chicken rice, r/ GOOD`
+
+Output Result:
+
+* `The rating of 'chicken rice' has been edited to: GOOD`
+
+==== Editing a recipe feedback: `editfeedback`
+
+Edits the feedback of a recipe +
+
+Format: `editfeedback [recipe name] f/ [feedback]`
+
+Example: `editfeedback chicken rice, f/ too salty`
+
+Output Result:
+
+* `The feedback of 'chicken rice' has been edited to: too salty`
+
+==== Editing a recipe preparation steps: `editprepstep`
+
+Format:
+
+* `editprepstep [recipe name] ins/ [position] p/ [prep step]`
+* `editprepstep [recipe name] del/ [position]`
+* `editprepstep [recipe_name] app/ p/ prep step]`
+* `editprepstep [recipe name] clr/`
+
+Example:
+
+* `editprepstep chicken rice ins/ 1 p/ cooked the rice with pandan leaf`
+* `editprepstep chicken rice del/ 1
+* `editprepstep chicken rice app/ p/ cooked the rice with pandan leaf`
+* `editprepstep [recipe name] clr/`
 
 ====  Listing all recipes: `listallrecipes`
 
