@@ -7,7 +7,6 @@ import duke.commons.exceptions.FileNotSavedException;
 import duke.commons.exceptions.ParseException;
 import duke.model.transports.TransportationMap;
 import duke.commons.exceptions.RouteDuplicateException;
-import duke.logic.RouteManager;
 import duke.model.lists.EventList;
 import duke.model.lists.RouteList;
 import duke.model.lists.VenueList;
@@ -104,19 +103,9 @@ public interface Model {
     Itinerary readRecommendations() throws FileLoadFailException, ParseException;
 
     /**
-     * Returns the Route Manager.
-     */
-    RouteManager getRouteManager();
-
-    /**
      * Returns profile of user.
      */
     ProfileCard getProfileCard();
-
-    /**
-     * Returns whether if the user is a new user.
-     */
-    boolean isNewUser();
 
     /**
      * Returns name of the user.

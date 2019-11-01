@@ -42,7 +42,7 @@ public class RouteDeleteCommand extends Command {
             model.save();
             return new CommandResultText(MESSAGE_DELETION + routeName);
         } catch (IndexOutOfBoundsException e) {
-            throw new QueryOutOfBoundsException("ROUTE");
+            throw new QueryOutOfBoundsException();
         }
     }
 }

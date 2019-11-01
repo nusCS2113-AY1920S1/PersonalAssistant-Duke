@@ -26,11 +26,11 @@ public class ParserTimeUtil {
      */
     public static LocalDateTime parseStringToDate(String line) throws ParseException {
         String[] patterns = {"['next ']['this ']E", "['this ']['next ']EEEE", "dd/MM/yyyy HHmm",
-                             "dd/MM/yy HHmm", "HHmm",
+                             "dd/MM/yy HHmm", "HHmm", "dd/MM/yyyy",
                              "dd/MM/yy", "yyyy-MM-dd'T'HH:mm[:ss.n]"};
         TimePatternType[] types = {TimePatternType.DAY_OF_WEEK, TimePatternType.DAY_OF_WEEK,
             TimePatternType.DATE_TIME, TimePatternType.DATE_TIME, TimePatternType.TIME, TimePatternType.DATE,
-            TimePatternType.DATE_TIME};
+                TimePatternType.DATE, TimePatternType.DATE_TIME};
         for (int i = 0; i < patterns.length;) {
             try {
                 TemporalAccessor accessor = DateTimeFormatter.ofPattern(patterns[i]).parse(line);

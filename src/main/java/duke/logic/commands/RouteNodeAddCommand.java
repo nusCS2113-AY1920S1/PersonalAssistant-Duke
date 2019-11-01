@@ -61,11 +61,11 @@ public class RouteNodeAddCommand extends Command {
             } else if (indexNode >= 0) {
                 route.addNode(node, indexNode);
             } else {
-                throw new QueryOutOfBoundsException("ROUTE_NODE");
+                throw new QueryOutOfBoundsException();
             }
 
         } catch (IndexOutOfBoundsException e) {
-            throw new QueryOutOfBoundsException("ROUTE");
+            throw new QueryOutOfBoundsException();
         }
 
         model.save();

@@ -31,7 +31,7 @@ public class RouteListCommand extends Command {
         try {
             return new CommandResultText(model.getRoutes().get(index));
         } catch (IndexOutOfBoundsException e) {
-            throw new QueryOutOfBoundsException("ROUTE");
+            throw new QueryOutOfBoundsException();
         }
     }
 }

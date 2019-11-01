@@ -73,7 +73,7 @@ public class RouteNodeShowCommand extends Command {
 
             return new CommandResultImage(Messages.PROMPT_ROUTE_SELECTOR_DISPLAY + node.getDisplayInfo(), image);
         } catch (IndexOutOfBoundsException e) {
-            throw new QueryOutOfBoundsException(String.valueOf(indexNode));
+            throw new QueryOutOfBoundsException();
         }
     }
 

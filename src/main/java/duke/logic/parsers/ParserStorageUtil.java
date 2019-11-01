@@ -56,12 +56,11 @@ public class ParserStorageUtil {
     }
 
     /**
-     * Parses a profile from String format back to profileCard.
+     * Updates the profile with data from the storage.
      *
      * @param line The String description of an profile.
-     * @return The corresponding ProfileCard object.
      */
-    public static ProfileCard createProfileFromStorage(ProfileCard profileCard, String line)
+    public static void createProfileFromStorage(ProfileCard profileCard, String line)
             throws ParseException, CategoryNotFoundException {
         String[] token = line.split("\\|");
         switch (token[0].strip()) {
@@ -77,7 +76,6 @@ public class ParserStorageUtil {
         default:
             break;
         }
-        return profileCard;
     }
 
     /**

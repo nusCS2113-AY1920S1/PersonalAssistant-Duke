@@ -36,7 +36,7 @@ public class DeleteCommand extends Command {
             model.save();
             return new CommandResultText(MESSAGE_DELETE + event);
         } catch (IndexOutOfBoundsException e) {
-            throw new QueryOutOfBoundsException("EventList");
+            throw new QueryOutOfBoundsException();
         }
     }
 }
