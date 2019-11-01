@@ -21,7 +21,7 @@ public class RecommendationsCommand extends Command {
     private static final Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
     private String[] itineraryDetails;
 
-    public RecommendationsCommand(String ... itineraryDetails) {
+    public RecommendationsCommand(String... itineraryDetails) {
         this.itineraryDetails = itineraryDetails;
     }
 

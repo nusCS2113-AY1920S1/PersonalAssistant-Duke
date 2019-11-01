@@ -7,6 +7,7 @@ import duke.commons.exceptions.DukeException;
 import duke.commons.exceptions.FileLoadFailException;
 import duke.commons.exceptions.FileNotSavedException;
 import duke.commons.exceptions.ItineraryInsufficientAgendasException;
+import duke.commons.exceptions.ParseException;
 import duke.commons.exceptions.RecommendationDayExceededException;
 import duke.commons.exceptions.RouteNodeDuplicateException;
 import duke.commons.exceptions.StorageFileNotFoundException;
@@ -127,8 +128,7 @@ public class StorageStub {
      * @throws DukeDuplicateTaskException   If there is a duplicate event.
      * @throws StorageFileNotFoundException If the file cannot be read.
      */
-    private void readEvent() throws DukeDuplicateTaskException, DukeDateTimeParseException,
-            StorageFileNotFoundException {
+    private void readEvent() throws DukeDuplicateTaskException, StorageFileNotFoundException {
         List<Event> events = new ArrayList<>();
         try {
             File f = new File(EVENTS_FILE_PATH);
@@ -137,7 +137,7 @@ public class StorageStub {
                 events.add(ParserStorageUtil.createTaskFromStorage(s.nextLine()));
             }
             s.close();
-        } catch (FileNotFoundException e) {
+        } catch (FileNotFoundException | ParseException e) {
             throw new StorageFileNotFoundException(EVENTS_FILE_PATH);
         }
         this.events.setEvents(events);
@@ -309,7 +309,7 @@ public class StorageStub {
             }
             s.close();
             itinerary.setTasks(agendaList);
-        } catch (FileNotFoundException e) {
+        } catch (FileNotFoundException | ParseException e) {
             throw new FileLoadFailException(new File(SAMPLE_RECOMMENDATIONS_FILE_PATH));
         }
         return itinerary;
@@ -407,7 +407,7 @@ public class StorageStub {
             assert itinerary != null;
             itinerary.setTasks(agendaList);
             return itinerary;
-        } catch (FileNotFoundException | DukeDateTimeParseException e) {
+        } catch (FileNotFoundException e) {
             throw new FileLoadFailException(new File(ITINERARY_LIST_FILE_PATH));
         }
     }

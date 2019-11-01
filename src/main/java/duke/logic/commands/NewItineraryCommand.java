@@ -32,7 +32,8 @@ public class NewItineraryCommand extends Command {
      * Constructs the command with the given sample itinerary.
      *
      */
-    public NewItineraryCommand(LocalDateTime start, LocalDateTime end, String hotel, String name, String[] itineraryDetails) {
+    public NewItineraryCommand(LocalDateTime start, LocalDateTime end, String hotel, String name,
+                               String[] itineraryDetails) {
         this.start = start;
         this.end = end;
         this.hotel = hotel;

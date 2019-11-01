@@ -11,6 +11,12 @@ public class QuickEditParser extends CommandParser {
     private String secondField;
     private String thirdField;
 
+    /**
+     * Parses user input into an Itinerary.
+     *
+     * @param inputBody The User input.
+     * @throws ParseException If the input parsing fails.
+     */
     public QuickEditParser(String inputBody) throws ParseException {
         index = ParserUtil.getIntegerIndexInList(0, 4, inputBody);
         firstField = ParserUtil.getFieldInList(1, 4, inputBody);

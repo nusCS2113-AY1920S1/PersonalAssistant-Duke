@@ -14,7 +14,7 @@ public class RouteNodeAddConversationTest {
 
     @Test
     void testForBus() throws DukeException {
-        ConversationManager conversationManager = new ConversationManager(new RouteManager(new RouteList()));
+        ConversationManager conversationManager = new ConversationManager();
         conversationManager.converse("routeNodeAdd");
         assertFalse(conversationManager.isFinished());
 
@@ -50,7 +50,7 @@ public class RouteNodeAddConversationTest {
 
     @Test
     void testForTrain() throws DukeException {
-        ConversationManager conversationManager = new ConversationManager(new RouteManager(new RouteList()));
+        ConversationManager conversationManager = new ConversationManager();
         conversationManager.converse("routeNodeAdd");
         assertFalse(conversationManager.isFinished());
 

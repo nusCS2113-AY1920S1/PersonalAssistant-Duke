@@ -16,7 +16,7 @@ public abstract class UrlRequest<T> {
      * Executes and sends the given URL request.
      *
      * @return response The response from the request.
-     * @exception ApiException
+     * @exception ApiException If there is an issue with the request.
      */
     public abstract T execute() throws ApiException;
 }

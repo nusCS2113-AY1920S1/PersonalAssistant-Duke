@@ -1,6 +1,7 @@
 package duke.model.profile;
 
 import duke.commons.exceptions.DukeDateTimeParseException;
+import duke.commons.exceptions.ParseException;
 import duke.logic.parsers.ParserTimeUtil;
 import org.junit.jupiter.api.Test;
 
@@ -12,7 +13,7 @@ public class ProfileCardTest {
     private ProfileCard profileCard = new ProfileCard();
 
     @Test
-    void execute() throws DukeDateTimeParseException {
+    void execute() throws ParseException {
         LocalDateTime birthday = ParserTimeUtil.parseStringToDate("01/01/01");
 
         profileCard.setPerson("Danny", birthday);

@@ -111,7 +111,7 @@ public class Parser {
         case "routeNodeShow":
             return new RouteNodeShowCommand(ParserUtil.getIntegerIndexInList(0, 2, getWord(input)),
                     ParserUtil.getIntegerIndexInList(1, 2, getWord(input)));
-        case "routeNodeNearby":
+        case "routeNearby":
             return new RouteNodeNeighboursCommand(ParserUtil.getIntegerIndexInList(0, 2, getWord(input)),
                     ParserUtil.getIntegerIndexInList(1, 2, getWord(input)));
         case "addThisList":

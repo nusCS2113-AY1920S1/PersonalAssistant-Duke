@@ -28,12 +28,12 @@ class LocationSearchCommandTest {
 
         //negative test where the api returns no result
         assertThrows(ApiException.class, () -> {
-            Parser.parseComplexCommand("search invalid location");
+            Parser.parseComplexCommand("search invalid-location").execute(model);
         });
 
         //negative test where the request times out
         assertThrows(ApiException.class, () -> {
-            Parser.parseComplexCommand("search #");
+            Parser.parseComplexCommand("search #").execute(model);
         });
 
     }

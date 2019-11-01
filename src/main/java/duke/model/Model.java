@@ -1,6 +1,7 @@
 package duke.model;
 
 import duke.commons.exceptions.CorruptedFileException;
+import duke.commons.exceptions.DukeDateTimeParseException;
 import duke.commons.exceptions.DukeException;
 import duke.commons.exceptions.FileLoadFailException;
 import duke.commons.exceptions.FileNotSavedException;
@@ -101,7 +102,7 @@ public interface Model {
 
     Itinerary getItinerary(String number) throws DukeException, FileNotFoundException;
 
-    Itinerary readRecommendations() throws FileLoadFailException, ParseException;
+    Itinerary readRecommendations() throws FileLoadFailException, ParseException, DukeDateTimeParseException;
 
     /**
      * Returns the Route Manager.

@@ -14,7 +14,7 @@ public class RouteNodeEditConversationTest {
 
     @Test
     void testForAddress() throws DukeException {
-        ConversationManager conversationManager = new ConversationManager(new RouteManager(new RouteList()));
+        ConversationManager conversationManager = new ConversationManager();
         conversationManager.converse("routeNodeEdit");
         assertFalse(conversationManager.isFinished());
 
@@ -50,7 +50,7 @@ public class RouteNodeEditConversationTest {
 
     @Test
     void testForDescription() throws DukeException {
-        ConversationManager conversationManager = new ConversationManager(new RouteManager(new RouteList()));
+        ConversationManager conversationManager = new ConversationManager();
         conversationManager.converse("routeNodeEdit");
         assertFalse(conversationManager.isFinished());
 
@@ -86,7 +86,7 @@ public class RouteNodeEditConversationTest {
 
     @Test
     void testForType() throws DukeException {
-        ConversationManager conversationManager = new ConversationManager(new RouteManager(new RouteList()));
+        ConversationManager conversationManager = new ConversationManager();
         conversationManager.converse("routeNodeEdit");
         assertFalse(conversationManager.isFinished());
 
@@ -122,7 +122,7 @@ public class RouteNodeEditConversationTest {
 
     @Test
     void testForLatitude() throws DukeException {
-        ConversationManager conversationManager = new ConversationManager(new RouteManager(new RouteList()));
+        ConversationManager conversationManager = new ConversationManager();
         conversationManager.converse("routeNodeEdit");
         assertFalse(conversationManager.isFinished());
 
@@ -158,7 +158,7 @@ public class RouteNodeEditConversationTest {
 
     @Test
     void testForLongitude() throws DukeException {
-        ConversationManager conversationManager = new ConversationManager(new RouteManager(new RouteList()));
+        ConversationManager conversationManager = new ConversationManager();
         conversationManager.converse("routeNodeEdit");
         assertFalse(conversationManager.isFinished());
 

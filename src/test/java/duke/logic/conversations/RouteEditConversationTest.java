@@ -14,7 +14,7 @@ class RouteEditConversationTest {
 
     @Test
     void testForName() throws DukeException {
-        ConversationManager conversationManager = new ConversationManager(new RouteManager(new RouteList()));
+        ConversationManager conversationManager = new ConversationManager();
         conversationManager.converse("routeEdit");
         assertFalse(conversationManager.isFinished());
 
@@ -42,7 +42,7 @@ class RouteEditConversationTest {
 
     @Test
     void testForDescription() throws DukeException {
-        ConversationManager conversationManager = new ConversationManager(new RouteManager(new RouteList()));
+        ConversationManager conversationManager = new ConversationManager();
         conversationManager.converse("routeEdit");
         assertFalse(conversationManager.isFinished());
 

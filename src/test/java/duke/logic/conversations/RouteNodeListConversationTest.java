@@ -14,7 +14,7 @@ class RouteNodeListConversationTest {
 
     @Test
     void converse() throws DukeException {
-        ConversationManager conversationManager = new ConversationManager(new RouteManager(new RouteList()));
+        ConversationManager conversationManager = new ConversationManager();
         conversationManager.converse("routeNodeList");
         assertFalse(conversationManager.isFinished());
 

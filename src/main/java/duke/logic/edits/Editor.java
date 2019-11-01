@@ -21,7 +21,7 @@ public class Editor {
      * @param event The Event object.
      * @param eventField Integer indicating which field to edit.
      * @throws EventSelectionOutOfBoundsException If the eventField does not corresponds to any component of Event.
-     * @throws ApiException
+     * @throws ApiException If there is an issue with the request.
      * @throws ParseException If the date format is invalid.
      */
     public static void edit(String userInput, Event event, int eventField) throws EventSelectionOutOfBoundsException,
@@ -45,7 +45,7 @@ public class Editor {
      * Edits the description of an Event object.
      * @param userInput The new description.
      * @param event The Event object.
-     * @throws ApiException
+     * @throws ApiException If there is an issue with the request.
      */
     private static void editDescription(String userInput, Event event) throws ApiException {
         event.setLocation(ApiParser.getLocationSearch(userInput));

@@ -1,8 +1,10 @@
 package duke.logic.edits;
 
+import duke.commons.exceptions.ApiException;
 import duke.commons.exceptions.DukeDateTimeParseException;
 import duke.commons.exceptions.DukeException;
 import duke.commons.exceptions.EventSelectionOutOfBoundsException;
+import duke.commons.exceptions.ParseException;
 import duke.logic.parsers.ParserTimeUtil;
 import duke.model.Event;
 
@@ -29,11 +31,11 @@ class EditorTest {
         assertEquals(event.getDescription(), "Geylang");
         Editor.edit("Geylang", event, DESCRIPTION);
         assertEquals(event.getDescription(), "Geylang");
-        assertThrows(ApiNullRequestException.class, () -> Editor.edit("gwhore", event, DESCRIPTION));
+        assertThrows(ApiException.class, () -> Editor.edit("gwhore", event, DESCRIPTION));
         assertEquals(event.getDescription(), "Geylang");
         assertNotEquals(event.getDescription(), "gwhore");
-        assertThrows(DukeDateTimeParseException.class, () -> Editor.edit("non", event, START_DATE));
-        assertThrows(DukeDateTimeParseException.class, () -> Editor.edit("non", event, END_DATE));
+        assertThrows(ParseException.class, () -> Editor.edit("non", event, START_DATE));
+        assertThrows(ParseException.class, () -> Editor.edit("non", event, END_DATE));
         LocalDateTime date = ParserTimeUtil.parseStringToDate("01/01/18");
         Editor.edit("01/01/18", event, START_DATE);
         assertEquals(event.getStartDate().toLocalDate(), date.toLocalDate());
