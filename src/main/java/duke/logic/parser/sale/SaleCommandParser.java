@@ -7,10 +7,12 @@ import duke.logic.command.sale.DeleteSaleCommand;
 import duke.logic.command.sale.EditSaleCommand;
 import duke.logic.command.sale.FilterSaleCommand;
 import duke.logic.command.sale.ShowSaleCommand;
-
 import duke.logic.parser.commons.SubCommandParser;
 import duke.logic.parser.exceptions.ParseException;
 
+/**
+ * A parser that parses {@code SaleCommand}.
+ */
 public class SaleCommandParser implements SubCommandParser<SaleCommand> {
 
     @Override

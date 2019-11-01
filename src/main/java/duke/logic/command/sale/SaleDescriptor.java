@@ -81,12 +81,13 @@ public class SaleDescriptor {
         SaleDescriptor that = (SaleDescriptor) o;
         return Objects.equals(description, that.description)
                 && Objects.equals(value, that.value)
+                && Objects.equals(isSpend, that.isSpend)
                 && Objects.equals(saleDate, that.saleDate)
                 && Objects.equals(remarks, that.remarks);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(description, value, saleDate, remarks);
+        return Objects.hash(description, value, isSpend, saleDate, remarks);
     }
 }
