@@ -25,6 +25,7 @@ allowing the students to focus more on the important aspects of their education.
 
 == Quick Start
 
+. Friendly notice: currently the writing to file is not fully completed, please ignore the error message.
 . Ensure you have Java `11` or above installed in your computer
 . Download the latest `mistermusik.jar`
 . Copy the file to the folder you want to use as the home folder for your MisterMusik
@@ -182,17 +183,44 @@ The user is able to add, delete, view, and edit contacts information of an event
 A contact includes name, email address, and phone number.
 
 ==== Add contact item
-Format: `contact add <event index> /<name>, <email>, <phone number>`
+Format: `contact add <event index> /<name>, <email>, <phone number>` +
+Users can type kbd:[Space] instead of `<name>` or `<email>` or `<phone number>` if the user do not want to write in one
+or two type of information. (e.g. `contact add 1 /name, ,12345678` adds a contact set without email address to the
+first event)
 
 ==== Delete contact item
-Format: `contact delete <event index> <contact index> /`
+Format: `contact delete <event index> <contact index>`
 
 ==== View contact
-Format: `contact view <event index> /`
+Format: `contact view <event index>`
 
 ==== Edit contact item
 Format: `contact edit <event index> <contact index> <edit type> /<new contact information>` +
 The edit types are name, email, and phone.
+
+=== Goals list
+Goals list of each event helps the user keep track of the outcome that they wishes to achieve by the end of the event.
+The user is able to add, edit, delete or set a goal as achieved.
+
+==== Adding a goal
+`goal add <event index>/<input goal>`
+This adds a goal to a specific event.
+
+==== Editing a goal
+`goal edit <event index> <goal index>/<new input goal>`
+This edits an existing goal.
+
+==== Deleting a goal
+`goal delete <event index> <goal index>`
+This deletes a specified goal.
+
+==== Setting a goal as achieved
+`goal achieved <event index> <goal index>`
+This sets the specified goal as achieved.
+
+==== Viewing the goal list
+`goal view <event index>`
+This displays the goals list of a specified event along with their status - whether a goal is achieved or not.
 
 === Checklists
 Checklist of each event can be used to remind users of certain items (e.g. bring glasses to concert).
