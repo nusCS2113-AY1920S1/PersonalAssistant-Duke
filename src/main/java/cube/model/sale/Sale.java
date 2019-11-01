@@ -41,31 +41,55 @@ public class Sale implements Comparable<Sale>{
 		this.soldDate = soldDate;
 	}
 
+	/**
+	 * Getter for name of food sold in sale record.
+	 * @return The food name.
+	 */
 	@JsonIgnore
 	public String getName() {
 		return foodName;
 	}
 
+	/**
+	 * Getter for quanity of food sold in sale record.
+	 * @return The food quanity.
+	 */
 	@JsonIgnore
 	public int getQuantity() {
 		return quantitySold;
 	}
 
+	/**
+	 * Getter for revenue of food sold in sale record.
+	 * @return The food revenue.
+	 */
 	@JsonIgnore
 	public double getRevenue() {
 		return revenue;
 	}
 
+	/**
+	 * Getter for profit of food sold in sale record.
+	 * @return The food profit.
+	 */
 	@JsonIgnore
 	public double getProfit() {
 		return profit;
 	}
 
+	/**
+	 * Getter for date of food sold in sale record.
+	 * @return The food date.
+	 */
 	@JsonIgnore
 	public Date getDate() {
 		return soldDate;
 	}
 
+	/**
+	 * Converts the sale record to String.
+	 * @return The String format of sale record.
+	 */
 	@Override
 	public String toString() {
 		return "  Quantity Sold: " + quantitySold +
@@ -74,6 +98,11 @@ public class Sale implements Comparable<Sale>{
 				"\n  Transaction Date: " + soldDate;
 	}
 
+	/**
+	 * Compares with another sale record.
+	 * This allows sale record to be sorted.
+	 * @return -1 if smaller, 0 if equal, 1 if larger.
+	 */
 	@Override
 	public int compareTo(Sale b) {
 		// expand the list of comparison to reduce chance of equal transaction
@@ -87,6 +116,11 @@ public class Sale implements Comparable<Sale>{
 		}
 	}
 
+	/**
+	 * Compares with another object to check if they are identical.
+	 * @param other The other object.
+	 * @return true if identical, otherwise false.
+	 */
 	@Override
 	// for Junit test use
 	public boolean equals(Object other) {
