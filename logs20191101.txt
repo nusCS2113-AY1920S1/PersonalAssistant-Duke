@@ -1,0 +1,22 @@
+Nov 01, 2019 8:07:14 AM seedu.duke.ui.UI showMessage
+INFO: [Message] Saved task file successfully loaded... => 0
+Nov 01, 2019 8:07:14 AM seedu.duke.ui.UI showResponse
+INFO: [Response] There is no near event or deadline. 
+Nov 01, 2019 8:07:15 AM seedu.duke.ui.UI showMessage
+INFO: [Message] Saved email file successfully loaded...
+Nov 01, 2019 8:07:26 AM seedu.duke.ui.UI respond
+INFO: [User Input] email byby
+Nov 01, 2019 8:07:26 AM seedu.duke.ui.UI respond
+INFO: [Command] seedu.duke.common.command.InvalidCommand@41619f69
+Nov 01, 2019 8:07:26 AM seedu.duke.ui.UI showResponse
+INFO: [Response] This is an invalid command.
+
+OOPS!!! Enter 'email help' to get list of methods for email.
+
+Enter 'help' for more information.
+Nov 01, 2019 8:07:34 AM seedu.duke.ui.UI respond
+INFO: [User Input] email bye
+Nov 01, 2019 8:07:34 AM seedu.duke.ui.UI respond
+INFO: [Command] seedu.duke.common.command.ExitCommand@271e7e85
+Nov 01, 2019 8:07:34 AM seedu.duke.ui.UI showResponse
+INFO: [Response] Bye, hope to see you again.

@@ -6,6 +6,11 @@ import seedu.duke.CommandParseHelper;
 import seedu.duke.Duke;
 import seedu.duke.common.command.Command;
 import seedu.duke.common.model.Model;
+
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.logging.*;
 
 import java.util.ArrayList;
@@ -59,6 +64,28 @@ public class UI {
         helloMsg += "What can I do for you?";
         showMessage(helloMsg);
         mainWindow.setInputPrefix();
+        setupLogger();
+    }
+
+    public void setupLogger()
+    {
+        FileHandler fh = null;
+        try {
+            DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
+            Date date = new Date();
+            String dateStr = dateFormat.format(date);
+            String fileName = "log" + dateStr +  ".txt";
+            fh = new FileHandler(fileName);
+            fh.setFormatter(new SimpleFormatter());
+            fh.setLevel(Level.ALL);
+            logger.addHandler(fh);
+        } catch (IOException e) {
+            e.printStackTrace();
+            logger.log(Level.SEVERE, e.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.log(Level.SEVERE, e.toString());
+        }
     }
 
     public void setKeyBinding(Scene scene) {
@@ -74,6 +101,8 @@ public class UI {
         try {
             setInput(input);
             Command command = CommandParseHelper.parseCommand(input);
+            logger.log(Level.INFO, "[User Input] " + input);
+            logger.log(Level.INFO, "[Command] " + command.toString());
             command.execute(Model.getInstance());
         } catch (Exception e) {
             e.printStackTrace();
