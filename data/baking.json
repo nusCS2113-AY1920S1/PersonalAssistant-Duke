@@ -29,6 +29,13 @@
       "remarks" : ""
     },
     "amount" : 5.0
+  }, {
+    "ingredient" : {
+      "name" : "Name",
+      "unitPrice" : 0.0,
+      "remarks" : ""
+    },
+    "amount" : 0.0
   } ],
   "shoppingList" : [ {
     "ingredient" : {

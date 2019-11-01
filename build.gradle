@@ -22,8 +22,8 @@ application {
 }
 
 shadowJar {
-    archiveBaseName = "baking"
-    archiveVersion = "debug"
+    archiveBaseName = "BakingHome"
+    archiveVersion = "v1.3.1"
     archiveClassifier = null
     archiveAppendix = null
 }
