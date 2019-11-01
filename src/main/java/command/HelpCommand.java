@@ -77,11 +77,11 @@ public class HelpCommand extends Command {
                         "Computer Engineering\n" +
                         "Electrical Engineering\n" +
                         "Environmental Engineering\n" +
-                        "Industrial and Systems Engineering\n" +
+                        "Industrial Systems Engineering\n" +
                         "Mechanical Engineering\n" +
-                        "Materials Science and Engineering\n");
-            } else if (this.arguments.matches("degreelist")) {
-                System.out.println("degreelist: Shows a list of all degrees in the list.");
+                        "Materials Science Engineering\n");
+            } else if (this.arguments.matches("choices")) {
+                System.out.println("choices: Shows a list of all degrees in the list.");
             } else if (this.arguments.matches("swap")) {
                 System.out.println("swap INDEX INDEX: Swaps the position of two degrees in the degree list.");
             } else if (this.arguments.matches("replace")) {
