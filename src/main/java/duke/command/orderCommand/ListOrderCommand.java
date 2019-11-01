@@ -66,7 +66,4 @@ public class ListOrderCommand extends ListCommand<Order> {
         }
         return tmp;
     }
-
-
-
 }

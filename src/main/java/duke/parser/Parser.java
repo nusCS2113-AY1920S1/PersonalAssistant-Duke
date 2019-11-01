@@ -1,6 +1,5 @@
 package duke.parser;
 
-
 import duke.Duke;
 import duke.command.Cmd;
 import duke.command.ingredientCommand.AddCommand;
@@ -11,7 +10,6 @@ import duke.dish.Dish;
 import duke.exception.DukeException;
 import duke.ingredient.Ingredient;
 import duke.order.Order;
-
 import duke.command.dishesCommand.*;
 import duke.command.ingredientCommand.*;
 import duke.command.dishesCommand.InitCommand;
@@ -66,7 +64,6 @@ public class Parser {
                 }
                 else
                     throw new DukeException("not a valid command for an Ingredient");
-
             }
             case DISH: {
                 splitted = fullCommand.split(" ", 2);
@@ -166,7 +163,6 @@ public class Parser {
                 throw new DukeException("not a valid type");
         }
     }
-
 
     /**
      * Checks the length of a String array is of size 2.

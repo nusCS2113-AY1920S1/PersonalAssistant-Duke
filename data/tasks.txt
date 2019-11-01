@@ -4,4 +4,9 @@ T|0|test 09/09/09
 T|1|test1 16/10/2019 
 T|0|read books
 T|0|sleep
+<<<<<<< HEAD
+T|0|sleep
+milk|2|null
+=======
+>>>>>>> upstream/master
 T|0|beef 24/10/2019
