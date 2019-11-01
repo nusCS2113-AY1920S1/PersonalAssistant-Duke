@@ -36,7 +36,7 @@ public class StorageManager {
 	}
 
 	/**
-	 * Constructor with 2 arguments.
+	 * Constructor with multiple arguments.
 	 * Creates a new instance of Food & Revenue Storage Classes.
 	 */
 	public StorageManager(FoodStorage foodStorage, RevenueStorage revenueStorage, SaleStorage saleStorage, PromotionStorage promotionStorage, ConfigStorage configStorage) {
