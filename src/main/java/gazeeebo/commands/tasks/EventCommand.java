@@ -16,6 +16,9 @@ import java.util.ArrayList;
 import java.util.Stack;
 
 public class EventCommand extends Command {
+    //@@author jessteoxizhi
+    private static final String EVENT = "gazeeebo.tasks.Event";
+
     @Override
     public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<ArrayList<Task>> commandStack, ArrayList<Task> deletedTask, TriviaManager triviaManager) throws DukeException, ParseException, IOException {
         String description;
@@ -33,7 +36,7 @@ public class EventCommand extends Command {
             //CHECKING FOR SCHEDULE ANOMALIES------------------------------------------------------------------
             ArrayList<Event> clash = new ArrayList<Event>(); //to store events that clash with the incoming event
             for (Task t : list) {
-                if (t.getClass().getName().equals("gazeeebo.Tasks.Event") && ((Event) t).date.equals(ev.date) &&
+                if (t.getClass().getName().equals(EVENT) && ((Event) t).date.equals(ev.date) &&
                         ((ev.start.isBefore(((Event) t).start) && ev.end.isAfter(((Event) t).start)) ||
                                 ev.start.equals(((Event) t).start) ||
                                 (ev.start.isAfter(((Event) t).start) && ev.start.isBefore(((Event) t).end)))) {
