@@ -86,7 +86,7 @@ Apart from have simple ToDo commands, you will most likely have time constraints
 
 | 2. | */add <task description> /by <date> <time>* | Deadline task. Date format is DD/MM/YY and time format is HHmm. Where D stands for day, M stands for month, Y stands for year, H stands for hour in 24-hour format and m stands for minutes. Uses the `/by` keyword.
 
-| 3. | */add <task description> /at <date> <time> | Event task. The date time format is the same as the one for deadline. Uses the `/at` keyword.
+| 3. | */add <task description> /at <date> <time>* | Event task. The date time format is the same as the one for deadline. Uses the `/at` keyword.
 
 | 4. | */add <task description> /by <date> <time> /every <frequency>* | Recurring Deadline where the format of <frequency> is <number> followed by minutes/hours/days/weeks/months. Uses the `/every` keyword.
 
