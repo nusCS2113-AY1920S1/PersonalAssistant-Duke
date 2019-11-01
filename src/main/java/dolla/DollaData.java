@@ -14,7 +14,7 @@ import static dolla.storage.Storage.getBillsFromSave;
 
 public class DollaData implements ModeStringList {
 
-    private String mode = "dolla";
+    private String mode = MODE_DOLLA;
     private EntryList entryList; // TODO: Find out alternatives to using a public variable
     private DebtList debtList;
     private LimitList limitList;

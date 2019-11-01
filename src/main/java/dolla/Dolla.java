@@ -20,14 +20,10 @@ public class Dolla {
     private DollaData dollaData = new DollaData();
     protected static TagList tagList = new TagList(); //todo: change
 
-    //private TaskList tasks = new TaskList(new ArrayList<Task>());
-    //Storage storage = new Storage();
-
     /**
      * Creates an instance of Dolla using a data loaded from /data/dolla.txt
      */
     private Dolla() {
-        //tasks = new TaskList(Storage.load());
         StorageRead.load(); //TODO: add load for tag also (for now it can add to tagList but cant store to harddrive)
     }
 

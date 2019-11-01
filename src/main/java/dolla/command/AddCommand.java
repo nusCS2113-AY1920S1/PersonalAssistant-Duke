@@ -66,8 +66,6 @@ public abstract class AddCommand extends Command {
      *     the method will then return false.
      * </p>
      * @return true if method runs successfully.
-     * @see AddDeadlineCommand
-     * @see AddEventCommand
      */
     public boolean detectAnomalies(TaskList tasks, LocalDateTime time) {
         for (int i = 0; i < tasks.size(); i++) {

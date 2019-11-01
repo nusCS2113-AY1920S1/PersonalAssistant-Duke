@@ -2,6 +2,7 @@ package dolla.parser;
 
 import dolla.Tag;
 import dolla.Time;
+import dolla.ui.DebtUi;
 import dolla.command.AddDebtsCommand;
 import dolla.command.AddEntryCommand;
 import dolla.command.AddLimitCommand;
@@ -10,7 +11,6 @@ import dolla.command.ErrorCommand;
 import dolla.task.Debt;
 import dolla.task.Entry;
 import dolla.task.Limit;
-import dolla.ui.DebtUi;
 
 import java.time.LocalDate;
 
@@ -34,8 +34,7 @@ public class DollaParser extends Parser {
             } else {
                 return new ErrorCommand();
             }
-
-
+            
             /*
             switch(commandToRun) {
                 case "income":
