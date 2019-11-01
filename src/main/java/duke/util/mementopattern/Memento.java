@@ -7,7 +7,7 @@ import duke.models.tasks.TaskManager;
 
 public class Memento {
     /**
-     *  .
+     * .
      * @return .
      */
     private TaskManager memTaskList;
