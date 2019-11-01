@@ -95,5 +95,29 @@ public class Undo {
         }
         return undoInput;
     }
+    //------------------------------------------------------------------------------------------------------------------
+    private StateList prevStateList = new StateList();
+    private StateList nextStateList = new StateList();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
 
