@@ -17,6 +17,13 @@ public interface ParserStringList {
     String LIMIT_COMMAND_LIST = "limits";
     String LIMIT_COMMAND_SET = "set";
 
+    String LIMIT_TYPE_S = "saving";
+    String LIMIT_TYPE_B = "budget";
+
+    String LIMIT_DURATION_D = "daily";
+    String LIMIT_DURATION_W = "weekly";
+    String LIMIT_DURATION_M = "monthly";
+
     // Commands specific to Debt mode
     static final String DEBT_COMMAND_OWE = "owe";
     static final String DEBT_COMMAND_BORROW = "borrow";
@@ -36,5 +43,4 @@ public interface ParserStringList {
     static final String COMPONENT_AMOUNT = "/amount";
     static final String COMPONENT_DATE = "/on";
     static final String COMPONENT_TAG = "/tag";
-
 }
