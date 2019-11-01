@@ -264,10 +264,11 @@ public class UI {
     /**
      * prints message when input format is wrong for addition of new event type event.
      */
-    public void eventFormatWrong() {
+    public void newEntryFormatWrong() {
         System.out.print(lineSeparation);
-        System.out.println("Please enter the date in the format 'dd-MM-yyyy HHmm HHmm' or 'dd-MM-yyyy'.\n" +
-                "First time entered is start time, second time entered is end time.");
+        System.out.println("Please enter the date in the format 'dd-MM-yyyy HHmm HHmm' for Event" +
+                " or 'dd-MM-yyyy' for ToDo.\n" +
+                "For Event entry, first time entered is start time, second time entered is end time.");
         System.out.print(lineSeparation);
     }
 

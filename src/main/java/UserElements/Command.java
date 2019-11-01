@@ -95,7 +95,7 @@ public class Command {
                 break;
 
             case "todo":
-                createNewTodo(events, ui);
+                addNewTodo(events, ui);
                 break;
 
             case "lesson":
@@ -375,7 +375,7 @@ public class Command {
                 ui.costExceedsBudget(e.getConcert(), e.getBudget());
 //                logger.log(Level.WARNING, e.getMessage(), e);
             } catch (StringIndexOutOfBoundsException | ArrayIndexOutOfBoundsException | NullPointerException e) {
-                ui.eventFormatWrong();
+                ui.newEntryFormatWrong();
 //                logger.log(Level.WARNING, e.getMessage(), e);
             } catch (EndBeforeStartException e) { //start time is after end time
                 ui.eventEndsBeforeStart();
@@ -418,16 +418,20 @@ public class Command {
         return newEvent;
     }
 
-    public void createNewTodo(EventList events, UI ui) {
+    public void addNewTodo(EventList events, UI ui) {
         if (continuation.isEmpty()) {
             ui.eventDescriptionEmpty();
 //            logger.log(Level.WARNING, "The description of createNewTodo is empty");
             return;
         }
-        EntryForEvent entryForEvent = new EntryForEvent().invoke(); //separate all info into relevant details
-        Event newEvent = new ToDo(entryForEvent.getDescription(), entryForEvent.getStartDate());
-        events.addNewTodo(newEvent);
-        ui.eventAdded(newEvent, events.getNumEvents());
+        try {
+            EntryForToDo entryForToDo = new EntryForToDo().invoke(); //separate all info into relevant details
+            Event newToDo = new ToDo(entryForToDo.getDescription(), entryForToDo.getDate());
+            events.addNewTodo(newToDo);
+            ui.eventAdded(newToDo, events.getNumEvents());
+        } catch (StringIndexOutOfBoundsException | ArrayIndexOutOfBoundsException | NullPointerException e) {
+            ui.newEntryFormatWrong();
+        }
     }
 
     public void deleteEvent(EventList events, UI ui) {
@@ -778,6 +782,34 @@ public class Command {
 //                    logger.log(Level.INFO, "The event to be added is recurring");
                 }
             }
+            return this;
+        }
+    }
+
+    /**
+     * Contains all info concerning a new entry for a ToDo
+     */
+    private class EntryForToDo {
+        private String description;
+        private String date;
+
+        public String getDescription() {
+            return description;
+        }
+
+        public String getDate() {
+            return date;
+        }
+
+        /**
+         * contains all info regarding an entry for a ToDo
+         *
+         * @return organized entryForEvent information
+         */
+        public EntryForToDo invoke() {
+            String[] splitEvent = continuation.split("/");
+            description = splitEvent[0];
+            date = splitEvent[1];
             return this;
         }
     }
