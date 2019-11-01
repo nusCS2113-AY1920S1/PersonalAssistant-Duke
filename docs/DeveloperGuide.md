@@ -274,14 +274,14 @@ Step 2:System will display response with keyword “cs2113” in the response bo
  </tr> 
 </table>
 
-#### 3.1.5 Future Optimisations/ Version 2.
-● Implementing filter feature using multiple keywords
-```
-- Allows users to enter multiple keywords so as to better specific tasks that
-    the user wants.
-● Suggested list of keyword prompts
-- Shows a list of keywords common in all existing tasks allowing users to
-select keyword more easily
+  #### 3.1.5 Future Optimisations/ Version 2.
+    ● Implementing filter feature using multiple keywords
+    ```
+    - Allows users to enter multiple keywords so as to better specific tasks that
+        the user wants.
+    ● Suggested list of keyword prompts
+    - Shows a list of keywords common in all existing tasks allowing users to
+    select keyword more easily
 
 ### 3.2 Remind feature
 
