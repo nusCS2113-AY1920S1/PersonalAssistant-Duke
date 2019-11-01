@@ -3,6 +3,7 @@ package executor.command;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import duke.exception.DukeException;
 import executor.task.TaskList;
 import interpreter.Parser;
 import ui.Ui;
@@ -10,11 +11,11 @@ import ui.Wallet;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.*;
 
 public class CommandWeather extends Command {
     private LinkedHashMap<String, LinkedHashMap<String, String>> fullWeatherData;
+    private Set<String> periodsPossible = new HashSet<String>(Arrays.asList("now","later","tomorrow"));
 
     /**
      * CommandWeather displays weather information based on user request.
@@ -29,7 +30,11 @@ public class CommandWeather extends Command {
     
     @Override
     public void execute(Wallet wallet) {
-        printWeatherDataOutput();
+        try {
+            printWeatherDataOutput();
+        } catch (Exception e) {
+            Ui.dukeSays(getErrorMessage());
+        }
 
     }
 
@@ -46,14 +51,16 @@ public class CommandWeather extends Command {
      */
     private String getWhichWeatherDataUserWants(String userInput) {
         try {
-            return Parser.parseForFlag("until", userInput);
+            String period = Parser.parseForFlag("until", userInput);
+            if(getPeriodsPossible().contains(period) ) {
+                return Parser.parseForFlag("until", userInput);
+            } else{
+                throw new DukeException(getErrorMessage());
+            }
         } catch (Exception e) {
-            Ui.dukeSays("Please enter in the following format : \n"
-                    + "1. weather /until now \n"
-                    + "2. weather /until later \n"
-                    + "3. weather /until tomorrow \n");
-            return "later";
+            Ui.dukeSays(getErrorMessage());
         }
+        return "now";
     }
 
     /**
@@ -142,7 +149,21 @@ public class CommandWeather extends Command {
         return weatherData;
     }
 
+    public Set<String> getPeriodsPossible() {
+        return periodsPossible;
+    }
+
+
     public void setFullWeatherData(LinkedHashMap<String, LinkedHashMap<String, String>> fullWeatherData) {
         this.fullWeatherData = fullWeatherData;
     }
+
+    public String getErrorMessage() {
+        String errorMessage = "Please enter in either of the following format : \n"
+                + "1. weather /until now \n"
+                + "2. weather /until later \n"
+                + "3. weather /until tomorrow \n";
+        return errorMessage;
+    }
+
 }
