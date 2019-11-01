@@ -51,18 +51,57 @@ public class UI {
                 + "|_|      |_| |__________| |__________/  |__________| |__|    \\__\\" + "\n";
         System.out.println(logo);
         System.out.println(lineSeparation + "Hello! I'm MisterMusik!\nWhat can I do for you?\n");
+        printHelpList();
+        System.out.println("Please enter the command: ");
+    }
 
-        System.out.println("Commands:");
-        System.out.println("1. list: Print a list of events currently stored.");
-        System.out.println("2. todo <description of event>: Adds a simple event with no time or date involved");
-        System.out.println("3. event OR deadline <description of event> /at OR /by <time>: adds an event/deadline to the list of events.");
-        System.out.println("4. done <event number>: completes a event");
-        System.out.println("5. bye: exits the program\n");
-        System.out.println("6. reminder: view your upcoming events for the next 3 days");
-        System.out.println("When entering dates and times, you may do so in the following format for faster entry : \n" +
-                "dd-MM-yyyy HHmm\n" + lineSeparation);
-//        printReminder(Events);
-        System.out.println("Enter a command:");
+    public void printHelpList() {
+        System.out.print(lineSeparation);
+        System.out.println("Notice: Words in <> are the parameters to be supplied by the user; " +
+                "Items in [] are optional; " +
+                "Items with | in between them indicate the user can choose to use either of them");
+        System.out.println("------------------------------------ Basic Commands ------------------------------------");
+        System.out.println("1.  \"help\" -- Print out all the commands you can input.");
+        System.out.println("2.  \"list\" -- Print out all the events in the list.");
+        System.out.println("3.  \"reminder\" -- Display the list of events over the next 3 days.");
+        System.out.println("4.  \"view dd-MM-yyyy\" -- Print the event list for a particular date.");
+        System.out.println("5.  \"check\" -- Print the next 3 free days.");
+        System.out.println("6.  \"find <keyword>\" -- Search for a specific event using keywords.");
+        System.out.println("7.  \"delete <event index>\" -- Delete the specific event.");
+        System.out.println("8.  \"bye\" -- Exit the program.");
+        System.out.println("----------------------------------- Calendar Commands ----------------------------------");
+        System.out.println("9.  \"calendar\" -- Print the calendar for the current week.");
+        System.out.println("10. \"calendar last|next\" -- Print the calendar for the last or the next week.");
+        System.out.println("Add Event Commands -------------------------------------------------");
+        System.out.println("11. \"todo <description> /dd-MM-yyyy [HHmm]\" -- Add a todo task to the list.");
+        System.out.println("12. \"exam|recital|lesson|practice <description> /dd-MM-yyyy HHmm HHmm\" -- " +
+                "Add an event to the list.");
+        System.out.println("13. \"concert <description> /dd-MM-yyyy HHmm HHmm [/<cost of concert>]\" -- " +
+                "Add a concert to the list.");
+        System.out.println("14. \"practice|lesson <description> /dd-MM-yyyy HHmm HHmm /<period(in days)>\" -- " +
+                "Add recurring events with the first event date to the list.");
+        System.out.println("--------------------------- Change on Existing Event Commands ---------------------------");
+        System.out.println("15. \"done <event index>\" -- Mark a Todo task as completed. Do not work for non-Todo event.");
+        System.out.println("16. \"reschedule <event index> dd-MM-yyyy\" -- Reschedule the date and time of an event.");
+        System.out.println("17. \"edit <event index> /<description>\" -- Edit the description of an event.");
+        System.out.println("Details of Specified Event Commands --------------------------------");
+        System.out.println("18. \"budget MM-yyyy\" -- View monthly cost of concerts.");
+        System.out.println("19. \"goal|checklist add <event index> /<goal|checklist>\" -- " +
+                "Add a goal or a checklist to a specific event.");
+        System.out.println("20. \"contact add <event index> /<name>, [<email>], [<phone number>]\" -- " +
+                "Add a contact to a specific event.");
+        System.out.println("21. \"goal|checklist|contact delete <event index> <goal|checklist|contact index>\" -- " +
+                "Delete a specified goal or checklist or contact.");
+        System.out.println("22. \"goal|checklist edit <event index> <goal index> /<new goal>\" -- " +
+                "Edit an existing goal or checklist.");
+        System.out.println("23. \"contact edit <event index> <contact index> <edit type> /<new contact>\" -- " +
+                "Edit an existing contact, the edit type should be one of \"name\", \"email\", and \"phone\".");
+        System.out.println("24. \"goal achieved <event index> <goal index>\" -- Set the goal as achieved.");
+        System.out.println("25. \"goal|checklist|contact view <event index>\" -- " +
+                "Display the goals list or checklist list or contact list of a specified event with their status.");
+
+
+        System.out.print(lineSeparation);
     }
 
     /**

@@ -71,6 +71,10 @@ public class Command {
         boolean changesMade = true;
 //        logger.log(Level.INFO, "Read in the command");
         switch (command) {
+            case "help":
+                ui.printHelpList();
+                break;
+
             case "list":
                 listEvents(events, ui);
                 changesMade = false;
