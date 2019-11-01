@@ -110,7 +110,7 @@ public class RouteNodeNeighboursCommand extends Command {
 
             return result;
         } catch (IndexOutOfBoundsException e) {
-            throw new QueryOutOfBoundsException(String.valueOf(indexNode));
+            throw new QueryOutOfBoundsException();
         }
     }
 

@@ -1,7 +1,7 @@
 package duke.logic.conversations;
 
 import duke.commons.Messages;
-import duke.commons.exceptions.DukeException;
+import duke.commons.exceptions.DukeException
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;

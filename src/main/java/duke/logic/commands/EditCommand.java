@@ -29,8 +29,8 @@ public class EditCommand extends Command {
      * @param model The model object containing event list.
      */
     @Override
-    public CommandResultText execute(Model model) throws FileNotSavedException, CorruptedFileException {
-        if (canSave) {
+    public CommandResultText execute(Model model) throws FileNotSavedException {
+        if (canSave && events.isUnique()) {
             model.setEvents(events);
             model.save();
             logger.log(Level.FINE, "Event list is saved.");

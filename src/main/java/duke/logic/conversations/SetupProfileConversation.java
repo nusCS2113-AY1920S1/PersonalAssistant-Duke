@@ -24,7 +24,6 @@ public class SetupProfileConversation extends Conversation {
             if (isDateInput(input)) {
                 birthday = input;
                 state++;
-                attempts = 0;
                 buildResult();
                 setFinished(true);
             }

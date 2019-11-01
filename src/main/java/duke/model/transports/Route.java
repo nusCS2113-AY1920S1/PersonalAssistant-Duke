@@ -152,7 +152,7 @@ public class Route {
             return;
         }
 
-        throw new QueryOutOfBoundsException("NODE");
+        throw new QueryOutOfBoundsException();
     }
 
     /**
@@ -198,7 +198,7 @@ public class Route {
         try {
             nodes.remove(index);
         } catch (IndexOutOfBoundsException e) {
-            throw new QueryOutOfBoundsException(String.valueOf(index));
+            throw new QueryOutOfBoundsException();
         }
     }
 

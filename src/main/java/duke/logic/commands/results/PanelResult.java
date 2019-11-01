@@ -94,7 +94,7 @@ public class PanelResult {
      */
     public int getField() throws QueryOutOfBoundsException {
         if (!isLock) {
-            throw new QueryOutOfBoundsException("EVENT FIELD");
+            throw new QueryOutOfBoundsException();
         }
         return field;
     }

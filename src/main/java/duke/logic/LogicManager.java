@@ -40,17 +40,16 @@ public class LogicManager extends Logic {
      * @return CommandResult Object containing information for Ui to display.
      */
     public CommandResult execute(String userInput) throws DukeException, FileNotFoundException {
-        String input = userInput;
         Command c;
         if (EditorManager.isActive()) {
             logger.log(Level.INFO, "editing...");
-            c = EditorManager.edit(input);
+            c = EditorManager.edit(userInput);
         } else  {
             try {
-                c = Parser.parseComplexCommand(input);
+                c = Parser.parseComplexCommand(userInput);
                 conversationManager.clearContext();
             } catch (ParseException e) {
-                c = getCommandFromConversationManager(input);
+                c = getCommandFromConversationManager(userInput);
             }
         }
         return (CommandResult) c.execute(model);

@@ -2,7 +2,6 @@ package duke.logic.parsers;
 
 import duke.commons.Messages;
 import duke.commons.exceptions.ParseException;
-import duke.logic.commands.AddSampleItineraryCommand;
 import duke.logic.commands.Command;
 import duke.logic.commands.EditorCommand;
 import duke.logic.commands.ExitCommand;
@@ -22,7 +21,6 @@ import duke.logic.parsers.commandparser.CreateNewItineraryParser;
 import duke.logic.parsers.commandparser.DeleteParser;
 import duke.logic.parsers.commandparser.DoneParser;
 import duke.logic.parsers.commandparser.FindParser;
-import duke.logic.parsers.commandparser.FindPathParser;
 import duke.logic.parsers.commandparser.GetBusRouteParser;
 import duke.logic.parsers.commandparser.GetBusStopParser;
 import duke.logic.parsers.commandparser.LocationSearchParser;
@@ -60,7 +58,7 @@ public class Parser {
             return new ListCommand();
         case "help":
             return new HelpCommand();
-        case "fetch":
+        case "view":
             return new ViewScheduleCommand();
         case "edit":
             return new EditorCommand();
@@ -80,8 +78,6 @@ public class Parser {
             return new GetBusRouteParser(getWord(input)).parse();
         case "event":
             return new AddEventParser(input).parse();
-        case "findPath":
-            return new FindPathParser(getWord(input)).parse();
         case "recommend":
             return new RecommendationParser(input).parse();
         case "cancel":
@@ -111,11 +107,11 @@ public class Parser {
         case "routeNodeShow":
             return new RouteNodeShowCommand(ParserUtil.getIntegerIndexInList(0, 2, getWord(input)),
                     ParserUtil.getIntegerIndexInList(1, 2, getWord(input)));
-        case "routeNearby":
+        case "routeNodeNearby":
             return new RouteNodeNeighboursCommand(ParserUtil.getIntegerIndexInList(0, 2, getWord(input)),
                     ParserUtil.getIntegerIndexInList(1, 2, getWord(input)));
-        case "addThisList":
-            return new AddSampleItineraryCommand();
+        //case "addThisList":
+            //return new AddSampleItineraryCommand();
         case "newItinerary":
             return new CreateNewItineraryParser(input).parse();
         case "listItinerary":

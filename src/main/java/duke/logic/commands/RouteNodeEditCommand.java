@@ -79,7 +79,7 @@ public class RouteNodeEditCommand extends Command {
         } catch (IllegalArgumentException e) {
             throw new UnknownConstraintException();
         } catch (IndexOutOfBoundsException e) {
-            throw new QueryOutOfBoundsException("ROUTE_NODE");
+            throw new QueryOutOfBoundsException();
         }
     }
 }

@@ -23,11 +23,13 @@ public class ProfileSetPreferenceCommand extends Command {
         this.category = category.toLowerCase();
         if (setting.equalsIgnoreCase("true")) {
             this.setting = true;
-        } else {
+        } else if (setting.equalsIgnoreCase("false")){
             this.setting = false;
+        } else {
+            throw new ParseException(Messages.ERROR_INPUT_INVALID_FORMAT);
         }
         if (!this.category.equals("sports") && !this.category.equals("entertainment")
-                && !this.category.equals("arts") && !this.category.equals("lifestlye")) {
+                && !this.category.equals("arts") && !this.category.equals("lifestyle")) {
             throw new ParseException(Messages.ERROR_CATEGORY_NOT_FOUND);
         }
     }

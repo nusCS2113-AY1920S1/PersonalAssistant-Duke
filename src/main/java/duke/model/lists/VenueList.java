@@ -27,6 +27,10 @@ public class VenueList implements Iterable<Venue>, Listable<Venue> {
         }
     }
 
+    public VenueList(List<Venue> venueList) {
+        list = venueList;
+    }
+
     @Override
     public void add(Venue venue) {
         list.add(venue);
@@ -36,12 +40,8 @@ public class VenueList implements Iterable<Venue>, Listable<Venue> {
         return this.list;
     }
 
-    public void setVenueList(Venue venue, int index) {
-        list.set(index,venue);
-    }
-
-    public void addList(List<Venue> venueList) {
-        this.list = venueList;
+    public void setVenue(int index, Venue venue) throws IndexOutOfBoundsException {
+        list.set(index, venue);
     }
 
     @Override
@@ -49,7 +49,7 @@ public class VenueList implements Iterable<Venue>, Listable<Venue> {
         return list.get(index);
     }
 
-    public void remove(int index) {
+    public void remove(int index) throws IndexOutOfBoundsException {
         list.remove(index);
     }
 

@@ -3,14 +3,10 @@ package duke.storage;
 import duke.commons.exceptions.CategoryNotFoundException;
 import duke.commons.exceptions.CorruptedFileException;
 import duke.commons.exceptions.DukeDuplicateTaskException;
-import duke.commons.exceptions.DukeException;
 import duke.commons.exceptions.FileLoadFailException;
 import duke.commons.exceptions.FileNotSavedException;
-import duke.commons.exceptions.ItineraryInsufficientAgendasException;
 import duke.commons.exceptions.ParseException;
-import duke.commons.exceptions.RecommendationDayExceededException;
 import duke.commons.exceptions.RouteNodeDuplicateException;
-import duke.commons.exceptions.StorageFileNotFoundException;
 import duke.model.transports.TransportationMap;
 import duke.logic.parsers.ParserStorageUtil;
 import duke.logic.parsers.ParserTimeUtil;
@@ -51,12 +47,14 @@ public class Storage {
     private RouteList routes;
     private TransportationMap map;
     private ProfileCard profileCard;
+
     private static final String BUS_FILE_PATH = "/data/bus.txt";
     private static final String RECOMMENDATIONS_FILE_PATH = "/data/recommendations.txt";
-    private static final String ITINERARIES_FILE_PATH = "itineraries.txt";
     private static final String TRAIN_FILE_PATH = "/data/train.txt";
+
     private static final String EVENTS_FILE_PATH = "events.txt";
     private static final String ROUTES_FILE_PATH = "routes.txt";
+    private static final String ITINERARIES_FILE_PATH = "itineraries.txt";
     private static final String SAMPLE_RECOMMENDATIONS_FILE_PATH = "samples.txt";
     private static final String ITINERARY_LIST_FILE_PATH = "itineraryTable.txt";
     private static final String PROFILE_FILE_PATH = "profile.txt";
@@ -69,7 +67,7 @@ public class Storage {
         routes = new RouteList();
         try {
             read();
-        } catch (DukeException e) {
+        } catch (FileLoadFailException e) {
             logger.log(Level.WARNING, e.getMessage());
         }
     }
@@ -77,8 +75,7 @@ public class Storage {
     /**
      * Reads all storage file.
      */
-    private void read() throws RouteNodeDuplicateException, CorruptedFileException, StorageFileNotFoundException,
-            DukeDuplicateTaskException, ParseException, CategoryNotFoundException {
+    private void read() throws FileLoadFailException {
         readBus();
         readTrain();
         readProfile();
@@ -124,18 +121,14 @@ public class Storage {
         }
         s.close();
         this.map = new TransportationMap(busStopData, busData);
-
     }
 
     /**
      * Reads events from filepath. Creates empty events if file cannot be read.
      *
-     * @throws ParseException   If the datetime of an event cannot be parsed.
-     * @throws DukeDuplicateTaskException   If there is a duplicate event.
-     * @throws StorageFileNotFoundException If the file cannot be read.
+     * @throws FileLoadFailException If file cannot be loaded.
      */
-    private void readEvent() throws DukeDuplicateTaskException, ParseException,
-            StorageFileNotFoundException {
+    private void readEvent() throws FileLoadFailException {
         List<Event> events = new ArrayList<>();
         try {
             File f = new File(EVENTS_FILE_PATH);
@@ -144,20 +137,18 @@ public class Storage {
                 events.add(ParserStorageUtil.createTaskFromStorage(s.nextLine()));
             }
             s.close();
-        } catch (FileNotFoundException e) {
-            throw new StorageFileNotFoundException(EVENTS_FILE_PATH);
+            this.events.setEvents(events);
+        } catch (FileNotFoundException | ParseException | DukeDuplicateTaskException e) {
+            throw new FileLoadFailException(EVENTS_FILE_PATH);
         }
-        this.events.setEvents(events);
     }
 
     /**
      * Reads routes from filepath. Creates empty routes if file cannot be read.
      *
-     * @throws RouteNodeDuplicateException  If there is a duplicate route that is read.
-     * @throws CorruptedFileException       If the reading has failed.
-     * @throws StorageFileNotFoundException If the storage file cannot be found.
+     * @throws FileLoadFailException If there is a duplicate route that is read.d.
      */
-    private void readRoutes() throws RouteNodeDuplicateException, CorruptedFileException, StorageFileNotFoundException {
+    private void readRoutes() throws FileLoadFailException {
         List<Route> newRoutes = new ArrayList<>();
         try {
             File file = new File(ROUTES_FILE_PATH);
@@ -177,13 +168,11 @@ public class Storage {
             if (!newRoute.getName().equals("")) {
                 newRoutes.add(newRoute);
             }
-
             s.close();
-        } catch (FileNotFoundException e) {
-            throw new StorageFileNotFoundException(ROUTES_FILE_PATH);
+            routes.setRoutes(newRoutes);
+        } catch (FileNotFoundException | RouteNodeDuplicateException | CorruptedFileException e) {
+            throw new FileLoadFailException(ROUTES_FILE_PATH);
         }
-
-        routes.setRoutes(newRoutes);
     }
 
     /**
@@ -191,12 +180,12 @@ public class Storage {
      *
      * @return The List of all Venues in Recommendations list.
      */
-    public List<Agenda> readVenues(int numDays) throws RecommendationDayExceededException {
+    public List<Agenda> readVenues(int numDays) throws FileLoadFailException {
         List<Agenda> recommendations = new ArrayList<>();
         Scanner scanner = new Scanner(getClass().getResourceAsStream(RECOMMENDATIONS_FILE_PATH));
         int i = 1;
         if (numDays > 8) {
-            throw new RecommendationDayExceededException();
+            throw new FileLoadFailException("Don't throw a logic exception here. Storage is for Storage only. Change this.");
         }
         while (scanner.hasNext() && i <= numDays) {
             List<Venue> venueList = new ArrayList<>();
@@ -208,31 +197,26 @@ public class Storage {
             recommendations.add(agenda);
         }
         scanner.close();
-
         return recommendations;
     }
 
     /**
-     * Reads the profile from filepath. Creates new empty profile if file doesnt exist.
+     * Reads the profile from filepath. Creates new empty profile if file doesn't exist.
      */
-    public void readProfile() throws StorageFileNotFoundException,
-            ParseException, CategoryNotFoundException {
+    private void readProfile() throws FileLoadFailException {
         profileCard = new ProfileCard();
         try {
             File f = new File(PROFILE_FILE_PATH);
             Scanner s = new Scanner(f);
             while (s.hasNext()) {
                 String input = s.nextLine();
-                profileCard = ParserStorageUtil.createProfileFromStorage(profileCard, input);
+                ParserStorageUtil.createProfileFromStorage(profileCard, input);
             }
-
             s.close();
-        } catch (FileNotFoundException e) {
-
+        } catch (FileNotFoundException | ParseException | CategoryNotFoundException e) {
             profileCard = new ProfileCard();
-
+            throw new FileLoadFailException(PROFILE_FILE_PATH);
         }
-
     }
 
     /**
@@ -302,8 +286,7 @@ public class Storage {
      *
      * @throws FileNotSavedException If the file cannot be saved.
      */
-    public void writeItineraries(Itinerary itinerary, int type) throws ItineraryInsufficientAgendasException,
-            FileNotSavedException {
+    public void writeItineraries(Itinerary itinerary, int type) throws FileNotSavedException {
         String file;
         if (type == 1) {
             file = ITINERARIES_FILE_PATH;
@@ -315,7 +298,7 @@ public class Storage {
             writer.write(itinerary.getName() + "\n" + itinerary.getStartDate().toString() + "\n"
                     + itinerary.getEndDate().toString() + "\n" + itinerary.getHotelLocation().toString() + "\n");
             if (itinerary.getList().size() != itinerary.getNumberOfDays()) {
-                throw new ItineraryInsufficientAgendasException();
+                throw new FileNotSavedException(file);
             }
             for (Agenda agenda : itinerary.getList()) {
                 writer.write(agenda.toString());
@@ -329,10 +312,9 @@ public class Storage {
     /**
      * Reads recommendations from filepath.
      *
-     * @throws ParseException If the datetime cannot be parsed.
      * @throws FileLoadFailException If the file fails to load.
      */
-    public Itinerary readRecommendations() throws ParseException, FileLoadFailException {
+    public Itinerary readRecommendations() throws FileLoadFailException {
         List<Agenda> agendaList = new ArrayList<>();
         Itinerary itinerary;
         try {
@@ -355,8 +337,8 @@ public class Storage {
             }
             scanner.close();
             itinerary.setTasks(agendaList);
-        } catch (FileNotFoundException e) {
-            throw new FileLoadFailException(new File(SAMPLE_RECOMMENDATIONS_FILE_PATH));
+        } catch (FileNotFoundException | ParseException e) {
+            throw new FileLoadFailException(SAMPLE_RECOMMENDATIONS_FILE_PATH);
         }
         return itinerary;
     }
@@ -365,7 +347,7 @@ public class Storage {
      * Writes the specified itineraries name to the table of contents.
      *
      * @param itinerary This itineraries name is to be stored.
-     * @throws FileNotSavedException      If the file fails to save.
+     * @throws FileNotSavedException If the file fails to save.
      */
     public void writeItinerarySave(Itinerary itinerary) throws FileNotSavedException {
         try {
@@ -403,7 +385,7 @@ public class Storage {
                 output.append(number).append(". ").append(name).append("\n");
             }
         } catch (FileNotFoundException e) {
-            throw new FileLoadFailException(new File(ITINERARY_LIST_FILE_PATH));
+            throw new FileLoadFailException(ITINERARY_LIST_FILE_PATH);
         }
         return output.toString();
     }
@@ -414,7 +396,7 @@ public class Storage {
      * @param number The itineraries serial number.
      * @throws FileLoadFailException   If the file fails to load.
      */
-    public Itinerary getItinerary(String number) throws DukeException {
+    public Itinerary getItinerary(String number) throws FileLoadFailException {
         Itinerary itinerary = null;
         try {
             File itineraryTable = new File(ITINERARY_LIST_FILE_PATH);
@@ -463,7 +445,7 @@ public class Storage {
             itinerary.setTasks(agendaList);
             return itinerary;
         } catch (FileNotFoundException | ParseException e) {
-            throw new FileLoadFailException(new File(ITINERARY_LIST_FILE_PATH));
+            throw new FileLoadFailException(ITINERARY_LIST_FILE_PATH);
         }
     }
 
@@ -481,9 +463,5 @@ public class Storage {
 
     public ProfileCard getProfileCard() {
         return profileCard;
-    }
-
-    public boolean getIsNewUser() {
-        return profileCard.isNewUser();
     }
 }

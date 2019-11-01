@@ -8,19 +8,13 @@ import java.io.File;
  * Exception thrown when file cannot be loaded.
  */
 public class FileLoadFailException extends DukeException {
-    private File file;
 
     /**
      * Constructs the Exception.
      *
-     * @param file The file being loaded.
+     * @param filePath The relative path of the file being loaded.
      */
-    public FileLoadFailException(File file) {
-        super(Messages.ERROR_FILE_NOT_FOUND);
-        this.file = file;
-    }
-
-    public File getFile() {
-        return file;
+    public FileLoadFailException(String filePath) {
+        super(filePath + Messages.ERROR_FILE_NOT_FOUND);
     }
 }
