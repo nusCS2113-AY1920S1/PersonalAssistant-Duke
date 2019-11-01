@@ -11,6 +11,9 @@ import ui.Wallet;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.util.LinkedHashMap;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.*;
 
 public class CommandWeather extends Command {
@@ -47,9 +50,9 @@ public class CommandWeather extends Command {
     private String getWhichWeatherDataUserWants(String userInput) {
         try {
             String period = Parser.parseForFlag("until", userInput);
-            if(getPeriodsPossible().contains(period) ) {
+            if (getPeriodsPossible().contains(period)) {
                 return Parser.parseForFlag("until", userInput);
-            } else{
+            } else {
                 throw new DukeException(getErrorMessage());
             }
         } catch (Exception e) {
@@ -99,7 +102,7 @@ public class CommandWeather extends Command {
             } else {
                 Ui.dukeSays("Weather Data not available");
             }
-        } catch (Exception e){
+        } catch (Exception e) {
             Ui.dukeSays(getErrorMessage());
         }
     }
@@ -153,7 +156,7 @@ public class CommandWeather extends Command {
                 return weatherData;
             }
             return null;
-        } catch (Exception e){
+        } catch (Exception e) {
             return null;
         }
     }
@@ -167,6 +170,10 @@ public class CommandWeather extends Command {
         this.fullWeatherData = fullWeatherData;
     }
 
+    /**
+     * getErrorMessage helps to retrieve the long message whenever required.
+     * @return String form of the error message to be displayed is returned
+     */
     public String getErrorMessage() {
         String errorMessage = "Please enter in either of the following format : \n"
                 + "1. weather /until now \n"
