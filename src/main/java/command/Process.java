@@ -512,7 +512,8 @@ public class Process {
             String[] splitspace = input.split("edit ", 2);
             String[] splitpayments = splitspace[1].split("p/|v/|f/|r/");
             splitpayments = cleanStrStr(splitpayments);
-            PaymentManager.editPayee(splitpayments[1], splitpayments[2], splitpayments[3], splitpayments[4], managermap);
+            PaymentManager.editPayee(splitpayments[1], splitpayments[2], splitpayments[3], splitpayments[4], managermap, ui);
+            
         }
         catch (IllegalArgumentException e){
             ui.exceptionMessage("     ☹ OOPS!!! Please input the correct command format (refer to user guide)");
