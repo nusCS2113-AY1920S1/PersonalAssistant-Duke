@@ -344,6 +344,21 @@ public class ResourceList {
         }
         return number;
     }
+    /**
+     * 
+     * @param date
+     * @return
+     * @throws ParseException
+     */
+    public int getBookedNumberOfResourceForDate(Date date) throws ParseException {
+        int number = 0;
+        for (int i = 0; i < resources.size(); i++) {
+            if (!resources.get(i).isAvailableOnDate(date)) {
+                number++;
+            }
+        }
+        return number;
+    }
 
 
     /**

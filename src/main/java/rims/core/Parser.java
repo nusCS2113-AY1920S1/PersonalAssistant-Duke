@@ -37,7 +37,7 @@ public class Parser {
     }
 
     public void setPrevCommand(Command c) {
-        if (c.canChangeData()) { prevCommand = c; }
+        //if (c.canChangeData()) { prevCommand = c; }
     }
 
     /**
@@ -302,7 +302,22 @@ public class Parser {
             c = new ReturnCommand(userId, resourcesToReturn, reservationsToCancel);
         } else if (words[0].equals("undo")) {
             c = new UndoCommand(prevCommand);
-        } else {
+        } else if (words[0].equals("stats")) {
+            String dateFrom = ui.getInput(
+                "Enter the start date in the format: DD/MM/YYYY HHmm, OR in the format: Tuesday HHmm");
+            if (dateFrom.length() < 15) {
+                String[] splitDateFrom = dateFrom.split(" ");
+                dateFrom = convertNaturalDate(splitDateFrom[0], splitDateFrom[1]);
+            }
+            String dateTill = ui.getInput(
+                "Enter the start date in the format: DD/MM/YYYY HHmm, OR in the format: Tuesday HHmm");
+            if (dateFrom.length() < 15) {
+                String[] splitDateTill = dateFrom.split(" ");
+                dateTill = convertNaturalDate(splitDateTill[0], splitDateTill[1]);
+            }
+            c = new StatsCommand(dateFrom, dateTill);
+        } 
+        else {
             throw new RimsException("Please enter a recognizable command!");
         }
         return c;
