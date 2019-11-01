@@ -30,7 +30,6 @@ dependencies {
     compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.12.1'
 
     String javaFxVersion = '11.0.1'
-
     implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'win'
     implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'mac'
     implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'linux'
@@ -48,11 +47,6 @@ dependencies {
 test {
     useJUnitPlatform()
 }
-
-//javafx {
-//    version = "11.0.2"
-//    modules = [ 'javafx.controls', 'javafx.fxml' ]
-//}
 
 repositories {
     mavenCentral()
