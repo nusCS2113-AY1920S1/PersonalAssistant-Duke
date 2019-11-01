@@ -6,8 +6,11 @@ import seedu.duke.CommandParseHelper;
 import seedu.duke.Duke;
 import seedu.duke.common.command.Command;
 import seedu.duke.common.model.Model;
+import seedu.duke.common.storage.Storage;
 
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -69,12 +72,18 @@ public class UI {
 
     public void setupLogger()
     {
+        Path logPath = Storage.prepareLogFolderPath();
+        File logDir = new File(logPath.toString());
+        if( !(logDir.exists()) )
+            logDir.mkdir();
+
+        DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd_HHmm");
+        Date date = new Date();
+        String dateStr = dateFormat.format(date);
+        String fileName = logPath + File.separator +  "log" + dateStr +  ".txt";
+
         FileHandler fh = null;
         try {
-            DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
-            Date date = new Date();
-            String dateStr = dateFormat.format(date);
-            String fileName = "log" + dateStr +  ".txt";
             fh = new FileHandler(fileName);
             fh.setFormatter(new SimpleFormatter());
             fh.setLevel(Level.ALL);
