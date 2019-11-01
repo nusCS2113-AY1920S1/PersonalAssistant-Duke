@@ -16,7 +16,7 @@ public class ParserTrainingPlan implements IParser {
     /**
      * A scanner to handle user input.
      */
-    private Scanner sc;
+    private Scanner sc = new Scanner(System.in);
     /**
      * MyPlan object.
      */
@@ -39,7 +39,7 @@ public class ParserTrainingPlan implements IParser {
      * @throws FileNotFoundException File not found
      */
     @Override
-    public void parseCommand(final String input) throws FileNotFoundException {
+    public void parseCommand() throws FileNotFoundException {
         String[] word = input.split(" ");
         String cmd = word[0];
 
