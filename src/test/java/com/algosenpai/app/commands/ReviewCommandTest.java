@@ -18,7 +18,18 @@ import org.junit.jupiter.api.Test;
 import org.testfx.api.FxToolkit;
 import org.testfx.framework.junit5.ApplicationTest;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 public class ReviewCommandTest extends ApplicationTest {
+
+    @Test
+    void testHelpKeyPress() {
+        clickOn("#userInput").write("review 1").press(KeyCode.ENTER);
+        VBox container = find();
+        DialogBox dialogBox = (DialogBox) container.getChildren().get(1);
+        String actualText = dialogBox.getDialog().getText();
+        assertEquals("There is no current quiz available!", actualText);
+    }
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -43,24 +54,7 @@ public class ReviewCommandTest extends ApplicationTest {
         FxToolkit.hideStage();
     }
 
-    @Test
-    void testHelpMousePress() {
-        clickOn("#userInput").write("review 1");
-        clickOn("#sendButton");
-        VBox container = find();
-        DialogBox dialogBox = (DialogBox) container.getChildren().get(1);
-        String actualText = dialogBox.getDialog().getText();
-        Assertions.assertEquals("There is no current quiz available!", actualText);
-    }
 
-    @Test
-    void testHelpKeyPress() {
-        clickOn("#userInput").write("review 1").press(KeyCode.ENTER);
-        VBox container = find();
-        DialogBox dialogBox = (DialogBox) container.getChildren().get(1);
-        String actualText = dialogBox.getDialog().getText();
-        Assertions.assertEquals("There is no current quiz available!", actualText);
-    }
 
 
     <T extends Node> T find() {
