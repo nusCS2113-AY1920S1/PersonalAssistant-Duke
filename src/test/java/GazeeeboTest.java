@@ -21,7 +21,7 @@ public class GazeeeboTest {
         Ui ui = new Ui();
         Storage storage = new Storage();
         TriviaManager triviaManager = new TriviaManager(storage);
-        Stack<String> commandStack = new Stack<>();
+        Stack<ArrayList<Task>> commandStack = new Stack<>();
         ArrayList<Task> deletedTask = new ArrayList<>();
         try {
             deadlineCommand.execute(tasks,ui,storage,commandStack,deletedTask,triviaManager);
