@@ -8,7 +8,6 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TableColumn;
-import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
@@ -53,6 +52,7 @@ public class Gui extends Ui  {
                 e.printStackTrace();
             }
 
+
             inputField = new InputTextBox(textFlow);
             outputTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
             printIntro();
@@ -72,7 +72,11 @@ public class Gui extends Ui  {
                         break;
 
                     case BACK_SPACE:
-                        inputField.removeFromWord();
+                        inputField.removeTextBackspace();
+                        break;
+
+                    case DELETE:
+                        inputField.removeWordDelete();
                         break;
 
                     case TAB:
@@ -84,22 +88,25 @@ public class Gui extends Ui  {
                         break;
 
                     case UP:
-                        if (inputField.getAllText().equals("")) {
-                            // Can't cycle through command possibilities when
-                            // inputField is empty.
-                            break;
-                        }
-                        inputField.appendText("", -1);
+                        inputField.clearAllText();
+                        inputField.appendText(CommandHistory.getCommand(-1), 0);
                         break;
 
                     case DOWN:
-                        if (inputField.getAllText().equals("")) {
-                            // Can't cycle through command possibilities when
-                            // inputField is empty.
-                            break;
-                        }
-                        inputField.appendText("", 1);
+                        inputField.clearAllText();
+                        inputField.appendText(CommandHistory.getCommand(1), 0);
                         break;
+
+                    case LEFT:
+                        // Used to move caret to edit text on the left.
+                        inputField.moveCaret(-1);
+                        break;
+
+                    case RIGHT:
+                        // Used to move caret to edit text on the right.
+                        inputField.moveCaret(1);
+                        break;
+
                     default:
                         // To appease mr. travis
                         break;
@@ -123,6 +130,7 @@ public class Gui extends Ui  {
      */
     public String read() {
         String userInput = inputField.getAllText();
+        CommandHistory.addToHistory(userInput);
         inputField.clearAllText();
         outputField.appendText("\n" + userInput);
         return userInput;
@@ -143,7 +151,7 @@ public class Gui extends Ui  {
      * that it uses to redraw the entire table.
      * @param tableStruct Structure that holds all data to be displayed.
      */
-    public void drawTable(TableStruct tableStruct) { // TODO: Change to master list...
+    public void drawTable(TableStruct tableStruct) {
         outputTable.getColumns().clear();
         outputTable.getItems().clear();
         outputTable.refresh();

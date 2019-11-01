@@ -46,7 +46,7 @@ public abstract class Ui {
      * Prints error message to CLI.
      */
     public void printError(Exception e) {
-        print("Parser error: \n" + e);
+        print("Parser error: \n" + e.getMessage());
     }
 
     /**

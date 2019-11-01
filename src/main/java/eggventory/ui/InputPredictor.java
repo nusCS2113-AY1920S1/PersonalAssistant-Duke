@@ -46,6 +46,10 @@ public class InputPredictor {
     public String getPrediction(String query, int direction) {
         String remainString = "";
 
+        if (query.equals("")) {
+            return remainString;
+        }
+
         // Conditional to control aforementioned states.
         if (isCommandFound) {
             // At this point the user will have input a valid command, and will be

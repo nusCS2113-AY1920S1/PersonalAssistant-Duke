@@ -183,8 +183,6 @@ public class Stock {
         return stockType + "," + stockCode + "," + quantity + "," + description + "," + minimum;
     }
 
-    //    //TODO: Fix methods below for new UI.print() implementation.
-    //
     //    /**
     //     * Prints the complete details of all the items of this type.
     //     * Format example: 560ohm Resistors: 280 available. 100 on loan. 20 lost. (400 total.)
