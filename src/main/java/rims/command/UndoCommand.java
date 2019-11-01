@@ -51,10 +51,10 @@ public class UndoCommand extends Command {
     }
 
     @Override
-    public boolean canChangeData() {
+    public boolean canModifyData() {
         return false;
     }
 
     @Override
-    public String commandUserInput() { return "undo"; }
+    public String getCommandUserInput() { return "undo"; }
 }

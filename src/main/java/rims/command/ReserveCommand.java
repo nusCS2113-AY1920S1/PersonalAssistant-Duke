@@ -144,12 +144,12 @@ public class ReserveCommand extends Command {
     }
 
     @Override
-    public boolean canChangeData() {
+    public boolean canModifyData() {
         return true;
     }
 
     @Override
-    public String commandUserInput() {
+    public String getCommandUserInput() {
         return "reserve";
     }
 }
