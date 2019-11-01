@@ -66,14 +66,17 @@ public class DegreeManager {
      * @throws DukeException is thrown if there is no degree information in the first column
      */
     private void addDegree(String[] split, List<String> degreecsv) throws DukeException {
-        if(split.length == 1)
-            degreeInfo.put(split[0], new Degree(degreecsv));
-        else
-        {
-            if(split[0].isBlank())
-                throw new DukeException("Unable to find main degree");
-            else
+        try {
+            if (split.length == 1)
                 degreeInfo.put(split[0], new Degree(degreecsv));
+            else {
+                if (split[0].isBlank())
+                    throw new DukeException("Unable to find main degree");
+                else
+                    degreeInfo.put(split[0], new Degree(degreecsv));
+            }
+        } catch (DukeException e) {
+            throw new DukeException("For Degree " + split[0] + ": " + e.getLocalizedMessage());
         }
     }
 
