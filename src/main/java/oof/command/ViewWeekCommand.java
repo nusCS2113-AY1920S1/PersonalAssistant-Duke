@@ -1,24 +1,24 @@
 package oof.command;
 
-import oof.Storage;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+
+import oof.Ui;
 import oof.model.module.SemesterList;
 import oof.model.task.Deadline;
 import oof.model.task.Event;
 import oof.model.task.Task;
-import oof.Ui;
 import oof.model.task.TaskList;
 import oof.model.task.Todo;
-import oof.model.tracker.TrackerList;
-
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
+import oof.storage.StorageManager;
 
 /**
  * Represents a Command to view tasks for a particular week.
  */
 public class ViewWeekCommand extends Command {
 
+    public static final String COMMAND_WORD = "viewweek";
     private int day;
     private int week;
     private int month;
@@ -34,7 +34,6 @@ public class ViewWeekCommand extends Command {
     private static final int INDEX_YEAR = 2;
     private static final int MONTH_JANUARY = 0;
     private static final int MONTH_DECEMBER = 11;
-    private static final int OFFSET = 1;
     private static final int DAYS_IN_WEEK = 7;
     private static final int LEAST_POSSIBLE_TASK_SIZE = 0;
     private static final int LEAST_POSSIBLE_COL_SIZE = 19;
@@ -51,9 +50,9 @@ public class ViewWeekCommand extends Command {
         }
         Calendar calendar = Calendar.getInstance();
         try {
-            this.day = Integer.parseInt(argumentArray[INDEX_DAY + OFFSET]);
-            this.month = Integer.parseInt(argumentArray[INDEX_MONTH + OFFSET]) - 1;
-            this.year = Integer.parseInt(argumentArray[INDEX_YEAR + OFFSET]);
+            this.day = Integer.parseInt(argumentArray[INDEX_DAY]);
+            this.month = Integer.parseInt(argumentArray[INDEX_MONTH]) - 1;
+            this.year = Integer.parseInt(argumentArray[INDEX_YEAR]);
             this.lastDate = calendar.getActualMaximum(Calendar.DATE);
             if ((this.day < DATE_FIRST || this.day > lastDate)
                     || (this.month < MONTH_JANUARY || this.month > MONTH_DECEMBER)) {
@@ -75,14 +74,14 @@ public class ViewWeekCommand extends Command {
      * @param semesterList Instance of SemesterList that stores Semester objects.
      * @param taskList     Instance of TaskList that stores Task objects.
      * @param ui           Instance of Ui that is responsible for visual feedback.
-     * @param storage      Instance of Storage that enables the reading and writing of Task
+     * @param storageManager      Instance of Storage that enables the reading and writing of Task
      */
     @Override
-    public void execute(SemesterList semesterList, TaskList taskList, Ui ui, Storage storage) {
+    public void execute(SemesterList semesterList, TaskList taskList, Ui ui, StorageManager storageManager) {
         Calendar calendar = Calendar.getInstance();
         Date date = getStartDate(this.day, this.month, this.year);
         calendar.setTime(date);
-        for (Task task : taskList.getTasks()) {
+        for (Task task : taskList.getTaskList()) {
             if (task instanceof Todo) {
                 addToDoTask(task, calendar);
             } else if (task instanceof Deadline) {

@@ -1,14 +1,6 @@
 
 package oof.command;
 
-import oof.Storage;
-import oof.model.module.SemesterList;
-import oof.model.task.TaskList;
-import oof.Ui;
-import oof.exception.OofException;
-import oof.model.task.Event;
-import oof.model.task.Task;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.DateTimeException;
@@ -16,11 +8,20 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Date;
 
+import oof.Ui;
+import oof.exception.OofException;
+import oof.model.module.SemesterList;
+import oof.model.task.Event;
+import oof.model.task.Task;
+import oof.model.task.TaskList;
+import oof.storage.StorageManager;
+
 /**
  * Represents a Command to search for free time slots.
  */
 public class FreeCommand extends Command {
 
+    public static final String COMMAND_WORD = "free";
     private String dateWanted;
     private ArrayList<Date> eventStartTimes = new ArrayList<>();
     private ArrayList<Date> eventEndTimes = new ArrayList<>();
@@ -50,12 +51,13 @@ public class FreeCommand extends Command {
      * @param semesterList Instance of SemesterList that stores Semester objects.
      * @param taskList     Instance of TaskList that contains list of tasks.
      * @param ui           Instance of Ui that is responsible for visual feedback.
-     * @param storage      Instance of Storage that enables the reading and writing of Task
+     * @param storageManager      Instance of Storage that enables the reading and writing of Task
      *                     objects to hard disk.
      * @throws OofException if user input invalid commands.
      */
     @Override
-    public void execute(SemesterList semesterList, TaskList taskList, Ui ui, Storage storage) throws OofException {
+    public void execute(SemesterList semesterList, TaskList taskList, Ui ui, StorageManager storageManager)
+            throws OofException {
         Date current = new Date();
         try {
             if (isDateAfterCurrentDate(current, dateWanted) || isDateSame(current, dateWanted)) {

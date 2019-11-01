@@ -1,6 +1,10 @@
 package oof.command;
 
-import oof.Storage;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
+
 import oof.Ui;
 import oof.exception.OofException;
 import oof.model.module.SemesterList;
@@ -9,15 +13,13 @@ import oof.model.task.Task;
 import oof.model.task.TaskList;
 import oof.model.tracker.Tracker;
 import oof.model.tracker.TrackerList;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
+import oof.storage.StorageManager;
 
 public class TrackerCommand extends Command {
 
-    String description;
-    private static final long DEFAULT_TIMETAKEN = 0;
+    public static final String COMMAND_WORD = "tracker";
+    private String description;
+    private static final long DEFAULT_TIME_TAKEN = 0;
     private static final int INDEX_INSTRUCTION = 0;
     private static final int INDEX_MODULE_CODE = 1;
     private static final int INDEX_DESCRIPTION = 2;
@@ -34,12 +36,18 @@ public class TrackerCommand extends Command {
     }
 
     @Override
-    public void execute(SemesterList semesterList, TaskList taskList, Ui ui, Storage storage) throws OofException {
+    public void execute(SemesterList semesterList, TaskList taskList, Ui ui, StorageManager storageManager)
+            throws OofException {
         if (description.isEmpty()) {
             throw new OofException("Please enter your instructions!");
         }
 
-        TrackerList trackerList = storage.readTrackerList();
+        TrackerList trackerList;
+        try {
+            trackerList = storageManager.readTrackerList();
+        } catch (FileNotFoundException e) {
+            trackerList = new TrackerList();
+        }
         String[] input = description.split(" ", SPLIT_INPUT);
         String trackerCommand = input[INDEX_INSTRUCTION].toLowerCase();
 
@@ -51,13 +59,11 @@ public class TrackerCommand extends Command {
             TrackerList sortedTL = sortAscending(moduleTrackerList);
             ui.printTrackerDiagram(sortedTL);
         } else {
-            String moduleCode = input[INDEX_MODULE_CODE].toLowerCase();
-            String moduleDescription = input[INDEX_DESCRIPTION].toLowerCase();
-
             if (input.length < SPLIT_INPUT) {
                 throw new OofException("Invalid input!");
             }
-
+            String moduleCode = input[INDEX_MODULE_CODE].toLowerCase();
+            String moduleDescription = input[INDEX_DESCRIPTION].toLowerCase();
             Tracker tracker = trackerList.findTrackerByDesc(moduleDescription, moduleCode);
             Assignment assignment = findAssignment(moduleDescription, moduleCode, taskList);
             if (assignment == null) {
@@ -77,9 +83,9 @@ public class TrackerCommand extends Command {
                     trackerList.addTracker(tracker);
                 } else {
                     updateTrackerList(moduleDescription, moduleCode, trackerList);
+                    storageManager.writeTrackerList(trackerList);
+                    ui.printStartAtCurrent(tracker);
                 }
-                storage.writeTrackerList(trackerList);
-                ui.printStartAtCurrent(tracker);
                 break;
 
             case STOP_COMMAND:
@@ -88,8 +94,8 @@ public class TrackerCommand extends Command {
                 } else {
                     updateTimeTaken(tracker);
                     assignment.setStatus();
-                    storage.writeTrackerList(trackerList);
-                    storage.writeTaskList(taskList);
+                    storageManager.writeTrackerList(trackerList);
+                    storageManager.writeTaskList(taskList);
                     ui.printEndAtCurrent(tracker);
                 }
                 break;
@@ -99,7 +105,7 @@ public class TrackerCommand extends Command {
                     throw new OofException("Tracker for this Assignment has not started.");
                 } else {
                     updateTimeTaken(tracker);
-                    storage.writeTrackerList(trackerList);
+                    storageManager.writeTrackerList(trackerList);
                     ui.printPauseAtCurrent(tracker);
                 }
                 break;
@@ -123,8 +129,7 @@ public class TrackerCommand extends Command {
             Task t = tasks.getTask(i);
             if (t instanceof Assignment) {
                 Date current = new Date();
-                Tracker tracker = new Tracker(moduleCode, moduleDescription, current, current, DEFAULT_TIMETAKEN);
-                return tracker;
+                return new Tracker(moduleCode, moduleDescription, current, current, DEFAULT_TIME_TAKEN);
             }
         }
         return null;

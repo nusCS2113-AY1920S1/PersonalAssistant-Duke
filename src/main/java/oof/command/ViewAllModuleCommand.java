@@ -1,12 +1,12 @@
 package oof.command;
 
 import oof.SelectedInstance;
-import oof.Storage;
 import oof.Ui;
 import oof.exception.OofException;
 import oof.model.module.Semester;
 import oof.model.module.SemesterList;
 import oof.model.task.TaskList;
+import oof.storage.StorageManager;
 
 /**
  * Represents a Command to view the list of Modules.
@@ -21,7 +21,8 @@ public class ViewAllModuleCommand extends Command {
     }
 
     @Override
-    public void execute(SemesterList semesterList, TaskList tasks, Ui ui, Storage storage) throws OofException {
+    public void execute(SemesterList semesterList, TaskList tasks, Ui ui, StorageManager storageManager)
+            throws OofException {
         viewModuleList(ui);
     }
 
