@@ -322,7 +322,7 @@ public class TaskList {
      * @return the task at the specified index of the task list
      * @throws RoomShareException when the index specified is out of bounds
      */
-    public Task get(int index) throws RoomShareException{
+    public static Task get(int index) throws RoomShareException{
         try {
             return tasks.get(index);
         } catch (IndexOutOfBoundsException e) {
