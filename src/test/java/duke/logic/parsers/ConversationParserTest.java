@@ -26,8 +26,6 @@ class ConversationParserTest {
                 instanceof FindConversation);
         assertTrue(ConversationParser.parse("busStop")
                 instanceof GetBusStopConversation);
-        assertTrue(ConversationParser.parse("findPath")
-                instanceof FindPathConversation);
         assertTrue(ConversationParser.parse("search")
                 instanceof SearchConversation);
         assertThrows(ParseException.class,

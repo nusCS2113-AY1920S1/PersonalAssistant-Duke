@@ -39,7 +39,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class StorageStub {
@@ -63,22 +62,15 @@ public class StorageStub {
     public StorageStub() {
         events = new EventList();
         routes = new RouteList();
-        try {
-            read();
-        } catch (DukeException e) {
-            logger.log(Level.WARNING, e.getMessage());
-        }
+        read();
     }
 
     /**
      * Reads all storage file.
      */
-    private void read() throws RouteNodeDuplicateException, CorruptedFileException, StorageFileNotFoundException,
-            DukeDuplicateTaskException, DukeDateTimeParseException {
+    private void read() {
         readBus();
         readTrain();
-        readEvent();
-        readRoutes();
     }
 
     /**
@@ -124,7 +116,6 @@ public class StorageStub {
     /**
      * Reads events from filepath. Creates empty events if file cannot be read.
      *
-     * @throws DukeDateTimeParseException   If the datetime of an event cannot be parsed.
      * @throws DukeDuplicateTaskException   If there is a duplicate event.
      * @throws StorageFileNotFoundException If the file cannot be read.
      */
@@ -310,7 +301,7 @@ public class StorageStub {
             s.close();
             itinerary.setTasks(agendaList);
         } catch (FileNotFoundException | ParseException e) {
-            throw new FileLoadFailException(new File(SAMPLE_RECOMMENDATIONS_FILE_PATH));
+            throw new FileLoadFailException(RECOMMENDATIONS_FILE_PATH);
         }
         return itinerary;
     }
@@ -359,7 +350,7 @@ public class StorageStub {
             }
             s.close();
         } catch (FileNotFoundException e) {
-            throw new FileLoadFailException(new File(ITINERARY_LIST_FILE_PATH));
+            throw new FileLoadFailException(ITINERARIES_FILE_PATH);
         }
         return output.toString();
     }
@@ -408,7 +399,7 @@ public class StorageStub {
             itinerary.setTasks(agendaList);
             return itinerary;
         } catch (FileNotFoundException e) {
-            throw new FileLoadFailException(new File(ITINERARY_LIST_FILE_PATH));
+            throw new FileLoadFailException(ITINERARIES_FILE_PATH);
         }
     }
 
