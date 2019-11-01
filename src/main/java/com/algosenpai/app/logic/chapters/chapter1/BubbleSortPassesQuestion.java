@@ -81,8 +81,10 @@ public class BubbleSortPassesQuestion extends Question {
      * @param passes The number of passes before the program gets terminated.
      */
     private static void bubbleSort(ArrayList<Integer> arr, int passes) {
+        rtlm = new ReviewTracingListModel();
+        rtlm.addReviewTracingModel(arr.toString());
         for (int i = 0; i < passes; i++) {
-            rtlm.addReviewTracingModel("Pass" + (i + 1) + " : ");
+            rtlm.addReviewTracingModel("Pass " + (i + 1) + " : ");
             for (int j = 0; j < arr.size() - 1 - i; j++) {
                 int first = arr.get(j);
                 int second = arr.get(j + 1);
@@ -91,10 +93,12 @@ public class BubbleSortPassesQuestion extends Question {
                     arr.set(j, second);
                     arr.set(j + 1, first);
                 } else {
-                    rtlm.addReviewTracingModel("Since " + first + "is larger than " + second + ", ignore.");
+                    rtlm.addReviewTracingModel("Since " + first + " is larger than " + second + ", ignore.");
                 }
+                rtlm.addReviewTracingModel(arr.toString());
             }
             rtlm.addReviewTracingModel("This is the array after " + (i + 1) + " pass");
+            rtlm.addReviewTracingModel(arr.toString());
         }
     }
 }
