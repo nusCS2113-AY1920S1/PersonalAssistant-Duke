@@ -1,6 +1,6 @@
 package duke.models;
 
-import duke.models.students.MyStudent;
+import duke.models.students.Student;
 import duke.task.Item;
 
 import java.util.ArrayList;
@@ -18,7 +18,7 @@ public class MyClass extends Item {
     /**
      * A list of students attending this sports class.
      */
-    private ArrayList<MyStudent> students = new ArrayList<>();
+    private ArrayList<Student> students = new ArrayList<>();
 
     /**
      * A list of training programmes for this sports class.
@@ -64,7 +64,7 @@ public class MyClass extends Item {
      *
      * @return an arraylist of MyStudent objects
      */
-    public ArrayList<MyStudent> getStudents() {
+    public ArrayList<Student> getStudents() {
         return this.students;
     }
 

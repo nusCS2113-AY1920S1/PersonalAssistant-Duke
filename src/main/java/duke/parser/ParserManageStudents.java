@@ -1,7 +1,7 @@
 package duke.parser;
 
 import duke.models.students.ManageStudents;
-import duke.models.students.MyStudent;
+import duke.models.students.Student;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -78,7 +78,7 @@ public final class ParserManageStudents implements IParser {
             final int limit = 4;
             String name = cmd.substring(limit);
             ArrayList search = new ArrayList();
-            for (MyStudent i : students.getStudentList()) {
+            for (Student i : students.getStudentList()) {
                 if (i.getName().contains(name)) {
                     search.add(i);
                 }
@@ -129,7 +129,7 @@ public final class ParserManageStudents implements IParser {
         String name = splitByComma[0];
         String age = splitByComma[1];
         String address = splitByComma[2];
-        MyStudent myNewStudent = new MyStudent(
+        Student myNewStudent = new Student(
                 name, age, address);
         students.addStudent(myNewStudent);
     }

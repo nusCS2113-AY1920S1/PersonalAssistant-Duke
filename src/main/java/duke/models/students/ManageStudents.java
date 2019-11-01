@@ -8,12 +8,11 @@ import java.util.ArrayList;
  * All commands related to students will be managed by this class
  * @author danisheddie
  */
-public class ManageStudents {
-
+public class ManageStudents implements IStudentList {
     /**
      * An array list for the list of students.
      */
-    private final ArrayList<MyStudent> studentList;
+    private final ArrayList<Student> studentList;
 
 
     /**
@@ -28,7 +27,7 @@ public class ManageStudents {
      *
      * @return list of all the students.
      */
-    public ArrayList<MyStudent> getStudentList() {
+    public ArrayList<Student> getStudentList() {
         return studentList;
     }
 
@@ -38,7 +37,7 @@ public class ManageStudents {
     public void listAllStudents() {
         System.out.println("Here are your list of students: ");
         int index = 1;
-        for (MyStudent i : getStudentList()) {
+        for (Student i : getStudentList()) {
             System.out.println(index++ + ". " + i.getName());
         }
     }
@@ -48,7 +47,7 @@ public class ManageStudents {
      *
      * @return Number of student in the list.
      */
-    private int getStudentListSize() {
+    public int getStudentListSize() {
         return studentList.size();
     }
 
@@ -66,12 +65,23 @@ public class ManageStudents {
      *
      * @param name of the new student added
      */
-    public void addStudent(final MyStudent name) {
+    public void addStudent(final Student name) {
         studentList.add(name);
         System.out.println("Student have been added: \n"
             + getStudentList().get(getStudentListSize() - 1).toString()
             + "\n"
             + "Now you have " + getStudentListSize() + " students.");
+    }
+
+
+    @Override
+    public ArrayList<String> getAllStudent() {
+        return null;
+    }
+
+    @Override
+    public Student getStudent(int i) {
+        return this.studentList.get(i - 1);
     }
 
     /**

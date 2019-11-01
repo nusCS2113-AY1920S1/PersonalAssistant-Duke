@@ -2,7 +2,7 @@ package duke.data;
 
 import duke.models.TimeSlot;
 import duke.models.MyClass;
-import duke.models.students.MyStudent;
+import duke.models.students.Student;
 import duke.models.MyTraining;
 import duke.models.MyPlan;
 import duke.task.Item;
@@ -400,12 +400,12 @@ public class Storage {
      *
      * @param student The list of students to be changed
      */
-    public void updateStudentList(final ArrayList<MyStudent> student) {
+    public void updateStudentList(final ArrayList<Student> student) {
         File studentListFile = new File(
             ".\\src\\main\\java\\duke\\data\\studentList.txt");
         try {
             PrintWriter printWriter = new PrintWriter(studentListFile);
-            for (MyStudent x : student) {
+            for (Student x : student) {
                 printWriter.println(x.toString() + "\n");
             }
             printWriter.close();
@@ -421,7 +421,7 @@ public class Storage {
      *
      * @param student list to be read
      */
-    public void readStudentListFile(final ArrayList<MyStudent> student) {
+    public void readStudentListFile(final ArrayList<Student> student) {
         String fileName = "studentList.txt";
         String line;
         ArrayList loadStudent = new ArrayList();
@@ -438,7 +438,7 @@ public class Storage {
                 for (int i = 0; i < splitter.length; i++) {
                     splitter[i] = splitter[i].trim();
                 }
-                MyStudent studentInfo = new MyStudent(splitter[0],
+                Student studentInfo = new Student(splitter[0],
                     splitter[1], splitter[2]);
                 student.add(studentInfo);
             }
