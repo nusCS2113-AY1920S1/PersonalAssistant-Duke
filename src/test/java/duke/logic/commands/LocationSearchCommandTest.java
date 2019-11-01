@@ -1,6 +1,7 @@
 package duke.logic.commands;
 
 import duke.ModelStub;
+import duke.commons.exceptions.ApiException;
 import duke.commons.exceptions.DukeException;
 import duke.logic.parsers.Parser;
 import duke.model.Model;
@@ -26,12 +27,12 @@ class LocationSearchCommandTest {
         assertEquals(SENTOSA_MESSAGE, locationSearchCommand1.execute(model).getMessage());
 
         //negative test where the api returns no result
-        assertThrows(ApiNullRequestException.class, () -> {
+        assertThrows(ApiException.class, () -> {
             Parser.parseComplexCommand("search invalid location");
         });
 
         //negative test where the request times out
-        assertThrows(ApiTimeoutException.class, () -> {
+        assertThrows(ApiException.class, () -> {
             Parser.parseComplexCommand("search #");
         });
 
