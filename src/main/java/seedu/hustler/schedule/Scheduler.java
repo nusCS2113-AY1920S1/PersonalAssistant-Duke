@@ -146,8 +146,8 @@ public class Scheduler {
     public static void displayEntries() {
         String output = "";
         for (ScheduleEntry entry : schedule) {
-            output += "\t" + entry.getTask().toString() 
-                + " hours spent: " + (entry.getTimeSpent() / 3600.0) + "\n";
+            output += entry.getTask().toString() 
+                + " hours spent: " + (entry.getTimeSpent() / 3600.0) + "\n\t";
         }
         if (size() == 0) {
             output = "Tasks completed. Please add more.";
