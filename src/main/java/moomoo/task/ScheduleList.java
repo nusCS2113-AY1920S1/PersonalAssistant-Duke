@@ -25,6 +25,9 @@ public class ScheduleList {
      */
     public String showSchedule(String date) {
         String output = "Outstanding Payment:\n";
+        if (date.length() < 8) {
+            date = "0" + date;
+        }
         for (SchedulePayment p : fullSchedule) {
             if (date.equals(p.date)) {
                 output += (p.tasks + "\n");
