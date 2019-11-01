@@ -142,7 +142,7 @@ public class Parser {
      * @return a Command that can be executed to carry out the necessary tasks
      * @throws RimsException if the input is in a wrong format or does not make sense.
      */
-    public Command parseInput(String input) throws RimsException {
+    public Command parseInput(String input) throws RimsException, ParseException {
         Command c;
         String[] words = input.split(" ");
         String simplerWord = friendlierSyntax(words[0]);
@@ -154,13 +154,10 @@ public class Parser {
         } 
         else if (simplerWord.equals("deadlines") && words.length == 1) {
             c = new ViewDeadlinesCommand();
-        }
-        else if (words[0].equals("cal") && words.length == 1 || words[0].equals("c")) {
-            CalendarCommand.printCal();
         } else if (input.equals("help") && words.length == 1) {
             c = new HelpCommand();
         //@@author danielcyc
-        } else if (words[0].equals("calendar") && words.length == 1) {
+        } else if (words[0].equals("calendar") && words.length == 1 || words[0].equals("c")) {
             CalendarCommand.printCal(resources, ui);
             c = new ListCommand();
         //@@author aarushisingh1
@@ -194,7 +191,7 @@ public class Parser {
             } else {
                 throw new RimsException("Please choose a room or item to add to your inventory.");
             }
-        } else if (words[0].equals("delete")) {
+        } else if (simplerWord.equals("delete")) {
             String roomOrItem = ui.getInput("Would you like to delete an item or room from the inventory?");
             if (roomOrItem.equals("room")) {
                 String roomName = ui.getInput("Enter the name of the room you wish to delete:");
@@ -269,7 +266,7 @@ public class Parser {
             } else {
                 throw new RimsException("Please choose a room or item to loan from your inventory.");
             }
-        } else if (words[0].equals("reserve")) {
+        } else if (simplerWord.equals("reserve")) {
             String roomOrItem = ui.getInput("Would you like to reserve an item or room from the inventory?");
             ui.printLine();
             if (roomOrItem.equals("room")) {
@@ -344,7 +341,7 @@ public class Parser {
             } else {
                 throw new RimsException("Please choose a room or item to loan from your inventory.");
             }
-        } else if (words[0].equals("return")) {
+        } else if (simplerWord.equals("return")) {
             int userId = Integer.parseInt(ui.getInput("Enter your user ID:"));
             ReservationList userReservations = resources.getUserBookings(userId);
             ui.printLine();
@@ -367,10 +364,8 @@ public class Parser {
             }
             c = new ReturnCommand(userId, resourcesToReturn, reservationsToCancel);
         } else if (words[0].equals("undo") || words[0].equals("u")) {
-            c = new UndoCommand(new ListCommand());
-        } else if (words[0].equals("undo")) {
             c = new UndoCommand(prevCommand);
-        } else if (words[0].equals("stats")) {
+        } else if (words[0].equals("stats") || words[0].equals("s")) {
             String dateFrom = ui.getInput(
                 "Enter the start date in the format: DD/MM/YYYY HHmm, OR in the format: Tuesday HHmm");
             if (dateFrom.length() < 15) {
