@@ -1,14 +1,14 @@
 //@@author LL-Pengfei
 package cube.logic.parser;
 
-import cube.logic.command.GenerateRevenueCommand;
+import cube.logic.command.RevenueCommand;
 import cube.logic.parser.exception.ParserErrorMessage;
 import cube.logic.parser.exception.ParserException;
 
 import java.util.Arrays;
 
-public class GenerateRevenueCommandParser implements ParserPrototype<GenerateRevenueCommand> {
-    public GenerateRevenueCommand parse(String[] args) throws ParserException {
+public class RevenueCommandParser implements ParserPrototype<RevenueCommand> {
+    public RevenueCommand parse(String[] args) throws ParserException {
         String[] params = new String[]{"-i","-n","-t","-all"};
 
         if(ParserUtil.hasInvalidParameters(args,params)){
@@ -23,16 +23,16 @@ public class GenerateRevenueCommandParser implements ParserPrototype<GenerateRev
 
         switch (args[1]) {
             case "-all":
-                return new GenerateRevenueCommand("ALL");
+                return new RevenueCommand("ALL");
             case "-i":
                 if(!ParserUtil.isValidNumber(args[2])){
                     throw new ParserException(ParserErrorMessage.INVALID_NUMBER);
                 }
-                return new GenerateRevenueCommand(Integer.parseInt(args[2]),"INDEX");
+                return new RevenueCommand(Integer.parseInt(args[2]),"INDEX");
             case "-n":
-                return new GenerateRevenueCommand(String.join(" ", Arrays.copyOfRange(args,2,args.length)),"NAME");
+                return new RevenueCommand(String.join(" ", Arrays.copyOfRange(args,2,args.length)),"NAME");
             case "-t":
-                return new GenerateRevenueCommand(String.join(" ", Arrays.copyOfRange(args,2,args.length)),"TYPE");
+                return new RevenueCommand(String.join(" ", Arrays.copyOfRange(args,2,args.length)),"TYPE");
         }
         return null;
     }

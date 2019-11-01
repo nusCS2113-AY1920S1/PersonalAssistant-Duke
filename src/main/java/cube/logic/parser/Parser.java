@@ -51,8 +51,6 @@ public class Parser {
 				return new UpdateCommandParser().parse(inputs);
 			case "profit":
 				return new ProfitCommandParser().parse(inputs);
-			case "revenue":
-				return new GenerateRevenueCommandParser().parse(inputs);
 			case "delete":
 				return new DeleteCommandParser().parse(inputs);
 			case "sold":
@@ -67,6 +65,9 @@ public class Parser {
 				return new HelpCommand();
 			case "promotion":
 				return new PromotionCommandParser().parse(inputs);
+			case "revenue" :
+				//TODO: improve generate revenue
+				return new RevenueCommandParser().parse(inputs);
 			case "bye":
 			case "exit":
 			case "quit":
