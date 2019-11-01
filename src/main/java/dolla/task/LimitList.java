@@ -28,6 +28,12 @@ public class LimitList extends RecordList {
     }
 
     @Override
+    public void setRecordList(ArrayList<Record> recordList) {
+        this.list = recordList;
+        StorageWrite.setLimits(get());
+    }
+
+    @Override
     public void addWithIndex(int modifyIndex, Record newRecord) {
         super.addWithIndex(modifyIndex, newRecord);
         StorageWrite.setLimits(get());

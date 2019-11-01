@@ -66,7 +66,7 @@ public class DebtsParser extends Parser {
             }
             Debt debt = new Debt(type, name, amount, description, date);
             t.handleTag(inputLine, inputArray, debt);
-            return processAdd(type, name, amount);
+            return new AddDebtsCommand(type, name, amount, description, date);
         } else if (commandToRun.equals(BILL_COMMAND_BILL)) {
             ArrayList<String> nameList = new ArrayList<String>();
             String type = inputArray[0];
@@ -110,28 +110,5 @@ public class DebtsParser extends Parser {
         }
 
         return new ErrorCommand();
-    }
-
-    //@@author yetong1895
-    /**
-     * This method will process and return a "add" command for debt.
-     * @param type the type of input. i.e. owe or borrow.
-     * @param name the name of the borrower/lender
-     * @param amount the amount borrowed/lent
-     * @return an AddDebtsCommand with respect to the nature of the input.
-     */
-    private Command processAdd(String type, String name, double amount) {
-        Command addDebt;
-        Repeat.setRepeatInput("debt", inputLine); //setup repeat
-        if (undoFlag == 1) { //undo input
-            addDebt = new AddDebtsCommand(type, name, amount, description, date, prevPosition);
-            resetUndoFlag();
-        } else if (redoFlag == 1) {
-            addDebt = new AddDebtsCommand(type, name, amount, description, date, -2);
-            resetRedoFlag();
-        } else { //normal input, prePosition is -1
-            addDebt = new AddDebtsCommand(type, name, amount, description, date, -1);
-        }
-        return addDebt;
     }
 }

@@ -35,7 +35,8 @@ public class EntryParser extends Parser {
                 Tag t = new Tag();
                 Entry entry = new Entry(inputArray[1], stringToDouble(inputArray[2]), description, date);
                 t.handleTag(inputLine, inputArray, entry);
-                return processAdd();
+                return new AddEntryCommand(inputArray[1], stringToDouble(inputArray[2]),
+                        description, date);
             } else {
                 return new ErrorCommand();
             }
@@ -70,25 +71,6 @@ public class EntryParser extends Parser {
         } else {
             return invalidCommand();
         }
-    }
-
-    //@@author yetong1895
-    private Command processAdd() {
-        Command addEntry;
-        Repeat.setRepeatInput("entry", inputLine);
-        if (undoFlag == 1) { //undo input
-            addEntry = new AddEntryCommand(inputArray[1], stringToDouble(inputArray[2]),
-                    description, date, prevPosition);
-            resetUndoFlag();
-        } else if (redoFlag == 1) {
-            addEntry = new AddEntryCommand(inputArray[1], stringToDouble(inputArray[2]),
-                    description, date, -2);
-        } else { //normal input, prePosition is -1
-            addEntry = new AddEntryCommand(inputArray[1], stringToDouble(inputArray[2]),
-                    description, date, -1);
-            resetRedoFlag();
-        }
-        return addEntry;
     }
 }
 

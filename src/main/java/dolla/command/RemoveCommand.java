@@ -1,9 +1,8 @@
 package dolla.command;
 
 import dolla.DollaData;
+import dolla.action.*;
 import dolla.ui.RemoveUi;
-import dolla.action.Redo;
-import dolla.action.Undo;
 import dolla.task.RecordList;
 
 /**
@@ -45,21 +44,15 @@ public class RemoveCommand extends Command {
             return; // TODO: return error command
         }
         try {
-            if (logNumStr.contains("/")) { //input from undo
-                resetUndoFlag();
-                String[] parser = logNumStr.split("/", 2);
-                logNumInt = stringToInt(parser[0]) - 1;
-                Redo.addCommand(mode, recordList.get().get(logNumInt).getUserInput()); //add undo input to redo
-            } else if (logNumStr.contains("|")) { //input form redo
-                resetRedoFlag();
-                String[] parser = logNumStr.split("//|", 2);
-                logNumInt = stringToInt(parser[0]) - 1;
-                Undo.addCommand(mode, recordList.get().get(logNumInt).getUserInput(), logNumInt); //add input to undo
-            } else { //normal user input
-                logNumInt = stringToInt(logNumStr) - 1;
-                Undo.addCommand(mode, recordList.get().get(logNumInt).getUserInput(), logNumInt);
-                Redo.clearRedo(mode);
+            if (mode.equals("entry")) {
+                StateList.addState(new EntryState(recordList.get()), mode);/////////////////////////////////
+            } else if (mode.equals("debt")) {
+                StateList.addState(new DebtState(recordList.get()), mode);
+            } else if (mode.equals("limit")) {
+                StateList.addState(new LimitState(recordList.get()), mode);
             }
+
+            logNumInt = stringToInt(logNumStr) - 1;
             RemoveUi.echoRemove(recordList.get().get(logNumInt).getRecordDetail());
             dollaData.removeFromRecordList(mode, logNumInt);
         } catch (IndexOutOfBoundsException e) {

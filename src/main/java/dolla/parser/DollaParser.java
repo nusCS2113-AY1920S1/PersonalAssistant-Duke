@@ -30,7 +30,7 @@ public class DollaParser extends Parser {
                 Tag t = new Tag();
                 Entry entry = new Entry(inputArray[1], stringToDouble(inputArray[2]), description, date);
                 t.handleTag(inputLine, inputArray, entry);
-                return new AddEntryCommand(inputArray[1], stringToDouble(inputArray[2]), description, date, -1);
+                return new AddEntryCommand(inputArray[1], stringToDouble(inputArray[2]), description, date);
             } else {
                 return new ErrorCommand();
             }
@@ -72,7 +72,7 @@ public class DollaParser extends Parser {
             }
             Debt debt = new Debt(type, name, amount, description, date);
             t.handleTag(inputLine, inputArray, debt);
-            return new AddDebtsCommand(type, name, amount, description, date, -1);
+            return new AddDebtsCommand(type, name, amount, description, date);
 
         } else if (commandToRun.equals(ParserStringList.LIMIT_COMMAND_SET)) {
             if (verifySetLimitCommand()) {

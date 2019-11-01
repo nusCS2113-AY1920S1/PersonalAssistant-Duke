@@ -6,35 +6,29 @@ import dolla.task.Record;
 import java.util.ArrayList;
 
 public class State {
-    private ArrayList<Record> entryState = new ArrayList<>();
-    private ArrayList<Record> debtState = new ArrayList<>();
-    private ArrayList<Record> limitState = new ArrayList<>();
-    private ArrayList<Record> shortcutState = new ArrayList<>();
-
-    public void setEntryState(ArrayList<Record> entryState) {
-        this.entryState = entryState;
-    }
-
-    public void setDebtState(ArrayList<Record> debtState) {
-        this.debtState = debtState;
-    }
-
-    public void setLimitState(ArrayList<Record> limitState) {
-        this.limitState = limitState;
-    }
+    protected ArrayList<Record> entryState = new ArrayList<>();
+    protected ArrayList<Record> debtState = new ArrayList<>();
+    protected ArrayList<Record> limitState = new ArrayList<>();
+    protected ArrayList<Record> shortcutState = new ArrayList<>();
+    protected String mode;
 
     public void setShortcutState(ArrayList<Record> shortcutState) {
         this.shortcutState = shortcutState;
     }
 
+    public ArrayList<Record> getShortcutState() {
+        return shortcutState;
+    }
 
+    public ArrayList<Record> getLimitState() {
+        return limitState;
+    }
 
+    public ArrayList<Record> getEntryState() {
+        return entryState;
+    }
 
-
-
-
-
-
-
-
+    public ArrayList<Record> getDebtState() {
+        return debtState;
+    }
 }

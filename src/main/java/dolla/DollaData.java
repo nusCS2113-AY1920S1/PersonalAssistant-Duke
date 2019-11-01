@@ -7,6 +7,8 @@ import dolla.task.Record;
 import dolla.task.RecordList;
 import dolla.task.BillList;
 
+import java.util.ArrayList;
+
 import static dolla.storage.Storage.getDebtsFromSave;
 import static dolla.storage.Storage.getEntriesFromSave;
 import static dolla.storage.Storage.getLimitsFromSave;
@@ -99,23 +101,6 @@ public class DollaData implements ModeStringList {
     }
 
     /**
-     * Add to prev position.
-     *
-     * @param mode         the mode
-     * @param newRecord       the new record
-     * @param prevPosition the prev position
-     */
-    public void addToPrevPosition(String mode, Record newRecord, int prevPosition) {
-        if (mode.equals(MODE_ENTRY)) {
-            entryList.insertPrevPosition(prevPosition, newRecord);
-        } else if (mode.equals(MODE_DEBT)) {
-            debtList.insertPrevPosition(prevPosition, newRecord);
-        } else if (mode.equals(MODE_LIMIT)) {
-            limitList.insertPrevPosition(prevPosition, newRecord);
-        }
-    }
-
-    /**
      * Remove from record list.
      *
      * @param mode  the mode
@@ -185,5 +170,19 @@ public class DollaData implements ModeStringList {
 
     public String getPrevMode() {
         return prevMode;
+    }
+
+    public void setRecordList(ArrayList<Record> recordList) {
+        switch (mode) {
+            case "entry":
+                this.entryList.setRecordList(recordList);
+                break;
+            case "debt":
+                this.debtList.setRecordList(recordList);
+                break;
+            case "limit":
+                this.limitList.setRecordList(recordList);
+                break;
+        }
     }
 }

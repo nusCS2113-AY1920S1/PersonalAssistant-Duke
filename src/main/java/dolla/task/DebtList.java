@@ -23,15 +23,15 @@ public class DebtList extends RecordList {
     }
 
     @Override
-    public void insertPrevPosition(int prevPosition, Record newRecord) {
-        super.insertPrevPosition(prevPosition, newRecord);
+    public void removeFromList(int index) {
+        super.removeFromList(index);
         StorageWrite.setDebts(get()); //save
     }
 
     @Override
-    public void removeFromList(int index) {
-        super.removeFromList(index);
-        StorageWrite.setDebts(get()); //save
+    public void setRecordList(ArrayList<Record> recordList) {
+        this.list = recordList;
+        StorageWrite.setDebts(get());
     }
 
     /**

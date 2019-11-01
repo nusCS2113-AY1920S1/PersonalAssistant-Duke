@@ -21,14 +21,14 @@ public class EntryList extends RecordList {
     }
 
     @Override
-    public void insertPrevPosition(int prevPosition, Record newRecord) {
-        super.insertPrevPosition(prevPosition, newRecord);
-        StorageWrite.setEntries(get()); //save
+    public void removeFromList(int index) {
+        super.removeFromList(index);
+        StorageWrite.setEntries(get());
     }
 
     @Override
-    public void removeFromList(int index) {
-        super.removeFromList(index);
+    public void setRecordList(ArrayList<Record> recordList) {
+        this.list = recordList;
         StorageWrite.setEntries(get());
     }
 

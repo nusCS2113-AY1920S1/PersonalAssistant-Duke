@@ -44,20 +44,6 @@ public abstract class Command {
         return newInt;
     }
 
-    /**
-     * This method will call the resetUndoFlag method in the respective mode.
-     */
-    protected void resetUndoFlag() {
-        Parser.resetUndoFlag();
-    }
-
-    /**
-     * This method will call the resetRedoFlag method in the respective mode.
-     */
-    protected void resetRedoFlag() {
-        Parser.resetRedoFlag();
-    }
-
     protected Boolean recordDoesNotExist(int recordIndex) {
         return (recordIndex == - 1);
     }
