@@ -38,7 +38,13 @@ public class CinemaRetrieveRequest implements CinemaInfoFetcher {
      */
     public ArrayList<CinemaInfoObject> searchNearestCinemas(String location) throws Exceptions {
         try {
-            String url = MAIN_URL + location + "&key=" + API_KEY;
+            String[] token = location.split(" ");
+            String result = "";
+            for (int i = 0; i < token.length; i++) {
+                result += token[i];
+                if (i != token.length - 1) result += "%20";
+            }
+            String url = MAIN_URL + result + "&key=" + API_KEY;
             URLRetriever retrieve = new URLRetriever();
             String json = retrieve.readURLAsString(new URL(url));
             fetchedCinemasJSON(json);
