@@ -21,7 +21,7 @@ public class EditMemberDescriptionParser {
      * @return EditMemberDescriptionCommand
      * @throws DukeException exception
      */
-    //@@ author JasonChanWQ
+    //@@author JasonChanWQ
     public static Command parseEditMemberDescription(String argument) throws DukeException {
         if (argument.equals("")) {
             throw new DukeException(EDIT_MEMBER_DESCRIPTION_USAGE);

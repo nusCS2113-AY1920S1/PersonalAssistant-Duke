@@ -8,7 +8,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-//@@ JasonChanWQ
+//@@author JasonChanWQ
 
 public class EditTaskDateTimeParser {
 
@@ -24,7 +24,7 @@ public class EditTaskDateTimeParser {
      * @return SnoozeCommand
      * @throws DukeException exception
      */
-    //@@ author JasonChanWQ
+    //@@author JasonChanWQ
     public static Command parseEditTaskDateTime(String argument) throws DukeException {
         if (argument.equals("")) {
             throw new DukeException(EDIT_DATETIME_USAGE);
@@ -51,9 +51,6 @@ public class EditTaskDateTimeParser {
             } else {
                 throw new DukeException(TO_NOT_FOUND_MESSAGE);
             }
-
-
-
         }
     }
 }
