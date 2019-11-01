@@ -7,14 +7,14 @@ import java.util.HashMap;
 //@@author Weng-Kexin
 public class TagList {
 
-    public static HashMap<String, Record> tagList = new HashMap<>(); //change it to store the index of the record
+    private static HashMap<String, Record> tagList = new HashMap<>(); //change it to store the index of the record
 
     /**
      * Method to add tag to tag container (hashmap).
      * @param tag     Tag to be added
      * @param record  Record the tag is added with
      */
-    public void addTag(String tag, Record record) {
+    protected void addTag(String tag, Record record) {
         try {
             tagList.put(tag, record);
         } catch (Exception e) { //todo: change
