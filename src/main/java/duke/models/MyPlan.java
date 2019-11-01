@@ -3,6 +3,7 @@ package duke.models;
 import duke.view.CliView;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.HashMap;
@@ -22,6 +23,11 @@ public class MyPlan {
      * The ui object responsible for showing things to the user.
      */
     private CliView cliView;
+
+    /**
+     * The scanner object for user input.
+     */
+    private Scanner sc = new Scanner(System.in);
 
     /**
      * Represents the list for the current loaded plan to be viewed or edited.
@@ -45,6 +51,7 @@ public class MyPlan {
      * @param mapOfPlans map of plans
      */
     public MyPlan(final Map<String, ArrayList<MyTraining>> mapOfPlans) {
+        cliView = new CliView();
         this.map = mapOfPlans;
     }
 
@@ -161,12 +168,17 @@ public class MyPlan {
      * @param end     final position of activity
      */
     public void switchPos(final int initial, final int end) {
-        MyTraining s = getList().get(initial);
-        getList().add(end - 1, s);
-        if (initial > end) {
-            getList().remove(initial + 1);
+        if (initial <= getList().size() || end <= getList().size()) {
+            MyTraining s = getList().get(initial - 1);
+            getList().add(end, s);
+            if (initial > end) {
+                getList().remove(initial);
+            } else {
+                getList().remove(initial - 1);
+            }
+            cliView.showSuccessfulSwitch(initial, end);
         } else {
-            getList().remove(initial);
+            cliView.showInputCorrectPositionNumber();
         }
     }
 
@@ -254,7 +266,7 @@ public class MyPlan {
             for (MyTraining i : getList()) {
                 message.append("Activity ");
                 message.append(x).append(": ").append(i.toString());
-                if (x < getList().size() - 1) {
+                if (x <= getList().size() - 1) {
                     message.append("\n");
                 }
                 x++;
@@ -267,20 +279,21 @@ public class MyPlan {
     /**
      * load the plan of specified intensity and value into the list.
      * @param intensity intensity of plan to be loaded
-     * @param plan plan number passed as a string
+     * @param planNum plan number
      */
-    public void loadPlanToList(final String intensity, final String plan) {
+    public void loadPlanToList(final String intensity, final int planNum) {
         clearPlan();
         if (!Intensity.contains(intensity)) {
             cliView.showIntensityLevel();
         } else {
-            int planNum = Integer.parseInt(plan.split("/")[1]);
             String key = createKey(intensity, planNum);
             if (map.containsKey(key)) {
                 for (MyTraining t : map.get(key)) {
                     getList().add(t);
                 }
                 cliView.showPlanLoaded(planNum, intensity);
+            } else {
+                cliView.planNotFound();
             }
         }
     }
@@ -315,39 +328,56 @@ public class MyPlan {
      * @param intensity intensity of plan to be created.
      */
     public void createPlan(final String intensity) {
-        clearPlan();
-        if (Intensity.contains(intensity)) {
-            cliView.showPlanCreating(intensity);
-            while (true) {
-                Scanner sc = new Scanner(System.in);
-                if (sc.hasNextLine()) {
-                    String input = sc.nextLine();
-                    if (input.equals("finalize")) {
-                        cliView.showPlanCreated();
-                        cliView.showSavePlanToMap();
-                        break;
-                    } else if (input.equals("show")) {
-                        if (getList().isEmpty()) {
-                            cliView.showNoActivity();
+        try {
+            clearPlan();
+            if (Intensity.contains(intensity)) {
+                while (true) {
+                    if (sc.hasNextLine()) {
+                        String input = sc.nextLine();
+                        if (input.equals("finalize")) {
+                            cliView.showPlanCreated();
+                            cliView.showSavePlanToMap();
+                            break;
+                        } else if (input.equals("show")) {
+                            if (getList().isEmpty()) {
+                                cliView.showNoActivity();
+                            } else {
+                                cliView.showViewPlan(viewPlan());
+                                cliView.showPlanPrompt1();
+                            }
+                        } else if (input.equals("switch")) {
+                            while (true) {
+                                if (getList().size() >= 2) {
+                                    cliView.showEditPlanPrompt();
+                                    cliView.showViewPlan(viewPlan());
+                                    String[] pos = sc.nextLine().split(" ");
+                                    switchPos(Integer.parseInt(pos[0]),
+                                            Integer.parseInt(pos[1]));
+                                } else {
+                                    cliView.showNotEnoughActivitiesForSwitch();
+                                    break;
+                                }
+                            }
                         } else {
-                            cliView.showViewPlan(viewPlan());
-                            cliView.showPlanPrompt1();
+                            String[] details = input.split(" ");
+                            MyTraining a = new MyTraining(details[0],
+                                    Integer.parseInt(details[1]),
+                                    Integer.parseInt(details[2]));
+                            getList().add(a);
+                            int lastAdded = getList().size() - 1;
+                            cliView.showActivityAdded();
+                            System.out.println("     "
+                                    + getList().get(lastAdded).toString());
+                            cliView.showPlanPrompt2();
                         }
-                    } else {
-                        String[] details = input.split(" ");
-                        MyTraining a = new MyTraining(details[0],
-                            Integer.parseInt(details[1]),
-                            Integer.parseInt(details[2]));
-                        getList().add(a);
-                        int temp = getList().size() - 1;
-                        cliView.showActivityAdded(getList().get(temp));
-                        cliView.showPlanPrompt2();
                     }
                 }
+                saveToMap(getList(), intensity, "0");
+            } else {
+                cliView.showIntensityLevel();
             }
-            saveToMap(getList(), intensity, "0");
-        } else {
-            cliView.showIntensityLevel();
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("Incorrect Format");
         }
     }
 

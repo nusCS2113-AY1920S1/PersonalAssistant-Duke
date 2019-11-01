@@ -8,12 +8,11 @@ import java.util.ArrayList;
  * All commands related to students will be managed by this class
  * @author danisheddie
  */
-public class ManageStudents {
-
+public class ManageStudents implements IStudentList {
     /**
      * An array list for the list of students.
      */
-    private final ArrayList<MyStudent> studentList;
+    private final ArrayList<Student> studentList;
 
 
     /**
@@ -28,7 +27,7 @@ public class ManageStudents {
      *
      * @return list of all the students.
      */
-    private ArrayList<MyStudent> getStudentList() {
+    public ArrayList<Student> getStudentList() {
         return studentList;
     }
 
@@ -38,7 +37,7 @@ public class ManageStudents {
     public void listAllStudents() {
         System.out.println("Here are your list of students: ");
         int index = 1;
-        for (MyStudent i : getStudentList()) {
+        for (Student i : getStudentList()) {
             System.out.println(index++ + ". " + i.getName());
         }
     }
@@ -48,7 +47,7 @@ public class ManageStudents {
      *
      * @return Number of student in the list.
      */
-    private int getStudentListSize() {
+    public int getStudentListSize() {
         return studentList.size();
     }
 
@@ -66,13 +65,23 @@ public class ManageStudents {
      *
      * @param name of the new student added
      */
-    @SuppressWarnings("checkstyle:LineLength")
-    public void addStudent(final MyStudent name) {
+    public void addStudent(final Student name) {
         studentList.add(name);
         System.out.println("Student have been added: \n"
             + getStudentList().get(getStudentListSize() - 1).toString()
             + "\n"
             + "Now you have " + getStudentListSize() + " students.");
+    }
+
+
+    @Override
+    public ArrayList<String> getAllStudent() {
+        return null;
+    }
+
+    @Override
+    public Student getStudent(int i) {
+        return this.studentList.get(i - 1);
     }
 
     /**
@@ -87,10 +96,6 @@ public class ManageStudents {
                 + " has been removed from the list.");
             if ((getStudentListSize() - 1) == 0) {
                 System.out.println("\nNow you have no student in your list.");
-            } else if ((getStudentListSize() - 1) == 1) {
-                System.out.println("\nNow you have "
-                    + (getStudentListSize() - 1)
-                    + " student in your list.");
             } else {
                 System.out.println("\nNow you have "
                     + (getStudentListSize() - 1)
@@ -100,11 +105,7 @@ public class ManageStudents {
         } catch (IndexOutOfBoundsException e) {
             if (getStudentListSize() == 0) {
                 System.err.println("Oops! "
-                    + "You only have no student in the list!");
-            } else if (getStudentListSize() == 1) {
-                System.err.println("Oops! You only have "
-                    + getStudentListSize()
-                    + " student in the list!");
+                    + "You have no student in the list!");
             } else {
                 System.err.println("Oops! You only have "
                     + getStudentListSize()
@@ -114,32 +115,6 @@ public class ManageStudents {
         }
     }
 
-    /**
-     * A method to find a specific student in the list.
-     *
-     * @param name of student to search
-     * @return the name of student search
-     */
-    public final String findName(final String name) {
-        /*
-        StringBuilder listString = new StringBuilder();
-         */
-        int index = 1;
-        for (MyStudent i : getStudentList()) {
-            if (i.getName().contains(name)) {
-                if (index == 1) {
-                    System.out.println(
-                        "Here are the matching names in your list:");
-                }
-                System.out.println(index++ + ". " + i.getName());
-            }
-        }
-
-        if (index == 1) {
-            System.out.println(
-                "Sorry, there are no names matching your search");
-        }
-        return name;
-    }
-
 }
+
+

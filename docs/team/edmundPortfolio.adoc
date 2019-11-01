@@ -3,56 +3,164 @@
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-== PROJECT: [Sports Manager] - Level 3
+The purpose of this portfolio is to showcase my contributions to the Coach Manager project for the Software Engineering & Object-Oriented Programming module CS2113T, as well as to display my ability to code in Java and apply OOP (Object-Oriented Programming) concepts.
 
----
+== PROJECT: Coach Manager
 
 == Overview
 
-[Sports Manager] - Level 3 is a ...
+My team of 4 software engineering students and I were tasked with enhancing a basic command line based personal assistant for our project in our Software Engineering and Object-Oriented Programming module, CS2113T. We chose to morph it into a graphical user interface (GUI), but the Coach Manager can still be operated via the command line. This enhanced application enables coaches to use the coach manager easily to keep track of the classes and students which the coach is in charge of. The schedule and lessons to be taught can be viewed by the coach, and training plans can even be adjusted as per requirements. In addition, the coach manager helps the trainer track the progress of the students by making comparisons between their current standards to past records or personal best. There are also goals of the day as well as the lessons learnt for the day for the coach to keep track of personal progress in coaching.
+
+Shown below is what our project interface looks like.
+
+image::mainmenu.png[align="center"]
+
+|===
+|*Note* the following formatting used in this document:
+
+```example```
+
+ A highlight indicates that this is a command that can be inputted into the command line and executed by the application.
+
+*_anotherexample_*
+
+A bold, italic word indicates a component, class or object in the architecture of the application.
+|===
+
+== My Role
+
+My role was to handle the functionalities of the sub-schedule section of the coach manager such as the special goals of the day, as well as the lessons learnt for the day to allow coaches to reflect on any improvements seen in students, or if any students require assistance for the near future. These features can be stored, viewed, and edited. The following sections illustrate these enhancements in more detail, as well as the relevant documentation I have added to the user and developer guides in relation to these enhancements.
 
 == Summary of contributions
 
-* *Major enhancement*: added *the ability to ...*
-** What it does: allows the user to ...
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+This section shows a summary of my coding, documentation, and community contributions to the team project. For coding contributions, I contributed to the goals of the day as well as the lessons learnt for the day. For documentation, I made cosmetic improvements to the existing User Guide and Developer Guide to make it more reader-friendly. For community, I fix Checkstyle and Travis violations.
 
-* *Minor enhancement*: added a ... command that allows the user to ...
-
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Major Enhancement added*: I added the ability to view goals/lessons of the day, add a goal/lesson to a specified day, and delete goal(s)/lesson(s) from a specified day.
+** What it does: After entering the goals/lessons of the day from the daily schedule, the coach manager will prompt the coach to enter the date of the day they are interested in. After that, all possible actions will be shown along with their input number.
+- 1 will show all the goals/lessons of the day 
+- 2 will add a goal/lesson to the day
+- 3 will delete a goal/lesson from the day 
+- 4 will remove all goals/lessons from the day 
+- 5 will be to quit the goals/lessons of the day and bring the user back to daily schedule. 
+- If 2 or 3 is chosen, the coach manager will prompt the coach for an additional input, the input should be the description of the goal/lesson which the coach wants to add to or delete from the day.
+** Justification: The importance of the goals of the day is to allow coaches to focus on what they want to achieve through their trainings for the rest of the day. The importance of the lessons learnt of the day is to allow coaches to record down and reflect on what they have observed through their training by the end of the day.
+* *Code contributed*: https://nuscs2113-ay1920s1.github.io/dashboard/#search=W13-1&sort=groupTitle&sortWithin=title&since=2019-09-21&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=NotTheRealEdmund&tabRepo=AY1920S1-CS2113T-W13-1%2Fmain%5Bmaster%5D
 
 * *Other contributions*:
 
-** Project management:(Edit as we go along)
-*** Eg: Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
-** Enhancements to existing features:
-*** Eg: Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Eg: Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+** Project contributions:There were a total of 5 releases, from version 1.0 to 1.4. I contributed to releases versions 1.0 to 1.5 (5 releases) on GitHub.
 ** Documentation:
-*** Eg: Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+*** Made cosmetic improvements to the existing User Guide and Developer Guide to make it more reader-friendly.
 ** Community:
-*** Eg: PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Eg: Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Eg: Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Eg: Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-** Tools:
-*** Eg: Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Eg: Integrated a new Github plugin (CircleCI) to the team repo
-
-_{you can add/remove categories in the list above}_
+*** Fix Checkstyle and Travis violations.
 
 == Contributions to the User Guide
 
 
 |===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|_The sections given below is what I contributed to the User Guide based on the enhancements I made. There are many commands that I have created, but I will list out the main features below._
 |===
 
 include::../UserGuide.adoc[tag=delete]
 
 include::../UserGuide.adoc[tag=dataencryption]
+
+Once you have reached the daily schedule, you will see:
+
+|===
+|_DAILY SCHEDULE:
+
+1. Classes of the day
+
+2. Goals of the day
+
+3. Lessons learnt of the day
+
+4. Back_
+
+|===
+
+Press 2 to enter goals of the day. 
+
+Press 3 to enter lessons of the day.
+
+Then, you will be prompted to enter the specific date of the day.
+
+|===
+|_Please enter the date of the day in this format: dd/MM/yyyy_
+|===
+
+Afterwards, you will be given the possible choices to make. The example steps used below is applicable for lesson of the day as well. The choices given are the same for the lesson of the day.
+
+|===
+|_What would you like to do on 5/10/2019?
+
+1. View goals of the day
+
+2. Add a goal of the day
+
+3. Delete a goal of the day
+
+4. Clear all goals of the day
+
+5. Quit goal of the day_
+
+|===
+
+* *Show all the goals of the day*: 1
+
+|===
+|_1
+
+Prepare for swimming class tomorrow
+
+Makes sure every student masters freestyle_
+
+|===
+
+* *Add a goal to the day*: 2
+
+|===
+|_2
+
+To add a goal to 5/10/2019, enter the goal.
+
+Stamina training
+
+New goal of the day has been added_
+
+|===
+
+* *Delete a goal from the day*: 3
+
+|===
+|_3
+
+To delete a goal from 5/10/2019, enter the goal.
+
+Stamina training
+
+Goal of the day on 5/10/2019 has been removed_
+
+|===
+
+* *Remove all goals from the day*: 4 
+
+|===
+|_4
+
+All the goals for the day 5/10/2019 have been cleared_
+
+|===
+
+* *Quit the goals of the day and bring the user back to daily schedule*: 5 
+
+|===
+|_5
+
+You have quit the goal of the day._
+
+|===
 
 == Contributions to the Developer Guide
 
@@ -64,6 +172,51 @@ include::../DeveloperGuide.adoc[tag=undoredo]
 
 include::../DeveloperGuide.adoc[tag=dataencryption]
 
+|===
+|_Goal_
+|_-goals : Map<Date, ArrayList<String>>_
+|_+Goal()
+
++ viewGoal(day : String) : String
+
++ addGoal(date : String, message : String, goalStorage : Storage) : String
+
++ removeGoal(day : String, message : String, goalStorage : Storage) : String
+
++ removeAllGoal(day : String, goalStorage : Storage) : String_
+|===
+
+The class diagram above illustrates the Goal class.
+
+In the Goal class, there are various methods for the goal of the day functionalities, some of the main features include:
+
+• Showing all the goals of the day
+• Adding a goal to a day
+• Deleting a goal from a day
+• Deleting all goals from a day
+
+|===
+|_Lesson_
+|_-lessons : Map<Date, ArrayList<String>>_
+|_+Lesson()
+
++ viewLesson(day : String) : String
+
++ addLesson(date : String, message : String, lessonStorage : Storage) : String
+
++ removeLesson(day : String, message : String, lessonStorage : Storage) : String
+
++ removeAllLesson(day : String, lessonStorage : Storage) : String_
+|===
+
+The class diagram above illustrates the Lesson class.
+
+In the Lesson class, there are various methods for the lesson of the day functionalities, some of the main features include:
+
+• Showing all the lessons of the day
+• Adding a lesson to a day
+• Deleting a lesson from a day
+• Deleting all lessons from a day
 
 == PROJECT: PowerPointLabs
 

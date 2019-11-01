@@ -3,22 +3,22 @@ package duke.models.students;
 /**
  * Represents a student.
  */
-public class MyStudent {
+public class Student implements IStudent {
 
     /**
      * Represents the name of the student.
      */
-    private final String name;
+    private String name;
 
     /**
      * Represents the age of the student.
      */
-    private final String age;
+    private String age;
 
     /**
      * Represents the address of the student.
      */
-    private final String address;
+    private String address;
 
     /**
      * Constructor for the students.
@@ -28,11 +28,33 @@ public class MyStudent {
      * @param myAddress address of the student
      */
 
-    public MyStudent(final String myName, final String myAge,
-                     final String myAddress) {
+    public Student(final String myName, final String myAge,
+                   final String myAddress) {
         this.name = myName;
         this.age = myAge;
         this.address = myAddress;
+    }
+
+    /**
+     * Method to update the details of the student.
+     * @param name new name.
+     * @param age new age.
+     * @param address new address.
+     */
+    @Override
+    public void updateDetails(String name, String age, String address) {
+        this.name = name;
+        this.age = age;
+        this.address = address;
+    }
+
+    /**
+     * The index of the student.
+     * @return index
+     */
+    @Override
+    public int getIndexNumber() {
+        return 0;
     }
 
     /**
@@ -49,7 +71,7 @@ public class MyStudent {
      *
      * @return age of student
      */
-    private String getAge() {
+    public String getAge() {
         return this.age;
     }
 
@@ -58,8 +80,18 @@ public class MyStudent {
      *
      * @return Represents the address of the student.
      */
-    private String getAddress() {
-        return address;
+    public String getAddress() {
+        return this.address;
+    }
+
+    /**
+     * To get the details of the student.
+     * @return student details.
+     */
+    @Override
+    public String getDetails() {
+        return "Name: " + getName() + "\nAge: " + getAge() + "\nAddress: "
+                + getAddress();
     }
 
     /**

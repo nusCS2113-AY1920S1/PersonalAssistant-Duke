@@ -7,7 +7,7 @@
 
 == Overview
 
-This portfolio serves to document my contributions in a team-based software engineering project for the module CS2113T. The team comprises of 4 members ad we were tasked to develop a working application within 8 weeks. Throughout the project, we were challenged to incorporate a Software Engineering project into a product of our own. We decided to morph the existing application into a task manager, called Coach Manager.
+This portfolio serves to document my contributions in a team-based software engineering project for the module CS2113T. The team comprises of 4 members and we were tasked to develop a working application within 8 weeks. Throughout the project, we were challenged to incorporate a Software Engineering project into a product of our own. We decided to morph the existing application into a task manager, called Coach Manager.
 
 To comply with the module requirements, the team is constrained to start from an existing code base – Duke Level 9 and the user must interact with the application via Command Line interface(CLI).
 
@@ -15,7 +15,7 @@ Coach Manager is a desktop application created for trainers to assist them in ma
 
 This is what our project looks like.
 
-image::Ui.png[align="Center"]
+image::mainmenu.png[align="Center"]
 
 My role was to manage the overall project and manage the Git Repo. I also ensured code quality across pull requests. I designed and wrote the code for the `Schedule Manager`, `GUI` and `Storage` features. I have added to the user guide and developer guides in relation to these features as well.
 
@@ -31,9 +31,6 @@ My role was to manage the overall project and manage the Git Repo. I also ensure
 *** What it does: Provides a graphic user interface that is easy to see and navigate.
 *** Justification: Clearly represents the system for the user. Navigation and accessibility of functions are graphically represented. No mistakes from the user side will be made when keying in commands.
 *** Highlights: This feature works to be implemented in the future v2.0 update.
-
-
-* *Major enhancement*: Created the JavaFX UI with FXML files.
 
 * *Code contributed*:
 ** [https://github.com/AY1920S1-CS2113T-W13-1/main/blob/master/src/main/java/duke/parser/ParserSchedule.java[ParserSchedule]] [https://www.youtube.com/watch?v=dQw4w9WgXcQ[Test Code]]
@@ -106,18 +103,7 @@ image::addClass.png[align="left"]
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=delete]
-
-include::../UserGuide.adoc[tag=dataencryption]
-
-== Contributions to the Developer Guide
-
-|===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
-|===
-=== Features
-
-==== Menu
+=== Menu
 *Description:* The trainer is able to navigate across the different features of the app easily. He may also see the list of commands for each featured menu.
 
 *Format: `_[MENU NUMBER]_`*

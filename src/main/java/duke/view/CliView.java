@@ -2,7 +2,6 @@ package duke.view;
 
 import duke.command.ExitCommand;
 import duke.parser.ParserCommand;
-import duke.models.MyTraining;
 
 import java.util.Scanner;
 
@@ -77,7 +76,8 @@ public class CliView {
      * Print line.
      */
     public void printLine() {
-        System.out.println("____________________________________________________");
+        System.out.println("_________________________"
+                + "___________________________");
     }
 
     /**
@@ -118,14 +118,12 @@ public class CliView {
     public void manageStudentsHeading() {
         System.out.flush();
         System.out.println("MANAGE STUDENTS:\n"
-            + "1. Student List - View all students available "
-            + "and edit student particulars (Cmd: list)\n"
-            + "2. Add student - Adding a new student to the list "
-            + "with main details (Cmd: add) \n"
-            + "3. Remove Student - Remove a student in a list "
+            + "1. Student List - (Cmd: list)\n"
+            + "2. Add student - (Cmd: add) \n"
+            + "3. Delete Student -"
             + "(Cmd: delete [index of student in the list])\n"
-            + "4. Search Student - Finding a particular student in the list "
-            + "(Cmd: search [name])");
+            + "4. Find Student - "
+            + "(Cmd: find [name])");
     }
 
     /**
@@ -135,9 +133,9 @@ public class CliView {
         System.out.flush();
         System.out.println("TRAINING PROGRAM:\n"
             + "1. Plan list - View all the plans available "
-            + "and check a plan or edit it (cmd: TBC)\n"
+            + "(Not yet fully created.) (cmd: TBC)\n"
             + "2. Create plan - Create a new plan of a "
-            + "specified intensity level (Cmd: plan new [intensity level])"
+            + "specified intensity level (Cmd: plan new [intensity level])\n"
             + "3. Edit plan - Edit a specified plan by adding new "
             + "activities or switching activity positions "
             + "(Cmd: plan edit [intensity level] [plan number])");
@@ -148,7 +146,16 @@ public class CliView {
      */
     public void planListHeading() {
         System.out.flush();
+        System.out.println("Choose a plan from the list below: ");
         System.out.println("PLAN LIST:");
+    }
+
+    /**
+     * Prompt user that a specified plan is not present.
+     */
+    public void planNotFound() {
+        System.out.flush();
+        System.out.println("Specified plan is not found.");
     }
 
     /**
@@ -166,7 +173,7 @@ public class CliView {
     public void editPlanHeading() {
         System.out.flush();
         System.out.println("Choose a plan from below to edit:\n"
-                + " To be created...");
+                + "TBC");
     }
 
     /**
@@ -328,8 +335,8 @@ public class CliView {
      * @param intensity The intensity of the plan to be loaded.
      */
     public void showPlanLoaded(final int planNum, final String intensity) {
-        System.out.println("You have loaded plan " + planNum + " of "
-            + intensity + " intensity " + " into the list");
+        System.out.println("Plan " + planNum + " of "
+            + intensity + " intensity " + " loaded.");
     }
 
     /**
@@ -370,23 +377,19 @@ public class CliView {
 
     /**
      * Prints message when plan is being created.
-     *
-     * @param intensity The intensity of the plan to be created.
+     * @param i The intensity of the plan to be created.
      */
-    public void showPlanCreating(final String intensity) {
-        System.out.println("Creating plan of " + intensity + " intensity.\n"
-            + "Please input activity to add in format of "
-            + "[activity] [number of sets] [number of reps].");
+    public void showPlanCreating(final String i) {
+        System.out.println("Creating plan of " + i + " intensity.\n"
+            + "Please input activity in the format of "
+            + "[activity(Eg: push-ups)] [number of sets] [number of reps].");
     }
 
     /**
      * Prints message when activity is successfully added.
-     *
-     * @param activity The activity object to be added.
      */
-    public void showActivityAdded(final MyTraining activity) {
-        System.out.println("Successfully added activity: "
-            + activity.toString());
+    public void showActivityAdded() {
+        System.out.println("Successfully added activity: ");
     }
 
     /**
@@ -402,7 +405,7 @@ public class CliView {
      * Prints message to prompt the user on what to do next.
      */
     public void showPlanPrompt1() {
-        System.out.println("Continue adding activities, "
+        System.out.println("Continue adding activities "
             + "or finalize plan.");
     }
 
@@ -412,6 +415,38 @@ public class CliView {
     public void showPlanPrompt2() {
         System.out.println("Please input new activity,"
             + "finalize the plan or look at current list.");
+    }
+
+    /**
+     * Prompt user to input position numbers for activities.
+     */
+    public void showEditPlanPrompt() {
+        System.out.println("Choose the activity and "
+                + "the position to switch to.");
+    }
+
+    /**
+     * Prompt user that switching is successful.
+     * @param a initial activity position
+     * @param b final activity position
+     */
+    public void showSuccessfulSwitch(final int a, final int b) {
+        System.out.println("Successfully switched positions for activity "
+                + a + " to position " + b);
+    }
+
+    /**
+     * Prompt users when there are not enough activities added.
+     */
+    public void showNotEnoughActivitiesForSwitch() {
+        System.out.println("Add more activities before switching positions");
+    }
+
+    /**
+     * Prompt user to input correct activity position number.
+     */
+    public void showInputCorrectPositionNumber() {
+        System.out.println("Input the correct position numbers.");
     }
 
     /**
@@ -487,7 +522,6 @@ public class CliView {
      * Adding student format.
      */
     public void addStudentFormat() {
-        System.out.println("Insert [Name],[Age],[Address] to add new student.\n"
-                + "Insert 1 to exit.");
+        System.out.println("Insert [Name],[Age],[Address] to add new student.\n");
     }
 }
