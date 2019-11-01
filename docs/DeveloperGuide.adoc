@@ -177,15 +177,17 @@ Data Structure to support undo/redo:
 *** Slightly slower than stacks when adding and deleting elements in the `ArrayList`.
 
 
-=== Degree-Related Tasks
+=== University-Related Tasks
 ==== Implementation
 
-The actions involving Degree-Related Tasks are performed mostly using the `DegreeTask` class. It extends the `Task` class, eventhough it does not use many methods from the aforementioned class. 
+The actions involving University-Related Tasks are performed mostly using the `UniversityTaskHandler` class. This class handles all methods that are related to passively adding University-Related Tasks such as:
+
+. `[CEG] NUS-ECE Open House`
+
+. `[BME] Open House for Prospective Students`
 
 image::https://raw.githubusercontent.com/AY1920S1-CS2113T-F10-2/main/master/docs/images/DegreeTaskuml.png[width="900", align="left"]
 
-
-This was done in preparation for some proposed additional changes to this feature that will be discussed later in the document.
 
 
 
