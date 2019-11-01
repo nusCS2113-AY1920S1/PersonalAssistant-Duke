@@ -6,12 +6,10 @@ import impl.org.controlsfx.autocompletion.SuggestionProvider;
 
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
+import list.DegreeList;
 import main.Duke;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import task.Task;
@@ -38,10 +36,19 @@ public class MainWindow extends AnchorPane {
     private Button sendButton;
 
     @FXML
-    private TableView<TaskFX> tableView;
+    private TableView<TaskFX> taskView;
+    @FXML
+    private TableView<ChoicesFX> choicesView;
+    @FXML
+    private TabPane tabPane;
+    @FXML
+    private Tab tabTask;
+    @FXML
+    private Tab tabChoices;
 
     private Duke duke;
     private TaskList taskList;
+    private DegreeList degreeList;
 
     public Set<String> autoSuggestion = new HashSet<>(Arrays.asList("list", "detail", "help", "todo", "delete", "clear",
             "add", "swap", "bye", "replace", "undo", "redo", "sort"));
@@ -67,7 +74,8 @@ public class MainWindow extends AnchorPane {
 
 
         new AutoCompletionTextFieldBinding<>(this.userInput, provider);
-        ObservableList<TaskFX> data = tableView.getItems();
+        ObservableList<TaskFX> dataTask = taskView.getItems();
+        ObservableList<ChoicesFX> dataChoices = choicesView.getItems();
 
 
         /*
@@ -102,11 +110,17 @@ public class MainWindow extends AnchorPane {
         );
 
         this.taskList = duke.getTaskList();
+        this.degreeList = duke.getDegreeList();
 
         for (int i = 0; i < this.taskList.size(); i++) {
             Task newTask = this.taskList.get(i);
-            data.add(new TaskFX(Integer.toString(i + 1), newTask.getStatusIcon(), newTask.getType(),
+            dataTask.add(new TaskFX(Integer.toString(i + 1), newTask.getStatusIcon(), newTask.getType(),
                     newTask.getDescription(), newTask.getDueDate()));
+        }
+
+        for (int i = 0; i < this.degreeList.size(); i++) {
+            String newChoice = this.degreeList.get(i);
+            dataChoices.add(new ChoicesFX(Integer.toString(i + 1), newChoice));
         }
 
     }
@@ -150,19 +164,33 @@ public class MainWindow extends AnchorPane {
             provider.clearSuggestions();
             provider.addPossibleSuggestions(autoSuggestion);
         }
-        userInput.clear();
 
-        ObservableList<TaskFX> data = tableView.getItems();
+        ObservableList<TaskFX> dataTask = taskView.getItems();
+        ObservableList<ChoicesFX> dataChoices = choicesView.getItems();
 
         this.taskList = duke.getTaskList();
-        data.clear();
+        this.degreeList = duke.getDegreeList();
+        dataTask.clear();
+        dataChoices.clear();
 
         for (int i = 0; i < this.taskList.size(); i++) {
             Task newTask = this.taskList.get(i);
-            data.add(new TaskFX(Integer.toString(i + 1), newTask.getStatusIcon(), newTask.getType(),
+            dataTask.add(new TaskFX(Integer.toString(i + 1), newTask.getStatusIcon(), newTask.getType(),
                     newTask.getDescription(), newTask.getDueDate()));
         }
 
+        for (int i = 0; i < this.degreeList.size(); i++) {
+            String newChoice = this.degreeList.get(i);
+            dataChoices.add(new ChoicesFX(Integer.toString(i + 1), newChoice));
+        }
 
+        //Forces a tab to open corresponding to the list being displayed
+        if (input.matches("list")) {
+            tabPane.getSelectionModel().select(tabTask);
+        } else if (input.matches("choices")) {
+            tabPane.getSelectionModel().select(tabChoices);
+        }
+
+        userInput.clear();
     }
 }

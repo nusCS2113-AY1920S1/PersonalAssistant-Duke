@@ -201,6 +201,10 @@ public class Duke extends Application {
         return this.myList;
     }
 
+    public DegreeList getDegreeList() {
+        return this.lists;
+    }
+
 }
 
 

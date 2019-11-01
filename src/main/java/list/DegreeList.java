@@ -26,7 +26,7 @@ public class DegreeList implements Serializable, Cloneable {
      *
      * @return long size of ArrayList
      */
-    public long size() {
+    public int size() {
         return list.size();
     }
 
