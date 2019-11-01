@@ -17,7 +17,6 @@ import java.util.Locale;
 
 public class SummaryCommand extends Command {
 
-    private static final int EMPTY = 0;
     private static final int ADD_A_DAY = 1;
     private TaskList summary = new TaskList();
 
@@ -83,7 +82,7 @@ public class SummaryCommand extends Command {
     public void execute(SemesterList semesterList, TaskList taskList, Ui ui, Storage storage) throws OofException {
         String tomorrow = getTomorrowDate();
         TaskList summary = getSummary(tomorrow, taskList);
-        if (summary.getSize() == EMPTY) {
+        if (summary.isEmpty()) {
             throw new OofException("There are no Tasks scheduled on " + tomorrow + ".");
         }
         ui.printTasksByDate(summary, tomorrow);

@@ -16,7 +16,6 @@ import oof.model.task.Todo;
 public class ScheduleCommand extends Command {
 
     private String date;
-    private static final int LIST_EMPTY = 0;
 
     /**
      * Constructor for ScheduleCommand.
@@ -43,7 +42,7 @@ public class ScheduleCommand extends Command {
             throw new OofException("OOPS! Please enter a date!");
         }
         TaskList scheduledTasks = scheduleByDate(taskList);
-        if (scheduledTasks.getSize() == LIST_EMPTY) {
+        if (scheduledTasks.isEmpty()) {
             throw new OofException("There are no Tasks scheduled on " + this.date + ".");
         }
         ui.printTasksByDate(scheduledTasks, this.date);
