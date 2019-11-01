@@ -7,7 +7,7 @@
 
 == Overview
 
-This portfolio serves to document my contributions in a team-based software engineering project for the module CS2113T. The team comprises of 4 members ad we were tasked to develop a working application within 8 weeks. Throughout the project, we were challenged to incorporate a Software Engineering project into a product of our own. We decided to morph the existing application into a task manager, called Coach Manager.
+This portfolio serves to document my contributions in a team-based software engineering project for the module CS2113T. The team comprises of 4 members and we were tasked to develop a working application within 8 weeks. Throughout the project, we were challenged to incorporate a Software Engineering project into a product of our own. We decided to morph the existing application into a task manager, called Coach Manager.
 
 To comply with the module requirements, the team is constrained to start from an existing code base – Duke Level 9 and the user must interact with the application via Command Line interface(CLI).
 
@@ -15,7 +15,7 @@ Coach Manager is a desktop application created for trainers to assist them in ma
 
 This is what our project looks like.
 
-image::Ui.png[align="Center"]
+image::mainmenu.png[align="Center"]
 
 My role was to manage the overall project and manage the Git Repo. I also ensured code quality across pull requests. I designed and wrote the code for the `Schedule Manager`, `GUI` and `Storage` features. I have added to the user guide and developer guides in relation to these features as well.
 
