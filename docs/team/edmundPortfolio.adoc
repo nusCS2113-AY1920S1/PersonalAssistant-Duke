@@ -65,6 +65,103 @@ include::../UserGuide.adoc[tag=delete]
 
 include::../UserGuide.adoc[tag=dataencryption]
 
+Once you have reached the daily schedule, you will see:
+
+|===
+|_DAILY SCHEDULE:
+
+1. Classes of the day
+
+2. Goals of the day
+
+3. Lessons learnt of the day
+
+4. Back_
+
+|===
+
+Press 2 to enter goals of the day. 
+
+Press 3 to enter lessons of the day.
+
+Then, you will be prompted to enter the specific date of the day.
+
+|===
+|_Please enter the date of the day in this format: dd/MM/yyyy_
+|===
+
+Afterwards, you will be given the possible choices to make. The example steps used below is applicable for lesson of the day as well. The choices given are the same for the lesson of the day.
+
+|===
+|_What would you like to do on 5/10/2019?
+
+1. View goals of the day
+
+2. Add a goal of the day
+
+3. Delete a goal of the day
+
+4. Clear all goals of the day
+
+5. Quit goal of the day_
+
+|===
+
+* *Show all the goals of the day*: 1
+
+|===
+|_1
+
+Prepare for swimming class tomorrow
+
+Makes sure every student masters freestyle_
+
+|===
+
+* *Add a goal to the day*: 2
+
+|===
+|_2
+
+To add a goal to 5/10/2019, enter the goal.
+
+Stamina training
+
+New goal of the day has been added_
+
+|===
+
+* *Delete a goal from the day*: 3
+
+|===
+|_3
+
+To delete a goal from 5/10/2019, enter the goal.
+
+Stamina training
+
+Goal of the day on 5/10/2019 has been removed_
+
+|===
+
+* *Remove all goals from the day*: 4 
+
+|===
+|_4
+
+All the goals for the day 5/10/2019 have been cleared_
+
+|===
+
+* *Quit the goals of the day and bring the user back to daily schedule*: 5 
+
+|===
+|_5
+
+You have quit the goal of the day._
+
+|===
+
 == Contributions to the Developer Guide
 
 |===
@@ -75,6 +172,51 @@ include::../DeveloperGuide.adoc[tag=undoredo]
 
 include::../DeveloperGuide.adoc[tag=dataencryption]
 
+|===
+|_Goal_
+|_-goals : Map<Date, ArrayList<String>>_
+|_+Goal()
+
++ viewGoal(day : String) : String
+
++ addGoal(date : String, message : String, goalStorage : Storage) : String
+
++ removeGoal(day : String, message : String, goalStorage : Storage) : String
+
++ removeAllGoal(day : String, goalStorage : Storage) : String_
+|===
+
+The class diagram above illustrates the Goal class.
+
+In the Goal class, there are various methods for the goal of the day functionalities, some of the main features include:
+
+• Showing all the goals of the day
+• Adding a goal to a day
+• Deleting a goal from a day
+• Deleting all goals from a day
+
+|===
+|_Lesson_
+|_-lessons : Map<Date, ArrayList<String>>_
+|_+Lesson()
+
++ viewLesson(day : String) : String
+
++ addLesson(date : String, message : String, lessonStorage : Storage) : String
+
++ removeLesson(day : String, message : String, lessonStorage : Storage) : String
+
++ removeAllLesson(day : String, lessonStorage : Storage) : String_
+|===
+
+The class diagram above illustrates the Lesson class.
+
+In the Lesson class, there are various methods for the lesson of the day functionalities, some of the main features include:
+
+• Showing all the lessons of the day
+• Adding a lesson to a day
+• Deleting a lesson from a day
+• Deleting all lessons from a day
 
 == PROJECT: PowerPointLabs
 
