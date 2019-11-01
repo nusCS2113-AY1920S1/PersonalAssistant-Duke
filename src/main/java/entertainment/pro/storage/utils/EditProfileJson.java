@@ -84,8 +84,8 @@ public class EditProfileJson {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        final String name = (String) jsonObject.get("userName");
-        final int age = ((Long) jsonObject.get("userAge")).intValue();
+        final String name = (String) jsonObject.get("name");
+        final int age = ((Long) jsonObject.get("age")).intValue();
         ArrayList<Integer> genrePreference = new ArrayList<>();
         ArrayList<Integer> genreRestriction = new ArrayList<>();
         JSONArray jsonArray = (JSONArray) jsonObject.get("genreIdPreference");

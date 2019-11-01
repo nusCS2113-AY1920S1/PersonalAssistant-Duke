@@ -1,6 +1,6 @@
 {
   "name": "me",
-  "age": 18,
+  "age": -1,
   "genreIdPreference": [],
   "genreIdRestriction": [
     16

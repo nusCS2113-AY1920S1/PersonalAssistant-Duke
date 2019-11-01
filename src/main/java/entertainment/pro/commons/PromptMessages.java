@@ -45,7 +45,7 @@ public class PromptMessages {
 
 
     //API Messages
-    public static final String API_SUCCESS = "Nice! I'm displaying the results now...";
+    public static final String API_SUCCESS = "Nice! I'm displaying the search results now...";
     public static final String API_FAIL_GENERAL = "☹ I'sorry, but something went wrong when fetching data";
     public static final String API_FAIL_EMPTY = "☹ I'sorry, but I could not find anything related to your request";
     public static final String API_TIME_OUT = "I'sorry, weak internet connection detected. " +
