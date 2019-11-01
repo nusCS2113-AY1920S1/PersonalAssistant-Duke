@@ -149,7 +149,7 @@ public class Parser {
 
         if (input.equals("bye") && words.length == 1) {
             c = new CloseCommand();
-        } else if (input.equals("list") && words.length == 1) {
+        } else if (simplerWord.equals("list") && words.length == 1) {
             c = new ListCommand();
         } 
         else if (simplerWord.equals("deadlines") && words.length == 1) {
