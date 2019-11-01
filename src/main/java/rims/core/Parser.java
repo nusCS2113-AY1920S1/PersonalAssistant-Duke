@@ -1,5 +1,6 @@
 package rims.core;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -23,6 +24,7 @@ import rims.resource.ReservationList;
 public class Parser {
     Ui ui;
     ResourceList resources;
+    Command prevCommand;
 
     /**
      * Constructor for the Parser.
@@ -32,6 +34,10 @@ public class Parser {
     public Parser(Ui ui, ResourceList resources) {
         this.ui = ui;
         this.resources = resources;
+    }
+
+    public void setPrevCommand(Command c) {
+        //if (c.canChangeData()) { prevCommand = c; }
     }
 
     /**
@@ -74,6 +80,7 @@ public class Parser {
      * @param input the first letter of the command or the entire command.
      * @return a String version of the command the user wishes to call.
      */
+    //@@author aarushisingh1
     public String friendlierSyntax(String input){
         String identifier = "";
         if(input.equals("l")){
@@ -142,7 +149,7 @@ public class Parser {
 
         if (input.equals("bye") && words.length == 1) {
             c = new CloseCommand();
-        } else if (simplerWord.equals("list") && words.length == 1) {
+        } else if (input.equals("list") && words.length == 1) {
             c = new ListCommand();
         } 
         else if (simplerWord.equals("deadlines") && words.length == 1) {
@@ -150,6 +157,11 @@ public class Parser {
         }
         else if (words[0].equals("cal") && words.length == 1 || words[0].equals("c")) {
             CalendarCommand.printCal();
+        } else if (input.equals("help") && words.length == 1) {
+            c = new HelpCommand();
+        //@@author danielcyc
+        } else if (words[0].equals("calendar") && words.length == 1) {
+            CalendarCommand.printCal(resources, ui);
             c = new ListCommand();
         //@@author aarushisingh1
         } else if (simplerWord.equals("list") && words.length > 1) {
@@ -182,7 +194,7 @@ public class Parser {
             } else {
                 throw new RimsException("Please choose a room or item to add to your inventory.");
             }
-        } else if (simplerWord.equals("delete")) {
+        } else if (words[0].equals("delete")) {
             String roomOrItem = ui.getInput("Would you like to delete an item or room from the inventory?");
             if (roomOrItem.equals("room")) {
                 String roomName = ui.getInput("Enter the name of the room you wish to delete:");
@@ -257,7 +269,7 @@ public class Parser {
             } else {
                 throw new RimsException("Please choose a room or item to loan from your inventory.");
             }
-        } else if (simplerWord.equals("reserve")) {
+        } else if (words[0].equals("reserve")) {
             String roomOrItem = ui.getInput("Would you like to reserve an item or room from the inventory?");
             ui.printLine();
             if (roomOrItem.equals("room")) {
@@ -332,7 +344,7 @@ public class Parser {
             } else {
                 throw new RimsException("Please choose a room or item to loan from your inventory.");
             }
-        } else if (simplerWord.equals("return")) {
+        } else if (words[0].equals("return")) {
             int userId = Integer.parseInt(ui.getInput("Enter your user ID:"));
             ReservationList userReservations = resources.getUserBookings(userId);
             ui.printLine();
@@ -356,7 +368,24 @@ public class Parser {
             c = new ReturnCommand(userId, resourcesToReturn, reservationsToCancel);
         } else if (words[0].equals("undo") || words[0].equals("u")) {
             c = new UndoCommand(new ListCommand());
-        } else {
+        } else if (words[0].equals("undo")) {
+            c = new UndoCommand(prevCommand);
+        } else if (words[0].equals("stats")) {
+            String dateFrom = ui.getInput(
+                "Enter the start date in the format: DD/MM/YYYY HHmm, OR in the format: Tuesday HHmm");
+            if (dateFrom.length() < 15) {
+                String[] splitDateFrom = dateFrom.split(" ");
+                dateFrom = convertNaturalDate(splitDateFrom[0], splitDateFrom[1]);
+            }
+            String dateTill = ui.getInput(
+                "Enter the start date in the format: DD/MM/YYYY HHmm, OR in the format: Tuesday HHmm");
+            if (dateFrom.length() < 15) {
+                String[] splitDateTill = dateFrom.split(" ");
+                dateTill = convertNaturalDate(splitDateTill[0], splitDateTill[1]);
+            }
+            c = new StatsCommand(dateFrom, dateTill);
+        }
+        else {
             throw new RimsException("Please enter a recognizable command!");
         }
         return c;

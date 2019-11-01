@@ -1,0 +1,243 @@
+= Chan Hin, Sean - Project Portfolio
+:imagesdir: images
+:toc:
+:sectnums:
+
+== Project: RIMS
+
+== Overview
+
+My team and I were tasked with morphing or enhancing a basic command line interface (CLI) desktop personal assistant application for
+our Software Engineering project.
+
+We chose to morph it into _RIMS_, a Resource and Inventory Management System written in Java. It is a logistic
+management system designed to assist logistics managers and ease the tedium of
+work by digitizing the accounting of their inventory.
+
+This project portfolio outlines my contributions to RIMS.
+
+== Summary of contributions
+
+=== Enhancements added
+* *Add*: Adding new resources to RIMS
+** What it does: The Add command allows the user to insert new resources such as items and rooms into RIMS.
+** Justification: The list of resources in inventories frequently change due to factors such as increasing
+stock of current items to accomodate rising demand, or diversifying resources to accomodate a wider range of
+consumers. This requires RIMS to support adding of new resources.
+** Highlights: This command can add any number of the same item i.e. instead of adding a pen one by one, I can
+add multiple pens to RIMS.
+
+* *Delete*: Deleting current resources from RIMS
+** What it does: The Delete command allows the user to remove resources such as items and rooms from RIMS.
+** Justification: The list of resources in inventories frequently change due to factors such as wear and tear or
+sustained damage to items, renovation or new development of existing spaces for facilities. This requires RIMS to
+support removing of existing resources.
+** Highlights: This command shows the users about the status (on loan/available) of the resource specified, and
+the user can choose which resource to delete. It was challenging to account for cases where single or multiple resources
+being booked had to be deleted, and so that decision is transferred to the user. This is manifested in the user interface,
+where after specifying the resource to be deleted, the user is shown a list of all the resources
+
+=== Code Contributed
+
+https://github.com/AY1920S1-CS2113T-W12-1/main/blob/master/src/main/java/rims/command/AddCommand.java[Functional code - AddCommand] +
+https://github.com/AY1920S1-CS2113T-W12-1/main/blob/master/src/main/java/rims/command/DeleteCommand.java[Functional code - DeleteCommand]
+
+=== Other Contributions
+
+==== Project Management
+
+* Managed 2 releases out of 11 releases for RIMS on GitHub.
+
+==== Documentation
+
+* Compiled first draft of User Guide in Asciidocs.
+* Compiled first draft of Developer Guide in Asciidocs.
+* Wrote the Design section for Developer Guide.
+
+==== Community
+
+* Reviewed Pull Requests: #41
+
+== Contributions to the User Guide
+The following is an excerpt from the https://github.com/AY1920S1-CS2113T-W12-1/main/blob/master/docs/UserGuide.adoc[RIMS User Guide],
+showing documentation I wrote for using the Add and Delete features.
+
+=== Adding or Removing Items/Rooms
+
+==== Add item/room: `add`
+Add new item(s) or a new room available for loan/booking in RIMS.
+
+.*Format*:
+To add a new resource:
+
+. Enter `add` into the console, then press kbd:[Enter] to execute the command.
++
+====
+RIMS will prompt for the resource type that the user wants to add. +
+
+image::UserGuide/add/add1.jpeg[width="500", align="left"]
+====
++
+. Enter the resource type that is to be added into RIMS, either `item` or `room`.
++
+. If `item` is the user input:
++
+.. The following display will be shown:
++
+====
+RIMS will prompt for the item name that the user wants to add. +
+
+image::UserGuide/add/add2.jpeg[width="500", align="left"]
+====
++
+.. Enter the `ITEM NAME` to be added into the console e.g. `ball`
++
+====
+RIMS will prompt for the quantity of the item specified to be added. +
+
+image::UserGuide/add/add3.jpeg[width="500", align="left"]
+====
++
+.. Enter the `QUANTITY` of the item to be added into RIMS into the console.
++
+====
+RIMS will display item(s) and the quantity that have been added. +
+
+image::UserGuide/add/add4.jpeg[width="500", align="left"]
+====
++
+. If `room` is the user input:
++
+.. The following display will be shown:
++
+====
+RIMS will prompt for the room name that the user wants to add. +
+
+image::UserGuide/add/addRoom2.jpeg[width="500", align="left"]
+====
++
+.. Enter the `ROOM NAME` to be added into the console e.g. `seminar room 2`
++
+====
+RIMS will display item(s) and the quantity that have been added. +
+
+image::UserGuide/add/addRoom3.jpeg[width="500", align="left"]
+====
+
+==== Delete item/room: `delete`
+Delete item(s) or room available for loan/booking in RIMS.
+
+To delete an existing resource:
+
+. Enter `delete` into the console, then press kbd:[Enter] to execute the command.
++
+====
+RIMS will prompt for the resource type that the user wants to delete. +
+
+image::UserGuide/delete/delete1.jpeg[width="500", align="left"]
+====
++
+. Enter the resource type that is to be added into RIMS, either `item` or `room`.
++
+. If `item` is the user input:
++
+.. The following display will be shown:
++
+====
+RIMS will prompt for the item name that the user wants to delete. +
+
+image::UserGuide/delete/delete2.jpeg[width="500", align="left"]
+====
++
+.. Enter the `ITEM NAME` to be deleted into the console.
++
+====
+RIMS will display all items corresponding to that name and their respective statuses (on loan, reserved, available). +
+
+image::UserGuide/delete/delete3.jpeg[width="800", align="left"]
+
+RIMS will then prompt for resource ID(s) corresponding to the one or more of the items on the list displayed.
+
+image::UserGuide/delete/delete4.jpeg[width="800", align="left"]
+
+====
++
+.. Enter the `QUANTITY` of the resource to be added into RIMS into the console.
++
+====
+RIMS will display item(s) and their resource ID(s) that have been deleted. +
+
+image::UserGuide/delete/delete5.jpeg[width="500", align="left"]
+====
++
+. If `room` is the user input:
++
+.. The following display will be shown:
++
+====
+RIMS will prompt for the room name that the user wants to delete. +
+
+image:UserGuide/delete/deleteRoom1.jpeg[width="500", align="left"]
+====
++
+.. Enter the `ROOM NAME` to be added into the console.
++
+====
+RIMS will display the room that has been deleted. +
+
+image::UserGuide/delete/deleteRoom2.jpeg[width="500", align="left"]
+====
+
+== Contributions to the Developer Guide
+The following is a section from the https://github.com/AY1920S1-CS2113T-W12-1/main/blob/master/docs/DeveloperGuide.adoc[RIMS Developer Guide],
+showing documentation I wrote for the implementation of the Add and Delete features. The following classes have already been introduced earlier
+in the Design section of the Developer Guide:
+
+* Parser: Takes in user input to decipher as instructions or commands.
+* Ui: User interface that interacts with the user by prompting for input or sending messages to the user.
+* AddCommand: Command that adds resource(s).
+* DeleteCommand: Command that deletes resource(s).
+* ResourceList: List of resource(s) to make changes to.
+
+=== Add/Delete
+
+==== Implementation
+.Sequence Diagram for Add
+[caption="Figure 2.1.1: "]
+image::DeveloperGuide/AddSequence.png[width="1000", align="center"]
+
+Adding and deleting resources from RIMS are facilitated by the AddCommand and DeleteCommand classes respectively, after receiving input from the user in the Ui and being passed through Parser.
+For adding resources, consider the case where the user wants to add a pen to RIMS.
+
+1.	When starting up RIMS, a Ui and Parser object is instantiated respectively.
+2.	Referring to Figure 1, a parseInput() function is called, prompting for input from the user. He/She types the relevant input, such as that the pen is of Item type, to the Ui object (getInput() function).
+3.	This input is received by the Parser object, which contains the relevant parameters (the Parser object also prompts for new input from user should the format be incorrect).
+4.	Following that, the Parser object identifies (through ReadAddCommand()) and constructs a new AddCommand with the evaluated parameters.
+5.	Afterwards, the AddCommand is executed with the execute() function, which constructs a new Resource based on the parameters provided in AddCommand, adds this Resource to the existing ResourceList in RIMS (through AddResource()). This step is repeated for the quantity (specified by <QTY>) of that particular Resource that is required to be added, as specified in AddCommand.
+6.	Lastly, the Ui object prints a message to the user to notify him/her of the resources that have been added into RIMS.
+
+For deleting resources, the steps are largely the same, however, there are more errors to identify during execute() (refer to Figure 2.1.1). For instance, should the specified resource to be deleted not exist, Ui will print a message to notify the user. Also, should the specified resource to be deleted be on loan at the moment, Ui will also send a message to the user to notify him/her of such.
+
+==== Design Considerations
+
+_Aspect 1: How Resource objects are added_
+
+* *Alternative 1 (current choice)*: ResourceList adds a single Resource object created in AddCommand into list
+** Advantages: Follows contextual situation (recording object by object on an inventory book using paper and pen)
+** Disadvantages: Requires multiple calls to add multiple objects
+* *Alternative 2*: ResourceList creates a single Resource object to add, given its details, and adds it into list
+** Advantages: Do not have to create Resource object in AddCommand
+** Disadvantages: ResourceList must create a new Resource to add to list
+* *Alternative 3*: ResourceList has function to add/delete all Resources with a user specified quantity
+** Advantages: Only requires one function call in AddCommand.
+** Disadvantages: Since all resources are added in ResourceList, limited information about each unique resource added can be extracted for sending the message to the user
+
+_Aspect 2: How Resource objects are deleted_
+
+* *Alternative 1 (current choice)*: ResourceList deletes a single Resource object from the list using its resource ID
+** Pros: Identifies unique Resource to be deleted using its resource ID
+** Cons:  May have unnecessary iteration by checking resource IDs of other Resources that are not of the same type
+* *Alternative 2*: ResourceList deletes a single Resource object, given its name from the list
+** Pros: Delete any Resource that corresponds to the given name
+** Cons: Cannot pinpoint a unique Resource object to delete
+

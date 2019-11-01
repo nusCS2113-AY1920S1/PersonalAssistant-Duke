@@ -59,4 +59,9 @@ public class ReturnCommand extends Command {
         ui.printLine();
 
     }
+
+    @Override
+    public boolean canModifyData() {
+        return true;
+    }
 }

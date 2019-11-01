@@ -19,6 +19,7 @@ import rims.exception.RimsException;
 public class DeleteCommand extends Command {
     protected String resourceName;
     protected String resourceType;
+    protected int qty;
 
     /**
      * Constructor for a DeleteCommand, that takes in the name and type of the Resource to be deleted.
@@ -81,6 +82,8 @@ public class DeleteCommand extends Command {
                 deletedResources.add(thisResource);
                 resources.deleteResourceById(intIdInput.get(j));
             }
+            qty = deletedResources.size();
+
             ui.printLine();
             ui.print("The following item(s) have been successfully deleted:");
             for (int k = 0; k < deletedResources.size(); k++) {
@@ -90,4 +93,10 @@ public class DeleteCommand extends Command {
             ui.printLine();
         }
     }
+
+    @Override
+    public boolean canModifyData() { return true; }
+
+    @Override
+    public String getCommandUserInput() { return "delete" + qty + resourceName + " (" + resourceType + ")"; }
 }

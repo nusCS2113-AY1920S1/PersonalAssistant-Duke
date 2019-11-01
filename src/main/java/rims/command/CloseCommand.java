@@ -25,4 +25,10 @@ public class CloseCommand extends Command {
         ui.farewell();
         setExitCode();
     }
+
+    @Override
+    public boolean canModifyData() { return true; }
+
+    @Override
+    public String getCommandUserInput() { return "bye"; }
 }

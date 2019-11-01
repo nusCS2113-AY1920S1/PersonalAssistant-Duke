@@ -142,4 +142,14 @@ public class ReserveCommand extends Command {
             throw new RimsException("This item is not available between the dates you've selected!");
         }
     }
+
+    @Override
+    public boolean canModifyData() {
+        return true;
+    }
+
+    @Override
+    public String getCommandUserInput() {
+        return "reserve";
+    }
 }
