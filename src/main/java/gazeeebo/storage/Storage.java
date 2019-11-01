@@ -28,6 +28,11 @@ public class Storage {
     private String[] absolutePathStudyPlanner = {"Study_Plan.txt","/Study_Plan.txt"};
     private String[] absolutePathCompletedElectives = {"CompletedElectives.txt","/CompletedElectives.txt"};
     private String[] absolutePathPrerequisite = {"Prerequisite.txt","/Prerequisite.txt"};
+    private String[] getAbsolutePathGoal = {"goal.txt","/goal.txt"};
+    private String[] getAbsolutePathModule = {"modules.txt","/modules.txt"};
+    private String[] getAbsoluteNoteDaily = {"NoteDaily.txt","/NoteDaily.txt"};
+    private String[] getAbsoluteNoteWeekly = {"NoteMonthly.txt","/NoteMonthly.txt"};
+    private String[] getAbsoluteNoteMonthly = {"NoteWeekly.txt","/NoteWeekly.txt"};
     private String absolutePathResource = "Save.txt";
     private String absolutePathPasswordResource = "Password.txt";
     private String absolutePathContactResource = "Contact.txt";
@@ -54,6 +59,11 @@ public class Storage {
         resourcelist.add(absolutePathStudyPlanner);
         resourcelist.add(absolutePathCompletedElectives);
         resourcelist.add(absolutePathPrerequisite);
+        resourcelist.add(getAbsolutePathGoal);
+        resourcelist.add(getAbsoluteNoteDaily);
+        resourcelist.add(getAbsoluteNoteWeekly);
+        resourcelist.add(getAbsoluteNoteMonthly);
+        resourcelist.add(getAbsolutePathModule);
         for (String[] path:resourcelist) {
             File tmpDir = new File(path[0]);
             boolean exists = tmpDir.exists();
