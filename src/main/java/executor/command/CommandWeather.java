@@ -11,14 +11,12 @@ import ui.Wallet;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
-import java.util.LinkedHashMap;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.*;
+
 
 public class CommandWeather extends Command {
     private LinkedHashMap<String, LinkedHashMap<String, String>> fullWeatherData;
-    private Set<String> periodsPossible = new HashSet<String>(Arrays.asList("now","later","tomorrow"));
+    private Set<String> periodsPossible = new HashSet<>(Arrays.asList("now", "later", "tomorrow"));
 
     /**
      * CommandWeather displays weather information based on user request.
@@ -181,5 +179,4 @@ public class CommandWeather extends Command {
                 + "3. weather /until tomorrow \n";
         return errorMessage;
     }
-
 }
