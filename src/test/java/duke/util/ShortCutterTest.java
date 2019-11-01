@@ -62,21 +62,21 @@ public class ShortCutterTest {
 
     @Test
     public void commandNameConverter_CommandType_RespectiveConvertedCmdName() throws DukeException {
-        String check1 = ShortCutter.commandNameConverter(cmd1);
-        String check2 = ShortCutter.commandNameConverter(cmd2);
-        String check3 = ShortCutter.commandNameConverter(cmd3);
-        String check4 = ShortCutter.commandNameConverter(cmd4);
-        String check5 = ShortCutter.commandNameConverter(cmd5);
-        String check6 = ShortCutter.commandNameConverter(cmd6);
-        String check7 = ShortCutter.commandNameConverter(cmd7);
+        final String s1 = ShortCutter.commandNameConverter(cmd1);
+        final String s2 = ShortCutter.commandNameConverter(cmd2);
+        final String s3 = ShortCutter.commandNameConverter(cmd3);
+        final String s4 = ShortCutter.commandNameConverter(cmd4);
+        final String s5 = ShortCutter.commandNameConverter(cmd5);
+        final String s6 = ShortCutter.commandNameConverter(cmd6);
+        final String s7 = ShortCutter.commandNameConverter(cmd7);
 
-        assertEquals(check1, "Add Patient");
-        assertEquals(check2, "Delete a Patient");
-        assertEquals(check3, "Delete a Task");
-        assertEquals(check4, "Find a Patient");
-        assertEquals(check5, "Show all the patient");
-        assertEquals(check6, "Update Patient information");
-        assertEquals(check7, "Update Task information");
+        assertEquals(s1, "Add Patient");
+        assertEquals(s2, "Delete a Patient");
+        assertEquals(s3, "Delete a Task");
+        assertEquals(s4, "Find a Patient");
+        assertEquals(s5, "Show all the patient");
+        assertEquals(s6, "Update Patient information");
+        assertEquals(s7, "Update Task information");
     }
 
 

@@ -18,19 +18,19 @@ public class CounterTest {
     @Test
     public void runCounterLogic_CommandType_CommandTable() throws DukeException {
 
-        Command c1 = CommandManager.manageCommand("add patient :name :NRIC :room :remark");
-        Command c2 = CommandManager.manageCommand("add task :Walk the dog");
-        Command c3 = CommandManager.manageCommand("assign deadline task :patient name :#2 :02/02/2002 2222");
-        Command c4 = CommandManager.manageCommand("assign period task :#2 :#1 :01/02/2003 1234 :06/05/2004 2312");
-        Command c5 = CommandManager.manageCommand("list patients");
-        Command c6 = CommandManager.manageCommand("list tasks");
-        Command c7 = CommandManager.manageCommand("delete assigned task :#2 :#5");
-        Command c8 = CommandManager.manageCommand("delete patient :#123");
-        Command c9 = CommandManager.manageCommand("delete task :#10");
-        Command c10 = CommandManager.manageCommand("find patient :name");
-        Command c11 = CommandManager.manageCommand("find task :Walk the dog");
-        Command c13 = CommandManager.manageCommand("update patient :name :field :new data");
-        Command c14 = CommandManager.manageCommand("update task :task name :new description");
+        final Command c1 = CommandManager.manageCommand("add patient :name :NRIC :room :remark");
+        final Command c2 = CommandManager.manageCommand("add task :Walk the dog");
+        final Command c3 = CommandManager.manageCommand("assign deadline task :patient name :#2 :02/02/2002 2222");
+        final Command c4 = CommandManager.manageCommand("assign period task :#2 :#1 :01/02/2003 1234 :06/05/2004 2312");
+        final Command c5 = CommandManager.manageCommand("list patients");
+        final Command c6 = CommandManager.manageCommand("list tasks");
+        final Command c7 = CommandManager.manageCommand("delete assigned task :#2 :#5");
+        final Command c8 = CommandManager.manageCommand("delete patient :#123");
+        final Command c9 = CommandManager.manageCommand("delete task :#10");
+        final Command c10 = CommandManager.manageCommand("find patient :name");
+        final Command c11 = CommandManager.manageCommand("find task :Walk the dog");
+        final Command c13 = CommandManager.manageCommand("update patient :name :field :new data");
+        final Command c14 = CommandManager.manageCommand("update task :task name :new description");
 
 
         assertEquals(c1.getClass().getSimpleName(), "AddPatientCommand");
@@ -49,9 +49,9 @@ public class CounterTest {
 
         Map<String, Integer> commandTable = new HashMap<>();
         String[] commandName = {"AddPatientCommand", "AddTaskCommand", "AssignDeadlineTaskCommand",
-                "AssignPeriodTaskCommand", "ListPatientsCommand", "ListTasksCommand",
-                "DeleteAssignedTaskCommand", "DeletePatientCommand", "DeleteTaskCommand",
-                "FindPatientCommand", "FindTaskCommand", "UpdatePatientCommand", "UpdateTaskCommand"};
+                                "AssignPeriodTaskCommand", "ListPatientsCommand", "ListTasksCommand",
+                                "DeleteAssignedTaskCommand", "DeletePatientCommand", "DeleteTaskCommand",
+                                "FindPatientCommand", "FindTaskCommand", "UpdatePatientCommand", "UpdateTaskCommand"};
 
         for (int i = 0; i < 13; i++) {
             int count = commandTable.containsKey(commandName[i])
