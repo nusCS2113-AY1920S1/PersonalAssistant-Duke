@@ -366,6 +366,12 @@ public class TaskCommandParseHelper {
         return false;
     }
 
+    /**
+     * Get the priority level of task by user input.
+     *
+     * @param input user input
+     * @return priority level of task.
+     */
     public static Task.Priority getPriorityLevel(String input) {
         Task.Priority level = null;
         if (level.HIGH.name().equals(input)) {

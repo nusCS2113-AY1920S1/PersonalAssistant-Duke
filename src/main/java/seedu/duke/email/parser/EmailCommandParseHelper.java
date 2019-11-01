@@ -134,7 +134,7 @@ public class EmailCommandParseHelper {
         ArrayList<String> expressionList = extractExpressions(optionList);
         if (expressionList.size() < 1) {
             return new InvalidCommand("Please enter at least one expression option with \'-exp "
-                    + "[expression]\' format");
+                    + "EXPRESSION\' format");
         }
         KeywordPair addedKeywordPair = new KeywordPair(keyword, expressionList);
         EmailKeywordPairList newKeywordPairList =

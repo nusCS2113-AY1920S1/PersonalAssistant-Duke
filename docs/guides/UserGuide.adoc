@@ -20,7 +20,10 @@ Since: Oct 2019
 == Introduction
 
 
-Figure 1. GUI Interface
+.GUI Interface
+[#gui]
+[caption="Figure 1: GUI interface of Email Manager"]
+image::MainWindow.png[Gui, 800]
 
 Email Manager is an email and task manager app, specifically designed for NUS School of Computing students to manage their emails and busy schedules. As a text-based application, it is optimized for those who prefer typing and working with Command Line Interface (CLI). Email Manager also has a developed Graphical User Interface (GUI) that allows users to view email and task details in an appealing, well-organized format. If you can type fast, Email Manager can get your emails and tasks organized quickly and easily.
 
@@ -45,18 +48,88 @@ This is a warning. Heed the warnings for Email Manager to work smoothly!
 
 This section serves as a tutorial for a new user to Email Manager.
 
+[#installation]
 === Installation
 
-. Ensure you have Java version 9 or later installed in your computer.
-. Download the latest email_manager.jar here.
-. Copy the file to the folder you want to use as the home folder for Email Manager.
-. Double-click the file to start the app. The GUI window should appear in a few seconds and will look like this:
+. Ensure you have Java version 11 or later installed in your computer.
+. Download the latest email_manager.zip https://github.com/AY1920S1-CS2113T-F11-3/main/releases[here] and
+extract it to a folder.
+. If the download is too slow, please download it from https://drive.google.com/open?id=1LUnpR3H-xxBTJ6nAnYmk0bCf4j0kuu4N[google drive].
+
+[#run-email-manager]
+=== Run Email Manager
+
+[WARNING]
+The program might freeze for a while when fetching and parsing the email. Please wait patiently.
+
+==== Windows User
+
+. Double click the jar file in the extracted folder.
+. If any error occurs, try to follow the mac/linux user instructions to run the program from command line.
+
+==== Mac/Linux User
+
+. Open the command prompt.
+. Change the working directory of the command prompt to the extracted program folder using `cd` command.
+. Check java version using `java -version` command. It should be java 11.
+. Run `java -jar email_manager-1.3.jar` and you are good to go.
+
+[WARNING]
+Make sure that your command prompt is at the directory of the folder extracted, otherwise the data
+structure might not be recognised. Creating data file structure coming in v1.4
+
+[TIP]
+Please send an email to jokeryan1997@gmail.com if you cannot successfully run the program.
+
+==== Use and Test with/without Internet
+
+Our product can automatically parse and manage the emails in your mailbox. It is best to be used and tested
+with Internet connection. If you do not have Internet connection, we have also prepared some data for you to
+test offline.
+
+* If you have Internet connection:
+. You will be directed to a web page to authorize our access to your mailbox. Please login to the *dummy
+email* we provided to you. (Dummy email account: cs2113t@outlook.com, Password: nusf11-3)
+
+
+. Close the browser and return back to the Email Manager. Wait for a while for the email to be fetched
+and parsed.
+
+[WARNING]
+Our product does not support non UTF-8 characters. Using your own mailbox for
+testing may lead to redundant saving and loading with the current version. More charsets will be supported
+in v2.0
+
+* If you do not have Internet connection:
+. Paste everything under `test_data` file in the program folder, to the `data` folder. Replace all the files
+in the `data` folder.
+. Close the Email Manager and Start it again.
+. Wait for a while for all the emails to be parsed.
+
+[WARNING]
+Any hanging or "not responding" when first launch the app is normal, please wait for the app to get ready.
 
 === Introducing the Interface
+
+.Main Window
+[#main-window]
+[caption="Figure 2: Main window of Email Manager"]
+image::MainWindow.png[Main Window, 800]
+
+As shown in Figure 2, the main window of Email Manager has three sections.
+
+* On the left, it is the command interface, where you should be entering your command and get response from
+the Email Manager.
+* In the middle, it is the task list, which displays all tasks information.
+* On the right, it is the email list and content display. You can press `Esc` key on your keyboard any time
+to switch display between the list and content view of emails.
 
 === Try It Out!
 Now that you understand the app’s interface, you can now try keying in commands to interact with Email Manager. +
 Type the command in the command box and press Enter to execute it. +
+All commands have a prefix, indicating whether the command belongs to the `Email` Mode or the `Task`
+Mode. The default prefix is `Email` and you can always enter a `flip` command to toggle between `Email`
+and `Task`. +
 e.g. typing help and pressing Enter opens the help window. +
 Some example commands you can try in task mode:
 
@@ -68,8 +141,10 @@ Some example commands you can try in email mode:
 
 * `list`: lists all the emails
 * `show 3`: shows the 3rd email shown in the email list
-An example command you can try in both modes:
 
+Some example commands you can try in both modes:
+
+* `flip`: toggle between email and task command
 * `bye` : exits the app
 Refer to Features for details of each command.
 
@@ -89,6 +164,8 @@ e.g. -time TIME [-tag TAG] can be used as -time 12/12/2019 1200 -tag urgent or a
 [NOTE]
 You are only allowed to enter alphanumeric (a-z, A-Z, 0-9), space and underscore (_) characters. All other symbols will not be accepted by Email Manager.
 
+[TIP]
+You can press `UP` key to show previous input in the text box.
 
 === General Commands
 
@@ -97,124 +174,320 @@ General commands will work in either mode.
 
 ==== Viewing help: `help`
 Format: `help` +
+
 A pop up window appears and gives information on what commands are available and its respective format.
+(The help page might be outdated, please use this guide instead.)
+
+==== Change Mode: `flip`
+Format: `flip` +
+
+Flips/toggles between email mode and task mode. The prefix of the command in the text box will also be
+changed.
+
+In task mode, the text box will display `task` as a prefix.
+In email mode, the text box will display `email` as a prefix.
 
 ==== Exiting the program: `bye`
 Format: `bye` +
-Exits the program and closes the window.
 
-[WARNING]
-If the program is closed without using the bye command, the program will exit without saving the data.
+Exits the program and closes the window.
 
 ==== Apply colour code: `colour` (coming in v2.0)
 Format: `colour ITEM_NUMBER COLOUR` +
-The specified item will be shown in the colour from the command.
+
+The specified item will be shown in the colour specified in the command.
 
 === Task Mode
+
+[NOTE]
+To enter task commands, please ensure you are in task mode. If not, see Section 4.1.2 for change mode
+command using `flip`.
 
 ==== Add Tasks Commands
 ===== Adding a todo: `todo`
 Format: `todo TASK_NAME [-doafter DOAFTER_TASK][-priority PRIORITY_LEVEL][-tag TAG1]...` +
-Adds a task of todo type.
+
+Adds a task of todo type. +
+
+Examples: +
+`todo buy milk` +
+`todo take cat to vet -priority High -tag pet` +
+`todo coding -doafter math -priority high -tag fun`
+
+[TIP]
+Parameters other than item number can be entered in any order.
+
+[NOTE]
+PRIORITY_LEVEL is restricted to *high*, *med*, *low*. Any other PRIORITY_LEVEL will be invalid.
 
 ===== Adding an deadline: `deadline`
 Format: `deadline TASK_NAME -time dd/mm/yyyy hhMM [-doafter DOAFTER_TASK][-priority PRIORITY_LEVEL][-tag TAG1]...` +
-Adds a task that has a deadline. The task name and deadline are required. A doafter task, priority level or any number of tags are all optional. Order of the modifiers does not matter.
+
+Adds a task that has a deadline. The task name and deadline are required.
+A doafter task, priority level or any number of tags are all optional.
+Order of the modifiers do not matter. +
+
+Examples: +
+`deadline categorise -time` +
+`deadline submission -time 31/10/2019 2359 -doafter coding -priority high -tag fun` +
+`deadline submission -time Thu 2359`
+
+[TIP]
+Parameters other than item number can be entered in any order. +
+Natural date format can be used instead of ISO date format.
+
+[NOTE]
+PRIORITY_LEVEL is restricted to *high*, *med*, *low*. Any other PRIORITY_LEVEL will be invalid.
 
 ===== Adding an event: `event`
 Format: `event TASK_NAME -time dd/mm/yyyy hhMM [-doafter DOAFTER_TASK][-priority PRIORITY_LEVEL][-tag TAG1]...` +
+
 Adds a task of event type.
+
+Example:
+`event PE -time 31/10/2019 2359 -doafter coding -priority high -tag fun` +
+`event PE -time Thu 2359`
+
+[TIP]
+Parameters other than item number can be entered in any order.
+
+[NOTE]
+PRIORITY_LEVEL is restricted to *high*, *med*, *low*. Any other PRIORITY_LEVEL will be invalid.
 
 ==== List Tasks Commands: `list`
 Format: `list` +
+
 Gives a complete list of tasks.
 
 ==== Update Tasks Commands: `update`
 Format: `update ITEM_NUMBER [-time dd/mm/yyyy hhMM] [-doafter DOAFTER_TASK][-priority PRIORITY_LEVEL][-tag TAG1]...` +
+
 Updates attributes of the specified task. Requires minimum of one attribute to function.
 
+Example: +
+`update 1 -time Mon ` +
+`update 1 -priority low -doafter eat dinner -tag food`
+
 [TIP]
-Parameters other than item number can be entered in any order.
+Option parameters starting with `-` can be entered in any order, but all of them must be entered after the
+main command body. +
+For example, `deadline 123 -time 11/11/2020 1100 -tag CS` and `deadline 123 -tag CS
+-time 11/11/2020 1100` are both valid, but `deadline -time 11/11/2020 1100 123 -tag CS` is not.
+
 [NOTE]
-If there are more than one `time`, `doafter` or `priority` parameters,
-only the last one will be valid.
+If there are more than one `time`, `doafter` or `priority` parameters, only the last one will be valid.
+
 [WARNING]
 Any tags in the command will overwrite *all* current tags in the task
 
 ==== Delete Tasks Commands: `delete`
 Format: `delete ITEM_NUMBER` +
+
 Deletes the item specified.
+
+Example: +
+`delete 1`
 
 ==== Find task(s) with keyword: `find`
 Format: `find KEYWORD` +
-Returns a list of items that contains KEYWORD. This feature will search all the attributes of a task. Example: find cat will return cat, tabby #cat, SoCcat, concatenation.
+
+Returns a list of items that contains KEYWORD. This feature will search all the attributes of a task. +
+
+Example: +
+`find cat` will return `cat`, `tabby #cat`, `SoCcat`, `concatenation`
 
 ==== Done a task: `done`
 Format: `done ITEM_NUMBER` +
+
 Marks the item specified as done.
+
+Example: +
+`done 1`
 
 ==== Reminder for upcoming task(s): `reminder`
-Format: `reminder [-time dd/MM/yyyy HHmm]` +
-By default, it will show tasks due in the next 3 days. If a time modifier is added, it will show all tasks from current date to date specified. Example: if the current date is 14/03/2020, reminder will show hand in homework by: 15/03/2020 2359, presentation at 17/03/2020 1400. reminder 21/03/2020 will show hand in homework by: 15/03/2020 2359, presentation at: 17/03/2020 1400, exam at: 20/03/2020 0900, and flight at: 21/03/2020 1745.
+Format: `reminder NO_OF_DAYS` +
 
+Shows the deadline or event tasks for the next NO_OF_DAYS days. +
+
+Example: `reminder 4`
 
 ==== Do after: `doafter`
-Format: `doafter ITEM_NUMBER`  +
-Marks the item specified as done.
+Format: `doafter ITEM_NUMBER -msg DESCRIPTION`  +
+
+Records a task to be done after the original task is done. +
+
+Example: +
+`doafter 2 -msg work on project`
 
 [NOTE]
 Only one doafter task can be added. To modify an existing doafter task, see the update command.
 
 ==== Snooze a task: `snooze`
+Format: `snooze ITEM_NUMBER -by NO_OF_DAYS`
 
-==== Detect Anomalies
+Snoozes the task by the NO_OF_DAYS.
+
+Examples: +
+`snooze 1 -by 4` +
+`snooze 1`
+
+[NOTE]
+If the NO_OF_DAYS is not input, the `snooze` command will automatically snooze the task by 3 days.
+Only tasks of type `deadline` and `event` can be snoozed.
+
+==== Set Priority Command: `set`
+Format: `set ITEM_NUMBER -priority PRIORITY`
+
+Sets a priority to a task.
+
+Examples: +
+`set 1 -priority high` +
+`set 2 -priority med`
+
+[NOTE]
+The PRIORITY input is restricted to only *high*, *med* or *low* (case insensitive).
+Any other PRIORITY inputted will be invalid.
+
+[WARNING]
+This command can override the priority set to a task by the command `update ITEM_NUMBER -priority PRIORITY`
+and vice versa.
+
+==== Detect Anomalies (coming in v2.0)
 
 ==== Tagging a task: `tag`
 Format: `tag ITEM_NUMBER -tag TAG1 [-tag TAG2]...` +
+
 Tags the specified item with the tag(s) minimum number of tags is 1.
+
+Example: +
+`tag 1 -tag fun`
+
+==== Linking with emails: `link`
+Format: `link ITEM_NUMBER [-email EMAIL_NUMBER]...` +
+
+Notes which email is related to the task specified. If there is no email parameter,
+the command will return a list of the emails linked to the task.
+
+Examples: +
+`link 2` will give a list of all emails that is linked to task 2. +
+`link 2 -email 2 -email 4` will link emails 2 and 4 to task 2.
+
+==== Clear task list: `clear`
+Format: `clear` +
+
+This command deletes all tasks in the list.
 
 === Email Mode
 
+[NOTE]
+To enter email commands, please ensure you are in email mode. If not, see Section 4.1.2 for change mode
+command using `flip`.
+
 ==== Listing all emails: `list`
 Format: `list` +
+
 Gives a complete list of emails.
 
 ==== Showing an email: `show`
 Format: `show INDEX_NUMBER` +
-Show the email at the index number in the email list.
+
+Show the email content of the email at the index number in the email list.
+
+Example: +
+`show 3`
+
+[TIP]
+You can press `Esc` key on your keyboard any time to switch display between the list and content view of emails.
 
 ==== Fetching emails from server: `fetch`
 Format: `fetch` +
+
 Fetches email from Outlook.com.
+
+[WARNING]
+The window might freeze for a while as it is fetching and parsing emails. Please wait patiently.
+
+==== Auto parsing and tagging of emails
+This feature is automatically triggered by fetching emails from Outlook Server and adding new kayword. It
+will automatically parse "keywords" that might be  shown in your emails in different forms/expressions.
+
+For example, the keyword `CS2113T` might be in the expression of `CS2113T`, `CS2113`, `Akshay Narayan`,
+`Akshay` etc. All emails containing these expressions will be recognized as containing the keyword
+`CS2113T`. This helps the email manager to better categorize your emails. For example, some emails might not
+explicitly include the module code, still belong to that module as it is sent by the lecturer.
+
+For easier usage and testing, we have prepared a few default keyword + expressions pair as shown in Figure
+3, which will be loaded when the program starts.
+
+[#default-keywords]
+[caption="Figure 3: Default keywords of email auto-parsing"]
+image::defaultKeywords.png[Default Keywords, 400]
+
+If the email contains some expressions, the respective keyword will be used to tag that email. It can be
+seen from the `#` sign on the email list. When showing the email using `show` command, the parsed
+expressions will also be highlighted in yellow.
+
+[NOTE]
+The parsing only allows exact matching of words, which means expression `2113` will not be matched with
+text `CS2113`. Any extra characters before and after the word will not be accepted. This is to avoid
+unintentional match for short expressions. Please add more expressions if you want more matching patterns.
+
+[NOTE]
+Some emails have pictures in it, and obviously we do not intend to capture the words in those pictures.
+
+[TIP]
+To test this feature, you are recommended to use `addKeyword` command, or sending email to the dummy
+mailbox. Remember to call `fetch` command after sending and leave a few seconds for the email to be
+transmitted before calling the `fetch`.
+
+==== Add Keyword: `addKeyword`
+Format: `addKeyword KEYWORD -exp EXPRESSION1 [-exp EXPRESSION2]...` +
+Adds a keyword or expressions to the keyword list. If the keyword is already in the list, the expression
+will be added to the expressions belonging to that keyword. So this is a command to add both keyword and
+expression.
+
+[TIP]
+The easiest way to verify whether this command is working properly is to check whether the email
+containing the expression has a tag of this keyword in the email list, or just use `show ITEM_NUMBER`
+command to see whether the expressions are correctly highlighted.
+
+[NOTE]
+All emails will be parsed again upon the updates in keyword and expression, so the window might freeze for
+a while. Please wait patiently.
+
+==== Delete keyword (coming in v1.4)
+
+==== Tagging Email: `update`
+Format: `update ITEM_NUMBER -tag TAG1 [-tag TAG2]...`
+
+Tags the specified item with the tag(s) minimum number of tags is 1.
+
+Examples:
+`update 1 -tag CS2113T`
+`update 2 -tag Tutorial -tag Spam`
 
 ==== Filtering email: `list`
 Format: `list [-tag TAG1] [-tag TAG2]...` +
-Gives a list of emails with the tags. Minimum number of tags is 1, and the maximum is 2.
 
-==== Tagging Email: `update`
-Format: `update ITEM_NUMBER [-tag TAG1] [-tag TAG2]`
-Tags the specified item with the tag(s) minimum number of tags is 1.
+Gives a list of emails with the tags. Minimum number of tags is 1, and the maximum number of tags is 2.
+
+Examples:
+`list -tag CS2113T -tag Tutorial`
+`list -tag Spam`
 
 ==== Sending Email (coming in v2.0)
 
 ==== Auto delete emails (coming in v2.0)
 
-==== Linking Tasks and Email
+==== Linking Tasks and Email (coming in v2.0)
 
-==== Apply priority level
+==== Apply priority level (coming in v2.0)
 
 === Saving data
 Data is automatically saved after any command modifies the file. +
-(Question: should it be only saved when user exits the program by the “bye” command?)
 
 == FAQ
-Placeholder text for FAQ.
-
-== Command Summary (Quick Guide)
-* List
-* Filter
-* Tags
-* Colour code
-* Delete
-* Exit
-* Help
+Q: I cannot open the application correctly on my computer. What should I do?
+A: First ensure you have the correct Java version (JAVA 11) and followed the <<installation, Installation>>
+and <<run-email-manager, Run Email Manager>> guide correctly. If that still does not resolve your issue, please
+send an email to jokeryan1997@gmail.com with a description of your situation.
