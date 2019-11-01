@@ -8,12 +8,15 @@ import cube.model.promotion.Promotion;
 
 import java.util.Date;
 
+//TODO: remove discount index. Check double availability
+
 public class PromotionCommandParser implements ParserPrototype<PromotionCommand> {
     public PromotionCommand parse(String[] args) throws ParserException {
         int foodNameIndex = 1;
+        int discountIndex = -1;
         int startDateIndex = -1;
         int endDateIndex = -1;
-        String[] params = new String[]{"-s","-e"};
+        String[] params = new String[]{"-s","-e","-%"};
 
         if(ParserUtil.hasInvalidParameters(args,params)){
             throw new ParserException(ParserErrorMessage.INVALID_PARAMETER);
@@ -23,6 +26,10 @@ public class PromotionCommandParser implements ParserPrototype<PromotionCommand>
         }
 
         for (int i = 1; i < args.length; i++) {
+            if(args[i].equals("-%")) {
+                discountIndex = i;
+            }
+
             if(args[i].equals("-s")) {
                 startDateIndex = i;
             }
@@ -36,9 +43,14 @@ public class PromotionCommandParser implements ParserPrototype<PromotionCommand>
         if (foodName.equals("")) {
             throw new ParserException(ParserErrorMessage.NOT_ENOUGH_PARAMETER);
         }
+        if (discountIndex == -1 || endDateIndex == -1) {
+            throw new ParserException(ParserErrorMessage.NOT_ENOUGH_PARAMETER);
+        }
         Promotion tempPromotion = new Promotion(foodName);
 
-        //todo: parse discount
+        if (discountIndex != -1) {
+            tempPromotion.setDiscount(Double.parseDouble(args[discountIndex+1]));
+        }
 
         if (startDateIndex != -1) {
             tempPromotion.setStartDate(ParserUtil.parseStringToDate(args[startDateIndex+1]));
