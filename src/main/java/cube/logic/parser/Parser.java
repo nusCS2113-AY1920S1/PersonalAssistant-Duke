@@ -52,15 +52,15 @@ public class Parser {
 				return new DeleteCommandParser().parse(inputs);
 			case "find":
 				return new FindCommandParser().parse(inputs);
-			case "generaterevenue" :
-				//TODO: improve generate revenue
-				return new GenerateRevenueCommandParser().parse(inputs);
 			case "help":
 				return new HelpCommand();
 			case "list":
 				return new ListCommandParser().parse(inputs);
 			case "promotion":
 				return new PromotionCommandParser().parse(inputs);
+			case "revenue" :
+				//TODO: improve generate revenue
+				return new RevenueCommandParser().parse(inputs);
 			case "sold":
 				return new SoldCommandParser().parse(inputs);
 			case "update":
