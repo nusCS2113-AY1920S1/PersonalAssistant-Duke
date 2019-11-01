@@ -92,8 +92,8 @@ public class ExportCommand extends Command {
         java.util.Calendar deadlineCalendar = convertToCalendar(task.getStartDate());
         DateTime deadlineDate = new DateTime(deadlineCalendar.getTime());
         VEvent deadline = new VEvent(deadlineDate, task.getDescription());
-        createDescription(task,deadline);
-        createLocation(task,deadline);
+        createDescription(task, deadline);
+        createLocation(task, deadline);
         UidGenerator generator = new RandomUidGenerator();
         deadline.getProperties().add(generator.generateUid());
         return deadline;
@@ -105,22 +105,22 @@ public class ExportCommand extends Command {
         DateTime startEventDate = new DateTime(eventStartCalendar.getTime());
         DateTime endEventDate = new DateTime(eventEndCalendar.getTime());
         VEvent event = new VEvent(startEventDate, endEventDate, task.getDescription());
-        createDescription(task,event);
-        createLocation(task,event);
+        createDescription(task, event);
+        createLocation(task, event);
         UidGenerator generator = new RandomUidGenerator();
         event.getProperties().add(generator.generateUid());
         return event;
     }
 
-    private void createDescription(Task task,VEvent event){
-        if(task.getComment() != null){
+    private void createDescription(Task task, VEvent event) {
+        if (task.getComment() != null) {
             event.getProperties().add(new Description(task.getComment()));
         }
 
     }
 
-    private void createLocation(Task task,VEvent event){
-        if(task.getLocation() != null){
+    private void createLocation(Task task, VEvent event) {
+        if (task.getLocation() != null) {
             event.getProperties().add(new Location(task.getLocation()));
         }
     }
