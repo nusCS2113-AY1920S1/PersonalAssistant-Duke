@@ -20,7 +20,7 @@
     <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" hvalue="1.0" layoutY="78.0" prefHeight="520.0" prefWidth="500.0" vvalue="1.0">
         <VBox fx:id="dialogContainer" prefWidth="400.0" />
     </ScrollPane>
-   <HBox fx:id="statsBox" layoutY="1.0" prefHeight="73.0" prefWidth="500.0">
+   <HBox layoutY="1.0" prefHeight="73.0" prefWidth="500.0">
       <children>
          <VBox prefHeight="73.0" prefWidth="423.0">
             <children>
