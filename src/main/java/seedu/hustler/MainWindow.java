@@ -139,7 +139,7 @@ public class MainWindow extends AnchorPane{
     public void handleUserInput() {
         String input = userInput.getText();
         String[] timerModeCommands = {"/timer", "/resumertimer", "/stoptimer", "/pausetimer", "/update",
-                                      "/resumetimer", "/showtimer", "/addFromList", "/remove"};
+                                      "/resumetimer", "/showtimer", "/addfromlist", "/remove"};
 
         String[] avatarModeCommands = {"/setname", "/avatar", "/equip"};
 
