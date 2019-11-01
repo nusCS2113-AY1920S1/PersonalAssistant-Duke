@@ -415,8 +415,19 @@ public class MainWindow extends AnchorPane {
             doneDialog = true;
             if (quizSession.scoreGrade == QuizSession.ScoreGrade.BAD) {
                 AvatarScreen.avatarMode = AvatarScreen.AvatarMode.POUT;
+                avatarDialog.getChildren().clear();
+                avatarDialog.getChildren().add(
+                        DialogBox.getTaskDialog("You obviously can do better than that...\nbaka"));
             } else if (quizSession.scoreGrade == QuizSession.ScoreGrade.OKAY) {
                 AvatarScreen.avatarMode = AvatarScreen.AvatarMode.SAD;
+                avatarDialog.getChildren().clear();
+                avatarDialog.getChildren().add(
+                        DialogBox.getTaskDialog("soooOOOOO CLOOSEEE!\nYou can do better next time!"));
+            } else if (quizSession.scoreGrade == QuizSession.ScoreGrade.GOOD) {
+                AvatarScreen.avatarMode = AvatarScreen.AvatarMode.EXTHAPPY;
+                avatarDialog.getChildren().clear();
+                avatarDialog.getChildren().add(
+                        DialogBox.getTaskDialog("WELL DONE!!!\nYou rekt that cake!"));
             }
         }
     }
@@ -591,7 +602,7 @@ public class MainWindow extends AnchorPane {
         AtomicBoolean isSet = new AtomicBoolean();
         Random rand = new Random();
         Timeline timeline = new Timeline(new KeyFrame(Duration.millis(200), ev -> {
-            if (counterTicks.get() > 30 && !isExit) {
+            if (counterTicks.get() > 30 && !isExit && !isResult) {
                 avatarDialog.getChildren().clear();
                 avatarDialog.getChildren().add(
                         DialogBox.getTaskDialog(listToSay.get(rand.nextInt(listToSay.size()))));
@@ -623,6 +634,10 @@ public class MainWindow extends AnchorPane {
         list.add("Your momma so fat...\nshe segfaulted on JavaCake");
         list.add("CAAAAAAAAAaaaaakkkke!");
         list.add("Want to know a secret?\nYour waifu does not love you!");
+        list.add("late as heck but...\nhappy halloween!!!");
+        list.add("like my hat?\nit ate my soul");
+        list.add("late as heck but...\nhappy halloween!!!");
+        list.add("like my hat?\nit ate my soul");
     }
 
     private static boolean isNumeric(String input) {

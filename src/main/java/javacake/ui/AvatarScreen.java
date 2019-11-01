@@ -21,15 +21,25 @@ public class AvatarScreen extends VBox {
 
 
     public enum AvatarMode {
-        HAPPY, SAD, POUT
+        HAPPY, EXTHAPPY, SAD, POUT
     }
 
-    private Image avatarHappy1 = new Image(this.getClass().getResourceAsStream("/images/avatar/hapop.png"));
-    private Image avatarHappy2 = new Image(this.getClass().getResourceAsStream("/images/avatar/hapclos.png"));
-    private Image avatarSad1 = new Image(this.getClass().getResourceAsStream("/images/avatar/cryop.png"));
-    private Image avatarSad2 = new Image(this.getClass().getResourceAsStream("/images/avatar/cryclos.png"));
-    private Image avatarPout1 = new Image(this.getClass().getResourceAsStream("/images/avatar/poutop.png"));
-    private Image avatarPout2 = new Image(this.getClass().getResourceAsStream("/images/avatar/poutclos.png"));
+    private Image avatarHappy1 = new Image(this.getClass().getResourceAsStream(
+            "/images/avatar/h_happyopen.png"));
+    private Image avatarHappy2 = new Image(this.getClass().getResourceAsStream(
+            "/images/avatar/h_happyclose.png"));
+    private Image avatarExtHappy1 = new Image(this.getClass().getResourceAsStream(
+            "/images/avatar/h_exthappyopen.png"));
+    private Image avatarExtHappy2 = new Image(this.getClass().getResourceAsStream(
+            "/images/avatar/h_exthappyclose.png"));
+    private Image avatarSad1 = new Image(this.getClass().getResourceAsStream(
+            "/images/avatar/h_sadopen.png"));
+    private Image avatarSad2 = new Image(this.getClass().getResourceAsStream(
+            "/images/avatar/h_sadclose.png"));
+    private Image avatarPout1 = new Image(this.getClass().getResourceAsStream(
+            "/images/avatar/h_poutopen.png"));
+    private Image avatarPout2 = new Image(this.getClass().getResourceAsStream(
+            "/images/avatar/h_poutclose.png"));
     List<Image> images = new ArrayList<>();
     private int imageIndex = 0;
     private int timeFrame = 0;
@@ -42,6 +52,8 @@ public class AvatarScreen extends VBox {
         images.add(avatarHappy1);
         images.add(avatarPout2);
         images.add(avatarPout1);
+        images.add(avatarExtHappy2);
+        images.add(avatarExtHappy1);
     }
 
     /**
@@ -85,6 +97,12 @@ public class AvatarScreen extends VBox {
                     avatarImage.setImage(images.get(1));
                 } else {
                     avatarImage.setImage(images.get(0));
+                }
+            } else if (avatarMode == AvatarMode.EXTHAPPY) {
+                if (timeFrame % 16 <= 14) {
+                    avatarImage.setImage(images.get(7));
+                } else {
+                    avatarImage.setImage(images.get(6));
                 }
             } else {
                 if (timeFrame % 16 <= 14) {
