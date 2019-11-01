@@ -10,7 +10,7 @@ public class HelpCommand extends Command{
 	public static final String MESSAGE_SUCCESS = "Currently we support the following commands: (all command ignore cases)\n"
 			+ "Manipulate food:\n"
 			+ String.format("%1$-50s", "  'add <food name> -t <food type> -p <price> -s <stock> -e <expiry date>' ") + "add a new food product with all details/description\n"
-			+ String.format("%1$-50s", "  'revenue -all OR -i <number> OR -n <food name> OR -t <food type>'") + "generate the revenue for the specified food product in the list, -all for total revenue\n"
+			+ String.format("%1$-50s", "  'profit -n <food name> -period <date>-<date>'") + "show the profit and revenue for a food cross a period\n"
 			+ String.format("%1$-50s", "  'delete -i <number> OR -n <food name> OR -t <food type>'") + "delete the specified food product in the list\n"
 			+ String.format("%1$-50s", "  'sold <food name> -q <quantity>'") + "marks quantity q of product n sold\n"
 			+ "Show inventory:\n"
@@ -28,11 +28,10 @@ public class HelpCommand extends Command{
 
 	/**
 	 * Shows the list of available command.
-	 *
-	 * @param list the list of food products.
-	 * @param storage storage of Duke.
+	 * @param model The facade of all models.
+	 * @param storage The storage manager for commands.
+	 * @return The command result with feedback to user.
 	 */
-
 	@Override
 	public CommandResult execute(ModelManager model, StorageManager storage) {
 		return new CommandResult(MESSAGE_SUCCESS, true, false);
