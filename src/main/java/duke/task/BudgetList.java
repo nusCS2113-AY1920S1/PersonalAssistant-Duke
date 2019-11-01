@@ -112,5 +112,28 @@ public class BudgetList {
         }
 
     }
+
+    /**
+     * Removes the stated index of budgetList from the list.
+     *
+     * @param index the index of the list to be removed.
+     */
+    public void removeEntryFromList(int index) {
+        budgetList.remove(index);
+    }
+
+    /**
+     * Undoes the last budget and update the budget value and the budget list.
+     *
+     * @param index The index of the budget to be undone.
+     */
+    public void undoLastBudget(int index) {
+        float budget = getBudget();
+        String undoBudget = budgetList.get(index);
+        undoBudget = undoBudget.split(":")[ZERO];
+        budget -= Float.parseFloat(undoBudget);
+        removeEntryFromList(index);
+        budgetList.set(ZERO, Float.toString(budget));
+    }
 }
 //@@author

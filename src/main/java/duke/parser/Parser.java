@@ -3,6 +3,7 @@ package duke.parser;
 import duke.command.BackupCommand;
 import duke.command.ExitCommand;
 import duke.command.ListPriorityCommand;
+import duke.command.UndoBudgetCommand;
 import duke.command.Command;
 import duke.command.AddMultipleCommand;
 import duke.command.SetPriorityCommand;
@@ -615,8 +616,10 @@ public class Parser {
             budgetCommandString = trim(budgetCommandString);
             String budgetCommand = budgetCommandString.split(" ", TWO)[ZERO];
             budgetCommand = trim(budgetCommand);
-            if (budgetCommand.equals("view")) {
+            if (budgetCommand.equals("view") || budgetCommand.equals("list")) {
                 return new ViewBudgetCommand(budgetList);
+            } else if (budgetCommand.equals("undo")) {
+                return new UndoBudgetCommand(budgetList);
             } else {
                 try {
                     String budgetRemark = EMPTY_STRING;

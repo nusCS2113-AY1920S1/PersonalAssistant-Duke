@@ -787,8 +787,30 @@ public class Ui {
      * @return String of the message to be shown.
      */
     public String showBudgetExceededLimitMessageGui() {
-        return "     The limits of budget has been exceeded (> 999,999 or < -999,999),"
+        return "     The limits of budget has been exceeded! \n"
+                + "     Budget limits: Between -$999,999 and $999,999."
                 + "\n     No action has been done. ";
+    }
+
+    /**
+     * Shows the user that the budget has been undone and update the user
+     * his current budget.
+     *
+     * @param undoneBudget the budget after undone
+     * @return String of the message to be shown
+     */
+    public String showUndoneBudgetGui(String undoneBudget) {
+        return "     The previous entry has been undone, \n"
+                + "     your new budget is $ " + undoneBudget;
+    }
+
+    /**
+     * Shows the user that undo can't be done anymore on budget.
+     *
+     * @return String of the message to be shown
+     */
+    public String showBudgetUndoErrorGui() {
+        return "     You have no existing budgets to undo!";
     }
     //@@author
 }
