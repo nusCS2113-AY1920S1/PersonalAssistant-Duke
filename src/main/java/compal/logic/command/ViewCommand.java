@@ -189,13 +189,11 @@ public class ViewCommand extends Command {
             }
 
             if (t.getStringMainDate().equals(dateInput)) {
-                allTask.append(getAsStringView(t,dateInput));
+                allTask.append(getAsStringView(t, dateInput));
             }
 
-            if (!t.getStringTrailingDate().equals("-")) {
-                if (t.getStringTrailingDate().equals(dateInput)) {
-                    allTask.append(getAsStringView(t, dateInput));
-                }
+            if (!t.getStringTrailingDate().equals("-") && t.getStringTrailingDate().equals(dateInput)) {
+                allTask.append(getAsStringView(t, dateInput));
             }
         }
 
