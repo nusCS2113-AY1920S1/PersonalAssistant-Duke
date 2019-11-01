@@ -145,7 +145,7 @@ public class ShortCutter {
             command = shortCutChecker(commandName);
             return command;
         default:
-            throw new DukeException("Please enter a valid index number shown here");
+            throw new DukeException(ShortCutter.class, "Please enter a valid index number shown here");
         }
 
     }
@@ -201,7 +201,7 @@ public class ShortCutter {
             String[] patientInfo = new String[]{taskId, change, changeValue};
             return new UpdateTaskCommand(patientInfo);
         } else {
-            throw new DukeException("No matching command!");
+            throw new DukeException(ShortCutter.class, "No matching command!");
         }
     }
 
@@ -220,7 +220,7 @@ public class ShortCutter {
             return convertedName;
 
         } else if (commandClassName.equals("AddStandardTaskCommand")) {
-            convertedName = "Add a Standard Task";
+            convertedName = "Add Task";
             return convertedName;
 
         } else if (commandClassName.equals("DeletePatientCommand")) {
@@ -262,7 +262,7 @@ public class ShortCutter {
             convertedName = "Assign a task to a patient";
             return convertedName;
         } else {
-            throw new DukeException("No matching command!");
+            throw new DukeException(ShortCutter.class, "No matching command!");
         }
     }
 }

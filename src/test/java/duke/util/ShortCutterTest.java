@@ -1,28 +1,29 @@
-package duke.models.counter;
+package duke.util;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import duke.commands.Command;
-import duke.commands.CommandManager;
 import duke.exceptions.DukeException;
-import duke.util.ShortCutter;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ShortCutterTest<map> {
+public class ShortCutterTest {
 
     private Map<String, Integer> commandTable = new HashMap<>();
     private Map<String, Integer> sortedCommandTable = new HashMap<>();
-    String[] commandName = {"AddPatientCommand", "AddTaskCommand", "DeletePatientCommand",
-            "DeleteTaskCommand", "FindPatientCommand", "ListPatientsCommand", "ListTasksCommand",
-            "UpdatePatientCommand", "UpdateTaskCommand"};
+
+    String cmd1 = "AddPatientCommand";
+    String cmd2 = "DeletePatientCommand";
+    String cmd3 = "DeleteTaskCommand";
+    String cmd4 = "FindPatientCommand";
+    String cmd5 = "ListPatientsCommand";
+    String cmd6 = "UpdatePatientCommand";
+    String cmd7 = "UpdateTaskCommand";
 
     @Test
-    public void sortByValuesTest() {
+    public void sortByValues_commandTable_sortedCommandTableByValue() {
         commandTable.put("AddPatientCommand", 1);
         commandTable.put("AddTaskCommand", 2);
         commandTable.put("AssignDeadlineTaskCommand", 3);
@@ -58,5 +59,25 @@ public class ShortCutterTest<map> {
         assertEquals(values.get(11), 2);
         assertEquals(values.get(12), 1);
     }
+
+    @Test
+    public void commandNameConverter_CommandType_RespectiveConvertedCmdName() throws DukeException {
+        String check1 = ShortCutter.commandNameConverter(cmd1);
+        String check2 = ShortCutter.commandNameConverter(cmd2);
+        String check3 = ShortCutter.commandNameConverter(cmd3);
+        String check4 = ShortCutter.commandNameConverter(cmd4);
+        String check5 = ShortCutter.commandNameConverter(cmd5);
+        String check6 = ShortCutter.commandNameConverter(cmd6);
+        String check7 = ShortCutter.commandNameConverter(cmd7);
+
+        assertEquals(check1, "Add Patient");
+        assertEquals(check2, "Delete a Patient");
+        assertEquals(check3, "Delete a Task");
+        assertEquals(check4, "Find a Patient");
+        assertEquals(check5, "Show all the patient");
+        assertEquals(check6, "Update Patient information");
+        assertEquals(check7, "Update Task information");
+    }
+
 
 }

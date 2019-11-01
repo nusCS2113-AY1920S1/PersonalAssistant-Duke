@@ -14,6 +14,7 @@ import java.util.Map;
 
 /**
  * This is a Counter class that mainly used for counting purpose.
+ *
  * @author QIAN JIE
  * @version 1.3
  */
@@ -40,7 +41,7 @@ public class Counter {
     public void runCommandCounter(Command command, StorageManager storageManager,
                                   Counter counter) throws DukeException {
         if (!(command instanceof ExitCommand || command instanceof DukeCommand
-            ||command instanceof UndoCommand || command instanceof HelpCommand)) {
+                || command instanceof UndoCommand || command instanceof HelpCommand)) {
             String commandName = command.getClass().getSimpleName();
             runCounterLogic(commandName);
             storageManager.saveCounters(counter.getCommandTable());
@@ -48,7 +49,7 @@ public class Counter {
     }
 
     /**
-     * This function is used to run the counter logic
+     * This function is used to run the counter logic.
      *
      * @param commandName the command name of the class being called
      * @author QIAN JIE
@@ -56,9 +57,8 @@ public class Counter {
      */
     public void runCounterLogic(String commandName) {
         int count = commandTable.containsKey(commandName)
-                    ? commandTable.get(commandName) : 0;
+                ? commandTable.get(commandName) : 0;
         commandTable.put(commandName, count + 1);
     }
 }
-
 //@author

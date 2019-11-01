@@ -16,7 +16,7 @@ import java.util.Map;
 public class CounterTest {
 
     @Test
-    public void runCounterLogicTest() throws DukeException {
+    public void runCounterLogic_CommandType_CommandTable() throws DukeException {
 
         Command c1 = CommandManager.manageCommand("add patient :name :NRIC :room :remark");
         Command c2 = CommandManager.manageCommand("add task :Walk the dog");
