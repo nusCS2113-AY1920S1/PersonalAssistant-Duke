@@ -121,7 +121,6 @@ public class Ui extends AnchorPane {
         } else if (response.startsWith("You got ")) {
             String[] resp = response.split(" ");
             int expGain = Integer.parseInt(resp[7]);
-//            double expGain = ((double) Integer.parseInt(response.substring(8, 9)) / 10.0) * 5.0;
             updateLevelProgress(expGain);
             printToGui(input, response, userImage, senpaiImage);
         } else {
@@ -233,10 +232,10 @@ public class Ui extends AnchorPane {
         if (userExp > maxuserExp) {
             userExp -= maxuserExp;
             userLevel++;
-            playerLevel.setText("You are Level " + userLevel +".");
+            playerLevel.setText("You are Level " + userLevel + ".");
             maxuserExp *= 2;
         }
-        double userProgress = (double) userExp/maxuserExp;
+        double userProgress = (double) userExp / maxuserExp;
 
         levelProgress.setProgress(userProgress);
     }
