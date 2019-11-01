@@ -242,6 +242,12 @@ public interface CommandParser {
         }
     }
 
+    /**
+     * Returns if the input date is a future date.
+     *
+     * @param date input date
+     * @return true if date is a future date, false otherwise
+     */
     default boolean isFutureDate(Date date) {
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.HOUR_OF_DAY, 0);

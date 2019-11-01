@@ -52,7 +52,6 @@ public class FindFreeSlotCommand extends Command {
     @Override
     public CommandResult commandExecute(TaskList taskList) throws CommandException {
 
-        ArrayList<Task> arrayList = new ArrayList<>();
         Date startPointer;
         Date oneDayAfter;
 
@@ -64,12 +63,15 @@ public class FindFreeSlotCommand extends Command {
         calendar1.add(Calendar.DATE, 1);
         oneDayAfter = calendar1.getTime();
 
+        ArrayList<Task> arrayList = new ArrayList<>();
         TaskList resultTaskList = new TaskList();
         resultTaskList.setArrList(arrayList);
 
         for (Task task : taskList.getArrList()) {
-            if (!task.getStringEndTime().equals("-") && !task.getStringStartTime().equals("-") && task.getEndTime().after(currentDateAndTime)) {
-                if (task.getMainDate().equals(date) && (task.getStringTrailingDate().equals("-") || task.getTrailingDate().equals(date))) {
+            if (!task.getStringEndTime().equals("-") && !task.getStringStartTime().equals("-")
+                    && task.getEndTime().after(currentDateAndTime)) {
+                if (task.getMainDate().equals(date)
+                        && (task.getStringTrailingDate().equals("-") || task.getTrailingDate().equals(date))) {
                     resultTaskList.addTask(task);
                 } else if (task.getMainDate().equals(date) && !task.getStringTrailingDate().equals("-")) {
                     Task addedTask = task;
@@ -81,7 +83,6 @@ public class FindFreeSlotCommand extends Command {
                     DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
                     addedTask.setMainDate(dateFormat.format(date));
                     resultTaskList.addTask(addedTask);
-                } else {
                 }
             }
         }
