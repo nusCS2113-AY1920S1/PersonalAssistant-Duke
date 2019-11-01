@@ -20,6 +20,8 @@ public class RoomShareException extends Exception {
     public static final String WRONG_INDEX_FORMAT_TEXT = "\tThe index you've enter is in the wrong format\n";
     public static final String WRONG_TIME_FORMAT_TEXT = "\tYou've entered an invalid time format\n";
     public static final String WRONG_SORT_TYPE_TEXT = "\tPlease enter a valid sort type: priority, alphabetical or deadline\n";
+    public static final String LOG_ERROR_TEXT = "\tError writing to a new log file. Please try again.\n";
+    public static final String NEGATIVE_AMOUNT_TEXT = "\tThe amount of time to snooze a task cannot be negative.\n";
 
 
     private String message;
@@ -92,7 +94,11 @@ public class RoomShareException extends Exception {
             break;
 
         case logError:
-            message = "Error writing to a new log file. Please try again.";
+            message = LOG_ERROR_TEXT;
+            break;
+
+        case negativeTimeAmount:
+            message = NEGATIVE_AMOUNT_TEXT;
             break;
 
         default:

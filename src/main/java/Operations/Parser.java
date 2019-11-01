@@ -171,7 +171,7 @@ public class Parser {
             if (!temp[0].toLowerCase().equals("next") && !temp[0].toLowerCase().equals("this"))
                 return null;
 
-            // Check which day of the next week the user input
+            // Check which day of the week the user input
             String day = temp[1].trim();
             DayOfWeek dayOfWeek;
             if (day.toLowerCase().equals("monday") || day.toLowerCase().equals("mon")) {
@@ -236,7 +236,8 @@ public class Parser {
     public int getAmount() throws RoomShareException{
         try {
             String temp = scanner.next().trim();
-            return Integer.parseInt(temp);
+            int amount = Integer.parseInt(temp);
+            return amount;
         } catch (IllegalArgumentException e) {
             throw new RoomShareException(ExceptionType.wrongTimeFormat);
         }

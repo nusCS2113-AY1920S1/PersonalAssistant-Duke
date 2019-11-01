@@ -85,6 +85,12 @@ public class RoomShare {
                 ui.showBye();
                 break;
 
+            case list:
+                Ui.clearScreen();
+                ui.startUp();
+                listRoutine.list();
+                break;
+
             case done:
                 Ui.clearScreen();
                 ui.startUp();
@@ -175,6 +181,8 @@ public class RoomShare {
                     int index = parser.getIndex();
                     int amount = parser.getAmount();
                     TimeUnit timeUnit = parser.getTimeUnit();
+                    if (amount < 0)
+                        throw new RoomShareException(ExceptionType.negativeTimeAmount);
                     taskList.snooze(index, amount, timeUnit);
                     ui.showSnoozeComplete(index + 1, amount, timeUnit);
                 } catch (RoomShareException e) {
