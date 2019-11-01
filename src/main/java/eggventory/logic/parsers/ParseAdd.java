@@ -1,6 +1,7 @@
 package eggventory.logic.parsers;
 
 import eggventory.logic.commands.Command;
+import eggventory.logic.commands.CommandDictionary;
 import eggventory.logic.commands.add.AddLoanCommand;
 import eggventory.logic.commands.add.AddPersonCommand;
 import eggventory.logic.commands.add.AddStockCommand;
@@ -90,32 +91,28 @@ public class ParseAdd {
         switch (addInput[0]) {
         case "stock":
             if (!Parser.isCommandComplete(inputString, 4)) {
-                throw new InsufficientInfoException("Please enter stock information after the 'add' command in"
-                        + " this format:\nadd stock <StockType> <StockCode> <Quantity> <Description>");
+                throw new InsufficientInfoException(CommandDictionary.getCommandUsage("add stock"));
             }
             addCommand = processAddStock(addInput[1]);
             break;
 
         case "stocktype":
             if (!Parser.isCommandComplete(inputString, 1)) {
-                throw new InsufficientInfoException("Please enter stock information after the 'add' command in"
-                        + " this format:\nadd stocktype <StockType>");
+                throw new InsufficientInfoException(CommandDictionary.getCommandUsage("add stocktype"));
             }
             addCommand = processAddStockType(addInput[1]);
             break;
 
         case "loan":
             if (!Parser.isCommandComplete(inputString, 3)) {
-                throw new InsufficientInfoException("Please enter loan information after the 'add' command in"
-                        + " this format:\nadd loan <StockCode> <MatricNo> <Quantity>");
+                throw new InsufficientInfoException(CommandDictionary.getCommandUsage("add loan"));
             }
             addCommand = processAddLoan(addInput[1]);
             break;
 
         case "person":
             if (!Parser.isCommandComplete(inputString, 2)) {
-                throw new InsufficientInfoException("Please enter person information after the 'add' command in"
-                        + "this format:\nadd person <MatricNo> <Name>");
+                throw new InsufficientInfoException(CommandDictionary.getCommandUsage("add person"));
             }
 
             addCommand = processAddPerson(addInput[1]);

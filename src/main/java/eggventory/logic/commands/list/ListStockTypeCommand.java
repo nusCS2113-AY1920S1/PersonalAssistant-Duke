@@ -17,7 +17,7 @@ public class ListStockTypeCommand extends Command {
 
 
     @Override
-    public String execute(StockList list, Ui ui, Storage storage) throws BadInputException {
+    public String execute(StockList list, Ui ui, Storage storage) {
         String output = "";
 
         if (query.equals("all")) { // list stocktype all command
@@ -33,8 +33,7 @@ public class ListStockTypeCommand extends Command {
             output = listString;
 
             if (listString.equals("")) {
-                ui.print("Invalid command: No such stocktype. list stock / list stocktype all / "
-                        + "list stocktype <Stock Type>");
+                ui.print("Invalid command: No such stocktype exists!");
             } else {
                 ui.print(output);
                 // Drawing data on stocks under specific stocktype in GUI table.

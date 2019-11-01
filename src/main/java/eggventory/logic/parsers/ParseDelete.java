@@ -1,6 +1,7 @@
 package eggventory.logic.parsers;
 
 import eggventory.logic.commands.Command;
+import eggventory.logic.commands.CommandDictionary;
 import eggventory.logic.commands.delete.DeleteLoanCommand;
 import eggventory.logic.commands.delete.DeleteStockCommand;
 import eggventory.logic.commands.delete.DeleteStockTypeCommand;
@@ -36,8 +37,7 @@ public class ParseDelete {
 
         case "stock":
             if (!Parser.isCommandComplete(inputString, 1)) {
-                throw new InsufficientInfoException("Please enter information after the 'delete' command in"
-                        + " this format:\ndelete stock <StockCode>");
+                throw new InsufficientInfoException(CommandDictionary.getCommandUsage("delete stock"));
             }
             deleteInput[1] = deleteInput[1].strip();
             deleteCommand = new DeleteStockCommand(CommandType.DELETE, deleteInput[1]);
@@ -45,16 +45,14 @@ public class ParseDelete {
 
         case "stocktype":
             if (!Parser.isCommandComplete(inputString, 1)) {
-                throw new InsufficientInfoException("Please enter information after the 'delete' command in"
-                        + " this format:\ndelete stocktype <StockType>");
+                throw new InsufficientInfoException(CommandDictionary.getCommandUsage("delete stocktype"));
             }
             deleteCommand = new DeleteStockTypeCommand(CommandType.DELETE, deleteInput[1]);
             break;
 
         case "loan":
             if (!Parser.isCommandComplete(inputString, 2)) {
-                throw new InsufficientInfoException("Please enter information after the 'delete' command in"
-                        + " this format:\ndelete loan <StockCode> <MatricNo>");
+                throw new InsufficientInfoException(CommandDictionary.getCommandUsage("delete loan"));
             }
             deleteCommand = processDeleteLoan(deleteInput[1]);
             break;

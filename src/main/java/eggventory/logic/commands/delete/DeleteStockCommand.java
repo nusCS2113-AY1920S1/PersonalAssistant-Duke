@@ -10,7 +10,7 @@ import eggventory.model.items.Stock;
 
 /**
  * Command objects for deleting stocks.
- * Requires the index (as listed by the system) of the stock. //TODO: Change this to the stock code.
+ * Requires the StockCode of the Stock.
  */
 public class DeleteStockCommand extends Command {
 

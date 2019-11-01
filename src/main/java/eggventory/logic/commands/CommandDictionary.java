@@ -7,33 +7,34 @@ import javafx.util.Pair;
 public class CommandDictionary {
 
     // ArrayList of Pairs of format (commands, arguments)
-    private ArrayList<Pair<String, String>> commandDict = new ArrayList<>();
+    private static ArrayList<Pair<String, String>> commandDict = new ArrayList<>();
 
     /**
      * Contains all possible valid commands that can be used by the user. Can add new commands here
-     * and they will be automatically used by the predictive search.
+     * and they will be automatically used by the predictive search. This is already initialized by
+     * InputPredictor, and thus does not need to be initialized once again.
      */
     public CommandDictionary() {
         // Add Commands
-        commandDict.add(new Pair<>("add stock", "<Stock Type> <Stock Code> <Quantity> <Description>"));
-        commandDict.add(new Pair<>("add stocktype", "<Stock Type>"));
-        commandDict.add(new Pair<>("add person", "<Matric No.> <Name>"));
-        commandDict.add(new Pair<>("add template", "<Template Name>"));
+        commandDict.add(new Pair<>("add stock", "<StockType> <StockCode> <Quantity> <Description>"));
+        commandDict.add(new Pair<>("add stocktype", "<StockType>"));
+        commandDict.add(new Pair<>("add person", "<MatricNo> <Name>"));
+        commandDict.add(new Pair<>("add template", "<TemplateName>"));
 
         // Delete Commands
-        commandDict.add(new Pair<>("delete stock", "<Stock Code>"));
-        commandDict.add(new Pair<>("delete stocktype", "<Stock Type>"));
-        commandDict.add(new Pair<>("delete person", "<Matric No.>"));
-        commandDict.add(new Pair<>("delete template", "<Template Name>"));
+        commandDict.add(new Pair<>("delete stock", "<StockCode>"));
+        commandDict.add(new Pair<>("delete stocktype", "<StockType>"));
+        commandDict.add(new Pair<>("delete person", "<MatricNo>"));
+        commandDict.add(new Pair<>("delete template", "<TemplateName>"));
 
         // Edit Commands
-        commandDict.add(new Pair<>("edit stock", "<Stock Code> <Property> <New Value>"));
-        commandDict.add(new Pair<>("edit person", "<Property> <New Value>"));
+        commandDict.add(new Pair<>("edit stock", "<StockCode> <Property> <NewValue>"));
+        commandDict.add(new Pair<>("edit person", "<Property> <NewValue>"));
 
         // List Commands
         commandDict.add(new Pair<>("list stock", null));
         commandDict.add(new Pair<>("list stocktype", "all"));
-        commandDict.add(new Pair<>("list stocktype", "<Stock Type>"));
+        commandDict.add(new Pair<>("list stocktype", "<StockType>"));
         commandDict.add(new Pair<>("list loan", null));
         commandDict.add(new Pair<>("list template", null));
         commandDict.add(new Pair<>("list lost", null));
@@ -44,13 +45,13 @@ public class CommandDictionary {
         commandDict.add(new Pair<>("find stocktype", "<Query>"));
 
         // Loan Commands
-        commandDict.add(new Pair<>("loan add", "<Matric No.> <Stock Code> <Quantity>"));
+        commandDict.add(new Pair<>("loan add", "<MatricNo> <StockCode> <Quantity>"));
         commandDict.add(new Pair<>("loan add", "<Template Name>"));
-        commandDict.add(new Pair<>("loan returned", "<Matric No.> <Stock Code> <Quantity>"));
-        commandDict.add(new Pair<>("loan returned", "<Matric No.> <Template Name>"));
+        commandDict.add(new Pair<>("loan returned", "<MatricNo> <StockCode> <Quantity>"));
+        commandDict.add(new Pair<>("loan returned", "<MatricNo> <TemplateName>"));
 
         // Lost Commands
-        commandDict.add(new Pair<>("lost", "<Stock Code> <Quantity>"));
+        commandDict.add(new Pair<>("lost", "<StockCode> <Quantity>"));
 
         // Bye Commands
         commandDict.add(new Pair<>("bye", null));
@@ -64,7 +65,7 @@ public class CommandDictionary {
      *         Returns exactly one
      *         Returns an empty ArrayList if no matches have been found.
      */
-    public ArrayList<String> searchDictCommands(String query) {
+    public static ArrayList<String> searchDictCommands(String query) {
         ArrayList<String> curSearch = new ArrayList<>();
 
         // Iterating through arguments of the same command
@@ -72,7 +73,6 @@ public class CommandDictionary {
             // Checking if current Dictionary key matches what
             // the user has entered so far.
             if (commandDict.get(i).getKey().startsWith(query)) {
-                //System.out.println("Detected");
                 curSearch.add(commandDict.get(i).getKey());
             }
         }
@@ -89,7 +89,7 @@ public class CommandDictionary {
      *         Returns an empty ArrayList if no matches have been found.
      *         Returns
      */
-    public ArrayList<String> searchDictArguments(String command) {
+    public static ArrayList<String> searchDictArguments(String command) {
         ArrayList<String> curSearch = new ArrayList<>();
 
         for (int i = 0; i < commandDict.size(); i++) {
@@ -101,4 +101,31 @@ public class CommandDictionary {
         // Returns an empty ArrayList if no match has been found.
         return curSearch;
     }
+
+    /**
+     * Gets String with all usages of a particular Command. Used to print messages that
+     * handler errors in user input by showing correct format of commands to be entered.
+     * @param query Type of command to list use cases for, for example, 'list'.
+     * @return Formatted String to be printed by GUI containing proper use cases of command.
+     */
+    public static String getCommandUsage(String query) {
+        StringBuilder outputString = new StringBuilder();
+        outputString.append(String.format("\nAppropriate usage of '%s' is as follows:\n", query));
+
+        for (int i = 0; i < commandDict.size(); i++) {
+
+            if (commandDict.get(i).getKey().startsWith(query)) {
+                if (commandDict.get(i).getValue() == null) {
+                    outputString.append(String.format("- '%s'\n", commandDict.get(i).getKey()));
+                } else {
+                    outputString.append(String.format("- '%s %s'\n", commandDict.get(i).getKey(),
+                            commandDict.get(i).getValue()));
+                }
+
+            }
+        }
+
+        return outputString.toString();
+    }
 }
+//@@author

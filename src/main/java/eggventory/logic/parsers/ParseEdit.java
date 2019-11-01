@@ -1,6 +1,7 @@
 package eggventory.logic.parsers;
 
 import eggventory.logic.commands.Command;
+import eggventory.logic.commands.CommandDictionary;
 import eggventory.logic.commands.edit.EditStockCommand;
 import eggventory.logic.commands.edit.EditStockTypeCommand;
 import eggventory.commons.enums.CommandType;
@@ -64,16 +65,14 @@ public class ParseEdit {
         switch (addInput[0]) {
         case "stock":
             if (!Parser.isCommandComplete(inputString, 3)) {
-                throw new InsufficientInfoException("Please enter the edit information after the 'edit' command in"
-                        + "this format:\nedit stock <stockCode> <property> <newValue>");
+                throw new InsufficientInfoException(CommandDictionary.getCommandUsage("edit stock"));
             }
             editCommand = processEditStock(addInput[1]);
             break;
 
         case "stocktype":
             if (!Parser.isCommandComplete(inputString, 2)) {
-                throw new InsufficientInfoException("Please enter the edit information after the 'edit' command in"
-                        + "this format:\nedit stocktype <StockType> <New StockType Name>");
+                throw new InsufficientInfoException(CommandDictionary.getCommandUsage("edit stocktype"));
             }
             editCommand = processEditStockType(addInput[1]);
             break;
