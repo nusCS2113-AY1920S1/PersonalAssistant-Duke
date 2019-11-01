@@ -422,10 +422,10 @@ public abstract class Task implements Serializable {
      */
     public Date getEndTime() {
         Calendar calendar = Calendar.getInstance();
-        try {
-            calendar.setTime(trailingDate);
-        } catch (NullPointerException e) {
+        if (getStringTrailingDate().equals("-")) {
             calendar.setTime(mainDate);
+        } else {
+            calendar.setTime(trailingDate);
         }
         String endTime = getStringEndTime();
         int hour = Integer.parseInt(endTime.substring(0, 2));

@@ -243,6 +243,25 @@ public interface CommandParser {
     }
 
     /**
+     * Returns if the input date is a future date.
+     *
+     * @param date input date
+     * @return true if date is a future date, false otherwise
+     */
+    default boolean isFutureDate(Date date) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+        Date currentDate = calendar.getTime();
+        Calendar inputDate = Calendar.getInstance();
+        inputDate.setTime(date);
+        return date.after(currentDate) || date.equals(currentDate);
+    }
+
+
+    /**
      * Parses through user input for description field, and returns the description if present.
      *
      * @param restOfInput String input of user after command word
