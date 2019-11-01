@@ -14,7 +14,7 @@ public class TagList {
      * @param tag     Tag to be added
      * @param record  Record the tag is added with
      */
-    public void addTag(String tag, Record record) {
+    protected void addTag(String tag, Record record) {
         try {
             tagList.put(tag, record);
         } catch (Exception e) { //todo: change
