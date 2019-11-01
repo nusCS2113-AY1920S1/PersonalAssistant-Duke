@@ -23,7 +23,7 @@ class ExitCommandTest {
             + "A | 0 | Send less help | Sending Enough\n"
             + "W | 0 | Sleeping | Jan 15th and 25th");
     private UI testUi = new UI();
-    private Storage testStorage = new Storage("dummy.txt", "dummy.txt");
+    private Storage testStorage = new Storage("dummy.txt", "dummydegree.txt");
     private DegreeList testList = new DegreeList();
     //Variable to catch system.out.println, must be converted to string to be usable
     private ByteArrayOutputStream systemOutput = new ByteArrayOutputStream();
@@ -44,7 +44,7 @@ class ExitCommandTest {
     }
 
     @Test
-    void testExecute() {
+    void testExecute() throws DukeException {
 //        testUi.showWelcome();
         try {
             testCommand.execute(testTaskList, testUi, testStorage, testList, this.degreesManager);

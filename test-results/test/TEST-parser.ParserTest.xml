@@ -1,13 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="parser.ParserTest" tests="7" skipped="0" failures="0" errors="0" timestamp="2019-10-03T11:18:49" hostname="Raiyan-PC" time="0.029">
+<testsuite name="parser.ParserTest" tests="10" skipped="0" failures="0" errors="0" timestamp="2019-11-01T06:56:54" hostname="LAPTOP-HNV40S9L" time="0.114">
   <properties/>
-  <testcase name="testScheduleCommand()" classname="parser.ParserTest" time="0.004"/>
-  <testcase name="testFindCommand()" classname="parser.ParserTest" time="0.004"/>
+  <testcase name="testScheduleCommand()" classname="parser.ParserTest" time="0.044"/>
+  <testcase name="testBadCommand()" classname="parser.ParserTest" time="0.001"/>
+  <testcase name="testFindCommand()" classname="parser.ParserTest" time="0.002"/>
   <testcase name="testTaskInputFail()" classname="parser.ParserTest" time="0.006"/>
-  <testcase name="testModCommand()" classname="parser.ParserTest" time="0.002"/>
+  <testcase name="testModCommand()" classname="parser.ParserTest" time="0.023"/>
+  <testcase name="testSortCommand()" classname="parser.ParserTest" time="0.004"/>
+  <testcase name="testOtherInputs()" classname="parser.ParserTest" time="0.001"/>
   <testcase name="testSingleInput()" classname="parser.ParserTest" time="0.002"/>
-  <testcase name="testAnotherModCommand()" classname="parser.ParserTest" time="0.002"/>
-  <testcase name="testAddCommand()" classname="parser.ParserTest" time="0.003"/>
-  <system-out><![CDATA[]]></system-out>
+  <testcase name="testAnotherModCommand()" classname="parser.ParserTest" time="0.007"/>
+  <testcase name="testAddCommand()" classname="parser.ParserTest" time="0.01"/>
+  <system-out><![CDATA[Error Reading Files
+Error Reading Files
+Error Reading Files
+Error Reading Files
+Error Reading Files
+Error Reading Files
+Error Reading Files
+Error Reading Files
+Error Reading Files
+Error Reading Files
+]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

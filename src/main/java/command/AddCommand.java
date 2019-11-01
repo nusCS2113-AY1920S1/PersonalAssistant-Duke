@@ -114,6 +114,7 @@ public class AddCommand extends Command {
             DegreeList degreesBuffer = memento1.getDegreeState();
             TaskList tasksBuffer = memento2.getTaskState();
             lists.clear();
+            tasks.clear();
 
             for (int i = 0; i < degreesBuffer.size(); i++) {
                 lists.add(degreesBuffer.get(i));
