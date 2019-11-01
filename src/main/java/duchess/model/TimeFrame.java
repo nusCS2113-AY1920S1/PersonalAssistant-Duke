@@ -57,6 +57,7 @@ public class TimeFrame implements Comparable<TimeFrame> {
      * Returns true if this TimeFrame lies within the other TimeFrame.
      *
      * @param that the other TimeFrame
+     * @return true if falls within
      */
     public boolean fallsWithin(TimeFrame that) {
         if (this.isIndefinite || that.isIndefinite) {
@@ -70,6 +71,7 @@ public class TimeFrame implements Comparable<TimeFrame> {
      * Returns true if this TimeFrame clashes with the other TimeFrame.
      *
      * @param that the other TimeFrame
+     * @return true if there is clash
      */
     public boolean clashesWith(TimeFrame that) {
         if (this.isInstantaneous || that.isInstantaneous) {

@@ -148,7 +148,7 @@ public class Util {
         String currentParameter = "general";
         List<String> collectedTokens = new ArrayList<>();
 
-        for (String token : List.of(input.split(" "))) {
+        for (String token : List.of(input.split("\\s+"))) {
             if (!mappedTokens.containsKey("command")) {
                 mappedTokens.put("command", token);
             } else if (token.charAt(0) == '/') {
