@@ -1,5 +1,6 @@
 package command;
 
+import common.AlphaNUSException;
 import common.TaskList;
 import payment.Payee;
 import payment.PaymentManager;
@@ -24,6 +25,9 @@ import java.util.Calendar;
 public class Process {
     public SimpleDateFormat dataformat = new SimpleDateFormat("dd/MM/yyyy HHmm");
     ProjectManager projectmanager = new ProjectManager();
+
+    public Process() throws AlphaNUSException {
+    }
 
     /**
      * Trims leading and trailing whitespace of an array of strings.

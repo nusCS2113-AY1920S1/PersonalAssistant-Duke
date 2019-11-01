@@ -1,13 +1,23 @@
 package command;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
+import common.AlphaNUSException;
+import project.Project;
+
 import java.io.*;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 /**
  * command.Storage that saves and loads the tasklist of the user.
  */
 public class Storage {
     private static String filepath;
+    Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
     /**
      * Creates a command.Storage instance with the required attributes.
@@ -106,5 +116,44 @@ public class Storage {
     }
     public static void remove(String str){
         //TODO
+    }
+
+    public void writeToProjectsFile(LinkedHashMap<String, Project> projectmap) throws AlphaNUSException {
+        String toWriteStr = gson.toJson(projectmap);
+        String projectFilePath = "localdata/Projects.json";
+        String commandListFilePath = "localdata/Commands.json";
+        try {
+            File file = new File(projectFilePath);
+            if (!file.exists()) {
+                file.getParentFile().mkdirs();
+                file.createNewFile();
+            }
+            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file));
+
+            for (String lineStr : toWriteStr.split("\n")) {
+                bufferedWriter.write(lineStr);
+                bufferedWriter.newLine();
+            }
+            bufferedWriter.close();
+        } catch (IOException e) {
+            throw new AlphaNUSException("Unable to write to file: " + projectFilePath);
+        }
+    }
+
+    public LinkedHashMap<String, Project> readFromProjectsFile() throws AlphaNUSException {
+
+        String projectFilePath = "localdata/Projects.json";
+        Type ProjectMapType = new TypeToken<LinkedHashMap<String, Project>>(){}.getType();
+        LinkedHashMap<String, Project> projectmap;
+        try {
+            File file = new File(projectFilePath);
+            BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
+            projectmap = gson.fromJson(bufferedReader, ProjectMapType);
+            bufferedReader.close();
+        } catch (Exception e) {
+            throw new AlphaNUSException("Unable to read file");
+        }
+
+        return projectmap;
     }
 }

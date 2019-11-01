@@ -1,4 +1,3 @@
-
 delete payee p/payee   | 24-10-2019 22:51:48
 add project pr/RAG  | 25-10-2019 10:11:29
 goto project pr/RAG  | 25-10-2019 10:11:52
@@ -72,8 +71,6 @@ add project pr/trial  | 29-10-2019 01:25:07
 set fund am/200  | 29-10-2019 01:25:37
 add fund add/200  | 29-10-2019 01:26:07
 assign fund p/trial am/300  | 29-10-2019 01:26:27
-
-
 add project pr/PROJECT_NAME ~ 31-10-2019 15:35:44
 add project pr/ag ~ 31-10-2019 15:35:49
 goto project pr/PROJECT_NAME ~ 31-10-2019 15:36:01
@@ -92,8 +89,6 @@ add payee p/yh e/e013021@qweqcc m/A123012 ph/1929929 ~ 31-10-2019 16:34:19
 add project pr/rag ~ 31-10-2019 16:36:17
 add payee p/yh e/e013021@qweqcc m/A123012 ph/1929929 ~ 31-10-2019 16:36:24
 add payment p/yh i/toy c/10000.00 v/a102312 ~ 31-10-2019 16:36:29
-
-
 assign fund p/Rag am/300 ~ 31-10-2019 16:40:14
 add project pr/PROJECT_NAME ~ 31-10-2019 16:40:32
 assign fund p/PROJECT_NAME am/300 ~ 31-10-2019 16:40:48
