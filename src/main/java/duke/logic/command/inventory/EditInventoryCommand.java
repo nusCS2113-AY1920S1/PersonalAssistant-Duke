@@ -9,6 +9,7 @@ import duke.logic.parser.commons.CliSyntax;
 import duke.logic.parser.commons.Prefix;
 import duke.model.Model;
 import duke.model.commons.Item;
+import duke.model.exceptions.DuplicateEntityException;
 import duke.model.inventory.Ingredient;
 
 import java.util.List;
@@ -50,8 +51,12 @@ public class EditInventoryCommand extends InventoryCommand {
         Item<Ingredient> toEdit = lastShownList.get(index.getZeroBased());
 
         Item<Ingredient> edited = InventoryCommandUtil.createNewInventory(toEdit, inventoryDescriptor);
-
-        model.setInventory(toEdit, edited);
+        try {
+            model.setInventory(toEdit, edited);
+        } catch (DuplicateEntityException e) {
+            throw new CommandException(String.format(InventoryMessageUtils.MESSAGE_DUPLICATE_INVENTORY,
+                    edited.getItem().getName()));
+        }
         model.commit(InventoryMessageUtils.MESSAGE_COMMIT_EDIT_INVENTORY);
 
         return new CommandResult(String.format(InventoryMessageUtils.MESSAGE_SUCCESS_EDIT_INVENTORY,
