@@ -4,6 +4,7 @@ package duke.logic.parser.commons;
 
 import duke.commons.core.Message;
 import duke.logic.command.Command;
+import duke.logic.command.ExitCommand;
 import duke.logic.command.RedoCommand;
 import duke.logic.command.UndoCommand;
 import duke.logic.command.inventory.InventoryCommand;
@@ -79,6 +80,8 @@ public class BakingHomeParser {
             return new UndoCommand();
         case RedoCommand.COMMAND_WORD:
             return new RedoCommand();
+        case ExitCommand.COMMAND_WORD:
+            return new ExitCommand();
         default:
             throw new ParseException(Message.MESSAGE_UNKNOWN_COMMAND);
         }
