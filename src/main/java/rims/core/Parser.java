@@ -1,5 +1,6 @@
 package rims.core;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -23,6 +24,7 @@ import rims.resource.ReservationList;
 public class Parser {
     Ui ui;
     ResourceList resources;
+    Command prevCommand;
 
     /**
      * Constructor for the Parser.
@@ -32,6 +34,10 @@ public class Parser {
     public Parser(Ui ui, ResourceList resources) {
         this.ui = ui;
         this.resources = resources;
+    }
+
+    public void setPrevCommand(Command c) {
+        if (c.canChangeData()) { prevCommand = c; }
     }
 
     /**
@@ -75,7 +81,7 @@ public class Parser {
      * @return a Command that can be executed to carry out the necessary tasks
      * @throws RimsException if the input is in a wrong format or does not make sense.
      */
-    public Command parseInput(String input) throws RimsException {
+    public Command parseInput(String input) throws RimsException, ParseException {
         Command c;
         String[] words = input.split(" ");
 
@@ -87,13 +93,17 @@ public class Parser {
         else if (input.equals("deadlines") && words.length == 1) {
             c = new ViewDeadlinesCommand();
         }
-        else if (words[0].equals("cal") && words.length == 1) {
-            CalendarCommand.printCal();
+        //@@author danielcyc
+        else if (words[0].equals("calendar") && words.length == 1) {
+            CalendarCommand.printCal(resources, ui);
             c = new ListCommand();
+        }
         //@@author aarushisingh1
-        } else if (words[0].equals("list") && words.length > 1) {
-            String paramType = words[1];
-            if (paramType.equals("room") || paramType.equals("item")) {
+
+        else if (words[0].equals("list") && words.length > 1) {
+            String paramType = words[1].substring(1);
+            if (paramType.equals("room") || paramType.equals("item") || paramType.equals("date")) {
+
                 String param = ui.getInput("Enter the name of the resource you'd like to view a detailed list of:");
                 c = new ListCommand(paramType, param);
             } else if (paramType.equals("date")) {
@@ -294,7 +304,7 @@ public class Parser {
             }
             c = new ReturnCommand(userId, resourcesToReturn, reservationsToCancel);
         } else if (words[0].equals("undo")) {
-            c = new UndoCommand(new ListCommand());
+            c = new UndoCommand(prevCommand);
         } else {
             throw new RimsException("Please enter a recognizable command!");
         }
