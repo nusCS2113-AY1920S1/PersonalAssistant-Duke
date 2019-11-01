@@ -2,6 +2,8 @@ package duke.parser;
 
 import duke.models.students.ManageStudents;
 import duke.models.students.MyStudent;
+
+import java.util.ArrayList;
 import java.util.Scanner;
 import duke.view.CliView;
 
@@ -43,12 +45,6 @@ public final class ParserManageStudents implements IParser {
         boolean runManageStudent = true;
         switch (cmd) {
         case "add":
-            System.out.println("____________________________"
-                   + "________________________");
-            System.out.println("Insert [Name],[Age],[Address] "
-                    + "to add new student.\n"
-                    + "Insert 1 to exit.");
-            new CliView().showDontKnow();
             addCommand();
             break;
         // Format: student delete [index]
@@ -63,7 +59,7 @@ public final class ParserManageStudents implements IParser {
 
             }
             String studentName = sc.nextLine();
-            students.findName(studentName);
+            //students.findName(studentName);
             //add student details
             break;
 
@@ -78,10 +74,26 @@ public final class ParserManageStudents implements IParser {
             students.listAllStudents();
             break;
 
-        case "search":
-            final int limit = 5;
-            String searchName = input.substring(limit);
-            students.findName(searchName);
+        case "find":
+            final int limit = 4;
+            String name = cmd.substring(limit);
+            ArrayList search = new ArrayList();
+            for (MyStudent i : students.getStudentList()) {
+                if (i.getName().contains(name)) {
+                    search.add(i);
+                }
+            }
+            if (search.size() >= 1) {
+                System.out.println(
+                        "Here are the matching names in your list:");
+                int index = 1;
+                for (int i = 0; i < search.size(); i++) {
+                    System.out.println(index++ + ". " + search.get(i));
+                }
+            } else {
+                System.out.println("Sorry, there are"
+                        + " no names matching your search");
+            }
             break;
 
         case "select":
@@ -110,6 +122,8 @@ public final class ParserManageStudents implements IParser {
      * Method to parse add command.
      */
     public void addCommand() {
+        new CliView().printLine();
+        new CliView().addStudentFormat();
         String newStudent = sc.nextLine();
         String[] splitByComma = newStudent.split(",");
         String name = splitByComma[0];
