@@ -18,7 +18,8 @@ public class RoomShareException extends Exception {
     public static final String WRITE_ERROR_TEXT = "Error in writing file, cancelling write process...";
     public static final String WRONG_INDEX_FORMAT_TEXT = "The index you've enter is in the wrong format";
     public static final String WRONG_TIME_FORMAT_TEXT = "You've entered an invalid time format";
-    public static final String WRONG_SORT_TYPE_TEXT = "Please enter a valid sort type: priority, alphabetical or deadline";
+    public static final String WRONG_SORT_TYPE_TEXT = "Please enter a valid sort type: priority, alphabetical or deadline"
+            + "\nThe sort type will be set to the default which is priority";
 
 
     private String message;
