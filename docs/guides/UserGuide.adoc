@@ -29,10 +29,6 @@ Email Manager is an email and task manager app, specifically designed for NUS Sc
 
 If you are a busy computing student who is tired of receiving too many emails, you may find this app useful. Jump to [Quick Start] to get started and enjoy!
 
-[#img-UI]
-[caption="Figure N: UI"]
-image::UI.png[UI, 800]
-
 == About User Guide
 This user guide shows you how to get started with Email Manager. It introduces you to the features of Email Manager and provides you with examples, that you will become an expert user very soon! +
 Throughout this user guide, there will be various icons used, as shown below:
@@ -244,7 +240,7 @@ Format: `event TASK_NAME -time dd/mm/yyyy hhMM [-doafter DOAFTER_TASK][-priority
 
 Adds a task of event type.
 
-Example:
+Examples: +
 `event PE -time 31/10/2019 2359 -doafter coding -priority high -tag fun` +
 `event PE -time Thu 2359`
 
@@ -264,7 +260,7 @@ Format: `update ITEM_NUMBER [-time dd/mm/yyyy hhMM] [-doafter DOAFTER_TASK][-pri
 
 Updates attributes of the specified task. Requires minimum of one attribute to function.
 
-Example: +
+Examples: +
 `update 1 -time Mon ` +
 `update 1 -priority low -doafter eat dinner -tag food`
 
@@ -309,7 +305,8 @@ Format: `reminder NO_OF_DAYS` +
 
 Shows the deadline or event tasks for the next NO_OF_DAYS days. +
 
-Example: `reminder 4`
+Example: +
+`reminder 4`
 
 ==== Do after: `doafter`
 Format: `doafter ITEM_NUMBER -msg DESCRIPTION`  +
