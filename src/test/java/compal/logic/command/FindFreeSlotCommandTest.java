@@ -11,7 +11,6 @@ import org.junit.jupiter.api.Test;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 
 import static compal.logic.command.CommandTestUtil.assertCommandFailure;
@@ -115,6 +114,6 @@ public class FindFreeSlotCommandTest {
         }
         assertEquals(expected, test);
     }
-    
+
      */
 }
