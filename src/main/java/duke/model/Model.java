@@ -1,10 +1,7 @@
 package duke.model;
 
-import duke.commons.exceptions.CorruptedFileException;
-import duke.commons.exceptions.DukeException;
 import duke.commons.exceptions.FileLoadFailException;
 import duke.commons.exceptions.FileNotSavedException;
-import duke.commons.exceptions.ParseException;
 import duke.model.transports.TransportationMap;
 import duke.commons.exceptions.RouteDuplicateException;
 import duke.model.lists.EventList;
@@ -17,7 +14,6 @@ import duke.model.transports.BusService;
 import duke.model.locations.BusStop;
 import duke.model.transports.Route;
 
-import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.List;
 
@@ -62,9 +58,8 @@ public interface Model {
      * @param numberOfDays Number of days.
      * @param itinerary The itinerary to store in persistent storage.
      * @return List of Days.
-     * @throws DukeException If number of days exceeds 7.
      */
-    List<Agenda> getRecommendations(int numberOfDays, Itinerary itinerary) throws DukeException;
+    List<Agenda> getRecommendations(int numberOfDays, Itinerary itinerary) throws FileLoadFailException, FileNotSavedException;
 
     /**
      * Returns the list of Routes.
@@ -81,26 +76,24 @@ public interface Model {
     /**
      * Saves the Model data in storage.
      *
-     * @throws CorruptedFileException If the file is corrupted.
      * @throws FileNotSavedException If the file cannot be saved.
      */
-    void save() throws CorruptedFileException, FileNotSavedException;
+    void save() throws FileNotSavedException;
 
     /**
      * Returns a list of event venues.
      */
     VenueList getEventVenues();
 
-    void saveItinerary(Itinerary itinerary) throws FileNotSavedException, DukeException;
+    void saveItinerary(Itinerary itinerary) throws FileNotSavedException;
 
-    void itineraryListSave(Itinerary itinerary) throws FileNotSavedException, FileNotFoundException;
+    void itineraryListSave(Itinerary itinerary) throws FileNotSavedException;
 
     String listItineraries() throws FileLoadFailException;
 
+    Itinerary getItinerary(String number) throws FileLoadFailException;
 
-    Itinerary getItinerary(String number) throws DukeException, FileNotFoundException;
-
-    Itinerary readRecommendations() throws FileLoadFailException, ParseException;
+    Itinerary readRecommendations() throws FileLoadFailException;
 
     /**
      * Returns profile of user.

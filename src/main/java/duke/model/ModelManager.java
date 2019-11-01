@@ -83,7 +83,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public List<Agenda> getRecommendations(int numDays, Itinerary itinerary) throws DukeException {
+    public List<Agenda> getRecommendations(int numDays, Itinerary itinerary) throws FileLoadFailException, FileNotSavedException {
 
         List<Agenda> recommendations = storage.readVenues(numDays);
         itinerary.setTasks(recommendations);
@@ -135,12 +135,12 @@ public class ModelManager implements Model {
      * @param number The serial number of the Itinerary.
      */
     @Override
-    public Itinerary getItinerary(String number) throws DukeException {
+    public Itinerary getItinerary(String number) throws FileLoadFailException {
         return storage.getItinerary(number);
     }
 
     @Override
-    public Itinerary readRecommendations() throws FileLoadFailException, ParseException {
+    public Itinerary readRecommendations() throws FileLoadFailException {
         return storage.readRecommendations();
     }
 

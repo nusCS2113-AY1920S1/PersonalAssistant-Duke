@@ -29,8 +29,7 @@ public class DeleteCommand extends Command {
      * @param model The model object containing event list.
      */
     @Override
-    public CommandResultText execute(Model model) throws QueryOutOfBoundsException, FileNotSavedException,
-            CorruptedFileException {
+    public CommandResultText execute(Model model) throws QueryOutOfBoundsException, FileNotSavedException {
         try {
             Event event = model.getEvents().remove(index);
             model.save();
