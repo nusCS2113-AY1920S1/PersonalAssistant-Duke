@@ -122,7 +122,6 @@ public class Storage {
      * Adds Store object to stack.
      *
      * @param store current store object
-     * @throws DuchessException throws exception when unable to push object to stack
      */
     public void addToUndoStackPush(Store store) {
         String jsonVal = getStoreToString(store);
