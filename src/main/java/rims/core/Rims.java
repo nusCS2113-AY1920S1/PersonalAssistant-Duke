@@ -47,6 +47,7 @@ public class Rims{
             try {
                 Command c = parser.parseInput(ui.getInput());
                 c.execute(ui, storage, resources);
+                parser.setPrevCommand(c);
                 toExit = c.getExitCode();
             } catch (RimsException e) {
                 e.displayError();
