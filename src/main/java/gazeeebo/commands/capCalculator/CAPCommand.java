@@ -62,35 +62,41 @@ public class CAPCommand extends Command {
         String lineBreak = "------------------------------\n";
         ui.readCommand();
         while (!ui.fullCommand.equals("esc")) {
-            double cap = new CalculateCAPCommand().calculateCAP(caplist);
-            if (ui.fullCommand.equals("add")) {
-                new AddCAPCommand(ui, caplist);
-            } else if (ui.fullCommand.equals("list")) {
-                new ListCAPCommand(ui, caplist, lineBreak);
-            } else if (ui.fullCommand.split(" ")[0].equals("find")
-                    && !ui.fullCommand.equals("find")) {
-                new FindCAPCommand(ui, caplist, lineBreak);
-            } else if (ui.fullCommand.split(" ")[0].equals("delete")
-                    && !ui.fullCommand.equals("delete")) {
-                new DeleteCAPCommand(ui, caplist);
-            } else if (ui.fullCommand.equals("help")) {
-                System.out.println(helpCAP);
-            } else {
+            try {
+                double cap = new CalculateCAPCommand().calculateCAP(caplist);
+                if (ui.fullCommand.contains("add")) {
+                    new AddCAPCommand(ui, caplist);
+                } else if (ui.fullCommand.equals("list")) {
+                    new ListCAPCommand(ui, caplist, lineBreak);
+                } else if (ui.fullCommand.split(" ")[0].equals("find")
+                        && !ui.fullCommand.equals("find")) {
+                    new FindCAPCommand(ui, caplist, lineBreak);
+                } else if (ui.fullCommand.split(" ")[0].equals("delete")
+                        && !ui.fullCommand.equals("delete")) {
+                    new DeleteCAPCommand(ui, caplist);
+                } else if (ui.fullCommand.equals("help")) {
+                    System.out.println(helpCAP);
+                } else {
+                    throw new ArrayIndexOutOfBoundsException();
+                }
+            } catch (ArrayIndexOutOfBoundsException e) {
                 System.out.println("Command not found:\n" + helpCAP);
-            }
-            String toStore = "";
-            for (String key : caplist.keySet()) {
-                for (int i = 0; i < caplist.get(key).size(); i++) {
-                    toStore = toStore.concat(key + "|"
-                            + caplist.get(key).get(i).moduleCode
-                            + "|" + caplist.get(key).get(i).moduleCredit
-                            + "|" + caplist.get(key).get(i).grade + "\n");
+            } finally {
+                String toStore = "";
+                for (String key : caplist.keySet()) {
+                    for (int i = 0; i < caplist.get(key).size(); i++) {
+                        toStore = toStore.concat(key + "|"
+                                + caplist.get(key).get(i).moduleCode
+                                + "|" + caplist.get(key).get(i).moduleCredit
+                                + "|" + caplist.get(key).get(i).grade + "\n");
+
+                    }
 
                 }
+                storage.writeToCAPFile(toStore);
+                System.out.println("What do you want to do next ?");
+                ui.readCommand();
             }
-            storage.writeToCAPFile(toStore);
-            System.out.println("What do you want to do next ?");
-            ui.readCommand();
         }
         System.out.print("Going back to Main Menu\n");
     }
