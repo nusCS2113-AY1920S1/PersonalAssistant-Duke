@@ -164,6 +164,14 @@ public class Duke {
                 arrayList.add(ERROR_MESSAGE_RANDOM);
                 return arrayList;
             }
+        } else if (userInput.contains(COMMAND_CLEAR_INVENTORY)) {
+            if (userInput.trim().substring(0, 14).equals(COMMAND_CLEAR_INVENTORY)) {
+                Command<InventoryList, Ui, InventoryStorage> command = Parser.parse(userInput);
+                return command.execute(inventoryList, ui, inventoryStorage);
+            } else {
+                arrayList.add(ERROR_MESSAGE_RANDOM);
+                return arrayList;
+            }
         }
 
 

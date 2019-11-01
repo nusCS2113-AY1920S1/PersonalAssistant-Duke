@@ -37,6 +37,9 @@ public class InventoryList {
         }
     }
 
+    public void clearInventory() {
+        this.inventoryHM.clear();
+    }
 
     public void addIngredient(String ingredientName, String quantity, String unit, String additionalInfo) throws ParseException {
         inventoryHM.put(ingredientName, new Ingredient(ingredientName, quantity, unit, additionalInfo));
