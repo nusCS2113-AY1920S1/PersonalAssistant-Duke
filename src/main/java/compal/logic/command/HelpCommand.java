@@ -57,21 +57,25 @@ public class HelpCommand extends Command {
     public static final String WRONG_COMMAND = "Sorry, the description of the command is incorrect\n"
             + "please check the following again:\n\n";
 
+    private String type;
     private String command;
 
     private static final Logger logger = LogUtils.getLogger(HelpCommand.class);
 
-    public HelpCommand(String command) {
-        this.command = command;
+    public HelpCommand(String restOfInput) {
+        this.type = restOfInput.split("_", 2)[0];
+        this.command = restOfInput.split("_", 2)[1];
     }
 
     @Override
     public CommandResult commandExecute(TaskList task) throws CommandException {
         logger.info("Executing help command");
-        if ("".equals(command))  {
+        if (!"help".equals(type))  {
             return new CommandResult(HELP_STRING, false);
         } else {
             switch (command) {
+            case "":
+                return new CommandResult(HELP_STRING, false);
             case CMD_EXIT:
                 return new CommandResult(ByeCommand.MESSAGE_USAGE, false);
             case CMD_VIEW:

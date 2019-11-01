@@ -43,79 +43,97 @@ public class HelpCommandParserTest {
 
     @Test
     void parse_correct() throws CommandException {
-        assertParseSuccess(parser,"", new HelpCommand("").commandExecute(taskList),taskList);
+        assertParseSuccess(parser,"trash_",
+                new HelpCommand("trash_").commandExecute(taskList),taskList);
     }
 
     @Test
     void parse_correct_cmd_exit() throws CommandException {
-        assertParseSuccess(parser,CMD_EXIT, new HelpCommand(CMD_EXIT).commandExecute(taskList),taskList);
+        assertParseSuccess(parser,"help_" + CMD_EXIT,
+                new HelpCommand("help_" + CMD_EXIT).commandExecute(taskList),taskList);
+    }
+
+    @Test
+    void parse_correct_help() throws CommandException {
+        assertParseSuccess(parser,"help_",
+                new HelpCommand("help_").commandExecute(taskList),taskList);
     }
 
     @Test
     void parse_correct_cmd_list() throws CommandException {
-        assertParseSuccess(parser,CMD_LIST, new HelpCommand(CMD_LIST).commandExecute(taskList),taskList);
+        assertParseSuccess(parser,"help_" + CMD_LIST,
+                new HelpCommand("help_" + CMD_LIST).commandExecute(taskList),taskList);
     }
 
     @Test
     void parse_correct_cmd_done() throws CommandException {
-        assertParseSuccess(parser,CMD_DONE, new HelpCommand(CMD_DONE).commandExecute(taskList),taskList);
+        assertParseSuccess(parser,"help_" + CMD_DONE,
+                new HelpCommand("help_" + CMD_DONE).commandExecute(taskList),taskList);
     }
 
     @Test
     void parse_correct_cmd_delete() throws CommandException {
-        assertParseSuccess(parser,CMD_DELETE, new HelpCommand(CMD_DELETE).commandExecute(taskList),taskList);
+        assertParseSuccess(parser,"help_" + CMD_DELETE,
+                new HelpCommand("help_" + CMD_DELETE).commandExecute(taskList),taskList);
     }
 
     @Test
     void parse_correct_cmd_event() throws CommandException {
-        assertParseSuccess(parser,CMD_EVENT, new HelpCommand(CMD_EVENT).commandExecute(taskList),taskList);
+        assertParseSuccess(parser,"help_" + CMD_EVENT,
+                new HelpCommand("help_" + CMD_EVENT).commandExecute(taskList),taskList);
     }
 
     @Test
     void parse_correct_cmd_recur_task() throws CommandException {
-        assertParseSuccess(parser,CMD_RECUR_TASK, new HelpCommand(CMD_RECUR_TASK).commandExecute(taskList),taskList);
+        assertParseSuccess(parser,"help_" + CMD_RECUR_TASK,
+                new HelpCommand("help_" + CMD_RECUR_TASK).commandExecute(taskList),taskList);
     }
 
     @Test
     void parse_correct_cmd_view() throws CommandException {
-        assertParseSuccess(parser,CMD_VIEW, new HelpCommand(CMD_VIEW).commandExecute(taskList),taskList);
+        assertParseSuccess(parser,"help_" + CMD_VIEW,
+                new HelpCommand("help_" + CMD_VIEW).commandExecute(taskList),taskList);
     }
 
     @Test
     void parse_correct_cmd_find() throws CommandException {
-        assertParseSuccess(parser,CMD_FIND, new HelpCommand(CMD_FIND).commandExecute(taskList),taskList);
+        assertParseSuccess(parser,"help_" + CMD_FIND,
+                new HelpCommand("help_" + CMD_FIND).commandExecute(taskList),taskList);
     }
 
     @Test
     void parse_correct_cmd_set_reminder() throws CommandException {
-        assertParseSuccess(parser,CMD_SET_REMINDER,
-                new HelpCommand(CMD_SET_REMINDER).commandExecute(taskList),taskList);
+        assertParseSuccess(parser,"help_" + CMD_SET_REMINDER,
+                new HelpCommand("help_" + CMD_SET_REMINDER).commandExecute(taskList),taskList);
     }
 
     @Test
     void parse_correct_cmd_view_reminder() throws CommandException {
-        assertParseSuccess(parser,CMD_VIEW_REMINDER,
-                new HelpCommand(CMD_VIEW_REMINDER).commandExecute(taskList),taskList);
+        assertParseSuccess(parser,"help_" + CMD_VIEW_REMINDER,
+                new HelpCommand("help_" + CMD_VIEW_REMINDER).commandExecute(taskList),taskList);
     }
 
     @Test
     void parse_correct_cmd_deadline() throws CommandException {
-        assertParseSuccess(parser,CMD_DEADLINE, new HelpCommand(CMD_DEADLINE).commandExecute(taskList),taskList);
+        assertParseSuccess(parser,"help_" + CMD_DEADLINE,
+                new HelpCommand("help_" + CMD_DEADLINE).commandExecute(taskList),taskList);
     }
 
     @Test
     void parse_correct_cmd_help() throws CommandException {
-        assertParseSuccess(parser,CMD_HELP, new HelpCommand(CMD_HELP).commandExecute(taskList),taskList);
+        assertParseSuccess(parser,"help_" + CMD_HELP,
+                new HelpCommand("help_" + CMD_HELP).commandExecute(taskList),taskList);
     }
 
     @Test
     void parse_correct_cmd_find_free_slot() throws CommandException {
-        assertParseSuccess(parser,CMD_FIND_FREE_SLOT,
-                new HelpCommand(CMD_FIND_FREE_SLOT).commandExecute(taskList),taskList);
+        assertParseSuccess(parser,"help_" + CMD_FIND_FREE_SLOT,
+                new HelpCommand("help_" + CMD_FIND_FREE_SLOT).commandExecute(taskList),taskList);
     }
 
     @Test
     void parse_correct_cmd_edit() throws CommandException {
-        assertParseSuccess(parser,CMD_EDIT, new HelpCommand(CMD_EDIT).commandExecute(taskList),taskList);
+        assertParseSuccess(parser,"help_" + CMD_EDIT,
+                new HelpCommand("help_" + CMD_EDIT).commandExecute(taskList),taskList);
     }
 }
