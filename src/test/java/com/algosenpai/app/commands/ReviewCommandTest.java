@@ -40,6 +40,7 @@ public class ReviewCommandTest extends ApplicationTest {
         String actualText = dialogBox.getDialog().getText();
         assertEquals("There is no current quiz available!", actualText);
     }
+
     @Override
     public void start(Stage stage) throws Exception {
         FXMLLoader fxmlLoader = new FXMLLoader(HistoryCommandTest.class.getResource("/view/MainWindow.fxml"));
