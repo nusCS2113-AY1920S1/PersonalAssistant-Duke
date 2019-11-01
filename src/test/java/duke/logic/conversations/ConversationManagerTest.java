@@ -4,7 +4,6 @@ import duke.commons.exceptions.DukeException;
 import duke.logic.commands.DeleteCommand;
 import duke.logic.commands.PromptCommand;
 
-import duke.model.lists.RouteList;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;

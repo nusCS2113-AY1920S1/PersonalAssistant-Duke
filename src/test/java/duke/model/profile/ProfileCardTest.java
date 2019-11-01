@@ -1,6 +1,5 @@
 package duke.model.profile;
 
-import duke.commons.exceptions.DukeDateTimeParseException;
 import duke.commons.exceptions.ParseException;
 import duke.logic.parsers.ParserTimeUtil;
 import org.junit.jupiter.api.Test;
