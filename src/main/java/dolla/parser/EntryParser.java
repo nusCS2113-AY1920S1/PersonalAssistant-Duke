@@ -48,13 +48,21 @@ public class EntryParser extends Parser {
                 return new ErrorCommand();
             }
         } else if (commandToRun.equals(COMMAND_SORT)) {
-            return new SortCommand(mode, inputArray[1]);
+            if (verifySort()) {
+                return new SortCommand(mode, inputArray[1]);
+            } else {
+                return new ErrorCommand();
+            }
         } else if (commandToRun.equals("search")) {
             String component = inputArray[1];
             String content = inputArray[2];
             return new SearchCommand(mode, component, content);
-        } else if (commandToRun.equals(COMMAND_REMOVE)) { //TODO: indexoutofbound exception
-            return new RemoveCommand(mode, inputArray[1]);
+        } else if (commandToRun.equals(COMMAND_REMOVE)) {
+            if (verifyRemove()) {
+                return new RemoveCommand(mode, inputArray[1]);
+            } else {
+                return new ErrorCommand();
+            }
         } else if (commandToRun.equals(ENTRY_COMMAND_REDO)
                 || commandToRun.equals(ENTRY_COMMAND_UNDO)
                 || commandToRun.equals(ENTRY_COMMAND_REPEAT)) {

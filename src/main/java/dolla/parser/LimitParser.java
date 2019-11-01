@@ -12,6 +12,7 @@ import dolla.command.SortCommand;
 import dolla.command.SearchCommand;
 
 import dolla.task.Limit;
+import dolla.ui.Ui;
 
 /**
  * This class handles all limit related parsing (set, edit, remove).
@@ -43,11 +44,19 @@ public class LimitParser extends Parser {
                 return new ErrorCommand();
             }
         } else if (commandToRun.equals(ParserStringList.COMMAND_REMOVE)) {
-            return new RemoveCommand(mode, inputArray[1]);
+            if (verifyRemove()) {
+                return new RemoveCommand(mode, inputArray[1]);
+            } else {
+                return new ErrorCommand();
+            }
         } else if (commandToRun.equals(COMMAND_MODIFY)) {
             if (verifyFullModifyCommand()) {
                 // TODO: Update when ready
                 //return new InitialModifyCommand(inputArray[1]);
+                Ui.printUpcomingFeature();
+                return new ErrorCommand();
+            } else if (verifyPartialModifyCommand()) {
+                // TODO:
                 return new ErrorCommand();
             } else {
                 return new ErrorCommand();
@@ -56,8 +65,12 @@ public class LimitParser extends Parser {
             String component = inputArray[1];
             String content = inputArray[2];
             return new SearchCommand(mode, component, content);
-        } else if (commandToRun.equalsIgnoreCase(ParserStringList.COMMAND_SORT)) {
-            return new SortCommand(mode, inputArray[1]);
+        } else if (commandToRun.equals(ParserStringList.COMMAND_SORT)) {
+            if (verifySort()) {
+                return new SortCommand(mode, inputArray[1]);
+            } else {
+                return new ErrorCommand();
+            }
         } else {
             return invalidCommand();
         }

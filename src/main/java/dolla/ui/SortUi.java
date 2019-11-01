@@ -44,16 +44,16 @@ public class SortUi extends Ui {
      */
     public static void printInvalidSort(String mode) {
         System.out.println(line);
-        System.out.println("You have enter a invalid sort command!");
+        System.out.println("\tYou have enter a invalid sort command!");
         switch (mode) {
         case "entry":
-            System.out.println("You can try [sort amount/date/description]");
+            System.out.println("\tYou can try [sort amount/date/description].");
             break;
         case "debt":
-            System.out.println("You can try [sort amount/date/description/name]");
+            System.out.println("\tYou can try [sort amount/date/description/name].");
             break;
         case "limit":
-            System.out.println("You can try [sort amount]");
+            System.out.println("\tYou can try [sort amount].");
             break;
         default:
             break;

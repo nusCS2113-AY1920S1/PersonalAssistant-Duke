@@ -26,16 +26,20 @@ public abstract class Ui {
     protected static final String SORT_NAME = "name";
 
     private static String logo =
-        " ____    _   _  _   _       \n"
-        + "|  _  \\/ _ \\| || | /  \\      \n"
-        + "| | | | | | | || |/ /\\ \\  \n"
-        + "| |_| | |_| | || |  __  | \n"
-        + "|____/ \\ _ /|_||_|_|  |_|       \n";
+        "\t ____    _   _  _   _       \n"
+        + "\t|  _  \\/ _ \\| || | /  \\      \n"
+        + "\t| | | | | | | || |/ /\\ \\  \n"
+        + "\t| |_| | |_| | || |  __  | \n"
+        + "\t|____/ \\ _ /|_||_|_|  |_|       \n";
+
     protected static String line = "\t____________________________________________________________";
+
+    private static String version = "\tVersion 1.3\n";
 
     private static String welcomeMsg =
         "\tHello from\n"
         + logo
+        + version
         + line
         + "\n\tI help keep track of your finance!\n"
         + "\tWhat can I do for you?";
@@ -43,7 +47,7 @@ public abstract class Ui {
     //private static String dollaMode = ANSI_CYAN + "\t\n°º¤ø,¸¸,ø¤º°`°º¤ø,¸ MODE: DOLLA "
     //        + "  ¸,ø¤°º¤ø,¸¸,ø¤º°`°º¤ø,¸\n" + ANSI_RESET;
 
-    private static String dollaMode = ANSI_CYAN + "\n\t( •_•)O ~~ MODE: DOLLA "
+    private static String dollaMode = ANSI_CYAN + "\n\t( o_o)O ~~ MODE: DOLLA "
             + " ~~ \n" + ANSI_RESET;
 
     /**
@@ -67,7 +71,7 @@ public abstract class Ui {
         System.out.println();
         //System.out.println(ANSI_CYAN + "\t°º¤ø,¸¸,ø¤º°`°º¤ø,¸ MODE:  " + newMode.toUpperCase()
         //        + "  ¸,ø¤°º¤ø,¸¸,ø¤º°`°º¤ø,¸\n" + ANSI_RESET);
-        System.out.println(ANSI_CYAN + "\t( •_•)O ~~ MODE:  " + newMode.toUpperCase()
+        System.out.println(ANSI_CYAN + "\t( *_*)O ~~ MODE:  " + newMode.toUpperCase()
                 + "  \n" + ANSI_RESET);
     }
 
@@ -133,18 +137,6 @@ public abstract class Ui {
         System.out.println(line);
         System.out.println("\tGot it. I've added this " + currRecord.getRecordType() + ": ");
         System.out.println("\t" + currRecord.getRecordDetail());
-        System.out.println(line);
-    }
-
-    /**
-     * Echo remove.
-     *
-     * @param record the record
-     */
-    public static void echoRemove(String record) {
-        System.out.println(line);
-        System.out.println("\tNoted. I've removed this record: ");
-        System.out.println("\t" + record);
         System.out.println(line);
     }
 
@@ -279,44 +271,12 @@ public abstract class Ui {
     }
 
     /**
-     * Print sorted list.
-     *
-     * @param list the list to be printed
-     * @param type the type of input of the list
-     */
-    public static void printSortedList(ArrayList<Record> list, String type) {
-        System.out.println(line);
-        if (type.equals(SORT_DATE)) {
-            System.out.println("sorting date.........");
-        } else if (type.equals(SORT_DESCRIPTION)) {
-            System.out.println("sorting description.........");
-        } else if (type.equals(SORT_NAME)) {
-            System.out.println("sorting name.........");
-        }
-
-        for (int i = 0; i < list.size(); i++) {
-            int listNum = i + 1;
-            System.out.println("\t" + listNum + ". " + list.get(i).getRecordDetail());
-        }
-    }
-
-    /**
      * Print no reminder msg.
      */
     public static void printNoReminderMsg() {
         System.out.println(line);
         System.out.println("\tThere are no reminders :)");
         System.out.println(line);
-    }
-
-    //@@author yetong1895
-    /**
-     * This method will print the error message if user is trying trying to remove a non-existing record.
-     * @param number the total number of record.
-     */
-    public static void printRemoveError(int number) {
-        System.out.println(line);
-        System.out.println("\tSorry, you only have " + number + " record(s).");
     }
 
     //@@author
