@@ -24,7 +24,6 @@ import java.io.IOException;
  */
 public class Duke {
 
-    // private Storage taskStorage;
     private FridgeStorage fridgeStorage;
     private Storage orderStorage;
     private TaskList tasks;
@@ -62,11 +61,9 @@ public class Duke {
         }
     }
 
-
     /**
      * The execution core of the Duke class.
      */
-
     public void run() throws IOException, InterruptedException {
         String fullCommand;
         ui.clearScreen();
@@ -79,7 +76,6 @@ public class Duke {
                 ui.show(fridge.getExpiredIngredients().toString());
             }
         }
-        //ui.showOptions();
         ui.showLine();
 
         boolean isExit = false;

@@ -94,6 +94,7 @@ public class Parser {
                 if (splitted.length > 4)
                     throw new DukeException("must specify order name, amount and expiry date");
                 else if (splitted[0].equals("add"))
+                    //TODO: fix compile error
                     //return new AddCommand<Order>(new Order(splitted[1]));
                     throw new DukeException("TODO: Fix compile error.");
                 if (splitted[0].equals("remove")) {

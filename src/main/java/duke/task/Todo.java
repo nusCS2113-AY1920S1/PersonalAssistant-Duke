@@ -5,14 +5,14 @@ import duke.parser.Convert;
 import java.util.Date;
 
 /**
- * Represents a specific {@link Task} todo, not necessarily indicating a deadline or a specific date.
+ * This class...
  */
 public class Todo extends Task {
 
     private Date date;
 
     /**
-     * The constructor method for Todo.
+     * The constructor method for this class.
      */
     public Todo(String description) {
         super(description);
