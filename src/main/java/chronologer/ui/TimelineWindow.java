@@ -33,7 +33,7 @@ class TimelineWindow extends UiComponent<Region> {
     private static final Double tuesdayX = 241.0;
     private static final Double wednesdayX = 436.0;
     private static final Double thursdayX = 633.0;
-    private static final Double fridayX = 815.0;
+    private static final Double fridayX = 828.0;
     private static final Double saturdayX = 44.0;
     private static final Double sundayX = 241.0;
     private static final Double weekdayY = 50.0;

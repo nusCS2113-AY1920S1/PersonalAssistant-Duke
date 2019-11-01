@@ -98,7 +98,7 @@
             <Font size="22.0" />
          </font>
       </Label>
-      <Label fx:id="todayLabel" layoutX="241.0" layoutY="357.0" prefHeight="40.0" prefWidth="134.0" style="-fx-border-color: #009933; -fx-border-width: 3;" textFill="#787878" />
+      <Label fx:id="todayLabel" layoutX="866.0" layoutY="7.0" prefHeight="40.0" prefWidth="134.0" style="-fx-border-color: #009933; -fx-border-width: 3;" textFill="#787878" />
       <Label layoutX="469.0" layoutY="328.0" prefHeight="78.0" prefWidth="122.0" style="-fx-wrap-text: true;" text="High-Medium priority tasks" textAlignment="JUSTIFY" textFill="#a8a8a8">
          <font>
             <Font size="19.0" />
