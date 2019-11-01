@@ -4,6 +4,7 @@ import command.Command;
 import degree.DegreeManager;
 import exception.DukeException;
 import list.DegreeList;
+import main.Duke;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -17,6 +18,8 @@ import java.io.PrintStream;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
+
+
 class ParserTest {
 
     private TaskList testTaskList = new TaskList("T | 0 | Send even more Help\n"
@@ -24,7 +27,7 @@ class ParserTest {
             + "A | 0 | Send less help | Sending Enough\n"
             + "E | 0 | Sleeping | 01-01-1970 2200");
     private UI testUi = new UI();
-    private Storage testStorage = new Storage("dummy.txt");
+    private Storage testStorage = new Storage("dummy.txt", "dummydegree.txt");
     private DegreeList testList = new DegreeList();
 
     //Variable to catch system.out.println, must be converted to string to be usable
@@ -51,15 +54,16 @@ class ParserTest {
         try {
             Parser.parse("");
             fail();
+            //Empty commands should be rooted out in duke, not within parser
         } catch (Exception e) {
-            assertEquals("Empty Command!", e.getMessage());
+            assertEquals("Empty Command!", e.getLocalizedMessage());
         }
 
         try {
             Parser.parse("list asdijoqwjeoiqjwe");
             fail();
         } catch (Exception e) {
-            assertEquals("List should not have any other arguments "
+            assertEquals("list should not have any other arguments "
                     + "(whitespace acceptable)", e.getMessage());
         }
 
@@ -67,7 +71,15 @@ class ParserTest {
             Parser.parse("bye asdijoqwjeoiqjwe");
             fail();
         } catch (Exception e) {
-            assertEquals("List should not have any other arguments "
+            assertEquals("bye should not have any other arguments "
+                    + "(whitespace acceptable)", e.getMessage());
+        }
+
+        try {
+            Parser.parse("choices asdijoqwjeoiqjwe");
+            fail();
+        } catch (Exception e) {
+            assertEquals("choices should not have any other arguments "
                     + "(whitespace acceptable)", e.getMessage());
         }
     }
@@ -112,6 +124,28 @@ class ParserTest {
     }
 
     @Test
+    void testOtherInputs() throws DukeException {
+        try {
+            Parser.parse("help asdiqwoiejqwe");
+            fail();
+        } catch (Exception e) {
+            assertEquals("I do not understand that command. "
+                    + "Type \"help\" for a full list of available commands", e.getMessage());
+        }
+    }
+
+    @Test
+    void testBadCommand() throws DukeException {
+        try {
+            Command c = Parser.parse("asdiqwoiejqwe");
+            c.execute(testTaskList, testUi, testStorage, testList, this.degreesManager);
+            fail();
+        } catch (Exception e) {
+            assertEquals("☹ OOPS!!! I'm sorry, but I don't know what that means :-(", e.getMessage());
+        }
+    }
+
+    @Test
     void testAddCommand() throws DukeException {
         Command c = Parser.parse("todo JUnit Testing");
         c.execute(testTaskList, testUi, testStorage, testList, this.degreesManager);
@@ -120,6 +154,22 @@ class ParserTest {
         Command d = Parser.parse("event JUnit Testing /at 01-01-1970 2200");
         d.execute(testTaskList, testUi, testStorage, testList, this.degreesManager);
         assertEquals("[E][N] JUnit Testing (At: 01-01-1970 2200)", testTaskList.get(5).toList());
+
+        d.unExecute(testTaskList, testUi, testStorage, testList, this.degreesManager);
+        try {
+            assertEquals("[E][N] JUnit Testing (At: 01-01-1970 2200)", testTaskList.get(5).toList());
+            fail();
+        } catch (Exception e) {
+            assertEquals("Requested Task not found within list", e.getMessage());
+        }
+
+        c.unExecute(testTaskList, testUi, testStorage, testList, this.degreesManager);
+        try {
+            assertEquals("[T][N] JUnit Testing", testTaskList.get(4).toList());
+            fail();
+        } catch (Exception e) {
+            assertEquals("Requested Task not found within list", e.getMessage());
+        }
     }
 
     @Test
@@ -133,6 +183,19 @@ class ParserTest {
                 + "  [A][Y] Send less help (After: Sending Enough)\r\n"
                 + "Nice! I've marked this task as done:\n"
                 + "  [T][Y] Send even more Help\r\n", systemOutput.toString());
+
+        d.unExecute(testTaskList, testUi, testStorage, testList, this.degreesManager);
+        assertEquals("[T][N] Send even more Help", testTaskList.get(0).toList());
+
+        c.unExecute(testTaskList, testUi, testStorage, testList, this.degreesManager);
+        assertEquals("[A][N] Send less help (After: Sending Enough)", testTaskList.get(2).toList());
+
+        try {
+            assertEquals("[T][N] JUnit Testing", testTaskList.get(4).toList());
+            fail();
+        } catch (Exception e) {
+            assertEquals("Requested Task not found within list", e.getMessage());
+        }
     }
 
     @Test
@@ -157,6 +220,27 @@ class ParserTest {
         Command c = Parser.parse("schedule 01-01-1970");
         c.execute(testTaskList, testUi, testStorage, testList, this.degreesManager);
         assertEquals("Here's what the day looks like:\r\n"
+                + "4. [E][N] Sleeping (At: 01-01-1970 2200)\r\n", systemOutput.toString());
+    }
+
+    @Test
+    void testSortCommand() throws DukeException {
+        Command c = Parser.parse("sort priority");
+        c.execute(testTaskList, testUi, testStorage, testList, this.degreesManager);
+        assertEquals("Done! Your tasks have been sorted by priority; the most important one is at the top:\n\r"
+                + "\n"
+                + "1. [E][N] Sleeping (At: 01-01-1970 2200)\r\n"
+                + "2. [T][N] Send even more Help\r\n"
+                + "3. [R][N] Deliver Help (Every: Day)\r\n"
+                + "4. [A][N] Send less help (After: Sending Enough)\r\n", systemOutput.toString());
+
+        c.unExecute(testTaskList, testUi, testStorage, testList, this.degreesManager);
+
+        systemOutput.reset();
+        testTaskList.print();
+        assertEquals("1. [T][N] Send even more Help\r\n"
+                + "2. [R][N] Deliver Help (Every: Day)\r\n"
+                + "3. [A][N] Send less help (After: Sending Enough)\r\n"
                 + "4. [E][N] Sleeping (At: 01-01-1970 2200)\r\n", systemOutput.toString());
     }
 }

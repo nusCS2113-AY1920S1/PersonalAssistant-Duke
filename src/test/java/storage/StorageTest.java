@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class StorageTest {
 
-    Storage testStorage = new Storage("dummy.txt");
+    Storage testStorage = new Storage("dummy.txt", "dummydegree.txt");
 
     @Test
     void testLoad() throws DukeException {
