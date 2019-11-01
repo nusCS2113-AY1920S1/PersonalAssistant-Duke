@@ -3,9 +3,7 @@ package compal.logic.parser;
 import compal.logic.command.Command;
 import compal.logic.command.FindFreeSlotCommand;
 import compal.logic.parser.exceptions.ParserException;
-import compal.ui.UiUtil;
 
-import javax.swing.text.html.parser.Parser;
 import java.text.ParseException;
 import java.util.Date;
 

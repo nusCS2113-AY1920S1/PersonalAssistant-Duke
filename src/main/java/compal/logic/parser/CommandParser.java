@@ -258,10 +258,10 @@ public interface CommandParser {
         Calendar inputDate = Calendar.getInstance();
         inputDate.setTime(date);
 
-        if (date.after(currentDate) || date.equals(currentDate)) {
-            return true;
-        } else {
+        if (date.before(currentDate)) {
             return false;
+        } else {
+            return true;
         }
     }
 

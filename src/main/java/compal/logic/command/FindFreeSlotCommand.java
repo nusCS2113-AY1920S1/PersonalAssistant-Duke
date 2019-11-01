@@ -1,7 +1,6 @@
 package compal.logic.command;
 
 import compal.logic.command.exceptions.CommandException;
-import compal.logic.parser.exceptions.ParserException;
 import compal.model.tasks.Task;
 import compal.model.tasks.TaskList;
 
