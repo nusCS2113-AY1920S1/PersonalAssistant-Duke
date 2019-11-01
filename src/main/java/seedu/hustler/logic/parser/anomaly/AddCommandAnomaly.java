@@ -34,6 +34,11 @@ public class AddCommandAnomaly extends DetectAnomaly {
             throw new CommandLineException(MESSAGE_EMPTY_TASK_DESCRIPTION);
         }
 
+        String taskDescription = userInput[1].split("/by|/at")[0];
+        if (taskDescription.isBlank()) {
+            throw new CommandLineException(MESSAGE_EMPTY_TASK_DESCRIPTION);
+        }
+
         try {
             List<String> parsedInput = Arrays.asList(userInput[1].split(" "));
 
