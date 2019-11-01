@@ -1,10 +1,8 @@
 [![Build Status](https://travis-ci.org/AY1920S1-CS2113T-T09-3/main.svg?branch=master)](https://travis-ci.org/AY1920S1-CS2113T-T09-3/main)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/7fc727164cf9474894c67065fc83415c)](https://www.codacy.com/manual/sevenmatt7/main?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=AY1920S1-CS2113T-T09-3/main&amp;utm_campaign=Badge_Grade)
 
 # AlgoSenpai Adventures (ASA)
 A project by AY1920S1-CS2113T-T09-3
-
-![ASA](docs/images/Ui.png)
-
 Team Members:
 1) NG WEI JIE, BRANDON
 2) MATTHEW NATHANAEL SUGIRI
@@ -12,32 +10,22 @@ Team Members:
 4) SIM YU JIE
 5) NG SHI QI, CARRIE
 
-# Setting up
+![ASA](docs/images/Ui.png)
 
-**Prerequisites**
+* This is a desktop education application. It has a GUI but most of the user interactions happen within a Command Line 
+Interface (CLI).
 
-* JDK 11
-* Recommended: IntelliJ IDE
-* Fork this repo to your GitHub account and clone the fork to your computer
+* It is a morph of the PersonalAssistant/Duke application that was developed during Phase 1 of the project.
 
-**Importing the project into IntelliJ**
+* It is written in OOP fashion. We used a Model-View-Controller (MVC) design pattern for the architecture
+of the whole project.
 
-1. Open IntelliJ (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project dialog first).
-1. Set up the correct JDK version.
-   * Click `Configure` > `Structure for new Projects` (in older versions of Intellij:`Configure` > `Project Defaults` > `Project Structure`).
-   * If JDK 11 is listed in the drop down, select it. If it is not, click `New...` and select the directory where you installed JDK 11.
-   * Click `OK`.
-1. Click `Import Project`.
-1. Locate the project directory and click `OK`.
-1. Select `Create project from existing sources` and click `Next`.
-1. Rename the project if you want. Click `Next`.
-1. Ensure that your src folder is checked. Keep clicking `Next`.
-1. Click `Finish`.
-
-# Documentation
+# Site Map
 
 * [User Guide](docs/UserGuide.adoc)
 * [Developer's Guide](docs/DeveloperGuide.adoc)
+* [About Us](docs/AboutUs.adoc)
+* [Setting Up](docs/SettingUp.adoc) 
 
 # Resources
 - https://discuss.gradle.org/t/testfx-headless-java-options-from-cli-not-used-running-the-tests/28197

@@ -31,21 +31,17 @@
 //
 //    @Test
 //    public void saveData_fileDoesNotExist() {
-//        try {
-//            new File(TEST_PATH).delete();
-//            Storage.saveData(TEST_PATH,getDummyUserStats().toString());
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
+//
+//        new File(TEST_PATH).delete();
+//        Storage.saveData(TEST_PATH,getDummyUserStats().toString());
+//
 //    }
 //
 //    @Test
 //    public void saveData_randomTest() {
-//        try {
-//            Storage.saveData(TEST_PATH,getRandomUserStats().toString());
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
+//
+//        Storage.saveData(TEST_PATH,getRandomUserStats().toString());
+//
 //    }
 //
 //    /**
@@ -57,13 +53,11 @@
 //        // create the file.
 //        UserStats userStats = getRandomUserStats();
 //
-//        try {
-//            Storage.saveData(TEST_PATH,userStats.toString());
-//            UserStats copy = UserStats.parseString(Storage.loadData(TEST_PATH));
-//            assertEquals(userStats,copy);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
+//
+//        Storage.saveData(TEST_PATH,userStats.toString());
+//        UserStats copy = UserStats.parseString(Storage.loadData(TEST_PATH));
+//        assertEquals(userStats,copy);
+//
 //    }
 //
 //    /**
@@ -74,13 +68,11 @@
 //    public void saveAndLoad_emptyUserStats() {
 //        UserStats userStats = getEmptyUserStats();
 //
-//        try {
-//            Storage.saveData(TEST_PATH,userStats.toString());
-//            UserStats copy = UserStats.parseString(Storage.loadData(TEST_PATH));
-//            assertEquals(userStats,copy);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
+//
+//        Storage.saveData(TEST_PATH,userStats.toString());
+//        UserStats copy = UserStats.parseString(Storage.loadData(TEST_PATH));
+//        assertEquals(userStats,copy);
+//
 //    }
 //
 //    /**
@@ -90,22 +82,20 @@
 //    public void loadData_fileDoesNotExist_shouldCreateFileWithDefaultStats() {
 //        new File(TEST_PATH).delete();
 //        UserStats defaultStats = UserStats.getDefaultUserStats();
-//        try {
-//            UserStats loadedStats = UserStats.parseString(Storage.loadData(TEST_PATH));
-//            assertEquals(defaultStats,loadedStats);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
+//
+//        UserStats loadedStats = UserStats.parseString(Storage.loadData(TEST_PATH));
+//        assertEquals(defaultStats,loadedStats);
+//
 //    }
 //
 //    private UserStats getEmptyUserStats() {
-//        return new UserStats("", "", new ArrayList<>());
+//        return new UserStats("", "", 0,0,new ArrayList<>());
 //    }
 //
 //    private UserStats getDummyUserStats() {
 //        ArrayList<ChapterStat> chapterStats = new ArrayList<>();
 //        chapterStats.add(new ChapterStat("Chapter",1,2,3,4,6,7.0,"df"));
-//        return new UserStats("Name", "file", chapterStats);
+//        return new UserStats("Name", "file",0,0, chapterStats);
 //    }
 //
 //    private UserStats getRandomUserStats() {
@@ -130,6 +120,6 @@
 //            );
 //            chapterStats.add(chapterStat);
 //        }
-//        return new UserStats("Test Test Test", "Test test Test", chapterStats);
+//        return new UserStats("Test Test Test", "Test test Test", 0,0,chapterStats);
 //    }
 //}

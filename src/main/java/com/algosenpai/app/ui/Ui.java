@@ -6,7 +6,6 @@ import com.algosenpai.app.logic.command.ClearCommand;
 import com.algosenpai.app.logic.command.Command;
 import com.algosenpai.app.logic.command.SetupCommand;
 import com.algosenpai.app.logic.command.UndoCommand;
-import com.algosenpai.app.logic.command.QuizTestCommand;
 import com.algosenpai.app.stats.UserStats;
 import com.algosenpai.app.logic.parser.Parser;
 import com.algosenpai.app.ui.controller.AnimationTimerController;
@@ -61,27 +60,23 @@ public class Ui extends AnchorPane {
 
     private Logic logic;
     private UserStats stats;
-    // private double userExp = stats.getUserExp()/10.0;
-    //private String userName = stats.getUsername();
-    //private int level = stats.getUserLevel();
-    //private String userGender = stats.getGender();
+    private double userExp = 0.0;
     private int idleMinutesMax = 180;
 
     private static final String GREETING_MESSAGE = "Welcome to AlgoSenpai Adventures!"
-                                                   + "Type 'hello' followed by your name and gender"
-                                                   + "(boy or girl) to start!";
-    private static final String BOY_PROFILE_PICTURE_PATH = "/images/boyplayer.jpg";
-    private static final String GIRL_PROFILE_PICTURE_PATH = "/images/girlplayer.png";
+                                                   + " Type 'hello' followed by your name and gender"
+                                                   + " (boy/girl) to start!\n \n"
+                                                   + "If you have been here before,"
+                                                   + " type 'hello' to load your previous user data!";
+    private static final String BOY_PROFILE_PICTURE_PATH = "/images/boychar.jpg";
+    private static final String GIRL_PROFILE_PICTURE_PATH = "/images/girlchar.jpg";
     private static final String DEFAULT_PROFILE_PICTURE_PATH = "/images/unknown.png";
-    private static final String SENPAI_PROFILE_PICTURE_PATH = "/images/miku.png";
+    private static final String SENPAI_PROFILE_PICTURE_PATH = "/images/algosenpai.png";
 
     private Image boyImage = new Image(this.getClass().getResourceAsStream(BOY_PROFILE_PICTURE_PATH));
     private Image girlImage = new Image(this.getClass().getResourceAsStream(GIRL_PROFILE_PICTURE_PATH));
     private Image userImage = new Image(this.getClass().getResourceAsStream(DEFAULT_PROFILE_PICTURE_PATH));
     private Image senpaiImage = new Image(this.getClass().getResourceAsStream(SENPAI_PROFILE_PICTURE_PATH));
-
-    public Ui() throws FileNotFoundException {
-    }
 
     /**
      * Renders the nodes on the GUI.
@@ -90,6 +85,7 @@ public class Ui extends AnchorPane {
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         dialogContainer.getChildren().add(DialogBox.getSenpaiDialog(GREETING_MESSAGE, senpaiImage));
+        handle();
         userPic.setImage(userImage);
         levelProgress.setProgress(0);
         playerLevel.setText("You are Level 1");
@@ -99,22 +95,6 @@ public class Ui extends AnchorPane {
     public void setLogic(Logic logic, UserStats stats) {
         this.logic = logic;
         this.stats = stats;
-    }
-
-    /**
-     * Changes the user Image.
-     * @param input the input of the user which will either be "boy" or "girl".
-     */
-    public void changeUserImage(String input) {
-        if (input.equals("boy")) {
-            userImage = boyImage;
-            userPic.setImage(userImage);
-        } else if (input.equals("girl")) {
-            userImage = girlImage;
-            userPic.setImage(userImage);
-        } else {
-            userPic.setImage(userImage);
-        }
     }
 
     /**
@@ -137,11 +117,8 @@ public class Ui extends AnchorPane {
             setPlayerGender(response);
             playerName.setText(response);
             printToGui(input, response, userImage, senpaiImage);
-        } else if (commandGenerated instanceof QuizTestCommand) {
-            logic.setUserAnswer(input);
-            printToGui(input, response, userImage, senpaiImage);
         } else if (response.startsWith("You got ")) {
-            double expGain = ((double) Integer.parseInt(response.substring(8, 9)) / 10) * 5;
+            double expGain = ((double) Integer.parseInt(response.substring(8, 9)) / 10.0) * 5.0;
             updateLevelProgress(expGain);
             printToGui(input, response, userImage, senpaiImage);
         } else {
@@ -249,8 +226,8 @@ public class Ui extends AnchorPane {
      * @param expGain the double representing the gain in EXP to be reflected.
      */
     private void updateLevelProgress(double expGain) {
-        //userExp += expGain;
-        //levelProgress.setProgress(userExp);
+        userExp += expGain;
+        levelProgress.setProgress(userExp);
     }
 
     /**
@@ -259,9 +236,11 @@ public class Ui extends AnchorPane {
      */
     private void setPlayerGender(String response) {
         if (response.substring(6, 9).equals("Mr.")) {
-            changeUserImage("boy");
-        } else if (response.substring(6, 9).equals("Mrs")) {
-            changeUserImage("girl");
+            userImage = boyImage;
+            userPic.setImage(userImage);
+        } else if (response.substring(6, 9).equals("Ms.")) {
+            userImage = girlImage;
+            userPic.setImage(userImage);
         }
     }
 }

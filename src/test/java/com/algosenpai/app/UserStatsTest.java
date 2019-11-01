@@ -38,7 +38,7 @@
 //            chapterStats.add(chapterStat);
 //        }
 //
-//        UserStats userStats = new UserStats("Test Test Test", "Test test Test", chapterStats);
+//        UserStats userStats = new UserStats("Test Test Test", "Test test Test",0,0,chapterStats);
 //        UserStats copyOfUserStats = UserStats.parseString(userStats.toString());
 //        assertEquals(userStats,copyOfUserStats);
 //
@@ -49,7 +49,7 @@
 //     */
 //    @Test
 //    public void stringParsing_emptyStats() {
-//        UserStats userStats = new UserStats("","",new ArrayList<>());
+//        UserStats userStats = new UserStats("","",0,0,new ArrayList<>());
 //        UserStats copy = UserStats.parseString(userStats.toString());
 //        assertEquals(copy,userStats);
 //    }

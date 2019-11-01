@@ -32,7 +32,7 @@ public class QuizNextCommand extends QuizCommand {
             questionNumber.decrementAndGet();
         }
         return quizList.get(questionNumber.get()).getQuestion()
-                + "\n"
+                + "\n Your answer: "
                 + quizList.get(questionNumber.get()).getUserAnswer();
     }
 }

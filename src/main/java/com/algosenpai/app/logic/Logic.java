@@ -1,8 +1,5 @@
-//@@author carrieng0323852
-
 package com.algosenpai.app.logic;
 
-import com.algosenpai.app.logic.chapters.QuizGenerator;
 import com.algosenpai.app.logic.chapters.QuizGenerator;
 import com.algosenpai.app.logic.command.ArchiveCommand;
 import com.algosenpai.app.logic.command.VolumeCommand;
@@ -30,17 +27,13 @@ import com.algosenpai.app.logic.models.QuestionModel;
 import com.algosenpai.app.logic.parser.Parser;
 import com.algosenpai.app.stats.UserStats;
 
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class Logic {
     private UserStats userStats;
-    private QuizGenerator quizMaker;
-
-    //All variables for the settings of the program
-    private double playerExp = 0.0;
+    private QuizGenerator quizMaker = new QuizGenerator();
 
     //All variables for the quiz function
     private AtomicInteger chapterNumber = new AtomicInteger(-1);
@@ -51,40 +44,16 @@ public class Logic {
     private int prevResult = -1;
 
     // VariabReview features;
-    private ArrayList<QuestionModel> archiveList;
+    private ArrayList<QuestionModel> archiveList = new ArrayList<>();
 
     // History features;
-    private ArrayList<String> historyList;
+    private ArrayList<String> historyList = new ArrayList<>();
 
     /**
      * Initializes logic for the application with all the different components.
      */
-    public Logic(UserStats stats) throws FileNotFoundException {
+    public Logic(UserStats stats) {
         this.userStats = stats;
-        quizMaker = new QuizGenerator();
-        historyList = new ArrayList<>();
-        archiveList = new ArrayList<>();
-    }
-
-    /**
-     * Add the user answer to the quiz.
-     * @param userAnswer answer to the question.
-     */
-    public void setUserAnswer(String userAnswer) {
-        if (questionNumber.get() > 0) {
-            int currentQuestionNumber = questionNumber.get() - 1;
-            QuestionModel questionModel = quizList.get(currentQuestionNumber);
-            questionModel.setUserAnswer(userAnswer);
-            quizList.set(currentQuestionNumber, questionModel);
-        }
-    }
-
-    /**
-     * Gets the player exp level.
-     * @return the double value representing the exp level.
-     */
-    public double getPlayerExp() {
-        return this.playerExp;
     }
 
     /**
@@ -104,7 +73,7 @@ public class Logic {
         case "hello":
             return new SetupCommand(inputs, userStats);
         case "help":
-            return new HelpCommand(inputs);
+            return new HelpCommand(inputs, userStats);
         case "menu":
             return new MenuCommand(inputs);
         case "select":
@@ -138,23 +107,28 @@ public class Logic {
         }
     }
 
+    /**
+     * Executes the Quiz commands during the quiz.
+     * @param inputs user input.
+     * @return the Quiz command object to be executed.
+     */
     private Command getQuizCommand(ArrayList<String> inputs) {
         if (!isNewQuiz.get()) {
             if (inputs.get(0).equals("quiz")) {
                 if (inputs.size() < 2) {
                     return new QuizCommand(inputs);
-                }
-                if (inputs.get(1).equals("next") || inputs.get(1).equals("back")) {
+                } else if (inputs.get(1).equals("next") || inputs.get(1).equals("back")) {
                     return new QuizNextCommand(inputs, quizList, questionNumber);
                 } else {
-                    return new QuizTestCommand(inputs, quizList, questionNumber, isQuizMode, isNewQuiz);
+                    return new QuizTestCommand(
+                            inputs, quizList, questionNumber, isQuizMode, isNewQuiz, chapterNumber.get());
                 }
             } else {
                 return new QuizCommand(inputs);
             }
         }
         quizList = quizMaker.generateQuiz(chapterNumber.get(), quizList);
-        return new QuizTestCommand(inputs, quizList, questionNumber, isQuizMode, isNewQuiz);
+        return new QuizTestCommand(inputs, quizList, questionNumber, isQuizMode, isNewQuiz,chapterNumber.get());
     }
 
     /**

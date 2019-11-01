@@ -15,15 +15,27 @@ It is written in Java, and has about 10 kLoC.
 
 == Summary of contributions
 
-* *Major enhancement*:  *
-** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+* Implemented and created the GUI layout with the colour and profile pictures and status bar layout
+* Implemented the exp gain and gamification aspect of the quiz
+* Implemented the userstats into the main application and ensuring that the .txt file is accessible in a
+packaged jar file.
+* Did the architecture for the whole project.
+* Implemented the help command
+* Implemented the setup process/command
+* Implemented codacy.
+* Implement loading of previous/saved user stats at the start of quiz
+* Wrote testcode for the setup, help, menu commands
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+//* *Major enhancement*:  *
+//** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
+//** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
+//** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
+//** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+//
+//* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+//*
+//* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
 
 * *Other contributions*:
 
@@ -66,8 +78,4 @@ include::../DeveloperGuide.adoc[tag=undoredo]
 include::../DeveloperGuide.adoc[tag=dataencryption]
 
 
-== PROJECT: PowerPointLabs
 
----
-
-_{Optionally, you may include other projects in your portfolio.}_
