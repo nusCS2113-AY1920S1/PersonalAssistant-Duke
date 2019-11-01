@@ -1,11 +1,12 @@
 package Events.Storage.Instruments;
 
-import java.util.ArrayList;
-
 import Events.Formatting.EventDate;
 
-public class InstrumentList {
+import java.util.ArrayList;
+import java.util.logging.Logger;
 
+public class InstrumentList {
+	private static Logger logger = Logger.getLogger("instrumentList");
     private ArrayList<Instrument> instrumentList;
 
 //    private boolean isAchieved;
@@ -13,10 +14,9 @@ public class InstrumentList {
     /**
      * Creates a Goal instance with the goal input by user and a boolean to check if goal is achieved.
      *
-     * @param description
-     */
+	 */
     public InstrumentList() {
-    	instrumentList = new ArrayList<Instrument>();
+    	instrumentList = new ArrayList<>();
     }
 
     public String getInstruments() {
@@ -32,6 +32,7 @@ public class InstrumentList {
     public int addInstrument(String name) {
     	Instrument newInstrument = new Instrument(name);
     	instrumentList.add(newInstrument);
+//    	logger.log(Level.INFO, "The new instrument is added to the list");
     	return instrumentList.size();
     }
     
@@ -42,8 +43,7 @@ public class InstrumentList {
     
     public int service(int index, EventDate date, String description) {
     	int indexInList = index - 1;
-    	int serviceIndex = instrumentList.get(indexInList).addService(date, description);
-    	return serviceIndex;
+		return instrumentList.get(indexInList).addService(date, description);
     }
     
     public String getIndexAndInstrument(int index) {

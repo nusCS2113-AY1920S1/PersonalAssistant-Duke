@@ -1,3 +1,4 @@
+//@@author yenpeichih
 package Events.Storage;
 
 public class Goal {
