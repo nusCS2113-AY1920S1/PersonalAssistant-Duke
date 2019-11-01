@@ -402,7 +402,7 @@ public abstract class Parser implements ParserStringList, ModeStringList {
     }
 
     //@@author Weng-Kexin
-    private double findLimitAmount() {
+    protected double findLimitAmount() {
         double amount = 0;
         try {
             amount = stringToDouble(inputArray[2]);
