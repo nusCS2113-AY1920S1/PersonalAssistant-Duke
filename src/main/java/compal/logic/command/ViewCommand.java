@@ -189,7 +189,11 @@ public class ViewCommand extends Command {
             }
 
             if (t.getStringMainDate().equals(dateInput)) {
-                allTask.append(getAsStringView(t));
+                allTask.append(getAsStringView(t, dateInput));
+            }
+
+            if (!t.getStringTrailingDate().equals("-") && t.getStringTrailingDate().equals(dateInput)) {
+                allTask.append(getAsStringView(t, dateInput));
             }
         }
 
@@ -207,7 +211,7 @@ public class ViewCommand extends Command {
 
     }
 
-    private String getAsStringView(Task t) {
+    private String getAsStringView(Task t, String dateInput) {
 
 
         StringBuilder taskDetails = new StringBuilder();
@@ -222,8 +226,31 @@ public class ViewCommand extends Command {
             status = "\u274C";
         }
 
-        String startTime = t.getStringStartTime();
-        String endTime = t.getStringEndTime();
+        String startTime = "";
+        String endTime = "";
+
+        if (dateInput.equals(t.getStringMainDate())) {
+            //if date same
+            if (t.getStringMainDate().equals(t.getStringTrailingDate())) {
+                startTime = t.getStringStartTime();
+                endTime = t.getStringEndTime();
+            } else {
+                startTime = t.getStringStartTime();
+                endTime = "2359";
+            }
+        } else if (dateInput.equals(t.getStringTrailingDate())) {
+            if (t.getStringMainDate().equals(t.getStringTrailingDate())) {
+                startTime = t.getStringStartTime();
+                endTime = t.getStringEndTime();
+            } else {
+                System.out.println("LOOKING AT" + dateInput);
+                startTime = "0000";
+                endTime = t.getStringEndTime();
+                System.out.println(startTime);
+                System.out.println(endTime);
+            }
+        }
+
 
         if ("-".equals(startTime)) {
             taskDetails.append("  Due: ").append(endTime)
