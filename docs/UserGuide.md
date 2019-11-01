@@ -32,8 +32,9 @@ features of the application BetterDuke.
 
 
 # 1. Introduction
-    Betterduke is a desktop application for NUS students with poor time management. Students, more often than not, are on their laptops, so Betterduke
-    will be convenient for students to toggle between checking their timetables and
+    Betterduke is a desktop application for NUS students with poor time management. 
+    Students, more often than not, are on their laptops, hence Betterduke
+    will provide a convenient platform for students to toggle between checking their timetables and
     scheduling their tasks. More importantly, Betterduke is optimized for those who
     prefer to work with a Command Line Interface (CLI) while still having the benefits
     of a Graphical User Interface (GUI). If you can type fast, Betterduke can
@@ -46,11 +47,12 @@ features of the application BetterDuke.
           Address Book.
        3. Double-click the file to start the app. The GUI should appear in a few
           seconds.
-          ![UI1](https://github.com/AY1920S1-CS2113T-W12-4/main/blob/master/docs/images/UG%20images/Example%20UI1.png)
+          <img src="https://github.com/AY1920S1-CS2113T-W12-4/main/blob/master/docs/images/UG%20images/Example%20UI1.png" width="200" height="250">
         4. The Command line at the bottom is where users will input their commands
         and the response box is where the system will return it’s output.
         5. Type the command in the command box and press ​Submit ​to execute it.
-        6. E.g. typing ​     help     ​ ​and pressing ​Submit ​will open the help window.
+        ![UI2](https://github.com/AY1920S1-CS2113T-W12-4/main/blob/master/docs/images/UG%20images/Example%20UI2.png)
+        6. E.g. typing help and pressing ​Submit ​will open the help window.
         7. Some example commands you can try:
             a.     Show workload     ​ : show workload for following week’s timetable
             b.     Filter CS2113T     ​ : show tasks which contains keyword
