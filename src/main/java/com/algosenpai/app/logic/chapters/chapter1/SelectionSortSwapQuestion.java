@@ -1,6 +1,7 @@
 package com.algosenpai.app.logic.chapters.chapter1;
 
 import com.algosenpai.app.logic.chapters.Question;
+import com.algosenpai.app.logic.models.ReviewTracingListModel;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -59,24 +60,41 @@ public class SelectionSortSwapQuestion extends Question {
      * @param swaps The number of swaps before the program terminates.
      */
     private static void selectionSort(ArrayList<Integer> arr, int swaps) {
+        rtlm = new ReviewTracingListModel();
+        rtlm.addReviewTracingModel("This is the array at the start.");
+        rtlm.addReviewTracingModel(arr.toString());
         int i;
         int j;
         int minIdx;
         int counter = 0;
+        rtlm.addReviewTracingModel("Counter = " + counter + ".");
         for (i = 0; i < arr.size() - 1; i++) {
             minIdx = i;
+            rtlm.addReviewTracingModel("Start with minIndex " + minIdx + ".");
             for (j = i + 1; j < arr.size(); j++) {
+                rtlm.addReviewTracingModel("Compare to " + arr.get(j) + ".");
                 if (arr.get(j) < arr.get(minIdx)) {
+                    rtlm.addReviewTracingModel("Since " + arr.get(j) + " is smaller, change minIndex to "
+                            + j + ".");
                     minIdx = j;
+                } else {
+                    rtlm.addReviewTracingModel("Ignore " + arr.get(j) + " since it is bigger.");
                 }
             }
+            rtlm.addReviewTracingModel("Swap " + arr.get(minIdx) + " with " + arr.get(i) + ".");
             int temp = arr.get(minIdx);
             arr.set(minIdx, arr.get(i));
             arr.set(i, temp);
+            rtlm.addReviewTracingModel("This is the new array.");
+            rtlm.addReviewTracingModel(arr.toString());
             if (minIdx != i) {
+                rtlm.addReviewTracingModel("Counter = " + counter + ".");
                 counter++;
             }
             if (counter == swaps) {
+                rtlm.addReviewTracingModel("Since counter == swaps, stop.");
+                rtlm.addReviewTracingModel("This is the final array.");
+                rtlm.addReviewTracingModel(arr.toString());
                 return;
             }
         }

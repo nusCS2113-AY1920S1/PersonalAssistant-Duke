@@ -82,6 +82,7 @@ public class BubbleSortPassesQuestion extends Question {
      */
     private static void bubbleSort(ArrayList<Integer> arr, int passes) {
         rtlm = new ReviewTracingListModel();
+        rtlm.addReviewTracingModel("This is the array at the start.");
         rtlm.addReviewTracingModel(arr.toString());
         for (int i = 0; i < passes; i++) {
             rtlm.addReviewTracingModel("Pass " + (i + 1) + " : ");
