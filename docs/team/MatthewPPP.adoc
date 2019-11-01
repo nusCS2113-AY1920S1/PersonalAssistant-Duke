@@ -5,67 +5,86 @@
 
 == PROJECT: AlgoSenpai Adventures
 
----
-
-== Overview
-
-AlgoSenpai Adventures (ASA) is a desktop education/chatbot application used for teaching Data Structures and Algorithms
-principles. The user interacts with it using a CLI, and it has a GUI created with JavaFX.
-It is written in Java, and has about 10 kLoC.
+== About the Project
+My team of 4 software engineering students and I were tasked with enhancing a basic command line
+interface desktop personal assistant application for our Software Engineering project. We chose to morph
+it into a educational chatbot cum game named AlgoSenpai Adventures (ASA) for students to learn about Data Structures and Algorithms
+in a more interactive and gamified fashion. This enhanced application enables students to take quizzes on topics that they choose, earn EXP points for completing quizzes
+to level up their character in the game, giving them motivation to practice more.
 
 == Summary of contributions
 
-* Implemented and created the GUI layout with the colour and profile pictures and status bar layout
-* Implemented the exp gain and gamification aspect of the quiz
-* Implemented the userstats into the main application and ensuring that the .txt file is accessible in a
+This section highlights my code, documentation and other contributions to the team project.
+
+=== Enhancements added
+
+* Implemented and created the GUI layout.
+* Implemented the EXP gain and gamification aspect of the quiz.
+* Implemented the `quiz end` command to end the quiz halfway.
+* Implemented the UserStats into the main application and ensuring that the .txt file is accessible in a
 packaged jar file.
-* Did the architecture for the whole project.
-* Implemented the help command
-* Implemented the setup process/command
-* Implemented codacy.
-* Implement loading of previous/saved user stats at the start of quiz
+* Implemented the `hello` command so that the user can set up his profile and also load data from the .txt file
+if he has previous data iin it.
+* Implemented the `help` command.
 * Wrote testcode for the setup, help, menu commands
-
-//* *Major enhancement*:  *
-//** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-//** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-//** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-//** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
-//
-//* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
-//*
-//* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
-
 
 * *Other contributions*:
 
 ** Project management:
-*** Managed releases `v1.1` - `v1.` (3 releases) on GitHub
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
-** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
-** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
+*** Managed releases `v1.2` - `v1.3` (2 releases) on GitHub
+*** Updated the GUI color scheme
+*** Wrote additional tests for existing features to increase coverage.
 
-_{you can add/remove categories in the list above}_
+
+** Documentation:
+*** Did the layout for the documentation (User Guide and Developer Guide).
+
+** Community:
+*** PRs reviewed (with non-trivial review comments)
+*** Wrote a setting up and contributing guide that was used by other teams
+
+** Tools:
+*** Installed Codacy in the project repository to track code quality.
+*** Installed Netlify to enable document preview when a pull request is made.
+
 
 == Contributions to the User Guide
-
 
 |===
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=delete]
+=== Provides suggestions to users to improve : `help`
+This command provides a suggestion of problems that you can solve to improve at a particular chapter. +
+Format : `help CHAPTER` +
+Example : +
+`help sorting` will list a few problems from Kattis that the user can attempt to increase their
+understanding of the chapter selected.
 
-include::../UserGuide.adoc[tag=dataencryption]
+=== Choose a chapter : `select`
+
+This command allows you to choose the chapter of the game to be run. The CHAPTERS that are available
+to be selected in the program are `Sorting`, `LinkedList` and `Bitmask`. +
+Format: `select CHAPTER` +
+
+Example : +
+`select sorting` will select the chapter on Sorting for the quiz.
+
+=== Entering a quiz answer : `quiz`
+This command can only be used when you are playing the quiz itself. +
+Format: `quiz ANSWER` +
+
+Example: +
+`quiz 60, 40, 30` will mean that you want to enter the answer `60, 40, 30` for the current question
+in the quiz. +
+`quiz 2` will mean that you want to enter the answer `2` for the current question in the quiz.
+
+=== View all the commands available : `menu`
+
+This command is for new users, users who are still learning the console commands, or have forgotten a particular command.
+`menu` will list all the commands that are available in the program. +
+Format: `menu`
+
 
 == Contributions to the Developer Guide
 
@@ -73,9 +92,93 @@ include::../UserGuide.adoc[tag=dataencryption]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=undoredo]
+=== Architecture
 
-include::../DeveloperGuide.adoc[tag=dataencryption]
+.Architecture Diagram
+image::ArchitectureDiagram.png[]
+
+The *_Architecture Diagram_* given above explains the high-level design of the application. Given below is a quick overview of each component.
+
+
+`Main` has two classes called link:https://github.com/AY1920S1-CS2113T-T09-3/main/blob/master/src/main/java/com/algosenpai/app/Launcher.java[`Launcher`] and link:https://github.com/AY1920S1-CS2113T-T09-3/main/blob/master/src/main/java/com/algosenpai/app/MainApp.java[`MainApp`]. It is responsible for,
+
+* At app launch: Initialising the components in the correct sequence, and connects them up with each other.
+* At shut down: Shuts down the components and invokes cleanup method where necessary.
+
+The rest of the App consists of four components.
+
+* <<Design-Ui,*`Ui`*>>: The UI of the App.
+* <<Design-Logic,*`Logic`*>>: The command executor and the question generator.
+* <<Design-Model,*`Stats`*>>: Holds the relevant user statistics and settings in memory.
+* <<Design-Storage,*`Storage`*>>: Reads data from, and writes data to, the hard disk.
+
+[discrete]
+==== How the architecture components interact with each other
+
+The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `help`.
+
+.Component interactions for `help` command
+image::HelpSequenceDiagram.png[]
+
+The sections below give more details of each component.
+
+[[Design-Ui]]
+=== UI component
+
+.Structure of the UI Component
+image::UiClassDiagram.png[]
+
+*API* : link:https://github.com/AY1920S1-CS2113T-T09-3/main/blob/master/src/main/java/com/algosenpai/app/ui/Ui.java[`Ui.java`]
+
+The UI consists of a `MainWindow` that is made up of parts e.g.`DialogBox`, `DialogBoxUser`.
+
+The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:https://github.com/AY1920S1-CS2113T-T09-3/main/blob/master/src/main/java/com/algosenpai/app/ui/Ui.java[`MainWindow`] is specified in link:https://github.com/AY1920S1-CS2113T-T09-3/main/blob/master/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+
+The `UI` component,
+
+* Executes user commands using the `Logic` component.
+
+[[Design-Logic]]
+=== Logic component
+
+[[fig-LogicClassDiagram]]
+.Structure of the Logic Component
+image::LogicClassDiagram.png[]
+
+*API* :
+link:https://github.com/AY1920S1-CS2113T-T09-3/main/blob/master/src/main/java/com/algosenpai/app/logic/Logic.java[`Logic.java`]
+
+.  `Logic` uses the `Parser` class to parse the user command.
+.  This results in a `Command` object which is executed by the `Logic`.
+.  The command execution will result in the `Ui` to generate a `DialogBox` on the screen.
+.  The quiz is generated by the `QuizGenerator` using the `Chapter` classes in the `chapters` package.
+
+=== Launch and Shutdown
+
+. Initial launch
+
+.. Download the jar file and copy into an empty folder
+.. Double-click the jar file +
+   Expected: Shows the splash screen initially and then the main window will show with the welcome message. The window should be fixed.
+
+. Exiting the program
+
+.. Type `exit` into the user input box.
+.. Expected: Application will shut down and close itself. +
+
+
+=== Playing the quiz
+
+. Starting and playing the quiz
+
+.. Prerequisites: The user must not be in the quiz mode yet. Start the quiz mode using the `start` command.
+.. Test case: `1` +
+   Expected: The quiz will consume the user input as it will identify the input as the answer to the current question
+displayed and then show the next question in the quiz.
+.. Test case: `back` +
+   Expected: The previous question of the current quiz will be displayed. The user can then enter the
+answer to the current question.
+
 
 
 
