@@ -8,7 +8,7 @@ import seedu.duke.task.entity.Task;
 
 import java.time.LocalDateTime;
 
-public class NaturalDateTest{
+public class NaturalDateTest {
 
     @Test
     public void getDateTest() throws Exception {

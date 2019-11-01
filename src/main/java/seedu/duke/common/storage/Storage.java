@@ -74,7 +74,6 @@ public interface Storage {
     /**
      * Prepares the path of a data folder with the given filename.
      *
-     * @param filename the filename of the data file
      * @return the path of the data file
      */
     static Path prepareDataFolderPath() {
@@ -84,7 +83,6 @@ public interface Storage {
     /**
      * Prepares the path of a log folder with the given filename.
      *
-     * @param filename the filename of the data file
      * @return the path of the data file
      */
     static Path prepareLogFolderPath() {

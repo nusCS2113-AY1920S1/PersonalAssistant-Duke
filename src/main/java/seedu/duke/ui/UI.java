@@ -14,9 +14,12 @@ import java.nio.file.Path;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.logging.*;
-
 import java.util.ArrayList;
+
+import java.util.logging.Logger;
+import java.util.logging.FileHandler;
+import java.util.logging.Level;
+import java.util.logging.SimpleFormatter;
 
 public class UI {
     private static Logger logger = Logger.getLogger("ui");
@@ -70,12 +73,15 @@ public class UI {
         setupLogger();
     }
 
-    public void setupLogger()
-    {
+    /**
+     * Sets up logger with fileHandler to write log data to external text file.
+     */
+    public void setupLogger() {
         Path logPath = Storage.prepareLogFolderPath();
         File logDir = new File(logPath.toString());
-        if( !(logDir.exists()) )
+        if (!(logDir.exists())) {
             logDir.mkdir();
+        }
 
         DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd_HHmm");
         Date date = new Date();
