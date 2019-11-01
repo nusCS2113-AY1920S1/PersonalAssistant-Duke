@@ -779,8 +779,8 @@ public class Command {
                 endDate = splitDate[0] + " " + splitDate[2];
             }
 
-            if (DateStringValidator.isValidDateForEvent(startDate) ||
-                    DateStringValidator.isValidDateForEvent(endDate)) {
+            if (!DateStringValidator.isValidDateForEvent(startDate) ||
+                    !DateStringValidator.isValidDateForEvent(endDate)) {
 
                 throw new ParseException("Invalid date for Event", 0);
             }
