@@ -14,7 +14,16 @@ import static seedu.hustler.logic.parser.DateTimeParser.getDateTime;
 public class AddCommandAnomaly extends DetectAnomaly {
 
     private static final String MESSAGE_INVALID_COMMAND_FORMAT = "The add command does not follow the right format.\n"
-            + "\tRefer to User Guide for more info!";
+            + "\t_____________________________________\n"
+            + "\tPlease follow the format given below:\n"
+            + "\tAdding ToDo: /add <task description>\n"
+            + "\tAdding Deadline: /add <task description> /by <date> <time>\n"
+            + "\tAdding Event: /add <task description> /at <date> <time>\n"
+            + "\t_____________________________________\n"
+            + "\tOptional that can be appended to above format\n"
+            + "\tAdd recurring: /every <integer> <unit>\n"
+            + "\tAdd difficulty: /d <difficulty>\n"
+            + "\tAdd tags: /tags <tag>";
     private static final String MESSAGE_EMPTY_TASK_DESCRIPTION = "Task description cannot be empty!";
     private static final String MESSAGE_INVALID_DIFFICULTY = "Invalid difficulty provided. Difficulty should be H/M/L.";
     private static final String MESSAGE_INVALID_DATE_TIME = "Date Time should follow the format DD/MM/YY HHmm.";
