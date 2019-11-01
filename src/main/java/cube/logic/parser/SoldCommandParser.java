@@ -6,13 +6,14 @@ import cube.logic.parser.exception.ParserException;
 
 import java.util.Date;
 
+//TODO: remove quantity parameter
 public class SoldCommandParser implements ParserPrototype<SoldCommand> {
 
 	public SoldCommand parse(String[] args) throws ParserException {
-		int foodNameIndex = -1;
+		int foodNameIndex = 1;
 		int quantityIndex = -1;
 		int dateIndex = -1;
-		String[] params = new String[]{"-n","-q","-t"};
+		String[] params = new String[]{"-q","-t"};
 
 		if(ParserUtil.hasInvalidParameters(args,params)){
 			throw new ParserException(ParserErrorMessage.INVALID_PARAMETER);
@@ -21,9 +22,6 @@ public class SoldCommandParser implements ParserPrototype<SoldCommand> {
 			throw new ParserException(ParserErrorMessage.REPETITIVE_PARAMETER);
 		}
 		for (int i = 1; i < args.length; i ++) {
-			if (args[i].equals("-n")) {
-				foodNameIndex = i;
-			}
 			if (args[i].equals("-q")) {
 				quantityIndex = i;
 			}
@@ -31,22 +29,20 @@ public class SoldCommandParser implements ParserPrototype<SoldCommand> {
 				dateIndex = i;
 			}
 		}
-		if(foodNameIndex == -1 || quantityIndex == -1) {
-			throw new ParserException(ParserErrorMessage.NOT_ENOUGH_PARAMETER);
-		}
 
-		if(dateIndex == -1) {
-			if(!ParserUtil.isValidNumber(args[quantityIndex + 1])){
-				throw new ParserException(ParserErrorMessage.INVALID_NUMBER);
-			}
-			return new SoldCommand(args[foodNameIndex+1],Integer.parseInt(args[quantityIndex+1]), new Date());
+		String foodName = ParserUtil.findFullString(args,foodNameIndex);
+		if (foodName.equals("")) {
+			throw new ParserException(ParserErrorMessage.INVALID_NAME);
 		}
-		if(!ParserUtil.isValidNumber(args[dateIndex + 1])){
-			throw new ParserException(ParserErrorMessage.INVALID_NUMBER);
+		if(quantityIndex == -1) {
+			throw new ParserException(ParserErrorMessage.NOT_ENOUGH_PARAMETER);
 		}
 		if(!ParserUtil.isValidNumber(args[quantityIndex + 1])){
 			throw new ParserException(ParserErrorMessage.INVALID_NUMBER);
 		}
-		return new SoldCommand(args[foodNameIndex+1],Integer.parseInt(args[quantityIndex+1]), ParserUtil.parseStringToDate(args[dateIndex+1]));
+		if(dateIndex == -1) {
+			return new SoldCommand(foodName,Integer.parseInt(args[quantityIndex+1]), new Date());
+		}
+		return new SoldCommand(foodName,Integer.parseInt(args[quantityIndex+1]), ParserUtil.parseStringToDate(args[dateIndex+1]));
 	}
 }
