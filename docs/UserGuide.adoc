@@ -131,7 +131,7 @@ If the optional `*-im[pression]*` switch is provided, access the <<impression, p
 // TODO: Complete documentation
 ==== `find`
 
-Format: `find ["<search string>"] [_type_]
+Format: `find ["<search string>"] [_type_]` +
 Example: `find aspirin *-p*`
 
 Display a list of all Impressions, Treatments and Evidence matching the criteria specified in the search.
@@ -254,7 +254,7 @@ Example: `primary 1`
 
 ==== `find` - Find items matching certain criteria
 
-Format: `find ["<search string>"] [_type_]
+Format: `find ["<search string>"] [_type_]` +
 Example: `find aspirin *-im*`
 
 Display a list of all Impressions, Treatments and Evidence matching the criteria specified in the search.
@@ -423,7 +423,7 @@ The result summary will be appended to the Investigation summary.
 
 ==== `find` - Find items matching certain criteria
 
-Format: `find ["<search string>"] [_type_]
+Format: `find ["<search string>"] [_type_]` +
 Example: `find aspirin *-t*`
 
 Display a list of all Impressions, Treatments and Evidence matching the criteria specified in the search.
