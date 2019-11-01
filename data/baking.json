@@ -1,0 +1,42 @@
+{
+  "orders" : [ ],
+  "products" : [ {
+    "productName" : "Prodname",
+    "ingredientItems" : [ {
+      "ingredient" : {
+        "name" : "Ingredientname",
+        "unitPrice" : 0.0,
+        "remarks" : ""
+      },
+      "amount" : 1.0
+    } ],
+    "ingredientCost" : 1.0,
+    "retailPrice" : 1.0,
+    "status" : "ACTIVE"
+  } ],
+  "inventory" : [ ],
+  "shoppingList" : [ {
+    "ingredient" : {
+      "name" : "Ingredientname",
+      "unitPrice" : 0.0,
+      "remarks" : ""
+    },
+    "amount" : 0.0
+  }, {
+    "ingredient" : {
+      "name" : "1",
+      "unitPrice" : 0.0,
+      "remarks" : ""
+    },
+    "amount" : 0.0
+  } ],
+  "sales" : [ {
+    "id" : 1572576245037,
+    "description" : "blueberry pie",
+    "value" : 12.99,
+    "isSpend" : false,
+    "saleDate" : "2019-10-20T02:44:05.037+0000",
+    "remarks" : "added chocolate toppings"
+  } ],
+  "shortcuts" : [ ]
+}
