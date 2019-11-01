@@ -10,6 +10,7 @@ public abstract class Question {
     private static Random random = new Random();
     protected static String question;
     protected static String answer;
+    protected static ReviewTracingListModel rtlm = new ReviewTracingListModel();
 
     /**
      * Packages the question.
@@ -17,7 +18,7 @@ public abstract class Question {
      * @return The QuestionModel containing the question and answer.
      */
     public QuestionModel execute() {
-        return new QuestionModel(question, answer, new ReviewTracingListModel());
+        return new QuestionModel(question, answer, rtlm);
     }
 
     /**

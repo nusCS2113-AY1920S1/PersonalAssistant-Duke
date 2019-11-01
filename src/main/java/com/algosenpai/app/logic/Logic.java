@@ -39,7 +39,7 @@ public class Logic {
     private AtomicInteger chapterNumber = new AtomicInteger(-1);
     private AtomicBoolean isQuizMode = new AtomicBoolean(false);
     private AtomicBoolean isNewQuiz = new AtomicBoolean(true);
-    private ArrayList<QuestionModel> quizList;
+    private ArrayList<QuestionModel> quizList = new ArrayList<>();
     private AtomicInteger questionNumber = new AtomicInteger(-1);
     private int prevResult = -1;
 

@@ -60,9 +60,10 @@ public class Ui extends AnchorPane {
 
     private Logic logic;
     private UserStats stats;
-    private double userExp = 0.0;
+    private int maxuserExp = 50;
+    private int userExp = 0;
     private int idleMinutesMax = 180;
-
+    private int userLevel = 1;
     private static final String GREETING_MESSAGE = "Welcome to AlgoSenpai Adventures!"
                                                    + " Type 'hello' followed by your name and gender"
                                                    + " (boy/girl) to start!\n \n"
@@ -118,7 +119,8 @@ public class Ui extends AnchorPane {
             playerName.setText(response);
             printToGui(input, response, userImage, senpaiImage);
         } else if (response.startsWith("You got ")) {
-            double expGain = ((double) Integer.parseInt(response.substring(8, 9)) / 10.0) * 5.0;
+            String[] resp = response.split(" ");
+            int expGain = Integer.parseInt(resp[7]);
             updateLevelProgress(expGain);
             printToGui(input, response, userImage, senpaiImage);
         } else {
@@ -225,9 +227,17 @@ public class Ui extends AnchorPane {
      * Update the EXP Level of the user in the progress bar in the GUI.
      * @param expGain the double representing the gain in EXP to be reflected.
      */
-    private void updateLevelProgress(double expGain) {
+    private void updateLevelProgress(int expGain) {
         userExp += expGain;
-        levelProgress.setProgress(userExp);
+        if (userExp > maxuserExp) {
+            userExp -= maxuserExp;
+            userLevel++;
+            playerLevel.setText("You are Level " + userLevel + ".");
+            maxuserExp *= 2;
+        }
+        double userProgress = (double) userExp / maxuserExp;
+
+        levelProgress.setProgress(userProgress);
     }
 
     /**
