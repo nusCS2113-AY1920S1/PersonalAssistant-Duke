@@ -484,25 +484,6 @@ image::Find.png[Find]
 
 Finds tasks with `complete` in the description.
 
-==== Choosing a threshold for tasks: `threshold`
-You can set a comfortable threshold to tell *OOF* when to remind you to complete your tasks.
-
-Format: `threshold HH`
-
-* `time` has to *strictly* be in the format as stated above.
-
-Example:
-
-* `threshold 48` +
-
-Example:
-
-[[Threshold]]
-.Output of threshold command
-image::Threshold.png[Threshold]
-
-Changes the threshold of the program to 48 hours.
-
 ==== Viewing free time slots: `free`
 You can view the time slots you are available on a specific day so that you can plan project meetings with your friends.
 
@@ -527,12 +508,33 @@ image::FreeTimeDisplay.png[FreeTimeDisplay, width="890"]
 ==== Setting reminders for upcoming deadlines: `NIL`
 You can get timely reminders for the tasks that are expiring.
 
-
 [[Reminder]]
 .Output of reminder command
 image::Reminder.png[Reminder]
 
-This command functions in the background so *OOF* automatically reminds you of the expiring tasks when you start our program.
+[NOTE]
+This command functions in the background so *OOF* automatically reminds you of the expiring tasks when you start our program. +
+You can customise the `threshold` to tell *OOF* when to remind you to complete your tasks. +
+View the detailed description on the usage of `threshold` below.
+
+==== Choosing a threshold for tasks: `threshold`
+You can set a comfortable threshold to tell *OOF* when to remind you to complete your tasks. +
+
+Format: `threshold HH`
+
+* `HH` represents the minimum number of hours from the `current time` to the `deadline` of tasks before *OOF* reminds you of those tasks.
+
+Example:
+
+* `threshold 48` +
+
+Example:
+
+[[Threshold]]
+.Output of threshold command
+image::Threshold.png[Threshold]
+
+Tasks that have `deadlines` within 48 hours from the `current time` will be in the reminders.
 
 ==== Starting/Stopping/Pausing Assignment Tracker: `tracker`
 You can track an assignment from the current time.
@@ -648,7 +650,7 @@ Example:
 .Typing viewweek into OOF
 image::ViewweekWelcome.png[ViewweekWelcome]
 
-+2.+ `OOF` displays the tasks for the week for you.
++2.+ `OOF` displays tasks for the week for you.
 
 [[ViewweekDefault]]
 .Typing viewweek without date
