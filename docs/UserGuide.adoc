@@ -28,8 +28,11 @@ Lastly, it helps users to keep track of ingredients in storage and able to check
 . Ensure you have Java 11 or above installed in your Computer.
 . Download the latest `ChefDuke.jar` https://github.com/AY1920S1-CS2113T-T12-4/main/releases[here].
 . Copy the file to the folder you want to use as the home folder for your PrivateHomeChefManager.
-. Double-click the file to start the application. The GUI should appear in a few seconds.
-.  Type the command in the command box and press kbd:[Enter] to execute it.
+. Open a command window. Run the java -version command to ensure that you are using Java 11.
+. Launch the Jar file by keying in java ‘-jar c:\path\to\jar\file.jar’ in the command window and press kbd:[Enter]. Replace c:\path\to\jar\file.jar with the actual path and file title of the downloaded Jar to run.
+. Alternatively, you can navigate to the folder that includes the Jar in the command prompt first by entering ‘cd /’ followed by the directory. Then, you can input ‘java -jar filetitle.jar’ without the folder path.
+. The GUI should appear in a few seconds.
+. Type the command in the command box and press kbd:[Enter] to execute it.
 . Some example commands you can try:
 * *`addbooking`*: Adds a new booking to booking list
 * *`listallbookings`*: List all existing bookings in the list
@@ -76,7 +79,8 @@ Examples:
 Deletes a customer booking in the booking list +
 
 Format: `deletebooking <booking_list_index*>` +
-*booking list index can be found by using the command `listallbookings`.
+
+* booking list index can be found by using the command `listallbookings`.
 
 Examples:
 
@@ -147,6 +151,7 @@ Output Result: +
 ====  Adding a new recipe: `addrecipe`
 
 Adds a new recipe into the recipe list. Duplicate recipes are not allowed. +
+
 Format:
 
 * `addrecipe <recipe_name>`
@@ -157,6 +162,7 @@ Examples: `addrecipe garlic prawn`
 ====  Deleting a recipe: `deleterecipe`
 
 Deletes a new recipe in the recipe list +
+
 Format:
 
 * `deleterecipe <recipe_name>`
@@ -195,6 +201,45 @@ Example:
 * `editreqingredient fried rice ins/ 1 n/ rice q/u/a/ fried with garlic`
 * `editreqingredient fried rice app/n/ rice q/u/kg a/`
 
+==== Editing a recipe rating: `editrating`
+
+Edits the rating of a recipe +
+
+Format: `editrating [recipe name] r/ [rating]`
+
+Example: `editrating chicken rice, r/ GOOD`
+
+Output Result:
+
+* `The rating of 'chicken rice' has been edited to: GOOD`
+
+==== Editing a recipe feedback: `editfeedback`
+
+Edits the feedback of a recipe +
+
+Format: `editfeedback [recipe name] f/ [feedback]`
+
+Example: `editfeedback chicken rice, f/ too salty`
+
+Output Result:
+
+* `The feedback of 'chicken rice' has been edited to: too salty`
+
+==== Editing a recipe preparation steps: `editprepstep`
+
+Format:
+
+* `editprepstep [recipe name] ins/ [position] p/ [prep step]`
+* `editprepstep [recipe name] del/ [position]`
+* `editprepstep [recipe_name] app/ p/ prep step]`
+* `editprepstep [recipe name] clr/`
+
+Example:
+
+* `editprepstep chicken rice ins/ 1 p/ cooked the rice with pandan leaf`
+* `editprepstep chicken rice del/ 1`
+* `editprepstep chicken rice app/ p/ cooked the rice with pandan leaf`
+* `editprepstep [recipe name] clr/`
 
 ====  Listing all recipes: `listallrecipes`
 
