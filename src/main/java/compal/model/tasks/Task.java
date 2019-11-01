@@ -219,6 +219,7 @@ public abstract class Task implements Serializable {
     }
 
     //@@author Catherinetan99
+
     /**
      * Gets start time of task in date format.
      *
@@ -347,6 +348,7 @@ public abstract class Task implements Serializable {
     }
 
     //@@author jaedonkey
+
     /**
      * Gets all the details of the task as a string, for saving into the text file.
      *
@@ -377,6 +379,7 @@ public abstract class Task implements Serializable {
     }
 
     //@@author jaedonkey
+
     /**
      * Calculates the priority of the task based on the user defined priority (high/med/low) as well as
      * the time remaining until the date set for the task.
@@ -411,6 +414,7 @@ public abstract class Task implements Serializable {
     }
 
     //@@author Catherinetan99
+
     /**
      * Gets the end time for the task.
      *
@@ -418,7 +422,11 @@ public abstract class Task implements Serializable {
      */
     public Date getEndTime() {
         Calendar calendar = Calendar.getInstance();
-        calendar.setTime(mainDate);
+        try {
+            calendar.setTime(trailingDate);
+        } catch (NullPointerException e) {
+            calendar.setTime(mainDate);
+        }
         String endTime = getStringEndTime();
         int hour = Integer.parseInt(endTime.substring(0, 2));
         int min = Integer.parseInt(endTime.substring(2, 4));

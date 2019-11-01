@@ -48,11 +48,11 @@ public class DoneCommand extends Command {
 
         if (status.equalsIgnoreCase("y")) {
             task.markAsDone();
-            logger.info("Successfully executing done command");
+            logger.info("Successfully executed done command");
             return new CommandResult(COMMAND_PREFIX.concat(task.toString()), true);
         } else if (status.equalsIgnoreCase("n")) {
             task.markAsNotDone();
-            logger.info("Successfully executing done command");
+            logger.info("Successfully executed done command");
             return new CommandResult(COMMAND_PREFIX2.concat(task.toString()), true);
         } else {
             throw new CommandException(MESSAGE_INVALID_INPUT);
