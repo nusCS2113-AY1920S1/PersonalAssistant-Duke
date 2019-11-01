@@ -32,6 +32,7 @@ This morphed product allows the users to keep track of their finances, while als
 My role was to design and implement the `add`, `edit`, `delete` and `list` functions for the `Savings` account,
 `expenditures`, `deposit` and recurring bank expenditures, `recurbankexp`. The following sections illustrates these implementations in more detail, as well as the relevant documentation I have added to the User Guide and Developer Guide in relation to these implementations.
 
+Note the following symbols and formatting used.
 include::../UserGuide.adoc[tag=user_guide_common_logo]
 
 === Summary of contributions
@@ -102,8 +103,6 @@ https://github.com/AY1920S1-CS2113T-W17-3/main/pull/90/files[#90])
 The User Guide had to be updated to reflect the instructions on how to use the morphed product, OwlMoney.
 The following is a portion of the User Guide which shows the commands for managing `Savings`, `expenditures`,
 `deposit` and `bankrecurexp`.
-
-Note the following symbols and formatting used in the User Guide.
 
 ==== {nbsp}
 
