@@ -23,14 +23,23 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class ReviewCommandTest extends ApplicationTest {
 
     @Test
-    void testHelpKeyPress() {
+    void testReviewKeyPress() {
         clickOn("#userInput").write("review 1").press(KeyCode.ENTER);
         VBox container = find();
-        DialogBox dialogBox = (DialogBox) container.getChildren().get(1);
+        DialogBox dialogBox = (DialogBox) container.getChildren().get(2);
         String actualText = dialogBox.getDialog().getText();
         assertEquals("There is no current quiz available!", actualText);
     }
 
+    @Test
+    void testReviewMousePress() {
+        clickOn("#userInput").write("review 1");
+        clickOn("#sendButton");
+        VBox container = find();
+        DialogBox dialogBox = (DialogBox) container.getChildren().get(2);
+        String actualText = dialogBox.getDialog().getText();
+        assertEquals("There is no current quiz available!", actualText);
+    }
     @Override
     public void start(Stage stage) throws Exception {
         FXMLLoader fxmlLoader = new FXMLLoader(HistoryCommandTest.class.getResource("/view/MainWindow.fxml"));
