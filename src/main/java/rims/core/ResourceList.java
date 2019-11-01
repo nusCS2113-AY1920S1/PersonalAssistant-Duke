@@ -1,6 +1,8 @@
 package rims.core;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -32,29 +34,43 @@ public class ResourceList {
     public ResourceList(Ui ui, ArrayList<Resource> resources) throws RimsException {
         this.ui = ui;
         this.resources = resources;
-        int daysDue = 3;
-        ui.printLine();
-        ui.print("REMINDER - The following loans are due soon (within " + daysDue + " days, or overdue):");
-        ui.printEmptyLine();
-        boolean dueSoon = false;
+        printResourcesDueSoon(3);
+    }
+
+    //@author rabhijit
+    public void printResourcesDueSoon(int daysDue) throws RimsException {
+        ReservationList allDueReservations = new ReservationList();
         for (int i = 0; i < size(); i++) {
             Resource thisResource = getResourceByIndex(i);
             ReservationList thisResourceDueReservations = thisResource.getDueReservations(daysDue);
             if (!thisResourceDueReservations.isEmpty()) {
-                dueSoon = true;
-                ui.print(thisResource.toString());
-                for (int j = 0; j < thisResourceDueReservations.size(); j++) {
-                    ui.print("\t" + thisResourceDueReservations.getReservationByIndex(j));
-                }
+                // add only the earliest reservation that's still due
+                allDueReservations.add(thisResourceDueReservations.getReservationByIndex(0));
             }
         }
-        if (!dueSoon) {
-            ui.print("No resources due soon!");
+        Collections.sort(allDueReservations.getReservationList(), new Comparator<Reservation>() {
+            @Override
+            public int compare(Reservation o1, Reservation o2) {
+                try {
+                    return o1.getEndDate().compareTo(o2.getEndDate());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                return -1;
+            }
+        });
+        if (!allDueReservations.isEmpty()) {
+            ui.printLine();
+            ui.print("REMINDER - The following loans are due soon (within " + daysDue + " days, or overdue):");
+            ui.printEmptyLine();
+            for (int i = 0; i < allDueReservations.size(); i++) {
+                ui.print(getResourceById(allDueReservations.getReservationByIndex(i).getResourceId()).toString());
+                ui.print("\t" + allDueReservations.getReservationByIndex(i));
+            }
         }
         ui.printLine();
     }
 
-    //@@author rabhijit
     /**
      * Adds a new Resource to the ResourceList.
      * @param thisResource the newly created Resource.
@@ -117,7 +133,9 @@ public class ResourceList {
      * Assigns a new ArrayList of Resources within ResourceList
      * @param resources
      */
-    public void setResources(ArrayList<Resource> resources) { this.resources = resources; }
+    public void setResources(ArrayList<Resource> resources) {
+        this.resources = resources;
+    }
 
     /**
      * Returns the number of items in the ResourceList.
