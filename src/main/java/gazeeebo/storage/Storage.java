@@ -26,7 +26,7 @@ public class Storage {
     private String absolutePath_Trivia = "/Trivia.txt";
     private String absolutePath_CAP = "/CAP.txt";
     private String absolutePathSpecialization = "/Specialization.txt";
-    private String absolutePath_StudyPlanner = "/Study_Plan.txt";
+    private String absolutePath_StudyPlanner = "resources/Study_Plan.txt";
     private String absolutePathCompletedElectives = "/CompletedElectives.txt";
     private String absolutePath_Prerequisite = "/Prerequisite.txt";
 

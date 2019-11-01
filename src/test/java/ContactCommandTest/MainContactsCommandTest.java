@@ -1,6 +1,5 @@
 package ContactCommandTest;
 
-import gazeeebo.commands.contact.*;
 import gazeeebo.storage.Storage;
 import gazeeebo.tasks.Task;
 import gazeeebo.UI.Ui;
@@ -21,7 +20,7 @@ public class MainContactsCommandTest {
     private Ui ui = new Ui();
     private Storage storage = new Storage();
     private ArrayList<Task> list = new ArrayList<>();
-    private Stack<String> commandStack = new Stack<>();
+    private Stack<ArrayList<Task>> commandStack = new Stack<>();
     private ArrayList<Task> deletedTask = new ArrayList<>();
 
     private ByteArrayOutputStream output = new ByteArrayOutputStream();
@@ -42,7 +41,7 @@ public class MainContactsCommandTest {
     @Test
     void testwelcome() throws IOException {
         TriviaManager triviaManager = new TriviaManager(storage);
-        ContactCommand testc = new ContactCommand();
+        gazeeebo.commands.contact.ContactCommand testc = new gazeeebo.commands.contact.ContactCommand();
         ByteArrayInputStream in = new ByteArrayInputStream("esc".getBytes());
         System.setIn(in);
         testc.execute(list, ui, storage, commandStack, deletedTask, triviaManager);
