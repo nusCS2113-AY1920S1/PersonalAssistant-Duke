@@ -38,6 +38,7 @@ public class Ducats {
     private UndoRedoStack undoRedoStack;
     private Metronome metronome;
 
+    //@@author rohan-av
     /**
      * Constructor for the duke.Duke object, which initializes the UI, duke.TaskList and duke.Storage in
      * order to carry out its functions.
@@ -47,9 +48,12 @@ public class Ducats {
         songs = new SongList();
 
         //storage = new Storage(Paths.get("/home/rishi/Desktop/cs2113t/team/main/data/todo_list.txt"));
-        storage = new Storage(Paths.get("data", "songlist.txt"));
+        String fileDelimiter = System.getProperty("file.separator");
+        storage = new Storage(System.getProperty("user.dir") + fileDelimiter + "songlist.txt");
+
         metronome = new Metronome();
         try {
+            System.out.println(Ui.showSaveStatus(storage.initialize()));
             storage.loadToList(songs);
         } catch (DucatsException e) {
             System.out.println(ui.showError(e));
