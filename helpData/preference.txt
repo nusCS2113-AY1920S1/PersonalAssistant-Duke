@@ -1,8 +1,0 @@
-Preference functionality:
-    #add         :Adds genre to preferences
-    #remove      :Removes genre from preferences
-    #clear       :Clears all preference settings
-
-    usage: preference add [-g genreName]
-           playlist remove [-g genreName]
-           playlist clear
