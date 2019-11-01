@@ -35,7 +35,7 @@ public class LocationSearchUrlRequest extends UrlRequest {
      * Executes the URL request to OneMap API.
      *
      * @return JSONObject The response from OneMap API.
-     * @throws
+     * @throws ApiException If there is an issue with the request.
      */
     @Override
     public Venue execute() throws ApiException {

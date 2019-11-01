@@ -24,7 +24,7 @@ public class StaticMapUrlRequest extends UrlRequest {
      * Executes the URL request to StaticMap API.
      *
      * @return image The static map image
-     * @throws ApiException
+     * @throws ApiException If there is an issue with the request.
      */
     @Override
     public Image execute() throws ApiException {

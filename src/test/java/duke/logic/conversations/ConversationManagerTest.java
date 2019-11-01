@@ -4,7 +4,6 @@ import duke.commons.exceptions.DukeException;
 import duke.logic.commands.DeleteCommand;
 import duke.logic.commands.PromptCommand;
 
-import duke.model.lists.RouteList;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -14,7 +13,7 @@ class ConversationManagerTest {
 
     @Test
     void converse() throws DukeException {
-        ConversationManager conversationManager = new ConversationManager(new RouteManager(new RouteList()));
+        ConversationManager conversationManager = new ConversationManager();
         conversationManager.converse("delete");
         assertTrue(conversationManager.getCommand() instanceof PromptCommand);
         conversationManager.converse("Travel the Seven seas");
@@ -25,7 +24,7 @@ class ConversationManagerTest {
 
     @Test
     void clearContext() throws DukeException {
-        ConversationManager conversationManager = new ConversationManager(new RouteManager(new RouteList()));
+        ConversationManager conversationManager = new ConversationManager();
         conversationManager.converse("done");
         assertTrue(conversationManager.getCommand() instanceof PromptCommand);
         conversationManager.clearContext();
@@ -34,7 +33,7 @@ class ConversationManagerTest {
 
     @Test
     void getCommand() throws DukeException {
-        ConversationManager conversationManager = new ConversationManager(new RouteManager(new RouteList()));
+        ConversationManager conversationManager = new ConversationManager();
         conversationManager.converse("delete");
         assertTrue(conversationManager.getCommand() instanceof PromptCommand);
     }

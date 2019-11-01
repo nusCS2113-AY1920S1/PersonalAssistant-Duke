@@ -14,6 +14,12 @@ public class CreateNewItineraryParser extends CommandParser {
     private String name;
     private String[] itineraryDetails;
 
+    /**
+     * Parses user input into an Itinerary.
+     *
+     * @param input The User input
+     * @throws ParseException If the input parsing fails.
+     */
     public CreateNewItineraryParser(String input) throws ParseException {
         String[] itineraryDetails = input.substring("newItinerary".length()).strip().split(" ");
         start = ParserTimeUtil.parseStringToDate(itineraryDetails[0].strip());

@@ -1,7 +1,11 @@
 package duke.model;
 
+import duke.commons.exceptions.DukeDateTimeParseException;
+import duke.commons.exceptions.DukeException;
 import duke.commons.exceptions.FileLoadFailException;
 import duke.commons.exceptions.FileNotSavedException;
+import duke.commons.exceptions.ItineraryInsufficientAgendasException;
+import duke.commons.exceptions.RecommendationDayExceededException;
 import duke.model.transports.TransportationMap;
 import duke.commons.exceptions.RouteDuplicateException;
 import duke.model.lists.EventList;
@@ -59,7 +63,8 @@ public interface Model {
      * @param itinerary The itinerary to store in persistent storage.
      * @return List of Days.
      */
-    List<Agenda> getRecommendations(int numberOfDays, Itinerary itinerary) throws FileLoadFailException, FileNotSavedException;
+    List<Agenda> getRecommendations(int numberOfDays, Itinerary itinerary) throws FileLoadFailException,
+            FileNotSavedException, RecommendationDayExceededException, ItineraryInsufficientAgendasException;
 
     /**
      * Returns the list of Routes.
@@ -85,15 +90,15 @@ public interface Model {
      */
     VenueList getEventVenues();
 
-    void saveItinerary(Itinerary itinerary) throws FileNotSavedException;
+    void saveItinerary(Itinerary itinerary) throws FileNotSavedException, ItineraryInsufficientAgendasException;
 
     void itineraryListSave(Itinerary itinerary) throws FileNotSavedException;
 
     String listItineraries() throws FileLoadFailException;
 
-    Itinerary getItinerary(String number) throws FileLoadFailException;
+    Itinerary getItinerary(String number) throws DukeException;
 
-    Itinerary readRecommendations() throws FileLoadFailException;
+    Itinerary readRecommendations() throws FileLoadFailException, DukeDateTimeParseException;
 
     /**
      * Returns profile of user.

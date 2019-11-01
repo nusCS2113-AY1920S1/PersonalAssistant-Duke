@@ -1,7 +1,6 @@
 package duke.logic.conversations;
 
 import duke.commons.exceptions.DukeException;
-import duke.model.lists.RouteList;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -12,7 +11,7 @@ class RouteAddConversationTest {
 
     @Test
     void converse() throws DukeException {
-        ConversationManager conversationManager = new ConversationManager(new RouteManager(new RouteList()));
+        ConversationManager conversationManager = new ConversationManager();
         conversationManager.converse("routeAdd");
         assertFalse(conversationManager.isFinished());
 

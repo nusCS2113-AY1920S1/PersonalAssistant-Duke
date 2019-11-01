@@ -2,7 +2,6 @@ package duke.logic.conversations;
 
 import duke.commons.Messages;
 import duke.commons.exceptions.DukeException;
-import duke.model.lists.RouteList;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -13,7 +12,7 @@ class RouteGenerateConversationTest {
 
     @Test
     void testForBus() throws DukeException {
-        ConversationManager conversationManager = new ConversationManager(new RouteManager(new RouteList()));
+        ConversationManager conversationManager = new ConversationManager();
         conversationManager.converse("routeGenerate");
         assertFalse(conversationManager.isFinished());
 
@@ -36,7 +35,7 @@ class RouteGenerateConversationTest {
 
     @Test
     void testForTrain() throws DukeException {
-        ConversationManager conversationManager = new ConversationManager(new RouteManager(new RouteList()));
+        ConversationManager conversationManager = new ConversationManager();
         conversationManager.converse("routeGenerate");
         assertFalse(conversationManager.isFinished());
 

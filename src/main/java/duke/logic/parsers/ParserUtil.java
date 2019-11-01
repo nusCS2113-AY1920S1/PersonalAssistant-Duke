@@ -93,7 +93,7 @@ public class ParserUtil {
      *
      * @param input The userInput read by the user interface.
      * @return The RouteGenerateCommand.
-     * @throws ParseException
+     * @throws ParseException If the input parsing fails.
      */
     public static RouteGenerateCommand createRouteGenerateCommand(String input) throws ParseException {
         String[] details = input.split(" to | by ", 3);

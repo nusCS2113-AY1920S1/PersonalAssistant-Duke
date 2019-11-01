@@ -10,6 +10,12 @@ import duke.logic.conversations.MarkDoneConversation;
 import duke.logic.conversations.RouteAddConversation;
 import duke.logic.conversations.RouteDeleteConversation;
 import duke.logic.conversations.RouteEditConversation;
+import duke.logic.conversations.RouteGenerateConversation;
+import duke.logic.conversations.RouteListConversation;
+import duke.logic.conversations.RouteNodeAddConversation;
+import duke.logic.conversations.RouteNodeDeleteConversation;
+import duke.logic.conversations.RouteNodeEditConversation;
+import duke.logic.conversations.RouteNodeListConversation;
 import duke.logic.conversations.SearchConversation;
 import duke.logic.conversations.SetupProfileConversation;
 
@@ -43,6 +49,18 @@ public class ConversationParser {
             return new RouteAddConversation();
         case "routeEdit":
             return new RouteEditConversation();
+        case "routeGenerate":
+            return new RouteGenerateConversation();
+        case "routeList":
+            return new RouteListConversation();
+        case "routeNodeAdd":
+            return new RouteNodeAddConversation();
+        case "routeNodeDelete":
+            return new RouteNodeDeleteConversation();
+        case "routeNodeEdit":
+            return new RouteNodeEditConversation();
+        case "routeNodeList":
+            return new RouteNodeListConversation();
         default:
             throw new ParseException(Messages.ERROR_INPUT_INVALID_FORMAT);
         }

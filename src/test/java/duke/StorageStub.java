@@ -7,6 +7,7 @@ import duke.commons.exceptions.DukeException;
 import duke.commons.exceptions.FileLoadFailException;
 import duke.commons.exceptions.FileNotSavedException;
 import duke.commons.exceptions.ItineraryInsufficientAgendasException;
+import duke.commons.exceptions.ParseException;
 import duke.commons.exceptions.RecommendationDayExceededException;
 import duke.commons.exceptions.RouteNodeDuplicateException;
 import duke.commons.exceptions.StorageFileNotFoundException;
@@ -38,11 +39,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class StorageStub {
-    private static final Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
     private EventList events;
     private RouteList routes;
     private TransportationMap map;
@@ -62,22 +60,15 @@ public class StorageStub {
     public StorageStub() {
         events = new EventList();
         routes = new RouteList();
-        try {
-            read();
-        } catch (DukeException e) {
-            logger.log(Level.WARNING, e.getMessage());
-        }
+        read();
     }
 
     /**
      * Reads all storage file.
      */
-    private void read() throws RouteNodeDuplicateException, CorruptedFileException, StorageFileNotFoundException,
-            DukeDuplicateTaskException, DukeDateTimeParseException {
+    private void read() {
         readBus();
         readTrain();
-        readEvent();
-        readRoutes();
     }
 
     /**
@@ -118,65 +109,6 @@ public class StorageStub {
         }
         s.close();
         this.map = new TransportationMap(busStopData, busData);
-    }
-
-    /**
-     * Reads events from filepath. Creates empty events if file cannot be read.
-     *
-     * @throws DukeDateTimeParseException   If the datetime of an event cannot be parsed.
-     * @throws DukeDuplicateTaskException   If there is a duplicate event.
-     * @throws StorageFileNotFoundException If the file cannot be read.
-     */
-    private void readEvent() throws DukeDuplicateTaskException, DukeDateTimeParseException,
-            StorageFileNotFoundException {
-        List<Event> events = new ArrayList<>();
-        try {
-            File f = new File(EVENTS_FILE_PATH);
-            Scanner s = new Scanner(f);
-            while (s.hasNext()) {
-                events.add(ParserStorageUtil.createTaskFromStorage(s.nextLine()));
-            }
-            s.close();
-        } catch (FileNotFoundException e) {
-            throw new StorageFileNotFoundException(EVENTS_FILE_PATH);
-        }
-        this.events.setEvents(events);
-    }
-
-    /**
-     * Reads routes from filepath. Creates empty routes if file cannot be read.
-     *
-     * @throws RouteNodeDuplicateException  If there is a duplicate route that is read.
-     * @throws CorruptedFileException       If the reading has failed.
-     * @throws StorageFileNotFoundException If the storage file cannot be found.
-     */
-    private void readRoutes() throws RouteNodeDuplicateException, CorruptedFileException, StorageFileNotFoundException {
-        List<Route> newRoutes = new ArrayList<>();
-        try {
-            File f = new File(ROUTES_FILE_PATH);
-            Scanner s = new Scanner(f);
-            Route newRoute = new Route(new ArrayList<>(), "", "");
-            while (s.hasNext()) {
-                String input = s.nextLine();
-                if (input.split("\\|", 2)[0].strip().equals("route")) {
-                    if (newRoute.getNumNodes() != 0) {
-                        newRoutes.add(newRoute);
-                    }
-                    newRoute = ParserStorageUtil.createRouteFromStorage(input);
-                } else {
-                    newRoute.addNode(ParserStorageUtil.createNodeFromStorage(input));
-                }
-            }
-            if (!newRoute.getName().equals("")) {
-                newRoutes.add(newRoute);
-            }
-
-            s.close();
-        } catch (FileNotFoundException e) {
-            throw new StorageFileNotFoundException(ROUTES_FILE_PATH);
-        }
-
-        routes.setRoutes(newRoutes);
     }
 
     /**
@@ -309,8 +241,8 @@ public class StorageStub {
             }
             s.close();
             itinerary.setTasks(agendaList);
-        } catch (FileNotFoundException e) {
-            throw new FileLoadFailException(new File(SAMPLE_RECOMMENDATIONS_FILE_PATH));
+        } catch (FileNotFoundException | ParseException e) {
+            throw new FileLoadFailException(RECOMMENDATIONS_FILE_PATH);
         }
         return itinerary;
     }
@@ -359,7 +291,7 @@ public class StorageStub {
             }
             s.close();
         } catch (FileNotFoundException e) {
-            throw new FileLoadFailException(new File(ITINERARY_LIST_FILE_PATH));
+            throw new FileLoadFailException(ITINERARIES_FILE_PATH);
         }
         return output.toString();
     }
@@ -407,8 +339,8 @@ public class StorageStub {
             assert itinerary != null;
             itinerary.setTasks(agendaList);
             return itinerary;
-        } catch (FileNotFoundException | DukeDateTimeParseException e) {
-            throw new FileLoadFailException(new File(ITINERARY_LIST_FILE_PATH));
+        } catch (FileNotFoundException e) {
+            throw new FileLoadFailException(ITINERARIES_FILE_PATH);
         }
     }
 

@@ -23,7 +23,7 @@ public class ProfileSetPreferenceCommand extends Command {
         this.category = category.toLowerCase();
         if (setting.equalsIgnoreCase("true")) {
             this.setting = true;
-        } else if (setting.equalsIgnoreCase("false")){
+        } else if (setting.equalsIgnoreCase("false")) {
             this.setting = false;
         } else {
             throw new ParseException(Messages.ERROR_INPUT_INVALID_FORMAT);

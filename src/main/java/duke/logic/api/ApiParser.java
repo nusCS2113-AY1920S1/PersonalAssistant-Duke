@@ -31,7 +31,7 @@ public class ApiParser {
      *
      * @param param The query location.
      * @return The location found.
-     * @throws ApiException
+     * @throws ApiException If there is an issue with the request.
      */
     public static Venue getLocationSearch(String param) throws ApiException {
         LocationSearchUrlRequest req = new LocationSearchUrlRequest(param);
@@ -108,7 +108,7 @@ public class ApiParser {
      *
      * @param param String formatted parameters
      * @return result The image from API
-     * @throws ApiException
+     * @throws ApiException If there is an issue with the request.
      */
     public static Image getStaticMap(String param) throws ApiException {
         StaticMapUrlRequest req = new StaticMapUrlRequest(param);

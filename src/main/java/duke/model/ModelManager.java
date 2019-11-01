@@ -83,7 +83,8 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public List<Agenda> getRecommendations(int numDays, Itinerary itinerary) throws FileLoadFailException, FileNotSavedException {
+    public List<Agenda> getRecommendations(int numDays, Itinerary itinerary) throws FileLoadFailException,
+            FileNotSavedException {
 
         List<Agenda> recommendations = storage.readVenues(numDays);
         itinerary.setTasks(recommendations);

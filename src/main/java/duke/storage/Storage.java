@@ -185,7 +185,8 @@ public class Storage {
         Scanner scanner = new Scanner(getClass().getResourceAsStream(RECOMMENDATIONS_FILE_PATH));
         int i = 1;
         if (numDays > 8) {
-            throw new FileLoadFailException("Don't throw a logic exception here. Storage is for Storage only. Change this.");
+            throw new FileLoadFailException("Don't throw a logic exception here. "
+                    + "Storage is for Storage only. Change this.");
         }
         while (scanner.hasNext() && i <= numDays) {
             List<Venue> venueList = new ArrayList<>();
