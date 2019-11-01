@@ -163,12 +163,8 @@ class ViewCommandTest {
 
             if (t.getStringMainDate().equals(dateInput)) {
                 allTask.append(getAsStringView(t, dateInput));
-            }
-
-            if (!t.getStringTrailingDate().equals("-")) {
-                if (t.getStringTrailingDate().equals(dateInput)) {
-                    allTask.append(getAsStringView(t, dateInput));
-                }
+            } else if (!t.getStringTrailingDate().equals("-") && t.getStringTrailingDate().equals(dateInput)) {
+                allTask.append(getAsStringView(t, dateInput));
             }
         }
 
