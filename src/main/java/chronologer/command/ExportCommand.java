@@ -15,6 +15,7 @@ import net.fortuna.ical4j.model.component.VToDo;
 import net.fortuna.ical4j.model.property.CalScale;
 import net.fortuna.ical4j.model.property.Description;
 import net.fortuna.ical4j.model.property.Duration;
+import net.fortuna.ical4j.model.property.Location;
 import net.fortuna.ical4j.model.property.ProdId;
 import net.fortuna.ical4j.model.property.Summary;
 import net.fortuna.ical4j.model.property.Version;
@@ -33,7 +34,7 @@ import java.util.GregorianCalendar;
  * Export the timeline as an ics file.
  *
  * @author Tan Yi Xiang
- * @version v1.1
+ * @version v1.2
  */
 public class ExportCommand extends Command {
 
@@ -54,12 +55,6 @@ public class ExportCommand extends Command {
             } else if (tasks.isEvent(task) || tasks.isTodoPeriod(task)) {
                 VEvent event = convertEventOrTodoPeriod(task);
                 calendar.getComponents().add(event);
-            } else if (tasks.isTodo(task)) {
-                VEvent todo = convertTodo(task);
-                calendar.getComponents().add(todo);
-            } else if (tasks.isTodoDuration(task)) {
-                VEvent todo = convertTodoDuration(task);
-                calendar.getComponents().add(todo);
             }
         }
         try {
@@ -97,9 +92,8 @@ public class ExportCommand extends Command {
         java.util.Calendar deadlineCalendar = convertToCalendar(task.getStartDate());
         DateTime deadlineDate = new DateTime(deadlineCalendar.getTime());
         VEvent deadline = new VEvent(deadlineDate, task.getDescription());
-        if (task.getComment() != null) {
-            deadline.getProperties().add(new Description(task.getComment()));
-        }
+        createDescription(task,deadline);
+        createLocation(task,deadline);
         UidGenerator generator = new RandomUidGenerator();
         deadline.getProperties().add(generator.generateUid());
         return deadline;
@@ -111,38 +105,25 @@ public class ExportCommand extends Command {
         DateTime startEventDate = new DateTime(eventStartCalendar.getTime());
         DateTime endEventDate = new DateTime(eventEndCalendar.getTime());
         VEvent event = new VEvent(startEventDate, endEventDate, task.getDescription());
-        if (task.getComment() != null) {
-            event.getProperties().add(new Description(task.getComment()));
-        }
+        createDescription(task,event);
+        createLocation(task,event);
         UidGenerator generator = new RandomUidGenerator();
         event.getProperties().add(generator.generateUid());
         return event;
     }
 
-    private VEvent convertTodo(Task task) {
-        VEvent todo = new VEvent();
-        todo.getProperties().add(new Summary(task.getDescription()));
-        if (task.getComment() != null) {
-            todo.getProperties().add(new Description(task.getComment()));
+    private void createDescription(Task task,VEvent event){
+        if(task.getComment() != null){
+            event.getProperties().add(new Description(task.getComment()));
         }
-        UidGenerator generator = new RandomUidGenerator();
-        todo.getProperties().add(generator.generateUid());
-        return todo;
+
     }
 
-    private VEvent convertTodoDuration(Task task) {
-        Todo placeHolderTask = (Todo) task;
-        int duration = placeHolderTask.getDuration();
-        String durationString = " for " + duration + " hours";
-        String summary = task.getDescription().concat(durationString);
-        VEvent todo = new VEvent();
-        todo.getProperties().add(new Summary(summary));
-        if (task.getComment() != null) {
-            todo.getProperties().add(new Description(task.getComment()));
+    private void createLocation(Task task,VEvent event){
+        if(task.getLocation() != null){
+            event.getProperties().add(new Location(task.getLocation()));
         }
-        UidGenerator generator = new RandomUidGenerator();
-        todo.getProperties().add(generator.generateUid());
-        return todo;
     }
+
 
 }
