@@ -48,7 +48,7 @@ public class PrintCommand extends Command {
             lists.print();
         }
         if(this.command.matches("detail")) {
-            degreesManager.print(command);
+            degreesManager.print(input);
         }
     }
 }

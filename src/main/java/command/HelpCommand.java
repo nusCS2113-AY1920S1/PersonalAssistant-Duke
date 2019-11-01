@@ -58,6 +58,8 @@ public class HelpCommand extends Command {
                             + "replace INDEX NEWDEGREE: Replaces and existing degree in the list with a new one.\n"
                             + "delete INDEX: Deletes the specified item in the list.\n"
                             + "clear: Clears all degrees from the list.\n"
+                            + "undo: Undo the previous change to the task or degree list.\n"
+                            + "redo: Redo the command that was previously undone.\n"
                             + "custom KEYWORD KEYPHRASE: Customize a word to be evaluated as a "
                     + "phrase to be executed with additional parameters.\n"
                             + "bye: Exits the program.");
@@ -79,9 +81,9 @@ public class HelpCommand extends Command {
                         "Environmental Engineering\n" +
                         "Industrial Systems Engineering\n" +
                         "Mechanical Engineering\n" +
-                        "Materials Science Engineering\n");
-            } else if (this.arguments.matches("choices")) {
-                System.out.println("choices: Shows a list of all degrees in the list.");
+                        "Materials Science and Engineering");
+            } else if (this.arguments.matches("degreelist")) {
+                System.out.println("degreelist: Shows a list of all degrees in the list.");
             } else if (this.arguments.matches("swap")) {
                 System.out.println("swap INDEX INDEX: Swaps the position of two degrees in the degree list.");
             } else if (this.arguments.matches("replace")) {
@@ -97,6 +99,10 @@ public class HelpCommand extends Command {
                 System.out.println("bye: Exits the program");
             } else if (this.arguments.matches("help")) {
                 System.out.println("help: Displays a full list of possible commands.");
+            } else if (this.arguments.matches("undo")) {
+                System.out.println("undo: Undo the previous change to the task or degree list.");
+            } else if (this.arguments.matches("redo")) {
+                System.out.println("redo: Redo the command that was previously undone.");
             }
         }
 
