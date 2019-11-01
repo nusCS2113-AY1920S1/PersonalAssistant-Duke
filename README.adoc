@@ -13,6 +13,7 @@ ifdef::env-github,env-browser[:relfileprefix: docs/]
 
 # Documentation
 
+* User guide is in /docs
 * <<DeveloperGuide#, Developer Guide>>
 
 # Credits
