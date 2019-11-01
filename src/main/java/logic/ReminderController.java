@@ -1,10 +1,19 @@
 package logic;
 
-import java.util.ArrayList;
+import java.io.BufferedInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Calendar;
 import java.util.Date;
 
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+
 import common.LoggerController;
+import core.Duke;
 import gui.Window;
 import model.Model;
 
@@ -38,6 +47,7 @@ public class ReminderController {
             reminder = "You have a missed Reminder!\n";
         } else {
             reminder = "Reminder!\n";
+            ReminderController.instance.playDing();
         }
         int taskIndex = ReminderController.instance.activeReminder.getIndex();
         reminder += ReminderController.instance.model.getTasksManager().getTaskById(taskIndex).toString() + '\n';
@@ -45,6 +55,20 @@ public class ReminderController {
         ReminderController.instance.model.getTasksManager().getTaskById(taskIndex).setReminder(null);
         ReminderController.instance.model.save();
         refreshAllReminders();
+    }
+
+    private void playDing() {
+        try {
+            InputStream is = Duke.class.getClassLoader().getResourceAsStream("ding.wav");
+            InputStream bufferedIs = new BufferedInputStream(is);
+            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(bufferedIs);
+            Clip clip = AudioSystem.getClip();
+            clip.open(audioInputStream);
+            clip.start();
+        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
+            e.printStackTrace();
+            LoggerController.logWarning(getClass(), "Unable to play sound effect. JAR file might be corrupted!");
+        }
     }
 
     /**

@@ -2,7 +2,7 @@ package logic.command;
 
 import model.Model;
 
-
+//@@author AugGust
 public class HelpCommand extends Command {
 
     /**
@@ -14,16 +14,17 @@ public class HelpCommand extends Command {
     public CommandOutput execute(Model model) {
         String output =
                 "Available Commands\n"
-                        + "1. basic add: add {task/member} [NAME]\n"
-                        + "2. find: find [KEYWOED]\n"
-                        + "3. done: done [INDEX]\n"
-                        + "4. delete: delete {task/member} [INDEX]...\n"
-                        + "5. link: link [INDEX] ... /to [MEMBER_NAME] ...\n"
-                        + "6. unlink: unlink [INDEX] ... /from [MEMBER_NAME] ... \n"
-                        + "7. list: list {tasks/members}"
-                        + "8. edit: edit {task/member} {{time/des}/{bio/email/phone}} INDEX /to [change content]\n"
-                        + "9. schedule: schedule {team/member} {all/todo} ([MEMBER_NAME])\n"
-                        + "10. bye: bye\n";
+                        + "1. add task/member\n"
+                        + "2. find\n"
+                        + "3. done\n"
+                        + "4. delete\n"
+                        + "5. reminder\n"
+                        + "6. link\n"
+                        + "7. unlink\n"
+                        + "8. edit\n"
+                        + "9. list\n"
+                        + "10. schedule\n"
+                        + "11. bye\n";
 
         return new CommandOutput(output);
     }
