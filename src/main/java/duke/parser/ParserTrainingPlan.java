@@ -16,7 +16,7 @@ public class ParserTrainingPlan implements IParser {
     /**
      * A scanner to handle user input.
      */
-    private Scanner sc = new Scanner(System.in);
+    private Scanner sc;
     /**
      * MyPlan object.
      */
@@ -36,51 +36,46 @@ public class ParserTrainingPlan implements IParser {
     /**
      * To parse training plan command.
      * @param input command.
-     * @throws FileNotFoundException File not found
      */
     @Override
-    public void parseCommand() throws FileNotFoundException {
-        String[] word = input.split(" ");
-        String cmd = word[0];
+    public void parseCommand(final String input) {
+        final int inView = 1;
+        final int inCreate = 2;
+        final int inEdit = 3;
+        final int back = 4;
+        boolean inPlan = true;
+        while (inPlan) {
+            cliView.trainingProgramHeading();
+            int index = Integer.parseInt(sc.nextLine());
+            switch (index) {
+            case inView:
+                cliView.planListHeading();
+                int choosePlan = Integer.parseInt(sc.nextLine());
+                if (choosePlan <= plan.keyList().size()) {
+                    String key = plan.keyList().get(choosePlan);
+                    String[] details = key.split("(?<=\\D)(?=\\d)");
 
-        switch (cmd) {
-        case "plan":
-            if (word[1].equals("view")) {
-                //plan.loadPlan(word[num].toLowerCase(), word[++num]);
-                System.out.println(plan.viewPlan());
-            } else if (word[1].equals("new")) {
-                plan.createPlan(word[2].toLowerCase());
-            } else if (word[1].equals("edit")) {
+                    plan.loadPlanToList(details[0], Integer.parseInt(details[1]));
+                    System.out.println(plan.viewPlan());
+                } else {
+                    cliView.planNotFound();
+                }
+                break;
+            case inCreate:
+                cliView.createPlanHeading();
+                String i = sc.nextLine();
+                cliView.showPlanCreating(i);
+                plan.createPlan(i);
+                break;
+            case inEdit:
                 System.out.println("To be created...");
-            }
-            break;
-        case "training":
-            switch (word[1]) {
-            case "view":
-                System.out.println("TBC");
-                System.out.println(plan.viewPlan());
                 break;
-            case "add-plan":
-                //pass
-                break;
-            case "add-activity":
-                int num = 2;
-                System.out.println(plan.addActivity(word[num],
-                        Integer.parseInt(word[++num]),
-                        Integer.parseInt(word[++num])));
-                break;
-            case "delete":
-                System.out.println("To be added.");
-                break;
-            case "delete-all":
-                System.out.println("To be added");
+            case back:
+                inPlan = false;
                 break;
             default:
-                break;
+                cliView.showCorrectPlanHeading();
             }
-            break;
-        default:
-            System.out.println("Incorrect Command.");
         }
     }
 }

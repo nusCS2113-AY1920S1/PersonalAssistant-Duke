@@ -42,9 +42,7 @@ public class ParserCommand implements IParser {
             case "3":
                 ParserTrainingPlan parserTrainingPlan
                         = new ParserTrainingPlan();
-                cliView.trainingProgramHeading();
-                String trainingInput = sc.nextLine();
-                parserTrainingPlan.parseCommand(trainingInput);
+                parserTrainingPlan.parseCommand("plan");
                 break;
             default:
                 System.out.println("OOPS!!! I'm sorry,"
