@@ -313,15 +313,12 @@ Examples: `view entry 3` +
 * `NUM` must be a positive integer < 20.
 * `NUM` corresponds to the unique integer attached to the movie or TV (below its poster and title).
 
-==== *Nearby Cinemas and theatres*
+=== Nearby Cinemas and theatres
 Displays the list of cinemas and theatres nearby the location specified. +
-Format: `view cinema LOCATION` +
-Examples: `view cinema clementi` +
+Format: `find cinema LOCATION` +
+Examples: `find cinema clementi` +
 
 * `LOCATION` must be a valid location in Singapore.
-
-[TIP]
-Keying in `view cinema` displays the list of all cinemas and theatres in Singapore
 
 === Personal Playlists: `playlist`
 
@@ -515,23 +512,37 @@ You can make use of this feature to find shortcuts for your commands!
 ... harry potter and the deathly hallows: part 2
 ... harry potter and the ten years later
 
+=== Arrow keys navigation
+EntertainmentPro allows users to use arrow keys as a way to iterate through items displayed so as to increase the convenience of our users who prefer typing over mouse input. +
+
+* When the user's focus is on the command box, pressing kbd:[↓] shifts the focus over to info display.
+* When the user's focus is on the displayed items:
+** Pressing kbd:[<-] and kbd:[->] iterates through displayed items in info display.
+** Pressing kbd:[enter] selects the item.
+** Pressing kbd:[↓] scrolls down.
+** Pressing kbd:[↑] scrolls up, only if users have not reached the top of info display. Otherwise, pressing kbd:[↑] shifts the focus back to the command box.
+
 == FAQ
-* How do I transfer my data to another computer?
+. How do I transfer my data to another computer?
++
 ----
 Install the app in the other computer and overwrite the empty data files it creates with the files that contains the data of your previous EntertainmentPro app. Normally, it will be located in the data/ folder in the root directory.
 ----
 
-* How can I be notified with the latest releases?
+. How can I be notified with the latest releases?
++
 ----
 You can watch or follow our repository on github if you want to hear of our latest releases.
 ----
 
-* I found a bug/have a suggestion! What do I do?
+. I found a bug/have a suggestion! What do I do?
++
 ----
 Feel free to report bugs/suggest enhancements using the Issue Tracker, or simply dropping an email to one of the developers.
 ----
 
-* How do I contact the authors? +
+. How do I contact the authors?
++
 ----
 Our contacts are given in the About Us and Contact Us page; drop by as we’d love to get to know you!
 ----
