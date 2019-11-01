@@ -92,7 +92,7 @@ public class Parser {
     }
 
     /**
-     * Returns a Date object from a raw date that is stored as a String in every format
+     * Returns a Date object from a raw date that is stored as a String in any format
      * @param by Input String containing the date information.
      * @return A Date object containing the appropriately formatted date.
      * @throws RoomShareException if the input is uninterpretable.
@@ -275,10 +275,16 @@ public class Parser {
 
     }
 
+    /**
+     * Closes the scanner used in Parser class
+     */
     public void close() {
         scanner.close();
     }
 
+    /**
+     * Consumes the next character up to the next whitespace
+     */
     public void discardNext() {
         scanner.next();
     }
