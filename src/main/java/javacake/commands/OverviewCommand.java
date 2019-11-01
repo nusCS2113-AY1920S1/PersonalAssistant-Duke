@@ -1,5 +1,6 @@
 package javacake.commands;
 
+import edu.emory.mathcs.backport.java.util.Collections;
 import javacake.Logic;
 import javacake.exceptions.CakeException;
 import javacake.storage.StorageManager;
@@ -84,6 +85,7 @@ public class OverviewCommand extends Command {
                     collectionOfNames.add(name);
                 }
             }
+            Collections.sort(collectionOfNames);
             List<String> result = processFileNames(collectionOfNames);
             sb.append(String.join("\n", result)).append("\n");
             sb.append(getEndingMessage());

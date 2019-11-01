@@ -2,9 +2,7 @@ package javacake.quiz;
 
 import javacake.commands.BackCommand;
 import javacake.exceptions.CakeException;
-import javacake.storage.Profile;
 import javacake.Logic;
-import javacake.storage.Storage;
 import javacake.storage.StorageManager;
 import javacake.ui.Ui;
 
@@ -53,7 +51,8 @@ public class ReviewSession implements QuizManager {
             int tmp = Integer.parseInt(input) - 1;
             return String.valueOf(tmp); // echo back input with proper indexing for the next getQuestion
         } else {
-            throw new CakeException("Invalid command at this point in the program.");
+            throw new CakeException("That question number is out of range! Try again.\n\n"
+                    + getQuestion(index));
         }
     }
 
@@ -90,7 +89,7 @@ public class ReviewSession implements QuizManager {
         return new BackCommand().execute(logic, ui, storageManager);
     }
 
-    private static boolean isValidInput(String input) {
+    private static boolean isValidInput(String input) throws CakeException {
         int tmp;
         try {
             tmp = Integer.parseInt(input);
@@ -98,7 +97,7 @@ public class ReviewSession implements QuizManager {
                 return false;
             }
         } catch (NumberFormatException | NullPointerException e) {
-            return false;
+            throw new CakeException("You can't use that command here! Type a valid question number or \"back\".");
         }
         return true;
     }

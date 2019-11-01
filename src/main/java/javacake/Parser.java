@@ -5,7 +5,10 @@ import javacake.commands.ChangeColorCommand;
 import javacake.commands.BackCommand;
 import javacake.commands.Command;
 import javacake.commands.CreateNoteCommand;
+import javacake.commands.DeleteCommand;
 import javacake.commands.DeleteNoteCommand;
+import javacake.commands.DoneCommand;
+import javacake.commands.EditCommand;
 import javacake.commands.EditNoteCommand;
 import javacake.commands.ExitCommand;
 import javacake.commands.GoToCommand;
@@ -48,6 +51,9 @@ public class Parser {
         case ("editnote"): return new EditNoteCommand(inputCommand);
         case ("deletenote"): return new DeleteNoteCommand(inputCommand);
         case ("deadline"): return new AddCommand(inputCommand);
+        case ("done"): return new DoneCommand(inputCommand);
+        case ("delete"): return new DeleteCommand(inputCommand);
+        case ("snooze"): return new EditCommand(inputCommand);
         case ("change"):
             MainWindow.isChanged = true;
             return new ChangeColorCommand();
