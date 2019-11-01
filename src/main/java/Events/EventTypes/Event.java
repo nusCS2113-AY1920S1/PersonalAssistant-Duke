@@ -187,7 +187,7 @@ public abstract class Event implements Comparable<Event> {
 
     //@@author ZhangYihanNus
     public void addChecklist(String newChecklist) {
-        this.checklist.add(newChecklist);
+        this.checklist.addItem(newChecklist);
         logger.log(Level.INFO, "The new checklist is added to the list");
     }
 
@@ -196,12 +196,12 @@ public abstract class Event implements Comparable<Event> {
     }
 
     public void editChecklist(int checklistIndex, String newChecklist) {
-        this.checklist.set(checklistIndex, newChecklist);
+        this.checklist.editItem(checklistIndex, newChecklist);
         logger.log(Level.INFO, "The checklist is edited");
     }
 
     public void deleteChecklist(int checklistIndex) {
-        this.checklist.remove(checklistIndex);
+        this.checklist.deleteItem(checklistIndex);
         logger.log(Level.INFO, "The checklist is removed form the list");
     }
 
