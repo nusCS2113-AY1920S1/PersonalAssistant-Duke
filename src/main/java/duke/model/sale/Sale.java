@@ -11,18 +11,18 @@ import static duke.commons.util.CollectionUtil.requireAllNonNull;
 public class Sale {
 
     //Identity field
-    private long id;
+    private final long id;
 
     //Data fields
-    private String description;
-    private double value;
-    private boolean isSpend;
-    private Date saleDate;
-    private String remarks;
+    private final String description;
+    private final double value;
+    private final boolean isSpend;
+    private final Date saleDate;
+    private final String remarks;
 
     public Sale(String description, double value, boolean isSpend, Date saleDate, String remarks) {
         requireAllNonNull(description, saleDate, value, remarks);
-        this.id = System.currentTimeMillis();
+        this.id = generateId();
         this.description = description;
         this.isSpend = isSpend;
         if (isSpend && value > 0.0) {
@@ -43,7 +43,6 @@ public class Sale {
 
         this.id = id;
         this.description = description;
-        this.value = value;
         this.isSpend = isSpend;
         if (isSpend && value > 0.0) {
             this.value = -value;
@@ -58,48 +57,28 @@ public class Sale {
         return id;
     }
 
-    public void setId(long id) {
-        this.id = id;
-    }
-
     public String getDescription() {
         return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     public Date getSaleDate() {
         return saleDate;
     }
 
-    public void setSaleDate(Date saleDate) {
-        this.saleDate = saleDate;
-    }
-
     public double getValue() {
         return value;
-    }
-
-    public void setValue(double value) {
-        this.value = value;
     }
 
     public boolean isSpend() {
         return isSpend;
     }
 
-    public void setSpend(boolean isSpend) {
-        this.isSpend = isSpend;
-    }
-
     public String getRemarks() {
         return remarks;
     }
 
-    public void setRemarks(String remarks) {
-        this.remarks = remarks;
+    private long generateId() {
+        return System.currentTimeMillis();
     }
 
     @Override
