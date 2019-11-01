@@ -136,7 +136,7 @@ public class ReservationList {
         Date currentDate = new Date(System.currentTimeMillis());
         for (int i = 0; i < size(); i++) {
             Reservation thisReservation = getReservationByIndex(i);
-            if ((currentDate.after(thisReservation.getStartDate()) && currentDate.before(thisReservation.getEndDate())) 
+            if ((currentDate.after(thisReservation.getStartDate()) && currentDate.before(thisReservation.getEndDate()))
                 || thisReservation.isOverdue()) {
                 return false;
             }

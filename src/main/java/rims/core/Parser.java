@@ -37,7 +37,7 @@ public class Parser {
     }
 
     public void setPrevCommand(Command c) {
-        if (c.canChangeData()) { prevCommand = c; }
+        //if (c.canChangeData()) { prevCommand = c; }
     }
 
     /**
@@ -89,18 +89,16 @@ public class Parser {
             c = new CloseCommand();
         } else if (input.equals("list") && words.length == 1) {
             c = new ListCommand();
-        } 
-        else if (input.equals("deadlines") && words.length == 1) {
+        } else if (input.equals("deadlines") && words.length == 1) {
             c = new ViewDeadlinesCommand();
-        }
+        } else if (input.equals("help") && words.length == 1) {
+            c = new HelpCommand();
         //@@author danielcyc
-        else if (words[0].equals("calendar") && words.length == 1) {
+        } else if (words[0].equals("calendar") && words.length == 1) {
             CalendarCommand.printCal(resources, ui);
             c = new ListCommand();
-        }
         //@@author aarushisingh1
-
-        else if (words[0].equals("list") && words.length > 1) {
+        } else if (words[0].equals("list") && words.length > 1) {
             String paramType = words[1].substring(1);
             if (paramType.equals("room") || paramType.equals("item") || paramType.equals("date")) {
 
@@ -118,7 +116,7 @@ public class Parser {
                     "Invalid list parameter! Please specify 'item', 'room' or 'date' to view a detailed list of a resource.");
             }
         }
-         //@@author hin1
+         //@@author rabhijit
         else if (words[0].equals("add")) {
             String roomOrItem = ui.getInput("Would you like to add an item or a room to the inventory?");
             if (roomOrItem.equals("room")) {
@@ -142,7 +140,6 @@ public class Parser {
             } else {
                 throw new RimsException("Please choose a room or item to delete from your inventory.");
             }
-        //@@author rabhijit
         } else if (words[0].equals("loan")) {
             String roomOrItem = ui.getInput("Would you like to loan an item or room from the inventory?");
             ui.printLine();
@@ -305,7 +302,22 @@ public class Parser {
             c = new ReturnCommand(userId, resourcesToReturn, reservationsToCancel);
         } else if (words[0].equals("undo")) {
             c = new UndoCommand(prevCommand);
-        } else {
+        } else if (words[0].equals("stats")) {
+            String dateFrom = ui.getInput(
+                "Enter the start date in the format: DD/MM/YYYY HHmm, OR in the format: Tuesday HHmm");
+            if (dateFrom.length() < 15) {
+                String[] splitDateFrom = dateFrom.split(" ");
+                dateFrom = convertNaturalDate(splitDateFrom[0], splitDateFrom[1]);
+            }
+            String dateTill = ui.getInput(
+                "Enter the start date in the format: DD/MM/YYYY HHmm, OR in the format: Tuesday HHmm");
+            if (dateFrom.length() < 15) {
+                String[] splitDateTill = dateFrom.split(" ");
+                dateTill = convertNaturalDate(splitDateTill[0], splitDateTill[1]);
+            }
+            c = new StatsCommand(dateFrom, dateTill);
+        } 
+        else {
             throw new RimsException("Please enter a recognizable command!");
         }
         return c;

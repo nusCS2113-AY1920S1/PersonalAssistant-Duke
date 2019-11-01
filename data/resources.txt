@@ -3,5 +3,5 @@
 2,I,frisbee
 3,R,mpsh
 4,I,frisbee
-5,R,seminar room 2
 6,I,pen
+7,I,pen

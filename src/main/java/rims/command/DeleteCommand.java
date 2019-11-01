@@ -95,8 +95,8 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public boolean canChangeData() { return true; }
+    public boolean canModifyData() { return true; }
 
     @Override
-    public String commandUserInput() { return "delete" + qty + resourceName + " (" + resourceType + ")"; }
+    public String getCommandUserInput() { return "delete" + qty + resourceName + " (" + resourceType + ")"; }
 }
