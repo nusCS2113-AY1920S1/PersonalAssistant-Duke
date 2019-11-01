@@ -9,7 +9,6 @@ import duke.logic.parser.commons.Parser;
 import duke.logic.parser.commons.ParserUtil;
 import duke.logic.parser.exceptions.ParseException;
 
-import static duke.logic.parser.commons.CliSyntax.PREFIX_INVENTORY_INDEX;
 import static duke.logic.parser.commons.CliSyntax.PREFIX_INVENTORY_NAME;
 import static duke.logic.parser.commons.CliSyntax.PREFIX_INVENTORY_QUANTITY;
 import static duke.logic.parser.commons.CliSyntax.PREFIX_INVENTORY_REMARKS;
@@ -17,12 +16,9 @@ import static duke.logic.parser.inventory.InventoryParserUtil.createInventoryDes
 
 public class EditInventoryCommandParser implements Parser<EditInventoryCommand> {
 
-    private static final String EMPTY_STRING = "";
-
     @Override
     public EditInventoryCommand parse(String args) throws ParseException {
         ArgumentMultimap map = ArgumentTokenizer.tokenize(args,
-                PREFIX_INVENTORY_INDEX,
                 PREFIX_INVENTORY_NAME,
                 PREFIX_INVENTORY_QUANTITY,
                 PREFIX_INVENTORY_REMARKS
@@ -31,9 +27,9 @@ public class EditInventoryCommandParser implements Parser<EditInventoryCommand> 
         Index index;
 
         try {
-            index = ParserUtil.parseIndex(map.getValue(PREFIX_INVENTORY_INDEX).orElse(EMPTY_STRING));
+            index = ParserUtil.parseIndex(map.getPreamble());
         } catch (ParseException e) {
-            throw new ParseException(Message.MESSAGE_INVALID_COMMAND_FORMAT);
+            throw new ParseException(Message.MESSAGE_INVALID_INDEX);
         }
 
         return new EditInventoryCommand(index, createInventoryDescriptor(map));

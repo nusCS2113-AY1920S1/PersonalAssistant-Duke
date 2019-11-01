@@ -25,6 +25,7 @@ public class InventoryParserUtil {
             inventoryDescriptor.setName(map.getValue(PREFIX_INVENTORY_NAME).get());
         }
         if (map.getValue(PREFIX_INVENTORY_QUANTITY).isPresent()) {
+            checkValidQuantity(map.getValue(PREFIX_INVENTORY_QUANTITY).get());
             inventoryDescriptor.setQuantity(Double.parseDouble(map.getValue(PREFIX_INVENTORY_QUANTITY).get()));
         }
         if (map.getValue(PREFIX_INVENTORY_REMARKS).isPresent()) {

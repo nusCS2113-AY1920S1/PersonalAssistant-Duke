@@ -10,7 +10,6 @@ import duke.logic.parser.commons.ParserUtil;
 import duke.logic.parser.exceptions.ParseException;
 
 import static duke.logic.parser.commons.CliSyntax.PREFIX_SHOPPING_COST;
-import static duke.logic.parser.commons.CliSyntax.PREFIX_SHOPPING_INDEX;
 import static duke.logic.parser.commons.CliSyntax.PREFIX_SHOPPING_NAME;
 import static duke.logic.parser.commons.CliSyntax.PREFIX_SHOPPING_QUANTITY;
 import static duke.logic.parser.commons.CliSyntax.PREFIX_SHOPPING_REMARKS;
@@ -18,12 +17,9 @@ import static duke.logic.parser.shopping.ShoppingParserUtil.createShoppingDescri
 
 public class EditShoppingCommandParser implements Parser<EditShoppingCommand> {
 
-    private static final String EMPTY_STRING = "";
-
     @Override
     public EditShoppingCommand parse(String args) throws ParseException {
         ArgumentMultimap map = ArgumentTokenizer.tokenize(args,
-                PREFIX_SHOPPING_INDEX,
                 PREFIX_SHOPPING_NAME,
                 PREFIX_SHOPPING_QUANTITY,
                 PREFIX_SHOPPING_REMARKS,
@@ -33,9 +29,9 @@ public class EditShoppingCommandParser implements Parser<EditShoppingCommand> {
         Index index;
 
         try {
-            index = ParserUtil.parseIndex(map.getValue(PREFIX_SHOPPING_INDEX).orElse(EMPTY_STRING));
+            index = ParserUtil.parseIndex(map.getPreamble());
         } catch (ParseException e) {
-            throw new ParseException(Message.MESSAGE_INVALID_COMMAND_FORMAT);
+            throw new ParseException(Message.MESSAGE_INVALID_INDEX);
         }
 
         return new EditShoppingCommand(index, createShoppingDescriptor(map));

@@ -1,35 +1,83 @@
 {
-  "orders" : [ ],
-  "products" : [ {
-    "productName" : "Prodname",
-    "ingredientItems" : [ {
-      "ingredient" : {
-        "name" : "Ingredientname",
-        "unitPrice" : 0.0,
-        "remarks" : ""
-      },
-      "amount" : 1.0
-    } ],
-    "ingredientCost" : 1.0,
-    "retailPrice" : 1.0,
-    "status" : "ACTIVE"
+  "orders": [
+    {
+      "id": 1572570825933,
+      "creationDate": "2019-11-01T01:13:45.933+0000",
+      "name": "customer",
+      "contact": "N/A",
+      "remarks": "N/A",
+      "deliveryDate": "2019-11-01T01:13:43.314+0000",
+      "status": "ACTIVE",
+      "total": 0.0,
+      "items": []
+    }
+  ],
+  "products" : [ ],
+  "inventory" : [ {
+    "ingredient" : {
+      "name": "D",
+      "unitPrice" : 0.0,
+      "remarks" : ""
+    },
+    "amount": 7.0
+  }, {
+    "ingredient" : {
+      "name" : "Egg",
+      "unitPrice" : 5.0,
+      "remarks" : ""
+    },
+    "amount" : 3.0
+  }, {
+    "ingredient" : {
+      "name" : "Peas",
+      "unitPrice" : 0.5,
+      "remarks" : ""
+    },
+    "amount" : 34.0
+  }, {
+    "ingredient" : {
+      "name" : "Haha sdfsdvsdv",
+      "unitPrice" : 5.0,
+      "remarks" : ""
+    },
+    "amount" : 5.0
   } ],
-  "inventory" : [ ],
   "shoppingList" : [ {
     "ingredient" : {
-      "name" : "Ingredientname",
-      "unitPrice" : 0.0,
+      "name" : "Haha sdfsdvsdv",
+      "unitPrice" : 5.0,
       "remarks" : ""
     },
     "amount" : 0.0
   }, {
     "ingredient" : {
-      "name" : "1",
-      "unitPrice" : 0.0,
+      "name" : "Egg",
+      "unitPrice" : 5.0,
+      "remarks" : ""
+    },
+    "amount" : 0.0
+  }, {
+    "ingredient" : {
+      "name" : "Peas",
+      "unitPrice" : 0.5,
       "remarks" : ""
     },
     "amount" : 0.0
   } ],
-  "sales" : [ ],
+  "sales" : [ {
+    "id" : 1572548032585,
+    "description" : "Ingredients purchased.",
+    "value" : -57.0,
+    "isSpend" : true,
+    "saleDate" : "2019-10-31T18:53:52.585+0000",
+    "remarks" : "Ingredients are: -Egg -Peas -Haha sdfsdvsdv "
+  }, {
+    "id" : 1572548069896,
+    "description" : "Ingredients purchased.",
+    "value" : 0.0,
+    "isSpend" : true,
+    "saleDate" : "2019-10-31T18:54:29.885+0000",
+    "remarks" : "Ingredients are: -Haha sdfsdvsdv "
+  } ],
   "shortcuts" : [ ]
 }
