@@ -77,7 +77,7 @@ public class Parser {
                 }
             }
         } else if (command.matches("todo|deadline|event|done|delete|find|select|recurring|after|within|fixed"
-                + "|snooze|schedule|add|remove|swap|sort")) {
+                + "|snooze|schedule|add|remove|swap|sort|detail")) {
             if (!temp.hasNextLine()) {
                 throw new DukeException("☹ OOPS!!! The description of a " + command + " cannot be empty.");
             }

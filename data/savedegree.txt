@@ -1,33 +1,11 @@
-<<<<<<< Updated upstream
 degree-Biomedical Engineering-0
-degree-Electrical Engineering-1
-degree-Mechanical Engineering-2
-
-=======
-degree-ceg--REMOVED
-degree-ceg--REMOVED
-degree-ceg--REMOVED
-degree-ceg--REMOVED
-degree-ceg--REMOVED
-degree-ceg--REMOVED
-degree-ceg--REMOVED
-degree-ceg--REMOVED
-degree-ceg--REMOVED
-degree-ceg--REMOVED
-degree-ceg--REMOVED
-degree-ceg--REMOVED
-degree-ceg--REMOVED
-degree-come--1
-degree-come--1
-degree-bme-9
-degree-come--1
-degree-come--1
+degree-Computer Engineering-1
+degree-Computer Engineering-2
+degree-Computer Engineering-3
 degree-Computer Engineering-4
-degree-Computer Engineering-0
-degree-Computer Engineering--1
-degree-Computer Engineering-0
-degree-Computer Engineering-0
-degree-Computer Engineering-0
-degree-Mechanical Engineering-6
-degree-Computer Engineering-0
->>>>>>> Stashed changes
+degree-Computer Engineering-5
+degree-Electrical Engineering-6
+degree-Mechanical Engineering-7
+degree-Computer Engineering-8
+degree-Mechanical Engineering-9
+degree-bme-10

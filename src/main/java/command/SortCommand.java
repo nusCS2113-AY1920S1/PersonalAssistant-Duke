@@ -55,7 +55,7 @@ public class SortCommand extends Command {
      * @throws DukeException Throws the wrong amount of arguments.
      */
     @Override
-    public void unExecute(TaskList tasks, UI ui, Storage storage, DegreeList lists) throws DukeException {
+    public void unExecute(TaskList tasks, UI ui, Storage storage, DegreeList lists, DegreeManager degreeManager) throws DukeException {
         TaskList tasksBuffer = memento.getTaskState();
         tasks.clear();
 

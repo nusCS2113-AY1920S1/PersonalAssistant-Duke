@@ -37,7 +37,7 @@ public class ExitCommand extends Command {
         try {
             storage.store(tasks);
             storage.add_degrees(lists);
-        } catch (DukeException | IOException e) {
+        } catch (DukeException e) {
             isClose = false;
             throw new DukeException("Exit Error: " + e.getLocalizedMessage());
         } finally {
