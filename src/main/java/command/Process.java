@@ -503,7 +503,6 @@ public class Process {
      * Processes the edit command, amends the data of a payee or payment already exisiting in the records.
      * INPUT FORMAT: edit p/PAYEE v/INVOICE f/FIELD r/REPLACEMENT
      * @param input Input from the user.
-     * @param managermap HashMap containing all Payees and their Payments.
      * @param ui Ui that interacts with the user.
      */
     public void edit(String input, Ui ui) {
@@ -513,6 +512,7 @@ public class Process {
             String[] splitpayments = splitspace[1].split("p/|v/|f/|r/");
             splitpayments = cleanStrStr(splitpayments);
             PaymentManager.editPayee(splitpayments[1], splitpayments[2], splitpayments[3], splitpayments[4], managermap);
+            System.out.println("Edit success!");
         }
         catch (IllegalArgumentException e){
             ui.exceptionMessage("     ☹ OOPS!!! Please input the correct command format (refer to user guide)");
