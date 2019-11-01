@@ -1,6 +1,5 @@
 package duke.logic.commands;
 
-import duke.commons.exceptions.CorruptedFileException;
 import duke.commons.exceptions.FileNotSavedException;
 import duke.commons.exceptions.QueryOutOfBoundsException;
 import duke.logic.commands.results.CommandResultText;
