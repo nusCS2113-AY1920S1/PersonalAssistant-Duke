@@ -11,15 +11,19 @@ import java.io.InputStream;
 import java.util.Scanner;
 
 public class NotePageStorage {
+
+    private static final String FILE_GOAL = "/goal.txt";
+    private static final String FILE_MODULES = "/modules.txt";
+
     public static void writeToGoalFile() throws IOException {
-        FileWriter file = new FileWriter(NotePageStorage.class.getResource("/goal.txt").getPath());
+        FileWriter file = new FileWriter(NotePageStorage.class.getResource(FILE_GOAL).getPath());
         file.write(GeneralNotePage.goal);
         file.flush();
         file.close();
     }
 
     public static void readFromGoalFile() throws IOException {
-        InputStream inputStream = NoteStorage.class.getResourceAsStream("/goal.txt");
+        InputStream inputStream = NoteStorage.class.getResourceAsStream(FILE_GOAL);
         Scanner txtFile = new Scanner(inputStream);
         if (txtFile.hasNextLine()) {
             GeneralNotePage.goal = txtFile.nextLine();
@@ -29,7 +33,7 @@ public class NotePageStorage {
     }
 
     public static void writeToModulesFile() throws IOException {
-        FileWriter file = new FileWriter("/modules.txt");
+        FileWriter file = new FileWriter(FILE_MODULES);
         for (Module m : GeneralNotePage.modules) {
             file.write(m.name + "\n");
             file.write(m.assessments.size() + "\n");
@@ -47,7 +51,7 @@ public class NotePageStorage {
     }
 
     public static void readFromModulesFile() throws IOException {
-        InputStream inputStream = NoteStorage.class.getResourceAsStream("/modules.txt");
+        InputStream inputStream = NoteStorage.class.getResourceAsStream(FILE_MODULES);
         Scanner txtFile = new Scanner(inputStream);
         while (txtFile.hasNextLine()) {
             Module m = new Module(txtFile.nextLine()); //read in module name

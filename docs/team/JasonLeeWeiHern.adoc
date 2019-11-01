@@ -21,45 +21,50 @@ It is written in Java, and has about 10kLoC.
 
 === Summary of contributions
 
-*Major enhancement 1: added CAP feature* +
-_What it does:_ +
-Allows the user to add module's code, module's credit, module's grade and the semester when the module is taken.
+* *Major enhancement : added CAP feature*
+** What it does: Allows the user to add module's code, module's credit, module's grade and the semester when the module is taken.
 Additionally, it is able to list out all the modules or modules in a particular sem, 
 find modules base on the semester or module's code and 
 delete modules. When the user list out his modules, the CAP will be shown at the bottom of the list.
 
-_Justification:_ +
+** Justification:
 This feature improves the product significantly because a user
 can now keep track of his grades and see which semester he is falling behind by viewing his CAP.
-Additionally, students especially Year 1 students can know which modules to S/U by playing around with grades so that they can make
-an informed decision on which modules to SU to acheive a better result. +
-_Highlights:_ +
+Additionally, students especially Year 1 students can know which modules to S/U by marking so that they can make
+an informed decision on which modules to S/U to acheive a better CAP.
+** Highlights:
 It requires an in-depth analysis of design alternatives.
-The implementation too was challenging as it required changes to existing commands. +
-_Credits: http://www.nus.edu.sg/registrar/education-at-nus/modular-system.html[NUS Grading System]_ +
+The implementation too was challenging as it required changes to existing commands.
 
-*Minor enhancement:* +
-1. Password login system. +
-User needs to type in the correct password to enter Gazeeebo. +
-User is able to change the password. +
-2. Added contact feature. +
-User is able to add/list/delete/find contact(s). +
-There are two inbuilt categories NUS and CEG specially catered for CEG students. +
-3. Added recurring feature. +
-When a tasks has keyword weekly/monthly/yearly, when the task is being marked as done, the tasks will be replaced by another with the 
-date updated to be next week/month/year.
-4. Added edit feature. +
-User is able to edit the task's decription or time or both of them. +
-This saves user the hassle of deleting and create another task because he made a mistake when creating the task.
+** Credits: http://www.nus.edu.sg/registrar/education-at-nus/modular-system.html[NUS Grading System]
 
-*Code contributed:*
-[https://nuscs2113-ay1819s2.github.io/dashboard-beta/#search=nicholasleeeee[Reposense]] +
+* *Minor enhancement:*
+** Password login system: User needs to type in the correct password to enter Gazeeebo and the User is able to change the password.
+** Added contact feature: User is able to add/list/delete/find contact(s). There are also two inbuilt categories NUS and CEG specially catered for CEG students.
+** Added recurring feature: When a tasks has keyword weekly/monthly/yearly, when the task is being marked as done, the tasks will be replaced by another with the updated date of the next event.
+** Added edit feature: User is able to edit the task's decription or time or both of them. This saves user the hassle of deleting and create another task because he made a mistake when creating the task.
 
-*Project management:* +
-1. Managed merge and release of `v1.4` on GitHub. +
-2. Added labels for organising and prioritising issues, pull request, merging.
+* *Code contributed:*
+[https://nuscs2113-ay1920s1.github.io/dashboard/#search=JasonLeeWeiHern&sort=groupTitle&sortWithin=title&since=2019-09-21&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&until=2019-10-30&tabOpen=false[Reposense]] +
+
+* *Other contributions:*
+
+**Project management:*
+*** Managed merge and release of `v1.4` on GitHub. +
+
+** Enhancements to existing features:
+***
+
+**Documentation:*
+***
+
+**Community:*
+***
+
+
+*** Added labels for organising and prioritising issues, pull request, merging.
 This makes project management more efficient and effective. +
-3. PRs reviewed and merged (with non-trivial review comments):
+*** PRs reviewed and merged (with non-trivial review comments):
 https://github.com/AY1920S1-CS2113T-F10-4/main/pull/159[#159],
 https://github.com/AY1920S1-CS2113T-F10-4/main/pull/149[#149],
 https://github.com/AY1920S1-CS2113T-F10-4/main/pull/146[#146],
@@ -99,237 +104,6 @@ https://github.com/CS2113-AY1819S2-M11-2/main/pull/170[#170] +
 3. Did About Us Documentation:
 https://github.com/CS2113-AY1819S2-M11-2/main/blob/master/docs/AboutUs.adoc[AboutUs]
 
-*Tools:* +
-_Integrated a third party library (GSON) to the project_ (https://github.com/CS2113-AY1819S2-M11-2/main/pull/83[#83])
-
-
-=== Contributions to the User Guide
-
-_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
-
-=== Signing up for an account : `signup`
-
-*Creates an account for the user. To `signup`, there must be no existing account.* +
-
-* Only one account can be created per user.
-
-* Passwords should not have spaces and may only include the following special characters: +
-!#$%&'*+/=?`{|}~^.@-
-
-Format: `signup u/USERNAME p/PASSWORD` +
-
-Example:
-
-|===
-`signup u/nicholas p/lee` +
-Signed up: nicholas +
-|===
-
-Possible Errors:
-
-|===
-|`You are logged in as nicholas!`: You are already logged in. You need to logout in order to signup for a new account. +
-|`Please try another username`: The username already exists. You need to signup again with another username. +
-|`Account has already been created!` : There is an existing account. You can login as an admin to delete the account. +
-|===
-
-=== Logging into an account : `login`
-
-*Logs the user into their account. An account has to be created before logging in.* +
-Format: `login u/USERNAME p/PASSWORD` +
-
-Example:
-
-|===
-`login u/nicholas p/lee` +
-Logged in as nicholas +
-|===
-
-Possible Errors:
-
-|===
-|`You are already logged in!` : You are already logged in. You need logout in order to login to another account. +
-|`Please Login again! Invalid username or password.
- Command Format: [login u/USERNAME p/PASSWORD]`: You have inserted an incorrect username or password. The login command has to be executed again. +
-|===
-
-=== Logging out of an account : `logout`
-
-*Logs user out of an account.* +
-Format: `logout`
-
-Example:
-
-|===
-`logout` +
-Logged out of nicholas +
-|===
-
-Possible Errors:
-
-|===
-|`You have already logged out. Please Login!`:
-You have already logged out or you did not login into any account. +
-|===
-
-=== Deleting an account : `deleteacc`
-
-*Deletes account in the system.* Only an admin is allowed to use this command. +
-
-Format: `deleteacc`
-
-Example:
-
-|===
-`deleteacc` +
-Account has been deleted! +
-|===
-
-Possible Errors: +
-
-|===
-|`You need to log in as an admin to use this command` :
-You are not logged in as an admin. Please login as an admin before using this command. +
-|===
-
-
-=== Contributions to the Developer Guide
-
-_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
-
-=== Login Feature
-
-==== Current Implementation
-
-The login mechanism is facilitated by `TaskManager`, `SignupCommand`, `LoginCommand`, `LogoutCommand`, `DeleteAccountCommand`, `LoginEvent`, `GenerateHash`, `JsonLoginStorage`.
-The login feature is mainly supported by the `Command` class and `account` class.
-There are two types of accounts in login feature which are implemented in the `account` class: +
-A normal user account and an admin account. All username and hashed password are stored in a JSON file.
-
-image::AccountClassDiagram.png[width="180"]
-
-The class diagram above illustrates the `account` class. +
-
-In `model` class, there are methods to check for:
-`loginStatus` (if the user is logged in), `adminStatus` (if the admin is logged in),
-`userExists` (if the username is already taken), `accountExists` (if there is already an account created).
-
-In this feature, there are 4 main commands.
-The flow on how the commands are executed and their respective sequence diagrams will be further elaborated below: +
-1. Signup and Login Command +
-2. <<Logout Command>> +
-3. <<DeleteAcc Command>>
-
-==== Signup and Login Command
-
-*`Signup Command` creates an account for the user and stores their username and password in a JSON file.* +
-*`Login Command` logs in the account for the user by checking the username and password stored in the JSON file.* +
-Given below is an example usage scenario of `signup`. The command word can be swapped to `login` for `Login Command`.
-
-|===
-|Step 1. The user signs up and keys in username and password using the command `signup u/USERNAME p/PASSWORD`.
-|Step 2. The `TaskManagerParser` recognises the command word as a signup from `SignupCommand` and calls `SignupCommand`.
-|Step 3. `SignupCommandParser` will parse the arguments to `SignupCommand`.
- `SignupCommand` will call the following commands which are linked to `LoginEvent`.
-
-`getLoginStatus` to check if the user is already logged in. +
-`userExists` to check if there is already an account with the same username. +
-`accountExists` to check if an account has already been created. +
-
-If the arguments passes all the commands, `newUser(user)` {`loginUser(user)` for `Login Command`} will be called to store
-the username and hashed password in a User class.
-It will then pass the User object to `JsonLoginStorage`.
-|Step 4. `JsonLoginStorage` retrieves the User object to read and write Json files with the correct Json properties.
-|Step 5. It will then return to `loginEvent` then to `SignupCommand` and returns the user a successful signup output.
-|===
-
-The following sequence diagram below shows the flow of `signup` and `login` respectively from Step 1 to Step 5 above.
-
-[.left]
-image::SignUpSequenceDiagram.png[width="350"]
-image::LoginSequenceDiagram.png[width="350"]
-[.right]
-
-==== Logout Command
-
-*`Logout Command` logs the user out of their account.* Given below is an example usage scenario of `logout`.
-
-|===
-|Step 1. The user logs out by keying in the command `logout`.
-|Step 2. The `TaskManagerParser` recognises the command word as a logout from `LogoutCommand` and calls `LogoutCommand`.
-|Step 3. `LogoutCommand` will call the following commands which is linked to `LoginEvent`.
-
-`getLoginStatus` to check if the user is already logged out. +
-`getAdminStatus` to check if the admin is already logged out. +
-
-If the arguments passes `getLoginStatus` and `getAdminStatus`, `logout` will be called in `LoginEvent`.
-|Step 4. In `LoginEvent`, `getLoginStatus` and `getAdminStatus` will be set to false and will then
-return to `LoginCommand` to return the user a successful logout output.
-|===
-
-The sequence diagram below shows the flow of `logout` from Step 1 to Step 4 above.
-
-image::LogoutSequenceDiagram.png[width="400"]
-
-==== DeleteAcc Command
-
-*`DeleteAcc` only accessible to admins. `DeleteAcc` deletes the entire account.* Given below is an example usage scenario of `DeleteAcc`.
-
-|===
-|Step 1. The admin logs in by keying in username and password using the command `login u/admin p/admin`.
-|Step 2. The admin keys in `DeleteAcc` to delete the account.
-|Step 3. The `TaskManagerParser` recognises the command word as delete account
-from `DeleteAccountCommand` and calls `DeleteAccountCommand`.
-|Step 4. `DeleteAccountCommand` will call the following command which is linked to `LoginEvent`.
-
-`getAdminStatus` to check if an admin is logged in. +
-
-If the arguments passes `getAdminStatus`, `deleteAccount()` will be called in `LoginEvent`.
-|Step 5. In `LoginEvent`, JsonLoginStorage's `deleteAccount()` will be called to delete the JSON file.
-|Step 6. `LoginEvent` will then call `reinitialise()` to create the Json file
-without any username and password stored in it. `reinitialise()` is assisted by `JsonLoginStorage` and `writeJson()`.
-|Step 7. `LoginEvent` will return to `DeleteAccountCommand` and returns the user a successful login output.
-|===
-
-The sequence diagram below shows the flow of `deleteacc` from Step 1 to Step 7 above.
-
-image::DeleteAccountSequenceDiagram.png[width="400"]
-
-==== Design Considerations
-
-===== Aspect: How `LoginEvent` and `JsonLoginStorage` works together
-
-*Alternative 1 (current choice): `LoginEvent` and `JsonLoginStorage` are in separate classes.* +
-Pros: Follows OOP coding. The codes will look more organised and clean. +
-Cons: Coders will have to look at both files to code or debug as both calls each other frequently. +
-*Alternative 2: `LoginEvent` and `JsonLoginStorage` are in the same class.* +
-Pros: Easy to read and debug, all codes are in one file and thus easier for other coders to modify. +
-Cons: Does not follow OOP coding. The codes in the file will look messy.
-
-===== Aspect: How `LoginEvent` fits into the code
-
-*Alternative 1 (current choice): `LoginEvent` is implemented into the logic.* +
-Pros: The code will be efficient and effective. It will be neat and the flow will be well structured.
-Single Responsibility Principle and Separation of Concerns is maintained in the code. +
-Cons: Might be confusing as `LoginEvent` is used frequently.
-Coders might need to fully understand how other classes work before looking at `LoginEvent`. +
-*Alternative 2: `LoginEvent` is implemented on its own.* +
-Pros: It would be easier for coders to visualise and debug. `LoginEvent` can still run the entire Taskmanager. +
-Cons: There would be a lot of repeated and redundant codes.
-Most of the functions in the `logic` component will be repeated. This will violate Single Responsibility Principle and Separation of Concerns.
-
-===== Aspect: How the securing of password is implemented
-
-*Alternative 1 (current choice): Create my own hashing function to secure password.* +
-Pros: Hashing is a one way function. With a proper hashing design, there is no way to reverse
-the hashing process to reveal the original password. +
-Cons: Need to code out my own hashing function. More logic and function have to be written.
-The code will be more complex. +
-*Alternative 2: Use encryption library to secure password. Eg. MD5 hashing* +
-Pros: Do not need to code much. Most of the function are one line. Easy to implement. +
-Cons: Encryption is a two-way function. Encrypted strings can be decrypted with a proper key.
-The password will not be secure. MD5 is not suitable for sensitive information.
-Collisions exist with the algorithm, and there have been successful attacks against it.
 
 === PROJECTS:
 
