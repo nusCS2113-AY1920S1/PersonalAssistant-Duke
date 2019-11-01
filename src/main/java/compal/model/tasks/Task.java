@@ -329,10 +329,8 @@ public abstract class Task implements Serializable {
         if (getStringStartTime().equals("-")) {
             strCase = 1;
         }
-        if (!getStringTrailingDate().equals("-")) {
-            if (!getStringMainDate().equals(getStringTrailingDate())) {
-                strCase = 2;
-            }
+        if (!getStringTrailingDate().equals("-") && !getStringMainDate().equals(getStringTrailingDate())) {
+            strCase = 2;
         }
 
         switch (strCase) {
