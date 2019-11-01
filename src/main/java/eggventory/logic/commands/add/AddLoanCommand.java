@@ -28,6 +28,14 @@ public class AddLoanCommand extends Command {
         this.quantity = quantity;
     }
 
+    private boolean sufficientStock() {
+        if (quantity - LoanList.getStockLoanedQuantity(stockCode) < 0) {
+            return false;
+        }
+
+        return true;
+    }
+
     /**
      * Method to execute the AddLoanCommand.
      * @param list the stockList.
@@ -36,11 +44,17 @@ public class AddLoanCommand extends Command {
      * @return the print string for assertion in testing.
      */
     public String execute(StockList list, Ui ui, Storage storage) {
-        LoanList.addLoan(stockCode, matricNo, quantity);
-        String output = (String.format("Nice, I have added this loan for you: \n"
-                + "Stock: %s | Person: %s | Quantity: %d", stockCode, matricNo, quantity));
+        String output = "";
+        if (sufficientStock()) {
+            LoanList.addLoan(stockCode, matricNo, quantity);
+            output = (String.format("Nice, I have added this loan for you: \n"
+                    + "Stock: %s | Person: %s | Quantity: %d", stockCode, matricNo, quantity));
 
-        ui.print(output);
+            ui.print(output);
+        } else {
+            output = ("OOPS there is insufficient stock to loan out!");
+        }
+
         return output;
     }
 }

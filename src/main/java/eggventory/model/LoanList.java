@@ -16,8 +16,9 @@ import java.util.HashMap;
  * Loans can be printed as a complete list of all loans, or only by the Person or Stock involved.
  */
 public final class LoanList {
-    private static ArrayList<LoanPair> loanPairs = new ArrayList<LoanPair>();
-    private static HashMap<LoanPair, Loan> loanList = new HashMap<LoanPair, Loan>();
+
+    private static ArrayList<Loan> loansList = new ArrayList<Loan>();
+    private static HashMap<String, Integer> stockLoaned = new HashMap<String, Integer>();
 
     /**
      * Overloaded version of addLoan which does not require Date parameters.
@@ -27,11 +28,10 @@ public final class LoanList {
      * @param quantity the quantity loaned out.
      */
     public static void addLoan(String stockCode, String matricNo, int quantity) {
-        //Add one set of information to the table, and one to the list.
-        LoanPair loanPair = new LoanPair(stockCode, matricNo);
-        loanPairs.add(loanPair);
         Loan loan = new Loan(stockCode, matricNo, quantity);
-        loanList.put(loanPair,loan);
+
+        loansList.add(loan);
+        updateStockLoaned(stockCode, quantity);
     }
 
     /**
@@ -45,10 +45,10 @@ public final class LoanList {
     public static void addLoan(String stockCode, String matricNo, int quantity,
                                Calendar loanDate, Calendar returnDate) {
         //Add one set of information to the table, and one to the list.
-        LoanPair loanPair = new LoanPair(stockCode, matricNo);
-        loanPairs.add(loanPair);
         Loan loan = new Loan(stockCode, matricNo, quantity, loanDate, returnDate);
-        loanList.put(loanPair,loan);
+
+        loansList.add(loan);
+        updateStockLoaned(stockCode, quantity);
     }
 
     /**
@@ -57,27 +57,16 @@ public final class LoanList {
      * @param matricNo the matric number of the Person.
      */
     public static boolean deleteLoan(String stockCode, String matricNo) {
-        //Construct the pair.
-        LoanPair queryPair = new LoanPair(stockCode, matricNo);
+        Loan loan = findLoan(stockCode, matricNo);
 
-        boolean removeSuccess = false;
-
-        //Check if the pair matches any in our list.
-        //If so, use the pair from the list to remove.
-        for (LoanPair loanPair : loanPairs) {
-            if (loanPair.equals(queryPair)) {
-                removeSuccess = true;
-                queryPair = loanPair; //Reassign the instance.
-                break;
-            }
+        if (loan == null) {
+            return false;
         }
 
-        if (removeSuccess) {
-            loanList.remove(queryPair);
-            loanPairs.remove(queryPair);
-        }
+        updateStockLoaned(stockCode, loan.getQuantity() * -1);
+        loansList.remove(loan);
 
-        return removeSuccess;
+        return true;
     }
 
     /**
@@ -90,52 +79,61 @@ public final class LoanList {
      * @return the quantity.
      */
     public static int getLoanQuantity(String stockCode, String matricNo) {
-        //Construct the pair.
-        LoanPair queryPair = new LoanPair(stockCode, matricNo);
+        Loan loan = findLoan(stockCode, matricNo);
+        if (loan == null) {
+            return -1;
+        }
+        return loan.getQuantity();
+    }
 
-        //Check if the pair matches any in our list.
-        //If so, use the one from the list to access the quantity.
-        for (LoanPair loanPair : loanPairs) {
-            if (loanPair.equals(queryPair)) {
-                return loanList.get(loanPair).getQuantity();
+    public static int getStockLoanedQuantity(String stockCode) {
+        return stockLoaned.get(stockCode);
+    }
+
+    private static Loan findLoan(String stockCode, String matricNo) {
+        for (Loan loan : loansList) {
+            if (loan.getStockCode().equals(stockCode) && loan.getMatricNo().equals(matricNo)) {
+                return loan;
             }
         }
 
-        return -1;
+        return null;
+    }
+
+    private static void updateStockLoaned(String stockCode, int quantity) {
+        if (stockLoaned.containsKey(stockCode)) {
+            quantity += stockLoaned.get(stockCode);
+        }
+        stockLoaned.put(stockCode, quantity);
+    }
+
+    private static ArrayList<Loan> getPersonLoans(String matricNo) {
+        ArrayList<Loan> loans = new ArrayList<Loan>();
+        for (Loan loan : loansList) {
+            if (loan.getMatricNo().equals(matricNo)) {
+                loans.add(loan);
+            }
+        }
+
+        return loans;
     }
 
     //TODO: Add getters for the loan and return dates also.
-
-    /**
-     * Returns a list of all the Loans of a single Person.
-     * @param matricNo the matric number of the person, used to uniquely identify them.
-     * @return the list of all Loans involving that Person.
-     */
-    private static ArrayList<Loan> getPersonLoans(String matricNo) {
-        ArrayList<Loan> queriedList = new ArrayList<Loan>();
-
-        for (LoanPair pair : loanPairs) {
-            if (pair.getMatricNo().equals(matricNo)) {
-                queriedList.add(loanList.get(pair)); //Adds that Loan item, retrieved using the pair as key.
-            }
-        }
-        return queriedList;
-    }
-
     /**
      * Means of obtaining all the Loans of a single type of Stock.
      * @param stockCode the unique identifier of the Stock.
      * @return the list of Loans involving that Stock.
      */
     private static ArrayList<Loan> getStockLoans(String stockCode) {
-        ArrayList<Loan> queriedList = new ArrayList<Loan>();
-
-        for (LoanPair pair : loanPairs) {
-            if (pair.getStockCode().equals(stockCode)) {
-                queriedList.add(loanList.get(pair)); //Adds that Loan item, retrieved using the pair as key.
+        ArrayList<Loan> loans = new ArrayList<Loan>();
+        for (Loan loan : loansList) {
+            if (loan.getStockCode().equals(stockCode)) {
+                loans.add(loan);
             }
         }
-        return queriedList;
+
+        return loans;
+
     }
 
     /**
@@ -145,8 +143,8 @@ public final class LoanList {
     public static String printLoans() {
         String output = "Here are all the Loans: \n";
 
-        for (LoanPair loanPair : loanPairs) {
-            output += loanList.get(loanPair).toString() + "\n";
+        for (Loan loan : loansList) {
+            output += loan.toString() + "\n";
         }
 
         return output;
