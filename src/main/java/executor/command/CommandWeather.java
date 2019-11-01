@@ -30,12 +30,7 @@ public class CommandWeather extends Command {
     
     @Override
     public void execute(Wallet wallet) {
-        try {
-            printWeatherDataOutput();
-        } catch (Exception e) {
-            Ui.dukeSays(getErrorMessage());
-        }
-
+        printWeatherDataOutput();
     }
 
     @Override
@@ -84,20 +79,29 @@ public class CommandWeather extends Command {
      * printWeatherDataOutput loops through the HashMap of HashMap to get weather data.
      */
     private void printWeatherDataOutput() {
+
         int size = getLengthOfHashMapToPrint(getWhichWeatherDataUserWants(this.userInput));
-        Ui.dukeSays("Duke$$$ has found the following weather forecast as requested :");
-        for (Map.Entry<String, LinkedHashMap<String, String>> weather : this.fullWeatherData.entrySet()) {
-            String weatherKey = weather.getKey();
-            if (Integer.parseInt(weatherKey) < size) {
-                System.out.println("\n");
-                for (Map.Entry<String, String> weatherEntry : weather.getValue().entrySet()) {
-                    String field = weatherEntry.getKey();
-                    String value = weatherEntry.getValue();
-                    System.out.println(field + " : " + value);
+        try {
+            if (this.fullWeatherData != null) {
+                Ui.dukeSays("Duke$$$ has predicted the following weather forecast :");
+                for (Map.Entry<String, LinkedHashMap<String, String>> weather : this.fullWeatherData.entrySet()) {
+                    String weatherKey = weather.getKey();
+                    if (Integer.parseInt(weatherKey) < size) {
+                        System.out.println("\n");
+                        for (Map.Entry<String, String> weatherEntry : weather.getValue().entrySet()) {
+                            String field = weatherEntry.getKey();
+                            String value = weatherEntry.getValue();
+                            System.out.println(field + " : " + value);
+                        }
+                    }
                 }
+                Ui.printSeparator();
+            } else {
+                Ui.dukeSays("Weather Data not available");
             }
+        } catch (Exception e){
+            Ui.dukeSays(getErrorMessage());
         }
-        Ui.printSeparator();
     }
 
     /**
@@ -128,25 +132,30 @@ public class CommandWeather extends Command {
     private LinkedHashMap<String, LinkedHashMap<String, String>> storeWeatherDataFromJson() {
         String json = consultWeatherApi();
         LinkedHashMap<String, LinkedHashMap<String, String>> weatherData = new LinkedHashMap<>();
-        if (json != null) {
-            JsonObject jsonObject = new JsonParser().parse(json).getAsJsonObject();
-            JsonArray arr = jsonObject.getAsJsonArray("consolidated_weather");
-            for (int i = 0; i < arr.size(); i++) {
-                String weatherStateName = arr.get(i).getAsJsonObject().get("weather_state_name").getAsString();
-                String minTemp = arr.get(i).getAsJsonObject().get("min_temp").getAsString();
-                String maxTemp = arr.get(i).getAsJsonObject().get("max_temp").getAsString();
-                String theTemp = arr.get(i).getAsJsonObject().get("the_temp").getAsString();
-                String applicableDate = arr.get(i).getAsJsonObject().get("applicable_date").getAsString();
-                LinkedHashMap<String, String> innerMap = new LinkedHashMap<>();
-                innerMap.put("Forecast Date", applicableDate);
-                innerMap.put("Minimum Temperature in Degrees Celsius", minTemp);
-                innerMap.put("Maximum Temperature in Degrees Celsius", maxTemp);
-                innerMap.put("Current Temperature in Degrees Celsius", theTemp);
-                innerMap.put("State Of Weather", weatherStateName);
-                weatherData.put(String.valueOf(i), innerMap);
+        try {
+            if (json != null) {
+                JsonObject jsonObject = new JsonParser().parse(json).getAsJsonObject();
+                JsonArray arr = jsonObject.getAsJsonArray("consolidated_weather");
+                for (int i = 0; i < arr.size(); i++) {
+                    String weatherStateName = arr.get(i).getAsJsonObject().get("weather_state_name").getAsString();
+                    String minTemp = arr.get(i).getAsJsonObject().get("min_temp").getAsString();
+                    String maxTemp = arr.get(i).getAsJsonObject().get("max_temp").getAsString();
+                    String theTemp = arr.get(i).getAsJsonObject().get("the_temp").getAsString();
+                    String applicableDate = arr.get(i).getAsJsonObject().get("applicable_date").getAsString();
+                    LinkedHashMap<String, String> innerMap = new LinkedHashMap<>();
+                    innerMap.put("Forecast Date", applicableDate);
+                    innerMap.put("Minimum Temperature in Degrees Celsius", minTemp);
+                    innerMap.put("Maximum Temperature in Degrees Celsius", maxTemp);
+                    innerMap.put("Current Temperature in Degrees Celsius", theTemp);
+                    innerMap.put("State Of Weather", weatherStateName);
+                    weatherData.put(String.valueOf(i), innerMap);
+                }
+                return weatherData;
             }
+            return null;
+        } catch (Exception e){
+            return null;
         }
-        return weatherData;
     }
 
     public Set<String> getPeriodsPossible() {
