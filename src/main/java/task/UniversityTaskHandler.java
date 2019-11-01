@@ -21,15 +21,15 @@ public class UniversityTaskHandler {
     private static final Map<String, Integer> degreeMap;
     static {
         Map<String, Integer> aMap = new HashMap<>();
-        aMap.put("bme", 0);
-        aMap.put("che", 1);
-        aMap.put("cive", 2);
-        aMap.put("come", 3);
-        aMap.put("elece", 4);
-        aMap.put("enve", 5);
-        aMap.put("ise", 6);
-        aMap.put("me", 7);
-        aMap.put("mse", 8);
+        aMap.put("Biomedical Engineering", 0);
+        aMap.put("Chemical Engineering", 1);
+        aMap.put("Civil Engineering", 2);
+        aMap.put("Computer Engineering", 3);
+        aMap.put("Electrical Engineering", 4);
+        aMap.put("Environmental Engineering", 5);
+        aMap.put("Industrial Systems Engineering", 6);
+        aMap.put("Mechanical Engineering", 7);
+        aMap.put("Materials Science Engineering", 8);
         degreeMap = Collections.unmodifiableMap(aMap);
     }
 
@@ -86,7 +86,6 @@ public class UniversityTaskHandler {
      */
     public void removeDegreeTasks(String index, DegreeList userDegreeList, TaskList userTaskList) throws DukeException{
         String removedDegree =  userDegreeList.get(Integer.parseInt(index));
-        System.out.println(removedDegree);
         TaskList removedTasklist = new TaskList();
         for (int i = 0; i < userTaskList.size(); i++){
             if (userTaskList.get(i).description.toLowerCase().contains(removedDegree)){

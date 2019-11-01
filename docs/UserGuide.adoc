@@ -239,18 +239,23 @@ Clears all degrees from the list. +
 Format: `clear`
 
 <<<
-=== Custom user commands: `custom`
+=== Sorting items in tasklist: `sort`
 
-You can customize a word to be evaluated as a phrase to be executed with additional parameters. +
-Format: `custom KEYWORD KEYPHRASE`
+You can sort the items in the tasklist according to some parameters +
+Format: `sort PARAMETER`
+
+Possible `PARAMETERS` are:
+
+. priority
+
+. date `in v2.0`
 
 Examples:
 
-* `custom s2 swap 1 2` +
-When `s2` is called, `swap 1 2` is returned and executed.
+* `sort priority` +
+The tasklist will sort according the priority that considers how far away the item is from the current date, as well as the rankings of your chosen degrees.
 
-* `custom cC diff CEG` +
-When `cC EE` is called, `diff CEG EE` is returned and executed.
+
 
 === Undoing a command: `undo`
 

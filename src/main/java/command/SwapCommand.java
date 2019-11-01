@@ -1,5 +1,6 @@
 package command;
 
+import degree.DegreeManager;
 import exception.DukeException;
 import list.DegreeList;
 import list.DegreeListStorage;
@@ -29,7 +30,8 @@ public class SwapCommand extends Command{
      * @param lists DegreeList has the array for the user to maintain a list of their degree choices.
      * @throws DukeException DukeException throws exception
      */
-    public void execute(TaskList tasks, UI ui, Storage storage, DegreeList lists) throws DukeException {
+    @Override
+    public void execute(TaskList tasks, UI ui, Storage storage, DegreeList lists, DegreeManager degreesManager) throws DukeException {
         DegreeList degreesBuffer;
 
         switch (this.command) {

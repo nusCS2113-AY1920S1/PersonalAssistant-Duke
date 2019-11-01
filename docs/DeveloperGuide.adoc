@@ -177,15 +177,17 @@ Data Structure to support undo/redo:
 *** Slightly slower than stacks when adding and deleting elements in the `ArrayList`.
 
 
-=== Degree-Related Tasks
+=== University-Related Tasks
 ==== Implementation
 
-The actions involving Degree-Related Tasks are performed mostly using the `DegreeTask` class. It extends the `Task` class, eventhough it does not use many methods from the aforementioned class. 
+The actions involving University-Related Tasks are performed mostly using the `UniversityTaskHandler` class. This class handles all methods that are related to passively adding University-Related Tasks such as:
+
+. `[CEG] NUS-ECE Open House`
+
+. `[BME] Open House for Prospective Students`
 
 image::https://raw.githubusercontent.com/AY1920S1-CS2113T-F10-2/main/master/docs/images/DegreeTaskuml.png[width="900", align="left"]
 
-
-This was done in preparation for some proposed additional changes to this feature that will be discussed later in the document.
 
 
 
@@ -221,11 +223,11 @@ At this point, the user can choose to remove the degree programme from his list 
 *Step 5*: The tasks related to this degree programme are removed from his TaskList
 
 
-==== [Proposed] Priority for Tasks
+==== Priority for Tasks
 
-In addition to the adding and removing of degree-related tasks, there will be a passive feature of prioritising tasks that have closer dates, or that relate to degree programmes that are higher on the user's degree list.
+In addition to the adding and removing of degree-related tasks, there is a feature for prioritising tasks that have closer dates, or that relate to degree programmes that are higher on the user's degree list.
 
-This mechanism is facilitated by the `TaskRanking` class. It extends `TaskList` and has an internal list of integers that correspond with each task on the user's tasklist. This list is internally stored as `PriorityList`.
+This mechanism is facilitated by the `SortCommand` class. It extends `Command` and calls the `sortPriority()` method in the `TaskList` class. 
 
 The priority will be calculated by giving each task points that correspond with higher priority.
 |===

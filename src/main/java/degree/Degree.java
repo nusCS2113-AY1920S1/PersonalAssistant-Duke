@@ -48,6 +48,8 @@ public class Degree {
             assert (col == split.length - 1);
             addAlias(split[col]);
         }
+        if(uem == null)
+            setUem("0");
     }
 
     /**

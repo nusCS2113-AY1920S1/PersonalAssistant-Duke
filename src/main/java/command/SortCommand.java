@@ -3,6 +3,7 @@
  */
 package command;
 
+import degree.DegreeManager;
 import exception.DukeException;
 import list.DegreeList;
 import storage.Storage;
@@ -29,12 +30,11 @@ public class SortCommand extends Command {
 
 
     @Override
-    public void execute(TaskList tasks, UI ui, Storage storage, DegreeList lists) throws DukeException {
+    public void execute(TaskList tasks, UI ui, Storage storage, DegreeList lists, DegreeManager mydegrees) throws DukeException {
         TaskList tasksBuffer;
 
         tasksBuffer = tasks.deepClone();
         memento = new Memento(tasksBuffer);
-
         if (this.arguments.matches("priority")){
             tasks.sortPriority();
         }

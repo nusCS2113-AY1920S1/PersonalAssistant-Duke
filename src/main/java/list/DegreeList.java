@@ -83,11 +83,10 @@ public class DegreeList implements Serializable, Cloneable {
      * @param input The degree as specified by the user.
      * @throws DukeException The degree does not exist?
      */
-    public void add_custom(String input, Storage storage) throws DukeException, IOException {
+    public void add_custom(String input, Storage storage) throws DukeException {
         list.add(input);
         System.out.print("Added " + input + " to your choice of degrees");
     }
-
 
     /**
      * Displays the degree specified by the user.
