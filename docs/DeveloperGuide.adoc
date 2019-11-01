@@ -127,11 +127,11 @@ The `setRecurringTask` method in `RecurringCommand` class is then called by `exe
 *Step 5.* +
 After `setRecurring` method finishes its execution, the `execute` method continues on to print the updated `TaskList` by calling `printRecurringMessage` method in `Ui` class and saves the new `Tasks` into persistent storage by calling `writeToFile` method in `Storage` class.
 
-The following activity diagram summarises what happens when a user executes a new command:
+The following sequence diagram summarises what happens when a user executes a new command:
 
-[[RecurringCommandActivityDiagram]]
-.Activity diagram for Recurring Command
-image::RecurringCommandActivityDiagram.png[RecurringCommandActivityDiagram]
+[[RecurringCommandSequenceDiagram]]
+.Sequence diagram for Recurring Command
+image::RecurringCommandSequenceDiagram.png[RecurringCommandSequenceDiagram]
 
 ==== Design Considerations
 
@@ -303,7 +303,7 @@ The following sequence diagram summarises what happens when a user executes a ne
 image::ViewWeekSequenceDiagram.png[ViewWeekSequenceDiagram, width="890"]
 
 [NOTE]
-The lifeline of the User is a bar due to limitations in the software used to draw the diagram. Full details of the entire program are omitted to prevent over-cluttering of the diagram.
+Trivial details that are not important in describing the implementation of the feature are left out.
 
 ==== Design Considerations
 
