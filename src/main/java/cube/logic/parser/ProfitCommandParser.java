@@ -1,7 +1,6 @@
 //@@author LL-Pengfei
 package cube.logic.parser;
 
-import cube.logic.command.GenerateRevenueCommand;
 import cube.logic.command.ProfitCommand;
 import cube.logic.parser.exception.ParserErrorMessage;
 import cube.logic.parser.exception.ParserException;
@@ -9,7 +8,7 @@ import cube.logic.parser.exception.ParserException;
 import java.util.Arrays;
 import java.util.Date;
 
-public class ProfitCommandParser implements ParserPrototype<GenerateRevenueCommand> {
+public class ProfitCommandParser implements ParserPrototype<ProfitCommand> {
     public ProfitCommand parse(String[] args) throws ParserException {
         if (args.length < 6) {
             throw new ParserException(ParserErrorMessage.NOT_ENOUGH_PARAMETER);
