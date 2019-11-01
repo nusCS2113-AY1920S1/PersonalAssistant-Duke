@@ -1,9 +1,12 @@
 package duke.model;
 
 import duke.commons.core.index.Index;
+import duke.logic.command.exceptions.CommandException;
 import duke.logic.command.order.SortOrderCommand;
+import duke.logic.message.InventoryMessageUtils;
 import duke.model.commons.Item;
 import duke.model.commons.Quantity;
+import duke.model.exceptions.DuplicateEntityException;
 import duke.model.inventory.Ingredient;
 import duke.model.order.Order;
 import duke.model.order.OrderComparator;
