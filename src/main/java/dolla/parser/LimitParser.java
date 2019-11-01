@@ -13,6 +13,7 @@ import dolla.command.SearchCommand;
 
 import dolla.task.Limit;
 import dolla.ui.LimitUi;
+import dolla.ui.Ui;
 
 /**
  * This class handles all limit related parsing (set, edit, remove).
@@ -59,6 +60,10 @@ public class LimitParser extends Parser {
             if (verifyFullModifyCommand()) {
                 // TODO: Update when ready
                 //return new InitialModifyCommand(inputArray[1]);
+                Ui.printUpcomingFeature();
+                return new ErrorCommand();
+            } else if (verifyPartialModifyCommand()) {
+                // TODO:
                 return new ErrorCommand();
             } else {
                 return new ErrorCommand();

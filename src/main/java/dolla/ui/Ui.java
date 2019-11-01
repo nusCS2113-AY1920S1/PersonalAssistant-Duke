@@ -26,16 +26,20 @@ public abstract class Ui {
     protected static final String SORT_NAME = "name";
 
     private static String logo =
-        " ____    _   _  _   _       \n"
-        + "|  _  \\/ _ \\| || | /  \\      \n"
-        + "| | | | | | | || |/ /\\ \\  \n"
-        + "| |_| | |_| | || |  __  | \n"
-        + "|____/ \\ _ /|_||_|_|  |_|       \n";
+        "\t ____    _   _  _   _       \n"
+        + "\t|  _  \\/ _ \\| || | /  \\      \n"
+        + "\t| | | | | | | || |/ /\\ \\  \n"
+        + "\t| |_| | |_| | || |  __  | \n"
+        + "\t|____/ \\ _ /|_||_|_|  |_|       \n";
+
     protected static String line = "\t____________________________________________________________";
+
+    private static String version = "\tVersion 1.3\n";
 
     private static String welcomeMsg =
         "\tHello from\n"
         + logo
+        + version
         + line
         + "\n\tI help keep track of your finance!\n"
         + "\tWhat can I do for you?";
@@ -43,7 +47,7 @@ public abstract class Ui {
     //private static String dollaMode = ANSI_CYAN + "\t\n°º¤ø,¸¸,ø¤º°`°º¤ø,¸ MODE: DOLLA "
     //        + "  ¸,ø¤°º¤ø,¸¸,ø¤º°`°º¤ø,¸\n" + ANSI_RESET;
 
-    private static String dollaMode = ANSI_CYAN + "\n\t( •_•)O ~~ MODE: DOLLA "
+    private static String dollaMode = ANSI_CYAN + "\n\t( o_o)O ~~ MODE: DOLLA "
             + " ~~ \n" + ANSI_RESET;
 
     /**
@@ -67,7 +71,7 @@ public abstract class Ui {
         System.out.println();
         //System.out.println(ANSI_CYAN + "\t°º¤ø,¸¸,ø¤º°`°º¤ø,¸ MODE:  " + newMode.toUpperCase()
         //        + "  ¸,ø¤°º¤ø,¸¸,ø¤º°`°º¤ø,¸\n" + ANSI_RESET);
-        System.out.println(ANSI_CYAN + "\t( •_•)O ~~ MODE:  " + newMode.toUpperCase()
+        System.out.println(ANSI_CYAN + "\t( *_*)O ~~ MODE:  " + newMode.toUpperCase()
                 + "  \n" + ANSI_RESET);
     }
 
