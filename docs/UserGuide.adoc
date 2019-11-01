@@ -446,7 +446,7 @@ Examples:
 .Output of done command.
 image::Done.png[Done]
 
-Deletes the 1st task in the list of tasks.
+Marks the 1st task in the list of tasks as done.
 
 ==== Deleting a task: `delete`
 You can delete tasks that you have completed or no longer valid.
