@@ -21,7 +21,7 @@ public class NoteStorage {
      * @throws IOException if the file specified cannot be written to or is not a file
      */
     public static void writeToFile(String fileName, ArrayList<Note>listToWrite) throws IOException {
-        FileWriter file = new FileWriter("/" + fileName);
+        FileWriter file = new FileWriter(fileName);
         for (Note n : listToWrite) {
             file.write(Note.noteFormatter.format(n.noteDate) + "\n"); //date
             file.write(n.notes.size() + "\n"); //size of individual note list

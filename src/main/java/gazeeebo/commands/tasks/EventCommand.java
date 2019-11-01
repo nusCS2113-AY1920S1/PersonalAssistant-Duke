@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Stack;
 
 public class EventCommand extends Command {
+    //@@author jessteoxizhi
     private static final String EVENT = "gazeeebo.tasks.Event";
 
     @Override
