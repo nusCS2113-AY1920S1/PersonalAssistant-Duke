@@ -348,13 +348,13 @@ Format: `deadline DESCRIPTION /by DD-MM-YYYY HH:MM`
 
 Example:
 
-* `deadline homework /by 2019 20-11-2019 13:00` +
+* `deadline homework /by 20-11-2019 13:00` +
 
 [[Deadline]]
 .Example usage of deadline feature
 image::Deadline.png[Deadline]
 
-Adds a task with description and datetime to be `homework` and `2019 20-11-2019 13:00` respectively.
+Adds a task with description and datetime to be `homework` and `20-11-2019 13:00` respectively.
 
 ==== Adding an event: `event`
 You can add an event with a scheduled starting and ending time. +
