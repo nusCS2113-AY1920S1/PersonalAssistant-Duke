@@ -1,21 +1,24 @@
 package compal.logic.parser;
 
 import compal.logic.command.ExportCommand;
+import compal.logic.command.ImportCommand;
 import compal.logic.command.exceptions.CommandException;
 import compal.model.tasks.Deadline;
 import compal.model.tasks.Event;
 import compal.model.tasks.Task;
 import compal.model.tasks.TaskList;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
 import static compal.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static compal.logic.parser.CommandParserTestUtil.assertParseSuccess;
+import static org.junit.jupiter.api.Assertions.*;
 
-//@@author SholihinK
-class ExportCommandParserTest {
-    private ExportCommandParser parser = new ExportCommandParser();
+class ImportCommandParserTest {
+
+    private ImportCommandParser parser = new ImportCommandParser();
     private ArrayList<Task> taskArrListMain = new ArrayList<>();
     private TaskList taskListMain = new TaskList();
 
@@ -58,7 +61,6 @@ class ExportCommandParserTest {
     @Test
     void parse_export_success() throws CommandException {
         assertParseSuccess(parser, "",
-            new ExportCommand("COMPalCalender").commandExecute(taskListMain), taskListMain);
+            new ImportCommand("COMPalCalender").commandExecute(taskListMain), taskListMain);
     }
-
 }
