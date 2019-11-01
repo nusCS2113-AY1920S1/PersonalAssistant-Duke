@@ -170,8 +170,8 @@ TIP: */sort <sort type>*
 Listed below are the sort types available.
 
 *	`/normal` sorts the tasks based on when the user input the tasks.
-*	`/chronological` sorts the tasks based on the date and time of the tasks.
-*	`/prioritize` sorts the tasks based on amount of time available and difficulty.
+*	`/datetime` sorts the tasks based on the date and time of the tasks.
+*	`/priority` sorts the tasks based on amount of time available and difficulty.
 
 
 Examples Scenario:
@@ -623,9 +623,9 @@ Sorting:
 
 *	`/normal`
 
-*	`/chronological`
+*	`/datetime`
 
-*	`/prioritize`
+*	`/priority`
 
 Timer:
 
