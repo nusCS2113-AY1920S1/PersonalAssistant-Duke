@@ -40,11 +40,15 @@ public class MainWindow extends AnchorPane {
     @FXML
     private TableView<ChoicesFX> choicesView;
     @FXML
+    private TableView<ChoicesFX> degreesView;
+    @FXML
     private TabPane tabPane;
     @FXML
     private Tab tabTask;
     @FXML
     private Tab tabChoices;
+    @FXML
+    private Tab tabDegrees;
 
     private Duke duke;
     private TaskList taskList;
@@ -53,6 +57,9 @@ public class MainWindow extends AnchorPane {
     public Set<String> autoSuggestion = new HashSet<>(Arrays.asList("list", "detail", "help", "todo", "delete", "clear",
             "add", "swap", "bye", "replace", "undo", "redo", "sort"));
     private SuggestionProvider<String> provider = SuggestionProvider.create(autoSuggestion);
+
+    public ObservableList<TaskFX> dataTask;
+    public ObservableList<ChoicesFX> dataChoices;
 
 
 
@@ -78,14 +85,6 @@ public class MainWindow extends AnchorPane {
         ObservableList<ChoicesFX> dataChoices = choicesView.getItems();
 
 
-        /*
-        //Initialize autocompletion field
-        TextFields.bindAutoCompletion(
-                this.userInput,
-                autoSuggestion);
-
-         */
-
         String logo = "  _____  ______ _____ _____  ______ ______  _____  _   _ _    _  _____ \n"
                 + " |  __ \\|  ____/ ____|  __ \\|  ____|  ____|/ ____|| \\ | | |  | |/ ____|\n"
                 + " | |  | | |__ | |  __| |__) | |__  | |__  | (___  |  \\| | |  | | (___  \n"
@@ -108,6 +107,9 @@ public class MainWindow extends AnchorPane {
         dialogContainer.getChildren().addAll(
                 DialogBox.getDukeDialog(welcome)
         );
+
+        this.dataTask = taskView.getItems();
+        this.dataChoices = choicesView.getItems();
 
         this.taskList = duke.getTaskList();
         this.degreeList = duke.getDegreeList();
@@ -155,33 +157,25 @@ public class MainWindow extends AnchorPane {
         //Learn new auto suggestions based on user inputs
         if (!autoSuggestion.contains(input)) {
             autoSuggestion.add(input);
-            /*
-            TextFields.bindAutoCompletion(
-                    this.userInput,
-                    autoSuggestion);
-
-             */
             provider.clearSuggestions();
             provider.addPossibleSuggestions(autoSuggestion);
         }
 
-        ObservableList<TaskFX> dataTask = taskView.getItems();
-        ObservableList<ChoicesFX> dataChoices = choicesView.getItems();
 
         this.taskList = duke.getTaskList();
         this.degreeList = duke.getDegreeList();
-        dataTask.clear();
-        dataChoices.clear();
+        this.dataTask.clear();
+        this.dataChoices.clear();
 
         for (int i = 0; i < this.taskList.size(); i++) {
             Task newTask = this.taskList.get(i);
-            dataTask.add(new TaskFX(Integer.toString(i + 1), newTask.getStatusIcon(), newTask.getType(),
+            this.dataTask.add(new TaskFX(Integer.toString(i + 1), newTask.getStatusIcon(), newTask.getType(),
                     newTask.getDescription(), newTask.getDueDate()));
         }
 
         for (int i = 0; i < this.degreeList.size(); i++) {
             String newChoice = this.degreeList.get(i);
-            dataChoices.add(new ChoicesFX(Integer.toString(i + 1), newChoice));
+            this.dataChoices.add(new ChoicesFX(Integer.toString(i + 1), newChoice));
         }
 
         //Forces a tab to open corresponding to the list being displayed
@@ -190,6 +184,8 @@ public class MainWindow extends AnchorPane {
         } else if (input.matches("choices")) {
             tabPane.getSelectionModel().select(tabChoices);
         }
+
+        //tabTask.setText("hi"); use these to change the degree tab name
 
         userInput.clear();
     }
