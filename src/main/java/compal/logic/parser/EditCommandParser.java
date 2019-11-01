@@ -62,7 +62,13 @@ public class EditCommandParser implements CommandParser {
             if (!scanner.hasNext()) {
                 throw new ParserException(MESSAGE_MISSING_INPUT);
             }
-            description = scanner.next();
+            String sub = scanner.nextLine();
+            int splitPoint = sub.indexOf("/");
+            if (splitPoint == -1) {
+                description = sub;
+            } else {
+                description = sub.substring(0,splitPoint);
+            }
         } else {
             return null;
         }
