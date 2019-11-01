@@ -187,7 +187,10 @@ public class ImportCommand extends Command {
             case "low":
                 taskPriority = Task.Priority.low;
                 break;
+            default:
+                break;
             }
+
         }
         return taskPriority;
     }

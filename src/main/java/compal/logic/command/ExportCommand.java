@@ -92,14 +92,14 @@ public class ExportCommand extends Command {
             event.getProperties().add(new Description(" Priority:" + t.getPriority()));
             final DtStart dtStart;
             if ("E".equals(t.getSymbol())) {
-                dtStart = new DtStart(new net.fortuna.ical4j.model.DateTime(t.getStartTime()));
+                dtStart = new DtStart(new DateTime(t.getStartTime()));
             } else {
-                dtStart = new DtStart(new net.fortuna.ical4j.model.DateTime(t.getEndTime()));
+                dtStart = new DtStart(new DateTime(t.getEndTime()));
             }
 
             event.getProperties().add(dtStart);
 
-            final DtEnd dtEnd = new DtEnd(new net.fortuna.ical4j.model.DateTime(t.getEndTime()));
+            final DtEnd dtEnd = new DtEnd(new DateTime(t.getEndTime()));
 
             event.getProperties().add(dtEnd);
             UidGenerator ug = new RandomUidGenerator();
