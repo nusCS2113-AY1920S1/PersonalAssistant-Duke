@@ -110,16 +110,13 @@ public class Duke extends Application {
      * @return the string to be printed by JavaFx
      */
     //method output initial reading of save file
-    public String run(String line) {
+    public String run(String line) throws DukeException {
         ByteArrayOutputStream output = new ByteArrayOutputStream();
         PrintStream ps = new PrintStream(output);
         PrintStream old = System.out;
         System.setOut(ps);
         try {
             ui.showLine();
-            Command c = Parser.parse(line);
-            c.execute(this.myList, this.ui, this.storage, this.lists, this.degreesManager);
-        } catch (DukeException | NullPointerException e) {
             Scanner temp = new Scanner(line);
             String command;
             if (!temp.hasNext()) {
@@ -141,12 +138,12 @@ public class Duke extends Application {
 
                 if ((c.getClass() == AddCommand.class) | (c.getClass() == ModCommand.class)
                         | (c.getClass() == SortCommand.class) | (c.getClass() == SwapCommand.class)) {
-                    commandList.addCommand(c, this.myList, this.ui, this.storage, this.degreesManager, line);
+                    commandList.addCommand(c, this.myList, this.ui, this.storage, this.lists, this.degreesManager, line);
                 } else {
-                    c.execute(this.myList, this.ui, this.storage, this.lists);
+                    c.execute(this.myList, this.ui, this.storage, this.lists, this.degreesManager);
                 }
             }
-        } catch (DukeException | NullPointerException | IOException e) {
+        } catch (DukeException | NullPointerException e) {
             ui.showError(e.getLocalizedMessage());
         } finally {
             ui.showLine();
