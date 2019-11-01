@@ -105,8 +105,8 @@ starting from a specified day, including the events within this time period. +
 
 Brings up a list of tasks for a particular date. +
 
-Format: `view dd/MM/yyyy` +
-E.g. “view 18/09/2019”
+Format: `view dd-MM-yyyy` +
+E.g. “view 18-09-2019”
 displays all events/todos on/by the date 18 September 2019.
 
 
