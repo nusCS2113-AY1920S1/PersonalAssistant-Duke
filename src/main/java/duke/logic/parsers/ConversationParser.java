@@ -1,12 +1,10 @@
 package duke.logic.parsers;
 
 import duke.commons.Messages;
-import duke.commons.exceptions.DukeUnknownCommandException;
 import duke.commons.exceptions.ParseException;
 import duke.logic.conversations.Conversation;
 import duke.logic.conversations.DeleteConversation;
 import duke.logic.conversations.FindConversation;
-import duke.logic.conversations.FindPathConversation;
 import duke.logic.conversations.GetBusStopConversation;
 import duke.logic.conversations.MarkDoneConversation;
 import duke.logic.conversations.RouteAddConversation;
@@ -39,8 +37,6 @@ public class ConversationParser {
             return new DeleteConversation();
         case "busStop":
             return new GetBusStopConversation();
-        case "findPath":
-            return new FindPathConversation();
         case "find":
             return new FindConversation();
         case "search":

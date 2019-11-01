@@ -31,7 +31,7 @@ public class RouteShowCommand extends Command {
         try {
             return new CommandResultMap(model.getRoutes().get(index));
         } catch (IndexOutOfBoundsException e) {
-            throw new QueryOutOfBoundsException(String.valueOf(index));
+            throw new QueryOutOfBoundsException();
         }
     }
 }

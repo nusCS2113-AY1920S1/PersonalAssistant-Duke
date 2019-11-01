@@ -7,7 +7,6 @@ import duke.commons.exceptions.ItineraryInsufficientAgendasException;
 import duke.commons.exceptions.ParseException;
 import duke.model.transports.TransportationMap;
 import duke.commons.exceptions.RouteDuplicateException;
-import duke.logic.RouteManager;
 import duke.model.lists.EventList;
 import duke.model.lists.RouteList;
 import duke.model.lists.VenueList;
@@ -19,7 +18,6 @@ import duke.model.transports.BusService;
 import duke.model.transports.Route;
 import duke.storage.Storage;
 
-import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.List;
 
@@ -32,7 +30,6 @@ public class ModelManager implements Model {
     private RouteList routes;
     private TransportationMap map;
     private ProfileCard profileCard;
-    private RouteManager routeManager;
 
     /**
      * Constructs a new ModelManager object.
@@ -42,7 +39,6 @@ public class ModelManager implements Model {
         events = storage.getEvents();
         map = storage.getMap();
         routes = storage.getRoutes();
-        routeManager = new RouteManager(routes);
         profileCard = storage.getProfileCard();
     }
 
@@ -87,7 +83,8 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public List<Agenda> getRecommendations(int numDays, Itinerary itinerary) throws DukeException {
+    public List<Agenda> getRecommendations(int numDays, Itinerary itinerary) throws FileLoadFailException,
+            FileNotSavedException {
 
         List<Agenda> recommendations = storage.readVenues(numDays);
         itinerary.setTasks(recommendations);
@@ -105,19 +102,13 @@ public class ModelManager implements Model {
         return profileCard;
     }
 
-    @Override
-    public RouteManager getRouteManager() {
-        return routeManager;
-    }
-
     /**
      * Save a newly created Itinerary to storage.
      *
      * @param itinerary The itinerary to be stored.
      */
     @Override
-    public void saveItinerary(Itinerary itinerary)  throws FileNotSavedException,
-            ItineraryInsufficientAgendasException {
+    public void saveItinerary(Itinerary itinerary)  throws FileNotSavedException {
         storage.writeItineraries(itinerary, 1);
     }
 
@@ -127,7 +118,7 @@ public class ModelManager implements Model {
      * @param itinerary The itinerary to be stored.
      */
     @Override
-    public void itineraryListSave(Itinerary itinerary) throws FileNotSavedException, FileNotFoundException {
+    public void itineraryListSave(Itinerary itinerary) throws FileNotSavedException {
         storage.writeItinerarySave(itinerary);
     }
 
@@ -145,12 +136,12 @@ public class ModelManager implements Model {
      * @param number The serial number of the Itinerary.
      */
     @Override
-    public Itinerary getItinerary(String number) throws DukeException {
+    public Itinerary getItinerary(String number) throws FileLoadFailException {
         return storage.getItinerary(number);
     }
 
     @Override
-    public Itinerary readRecommendations() throws FileLoadFailException, ParseException {
+    public Itinerary readRecommendations() throws FileLoadFailException {
         return storage.readRecommendations();
     }
 
@@ -172,10 +163,5 @@ public class ModelManager implements Model {
     @Override
     public void save() throws FileNotSavedException {
         storage.write();
-    }
-
-    @Override
-    public boolean isNewUser() {
-        return storage.getIsNewUser();
     }
 }
