@@ -74,7 +74,7 @@ public class ParserManager {
         case CMD_IMPORT:
             return new ImportCommandParser().parseCommand(restOfInput);
         default:
-            return new HelpCommandParser().parseCommand(restOfInput);
+            return new HelpCommandParser().parseCommand(commandWord + "_" + restOfInput);
         //suppose to return helpCommand();
         //throw new ParserException(MESSAGE_INVALID_COMMAND);
         }
