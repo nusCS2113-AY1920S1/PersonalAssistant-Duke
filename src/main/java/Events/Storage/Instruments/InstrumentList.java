@@ -3,7 +3,6 @@ package Events.Storage.Instruments;
 import Events.Formatting.EventDate;
 
 import java.util.ArrayList;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class InstrumentList {
@@ -33,7 +32,7 @@ public class InstrumentList {
     public int addInstrument(String name) {
     	Instrument newInstrument = new Instrument(name);
     	instrumentList.add(newInstrument);
-    	logger.log(Level.INFO, "The new instrument is added to the list");
+//    	logger.log(Level.INFO, "The new instrument is added to the list");
     	return instrumentList.size();
     }
     
