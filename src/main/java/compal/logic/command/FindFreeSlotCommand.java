@@ -4,6 +4,7 @@ import compal.logic.command.exceptions.CommandException;
 import compal.model.tasks.Task;
 import compal.model.tasks.TaskList;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -50,22 +51,48 @@ public class FindFreeSlotCommand extends Command {
     @Override
     public CommandResult commandExecute(TaskList taskList) throws CommandException {
 
-        ArrayList<Task> arrayList = new ArrayList<>();
         Date startPointer;
         Date oneDayAfter;
 
         Calendar calendar = Calendar.getInstance();
         Date currentDateAndTime = calendar.getTime();
 
+        Calendar calendar1 = Calendar.getInstance();
+        calendar1.setTime(date);
+        calendar1.add(Calendar.DATE, 1);
+        oneDayAfter = calendar1.getTime();
+
+        ArrayList<Task> arrayList = new ArrayList<>();
+        TaskList resultTaskList = new TaskList();
+        resultTaskList.setArrList(arrayList);
+
         for (Task task : taskList.getArrList()) {
-            if (task.getMainDate().equals(date) && !task.getStringEndTime().equals("-")
-                    && !task.getStringStartTime().equals("-") && task.getEndTime().after(currentDateAndTime)) {
-                arrayList.add(task);
+            if (!task.getStringEndTime().equals("-") && !task.getStringStartTime().equals("-")
+                    && task.getEndTime().after(currentDateAndTime)) {
+                if (task.getMainDate().equals(date)
+                        && (task.getStringTrailingDate().equals("-") || task.getTrailingDate().equals(date))) {
+                    resultTaskList.addTask(task);
+                } else if (task.getMainDate().equals(date) && !task.getStringTrailingDate().equals("-")) {
+                    Task addedTask = task;
+                    addedTask.setEndTime("2359");
+                    resultTaskList.addTask(addedTask);
+                } else if (!task.getStringTrailingDate().equals("-") && task.getTrailingDate().equals(date)) {
+                    Task addedTask = task;
+                    addedTask.setStartTime("0000");
+                    DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                    addedTask.setMainDate(dateFormat.format(date));
+                    resultTaskList.addTask(addedTask);
+                }
             }
         }
 
-        calendar.set(Calendar.HOUR, 0);
+        resultTaskList.sortTask(arrayList);
+
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
         calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+
         Date currentDate = calendar.getTime();
 
         if (isEqualDate(date, currentDate)) {
@@ -76,13 +103,8 @@ public class FindFreeSlotCommand extends Command {
             } else {
                 startPointer = currentDateAndTime;
             }
-            calendar.add(Calendar.DATE, 1);
-            oneDayAfter = calendar.getTime();
         } else {
             startPointer = date;
-            calendar.setTime(date);
-            calendar.add(Calendar.DATE, 1);
-            oneDayAfter = calendar.getTime();
         }
 
         ArrayList<String> finalList;
@@ -93,6 +115,9 @@ public class FindFreeSlotCommand extends Command {
 
         finalList = getFreeSlots(arrayList, startPointer, oneDayAfter, duration);
         String result = printResult(finalList);
+
+        arrayList.clear();
+        finalList.clear();
 
         return new CommandResult(result, false);
     }
@@ -111,11 +136,6 @@ public class FindFreeSlotCommand extends Command {
         Date endPointer;
         ArrayList<String> stringArrayList = new ArrayList<>();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HHmm");
-
-        if (arrayList.isEmpty()) {
-            stringArrayList.add("Empty");
-            return stringArrayList;
-        }
 
         for (int i = 0; i < arrayList.size(); i++) {
             endPointer = arrayList.get(i).getStartTime();
@@ -152,10 +172,6 @@ public class FindFreeSlotCommand extends Command {
 
         if (arrayList.isEmpty()) {
             return ("You have no available slots on " + stringDate + " ! :(");
-        }
-
-        if (arrayList.get(0).equals("Empty")) {
-            return ("You are free for the entire day! You have no tasks on " + stringDate + "!");
         }
 
         finalList.append("Here are the available time slots for " + stringDate + ":\n");
