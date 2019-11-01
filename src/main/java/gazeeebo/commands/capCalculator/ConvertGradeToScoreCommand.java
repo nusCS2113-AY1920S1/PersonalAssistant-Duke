@@ -4,7 +4,6 @@ package gazeeebo.commands.capCalculator;
  * Coverts Grade to Integer score.
  */
 public class ConvertGradeToScoreCommand {
-
     /**
      * Converts the alphabetical score to integer score.
      * @param grade alphabetical score of the module
