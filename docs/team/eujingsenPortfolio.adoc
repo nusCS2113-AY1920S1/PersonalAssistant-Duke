@@ -3,56 +3,82 @@
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-== PROJECT: [Sports Manager] - Level 3
+This portfolio serves to document my contributions to the team-based software engineering project for the module CS2113T and also to display my ability to code in Java and in object-orientated concept
 
----
+== PROJECT: Coach Manager
 
 == Overview
 
-[Sports Manager] - Level 3 is a ...
+My team of 4 computer engineering students and I were tasked with creating a basic Command Line Interface (CLI) desktop application for our software engineering project. Our team decided on creating an application called Coach Manager that functions as a planner to manage
+information that a trainer or coach would need to handle, and will be used by them. This planner can serve as a timetable for users
+to check their schedule for any specified day, save information of students into the system, or to manage pre-specified plans that would
+simplify the demands of users all in a single platform tailored to the specific needs of sports managers or coaches.
+
+
+For our application, we have 3 main features. The schedule feature, student feature and the training circuit feature. The schedule
+feature comprises of mainly the calendar function, and can be used to integrate information from the other 2 features. The student
+feature manages student information, while the training circuit feature manages the training plans for a user to use.
+
+Shown below is what our project interface looks like.
+image::Ui.png[align="Center"]
+
+|===
+|*Note* the following formatting used in this document:
+
+```example```
+
+ A highlight indicates that this is a command that can be inputted into the command line and executed by the application.
+
+*_anotherexample_*
+A bold, italic word indicates a component, class or object in the architecture of the application.
+|===
 
 == Summary of contributions
+My main role was to design and write codes for the training circuit features. That is to create the basis for coaches to save their
+training plans into, or to pull it up and edit it anytime they need.
 
-* *Major enhancement*: added *the ability to ...*
-** What it does: allows the user to ...
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+* *Major Enhancements*: I added the ability to create new training plans, view existing training plans (if any), or to
+edit the current training plans. To simplify the commands for this document, each sub-feature can be called and executed
+under these commands, `new`, `view` and `edit` respectively.
+** What it does: The `new` command allows the user to create a new training plan to be saved into the application, the
+`view` command allows the user to look at existing plans and the `edit` command allows the user to edit existing plans to their
+preferences.
+** Justification:  The importance of the training circuit feature is to allow users to create existing templates of multiple
+activities that users will use to train their students with.
+*** The `new` command is used to create a new training circuit that will be used by the users on a regular basis.
+*** The `view` command is used in the event that users forgot about a certain activity to do, or to review current training circuits.
+*** The `edit` command is to allow users to change activities in training circuits that are outdated, or to create a better circuit.
 
-* *Minor enhancement*: added a ... command that allows the user to ...
-
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Code contributed*: [https://nuscs2113-ay1920s1.github.io/dashboard/#search=w13-1&sort=groupTitle&sortWithin=title&since=2019-09-21&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=eujingsen&tabRepo=AY1920S1-CS2113T-W13-1%2Fmain%5Bmaster%5D[Functional code]]
 
 * *Other contributions*:
 
-** Project management:(Edit as we go along)
-*** Eg: Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
-** Enhancements to existing features:
-*** Eg: Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Eg: Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
 ** Documentation:
-*** Eg: Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+*** Eg: I made cosmetic tweaks to existing contents of the User Guide in terms of line or space formatting between header, sub-header and other information to
+standardize our formatting.
 ** Community:
-*** Eg: PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Eg: Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Eg: Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Eg: Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-** Tools:
-*** Eg: Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Eg: Integrated a new Github plugin (CircleCI) to the team repo
+*** Eg : I helped to clear Checkstyle violations that our team faced in our code
 
-_{you can add/remove categories in the list above}_
 
 == Contributions to the User Guide
 
-
 |===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|_ The sections given below is what I contributed to the User Guide based on the enhancements I made. There are many commands that I have created, but I will list out the main features below_
 |===
 
-include::../UserGuide.adoc[tag=delete]
+* *Creating a new training plan*: `new`
+** This command will allow users to create new training plans to be saved into the application.
 
-include::../UserGuide.adoc[tag=dataencryption]
+** Example:
+Let’s say that you are a new user of the Coach Manager with no training circuits saved into the application. After familiarizing
+yourselves with the commands that can be executed by the application, you start off with creating some training circuits.
+.	To start, you type in the `new` command in the command line. The application will then prompt you to input a certain intensity
+level for the training circuit that you are going to create to better separate training circuits into their respective intensity level.
+You can choose between the levels high, moderate or relaxed.
+.	Let’s say you choose the high intensity level. Right after, the application will prompt the user to add a new activity to the
+circuit, finalize the circuit activities, or to show your current additions to the list.
+.	To add 	an activity, you can input an activity in the format as shown in the picture below. Otherwise, you can type show to show
+the current activities already added in order, or type finalize to finalize the creation of the plan.
 
 == Contributions to the Developer Guide
 
@@ -60,13 +86,80 @@ include::../UserGuide.adoc[tag=dataencryption]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=undoredo]
+|===
+|MyPlan
 
-include::../DeveloperGuide.adoc[tag=dataencryption]
+|- cliView : CliView
 
+- ArrayList<MyTraining> : list
 
-== PROJECT: PowerPointLabs
+- ArrayList<String>  : toc
 
----
+- Map<String, ArrayList<MyTraining>> : map
 
-_{Optionally, you may include other projects in your portfolio.}_
+- String : name
+
+|+ MyPlan()
+
++ getName() : String
+
++ getList() : ArrayList<MyTraining> getList()
+
++ setList(newList : ArrayList<MyTraining>)
+
++ getCont() : ArrayList<String>
+
++ createKey(intensity : String,  num : int) : String
+
++ keyList() : ArrayList<String>
+
++ showPlanList()
+
++ clearPlan()
+
++ addActivity(newName : String, newSets : int, newReps : int) : String
+
++ switchPos(initial : int, end : int)
+
++ viewPlan() : String
+
++ loadPlanToList(intensity : String, plan : String)
+
++ saveToMap(newList : ArrayList<MyTraining>, intensity : String, key : String)
+
++ createPlan(intensity : String)
+
++ deletePlan(intensity : String, planNum : int)
+
++ Intensity
+|===
+
+|===
+|< <Enumeration> >
+
+Intensity
+
+|high : int = 1
+
+moderate : int = 2
+
+relaxed : int = 3
+
+Intensity(number : int)
+
++ getVal() : int
+
+-contains(value : String) : Boolean
+
++ valueOf(value : int) : Intensity
+|===
+
+The class diagram above illustrates the *_MyPlan_* class.
+
+In the *_MyPlan_* class, there are various methods for the training circuit functionalities, some of the main features include:
+
+•	Getting the map of circuits through the Storage class.
+•	Retrieving a list of circuits present in the map.
+•	Creating a new circuit.
+•	Viewing an existing circuit.
+
