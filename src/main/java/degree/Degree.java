@@ -142,6 +142,10 @@ public class Degree {
     {
         Scanner checker = new Scanner(input);
         String code = checker.next();
+        if(!checker.hasNextLine())
+        {
+            return false;
+        }
         String name = checker.nextLine();
         name = name.strip();
         if(code.matches(Parser.moduleFormat) && name.isBlank())

@@ -12,6 +12,8 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -133,9 +135,10 @@ public class Storage {
         for (String file : fileNames) {
             try {
                 // put the file's name and its content into the data structure
-                List<String> lines = Files.readAllLines(folder.resolve(readable.get(file)));
+                System.out.print(readable.get(file));System.out.println(" +" + file);
+                List<String> lines = Files.readAllLines(folder.resolve(readable.get(file)), StandardCharsets.UTF_8);
                 data.put(file, lines);
-                //System.out.println("success for " + file);
+                System.out.println("success for " + file);
             } catch (IOException e) {
                 e.printStackTrace();
             }
