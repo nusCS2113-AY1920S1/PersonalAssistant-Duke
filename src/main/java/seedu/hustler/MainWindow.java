@@ -145,7 +145,7 @@ public class MainWindow extends AnchorPane{
 
         String[] shopModeCommands = {"/shop", "/buy"};
 
-        String command = input.split(" ")[0];
+        String command = input.split(" ")[0].toLowerCase();
 
         if (!input.isBlank()) {
             removeWelcome();
