@@ -1,60 +1,119 @@
+:site-section: Project Portfolio
+:toc:
+:toc-title:
+:toc-placement: preamble
+:sectnums:
+:imagesDir: ..\images
+:stylesDir: stylesheets
+:xrefstyle: full
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:warning-caption: :warning:
+endif::[]
+
+
 = Yang Zi Yun - Project Portfolio
-:site-section: AboutUs
-:imagesDir: ../images
-:stylesDir: ../stylesheets
 
-== PROJECT: Duke Email Manager
+PROJECT: Duke Email Manager
 
-*The following is placeholder text*
+== Product Overview
 
----
+My team and I developed an Email Manager as a solution for the overwhelming emails received daily in our
+mailbox.
 
-== Overview
+We were tasked with enhancing a basic Command Line Interface (CLI) task manager for our Software
+Engineering project. We chose to morph it into an email manager while enhancing the task manager. We also
+provide ways to link the management between tasks and emails.
 
-AddressBook - Level 3 is a desktop address book application used for teaching Software Engineering principles. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+*Duke Email Manager* is an email and task manager desktop app, specifically designed for NUS School of
+Computing Students to manage their emails and busy schedules. As a text-based application, it is optimized for those
+who prefer typing and working with CLI. Email Manager also has a developed Graphical User Interface (GUI)
+that allows users to view email and task details in an appealing, well-organized format.
+
+The figure below shows interface of our app:
+
+image::../images/Screenshot (2).png[Duke Email Manager]
+
+My role was mainly to design and write the codes for email managing including email showing, email tagging
+and email filtering. The following sections illustrate these enhancements in more detail, as well as the
+relevant sections I have added to the user and developer guides in relation to these enhancements.
 
 == Summary of contributions
+This section shows a summary of my coding, documentation, and other helpful contributions to the team project.
 
-* *Major enhancement*: added *the ability to undo/redo previous commands*
-** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+* *Code contributed*: [https://nuscs2113-ay1920s1.github.io/dashboard/#=undefined&search=ziyun99[Summary of code contribution]]
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+* *Enhancement added*:
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+. Email Tagging
+** What it does: Students can tag their emails with the command `email update <index> -tag <TagName1> -tag
+<TagName2> ...`
+** Justification: By tagging the emails, students can have a clearer overview of their list of
+emails. Hence, they can attend important emails in the fastest time. This also minimizes the chances of
+missing out crucial information being informed by email.
+** Highlights: Multiple tags can be added to an email. Duplicated tags can be detected and not added to the
+email again.
+** Code contributed: https://github.com/AY1920S1-CS2113T-F11-3/main/pull/82[#82]
+
+. Email Filtering by Tag(s)
+** What it does: Students can filter the emails by the tags added with the command `email list -tag
+<TagName1> -tag <TagName2>`
+** Justification: This allows the students to view the list of emails being tagged with particular tag(s),
+helping them to filter out relevant emails to keep their email organised.
+** Highlights: Maximum number of input tags allowed is two, this will shows emails that are tagged with
+both tags.
+** Code contributed: https://github.com/AY1920S1-CS2113T-F11-3/main/pull/97[#97] https://github.com/AY1920S1-CS2113T-F11-3/main/pull/105[#105]
+
+. Email Showing
+** What it does: The command `email show <index>` will display the email in html format.
+** Justification: Student can view the content of email in the application without have to find the email
+in other places. This helps the student to access all the information in the email all in one place.
+** Highlights: Pressing `ESC` key can toggle the display between email list view and email content view.
+** Code contributed:  https://github.com/AY1920S1-CS2113T-F11-3/main/pull/71[#71]
+
+. Switching mode between email and task
+** What it does: Students can easily switch the mode between `email` and `task` with the command `flip`. In
+the user input text field, a prefix either `email` or `task` will be displayed with
+respect to the current mode.
+** Justification: Students will need to frequently change their input when they try to handle their tasks
+and emails, this feature allows them to navigate between both modes easily.
+** Highlights: The prefix in the user input text field is design to reduce the amount of typing required
+from the students. The prefix is non-deletable.
+** Code contributed: https://github.com/AY1920S1-CS2113T-F11-3/main/pull/54[#54]
 
 * *Other contributions*:
 
 ** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
-** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
-** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
-** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
+*** There were a total of 5 releases, from version 1.1 to 1.5. I managed releases versions
+`v1.2.1` on GitHub: https://github.com/AY1920S1-CS2113T-F11-3/main/releases/tag/v1.2.1-duke[#v1.2.1]
 
-_{you can add/remove categories in the list above}_
+** Enhancements to existing features:
+*** Updated the GUI color scheme (https://github.com[#114])
+*** Wrote additional tests for existing features to increase coverage from 88% to 92% (
+https://github.com[#114])
+*** Reported bugs and offered suggestions for other teams in the class ()
+
+** Documentation:
+*** Update User Guide and Developer Guide
+
+** Community:
+*** PRs reviewed (with non-trivial review comments)
+*** Reported bugs and offered suggestions for other teams in the class ()
+
+** Tools:
+*** Integrated continuous integration (Travis) to the team repo (https://github.com[#107])
+*** Integrated coverage report (Coveralls) to the team repo (https://github.com[#107])
+
 
 == Contributions to the User Guide
-
+We had to update the  User Guide with instructions for the enhancements that
+we had added. The following is an excerpt from our Email Manager User Guide, showing additions that I
+have made for the email managing features.
 
 |===
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
-
-include::../UserGuide.adoc[tag=delete]
-
-include::../UserGuide.adoc[tag=dataencryption]
 
 == Contributions to the Developer Guide
 
@@ -62,13 +121,4 @@ include::../UserGuide.adoc[tag=dataencryption]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=undoredo]
 
-include::../DeveloperGuide.adoc[tag=dataencryption]
-
-
-== PROJECT: PowerPointLabs
-
----
-
-_{Optionally, you may include other projects in your portfolio.}_
