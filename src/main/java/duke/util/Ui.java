@@ -631,7 +631,7 @@ public class Ui {
     public void showHelpOptions(ArrayList<String> helpOptions) {
         String output = "These are the commands that the user can use, and their respective formats:\n\n";
         for (String command : helpOptions) {
-            output += " - " + command + "\n";
+            output += " - " + command + "\n\n";
         }
         printDukeResponse(output);
     }
