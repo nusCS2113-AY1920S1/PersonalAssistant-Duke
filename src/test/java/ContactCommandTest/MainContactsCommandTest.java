@@ -21,7 +21,7 @@ public class MainContactsCommandTest {
     private Ui ui = new Ui();
     private Storage storage = new Storage();
     private ArrayList<Task> list = new ArrayList<>();
-    private Stack<String> commandStack = new Stack<>();
+    private Stack<ArrayList<Task>> commandStack = new Stack<>();
     private ArrayList<Task> deletedTask = new ArrayList<>();
 
     private ByteArrayOutputStream output = new ByteArrayOutputStream();

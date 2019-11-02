@@ -54,7 +54,8 @@ public class ContactCommand extends Command {
         System.out.print(helpContact);
         ui.readCommand();
         while (!ui.fullCommand.equals("esc")) {
-            if (ui.fullCommand.equals("add")) {
+            if (ui.fullCommand.split(" ")[0].equals("add")
+                    || ui.fullCommand.equals("1")) {
                 copyMap(contactList,oldcontacts);
                 new AddContactCommand(ui, contactList);
             } else if (ui.fullCommand.split(" ")[0].equals("find")) {

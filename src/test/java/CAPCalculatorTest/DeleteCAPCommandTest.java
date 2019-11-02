@@ -60,4 +60,16 @@ public class DeleteCAPCommandTest {
         DeleteCAPCommand test = new DeleteCAPCommand(ui, CAPList);
         assertEquals("CG1111 is not found in the list.\n", output.toString());
     }
+
+    @Test
+    void testDeleteIncorrectFormatInCAPListCommand () {
+        CAPCommand newCAP = new CAPCommand("CS1231", 4, "A");
+        ArrayList<CAPCommand> list = new ArrayList<>();
+        list.add(newCAP);
+        CAPList.put("1",list);
+        ui.fullCommand = "delete CG1111 and CS1231";
+        DeleteCAPCommand test = new DeleteCAPCommand(ui, CAPList);
+        assertEquals("Please Input in the correct format\n", output.toString());
+    }
+
 }

@@ -56,7 +56,7 @@ public class MainCAPCalculatorTest {
         assertEquals("Welcome to your CAP Calculator page! What would you like to do?\n\n"
                         + "__________________________________________________________\n"
                         + "1. Add module: add\n"
-                        + "2. Find module: find moduleCode/semNumber\n"
+                        + "2. Find module: find moduleCode\n"
                         + "3. Delete a module: delete module\n"
                         + "4. See your CAP list: list\n"
                         + "5. Help Command: help\n"

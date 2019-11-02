@@ -20,10 +20,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class AddCAPCommandTest {
     private static final String LINEBREAK = "------------------------------\n";
     private Ui ui = new Ui();
-    private Storage storage = new Storage();
-    private ArrayList<Task> list = new ArrayList<>();
-    private Stack<String> commandStack = new Stack<>();
-    private ArrayList<Task> deletedTask = new ArrayList<>();
     private HashMap<String, ArrayList<CAPCommand>> map = new HashMap<>();
     private Map<String, ArrayList<CAPCommand>> CAPList = new TreeMap<>(map);
 
@@ -44,10 +40,15 @@ public class AddCAPCommandTest {
 
     @Test
     void testAddCAPCommand () throws IOException {
-        ByteArrayInputStream in = new ByteArrayInputStream("1,CS1231,4,A".getBytes());
-        System.setIn(in);
+        ui.fullCommand = "add 1,CS1231,4,A";
         AddCAPCommand test = new AddCAPCommand(ui, CAPList);
-        assertEquals("Input in this format: semNumber,Module_Code,total_MC,CAP\n"
-                + "Successfully added: CS1231\n", output.toString());
+        assertEquals("Successfully added: CS1231\n", output.toString());
+    }
+
+    @Test
+    void testIncorrectFormatAddCAPCommand () throws IOException {
+        ui.fullCommand = "add 1,CS1231,4,A and 2,EE2026,4,B";
+        AddCAPCommand test = new AddCAPCommand(ui, CAPList);
+        assertEquals("Please Input in the correct format\n", output.toString());
     }
 }

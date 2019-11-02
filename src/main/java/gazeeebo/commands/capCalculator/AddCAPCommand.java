@@ -52,7 +52,7 @@ public class AddCAPCommand {
             }
             System.out.print("Successfully added: " + moduleCode + "\n");
         } catch (IOException | ArrayIndexOutOfBoundsException e) {
-            System.out.println("Please Input in the correct format");
+            System.out.print("Please Input in the correct format\n");
         }
     }
 }
