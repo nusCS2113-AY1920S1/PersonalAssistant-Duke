@@ -51,8 +51,7 @@ public class Storage {
     public Storage(final String path) throws IOException {
         filePath = path;
         File f = new File(filePath);
-        if (f.createNewFile())
-        {
+        if (f.createNewFile()) {
             System.out.println("File is created!");
         }
         fileInput = new Scanner(f);
