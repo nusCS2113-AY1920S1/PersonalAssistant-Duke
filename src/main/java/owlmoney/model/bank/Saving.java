@@ -62,6 +62,23 @@ public class Saving extends Bank {
     }
 
     /**
+     * Creates an instance of a savings account from persistent storage storage.
+     *
+     * @param name          The name of the bank account.
+     * @param currentAmount The current amount of money in  the bank account.
+     * @param income        The amount of money that is credited monthly into the account.
+     */
+    public Saving(String name, double currentAmount, double income, Date nextIncomeDate) {
+        super(name, currentAmount);
+        this.income = income;
+        this.type = SAVING;
+        this.transactions = new TransactionList();
+        this.recurringExpenditures = new RecurringExpenditureList();
+        this.nextIncomeDate = nextIncomeDate;
+        this.storage = new Storage(FILE_PATH);
+    }
+
+    /**
      * Updates the next income date and current amount if an income has been earned.
      *
      * @return If there is an update to the income.
@@ -464,6 +481,16 @@ public class Saving extends Bank {
     @Override
     double getExpAmountById(int expenditureId) throws TransactionException {
         return transactions.getExpenditureAmount(expenditureId);
+    }
+
+    /**
+     * Gets the next income date of the bank account.
+     *
+     * @return the nextIncomeDate of the savings account.
+     */
+    @Override
+    Date getNextIncomeDate() {
+        return this.nextIncomeDate;
     }
 
     /**

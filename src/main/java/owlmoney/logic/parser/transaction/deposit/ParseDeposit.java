@@ -109,7 +109,7 @@ public abstract class ParseDeposit {
      */
     void checkInt(String variable, String valueString) throws ParserException {
         if (!RegexUtil.regexCheckListNumber(valueString)) {
-            throw new ParserException(variable + " can only be a positive number with at most 9 digits");
+            throw new ParserException(variable + " can only be a positive integer with at most 9 digits");
         }
     }
 

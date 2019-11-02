@@ -105,6 +105,32 @@ public abstract class ParseCardBill {
     }
 
     /**
+     * Checks the user input for any redundant parameters.
+     *
+     * @param parameter Redundant parameter to check for,
+     * @param command   Command the user performed.
+     * @throws ParserException If a redundant parameter is detected.
+     */
+    void checkRedundantParameter(String parameter, String command) throws ParserException {
+        if (rawData.contains(parameter)) {
+            throw new ParserException(command + " /cardbill should not contain " + parameter);
+        }
+    }
+
+    /**
+     * Checks if the transaction number entered by the user is an integer.
+     *
+     * @param variable User command keyword (e.g. /expno).
+     * @param valueString String to be converted to integer.
+     * @throws ParserException If the string is not an integer.
+     */
+    void checkInt(String variable, String valueString) throws ParserException {
+        if (!RegexUtil.regexCheckListNumber(valueString)) {
+            throw new ParserException(variable + " can only be a positive integer with at most 9 digits");
+        }
+    }
+
+    /**
      * Abstract method where each card parser performs different checks on the user entered parameters.
      *
      * @throws ParserException If any parameters fail the check.

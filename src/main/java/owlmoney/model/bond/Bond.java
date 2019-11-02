@@ -38,6 +38,26 @@ public class Bond {
     }
 
     /**
+     * Creates a Bond with details of name, amount, rate, nextDateToCreditBondCouponInterest from storage.
+     *
+     * @param name   The name of the bond issue.
+     * @param amount The amount of money the bond costs.
+     * @param rate   The coupon rate of the bond.
+     * @param date   The date the bond was purchased.
+     * @param year   The year the bond will last.
+     * @param nextDateToCreditBondCouponInterest The next date that interest will be credited.
+     */
+    public Bond(String name, double amount, double rate, Date date, int year, Date nextDateToCreditBondCouponInterest) {
+        this.name = name;
+        this.amount = amount;
+        this.rate = rate;
+        this.date = date;
+        this.year = year;
+        this.category = "bonds";
+        this.nextDateToCreditBondCouponInterest = nextDateToCreditBondCouponInterest;
+    }
+
+    /**
      * Calculates the next date the bond interest will be credited upon bond creation.
      *
      * @param boughtDate the date the bond was bought.
