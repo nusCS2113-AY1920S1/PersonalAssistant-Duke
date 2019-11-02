@@ -1,6 +1,7 @@
 package command;
 
 import list.DegreeList;
+import degree.DegreeManager;
 import task.TaskList;
 /**
  * Memento Class.

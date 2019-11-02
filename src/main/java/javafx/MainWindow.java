@@ -1,11 +1,9 @@
 package javafx;
 
 import exception.DukeException;
-import javafx.collections.ObservableList;
-import javafx.scene.control.Label;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Priority;
-import javafx.scene.text.TextFlow;
+import impl.org.controlsfx.autocompletion.AutoCompletionTextFieldBinding;
+import impl.org.controlsfx.autocompletion.SuggestionProvider;
+
 import main.Duke;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -13,11 +11,8 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-import org.controlsfx.control.textfield.CustomTextField;
-import org.controlsfx.control.textfield.TextFields;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 
 /**
@@ -39,8 +34,9 @@ public class MainWindow extends AnchorPane {
 
     private Duke duke;
 
-    //We want this to be accessed outside so that it can be cleared manually by the user
-    public List<String> autoSuggestion = new ArrayList<>();
+    public Set<String> autoSuggestion = new HashSet<>(Arrays.asList("list", "detail", "help", "todo", "delete", "clear",
+            "add", "swap", "bye", "replace", "undo", "redo", "sort"));
+    private SuggestionProvider<String> provider = SuggestionProvider.create(autoSuggestion);
 
     @FXML
     public void initialize() {
@@ -58,36 +54,30 @@ public class MainWindow extends AnchorPane {
 
         duke = d;
 
-        autoSuggestion.add("list");
-        autoSuggestion.add("detail");
-        autoSuggestion.add("help");
-        autoSuggestion.add("todo");
-        autoSuggestion.add("delete");
-        autoSuggestion.add("clear");
-        autoSuggestion.add("add");
-        autoSuggestion.add("swap");
-        autoSuggestion.add("bye");
-        autoSuggestion.add("replace");
 
+        new AutoCompletionTextFieldBinding<>(this.userInput, provider);
+
+        /*
         //Initialize autocompletion field
         TextFields.bindAutoCompletion(
                 this.userInput,
                 autoSuggestion);
 
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
+         */
 
-        String welcome = "Hello from\n"
-                + logo + "\n"
-                + "Hello! I'm Duke!\n";
+        String logo = "  _____  ______ _____ _____  ______ ______  _____  _   _ _    _  _____ \n"
+                + " |  __ \\|  ____/ ____|  __ \\|  ____|  ____|/ ____|| \\ | | |  | |/ ____|\n"
+                + " | |  | | |__ | |  __| |__) | |__  | |__  | (___  |  \\| | |  | | (___  \n"
+                + " | |  | |  __|| | |_ |  _  /|  __| |  __|  \\___ \\ | . ` | |  | |\\___ \\ \n"
+                + " | |__| | |___| |__| | | \\ \\| |____| |____ ____) || |\\  | |__| |____) |\n"
+                + " |_____/|______\\_____|_|  \\_\\______|______|_____(_)_| \\_|\\____/|_____/ \n";
+
+        String welcome = logo +"\n";
 
         String greeting;
 
         if (duke.reminder().isEmpty()) {
-            greeting = "What can I do for you?\n\n";
+            greeting = "What would you like to do?\n\n";
         } else {
             greeting = duke.reminder() + "\n\n";
         }
@@ -129,9 +119,14 @@ public class MainWindow extends AnchorPane {
         //Learn new auto suggestions based on user inputs
         if (!autoSuggestion.contains(input)) {
             autoSuggestion.add(input);
+            /*
             TextFields.bindAutoCompletion(
                     this.userInput,
                     autoSuggestion);
+
+             */
+            provider.clearSuggestions();
+            provider.addPossibleSuggestions(autoSuggestion);
         }
 
         userInput.clear();

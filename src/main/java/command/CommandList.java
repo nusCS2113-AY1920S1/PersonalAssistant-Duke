@@ -46,15 +46,16 @@ public class CommandList {
      * @param input The user input that resulted in this command, for the user's reference.
      * @throws DukeException
      */
-    public void addCommand(Command newCommand, TaskList tasks, UI ui, Storage storage, DegreeList lists, String input)
+    public void addCommand(Command newCommand, TaskList tasks, UI ui, Storage storage, DegreeList lists, DegreeManager degreesManager, String input)
             throws DukeException {
         this.tasks = tasks;
         this.ui = ui;
         this.storage = storage;
         this.lists = lists;
+        this.degreesManager = degreesManager;
         this.input = input;
         deleteElementsAfterPointer(undoRedoPointer);
-        newCommand.execute(tasks, ui, storage, lists, this.degreesManager);
+        newCommand.execute(tasks, ui, storage, lists, degreesManager);
         commandList.push(newCommand);
         inputList.push(input);
         undoRedoPointer++;
@@ -101,11 +102,11 @@ public class CommandList {
      */
     public void undo() throws DukeException {
         if (undoRedoPointer == -1) {
-            System.out.println("There are no commands to undo!");
+            throw new DukeException("There are no commands to undo!");
         }
         Command command = commandList.get(undoRedoPointer);
         System.out.println("Undo this command: \"" + inputList.get(undoRedoPointer) + "\"");
-        command.unExecute(tasks, ui, storage, lists);
+        command.unExecute(tasks, ui, storage, lists, degreesManager);
         undoRedoPointer--;
     }
 
@@ -118,11 +119,11 @@ public class CommandList {
      */
     public void redo() throws DukeException {
         if (undoRedoPointer == commandList.size() - 1) {
-            System.out.println("There are no more commands to redo!");
+            throw new DukeException("There are no more commands to redo!");
         }
         undoRedoPointer++;
         Command command = commandList.get(undoRedoPointer);
         System.out.println("Redo this command: \"" + inputList.get(undoRedoPointer) + "\"");
-        command.execute(tasks, ui, storage, lists, this.degreesManager);
+        command.execute(tasks, ui, storage, lists, degreesManager);
     }
 }

@@ -19,7 +19,9 @@ public class AddCommand extends Command {
     private String arguments;
     private String command;
     private Memento memento;
-    private int listType = 0; //0 for task list, 1 for degree list
+    private Memento memento1;
+    private Memento memento2;
+    private int listType = 0; //0 for task list, 1 for degree list, 2 for both
 
     /**
      * Creates AddCommand.
@@ -53,12 +55,16 @@ public class AddCommand extends Command {
             tasks.conflict_check();
         }
         else if (this.command.matches("add")) {
-            this.listType = 1; //1 for degree list
+            this.listType = 2; //1 for degree list
 
             degreesBuffer = lists.deepClone();
-            memento = new Memento(degreesBuffer);
+            tasksBuffer = tasks.deepClone();
+            memento1 = new Memento(degreesBuffer);
+            memento2 = new Memento(tasksBuffer);
 
-            if(this.arguments.matches("Biomedical Engineering|Chemical Engineering|Civil Engineering|Computer Engineering|Electrical Engineering|Environmental Engineering|Industrial and Systems Engineering|Mechanical Engineering|Materials Science and Engineering")) {
+            if(this.arguments.matches("Biomedical Engineering|Chemical Engineering|Civil Engineering|"
+                    + "Computer Engineering|Electrical Engineering|Environmental Engineering"
+                    + "|Industrial and Systems Engineering|Mechanical Engineering|Materials Science and Engineering")) {
                 lists.add_custom(this.arguments, storage);
                 UniversityTaskHandler universityTaskHandler = new UniversityTaskHandler();
                 universityTaskHandler.addDegreeTasks(this.arguments, tasks);
@@ -89,7 +95,7 @@ public class AddCommand extends Command {
      * @throws DukeException Throws the wrong amount of arguments.
      */
     @Override
-    public void unExecute(TaskList tasks, UI ui, Storage storage, DegreeList lists) throws DukeException {
+    public void unExecute(TaskList tasks, UI ui, Storage storage, DegreeList lists, DegreeManager degreeManager) throws DukeException {
         if (this.listType == 0) {
             TaskList tasksBuffer = memento.getTaskState();
             tasks.clear();
@@ -97,12 +103,24 @@ public class AddCommand extends Command {
             for (int i = 0; i < tasksBuffer.size(); i++) {
                 tasks.add(tasksBuffer.get(i));
             }
-        } else {
+        } else if (this.listType == 1) {
             DegreeList degreesBuffer = memento.getDegreeState();
             lists.clear();
 
             for (int i = 0; i < degreesBuffer.size(); i++) {
                 lists.add(degreesBuffer.get(i));
+            }
+        } else if (this.listType == 2) {
+            DegreeList degreesBuffer = memento1.getDegreeState();
+            TaskList tasksBuffer = memento2.getTaskState();
+            lists.clear();
+            tasks.clear();
+
+            for (int i = 0; i < degreesBuffer.size(); i++) {
+                lists.add(degreesBuffer.get(i));
+            }
+            for (int i = 0; i < tasksBuffer.size(); i++) {
+                tasks.add(tasksBuffer.get(i));
             }
         }
     }

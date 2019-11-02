@@ -312,6 +312,26 @@ The degree list is a customizable list for the users to maintain a list to keep 
 
 `DegreeList#swap(String input, DegreeListStorage dd)`: This function takes in an input string, which is then split using the support of the `Parser Class` and the indices of the degrees to be swapped are obtains and are then swapped using the Collections.swap() function. A method from the DegreeListStorage is then called in order to update the text file with the current index of the degree after the swap. 
 
+==== [Proposed] Display of degree-related statistics in a tabular format or in a bar chart
+
+In the future releases, upon adding a degree, the user will see the related information of the degree such as the cohort sizes of the past 3-4 years, and the employment rate post graduation and the average salary. This information will be deployed in a tabular format or using visual aids, such as bar graphs
+
+==== Design considerations
+
+Aspect: Storing the Degree List
+
+* Alternative 1: Overwriting the file once the user enters `bye` (current choice):
+
+** Pro: This takes up lesser processing time as the prograam need not continuously update the file, and simply overwrites the file based on the final status of the Degree List. 
+
+** Con: If the user forgets to enter the exit command, the degrees might not be saved, leading to confusion.
+
+* Alternative 2: Concurrently writing to the file based on user-input:
+
+** Pro: The storage is always up-to-date with the changes that have taken places
+
+** Con: A lot of extra code is required to simultaneously write to the text file, and can also lead to potential bugs when the degrees are swapped around as their order changes.
+
 === Module Feature
 ==== Implementation
 The module class stores default type of module information, represented by 2 Strings and an Integer. This module string should be of the accepted module code type (2-3 Letters followed by 4 digits and a suffix letter, or 2-3 letters followed by one digit and 3 'x's). The module class is extended to 2 other types, the Conjuntive module and NonDescriptive Module. Module and it's children are stored in the class ModuleList.

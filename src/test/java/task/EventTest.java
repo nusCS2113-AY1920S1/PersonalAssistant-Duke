@@ -122,6 +122,7 @@ class EventTest {
         assertEquals("01-01-1970 2200", testEventOverload.getDueDate());
     }
 
+    /*
     @Test
     void testTentative() throws DukeException {
         Event testTentativeEvent = new Event("Sleep /at 01-01-1970 2200 "
@@ -138,6 +139,8 @@ class EventTest {
         assertTrue(testTentativeEvent.outsideTentative(26));
         testTentativeEvent.clearTentative();
         assertFalse(testTentativeEvent.tentativeExists());
+
     }
+     */
 
 }

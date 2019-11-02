@@ -43,10 +43,10 @@ public class Parser {
     public static Command parse(String line) throws DukeException {
         Scanner temp = new Scanner(line);
 
-        //Empty command check should already have been done outside, in duke
-//        if (!temp.hasNext()) {
-//            throw new DukeException("Empty Command!");
-//        }
+
+        if (!temp.hasNext()) {
+            throw new DukeException("Empty Command!");
+        }
 
         String command = temp.next();
         if (command.matches("list|bye|choices")) {
@@ -68,7 +68,8 @@ public class Parser {
             } else { //if the user wants to display help for only one command
                 String input = temp.nextLine();
                 input = input.strip();
-                if (input.matches("help|detail|compare|add|degreelist|swap|replace|delete|clear|custom|bye")) {
+                if (input.matches("help|detail|compare|add|degreelist|swap|replace|delete|clear|custom"
+                        + "|bye|undo|redo")) {
                     return new HelpCommand(command, input);
                 } else {
                     throw new DukeException("I do not understand that command. "
@@ -76,7 +77,7 @@ public class Parser {
                 }
             }
         } else if (command.matches("todo|deadline|event|done|delete|find|select|recurring|after|within|fixed"
-                + "|snooze|schedule|add|remove|swap|sort")) {
+                + "|snooze|schedule|add|remove|swap|sort|detail")) {
             if (!temp.hasNextLine()) {
                 throw new DukeException("☹ OOPS!!! The description of a " + command + " cannot be empty.");
             }

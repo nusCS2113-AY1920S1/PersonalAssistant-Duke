@@ -1,8 +1,10 @@
 package degree;
 
 import exception.DukeException;
+import list.DegreeList;
 import storage.Storage;
 
+import java.io.*;
 import java.util.*;
 
 public class DegreeManager {
@@ -32,6 +34,30 @@ public class DegreeManager {
 
     }
 
+    /**
+     * Method to facilitate the deep cloning of this taskList.
+     * Returns a copy of this taskList, but with different references.
+     * This is to avoid shallow copying, which will also modify the saved state of the taskList.
+     *
+     * @return A copy of this taskList with different references to objects.
+     */
+    public DegreeManager deepClone() {
+        try {
+            //Serialization of object
+            ByteArrayOutputStream byteOutputStream = new ByteArrayOutputStream();
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(byteOutputStream);
+            objectOutputStream.writeObject(this);
+
+            //De-serialization of object
+            ByteArrayInputStream byteInputStream = new ByteArrayInputStream(byteOutputStream.toByteArray());
+            ObjectInputStream objectInputStream = new ObjectInputStream(byteInputStream);
+            return (DegreeManager) objectInputStream.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            System.out.println(e.getLocalizedMessage());
+            return null;
+        }
+    }
+
 
     /**
      * Adds a new Degree to the list of degree information
@@ -40,14 +66,17 @@ public class DegreeManager {
      * @throws DukeException is thrown if there is no degree information in the first column
      */
     private void addDegree(String[] split, List<String> degreecsv) throws DukeException {
-        if(split.length == 1)
-            degreeInfo.put(split[0], new Degree(degreecsv));
-        else
-        {
-            if(split[0].isBlank())
-                throw new DukeException("Unable to find main degree");
-            else
+        try {
+            if (split.length == 1)
                 degreeInfo.put(split[0], new Degree(degreecsv));
+            else {
+                if (split[0].isBlank())
+                    throw new DukeException("Unable to find main degree");
+                else
+                    degreeInfo.put(split[0], new Degree(degreecsv));
+            }
+        } catch (DukeException e) {
+            throw new DukeException("For Degree " + split[0] + ": " + e.getLocalizedMessage());
         }
     }
 
@@ -57,5 +86,13 @@ public class DegreeManager {
             throw new DukeException(degree + " was not found in our records!");
         else
             degreeInfo.get(degree).print();
+    }
+
+    public void clear() {
+        degreeInfo.clear();
+    }
+
+    public long size() {
+        return degreeInfo.size();
     }
 }

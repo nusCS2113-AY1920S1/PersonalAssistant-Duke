@@ -1,5 +1,7 @@
 package main;
 
+import command.*;
+import degree.Degree;
 import command.Command;
 import degree.DegreeManager;
 import exception.DukeException;
@@ -12,10 +14,11 @@ import storage.Storage;
 import task.UniversityTaskHandler;
 import task.TaskList;
 import ui.UI;
-
+import list.DegreeList;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
+import java.util.*;
 import java.util.ArrayList;
 
 /**
@@ -37,9 +40,12 @@ public class Duke extends Application {
     private UI ui;
     private Parser parse;
     private DegreeList lists;
+    private Map<String, List<String>> degrees = new HashMap<>();
+    private Map<String, Degree> degreeInfo = new HashMap<>();
     private ArrayList<String> mydegrees = new ArrayList<>();
     private UniversityTaskHandler universityTaskHandler = new UniversityTaskHandler();
     private DegreeListStorage DegreeListStorage = new DegreeListStorage();
+    private CommandList commandList = new CommandList();
     public ArrayList<String> getTasks() {
         return mydegrees;
     }
@@ -104,15 +110,39 @@ public class Duke extends Application {
      * @return the string to be printed by JavaFx
      */
     //method output initial reading of save file
-    public String run(String line) {
+    public String run(String line) throws DukeException {
         ByteArrayOutputStream output = new ByteArrayOutputStream();
         PrintStream ps = new PrintStream(output);
         PrintStream old = System.out;
         System.setOut(ps);
         try {
             ui.showLine();
-            Command c = Parser.parse(line);
-            c.execute(this.myList, this.ui, this.storage, this.lists, this.degreesManager);
+            Scanner temp = new Scanner(line);
+            String command;
+            if (!temp.hasNext()) {
+                throw new DukeException("Empty Command!");
+            } else {
+                command = temp.next();
+            }
+
+            if (command.matches("undo")) {
+                commandList.undo();
+                this.myList = commandList.getTaskList();
+                this.lists = commandList.getDegreeLists();
+            } else if (command.matches("redo")) {
+                commandList.redo();
+                this.myList = commandList.getTaskList();
+                this.lists = commandList.getDegreeLists();
+            } else {
+                Command c = Parser.parse(line);
+
+                if ((c.getClass() == AddCommand.class) | (c.getClass() == ModCommand.class)
+                        | (c.getClass() == SortCommand.class) | (c.getClass() == SwapCommand.class)) {
+                    commandList.addCommand(c, this.myList, this.ui, this.storage, this.lists, this.degreesManager, line);
+                } else {
+                    c.execute(this.myList, this.ui, this.storage, this.lists, this.degreesManager);
+                }
+            }
         } catch (DukeException | NullPointerException e) {
             ui.showError(e.getLocalizedMessage());
         } finally {

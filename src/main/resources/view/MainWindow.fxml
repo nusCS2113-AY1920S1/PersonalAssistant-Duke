@@ -18,6 +18,6 @@
             <VBox fx:id="dialogContainer" prefWidth="634.0" />
          </content>
       </ScrollPane>
-      <TextField fx:id="userInput" layoutY="678.0" onAction="#handleUserInput" prefHeight="41.0" prefWidth="574.0" />
+      <TextField fx:id="userInput" layoutY="678.0" onAction="#handleUserInput" prefHeight="41.0" prefWidth="574.0" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="76.0"/>
    </children>
 </AnchorPane>
