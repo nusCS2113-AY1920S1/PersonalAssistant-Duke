@@ -15,9 +15,13 @@ import java.time.LocalDateTime;
  * Postpones a task to different times.
  *
  * @author Tan Yi Xiang
- * @version 1.6
+ * @version 1.7
  */
 public class PostponeCommand extends Command {
+
+    private static final String DEADLINE = "DEADLINE";
+    private static final String EVENT = "EVENT";
+    private static final String TODO_PERIOD = "TODO PERIOD";
 
     private int indexOfTask;
     private LocalDateTime toDate = null;
@@ -63,21 +67,21 @@ public class PostponeCommand extends Command {
         isIndexValid(tasks);
         Task taskToBePostponed = tasks.getTasks().get(indexOfTask);
         String description = taskToBePostponed.getDescription();
-        if (tasks.isDeadline(taskToBePostponed)) {
+        if (isDeadline(taskToBePostponed)) {
             if (isDeadlineClash(description, startDate, tasks)) {
                 throw new ChronologerException(ChronologerException.taskClash());
             } else {
                 postponeDate(taskToBePostponed, startDate, tasks, storage);
                 UiTemporary.printOutput(POSTPONED_DEADLINE + taskToBePostponed.toString());
             }
-        } else if (tasks.isEvent(taskToBePostponed)) {
+        } else if (isEvent(taskToBePostponed)) {
             if (isEventClash(description, startDate, toDate, tasks)) {
                 throw new ChronologerException(ChronologerException.taskClash());
             } else {
                 postponeDateRange(taskToBePostponed, startDate, toDate, tasks, storage);
                 UiTemporary.printOutput(POSTPONED_EVENT + taskToBePostponed.toString());
             }
-        } else if (tasks.isTodoPeriod(taskToBePostponed)) {
+        } else if (isTodoPeriod(taskToBePostponed)) {
             postponeDateRange(taskToBePostponed, startDate, toDate, tasks, storage);
             UiTemporary.printOutput(POSTPONED_TODO + taskToBePostponed.toString());
         } else {
@@ -158,6 +162,18 @@ public class PostponeCommand extends Command {
         ChronologerStateList.addState((tasks.getTasks()));
         tasks.updatePriority(null);
         storage.saveFile(tasks.getTasks());
+    }
+
+    private boolean isDeadline(Task task) {
+        return (DEADLINE.equals(task.getType()));
+    }
+
+    private boolean isEvent(Task task) {
+        return (EVENT.equals(task.getType()));
+    }
+
+    private boolean isTodoPeriod(Task task) {
+        return (TODO_PERIOD.equals(task.getType()));
     }
 
 

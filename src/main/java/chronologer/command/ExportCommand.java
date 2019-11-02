@@ -1,6 +1,7 @@
 package chronologer.command;
 
 import chronologer.exception.ChronologerException;
+import chronologer.storage.CalendarOutput;
 import chronologer.storage.Storage;
 import chronologer.task.Task;
 import chronologer.task.TaskList;
@@ -31,42 +32,37 @@ import java.util.GregorianCalendar;
 
 
 /**
- * Export the timeline as an ics file.
+ * Processes and export the timeline as an ics file.
  *
  * @author Tan Yi Xiang
- * @version v1.2
+ * @version v1.4
  */
 public class ExportCommand extends Command {
 
-    private String filePath = System.getProperty("user.dir") + "/src/ChronologerDatabase/";
-    private File icsFile = new File(filePath.concat("calendar.ics"));
+    private static final String DEADLINE = "DEADLINE";
+    private static final String EVENT = "EVENT";
+    private static final String TODO_PERIOD = "TODO PERIOD";
+    private String fileName;
+
+    public ExportCommand(String fileName) {
+        this.fileName = fileName;
+    }
 
     @Override
     public void execute(TaskList tasks, Storage storage) throws ChronologerException {
 
         Calendar calendar = initializeCalendar();
         ArrayList<Task> taskList = tasks.getTasks();
-        CalendarOutputter calendarOutputter = new CalendarOutputter();
-
         for (Task task : taskList) {
-            if (tasks.isDeadline(task)) {
+            if (isDeadline(task)) {
                 VEvent deadline = convertDeadline(task);
                 calendar.getComponents().add(deadline);
-            } else if (tasks.isEvent(task) || tasks.isTodoPeriod(task)) {
+            } else if (isEvent(task) || isTodoPeriod(task)) {
                 VEvent event = convertEventOrTodoPeriod(task);
                 calendar.getComponents().add(event);
             }
         }
-        try {
-            FileOutputStream outputStream = new FileOutputStream(icsFile);
-            calendarOutputter.output(calendar, outputStream);
-            UiTemporary.printOutput("Success,ics file written at src/ChronologerDatabase/calendar");
-            outputStream.close();
-        } catch (IOException e) {
-            UiTemporary.printOutput(ChronologerException.errorWriteCalendar());
-            throw new ChronologerException(ChronologerException.errorWriteCalendar());
-        }
-
+        CalendarOutput.outputCalendar(fileName, calendar);
     }
 
     private Calendar initializeCalendar() {
@@ -125,5 +121,15 @@ public class ExportCommand extends Command {
         }
     }
 
+    private boolean isDeadline(Task task) {
+        return (DEADLINE.equals(task.getType()));
+    }
 
+    private boolean isEvent(Task task) {
+        return (EVENT.equals(task.getType()));
+    }
+
+    private boolean isTodoPeriod(Task task) {
+        return (TODO_PERIOD.equals(task.getType()));
+    }
 }

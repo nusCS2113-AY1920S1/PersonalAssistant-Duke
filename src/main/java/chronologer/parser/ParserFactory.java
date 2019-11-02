@@ -46,6 +46,7 @@ public class ParserFactory {
             }
             return new TodoParser(userInput, command).parse();
         case "deadline":
+        case "assignment":
             return new DeadlineParser(userInput, command).parse();
         case "event":
             return new EventParser(userInput, command).parse();
@@ -82,9 +83,7 @@ public class ParserFactory {
         case "schedule":
             return new ScheduleParser(userInput, command).parse();
         case "export":
-            return new ExportCommand();
-        case "assignment":
-            return new DeadlineParser(userInput, command).parse();
+            return new ExportParser(userInput,command).parse();
         case "undo":
             return new UndoCommand();
         case "redo":
