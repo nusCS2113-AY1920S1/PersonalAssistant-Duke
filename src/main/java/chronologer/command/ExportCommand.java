@@ -35,7 +35,7 @@ import java.util.GregorianCalendar;
  * Processes and export the timeline as an ics file.
  *
  * @author Tan Yi Xiang
- * @version v1.4
+ * @version v1.5
  */
 public class ExportCommand extends Command {
 
@@ -87,7 +87,8 @@ public class ExportCommand extends Command {
     private VEvent convertDeadline(Task task) {
         java.util.Calendar deadlineCalendar = convertToCalendar(task.getStartDate());
         DateTime deadlineDate = new DateTime(deadlineCalendar.getTime());
-        VEvent deadline = new VEvent(deadlineDate, task.getDescription());
+        DateTime currentDate = getCurrentDate();
+        VEvent deadline = new VEvent(currentDate, deadlineDate, task.getDescription());
         createDescription(task, deadline);
         createLocation(task, deadline);
         UidGenerator generator = new RandomUidGenerator();
@@ -106,6 +107,12 @@ public class ExportCommand extends Command {
         UidGenerator generator = new RandomUidGenerator();
         event.getProperties().add(generator.generateUid());
         return event;
+    }
+
+    private DateTime getCurrentDate() {
+        LocalDateTime currentDate = LocalDateTime.now();
+        java.util.Calendar currentCalendar = convertToCalendar(currentDate);
+        return new DateTime(currentCalendar.getTime());
     }
 
     private void createDescription(Task task, VEvent event) {
