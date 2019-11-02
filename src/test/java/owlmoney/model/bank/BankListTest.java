@@ -260,7 +260,7 @@ class BankListTest {
         BankException thrown = assertThrows(BankException.class, () ->
                         bankList.bankListIsAccountExistToTransfer("No Such Name", 10),
                 "Expected bankListIsAccountExistToTransfer to throw, but it didn't");
-        assertEquals("Unable to transfer fund as bank the sender bank account does not exist: "
+        assertEquals("Unable to transfer fund as the sender bank account does not exist: "
                 + "No Such Name", thrown.getMessage());
 
     }

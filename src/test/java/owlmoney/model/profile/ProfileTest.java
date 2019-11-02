@@ -80,7 +80,7 @@ class ProfileTest {
                 "No Such Name", "Test Investment Account",
                 100, finalNewDate, uiTest),
                 "Expected transferFund to throw, but it didn't");
-        assertEquals("Unable to transfer fund as bank the sender bank account does not exist: "
+        assertEquals("Unable to transfer fund as the sender bank account does not exist: "
                 + "No Such Name", thrown.getMessage());
         outContent.reset();
     }
@@ -259,6 +259,5 @@ class ProfileTest {
                 "Expected findBond to throw error, but it didn't");
         assertEquals("Bond with the following keyword could not be found: No Such Bond",
                 thrown.getMessage());
-
     }
 }
