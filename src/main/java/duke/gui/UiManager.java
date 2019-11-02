@@ -1,14 +1,9 @@
 package duke.gui;
 
 import duke.Duke;
-import duke.Launcher;
 import javafx.application.Platform;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
-import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
-import java.util.logging.Logger;
 
 /**
  * The manager of the UI component.
@@ -26,7 +21,6 @@ public class UiManager implements Ui {
 
     @Override
     public void start(Stage primaryStage) {
-
         try {
             mainWindow = new MainWindow(primaryStage, duke);
             mainWindow.show(); //This should be called before creating other UI parts

@@ -5,6 +5,8 @@ import duke.gui.UiManager;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
+import java.io.File;
+
 /**
  * Launcher class for the app.
  */
@@ -15,9 +17,21 @@ public class Main extends Application {
     @Override
     public void init() throws Exception {
         super.init();
+        initialize();
+    }
 
+    /**
+     * Initialize Duke with local data.
+     * Create data directory if it is not existed.
+     */
+    private void initialize() {
         String currentDir = System.getProperty("user.dir");
-        duke = new Duke(currentDir);
+        String dataDir = currentDir + "/data";
+        File directory = new File(dataDir);
+        if (!directory.exists()) {
+            directory.mkdir();
+        }
+        duke = new Duke(dataDir);
         ui = new UiManager(duke);
     }
 
