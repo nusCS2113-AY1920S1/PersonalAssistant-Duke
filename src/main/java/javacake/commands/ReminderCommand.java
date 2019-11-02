@@ -12,6 +12,10 @@ import java.util.ArrayList;
 
 public class ReminderCommand extends Command {
 
+    public ReminderCommand() {
+
+    }
+
     /**
      * Constructor for ReminderCommand.
      * Checks that no parameters are included.

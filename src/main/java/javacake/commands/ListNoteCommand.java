@@ -11,6 +11,10 @@ import java.util.ArrayList;
 
 public class ListNoteCommand extends Command {
 
+    public ListNoteCommand() {
+
+    }
+
     /**
      * Constructor for ListCommand.
      * Checks that no parameters are included.

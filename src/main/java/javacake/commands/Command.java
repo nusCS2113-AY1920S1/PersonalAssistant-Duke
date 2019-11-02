@@ -26,7 +26,7 @@ public abstract class Command {
      * @param inputCommand Command input from user.
      * @throws CakeException If parameter is appended to command.
      */
-    void checksParam(String inputCommand) throws CakeException {
+    public static void checksParam(String inputCommand) throws CakeException {
         String bySpaces = "\\s+";
         String[] subStrings = inputCommand.split(bySpaces);
         if (subStrings.length > 1) {

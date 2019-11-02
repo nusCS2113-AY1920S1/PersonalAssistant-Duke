@@ -7,6 +7,9 @@ import javacake.ui.Ui;
 
 public class BackCommand extends Command {
 
+    public BackCommand() {
+
+    }
 
     /**
      * Constructor for BackCommand.
