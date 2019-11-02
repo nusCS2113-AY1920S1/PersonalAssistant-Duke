@@ -19,8 +19,8 @@ public class Meal {
     /**
      * This is the constructor of Task object.
      * @param description the description of the task
-     * @param date
-     * @param details
+     * @param date the date the meal is associated with
+     * @param details the nutritional data associated with the meal
      */
     public Meal(String description, LocalDate date, HashMap<String, String> details) {
         this.description = description.trim();

@@ -22,8 +22,8 @@ public class DepositCommandParser implements ParserInterface<AddTransactionComma
             String[] amountAndDate = ArgumentSplitter.splitArguments(userInputStr, "/date");
             return new AddTransactionCommand(new Deposit(amountAndDate[0], amountAndDate[1]));
         } catch (DukeException e) {
-            return new AddTransactionCommand(false,"Please enter the amount to deposit " +
-                    "for today's date or date and amount to be deposited");
+            return new AddTransactionCommand(false,"Please enter the amount to deposit "
+                    + "for today's date or date and amount to be deposited");
         }
     }
 }
