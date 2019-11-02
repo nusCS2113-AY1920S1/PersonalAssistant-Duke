@@ -7,6 +7,7 @@ import duke.models.Schedule;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.ParseException;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 //@@author Sfloydzy
@@ -157,40 +158,44 @@ public class ParserSchedule {
         final int back = 4;
         int input;
         boolean runSchedule = true;
-        while (runSchedule) {
-            cliView.trainingScheduleHeading();
-            input = sc.nextInt();
-            switch (input) {
-            case dailySchedule:
-                boolean runDaily = true;
-                while (runDaily) {
-                    cliView.dailyScheduleHeading();
+        try {
+            while (runSchedule) {
+                cliView.trainingScheduleHeading();
                     input = sc.nextInt();
-                    if (input == 1) { //access daily schedule
-                        dailySchedule();
-                    } else if (input == 2) { //access daily goals
-                        new ParserGoal().runGoal();
-                    } else if (input == 3) { //access daily lessons
-                        new ParserLesson().runLesson();
-                    } else if (input == 4) { //back
-                        runDaily = false;
-                    } else {
+                    switch (input) {
+                    case dailySchedule:
+                        boolean runDaily = true;
+                        while (runDaily) {
+                            cliView.dailyScheduleHeading();
+                            input = sc.nextInt();
+                            if (input == 1) { //access daily schedule
+                                dailySchedule();
+                            } else if (input == 2) { //access daily goals
+                                new ParserGoal().runGoal();
+                            } else if (input == 3) { //access daily lessons
+                                new ParserLesson().runLesson();
+                            } else if (input == 4) { //back
+                                runDaily = false;
+                            } else {
+                                cliView.showDontKnow();
+                            }
+                        }
+                        break;
+                    case weeklySchedule:
+                        weeklySchedule();
+                        break;
+                    case monthlySchedule:
+                        monthlySchedule();
+                        break;
+                    case back:
+                        runSchedule = false;
+                        break;
+                    default:
                         cliView.showDontKnow();
                     }
-                }
-                break;
-            case weeklySchedule:
-                weeklySchedule();
-                break;
-            case monthlySchedule:
-                monthlySchedule();
-                break;
-            case back:
-                runSchedule = false;
-                break;
-            default:
-                cliView.showDontKnow();
             }
+        } catch (InputMismatchException e) {
+            cliView.showCorrectFormat();
         }
     }
 }
