@@ -24,6 +24,7 @@ public class Degree {
     private ModuleList facultyReq = new ModuleList();
     private ModuleList designProject = new ModuleList();
     private ModuleList electives = new ModuleList();
+    private ModuleList allMods = new ModuleList(); //For javafx uses
     private List<String> aliases = new ArrayList<>();
     //private DisjointUnionSet aliases;
     private Integer uem = null;
@@ -82,18 +83,23 @@ public class Degree {
             switch(list) {
             case 1:
                 this.facultyReq.add(mod);
+                this.allMods.add(mod);
                 return;
             case 3:
                 this.commonCore.add(mod);
+                this.allMods.add(mod);
                 return;
             case 5:
                 this.coreMod.add(mod);
+                this.allMods.add(mod);
                 return;
             case 7:
                 this.designProject.add(mod);
+                this.allMods.add(mod);
                 return;
             case 9:
                 this.electives.add(mod);
+                this.allMods.add(mod);
                 return;
             default:
                 throw new DukeException("Invalid addition to list");
@@ -291,5 +297,9 @@ public class Degree {
         {
             res.print();
         }
+    }
+
+    public ModuleList getModuleList() {
+        return this.allMods;
     }
 }

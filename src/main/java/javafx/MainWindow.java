@@ -1,5 +1,6 @@
 package javafx;
 
+import degree.DegreeManager;
 import exception.DukeException;
 import impl.org.controlsfx.autocompletion.AutoCompletionTextFieldBinding;
 import impl.org.controlsfx.autocompletion.SuggestionProvider;
@@ -12,6 +13,10 @@ import main.Duke;
 import javafx.fxml.FXML;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import module.ConjunctiveModule;
+import module.Module;
+import module.ModuleList;
+import module.NonDescriptive;
 import task.Task;
 import task.TaskList;
 
@@ -40,7 +45,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     private TableView<ChoicesFX> choicesView;
     @FXML
-    private TableView<ChoicesFX> degreesView;
+    private TableView<DegreesFX> degreesView;
     @FXML
     private TabPane tabPane;
     @FXML
@@ -53,15 +58,17 @@ public class MainWindow extends AnchorPane {
     private Duke duke;
     private TaskList taskList;
     private DegreeList degreeList;
+    private DegreeManager degreeManager;
+    private ModuleList moduleList;
     private boolean typoFlag;
 
-    public Set<String> autoSuggestion = new HashSet<>(Arrays.asList("list", "detail", "help", "todo", "delete", "clear",
+    private Set<String> autoSuggestion = new HashSet<>(Arrays.asList("list", "detail", "help", "todo", "delete", "clear",
             "add", "swap", "bye", "replace", "undo", "redo", "sort"));
     private SuggestionProvider<String> provider = SuggestionProvider.create(autoSuggestion);
 
-    public ObservableList<TaskFX> dataTask;
-    public ObservableList<ChoicesFX> dataChoices;
-
+    private ObservableList<TaskFX> dataTask;
+    private ObservableList<ChoicesFX> dataChoices;
+    private ObservableList<DegreesFX> dataDegrees;
 
 
     @FXML
@@ -82,8 +89,9 @@ public class MainWindow extends AnchorPane {
 
 
         new AutoCompletionTextFieldBinding<>(this.userInput, provider);
-        ObservableList<TaskFX> dataTask = taskView.getItems();
-        ObservableList<ChoicesFX> dataChoices = choicesView.getItems();
+        dataTask = taskView.getItems();
+        dataChoices = choicesView.getItems();
+        dataDegrees = degreesView.getItems();
 
 
         String logo = "  _____  ______ _____ _____  ______ ______  _____  _   _ _    _  _____ \n"
@@ -115,15 +123,29 @@ public class MainWindow extends AnchorPane {
         this.taskList = duke.getTaskList();
         this.degreeList = duke.getDegreeList();
 
+        String countString;
+
         for (int i = 0; i < this.taskList.size(); i++) {
             Task newTask = this.taskList.get(i);
-            dataTask.add(new TaskFX(Integer.toString(i + 1), newTask.getStatusIcon(), newTask.getType(),
+            countString = Integer.toString(i + 1);
+
+            if (i <= 8) {
+                countString = "0" + countString;
+            }
+
+            this.dataTask.add(new TaskFX(countString, newTask.getStatusIcon(), newTask.getType(),
                     newTask.getDescription(), newTask.getDueDate()));
         }
 
         for (int i = 0; i < this.degreeList.size(); i++) {
             String newChoice = this.degreeList.get(i);
-            dataChoices.add(new ChoicesFX(Integer.toString(i + 1), newChoice));
+            countString = Integer.toString(i + 1);
+
+            if (i <= 8) {
+                countString = "0" + countString;
+            }
+
+            this.dataChoices.add(new ChoicesFX(countString, newChoice));
         }
 
     }
@@ -159,15 +181,29 @@ public class MainWindow extends AnchorPane {
         this.dataTask.clear();
         this.dataChoices.clear();
 
+        String countString;
+
         for (int i = 0; i < this.taskList.size(); i++) {
             Task newTask = this.taskList.get(i);
-            this.dataTask.add(new TaskFX(Integer.toString(i + 1), newTask.getStatusIcon(), newTask.getType(),
+            countString = Integer.toString(i + 1);
+
+            if (i <= 8) {
+                countString = "0" + countString;
+            }
+
+            this.dataTask.add(new TaskFX(countString, newTask.getStatusIcon(), newTask.getType(),
                     newTask.getDescription(), newTask.getDueDate()));
         }
 
         for (int i = 0; i < this.degreeList.size(); i++) {
             String newChoice = this.degreeList.get(i);
-            this.dataChoices.add(new ChoicesFX(Integer.toString(i + 1), newChoice));
+            countString = Integer.toString(i + 1);
+
+            if (i <= 8) {
+                countString = "0" + countString;
+            }
+
+            this.dataChoices.add(new ChoicesFX(countString, newChoice));
         }
 
         //Forces a tab to open corresponding to the list being displayed
@@ -184,6 +220,52 @@ public class MainWindow extends AnchorPane {
                 }
                 System.exit(0);
             }).start();
+        } else {
+            Scanner temp = new Scanner(input);
+            String command = temp.next();
+
+            if (command.matches("detail") && (!typoFlag)) {
+                tabPane.getSelectionModel().select(tabDegrees);
+                //tabDegrees.setText("hi"); use these to change the degree tab name
+                this.dataDegrees.clear();
+                String degreeName = temp.next();
+                this.degreeManager = duke.getDegreesManager(); //gets the entire degree manager from duke
+
+                List<Module> moduleList = new ArrayList<>(this.degreeManager.getModuleList(degreeName).getModules());
+                NonDescriptive generalMod = new NonDescriptive("General Education Modules", 20);
+                moduleList.add(generalMod);
+
+                Collections.sort(moduleList);
+                int count = 0;
+                for(Module mod: moduleList)
+                {
+                    count++;
+                    countString = Integer.toString(count);
+
+                    if (count <= 9) {
+                        countString = "0" + countString;
+                    }
+
+                    String mcString = Integer.toString(mod.getMc());
+
+                    if (mcString.length() == 1) {
+                        mcString = "0" + mcString;
+                    }
+
+                    //for standard modules
+                    if (mod.getClass() == Module.class) {
+                        this.dataDegrees.add(new DegreesFX(countString, mod.getCode(), mod.getName(),
+                                mcString));
+                    } else if (mod.getClass() == NonDescriptive.class) {
+                        //Non descriptive class has no module code, but the moduleCode property contains the name
+                        this.dataDegrees.add(new DegreesFX(countString, "-", mod.getCode(),
+                                mcString));
+                    } else if (mod.getClass() == ConjunctiveModule.class) {
+                        this.dataDegrees.add(new DegreesFX(countString, mod.getCode(), mod.getFullModuleName(),
+                                mcString));
+                    }
+                }
+            }
         }
 
         //tabTask.setText("hi"); use these to change the degree tab name

@@ -2,6 +2,7 @@ package degree;
 
 import exception.DukeException;
 import list.DegreeList;
+import module.ModuleList;
 import storage.Storage;
 
 import java.io.*;
@@ -32,30 +33,6 @@ public class DegreeManager {
      */
     public DegreeManager() {
 
-    }
-
-    /**
-     * Method to facilitate the deep cloning of this taskList.
-     * Returns a copy of this taskList, but with different references.
-     * This is to avoid shallow copying, which will also modify the saved state of the taskList.
-     *
-     * @return A copy of this taskList with different references to objects.
-     */
-    public DegreeManager deepClone() {
-        try {
-            //Serialization of object
-            ByteArrayOutputStream byteOutputStream = new ByteArrayOutputStream();
-            ObjectOutputStream objectOutputStream = new ObjectOutputStream(byteOutputStream);
-            objectOutputStream.writeObject(this);
-
-            //De-serialization of object
-            ByteArrayInputStream byteInputStream = new ByteArrayInputStream(byteOutputStream.toByteArray());
-            ObjectInputStream objectInputStream = new ObjectInputStream(byteInputStream);
-            return (DegreeManager) objectInputStream.readObject();
-        } catch (IOException | ClassNotFoundException e) {
-            System.out.println(e.getLocalizedMessage());
-            return null;
-        }
     }
 
 
@@ -94,5 +71,9 @@ public class DegreeManager {
 
     public long size() {
         return degreeInfo.size();
+    }
+
+    public ModuleList getModuleList(String degree) {
+        return degreeInfo.get(degree).getModuleList();
     }
 }

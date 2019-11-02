@@ -116,4 +116,8 @@ public class ModuleList {
     {
         this.sum += mc;
     }
+
+    public int getSize() {
+        return this.modList.size();
+    }
 }

@@ -214,6 +214,10 @@ public class Duke extends Application {
         return this.typoFlag;
     }
 
+    public DegreeManager getDegreesManager () {
+        return this.degreesManager;
+    }
+
 }
 
 
