@@ -11,7 +11,7 @@ import java.util.LinkedHashMap;
 public class ProjectManager {
     public Project currentProject;
     public LinkedHashMap<String, Project> projectmap;
-    Storage storage = new Storage("filepath to be removed");
+    private Storage storage = new Storage();
 
     /**
      * Initialises a project manager instance to manage the projects.

@@ -29,12 +29,10 @@ public class AlphaNUS {
      */
     public AlphaNUS() {
         ui = new Ui();
-        String filepath = "duke.txt";
-
-        storage = new Storage(filepath);
+        storage = new Storage();
         tasklist = new TaskList();
         fund = new Fund(); //TODO the fund need to be stored in the text file.
-        commandList = storage.load();
+        //commandList = storage.load(); TODO
 
     }
 

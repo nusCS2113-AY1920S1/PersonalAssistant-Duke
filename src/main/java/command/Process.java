@@ -322,6 +322,7 @@ public class Process {
             ui.exceptionMessage("     ☹ OOPS!!! The id of a deadline cannot be empty.");
         }
     }
+
     /**
      * Processes the DoAfter command and adds a task,
      * which has to be done after another task or a specific date and time,
@@ -650,11 +651,11 @@ public class Process {
         DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
         String formattedDate = dateFormat.format(date);
         String commandTime = input + " ~ " + formattedDate;
-        storage.save(commandTime);
+        //storage.save(commandTime); TODO
     }
 
     public void history(Ui ui, ArrayList<String> commandList, Storage storage) {
-        commandList = storage.load();
+        //commandList = storage.load(); TODO
         ui.printArrayList(commandList);
     }
     public void viewhistory(String input, Ui ui, ArrayList<String> commandList, Storage storage) throws ParseException {
@@ -666,7 +667,7 @@ public class Process {
         Date date_first = sdf.parse(date1);
         String date2 = splitdates[2];
         Date date_second = sdf.parse(date2);
-        commandList = storage.load();
+        //commandList = storage.load(); TODO
         ArrayList<String> viewhistory = new ArrayList<String>();
         for(int i = 0; i < commandList.size() - 1; i = i + 1){
             String token = null;
@@ -699,7 +700,7 @@ public class Process {
         Date date_first = sdf.parse(date1);
         String date2 = splitdates[2];
         Date date_second = sdf.parse(date2);
-        commandList = storage.load();
+        //commandList = storage.load(); TODO
         for(int i = 0; i < commandList.size() - 1; i = i + 1){
             String token = null;
             String token1 = null;
@@ -716,7 +717,7 @@ public class Process {
             Date date_command = sdf.parse(token1);
             if((date_command.compareTo(date_first)) >= 0){
                 if((date_command.compareTo(date_second)) <= 0){
-                    Storage.remove(commandList.get(i));
+                    //Storage.remove(commandList.get(i)); TODO
                 }
             }
         }
