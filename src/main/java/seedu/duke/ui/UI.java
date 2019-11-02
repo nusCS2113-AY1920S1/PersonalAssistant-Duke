@@ -134,7 +134,7 @@ public class UI {
      * @param msg the message that is to be shown
      */
     public void showMessage(String msg) {
-        System.out.println(msg);
+        System.out.println(ANSI_RESET + msg);
         showGui(msg);
         logger.log(Level.INFO, "[Message] " + msg);
     }
@@ -146,7 +146,7 @@ public class UI {
      */
     public void showResponse(String msg) {
         this.responseMsg = msg;
-        System.out.println("------------------------------");
+        System.out.println(ANSI_RESET + "------------------------------");
         System.out.println(msg);
         System.out.println("------------------------------" + System.lineSeparator());
         showGui(msg);
