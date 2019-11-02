@@ -44,20 +44,20 @@ public class Ui {
     private static final int DESCRIPTION_LONG_END = 17;
     private static final int TIME = 0;
     private static final int DESCRIPTION = 1;
+    private static final int TYPE = 2;
     private static final int FIRST_VAR = 0;
     private static final int SEGMENT_SIZE = 10;
+    private static final int ANSI_LENGTH = 9;
+    private static final String TODO = "TODO";
+    private static final String DEADLINE = "DEADLINE";
+    private static final String EVENT = "EVENT";
     private static final String ANSI_RESET = "\u001B[0m";
     private static final String ANSI_BRIGHT_RED = "\u001B[91m";
     private static final String ANSI_BRIGHT_GREEN = "\u001B[92m";
-    private static final String ANSI_BRIGHT_YELLOW = "\u001B[93m";
-    private static final String ANSI_BRIGHT_BLUE = "\u001B[94m";
-    private static final String ANSI_BRIGHT_PURPLE = "\u001B[95m";
-    private static final String ANSI_BRIGHT_CYAN = "\u001B[96m";
+    private static final String ANSI_BRIGHT_CYAN   = "\u001B[96m";
     private static final String ANSI_BRIGHT_WHITE = "\u001B[97m";
     private static final String ANSI_BG_BLUE = "\u001B[44m";
     private static final String ANSI_BG_BLACK = "\u001B[40m";
-    private static final String[] colouredText = {ANSI_BRIGHT_RED, ANSI_BRIGHT_GREEN, ANSI_BRIGHT_YELLOW,
-            ANSI_BRIGHT_BLUE, ANSI_BRIGHT_PURPLE, ANSI_BRIGHT_CYAN, ANSI_BRIGHT_WHITE};
     private StorageManager storageManager = new StorageManager();
 
     public Ui() {
@@ -317,7 +317,6 @@ public class Ui {
 
     /**
      * Prints and applies format for command list available to user.
-     *
      */
     public void printHelpCommands() throws FileNotFoundException {
         ArrayList<String> commands = storageManager.readManual();
@@ -337,6 +336,8 @@ public class Ui {
         System.out.println(" \t" + command);
     }
 
+    //@@author jasperosy
+
     /**
      * Prints the tasks for a particular week.
      *
@@ -345,11 +346,25 @@ public class Ui {
      * @param largestTaskSize Size of the day with the largest number of tasks.
      * @param largestColSize  Size of the largest column in the View Week output.
      */
-    public void printViewWeek(ArrayList<ArrayList<String[]>> tasks, Date startDate, int largestTaskSize,
-                              int largestColSize) {
+    public void printViewWeek(
+            ArrayList<ArrayList<String[]>> tasks, Date startDate, int largestTaskSize, int largestColSize) {
+        printViewWeekLegend();
         printViewWeekHeader(largestColSize);
         printViewWeekBody(startDate, largestColSize);
         printViewWeekDetails(tasks, largestTaskSize, largestColSize);
+    }
+
+    /**
+     * Prints the legend for ViewWeek command.
+     */
+    private void printViewWeekLegend() {
+        printLine();
+        String legend = "Legend: \n"
+                + ANSI_BG_BLACK + ANSI_BRIGHT_GREEN + "\tTodo\n"
+                + ANSI_BG_BLACK + ANSI_BRIGHT_RED + "\tDeadline\n"
+                + ANSI_BG_BLACK + ANSI_BRIGHT_CYAN + "\tEvent\n";
+        System.out.println(legend);
+        System.out.print(ANSI_RESET);
     }
 
     /**
@@ -462,14 +477,13 @@ public class Ui {
         for (int i = 0; i < largestColSize + DATE_SPACES - DESCRIPTION_SHORT_END; i++) {
             spaces += " ";
         }
+        System.out.print(ANSI_RESET);
         for (int i = 0; i < DAYS_IN_WEEK; i++) {
             if (i != DAYS_IN_WEEK - 1) {
-                System.out.print(" " + colouredText[i] + ANSI_BG_BLACK
-                        + calendarDates.get(i) + ANSI_RESET + spaces + "|");
+                System.out.print(" " + ANSI_BG_BLACK + calendarDates.get(i) + ANSI_RESET + spaces + "|");
             }
         }
-        System.out.print(" " + colouredText[DAYS_IN_WEEK - 1] + ANSI_BG_BLACK
-                + calendarDates.get(DAYS_IN_WEEK - 1) + ANSI_RESET + spaces);
+        System.out.print(" " + ANSI_BG_BLACK + calendarDates.get(DAYS_IN_WEEK - 1) + ANSI_RESET + spaces);
         printViewWeekBorder();
         System.out.println();
     }
@@ -506,9 +520,11 @@ public class Ui {
         for (int dayInWeek = 0; dayInWeek < DAYS_IN_WEEK; dayInWeek++) {
             int colSize = tasks.get(dayInWeek).size();
             if (taskNo < colSize) {
-                String task = getTaskDetails(tasks.get(dayInWeek).get(taskNo));
-                task = padTaskDetails(task, largestColSize);
-                System.out.print(task);
+                ArrayList<String[]> dailyTasks = tasks.get(dayInWeek);
+                String[] task = dailyTasks.get(taskNo);
+                String taskDetails = getTaskDetails(task);
+                taskDetails = padTaskDetails(task, taskDetails, largestColSize);
+                System.out.print(taskDetails);
                 if (dayInWeek != DAYS_IN_WEEK - 1) {
                     System.out.print("|");
                 } else {
@@ -541,17 +557,27 @@ public class Ui {
     /**
      * Pads the details of a task to fit into a day of the ViewWeek command output.
      *
+     * @param task           Array containing type, description and time of task.
      * @param details        Details of a task.
      * @param largestColSize Size of the largest column in the ViewWeek command output.
      * @return Padded details of a task.
      */
-    private String padTaskDetails(String details, int largestColSize) {
+    private String padTaskDetails(String[] task, String details, int largestColSize) {
         if (!isEven(largestColSize)) {
             largestColSize++;
         }
         String newDetails = " " + details;
-        while (newDetails.length() < largestColSize + DATE_SPACES) {
+        if (task[TYPE].equals(TODO)) {
+            newDetails = ANSI_BRIGHT_GREEN + newDetails + ANSI_RESET;
+        } else if (task[TYPE].equals(DEADLINE)) {
+            newDetails = ANSI_BRIGHT_RED + newDetails + ANSI_RESET;
+        } else if (task[TYPE].equals(EVENT)) {
+            newDetails = ANSI_BRIGHT_CYAN + newDetails + ANSI_RESET;
+        }
+        int length = newDetails.length() - ANSI_LENGTH;
+        while (length < largestColSize + DATE_SPACES) {
             newDetails += " ";
+            length++;
         }
         return newDetails;
     }
@@ -563,7 +589,10 @@ public class Ui {
      * @return String containing the details of a task.
      */
     private String getTaskDetails(String[] details) {
-        return details[DESCRIPTION] + " " + details[TIME];
+        if (details[TYPE].equals(TODO)) {
+            return details[DESCRIPTION];
+        }
+        return details[TIME] + " " + details[DESCRIPTION];
     }
 
     /**
@@ -571,7 +600,7 @@ public class Ui {
      *
      * @param largestColSize Longest possible description for task.
      */
-    public void printEntryBodySpace(int largestColSize) {
+    private void printEntryBodySpace(int largestColSize) {
         printViewWeekBorder();
         if (!isEven(largestColSize)) {
             largestColSize++;
@@ -588,6 +617,7 @@ public class Ui {
             }
         }
     }
+    //@@author jasperosy
 
     /**
      * Prints calendar.
@@ -797,7 +827,7 @@ public class Ui {
     /**
      * Print when Stop Tracker Command is completed.
      *
-     * @param tracker       description of Tracker object.
+     * @param tracker description of Tracker object.
      */
     public void printEndAtCurrent(Tracker tracker) {
         printLine();
@@ -810,7 +840,8 @@ public class Ui {
 
     /**
      * Print when Stop Tracker Command is completed.
-     * @param tracker          description of Tracker object.
+     *
+     * @param tracker description of Tracker object.
      */
     public void printPauseAtCurrent(Tracker tracker) {
         printLine();
@@ -961,7 +992,7 @@ public class Ui {
     /**
      * Print Tracker Diagram from TrackerList object.
      *
-     * @param moduleTrackerList   ArrayList of Tracker objects.
+     * @param moduleTrackerList ArrayList of Tracker objects.
      */
     public void printTrackerDiagram(TrackerList moduleTrackerList) {
         printLine();
@@ -982,7 +1013,7 @@ public class Ui {
     /**
      * Print a bar of Tracker Diagram according to number of 10 minute blocks.
      *
-     * @param segmentedTimeTaken    number of 10 minute blocks.
+     * @param segmentedTimeTaken number of 10 minute blocks.
      */
     private void printTrackerDiagramBar(int segmentedTimeTaken) {
         for (int i = 0; i < segmentedTimeTaken; i++) {

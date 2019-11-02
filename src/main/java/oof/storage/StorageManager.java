@@ -87,7 +87,7 @@ public class StorageManager {
         try {
             ArrayList<String> data = storage.loadFile(PATH_THRESHOLD);
             return Integer.parseInt(data.get(INDEX_THRESHOLD));
-        } catch (FileNotFoundException e) {
+        } catch (FileNotFoundException | NumberFormatException e) {
             return DEFAULT_THRESHOLD;
         }
     }
