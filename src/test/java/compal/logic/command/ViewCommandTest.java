@@ -114,7 +114,7 @@ class ViewCommandTest {
             + months[givenMonth] + " " + givenYear + " :\n");
 
         for (int i = 1; i <= days; i++) {
-            if (i < 9) {
+            if (i <= 9) {
                 monthlyTask.append(displayDayView("0" + i + "/" + givenMonth + "/" + givenYear, currList, type));
             } else {
                 monthlyTask.append(displayDayView(i + "/" + givenMonth + "/" + givenYear, currList, type));

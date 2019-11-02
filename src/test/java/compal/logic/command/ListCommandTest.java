@@ -52,7 +52,7 @@ class ListCommandTest {
     }
 
     private String listStub(TaskList taskList, String type) {
-        String listPrefix = "Here are the tasks in your list: \n";
+        String listPrefix = "Here are the tasks in your list sorted by chronological order: \n";
         String prefixType = "";
         if (type.equals("D")) {
             prefixType = "deadline";
@@ -63,32 +63,32 @@ class ListCommandTest {
         String listEmpty = "Looks like your list is empty!\nStart adding in your task by looking at the help command!";
 
         ArrayList<Task> toList = taskList.getArrList();
-        String finalList;
+
+
+        StringBuilder finalList;
         if (type.isEmpty()) {
-            finalList = listPrefix;
+            finalList = new StringBuilder(listPrefix);
         } else {
-            finalList = listPrefixTwo;
+            finalList = new StringBuilder(listPrefixTwo);
         }
-        int count = 1;
+
         for (Task t : toList) {
             if (type.isEmpty()) {
-                String taskString = count + "." + t.toString() + "\n";
-                finalList += taskString;
-                count += 1;
+                String taskString = t.toString() + "\n";
+                finalList.append(taskString);
             } else {
                 if (t.getSymbol().equals(type)) {
-                    String taskString = count + "." + t.toString() + "\n";
-                    finalList += taskString;
-                    count += 1;
+                    String taskString = t.toString() + "\n";
+                    finalList.append(taskString);
                 }
             }
-
-        }
-        if (count == 1) {
-            finalList = listEmpty;
         }
 
-        return finalList;
+        if (finalList.toString().isEmpty()) {
+            finalList = new StringBuilder(listEmpty);
+        }
+
+        return finalList.toString();
     }
 
 }

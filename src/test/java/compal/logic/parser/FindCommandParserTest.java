@@ -27,7 +27,7 @@ public class FindCommandParserTest {
 
     @Test
     void parse_correct() throws CommandException {
-        assertParseSuccess(parser," ", new FindCommand("").commandExecute(taskList),taskList);
+        assertParseSuccess(parser,"", new FindCommand("").commandExecute(taskList),taskList);
     }
 
 
