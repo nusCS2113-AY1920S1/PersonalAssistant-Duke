@@ -51,7 +51,7 @@ class ChatbotWindow extends InputWindow {
 
     @FXML
     protected void handleAction() {
-        String input = inputTextField.getText().replace("\n","");
+        String input = inputTextField.getText();
         storeUserInputHistory(input);
         try {
             Command command = ParserFactory.parse(input);

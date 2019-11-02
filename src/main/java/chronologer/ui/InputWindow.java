@@ -1,7 +1,8 @@
 package chronologer.ui;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Region;
 
@@ -18,7 +19,7 @@ public abstract class InputWindow extends UiComponent<Region> {
      * @param root contains the region node.
      */
     @FXML
-    TextArea inputTextField;
+    TextField inputTextField;
     private List<String> userInputHistory = new ArrayList<>();
     private int userInputPointer = 0;
     private String currentInput = null;
@@ -59,21 +60,15 @@ public abstract class InputWindow extends UiComponent<Region> {
      */
     @FXML
     private void handleKeyPress(KeyEvent keyEvent) {
-        switch (keyEvent.getCode()) {
-        case UP:
+        if (keyEvent.getCode() == KeyCode.UP) {
             keyEvent.consume();
             previous();
-            break;
-        case DOWN:
+        } else if (keyEvent.getCode() == KeyCode.DOWN) {
             keyEvent.consume();
             next();
-            break;
-        case ENTER:
+        } else if (keyEvent.getCode() == KeyCode.ENTER) {
             keyEvent.consume();
             handleAction();
-            break;
-        default:
-            break;
         }
     }
 
