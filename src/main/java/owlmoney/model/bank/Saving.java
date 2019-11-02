@@ -62,7 +62,7 @@ public class Saving extends Bank {
     }
 
     /**
-     * Creates an instance of a savings account.
+     * Creates an instance of a savings account from persistent storage storage.
      *
      * @param name          The name of the bank account.
      * @param currentAmount The current amount of money in  the bank account.
@@ -74,12 +74,6 @@ public class Saving extends Bank {
         this.type = SAVING;
         this.transactions = new TransactionList();
         this.recurringExpenditures = new RecurringExpenditureList();
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.DATE, 1);
-        calendar.set(Calendar.HOUR_OF_DAY, 0);
-        calendar.set(Calendar.MINUTE, 0);
-        calendar.set(Calendar.SECOND, 0);
-        calendar.add(Calendar.MONTH, 1);
         this.nextIncomeDate = nextIncomeDate;
         this.storage = new Storage(FILE_PATH);
     }
