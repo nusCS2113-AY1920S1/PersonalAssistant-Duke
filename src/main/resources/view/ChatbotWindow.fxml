@@ -14,7 +14,7 @@
             <VBox fx:id="dialogBoxContainer" prefHeight="614.0" prefWidth="454.0" style="-fx-background-color: #373737;" />
          </content>
       </ScrollPane>
-      <TextField fx:id="inputTextField" layoutY="613.0" onKeyPressed="#handleKeyPress" prefHeight="0.0" prefWidth="298.0" AnchorPane.bottomAnchor="1.0" AnchorPane.rightAnchor="74.0">
+      <TextField fx:id="inputTextField" layoutY="613.0" prefHeight="0.0" prefWidth="298.0" AnchorPane.bottomAnchor="1.0" AnchorPane.rightAnchor="74.0">
          <font>
             <Font size="17.0" />
          </font></TextField>
