@@ -17,7 +17,7 @@ public class CreateNoteCommand extends Command {
     private String defaultDirectoryPath = "data/notes/";
 
     private static final char[] ILLEGAL_CHARACTERS = { '/', '\n', '\r', '\t',
-            '\0', '\f', '`', '?', '*', '\\', '<', '>', '|', '\"', ':', '.', ','};
+        '\0', '\f', '`', '?', '*', '\\', '<', '>', '|', '\"', ':', '.', ','};
 
     /**
      * Constructor for CreateNoteCommand.
@@ -125,8 +125,7 @@ public class CreateNoteCommand extends Command {
      * @return True if file name contains illegal character.
      */
     private static boolean containsIllegal(String inputFileName, char illegalChar) {
-        if (inputFileName.indexOf(illegalChar) >= 0) return true;
-        return false;
+        return inputFileName.indexOf(illegalChar) >= 0;
     }
 
     /**

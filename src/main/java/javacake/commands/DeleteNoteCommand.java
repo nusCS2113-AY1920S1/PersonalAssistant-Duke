@@ -13,7 +13,7 @@ public class DeleteNoteCommand extends Command {
     private static String fullFilePath;
 
     private static final char[] ILLEGAL_CHARACTERS = { '/', '\n', '\r', '\t',
-            '\0', '\f', '`', '?', '*', '\\', '<', '>', '|', '\"', ':', '.', ','};
+        '\0', '\f', '`', '?', '*', '\\', '<', '>', '|', '\"', ':', '.', ','};
 
 
     /**
@@ -106,8 +106,7 @@ public class DeleteNoteCommand extends Command {
      * @return True if file name contains illegal character.
      */
     private static boolean containsIllegal(String inputFileName, char illegalChar) {
-        if (inputFileName.indexOf(illegalChar) >= 0) return true;
-        return false;
+        return inputFileName.indexOf(illegalChar) >= 0;
     }
 
     /**
