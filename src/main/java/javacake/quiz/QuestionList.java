@@ -11,7 +11,7 @@ import java.util.Random;
 import static javacake.quiz.QuizSession.logic;
 
 public class QuestionList {
-    private ArrayList<Question> tempList;
+    private ArrayList<Integer> chosenQuestionsIndex;
     private ArrayList<Question> chosenQuestions;
     /** The maximum number of questions in one session of a quiz. */
     public static final int MAX_QUESTIONS = 5;
@@ -28,9 +28,10 @@ public class QuestionList {
         questionType = type;
         this.filePath = logic.getFullFilePath();
         totalNumOfQns = logic.getNumOfFiles();
-        tempList = new ArrayList<>();
+        chosenQuestionsIndex = new ArrayList<>();
+        chosenQuestions = new ArrayList<>();
+        pickQuestions();
         loadQuestions();
-        chosenQuestions = pickQuestions();
     }
 
     public ArrayList<Question> getQuestionList() {
@@ -46,53 +47,54 @@ public class QuestionList {
                 + "\nCorrect answer: " + chosenQuestions.get(index).getAnswer();
     }
 
-    public boolean setAndCheckUserAnswer(int index, String input) {
+    public boolean setAndCheckUserAnswer(int index, String input) throws CakeException {
         chosenQuestions.get(index).setUserAnswer(input);
         return (chosenQuestions.get(index).isAnswerCorrect(input));
     }
 
     /**
-     * Method to get all questions in the given directory.
+     * Method to get questions from current directory with indexes from chosenQuestionsIndex.
      */
     public void loadQuestions() throws CakeException {
-        for (int i = 1; i <= totalNumOfQns; i++) {
+        for (Integer i : chosenQuestionsIndex) {
+            StringBuilder stringBuilder = new StringBuilder();
             try {
+                i += 1;
                 String fileContentPath = filePath + "/Qn" + i + ".txt";
                 InputStream inputStream = ClassLoader.getSystemClassLoader().getResourceAsStream(fileContentPath);
+                assert inputStream != null;
                 BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-                StringBuilder stringBuilder = new StringBuilder();
                 String sentenceRead;
                 while ((sentenceRead = reader.readLine()) != null) {
                     stringBuilder.append(sentenceRead).append("\n");
                 }
                 reader.close();
-                String[] questions = stringBuilder.toString().substring(0,stringBuilder.length() - 1).split("\\|\\s*");
-                this.tempList.add(new Question(questions[0], questions[1]));
+                
+                String read = stringBuilder.toString();
+                String[] questions = read.substring(0, stringBuilder.length() - 1).split("\\|\\s*");
+                this.chosenQuestions.add(new Question(questions[0], questions[1], Integer.parseInt(questions[2])));
+                
             } catch (Exception e) {
                 throw new CakeException("Error in loading file :(");
             }
         }
-        assert tempList.size() > 0;
+        assert chosenQuestions.size() > 0;
     }
 
-    /**
-     * Randomly selects MAX_QUESTIONS number of questions of the specified topic from the list of all questions.
-     * @return ArrayList of Question of specified topic of size MAX_QUESTIONS.
-     */
-    private ArrayList<Question> pickQuestions() {
+    private void pickQuestions() {
         Random rand = new Random();
-        ArrayList<Integer> chosenNumbers = new ArrayList<>();
-        ArrayList<Question> tempList2 = new ArrayList<>();
 
         for (int i = 0; i < MAX_QUESTIONS; i++) {
             int randomNum;
             do {
-                randomNum = rand.nextInt(tempList.size());
-            } while (chosenNumbers.contains(randomNum)); // prevents repeat questions
-            chosenNumbers.add(randomNum);
-            tempList2.add(tempList.get(randomNum));
+                randomNum = rand.nextInt(totalNumOfQns);
+            } while (chosenQuestionsIndex.contains(randomNum)); // prevents repeat questions
+            chosenQuestionsIndex.add(randomNum);
         }
-        assert (tempList2.size() == MAX_QUESTIONS);
-        return tempList2;
+        assert (chosenQuestionsIndex.size() == MAX_QUESTIONS);
+    }
+
+    public QuestionType getQuestionType() {
+        return questionType;
     }
 }

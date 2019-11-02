@@ -11,4 +11,4 @@ What should be in the blank?
  (1) System.out.println(x);
  (2) System.out.println(x)
  (3) Systemout.println(x);
- (4) System.println(x); | 1
+ (4) System.println(x); | 1 | 4

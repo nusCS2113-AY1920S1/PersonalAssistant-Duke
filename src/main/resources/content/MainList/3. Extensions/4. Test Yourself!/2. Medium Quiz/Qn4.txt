@@ -3,4 +3,4 @@ Varargs is short form for:
 (1) variable-length arguments
 (2) variable arguments
 (3) valid arguments
-(4) varying number of arguments | 1
+(4) varying number of arguments | 1 | 4

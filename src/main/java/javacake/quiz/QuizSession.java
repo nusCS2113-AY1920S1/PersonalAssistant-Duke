@@ -80,7 +80,11 @@ public class QuizSession implements QuizManager {
                         + "\n\n" + getQuizResult());
             }
         } else {
-            checkAnswer(index, input);
+            try {
+                checkAnswer(index, input);
+            } catch (CakeException e) {
+                throw new CakeException(e.getMessage() + getQuestion(index));
+            }
             return null;
         }
     }
@@ -228,8 +232,7 @@ public class QuizSession implements QuizManager {
     private void checkAnswer(int index, String input) throws CakeException {
         if (!isNumeric(input)) {
             String userWarning = "[!] Please input answers in the form of integer [!]\n";
-            String qnAgain = getQuestion(index);
-            throw new CakeException(userWarning + qnAgain);
+            throw new CakeException(userWarning);
         }
         if (questionList.setAndCheckUserAnswer(index, input)) {
             currScore++;
