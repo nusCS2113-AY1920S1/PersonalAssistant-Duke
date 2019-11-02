@@ -39,7 +39,8 @@ public class Ui {
         "list - see all resources and current reservations",
         "\t" + "list /item - see all loans and future reservations of a particular item",
         "\t" + "list /room - see all loans and future reservations of a particular room",
-        "deadlines - view all currently active loans and reservations"));
+        "deadlines - view all currently active loans and reservations",
+        "undo - undo the last command that modified inventory data"));
 
     /**
      * Constructor of the Ui. Initializes the scanner to take in user input,
@@ -178,7 +179,7 @@ public class Ui {
      * Prints the RIMS logo, as part of the RIMS welcome message.
      */
     public void printLogo() {
-        String logo = "\n"
+        String logo = "\n" 
                 +
                 tab + "          _____                    _____"
                 + "                    _____                    _____          \n"

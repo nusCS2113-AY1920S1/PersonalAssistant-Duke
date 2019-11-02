@@ -43,6 +43,8 @@ public class ReserveCommand extends Command {
         this.dateFrom = new Date(System.currentTimeMillis());
         this.stringDateTill = stringDateTill;
         this.userId = userId;
+        canModifyData = true;
+        commandUserInput = "loan " + roomName + " (room) until " + stringDateTill + " by user " + userId;
     }
 
     /**
@@ -59,6 +61,9 @@ public class ReserveCommand extends Command {
         this.dateFrom = new Date(System.currentTimeMillis());
         this.stringDateTill = stringDateTill;
         this.userId = userId;
+        canModifyData = true;
+        commandUserInput = "loan " + qty + " " + itemName + " (room) until " + stringDateTill + " by user " + userId;
+
     }
 
     /**
@@ -148,13 +153,4 @@ public class ReserveCommand extends Command {
         }
     }
 
-    @Override
-    public boolean canModifyData() {
-        return true;
-    }
-
-    @Override
-    public String getCommandUserInput() {
-        return "reserve";
-    }
 }

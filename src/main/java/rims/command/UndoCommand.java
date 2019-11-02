@@ -27,6 +27,8 @@ public class UndoCommand extends Command {
      */
     public UndoCommand(Command previousCommand) {
         prevCommand = previousCommand;
+        canModifyData = false;
+        commandUserInput = "undo";
     }
 
     /**
@@ -42,19 +44,15 @@ public class UndoCommand extends Command {
      */
     @Override
     public void execute(Ui ui, Storage storage, ResourceList resources) throws ParseException, IOException, RimsException {
+        if (prevCommand == null) {
+            ui.formattedPrint("No command that has modified this inventory yet!");
+            return;
+        }
+
         storage.readResourceFile();
         resources.setResources(storage.getResources());
 
-        ui.printLine();
-        ui.print("The previous command has been undone!");
-        ui.printLine();
+        ui.formattedPrint("The following command has been undone: " + prevCommand.commandUserInput());
     }
 
-    @Override
-    public boolean canModifyData() {
-        return false;
-    }
-
-    @Override
-    public String getCommandUserInput() { return "undo"; }
 }
