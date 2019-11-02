@@ -118,7 +118,7 @@ public class ListCommand extends Command {
             Ui.printContactTable(contactList);
             //@@author
         } else if (record.contains("loan")) {
-            if ("loans".equals(record)) {
+            if ("loan".equals(record)) {
                 //@@author A0171206R
                 ArrayList<Loan> loanList = wallet.getLoanList().getLoanList();
                 Ui.printLoanTable(loanList);
