@@ -56,7 +56,7 @@ public class ListCommand extends Command {
     @Override
     public boolean execute(Wallet wallet) {
         if (record.contains("recurring")) {
-            if (record.equals("recurring")) {
+            if ("recurring".equals(record)) {
                 System.out.println(MESSAGE_LIST_RECURRING_EXPENSES);
                 ArrayList<Expense> recList = wallet.getExpenseList().getRecurringExpense();
                 Ui.printExpenseTable(recList);
@@ -79,7 +79,7 @@ public class ListCommand extends Command {
                 }
             }
         } else if (record.contains("all")) {
-            if (record.equals("all")) {
+            if ("all".equals(record)) {
                 ArrayList<Loan> loanList = wallet.getLoanList().getLoanList();
                 Ui.printLoanTable(loanList);
                 ArrayList<Expense> expenseList = wallet.getExpenseList().getExpenseList();
@@ -111,14 +111,14 @@ public class ListCommand extends Command {
                     System.out.println(MESSAGE_USAGE);
                 }
             }
-        } else if (record.equals("contact")) {
+        } else if ("contact".equals(record)) {
             //@@author Xdecosee
             System.out.println(MESSAGE_LIST_CONTACTS);
             ArrayList<Contact> contactList = wallet.getContactList().getContactList();
             Ui.printContactTable(contactList);
             //@@author
         } else if (record.contains("loan")) {
-            if (record.equals("loan")) {
+            if ("loans".equals(record)) {
                 //@@author A0171206R
                 ArrayList<Loan> loanList = wallet.getLoanList().getLoanList();
                 Ui.printLoanTable(loanList);
@@ -143,7 +143,7 @@ public class ListCommand extends Command {
                 }
             }
         } else if (record.contains("expense")) {
-            if (record.equals("expense")) {
+            if ("expense".equals(record)) {
                 ArrayList<Expense> expenseList = wallet.getExpenseList().getExpenseList();
                 System.out.println(MESSAGE_LIST_EXPENSES);
                 Ui.printExpenseTable(expenseList);
