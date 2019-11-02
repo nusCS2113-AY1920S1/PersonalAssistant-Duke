@@ -893,7 +893,10 @@ public class Profile {
             Date dateInFormat = dateFormat.parse(date);
             String year = importDataRow[4];
             int integerYear = Integer.parseInt(year);
-            Bond newBond = new Bond(bondName, doubleAmount, doubleRate, dateInFormat, integerYear);
+            String stringNextDateToCreditInterest = importDataRow[5];
+            Date nextDateToCreditInterestInFormat = dateFormat.parse(stringNextDateToCreditInterest);
+            Bond newBond = new Bond(bondName, doubleAmount, doubleRate, dateInFormat, integerYear
+                    , nextDateToCreditInterestInFormat);
             profileImportNewBonds(bankName, newBond);
         }
     }

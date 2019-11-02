@@ -305,9 +305,8 @@ public class Investment extends Bank {
             String stringAmount = decimalFormat.format(amount);
             String stringRate = decimalFormat.format(rate);
             String stringYear = Integer.toString(year);
-
             exportArrayList.add(new String[]
-                {bondName,stringAmount,stringRate,boughtDate,stringYear, nextDateToCreditInterest});
+                {bondName, stringAmount, stringRate, boughtDate, stringYear, nextDateToCreditInterest});
         }
         return exportArrayList;
     }

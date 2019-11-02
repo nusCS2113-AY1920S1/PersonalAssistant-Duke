@@ -37,6 +37,16 @@ public class Bond {
         this.nextDateToCreditBondCouponInterest = calculateNextDateToCreditInterest(this.date);
     }
 
+    public Bond(String name, double amount, double rate, Date date, int year, Date nextDateToCreditBondCouponInterest) {
+        this.name = name;
+        this.amount = amount;
+        this.rate = rate;
+        this.date = date;
+        this.year = year;
+        this.category = "bonds";
+        this.nextDateToCreditBondCouponInterest = nextDateToCreditBondCouponInterest;
+    }
+
     /**
      * Calculates the next date the bond interest will be credited upon bond creation.
      *

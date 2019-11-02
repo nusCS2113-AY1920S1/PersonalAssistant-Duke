@@ -111,7 +111,7 @@ public abstract class ParseBond {
      */
     void checkInterestRate(String rateString) throws ParserException {
         if (!RegexUtil.regexCheckInterestRate(rateString)) {
-            throw new ParserException("Interest rate should be less than 100%");
+            throw new ParserException("Interest rate should be a positive number less than 100%");
         }
     }
 

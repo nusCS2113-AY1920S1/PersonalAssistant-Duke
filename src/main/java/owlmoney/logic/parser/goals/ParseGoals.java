@@ -148,7 +148,7 @@ public abstract class ParseGoals {
      */
     void checkDay(String variable, String valueString) throws ParserException {
         if (!RegexUtil.regexCheckDay(valueString)) {
-            throw new ParserException(variable + " can only be a positive number up to only 365 days!");
+            throw new ParserException(variable + " can only be a positive integer up to only 365 days!");
         }
     }
 
