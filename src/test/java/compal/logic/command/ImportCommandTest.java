@@ -8,6 +8,7 @@ import compal.model.tasks.TaskList;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -62,6 +63,8 @@ class ImportCommandTest {
         }
         ImportCommand importCommand = new ImportCommand("fake");
         assertCommandFailure(importCommand, taskListMain, MESSAGE_FILE_NON_ICS);
+        File file = new File("fake.ics");
+        file.delete();
     }
 
     @Test
@@ -78,5 +81,7 @@ class ImportCommandTest {
 
         String testedString = test.feedbackToUser;
         Assertions.assertEquals(expectedString, testedString);
+        File file = new File("testExport.ics");
+        file.delete();
     }
 }

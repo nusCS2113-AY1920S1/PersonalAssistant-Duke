@@ -11,13 +11,17 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.Scanner;
 import java.util.logging.Logger;
 
 public class ImportCommand extends Command {
-
+    public static final String MESSAGE_USAGE = "import\n\t"
+        + "Format: import /file-name <name of file>\n\n\t"
+        + "Note: content in \"<>\": need to be fulfilled by the user\n\n"
+        + "This command will import an ics file schedule to COMPal\n"
+        + "Examples:\n\t"
+        + "import /file-name cal\n\t\t"
+        + "import cal.ics schedule to COMPal.";
     public static final String MESSAGE_SUCCESS = "You have successfully imported your schedule!\n";
     public static final String MESSAGE_FILE_NON_EXIST = "Error: File specified to import does not exist!";
     public static final String MESSAGE_FILE_NON_ICS = "Error: File is not a ICS file format that can be read from!";

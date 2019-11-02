@@ -30,10 +30,17 @@ import java.util.logging.Logger;
 
 
 public class ExportCommand extends Command {
-
+    public static final String MESSAGE_USAGE = "export\n\t"
+        + "Format: export /file-name <name of file>\n\n\t"
+        + "Note: content in \"<>\": need to be fulfilled by the user\n\n"
+        + "This command will export COMPal current schedule to an ics file\n"
+        + "Examples:\n\t"
+        + "export /file-name cal\n\t\t"
+        + "export COMPal schedule to cal.ics.";
     public static final String MESSAGE_UNABLE_CREATE_FILE = "Error: Unable to create file! Try again!";
     public static final String MESSAGE_UNABLE_CREATE_CAL = "Error: Unable to output to calender!";
     public static final String MESSAGE_SUCCESS = "Your COMPal schedule has been successfully exported!\n";
+    public static final String MESSAGE_EMPTY_LIST = "Looks like your schedule is empty and theres nothing to export!";
 
     private String fileName;
     private static final Logger logger = LogUtils.getLogger(ExportCommand.class);
@@ -51,6 +58,10 @@ public class ExportCommand extends Command {
     @Override
     public CommandResult commandExecute(TaskList taskList) throws CommandException {
         logger.info("Attempting to execute export command");
+        ArrayList<Task> toList = taskList.getArrList();
+        if (toList.isEmpty()) {
+            throw new CommandException(MESSAGE_EMPTY_LIST);
+        }
 
         Calendar calendar = createCalendar(taskList);
 

@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -58,15 +59,18 @@ class ExportCommandTest {
             e.printStackTrace();
         }
 
-        String expectedString = "BEGIN:VCALENDAR\n" + "PRODID:-//Ben Fortuna//iCal4j 1.0//EN\n" + "VERSION:2.0\n"
-            + "CALSCALE:GREGORIAN\n" + "BEGIN:VEVENT\n" + "SUMMARY:CS2105 Lecture\n"
-            + "DESCRIPTION: Priority:medium\n" + "DTSTART:20191001T140000\n"
+        String expectedString = "BEGIN:VCALENDAR\n" + "PRODID:-//Ben Fortuna//iCal4j 1.0//EN\n"
+            + "VERSION:2.0\n" + "CALSCALE:GREGORIAN\n" + "BEGIN:VEVENT\n"
+            + "SUMMARY:CS2105 Lecture\n" + "DESCRIPTION: Priority:medium\n" + "DTSTART:20191001T140000\n"
             + "DTEND:20191001T150000\n" + "BEGIN:VALARM\n"
             + "TRIGGER;VALUE=DATE-TIME:20191001T060000Z\n" + "ACTION:DISPLAY\n" + "DESCRIPTION:CS2105 Lecture\n"
             + "END:VALARM\n" + "END:VEVENT\n" + "BEGIN:VEVENT\n"
             + "SUMMARY:Deadline 1\n" + "DESCRIPTION: Priority:high\n" + "DTSTART:20191003T150000\n"
-            + "DTEND:20191003T150000\n" + "END:VEVENT\n"
-            + "END:VCALENDAR\n";
+            + "DTEND:20191003T150000\n" + "BEGIN:VALARM\n"
+            + "TRIGGER;VALUE=DATE-TIME:20191003T070000Z\n" + "ACTION:DISPLAY\n" + "DESCRIPTION:Deadline 1\n"
+            + "END:VALARM\n" + "END:VEVENT\n" + "END:VCALENDAR\n";
         Assertions.assertEquals(expectedString, testedString);
+        File file = new File("testExport1.ics");
+        file.delete();
     }
 }
