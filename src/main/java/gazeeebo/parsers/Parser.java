@@ -12,7 +12,7 @@ import gazeeebo.commands.capCalculator.CAPCommand;
 import gazeeebo.commands.tasks.TaskCommand;
 import gazeeebo.exception.DukeException;
 import gazeeebo.commands.*;
-import gazeeebo.commands.contact.ContactCommand;
+import gazeeebo.commands.Contact.ContactCommand;
 import gazeeebo.commands.help.HelpCommand;
 import gazeeebo.commands.places.PlacesCommand;
 

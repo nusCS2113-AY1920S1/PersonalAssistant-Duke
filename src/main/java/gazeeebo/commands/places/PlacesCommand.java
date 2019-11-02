@@ -60,7 +60,18 @@ public class PlacesCommand extends Command {
                 } else if (ui.fullCommand.contains("help")) {
                         System.out.println(helpPlaces);
                 } else if (ui.fullCommand.equals("esc")) {
-                    System.out.println("Going back to Main Menu");
+                    System.out.println("Go back to Main Menu...\n" +
+                            "Content Page:\n" +
+                            "------------------ \n" +
+                            "1. help\n" +
+                            "2. contacts\n" +
+                            "3. expenses\n" +
+                            "4. places\n" +
+                            "5. tasks\n" +
+                            "6. cap\n" +
+                            "7. spec\n" +
+                            "8. moduleplanner\n" +
+                            "9. notes\n");
                     isExitFromPlaces = true;
                 } else if (ui.fullCommand.equals("undo")){
                      places = UndoPlacesCommand.Undo(places,oldplaces,storage);

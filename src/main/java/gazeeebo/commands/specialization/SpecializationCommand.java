@@ -3,6 +3,7 @@ package gazeeebo.commands.specialization;
 import gazeeebo.TriviaManager.TriviaManager;
 import gazeeebo.UI.Ui;
 import gazeeebo.commands.Command;
+import gazeeebo.exception.DukeException;
 import gazeeebo.storage.Storage;
 import gazeeebo.tasks.Task;
 
@@ -11,7 +12,7 @@ import java.util.*;
 
 public class SpecializationCommand extends Command {
     @Override
-    public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<ArrayList<Task>> commandStack, ArrayList<Task> deletedTask, TriviaManager triviaManager) throws IOException {
+    public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<ArrayList<Task>> commandStack, ArrayList<Task> deletedTask, TriviaManager triviaManager) throws IOException, DukeException {
         HashMap<String, ArrayList<ModuleCategory>> sMap = storage.Specialization(); //Read the file
         Map<String, ArrayList<ModuleCategory>> specMap = new TreeMap<>(sMap);
         HashMap<String, ArrayList<String>> eMap = storage.completedElectives(); //Read the file
@@ -38,7 +39,18 @@ public class SpecializationCommand extends Command {
 
             ui.readCommand();
         }
-        System.out.println("Go back to Main Menu");
+        System.out.println("Go back to Main Menu...\n" +
+                "Content Page:\n" +
+                "------------------ \n" +
+                "1. help\n" +
+                "2. contacts\n" +
+                "3. expenses\n" +
+                "4. places\n" +
+                "5. tasks\n" +
+                "6. cap\n" +
+                "7. spec\n" +
+                "8. moduleplanner\n" +
+                "9. notes\n");
 
     }
     @Override

@@ -1,4 +1,4 @@
-package gazeeebo.commands.contact;
+package gazeeebo.commands.Contact;
 
 import gazeeebo.storage.Storage;
 import gazeeebo.tasks.Task;
@@ -81,7 +81,18 @@ public class ContactCommand extends Command {
             System.out.println("What do you want to do next ?");
             ui.readCommand();
         }
-        System.out.print("Going back to Main Menu\n");
+        System.out.println("Go back to Main Menu...\n" +
+                "Content Page:\n" +
+                "------------------ \n" +
+                "1. help\n" +
+                "2. contacts\n" +
+                "3. expenses\n" +
+                "4. places\n" +
+                "5. tasks\n" +
+                "6. cap\n" +
+                "7. spec\n" +
+                "8. moduleplanner\n" +
+                "9. notes\n");
     }
 
     /**
