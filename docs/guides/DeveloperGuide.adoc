@@ -169,37 +169,59 @@ image::EmailContentParseHelper.png[Content Parsing, 800]
 ==== Email Tagging
 *Email Manager* allows user to tag emails by tags.
 
+===== Current Implementation
 * Format: `email update ITEM_NUMBER [-tag TAG1] [-tag TAG2]…`​
 * Note: Tags the specified item with the tag(s) minimum number of tags is 1.
 * Eg: `email update 2 -tag Fun -tag Project` : tags 2nd email in the list with the tags "Fun" and "Project".
 
 Following is the activity diagram when the command is executed:
-[#img-email-tag-update]
+[#img-email-tag-activity-diagram]
 [caption="Figure N+1: "]
-image::emailTagActivityDiagram.jpg[Email Tagging Activity Diagram, 800]
+image::emailTagActivityDiagram.jpg[Email Tag Activity Diagram, 800, caption="sf"]
 
-===== Current Implementation
+The following sequence diagram below will explain how the `email update` command works in detail:
+
+[#img-email-tag-sequence-diagram]
+[caption="Figure N+1: "]
+image::emailTagSequenceDiagram.jpg[Email Tag Sequence Diagram, 800]
+
+An example usage of the command is as follows:
+
+*Step 1* :
+
+*Step 2* :
 
 ===== Design Considerations
 
 ==== Email Filtering by Tag(s)
 *Email Manager* allows user to filter emails by tag(s).
 
+===== Current Implementation
 * Format: `list [-tag TAG1] [-tag TAG2]…`
 * Note: Gives a list of emails with the tags. Minimum number of tags is 1, and the maximum is 2.
 * Eg: `email list -tag Fun -tag Project`
 
 Following is the activity diagram when the command is executed:
 [#img-email-filter]
-[caption="Figure N+1: "]
+[caption="Figure n: "]
 image::emailFilterActivityDiagram.jpg[Email Filtering Activity Diagram, 800]
 
-===== Current Implementation
+The following sequence diagram below will explain how the `email update` command works in detail:
+
+[#img-email-filter-sequence-diagram]
+[caption="Figure N+1: "]
+image::emailFilterSequenceDiagram.jpg[Email Filter Sequence Diagram, 800]
+
+An example usage of the command is as follows:
+
+*Step 1* :
+
+*Step 2* :
 
 ===== Design Considerations
-
 The tags associated with emails is stored in HashMap<String, HashMap<String, EmailList>>,
 where the String here refers to the tag name, and EmailList is an ArrayList<Email>.
+
 
 
 == Documentation

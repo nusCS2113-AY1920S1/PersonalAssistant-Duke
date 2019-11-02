@@ -33,7 +33,7 @@ that allows users to view email and task details in an appealing, well-organized
 
 The figure below shows interface of our app:
 
-image::../images/Screenshot (2).png[Duke Email Manager]
+image::UI(2).png[Duke Email Manager]
 TODO: Annotate this image
 
 My role was mainly to design and write the codes for email managing including email showing, email tagging
