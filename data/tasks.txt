@@ -1,40 +1,26 @@
 [
   {
-    "name": "john",
+    "name": "job A",
     "isDone": false,
-    "memberList": [],
+    "memberList": [
+      "P1"
+    ],
     "skillReqList": []
   },
   {
-    "name": "james",
+    "name": "job B",
     "isDone": false,
-    "memberList": [],
-    "skillReqList": [
-      "yo"
-    ]
-  },
-  {
-    "name": "null",
-    "isDone": false,
-    "memberList": [],
+    "memberList": [
+      "P1"
+    ],
     "skillReqList": []
   },
   {
-    "name": "lame",
+    "name": "job C",
     "isDone": false,
-    "memberList": [],
-    "skillReqList": []
-  },
-  {
-    "name": "hi",
-    "isDone": false,
-    "memberList": [],
-    "skillReqList": []
-  },
-  {
-    "name": "yooo",
-    "isDone": false,
-    "memberList": [],
+    "memberList": [
+      "P1"
+    ],
     "skillReqList": []
   }
 ]

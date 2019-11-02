@@ -7,6 +7,8 @@ import model.Model;
 
 import java.util.Date;
 
+//@@author JasonChanWQ
+
 public class EditTaskDateTimeCommand extends Command {
 
     private static final String SUCCESS_MESSAGE = "The deadline has been changed to: ";
@@ -19,7 +21,6 @@ public class EditTaskDateTimeCommand extends Command {
         this.newDate = newDate;
     }
 
-    //@@author JasonChanWQ
     @Override
     public CommandOutput execute(Model model) throws DukeException {
         if (taskIndex < 1 || taskIndex > model.getTaskListSize()) {

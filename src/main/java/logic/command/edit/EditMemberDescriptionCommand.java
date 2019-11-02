@@ -7,6 +7,8 @@ import model.Member;
 import model.Model;
 import model.Task;
 
+//@@author JasonChanWQ
+
 public class EditMemberDescriptionCommand extends Command {
 
     private static final String SUCCESS_MESSAGE = " has been renamed to: ";

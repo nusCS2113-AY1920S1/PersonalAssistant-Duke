@@ -143,12 +143,12 @@ public class Task {
         return false;
     }
 
-    //@@ JasonChanWQ
+    //@@author JasonChanWQ
     public boolean hasMember(String oldName) {
         return memberList.contains(oldName);
     }
 
-    //@@ JasonChanWQ
+    //@@author JasonChanWQ
     public void updateMember(String oldName, String newName) {
         memberList.set(memberList.indexOf(oldName), newName);
     }

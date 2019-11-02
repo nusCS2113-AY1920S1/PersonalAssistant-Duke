@@ -125,7 +125,7 @@ public class Member {
         return skillList;
     }
 
-    //@@ JasonChanWQ
+    //@@author JasonChanWQ
     @Override
     public boolean equals(Object obj) {
         return this == obj // if this == obj return true

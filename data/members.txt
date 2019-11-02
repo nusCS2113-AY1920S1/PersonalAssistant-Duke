@@ -1,1 +1,21 @@
-[]
+[
+  {
+    "name": "P1",
+    "taskList": [
+      "job A",
+      "job B",
+      "job C"
+    ],
+    "skillList": []
+  },
+  {
+    "name": "P2",
+    "taskList": [],
+    "skillList": []
+  },
+  {
+    "name": "P3",
+    "taskList": [],
+    "skillList": []
+  }
+]
