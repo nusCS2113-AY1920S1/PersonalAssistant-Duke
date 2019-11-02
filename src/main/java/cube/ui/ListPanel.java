@@ -4,9 +4,9 @@ import cube.model.food.Food;
 import cube.model.food.FoodList;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
-import javafx.fxml.FXML;
 
 public class ListPanel extends UiManager<ListView> {
     private static final String FXML = "ListPanel.fxml";
@@ -22,7 +22,7 @@ public class ListPanel extends UiManager<ListView> {
         super(FXML);
         ObservableList<Food> observableList = FXCollections.observableArrayList(foodList.getFoodList());
         productListView.setItems(observableList);
-        //productListView.setCellFactory(listView -> new ListViewCell());
+        productListView.setCellFactory(listView -> new ListViewCell());
     }
 
     public void updateProductList(FoodList foodList) {
