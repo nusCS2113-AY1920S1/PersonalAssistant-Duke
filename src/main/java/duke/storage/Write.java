@@ -11,12 +11,15 @@ import duke.model.meal.MealList;
 import duke.model.user.User;
 import duke.model.wallet.Wallet;
 
+import java.time.LocalDate;
+
 /**
  * This object is in charge of all writing to save operations.
  */
 public class Write {
     FilePaths filePaths = new FilePaths();
-    Gson gson = new GsonBuilder().setPrettyPrinting().create();
+    private Gson gson = new GsonBuilder().setPrettyPrinting()
+            .registerTypeAdapter(LocalDate.class, new LocalDateAdapter()).create();
 
     /**
      * This is a function that will update the input/output file from the current arraylist of meals.

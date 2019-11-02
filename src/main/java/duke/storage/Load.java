@@ -30,7 +30,10 @@ public class Load {
     private static FilePaths filePaths;
     // Flag to set if jar resource should be called if user file does not exist in host system.
     private static final boolean useResourceAsBackup = true;
-    private Gson gson = new GsonBuilder().setPrettyPrinting().create();
+    private Gson gson = new GsonBuilder().setPrettyPrinting()
+            .registerTypeAdapter(LocalDate.class, new LocalDateAdapter()).create();
+
+
 
 
     public Load() {
@@ -47,7 +50,7 @@ public class Load {
         Type mealListHashMap = new TypeToken<HashMap<LocalDate, ArrayList<Meal>>>(){}.getType();
         bufferedReader = FileUtil.readFile(userMealFilePathStr, useResourceAsBackup);
         try {
-            HashMap<LocalDate, ArrayList<Meal>> data = gson.fromJson(bufferedReader,mealListHashMap);
+            HashMap<LocalDate, ArrayList<Meal>> data = gson.fromJson(bufferedReader, mealListHashMap);
             if (data != null) {
                 meals.setMealTracker(data);
                 bufferedReader.close();
