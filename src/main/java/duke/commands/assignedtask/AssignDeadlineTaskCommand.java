@@ -44,7 +44,7 @@ public class AssignDeadlineTaskCommand implements Command {
      */
     @Override
     public void execute(AssignedTaskManager assignedTaskManager, TaskManager taskManager, PatientManager patientManager,
-                        Ui ui, StorageManager storageManager) throws DukeException {
+                        DukeUi dukeUi, StorageManager storageManager) throws DukeException {
         try {
             if (userInput.length < 3 || userInput[0].charAt(0) != '#' || userInput[1].charAt(0) != '#') {
                 throw new DukeException("Invalid format. Please follow format: "
