@@ -83,7 +83,7 @@ public class Recipe {
     public String getViewString() {
         return LABEL_TITLE + this.recipeTitle.toString() + "\n"
                 + "\n"
-                + LABEL_PREPTIME + this.prepTime.toString()
+                + LABEL_PREPTIME + this.prepTime.toString() + "\n"
                 + "\n"
                 + LABEL_RATING + this.checkRating() + "\n"
                 + "\n"

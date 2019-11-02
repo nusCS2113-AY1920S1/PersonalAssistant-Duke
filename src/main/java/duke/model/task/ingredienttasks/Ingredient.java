@@ -105,7 +105,7 @@ public class Ingredient {
     }
 
     public String toSaveString() {
-        return ingredientName + " | " + quantity + " | " + unit + " | " + additionalInfo;
+        return ingredientName + " , " + quantity + " , " + unit + " , " + additionalInfo;
     }
 
     public String toString() {
