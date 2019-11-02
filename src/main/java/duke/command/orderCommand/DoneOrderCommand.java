@@ -24,7 +24,7 @@ public class DoneOrderCommand extends Cmd<Order> {
     }
 
     @Override
-    public void execute(GenericList<Order> orderList, Ui ui, Storage storage) throws DukeException {
+    public void execute(GenericList<Order> orderList, Ui ui, Storage orderStorage) throws DukeException {
         if (orderList.size()==0) {
             throw new DukeException("No order in the list! No order can be done!");
         }
@@ -58,7 +58,7 @@ public class DoneOrderCommand extends Cmd<Order> {
 
 
         } else {
-            throw new DukeException("Must enter a valid order number, between 1 and " + orderList.size());
+            throw new DukeException("Must enter a valid order number, between 1 and " + orderList.size() + " to be done");
         }
     }
 }

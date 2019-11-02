@@ -6,6 +6,7 @@ import duke.task.Task;
 import duke.task.TaskList;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -125,4 +126,17 @@ public abstract class Storage<T> {
         Files.write(path, contentSoFar, StandardCharsets.UTF_8);
     }
 
+    /**
+     * Used to clear all info in the storage file.
+     */
+    public void clearInfoForFile() throws DukeException {
+        File file = new File(filePath);
+        try {
+            if (!file.exists()) { file.createNewFile(); }
+            FileWriter fileWriter = new FileWriter(file);
+            fileWriter.write("");
+            fileWriter.flush();
+            fileWriter.close();
+        } catch (IOException e) { throw new DukeException("Error when clearing the list"); }
+    }
 }

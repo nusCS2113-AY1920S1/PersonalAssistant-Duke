@@ -24,7 +24,7 @@ public class DeleteOrderCommand extends Cmd<Order> {
     }
 
     @Override
-    public void execute(GenericList<Order> orderList, Ui ui, Storage storage) throws DukeException {
+    public void execute(GenericList<Order> orderList, Ui ui, Storage orderStorage) throws DukeException {
         if (orderList.size()==0) { throw new DukeException("No order in the list! No order can be removed!"); }
         if (orderIndex < orderList.size() && orderIndex >= 0) {
             Order removed = orderList.getEntry(orderIndex);
@@ -41,9 +41,8 @@ public class DeleteOrderCommand extends Cmd<Order> {
 //                    //new DeleteDishCommand(dishIndex)
 //                }
 //            }
-
-            orderList.removeEntry(orderIndex);
             ui.showRemovedOrder(removed.toString(), orderList.size());
+            orderList.removeEntry(orderIndex);
 
 //            List<String> fileContent = null;
 //            try {
@@ -54,7 +53,7 @@ public class DeleteOrderCommand extends Cmd<Order> {
 //                throw new DukeException("Error while cancelling the order from the hard disc.");
 //            }
         } else {
-            throw new DukeException("Please enter a valid order number between 1 and " + orderList.size() + " to remove.");
+            throw new DukeException("Please enter a valid order number between 1 and " + orderList.size() + " to remove");
         }
     }
 

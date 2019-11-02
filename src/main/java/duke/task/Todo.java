@@ -1,5 +1,6 @@
 package duke.task;
 
+import duke.exception.DukeException;
 import duke.parser.Convert;
 
 import java.util.Date;
@@ -20,7 +21,7 @@ public class Todo extends Task {
     }
 
     @Override
-    public void setNewDate(String date) {
+    public void setNewDate(String date) throws DukeException {
         this.date = Convert.stringToDate(date);
     }
 
