@@ -122,6 +122,7 @@ public class MainWindow extends AnchorPane {
 
         this.taskList = duke.getTaskList();
         this.degreeList = duke.getDegreeList();
+        this.degreeManager = duke.getDegreesManager(); //gets the entire degree manager from duke, only done once
 
         String countString;
 
@@ -179,6 +180,9 @@ public class MainWindow extends AnchorPane {
 
         this.taskList = duke.getTaskList();
         this.degreeList = duke.getDegreeList();
+
+        boolean degreeFoundFlag = degreeManager.getFoundFlag();
+
         this.dataTask.clear();
         this.dataChoices.clear();
 
@@ -225,12 +229,12 @@ public class MainWindow extends AnchorPane {
             Scanner temp = new Scanner(input);
             String command = temp.next();
 
-            if (command.matches("detail") && (!typoFlag)) {
+            if (command.matches("detail") && (!typoFlag) && (degreeFoundFlag)) {
                 tabPane.getSelectionModel().select(tabDegrees);
                 //tabDegrees.setText("hi"); use these to change the degree tab name
                 this.dataDegrees.clear();
                 String degreeName = temp.next();
-                this.degreeManager = duke.getDegreesManager(); //gets the entire degree manager from duke
+
 
                 List<Module> moduleList = new ArrayList<>(this.degreeManager.getModuleList(degreeName).getModules());
                 NonDescriptive generalMod = new NonDescriptive("General Education Modules", 20);

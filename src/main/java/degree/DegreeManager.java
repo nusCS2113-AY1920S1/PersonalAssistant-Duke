@@ -11,6 +11,7 @@ import java.util.*;
 public class DegreeManager {
     //private Map<String, List<String>> degrees = new HashMap<>();
     private Map<String, Degree> degreeInfo = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
+    private boolean foundFlag = true;
 
     /**
      * Constructs a degree manager class which handles queries for degrees and returns the appropiate information
@@ -58,8 +59,11 @@ public class DegreeManager {
     }
 
     public void print(String degree) throws DukeException {
-        if(!degreeInfo.containsKey(degree))
+        this.foundFlag = true;
+        if(!degreeInfo.containsKey(degree)) {
+            this.foundFlag = false;
             throw new DukeException(degree + " was not found in our records!");
+        }
         else
             degreeInfo.get(degree).print();
     }
@@ -88,5 +92,14 @@ public class DegreeManager {
      */
     public ModuleList getModuleList(String degree) {
         return degreeInfo.get(degree).getModuleList();
+    }
+
+    /**
+     * Method to return a flag to check if a degree exists.
+     *
+     * @return boolean check for existence of a degree.
+     */
+    public boolean getFoundFlag() {
+        return this.foundFlag;
     }
 }
