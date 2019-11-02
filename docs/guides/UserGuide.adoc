@@ -355,14 +355,6 @@ and vice versa.
 
 ==== Detect Anomalies (coming in v2.0)
 
-==== Tagging a task: `tag`
-Format: `tag ITEM_NUMBER -tag TAG1 [-tag TAG2]...` +
-
-Tags the specified item with the tag(s) minimum number of tags is 1.
-
-Example: +
-`tag 1 -tag fun`
-
 ==== Linking with emails: `link`
 Format: `link ITEM_NUMBER [-email EMAIL_NUMBER]...` +
 
