@@ -1,13 +1,5 @@
 [
   {
-    "name": "Job A",
-    "isDone": true,
-    "memberList": [
-      "P1",
-      "P2"
-    ]
-  },
-  {
     "name": "Job B",
     "isDone": false,
     "memberList": [
