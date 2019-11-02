@@ -62,15 +62,27 @@ This is assuming you have a JDK version of `11` and above.
 
 === Architecture
 
-Our integration approach would be bottom-up, since we are morphing the original Duke Assistant into our ModPlanner application, some of the components can be adapted and reused of other purposes. +
-
-The high-level UML Diagram of ModPlan can be seen below:
-
-image::Architecture.png[]
+Our integration approach would be bottom-up, as some of the components we have utilised from a previous project can be adapted and reused of other purposes. +
 
 In that way, our implementation approach would also be incremental as oppose to big-bang, since we would need to gradually alter and test out which portions of Duke is reusable in ModPlanner.
 
+The *architecture diagram* of ModPlan can be seen in the below diagram, where it shows the high-level architecture design of our project:
 
+image::ArchitectureDiagram.png[]
+
+As seen here, the user interacts with the *Parser* through the command line interface (CLI), which sorts through the user input and calls various commands under the *Command* section. 
+
+The classes within *Command* will then utilise data pulled from the *Storage* and *JsonWrapper*, who pull data both locally as well as from NUSMODS API through the *RequestsData*.
+
+Following which, the *Command* classes perform their execution of the feature, and update the *Storage* to store data that has changed. It also shows the user the completed function by printing any necessary information/feedback to the user through the *PlannerUi*.
+
+To read more about the various packages shown in the architecture diagram, please continue reading the below sections 
+<<JsonWrapper>> 
+<<Storage>> 
+<<Parser>>
+<<PlannerUi>> 
+<<Command>> 
+<<CCA>>.
 
 === JsonWrapper
 
@@ -114,6 +126,8 @@ These arguments change how some of the classes function as well, using a switch 
 
 image::Command.png[]
 
+The above diagram shows the various Command classes in ModPlan, as well as their depedencies (mostly on `ModuleCommand`).
+
 === CCA
 
 CCA is implemented as `Cca` class which is the backbone for representing and managing user-defined CCAs. Typically, CCAs are loaded and stored in an `List`-like structure implemented in `CcaList` class which inherits from the builtin `ArrayList`.
@@ -125,12 +139,14 @@ image::CCA.png[]
 == Implementation
 This section explains and shows diagrams of how certain features of ModPlan are implemented.
 
+// tag::Parser[]
+
 === Parser
 User inputs are recorded by `PlannerUi` and then handled and interpreted by `Parser` class, which is a wrapper for the `argparse4j` library for customized parsing behaviours such as command calling or custom `Action` definition.
 
 ==== Current implementation
 
-The following diagram illustrates the `Parser` class:
+The following diagram illustrates the relation of `Parser` to various other core classes:
 
 image::ParseCommandClassDiagram.png[]
 
@@ -205,9 +221,15 @@ The `ModuleCommand` class is not seen in the diagram because `Parser` might not 
 
 As the `argparse4j` 's library itself is very robust and powerful, we currently have no plan to modify `Parser` 's implementation. However, addition of custom `Action` will be considered as currently only `Join` is being used for parsing of multiple words `String` arguments.
 
+// end::Parser[]
+
 ***
 
-=== GradeCommand
+=== Grading
+
+==== Overview
+Grading is a feature implemented to allow users to store their letter grades with the modules they have taken. The letter grades are parsed and its validity deemed according to the attributes of the modules they are storing it in. For example, if a module can be S/U-ed then the feature will allow user's to grade that module with a 'S' or 'U' grade.
+
 ==== Current Implementation
 The `grade` feature is operated by the `GradeCommand` class, which is called by the `Parser` class. Upon user input of `grade MODULECODE LETTERGRADE`, the Parser will return a new `GradeCommand`.
 
@@ -217,7 +239,7 @@ From the `Parser`, `GradeCommand` also receives two additional variable inputs f
 . The module code of the module to be graded.
 . The letter grade attained for the module that the user specifies above.
 
-There are two ways that the execute method can execute, depending upon whether the moduleCode the user enters is in their moduleTaskList or not.
+There are two ways that the execute method can execute, depending upon whether the moduleCode the user enters is in their moduleTaskList or not. In both cases the updated grade is stored along with the module details in the `Storage` package.
 
 ****
 
@@ -246,9 +268,16 @@ image::GradeCommandSequenceDiagram.png[]
 Checks had to be implemented to check if the module can be S/U-ed, as well as if the `letterGrade` the user inputs is a valid grade according to NUS specifications.
 These checks were implemented into the `ModuleInfoDetailed` class itself, which `ModuleTask` inherits as the baseline of the module task list. This way, other classes are able to use the methods and checks to set the letter grade for the respective module.
 
+* Pros: This checking system can be used by other classes/methods just by calling the method under `ModuleInfoDetailed`.
+* Cons: Calling the method requires a much deeper reach to extract the method/check needed, and may impact the code simplicity.
+
+Other alternatives would be to have the checks directly in the `GradeCommand` class, however this alternative was disregarded as other `Command` that required use of these checks were created, such as the `CapCommand` class.
+
 ***
 
-=== CapCommand
+=== Cap Calculation
+==== Overview
+This feature allows users to calculate their Cumulative Average Point (NUS's version of GPA) from their inputted data. It uses various external data, as well as prerequisite and preclusion module checks to determine the user's CAP in three different ways.
 ==== Current Implementation
 The `cap` feature is operated by the `CapCommand` class, which is called by the `Parser` class. Upon user input of `cap TYPE`, the Parser will return a new `CapCommand`. +
 
@@ -317,6 +346,9 @@ In this case, the modules the user needs to take are: +
 Below is a sequence diagram showing how `CapCommand` works. +
 
 image::CapCommandSequenceDiagram.png[]
+
+As seen `CapCommand` uses three different CAP calculation methods contained within itself to generate the CAP reports, in addition to all the sub-methods such as `letterGradeToCap` and `parsePrerequisiteTree`, and then pushes the information to `PlannerUi` for printing. 
+It also instantiates different `Exception` classes to feedback to the user if anything is wrong.
 
 === SortCommand
 
@@ -396,7 +428,8 @@ If the arguement read for `toShow` is "ue", an iterator loops through the array 
 If the arguement read for `toShow` is "module", an iterator loops through the array list of `ModuleTask`. It then prints out the entire list of modules being added.
 ****
 
-Below is a Sequence Diagram showing how `ShowCommand` works.
+Below is a Sequence Diagram showing how `ShowCommand` works. +
+ShowCommand inherits the attributes and methods from the ModuleCommand, which is shown by the 1.1 arg arrow connecting ShowCommand and ModuleCommand. The ModuleCommand calls itself as it uses its own attributes method as shown by 1.1.1 args. The ShowCommand also calls certain methods of PlannerUi as shown by the arrows from 1.2 to 1.11 args. This is because the ShowCommand uses the methods in PlannerUi such as the `listCcaMsg` and `coreModReport`.
 
 image::ShowCommandSequenceDiagram.png[width="600"]
 
@@ -462,6 +495,9 @@ For the proposed implementation of updating user data, there are a few alternati
 ** The existing implementation to connect to NUSMODS to obtain the module data would be converted to an Update command, giving the user flexibility to choose when to update their module data.
 ****
 =======
+
+// tag::Cca[]
+
 === Cca
 
 `Cca` is a class designed for managing user-defined CCAs. All instances of `Cca` are stored in a `List`-like structure `CcaList` which inherits from `ArrayList`.
@@ -475,25 +511,54 @@ image::CcaClassDiagram2.png[]
 
 `Cca` is a child class of the legacy class `TaskWithMultipleWeeklyPeriod` which belongs to our implementation of `Duke`. Since `Cca` itself does not differ much from the parent class except for some `String` representations, it is recommended to refer to the parent class's implementation instead which can be found in <<Legacy>>.
 
+// end::Cca[]
+
 [[Documentation]] 
 == Documentation
-
-(TBD)
+We utilise AsciiDoc as the default to write our documentation, as the layout is more flexible and aesthetically pleasing to view compared to other alternatives such as MarkDown. Additionally our preferred IDE IntelliJ has AsciiDoc support, and is thus easier for us to code and preview changes in.
 
 [[Testing]] 
 == Testing
+=== Overview
+We used JUnit to code our test cases, and Jacoco to monitor the test coverage of our project. 
 
-(TBD)
+There are two ways to run tests.
+
+*Method 1: Using IntelliJ JUnit test runner*
+
+* To run all tests, right-click on the `src/test/java` folder and choose `Run 'All Tests'`
+* To run a subset of tests, you can right-click on a test package, test class, or a test and choose `Run 'specificTest'`
+
+*Method 2: Using Gradle*
+
+* Open a console and run the command `gradlew clean allTests` (Mac/Linux: `./gradlew clean allTests`)
+
+=== Running Tests
+
 
 [[DevOps]] 
 == Dev Ops
+=== Build Automation
+We use Gradle to automate our build process, as well as to create our release .JAR file.
 
-(TBD)
+=== Continuous Integration
+We use https://travis-ci.org/[Travis CI] to perform continuous integration on our project through GitHub. 
 
-[[Legacy]]
-== Legacy Classes
+=== Code Coverage Reporting
+We use https://www.eclemma.org/jacoco/[Jacoco] to check the code coverage of our project.
 
-(TBD)
+=== Making a Release
+
+Here are the steps to create a new release.
+
+*  Update the version number in link:{repoURL}/src/main/java/planner/main[`ModPlan.java`].
+*  Generate a JAR file using gradle.
+*  Tag the repo with the version number. e.g. `v0.1`
+*  https://help.github.com/articles/creating-releases/[Create a new release using GitHub] and upload the JAR file you created.
+//[[Legacy]]
+//== Legacy Classes
+
+//(TBD)
 
 [appendix]
 == Product Scope
@@ -501,6 +566,15 @@ image::CcaClassDiagram2.png[]
 *A better module planner*
 
 We aim to fulfill a need that is currently lacking in module planning, which in this case the is ability to plan ahead for more semesters up until graduation. Additional features would likely include the ability to generate a projection report for CAP computation and CCA planning.
+
+*Target Users*: NUS CEG Students
+* have a need for additional module planning aside from utilising NUSMODS.
+* comfortable with using CLI
+* can type fast
+* prefers desktop applications
+* has a computer with Internet access available
+
+*Value proposition: * Provides many more features that NUSMODS currently does not have, which we have deemed to still be important to target users.
 
 [appendix]
 == User Stories
