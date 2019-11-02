@@ -21,14 +21,12 @@ public abstract class ParseCardBill {
     private ParseRawData parseRawData = new ParseRawData();
     private String rawData;
     private static final String[] CARDBILL_KEYWORD = new String[] {
-        "/card", "/date", "/bank", "/expno", "/depno"
+        "/card", "/date", "/bank"
     };
     private static final List<String> CARDBILL_KEYWORD_LISTS = Arrays.asList(CARDBILL_KEYWORD);
     static final String CARD = "/card";
     static final String BANK = "/bank";
     static final String DATE = "/date";
-    static final String EXPNO = "/expno";
-    static final String DEPNO = "/depno";
     static final String FIRST_DAY = "01/";
 
     /**
@@ -52,10 +50,6 @@ public abstract class ParseCardBill {
                 parseRawData.extractParameter(rawData, BANK, CARDBILL_KEYWORD));
         cardBillParameters.put(DATE,
                 parseRawData.extractParameter(rawData, DATE, CARDBILL_KEYWORD));
-        cardBillParameters.put(EXPNO,
-                parseRawData.extractParameter(rawData, EXPNO, CARDBILL_KEYWORD));
-        cardBillParameters.put(DEPNO,
-                parseRawData.extractParameter(rawData, DEPNO, CARDBILL_KEYWORD));
     }
 
     /**

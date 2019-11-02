@@ -6,7 +6,9 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import java.time.YearMonth;
 import java.util.ArrayList;
+import java.util.UUID;
 
 import owlmoney.model.bank.exception.BankException;
 import owlmoney.model.bond.Bond;
@@ -1145,5 +1147,45 @@ public class BankList {
             }
         }
         throw new BankException("Bank with the following name does not exist: " + bank);
+    }
+
+    /**
+     * Gets the index of the transaction object in specific bank that is a card bill expenditure
+     * with specified card id and bill date.
+     *
+     * @param bankName  The name of the bank to search for transaction id.
+     * @param cardId    The bill card id to look for in transaction list.
+     * @param billDate  The bill card date to look for in transaction list.
+     * @return Index of the expenditure transaction object if found. If not found, return -1.
+     * @throws BankException If bank account does not support this feature.
+     */
+    public int bankListGetCardBillExpenditureId(String bankName, UUID cardId, YearMonth billDate)
+            throws BankException {
+        for (int i = 0; i < bankLists.size(); i++) {
+            if (bankLists.get(i).getAccountName().equals(bankName)) {
+                return bankLists.get(i).getCardBillExpenditureId(cardId, billDate);
+            }
+        }
+        return -1;
+    }
+
+    /**
+     * Gets the index of the transaction object in specific bank that is a card bill deposit
+     * with specified card id and bill date.
+     *
+     * @param bankName  The name of the bank to search for transaction id.
+     * @param cardId    The bill card id to look for in transaction list.
+     * @param billDate  The bill card date to look for in transaction list.
+     * @return Index of the deposit transaction object if found. If not found, return -1.
+     * @throws BankException If bank account does not support this feature.
+     */
+    public int bankListGetCardBillDepositId(String bankName, UUID cardId, YearMonth billDate)
+            throws BankException {
+        for (int i = 0; i < bankLists.size(); i++) {
+            if (bankLists.get(i).getAccountName().equals(bankName)) {
+                return bankLists.get(i).getCardBillDepositId(cardId, billDate);
+            }
+        }
+        return -1;
     }
 }
