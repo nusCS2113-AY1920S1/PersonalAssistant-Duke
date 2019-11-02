@@ -21,9 +21,9 @@ import duke.commands.task.FindTaskCommand;
 import duke.commands.task.ListTasksCommand;
 import duke.commands.task.UpdateTaskCommand;
 import duke.exceptions.DukeException;
+import duke.util.DukeUi;
 import duke.util.Parser;
 import duke.util.TypoCorrector;
-import duke.util.Ui;
 
 /**
  * Represents a Parser that parses user input into a specific
@@ -41,7 +41,7 @@ public class CommandManager {
         userInput = userInput.trim();
         String possibleCommand = TypoCorrector.commandCorrection(userInput);
         if (!possibleCommand.equals(userInput)) {
-            Ui.getUi().typoCorrection(possibleCommand);
+            DukeUi.getDukeUi().typoCorrection(possibleCommand);
             userInput = possibleCommand;
         }
         String[] command = userInput.toLowerCase().split(":");

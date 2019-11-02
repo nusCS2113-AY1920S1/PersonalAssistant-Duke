@@ -8,7 +8,7 @@ import duke.models.assignedtasks.AssignedTaskManager;
 import duke.models.patients.PatientManager;
 import duke.models.tasks.TaskManager;
 import duke.storages.StorageManager;
-import duke.util.Ui;
+import duke.util.DukeUi;
 
 import java.util.ArrayList;
 
@@ -49,9 +49,9 @@ public class HelpCommand implements Command {
 
     @Override
     public void execute(AssignedTaskManager patientTask, TaskManager tasks,
-                        PatientManager patientList, Ui ui,
+                        PatientManager patientList, DukeUi dukeUi,
                         StorageManager storageManager) throws DukeException {
-        ui.showHelpOptions(userCommandList);
+        dukeUi.showHelpOptions(userCommandList);
 
     }
 
