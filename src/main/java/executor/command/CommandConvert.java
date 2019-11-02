@@ -61,7 +61,6 @@ public class CommandConvert extends Command {
             String amountStr = Parser.parseForPrimaryInput(commandType, userInput);
             return Double.parseDouble(amountStr);
         } catch (Exception e) {
-            Ui.dukeSays("Please enter a valid amount");
             return null;
         }
     }
@@ -74,12 +73,14 @@ public class CommandConvert extends Command {
     private String getCurrencyCovertFrom(String userInput) {
         try {
             String fromStr = Parser.parseForFlag("from", userInput);
-            return fromStr;
+            if (fromStr != null) {
+                return fromStr.toUpperCase();
+            }
         } catch (Exception e) {
-            Ui.dukeSays("Please enter a valid Alpha3 country code to convert from "
-                    + " For example : convert 2000 /from USD /to SGD");
+            Ui.dukeSays("Please enter a valid Alpha3 country code to convert from.");
             return null;
         }
+        return null;
     }
 
     /**
@@ -90,12 +91,14 @@ public class CommandConvert extends Command {
     private String getCurrencyConvertTo(String userInput) {
         try {
             String toStr = Parser.parseForFlag("to", userInput);
-            return toStr;
+            if (toStr != null) {
+                return toStr.toUpperCase();
+            }
         } catch (Exception e) {
-            Ui.dukeSays("Please enter a valid Alpha3 country code to convert to "
-                    + " For example : convert 2000 /from USD /to SGD");
+            Ui.dukeSays("Please enter a valid Alpha3 country code to convert to. ");
             return null;
         }
+        return null;
     }
 
     /**
@@ -118,7 +121,8 @@ public class CommandConvert extends Command {
         } catch (Exception ex) {
             Ui.dukeSays("Exchange rate data is unavailable \n"
                     + "1. Please ensure you have active internet access \n"
-                    + "2. Also please follow the correct format for currency conversion \n");
+                    + "2. Also please follow the correct format for currency conversion"
+                    + " available under CONVERT if you type help on the CLI \n");
             return null;
         }
     }
@@ -137,7 +141,6 @@ public class CommandConvert extends Command {
             double exRate = exchangeRate.doubleValue();
             return exRate;
         } catch (Exception e) {
-            Ui.dukeSays("Please enter a valid country code \n");
             return null;
         }
     }
@@ -176,8 +179,6 @@ public class CommandConvert extends Command {
             }
             return url;
         } catch (Exception e) {
-            Ui.dukeSays("Please use valid Alpha3 country codes for currency conversion"
-                    + " For example : convert 2000 /from USD /to SGD");
             return null;
         }
     }
@@ -251,9 +252,12 @@ public class CommandConvert extends Command {
                 }
             }
         } catch (Exception e) {
-            Ui.dukeSays("DUKE$$$ could not understand the input. \n"
+            String errorMessage = "DUKE$$$ could not understand the input. \n"
                     + "Please follow the following formatting to convert : \n"
-                    + "For example : convert <amount up to 2dp> /from USD /to SGD \n" );
+                    + "For example : convert <amount up to 2dp> /from USD /to SGD \n"
+                    + "\n";
+            Ui.dukeSays(errorMessage);
+            return null;
         }
         return null;
     }
@@ -273,7 +277,7 @@ public class CommandConvert extends Command {
                     + this.to + " " + convertedAmount + "\n"
                     + rateUsed();
         } else {
-            return "Please try again \n";
+            return "Please try again as shown above :) \n";
         }
     }
 
