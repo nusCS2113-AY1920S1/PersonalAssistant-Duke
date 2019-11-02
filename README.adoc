@@ -7,7 +7,7 @@ image::docs/images/GUI_current_as_at_30_10_2019.png[width="600", align="center"]
 
 == Site Map
 
-* https://github.com/AY1920S1-CS2113-T13-3/main/blob/master/docs/UserGuide.adoc[User Guide]
+* https://github.com/AY1920S1-CS2113-T13-3/main/blob/master/docs/UserGuide.adoc[User Guide] (https://docs.google.com/document/d/1VvQkaFA1a4wwRuHORtm_oWX4MfhZwbbGz6x5F7ykQQQ/edit?usp=sharing[Google doc link])
 * <<DeveloperGuide#, Developer Guide>>
 * <<LearningOutcomes#, Learning Outcomes>>
 * https://github.com/AY1920S1-CS2113-T13-3/main/blob/master/docs/AboutUs.adoc[AboutUs]

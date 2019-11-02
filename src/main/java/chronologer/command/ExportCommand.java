@@ -1,6 +1,7 @@
 package chronologer.command;
 
 import chronologer.exception.ChronologerException;
+import chronologer.storage.CalendarOutput;
 import chronologer.storage.Storage;
 import chronologer.task.Task;
 import chronologer.task.TaskList;
@@ -12,63 +13,49 @@ import net.fortuna.ical4j.model.DateTime;
 import net.fortuna.ical4j.model.component.VEvent;
 import net.fortuna.ical4j.model.property.CalScale;
 import net.fortuna.ical4j.model.property.Description;
+import net.fortuna.ical4j.model.property.Location;
 import net.fortuna.ical4j.model.property.ProdId;
-import net.fortuna.ical4j.model.property.Summary;
 import net.fortuna.ical4j.model.property.Version;
 import net.fortuna.ical4j.util.RandomUidGenerator;
 import net.fortuna.ical4j.util.UidGenerator;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 
 
 /**
- * Export the timeline as an ics file.
+ * Processes and export the timeline as an ics file.
  *
  * @author Tan Yi Xiang
- * @version v1.1
+ * @version v1.5
  */
 public class ExportCommand extends Command {
 
-    private String filePath = System.getProperty("user.dir") + "/src/ChronologerDatabase/";
-    private File icsFile = new File(filePath.concat("calendar.ics"));
+    private static final String DEADLINE = "DEADLINE";
+    private static final String EVENT = "EVENT";
+    private static final String TODO_PERIOD = "TODO PERIOD";
+    private String fileName;
+
+    public ExportCommand(String fileName) {
+        this.fileName = fileName;
+    }
 
     @Override
     public void execute(TaskList tasks, Storage storage) throws ChronologerException {
 
         Calendar calendar = initializeCalendar();
         ArrayList<Task> taskList = tasks.getTasks();
-        CalendarOutputter calendarOutputter = new CalendarOutputter();
-
         for (Task task : taskList) {
-            if (tasks.isDeadline(task)) {
+            if (isDeadline(task)) {
                 VEvent deadline = convertDeadline(task);
                 calendar.getComponents().add(deadline);
-            } else if (tasks.isEvent(task) || tasks.isTodoPeriod(task)) {
+            } else if (isEvent(task) || isTodoPeriod(task)) {
                 VEvent event = convertEventOrTodoPeriod(task);
                 calendar.getComponents().add(event);
-            } else if (tasks.isTodo(task)) {
-                VEvent todo = convertTodo(task);
-                calendar.getComponents().add(todo);
-            } else if (tasks.isTodoDuration(task)) {
-                VEvent todo = convertTodoDuration(task);
-                calendar.getComponents().add(todo);
             }
         }
-        try {
-            FileOutputStream outputStream = new FileOutputStream(icsFile);
-            calendarOutputter.output(calendar, outputStream);
-            UiTemporary.printOutput("Success,ics file written at src/ChronologerDatabase/calendar");
-            outputStream.close();
-        } catch (IOException e) {
-            UiTemporary.printOutput(ChronologerException.errorWriteCalendar());
-            throw new ChronologerException(ChronologerException.errorWriteCalendar());
-        }
-
+        CalendarOutput.outputCalendar(fileName, calendar);
     }
 
     private Calendar initializeCalendar() {
@@ -93,10 +80,10 @@ public class ExportCommand extends Command {
     private VEvent convertDeadline(Task task) {
         java.util.Calendar deadlineCalendar = convertToCalendar(task.getStartDate());
         DateTime deadlineDate = new DateTime(deadlineCalendar.getTime());
-        VEvent deadline = new VEvent(deadlineDate, task.getDescription());
-        if (task.getComment() != null) {
-            deadline.getProperties().add(new Description(task.getComment()));
-        }
+        DateTime currentDate = getCurrentDate();
+        VEvent deadline = new VEvent(currentDate, deadlineDate, task.getDescription());
+        createDescription(task, deadline);
+        createLocation(task, deadline);
         UidGenerator generator = new RandomUidGenerator();
         deadline.getProperties().add(generator.generateUid());
         return deadline;
@@ -108,38 +95,41 @@ public class ExportCommand extends Command {
         DateTime startEventDate = new DateTime(eventStartCalendar.getTime());
         DateTime endEventDate = new DateTime(eventEndCalendar.getTime());
         VEvent event = new VEvent(startEventDate, endEventDate, task.getDescription());
-        if (task.getComment() != null) {
-            event.getProperties().add(new Description(task.getComment()));
-        }
+        createDescription(task, event);
+        createLocation(task, event);
         UidGenerator generator = new RandomUidGenerator();
         event.getProperties().add(generator.generateUid());
         return event;
     }
 
-    private VEvent convertTodo(Task task) {
-        VEvent todo = new VEvent();
-        todo.getProperties().add(new Summary(task.getDescription()));
-        if (task.getComment() != null) {
-            todo.getProperties().add(new Description(task.getComment()));
-        }
-        UidGenerator generator = new RandomUidGenerator();
-        todo.getProperties().add(generator.generateUid());
-        return todo;
+    private DateTime getCurrentDate() {
+        LocalDateTime currentDate = LocalDateTime.now();
+        java.util.Calendar currentCalendar = convertToCalendar(currentDate);
+        return new DateTime(currentCalendar.getTime());
     }
 
-    private VEvent convertTodoDuration(Task task) {
-        Todo placeHolderTask = (Todo) task;
-        int duration = placeHolderTask.getDuration();
-        String durationString = " for " + duration + " hours";
-        String summary = task.getDescription().concat(durationString);
-        VEvent todo = new VEvent();
-        todo.getProperties().add(new Summary(summary));
+    private void createDescription(Task task, VEvent event) {
         if (task.getComment() != null) {
-            todo.getProperties().add(new Description(task.getComment()));
+            event.getProperties().add(new Description(task.getComment()));
         }
-        UidGenerator generator = new RandomUidGenerator();
-        todo.getProperties().add(generator.generateUid());
-        return todo;
+
     }
 
+    private void createLocation(Task task, VEvent event) {
+        if (task.getLocation() != null) {
+            event.getProperties().add(new Location(task.getLocation()));
+        }
+    }
+
+    private boolean isDeadline(Task task) {
+        return (DEADLINE.equals(task.getType()));
+    }
+
+    private boolean isEvent(Task task) {
+        return (EVENT.equals(task.getType()));
+    }
+
+    private boolean isTodoPeriod(Task task) {
+        return (TODO_PERIOD.equals(task.getType()));
+    }
 }

@@ -18,12 +18,6 @@ import java.util.Comparator;
  */
 public class TaskList {
 
-    private static final String DEADLINE = "DEADLINE";
-    private static final String EVENT = "EVENT";
-    private static final String TODO_DURATION = "TODO DURATION";
-    private static final String TODO_PERIOD = "TODO PERIOD";
-    private static final String TODO = "TODO";
-
     private ArrayList<Task> listOfTasks;
     private ObservableList<Task> observableListOfTasks;
 
@@ -53,7 +47,6 @@ public class TaskList {
 
     /**
      * This custom comparator allows the sorting of both deadlines and events.
-     *
      */
     private static final Comparator<Task> PriorityComparator = (firstPriority, secondPriority) -> {
         if (firstPriority.priority.equals(Priority.HIGH) && secondPriority.priority.equals(Priority.MEDIUM)) {
@@ -179,8 +172,7 @@ public class TaskList {
      *
      * @param dayToFind is of String type which contains the desired date of
      *                  schedule.
-     * @return  sortDateList the sorted schedule of all the tasks on a particular
-     *          ate.
+     * @return sortDateList the sorted schedule of all the tasks on a particular date.
      */
     public ArrayList<Task> schedule(String dayToFind) {
         ArrayList<Task> sortedDateList = new ArrayList<Task>();
@@ -316,26 +308,6 @@ public class TaskList {
         taskToBeEdited.setComment(comment);
         observableListOfTasks.add(taskToBeEdited);
         return taskToBeEdited;
-    }
-
-    public boolean isDeadline(Task task) {
-        return (DEADLINE.equals(task.getType()));
-    }
-
-    public boolean isEvent(Task task) {
-        return (EVENT.equals(task.getType()));
-    }
-
-    public boolean isTodo(Task task) {
-        return (TODO.equals(task.getType()));
-    }
-
-    public boolean isTodoDuration(Task task) {
-        return (TODO_DURATION.equals(task.getType()));
-    }
-
-    public boolean isTodoPeriod(Task task) {
-        return (TODO_PERIOD.equals(task.getType()));
     }
 
     public void updatePriority(Task task) {
