@@ -12,8 +12,8 @@ import model.Task;
 public class EditTaskDescriptionCommand extends Command {
 
     private static final String SUCCESS_MESSAGE = " has been renamed to: ";
-    public static final String INPUT_INDEX_NOT_WITHIN_TASK_lIST_MESSAGE = " is not within the task list";
-    public static final String INPUT_NAME_ALREADY_IN_TASK_lIST_MESSAGE = " already exists within the task list";
+    public static final String INPUT_INDEX_NOT_WITHIN_TASK_lIST_MESSAGE = " is not within the task list!";
+    public static final String INPUT_NAME_ALREADY_IN_TASK_lIST_MESSAGE = " already exists within the task list!";
     public int indexOfTask;
     public String newName;
 
@@ -29,9 +29,10 @@ public class EditTaskDescriptionCommand extends Command {
 
 
         if (indexOfTask < 1 || indexOfTask > model.getTaskListSize()) {
-            return new CommandOutput(INPUT_INDEX_NOT_WITHIN_TASK_lIST_MESSAGE);
+            return new CommandOutput("Index: " + indexOfTask + INPUT_INDEX_NOT_WITHIN_TASK_lIST_MESSAGE);
         } else if (model.getTaskList().contains(newTask)) {
-            return new CommandOutput(INPUT_NAME_ALREADY_IN_TASK_lIST_MESSAGE);
+            String oldName = model.getTaskList().get(indexOfTask - 1).getName();
+            return new CommandOutput("Task: " + oldName + INPUT_NAME_ALREADY_IN_TASK_lIST_MESSAGE);
         } else {
             String oldName = model.getTaskList().get(indexOfTask - 1).getName();
 

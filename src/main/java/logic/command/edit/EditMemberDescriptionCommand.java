@@ -12,8 +12,8 @@ import model.Task;
 public class EditMemberDescriptionCommand extends Command {
 
     private static final String SUCCESS_MESSAGE = " has been renamed to: ";
-    public static final String INPUT_NAME_NOT_IN_MEMBER_lIST_MESSAGE = " is not within the member list";
-    public static final String INPUT_NAME_ALREADY_IN_MEMBER_lIST_MESSAGE = " already exists within the member list";
+    public static final String INPUT_NAME_NOT_IN_MEMBER_lIST_MESSAGE = " is not within the member list!";
+    public static final String INPUT_NAME_ALREADY_IN_MEMBER_lIST_MESSAGE = " already exists within the member list!";
     public String oldName;
     public String newName;
 

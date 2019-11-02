@@ -29,6 +29,7 @@ public class NewParser {
     public static final String REMINDER_COMMAND_WORD = "REMINDER";
     public static final String MATCH_COMMAND_WORD = "MATCH";
     public static final String EDIT_COMMAND_WORD = "EDIT";
+    public static final String SHOW_COMMAND_WORD = "SHOW";
 
     //@@author JustinChia1997
 
@@ -51,7 +52,7 @@ public class NewParser {
         commandWord = commandWord.trim().toUpperCase();
 
         String[] dict = {
-            "ADD", "LIST", "DONE", "DELETE", "HELP", "FIND", "BYE", "REMINDER",
+            "ADD", "LIST", "DONE", "DELETE", "HELP", "FIND", "BYE", "REMINDER", "SHOW",
             "SNOOZE", "SCHEDULE", "CHECK", "LINK", "UNLINK", "RENAME", "EDIT",
             "MATCH"
         };
@@ -89,6 +90,8 @@ public class NewParser {
             return MatchCommandParser.parseMatch(arguments);
         case EDIT_COMMAND_WORD:
             return EditCommandParser.parseEditCommand(arguments);
+        case SHOW_COMMAND_WORD:
+            return ShowCommandParser.parseShowCommand(arguments);
 
         default:
             throw new DukeException("Command not found");

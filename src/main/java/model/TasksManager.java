@@ -309,4 +309,9 @@ public class TasksManager implements Serializable {
         return result;
     }
 
+    //@@author JasonChanWQ
+    public Date getTaskDateTimeById(int index) {
+        return getTaskById(index).getTime();
+    }
+
 }
