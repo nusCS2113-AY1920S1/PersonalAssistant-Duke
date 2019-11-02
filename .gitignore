@@ -4,3 +4,4 @@ build/*
 save.json
 /build/
 farmio.log
+farmio.log.lck
