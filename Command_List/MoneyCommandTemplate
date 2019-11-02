@@ -1,0 +1,47 @@
+add income <desc> /amt <amt> /payday <date>
+add instalment <desc> /amt <amt> /within <no of months> months /from <bought date> @<annual interest rate>%
+bank-account <desc> /amt <initial amount of money> /at <initial date> /rate <interest rate>
+borrowed <desc> /amt <amt> /on <date>
+check-balance <account_description> /at <future_date>
+check expenditure <amt> <year>
+check income <index> <date>
+delete expenditure <index>
+delete goal <index>
+delete instalment <index>
+delete loan <index>
+delete bank-tracker <index>
+deposit <amt> <bank> /at <date>
+done goal <index>
+goal <desc> /amt <amt> /by <date> /priority <LOW/MEDIUM/HIGH>
+graph curr finance /until <date>
+graph expenditure trend
+graph expenditure trend histogram
+graph expenditure trend pie_chart
+graph income trend
+graph monthly report line_graph
+graph monthly report
+graph income trend
+graph expenditure trend
+graph finance status /until <date>
+init <existing saving> <average monthly expenditure>
+withdraw <amt> <bank desc> /at <date>
+list bank trackers
+lent <desc> /amt <amt> /on <date>
+list all income
+list all expenditure
+list all instalments
+list all loans
+list bank trackers
+list incoming loans
+list goals
+list month income
+list month expenditure
+list outgoing loans
+paid <amt> /to <desc>
+received <amt> /from <desc>
+spent <desc> /amt <amt> /cat <category> /on <date>
+start
+split <desc> /amt <amt> /cat <category> /on <date> /with <other party> and <other party> and ...
+settle <index> <index/name of party>
+undo
+withdraw <amt> <account_desc> /at <date>
