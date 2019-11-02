@@ -1,6 +1,6 @@
 package duke.command.ingredientCommand;
 
-import duke.command.Cmd;
+import duke.command.Command;
 import duke.exception.DukeException;
 import duke.ingredient.Ingredient;
 import duke.list.GenericList;
@@ -9,7 +9,7 @@ import duke.ui.Ui;
 
 import java.io.IOException;
 
-public class UseCommand extends Cmd<Ingredient> {
+public class UseCommand extends Command<Ingredient> {
     private Ingredient toUse;
 
     public UseCommand(Ingredient ingredient){

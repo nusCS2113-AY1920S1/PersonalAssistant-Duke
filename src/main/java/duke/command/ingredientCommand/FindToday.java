@@ -1,6 +1,6 @@
 package duke.command.ingredientCommand;
 
-import duke.command.Cmd;
+import duke.command.Command;
 import duke.ingredient.Ingredient;
 import duke.list.GenericList;
 import duke.storage.Storage;
@@ -9,7 +9,7 @@ import duke.ui.Ui;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class FindToday extends Cmd<Ingredient> {
+public class FindToday extends Command<Ingredient> {
     private Date today = new Date();
     private String pattern = "dd/MM/yyyy";
     private SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);

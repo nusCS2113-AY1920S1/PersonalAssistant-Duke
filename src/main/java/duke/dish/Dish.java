@@ -4,9 +4,6 @@ import duke.ingredient.Ingredient;
 import duke.ingredient.IngredientsList;
 import duke.storage.Printable;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Dish implements Printable {
 
     private String dishname;

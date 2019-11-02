@@ -1,6 +1,6 @@
 package duke.command.ingredientCommand;
 
-import duke.command.Cmd;
+import duke.command.Command;
 import duke.exception.DukeException;
 import duke.ingredient.IngredientsList;
 import duke.list.GenericList;
@@ -8,9 +8,9 @@ import duke.storage.Storage;
 import duke.ui.Ui;
 
 /**
- * Represents a specific {@link Cmd} used to mark a {@link IngredientsList} as done.
+ * Represents a specific {@link Command} used to mark a {@link IngredientsList} as done.
  */
-public class DoneCommand<T> extends Cmd<T> {
+public class DoneCommand<T> extends Command<T> {
     private int taskNb;
 
     public DoneCommand(int taskNb) {

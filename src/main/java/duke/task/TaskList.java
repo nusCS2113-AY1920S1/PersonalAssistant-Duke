@@ -4,7 +4,6 @@ import duke.Duke;
 import duke.exception.DukeException;
 import duke.list.GenericList;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**

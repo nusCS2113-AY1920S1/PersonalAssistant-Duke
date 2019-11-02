@@ -1,6 +1,6 @@
 package duke.command.orderCommand;
 
-import duke.command.Cmd;
+import duke.command.Command;
 import duke.command.ingredientCommand.ListCommand;
 import duke.exception.DukeException;
 import duke.list.GenericList;
@@ -15,7 +15,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * Represents a specific {@link Cmd} used to list all the {@link Order}s in the {@link OrderList}.
+ * Represents a specific {@link Command} used to list all the {@link Order}s in the {@link OrderList}.
  *
  */
 public class ListOrderCommand extends ListCommand<Order> {

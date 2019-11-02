@@ -1,6 +1,6 @@
 package duke.command.ingredientCommand;
 
-import duke.command.Cmd;
+import duke.command.Command;
 import duke.ingredient.Ingredient;
 import duke.list.GenericList;
 import duke.storage.Storage;
@@ -10,11 +10,11 @@ import duke.ui.Ui;
 import java.util.Date;
 
 /**
- * Represents a specific {@link Cmd} used to find a String occurring in the {@link TaskList}.
+ * Represents a specific {@link Command} used to find a String occurring in the {@link TaskList}.
  * One of the B-Extensions.
  * @author x3chillax
  */
-public class ViewCommand extends Cmd<Ingredient> {
+public class ViewCommand extends Command<Ingredient> {
 
     private Date toView;
 

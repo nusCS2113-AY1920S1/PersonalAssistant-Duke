@@ -1,6 +1,6 @@
 package duke.command.orderCommand;
 
-import duke.command.Cmd;
+import duke.command.Command;
 import duke.exception.DukeException;
 import duke.list.GenericList;
 import duke.order.Order;
@@ -9,7 +9,9 @@ import duke.storage.OrderStorage;
 import duke.storage.Storage;
 import duke.ui.Ui;
 
-public class AddOrderCommand extends Cmd<Order> {
+import java.io.IOException;
+
+public class AddOrderCommand extends Command<Order> {
 
     private Order order;
 
@@ -31,16 +33,13 @@ public class AddOrderCommand extends Cmd<Order> {
      * @throws DukeException Error while adding the command to the duke.txt file
      */
     @Override
-    public void execute(GenericList<Order> orderList, Ui ui, Storage orderStorage) throws DukeException {
+    public void execute(GenericList<Order> orderList, Ui ui, Storage orderStorage) throws IOException {
         orderList.addEntry(order);
         ui.showLine();
         ui.showAddOrder(order.toString(), orderList.size());
         ui.showLine();
-
-        // to do:
-        // 1. store the new order into file
-
-
+        orderStorage.addInFile(order.printInFile());
+        //to do
+        //update chef's to do list
     }
-
 }

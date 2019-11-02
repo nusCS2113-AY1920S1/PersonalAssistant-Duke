@@ -1,6 +1,6 @@
 package duke.command.ingredientCommand;
 
-import duke.command.Cmd;
+import duke.command.Command;
 import duke.exception.DukeException;
 import duke.ingredient.Ingredient;
 import duke.ingredient.IngredientsList;
@@ -13,7 +13,7 @@ import duke.ui.Ui;
 /**
  * Represents a Command to add a specific {@link Task} in the {@link TaskList}.
  */
-public class AddCommand<T> extends Cmd<T> {
+public class AddCommand<T> extends Command<T> {
 
     private T entry;
 

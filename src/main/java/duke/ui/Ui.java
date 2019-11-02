@@ -1,17 +1,12 @@
 package duke.ui;
 
 import duke.Duke;
-
+import duke.dish.Dish;
 import duke.ingredient.Ingredient;
 import duke.ingredient.IngredientsList;
 
-import java.util.Calendar;
-
-import duke.dish.Dish;
-
-
 import java.io.IOException;
-
+import java.util.Calendar;
 import java.util.Scanner;
 
 /**
@@ -127,6 +122,7 @@ public class Ui {
         System.out.println("\t 'b' add/remove/use an ingredient");
         System.out.println("\t 'c' place/remove/change an order");
         System.out.println("\t 'd' add/remove/change a dish");
+        System.out.println("\t 't' view today's todo list");
         System.out.println("\t 'q' to exit");
     }
 
@@ -162,7 +158,7 @@ public class Ui {
         System.out.println("\t list");
         System.out.println("\t ingredient <description> <amount> <index>");
         System.out.println("\t initialize (REMOVES all entries in the list)");
-        System.out.println("\t back, return to maim menu");
+        System.out.println("\t back, return to main menu");
         System.out.println("\t template");
         showLine();
     }
