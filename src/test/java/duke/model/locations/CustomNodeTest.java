@@ -9,17 +9,11 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
-class BusStopTest {
-    private BusStop v1 = new BusStop("45039","Opp Yew Tee Ind Est", "Woodlands Rd",
+class CustomNodeTest {
+    private CustomNode v1 = new CustomNode("Opp Yew Tee Ind Est", "Woodlands Rd",
             1.39585817355572, 103.75427816224409);
-    private BusStop v2 = new BusStop("25269", "Tuas Checkpoint", "Bus stop 2",
+    private CustomNode v2 = new CustomNode("Tuas Checkpoint", "Bus stop 2",
             1.34942405517095, 103.636127935782);
-
-    @Test
-    void getBusCode() {
-        assertEquals("45039", v1.getBusCode());
-        assertNotEquals("45039", v2.getBusCode());
-    }
 
     @Test
     void getAddress() {

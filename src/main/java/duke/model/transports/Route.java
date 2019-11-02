@@ -218,6 +218,7 @@ public class Route {
             return true;
         }
 
-        return otherRoute != null && otherRoute.getName().equals(getName());
+        return otherRoute != null && otherRoute.getName().equals(getName())
+                && otherRoute.getDescription().equals(getDescription());
     }
 }

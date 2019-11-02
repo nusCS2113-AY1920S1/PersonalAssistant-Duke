@@ -6,6 +6,7 @@ import duke.commons.exceptions.DukeDuplicateTaskException;
 import duke.commons.exceptions.FileLoadFailException;
 import duke.commons.exceptions.FileNotSavedException;
 import duke.commons.exceptions.ParseException;
+import duke.commons.exceptions.RouteDuplicateException;
 import duke.commons.exceptions.RouteNodeDuplicateException;
 import duke.model.transports.TransportationMap;
 import duke.logic.parsers.ParserStorageUtil;
@@ -170,7 +171,8 @@ public class Storage {
             }
             s.close();
             routes.setRoutes(newRoutes);
-        } catch (FileNotFoundException | RouteNodeDuplicateException | CorruptedFileException e) {
+        } catch (FileNotFoundException | RouteDuplicateException | CorruptedFileException |
+                RouteNodeDuplicateException e) {
             throw new FileLoadFailException(ROUTES_FILE_PATH);
         }
     }

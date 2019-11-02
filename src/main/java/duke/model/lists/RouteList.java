@@ -80,18 +80,18 @@ public class RouteList implements Iterable<Route>, Listable<Route> {
      *
      * @param target The existing route.
      * @param editedRoute The new route.
-     * @exception RouteNodeDuplicateException If there is a duplicate route.
+     * @exception RouteDuplicateException If there is a duplicate route.
      * @exception RouteNotFoundException If the route is not found.
      */
-    public void setRoute(Route target, Route editedRoute) throws RouteNodeDuplicateException,
+    public void setRoute(Route target, Route editedRoute) throws RouteDuplicateException,
             RouteNotFoundException {
         int index = list.indexOf(target);
         if (index == -1) {
             throw new RouteNotFoundException();
         }
 
-        if (!target.isSameRoute(editedRoute) && contains(editedRoute)) {
-            throw new RouteNodeDuplicateException();
+        if (target.isSameRoute(editedRoute) || contains(editedRoute)) {
+            throw new RouteDuplicateException();
         }
 
         list.set(index, editedRoute);
@@ -101,11 +101,11 @@ public class RouteList implements Iterable<Route>, Listable<Route> {
      * Replaces the contents of this list with a list of Routes.
      *
      * @param routes The list of Routes to replace.
-     * @exception RouteNodeDuplicateException If there is a duplicate route.
+     * @exception RouteDuplicateException If there is a duplicate route.
      */
-    public void setRoutes(List<Route> routes) throws RouteNodeDuplicateException {
+    public void setRoutes(List<Route> routes) throws RouteDuplicateException {
         if (!isUniqueRoutes(routes)) {
-            throw new RouteNodeDuplicateException();
+            throw new RouteDuplicateException();
         }
 
         list = routes;
