@@ -31,7 +31,7 @@ image::ArchitectureDiagram.png[]
 The *_Architecture Diagram_* given above explains the high-level design of the application. Given below is a quick overview of each component.
 
 
-`Main` has two classes called link:{repoURL}/src/main/java/com.algosenpai.app/Launcher.java[`Launcher`] and link:{repoURL}/src/main/java/com.algosenpai.app/MainAp.java[`MainApp`]. It is responsible for,
+`Main` has two classes called link:https://github.com/AY1920S1-CS2113T-T09-3/main/blob/master/src/main/java/com/algosenpai/app/Launcher.java[`Launcher`] and link:https://github.com/AY1920S1-CS2113T-T09-3/main/blob/master/src/main/java/com/algosenpai/app/MainApp.java[`MainApp`]. It is responsible for,
 
 * At app launch: Initialising the components in the correct sequence, and connects them up with each other.
 * At shut down: Shuts down the components and invokes cleanup method where necessary.
@@ -69,11 +69,11 @@ The sections below give more details of each component.
 .Structure of the UI Component
 image::UiClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
+*API* : link:https://github.com/AY1920S1-CS2113T-T09-3/main/blob/master/src/main/java/com/algosenpai/app/ui/Ui.java[`Ui.java`]
 
 The UI consists of a `MainWindow` that is made up of parts e.g.`DialogBox`, `DialogBoxUser`.
 
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:https://github.com/AY1920S1-CS2113T-T09-3/main/blob/master/src/main/java/com/algosenpai/app/ui/Ui.java[`MainWindow`] is specified in link:https://github.com/AY1920S1-CS2113T-T09-3/main/blob/master/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
 The `UI` component,
 
@@ -87,7 +87,7 @@ The `UI` component,
 image::LogicClassDiagram.png[]
 
 *API* :
-link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
+link:https://github.com/AY1920S1-CS2113T-T09-3/main/blob/master/src/main/java/com/algosenpai/app/logic/Logic.java[`Logic.java`]
 
 .  `Logic` uses the `Parser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `Logic`.
@@ -107,18 +107,33 @@ When the user inputs a command, the command will be parsed through by the parser
     - The logic class will then call for the first string in the arraylist, in which it will be used to determine which command to call for next.
 . If invalid, the InvalidCommand class will be called for, whereby the user will be notified to input a valid command: `error please input a valid command`.
 
-<<<<<<< HEAD
-==== Parser Component
-
-When the user inputs a command, the command will be parsed through by the parser class, checking for the validity of the command by comparing it with the enum of commands.
-
-. If valid, the command will be split by the spaces in between them and stored into an arraylist. (e.g. `select 3` will be split into {select, 3})
-    - The logic class will then call for the first string in the arraylist, in which it will be used to determine which command to call for next.
-. If invalid, the InvalidCommand class will be called for, whereby the user will be notified to input a valid command: `error please input a valid command`.
-
-=======
->>>>>>> 80efd3d6c4aeae5036b80f293950a8942a608f6c
 image::ParserandCommandClassDiagram.png[]
+
+==== Quiz Component
+
+The chapter component was designed to model after questions as you would expect in real life, with each specific question
+containing methods and variables of a generic question. As such, the system was designed in a manner that follows OOP. Each
+chapter contained the method to create different types of question related to that chapter.
+
+.Activity Diagram of Quiz Selection
+image::QuizSelectionActivityDiagram.png[]
+
+When the user selects a particular chapter for the quiz, the quiz generator is called.The quiz generator determines which
+chapter should be called based on the user input. In this case, since the user inputs `1`, it calls the ChapterSorting class.
+The ChapterSorting Class is the class in charge of the random generation of questions related to the Chapter on Sorting.
+
+In ChapterSorting, mainly 4 types of questions are available. In Fig.5, a random number is produced, leading to
+the BubbleSortPassQuestion being generated. The BubbleSortPassQuestion generates a QuestionModel in the background before
+passing it back to ChapterSorting and back to QuizGenerator.
+
+.Class Diagram of ChapterSorting.
+image::QuizSortingClassDiagram.png[]
+
+This UML diagram shows a macro-view of the ChapterSorting class along with the important components, such as the questions involved.
+It has 4 classes in it, all of which uses methods from an abstract Question class, along with other methods that are specific
+to each question. In the example of BubbleSortPassesQuestion, some of the variables that are not part of the Question class are such
+as arraySize, and the number of passes. There are also specific algorithms present in each Class that extends abstract Question class, such
+as the BubbleSort algorithm, responsible for generating the correct answer for each question.
 
 [[Design-Storage]]
 === Storage component
@@ -126,7 +141,7 @@ image::ParserandCommandClassDiagram.png[]
 .Structure of the Storage Component
 image::StorageClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
+*API* : link:https://github.com/AY1920S1-CS2113T-T09-3/main/blob/master/src/main/java/com/algosenpai/app/storage/Storage.java[`Storage.java`]
 
 The `Storage` class handles the reading and writing of user data to and from text files. It consists of two methods:
 
@@ -146,13 +161,13 @@ to string and vice-versa has to be handled within that class. This pattern reduc
 - The one situation which breaks this rule is when `loadData` is done on a file that doesn't exist yet.
 In the current version, a default `UserStats` object is returned. Ideally this will be changed for the final version.
 
-[[Design-UserData]]
+[[Design-Stats]]
 === Stats component
 
 .Structure of the Stats Component
 image::StatsClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
+*API* : https://github.com/AY1920S1-CS2113T-T09-3/main/tree/master/src/main/java/com/algosenpai/app/stats[`Stats`]
 
 The Stats component defines what data is stored permanently. It includes information about the user, and the
 statistics for each chapter (such as correct answer %, number of attempts).
@@ -216,53 +231,58 @@ image::PrintCommandImplementation.png[]
 // tag::audio[]
 === [Proposed] Playing Audio features
 ==== Proposed Implementation
-This feature allows the user play in-built music while he/she uses the application. The music will be randomly chosen
+This feature allows the user to play in-built music while he/she uses the application. The music will be randomly chosen
 and played. Once the music ends, another music start playing. The user can input `sound <sound level>` to adjust the
 sound level. For example, `sound 0` means the music is off, while `sound 10` means the music is played at maximum
 intensity. This feature is separated into `MusicController` and instantiated in the `MainApp`.
 
 ==== Design Considerations
 ===== Aspect: Tracking when to play the next music
-* **Alternative 1 (current choice):** Use multi-threading to playing the music.
+* **Current choice :** Use multi-threading to playing the music.
 ** Pros: Reduce timing overhead due to asynchronous execution.
 ** Cons: Code is not able to reuse.
-* **Alternative 2:** Use the `AnimationTimer` in `JavaFx` to poll and check the music status.
+* **Alternative :** Use the `AnimationTimer` in `JavaFx` to poll and check the music status.
 ** Pros: Easy to implement and reuse `AnimationTimer`.
 ** Cons: Additional overhead for the `AnimationTimer` due to synchronous execution.
 
 ===== Aspect: Data structure to contain the music
-* **Alternative 1 (current choice):** Use a `HashMap` to store the list of music.
+* **Current choice :** Use a `HashMap` to store the list of music.
 ** Pros: Easy to store and track the music name in a `HashMap` using `SoundEnum`
 ** Cons: Need to convert to a list of string to display music name on the user interface.
-* **Alternative 2:** Use `List` to store the music
+* **Alternative :** Use `List` to store the music
 ** Pros: Easy to random a music, display music on the user interface, and search for the music name in a list.
 ** Cons: More prone to mistakes when handling the music names in `String`.
 
 // tag::improvisedparser[]
 === [Proposed] Improvising on current parser
 
-==== The Proposed Implementation
+==== Proposed Implementation
 
-While the current parser serves its purpose, we seek to implement a `Did you mean...` feature, where rather than just returning `???!` to the user,
-it also returns the command that is most similar to what the user has inputted.
-
-For example, unnecessary spaces in between such as `me n u` or with an accidental typo such as `seect` will be taken into consideration and the word that is most similar to it will be derived and return `Did you mean.. menu?` and `Did you mean.. select?`
+The parser plays an important role in our application as it bridges the user's input to our program. This is why our parser
+has to be robust to account for the different input styles that different users use.
+While the current parser serves its purpose, it does not improve the user experience as it currently returns `???!` to
+the user, which makes it significantly harder for new users to use our application.
 
 ==== Design Considerations
 
 ===== Aspect: How the improvised parser works
 
-- It will be implemented under the invalid command, where the input string will be compared with the enum of commands, and returning the string that has the most number of similar characters to whatever the user has inputted.
-
-    Pros:
-    - It is easy to implement
-    - Will be more user friendly
-    - Saves time and allows user to have a better overall experience
+* ** Current Choice :** The current parser returns `???!` to the user.
+** Pros: The user understands that the input command was not read correctly by the application.
+** Cons: There is no help being provided to the user on the possible syntax of the command he wishes to use.
+* ** Alternative :** It will be implemented under the invalid command, where the input string will be compared with our existing commands,
+and the string with the highest similarity will be returned.
+For example, unnecessary spaces in `me n u` or an accidental typo such as `seect` will be taken into consideration
+and the strings `Did you mean.. menu?` and `Did you mean.. select?` would be returned.
+** Pros: The application will be more robust against input errors by the user throughout the application and will be
+more user friendly since useful tips can be provided to them. Generally saves time and allows user to have a better
+overall experience.
+** Cons: This requires an extensive database of code to account for the different types of possible commands.
 
 ===== Aspect: Data structure to support the improvisation of parser
 
-- Function to compare the number of similar characters between two strings will be needed
-- Function to pick out the command that is most similar to the command entered by the user will be needed
+* Include a function to compare the number of similar characters between two strings will be needed,
+and a function to pick out the command that is most similar to the command entered by the user will be needed.
 
 // end::improvisedparser[]
 
@@ -289,10 +309,34 @@ That means that the storage is cleared, and there will be no history on the past
 
 - Under the execute() block, the storage will then be called for it to be cleared.
 
-    Pros: Efficient memory allocation as user can decide when to reset
+* Pros: Efficient memory allocation as user can decide when to reset
 
 // end::reset[]
+=== [Proposed] ToDo Command
 
+==== Proposed Implementation
+
+This feature promotes benefits to users of all kinds. For experienced users, this command provides a way for them
+to be refreshed on the concepts that they have learnt, while for inexperienced users, this encourages them to pick up
+learning at a consistent pace.
+
+==== Design Consideration
+
+===== Aspect : Motivation
+There must be an incentive for students who use this command. One proposal would be
+to increase the amount of points awarded to users who set a todo and manages to complete it.
+
+===== Aspect : How to improve on this
+Todo chapters can be set by the application on a weekly basis. The application will cycle through the different chapters
+and set a todo based on the week number. In this manner, users will be encouraged to focus more on a different chapter
+at every week.
+
+===== Aspect : Data Structure to support the ToDo Command
+The todo task would likely be stored along with the user data in the text file. When the program starts, it does a check
+on the expiry date of the task. We would be storing the todo task with a Date tagged to it, implementing Java.util.Date.
+//tag::task[]
+
+//end::task[]
 == Documentation
 
 Refer to the guide <<Documentation#, here>>.

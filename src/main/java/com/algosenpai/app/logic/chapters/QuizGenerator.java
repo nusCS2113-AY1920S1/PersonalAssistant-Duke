@@ -4,8 +4,10 @@ import com.algosenpai.app.logic.chapters.chapter1.ChapterSorting;
 import com.algosenpai.app.logic.chapters.chapter2.ChapterLinkedList;
 import com.algosenpai.app.logic.chapters.chapter3.ChapterBitmask;
 import com.algosenpai.app.logic.models.QuestionModel;
+import com.itextpdf.text.Chapter;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class QuizGenerator {
 
@@ -18,46 +20,43 @@ public class QuizGenerator {
 
     public ArrayList<QuestionModel> generateQuiz(int selectedChapters, ArrayList<QuestionModel> questionList) {
         questionList = new ArrayList<>();
-
-        if (selectedChapters == 0) {
-            //by default, generate questions from all the chapters
-            for (int i = 0; i < 4; i++) {
-                questionList.add(ChapterSorting.generateQuestions());
-            }
-            for (int i = 4; i < 7; i++) {
-                questionList.add(ChapterLinkedList.generateQuestions());
-            }
-            for (int i = 7; i < 10; i++) {
-                questionList.add(ChapterBitmask.generateQuestions());
-            }
-        } else if (selectedChapters == 1) {
-            //generate only sorting questions
+        ChapterSorting chapterSorting = new ChapterSorting();
+        ChapterLinkedList chapterLinkedList = new ChapterLinkedList();
+        ChapterBitmask chapterBitmask = new ChapterBitmask();
+        switch (selectedChapters) {
+        case 1 :
             for (int i = 0; i < 10; i++) {
                 questionList.add(ChapterSorting.generateQuestions());
             }
-        } else if (selectedChapters == 2) {
-            //generate only linked list questions
+            break;
+        case 2 :
             for (int i = 0; i < 10; i++) {
                 questionList.add(ChapterLinkedList.generateQuestions());
             }
-        } else if (selectedChapters == 3) {
-            //generate both the sorting and linked list questions
-            for (int i = 0; i < 5; i++) {
-                questionList.add(ChapterSorting.generateQuestions());
-            }
-            for (int i = 5; i < 10; i++) {
-                questionList.add(ChapterLinkedList.generateQuestions());
-            }
-        } else if (selectedChapters == 7) {
-            //generate questions from all the chapters
-            for (int i = 0; i < 4; i++) {
-                questionList.add(ChapterSorting.generateQuestions());
-            }
-            for (int i = 4; i < 7; i++) {
-                questionList.add(ChapterLinkedList.generateQuestions());
-            }
-            for (int i = 7; i < 10; i++) {
+            break;
+        case 3 :
+            for (int i = 0; i < 10; i++) {
                 questionList.add(ChapterBitmask.generateQuestions());
+            }
+            break;
+        default :
+            //by default, it will pick a mix of questions
+            Random random = new Random();
+            for (int i = 0; i < 10; i++) {
+                int chapterToPick = random.nextInt(3);
+                switch (chapterToPick) {
+                case 0 :
+                    questionList.add(ChapterSorting.generateQuestions());
+                    break;
+                case 1 :
+                    questionList.add(ChapterLinkedList.generateQuestions());
+                    break;
+                case 2 :
+                    questionList.add(ChapterBitmask.generateQuestions());
+                    break;
+                default :
+                    break;
+                }
             }
         }
         return questionList;

@@ -1,6 +1,7 @@
 package com.algosenpai.app.logic.chapters.chapter2;
 
 import com.algosenpai.app.logic.chapters.Question;
+import com.algosenpai.app.logic.models.ReviewTracingListModel;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -37,32 +38,49 @@ public class PseudoCodeQuestion extends Question {
      * @return The value of the sum given in the pseudo-code in a String format.
      */
     private static String calculateSum(ArrayList<Integer> array, ArrayList<String> pseudoCode) {
+        rtlm = new ReviewTracingListModel();
+        rtlm.addReviewTracingModel("This is the linked list.");
+        rtlm.addReviewTracingModel(array.toString());
         int sum = 0;
         int index = 0;
+        rtlm.addReviewTracingModel("We start with sum = " + sum + ", and index = " + index + ".");
         for (String i : pseudoCode) {
             switch (i) {
             case "n = n.next;":
+                rtlm.addReviewTracingModel("Consider step : " + i);
                 index++;
+                rtlm.addReviewTracingModel("Increment index to " + index + ".");
                 break;
             case "sum += list.tail.value;":
+                rtlm.addReviewTracingModel("Consider step : " + i);
                 sum += array.get(array.size() - 1);
+                rtlm.addReviewTracingModel("New sum = " + sum + ".");
                 break;
             case "sum += list.head.value;":
+                rtlm.addReviewTracingModel("Consider step : " + i);
                 sum += array.get(0);
+                rtlm.addReviewTracingModel("New sum = " + sum + ".");
                 break;
             case "n = list.head;":
+                rtlm.addReviewTracingModel("Consider step : " + i);
                 index = 0;
+                rtlm.addReviewTracingModel("Set index to " + index + ".");
                 break;
             case "sum += n.value;":
+                rtlm.addReviewTracingModel("Consider step : " + i);
                 sum += array.get(index);
+                rtlm.addReviewTracingModel("New sum = " + sum + "after adding " + array.get(index) + ".");
                 break;
             case "sum += n.next.value;":
+                rtlm.addReviewTracingModel("Consider step : " + i);
                 sum += array.get(index + 1);
+                rtlm.addReviewTracingModel("New sum = " + sum + "after adding " + array.get(index + 1) + ".");
                 break;
             default:
                 break;
             }
         }
+        rtlm.addReviewTracingModel("Final value is " + sum + ".");
         return String.valueOf(sum);
     }
 
@@ -115,7 +133,7 @@ public class PseudoCodeQuestion extends Question {
     private static LinkedList<Integer> createList(int size) {
         HashSet<Integer> set = new HashSet<>();
         while (set.size() != size) {
-            int value = getRandomNumber(0, 10);
+            int value = getRandomNumber(0, 15);
             set.add(value);
         }
         return new LinkedList<>(set);

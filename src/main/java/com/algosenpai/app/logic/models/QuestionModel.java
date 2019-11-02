@@ -3,7 +3,7 @@ package com.algosenpai.app.logic.models;
 public class QuestionModel {
     private String question;
     private String correctAnswer;
-    private String userAnswer;
+    private String userAnswer = "";
     private ReviewTracingListModel rtlm = new ReviewTracingListModel();
 
     /**

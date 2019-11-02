@@ -1,6 +1,7 @@
 package com.algosenpai.app.logic.command;
 
 import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class QuizCommand extends Command {
 
@@ -14,6 +15,6 @@ public class QuizCommand extends Command {
 
     @Override
     public String execute() {
-        return "You are taking a quiz. Please prefix commands with quiz: quiz <answer | back | next>";
+        return "You are taking a quiz. Please prefix commands with quiz: quiz   < answer | back | next | end >";
     }
 }

@@ -1,0 +1,38 @@
+= Welcome to AlgoSenpai Adventures
+:site-section: index
+:imagesDir: images
+:stylesDir: stylesheets
+
+# AlgoSenpai Adventures (ASA)
+
+A project by AY1920S1-CS2113T-T09-3
+
+=== Team Members:
+
+* NG WEI JIE, BRANDON
+* MATTHEW NATHANAEL SUGIRI
+* MODAK SHANTANU BHARAT
+* SIM YU JIE
+* NG SHI QI, CARRIE
+
+image::Ui.png[width="700"]
+
+* This is a desktop education application. It has a GUI but most of the user interactions happen within a Command Line
+Interface (CLI).
+
+* It is a morph of the PersonalAssistant/Duke application that was developed during Phase 1 of the project.
+
+* It is written in OOP fashion. We used a Model-View-Controller (MVC) design pattern for the architecture
+of the whole project.
+
+# Site Map
+
+* <<UserGuide.adoc#, User Guide>>
+* <<DeveloperGuide.adoc#, Developer Guide>>
+* <<AboutUs.adoc#, About Us>>
+* <<SettingUp.adoc#, Setting Up>>
+
+# Resources
+- https://discuss.gradle.org/t/testfx-headless-java-options-from-cli-not-used-running-the-tests/28197
+- https://medium.com/information-and-technology/test-driven-development-in-javafx-with-testfx-66a84cd561e0
+- https://www.baeldung.com/java-pdf-creation

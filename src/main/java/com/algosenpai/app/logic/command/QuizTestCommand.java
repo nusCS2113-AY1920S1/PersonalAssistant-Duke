@@ -52,33 +52,50 @@ public class QuizTestCommand extends QuizCommand {
     public String execute() {
         if (quizList.size() == 0) {
             return "You need to select a chapter first: select <chapter name>";
+        } else {
+            isNewQuiz.set(false);
+            isQuizMode.set(true);
+            questionNumber.incrementAndGet();
+
+            if (questionNumber.get() < 10) {
+
+                //add the userinput that has been parsed as his answer.
+                if (inputs.size() > 1) {
+                    //to end the quiz in the quizmode
+                    if (inputs.get(1).equals("end")) {
+                        isQuizMode.set(false);
+                        return calculateScore();
+                    }
+                    QuestionModel currQuestionDisplayed = quizList.get(questionNumber.get() - 1);
+                    String userAnswer = extractUserAnswerFromInput();
+                    currQuestionDisplayed.setUserAnswer(userAnswer);
+                }
+                return quizList.get(questionNumber.get()).getQuestion()
+                        + "\n Your answer: "
+                        + quizList.get(questionNumber.get()).getUserAnswer();
+            } else {
+                // Updating all the user stats one shot in here
+                //UserStats userStats = UserStats.parseString(Storage.loadData("UserData.txt"));
+                //userStats.updateChapter(chapterNumber,10,userQuizScore);
+                //userStats.setUserExp(userStats.getUserExp() + userQuizScore);
+                //userStats.setUserLevel(userStats.getUserExp() / 20);
+                //userStats.saveUserStats("UserData.txt");
+                // End of updating
+                reset();
+                return calculateScore();
+            }
         }
-
-        isNewQuiz.set(false);
-        isQuizMode.set(true);
-        questionNumber.incrementAndGet();
-
-        if (questionNumber.get() < 10) {
-            return quizList.get(questionNumber.get()).getQuestion()
-                    + "\n"
-                    + quizList.get(questionNumber.get()).getUserAnswer();
-        }
-        int correctCount = calculateScore();
-
-        // Updating all the user stats one shot in here
-        UserStats userStats = UserStats.parseString(Storage.loadData("UserData.txt"));
-        userStats.updateChapter(chapterNumber,10,correctCount);
-        userStats.setUserExp(userStats.getUserExp() + correctCount);
-        userStats.setUserLevel(userStats.getUserExp() / 20);
-        userStats.saveUserStats("UserData.txt");
-        // End of updating
-
-        reset();
-
-        return "You got " + correctCount + "/10 questions correct!\n"
-                + "You have gained " + correctCount + " EXP points!";
-
     }
+
+    private String extractUserAnswerFromInput() {
+        StringBuilder answer = new StringBuilder();
+        for (int i = 1; i < inputs.size() - 1; i++) {
+            answer.append(inputs.get(i)).append(" ");
+        }
+        answer.append(inputs.get(inputs.size() - 1));
+        return answer.toString();
+    }
+
 
     private void reset() {
         questionNumber.set(-1);
@@ -86,14 +103,14 @@ public class QuizTestCommand extends QuizCommand {
         isNewQuiz.set(true);
     }
 
-    private int calculateScore() {
-        int correctCount = 0;
-        for (int i = 0; i < 10; i++) {
-            QuestionModel currQuestion = quizList.get(i);
-            if (currQuestion.checkAnswer()) {
-                correctCount++;
+    private String calculateScore() {
+        int userQuizScore = 0;
+        for (QuestionModel question : quizList) {
+            if (question.checkAnswer()) {
+                userQuizScore++;
             }
         }
-        return correctCount;
+        return "You got " + userQuizScore + "/10 questions correct!\n"
+                + "You have gained " + userQuizScore + " EXP points!";
     }
 }

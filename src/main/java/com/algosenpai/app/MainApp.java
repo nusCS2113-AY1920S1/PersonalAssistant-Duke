@@ -1,8 +1,6 @@
 package com.algosenpai.app;
 
-
 import com.algosenpai.app.stats.UserStats;
-import com.algosenpai.app.storage.Storage;
 import com.algosenpai.app.ui.Ui;
 import com.algosenpai.app.ui.controller.MusicController;
 import javafx.animation.PauseTransition;
@@ -14,7 +12,6 @@ import javafx.stage.Stage;
 import com.algosenpai.app.logic.Logic;
 import javafx.util.Duration;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
@@ -44,14 +41,9 @@ public class MainApp extends Application {
         }
     }
 
-    public MainApp()  {
-    }
-
-    private void initialize()  {
-
-        stats = UserStats.parseString(Storage.loadData("./UserData.txt"));
+    private void initialize() throws IOException {
+        stats = new UserStats("./UserData.txt");
         logic = new Logic(stats);
-
     }
 
     @Override
