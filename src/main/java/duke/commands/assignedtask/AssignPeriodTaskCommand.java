@@ -38,7 +38,7 @@ public class AssignPeriodTaskCommand implements Command {
      * @param assignedTaskManager contains the information between all the tasks and patients.
      * @param taskManager         contains information of all the tasks.
      * @param patientManager      contains information of all the patients.
-     * @param ui                  interacts with user.
+     * @param dukeUi                  interacts with user.
      * @param storageManager      save the changes in csv file.
      * @throws DukeException if there is error during assigning a period task.
      */
