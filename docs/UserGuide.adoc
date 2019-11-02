@@ -710,7 +710,8 @@ Take note that there is a maximum of *30* character limit.
 | `CARD_LIMIT` should contain only digits and up to *2* decimal places and a maximum of *9* digits.
 
 | `CASHBACK_RATE`
-| Indicates the cashback returns rate of the credit card in percentage.
+| Indicates the cashback returns rate of the credit card in percentage. Cashback will be deposited
+back into savings account upon adding of card bill.
 
 (e.g. 20 for 20%)
 
@@ -753,14 +754,6 @@ Take note that there is a maximum of *50* character limit.
 | `TRANSACTION_NUMBER`
 | Indicates the transaction number in the list when displayed. It is used for editing or deleting expenditures.
 | `TRANSACTION_NUMBER` should contain positive numbers only up to a maximum of *9* digits.
-
-| `BILL_EXPENDITURE_NUMBER`
-| Indicates the credit card bill transaction number in your savings account.
-| `BILL_EXPENDITURE_NUMBER` should contain positive numbers only up to a maximum of *9* digits.
-
-| `BILL_DEPOSIT_NUMBER`
-| Indicates the credit card bill rebate transaction number in your savings account.
-| `BILL_DEPOSIT_NUMBER` should contain positive numbers only up to a maximum of *9* digits.
 
 |======
 
@@ -936,32 +929,20 @@ can delete your credit card bill, which will delete the bill expenditure and reb
 
 *Command Syntax*
 
-`/delete /cardbill /card CARD_NAME /date YEARMONTH /bank ACCOUNT_NAME /expno BILL_EXPENDITURE_NUMBER /depno
-BILL_DEPOSIT_NUMBER`
-
-[TIP]
-====
-To find out the expenditure and deposit number, use the /list or /find function to find the expenditure number in
-your savings account.
-====
+`/delete /cardbill /card CARD_NAME /date YEARMONTH /bank ACCOUNT_NAME /expno`
 
 [WARNING]
 ====
 Do not use the `/delete /bankexpenditure` or `/delete /deposit` command to remove your credit card bill. By doing so,
 you will be unable to reverse your credit card bill and hence unable to add more credit card expenditures to
 previously paid months.
-
-If you specify an incorrect `/expno`, but if the bank transaction amount matches the total card expenditures from
-`/date`, the incorrect bank expenditure will be deleted.
-
-If you specify an incorrect `/depno`, it will be deleted immediately if `/expno` leads to a deletion.
 ====
 
 *Example*
 
-* `/delete /cardbill /card POBB Tomorrow Card /date 10/2019 /bank JunBank Savings Account /expno 1 /depno 2`
+* `/delete /cardbill /card POBB Tomorrow Card /date 10/2019 /bank JunBank Savings Account`
 
-Deletes credit card bill expenditure `1` and rebate deposit `2` from `JunBank Savings Account`. All credit card
+Deletes credit card bill expenditure and rebate deposit from `JunBank Savings Account`. All credit card
 expenditures from `10/2019` will be marked as unpaid from `POBB Tomorrow Card`.
 
 // tag::goals[]
@@ -1456,6 +1437,11 @@ Take note that there is a maximum of *30* character limit.
 
 `/list /recurbankexp /from ACCOUNT_NAME`
 
+[NOTE]
+====
+Remaining Limit shown in `/list /card` is the limit left for the current month.
+====
+
 [TIP]
 ====
 When `/num` is not specified, it is defaulted to 30 most recent records.
@@ -1795,8 +1781,8 @@ AMOUNT] [/date DATE]`
 
 | *Deleting credit card bill*
 | Delete a credit card bill expenditure and rebate deposit from savings account.
-| `/delete /cardbill /card CARD_NAME /date YEARMONTH /bank ACCOUNT_NAME /expno 1 /depno 2`
-| `/delete /cardbill /card POBB Tomorrow Card /date 10/2019 /bank JunBank Savings Account /expno 1 /depno 2`
+| `/delete /cardbill /card CARD_NAME /date YEARMONTH /bank ACCOUNT_NAME`
+| `/delete /cardbill /card POBB Tomorrow Card /date 10/2019 /bank JunBank Savings Account`
 
 |======
 
