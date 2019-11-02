@@ -1,4 +1,26 @@
 {
+  "2019-11-03": [
+    {
+      "description": "hotcakes",
+      "type": "B",
+      "isDone": false,
+      "date": "2019-11-03",
+      "nutritionValue": {
+        "calorie": 600
+      },
+      "cost": "0"
+    },
+    {
+      "description": "tea",
+      "type": "B",
+      "isDone": false,
+      "date": "2019-11-03",
+      "nutritionValue": {
+        "calorie": 50
+      },
+      "cost": "0"
+    }
+  ],
   "2019-11-02": [
     {
       "description": "burger",
