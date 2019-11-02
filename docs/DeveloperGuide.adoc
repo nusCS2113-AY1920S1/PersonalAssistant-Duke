@@ -278,23 +278,45 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |user |Delete a product |Remove irrelevant products that have been phased out
 
-|`* * *` |user |Archive a product |In case my business has evolved but I do not want to lose an older product
+|`* *` |user |Archive a product |In case my business has evolved but I do not want to lose an older product
+
+|`* *` |user |Have a default ingredient cost calculated for me even if I don't enter the cost |Have something to refer to when deciding the cost
+
+|`*` |user |Have my ingredient information in product automatically when the corresponding ingredient is changed |Cut back on have to do duplicate work by re-entering the new information
 
 |`* * *` |user |Add new orders |Track the orders that have been placed
 
 |`* * *` |user |Edit an order's details |Adjust the order if my customer's preferences change
 
-|`* * *` |user |Delete orders by batch |I am saved from the trouble of deleting them one by one
+|`* * *` |user |Delete orders by batch |Save myself from the trouble of deleting them one by one
 
-|`* * *` |user |Add, edit and delete my ingredients in the shopping list easily |It is conveneient to manage
+|`* *` |user |Sort the orders by date created, date of delivery or tags |Look for orders more easily
 
-|`* *` |user |Sort the orders by date created, date of delivery or tags |I can look for orders more easily
+|`* *` |user |Search for orders by date created, date of delivery or tags |Find the orders I want more easily
 
 |`* *` |careless user |Undo deleting an order |Reverse a change instead of typing out the whole order again
 
-|`* *` |user |Transfer my ingredient list from the shopping list to inventory list in a single step |I do not have to manually re-key every single ingredient
+|`* *` |user |Mark orders as done, canceled or finished |Keep the orders organised and easy to sort
+
+|`* * *` |user |Add, edit and delete my ingredients in the shopping list easily |Manage the bakery more easily
+
+|`* *` |user |Transfer my ingredient list from the shopping list to inventory list in a single step |Save the trouble of having to manually re-key every single ingredient
 
 |`* *` |user |Clear my Inventory lists |It is easier to manage
+
+|`* *` |user |Be able to track the expiry dates of ingredients in my inventory |Keep stock without having to physically check it myself
+
+|`* *` |user |Be reminded of ingredients that are going to expire soon in the inventory |Reduce wastage of ingredients
+
+|`* * *` |user |Store my transactions |Reference them easily in the future
+
+|`* * *` |user |Edit older transaction details |Change individual records which may have been logged wrongly
+
+|`* * *` |user |Delete older transaction |Remove older and irrelevant data from my sales calculations
+
+|`* *` |user |Automatically log expenditures and sales |There is no need to retype information from completing an order or shopping buy
+
+|`* *` |user |Calculate revenue, cost and hence profit instantly |Check the bakery's finances with a quick glance
 |=======================================================================
 
 _{More to be added}_
