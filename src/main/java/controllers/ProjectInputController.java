@@ -345,13 +345,14 @@ public class ProjectInputController implements IController {
         }
         try {
             int taskIndexNumber = Integer.parseInt(projectCommand.substring(23).trim().split(" ")[0]);
-            if (!projectCommand.contains("-")) {
-                return new String[] {"No flags are found! Please use flags such as '-r' or '-rm' to indicate the new "
-                        + "requirements to be added or removed! Refer to the user guide for more help!"};
-            }
-            String updatedTaskRequirements = projectCommand.substring(projectCommand.indexOf("-"));
             if (projectToManage.getNumOfTasks() >= taskIndexNumber && taskIndexNumber > 0) {
-                return projectToManage.editTaskRequirements(taskIndexNumber,updatedTaskRequirements);
+                if (!projectCommand.contains("-")) {
+                    return new String[] {"No flags are found! Please use flags such as '-r' or '-rm' to indicate "
+                            + "the new requirements to be added or removed! Refer to the user guide for more help!"};
+                } else {
+                    String updatedTaskRequirements = projectCommand.substring(projectCommand.indexOf("-"));
+                    return projectToManage.editTaskRequirements(taskIndexNumber,updatedTaskRequirements);
+                }
             }
             return new String[] {"The task index entered is invalid."};
         } catch (NumberFormatException e) {
