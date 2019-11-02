@@ -1,4 +1,5 @@
 //@@author WEIFENG-NUSCEG
+
 package duke.models.assignedtasks;
 
 import javafx.beans.property.SimpleBooleanProperty;
@@ -9,7 +10,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 /**
- * Represents a task that has been assigned to a patient with a unique ID.
+ * Represents a Assigned task that has been assigned to a patient with a unique ID.
  */
 public abstract class AssignedTask {
     private SimpleIntegerProperty uuid = new SimpleIntegerProperty(0);
@@ -27,7 +28,7 @@ public abstract class AssignedTask {
 
 
     /**
-     * Instantiate the AssignedTask Object
+     * Create a new AssignedTask Object with patient's id, task's id and the type of the task.
      *
      * @param pid  Patient's Id
      * @param tid  Task's Id
@@ -40,7 +41,8 @@ public abstract class AssignedTask {
     }
 
     /**
-     * Instantiate the AssignedTask Object
+     * Create a new AssignedTask Object with patient's id, task's id, the type of the task,
+     * the is done flag and is recursive flg.
      *
      * @param pid          Patient's Id
      * @param tid          Task's Id
@@ -57,10 +59,11 @@ public abstract class AssignedTask {
     }
 
     /**
-     * Instantiate the AssignedTask Object
+     * Create a new AssignedTask Object with patient's id, task's id, the type of the task,
+     * the is done flag and is recursive flg, and its unique id.
      *
-     * @param pid          Patient's Id
-     * @param tid          Task's Id
+     * @param pid          A Patient's Id
+     * @param tid          A Task's Id
      * @param isdone       A boolean flag to reflect whether the task is done
      * @param isrecurrsive A flag to reflect whether the task is recursive
      * @param type         Type of the assigned task (deadline or period)
@@ -77,7 +80,7 @@ public abstract class AssignedTask {
 
 
     /**
-     * Set the unique id to the assigned task
+     * Set the unique id to the assigned task.
      *
      * @param uuid unique id of the task
      */
@@ -86,7 +89,7 @@ public abstract class AssignedTask {
     }
 
     /**
-     * Get the unique id from assigned task
+     * Get the unique id from assigned task.
      *
      * @return the unique id of assigned task
      */
@@ -95,7 +98,7 @@ public abstract class AssignedTask {
     }
 
     /**
-     * Get the deadline before formatting from assigned task
+     * Get the deadline before formatting from assigned task.
      *
      * @return the deadline before formatting of assigned task
      */
@@ -104,7 +107,7 @@ public abstract class AssignedTask {
     }
 
     /**
-     * Set the deadline before formatting to assigned task
+     * Set the deadline before formatting to assigned task.
      *
      * @param todoDateRaw deadline time before formatting
      */
@@ -113,7 +116,7 @@ public abstract class AssignedTask {
     }
 
     /**
-     * Get the deadline in LocalDateTime from assigned task
+     * Get the deadline in LocalDateTime from assigned task.
      *
      * @return the deadline in LocalDateTime of assigned task
      */
@@ -122,7 +125,7 @@ public abstract class AssignedTask {
     }
 
     /**
-     * Set the deadline in LocalDateTime to assigned task
+     * Set the deadline in LocalDateTime to assigned task.
      *
      * @param todoDate deadline in LocalDateTime of assigned task
      */
@@ -132,7 +135,7 @@ public abstract class AssignedTask {
 
 
     /**
-     * Get the start time before formatting from assigned task
+     * Get the start time before formatting from assigned task.
      *
      * @return the start time before formatting from assigned task
      */
@@ -141,7 +144,7 @@ public abstract class AssignedTask {
     }
 
     /**
-     * Set the start time before formatting to assigned task
+     * Set the start time before formatting to assigned task.
      *
      * @param startDateRaw deadline time before formatting
      */
@@ -150,7 +153,7 @@ public abstract class AssignedTask {
     }
 
     /**
-     * Get the start time in LocalDateTime from assigned task
+     * Get the start time in LocalDateTime from assigned task.
      *
      * @return the start time in LocalDateTime of assigned task
      */
@@ -160,7 +163,7 @@ public abstract class AssignedTask {
 
 
     /**
-     * Set the start time in LocalDateTime to assigned task
+     * Set the start time in LocalDateTime to assigned task.
      *
      * @param startDate deadline in LocalDateTime of assigned task
      */
@@ -169,7 +172,7 @@ public abstract class AssignedTask {
     }
 
     /**
-     * Get the end time before formatting from assigned task
+     * Get the end time before formatting from assigned task.
      *
      * @return the end time before formatting from assigned task
      */
@@ -178,7 +181,7 @@ public abstract class AssignedTask {
     }
 
     /**
-     * Set the end time before formatting to assigned task
+     * Set the end time before formatting to assigned task.
      *
      * @param endDateRaw deadline time before formatting
      */
@@ -187,7 +190,7 @@ public abstract class AssignedTask {
     }
 
     /**
-     * Set the end time in LocalDateTime to assigned task
+     * Set the end time in LocalDateTime to assigned task.
      *
      * @param endDate deadline in LocalDateTime of assigned task
      */
@@ -196,7 +199,7 @@ public abstract class AssignedTask {
     }
 
     /**
-     * Get the end time in LocalDateTime from assigned task
+     * Get the end time in LocalDateTime from assigned task.
      *
      * @return the end time in LocalDateTime of assigned task
      */
@@ -206,7 +209,7 @@ public abstract class AssignedTask {
 
 
     /**
-     * Retrieve the patient ID from assigned task
+     * Retrieve the patient ID from assigned task.
      *
      * @return patient id
      */
@@ -215,7 +218,7 @@ public abstract class AssignedTask {
     }
 
     /**
-     * Set the patient id in assigned task
+     * Set the patient id in assigned task.
      *
      * @param patientId the patient's id
      */
@@ -224,7 +227,7 @@ public abstract class AssignedTask {
     }
 
     /**
-     * Retrieve the task id from assigned task
+     * Retrieve the task id from assigned task.
      *
      * @return the task id
      */
@@ -234,7 +237,7 @@ public abstract class AssignedTask {
 
 
     /**
-     * Set the task id in assigned task
+     * Set the task id in assigned task.
      *
      * @param taskId the task's id
      */
@@ -243,7 +246,7 @@ public abstract class AssignedTask {
     }
 
     /**
-     * Retrieve the task type
+     * Retrieve the task type.
      *
      * @return name of the task type
      */
@@ -253,7 +256,7 @@ public abstract class AssignedTask {
 
 
     /**
-     * Check whether the task is done
+     * Check whether the task is done.
      *
      * @return a bool indicates done or not yet
      */
@@ -262,7 +265,7 @@ public abstract class AssignedTask {
     }
 
     /**
-     * Check whether the task is recursive
+     * Check whether the task is recursive.
      *
      * @returna bool indicates recursive or not
      */
@@ -271,35 +274,35 @@ public abstract class AssignedTask {
     }
 
     /**
-     * Set the task as done
+     * Set the task as done.
      */
     public void markDone() {
         this.isDone.set(true);
     }
 
     /**
-     * Set the task as not done yet
+     * Set the task as not done yet.
      */
     public void undoIsDone() {
         this.isDone.set(false);
     }
 
     /**
-     * Set the task as a recursive task
+     * Set the task as a recursive task.
      */
     public void markRecur() {
         this.isRecursive.set(true);
     }
 
     /**
-     * Set the task as a non-recursive task
+     * Set the task as a non-recursive task.
      */
     public void undoRecur() {
         this.isRecursive.set(false);
     }
 
     /**
-     * Get the status icon of the assigned task
+     * Get the status icon of the assigned task.
      *
      * @return a string contains of a icon indicates isDone
      */
@@ -308,7 +311,7 @@ public abstract class AssignedTask {
     }
 
     /**
-     * Get the recursive icon of the assigned task
+     * Get the recursive icon of the assigned task.
      *
      * @return a string contains of a icon indicates isRecursive
      */
@@ -317,7 +320,7 @@ public abstract class AssignedTask {
     }
 
     /**
-     * Get the unique ID, status icon and recursive icon
+     * Get the unique ID, status icon and recursive icon.
      *
      * @return a string contains the unique ID, status icon and recursive icon
      */
@@ -328,7 +331,7 @@ public abstract class AssignedTask {
 
 
     /**
-     * Convert the important information of assigned task to a string
+     * Convert the important information of assigned task to a string.
      *
      * @return a string with important information of assigned task
      */

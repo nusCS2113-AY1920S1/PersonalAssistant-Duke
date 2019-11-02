@@ -1,4 +1,5 @@
 //@@author WEIFENG-NUSCEG
+
 package duke.commands.assignedtask;
 
 import duke.commands.Command;
@@ -9,40 +10,42 @@ import duke.models.patients.PatientManager;
 import duke.models.assignedtasks.AssignedTaskWithPeriod;
 import duke.models.assignedtasks.AssignedTask;
 import duke.models.assignedtasks.AssignedTaskManager;
-import duke.models.assignedtasks.AssignedTaskWithDate;
 import duke.storages.StorageManager;
 
+/**
+ * Represents a command to assign a period task by its task id, to a specific patient with his/her patient id
+ * follows by the task details such as the task's starting period, the task's ending period,
+ * the task's recursive status and the task's is done status.
+ */
 public class AssignPeriodTaskCommand implements Command {
-
-    private String command;
     private String[] userInput;
-    private AssignedTask newAssignedTask;
 
     /**
-     * .
+     * Create a new AssignPeriodTaskCommand with the user input.
      *
-     * @param userInput .
-     * @throws DukeException .
+     * @param userInput the task information from user input
      */
-    public AssignPeriodTaskCommand(String[] userInput) throws DukeException {
+    public AssignPeriodTaskCommand(String[] userInput) {
         this.userInput = userInput;
     }
 
     /**
-     * .
+     * Run the command with the respect TaskList, UI, and storage, during the execution, this
+     * method will check if the user input is following the correct input format of a assigned
+     * deadline task command. This method will also check if the new AssignedTask command is identical
+     * with other AssignedTask stored in the AssignedTaskManager.
      *
-     * @param assignedTaskManager .
-     * @param taskManager         .
-     * @param patientManager      .
-     * @param ui                  .
-     * @param storageManager      .
-     * @throws DukeException .
+     * @param assignedTaskManager contains the information between all the tasks and patients.
+     * @param taskManager         contains information of all the tasks.
+     * @param patientManager      contains information of all the patients.
+     * @param ui                  interacts with user.
+     * @param storageManager      save the changes in csv file.
+     * @throws DukeException if there is error during assigning a period task.
      */
     @Override
     public void execute(AssignedTaskManager assignedTaskManager, TaskManager taskManager, PatientManager patientManager,
                         Ui ui, StorageManager storageManager) throws DukeException {
 
-        // The followings are written by XUANKUN for temporary use
         try {
             if (userInput.length < 4 || userInput[0].charAt(0) != '#' || userInput[1].charAt(0) != '#') {
                 throw new DukeException("Invalid format. Please follow: "
@@ -69,15 +72,15 @@ public class AssignPeriodTaskCommand implements Command {
             } else {
                 throw new DukeException("A same period task already exists");
             }
-        } catch (Exception e) {
+        } catch (DukeException e) {
             throw new DukeException(e.getMessage());
         }
     }
 
     /**
-     * .
+     * Decide whether duke should exist.
      *
-     * @return .
+     * @return A boolean. True if the command tells Duke to exit, false
      */
     @Override
     public boolean isExit() {

@@ -1,4 +1,5 @@
 //@@author WEIFENG-NUSCEG
+
 package duke.util.mementopattern;
 
 import duke.commands.assignedtask.AssignDeadlineTaskCommand;
@@ -13,11 +14,18 @@ import duke.commands.patient.UpdatePatientCommand;
 import duke.commands.task.UpdateTaskCommand;
 import duke.commands.functional.UndoCommand;
 
+/**
+ * This is parser that checks the type of Command it takes in, if the command has anything to do with
+ * the modification of the internal state of the object, it will return a "save", if it is an undo command
+ * the parser will return a "pop", else it will return a "ignore".
+ */
 public class MementoParser {
 
     /**
-     *  .
-     * @return .
+     * This method will check the type of the command it received and return respective status.
+     *
+     * @param command a command received from duke.
+     * @return a string which indicates the operation type (save, pop, ignore)
      */
     public static String getSaveFlag(Command command) {
         if ((command instanceof AddPatientCommand) || (command instanceof AddTaskCommand)
@@ -32,4 +40,6 @@ public class MementoParser {
             return "ignore";
         }
     }
+
+
 }
