@@ -120,7 +120,11 @@ public class ReserveCommand extends Command {
         }
         dateTill = resources.stringToDate(stringDateTill);
         if (resources.getAvailableNumberOfResource(resourceName) < qty) {
-            throw new RimsException("We don't have that many of this resource currently available!");
+            if (qty == 1) {
+                throw new RimsException("We don't have this resource currently available in our inventory!");
+            } else {
+                throw new RimsException("We don't have that many of this resource currently available!");
+            }
         }
         ArrayList<Resource> allOfResource = resources.getAllOfResource(resourceName);
         ArrayList<Resource> bookedResources = new ArrayList<Resource>();
@@ -138,10 +142,11 @@ public class ReserveCommand extends Command {
         }
         if (qtyBooked != 0) {
             ui.printLine();
-            ui.print("Done! I've marked these resources as loaned:");
+            ui.print("Done! I've booked these resources:");
             for (int i = 0; i < bookedResources.size(); i++) {
-                ui.print(bookedResources.get(i).toString() + " (ID: " + bookedResources.get(i).getResourceId() + ")");
+                ui.print("\t" + bookedResources.get(i).toString() + " (ID: " + bookedResources.get(i).getResourceId() + ")");
             }
+            ui.print("\n\t" + "from " + resources.getDateToPrint(dateFrom) + " till " + resources.getDateToPrint(dateTill));
             ui.printLine();
         } else {
             throw new RimsException("This item is not available between the dates you've selected!");

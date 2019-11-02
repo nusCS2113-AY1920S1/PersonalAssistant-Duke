@@ -17,6 +17,7 @@ public class Ui {
     protected Scanner inputScanner;
     protected String input;
     protected int intInput;
+    protected String arrow = ">> ";
     protected String line = "______________________________________________"
         + "______________________________________________________________________________________________";
     protected String dash = "- - - - - - - - - - - - - - - - - - - - - - - - - "
@@ -56,6 +57,7 @@ public class Ui {
      */
     public String getInput() {
         input = inputScanner.nextLine();
+        System.out.println(arrow + input);
         return input;
     }
 
@@ -67,6 +69,7 @@ public class Ui {
     public String getInput(String question) {
         formattedPrint(question);
         input = inputScanner.nextLine();
+        System.out.println(arrow + input);
         return input;
     }
 
@@ -76,6 +79,7 @@ public class Ui {
      */
     public int getIntegerInput() {
         intInput = inputScanner.nextInt();
+        System.out.println(arrow + intInput);
         return intInput;
     }
 
@@ -86,6 +90,7 @@ public class Ui {
     public int getIntegerInput(String question) {
         formattedPrint(question);
         intInput = inputScanner.nextInt();
+        System.out.println(arrow + intInput);
         return intInput;
     }
 
