@@ -18,6 +18,7 @@ public class FindCommand extends Command {
     public CommandOutput execute(Model model) throws DukeException {
         try {
             String tasks = model.getTasksByKeyword(keyword);
+            System.out.println(keyword);
             if (tasks.equals("")) {
                 return new CommandOutput(NOT_FOUND_MESSAGE + keyword);
             } else {

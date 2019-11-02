@@ -174,8 +174,12 @@ public class TasksManager implements Serializable {
     public String getTasksByKeyword(String keyword) {
         String result = "";
         for (int i = 0; i < taskList.size(); i++) {
-            if (taskList.get(i).getName().contains(keyword)
-                    || taskList.get(i).getDescription().contains(keyword)) {
+            Task task = taskList.get(i);
+            String des = task.getDescription();
+            String name = task.getName();
+            if (name.contains(keyword)) {
+                result += "\n" + taskList.get(i);
+            } else if (des != null && des.contains(keyword)) {
                 result += "\n" + taskList.get(i);
             }
         }
