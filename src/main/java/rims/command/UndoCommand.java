@@ -55,6 +55,6 @@ public class UndoCommand extends Command {
         storage.readResourceFile();
         resources.setResources(storage.getResources());
 
-        ui.formattedPrint("The following command has been undone: " + prevCommand.commandUserInput());
+        ui.formattedPrint("The following command has been undone: " + prevCommand.getCommandUserInput());
     }
 }
