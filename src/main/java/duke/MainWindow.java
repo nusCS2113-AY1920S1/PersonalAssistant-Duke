@@ -5,10 +5,11 @@ import duke.command.ExitCommand;
 import duke.command.BackupCommand;
 import duke.command.FilterCommand;
 import duke.dukeexception.DukeException;
+import duke.task.TaskList;
+import duke.task.BudgetList;
 import duke.task.FilterList;
 import duke.task.Reminders;
 import duke.task.Task;
-import duke.task.TaskList;
 import duke.ui.Ui;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -446,6 +447,7 @@ public class MainWindow extends AnchorPane {
             Scene scene = new Scene(ap);
             Stage stage = new Stage();
             stage.setScene(scene);
+            stage.setAlwaysOnTop(true);
             fxmlLoader.<AddWindow>getController().setAddWindow(duke, this);
             stage.show();
         } catch (IOException e) {
@@ -469,10 +471,33 @@ public class MainWindow extends AnchorPane {
             Scene scene = new Scene(ap);
             Stage stage = new Stage();
             stage.setScene(scene);
+            stage.setAlwaysOnTop(true);
             fxmlLoader.<AddNotesWindow>getController().setAddNotesWindow(this, itemNumber, notesDesc);
             stage.show();
         } catch (IOException e) {
             logr.log(Level.SEVERE, "Unable to load add notes window", e);
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Creates a budget window to allow the user to view budget list via user friendly interface.
+     */
+    @FXML
+    public void createBudgetWindow() {
+        BudgetList budgetList = duke.getBudgetList();
+        String budgetDesc = budgetList.getStringList();
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/BudgetWindow.fxml"));
+            AnchorPane ap = fxmlLoader.load();
+            Scene scene = new Scene(ap);
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.setAlwaysOnTop(true);
+            fxmlLoader.<BudgetWindow>getController().setBudgetWindow(budgetDesc);
+            stage.show();
+        } catch (IOException e) {
+            logr.log(Level.SEVERE, "Unable to load budget window", e);
             e.printStackTrace();
         }
     }
@@ -488,6 +513,7 @@ public class MainWindow extends AnchorPane {
             Scene scene = new Scene(ap);
             Stage stage = new Stage();
             stage.setScene(scene);
+            stage.setAlwaysOnTop(true);
             fxmlLoader.<HelpWindow>getController().setHelpWindow(duke, this);
             stage.show();
         } catch (IOException e) {

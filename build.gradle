@@ -21,7 +21,7 @@ javafx {
 
 shadowJar {
     archiveBaseName = "duke"
-    archiveVersion = "v1.3"
+    archiveVersion = "v1.3.1b"
     archiveClassifier = null
     archiveAppendix = null
 }

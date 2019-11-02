@@ -22,9 +22,9 @@
 
 <!-- @@author talesrune -->
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="880.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="duke.MainWindow">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="782.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="duke.MainWindow">
    <children>
-      <MenuBar layoutX="7.0" layoutY="2.0" prefHeight="25.0" prefWidth="438.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="442.0" AnchorPane.topAnchor="0.0">
+      <MenuBar layoutX="7.0" layoutY="2.0" prefHeight="25.0" prefWidth="437.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="348.0" AnchorPane.topAnchor="0.0">
         <menus>
             <Menu mnemonicParsing="false" text="Add New">
                <items>
@@ -37,7 +37,7 @@
           </Menu>
           <Menu mnemonicParsing="false" text="View">
             <items>
-              <MenuItem id="budgetMenu" mnemonicParsing="false" text="Budget" />
+              <MenuItem id="budgetMenu" fx:id="menuBudget" mnemonicParsing="false" onAction="#createBudgetWindow" text="Budget" />
                   <MenuItem mnemonicParsing="false" text="Blank" />
             </items>
           </Menu>
@@ -53,12 +53,12 @@
          <font>
             <Font name="System Bold Italic" size="12.0" />
          </font></Button>
-      <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" hvalue="1.0" layoutY="27.0" prefHeight="570.0" prefWidth="440.0" vvalue="1.0" AnchorPane.leftAnchor="440.0">
+      <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" hvalue="1.0" layoutY="27.0" prefHeight="570.0" prefWidth="342.0" vvalue="1.0" AnchorPane.leftAnchor="440.0">
          <content>
-            <VBox fx:id="dialogContainer" prefHeight="513.0" prefWidth="428.0" />
+            <VBox fx:id="dialogContainer" prefHeight="566.0" prefWidth="330.0" />
          </content>
       </ScrollPane>
-      <SplitPane dividerPositions="0.64" orientation="VERTICAL" prefHeight="600.0" prefWidth="440.0" AnchorPane.bottomAnchor="45.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="440.0" AnchorPane.topAnchor="28.0">
+      <SplitPane dividerPositions="0.64" orientation="VERTICAL" prefHeight="527.0" prefWidth="439.0" AnchorPane.bottomAnchor="45.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="346.0" AnchorPane.topAnchor="28.0">
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                <children>
