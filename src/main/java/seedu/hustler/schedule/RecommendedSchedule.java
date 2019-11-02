@@ -136,8 +136,6 @@ public class RecommendedSchedule extends Scheduler {
      * @param timeInSeconds time allocated in seconds
      */
     public static void updateAllocTime(int index, long timeInSeconds) {
-        System.out.println(index);
-        System.out.println(timeInSeconds);
         recommended.get(index).setTimeAlloc(timeInSeconds);
     }
 }

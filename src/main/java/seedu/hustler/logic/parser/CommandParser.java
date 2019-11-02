@@ -83,7 +83,7 @@ public class CommandParser extends Parser {
             return new RemoveEntry(userInput);
         } else if (command.equals("/update")) {
             return new UpdateEntry(userInput);
-        } else if (command.equals("/addFromList")) {
+        } else if (command.equals("/addfromlist")) {
             return new AddEntry(userInput);
         } else if (command.equals("/sort")) {
             return new SortCommand(userInput);
