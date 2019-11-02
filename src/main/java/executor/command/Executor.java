@@ -1,6 +1,7 @@
 package executor.command;
 
 import executor.task.TaskList;
+import ui.Ui;
 import ui.Wallet;
 
 public class Executor {
@@ -19,6 +20,7 @@ public class Executor {
      */
     public static boolean runCommand(TaskList taskList, Wallet wallet, CommandType commandType, String userInput) {
         Command c = createCommand(commandType, userInput);
+        Ui.dukeSays("Executing Command: " + c.commandType.toString());
         c.execute(taskList);
         c.execute(wallet);
         return c.getExitRequest();
