@@ -21,7 +21,7 @@ public class AddRoomCommand extends Command {
     private String dateStartTime;
     private String endTime;
 
-    //@@ zkchang97
+    //@@author zkchang97
     /**
      * Creates a new room entry in the list of rooms.
      * Format is addroom ROOMCODE /date DD/MM/YYYY HHMM /to HHMM

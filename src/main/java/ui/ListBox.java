@@ -23,6 +23,8 @@ public class ListBox extends HBox {
     private Label timeEndLabel;
     @FXML
     private Label statusLabel;
+    @FXML
+    private Label descriptionLabel;
 
     /**
      * Container for booking info.
@@ -35,7 +37,7 @@ public class ListBox extends HBox {
      * @param status approve/reject status
      */
     public ListBox(String index, String name, String venue, String date,
-                   String timeStart, String timeEnd, String status) throws DukeException {
+                   String timeStart, String timeEnd, String status, String purpose) throws DukeException {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Ui.class.getResource("/view/ListBox.fxml"));
             fxmlLoader.setController(this);
@@ -51,21 +53,6 @@ public class ListBox extends HBox {
         timeStartLabel.setText(timeStart);
         timeEndLabel.setText(timeEnd);
         statusLabel.setText(status);
-    }
-
-    /**
-     * to show the item.
-     * @param index of item
-     * @param name of item
-     * @param venue of item
-     * @param date of item add
-     * @param timeStart when it will remain there
-     * @param timeEnd when until it's gone
-     * @param status present or absent
-     * @return new item
-     */
-    public static ListBox getItem(String index, String name, String venue, String date,
-        String timeStart, String timeEnd, String status) throws DukeException {
-        return new ListBox(index, name, venue, date, timeStart, timeEnd, status);
+        descriptionLabel.setText(purpose);
     }
 }

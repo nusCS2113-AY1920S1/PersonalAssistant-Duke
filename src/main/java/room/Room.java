@@ -15,6 +15,7 @@ public class Room {
     protected LocalDate date;
     protected LocalTime timeEnd;
 
+    //@@author zkchang97
     /**
      * Public constructor, returns the details of the room to be added.
      * @param roomcode Room code

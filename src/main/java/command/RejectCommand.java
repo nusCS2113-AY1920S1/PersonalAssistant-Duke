@@ -19,9 +19,7 @@ import java.time.format.DateTimeFormatter;
 
 public class RejectCommand extends Command {
 
-    private String name;
-    private String[] splitC;
-    private String roomcode;
+    private int index;
     private LocalDateTime dateTimeStart;
     private String datetimeStartString;
 
@@ -36,31 +34,27 @@ public class RejectCommand extends Command {
      */
     public RejectCommand(String input, String[] splitStr) throws DukeException, IOException {
         if (splitStr.length <= 1) {
-            throw new DukeException("☹ OOPS!!! Please create the booking you want to edit with the following format: "
+            throw new DukeException("☹ OOPS!!! Please create the booking you want to approve with the following format: "
                     + "name, roomcode, start date and time");
         }
-        splitC = input.split(" ", 5);
-        name = splitC[1];
-        roomcode = splitC[2];
+        try {
+            index = Integer.parseInt(splitStr[1]);
+        } catch (NumberFormatException e) {
+            throw new DukeException("OOPS!!! Please enter a index in integer form!");
+        }
+        index -= 1;
     }
 
     @Override
     public void execute(UserList userList, Inventory inventory, RoomList roomList, BookingList bookingList, Ui ui,
                         Storage userStorage, Storage inventoryStorage, Storage bookingstorage, Storage roomstorage)
             throws DukeException, IOException, ParseException {
-        if (!roomList.checkRoom(roomcode)) {
-            throw new DukeException(Constants.UNHAPPY + "OOPS!!! This room doesn't exist!");
+        if (index < 0 || index >= bookingList.size()) {
+            throw new DukeException("OOPS!!! The index you have entered is out of bounds");
         }
-        datetimeStartString = splitC[3] + " " + splitC[4];
-        DateTimeFormatter formatterStart = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
-        this.dateTimeStart = LocalDateTime.parse(datetimeStartString, formatterStart);
-        for (Booking i: bookingList) {
-            if ((i.getVenue() == roomcode) && (i.getDateTimeStart() == dateTimeStart) && (i.getName() == name)) {
-                i.setStatus("R");
-                ui.addToOutput("This request has been approved!");
-                bookingstorage.saveToFile(bookingList);
-                break;
-            }
-        }
+        bookingList.get(index).rejectStatus();
+        ui.addToOutput("This request has been rejected");
+        ui.addToOutput(bookingList.get(index).toString());
+        bookingstorage.saveToFile(bookingList);
     }
 }

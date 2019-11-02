@@ -21,6 +21,7 @@ public class AddBookingCommand extends Command {
     private String[] splitE;
     private String[] datetime;
     private String timeStart;
+    private String timeEnd;
     private Storage storage;
     private String room;
     private String description;
@@ -30,7 +31,7 @@ public class AddBookingCommand extends Command {
     //@@author Alex-Teo
     /**
      * Create new booking request.
-     * format is add NAME DESCRIPTION /at ROOM_CODE /from DATE TIMESTART /to TIMEEND
+     * format is add NAME DESCRIPTION /at ROOM_CODE /from DATE TIMESTART /to DATE TIMEEND
      * @param input from user
      * @param splitStr tokenized input
      * @throws DukeException if format not followed
@@ -38,8 +39,9 @@ public class AddBookingCommand extends Command {
      */
     public AddBookingCommand(String input, String[] splitStr) throws DukeException, IOException {
         if (splitStr.length <= 8) {
-            throw new DukeException("☹ OOPS!!! Please create your booking with the following format: "
-                   + "name, description, roomcode, date and time");
+            throw new DukeException(Constants.UNHAPPY + " OOPS!!! Please create your booking with the following format: "
+                   + "add NAME DESCRIPTION /at ROOM_CODE /from DATE TIMESTART /to DATE TIMEEND"
+                    + ", DATE TIME format is dd/mm/yyyy HHMM ");
         }
         if (!input.contains(" /from ")) {
             throw new DukeException("Please add the date and time for your booking");
@@ -51,7 +53,7 @@ public class AddBookingCommand extends Command {
         String temp = input.substring(4); // name description /at roomcode /from dd/mm/yyyy hhmm /to dd/mm/yyyy hhmm
         splitC = temp.split(" /at ", 2); //splitC[] = {name, description, roomcode, dd/mm/yyyy hhmm /to dd/mm/yyyy hhmm)
         if (splitC.length < 2) {
-            throw new DukeException("☹ OOPS!!! Please create your booking with the following format: "
+            throw new DukeException(Constants.UNHAPPY+ " OOPS!!! Please create your booking with the following format: "
                     + "description, roomcode, date and time");
         }
         splitE = splitC[0].split(" ", 2);
@@ -61,6 +63,7 @@ public class AddBookingCommand extends Command {
         this.room = splitD[0]; // roomcode
         this.datetime = splitD[1].split(" /to ", 2); // datetime[] = {dd/mm/yyyy hhmm, dd/mm/yyyy hhmm}
         this.timeStart = datetime[0];
+        this.timeEnd = datetime[1];
     }
 
     /**
@@ -78,7 +81,7 @@ public class AddBookingCommand extends Command {
                         Storage userStorage, Storage inventoryStorage, Storage bookingstorage, Storage roomstorage)
             throws DukeException, IOException, ParseException {
         Booking newBooking = new Booking(name, room, description, timeStart, datetime[1]);
-        boolean clash = BookingList.checkBooking(bookingList, room, timeStart, datetime[1]);
+        boolean clash = BookingList.checkBooking(bookingList, room, timeStart, timeEnd);
         if (clash) {
             throw new DukeException(Constants.UNHAPPY
                     + " OOPS!!! This slot is already filled, please choose another vacant one");

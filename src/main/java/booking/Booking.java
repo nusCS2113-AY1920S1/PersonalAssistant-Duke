@@ -17,13 +17,11 @@ public class Booking {
     protected LocalTime timeEnd;
     protected String venue;
     protected String name;
-
     private String description;
     private String status;
 
     /**
      * Facility.booking.Booking constructor to make booking
-     *
      * @param username      the requestor
      * @param roomcode      the specific room code
      * @param description   what you are going to use the room for
@@ -40,7 +38,6 @@ public class Booking {
         this.description = description;
         this.name = username;
         this.status = "P";
-
     }
 
     /**
@@ -120,17 +117,29 @@ public class Booking {
         return dateStart;
     }
 
-    public Month getStartMonth() {
-        return dateStart.getMonth();
+    public int getStartMonth() {
+        return dateStart.getMonth().getValue();
     }
 
     public LocalTime getTimeStart() {
         return dateTimeStart.toLocalTime();
     }
 
+    public int getStartYear() {
+        return dateStart.getYear();
+    }
+
     public String getDescription() {
         return description;
     }
 
+
+    public void approveStatus() {
+        status = "A";
+    }
+
+    public void rejectStatus() {
+        status = "R";
+    }
 
 }

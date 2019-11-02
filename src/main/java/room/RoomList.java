@@ -10,6 +10,7 @@ import java.time.format.DateTimeFormatter;
 
 public class RoomList extends ArrayList<Room> {
 
+    //@@author zkchang97
     /**
      * Creates room list from text file.
      * @param loader Strings from text file containing room list info

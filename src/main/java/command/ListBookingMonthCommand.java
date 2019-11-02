@@ -20,7 +20,7 @@ import java.time.format.DateTimeFormatter;
 public class ListBookingMonthCommand extends Command {
 
     private LocalDate dateStart;
-    private Month monthStart;
+    private int monthStart;
 
     /**
      * Show all bookings in a certain month.
@@ -33,10 +33,10 @@ public class ListBookingMonthCommand extends Command {
             throw new DukeException("☹ OOPS!!! Please create your booking with the following format: "
                     + "date");
         }
-        String stringDate = input.substring(10);
-        DateTimeFormatter formatterStart = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        this.monthStart = Integer.parseInt(input.substring(10));
+        /*DateTimeFormatter formatterStart = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         this.dateStart = LocalDate.parse(stringDate, formatterStart);
-        this.monthStart = dateStart.getMonth();
+        this.monthStart = dateStart.getMonth().getValue();*/
     }
 
 
@@ -44,11 +44,11 @@ public class ListBookingMonthCommand extends Command {
     public void execute(UserList userList, Inventory inventory, RoomList roomList, BookingList bookingList, Ui ui,
                         Storage userStorage, Storage inventoryStorage, Storage bookingstorage, Storage roomstorage)
             throws DukeException, IOException, ParseException {
-        int n = 1;
+
         for (Booking i : bookingList) {
             if (i.getStartMonth() == this.monthStart) {
-                ui.addToOutput(n + ". " + i.toString() + "\n");
-                n += 1;
+                ui.addToOutput((bookingList.indexOf(i) + 1) + ". " + i.toString() + "\n");
+
             }
         }
     }
