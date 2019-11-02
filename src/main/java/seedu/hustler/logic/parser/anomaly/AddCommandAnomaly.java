@@ -1,5 +1,6 @@
 package seedu.hustler.logic.parser.anomaly;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Arrays;
 import java.time.format.DateTimeParseException;
@@ -12,6 +13,25 @@ import static seedu.hustler.logic.parser.DateTimeParser.getDateTime;
  */
 public class AddCommandAnomaly extends DetectAnomaly {
 
+    private static final String MESSAGE_INVALID_COMMAND_FORMAT = "The add command does not follow the right format.\n"
+            + "\t_____________________________________\n"
+            + "\tPlease follow the format given below:\n"
+            + "\tAdding ToDo: /add <task description>\n"
+            + "\tAdding Deadline: /add <task description> /by <date> <time>\n"
+            + "\tAdding Event: /add <task description> /at <date> <time>\n"
+            + "\t_____________________________________\n"
+            + "\tOptional that can be appended to above format\n"
+            + "\tAdd recurring: /every <integer> <unit>\n"
+            + "\tAdd difficulty: /d <difficulty>\n"
+            + "\tAdd tags: /tags <tag>";
+    private static final String MESSAGE_EMPTY_TASK_DESCRIPTION = "Task description cannot be empty!";
+    private static final String MESSAGE_INVALID_DIFFICULTY = "Invalid difficulty provided. Difficulty should be H/M/L.";
+    private static final String MESSAGE_INVALID_DATE_TIME = "Date Time should follow the format DD/MM/YYYY HHmm.";
+    private static final String MESSAGE_INVALID_PERIOD = "The <unit> provided is invalid!\n\t"
+            + "Valid <unit> are minutes/hours/days/weeks/months.";
+    private static final String MESSAGE_PASSED_DATE_TIME = "A past date and time has been provided.\n"
+        + "\tPlease only provide upcoming date and time.";
+
     /**
      * Detects anomaly in add command input.
      *
@@ -20,16 +40,23 @@ public class AddCommandAnomaly extends DetectAnomaly {
      */
     public void detect(String[] userInput) throws CommandLineException {
         if (userInput.length == 1 || userInput[1].isBlank()) {
-            throw new CommandLineException("Task description cannot be empty!");
+            throw new CommandLineException(MESSAGE_EMPTY_TASK_DESCRIPTION);
+        }
+
+        String taskDescription = userInput[1].split("/by|/at")[0];
+        if (taskDescription.isBlank()) {
+            throw new CommandLineException(MESSAGE_EMPTY_TASK_DESCRIPTION);
         }
 
         try {
             List<String> parsedInput = Arrays.asList(userInput[1].split(" "));
+
             if (parsedInput.contains("/d")) {
                 int difficultyIndex = parsedInput.indexOf("/d") + 1;
                 String difficulty = parsedInput.get(difficultyIndex);
-                if (!(difficulty.equals("H") || difficulty.equals("L") || difficulty.equals("M"))) {
-                    throw new CommandLineException("Difficulty should be H, M or L.");
+                String[] validDifficulty = {"H", "M", "L"};
+                if (!Arrays.asList(validDifficulty).contains(difficulty)) {
+                    throw new CommandLineException(MESSAGE_INVALID_DIFFICULTY );
                 }
             }
 
@@ -39,24 +66,25 @@ public class AddCommandAnomaly extends DetectAnomaly {
             }
 
             if (parsedInput.contains("/by") || parsedInput.contains("/at")) {
-                getDateTime(TaskList.getTimeString(parsedInput));
+                if (LocalDateTime.now().isAfter(getDateTime(TaskList.getTimeString(parsedInput)))) {
+                    throw new CommandLineException(MESSAGE_PASSED_DATE_TIME);
+                }
                 if (parsedInput.contains("/every")) {
                     int everyIndex = parsedInput.indexOf("/every");
                     Integer.parseInt(parsedInput.get(everyIndex + 1));
                     String unit = parsedInput.get(everyIndex + 2);
-                    if (!(unit.equals("days") || unit.equals("weeks") ||  unit.equals("minutes")
-                        || unit.equals("hours") || unit.equals("months"))) {
-                        throw new CommandLineException("/every units are minutes, hours, days, weeks, months.");
+                    String[] validUnits = {"minutes", "hours", "days", "weeks", "months"};
+                    if (!Arrays.asList(validUnits).contains(unit)) {
+                        throw new CommandLineException(MESSAGE_INVALID_PERIOD);
                     }
                 }
             } else if (parsedInput.contains("/every")) {
                 throw new CommandLineException("/every does not work on ToDo tasks.");
             }
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new CommandLineException("The description of the command does not follow the right format.\n"
-                    + "\tRefer to User Guide for more info.");
+            throw new CommandLineException(MESSAGE_INVALID_COMMAND_FORMAT);
         } catch (DateTimeParseException e) {
-            throw new CommandLineException("Date Time should follow the format DD/MM/YY HHmm.");
+            throw new CommandLineException(MESSAGE_INVALID_DATE_TIME);
         } catch (NumberFormatException e) {
             throw new CommandLineException("Please enter an integer after /every");
         }
