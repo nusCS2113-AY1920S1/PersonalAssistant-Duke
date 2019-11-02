@@ -66,7 +66,7 @@ public class ListCommand extends Command {
             }
         }
 
-        if (finalList.toString().isEmpty()) {
+        if (finalList.toString().equals(LIST_PREFIX)) {
             finalList = new StringBuilder(LIST_EMPTY);
         }
 
