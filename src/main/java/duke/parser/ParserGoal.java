@@ -9,6 +9,7 @@ import duke.data.Storage;
 import duke.models.Goal;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.text.ParseException;
 import java.util.Scanner;
 
@@ -81,7 +82,7 @@ public class ParserGoal {
      * @throws ParseException        if user input is not in the correct format
      */
 
-    public ParserGoal() throws FileNotFoundException, ParseException {
+    public ParserGoal() throws IOException, ParseException {
         cliView = new CliView();
         goalStorage = new Storage(
             ".\\src\\main\\java\\duke\\data\\goals.txt");

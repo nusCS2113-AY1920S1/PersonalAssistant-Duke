@@ -2,6 +2,8 @@ package duke.parser;
 
 import duke.models.MyPlan;
 import duke.view.CliView;
+
+import java.io.IOException;
 import java.util.Scanner;
 import duke.data.Storage;
 import java.io.FileNotFoundException;
@@ -26,7 +28,7 @@ public class ParserTrainingPlan implements IParser {
      * Constructor for ParserTrainingPlan.
      * @throws FileNotFoundException File does not exist
      */
-    public ParserTrainingPlan() throws FileNotFoundException {
+    public ParserTrainingPlan() throws IOException {
         cliView = new CliView();
         plan = new MyPlan(new Storage(
                 ".\\src\\main\\java\\duke\\data\\plan.txt").loadPlans());

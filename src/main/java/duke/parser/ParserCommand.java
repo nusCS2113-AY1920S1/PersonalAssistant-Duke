@@ -4,6 +4,7 @@ import duke.view.CliView;
 
 import java.io.FileNotFoundException;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.util.Scanner;
 
@@ -50,6 +51,8 @@ public class ParserCommand implements IParser {
                 break;
             }
         } catch (FileNotFoundException | ParseException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }

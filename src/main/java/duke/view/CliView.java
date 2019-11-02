@@ -514,7 +514,7 @@ public class CliView {
      * Prints error message when there is incomplete daily list.
      */
     public void showEmptyList() {
-        System.out.println("Sorry, there are no days matching"
+        System.out.println("Sorry, there are no days matching "
                 + "what you have entered.");
     }
 
