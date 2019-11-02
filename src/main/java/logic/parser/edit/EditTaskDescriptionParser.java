@@ -2,8 +2,6 @@ package logic.parser.edit;
 
 import common.DukeException;
 import logic.command.Command;
-import logic.command.RenameMemberCommand;
-import logic.command.RenameTaskCommand;
 import logic.command.edit.EditTaskDescriptionCommand;
 import model.Model;
 

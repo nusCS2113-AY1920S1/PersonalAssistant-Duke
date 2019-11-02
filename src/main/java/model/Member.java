@@ -126,6 +126,16 @@ public class Member {
     }
 
     //@@author JasonChanWQ
+    public boolean hasTask(String oldName) {
+        return taskList.contains(oldName);
+    }
+
+    //@@author JasonChanWQ
+    public void updateTask(String oldName, String newName) {
+        taskList.set(taskList.indexOf(oldName), newName);
+    }
+
+    //@@author JasonChanWQ
     @Override
     public boolean equals(Object obj) {
         return this == obj // if this == obj return true
