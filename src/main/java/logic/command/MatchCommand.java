@@ -24,6 +24,9 @@ public class MatchCommand extends Command {
         MemberManager memberManager = model.getMemberManager();
         ArrayList<Member> memberList = memberManager.getMemberList();
         Task task = tasksManager.getTaskByName(taskName);
+        if (task == null) {
+            throw new DukeException("Could not find such a task!"); //consider using task name instead?
+        }
         ArrayList<String> reqSkills = task.getReqSkills();
         ArrayList<String> matchedMembers = new ArrayList<>();
         for (int i = 0; i < memberList.size(); i += 1) {

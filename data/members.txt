@@ -1,56 +1,37 @@
 [
   {
-    "name": "P1",
-    "taskList": []
-  },
-  {
-    "name": "P2",
-    "taskList": [
-      "Job A"
+    "name": "john",
+    "taskList": [],
+    "skillList": [
+      "coding"
     ]
   },
   {
-    "name": "mayer",
-    "taskList": [],
-    "skillList": []
-  },
-  {
-    "name": "Danny",
-    "taskList": [],
-    "skillList": []
-  },
-  {
-    "name": "natalie",
-    "taskList": [],
-    "skillList": []
-  },
-  {
-    "name": "latina",
-    "taskList": [],
-    "skillList": []
-  },
-  {
-    "name": "jameson",
-    "taskList": [],
-    "skillList": []
-  },
-  {
-    "name": "zx",
-    "taskList": [],
-    "skillList": []
-  },
-  {
-    "name": "ui",
+    "name": "james",
     "taskList": [],
     "skillList": [
-      "fly"
+      "programming"
     ]
   },
   {
-    "name": "test123",
+    "name": "benny",
     "taskList": [],
     "skillList": [
-      "fly"
+      "coding"
+    ]
+  },
+  {
+    "name": "erlich",
+    "taskList": [],
+    "skillList": [
+      "learning"
+    ]
+  },
+  {
+    "name": "bachman",
+    "taskList": [],
+    "skillList": [
+      "loving"
     ]
   }
 ]
