@@ -13,17 +13,9 @@ public class ImportCommandParser implements CommandParser {
     @Override
     public Command parseCommand(String restOfInput) throws ParserException {
         logger.info("Attempting to parse Import command");
-
-        String defaultFile = "COMPalCalender";
-        if (restOfInput.isEmpty()) {
-            logger.info("Successfully parse import command");
-            return new ImportCommand(defaultFile);
-        } else {
-            String fileName = getFileName(restOfInput);
-            logger.info("Successfully parse import command");
-            return new ImportCommand(fileName);
-        }
+        String fileName = getFileName(restOfInput);
+        logger.info("Successfully parse import command");
+        return new ImportCommand(fileName);
     }
-
 
 }

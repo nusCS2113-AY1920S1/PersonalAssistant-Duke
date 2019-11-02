@@ -214,7 +214,6 @@ class ViewCommandTest {
                 startTime = t.getStringStartTime();
                 endTime = t.getStringEndTime();
             } else {
-                System.out.println("LOOKING AT" + dateInput);
                 startTime = "0000";
                 endTime = t.getStringEndTime();
                 System.out.println(startTime);

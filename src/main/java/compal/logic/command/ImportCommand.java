@@ -8,19 +8,27 @@ import compal.model.tasks.Task;
 import compal.model.tasks.TaskList;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Scanner;
 import java.util.logging.Logger;
 
 public class ImportCommand extends Command {
-
+    public static final String MESSAGE_USAGE = "import\n\t"
+        + "Format: import /file-name <name of file>\n\n\t"
+        + "Note: content in \"<>\": need to be fulfilled by the user\n\n"
+        + "This command will import an ics file schedule to COMPal\n"
+        + "Examples:\n\t"
+        + "import /file-name cal\n\t\t"
+        + "import cal.ics schedule to COMPal.";
     public static final String MESSAGE_SUCCESS = "You have successfully imported your schedule!\n";
     public static final String MESSAGE_FILE_NON_EXIST = "Error: File specified to import does not exist!";
     public static final String MESSAGE_FILE_NON_ICS = "Error: File is not a ICS file format that can be read from!";
 
     private String fileName;
     private static final Logger logger = LogUtils.getLogger(ImportCommand.class);
+    private String addedTask = "This are the task added to COMPal\n";
 
     /**
      * Construct the ExportCommand class.
@@ -35,14 +43,12 @@ public class ImportCommand extends Command {
     public CommandResult commandExecute(TaskList taskList) throws CommandException {
         logger.info("Attempting to execute export command");
 
-        if (!checkIfIcsFile()) {
-            throw new CommandException(MESSAGE_FILE_NON_ICS);
-        }
+        checkIfIcsFile();
 
         readFromFile(taskList);
 
         logger.info("Successfully executed export command");
-        return new CommandResult(MESSAGE_SUCCESS, true);
+        return new CommandResult(MESSAGE_SUCCESS.concat(addedTask), true);
     }
 
     /**
@@ -82,13 +88,17 @@ public class ImportCommand extends Command {
      *
      * @throws CommandException if file is not a ics file
      */
-    private boolean checkIfIcsFile() throws CommandException {
+    private void checkIfIcsFile() throws CommandException {
 
         final String icsHeader = "BEGIN:VCALENDAR";
         final String icsProdId = "PRODID";
         final String icsVersion = "VERSION";
         final String icsCalGre = "CALSCALE:GREGORIAN";
         BufferedReader reader;
+        File f = new File(fileName);
+        if (!f.exists()) {
+            throw new CommandException(MESSAGE_FILE_NON_EXIST);
+        }
 
         try {
 
@@ -100,14 +110,14 @@ public class ImportCommand extends Command {
             String lineFour = reader.readLine();
             reader.close();
 
-            if (lineOne.equals(icsHeader) && lineTwo.contains(icsProdId)
-                && lineThree.contains(icsVersion) && lineFour.equals(icsCalGre)) {
-                return true;
+            if (!lineOne.equals(icsHeader) && !lineTwo.contains(icsProdId)
+                && !lineThree.contains(icsVersion) && !lineFour.equals(icsCalGre)) {
+                throw new CommandException(MESSAGE_FILE_NON_ICS);
             }
         } catch (IOException | NullPointerException e) {
             throw new CommandException(MESSAGE_FILE_NON_ICS);
         }
-        return false;
+
     }
 
     /**
@@ -144,11 +154,12 @@ public class ImportCommand extends Command {
         if ((taskStartDate.equals(taskEndDate) && taskStartTime.equals(taskEndTime))) {
             Deadline isDeadline = new Deadline(taskDesc, taskPriority, taskStartDate, taskStartTime);
             taskList.addTask(isDeadline);
+            addedTask += isDeadline.toString() + "\n";
         } else {
             Event isEvent = new Event(taskDesc, taskPriority, taskStartDate, taskEndDate, taskStartTime, taskEndTime);
             taskList.addTask(isEvent);
+            addedTask += isEvent.toString() + "\n";
         }
-
     }
 
     private String getDesc(String eventString) {

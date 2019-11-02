@@ -8,6 +8,7 @@ import compal.model.tasks.Task;
 import compal.model.tasks.TaskList;
 import org.junit.jupiter.api.Test;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import static compal.logic.parser.CommandParserTestUtil.assertParseFailure;
@@ -50,15 +51,18 @@ class ExportCommandParserTest {
         this.taskListMain.setArrList(taskArrListMain);
     }
 
-    /*@Test
-    void parse_invalidFileName_fail() {
-        assertParseFailure(parser, "/*\\0", CommandParser.MESSAGE_INVALID_FILE_NAME_FORMAT);
-    }*/
+    @Test
+    void parse_invalidParam_fail() {
+        assertParseFailure(parser, "", CommandParser.MESSAGE_MISSING_FILE_NAME_ARG);
+        assertParseFailure(parser, "/file-name", CommandParser.MESSAGE_MISSING_FILE_NAME);
+    }
 
     @Test
     void parse_export_success() throws CommandException {
-        assertParseSuccess(parser, "",
+        assertParseSuccess(parser, "/file-name COMPalCalender",
             new ExportCommand("COMPalCalender").commandExecute(taskListMain), taskListMain);
+        File file = new File("COMPalCalender.ics");
+        file.delete();
     }
 
 }

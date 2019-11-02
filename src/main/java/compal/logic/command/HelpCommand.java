@@ -30,10 +30,8 @@ public class HelpCommand extends Command {
     public static final String CMD_FIND = "find";
     public static final String CMD_SET_REMINDER = "set-reminder";
     public static final String CMD_VIEW_REMINDER = "view-reminder";
-    public static final String CMD_LECT = "lect";
-    public static final String CMD_TUT = "tut";
-    public static final String CMD_SECT = "sect";
-    public static final String CMD_LAB = "lab";
+    public static final String CMD_IMPORT = "import";
+    public static final String CMD_EXPORT = "export";
     public static final String CMD_HELP = "help";
     public static final String CMD_FIND_FREE_SLOT = "findfreeslot";
     public static final String CMD_EDIT = "edit";
@@ -102,6 +100,10 @@ public class HelpCommand extends Command {
                 return new CommandResult(ListCommand.MESSAGE_USAGE, false);
             case CMD_DELETE:
                 return new CommandResult(DeleteCommand.MESSAGE_USAGE, false);
+            case CMD_IMPORT:
+                return new CommandResult(ImportCommand.MESSAGE_USAGE, false);
+            case CMD_EXPORT:
+                return new CommandResult(ExportCommand.MESSAGE_USAGE, false);
             default:
                 return new
                         CommandResult(WRONG_COMMAND + HelpCommand.MESSAGE_USAGE, false);

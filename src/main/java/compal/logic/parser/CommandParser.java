@@ -42,6 +42,7 @@ public interface CommandParser {
     String TOKEN_HOUR = "/hour";
     String TOKEN_MIN = "/min";
     String TOKEN_INTERVAL = "/interval";
+    String TOKEN_FILE_NAME = "/file-name";
 
 
     String EMPTY_INPUT_STRING = "";
@@ -65,6 +66,10 @@ public interface CommandParser {
     String MESSAGE_INVALID_PRIORITY = "Invalid Priority Input";
     String MESSAGE_LIMIT_EXCEEDED = "Error: Input entered is out of range!";
     String MESSAGE_INVALID_FILE_NAME_FORMAT = "Invalid file name for export!";
+
+    String MESSAGE_MISSING_FILE_NAME_ARG = "ArgumentError: Missing /file-name";
+    String MESSAGE_MISSING_FILE_NAME = "Error: Missing file name input!";
+
     /**
      * Method specification for different command parsers to parse user input.
      *
@@ -467,19 +472,31 @@ public interface CommandParser {
     //@@author SholihinK
 
     /**
-     *  check if file name to read/write is valid.
+     * check if file name to read/write is valid and if file-name tag exist.
      *
-     * @param fileName the name of file
+     * @param restOfInput the rest of input
      * @return string of file name to write
      * @throws ParserException if fileName is not valid
      */
-    default String getFileName(String fileName) throws ParserException {
-        File f = new File(fileName);
-        try {
-            f.getCanonicalPath();
-            return fileName;
-        } catch (IOException e) {
-            throw new ParserException(MESSAGE_INVALID_FILE_NAME_FORMAT);
+    default String getFileName(String restOfInput) throws ParserException {
+        if (restOfInput.contains(TOKEN_FILE_NAME)) {
+            int startPoint = restOfInput.indexOf(TOKEN_FILE_NAME);
+            String startInput = restOfInput.substring(startPoint);
+            Scanner scanner = new Scanner(startInput);
+            scanner.next();
+            if (!scanner.hasNext()) {
+                throw new ParserException(MESSAGE_MISSING_FILE_NAME);
+            }
+            String fileName = scanner.next();
+            File f = new File(fileName);
+            try {
+                f.getCanonicalPath();
+                return fileName;
+            } catch (IOException e) {
+                throw new ParserException(MESSAGE_INVALID_FILE_NAME_FORMAT);
+            }
+        } else {
+            throw new ParserException(MESSAGE_MISSING_FILE_NAME_ARG);
         }
     }
 
