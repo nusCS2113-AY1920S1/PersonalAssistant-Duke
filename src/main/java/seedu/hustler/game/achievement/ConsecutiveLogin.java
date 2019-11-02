@@ -96,30 +96,34 @@ public class ConsecutiveLogin extends Achievements {
     }
 
     private String progress() {
-        int nextLevel = consecutiveCount;
-        int goal = 0;
-
+        double nextLevel = consecutiveCount;
+        double goal = 0;
+        double percentage = 0;
         switch(achievementLevel) {
             case "Bronze": {
                 if(consecutiveCount >= 5) {
                     nextLevel = 5;
                 }
                 goal = 5;
+                percentage = nextLevel/goal * 100;
             } break;
             case "Silver": {
                 if(consecutiveCount >= 10) {
                     nextLevel = 10;
                 }
                 goal = 10;
+                percentage = nextLevel/goal * 100;
             } break;
             case "Gold": {
                 if(consecutiveCount >= 15) {
                     nextLevel = 15;
                 }
                 goal = 15;
+                percentage = nextLevel/goal * 100;
             } break;
         }
-        return " Progress: [" + nextLevel + "/" + goal + "]";
+
+        return " Progress: [" + (int)percentage + "%]";
     }
 
     /**

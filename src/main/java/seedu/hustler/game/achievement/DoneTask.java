@@ -84,30 +84,33 @@ public class DoneTask extends Achievements {
     }
 
     private String progress() {
-        int nextLevel = numberOfDone;
-        int goal = 0;
-
+        double nextLevel = numberOfDone;
+        double goal;
+        double percentage = 0;
         switch(achievementLevel) {
             case "Bronze": {
                 if(numberOfDone >= 5) {
                     nextLevel = 5;
                 }
                 goal = 5;
+                percentage = nextLevel/goal * 100;
             } break;
             case "Silver": {
                 if(numberOfDone >= 10) {
                     nextLevel = 10;
                 }
                 goal = 10;
+                percentage = nextLevel/goal * 100;
             } break;
             case "Gold": {
                 if(numberOfDone >= 15) {
                     nextLevel = 15;
                 }
                 goal = 15;
+                percentage = nextLevel/goal * 100;
             } break;
         }
-        return " Progress: [" + nextLevel + "/" + goal + "]";
+        return " Progress: [" + (int)percentage + "%]";
     }
 
     /**

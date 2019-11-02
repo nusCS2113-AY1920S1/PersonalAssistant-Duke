@@ -84,8 +84,9 @@ public class AddTask extends Achievements {
     }
 
     private String progress() {
-        int nextLevel = numberOfTasks;
-        int goal = 0;
+        double nextLevel = numberOfTasks;
+        double goal;
+        double percentage = 0;
 
         switch(achievementLevel) {
             case "Bronze": {
@@ -93,21 +94,26 @@ public class AddTask extends Achievements {
                     nextLevel = 5;
                 }
                 goal = 5;
+                percentage = nextLevel/goal * 100;
             } break;
             case "Silver": {
                 if(numberOfTasks >= 10) {
                     nextLevel = 10;
+
                 }
                 goal = 10;
+                percentage = nextLevel/goal * 100;
             } break;
             case "Gold": {
                 if(numberOfTasks >= 15) {
                     nextLevel = 15;
                 }
                 goal = 15;
+                percentage = nextLevel/goal * 100;
+
             } break;
         }
-        return " Progress: [" + nextLevel + "/" + goal + "]";
+        return " Progress: [" + (int)percentage + "%]";
     }
 
     /**

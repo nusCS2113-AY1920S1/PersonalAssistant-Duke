@@ -119,9 +119,7 @@ public class MainWindow extends AnchorPane{
             Platform.runLater(() -> console.appendText(valueOf));
 //            Font font = new Font("Gill Sans", 15);
 //            console.setFont(font);
-
         }
-
         public void write(int b) {
             appendText(String.valueOf((char)b));
         }

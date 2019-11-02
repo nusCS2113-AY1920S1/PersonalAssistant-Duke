@@ -138,7 +138,7 @@ public class AchievementStorage {
      * points gained.
      * @return achievement list with updated status.
      */
-    public static AchievementList loadAchievements() {
+    public static AchievementList loadAchievements() throws IOException{
         try {
             int index = 0;
             Scanner scanner = new Scanner(new File(ACHIEVEMENT_FILEPATH));
@@ -149,6 +149,14 @@ public class AchievementStorage {
             }
             return Hustler.achievementList;
         } catch (FileNotFoundException e) {
+            BufferedWriter writer = new BufferedWriter(new FileWriter(new File(STATUS_FILEPATH)));
+            writer.write("Add: 0\n");
+            writer.write("Done: 0\n");
+            writer.write("TotalPoints: 0\n");
+            writer.write("LastLogin: 0\n");
+            writer.write("ConsecutiveCount: 0\n");
+            storedDateTime = LocalDateTime.now();
+            writer.close();
             return Hustler.achievementList;
         }
     }
