@@ -5,19 +5,31 @@ package entertainment.pro.commons;
  *
  */
 public class PromptMessages {
-    public static final String VIEW_CURRENT_MOVIES_SUCCESS = "Alright! I'm displaying currently showing movies...";
-    public static final String VIEW_UPCOMING_MOVIES_SUCCESS = "Alright! I'm displaying upcoming movies...";
-    public static final String VIEW_TRENDING_MOVIES_SUCCESS = "Alright! I'm displaying trending movies...";
-    public static final String VIEW_POPULAR_MOVIES_SUCCESS = "Alright! I'm displaying popular movies...";
-    public static final String VIEW_TOP_RATED_MOVIES_SUCCESS = "Alright! I'm displaying top-rated movies...";
-    public static final String VIEW_SEARCH_MOVIES_SUCCESS = "Alright! I'm displaying movies related to the title " +
-            "entered by you...";
+    public static final String WAIT_FOR_APP_TO_PROCESS = "Please wait while the app processes your request...";
 
-    public static final String VIEW_CURRENT_TV_SUCCESS = "Alright! I'm displaying currently showing TV shows...";
-    public static final String VIEW_UPCOMING_TV_SUCCESS = "Alright! I'm displaying upcoming TV shows...";
-    public static final String VIEW_TRENDING_TV_SUCCESS = "Alright! I'm displaying trending TV shows...";
-    public static final String VIEW_POPULAR_TV_SUCCESS = "Alright! I'm displaying popular TV shows...";
-    public static final String VIEW_TOP_RATED_TV_SUCCESS = "Alright! I'm displaying top-rated TV shows...";
+    public static final String VIEW_CURRENT_MOVIES_SUCCESS = "Data fetch is complete! Displaying list of currently showing movies...";
+    public static final String VIEW_UPCOMING_MOVIES_SUCCESS = "Data fetch is complete! Displaying list of upcoming movies...";
+    public static final String VIEW_TRENDING_MOVIES_SUCCESS = "Data fetch is complete! Displaying list of most trending movies...";
+    public static final String VIEW_POPULAR_MOVIES_SUCCESS = "Data fetch is complete! Displaying list of most popular movies...";
+    public static final String VIEW_TOP_RATED_MOVIES_SUCCESS = "Data fetch is complete! Displaying list of top-rated movies...";
+    public static final String VIEW_SEARCH_MOVIES_SUCCESS = "Data fetch is complete! Displaying list of movies related to the title entered...";
+
+    public static final String VIEW_CURRENT_TV_SUCCESS = "Data fetch is complete! Displaying list of currently showing TV shows...";
+    public static final String VIEW_TRENDING_TV_SUCCESS = "Data fetch is complete! Displaying list of most trending TV shows...";
+    public static final String VIEW_POPULAR_TV_SUCCESS = "ata fetch is complete! Displaying list of most popular TV shows...";
+    public static final String VIEW_TOP_RATED_TV_SUCCESS = "Data fetch is complete! Displaying list of top-rated TV shows...";
+    public static final String VIEW_SEARCH_TV_SUCCESS = "Data fetch is complete! Displaying list of TV shows related to the title entered...";
+
+    public static final String INVALID_COMBI_OF_FLAGS = "I'm sorry but this is a invalid command. " +
+            "You can either set your preferences to be what's saved on the app or enter new preferences particularly for this search request " +
+            "but can't do both at the same time!";
+
+    public static final String NO_RESULTS_FOUND = "I'm very sorry but could not find any results that matches your request. Try enterting a different command!";
+    public static final String DATA_OBTAINED_FROM_API = "[Data displayed here was obtained from an external source]";
+    public static final String DATA_OBTAINED_FROM_LOCAL_FILES = "[Data displayed here was obtained from storage files as weak/no internet connection was detected." +
+            "Please take note that posters for search results are unavailable for offline search requests]";
+    public static final String EMPTY_PARAM_IN_SEARCH = "Empty parameter entered in search command";
+    public static final String INVALID_PARAM_IN_SEARCH = "Invalid parameter entered in search command";
 
     public static final String SORT_SUCCESS = "Nice! You have successfully updated your sort preferences";
     public static final String PREFERNCES_SUCCESS = "Nice! You have successfully updated your preferences";
@@ -29,7 +41,7 @@ public class PromptMessages {
 
     public static final String UNKNOWN_COMMAND = "☹ I'm sorry, but I don't know what that means. "
             + "Refer to help for command formats :-(";
-    public static final String INVALID_FORMAT = "⚡ Invalid format. Refer to help for command formats. :-(";
+    public static final String INVALID_FORMAT = "Invalid format/parameter is used. Refer to help for command formats :-(";
     public static final String OUT_OF_BOUNDS = "⚠ Index requested is out of bounds! :-(";
 
     public static final String BLACKLIST_ADD_SUCCUESS = "Successfully added to blacklist!";
@@ -45,13 +57,12 @@ public class PromptMessages {
 
 
     //API Messages
-    public static final String API_SUCCESS = "Nice! I'm displaying the search results now...";
     public static final String API_FAIL_GENERAL = "☹ I'sorry, but something went wrong when fetching data";
     public static final String API_FAIL_EMPTY = "☹ I'sorry, but I could not find anything related to your request";
-    public static final String API_TIME_OUT = "I'sorry, weak internet connection detected. " +
-            "The app will operate in offline mode. As such, some of the items may not contain posters.";
+    public static final String API_TIME_OUT = "☹ I'sorry, but your request took so long";
+    public static final String API_OFFLINE = "☹ I'sorry, no internet connection detected. "
+            + "So, the app will operate in offline mode";
     public static final String API_INVALID_REQUEST = "☹ I'sorry, but your request is either unclear or invalid";
-
     //PlaylistExceptions messages
     public static final String PLAYLIST_EXISTS_START =  "☹ I'sorry, but there's already a playlist with called <";
     public static final String PLAYLIST_EXISTS_END =  ">. Please try again with another name.";

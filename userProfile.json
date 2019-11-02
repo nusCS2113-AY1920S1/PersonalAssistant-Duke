@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-{"userName":"hello","userAge":18,"genreIdPreference":[28,35],"genreIdRestriction":[],"adult":false,"playlistNames":["hehe"],"sortByAlphabetical":false,"sortByHighestRating":false,"sortByLatestRelease":false}
-=======
+
 {"userName":"","userAge":-1,"genreIdPreference":[27],"genreIdRestriction":[],"adult":true,"playlistNames":[],"sortByAlphabetical":false,"sortByHighestRating":false,"sortByLatestRelease":false}
->>>>>>> upstream/master
+

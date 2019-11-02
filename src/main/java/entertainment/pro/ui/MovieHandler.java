@@ -140,86 +140,6 @@ public class MovieHandler extends Controller implements RequestListener {
         return searchProfile;
     }
 
-    Controller controller;
-
-//    /**
-//     * checkstyle made me put javadoc here >:( whoever made this function pls edit the the javadoc tqtq -wh.
-//     */
-//    public static void updatePastCommands(String now) {
-//        PastCommandStructure pastCommandStructure = new PastCommandStructure(now, command);
-//        ArrayList<PastCommandStructure> arrayList = pastCommands.getMap();
-//        arrayList.add(pastCommandStructure);
-//        System.out.println(now + " " + command);
-//        pastCommands.setMap(arrayList);
-//        PastUserCommands.update(pastCommands);
-//    }
-
-//    class KeyboardClick implements EventHandler<KeyEvent> {
-//
-//        private Controller control;
-//
-//        KeyboardClick(Controller control) {
-//            this.control = control;
-//        }
-//
-//        /**
-//         * Handles user's inputs and respond appropriately.
-//         *
-//         * @param event consist of user's inputs.
-//         */
-//        @Override
-//        public void handle(KeyEvent event) {
-//
-//            System.out.println("You Pressing : " + ((KeyEvent) event).getCode());
-//            if ((event.getCode().equals(KeyCode.ENTER))) {
-//                System.out.println("Hello");
-//
-//            } else if (event.getCode().equals(KeyCode.TAB)) {
-//                System.out.println("Tab presjenksjessed");
-//                event.consume();
-//            }
-//        }
-//
-//    }
-//=======
-//    class KeyboardClick implements EventHandler<KeyEvent> {
-//
-//        private Controller control;
-//
-//        KeyboardClick(Controller control) {
-//            this.control = control;
-//        }
-//
-//        /**
-//         * Handles user's inputs and respond appropriately.
-//         *
-//         * @param event consist of user's inputs.
-//         */
-//        @Override
-//        public void handle(KeyEvent event) {
-//
-//            System.out.println("You Pressing : " + ((KeyEvent) event).getCode());
-//            if ((event.getCode().equals(KeyCode.ENTER))) {
-//                System.out.println("Hello");
-//                command = mSearchTextField.getText();
-//                //clickEntered(command, control);
-//                try {
-//                    CommandParser.parseCommands(command, control);
-//                } catch (IOException | Exceptions e) {
-//                    e.printStackTrace();
-//                }
-//                clearSearchTextField();
-//            } else if (event.getCode().equals(KeyCode.TAB)) {
-//                System.out.println("Tab presjenksjessed");
-//                event.consume();
-//            } else if (event.getCode().equals(KeyCode.DOWN)) {
-//                mMoviesScrollPne.requestFocus();
-//                mMoviesFlowPane.getChildren().get(0).setStyle("-fx-border-color: white");
-//            }
-//        }
-//
-//    }
-//>>>>>>> 5c7ec624a7884df35d019a4043c39bb85084435a
 
     /**
      * This function is called when JavaFx runtime when view is loaded.
@@ -297,7 +217,7 @@ public class MovieHandler extends Controller implements RequestListener {
                 mSearchTextField.clear();
                 String cmd = CommandStack.nextCommand();
                 if (cmd == null) {
-                    setAutoCompleteText("You dont have any commands in history!");
+                    setAutoCompleteText("You don't have any commands in history!");
                 } else {
                     mSearchTextField.clear();
                     mSearchTextField.setText(cmd);
@@ -306,9 +226,8 @@ public class MovieHandler extends Controller implements RequestListener {
 
                 mSearchTextField.positionCaret(mSearchTextField.getText().length());
             } else if (event.getCode() == KeyCode.ENTER) {
-                clearGeneralFeedbackText();
                 clearAutoCompleteFeedbackText();
-
+                setGeneralFeedbackText(PromptMessages.WAIT_FOR_APP_TO_PROCESS);
                 command = mSearchTextField.getText();
                 try {
                     CommandParser.parseCommands(command, this);
@@ -447,24 +366,31 @@ public class MovieHandler extends Controller implements RequestListener {
             }
         });
     }
+
     /**
-     * This function is called when data for the movies/tv shows failed to fetch due to timed out.
+     * This function is called to print message in UI when data for the movies/tv shows has been fetched from the API.
+     * @param message String to be printed.
      */
     @Override
-    public void requestTimedOut() {
-        setGeneralFeedbackText(PromptMessages.API_TIME_OUT);
+    public void requestCompleted(String message) {
+        setGeneralFeedbackText(message);
     }
 
-
-
     /**
-     * This function is called when data for the movies/tv shows has been fetched.
+     * This function is called to print message in UI when data for the movies/tv shows has been fetched from the local files.
+     * @param message String to be printed.
      */
     @Override
-    public void requestCompleted() {
-        // Build the Movie poster views and add to the flow pane on the main thread
-        //System.out.print("Request received");
-        setGeneralFeedbackText(PromptMessages.API_SUCCESS);
+    public void requestTimedOut(String message) {
+        setGeneralFeedbackText(message);
+    }
+
+    /**
+     * This function is called to print message in UI when no results is found.
+     */
+    @Override
+    public void emptyResults() {
+        setGeneralFeedbackText(PromptMessages.NO_RESULTS_FOUND);
     }
 
     public void obtainedResultsData(ArrayList<MovieInfoObject> moviesInfo) {
@@ -1021,7 +947,7 @@ public class MovieHandler extends Controller implements RequestListener {
      * CLears the text stored under the autoCompleteText.
      */
     public void clearAutoCompleteFeedbackText() {
-        autoCompleteText.setText("");
+        autoCompleteText.setText("Press 'tab' to enable/view auto-complete options available for you...");
     }
 
     public void setAutoCompleteText(String text) {

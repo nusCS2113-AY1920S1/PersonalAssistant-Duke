@@ -4,7 +4,9 @@ import entertainment.pro.commons.PromptMessages;
 import entertainment.pro.commons.exceptions.DateTimeParseExceptions;
 import entertainment.pro.commons.exceptions.Exceptions;
 import entertainment.pro.commons.exceptions.InvalidFormatCommandExceptions;
+import entertainment.pro.commons.exceptions.InvalidParameterException;
 import entertainment.pro.logic.movieRequesterAPI.RetrieveRequest;
+import entertainment.pro.logic.parsers.CommandDebugger;
 import entertainment.pro.model.SearchProfile;
 import entertainment.pro.storage.utils.ProfileCommands;
 import entertainment.pro.ui.Controller;
@@ -16,6 +18,8 @@ import org.json.simple.parser.ParseException;
 
 import java.util.ArrayList;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * This class is called when user enters the command for a search request.
@@ -37,6 +41,7 @@ public class SearchCommand extends CommandSuper {
     private String USER_PREF_FOR_RELEASE_DATES_SORT = "2";
     private String USER_PREF_FOR_RATING_SORT = "3";
     private String USER_PREF_FOR_ADULT_TRUE = "true";
+    private static final Logger logger = Logger.getLogger(SearchCommand.class.getName());
 
 
     /**
@@ -71,7 +76,8 @@ public class SearchCommand extends CommandSuper {
             break;
         default:
             movieHandler.setGeneralFeedbackText(PromptMessages.INVALID_FORMAT);
-            throw new InvalidFormatCommandExceptions();
+            logger.log(Level.SEVERE, PromptMessages.INVALID_PARAM_IN_SEARCH);
+            throw new InvalidParameterException(PromptMessages.INVALID_PARAM_IN_SEARCH);
         }
     }
 
@@ -87,9 +93,12 @@ public class SearchCommand extends CommandSuper {
     private void executeMovieSearch(String payload, MovieHandler movieHandler,
                                     SearchProfile searchProfile) throws Exceptions {
         movieHandler.setSearchProfile(searchProfile);
+        if (payload.isEmpty() || payload.isBlank()) {
+            movieHandler.setGeneralFeedbackText(PromptMessages.EMPTY_PARAM_IN_SEARCH);
+            logger.log(Level.SEVERE, PromptMessages.EMPTY_PARAM_IN_SEARCH);
+        }
         if (payload.equals(GET_CURRENT)) {
             movieHandler.showCurrentMovies();
-            movieHandler.setGeneralFeedbackText(PromptMessages.VIEW_CURRENT_MOVIES_SUCCESS);
         } else if (payload.equals(GET_UPCOMING)) {
             movieHandler.getAPIRequester().beginSearchRequest(RetrieveRequest.MoviesRequestType.UPCOMING_MOVIES);
         } else if (payload.equals(GET_TRENDING)) {
@@ -146,14 +155,9 @@ public class SearchCommand extends CommandSuper {
                 searchProfile.setFromUserPreference(searchProfile, searchEntryName, isMovie,
                         movieHandler.getUserProfile());
             } else {
-                try {
-                    throw new DateTimeParseExceptions();
-                } catch (DateTimeParseExceptions dateTimeParseExceptions) {
-                    dateTimeParseExceptions.printStackTrace();
-                }
+                movieHandler.setGeneralFeedbackText(PromptMessages.INVALID_COMBI_OF_FLAGS);
             }
         } else {
-
             if (this.getFlagMap().containsKey(GET_NEW_GENRE_PREF)) {
                 getGenresPrefForSearch(searchProfile);
             }
@@ -165,10 +169,12 @@ public class SearchCommand extends CommandSuper {
             }
             if (this.getFlagMap().containsKey(GET_NEW_SORT)) {
                 ArrayList<String> getUserSortPref = getFlagMap().get(GET_NEW_SORT);
+                String sortOption = getUserSortPref.get(0);
+                int sortOptionConvertToInt;
+                sortOptionConvertToInt = Integer.parseInt(sortOption);
                 searchProfile.setSortByAlphabetical(getAlphaSortForSearch(getUserSortPref.get(0)));
                 searchProfile.setSortByLatestRelease(getDatesSortForSearch(getUserSortPref.get(0)));
                 searchProfile.setSortByHighestRating(getRatingSortForSearch(getUserSortPref.get(0)));
-
             }
 
         }

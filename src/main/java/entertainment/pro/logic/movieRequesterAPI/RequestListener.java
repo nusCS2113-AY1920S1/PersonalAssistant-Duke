@@ -10,14 +10,21 @@ import java.util.ArrayList;
 public interface RequestListener {
 
     /**
-     * Called when data has been successfully fetched from the MovieDB API.
+     * Called to print message that data has been successfully fetched from the MovieDB API in the UI.
+     * @param message String to be printed.
      */
-    void requestCompleted();
+    void requestCompleted(String message);
 
     /**
-     * Called when data has not been extracted from the MovieDB API due to bad/no internet connection.
+     * Called to print message that data was not extracted from the MovieDB API due to bad/no internet connection in the UI.
+     * @param message String to be printed.
      */
-    void requestTimedOut();
+    void requestTimedOut(String message);
+
+    /**
+     * Called when there was no data found that matches the search request.
+     */
+    void emptyResults();
 
     /**
      * Called to transmit search results data to be displayed in the UI.

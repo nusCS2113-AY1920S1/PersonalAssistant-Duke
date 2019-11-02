@@ -48,8 +48,7 @@ public class URLRetriever {
             return null;
         } catch (SocketTimeoutException ex) {
             throw new Exceptions(PromptMessages.API_TIME_OUT);
-        } catch (IOException ex) {
-            throw new Exceptions(PromptMessages.API_FAIL_GENERAL);
+        } catch (IOException ex) { throw new Exceptions(PromptMessages.API_FAIL_GENERAL);
         }
     }
 }

@@ -26,13 +26,14 @@ import java.util.logging.Logger;
  */
 public class RetrieveRequest implements InfoFetcher {
     private static final String DEFAULT_IMAGE_FILENAME = "/images/cross.png";
+    private static final String PRINT_SUITABLE_FOR = "Suitable for";
+    private static final String UNAVAILABLE_INFO = "N/A";
     private RequestListener requestListener;
     private ArrayList<MovieInfoObject> finalSearchResults = new ArrayList<>();
     private SearchProfile searchProfile;
     private static RetrieveRequest.MoviesRequestType getType;
     private boolean isOffline = false;
-    private static String UNAVAILABLE_INFO = "N/A";
-    private static String PRINT_SUITABLE_FOR = "Suitable for";
+    private String messageToBePrinted = "";
 
     // API Usage constants
     private static final String MAIN_URL = "http://api.themoviedb.org/3/";
@@ -173,41 +174,50 @@ public class RetrieveRequest implements InfoFetcher {
             case CURRENT_MOVIES:
                 requestURL += RetrieveRequest.CURRENT_MOVIE_URL + RetrieveRequest.API_KEY +
                         REGION_SPECIFIED_IN_API;
+                messageToBePrinted = PromptMessages.VIEW_CURRENT_MOVIES_SUCCESS;
                 break;
             // to fetch data for popular movies
             case POPULAR_MOVIES:
                 requestURL += RetrieveRequest.POPULAR_MOVIE_URL + API_KEY +
                         REGION_SPECIFIED_IN_API;
+                messageToBePrinted = PromptMessages.VIEW_POPULAR_MOVIES_SUCCESS;
                 break;
             // to fetch data for upcoming movies
             case UPCOMING_MOVIES:
                 requestURL += RetrieveRequest.UPCOMING_MOVIE_URL + API_KEY +
                         REGION_SPECIFIED_IN_API;
+                messageToBePrinted = PromptMessages.VIEW_UPCOMING_MOVIES_SUCCESS;
                 break;
             // to fetch data for trending movies
             case TRENDING_MOVIES:
                 requestURL += RetrieveRequest.TRENDING_MOVIE_URL + API_KEY +
                         REGION_SPECIFIED_IN_API;
+                messageToBePrinted = PromptMessages.VIEW_TRENDING_MOVIES_SUCCESS;
                 break;
             // to fetch data for top-rated movies
             case TOP_RATED_MOVIES:
                 requestURL += RetrieveRequest.TOP_RATED_MOVIE_URL + API_KEY;
+                messageToBePrinted = PromptMessages.VIEW_TOP_RATED_MOVIES_SUCCESS;
                 break;
             // to fetch data for currently playing TV shows on the air
             case CURRENT_TV:
                 requestURL += RetrieveRequest.CURRENT_TV_URL + API_KEY;
+                messageToBePrinted = PromptMessages.VIEW_CURRENT_TV_SUCCESS;
                 break;
             // to fetch data for popular TV shows
             case POPULAR_TV:
                 requestURL += RetrieveRequest.POPULAR_TV_URL + API_KEY;
+                messageToBePrinted = PromptMessages.VIEW_POPULAR_TV_SUCCESS;
                 break;
             // to fetch data for trending TV shows
             case TRENDING_TV:
                 requestURL += RetrieveRequest.TRENDING_TV_URL + API_KEY;
+                messageToBePrinted = PromptMessages.VIEW_TRENDING_TV_SUCCESS;
                 break;
             // to fetch data for top-rated TV shows
             case TOP_RATED_TV:
                 requestURL += RetrieveRequest.TOP_RATED_TV_URL + API_KEY;
+                messageToBePrinted = PromptMessages.VIEW_TOP_RATED_TV_SUCCESS;
                 break;
             // to fetch data for movies that match the keyword entered by user
             case SEARCH_MOVIES:
@@ -217,6 +227,7 @@ public class RetrieveRequest implements InfoFetcher {
                 } catch (UnsupportedEncodingException e) {
                     throw new Exceptions(PromptMessages.API_FAIL_GENERAL);
                 }
+                messageToBePrinted = PromptMessages.VIEW_SEARCH_MOVIES_SUCCESS;
                 break;
             case SEARCH_TV:
                 try {
@@ -226,6 +237,7 @@ public class RetrieveRequest implements InfoFetcher {
                     throw new Exceptions(PromptMessages.API_FAIL_GENERAL);
                 }
             default:
+                messageToBePrinted = PromptMessages.VIEW_SEARCH_TV_SUCCESS;
                 requestURL = null;
         }
         // add adult preference to the url to fetch data approrpariately
@@ -300,8 +312,7 @@ public class RetrieveRequest implements InfoFetcher {
             JSONObject castPair = (JSONObject) certInfo.get(i);
             if (castPair.get(TO_SPECIFY_ISO).equals(TO_SPECIFY_UK)) {
                 certStrings = castPair.get(TO_SPECIFY_RATING).toString();
-                cert = "Suitable for "
-                        + certStrings + " years & above";
+                cert = PRINT_SUITABLE_FOR + certStrings + " years & above";
             }
         }
         return cert;
@@ -423,6 +434,10 @@ public class RetrieveRequest implements InfoFetcher {
     }
 
 
+    /**
+     * Responsible for retrieving data from offline storage files when there is no/weak internet connection.
+     * Once data has been retrieved, calls another function to further parse the data.
+     */
     @Override
     public void fetchOfflineData() {
         isOffline = true;
@@ -434,7 +449,6 @@ public class RetrieveRequest implements InfoFetcher {
             e.printStackTrace();
         }
         parseJSON(resultsJSON);
-
     }
 
     /**
@@ -459,13 +473,14 @@ public class RetrieveRequest implements InfoFetcher {
     }
 
     /**
-     * Responsible for calling another function to extract and filter results according to user's preferences.
+     * Responsible for filtering results according to user's preferences.
      * Also responsible for sorting results according to user's preferences.
      * @param searchResults JSONArray that contains data about all the search results.
      */
     private void parseJSON(JSONArray searchResults) {
         ArrayList<MovieInfoObject> parsedMovies = new ArrayList(20);
         int size = 0;
+        //max size of results that are to be displayed set at 20
         for (int i = 0; i < searchResults.size(); i++) {
             if (size > 20) {
                 break;
@@ -477,6 +492,10 @@ public class RetrieveRequest implements InfoFetcher {
                 //System.out.println("yeesss");
             }
         }
+        if (parsedMovies.isEmpty()) {
+            requestListener.emptyResults();
+            return;
+        }
         finalSearchResults = parsedMovies;
         if (searchProfile.isSortByAlphabetical()) {
             sortByAlphaOrder();
@@ -487,14 +506,19 @@ public class RetrieveRequest implements InfoFetcher {
         }
         if (isOffline) {
             // to print a message that offline data is being used
-            requestListener.requestTimedOut();
+            messageToBePrinted += "\n" + PromptMessages.DATA_OBTAINED_FROM_LOCAL_FILES;
+            requestListener.requestTimedOut(messageToBePrinted);
         } else {
             // to print message that data was extracted from API successfully
-            requestListener.requestCompleted();
+            messageToBePrinted += "\n" + PromptMessages.DATA_OBTAINED_FROM_API;
+            requestListener.requestCompleted(messageToBePrinted);
         }
         requestListener.obtainedResultsData(finalSearchResults);
     }
 
+    /**
+     * Responsible for sorting data in alphabetical order from lowest to highest letter
+     */
     private void sortByHighestRating() {
         finalSearchResults.sort(new Comparator<MovieInfoObject>() {
             public int compare(MovieInfoObject v1, MovieInfoObject v2) {
