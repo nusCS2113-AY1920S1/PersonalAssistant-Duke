@@ -1,17 +1,19 @@
 package logic.parser;
 
+import common.DukeException;
+
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
 
 //@@author chenyuheng
 public class ArgumentTokenizer {
-    public static final String[] TOKENS = new String[]{"/to", "/at", "/from"};
+    public static final String[] TOKENS = new String[]{"/to", "/at", "/from", "/skill"};
 
     /**
      * add javadocs
-     * */
-    public static HashMap<String, String> tokenize(String userInput) {
+     */
+    public static HashMap<String, String> tokenize(String userInput) throws DukeException {
         ArrayList<Integer> breakpoints = getSortedBreakpoints(userInput);
         String[] argumentStrings = breakByBreakpoints(userInput, breakpoints);
         HashMap<String, String> arguments = getMultimap(argumentStrings);
@@ -20,7 +22,7 @@ public class ArgumentTokenizer {
 
     /**
      * add javadocs
-     * */
+     */
     public static ArrayList<Integer> getSortedBreakpoints(String userInput) {
         ArrayList<Integer> breakpoints = new ArrayList<>();
         for (int i = 0; i < TOKENS.length; i++) {
@@ -39,7 +41,7 @@ public class ArgumentTokenizer {
 
     /**
      * add javadocs
-     * */
+     */
     public static String[] breakByBreakpoints(String s, ArrayList<Integer> breakpoints) {
         if (breakpoints.size() == 0) {
             return new String[]{s};
@@ -55,17 +57,23 @@ public class ArgumentTokenizer {
 
     /**
      * add javadocs
-     * */
-    public static HashMap<String, String> getMultimap(String[] argumentStrings) {
+     */
+    public static HashMap<String, String> getMultimap(String[] argumentStrings) throws DukeException {
         HashMap<String, String> arguments = new HashMap<>();
         for (int i = 0; i < argumentStrings.length; i++) {
             boolean found = false;
             for (int j = 0; j < TOKENS.length; j++) {
-                if (argumentStrings[i].indexOf(TOKENS[j]) == 0) {
-                    String value = argumentStrings[i].substring(TOKENS[j].length() + 1).trim();
-                    arguments.put(TOKENS[j], value);
-                    found = true;
-                    break;
+
+                try {
+                    if (argumentStrings[i].indexOf(TOKENS[j]) == 0) {
+                        String value = argumentStrings[i].substring(TOKENS[j].length() + 1).trim();
+                        arguments.put(TOKENS[j], value);
+                        found = true;
+                        break;
+
+                    }
+                } catch (StringIndexOutOfBoundsException e) {
+                    throw new DukeException("Tag cannot be empty");
                 }
             }
             if (!found) {

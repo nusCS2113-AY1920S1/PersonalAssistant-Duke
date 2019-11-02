@@ -9,5 +9,6 @@
 	<classpathentry kind="src" path="src/test/java"/>
 	<classpathentry exported="true" kind="lib" path="gradle/wrapper/gradle-wrapper.jar"/>
 	<classpathentry kind="lib" path="gson-2.8.6.jar"/>
+	<classpathentry kind="lib" path="sounds/ding.wav"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

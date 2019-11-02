@@ -12,7 +12,7 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/AY1920S1-CS2113-T14-4/main/releases
+:repoURL: https://github.com/AY1920S1-CS2113-T14-4/main
 
 By: `Team AY1920S1-CS2113-T14-4`      Since: `Sept 2019`
 
@@ -29,13 +29,18 @@ while providing an intuitive GUI for them to visualise and easily keep track of 
 == Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `duke.jar` link:{repoURL}/releases[here].
+.  Download the latest `.jar release` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your `Team Manager`.
 .  Double-click the file to start the app. The gui should appear in a few seconds.
 +
 image::Ui.png[width="939", align="left"]
 +
 . Once the GUI appears you will be brought to a front page (dashboard) where you can get started on creating your own schedule.
+. There are 4 main components in the dashboard.
+* `Upper Left` Progress display. Gives a representation of overall progress
+* `Lower Left` CLI output. Feedback for each command entered will output here
+* `Upper Right` Task/Member display. Shows tasks and members and their assignments. Views can be switched.
+* `Lower Right` Command box. Enter input here. Use the up and down arrow keys to cycle through previous inputs.
 . Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will list the command you can use.
 . Some example commands you can try:
@@ -62,7 +67,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will list the command you can use.
 
 *Reminders*
 
-* At each startup of Team Manager, a reminder of upcoming tasks in the next 3 days are displayed
+* At each startup of Team Manager, you will be reminded about reminders that were missed while the application was not running
 
 
 ====
@@ -109,7 +114,7 @@ e.g `find defence`
 
 ==== Mark Task as Complete : `done`
 
-Marks the specified task from the schedule list as done. +
+Marks the specified task from the task list as done. +
 `done [INDEX] ...` +
 e.g `done 1` +
 e.g `done 1 3 5 7`
@@ -128,20 +133,31 @@ Deletes the specified task from the schedule list. +
 ****
 * Deletes the task at the specified INDEX.
 * The index refers to the index number shown in the displayed schedule list.
-* The index must be a positive integer 1, 2, 3, …​
+* The index must be a positive integer 1, 2, 3, …
+* Any reminders set on the task will be deleted together​
 ****
 
-==== Editing the DateTime of deadline or event: `snooze`
+==== Editing the DateTime of a task: `snooze`
 `snooze [TASK INDEX] /to [DATETIME]` +
-e.g `snooze 1 /to 1/6/2020 1200
+e.g `snooze 1 /to 1/6/2020 1200`
 ****
 * Changes the DATETIME of deadline or event with the specified TASKNAME.
-* The DATETIME has to be of pattern “dd/MM/yyyy HHmm”​
+* The DATETIME has to be of pattern “dd/MM/yyyy HHmm”
+* Any reminders set on the task will be removed​
 ****
-{change it}
 
 ==== Editing the details of Task :
 `edit task {time/des} TASK_INDEX /to [change content]`
+
+==== Setting a Reminder :
+`reminder TASK_INDEX TIME_BEFORE` +
+e.g `reminder 1 5m` +
+e.g `reminder 1 20h` +
+e.g `reminder 1 2d`
+****
+* Reminders can only be set on a task that has a time
+* `TIME_BEFORE` is specified by a numeric value followed by `m` for minutes, `h` for hours, `d` for days
+****
 
 === Commands related to members
 
@@ -169,20 +185,22 @@ e.g `unlink 2 3 /from Alice Bob` +
 === Commands related to both tasks and members
 
 ====  Listing task(s) or member(s): `list`
-* show all the tasks +
+* lists all the task in the CLI output and switches to task view +
 `list tasks`
-* show all the members +
+* lists all the members in the CLI output and switches to members view +
 `list members`
 
 Below are coming in v1.4: +
 * show all tasks haven’t been assigned to any members +
-`list tasks nopic`
+`list tasks nopic` +
 * show all members haven’t had any tasks yet +
-`list members free`
+`list members free` +
 * show all tasks assigned to a specific member +
-`list member MEMBER_NAME`
+`list member [MEMBER_NAME]` +
 * show all in charged people for a specific task +
-`list task TASK_INDEX`
+`list task TASK_INDEX` +
+* check for progress of each member +
+`progress [MEMBER_NAME]`
 
 ==== Viewing Schedule for the whole team or a member: `schedule`
 
@@ -211,7 +229,7 @@ Below are coming in v1.4: +
 
 == FAQ
 Q: How do I transfer my data to another Computer? +
-A: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Duke Pro folder.
+A: Copy and replace the /data folder to the other Team Manager
 
 {to be implemented}
 
@@ -219,18 +237,19 @@ A: Install the app in the other computer and overwrite the empty data file it cr
 * Viewing Available Commands: `help`
 
 * Adding New Task
-** basic: `add task [TASKNAME]`
-** with time: `add task [TASKNAME] /at [TIME]`
-** with member(s): `add task [TASKNAME] /to [MEMBER_NAME] ...`
-** with both time and member(s)： `add task [TASKNAME] /at [TIME] /to [MEMBER_NAME] ...`
+** basic: `add task [TASK_NAME]`
+** with time: `add task [TASK_NAME] /at [TIME]`
+** with member(s): `add task [TASK_NAME] /to [MEMBER_NAME] ...`
+** with both time and member(s)： `add task [TASK_NAME] /at [TIME] /to [MEMBER_NAME] ...`
 * Adding a new member: `add member [MEMBER_NAME]`
-* Removing a task or member: `delete {task/member} [INDEX]...`
+* Removing a task or member: `delete {task/member} INDEX...`
 * Listing: `list {tasks/members}
 * Find Task by Name: `find [KEYWORD]`
-* Mark Task as Complete: `done [INDEX] ...`
-* Linking task to a member: `link [INDEX] ... /to [MEMBER_NAME] ...`
-* Unlinking task from a member: `unlink [INDEX] ... /from [MEMBER_NAME] ...`
+* Mark Task as Complete: `done INDEX ...`
+* Linking task to a member: `link INDEX ... /to [MEMBER_NAME] ...`
+* Unlinking task from a member: `unlink INDEX ... /from [MEMBER_NAME] ...`
 * Editing task or member details: `edit {task/member} {{time/des}/{bio/email/phone}} INDEX /to [change content]
+* Setting a reminder: `reminder INDEX BEFORE_INT{m/d/h}`
 * View Schedule: `schedule {team/member} {all/todo} ([MEMBER_NAME])`
 * Exiting the program: `bye`
 

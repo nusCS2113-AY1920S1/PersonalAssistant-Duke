@@ -2,7 +2,6 @@ package logic.command;
 
 import common.DukeException;
 import model.Model;
-import java.util.Date;
 
 public class RenameTaskCommand extends Command {
 
@@ -22,6 +21,12 @@ public class RenameTaskCommand extends Command {
             return new CommandOutput(INDEX_NOT_IN_TASKlIST_MESSAGE);
         } else {
             model.getTaskList().get(taskIndex - 1).setName(newName);
+            /*
+            for (int i = 0; i < model.getMemberListSize(); i++) {
+                model.getMemberNameById(i);
+                if ()//if arraylist contains the old name, then rename it to new name
+            }*/
+
             return new CommandOutput(SUCCESS_MESSAGE + newName);
         }
     }
