@@ -1012,7 +1012,7 @@ public class BankList {
         for (int i = 0; i < getBankListSize(); i++) {
             String accountName = bankLists.get(i).getAccountName();
             String accountType = bankLists.get(i).getType();
-            if(SAVING.equals(accountType)) {
+            if (SAVING.equals(accountType)) {
                 nextIncomeDate = exportDateFormat.format(bankLists.get(i).getNextIncomeDate());
             }
             double amount = bankLists.get(i).getCurrentAmount();
@@ -1024,8 +1024,8 @@ public class BankList {
                 income = 0;
             }
             String stringIncome = decimalFormat.format(income);
-            exportArrayList.add(new String[]{accountName,accountType,stringAmount,stringIncome
-                    ,nextIncomeDate});
+            exportArrayList.add(new String[]{accountName,accountType,stringAmount,stringIncome,
+                    nextIncomeDate});
         }
         return exportArrayList;
     }

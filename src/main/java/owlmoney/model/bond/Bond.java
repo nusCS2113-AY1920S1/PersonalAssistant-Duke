@@ -37,6 +37,15 @@ public class Bond {
         this.nextDateToCreditBondCouponInterest = calculateNextDateToCreditInterest(this.date);
     }
 
+    /**
+     *
+     * @param name   The name of the bond issue.
+     * @param amount The amount of money the bond costs.
+     * @param rate   The coupon rate of the bond.
+     * @param date   The date the bond was purchased.
+     * @param year   The year the bond will last.
+     * @param nextDateToCreditBondCouponInterest The next date that interest will be credited.
+     */
     public Bond(String name, double amount, double rate, Date date, int year, Date nextDateToCreditBondCouponInterest) {
         this.name = name;
         this.amount = amount;

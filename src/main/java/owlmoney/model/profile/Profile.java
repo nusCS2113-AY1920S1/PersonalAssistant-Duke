@@ -895,8 +895,8 @@ public class Profile {
             int integerYear = Integer.parseInt(year);
             String stringNextDateToCreditInterest = importDataRow[5];
             Date nextDateToCreditInterestInFormat = dateFormat.parse(stringNextDateToCreditInterest);
-            Bond newBond = new Bond(bondName, doubleAmount, doubleRate, dateInFormat, integerYear
-                    , nextDateToCreditInterestInFormat);
+            Bond newBond = new Bond(bondName, doubleAmount, doubleRate, dateInFormat, integerYear,
+                    nextDateToCreditInterestInFormat);
             profileImportNewBonds(bankName, newBond);
         }
     }
