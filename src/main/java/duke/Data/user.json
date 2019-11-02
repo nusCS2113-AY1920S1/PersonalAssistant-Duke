@@ -1,12 +1,12 @@
 {
   "weight": {
-    "03/11/2019": 70.0
+    "2019-11-03": 70.0
   },
   "height": 175,
   "age": 22,
   "gender": "MALE",
   "isSetup": true,
-  "name": "hashir",
+  "name": "Hashir",
   "activityLevel": 2,
   "factor": [
     1.2,

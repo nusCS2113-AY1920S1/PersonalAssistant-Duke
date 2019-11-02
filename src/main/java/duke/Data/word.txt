@@ -1,6 +1,5 @@
 calorie
 calcium
-bye
 breakfast
 lunch
 dinner

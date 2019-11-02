@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 
 public final class LocalDateAdapter extends TypeAdapter<LocalDate> {
+
     @Override
     public void write(final JsonWriter jsonWriter, final LocalDate localDate) throws IOException {
         jsonWriter.value(localDate.toString());

@@ -8,12 +8,9 @@ import duke.model.wallet.Wallet;
 import duke.storage.Storage;
 import duke.ui.GraphUi;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.YearMonth;
+import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.HashMap;
 
 /**
@@ -49,27 +46,25 @@ public class CGraphCommand extends Command {
     public void execute(MealList meals, Storage storage, User user, Wallet wallet) {
         ArrayList<Integer> intHolder = new ArrayList();
         double highest = 1;
-        Calendar date = Calendar.getInstance();
-        date.set(Calendar.MONTH, this.month);
-        date.set(Calendar.YEAR, this.year);
+        LocalDate date = LocalDate.now();
+        int month = date.getMonthValue();
+        date = date.withMonth(month);
+        //start of month :
+        LocalDate firstDay = date.withDayOfMonth(1);
+        LocalDate lastDay = date.with(TemporalAdjusters.lastDayOfMonth());
         String[][] graph = new String[21][62];
         for (int i = 0; i < 21; i += 1) {
             for (int j = 0; j < 62; j += 1) {
                 graph[i][j] = " ";
             }
         }
-        YearMonth yearMonthObject = YearMonth.of(year, month);
-        int daysInMonth = yearMonthObject.lengthOfMonth();
         if (this.type.equals("weight")) {
-            HashMap<String, Double> weight = user.getAllWeight();
-            for (int i = 0; i < daysInMonth; i += 1) {
-                date.set(Calendar.DAY_OF_MONTH, i);
-                DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-                String currentDate = dateFormat.format(date.getTime());
-                if (weight.containsKey(currentDate)) {
-                    intHolder.add((int)Math.round(weight.get(currentDate)));
-                    if (highest < weight.get(currentDate)) {
-                        highest = weight.get(currentDate);
+            HashMap<LocalDate, Double> weight = user.getAllWeight();
+            for (LocalDate dateItr = firstDay; dateItr.isBefore(lastDay); dateItr = dateItr.plusDays(1)) {
+                if (weight.containsKey(dateItr)) {
+                    intHolder.add((int)Math.round(weight.get(dateItr)));
+                    if (highest < weight.get(dateItr)) {
+                        highest = weight.get(dateItr);
                     }
                 } else {
                     intHolder.add(0);
@@ -77,10 +72,8 @@ public class CGraphCommand extends Command {
             }
         } else if (this.type.equals("wallet")) {
             HashMap<String, ArrayList<Transaction>> transactions = wallet.getTransactions().getTransactionList();
-            for (int i = 0; i < daysInMonth; i += 1) {
-                date.set(Calendar.DAY_OF_MONTH, i);
-                DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-                String currentDate = dateFormat.format(date.getTime());
+            for (LocalDate dateItr = firstDay; dateItr.isBefore(lastDay); dateItr = dateItr.plusDays(1)) {
+                String currentDate = dateItr.format(dateFormat);
                 int totalSpent = 0;
                 if (transactions.containsKey(currentDate)) {
                     ArrayList<Transaction> transactionOnTheDay = transactions.get(currentDate);
@@ -97,16 +90,13 @@ public class CGraphCommand extends Command {
             }
         } else {
             HashMap<LocalDate, ArrayList<Meal>> meal = meals.getMealTracker();
-            for (int i = 0; i < daysInMonth; i += 1) {
-                date.set(Calendar.DAY_OF_MONTH, i);
-                DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-                LocalDate currentDate = LocalDate.parse(dateFormat.format(date.getTime()), this.dateFormat);
+            for (LocalDate dateItr = firstDay; dateItr.isBefore(lastDay); dateItr = dateItr.plusDays(1)) {
                 int totalConsumed = 0;
-                if (meal.containsKey(currentDate)) {
-                    ArrayList<Meal> mealOnTheDay = meal.get(currentDate);
-                    for (int j = 0; j < mealOnTheDay.size(); j += 1) {
-                        if (mealOnTheDay.get(j).getNutritionalValue().containsKey(this.type)) {
-                            totalConsumed += mealOnTheDay.get(j).getNutritionalValue().get(this.type);
+                if (meal.containsKey(dateItr)) {
+                    ArrayList<Meal> mealOnTheDay = meal.get(dateItr);
+                    for (Meal value : mealOnTheDay) {
+                        if (value.getNutritionalValue().containsKey(this.type)) {
+                            totalConsumed += value.getNutritionalValue().get(this.type);
                         }
                     }
                 }
@@ -117,15 +107,19 @@ public class CGraphCommand extends Command {
             }
         }
         int pos;
-        for (int i = 0; i < daysInMonth; i += 1) {
+        for (LocalDate dateItr = firstDay; dateItr.isBefore(lastDay); dateItr = dateItr.plusDays(1)) {
+            int i = dateItr.getDayOfMonth();
             pos = (int)(((float)intHolder.get(i) / (float)highest) * 20);
             graph[20 - pos][i * 2] = "*";
         }
-        for (int i = 0; i < daysInMonth - 1; i += 1) {
+
+        for (LocalDate dateItr = firstDay; dateItr.isBefore(lastDay); dateItr = dateItr.plusDays(1)) {
+            int i = dateItr.getDayOfMonth();
             pos = (int)(((float)((intHolder.get(i)
                     + intHolder.get(i + 1)) / 2) / (float)highest) * 20);
             graph[20 - pos][i * 2 + 1] = "*";
         }
+
         graphUi.show(graph, month, type);
     }
 }

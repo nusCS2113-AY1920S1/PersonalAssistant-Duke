@@ -1,29 +1,22 @@
 package duke.model.user;
 
-import duke.commons.exceptions.DukeException;
 import duke.model.Goal;
 import duke.model.meal.MealList;
 import duke.model.wallet.Account;
 
 import java.math.BigDecimal;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.HashMap;
-
-import static duke.commons.constants.DateConstants.DATE_FORMAT;
 
 /**
  * This is a class that will store user information to be used for processing.
  */
 public class User {
-    private transient String lastDate = DATE_FORMAT.format(Calendar.getInstance().getTime());
+    private transient LocalDate lastDate = null;
     private transient Goal goal = null;
     private transient Account account;
 
-    private HashMap<String, Double> weight = new HashMap();
+    private HashMap<LocalDate, Double> weight = new HashMap();
     private int height = 0;
     private int age = 0;
     private Gender gender = null;
@@ -51,7 +44,7 @@ public class User {
      * @param originalWeight their original weight
      */
     public User(String name, int age, int height, Gender gender, int activityLevel,
-                double originalWeight, String lastDate) {
+                double originalWeight, LocalDate lastDate) {
         this.name = name;
         this.height = height;
         this.age = age;
@@ -78,19 +71,9 @@ public class User {
      * @param weight Weight at time of input
      */
     public void setWeight(double weight) {
-        Calendar calendarDate = Calendar.getInstance();
-        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        String currentDate = dateFormat.format(calendarDate.getTime());
+        LocalDate currentDate = LocalDate.now();
         this.weight.put(currentDate, weight);
-        Date lastDateDate = new Date();
-        try {
-            lastDateDate = dateFormat.parse(lastDate);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        Calendar lastDateCalendar = Calendar.getInstance();
-        lastDateCalendar.setTime(lastDateDate);
-        if (calendarDate.after(lastDateCalendar)) {
+        if (lastDate == null || lastDate.isBefore(currentDate)) {
             this.lastDate = currentDate;
         }
     }
@@ -98,42 +81,17 @@ public class User {
     /**
      * This is a function to update weight at input date.
      * @param weight Weight at time of input
-     * @param date String of the date in DD/MM/YYYY format
+     * @param inputDate LocalDate of the date in DD/MM/YYYY format
      */
-    public void setWeight(double weight, String date) throws DukeException {
-        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        Date temp;
-        try {
-            temp = dateFormat.parse(date);
-        } catch (ParseException e) {
-            throw new DukeException(e.getMessage());
-        }
-        String currentDate = dateFormat.format(temp.getTime());
-        Date lastDateDate = new Date();
-        try {
-            lastDateDate = dateFormat.parse(lastDate);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        this.weight.put(currentDate, weight);
-        Calendar lastDateCalendar = Calendar.getInstance();
-        lastDateCalendar.setTime(lastDateDate);
-
-        Date currDateDate = new Date();
-        try {
-            currDateDate = dateFormat.parse(date);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        Calendar currDateCalendar = Calendar.getInstance();
-        currDateCalendar.setTime(currDateDate);
-        if (lastDateCalendar.before(currDateCalendar)) {
-            this.lastDate = date;
+    public void setWeight(double weight, LocalDate inputDate) {
+        this.weight.put(inputDate, weight);
+        if (lastDate == null || lastDate.isBefore(inputDate)) {
+            this.lastDate = inputDate;
         }
     }
 
     public boolean setGoal(Goal goal, boolean override) {
-        if (this.goal != null && override == false) {
+        if (this.goal != null && !override) {
             return false;
         } else {
             this.goal = goal;
@@ -188,8 +146,13 @@ public class User {
         return this.age;
     }
 
-    public String getLastDate() {
-        return this.lastDate;
+    public LocalDate getLastDate() {
+        if (this.lastDate == null) {
+            lastDate = LocalDate.now();
+            return lastDate;
+        } else {
+            return this.lastDate;
+        }
     }
 
     public double getWeight() {
@@ -211,7 +174,7 @@ public class User {
     /**
      * This is a function to obtain all the weight at different date.
      */
-    public HashMap<String, Double> getAllWeight() {
+    public HashMap<LocalDate, Double> getAllWeight() {
         return this.weight;
     }
 

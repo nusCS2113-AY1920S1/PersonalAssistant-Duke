@@ -154,18 +154,20 @@ public class Ui {
         }
     }
 
-    public void showWeightUpdate(User user, int weight, String date) {
+    public void showWeightUpdate(User user, int weight, LocalDate date) {
         System.out.println(UI_PADDING + user.getName() + ", your weight has been updated on "
-                + date + " to " + weight + "kg.");
+                + date.format(LOCAL_DATE_FORMATTER) + " to " + weight + "kg.");
     }
 
     public void showRejected() {
         System.out.println(UI_PADDING + "Understood, I've stopped the update.");
     }
 
-    public void showConfirmation(String weight, String date) {
-        System.out.println(UI_PADDING + "You have entered " + weight + " on " + date + ".");
-        System.out.println(UI_PADDING + "Would you like to overwrite the record on " + date + "?(Y/N)");
+    public void showConfirmation(String weight, LocalDate date) {
+        System.out.println(UI_PADDING + "You have entered " + weight
+                + " on " + date.format(LOCAL_DATE_FORMATTER) + ".");
+        System.out.println(UI_PADDING + "Would you like to overwrite the record on "
+                + date.format(LOCAL_DATE_FORMATTER) + "?(Y/N)");
     }
 
     public void showTransactionAdded(Transaction transaction, BigDecimal accountBalance) {

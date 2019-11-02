@@ -1,12 +1,15 @@
 package duke.storage;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import duke.commons.exceptions.DukeException;
-import duke.commons.file.FilePaths;
+import duke.commons.file.LocalDateAdapter;
 import duke.logic.autocorrect.Autocorrect;
 import duke.model.meal.MealList;
 import duke.model.user.User;
 import duke.model.wallet.Wallet;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 /**
@@ -15,12 +18,13 @@ import java.util.ArrayList;
 public class Storage {
     private Load loader;
     private Write writer;
-    private FilePaths filePaths;
 
     public Storage() {
-        loader = new Load();
-        writer = new Write();
-        filePaths = new FilePaths();
+        Gson gson = new GsonBuilder().setPrettyPrinting()
+                .registerTypeAdapter(LocalDate.class, new LocalDateAdapter()).create();
+
+        loader = new Load(gson);
+        writer = new Write(gson);
     }
 
     /**

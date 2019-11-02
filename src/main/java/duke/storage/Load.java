@@ -1,13 +1,11 @@
 package duke.storage;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import duke.commons.exceptions.DukeException;
 import duke.commons.file.FilePathNames;
 import duke.commons.file.FilePaths;
 import duke.commons.file.FileUtil;
-import duke.commons.file.LocalDateAdapter;
 import duke.logic.autocorrect.Autocorrect;
 import duke.model.Goal;
 import duke.model.meal.Meal;
@@ -28,17 +26,16 @@ import java.util.HashMap;
 public class Load {
     private BufferedReader bufferedReader = null;
     private String lineStr;
-    private static FilePaths filePaths;
+    private static FilePaths filePaths = new FilePaths();
     // Flag to set if jar resource should be called if user file does not exist in host system.
     private static final boolean useResourceAsBackup = true;
-    private Gson gson = new GsonBuilder().setPrettyPrinting()
-            .registerTypeAdapter(LocalDate.class, new LocalDateAdapter()).create();
+    private Gson gson;
 
 
 
 
-    public Load() {
-        filePaths = new FilePaths();
+    public Load(Gson gson) {
+        this.gson = gson;
     }
 
     /**
