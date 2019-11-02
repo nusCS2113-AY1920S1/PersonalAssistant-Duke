@@ -1,6 +1,6 @@
 package duke.command.dishesCommand;
 
-import duke.command.Cmd;
+import duke.command.Command;
 import duke.dish.Dish;
 import duke.exception.DukeException;
 import duke.ingredient.Ingredient;
@@ -8,7 +8,7 @@ import duke.list.GenericList;
 import duke.storage.Storage;
 import duke.ui.Ui;
 
-public class AddIngredient extends Cmd<Dish> {
+public class AddIngredient extends Command<Dish> {
 
     private Ingredient ingredient;
 

@@ -1,6 +1,6 @@
 package duke.command.orderCommand;
 
-import duke.command.Cmd;
+import duke.command.Command;
 import duke.exception.DukeException;
 import duke.list.GenericList;
 import duke.order.Order;
@@ -11,9 +11,9 @@ import duke.ui.Ui;
 import java.io.IOException;
 
 /**
- * Represents a specific {@link Cmd} used to cancel/delete a {@link Order} from the {@link OrderList}.
+ * Represents a specific {@link Command} used to cancel/delete a {@link Order} from the {@link OrderList}.
  */
-public class DeleteOrderCommand extends Cmd<Order> {
+public class DeleteOrderCommand extends Command<Order> {
     private int orderIndex;
 
     /**

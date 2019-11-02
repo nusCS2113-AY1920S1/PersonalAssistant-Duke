@@ -1,7 +1,7 @@
 package duke.parser;
 
 import duke.Duke;
-import duke.command.Cmd;
+import duke.command.Command;
 import duke.command.dishesCommand.*;
 import duke.command.ingredientCommand.*;
 import duke.command.orderCommand.*;
@@ -21,7 +21,7 @@ public class Parser {
     //There is no constructor method for all others are static.
 
     /**
-     * Returns a {@link Cmd} that can be understood by {@link Duke} and executed after.
+     * Returns a {@link Command} that can be understood by {@link Duke} and executed after.
      * We first split the fullCommand into 2, the keyword, followed by everything else.
      * Then we perform switching based on the keyword.
      *
@@ -29,7 +29,7 @@ public class Parser {
      * @return Command The Command to be executed
      * @throws DukeException for any invalid input
      */
-    public static Cmd parse(String fullCommand, Duke.Type type) throws DukeException {
+    public static Command parse(String fullCommand, Duke.Type type) throws DukeException {
         String[] splitted;
 
         switch (type) {
@@ -165,7 +165,7 @@ public class Parser {
         return x;
     }
 
-    public static Cmd<Order> addOrderParser(String[] splitter) throws DukeException {
+    public static Command<Order> addOrderParser(String[] splitter) throws DukeException {
         Order newOrder;
         Date orderDate;
         String[] orderedDishes;
@@ -197,7 +197,7 @@ public class Parser {
         return new AddOrderCommand(newOrder);
     }
 
-    public static Cmd<Order> alterOrderDateParser(String[] splitter) throws DukeException {
+    public static Command<Order> alterOrderDateParser(String[] splitter) throws DukeException {
         if (splitter.length == 1) {
             throw new DukeException("Must enter an order index.\n\t Note that ORDER_INDEX starts from 1");
         }
@@ -218,7 +218,7 @@ public class Parser {
         return new AlterDateCommand(orderIndex-1, orderDate);
     }
 
-    public static Cmd<Order> removeOrDoneOrderParser(String[] splitter) throws DukeException {
+    public static Command<Order> removeOrDoneOrderParser(String[] splitter) throws DukeException {
         if (splitter.length == 1) {
             throw new DukeException("Must enter an order index.\n\t Note that ORDER_INDEX starts from 1");
         }

@@ -8,7 +8,7 @@ import duke.ui.Ui;
 
 import java.io.IOException;
 
-public abstract class Cmd<T> {
+public abstract class Command<T> {
     public abstract void execute(GenericList<T> genlist, Ui ui, Storage storage) throws DukeException, IOException;
     /**
      * Returns the boolean indicating that it is( not) an {@link ExitCommand}.

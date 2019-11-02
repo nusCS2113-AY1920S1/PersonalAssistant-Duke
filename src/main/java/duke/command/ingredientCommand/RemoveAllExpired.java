@@ -1,6 +1,6 @@
 package duke.command.ingredientCommand;
 
-import duke.command.Cmd;
+import duke.command.Command;
 import duke.exception.DukeException;
 import duke.fridge.Fridge;
 import duke.ingredient.Ingredient;
@@ -11,7 +11,7 @@ import duke.ui.Ui;
 
 import java.io.IOException;
 
-public class RemoveAllExpired extends Cmd<Ingredient> {
+public class RemoveAllExpired extends Command<Ingredient> {
 
     private Fridge fridge;
     public RemoveAllExpired(Fridge fridge){

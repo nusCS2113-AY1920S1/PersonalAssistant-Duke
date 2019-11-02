@@ -1,6 +1,6 @@
 package duke.command.orderCommand;
 
-import duke.command.Cmd;
+import duke.command.Command;
 import duke.exception.DukeException;
 import duke.list.GenericList;
 import duke.order.Order;
@@ -11,7 +11,7 @@ import duke.ui.Ui;
 
 import java.io.IOException;
 
-public class AddOrderCommand extends Cmd<Order> {
+public class AddOrderCommand extends Command<Order> {
 
     private Order order;
 

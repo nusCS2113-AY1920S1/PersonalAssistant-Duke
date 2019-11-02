@@ -1,6 +1,6 @@
 package duke.command.dishesCommand;
 
-import duke.command.Cmd;
+import duke.command.Command;
 import duke.dish.Dish;
 import duke.exception.DukeException;
 import duke.list.GenericList;
@@ -8,7 +8,7 @@ import duke.storage.Storage;
 import duke.ui.Ui;
 
 
-public class DeleteDishCommand extends Cmd<Dish> {
+public class DeleteDishCommand extends Command<Dish> {
 
     private int Nb;
 

@@ -1,6 +1,6 @@
 package duke.command.orderCommand;
 
-import duke.command.Cmd;
+import duke.command.Command;
 import duke.exception.DukeException;
 import duke.list.GenericList;
 import duke.order.Order;
@@ -8,10 +8,10 @@ import duke.storage.Storage;
 import duke.ui.Ui;
 
 /**
- * Represents a specific {@link Cmd} used to clear all the {@link Order}s in the order list.
+ * Represents a specific {@link Command} used to clear all the {@link Order}s in the order list.
  *
  */
-public class InitOrderListCommand extends Cmd<Order> {
+public class InitOrderListCommand extends Command<Order> {
 
     public InitOrderListCommand() {
     }

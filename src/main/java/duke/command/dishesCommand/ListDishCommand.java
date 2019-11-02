@@ -1,7 +1,7 @@
 package duke.command.dishesCommand;
 
 
-import duke.command.Cmd;
+import duke.command.Command;
 import duke.dish.Dish;
 import duke.exception.DukeException;
 import duke.list.GenericList;
@@ -10,7 +10,7 @@ import duke.ui.Ui;
 
 
 
-public class ListDishCommand extends Cmd<Dish> {
+public class ListDishCommand extends Command<Dish> {
     //private TextTable tt;
     private String[] ColNames = {"Dish", "ingredient"}; //initialize the column names of the table
 

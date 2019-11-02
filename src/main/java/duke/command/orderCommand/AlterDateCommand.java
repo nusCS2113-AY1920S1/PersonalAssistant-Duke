@@ -1,6 +1,6 @@
 package duke.command.orderCommand;
 
-import duke.command.Cmd;
+import duke.command.Command;
 import duke.exception.DukeException;
 import duke.list.GenericList;
 import duke.order.Order;
@@ -10,9 +10,9 @@ import duke.ui.Ui;
 import java.util.Date;
 
 /**
- * Represents a specific {@link Cmd} used to alter the {@link Order} serving date.
+ * Represents a specific {@link Command} used to alter the {@link Order} serving date.
  */
-public class AlterDateCommand extends Cmd<Order> {
+public class AlterDateCommand extends Command<Order> {
 
     private int orderIndex;
     private Date date;

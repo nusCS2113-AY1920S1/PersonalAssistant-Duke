@@ -1,6 +1,6 @@
 package duke.command.orderCommand;
 
-import duke.command.Cmd;
+import duke.command.Command;
 import duke.exception.DukeException;
 import duke.list.GenericList;
 import duke.order.Order;
@@ -9,9 +9,9 @@ import duke.storage.Storage;
 import duke.ui.Ui;
 
 /**
- * Represents a specific {@link Cmd} used to mark a {@link Order} as done.
+ * Represents a specific {@link Command} used to mark a {@link Order} as done.
  */
-public class DoneOrderCommand extends Cmd<Order> {
+public class DoneOrderCommand extends Command<Order> {
     private int orderIndex;
 
     /**

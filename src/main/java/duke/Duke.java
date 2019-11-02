@@ -1,6 +1,6 @@
 package duke;
 
-import duke.command.Cmd;
+import duke.command.Command;
 import duke.command.ingredientCommand.ExitCommand;
 import duke.command.ingredientCommand.RemoveAllExpired;
 import duke.dish.Dish;
@@ -91,13 +91,13 @@ public class Duke {
                         break;
                     }
                     case "q": {
-                        Cmd command = new ExitCommand();
+                        Command command = new ExitCommand();
                         command.execute(null, ui, null);
                         isExit = command.isExit();
                         break;
                     }
                     case "a": {
-                        Cmd<Ingredient> command = new RemoveAllExpired(fridge);
+                        Command<Ingredient> command = new RemoveAllExpired(fridge);
                         command.execute(fridge.getAllIngredients(), ui, fridgeStorage);
                         isExit = command.isExit();
                         break;
@@ -113,7 +113,7 @@ public class Duke {
                                     break;
                                 }
                                 if (fullCommand.trim().equals("q")) {
-                                    Cmd command = new ExitCommand();
+                                    Command command = new ExitCommand();
                                     command.execute(null, ui, null);
                                     isExit = command.isExit();
                                     break;
@@ -126,7 +126,7 @@ public class Duke {
                                     ui.showIngredientTemplate();
                                     continue;
                                 }
-                                Cmd<Ingredient> command = Parser.parse(fullCommand, Type.INGREDIENT);
+                                Command<Ingredient> command = Parser.parse(fullCommand, Type.INGREDIENT);
                                 command.execute(fridge.getAllIngredients(), ui, fridgeStorage);
                             } catch (DukeException e) {
                                 System.out.println(e.getLocalizedMessage());
@@ -144,7 +144,7 @@ public class Duke {
                                 //ui.clearScreen();
                                 if (fullCommand.trim().equals("back")) { break; }
                                 if (fullCommand.trim().equals("q")) {
-                                    Cmd command = new ExitCommand();
+                                    Command command = new ExitCommand();
                                     command.execute(null, ui, null);
                                     isExit = command.isExit();
                                     break;
@@ -153,7 +153,7 @@ public class Duke {
                                     ui.showOrderTemplate();
                                     continue;
                                 }
-                                Cmd<Order> command = Parser.parse(fullCommand, Type.ORDER);
+                                Command<Order> command = Parser.parse(fullCommand, Type.ORDER);
                                 command.execute(order, ui, orderStorage);
                             } catch (DukeException e) {
                                 System.out.println(e.getLocalizedMessage());
@@ -168,7 +168,7 @@ public class Duke {
                                 fullCommand = ui.readCommand();
                                 //ui.clearScreen();
                                 if(fullCommand.trim().equals("q")) {
-                                    Cmd command = new ExitCommand();
+                                    Command command = new ExitCommand();
                                     command.execute(null, ui, null);
                                     isExit = command.isExit();
                                     break;
@@ -180,7 +180,7 @@ public class Duke {
                                     ui.clearScreen();
                                     continue;
                                 }
-                                Cmd<Dish> command = Parser.parse(fullCommand, Type.DISH);
+                                Command<Dish> command = Parser.parse(fullCommand, Type.DISH);
                                 command.execute(dish, ui, orderStorage);
                             } catch (DukeException e) {
                                 System.out.println(e.getLocalizedMessage());

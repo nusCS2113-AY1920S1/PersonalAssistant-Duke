@@ -1,6 +1,6 @@
 package duke.command.ingredientCommand;
 
-import duke.command.Cmd;
+import duke.command.Command;
 import duke.exception.DukeException;
 import duke.ingredient.Ingredient;
 import duke.list.GenericList;
@@ -10,9 +10,9 @@ import duke.ui.Ui;
 import java.text.SimpleDateFormat;
 
 /**
- * Represents a specific {@link Cmd} used to find a String occurring in the {@link Ingredient}.
+ * Represents a specific {@link Command} used to find a String occurring in the {@link Ingredient}.
  */
-public class FindIngredientCommand extends Cmd<Ingredient> {
+public class FindIngredientCommand extends Command<Ingredient> {
 
     private String toFind;
     private String pattern = "dd/MM/yyyy";
