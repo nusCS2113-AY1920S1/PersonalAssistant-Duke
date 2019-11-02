@@ -35,7 +35,8 @@ public class Parser {
      * @throws AlphaNUSException if input is not valid.
      */
 
-    public static boolean parse(String input, TaskList tasklist, Ui ui, Fund fund, Storage storage, ArrayList<String> commandList) {
+    public static boolean parse(String input, TaskList tasklist, Ui ui, Fund fund, 
+        Storage storage, ArrayList<String> commandList) {
         try {
             if (instr.isBye(input)) {
                 System.out.println("Saving...");
@@ -49,7 +50,7 @@ public class Parser {
                 process.deletehistory(input, ui, commandList, storage);
             } else if (instr.isHistory(input)) {
                 process.history(ui,commandList, storage);
-            } else if (instr.isListProjects(input)){
+            } else if (instr.isListProjects(input)) {
                 process.listProjects(ui);
             } else if (instr.isAddProject(input)) {
                 //process.commandHistory(input, ui, storage);
@@ -70,7 +71,6 @@ public class Parser {
                 process.deadline(input, tasklist, ui);
                 //process.commandHistory(input, ui, storage);
                 //storage.save(tasklist.returnArrayList());
-
             } else if (instr.isDoAfter(input)) {
                 process.doAfter(input, tasklist, ui);
                 //command.Storage.save(tasklist.returnArrayList());
@@ -78,7 +78,6 @@ public class Parser {
                 process.deletePayment(input, ui);
                 //process.commandHistory(input, ui, storage);
                 //storage.save(tasklist.returnArrayList());
-
             } else if (instr.isFind(input)) {
                 // process.find(input, tasklist, ui);
                 //process.commandHistory(input, ui, storage);
@@ -90,7 +89,6 @@ public class Parser {
                 process.snooze(input, tasklist, ui);
                 //process.commandHistory(input, ui, storage);
                 //storage.save(tasklist.returnArrayList());
-
             } else if (instr.isPostpone(input)) {
                 process.postpone(input, tasklist, ui);
                 //storage.save(tasklist.returnArrayList());

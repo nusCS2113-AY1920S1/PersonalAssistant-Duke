@@ -8,8 +8,10 @@ import project.Project;
 
 import java.io.*;
 import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.io.BufferedWriter;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.FileWriter;
 import java.util.LinkedHashMap;
 
 /**
@@ -35,7 +37,6 @@ public class Storage {
                 file.createNewFile();
             }
             BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file));
-
             for (String lineStr : toWriteStr.split("\n")) {
                 bufferedWriter.write(lineStr);
                 bufferedWriter.newLine();
@@ -62,7 +63,15 @@ public class Storage {
         } catch (Exception e) {
             throw new AlphaNUSException("Unable to read file");
         }
-
         return projectmap;
+    }
+
+    /**
+     * Saves the tasklist of the user as an ArrayList containing the task object.
+     * @param str TODO
+     *
+     */
+    public static void remove(String str){
+        //TODO
     }
 }
