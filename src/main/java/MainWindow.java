@@ -147,7 +147,7 @@ public class MainWindow extends AnchorPane {
         if (input.equals("")) {
             graphContainer.getChildren().clear();
         } else {
-            String[] response = duke.getResponse("find " + input);
+            String[] response = duke.getResponse("find# " + input);
             graphContainer.getChildren().clear();
             if (!response[1].equals("")) {
                 graphContainer.getChildren().clear();

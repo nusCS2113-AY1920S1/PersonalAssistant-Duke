@@ -16,6 +16,7 @@ public class DoneGoalCommand extends MoneyCommand {
 
     private String inputString;
     private DateTimeFormatter dateTimeFormatter;
+    private int indexNo;
 
     //@@author therealnickcheong
     /**
@@ -37,10 +38,15 @@ public class DoneGoalCommand extends MoneyCommand {
     @Override
     public void execute(Account account, Ui ui, MoneyStorage storage) throws ParseException, DukeException {
 
-
+    try{
         String temp = inputString.replaceAll("[^0-9]", "");
-        int indexNo = Integer.parseInt(temp);
-        if (indexNo > account.getShortTermGoals().size()) {
+        indexNo = Integer.parseInt(temp);
+    }catch(NumberFormatException e){
+        throw new DukeException("Please enter in the format: " +
+                "done goal <index>\n");
+    }
+
+        if (indexNo > account.getShortTermGoals().size() || (indexNo < 1) ) {
             throw new DukeException("The serial number of the Goal is Out Of Bounds!");
         }
 
