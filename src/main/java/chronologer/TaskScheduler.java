@@ -50,4 +50,8 @@ public final class TaskScheduler {
             UiTemporary.printOutput("There is no free slot to insert the task. Consider freeing up your schedule.");
         }
     }
+
+    public static void scheduleTask(TaskList tasks, Long durationToSchedule) {
+
+    }
 }

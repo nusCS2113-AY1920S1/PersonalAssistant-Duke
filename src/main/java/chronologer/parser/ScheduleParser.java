@@ -18,6 +18,7 @@ public class ScheduleParser extends IndexParser {
 
     private static final int INDEX_INPUT = 0;
     private static final int DATE_INPUT = 1;
+    private static final int NO_DEADLINE_INPUT = 2;
 
     public ScheduleParser(String userInput, String command) {
         super(userInput, command);
@@ -41,6 +42,8 @@ public class ScheduleParser extends IndexParser {
         case DATE_INPUT:
             LocalDateTime dateOfDeadline = extractDeadlineDate(taskFeatures);
             return new TaskScheduleCommand(indexOfTask, dateOfDeadline);
+        case NO_DEADLINE_INPUT:
+            return new TaskScheduleCommand(indexOfTask, null);
         default:
             return null;
         }

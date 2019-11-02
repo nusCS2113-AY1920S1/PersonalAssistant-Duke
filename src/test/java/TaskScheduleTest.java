@@ -60,16 +60,16 @@ public class TaskScheduleTest {
         commandFields = getTaskScheduleCommandFields(test);
 
         Long testDuration = (Long) commandFields[0].get(test);
-        int testIndexOfTodo = (int) commandFields[1].get(test);
+        Integer testIndexOfTodo = (Integer) commandFields[1].get(test);
         Todo testTodo = (Todo) tasks.getTasks().get(testIndexOfTodo);
-        int testIndexOfDeadline = (int) commandFields[2].get(test);
+        Integer testIndexOfDeadline = (Integer) commandFields[2].get(test);
         Deadline testDeadline = (Deadline) tasks.getTasks().get(testIndexOfDeadline);
         LocalDateTime testDeadlineDate = (LocalDateTime) commandFields[3].get(test);
 
         Todo expectedTodo = (Todo) tasks.getTasks().get(1);
         Deadline expectedDeadline = (Deadline) tasks.getTasks().get(0);
 
-        Assertions.assertEquals(testDuration, 2);
+        Assertions.assertNull(testDuration);
         Assertions.assertSame(testTodo, expectedTodo);
         Assertions.assertSame(testDeadline, expectedDeadline);
         Assertions.assertNull(testDeadlineDate);
@@ -85,16 +85,16 @@ public class TaskScheduleTest {
         commandFields = getTaskScheduleCommandFields(test);
 
         Long testDuration = (Long) commandFields[0].get(test);
-        int testIndexOfTodo = (int) commandFields[1].get(test);
+        Integer testIndexOfTodo = (Integer) commandFields[1].get(test);
         Todo testTodo = (Todo) tasks.getTasks().get(testIndexOfTodo);
-        int testIndexOfDeadline = (int) commandFields[2].get(test);
+        Integer testIndexOfDeadline = (Integer) commandFields[2].get(test);
         LocalDateTime testDeadlineDate = (LocalDateTime) commandFields[3].get(test);
 
         Todo expectedTodo = (Todo) tasks.getTasks().get(1);
 
-        Assertions.assertEquals(testDuration, 2);
+        Assertions.assertNull(testDuration);
         Assertions.assertSame(testTodo, expectedTodo);
-        Assertions.assertEquals(testIndexOfDeadline, -1);
+        Assertions.assertNull(testIndexOfDeadline);
         Assertions.assertEquals(testDeadlineDate, expectedDeadlineDate);
     }
 
