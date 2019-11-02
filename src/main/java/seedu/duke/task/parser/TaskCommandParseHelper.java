@@ -91,7 +91,8 @@ public class TaskCommandParseHelper {
     private static Command parseDoneCommand(String input) {
         Matcher doneCommandMatcher = prepareCommandMatcher(input, "^done\\s+(?<index>\\d+)\\s*$");
         if (!doneCommandMatcher.matches()) {
-            return new InvalidCommand("Please enter a valid index of task after \'done\'");
+            return new InvalidCommand("Please enter a valid index (positive integer equal or less than the "
+                    + "number of tasks) of task after \'done\'");
         }
         try {
             int index = parseTaskIndex(doneCommandMatcher.group("index"));
@@ -104,7 +105,8 @@ public class TaskCommandParseHelper {
     private static Command parseDeleteCommand(String input) {
         Matcher deleteCommandMatcher = prepareCommandMatcher(input, "^delete\\s+(?<index>\\d+)\\s*$");
         if (!deleteCommandMatcher.matches()) {
-            return new InvalidCommand("Please enter a valid index of task after \'delete\'");
+            return new InvalidCommand("Please enter a valid index (positive integer equal or less than the "
+                    + "number of tasks) of task after \'delete\'");
         } else {
             try {
                 int index = parseTaskIndex(deleteCommandMatcher.group("index"));
@@ -189,7 +191,8 @@ public class TaskCommandParseHelper {
     private static Command parseDoAfterCommand(String input, ArrayList<Command.Option> optionList) {
         Matcher doAfterCommandMatcher = prepareCommandMatcher(input, "^do[a|A]fter\\s+(?<index>[\\d]+)\\s*$");
         if (!doAfterCommandMatcher.matches()) {
-            return new InvalidCommand("Please enter doAfter command in the correct format with index and description"
+            return new InvalidCommand("Please enter doAfter command in the correct format with index "
+                    + "(positive integer equal or less than the number of tasks) and description"
                     + " in -msg option");
         }
         String description = extractMsg(optionList);
@@ -218,8 +221,8 @@ public class TaskCommandParseHelper {
     private static Command parsePriorityCommand(String input, ArrayList<Command.Option> optionList) {
         Matcher priorityCommandMatcher = prepareCommandMatcher(input, "^set\\s+(?<index>[\\d]+)\\s*$");
         if (!priorityCommandMatcher.matches()) {
-            return new InvalidCommand("Please enter task index after 'set' and priority level "
-                    + "after '-priority' option");
+            return new InvalidCommand("Please enter task index (positive integer equal or less than the "
+                    + "number of tasks) after 'set' and priority level after '-priority' option");
         }
         try {
             String priority = extractPriority(optionList);
@@ -235,26 +238,32 @@ public class TaskCommandParseHelper {
         } catch (TaskParseException e) {
             return new InvalidCommand(e.getMessage());
         } catch (NumberFormatException e) {
-            return new InvalidCommand("Please enter a valid task index after \'set\'");
+            return new InvalidCommand("Please enter a valid task index (positive integer equal or less "
+                    + "then the number of tasks) after \'set\'");
         }
     }
 
     private static Command parseSnoozeCommand(String input, ArrayList<Command.Option> optionList) {
         Matcher snoozeCommandMatcher = prepareCommandMatcher(input, "^snooze\\s+(?<index>[\\d]+)\\s*$");
         if (!snoozeCommandMatcher.matches()) {
-            return new InvalidCommand("Please enter task index after 'snooze' and duration to "
-                    + "snooze after \'-by\' ");
+            return new InvalidCommand("Please enter a valid task index (positive integer equal or less "
+                    + "then the number of tasks) after \'snooze\' and duration to snooze after \'-by\' ");
         }
+        int index = -1;
         try {
-            String snooze = extractSnooze(optionList);
-            if (snooze.equals("")) {
-                snooze = "3";
-            }
-            int index = parseTaskIndex(snoozeCommandMatcher.group("index"));
-            int duration = Integer.parseInt(snooze);
-            return new TaskSnoozeCommand(index, duration);
+            index = parseTaskIndex(snoozeCommandMatcher.group("index"));
         } catch (TaskParseException e) {
             return new InvalidCommand(e.getMessage());
+        }
+        try {
+            int snoozeDuration = extractSnooze(optionList);
+            return new TaskSnoozeCommand(index, snoozeDuration);
+        } catch (TaskParseException e) {
+            UI.getInstance().showMessage(e.getMessage());
+            return new TaskSnoozeCommand(index, 3);
+        } catch (NumberFormatException e) {
+            return new InvalidCommand("Please enter a valid number of days for snooze (positive integer "
+                    + "from 1 to 999999)");
         }
     }
 
@@ -273,8 +282,8 @@ public class TaskCommandParseHelper {
             addTagsToUpdateCommand(optionList, attributes, descriptions);
             return new TaskUpdateCommand(index, descriptions, attributes);
         } catch (NumberFormatException e) {
-            return new InvalidCommand("Please enter correct task index: " + editMatcher.group(
-                    "index"));
+            return new InvalidCommand("Please enter a valid task index (positive integer equal or less "
+                    + "than the number of tasks)");
         } catch (CommandParseHelper.CommandParseException e) {
             return new InvalidCommand("Index out of bound");
         }
@@ -387,13 +396,21 @@ public class TaskCommandParseHelper {
         }
     }
 
-    private static String extractSnooze(ArrayList<Command.Option> optionList) {
-        String snooze = "";
+    private static int extractSnooze(ArrayList<Command.Option> optionList) throws TaskParseException {
+        String snoozeString = "";
         for (Command.Option option : optionList) {
-            if (option.getKey().equals("by") && snooze.equals("")) {
-                snooze = option.getValue();
+            if (option.getKey().equals("by") && snoozeString.equals("")) {
+                snoozeString = option.getValue();
             }
         }
+        if (snoozeString == "") {
+            throw new TaskParseException("Number of days snoozed not specified. Default is used.");
+        }
+        if (snoozeString.length() > 6) {
+            throw new TaskParseException("Number of days snoozed should be integer of range 1 ~ 99999. "
+                    + "Default is used.");
+        }
+        int snooze = Integer.parseInt(snoozeString);
         return snooze;
     }
 
@@ -506,7 +523,8 @@ public class TaskCommandParseHelper {
     private static Command parseLinkCommand(String input, ArrayList<Command.Option> optionList) {
         Matcher linkCommandMatcher = prepareCommandMatcher(input, "^link(?:\\s+(?<index>[\\d]*)\\s*)?");
         if (!linkCommandMatcher.matches()) {
-            showError("Please enter a task index and at least one email index");
+            showError("Please enter a valid task index (positive integer equal or less then the number of "
+                    + "tasks) and at least one email index");
             return new InvalidCommand();
         }
         try {

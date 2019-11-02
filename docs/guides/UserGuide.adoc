@@ -165,6 +165,10 @@ You can press `UP` key to show previous input in the text box.
 
 === General Commands
 
+[NOTE]
+Any negative input of number will not be accepted, but since it will contain the negative sign `-`, it will
+be considered as an invalid command argument in the first place.
+
 [INFO]
 General commands will work in either mode.
 
@@ -307,10 +311,6 @@ Shows the deadline or event tasks for the next NO_OF_DAYS days. +
 Only positive integers from 1 to 999999 are accepted for `NO_OF_DAYS`. +
 
 Example: `reminder 4`
-
-[NOTE]
-Any negative input of number will not be accepted, but since it will contain the negative sign `-`, it will
-be considered as an invalid command argument in the first place.
 
 ==== Do after: `doafter`
 Format: `doafter ITEM_NUMBER -msg DESCRIPTION`  +

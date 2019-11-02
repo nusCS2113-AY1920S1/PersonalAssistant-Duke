@@ -94,13 +94,14 @@ public class EmailCommandParseHelper {
         Pattern showCommandPattern = Pattern.compile("^show\\s+(?<index>\\d+)\\s*$");
         Matcher showCommandMatcher = showCommandPattern.matcher(input);
         if (!showCommandMatcher.matches()) {
-            return new InvalidCommand("Please enter a valid index of task after \'show\'");
+            return new InvalidCommand("Please enter a valid index (positive integer equal or less than the "
+                    + "number of emails) of task after \'show\'");
         }
         try {
             int index = parseEmailIndex(showCommandMatcher.group("index"));
             return new EmailShowCommand(index);
         } catch (EmailParseException e) {
-            throw new EmailParseException(e.toString());
+            throw new EmailParseException(e.getMessage());
         }
     }
 
@@ -109,7 +110,8 @@ public class EmailCommandParseHelper {
         Pattern emailTagCommandPattern = Pattern.compile("^update\\s+(?<index>\\d+)\\s*$");
         Matcher emailTagCommandMatcher = emailTagCommandPattern.matcher(input);
         if (!emailTagCommandMatcher.matches()) {
-            return new InvalidCommand("Please enter a valid email index after \'update\'");
+            return new InvalidCommand("Please enter a valid email index (positive integer equal or lss "
+                    + "than the number of emails) after \'update\'");
         }
         ArrayList<String> tags = CommandParseHelper.extractTags(optionList);
         if (!tagsNotEmpty(tags)) {
@@ -119,7 +121,7 @@ public class EmailCommandParseHelper {
             int index = parseEmailIndex(emailTagCommandMatcher.group("index"));
             return new EmailTagCommand(index, tags);
         } catch (EmailParseException e) {
-            throw new EmailParseException(e.toString());
+            throw new EmailParseException(e.getMessage());
         }
     }
 
