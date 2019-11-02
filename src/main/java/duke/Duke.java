@@ -129,8 +129,15 @@ public class Duke {
                 arrayList.add(ERROR_MESSAGE_RANDOM);
                 return arrayList;
             }
+        } else if (userInput.contains(COMMAND_EDIT_PREPTIME)) {
+            if (userInput.trim().substring(0, 12).equals(COMMAND_EDIT_PREPTIME)) {
+                Command<RecipeList, Ui, RecipeStorage> command = Parser.parse(userInput);
+                return command.execute(recipeList, ui, recipeStorage);
+            } else {
+                arrayList.add(ERROR_MESSAGE_RANDOM);
+                return arrayList;
+            }
         }
-
 
         // INVENTORY.
         else if (userInput.contains(COMMAND_ADD_TO_INVENTORY)) {
@@ -151,6 +158,14 @@ public class Duke {
             }
         } else if (userInput.contains(COMMAND_LIST_INVENTORY)) {
             if (userInput.trim().substring(0, 13).equals(COMMAND_LIST_INVENTORY)) {
+                Command<InventoryList, Ui, InventoryStorage> command = Parser.parse(userInput);
+                return command.execute(inventoryList, ui, inventoryStorage);
+            } else {
+                arrayList.add(ERROR_MESSAGE_RANDOM);
+                return arrayList;
+            }
+        } else if (userInput.contains(COMMAND_CLEAR_INVENTORY)) {
+            if (userInput.trim().substring(0, 14).equals(COMMAND_CLEAR_INVENTORY)) {
                 Command<InventoryList, Ui, InventoryStorage> command = Parser.parse(userInput);
                 return command.execute(inventoryList, ui, inventoryStorage);
             } else {

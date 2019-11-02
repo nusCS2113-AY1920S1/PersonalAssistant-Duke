@@ -326,14 +326,16 @@ Examples:
 
 * `deletefrominventory fish`
 
-====  Updating inventory after using a recipe: `userecipe`
+====  Listing all ingredients in the inventory: `listinventory`
 
-Indicates that a certain recipe is used and to update the inventory list respectively. +
-Format: `userecipe <recipe_name>`
+Shows all current ingredients in the inventory, specifying the quantity, unit and additional information if any. +
 
-Examples:
+Format: `listinventory`
 
-* `userecipe garlic prawn`
+Output Result:
+
+. fish [2.0 | KG | store in fridge]
+. prawn [10.0 | G | No additional information]
 
 === Opening the help window: `help`
 

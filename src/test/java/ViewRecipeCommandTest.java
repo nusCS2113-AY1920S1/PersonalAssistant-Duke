@@ -29,6 +29,8 @@ public class ViewRecipeCommandTest {
         ArrayList<String> arrayListExpectedOutput = new ArrayList<>();
         String expected = "Title: chicken rice\n" +
                 "\n" +
+                "Preparation Time: 10\n" +
+                "\n" +
                 "Rating: Good\n" +
                 "\n" +
                 "Preparation Steps: \n" +

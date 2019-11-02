@@ -1,0 +1,76 @@
+= Lim Jia Wei - Project Portfolio for ChefDuke
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: ChefDuke - V 1.3
+
+---
+
+== Overview
+
+My team consisting of 4 computer engineering students including myself was tasked with enhancing a basic task manager Duke. We decided to go in the direction of morphing Duke into an application which aims to help private home chefs manage their business. ChefDuke, our enhanced application, keeps track of three main components which are the customer bookings, recipes and inventories of the user. Other than basic storage of components, our application allows the user to deconflict booking schedules, and also update their inventory automatically when a recipe is used so that the inventory list is always up to date. The application has a GUI created with JavaFX and the user interacts with it using a CLI.
+
+== Summary of contributions
+
+* *Major enhancement 1*: added *the ability to add/delete/list ingredients to/from the inventory.*
+
+** What it does: Allows the user to add an ingredient into his inventory list, delete an ingredient from his inventory list and list all current ingredients in his inventory. Important details such as the quantity of the ingredient is keep tracked of.
+** Justification: This feature allows the user to update their inventory list which will be useful for knowing when an ingredient is to be topped up. Additional information like the expiry date can also be tracked.
+
+** Highlights: This enhancement does the basic storage of inventory components but is a feature which is necessary as a baseline for other existing/future commands and features. Key features such as the updating of the inventory based on a recipe used and checking the availibility of ingredients to be used in a recipe will require this enhancement. The implementation of the Ingredients required some pre-planning on what details are essential as the same ingredient object will also be used in the recipes. 
+
+* *Major enhancement 2*: added *the ability to update the inventory based on recipes/orders used.*
+
+** What it does: The user keys in a recipe that has been used and the quantity of the ingredients that has been used will be deducted from the inventory.
+
+** Justification: This feature allows the user to always have an up to date inventory list which can let them know how much of each ingredient they currently have. This allows the user to save the time taken to manually check on the quantity of each ingredient again when they are checking for availability.
+
+** Highlights: This enhancement is one of the key features of our application as it benefits the user by helping them save time and effort on manual administrative work. The current implementation which updates the inventory based on recipes used can be extended to include the updating of the inventory based on the orders in a booking.  
+
+* *Code contributed*: https://nuscs2113-ay1920s1.github.io/dashboard/#=undefined&search=jiaweijwjw
+[https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+
+* *Other contributions*:
+
+** Project management:
+*** Managed releases `v1.1` - `v1.3` (3 releases) on GitHub
+** Enhancements to existing features:
+*** Wrote some code for recipe list and recipe
+*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+** Documentation:
+*** Did formatting to existing contents of the User Guide: https://github.com[#14]
+** Community:
+*** PRs reviewed: https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
+*** The ingredient class is used in the recipe features. (https://github.com[1], https://github.com[2])
+** Tools:
+
+_{you can add/remove categories in the list above}_
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=delete]
+
+include::../UserGuide.adoc[tag=dataencryption]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=undoredo]
+
+include::../DeveloperGuide.adoc[tag=dataencryption]
+
+
+== PROJECT: PowerPointLabs
+
+---
+
+_{Optionally, you may include other projects in your portfolio.}_
