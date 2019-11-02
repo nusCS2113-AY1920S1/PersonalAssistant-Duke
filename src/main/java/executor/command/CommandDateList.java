@@ -18,7 +18,8 @@ public class CommandDateList extends Command {
      */
     public CommandDateList(String userInput) {
         this.userInput = userInput;
-        this.description = "Lists based on date. Format: listmy <date>";
+        this.description = "Lists based on date. \n"
+                + "Format: listmy <date> \n";
         this.commandType = CommandType.DATELIST;
         this.date = Parser.parseForPrimaryInput(this.commandType, userInput);
     }

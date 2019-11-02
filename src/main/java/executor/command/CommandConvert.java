@@ -34,7 +34,8 @@ public class CommandConvert extends Command {
         this.use = ""; // whether to use "from code" or "to code" for fetching exchange rate from json
         this.to = getCurrencyConvertTo(userInput);
         this.description = "Command that converts the user input cash amount from"
-                + " one currency to another and prints it on the User Interface.";
+                + " one currency to another and prints it on the User Interface. \n";
+
     }
 
     @Override
