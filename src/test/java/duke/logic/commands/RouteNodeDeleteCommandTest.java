@@ -31,7 +31,7 @@ class RouteNodeDeleteCommandTest {
                 (RouteNodeDeleteCommand) Parser.parseComplexCommand("routeNodeDelete 1 1");
         routeNodeDeleteCommand.execute(model);
 
-        assertTrue(model.getRoutes().get(0).getNumNodes() == 0);
+        assertTrue(model.getRoutes().get(0).size() == 0);
 
         //negative test for deleting non-existant route node
         RouteNodeDeleteCommand routeNodeDeleteCommand3 =

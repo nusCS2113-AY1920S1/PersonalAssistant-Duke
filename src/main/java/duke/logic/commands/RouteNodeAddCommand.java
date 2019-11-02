@@ -57,7 +57,7 @@ public class RouteNodeAddCommand extends Command {
             Route route = model.getRoutes().get(indexRoute);
             if (isEmptyIndexNode) {
                 route.addNode(node);
-                indexNode = route.getNumNodes() - 1;
+                indexNode = route.size() - 1;
             } else if (indexNode >= 0) {
                 route.addNode(node, indexNode);
             } else {

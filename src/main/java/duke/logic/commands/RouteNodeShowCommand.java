@@ -87,7 +87,7 @@ public class RouteNodeShowCommand extends Command {
     public ArrayList<String> generateOtherPoints(Route route, RouteNode query, int indexNode) {
         ArrayList<String> points = new ArrayList<>();
         int startIndex = Math.max(0, indexNode - 3);
-        int endIndex = Math.min(route.getNumNodes() - 1, startIndex + NODE_MAX_SIZE);
+        int endIndex = Math.min(route.size() - 1, startIndex + NODE_MAX_SIZE);
 
         for (int i = startIndex; i < endIndex; i++) {
             if (!(route.getNode(i)).equals(query)) {
@@ -121,11 +121,11 @@ public class RouteNodeShowCommand extends Command {
         String result = "";
         for (RouteNode node: route.getNodes()) {
             if (!node.equals(query) && isWithinDistance(node, query)) {
-                result += ApiParser.createStaticMapPoint(String.valueOf(node.getLatitude()),
+                result += ApiParser.generateStaticMapPoint(String.valueOf(node.getLatitude()),
                         String.valueOf(node.getLongitude()), RED_VALUE_OTHER, GREEN_VALUE_OTHER, BLUE_VALUE_OTHER,
                         node.getAddress()) + "|";
             } else {
-                result += ApiParser.createStaticMapPoint(String.valueOf(node.getLatitude()),
+                result += ApiParser.generateStaticMapPoint(String.valueOf(node.getLatitude()),
                         String.valueOf(node.getLongitude()), RED_VALUE_QUERY, GREEN_VALUE_QUERY, BLUE_VALUE_QUERY,
                         node.getAddress()) + "|";
             }

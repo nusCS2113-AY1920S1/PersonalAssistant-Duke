@@ -123,7 +123,7 @@ public class RouteGenerateCommand extends Command {
      */
     private Route pruneDuplicateRoute(Route route, Venue target) throws RouteGenerateFailException {
         try {
-            for (int i = route.getNumNodes() - 1; i >= 0; i--) {
+            for (int i = route.size() - 1; i >= 0; i--) {
                 if (!route.getNode(i).equals(target)) {
                     route.deleteNode(i);
                 } else {

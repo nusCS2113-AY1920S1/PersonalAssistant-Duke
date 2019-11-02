@@ -40,7 +40,7 @@ public class StaticMapCommand extends Command {
         Venue query = ApiParser.getLocationSearch(param);
         this.image = ApiParser.getStaticMap(ApiParser.generateStaticMapParams(DIMENSIONS, DIMENSIONS, ZOOM_LEVEL,
                 String.valueOf(query.getLatitude()), String.valueOf(query.getLongitude()), "", "",
-                ApiParser.createStaticMapPoint(String.valueOf(query.getLatitude()),
+                ApiParser.generateStaticMapPoint(String.valueOf(query.getLatitude()),
                         String.valueOf(query.getLongitude()), RED_VALUE, GREEN_VALUE, BLUE_VALUE, param)));
         return new CommandResultImage("Showing map of " + param, image);
     }

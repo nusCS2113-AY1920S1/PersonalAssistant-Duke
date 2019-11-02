@@ -35,6 +35,13 @@ public class ApiConstraintParser {
         return nearestBusStop;
     }
 
+    /**
+     * Gets the displacement between 2 Venues.
+     *
+     * @param start The start Venue.
+     * @param end The end Venue.
+     * @return displacement The displacement between both Venues.
+     */
     private static double getDisplacement(Venue start, Venue end) {
         double displacement = Math.pow(Math.abs(start.getLatitude() - end.getLatitude()), 2)
                 + Math.pow(Math.abs(start.getLongitude() - end.getLongitude()), 2);
@@ -78,11 +85,20 @@ public class ApiConstraintParser {
         return nearestTransport(start, nearestTrain, nearestBus);
     }
 
-    private static Venue nearestTransport(Venue start, TrainStation nearestTrain, BusStop nearestBus) {
+    /**
+     * Compares and returns the closer TrainStation or BusStop.
+     *
+     * @param venue The base Venue.
+     * @param nearestTrain The nearest TrainStation.
+     * @param nearestBus The nearest BusStop.
+     * @return The closer TrainStation or BusStop.
+     */
+    private static Venue nearestTransport(Venue venue, TrainStation nearestTrain, BusStop nearestBus) {
         double displacementTrain;
         double displacementBus;
-        displacementTrain = getDisplacement(start, nearestTrain);
-        displacementBus = getDisplacement(start, nearestBus);
+        displacementTrain = getDisplacement(venue, nearestTrain);
+        displacementBus = getDisplacement(venue, nearestBus);
+
         if (displacementTrain <= displacementBus) {
             return nearestTrain;
         } else {

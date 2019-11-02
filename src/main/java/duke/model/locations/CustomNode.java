@@ -2,6 +2,9 @@ package duke.model.locations;
 
 import duke.commons.enumerations.Constraint;
 
+/**
+ * Represents a RouteNode that is neither a BusStop or TrainStation.
+ */
 public class CustomNode extends RouteNode {
 
     /**

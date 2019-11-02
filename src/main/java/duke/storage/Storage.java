@@ -157,7 +157,7 @@ public class Storage {
             while (s.hasNext()) {
                 String input = s.nextLine();
                 if (input.split("\\|", 2)[0].strip().equals("route")) {
-                    if (newRoute.getNumNodes() != 0) {
+                    if (newRoute.size() != 0) {
                         newRoutes.add(newRoute);
                     }
                     newRoute = ParserStorageUtil.createRouteFromStorage(input);

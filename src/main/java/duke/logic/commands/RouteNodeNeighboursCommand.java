@@ -124,7 +124,7 @@ public class RouteNodeNeighboursCommand extends Command {
     public ArrayList<String> generateOtherPoints(Route route, RouteNode query) {
         ArrayList<String> points = new ArrayList<>();
         int startIndex = Math.max(0, indexNode - 3);
-        int endIndex = Math.min(route.getNumNodes() - 1, startIndex + 6);
+        int endIndex = Math.min(route.size() - 1, startIndex + 6);
 
         for (int i = startIndex; i < endIndex; i++) {
             if (!(route.getNode(i)).equals(query)) {
@@ -159,7 +159,7 @@ public class RouteNodeNeighboursCommand extends Command {
 
         int index = 1;
         for (Venue node : nearbyNodes) {
-            result += ApiParser.createStaticMapPoint(String.valueOf(node.getLatitude()),
+            result += ApiParser.generateStaticMapPoint(String.valueOf(node.getLatitude()),
                     String.valueOf(node.getLongitude()), RED_VALUE_NEIGHBOUR, GREEN_VALUE_NEIGHBOUR,
                     BLUE_VALUE_NEIGHBOUR, String.valueOf(index)) + "|";
             index++;
@@ -167,11 +167,11 @@ public class RouteNodeNeighboursCommand extends Command {
 
         for (RouteNode node : route.getNodes()) {
             if (!node.equals(query) && isWithinDistance(node, query)) {
-                result += ApiParser.createStaticMapPoint(String.valueOf(node.getLatitude()),
+                result += ApiParser.generateStaticMapPoint(String.valueOf(node.getLatitude()),
                         String.valueOf(node.getLongitude()), RED_VALUE_OTHER, GREEN_VALUE_OTHER, BLUE_VALUE_OTHER,
                         node.getAddress()) + "|";
             } else {
-                result += ApiParser.createStaticMapPoint(String.valueOf(node.getLatitude()),
+                result += ApiParser.generateStaticMapPoint(String.valueOf(node.getLatitude()),
                         String.valueOf(node.getLongitude()), RED_VALUE_QUERY, GREEN_VALUE_QUERY, BLUE_VALUE_QUERY,
                         node.getAddress()) + "|";
             }
