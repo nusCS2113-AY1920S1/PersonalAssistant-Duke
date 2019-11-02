@@ -31,7 +31,7 @@ public class ViewCommand extends Command {
         + "Examples:\n\t"
         + "view day|week|month\n\t\t"
         + "show the timetable of today and the list containing all tasks today|this week|this month\n\t"
-        + "view week 01/01/2019\n\t\t"
+        + "view week /date 01/01/2019\n\t\t"
         + "show the list containing all tasks on the week of 01/01/2019\n\t"
         + "view day /date 01/01/2019 /type deadline:\n\t\t"
         + "show the list containing all deadline type tasks on 01/01/2019";
@@ -127,7 +127,7 @@ public class ViewCommand extends Command {
             + months[givenMonth] + " " + givenYear + " :\n");
 
         for (int i = 1; i <= days; i++) {
-            if (i < 9) {
+            if (i <= 9) {
                 monthlyTask.append(displayDayView("0" + i + "/" + givenMonth + "/" + givenYear, currList));
             } else {
                 monthlyTask.append(displayDayView(i + "/" + givenMonth + "/" + givenYear, currList));
@@ -241,11 +241,8 @@ public class ViewCommand extends Command {
                 startTime = t.getStringStartTime();
                 endTime = t.getStringEndTime();
             } else {
-                System.out.println("LOOKING AT" + dateInput);
                 startTime = "0000";
                 endTime = t.getStringEndTime();
-                System.out.println(startTime);
-                System.out.println(endTime);
             }
         }
 
