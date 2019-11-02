@@ -13,16 +13,8 @@ public class ExportCommandParser implements CommandParser {
     @Override
     public Command parseCommand(String restOfInput) throws ParserException {
         logger.info("Attempting to parse Export command");
-
-        String defaultFile = "COMPalCalender";
-        if (restOfInput.isEmpty()) {
-            logger.info("Successfully parse Export command");
-            return new ExportCommand(defaultFile);
-        } else {
-            String fileName = getFileName(restOfInput);
-            return new ExportCommand(fileName);
-        }
+        String fileName = getFileName(restOfInput);
+        logger.info("Successfully parse Export command");
+        return new ExportCommand(fileName);
     }
-
-
 }
