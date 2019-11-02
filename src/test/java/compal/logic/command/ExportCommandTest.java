@@ -40,12 +40,14 @@ class ExportCommandTest {
 
     /*@Test
     public void execute_export_success() throws CommandException {
-        new ExportCommand("testExport1").commandExecute(taskListMain);
+        String filePathz = new File("testExport1").getAbsolutePath();
+        String filePath = new File("testExport1.ics").getAbsolutePath();
+        new ExportCommand(filePathz).commandExecute(taskListMain);
         BufferedReader reader;
         String testedString = "";
         try {
             reader = new BufferedReader(new FileReader(
-                "testExport1.ics"));
+                filePath));
             String line = reader.readLine();
             while (line != null) {
                 if (line.contains("UID:") || line.contains("DTSTAMP:")) {

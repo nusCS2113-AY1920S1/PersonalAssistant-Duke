@@ -137,6 +137,7 @@ public class ImportCommand extends Command {
         String taskStartDate = getStartDate(eventString);
         String taskEndTime = getEndTime(eventString);
         String taskEndDate = getEndDate(eventString);
+        Boolean hasReminder = getReminder(eventString);
 
 
         if (taskStartDate.isEmpty() || taskStartTime.isEmpty()) {
@@ -153,13 +154,28 @@ public class ImportCommand extends Command {
 
         if ((taskStartDate.equals(taskEndDate) && taskStartTime.equals(taskEndTime))) {
             Deadline isDeadline = new Deadline(taskDesc, taskPriority, taskStartDate, taskStartTime);
+            if (hasReminder) {
+                isDeadline.setHasReminder(true);
+            }
+
             taskList.addTask(isDeadline);
             addedTask += isDeadline.toString() + "\n";
         } else {
             Event isEvent = new Event(taskDesc, taskPriority, taskStartDate, taskEndDate, taskStartTime, taskEndTime);
+            if (hasReminder) {
+                isEvent.setHasReminder(true);
+            }
             taskList.addTask(isEvent);
             addedTask += isEvent.toString() + "\n";
         }
+    }
+
+    private Boolean getReminder(String eventString) {
+        final String alarmToken = "VALARM:";
+        if (eventString.contains(alarmToken)) {
+            return true;
+        }
+        return false;
     }
 
     private String getDesc(String eventString) {

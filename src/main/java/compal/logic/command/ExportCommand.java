@@ -63,7 +63,7 @@ public class ExportCommand extends Command {
             throw new CommandException(MESSAGE_EMPTY_LIST);
         }
 
-        Calendar calendar = createCalendar(taskList);
+        Calendar calendar = createIcsCal(taskList);
 
         FileOutputStream fileOutput;
         try {
@@ -89,7 +89,7 @@ public class ExportCommand extends Command {
      * @param taskList the current tasklist
      * @return ics calendar
      */
-    public static Calendar createCalendar(TaskList taskList) {
+    private static Calendar createIcsCal(TaskList taskList) {
 
         Calendar calendar = new Calendar();
         calendar.getProperties().add(new ProdId("-//Ben Fortuna//iCal4j 1.0//EN"));
