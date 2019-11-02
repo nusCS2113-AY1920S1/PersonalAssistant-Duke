@@ -1,6 +1,7 @@
 package javacake.commands;
 
 import javacake.Logic;
+import javacake.exceptions.CakeException;
 import javacake.storage.StorageManager;
 import javacake.ui.Ui;
 
@@ -11,8 +12,14 @@ public class ScoreCommand extends Command {
     private int questionTypes = 4;
     private int totalQuestionQuantum = questionGrades * questionTypes;
 
-    public ScoreCommand() {
-
+    /**
+     * Constructor for ScoreCommand.
+     * Checks that no parameters are included.
+     * @param inputCommand Score command from user.
+     * @throws CakeException If other parameter is appended to command.
+     */
+    public ScoreCommand(String inputCommand) throws CakeException {
+        checksParam(inputCommand);
     }
 
     /**
