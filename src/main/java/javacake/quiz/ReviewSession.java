@@ -72,11 +72,12 @@ public class ReviewSession implements QuizManager {
             try {
                 Question question = answeredQuestions.getQuestionList().get(index);
                 ui.displayReview(question, index + 1, answeredQuestions.getQuestionList().size());
-                String next = ui.readCommand();
-                if (next.trim().equals("back")) {
+                String command = ui.readCommand();
+                if (command.trim().equals("back")) {
+                    //Command.checksParam(command);
                     isExitReview = true;
                 } else {
-                    index = Integer.parseInt(next) - 1;
+                    index = Integer.parseInt(command) - 1;
                 }
             } catch (IndexOutOfBoundsException e) {
                 ui.showError("Invalid index! Range of question: 1 - " + answeredQuestions.getQuestionList().size());

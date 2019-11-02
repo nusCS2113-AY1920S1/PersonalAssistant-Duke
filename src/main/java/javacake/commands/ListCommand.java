@@ -6,7 +6,15 @@ import javacake.storage.StorageManager;
 import javacake.ui.Ui;
 
 public class ListCommand extends Command {
-    public ListCommand() {
+
+    /**
+     * Constructor for ListCommand.
+     * Checks that no parameters are included.
+     * @param inputCommand List command from user.
+     * @throws CakeException If other parameter is appended to command.
+     */
+    public ListCommand(String inputCommand) throws CakeException {
+        checksParam(inputCommand);
         type = CmdType.LIST;
     }
 
