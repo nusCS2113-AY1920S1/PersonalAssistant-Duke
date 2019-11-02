@@ -53,6 +53,7 @@ public class MainWindow extends AnchorPane {
     private Duke duke;
     private TaskList taskList;
     private DegreeList degreeList;
+    private boolean typoFlag;
 
     public Set<String> autoSuggestion = new HashSet<>(Arrays.asList("list", "detail", "help", "todo", "delete", "clear",
             "add", "swap", "bye", "replace", "undo", "redo", "sort"));
@@ -135,6 +136,7 @@ public class MainWindow extends AnchorPane {
      */
     @FXML
     private void handleUserInput() throws DukeException {
+        typoFlag = false;
         String input = userInput.getText();
         String response = duke.run(input);
         dialogContainer.getChildren().addAll(
@@ -142,20 +144,10 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getDukeDialog(response)
         );
 
-        //If user wants to end program, create a separate thread with a timer to shutdown
-        if (input.equals("bye")) {
-            // delay & exit on other thread
-            new Thread(() -> {
-                try {
-                    Thread.sleep(3000);
-                } catch (InterruptedException ex) {
-                }
-                System.exit(0);
-            }).start();
-        }
+        typoFlag = duke.getTypoFlag();
 
-        //Learn new auto suggestions based on user inputs
-        if (!autoSuggestion.contains(input)) {
+        //Learn new auto suggestions based on user inputs, and do not learn typos
+        if (!autoSuggestion.contains(input) && (!typoFlag)) {
             autoSuggestion.add(input);
             provider.clearSuggestions();
             provider.addPossibleSuggestions(autoSuggestion);
@@ -183,6 +175,15 @@ public class MainWindow extends AnchorPane {
             tabPane.getSelectionModel().select(tabTask);
         } else if (input.matches("choices")) {
             tabPane.getSelectionModel().select(tabChoices);
+        } else if (input.equals("bye")) { //If user wants to end program, create a separate thread with a timer to exit
+            // delay & exit on other thread
+            new Thread(() -> {
+                try {
+                    Thread.sleep(3000);
+                } catch (InterruptedException ex) {
+                }
+                System.exit(0);
+            }).start();
         }
 
         //tabTask.setText("hi"); use these to change the degree tab name

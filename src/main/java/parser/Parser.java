@@ -79,14 +79,14 @@ public class Parser {
         } else if (command.matches("todo|deadline|event|done|delete|find|select|recurring|after|within|fixed"
                 + "|snooze|schedule|add|remove|swap|sort|detail")) {
             if (!temp.hasNextLine()) {
-                throw new DukeException("☹ OOPS!!! The description of a " + command + " cannot be empty.");
+                throw new DukeException("OOPS!!! The description of a " + command + " cannot be empty.");
             }
             String input = temp.nextLine();
             input = input.strip();
             //System.out.println("input is" + input + "\nCommand is" + command);
 
             if (input.isBlank()) {
-                throw new DukeException("☹ OOPS!!! The description of a " + command + " cannot be empty.");
+                throw new DukeException("OOPS!!! The description of a " + command + " cannot be empty.");
             } else {
                 //add new tasks
                 if (command.matches("todo|deadline|event|recurring|after|within|fixed|add")) {

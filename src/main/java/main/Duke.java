@@ -46,6 +46,7 @@ public class Duke extends Application {
     private UniversityTaskHandler universityTaskHandler = new UniversityTaskHandler();
     private DegreeListStorage DegreeListStorage = new DegreeListStorage();
     private CommandList commandList = new CommandList();
+    private Boolean typoFlag;
     public ArrayList<String> getTasks() {
         return mydegrees;
     }
@@ -111,6 +112,7 @@ public class Duke extends Application {
      */
     //method output initial reading of save file
     public String run(String line) throws DukeException {
+        typoFlag = false;
         ByteArrayOutputStream output = new ByteArrayOutputStream();
         PrintStream ps = new PrintStream(output);
         PrintStream old = System.out;
@@ -139,6 +141,9 @@ public class Duke extends Application {
                 if ((c.getClass() == AddCommand.class) | (c.getClass() == ModCommand.class)
                         | (c.getClass() == SortCommand.class) | (c.getClass() == SwapCommand.class)) {
                     commandList.addCommand(c, this.myList, this.ui, this.storage, this.lists, this.degreesManager, line);
+                } else if (c.getClass() == BadCommand.class) {
+                    typoFlag = true; //when the user enters a command not understood by the program, trigger flag
+                    c.execute(this.myList, this.ui, this.storage, this.lists, this.degreesManager);
                 } else {
                     c.execute(this.myList, this.ui, this.storage, this.lists, this.degreesManager);
                 }
@@ -203,6 +208,10 @@ public class Duke extends Application {
 
     public DegreeList getDegreeList() {
         return this.lists;
+    }
+
+    public Boolean getTypoFlag () {
+        return this.typoFlag;
     }
 
 }
