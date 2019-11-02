@@ -50,7 +50,12 @@ public class Process {
     }
 
     //===========================* Project *================================
-
+    
+    /**
+     * Processes the list project command to list all existing projects in the projectmap.
+     * @param ui Ui that interacts with the user.
+     * @return
+     */
     public void listProjects(Ui ui) {
         ArrayList<Project> projectslist = projectmanager.listProjects();
         if (projectslist.isEmpty()) {
@@ -69,21 +74,24 @@ public class Process {
     public void addProject(String input, Ui ui) {
         String[] split = input.split("pr/", 2);
         split = cleanStrStr(split);
-        if(split.length != 2) {
+        if (split.length != 2) {
             System.out.println("\t" + "Incorrect input");
             System.out.println("\t" + "Correct Format: add project pr/PROJECT_NAME");
             return;
-        }//TODO refactor
+        } //TODO refactor
+
         String projectname = split[1];
         if (projectname.isEmpty()) {
             System.out.println("\t" + "Project name cannot be empty!");
             System.out.println("\t" + "Correct Format: add project pr/PROJECT_NAME");
             return;
-        }//TODO refactor
+        } //TODO refactor
+        
         if (projectmanager.projectmap.containsKey(projectname)) {
             System.out.println("\t" + "Project already exists!");
             return;
         } //TODO refactor
+        
         Project newProject = projectmanager.addProject(projectname);
         int projectsize = projectmanager.projectmap.size();
         ui.printAddProject(newProject, projectsize);
@@ -97,21 +105,24 @@ public class Process {
     public void deleteProject(String input, Ui ui) {
         String[] split = input.split("pr/", 2);
         split = cleanStrStr(split);
-        if(split.length != 2) {
+        if (split.length != 2) {
             System.out.println("\t" + "Incorrect input");
             System.out.println("\t" + "Correct Format: delete project pr/PROJECT_NAME");
             return;
         } //TODO refactor
+        
         String projectname = split[1];
         if (projectname.isEmpty()) {
             System.out.println("\t" + "Project name cannot be empty!");
             System.out.println("\t" + "Correct Format: delete project pr/PROJECT_NAME");
             return;
         } //TODO refactor
+        
         if (!projectmanager.projectmap.containsKey(projectname)) {
             System.out.println("\t" + "Project does not exist!");
             return;
         } //TODO refactor
+        
         Project deletedProject = projectmanager.deleteProject(projectname);
         int projectsize = projectmanager.projectmap.size();
         ui.printDeleteProject(deletedProject, projectsize);
@@ -122,36 +133,36 @@ public class Process {
      * as the current project that the user is working on.
      * @param input Input from the user.
      * @param ui Ui that interacts with the user.
-     * @return Returns the Project object of the project that was gone to.
      */
+    //@return Returns the Project object of the project that was gone to.
     public void goToProject(String input, Ui ui) {
         String[] split = input.split("pr/", 2);
         split = cleanStrStr(split);
-        if(split.length != 2) {
+        if (split.length != 2) {
             System.out.println("\t" + "Incorrect input");
             System.out.println("\t" + "Correct Format: goto project pr/PROJECT_NAME");
             return;
         } //TODO refactor
+        
         String projectname = split[1];
         if (projectname.isEmpty()) {
             System.out.println("\t" + "Project name cannot be empty!");
             System.out.println("\t" + "Correct Format: goto project pr/PROJECT_NAME");
             return;
-        } //TODO refactor
-        else if (projectmanager.projectmap.isEmpty()) {
+        } else if (projectmanager.projectmap.isEmpty()) { //TODO refactor
             ui.printNoProjectMessage();
             return;
-        } //TODO refactor
-        else if (!projectmanager.projectmap.containsKey(projectname)) {
+        } else if (!projectmanager.projectmap.containsKey(projectname)) { //TODO refactor
             System.out.println("\t" + "Project does not exist!");
             return;
         } //TODO refactor
+        
         projectmanager.gotoProject(projectname);
         ui.printGoToProject(projectname);
     }
 
     /**
-     * Process the set fund command to set a fund to all projects
+     * Process the set fund command to set a fund to all projects.
      * Command format: set fund am/AMOUNT_OF_FUND.
      * @param input Input from the user.
      * @param ui Ui that interacts with the user.
@@ -191,8 +202,8 @@ public class Process {
     }
 
     /**
-     *
-     * Command Format: assign fund p/PROJECT_NAME am/AMOUNT_OF_FUND
+     * Process the add fund command to add fund value to specific project
+     * Command Format: assign fund p/PROJECT_NAME am/AMOUNT_OF_FUND.
      * @param input Input from the user.
      * @param ui Ui that interacts with the user.
      * @param fund the total fund the that the organisation owns
@@ -211,7 +222,8 @@ public class Process {
                     projectmanager.assignBudget(projectname, amount);
                     ui.printAssignFundMessage(fund, amount,  projectmanager.projectmap.get(projectname));
                 } else {
-                    ui.exceptionMessage("     ☹ OOPS!!! There is not enough fund. Please decrease the amount of fund assigned)");
+                    ui.exceptionMessage("     ☹ OOPS!!! There is not enough fund. "
+                        + "Please decrease the amount of fund assigned)");
                     System.out.print(fund.giveFund());
                 }
             }
@@ -308,16 +320,22 @@ public class Process {
         }
     }
 
-
+    /**
+     * Processes the delete task command and removes task from tasklist.
+     * @param input Input from the user.
+     * @param tasklist Tasklist of the user.
+     * @param ui Ui that interacts with the user.
+     */
     public void deleteTask(String input, TaskList tasklist, Ui ui) {
         try {
             String[] splitspace = input.split("id/", 2);
             int id = Integer.parseInt(splitspace[1]) - 1;
             tasklist.deleteTask(id);
-        }catch (ArrayIndexOutOfBoundsException e){
+        } catch (ArrayIndexOutOfBoundsException e) {
             ui.exceptionMessage("     ☹ OOPS!!! The id of a deadline cannot be empty.");
         }
     }
+
     /**
      * Processes the DoAfter command and adds a task,
      * which has to be done after another task or a specific date and time,
@@ -503,7 +521,6 @@ public class Process {
      * Processes the edit command, amends the data of a payee or payment already exisiting in the records.
      * INPUT FORMAT: edit p/PAYEE v/INVOICE f/FIELD r/REPLACEMENT
      * @param input Input from the user.
-     * @param managermap HashMap containing all Payees and their Payments.
      * @param ui Ui that interacts with the user.
      */
     public void edit(String input, Ui ui) {
@@ -512,10 +529,9 @@ public class Process {
             String[] splitspace = input.split("edit ", 2);
             String[] splitpayments = splitspace[1].split("p/|v/|f/|r/");
             splitpayments = cleanStrStr(splitpayments);
-            PaymentManager.editPayee(splitpayments[1], splitpayments[2], splitpayments[3], splitpayments[4], managermap, ui);
-            
-        }
-        catch (IllegalArgumentException e){
+            PaymentManager.editPayee(splitpayments[1], splitpayments[2], 
+                splitpayments[3], splitpayments[4], managermap, ui);
+        } catch (IllegalArgumentException e) {
             ui.exceptionMessage("     ☹ OOPS!!! Please input the correct command format (refer to user guide)");
         }
     }
@@ -651,69 +667,92 @@ public class Process {
         storage.save(commandTime);
     }
 
+    /**
+     * TODO: Update this.
+     * @param ui Ui that interacts with the user.
+     * @param commandList ArrayList of commands.
+     * @param storage command.Storage that stores the input commands entered by the user.
+     */
     public void history(Ui ui, ArrayList<String> commandList, Storage storage) {
         commandList = storage.load();
         ui.printArrayList(commandList);
     }
+
+    /**
+     * TODO: Update this.
+     * @param input Input from the user.
+     * @param ui Ui that interacts with the user.
+     * @param commandList ArrayList of commands.
+     * @param storage command.Storage that stores the input commands entered by the user.
+     */
     public void viewhistory(String input, Ui ui, ArrayList<String> commandList, Storage storage) throws ParseException {
         String[] splitspace = input.split(" ", 3);
         String[] splitslash = splitspace[2].split("/", 2);
         String[] splitdates = splitslash[1].split(" ", 3);
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
         String date1 = splitdates[0];
-        Date date_first = sdf.parse(date1);
+        Date dateFirst = sdf.parse(date1);
         String date2 = splitdates[2];
-        Date date_second = sdf.parse(date2);
+        Date dateSecond = sdf.parse(date2);
         commandList = storage.load();
         ArrayList<String> viewhistory = new ArrayList<String>();
-        for(int i = 0; i < commandList.size() - 1; i = i + 1){
+        for (int i = 0; i < commandList.size() - 1; i = i + 1) {
             String token = null;
             String token1 = null;
-            String[] splitdate_command = commandList.get(i).split("~",2);
-            for(int j = 0; j < splitdate_command.length; j = j + 1){
-                token = splitdate_command[j];
+            String[] splitDateCommand = commandList.get(i).split("~",2);
+            for (int j = 0; j < splitDateCommand.length; j = j + 1) {
+                token = splitDateCommand[j];
             }
-            String[] splitdate_time = token.split(" ", 3);
-            for(int k = 0; k < splitdate_time.length; k = k + 1){
-                if(k == 1){
-                    token1 = splitdate_time[k];
+            String[] splitDateTime = token.split(" ", 3);
+            for (int k = 0; k < splitDateTime.length; k = k + 1) {
+                if (k == 1) {
+                    token1 = splitDateTime[k];
                 }
             }
-            Date date_command = sdf.parse(token1);
-            if((date_command.compareTo(date_first)) >= 0){
-                if((date_command.compareTo(date_second)) <= 0){
+            Date dateCommand = sdf.parse(token1);
+            if ((dateCommand.compareTo(dateFirst)) >= 0) {
+                if ((dateCommand.compareTo(dateSecond)) <= 0) {
                     viewhistory.add(commandList.get(i));
                 }
             }
         }
         ui.printArrayList(viewhistory);
     }
-    public void deletehistory(String input, Ui ui, ArrayList<String> commandList, Storage storage) throws ParseException {
+
+    /**
+     * TODO: Update this.
+     * @param input Input from the user.
+     * @param ui Ui that interacts with the user.
+     * @param commandList ArrayList of commands.
+     * @param storage command.Storage that stores the input commands entered by the user.
+     */
+    public void deletehistory(String input, Ui ui, ArrayList<String> commandList,
+        Storage storage) throws ParseException {
         String[] splitspace = input.split(" ", 3);
         String[] splitslash = splitspace[2].split("/", 2);
         String[] splitdates = splitslash[1].split(" ", 3);
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
         String date1 = splitdates[0];
-        Date date_first = sdf.parse(date1);
+        Date dateFirst = sdf.parse(date1);
         String date2 = splitdates[2];
-        Date date_second = sdf.parse(date2);
+        Date dateSecond = sdf.parse(date2);
         commandList = storage.load();
-        for(int i = 0; i < commandList.size() - 1; i = i + 1){
+        for (int i = 0; i < commandList.size() - 1; i = i + 1) {
             String token = null;
             String token1 = null;
-            String[] splitdate_command = commandList.get(i).split("~",2);
-            for(int j = 0; j < splitdate_command.length; j = j + 1){
-                token = splitdate_command[j];
+            String[] splitDateCommand = commandList.get(i).split("~",2);
+            for (int j = 0; j < splitDateCommand.length; j = j + 1) {
+                token = splitDateCommand[j];
             }
-            String[] splitdate_time = token.split(" ", 3);
-            for(int k = 0; k < splitdate_time.length; k = k + 1){
-                if(k == 1){
-                    token1 = splitdate_time[k];
+            String[] splitDateTime = token.split(" ", 3);
+            for (int k = 0; k < splitDateTime.length; k = k + 1) {
+                if (k == 1) {
+                    token1 = splitDateTime[k];
                 }
             }
-            Date date_command = sdf.parse(token1);
-            if((date_command.compareTo(date_first)) >= 0){
-                if((date_command.compareTo(date_second)) <= 0){
+            Date dateCommand = sdf.parse(token1);
+            if ((dateCommand.compareTo(dateFirst)) >= 0) {
+                if ((dateCommand.compareTo(dateSecond)) <= 0) {
                     Storage.remove(commandList.get(i));
                 }
             }

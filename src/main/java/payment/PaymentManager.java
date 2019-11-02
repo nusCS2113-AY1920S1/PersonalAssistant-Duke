@@ -14,26 +14,27 @@ public abstract class PaymentManager {
 
     private static Field strToField(String str) {
         switch (str) {
-            case ("PAYEE"):
-                return Field.PAYEE;
-            case ("EMAIL"):
-                return Field.EMAIL;
-            case ("MATRIC"):
-                return Field.MATRIC;
-            case ("PHONE"):
-                return Field.PHONE;
-            case ("ITEM"):
-                return Field.ITEM;
-            case ("COST"):
-                return Field.COST;
-            case ("INVOICE"):
-                return Field.INV;
-            case ("STATUS"):
-                return Field.STATUS;
-            case ("DEADLINE"):
-                return Field.DEADLINE;
+        case ("PAYEE"):
+            return Field.PAYEE;
+        case ("EMAIL"):
+            return Field.EMAIL;
+        case ("MATRIC"):
+            return Field.MATRIC;
+        case ("PHONE"):
+            return Field.PHONE;
+        case ("ITEM"):
+            return Field.ITEM;
+        case ("COST"):
+            return Field.COST;
+        case ("INVOICE"):
+            return Field.INV;
+        case ("STATUS"):
+            return Field.STATUS;
+        case ("DEADLINE"):
+            return Field.DEADLINE;
+        default:
+            throw new IllegalArgumentException();
         }
-        throw new IllegalArgumentException();
     }
 
     /**
@@ -50,7 +51,8 @@ public abstract class PaymentManager {
     /**
      * Edits the Payments object details, may overload string to take different ways of inputs.
      */
-    public static void editPayee(String payee, String inv, String fieldToAmend, String replace, HashMap<String, Payee> managermap, Ui ui) {
+    public static void editPayee(String payee, String inv, String fieldToAmend, 
+        String replace, HashMap<String, Payee> managermap, Ui ui) {
         Field field = strToField(fieldToAmend);
         if (inv.isEmpty()) {
             if (field == Field.PAYEE) {

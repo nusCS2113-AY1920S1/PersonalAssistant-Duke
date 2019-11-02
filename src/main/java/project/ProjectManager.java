@@ -62,7 +62,7 @@ public class ProjectManager {
      */
     public ArrayList<Project> listProjects() {
         ArrayList<Project> projectslist = new ArrayList<>();
-        for (Project project: projectmap.values()){
+        for (Project project: projectmap.values()) {
             projectslist.add(project);
         }
         return projectslist;
@@ -103,7 +103,7 @@ public class ProjectManager {
         return currentProject;
     }
 
-    public HashMap<String, Payee> getCurrentProjectManagerMap(){
+    public HashMap<String, Payee> getCurrentProjectManagerMap() {
         return currentProject.managermap;
     }
 }
