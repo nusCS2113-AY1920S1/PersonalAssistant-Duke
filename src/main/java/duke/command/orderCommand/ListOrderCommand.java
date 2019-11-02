@@ -31,7 +31,7 @@ public class ListOrderCommand extends ListCommand<Order> {
     }
 
     @Override
-    public void execute(GenericList<Order> orderList, Ui ui, Storage storage) throws DukeException {
+    public void execute(GenericList<Order> orderList, Ui ui, Storage orderStorage) throws DukeException {
         if (orderList.size() == 0) { throw new DukeException("No orders in the order list!");}
         List<Order> filtered = parse((OrderList) orderList);
         if (filtered.size()==0) { throw new DukeException("No orders found!");}

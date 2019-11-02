@@ -5,6 +5,7 @@ import duke.exception.DukeException;
 import duke.list.GenericList;
 import duke.order.Order;
 import duke.order.OrderList;
+import duke.storage.OrderStorage;
 import duke.storage.Storage;
 import duke.ui.Ui;
 
@@ -26,11 +27,11 @@ public class AddOrderCommand extends Cmd<Order> {
      *
      * @param orderList the {@link OrderList} to be expanded
      * @param ui       {@link Ui} used for printing the order output
-     * @param storage  {@link Storage} writes in the file on the hard disc
+     * @param orderStorage  {@link OrderStorage} writes in the file on the hard disc
      * @throws DukeException Error while adding the command to the duke.txt file
      */
     @Override
-    public void execute(GenericList<Order> orderList, Ui ui, Storage storage) throws DukeException {
+    public void execute(GenericList<Order> orderList, Ui ui, Storage orderStorage) throws DukeException {
         orderList.addEntry(order);
         ui.showAddOrder(order.toString(), orderList.size());
 

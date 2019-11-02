@@ -66,7 +66,7 @@ public class Duke {
      */
     public void run() throws IOException, InterruptedException {
         String fullCommand;
-        ui.clearScreen();
+        //ui.clearScreen();
         ui.showWelcome();
         if (fridge.hasExpiredIngredients()) {
             ui.showHasExpiring();
@@ -86,7 +86,7 @@ public class Duke {
                 ui.showOptions();
                 ui.showLine();
                 fullCommand = ui.readCommand();
-                ui.clearScreen();
+                //ui.clearScreen();
                 ui.showLine();
                 switch (fullCommand) {
                     case "options": {
@@ -111,7 +111,7 @@ public class Duke {
                         while (true) {
                             try {
                                 fullCommand = ui.readCommand();
-                                ui.clearScreen();
+                                //ui.clearScreen();
                                 if (fullCommand.trim().equals("back")) {
                                     break;
                                 }
@@ -143,12 +143,9 @@ public class Duke {
                         while (true) {
                             try {
                                 fullCommand = ui.readCommand();
-                                ui.clearScreen();
-                                if (fullCommand.trim().equals("back")) {
-                                    break;
-                                }
+                                //ui.clearScreen();
+                                if (fullCommand.trim().equals("back")) { break; }
                                 if (fullCommand.trim().equals("q")) {
-
                                     Cmd command = new ExitCommand();
                                     command.execute(null, ui, null);
                                     isExit = command.isExit();
@@ -171,7 +168,7 @@ public class Duke {
                             try {
                                 ui.showDishTemplate();
                                 fullCommand = ui.readCommand();
-                                ui.clearScreen();
+                                //ui.clearScreen();
                                 if(fullCommand.trim().equals("q")) {
                                     Cmd command = new ExitCommand();
                                     command.execute(null, ui, null);

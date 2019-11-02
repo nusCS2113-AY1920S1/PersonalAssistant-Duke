@@ -5,6 +5,7 @@ import duke.exception.DukeException;
 import duke.list.GenericList;
 import duke.order.Order;
 import duke.order.OrderList;
+import duke.storage.OrderStorage;
 import duke.storage.Storage;
 import duke.ui.Ui;
 
@@ -24,7 +25,7 @@ public class DeleteOrderCommand extends Cmd<Order> {
     }
 
     @Override
-    public void execute(GenericList<Order> orderList, Ui ui, Storage storage) throws DukeException {
+    public void execute(GenericList<Order> orderList, Ui ui, Storage orderStorage) throws DukeException {
         if (orderList.size()==0) { throw new DukeException("No order in the list! No order can be removed!"); }
         if (orderIndex < orderList.size() && orderIndex >= 0) {
             Order removed = orderList.getEntry(orderIndex);

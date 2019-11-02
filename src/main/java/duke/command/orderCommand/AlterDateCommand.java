@@ -4,6 +4,7 @@ import duke.command.Cmd;
 import duke.exception.DukeException;
 import duke.list.GenericList;
 import duke.order.Order;
+import duke.storage.OrderStorage;
 import duke.storage.Storage;
 import duke.ui.Ui;
 
@@ -29,7 +30,7 @@ public class AlterDateCommand extends Cmd<Order> {
     }
 
     @Override
-    public void execute(GenericList<Order> orderList, Ui ui, Storage storage) throws DukeException {
+    public void execute(GenericList<Order> orderList, Ui ui, Storage orderStorage) throws DukeException {
         if (index <= orderList.size() && index > 0) {
             Order order = orderList.getEntry(index);
             if (order.isDone()) { throw new DukeException("Order done already. Date alteration is not expected."); }

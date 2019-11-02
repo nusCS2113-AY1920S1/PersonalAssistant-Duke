@@ -157,6 +157,8 @@ public class Parser {
                     String[] split2 = listType.split(" ",2);
                     if (split2.length==1) { return new ListOrderCommand(split2[0]); }
                     else { return new ListOrderCommand(split2[1]); }
+                } else if (splitted[0].equals("init")) {
+                    return new InitOrderListCommand();
                 } else throw new DukeException("not a valid command for an order");
             }
             default:
