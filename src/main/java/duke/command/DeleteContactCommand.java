@@ -1,5 +1,6 @@
 package duke.command;
 
+import duke.enums.Numbers;
 import duke.storage.Storage;
 import duke.task.ContactList;
 import duke.task.TaskList;
@@ -14,8 +15,6 @@ public class DeleteContactCommand extends Command {
     protected int indexOfContactToDelete;
     protected ContactList contactList;
     protected Ui ui = new Ui();
-    private static final int ZERO = 0;
-    private static final int ONE = 1;
 
     /**
      * To delete a contact by the index of the contact.
@@ -36,15 +35,16 @@ public class DeleteContactCommand extends Command {
      */
     @Override
     public void execute(TaskList items, Ui ui) {
-        if (indexOfContactToDelete >= ZERO && indexOfContactToDelete + ONE <= contactList.size()) {
+        if (indexOfContactToDelete >= Numbers.ZERO.value && indexOfContactToDelete
+                + Numbers.ONE.value <= contactList.size()) {
             String deletedContact = contactList.getAndDisplay(indexOfContactToDelete);
             contactList.remove(indexOfContactToDelete);
             ui.showContactDeleted(contactList, deletedContact);
-        } else if (contactList.size() == ZERO) {
+        } else if (contactList.size() == Numbers.ZERO.value) {
             ui.showErrorMsgGui("     No contacts to be deleted!");
         } else {
             ui.showErrorMsg("     Invalid index! Please choose 1 "
-                    + ((contactList.size() == ONE) ? "" : "to " + contactList.size()));
+                    + ((contactList.size() == Numbers.ONE.value) ? "" : "to " + contactList.size()));
         }
     }
 
@@ -58,15 +58,16 @@ public class DeleteContactCommand extends Command {
     @Override
     public String executeGui(TaskList items, Ui ui) {
         String str;
-        if (indexOfContactToDelete >= ZERO && indexOfContactToDelete + ONE <= contactList.size()) {
+        if (indexOfContactToDelete >= Numbers.ZERO.value && indexOfContactToDelete
+                + Numbers.ONE.value <= contactList.size()) {
             String deletedContact = contactList.getAndDisplay(indexOfContactToDelete);
             contactList.remove(indexOfContactToDelete);
             str = ui.showContactDeletedGui(contactList, deletedContact);
-        } else if (contactList.size() == ZERO) {
+        } else if (contactList.size() == Numbers.ZERO.value) {
             str = ui.showErrorMsgGui("No contacts to be deleted!");
         } else {
             str = ui.showErrorMsgGui("Invalid index! Please choose 1 "
-                    + ((contactList.size() == ONE) ? "" : "to " + contactList.size()));
+                    + ((contactList.size() == Numbers.ONE.value) ? "" : "to " + contactList.size()));
         }
         return str;
     }

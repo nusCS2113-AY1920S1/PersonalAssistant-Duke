@@ -1,6 +1,7 @@
 package duke.command;
 
 import duke.dukeexception.DukeException;
+import duke.enums.Numbers;
 import duke.storage.Storage;
 import duke.task.TaskList;
 import duke.task.Todo;
@@ -52,14 +53,14 @@ public class UpdateCommand extends Command {
     @Override
     public void execute(TaskList items, Ui ui) {
         try {
-            if (typeOfUpdate == 1) {
+            if (typeOfUpdate == Numbers.ONE.value) {
                 items.get(index).setDescription(taskDesc);
-            } else if (typeOfUpdate == 2) {
+            } else if (typeOfUpdate == Numbers.TWO.value) {
                 if (items.get(index) instanceof Todo || items.get(index) instanceof FixedDuration) {
                     throw new DukeException("     (>_<) OOPS!!! This task does not have date and time!");
                 }
                 items.get(index).setDateTime(dateDesc);
-            } else if (typeOfUpdate == 3) {
+            } else if (typeOfUpdate == Numbers.THREE.value) {
                 Task newtaskObj = null;
                 if (typeDesc.equals("todo")) {
                     if (items.get(index) instanceof Todo) {
@@ -79,7 +80,7 @@ public class UpdateCommand extends Command {
                     if (items.get(index) instanceof FixedDuration) {
                         throw new DukeException("     You are updating the same type of task! (FixedDuration)");
                     } else {
-                        newtaskObj = new FixedDuration(items.get(index).getDescription(), 0, "min");
+                        newtaskObj = new FixedDuration(items.get(index).getDescription(), Numbers.ZERO.value, "min");
                     }
                 } else if (typeDesc.equals("repeat")) {
                     if (items.get(index) instanceof Deadline) {
@@ -112,14 +113,14 @@ public class UpdateCommand extends Command {
     public String executeGui(TaskList items, Ui ui) {
         String str = "";
         try {
-            if (typeOfUpdate == 1) {
+            if (typeOfUpdate == Numbers.ONE.value) {
                 items.get(index).setDescription(taskDesc);
-            } else if (typeOfUpdate == 2) {
+            } else if (typeOfUpdate == Numbers.TWO.value) {
                 if (items.get(index) instanceof Todo || items.get(index) instanceof FixedDuration) {
                     return "     (>_<) OOPS!!! This task does not have date and time!";
                 }
                 items.get(index).setDateTime(dateDesc);
-            } else if (typeOfUpdate == 3) {
+            } else if (typeOfUpdate == Numbers.THREE.value) {
                 Task newtaskObj;
                 if (typeDesc.equals("todo")) {
                     if (items.get(index) instanceof Todo) {
@@ -139,7 +140,7 @@ public class UpdateCommand extends Command {
                     if (items.get(index) instanceof FixedDuration) {
                         return "     (>_<) OOPS!!! You are updating the same type of task! (FixedDuration)";
                     } else {
-                        newtaskObj = new FixedDuration(items.get(index).getDescription(), 0, "min");
+                        newtaskObj = new FixedDuration(items.get(index).getDescription(), Numbers.ZERO.value, "min");
                     }
                 } else if (typeDesc.equals("repeat")) {
                     if (items.get(index) instanceof Deadline) {

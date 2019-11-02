@@ -1,12 +1,13 @@
 package duke.task;
 
+import duke.enums.Numbers;
+
 /**
  * Finds duplicated tasks and alerts the user.
  */
 //@@author e0318465
 public class DetectDuplicate {
     protected TaskList items;
-    private static final int ZERO = 0;
 
     /**
      * Creates a DetectDuplicate task with a list of TaskList available.
@@ -27,7 +28,7 @@ public class DetectDuplicate {
     public boolean isDuplicate(String command, String description) {
         if ("todo".equals(command) || "fixedduration".equals(command)
                 || "deadline".equals(command) || "repeat".equals(command)) {
-            for (int i = ZERO; i < items.size(); i++) {
+            for (int i = Numbers.ZERO.value; i < items.size(); i++) {
                 if (items.get(i).isContain(description)) {
                     //contains, is implemented in Task.java
                     return true;

@@ -1,5 +1,6 @@
 package duke.storage;
 
+import duke.enums.Numbers;
 import duke.task.ContactList;
 import duke.task.Contacts;
 import duke.ui.Ui;
@@ -14,14 +15,8 @@ import java.util.ArrayList;
 
 //@@author e0318465
 public class ContactStorage {
-    //protected String filePathForContacts = "./";
     protected String filePathForContacts = "";
     String storageClassPath = this.getClass().getProtectionDomain().getCodeSource().getLocation().getPath();
-    private static final int ZERO = 0;
-    private static final int ONE = 1;
-    private static final int TWO = 2;
-    private static final int THREE = 3;
-    private static final int FOUR = 4;
 
     /**
      * Creates a storage with a specified filePathForContacts.
@@ -32,9 +27,9 @@ public class ContactStorage {
         int numberOfSlash;
         storageClassPath = storageClassPath.replaceAll("%20", " ");
         String[] pathSplitter = storageClassPath.split("/");
-        numberOfSlash = pathSplitter.length - ONE;
+        numberOfSlash = pathSplitter.length - Numbers.ONE.value;
         for (String directory: pathSplitter) {
-            if (numberOfSlash == ZERO) {
+            if (numberOfSlash == Numbers.ZERO.value) {
                 break;
             } else if (!directory.isEmpty() && !directory.equals("build") && !directory.equals("out")) {
                 this.filePathForContacts += directory + "/";
@@ -67,13 +62,13 @@ public class ContactStorage {
 
         while ((st = br.readLine()) != null) {  //name + "," + contact + "," + email + "," + office
             String[] contactDetails = st.split(",");
-            if (contactDetails.length != FOUR) {
+            if (contactDetails.length != Numbers.FOUR.value) {
                 ui.showErrorMsg("     Not all contact details entered, please leave a space for empty fields.");
             } else {
-                name = contactDetails[ZERO];
-                contact = contactDetails[ONE];
-                email = contactDetails[TWO];
-                office = contactDetails[THREE];
+                name = contactDetails[Numbers.ZERO.value];
+                contact = contactDetails[Numbers.ONE.value];
+                email = contactDetails[Numbers.TWO.value];
+                office = contactDetails[Numbers.THREE.value];
                 Contacts contactObj = new Contacts(name, contact, email, office);
                 contacts.add(contactObj);
             }
@@ -90,7 +85,7 @@ public class ContactStorage {
      */
     public void write(ContactList contacts) throws IOException {
         String fileContent = "";
-        for (int i = ZERO; i < contacts.size(); i++) {
+        for (int i = Numbers.ZERO.value; i < contacts.size(); i++) {
             fileContent += contacts.get(i).toFile() + "\n";
         }
         BufferedWriter writer = new BufferedWriter(new FileWriter(filePathForContacts));

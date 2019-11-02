@@ -1,5 +1,7 @@
 package duke.task;
 
+import duke.enums.Numbers;
+
 import java.util.ArrayList;
 
 //@@author talesrune
@@ -8,7 +10,7 @@ import java.util.ArrayList;
  */
 public class FilterList {
     protected ArrayList<Task> filterList;
-    protected int filterIndex = -1;
+    protected int filterIndex = Numbers.MINUS_ONE.value;
   
     /**
      * Creates an empty task list using an array list.
