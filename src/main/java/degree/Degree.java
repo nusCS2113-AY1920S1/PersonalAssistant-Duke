@@ -299,6 +299,11 @@ public class Degree {
         }
     }
 
+    /**
+     * Returns all mods as a ModuleList regardless of module type or class.
+     *
+     * @return Every single mod in this degree regardless of module type or class.
+     */
     public ModuleList getModuleList() {
         return this.allMods;
     }

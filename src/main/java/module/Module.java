@@ -120,6 +120,12 @@ public class Module implements Comparable<Module> {
         return this.getCode().compareTo(other.getCode());
     }
 
+    /**
+     * Returns the full name of the modules.
+     * To be overwritten in the ConjunctiveModule class.
+     *
+     * @return The full name of this module.
+     */
     public String getFullModuleName() {
         return this.getName();
     }

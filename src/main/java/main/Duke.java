@@ -202,18 +202,38 @@ public class Duke extends Application {
 
     }
 
+    /**
+     * Method to return the current task list in duke, for use in javafx
+     *
+     * @return the task list to be used by javafx
+     */
     public TaskList getTaskList() {
         return this.myList;
     }
 
+    /**
+     * Method to return the current choices of degree list in duke, for use in javafx
+     *
+     * @return the choices of degrees list to be used by javafx
+     */
     public DegreeList getDegreeList() {
         return this.lists;
     }
 
+    /**
+     * Method to check if the most recent input has a type and thus the command is not accepted
+     *
+     * @return the flag to javafx to check for user typos
+     */
     public Boolean getTypoFlag () {
         return this.typoFlag;
     }
 
+    /**
+     * Method to return the degree information stored in duke, for use in javafx
+     *
+     * @return the degree manager storing the degree information, of use in javafx
+     */
     public DegreeManager getDegreesManager () {
         return this.degreesManager;
     }

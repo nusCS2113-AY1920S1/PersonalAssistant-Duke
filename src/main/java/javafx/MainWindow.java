@@ -155,6 +155,7 @@ public class MainWindow extends AnchorPane {
      * Creates two dialog boxes, one echoing user input and the other containing JavaFX.Main.Duke's
      * reply and then appends them to the dialog container.
      * Clears the user input after processing.
+     * Also changes the tables in the GUI after every user input, assuming there are changes.
      */
     @FXML
     private void handleUserInput() throws DukeException {
@@ -267,8 +268,6 @@ public class MainWindow extends AnchorPane {
                 }
             }
         }
-
-        //tabTask.setText("hi"); use these to change the degree tab name
 
         userInput.clear();
     }

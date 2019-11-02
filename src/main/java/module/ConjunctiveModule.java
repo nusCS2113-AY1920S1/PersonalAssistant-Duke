@@ -79,6 +79,11 @@ public class ConjunctiveModule extends Module {
         return list.toString();
     }
 
+    /**
+     * Returns both names of conjunctive modules in one string
+     *
+     * @return the names of both conjunctive modules as a string
+     */
     @Override
     public String getFullModuleName() {
         return this.fullModuleName;

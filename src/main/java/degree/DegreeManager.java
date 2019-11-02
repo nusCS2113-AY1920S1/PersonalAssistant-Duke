@@ -57,7 +57,6 @@ public class DegreeManager {
         }
     }
 
-
     public void print(String degree) throws DukeException {
         if(!degreeInfo.containsKey(degree))
             throw new DukeException(degree + " was not found in our records!");
@@ -65,14 +64,28 @@ public class DegreeManager {
             degreeInfo.get(degree).print();
     }
 
+    /**
+     * Clears out the current degreeManager.
+     */
     public void clear() {
         degreeInfo.clear();
     }
 
-    public long size() {
+    /**
+     * Returns the size of this degreeManager.
+     *
+     * @return The number of degrees in this degreeManager.
+     */
+    public int size() {
         return degreeInfo.size();
     }
 
+    /**
+     * Returns the modules of a certain degree as a moduleList.
+     *
+     * @param degree The name of the degree corresponding to the modules required.
+     * @return The modules of this degree as a moduleList.
+     */
     public ModuleList getModuleList(String degree) {
         return degreeInfo.get(degree).getModuleList();
     }
