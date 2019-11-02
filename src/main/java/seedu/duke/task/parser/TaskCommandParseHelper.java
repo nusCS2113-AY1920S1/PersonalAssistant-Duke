@@ -32,6 +32,7 @@ import java.util.regex.Pattern;
 
 import static seedu.duke.CommandParseHelper.extractTags;
 import static seedu.duke.CommandParseHelper.extractTime;
+import static seedu.duke.CommandParseHelper.isNumberTooLarge;
 
 public class TaskCommandParseHelper {
     private static UI ui = UI.getInstance();
@@ -118,11 +119,10 @@ public class TaskCommandParseHelper {
     }
 
     private static int parseTaskIndex(String input) throws TaskParseException {
-        String strippedInput = input.strip().replaceAll("^0+", "");
-        if (strippedInput.length() >= 6) {
+        if (isNumberTooLarge(input)) {
             throw new TaskParseException("Invalid index. Index should be integer of range 1 ~ 99999.");
         }
-        int index = Integer.parseInt(strippedInput) - 1;
+        int index = Integer.parseInt(input) - 1;
         if (index < 0 || index >= Model.getInstance().getTaskListLength()) {
             throw new TaskParseException("Index out of bounds. ");
         }
@@ -161,7 +161,7 @@ public class TaskCommandParseHelper {
         int dayLimit;
         String dayLimitString = reminderCommandMatcher.group("dayLimit");
         if (dayLimitString.length() > 6) {
-            throw new TaskParseException("Reminder day limit only accept positive integer from 1 to 999999. "
+            throw new TaskParseException("Reminder day limit only accept positive integer from 1 to 99999. "
                     + "Default is used.");
         } else {
             dayLimit = Integer.parseInt(dayLimitString);
@@ -263,7 +263,7 @@ public class TaskCommandParseHelper {
             return new TaskSnoozeCommand(index, 3);
         } catch (NumberFormatException e) {
             return new InvalidCommand("Please enter a valid number of days for snooze (positive integer "
-                    + "from 1 to 999999)");
+                    + "from 1 to 99999)");
         }
     }
 
@@ -406,7 +406,7 @@ public class TaskCommandParseHelper {
         if (snoozeString == "") {
             throw new TaskParseException("Number of days snoozed not specified. Default is used.");
         }
-        if (snoozeString.length() > 6) {
+        if (isNumberTooLarge(snoozeString)) {
             throw new TaskParseException("Number of days snoozed should be integer of range 1 ~ 99999. "
                     + "Default is used.");
         }

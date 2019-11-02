@@ -308,7 +308,7 @@ Example: +
 Format: `reminder NO_OF_DAYS` +
 
 Shows the deadline or event tasks for the next NO_OF_DAYS days. +
-Only positive integers from 1 to 999999 are accepted for `NO_OF_DAYS`. +
+Only positive integers from 1 to 99999 are accepted for `NO_OF_DAYS`. +
 
 Example: `reminder 4`
 

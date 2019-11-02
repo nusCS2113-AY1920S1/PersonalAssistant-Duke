@@ -186,6 +186,17 @@ public class CommandParseHelper {
     }
 
     /**
+     * Pre-checks whether the number is too large to be parsed by integer. Maximum of 5 digits is allowed.
+     *
+     * @param numberString string of number input
+     * @return whether the number is too large to be parsed by integer
+     */
+    public static boolean isNumberTooLarge(String numberString) {
+        String strippedString = numberString.replaceAll("^0+", "");
+        return strippedString.length() >= 6;
+    }
+
+    /**
      * Two types of input, prefix will be displayed according to this in the userInput text field.
      */
     public enum InputType {

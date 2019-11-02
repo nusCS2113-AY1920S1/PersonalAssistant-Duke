@@ -21,6 +21,8 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static seedu.duke.CommandParseHelper.isNumberTooLarge;
+
 public class EmailCommandParseHelper {
     private static UI ui = UI.getInstance();
 
@@ -152,11 +154,10 @@ public class EmailCommandParseHelper {
     }
 
     private static int parseEmailIndex(String input) throws EmailParseException {
-        String strippedInput = input.replaceAll("^0+", "");
-        if (strippedInput.length() >= 6) {
+        if (isNumberTooLarge(input)) {
             throw new EmailParseException("Invalid index. Index of range 1 ~ 99999 is accepted.");
         }
-        int index = Integer.parseInt(strippedInput) - 1;
+        int index = Integer.parseInt(input) - 1;
         if (index < 0 || index >= Model.getInstance().getEmailListLength()) {
             throw new EmailParseException("Index out of bounds.");
         }
