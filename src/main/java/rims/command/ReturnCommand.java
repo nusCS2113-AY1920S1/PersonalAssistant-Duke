@@ -61,8 +61,12 @@ public class ReturnCommand extends Command {
 
     }
 
-    @Override
-    public boolean canModifyData() {
-        return true;
+    private String reservationsIdsToString(ArrayList<Integer> reservationIds) {
+        String reservationsIdsString = "";
+        for (int i : reservationIds) {
+            reservationsIdsString += (i + ", ");
+        }
+        return reservationsIdsString;
     }
+
 }

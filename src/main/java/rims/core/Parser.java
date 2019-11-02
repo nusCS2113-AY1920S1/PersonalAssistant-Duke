@@ -49,8 +49,13 @@ public class Parser {
         this.resources = resources;
     }
 
+    /**
+     * Saves the last executed command that modified data
+     * in Parser.
+     * @param c Previous command that modified data in ResourceList.
+     */
     public void setPrevCommand(Command c) {
-        // if (c.canChangeData()) { prevCommand = c; }
+        if (c.canChangeData()) { prevCommand = c; }
     }
 
     /**

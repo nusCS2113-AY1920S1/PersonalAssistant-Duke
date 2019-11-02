@@ -31,6 +31,8 @@ public class DeleteCommand extends Command {
     public DeleteCommand(String resourceName, String resourceType) {
         this.resourceName = resourceName;
         this.resourceType = resourceType;
+        this.canModifyData = true;
+        this.commandUserInput = "delete " + resourceName + " (" + resourceType + ")" + "IDs: ";
     }
 
     /**
@@ -78,7 +80,7 @@ public class DeleteCommand extends Command {
                     "Type in the resource ID(s) (separated by a space for multiple IDs) that you wish to delete:");
             String[] splitIdInput = idInput.split(" ");
             ArrayList<Integer> intIdInput = new ArrayList<Integer>();
-            for (int i = 0; i < splitIdInput.length; i++) {
+            for (int i = 0; i < splitIdInput.length; i++) { ;
                 intIdInput.add(Integer.parseInt(splitIdInput[i]));
             }
             ArrayList<Resource> deletedResources = new ArrayList<Resource>();
@@ -96,16 +98,14 @@ public class DeleteCommand extends Command {
                 ui.print(thisDeletedResource.toString() + " (ID: " + thisDeletedResource.getResourceId() + ")");
             }
             ui.printLine();
+
+            addIdsToCommandUserInput(intIdInput); //Adds information of IDs deleted in commandUserInput
         }
     }
 
-    @Override
-    public boolean canModifyData() {
-        return true;
-    }
-
-    @Override
-    public String getCommandUserInput() {
-        return "delete" + qty + resourceName + " (" + resourceType + ")";
+    private void addIdsToCommandUserInput(ArrayList<Integer> IdArray) {
+        for (int i : IdArray) {
+            commandUserInput += (i + ", ");
+        }
     }
 }
