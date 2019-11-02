@@ -119,6 +119,11 @@ public class DegreeManager {
         if(split.length <= 1){
             throw new DukeException("Too few arguments!");
         }
+        assert(split.length == 2);
+        if(split[0].equalsIgnoreCase(split[1]))
+        {
+            throw new DukeException("Invalid Comparison (to Self)");
+        }
         StringBuilder errorList = new StringBuilder();
         if(!degreeInfo.containsKey(split[0]))
         {
