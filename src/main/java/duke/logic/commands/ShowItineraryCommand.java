@@ -11,14 +11,14 @@ import java.io.FileNotFoundException;
  * Shows the requested Itinerary.
  */
 public class ShowItineraryCommand extends Command {
-    private String number;
+    private String name;
 
     /**
      * Constructs the command with the given itinerary name.
      *
      */
-    public ShowItineraryCommand(String number) {
-        this.number = number;
+    public ShowItineraryCommand(String name) {
+        this.name = name;
     }
 
     /**
@@ -28,7 +28,7 @@ public class ShowItineraryCommand extends Command {
      */
     @Override
     public CommandResultText execute(Model model) throws DukeException, FileNotFoundException {
-        Itinerary itinerary = model.getItinerary(number);
+        Itinerary itinerary = model.getItinerary(name);
         return new CommandResultText(itinerary.printItinerary());
     }
 }

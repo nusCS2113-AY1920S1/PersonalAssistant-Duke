@@ -2,6 +2,7 @@ package duke.ui;
 
 import duke.Main;
 import duke.commons.Messages;
+import duke.commons.exceptions.FileLoadFailException;
 import duke.logic.commands.results.CommandResult;
 import duke.logic.commands.results.CommandResultCalender;
 import duke.logic.commands.results.CommandResultExit;
@@ -76,7 +77,7 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Initialises the logic and Ui component of Duke.
      */
-    public void initialise(Main main) {
+    public void initialise(Main main) throws FileLoadFailException {
         this.main = main;
         logic = new LogicManager();
         sgTravelShow(Messages.STARTUP_WELCOME_MESSAGE + logic.getName());

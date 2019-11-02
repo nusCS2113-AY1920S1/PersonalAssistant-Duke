@@ -1,5 +1,7 @@
 package duke.storage;
 
+import duke.commons.Messages;
+import duke.commons.exceptions.ApiException;
 import duke.commons.exceptions.CategoryNotFoundException;
 import duke.commons.exceptions.CorruptedFileException;
 import duke.commons.exceptions.DukeDuplicateTaskException;
@@ -7,7 +9,7 @@ import duke.commons.exceptions.FileLoadFailException;
 import duke.commons.exceptions.FileNotSavedException;
 import duke.commons.exceptions.ParseException;
 import duke.commons.exceptions.RouteNodeDuplicateException;
-import duke.model.transports.TransportationMap;
+import duke.logic.api.ApiParser;
 import duke.logic.parsers.ParserStorageUtil;
 import duke.logic.parsers.ParserTimeUtil;
 import duke.model.Event;
@@ -19,21 +21,22 @@ import duke.model.locations.TrainStation;
 import duke.model.locations.Venue;
 import duke.model.planning.Agenda;
 import duke.model.planning.Itinerary;
+import duke.model.planning.Recommendation;
 import duke.model.planning.Todo;
 import duke.model.profile.ProfileCard;
 import duke.model.transports.BusService;
 import duke.model.transports.Route;
+import duke.model.transports.TransportationMap;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -47,6 +50,9 @@ public class Storage {
     private RouteList routes;
     private TransportationMap map;
     private ProfileCard profileCard;
+    private Recommendation recommendation;
+    private HashMap<String, Itinerary> itineraryTable;
+    private Itinerary newItinerary;
 
     private static final String BUS_FILE_PATH = "/data/bus.txt";
     private static final String RECOMMENDATIONS_FILE_PATH = "/data/recommendations.txt";
@@ -55,8 +61,6 @@ public class Storage {
     private static final String EVENTS_FILE_PATH = "events.txt";
     private static final String ROUTES_FILE_PATH = "routes.txt";
     private static final String ITINERARIES_FILE_PATH = "itineraries.txt";
-    private static final String SAMPLE_RECOMMENDATIONS_FILE_PATH = "samples.txt";
-    private static final String ITINERARY_LIST_FILE_PATH = "itineraryTable.txt";
     private static final String PROFILE_FILE_PATH = "profile.txt";
 
     /**
@@ -79,8 +83,52 @@ public class Storage {
         readBus();
         readTrain();
         readProfile();
+        readRecommendations();
         readEvent();
         readRoutes();
+        readItineraryTable();
+    }
+
+    public void readItineraryTable() throws FileLoadFailException {
+        itineraryTable = new HashMap<>();
+        try {
+            File itinerariesFile = new File(ITINERARIES_FILE_PATH);
+            Scanner scanner = new Scanner(itinerariesFile);
+            while (scanner.hasNextLine()) {
+                String name = scanner.nextLine();
+                LocalDateTime start = ParserTimeUtil.parseStringToDate(scanner.nextLine());
+                LocalDateTime end = ParserTimeUtil.parseStringToDate(scanner.nextLine());
+                Venue hotel = ParserStorageUtil.getVenueFromStorage(scanner.nextLine());
+                Itinerary itinerary = new Itinerary(start, end, hotel, name);
+                List<Agenda> agendaList = new ArrayList<>();
+                String fileLine = scanner.nextLine();
+                while (fileLine.split("\\|")[0].equals("Agenda ")) {
+                    List<Venue> venueList = new ArrayList<>();
+                    List<Todo> todoList;
+                    final int number2 = Integer.parseInt(fileLine.split("\\|")[1]);
+                    String newVenue = scanner.nextLine();
+                    while (newVenue.contains(" | ")) {
+                        venueList.add(ParserStorageUtil.getVenueFromStorage(newVenue));
+                        newVenue = scanner.nextLine();
+                    }
+                    todoList = ParserStorageUtil.getTodoListFromStorage(newVenue);
+                    Agenda agenda = new Agenda(todoList, venueList, number2);
+                    agendaList.add(agenda);
+                    if (scanner.hasNextLine()) {
+                        fileLine = scanner.nextLine();
+                    } else {
+                        break;
+                    }
+                }
+                itinerary.setTasks(agendaList);
+                itineraryTable.put(itinerary.getName(), itinerary);
+            }
+            scanner.close();
+        } catch (FileNotFoundException | ParseException e) {
+            itineraryTable = new HashMap<>();
+            logger.info(e.getMessage());
+            throw new FileLoadFailException(ITINERARIES_FILE_PATH);
+        }
     }
 
     /**
@@ -180,25 +228,21 @@ public class Storage {
      *
      * @return The List of all Venues in Recommendations list.
      */
-    public List<Agenda> readVenues(int numDays) throws FileLoadFailException {
-        List<Agenda> recommendations = new ArrayList<>();
+    public void readRecommendations() {
+        List<Agenda> agendaList = new ArrayList<>();
         Scanner scanner = new Scanner(getClass().getResourceAsStream(RECOMMENDATIONS_FILE_PATH));
         int i = 1;
-        if (numDays > 8) {
-            throw new FileLoadFailException("Don't throw a logic exception here. "
-                    + "Storage is for Storage only. Change this.");
-        }
-        while (scanner.hasNext() && i <= numDays) {
+        while (scanner.hasNext()) {
             List<Venue> venueList = new ArrayList<>();
             venueList.add(ParserStorageUtil.getVenueFromStorage(scanner.nextLine()));
             List<Todo> todoList = ParserStorageUtil.getTodoListFromStorage(scanner.nextLine());
             venueList.add(ParserStorageUtil.getVenueFromStorage(scanner.nextLine()));
             todoList.addAll(ParserStorageUtil.getTodoListFromStorage(scanner.nextLine()));
             Agenda agenda = new Agenda(todoList, venueList, i++);
-            recommendations.add(agenda);
+            agendaList.add(agenda);
         }
         scanner.close();
-        return recommendations;
+        this.recommendation = new Recommendation(agendaList);
     }
 
     /**
@@ -229,6 +273,7 @@ public class Storage {
         writeEvents();
         writeRoutes();
         writeProfile();
+        writeNewItinerary();
     }
 
     /**
@@ -287,23 +332,20 @@ public class Storage {
      *
      * @throws FileNotSavedException If the file cannot be saved.
      */
-    public void writeItineraries(Itinerary itinerary, int type) throws FileNotSavedException {
-        String file;
-        if (type == 1) {
-            file = ITINERARIES_FILE_PATH;
-        } else {
-            file = SAMPLE_RECOMMENDATIONS_FILE_PATH;
-        }
+    public void writeNewItinerary() throws FileNotSavedException {
+        String file = ITINERARIES_FILE_PATH;
         try {
             FileWriter writer = new FileWriter(file, true);
-            writer.write(itinerary.getName() + "\n" + itinerary.getStartDate().toString() + "\n"
-                    + itinerary.getEndDate().toString() + "\n" + itinerary.getHotelLocation().toString() + "\n");
-            if (itinerary.getList().size() != itinerary.getNumberOfDays()) {
+            writer.write(newItinerary.getName() + "\n" + newItinerary.getStartDate().toString() + "\n"
+                    + newItinerary.getEndDate().toString() + "\n"
+                    + newItinerary.getHotelLocation().toString() + "\n");
+            if (newItinerary.getList().size() != newItinerary.getNumberOfDays()) {
                 throw new FileNotSavedException(file);
             }
-            for (Agenda agenda : itinerary.getList()) {
+            for (Agenda agenda : newItinerary.getList()) {
                 writer.write(agenda.toString());
             }
+            writer.write("\n");
             writer.close();
         } catch (IOException e) {
             throw new FileNotSavedException(file);
@@ -311,143 +353,15 @@ public class Storage {
     }
 
     /**
-     * Reads recommendations from filepath.
-     *
-     * @throws FileLoadFailException If the file fails to load.
-     */
-    public Itinerary readRecommendations() throws FileLoadFailException {
-        List<Agenda> agendaList = new ArrayList<>();
-        Itinerary itinerary;
-        try {
-            File file = new File(SAMPLE_RECOMMENDATIONS_FILE_PATH);
-            Scanner scanner = new Scanner(file);
-            String name = scanner.nextLine();
-            LocalDateTime start = ParserTimeUtil.parseStringToDate(scanner.nextLine());
-            LocalDateTime end = ParserTimeUtil.parseStringToDate(scanner.nextLine());
-            Venue hotel = ParserStorageUtil.getVenueFromStorage(scanner.nextLine());
-            itinerary = new Itinerary(start, end, hotel, name);
-            while (scanner.hasNext()) {
-                List<Venue> venueList = new ArrayList<>();
-                List<Todo> todoList;
-                final int number = ParserStorageUtil.getNumberFromStorage(scanner.nextLine());
-                venueList.add(ParserStorageUtil.getVenueFromStorage(scanner.nextLine()));
-                venueList.add(ParserStorageUtil.getVenueFromStorage(scanner.nextLine()));
-                todoList = ParserStorageUtil.getTodoListFromStorage(scanner.nextLine());
-                Agenda agenda = new Agenda(todoList, venueList, number);
-                agendaList.add(agenda);
-            }
-            scanner.close();
-            itinerary.setTasks(agendaList);
-        } catch (FileNotFoundException | ParseException e) {
-            throw new FileLoadFailException(SAMPLE_RECOMMENDATIONS_FILE_PATH);
-        }
-        return itinerary;
-    }
-
-    /**
-     * Writes the specified itineraries name to the table of contents.
-     *
-     * @param itinerary This itineraries name is to be stored.
-     * @throws FileNotSavedException If the file fails to save.
-     */
-    public void writeItinerarySave(Itinerary itinerary) throws FileNotSavedException {
-        try {
-            FileWriter writer = new FileWriter(ITINERARY_LIST_FILE_PATH, true);
-            File file = new File(ITINERARY_LIST_FILE_PATH);
-            int linecount = 0;
-            FileReader fr = new FileReader(file);
-            BufferedReader br = new BufferedReader(fr);
-            while (br.readLine() != null) {
-                linecount++;
-            }
-            fr.close();
-            writer.write(++linecount + " | " + itinerary.getName() + "\n");
-            writer.close();
-        } catch (IOException e) {
-            throw new FileNotSavedException(ITINERARY_LIST_FILE_PATH);
-        }
-    }
-
-    /**
-     * Returns the itinerary list table of contents so user may refer to it and perform showItinerary command.
-     *
-     * @return Returns the String containing the table of contents
-     * @throws FileLoadFailException   If the file fails to load.
-     */
-    public String readItineraryList() throws FileLoadFailException {
-        StringBuilder output = new StringBuilder();
-        try {
-            File f = new File(ITINERARY_LIST_FILE_PATH);
-            Scanner scanner = new Scanner(f);
-            while (scanner.hasNext()) {
-                String input = scanner.nextLine();
-                String number = input.split("\\|", 2)[0].strip();
-                String name = input.split("\\|", 2)[1].strip();
-                output.append(number).append(". ").append(name).append("\n");
-            }
-        } catch (FileNotFoundException e) {
-            throw new FileLoadFailException(ITINERARY_LIST_FILE_PATH);
-        }
-        return output.toString();
-    }
-
-    /**
      * Retrieves an itinerary from persistent storage based on its serial number.
      *
-     * @param number The itineraries serial number.
-     * @throws FileLoadFailException   If the file fails to load.
+     * @param name The itineraries serial number.
      */
-    public Itinerary getItinerary(String number) throws FileLoadFailException {
-        Itinerary itinerary = null;
-        try {
-            File itineraryTable = new File(ITINERARY_LIST_FILE_PATH);
-            Scanner s = new Scanner(itineraryTable);
-            String name = null;
-            while (s.hasNext()) {
-                String input = s.nextLine();
-                String number1 = input.split("\\|", 2)[0].strip();
-                if (number.equals(number1)) {
-                    name = input.split("\\|", 2)[1].strip();
-                }
-            }
-            File itinerariesFile = new File(ITINERARIES_FILE_PATH);
-            Scanner scanner = new Scanner(itinerariesFile);
-            AgendaList agendaList = new AgendaList();
-            while (scanner.hasNext()) {
-                if (scanner.nextLine().equals(name)) {
-                    LocalDateTime start = ParserTimeUtil.parseStringToDate(scanner.nextLine());
-                    LocalDateTime end = ParserTimeUtil.parseStringToDate(scanner.nextLine());
-                    Venue hotel = ParserStorageUtil.getVenueFromStorage(scanner.nextLine());
-                    itinerary = new Itinerary(start, end, hotel, name);
-                    String fileLine = scanner.nextLine();
-                    while (fileLine.split("\\|")[0].equals("Agenda ")) {
-                        List<Venue> venueList = new ArrayList<>();
-                        List<Todo> todoList;
-                        final int number2 = Integer.parseInt(fileLine.split("\\|")[1]);
-                        String newVenue = scanner.nextLine();
-                        while (newVenue.contains(" |")) {
-                            venueList.add(ParserStorageUtil.getVenueFromStorage(newVenue));
-                            newVenue = scanner.nextLine();
-                        }
-                        todoList = ParserStorageUtil.getTodoListFromStorage(newVenue);
-                        Agenda agenda = new Agenda(todoList, venueList, number2);
-                        agendaList.add(agenda);
-                        if (scanner.hasNextLine()) {
-                            fileLine = scanner.nextLine();
-                        } else {
-                            break;
-                        }
-                    }
-                }
-            }
-            s.close();
-            scanner.close();
-            assert itinerary != null;
-            itinerary.setTasks(agendaList);
-            return itinerary;
-        } catch (FileNotFoundException | ParseException e) {
-            throw new FileLoadFailException(ITINERARY_LIST_FILE_PATH);
-        }
+    public Itinerary getItinerary(String name) {
+//        if(itineraryTable.get(name) == null) {
+//            throw new ItineraryNotFoundException();
+//        }
+        return itineraryTable.get(name);
     }
 
     public EventList getEvents() {
@@ -464,5 +378,63 @@ public class Storage {
 
     public ProfileCard getProfileCard() {
         return profileCard;
+    }
+
+    public Recommendation getRecommendations() {
+        return recommendation;
+    }
+
+    public void storeNewItinerary(Itinerary itinerary, String[] itineraryDetails) throws ParseException {
+        List<Agenda> agendaList = new ArrayList<>();
+        int i = 4;
+        try {
+            while (i < itineraryDetails.length) {
+                List<Venue> venueList = new ArrayList<>();
+                List<Todo> todoList = new ArrayList<>();
+                final int number = Integer.parseInt(itineraryDetails[i++]);
+                while (itineraryDetails[i].equals("/venue")) {
+                    i++;
+                    venueList.add(ApiParser.getLocationSearch(itineraryDetails[i++]));
+                    StringBuilder todos = new StringBuilder();
+                    if (i == itineraryDetails.length - 1 || itineraryDetails[i].matches("-?\\d+")) {
+                        throw new ParseException(Messages.ITINERARY_EMPTY_TODOLIST);
+                    }
+                    todos.append(itineraryDetails[++i]).append("|");
+                    i++;
+                    while (itineraryDetails[i].equals("/and")) {
+                        i++;
+                        todos.append(itineraryDetails[i++]).append("|");
+                        if (i >= itineraryDetails.length) {
+                            break;
+                        }
+                    }
+                    todoList = ParserStorageUtil.getTodoListFromStorage(todos.toString());
+                    if (i >= itineraryDetails.length) {
+                        break;
+                    }
+                }
+                Agenda agenda = new Agenda(todoList, venueList, number);
+                agendaList.add(agenda);
+                itinerary.setTasks(agendaList);
+
+                this.itineraryTable.put(itinerary.getName(), itinerary);
+                this.newItinerary = itinerary;
+            }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new ParseException(Messages.ITINERARY_FAIL_CREATION);
+        } catch (NumberFormatException e) {
+            throw new ParseException(Messages.ITINERARY_INCORRECT_COMMAND);
+        } catch (ApiException | ParseException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void confirmRecentItinerary(Itinerary recentItinerary) {
+        this.itineraryTable.put(recentItinerary.getName(), recentItinerary);
+        this.newItinerary = recentItinerary;
+    }
+
+    public HashMap<String, Itinerary> getItineraryTable() {
+        return this.itineraryTable;
     }
 }

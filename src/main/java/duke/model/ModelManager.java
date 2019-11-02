@@ -1,21 +1,19 @@
 package duke.model;
 
-import duke.commons.exceptions.DukeException;
 import duke.commons.exceptions.FileLoadFailException;
 import duke.commons.exceptions.FileNotSavedException;
-import duke.commons.exceptions.ItineraryInsufficientAgendasException;
 import duke.commons.exceptions.ParseException;
-import duke.model.transports.TransportationMap;
 import duke.commons.exceptions.RouteDuplicateException;
 import duke.model.lists.EventList;
 import duke.model.lists.RouteList;
 import duke.model.lists.VenueList;
 import duke.model.locations.BusStop;
-import duke.model.planning.Agenda;
 import duke.model.planning.Itinerary;
+import duke.model.planning.Recommendation;
 import duke.model.profile.ProfileCard;
 import duke.model.transports.BusService;
 import duke.model.transports.Route;
+import duke.model.transports.TransportationMap;
 import duke.storage.Storage;
 
 import java.util.HashMap;
@@ -30,16 +28,21 @@ public class ModelManager implements Model {
     private RouteList routes;
     private TransportationMap map;
     private ProfileCard profileCard;
+    private Recommendation recommendations;
+    private HashMap<String, Itinerary> itineraryTable;
+    private Itinerary recentItinerary;
 
     /**
      * Constructs a new ModelManager object.
      */
-    public ModelManager() {
+    public ModelManager() throws FileLoadFailException {
         storage = new Storage();
         events = storage.getEvents();
         map = storage.getMap();
         routes = storage.getRoutes();
         profileCard = storage.getProfileCard();
+        recommendations = storage.getRecommendations();
+        itineraryTable = storage.getItineraryTable();
     }
 
     @Override
@@ -83,13 +86,33 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public List<Agenda> getRecommendations(int numDays, Itinerary itinerary) throws FileLoadFailException,
-            FileNotSavedException {
-
-        List<Agenda> recommendations = storage.readVenues(numDays);
-        itinerary.setTasks(recommendations);
-        storage.writeItineraries(itinerary, 2);
+    public Recommendation getRecommendations() {
         return recommendations;
+    }
+
+    @Override
+    public HashMap<String, Itinerary> getItineraryTable() {
+        return itineraryTable;
+    }
+
+    @Override
+    public void storeRecentItinerary(Itinerary recentItinerary) {
+        this.recentItinerary = recentItinerary;
+    }
+
+    @Override
+    public Itinerary getRecentItinerary() {
+        return recentItinerary;
+    }
+
+    @Override
+    public void storeNewItinerary (Itinerary itinerary , String[] itineraryDetails) throws ParseException {
+        storage.storeNewItinerary(itinerary, itineraryDetails);
+    }
+
+    @Override
+    public void confirmRecentItinerary () {
+        storage.confirmRecentItinerary(recentItinerary);
     }
 
     @Override
@@ -103,46 +126,14 @@ public class ModelManager implements Model {
     }
 
     /**
-     * Save a newly created Itinerary to storage.
+     * Shows the Itinerary specified by a give name.
      *
-     * @param itinerary The itinerary to be stored.
+     * @param name The serial number of the Itinerary.
      */
     @Override
-    public void saveItinerary(Itinerary itinerary)  throws FileNotSavedException {
-        storage.writeItineraries(itinerary, 1);
-    }
-
-    /**
-     * Save the newly created itinerary to the Itinerary Lists table of contents.
-     *
-     * @param itinerary The itinerary to be stored.
-     */
-    @Override
-    public void itineraryListSave(Itinerary itinerary) throws FileNotSavedException {
-        storage.writeItinerarySave(itinerary);
-    }
-
-    /**
-     * Shows the Stored Itineraries Table of Contents.
-     */
-    @Override
-    public String listItineraries() throws FileLoadFailException {
-        return storage.readItineraryList();
-    }
-
-    /**
-     * Shows the Itinerary specified by a give serial number.
-     *
-     * @param number The serial number of the Itinerary.
-     */
-    @Override
-    public Itinerary getItinerary(String number) throws FileLoadFailException {
-        return storage.getItinerary(number);
-    }
-
-    @Override
-    public Itinerary readRecommendations() throws FileLoadFailException {
-        return storage.readRecommendations();
+    public Itinerary getItinerary(String name) {
+//        return storage.getItinerary(name);
+      return itineraryTable.get(name);
     }
 
     /**
