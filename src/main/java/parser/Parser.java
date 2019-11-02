@@ -100,17 +100,4 @@ public class Parser {
         }
         return new BadCommand("bad", "");
     }
-
-    /*
-
-     * Takes in the taskList to be used for recording tasks.
-     * Every time this taskList is updated, it is saved to the save file.
-     *
-     * @param myList The task list to be used for duke.
-     *//*
-    //Currently, Parser.Parser will take in the entire raw input and taskList
-    public void setTaskList(TaskList myList) {
-        this.myList = myList;
-    }*/
-
 }

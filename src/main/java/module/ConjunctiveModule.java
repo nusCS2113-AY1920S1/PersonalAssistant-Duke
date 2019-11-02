@@ -86,6 +86,22 @@ public class ConjunctiveModule extends Module {
         return module.toString();
     }
 
+    /**
+     * Returns the module's Name for the side tab
+     *
+     * @return String which is the module name
+     */
+    @Override
+    public String tabModuleName() {
+        StringBuilder list = new StringBuilder();
+        for(Map.Entry<String,String> entry : modules.entrySet()) {
+            String value = entry.getValue();
+
+            list.append(value).append(" OR ");
+        }
+        list.setLength(Math.max(list.length() - 4, 0));
+        return list.toString();
+    }
 
     /**
      * Returns the view friendly version consisting of the module code and name separated by OR

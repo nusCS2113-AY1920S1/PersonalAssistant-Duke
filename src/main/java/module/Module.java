@@ -97,6 +97,24 @@ public class Module implements Comparable<Module> {
 
 
     /**
+     * Returns the module's Name for the side tab
+     *
+     * @return String which is the module name
+     */
+    public String tabModuleName() {
+        return this.getName();
+    }
+
+    /**
+     * Returns the module's code
+     *
+     * @return string which is the module's code
+     */
+    public String tabModuleCode() {
+        return this.getCode();
+    }
+
+    /**
      * Returns the code of the module
      *
      * @return String that is the module's code

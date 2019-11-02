@@ -23,6 +23,7 @@ public class Degree {
     private ModuleList facultyReq = new ModuleList();
     private ModuleList designProject = new ModuleList();
     private ModuleList electives = new ModuleList();
+    private ModuleList master = new ModuleList();
     private List<String> aliases = new ArrayList<>();
     //private DisjointUnionSet aliases;
     private Integer uem = null;
@@ -53,6 +54,11 @@ public class Degree {
         {
             throw new DukeException("There should be at least one common alias to refer to the degree");
         }
+        master.add(commonCore);
+        master.add(coreMod);
+        master.add(facultyReq);
+        master.add(designProject);
+        master.add(electives);
     }
 
     /**
@@ -508,6 +514,27 @@ public class Degree {
     }
 
     /**
+     * Returns the similar list of modules from all modules compared to another degree
+     *
+     * @return ModuleList containing similar modules;
+     */
+    public ModuleList masterSimilar(Degree other)
+    {
+        return this.getMaster().getSimilar(other.getMaster());
+    }
+
+    /**
+     * Returns the similar list of modules from all modules compared to another degree
+     *
+     * @return ModuleList containing similar modules;
+     */
+
+    public ModuleList masterDifference(Degree other)
+    {
+        return this.getMaster().getDifference(other.getMaster());
+    }
+
+    /**
      * Gets the CommonCore ModuleList from this Degree
      *
      * @return ModuleList which is the CommonCore ModuleList from this Degree
@@ -541,4 +568,11 @@ public class Degree {
      * @return ModuleList which is the Electives ModuleList from this Degree
      */
     private ModuleList getElectives() {return this.electives;}
+
+    /**
+     * Gets the master list of modules
+     *
+     * @return ModuleList which contains all Modules this degree has
+     */
+    private ModuleList getMaster() {return this.master;}
 }
