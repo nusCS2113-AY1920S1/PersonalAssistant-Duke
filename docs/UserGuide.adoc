@@ -90,7 +90,7 @@ Examples:
 
 Shows all current bookings in the booking list. All details including customer name, contact number, number of pax, booking date and orders will be displayed.
 
-Format: `listallbooking`
+Format: `listallbookings`
 
 Output Result: +
  Here are all the current bookings in your list:
@@ -207,7 +207,7 @@ Edits the rating of a recipe +
 
 Format: `editrating [recipe name] r/ [rating]`
 
-Example: `editrating chicken rice, r/ GOOD`
+Example: `editrating chicken rice r/ GOOD`
 
 Output Result:
 
@@ -219,7 +219,7 @@ Edits the feedback of a recipe +
 
 Format: `editfeedback [recipe name] f/ [feedback]`
 
-Example: `editfeedback chicken rice, f/ too salty`
+Example: `editfeedback chicken rice f/ too salty`
 
 Output Result:
 
