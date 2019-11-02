@@ -219,12 +219,14 @@ public class TaskList {
                 if (indexToBeRemoved > 0
                         && indexToBeRemoved <= this.taskList.get(taskIndexNumber - 1).getNumOfTaskRequirements()) {
                     successMessages.add("'"
-                    + this.taskList.get(taskIndexNumber - 1).getTaskRequirements().get(indexToBeRemoved).substring(3)
-                    + "' is no longer a requirement of this task!");
+                        + this.taskList.get(taskIndexNumber - 1).getTaskRequirements().get(indexToBeRemoved)
+                            .substring(3)
+                        + "' is no longer a requirement of this task!");
                     this.taskList.get(taskIndexNumber - 1).removeTaskRequirement(indexToBeRemoved);
 
                 } else {
-                    errorMessagesForInvalidIndexes.add("'" + indexToBeRemoved + "' is not a valid task requirement index!");
+                    errorMessagesForInvalidIndexes.add("'" + indexToBeRemoved
+                            + "' is not a valid task requirement index!");
                 }
             } catch (NumberFormatException e) {
                 errorMessagesForInvalidIndexes.add("'" + indexesToBeRemoved[i] + "' is not a number!");
