@@ -54,7 +54,7 @@ public class Storage {
         JSONParser parser = new JSONParser();
         try {
             jsonFarmer = (JSONObject) parser.parse(reader);
-        } catch (IOException | ParseException e) {
+        } catch (Exception e) {
             throw new FarmioException("Gave save corrupted!");
         }
         return jsonFarmer;
