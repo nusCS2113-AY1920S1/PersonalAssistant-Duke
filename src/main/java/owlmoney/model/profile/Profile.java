@@ -78,23 +78,27 @@ public class Profile {
         this.ui = ui;
         try {
             loadBanksFromImportedData();
-        } catch (IllegalArgumentException | IndexOutOfBoundsException | NullPointerException | BankException | ParseException exceptionMessage) {
+        } catch (IllegalArgumentException | IndexOutOfBoundsException | NullPointerException
+                | BankException | ParseException exceptionMessage) {
             ui.printError("Error importing banks from persistent storage.");
         }
         try {
             iterateBanksToAddTransaction();
-        } catch (IllegalArgumentException | IndexOutOfBoundsException | NullPointerException | BankException | ParseException exceptionMessage) {
+        } catch (IllegalArgumentException | IndexOutOfBoundsException | NullPointerException
+                | BankException | ParseException exceptionMessage) {
             ui.printError("Error importing transactions, recurring transactions and "
                     + "bonds for bank accounts.");
         }
         try {
             loadGoalsFromImportedData();
-        } catch (IllegalArgumentException | NullPointerException | ParseException | BankException exceptionMessage) {
+        } catch (IllegalArgumentException | NullPointerException | ParseException
+                | BankException exceptionMessage) {
             ui.printError("Error importing goals from persistent storage.");
         }
         try {
             loadCardsFromImportedData();
-        } catch (IllegalArgumentException | IndexOutOfBoundsException | NullPointerException | CardException exceptionMessage) {
+        } catch (IllegalArgumentException | IndexOutOfBoundsException
+                | NullPointerException | CardException exceptionMessage) {
             ui.printError("Error importing cards from persistent storage.");
         }
     }
