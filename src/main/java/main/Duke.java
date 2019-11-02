@@ -141,7 +141,7 @@ public class Duke extends Application {
                 if ((c.getClass() == AddCommand.class) | (c.getClass() == ModCommand.class)
                         | (c.getClass() == SortCommand.class) | (c.getClass() == SwapCommand.class)) {
                     commandList.addCommand(c, this.myList, this.ui, this.storage, this.lists, this.degreesManager, line);
-                } else if (c.getClass() == BadCommand.class) {
+                } else if ((c.getClass() == BadCommand.class) || c.getClass() == null) {
                     typoFlag = true; //when the user enters a command not understood by the program, trigger flag
                     c.execute(this.myList, this.ui, this.storage, this.lists, this.degreesManager);
                 } else {

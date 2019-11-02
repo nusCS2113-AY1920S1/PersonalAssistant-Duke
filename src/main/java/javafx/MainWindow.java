@@ -8,6 +8,7 @@ import impl.org.controlsfx.autocompletion.SuggestionProvider;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.scene.control.*;
+import javafx.scene.layout.GridPane;
 import list.DegreeList;
 import main.Duke;
 import javafx.fxml.FXML;
@@ -49,7 +50,13 @@ public class MainWindow extends AnchorPane {
     @FXML
     private TableView<DiffFX> diffView;
     @FXML
+    private TableView<SimiFX> simiView;
+
+    @FXML
     private TabPane tabPane;
+    @FXML
+    private GridPane gridPane;
+
     @FXML
     private Tab tabTask;
     @FXML
@@ -74,6 +81,7 @@ public class MainWindow extends AnchorPane {
     private ObservableList<ChoicesFX> dataChoices;
     private ObservableList<DegreesFX> dataDegrees;
     private ObservableList<DiffFX> dataDiff;
+    private ObservableList<SimiFX> dataSimi;
 
 
     @FXML
@@ -235,39 +243,41 @@ public class MainWindow extends AnchorPane {
                 tabPane.getSelectionModel().select(tabDegrees);
                 //tabDegrees.setText("hi"); use these to change the degree tab name
                 this.dataDegrees.clear();
-                String degreeName = temp.next();
 
-                List<Module> moduleList = new ArrayList<>(this.degreeManager.getModuleList(degreeName).getModules());
-                moduleList.add(new NonDescriptive("General Education Modules", 20));
+                if (temp.hasNext()) {
+                    String degreeName = temp.next();
 
-                Collections.sort(moduleList);
-                int count = 0;
-                for(Module mod: moduleList)
-                {
-                    count++;
-                    countString = Integer.toString(count);
+                    List<Module> moduleList = new ArrayList<>(this.degreeManager.getModuleList(degreeName).getModules());
+                    moduleList.add(new NonDescriptive("General Education Modules", 20));
 
-                    if (count <= 9) {
-                        countString = "0" + countString;
-                    }
+                    Collections.sort(moduleList);
+                    int count = 0;
+                    for(Module mod: moduleList) {
+                        count++;
+                        countString = Integer.toString(count);
 
-                    String mcString = Integer.toString(mod.getMc());
+                        if (count <= 9) {
+                            countString = "0" + countString;
+                        }
 
-                    if (mcString.length() == 1) {
-                        mcString = "0" + mcString;
-                    }
+                        String mcString = Integer.toString(mod.getMc());
 
-                    //for standard modules
-                    if (mod.getClass() == Module.class) {
-                        this.dataDegrees.add(new DegreesFX(countString, mod.getCode(), mod.getName(),
-                                mcString));
-                    } else if (mod.getClass() == NonDescriptive.class) {
-                        //Non descriptive class has no module code, but the moduleCode property contains the name
-                        this.dataDegrees.add(new DegreesFX(countString, "-", mod.getCode(),
-                                mcString));
-                    } else if (mod.getClass() == ConjunctiveModule.class) {
-                        this.dataDegrees.add(new DegreesFX(countString, mod.getCode(), mod.getFullModuleName(),
-                                mcString));
+                        if (mcString.length() == 1) {
+                            mcString = "0" + mcString;
+                        }
+
+                        //for standard modules
+                        if (mod.getClass() == Module.class) {
+                            this.dataDegrees.add(new DegreesFX(countString, mod.getCode(), mod.getName(),
+                                    mcString));
+                        } else if (mod.getClass() == NonDescriptive.class) {
+                            //Non descriptive class has no module code, but the moduleCode property contains the name
+                            this.dataDegrees.add(new DegreesFX(countString, "-", mod.getCode(),
+                                    mcString));
+                        } else if (mod.getClass() == ConjunctiveModule.class) {
+                            this.dataDegrees.add(new DegreesFX(countString, mod.getCode(), mod.getFullModuleName(),
+                                    mcString));
+                        }
                     }
                 }
             }
