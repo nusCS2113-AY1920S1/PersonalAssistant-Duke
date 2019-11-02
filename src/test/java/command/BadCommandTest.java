@@ -18,7 +18,7 @@ class BadCommandTest {
             + "A | 0 | Send less help | Sending Enough\n"
             + "W | 0 | Sleeping | Jan 15th and 25th");
     private UI testUi = new UI();
-    private Storage testStorage = new Storage("dummy.txt", "dummy.txt");
+    private Storage testStorage = new Storage("dummy.txt", "dummydegree.txt");
     private DegreeList testList = new DegreeList();
     private DegreeManager degreesManager = new DegreeManager();
 

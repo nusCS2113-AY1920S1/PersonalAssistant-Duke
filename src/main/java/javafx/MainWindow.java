@@ -3,11 +3,7 @@ package javafx;
 import exception.DukeException;
 import impl.org.controlsfx.autocompletion.AutoCompletionTextFieldBinding;
 import impl.org.controlsfx.autocompletion.SuggestionProvider;
-import javafx.collections.ObservableList;
-import javafx.scene.control.Label;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Priority;
-import javafx.scene.text.TextFlow;
+
 import main.Duke;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -15,8 +11,6 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-import org.controlsfx.control.textfield.CustomTextField;
-import org.controlsfx.control.textfield.TextFields;
 
 import java.util.*;
 

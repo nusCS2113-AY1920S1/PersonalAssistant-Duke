@@ -253,6 +253,7 @@ class TaskListTest {
                 + "4. [W][N] Sleeping (Between: Jan 15th and 25th)\r\n", systemOutput.toString());
     }
 
+    /*
     @Test
     void testSelect() throws DukeException {
         ByteArrayOutputStream freshOutput = new ByteArrayOutputStream();
@@ -271,6 +272,7 @@ class TaskListTest {
             assertEquals("There are no Tentative Slots to be chosen from", e.getMessage());
         }
     }
+
 
     @Test
     void testSelectFail() throws DukeException {
@@ -301,4 +303,6 @@ class TaskListTest {
             assertEquals("Not a valid Selection (out of range)", e.getMessage());
         }
     }
+
+     */
 }
