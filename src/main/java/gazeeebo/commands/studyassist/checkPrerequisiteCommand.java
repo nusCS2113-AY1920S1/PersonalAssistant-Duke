@@ -3,12 +3,13 @@ package gazeeebo.commands.studyassist;
 import gazeeebo.UI.Ui;
 import gazeeebo.storage.Storage;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 
 public class checkPrerequisiteCommand {
-    public void execute(Ui ui, Storage storage){
+    public void execute(Ui ui, Storage storage) throws IOException {
         HashMap<String, ArrayList<String>> PrerequisiteList = new HashMap<String,ArrayList<String>>(storage.readFromPrerequisiteFile());
         if(!PrerequisiteList.get(ui.fullCommand.split(" ")[1]).isEmpty()){
             StringBuilder buffer = new StringBuilder();

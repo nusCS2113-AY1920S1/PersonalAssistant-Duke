@@ -32,16 +32,7 @@ public class DeleteCommand extends Command {
         if (ui.fullCommand.length() == 6) {
             throw new DukeException("OOPS!!! The description of a deletion cannot be empty.");
         } else {
-            if (ui.fullCommand.length() > 6) {
-                int index = Integer.parseInt(ui.fullCommand.substring(6).trim()) - 1;
-                deletedTask.add(list.get(index));
-                String taskremoved = list.get(index).listFormat();
-                list.remove(index);
-                System.out.println("Noted. I've removed this task: ");
-                System.out.println(taskremoved);
-                System.out.println("Now you have " + list.size() + " tasks in the list.");
-
-            } else if (ui.fullCommand.contains("all")) { //delete all tasks at once
+            if (ui.fullCommand.contains("all")) { //delete all tasks at once
                 for (int i = 0; i < list.size(); i++){
                     deletedTask.add(list.get(i));
                 }
@@ -74,6 +65,15 @@ public class DeleteCommand extends Command {
                     count++;
                 }
                 System.out.println("Now you have " + list.size() + " tasks in the list.");
+            }  else if (ui.fullCommand.length() > 6) {
+                int index = Integer.parseInt(ui.fullCommand.substring(6).trim()) - 1;
+                deletedTask.add(list.get(index));
+                String taskremoved = list.get(index).listFormat();
+                list.remove(index);
+                System.out.println("Noted. I've removed this task: ");
+                System.out.println(taskremoved);
+                System.out.println("Now you have " + list.size() + " tasks in the list.");
+
             }
 
             StringBuilder sb = new StringBuilder();

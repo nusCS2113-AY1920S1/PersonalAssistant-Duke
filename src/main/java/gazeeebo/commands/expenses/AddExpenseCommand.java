@@ -5,6 +5,7 @@ import gazeeebo.UI.Ui;
 
 
 import java.io.IOException;
+import java.sql.SQLOutput;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -35,6 +36,14 @@ public class AddExpenseCommand {
         System.out.println("Date of purchase:");
         ui.readCommand();
         String date = ui.fullCommand;
+
+//        System.out.println("Enter item, price ($xx) and date (yyyy-MM-dd)");
+//        ui.readCommand();
+//        String expenseInput = ui.fullCommand;
+//
+//        String item = expenseInput.split("$")[0];
+//       // String price = ex
+
 
         DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate dateOfPurchase = LocalDate.parse(date, fmt);

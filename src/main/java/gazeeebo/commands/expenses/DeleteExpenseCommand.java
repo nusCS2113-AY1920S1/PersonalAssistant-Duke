@@ -32,11 +32,12 @@ public class DeleteExpenseCommand {
             System.out.println((j + 1) + ". " + expenseList.get(j));
         }
 
-        String expenseIndex = ui.fullCommand.split(" ")[1];
+        ui.readCommand();
+        String expenseIndex = ui.fullCommand;
         int index = Integer.parseInt(expenseIndex) - 1;
         System.out.println("Successfully deleted: " +  expenseList.get(index));
 
-        String getKeyFromList = expenseList.get(index).split(" ")[0];
+        String getKeyFromList = expenseList.get(index).split("on ")[1];
         DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate getKey = LocalDate.parse(getKeyFromList, fmt);
 
@@ -46,14 +47,13 @@ public class DeleteExpenseCommand {
                 for (int i = 0; i < expenses.get(key).size(); i++) {
                     if (expenses.get(key).get(i).equals(getValueFromList)) {
                         expenses.get(key).remove(i);
-
                     }
                 }
             }
         }
 
         expenseList.remove(index);
-
+        expenses.get(getKey).remove(index);
         /*Stores the updated expenses map after deletion of expenses*/
         String toStore = "";
         for (LocalDate key : expenses.keySet()) {

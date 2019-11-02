@@ -8,6 +8,7 @@ import gazeeebo.storage.Storage;
 import gazeeebo.exception.DukeException;
 
 import java.io.IOException;
+import java.io.StringReader;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Stack;
@@ -20,32 +21,35 @@ public class DoneCommand extends Command {
                 throw new DukeException("The task done number cannot be empty.");
             }
             int numbercheck = Integer.parseInt(ui.fullCommand.substring(5)) - 1;
-            list.get(numbercheck).isDone = true;
-
-            System.out.println("Nice! I've marked this task as done: ");
-            System.out.println(list.get(numbercheck).listFormat());
-
-            for (int i = 0; i < list.size(); i++) {
-                if (list.get(i).description.contains(list.get(numbercheck).description) && list.get(i).listFormat().contains("/after") && i != numbercheck) {
-                    System.out.println("OK! Now you need to do the following:");
-                    String[] temp = list.get(i).listFormat().split("\\(/after");
-                    System.out.println(temp[0].substring(7));
+            if (numbercheck < 0 || numbercheck > list.size() - 1) {
+                throw new DukeException("Task does not exist.");
+            } else if (numbercheck > 0 || numbercheck < list.size()) {
+                list.get(numbercheck).isDone = true;
+                System.out.println("Nice! I've marked this task as done: ");
+                System.out.println(list.get(numbercheck).listFormat());
+                for (int i = 0; i < list.size(); i++) {
+                    if (list.get(i).description.contains(list.get(numbercheck).description) && list.get(i).listFormat().contains("/after") && i != numbercheck) {
+                        System.out.println("OK! Now you need to do the following:");
+                        String[] temp = list.get(i).listFormat().split("\\(/after");
+                        System.out.println(temp[0].substring(7));
+                    }
                 }
+
+                /**
+                 * Add some recurring task
+                 */
+
+                RecurringCommand rc = new RecurringCommand();
+                rc.addRecurring(list, numbercheck, list.get(numbercheck).toString(), storage);
+
+                StringBuilder sb = new StringBuilder();
+                for (int i = 0; i < list.size(); i++) {
+                    sb.append(list.get(i).toString() + "\n");
+                }
+                storage.writeToSaveFile(sb.toString());
+
+                ui.showProgessiveBar(list);
             }
-            /**
-             * Add some recurring task
-             */
-
-            RecurringCommand rc = new RecurringCommand();
-            rc.addRecurring(list, numbercheck, list.get(numbercheck).toString(), storage);
-
-            StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < list.size(); i++) {
-                sb.append(list.get(i).toString() + "\n");
-            }
-            storage.writeToSaveFile(sb.toString());
-
-            ui.showProgessiveBar(list);
         } catch (DukeException e) {
             System.out.println(e.getMessage());
         }
