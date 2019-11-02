@@ -1,11 +1,13 @@
+//@@author jessteoxizhi
 package gazeeebo.commands.places;
 
 import java.util.Map;
 
 public class ListPlacesCommand {
     /**
-     * This method list out all the phone numbers.
-     * @param places Map each name to its phone number
+     * This method list out all the places.
+     *
+     * @param places Map each place to a location
      * @param lineBreak String separator
      */
     public ListPlacesCommand(Map<String,String> places, String lineBreak) {

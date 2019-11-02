@@ -39,7 +39,7 @@ public class ContactCommand extends Command {
         HashMap<String, String> map
                 = storage.readFromContactFile(); //Read the file
         Map<String, String> contactList = new TreeMap<String, String>(map);
-
+        Stack<Map<String, String>> oldcontacts = new Stack<>();
         System.out.print("Welcome to your contacts page! "
                 + "What would you like to do?\n\n");
         String helpContact = "__________________________________________________________\n"
@@ -47,24 +47,29 @@ public class ContactCommand extends Command {
                 + "2. Find contacts base on name: find name\n"
                 + "3. Delete a contact: delete name\n"
                 + "4. See your contacts list: list\n"
-                + "5. Help Command: help\n"
-                + "6. Exit contact page: esc\n"
+                + "5. Undo Command: undo\n"
+                + "6. Help Command: help\n"
+                + "7. Exit contact page: esc\n"
                 + "__________________________________________________________\n\n";
         System.out.print(helpContact);
         ui.readCommand();
         while (!ui.fullCommand.equals("esc")) {
             if (ui.fullCommand.equals("add")) {
+                copyMap(contactList,oldcontacts);
                 new AddContactCommand(ui, contactList);
             } else if (ui.fullCommand.split(" ")[0].equals("find")) {
                 new FindContactCommand(ui, contactList, LINEBREAK);
             } else if (ui.fullCommand.equals("list")) {
                 new ListContactCommand(contactList, LINEBREAK);
             } else if (ui.fullCommand.contains("delete")) {
+                copyMap(contactList,oldcontacts);
                 new DeleteContactCommand(ui, contactList);
             } else if (ui.fullCommand.equals("help")) {
                 System.out.println(helpContact);
+            } else if (ui.fullCommand.equals("undo")){
+                contactList = UndoContactCommand.Undo(contactList,oldcontacts,storage);
             } else {
-                System.out.println("Incorrect format");
+                System.out.println("Command not found:\n" + helpContact);
             }
             String toStore = "";
             for (String key : contactList.keySet()) {
@@ -88,6 +93,19 @@ public class ContactCommand extends Command {
                 "7. spec\n" +
                 "8. moduleplanner\n" +
                 "9. notes\n");
+    }
+
+    /**
+     * Copy of old contacts
+     * @param contacts current contacts list
+     * @param oldcontacts
+     */
+    private void copyMap(Map<String, String> contacts, Stack<Map<String, String>> oldcontacts) {
+        Map<String, String> currentcontacts = new TreeMap<>();
+        for (String key : contacts.keySet()) {
+            currentcontacts.put(key, contacts.get(key));
+        }
+        oldcontacts.push(currentcontacts);
     }
 
     @Override

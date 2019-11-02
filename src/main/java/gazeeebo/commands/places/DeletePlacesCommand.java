@@ -1,4 +1,4 @@
-
+//@@author jessteoxizhi
 package gazeeebo.commands.places;
 
 import gazeeebo.storage.Storage;
@@ -9,9 +9,11 @@ import java.util.Map;
 
 public class DeletePlacesCommand {
     /**
+     * Delete a place from the list of places
+     *
      * @param ui      the object that deals with printing things to the user.
      * @param storage the object that deals with storing data.
-     * @param places  Map each name to its own phone number
+     * @param places  Map each place to a location
      * @throws IOException catch any error if read file fails
      */
 

@@ -1,3 +1,4 @@
+//@@author jessteoxizhi
 package gazeeebo.commands.places;
 
 import gazeeebo.UI.Ui;
@@ -6,9 +7,10 @@ import java.util.Map;
 
 public class FindPlacesCommand {
     /**
+     * Search for a place prints places that you searched for
      *
      * @param ui the object that deals with printing things to the user.
-     * @param places Map each name to its own phone number
+     * @param places Map each place to a location
      * @param lineBreak String separator
      */
     public FindPlacesCommand(Ui ui, Map<String,String> places, String lineBreak) throws ArrayIndexOutOfBoundsException{

@@ -20,8 +20,8 @@ public class CalculateCAPCommand {
         int sumMCS = 0;
         for (String key : caplist.keySet()) {
             for (int i = 0; i < caplist.get(key).size(); i++) {
-                double score = new
-                        ConvertGradeToScoreCommand().converter(caplist.get(key).get(i).grade);
+                double score = new ConvertGradeToScoreCommand().
+                        converter(caplist.get(key).get(i).grade);
                 if (score != 0.1) {
                     sumGPAMCS += caplist.get(key).get(i).moduleCredit * score;
                     sumMCS += caplist.get(key).get(i).moduleCredit;

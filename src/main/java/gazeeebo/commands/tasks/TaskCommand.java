@@ -22,6 +22,19 @@ import java.util.ArrayList;
 import java.util.Stack;
 
 public class TaskCommand extends Command {
+    /**
+     *  Parses the user input and return a command object.
+     *
+     * @param list
+     * @param ui
+     * @param storage
+     * @param commandStack
+     * @param deletedTask
+     * @param triviaManager
+     * @throws IOException
+     * @throws DukeException
+     * @throws ParseException
+     */
     @Override
     public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<ArrayList<Task>> commandStack, ArrayList<Task> deletedTask, TriviaManager triviaManager) throws IOException, DukeException, ParseException {
         System.out.println("Welcome to your Tasks page! What would you like to do?\n");
@@ -126,13 +139,7 @@ public class TaskCommand extends Command {
                 new UndoneCommand().execute(list, ui, storage, commandStack, deletedTask, triviaManager);
                 commandStack.push(oldList);
             } else if (splitCommand[0].equals("undo")) {
-                if (!commandStack.empty()) {
-                    list = commandStack.peek();
-                    System.out.println("You have undo the previous command.");
-                    commandStack.pop();
-                } else {
-                    System.out.println("You cannot undo the previous command.");
-                }
+                list = UndoTaskCommand.undo(commandStack,list,storage);
             } else if (splitCommand[0].equals("edit")) {
                 oldList = new ArrayList<>();
                 copyOldList(oldList, list);
@@ -176,11 +183,23 @@ public class TaskCommand extends Command {
         }
     }
 
-    @Override
+
+    /**
+     * Exit program
+     *
+     * @return true to exit
+     */
+   @Override
     public boolean isExit() {
         return false;
     }
-
+//@@author jessteoxizhi
+    /**
+     * Copy an Arraylist of task.
+     *
+     * @param oldList
+     * @param list
+     */
     private void copyOldList(ArrayList<Task> oldList, ArrayList<Task> list) {
         for (Task task : list) {
             if (task.getClass().getName().equals("gazeeebo.tasks.Deadline")) {

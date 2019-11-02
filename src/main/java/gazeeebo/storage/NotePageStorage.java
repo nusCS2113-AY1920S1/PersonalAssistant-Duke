@@ -5,31 +5,34 @@ import gazeeebo.notes.Assessment;
 import gazeeebo.notes.GeneralNotePage;
 import gazeeebo.notes.Module;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Scanner;
 
 public class NotePageStorage {
+
+    private static final String FILE_GOAL = "goal.txt";
+    private static final String FILE_MODULES = "modules.txt";
+
     public static void writeToGoalFile() throws IOException {
-        FileWriter file = new FileWriter(NotePageStorage.class.getResource("/goal.txt").getPath());
+        FileWriter file = new FileWriter(FILE_GOAL);
         file.write(GeneralNotePage.goal);
         file.flush();
         file.close();
     }
 
     public static void readFromGoalFile() throws IOException {
-        InputStream inputStream = NoteStorage.class.getResourceAsStream("/goal.txt");
-        Scanner txtFile = new Scanner(inputStream);
+        File f = new File(FILE_GOAL);
+        Scanner txtFile = new Scanner(f);
         if (txtFile.hasNextLine()) {
             GeneralNotePage.goal = txtFile.nextLine();
         }
-        inputStream.close();
-        txtFile.close();
     }
 
     public static void writeToModulesFile() throws IOException {
-        FileWriter file = new FileWriter("/modules.txt");
+        FileWriter file = new FileWriter(FILE_MODULES);
         for (Module m : GeneralNotePage.modules) {
             file.write(m.name + "\n");
             file.write(m.assessments.size() + "\n");
@@ -47,8 +50,8 @@ public class NotePageStorage {
     }
 
     public static void readFromModulesFile() throws IOException {
-        InputStream inputStream = NoteStorage.class.getResourceAsStream("/modules.txt");
-        Scanner txtFile = new Scanner(inputStream);
+        File f = new File(FILE_MODULES);
+        Scanner txtFile = new Scanner(f);
         while (txtFile.hasNextLine()) {
             Module m = new Module(txtFile.nextLine()); //read in module name
             int numOfAssmt = Integer.parseInt(txtFile.nextLine());
@@ -61,6 +64,5 @@ public class NotePageStorage {
             }
             GeneralNotePage.modules.add(m);
         }
-        inputStream.close();
     }
 }

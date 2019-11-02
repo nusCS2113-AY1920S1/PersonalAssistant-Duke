@@ -1,6 +1,6 @@
 # gazeeebo
 
-![](docs/images/Ui.png)
+![](docs/images/Ui.PNG)
 
 * This is a desktop planner application. 
 * It is a java sample application intended for students learning Software Engineering while using Java as the main programming language.

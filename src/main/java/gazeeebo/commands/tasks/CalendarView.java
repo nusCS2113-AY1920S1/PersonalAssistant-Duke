@@ -1,3 +1,4 @@
+//@@author jessteoxizhi
 package gazeeebo.commands.tasks;
 
 import gazeeebo.tasks.Deadline;
@@ -44,10 +45,9 @@ public class CalendarView {
      */
     public void MonthlyView(ArrayList<Task> list) {
         Calendar now = Calendar.getInstance();
-        int month = (now.get(Calendar.MONTH) + 1);    // month (Jan = 1, Dec = 12)
-        int year = now.get(Calendar.YEAR);     // year
-        int date = now.get(Calendar.DATE);     // date
-        // months[i] = name of month i
+        int month = (now.get(Calendar.MONTH) + 1);
+        int year = now.get(Calendar.YEAR);
+        int date = now.get(Calendar.DATE);
         boolean[] isBusy = new boolean[32];
         for (Task task : list) {
             switch (task.getClass().getName()) {
@@ -85,30 +85,25 @@ public class CalendarView {
             }
         }
         String[] months = {
-                "",                               // leave empty so that months[1] = "January"
+                "",
                 "January", "February", "March",
                 "April", "May", "June",
                 "July", "August", "September",
                 "October", "November", "December"
         };
 
-        // days[i] = number of days in month i
         int[] days = {
                 0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31
         };
 
-        // check for leap year
         if (month == 2 && isLeapYear(year)) days[month] = 29;
 
 
-        // print calendar header
         System.out.println("          " + months[month] + " " + year);
         System.out.println("  S    M    Tu   W    Th   F    S");
 
-        // starting day
         int d = StartDay(month, 1, year);
 
-        // print the calendar
         for (int i = 0; i < d; i++)
             System.out.print("     ");
         for (int i = 1; i <= days[month]; i++) {
@@ -128,16 +123,16 @@ public class CalendarView {
     }
 
     /**
-     * Prints out the annual calendar in the command line and if there is a task on that day the day will be marked with an '*'
+     * Prints out the annual calendar in the command line and if there is a task on that day the day will be marked
+     * with an '*'.
      *
      * @param list
      */
     public void AnnualView(ArrayList<Task> list) {
         Calendar now = Calendar.getInstance();
-        int month = (now.get(Calendar.MONTH) + 1);    // month (Jan = 1, Dec = 12)
-        int year = now.get(Calendar.YEAR);     // year
-        int date = now.get(Calendar.DATE);     // date
-        // months[i] = name of month i
+        int month = (now.get(Calendar.MONTH) + 1);
+        int year = now.get(Calendar.YEAR);
+        int date = now.get(Calendar.DATE);
         boolean[][] isBusy = new boolean[13][32];
         for (Task task : list) {
             switch (task.getClass().getName()) {
@@ -175,30 +170,25 @@ public class CalendarView {
             }
         }
         String[] months = {
-                "",                               // leave empty so that months[1] = "January"
+                "",
                 "January", "February", "March",
                 "April", "May", "June",
                 "July", "August", "September",
                 "October", "November", "December"
         };
 
-        // days[i] = number of days in month i
         int[] days = {
                 0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31
         };
 
-        // check for leap year
         if (month == 2 && isLeapYear(year)) days[month] = 29;
 
         for (int j = 1; j < 13; j++) {
-            // print calendar header
             System.out.println("          " + months[j] + " " + year);
             System.out.println("  S    M    Tu   W    Th   F    S");
 
-            // starting day
             int d = StartDay(j , 1, year);
 
-            // print the calendar
             for (int i = 0; i < d; i++)
                 System.out.print("     ");
             for (int i = 1; i <= days[j]; i++) {

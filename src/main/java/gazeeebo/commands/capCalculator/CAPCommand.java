@@ -16,12 +16,11 @@ import java.util.*;
  */
 public class CAPCommand extends Command {
     /** module name of the module. */
-    public String moduleCode;
+    protected String moduleCode;
     /** Modular Credit of the module. */
-    public int moduleCredit;
+    protected int moduleCredit;
     /** Alphabetical score for the module. */
-    public String grade;
-
+    protected String grade;
     /**
      * Constructor for CAPCommand.
      * @param moduleCode name of the module
@@ -44,14 +43,16 @@ public class CAPCommand extends Command {
                         final TriviaManager triviaManager)
             throws DukeException, ParseException,
             IOException, NullPointerException {
-        String helpCAP = "__________________________________________________________\n"
+        String helpCAP = "__________________"
+                + "________________________________________\n"
                 + "1. Add module: add\n"
                 + "2. Find module: find moduleCode/semNumber\n"
                 + "3. Delete a module: delete module\n"
                 + "4. See your CAP list: list\n"
                 + "5. Help Command: help\n"
                 + "6. Exit CAP page: esc\n"
-                + "__________________________________________________________\n\n";
+                + "_________________"
+                + "_________________________________________\n\n";
         System.out.print("Welcome to your CAP Calculator page! "
                 + "What would you like to do?\n\n");
         System.out.print(helpCAP);
@@ -75,7 +76,7 @@ public class CAPCommand extends Command {
             } else if (ui.fullCommand.equals("help")) {
                 System.out.println(helpCAP);
             } else {
-                System.out.println("Command not Found:\n" + helpCAP);
+                System.out.println("Command not found:\n" + helpCAP);
             }
             String toStore = "";
             for (String key : caplist.keySet()) {
@@ -105,6 +106,7 @@ public class CAPCommand extends Command {
                 "9. notes\n");
     }
 
+    /** */
     @Override
     public boolean isExit() {
         return false;
