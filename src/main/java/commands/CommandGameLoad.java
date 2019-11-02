@@ -27,7 +27,7 @@ public class CommandGameLoad extends Command {
             farmio.getSimulation().simulate("GameLoad", 9);
             ui.typeWriter("Load Game Successful!, press [ENTER] to continue or enter [SKIP] to skip the story..", false);
         } catch (FarmioException e) {
-            if (farmio.getStage() == Farmio.Stage.MENU_START) {
+            if (farmio.getStage() == Farmio.Stage.MENU_START || farmio.getStage() == Farmio.Stage.WELCOME) {
                 farmio.getSimulation().simulate("GameNew", 0, true);
                 ui.showWarning(e.getMessage());
                 ui.typeWriter("Starting a new game.", true);
@@ -35,7 +35,7 @@ public class CommandGameLoad extends Command {
                 return;
             } else {
                 ui.showWarning(e.getMessage());
-                ui.showInfo("Load game failed! Resume to previous session.");
+                ui.typeWriter("Load game failed! Resume to previous session.", true);
             }
         }
         farmio.setStage(Farmio.Stage.LEVEL_START);
