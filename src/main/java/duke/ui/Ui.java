@@ -162,7 +162,7 @@ public class Ui {
         System.out.println("\t list");
         System.out.println("\t ingredient <description> <amount> <index>");
         System.out.println("\t initialize (REMOVES all entries in the list)");
-        System.out.println("\t back, return to maim menu");
+        System.out.println("\t back, return to main menu");
         System.out.println("\t template");
         showLine();
     }
