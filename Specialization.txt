@@ -1,0 +1,4 @@
+commsB|Communications & Networking|CS1231|ND|b:true|d:false
+commsD|Communications & Networking|CS4334|ND|b:false|d:true
+embB|Communications & Networking|CS1231|ND|b:true|d:false
+embD|Communications & Networking|CS4334|ND|b:false|d:true
