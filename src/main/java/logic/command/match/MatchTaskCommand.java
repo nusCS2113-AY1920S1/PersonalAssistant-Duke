@@ -1,7 +1,9 @@
-package logic.command;
+package logic.command.match;
 
 import common.DukeException;
 import common.LoggerController;
+import logic.command.Command;
+import logic.command.CommandOutput;
 import model.MemberManager;
 import model.Member;
 import model.Model;

@@ -34,6 +34,7 @@ public class AddTaskCommand extends Command {
     //@@author JustinChia1997
     public void setReqSkill(String fullSkill) {
         reqSkill = Arrays.asList(fullSkill.split("\\s+"));
+        //TODO parse for too long skill names
         LoggerController.logDebug(AddTaskCommand.class, "Added skill " + reqSkill.get(0));
     }
 

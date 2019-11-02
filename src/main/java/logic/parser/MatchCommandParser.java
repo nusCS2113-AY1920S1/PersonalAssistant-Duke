@@ -3,7 +3,8 @@ package logic.parser;
 import common.DukeException;
 import common.LoggerController;
 import logic.command.Command;
-import logic.command.MatchTaskCommand;
+import logic.command.match.MatchMemberCommand;
+import logic.command.match.MatchTaskCommand;
 
 import java.util.HashMap;
 import java.util.regex.Matcher;
@@ -38,18 +39,32 @@ public class MatchCommandParser {
                 return parseMatchTaskCommand(name);
             case MEMBER:
                 LoggerController.logDebug(MatchCommandParser.class, "match member called");
-                throw new DukeException("member functionality not built yet");
+                return parseMatchMemberCommand(name);
             default:
                 throw new DukeException("match command format is wrong");
         }
 
     }
 
+    /**
+     * Does some input validation before instantiating new command
+     * */
     private static Command parseMatchTaskCommand(String taskName) throws DukeException {
         if (taskName.length() != 0) {
             return new MatchTaskCommand(taskName);
         } else {
-            throw new DukeException("MEMBER_NO_NAME_MESSAGE");
+            throw new DukeException("Task name not included");
+        }
+    }
+
+    /**
+     * Does some input validation before instantiating new command
+     * */
+    private static Command parseMatchMemberCommand(String memberName) throws DukeException {
+        if (memberName.length() != 0) {
+            return new MatchMemberCommand(memberName);
+        } else {
+            throw new DukeException("Member name not included");
         }
     }
 
