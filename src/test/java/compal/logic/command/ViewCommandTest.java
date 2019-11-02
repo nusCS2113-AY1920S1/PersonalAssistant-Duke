@@ -114,7 +114,7 @@ class ViewCommandTest {
             + months[givenMonth] + " " + givenYear + " :\n");
 
         for (int i = 1; i <= days; i++) {
-            if (i < 9) {
+            if (i <= 9) {
                 monthlyTask.append(displayDayView("0" + i + "/" + givenMonth + "/" + givenYear, currList, type));
             } else {
                 monthlyTask.append(displayDayView(i + "/" + givenMonth + "/" + givenYear, currList, type));
@@ -162,7 +162,9 @@ class ViewCommandTest {
             }
 
             if (t.getStringMainDate().equals(dateInput)) {
-                allTask.append(getAsStringView(t));
+                allTask.append(getAsStringView(t, dateInput));
+            } else if (!t.getStringTrailingDate().equals("-") && t.getStringTrailingDate().equals(dateInput)) {
+                allTask.append(getAsStringView(t, dateInput));
             }
         }
 
@@ -180,7 +182,9 @@ class ViewCommandTest {
 
     }
 
-    private String getAsStringView(Task t) {
+    private String getAsStringView(Task t, String dateInput) {
+
+
         StringBuilder taskDetails = new StringBuilder();
 
         String rightArrow = "\u2192";
@@ -193,8 +197,30 @@ class ViewCommandTest {
             status = "\u274C";
         }
 
-        String startTime = t.getStringStartTime();
-        String endTime = t.getStringEndTime();
+        String startTime = "";
+        String endTime = "";
+
+        if (dateInput.equals(t.getStringMainDate())) {
+            //if date same
+            if (t.getStringMainDate().equals(t.getStringTrailingDate())) {
+                startTime = t.getStringStartTime();
+                endTime = t.getStringEndTime();
+            } else {
+                startTime = t.getStringStartTime();
+                endTime = "2359";
+            }
+        } else if (dateInput.equals(t.getStringTrailingDate())) {
+            if (t.getStringMainDate().equals(t.getStringTrailingDate())) {
+                startTime = t.getStringStartTime();
+                endTime = t.getStringEndTime();
+            } else {
+                startTime = "0000";
+                endTime = t.getStringEndTime();
+                System.out.println(startTime);
+                System.out.println(endTime);
+            }
+        }
+
 
         if ("-".equals(startTime)) {
             taskDetails.append("  Due: ").append(endTime)

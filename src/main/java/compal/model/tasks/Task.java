@@ -1,11 +1,14 @@
 package compal.model.tasks;
 
 import compal.commons.CompalUtils;
+import compal.commons.LogUtils;
+
 import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.logging.Logger;
 
 /**
  * Represents task with description, status and reminder.
@@ -25,6 +28,7 @@ public abstract class Task implements Serializable {
     private Priority priority;
     private long priorityScore;
     private int id;
+    private static final Logger logger = LogUtils.getLogger(Task.class);
 
 
     /**
@@ -215,6 +219,7 @@ public abstract class Task implements Serializable {
     }
 
     //@@author Catherinetan99
+
     /**
      * Gets start time of task in date format.
      *
@@ -245,6 +250,7 @@ public abstract class Task implements Serializable {
         try {
             time = format.parse(timeInput);
         } catch (ParseException e) {
+            logger.severe("Invalid start time input receive from tasks.txt!");
             e.printStackTrace();
         }
         this.startTime = time;
@@ -323,16 +329,26 @@ public abstract class Task implements Serializable {
         if (getStringStartTime().equals("-")) {
             strCase = 1;
         }
+        if (!getStringTrailingDate().equals("-") && !getStringMainDate().equals(getStringTrailingDate())) {
+            strCase = 2;
+        }
 
         switch (strCase) {
         case 1:
-            return "\n" + "[" + getSymbol() + "]" + "[" + getStatusIcon() + "] " + getDescription()
-                + " \nTask ID:" + getId()
+            return "\n" + " \nTask ID:" + getId() + "\n"
+                + "[" + getSymbol() + "]" + "[" + getStatusIcon() + "] " + getDescription()
                 + " \nDate: " + getStringMainDate() + " \nEnd Time: " + getStringEndTime()
                 + " \nPriority: " + getPriority() + "\n***************";
+        case 2:
+            return "\n" + " \nTask ID:" + getId() + "\n"
+                + "[" + getSymbol() + "]" + "[" + getStatusIcon() + "] " + getDescription()
+                + " \nStart Date: " + getStringMainDate() + " \nStart Time: " + getStringStartTime()
+                + "\nEnd Date: " + getStringTrailingDate()
+                + " \nEnd Time: " + getStringEndTime() + " \nPriority: " + getPriority()
+                + "\n***************";
         default:
-            return "\n" + "[" + getSymbol() + "]" + "[" + getStatusIcon() + "] " + getDescription()
-                + " \nTask ID:" + getId()
+            return "\n" + " \nTask ID:" + getId() + "\n"
+                + "[" + getSymbol() + "]" + "[" + getStatusIcon() + "] " + getDescription()
                 + " \nDate: " + getStringMainDate() + " \nStart Time: " + getStringStartTime()
                 + " \nEnd Time: " + getStringEndTime() + " \nPriority: " + getPriority()
                 + "\n***************";
@@ -342,6 +358,7 @@ public abstract class Task implements Serializable {
     }
 
     //@@author jaedonkey
+
     /**
      * Gets all the details of the task as a string, for saving into the text file.
      *
@@ -372,6 +389,7 @@ public abstract class Task implements Serializable {
     }
 
     //@@author jaedonkey
+
     /**
      * Calculates the priority of the task based on the user defined priority (high/med/low) as well as
      * the time remaining until the date set for the task.
@@ -406,6 +424,7 @@ public abstract class Task implements Serializable {
     }
 
     //@@author Catherinetan99
+
     /**
      * Gets the end time for the task.
      *
@@ -413,7 +432,11 @@ public abstract class Task implements Serializable {
      */
     public Date getEndTime() {
         Calendar calendar = Calendar.getInstance();
-        calendar.setTime(mainDate);
+        if (getStringTrailingDate().equals("-")) {
+            calendar.setTime(mainDate);
+        } else {
+            calendar.setTime(trailingDate);
+        }
         String endTime = getStringEndTime();
         int hour = Integer.parseInt(endTime.substring(0, 2));
         int min = Integer.parseInt(endTime.substring(2, 4));
@@ -433,6 +456,7 @@ public abstract class Task implements Serializable {
         try {
             time = format.parse(timeInput);
         } catch (ParseException e) {
+            logger.severe("Invalid end time input receive from tasks.txt!");
             e.printStackTrace();
         }
         this.endTime = time;

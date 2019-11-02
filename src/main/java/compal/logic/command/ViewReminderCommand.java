@@ -17,7 +17,8 @@ public class ViewReminderCommand extends Command {
         + "Examples:\n\t"
         + "view-reminder\n\t\t"
         + "show all tasks with reminder on";
-    private static final String MESSAGE_UNABLE_TO_EXECUTE = "Unable to execute command!";
+
+    public static final String MESSAGE_UNABLE_TO_EXECUTE = "Unable to execute command!";
 
     @Override
     public CommandResult commandExecute(TaskList taskList) throws CommandException {
@@ -51,8 +52,7 @@ public class ViewReminderCommand extends Command {
         Date dateToday = calendar.getTime();
 
         for (Task task : currList) {
-            if (!task.getisDone() && ((task.getEndTime().after(dateToday)
-                && task.getEndTime().before(dateAfter)) || task.gethasReminder())) {
+            if (!task.getisDone() && ((task.getEndTime().before(dateAfter)) || task.gethasReminder())) {
                 String taskString = task.toString() + "\n";
                 taskReminder.append(taskString);
             }

@@ -1,11 +1,11 @@
 package compal.logic.command;
 
+import compal.commons.LogUtils;
 import compal.model.tasks.Task;
 import compal.model.tasks.TaskList;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
+import java.util.logging.Logger;
 
 //@@author SholihinK
 
@@ -18,11 +18,13 @@ public class ListCommand extends Command {
         + "e.g. \"list \\type deadline\"\n\n"
         + "This command will list all the deadline stored in COMPal.";
 
-    private static final String LIST_PREFIX = "Here are the tasks in your list: \n";
+    private static final String LIST_PREFIX = "Here are the tasks in your list sorted by chronological order: \n";
     public static final String LIST_EMPTY = "Looks like your list is empty!\nStart adding in your task "
         + "by looking at the help command!";
     private String type = "";
     private String listPrefixTwo;
+
+    private static final Logger logger = LogUtils.getLogger(ListCommand.class);
 
     /**
      * Construct the ListCommand class.
@@ -41,31 +43,33 @@ public class ListCommand extends Command {
 
     @Override
     public CommandResult commandExecute(TaskList taskList) {
+        logger.info("Executing list command");
         ArrayList<Task> toList = taskList.getArrList();
-        String finalList;
+
+
+        StringBuilder finalList;
         if (type.isEmpty()) {
-            finalList = LIST_PREFIX;
+            finalList = new StringBuilder(LIST_PREFIX);
         } else {
-            finalList = listPrefixTwo;
+            finalList = new StringBuilder(listPrefixTwo);
         }
-        int count = 1;
+
         for (Task t : toList) {
             if (type.isEmpty()) {
-                String taskString = count++ + "." + t.toString() + "\n";
-                finalList += taskString;
+                String taskString = t.toString() + "\n";
+                finalList.append(taskString);
             } else {
                 if (t.getSymbol().equals(type)) {
-                    String taskString = count++ + "." + t.toString() + "\n";
-                    finalList += taskString;
+                    String taskString = t.toString() + "\n";
+                    finalList.append(taskString);
                 }
             }
-
         }
 
-        if (count == 1) {
-            finalList = LIST_EMPTY;
+        if (finalList.toString().equals(LIST_PREFIX)) {
+            finalList = new StringBuilder(LIST_EMPTY);
         }
 
-        return new CommandResult(finalList, false);
+        return new CommandResult(finalList.toString(), false);
     }
 }

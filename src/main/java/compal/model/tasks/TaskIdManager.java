@@ -46,7 +46,7 @@ public class TaskIdManager {
                 idBitSet.set(i);
                 taskID = i;
                 t.setId(taskID);
-                System.out.println("Task assigned id of " + taskID);
+                //System.out.println("Task assigned id of " + taskID);
                 writeIdBitSet();
                 break;
             }

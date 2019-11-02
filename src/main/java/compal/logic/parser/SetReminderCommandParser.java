@@ -9,7 +9,7 @@ public class SetReminderCommandParser implements CommandParser {
 
     @Override
     public Command parseCommand(String restOfInput) throws ParserException {
-        int taskID = getTokenTaskID(restOfInput);
+        int taskID = getTaskID(restOfInput);
         String status = getTokenStatus(restOfInput);
         return new SetReminderCommand(taskID, status);
     }

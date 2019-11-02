@@ -18,3 +18,5 @@ prefs.txt
 duke.txt
 serial
 tasks.txt
+*.log
+*.ics
