@@ -34,7 +34,7 @@ public class AchievementStorage {
      * progress of the user with regards to achievements.
      */
     public static final String STATUS_FILEPATH = "data/status.txt";
-
+ 
     /**
      * File path of achievementBackup.txt that is used for undo/redo command.
      */
