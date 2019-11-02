@@ -56,13 +56,20 @@ public class UiController {
      * print out Duke logo and welcome message. This is for the old method
      */
     public static void welcome() {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
+        String logo = " _____                         ___  ___                                  \n"
+                + "|_   _|                        |  \\/  |                                  \n"
+                + "  | | ___  __ _ _ __ ___       | .  . | __ _ _ __   __ _  __ _  ___ _ __ \n"
+                + "  | |/ _ \\/ _` | '_ ` _ \\      | |\\/| |/ _` | '_ \\ / _` |/ _` |/ _ \\ '__|\n"
+                + "  | |  __/ (_| | | | | | |     | |  | | (_| | | | | (_| | (_| |  __/ |   \n"
+                + "  \\_/\\___|\\__,_|_| |_| |_|     \\_|  |_/\\__,_|_| |_|\\__,_|\\__, |\\___|_|   \n"
+                + "                                                          __/ |          \n"
+                + "                                                         |___/   ";
         System.out.println(logo);
-        print("Hello! I'm Duke\nWhat can I do for you?");
+        System.out.println("Team Manager software is an application that helps you to better collaborate, \n"
+                + "communicate, and, ultimately, manage a group of people. Team Manager is created \n"
+                + "to increase productivity and improve the quality of work a team produces.");
+
+
 
     }
 
