@@ -24,7 +24,6 @@ import java.io.IOException;
  */
 public class Duke {
 
-    // private Storage taskStorage;
     private FridgeStorage fridgeStorage;
     private Storage orderStorage;
     private TaskList tasks;
@@ -62,11 +61,9 @@ public class Duke {
         }
     }
 
-
     /**
      * The execution core of the Duke class.
      */
-
     public void run() throws IOException, InterruptedException {
         String fullCommand;
         ui.clearScreen();
@@ -79,7 +76,6 @@ public class Duke {
                 ui.show(fridge.getExpiredIngredients().toString());
             }
         }
-        //ui.showOptions();
         ui.showLine();
 
         boolean isExit = false;
@@ -112,7 +108,6 @@ public class Duke {
                     case "b": {
                         // ui.showIngredientsInFridge(fridge.getAllIngredients());
                         ui.showIngredientTask();
-
                         while (true) {
                             try {
                                 fullCommand = ui.readCommand();
@@ -121,13 +116,10 @@ public class Duke {
                                     break;
                                 }
                                 if (fullCommand.trim().equals("q")) {
-
                                     Cmd command = new ExitCommand();
                                     command.execute(null, ui, null);
                                     isExit = command.isExit();
                                     break;
-
-
                                 }
                                 if (fullCommand.trim().equals("show")) {
                                     ui.showIngredientsInFridge(fridge.getAllIngredients());
@@ -137,7 +129,6 @@ public class Duke {
                                     ui.showIngredientTemplate();
                                     continue;
                                 }
-
                                 Cmd<Ingredient> command = Parser.parse(fullCommand, Type.INGREDIENT);
                                 command.execute(fridge.getAllIngredients(), ui, fridgeStorage);
                             } catch (DukeException e) {
@@ -205,10 +196,7 @@ public class Duke {
                     default:
                         throw new DukeException("wrong input");
                 }
-
-
             } catch (DukeException | IOException e) {
-
                 ui.showError(e.getMessage());
             } finally {
                 ui.showLine();

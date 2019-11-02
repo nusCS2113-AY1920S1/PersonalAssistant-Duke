@@ -1,9 +1,7 @@
 package duke.command.dishesCommand;
 
 
-import dnl.utils.text.table.TextTable;
 import duke.dish.Dish;
-import duke.dish.DishList;
 import duke.command.Cmd;
 import duke.exception.DukeException;
 import duke.list.GenericList;
@@ -13,7 +11,7 @@ import duke.ui.Ui;
 
 
 public class ListDishCommand extends Cmd<Dish> {
-    private TextTable tt;
+    //private TextTable tt;
     private String[] ColNames = {"Dish", "ingredient"}; //initialize the column names of the table
 
 
@@ -30,9 +28,9 @@ public class ListDishCommand extends Cmd<Dish> {
                 data[a][0] = dish1.getEntry(a).getDishname();
                 data[a][1] = stringBuilder;
             }
-            tt = new TextTable(ColNames, data); //place data in table
-            tt.setAddRowNumbering(true);
-            tt.printTable(); //print out table to user
+            //tt = new TextTable(ColNames, data); //place data in table
+            //tt.setAddRowNumbering(true);
+            //tt.printTable(); //print out table to user
         }
     }
 }
