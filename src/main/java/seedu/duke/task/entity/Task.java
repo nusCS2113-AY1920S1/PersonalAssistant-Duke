@@ -217,6 +217,11 @@ public class Task {
         this.doAfterDescription = description;
     }
 
+    /**
+     * Set priority of task.
+     *
+     * @param priority priority level of task.
+     */
     public void setPriorityTo(Priority priority) {
         if (priority == null) {
             this.priority = "";

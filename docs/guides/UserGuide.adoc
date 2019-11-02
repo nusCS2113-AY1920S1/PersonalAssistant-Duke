@@ -50,7 +50,7 @@ This section serves as a tutorial for a new user to Email Manager.
 . Ensure you have Java version 11 or later installed in your computer.
 . Download the latest email_manager.zip https://github.com/AY1920S1-CS2113T-F11-3/main/releases[here] and
 extract it to a folder.
-. If the download is too slow, please download it from https://drive.google.com[google drive].
+. If the download is too slow, please download it from https://drive.google.com/open?id=1LUnpR3H-xxBTJ6nAnYmk0bCf4j0kuu4N[google drive].
 
 [#run-email-manager]
 === Run Email Manager
@@ -85,7 +85,8 @@ test offline.
 
 * If you have Internet connection:
 . You will be directed to a web page to authorize our access to your mailbox. Please login to the *dummy
-email* we provided to you.
+email* we provided to you. (Dummy email account: cs2113t@outlook.com, Password: nusf11-3)
+
 
 . Close the browser and return back to the Email Manager. Wait for a while for the email to be fetched
 and parsed.
@@ -100,6 +101,9 @@ in v2.0
 in the `data` folder.
 . Close the Email Manager and Start it again.
 . Wait for a while for all the emails to be parsed.
+
+[WARNING]
+Any hanging or "not responding" when first launch the app is normal, please wait for the app to get ready.
 
 === Introducing the Interface
 
@@ -156,6 +160,8 @@ e.g. -time TIME [-tag TAG] can be used as -time 12/12/2019 1200 -tag urgent or a
 [NOTE]
 You are only allowed to enter alphanumeric (a-z, A-Z, 0-9), space and underscore (_) characters. All other symbols will not be accepted by Email Manager.
 
+[TIP]
+You can press `UP` key to show previous input in the text box.
 
 === General Commands
 
@@ -174,6 +180,9 @@ Format: `flip` +
 Flips/toggles between email mode and task mode. The prefix of the command in the text box will also be
 changed.
 
+In task mode, the text box will display `task` as a prefix.
+In email mode, the text box will display `email` as a prefix.
+
 ==== Exiting the program: `bye`
 Format: `bye` +
 
@@ -185,6 +194,11 @@ Format: `colour ITEM_NUMBER COLOUR` +
 The specified item will be shown in the colour specified in the command.
 
 === Task Mode
+
+[NOTE]
+To enter task commands, please ensure you are in task mode. If not, see Section 4.1.2 for change mode
+command using `flip`.
+
 ==== Add Tasks Commands
 ===== Adding a todo: `todo`
 Format: `todo TASK_NAME [-doafter DOAFTER_TASK][-priority PRIORITY_LEVEL][-tag TAG1]...` +
@@ -361,6 +375,10 @@ This command deletes all tasks in the list.
 
 === Email Mode
 
+[NOTE]
+To enter email commands, please ensure you are in email mode. If not, see Section 4.1.2 for change mode
+command using `flip`.
+
 ==== Listing all emails: `list`
 Format: `list` +
 
@@ -369,10 +387,13 @@ Gives a complete list of emails.
 ==== Showing an email: `show`
 Format: `show INDEX_NUMBER` +
 
-Show the email at the index number in the email list.
+Show the email content of the email at the index number in the email list.
 
 Example: +
 `show 3`
+
+[TIP]
+You can press `Esc` key on your keyboard any time to switch display between the list and content view of emails.
 
 ==== Fetching emails from server: `fetch`
 Format: `fetch` +
@@ -432,23 +453,29 @@ a while. Please wait patiently.
 
 ==== Delete keyword (coming in v1.4)
 
-==== Filtering email: `list`
-Format: `list [-tag TAG1] [-tag TAG2]...` +
-
-Gives a list of emails with the tags. Minimum number of tags is 1, and the maximum is 2.
-
-Example:
-
 ==== Tagging Email: `update`
 Format: `update ITEM_NUMBER -tag TAG1 [-tag TAG2]...`
 
 Tags the specified item with the tag(s) minimum number of tags is 1.
 
+Examples:
+`update 1 -tag CS2113T`
+`update 2 -tag Tutorial -tag Spam`
+
+==== Filtering email: `list`
+Format: `list [-tag TAG1] [-tag TAG2]...` +
+
+Gives a list of emails with the tags. Minimum number of tags is 1, and the maximum number of tags is 2.
+
+Examples:
+`list -tag CS2113T -tag Tutorial`
+`list -tag Spam`
+
 ==== Sending Email (coming in v2.0)
 
 ==== Auto delete emails (coming in v2.0)
 
-==== Linking Tasks and Email
+==== Linking Tasks and Email (coming in v2.0)
 
 ==== Apply priority level (coming in v2.0)
 

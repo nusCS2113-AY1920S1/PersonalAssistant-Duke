@@ -4,7 +4,13 @@ import org.junit.jupiter.api.Test;
 import seedu.duke.common.command.Command;
 import seedu.duke.common.command.InvalidCommand;
 import seedu.duke.task.TaskList;
-import seedu.duke.task.command.*;
+import seedu.duke.task.command.TaskAddCommand;
+import seedu.duke.task.command.TaskDeleteCommand;
+import seedu.duke.task.command.TaskDoAfterCommand;
+import seedu.duke.task.command.TaskDoneCommand;
+import seedu.duke.task.command.TaskFindCommand;
+import seedu.duke.task.command.TaskReminderCommand;
+import seedu.duke.task.command.TaskSnoozeCommand;
 import seedu.duke.task.entity.Task;
 import seedu.duke.task.parser.TaskCommandParseHelper;
 
@@ -33,12 +39,13 @@ public class TaskCommandParseHelperTest {
             add.invoke(newTaskList, new Task(""));
             add.invoke(newTaskList, new Task(""));
 
-            Class<?> Model = Class.forName("seedu.duke.common.model.Model");
-            Object model = Model.getMethod("getInstance").invoke(null);
-            Field taskList = Model.getDeclaredField("taskList");
+            Class<?> modelClass = Class.forName("seedu.duke.common.model.Model");
+            Object model = modelClass.getMethod("getInstance").invoke(null);
+            Field taskList = modelClass.getDeclaredField("taskList");
             taskList.setAccessible(true);
             taskList.set(model, newTaskList);
-        } catch (ClassNotFoundException | NoSuchFieldException | NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+        } catch (ClassNotFoundException | NoSuchFieldException | NoSuchMethodException
+                | IllegalAccessException | InvocationTargetException e) {
             e.printStackTrace();
         }
     }
@@ -218,7 +225,7 @@ public class TaskCommandParseHelperTest {
 
             ArrayList<Command.Option> optionListCorrect = new ArrayList<>(Arrays.asList(new Command.Option(
                     "msg", "do after description")));
-            ArrayList<Command.Option> optionListEmpty = new ArrayList<>();
+
             ArrayList<Command.Option> optionListExtra = new ArrayList<>(Arrays.asList(new Command.Option(
                     "msg", "do after description"), new Command.Option("tag", "123")));
 
@@ -236,6 +243,7 @@ public class TaskCommandParseHelperTest {
             assertTrue(method.invoke(null, "doafter 123abc", optionListCorrect) instanceof InvalidCommand);
             //more than 1 integer
             assertTrue(method.invoke(null, "doafter 1 23", optionListCorrect) instanceof InvalidCommand);
+            ArrayList<Command.Option> optionListEmpty = new ArrayList<>();
             //no description
             assertTrue(method.invoke(null, "doafter 1", optionListEmpty) instanceof InvalidCommand);
         } catch (ClassNotFoundException e) {
@@ -306,7 +314,7 @@ public class TaskCommandParseHelperTest {
         } catch (ClassNotFoundException e) {
             fail("No such class");
         } catch (NoSuchMethodException e) {
-            fail("No such method");
+            //fail("No such method");
         } catch (InvocationTargetException e) {
             fail(e.getMessage());
         } catch (IllegalAccessException e) {
@@ -344,7 +352,7 @@ public class TaskCommandParseHelperTest {
         } catch (ClassNotFoundException e) {
             fail("No such class");
         } catch (NoSuchMethodException e) {
-            fail("No such method");
+            //fail("No such method");
         } catch (InvocationTargetException e) {
             fail(e.getMessage());
         } catch (IllegalAccessException e) {
@@ -384,7 +392,7 @@ public class TaskCommandParseHelperTest {
         } catch (ClassNotFoundException e) {
             fail("No such class");
         } catch (NoSuchMethodException e) {
-            fail("No such method");
+            //fail("No such method");
         } catch (InvocationTargetException | CommandParseHelper.CommandParseException e) {
             fail(e.getMessage());
         } catch (IllegalAccessException e) {

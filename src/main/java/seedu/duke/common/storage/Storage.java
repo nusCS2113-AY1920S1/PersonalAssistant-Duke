@@ -72,6 +72,24 @@ public interface Storage {
     }
 
     /**
+     * Prepares the path of a data folder with the given filename.
+     *
+     * @return the path of the data file
+     */
+    static Path prepareDataFolderPath() {
+        return Path.of(".", "data");
+    }
+
+    /**
+     * Prepares the path of a log folder with the given filename.
+     *
+     * @return the path of the data file
+     */
+    static Path prepareLogFolderPath() {
+        return Path.of(".", "data", "logs");
+    }
+
+    /**
      * Prepares the path of a data file with the given filename.
      *
      * @param filename the filename of the data file
