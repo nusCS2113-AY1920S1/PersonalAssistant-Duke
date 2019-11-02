@@ -1,3 +1,8 @@
+//@@author LL-Pengfei
+/**
+ * Cube.java
+ * The driver file, which is the entry point for Command Line Interface.
+ */
 package cube;
 
 import cube.model.food.FoodList;
@@ -15,9 +20,10 @@ import cube.util.LogUtil;
 
 import java.util.logging.Logger;
 
-
+/**
+ * Entry Point for Command Line Interface
+ */
 public class Cube {
-
     private StorageManager storageManager;
     private ModelManager modelManager;
     private FileUtilJson<StorageManager> storage;
@@ -30,7 +36,7 @@ public class Cube {
     /**
      * Cube constructor with filePath.
      *
-     * @param filePath the file path where duke data is stored.
+     * @param filePath the file path where Cube data is stored.
      */
     public Cube(String filePath) {
         logger.info("=============================[ Initializing Cube ]===========================");
@@ -80,7 +86,8 @@ public class Cube {
     }
 
     /**
-     * Initializes new Duke user and runs the programme.
+     * Initializes new Cube user and runs the programme.
+     *
      * @param args programme arguments.
      */
     public static void main(String[] args) {
