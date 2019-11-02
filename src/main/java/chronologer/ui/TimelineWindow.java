@@ -208,11 +208,11 @@ class TimelineWindow extends UiComponent<Region> {
         }  else if (shiftLocationOfHighlight.equals(saturday)) {
             moveXOfDays = saturdayX;
             moveYOfDays = weekendY;
-            todayLabel.setStyle("-fx-border-color: #FF0000;");
+            todayLabel.setStyle("-fx-border-color: #FF0000; -fx-border-width: 3;");
         }  else if (shiftLocationOfHighlight.equals(sunday)) {
             moveXOfDays = sundayX;
             moveYOfDays = weekendY;
-            todayLabel.setStyle("-fx-border-color: #FF0000;");
+            todayLabel.setStyle("-fx-border-color: #FF0000; -fx-border-width: 3;");
         }
 
         todayLabel.setLayoutX(moveXOfDays);

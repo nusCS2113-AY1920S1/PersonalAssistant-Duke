@@ -9,15 +9,14 @@ import chronologer.task.TaskList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.Region;
+//import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 
 /**
  * UI component that allows the user to interact with Chronologer like a chatbot.
  * Its mainly acts on the user input and gives the user appopriate feedback.
  */
-class ChatbotWindow extends UiComponent<Region> {
+class ChatbotWindow extends InputWindow {
 
     private static final String CHRONOLOGER_WELCOME_MESSAGE = "Hello! I'm Chronologer, your task manager!";
     private static final String FXML = "ChatbotWindow.fxml";
@@ -26,8 +25,6 @@ class ChatbotWindow extends UiComponent<Region> {
     private ScrollPane scrollPane;
     @FXML
     private VBox dialogBoxContainer;
-    @FXML
-    private TextField userInputTextField;
     @FXML
     private Button sendButton;
 
@@ -53,9 +50,9 @@ class ChatbotWindow extends UiComponent<Region> {
     }
 
     @FXML
-    private void handleUserInput() {
-        String input = userInputTextField.getText();
-        userInputTextField.clear();
+    protected void handleAction() {
+        String input = inputTextField.getText().replace("\n","");
+        storeUserInputHistory(input);
         try {
             Command command = ParserFactory.parse(input);
             command.execute(tasks, storage);
@@ -65,11 +62,7 @@ class ChatbotWindow extends UiComponent<Region> {
         DialogBox toChangeDimension = DialogBox.getUserDialog(" " + input);
         dialogBoxContainer.getChildren().addAll(toChangeDimension.getRoot(),
             DialogBox.getChronologerDialog(UiTemporary.userOutputForUI).getRoot());
-    }
-
-    private void setText(String text) {
-        userInputTextField.setText(text);
-        userInputTextField.positionCaret(userInputTextField.getText().length());
+        inputTextField.clear();
     }
 
     /**
