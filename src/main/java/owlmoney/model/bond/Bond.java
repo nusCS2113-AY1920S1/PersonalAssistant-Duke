@@ -38,6 +38,7 @@ public class Bond {
     }
 
     /**
+     * Creates a Bond with details of name, amount, rate, nextDateToCreditBondCouponInterest.
      *
      * @param name   The name of the bond issue.
      * @param amount The amount of money the bond costs.

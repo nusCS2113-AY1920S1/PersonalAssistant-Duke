@@ -1025,7 +1025,7 @@ public class BankList {
             }
             String stringIncome = decimalFormat.format(income);
             exportArrayList.add(new String[]{accountName,accountType,stringAmount,stringIncome,
-                    nextIncomeDate});
+                nextIncomeDate});
         }
         return exportArrayList;
     }
