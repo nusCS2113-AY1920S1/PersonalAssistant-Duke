@@ -59,26 +59,31 @@ public class RecipeStorage {
             String content = "";
             while ((content = bufferedReader.readLine()) != null) {
                 // can use a splitMethod() here for tidyness?
-                String recipeTitle, rating, prepSteps, requiredIngredients, feedback, remaining, remaining2, remaining3;
+                String recipeTitle, prepTime, rating, prepSteps, requiredIngredients, feedback, remaining, remaining2, remaining3, remaining4;
                 String[] split = content.split("\\|", 2);
                 if (split.length == 2) {
                     recipeTitle = split[0].trim();
                     remaining = split[1].trim();
                     String[] split2 = remaining.split("\\|", 2);
                     if (split2.length == 2) {
-                        rating = split2[0].trim();
+                        prepTime = split2[0].trim();
                         remaining2 = split2[1].trim();
                         String[] split3 = remaining2.split("\\|", 2);
                         if (split3.length == 2) {
-                            prepSteps = split3[0].trim();
+                            rating = split3[0].trim();
                             remaining3 = split3[1].trim();
                             String[] split4 = remaining3.split("\\|", 2);
                             if (split4.length == 2) {
-                                requiredIngredients = split4[0].trim();
-                                feedback = split4[1].trim();
-                                Recipe recipe = new Recipe(recipeTitle, rating, prepSteps, requiredIngredients, feedback);
-                                LHMRecipeList.put(recipeTitle, recipe);
-                                System.out.println("successful load");
+                                prepSteps = split4[0].trim();
+                                remaining4 = split4[1].trim();
+                                String[] split5 = remaining3.split("\\|", 2);
+                                if (split5.length == 2) {
+                                    requiredIngredients = split5[0].trim();
+                                    feedback = split5[1].trim();
+                                    Recipe recipe = new Recipe(recipeTitle, prepTime, rating, prepSteps, requiredIngredients, feedback);
+                                    LHMRecipeList.put(recipeTitle, recipe);
+                                    System.out.println("successful load");
+                                }
                             }
                         }
                     }

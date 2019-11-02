@@ -5,6 +5,7 @@ import static duke.common.RecipeMessages.*;
 public class Recipe {
 
     RecipeTitle recipeTitle;
+    PrepTime prepTime;
     Rating rating;
     PrepSteps prepSteps;
     RequiredIngredients requiredIngredients; // requiredIngredients is a list of recipeIngredient objects.
@@ -12,14 +13,16 @@ public class Recipe {
 
     public Recipe(String recipeTitle) {
         this.recipeTitle = new RecipeTitle(recipeTitle);
+        this.prepTime = new PrepTime();
         this.rating = Rating.UNRATED;
         this.prepSteps = new PrepSteps();
         this.requiredIngredients = new RequiredIngredients();
         this.feedback = new Feedback();
     }
 
-    public Recipe(String recipeTitle, String rating, String prepSteps, String requiredIngredients, String feedback) {
+    public Recipe(String recipeTitle, String prepTime, String rating, String prepSteps, String requiredIngredients, String feedback) {
         this.recipeTitle = new RecipeTitle(recipeTitle);
+        this.prepTime = new PrepTime(prepTime);
         this.rating = assignRating(rating);
         this.prepSteps = new PrepSteps(prepSteps);
         this.requiredIngredients = new RequiredIngredients(requiredIngredients);
@@ -29,6 +32,8 @@ public class Recipe {
     public RecipeTitle getRecipeTitle() {
         return this.recipeTitle;
     }
+
+    public PrepTime getPrepTime(String prepTime) { return this.prepTime; }
 
     public Rating getRating() {
         return this.rating;
@@ -62,8 +67,13 @@ public class Recipe {
         return this.feedback;
     }
 
+    public void editPrepTime(String prepTime) {
+        this.prepTime.edit(prepTime);
+    }
+
     public String toSaveString() {
         return this.recipeTitle.toSaveString().trim() + " | "
+                + this.prepTime.toSaveString().trim() + " | "
                 + this.checkRating().trim() + " | "
                 + this.prepSteps.toSaveString().trim() + " | "
                 + this.requiredIngredients.toSaveString().trim() + " | "
@@ -72,6 +82,8 @@ public class Recipe {
 
     public String getViewString() {
         return LABEL_TITLE + this.recipeTitle.toString() + "\n"
+                + "\n"
+                + LABEL_PREPTIME + this.prepTime.toString()
                 + "\n"
                 + LABEL_RATING + this.checkRating() + "\n"
                 + "\n"
