@@ -272,24 +272,6 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
-
-|`* * *` |user |add a new person |
-
-|`* * *` |user |delete a person |remove entries that I no longer need
-
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
-
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
-
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
-|=======================================================================
-
-
-
-[width="59%",cols="22%,<23%,<25%,<30%",options="header",]
-|=======================================================================
-|Priority |As a ... |I want to ... |So that I can...
 |`* * *` |user |Add products with details |Track what products my Bakery has
 
 |`* * *` |user |Edit a product's details |Keep my products updated to new improvements
@@ -308,14 +290,12 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* *` |user |Sort the orders by date created, date of delivery or tags |I can look for orders more easily
 
-|`* * ` |careless user |Undo deleting an order |Reverse a change instead of typing out the whole order again
+|`* *` |careless user |Undo deleting an order |Reverse a change instead of typing out the whole order again
 
-|`* * ` |user |Transfer my ingredient list from the shopping list to inventory list in a single step |I do not have to manually re-key every single ingredient
+|`* *` |user |Transfer my ingredient list from the shopping list to inventory list in a single step |I do not have to manually re-key every single ingredient
 
-|`* * ` |user |Clear my Inventory lists |It is easier to manage
+|`* *` |user |Clear my Inventory lists |It is easier to manage
 |=======================================================================
-
-
 
 _{More to be added}_
 
