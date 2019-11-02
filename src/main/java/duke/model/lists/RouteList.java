@@ -2,7 +2,6 @@ package duke.model.lists;
 
 import duke.commons.exceptions.RouteNotFoundException;
 import duke.commons.exceptions.RouteDuplicateException;
-import duke.commons.exceptions.RouteNodeDuplicateException;
 import duke.model.transports.Route;
 
 import java.util.ArrayList;

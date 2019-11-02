@@ -3,9 +3,7 @@ package duke.model.transports;
 import duke.commons.exceptions.NullResultException;
 import duke.commons.exceptions.QueryOutOfBoundsException;
 import duke.commons.exceptions.RouteNodeDuplicateException;
-import duke.model.locations.BusStop;
 import duke.model.locations.RouteNode;
-import duke.model.locations.TrainStation;
 import duke.model.locations.Venue;
 
 import java.util.ArrayList;
@@ -71,7 +69,7 @@ public class Route {
      * @param newNode The new node to add.
      * @exception RouteNodeDuplicateException If the route is a duplicate.
      */
-    public void addNode(RouteNode newNode) throws RouteNodeDuplicateException {
+    public void add(RouteNode newNode) throws RouteNodeDuplicateException {
         for (RouteNode node: nodes) {
             if (node.equals(newNode)) {
                 throw new RouteNodeDuplicateException();
@@ -89,20 +87,6 @@ public class Route {
      */
     public void remove(int index) throws IndexOutOfBoundsException {
         nodes.remove(index);
-    }
-
-    /**
-     * Deletes a node at the given index.
-     *
-     * @param index The index to delete
-     * @throws QueryOutOfBoundsException If the query is out of bounds.
-     */
-    public void deleteNode(int index) throws QueryOutOfBoundsException {
-        try {
-            nodes.remove(index);
-        } catch (IndexOutOfBoundsException e) {
-            throw new QueryOutOfBoundsException();
-        }
     }
 
     /**
@@ -129,7 +113,8 @@ public class Route {
      */
     public RouteNode getNodeByName(String name) throws NullResultException {
         for (RouteNode node: nodes) {
-            if (node.getAddress().equals(name.toLowerCase())) {
+            String nodeName = node.getAddress().toLowerCase();
+            if (nodeName.equals(name.toLowerCase())) {
                 return node;
             }
         }
@@ -219,6 +204,6 @@ public class Route {
         }
 
         return otherRoute != null && otherRoute.getName().equals(getName())
-                && otherRoute.getDescription().equals(getDescription());
+                && otherRoute.getDescription().equals(getDescription()) && otherRoute.getNodes().equals(nodes);
     }
 }

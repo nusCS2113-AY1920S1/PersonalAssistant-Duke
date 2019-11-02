@@ -163,7 +163,7 @@ public class Storage {
                     }
                     newRoute = ParserStorageUtil.createRouteFromStorage(input);
                 } else {
-                    newRoute.addNode(ParserStorageUtil.createNodeFromStorage(input));
+                    newRoute.add(ParserStorageUtil.createNodeFromStorage(input));
                 }
             }
             if (!newRoute.getName().equals("")) {

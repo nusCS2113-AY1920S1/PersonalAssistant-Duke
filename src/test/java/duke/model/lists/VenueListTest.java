@@ -1,7 +1,6 @@
 package duke.model.lists;
 
 import duke.model.locations.Venue;
-import duke.model.transports.Route;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;

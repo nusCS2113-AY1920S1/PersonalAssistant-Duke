@@ -177,7 +177,6 @@ public class TransportationMap {
                     downtownLine.add(trainStation);
                 }
 
-
             }
         }
         this.northEastLine = getSortedTrainLine(northEastLine, "NE");

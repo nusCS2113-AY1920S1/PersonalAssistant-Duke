@@ -24,7 +24,7 @@ class RouteNodeDeleteCommandTest {
 
         BusStop newNode = new BusStop("66211", "", "", 0, 0);
         newNode.fetchData(model);
-        model.getRoutes().get(0).addNode(newNode);
+        model.getRoutes().get(0).add(newNode);
         assertTrue(model.getRoutes().get(0).getNode(0) instanceof BusStop);
 
         RouteNodeDeleteCommand routeNodeDeleteCommand =

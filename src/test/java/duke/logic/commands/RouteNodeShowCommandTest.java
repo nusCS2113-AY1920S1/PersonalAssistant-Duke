@@ -25,7 +25,7 @@ class RouteNodeShowCommandTest {
 
         BusStop newNode = new BusStop("66211", "", "", 0, 0);
         newNode.fetchData(model);
-        model.getRoutes().get(0).addNode(newNode);
+        model.getRoutes().get(0).add(newNode);
 
         RouteNodeListCommand routeNodeListCommand =
                 (RouteNodeListCommand) Parser.parseComplexCommand("routeNodeList 1 1");
