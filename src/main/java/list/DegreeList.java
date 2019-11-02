@@ -12,7 +12,6 @@ import java.util.Collections;
 
 public class DegreeList implements Serializable, Cloneable {
     private static ArrayList<String> list = new ArrayList<>();
-    static int i = 0;
     public static ArrayList<String> getDegrees(){
         return list;
     }
