@@ -17,7 +17,7 @@ public class CreateNoteCommand extends Command {
     private String defaultDirectoryPath = "data/notes/";
 
     private static final char[] ILLEGAL_CHARACTERS = { '/', '\n', '\r', '\t',
-        '\0', '\f', '`', '?', '*', '\\', '<', '>', '|', '\"', ':', '.', ','};
+            '\0', '\f', '`', '?', '*', '\\', '<', '>', '|', '\"', ':', '.', ','};
 
     /**
      * Constructor for CreateNoteCommand.
@@ -34,7 +34,7 @@ public class CreateNoteCommand extends Command {
      * Creates a file based on auto-generated file name, if no parameter is given.
      * Checks if auto-generated file name exist.
      * Concatenates defaultFileName with number if file name already exists.
-     * Checks if specified file name is valid if inputCommand has a parameter. 
+     * Checks if specified file name is valid if inputCommand has a parameter.
      * Creates file if specified file name is valid.
      * @param inputCommand Input Command from the user to create note.
      * @throws CakeException If the input command is invalid.
@@ -50,7 +50,7 @@ public class CreateNoteCommand extends Command {
             generateFileName();
         } else {
             throw new CakeException("Invalid command: To write notes, "
-            + "type 'createnote' followed by desired (optional) filename.");
+                    + "type 'createnote' followed by desired (optional) filename.");
         }
     }
 
@@ -89,7 +89,7 @@ public class CreateNoteCommand extends Command {
         }
         return false;
     }
-    
+
     /**
      * Checks if CreateNoteCommand with no parameter is valid.
      * @param inputCommand Input Command from the user to create note.
@@ -112,7 +112,7 @@ public class CreateNoteCommand extends Command {
     public static boolean noIllegalCharacters(String inputFileName) {
         for (char illegalChar : ILLEGAL_CHARACTERS) {
             if (containsIllegal(inputFileName, illegalChar)) {
-                return false;        
+                return false;
             }
         }
         return true;
