@@ -11,10 +11,10 @@ import model.TasksManager;
 import java.util.ArrayList;
 import java.util.logging.Logger;
 
-public class MatchCommand extends Command {
+public class MatchTaskCommand extends Command {
     private String taskName;
 
-    public MatchCommand(String name) {
+    public MatchTaskCommand(String name) {
         taskName = name;
     }
 
@@ -25,7 +25,7 @@ public class MatchCommand extends Command {
         ArrayList<Member> memberList = memberManager.getMemberList();
         Task task = tasksManager.getTaskByName(taskName);
         if (task == null) {
-            throw new DukeException("Could not find such a task!"); //consider using task name instead?
+            throw new DukeException("Could not find such a task!"); //TODO consider using task name instead?
         }
         ArrayList<String> reqSkills = task.getReqSkills();
         ArrayList<String> matchedMembers = new ArrayList<>();
