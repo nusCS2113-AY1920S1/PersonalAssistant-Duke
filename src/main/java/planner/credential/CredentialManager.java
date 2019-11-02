@@ -7,7 +7,7 @@ import planner.ui.cli.PlannerUi;
 import java.util.Arrays;
 import java.util.HashSet;
 
-public class Credential {
+public class CredentialManager {
     private static HashSet<String> validActions = new HashSet<>(Arrays.asList("login", "register"));
 
     /**
@@ -17,7 +17,7 @@ public class Credential {
      */
     public UserProfile prompt(PlannerUi plannerUi) {
         String action = plannerUi.loginPrompt();
-        while (!Credential.validActions.contains(action)) {
+        while (!CredentialManager.validActions.contains(action)) {
             action = plannerUi.invalidResponsePrompt();
         }
         return this.login(action.equals("register"), plannerUi);

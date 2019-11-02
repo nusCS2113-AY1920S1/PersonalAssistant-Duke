@@ -1,0 +1,160 @@
+= Khairul Iman - Project Portfolio
+:site-section: AboutUs
+:imagesDir: images
+:stylesDir: ../stylesheets
+:repoURL: https://github.com/AY1920S1-CS2113T-F10-1
+
+== PROJECT: ModPlan v1.3
+
+== Overview
+
+ModPlanner is a command line interface application written in Java. It aims to help Computer Engineering students plan their modules throughout their entire university tenure.
+
+This was done in apart to learn the basic concepts of software engineering in a non-trivial project, consisting of about 5KSoC. We chose to morph the existing Duke personal assistant into our ModPlanner application.
+
+This document details my overall contribution to the project. The code repository is maintained using {repoURL}/main[GitHub.]
+
+== Feature contribution
+
+* Implemented persistent module data during runtime
+** The implementation of this feature involves using NUSMODS API requests and GSON's JSON parsing to reliably request module data and to store it locally.
+** This is done so that the user would be able to immediately know if the module exists before adding, and efficiently keep track of the module data.
+** The user would also be able to independently update their module data anytime to any available year based on NUSMODS API so that they have the flexibility of having the most up to date module information at all times.
+** This forms the backbone of our application, since without up-to-date module data, we would not be able to efficiently manage the user's module queries.
+
+=== Rational for implementation
+* Initially, I had originally intended to parse the returned JSON data from NUSMODS directly into a Java Object, hence skipping the step of saving the data as a JSON file.
+    ** This proved to be extremely difficult, since we had no way to inspect the data if it was malformed or incomplete.
+    ** Thus, following the discussion made in https://github.com/AY1920S1-CS2113T-F10-1/main/issues/74[#74], I had decided to store the information within a JSON file, before using GSON to parse the data into a `List` object.
+    ** Based on the discussion, I implemented to store the module data in a `HashMap` for ease of access.
+
+* Implemented persistent data storage
+** Through the `Storage` and `Logger` classes, user's current data would be instantly stored in JSON file format. This process is done automatically without
+needing the user to be aware of the process.
+
+== Summary of contributions
+
+* *Feature Enhancement*:
+    ** Managed feature support for persistent data storage
+    ** Added integration for NUSMODS API Requests, for obtaining current NUS module data information https://github.com/AY1920S1-CS2113T-F10-1/main/pull/123[#123]
+    ** Added integration for Google's GSON library, for efficient JSON data parsing https://github.com/AY1920S1-CS2113T-F10-1/main/pull/67[#67]
+        *** Implemented framework for processing JSON data returned by NUSMODS API
+    ** Implemented framework to unit test user inputs directly https://github.com/AY1920S1-CS2113T-F10-1/main/issues/124[#124]
+* *Code contributed*:
+    ** Package https://github.com/AY1920S1-CS2113T-F10-1/main/tree/master/src/main/java/planner/util/crawler[WebCrawler] and https://github.com/AY1920S1-CS2113T-F10-1/main/tree/master/src/main/java/planner/util/logger[Logger] for file storage
+    ** Package https://github.com/AY1920S1-CS2113T-F10-1/main/tree/master/src/main/java/planner/logic/modules/module[Modules] for mapping module data to Java Object during run time
+
+* *Other contributions*:
+    ** Added support for Gradle build automation, to ensuring ease of project builds https://github.com/AY1920S1-CS2113T-F10-1/main/pull/9[#9]
+    ** Added support for TravisCI, for continuous integration https://github.com/AY1920S1-CS2113T-F10-1/main/pull/49[#49]
+    ** Added support for checkstyle in TravisCI for code quality monitoring https://github.com/AY1920S1-CS2113T-F10-1/main/pull/53[#53]
+    ** Added support for Coveralls, for efficient tracking of code coverage https://github.com/AY1920S1-CS2113T-F10-1/main/pull/122[#122]
+
+* Project management:
+    ** Managed releases https://github.com/AY1920S1-CS2113T-F10-1/main/releases/tag/A-Jar[`mid-v1.1`], https://github.com/AY1920S1-CS2113T-F10-1/main/releases/tag/v1.1[`v1.1`] and https://github.com/AY1920S1-CS2113T-F10-1/main/releases/tag/v1.2.1[`v1.2.1`]
+    ** Handled team issue tracking regarding:
+        *** Improvements to implemented features
+        *** General bug reporting
+        *** Patch releases to fix to discovered bugs
+* Documentation:
+    *** Added UML Diagrams for overall product design in Developer Guide https://github.com/AY1920S1-CS2113T-F10-1/main/pull/126[#126]
+    *** Wrote section on JsonParser, RequestData and Logger in Developer Guide
+
+* Community:
+    ** Requested permission to utilize NUSMODS API in the course forum https://github.com/nusCS2113-AY1920S1/forum/issues/53[#53]
+* Tools:
+*** Integrated a third party library (Natty) to the project, for improved date parsing https://github.com/AY1920S1-CS2113T-F10-1/main/pull/59[#59]
+*** Integrated Github plugins (TravisCI and Coveralls) to the team repository
+
+== Contributions to the User Guide
+
+_The following has been extracted from the User's Guide_
+
+=== Updating module data : `update`
+
+Allows the user to directly update the module data. +
+Format: `update YEAR_SEM_1-YEAR_SEM_2`
+
+****
+* YEAR_SEM_1 and YEAR_SEM_2 must both be in the format YYYY, ie `2019-2020`
+****
+
+== Contributions to the Developer Guide
+
+_The following has been extracted from the Developer's Guide_
+
+=== JsonWrapper
+
+==== Current implementation
+
+`JsonWrapper` contains our usage of the `Gson` library for JSON file processing, as well as to call `RequestsData` to obtained the module data consolidated by `NUSMODS API`.
+
+image::PackageCrawler.png[]
+
+To prevent multiple requests to NUSMODS, our implementation would check if the user has previously downloaded the module data before. If they have not, only then would `JsonWrapper` call `RequestsData` to initialize the module data file.
+
+The above function is done in the `CliLauncher` class, during the setup function call.
+
+Since `Gson` is able to internally read a JSON file when given the same template within a Java object class, it would be able to map the value fields to each of the same keys in the Java Object.
+
+This allows the application to have a direct access to all the modules which are currently offered in NUS, by reading the returned JSON string and parsing it directly into a list of Module information. Since the data had to be modelled, the
+following ModuleInfoDetailed and ModuleInfoSummary was created to capture the data in the JSON file to be used during runtime.
+
+image::PackageModules.png[]
+
+Since some modules may not contain data for every field, each of the module classes above are required to have default values on initialisation so as to prevent `NullPointerExceptions` during runtime when such module data is accessed.
+
+image::ModuleInfoDetailed.png[]
+
+This also extends to choosing the right data type for modelling our module information, since certain fields maybe malformed and thus our implementation of the fields data type in module information classes would mostly contain `strings`, unless it is certain that
+the data type found in the returned JSON string is strictly `boolean` or `double`.
+
+To allow for quick access to the module information classes, after parsing module information into a list of `ModuleInfoDetailed`, it would then be converted into a `HashMap`, where the key-value pair
+is the string containing the module code, and the value is the `ModuleInfoDetailed`.
+
+This is what is exposed to all the command classes during runtime, and this is done automatically on startup so that the module
+data is accessible directly to the user. This functionality is handled by `JsonWrapper` since it involves parsing JSON files into direct Java Objects.
+
+==== RequestData
+
+Internally, this class is responsible for requesting data from the `NUSMODS API` and thus uses Java's Native `HTTPRequest` Library.
+
+image::FutureRequests.png[]
+
+The current implementation is fixed to only request data for the current academic year, but this is subject to change in the coming versions to allow for users to choose to update the data once it gets outdated.
+
+A better implementation might be considered so that the class itself can be more customized for `ModPlanner`.
+=======
+The remove further dependency on the Internet for making API calls to NUSMODS, in future this implementation would be modified to use provided the data in the JAR resources.
+
+For the proposed implementation of updating user data, there are a few alternatives which could be considered:
+
+****
+* Alternative 1: There would be a prompt for the user on startup to check if they wish to update their module data. If the user decides to do so, they enter `yes` and it would be updated.
+** Since this may be distracting for users on every startup, once they user entered `no`, it would no longer prompt for the data update.
+** This implementation requires our application to remember user settings preferences which can be added as an additional feature.
+
+* Alternative 2: Automatic prompting, where the initial startup date is recorded, and would be mapped to a particular semester.
+** Once the semester has been completed, it would prompt the user to update the data. Since this requires and internet connection, this prompt is necessary.
+
+* Alternative 3 (Selected): The base data is packaged into the resources package, thus the JAR would be able to generate the HashMap of ModuleInfoDetailed directly without needed to query from NUSMODS API.
+** The existing implementation to connect to NUSMODS to obtain the module data would be converted to an Update command, giving the user flexibility to choose when to update their module data.
+****
+=======
+
+=== Logger
+
+The follow dependency diagram shows the relationship Logger has with the rest of the other classes.
+
+image::Logger.png[]
+
+`LoggerFormatter` formats the logging standard which all logging entries uses. `PlannerLogger` is called on every exception handling errors which occurs in `Parser`, `JsonWrapper` and the main `CliLauncher` class.
+
+It is present to capture all `ModException` errors as `WARNING`, while any other unhandled exceptions would be deemed as `SEVERE`.
+
+The logging data is written to the `logging.log` file found in the data folder when the application is started.
+
+
+
+
+

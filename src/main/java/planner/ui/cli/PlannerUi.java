@@ -49,7 +49,7 @@ public class PlannerUi {
     }
 
     public String readPassword() {
-        return String.copyValueOf(System.console().readPassword());
+        return this.readInput(); // No good way to do this yet
     }
 
     /**
