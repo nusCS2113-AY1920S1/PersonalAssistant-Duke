@@ -47,6 +47,7 @@ public interface CommandParser {
 
     String EMPTY_INPUT_STRING = "";
     int DEFAULT_WEEK_NUMBER_OF_DAYS = 7;
+    int INDEX_ZERO = 0;
 
     /**
      * ERROR MESSAGES BELOW.
@@ -65,8 +66,8 @@ public interface CommandParser {
     String MESSAGE_INVALID_TYPE = "Error: The type does not exist!";
     String MESSAGE_INVALID_PRIORITY = "Invalid Priority Input";
     String MESSAGE_LIMIT_EXCEEDED = "Error: Input entered is out of range!";
-    String MESSAGE_INVALID_FILE_NAME_FORMAT = "Invalid file name for export!";
-
+    String MESSAGE_INVALID_FILE_NAME_FORMAT = "Error: Invalid file name for export!";
+    String MESSAGE_INVALID_FILE_NAME_TIME = "Error: Invalid final date time";
     String MESSAGE_MISSING_FILE_NAME_ARG = "ArgumentError: Missing /file-name";
     String MESSAGE_MISSING_FILE_NAME = "Error: Missing file name input!";
 
@@ -147,6 +148,7 @@ public interface CommandParser {
         }
     }
 
+    //@@author LTPZ
     /**
      * Returns the hour in the String input.
      *
@@ -265,7 +267,7 @@ public interface CommandParser {
         return date.after(currentDate) || date.equals(currentDate);
     }
 
-
+    //@@author LTPZ
     /**
      * Parses through user input for description field, and returns the description if present.
      *
@@ -356,6 +358,7 @@ public interface CommandParser {
         }
     }
 
+    //@@author LTPZ
     /**
      * Parses through user input for priority token, and returns the enum priority if present.
      *
@@ -414,6 +417,7 @@ public interface CommandParser {
         }
     }
 
+    //@@author LTPZ
     /**
      * Parses through user input for /end token and return the end time.
      *
@@ -588,6 +592,27 @@ public interface CommandParser {
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(priority);
         return matcher.matches();
+    }
+
+    //@author LTPZ
+    /**
+     * Check if the final date is after start date.
+     *
+     * @param startDate The final date string
+     * @param finalDate The start date string
+     * @throws ParserException if final date is not after the start date
+     */
+    default void isFinalDateAfterStartDate(String startDate, String finalDate) throws ParserException {
+        Calendar c = Calendar.getInstance();
+        Date dayStart = CompalUtils.stringToDate(startDate);
+        c.setTime(dayStart);
+        Date dateStart = c.getTime();
+        Date dayEnd = CompalUtils.stringToDate(finalDate);
+        c.setTime(dayEnd);
+        Date dateEnd = c.getTime();
+        if (dateStart.after(dateEnd)) {
+            throw new ParserException(MESSAGE_INVALID_FILE_NAME_TIME);
+        }
     }
 
     //@@author yueyeah

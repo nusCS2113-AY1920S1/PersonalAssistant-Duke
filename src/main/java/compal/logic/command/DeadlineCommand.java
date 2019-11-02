@@ -22,6 +22,7 @@ public class DeadlineCommand extends Command {
             + "Format: deadline <description> /date <dd/mm/yyyy>... /end <hhhh> [/interval <num>] "
             + "[/priority <low|medium|high>] [/final-date <dd/mm/yyyy>]\n\n\t"
             + "Note: content in \"[]\": optional\n\t"
+            + "You can switch the order of any two blocks (a block starts with \"/\" and ends by the next block)\n\t"
             + "content in \"<>\": need to be fulfilled by the user\n\t"
             + "content separated by \"|\": must choose exactly one from them\n\t"
             + "\"...\" means you can add multiple. e.g. dd/mm/yyyy... means you can add 01/01/2019 02/01/2019\n\t"

@@ -20,11 +20,11 @@ public class DeadlineCommandParser implements CommandParser {
     @Override
     public Command parseCommand(String restOfInput) throws ParserException {
         logger.info("Attempting to parse deadline command");
-        String description = getTokenDescription(restOfInput);
-        ArrayList<String> startDateList = getTokenDate(restOfInput);
-        Task.Priority priority = getTokenPriority(restOfInput);
-        String endTime = getTokenEndTime(restOfInput);
-        int interval = getTokenInterval(restOfInput);
+        final String description = getTokenDescription(restOfInput);
+        final ArrayList<String> startDateList = getTokenDate(restOfInput);
+        final Task.Priority priority = getTokenPriority(restOfInput);
+        final String endTime = getTokenEndTime(restOfInput);
+        final int interval = getTokenInterval(restOfInput);
         String finalDate;
         if (hasToken(restOfInput, TOKEN_FINAL_DATE)) {
             finalDate = getTokenFinalDate(restOfInput);
@@ -32,6 +32,7 @@ public class DeadlineCommandParser implements CommandParser {
             int lastStartDateIndex = startDateList.size() - 1;
             finalDate = startDateList.get(lastStartDateIndex);
         }
+        isFinalDateAfterStartDate(startDateList.get(INDEX_ZERO), finalDate);
         logger.info("Successfully parse deadline command");
         return new DeadlineCommand(description, priority, startDateList, endTime, finalDate, interval);
     }
