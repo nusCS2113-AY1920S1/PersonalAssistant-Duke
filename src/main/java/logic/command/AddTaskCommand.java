@@ -32,9 +32,10 @@ public class AddTaskCommand extends Command {
     }
 
     //@@author JustinChia1997
+
     /**
      * Sets the required skill list
-     * */
+     */
     public void setReqSkill(String fullSkill) {
         reqSkill = Arrays.asList(fullSkill.split("\\s+"));
         //TODO parse for too long skill names
@@ -59,7 +60,7 @@ public class AddTaskCommand extends Command {
                 }
             }
         }
-        if (reqSkill.size() != 0) {
+        if (this.reqSkill != null) {
             for (int i = 0; i < reqSkill.size(); i += 1) {
                 model.addTaskReqSkill(taskName, reqSkill.get(i));
             }
