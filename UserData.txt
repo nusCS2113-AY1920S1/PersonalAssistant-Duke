@@ -1,8 +1,7 @@
 AlgoSenpai Adventures Overall Report
 
-abcde
-boy
-<<<<<<< HEAD
+Default
+????
 1
 0
 
@@ -29,8 +28,3 @@ Total Questions correct : 0
 Total Questions wrong : 0
 Percentage of Questions correct : 0.0
 Comments : ""
-=======
-
-null
-null
->>>>>>> da770fdd6718a3b17125511862c77b1104ab05a3
