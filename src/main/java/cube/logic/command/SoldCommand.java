@@ -1,3 +1,9 @@
+/**
+ * SoldCommand.java
+ * This class manages the selling of food.
+ *
+ * @author tygq13
+ */
 package cube.logic.command;
 
 import cube.model.food.FoodList;
@@ -23,12 +29,24 @@ public class SoldCommand extends Command{
 	Promotion promotion;
 
 	public static final String MESSAGE_SUCCESS = "%1$d of %2$s have been sold with $%3$f\n"
-		+ "you have earn $%4$f";	
+		+ "you have earn $%4$f";
 
+	/**
+	 * Constructor with two arguments.
+	 * Calls another constructor with additional argument Date = current time.
+	 * @param foodName The name of the food to be sold.
+	 * @param quantity The quantity of food sold.
+	 */
 	public SoldCommand(String foodName, int quantity) {
 		this(foodName, quantity, new Date());
 	}
 
+	/**
+	 * Constructor with three arguemtns.
+	 * @param foodName The name of the food to be sold.
+	 * @param quantity The quantity of food sold.
+	 * @param soldDate The date of the food sold.
+	 */
 	public SoldCommand(String foodName, int quantity, Date soldDate) {
 		this.foodName = foodName;
 		this.quantity = quantity;
