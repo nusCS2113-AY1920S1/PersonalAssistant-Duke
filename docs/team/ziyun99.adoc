@@ -34,6 +34,7 @@ that allows users to view email and task details in an appealing, well-organized
 The figure below shows interface of our app:
 
 image::../images/Screenshot (2).png[Duke Email Manager]
+TODO: Annotate this image
 
 My role was mainly to design and write the codes for email managing including email showing, email tagging
 and email filtering. The following sections illustrate these enhancements in more detail, as well as the
@@ -42,11 +43,12 @@ relevant sections I have added to the user and developer guides in relation to t
 == Summary of contributions
 This section shows a summary of my coding, documentation, and other helpful contributions to the team project.
 
-* *Code contributed*: [https://nuscs2113-ay1920s1.github.io/dashboard/#=undefined&search=ziyun99[Summary of code contribution]]
+=== Code contributed
+https://nuscs2113-ay1920s1.github.io/dashboard/#=undefined&search=ziyun99[Summary of code contribution]
 
-* *Enhancement added*:
+=== Enhancement added
 
-. Email Tagging
+* Email Tagging
 ** What it does: Students can tag their emails with the command `email update <index> -tag <TagName1> -tag
 <TagName2> ...`
 ** Justification: By tagging the emails, students can have a clearer overview of their list of
@@ -56,7 +58,7 @@ missing out crucial information being informed by email.
 email again.
 ** Code contributed: https://github.com/AY1920S1-CS2113T-F11-3/main/pull/82[#82]
 
-. Email Filtering by Tag(s)
+* Email Filtering by Tag(s)
 ** What it does: Students can filter the emails by the tags added with the command `email list -tag
 <TagName1> -tag <TagName2>`
 ** Justification: This allows the students to view the list of emails being tagged with particular tag(s),
@@ -65,14 +67,14 @@ helping them to filter out relevant emails to keep their email organised.
 both tags.
 ** Code contributed: https://github.com/AY1920S1-CS2113T-F11-3/main/pull/97[#97] https://github.com/AY1920S1-CS2113T-F11-3/main/pull/105[#105]
 
-. Email Showing
+* Email Showing
 ** What it does: The command `email show <index>` will display the email in html format.
 ** Justification: Student can view the content of email in the application without have to find the email
 in other places. This helps the student to access all the information in the email all in one place.
 ** Highlights: Pressing `ESC` key can toggle the display between email list view and email content view.
 ** Code contributed:  https://github.com/AY1920S1-CS2113T-F11-3/main/pull/71[#71]
 
-. Switching mode between email and task
+* Switching mode between email and task
 ** What it does: Students can easily switch the mode between `email` and `task` with the command `flip`. In
 the user input text field, a prefix either `email` or `task` will be displayed with
 respect to the current mode.
@@ -82,17 +84,11 @@ and emails, this feature allows them to navigate between both modes easily.
 from the students. The prefix is non-deletable.
 ** Code contributed: https://github.com/AY1920S1-CS2113T-F11-3/main/pull/54[#54]
 
-* *Other contributions*:
+=== Other contributions
 
 ** Project management:
-*** There were a total of 5 releases, from version 1.1 to 1.5. I managed releases versions
-`v1.2.1` on GitHub: https://github.com/AY1920S1-CS2113T-F11-3/main/releases/tag/v1.2.1-duke[#v1.2.1]
-
-** Enhancements to existing features:
-*** Updated the GUI color scheme (https://github.com[#114])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (
-https://github.com[#114])
-*** Reported bugs and offered suggestions for other teams in the class ()
+*** Managed releases versions `v1.2.1` on GitHub
+(https://github.com/AY1920S1-CS2113T-F11-3/main/releases/tag/v1.2.1-duke[#v1.2.1])
 
 ** Documentation:
 *** Update User Guide and Developer Guide
@@ -102,18 +98,71 @@ https://github.com[#114])
 *** Reported bugs and offered suggestions for other teams in the class ()
 
 ** Tools:
-*** Integrated continuous integration (Travis) to the team repo (https://github.com[#107])
-*** Integrated coverage report (Coveralls) to the team repo (https://github.com[#107])
+*** Integrated continuous integration (Travis) to the team repo
+(https://github.com/AY1920S1-CS2113T-F11-3/main/pull/36[#36])
+(https://github.com/AY1920S1-CS2113T-F11-3/main/pull/37[#37])
+(https://github.com/AY1920S1-CS2113T-F11-3/main/pull/38[#38])
+*** Integrated coverage report (Coveralls) to the team repo
+(https://github.com/AY1920S1-CS2113T-F11-3/main/pull/107[#107]
+https://github.com/AY1920S1-CS2113T-F11-3/main/pull/102[#102])
+
+** GUI enhancement:
+*** Implemented a different background colour for UserDialogBox and DukeDialogBox for clearer layout and
+view purpose (https://github.com/AY1920S1-CS2113T-F11-3/main/pull/114[#114])
+*** Resize window to fit screen (https://github.com/AY1920S1-CS2113T-F11-3/main/pull/71[#71])
+*** Display of email using WebView and toggling email list view and email content view by pressing `ESC` key
+(https://github.com/AY1920S1-CS2113T-F11-3/main/pull/71[#71])
+
+** Other functionalities or feature:
+*** Task detection of anomalies (https://github.com/AY1920S1-CS2113T-F11-3/main/pull/32[#32])
+*** Basic email class implementation
+(https://github.com/AY1920S1-CS2113T-F11-3/main/pull/70[#48]
+https://github.com/AY1920S1-CS2113T-F11-3/main/pull/70[#49]
+https://github.com/AY1920S1-CS2113T-F11-3/main/pull/70[#50])
+*** Wrote additional tests for existing features to increase instruction coverage from 19% to 29%, and
+increase branch coverage from 15% to 20%
+(https://github.com/AY1920S1-CS2113T-F11-3/main/pull/114[#114])
+*** Implemented logger (https://github.com/AY1920S1-CS2113T-F11-3/main/pull/114[#131])
+*** Added key binding functionality to create keyboard shortcut
+(https://github.com/AY1920S1-CS2113T-F11-3/main/pull/78[#78]
+https://github.com/AY1920S1-CS2113T-F11-3/main/pull/70[#70])
 
 
 == Contributions to the User Guide
-We had to update the  User Guide with instructions for the enhancements that
-we had added. The following is an excerpt from our Email Manager User Guide, showing additions that I
-have made for the email managing features.
+We had to update the  User Guide with instructions for the enhancements that we had added. The following is
+an excerpt from our Email Manager User Guide, showing additions that I have made for the email managing
+features.
 
 |===
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
+
+==== Change Mode: `flip`
+Format: `flip` +
+
+Flips/toggles between email mode and task mode. The prefix of the command in the text box will also be
+changed.
+
+In task mode, the text box will display `task` as a prefix.
+In email mode, the text box will display `email` as a prefix.
+
+==== Tagging Email: `update`
+Format: `update ITEM_NUMBER -tag TAG1 [-tag TAG2]...`
+
+Tags the specified item with the tag(s) minimum number of tags is 1.
+
+Examples: +
+`update 1 -tag CS2113T` +
+`update 2 -tag Tutorial -tag Spam`
+
+==== Filtering email: `list`
+Format: `list [-tag TAG1] [-tag TAG2]...` +
+
+Gives a list of emails with the tags. Minimum number of tags is 1, and the maximum number of tags is 2.
+
+Examples: +
+`list -tag CS2113T -tag Tutorial` +
+`list -tag Spam`
 
 == Contributions to the Developer Guide
 

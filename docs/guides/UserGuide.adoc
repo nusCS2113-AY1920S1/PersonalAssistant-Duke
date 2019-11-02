@@ -458,8 +458,8 @@ Format: `update ITEM_NUMBER -tag TAG1 [-tag TAG2]...`
 
 Tags the specified item with the tag(s) minimum number of tags is 1.
 
-Examples:
-`update 1 -tag CS2113T`
+Examples: +
+`update 1 -tag CS2113T` +
 `update 2 -tag Tutorial -tag Spam`
 
 ==== Filtering email: `list`
@@ -467,8 +467,8 @@ Format: `list [-tag TAG1] [-tag TAG2]...` +
 
 Gives a list of emails with the tags. Minimum number of tags is 1, and the maximum number of tags is 2.
 
-Examples:
-`list -tag CS2113T -tag Tutorial`
+Examples: +
+`list -tag CS2113T -tag Tutorial` +
 `list -tag Spam`
 
 ==== Sending Email (coming in v2.0)
