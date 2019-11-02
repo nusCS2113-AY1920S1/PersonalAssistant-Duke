@@ -4,17 +4,17 @@ import cube.exception.CubeException;
 import cube.logic.command.Command;
 import cube.logic.command.util.CommandResult;
 import cube.logic.parser.Parser;
+import cube.model.ModelManager;
 import cube.model.food.Food;
 import cube.model.food.FoodList;
 import cube.model.promotion.PromotionList;
 import cube.model.sale.SalesHistory;
-import cube.model.ModelManager;
-import cube.storage.StorageManager;
 import cube.storage.ConfigStorage;
+import cube.storage.StorageManager;
 import cube.util.FileUtilJson;
-import javafx.stage.Stage;
-import javafx.scene.layout.StackPane;
 import javafx.fxml.FXML;
+import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
 
 public class MainWindow extends UiManager<Stage> {
     public static final String FXML = "MainWindow.fxml";
@@ -44,13 +44,13 @@ public class MainWindow extends UiManager<Stage> {
     private PromotionList promotionList;
     private ModelManager modelManager;
 
-    public MainWindow (Stage primaryStage) {
+    public MainWindow(Stage primaryStage) {
         super(FXML, primaryStage);
 
         this.primaryStage = primaryStage;
     }
 
-    public MainWindow (Stage primaryStage, StorageManager storageManager, FileUtilJson<StorageManager> storage) {
+    public MainWindow(Stage primaryStage, StorageManager storageManager, FileUtilJson<StorageManager> storage) {
         super(FXML, primaryStage);
 
         this.primaryStage = primaryStage;

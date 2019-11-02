@@ -1,11 +1,10 @@
 package cube.ui;
 
 import cube.model.food.Food;
+import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
-import javafx.fxml.FXML;
-import javafx.scene.text.Font;
 
 public class FoodListCard extends UiManager<HBox> {
     private static final String FXML = "FoodListCard.fxml";
