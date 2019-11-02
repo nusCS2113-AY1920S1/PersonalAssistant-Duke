@@ -34,29 +34,13 @@ public class DoneOrderCommand extends Cmd<Order> {
                 int number = orderIndex+1;
                 throw new DukeException("Order "+number+" has already been done!");
             }
+            orderStorage.changeContent(orderIndex+1);
 
             // to do
-            // 1. update storage file
-            // 2. Need to update after menu is created
-//            String dish;
-//            int amount;
-//            for (Map.Entry<String, Integer> entry : doneOrder.getOrderContent().entrySet()) {
-//                dish = entry.getKey();
-//                amount = entry.getValue();
-//                int dishIndex;
-//                for (int i=0; i<amount ;i++) {
-//                    //decrement dish amount from the menu
-//                    //new DeleteDishCommand(dishIndex)
-//                }
-//            }
+            // update chef's to do list
 
             ((OrderList)orderList).markOrderDone(orderIndex);
             ui.showMarkDoneOrder(orderList.getEntry(orderIndex).toString());
-
-
-            //storage.changeContent(orderIndex);
-
-
         } else {
             throw new DukeException("Must enter a valid order number, between 1 and " + orderList.size() + " to be done");
         }

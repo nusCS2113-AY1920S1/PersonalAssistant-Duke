@@ -136,7 +136,7 @@ public class Order implements Printable {
         for (Map.Entry<String, Integer> entry : content.entrySet()) {
             String dishName = entry.getKey();
             int amount = entry.getValue();
-            description += "\nD|" + dishName + "|" + amount;
+            description += "|D|" + dishName + "|" + amount;
         }
         return description;
     }
