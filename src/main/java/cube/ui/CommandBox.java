@@ -27,22 +27,28 @@ public class CommandBox extends UiManager<StackPane> {
         this.commandExecutor = commandExecutor;
     }
 
+    public void setCommandText(String commandText) {
+        commandTextField.clear();
+        commandTextField.setText(commandText);
+    }
+
     /**
      * Handles the Enter button pressed event listener.
      */
     @FXML
-    private void handleCommandEntered() {
+    private void handleCommandEntered() throws CubeException {
         String fullCommand = commandTextField.getText();
 
         try {
             commandExecutor.execute(fullCommand);
         } catch (CubeException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
 
         System.out.println(commandTextField.getText());
         commandTextField.clear();
     }
+
 
     /**
      * Represents a function that can execute commands.
