@@ -20,9 +20,9 @@ public class EditTaskDateTimeParser {
 
     //@@author JasonChanWQ
     /**
-     * parse the snooze command, pass the index (in task list) and the new date to command
+     * Parses the user input and returns EditTaskDateTimeCommand
      * @param argument [index] /to [new date]
-     * @return SnoozeCommand
+     * @return EditTaskDateTimeCommand
      * @throws DukeException exception
      */
 
