@@ -9,33 +9,47 @@ import org.json.simple.parser.ParseException;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.function.LongFunction;
+import java.util.logging.*;
+import java.util.logging.Level;
 
 public class Storage {
 
-    private String appDir;
-    private String jsonName = "save.json";
-    private JSONObject jsonFarmer = null;
+    private String GAME_FILENAME = "save.json";
+    private JSONObject jsonFarmer;
+    private final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
     /**
      * Storage constructor to initialise storage object.
      */
     public Storage() {
-        appDir = System.getProperty("user.dir");
-        if (System.getProperty("os.name").startsWith("Windows")) {
-            jsonName = "\\" + jsonName;
-            AsciiColours.inActivate();
-        } else {
-            jsonName = "/" + jsonName;
+        jsonFarmer = null;
+    }
+
+    void setupLogger() throws FarmioFatalException {
+        Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+        Logger rootLogger = Logger.getLogger("global");
+        Handler[] handlers = rootLogger.getHandlers();
+        for(Handler handler: handlers){
+            rootLogger.removeHandler(handler);
         }
+        logger.setLevel(Level.INFO);
+        FileHandler handler = null;
+        try {
+            handler = new FileHandler("farmio.log");
+        } catch (IOException e) {
+            throw new FarmioFatalException("Failed to access \'farmio.log\'.\nPlease try running farmio in another directory.");
+        }
+        handler.setFormatter(new SimpleFormatter());
+        logger.addHandler(handler);
     }
 
     /**
      * Check the esistence of a save.json file on the application directory.
      * @return True is save.json exist and false if save.json does not exist.
      */
-    public boolean getSaveExist() {
-//        System.out.println(new File(appDir.concat(jsonName)).toString());
-        return new File(appDir.concat(jsonName)).exists();
+    boolean getSaveExist() {
+        return new File(GAME_FILENAME).exists();
     }
 
     /**
@@ -47,18 +61,26 @@ public class Storage {
     public JSONObject loadFarmer() throws FarmioException {
         Reader reader = null;
         try {
-            reader = new FileReader(appDir.concat(jsonName));
+            reader = new FileReader(GAME_FILENAME);
         } catch (FileNotFoundException e) {
+            LOGGER.log(Level.WARNING, e.toString());
             throw new FarmioException("Game save not found!");
         }
         JSONParser parser = new JSONParser();
         try {
             jsonFarmer = (JSONObject) parser.parse(reader);
         } catch (Exception e) {
+            LOGGER.log(Level.WARNING, e.toString());
             throw new FarmioException("Game save corrupted!");
         }
-        if(!getLevelExist((Double) jsonFarmer.get("level"))){
-            throw new FarmioException("Game level corrupted!");
+        try{
+            double level = (Double) jsonFarmer.get("level");
+            if(!getLevelExist(level)){
+                LOGGER.log(Level.INFO, "Detected invalid level: " + level);
+                throw new FarmioException("Game level corrupted!");
+            }
+        }catch(Exception e){
+            LOGGER.log(Level.WARNING, "Failed level double check. >" + e.toString());
         }
         return jsonFarmer;
     }
@@ -73,6 +95,7 @@ public class Storage {
      */
     public JSONObject loadFarmerBackup() throws FarmioException {
         if(jsonFarmer == null){
+            LOGGER.log(Level.INFO, "jsonFarmer is empty! Recovery failed.");
             throw new FarmioException("Recovery failed!");
         }
         recoverFarmer();
@@ -86,7 +109,7 @@ public class Storage {
     public boolean storeFarmer(Farmer farmer) {
         FileWriter file;
         try {
-            file = new FileWriter(appDir.concat(jsonName));
+            file = new FileWriter(GAME_FILENAME);
             jsonFarmer = farmer.toJson();
             file.write(jsonFarmer.toJSONString());
             file.close();
@@ -108,14 +131,14 @@ public class Storage {
         }
         FileWriter file;
         try {
-            file = new FileWriter(appDir.concat(jsonName));
+            file = new FileWriter(GAME_FILENAME);
             jsonFarmer = farmer.updateJSON(jsonFarmer);
             file.write(jsonFarmer.toJSONString());
             file.close();
         } catch (IOException e) {
             return null;
         }
-        return appDir.concat(jsonName);
+        return System.getProperty("user.dir").concat(GAME_FILENAME);
     }
 
     /**
@@ -125,7 +148,7 @@ public class Storage {
     private boolean recoverFarmer() {
         FileWriter file;
         try {
-            file = new FileWriter(appDir.concat(jsonName));
+            file = new FileWriter(GAME_FILENAME);
             file.write(jsonFarmer.toJSONString());
             file.close();
         } catch (IOException e) {
@@ -152,6 +175,7 @@ public class Storage {
             try {
                 if ((line = bufferedReader.readLine()) == null) break;
             } catch (IOException e) {
+                LOGGER.log(Level.WARNING, e.toString());
                 throw new FarmioFatalException(formatFatalMessage(path));
             }
             if (line.length() <= frameWidth) {
@@ -183,7 +207,7 @@ public class Storage {
         return frame;
     }
 
-    public boolean getLevelExist(double level){
+    private boolean getLevelExist(double level){
         String path = "levels/" + level + ".json";
         if(getResourceStream(path) != null){
             return true;
@@ -203,6 +227,7 @@ public class Storage {
         try {
             return (JSONObject) parser.parse(new InputStreamReader(getResourceStream(path)));
         } catch (IOException | ParseException e) {
+            LOGGER.log(Level.WARNING, e.toString());
             throw new FarmioFatalException(formatFatalMessage(path));
         }
     }
