@@ -1,7 +1,7 @@
 //@@author LL-Pengfei
 /**
- * GenerateRevenueCommand.java
- * Support commands related to generating revenue.
+ * ProfitCommand.java
+ * Support commands related to generating profits and revenue.
  */
 package cube.logic.command;
 
@@ -12,6 +12,8 @@ import cube.model.ModelManager;
 import cube.storage.StorageManager;
 import cube.logic.command.util.CommandResult;
 import cube.logic.command.util.CommandUtil;
+
+import java.util.Date;
 
 /**
  * This class supports commands related to generating revenue.
@@ -51,7 +53,7 @@ public class ProfitCommand extends Command {
      *
      * @param param The parameter is used to specify the type of generating revenue.
      */
-    public ProfitCommand(String param) {
+    public ProfitCommand(Date date1, Date date2, String param) {
         this.param = ProfitCommand.ProfitBy.valueOf(param);
     }
 
@@ -61,7 +63,7 @@ public class ProfitCommand extends Command {
      * @param index The index of the food whose revenue is to be generated.
      * @param param The parameter is used to specify the type of generating revenue.
      */
-    public ProfitCommand(int index, String param) {
+    public ProfitCommand(Date date1, Date date2, int index, String param) {
         this.profitIndex = index - 1;
         this.param = ProfitCommand.ProfitBy.valueOf(param);
     }
@@ -71,7 +73,7 @@ public class ProfitCommand extends Command {
      * @param ProfitDescription The food name or food type whose revenue is to be generated.
      * @param param The parameter is used to specify the type of generating revenue.
      */
-    public ProfitCommand(String ProfitDescription, String param) {
+    public ProfitCommand(Date date1, Date date2, String ProfitDescription, String param) {
         this.profitDescription = ProfitDescription;
         this.param = ProfitCommand.ProfitBy.valueOf(param);
     }
@@ -104,7 +106,7 @@ public class ProfitCommand extends Command {
                 double totalRevenue = 0;
                 int count = 0, listSize = list.size(); //listSize stored in a variable to speed up the loop below (one time access)
                 for (int i = 0; i < listSize; ++i) {
-                    if ((list.get(i).getType() != null) && (list.get(i).getType().equals(generateRevenueDescription))) {
+                    if ((list.get(i).getType() != null) && (list.get(i).getType().equals(profitDescription))) {
                         totalRevenue = totalRevenue + list.get(i).getFoodRevenue();
                         ++count;
                     }
