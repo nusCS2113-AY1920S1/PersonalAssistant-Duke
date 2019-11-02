@@ -3,3 +3,4 @@ build/*
 \.gradle/
 save.json
 /build/
+farmio.log

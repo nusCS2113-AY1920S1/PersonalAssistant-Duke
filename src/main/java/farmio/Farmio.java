@@ -8,8 +8,10 @@ import frontend.Simulation;
 import frontend.Ui;
 
 import java.util.EnumSet;
+import java.util.logging.Logger;
 
 public class Farmio {
+    private final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
     private Storage storage;
     private Farmer farmer;
     private Simulation simulation;
@@ -31,6 +33,8 @@ public class Farmio {
         Command command;
         command = new CommandWelcome();
         try {
+            storage.setupLogger();
+            LOGGER.log(java.util.logging.Level.INFO, "New game session started.");
             try {
                 command.execute(this);
             } catch (FarmioException e) {
@@ -58,7 +62,6 @@ public class Farmio {
     }
 
     public static void main(String[] args) {    //TODO - configure both OS
-
         new Farmio().run();
     }
 
