@@ -1,3 +1,5 @@
+//@@author matthewng1996
+
 package wallet.logic.command;
 
 import wallet.model.Wallet;
@@ -25,9 +27,14 @@ public class ListCommand extends Command {
     public static final String MESSAGE_USAGE = "Error in format for command."
             + "\nExample: " + COMMAND_WORD + " all"
             + "\nExample: " + COMMAND_WORD + " expense"
+            + "\nExample: " + COMMAND_WORD + " expense /sortby date"
             + "\nExample: " + COMMAND_WORD + " loan"
             + "\nExample: " + COMMAND_WORD + " task"
             + "\nExample: " + COMMAND_WORD + " recurring";
+    public static final String MESSAGE_LIST_ALL_SORT = "list all can only be sorted by date.";
+    public static final String MESSAGE_LOANS_SORT = "loans can only be sorted by date, lend or borrow";
+    public static final String MESSAGE_EXPENSE_SORT = "expenses can only be sorted by date and category.";
+    public static final String MESSAGE_RECURRING_SORT = "recurring can only be sorted by date and category.";
 
     private final String record;
 
@@ -48,102 +55,164 @@ public class ListCommand extends Command {
      */
     @Override
     public boolean execute(Wallet wallet) {
-        boolean isListAll = false;
-
-        switch (record) {
-        case "recurring":
-            System.out.println(MESSAGE_LIST_RECURRING_EXPENSES);
-            ArrayList<Expense> recList = wallet.getExpenseList().getRecurringExpense();
-            Ui.printExpenseTable(recList);
-            break;
-
-        case "all":
-            isListAll = true;
-            //fallthrough
-
-        case "contact":
-            //@@author Xdecosee
-            System.out.println(MESSAGE_LIST_CONTACTS);
-            ArrayList<Contact> contactList = wallet.getContactList().getContactList();
-            Ui.printContactTable(contactList);
-            if (!isListAll) {
-                break;
-            }
-            //@@author
-            //fallthrough
-
-        case "loan":
-            //@@author A0171206R
-            ArrayList<Loan> loanList = wallet.getLoanList().getLoanList();
-            Ui.printLoanTable(loanList);
-            if (!isListAll) {
-                break;
-            }
-            //@@author
-            //fallthrough
-
-        case "expense":
-            ArrayList<Expense> expenseList = wallet.getExpenseList().getExpenseList();
-            System.out.println(MESSAGE_LIST_EXPENSES);
-            Ui.printExpenseTable(expenseList);
-            if (!isListAll) {
-                break;
-            }
-            //fallthrough
-
-        default:
-            //@@author matthewng1996
-            if (!isListAll) {
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-                LocalDate date = LocalDate.parse(record.trim(), formatter);
-
-                ArrayList<Expense> expensesList = new ArrayList<Expense>();
-                ArrayList<Loan> loansList = new ArrayList<>();
-
-                if (date != null) {
-                    if (wallet.getExpenseList().getExpenseList().size() != 0
-                            || wallet.getLoanList().getLoanList().size() != 0) {
-                        if (wallet.getExpenseList().getExpenseList().size() != 0) {
-                            for (Expense e : wallet.getExpenseList().getExpenseList()) {
-                                if (e.getDate().equals(date)) {
-                                    expensesList.add(e);
-                                }
-                            }
-
-                            if (expensesList.size() != 0) {
-                                Ui.printExpenseTable(expensesList);
-                            } else {
-                                System.out.println(MESSAGE_LIST_NO_EXPENSES
-                                        + date.getDayOfMonth() + " "
-                                        + new DateFormatSymbols().getMonths()[date.getMonthValue() - 1]
-                                        + " " + date.getYear());
-                            }
-                        }
-                        //@@author A0171206R
-                        if (wallet.getLoanList().getLoanList().size() != 0) {
-                            for (Loan l : wallet.getLoanList().getLoanList()) {
-                                if (l.getDate().equals(date)) {
-                                    loansList.add(l);
-                                }
-                            }
-
-                            if (loansList.size() != 0) {
-                                Ui.printLoanTable(loansList);
-                            } else {
-                                System.out.println(MESSAGE_LIST_NO_LOANS
-                                        + date.getDayOfMonth() + " "
-                                        + new DateFormatSymbols().getMonths()[date.getMonthValue() - 1]
-                                        + " " + date.getYear());
-                            }
-                        }
-                        //@@author
+        if (record.contains("recurring")) {
+            if (record.equals("recurring")) {
+                System.out.println(MESSAGE_LIST_RECURRING_EXPENSES);
+                ArrayList<Expense> recList = wallet.getExpenseList().getRecurringExpense();
+                Ui.printExpenseTable(recList);
+            } else {
+                String[] arguments = record.split(" ", 3);
+                if (arguments[1].equals("/sortby")) {
+                    if (arguments[2].equals("date")) {
+                        ArrayList<Expense> expenseList = wallet.getExpenseList().getSortedRecurringExpenseDate();
+                        System.out.println(MESSAGE_LIST_EXPENSES);
+                        Ui.printExpenseTable(expenseList);
+                    } else if (arguments[2].equals("category")) {
+                        ArrayList<Expense> expenseList = wallet.getExpenseList().getSortedRecurringExpenseCategory();
+                        System.out.println(MESSAGE_LIST_EXPENSES);
+                        Ui.printExpenseTable(expenseList);
+                    } else {
+                        System.out.println(MESSAGE_RECURRING_SORT);
                     }
                 } else {
                     System.out.println(MESSAGE_USAGE);
                 }
-                break;
-                //@@author
             }
+        } else if (record.contains("all")) {
+            if (record.equals("all")) {
+                ArrayList<Loan> loanList = wallet.getLoanList().getLoanList();
+                Ui.printLoanTable(loanList);
+                ArrayList<Expense> expenseList = wallet.getExpenseList().getExpenseList();
+
+                System.out.println(MESSAGE_LIST_CONTACTS);
+                ArrayList<Contact> contactList = wallet.getContactList().getContactList();
+                Ui.printContactTable(contactList);
+
+                System.out.println(MESSAGE_LIST_EXPENSES);
+                Ui.printExpenseTable(expenseList);
+            } else {
+                String[] arguments = record.split(" ", 3);
+                if (arguments[1].equals("/sortby")) {
+                    if (arguments[2].equals("date")) {
+                        ArrayList<Loan> loanList = wallet.getLoanList().sortByDate();
+                        Ui.printLoanTable(loanList);
+
+                        System.out.println(MESSAGE_LIST_CONTACTS);
+                        ArrayList<Contact> contactList = wallet.getContactList().getContactList();
+                        Ui.printContactTable(contactList);
+
+                        ArrayList<Expense> expenseSortedList = wallet.getExpenseList().sortByDate();
+                        System.out.println(MESSAGE_LIST_EXPENSES);
+                        Ui.printExpenseTable(expenseSortedList);
+                    } else {
+                        System.out.println(MESSAGE_LIST_ALL_SORT);
+                    }
+                } else {
+                    System.out.println(MESSAGE_USAGE);
+                }
+            }
+        } else if (record.equals("contact")) {
+            //@@author Xdecosee
+            System.out.println(MESSAGE_LIST_CONTACTS);
+            ArrayList<Contact> contactList = wallet.getContactList().getContactList();
+            Ui.printContactTable(contactList);
+            //@@author
+        } else if (record.contains("loan")) {
+            if (record.equals("loan")) {
+                //@@author A0171206R
+                ArrayList<Loan> loanList = wallet.getLoanList().getLoanList();
+                Ui.printLoanTable(loanList);
+                //@@author
+            } else {
+                String[] arguments = record.split(" ", 3);
+                if (arguments[1].equals("/sortby")) {
+                    if (arguments[2].equals("date")) {
+                        ArrayList<Loan> loanList = wallet.getLoanList().sortByDate();
+                        Ui.printLoanTable(loanList);
+                    } else if (arguments[2].equals("lend")) {
+                        ArrayList<Loan> loanList = wallet.getLoanList().sortByLend();
+                        Ui.printLoanTable(loanList);
+                    } else if (arguments[2].equals("borrow")) {
+                        ArrayList<Loan> loanList = wallet.getLoanList().sortByBorrow();
+                        Ui.printLoanTable(loanList);
+                    } else {
+                        System.out.println(MESSAGE_LOANS_SORT);
+                    }
+                } else {
+                    System.out.println(MESSAGE_USAGE);
+                }
+            }
+        } else if (record.contains("expense")) {
+            if (record.equals("expense")) {
+                ArrayList<Expense> expenseList = wallet.getExpenseList().getExpenseList();
+                System.out.println(MESSAGE_LIST_EXPENSES);
+                Ui.printExpenseTable(expenseList);
+            } else {
+                String[] arguments = record.split(" ", 3);
+                if (arguments[1].equals("/sortby")) {
+                    if (arguments[2].equals("date")) {
+                        ArrayList<Expense> expenseList = wallet.getExpenseList().sortByDate();
+                        System.out.println(MESSAGE_LIST_EXPENSES);
+                        Ui.printExpenseTable(expenseList);
+                    } else if (arguments[2].equals("category")) {
+                        ArrayList<Expense> expenseList = wallet.getExpenseList().sortByCategory();
+                        System.out.println(MESSAGE_LIST_EXPENSES);
+                        Ui.printExpenseTable(expenseList);
+                    } else {
+                        System.out.println(MESSAGE_EXPENSE_SORT);
+                    }
+                } else {
+                    System.out.println(MESSAGE_USAGE);
+                }
+            }
+        } else {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            LocalDate date = LocalDate.parse(record.trim(), formatter);
+
+            ArrayList<Expense> expensesList = new ArrayList<Expense>();
+            ArrayList<Loan> loansList = new ArrayList<>();
+
+            if (date != null) {
+                if (wallet.getExpenseList().getExpenseList().size() != 0
+                        || wallet.getLoanList().getLoanList().size() != 0) {
+                    if (wallet.getExpenseList().getExpenseList().size() != 0) {
+                        for (Expense e : wallet.getExpenseList().getExpenseList()) {
+                            if (e.getDate().equals(date)) {
+                                expensesList.add(e);
+                            }
+                        }
+
+                        if (expensesList.size() != 0) {
+                            Ui.printExpenseTable(expensesList);
+                        } else {
+                            System.out.println(MESSAGE_LIST_NO_EXPENSES
+                                    + date.getDayOfMonth() + " "
+                                    + new DateFormatSymbols().getMonths()[date.getMonthValue() - 1]
+                                    + " " + date.getYear());
+                        }
+                    }
+
+                    if (wallet.getLoanList().getLoanList().size() != 0) {
+                        for (Loan l : wallet.getLoanList().getLoanList()) {
+                            if (l.getDate().equals(date)) {
+                                loansList.add(l);
+                            }
+                        }
+
+                        if (loansList.size() != 0) {
+                            Ui.printLoanTable(loansList);
+                        } else {
+                            System.out.println(MESSAGE_LIST_NO_LOANS
+                                    + date.getDayOfMonth() + " "
+                                    + new DateFormatSymbols().getMonths()[date.getMonthValue() - 1]
+                                    + " " + date.getYear());
+                        }
+                    }
+                }
+            } else {
+                System.out.println(MESSAGE_USAGE);
+            }
+            //@@author
         }
         return false;
     }
