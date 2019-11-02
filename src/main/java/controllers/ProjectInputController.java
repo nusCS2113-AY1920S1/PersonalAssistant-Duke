@@ -340,18 +340,24 @@ public class ProjectInputController implements IController {
     public String[] projectEditTaskRequirements(Project projectToManage, String projectCommand) {
         ArchDukeLogger.logDebug(ProjectInputController.class.getName(),
                 "[projectEditTaskRequirements] User input: '" + projectCommand + "'");
+        if (projectCommand.length() <= 23) {
+            return new String[] {"Task index is missing! Please input index of task to be edited!"};
+        }
         try {
-            int taskIndexNumber = Integer.parseInt(projectCommand.substring(23).split(" ")[0]);
+            int taskIndexNumber = Integer.parseInt(projectCommand.substring(23).trim().split(" ")[0]);
+            if (!projectCommand.contains("-")) {
+                return new String[] {"No flags are found! Please use flags such as '-r' or '-rm' to indicate the new "
+                        + "requirements to be added or removed! Refer to the user guide for more help!"};
+            }
             String updatedTaskRequirements = projectCommand.substring(projectCommand.indexOf("-"));
             if (projectToManage.getNumOfTasks() >= taskIndexNumber && taskIndexNumber > 0) {
-                projectToManage.editTaskRequirements(taskIndexNumber,updatedTaskRequirements);
-                return new String[] {"The requirements of your specified task has been updated!"};
+                return projectToManage.editTaskRequirements(taskIndexNumber,updatedTaskRequirements);
             }
             return new String[] {"The task index entered is invalid."};
         } catch (NumberFormatException e) {
             ArchDukeLogger.logError(ProjectInputController.class.getName(), "[projectEditTaskRequirements] "
                     + "Task index is missing! Please input a proper task index!");
-            return new String[] {"Task index is missing! Please input a proper task index!"};
+            return new String[] {"Task index is invalid! Please input a proper task index!"};
         }
     }
 
