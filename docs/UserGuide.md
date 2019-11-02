@@ -116,7 +116,7 @@ features of the application BetterDuke.
     list CS2100
     Displays the list of tasks in todo
 
-  ##  3.5. Search for specific taskings using keywords:     ​     find    
+  ##  3.5. Search for specific taskings using keywords:     ​     filter  
     Find matching taskings using given keywords.    
     Format     ​: ​filter KEYWORD    
     ● Search is not case sensitive    
