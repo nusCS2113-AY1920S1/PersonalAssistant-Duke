@@ -51,7 +51,7 @@ public class AutoCompleterTest {
     }
 
     @Test
-    public void complete_commandWord_success() {
+    public void complete_existingCommandWord_success() {
         completer.addCommandClass(CommandStub.class);
         Assertions.assertEquals(
             true,
@@ -65,7 +65,7 @@ public class AutoCompleterTest {
     }
 
     /**
-     * Tests single suggestion for a given input.
+     * Tests an input that has only one available suggestion.
      */
     @Test
     public void complete_singleSuggestion_success() {
@@ -80,10 +80,10 @@ public class AutoCompleterTest {
     }
 
     /**
-     * Tests multiple suggestions for a given input and the cyclic behavior.
+     * Tests an input that has more than one available suggestion.
      */
     @Test
-    public void complete_multipleSuggestion_success() {
+    public void complete_multipleSuggestions_success() {
         completer.addCommandClass(CommandStub.class);
         Assertions.assertEquals(
             true,
@@ -94,7 +94,7 @@ public class AutoCompleterTest {
         Assertions.assertEquals("Stub stub -cc", completer.complete().userInputString);
         Assertions.assertEquals("Stub stub -aa", completer.complete().userInputString);
 
-        //Test the cyclic behavior
+        //Cyclic
         Assertions.assertEquals("Stub stub -bb", completer.complete().userInputString);
 
     }
@@ -113,7 +113,7 @@ public class AutoCompleterTest {
     }
 
 
-    //======== UserInputState class test =========
+    //============ UserInputState class test =============
     /*
      * Equivalent partitions (EP) for the constructor method:
      * EP for userInput string:
@@ -131,7 +131,7 @@ public class AutoCompleterTest {
      * 3.   not null   |   negative number
      * 4.   not null   |   larger than userInput.length()
      *
-     * Applying boundary value analysis, we get 4 more:
+     * Applying boundary value analysis, we have 4 more:
      * 5.   not null   |   0
      * 6.   not null   |   -1
      * 7.   length n   |   n
@@ -185,7 +185,7 @@ public class AutoCompleterTest {
     }
 
     /**
-     * A stub for command.
+     * A stub for {@code Command}.
      */
     public static class CommandStub extends Command {
         public static final String COMMAND_WORD = "Stub";

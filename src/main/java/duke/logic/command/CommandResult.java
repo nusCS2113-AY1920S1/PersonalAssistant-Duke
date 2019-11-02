@@ -7,6 +7,16 @@ import static java.util.Objects.requireNonNull;
  * Represents the result of a command execution.
  */
 public class CommandResult {
+    public CommandResult(boolean isExiting) {
+
+        //Dummy values to word around the field not declared exception.
+        this("", DisplayedPage.ORDER, true);
+
+        if (isExiting) {
+            exit();
+        }
+    }
+
     /**
      * Constructs a {@code CommandResult}.
      *
@@ -31,14 +41,8 @@ public class CommandResult {
         this(feedbackToUser, DisplayedPage.SAME, false);
     }
 
-    public CommandResult(boolean isExiting) {
-
-        //Dummy values to word around the field not declared exception.
-        this("", DisplayedPage.ORDER, true);
-
-        if (isExiting) {
-            Runtime.getRuntime().exit(0);
-        }
+    private void exit() {
+        Runtime.getRuntime().exit(0);
     }
 
     public String getFeedbackToUser() {
@@ -48,17 +52,6 @@ public class CommandResult {
     public DisplayedPage getDisplayedPage() {
         return displayedPage;
     }
-
-    private void exit() {
-        System.exit(0);
-    }
-
-    private final String feedbackToUser;
-
-    /**
-     * The page that should be displayed to the user.
-     */
-    private final DisplayedPage displayedPage;
 
     /**
      * The page shown to the user.
@@ -71,6 +64,14 @@ public class CommandResult {
         SALE,
         SAME
     }
+
+    private final String feedbackToUser;
+
+    /**
+     * The page that should be displayed to the user.
+     */
+    private final DisplayedPage displayedPage;
+
 
 
 
