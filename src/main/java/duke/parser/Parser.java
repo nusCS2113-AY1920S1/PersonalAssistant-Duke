@@ -31,6 +31,7 @@ import duke.command.UpdateCommand;
 
 
 import duke.dukeexception.DukeException;
+import duke.enums.ErrorMessages;
 import duke.enums.Numbers;
 import duke.task.TaskList;
 import duke.task.Todo;
@@ -102,24 +103,26 @@ public class Parser {
         String taskDesc = "";
         String dateDesc = "";
         boolean getDate = false;
-        if (sentence.equals("list")) {
+        if (sentence.trim().isEmpty()) {
+            throw new DukeException(ErrorMessages.UNKNOWN_COMMAND.message);
+        } else if (sentence.equals("list")) {
             return new ListCommand();
         } else if (sentence.equals("priority")) {
             return new ListPriorityCommand();
         } else if (arr.length > Numbers.ZERO.value && (arr[Numbers.ZERO.value].equals("done")
                 || arr[Numbers.ZERO.value].equals("delete") || arr[Numbers.ZERO.value].equals("del"))) {
             if (arr.length == Numbers.ONE.value) {
-                throw new DukeException("     (>_<) OOPS!!! The task number cannot be empty.");
+                throw new DukeException(ErrorMessages.TASKNUM_IS_EMPTY.message);
             } else {
                 int tasknum;
                 try {
                     tasknum = Integer.parseInt(arr[Numbers.ONE.value]) - Numbers.ONE.value;
                 } catch (NumberFormatException e) {
-                    logr.log(Level.WARNING,"The task number must be an integer");
-                    throw new  DukeException("     (>_<) OOPS!!! The task number must be an integer!");
+                    logr.log(Level.WARNING,ErrorMessages.TASKNUM_MUST_BE_INT.message);
+                    throw new  DukeException(ErrorMessages.TASKNUM_MUST_BE_INT.message);
                 }
                 if (tasknum < Numbers.ZERO.value || tasknum >= items.size()) {
-                    throw new DukeException("     (>_<) OOPS!!! Invalid task number.");
+                    throw new DukeException(ErrorMessages.TASKNUM_INVALID_INT.message);
                 } else {
                     if (arr[Numbers.ZERO.value].equals("done")) {
                         if (items.get(tasknum).toString().contains("[A]")) {
@@ -140,38 +143,38 @@ public class Parser {
             } //@@author talesrune
         } else if (arr.length > Numbers.ZERO.value && arr[Numbers.ZERO.value].equals("find")) {
             if (arr.length == Numbers.ONE.value) {
-                throw new DukeException("     (>_<) OOPS!!! The keyword cannot be empty.");
+                throw new DukeException(ErrorMessages.KEYWORD_IS_EMPTY.message);
             } else {
                 if (arr[Numbers.ONE.value].trim().isEmpty()) {
-                    throw new DukeException("     (>_<) OOPS!!! The keyword cannot be empty.");
+                    throw new DukeException(ErrorMessages.KEYWORD_IS_EMPTY.message);
                 } else {
                     return new FindCommand(arr[Numbers.ONE.value]);
                 }
             }
         } else if (arr.length > Numbers.ZERO.value && arr[Numbers.ZERO.value].equals("filter")) {
             if (arr.length == Numbers.ONE.value) {
-                throw new DukeException("     (>_<) OOPS!!! The task's type cannot be empty.");
+                throw new DukeException(ErrorMessages.TASKTYPE_IS_EMPTY.message);
             } else {
                 if (arr[Numbers.ONE.value].trim().isEmpty()) {
-                    throw new DukeException("     (>_<) OOPS!!! The task's type cannot be empty.");
+                    throw new DukeException(ErrorMessages.TASKTYPE_IS_EMPTY.message);
                 } else {
                     return new FilterCommand(arr[Numbers.ONE.value]);
                 }
             }
         } else if (arr.length > Numbers.ZERO.value && arr[Numbers.ZERO.value].equals("notes")) {
             if (arr.length == Numbers.ONE.value) {
-                throw new DukeException("     (>_<) OOPS!!! The task number cannot be empty.");
+                throw new DukeException(ErrorMessages.TASKNUM_IS_EMPTY.message);
             } else {
                 int tasknum;
                 try {
                     tasknum  = Integer.parseInt(arr[Numbers.ONE.value]) - Numbers.ONE.value;
                 } catch (NumberFormatException e) {
-                    logr.log(Level.WARNING,"The task number must be an integer");
-                    throw new DukeException("     (>_<) OOPS!!! The task number must be an integer!");
+                    logr.log(Level.WARNING,ErrorMessages.TASKNUM_MUST_BE_INT.message);
+                    throw new DukeException(ErrorMessages.TASKNUM_MUST_BE_INT.message);
                 }
 
                 if (tasknum < Numbers.ZERO.value || tasknum >= items.size()) {
-                    throw new DukeException("     (>_<) OOPS!!! Invalid task number.");
+                    throw new DukeException(ErrorMessages.TASKNUM_INVALID_INT.message);
                 } else if (arr.length < Numbers.THREE.value) {
                     throw new DukeException("     (>_<) OOPS!!! Insufficient parameters. "
                             + "Format: notes <tasknum> <type> <notes description>");
@@ -224,7 +227,8 @@ public class Parser {
             }
             taskDesc = taskDesc.trim();
             if (taskDesc.isEmpty()) {
-                throw new DukeException("     (>_<) OOPS!!! The description of a todo cannot be empty.");
+                throw new DukeException("     (>_<) OOPS!!! The description of a "
+                        + arr[Numbers.ZERO.value] +  " cannot be empty.");
             } else if (detectDuplicate.isDuplicate(getDescription[Numbers.ZERO.value],
                     getDescription[Numbers.ONE.value])) {
                 return new DuplicateFoundCommand();
@@ -305,10 +309,8 @@ public class Parser {
                     repeatPeriod = repeatSettings.split(repeatTimes + " ")[Numbers.ONE.value];
 
                 } catch (Exception e) {
-                    logr.log(Level.WARNING,"Format is in: repeat <task> /from <date time> "
-                            + "/for <repeat times> <days/weeks>", e);
-                    throw new DukeException("Format is in: repeat <task> /from <date time> "
-                            + "/for <repeat times> <days/weeks>");
+                    logr.log(Level.WARNING, ErrorMessages.REPEAT_FORMAT.message, e);
+                    throw new DukeException(ErrorMessages.REPEAT_FORMAT.message);
                 }
 
                 ArrayList<Task> repeatList = new ArrayList<>();
@@ -366,8 +368,8 @@ public class Parser {
                 try {
                     duration = Integer.parseInt(durDesc.split(" ")[Numbers.ZERO.value].trim());
                 } catch (Exception e) {
-                    logr.log(Level.WARNING,"Format is in: fixedduration <task> /for <duration> <unit>");
-                    throw new DukeException("Format is in: fixedduration <task> /for <duration> <unit>");
+                    logr.log(Level.WARNING, ErrorMessages.FIXEDDURATION_FORMAT.message);
+                    throw new DukeException(ErrorMessages.FIXEDDURATION_FORMAT.message);
                 }
                 String[] durationarr = durDesc.split(" ");
                 if (durationarr.length < 2) {
@@ -376,7 +378,7 @@ public class Parser {
                 }
                 unit = durDesc.split(" ")[Numbers.ONE.value].trim();
                 if (unit.isEmpty() || (!unit.toLowerCase().contains("min") && !unit.toLowerCase().contains("h"))) {
-                    throw new DukeException("Format is in: fixedduration <task> /for <duration> <unit>");
+                    throw new DukeException(ErrorMessages.FIXEDDURATION_FORMAT.message);
                 } else {
                     if (unit.contains("min")) {
                         unit = (duration > Numbers.ONE.value) ? "minutes" : "minute";
@@ -400,17 +402,17 @@ public class Parser {
 
             String[] holder = description.split(" ");
             if (holder.length < Numbers.TWO.value) {
-                throw new DukeException("     (>_<) OOPS!!! Format is in: setpriority <taskNum> <Priority>");
+                throw new DukeException(ErrorMessages.PRIORITY_FORMAT.message);
             } else {
                 try {
                     taskNum = Integer.parseInt(holder[Numbers.ZERO.value].trim());
                 } catch (Exception e) {
-                    logr.log(Level.WARNING,"The task number must be an integer");
-                    throw new DukeException("The task number must be an integer");
+                    logr.log(Level.WARNING,ErrorMessages.TASKNUM_MUST_BE_INT.message);
+                    throw new DukeException(ErrorMessages.TASKNUM_MUST_BE_INT.message);
                 }
 
                 if (taskNum <= Numbers.ZERO.value || taskNum > items.size()) {
-                    throw new DukeException("     (>_<) OOPS!!! Invalid task number.");
+                    throw new DukeException(ErrorMessages.TASKNUM_INVALID_INT.message);
                 }
 
                 try {
@@ -513,11 +515,11 @@ public class Parser {
             }  //@@author talesrune
         } else if (arr.length > Numbers.ZERO.value && (arr[Numbers.ZERO.value].equals("update"))) {
             if (arr.length == Numbers.ONE.value) {
-                throw new DukeException("     (>_<) OOPS!!! The task number cannot be empty.");
+                throw new DukeException(ErrorMessages.TASKNUM_IS_EMPTY.message);
             } else {
                 int tasknum = Integer.parseInt(arr[Numbers.ONE.value]) - Numbers.ONE.value;
                 if (tasknum < Numbers.ZERO.value || tasknum >= items.size()) {
-                    throw new DukeException("     (>_<) OOPS!!! Invalid task number.");
+                    throw new DukeException(ErrorMessages.TASKNUM_INVALID_INT.message);
                 } else if (arr.length < Numbers.FOUR.value) {
                     throw new DukeException("     (>_<) OOPS!!! Insufficient parameters. "
                             + "Format: update <tasknum> <type> <desc or date>");
@@ -589,8 +591,8 @@ public class Parser {
                         contactDetails[Numbers.TWO.value], contactDetails[Numbers.THREE.value]);
                 return new AddContactsCommand(contactObj, contactList);
             } catch (Exception e) {
-                logr.log(Level.WARNING,"Format is in: addcontact <name>, <contact>, <email>, <office>",e);
-                throw new DukeException("Format is in: addcontact <name>, <contact>, <email>, <office>");
+                logr.log(Level.WARNING, ErrorMessages.CONTACT_FORMAT.message, e);
+                throw new DukeException(ErrorMessages.CONTACT_FORMAT.message);
             }
         } else if (sentence.equals("listcontacts") || sentence.equals("lc")) {
             return new ListContactsCommand(contactList);
@@ -612,7 +614,7 @@ public class Parser {
             String[] keyword = sentence.split(" ", Numbers.TWO.value);
             if (arr.length == Numbers.ONE.value || keyword[Numbers.ONE.value].trim().isEmpty()
                     || keyword[Numbers.ONE.value].trim().equals(",")) {
-                throw new DukeException("     (>_<) OOPS!!! The keyword cannot be empty.");
+                throw new DukeException(ErrorMessages.KEYWORD_IS_EMPTY.message);
             } else {
                 return new FindContactCommand(keyword[Numbers.ONE.value].toLowerCase(), contactList);
             }
@@ -662,7 +664,7 @@ public class Parser {
         } else if (sentence.equals("bye") || sentence.equals("exit")) {
             return new ExitCommand();
         } else {
-            throw new DukeException("     (>_<) OoPS!!! I'm sorry, but I don't know what that means :-(");
+            throw new DukeException(ErrorMessages.UNKNOWN_COMMAND.message);
         }
     }
 }
