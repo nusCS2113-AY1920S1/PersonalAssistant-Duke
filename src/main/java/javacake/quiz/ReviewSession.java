@@ -1,7 +1,6 @@
 package javacake.quiz;
 
 import javacake.commands.BackCommand;
-import javacake.commands.Command;
 import javacake.exceptions.CakeException;
 import javacake.Logic;
 import javacake.storage.StorageManager;
