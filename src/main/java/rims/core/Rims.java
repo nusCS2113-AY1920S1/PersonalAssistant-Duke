@@ -30,7 +30,7 @@ public class Rims{
      * @throws ParseException if data is stored in an invalid format and is thus unable to be parsed
      */
     public Rims(String resourceFilePath, String reserveFilePath)
-        throws FileNotFoundException, ParseException, RimsException {
+            throws IOException, ParseException, RimsException {
         ui = new Ui();
         //ui.printArray(getLocalTextFiles());
         //Need to check for proper resourceFile/reserveFile i.e. make sure cannot be any random .txt file

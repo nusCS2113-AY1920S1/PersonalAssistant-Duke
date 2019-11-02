@@ -316,7 +316,7 @@ public class Parser {
                 dateFrom = convertNaturalDate(splitDateFrom[0], splitDateFrom[1]);
             }
             String dateTill = ui.getInput(
-                "Enter the start date in the format: DD/MM/YYYY HHmm, OR in the format: Tuesday HHmm");
+                "Enter the end date in the format: DD/MM/YYYY HHmm, OR in the format: Tuesday HHmm");
             if (dateFrom.length() < 15) {
                 String[] splitDateTill = dateFrom.split(" ");
                 dateTill = convertNaturalDate(splitDateTill[0], splitDateTill[1]);

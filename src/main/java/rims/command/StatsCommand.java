@@ -52,8 +52,8 @@ public class StatsCommand extends Command {
     @Override
     public void execute(Ui ui, Storage storage, ResourceList resources)
             throws ParseException, IOException, RimsException {
-        storage.readResourceFile();
-        resources.setResources(storage.getResources());
+        //storage.readResourceFile();
+        //resources.setResources(storage.getResources());
 
         ui.printLine();
         ui.print("Here are the required stats:");
@@ -121,13 +121,4 @@ public class StatsCommand extends Command {
         return stringToDate(newDate);
     }
 
-    @Override
-    public boolean canModifyData() {
-        return false;
-    }
-
-    @Override
-    public String getCommandUserInput() {
-        return "stats";
-    }
 }

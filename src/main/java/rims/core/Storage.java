@@ -63,6 +63,7 @@ public class Storage {
      * @throws ParseException        when unable to parse an integer for ID or checking if a resource is booked.
      */
     public void readResourceFile() throws FileNotFoundException, ParseException {
+        resources.clear();
         Scanner fileScanner = new Scanner(resourceFile);
         while (fileScanner.hasNextLine()) {
             String[] input = fileScanner.nextLine().split(",");
