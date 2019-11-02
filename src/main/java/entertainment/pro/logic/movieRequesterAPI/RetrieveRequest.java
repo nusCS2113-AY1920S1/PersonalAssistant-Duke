@@ -520,7 +520,7 @@ public class RetrieveRequest implements InfoFetcher {
     }
 
     /**
-     * Responsible for sorting data in alphabetical order from lowest to highest letter
+     * Responsible for sorting the list of search results by their ratings from highly rated to least highly rated.
      */
     private void sortByHighestRating() {
         finalSearchResults.sort(new Comparator<MovieInfoObject>() {
@@ -530,6 +530,9 @@ public class RetrieveRequest implements InfoFetcher {
         });
     }
 
+    /**
+     * Responsible for sorting the list of search results by their release dates from latest to least latest.
+     */
     private void sortByLatestRelease() {
         finalSearchResults.sort(new Comparator<MovieInfoObject>() {
             public int compare(MovieInfoObject v1, MovieInfoObject v2) {
@@ -539,6 +542,9 @@ public class RetrieveRequest implements InfoFetcher {
     }
 
 
+    /**
+     * Responsible for sorting the list of search results in alphabetical order from lowest letter to highest letter.
+     */
     private void sortByAlphaOrder() {
         finalSearchResults.sort(new Comparator<MovieInfoObject>() {
             public int compare(MovieInfoObject v1, MovieInfoObject v2) {
