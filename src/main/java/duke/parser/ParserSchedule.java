@@ -163,7 +163,7 @@ public class ParserSchedule {
                 cliView.trainingScheduleHeading();
                 input = sc.nextInt();
                 switch (input) {
-                    case dailySchedule:
+                case dailySchedule:
                     boolean runDaily = true;
                     while (runDaily) {
                         cliView.dailyScheduleHeading();
@@ -181,17 +181,17 @@ public class ParserSchedule {
                         }
                     }
                     break;
-                    case weeklySchedule:
+                case weeklySchedule:
                     weeklySchedule();
                     break;
-                    case monthlySchedule:
+                case monthlySchedule:
                     monthlySchedule();
                     break;
-                    case back:
+                case back:
                     runSchedule = false;
                     break;
-                    default:
-                        cliView.showDontKnow();
+                default:
+                    cliView.showDontKnow();
                 }
             }
         } catch (InputMismatchException e) {
