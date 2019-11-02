@@ -1,4 +1,5 @@
-booking | zihan | 91520567 | 4 | 12/12/2019 | orders/ prawn pasta, chicken pie
-booking | John | 82738364 | 6 | 1/1/2019 | orders/ chicken rice, fish and chips
-booking | Jack | 94847291 | 2 | 13/5/2019 | orders/ beef pasta
-booking | Alex | 84726384 | 4 | 30/10/2019 | orders/ chicken rice, beef bolognese
+booking | Zihan | 91520567 | 4 | 12/12/2019 | prawn pasta, chicken pie
+booking | John_Lim | 82738364 | 6 | 1/1/2019 | chicken rice, fish and chips
+booking | Jack | 94847291 | 2 | 13/5/2019 | beef pasta
+booking | Alex | 84726384 | 4 | 30/10/2019 | chicken rice, beef bolognese
+booking | james | 8376324 | 4 | 3/3/2019 | steak, rice
