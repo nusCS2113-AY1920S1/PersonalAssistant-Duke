@@ -1,9 +1,9 @@
 package wallet.model.record;
 
-import wallet.logic.command.ListCommand;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 /**
  * The ExpenseList Class that maintains a list of Expense objects.
@@ -130,6 +130,62 @@ public class ExpenseList {
         }
 
         return totalExpenses;
+    }
+
+    /**
+     * Returns a sorted expense list by date.
+     * @return returns a sorted arraylist of expenses
+     */
+    public ArrayList<Expense> sortByDate() {
+        ArrayList<Expense> expenseSortDateList = new ArrayList<>();
+        expenseSortDateList = this.expenseList;
+        Comparator<Expense> comparator = Comparator.comparing(Expense::getDate);
+        Collections.sort(expenseSortDateList, comparator);
+        return expenseSortDateList;
+    }
+
+    /**
+     * Returns a sorted expense list by category.
+     * @return returns a sorted arraylist of expenses
+     */
+    public ArrayList<Expense> sortByCategory() {
+        ArrayList<Expense> expenseSortCategoryList = new ArrayList<>();
+        expenseSortCategoryList = this.expenseList;
+        Comparator<Expense> comparator = Comparator.comparing(Expense::getCategory);
+        Collections.sort(expenseSortCategoryList, comparator);
+        return expenseSortCategoryList;
+    }
+
+    /**
+     * Returns a sorted recurring expense list by date.
+     * @return returns a sorted arraylist of recurring expenses
+     */
+    public ArrayList<Expense> getSortedRecurringExpenseDate() {
+        ArrayList<Expense> recList = new ArrayList<>();
+        for (Expense e : this.expenseList) {
+            if (e.isRecurring()) {
+                recList.add(e);
+            }
+        }
+        Comparator<Expense> comparator = Comparator.comparing(Expense::getDate);
+        Collections.sort(recList, comparator);
+        return recList;
+    }
+
+    /**
+     * Returns a sorted recurring expense list by category.
+     * @return returns a sorted arraylist of recurring expenses
+     */
+    public ArrayList<Expense> getSortedRecurringExpenseCategory() {
+        ArrayList<Expense> recList = new ArrayList<>();
+        for (Expense e : this.expenseList) {
+            if (e.isRecurring()) {
+                recList.add(e);
+            }
+        }
+        Comparator<Expense> comparator = Comparator.comparing(Expense::getCategory);
+        Collections.sort(recList, comparator);
+        return recList;
     }
 
     //@@author kyang96

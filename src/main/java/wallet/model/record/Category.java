@@ -1,11 +1,11 @@
 package wallet.model.record;
 
 public enum Category {
-    FOOD,
-    TRANSPORT,
     BILLS,
+    FOOD,
+    OTHERS,
     SHOPPING,
-    OTHERS;
+    TRANSPORT;
 
     /**
      * Parses string input into corresponding category.
@@ -14,16 +14,16 @@ public enum Category {
      */
     public static Category getCategory(String category) {
         switch (category.toLowerCase()) {
-        case "food":
-            return Category.FOOD;
-        case "transport":
-            return Category.TRANSPORT;
         case "bills":
             return Category.BILLS;
-        case "shopping":
-            return Category.SHOPPING;
+        case "food":
+            return Category.FOOD;
         case "others":
             return Category.OTHERS;
+        case "shopping":
+            return Category.SHOPPING;
+        case "transport":
+            return Category.TRANSPORT;
         default:
             return null;
         }

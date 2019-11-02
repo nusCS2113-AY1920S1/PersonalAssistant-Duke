@@ -2,6 +2,7 @@
 
 package wallet.logic.command;
 
+import wallet.exception.WrongParameterFormat;
 import wallet.logic.LogicManager;
 import wallet.model.Wallet;
 import wallet.model.record.Budget;
@@ -20,8 +21,12 @@ public class ViewCommand extends Command {
     public static final String MESSAGE_VIEW_BUDGET = "This is the budget left for ";
     public static final String MESSAGE_VIEW_STATS = "This is the statistics for ";
     public static final String MESSAGE_STATS_CATEGORY = "These are the expenses for ";
+    public static final String MESSAGE_NICE_TRY_MONTH = "Nice try, but month runs from 1 to 12 :)";
+    public static final String MESSAGE_NICE_TRY_YEAR = "zero or negative years does not exist.";
     public static final String MESSAGE_USAGE = "Error in format for command."
-            + "\nExample: " + COMMAND_WORD + " budget 01/2019";
+            + "\nExample: " + COMMAND_WORD + " budget 01/2019"
+            + "\nExample: " + COMMAND_WORD + " stats"
+            + "\nExample: " + COMMAND_WORD + " stats 01/2019";
 
     public String[] type;
 
@@ -30,46 +35,61 @@ public class ViewCommand extends Command {
     }
 
     @Override
-    public boolean execute(Wallet wallet) {
+    public boolean execute(Wallet wallet) throws NumberFormatException {
         Ui ui = new Ui();
         if (type.length == 2) {
             String[] monthYear = type[1].split("/", 2);
-            int month = Integer.parseInt(monthYear[0].trim());
-            int year = Integer.parseInt(monthYear[1].trim());
-            if (type[0].equals("budget")) {
-                for (Budget b : wallet.getBudgetList().getBudgetList()) {
-                    if (b.getMonth() == month && b.getYear() == year) {
-                        System.out.println(MESSAGE_VIEW_BUDGET
-                                + new DateFormatSymbols().getMonths()[b.getMonth() - 1] + " " + b.getYear());
-                        System.out.println("$" + b.getAmount());
-                        return false;
-                    }
+            try {
+                int month = Integer.parseInt(monthYear[0].trim());
+                if (month <= 0 || month > 12) {
+                    throw new WrongParameterFormat(MESSAGE_NICE_TRY_MONTH);
                 }
-                System.out.println(MESSAGE_EMPTY_BUDGET
-                        +  new DateFormatSymbols().getMonths()[month - 1] + " " + year);
-            } else if (type[0].equals("stats")) {
-                //@@author kyang96
-                HashMap<Category, ArrayList<Expense>> categoryMap
-                        = getCategoryMap(wallet.getExpenseList().getExpenseList(), month, year);
-                System.out.println(MESSAGE_VIEW_STATS + new DateFormatSymbols().getMonths()[month - 1] + " " + year);
-                //double total = wallet.getExpenseList().getMonthExpenses(month, year);
-                //double budget = wallet.getBudgetList().getBudget(month, year);
-                //ui.drawBarChart(total, budget);
-                for (Category category : Category.values()) {
-                    ArrayList<Expense> expenseList = categoryMap.get(category);
-                    if (expenseList != null) {
-                        System.out.println(MESSAGE_STATS_CATEGORY + category);
-                        Ui.printExpenseTable(expenseList);
-                    }
+                int year = Integer.parseInt(monthYear[1].trim());
+                if (year <= 0) {
+                    throw new WrongParameterFormat(MESSAGE_NICE_TRY_YEAR);
                 }
-                //@@author matthewng1996
-                ArrayList<Expense> expenseList = new ArrayList<Expense>();
-                for (Expense e : LogicManager.getWallet().getExpenseList().getExpenseList()) {
-                    if (e.getDate().getMonthValue() == month && e.getDate().getYear() == year) {
-                        expenseList.add(e);
+
+                if (type[0].equals("budget")) {
+                    for (Budget b : wallet.getBudgetList().getBudgetList()) {
+                        if (b.getMonth() == month && b.getYear() == year) {
+                            System.out.println(MESSAGE_VIEW_BUDGET
+                                    + new DateFormatSymbols().getMonths()[b.getMonth() - 1] + " " + b.getYear());
+                            System.out.println("$" + b.getAmount());
+                            return false;
+                        }
                     }
+                    System.out.println(MESSAGE_EMPTY_BUDGET
+                            +  new DateFormatSymbols().getMonths()[month - 1] + " " + year);
+                } else if (type[0].equals("stats")) {
+                    //@@author kyang96
+                    HashMap<Category, ArrayList<Expense>> categoryMap
+                            = getCategoryMap(wallet.getExpenseList().getExpenseList(), month, year);
+                    System.out.println(MESSAGE_VIEW_STATS
+                            + new DateFormatSymbols().getMonths()[month - 1]
+                            + " " + year);
+                    //double total = wallet.getExpenseList().getMonthExpenses(month, year);
+                    //double budget = wallet.getBudgetList().getBudget(month, year);
+                    //ui.drawBarChart(total, budget);
+                    for (Category category : Category.values()) {
+                        ArrayList<Expense> expenseList = categoryMap.get(category);
+                        if (expenseList != null) {
+                            System.out.println(MESSAGE_STATS_CATEGORY + category);
+                            Ui.printExpenseTable(expenseList);
+                        }
+                    }
+                    //@@author matthewng1996
+                    ArrayList<Expense> expenseList = new ArrayList<Expense>();
+                    for (Expense e : LogicManager.getWallet().getExpenseList().getExpenseList()) {
+                        if (e.getDate().getMonthValue() == month && e.getDate().getYear() == year) {
+                            expenseList.add(e);
+                        }
+                    }
+                    ui.drawPieChart(expenseList);
                 }
-                ui.drawPieChart(expenseList);
+            } catch (NumberFormatException err) {
+                throw new WrongParameterFormat("There is an error in your parameters. "
+                        + MESSAGE_NICE_TRY_MONTH + " and "
+                        + MESSAGE_NICE_TRY_YEAR);
             }
         } else if (type.length == 1 && type[0].equals("stats")) {
             ArrayList<Expense> expenseList = wallet.getExpenseList().getExpenseList();

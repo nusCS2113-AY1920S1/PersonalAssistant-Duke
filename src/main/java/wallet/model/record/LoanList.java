@@ -5,6 +5,8 @@ package wallet.model.record;
 import wallet.logic.command.ListCommand;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class LoanList {
     private boolean isModified = false;
@@ -187,4 +189,51 @@ public class LoanList {
         }
         return false;
     }
+
+    //@@author matthewng1996
+
+    /**
+     * Returns all loans sorted by date.
+     * @return returns a sorted Arraylist of loans.
+     */
+    public ArrayList<Loan> sortByDate() {
+        ArrayList<Loan> loanSortedByDate = new ArrayList<>();
+        loanSortedByDate = this.loanList;
+        Comparator<Loan> comparator = Comparator.comparing(Loan::getDate);
+        Collections.sort(loanSortedByDate, comparator);
+        return loanSortedByDate;
+    }
+
+    /**
+     * Returns only loans (lend) sorted by date.
+     * @return returns an arraylist of loans (lend) sorted by date
+     */
+    public ArrayList<Loan> sortByLend() {
+        ArrayList<Loan> loanSortByLend = new ArrayList<>();
+        for (Loan l : this.loanList) {
+            if (l.getIsLend()) {
+                loanSortByLend.add(l);
+            }
+        }
+        Comparator<Loan> comparator = Comparator.comparing(Loan::getDate);
+        Collections.sort(loanSortByLend, comparator);
+        return loanSortByLend;
+    }
+
+    /**
+     * Returns only loans (borrow) sorted by date.
+     * @return returns an arraylist of loans (borrow) sorted by date
+     */
+    public ArrayList<Loan> sortByBorrow() {
+        ArrayList<Loan> loanSortByBorrow = new ArrayList<>();
+        for (Loan l : this.loanList) {
+            if (!l.getIsLend()) {
+                loanSortByBorrow.add(l);
+            }
+        }
+        Comparator<Loan> comparator = Comparator.comparing(Loan::getDate);
+        Collections.sort(loanSortByBorrow, comparator);
+        return loanSortByBorrow;
+    }
+
 }
