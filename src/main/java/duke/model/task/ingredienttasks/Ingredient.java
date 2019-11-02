@@ -42,6 +42,27 @@ public class Ingredient {
         }
     }
 
+    public void deductMass(double ingredientMass) {
+        this.mass -= ingredientMass;
+        System.out.println(this.mass + "left");
+    }
+
+    public void updateQuantity() {
+        switch (this.unit) {
+            case KG:
+            case L:
+                this.quantity = (this.mass/1000);
+                System.out.println(this.quantity + "kg");
+                System.out.println(this.mass + "g");
+            case CUP: this.quantity = (this.mass/237);
+                System.out.println(this.quantity + "cup");
+                System.out.println(this.mass + "g");
+            case TEASPOON: this.quantity = (this.mass/5);
+            case TABLESPOON: this.quantity = (this.mass/13);
+            default: this.quantity = this.mass;
+        }
+    }
+
     public double convertQuantity(double quantity, UnitOfMeasurement newUnit) {
         switch (newUnit) {
             case KG:

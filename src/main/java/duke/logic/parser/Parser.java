@@ -2,10 +2,7 @@ package duke.logic.parser;
 
 import duke.logic.command.Command;
 import duke.logic.command.bookingcommands.*;
-import duke.logic.command.inventorycommands.AddToInventoryCommand;
-import duke.logic.command.inventorycommands.ClearInventoryCommand;
-import duke.logic.command.inventorycommands.DeleteFromInventoryCommand;
-import duke.logic.command.inventorycommands.ListInventoryCommand;
+import duke.logic.command.inventorycommands.*;
 import duke.logic.command.recipecommands.*;
 
 import static duke.common.BookingMessages.*;
@@ -27,6 +24,8 @@ public class Parser {
             return new ListInventoryCommand(input);
         } else if (input.trim().contains(COMMAND_CLEAR_INVENTORY)) {
             return new ClearInventoryCommand(input);
+        } else if (input.trim().contains(COMMAND_USE_RECIPE)) {
+            return new UseRecipeCommand(input);
         } else if (input.trim().contains(COMMAND_ADD_RECIPE)) {
             return new AddRecipeCommand(input);
         } else if (input.trim().contains(COMMAND_DELETE_RECIPE)) {

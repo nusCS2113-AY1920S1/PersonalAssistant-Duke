@@ -1,5 +1,6 @@
 package duke.model.list.recipelist;
 
+import duke.model.task.ingredienttasks.Ingredient;
 import duke.model.task.recipetasks.Recipe;
 
 import java.util.ArrayList;
@@ -76,6 +77,10 @@ public class RecipeList {
         return this.recipeLHM.get(recipeTitle).getViewString();
     }
 
+    public ArrayList<Ingredient> getReqIngredients(String recipeTitle) {
+        Recipe recipe = this.recipeLHM.get(recipeTitle);
+        return recipe.getListOfIngredients();
+    }
     public String viewReqIngredient(String recipeTitle) {
         return this.recipeLHM.get(recipeTitle).getViewReqString();
     }
