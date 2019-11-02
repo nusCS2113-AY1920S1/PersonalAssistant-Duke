@@ -1,25 +1,29 @@
 {
-  "orders": [
-    {
-      "id": 1572570825933,
-      "creationDate": "2019-11-01T01:13:45.933+0000",
-      "name": "customer",
-      "contact": "N/A",
-      "remarks": "N/A",
-      "deliveryDate": "2019-11-01T01:13:43.314+0000",
-      "status": "ACTIVE",
-      "total": 0.0,
-      "items": []
-    }
-  ],
-  "products" : [ ],
+  "orders" : [ {
+    "id" : 1572570825933,
+    "creationDate" : "2019-11-01T01:13:45.933+0000",
+    "name" : "customer",
+    "contact" : "N/A",
+    "remarks" : "N/A",
+    "deliveryDate" : "2019-11-01T01:13:43.314+0000",
+    "status" : "ACTIVE",
+    "total" : 0.0,
+    "items" : [ ]
+  } ],
+  "products" : [ {
+    "productName" : "Small chesse cake",
+    "ingredientItems" : [ ],
+    "ingredientCost" : 0.0,
+    "retailPrice" : 0.0,
+    "status" : "ACTIVE"
+  } ],
   "inventory" : [ {
     "ingredient" : {
-      "name": "D",
+      "name" : "D",
       "unitPrice" : 0.0,
       "remarks" : ""
     },
-    "amount": 7.0
+    "amount" : 7.0
   }, {
     "ingredient" : {
       "name" : "Egg",
