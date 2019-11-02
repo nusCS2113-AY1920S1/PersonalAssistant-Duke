@@ -5,7 +5,7 @@ package duke.commands.assignedtask;
 import duke.commands.Command;
 import duke.exceptions.DukeException;
 import duke.models.tasks.TaskManager;
-import duke.util.Ui;
+import duke.util.DukeUi;
 import duke.models.patients.PatientManager;
 import duke.models.assignedtasks.AssignedTaskWithPeriod;
 import duke.models.assignedtasks.AssignedTask;
@@ -44,7 +44,7 @@ public class AssignPeriodTaskCommand implements Command {
      */
     @Override
     public void execute(AssignedTaskManager assignedTaskManager, TaskManager taskManager, PatientManager patientManager,
-                        Ui ui, StorageManager storageManager) throws DukeException {
+                        DukeUi dukeUi, StorageManager storageManager) throws DukeException {
 
         try {
             if (userInput.length < 4 || userInput[0].charAt(0) != '#' || userInput[1].charAt(0) != '#') {
@@ -67,7 +67,7 @@ public class AssignPeriodTaskCommand implements Command {
             if (!assignedTaskManager.isSameStartEndTimeExist(newAssignedTask)) {
                 assignedTaskManager.addPatientTask(newAssignedTask);
                 storageManager.saveAssignedTasks(assignedTaskManager.getAssignTasks());
-                ui.patientTaskAssigned(newAssignedTask, patientManager.getPatient(pid).getName(),
+                dukeUi.patientTaskAssigned(newAssignedTask, patientManager.getPatient(pid).getName(),
                         taskManager.getTask(tid).getDescription());
             } else {
                 throw new DukeException("A same period task already exists");

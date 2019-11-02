@@ -5,7 +5,7 @@ package duke.commands.assignedtask;
 import duke.commands.Command;
 import duke.exceptions.DukeException;
 import duke.models.tasks.TaskManager;
-import duke.util.Ui;
+import duke.util.DukeUi;
 import duke.models.patients.PatientManager;
 import duke.models.assignedtasks.AssignedTask;
 import duke.models.assignedtasks.AssignedTaskManager;
@@ -65,7 +65,7 @@ public class AssignDeadlineTaskCommand implements Command {
             if (!assignedTaskManager.isSameDeadlineExist(newAssignedTask)) {
                 assignedTaskManager.addPatientTask(newAssignedTask);
                 storageManager.saveAssignedTasks(assignedTaskManager.getAssignTasks());
-                ui.patientTaskAssigned(newAssignedTask, patientManager.getPatient(pid).getName(),
+                dukeUi.patientTaskAssigned(newAssignedTask, patientManager.getPatient(pid).getName(),
                         taskManager.getTask(tid).getDescription());
             } else {
                 throw new DukeException("A same deadline task already exists");

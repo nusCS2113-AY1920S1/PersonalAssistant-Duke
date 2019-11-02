@@ -5,7 +5,7 @@ package duke.commands.patient;
 import duke.commands.Command;
 import duke.exceptions.DukeException;
 import duke.models.tasks.TaskManager;
-import duke.util.Ui;
+import duke.util.DukeUi;
 import duke.models.patients.Patient;
 import duke.models.patients.PatientManager;
 import duke.models.assignedtasks.AssignedTaskManager;
@@ -30,13 +30,13 @@ public class UpdatePatientCommand implements Command {
      * @param patientTask        .
      * @param tasks              .
      * @param patientManager     .
-     * @param ui                 .
+     * @param dukeUi                 .
      * @param storageManager .
      * @throws DukeException .
      */
     @Override
     public void execute(AssignedTaskManager patientTask, TaskManager tasks, PatientManager patientManager,
-                        Ui ui, StorageManager storageManager) throws DukeException {
+                        DukeUi dukeUi, StorageManager storageManager) throws DukeException {
         char firstChar = command[0].charAt(0);
         if (firstChar == '#') {
             int id;
@@ -57,8 +57,8 @@ public class UpdatePatientCommand implements Command {
                 }
 
                 storageManager.savePatients(patientManager.getPatientList());
-                ui.showUpdatedSuccessfully();
-                ui.showPatientInfo(patientToBeUpdated);
+                dukeUi.showUpdatedSuccessfully();
+                dukeUi.showPatientInfo(patientToBeUpdated);
             } catch (Exception e) {
                 throw new DukeException(UpdatePatientCommand.class,
                         "Please follow the format 'update patient :#<id> :<Name/NRIC/Room/Remark> "

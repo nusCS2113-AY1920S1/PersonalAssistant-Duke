@@ -2,7 +2,7 @@ package duke.commands;
 
 import duke.exceptions.DukeException;
 import duke.models.tasks.TaskManager;
-import duke.util.Ui;
+import duke.util.DukeUi;
 import duke.models.patients.PatientManager;
 import duke.models.assignedtasks.AssignedTaskManager;
 import duke.storages.StorageManager;
@@ -20,11 +20,11 @@ public interface Command {
      * @param patientTask    .
      * @param tasks          .
      * @param patientList    .
-     * @param ui             .
+     * @param dukeUi             .
      * @param storageManager .
      * @throws DukeException .
      */
-    void execute(AssignedTaskManager patientTask, TaskManager tasks, PatientManager patientList, Ui ui,
+    void execute(AssignedTaskManager patientTask, TaskManager tasks, PatientManager patientList, DukeUi dukeUi,
                  StorageManager storageManager) throws DukeException;
 
     /**

@@ -9,10 +9,10 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
- * Represents the necessary ui elements for user interaction.
+ * Represents the necessary dukeUi elements for user interaction.
  */
-public class Ui {
-    private static Ui ui;
+public class DukeUi {
+    private static DukeUi dukeUi;
     private Scanner scanner;
     private String dukeResponses = "";
     private String userInput;
@@ -20,13 +20,13 @@ public class Ui {
     /**
      * static method to create instance of Singleton class.
      *
-     * @return Ui
+     * @return DukeUi
      */
-    public static Ui getUi() {
-        if (ui == null) {
-            ui = new Ui();
+    public static DukeUi getDukeUi() {
+        if (dukeUi == null) {
+            dukeUi = new DukeUi();
         }
-        return ui;
+        return dukeUi;
     }
 
     /**
@@ -558,19 +558,19 @@ public class Ui {
 
         if (info.equals("name")) {
             printDukeResponse("Task Name ?");
-            String taskName = ui.readUserInput();
+            String taskName = dukeUi.readUserInput();
             return taskName;
         } else if (info.equals("id")) {
             printDukeResponse("Task ID?");
-            String taskId = "#" + ui.readUserInput();
+            String taskId = "#" + dukeUi.readUserInput();
             return taskId;
         } else if (info.equals("change")) {
             printDukeResponse("What would you like to change??");
-            String change = ui.readUserInput();
+            String change = dukeUi.readUserInput();
             return change;
         } else if (info.equals("changeValue")) {
             printDukeResponse("Change to ?");
-            String changeValue = ui.readUserInput();
+            String changeValue = dukeUi.readUserInput();
             return changeValue;
         } else {
             throw new DukeException("Please provide a proper parameter into getPatient function!");
@@ -590,31 +590,31 @@ public class Ui {
     public String getPatientInfo(String info) throws DukeException {
         if (info.equals("name")) {
             printDukeResponse("Patient Name ?");
-            String patientName = ui.readUserInput();
+            String patientName = dukeUi.readUserInput();
             return patientName;
         } else if (info.equals("id")) {
             printDukeResponse("Patient ID Number ?");
-            String patientId = "#" + ui.readUserInput();
+            String patientId = "#" + dukeUi.readUserInput();
             return patientId;
         } else if (info.equals("nric")) {
             printDukeResponse("NRIC?");
-            String nric = ui.readUserInput();
+            String nric = dukeUi.readUserInput();
             return nric;
         } else if (info.equals("room")) {
             printDukeResponse("Room??");
-            String room = ui.readUserInput();
+            String room = dukeUi.readUserInput();
             return room;
         } else if (info.equals("remark")) {
             printDukeResponse("Remarks?");
-            String remark = ui.readUserInput();
+            String remark = dukeUi.readUserInput();
             return remark;
         } else if (info.equals("change")) {
             printDukeResponse("what would you like to change?");
-            String change = ui.readUserInput();
+            String change = dukeUi.readUserInput();
             return change;
         } else if (info.equals("changeValue")) {
             printDukeResponse("Change to ?");
-            String changeValue = ui.readUserInput();
+            String changeValue = dukeUi.readUserInput();
             return changeValue;
         } else {
             throw new DukeException("Please provide a proper parameter into getPatient function!");
@@ -631,7 +631,7 @@ public class Ui {
     public void showHelpOptions(ArrayList<String> helpOptions) {
         String output = "These are the commands that the user can use, and their respective formats:\n\n";
         for (String command : helpOptions) {
-            output += " - " + command + "\n";
+            output += " - " + command + "\n\n";
         }
         printDukeResponse(output);
     }

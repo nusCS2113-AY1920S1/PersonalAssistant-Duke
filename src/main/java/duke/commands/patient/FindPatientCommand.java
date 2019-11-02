@@ -4,7 +4,7 @@ package duke.commands.patient;
 
 import duke.commands.Command;
 import duke.exceptions.DukeException;
-import duke.util.Ui;
+import duke.util.DukeUi;
 import duke.models.patients.Patient;
 import duke.models.patients.PatientManager;
 import duke.models.assignedtasks.AssignedTaskManager;
@@ -27,13 +27,13 @@ public class FindPatientCommand implements Command {
      * @param patientTask        .
      * @param tasks              .
      * @param patientManager     .
-     * @param ui                 .
+     * @param dukeUi                 .
      * @param storageManager .
      * @throws DukeException .
      */
     @Override
     public void execute(AssignedTaskManager patientTask, TaskManager tasks, PatientManager patientManager,
-                        Ui ui, StorageManager storageManager) throws DukeException {
+                        DukeUi dukeUi, StorageManager storageManager) throws DukeException {
         char firstChar = command.charAt(0);
         if (firstChar == '#') {
             int id;
@@ -44,13 +44,13 @@ public class FindPatientCommand implements Command {
             }
             try {
                 Patient patient = patientManager.getPatient(id);
-                ui.patientsFoundById(patient);
+                dukeUi.patientsFoundById(patient);
             } catch (Exception e) {
                 throw new DukeException(FindPatientCommand.class, "The patient id does not exist.");
             }
         } else {
             ArrayList<Patient> patientsWithSameName = patientManager.getPatientByName(command);
-            ui.patientsFoundByName(patientsWithSameName, command);
+            dukeUi.patientsFoundByName(patientsWithSameName, command);
         }
     }
 

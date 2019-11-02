@@ -5,7 +5,7 @@ package duke.commands.assignedtask;
 import duke.commands.Command;
 import duke.exceptions.DukeException;
 import duke.models.tasks.TaskManager;
-import duke.util.Ui;
+import duke.util.DukeUi;
 import duke.models.patients.PatientManager;
 import duke.models.assignedtasks.AssignedTaskManager;
 import duke.storages.StorageManager;
@@ -53,14 +53,14 @@ public class DeleteAssignedTaskCommand implements Command {
      */
     @Override
     public void execute(AssignedTaskManager assignedTaskManager, TaskManager taskManager,
-                        PatientManager patientManager, Ui ui,
+                        PatientManager patientManager, DukeUi dukeUi,
                         StorageManager storageManager)
         throws DukeException {
 
         try {
             assignedTaskManager.deletePatientTaskByUniqueId(taskUniqueId);
             storageManager.saveAssignedTasks(assignedTaskManager.getAssignTasks());
-            ui.patientTaskDeleted(taskUniqueId);
+            dukeUi.patientTaskDeleted(taskUniqueId);
         } catch (DukeException e) {
             throw new DukeException(e.getMessage());
         }

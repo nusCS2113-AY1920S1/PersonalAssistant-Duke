@@ -14,8 +14,8 @@ checkstyle {
 }
 
 shadowJar {
-    archiveBaseName = "mid"
-    archiveVersion = "v1.3"
+    archiveBaseName = "Dukepital"
+    archiveVersion = "v1.3.2"
     archiveClassifier = null
     archiveAppendix = null
 }
@@ -28,15 +28,24 @@ dependencies {
     compile group: 'org.controlsfx', name: 'controlsfx', version: '11.0.0'
     compile group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.12.1'
     compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.12.1'
+
+    String javaFxVersion = '11.0.1'
+    implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'win'
+    implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'mac'
+    implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'linux'
+    implementation group: 'org.openjfx', name: 'javafx-controls', version: javaFxVersion, classifier: 'win'
+    implementation group: 'org.openjfx', name: 'javafx-controls', version: javaFxVersion, classifier: 'mac'
+    implementation group: 'org.openjfx', name: 'javafx-controls', version: javaFxVersion, classifier: 'linux'
+    implementation group: 'org.openjfx', name: 'javafx-fxml', version: javaFxVersion, classifier: 'win'
+    implementation group: 'org.openjfx', name: 'javafx-fxml', version: javaFxVersion, classifier: 'mac'
+    implementation group: 'org.openjfx', name: 'javafx-fxml', version: javaFxVersion, classifier: 'linux'
+    implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'win'
+    implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'mac'
+    implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'linux'
 }
 
 test {
     useJUnitPlatform()
-}
-
-javafx {
-    version = "11.0.2"
-    modules = [ 'javafx.controls', 'javafx.fxml' ]
 }
 
 repositories {
@@ -46,7 +55,7 @@ repositories {
 application {
     // Change this to your main class.
 //    mainClassName = "duke/Duke"
-    mainClassName = "duke/Launcher"
+    mainClassName = "duke.Launcher"
 }
 
 run {
