@@ -1,4 +1,4 @@
-package duke.storage;
+package duke.commons.file;
 
 import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;

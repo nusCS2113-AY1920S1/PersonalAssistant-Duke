@@ -6,6 +6,7 @@ import duke.commons.exceptions.DukeException;
 import duke.commons.file.FilePathNames;
 import duke.commons.file.FilePaths;
 import duke.commons.file.FileUtil;
+import duke.commons.file.LocalDateAdapter;
 import duke.model.Goal;
 import duke.model.meal.MealList;
 import duke.model.user.User;
