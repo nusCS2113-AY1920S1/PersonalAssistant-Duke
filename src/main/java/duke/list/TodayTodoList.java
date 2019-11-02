@@ -3,6 +3,7 @@ package duke.list;
 import duke.exception.DukeException;
 import duke.order.Order;
 
+import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -57,11 +58,14 @@ public class TodayTodoList {
     }
 
     public String toString() {
-        String output="\t Task list";
+        Date date = new Date();
+        String output="\t Today Task list ("+date+")";
+        int cnt=0;
         for (Map.Entry<String, Integer> entry : tasks.entrySet()) {
+            cnt++;
             String dishName = entry.getKey();
             int amount = entry.getValue();
-            output+="\n\t "+dishName+" (amount: "+amount+") ";
+            output+="\n\t "+ cnt+". "+dishName+" (amount: "+amount+") ";
         }
         return output;
     }

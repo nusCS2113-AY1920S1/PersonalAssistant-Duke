@@ -14,9 +14,7 @@ public class ViewTodoListCommand extends Command<Order> {
 
     @Override
     public void execute(GenericList<Order> orderList, Ui ui, Storage storage) throws DukeException {
-        ui.showLine();
         String info = ((OrderList)orderList).todoListToString();
         System.out.println(info);
-        ui.showLine();
     }
 }

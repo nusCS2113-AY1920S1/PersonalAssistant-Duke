@@ -35,12 +35,15 @@ public class OrderStorage extends Storage<Order> {
             if (words[0].equals("1")) tmpOrder.markAsDone();
             String[] dishes = words[2].split("D\\|");
             for (String d: dishes) {
-                String[] nameAndAmount = d.split("\\|",2);
-                if (nameAndAmount.length==1) tmpOrder.addDish(nameAndAmount[0],1);
+                if (d=="") continue;
+                String[] nameAndAmount = d.split("\\|",3);
+                if (nameAndAmount.length==1) continue;
                 else {
-                    try{
-                        tmpOrder.addDish(nameAndAmount[0],Integer.parseInt(nameAndAmount[1]));
-                    }catch (NumberFormatException e) {e.getStackTrace();}
+                    try {
+                        tmpOrder.addDish(nameAndAmount[0], Integer.parseInt(nameAndAmount[1]));
+                    } catch (NumberFormatException e) {
+                        e.getStackTrace();
+                    }
                 }
             }
             entries.addEntry(tmpOrder);
