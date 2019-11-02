@@ -99,9 +99,8 @@ public class Parser {
             c = new ListCommand();
         //@@author aarushisingh1
         } else if (words[0].equals("list") && words.length > 1) {
-            String paramType = words[1].substring(1);
-            if (paramType.equals("room") || paramType.equals("item") || paramType.equals("date")) {
-
+            String paramType = words[1];
+            if (paramType.equals("room") || paramType.equals("item")) {
                 String param = ui.getInput("Enter the name of the resource you'd like to view a detailed list of:");
                 c = new ListCommand(paramType, param);
             } else if (paramType.equals("date")) {
@@ -142,7 +141,6 @@ public class Parser {
             }
         } else if (words[0].equals("loan")) {
             String roomOrItem = ui.getInput("Would you like to loan an item or room from the inventory?");
-            ui.printLine();
             if (roomOrItem.equals("room")) {
                 String roomName = ui.getInput("Enter the name of the room you wish to loan:");
                 // printing out existing room bookings
@@ -170,7 +168,6 @@ public class Parser {
                 c = new ReserveCommand(roomName, dateTill, userId);
             } else if (roomOrItem.equals("item")) {
                 String itemName = ui.getInput("Enter the name of the item you wish to loan:");
-                ui.printLine();
                 if (!resources.isItem(itemName)) {
                     throw new RimsException("There is no such item!");
                 }
@@ -205,7 +202,6 @@ public class Parser {
             }
         } else if (words[0].equals("reserve")) {
             String roomOrItem = ui.getInput("Would you like to reserve an item or room from the inventory?");
-            ui.printLine();
             if (roomOrItem.equals("room")) {
                 String roomName = ui.getInput("Enter the name of the room you wish to reserve:");
                 // printing out existing room bookings
@@ -239,7 +235,6 @@ public class Parser {
                 c = new ReserveCommand(roomName, dateFrom, dateTill, userId);
             } else if (roomOrItem.equals("item")) {
                 String itemName = ui.getInput("Enter the name of the item you wish to reserve:");
-                ui.printLine();
                 if (!resources.isItem(itemName)) {
                     throw new RimsException("There is no such item!");
                 }
