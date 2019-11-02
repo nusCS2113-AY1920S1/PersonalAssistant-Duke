@@ -7,6 +7,10 @@ import duke.order.Order;
 import duke.storage.Storage;
 import duke.ui.Ui;
 
+/**
+ * Represents a specific {@link Cmd} used to clear all the {@link Order}s in the order list.
+ *
+ */
 public class InitOrderListCommand extends Cmd<Order> {
 
     public InitOrderListCommand() {
