@@ -162,7 +162,7 @@ public class CommandParser {
     /**
      * Tokenize the user input into an argument array.
      *
-     * @param input User input.
+     * @param input              User input.
      * @param argumentDelimiters Specific delimiters for the command to be tokenized.
      * @return ArrayList of tokenized user input.
      */

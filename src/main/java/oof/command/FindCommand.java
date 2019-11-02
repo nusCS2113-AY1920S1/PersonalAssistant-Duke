@@ -28,15 +28,13 @@ public class FindCommand extends Command {
     }
 
     /**
-     * Finds the Tasks that contain the keyword(s) specified
-     * by the user after processing the Command.
-     * Displays the Tasks found after collating them.
+     * Finds the Tasks that contain the keyword(s) specified.
      *
-     * @param semesterList Instance of SemesterList that stores Semester objects.
-     * @param taskList     Instance of TaskList that stores Task objects.
-     * @param ui           Instance of Ui that is responsible for visual feedback.
-     * @param storageManager      Instance of Storage that enables the reading and writing of Task
-     *                     objects to hard disk.
+     * @param semesterList   Instance of SemesterList that stores Semester objects.
+     * @param taskList       Instance of TaskList that stores Task objects.
+     * @param ui             Instance of Ui that is responsible for visual feedback.
+     * @param storageManager Instance of Storage that enables the reading and writing of Task
+     *                       objects to hard disk.
      * @throws OofException if user input invalid commands.
      */
     public void execute(SemesterList semesterList, TaskList taskList, Ui ui, StorageManager storageManager)
@@ -48,8 +46,11 @@ public class FindCommand extends Command {
         ArrayList<Task> matchedTasks = new ArrayList<>();
         for (int i = 0; i < taskList.getSize(); i++) {
             for (int j = 0; j < lineSplit.length; j++) {
-                if (taskList.getTask(i).getDescription().contains(lineSplit[j].trim())) {
-                    matchedTasks.add(taskList.getTask(i));
+                Task task = taskList.getTask(i);
+                String description = task.getDescription();
+                String keyword = lineSplit[j].trim();
+                if (description.contains(keyword)) {
+                    matchedTasks.add(task);
                 }
             }
         }

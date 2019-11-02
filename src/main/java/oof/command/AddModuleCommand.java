@@ -29,6 +29,16 @@ public class AddModuleCommand extends Command {
         this.arguments = arguments;
     }
 
+    /**
+     * Adds a module to semester.
+     *
+     * @param semesterList   Instance of SemesterList that stores Semester objects.
+     * @param tasks          Instance of TaskList that stores Task objects.
+     * @param ui             Instance of Ui that is responsible for visual feedback.
+     * @param storageManager Instance of Storage that enables the reading and writing of Task
+     *                       objects to hard disk.
+     * @throws OofException if user input invalid commands.
+     */
     @Override
     public void execute(SemesterList semesterList, TaskList tasks, Ui ui, StorageManager storageManager)
             throws OofException {

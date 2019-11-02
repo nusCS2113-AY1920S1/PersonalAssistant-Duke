@@ -45,4 +45,5 @@ DEADLINE||N||homework||20-10-2019||23:59||||||
 TODO||N||borrow another book||14-10-2019||||||||
 EVENT||N||lecture||08-11-2019||10:00||08-11-2019||12:00||
 TODO||N||borrow another book||31-12-2019||||||||
-TODO||N||borrow another book||31-12-2019||||||||
+TODO||N||borrow another book||07-01-2020||||||||
+TODO||N||borrow another book||07-02-2020||||||||
