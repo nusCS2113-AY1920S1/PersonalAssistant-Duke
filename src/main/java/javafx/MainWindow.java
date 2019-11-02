@@ -40,6 +40,10 @@ public class MainWindow extends AnchorPane {
     private TextField userInput;
     @FXML
     private Button sendButton;
+    @FXML
+    private Label diffDegreeLabel1;
+    @FXML
+    private Label diffDegreeLabel2;
 
     @FXML
     private TableView<TaskFX> taskView;
@@ -48,7 +52,9 @@ public class MainWindow extends AnchorPane {
     @FXML
     private TableView<DegreesFX> degreesView;
     @FXML
-    private TableView<DiffFX> diffView;
+    private TableView<DiffFX> diffView1;
+    @FXML
+    private TableView<DiffFX> diffView2;
     @FXML
     private TableView<SimiFX> simiView;
 
@@ -80,7 +86,8 @@ public class MainWindow extends AnchorPane {
     private ObservableList<TaskFX> dataTask;
     private ObservableList<ChoicesFX> dataChoices;
     private ObservableList<DegreesFX> dataDegrees;
-    private ObservableList<DiffFX> dataDiff;
+    private ObservableList<DiffFX> dataDiff1;
+    private ObservableList<DiffFX> dataDiff2;
     private ObservableList<SimiFX> dataSimi;
 
 
@@ -241,11 +248,11 @@ public class MainWindow extends AnchorPane {
             if (command.matches("detail") && (!typoFlag) && (degreeFoundFlag)) {
                 this.dataDegrees = degreesView.getItems();
                 tabPane.getSelectionModel().select(tabDegrees);
-                //tabDegrees.setText("hi"); use these to change the degree tab name
-                this.dataDegrees.clear();
 
                 if (temp.hasNext()) {
+                    this.dataDegrees.clear();
                     String degreeName = temp.next();
+                    tabDegrees.setText("Degree Information: " + this.degreeManager.getFullDegreeName(degreeName)); //use these to change the degree tab name
 
                     List<Module> moduleList = new ArrayList<>(this.degreeManager.getModuleList(degreeName).getModules());
                     moduleList.add(new NonDescriptive("General Education Modules", 20));
@@ -277,6 +284,100 @@ public class MainWindow extends AnchorPane {
                         } else if (mod.getClass() == ConjunctiveModule.class) {
                             this.dataDegrees.add(new DegreesFX(countString, mod.getCode(), mod.getFullModuleName(),
                                     mcString));
+                        }
+                    }
+                }
+            } else if (command.matches("compare") && (!typoFlag) && (degreeFoundFlag)) {
+                this.dataDiff1 = diffView1.getItems();
+                this.dataDiff2 = diffView2.getItems();
+                this.dataSimi = simiView.getItems();
+                tabPane.getSelectionModel().select(tabDiff);
+
+
+                if (temp.hasNext()) {
+                    dataDiff1.clear();
+                    dataDiff2.clear();
+                    dataSimi.clear();
+
+                    String[] split = temp.nextLine().split("\\s+");
+                    String degreeName1 = split[1];
+                    String degreeName2 = split[2];
+
+                    ModuleList ModuleList1 = this.degreeManager.getModuleList(degreeName1);
+                    ModuleList ModuleList2 = this.degreeManager.getModuleList(degreeName2);
+                    ModuleList diffModuleList2 = this.degreeManager.getModuleList(degreeName2).getDifference(ModuleList1);
+                    ModuleList diffModuleList1 = this.degreeManager.getModuleList(degreeName1).getDifference(ModuleList2);
+                    ModuleList simiModuleList = this.degreeManager.getModuleList(degreeName2).getSimilar(ModuleList1);
+
+                    List<Module> diffModuleData1 = new ArrayList<>(diffModuleList1.getModules());
+                    List<Module> diffModuleData2 = new ArrayList<>(diffModuleList2.getModules());
+                    List<Module> simiModuleData = new ArrayList<>(simiModuleList.getModules());
+                    simiModuleData.add(new NonDescriptive("General Education Modules", 20));
+
+                    Collections.sort(diffModuleData1);
+                    Collections.sort(diffModuleData2);
+                    Collections.sort(simiModuleData);
+
+                    diffDegreeLabel1.setText(this.degreeManager.getFullDegreeName(degreeName1));
+                    diffDegreeLabel2.setText(this.degreeManager.getFullDegreeName(degreeName2));
+
+                    //For similar modules
+                    for(Module mod: simiModuleData) {
+                        String mcString = Integer.toString(mod.getMc());
+
+                        if (mcString.length() == 1) {
+                            mcString = "0" + mcString;
+                        }
+
+                        //for standard modules
+                        if (mod.getClass() == Module.class) {
+                            this.dataSimi.add(new SimiFX(mod.getCode(), mod.getName(),
+                                    mcString));
+                        } else if (mod.getClass() == NonDescriptive.class) {
+                            //Non descriptive class has no module code, but the moduleCode property contains the name
+                            this.dataSimi.add(new SimiFX("-", mod.getCode(),
+                                    mcString));
+                        } else if (mod.getClass() == ConjunctiveModule.class) {
+                            this.dataSimi.add(new SimiFX(mod.getCode(), mod.getFullModuleName(),
+                                    mcString));
+                        }
+                    }
+
+                    //For first module differs
+                    for(Module mod: diffModuleData1) {
+                        String mcString = Integer.toString(mod.getMc());
+
+                        if (mcString.length() == 1) {
+                            mcString = "0" + mcString;
+                        }
+
+                        //for standard modules
+                        if (mod.getClass() == Module.class) {
+                            this.dataDiff1.add(new DiffFX(mod.getCode(), mod.getName(),mcString));
+                        } else if (mod.getClass() == NonDescriptive.class) {
+                            //Non descriptive class has no module code, but the moduleCode property contains the name
+                            this.dataDiff1.add(new DiffFX("-", mod.getCode(), mcString));
+                        } else if (mod.getClass() == ConjunctiveModule.class) {
+                            this.dataDiff1.add(new DiffFX(mod.getCode(), mod.getFullModuleName(), mcString));
+                        }
+                    }
+
+                    //For second module differs
+                    for(Module mod: diffModuleData2) {
+                        String mcString = Integer.toString(mod.getMc());
+
+                        if (mcString.length() == 1) {
+                            mcString = "0" + mcString;
+                        }
+
+                        //for standard modules
+                        if (mod.getClass() == Module.class) {
+                            this.dataDiff2.add(new DiffFX(mod.getCode(), mod.getName(),mcString));
+                        } else if (mod.getClass() == NonDescriptive.class) {
+                            //Non descriptive class has no module code, but the moduleCode property contains the name
+                            this.dataDiff2.add(new DiffFX("-", mod.getCode(), mcString));
+                        } else if (mod.getClass() == ConjunctiveModule.class) {
+                            this.dataDiff2.add(new DiffFX(mod.getCode(), mod.getFullModuleName(), mcString));
                         }
                     }
                 }

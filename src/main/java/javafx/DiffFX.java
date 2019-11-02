@@ -16,36 +16,26 @@ public class DiffFX {
     private final SimpleStringProperty moduleCode1 = new SimpleStringProperty("");
     private final SimpleStringProperty moduleName1 = new SimpleStringProperty("");
     private final SimpleStringProperty moduleCredit1 = new SimpleStringProperty("");
-    private final SimpleStringProperty moduleCode2 = new SimpleStringProperty("");
-    private final SimpleStringProperty moduleName2 = new SimpleStringProperty("");
-    private final SimpleStringProperty moduleCredit2 = new SimpleStringProperty("");
 
     /**
      * Empty constructor.
      */
     public DiffFX() {
-        this("", "", "", "", "", "");
+        this("", "", "");
     }
 
     /**
      * Constructor for this DiffFX object.
-     * It takes in 3 parameters from 2 modules at the same time, and displays both side by side.
+     * It takes in 3 parameters from 1 module, and is used to display side by side another module with 3 parameters
      *
      * @param moduleCode1 The module code of the first module.
      * @param moduleName1 The name of the first module.
      * @param moduleCredit1 The number of credits the first module has.
-     * @param moduleCode2 The module code of the second module.
-     * @param moduleName2 The name of the second module.
-     * @param moduleCredit2 The number of credits the second module has.
      */
-    public DiffFX(String moduleCode1, String moduleName1, String moduleCredit1,
-                  String moduleCode2, String moduleName2, String moduleCredit2) {
+    public DiffFX(String moduleCode1, String moduleName1, String moduleCredit1) {
         setModuleCode1(moduleCode1);
         setModuleName1(moduleName1);
         setModuleCredit1(moduleCredit1);
-        setModuleCode2(moduleCode2);
-        setModuleName2(moduleName2);
-        setModuleCredit2(moduleCredit2);
     }
 
     /**
@@ -104,63 +94,4 @@ public class DiffFX {
     public void setModuleName1(String input) {
         moduleName1.set(input);
     }
-
-    /**
-     * Returns the module code of the second module.
-     * Required to be used by tableview.
-     *
-     * @return The module code of the second module as a string.
-     */
-    public String getModuleCode2() {
-        return moduleCode2.get();
-    }
-
-    /**
-     * Sets the module code of this second module in this DegreesFX object
-     *
-     * @param input The module code of the second module as a string, used in the constructor.
-     */
-    public void setModuleCode2(String input) {
-        moduleCode2.set(input);
-    }
-
-    /**
-     * Returns the modular credits of the second module.
-     * Required to be used by tableview.
-     *
-     * @return The modular credits of the second module as a string.
-     */
-    public String getModuleCredit2() {
-        return moduleCredit2.get();
-    }
-
-    /**
-     * Sets the modular credit of the second module of this DegreesFX object
-     *
-     * @param input The modular credit of the second module as a string, used in the constructor.
-     */
-    public void setModuleCredit2(String input) {
-        moduleCredit2.set(input);
-    }
-
-    /**
-     * Returns the name of the second module.
-     * Required to be used by tableview.
-     *
-     * @return The name of the second module as a string.
-     */
-    public String getModuleName2() {
-        return moduleName2.get();
-    }
-
-    /**
-     * Sets the name of the second module of this DegreesFX object
-     *
-     * @param input The name of the second module as a string, used in the constructor.
-     */
-    public void setModuleName2(String input) {
-        moduleName2.set(input);
-    }
-
-
 }

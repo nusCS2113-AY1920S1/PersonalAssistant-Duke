@@ -138,6 +138,15 @@ public class DegreeManager {
     }
 
     /**
+     * Method to return the full name of a degree course to check if a degree exists.
+     *
+     * @return String full name of the course/degree
+     */
+    public String getFullDegreeName(String degree) {
+        return degreeInfo.get(degree).getProperName();
+    }
+
+    /**
      * Method to return a flag to check if a degree exists.
      *
      * @return boolean check for existence of a degree.
