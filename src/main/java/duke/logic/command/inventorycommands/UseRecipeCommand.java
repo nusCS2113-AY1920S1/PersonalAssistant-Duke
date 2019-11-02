@@ -19,14 +19,20 @@ public class UseRecipeCommand extends Command<InventoryList, RecipeList, Invento
     }
 
     public ArrayList<String> execute(InventoryList inventoryList, RecipeList recipeList, InventoryStorage inventoryStorage) {
+
         ArrayList<String> arrayList = new ArrayList<>();
+
         if (userInput.trim().equals(COMMAND_USE_RECIPE)) {
             arrayList.add(ERROR_MESSAGE_GENERAL + MESSAGE_FOLLOWUP_NUll);
-        } else if (userInput.trim().charAt(9) == ' ') {
+        }
+
+        else if (userInput.trim().charAt(9) == ' ') {
             String recipeTitle = userInput.split("\\s",2)[1].trim();
+
             if (!recipeList.containsRecipe(recipeTitle)) {
                 arrayList.add(ERROR_MESSAGE_RECIPE_DOES_NOT_EXIST);
-            } else {
+            }
+            else {
                 // retrieve a list of the required ingredients
                 // for every ingredient in the required ingredient list, get the ingredient name
                 // check the ingredient name against the inventory, if can minus, minus.

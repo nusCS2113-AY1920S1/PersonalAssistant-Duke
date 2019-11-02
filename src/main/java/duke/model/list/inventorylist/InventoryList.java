@@ -54,8 +54,16 @@ public class InventoryList {
                     isRemoved = false;
                     break;
                 } else {
+                    System.out.println(inventoryIngredient.getMass());
                     deductMass(ingredientMass, inventoryIngredient);
+                    System.out.println(inventoryIngredient.getMass());
+
+                    System.out.println(inventoryIngredient.getQuantity());
+                    System.out.println(inventoryIngredient.getUnit());
                     updateQuantity(inventoryIngredient);
+                    System.out.println(inventoryIngredient.getQuantity());
+                    System.out.println(inventoryIngredient.getUnit());
+                    System.out.println(inventoryIngredient.getMass());
                 }
             }
             return isRemoved;

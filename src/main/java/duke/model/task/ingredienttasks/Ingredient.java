@@ -51,14 +51,14 @@ public class Ingredient {
         switch (this.unit) {
             case KG:
             case L:
-                this.quantity = (this.mass/1000);
-                System.out.println(this.quantity + "kg");
-                System.out.println(this.mass + "g");
-            case CUP: this.quantity = (this.mass/237);
-                System.out.println(this.quantity + "cup");
-                System.out.println(this.mass + "g");
-            case TEASPOON: this.quantity = (this.mass/5);
-            case TABLESPOON: this.quantity = (this.mass/13);
+                this.quantity = (this.mass/1000.0);
+                break;
+            case CUP: this.quantity = (this.mass/237.0);
+            break;
+            case TEASPOON: this.quantity = (this.mass/5.0);
+            break;
+            case TABLESPOON: this.quantity = (this.mass/13.0);
+            break;
             default: this.quantity = this.mass;
         }
     }
