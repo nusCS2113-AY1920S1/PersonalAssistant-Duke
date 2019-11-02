@@ -34,8 +34,8 @@ public class CommandConvert extends Command {
         this.use = ""; // whether to use "from code" or "to code" for fetching exchange rate from json
         this.to = getCurrencyConvertTo(userInput);
         this.description = "Command that converts the user input cash amount from"
-                + " one currency to another and prints it on the User Interface.\n" +
-                "FORMAT : convert <amount up to 2dp> /from <Base> /to <Req>";
+                + " one currency to another and prints it on the User Interface.\n"
+                + "FORMAT : convert <amount up to 2dp> /from <Base> /to <Req>";
     }
 
     @Override
@@ -271,7 +271,7 @@ public class CommandConvert extends Command {
      */
     private String result(Double convertedAmount) {
 
-        if(convertedAmount !=null) {
+        if (convertedAmount != null) {
             convertedAmount = roundByDecimalPlace(convertedAmount, 2);
             return "DUKE$$$ has converted " + this.from
                     + " " + roundByDecimalPlace(this.amount, 2) + " "
