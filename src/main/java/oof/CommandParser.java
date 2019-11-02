@@ -138,7 +138,7 @@ public class CommandParser {
      * Checks if user input contains illegal characters.
      *
      * @param line User input.
-     * @return Returns true if user input contains illegal characters, false otherwise.
+     * @return True if user input contains illegal characters, false otherwise.
      */
     private static boolean containsIllegalInput(String line) {
         return line.contains(DELIMITER);
@@ -147,8 +147,8 @@ public class CommandParser {
     /**
      * Extracts the Command type from user input.
      *
-     * @param input user input
-     * @return String containing type of command
+     * @param input User input.
+     * @return String containing type of command.
      */
     private static String getFirstWord(String input) {
         int index = input.indexOf(' ');
@@ -159,6 +159,13 @@ public class CommandParser {
         }
     }
 
+    /**
+     * Tokenize the user input into an argument array.
+     *
+     * @param input User input.
+     * @param argumentDelimiters Specific delimiters for the command to be tokenized.
+     * @return ArrayList of tokenized user input.
+     */
     private static ArrayList<String> tokenizeToStringArray(String input, String[] argumentDelimiters) {
         int argumentDelimitersIndex = 0;
         String[] inputSplit = input.split(" ");
@@ -183,7 +190,7 @@ public class CommandParser {
      * Parses input if the user input starts with done.
      *
      * @param input Command inputted by user in string format.
-     * @return instance of CompleteCommand with parsed input as arguments
+     * @return Instance of CompleteCommand with parsed input as arguments
      * @throws OofException Throws exception if input is empty or not a valid integer.
      */
     private static Command parseDoneCommand(String input) throws OofException {
@@ -199,30 +206,60 @@ public class CommandParser {
         }
     }
 
+    /**
+     * Parses command for adding todo tasks.
+     *
+     * @param input User input.
+     * @return Instance of AddToDoCommand if the user input is successfully tokenized.
+     */
     private static Command parseAddToDoCommand(String input) {
         String[] argumentDelimiters = {"/on"};
         ArrayList<String> arguments = tokenizeToStringArray(input, argumentDelimiters);
         return new AddToDoCommand(arguments);
     }
 
+    /**
+     * Parses command for adding assignment tasks.
+     *
+     * @param input User input.
+     * @return Instance of AddAssignmentCommand if the user input is successfully tokenized.
+     */
     private static Command parseAddAssignmentCommand(String input) {
         String[] argumentDelimiters = {"/by"};
         ArrayList<String> arguments = tokenizeToStringArray(input, argumentDelimiters);
         return new AddAssignmentCommand(arguments);
     }
 
+    /**
+     * Parses command for adding deadline tasks.
+     *
+     * @param input User input.
+     * @return Instance of AddDeadlineCommand if the user input is successfully tokenized.
+     */
     private static Command parseAddDeadlineCommand(String input) {
         String[] argumentDelimiters = {"/by"};
         ArrayList<String> arguments = tokenizeToStringArray(input, argumentDelimiters);
         return new AddDeadlineCommand(arguments);
     }
 
+    /**
+     * Parses command for adding Assessment tasks.
+     *
+     * @param input User input.
+     * @return Instance of AddAssessmentCommand if the user input is successfully tokenized.
+     */
     private static Command parseAddAssessmentCommand(String input) {
         String[] argumentDelimiters = {"/from", "/to"};
         ArrayList<String> arguments = tokenizeToStringArray(input, argumentDelimiters);
         return new AddAssessmentCommand(arguments);
     }
 
+    /**
+     * Parses command for adding event tasks.
+     *
+     * @param input User input.
+     * @return Instance of AddEventCommand if the user input is successfully tokenized.
+     */
     private static Command parseAddEventCommand(String input) {
         String[] argumentDelimiters = {"/from", "/to"};
         ArrayList<String> arguments = tokenizeToStringArray(input, argumentDelimiters);
@@ -233,7 +270,7 @@ public class CommandParser {
      * Parses input if the user input starts with delete.
      *
      * @param input Command inputted by user in string format.
-     * @return Returns an instance of DeleteCommand if the parameters are valid.
+     * @return Instance of DeleteCommand if the parameters are valid.
      * @throws OofException Throws exception if the parameters are invalid.
      */
     private static Command parseDeleteCommand(String input) throws OofException {
@@ -285,6 +322,12 @@ public class CommandParser {
         }
     }
 
+    /**
+     * Parses input for ViewWeekCommand.
+     *
+     * @param input User input.
+     * @return Instance of ViewWeekCommand with parsed input as arguments.
+     */
     private static Command parseViewWeekCommand(String input) {
         String[] argumentArray = input.split(" ");
         return new ViewWeekCommand(argumentArray);
