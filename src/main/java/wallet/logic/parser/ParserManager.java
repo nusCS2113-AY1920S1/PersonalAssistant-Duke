@@ -46,10 +46,18 @@ public class ParserManager {
             return new ListCommandParser().parse(arguments[1]);
 
         case ViewCommand.COMMAND_WORD:
-            return new ViewCommandParser().parse(arguments[1]);
+            try {
+                return new ViewCommandParser().parse(arguments[1]);
+            } catch (ArrayIndexOutOfBoundsException err) {
+                throw new InsufficientParameters("view command currently has no parameters!");
+            }
 
         case SetBudgetCommand.COMMAND_WORD:
-            return new SetBudgetParser().parse(arguments[1]);
+            try {
+                return new SetBudgetParser().parse(arguments[1]);
+            } catch (ArrayIndexOutOfBoundsException err) {
+                throw new InsufficientParameters("budget command currently has no parameters!");
+            }
 
         case DeleteCommand.COMMAND_WORD:
             return new DeleteCommandParser().parse(arguments[1]);
@@ -86,7 +94,11 @@ public class ParserManager {
             return new RedoCommand();
 
         case CurrencyCommand.COMMAND_WORD:
-            return new CurrencyParser().parse(arguments[1]);
+            try {
+                return new CurrencyParser().parse(arguments[1]);
+            } catch (ArrayIndexOutOfBoundsException err) {
+                throw new InsufficientParameters("currency command currently has no parameters!");
+            }
 
         default:
             return null;

@@ -59,7 +59,7 @@ public class ListCommand extends Command {
 
         case "all":
             isListAll = true;
-            break;
+            //fallthrough
 
         case "contact":
             //@@author Xdecosee
@@ -93,54 +93,56 @@ public class ListCommand extends Command {
 
         default:
             //@@author matthewng1996
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-            LocalDate date = LocalDate.parse(record.trim(), formatter);
+            if (!isListAll) {
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                LocalDate date = LocalDate.parse(record.trim(), formatter);
 
-            ArrayList<Expense> expensesList = new ArrayList<Expense>();
-            ArrayList<Loan> loansList = new ArrayList<>();
+                ArrayList<Expense> expensesList = new ArrayList<Expense>();
+                ArrayList<Loan> loansList = new ArrayList<>();
 
-            if (date != null) {
-                if (wallet.getExpenseList().getExpenseList().size() != 0
-                        || wallet.getLoanList().getLoanList().size() != 0) {
-                    if (wallet.getExpenseList().getExpenseList().size() != 0) {
-                        for (Expense e : wallet.getExpenseList().getExpenseList()) {
-                            if (e.getDate().equals(date)) {
-                                expensesList.add(e);
+                if (date != null) {
+                    if (wallet.getExpenseList().getExpenseList().size() != 0
+                            || wallet.getLoanList().getLoanList().size() != 0) {
+                        if (wallet.getExpenseList().getExpenseList().size() != 0) {
+                            for (Expense e : wallet.getExpenseList().getExpenseList()) {
+                                if (e.getDate().equals(date)) {
+                                    expensesList.add(e);
+                                }
+                            }
+
+                            if (expensesList.size() != 0) {
+                                Ui.printExpenseTable(expensesList);
+                            } else {
+                                System.out.println(MESSAGE_LIST_NO_EXPENSES
+                                        + date.getDayOfMonth() + " "
+                                        + new DateFormatSymbols().getMonths()[date.getMonthValue() - 1]
+                                        + " " + date.getYear());
                             }
                         }
+                        //@@author A0171206R
+                        if (wallet.getLoanList().getLoanList().size() != 0) {
+                            for (Loan l : wallet.getLoanList().getLoanList()) {
+                                if (l.getDate().equals(date)) {
+                                    loansList.add(l);
+                                }
+                            }
 
-                        if (expensesList.size() != 0) {
-                            Ui.printExpenseTable(expensesList);
-                        } else {
-                            System.out.println(MESSAGE_LIST_NO_EXPENSES
-                                    + date.getDayOfMonth() + " "
-                                    + new DateFormatSymbols().getMonths()[date.getMonthValue() - 1]
-                                    + " " + date.getYear());
-                        }
-                    }
-                    //@@author A0171206R
-                    if (wallet.getLoanList().getLoanList().size() != 0) {
-                        for (Loan l : wallet.getLoanList().getLoanList()) {
-                            if (l.getDate().equals(date)) {
-                                loansList.add(l);
+                            if (loansList.size() != 0) {
+                                Ui.printLoanTable(loansList);
+                            } else {
+                                System.out.println(MESSAGE_LIST_NO_LOANS
+                                        + date.getDayOfMonth() + " "
+                                        + new DateFormatSymbols().getMonths()[date.getMonthValue() - 1]
+                                        + " " + date.getYear());
                             }
                         }
-
-                        if (loansList.size() != 0) {
-                            Ui.printLoanTable(loansList);
-                        } else {
-                            System.out.println(MESSAGE_LIST_NO_LOANS
-                                    + date.getDayOfMonth() + " "
-                                    + new DateFormatSymbols().getMonths()[date.getMonthValue() - 1]
-                                    + " " + date.getYear());
-                        }
+                        //@@author
                     }
-                    //@@author
+                } else {
+                    System.out.println(MESSAGE_USAGE);
                 }
                 break;
                 //@@author
-            } else {
-                System.out.println(MESSAGE_USAGE);
             }
         }
         return false;
