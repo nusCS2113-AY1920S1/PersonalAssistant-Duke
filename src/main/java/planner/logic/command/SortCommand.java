@@ -2,13 +2,15 @@
 
 package planner.logic.command;
 
+import java.time.DayOfWeek;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 
 import planner.logic.modules.cca.Cca;
 import planner.logic.modules.cca.CcaList;
-import planner.logic.modules.legacy.task.Task;
+import planner.logic.modules.legacy.task.TaskWithMultipleWeeklyPeriod;
 import planner.logic.modules.module.ModuleInfoDetailed;
 import planner.logic.modules.module.ModuleTask;
 import planner.logic.modules.module.ModuleTasksList;
@@ -22,6 +24,16 @@ public class SortCommand extends ModuleCommand {
         super(args);
     }
 
+    private List<TaskWithMultipleWeeklyPeriod> filter(List<TaskWithMultipleWeeklyPeriod> all, DayOfWeek dayOfWeek) {
+        List<TaskWithMultipleWeeklyPeriod> filtered = new ArrayList<>();
+        for (TaskWithMultipleWeeklyPeriod task : all) {
+            if (task.happensOnThisDayOfWeek(dayOfWeek)) {
+                filtered.add(task);
+            }
+        }
+        return filtered;
+    }
+
     @Override
     public void execute(HashMap<String, ModuleInfoDetailed> detailedMap,
                         ModuleTasksList tasks,
@@ -31,39 +43,50 @@ public class SortCommand extends ModuleCommand {
                         JsonWrapper jsonWrapper) {
         String toSort = arg("toSort");
         plannerUi.sortMsg(toSort);
-        List<?> hold;
         switch (toSort) {
             case ("ccas"): {
-                hold = ccas;
+                CcaList hold = ccas;
                 hold.sort(Comparator.comparing((Object t) -> ((Cca) t).getTask()));
+                plannerUi.showSorted(hold);
                 break;
             }
-            //case ("times"): {
-            //hold = ccas;
-            //List<?> temp = tasks.getTasks();
-            //hold.sort(Comparator.comparing((Object t) -> ((Task) t).getTime()));
-            //}
+            case ("times"):
+                List<TaskWithMultipleWeeklyPeriod> holdForTime = new ArrayList<>();
+                DayOfWeek dayOfWeek = DayOfWeek.valueOf(arg("DayOfTheWeek").toUpperCase());
+                for (Cca t : ccas) {
+                    if (t.happensOnThisDayOfWeek(dayOfWeek)) {
+                        holdForTime.add(t);
+                    }
+                }
+                for (ModuleTask t : tasks.getTasks()) {
+                    if (t.happensOnThisDayOfWeek(dayOfWeek)) {
+                        holdForTime.add(t);
+                    }
+                }
+                holdForTime.sort(Comparator.comparing((Object t) -> ((TaskWithMultipleWeeklyPeriod) t)
+                        .getTimePeriodOfTheDay(dayOfWeek).get(0).getBegin()));
+                plannerUi.showSortedTimes(holdForTime, dayOfWeek);
+                break;
             case ("modules"):
-            default: {
-                hold = tasks.getTasks();
+
+            default:
+                List<ModuleTask> taskList = tasks.getTasks();
                 switch (arg("type")) {
                     case ("level"): {
-                        hold.sort(Comparator.comparing((Object t) -> ((ModuleTask) t).getModuleLevel()));
+                        taskList.sort(Comparator.comparing((Object t) -> ((ModuleTask) t).getModuleLevel()));
                         break;
                     }
                     case ("mc"): {
-                        hold.sort(Comparator.comparing((Object t) -> ((ModuleTask) t).getModuleCredit()));
+                        taskList.sort(Comparator.comparing((Object t) -> ((ModuleTask) t).getModuleCredit()));
                         break;
                     }
                     case ("code"):
                     default: {
-                        hold.sort(Comparator.comparing((Object t) -> ((ModuleTask) t).getModuleCode()));
+                        taskList.sort(Comparator.comparing((Object t) -> ((ModuleTask) t).getModuleCode()));
                         break;
                     }
                 }
-                break;
-            }
+                plannerUi.showSorted(taskList);
         }
-        plannerUi.showSorted(hold);
     }
 }

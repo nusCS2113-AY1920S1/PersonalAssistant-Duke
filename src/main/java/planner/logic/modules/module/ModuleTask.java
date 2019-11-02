@@ -4,14 +4,12 @@ import planner.logic.exceptions.legacy.ModInvalidIndexException;
 import planner.logic.exceptions.legacy.ModInvalidTimeException;
 import planner.logic.exceptions.planner.ModBadGradeException;
 import planner.logic.exceptions.planner.ModBadSuException;
-import planner.logic.modules.legacy.task.Task;
 import planner.logic.modules.legacy.task.TaskWithMultipleWeeklyPeriod;
 import planner.util.datetime.NattyWrapper;
 
 import java.time.DayOfWeek;
 import java.time.LocalTime;
 
-//public class ModuleTask extends Task {
 public class ModuleTask extends TaskWithMultipleWeeklyPeriod {
     private ModuleInfoDetailed moduleInfoDetailed;
 

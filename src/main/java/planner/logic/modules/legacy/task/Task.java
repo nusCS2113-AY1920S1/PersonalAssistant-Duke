@@ -69,4 +69,8 @@ public class Task {
     public String type() {
         return "task";
     }
+
+    public String getName() {
+        return this.task;
+    }
 }
