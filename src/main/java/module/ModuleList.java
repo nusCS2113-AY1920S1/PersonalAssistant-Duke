@@ -147,6 +147,7 @@ public class ModuleList {
             {
                 line.append(" ");
             }
+            System.out.println(line.toString());
         }
     }
 }

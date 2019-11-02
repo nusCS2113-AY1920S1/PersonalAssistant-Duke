@@ -11,7 +11,7 @@ import java.util.Arrays;
 public class Module implements Comparable<Module> {
     String code = "";
     private String name = "";
-    Integer mc = -1;
+    Integer mc = 0;
 
     /**
      * Default module constructor
@@ -62,14 +62,20 @@ public class Module implements Comparable<Module> {
         return module.toString();
     }
 
+    /**
+     * Gets the string to be printed with a fixed width
+     *
+     * @param setWidth the width the string should be fixed to
+     * @return the String to be printed
+     */
     public String getPrint(int setWidth) {
         StringBuilder module = new StringBuilder();
         module.append(getCode());
         module.append(" ");
         module.append(getName());
-        if(module.length() > setWidth - 4) {
-            module.setLength(setWidth - 8);
-            module.append("... ");
+        if(module.length() > setWidth - 5) {
+            module.setLength(setWidth - 9);
+            module.append("...  ");
         }
         else {
             char[] pad = new char[Math.max(setWidth - module.length() - 4, 0)];

@@ -38,14 +38,14 @@ public class Degree {
             String[] split = input.get(row).split(",", -1);
             assert(split.length == 12);
             int col = 0;
-            setUem(split[col]);
+            setUem(split[col].strip());
             for(col = 1; col < split.length - 1; col += 2)
             {
                 //System.out.println("Trying to add " + col +": "+split[col]+" "+split[col+1]);
-                addToList(col, split[col], split[col+1]);
+                addToList(col, split[col].strip(), split[col+1].strip());
             }
             assert (col == split.length - 1);
-            addAlias(split[col]);
+            addAlias(split[col].strip());
         }
         if(uem == null)
             setUem("0");
@@ -120,7 +120,7 @@ public class Degree {
         int credits = validInt(mcs);
         if(in.contains(" OR "))
         {
-            String[] split = in.split(" OR ", -1);
+            String[] split = in.split("\\s+OR\\s+", -1);
             validateModule(split);
             return new ConjunctiveModule(in, credits);
         }
@@ -241,7 +241,7 @@ public class Degree {
      */
     public void compare(Degree other)
     {
-        System.out.println("Comparing between " + getProperName() + " " + getProperName());
+        System.out.println("Comparing between " + getProperName() + " " + other.getProperName());
         System.out.println("General Education Modules (GE) (5 Modules, each of 4MCs)");
         System.out.println("Similarities:");
         System.out.println("Human and Cultures (H&C)");
@@ -258,7 +258,7 @@ public class Degree {
         else
         {
             printCentralized("Similarities:");
-            printSideBySide(this.getUem(), other.getUem());
+            printCentralized(String.valueOf(this.getUem()));
         }
         System.out.println();
         System.out.println("Programme Requirements");
@@ -343,12 +343,12 @@ public class Degree {
                 StringBuilder res = new StringBuilder();
                 if(counter < mySet.size()) {
                     res.append(toPrint.get(counter));
-                    res.append(y.getPrint(Parser.windowWidth));
+                    res.append(y.getPrint(Parser.windowWidth/2));
                     toPrint.set(counter, res.toString());
                 }
                 else {
                     res.append(halfScreen);
-                    res.append(y.getPrint(Parser.windowWidth));
+                    res.append(y.getPrint(Parser.windowWidth/2));
                     toPrint.add(res.toString());
                 }
                 counter += 1;

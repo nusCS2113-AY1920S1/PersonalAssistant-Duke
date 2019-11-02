@@ -96,12 +96,29 @@ public class DegreeManager {
         return degreeInfo.size();
     }
 
-    public void compare(String input) {
+    public void compare(String input) throws DukeException {
         String[] split = input.split("\\s+");
         if(split.length > 2)
         {
-            throw new DukeException("Too many arguments!")
+            throw new DukeException("Too many arguments!");
         }
-
+        if(split.length <= 1){
+            throw new DukeException("Too few arguments!");
+        }
+        StringBuilder errorList = new StringBuilder();
+        if(!degreeInfo.containsKey(split[0]))
+        {
+            errorList.append(split[0]);
+            errorList.append(" ");
+        }
+        if(!degreeInfo.containsKey(split[1]))
+        {
+            errorList.append(split[1]);
+        }
+        if(errorList.length() > 0)
+        {
+            throw new DukeException("Unable to find matching degrees for: "+ errorList.toString());
+        }
+        degreeInfo.get(split[0]).compare(degreeInfo.get(split[1]));
     }
 }
