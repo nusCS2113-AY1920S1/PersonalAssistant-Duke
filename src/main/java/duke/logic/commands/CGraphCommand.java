@@ -10,6 +10,7 @@ import duke.ui.GraphUi;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -95,11 +96,11 @@ public class CGraphCommand extends Command {
                 intHolder.add(totalSpent);
             }
         } else {
-            HashMap<String, ArrayList<Meal>> meal = meals.getMealTracker();
+            HashMap<LocalDate, ArrayList<Meal>> meal = meals.getMealTracker();
             for (int i = 0; i < daysInMonth; i += 1) {
                 date.set(Calendar.DAY_OF_MONTH, i);
                 DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-                String currentDate = dateFormat.format(date.getTime());
+                LocalDate currentDate = LocalDate.parse(dateFormat.format(date.getTime()), this.dateFormat);
                 int totalConsumed = 0;
                 if (meal.containsKey(currentDate)) {
                     ArrayList<Meal> mealOnTheDay = meal.get(currentDate);

@@ -1,10 +1,7 @@
 package duke.model.meal;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
+import java.time.LocalDate;
 import java.util.HashMap;
-
-import static duke.commons.constants.DateConstants.DATE_FORMAT;
 
 /**
  * SuggestMeal class is inherited class of Meal class that has additional parameters to
@@ -19,11 +16,10 @@ public class SuggestMeal extends Meal implements Comparable<SuggestMeal> {
     }
 
     public SuggestMeal(String description, HashMap<String, Integer> nutritionValue,
-                       Calendar suggestionDate, String mealTypeStr) {
+                       LocalDate suggestionDate, String mealTypeStr) {
         super(description, nutritionValue);
         // TODO: Use date objects
-        SimpleDateFormat dateparser = DATE_FORMAT;
-        this.date = dateparser.format(suggestionDate.getTime());
+        this.date = suggestionDate;
         this.type = mealTypeStr;
     }
 

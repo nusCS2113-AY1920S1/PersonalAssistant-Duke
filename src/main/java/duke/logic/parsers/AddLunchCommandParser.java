@@ -4,6 +4,10 @@ import duke.commons.exceptions.DukeException;
 import duke.logic.commands.AddCommand;
 import duke.model.meal.Lunch;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+import java.util.HashMap;
+
 /**
  * Parser class to handle addition of lunch item to model.
  */
@@ -18,12 +22,38 @@ public class AddLunchCommandParser implements ParserInterface<AddCommand> {
     @Override
 
     public AddCommand parse(String userInputStr) {
+        String[] mealNameAndInfo;
+        HashMap<String, String> nutritionInfoMap;
+        LocalDate localDate = LocalDate.now();
+
         try {
             InputValidator.validate(userInputStr);
-            String[] mealNameAndInfo = ArgumentSplitter.splitMealArguments(userInputStr);
-            return new AddCommand(new Lunch(mealNameAndInfo[0], mealNameAndInfo[1]), "0");
+            mealNameAndInfo = ArgumentSplitter.splitMealArguments(userInputStr);
+            nutritionInfoMap = ArgumentSplitter.splitForwardSlashArguments(mealNameAndInfo[1]);
         } catch (DukeException e) {
             return new AddCommand(false, e.getMessage());
         }
+
+        for (String details : nutritionInfoMap.keySet()) {
+            if (details.equals("date")) {
+                String dateArgStr  = "";
+                try {
+                    dateArgStr = nutritionInfoMap.get(details);
+                    localDate = LocalDate.parse(dateArgStr, dateFormat);
+                } catch (DateTimeParseException e) {
+                    return new AddCommand(true, "Unable to parse " + dateArgStr + " as a date. "
+                            + "Please follow DD/MM/YYYY format.");
+                }
+            } else {
+                String intArgStr = nutritionInfoMap.get(details);
+                try {
+                    int value = Integer.parseInt(intArgStr);
+                } catch (NumberFormatException e) {
+                    return new AddCommand(true, "Unable to parse " + intArgStr
+                            + " as an integer. ");
+                }
+            }
+        }
+        return new AddCommand(new Lunch(mealNameAndInfo[0], localDate, nutritionInfoMap), "0");
     }
 }

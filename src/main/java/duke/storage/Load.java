@@ -7,6 +7,7 @@ import duke.commons.exceptions.DukeException;
 import duke.commons.file.FilePathNames;
 import duke.commons.file.FilePaths;
 import duke.commons.file.FileUtil;
+import duke.commons.file.LocalDateAdapter;
 import duke.logic.autocorrect.Autocorrect;
 import duke.model.Goal;
 import duke.model.meal.Meal;
@@ -17,6 +18,7 @@ import duke.model.wallet.Wallet;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.lang.reflect.Type;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -29,7 +31,10 @@ public class Load {
     private static FilePaths filePaths;
     // Flag to set if jar resource should be called if user file does not exist in host system.
     private static final boolean useResourceAsBackup = true;
-    private Gson gson = new GsonBuilder().setPrettyPrinting().create();
+    private Gson gson = new GsonBuilder().setPrettyPrinting()
+            .registerTypeAdapter(LocalDate.class, new LocalDateAdapter()).create();
+
+
 
 
     public Load() {
@@ -43,10 +48,10 @@ public class Load {
      */
     public void loadMealListData(MealList meals) throws DukeException {
         String userMealFilePathStr = filePaths.getFilePathStr(FilePathNames.FILE_PATH_USER_MEALS_FILE);
-        Type mealListHashMap = new TypeToken<HashMap<String, ArrayList<Meal>>>(){}.getType();
+        Type mealListHashMap = new TypeToken<HashMap<LocalDate, ArrayList<Meal>>>(){}.getType();
         bufferedReader = FileUtil.readFile(userMealFilePathStr, useResourceAsBackup);
         try {
-            HashMap<String, ArrayList<Meal>> data = gson.fromJson(bufferedReader,mealListHashMap);
+            HashMap<LocalDate, ArrayList<Meal>> data = gson.fromJson(bufferedReader, mealListHashMap);
             if (data != null) {
                 meals.setMealTracker(data);
                 bufferedReader.close();

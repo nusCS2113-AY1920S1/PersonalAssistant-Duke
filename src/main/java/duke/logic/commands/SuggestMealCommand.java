@@ -7,8 +7,8 @@ import duke.model.user.User;
 import duke.model.wallet.Wallet;
 import duke.storage.Storage;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Calendar;
 
 
 /**
@@ -21,6 +21,7 @@ public class SuggestMealCommand extends Command {
     private MealSuggestionAnalytics mealSuggestionAnalytics;
     private AddCommand addCommand;
     private ArrayList<Meal> suggestedMealList;
+    private LocalDate suggestionDate;
 
     // TODO: Support for meal types (eg: lunch, dinner) from user so that only relevant meals suggested.
 
@@ -29,9 +30,8 @@ public class SuggestMealCommand extends Command {
      * @param suggestionDate Date on which meal suggestion is required.
      * @param maxMealsToSuggest Maximum number of suggested meals to be shown to the user.
      */
-    public SuggestMealCommand(Calendar suggestionDate, int maxMealsToSuggest, String mealTypeStr) {
-        this.calendarDate = suggestionDate;
-        this.currentDateStr = dateFormat.format(this.calendarDate.getTime());
+    public SuggestMealCommand(LocalDate suggestionDate, int maxMealsToSuggest, String mealTypeStr) {
+        this.suggestionDate = suggestionDate;
         this.maxMealsToSuggest = maxMealsToSuggest;
         this.mealSuggestionTypeStr = mealTypeStr;
     }
@@ -69,12 +69,12 @@ public class SuggestMealCommand extends Command {
 
     public void execute_stage_0(MealList meals, Storage storage, User user, Wallet wallet) {
         mealSuggestionAnalytics = new MealSuggestionAnalytics();
-        int calorieLimit = getCalorieLimit(user, meals.getMealsList(currentDateStr));
-        suggestedMealList = mealSuggestionAnalytics.getMealSuggestions(meals, calendarDate, calorieLimit,
+        int calorieLimit = getCalorieLimit(user, meals.getMealsList(currentDate));
+        suggestedMealList = mealSuggestionAnalytics.getMealSuggestions(meals, suggestionDate, calorieLimit,
                                                                         maxMealsToSuggest, mealSuggestionTypeStr);
 
         if (suggestedMealList.size() > 0) {
-            ui.showSuggestedMealList(suggestedMealList, currentDateStr);
+            ui.showSuggestedMealList(suggestedMealList, currentDate);
             // Allow followup user action after meals are suggested.
             isDone = false;
         } else {

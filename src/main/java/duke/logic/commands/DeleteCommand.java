@@ -7,8 +7,8 @@ import duke.model.user.User;
 import duke.model.wallet.Wallet;
 import duke.storage.Storage;
 
-import java.text.ParseException;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 
 /**
  * DeleteCommand is a public class that inherits from abstract class Command.
@@ -18,20 +18,19 @@ public class DeleteCommand extends Command {
     private int index;
     private final String helpText = "Please follow: delete <index> /date <date> or "
             + "delete <index> to delete for current day.";
+    private LocalDate parsedDate;
 
     /**
      * Constructor for DeleteCommand.
      * @param indexStr the index of meal on the date to be deleted.
-     * @param date Date of meal to be deleted.
+     * @param dateStrArg Date of meal to be deleted.
      */
-    public DeleteCommand(String indexStr, String date) {
+    public DeleteCommand(String indexStr, String dateStrArg) {
         this(indexStr);
-        Date parsedDate;
         try {
-            parsedDate = dateFormat.parse(date);
-            currentDateStr = dateFormat.format(parsedDate);
-        } catch (ParseException e) {
-            ui.showMessage("Unable to parse input " + date + " as a date. " + helpText);
+            parsedDate = LocalDate.parse(dateStrArg, dateFormat);
+        } catch (DateTimeParseException e) {
+            ui.showMessage("Unable to parse input " + dateStrArg + " as a date. " + helpText);
         }
     }
 
@@ -62,11 +61,11 @@ public class DeleteCommand extends Command {
     @Override
     public void execute(MealList meals, Storage storage, User user, Wallet wallet) {
         ui.showLine();
-        if (index <= 0 || index > meals.getMealsList(currentDateStr).size()) {
-            ui.showMessage("Index provided out of bounds for list of meals on " + currentDateStr);
+        if (index <= 0 || index > meals.getMealsList(parsedDate).size()) {
+            ui.showMessage("Index provided out of bounds for list of meals on the indicated date");
         } else {
-            Meal currentMeal = meals.delete(currentDateStr, index);
-            ui.showDeleted(currentMeal, meals.getMealsList(currentDateStr));
+            Meal currentMeal = meals.delete(parsedDate, index);
+            ui.showDeleted(currentMeal, meals.getMealsList(parsedDate));
             try {
                 storage.updateFile(meals);
             } catch (DukeException e) {

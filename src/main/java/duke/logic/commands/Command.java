@@ -7,18 +7,18 @@ import duke.model.wallet.Wallet;
 import duke.storage.Storage;
 import duke.ui.Ui;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
+import static duke.commons.constants.DateConstants.LOCAL_DATE_FORMATTER;
 
 /**
  * Command is the abstract base class for all the command objects.
  * which allow the child class to specify which command (e.g. add, delete, etc) to use.
  */
 public abstract class Command {
-    protected DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-    protected Calendar calendarDate = Calendar.getInstance();
-    protected String currentDateStr = dateFormat.format(calendarDate.getTime());
+    protected DateTimeFormatter dateFormat = LOCAL_DATE_FORMATTER;
+    protected LocalDate currentDate = LocalDate.now();
     protected Ui ui = new Ui();
     protected String responseStr;
     protected boolean isDone = true;

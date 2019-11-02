@@ -7,9 +7,9 @@ import duke.model.user.User;
 import duke.model.wallet.Wallet;
 import duke.storage.Storage;
 
-import java.text.ParseException;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
-import java.util.Date;
 
 /**
  * MarkDoneCommand is a public class that inherits form abstract class Command.
@@ -25,12 +25,10 @@ public class MarkDoneCommand extends Command {
      */
     public MarkDoneCommand(String indexStr, String dateStr) {
         this(indexStr);
-        Date parsedDate;
         if (!dateStr.isBlank()) {
             try {
-                parsedDate = dateFormat.parse(dateStr);
-                this.currentDateStr = dateFormat.format(parsedDate);
-            } catch (ParseException e) {
+                currentDate = LocalDate.parse(dateStr,dateFormat);
+            } catch (DateTimeParseException e) {
                 ui.showMessage("Unable to parse input" + dateStr + " as a date. ");
             }
         }
@@ -64,19 +62,19 @@ public class MarkDoneCommand extends Command {
     @Override
     public void execute(MealList meals, Storage storage, User user, Wallet wallet) {
         ui.showLine();
-        if (index <= 0 || index > meals.getMealsList(currentDateStr).size()) {
-            ui.showMessage("Index provided out of bounds for list of meals on " + currentDateStr);
+        if (index <= 0 || index > meals.getMealsList(currentDate).size()) {
+            ui.showMessage("Index provided out of bounds for list of meals on " + currentDate);
         } else {
-            Meal currentMeal = meals.markDone(currentDateStr, index);
+            Meal currentMeal = meals.markDone(currentDate, index);
             try {
                 storage.updateFile(meals);
             } catch (DukeException e) {
                 ui.showMessage(e.getMessage());
             }
 
-            ui.showDone(currentMeal, meals.getMealsList(currentDateStr));
-            ArrayList<Meal> currentMeals = meals.getMealsList(currentDateStr);
-            ui.showCaloriesLeft(currentMeals, user, currentDateStr);
+            ui.showDone(currentMeal, meals.getMealsList(currentDate));
+            ArrayList<Meal> currentMeals = meals.getMealsList(currentDate);
+            ui.showCaloriesLeft(currentMeals, user, currentDate);
             ui.showLine();
         }
     }
