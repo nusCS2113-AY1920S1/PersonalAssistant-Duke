@@ -27,8 +27,6 @@ public class AddCommand extends Command {
     public static final String MESSAGE_NEW_BUDGET = " is your new budget for ";
     public static final String MESSAGE_EXCEED_BUDGET = "Your budget has exceeded!!";
     public static final String MESSAGE_REACH_BUDGET = "You have reached your budget!!";
-    public static final String MESSAGE_ERROR_ADD_EXPENSE = "Error in format when adding expense.\n"
-            + MESSAGE_USAGE;
 
     private Expense expense = null;
     private Contact contact = null;
@@ -88,7 +86,6 @@ public class AddCommand extends Command {
             wallet.getRecordList().addRecord(expense);
             wallet.getExpenseList().setModified(true);
             System.out.println(MESSAGE_SUCCESS_ADD_EXPENSE);
-            //System.out.println(expense.toString());
             Ui.printExpense(expense);
         }
         if (contact != null) {
