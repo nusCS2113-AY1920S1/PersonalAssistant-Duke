@@ -7,6 +7,7 @@ import gazeeebo.UI.Ui;
 import gazeeebo.commands.Command;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -32,7 +33,7 @@ public class ExpenseCommand extends Command {
      * @throws IOException Catch error if the read file fails
      */
     @Override
-    public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<ArrayList<Task>> commandStack, ArrayList<Task> deletedTask, TriviaManager triviaManager) throws IOException {
+    public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<ArrayList<Task>> commandStack, ArrayList<Task> deletedTask, TriviaManager triviaManager) throws IOException, ParseException {
         HashMap<LocalDate, ArrayList<String>> map = storage.Expenses(); //Read the file
         Map<LocalDate, ArrayList<String>> expenses = new TreeMap<LocalDate, ArrayList<String>>(map);
 
@@ -41,7 +42,7 @@ public class ExpenseCommand extends Command {
         System.out.println("1. Add expenses command: add");
         System.out.println("2. Find expenses on a certain date: find date");
         System.out.println("3. Delete a certain expense: delete expense");
-        System.out.println("4. See your expense list: expense list");
+        System.out.println("4. See your expense list: list");
         System.out.println("5. Exit Expense page: esc");
         System.out.println("__________________________________________________________");
 
@@ -58,7 +59,18 @@ public class ExpenseCommand extends Command {
             }
             ui.readCommand();
         }
-        System.out.println("Go back to Main Menu");
+        System.out.println("Go back to Main Menu...\n" +
+                "Content Page:\n" +
+                "------------------ \n" +
+                "1. help\n" +
+                "2. contacts\n" +
+                "3. expenses\n" +
+                "4. places\n" +
+                "5. tasks\n" +
+                "6. cap\n" +
+                "7. spec\n" +
+                "8. moduleplanner\n" +
+                "9. notes\n");
     }
     @Override
     public boolean isExit() {

@@ -1,4 +1,4 @@
-package gazeeebo.commands.contact;
+package gazeeebo.commands.Contact;
 
 import gazeeebo.UI.Ui;
 

@@ -65,6 +65,7 @@ public class DeleteCommand extends Command {
                     count++;
                 }
                 System.out.println("Now you have " + list.size() + " tasks in the list.");
+<<<<<<< HEAD
             } else if (ui.fullCommand.split(" ")[1] != null) {
                 try {
                     int index = Integer.parseInt(ui.fullCommand.substring(6).trim()) - 1;
@@ -79,6 +80,17 @@ public class DeleteCommand extends Command {
                 } catch (IndexOutOfBoundsException e) {
                     System.out.println("Task number not found");
                 }
+=======
+            }  else if (ui.fullCommand.length() > 6) {
+                int index = Integer.parseInt(ui.fullCommand.substring(6).trim()) - 1;
+                deletedTask.add(list.get(index));
+                String taskremoved = list.get(index).listFormat();
+                list.remove(index);
+                System.out.println("Noted. I've removed this task: ");
+                System.out.println(taskremoved);
+                System.out.println("Now you have " + list.size() + " tasks in the list.");
+
+>>>>>>> c3b6581caf36bb07b80db230bd0343ea2e8e78ca
             }
 
             StringBuilder sb = new StringBuilder();
