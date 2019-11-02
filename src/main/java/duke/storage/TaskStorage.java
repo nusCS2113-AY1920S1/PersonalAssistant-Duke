@@ -4,12 +4,6 @@ import duke.exception.DukeException;
 import duke.list.GenericList;
 import duke.task.*;
 
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.util.ArrayList;
-import java.util.List;
-
 public class TaskStorage extends Storage<Task> {
     /**
      * The constructor method for Storage.

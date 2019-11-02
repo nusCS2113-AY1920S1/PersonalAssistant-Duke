@@ -1,9 +1,9 @@
 package duke.command;
 
 import duke.exception.DukeException;
+import duke.ingredient.Ingredient;
 import duke.list.GenericList;
 import duke.storage.Storage;
-import duke.ingredient.*;
 import duke.task.TaskList;
 import duke.ui.Ui;
 

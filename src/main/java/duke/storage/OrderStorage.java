@@ -1,7 +1,6 @@
 package duke.storage;
 
 import duke.exception.DukeException;
-import duke.ingredient.Ingredient;
 import duke.list.GenericList;
 import duke.order.Order;
 import duke.order.OrderList;

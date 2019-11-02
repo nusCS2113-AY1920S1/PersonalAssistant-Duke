@@ -3,11 +3,7 @@ package duke.ingredient;
 import duke.exception.DukeException;
 import duke.list.GenericList;
 
-
 import java.util.Comparator;
-
-
-
 import java.util.Date;
 import java.util.List;
 

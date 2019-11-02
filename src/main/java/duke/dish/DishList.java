@@ -1,6 +1,7 @@
 package duke.dish;
 
 import duke.list.GenericList;
+
 import java.util.List;
 
 public class DishList extends GenericList<Dish> {
