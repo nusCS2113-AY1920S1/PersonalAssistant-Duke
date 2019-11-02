@@ -32,7 +32,7 @@ public class Degree {
      * Creates the degree using the scraped information in the csv file
      * @param input is a list of strings which should be taken from storage
      */
-    public Degree(List<String> input) throws DukeException {
+    Degree(List<String> input) throws DukeException {
         validateList(input);
         for (int row = 1; row< input.size(); row++)
         {
@@ -245,7 +245,7 @@ public class Degree {
      *
      * @param other is the other degree class to be compared to
      */
-    public void compare(Degree other)
+    void compare(Degree other)
     {
         System.out.println("Comparing between " + getProperName() + " " + other.getProperName());
         System.out.println("General Education Modules (GE) (5 Modules, each of 4MCs)");
@@ -340,7 +340,7 @@ public class Degree {
             Set<Module> otherSet = theirDiff.getModules();
             char[] halfScreen = new char[Parser.windowWidth/2];
             Arrays.fill(halfScreen,' ');
-            ArrayList<String> toPrint = new ArrayList<String>();
+            ArrayList<String> toPrint = new ArrayList<>();
             for(Module x: mySet) {
                 toPrint.add(x.getPrint(Parser.windowWidth/2));
             }
@@ -362,10 +362,9 @@ public class Degree {
             if(mySet.size() > otherSet.size()) {
                 int diff = otherSet.size();
                 while(diff < mySet.size()) {
-                    StringBuilder res = new StringBuilder();
-                    res.append(toPrint.get(diff));
-                    res.append(halfScreen);
-                    toPrint.set(diff, res.toString());
+                    String res = toPrint.get(diff)
+                            + String.valueOf(halfScreen);
+                    toPrint.set(diff, res);
                     diff += 1;
                 }
             }
@@ -503,7 +502,7 @@ public class Degree {
      *
      * @return String which is the longest alias (thus proper)
      */
-    public String getProperName() {
+    private String getProperName() {
         String res = "";
         for(String x:aliases) {
             if(x.length() > res.length()) {
@@ -574,5 +573,12 @@ public class Degree {
      *
      * @return ModuleList which contains all Modules this degree has
      */
-    private ModuleList getMaster() {return this.master;}
+    ModuleList getMaster() {return this.master;}
+
+    /**
+     * Gets the list of aliases
+     *
+     * @return an arraylist of aliases
+     */
+    List<String> getAlias() {return this.aliases;}
 }
