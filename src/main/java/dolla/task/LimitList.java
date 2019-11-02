@@ -50,7 +50,7 @@ public class LimitList extends RecordList {
     public int findExistingRecordIndex(DollaData dollaData, Record inputRecord, String mode) {
         Limit inputLimit = (Limit) inputRecord;
         int index = - 1;
-        LimitList limitList = (LimitList) dollaData.getRecordList(mode);
+        LimitList limitList = (LimitList) dollaData.getRecordListObj(mode);
         Limit currLimit;
         String currType;
         String currDuration;

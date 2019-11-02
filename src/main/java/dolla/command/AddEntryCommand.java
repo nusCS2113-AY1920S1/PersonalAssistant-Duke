@@ -4,7 +4,8 @@ import dolla.DollaData;
 import dolla.ModeStringList;
 import dolla.Time;
 import dolla.action.EntryState;
-import dolla.action.StateList;
+import dolla.action.Redo;
+import dolla.action.UndoStateList;
 import dolla.task.EntryList;
 import dolla.ui.EntryUi;
 import dolla.ui.Ui;
@@ -21,7 +22,7 @@ public class AddEntryCommand extends Command {
     private double amount;
     private String description;
     private LocalDate date;
-    private static final String mode = ModeStringList.MODE_ENTRY;
+    private static final String mode = MODE_ENTRY;
 
     /**
      * Creates an instance of AddEntryCommand.
@@ -40,8 +41,9 @@ public class AddEntryCommand extends Command {
     @Override
     public void execute(DollaData dollaData) {
         Entry newEntry = new Entry(type, amount, description, date);
-        EntryList entryList = (EntryList) dollaData.getRecordList(mode);
-        StateList.addState(new EntryState(entryList.get()), mode);///////////////////////////////////////
+        EntryList entryList = (EntryList) dollaData.getRecordListObj(mode);
+        UndoStateList.addState(new EntryState(entryList.get()), mode);///////////////////////////////////////
+        Redo.clearRedoState(mode);
         int duplicateEntryIndex = entryList.findExistingRecordIndex(dollaData, newEntry, mode);
         if (recordDoesNotExist(duplicateEntryIndex)) {
             dollaData.addToRecordList(mode, newEntry);

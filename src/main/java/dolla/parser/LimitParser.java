@@ -2,14 +2,7 @@ package dolla.parser;
 
 import dolla.Tag;
 
-import dolla.command.Command;
-
-import dolla.command.AddLimitCommand;
-import dolla.command.RemoveCommand;
-import dolla.command.ShowListCommand;
-import dolla.command.ErrorCommand;
-import dolla.command.SortCommand;
-import dolla.command.SearchCommand;
+import dolla.command.*;
 
 import dolla.task.Limit;
 import dolla.ui.Ui;
@@ -71,6 +64,10 @@ public class LimitParser extends Parser {
             } else {
                 return new ErrorCommand();
             }
+        } else if (commandToRun.equals(COMMAND_REDO)
+                || commandToRun.equals(COMMAND_UNDO)
+                || commandToRun.equals(COMMAND_REPEAT)) {
+            return new AddActionCommand(mode, commandToRun);
         } else {
             return invalidCommand();
         }

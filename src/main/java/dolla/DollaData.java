@@ -38,12 +38,12 @@ public class DollaData implements ModeStringList {
     }
 
     /**
-     * Returns the relevant RecordList (ie. EntryList) according to the specified mode.
+     * Returns the relevant RecordList object according to the specified mode.
      *
      * @param mode The mode pertaining to the RecordList to be retrieved.
      * @return The RecordList according to the specified mode.
      */
-    public RecordList getRecordList(String mode) {
+    public RecordList getRecordListObj(String mode) {
         switch (mode) {
         case MODE_ENTRY:
             return entryList;
@@ -54,6 +54,17 @@ public class DollaData implements ModeStringList {
         default:
             return null; // placeholder so that Dolla can compile
         }
+    }
+
+    public ArrayList<Record> getRecordList(String mode) {
+        if (mode.equals(MODE_ENTRY)) {
+            return entryList.get();
+        } else if (mode.equals(MODE_DEBT)) {
+            return debtList.get();
+        } else if (mode.equals(MODE_LIMIT)) {
+            return limitList.get();
+        }
+        return null;
     }
 
     /**

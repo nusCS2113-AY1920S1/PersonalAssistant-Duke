@@ -49,4 +49,9 @@ public interface ParserStringList {
     String SORT_TYPE_DATE = "date";
     String SORT_TYPE_DESC = "description";
     String SORT_TYPE_NAME = "name";
+
+    //Components used in Action
+    String COMMAND_REDO = "redo";
+    String COMMAND_UNDO = "undo";
+    String COMMAND_REPEAT = "repeat";
 }

@@ -1,32 +1,43 @@
 package dolla.action;
 
-import dolla.task.Entry;
+import dolla.ModeStringList;
 import dolla.task.Record;
-import dolla.ui.ActionUi;
 
 import java.util.ArrayList;
-import java.util.EmptyStackException;
-import java.util.Stack;
 
-public class Undo {
+public class Undo implements ModeStringList {
     //@@author yetong1895
     private static State state;
     private static ArrayList<Record> list;
 
-    public static void receiveState(String mode) {
-        state = StateList.getState(mode);
+    public static void receiveUndoState(String mode) {
+        state = UndoStateList.getState(mode);
     }
 
-    public static ArrayList<Record> processState(String mode) {
-        receiveState(mode);
-        if (mode.equals("entry")) {
-            list = state.getEntryState();
-        } else if (mode.equals("debt")) {
-            list = state.getDebtState();
-        } else if (mode.equals("limit")) {
-            list = state.getLimitState();
+    public static void addToStateList(String mode, ArrayList<Record> currStatelist) {
+        if (mode.equals(MODE_ENTRY)) {
+            UndoStateList.addState(new EntryState(currStatelist), mode);
+        } else if (mode.equals(MODE_DEBT)) {
+            UndoStateList.addState(new DebtState(currStatelist), mode);
+        } else if (mode.equals(MODE_LIMIT)) {
+            UndoStateList.addState(new LimitState(currStatelist), mode);
         }
-        return list;
+    }
+
+    public static ArrayList<Record> processUndoState(String mode) {
+        receiveUndoState(mode);
+        if(state != null) {
+            if (mode.equals(MODE_ENTRY)) {
+                list = state.getEntryState();
+            } else if (mode.equals(MODE_DEBT)) {
+                list = state.getDebtState();
+            } else if (mode.equals(MODE_LIMIT)) {
+                list = state.getLimitState();
+            }
+            return list;
+        } else {
+            return null;
+        }
     }
 
 

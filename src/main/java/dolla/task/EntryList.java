@@ -43,7 +43,7 @@ public class EntryList extends RecordList {
     public int findExistingRecordIndex(DollaData dollaData, Record inputRecord, String mode) {
         Entry entry = (Entry) inputRecord;
         int index = - 1;
-        EntryList entryList = (EntryList) dollaData.getRecordList(mode);
+        EntryList entryList = (EntryList) dollaData.getRecordListObj(mode);
         for (int i = 0; i < entryList.size(); i++) {
             Entry currEntry = (Entry) (entryList.getFromList(i));
             String currType = currEntry.type;

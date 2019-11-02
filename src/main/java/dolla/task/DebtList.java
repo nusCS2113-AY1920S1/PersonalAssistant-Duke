@@ -45,7 +45,7 @@ public class DebtList extends RecordList {
     public int findExistingRecordIndex(DollaData dollaData, Record inputRecord, String mode) {
         Debt debt = (Debt) inputRecord;
         int index = - 1;
-        DebtList debtList = (DebtList) dollaData.getRecordList(mode);
+        DebtList debtList = (DebtList) dollaData.getRecordListObj(mode);
         for (int i = 0; i < debtList.size(); i++) {
             Debt currDebt = (Debt) (debtList.getFromList(i));
             String currType = currDebt.type;

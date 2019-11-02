@@ -16,10 +16,6 @@ import dolla.task.Entry;
 
 public class EntryParser extends Parser {
 
-    private static final String ENTRY_COMMAND_REDO = "redo";
-    private static final String ENTRY_COMMAND_UNDO = "undo";
-    private static final String ENTRY_COMMAND_REPEAT = "repeat";
-
     public EntryParser(String inputLine) {
         super(inputLine);
         this.mode = MODE_ENTRY;
@@ -64,9 +60,9 @@ public class EntryParser extends Parser {
             } else {
                 return new ErrorCommand();
             }
-        } else if (commandToRun.equals(ENTRY_COMMAND_REDO)
-                || commandToRun.equals(ENTRY_COMMAND_UNDO)
-                || commandToRun.equals(ENTRY_COMMAND_REPEAT)) {
+        } else if (commandToRun.equals(COMMAND_REDO)
+                || commandToRun.equals(COMMAND_UNDO)
+                || commandToRun.equals(COMMAND_REPEAT)) {
             return new AddActionCommand(mode, commandToRun);
         } else {
             return invalidCommand();

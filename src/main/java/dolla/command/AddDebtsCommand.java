@@ -17,7 +17,7 @@ public class AddDebtsCommand extends Command {
     private double amount;
     private String description;
     private LocalDate date;
-    private String mode;
+    private static final String mode = MODE_DEBT;
 
     /**
      * Instantiates AddDebtsCommand.
@@ -34,15 +34,15 @@ public class AddDebtsCommand extends Command {
         this.amount = amount;
         this.description = description;
         this.date = date;
-        mode = ModeStringList.MODE_DEBT;
     }
 
     @Override
     public void execute(DollaData dollaData) {
         Debt newDebt = new Debt(type, name, amount, description, date);
-        index = dollaData.getRecordList(mode).size();
-        DebtList debtList = (DebtList) dollaData.getRecordList(mode);
-        StateList.addState(new DebtState(debtList.get()), mode);///////////////////////////////////////
+        index = dollaData.getRecordListObj(mode).size();
+        DebtList debtList = (DebtList) dollaData.getRecordListObj(mode);
+        UndoStateList.addState(new DebtState(debtList.get()), mode);
+        Redo.clearRedoState(mode);
         int duplicateDebtIndex = debtList.findExistingRecordIndex(dollaData, newDebt, mode);
         if (recordDoesNotExist(duplicateDebtIndex)) {
             dollaData.addToRecordList(mode, newDebt);

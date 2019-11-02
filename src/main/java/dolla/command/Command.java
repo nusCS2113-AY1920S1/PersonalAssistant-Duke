@@ -1,13 +1,14 @@
 package dolla.command;
 
 import dolla.DollaData;
+import dolla.ModeStringList;
 import dolla.parser.Parser;
 import dolla.ui.Ui;
 
 /**
  * Command is an abstract class which all types of command will inherit from.
  */
-public abstract class Command {
+public abstract class Command implements ModeStringList {
     protected int index;
 
     /**

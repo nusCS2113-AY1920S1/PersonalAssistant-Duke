@@ -2,13 +2,7 @@ package dolla.command;
 
 import dolla.DollaData;
 import dolla.action.Redo;
-import dolla.action.Repeat;
 import dolla.action.Undo;
-import dolla.parser.MainParser;
-import dolla.parser.Parser;
-import dolla.storage.StorageWrite;
-import dolla.task.Entry;
-import dolla.task.EntryList;
 import dolla.task.Record;
 
 import java.util.ArrayList;
@@ -16,8 +10,7 @@ import java.util.ArrayList;
 public class AddActionCommand extends Command {
     private String mode;
     private String command;
-    private static final String EMPTY_STACK_MESSAGE = "empty stack";
-    private static final String NULL_MESSAGE = "null";
+    private ArrayList<Record> recordList;
 
     //@@author yetong1895
     public AddActionCommand (String mode, String command) {
@@ -29,12 +22,20 @@ public class AddActionCommand extends Command {
     public void execute(DollaData dollaData) throws Exception {
         switch (command) {
         case "undo":
-            ArrayList<Record> records = Undo.processState(mode);
-            dollaData.setRecordList(records);
-            System.out.println("an undo entry have performed");
+            recordList = Undo.processUndoState(mode);
+            if (recordList != null) {
+                Redo.addToStateList(mode, dollaData.getRecordList(mode));
+                dollaData.setRecordList(recordList);
+                System.out.println("an undo entry have performed");
+            }
             break;
         case "redo":
-
+            recordList = Redo.processRedoState(mode);
+            if (recordList != null) {
+                Undo.addToStateList(mode, dollaData.getRecordList(mode));
+                dollaData.setRecordList(recordList);
+                System.out.println("an redo entry have performed");
+            }
             break;
         default:
             break;

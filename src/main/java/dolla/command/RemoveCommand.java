@@ -37,21 +37,21 @@ public class RemoveCommand extends Command {
     @Override
     public void execute(DollaData dollaData) {
         int logNumInt;
-        RecordList recordList = dollaData.getRecordList(mode);
+        RecordList recordList = dollaData.getRecordListObj(mode);
         boolean isListEmpty = (recordList.size() == 0);
 
         if (isListEmpty) {
             return; // TODO: return error command
         }
         try {
-            if (mode.equals("entry")) {
-                StateList.addState(new EntryState(recordList.get()), mode);/////////////////////////////////
-            } else if (mode.equals("debt")) {
-                StateList.addState(new DebtState(recordList.get()), mode);
-            } else if (mode.equals("limit")) {
-                StateList.addState(new LimitState(recordList.get()), mode);
+            if (mode.equals(MODE_ENTRY)) {
+                UndoStateList.addState(new EntryState(recordList.get()), mode);/////////////////////////////////
+            } else if (mode.equals(MODE_DEBT)) {
+                UndoStateList.addState(new DebtState(recordList.get()), mode);
+            } else if (mode.equals(MODE_LIMIT)) {
+                UndoStateList.addState(new LimitState(recordList.get()), mode);
             }
-
+            Redo.clearRedoState(mode);
             logNumInt = stringToInt(logNumStr) - 1;
             RemoveUi.echoRemove(recordList.get().get(logNumInt).getRecordDetail());
             dollaData.removeFromRecordList(mode, logNumInt);

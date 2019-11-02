@@ -3,7 +3,8 @@ package dolla.command;
 import dolla.DollaData;
 import dolla.ModeStringList;
 import dolla.action.LimitState;
-import dolla.action.StateList;
+import dolla.action.Redo;
+import dolla.action.UndoStateList;
 import dolla.task.Limit;
 import dolla.task.LimitList;
 import dolla.ui.LimitUi;
@@ -17,7 +18,7 @@ public class AddLimitCommand extends Command {
     private String type;
     private double amount;
     private String duration;
-    private static final String mode = ModeStringList.MODE_LIMIT;
+    private static final String mode = MODE_LIMIT;
 
     /**
      * Instantiates a new AddLimitCommand.
@@ -35,8 +36,9 @@ public class AddLimitCommand extends Command {
     public void execute(DollaData dollaData) {
         Limit newLimit = new Limit(type, amount, duration);
 
-        LimitList limitList = (LimitList) dollaData.getRecordList(mode);
-        StateList.addState(new LimitState(limitList.get()), mode);///////////////////////////////////////
+        LimitList limitList = (LimitList) dollaData.getRecordListObj(mode);
+        UndoStateList.addState(new LimitState(limitList.get()), mode);///////////////////////////////////////
+        Redo.clearRedoState(mode);
         //todo: need to add budget and show and deduct money every time there is an expense entry
         int duplicateLimitIndex = limitList.findExistingRecordIndex(dollaData, newLimit, mode);
         if (recordDoesNotExist(duplicateLimitIndex)) {

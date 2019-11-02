@@ -25,9 +25,6 @@ import java.util.ArrayList;
  * execute the command according to the command under the debt mode.
  */
 public class DebtsParser extends Parser {
-    private static final String DEBT_COMMAND_REDO = "redo";
-    private static final String DEBT_COMMAND_UNDO = "undo";
-    private static final String DEBT_COMMAND_REPEAT = "repeat";
 
     public DebtsParser(String inputLine) {
         super(inputLine);
@@ -101,9 +98,9 @@ public class DebtsParser extends Parser {
             } else {
                 return new ErrorCommand();
             }
-        } else if (commandToRun.equals(DEBT_COMMAND_REDO)
-                || commandToRun.equals(DEBT_COMMAND_UNDO)
-                || commandToRun.equals(DEBT_COMMAND_REPEAT)) {
+        } else if (commandToRun.equals(COMMAND_REDO)
+                || commandToRun.equals(COMMAND_UNDO)
+                || commandToRun.equals(COMMAND_REPEAT)) {
             return new AddActionCommand(mode, commandToRun);
         } else {
             return invalidCommand();
