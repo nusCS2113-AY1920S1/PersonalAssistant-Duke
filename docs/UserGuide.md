@@ -106,7 +106,7 @@ features of the application BetterDuke.
     -for deadline :​delete/d Mod_Code TASK_DESCRIPTION /by
     DATE(xx/xx/xxxx or week x day) TIME
     Example:    
-    add/d CS2101 assignment /by week 1 mon 1200
+    delete/d CS2101 assignment /by week 1 mon 1200
     
 
  ##   3.4. Listing all tasks: ​ list (Coming in v1.4)
