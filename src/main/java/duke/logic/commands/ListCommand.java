@@ -6,9 +6,9 @@ import duke.model.user.User;
 import duke.model.wallet.Wallet;
 import duke.storage.Storage;
 
-import java.text.ParseException;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
-import java.util.Date;
 
 /**
  * ListCommand is a public class that inherits from abstract class Command.
@@ -24,19 +24,16 @@ public class ListCommand extends Command {
 
     /**
      * Constructor for ListCommand.
-     * @param dateStr The date of the data to List
+     * @param date The date of the data to List
      */
 
-    public ListCommand(String dateStr) {
-        Date temp;
-
-        if (!dateStr.isBlank()) {
+    public ListCommand(LocalDate date) {
+        if (date != null) {
             try {
-                temp = dateFormat.parse(dateStr);
-                currentDateStr = dateFormat.format(temp);
-            } catch (ParseException e) {
-                ui.showMessage("Unable to parse \"" + dateStr + "\" as a date. Showing list of "
-                        + currentDateStr + " instead.");
+                currentDate = date;
+            } catch (DateTimeParseException e) {
+                ui.showMessage("Unable to parse \"" + date.toString() + "\" as a date. Showing list of "
+                        + currentDate.format(dateFormat) + " instead.");
             }
         }
     }
@@ -48,7 +45,7 @@ public class ListCommand extends Command {
         // If un-parseble user input date, default to current date.
         if (!this.isFail) {
             ui.showMessage(messageStr);
-            ui.showMessage("Showing list of meals from " + currentDateStr + " instead.");
+            ui.showMessage("Showing list of meals from " + currentDate.format(dateFormat) + " instead.");
         }
     }
 
@@ -63,13 +60,13 @@ public class ListCommand extends Command {
     public void execute(MealList meals,  Storage storage, User user, Wallet wallet) {
         ui.showLine();
         ui.showCalorie(user);
-        ArrayList<Meal> currentMeals = meals.getMealsList(currentDateStr);
-        if (!meals.checkDate(currentDateStr)) {
-            ui.showMessage("There isn't any food on " + currentDateStr);
+        ArrayList<Meal> currentMeals = meals.getMealsList(currentDate);
+        if (!meals.checkDate(currentDate)) {
+            ui.showMessage("There isn't any food on " + currentDate.format(dateFormat));
         }
 
         ui.showMealList(currentMeals);
-        ui.showCaloriesLeft(currentMeals, user, currentDateStr);
+        ui.showCaloriesLeft(currentMeals, user, currentDate);
         ui.showLine();
     }
 }

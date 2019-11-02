@@ -1,7 +1,5 @@
 {
   "burger": {
-    "sodium": 20,
-    "fats": 20,
-    "calorie": 400
+    "calorie": 600
   }
 }

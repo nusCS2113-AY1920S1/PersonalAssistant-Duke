@@ -3,6 +3,8 @@ package duke.logic.parsers;
 import duke.logic.commands.ListCommand;
 
 import java.text.ParseException;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.Date;
 
 /**
@@ -19,10 +21,9 @@ public class ListCommandParser implements ParserInterface<ListCommand> {
     public ListCommand parse(String userInputStr) {
         if (!userInputStr.isBlank()) {
             try {
-                Date temp;
-                temp = dateFormat.parse(userInputStr);
-                return new ListCommand(dateFormat.format(temp));
-            } catch (ParseException e) {
+                LocalDate date = LocalDate.parse(userInputStr,dateFormat);
+                return new ListCommand(date);
+            } catch (DateTimeParseException e) {
                 return new ListCommand(false, "Unable to parse \"" + userInputStr + "\" as a date.");
             }
         } else {

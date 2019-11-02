@@ -1,10 +1,18 @@
 {
-  "endDate": "01/12/2020",
-  "startDate": "01/12/2019",
+  "endDate": {
+    "year": 2020,
+    "month": 12,
+    "day": 1
+  },
+  "startDate": {
+    "year": 2019,
+    "month": 11,
+    "day": 1
+  },
   "originalWeight": 70.0,
   "weightTarget": 60.0,
-  "calorieTarget": 1281872,
+  "calorieTarget": 1248368,
   "caloriesLeft": 0,
   "caloriesConsumed": 0,
-  "activityLevelTarget": 3
+  "activityLevelTarget": 5
 }

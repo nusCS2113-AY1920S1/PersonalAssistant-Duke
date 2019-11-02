@@ -17,6 +17,7 @@ import duke.model.wallet.Wallet;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.lang.reflect.Type;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -43,10 +44,10 @@ public class Load {
      */
     public void loadMealListData(MealList meals) throws DukeException {
         String userMealFilePathStr = filePaths.getFilePathStr(FilePathNames.FILE_PATH_USER_MEALS_FILE);
-        Type mealListHashMap = new TypeToken<HashMap<String, ArrayList<Meal>>>(){}.getType();
+        Type mealListHashMap = new TypeToken<HashMap<LocalDate, ArrayList<Meal>>>(){}.getType();
         bufferedReader = FileUtil.readFile(userMealFilePathStr, useResourceAsBackup);
         try {
-            HashMap<String, ArrayList<Meal>> data = gson.fromJson(bufferedReader,mealListHashMap);
+            HashMap<LocalDate, ArrayList<Meal>> data = gson.fromJson(bufferedReader,mealListHashMap);
             if (data != null) {
                 meals.setMealTracker(data);
                 bufferedReader.close();

@@ -7,6 +7,8 @@ import duke.model.user.User;
 import duke.model.wallet.Wallet;
 import duke.storage.Storage;
 
+import java.time.LocalDate;
+
 public class EditCommand extends Command {
     private Meal updatedMeal;
 
@@ -35,8 +37,8 @@ public class EditCommand extends Command {
         ui.showLine();
         try {
             updatedMeal = meals.updateMeal(updatedMeal);
-            String dateStr = updatedMeal.getDate();
-            ui.showUpdated(this.updatedMeal, meals.getMealsList(this.updatedMeal.getDate()), user, dateStr);
+            LocalDate date = updatedMeal.getDate();
+            ui.showUpdated(this.updatedMeal, meals.getMealsList(this.updatedMeal.getDate()), user, date);
             storage.updateFile(meals);
         } catch (DukeException e) {
             ui.showMessage(e.getMessage());

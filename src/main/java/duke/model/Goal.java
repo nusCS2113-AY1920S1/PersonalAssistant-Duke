@@ -8,14 +8,15 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import static duke.commons.constants.DateConstants.LOCAL_DATE_FORMATTER;
 import static java.time.temporal.ChronoUnit.DAYS;
 
 /**
  * Goal is a public class that defines all user set dietary goals.
  */
 public class Goal {
-    private String endDate;
-    private String startDate;
+    private LocalDate endDate;
+    private LocalDate startDate;
     private double originalWeight;
     private double weightTarget;
     private int calorieTarget;
@@ -27,18 +28,18 @@ public class Goal {
     }
 
     public Goal(HashMap<String, String> argumentsMap) {
-        startDate = argumentsMap.get("startdate");
-        endDate = argumentsMap.get("enddate");
+        startDate = LocalDate.parse(argumentsMap.get("startdate"), LOCAL_DATE_FORMATTER);
+        endDate = LocalDate.parse(argumentsMap.get("enddate"), LOCAL_DATE_FORMATTER);
         weightTarget = Double.parseDouble(argumentsMap.get("weight"));
         activityLevelTarget = Integer.parseInt(argumentsMap.get("activity"));
     }
 
     public void setStartDate(String startDate) {
-        this.startDate = startDate;
+        this.startDate = LocalDate.parse(startDate, LOCAL_DATE_FORMATTER);
     }
 
     public void setEndDate(String endDate) {
-        this.endDate = endDate;
+        this.endDate = LocalDate.parse(endDate, LOCAL_DATE_FORMATTER);
     }
 
     public void setWeightTarget(double weight) {
@@ -61,11 +62,11 @@ public class Goal {
      * This is a getter for date.
      * @return description of the task
      */
-    public String getEndDate() {
+    public LocalDate getEndDate() {
         return this.endDate;
     }
 
-    public String getStartDate() {
+    public LocalDate getStartDate() {
         return this.startDate;
     }
 
@@ -95,20 +96,18 @@ public class Goal {
 
     public void updateStats(MealList meals) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
-        LocalDate startDate = LocalDate.parse(this.startDate, formatter);
         LocalDate currentDate = LocalDate.now();
         int totalConsume = 0;
-        HashMap<String, ArrayList<Meal>> mealTracker = meals.getMealTracker();
+        HashMap<LocalDate, ArrayList<Meal>> mealTracker = meals.getMealTracker();
         for (LocalDate iterator = startDate; iterator.isBefore(currentDate) || iterator.isEqual(currentDate);
              iterator = iterator.plusDays(1)) {
-            totalConsume += sumCaloriesInADay(mealTracker, iterator.format(formatter));
+            totalConsume += sumCaloriesInADay(mealTracker, iterator);
         }
         this.caloriesConsumed = totalConsume;
         this.caloriesLeft = this.calorieTarget - totalConsume;
     }
 
-    private int sumCaloriesInADay(HashMap<String, ArrayList<Meal>> mealTracker, String iterator) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
+    private int sumCaloriesInADay(HashMap<LocalDate, ArrayList<Meal>> mealTracker, LocalDate iterator) {
         int caloriesConsumed = 0;
         if (!mealTracker.containsKey(iterator)) {
             caloriesConsumed += this.calorieTarget / durationOfGoal();
@@ -126,25 +125,18 @@ public class Goal {
     }
 
     public int daysElapsedSinceStart() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
-        LocalDate startDate = LocalDate.parse(this.startDate, formatter);
         LocalDate currentDate = LocalDate.now();
         int daysElapsed = (int) DAYS.between(startDate,currentDate);
         return daysElapsed;
     }
 
     public int daysLeftToGoal() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
-        LocalDate endDate = LocalDate.parse(this.endDate, formatter);
         LocalDate currentDate = LocalDate.now();
         int daysLeft = (int) DAYS.between(currentDate,endDate);
         return daysLeft;
     }
 
     public int durationOfGoal() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
-        LocalDate startDate = LocalDate.parse(this.startDate, formatter);
-        LocalDate endDate = LocalDate.parse(this.endDate, formatter);
         int duration = (int) DAYS.between(startDate,endDate);
         return duration;
     }

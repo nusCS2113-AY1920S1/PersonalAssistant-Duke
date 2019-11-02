@@ -1,11 +1,7 @@
 package duke.model.meal;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.HashMap;
-
-import static duke.commons.constants.DateConstants.DATE_FORMAT;
 
 /**
  * Task is a public class that represents the tasks in duke.
@@ -16,37 +12,28 @@ public class Meal {
     protected String description;
     protected String type = "";
     protected boolean isDone;
-    protected String date;
+    protected LocalDate date;
     protected HashMap<String, Integer> nutritionValue = new HashMap<String, Integer>();
     protected String cost;
 
     /**
      * This is the constructor of Task object.
      * @param description the description of the task
+     * @param date
+     * @param details
      */
-    public Meal(String description, String details) {
-        SimpleDateFormat dateparser = DATE_FORMAT;
-        this.date = dateparser.format(Calendar.getInstance().getTime());
+    public Meal(String description, LocalDate date, HashMap<String, String> details) {
         this.description = description.trim();
         //todo: date input can only be accepted at the back of the statement
-        if (details.contains("/date")) {
-            String[] splitString = details.split("/date", 2);
-            try {
-                Date day;
-                day = dateparser.parse(splitString[1].trim());
-                this.date = dateparser.format(day);
-            } catch (Exception e) {
-                //todo something here
-            }
-            details = splitString[0];
+        if (date != null) {
+            this.date = date;
+        } else {
+            this.date = LocalDate.now();
         }
-        if (details.trim().length() != 0) {
-            String[] splitString1 = details.split("/");
-            for (String data : splitString1) {
-                if (data.trim().length() != 0) {
-                    String[] partitionedData = data.split(" ", 2);
-                    String nutrient = partitionedData[0];
-                    int value = Integer.valueOf(partitionedData[1].trim());
+        if (details.size() != 0) {
+            for (String nutrient : details.keySet()) {
+                if (!nutrient.equals("date")) {
+                    int value = Integer.parseInt(details.get(nutrient));
                     nutritionValue.put(nutrient, value);
                 }
             }
@@ -54,8 +41,7 @@ public class Meal {
     }
 
     public Meal(String description, HashMap<String, Integer> nutritionValue) {
-        SimpleDateFormat dateparser = DATE_FORMAT;
-        this.date = dateparser.format(Calendar.getInstance().getTime());
+        this.date = LocalDate.now();
         this.description = description.trim();
         this.nutritionValue = nutritionValue;
     }
@@ -111,7 +97,7 @@ public class Meal {
      * This is a getter for the date.
      * @return date of the meal
      */
-    public String getDate() {
+    public LocalDate getDate() {
         return this.date;
     }
 

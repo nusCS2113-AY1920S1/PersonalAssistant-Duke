@@ -1,16 +1,76 @@
 {
-  "31/10/2019": [
+  "2019-12-12": [
+    {
+      "description": "burger",
+      "type": "D",
+      "isDone": false,
+      "date": {
+        "year": 2019,
+        "month": 12,
+        "day": 12
+      },
+      "nutritionValue": {
+        "calorie": 600
+      },
+      "cost": "0"
+    }
+  ],
+  "2019-11-02": [
+    {
+      "description": "burger",
+      "type": "D",
+      "isDone": false,
+      "date": {
+        "year": 2019,
+        "month": 11,
+        "day": 2
+      },
+      "nutritionValue": {
+        "calorie": 600
+      },
+      "cost": "0"
+    },
     {
       "description": "burger",
       "type": "L",
       "isDone": false,
-      "date": "31/10/2019",
+      "date": {
+        "year": 2019,
+        "month": 11,
+        "day": 2
+      },
       "nutritionValue": {
-        "sodium": 20,
-        "fats": 20,
-        "calorie": 400
+        "calorie": 600
       },
       "cost": "0"
+    },
+    {
+      "description": "burger",
+      "type": "B",
+      "isDone": false,
+      "date": {
+        "year": 2019,
+        "month": 11,
+        "day": 2
+      },
+      "nutritionValue": {
+        "calorie": 600
+      },
+      "cost": "0"
+    },
+    {
+      "mealPreferenceParameter": "calorie",
+      "description": "burger",
+      "type": "L",
+      "isDone": false,
+      "date": {
+        "year": 2019,
+        "month": 11,
+        "day": 2
+      },
+      "nutritionValue": {
+        "calorie": 600
+      }
     }
   ]
 }
