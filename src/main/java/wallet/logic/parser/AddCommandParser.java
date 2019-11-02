@@ -108,6 +108,7 @@ public class AddCommandParser implements Parser<AddCommand> {
             cat = Category.getCategory(arguments[0].trim());
             if (cat == null) {
                 System.out.println(MESSAGE_ERROR_INVALID_CATEGORY);
+                return null;
             }
             if (isRecurring) {
                 arguments = arguments[1].split("/on");
@@ -116,6 +117,7 @@ public class AddCommandParser implements Parser<AddCommand> {
                 freq = arguments[1].trim().toUpperCase();
                 if (!freq.equals("DAILY") && !freq.equals("WEEKLY") && !freq.equals("MONTHLY")) {
                     System.out.println(MESSAGE_ERROR_INVALID_RECURRENCE_RATE);
+                    return null;
                 }
             } else {
                 arguments = arguments[1].split("/on");
@@ -125,6 +127,7 @@ public class AddCommandParser implements Parser<AddCommand> {
             cat = Category.getCategory(arguments[1].trim());
             if (cat == null) {
                 System.out.println(MESSAGE_ERROR_INVALID_CATEGORY);
+                return null;
             }
         }
         Expense expense = new Expense(desc, date, amount, cat, isRecurring, freq);
