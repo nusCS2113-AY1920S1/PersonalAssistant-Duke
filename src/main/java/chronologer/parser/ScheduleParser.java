@@ -77,6 +77,9 @@ public class ScheduleParser extends IndexParser {
     }
 
     private int checkInputType(String taskFeatures) throws ChronologerException {
+        if (taskFeatures.split("\\s+").length == 1) {
+            return NO_DEADLINE_INPUT;
+        }
         String stringToCheck = taskFeatures.split(Flag.BY.getFlag(), 2)[1].trim();
         if (stringToCheck.isEmpty()) {
             throw new ChronologerException(ChronologerException.emptyDateOrTime());

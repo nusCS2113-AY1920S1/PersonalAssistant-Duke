@@ -104,14 +104,15 @@ public class TaskScheduleCommand extends Command {
             deadlineDate = this.deadlineDate;
         }
 
-        if (deadlineDate != null && LocalDateTime.now().isAfter(deadlineDate)) {
-            throw new ChronologerException("The selected deadline is overdue!");
-        }
-
         if (deadlineDate == null) {
             TaskScheduler.scheduleTask(tasks, duration);
             return;
         }
+
+        if (LocalDateTime.now().isAfter(deadlineDate)) {
+            throw new ChronologerException("The selected deadline is overdue!");
+        }
+
         TaskScheduler.scheduleByDeadline(tasks, duration, deadlineDate);
     }
 
