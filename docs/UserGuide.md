@@ -174,7 +174,7 @@ features of the application BetterDuke.
       retrieve/previous 2
       For instance the show previous list have: 	
       add/d CS2105 assignment 1 /by 29/10/2019 1300
-      add/d CS2105 practical test by 29/10/2019 1300
+      add/d CS2105 practical test /by 29/10/2019 1300
       Find 2 hours
 
       The command retrieve/previous will set the text in the command line 
