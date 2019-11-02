@@ -13,6 +13,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.StringReader;
 
+//@@author HashirZahir
 /**
  * Class in charge of common file operations such as reading and writing from jar resources and
  * user system files. Handles file exceptions and throws DukeException when relevant.

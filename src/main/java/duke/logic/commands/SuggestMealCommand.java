@@ -10,7 +10,7 @@ import duke.storage.Storage;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-
+//@@author HashirZahir
 /**
  * Class to handle suggestion command arguments from the user and pass them to the analytic module.
  */

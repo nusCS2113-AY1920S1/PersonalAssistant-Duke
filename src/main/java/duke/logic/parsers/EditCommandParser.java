@@ -4,6 +4,7 @@ import duke.commons.exceptions.DukeException;
 import duke.logic.commands.EditCommand;
 import duke.model.meal.Meal;
 
+//@@author HashirZahir
 /**
  * Parser class to handle editing of a entry in the model.
  */

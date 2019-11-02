@@ -6,6 +6,7 @@ import java.util.HashMap;
 
 import static duke.commons.constants.DateConstants.DATE_FORMAT;
 
+//@@author HashirZahir
 /**
  * SuggestMeal class is inherited class of Meal class that has additional parameters to
  * handle the data storage for meal suggestion.

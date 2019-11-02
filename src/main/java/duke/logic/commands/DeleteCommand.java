@@ -10,6 +10,7 @@ import duke.storage.Storage;
 import java.text.ParseException;
 import java.util.Date;
 
+//@@author HashirZahir
 /**
  * DeleteCommand is a public class that inherits from abstract class Command.
  * A DeleteCommand object encapsulates the index of meal and date of the meal that is to be deleted.

@@ -7,6 +7,7 @@ import duke.model.user.User;
 import duke.model.wallet.Wallet;
 import duke.storage.Storage;
 
+//@@author HashirZahir
 public class EditCommand extends Command {
     private Meal updatedMeal;
 

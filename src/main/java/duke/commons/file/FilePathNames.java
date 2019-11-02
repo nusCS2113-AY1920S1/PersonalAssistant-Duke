@@ -1,5 +1,6 @@
 package duke.commons.file;
 
+//@@author HashirZahir
 public enum FilePathNames {
     FILE_PATH_USER_MEALS_FILE("src/main/java/duke/Data/meals.json"),
     FILE_PATH_DEFAULT_MEAL_FILE("src/main/java/duke/Data/defaultValues.json"),

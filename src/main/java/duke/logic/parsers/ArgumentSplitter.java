@@ -45,6 +45,7 @@ public class ArgumentSplitter {
         return new String[] {splitStrings[0], splitStrings[1]};
     }
 
+    //@@author HashirZahir
     /**
      * Split commands based on forward slash separated arguments (eg: /date 1 /calorie 2 ..)
      * @param userInputStr String input by user.
