@@ -44,8 +44,6 @@ public class TaskList {
         //generate unique ID for task
         taskIdManager.generateAndSetId(task);
         arrlist.add(task);
-        sortTask(arrlist);
-
     }
 
     //@@author jaedonkey
