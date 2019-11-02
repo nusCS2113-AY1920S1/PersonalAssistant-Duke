@@ -142,7 +142,7 @@ Format: `newItinerary START_DATE END_DATE HOTEL_LOCATION ITINERARY_NAME DAY_NUMB
 
 Examples:
 
-An itinerary with muliple days. 
+An itinerary with muliple days.
 
 * `newItinerary 23/04/15 25/04/15 MBS TwoDayHoliday 1 /venue Orchard /do dancing /and singing /and swinging 2 /venue Changi /do running /and jumping /and swinging`
 
@@ -160,7 +160,7 @@ Example Output:
 `Your Saved Itineraries are :`
    `1. TwoDayHoliday`
    `2. SundayVacay`
-    
+
 === Show a saved Itinerary: `showItinerary`
 
 Disaplays a specific saved Itinerary +
@@ -170,7 +170,7 @@ Examples:
 
 * `showItinerary 1`
 
-Will show the `TwoDayHoliday` Itinerary. 
+Will show the `TwoDayHoliday` Itinerary.
 
 
 === Adding an event: `event`
@@ -424,7 +424,7 @@ Examples:
 To save the edits, type `save` or `done` or `x`. +
 To discard the changes, type `close` or `end` or `X`.+
 Alternatively, user can use `e INDEX LOCATION START_DATE END_DATE` +
-Where `INDEX` is the index of the event, `LOCATION` is the new location of the event, the `START_DATE` is the start date of the event, the `END_DATE` of the end date of the event. 
+Where `INDEX` is the index of the event, `LOCATION` is the new location of the event, the `START_DATE` is the start date of the event, the `END_DATE` of the end date of the event.
 
 == Features that are coming in version 2.0!
 
