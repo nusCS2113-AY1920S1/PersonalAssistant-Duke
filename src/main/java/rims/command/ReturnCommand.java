@@ -52,16 +52,21 @@ public class ReturnCommand extends Command {
             cancelledReservations.add(cancelledReservation);
         }
         ui.printLine();
-        ui.print("Done! I've removed the following reservation:");
+        ui.print("Done! I've removed the following reservation(s):\n");
         for (int j = 0; j < cancelledReservations.size(); j++) {
-            ui.print(cancelledReservations.get(j).toString());
+            ui.print(resources.getResourceById(cancelledReservations.get(j).getResourceId()).toString());
+            ui.print("\t" + cancelledReservations.get(j).toString());
         }
         ui.printLine();
 
     }
 
-    @Override
-    public boolean canModifyData() {
-        return true;
+    private String reservationsIdsToString(ArrayList<Integer> reservationIds) {
+        String reservationsIdsString = "";
+        for (int i : reservationIds) {
+            reservationsIdsString += (i + ", ");
+        }
+        return reservationsIdsString;
     }
+
 }

@@ -17,8 +17,9 @@ import rims.exception.RimsException;
 
 //@@author isbobby
 /**
- * Creates a Reservation for a Resource in the ResourceList, given the ID of the user,
- * the name of the Resource and the dates between which the Reservation is valid.
+ * Creates a Reservation for a Resource in the ResourceList, given the ID of the
+ * user, the name of the Resource and the dates between which the Reservation is
+ * valid.
  */
 public class ReserveCommand extends Command {
     protected String resourceName;
@@ -29,13 +30,15 @@ public class ReserveCommand extends Command {
     protected String stringDateTill;
     protected int userId;
 
-    //@@author rabhijit
+    // @@author rabhijit
     /**
-     * Constructor for a ReserveCommand, for a Room which is to be loaned from effective immediately
-     * till a certain future date.
-     * @param roomName the name of the Room to be loaned out.
-     * @param stringDateTill the date by which the Room must be returned, in String format.
-     * @param userId the ID of the user making the loan.
+     * Constructor for a ReserveCommand, for a Room which is to be loaned from
+     * effective immediately till a certain future date.
+     * 
+     * @param roomName       the name of the Room to be loaned out.
+     * @param stringDateTill the date by which the Room must be returned, in String
+     *                       format.
+     * @param userId         the ID of the user making the loan.
      */
     public ReserveCommand(String roomName, String stringDateTill, int userId) {
         resourceName = roomName;
@@ -43,15 +46,19 @@ public class ReserveCommand extends Command {
         this.dateFrom = new Date(System.currentTimeMillis());
         this.stringDateTill = stringDateTill;
         this.userId = userId;
+        canModifyData = true;
+        commandUserInput = "loan " + roomName + " (room) until " + stringDateTill + " by user " + userId;
     }
 
     /**
-     * Constructor for a ReserveCommand, for an Item which is to be loaned from effective immediately
-     * till a certain future date.
-     * @param itemName the name of the Item to be loaned out.
-     * @param qty the quantity of the Item to be loaned out.
-     * @param stringDateTill the date by which the Item(s) must be returned, in String format.
-     * @param userId the ID of the user making the loan.
+     * Constructor for a ReserveCommand, for an Item which is to be loaned from
+     * effective immediately till a certain future date.
+     * 
+     * @param itemName       the name of the Item to be loaned out.
+     * @param qty            the quantity of the Item to be loaned out.
+     * @param stringDateTill the date by which the Item(s) must be returned, in
+     *                       String format.
+     * @param userId         the ID of the user making the loan.
      */
     public ReserveCommand(String itemName, int qty, String stringDateTill, int userId) {
         resourceName = itemName;
@@ -59,15 +66,21 @@ public class ReserveCommand extends Command {
         this.dateFrom = new Date(System.currentTimeMillis());
         this.stringDateTill = stringDateTill;
         this.userId = userId;
+        canModifyData = true;
+        commandUserInput = "loan " + qty + " " + itemName + " (room) until " + stringDateTill + " by user " + userId;
+
     }
 
     /**
-     * Constructor for a ReserveCommand, for a Room which is to be reserved from a given date in the future
-     * till a further future date.
-     * @param roomName the name of the Room to be reserved.
-     * @param stringDateFrom the date from which the Room is to be loaned out, in String format.
-     * @param stringDateTill the date by which the Room must be returned, in String format.
-     * @param userId the ID of the user making the reservation.
+     * Constructor for a ReserveCommand, for a Room which is to be reserved from a
+     * given date in the future till a further future date.
+     * 
+     * @param roomName       the name of the Room to be reserved.
+     * @param stringDateFrom the date from which the Room is to be loaned out, in
+     *                       String format.
+     * @param stringDateTill the date by which the Room must be returned, in String
+     *                       format.
+     * @param userId         the ID of the user making the reservation.
      */
     public ReserveCommand(String roomName, String stringDateFrom, String stringDateTill, int userId) {
         resourceName = roomName;
@@ -78,13 +91,16 @@ public class ReserveCommand extends Command {
     }
 
     /**
-     * Constructor for a ReserveCommand, for an Item which is to be reserved from a given date in the future
-     * till a further future date.
-     * @param itemName the name of the Item to be reserved.
-     * @param qty the quantity of the Item to be reserved.
-     * @param stringDateFrom the date from which the Item is to be loaned out, in String format.
-     * @param stringDateTill the date by which the Item must be returned, in String format.
-     * @param userId the ID of the user making the reservation.
+     * Constructor for a ReserveCommand, for an Item which is to be reserved from a
+     * given date in the future till a further future date.
+     * 
+     * @param itemName       the name of the Item to be reserved.
+     * @param qty            the quantity of the Item to be reserved.
+     * @param stringDateFrom the date from which the Item is to be loaned out, in
+     *                       String format.
+     * @param stringDateTill the date by which the Item must be returned, in String
+     *                       format.
+     * @param userId         the ID of the user making the reservation.
      */
     public ReserveCommand(String itemName, int qty, String stringDateFrom, String stringDateTill, int userId) {
         resourceName = itemName;
@@ -94,28 +110,37 @@ public class ReserveCommand extends Command {
         this.userId = userId;
     }
 
-    //@@author isbobby
+    // @@author isbobby
     /**
-     * Checks if the reservation is possible given the number of available Resources and Reservations
-     * that are already in place, and if it is possible, creates a Reservation for the desired number of 
-     * Resources between the given dates.
-     * @param ui An instance of the user interface.
-     * @param storage An instance of the Storage class.
-     * @param resources The ResourceList, containing all the created Resources thus far.
-     * @throws RimsException if there are not enough Resources available between the desired dates
-     *                       to make the Reservation possible
+     * Checks if the reservation is possible given the number of available Resources
+     * and Reservations that are already in place, and if it is possible, creates a
+     * Reservation for the desired number of Resources between the given dates.
+     * 
+     * @param ui        An instance of the user interface.
+     * @param storage   An instance of the Storage class.
+     * @param resources The ResourceList, containing all the created Resources thus
+     *                  far.
+     * @throws RimsException  if there are not enough Resources available between
+     *                        the desired dates to make the Reservation possible
      * @throws ParseException if the dates specified are invalid.
      */
     @Override
-    public void execute(Ui ui, Storage storage, ResourceList resources) throws RimsException, ParseException, IOException {
-        storage.saveToFile(resources.getResources());
+    public void execute(Ui ui, Storage storage, ResourceList resources)
+            throws RimsException, ParseException, IOException {
+                
+        //storage.saveToFile(resources.getResources());
 
         if (!(stringDateFrom == null)) {
             dateFrom = resources.stringToDate(stringDateFrom);
         }
+
         dateTill = resources.stringToDate(stringDateTill);
         if (resources.getAvailableNumberOfResource(resourceName) < qty) {
-            throw new RimsException("We don't have that many of this resource currently available!");
+            if (qty == 1) {
+                throw new RimsException("We don't have this resource currently available in our inventory!");
+            } else {
+                throw new RimsException("We don't have that many of this resource currently available!");
+            }
         }
         ArrayList<Resource> allOfResource = resources.getAllOfResource(resourceName);
         ArrayList<Resource> bookedResources = new ArrayList<Resource>();
@@ -133,23 +158,17 @@ public class ReserveCommand extends Command {
         }
         if (qtyBooked != 0) {
             ui.printLine();
-            ui.print("Done! I've marked these resources as loaned:");
+            ui.print("Done! I've booked these resources:");
             for (int i = 0; i < bookedResources.size(); i++) {
-                ui.print(bookedResources.get(i).toString() + " (ID: " + bookedResources.get(i).getResourceId() + ")");
+                ui.print("\t" + bookedResources.get(i).toString() + " (ID: " + bookedResources.get(i).getResourceId()
+                        + ")");
             }
+            ui.print("\n\t" + "from " + resources.getDateToPrint(dateFrom) + " till "
+                    + resources.getDateToPrint(dateTill));
             ui.printLine();
         } else {
             throw new RimsException("This item is not available between the dates you've selected!");
         }
     }
 
-    @Override
-    public boolean canModifyData() {
-        return true;
-    }
-
-    @Override
-    public String getCommandUserInput() {
-        return "reserve";
-    }
 }
