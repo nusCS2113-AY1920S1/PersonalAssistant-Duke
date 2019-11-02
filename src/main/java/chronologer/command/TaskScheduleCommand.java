@@ -110,6 +110,7 @@ public class TaskScheduleCommand extends Command {
         }
 
         if (LocalDateTime.now().isAfter(deadlineDate)) {
+            UiTemporary.printOutput("The selected deadline is overdue!");
             throw new ChronologerException("The selected deadline is overdue!");
         }
 

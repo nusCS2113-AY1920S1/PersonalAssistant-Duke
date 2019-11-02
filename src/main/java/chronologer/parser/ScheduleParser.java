@@ -7,6 +7,7 @@ import chronologer.ui.UiTemporary;
 
 import java.text.ParseException;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 
 /**
  * Extract the components required for the schedule command from the user input.
@@ -68,9 +69,10 @@ public class ScheduleParser extends IndexParser {
         LocalDateTime convertedDate;
         try {
             convertedDate = DateTimeExtractor.extractDateTime(extractedDate, command);
-        } catch (ParseException e) {
+        } catch (DateTimeParseException | ParseException e) {
+            UiTemporary.printOutput(ChronologerException.wrongDateOrTime());
             logger.writeLog(e.toString(), this.getClass().getName(), userInput);
-            throw new ChronologerException(ChronologerException.unknownUserCommand());
+            throw new ChronologerException(ChronologerException.wrongDateOrTime());
         }
 
         return convertedDate;
