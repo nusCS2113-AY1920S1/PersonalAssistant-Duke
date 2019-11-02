@@ -6,6 +6,7 @@ import duke.model.user.User;
 import duke.model.wallet.Wallet;
 import duke.storage.Storage;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 /**
@@ -26,7 +27,7 @@ public class FindCommand extends Command {
     public FindCommand(String descriptionStr, String dateStr) {
         this(descriptionStr);
         if (!dateStr.isBlank()) {
-            this.currentDateStr = dateStr;
+            this.currentDate = LocalDate.parse(dateStr, dateFormat);
         }
     }
 
@@ -46,7 +47,7 @@ public class FindCommand extends Command {
     public void execute(MealList meals, Storage storage, User user, Wallet wallet) {
         ui.showLine();
         ArrayList<Meal> matchingMeals = new ArrayList<>();
-        ArrayList<Meal> currentMeals = meals.getMealsList(currentDateStr);
+        ArrayList<Meal> currentMeals = meals.getMealsList(currentDate);
         for (Meal element: currentMeals) {
             String currentTaskString = element.toString();
             if (currentTaskString.contains(description)) {

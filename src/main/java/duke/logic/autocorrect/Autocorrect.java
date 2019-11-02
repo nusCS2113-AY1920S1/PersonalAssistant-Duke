@@ -46,7 +46,8 @@ public class Autocorrect {
                 for (String data : splitString1) {
                     if (data.trim().length() != 0) {
                         String[] partitionedData = data.split(" ", 2);
-                        if (partitionedData[0].matches("[a-zA-Z]+")) {
+                        if (partitionedData[0].matches("[a-zA-Z]+")
+                                || partitionedData[0].matches("/[a-zA-Z]+")) {
                             setWord(partitionedData[0]);
                             execute();
                             String nutrient = getWord();

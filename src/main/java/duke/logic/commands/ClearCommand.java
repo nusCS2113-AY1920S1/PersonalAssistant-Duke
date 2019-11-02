@@ -6,17 +6,16 @@ import duke.model.user.User;
 import duke.model.wallet.Wallet;
 import duke.storage.Storage;
 
-import java.text.ParseException;
-import java.util.Calendar;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 
 /**
  * ClearCommand is a public class that inherits from abstract class Command.
  * A ClearCommand object encapsulates the 2 dates between which all meal data will be cleared.
  */
 public class ClearCommand extends Command {
-    Date startDate;
-    Date endDate;
+    LocalDate startDate;
+    LocalDate endDate;
 
     /**
      * Constructor for ClearCommand.
@@ -26,9 +25,9 @@ public class ClearCommand extends Command {
      */
     public ClearCommand(String startDateStr, String endDateStr) {
         try {
-            startDate = dateFormat.parse(startDateStr);
-            endDate = dateFormat.parse(endDateStr);
-        } catch (ParseException e) {
+            startDate = LocalDate.parse(startDateStr, dateFormat);
+            endDate = LocalDate.parse(endDateStr, dateFormat);
+        } catch (DateTimeParseException e) {
             ui.showMessage("Unable to parse input " + startDateStr + " and " + endDateStr + " as dates.");
         }
     }
@@ -48,10 +47,8 @@ public class ClearCommand extends Command {
     @Override
     public void execute(MealList meals, Storage storage, User user, Wallet wallet) {
         ui.showLine();
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(startDate);
-        for (cal.setTime(startDate); !cal.getTime().after(endDate); cal.add(Calendar.DATE, 1)) {
-            meals.deleteAllMealsOnDate(dateFormat.format(cal.getTime()));
+        for (LocalDate date = startDate; date.isBefore(endDate); date = date.plusDays(1)) {
+            meals.deleteAllMealsOnDate(date);
         }
         ui.showCleared(dateFormat.format(startDate), dateFormat.format(endDate));
         try {

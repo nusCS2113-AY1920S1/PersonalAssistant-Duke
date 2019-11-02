@@ -2,6 +2,7 @@ package duke.model.meal;
 
 import duke.commons.exceptions.DukeException;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -10,7 +11,7 @@ import java.util.HashMap;
  * A MealList object encapsulates the ArrayList of meals.
  */
 public class MealList {
-    private HashMap<String, ArrayList<Meal>> mealTracker = new HashMap<>();
+    private HashMap<LocalDate, ArrayList<Meal>> mealTracker = new HashMap<>();
     private HashMap<String, HashMap<String, Integer>> storedItems = new HashMap<>();
 
     /**
@@ -26,7 +27,7 @@ public class MealList {
      * @param index the index of task to be deleted.
      * @return Returns the meal that was deleted.
      */
-    public Meal delete(String date, int index) {
+    public Meal delete(LocalDate date, int index) {
         Meal deletedMeal = this.mealTracker.get(date).get(index - 1);
         this.mealTracker.get(date).remove(index - 1);
         return deletedMeal;
@@ -38,24 +39,16 @@ public class MealList {
      * @param index the index of task to be marked done.
      * @return Returns the meal that was marked done.
      */
-    public Meal markDone(String date, int index) {
+    public Meal markDone(LocalDate date, int index) {
         Meal markedDoneMeal = this.mealTracker.get(date).get(index - 1);
         this.mealTracker.get(date).get(index - 1).markAsDone();
         return markedDoneMeal;
     }
 
-    public void deleteAllMealsOnDate(String dateStr) {
+    public void deleteAllMealsOnDate(LocalDate dateStr) {
         if (mealTracker.containsKey(dateStr)) {
             this.mealTracker.get(dateStr).clear();
         }
-    }
-
-    public void addMeal(Meal meal) {
-        String dateStr = meal.getDate();
-        if (!mealTracker.containsKey(dateStr)) {
-            mealTracker.put(dateStr, new ArrayList<Meal>());
-        }
-        mealTracker.get(dateStr).add(meal);
     }
 
     /**
@@ -65,9 +58,9 @@ public class MealList {
      * @throws DukeException Exception thrown if meal description or date not found in current list.
      */
     public Meal updateMeal(Meal newMeal) throws DukeException {
-        String dateStr = newMeal.getDate();
-        if (mealTracker.containsKey(dateStr)) {
-            ArrayList<Meal> meals = getMealsList(dateStr);
+        LocalDate mealDate = newMeal.getDate();
+        if (mealTracker.containsKey(mealDate)) {
+            ArrayList<Meal> meals = getMealsList(mealDate);
             for (int idx = 0; idx < meals.size(); idx++) {
                 Meal currMeal = meals.get(idx);
                 if (isSameMeal(currMeal, newMeal)) {
@@ -77,7 +70,7 @@ public class MealList {
                     }
                     meals.set(idx, currMeal);
                     newMeal = currMeal;
-                    mealTracker.replace(dateStr, meals);
+                    mealTracker.replace(mealDate, meals);
                     return newMeal;
                 }
             }
@@ -92,7 +85,7 @@ public class MealList {
         return meal1.getDescription().equals(meal2.getDescription()) && meal1.getDate().equals(meal2.getDate());
     }
 
-    public void setMealTracker(HashMap<String, ArrayList<Meal>> mealTracker) {
+    public void setMealTracker(HashMap<LocalDate, ArrayList<Meal>> mealTracker) {
         this.mealTracker = mealTracker;
     }
 
@@ -127,7 +120,7 @@ public class MealList {
         mealList.add(data);
     }
 
-    public ArrayList<Meal> getMealsList(String inputDate) {
+    public ArrayList<Meal> getMealsList(LocalDate inputDate) {
         if (mealTracker.containsKey(inputDate)) {
             return mealTracker.get(inputDate);
         } else {
@@ -140,7 +133,7 @@ public class MealList {
      * This function is a getter for the mealtracker HashMap.
      * @return mealTracker the data structure storing the list of all meals
      */
-    public HashMap<String, ArrayList<Meal>> getMealTracker() {
+    public HashMap<LocalDate, ArrayList<Meal>> getMealTracker() {
         return mealTracker;
     }
 
@@ -149,7 +142,7 @@ public class MealList {
      * @param date the date to be checked
      * @return boolean
      */
-    public boolean checkDate(String date) {
+    public boolean checkDate(LocalDate date) {
         return mealTracker.containsKey(date);
     }
 
