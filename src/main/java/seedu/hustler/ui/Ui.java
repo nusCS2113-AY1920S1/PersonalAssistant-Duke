@@ -303,7 +303,7 @@ public class Ui {
      * @param achievement newly unlocked achievement
      */
     public void showAchievementUnlocked(Achievements achievement) {
-        System.out.println("********* Congratulations, you have unlocked this achievement! **********" + achievement.toString());
+        System.out.println("Congratulations, you have unlocked this achievement!\n" + achievement.toString());
     }
 
     /**

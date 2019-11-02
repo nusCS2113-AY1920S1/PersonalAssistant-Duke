@@ -34,7 +34,7 @@ public class FirstLogin extends Achievements {
      */
     public FirstLogin() {
         this.description = "Fresh off the boat";
-        this.information = "Use Hustler for the first time.";
+        this.information = "(User use Hustler for the first time) Progress: [1/1]";
         this.achievementLevel = "Gold";
         this.points = 15;
         locked = false;
@@ -122,7 +122,7 @@ public class FirstLogin extends Achievements {
      */
     @Override
     public String toString() {
-        return super.toString() + " " + points + " " + this.description + " " + achievementLevel;
+        return super.toString() + " " + points + " " + this.description + " " + achievementLevel + information;
     }
 
     /**
@@ -133,4 +133,5 @@ public class FirstLogin extends Achievements {
     public String toTxt() {
         return locked + "|" + points + "|" + achievementLevel + "|" + description + "|" + information;
     }
+
 }
