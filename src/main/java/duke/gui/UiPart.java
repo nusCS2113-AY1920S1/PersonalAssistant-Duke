@@ -24,19 +24,17 @@ public abstract class UiPart<T> {
 
     /**
      * Constructs a UiPart with the specified FXML file within {@link #FXML_FILE_FOLDER} and root object.
-     *
-     * @see #UiPart(URL, T)
      */
     UiPart(String fxmlFileName, T root) {
         loadFxmlFile(getFxmlFileUrl(fxmlFileName), root);
-        System.out.println("UiPart 3");
+        System.out.println("For debugging, UiPart " + fxmlFileName + " is loaded.");
     }
 
     /**
      * Loads the object hierarchy from a FXML document.
      *
-     * @param url Location of the FXML document.
-     * @param root     Specifies the root of the object hierarchy.
+     * @param url  Location of the FXML document.
+     * @param root Specifies the root of the object hierarchy.
      */
     private void loadFxmlFile(URL url, T root) {
         fxmlLoader.setLocation(url);
@@ -45,23 +43,23 @@ public abstract class UiPart<T> {
         try {
             fxmlLoader.load();
         } catch (IOException e) {
-            throw new AssertionError(e);
+            System.out.println(e.getMessage());
         }
     }
 
 
     /**
      * Returns the FXML file's location path for a specified FXML file name.
+     *
      * @param fxmlFileName Holds the name of the FXML file.
      * @return FXML file''s location for its corresponding FXML file.
      */
     private static URL getFxmlFileUrl(String fxmlFileName) {
         if (fxmlFileName.isEmpty()) {
-            System.out.println("fxmlFileName is empty");
-            System.out.println("UiPart 1");
+            System.out.println(fxmlFileName + " does not exist");
         }
         URL fxmlFileUrl = Main.class.getResource(FXML_FILE_FOLDER + fxmlFileName);
-        System.out.println("UiPart 2: " + (fxmlFileUrl));
+        System.out.println("Loading: " + fxmlFileUrl);
         return fxmlFileUrl;
     }
 

@@ -137,10 +137,6 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private ScrollPane helpGuideScrollPane;
 
-//    String currentDir = System.getProperty("user.dir");
-//
-//    private final Duke duke = new Duke(currentDir);
-
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/robot.png"));
@@ -157,12 +153,10 @@ public class MainWindow extends UiPart<Stage> {
      * Creates the Main Window.
      *
      * @param primaryStage The stage to display MainWindow on.
-     * @param duke        Logic component
+     * @param duke         Logic component
      */
     public MainWindow(Stage primaryStage, Duke duke) {
         super(FXML, primaryStage);
-        System.out.println("MainWindow 1");
-
         this.primaryStage = primaryStage;
         this.duke = duke;
         initialize();
@@ -179,6 +173,9 @@ public class MainWindow extends UiPart<Stage> {
         return primaryStage;
     }
 
+    /**
+     * Initialize GUI components.
+     */
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         initializeTableViews();
@@ -188,9 +185,8 @@ public class MainWindow extends UiPart<Stage> {
             "bye", "period", "deadline", "undo", "help"};
         TextFields.bindAutoCompletion(userInput, possibleWords);
         //@@author
-//        showHelpGuide();
+        showHelpGuide();
     }
-
 
 
     /**

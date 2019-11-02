@@ -32,7 +32,7 @@ public class UiManager implements Ui {
             mainWindow.show(); //This should be called before creating other UI parts
         } catch (Throwable e) {
             System.out.println("UiManager start() error: " + e.getMessage());
-//            showFatalErrorDialogAndShutdown("Fatal error during initializing", e);
+            showFatalErrorDialogAndShutdown("Fatal error during initializing", e);
         }
     }
 
