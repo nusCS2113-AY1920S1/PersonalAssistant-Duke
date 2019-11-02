@@ -23,7 +23,7 @@ public class GetCommand extends CommandSuper {
         try {
             switch (this.getSubRootCommand()) {
             case recommendation:
-                executeRecommendationCommand();
+                //executeRecommendationCommand();
                 break;
             default:
                 break;
@@ -37,7 +37,8 @@ public class GetCommand extends CommandSuper {
      * prints out a list of recommendations based on the users set preferences.
      * @throws IOException file was not able to be found
      */
-    public void executeRecommendationCommand() throws Exceptions {
+    /*
+    private void executeRecommendationCommand() throws Exceptions {
         String feedback = "Your recommended movies are: \n";
         MovieHandler movieHandler = ((MovieHandler) this.getUiController());
         ArrayList<Integer> preferenceIndices = movieHandler.getUserProfile().getGenreIdPreference();
@@ -48,4 +49,5 @@ public class GetCommand extends CommandSuper {
         }
         movieHandler.setGeneralFeedbackText(feedback);
     }
+    */
 }

@@ -395,17 +395,20 @@ public class RetrieveRequest implements InfoFetcher {
      * @return first movie title in the search result
      * @throws Exceptions: API request errors such as bad encoding or incorrect URL
      */
-    public String beginAddRequest(String movieTitle) throws Exceptions {
+    public String beginAddRequest(String movieTitle) {
         try {
+            finalSearchResults.clear();
             String url = MAIN_URL + MOVIE_SEARCH_URL + API_KEY + "&query=" + URLEncoder.encode(movieTitle, "UTF-8");
             URLRetriever retrieve = new URLRetriever();
             String json = retrieve.readURLAsString(new URL(url));
             fetchedJSON(json);
-            return finalSearchResults.get(0).getTitle();
-        } catch (UnsupportedEncodingException | MalformedURLException ex) {
+        } catch (UnsupportedEncodingException | MalformedURLException | Exceptions ex) {
             ex.printStackTrace();
         }
-        return "";
+        if (finalSearchResults.isEmpty()) {
+            return "";
+        }
+        return finalSearchResults.get(0).getTitle();
     }
 
     /**

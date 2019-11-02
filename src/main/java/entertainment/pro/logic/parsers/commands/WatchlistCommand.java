@@ -49,6 +49,10 @@ public class WatchlistCommand  extends CommandSuper {
     private void addToWatchList() throws Exception {
         try {
             String movie = ((MovieHandler)this.getUiController()).getAPIRequester().beginAddRequest(getPayload());
+            if (movie.equals("")) {
+                ((MovieHandler)(this.getUiController())).setGeneralFeedbackText("Movie not found.\nPlease check your spelling");
+                return;
+            }
             movie = movie.toLowerCase();
             String type = this.getFlagMap().get("-t").get(0);
             switch (type) {
