@@ -124,19 +124,16 @@ public class MainWindow extends AnchorPane {
      *
      * @param msg     main message to be displayed
      * @param input   the user input triggered this display
-     * @param command the command executed to produce this message
      */
-    public void showGuiMessage(String msg, String input, String command) {
+    public void showGuiMessage(String msg, String input) {
         if (input.length() <= 0) {
             dialogContainer.getChildren().addAll(
-                    DialogBox.getDukeDialog(command + System.lineSeparator() + System.lineSeparator() + msg,
-                            dukeImage)
+                    DialogBox.getDukeDialog(msg, dukeImage)
             );
         } else {
             dialogContainer.getChildren().addAll(
                     DialogBox.getUserDialog(input, userImage),
-                    DialogBox.getDukeDialog(command + System.lineSeparator() + System.lineSeparator() + msg,
-                            dukeImage)
+                    DialogBox.getDukeDialog(msg, dukeImage)
             );
         }
     }

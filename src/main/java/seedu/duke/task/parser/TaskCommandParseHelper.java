@@ -145,25 +145,27 @@ public class TaskCommandParseHelper {
         }
         try {
             int dayLimit = extractDayLimit(reminderCommandMatcher);
-            if (dayLimit < 0) {
-                showError("Reminder day limit cannot be negative. Default is used.");
-                return new TaskReminderCommand();
-            } else {
-                return new TaskReminderCommand(dayLimit);
-            }
+            return new TaskReminderCommand(dayLimit);
         } catch (NumberFormatException e) {
             showError("Reminder day limit in wrong format. Default is used.");
+            return new TaskReminderCommand();
+        } catch (TaskParseException e) {
+            showError(e.getMessage());
             return new TaskReminderCommand();
         }
     }
 
-    private static int extractDayLimit(Matcher reminderCommandMatcher) throws NumberFormatException {
-        int dayLimit = -1;
+    private static int extractDayLimit(Matcher reminderCommandMatcher) throws NumberFormatException, TaskParseException {
+        int dayLimit;
         String dayLimitString = reminderCommandMatcher.group("dayLimit");
         if (dayLimitString.length() > 6) {
-            showError("Reminder day limit too large. Default is used.");
+            throw new TaskParseException("Reminder day limit only accept positive integer from 1 to 999999. "
+                    + "Default is used.");
         } else {
             dayLimit = Integer.parseInt(dayLimitString);
+        }
+        if (dayLimit <= 0) {
+            throw new TaskParseException("Reminder day limit must be positive. Default is used.");
         }
         return dayLimit;
     }

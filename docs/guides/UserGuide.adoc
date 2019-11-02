@@ -304,8 +304,13 @@ Example: +
 Format: `reminder NO_OF_DAYS` +
 
 Shows the deadline or event tasks for the next NO_OF_DAYS days. +
+Only positive integers from 1 to 999999 are accepted for `NO_OF_DAYS`. +
 
 Example: `reminder 4`
+
+[NOTE]
+Any negative input of number will not be accepted, but since it will contain the negative sign `-`, it will
+be considered as an invalid command argument in the first place.
 
 ==== Do after: `doafter`
 Format: `doafter ITEM_NUMBER -msg DESCRIPTION`  +
@@ -421,7 +426,7 @@ image::defaultKeywords.png[Default Keywords, 400]
 
 If the email contains some expressions, the respective keyword will be used to tag that email. It can be
 seen from the `#` sign on the email list. When showing the email using `show` command, the parsed
-expressions will also be highlighted in yellow.
+expressions will also be highlighted in yellow (except for SPAMs).
 
 [NOTE]
 The parsing only allows exact matching of words, which means expression `2113` will not be matched with
@@ -445,7 +450,8 @@ expression.
 [TIP]
 The easiest way to verify whether this command is working properly is to check whether the email
 containing the expression has a tag of this keyword in the email list, or just use `show ITEM_NUMBER`
-command to see whether the expressions are correctly highlighted.
+command to see whether the expressions are correctly highlighted. Please call the `show` command again
+after adding the keyword if you have already opened an email.
 
 [NOTE]
 All emails will be parsed again upon the updates in keyword and expression, so the window might freeze for

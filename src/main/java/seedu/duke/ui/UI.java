@@ -38,7 +38,6 @@ public class UI {
     // to output result to GUI
     private MainWindow mainWindow;
     private String input = "";
-    private String command = "";
     // variable returned to GUI
     private String emailContent = "";
     private String responseMsg = "";
@@ -246,9 +245,8 @@ public class UI {
         if (mainWindow == null) {
             return;
         }
-        mainWindow.showGuiMessage(msg, input, command);
+        mainWindow.showGuiMessage(msg, input);
         input = "";
-        command = "";
     }
 
     /**
@@ -262,10 +260,6 @@ public class UI {
 
     public void setInput(String input) {
         this.input = input;
-    }
-
-    public void setCommand(String command) {
-        this.command = command;
     }
 
     public String getPrefix() {

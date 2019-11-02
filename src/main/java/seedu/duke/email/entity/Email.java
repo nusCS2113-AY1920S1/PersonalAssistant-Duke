@@ -157,12 +157,12 @@ public class Email {
     }
 
     /**
-     * Highlights the email body with all the tags. Also, longer expression will have a higher priority to be
+     * Highlights the email with all the tags. Also, longer expression will have a higher priority to be
      * colored currently.
      *
      * @return email body after the coloring
      */
-    public String highlightBodyOnTag() {
+    public String highlightOnTag() {
         ArrayList<String> expressions = getAllExpressions();
         String output = toWebViewString();
         expressions.sort((ex1, ex2) -> ex1.length() >= ex2.length() ? -1 : 1);
