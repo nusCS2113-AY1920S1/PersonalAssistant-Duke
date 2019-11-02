@@ -1,3 +1,5 @@
+//@@author namiwa
+
 package planner.logic.modules.module;
 
 import planner.logic.exceptions.planner.ModBadGradeException;

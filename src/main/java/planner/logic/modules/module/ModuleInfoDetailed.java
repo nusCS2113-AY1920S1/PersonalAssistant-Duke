@@ -37,7 +37,7 @@ public class ModuleInfoDetailed {
         return description;
     }
 
-    public Double getModuleCredit() {
+    public Double getModuleCredit() throws NumberFormatException {
         return Double.parseDouble(moduleCredit);
     }
 
@@ -73,6 +73,11 @@ public class ModuleInfoDetailed {
         return grade;
     }
 
+    public void setModuleCredit(String moduleCredit) {
+        this.moduleCredit = moduleCredit;
+    }
+
+
     //@@author andrewleow97
     /**
      * Checks if module is S/U-able, and assigns grade based on String score.
@@ -90,7 +95,6 @@ public class ModuleInfoDetailed {
         }
         this.grade = score;
     }
-
 
     @Override
     public String toString() {
