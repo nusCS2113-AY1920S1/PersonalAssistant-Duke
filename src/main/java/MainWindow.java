@@ -37,9 +37,9 @@ public class MainWindow extends AnchorPane {
     private TextField searchBar;
 
     private Duke duke;
-    private UserIcon userIcon;
+    //private UserIcon userIcon;
 
-    private static Image userImage;
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));;
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
     private History previousFunctions = new History();
@@ -81,8 +81,8 @@ public class MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         scrollPane2.vvalueProperty().bind(graphContainer.heightProperty());
 
-        userIcon = new UserIcon();
-        userImage = userIcon.getIcon();
+//        userIcon = new UserIcon();
+//        userImage = userIcon.getIcon();
 
         Platform.runLater(new Runnable() {
             @Override
@@ -114,8 +114,8 @@ public class MainWindow extends AnchorPane {
         String input = userInput.getText();
         graphContainer.getChildren().clear();
         if (input.equals("change icon")) {
-            userIcon.changeIcon();
-            userImage = userIcon.getIcon();
+//            userIcon.changeIcon();
+//            userImage = userIcon.getIcon();
         }
 
         if (input.startsWith("graph")) {
