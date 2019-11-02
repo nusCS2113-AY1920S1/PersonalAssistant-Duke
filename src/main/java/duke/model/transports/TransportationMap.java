@@ -80,22 +80,22 @@ public class TransportationMap {
      */
     public ArrayList<TrainStation> getTrainLine(String trainLineCode) {
         switch (trainLineCode) {
-            case "NE":
-                return this.northEastLine;
-            case "NS":
-                return this.northSouthLine;
-            case "CC":
-                return this.circleLine;
-            case "CE":
-                return this.circleLineSub;
-            case "EW":
-                return this.eastWestLine;
-            case "CG":
-                return this.eastWestLineSub;
-            case "DT":
-                return this.downtownLine;
-            default:
-                return null;
+        case "NE":
+            return this.northEastLine;
+        case "NS":
+            return this.northSouthLine;
+        case "CC":
+            return this.circleLine;
+        case "CE":
+            return this.circleLineSub;
+        case "EW":
+            return this.eastWestLine;
+        case "CG":
+            return this.eastWestLineSub;
+        case "DT":
+            return this.downtownLine;
+        default:
+            return null;
         }
     }
 
@@ -131,7 +131,7 @@ public class TransportationMap {
     }
 
     /**
-     * Sets the TrainMap according to a HashMap of <String, TrainStation>.
+     * Sets the TrainMap according to a HashMap of key String and value TrainStation.
      *
      * @param trainMap The TrainMap to set.
      */

@@ -5,7 +5,6 @@ import duke.commons.exceptions.QueryOutOfBoundsException;
 import duke.commons.exceptions.RouteNodeDuplicateException;
 import duke.model.locations.BusStop;
 import duke.model.locations.RouteNode;
-import duke.model.locations.Venue;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;

@@ -171,8 +171,8 @@ public class Storage {
             }
             s.close();
             routes.setRoutes(newRoutes);
-        } catch (FileNotFoundException | RouteDuplicateException | CorruptedFileException |
-                RouteNodeDuplicateException e) {
+        } catch (FileNotFoundException | RouteDuplicateException | CorruptedFileException
+                | RouteNodeDuplicateException e) {
             throw new FileLoadFailException(ROUTES_FILE_PATH);
         }
     }

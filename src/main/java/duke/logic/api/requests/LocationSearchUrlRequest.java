@@ -11,7 +11,6 @@ import java.net.URLConnection;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.google.gson.JsonPrimitive;
 import duke.commons.exceptions.ApiException;
 import duke.model.locations.Venue;
 

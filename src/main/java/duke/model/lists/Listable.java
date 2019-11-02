@@ -10,7 +10,7 @@ interface Listable<T> {
      * Adds an item to the List.
      *
      * @param item The item to add.
-     * @throws DukeException
+     * @throws DukeException if there is an error in adding.
      */
     void add(T item) throws DukeException;
 

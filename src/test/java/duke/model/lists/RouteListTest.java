@@ -86,18 +86,22 @@ class RouteListTest {
 
         assertThrows(IndexOutOfBoundsException.class, () -> {
             Route newRoute = routeList.remove(-1);
+            newRoute.getName();
         });
 
         assertThrows(IndexOutOfBoundsException.class, () -> {
             Route newRoute = routeList.remove(-2);
+            newRoute.getName();
         });
 
         assertThrows(IndexOutOfBoundsException.class, () -> {
             Route newRoute = routeList.remove(1);
+            newRoute.getName();
         });
 
         assertThrows(IndexOutOfBoundsException.class, () -> {
             Route newRoute = routeList.remove(2);
+            newRoute.getName();
         });
     }
 
