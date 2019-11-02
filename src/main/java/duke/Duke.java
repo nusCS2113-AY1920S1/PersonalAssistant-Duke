@@ -25,7 +25,7 @@ import java.io.IOException;
 public class Duke {
 
     private FridgeStorage fridgeStorage;
-    private Storage orderStorage;
+    private Storage<Order> orderStorage;
     private TaskList tasks;
     private Ui ui;
     private DishList dish;
@@ -38,24 +38,21 @@ public class Duke {
     /**
      * The constructor method for Duke.
      *
-     * @param filePath used to specify the location of the file in the hard disc.
+     * @param fridgeFilePath  used to specify the location of the fridge storage file in the hard disc.
+     * @param  orderFilePath used to specify the location of the order storage file in the hard disc.
      */
-    public Duke(String filePath) {
-        String fridgeFilePath = "data/fridge.txt";
-        String orderFilePath = "data/order.txt";
+    public Duke(String fridgeFilePath,  String orderFilePath) throws DukeException {
         dish = new DishList();
         order = new OrderList();
         fridge = new Fridge();
         ui = new Ui();
-        //taskStorage = new TaskStorage(filePath);
         fridgeStorage = new FridgeStorage(fridgeFilePath);
         orderStorage = new OrderStorage(orderFilePath);
         try {
-            //tasks = new TaskList(taskStorage.load().getAllEntries());
             fridge = new Fridge(fridgeStorage);
+            order = new OrderList(orderStorage.getEntries().getAllEntries());
         } catch (DukeException e) {
             ui.showLoadingError();
-            // System.out.println(e);
             e.printStackTrace();
             tasks = new TaskList();
         }
@@ -205,7 +202,9 @@ public class Duke {
     /**
      * =============== MAIN FUNCTION ===============.
      */
-    public static void main(String[] args) throws IOException, InterruptedException {
-        new Duke("data/tasks.txt").run();
+    public static void main(String[] args) throws IOException, InterruptedException, DukeException {
+        String fridgeFilePath = "data/fridge.txt";
+        String orderFilePath = "data/order.txt";
+        new Duke(fridgeFilePath, orderFilePath).run();
     }
 }

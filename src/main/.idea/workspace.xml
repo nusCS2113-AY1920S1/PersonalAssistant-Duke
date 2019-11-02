@@ -3,12 +3,11 @@
   <component name="ChangeListManager">
     <list default="true" id="b15f9350-8de7-46bb-9a06-4af9ec7f8651" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/fridge.txt" beforeDir="false" afterPath="$PROJECT_DIR$/data/fridge.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/order.txt" beforeDir="false" afterPath="$PROJECT_DIR$/data/order.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/java/duke/command/orderCommand/AddOrderCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/java/duke/command/orderCommand/AddOrderCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/java/duke/command/orderCommand/AlterDateCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/java/duke/command/orderCommand/AlterDateCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/java/duke/command/orderCommand/DeleteOrderCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/java/duke/command/orderCommand/DeleteOrderCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/java/duke/command/orderCommand/DoneOrderCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/java/duke/command/orderCommand/DoneOrderCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/java/duke/order/Order.java" beforeDir="false" afterPath="$PROJECT_DIR$/java/duke/order/Order.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/duke/Duke.java" beforeDir="false" afterPath="$PROJECT_DIR$/java/duke/Duke.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/duke/storage/OrderStorage.java" beforeDir="false" afterPath="$PROJECT_DIR$/java/duke/storage/OrderStorage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/duke/storage/Storage.java" beforeDir="false" afterPath="$PROJECT_DIR$/java/duke/storage/Storage.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -78,7 +77,7 @@
       <option name="presentableId" value="Default" />
       <updated>1572685001468</updated>
       <workItem from="1572685004953" duration="24000" />
-      <workItem from="1572685085126" duration="21684000" />
+      <workItem from="1572685085126" duration="25715000" />
     </task>
     <servers />
   </component>

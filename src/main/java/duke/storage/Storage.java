@@ -57,6 +57,8 @@ public abstract class Storage<T> {
         return entries;
     }
 
+    public GenericList<T> getEntries() { return entries; }
+
     /**
      * Part of the load method, taken out.
      * Generates tasks based on contentSoFar.
