@@ -19,7 +19,7 @@ public class SnoozeAnomaly extends DetectAnomaly {
     private static final String MESSAGE_INVALID_COMMAND_FORMAT = "Snooze format should be: '/snooze <index> <date> <time>' OR\n\t"
             + "'/snooze <index> <integer> <unit>'";
     private static final String MESSAGE_INVALID_INDEX = "The task index provided is invalid!";
-    private static final String MESSAGE_INVALID_DATE_TIME = "Date Time should follow the format DD/MM/YY HHmm.";
+    private static final String MESSAGE_INVALID_DATE_TIME = "Date Time should follow the format DD/MM/YYYY HHmm.";
     private static final String MESSAGE_INVALID_PERIOD = "The <unit> provided is invalid!\n\t"
             + "Valid <unit> are minutes/hours/days/weeks/months.";
     private static final String MESSAGE_INVALID_TASK_TYPE = "You cannot snooze a ToDo Task!";

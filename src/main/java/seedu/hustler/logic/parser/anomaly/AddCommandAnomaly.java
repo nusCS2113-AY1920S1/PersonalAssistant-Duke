@@ -26,7 +26,7 @@ public class AddCommandAnomaly extends DetectAnomaly {
             + "\tAdd tags: /tags <tag>";
     private static final String MESSAGE_EMPTY_TASK_DESCRIPTION = "Task description cannot be empty!";
     private static final String MESSAGE_INVALID_DIFFICULTY = "Invalid difficulty provided. Difficulty should be H/M/L.";
-    private static final String MESSAGE_INVALID_DATE_TIME = "Date Time should follow the format DD/MM/YY HHmm.";
+    private static final String MESSAGE_INVALID_DATE_TIME = "Date Time should follow the format DD/MM/YYYY HHmm.";
     private static final String MESSAGE_INVALID_PERIOD = "The <unit> provided is invalid!\n\t"
             + "Valid <unit> are minutes/hours/days/weeks/months.";
     private static final String MESSAGE_PASSED_DATE_TIME = "A past date and time has been provided.\n"
