@@ -267,26 +267,13 @@ public class Parser {
      * @throws FarmioException if the user's input is of wrong format or the task description is invalid
      */
     private static Command editTask(String userInput) throws FarmioException {
-        String keyword = "";
-        String taskID = "";
-        String taskDesc = "";
-        if (userInput.matches("(edit)\\s+\\d+\\s+.+")) {
-            try {
-                keyword = userInput.substring(0, userInput.indexOf(" "));
-                userInput = (userInput.substring(userInput.indexOf(" ") + 1)).trim();
-                taskID = (userInput.substring(0, userInput.indexOf(" "))).trim();
-                taskDesc = (userInput.substring(userInput.indexOf(" ") + 1)).trim();
-            } catch (IndexOutOfBoundsException e) {
-                throw new FarmioException("Invalid command format!");
-            }
-            if (!keyword.equals("edit")) {
-                throw new FarmioException("Invalid Command!");
-            }
-            Task task = parseTask(taskDesc);
-            return new CommandTaskEdit(Integer.parseInt(taskID), task);
-        } else {
-            throw new FarmioException("Invalid Command Format");
+        Matcher matcher = Pattern.compile("^edit\\s+(?<index>-?\\d+)\\s(?<cmd>.+)$").matcher(userInput);
+        if(matcher.find()){
+            int taskID = Integer.parseInt(matcher.group("index"));
+            Task task = parseTask(matcher.group("cmd"));
+            return new CommandTaskEdit(taskID, task);
         }
+        throw new FarmioException("Invalid Command Format");
     }
 
     /**
