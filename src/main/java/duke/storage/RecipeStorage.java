@@ -68,7 +68,7 @@ public class RecipeStorage {
                     if (split2.length == 2) {
                         rating = split2[0].trim();
                         remaining2 = split2[1].trim();
-                        String[] split3 = remaining2.split("\\|", 2);
+                        String[] split3 = remaining2.split( "\\|", 2);
                         if (split3.length == 2) {
                             prepSteps = split3[0].trim();
                             remaining3 = split3[1].trim();
@@ -78,7 +78,6 @@ public class RecipeStorage {
                                 feedback = split4[1].trim();
                                 Recipe recipe = new Recipe(recipeTitle, rating, prepSteps, requiredIngredients, feedback);
                                 LHMRecipeList.put(recipeTitle, recipe);
-                                System.out.println("successful load");
                             }
                         }
                     }

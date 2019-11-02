@@ -175,6 +175,15 @@ Examples:
 
 ===== Edits the details and information of a recipe. Users can input which information they would like to edit such as rating, ingredients required, cooking steps, and feedback for that recipe. +
 
+* `ins/` : insert at a certain position in the recipe ingredient list
+* `<positon>` : the position of which the recipe ingredient will be inserted
+* `q/` : input the quantity of the recipe ingredient after this label
+* `<quantity>` : quantity of the recipe ingredient
+* `u/` : input the unit of the quantity of the recipe ingredient such as kg, g, ml, l after this label
+* `a/` : input any additional information for recipe ingredient after this label
+* `<additional_info>` : additional information of the recipe ingredient
+
+
 Format:
 
 * `editreqingredient <recipe_name> ins/ <position> n/ <ingredient_name> q/ <quantity> u/ <unit> a/ <additional_info>`
@@ -207,7 +216,7 @@ Edits the rating of a recipe +
 
 Format: `editrating [recipe name] r/ [rating]`
 
-Example: `editrating chicken rice, r/ GOOD`
+Example: `editrating chicken rice r/ GOOD`
 
 Output Result:
 
@@ -219,7 +228,7 @@ Edits the feedback of a recipe +
 
 Format: `editfeedback [recipe name] f/ [feedback]`
 
-Example: `editfeedback chicken rice, f/ too salty`
+Example: `editfeedback chicken rice f/ too salty`
 
 Output Result:
 
