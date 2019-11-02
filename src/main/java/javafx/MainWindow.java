@@ -47,6 +47,8 @@ public class MainWindow extends AnchorPane {
     @FXML
     private TableView<DegreesFX> degreesView;
     @FXML
+    private TableView<DiffFX> diffView;
+    @FXML
     private TabPane tabPane;
     @FXML
     private Tab tabTask;
@@ -54,6 +56,8 @@ public class MainWindow extends AnchorPane {
     private Tab tabChoices;
     @FXML
     private Tab tabDegrees;
+    @FXML
+    private Tab tabDiff;
 
     private Duke duke;
     private TaskList taskList;
@@ -69,6 +73,7 @@ public class MainWindow extends AnchorPane {
     private ObservableList<TaskFX> dataTask;
     private ObservableList<ChoicesFX> dataChoices;
     private ObservableList<DegreesFX> dataDegrees;
+    private ObservableList<DiffFX> dataDiff;
 
 
     @FXML
@@ -89,10 +94,6 @@ public class MainWindow extends AnchorPane {
 
 
         new AutoCompletionTextFieldBinding<>(this.userInput, provider);
-        dataTask = taskView.getItems();
-        dataChoices = choicesView.getItems();
-        dataDegrees = degreesView.getItems();
-
 
         String logo = "  _____  ______ _____ _____  ______ ______  _____  _   _ _    _  _____ \n"
                 + " |  __ \\|  ____/ ____|  __ \\|  ____|  ____|/ ____|| \\ | | |  | |/ ____|\n"
@@ -225,20 +226,19 @@ public class MainWindow extends AnchorPane {
                 }
                 System.exit(0);
             }).start();
-        } else {
+        } else { //Now for commands with multiple words
             Scanner temp = new Scanner(input);
             String command = temp.next();
 
             if (command.matches("detail") && (!typoFlag) && (degreeFoundFlag)) {
+                this.dataDegrees = degreesView.getItems();
                 tabPane.getSelectionModel().select(tabDegrees);
                 //tabDegrees.setText("hi"); use these to change the degree tab name
                 this.dataDegrees.clear();
                 String degreeName = temp.next();
 
-
                 List<Module> moduleList = new ArrayList<>(this.degreeManager.getModuleList(degreeName).getModules());
-                NonDescriptive generalMod = new NonDescriptive("General Education Modules", 20);
-                moduleList.add(generalMod);
+                moduleList.add(new NonDescriptive("General Education Modules", 20));
 
                 Collections.sort(moduleList);
                 int count = 0;
