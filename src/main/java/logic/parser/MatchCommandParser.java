@@ -34,21 +34,21 @@ public class MatchCommandParser {
         String name = argumentMultiMap.get("");
 
         switch (matchType) {
-            case TASK:
-                LoggerController.logDebug(MatchCommandParser.class, "match task called");
-                return parseMatchTaskCommand(name);
-            case MEMBER:
-                LoggerController.logDebug(MatchCommandParser.class, "match member called");
-                return parseMatchMemberCommand(name);
-            default:
-                throw new DukeException("match command format is wrong");
+        case TASK:
+            LoggerController.logDebug(MatchCommandParser.class, "match task called");
+            return parseMatchTaskCommand(name);
+        case MEMBER:
+            LoggerController.logDebug(MatchCommandParser.class, "match member called");
+            return parseMatchMemberCommand(name);
+        default:
+            throw new DukeException("match command format is wrong");
         }
 
     }
 
     /**
      * Does some input validation before instantiating new command
-     * */
+     */
     private static Command parseMatchTaskCommand(String taskName) throws DukeException {
         if (taskName.length() != 0) {
             return new MatchTaskCommand(taskName);
@@ -59,7 +59,7 @@ public class MatchCommandParser {
 
     /**
      * Does some input validation before instantiating new command
-     * */
+     */
     private static Command parseMatchMemberCommand(String memberName) throws DukeException {
         if (memberName.length() != 0) {
             return new MatchMemberCommand(memberName);

@@ -32,6 +32,9 @@ public class AddTaskCommand extends Command {
     }
 
     //@@author JustinChia1997
+    /**
+     * Sets the required skill list
+     * */
     public void setReqSkill(String fullSkill) {
         reqSkill = Arrays.asList(fullSkill.split("\\s+"));
         //TODO parse for too long skill names

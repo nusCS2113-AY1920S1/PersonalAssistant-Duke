@@ -300,7 +300,7 @@ public class Window {
             }
 
             //=============== For displaying Assigned Tasks ==================================
-            if(tasks.size() != 0 ){
+            if (tasks.size() != 0) {
                 output += "\n     Assigned tasks: \n";
             }
             for (int j = 0; j < tasks.size(); j++) {
