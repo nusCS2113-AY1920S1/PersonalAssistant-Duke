@@ -21,6 +21,25 @@ public class NonDescriptive extends Module {
         this.mc = mcs;
     }
 
+    /**
+     * Returns the module's Name for the side tab
+     *
+     * @return String which is the module name
+     */
+    @Override
+    public String tabModuleName() {
+        return this.getCode();
+    }
+
+    /**
+     * Returns the module's code
+     *
+     * @return string which is the module's code
+     */
+    @Override
+    public String tabModuleCode() {
+        return "-";
+    }
 
     /**
      * Returns the code and the allocated mc value
