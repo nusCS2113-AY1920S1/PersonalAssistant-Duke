@@ -66,6 +66,7 @@ public class BusStop extends RouteNode {
         HashMap<String, BusStop> allBus = model.getMap().getBusStopMap();
         if (allBus.containsKey(this.busCode)) {
             this.setAddress(allBus.get(this.busCode).getAddress());
+            this.setDescription(allBus.get(this.busCode).getDescription());
             this.setLatitude(allBus.get(this.busCode).getLatitude());
             this.setLongitude(allBus.get(this.busCode).getLongitude());
             return;

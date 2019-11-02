@@ -13,30 +13,30 @@ class VenueTest {
 
     @Test
     void getAddress() {
-        assertEquals(v1.getAddress(), "YEW TEE INDUSTRIAL ESTATE");
-        assertNotEquals(v2.getAddress(), "YEW TEE INDUSTRIAL ESTATE");
+        assertEquals("YEW TEE INDUSTRIAL ESTATE", v1.getAddress());
+        assertNotEquals( "YEW TEE INDUSTRIAL ESTATE", v2.getAddress());
     }
 
     @Test
     void getLatitude() {
-        assertEquals(v1.getLatitude(), 1.3973210291170202);
-        assertNotEquals(v2.getLatitude(), 1.3973210291170202);
+        assertEquals(1.3973210291170202, v1.getLatitude());
+        assertNotEquals(1.3973210291170202, v2.getLatitude());
     }
 
     @Test
     void getLongitude() {
-        assertEquals(v1.getLongitude(), 103.753758637401);
-        assertNotEquals(v2.getLongitude(), 103.753758637401);
+        assertEquals(103.753758637401, v1.getLongitude());
+        assertNotEquals(103.753758637401, v2.getLongitude());
     }
 
     @Test
     void getDistX() {
-        assertEquals(v1.getDistX(), 0);
+        assertEquals(0, v1.getDistX());
     }
 
     @Test
     void getDistY() {
-        assertEquals(v2.getDistY(), 0);
+        assertEquals(0, v2.getDistY());
     }
 
     @Test
@@ -49,18 +49,18 @@ class VenueTest {
     @Test
     void setLatitude() {
         v1.setLatitude(0);
-        assertEquals(v1.getLatitude(), 0);
+        assertEquals(0, v1.getLatitude());
     }
 
     @Test
     void setLongitude() {
         v2.setLongitude(0);
-        assertEquals(v2.getLongitude(), 0);
+        assertEquals(0, v2.getLongitude());
     }
 
     @Test
     void testToString() {
-        assertEquals(v1.toString(), "YEW TEE INDUSTRIAL ESTATE | 1.3973210291170202 | 103.753758637401 | 0.0 | 0.0");
+        assertEquals("YEW TEE INDUSTRIAL ESTATE | 1.3973210291170202 | 103.753758637401 | 0.0 | 0.0", v1.toString());
     }
 
     @Test

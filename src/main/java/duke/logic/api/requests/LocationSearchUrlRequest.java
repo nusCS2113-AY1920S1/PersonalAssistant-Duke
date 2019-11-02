@@ -63,9 +63,9 @@ public class LocationSearchUrlRequest extends UrlRequest {
             String numFoundString = String.valueOf(results.getAsJsonPrimitive("found"));
             int numFound = Integer.parseInt(numFoundString);
 
-            JsonObject firstResult = arr.get(0).getAsJsonObject();
 
             if (numFound > 0) {
+                JsonObject firstResult = arr.get(0).getAsJsonObject();
                 return new Venue(firstResult.get("ADDRESS").getAsString(), firstResult.get("LATITUDE").getAsDouble(),
                         firstResult.get("LONGITUDE").getAsDouble(), firstResult.get("X").getAsDouble(),
                         firstResult.get("Y").getAsDouble());

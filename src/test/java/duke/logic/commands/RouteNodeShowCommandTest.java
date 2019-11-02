@@ -31,7 +31,7 @@ class RouteNodeShowCommandTest {
                 (RouteNodeListCommand) Parser.parseComplexCommand("routeNodeList 1 1");
         CommandResultText result = routeNodeListCommand.execute(model);
 
-        String expected = "Here is the information of the Bus Stop:\n66211\nBerwick Dr\n"
+        String expected = "Here is the information of the Bus Stop:\n66211\nOpp Bloxhome Dr\nBerwick Dr"
                 + "\n(BUS, 1.36412138937997, 103.86103467229529)";
         assertEquals(expected, result.getMessage());
 
