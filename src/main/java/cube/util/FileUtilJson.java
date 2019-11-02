@@ -3,15 +3,16 @@
  *
  * @author kuromono
  */
-package cube.util;
 
-import java.io.File;
-import java.io.IOException;
+package cube.util;
 
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import cube.exception.CubeException;
 import cube.exception.CubeLoadingException;
+
+import java.io.File;
+import java.io.IOException;
 
 public class FileUtilJson<Type> extends FileUtil {
     private Type fileObject;
@@ -39,7 +40,7 @@ public class FileUtilJson<Type> extends FileUtil {
      * @throws CubeLoadingException exception occurs in reading from data file.
      */
     public Type load() throws CubeException {
-        if (checkFileAvailable(fileFullPath)) {
+        if (checkFileAvailable(true)) {
             System.out.println("Loading file from : " + fileFullPath);
 
             try {
@@ -60,7 +61,7 @@ public class FileUtilJson<Type> extends FileUtil {
      * @throws CubeException exception happens in writing to the data file.
      */
     public void save(Type fileObject) throws CubeException {
-        checkFileAvailable(fileFullPath);
+        checkFileAvailable(true);
         try {
             mapper.writeValue(file, fileObject);
         } catch (IOException e) {
