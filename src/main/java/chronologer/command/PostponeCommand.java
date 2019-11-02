@@ -66,24 +66,19 @@ public class PostponeCommand extends Command {
     public void execute(TaskList tasks, Storage storage) throws ChronologerException {
         isIndexValid(tasks);
         Task taskToBePostponed = tasks.getTasks().get(indexOfTask);
-        String description = taskToBePostponed.getDescription();
-        if (isDeadline(taskToBePostponed)) {
-            if (isDeadlineClash(description, startDate, tasks)) {
-                throw new ChronologerException(ChronologerException.taskClash());
-            } else {
-                postponeDate(taskToBePostponed, startDate, tasks, storage);
-                UiTemporary.printOutput(POSTPONED_DEADLINE + taskToBePostponed.toString());
-            }
-        } else if (isEvent(taskToBePostponed)) {
-            if (isEventClash(description, startDate, toDate, tasks)) {
-                throw new ChronologerException(ChronologerException.taskClash());
-            } else {
-                postponeDateRange(taskToBePostponed, startDate, toDate, tasks, storage);
-                UiTemporary.printOutput(POSTPONED_EVENT + taskToBePostponed.toString());
-            }
+
+        if (isDeadlinePostponeable(taskToBePostponed, tasks)) {
+            postponeDate(taskToBePostponed, startDate, tasks, storage);
+            UiTemporary.printOutput(POSTPONED_DEADLINE + taskToBePostponed.toString());
+
+        } else if (isEventPostponeable(taskToBePostponed, tasks)) {
+            postponeDateRange(taskToBePostponed, startDate, toDate, tasks, storage);
+            UiTemporary.printOutput(POSTPONED_EVENT + taskToBePostponed.toString());
+
         } else if (isTodoPeriod(taskToBePostponed)) {
             postponeDateRange(taskToBePostponed, startDate, toDate, tasks, storage);
             UiTemporary.printOutput(POSTPONED_TODO + taskToBePostponed.toString());
+
         } else {
             UiTemporary.printOutput(UNABLE_TO_POSTPONE);
         }
@@ -99,6 +94,45 @@ public class PostponeCommand extends Command {
             UiTemporary.printOutput(ChronologerException.taskDoesNotExist());
             throw new ChronologerException(ChronologerException.taskDoesNotExist());
         }
+    }
+
+    /**
+     * Check if task is deadline and doesn't clash with other deadlines at the same time.
+     *
+     * @param taskToBePostponed The task to be postponed
+     * @param tasks             The list of tasks
+     * @return True if task is a deadline and doesn't clash
+     */
+    private boolean isDeadlinePostponeable(Task taskToBePostponed, TaskList tasks) throws ChronologerException {
+
+        if (isDeadline(taskToBePostponed)) {
+            if (isDeadlineClash(taskToBePostponed.getDescription(), startDate, tasks)) {
+                UiTemporary.printOutput(ChronologerException.taskClash());
+                throw new ChronologerException(ChronologerException.taskClash());
+            } else {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Check if task is event and doesn't clash with other events at the same time.
+     *
+     * @param taskToBePostponed The task to be postponed
+     * @param tasks             The list of tasks
+     * @return True if task is an event and doesn't clash
+     */
+    private boolean isEventPostponeable(Task taskToBePostponed, TaskList tasks) throws ChronologerException {
+        if (isEvent(taskToBePostponed)) {
+            if (isEventClash(taskToBePostponed.getDescription(), startDate, toDate, tasks)) {
+                UiTemporary.printOutput(ChronologerException.taskClash());
+                throw new ChronologerException(ChronologerException.taskClash());
+            } else {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**

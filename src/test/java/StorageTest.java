@@ -18,7 +18,7 @@ import java.util.ArrayList;
 
 
 /**
- * Test class for priority commands.
+ * Test class for storage class.
  *
  * @author Tan Yi Xiang
  * @version V1.0
