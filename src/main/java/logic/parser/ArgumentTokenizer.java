@@ -63,15 +63,17 @@ public class ArgumentTokenizer {
         for (int i = 0; i < argumentStrings.length; i++) {
             boolean found = false;
             for (int j = 0; j < TOKENS.length; j++) {
-                if (argumentStrings[i].indexOf(TOKENS[j]) == 0) {
-                    try {
+
+                try {
+                    if (argumentStrings[i].indexOf(TOKENS[j]) == 0) {
                         String value = argumentStrings[i].substring(TOKENS[j].length() + 1).trim();
                         arguments.put(TOKENS[j], value);
                         found = true;
                         break;
-                    } catch (StringIndexOutOfBoundsException e) {
-                        throw new DukeException("Tag must not be empty");
+
                     }
+                } catch (StringIndexOutOfBoundsException e) {
+                    throw new DukeException("Tag cannot be empty");
                 }
             }
             if (!found) {

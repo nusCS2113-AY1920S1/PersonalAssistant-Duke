@@ -1,4 +1,4 @@
-= Duke Pro - Developer Guide
+= Team Manager - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -302,4 +302,4 @@ Actor: Project Manager
 * Parsing the data into a readable text file so that power users can easily edit them.
 * Parsing user input.
 * Suggestion of relevant commands based on closest fit.
-* Duke can be used in any OS.
+* Team Manager can be used in any OS.

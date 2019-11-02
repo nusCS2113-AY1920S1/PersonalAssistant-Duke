@@ -144,7 +144,7 @@ public class ModelController implements Model {
 
     /**
      * javadoc please
-     * */
+     */
     public String updateMemberBio(int index, String bio) {
         String oldBio = memberManager.getMemberBio(index);
         memberManager.updateMemberBio(index, bio);
@@ -178,8 +178,9 @@ public class ModelController implements Model {
 
     @Override
     public void unlink(int taskIndex, String memberName) {
-        tasksManager.getTaskById(taskIndex).deleteMember(memberName);
-        memberManager.getMemberByName(memberName).deleteTask(memberName);
+        Task task = tasksManager.getTaskById(taskIndex);
+        task.deleteMember(memberName);
+        memberManager.getMemberByName(memberName).deleteTask(task.getName());
     }
 
     //@@author yuyanglin28

@@ -19,8 +19,7 @@ public class ArgumentTokenizerTest {
             assertEquals("13/11/2019 1900", tr1.get("/at"));
             assertEquals(null, tr1.get("/to"));
         } catch (DukeException e) {
-            LoggerController.logDebug(this.getClass(), "tokeniser error");
+            LoggerController.logDebug(this.getClass(), "tag error caught");
         }
-
     }
 }

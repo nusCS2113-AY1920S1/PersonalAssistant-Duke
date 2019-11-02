@@ -6,8 +6,8 @@ plugins {
 }
 
 shadowJar {
-    archiveBaseName = "duke"
-    archiveVersion = "1.1.0"
+    archiveBaseName = "Team Manager"
+    archiveVersion = "1.3.2"
     archiveClassifier = null
     archiveAppendix = null
 }

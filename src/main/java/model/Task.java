@@ -119,7 +119,7 @@ public class Task {
         //TODO add regex to check for skillName
         if (!skillReqList.contains(skillName)) {
             skillReqList.add(skillName);
-            LoggerController.logDebug(Task.class, "Added skill all the way " + skillName);
+            LoggerController.logDebug(Task.class, "Added skill into model" + skillName);
             return true;
         } else {
             return false;
@@ -130,5 +130,14 @@ public class Task {
         return skillReqList;
     }
 
+    //@@ JasonChanWQ
+    public boolean hasMember(String oldName) {
+        return memberList.contains(oldName);
+    }
+
+    //@@ JasonChanWQ
+    public void updateMember(String oldName, String newName) {
+        memberList.set(memberList.indexOf(oldName), newName);
+    }
 
 }

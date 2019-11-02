@@ -10,7 +10,8 @@ public class EditMemberParser {
 
     private static final Pattern BASIC_ADD_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
-    public static final String EDIT_USAGE = "Usage: edit [member] [bio/email/phone] [index] /to ...";
+    public static final String EDIT_USAGE = "Usage: edit [member] [des/bio/email/phone] [index] /to ...";
+    public static final String DES = "des";
     public static final String BIO = "bio";
     public static final String EMAIL = "email";
     public static final String PHONE = "phone";
@@ -35,6 +36,8 @@ public class EditMemberParser {
         editType = editType.trim();
 
         switch (editType) {
+        case DES:
+            return EditMemberDescriptionParser.parseEditMemberDescription(arguments);
         case BIO:
             return EditMemberBioParser.parseEditMemberBio(arguments);
         case EMAIL:
