@@ -17,6 +17,7 @@ public class Ui {
     protected Scanner inputScanner;
     protected String input;
     protected int intInput;
+    protected String arrow = ">> ";
     protected String line = "______________________________________________"
         + "______________________________________________________________________________________________";
     protected String dash = "- - - - - - - - - - - - - - - - - - - - - - - - - "
@@ -26,15 +27,19 @@ public class Ui {
     protected String tab = "\t";
     protected ArrayList<String> welcomeMsg = new ArrayList<String>(Arrays.asList("Welcome to RIMS, your Resource"
         + " & Inventory Management System.",
-        "How can I help you?"));
-    protected ArrayList<String> commands = new ArrayList<String>(Arrays.asList("add - add a new resource to inventory",
+        "How can I help you?",
+        "\n",
+        "Type 'help' to display a list of all commands supported by RIMS."));
+    protected ArrayList<String> commands = new ArrayList<String>(Arrays.asList("COMMANDS CURRENTLY SUPPORTED BY RIMS:\n",
+        "add - add a new resource to inventory",
         "delete - delete an existing resource from inventory",
         "loan - loan out an item from now till your desired future date",
         "reserve - reserve an item between two future dates",
         "return - return a loan or reservation",
         "list - see all resources and current reservations",
         "\t" + "list /item - see all loans and future reservations of a particular item",
-        "\t" + "list /room - see all loans and future reservations of a particular room"));
+        "\t" + "list /room - see all loans and future reservations of a particular room",
+        "deadlines - view all currently active loans and reservations"));
 
     /**
      * Constructor of the Ui. Initializes the scanner to take in user input,
@@ -51,6 +56,7 @@ public class Ui {
      */
     public String getInput() {
         input = inputScanner.nextLine();
+        System.out.println(arrow + input);
         return input;
     }
 
@@ -62,6 +68,7 @@ public class Ui {
     public String getInput(String question) {
         formattedPrint(question);
         input = inputScanner.nextLine();
+        System.out.println(arrow + input);
         return input;
     }
 
@@ -71,6 +78,7 @@ public class Ui {
      */
     public int getIntegerInput() {
         intInput = inputScanner.nextInt();
+        System.out.println(arrow + intInput);
         return intInput;
     }
 
@@ -81,6 +89,7 @@ public class Ui {
     public int getIntegerInput(String question) {
         formattedPrint(question);
         intInput = inputScanner.nextInt();
+        System.out.println(arrow + intInput);
         return intInput;
     }
 
@@ -155,6 +164,12 @@ public class Ui {
     public void welcome() {
         printLogo();
         formattedPrintArray(welcomeMsg);
+    }
+
+    /**
+     * Prints a list of all valid RIMS commands.
+     */
+    public void help() {
         formattedPrintArray(commands);
     }
 
@@ -163,7 +178,7 @@ public class Ui {
      * Prints the RIMS logo, as part of the RIMS welcome message.
      */
     public void printLogo() {
-        String logo = "\n" 
+        String logo = "\n"
                 +
                 tab + "          _____                    _____"
                 + "                    _____                    _____          \n"

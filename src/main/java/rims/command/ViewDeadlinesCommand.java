@@ -26,7 +26,7 @@ public class ViewDeadlinesCommand extends Command {
         ui.printLine();
         ArrayList<String> coveredResources = new ArrayList<String>();
         ArrayList<Resource> sortedList = new ArrayList<Resource>();
-        ui.print("HERE ARE THE UPCOMING/OVERDUE DEADLINES:");
+        ui.print("CURRENTLY ACTIVE LOANS AND RESERVATIONS:");
         ui.printEmptyLine();
         for (int i = 0; i < resources.size(); i++) {
             Resource thisResource = resources.getResourceByIndex(i);
@@ -54,8 +54,9 @@ public class ViewDeadlinesCommand extends Command {
             }
         });
         for(int j = 0; j < sortedList.size();  j ++){
-            ui.print(sortedList.get(j).getName() + ":");
+            ui.print(sortedList.get(j).toString() + ":");
             ui.print("\t" + sortedList.get(j).getReservations().getCurrentBooking().toString());
         }
+        ui.printLine();
     }
 }

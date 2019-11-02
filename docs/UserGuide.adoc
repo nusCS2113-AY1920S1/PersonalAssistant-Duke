@@ -27,6 +27,8 @@ RIMS (Resource and Inventory Management System) is a *command-line* logistic man
 .  Ensure you have Java `11` or above installed in your Computer.
 .  Download the latest `rims.jar` link:{repoURL}[here].
 .  Copy the file to the folder you want to use as the home folder for your local RIMS.
+.  In your home folder for RIMS, create a directory called `data`, and in the `data` folder, create two text files:
+`resources.txt` and `reserves.txt`.
 .  Double-click the file to start the app. The UI should appear in a few seconds.
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`list`* and pressing kbd:[Enter] will show you a list of all the resources with their status (booked/reserved/available).
