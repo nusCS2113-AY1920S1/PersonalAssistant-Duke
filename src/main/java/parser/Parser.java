@@ -43,10 +43,10 @@ public class Parser {
     public static Command parse(String line) throws DukeException {
         Scanner temp = new Scanner(line);
 
-        //Empty command check should already have been done outside, in duke
-//        if (!temp.hasNext()) {
-//            throw new DukeException("Empty Command!");
-//        }
+
+        if (!temp.hasNext()) {
+            throw new DukeException("Empty Command!");
+        }
 
         String command = temp.next();
         if (command.matches("list|bye|choices")) {
