@@ -26,7 +26,10 @@ public class EditTaskTimeCommand extends Command {
             return new CommandOutput(INDEX_NOT_IN_TASKlIST_MESSAGE);
         } else {
             model.getTaskList().get(taskIndex - 1).setTime(newDate);
+            model.save();
             return new CommandOutput(SUCCESS_MESSAGE + newDate);
         }
     }
+
+
 }

@@ -279,27 +279,28 @@ public class TasksManager implements Serializable {
 
     private ArrayList<Task> sortByTime(ArrayList<Task> toSort) {
         ArrayList<Task> sorted = new ArrayList<>();
-        //int size = toSort.size();
-        for (int i = 0; i < toSort.size(); i++) {
+        ArrayList<Task> hasTime = new ArrayList<>();
+        int size = toSort.size();
+        for (int i = 0; i < size; i++) {
             Task task = toSort.get(i);
             Date time = task.getTime();
-            if (time == null) {
-                toSort.remove(i);
+            if (time != null) {
+                hasTime.add(task);
             }
         }
-        for (int i = 0; i < toSort.size(); i++) {
-            Task task = toSort.get(i);
-            Date time = task.getTime();
+        size = hasTime.size();
+        for (int i = 0; i < size; i++) {
             Date earliest = new Date(Long.MAX_VALUE);
             int earliestIndex = -1;
-            for (int j = 0; j < toSort.size(); j++) {
+            for (int j = 0; j < hasTime.size(); j++) {
+                Date time = hasTime.get(i).getTime();
                 if (time.before(earliest)) {
                     earliest = time;
                     earliestIndex = j;
                 }
             }
-            sorted.add(toSort.get(earliestIndex));
-            toSort.remove(earliestIndex);
+            sorted.add(hasTime.get(earliestIndex));
+            hasTime.remove(earliestIndex);
         }
         return sorted;
     }
@@ -321,7 +322,6 @@ public class TasksManager implements Serializable {
             Task task = tasks.get(i);
             result += "\n" + getIndexInListByTask(task) + ". " + task;
         }
-        System.out.println(result);
         return result;
     }
 

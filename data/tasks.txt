@@ -3,7 +3,8 @@
     "name": "john",
     "isDone": false,
     "memberList": [],
-    "skillReqList": []
+    "skillReqList": [],
+    "time": "Dec 12, 2019, 11:11:00 AM"
   },
   {
     "name": "james",
