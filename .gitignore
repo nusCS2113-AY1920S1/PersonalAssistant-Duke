@@ -19,3 +19,12 @@ data.json
 text_file
 
 /data.json
+
+testEmptyData.json
+/testEmptyData.json
+
+testNonEmptyData.json
+/testNonEmptyData.json
+
+testBlankData.json
+/testBlankData.json
