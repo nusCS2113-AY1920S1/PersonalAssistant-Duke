@@ -56,5 +56,13 @@ class ExportCommandParserTest {
         assertParseFailure(parser, "", CommandParser.MESSAGE_MISSING_FILE_NAME_ARG);
         assertParseFailure(parser, "/file-name", CommandParser.MESSAGE_MISSING_FILE_NAME);
     }
-    
+
+    @Test
+    void parse_export_success() throws CommandException {
+        assertParseSuccess(parser, "/file-name COMPalCalender",
+            new ExportCommand("COMPalCalender").commandExecute(taskListMain), taskListMain);
+        File file = new File("COMPalCalender.ics");
+        file.delete();
+    }
+
 }

@@ -38,7 +38,7 @@ class ExportCommandTest {
         this.taskListMain.setArrList(taskArrListMain);
     }
 
-    @Test
+    /*@Test
     public void execute_export_success() throws CommandException {
         new ExportCommand("testExport1").commandExecute(taskListMain);
         BufferedReader reader;
@@ -72,5 +72,5 @@ class ExportCommandTest {
         Assertions.assertEquals(expectedString, testedString);
         File file = new File("testExport1.ics");
         file.delete();
-    }
+    }*/
 }
