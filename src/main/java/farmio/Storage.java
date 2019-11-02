@@ -55,7 +55,10 @@ public class Storage {
         try {
             jsonFarmer = (JSONObject) parser.parse(reader);
         } catch (Exception e) {
-            throw new FarmioException("Gave save corrupted!");
+            throw new FarmioException("Game save corrupted!");
+        }
+        if(!getLevelExist((Double) jsonFarmer.get("level"))){
+            throw new FarmioException("Game level corrupted!");
         }
         return jsonFarmer;
     }
@@ -178,6 +181,14 @@ public class Storage {
             }
         }
         return frame;
+    }
+
+    public boolean getLevelExist(double level){
+        String path = "levels/" + level + ".json";
+        if(getResourceStream(path) != null){
+            return true;
+        }
+        return false;
     }
 
     /**
