@@ -1,13 +1,13 @@
 package duke;
 
 import duke.models.tasks.TaskManager;
+import duke.util.DukeUi;
 import duke.util.mementopattern.Memento;
 import duke.util.mementopattern.MementoManager;
 import duke.util.mementopattern.MementoParser;
 import duke.commands.Command;
 import duke.commands.CommandManager;
 import duke.exceptions.DukeException;
-import duke.util.Ui;
 import duke.models.patients.PatientManager;
 import duke.models.assignedtasks.AssignedTaskManager;
 import duke.models.counter.Counter;
@@ -23,7 +23,7 @@ public class Duke {
     private TaskManager taskManager;
     private PatientManager patientManager;
     private Counter counter;
-    private Ui ui;
+    private DukeUi dukeUi;
     private MementoManager mementoManager;
 
     /**
@@ -36,7 +36,7 @@ public class Duke {
     public Duke(String filePath) {
         storageManager = new StorageManager(filePath);
         mementoManager = new MementoManager();
-        ui = new Ui();
+        dukeUi = new DukeUi();
         try {
             assignedTaskManager = new AssignedTaskManager(storageManager.loadAssignedTasks());
             taskManager = new TaskManager(storageManager.loadTasks());
@@ -44,7 +44,7 @@ public class Duke {
             counter = new Counter(storageManager.loadCommandFrequency());
 
         } catch (DukeException e) {
-            ui.showLoadingError();
+            dukeUi.showLoadingError();
             System.out.println(e.getMessage());
             taskManager = new TaskManager();
         }
@@ -56,8 +56,8 @@ public class Duke {
      */
     public String run(String userInput) throws DukeException {
         try {
-            ui.readUserInputFromGui(userInput);
-            ui.showLine();
+            dukeUi.readUserInputFromGui(userInput);
+            dukeUi.showLine();
             Command c = CommandManager.manageCommand(userInput);
             if (MementoParser.getSaveFlag(c).equals("save")) {
                 Memento newMem = saveDukeStateToMemento();
@@ -66,11 +66,11 @@ public class Duke {
                 getDukeStateFromMemento(mementoManager.pop());
             }
             c.execute(assignedTaskManager, taskManager, patientManager,
-                ui, storageManager);
+                dukeUi, storageManager);
             counter.runCommandCounter(c, storageManager, counter);
-            return ui.getDukeResponses();
+            return dukeUi.getDukeResponses();
         } catch (DukeException e) {
-            ui.clearResponses();
+            dukeUi.clearResponses();
             throw e;
         }
     }
@@ -80,7 +80,7 @@ public class Duke {
      * .
      */
     public void clearDukeResponses() {
-        ui.clearResponses();
+        dukeUi.clearResponses();
     }
 
     /**

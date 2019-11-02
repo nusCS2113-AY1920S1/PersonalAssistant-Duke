@@ -3,7 +3,7 @@ package duke.commands.assignedtask;
 import duke.commands.Command;
 import duke.exceptions.DukeException;
 import duke.models.tasks.TaskManager;
-import duke.util.Ui;
+import duke.util.DukeUi;
 import duke.models.patients.Patient;
 import duke.models.patients.PatientManager;
 import duke.models.assignedtasks.AssignedTask;
@@ -42,14 +42,14 @@ public class FindAssignedTaskCommand implements Command {
      * @param assignedTaskManager    .
      * @param tasksManager       .
      * @param patientManager     .
-     * @param ui                 .
+     * @param dukeUi                 .
      * @param storageManager .
      * @throws DukeException .
      */
     @Override
     public void execute(AssignedTaskManager assignedTaskManager, TaskManager tasksManager,
                         PatientManager patientManager,
-                        Ui ui, StorageManager storageManager) throws DukeException {
+                        DukeUi dukeUi, StorageManager storageManager) throws DukeException {
         try {
             Patient patient = patientManager.getPatient(patientId);
             ArrayList<AssignedTask> patientTask = assignedTaskManager.getPatientTask(patientId);
@@ -57,7 +57,7 @@ public class FindAssignedTaskCommand implements Command {
             for (AssignedTask tempPatientTask : patientTask) {
                 newTask.add(tasksManager.getTask(tempPatientTask.getTid()));
             }
-            ui.patientTaskFound(patient, patientTask, newTask);
+            dukeUi.patientTaskFound(patient, patientTask, newTask);
         } catch (DukeException e) {
             throw new DukeException("Warning " + e.getMessage());
         }

@@ -5,7 +5,7 @@ package duke.commands.task;
 import duke.commands.Command;
 import duke.exceptions.DukeException;
 import duke.models.tasks.Task;
-import duke.util.Ui;
+import duke.util.DukeUi;
 import duke.models.patients.Patient;
 import duke.models.patients.PatientManager;
 import duke.models.assignedtasks.AssignedTask;
@@ -35,12 +35,12 @@ public class DeleteTaskCommand implements Command {
      * It retrieves task based on the id extracted.
      *
      * @param deletedTaskInfo contains the delete command received from parser class which is a string.
-     * @param ui              allow user choose the correct task to be deleted.
+     * @param dukeUi              allow user choose the correct task to be deleted.
      * @param taskManager     retrieves the task to be deleted.
      * @return the task to be deleted.
      * @throws DukeException if no match task found.
      */
-    public Task getTaskByDeleteTaskCommand(String deletedTaskInfo, Ui ui,
+    public Task getTaskByDeleteTaskCommand(String deletedTaskInfo, DukeUi dukeUi,
                                            TaskManager taskManager) throws DukeException {
         char firstChar = deletedTaskInfo.charAt(0);
         Task task = null;
@@ -70,26 +70,26 @@ public class DeleteTaskCommand implements Command {
      * @param assignedTaskManager contains the information between all the tasks and patients.
      * @param taskManager         contains information of all tasks.
      * @param patientManager      contains information of all patients.
-     * @param ui                  interacts with user.
+     * @param dukeUi                  interacts with user.
      * @param storageManager      save the changes in csv file.
      * @throws DukeException if there is error deleting the task.
      */
     @Override
     public void execute(AssignedTaskManager assignedTaskManager, TaskManager taskManager, PatientManager patientManager,
-                        Ui ui, StorageManager storageManager) throws DukeException {
+                        DukeUi dukeUi, StorageManager storageManager) throws DukeException {
         try {
-            taskToBeDeleted = getTaskByDeleteTaskCommand(deletedTaskInfo, ui, taskManager);
+            taskToBeDeleted = getTaskByDeleteTaskCommand(deletedTaskInfo, dukeUi, taskManager);
         } catch (Exception e) {
             throw e;
         }
-        ui.showTaskInfo(taskToBeDeleted);
+        dukeUi.showTaskInfo(taskToBeDeleted);
         try {
             ArrayList<AssignedTask> patientTasks = assignedTaskManager.getTaskPatient(taskToBeDeleted.getId());
             ArrayList<Patient> relatedPatients = new ArrayList<>();
             for (AssignedTask patientTask : patientTasks) {
                 relatedPatients.add(patientManager.getPatient(patientTask.getPid()));
             }
-            ui.taskPatientFound(taskToBeDeleted, relatedPatients);
+            dukeUi.taskPatientFound(taskToBeDeleted, relatedPatients);
             assignedTaskManager.deleteAllAssignedTaskByTaskId(taskToBeDeleted.getId());
             storageManager.saveAssignedTasks(assignedTaskManager.getAssignTasks());
             taskManager.deleteTask(taskToBeDeleted.getId());
@@ -97,7 +97,7 @@ public class DeleteTaskCommand implements Command {
             taskManager.deleteTask(taskToBeDeleted.getId());
         }
         storageManager.saveTasks(taskManager.getTaskList());
-        ui.taskDeleted();
+        dukeUi.taskDeleted();
     }
 
     /**

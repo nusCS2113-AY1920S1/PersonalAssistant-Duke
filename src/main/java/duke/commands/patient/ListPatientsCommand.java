@@ -2,7 +2,7 @@ package duke.commands.patient;
 
 import duke.commands.Command;
 import duke.exceptions.DukeException;
-import duke.util.Ui;
+import duke.util.DukeUi;
 import duke.models.patients.Patient;
 import duke.models.patients.PatientManager;
 import duke.models.assignedtasks.AssignedTaskManager;
@@ -23,16 +23,16 @@ public class ListPatientsCommand implements Command {
      * @param patientTask        .
      * @param tasks              .
      * @param patientList        .
-     * @param ui                 .
+     * @param dukeUi                 .
      * @param storageManager .
      * @throws DukeException .
      */
     @Override
     public void execute(AssignedTaskManager patientTask, TaskManager tasks, PatientManager patientList,
-                        Ui ui, StorageManager storageManager) {
+                        DukeUi dukeUi, StorageManager storageManager) {
 
         ArrayList<Patient> list = patientList.getPatientList();
-        ui.listAllPatients(list);
+        dukeUi.listAllPatients(list);
     }
 
     @Override

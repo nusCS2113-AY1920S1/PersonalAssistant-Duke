@@ -4,7 +4,7 @@ package duke.commands.task;
 
 import duke.commands.Command;
 import duke.exceptions.DukeException;
-import duke.util.Ui;
+import duke.util.DukeUi;
 import duke.models.tasks.Task;
 import duke.models.tasks.TaskManager;
 import duke.models.assignedtasks.AssignedTaskManager;
@@ -28,13 +28,13 @@ public class FindTaskCommand implements Command {
      * @param patientTask         contains the information between all the tasks and patients.
      * @param taskManager         contains information of all tasks.
      * @param patientManager      contains information of all patients.
-     * @param ui                  interacts with user.
+     * @param dukeUi                  interacts with user.
      * @param storageManager      save the changes in csv file.
      * @throws DukeException if there is error finding tasks.
      */
     @Override
     public void execute(AssignedTaskManager patientTask, TaskManager taskManager, PatientManager patientManager,
-                        Ui ui, StorageManager storageManager) throws DukeException {
+                        DukeUi dukeUi, StorageManager storageManager) throws DukeException {
         char firstChar = command.charAt(0);
         if (firstChar == '#') {
             int id;
@@ -45,13 +45,13 @@ public class FindTaskCommand implements Command {
             }
             try {
                 Task task = taskManager.getTask(id);
-                ui.taskFoundById(task);
+                dukeUi.taskFoundById(task);
             } catch (Exception e) {
                 throw new DukeException(FindTaskCommand.class, "The task id does not exist.");
             }
         } else {
             ArrayList<Task> tasksWithSameDescription = taskManager.getTaskByDescription(command);
-            ui.tasksFoundByDescription(tasksWithSameDescription, command);
+            dukeUi.tasksFoundByDescription(tasksWithSameDescription, command);
         }
     }
 

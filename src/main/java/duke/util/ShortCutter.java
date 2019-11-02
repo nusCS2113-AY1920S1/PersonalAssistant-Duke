@@ -33,7 +33,7 @@ import java.util.TreeMap;
 
 public class ShortCutter {
     private Counter counter;
-    private Ui ui;
+    private DukeUi dukeUi;
 
     public ShortCutter() {
     }
@@ -42,11 +42,11 @@ public class ShortCutter {
      * A constructor for ShortCutter class.
      *
      * @param counter receive a counter object
-     * @param ui      receive a ui object
+     * @param dukeUi      receive a dukeUi object
      */
-    public ShortCutter(Counter counter, Ui ui) {
+    public ShortCutter(Counter counter, DukeUi dukeUi) {
         this.counter = counter;
-        this.ui = ui;
+        this.dukeUi = dukeUi;
     }
 
     private Map<String, Integer> sortedCommandTable;
@@ -122,7 +122,7 @@ public class ShortCutter {
         topUsedCommandTable = mapSorter(sortedCommandTable);
         String commandName;
         Command command;
-        String choiceIndex = ui.readUserInput();
+        String choiceIndex = dukeUi.readUserInput();
         switch (choiceIndex) {
         case "1":
             commandName = topUsedCommandTable.get(1);
@@ -161,25 +161,25 @@ public class ShortCutter {
      */
     public Command shortCutChecker(String commandName) throws DukeException {
         if (commandName.equals("AddPatientCommand")) {
-            String patientName = ui.getPatientInfo("name");
-            String nric = ui.getPatientInfo("nric");
-            String room = ui.getPatientInfo("room");
-            String remark = ui.getPatientInfo("remark");
+            String patientName = dukeUi.getPatientInfo("name");
+            String nric = dukeUi.getPatientInfo("nric");
+            String room = dukeUi.getPatientInfo("room");
+            String remark = dukeUi.getPatientInfo("remark");
             String[] patientInfo = new String[]{patientName, nric, room, remark};
             return new AddPatientCommand(patientInfo);
         } else if (commandName.equals("AddStandardTaskCommand")) {
-            String taskName = ui.getTaskInfo("name");
+            String taskName = dukeUi.getTaskInfo("name");
             return new AddTaskCommand(taskName);
         } else if (commandName.equals("DeletePatientCommand")) {
-            String patientId = ui.getPatientInfo("id");
+            String patientId = dukeUi.getPatientInfo("id");
             return new DeletePatientCommand(patientId);
 
         } else if (commandName.equals("DeleteTaskCommand")) {
-            String taskId = ui.getTaskInfo("id");
+            String taskId = dukeUi.getTaskInfo("id");
             return new DeleteTaskCommand(taskId);
 
         } else if (commandName.equals("FindPatientCommand")) {
-            String patientId = ui.getPatientInfo("id");
+            String patientId = dukeUi.getPatientInfo("id");
             return new FindPatientCommand(patientId);
 
         } else if (commandName.equals("ListPatientsCommand")) {
@@ -189,15 +189,15 @@ public class ShortCutter {
             return new ListTasksCommand();
 
         } else if (commandName.equals("UpdatePatientCommand")) {
-            String patientId = ui.getPatientInfo("id");
-            String infoType = ui.getPatientInfo("change");
-            String changeValue = ui.getPatientInfo(("changeValue"));
+            String patientId = dukeUi.getPatientInfo("id");
+            String infoType = dukeUi.getPatientInfo("change");
+            String changeValue = dukeUi.getPatientInfo(("changeValue"));
             String[] patientInfo = new String[]{patientId, infoType, changeValue};
             return new UpdatePatientCommand(patientInfo);
         } else if (commandName.equals("UpdateTaskCommand")) {
-            String taskId = ui.getTaskInfo("id");
-            String change = ui.getTaskInfo("change");
-            String changeValue = ui.getTaskInfo("changeValue");
+            String taskId = dukeUi.getTaskInfo("id");
+            String change = dukeUi.getTaskInfo("change");
+            String changeValue = dukeUi.getTaskInfo("changeValue");
             String[] patientInfo = new String[]{taskId, change, changeValue};
             return new UpdateTaskCommand(patientInfo);
         } else {

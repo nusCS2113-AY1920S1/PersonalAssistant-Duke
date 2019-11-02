@@ -1,4 +1,4 @@
-package duke.ui;
+package duke.gui;
 
 import javafx.stage.Stage;
 

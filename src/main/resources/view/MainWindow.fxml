@@ -19,8 +19,7 @@
 <?import javafx.scene.text.Text?>
 <?import javafx.stage.Stage?>
 
-
-<Stage xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root title="Dukepital" type="Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <scene>
       <Scene>
          <root>
@@ -291,4 +290,4 @@
          </root>
       </Scene>
    </scene>
-</Stage>
+</fx:root>

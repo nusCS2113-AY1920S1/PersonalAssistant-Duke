@@ -1,30 +1,28 @@
-package duke.gui;
+package duke;
 
+import duke.gui.Ui;
+import duke.gui.UiManager;
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
-import java.io.IOException;
-
-
 /**
- * A GUI for Duke using FXML.
+ * Launcher class for the app.
  */
 public class Main extends Application {
-
+    private Ui ui;
+    private Duke duke;
 
     @Override
-    public void start(Stage stage) {
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
-            AnchorPane ap = fxmlLoader.load();
-            Scene scene = new Scene(ap);
-            stage.setScene(scene);
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public void init() throws Exception {
+        super.init();
+
+        String currentDir = System.getProperty("user.dir");
+        duke = new Duke(currentDir);
+        ui = new UiManager(duke);
+    }
+
+    @Override
+    public void start(Stage primaryStage) {
+        ui.start(primaryStage);
     }
 }

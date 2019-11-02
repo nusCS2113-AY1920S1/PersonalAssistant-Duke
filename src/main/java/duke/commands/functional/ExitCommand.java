@@ -3,7 +3,7 @@ package duke.commands.functional;
 import duke.commands.Command;
 import duke.exceptions.DukeException;
 import duke.models.tasks.TaskManager;
-import duke.util.Ui;
+import duke.util.DukeUi;
 import duke.models.patients.PatientManager;
 import duke.models.assignedtasks.AssignedTaskManager;
 import duke.storages.StorageManager;
@@ -36,11 +36,11 @@ public class ExitCommand implements Command {
      * run the command with the respect TaskList, UI, and storage.
      *
      * @param tasks       The task list where tasks are saved.
-     * @param ui          The user interface.
+     * @param dukeUi          The user interface.
      * @param patientList object that handles local text file update
      */
     public void execute(AssignedTaskManager patientTask, TaskManager tasks,
-                        PatientManager patientList, Ui ui, StorageManager storageManager) throws DukeException {
-        ui.exitInformation();
+                        PatientManager patientList, DukeUi dukeUi, StorageManager storageManager) throws DukeException {
+        dukeUi.exitInformation();
     }
 }

@@ -4,7 +4,7 @@ package duke.commands.patient;
 
 import duke.commands.Command;
 import duke.exceptions.DukeException;
-import duke.util.Ui;
+import duke.util.DukeUi;
 import duke.models.patients.Patient;
 import duke.models.patients.PatientManager;
 import duke.models.assignedtasks.AssignedTask;
@@ -34,12 +34,12 @@ public class DeletePatientCommand implements Command {
      * It extracts patient id from the delete patient command.
      *
      * @param deletedPatientInfo contains the delete patient command.
-     * @param ui                 allows user to choose the patient to delete.
+     * @param dukeUi                 allows user to choose the patient to delete.
      * @param patientManager     retrieves patient based on patient id.
      * @return patient to be deleted.
      * @throws DukeException if no matched patient found.
      */
-    public Patient getPatientByDeletePatientCommand(String deletedPatientInfo, Ui ui,
+    public Patient getPatientByDeletePatientCommand(String deletedPatientInfo, DukeUi dukeUi,
                                                     PatientManager patientManager) throws DukeException {
         char firstChar = deletedPatientInfo.charAt(0);
         Patient patient = null;
@@ -69,27 +69,27 @@ public class DeletePatientCommand implements Command {
      * @param assignedTaskManager contains the information between all the tasks and patients.
      * @param taskManager         contains information of all the tasks.
      * @param patientManager      contains information of all the patients.
-     * @param ui                  interacts with user.
+     * @param dukeUi                  interacts with user.
      * @param storageManager      save the changes in csv file.
      * @throws DukeException if there is error deleting the patient.
      */
     @Override
     public void execute(AssignedTaskManager assignedTaskManager, TaskManager taskManager, PatientManager patientManager,
-                        Ui ui, StorageManager storageManager) throws DukeException {
+                        DukeUi dukeUi, StorageManager storageManager) throws DukeException {
 
         try {
-            patientToBeDeleted = getPatientByDeletePatientCommand(deletedPatientInfo, ui, patientManager);
+            patientToBeDeleted = getPatientByDeletePatientCommand(deletedPatientInfo, dukeUi, patientManager);
         } catch (Exception e) {
             throw e;
         }
-        ui.showPatientInfo(patientToBeDeleted);
+        dukeUi.showPatientInfo(patientToBeDeleted);
         try {
             ArrayList<AssignedTask> patientTasks = assignedTaskManager.getPatientTask(patientToBeDeleted.getId());
             ArrayList<Task> assignedTasks = new ArrayList<>();
             for (AssignedTask patientTask : patientTasks) {
                 assignedTasks.add(taskManager.getTask(patientTask.getTid()));
             }
-            ui.assignedTasksFoundWhenDeletePatient(patientToBeDeleted, assignedTasks);
+            dukeUi.assignedTasksFoundWhenDeletePatient(patientToBeDeleted, assignedTasks);
             assignedTaskManager.deleteAllTasksBelongToThePatient(patientToBeDeleted.getId());
             storageManager.saveAssignedTasks(assignedTaskManager.getAssignTasks());
             patientManager.deletePatient(patientToBeDeleted.getId());
@@ -97,7 +97,7 @@ public class DeletePatientCommand implements Command {
             patientManager.deletePatient(patientToBeDeleted.getId());
         }
         storageManager.savePatients(patientManager.getPatientList());
-        ui.patientDeleted();
+        dukeUi.patientDeleted();
     }
 
     /**

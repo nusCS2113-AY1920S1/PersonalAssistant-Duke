@@ -5,7 +5,7 @@ package duke.commands.task;
 import duke.commands.Command;
 import duke.exceptions.DukeException;
 import duke.models.tasks.Task;
-import duke.util.Ui;
+import duke.util.DukeUi;
 import duke.models.patients.PatientManager;
 import duke.models.assignedtasks.AssignedTaskManager;
 import duke.storages.StorageManager;
@@ -29,13 +29,13 @@ public class UpdateTaskCommand implements Command {
      * @param patientTask        .
      * @param taskManager        .
      * @param patientManager     .
-     * @param ui                 .
+     * @param dukeUi                 .
      * @param storageManager .
      * @throws DukeException .
      */
     @Override
     public void execute(AssignedTaskManager patientTask, TaskManager taskManager, PatientManager patientManager,
-                        Ui ui, StorageManager storageManager) throws DukeException {
+                        DukeUi dukeUi, StorageManager storageManager) throws DukeException {
         char firstChar = command[0].charAt(0);
         if (firstChar == '#') {
             int id;
@@ -49,8 +49,8 @@ public class UpdateTaskCommand implements Command {
                 }
 
                 storageManager.saveTasks(taskManager.getTaskList());
-                ui.showUpdatedSuccessfully();
-                ui.showTaskInfo(taskToBeUpdated);
+                dukeUi.showUpdatedSuccessfully();
+                dukeUi.showTaskInfo(taskToBeUpdated);
             } catch (Exception e) {
                 throw new DukeException(UpdateTaskCommand.class,
                         "Please follow the format 'update task :#<id> :description :<new description>'.");

@@ -5,7 +5,7 @@ package duke.commands.patient;
 import duke.commands.Command;
 import duke.exceptions.DukeException;
 import duke.models.tasks.TaskManager;
-import duke.util.Ui;
+import duke.util.DukeUi;
 import duke.models.patients.Patient;
 import duke.models.patients.PatientManager;
 import duke.models.assignedtasks.AssignedTaskManager;
@@ -33,12 +33,12 @@ public class AddPatientCommand implements Command {
     }
 
     @Override
-    public void execute(AssignedTaskManager patientTask, TaskManager tasks, PatientManager patientList, Ui ui,
+    public void execute(AssignedTaskManager patientTask, TaskManager tasks, PatientManager patientList, DukeUi dukeUi,
                         StorageManager storageManager) throws DukeException {
 
         patientList.addPatient(newPatient);
         storageManager.savePatients(patientList.getPatientList());
-        ui.patientAdded(newPatient);
+        dukeUi.patientAdded(newPatient);
     }
 
     @Override

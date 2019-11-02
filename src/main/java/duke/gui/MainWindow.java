@@ -25,12 +25,10 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import org.controlsfx.control.textfield.TextFields;
 
-import java.io.File;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -42,7 +40,8 @@ import java.util.Map;
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
  */
-public class MainWindow extends AnchorPane {
+public class MainWindow extends UiPart<Stage> {
+
     @FXML
     private ScrollPane scrollPane;
     @FXML
@@ -138,33 +137,61 @@ public class MainWindow extends AnchorPane {
     @FXML
     private ScrollPane helpGuideScrollPane;
 
-    String currentDir = System.getProperty("user.dir");
+//    String currentDir = System.getProperty("user.dir");
+//
+//    private final Duke duke = new Duke(currentDir);
 
-    private final Duke duke = new Duke(currentDir);
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/robot.png"));
 
-    private ObservableList<AssignedTask> assignedTaskData = FXCollections
-            .observableArrayList(duke.getAssignedTaskManager().getAssignTasks());
-    private ObservableList<Task> taskData = FXCollections.observableArrayList(duke.getTaskManager().getTaskList());
-    private ObservableList<Patient> patientData = FXCollections
-            .observableArrayList(duke.getPatientManager().getPatientList());
+    private ObservableList<AssignedTask> assignedTaskData;
+    private ObservableList<Task> taskData;
+    private ObservableList<Patient> patientData;
+
+    private Duke duke;
+    private Stage primaryStage;
+    private static final String FXML = "MainWindow.fxml";
 
     /**
-     * .
+     * Creates the Main Window.
+     *
+     * @param primaryStage The stage to display MainWindow on.
+     * @param duke        Logic component
      */
-    @FXML
+    public MainWindow(Stage primaryStage, Duke duke) {
+        super(FXML, primaryStage);
+        System.out.println("MainWindow 1");
+
+        this.primaryStage = primaryStage;
+        this.duke = duke;
+        initialize();
+    }
+
+    public void show() {
+        primaryStage.show();
+    }
+
+    /**
+     * Returns the stage that MainWindow is displayed on.
+     */
+    public Stage getPrimaryStage() {
+        return primaryStage;
+    }
+
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         initializeTableViews();
+
         //@@author qjie7
         String[] possibleWords = {"add", "delete", "find", "update", "list", "task", "patients", "assigned", "patient",
-                                  "bye", "period", "deadline", "undo", "help"};
+            "bye", "period", "deadline", "undo", "help"};
         TextFields.bindAutoCompletion(userInput, possibleWords);
         //@@author
-        showHelpGuide();
+//        showHelpGuide();
     }
+
+
 
     /**
      * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
@@ -177,6 +204,7 @@ public class MainWindow extends AnchorPane {
     }
 
     //@@author qjie7
+
     /**
      * Action takes to after Undo button is being pressed.
      */
@@ -345,8 +373,8 @@ public class MainWindow extends AnchorPane {
         String startTime = assignTaskStartTimeField.getText();
         String endTime = assignTaskEndTimeField.getText();
         String input = "assign period task :" + "#" + patientId + " :"
-                + "#" + taskId + " :" + startDateInString + " " + startTime
-                + " :" + endDateInString + " " + endTime;
+            + "#" + taskId + " :" + startDateInString + " " + startTime
+            + " :" + endDateInString + " " + endTime;
         executeDukeWithInput(input);
         assignTaskIdField.clear();
         assignTaskPatientIdField.clear();
@@ -367,7 +395,7 @@ public class MainWindow extends AnchorPane {
 
         String deadlineTime = assignDeadlineTaskTimeField.getText();
         String input = "assign deadline task :" + "#" + patientId + " :"
-                + "#" + taskId + " :" + deadlineDateInString + " " + deadlineTime;
+            + "#" + taskId + " :" + deadlineDateInString + " " + deadlineTime;
         executeDukeWithInput(input);
         assignTaskIdField.clear();
         assignTaskPatientIdField.clear();
@@ -404,8 +432,8 @@ public class MainWindow extends AnchorPane {
         }
         updateTableViews();
         dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(inputCommand, userImage),
-                DialogBox.getDukeDialog(dukeResponses, dukeImage, isException)
+            DialogBox.getUserDialog(inputCommand, userImage),
+            DialogBox.getDukeDialog(dukeResponses, dukeImage, isException)
         );
         duke.clearDukeResponses();
     }
@@ -414,6 +442,11 @@ public class MainWindow extends AnchorPane {
      * .
      */
     public void initializeTableViews() {
+        assignedTaskData = FXCollections
+            .observableArrayList(duke.getAssignedTaskManager().getAssignTasks());
+        taskData = FXCollections.observableArrayList(duke.getTaskManager().getTaskList());
+        patientData = FXCollections
+            .observableArrayList(duke.getPatientManager().getPatientList());
         patientIdCol.setCellValueFactory(new PropertyValueFactory<Patient, Integer>("id"));
         patientNameCol.setCellValueFactory(new PropertyValueFactory<Patient, String>("name"));
         patientNricCol.setCellValueFactory(new PropertyValueFactory<Patient, String>("nric"));
@@ -557,10 +590,10 @@ public class MainWindow extends AnchorPane {
                     if (assignedTask.getType().toLowerCase().contains(lowerCaseFilter)) {
                         return true;
                     } else if (duke.getTaskManager().getTask((assignedTask.getTid()))
-                            .getDescription().toLowerCase().contains(lowerCaseFilter)) {
+                        .getDescription().toLowerCase().contains(lowerCaseFilter)) {
                         return true;
                     } else if (duke.getPatientManager().getPatient((assignedTask.getPid()))
-                            .getName().toLowerCase().contains(lowerCaseFilter)) {
+                        .getName().toLowerCase().contains(lowerCaseFilter)) {
                         return true;
                     } else if (String.valueOf(assignedTask.getUuid()).contains(lowerCaseFilter)) {
                         return true;
@@ -590,6 +623,7 @@ public class MainWindow extends AnchorPane {
     }
 
     //@@lmtaek
+
     /**
      * Handler for HelpGuide tab.
      */
