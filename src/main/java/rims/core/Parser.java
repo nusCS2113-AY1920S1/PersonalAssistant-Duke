@@ -83,7 +83,7 @@ public class Parser {
     //@@author aarushisingh1
     public String friendlierSyntax(String input){
         String identifier = "";
-        if(input.equals("l")){
+        if(input.equals("l")) {
             identifier = ui.getInput("Did you mean list?");
                 if(identifier.equals("Y")){
                     return "list";
@@ -205,7 +205,6 @@ public class Parser {
         //@@author rabhijit
         } else if (simplerWord.equals("loan")) {
             String roomOrItem = ui.getInput("Would you like to loan an item or room from the inventory?");
-            ui.printLine();
             if (roomOrItem.equals("room")) {
                 String roomName = ui.getInput("Enter the name of the room you wish to loan:");
                 // printing out existing room bookings
@@ -233,7 +232,6 @@ public class Parser {
                 c = new ReserveCommand(roomName, dateTill, userId);
             } else if (roomOrItem.equals("item")) {
                 String itemName = ui.getInput("Enter the name of the item you wish to loan:");
-                ui.printLine();
                 if (!resources.isItem(itemName)) {
                     throw new RimsException("There is no such item!");
                 }
@@ -268,7 +266,6 @@ public class Parser {
             }
         } else if (simplerWord.equals("reserve")) {
             String roomOrItem = ui.getInput("Would you like to reserve an item or room from the inventory?");
-            ui.printLine();
             if (roomOrItem.equals("room")) {
                 String roomName = ui.getInput("Enter the name of the room you wish to reserve:");
                 // printing out existing room bookings
@@ -302,7 +299,6 @@ public class Parser {
                 c = new ReserveCommand(roomName, dateFrom, dateTill, userId);
             } else if (roomOrItem.equals("item")) {
                 String itemName = ui.getInput("Enter the name of the item you wish to reserve:");
-                ui.printLine();
                 if (!resources.isItem(itemName)) {
                     throw new RimsException("There is no such item!");
                 }
