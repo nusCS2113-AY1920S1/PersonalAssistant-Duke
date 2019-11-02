@@ -1,6 +1,6 @@
 package seedu.duke.email.parser;
 
-import seedu.duke.CommandParseHelper;
+import seedu.duke.common.parser.CommandParseHelper;
 import seedu.duke.common.command.Command;
 import seedu.duke.common.command.ExitCommand;
 import seedu.duke.common.command.FlipCommand;
@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static seedu.duke.CommandParseHelper.isNumberTooLarge;
+import static seedu.duke.common.parser.CommandParseHelper.isNumberTooLarge;
 
 public class EmailCommandParseHelper {
     private static UI ui = UI.getInstance();
@@ -159,7 +159,8 @@ public class EmailCommandParseHelper {
         }
         int index = Integer.parseInt(input) - 1;
         if (index < 0 || index >= Model.getInstance().getEmailListLength()) {
-            throw new EmailParseException("Index out of bounds.");
+            throw new EmailParseException("Index " + (index + 1) + " out of bounds for length "
+                    + Model.getInstance().getEmailListLength());
         }
         return index;
     }

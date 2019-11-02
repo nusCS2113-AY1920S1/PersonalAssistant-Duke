@@ -239,6 +239,9 @@ Natural date format can be used instead of ISO date format.
 [NOTE]
 PRIORITY_LEVEL is restricted to *high*, *med*, *low*. Any other PRIORITY_LEVEL will be invalid.
 
+[NOTE]
+Deadline with time prior to the current time is allowed to be added, but will be marked as *Overdue*.
+
 ===== Adding an event: `event`
 Format: `event TASK_NAME -time dd/mm/yyyy hhMM [-doafter DOAFTER_TASK][-priority PRIORITY_LEVEL][-tag TAG1]...` +
 
@@ -254,6 +257,9 @@ Parameters other than item number can be entered in any order.
 [NOTE]
 PRIORITY_LEVEL is restricted to *high*, *med*, *low*. Any other PRIORITY_LEVEL will be invalid.
 
+[NOTE]
+Similar to the deadline, event with time prior to the current time is allowed to be added, but will be
+marked as *Past*
 ==== List Tasks Commands: `list`
 Format: `list` +
 
@@ -454,7 +460,7 @@ a while. Please wait patiently.
 ==== Tagging Email: `update`
 Format: `update ITEM_NUMBER -tag TAG1 [-tag TAG2]...`
 
-Tags the specified item with the tag(s) minimum number of tags is 1.
+Tags the specified item with the tag(s) minimum number of tags is 1. Tags without duplication will be added.
 
 Examples:
 `update 1 -tag CS2113T`

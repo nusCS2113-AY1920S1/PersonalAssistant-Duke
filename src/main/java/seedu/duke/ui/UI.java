@@ -2,7 +2,7 @@ package seedu.duke.ui;
 
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import seedu.duke.CommandParseHelper;
+import seedu.duke.common.parser.CommandParseHelper;
 import seedu.duke.Duke;
 import seedu.duke.common.command.Command;
 import seedu.duke.common.model.Model;
@@ -134,6 +134,9 @@ public class UI {
      * @param msg the message that is to be shown
      */
     public void showMessage(String msg) {
+        if ("".equals(msg)) {
+            return;
+        }
         System.out.println(ANSI_RESET + msg);
         showGui(msg);
         logger.log(Level.INFO, "[Message] " + msg);
@@ -145,6 +148,9 @@ public class UI {
      * @param msg the message that is to be shown
      */
     public void showResponse(String msg) {
+        if ("".equals(msg)) {
+            return;
+        }
         this.responseMsg = msg;
         System.out.println(ANSI_RESET + "------------------------------");
         System.out.println(msg);
@@ -159,6 +165,9 @@ public class UI {
      * @param msg the error message that is to be shown
      */
     public void showError(String msg) {
+        if ("".equals(msg)) {
+            return;
+        }
         String errorMsg = ANSI_RED + msg + ANSI_RESET;
         System.out.println(errorMsg);
         showGui(msg);
@@ -242,7 +251,7 @@ public class UI {
      * @param msg input
      */
     public void showGui(String msg) {
-        if (mainWindow == null) {
+        if (mainWindow == null || "".equals(msg)) {
             return;
         }
         mainWindow.showGuiMessage(msg, input);

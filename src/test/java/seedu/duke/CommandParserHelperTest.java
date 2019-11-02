@@ -46,7 +46,7 @@ public class CommandParserHelperTest {
                 "msg", "do after description"), new Command.Option("tag", "123")));
 
         try {
-            Class<?> parser = Class.forName("seedu.duke.CommandParseHelper");
+            Class<?> parser = Class.forName("seedu.duke.common.parser.CommandParseHelper");
             Method method = parser.getDeclaredMethod("parseEmailCommand", String.class, ArrayList.class);
             method.setAccessible(true);
             assertTrue(method.invoke(null, "email show 1", null) instanceof EmailShowCommand);

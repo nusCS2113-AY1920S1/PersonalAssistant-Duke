@@ -101,14 +101,15 @@ public class Email {
      *
      * @param keyword keyword of the tag
      */
-    public void addTag(String keyword) {
+    public boolean addTag(String keyword) {
         for (Tag tag : tags) {
-            if (tag.getKeywordPair().getKeyword().equals(keyword)) {
-                UI.getInstance().showError("Tag already exists.");
-                return;
+            if (tag.getKeywordPair().getKeyword().toUpperCase().equals(keyword.toUpperCase())) {
+                UI.getInstance().showError("Tag \'" + keyword + "\' already exists.");
+                return false;
             }
         }
         this.tags.add(new Tag(keyword));
+        return true;
     }
 
     /**

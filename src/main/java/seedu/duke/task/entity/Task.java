@@ -1,6 +1,6 @@
 package seedu.duke.task.entity;
 
-import seedu.duke.CommandParseHelper;
+import seedu.duke.common.parser.CommandParseHelper;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -170,12 +170,13 @@ public class Task {
 
     /**
      * The function checks whether this task, when converted to string, contains the keyword specified.
+     * Case ignored.
      *
      * @param keyword search target string
      * @return a flag whether the keyword is found in the task string
      */
     public boolean matchKeyword(String keyword) {
-        return this.toString().contains(keyword);
+        return this.toString().toUpperCase().contains(keyword.toUpperCase());
     }
 
     /**

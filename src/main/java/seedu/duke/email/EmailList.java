@@ -1,6 +1,6 @@
 package seedu.duke.email;
 
-import seedu.duke.CommandParseHelper;
+import seedu.duke.common.parser.CommandParseHelper;
 import seedu.duke.email.entity.Email;
 
 import java.io.IOException;
@@ -59,11 +59,18 @@ public class EmailList extends ArrayList<Email> {
      */
     public String addTags(int index, ArrayList<String> tags) {
         Email email = this.get(index);
+        ArrayList<String> successList = new ArrayList<>();
         for (String tag : tags) {
-            email.addTag(tag);
+            boolean success = email.addTag(tag);
+            if (success) {
+                successList.add(tag);
+            }
         }
-        String responseMsg =
-                "Tags added: " + tags.toString() + System.lineSeparator() + "to email: " + email.getSubject();
+        String responseMsg = "";
+        if (successList.size() > 0) {
+            responseMsg =
+                    "Tags added: " + tags.toString() + System.lineSeparator() + "to email: " + email.getSubject();
+        }
         return responseMsg;
     }
 

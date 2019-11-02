@@ -66,7 +66,7 @@ public class Event extends Task {
     @Override
     public String toString() {
         String output = "";
-        output = "[E]" + this.getStatus() + " (by: " + formatDate() + ")";
+        output = "[E]" + this.getStatus() + " (by: " + formatDate() + ")" + pastString();
         if (this.doAfterDescription != null && !this.doAfterDescription.equals("")) {
             output += System.lineSeparator() + "\tAfter which: " + doAfterDescription;
         }
@@ -112,6 +112,16 @@ public class Event extends Task {
      */
     private String formatDate() {
         return format.format(this.time);
+    }
+
+    private String pastString() {
+        if (isPast()) {
+            return "(Past)";
+        }
+        return "";
+    }
+    private boolean isPast() {
+        return this.time.compareTo(LocalDateTime.now()) < 0;
     }
 
     /**
