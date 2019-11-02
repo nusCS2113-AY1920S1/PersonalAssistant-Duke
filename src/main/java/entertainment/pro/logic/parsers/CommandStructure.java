@@ -20,8 +20,8 @@ public class CommandStructure {
 
             put(COMMANDKEYS.view, new COMMANDKEYS[] {
                 COMMANDKEYS.profile, COMMANDKEYS.filters, COMMANDKEYS.preferences, COMMANDKEYS.watchlist,
-                COMMANDKEYS.info, COMMANDKEYS.showtimes, COMMANDKEYS.blacklist,
-                COMMANDKEYS.movies, COMMANDKEYS.tv, COMMANDKEYS.back, COMMANDKEYS.entry
+                COMMANDKEYS.info, COMMANDKEYS.blacklist,
+                COMMANDKEYS.movies, COMMANDKEYS.tv, COMMANDKEYS.back, COMMANDKEYS.entry, COMMANDKEYS.recommendation
 
             });
 
@@ -57,9 +57,11 @@ public class CommandStructure {
                 COMMANDKEYS.add, COMMANDKEYS.remove, COMMANDKEYS.clear
             });
 
+            /*
             put(COMMANDKEYS.get, new COMMANDKEYS[]{
                 COMMANDKEYS.recommendation
             });
+            */
 
             put(COMMANDKEYS.watchlist, new COMMANDKEYS[] {
                 COMMANDKEYS.add,  COMMANDKEYS.set,  COMMANDKEYS.delete

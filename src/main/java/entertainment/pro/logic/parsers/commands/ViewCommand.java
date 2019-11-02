@@ -5,6 +5,7 @@ import entertainment.pro.commons.exceptions.EmptyCommandException;
 import entertainment.pro.commons.exceptions.Exceptions;
 import entertainment.pro.commons.exceptions.MissingInfoException;
 import entertainment.pro.logic.parsers.CommandParser;
+import entertainment.pro.model.MovieInfoObject;
 import entertainment.pro.storage.user.Blacklist;
 import entertainment.pro.storage.user.WatchlistHandler;
 import entertainment.pro.ui.Controller;
@@ -13,11 +14,13 @@ import entertainment.pro.logic.parsers.CommandStructure;
 import entertainment.pro.logic.parsers.CommandSuper;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
 
 public class ViewCommand extends CommandSuper {
     private Controller controller;
+    private int constant = 5;
 
     public ViewCommand(Controller uicontroller) {
         super(COMMANDKEYS.view, CommandStructure.cmdStructure.get(COMMANDKEYS.view), uicontroller);
@@ -34,6 +37,9 @@ public class ViewCommand extends CommandSuper {
                 break;
             case entry:
                 executeEntryCommands(Integer.parseInt(getPayload()));
+                break;
+            case recommendation:
+                executeRecommendationCommand();
                 break;
             default:
                 break;
@@ -55,6 +61,22 @@ public class ViewCommand extends CommandSuper {
         //int num = Integer.parseInt(payload);
         //System.out.println("this is num +" + num);
         ((MovieHandler) this.getUiController()).showMovie(num);
+    }
+
+    /**
+     * prints out a list of recommendations based on the users set preferences.
+     * @throws IOException file was not able to be found
+     */
+    private void executeRecommendationCommand() throws Exceptions {
+        String feedback = "Your recommended movies are: \n";
+        MovieHandler movieHandler = ((MovieHandler) this.getUiController());
+        ArrayList<Integer> preferenceIndices = movieHandler.getUserProfile().getGenreIdPreference();
+        ArrayList<MovieInfoObject>  movies = movieHandler.getAPIRequester()
+                .beginSearchGenre(Integer.toString(preferenceIndices.get(0)), movieHandler.getUserProfile().isAdult());
+        for (int i = 0; i < constant; i++) {
+            feedback += i + 1 + ". " + movies.get(i).getTitle() + "\n";
+        }
+        movieHandler.setGeneralFeedbackText(feedback);
     }
 
 }

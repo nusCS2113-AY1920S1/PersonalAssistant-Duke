@@ -13,6 +13,8 @@ import org.json.simple.parser.ParseException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 /**
  * Class that handles fetching results from The Google API service and then parsing them into CinemaInfoObjects.
@@ -75,6 +77,8 @@ public class CinemaRetrieveRequest implements CinemaInfoFetcher {
             for (int i = 0; i < cinemas.size(); i++) {
                 parsedCinemas.add(parseCinemaJSON((JSONObject)(cinemas.get(i))));
             }
+            Collections.sort(parsedCinemas, Comparator.comparingDouble(CinemaInfoObject::getRating));
+            Collections.reverse(parsedCinemas);
         } catch (ParseException e) {
             e.printStackTrace();
         }
