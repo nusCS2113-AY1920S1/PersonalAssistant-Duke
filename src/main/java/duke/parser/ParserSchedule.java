@@ -161,8 +161,8 @@ public class ParserSchedule {
         try {
             while (runSchedule) {
                 cliView.trainingScheduleHeading();
-                    input = sc.nextInt();
-                    switch (input) {
+                input = sc.nextInt();
+                switch (input) {
                     case dailySchedule:
                         boolean runDaily = true;
                         while (runDaily) {
@@ -192,7 +192,7 @@ public class ParserSchedule {
                         break;
                     default:
                         cliView.showDontKnow();
-                    }
+                }
             }
         } catch (InputMismatchException e) {
             cliView.showCorrectFormat();
