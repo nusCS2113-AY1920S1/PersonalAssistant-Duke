@@ -2,17 +2,19 @@ package rims.exception;
 
 //@@author rabhijit
 /**
- * A custom exception for RIMS, when inputs don't fit the desired format or
- * have no meaning.
+ * A custom exception for RIMS, when inputs don't fit the desired format or have
+ * no meaning.
  */
 public class RimsException extends Exception {
     protected String tab = "\t";
     protected String hash = "******************************************************"
-        + "**************************************************************************************";
+            + "**************************************************************************************";
     protected String error;
 
     /**
-     * Constructor for a RimsException. Every RimsException contains an error message.
+     * Constructor for a RimsException. Every RimsException contains an error
+     * message.
+     * 
      * @param error the error message of this RimsException.
      */
     public RimsException(String error) {
@@ -26,5 +28,13 @@ public class RimsException extends Exception {
         System.out.println(tab + hash);
         System.out.println(tab + "ERROR: " + error);
         System.out.println(tab + hash);
+    }
+
+    /**
+     * Returns the error message.
+     */
+    @Override
+    public String getMessage() {
+        return this.error;
     }
 }

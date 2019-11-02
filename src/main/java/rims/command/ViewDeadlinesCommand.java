@@ -1,7 +1,8 @@
 package rims.command;
 
 import java.text.ParseException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
 
 import rims.core.ResourceList;
 import rims.core.Storage;
@@ -12,15 +13,17 @@ import rims.exception.RimsException;
 /**
  * Shows a sorted list of all the upcoming/overdue deadlines.
  */
-//@@author aarushisingh1
+// @@author aarushisingh1
 public class ViewDeadlinesCommand extends Command {
     /**
      * Prints out a sorted list of all the upcoming/overdue deadlines.
-     * @param ui An instance of the user interface.
-     * @param storage An instance of the Storage class.
-     * @param resources The ResourceList, containing all the created Resources thus far.
+     * 
+     * @param ui        An instance of the user interface.
+     * @param storage   An instance of the Storage class.
+     * @param resources The ResourceList, containing all the created Resources thus
+     *                  far.
      * @throws ParseException if the resource name is invalid
-     * @throws RimsException for any other unexpected error
+     * @throws RimsException  for any other unexpected error
      */
     public void execute(Ui ui, Storage storage, ResourceList resources) throws RimsException {
         ui.printLine();
@@ -46,14 +49,15 @@ public class ViewDeadlinesCommand extends Command {
             @Override
             public int compare(Resource o1, Resource o2) {
                 try {
-                    return o1.getReservations().getCurrentBooking().getEndDate().compareTo(o2.getReservations().getCurrentBooking().getEndDate());
+                    return o1.getReservations().getCurrentBooking().getEndDate()
+                            .compareTo(o2.getReservations().getCurrentBooking().getEndDate());
                 } catch (RimsException e) {
                     e.printStackTrace();
                 }
                 return -1;
             }
         });
-        for(int j = 0; j < sortedList.size();  j ++){
+        for (int j = 0; j < sortedList.size(); j++) {
             ui.print(sortedList.get(j).toString() + ":");
             ui.print("\t" + sortedList.get(j).getReservations().getCurrentBooking().toString());
         }

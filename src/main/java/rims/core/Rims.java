@@ -15,7 +15,7 @@ import rims.exception.RimsException;
  * The main class that instantiates all the sub-classes that carry out
  * the relevant sub-tasks of RIMS.
  */
-public class Rims{
+public class Rims {
     private Storage storage;
     private ResourceList resources;
     private Ui ui;
