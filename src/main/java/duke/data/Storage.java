@@ -48,9 +48,13 @@ public class Storage {
      * @throws FileNotFoundException is thrown when
      *                               file designated cannot be found.
      */
-    public Storage(final String path) throws FileNotFoundException {
+    public Storage(final String path) throws IOException {
         filePath = path;
         File f = new File(filePath);
+        if (f.createNewFile())
+        {
+            System.out.println("File is created!");
+        }
         fileInput = new Scanner(f);
     }
 

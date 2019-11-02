@@ -5,6 +5,7 @@ import duke.data.Storage;
 import duke.models.Schedule;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.text.ParseException;
 import java.util.Scanner;
 
@@ -149,7 +150,7 @@ public class ParserSchedule {
      * @throws ParseException Parse
      * @throws FileNotFoundException File not found
      */
-    public void parseCommand() throws ParseException, FileNotFoundException {
+    public void parseCommand() throws ParseException, IOException {
         final int dailySchedule = 1;
         final int weeklySchedule = 2;
         final int monthlySchedule = 3;
