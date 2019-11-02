@@ -51,6 +51,11 @@ public class TaskScheduleCommand extends Command {
         this.deadlineDate = deadlineDate;
     }
 
+    /**
+     * Initialises the command parameter for an inputted duration to be done by a selected deadline.
+     * @param duration is the minimum hours of a free period that the user wishes to find
+     * @param indexOfDeadline is the index number of the selected deadline in the TaskList
+     */
     public TaskScheduleCommand(Long duration, int indexOfDeadline) {
         this.durationToSchedule = duration;
         this.indexOfTask = null;
@@ -58,6 +63,11 @@ public class TaskScheduleCommand extends Command {
         this.deadlineDate = null;
     }
 
+    /**
+     * Initialises the command parameter for an inputted duration to be done by an inputted date.
+     * @param duration is the minimum hours of a free period that the user wishes to find
+     * @param deadlineDate is the date to schedule the task by
+     */
     public TaskScheduleCommand(Long duration, LocalDateTime deadlineDate) {
         this.durationToSchedule = duration;
         this.indexOfTask = null;

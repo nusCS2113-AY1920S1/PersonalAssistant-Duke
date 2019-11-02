@@ -12,6 +12,12 @@ public final class TaskScheduler {
 
     private static final int SEARCH_HARD_LIMIT = 30;
 
+    /**
+     * Finds a free period of time within the user's schedule for a given duration by a given deadline.
+     * @param tasks is the master task list in the program
+     * @param durationToSchedule is the minimum duration to find a large enough period that is free
+     * @param deadlineDate is the date to find any periods by
+     */
     public static void scheduleByDeadline(TaskList tasks, Long durationToSchedule, LocalDateTime deadlineDate) {
         ArrayList<Event> dateList = tasks.obtainEventList(deadlineDate);
         if (dateList.size() == 0) {
@@ -22,6 +28,11 @@ public final class TaskScheduler {
         searchFreePeriodsInEventList(durationToSchedule, deadlineDate, dateList);
     }
 
+    /**
+     * Finds a free period of time within the user's schedule for a given duration without concerning a deadline.
+     * @param tasks is the master task list in the program
+     * @param durationToSchedule is the minimum duration to find a large enough period that is free
+     */
     public static void scheduleTask(TaskList tasks, Long durationToSchedule) {
         LocalDateTime deadlineDate = LocalDateTime.now().plusDays(SEARCH_HARD_LIMIT);
         ArrayList<Event> eventList = tasks.obtainEventList(deadlineDate);
@@ -33,7 +44,8 @@ public final class TaskScheduler {
         searchFreePeriodsInEventList(durationToSchedule, deadlineDate, eventList);
     }
 
-    private static void searchFreePeriodsInEventList(Long durationToSchedule, LocalDateTime deadlineDate, ArrayList<Event> eventList) {
+    private static void searchFreePeriodsInEventList(Long durationToSchedule, LocalDateTime deadlineDate,
+                                                     ArrayList<Event> eventList) {
         Long duration;
         LocalDateTime nextStartDate = eventList.get(0).getStartDate();
         duration = ChronoUnit.HOURS.between(LocalDateTime.now(), nextStartDate);
