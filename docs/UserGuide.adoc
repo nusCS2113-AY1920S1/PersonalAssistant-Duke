@@ -896,7 +896,7 @@ To find out which expenditure to delete, use the `/list` or `/find` function to 
 Deletes an expenditure from `POBB Tomorrow Card` with transaction number `1`.
 
 
-===== Adding monthly credit card bill to savings account /add /cardbill
+===== Adding monthly credit card bill to savings account `/add /cardbill`
 
 Charge your credit card monthly bill to your savings account! This will add a credit card bill expenditure and also
 deposit the monthly rebate to your savings account.
@@ -922,7 +922,7 @@ Tomorrow Card` in the month and year of `10/2019`.
 
 Rebates for the month will also be deposited back to `JunBank Savings Account`.
 
-===== Deleting credit card bill from savings account /delete /cardbill
+===== Deleting credit card bill from savings account `/delete /cardbill`
 
 Made a mistake in charging of credit card bill or decided to add more card transaction for an already paid month? You
 can delete your credit card bill, which will delete the bill expenditure and rebate deposit from your savings account!
