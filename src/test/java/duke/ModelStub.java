@@ -41,14 +41,14 @@ public class ModelStub implements Model {
     /**
      * Constructs a new ModelManager object.
      */
-    public ModelStub() throws FileLoadFailException {
+    public ModelStub() {
         storage = new Storage();
         events = storage.getEvents();
         map = storage.getMap();
         routes = storage.getRoutes();
         profileCard = storage.getProfileCard();
         recommendations = storage.getRecommendations();
-        itineraryTable = storage.readItineraryTable();
+        itineraryTable = storage.getItineraryTable();
     }
 
     @Override
@@ -112,8 +112,13 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public void storeInItineraryTable (Itinerary itinerary , String[] itineraryDetails) throws ParseException {
+    public void storeNewItinerary (Itinerary itinerary , String[] itineraryDetails) throws ParseException {
         storage.storeNewItinerary(itinerary, itineraryDetails);
+    }
+
+    @Override
+    public void confirmRecentItinerary () {
+        storage.confirmRecentItinerary(recentItinerary);
     }
 
     @Override
@@ -127,14 +132,14 @@ public class ModelStub implements Model {
     }
 
     /**
-     * Shows the Itinerary specified by a give serial number.
+     * Shows the Itinerary specified by a give name.
      *
      * @param name The serial number of the Itinerary.
      */
     @Override
     public Itinerary getItinerary(String name) {
-        return storage.getItinerary(name);
-//      return itineraryTable.get(name);
+
+        return itineraryTable.get(name);
     }
 
     /**

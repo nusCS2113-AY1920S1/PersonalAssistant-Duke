@@ -9,6 +9,8 @@ import duke.commons.exceptions.FileLoadFailException;
 import duke.commons.exceptions.FileNotSavedException;
 import duke.commons.exceptions.ParseException;
 import duke.commons.exceptions.RouteNodeDuplicateException;
+import duke.commons.exceptions.StartEndDateBeforeNowException;
+import duke.commons.exceptions.StartEndDateDiscordException;
 import duke.logic.api.ApiParser;
 import duke.logic.parsers.ParserStorageUtil;
 import duke.logic.parsers.ParserTimeUtil;
@@ -339,9 +341,6 @@ public class Storage {
             writer.write(newItinerary.getName() + "\n" + newItinerary.getStartDate().toString() + "\n"
                     + newItinerary.getEndDate().toString() + "\n"
                     + newItinerary.getHotelLocation().toString() + "\n");
-            if (newItinerary.getList().size() != newItinerary.getNumberOfDays()) {
-                throw new FileNotSavedException(file);
-            }
             for (Agenda agenda : newItinerary.getList()) {
                 writer.write(agenda.toString());
             }
@@ -358,9 +357,6 @@ public class Storage {
      * @param name The itineraries serial number.
      */
     public Itinerary getItinerary(String name) {
-//        if(itineraryTable.get(name) == null) {
-//            throw new ItineraryNotFoundException();
-//        }
         return itineraryTable.get(name);
     }
 

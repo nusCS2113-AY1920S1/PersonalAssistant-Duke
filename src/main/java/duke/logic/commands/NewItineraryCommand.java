@@ -42,6 +42,7 @@ public class NewItineraryCommand extends Command {
     public CommandResultText execute(Model model) throws DukeException, FileNotFoundException {
         Venue hotelLocation = ApiParser.getLocationSearch(hotel);
         Itinerary itinerary = new Itinerary(start, end, hotelLocation, name);
+        itinerary.getNumberOfDays();
         model.storeNewItinerary(itinerary, itineraryDetails);
         model.save();
         return new CommandResultText("New Itinerary Created with name:" + itinerary.getName());

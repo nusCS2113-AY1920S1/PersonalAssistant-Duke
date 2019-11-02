@@ -2,6 +2,7 @@ package duke.model;
 
 import duke.commons.exceptions.FileLoadFailException;
 import duke.commons.exceptions.FileNotSavedException;
+import duke.commons.exceptions.ItineraryNotFoundException;
 import duke.commons.exceptions.ParseException;
 import duke.commons.exceptions.RouteDuplicateException;
 import duke.model.lists.EventList;
@@ -35,7 +36,7 @@ public class ModelManager implements Model {
     /**
      * Constructs a new ModelManager object.
      */
-    public ModelManager() throws FileLoadFailException {
+    public ModelManager() {
         storage = new Storage();
         events = storage.getEvents();
         map = storage.getMap();
@@ -132,7 +133,7 @@ public class ModelManager implements Model {
      */
     @Override
     public Itinerary getItinerary(String name) {
-//        return storage.getItinerary(name);
+
       return itineraryTable.get(name);
     }
 

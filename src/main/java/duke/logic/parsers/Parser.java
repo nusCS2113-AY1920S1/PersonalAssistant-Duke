@@ -2,6 +2,8 @@ package duke.logic.parsers;
 
 import duke.commons.Messages;
 import duke.commons.exceptions.ParseException;
+import duke.commons.exceptions.StartEndDateBeforeNowException;
+import duke.commons.exceptions.StartEndDateDiscordException;
 import duke.logic.commands.AddSampleItineraryCommand;
 import duke.logic.commands.Command;
 import duke.logic.commands.EditorCommand;
@@ -49,7 +51,8 @@ public class Parser {
      * @return The corresponding Command object.
      * @throws ParseException If userInput is undefined.
      */
-    public static Command parseComplexCommand(String input) throws ParseException {
+    public static Command parseComplexCommand(String input) throws ParseException, StartEndDateDiscordException,
+            StartEndDateBeforeNowException {
         String commandWord = getCommandWord(input);
 
         switch (commandWord) {

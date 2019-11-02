@@ -1,6 +1,7 @@
 package duke.logic.commands;
 
 import duke.commons.exceptions.DukeException;
+import duke.commons.exceptions.ItineraryNotFoundException;
 import duke.logic.commands.results.CommandResultText;
 import duke.model.Model;
 import duke.model.planning.Itinerary;
@@ -29,6 +30,9 @@ public class ShowItineraryCommand extends Command {
     @Override
     public CommandResultText execute(Model model) throws DukeException, FileNotFoundException {
         Itinerary itinerary = model.getItinerary(name);
+        if(itinerary == null) {
+            throw new ItineraryNotFoundException();
+        }
         return new CommandResultText(itinerary.printItinerary());
     }
 }

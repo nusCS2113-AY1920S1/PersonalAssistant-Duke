@@ -236,6 +236,13 @@ public class Messages {
     public static final String ITINERARY_FAIL_CREATION = "I'm sorry, but you have not entered your "
             + "itinerary properly";
     public static final String ITINERARY_INCORRECT_COMMAND = "I'm sorry, but your command syntax is wrong ";
+    public static final String ITINERARY_NOT_FOUND = "I'm sorry, but that list does not exist ";
+
 
     public static final String RECOMMENDATION_DAY_EXCEEDED = "I'm sorry, but your stay is too long ";
+
+    public static final String START_END_DATE_DISCORD = "Im sorry, there is some discrepancy between your dates";
+    public static final String START_END_DATE_BEFORE_NOW = "Im sorry, your dates must be in the future";
+
+
 }

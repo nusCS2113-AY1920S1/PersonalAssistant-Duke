@@ -1,5 +1,7 @@
 package duke.model.planning;
 
+import duke.commons.exceptions.StartEndDateBeforeNowException;
+import duke.commons.exceptions.StartEndDateDiscordException;
 import duke.model.lists.AgendaList;
 import duke.model.locations.Venue;
 
@@ -49,9 +51,9 @@ public class Itinerary extends AgendaList {
      */
 
     public int getNumberOfDays() {
-        LocalDateTime tempDateTime = LocalDateTime.from(startDate);
-        long days = tempDateTime.until(endDate, ChronoUnit.DAYS);
-        return Integer.parseInt(String.valueOf(days));
+            LocalDateTime tempDateTime = LocalDateTime.from(startDate);
+            long days = tempDateTime.until(endDate, ChronoUnit.DAYS);
+            return Integer.parseInt(String.valueOf(days)) + 1;
     }
 
     /**
@@ -59,7 +61,7 @@ public class Itinerary extends AgendaList {
      *
      * @return The String which lists the itinerary in full
      */
-    public String printItinerary() {
+    public String printItinerary() throws StartEndDateBeforeNowException, StartEndDateDiscordException {
 
         int days = getNumberOfDays();
 
