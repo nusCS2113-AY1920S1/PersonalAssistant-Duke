@@ -22,7 +22,7 @@ public class HelpCommand extends CommandSuper {
     @Override
     public void executeCommands() {
         //TODO Display help options
-        ((MovieHandler) this.getUiController()).setFeedbackText(getHelp());
+        ((MovieHandler) this.getUiController()).setGeneralFeedbackText(getHelp());
     }
 
     /**

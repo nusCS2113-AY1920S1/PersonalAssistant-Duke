@@ -1,5 +1,6 @@
 package entertainment.pro.logic.cinemaRequesterAPI;
 
+import entertainment.pro.commons.PromptMessages;
 import entertainment.pro.commons.exceptions.Exceptions;
 import entertainment.pro.logic.movieRequesterAPI.RequestListener;
 import entertainment.pro.logic.movieRequesterAPI.URLRetriever;
@@ -61,7 +62,7 @@ public class CinemaRetrieveRequest implements CinemaInfoFetcher {
     @Override
     public void fetchedCinemasJSON(String json) {
         if (json == null) {
-            variableListener.requestFailed();
+            variableListener.requestTimedOut(PromptMessages.NO_RESULTS_FOUND);
             return;
         }
         JSONParser parser = new JSONParser();
@@ -104,6 +105,6 @@ public class CinemaRetrieveRequest implements CinemaInfoFetcher {
      */
     @Override
     public void connectionTimedOut() {
-        variableListener.requestTimedOut();
+        variableListener.requestTimedOut(PromptMessages.NO_RESULTS_FOUND);
     }
 }

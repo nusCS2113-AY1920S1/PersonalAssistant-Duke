@@ -124,4 +124,3 @@ public class EditProfileJson {
         mapper.writeValue(file, userProfile);
     }
 }
-

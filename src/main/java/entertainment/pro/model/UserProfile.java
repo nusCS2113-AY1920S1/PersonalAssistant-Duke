@@ -86,7 +86,7 @@ public class UserProfile {
         this.playlistNames = playlistNames;
     }
 
-    public void addPlaylist(String listNagme) {
+    public void addPlaylist(String listName) {
         playlistNames.add(listName);
     }
 

@@ -162,7 +162,7 @@ public class CommandParser {
                 break;
             default:
                 CommandPair pair = CommandDebugger.commandSpellChecker(commandArr , COMMANDKEYS.none , uicontroller);
-                ((MovieHandler) uicontroller).setFeedbackText("Sorry we are unable to process your command. " +
+                ((MovieHandler) uicontroller).setGeneralFeedbackText("Sorry we are unable to process your command. " +
                         "Please check help for more details!");
 
         }
