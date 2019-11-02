@@ -188,6 +188,7 @@ public class Reservation {
         return getDaysDueIn() <= daysDue;
     }
 
+    //@author hin1
     /**
      * Checks if this Reservation has already expired.
      * @return a boolean: true if it has already expired, false otherwise.

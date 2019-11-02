@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FilenameFilter;
 import java.io.IOException;
-import java.net.URISyntaxException;
 import java.text.ParseException;
 import java.util.ArrayList;
 
@@ -31,7 +30,7 @@ public class Rims{
      * @throws ParseException if data is stored in an invalid format and is thus unable to be parsed
      */
     public Rims(String resourceFilePath, String reserveFilePath)
-            throws FileNotFoundException, ParseException, RimsException {
+        throws FileNotFoundException, ParseException, RimsException {
         ui = new Ui();
         //ui.printArray(getLocalTextFiles());
         //Need to check for proper resourceFile/reserveFile i.e. make sure cannot be any random .txt file
@@ -97,7 +96,7 @@ public class Rims{
      * @throws IOException if there is an error in reading input or printing output
      * @throws RimsException if the input has no meaning or does not follow our format
      */
-    public static void main(String[] args) throws FileNotFoundException, ParseException, IOException, RimsException, URISyntaxException {
+    public static void main(String[] args) throws FileNotFoundException, ParseException, IOException, RimsException {
         new Rims("data/resources.txt", "data/reserves.txt").run();
     }
 }

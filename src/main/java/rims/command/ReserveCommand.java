@@ -80,8 +80,6 @@ public class ReserveCommand extends Command {
         this.stringDateFrom = stringDateFrom;
         this.stringDateTill = stringDateTill;
         this.userId = userId;
-        canModifyData = true;
-        commandUserInput = "reserve "  + roomName + " (room) from " + stringDateFrom + " until " + stringDateTill + " by user " + userId;
     }
 
     /**
@@ -99,8 +97,6 @@ public class ReserveCommand extends Command {
         this.stringDateFrom = stringDateFrom;
         this.stringDateTill = stringDateTill;
         this.userId = userId;
-        canModifyData = true;
-        commandUserInput = "reserve " + qty + " " + itemName + " (item) from " + stringDateFrom + " until " + stringDateTill + " by user " + userId;
     }
 
     //@@author isbobby

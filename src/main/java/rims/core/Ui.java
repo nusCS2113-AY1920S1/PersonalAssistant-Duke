@@ -26,8 +26,11 @@ public class Ui {
     protected String tab = "\t";
     protected ArrayList<String> welcomeMsg = new ArrayList<String>(Arrays.asList("Welcome to RIMS, your Resource"
         + " & Inventory Management System.",
-        "How can I help you?"));
-    protected ArrayList<String> commands = new ArrayList<String>(Arrays.asList("add - add a new resource to inventory",
+        "How can I help you?",
+        "\n",
+        "Type 'help' to display a list of all commands supported by RIMS."));
+    protected ArrayList<String> commands = new ArrayList<String>(Arrays.asList("COMMANDS CURRENTLY SUPPORTED BY RIMS:\n",
+        "add - add a new resource to inventory",
         "delete - delete an existing resource from inventory",
         "loan - loan out an item from now till your desired future date",
         "reserve - reserve an item between two future dates",
@@ -35,6 +38,7 @@ public class Ui {
         "list - see all resources and current reservations",
         "\t" + "list /item - see all loans and future reservations of a particular item",
         "\t" + "list /room - see all loans and future reservations of a particular room",
+        "deadlines - view all currently active loans and reservations",
         "undo - undo the last command that modified inventory data"));
 
     /**
@@ -156,6 +160,12 @@ public class Ui {
     public void welcome() {
         printLogo();
         formattedPrintArray(welcomeMsg);
+    }
+
+    /**
+     * Prints a list of all valid RIMS commands.
+     */
+    public void help() {
         formattedPrintArray(commands);
     }
 

@@ -30,8 +30,6 @@ public class ReturnCommand extends Command {
         this.userId = userId;
         this.resourceIds = resourceIds;
         this.reservationIds = reservationIds;
-        canModifyData = true;
-        commandUserInput = "return reservation(s): " + reservationsIdsToString(reservationIds) + "by user " + userId;
     }
 
     /**
