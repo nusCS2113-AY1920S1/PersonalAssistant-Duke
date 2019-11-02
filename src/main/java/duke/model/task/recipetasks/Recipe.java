@@ -1,5 +1,9 @@
 package duke.model.task.recipetasks;
 
+import duke.model.task.ingredienttasks.Ingredient;
+
+import java.util.ArrayList;
+
 import static duke.common.RecipeMessages.*;
 
 public class Recipe {
@@ -45,6 +49,10 @@ public class Recipe {
 
     public RequiredIngredients getRequiredIngredients() {
         return this.requiredIngredients;
+    }
+
+    public ArrayList<Ingredient> getListOfIngredients() {
+        return this.requiredIngredients.getList();
     }
 
     public void editRating(String rating) {
