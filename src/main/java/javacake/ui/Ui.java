@@ -62,12 +62,12 @@ public class Ui {
         return strA.toString();
     }
 
-    public static String showDeadlineReminder(StorageManager storageManager) {
-        return new ReminderCommand().execute(Logic.getInstance(), new Ui(), storageManager);
+    public static String showDeadlineReminder(StorageManager storageManager) throws CakeException {
+        return new ReminderCommand("remind").execute(Logic.getInstance(), new Ui(), storageManager);
     }
 
     public static String showNoteList(StorageManager storageManager) throws CakeException {
-        return new ListNoteCommand().execute(Logic.getInstance(), new Ui(), storageManager);
+        return new ListNoteCommand("listnote").execute(Logic.getInstance(), new Ui(), storageManager);
     }
 
     /**

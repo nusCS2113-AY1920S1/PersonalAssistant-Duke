@@ -489,7 +489,7 @@ public class MainWindow extends AnchorPane {
         timeline.play();
     }
 
-    private boolean isDeadlineRelated() {
+    private boolean isDeadlineRelated() throws CakeException {
         if (input.length() >= 8 && input.substring(0, 8).equals("deadline")) {
             //response = JavaCake.getResponse(input);
             System.out.println(response);
@@ -584,7 +584,7 @@ public class MainWindow extends AnchorPane {
         showNoteContainer();
     }
 
-    private void showRemindersBox() {
+    private void showRemindersBox() throws CakeException {
         response = Ui.showDeadlineReminder(JavaCake.storageManager);
         //CHECKSTYLE:OFF
         response = response.replaceAll("✓", "\u2713");
