@@ -19,7 +19,7 @@ public class Task {
 
     /**
      * Task object model
-     * */
+     */
     public Task(String name) {
         this.name = name.trim();
         this.memberList = new ArrayList<>();
@@ -128,6 +128,19 @@ public class Task {
 
     public ArrayList<String> getSkillReqList() {
         return skillReqList;
+    }
+
+
+    /**
+     * Checks if member has a skill
+     *
+     * @param skillName is the skillname you are searching for
+     */
+    public boolean hasSkill(String skillName) {
+        if (skillReqList != null) {
+            return skillReqList.contains(skillName);
+        }
+        return false;
     }
 
     //@@ JasonChanWQ
