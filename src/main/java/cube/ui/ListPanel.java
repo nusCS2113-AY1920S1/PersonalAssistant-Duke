@@ -2,27 +2,31 @@ package cube.ui;
 
 import cube.model.food.Food;
 import cube.model.food.FoodList;
+import cube.ui.FoodListCard.DeleteExecutor;
+import cube.ui.FoodListCard.EditExecutor;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
-import javafx.fxml.FXML;
 
 public class ListPanel extends UiManager<ListView> {
     private static final String FXML = "ListPanel.fxml";
 
+    private final EditExecutor editExecutor;
+    private final DeleteExecutor deleteExecutor;
+
     @FXML
     private ListView<Food> productListView;
 
-    public ListPanel() {
-        super(FXML);
-    }
-
-    public ListPanel(FoodList foodList) {
+    public ListPanel(FoodList foodList, EditExecutor editExecutor, DeleteExecutor deleteExecutor) {
         super(FXML);
         ObservableList<Food> observableList = FXCollections.observableArrayList(foodList.getFoodList());
         productListView.setItems(observableList);
-        //productListView.setCellFactory(listView -> new ListViewCell());
+        productListView.setCellFactory(listView -> new ListViewCell());
+
+        this.editExecutor = editExecutor;
+        this.deleteExecutor = deleteExecutor;
     }
 
     public void updateProductList(FoodList foodList) {
@@ -39,8 +43,9 @@ public class ListPanel extends UiManager<ListView> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new FoodListCard(food, getIndex() + 1).getRoot());
+                setGraphic(new FoodListCard(food, getIndex() + 1, editExecutor, deleteExecutor).getRoot());
             }
         }
     }
+
 }

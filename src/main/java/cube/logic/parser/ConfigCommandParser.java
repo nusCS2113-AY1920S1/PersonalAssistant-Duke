@@ -23,7 +23,7 @@ public class ConfigCommandParser implements ParserPrototype<ConfigCommand> {
         }
 
         int configTypeIndex = 1;
-        ConfigType configType = ConfigType.valueOf(args[configTypeIndex]);
+        ConfigType configType = ConfigType.valueOf(args[configTypeIndex].toUpperCase());
 
         switch (configType) {
             case UI:

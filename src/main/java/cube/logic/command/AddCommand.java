@@ -39,10 +39,8 @@ public class AddCommand extends Command{
 	public CommandResult execute(ModelManager model, StorageManager storage) throws CommandException {
 		FoodList list = model.getFoodList();
 		CommandUtil.requireNameNotExists(list, toAdd.getName());
+		CommandUtil.requireValidExpiryDate(toAdd.getExpiryDate());
 		list.add(toAdd);
-		// what is this for? not possible that a new food has revenue
-		//Food.updateRevenue(Food.getRevenue() + toAdd.getFoodRevenue());
-
 		storage.storeFoodList(list);
 		return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd, list.size()));
 	}
