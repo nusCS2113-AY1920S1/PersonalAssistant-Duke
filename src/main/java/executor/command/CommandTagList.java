@@ -7,7 +7,7 @@ import ui.Ui;
 import ui.Wallet;
 import java.text.DecimalFormat;
 
-public class CommandListTag extends CommandList {
+public class CommandTagList extends CommandList {
     private String tag;
 
     //Constructor
@@ -15,7 +15,7 @@ public class CommandListTag extends CommandList {
      * Constructor for CommandListTag subCommand Class.
      * @param userInput The user input from the CLI
      */
-    public CommandListTag(String userInput) {
+    public CommandTagList(String userInput) {
         super(userInput);
         this.userInput = userInput;
         this.description = "Lists based on tag";

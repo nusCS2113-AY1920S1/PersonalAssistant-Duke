@@ -31,7 +31,7 @@ public class CommandAddSpendingReceipt extends CommandAddReceipt {
     public void execute(Wallet wallet) {
         Receipt r = new Receipt(this.cash, this.date, this.tags);
         wallet.addReceipt(r);
-        Ui.dukeSays("Added Receipt: $" + r.getCashSpent().toString() + "with tags: " + r.getTags().toString());
+        Ui.dukeSays("Added Receipt: $" + r.getCashSpent().toString() + " " + "with tags: " + r.getTags().toString());
     }
 
 }
