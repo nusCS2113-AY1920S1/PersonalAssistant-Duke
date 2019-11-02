@@ -61,6 +61,7 @@ public class CommandConvert extends Command {
             String amountStr = Parser.parseForPrimaryInput(commandType, userInput);
             return Double.parseDouble(amountStr);
         } catch (Exception e) {
+            Ui.dukeSays("Please enter a valid amount. ");
             return null;
         }
     }
@@ -77,7 +78,7 @@ public class CommandConvert extends Command {
                 return fromStr.toUpperCase();
             }
         } catch (Exception e) {
-            Ui.dukeSays("Please enter a valid Alpha3 country code to convert from.");
+            Ui.dukeSays("Please enter a valid ISO 4217 country code to convert from.");
             return null;
         }
         return null;
@@ -95,7 +96,7 @@ public class CommandConvert extends Command {
                 return toStr.toUpperCase();
             }
         } catch (Exception e) {
-            Ui.dukeSays("Please enter a valid Alpha3 country code to convert to. ");
+            Ui.dukeSays("Please enter a valid ISO 4217 country code to convert to. ");
             return null;
         }
         return null;
@@ -120,9 +121,10 @@ public class CommandConvert extends Command {
             return completeJson;
         } catch (Exception ex) {
             Ui.dukeSays("Exchange rate data is unavailable \n"
-                    + "1. Please ensure you have active internet access \n"
+                    + "1. Please ensure you have active internet access. \n"
                     + "2. Also please follow the correct format for currency conversion"
-                    + " available under CONVERT if you type help on the CLI \n");
+                    + " available under CONVERT if you type help on the CLI. \n"
+                    + "3. Please ensure that you enter proper ISO 4217 Country codes. \n");
             return null;
         }
     }
@@ -277,7 +279,7 @@ public class CommandConvert extends Command {
                     + this.to + " " + convertedAmount + "\n"
                     + rateUsed();
         } else {
-            return "Please try again as shown above :) \n";
+            return "Please try again :) \n";
         }
     }
 
