@@ -21,15 +21,14 @@ public class InvalidCommand extends Command {
 
     @Override
     public String execute() {
-        /*String input = new String();
+        String input = new String();
         for (String i : inputs) {
             input += i;
         }
-        return "Sorry please input a valid command. Did you mean... " + compare(input).toString();*/
-        return "Invalid Command!";
+        return "Sorry please input a valid command. Did you mean... " + compare(input).toString();
     }
 
-    /*static ArrayList<String> compare(String input) {
+    static ArrayList<String> compare(String input) {
         String[] names = Commands.getNames();
         int num = -1;
         ArrayList<String> strings = new ArrayList<>();
@@ -39,7 +38,7 @@ public class InvalidCommand extends Command {
             if (temp > num) {
                 num = temp;
                 if (!strings.isEmpty()) {
-                    strings.clear();
+                    clear(strings);
                 }
                 strings.add(s);
             } else if (temp == num) {
@@ -49,7 +48,7 @@ public class InvalidCommand extends Command {
         return strings;
     }
 
-    static int editDist(String input, String known, int x, int y) {
+    private static int editDist(String input, String known, int x, int y) {
         if (x == 0) {
             return y;
         }
@@ -66,7 +65,7 @@ public class InvalidCommand extends Command {
         editDist(input, known, x - 1, y - 1));
     }
 
-    static int minimum (int a, int b, int c) {
+    private static int minimum(int a, int b, int c) {
         if (a <= b && a <= c) {
             return a;
         } else if (b <= a && b <= c) {
@@ -76,12 +75,10 @@ public class InvalidCommand extends Command {
         }
     }
 
-    public  void clear()
-    {
-        // clear to let GC do its work
-        for (int i = 0; i < size; i++)
-            elementData[i] = null;
-
-        size = 0;
-    }*/
+    private static ArrayList<String> clear(ArrayList<String> list) {
+        while (!list.isEmpty()) {
+            list.remove(0);
+        }
+        return list;
+    }
 }
