@@ -1,14 +1,18 @@
 package farmio;
 
-import commands.*;
+import commands.Command;
+import commands.CommandWelcome;
 import exceptions.FarmioException;
 import exceptions.FarmioFatalException;
-import frontend.AsciiColours;
 import frontend.Simulation;
 import frontend.Ui;
 
+import java.io.IOException;
 import java.util.EnumSet;
+import java.util.logging.FileHandler;
+import java.util.logging.Handler;
 import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
 
 public class Farmio {
     private final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
@@ -21,7 +25,7 @@ public class Farmio {
     private Stage stage;
 
     public Farmio() {
-        storage = new Storage();
+        storage = new StorageManager();
         farmer = new Farmer();
         ui = new Ui();
         simulation = new Simulation(this);
@@ -30,11 +34,11 @@ public class Farmio {
     }
 
     private void run() {
-        Command command;
-        command = new CommandWelcome();
         try {
-            storage.setupLogger();
+            setupLogger();
             LOGGER.log(java.util.logging.Level.INFO, "New game session started.");
+            Command command;
+            command = new CommandWelcome();
             try {
                 command.execute(this);
             } catch (FarmioException e) {
@@ -61,7 +65,7 @@ public class Farmio {
         ui.showExit();
     }
 
-    public static void main(String[] args) {    //TODO - configure both OS
+    public static void main(String[] args) {
         new Farmio().run();
     }
 
@@ -119,5 +123,23 @@ public class Farmio {
 
     public void setExit() {
         this.isExit = true;
+    }
+
+    private void setupLogger() throws FarmioFatalException {
+        Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+        Logger rootLogger = Logger.getLogger("global");
+        Handler[] handlers = rootLogger.getHandlers();
+        for(Handler handler: handlers){
+            rootLogger.removeHandler(handler);
+        }
+        logger.setLevel(java.util.logging.Level.INFO);
+        FileHandler handler;
+        try {
+            handler = new FileHandler("farmio.log");
+        } catch (IOException e) {
+            throw new FarmioFatalException("Failed to access \'farmio.log\'.\nPlease try running farmio in another directory.");
+        }
+        handler.setFormatter(new SimpleFormatter());
+        logger.addHandler(handler);
     }
 }
