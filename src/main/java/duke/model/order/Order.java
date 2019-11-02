@@ -33,7 +33,6 @@ public class Order {
     private final String remarks;
     private final Status status;
     private final double total;
-
     private BooleanProperty isIngredientEnough = new SimpleBooleanProperty();
 
     /**

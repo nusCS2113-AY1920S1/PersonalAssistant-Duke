@@ -9,13 +9,13 @@ import javafx.util.Pair;
 
 import java.util.Date;
 
-import static duke.logic.parser.commons.CliSyntax.PREFIX_SALE_DESCRIPTION;
-import static duke.logic.parser.commons.CliSyntax.PREFIX_SALE_VALUE;
-import static duke.logic.parser.commons.CliSyntax.PREFIX_SALE_IS_SPEND;
 import static duke.logic.parser.commons.CliSyntax.PREFIX_SALE_DATE;
-import static duke.logic.parser.commons.CliSyntax.PREFIX_SALE_REMARKS;
+import static duke.logic.parser.commons.CliSyntax.PREFIX_SALE_DESCRIPTION;
 import static duke.logic.parser.commons.CliSyntax.PREFIX_SALE_FROM;
+import static duke.logic.parser.commons.CliSyntax.PREFIX_SALE_IS_SPEND;
+import static duke.logic.parser.commons.CliSyntax.PREFIX_SALE_REMARKS;
 import static duke.logic.parser.commons.CliSyntax.PREFIX_SALE_TO;
+import static duke.logic.parser.commons.CliSyntax.PREFIX_SALE_VALUE;
 
 /**
  * A utility class for sale parser.
@@ -24,12 +24,12 @@ class SaleParserUtil {
     private static final int MAX_DESC_LENGTH = 50;
     private static final double MAX_VAL = 50000.0;
     private static final int MAX_REMARKS_LENGTH = 50;
-    private static final String MESSAGE_DESC_EXCEED_LIMIT = "Description should be shorter than "
+    private static final String MESSAGE_DESC_EXCEED_LIMIT = "Description should be no more than "
             + MAX_DESC_LENGTH + " characters.";
     private static final String MESSAGE_VAL_EXCEED_LIMIT = "Numbers should be a positive double no more than "
             + MAX_VAL;
     private static final String MESSAGE_TRUTH_VALUE_INVALID = "-spend should take an argument either true or false ";
-    private static final String MESSAGE_REMARKS_EXCEED_LIMIT = "Remarks should be less than "
+    private static final String MESSAGE_REMARKS_EXCEED_LIMIT = "Remarks should be no more than "
             + MAX_REMARKS_LENGTH + " characters.";
 
     /**

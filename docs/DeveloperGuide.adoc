@@ -27,13 +27,11 @@ Refer to the guide <<SettingUp#, here>>.
 .Architecture Diagram
 image::ArchitectureDiagram.png[]
 
-The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
+The *_Architecture Diagram_* given above explains the high-level design of BakingHome.
+Given below is a quick overview of each component.
 
-[TIP]
-The `.puml` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder.
-Refer to the <<UsingPlantUml#, Using PlantUML guide>> to learn how to create and edit diagrams.
-
-`Main` has two classes called link:{repoURL}/src/main/java/seedu/address/Main.java[`Main`] and link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp`]. It is responsible for,
+`MainApp` has two classes called link:https://github.com/AY1920S1-CS2113T-T12-3/main/blob/master/src/main/java/duke/Main.java[`Main`] and link:https://github.com/AY1920S1-CS2113T-T12-3/main/blob/master/src/main/java/duke/Launcher.java[`Launcher`].
+It is responsible for,
 
 * At app launch: Initializes the components in the correct sequence, and connects them up with each other.
 * At shut down: Shuts down the components and invokes cleanup method where necessary.
@@ -53,22 +51,7 @@ The rest of the App consists of four components.
 Each of the four components
 
 * Defines its _API_ in an `interface` with the same name as the Component.
-* Exposes its functionality using a `{Component Name}Manager` class.
-
-For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
-
-.Class Diagram of the Logic Component
-image::LogicClassDiagram.png[]
-
-[discrete]
-==== How the architecture components interact with each other
-
-The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
-
-.Component interactions for `delete 1` command
-image::ArchitectureSequenceDiagram.png[]
-
-The sections below give more details of each component.
+* Exposes its functionality using a `Manager` class.
 
 [[Design-Ui]]
 === UI component
@@ -95,7 +78,7 @@ The `UI` component,
 image::LogicClassDiagram.png[]
 
 *API* :
-link:{repoURL}/src/main/java/duke/logic/Logic.java[`Logic.java`]
+link:https://github.com/AY1920S1-CS2113T-T12-3/main/blob/master/src/main/java/duke/logic/Logic.java[`Logic.java`]
 
 . `Logic` uses the `BakingHomeParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
@@ -269,13 +252,17 @@ Refer to the guide <<DevOps#, here>>.
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
-* can type fast
-* prefers typing over mouse input
-* is reasonably comfortable using CLI apps
+Bakery managers of home bakeries, who prefer typing and is willing to use a Desktop application to manage his business.
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+Such a manager needs to take care of every single aspect of his bakery business, from allocating, from keeping track of revenue, to taking the customers order.
+He might even need to do the baking, since there are limited man power.
+
+Though currently there are many well developed applications for the stuff he needs to do, there is not an application that integrates all the features he needs.
+It is hard for him to switch between different apps.
+
+BakingHome is an one-stop desktop application that has all the important features for such a manager to eliminate the trouble of changing between different apps.
+
+*Value proposition*: All-in-one bakery management system for home bakeries.
 
 [appendix]
 == User Stories
@@ -381,30 +368,56 @@ These instructions only provide a starting point for testers to work on; testers
 . Initial launch
 
 .. Download the jar file and copy into an empty folder
-.. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+.. Run the jar file in console using `java -jar` +
+   Expected: Shows the GUI. The window size may not be optimum.
 
-. Saving window preferences
+. Showdown
 
-.. Resize the window to an optimum size. Move the window to a different location. Close the window.
-.. Re-launch the app by double-clicking the jar file. +
-   Expected: The most recent window size and location is retained.
+.. Enter `exit` in command box. +
+   Expected: The application quits.
 
-_{ more test cases ... }_
+=== Adding an Order
 
-=== Deleting a person
+. Adding an order with no item
+.. Test case: `order add -name Jiajun` +
+   Expected: A new order with no item is added.
+The order's customer name field is `Jiajun`
+.. Test case: `order add -name abcdabcdabcdabcdabcdabcd`
+Expected: A error message pops up.
+The error message is "Name should be no more than 20 characters"
+.. Test case: `order add -rmk abcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcd`
+Expected: A error message pops up.
+The error message is "Remarks should be no more than 50 characters"
+. Adding an order with items
+.. Prerequisites: `Cake` product should be in Product List; `Fish` product should **not** be in Product List.
+.. Test case: `order add -item Cake, 1` +
+   Expected: A new order with one item `Cake` is added.
+.. Test case: `order add -item Fish, 1` +
+   Expected: A error message pops up.
 
-. Deleting a person while all persons are listed
+=== Deleting Orders
 
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
-   Expected: Similar to previous.
+. Deleting a single order.
 
-_{ more test cases ... }_
+.. Prerequisites: At least 1 order in Order List
+.. Test case: `order remove 1` +
+   Expected: The first order is deleted from the list.
+.. Test case: `order remove 0` +
+   Expected: No order is deleted.
+Error details shown in the pop-up bar.
+.. Other incorrect delete commands to try: `order remove`, `order remove x` (where x is larger than the list size) Expected: Similar to previous.
+
+. Deleting multiple orders
+
+.. Prerequisites: At least 2 orders in Order List
+.. Test case: `order remove 2, 1` + 
+   Expected: The first and second orders are deleted.
+.. Test case: `order remove 1~2` + 
+   Expected: Similar to previous
+.. Test case: `order remove 1~x` (where x is larger than the list size) +
+   Expected: Error details shown in the pop-up bar.
+.. Other incorrect commands to try: `order remove 1,x` (where x is larger than the list size), `order remove 2~1`
+Expected: Similar to previous
 
 === Saving data
 
