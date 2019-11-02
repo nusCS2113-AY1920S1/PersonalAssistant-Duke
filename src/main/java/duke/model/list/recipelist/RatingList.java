@@ -39,7 +39,7 @@ public class RatingList {
         System.out.println(MESSAGE_ADDED + "       " + rating2List.get(index - 1) + "\n" + MESSAGE_ITEMS1 + index + msg);
     }
 
-    // delete ingredient by index on list
+    // delete rating by index on list
     public void deleteRating(int i) {
         if (rating2List.size() - 1 <= 1) {
             msg = " rating in the list.";
