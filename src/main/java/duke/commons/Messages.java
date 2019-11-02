@@ -4,36 +4,6 @@ package duke.commons;
  * Defines messages used by SGTravel.
  */
 public class Messages {
-    /**
-     * Route Manager.
-     */
-    public static final String ROUTEMANAGER_WELCOME_MESSAGE = "Route Manager is now turned on...\n";
-    public static final String ROUTEMANAGER_STATUS_ROUTELIST_STARTER = "Here is the information of your routes:\n";
-    public static final String ROUTEMANAGER_STATUS_ROUTELIST_EMPTY =
-            "There's no Routes at the moment, try creating one!";
-    public static final String ROUTEMANAGER_STATUS_ROUTELIST_END =
-            "Select a Route by typing select, or type help to get some assistance!";
-    public static final String ROUTEMANAGER_CONVERSATION_PREFIX_ROUTE = "routeManager";
-    public static final String ROUTEMANAGER_CONVERSATION_PREFIX_ROUTENODE = "routeManagerNode";
-    public static final String ROUTEMANAGER_HELP_GENERAL =
-            "Here are the following things you can do without selecting anything:\n"
-            + "add - Add a Route\n"
-            + "select - Selects a Route\n"
-            + "info - Lists all available Routes\n"
-            + "generate - Generates a Route based on 2 given locations\n"
-            + "help - Returns this message\n";
-    public static final String ROUTEMANAGER_HELP_ROUTE = "Here are the following things you can do at a Route:\n"
-            + "node - Choose a Node\n"
-            + "add - Adds a Node\n"
-            + "info - Lists all information about this Route\n"
-            + "return - Goes back to selecting a Route\n"
-            + "help - Returns this message\n";
-    public static final String ROUTEMANAGER_HELP_ROUTENODE = "Here are the following things you can do at a Node:\n"
-            + "add - Add a nearby Node\n"
-            + "nearby - Lists all nearby Nodes\n"
-            + "info - Lists all information about this Route\n"
-            + "return - Goes back to the Route\n"
-            + "help - Returns this message\n";
 
     /**
      * Error messages.

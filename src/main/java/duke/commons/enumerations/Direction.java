@@ -5,5 +5,5 @@ package duke.commons.enumerations;
  */
 public enum Direction {
     FORWARD,
-    BACKWARD;
+    BACKWARD
 }

@@ -145,7 +145,7 @@ public class ApiParser {
      * @param longitude The longitude.
      * @return result The String result.
      */
-    public static String createStaticMapArea(String latitude, String longitude) {
+    public static String generateStaticMapArea(String latitude, String longitude) {
         return "[" +  latitude + "," + longitude + "]";
     }
 
@@ -211,8 +211,8 @@ public class ApiParser {
      * @param label The text label for the point.
      * @return result The String result.
      */
-    public static String createStaticMapPoint(String latitude, String longitude,
-                                              String r, String g, String b, String label) {
+    public static String generateStaticMapPoint(String latitude, String longitude,
+                                                String r, String g, String b, String label) {
         try {
             return "[" + latitude + "," + longitude + ",\"" + r + "," + g + "," + b + "\",\""
                     + (Character.toString(label.charAt(0))).toUpperCase() + "\"]";
