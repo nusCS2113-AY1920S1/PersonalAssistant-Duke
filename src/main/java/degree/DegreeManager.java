@@ -6,11 +6,16 @@ import module.ModuleList;
 import storage.Storage;
 
 import java.io.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 public class DegreeManager {
     //private Map<String, List<String>> degrees = new HashMap<>();
     private Map<String, Degree> degreeInfo = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
+    private Map<String, List<String>> disjointSetFake = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
+    private ModuleList masterList = new ModuleList();
     private boolean foundFlag = true;
 
     /**
@@ -25,6 +30,8 @@ public class DegreeManager {
         for (String listdegree : listdegrees) {
             String[] split = listdegree.split(",");
             addDegree(split, storage.fetchListOutput(split[0]));
+            disjointSetFake.put(split[0], degreeInfo.get(split[0]).getAlias());
+            masterList.add(degreeInfo.get(split[0]).getMaster());
         }
     }
 
@@ -35,7 +42,6 @@ public class DegreeManager {
     public DegreeManager() {
 
     }
-
 
     /**
      * Adds a new Degree to the list of degree information
@@ -58,14 +64,20 @@ public class DegreeManager {
         }
     }
 
-    public void print(String degree) throws DukeException {
-        this.foundFlag = true;
-        if(!degreeInfo.containsKey(degree)) {
-            this.foundFlag = false;
-            throw new DukeException(degree + " was not found in our records!");
+
+    public void print(String item) throws DukeException {
+        for(Map.Entry<String, List<String>> aliases: disjointSetFake.entrySet())
+        {
+            String degree = aliases.getKey();
+            List<String> commonNames = aliases.getValue();
+            for(String x : commonNames){
+                if(x.equalsIgnoreCase(item)){
+                    degreeInfo.get(degree).print();
+                    return;
+                }
+            }
         }
-        else
-            degreeInfo.get(degree).print();
+        throw new DukeException(item + " was not found in our records!");
     }
 
     /**
@@ -84,6 +96,37 @@ public class DegreeManager {
         return degreeInfo.size();
     }
 
+    public void compare(String input) throws DukeException {
+        String[] split = input.split("\\s+");
+        if(split.length > 2)
+        {
+            throw new DukeException("Too many arguments!");
+        }
+        if(split.length <= 1){
+            throw new DukeException("Too few arguments!");
+        }
+        assert(split.length == 2);
+        if(split[0].equalsIgnoreCase(split[1]))
+        {
+            throw new DukeException("Invalid Comparison (to Self)");
+        }
+        StringBuilder errorList = new StringBuilder();
+        if(!degreeInfo.containsKey(split[0]))
+        {
+            errorList.append(split[0]);
+            errorList.append(" ");
+        }
+        if(!degreeInfo.containsKey(split[1]))
+        {
+            errorList.append(split[1]);
+        }
+        if(errorList.length() > 0)
+        {
+            throw new DukeException("Unable to find matching degrees for: "+ errorList.toString());
+        }
+        degreeInfo.get(split[0]).compare(degreeInfo.get(split[1]));
+    }
+
     /**
      * Returns the modules of a certain degree as a moduleList.
      *
@@ -91,7 +134,7 @@ public class DegreeManager {
      * @return The modules of this degree as a moduleList.
      */
     public ModuleList getModuleList(String degree) {
-        return degreeInfo.get(degree).getModuleList();
+        return degreeInfo.get(degree).getMaster();
     }
 
     /**

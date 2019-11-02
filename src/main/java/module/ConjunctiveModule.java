@@ -27,7 +27,7 @@ public class ConjunctiveModule extends Module {
     {
         this.mc = mc;
         this.fullModuleName = input;
-        String[] split = input.split("\\sOR\\s");
+        String[] split = input.split("\\s+OR\\s+");
         for(String full: split)
         {
             Scanner temp = new Scanner(full);
@@ -56,12 +56,62 @@ public class ConjunctiveModule extends Module {
     }
 
     /**
+     * Gets the string to be printed with a fixed width
+     *
+     * @param setWidth the width the string should be fixed to
+     * @return the String to be printed
+     */
+    @Override
+    public String getPrint(int setWidth) {
+        StringBuilder module = new StringBuilder();
+        for(Map.Entry<String,String> entry : modules.entrySet()) {
+            String key = entry.getKey();
+            String value = entry.getValue();
+
+            module.append(key).append(" ").append(value).append(" OR ");
+        }
+        module.setLength(Math.max(module.length() - 4, 0));
+        if(module.length() > setWidth - 5) {
+            module.setLength(setWidth - 9);
+            module.append("...  ");
+        }
+        else {
+            char[] pad = new char[Math.max(setWidth - module.length() - 4, 0)];
+            Arrays.fill(pad, ' ');
+            module.append(pad);
+        }
+        module.append(getMc());
+        while(module.length() < setWidth)
+        {
+            module.append(" ");
+        }
+        return module.toString();
+    }
+
+    /**
+     * Returns the module's Name for the side tab
+     *
+     * @return String which is the module name
+     */
+    @Override
+    public String tabModuleName() {
+        StringBuilder list = new StringBuilder();
+        for(Map.Entry<String,String> entry : modules.entrySet()) {
+            String value = entry.getValue();
+
+            list.append(value).append(" OR ");
+        }
+        list.setLength(Math.max(list.length() - 4, 0));
+        return list.toString();
+    }
+
+    /**
      * Returns the view friendly version consisting of the module code and name separated by OR
      *
      * @return String in the fashion described above
      */
     @Override
-    public String print()
+    public void print()
     {
         StringBuilder list = new StringBuilder();
         for(Map.Entry<String,String> entry : modules.entrySet()) {
@@ -76,7 +126,6 @@ public class ConjunctiveModule extends Module {
         list.append(pad);
         list.append(getMc());
         System.out.println(list.toString());
-        return list.toString();
     }
 
     /**
