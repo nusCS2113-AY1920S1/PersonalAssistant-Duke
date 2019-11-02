@@ -5,8 +5,7 @@
     "memberList": [
       "P2"
     ],
-    "time": "Oct 31, 2019, 11:59:00 PM",
-    "reminder": "Oct 31, 2019, 11:54:00 PM"
+    "time": "Oct 31, 2019, 11:59:00 PM"
   },
   {
     "name": "Job C",
