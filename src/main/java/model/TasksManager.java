@@ -22,6 +22,7 @@ public class TasksManager implements Serializable {
     }
 
     //@@author JustinChia1997
+
     /**
      * Add a new task with name.
      *
@@ -54,8 +55,18 @@ public class TasksManager implements Serializable {
     }
 
     /**
+     * @return true if skill req was sucessfully added
+     */
+    public boolean addReqSkill(String taskName, String skillName) {
+        if (hasTask(taskName)) {
+            return getTaskByName(taskName).addReqSkill(skillName);
+        } else {
+            return false;
+        }
+    }
+
+    /**
      * Delete a task from the task list.
-     *
      */
     public boolean deleteTask(Task toDelete) {
 
@@ -92,6 +103,7 @@ public class TasksManager implements Serializable {
     }
 
     //@@author yuyanglin28
+
     /**
      * delete member (person in charge) in task list
      *
@@ -133,6 +145,7 @@ public class TasksManager implements Serializable {
     }
 
     //@@author JustinChia1997
+
     /**
      * Finds Task from task list. returns null if no match was found
      *

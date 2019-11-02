@@ -16,6 +16,7 @@ import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
 import javax.swing.text.DefaultCaret;
 
+import common.LoggerController;
 import core.Duke;
 import logic.LogicController;
 import logic.command.CommandOutput;
@@ -247,7 +248,19 @@ public class Window {
         String output = "";
         for (int i = 0; i < tasks.size(); i++) {
             output += (i + 1) + ". " + tasks.get(i) + '\n';
+            //================ For displaying skill requirement list ==============================
+            ArrayList<String> skillList = tasks.get(i).getSkillReqList();
+            if (skillList.size() != 0) {
+                output += "     required Skill List: \n";
+            }
+            for (int k = 0; k < skillList.size(); k += 1) {
+                output += "           \u27a3 " + skillList.get(k) + '\n';
+            }
+            //================ For displaying members that are linked to ths task =========================
             ArrayList<String> members = tasks.get(i).getMemberList();
+            if (members.size() != 0) {
+                output += "     Assigned members: \n";
+            }
             for (int j = 0; j < members.size(); j++) {
                 output += "           \u27a5 " + members.get(j) + '\n';
             }
@@ -277,6 +290,19 @@ public class Window {
             output += members.get(i).getName() + '\n';
             ArrayList<String> tasks = members.get(i).getTaskList();
 
+            //================ For displaying skill requirement list ==============================
+            ArrayList<String> skillList = members.get(i).getSkillList();
+            if (skillList.size() != 0) {
+                output += "     Skills: \n";
+            }
+            for (int k = 0; k < skillList.size(); k += 1) {
+                output += "    \u27a3 " + skillList.get(k) + '\n';
+            }
+
+            //=============== For displaying Assigned Tasks ==================================
+            if (tasks.size() != 0) {
+                output += "\n     Assigned tasks: \n";
+            }
             for (int j = 0; j < tasks.size(); j++) {
                 output += "    \u27a5 ";
 

@@ -27,6 +27,7 @@ public class NewParser {
     public static final String BYE_COMMAND_WORD = "BYE";
     public static final String SCHEDULE_COMMAND_WORD = "SCHEDULE";
     public static final String REMINDER_COMMAND_WORD = "REMINDER";
+    public static final String MATCH_COMMAND_WORD = "MATCH";
     public static final String EDIT_COMMAND_WORD = "EDIT";
 
     //@@author JustinChia1997
@@ -51,7 +52,8 @@ public class NewParser {
 
         String[] dict = {
             "ADD", "LIST", "DONE", "DELETE", "HELP", "FIND", "BYE", "REMINDER",
-            "SNOOZE", "SCHEDULE", "CHECK", "LINK", "UNLINK", "RENAME", "EDIT"
+            "SNOOZE", "SCHEDULE", "CHECK", "LINK", "UNLINK", "RENAME", "EDIT",
+            "MATCH"
         };
 
         commandWord = SpellingErrorCorrector.commandCorrector(dict, commandWord);
@@ -83,6 +85,8 @@ public class NewParser {
             return ScheduleCommandParser.parseScheduleCommand(arguments);
         case REMINDER_COMMAND_WORD:
             return ReminderCommandParser.parseReminder(arguments);
+        case MATCH_COMMAND_WORD:
+            return MatchCommandParser.parseMatch(arguments);
         case EDIT_COMMAND_WORD:
             return EditCommandParser.parseEditCommand(arguments);
 

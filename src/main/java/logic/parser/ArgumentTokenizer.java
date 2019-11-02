@@ -8,7 +8,7 @@ import java.util.HashMap;
 
 //@@author chenyuheng
 public class ArgumentTokenizer {
-    public static final String[] TOKENS = new String[]{"/to", "/at", "/from"};
+    public static final String[] TOKENS = new String[]{"/to", "/at", "/from", "/skill"};
 
     /**
      * add javadocs
@@ -63,12 +63,14 @@ public class ArgumentTokenizer {
         for (int i = 0; i < argumentStrings.length; i++) {
             boolean found = false;
             for (int j = 0; j < TOKENS.length; j++) {
+
                 try {
                     if (argumentStrings[i].indexOf(TOKENS[j]) == 0) {
                         String value = argumentStrings[i].substring(TOKENS[j].length() + 1).trim();
                         arguments.put(TOKENS[j], value);
                         found = true;
                         break;
+
                     }
                 } catch (StringIndexOutOfBoundsException e) {
                     throw new DukeException("Tag cannot be empty");

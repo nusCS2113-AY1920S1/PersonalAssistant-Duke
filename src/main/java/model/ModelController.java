@@ -72,14 +72,24 @@ public class ModelController implements Model {
     @Override
     public boolean hasTask(String name) throws DukeException {
         return tasksManager.hasTask(name);
+
     }
 
     @Override
+    public boolean addTaskReqSkill(String taskName, String skillName) {
+        return tasksManager.addReqSkill(taskName, skillName);
+    }
+
+
+    /**
+     * javadoc please
+     */
     public String updateTaskDes(int index, String des) {
         String oldDes = tasksManager.getTaskDes(index);
         tasksManager.updateTaskDes(index, des);
         return oldDes;
     }
+
 
     public String getTasksByKeyword(String keyword) {
         return tasksManager.getTasksByKeyword(keyword);
@@ -92,7 +102,6 @@ public class ModelController implements Model {
     public String scheduleTeamTodo() {
         return tasksManager.scheduleTeamTodo();
     }
-
 
 
     //=================Member interfaces=============================================
@@ -129,6 +138,13 @@ public class ModelController implements Model {
     }
 
     @Override
+    public boolean addMemberSkill(String memberName, String skillName) {
+        return memberManager.addSkill(memberName, skillName);
+    }
+
+    /**
+     * javadoc please
+     */
     public String updateMemberBio(int index, String bio) {
         String oldBio = memberManager.getMemberBio(index);
         memberManager.updateMemberBio(index, bio);
@@ -150,8 +166,9 @@ public class ModelController implements Model {
     }
 
 
-    //============================
+    //============================ Task and member interfaces =================================
 
+    //@@author JustinChia1997
     @Override
     public void link(int taskIndex, String memberName) {
         tasksManager.getTaskById(taskIndex).addMember(memberName);
@@ -167,10 +184,12 @@ public class ModelController implements Model {
     }
 
     //@@author yuyanglin28
+
     /**
      * This method is to delete member in member list and also in task list corresponding member name
+     *
      * @return if success (the member name exists), return true.
-     *         if fail (the member name doesn't exist), return false.
+     * if fail (the member name doesn't exist), return false.
      */
     @Override
     public String deleteMember(int index) {
@@ -182,6 +201,7 @@ public class ModelController implements Model {
     }
 
     //@@author yuyanglin28
+
     /**
      * javadoc
      */
@@ -193,7 +213,6 @@ public class ModelController implements Model {
         tasksManager.deleteTask(toDelete);
         return name;
     }
-
 
     public String scheduleMemberAll(String memberName) {
         ArrayList<String> tasksName = memberManager.getTaskListOfMember(memberName);

@@ -11,7 +11,7 @@ public class MemberManager {
 
     /**
      * add javadoc please
-     * */
+     */
     public MemberManager(ArrayList<Member> memberList) {
         if (memberList != null) {
             this.memberList = memberList;
@@ -34,6 +34,8 @@ public class MemberManager {
             throw new DukeException(MESSAGE_DUPLICATED_MEMBER_NAME);
         }
     }
+
+    //@@author JustinChia1997
 
     /**
      * Get the Member object by its name.
@@ -65,6 +67,7 @@ public class MemberManager {
     }
 
     //@@author yuyanglin28
+
     /**
      * Delete a member from the member list.
      *
@@ -79,6 +82,7 @@ public class MemberManager {
 
     /**
      * delete task in member list
+     *
      * @param taskName task name to be deleted
      */
     public void deleteTaskInMembers(String taskName) {
@@ -127,15 +131,15 @@ public class MemberManager {
             }
         }
     }*/
-
     public ArrayList<Member> getMemberList() {
         return memberList;
     }
 
     //@@author JustinChia1997
+
     /**
      * Checks to see if member exists in the list
-     * */
+     */
     public boolean hasMember(String name) {
         for (int i = 0; i < memberList.size(); i += 1) {
             if (memberList.get(i).getName().equals(name.trim())) {
@@ -149,9 +153,24 @@ public class MemberManager {
         return getMemberByName(memberName).getTaskList();
     }
 
+    /**
+     * adds Skill to member
+     * @param memberName desired member to add skill too
+     * @param skillName name of skill to add
+     * */
+    public boolean addSkill(String memberName, String skillName) {
+        if (hasMember(memberName)) {
+            return getMemberByName(memberName).addSkill(skillName);
+        } else {
+            return false;
+        }
+    }
+
     //@@author JasonChanWQ
+
     /**
      * Returns the size of the memberList
+     *
      * @return size of memberList
      */
     public int getMemberListSize() {
