@@ -26,18 +26,20 @@ public class ListCommand extends Command {
     protected String listType = null;
 
     /**
-     * The constructor for a ListCommand, for a generic list of all Resources in the ResourceList.
+     * The constructor for a ListCommand, for a generic list of all Resources in the
+     * ResourceList.
      */
     public ListCommand() {
         ;
     }
 
     /**
-     * The constructor for a ListCommand, when a detailed list of a particular Resource
-     * is desired.
+     * The constructor for a ListCommand, when a detailed list of a particular
+     * Resource is desired.
      *
      * @param paramType      the type of Resource desired (Item or Room)
-     * @param resourceDetail the name of the Resource or the date for which a list is desired.
+     * @param resourceDetail the name of the Resource or the date for which a list
+     *                       is desired.
      */
     public ListCommand(String paramType, String resourceDetail) {
         listType = paramType;
@@ -45,7 +47,8 @@ public class ListCommand extends Command {
     }
 
     /**
-     * Converts a date and time inputted by the user in String format, into a Date object.
+     * Converts a date and time inputted by the user in String format, into a Date
+     * object.
      *
      * @param stringDate the date and time inputted by the user in String format.
      * @return a Date object representing the date and time inputted by the user.
@@ -57,12 +60,14 @@ public class ListCommand extends Command {
     }
 
     /**
-     * Depending on the type of list desired, either prints out a basic list of all Resources in the ResourceList,
-     * or a detailed list of an individual Resource containing all of its current and future Reservations.
+     * Depending on the type of list desired, either prints out a basic list of all
+     * Resources in the ResourceList, or a detailed list of an individual Resource
+     * containing all of its current and future Reservations.
      *
      * @param ui        An instance of the user interface.
      * @param storage   An instance of the Storage class.
-     * @param resources The ResourceList, containing all the created Resources thus far.
+     * @param resources The ResourceList, containing all the created Resources thus
+     *                  far.
      * @throws ParseException if the resource name is invalid
      * @throws RimsException  for any other unexpected error
      */
@@ -102,7 +107,7 @@ public class ListCommand extends Command {
             ui.printLine();
 
         }
-        //@@author aarushisingh1
+        // @@author aarushisingh1
         else if (listType.equals("item")) {
             if (!resources.isItem(resourceDetail)) {
                 throw new RimsException("There is no such item!");
@@ -152,7 +157,8 @@ public class ListCommand extends Command {
             Date date = resources.stringToDate(checkedDate);
             for (int i = 0; i < resources.size(); i++) {
                 Resource thisResource = resources.getResourceByIndex(i);
-                int availableNumberOfResource = resources.getAvailableNumberOfResourceForDate(thisResource.getName(), checkedDate);
+                int availableNumberOfResource = resources.getAvailableNumberOfResourceForDate(thisResource.getName(),
+                        checkedDate);
                 if (!coveredResources.contains(thisResource.getName()) && availableNumberOfResource > 0) {
                     coveredResources.add(thisResource.getName());
                     ui.print(thisResource.toString() + " (qty: " + availableNumberOfResource + ")");
@@ -164,7 +170,8 @@ public class ListCommand extends Command {
             coveredResources = new ArrayList<String>();
             for (int i = 0; i < resources.size(); i++) {
                 Resource thisResource = resources.getResourceByIndex(i);
-                int bookedNumberOfResource = resources.getBookedNumberOfResourceForDate(thisResource.getName(), checkedDate);
+                int bookedNumberOfResource = resources.getBookedNumberOfResourceForDate(thisResource.getName(),
+                        checkedDate);
                 if (!coveredResources.contains(thisResource.getName()) && bookedNumberOfResource > 0) {
                     coveredResources.add(thisResource.getName());
                     ui.print(thisResource.toString() + " (qty: " + bookedNumberOfResource + ")");
@@ -183,39 +190,44 @@ public class ListCommand extends Command {
 
     //
 
-    public static String[] getListForSpecificDay(Date day, ResourceList resources, Ui ui) throws ParseException, RimsException {
+    public static String[] getListForSpecificDay(Date day, ResourceList resources, Ui ui)
+            throws ParseException, RimsException {
         System.out.print("here are the booked items: ");
         String[] result = new String[10];
 
-
         ArrayList<String> coveredResources = new ArrayList<String>();
 
-        //String[] coveredResources = {};
+        // String[] coveredResources = {};
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HHmm");
         String strDate = dateFormat.format(day);
 
         for (int i = 0; i < resources.size(); i++) {
             Resource thisResource = resources.getResourceByIndex(i);
-            //System.out.print(thisResource);
+            // System.out.print(thisResource);
             result[i] = thisResource.toString();
-            //int bookedNumberOfResource = resources.getBookedNumberOfResourceForDate(thisResource.getName(), strDate);
+            // int bookedNumberOfResource =
+            // resources.getBookedNumberOfResourceForDate(thisResource.getName(), strDate);
 
-            //if (!coveredResources.contains(thisResource.getName()) && bookedNumberOfResource > 0) {
-              //  coveredResources.add(thisResource.toString() + " (qty: " + bookedNumberOfResource + ")");
-                //result[i] = thisResource.toString() + " (qty: " + bookedNumberOfResource + ")";
+            // if (!coveredResources.contains(thisResource.getName()) &&
+            // bookedNumberOfResource > 0) {
+            // coveredResources.add(thisResource.toString() + " (qty: " +
+            // bookedNumberOfResource + ")");
+            // result[i] = thisResource.toString() + " (qty: " + bookedNumberOfResource +
+            // ")";
 
-                //ui.print(thisResource.toString() + " (qty: " + bookedNumberOfResource + ")");
-                //ArrayList<Resource> allOfResource = resources.getAllOfResource(thisResource.getName());
-                //for (int j = 0; j < allOfResource.size(); j++) {
-                  //  if (!allOfResource.get(j).isAvailableOnDate(day)) {
-                        //result.add(allOfResource.get(j).getReservations().getCurrentBooking().toString());
+            // ui.print(thisResource.toString() + " (qty: " + bookedNumberOfResource + ")");
+            // ArrayList<Resource> allOfResource =
+            // resources.getAllOfResource(thisResource.getName());
+            // for (int j = 0; j < allOfResource.size(); j++) {
+            // if (!allOfResource.get(j).isAvailableOnDate(day)) {
+            // result.add(allOfResource.get(j).getReservations().getCurrentBooking().toString());
 
-                    //}
+            // }
 
-               // }
-           // }
+            // }
+            // }
         }
-        //List<String> list = Arrays.asList(coveredResources);
+        // List<String> list = Arrays.asList(coveredResources);
         for (int i = 0; i < result.length; i++) {
             System.out.print("\n");
             System.out.print(result[i]);
@@ -223,6 +235,3 @@ public class ListCommand extends Command {
         return result;
     }
 }
-
-
-

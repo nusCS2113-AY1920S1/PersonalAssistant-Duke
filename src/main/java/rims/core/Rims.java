@@ -1,8 +1,11 @@
 package rims.core;
 
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FilenameFilter;
 import java.io.IOException;
 import java.text.ParseException;
+import java.util.ArrayList;
 
 import rims.command.Command;
 import rims.exception.RimsException;
@@ -12,7 +15,7 @@ import rims.exception.RimsException;
  * The main class that instantiates all the sub-classes that carry out
  * the relevant sub-tasks of RIMS.
  */
-public class Rims{
+public class Rims {
     private Storage storage;
     private ResourceList resources;
     private Ui ui;
@@ -27,7 +30,7 @@ public class Rims{
      * @throws ParseException if data is stored in an invalid format and is thus unable to be parsed
      */
     public Rims(String resourceFilePath, String reserveFilePath)
-        throws FileNotFoundException, ParseException, RimsException {
+        throws FileNotFoundException, ParseException, RimsException, IOException {
         ui = new Ui();
         storage = new Storage(resourceFilePath, reserveFilePath);
         resources = new ResourceList(ui, storage.getResources());
@@ -47,7 +50,7 @@ public class Rims{
             try {
                 Command c = parser.parseInput(ui.getInput());
                 c.execute(ui, storage, resources);
-                parser.setPrevCommand(c);
+                //parser.setPrevCommand(c);
                 toExit = c.getExitCode();
             } catch (RimsException e) {
                 e.displayError();
