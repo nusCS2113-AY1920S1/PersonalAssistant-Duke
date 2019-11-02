@@ -23,12 +23,6 @@ public class Parser {
     public static String newLine = "\n";
     public static int windowWidth = 80;
     public static String acceptedExtensions = "txt|csv";
-    private static String addCommand;
-    private static String helpCommand;
-    private static String modCommand;
-    private static String printCommand;
-    private static String searchCommand;
-    //public static String custCommand;
     public static String moduleFormat = "[A-Z]{2,3}[1-9]([0-9]{3}|X{3})[A-Z]{0,1}";
     Parser() {
     }
@@ -77,7 +71,7 @@ public class Parser {
                 }
             }
         } else if (command.matches("todo|deadline|event|done|delete|find|select|recurring|after|within|fixed"
-                + "|snooze|schedule|add|remove|swap|sort|detail")) {
+                + "|snooze|schedule|add|remove|swap|sort|detail|compare")) {
             if (!temp.hasNextLine()) {
                 throw new DukeException("OOPS!!! The description of a " + command + " cannot be empty.");
             }
@@ -95,7 +89,7 @@ public class Parser {
                     return new ModCommand(command, input);
                 } else if (command.matches("find|schedule")) { //reading task list
                     return new SearchCommand(command, input);
-                } else if (command.matches("detail")) {
+                } else if (command.matches("detail|compare")) {
                     return new PrintCommand(command, input);
                 } else if (command.matches("swap")) {
                     return new SwapCommand(command, input);
@@ -106,17 +100,4 @@ public class Parser {
         }
         return new BadCommand("bad", "");
     }
-
-    /*
-
-     * Takes in the taskList to be used for recording tasks.
-     * Every time this taskList is updated, it is saved to the save file.
-     *
-     * @param myList The task list to be used for duke.
-     *//*
-    //Currently, Parser.Parser will take in the entire raw input and taskList
-    public void setTaskList(TaskList myList) {
-        this.myList = myList;
-    }*/
-
 }

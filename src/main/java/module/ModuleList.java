@@ -1,14 +1,12 @@
 package module;
 
 import javafx.util.Pair;
+import parser.Parser;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class ModuleList {
-    private Set<Module> modList = new HashSet<>();
+    private Set<Module> modList = new TreeSet<>();
     private int sum = 0;
 
     /**
@@ -20,23 +18,17 @@ public class ModuleList {
     }
 
     /**
-     * Creates the Module List using the stored data input
-     *
-     * @param input List of Strings which should be in the csv format
-     */
-    public ModuleList(List<String> input)
-    {
-
-    }
-
-    /**
      * Creates a new Module List using an existng Set of Modules
      *
      * @param list is a Set of Modules
      */
     private ModuleList(Set<Module> list)
     {
-        this.modList = new HashSet<>(list);
+        this.modList = new TreeSet<>(list);
+        for(Module x: modList)
+        {
+            this.sum += x.getMc();
+        }
     }
 
     /**
@@ -45,8 +37,18 @@ public class ModuleList {
      */
     public void add (Module wry)
     {
-        modList.add(wry);
-        this.updateSum(wry.getMc());
+        if(!this.modList.contains(wry)){
+            modList.add(wry);
+            this.updateSum(wry.getMc());
+        }
+    }
+
+    public void add(ModuleList other)
+    {
+        for(Module x: other.getModules())
+        {
+            this.add(x);
+        }
     }
 
     /**
@@ -61,40 +63,35 @@ public class ModuleList {
 
 
     /**
-     * Compares this ModuleList with the other ModuleList, returning a pair consisting of a ModuleList
-     * and another Pair of ModuleList
-     * the first ModuleList is the similar ModuleLists
+     * Compares this ModuleList with the other ModuleList, returns similar modules as a ModuleList
+     *
      * the pair contains the difference for the calling object, then the compared object
      *
      * @param other is the other ModuleList to be compared to
-     * @return complicated pair structure as described above
+     * @return ModuleList containing similar modules
      */
-    public Pair<ModuleList, Pair<ModuleList, ModuleList>> compare(ModuleList other)
-    {
+    public ModuleList getSimilar(ModuleList other) {
         Set<Module> intersection = new HashSet<>(other.getModules());
         intersection.retainAll(this.getModules());
-        ModuleList similar = new ModuleList(intersection);
-        ModuleList differenceOne = new ModuleList(this.setDifference(intersection));
-        ModuleList differenceTwo = new ModuleList(other.setDifference(intersection));
-        return new Pair<>(similar, new Pair<>(differenceOne, differenceTwo));
+        return new ModuleList(intersection);
     }
 
     /**
      * Returns the a Set of Modules from the Module List which are not in the set of modules to be compared;
      *
-     * @param subset is the the module to be compared, it should be a strict subset of the calling object
-     *               However no checks will be carried out to ensure this is the case
-     * @return the set of modules which belong to the calling object but are not in the passed in set
+     * @param other is the the other ModuleList to be compared to
+     * @return the set of modules which belong to this ModuleList but are not in the other ModuleList
      */
-    private Set<Module> setDifference(Set<Module> subset)
+    public ModuleList getDifference(ModuleList other)
     {
-        Set<Module> difference = new HashSet<>();
+        ModuleList subset = this.getSimilar(other);
+        Set<Module> difference = new TreeSet<>();
         for(Module temp: this.getModules())
         {
-            if(!subset.contains(temp))
+            if(!subset.getModules().contains(temp))
                 difference.add(temp);
         }
-        return difference;
+        return new ModuleList(difference);
     }
 
     /**
@@ -115,6 +112,43 @@ public class ModuleList {
     private void updateSum(int mc)
     {
         this.sum += mc;
+    }
+
+    /**
+     * Prints out all modules in the list
+     * Follows maximum screen width
+     *
+     */
+    public void print()
+    {
+        for(Module x: this.modList)
+        {
+            x.print();
+        }
+    }
+
+    /**
+     * Prints out all modules in the list
+     * Follows maximum screen width
+     *
+     */
+    public void printCentral(int setWidth)
+    {
+        for(Module x: this.modList)
+        {
+            int padLen = (Parser.windowWidth - setWidth)/2;
+            char[] pad = new char[padLen];
+            Arrays.fill(pad, ' ');
+            String module = x.getPrint(setWidth);
+            StringBuilder line = new StringBuilder();
+            line.append(pad);
+            line.append(module);
+            while(line.length() < Parser.windowWidth)
+            {
+                line.append(" ");
+            }
+            System.out.println(line.toString());
+        }
     }
 
     public int getSize() {
