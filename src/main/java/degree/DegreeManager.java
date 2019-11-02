@@ -95,4 +95,13 @@ public class DegreeManager {
     public long size() {
         return degreeInfo.size();
     }
+
+    public void compare(String input) {
+        String[] split = input.split("\\s+");
+        if(split.length > 2)
+        {
+            throw new DukeException("Too many arguments!")
+        }
+
+    }
 }

@@ -35,22 +35,60 @@ public class Module implements Comparable<Module> {
 
     /**
      * Outputs the user friendly view for people to know which module is it
+     * Follows default Parser screen width
      *
      * @return String containing the module's code then its human friendly name, separated by a space
      */
-    public String print()
+    public String getPrint()
     {
         StringBuilder module = new StringBuilder();
         module.append(getCode());
         module.append(" ");
         module.append(getName());
-        char[] pad = new char[Math.max(Parser.windowWidth - module.length() - 4, 0)];
-        Arrays.fill(pad, ' ');
-        module.append(pad);
+        if(module.length() > Parser.windowWidth - 4) {
+            module.setLength(Parser.windowWidth - 8);
+            module.append("... ");
+        }
+        else {
+            char[] pad = new char[Math.max(Parser.windowWidth - module.length() - 4, 0)];
+            Arrays.fill(pad, ' ');
+            module.append(pad);
+        }
         module.append(getMc());
-        System.out.println(module.toString());
+        while(module.length() < Parser.windowWidth)
+        {
+            module.append(" ");
+        }
         return module.toString();
     }
+
+    public String getPrint(int setWidth) {
+        StringBuilder module = new StringBuilder();
+        module.append(getCode());
+        module.append(" ");
+        module.append(getName());
+        if(module.length() > setWidth - 4) {
+            module.setLength(setWidth - 8);
+            module.append("... ");
+        }
+        else {
+            char[] pad = new char[Math.max(setWidth - module.length() - 4, 0)];
+            Arrays.fill(pad, ' ');
+            module.append(pad);
+        }
+        module.append(getMc());
+        while(module.length() < setWidth)
+        {
+            module.append(" ");
+        }
+        return module.toString();
+    }
+
+    public void print()
+    {
+        System.out.println(getPrint());
+    }
+
 
     /**
      * Returns the code of the module
