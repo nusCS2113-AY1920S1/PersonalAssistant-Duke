@@ -12,6 +12,9 @@ import exceptions.FarmioException;
 import usercode.actions.Action;
 import usercode.conditions.Condition;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 /**
  * Parser class is responsible for parsing all user input and generating the corresponding Command.
  */
@@ -161,11 +164,12 @@ public class Parser {
      * @throws FarmioException if user input is invalid
      */
     private static Command parseTaskDelete(String userInput) throws FarmioException {
-        if (userInput.matches("(delete)\\s+\\d+")) {
-            int taskID = Integer.parseInt((userInput.substring(userInput.indexOf(" "))).trim());
+        Matcher matcher = Pattern.compile("^delete\\s+(?<index>\\d+)$").matcher(userInput);
+        if (matcher.find()) {
+            int taskID = Integer.parseInt(matcher.group("index"));
             return new CommandTaskDelete(taskID);
         }
-        throw new FarmioException("Invalid Command!");
+        throw new FarmioException("Invalid argument.");
     }
 
     /**
