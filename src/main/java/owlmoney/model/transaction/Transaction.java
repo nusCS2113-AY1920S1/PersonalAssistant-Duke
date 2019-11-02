@@ -3,8 +3,10 @@ package owlmoney.model.transaction;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.YearMonth;
 import java.time.ZoneId;
 import java.util.Date;
+import java.util.UUID;
 
 /**
  * Contains the details of a transaction.
@@ -16,6 +18,8 @@ public abstract class Transaction {
     private Date date;
     private String category;
     private boolean spent;
+    private UUID cardID;
+    private YearMonth billDate;
 
     /**
      * Creates an instance of a transaction object.
@@ -30,6 +34,24 @@ public abstract class Transaction {
         this.amount = amount;
         this.date = date;
         this.category = category;
+    }
+
+    /**
+     * Creates an overloaded instance of a transaction object for savings card bill transactions.
+     *
+     * @param description The description that describes this expenditure.
+     * @param amount      The amount of money spent in this instance of expenditure.
+     * @param date        The date when this expenditure was made.
+     * @param cardId      The credit card ID.
+     * @param billDate    The YearMonth date of card bill where this transaction is meant for.
+     */
+    public Transaction(String description, double amount, Date date, UUID cardId, YearMonth billDate) {
+        this.description = description;
+        this.amount = amount;
+        this.date = date;
+        this.category = "Credit Card";
+        this.cardID = cardId;
+        this.billDate = billDate;
     }
 
     /**
@@ -153,5 +175,32 @@ public abstract class Transaction {
      */
     void setCategory(String newCategory) {
         this.category = newCategory;
+    }
+
+    /**
+     * Gets the card id that the bill belongs to.
+     *
+     * @return The card id that the bill belongs to.
+     */
+    public UUID getTransactionCardID() {
+        return cardID;
+    }
+
+    /**
+     * Gets the date of the card bill in YearMonth format.
+     *
+     * @return Date of the card bill in YearMonth format.
+     */
+    public YearMonth getTransactionCardBillDate() {
+        return billDate;
+    }
+
+    /**
+     * Gets if this transaction is a card bill.
+     *
+     * @return True if this transaction is a card bill.
+     */
+    public boolean isCardBillTransaction() {
+        return getTransactionCardID() != null;
     }
 }

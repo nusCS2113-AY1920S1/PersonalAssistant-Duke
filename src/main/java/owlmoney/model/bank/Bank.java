@@ -4,7 +4,9 @@ import java.io.IOException;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import java.time.YearMonth;
 import java.util.ArrayList;
+import java.util.UUID;
 
 import owlmoney.model.bank.exception.BankException;
 import owlmoney.model.bond.Bond;
@@ -498,6 +500,41 @@ public abstract class Bank {
      * @throws BankException If used on savings account.
      */
     boolean investmentIsBondListFull() throws BankException {
+        throw new BankException("This account does not support this feature");
+    }
+
+    /**
+     * Gets if transaction list contains the specified expenditure and deposit.
+     *
+     * @param cardId    The bill card id to look for in transaction list.
+     * @param billDate  The bill card date to look for in transaction list.
+     * @return True if transaction list contains the specified expenditure and deposit.
+     */
+    public boolean isTransactionCardBillExist(UUID cardId, YearMonth billDate) throws BankException {
+        throw new BankException("This account does not support this feature");
+    }
+
+    /**
+     * Gets the index of the expenditure object that is a card bill expenditure
+     * with specified card id and bill date.
+     *
+     * @param cardId    The bill card id to look for in transaction list.
+     * @param billDate  The bill card date to look for in transaction list.
+     * @return Index of the expenditure object if found. If not found, return -1.
+     */
+    public int getCardBillExpenditureId(UUID cardId, YearMonth billDate) throws BankException {
+        throw new BankException("This account does not support this feature");
+    }
+
+    /**
+     * Gets the index of the deposit object that is a card bill expenditure
+     * with specified card id and bill date.
+     *
+     * @param cardId    The bill card id to look for in transaction list.
+     * @param billDate  The bill card date to look for in transaction list.
+     * @return Index of the deposit object if found. If not found, return -1.
+     */
+    public int getCardBillDepositId(UUID cardId, YearMonth billDate) throws BankException {
         throw new BankException("This account does not support this feature");
     }
 }

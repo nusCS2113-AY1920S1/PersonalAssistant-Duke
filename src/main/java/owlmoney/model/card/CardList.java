@@ -3,6 +3,7 @@ package owlmoney.model.card;
 import java.text.DecimalFormat;
 import java.time.YearMonth;
 import java.util.ArrayList;
+import java.util.UUID;
 
 import owlmoney.model.card.exception.CardException;
 import owlmoney.model.transaction.Transaction;
@@ -426,6 +427,24 @@ public class CardList {
             }
         }
         return rebateAmount;
+    }
+
+    /**
+     * Returns the id of the credit card.
+     *
+     * @param card  The credit card to get the id from.
+     * @return      The id of the credit card.
+     * @throws CardException    If card does not exist.
+     */
+    public UUID getCardId(String card) throws CardException {
+        checkCardExists(card);
+        UUID id = null;
+        for (int i = 0; i < cardLists.size(); i++) {
+            if (card.equals(cardLists.get(i).getName())) {
+                id = cardLists.get(i).getId();
+            }
+        }
+        return id;
     }
 
     /**

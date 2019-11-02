@@ -21,14 +21,12 @@ public abstract class ParseCardBill {
     private ParseRawData parseRawData = new ParseRawData();
     private String rawData;
     private static final String[] CARDBILL_KEYWORD = new String[] {
-        "/card", "/date", "/bank", "/expno", "/depno"
+        "/card", "/date", "/bank"
     };
     private static final List<String> CARDBILL_KEYWORD_LISTS = Arrays.asList(CARDBILL_KEYWORD);
     static final String CARD = "/card";
     static final String BANK = "/bank";
     static final String DATE = "/date";
-    static final String EXPNO = "/expno";
-    static final String DEPNO = "/depno";
     static final String FIRST_DAY = "01/";
 
     /**
@@ -52,10 +50,6 @@ public abstract class ParseCardBill {
                 parseRawData.extractParameter(rawData, BANK, CARDBILL_KEYWORD));
         cardBillParameters.put(DATE,
                 parseRawData.extractParameter(rawData, DATE, CARDBILL_KEYWORD));
-        cardBillParameters.put(EXPNO,
-                parseRawData.extractParameter(rawData, EXPNO, CARDBILL_KEYWORD));
-        cardBillParameters.put(DEPNO,
-                parseRawData.extractParameter(rawData, DEPNO, CARDBILL_KEYWORD));
     }
 
     /**
@@ -108,32 +102,6 @@ public abstract class ParseCardBill {
 
         }
         throw new ParserException("Incorrect date format." + " Date format is mm/yyyy in year range of 1900-2099");
-    }
-
-    /**
-     * Checks the user input for any redundant parameters.
-     *
-     * @param parameter Redundant parameter to check for,
-     * @param command   Command the user performed.
-     * @throws ParserException If a redundant parameter is detected.
-     */
-    void checkRedundantParameter(String parameter, String command) throws ParserException {
-        if (rawData.contains(parameter)) {
-            throw new ParserException(command + " /cardbill should not contain " + parameter);
-        }
-    }
-
-    /**
-     * Checks if the transaction number entered by the user is an integer.
-     *
-     * @param variable User command keyword (e.g. /expno).
-     * @param valueString String to be converted to integer.
-     * @throws ParserException If the string is not an integer.
-     */
-    void checkInt(String variable, String valueString) throws ParserException {
-        if (!RegexUtil.regexCheckListNumber(valueString)) {
-            throw new ParserException(variable + " can only be a positive number with at most 9 digits");
-        }
     }
 
     /**

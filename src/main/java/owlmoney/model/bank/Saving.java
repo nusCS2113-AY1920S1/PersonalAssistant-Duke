@@ -6,9 +6,11 @@ import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.UUID;
 
 import owlmoney.model.bank.exception.BankException;
 import owlmoney.model.transaction.Deposit;
@@ -459,7 +461,85 @@ public class Saving extends Bank {
      * @return Expenditure amount based on the specified expenditure id.
      * @throws TransactionException If transaction is not an expenditure.
      */
+    @Override
     double getExpAmountById(int expenditureId) throws TransactionException {
         return transactions.getExpenditureAmount(expenditureId);
+    }
+
+    /**
+     * Gets if transaction list contains the specified expenditure and deposit.
+     *
+     * @param cardId    The bill card id to look for in transaction list.
+     * @param billDate  The bill card date to look for in transaction list.
+     * @return True if transaction list contains the specified expenditure and deposit.
+     */
+    @Override
+    public boolean isTransactionCardBillExist(UUID cardId, YearMonth billDate) {
+        boolean isExpenditureFound = false;
+        boolean isDepositFound = false;
+        for (int i = 0; i < transactions.getSize(); i++) {
+            UUID transactionCardId = transactions.get(i).getTransactionCardID();
+            YearMonth transactionCardBillDate = transactions.get(i).getTransactionCardBillDate();
+            boolean isExpenditure = transactions.get(i).getSpent();
+            if (transactionCardId.equals(cardId) && transactionCardBillDate.equals(billDate)
+                    && isExpenditure) {
+                isExpenditureFound = true;
+            }
+            if (transactionCardId.equals(cardId) && transactionCardBillDate.equals(billDate)
+                    && !isExpenditure) {
+                isDepositFound = true;
+            }
+        }
+        return isExpenditureFound && isDepositFound;
+    }
+
+    /**
+     * Gets the index of the expenditure object that is a card bill expenditure
+     * with specified card id and bill date.
+     *
+     * @param cardId    The bill card id to look for in transaction list.
+     * @param billDate  The bill card date to look for in transaction list.
+     * @return Index of the expenditure object if found. If not found, return -1.
+     */
+    @Override
+    public int getCardBillExpenditureId(UUID cardId, YearMonth billDate) {
+        for (int i = 0; i < transactions.getSize(); i++) {
+            UUID transactionCardId = transactions.get(i).getTransactionCardID();
+            YearMonth transactionCardBillDate = transactions.get(i).getTransactionCardBillDate();
+            boolean isExpenditure = transactions.get(i).getSpent();
+            if (transactionCardId == null) {
+                continue;
+            }
+            if (transactionCardId.equals(cardId) && transactionCardBillDate.equals(billDate)
+                    && isExpenditure) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /**
+     * Gets the index of the deposit object that is a card bill expenditure
+     * with specified card id and bill date.
+     *
+     * @param cardId    The bill card id to look for in transaction list.
+     * @param billDate  The bill card date to look for in transaction list.
+     * @return Index of the deposit object if found. If not found, return -1.
+     */
+    @Override
+    public int getCardBillDepositId(UUID cardId, YearMonth billDate) {
+        for (int i = 0; i < transactions.getSize(); i++) {
+            UUID transactionCardId = transactions.get(i).getTransactionCardID();
+            YearMonth transactionCardBillDate = transactions.get(i).getTransactionCardBillDate();
+            boolean isExpenditure = transactions.get(i).getSpent();
+            if (transactionCardId == null) {
+                continue;
+            }
+            if (transactionCardId.equals(cardId) && transactionCardBillDate.equals(billDate)
+                    && !isExpenditure) {
+                return i;
+            }
+        }
+        return -1;
     }
 }
