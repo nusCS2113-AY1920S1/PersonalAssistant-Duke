@@ -1,0 +1,36 @@
+Here is a guide of how to use the different commands
+1) To add events, enter command in the format below
+add/e modCode Description /at (date) /from HHmm /to HHmm
+2) To add deadlines, enter command in the format below
+add/d modCode Description /by (date) HHmm
+3) To delete events, enter command in the format below
+delete/e modCode Description /at (date) /from HHmm /to HHmm
+4) To delete deadlines, enter command in the format below
+delete/d modCode Description /by (date) HHmm
+5) To filter keywords, enter command in the format below
+filter (keyword)
+6)To set a reminder, enter command in the format below
+remind/set modCode Description /by (date) HHmm /to (date) HHmm
+7)To delete a reminder, enter command in the format below
+remind/rm modCode Description /by (date) HHmm /to (date) HHmm
+8)To show next's week workload, enter command in the format below
+/show workload
+9)To add a recurring event, enter command in the format below
+recur/(fill) modCode Description /start (date) /to (date) /from HHmm /to HHmm
+replace (fill) with either: weekly, biweekly, rmweekly, rmbiweekly
+10)To show previous 3 commands, enter command in the format below
+show/previous 3
+11)To find free time, enter command in the format below
+find 'x' hours, where 'x' is between 1 - 16
+12)To retrieve a free time found by 'find' command, enter command in the format below
+retrieve/ft 'x', where 'x' is between 1 - 5
+13)To complete event, enter command in the format below
+done/e modCode Description /at (date) /from HHmm /to HHmm
+14)To deadline, enter command in the format below
+done/d modCode Description /by (date) HHmm
+15) To select the week, enter the command in the format below
+Week 'x', where 'x' is a digit between 1 - 13 or
+'x' is either 'recess', 'reading', or 'exam'
+
+
+Note: date format can be in the form dd/mm/yyyy or week X day according to NUS academic calender

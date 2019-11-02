@@ -54,7 +54,6 @@ public class Ui {
      * Displays the delete task message when user wants to delete a task.
      */
     public String showDelete(Assignment task, int listSize){
-        listSize -= 1;
         return "Noted. I've removed this task:\n" + task.toString() + "\n" + "Now you have "
                 + listSize  + (listSize > 1 ? " tasks in the list.\n" : " task in the list.\n");
     }
@@ -80,12 +79,22 @@ public class Ui {
 
     /**
      * Displays the invalid chosen week message.
-     * @param message The chosen week
      * @return The invalid week entry with the proper format
      */
-    public String showWeeksInvalidEntry(String message){
+    public String showWeeksInvalidEntry(){
         return "Invalid week\n" + "Please enter the command in the format:\n" +
                 "Week 'x', where 'x' is a digit between 1 - 13";
+    }
+
+    public String showSelectionOption(Integer option, String selectedOption ) {
+        return "Selected option " + option + "\n" + selectedOption;
+    }
+
+    public String showSelectionOptionEmptyList(){
+        return "Please find free times by invoking the command shown below\n" +
+                "Find 'x' hours, where 'x' is a digit between 1 - 16\n" +
+                "Followed by the command\n" +
+                "retrieve/ft 'x', where 'x' is a digit between 1- 5";
     }
 
     /**
@@ -141,8 +150,16 @@ public class Ui {
      * @param endDate   end of recurrence
      *
      */
-    public String showRecurring(String description, String startDate, String endDate) {
-        return "Recurring task: " + description + " has been added between " + startDate + " and " + endDate + "\n";
+    public String showRecurring(String description, String startDate, String endDate, boolean isBiweekly, boolean isRecur) {
+        if (isRecur && isBiweekly) {
+            return "Biweekly recurring task: " + description + " has been added between " + startDate + " and " + endDate + "\n";
+        } else if (isRecur) {
+            return "Weekly recurring task: " + description + " has been added between " + startDate + " and " + endDate + "\n";
+        } else if (isBiweekly) {
+            return "Biweekly recurring task: " + description + " has been removed between " + startDate + " and " + endDate + "\n";
+        } else {
+            return "Weekly recurring task: " + description + " has been removed between " + startDate + " and " + endDate + "\n";
+        }
     }
 
     /**
@@ -197,18 +214,22 @@ public class Ui {
         return workloadSchedule;
     }
 
+    /**
+     * Display the previous list of commands requested by the user
+     * @param outputList list of all the commands user request
+     * @return the list requested by user
+     */
     public String showPrevious(ArrayList<String> outputList) {
         int size = outputList.size();
-        System.out.println(size);
         if (size == 0) {
             String message = "There are no such input type in previous command";
             return message;
         } else {
-            String output = "";
-            for (int i = 0; i < size; i++) {
-                output += (i + 1) + ". " + outputList.get(i);
-            }
-            return output;
+        String output = "";
+        for (int i = 0; i < size; i++) {
+            output += (i + 1) + ". " + outputList.get(i);
+        }
+        return output;
         }
     }
 

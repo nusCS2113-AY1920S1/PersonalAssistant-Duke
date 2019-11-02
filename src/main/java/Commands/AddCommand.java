@@ -53,10 +53,9 @@ public class AddCommand extends Command {
                     }
                 }
             }
-            int size = events.taskListSize();
-
             if (conflict.size() == 0) {
                 events.addTask(this.task);
+                int size = events.taskListSize();
                 out = ui.showAdd(this.task,size);
                 storage.updateEventList(events);
             }else{
@@ -65,13 +64,12 @@ public class AddCommand extends Command {
                 for (int i = 0; i< conflict.size();i++){
                     show += conflict.get(0);
                 }
-                alertBox.display("Warning", out, show, Alert.AlertType.WARNING);
+               // alertBox.display("Warning", out, show, Alert.AlertType.WARNING);
             }
         } else if (task.getType().equals("[D]")) {
             deadlines.addTask(this.task);
             out = ui.showAdd(this.task, deadlines.taskListSize());
             storage.updateDeadlineList(deadlines);
-
         }
         return out;
     }

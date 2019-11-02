@@ -76,6 +76,12 @@ public abstract class Assignment {
         return modcode;
     }
 
+    public String getModCodeAndDescription() {
+        return this.description;
+    }
+
+
+
     /**
      * Sets the time of reminder.
      * @param time The time of reminder input by user

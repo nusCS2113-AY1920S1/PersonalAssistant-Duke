@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.text.DateFormat;
@@ -63,8 +64,8 @@ public class Storage {
     public void updateEventList(TaskList list) {
         PrintWriter outputStream = null;
         try {
-            outputStream = new PrintWriter(filePathEvent);
-        } catch (FileNotFoundException e) {
+            outputStream = new PrintWriter(filePathEvent, StandardCharsets.UTF_8);
+        } catch (IOException e) {
             LOGGER.log(Level.SEVERE, e.toString(), e);
         }
         map = list.getMap();
@@ -102,8 +103,8 @@ public class Storage {
     public void updateDeadlineList(TaskList list) {
         PrintWriter outputStream = null;
         try {
-            outputStream = new PrintWriter(filePathDeadline);
-        } catch (FileNotFoundException e) {
+            outputStream = new PrintWriter(filePathDeadline, StandardCharsets.UTF_8);
+        } catch (IOException e) {
             LOGGER.log(Level.SEVERE, e.toString(), e);
         }
         map = list.getMap();
@@ -170,8 +171,8 @@ public class Storage {
                 DateFormat format = new SimpleDateFormat("E dd/MM/yyyy");
                 SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm a");
                 String dateFromData = string.substring(string.indexOf("at:") + 4, string.indexOf("time:")).trim();
-                String startTimeFromData = string.substring(string.indexOf("time:") + 6, string.indexOf("to"));
-                String endTimeFromData = string.substring(string.indexOf("to") + 3, string.indexOf(')')).trim();
+                String startTimeFromData = string.substring(string.indexOf("time:") + 6, string.indexOf("to:"));
+                String endTimeFromData = string.substring(string.indexOf("to:") + 3, string.indexOf(')')).trim();
                 Date startTime = timeFormat.parse(startTimeFromData);
                 Date endTime = timeFormat.parse(endTimeFromData);
                 Date date = format.parse(dateFromData);

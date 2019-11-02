@@ -10,7 +10,6 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class WeekCommand extends Command {
@@ -144,8 +143,19 @@ public class WeekCommand extends Command {
             return -1;
         } else if (rightTimeSplit[1].equals("AM")) {
             return 1;
-        } else {
-            return leftSplit[0].compareTo(rightSplit[0]);
+        } else {//PM PM situation
+            //return leftSplit[0].compareTo(rightSplit[0]);
+            String[]leftTimeSplitHourMinute = leftTimeSplit[0].split(":");
+            String[]rightTimeSplitHourMinute = rightTimeSplit[0].split(":");
+            if(leftTimeSplitHourMinute[0].equals("12") && rightTimeSplitHourMinute[0].equals("12")) {
+                return leftTimeSplitHourMinute[1].compareTo(rightTimeSplitHourMinute[1]);
+            } else if(leftTimeSplitHourMinute[0].equals("12")) {
+                return -1;
+            } else if (rightTimeSplitHourMinute[0].equals("12")) {
+                return 1;
+            } else {
+                return leftTimeSplit[0].compareTo(rightTimeSplit[0]);
+            }
         }
     }
 
@@ -155,10 +165,10 @@ public class WeekCommand extends Command {
 
     @Override
     public String execute(LookupTable LT, TaskList events, TaskList deadlines, Ui ui, Storage storage) throws Exception {
-        String intWeek = week.replaceFirst("Week", "");
-        intWeek = intWeek.trim();
-        Integer duration = Integer.parseInt(intWeek);
-        if(duration < 1 || duration > 13) return ui.showWeeksInvalidEntry(intWeek);
+//        String intWeek = week.replaceFirst("Week", "");
+//        intWeek = intWeek.trim();
+//        Integer duration = Integer.parseInt(intWeek);
+//        if(duration < 1 || duration > 13) return ui.showWeeksInvalidEntry();
         setListView(LT, events);
         sortList();
         weekList = new WeekList(monList, tueList, wedList, thuList, friList, satList, sunList);
