@@ -141,9 +141,9 @@ public class FindFreeTimesCommand extends Command {
         Date currDate = new Date();
         String strCurrDateDay = dateDayFormat.format(currDate);
         String strCurrTime = timeFormat12.format(currDate);
-        ArrayList<Pair<String, String>> temp = new ArrayList<>();
-        temp.add(new Pair<>(strCurrTime, strCurrTime));
-        dataMap.put(strCurrDateDay, temp);
+//        ArrayList<Pair<String, String>> temp = new ArrayList<>();
+//        temp.add(new Pair<>(strCurrTime, strCurrTime));
+//        dataMap.put(strCurrDateDay, temp);
 
         for(String module: events.getMap().keySet()) {
             HashMap<String, ArrayList<Assignment>> moduleValues = events.getMap().get(module);
@@ -154,11 +154,26 @@ public class FindFreeTimesCommand extends Command {
                 if(strDate.equals(strCurrDateDay)) timeArray.add(new Pair<>(strCurrTime, strCurrTime));
                 if(date.after(currDate)) {
                     ArrayList<Assignment> data = moduleValues.get(strDate);
+                    Date refDate = currDate; //new
+                    for (Assignment task : data) {
+                        String startAndEnd = task.getTime();
+                        String[] spiltStartAndEnd = startAndEnd.split("to");
+
+                        Date startDateTime = dateTimeFormat12.parse(strDate + " " + spiltStartAndEnd[0]);
+                        Date endDateTime = dateTimeFormat12.parse(strDate + " " + spiltStartAndEnd[1]);
+                        if(startDateTime.before(currDate) && endDateTime.after(currDate)) {
+                            if(endDateTime.after(refDate)){
+                                refDate = endDateTime;
+                                timeArray = new ArrayList<>();
+                                timeArray.add(new Pair<>(spiltStartAndEnd[1].trim(), spiltStartAndEnd[1].trim()));
+                            }
+                        }
+                    }
                     for (Assignment task : data) {
                         String startAndEnd = task.getTime();
                         String[] spiltStartAndEnd = startAndEnd.split("to");
                         Date startDateTime = dateTimeFormat12.parse(strDate + " " + spiltStartAndEnd[0]);
-                        if(startDateTime.after(currDate)) timeArray.add(new Pair<>(spiltStartAndEnd[0].trim(), spiltStartAndEnd[1].trim()));
+                        if(startDateTime.after(refDate)) timeArray.add(new Pair<>(spiltStartAndEnd[0].trim(), spiltStartAndEnd[1].trim()));
                     }
                     if(dataMap.containsKey(strDate)) timeArray = mergeTimeArray(dataMap.get(strDate), timeArray);
                     timeArray.sort(compareByTime);
@@ -307,7 +322,10 @@ public class FindFreeTimesCommand extends Command {
                             ArrayList<Pair<String, String >> nextDayStartAndEndTimes = dataMap.get(nextKey);
                             String nextDateTime = nextKey + " " + nextDayStartAndEndTimes.get(0).getKey(); //Just need to check first item of next day start time
                             Date nextDateTimeStart = dateTimeFormat12.parse(nextDateTime);
-                            Date dateLowerBoundaryPlusDuration = increaseDateTime(dateLowerBoundary, duration);
+                            //TODO: check before increase 24 hours
+                            dateLowerBoundary = increaseDateTime(dateLowerBoundary, 24); //0700 since look at nextday boundary must be increase by a day
+                            Date dateLowerBoundaryPlusDuration = increaseDateTime(dateLowerBoundary, duration); //2100
+
                             if(dateLowerBoundary.before(nextDateTimeStart) && dateLowerBoundaryPlusDuration.before(nextDateTimeStart)) {
                                 freeTimeData.add(new Pair<>(dateLowerBoundary, dateLowerBoundaryPlusDuration));
                                 if(checkFreeTimeOptions()) return;
