@@ -46,7 +46,7 @@ class RouteTest {
 
         route.add(v1);
 
-        assertThrows(RouteNodeDuplicateException.class, () ->{
+        assertThrows(RouteNodeDuplicateException.class, () -> {
             route.add(v1);
         });
     }
@@ -57,24 +57,24 @@ class RouteTest {
         BusStop v1 = new BusStop("45039","Opp Yew Tee Ind Est", "Woodlands Rd",
                 1.39585817355572, 103.75427816224409);
 
-        assertThrows(QueryOutOfBoundsException.class, () ->{
+        assertThrows(QueryOutOfBoundsException.class, () -> {
             route.addNode(v1, 1);
         });
 
-        assertThrows(QueryOutOfBoundsException.class, () ->{
+        assertThrows(QueryOutOfBoundsException.class, () -> {
             route.addNode(v1, 2);
         });
 
-        assertThrows(QueryOutOfBoundsException.class, () ->{
+        assertThrows(QueryOutOfBoundsException.class, () -> {
             route.addNode(v1, -1);
         });
 
-        assertThrows(QueryOutOfBoundsException.class, () ->{
+        assertThrows(QueryOutOfBoundsException.class, () -> {
             route.addNode(v1, -2);
         });
 
         route.add(v1);
-        assertThrows(RouteNodeDuplicateException.class, () ->{
+        assertThrows(RouteNodeDuplicateException.class, () -> {
             route.addNode(v1, 1);
         });
     }
@@ -83,15 +83,15 @@ class RouteTest {
     void remove() throws RouteNodeDuplicateException {
         Route route = new Route("To Sentosa", "tomorrow");
 
-        assertThrows(IndexOutOfBoundsException.class, () ->{
+        assertThrows(IndexOutOfBoundsException.class, () -> {
             route.remove(0);
         });
 
-        assertThrows(IndexOutOfBoundsException.class, () ->{
+        assertThrows(IndexOutOfBoundsException.class, () -> {
             route.remove(-1);
         });
 
-        assertThrows(IndexOutOfBoundsException.class, () ->{
+        assertThrows(IndexOutOfBoundsException.class, () -> {
             route.remove(-2);
         });
 
@@ -99,11 +99,11 @@ class RouteTest {
                 1.39585817355572, 103.75427816224409);
         route.add(v1);
 
-        assertThrows(IndexOutOfBoundsException.class, () ->{
+        assertThrows(IndexOutOfBoundsException.class, () -> {
             route.remove(1);
         });
 
-        assertThrows(IndexOutOfBoundsException.class, () ->{
+        assertThrows(IndexOutOfBoundsException.class, () -> {
             route.remove(2);
         });
 

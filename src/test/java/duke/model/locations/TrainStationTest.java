@@ -34,7 +34,7 @@ class TrainStationTest {
     @Test
     void getAddress() {
         assertEquals("Woodlands MRT", v1.getAddress());
-        assertNotEquals( "Woodlands MRT", v2.getAddress());
+        assertNotEquals("Woodlands MRT", v2.getAddress());
     }
 
     @Test

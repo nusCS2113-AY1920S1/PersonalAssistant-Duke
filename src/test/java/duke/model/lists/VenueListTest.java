@@ -90,11 +90,11 @@ class VenueListTest {
     void getVenueList() {
         Venue v1 = new Venue("YEW TEE INDUSTRIAL ESTATE", 1.3973210291170202, 103.753758637401,
                 0, 0);
-        List<Venue> vList = new ArrayList<>();
-        vList.add(v1);
+        List<Venue> listVenue = new ArrayList<>();
+        listVenue.add(v1);
 
-        VenueList venueList = new VenueList(vList);
-        assertEquals(vList, venueList.getVenueList());
+        VenueList venueList = new VenueList(listVenue);
+        assertEquals(listVenue, venueList.getVenueList());
     }
 
     @Test

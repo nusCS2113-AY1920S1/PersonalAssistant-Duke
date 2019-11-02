@@ -24,7 +24,7 @@ class BusStopTest {
     @Test
     void getAddress() {
         assertEquals("Opp Yew Tee Ind Est", v1.getAddress());
-        assertNotEquals( "Opp Yew Tee Ind Est", v2.getAddress());
+        assertNotEquals("Opp Yew Tee Ind Est", v2.getAddress());
     }
 
     @Test

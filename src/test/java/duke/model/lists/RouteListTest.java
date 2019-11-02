@@ -110,12 +110,12 @@ class RouteListTest {
         RouteList routeList = new RouteList();
         Route route1 = new Route("To NUS", "by bus");
         Route route2 = new Route("To NTU", "by bus");
-        Route route3 = new Route("To SMU", "by bus");
         routeList.add(route1);
 
         routeList.setRoute(route1, route2);
         assertTrue(routeList.contains(route2));
 
+        Route route3 = new Route("To SMU", "by bus");
         assertThrows(RouteNotFoundException.class, () -> {
             routeList.setRoute(route1, route3);
         });

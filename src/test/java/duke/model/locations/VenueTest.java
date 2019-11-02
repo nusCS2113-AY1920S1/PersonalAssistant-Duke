@@ -14,7 +14,7 @@ class VenueTest {
     @Test
     void getAddress() {
         assertEquals("YEW TEE INDUSTRIAL ESTATE", v1.getAddress());
-        assertNotEquals( "YEW TEE INDUSTRIAL ESTATE", v2.getAddress());
+        assertNotEquals("YEW TEE INDUSTRIAL ESTATE", v2.getAddress());
     }
 
     @Test
