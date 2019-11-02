@@ -27,6 +27,7 @@ public class EventCommandParser implements CommandParser {
             int lastStartDateIndex = startDateList.size() - 1;
             finalDate = startDateList.get(lastStartDateIndex);
         }
+        isFinalDateAfterStartDate(startDateList.get(INDEX_ZERO), finalDate);
         return new EventCommand(description, startDateList, priority, startTime, endTime, finalDate, interval);
     }
 }
