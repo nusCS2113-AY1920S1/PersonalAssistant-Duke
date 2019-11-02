@@ -164,32 +164,32 @@ public class ParserSchedule {
                 input = sc.nextInt();
                 switch (input) {
                     case dailySchedule:
-                        boolean runDaily = true;
-                        while (runDaily) {
-                            cliView.dailyScheduleHeading();
-                            input = sc.nextInt();
-                            if (input == 1) { //access daily schedule
-                                dailySchedule();
-                            } else if (input == 2) { //access daily goals
-                                new ParserGoal().runGoal();
-                            } else if (input == 3) { //access daily lessons
-                                new ParserLesson().runLesson();
-                            } else if (input == 4) { //back
-                                runDaily = false;
-                            } else {
-                                cliView.showDontKnow();
-                            }
+                    boolean runDaily = true;
+                    while (runDaily) {
+                        cliView.dailyScheduleHeading();
+                        input = sc.nextInt();
+                        if (input == 1) { //access daily schedule
+                            dailySchedule();
+                        } else if (input == 2) { //access daily goals
+                            new ParserGoal().runGoal();
+                        } else if (input == 3) { //access daily lessons
+                            new ParserLesson().runLesson();
+                        } else if (input == 4) { //back
+                            runDaily = false;
+                        } else {
+                            cliView.showDontKnow();
                         }
-                        break;
+                    }
+                    break;
                     case weeklySchedule:
-                        weeklySchedule();
-                        break;
+                    weeklySchedule();
+                    break;
                     case monthlySchedule:
-                        monthlySchedule();
-                        break;
+                    monthlySchedule();
+                    break;
                     case back:
-                        runSchedule = false;
-                        break;
+                    runSchedule = false;
+                    break;
                     default:
                         cliView.showDontKnow();
                 }
