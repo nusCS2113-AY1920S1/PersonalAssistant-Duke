@@ -2,6 +2,7 @@ package duke.storage;
 
 import duke.Duke;
 import duke.dukeexception.DukeException;
+import duke.enums.Numbers;
 import duke.task.BudgetList;
 
 import java.io.BufferedReader;
@@ -14,7 +15,6 @@ import java.util.ArrayList;
 
 //@@author maxxyx96
 public class BudgetStorage {
-    //protected String filePath = "./";
     protected String filePath = "";
     String storageClassPath = this.getClass().getProtectionDomain().getCodeSource().getLocation().getPath();
 
@@ -27,9 +27,9 @@ public class BudgetStorage {
         int numberofSlash;
         storageClassPath = storageClassPath.replaceAll("%20", " ");
         String[] pathSplitter = storageClassPath.split("/");
-        numberofSlash = pathSplitter.length - 1;
+        numberofSlash = pathSplitter.length - Numbers.ONE.value;
         for (String directory: pathSplitter) {
-            if (numberofSlash == 0) {
+            if (numberofSlash == Numbers.ZERO.value) {
                 break;
             } else if (!directory.isEmpty() && !directory.equals("build") && !directory.equals("out")) {
                 this.filePath += directory + "/";

@@ -1,5 +1,6 @@
 package duke.command;
 
+import duke.enums.Numbers;
 import duke.storage.Storage;
 import duke.task.BudgetList;
 import duke.task.TaskList;
@@ -14,8 +15,6 @@ import java.io.IOException;
  */
 public class UndoBudgetCommand extends Command {
 
-    private static final int ZERO = 0;
-    private static final int ONE = 1;
     protected Ui ui = new Ui();
     protected BudgetList budgetList;
 
@@ -50,9 +49,9 @@ public class UndoBudgetCommand extends Command {
     @Override
     public String executeGui(TaskList items, Ui ui) {
         try {
-            int indexToBeUndone = budgetList.getSize() - ONE;
+            int indexToBeUndone = budgetList.getSize() - Numbers.ONE.value;
 
-            if (indexToBeUndone != ZERO) {
+            if (indexToBeUndone != Numbers.ZERO.value) {
                 budgetList.undoLastBudget(indexToBeUndone);
                 float newBudget = budgetList.getBudget();
                 return ui.showUndoneBudgetGui(Float.toString(newBudget));

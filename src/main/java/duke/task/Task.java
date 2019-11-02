@@ -1,6 +1,7 @@
 package duke.task;
 
 import duke.dukeexception.DukeException;
+import duke.enums.Numbers;
 
 import java.time.LocalDateTime;
 
@@ -9,12 +10,11 @@ import java.time.LocalDateTime;
  * Represents a task that stores description and boolean that indicates the task as completed.
  */
 public class Task {
-    private static final int ZERO = 0;
 
     protected String description;
     protected String notesDesc = "empty";
     protected boolean isDone;
-    public int numberOfDays = ZERO;
+    public int numberOfDays = Numbers.ZERO.value;
     public LocalDateTime currentDate;
     public LocalDateTime dueDate;
 

@@ -1,6 +1,7 @@
 package duke.storage;
 
 import duke.dukeexception.DukeException;
+import duke.enums.Numbers;
 import duke.task.TaskList;
 import duke.task.Todo;
 import duke.task.Deadline;
@@ -27,11 +28,6 @@ public class Storage {
     protected String filePath = "";   //27-28, 40-47
     String storageClassPath = this.getClass().getProtectionDomain().getCodeSource().getLocation().getPath();
 
-    private static final int ZERO = 0;
-    private static final int ONE = 1;
-    private static final int TWO = 2;
-    private static final int THREE = 3;
-    private static final int FOUR = 4;
     private static final Logger logr = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
     /**
@@ -43,9 +39,9 @@ public class Storage {
         int numberofSlash;
         storageClassPath = storageClassPath.replaceAll("%20", " ");
         String[] pathSplitter = storageClassPath.split("/");
-        numberofSlash = pathSplitter.length - ONE;
+        numberofSlash = pathSplitter.length - Numbers.ONE.value;
         for (String directory: pathSplitter) {
-            if (numberofSlash == ZERO) {
+            if (numberofSlash == Numbers.ZERO.value) {
                 break;
             } else if (!directory.isEmpty() && !directory.equals("build") && !directory.equals("out")) {
                 this.filePath += directory + "/";
@@ -83,13 +79,13 @@ public class Storage {
                 dateDesc = "";
                 durDesc = "";
                 notesDesc = "";
-                for (int i = ZERO; i < commandList.length; i++) {
-                    if (i == TWO) {
+                for (int i = Numbers.ZERO.value; i < commandList.length; i++) {
+                    if (i == Numbers.TWO.value) {
                         taskDesc = commandList[i];
-                    } else if (i == THREE) {
+                    } else if (i == Numbers.THREE.value) {
                         notesDesc = commandList[i];
-                    } else if (i == FOUR) {
-                        if (commandList[ZERO].equals("F")) {
+                    } else if (i == Numbers.FOUR.value) {
+                        if (commandList[Numbers.ZERO.value].equals("F")) {
                             durDesc = commandList[i];
                         } else {
                             dateDesc = commandList[i];
@@ -97,14 +93,14 @@ public class Storage {
                     }
                 }
                 boolean checked = false;
-                if (commandList.length > ONE) {
-                    if (!(commandList[ONE].equals("1") || commandList[ONE].equals("0"))) {
+                if (commandList.length > Numbers.ONE.value) {
+                    if (!(commandList[Numbers.ONE.value].equals("1") || commandList[Numbers.ONE.value].equals("0"))) {
                         throw new DukeException("Error reading 1 or 0, skipping to next line");
                     }
-                    checked = commandList[ONE].equals("1");
+                    checked = commandList[Numbers.ONE.value].equals("1");
                 }
                 Task t;
-                if (commandList[ZERO].equals("T")) {
+                if (commandList[Numbers.ZERO.value].equals("T")) {
                     if (taskDesc.trim().isEmpty()) {
                         throw new DukeException("Error reading description, skipping to next line");
                     } else {
@@ -113,7 +109,7 @@ public class Storage {
                         t.setNotes(notesDesc);
                         items.add(t);
                     }
-                } else if (commandList[ZERO].equals("D")) {
+                } else if (commandList[Numbers.ZERO.value].equals("D")) {
                     if (taskDesc.trim().isEmpty() || dateDesc.trim().isEmpty()) {
                         throw new DukeException("Error reading description or date/time, skipping to next line");
                     } else {
@@ -122,7 +118,7 @@ public class Storage {
                         t.setNotes(notesDesc);
                         items.add(t);
                     }
-                } else if (commandList[ZERO].equals("R")) {
+                } else if (commandList[Numbers.ZERO.value].equals("R")) {
                     if (taskDesc.isEmpty() || dateDesc.isEmpty()) {
                         throw new DukeException("Error reading description or date/time, skipping to next line");
                     } else {
@@ -131,18 +127,18 @@ public class Storage {
                         t.setNotes(notesDesc);
                         items.add(t);
                     }
-                } else if (commandList[ZERO].equals("F")) {
+                } else if (commandList[Numbers.ZERO.value].equals("F")) {
                     if (taskDesc.isEmpty() || durDesc.isEmpty()) {
                         throw new DukeException("Error reading fixed duration description,"
                                 + " skipping to next line");
                     } else {
-                        int duration = Integer.parseInt(durDesc.split(" ")[ZERO]);
-                        t = new FixedDuration(taskDesc, duration, durDesc.split(" ")[ONE]);
+                        int duration = Integer.parseInt(durDesc.split(" ")[Numbers.ZERO.value]);
+                        t = new FixedDuration(taskDesc, duration, durDesc.split(" ")[Numbers.ONE.value]);
                         t.setStatusIcon(checked);
                         t.setNotes(notesDesc);
                         items.add(t);
                     }
-                } else if (!commandList[ZERO].isEmpty()) {
+                } else if (!commandList[Numbers.ZERO.value].isEmpty()) {
                     throw new DukeException("Error reading whether if its T, D, R, or F skipping to next line");
                 }
             } catch (Exception e) {
@@ -165,7 +161,7 @@ public class Storage {
      */
     public void write(TaskList items) throws IOException {
         String fileContent = "";
-        for (int i = ZERO; i < items.size(); i++) {
+        for (int i = Numbers.ZERO.value; i < items.size(); i++) {
             fileContent += items.get(i).toFile() + "\n";
         }
         BufferedWriter writer = new BufferedWriter(new FileWriter(filePath));

@@ -2,6 +2,9 @@ package duke.task;
 
 
 //@@author Dou-Maokang
+
+import duke.enums.Numbers;
+
 /**
  * A class representing a task with not specific time but a fixed duration.
  */
@@ -21,9 +24,9 @@ public class FixedDuration extends Task {
         super(description);
         this.duration = duration;
         if (unit.contains("m")) {
-            this.unit = (duration > 1) ? "minutes" : "minute";
+            this.unit = (duration > Numbers.ONE.value) ? "minutes" : "minute";
         } else if (unit.contains("h")) {
-            this.unit = (duration > 1) ? "hours" : "hour";
+            this.unit = (duration > Numbers.ONE.value) ? "hours" : "hour";
         }
 
     }
