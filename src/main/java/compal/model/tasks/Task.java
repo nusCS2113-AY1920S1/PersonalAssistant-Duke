@@ -343,7 +343,7 @@ public abstract class Task implements Serializable {
             return "\n" + " \nTask ID:" + getId() + "\n"
                 + "[" + getSymbol() + "]" + "[" + getStatusIcon() + "] " + getDescription()
                 + " \nStart Date: " + getStringMainDate() + " \nStart Time: " + getStringStartTime()
-                + "\nEnd Date:" + getStringTrailingDate()
+                + "\nEnd Date: " + getStringTrailingDate()
                 + " \nEnd Time: " + getStringEndTime() + " \nPriority: " + getPriority()
                 + "\n***************";
         default:
