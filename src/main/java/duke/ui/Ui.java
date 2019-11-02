@@ -122,6 +122,7 @@ public class Ui {
         System.out.println("\t 'b' add/remove/use an ingredient");
         System.out.println("\t 'c' place/remove/change an order");
         System.out.println("\t 'd' add/remove/change a dish");
+        System.out.println("\t 't' view today's todo list");
         System.out.println("\t 'q' to exit");
     }
 

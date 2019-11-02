@@ -3,6 +3,7 @@ package duke.order;
 import duke.Duke;
 import duke.exception.DukeException;
 import duke.list.GenericList;
+import duke.list.TodayTodoList;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -14,11 +15,14 @@ import java.util.List;
  */
 public class OrderList extends GenericList<Order> {
 
+    private TodayTodoList todoList;
+
     /**
      * The constructor method(1) for OrderList.
      */
     public OrderList() {
         super();
+        this.todoList = new TodayTodoList();
     }
 
     /**
@@ -26,6 +30,7 @@ public class OrderList extends GenericList<Order> {
      */
     public OrderList(List<Order> orderList) {
         super(orderList);
+        this.todoList = new TodayTodoList(orderList);
     }
 
 
@@ -144,7 +149,12 @@ public class OrderList extends GenericList<Order> {
         return genList.get(orderNb).getDishesAmount(dishName);
     }
 
-
+    /**
+     * @return the description of the chef's To'do list today as a string
+     */
+    public String todoListToString() {
+        return todoList.toString();
+    }
 }
 
 

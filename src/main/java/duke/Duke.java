@@ -1,6 +1,7 @@
 package duke;
 
 import duke.command.Command;
+import duke.command.ViewTodoListCommand;
 import duke.command.ingredientCommand.ExitCommand;
 import duke.command.ingredientCommand.RemoveAllExpired;
 import duke.dish.Dish;
@@ -93,6 +94,12 @@ public class Duke {
                     case "q": {
                         Command command = new ExitCommand();
                         command.execute(null, ui, null);
+                        isExit = command.isExit();
+                        break;
+                    }
+                    case "t": {
+                        Command command = new ViewTodoListCommand();
+                        command.execute(order, ui, orderStorage);
                         isExit = command.isExit();
                         break;
                     }

@@ -2,8 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b15f9350-8de7-46bb-9a06-4af9ec7f8651" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/java/duke/list/TodayTodoList.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/java/duke/command/ViewTodoListCommand.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/fridge.txt" beforeDir="false" afterPath="$PROJECT_DIR$/data/fridge.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/duke/Duke.java" beforeDir="false" afterPath="$PROJECT_DIR$/java/duke/Duke.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/duke/list/TodayTodoList.java" beforeDir="false" afterPath="$PROJECT_DIR$/java/duke/list/TodayTodoList.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/duke/order/OrderList.java" beforeDir="false" afterPath="$PROJECT_DIR$/java/duke/order/OrderList.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/duke/ui/Ui.java" beforeDir="false" afterPath="$PROJECT_DIR$/java/duke/ui/Ui.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -73,7 +78,7 @@
       <option name="presentableId" value="Default" />
       <updated>1572685001468</updated>
       <workItem from="1572685004953" duration="24000" />
-      <workItem from="1572685085126" duration="26708000" />
+      <workItem from="1572685085126" duration="30274000" />
     </task>
     <servers />
   </component>
