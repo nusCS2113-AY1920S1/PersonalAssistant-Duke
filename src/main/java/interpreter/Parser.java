@@ -88,6 +88,8 @@ public class Parser {
             if (minIndex > testIndex && testIndex >= 0) {
                 enumType = typeIter;
                 minIndex = testIndex;
+            } else if (minIndex == testIndex && typeIter.length() > enumType.length()) {
+                enumType = typeIter;
             }
         }
         return enumType;
