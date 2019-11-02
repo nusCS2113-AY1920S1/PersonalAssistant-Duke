@@ -99,7 +99,7 @@ public class Parser {
             c = new ListCommand();
         }
         //@@author aarushisingh1
-
+        
         else if (words[0].equals("list") && words.length > 1) {
             String paramType = words[1].substring(1);
             if (paramType.equals("room") || paramType.equals("item") || paramType.equals("date")) {

@@ -131,3 +131,6 @@ public class StatsCommand extends Command {
         return "stats";
     }
 }
+
+// stats for individual items e.g. how often a pen is borrowed per week, per month
+// graph
