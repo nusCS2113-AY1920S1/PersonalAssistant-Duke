@@ -52,7 +52,7 @@ public class FindAssignedTaskCommand implements Command {
      * @param assignedTaskManager contains the information between all the tasks and patients.
      * @param tasksManager        contains information of all the tasks.
      * @param patientManager      contains information of all the patients.
-     * @param ui                  interacts with user.
+     * @param dukeUi                  interacts with user.
      * @param storageManager      save the changes in csv file.
      * @throws DukeException if there is error during searching for the assigned task.
      */
