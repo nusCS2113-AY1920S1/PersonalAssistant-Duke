@@ -5,7 +5,6 @@ import compal.model.tasks.Task;
 import compal.model.tasks.TaskList;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.logging.Logger;
 
 //@@author SholihinK
