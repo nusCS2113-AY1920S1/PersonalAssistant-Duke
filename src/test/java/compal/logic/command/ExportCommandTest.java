@@ -24,11 +24,13 @@ class ExportCommandTest {
     void setUp() {
         Event event1 = new Event("CS2105 Lecture", Task.Priority.medium, "01/10/2019", "01/10/2019", "1400", "1500");
         event1.markAsDone();
+        event1.setHasReminder(true);
 
         taskArrListMain.add(event1);
 
         Deadline deadline1 = new Deadline("Deadline 1", Task.Priority.high, "03/10/2019", "1500");
         deadline1.markAsDone();
+        deadline1.setHasReminder(true);
 
         taskArrListMain.add(deadline1);
 
@@ -56,14 +58,15 @@ class ExportCommandTest {
             e.printStackTrace();
         }
 
-        String expectedString = "BEGIN:VCALENDAR\n"
-            + "PRODID:-//Ben Fortuna//iCal4j 1.0//EN\n" + "VERSION:2.0\n" + "CALSCALE:GREGORIAN\n"
-            + "BEGIN:VEVENT\n" + "SUMMARY:CS2105 Lecture\n"
-            + "DESCRIPTION: Priority:medium\n" + "DTSTART:20191001T140000\n" + "DTEND:20191001T150000\n"
-            + "END:VEVENT\n"
-            + "BEGIN:VEVENT\n" + "SUMMARY:Deadline 1\n"
-            + "DESCRIPTION: Priority:high\n" + "DTSTART:20191003T150000\n" + "DTEND:20191003T150000\n"
-            + "END:VEVENT\n" + "END:VCALENDAR\n";
+        String expectedString = "BEGIN:VCALENDAR\n" + "PRODID:-//Ben Fortuna//iCal4j 1.0//EN\n" + "VERSION:2.0\n"
+            + "CALSCALE:GREGORIAN\n" + "BEGIN:VEVENT\n" + "SUMMARY:CS2105 Lecture\n"
+            + "DESCRIPTION: Priority:medium\n" + "DTSTART:20191001T140000\n"
+            + "DTEND:20191001T150000\n" + "BEGIN:VALARM\n"
+            + "TRIGGER;VALUE=DATE-TIME:20191001T060000Z\n" + "ACTION:DISPLAY\n" + "DESCRIPTION:CS2105 Lecture\n"
+            + "END:VALARM\n" + "END:VEVENT\n" + "BEGIN:VEVENT\n"
+            + "SUMMARY:Deadline 1\n" + "DESCRIPTION: Priority:high\n" + "DTSTART:20191003T150000\n"
+            + "DTEND:20191003T150000\n" + "END:VEVENT\n"
+            + "END:VCALENDAR\n";
         Assertions.assertEquals(expectedString, testedString);
     }
 }
