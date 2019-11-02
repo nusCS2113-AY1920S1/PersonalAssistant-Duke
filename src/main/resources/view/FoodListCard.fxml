@@ -44,7 +44,6 @@
                 <Label fx:id="name" styleClass="cell_big_label" text="name"/>
             </HBox>
             <FlowPane fx:id="tags"/>
-            <Label fx:id="type" styleClass="cell_small_label" text="type"/>
             <Label fx:id="price" styleClass="cell_small_label" text="price"/>
             <Label fx:id="stock" styleClass="cell_small_label" text="stock"/>
             <Label fx:id="expiry" styleClass="cell_small_label" text="expiry"/>
@@ -53,7 +52,7 @@
             <padding>
                 <Insets bottom="5" left="15" right="5" top="5"/>
             </padding>
-            <Button fx:id="edit" styleClass="cell_small_label">
+            <Button fx:id="edit" styleClass="cell_small_label" onAction="#handleEdit">
                 <graphic>
                     <ImageView fitWidth="30" pickOnBounds="true" preserveRatio="true">
                         <image>
@@ -63,9 +62,9 @@
                     </ImageView>
                 </graphic>
             </Button>
-            <Button fx:id="delete" styleClass="cell_small_label">
+            <Button fx:id="delete" styleClass="cell_small_label" onAction="#handleDelete">
                 <graphic>
-                    <ImageView fitWidth="25" pickOnBounds="true" preserveRatio="true">
+                    <ImageView fitWidth="30" pickOnBounds="true" preserveRatio="true">
                         <image>
                             <!-- Icon made by Good Ware from www.flaticon.com -->
                             <Image url="@/images/icon_delete.png"/>
