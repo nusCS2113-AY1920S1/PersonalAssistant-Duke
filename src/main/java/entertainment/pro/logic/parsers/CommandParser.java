@@ -5,25 +5,10 @@ import entertainment.pro.commons.exceptions.EmptyCommandException;
 import entertainment.pro.commons.exceptions.MissingInfoException;
 import entertainment.pro.logic.execution.CommandStack;
 import entertainment.pro.commons.exceptions.Exceptions;
+import entertainment.pro.logic.parsers.commands.*;
 import entertainment.pro.model.CommandPair;
 import entertainment.pro.ui.Controller;
 import entertainment.pro.ui.MovieHandler;
-
-import entertainment.pro.logic.parsers.commands.PreferenceCommand;
-import entertainment.pro.logic.parsers.commands.RemoveCommand;
-import entertainment.pro.logic.parsers.commands.RestrictionCommand;
-import entertainment.pro.logic.parsers.commands.SearchCommand;
-import entertainment.pro.logic.parsers.commands.SetCommand;
-import entertainment.pro.logic.parsers.commands.ViewCommand;
-import entertainment.pro.logic.parsers.commands.WatchlistCommand;
-import entertainment.pro.logic.parsers.commands.YesCommand;
-import entertainment.pro.logic.parsers.commands.AddCommand;
-import entertainment.pro.logic.parsers.commands.BlacklistCommand;
-import entertainment.pro.logic.parsers.commands.FindCommand;
-import entertainment.pro.logic.parsers.commands.GetCommand;
-import entertainment.pro.logic.parsers.commands.HelpCommand;
-import entertainment.pro.logic.parsers.commands.MoreCommand;
-import entertainment.pro.logic.parsers.commands.PlaylistCommand;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -108,6 +93,13 @@ public class CommandParser {
                 wc.initCommand(commandArr, commandStr, command.getSubRootCommand());
                 if (command.isValidCommand()) {
                     CommandStack.pushCmd(wc);
+                }
+                break;
+            case exit:
+                ExitCommand exitCommand = new ExitCommand(uicontroller);
+                exitCommand.initCommand(commandArr, commandStr, command.getSubRootCommand());
+                if (command.isValidCommand()) {
+                    CommandStack.pushCmd(exitCommand);
                 }
                 break;
             case set:
@@ -214,6 +206,12 @@ public class CommandParser {
                 AddCommand wc = new AddCommand(uicontroller);
                 if (wc.initCommand(commandArr , command)) {
                     CommandStack.pushCmd(wc);
+                }
+                break;
+            case "exit":
+                ExitCommand exitCommand = new ExitCommand(uicontroller);
+                if (exitCommand.initCommand(commandArr, command)) {
+                    CommandStack.pushCmd(exitCommand);
                 }
                 break;
             case "set":
