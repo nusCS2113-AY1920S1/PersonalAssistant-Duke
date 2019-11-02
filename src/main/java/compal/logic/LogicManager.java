@@ -53,6 +53,7 @@ public class LogicManager {
         //save to file if required
         if (cmdResult.requireSaving) {
             logger.info("Updating tasks.txt file");
+            taskList.sortTask(taskList.getArrList());
             taskStorageManager.saveData(taskList.getArrList());
         }
 

@@ -47,6 +47,8 @@ public class ViewReminderCommandParserTest {
         taskListMain.addTask(deadline2);
         taskListDup.addTask(deadline2);
 
+        taskListMain.sortTask(taskListMain.getArrList());
+        taskListDup.sortTask(taskListDup.getArrList());
 
     }
 
