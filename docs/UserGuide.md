@@ -337,8 +337,6 @@ features of the application BetterDuke.
       recur/rmweekly CS2101 assignment /start 10/10/2019 /to 31/11/2019 /from 1200 /to 1400
       recur/biweekly CS2101 assignment /start 10/10/2019 /to 31/11/2019 /from 1200 /to 1400
       recur/rmbiweekly CS2101 assignment /start 10/10/2019 /to 31/11/2019 /from 1200 /to 1400
-      Label: label td/TASK_DESCRIPTION tag/TAG_NAME
-      e.g. label td/Duke user guide tag/CS2113T week 6
       
       f) Todo reminder: ‘TASK_DESCRIPTION’ (from sd/START DATE to ed/END DATE) ,
       where ‘TASK_DESCRIPTION’ is the task
@@ -359,12 +357,6 @@ features of the application BetterDuke.
       k) Select the Week: Week ‘x’,where ‘x’ is an integer between 1 to 13
       e.g. Week 5
       
-      l) Mark as important: markAs INDEX
-      e.g. markAs 3
-      
-      m) Custom: custom LIGHT_OR_DARK
-      e.g. custom dark
-      
-      n) Help: help
+      l) Help: help
       
       o)Exit: bye
