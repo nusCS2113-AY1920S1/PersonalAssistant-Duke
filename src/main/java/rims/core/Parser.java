@@ -7,7 +7,19 @@ import java.util.Date;
 import java.text.SimpleDateFormat;
 import java.text.DateFormat;
 
-import rims.command.*;
+import rims.command.Command;
+import rims.command.AddCommand;
+import rims.command.ReserveCommand;
+import rims.command.DeleteCommand;
+import rims.command.CalendarCommand;
+import rims.command.CloseCommand;
+import rims.command.HelpCommand;
+import rims.command.ListCommand;
+import rims.command.ReturnCommand;
+import rims.command.StatsCommand;
+import rims.command.UndoCommand;
+import rims.command.ViewDeadlinesCommand;
+
 import rims.exception.RimsException;
 import rims.core.Ui;
 import rims.core.ResourceList;
@@ -17,9 +29,9 @@ import rims.resource.ReservationList;
 
 //@@author rabhijit
 /**
- * This class takes in a String of input from the Ui, and depending on the content of
- * the input, parses it into a unique executable command that will carry out the tasks
- * required for that input.
+ * This class takes in a String of input from the Ui, and depending on the
+ * content of the input, parses it into a unique executable command that will
+ * carry out the tasks required for that input.
  */
 public class Parser {
     Ui ui;
@@ -28,7 +40,8 @@ public class Parser {
 
     /**
      * Constructor for the Parser.
-     * @param ui An instance of the user interface class.
+     * 
+     * @param ui        An instance of the user interface class.
      * @param resources An instance of the resource list.
      */
     public Parser(Ui ui, ResourceList resources) {
@@ -36,17 +49,25 @@ public class Parser {
         this.resources = resources;
     }
 
+    /**
+     * Saves the last executed command that modified data
+     * in Parser.
+     * @param c Previous command that modified data in ResourceList.
+     */
     public void setPrevCommand(Command c) {
-        //if (c.canChangeData()) { prevCommand = c; }
+        if (c.canModifyData()) { prevCommand = c; }
     }
 
     /**
-     * Converts a 'natural date' (just a day and date) into a String version of a date,
-     * in the format DD/MM/YYYY HHmm by finding the next date of the requested day.
-     * @param day the day whose next date is to be obtained.
+     * Converts a 'natural date' (just a day and date) into a String version of a
+     * date, in the format DD/MM/YYYY HHmm by finding the next date of the requested
+     * day.
+     * 
+     * @param day  the day whose next date is to be obtained.
      * @param time the time to be appended to the date obtained above.
      * @return a String version of the requested date, in DD/MM/YYYY HHmm format.
-     * @throws RimsException if the day requested is not one of the 7 days of the week.
+     * @throws RimsException if the day requested is not one of the 7 days of the
+     *                       week.
      */
     public String convertNaturalDate(String day, String time) throws RimsException {
         Date todayDate = new Date(System.currentTimeMillis());
@@ -59,8 +80,7 @@ public class Parser {
                 stringDate = format.format(todayDate);
                 stringDate = stringDate.substring(0, stringDate.length() - 4);
                 stringDate += time;
-            }
-            else {
+            } else {
                 Calendar cal = Calendar.getInstance();
                 cal.setTime(todayDate);
                 cal.add(Calendar.DATE, 1);
@@ -69,78 +89,69 @@ public class Parser {
         }
         if (!(validDay) || stringDate == null) {
             throw new RimsException("Please enter a valid day / time.");
-        }
-        else {
+        } else {
             return stringDate;
         }
     }
 
     /**
-     * Identifies which command the user wishes to implement, even from a one letter string input
+     * Identifies which command the user wishes to implement, even from a one letter
+     * string input.
+     * 
      * @param input the first letter of the command or the entire command.
      * @return a String version of the command the user wishes to call.
      */
-    //@@author aarushisingh1
-    public String friendlierSyntax(String input){
+    // @@author aarushisingh1
+    public String friendlierSyntax(String input) {
         String identifier = "";
-        if(input.equals("l")) {
+        if (input.equals("l")) {
             identifier = ui.getInput("Did you mean list?");
-                if(identifier.equals("Y")){
-                    return "list";
-                }
-                else{
-                    identifier = ui.getInput("Did you mean loan?");
-                    return "loan";
-                }
-        }
-        else if(input.equals("loan")){
-            return "loan";
-        }
-        else if(input.equals("list")){
-            return "list";
-        }
-        else if(input.equals("d")){
-            identifier = ui.getInput("Did you mean delete?");
-                if(identifier.equals("Y")){
-                    return "delete";
-                }
-                else{
-                    identifier = ui.getInput("Did you mean deadlines?");
-                    return "deadlines";
-                }
-        }
-        else if(input.equals("delete")){
-            return "delete";
-        }
-        else if(input.equals("deadlines")){
-            return "deadlines";
-        }
-        else if(input.equals("r")){
-            identifier = ui.getInput("Did you mean reserve?");
-            if(identifier.equals("Y")){
-                return "reserve";
+            if (identifier.equals("Y")) {
+                return "list";
+            } else {
+                identifier = ui.getInput("Did you mean loan?");
+                return "loan";
             }
-            else{
+        } else if (input.equals("loan")) {
+            return "loan";
+        } else if (input.equals("list")) {
+            return "list";
+        } else if (input.equals("d")) {
+            identifier = ui.getInput("Did you mean delete?");
+            if (identifier.equals("Y")) {
+                return "delete";
+            } else {
+                identifier = ui.getInput("Did you mean deadlines?");
+                return "deadlines";
+            }
+        } else if (input.equals("delete")) {
+            return "delete";
+        } else if (input.equals("deadlines")) {
+            return "deadlines";
+        } else if (input.equals("r")) {
+            identifier = ui.getInput("Did you mean reserve?");
+            if (identifier.equals("Y")) {
+                return "reserve";
+            } else {
                 identifier = ui.getInput("Did you mean return?");
                 return "return";
             }
-        }
-        else if(input.equals("reserve")){
+        } else if (input.equals("reserve")) {
             return "reserve";
-        }
-        else if(input.equals("return")){
+        } else if (input.equals("return")) {
             return "return";
-        }
-        else{
+        } else {
             return "not valid";
         }
     }
 
     /**
      * Parses the input obtained by the Ui from the user into an executable command.
+     * 
      * @param input the input obtained from the user by the Ui.
      * @return a Command that can be executed to carry out the necessary tasks
-     * @throws RimsException if the input is in a wrong format or does not make sense.
+     * @throws RimsException if the input is in a wrong format or does not make
+     *                       sense.
      */
     public Command parseInput(String input) throws RimsException, ParseException {
         Command c;
@@ -165,7 +176,7 @@ public class Parser {
             c = new ViewDeadlinesCommand();
         } else if (input.equals("help") && words.length == 1) {
             c = new HelpCommand();
-        //@@author danielcyc
+            // @@author danielcyc
         } else if (words[0].equals("calendar") && words.length == 1 || words[0].equals("c")) {
             CalendarCommand.printCal(resources, ui);
             c = new ListCommand();
@@ -374,8 +385,6 @@ public class Parser {
             int dateTillIndex = input.indexOf("/till");
             String dateFrom = input.substring(dateFromIndex + 6, dateTillIndex);
             String dateTill = input.substring(dateTillIndex + 6);
-            System.out.println(dateFrom);
-            System.out.println(dateTill);
             if (dateFrom.length() < 15) {
                 String[] splitDateFrom = dateFrom.split(" ");
                 dateFrom = convertNaturalDate(splitDateFrom[0], splitDateFrom[1]);
@@ -385,8 +394,7 @@ public class Parser {
                 dateTill = convertNaturalDate(splitDateTill[0], splitDateTill[1]);
             }
             c = new StatsCommand(dateFrom, dateTill);
-        }
-        else {
+        } else {
             throw new RimsException("Please enter a recognizable command!");
         }
         return c;

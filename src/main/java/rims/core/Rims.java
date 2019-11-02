@@ -15,23 +15,30 @@ import rims.exception.RimsException;
  * The main class that instantiates all the sub-classes that carry out
  * the relevant sub-tasks of RIMS.
  */
-public class Rims{
+public class Rims {
     private Storage storage;
     private ResourceList resources;
     private Ui ui;
     private Parser parser;
 
     /**
-     * Constructor for RIMS that instantiates the necessary sub-classes for
-     * its operation.
-     * @param resourceFilePath the file path of the document where resource data is stored.
-     * @param reserveFilePath the file path of the document where reservation data is stored.
-     * @throws FileNotFoundException if any file path is invalid
-     * @throws ParseException if data is stored in an invalid format and is thus unable to be parsed
+     * Constructor for RIMS that instantiates the necessary sub-classes for its
+     * operation.
+     * 
+     * @param resourceFilePath the file path of the document where resource data is
+     *                         stored.
+     * @param reserveFilePath  the file path of the document where reservation data
+     *                         is stored.
+     * @throws ParseException if data is stored in an invalid format and is thus
+     *                        unable to be parsed
+     * @throws IOException
      */
-    public Rims(String resourceFilePath, String reserveFilePath)
-        throws FileNotFoundException, ParseException, RimsException, IOException {
+    public Rims(String resourceFilePath, String reserveFilePath) throws ParseException, RimsException, IOException {
         ui = new Ui();
+        //ui.printArray(getLocalTextFiles());
+        //Need to check for proper resourceFile/reserveFile i.e. make sure cannot be any random .txt file
+        //resourceFilePath = getFilePath(ui, "resource");
+        //reserveFilePath = getFilePath(ui, "reservations");
         storage = new Storage(resourceFilePath, reserveFilePath);
         resources = new ResourceList(ui, storage.getResources());
         parser = new Parser(ui, resources);
@@ -50,11 +57,38 @@ public class Rims{
             try {
                 Command c = parser.parseInput(ui.getInput());
                 c.execute(ui, storage, resources);
-                //parser.setPrevCommand(c);
+                parser.setPrevCommand(c);
                 toExit = c.getExitCode();
             } catch (RimsException e) {
                 e.displayError();
             }
+        }
+    }
+
+    public ArrayList<String> getLocalTextFiles() {
+        String dir = System.getProperty("user.dir");
+        File directoryToCheck = new File(dir);
+        File[] textFiles = directoryToCheck.listFiles(new FilenameFilter() {
+            @Override
+            public boolean accept(File dir, String name) {
+                return name.endsWith(".txt");
+            }
+        });
+        ArrayList<String> textFileStrings = new ArrayList<String>();
+        for (File f : textFiles) {
+            textFileStrings.add(f.toString());
+        }
+        return textFileStrings;
+    }
+
+    public String getFilePath(Ui ui, String file) {
+        String path = ui.getInput("Type the file path of the text file that stores the " + file + ": ");
+        File f = new File(path);
+        if (f.exists()) {
+            return path;
+        } else {
+            ui.formattedPrint("File does not exist! Try again!");
+            return getFilePath(ui, file);
         }
     }
 

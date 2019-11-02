@@ -10,8 +10,9 @@ import rims.resource.Resource;
 
 //@@author rabhijit
 /**
- * Handles the taking in of input from the user and passes it to the Parser to translate it into usable commands.
- * Also handles printing of messages for the user's reading.
+ * Handles the taking in of input from the user and passes it to the Parser to
+ * translate it into usable commands. Also handles printing of messages for the
+ * user's reading.
  */
 public class Ui {
     protected Scanner inputScanner;
@@ -19,11 +20,11 @@ public class Ui {
     protected int intInput;
     protected String arrow = ">> ";
     protected String line = "______________________________________________"
-        + "______________________________________________________________________________________________";
+            + "______________________________________________________________________________________________";
     protected String dash = "- - - - - - - - - - - - - - - - - - - - - - - - - "
-        + "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ";
-    protected String hash = "***************************************************************" 
-        + "*****************************************************************************";
+            + "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ";
+    protected String hash = "***************************************************************"
+            + "*****************************************************************************";
     protected String tab = "\t";
     protected ArrayList<String> welcomeMsg = new ArrayList<String>(Arrays.asList("Welcome to RIMS, your Resource"
         + " & Inventory Management System.",
@@ -39,12 +40,9 @@ public class Ui {
         "list - see all resources and current reservations",
         "\t" + "list /item - see all loans and future reservations of a particular item",
         "\t" + "list /room - see all loans and future reservations of a particular room",
-        "deadlines - view all currently active loans and reservations"));
+        "deadlines - view all currently active loans and reservations",
+        "undo - undo the last command that modified inventory data"));
 
-    /**
-     * Constructor of the Ui. Initializes the scanner to take in user input,
-     * and prints the RIMS welcome message.
-     */
     public Ui() {
         inputScanner = new Scanner(System.in);
         welcome();
@@ -52,6 +50,7 @@ public class Ui {
 
     /**
      * Obtains a new String input from the user.
+     * 
      * @return the new input typed by the user.
      */
     public String getInput() {
@@ -60,9 +59,11 @@ public class Ui {
         return input;
     }
 
-    //@@author isbobby
+    // @@author isbobby
     /**
-     * Prints a question for the user, before obtaining a new String input in response from the user.
+     * Prints a question for the user, before obtaining a new String input in
+     * response from the user.
+     * 
      * @return the new input typed by the user.
      */
     public String getInput(String question) {
@@ -73,7 +74,9 @@ public class Ui {
     }
 
     /**
-     * Obtains a new integer input from the user, without requiring conversion from String to integer format.
+     * Obtains a new integer input from the user, without requiring conversion from
+     * String to integer format.
+     * 
      * @return the new integer input typed by the user.
      */
     public int getIntegerInput() {
@@ -83,7 +86,9 @@ public class Ui {
     }
 
     /**
-     * Prints a question for the user, before obtaining a new integer input in response from the user.
+     * Prints a question for the user, before obtaining a new integer input in
+     * response from the user.
+     * 
      * @return the new integer input typed by the user.
      */
     public int getIntegerInput(String question) {
@@ -93,7 +98,7 @@ public class Ui {
         return intInput;
     }
 
-    //@@author rabhijit
+    // @@author rabhijit
     /**
      * Prints a line of underscores.
      */
@@ -101,7 +106,7 @@ public class Ui {
         System.out.println(tab + line);
     }
 
-    //@@author isbobby
+    // @@author isbobby
     /**
      * Prints a line of dashes.
      */
@@ -109,7 +114,7 @@ public class Ui {
         System.out.println(tab + dash);
     }
 
-    //@@author rabhijit
+    // @@author rabhijit
     /**
      * Prints a desired line for the user to read.
      */
@@ -173,12 +178,12 @@ public class Ui {
         formattedPrintArray(commands);
     }
 
-    //@@author danielcyc
+    // @@author danielcyc
     /**
      * Prints the RIMS logo, as part of the RIMS welcome message.
      */
     public void printLogo() {
-        String logo = "\n"
+        String logo = "\n" 
                 +
                 tab + "          _____                    _____"
                 + "                    _____                    _____          \n"

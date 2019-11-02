@@ -12,49 +12,49 @@ import java.text.ParseException;
 /**
  * Undoes the last command (e.g. AddCommand, LoanCommand) that was executed that
  * made a change in Model component (ResourceList, ReservationList).
- *
- * This is done by reloading a screenshot of the previous state of Model
- * from the external .txt files.
+ * <p>
+ * This is done by reloading a screenshot of the previous state of Model from
+ * the external .txt files.
  */
 public class UndoCommand extends Command {
 
     protected Command prevCommand;
 
     /**
-     * Constructor of an UndoCommand, which takes in the parameter of a Command object, for the Ui to
-     * notify the user about the command that was undone.
-     * @param previousCommand Command inputted by the user that last changed ResourceList.
+     * Constructor of an UndoCommand, which takes in the parameter of a Command
+     * object, for the Ui to notify the user about the command that was undone.
+     * 
+     * @param previousCommand Command inputted by the user that last changed
+     *                        ResourceList.
      */
     public UndoCommand(Command previousCommand) {
         prevCommand = previousCommand;
+        canModifyData = false;
+        commandUserInput = "undo";
     }
 
     /**
-     * Undoes the previous Command by reloading the previous state captured in the external .txt files
-     * back into ResourceList resources by using storage. Not required to amend if new commands are present.
+     * Undoes the previous Command by reloading the previous state captured in the
+     * external .txt files back into ResourceList resources by using storage. Not
+     * required to amend if new commands are present.
      *
-     * @param ui An instance of the user interface.
-     * @param storage An instance of the Storage class.
-     * @param resources The ResourceList, containing all the created Resources thus far.
+     * @param ui        An instance of the user interface.
+     * @param storage   An instance of the Storage class.
+     * @param resources The ResourceList, containing all the created Resources thus
+     *                  far.
      * @throws ParseException
      * @throws IOException
      * @throws RimsException
      */
     @Override
     public void execute(Ui ui, Storage storage, ResourceList resources) throws ParseException, IOException, RimsException {
+        if (prevCommand == null) {
+            ui.formattedPrint("No command that has modified this inventory yet!");
+            return;
+        }
         storage.readResourceFile();
         resources.setResources(storage.getResources());
 
-        ui.printLine();
-        ui.print("The previous command has been undone!");
-        ui.printLine();
+        ui.formattedPrint("The following command has been undone: " + prevCommand.getCommandUserInput());
     }
-
-    @Override
-    public boolean canModifyData() {
-        return false;
-    }
-
-    @Override
-    public String getCommandUserInput() { return "undo"; }
 }
