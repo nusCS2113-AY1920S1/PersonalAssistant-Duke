@@ -30,6 +30,8 @@ public class ReturnCommand extends Command {
         this.userId = userId;
         this.resourceIds = resourceIds;
         this.reservationIds = reservationIds;
+        canModifyData = true;
+        commandUserInput = "return reservation(s): " + reservationsIdsToString(reservationIds) + "by user " + userId;
     }
 
     /**
@@ -60,8 +62,12 @@ public class ReturnCommand extends Command {
 
     }
 
-    @Override
-    public boolean canChangeData() {
-        return true;
+    private String reservationsIdsToString(ArrayList<Integer> reservationIds) {
+        String reservationsIdsString = "";
+        for (int i : reservationIds) {
+            reservationsIdsString += (i + ", ");
+        }
+        return reservationsIdsString;
     }
+
 }

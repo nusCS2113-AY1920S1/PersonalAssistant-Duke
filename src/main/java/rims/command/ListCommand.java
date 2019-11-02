@@ -42,6 +42,8 @@ public class ListCommand extends Command {
     public ListCommand(String paramType, String resourceDetail) {
         listType = paramType;
         this.resourceDetail = resourceDetail;
+        canModifyData = false;
+        commandUserInput = "list all " + paramType + "by " + resourceDetail;
     }
 
     /**

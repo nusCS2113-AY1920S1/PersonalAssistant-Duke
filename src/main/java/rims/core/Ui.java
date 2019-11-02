@@ -34,7 +34,8 @@ public class Ui {
         "return - return a loan or reservation",
         "list - see all resources and current reservations",
         "\t" + "list /item - see all loans and future reservations of a particular item",
-        "\t" + "list /room - see all loans and future reservations of a particular room"));
+        "\t" + "list /room - see all loans and future reservations of a particular room",
+        "undo - undo the last command that modified inventory data"));
 
     /**
      * Constructor of the Ui. Initializes the scanner to take in user input,

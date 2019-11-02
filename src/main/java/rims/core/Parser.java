@@ -29,15 +29,20 @@ public class Parser {
     /**
      * Constructor for the Parser.
      * @param ui An instance of the user interface class.
-     * @param resource An instance of the resource list.
+     * @param resources An instance of the resource list.
      */
     public Parser(Ui ui, ResourceList resources) {
         this.ui = ui;
         this.resources = resources;
     }
 
+    /**
+     * Saves the last executed command that modified data
+     * in Parser.
+     * @param c Previous command that modified data in ResourceList.
+     */
     public void setPrevCommand(Command c) {
-        //if (c.canChangeData()) { prevCommand = c; }
+        if (c.canChangeData()) { prevCommand = c; }
     }
 
     /**
@@ -99,7 +104,6 @@ public class Parser {
             c = new ListCommand();
         }
         //@@author aarushisingh1
-
         else if (words[0].equals("list") && words.length > 1) {
             String paramType = words[1].substring(1);
             if (paramType.equals("room") || paramType.equals("item") || paramType.equals("date")) {
@@ -115,7 +119,7 @@ public class Parser {
                 c = new ListCommand(paramType, param);
             } else {
                 throw new RimsException(
-                    "Invalid list parameter! Please specify 'item', 'room' or 'date' to view a detailed list of a resource.");
+                        "Invalid list parameter! Please specify 'item', 'room' or 'date' to view a detailed list of a resource.");
             }
         }
          //@@author hin1
@@ -310,4 +314,5 @@ public class Parser {
         }
         return c;
     }
+
 }

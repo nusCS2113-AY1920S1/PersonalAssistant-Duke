@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FilenameFilter;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.text.ParseException;
 import java.util.ArrayList;
 
@@ -30,8 +31,12 @@ public class Rims{
      * @throws ParseException if data is stored in an invalid format and is thus unable to be parsed
      */
     public Rims(String resourceFilePath, String reserveFilePath)
-        throws FileNotFoundException, ParseException, RimsException {
+            throws FileNotFoundException, ParseException, RimsException {
         ui = new Ui();
+        //ui.printArray(getLocalTextFiles());
+        //Need to check for proper resourceFile/reserveFile i.e. make sure cannot be any random .txt file
+        //resourceFilePath = getFilePath(ui, "resource");
+        //reserveFilePath = getFilePath(ui, "reservations");
         storage = new Storage(resourceFilePath, reserveFilePath);
         resources = new ResourceList(ui, storage.getResources());
         parser = new Parser(ui, resources);
@@ -50,11 +55,38 @@ public class Rims{
             try {
                 Command c = parser.parseInput(ui.getInput());
                 c.execute(ui, storage, resources);
-                //parser.setPrevCommand(c);
+                parser.setPrevCommand(c);
                 toExit = c.getExitCode();
             } catch (RimsException e) {
                 e.displayError();
             }
+        }
+    }
+
+    public ArrayList<String> getLocalTextFiles() {
+        String dir = System.getProperty("user.dir");
+        File directoryToCheck = new File(dir);
+        File[] textFiles = directoryToCheck.listFiles(new FilenameFilter() {
+            @Override
+            public boolean accept(File dir, String name) {
+                return name.endsWith(".txt");
+            }
+        });
+        ArrayList<String> textFileStrings = new ArrayList<String>();
+        for (File f : textFiles) {
+            textFileStrings.add(f.toString());
+        }
+        return textFileStrings;
+    }
+
+    public String getFilePath(Ui ui, String file) {
+        String path = ui.getInput("Type the file path of the text file that stores the " + file + ": ");
+        File f = new File(path);
+        if (f.exists()) {
+            return path;
+        } else {
+            ui.formattedPrint("File does not exist! Try again!");
+            return getFilePath(ui, file);
         }
     }
 
@@ -65,7 +97,7 @@ public class Rims{
      * @throws IOException if there is an error in reading input or printing output
      * @throws RimsException if the input has no meaning or does not follow our format
      */
-    public static void main(String[] args) throws FileNotFoundException, ParseException, IOException, RimsException {
+    public static void main(String[] args) throws FileNotFoundException, ParseException, IOException, RimsException, URISyntaxException {
         new Rims("data/resources.txt", "data/reserves.txt").run();
     }
 }
