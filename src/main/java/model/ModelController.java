@@ -48,6 +48,10 @@ public class ModelController implements Model {
         return tasksManager.getTaskList();
     }
 
+    public String getTodoTasks() {
+        return tasksManager.getTodoTasks();
+    }
+
     public int getTaskListSize() {
         return tasksManager.getTaskListSize();
     }
@@ -101,6 +105,14 @@ public class ModelController implements Model {
 
     public String scheduleTeamTodo() {
         return tasksManager.scheduleTeamTodo();
+    }
+
+    public String tasksAllInorderPicNum() {
+        return tasksManager.tasksAllInorderPicNum();
+    }
+
+    public String tasksTodoInorderPicNum() {
+        return tasksManager.tasksTodoInorderPicNum();
     }
 
 
@@ -222,5 +234,35 @@ public class ModelController implements Model {
     public String scheduleMemberTodo(String memberName) {
         ArrayList<String> tasksName = memberManager.getTaskListOfMember(memberName);
         return tasksManager.scheduleTodoTasks(tasksName);
+    }
+
+    public String check() {
+        String result = "";
+        for (int i = 0; i < memberManager.getMemberListSize(); i++) {
+            String memberName = memberManager.getMemberNameById(i);
+            ArrayList<String> tasksName = memberManager.getTaskListOfMember(memberName);
+            result += "\n" + memberName + ": " + tasksManager.check(tasksName);
+        }
+        return result;
+    }
+
+    public String membersInorderProgress() {
+        ArrayList<Double> progress = new ArrayList<>();
+        for (int i = 0; i < memberManager.getMemberListSize(); i++) {
+            String memberName = memberManager.getMemberNameById(i);
+            ArrayList<String> tasksName = memberManager.getTaskListOfMember(memberName);
+            progress.add(tasksManager.getProgress(tasksName));
+        }
+        return memberManager.membersInorderProgress(progress);
+    }
+
+    public String membersInorderTodoNum() {
+        ArrayList<Integer> todoNum = new ArrayList<>();
+        for (int i = 0; i < memberManager.getMemberListSize(); i++) {
+            String memberName = memberManager.getMemberNameById(i);
+            ArrayList<String> tasksName = memberManager.getTaskListOfMember(memberName);
+            todoNum.add(tasksManager.getTodoTasks(tasksName));
+        }
+        return memberManager.membersInorderTodoNum(todoNum);
     }
 }

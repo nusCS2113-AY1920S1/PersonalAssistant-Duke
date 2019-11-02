@@ -2,40 +2,53 @@
   {
     "name": "john",
     "isDone": false,
-    "memberList": [],
+    "memberList": [
+      "P1"
+    ],
     "skillReqList": [],
     "time": "Dec 12, 2019, 11:11:00 AM"
   },
   {
     "name": "james",
     "isDone": false,
-    "memberList": [],
+    "memberList": [
+      "P1"
+    ],
     "skillReqList": [
       "yo"
-    ]
+    ],
+    "time": "Dec 12, 2019, 11:12:00 AM"
   },
   {
     "name": "null",
     "isDone": false,
-    "memberList": [],
+    "memberList": [
+      "P1"
+    ],
     "skillReqList": []
   },
   {
     "name": "lame",
     "isDone": false,
-    "memberList": [],
+    "memberList": [
+      "P2"
+    ],
     "skillReqList": []
   },
   {
     "name": "hi",
     "isDone": false,
-    "memberList": [],
+    "memberList": [
+      "P2"
+    ],
     "skillReqList": []
   },
   {
     "name": "yooo",
     "isDone": false,
-    "memberList": [],
+    "memberList": [
+      "P2"
+    ],
     "skillReqList": []
   }
 ]

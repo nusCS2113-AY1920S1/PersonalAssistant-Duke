@@ -10,11 +10,11 @@ import gui.Window;
 public class  ListTasksCommand extends Command {
     public static final String COMMAND_WORD = "tasks";
     public static final String EMPTY_TASKS_LIST = "There are currently no tasks in project manager";
-    private String arguments;
+    //private String arguments;
 
-    public ListTasksCommand(String arguments) {
-        this.arguments = arguments;
-    }
+    //public ListTasksCommand(String arguments) {
+        //this.arguments = arguments;
+    //}
 
     @Override
     public CommandOutput execute(Model model) {

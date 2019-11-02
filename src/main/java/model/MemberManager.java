@@ -210,4 +210,42 @@ public class MemberManager {
         Member member = getMemberById(index);
         member.setPhone(phone);
     }
+
+    public String membersInorderProgress(ArrayList<Double> progress) {
+        String result = "";
+        for (int i = 0; i < progress.size(); i++) {
+            double max = -1;
+            int maxIndex = -1;
+            for (int j = 0; j < progress.size(); j++) {
+                if (progress.get(i) > max) {
+                    maxIndex = i;
+                    max = progress.get(i);
+                }
+            }
+            result += "\n" + maxIndex + 1 + ". " + getMemberNameById(maxIndex)
+                    + " progress is: " + progress.get(maxIndex);
+            progress.remove(max);
+        }
+        return result;
+    }
+
+
+    public String membersInorderTodoNum(ArrayList<Integer> todoNum) {
+        String result = "";
+        for (int i = 0; i < todoNum.size(); i++) {
+            double max = -1;
+            int maxIndex = -1;
+            for (int j = 0; j < todoNum.size(); j++) {
+                if (todoNum.get(i) > max) {
+                    maxIndex = i;
+                    max = todoNum.get(i);
+                }
+            }
+            result += "\n" + maxIndex + 1 + ". " + getMemberNameById(maxIndex)
+                    + " has todo tasks: " + todoNum.get(maxIndex);
+            todoNum.remove(max);
+        }
+        return result;
+    }
+
 }

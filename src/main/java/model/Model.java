@@ -20,6 +20,8 @@ public interface Model {
     //==================Task Interface======================
     ArrayList<Task> getTaskList();
 
+    String getTodoTasks();
+
     int getTaskListSize();
 
     String getTaskNameById(int index);
@@ -37,6 +39,10 @@ public interface Model {
     String scheduleTeamTodo() throws DukeException;
 
     String updateTaskDes(int index, String des);
+
+    String tasksAllInorderPicNum();
+
+    String tasksTodoInorderPicNum();
 
     //TODO look into using exceptions instead?
     boolean addTaskReqSkill(String taskName, String skillName);
@@ -63,6 +69,10 @@ public interface Model {
 
     boolean addMemberSkill(String memberName, String skillName);
 
+    String membersInorderProgress();
+
+    String membersInorderTodoNum();
+
     //==================Task and Member Interface======================
     void link(int tasksIndexes, String memberNames);
 
@@ -75,5 +85,7 @@ public interface Model {
     String scheduleMemberAll(String memberName) throws DukeException;
 
     String scheduleMemberTodo(String memberName) throws DukeException;
+
+    String check();
 
 }

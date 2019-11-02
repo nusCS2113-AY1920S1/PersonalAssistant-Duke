@@ -1,25 +1,24 @@
 package logic.parser;
 
-import logic.command.Command;
-import logic.command.ListMembersCommand;
-import logic.command.ListTasksCommand;
 import common.DukeException;
+import logic.command.Command;
+import logic.command.ListTasksCommand;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class ListCommandParser {
+public class ListTasksParser {
 
-    public static final String LIST_USAGE = "Usage: list tasks {all/todo} (picnum) or list members (todonum/progress)";
+    public static final String LIST_USAGE = "Usage: list tasks {all/todo} (picnum)";
     private static final Pattern BASIC_LIST_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
-    private static final String TASK = "tasks";
-    private static final String MEMBER = "members";
-    public static final String NONE = "";
+    private static final String ALL = "all";
+    private static final String TODO = "todo";
+    public static final String PICNUM = "picnum";
 
     /**
      * Parses add commands.
      */
-    public static Command parseListCommand(String partialCommand) throws DukeException {
+    public static Command parseListTasks(String partialCommand) throws DukeException {
         final Matcher matcher = BASIC_LIST_COMMAND_FORMAT.matcher(partialCommand.trim());
         if (!matcher.matches()) {
             throw new DukeException(LIST_USAGE);
@@ -32,16 +31,15 @@ public class ListCommandParser {
         arguments = arguments.trim();
 
         switch (listType) {
-        case TASK:
-            return ListTasksParser.parseListTasks(arguments);
+        case ALL:
+            return ListTasksAllParser.parseListTasksAll(arguments);
 
-        case MEMBER:
-            return ListMembersParser.parseListMembers(arguments);
+        case TODO:
+            return ListTasksTodoParser.parseListTasksTodo(arguments);
 
         default:
-            throw new DukeException(LIST_USAGE);
+             throw new DukeException(LIST_USAGE);
         }
 
     }
-
 }

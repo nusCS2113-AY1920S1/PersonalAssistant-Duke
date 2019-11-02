@@ -10,12 +10,12 @@ import gui.Window;
 public class ListMembersCommand extends Command {
 
     public static final String COMMAND_WORD = "members";
-    public static final String EMPTY_TASKS_LIST = "There are currently no member in project manager";
-    private String arguments;
+    public static final String EMPTY_MEMBERS_LIST = "There are currently no member in project manager";
+    //private String arguments;
 
-    public ListMembersCommand(String arguments) {
-        this.arguments = arguments;
-    }
+    //public ListMembersCommand(String arguments) {
+        //this.arguments = arguments;
+    //}
 
     @Override
     public CommandOutput execute(Model model) {
@@ -36,7 +36,7 @@ public class ListMembersCommand extends Command {
                         + members.get(i).getName() + "\n";
             }
         } else {
-            finalOutput = EMPTY_TASKS_LIST;
+            finalOutput = EMPTY_MEMBERS_LIST;
         }
         return finalOutput;
     }

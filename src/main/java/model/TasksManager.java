@@ -3,6 +3,8 @@ package model;
 import common.DukeException;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -123,6 +125,30 @@ public class TasksManager implements Serializable {
 
     public int getTaskListSize() {
         return taskList.size();
+    }
+
+    public String getTodoTasks() {
+        ArrayList<Task> todoTasks = pickTodo(taskList);
+        return showTasks(todoTasks);
+    }
+    
+    public int getTodoTasks(ArrayList<String> tasksName) {
+        int todoNum = 0;
+        for (int i = 0; i < tasksName.size(); i++) {
+            Task task = getTaskByName(tasksName.get(i));
+            if (!task.isDone()) {
+                todoNum++;
+            }
+        }
+        return todoNum;
+    }
+
+    public double getProgress(ArrayList<String> tasksName) {
+        double total = tasksName.size();
+        int todoNum = getTodoTasks(tasksName);
+        double progress = todoNum/total;
+        BigDecimal bd = new BigDecimal(progress).setScale(2, RoundingMode.HALF_UP);
+        return bd.doubleValue();
     }
 
     public String getTaskNameById(int index) {
@@ -308,7 +334,7 @@ public class TasksManager implements Serializable {
     private ArrayList<Task> pickTodo(ArrayList<Task> toFilter) {
         ArrayList<Task> filtered = new ArrayList<>();
         for (int i = 0; i < toFilter.size(); i++) {
-            if (toFilter.get(i).isDone() == false) {
+            if (!toFilter.get(i).isDone()) {
                 filtered.add(toFilter.get(i));
             }
         }
@@ -316,11 +342,78 @@ public class TasksManager implements Serializable {
     }
 
     private String showScheduleOfTaskList(ArrayList<Task> toSorted) {
-        String result = "";
         ArrayList<Task> tasks = sortByTime(toSorted);
+        return showTasks(tasks);
+    }
+
+    public String tasksAllInorderPicNum() {
+        return tasksInorderPicNum(taskList);
+    }
+
+    public String tasksTodoInorderPicNum() {
+        ArrayList<Task> todoTasks = pickTodo(taskList);
+        return tasksInorderPicNum(todoTasks);
+    }
+
+    private String tasksInorderPicNum(ArrayList<Task> tasks) {
+        ArrayList<Task> toSort = (ArrayList<Task>) tasks.clone();
+        String result = "";
+        int size = toSort.size();
+        for (int i = 0; i < size; i++) {
+            int min = Integer.MAX_VALUE;
+            int minIndex = -1;
+            for (int j = 0; j < toSort.size(); j++) {
+                int num = toSort.get(i).getMemberList().size();
+                //System.out.println(j);
+                //System.out.println(num);
+                if (num < min) {
+                    minIndex = i;
+                    min = num;
+                }
+            }
+            int indexInList = minIndex + 1;
+            result += "\n" + indexInList + ". " + toSort.get(i) + " has " + min + " PICs.";
+            System.out.println(result);
+            toSort.remove(minIndex);
+        }
+        return result;
+    }
+
+    private String showTasks(ArrayList<Task> tasks) {
+        String result = "";
         for (int i = 0; i < tasks.size(); i++) {
             Task task = tasks.get(i);
             result += "\n" + getIndexInListByTask(task) + ". " + task;
+        }
+        return result;
+    }
+
+    public String check(ArrayList<String> tasksName) {
+        ArrayList<Task> tasks = new ArrayList<>();
+        for (int i = 0; i < tasksName.size(); i++) {
+            Task task = getTaskByName(tasksName.get(i));
+            tasks.add(task);
+        }
+        ArrayList<Task> sorted = sortByTime(pickTodo(tasks));
+        int count = 1;
+        String result = "";
+        for (int i = 0; i < sorted.size() - 1; i++) {
+            Date time1 = sorted.get(i).getTime();
+            Date time2 = sorted.get(i + 1).getTime();
+            if (time1.equals(time2)) {
+                count++;
+            } else {
+                if (count != 1) {
+                    String name = "";
+                    for (int j = count; j > 0; j--) {
+                        Task task = sorted.get(i - count);
+                        name += " " + getIndexInListByTask(task) + ". " + getNameByTask(task);
+                    }
+                    result += "\n" + time2 + " " + count + "tasks:" + name;
+                }
+                count = 1;
+                continue;
+            }
         }
         return result;
     }
