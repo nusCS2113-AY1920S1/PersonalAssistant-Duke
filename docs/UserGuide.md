@@ -81,9 +81,9 @@ features of the application BetterDuke.
    
       Format    
        -for event : ​add/e Mod_Code TASK_DESCRIPTION /at
-       DATE(xx/xx/xxxx or week x day) /from TIME /to TIME
+       DATE(DD/MM/YYYY or week x day) /from TIME /to TIME
        -for deadline :​add/d Mod_Code TASK_DESCRIPTION /by
-       DATE(xx/xx/xxxx or week x day) TIME
+       DATE(DD/MM/YYYY or week x day) TIME
            Example:    
        add/e CS2101 assignment /at 12/08/2019 /from 1200 /to
        1300
@@ -91,9 +91,9 @@ features of the application BetterDuke.
       Complete a task from the list
       Format: 
       -for event : done/e Mod_Code TASK_DESCRIPTION /at 
-      DATE(xx/xx/xxxx or week x day) /from TIME /to TIME
+      DATE(DD/MM/YYYY or week x day) /from TIME /to TIME
       -for deadline :done/d Mod_Code TASK_DESCRIPTION /by 
-      DATE(xx/xx/xxxx or week x day) TIME
+      DATE(DD/MM/YYYY or week x day) TIME
       Example:
       done/e CS2101 assignment /at 12/08/2019 /from 1200 /to 1300
       done/d CS2101 assignment /by week 1 mon 1200
@@ -102,9 +102,9 @@ features of the application BetterDuke.
     Delete a task from the list
     Format:    
     -for event : ​delete/e Mod_Code TASK_DESCRIPTION /at
-    DATE(xx/xx/xxxx or week x day) /from TIME /to TIME
+    DATE(DD/MM/YYYY or week x day) /from TIME /to TIME
     -for deadline :​delete/d Mod_Code TASK_DESCRIPTION /by
-    DATE(xx/xx/xxxx or week x day) TIME
+    DATE(DD/MM/YYYY or week x day) TIME
     Example:    
     delete/d CS2101 assignment /by week 1 mon 1200
     
@@ -134,11 +134,11 @@ features of the application BetterDuke.
     set timing is met.    
     Format: 
       -Set Reminder: remind/set Mod_Code TASK_DESCRIPTION /by 
-      DATE(xx/xx/xxxx or week x day) TIME /to      
-      DATE(xx/xx/xxxx or week x day) TIME
+      DATE(DD/MM/YYYY or week x day) TIME /to      
+      DATE(DD/MM/YYYY or week x day) TIME
       -Remove Reminder : remind/rm Mod_Code TASK_DESCRIPTION /by
-      DATE(xx/xx/xxxx or week x day) TIME /to
-      DATE(xx/xx/xxxx or week x day) TIME
+      DATE(DD/MM/YYYY or week x day) TIME /to
+      DATE(DD/MM/YYYY or week x day) TIME
 
       Example:
       remind/set CS2100 project /by 1/11/2019 1200 /to week 11 fri 0800
@@ -210,17 +210,17 @@ features of the application BetterDuke.
          This will help user add or remove event that is recurring over a period of time.
          Format: 
          Add recurring task weekly:  recur/weekly Mod_Code TASK_DESCRIPTION 
-         /start Start_Date(xx/xx/xxxx or week x day) /to 
-         End_Date(xx/xx/xxxx or week x day) /from TIME /to TIME
+         /start Start_Date(DD/MM/YYYY or week x day) /to 
+         End_Date(DD/MM/YYYY or week x day) /from TIME /to TIME
          Remove a weekly recurring task that was set: recur/rmweekly Mod_Code TASK_DESCRIPTION
-         /start Start_Date(xx/xx/xxxx or week x day) /to
-         End_Date(xx/xx/xxxx or week x day) /from TIME /to TIME
+         /start Start_Date(DD/MM/YYYY or week x day) /to
+         End_Date(DD/MM/YYYY or week x day) /from TIME /to TIME
          Add recurring bi-weekly task: recur/biweekly Mod_Code TASK_DESCRIPTION 
-         /start Start_Date(xx/xx/xxxx or week x day) /to 
-         End_Date(xx/xx/xxxx or week x day) /from TIME /to TIME
+         /start Start_Date(DD/MM/YYYY or week x day) /to 
+         End_Date(DD/MM/YYYY or week x day) /from TIME /to TIME
          Remove a bi-weekly recurring task that was set: recur/rmbiweekly Mod_Code TASK_DESCRIPTION
-         /start Start_Date(xx/xx/xxxx or week x day) /to
-         End_Date(xx/xx/xxxx or week x day) /from TIME /to TIME
+         /start Start_Date(DD/MM/YYYY or week x day) /to
+         End_Date(DD/MM/YYYY or week x day) /from TIME /to TIME
 
          Example: 
          Add recurring task weekly:  recur/weekly CS2101 assignment /start 
@@ -289,21 +289,21 @@ features of the application BetterDuke.
     
 # 5.     Command Summary    
       a) Add:
-      -for event : add/e Mod_Code TASK_DESCRIPTION /at DATE(xx/xx/xxxx or week x day) /from TIME /to TIME
-      -for deadline :add/d Mod_Code TASK_DESCRIPTION /by DATE(xx/xx/xxxx or week x day) TIME
+      -for event : add/e Mod_Code TASK_DESCRIPTION /at DATE(DD/MM/YYYY or week x day) /from TIME /to TIME
+      -for deadline :add/d Mod_Code TASK_DESCRIPTION /by DATE(DD/MM/YYYY or week x day) TIME
       e.g 
       add/e CS2101 assignment /at 12/08/2019 /from 1200 /to 1300
       add/d CS2101 assignment /by week 1 mon 1200
        Done:
-       -for event : done/e Mod_Code TASK_DESCRIPTION /at DATE  (xx/xx/xxxx or week x day) /from TIME to TIME
-      -for deadline :done/d Mod_Code TASK_DESCRIPTION /by DATE(xx/xx/xxxx or week x day) TIME
+       -for event : done/e Mod_Code TASK_DESCRIPTION /at DATE  (DD/MM/YYYY or week x day) /from TIME to TIME
+      -for deadline :done/d Mod_Code TASK_DESCRIPTION /by DATE(DD/MM/YYYY or week x day) TIME
       e.g
       done/e CS2101 assignment /at 12/08/2019 /from 1200 /to 1300
       done/d CS2101 assignment /by week 1 mon 1200
 
       b) Delete:
-       -for event : delete/e Mod_Code TASK_DESCRIPTION /at DATE  (xx/xx/xxxx or week x day) /from TIME to TIME
-      -for deadline : delete/d Mod_Code TASK_DESCRIPTION /by DATE(xx/xx/xxxx or week x day) TIME
+       -for event : delete/e Mod_Code TASK_DESCRIPTION /at DATE  (DD/MM/YYYY or week x day) /from TIME to TIME
+      -for deadline : delete/d Mod_Code TASK_DESCRIPTION /by DATE(DD/MM/YYYY or week x day) TIME
       e.g.
       delete/e CS2101 assignment /at 12/08/2019 /from 1200 /to 1300
       delete/d CS2101 assignment /by week 1 mon 1200
@@ -314,10 +314,10 @@ features of the application BetterDuke.
       e.g. filter book
       
       d) Remind: 
-      -Set Reminder: remind/set Mod_Code TASK_DESCRIPTION /by DATE(xx/xx/xxxx or week x day) TIME 
-      /to DATE(xx/xx/xxxx or week x day) TIME
-      -Remove Reminder : remind/rm Mod_Code TASK_DESCRIPTION /by DATE(xx/xx/xxxx or week x day) TIME 
-      to DATE(xx/xx/xxxx or week x day) TIME
+      -Set Reminder: remind/set Mod_Code TASK_DESCRIPTION /by DATE(DD/MM/YYYY or week x day) TIME 
+      /to DATE(DD/MM/YYYY or week x day) TIME
+      -Remove Reminder : remind/rm Mod_Code TASK_DESCRIPTION /by DATE(DD/MM/YYYY or week x day) TIME 
+      to DATE(DD/MM/YYYY or week x day) TIME
       e.g. 
       remind/set CS2100 project /by 1/11/2019 1200 /to week 11 fri 0800
       remind/rm CS2100 project /by 1/11/2019 1200 /to week 11 fri 0800
@@ -325,13 +325,13 @@ features of the application BetterDuke.
       
       e)Recur:  
       -Add recurring task weekly:  recur/weekly Mod_Code TASK_DESCRIPTION 
-      /start Start_Date(xx/xx/xxxx or week x day) /to End_Date(xx/xx/xxxx or week x day) /from TIME /to TIME
+      /start Start_Date(DD/MM/YYYY or week x day) /to End_Date(DD/MM/YYYY or week x day) /from TIME /to TIME
       -Remove a weekly recurring task that was set: recur/rmweekly Mod_Code TASK_DESCRIPTION
-      /start Start_Date(xx/xx/xxxx or week x day) /to End_Date(xx/xx/xxxx or week x day) /from TIME /to TIME
+      /start Start_Date(DD/MM/YYYY or week x day) /to End_Date(DD/MM/YYYY or week x day) /from TIME /to TIME
       -Add recurring bi-weekly task: recur/biweekly Mod_Code TASK_DESCRIPTION /start
-      Start_Date(xx/xx/xxxx or week x day) /to End_Date(xx/xx/xxxx or week x day) /from TIME /to TIME
+      Start_Date(DD/MM/YYYY or week x day) /to End_Date(DD/MM/YYYY or week x day) /from TIME /to TIME
       -Remove a bi-weekly recurring task that was set: recur/rmbiweekly Mod_Code TASK_DESCRIPTION /start 
-      Start_Date(xx/xx/xxxx or week x day) /to End_Date(xx/xx/xxxx or week x day) /from TIME /to TIME 
+      Start_Date(DD/MM/YYYY or week x day) /to End_Date(DD/MM/YYYY or week x day) /from TIME /to TIME 
       e.g.  
       recur/weekly CS2101 assignment /start 10/10/2019 /to 31/11/2019 /from 1200 /to 1400
       recur/rmweekly CS2101 assignment /start 10/10/2019 /to 31/11/2019 /from 1200 /to 1400
