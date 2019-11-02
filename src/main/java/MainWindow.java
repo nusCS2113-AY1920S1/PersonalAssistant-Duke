@@ -23,7 +23,6 @@ import java.util.TreeSet;
  * Controller for MainWindow. Provides the layout for the other controls.
  */
 public class MainWindow extends AnchorPane {
-
     @FXML
     private ScrollPane scrollPane;
     @FXML
@@ -38,9 +37,9 @@ public class MainWindow extends AnchorPane {
     private TextField searchBar;
 
     private Duke duke;
-    private UserIcon userIcon;
+    //private UserIcon userIcon;
 
-    private static Image userImage;
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));;
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
     private History previousFunctions = new History();
@@ -82,8 +81,8 @@ public class MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         scrollPane2.vvalueProperty().bind(graphContainer.heightProperty());
 
-        userIcon = new UserIcon();
-        userImage = userIcon.getIcon();
+//        userIcon = new UserIcon();
+//        userImage = userIcon.getIcon();
 
         Platform.runLater(new Runnable() {
             @Override
@@ -115,8 +114,8 @@ public class MainWindow extends AnchorPane {
         String input = userInput.getText();
         graphContainer.getChildren().clear();
         if (input.equals("change icon")) {
-            userIcon.changeIcon();
-            userImage = userIcon.getIcon();
+//            userIcon.changeIcon();
+//            userImage = userIcon.getIcon();
         }
 
         if (input.startsWith("graph")) {
@@ -148,7 +147,7 @@ public class MainWindow extends AnchorPane {
         if (input.equals("")) {
             graphContainer.getChildren().clear();
         } else {
-            String[] response = duke.getResponse("find " + input);
+            String[] response = duke.getResponse("find# " + input);
             graphContainer.getChildren().clear();
             if (!response[1].equals("")) {
                 graphContainer.getChildren().clear();

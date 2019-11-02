@@ -44,4 +44,12 @@ public class UndoCommandHandler {
             return c;
         }
     }
+
+    /**
+     * This method gets the size of the stack.
+     * @return size of the stack
+     */
+    public int getLastIssuedCommandsSize() {
+        return lastIssuedCommands.size();
+    }
 }

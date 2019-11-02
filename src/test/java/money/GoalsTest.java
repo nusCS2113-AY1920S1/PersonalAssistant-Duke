@@ -10,6 +10,8 @@ import controlpanel.DukeException;
 import controlpanel.Ui;
 import org.junit.jupiter.api.Test;
 import money.Account;
+
+import java.io.IOException;
 import java.text.ParseException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -29,7 +31,7 @@ public class GoalsTest {
     private LocalDate testDate = LocalDate.parse("9/10/2015", dateTimeFormatter);
     private LocalDate testDate2 = LocalDate.parse("9/10/2050", dateTimeFormatter);
 
-    GoalsTest(){
+    GoalsTest() throws IOException {
         ui = new Ui();
         Path currentDir = Paths.get("data/account-test.txt");
         String filePath = currentDir.toAbsolutePath().toString();

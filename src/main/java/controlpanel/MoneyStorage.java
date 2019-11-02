@@ -1,11 +1,6 @@
 package controlpanel;
 
-import java.io.File;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -87,7 +82,7 @@ public class MoneyStorage {
         account.getBankTrackerList().add(b);
     }
 
-    public Account load() {
+    public Account load() throws IOException {
         Account account = new Account();
         try {
             FileReader fileReader = new FileReader(fileName);
@@ -130,7 +125,14 @@ public class MoneyStorage {
                 }
             }
             bufferedReader.close();
-        } catch (IOException | DateTimeParseException | DukeException e) {
+        } catch (FileNotFoundException err) {
+            final File parentDir = new File("dataFG");
+            parentDir.mkdir();
+            final String hash = "moneyAccount";
+            final String fileName = hash + ".txt";
+            final File file = new File(parentDir, fileName);
+            file.createNewFile(); // Creates file crawl_html/abc.txt
+        }catch(IOException | DateTimeParseException | DukeException e){
             e.printStackTrace();
         }
         return account;

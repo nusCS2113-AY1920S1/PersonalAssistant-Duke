@@ -83,7 +83,7 @@ public class IncomeTest {
                         " 2.[I] crypto money(salary: $1000.0) (Paid On: 9/10/2015)\n" +
                         "Total income so far: $3000.0\n"
                 , ui.getGraphContainerString().split(" Now")[0]);
-
+        assertEquals("Got it, list will be printed in the other pane!\n", ui.getOutputString());
         account.getIncomeListTotal().clear();
         MoneyCommand exitCommand =  new ExitMoneyCommand();
         exitCommand.execute(account, ui, moneyStorage);

@@ -1,5 +1,3 @@
-INIT @ true
+INIT @ false
 BS @ 0.0
-INC @ 300.0 @ From my friends @ 29/10/2019
-INC @ 200.0 @ From my friends @ 29/10/2019
-LOA @ 500.0 @ my friends @ 9/10/1997 @ OUTGOING @ 29/10/2019 @ 1 @ 0.0
+EXP @ 30.0 @ sick sirloin steak  @ food  @ 9/10/1997

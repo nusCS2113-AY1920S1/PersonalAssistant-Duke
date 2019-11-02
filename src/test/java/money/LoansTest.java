@@ -34,8 +34,6 @@ class LoansTest {
         ui = new Ui();
     }
 
-
-
     @Test
     void testAddOutgoingLoan() throws ParseException, DukeException {
         String addInput = "lent my friends /amt 500 /on 9/10/1997";

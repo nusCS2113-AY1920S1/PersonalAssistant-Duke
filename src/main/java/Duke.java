@@ -24,7 +24,7 @@ public class Duke{
      * //@param filePath the path of the moneyAccount.txt which contains the finance of the users
      */
     public Duke() {
-        Path moneyDir = Paths.get("data/moneyAccount.txt");
+        Path moneyDir = Paths.get("dataFG/moneyAccount.txt");
         String moneyFilePath = moneyDir.toAbsolutePath().toString();
         ui = new Ui();
         moneyStorage = new MoneyStorage(moneyFilePath);
