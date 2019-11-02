@@ -65,7 +65,8 @@ public class HelpCommand extends Command {
                             + "bye: Exits the program.");
         } else {
             if (this.arguments.matches("detail")) {
-                System.out.println("detail DEGREE: View detailed information about a degree");
+                System.out.println("detail DEGREE: View detailed information about a degree "
+                        + "by using any of its aliases");
             } else if (this.arguments.matches("compare")) {
                 System.out.println("compare DEGREE DEGREE: Lists the module similarities and differences "
                         + "between two degree programs given their keywords.");
