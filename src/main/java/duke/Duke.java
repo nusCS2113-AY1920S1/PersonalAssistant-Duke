@@ -139,7 +139,8 @@ public class Duke {
                         break;
                     }
                     case "c": {
-                        ui.showOrderTemplate();
+                        System.out.println("\t Managing order now\n\t You can type 'template' to retrieve command format");
+                        ui.showLine();
                         while (true) {
                             try {
                                 fullCommand = ui.readCommand();

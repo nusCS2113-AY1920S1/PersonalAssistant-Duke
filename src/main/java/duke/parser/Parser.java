@@ -105,61 +105,22 @@ public class Parser {
                 splitted = fullCommand.split(" ", 2);
                 if (splitted.length > 4)
                     throw new DukeException("must specify ordered dishes and order date");
-                else if (splitted[0].equals("add")){ //add a new order
-                    String[] split = splitted[1].split(" /on ",2);
-                    Order newOrder = null;
-                    Date orderDate;
-                    if (split.length==1) { newOrder = new Order(); }
-                    else if (split.length==2) {
-                        orderDate = Convert.stringToDate(split[1]);
-                        newOrder = new Order(orderDate);
-                    } else { throw new DukeException("must enter a valid date"); }
-                    String[] orderDishes = split[0].split(", ");
-                    for (String dishes: orderDishes) {
-                        String[] dishesSplit = dishes.split("\\*", 2);
-                        newOrder.addDish(dishesSplit[0], Integer.parseInt(dishesSplit[1]));
-                    }
-                    return new AddOrderCommand(newOrder);
+                else if (splitted[0].equals("add")){  //add a new order
+                    return addOrderParser(splitted);
                 } else if (splitted[0].equals("alter")) { //alter order date
-                    if (splitted.length==1) { throw new DukeException("Must specify order number! *starting from 1*"); }
-                    Date orderDate;
-                    int orderIndex;
-                    String[] split2 = splitted[1].split(" ",2);
-                    if (split2.length==1) {
-                        orderIndex = Integer.parseInt(split2[0]);
-                        orderDate = new Date();
-                    }
-                    else {
-                        orderIndex = Integer.parseInt(split2[0]);
-                        orderDate = Convert.stringToDate(split2[1]);
-                    }
-                    return new AlterDateCommand(orderIndex,orderDate);
-
-                } else if (splitted[0].equals("done")) {//done an order
-                    if (splitted.length==1) { throw new DukeException("Must specify order number! *starting from 1*"); }
-                    try {
-                        int orderIndex = Integer.parseInt(splitted[1]);
-                        return new DoneOrderCommand(orderIndex-1);
-                    } catch (NumberFormatException e) {
-                        throw new DukeException("enter a valid index");
-                    }
-                } else if (splitted[0].equals("remove")) {//remove an order
-                    if (splitted.length==1) { throw new DukeException("Must specify order number! *starting from 1*"); }
-                    try {
-                        int orderIndex = Integer.parseInt(splitted[1]);
-                        return new DeleteOrderCommand(orderIndex-1);
-                    } catch (NumberFormatException e) {
-                        throw new DukeException("enter a valid index");
-                    }
-                } else if (splitted[0].equals("list")) {//list orders
-                    if (splitted.length==1) { return new ListOrderCommand("all"); }
-                    String listType = splitted[1];
-                    String[] split2 = listType.split(" ",2);
-                    if (split2.length==1) { return new ListOrderCommand(split2[0]); }
-                    else { return new ListOrderCommand(split2[1]); }
+                    return alterOrderDateParser(splitted);
+                } else if (splitted[0].equals("remove") ||splitted[0].equals("done")) { //remove or done an order
+                    return removeOrDoneOrderParser(splitted);
                 } else if (splitted[0].equals("init")) {
                     return new InitOrderListCommand();
-                } else throw new DukeException("not a valid command for an order");
+                } else if (splitted[0].equals("list")) {//list orders
+                    String[] listType;
+                    if (splitted.length == 1) {
+                        listType = "-l all".split(" ",2);
+                    } else listType = splitted[1].split(" ",2);
+                    if (listType.length==1) {throw new DukeException("Must enter a list type, dishes name, or order date");}
+                    return new ListOrderCommand(listType);
+                } else throw new DukeException("Not a valid command for an order");
             }
             default:
                 throw new DukeException("not a valid type");
@@ -206,5 +167,72 @@ public class Parser {
             throw new DukeException("FUCK YOU JOEY!");
         }
         return x;
+    }
+
+    public static Cmd<Order> addOrderParser(String[] splitter) throws DukeException {
+        Order newOrder;
+        Date orderDate;
+        String[] orderedDishes;
+        if (splitter[1].startsWith("-n ")) {
+            if (splitter[1].length()<4) { throw new DukeException("Must specify dishes name"); }
+            newOrder = new Order();
+            orderedDishes = splitter[1].substring(3).split(", ");
+        } else if (splitter[1].startsWith("-d ")&&splitter[1].length()>20) {
+            String[] dateAndDish = splitter[1].substring(3).split(" -n ",2);
+            if (dateAndDish[0].length()!=10) { throw new DukeException("Must enter a valid order date: dd/mm/yyyy"); }
+            orderDate = Convert.stringToDate(dateAndDish[0]);
+            newOrder = new Order(orderDate);
+            orderedDishes = dateAndDish[1].split(", ");
+        } else { throw new DukeException("must enter a valid order date or specify dishes"); }
+        for (String dishes: orderedDishes) {
+            String[] dishesSplit = dishes.split("\\*", 2);
+            if (dishesSplit.length==1) newOrder.addDish(dishesSplit[0], 1);
+            else {
+                int dishAmount;
+                try{
+                    dishAmount = Integer.parseInt(dishesSplit[1]);
+                    if (dishAmount<=0) {throw new DukeException("Must enter a dishes amount larger than 1");}
+                } catch (NumberFormatException e) {
+                    throw new DukeException("cannot resolve non-integer or too large dishes amount");
+                }
+                newOrder.addDish(dishesSplit[0], dishAmount);
+            }
+        }
+        return new AddOrderCommand(newOrder);
+    }
+
+    public static Cmd<Order> alterOrderDateParser(String[] splitter) throws DukeException {
+        if (splitter.length == 1) {
+            throw new DukeException("Must enter an order index.\n\t Note that ORDER_INDEX starts from 1");
+        }
+        String[] indexAndDate = splitter[1].split(" ", 2);
+        int orderIndex;
+        Date orderDate;
+        try {
+            orderIndex = Integer.parseInt(indexAndDate[0]);
+            if (orderIndex <= 0) throw new DukeException("Must enter a positive order index");
+        } catch (NumberFormatException e) {
+            throw new DukeException("Must enter a valid order index");
+        }
+        if (indexAndDate.length == 1) { orderDate = new Date(); }
+        else {
+            orderDate = Convert.stringToDate(indexAndDate[1]);
+            if (orderDate==null) {throw new DukeException("Error when converting order date");}
+        }
+        return new AlterDateCommand(orderIndex-1, orderDate);
+    }
+
+    public static Cmd<Order> removeOrDoneOrderParser(String[] splitter) throws DukeException {
+        if (splitter.length == 1) {
+            throw new DukeException("Must enter an order index.\n\t Note that ORDER_INDEX starts from 1");
+        }
+        try {
+            int orderIndex = Integer.parseInt(splitter[1]);
+            if (orderIndex <= 0) throw new DukeException("Must enter a positive order index");
+            if (splitter[0].equals("remove")) return new DeleteOrderCommand(orderIndex - 1);
+            else return new DoneOrderCommand(orderIndex - 1);
+        } catch (NumberFormatException e) {
+            throw new DukeException("Must enter a valid order index");
+        }
     }
 }

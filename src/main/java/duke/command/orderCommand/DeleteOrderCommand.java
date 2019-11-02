@@ -5,7 +5,6 @@ import duke.exception.DukeException;
 import duke.list.GenericList;
 import duke.order.Order;
 import duke.order.OrderList;
-import duke.storage.OrderStorage;
 import duke.storage.Storage;
 import duke.ui.Ui;
 
@@ -42,9 +41,8 @@ public class DeleteOrderCommand extends Cmd<Order> {
 //                    //new DeleteDishCommand(dishIndex)
 //                }
 //            }
-
-            orderList.removeEntry(orderIndex);
             ui.showRemovedOrder(removed.toString(), orderList.size());
+            orderList.removeEntry(orderIndex);
 
 //            List<String> fileContent = null;
 //            try {
@@ -55,7 +53,7 @@ public class DeleteOrderCommand extends Cmd<Order> {
 //                throw new DukeException("Error while cancelling the order from the hard disc.");
 //            }
         } else {
-            throw new DukeException("Please enter a valid order number between 1 and " + orderList.size() + " to remove.");
+            throw new DukeException("Please enter a valid order number between 1 and " + orderList.size() + " to remove");
         }
     }
 

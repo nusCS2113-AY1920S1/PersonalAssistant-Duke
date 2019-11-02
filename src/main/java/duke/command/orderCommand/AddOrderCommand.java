@@ -33,7 +33,9 @@ public class AddOrderCommand extends Cmd<Order> {
     @Override
     public void execute(GenericList<Order> orderList, Ui ui, Storage orderStorage) throws DukeException {
         orderList.addEntry(order);
+        ui.showLine();
         ui.showAddOrder(order.toString(), orderList.size());
+        ui.showLine();
 
         // to do:
         // 1. store the new order into file

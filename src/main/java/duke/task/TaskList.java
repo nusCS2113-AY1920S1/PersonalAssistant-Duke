@@ -1,6 +1,7 @@
 package duke.task;
 
 import duke.Duke;
+import duke.exception.DukeException;
 import duke.list.GenericList;
 
 import java.util.ArrayList;
@@ -35,7 +36,7 @@ public class TaskList extends GenericList<Task> {
         genList.get(taskNb).markAsDone();
     }
 
-    public void changeTaskDate(int taskNb, String date) {
+    public void changeTaskDate(int taskNb, String date) throws DukeException {
         genList.get(taskNb).setNewDate(date);
     }
 }

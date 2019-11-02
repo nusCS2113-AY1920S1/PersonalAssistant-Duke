@@ -55,6 +55,10 @@ public class Order implements Printable {
         Date setDate = date;
         Date todayDate = new Date();
         if (setDate.before(todayDate)) { throw new DukeException("Must set date equal or after today"); }
+        this.date = setDate;
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        String setDateToString = simpleDateFormat.format(setDate);
+        this.dateToString = setDateToString;
     }
 
     /**

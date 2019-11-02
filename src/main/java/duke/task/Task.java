@@ -1,6 +1,7 @@
 package duke.task;
 
 import duke.Duke;
+import duke.exception.DukeException;
 import duke.storage.Printable;
 
 import java.util.Date;
@@ -22,7 +23,7 @@ public abstract class Task implements Printable {
         this.isDone = false;
     }
 
-    public abstract void setNewDate(String date);
+    public abstract void setNewDate(String date) throws DukeException;
 
     public abstract Date getCurrentDate();
 

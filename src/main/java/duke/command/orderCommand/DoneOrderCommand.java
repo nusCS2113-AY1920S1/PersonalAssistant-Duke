@@ -58,7 +58,7 @@ public class DoneOrderCommand extends Cmd<Order> {
 
 
         } else {
-            throw new DukeException("Must enter a valid order number, between 1 and " + orderList.size());
+            throw new DukeException("Must enter a valid order number, between 1 and " + orderList.size() + " to be done");
         }
     }
 }
