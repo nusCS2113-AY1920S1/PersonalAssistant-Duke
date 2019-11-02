@@ -52,6 +52,7 @@ public class Profile {
     private static final String FILE_PATH = "data/";
     private static final String PROFILE_BANK_LIST_FILE_NAME = "profile_banklist.csv";
     private static final String PROFILE_GOAL_LIST_FILE_NAME = "profile_goallist.csv";
+    private static final String PROFILE_CARD_LIST_FILE_NAME = "profile_cardlist.csv";
     private static final String INVESTMENT_BOND_LIST_FILE_NAME = "_investment_bondList.csv";
     private static final String INVESTMENT_TRANSACTION_LIST_FILE_NAME = "_investment_transactionList.csv";
     private static final String SAVING_TRANSACTION_LIST_FILE_NAME = "_saving_transactionList.csv";
@@ -77,19 +78,24 @@ public class Profile {
         this.ui = ui;
         try {
             loadBanksFromImportedData();
-        } catch (BankException | ParseException exceptionMessage) {
-            ui.printError("Error importing banks");
+        } catch (IllegalArgumentException | IndexOutOfBoundsException | NullPointerException | BankException | ParseException exceptionMessage) {
+            ui.printError("Error importing banks from persistent storage.");
         }
         try {
             iterateBanksToAddTransaction();
-        } catch (BankException | ParseException exceptionMessage) {
+        } catch (IllegalArgumentException | IndexOutOfBoundsException | NullPointerException | BankException | ParseException exceptionMessage) {
             ui.printError("Error importing transactions, recurring transactions and "
                     + "bonds for bank accounts.");
         }
         try {
             loadGoalsFromImportedData();
-        } catch (ParseException | BankException exceptionMessage) {
-            ui.printError("Error importing goals for bank accounts.");
+        } catch (IllegalArgumentException | NullPointerException | ParseException | BankException exceptionMessage) {
+            ui.printError("Error importing goals from persistent storage.");
+        }
+        try {
+            loadCardsFromImportedData();
+        } catch (IllegalArgumentException | IndexOutOfBoundsException | NullPointerException | CardException exceptionMessage) {
+            ui.printError("Error importing cards from persistent storage.");
         }
     }
 
@@ -950,6 +956,15 @@ public class Profile {
     }
 
     /**
+     * Imports one instance of a credit card.
+     *
+     * @param newCard an instance of a new credit card.
+     */
+    private void profileImportNewCard(Card newCard) throws CardException {
+        cardList.cardListImportNewCard(newCard);
+    }
+
+    /**
      * Imports one instance of recurring expenditure.
      *
      * @param bankName the name of the bank account.
@@ -1007,7 +1022,7 @@ public class Profile {
      * @param newGoal an instance of goals object.
      */
     private void profileImportNewGoals(Goals newGoal) {
-        goalsList.bankListImportNewGoal(newGoal);
+        goalsList.goalListImportNewGoal(newGoal);
     }
 
     /**
@@ -1216,6 +1231,23 @@ public class Profile {
             throw new CardException("Unable to delete credit card bill because " + accountType
                     + " does not exist in savings account anymore! Could be due to savings account "
                     + "deleted the transactions because exceeded limit of 2000 transactions.");
+        }
+    }
+
+    private void loadCardsFromImportedData() throws NumberFormatException, CardException {
+        if (storage.isFileExist(PROFILE_CARD_LIST_FILE_NAME)) {
+            List<String[]> importData = importListDataFromStorage(PROFILE_CARD_LIST_FILE_NAME,ui);
+            for (String[] importDataRow : importData) {
+                String cardName = importDataRow[0];
+                String stringCardLimit = importDataRow[1];
+                String stringRebateRate = importDataRow[2];
+                String stringUuid = importDataRow[3];
+                double doubleCardLimit = Double.parseDouble(stringCardLimit);
+                double doubleRebateRate = Double.parseDouble(stringRebateRate);
+                UUID uuid = UUID.fromString(stringUuid);
+                Card newCard = new Card(cardName,doubleCardLimit,doubleRebateRate,uuid);
+                profileImportNewCard(newCard);
+            }
         }
     }
 }

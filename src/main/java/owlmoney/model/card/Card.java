@@ -42,6 +42,23 @@ public class Card {
     }
 
     /**
+     * Creates a Card with details of name, limit and rebate from persistent storage.
+     *
+     * @param name   A name for the credit card.
+     * @param limit  Credit card monthly spending limit.
+     * @param rebate Credit card monthly cash back rebate.
+     * @param uuid The unique id of the card object.
+     */
+    public Card(String name, double limit, double rebate, UUID uuid) {
+        this.name = name;
+        this.limit = limit;
+        this.rebate = rebate;
+        this.paid = new TransactionList();
+        this.unpaid = new TransactionList();
+        this.id = uuid;
+    }
+
+    /**
      * Gets the card id of the credit card.
      *
      * @return id of the credit card.
