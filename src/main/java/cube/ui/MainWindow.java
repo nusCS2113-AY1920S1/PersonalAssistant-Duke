@@ -93,8 +93,10 @@ public class MainWindow extends UiManager<Stage> {
         double windowHeight = configStorage.getUiConfig().getWindowHeight();
         double windowWidth = configStorage.getUiConfig().getWindowWidth();
 
-        if (windowHeight > primaryStage.getMinHeight() && windowWidth > primaryStage.getMinWidth()) {
+        if (windowHeight >= primaryStage.getMinHeight()) {
             primaryStage.setHeight(windowHeight);
+        }
+        if (windowWidth >= primaryStage.getMinWidth()) {
             primaryStage.setWidth(windowWidth);
         }
 
@@ -126,7 +128,7 @@ public class MainWindow extends UiManager<Stage> {
             // Updates GUI components
             listPanel.updateProductList(storageManager.getFoodList());
             // TODO: Updated profits and revenue respectively
-            overviewDisplay.updateOverview(foodList.size(), 0, 0);
+            overviewDisplay.updateOverview(foodList.size(), Food.getRevenue(), Food.getRevenue());
 
             if (result.isShowHelp()) {
                 handleHelp();
