@@ -11,6 +11,7 @@ import java.util.ArrayList;
 public class FindCommand extends MoneyCommand{
 
     private String inputString;
+    private String find;
 
     //@@author therealnickcheong
     public FindCommand(String cmd) {
@@ -31,7 +32,13 @@ public class FindCommand extends MoneyCommand{
                     result.append(findCounter).append(".").append(goal.toString()).append("\n");
                 }
             }
-            return result.toString();
+            if(result.length() <= 0) {
+                result.append("No Goals Match Your Search!\n");
+                return result.toString();
+            } else {
+                return result.toString();
+            }
+
     }
 
     public String searchIncome(ArrayList<Income> itemList, StringBuilder result, String keyword){
@@ -43,7 +50,12 @@ public class FindCommand extends MoneyCommand{
                 result.append(findCounter).append(".").append(income.toString()).append("\n");
             }
         }
-        return result.toString();
+        if(result.length() <= 0) {
+            result.append("No Income Items Match Your Search!\n");
+            return result.toString();
+        } else {
+            return result.toString();
+        }
     }
 
     public String searchExpenditure(ArrayList<Expenditure> itemList, StringBuilder result, String keyword){
@@ -55,7 +67,12 @@ public class FindCommand extends MoneyCommand{
                 result.append(findCounter).append(".").append(expenditure.toString()).append("\n");
             }
         }
-        return result.toString();
+        if(result.length() <= 0) {
+            result.append("No Expenditure Items Match Your Search!\n");
+            return result.toString();
+        } else {
+            return result.toString();
+        }
     }
 
     public String searchLoan(ArrayList<Loan> itemList, StringBuilder result, String keyword){
@@ -67,7 +84,12 @@ public class FindCommand extends MoneyCommand{
                 result.append(findCounter).append(".").append(loan.toString()).append("\n");
             }
         }
-        return result.toString();
+        if(result.length() <= 0) {
+            result.append("No Loans Match Your Search!\n");
+            return result.toString();
+        } else {
+            return result.toString();
+        }
     }
 
     public String searchInstalment(ArrayList<Instalment> itemList, StringBuilder result, String keyword){
@@ -79,7 +101,12 @@ public class FindCommand extends MoneyCommand{
                 result.append(findCounter).append(".").append(instalment.toString()).append("\n");
             }
         }
-        return result.toString();
+        if(result.length() <= 0) {
+            result.append("No Instalments Match Your Search!\n");
+            return result.toString();
+        } else {
+            return result.toString();
+        }
     }
 
     @Override
@@ -87,7 +114,12 @@ public class FindCommand extends MoneyCommand{
         if(inputString.split(" ").length == 1){
             throw new DukeException("The description of a find cannot be empty.");
         }else{
-            String find = inputString.split("find ")[1];
+            try{
+                find = inputString.split("find# ")[1];
+            }catch(ArrayIndexOutOfBoundsException e){
+                throw new DukeException("Only Alphanumeric Search Inputs are Supported");
+            }
+
             StringBuilder descSearch = new StringBuilder();
             String descSearchOutput = searchGoal(account.getShortTermGoals(), descSearch, find);
             ui.appendToGraphContainer(("Goals Found:\n"));

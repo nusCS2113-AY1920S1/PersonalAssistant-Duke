@@ -82,7 +82,7 @@ public class CommitGoalCommand extends MoneyCommand {
             Collections.sort(indexOfCommittedGoals, Collections.reverseOrder());
 
             for(int j: indexOfCommittedGoals){
-                if(j > account.getShortTermGoals().size()){
+                if(j > account.getShortTermGoals().size() || (j < 1)){
                     throw new DukeException("The serial number of the Goal is Out Of Bounds!");
                 }else{
                     Goal committedGoal =  goalsAfterCommit.get(j-1);

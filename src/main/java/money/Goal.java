@@ -19,19 +19,22 @@ public class Goal extends Expenditure {
     public Goal(float price, String description, String category, LocalDate goalBy, String priorityLevel) throws DukeException {
         super(price, description, category, goalBy);
         switch (priorityLevel) {
-        case "LOW" : {
+        case "LOW" :
+            case "low" : {
             this.priority = Priority.LOW;
             break;
         }
-        case "MEDIUM": {
+        case "MEDIUM":
+            case "medium": {
             this.priority = Priority.MEDIUM;
             break;
         }
-        case "HIGH": {
+        case "HIGH":
+            case "high": {
             this.priority = Priority.HIGH;
             break;
         }
-        default: {
+            default: {
             throw new DukeException("Please enter in the format: " +
                     "goal <desc> /amt <amount> /by <date> /priority <HIGH/MEDIUM/LOW>\n");
         }
