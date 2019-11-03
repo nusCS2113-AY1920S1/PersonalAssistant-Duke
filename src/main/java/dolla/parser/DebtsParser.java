@@ -106,16 +106,19 @@ public class DebtsParser extends Parser {
                 return new ErrorCommand();
             }
         } else if (commandToRun.equals(COMMAND_SEARCH)) {
-            String component = inputArray[1];
-            String content = inputArray[2];
+            String component = null;
+            String content = null;
             try {
-                if(verifyDebtSearchComponent(inputArray[1])) {
+                if(verifyDebtSearchComponent(inputArray[1]) && inputArray[2] != null) {
                     component = inputArray[1];
                     content = inputArray[2];
                 } else {
                     SearchUi.printInvalidDebtSearchComponent();
                 }
             } catch (NullPointerException e) {
+                SearchUi.printInvalidSearchFormat();
+                return new ErrorCommand();
+            } catch (IndexOutOfBoundsException e) {
                 SearchUi.printInvalidSearchFormat();
                 return new ErrorCommand();
             }
