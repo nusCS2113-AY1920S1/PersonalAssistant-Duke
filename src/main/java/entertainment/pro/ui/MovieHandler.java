@@ -884,6 +884,7 @@ public class MovieHandler extends Controller implements RequestListener {
             } else {
                 controller.getMovieDateLabel().setText("N/A");
             }
+            Text summaryText = new Text(movie.getSummaryInfo());
             controller.getMovieSummaryLabel().setText(movie.getSummaryInfo());
             ArrayList<Long> genreList = movie.getGenreIdInfo();
             String genres = "";
@@ -900,6 +901,8 @@ public class MovieHandler extends Controller implements RequestListener {
             }
             controller.getMovieGenresLabel().setText(genres);
             mMoviesScrollPane.setContent(controller.getPlaylistMovieInfoAnchorPane());
+//            mMoviesFlowPane.getChildren().add(posterView);
+//            mMoviesScrollPane.setContent(mMoviesFlowPane);
             mMoviesScrollPane.setVvalue(0);
             pageTracker.setToPlaylistMovieInfo();
         } catch (IOException e) {
