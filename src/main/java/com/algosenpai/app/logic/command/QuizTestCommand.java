@@ -89,7 +89,7 @@ public class QuizTestCommand extends QuizCommand {
 
     private String extractUserAnswerFromInput() {
         StringBuilder answer = new StringBuilder();
-        for (int i = 1; i < inputs.size() - 1; i++) {
+        for (int i = 0; i < inputs.size() - 1; i++) {
             answer.append(inputs.get(i)).append(" ");
         }
         answer.append(inputs.get(inputs.size() - 1));

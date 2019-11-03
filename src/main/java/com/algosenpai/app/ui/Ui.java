@@ -26,7 +26,6 @@ import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 /**
@@ -89,6 +88,7 @@ public class Ui extends AnchorPane {
         handle();
         userPic.setImage(userImage);
         levelProgress.setProgress(0);
+        userInput.setPromptText("Enter Command");
         playerLevel.setText("You are Level 1");
         handle();
     }

@@ -12,13 +12,13 @@ public class StackPopPushQuestion extends Question {
     private static int stackSize;
 
     StackPopPushQuestion() {
-        // Generates a random number for the size of the stack between 4 and 8.
+        // Generates a random number for the size of the stack between 5 and 10.
         stackSize = getRandomNumber(5, 5);
         // Populates the stack with numbers.
         LinkedList<Integer> stack = createList(stackSize);
         ArrayList<String> instructions = new ArrayList<>();
-        // Determines the number of instructions to be carried out between 4 and 6.
-        int numberOfInstructions = getRandomNumber(2, 4);
+        // Determines the number of instructions to be carried out between 2 and 4
+        int numberOfInstructions = getRandomNumber(2, 2);
         addInstructions(instructions, numberOfInstructions);
         questionFormatter();
         question += printStack(stack);
