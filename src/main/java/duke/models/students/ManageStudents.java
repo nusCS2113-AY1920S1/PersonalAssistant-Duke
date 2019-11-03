@@ -75,11 +75,6 @@ public class ManageStudents implements IStudentList {
 
 
     @Override
-    public ArrayList<String> getAllStudent() {
-        return null;
-    }
-
-    @Override
     public Student getStudent(int i) {
         return this.studentList.get(i - 1);
     }

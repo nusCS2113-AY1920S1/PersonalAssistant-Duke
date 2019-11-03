@@ -42,16 +42,38 @@ public final class ParserManageStudents implements IParser {
     public void parseCommand(final String input) {
         String[] word = input.split(" ");
         String cmd = word[0];
-        boolean runManageStudent = true;
+        new CliView().manageStudentsHeading();
         switch (cmd) {
+        case "list":
+            students.listAllStudents();
+            break;
         case "add":
             addCommand();
             break;
-        // Format: student delete [index]
         case "delete":
             students.deleteStudent(Integer.parseInt(word[1]));
             break;
-
+        case "find":
+            final int limit = 4;
+            String name = cmd.substring(limit);
+            ArrayList<Student> search = new ArrayList<Student>();
+            for (Student i : students.getStudentList()) {
+                if (i.getName().contains(name)) {
+                    search.add(i);
+                }
+            }
+            if (search.size() >= 1) {
+                System.out.println(
+                        "Here are the matching names in your list:");
+                int index = 1;
+                for (int i = 0; i < search.size(); i++) {
+                    System.out.println(index++ + ". " + search.get(i));
+                }
+            } else {
+                System.out.println("Sorry, there are"
+                        + " no names matching your search");
+            }
+            break;
         case "details":
             System.out.println("Details for: ");
             if (sc.equals("add details")) {
@@ -70,39 +92,9 @@ public final class ParserManageStudents implements IParser {
             // editStudentDetails(detail)
             break;
 
-        case "list":
-            students.listAllStudents();
-            break;
-
-        case "find":
-            final int limit = 4;
-            String name = cmd.substring(limit);
-            ArrayList search = new ArrayList();
-            for (Student i : students.getStudentList()) {
-                if (i.getName().contains(name)) {
-                    search.add(i);
-                }
-            }
-            if (search.size() >= 1) {
-                System.out.println(
-                        "Here are the matching names in your list:");
-                int index = 1;
-                for (int i = 0; i < search.size(); i++) {
-                    System.out.println(index++ + ". " + search.get(i));
-                }
-            } else {
-                System.out.println("Sorry, there are"
-                        + " no names matching your search");
-            }
-            break;
-
         case "select":
             System.out.print("You have selected: ");
             students.getStudentName(Integer.parseInt(word[1]));
-            break;
-
-        case "particulars":
-            // Edit particulars of the student
             break;
 
         case "progress":
@@ -110,7 +102,6 @@ public final class ParserManageStudents implements IParser {
             break;
 
         case "back":
-            runManageStudent = false;
             break;
 
         default:
