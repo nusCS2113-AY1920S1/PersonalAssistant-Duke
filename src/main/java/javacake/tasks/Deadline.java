@@ -119,16 +119,16 @@ public class Deadline extends Task {
 
     }
 
+    //no time mode
     private static final Map<String, String> DATE_FORMAT_REGEXPS = new HashMap<String, String>() {{
-        //notime mode
-        put("^\\d{1,2}-\\d{1,2}-\\d{4}$", "dd-MM-yyyy");
-        put("^\\d{4}-\\d{1,2}-\\d{1,2}$", "yyyy-MM-dd");
-        put("^\\d{1,2}/\\d{1,2}/\\d{4}$", "dd/MM/yyyy");
-        put("^\\d{4}/\\d{1,2}/\\d{1,2}$", "yyyy/MM/dd");
-        put("^\\d{1,2}\\s[a-z]{3}\\s\\d{4}$", "dd MMM yyyy");
-        put("^\\d{1,2}\\s[a-z]{4,}\\s\\d{4}$", "dd MMMM yyyy");
-        put("^\\d{8}$", "ddMMyyyy");
-    }};
+            put("^\\d{1,2}-\\d{1,2}-\\d{4}$", "dd-MM-yyyy");
+            put("^\\d{4}-\\d{1,2}-\\d{1,2}$", "yyyy-MM-dd");
+            put("^\\d{1,2}/\\d{1,2}/\\d{4}$", "dd/MM/yyyy");
+            put("^\\d{4}/\\d{1,2}/\\d{1,2}$", "yyyy/MM/dd");
+            put("^\\d{1,2}\\s[a-z]{3}\\s\\d{4}$", "dd MMM yyyy");
+            put("^\\d{1,2}\\s[a-z]{4,}\\s\\d{4}$", "dd MMMM yyyy");
+            put("^\\d{8}$", "ddMMyyyy");
+        }};
 
     private String getFormattedDate(String dateString) {
         for (String regexp : DATE_FORMAT_REGEXPS.keySet()) {
@@ -139,34 +139,34 @@ public class Deadline extends Task {
         return null;
     }
 
+    //with time mode
     private static final Map<String, String> DATE_FORMAT_REGEXPS_X = new HashMap<String, String>() {{
-        //with time mode
-        put("^\\d{12}$", "ddMMyyyyHHmm");
-        put("^\\d{14}$", "ddMMyyyyHHmmss");
-        put("^\\d{8}\\s\\d{4}$", "ddMMyyyy HHmm");
-        put("^\\d{8}\\s\\d{1,2}:\\d{2}$", "ddMMyyyy HH:mm");
-        put("^\\d{8}\\s\\d{6}$", "ddMMyyyy HHmmss");
-        put("^\\d{8}\\s\\d{1,2}:\\d{2}:\\d{2}$", "ddMMyyyy HH:mm:ss");
-        put("^\\d{1,2}-\\d{1,2}-\\d{4}\\s\\d{1,2}\\d{2}$", "dd-MM-yyyy HHmm");
-        put("^\\d{4}-\\d{1,2}-\\d{1,2}\\s\\d{1,2}\\d{2}$", "yyyy-MM-dd HHmm");
-        put("^\\d{1,2}/\\d{1,2}/\\d{4}\\s\\d{1,2}\\d{2}$", "dd/MM/yyyy HHmm");
-        put("^\\d{4}/\\d{1,2}/\\d{1,2}\\s\\d{1,2}\\d{2}$", "yyyy/MM/dd HHmm");
-        put("^\\d{1,2}\\s[a-z]{3}\\s\\d{4}\\s\\d{1,2}\\d{2}$", "dd MMM yyyy HHmm");
-        put("^\\d{1,2}\\s[a-z]{4,}\\s\\d{4}\\s\\d{1,2}\\d{2}$", "dd MMMM yyyy HHmm");
-        put("^\\d{1,2}-\\d{1,2}-\\d{4}\\s\\d{1,2}:\\d{2}$", "dd-MM-yyyy HH:mm");
-        put("^\\d{4}-\\d{1,2}-\\d{1,2}\\s\\d{1,2}:\\d{2}$", "yyyy-MM-dd HH:mm");
-        put("^\\d{1,2}/\\d{1,2}/\\d{4}\\s\\d{1,2}:\\d{2}$", "dd/MM/yyyy HH:mm");
-        put("^\\d{4}/\\d{1,2}/\\d{1,2}\\s\\d{1,2}:\\d{2}$", "yyyy/MM/dd HH:mm");
-        put("^\\d{1,2}\\s[a-z]{3}\\s\\d{4}\\s\\d{1,2}:\\d{2}$", "dd MMM yyyy HH:mm");
-        put("^\\d{1,2}\\s[a-z]{4,}\\s\\d{4}\\s\\d{1,2}:\\d{2}$", "dd MMMM yyyy HH:mm");
-        //kill yourself with seconds mode
-        put("^\\d{1,2}-\\d{1,2}-\\d{4}\\s\\d{1,2}:\\d{2}:\\d{2}$", "dd-MM-yyyy HH:mm:ss");
-        put("^\\d{4}-\\d{1,2}-\\d{1,2}\\s\\d{1,2}:\\d{2}:\\d{2}$", "yyyy-MM-dd HH:mm:ss");
-        put("^\\d{1,2}/\\d{1,2}/\\d{4}\\s\\d{1,2}:\\d{2}:\\d{2}$", "dd/MM/yyyy HH:mm:ss");
-        put("^\\d{4}/\\d{1,2}/\\d{1,2}\\s\\d{1,2}:\\d{2}:\\d{2}$", "yyyy/MM/dd HH:mm:ss");
-        put("^\\d{1,2}\\s[a-z]{3}\\s\\d{4}\\s\\d{1,2}:\\d{2}:\\d{2}$", "dd MMM yyyy HH:mm:ss");
-        put("^\\d{1,2}\\s[a-z]{4,}\\s\\d{4}\\s\\d{1,2}:\\d{2}:\\d{2}$", "dd MMMM yyyy HH:mm:ss");
-    }};
+            put("^\\d{12}$", "ddMMyyyyHHmm");
+            put("^\\d{14}$", "ddMMyyyyHHmmss");
+            put("^\\d{8}\\s\\d{4}$", "ddMMyyyy HHmm");
+            put("^\\d{8}\\s\\d{1,2}:\\d{2}$", "ddMMyyyy HH:mm");
+            put("^\\d{8}\\s\\d{6}$", "ddMMyyyy HHmmss");
+            put("^\\d{8}\\s\\d{1,2}:\\d{2}:\\d{2}$", "ddMMyyyy HH:mm:ss");
+            put("^\\d{1,2}-\\d{1,2}-\\d{4}\\s\\d{1,2}\\d{2}$", "dd-MM-yyyy HHmm");
+            put("^\\d{4}-\\d{1,2}-\\d{1,2}\\s\\d{1,2}\\d{2}$", "yyyy-MM-dd HHmm");
+            put("^\\d{1,2}/\\d{1,2}/\\d{4}\\s\\d{1,2}\\d{2}$", "dd/MM/yyyy HHmm");
+            put("^\\d{4}/\\d{1,2}/\\d{1,2}\\s\\d{1,2}\\d{2}$", "yyyy/MM/dd HHmm");
+            put("^\\d{1,2}\\s[a-z]{3}\\s\\d{4}\\s\\d{1,2}\\d{2}$", "dd MMM yyyy HHmm");
+            put("^\\d{1,2}\\s[a-z]{4,}\\s\\d{4}\\s\\d{1,2}\\d{2}$", "dd MMMM yyyy HHmm");
+            put("^\\d{1,2}-\\d{1,2}-\\d{4}\\s\\d{1,2}:\\d{2}$", "dd-MM-yyyy HH:mm");
+            put("^\\d{4}-\\d{1,2}-\\d{1,2}\\s\\d{1,2}:\\d{2}$", "yyyy-MM-dd HH:mm");
+            put("^\\d{1,2}/\\d{1,2}/\\d{4}\\s\\d{1,2}:\\d{2}$", "dd/MM/yyyy HH:mm");
+            put("^\\d{4}/\\d{1,2}/\\d{1,2}\\s\\d{1,2}:\\d{2}$", "yyyy/MM/dd HH:mm");
+            put("^\\d{1,2}\\s[a-z]{3}\\s\\d{4}\\s\\d{1,2}:\\d{2}$", "dd MMM yyyy HH:mm");
+            put("^\\d{1,2}\\s[a-z]{4,}\\s\\d{4}\\s\\d{1,2}:\\d{2}$", "dd MMMM yyyy HH:mm");
+            //kill yourself with seconds mode
+            put("^\\d{1,2}-\\d{1,2}-\\d{4}\\s\\d{1,2}:\\d{2}:\\d{2}$", "dd-MM-yyyy HH:mm:ss");
+            put("^\\d{4}-\\d{1,2}-\\d{1,2}\\s\\d{1,2}:\\d{2}:\\d{2}$", "yyyy-MM-dd HH:mm:ss");
+            put("^\\d{1,2}/\\d{1,2}/\\d{4}\\s\\d{1,2}:\\d{2}:\\d{2}$", "dd/MM/yyyy HH:mm:ss");
+            put("^\\d{4}/\\d{1,2}/\\d{1,2}\\s\\d{1,2}:\\d{2}:\\d{2}$", "yyyy/MM/dd HH:mm:ss");
+            put("^\\d{1,2}\\s[a-z]{3}\\s\\d{4}\\s\\d{1,2}:\\d{2}:\\d{2}$", "dd MMM yyyy HH:mm:ss");
+            put("^\\d{1,2}\\s[a-z]{4,}\\s\\d{4}\\s\\d{1,2}:\\d{2}:\\d{2}$", "dd MMMM yyyy HH:mm:ss");
+        }};
 
     private String getFormattedDateX(String dateString) {
         for (String regexp : DATE_FORMAT_REGEXPS_X.keySet()) {
