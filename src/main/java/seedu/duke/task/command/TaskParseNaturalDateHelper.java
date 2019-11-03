@@ -1,6 +1,5 @@
 package seedu.duke.task.command;
 
-import javafx.scene.text.Text;
 import javafx.util.Pair;
 import seedu.duke.common.parser.CommandParseHelper;
 import seedu.duke.task.entity.Task;

@@ -7,6 +7,7 @@ import seedu.duke.Duke;
 import seedu.duke.common.logger.LogsCenter;
 import seedu.duke.common.command.Command;
 import seedu.duke.common.model.Model;
+
 import java.util.ArrayList;
 import java.util.logging.Logger;
 
@@ -76,7 +77,7 @@ public class UI {
             setInput(input);
             Command command = CommandParseHelper.parseCommand(input);
             logger.info("[User Input] " + input);
-            logger.info( "[Command] " + command.toString());
+            logger.info("[Command] " + command.toString());
             command.execute(Model.getInstance());
         } catch (CommandParseHelper.CommandParseException e) {
             e.printStackTrace();
