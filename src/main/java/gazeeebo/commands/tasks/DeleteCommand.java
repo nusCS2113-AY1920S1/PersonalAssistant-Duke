@@ -33,7 +33,7 @@ public class DeleteCommand extends Command {
             throw new DukeException("OOPS!!! The description of a deletion cannot be empty.");
         } else {
             if (ui.fullCommand.contains("all")) { //delete all tasks at once
-                for (int i = 0; i < list.size(); i++){
+                for (int i = 0; i < list.size(); i++) {
                     deletedTask.add(list.get(i));
                 }
                 list.clear();
@@ -42,21 +42,21 @@ public class DeleteCommand extends Command {
 
             } else if (ui.fullCommand.contains("and")) { //delete multiple chosen tasks
                 int numOfAnds = 0;
-                for(int i = 0; i < ui.fullCommand.length(); i++) {
+                for (int i = 0; i < ui.fullCommand.length(); i++) {
                     if (ui.fullCommand.charAt(i) == 'a') {
                         numOfAnds++;
                     }
                 }
-                String[] strNumberList = ui.fullCommand.substring(7).split(" and ", numOfAnds+1);
+                String[] strNumberList = ui.fullCommand.substring(7).split(" and ", numOfAnds + 1);
                 int size = strNumberList.length;
                 int[] intNumberList = new int[size];
-                for(int j = 0; j < size; j++){
+                for (int j = 0; j < size; j++) {
                     intNumberList[j] = Integer.parseInt(strNumberList[j]);
                 }
                 Arrays.sort(intNumberList);
                 int count = 1;
                 System.out.println("Noted. I've removed this task: ");
-                for(int k = 0; k < size; k++) {
+                for (int k = 0; k < size; k++) {
                     int index = intNumberList[k] - count;
                     String taskremoved = list.get(index).listFormat();
                     deletedTask.add(list.get(index));
@@ -65,7 +65,6 @@ public class DeleteCommand extends Command {
                     count++;
                 }
                 System.out.println("Now you have " + list.size() + " tasks in the list.");
-<<<<<<< HEAD
             } else if (ui.fullCommand.split(" ")[1] != null) {
                 try {
                     int index = Integer.parseInt(ui.fullCommand.substring(6).trim()) - 1;
@@ -80,24 +79,12 @@ public class DeleteCommand extends Command {
                 } catch (IndexOutOfBoundsException e) {
                     System.out.println("Task number not found");
                 }
-=======
-            }  else if (ui.fullCommand.length() > 6) {
-                int index = Integer.parseInt(ui.fullCommand.substring(6).trim()) - 1;
-                deletedTask.add(list.get(index));
-                String taskremoved = list.get(index).listFormat();
-                list.remove(index);
-                System.out.println("Noted. I've removed this task: ");
-                System.out.println(taskremoved);
-                System.out.println("Now you have " + list.size() + " tasks in the list.");
-
->>>>>>> c3b6581caf36bb07b80db230bd0343ea2e8e78ca
+                StringBuilder sb = new StringBuilder();
+                for (int i = 0; i < list.size(); i++) {
+                    sb.append(list.get(i).toString() + "\n");
+                }
+                storage.writeToSaveFile(sb.toString());
             }
-
-            StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < list.size(); i++) {
-                sb.append(list.get(i).toString() + "\n");
-            }
-            storage.writeToSaveFile(sb.toString());
         }
     }
 
