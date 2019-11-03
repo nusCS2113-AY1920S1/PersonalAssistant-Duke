@@ -70,7 +70,9 @@ public class ModuleInfoDetailed {
         return semesterData;
     }
 
-    public String[] getSemester() {return semester;}
+    public String[] getSemester() {
+        return semester;
+    }
 
     public String getGrade() {
         return grade;
