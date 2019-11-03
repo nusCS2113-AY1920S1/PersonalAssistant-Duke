@@ -62,7 +62,8 @@ public class HelpCommandTest extends ApplicationTest {
         VBox container = find();
         DialogBox dialogBox = (DialogBox) container.getChildren().get(1);
         String actualText = dialogBox.getDialog().getText();
-        Assertions.assertEquals(" help sorting ", actualText);
+        Assertions.assertEquals("Try solving these problems on Kattis:\n"
+                + "cups, lineup, mjehuric, sidewayssorting", actualText);
     }
 
     @Test
