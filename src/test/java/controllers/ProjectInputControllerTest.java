@@ -33,7 +33,7 @@ class ProjectInputControllerTest {
     }
 
     @Test
-    void testProjectAddMember() {
+    void testProjectAddMember_valid() {
         Project project = new Project("Infinity_Gauntlet");
         String simulatedUserInput = "add member -n Jerry Zhang -i 9123456 -e jerryzhang@gmail.com";
         projectInputController.projectAddMember(project,simulatedUserInput);
@@ -46,7 +46,34 @@ class ProjectInputControllerTest {
     }
 
     @Test
-    void testProjectEditMember() {
+    void testProjectAddMember_duplicateMembers() {
+        Project project = new Project("Infinity_Gauntlet");
+        simulatedUserInput = "add member -n Cynthia";
+        projectInputController.projectAddMember(project, simulatedUserInput);
+        assertEquals(1, project.getNumOfMembers());
+        assertEquals("Cynthia", project.getMember(1).getName());
+        simulatedUserInput = "add member -n Cynthia -p 98765432";
+        String[] projectOutput = projectInputController.projectAddMember(project, simulatedUserInput);
+        assertEquals(1, project.getNumOfMembers());
+        assertEquals("The member you have tried to add already exists!", projectOutput[0]);
+    }
+
+    @Test
+    void testProjectAddMember_noName() {
+        Project project = new Project("Infinity_Gauntlet");
+        simulatedUserInput = "add member";
+        String[] projectOutput = projectInputController.projectAddMember(project, simulatedUserInput);
+        assertEquals("Add member command minimum usage must be \"add member -n NAME\"!",
+            projectOutput[0]);
+        simulatedUserInput = "add member -n";
+        projectOutput = projectInputController.projectAddMember(project, simulatedUserInput);
+        assertEquals("Name cannot be empty! Please follow the add command format in user guide!" +
+            " \"add member -n NAME\" is the minimum requirement for add member command", projectOutput[0]);
+    }
+
+
+    @Test
+    void testProjectEditMember_valid() {
         Project project = new Project("Infinity_Gauntlet");
         simulatedUserInput = "add member -n Jerry Zhang -i 9123456 -e jerryzhang@gmail.com";
         projectInputController.projectAddMember(project, simulatedUserInput);
@@ -89,19 +116,42 @@ class ProjectInputControllerTest {
     }
 
     @Test
-    void testProjectDeleteMember() {
+    void testProjectDeleteMember_valid() {
         Project project = new Project("Infinity_Gauntlet");
         simulatedUserInput = "add member -n Jerry Zhang -i 9123456 -e jerryzhang@gmail.com";
         projectInputController.projectAddMember(project, simulatedUserInput);
-
+        assertEquals(1, project.getNumOfMembers());
         simulatedUserInput = "delete member 1";
         projectInputController.projectDeleteMember(project, simulatedUserInput);
-        actualOutput = "";
-        for (String message : project.getMembers().getAllMemberDetails().toArray(new String[0])) {
-            actualOutput += message;
-        }
-        expectedOutput = "";
-        assertEquals(expectedOutput,actualOutput);
+        assertEquals(0, project.getNumOfMembers());
+
+        //delete multiple
+        simulatedUserInput = "add member -n Cynthia";
+        projectInputController.projectAddMember(project, simulatedUserInput);
+        simulatedUserInput = "add member -n Sean";
+        projectInputController.projectAddMember(project, simulatedUserInput);
+        simulatedUserInput = "add member -n Abhishek";
+        projectInputController.projectAddMember(project, simulatedUserInput);
+        assertEquals(3, project.getNumOfMembers());
+        simulatedUserInput = "delete member 1 3";
+        projectInputController.projectDeleteMember(project, simulatedUserInput);
+        assertEquals(1, project.getNumOfMembers());
+        assertEquals("Sean", project.getMember(1).getName());
+    }
+
+    @Test
+    void testProjectDeleteMember_invalid() {
+        Project project = new Project("Infinity_Gauntlet");
+        simulatedUserInput = "add member -n Jerry Zhang -i 9123456 -e jerryzhang@gmail.com";
+        projectInputController.projectAddMember(project, simulatedUserInput);
+        assertEquals(1, project.getNumOfMembers());
+        simulatedUserInput = "delete member";
+        String[] output = projectInputController.projectDeleteMember(project, simulatedUserInput);
+        assertEquals("Can't delete members: No member index numbers detected!", output[0]);
+        simulatedUserInput = "delete member abc";
+        output = projectInputController.projectDeleteMember(project, simulatedUserInput);
+        assertEquals("Could not recognise member abc, please ensure it is an integer.", output[0]);
+        assertEquals("No valid member indexes. Cannot delete members.", output[1]);
     }
 
     @Test

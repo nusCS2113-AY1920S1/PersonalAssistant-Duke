@@ -233,7 +233,8 @@ public class ProjectInputController implements IController {
             projectToManage.getNumOfMembers());
         outputMessages.addAll(parserHelper.getErrorMessages());
         if (validMemberIndexes.isEmpty()) {
-            return new String[] {"No valid members to delete."};
+            outputMessages.add("No valid member indexes. Cannot delete members.");
+            return outputMessages.toArray(new String[0]);
         }
         Collections.sort(validMemberIndexes);
         Collections.reverse(validMemberIndexes);

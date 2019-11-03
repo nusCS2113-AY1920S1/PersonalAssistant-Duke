@@ -1,0 +1,23 @@
+{
+  "name": "n",
+  "memberList": {
+    "memberList": [],
+    "parserHelper": {
+      "sortHelper": {},
+      "errorMessages": []
+    }
+  },
+  "taskList": {
+    "taskList": [],
+    "parserHelper": {
+      "sortHelper": {},
+      "errorMessages": []
+    },
+    "sortHelper": {}
+  },
+  "reminderList": {
+    "reminderList": []
+  },
+  "taskAndListOfMembersAssigned": {},
+  "memberAndIndividualListOfTasks": {}
+}
