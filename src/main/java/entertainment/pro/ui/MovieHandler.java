@@ -750,6 +750,16 @@ public class MovieHandler extends Controller implements RequestListener {
     }
 
     public void showPlaylistList() throws IOException {
+////        PlaylistUi playlistUi = new PlaylistUi(playlistName);
+////        playlistVBox.getChildren().clear();
+////        mMoviesScrollPane.setHvalue(0.5);
+////        mMoviesScrollPane.setVvalue(0.5);
+////        playlistVBox = playlistUi.buildPlaylistVBox(playlists, mProgressBar, mStatusLabel);
+////        mMoviesScrollPane.setContent(playlistVBox);
+////        mMoviesScrollPane.setVvalue(0);
+////        pageTracker.setToPlaylistList();
+//        PlaylistUi playlistUi = new PlaylistUi(playlistName, playlists);
+//        mMoviesScrollPane.setContent(playlistUi.getPlaylistScrollPaneContent());
         buildPlaylistVBox(playlists);
     }
 
@@ -1122,16 +1132,16 @@ public class MovieHandler extends Controller implements RequestListener {
      */
     public void refresh() throws IOException {
         switch (pageTracker.getCurrentPage()) {
-            case "playlistList":
-                EditProfileJson editProfileJson = new EditProfileJson();
-                buildPlaylistVBox(editProfileJson.load().getPlaylistNames());
-                break;
-            case "playlistInfo":
-                EditPlaylistJson editPlaylistJson = new EditPlaylistJson(playlistName);
-                buildPlaylistInfo(editPlaylistJson.load());
-                break;
-            default:
-                break;
+        case "playlistList":
+            EditProfileJson editProfileJson = new EditProfileJson();
+            buildPlaylistVBox(editProfileJson.load().getPlaylistNames());
+            break;
+        case "playlistInfo":
+            EditPlaylistJson editPlaylistJson = new EditPlaylistJson(playlistName);
+            buildPlaylistInfo(editPlaylistJson.load());
+            break;
+        default:
+            break;
         }
     }
 

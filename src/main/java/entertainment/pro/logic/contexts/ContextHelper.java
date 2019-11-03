@@ -2,10 +2,13 @@ package entertainment.pro.logic.contexts;
 
 import entertainment.pro.commons.enums.COMMANDKEYS;
 import entertainment.pro.logic.parsers.CommandStructure;
+import entertainment.pro.model.UserProfile;
 import entertainment.pro.storage.user.Blacklist;
+import entertainment.pro.storage.utils.EditProfileJson;
 import entertainment.pro.ui.Controller;
 import entertainment.pro.ui.MovieHandler;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Map;
@@ -234,6 +237,13 @@ public class ContextHelper {
             ((MovieHandler) controller).updateTextField(update);
             return allPossibilities;
         } else if (splitCommand.length == TWO_WORDS && isSubRootCommandComplete(splitCommand[1])) {
+            if (splitCommand[0].equalsIgnoreCase("playlist")) {
+                try {
+                    return new EditProfileJson().load().getPlaylistNames();
+                } catch (IOException e) {
+                    return null;
+                }
+            }
             ArrayList<String> allPossibilities  = commandSpecificHints(
                     splitCommand[0],
                     splitCommand[1],
