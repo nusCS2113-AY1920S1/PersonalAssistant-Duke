@@ -193,6 +193,10 @@ public class RecurringExpenditureList {
      * @param ui          The object required for printing.
      */
     public void findMatchingRecurringExpenditure(String description, String category, Ui ui) {
+        if (isRecurringExpendituresEmpty()) {
+            ui.printMessage("Recurring expenditure is empty.");
+            return;
+        }
         if (!(description.isBlank() || description.isEmpty())) {
             findByDescription(description, ui);
         }
@@ -262,4 +266,9 @@ public class RecurringExpenditureList {
             ui.printTransactionHeader(RECURTRANSTYPE);
         }
     }
+
+    public boolean isRecurringExpendituresEmpty() {
+        return recurringExpenditures.isEmpty();
+    }
+
 }

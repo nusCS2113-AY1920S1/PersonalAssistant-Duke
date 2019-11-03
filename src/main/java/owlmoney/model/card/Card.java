@@ -265,7 +265,10 @@ public class Card {
      */
     void findTransaction(String fromDate, String toDate, String description, String category, Ui ui)
             throws TransactionException {
+        ui.printMessage("Searching through: unpaid expenditure");
         unpaid.findMatchingTransaction(fromDate, toDate, description, category, ui);
+        ui.printMessage("Searching through: paid expenditure");
+        paid.findMatchingTransaction(fromDate, toDate, description, category, ui);
     }
 
     /**
