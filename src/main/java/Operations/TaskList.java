@@ -57,7 +57,6 @@ public class TaskList {
             if (idx[0] < 0 || idx[0] >= tasks.size() || idx[1] < 0 || idx[1] >= tasks.size()) {
                 throw new RoomShareException(ExceptionType.outOfBounds);
             }
-
             for (int i = idx[0]; idx[1] >= idx[0]; idx[1]--) {
                 deletedList.add(tasks.get(i));
                 tasks.remove(i);
@@ -264,8 +263,12 @@ public class TaskList {
      * @param first the first task
      * @param second the second task
      */
-    public void reorder(int first, int second) {
-        Collections.swap(tasks, first, second);
+    public void reorder(int first, int second) throws RoomShareException {
+        try {
+            Collections.swap(tasks, first, second);
+        } catch (IndexOutOfBoundsException e) {
+            throw new RoomShareException(ExceptionType.outOfBounds);
+        }
     }
 
     /**

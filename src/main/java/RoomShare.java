@@ -122,8 +122,9 @@ public class RoomShare {
             case restore:
                 Ui.clearScreen();
                 ui.startUp();
-                int restoreIndex = parser.getIndex();
                 try {
+                    String input = parser.getCommandLine();
+                    int restoreIndex = parser.getIndex(input);
                     tempDeleteList.restore(restoreIndex, taskList);
                 } catch (RoomShareException e) {
                     ui.showError(e);
@@ -177,13 +178,14 @@ public class RoomShare {
                 listRoutine.list();
                 break;
 
-            case snooze :
+            case snooze:
                 Ui.clearScreen();
                 ui.startUp();
                 try {
-                    int index = parser.getIndex();
-                    int amount = parser.getAmount();
-                    TimeUnit timeUnit = parser.getTimeUnit();
+                    String input = parser.getCommandLine();
+                    int index = parser.getIndex(input);
+                    int amount = parser.getAmount(input);
+                    TimeUnit timeUnit = parser.getTimeUnit(input);
                     if (amount < 0)
                         throw new RoomShareException(ExceptionType.negativeTimeAmount);
                     taskList.snooze(index, amount, timeUnit);
@@ -197,11 +199,15 @@ public class RoomShare {
             case reorder:
                 Ui.clearScreen();
                 ui.startUp();
-                int firstIndex = parser.getIndex();
-                parser.discardNext();
-                int secondIndex = parser.getIndex();
-                ui.showReordering();
-                taskList.reorder(firstIndex, secondIndex);
+                try {
+                    String input = parser.getCommandLine();
+                    int firstIndex = parser.getIndex(input, 0);
+                    int secondIndex = parser.getIndex(input, 1);
+                    taskList.reorder(firstIndex, secondIndex);
+                    ui.showReordering();
+                } catch (RoomShareException e) {
+                    ui.showError(e);
+                }
                 listRoutine.list();
                 break;
 
@@ -209,8 +215,9 @@ public class RoomShare {
                 Ui.clearScreen();
                 ui.startUp();
                 try {
-                    int index = parser.getIndexSubtask();
-                    String subTasks = parser.getCommandLine();
+                    String input = parser.getCommandLine();
+                    int index = parser.getIndexSubtask(input);
+                    String subTasks = parser.getSubTasks(input);
                     new subTaskCreator(index, subTasks);
                 } catch (RoomShareException e) {
                     ui.showError(e);
@@ -222,8 +229,8 @@ public class RoomShare {
                 Ui.clearScreen();
                 ui.startUp();
                 try {
-                    int index = parser.getIndex();
-                    String input = parser.getCommandLine().trim();
+                    String input = parser.getCommandLine();
+                    int index = parser.getIndex(input);
                     Task oldTask = taskList.get(index);
                     taskCreator.updateTask(input,oldTask);
                     ui.showUpdated(index+1);
@@ -238,7 +245,8 @@ public class RoomShare {
                 ui.startUp();
                 SortType sortType;
                 try {
-                    sortType = parser.getSort();
+                    String input = parser.getCommandLine();
+                    sortType = parser.getSort(input);
                 } catch (RoomShareException e) {
                     ui.showError(e);
                     sortType = SortType.priority;
@@ -251,13 +259,13 @@ public class RoomShare {
             case log:
                 Ui.clearScreen();
                 ui.startUp();
-                listRoutine.list();
                 try {
                     String filePath = storage.writeLogFile(TaskList.currentList());
                     ui.showLogSuccess(filePath);
                 } catch (RoomShareException e) {
                     ui.showError(e);
                 }
+                listRoutine.list();
                 break;
 
             default:

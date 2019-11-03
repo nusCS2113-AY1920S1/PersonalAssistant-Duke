@@ -13,6 +13,7 @@ public enum ExceptionType {
     emptyList,
     emptyUser,
     outOfBounds,
+    emptySubTask,
 
     test,
     subTaskError,
