@@ -54,7 +54,7 @@ public class StorageStub {
     private static final String EVENTS_FILE_PATH = "events.txt";
     private static final String ROUTES_FILE_PATH = "routes.txt";
     private static final String ITINERARIES_FILE_PATH = "itineraries.txt";
-    private static final String PROFILE_FILE_PATH = "profile.txt";
+    // private static final String PROFILE_FILE_PATH = "profile.txt";
 
     /**
      * Constructs a Storage object that contains information from the model.

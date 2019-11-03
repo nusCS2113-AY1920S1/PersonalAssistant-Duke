@@ -6,8 +6,6 @@ import duke.model.Model;
 import duke.model.planning.Itinerary;
 import duke.model.planning.Recommendation;
 
-import java.util.logging.Logger;
-
 /**
  * Recommends an itinerary based on number of trip days entered by user.
  */
