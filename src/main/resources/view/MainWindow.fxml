@@ -168,18 +168,6 @@
                   <Insets right="60.0" />
                </padding>
             </Button>
-            <Button fx:id="historyButton" layoutY="522.0" mnemonicParsing="false" onAction="#historyAction" onMouseClicked="#removeWelcome" prefHeight="62.0" prefWidth="176.0" style="-fx-background-color: #34495e;" text="HISTORY" textFill="#95a5a6" wrapText="true" AnchorPane.bottomAnchor="28.0" AnchorPane.topAnchor="522.0">
-               <graphic>
-                  <ImageView fx:id="history" fitHeight="44.0" fitWidth="42.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/history.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-               <padding>
-                  <Insets right="60.0" />
-               </padding>
-            </Button>
          </children>
       </AnchorPane>
       <GridPane prefHeight="90.0" prefWidth="176.0" style="-fx-background-color: #2dcb70;" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
