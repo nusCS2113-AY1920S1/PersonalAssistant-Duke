@@ -1227,7 +1227,7 @@ public class Profile {
         int expenditureExist = profileGetCardBillExpenditureId(bankName, cardId, billDate);
         int depositExist = profileGetCardBillDepositId(bankName, cardId, billDate);
         boolean isThrowException = false;
-        String accountType = "";
+        String accountType = BLANK;
         if (expenditureExist == -1 && depositExist == -1) {
             accountType = "bill expenditure and bill rebate deposit";
             isThrowException = true;
@@ -1311,7 +1311,7 @@ public class Profile {
             String cardId = importDataRow[4];
             String billDate = importDataRow[5];
             UUID uuid = null;
-            if (!cardId.equals("")) {
+            if (!BLANK.equals(cardId)) {
                 uuid = UUID.fromString(cardId);
             }
             YearMonth yearMonthBillDate = null;
