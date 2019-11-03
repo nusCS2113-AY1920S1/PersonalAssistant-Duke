@@ -1,2 +1,40 @@
-T | 1 | test1 | 0
-D | 0 | test2 | 0 | 25/10/2019 1200
+[
+  {
+    "name": "john",
+    "isDone": false,
+    "memberList": [],
+    "skillReqList": []
+  },
+  {
+    "name": "james",
+    "isDone": false,
+    "memberList": [],
+    "skillReqList": [
+      "yo"
+    ]
+  },
+  {
+    "name": "null",
+    "isDone": false,
+    "memberList": [],
+    "skillReqList": []
+  },
+  {
+    "name": "lame",
+    "isDone": false,
+    "memberList": [],
+    "skillReqList": []
+  },
+  {
+    "name": "hi",
+    "isDone": false,
+    "memberList": [],
+    "skillReqList": []
+  },
+  {
+    "name": "yooo",
+    "isDone": false,
+    "memberList": [],
+    "skillReqList": []
+  }
+]

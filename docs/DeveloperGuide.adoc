@@ -1,4 +1,4 @@
-= Duke Pro - Developer Guide
+= Team Manager - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -20,7 +20,6 @@ By: `Team AY1920S1-CS2113-T14-4`      Since: `Sept 2019`
 
 Refer to the guide <<SettingUp#, here>>.
 
-
 == Problem
 
 The role of a team manager is to initiate, plan, design, execute and monitor the project to achieve its intended outcomes. This means the team manager must be able to efficiently organise and record down many details of the project to fulfill their responsibilities. However recording project details on pen and paper or word documents is too time consuming and lack many features that can aid in project management, such as deadline reminders.
@@ -35,9 +34,60 @@ The role of a team manager is to initiate, plan, design, execute and monitor the
 
 
 == Value proposition
- The Team Manager application will enable the team manager to efficiently plan tasks, save time, and assign proper amount of tasks to team members, while providing an intuitive gui for them to visualise and easily keep track of the team progress.
- Users can use this app to manage projects faster than a typical mouse/gui driven app.
+The Team Manager application will enable the team manager to efficiently plan tasks, save time, and assign proper amount of tasks to team members, while providing an intuitive gui for them to visualise and easily keep track of the team progress.
+Users can use this app to manage projects faster than a typical mouse/gui driven app.
 
+== Design
+=== Architecture
+=== UI component
+=== Logic component
+
+API: No Interface for now
+
+1. `LogicController` uses the `NewParser` class to parse the user command.
+2. This results in a `Command` object which is executed by the `LogicController`.
+3. The command execution talks to `Model` and do some behavior to get desired result and return it back.
+4. The command execution talks to `Storage` (if necessary, e.g. adding a member) throw `Model` (e.g. a save() method in `Model` API).
+5. The result of the command execution is encapsulated as a `CommandOutput` object which is passed back to the `Ui`.
+
+Given below is the Sequence Diagram interactions within the Logic component for the execute("delete task 1") call.
+
+image::Logic_delete.png[width="939", align="left"]
+
+=== Model component
+=== Storage component
+=== Common
+
+== Implementation
+
+=== Delete Feature
+==== Implementation
+The delete command is implemented in ​`DeleteTaskCommand` ​ and ​`DeleteMemCommand`​. They both extend ​`Command​`.
+When user input list command from UI, it talks to Logic, Model and Storage. This action changes the App data. +
+E.g `​DeleteTaskCommand` ​user input: ​delete task 1 +
+The following sequence diagram shows how DeleteTaskCommand works in Logic, Model and Storage. +
+We focus on the behavior inside Model.
+
+image::Model_delete.png[width="939", align="left"]
+
+==== Design Analysis
+When a user delete a task, the tasklist of a member (the task name that the member is in charge of) should also be updated, if necessary. +
+Therefore, first get the name of the task first, as we just store task name in Member. +
+Then talk to `MemberManager` to delete corresponding task in every member. +
+Then talk to `TaskManager` to delete task.
+
+=== Reminder Feature
+==== Proposed Implementation
+The reminder command implemented in ​ReminderCommand​, extending Command. ​
+The reminder command passes through the usual route of handling commands,
+then passes the information over to the ​ReminderManager.​
+Reminders are then created based on the task index and timing given.
+The ReminderManager runs a thread in the background,
+and sleeps until the time of the next reminder to alert the user of the reminder.
+
+=== Input History Feature
+==== Implementation
+Each line of input typed by the user is passed to the ​InputMemory.​ Each line is added to an ​ArrayList​ of strings, and sets a pointer to the last item. Up and down arrow keys will shift this pointer along the ArrayList and retrieved previously typed inputs and sets it into the input field.
 
 [appendix]
 
@@ -142,6 +192,7 @@ Actors: Project Manager
 
 1. User starts the Team Manager.
 2. User adds team member to specific task.
+(about how to choose the team member is in UC05)
 3. Use Case ends.
 
 *Extensions*
@@ -157,7 +208,25 @@ Actors: Project Manager
 ** 2b2. Use case ends
 
 [discrete]
-=== UC05: Updating task progress
+=== UC05: Choosing a proper person that can be assigned a task to
+Actor: Project Manager
+
+*MSS*
+
+1. User starts the Team Manager
+2. User check the free member
+3. User choose the proper member
+
+*Extensions*
+
+[none]
+* 2a. If there is no free member
+** 2a1. User list all members in order of undo tasks number
+** 2a2. User schedule some members will less tasks to find out who is free recently
+** 2a3. Use case ends.
+
+[discrete]
+=== UC06: Updating task progress
 Actors: Project Manager
 
 *MSS*
@@ -176,6 +245,56 @@ Actors: Project Manager
 ** 3a2. Use case continues from step 2.
 ** 3a3. Use case ends.
 
+[discrete]
+=== UC07: Dealing with an urgent task of the whole team
+Actor: Project Manager
+
+*MSS*
+
+1. User starts the Team Manager
+2. User list all todo list in order of the time
+3. User get the task which has nearest deadline and check the details
+4. User get the member who assigned to this task
+5. User show the profile of this member
+6. Use case ends.
+
+*Extensions*
+
+[none]
+* 3a. Task doesn't has a person in charge
+** 3a1.find a proper person to assign a task (in UC07)
+** 3a2. Use case ends.
+
+* 3b. User feels that it's impossible to finish the task
+** 3b1. User change the deadline of the task
+** 3b2. go back to 2.
+
+
+[discrete]
+=== UC08: Adjusting the workload of the whole team
+Actor: Project Manger
+
+*MSS*
+
+1. User check each member's tasks to see if there is a very busy day for a member.
+2. User go to that member's details, find a task that can be change to others.
+3. User list the tasks in oder of PIC's number to find that task.
+4. User unlink the task to that member
+5. User find another proper member that can be assigned to.(UC07)
+6. Use case ends.
+
+[discrete]
+=== UC09: Find the most efficient member
+Actor: Project Manager
+
+*MSS*
+
+1. User list the member in order of completed percentage
+2. User get the most efficient member
+3. Use case ends.
+
+[discrete]
+
 [appendix]
 == Non Functional Requirements
 
@@ -183,4 +302,4 @@ Actors: Project Manager
 * Parsing the data into a readable text file so that power users can easily edit them.
 * Parsing user input.
 * Suggestion of relevant commands based on closest fit.
-* Duke can be used in any OS.
+* Team Manager can be used in any OS.

@@ -3,10 +3,8 @@ package logic.command;
 import static java.util.Objects.requireNonNull;
 
 import java.util.Objects;
+//@@author JustinChia1997
 
-/**
- * Details the output of a command
- */
 public class CommandOutput {
 
     private final String responseToUser;

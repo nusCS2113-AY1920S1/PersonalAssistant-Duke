@@ -1,16 +1,19 @@
 package core;
 
-import members.Member;
-import gui.Window;
-import commands.Command;
-import tasks.Task;
-import utils.DukeException;
-import utils.Parser;
-import utils.Storage;
-import utils.TasksCounter;
+
+import common.DukeException;
+import model.Model;
+
 
 import java.util.Scanner;
+
 import java.util.ArrayList;
+//=======New Imports for new structure
+import gui.UiController;
+import logic.LogicController;
+import logic.ReminderController;
+import model.ModelController;
+import storage.Storage;
 
 /**
  * This is the main class to be executed for DUKE PRO application
@@ -19,81 +22,41 @@ import java.util.ArrayList;
  */
 public class Duke {
 
-    /**
-     * deals with loading tasks from the file and saving tasks in the file
-     */
-    private Storage storage;
-
-    /**
-     * an array list contains all the tasks
-     */
-    private ArrayList<Task> tasks;
-
-    private ArrayList<Member> members;
+    //=============New instantiation of new structure objects===================
+    protected Model modelController;
+    protected LogicController logicController;
+    protected UiController uiController;
+    protected ReminderController reminderController;
+    protected Storage storage;
 
     public static Duke instance;
 
 
     /**
      * A constructor which applies the file path to load previous data
-     *
-     * @param taskFilePath   the file path of task list
-     * @param memberFilePath the file path of member list
      */
-    public Duke(String taskFilePath, String memberFilePath) {
-        storage = new Storage(taskFilePath, memberFilePath);
-        tasks = storage.loadTaskList();
-        members = storage.loadMemberList(tasks);
+    public Duke() {
+        //========= instantiation for controllers ==============
+        modelController = new ModelController();
+        logicController = new LogicController(modelController);
+        uiController = new UiController(logicController, storage);
+        reminderController = new ReminderController(modelController);
         Duke.instance = this;
     }
 
     /**
      * main running structure of Duke.
      */
-    public void run() {
-        TasksCounter tc = new TasksCounter(tasks);
-        new Window(tc);
-        Ui.welcome();
+
+    public void run() throws DukeException {
+        UiController.welcome();
+        uiController.start();
         boolean isExit = false;
         Scanner in = new Scanner(System.in);
-        while (!isExit) {
-            try {
-                String fullCommand = Ui.readLine(in);
-                Command c = Parser.commandLine(fullCommand);
-                c.execute(tasks, members, storage);
-                isExit = c.isExit();
-            } catch (DukeException e) {
-                Ui.print(e.getMessage());
-            }
+        while (isExit) {
+            uiController.readCommand(in);
+            isExit = uiController.isExit();
         }
-    }
-
-    /**
-     * Attempts to parse and execute given input
-     *
-     * @param command input line from user
-     */
-    public void doCommand(String command) {
-        Command c;
-        try {
-            c = Parser.commandLine(command);
-            c.execute(tasks, members, storage);
-            if (c.isExit()) {
-                System.exit(0);
-            }
-        } catch (DukeException e) {
-            Ui.print(e.getMessage());
-        }
-    }
-
-
-    /**
-     * Static version of doCommand. For window access
-     *
-     * @param command input line from user
-     */
-    public static void processCommand(String command) {
-        instance.doCommand(command);
     }
 
     /**
@@ -101,7 +64,7 @@ public class Duke {
      *
      * @param args command line arguments, not used here
      */
-    public static void main(String[] args) {
-        new Duke("data/tasks.txt", "data/members.txt").run();
+    public static void main(String[] args) throws DukeException {
+        new Duke().run();
     }
 }
