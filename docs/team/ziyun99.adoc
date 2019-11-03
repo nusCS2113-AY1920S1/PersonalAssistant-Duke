@@ -122,7 +122,7 @@ https://github.com/AY1920S1-CS2113T-F11-3/main/pull/70[#50])
 *** Wrote additional tests for existing features to increase instruction coverage from 19% to 29%, and
 increase branch coverage from 15% to 20%
 (https://github.com/AY1920S1-CS2113T-F11-3/main/pull/114[#114])
-*** Implemented logger (https://github.com/AY1920S1-CS2113T-F11-3/main/pull/114[#131])
+*** Implemented logger (https://github.com/AY1920S1-CS2113T-F11-3/main/pull/181[#181])
 *** Added key binding functionality to create keyboard shortcut
 (https://github.com/AY1920S1-CS2113T-F11-3/main/pull/78[#78]
 https://github.com/AY1920S1-CS2113T-F11-3/main/pull/70[#70])
@@ -137,7 +137,7 @@ features.
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-==== Change Mode: `flip`
+=== Change Mode: `flip`
 Format: `flip` +
 
 Flips/toggles between email mode and task mode. The prefix of the command in the text box will also be
@@ -146,7 +146,19 @@ changed.
 In task mode, the text box will display `task` as a prefix.
 In email mode, the text box will display `email` as a prefix.
 
-==== Tagging Email: `update`
+=== Showing an email: `show`
+Format: `show INDEX_NUMBER` +
+
+Show the email content of the email at the index number in the email list.
+
+Example: +
+`show 3`: show the 3rd email in the list.
+
+[TIP]
+You can press `Esc` key on your keyboard any time to switch display between the list and content view of emails.
+
+
+=== Tagging Email: `update`
 Format: `update ITEM_NUMBER -tag TAG1 [-tag TAG2]...`
 
 Tags the specified item with the tag(s) minimum number of tags is 1.
@@ -155,7 +167,7 @@ Examples: +
 `update 1 -tag CS2113T` +
 `update 2 -tag Tutorial -tag Spam`
 
-==== Filtering email: `list`
+=== Filtering email: `list`
 Format: `list [-tag TAG1] [-tag TAG2]...` +
 
 Gives a list of emails with the tags. Minimum number of tags is 1, and the maximum number of tags is 2.
@@ -170,4 +182,213 @@ Examples: +
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
+=== Email Management
+
+==== Email Tagging
+*Email Manager* allows user to tag emails by tags.
+
+===== Current Implementation
+* Format: `email update ITEM_NUMBER [-tag TAG1] [-tag TAG2]…`​
+* Note: Tags the specified item with the tag(s) minimum number of tags is 1.
+* Eg: `email update 2 -tag Fun -tag Project` : tags 2nd email in the list with the tags "Fun" and "Project".
+
+Following is the activity diagram when the command is executed:
+[#img-email-tag-activity-diagram]
+[caption="Figure N+1: "]
+image::emailTagActivityDiagram.jpg[Email Tag Activity Diagram, 800, caption="sf"]
+
+The following sequence diagram below will explain how the `email update` command works in detail:
+
+[#img-email-tag-sequence-diagram]
+[caption="Figure N+1: "]
+image::emailTagSequenceDiagram.jpg[Email Tag Sequence Diagram, 800]
+
+An example usage of the command is as follows:
+
+*Step 1*: The user launches the application. The user inputs `email update 2 -tag Fun -tag Project`
+
+*Step 2*: `UI` component captures the input and passes to `Logic` component to parse the input. Section below
+explains how `Logic` component parse the input.
+
+* `CommandParseHelper` takes in the `input`, parses and extracts tags information and stores it
+inside ArrayList<Option>  `optionList`, then passes the `input` and `optionList` to `EmailCommandParseHelper`.
+** `input` here is `email update 2`
+** `optionList` here is `[tag=Fun, tag=Project]`
+* `EmailCommandParseHelper` parses the `index` of email and extract tags information `optionList` and
+stores it in ArrayList<String> `tags`.
+** `index` here is `2`
+** `tags` here is `[Fun, Project]`
+* `EmailCommandParseHelper` creates a new `EmailTagCommand` by passing in `index` and `tags`, then return
+the `EmailTagCommand` to `CommandParseHelper` and then to `UI`
+
+*Step 3* : `EmailTagCommand#execute(model)` is called by `UI`.
+
+*Step 4*: `EmailTagCommand` calls `Model#getEmailList()`, then `emailList` is returned by `Model`.
+
+*Step 5*: `EmailTagCommand` calls `EmailList#addTags(index, tags)`
+
+* `EmailList` calls `get(index)` to get the email of the index number in the emailList.
+** Gets the 2nd email in the emailList.
+* For each `tag` in `tags`, `EmailList` calls `Email#addTag(tag)`. `Email` calls `tags.add()` to add the tag to the email.
+** Each `tag` here is `Fun` and `Project`.
+
+*Step 6*: `EmailList` returns a String `responseMsg` to `EmailTagCommand`.
+
+** `responseMsg` here is: +
+ "Tags added: [Project, Fun] to email: <title of email at index 2>"
+
+===== Design Considerations
+
+Aspect: Handling updating of tags
+
+* Alternative 1 (current choice): if at least one tag is entered as part of the command, it will overwrite all current tags of the task being modified.
+** Pros: makes it consistent with other parameters of the update command and gives users an option to replace/remove tags
+** Cons: if there are many tags, and the user only wants to add on an extra tag, the user will need to retype all existing tags into the command.
+* Alternative 2: if a tag is entered as part of the command, it will amend on top of existing tags.
+** Pros: this will save users time if they only want to add on tags
+** Cons: no option to remove tags
+* Alternative 3 (proposed): there will be an option to add tags and an option to remove tags.
+** Pros: gives users highest amount of flexibility and control over the tags they want to keep.
+** Cons: added complexity in commands
+
+==== Email Filtering by Tag(s)
+*Email Manager* allows user to filter emails by tag(s).
+
+===== Current Implementation
+* Format: `list [-tag TAG1] [-tag TAG2]…`
+* Note: Gives a list of emails with the tags. Minimum number of tags is 1, and the maximum is 2.
+* Eg: `email list -tag Fun -tag Project`
+
+Following is the activity diagram when the command is executed:
+[#img-email-filter]
+[caption="Figure n: "]
+image::emailFilterActivityDiagram.jpg[Email Filtering Activity Diagram, 800]
+
+The following sequence diagram below will explain how the `email update` command works in detail:
+
+[#img-email-filter-sequence-diagram]
+[caption="Figure N+1: "]
+image::emailFilterSequenceDiagram.jpg[Email Filter Sequence Diagram, 800]
+
+An example usage of the command is as follows:
+
+*Step 1* : The user launches the application. The user wishes to tag the 2nd email in the list with "Fun"
+and "Project" (Implementation of part is explained in Section 5.3.2). After tagging the email, the user wishes
+to view the list of emails with these tags, hence the user inputs `email list -tag Fun -tag Project`.
+
+*Step 2* : `UI` component captures the input and passes to `Logic` component to parse the input. Section below
+explains how `Logic` component parse the input.
+
+* `CommandParseHelper` takes in the `input`, parses and extracts tags information and stores it
+inside ArrayList<Option>  `optionList`, then passes the `input` and `optionList` to `EmailCommandParseHelper`.
+** `input` here is `email list`
+** `optionList` here is `[tag=Fun, tag=Project]`
+* `EmailCommandParseHelper` parses the `input` and extract tags information `optionList` and
+stores it in ArrayList<String> `tags`.
+** `tags` here is `[Fun, Project]`
+* `EmailCommandParseHelper` creates a new `EmailTagListCommand` by passing in `tags`, then return
+the `EmailTagListCommand` to `CommandParseHelper` and then to `UI`
+
+*Step 3* : `EmailTagListCommand#execute(model)` is called by `UI`.
+
+*Step 4*: `EmailTagListCommand` calls `EmailTags#displayEmailTagList(tags)`.
+
+*Step 5*: `EmailTags` checks the conditions of the each tags in `tags`, we say that a tag exists if there
+is email with the tag. If none of the emails has the tag, we say that the tag does not exist. We say that
+both tags co-exist if there is email tagged with both tags.
+
+** In this example, both tags `Fun` and `Project` co-exist.
+
+*Step 6*: `EmailTags` call `TagMap.get("Fun").get("Project")`. `TagMap` returns `emailList` which is the
+email(s) tagged with both `Fun` and `Project`.
+
+*Step 7*: `EmailTags` returns a String `responseMsg` to `EmailTagListCommand`.
+
+** `responseMsg` here is: +
+"Here is the email tagged with both #Project and #Fun: <list of title of email(s)
+with both tags>"
+
+
+===== Design Considerations
+
+* Alternative 1 (current choice): +
+The tags associated with emails is stored in `TagMap`:
+
+** TagMap is a `HashMap<String, SubTagMap>`:
+*** Each `key` in the HashMap is a tag name (we call it `root tag name` here) that exists in the email list.
+*** The `value` associated with each `key` is a `SubTagMap`.
+
+** `SubTagMap` is a `HashMap<String, EmailList>`:
+*** Each `key` in the HashMap is a tag name (we call it `sub tag name` here) that co-exists with the `root tag
+name` from the `TagMap`. We say that both tags co-exist if there is email tagged with both tags.
+*** The `value` associated with each `key` is an `EmailList`, which is the list of emails tagged with both
+`root tag name` and `sub tag name`.
+
+** For example, let `emailOne` be an email tagged with `Tutorial` and `CS2113T`, `emailTwo` be an email tagged
+with `Tutorial` and `CG2271`.
+*** After calling `EmailTags#updateEmailTagList`, the TagMap has the following structure: +
+{ +
+    Tutorial={Tutorial=emailOne emailTwo, CS2113T=emailOne, CG2271=emailTwo}, +
+    CS2113T={CS2113T=emailOne, Tutorial=emailOne}, +
+    CG2271={CG2271=emailTwo, Tutorial= emailTwo} +
+}
+
+** Pros: Faster search when user invokes `EmailTagListCommand`, since `EmailTags#displayEmailTagList` is
+navigating in the HashMap.
+** Cons: Current implementation invokes the `EmailTags#updateEmailTagList` on every user input to keep the
+tagMap and email list view in GUI updated, which increases the computational load.
+
+* Alternative 2: +
+Loop through each tag of each email in the list of emails, and check if the each tag equals to the tag
+requested by the user, if yes, add the email to the list, if no, continue with the loop. After finishing
+the loop, output the email(s) in the list.
+
+** Pros: This implementation does not have to maintain a TagMap structure to keep track of the emails with
+the tags, therefore does not requires update of the TagMap, this saves the space and computational load of the program.
+** Cons: Slower search when user invokes `EmailTagListCommand`, since it has to loop through each tag of
+each email in the list of emails.
+
+==== Logging
+We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the
+logging levels and logging destinations.
+
+===== Current Implementation
+* The logging level can be controlled using the logLevel
+* The Logger for a class can be obtained using LogsCenter.getLogger(Class) which will log messages according
+to the specified logging level
+* Currently log messages are output through: Console and to a .log file in `data/logs` folder with the format
+`"log" + "yyyyMMdd_HHmm" + ".log"`.
+* Logging Levels
+** SEVERE : Critical problem detected which may possibly cause the termination of the application
+** WARNING : Can continue, but with caution
+** INFO : Information showing the noteworthy actions by the App
+** FINE : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list
+instead of just its size
+
+=== Dev Ops
+==== Build Automation
+We use https://gradle.org/[Gradle] for _build automation.
+See link:{repoURL}/tutorials/gradleTutorial.md[Gradle Tutorial] for more details.
+
+==== Continuous Integration
+We use https://travis-ci.org/[Travis CI] to perform _Continuous Integration_ on our projects.
+
+==== Coverage Reporting
+We use https://coveralls.io/[Coveralls] to track the code coverage of our projects.
+
+==== Making a Release
+Here are the steps to create a new release.
+
+.  Update the archiveVersion number of shadowJar in link:{repoURL}/build.gradle[`build.gradle`].
+.  Generate a JAR file <<UsingGradle#creating-the-jar-file, using Gradle>>.
+.  Tag the repo with the version number. e.g. `v0.1`
+.  https://help.github.com/articles/creating-releases/[Create a new release using GitHub] and upload the JAR file you created.
+
+==== Managing Dependencies
+A project often depends on third-party libraries. For example, *Email manager* depends on the https://openjfx.io/[JavaFX] for GUI support. Managing these _dependencies_ can be automated using Gradle.
+For example, Gradle can download the dependencies automatically, which is better than these alternatives:
+
+[loweralpha]
+. Include those libraries in the repo (this bloats the repo size)
+. Require developers to download those libraries manually (this creates extra work for developers)
 
