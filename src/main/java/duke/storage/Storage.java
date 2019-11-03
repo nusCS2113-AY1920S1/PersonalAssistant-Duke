@@ -337,15 +337,17 @@ public class Storage {
     public void writeNewItinerary() throws FileNotSavedException {
         String file = ITINERARIES_FILE_PATH;
         try {
-            FileWriter writer = new FileWriter(file, true);
-            writer.write(newItinerary.getName() + "\n" + newItinerary.getStartDate().toString() + "\n"
-                    + newItinerary.getEndDate().toString() + "\n"
-                    + newItinerary.getHotelLocation().toString() + "\n");
-            for (Agenda agenda : newItinerary.getList()) {
-                writer.write(agenda.toString());
+            if(newItinerary != null) {
+                FileWriter writer = new FileWriter(file, true);
+                writer.write(newItinerary.getName() + "\n" + newItinerary.getStartDate().toString() + "\n"
+                        + newItinerary.getEndDate().toString() + "\n"
+                        + newItinerary.getHotelLocation().toString() + "\n");
+                for (Agenda agenda : newItinerary.getList()) {
+                    writer.write(agenda.toString());
+                }
+                writer.write("\n");
+                writer.close();
             }
-            writer.write("\n");
-            writer.close();
         } catch (IOException e) {
             throw new FileNotSavedException(file);
         }
