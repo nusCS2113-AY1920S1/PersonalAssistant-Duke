@@ -56,7 +56,7 @@ public class EventParser extends DescriptionParser {
         return new AddCommand(command, taskDescription, fromDate, toDate);
     }
 
-    private LocalDateTime extractFromDate(String dateTimeFromUser) throws ChronologerException {
+    protected LocalDateTime extractFromDate(String dateTimeFromUser) throws ChronologerException {
         try {
             String fromDateString = dateTimeFromUser.split("-", 2)[0].trim();
             return DateTimeExtractor.extractDateTime(fromDateString, command);
@@ -67,7 +67,7 @@ public class EventParser extends DescriptionParser {
         }
     }
 
-    private LocalDateTime extractToDate(String dateTimeFromUser) throws ChronologerException {
+    protected LocalDateTime extractToDate(String dateTimeFromUser) throws ChronologerException {
         try {
             String toDateString = dateTimeFromUser.split("-", 2)[1].trim();
             return DateTimeExtractor.extractDateTime(toDateString, command);
