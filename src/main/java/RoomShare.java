@@ -112,6 +112,7 @@ public class RoomShare {
 
             case restore:
                 Ui.clearScreen();
+                ui.startUp();
                 int restoreIndex = parser.getIndex();
                 try {
                     tempDeleteList.restore(restoreIndex, taskList);
@@ -123,6 +124,7 @@ public class RoomShare {
 
             case find:
                 Ui.clearScreen();
+                ui.startUp();
                 listRoutine.list();
                 ui.showFind();
                 taskList.find(parser.getKey().toLowerCase());
@@ -207,6 +209,7 @@ public class RoomShare {
 
             case update:
                 Ui.clearScreen();
+                ui.startUp();
                 try {
                     int index = parser.getIndex();
                     String input = parser.getCommandLine().trim();
@@ -221,6 +224,7 @@ public class RoomShare {
                 
             case sort:
                 Ui.clearScreen();
+                ui.startUp();
                 SortType sortType;
                 try {
                     sortType = parser.getSort();
@@ -235,6 +239,7 @@ public class RoomShare {
 
             case log:
                 Ui.clearScreen();
+                ui.startUp();
                 listRoutine.list();
                 try {
                     String filePath = storage.writeLogFile(TaskList.currentList());
