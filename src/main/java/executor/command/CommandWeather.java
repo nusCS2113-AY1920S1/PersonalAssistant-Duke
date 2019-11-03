@@ -43,20 +43,21 @@ public class CommandWeather extends Command {
     /**
      * getWhichWeatherDataUserWants parses to see until when user wants weather forecast.
      * @param userInput String is the user entered Input from CLI.
-     * @return this function returns a String based on user's choice
+     * @return this function returns a String based on user's choice 
      */
     private String getWhichWeatherDataUserWants(String userInput) {
         try {
             String period = Parser.parseForFlag("until", userInput);
-            if (getPeriodsPossible().contains(period)) {
-                return Parser.parseForFlag("until", userInput);
+            if (period != null && getPeriodsPossible().contains(period)) {
+                period = period.toLowerCase();
+                return period;
             } else {
                 throw new DukeException(getErrorMessage());
             }
         } catch (Exception e) {
-            Ui.dukeSays(getErrorMessage());
+            Ui.dukeSays("However we believe you would want to know the weather forecast for today.");
+            return "now";
         }
-        return "now";
     }
 
     /**
@@ -98,7 +99,9 @@ public class CommandWeather extends Command {
                 }
                 Ui.printSeparator();
             } else {
-                Ui.dukeSays("Weather Data not available");
+                Ui.dukeSays("Weather Data not available \n"
+                        + "1. Please ensure that you have active Internet access \n"
+                        + "2. Please also ensure that you follow correct format for the user input \n");
             }
         } catch (Exception e) {
             Ui.dukeSays(getErrorMessage());
