@@ -97,6 +97,19 @@ public class Ui {
                 "retrieve/ft 'x', where 'x' is a digit between 1- 5";
     }
 
+    public String showListOfReminder(ArrayList<String> remindList) {
+        if (remindList.isEmpty()) {
+            return "There are no reminders set.";
+        }
+        String remindMessage = "Here is the list of reminders set:\n";
+        for (String string : remindList) {
+            remindMessage = remindMessage + "\n";
+            Integer index = remindList.indexOf(string);
+            remindMessage = remindMessage + (index + 1) + ". " + string;
+        }
+        return remindMessage;
+    }
+
     /**
      * Displays the show reminder message when user sets a reminder for a task.
      */

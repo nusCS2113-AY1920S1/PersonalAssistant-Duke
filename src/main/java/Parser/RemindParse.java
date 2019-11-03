@@ -36,15 +36,19 @@ public class RemindParse extends Parse {
     @Override
     public Command parse() throws Exception {
         try {
+            if (fullCommand.contains("/check")) {
+                Date dummyDate = new Date();
+                return new RemindCommand(new Deadline(NO_FIELD, NO_FIELD, NO_FIELD), dummyDate, false);
+            }
             boolean isRemind = false;
             String description = NO_FIELD;
             String activity = fullCommand.trim().substring(6);
             dateDescriptionSplit = activity.trim().split("/by");
             modDescriptionsplit = dateDescriptionSplit[0].trim().split(" ");
-            if(!super.isModCode(modDescriptionsplit[1])){
+            if (!super.isModCode(modDescriptionsplit[1])) {
                 throw new DukeInvalidFormatException("\u2639" + " OOPS!!! The ModCode is invalid");
             }
-            if(dateDescriptionSplit[0].contains("/set")){
+            if (dateDescriptionSplit[0].contains("/set")) {
                 description = dateDescriptionSplit[0].substring(4).trim();
                 if (description.isEmpty()) {
                     throw new DukeInvalidFormatException("\u2639" + " OOPS!!! The description of a deadline cannot be empty.");

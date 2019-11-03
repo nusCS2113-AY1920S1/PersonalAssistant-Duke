@@ -123,29 +123,20 @@ public class DateTimeParser {
      */
     public static String[] remindDateParse(String input) throws ParseException {
         // week 9 fri 1500 /to week 9 thu 1500"
-        dateTimeStringSplit = input.trim().split("/to"); //dateTimeStringSplit[0] = week 9 fri 1500
+        dateTimeStringSplit = input.trim().split(" /to "); //dateTimeStringSplit[0] = week 9 fri 1500
         String[] taskDateTimeStringSplit = dateTimeStringSplit[0].trim().split(" ");
         String weekDate = taskDateTimeStringSplit[0].trim();
-        if (weekDate.equalsIgnoreCase("reading") || weekDate.equalsIgnoreCase("exam")
-                || weekDate.equalsIgnoreCase("week") || weekDate.equalsIgnoreCase("recess")) {
-            weekDate = dateTimeStringSplit[0].substring(0,dateTimeStringSplit[0].length()- 4);
-            String time = dateTimeStringSplit[0].substring(dateTimeStringSplit[0].length()- 4);
-            weekDate = lookupTable.getValue(weekDate) + " " + time;
-        } else {
-            weekDate = dateTimeStringSplit[0];
-        }
-
+        String deadlineDate = dateTimeStringSplit[0].substring(0, dateTimeStringSplit[0].length() - 4);
+        deadlineDate = WeekFormatParse.acadWeekToString(weekDate , deadlineDate);
+        String time = dateTimeStringSplit[0].substring(dateTimeStringSplit[0].length()- 4);
+        deadlineDate = deadlineDate + time;
         String[] reminderDateTimeStringSplit = dateTimeStringSplit[1].trim().split(" "); //dateTimeStringSplit[1] = week 9 thu 1500
-        String reminderDate = reminderDateTimeStringSplit[0].trim();
-        if (reminderDate.equalsIgnoreCase("reading") || reminderDate.equalsIgnoreCase("exam")
-                || reminderDate.equalsIgnoreCase("week") || reminderDate.equalsIgnoreCase("recess")) {
-            reminderDate = dateTimeStringSplit[1].substring(0,dateTimeStringSplit[1].length()- 4);
-            String time = dateTimeStringSplit[1].substring(dateTimeStringSplit[1].length()- 4);
-            reminderDate = lookupTable.getValue(reminderDate) + " " + time;
-        } else {
-            reminderDate = dateTimeStringSplit[1];
-        }
-        Date dateOfTask = deadlineInputFormat.parse(weekDate);
+        weekDate = reminderDateTimeStringSplit[0].trim();
+        String reminderDate = dateTimeStringSplit[1].substring(0, dateTimeStringSplit[1].length() - 4);
+        reminderDate = WeekFormatParse.acadWeekToString(weekDate, reminderDate);
+        time = dateTimeStringSplit[1].substring(dateTimeStringSplit[1].length()- 4);
+        reminderDate = reminderDate + time;
+        Date dateOfTask = deadlineInputFormat.parse(deadlineDate);
         String dateString = dateOutputFormat.format(dateOfTask);
         String timeString = timeOutputFormat.format(dateOfTask);
         String[] dateTime = {dateString, timeString, reminderDate};

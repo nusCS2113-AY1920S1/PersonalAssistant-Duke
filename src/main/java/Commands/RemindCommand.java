@@ -14,7 +14,6 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.logging.Logger;
 import java.util.Date;
-import java.util.Timer;
 import java.util.HashMap;
 import java.util.ArrayList;
 
@@ -58,10 +57,22 @@ public class RemindCommand extends Command {
         HashMap<Date, Assignment> remindMap = reminder.getRemindMap();
         Date currentDate = new Date();
         DateFormat dateFormat = new SimpleDateFormat("E dd/MM/yyyy hh:mm a");
+        if (task.getDescription().isEmpty()) {
+            ArrayList<String> remindList = new ArrayList<>();
+            for (Date date : remindMap.keySet()) {
+                String reminderDate = dateFormat.format(date);
+                String modCode = remindMap.get(date).getModCode();
+                String description = remindMap.get(date).getDescription();
+                String taskDate = remindMap.get(date).getDateTime();
+                remindList.add("ModCode: " + modCode + "\n" + "Description: " + description + "\n" +
+                        "Deadline date: " + taskDate + "\n" + "Reminder date: " + reminderDate);
+            }
+            return ui.showListOfReminder(remindList);
+        }
         String reminderTime = dateFormat.format(time);
         String taskDateTimeString = task.getDateTime();
         Date taskDateTime = DateTimeParser.deadlineTaskStringToDate(taskDateTimeString);
-        if(taskDateTime.before(currentDate)) {
+        if (taskDateTime.before(currentDate)) {
             throw new DukeInvalidDateTimeException("Sorry, your selected task has already passed!");
         }
         if (!remind) {

@@ -215,6 +215,9 @@ public class Storage {
             if(remindDate.after(currentDate)) {
                 reminder.setReminderThread(remindDate, task);
             }
+            if (!reminderMap.isEmpty()) {
+                reminder.reminderOnStartAlert();
+            }
         }
     }
 }
