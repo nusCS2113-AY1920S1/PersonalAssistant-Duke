@@ -143,13 +143,13 @@ public class OverlayGroupGroup  extends Command<SongList>  {
                 storage.updateFile(songList);
                 return ui.formatAddOverlay(songList.getSongList(), groupIndexToAddTo,songAddTo);
             } else {
-                System.out.println("no such index");
+                //System.out.println("no such index");
                 //System.out.println(songList.getSize());
                 throw new DucatsException(message, "no_index");
             }
 
         } catch (Exception e) {
-            System.out.println(e);
+            //System.out.println(e);
             throw new DucatsException(message, "no_index");
         }
     }

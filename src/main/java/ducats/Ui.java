@@ -182,7 +182,19 @@ public class Ui {
                 + " in the song.";
         return wrap(result);
     }
+    /**
+     * Returns a String formatted for display that the wrong command was type and telling them
+     * the command was autocorrected.
+     *
+     * @param commandName this is the command name
+     */
+    public String autoCorrectMessage(String commandName) {
 
+        String result = "The autocorrect believes that you have searched for "
+                + commandName
+                + " if not please search help for the right command";
+        return wrap(result);
+    }
     /**
      * Returns a String formatted for display that indicates that a duke.components.Song object has been added
      * by the new command.
