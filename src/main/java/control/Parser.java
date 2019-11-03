@@ -59,7 +59,8 @@ public class Parser {
                 return new AddUserCommand(input, splitStr);
         case "rmuser":
                 return new RemoveUserCommand(input, splitStr);
-
+            case "help":
+                return new HelpCommand();
         default:
             throw new DukeException(Constants.UNHAPPY + " OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
