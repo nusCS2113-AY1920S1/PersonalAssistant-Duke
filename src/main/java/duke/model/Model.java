@@ -84,7 +84,7 @@ public interface Model {
 
     Itinerary getItinerary(String number) throws DukeException;
 
-    Recommendation getRecommendations() ;
+    Recommendation getRecommendations();
 
     HashMap<String,Itinerary> getItineraryTable();
 
@@ -92,7 +92,7 @@ public interface Model {
 
     Itinerary getRecentItinerary();
 
-    void storeNewItinerary(Itinerary itinerary , String[] itineraryDetails) throws ParseException;
+    void storeNewItinerary(Itinerary itinerary, String[] itineraryDetails) throws ParseException;
 
     void confirmRecentItinerary();
 

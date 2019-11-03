@@ -51,9 +51,9 @@ public class Itinerary extends AgendaList {
      */
 
     public int getNumberOfDays() {
-            LocalDateTime tempDateTime = LocalDateTime.from(startDate);
-            long days = tempDateTime.until(endDate, ChronoUnit.DAYS);
-            return Integer.parseInt(String.valueOf(days)) + 1;
+        LocalDateTime tempDateTime = LocalDateTime.from(startDate);
+        long days = tempDateTime.until(endDate, ChronoUnit.DAYS);
+        return Integer.parseInt(String.valueOf(days)) + 1;
     }
 
     /**

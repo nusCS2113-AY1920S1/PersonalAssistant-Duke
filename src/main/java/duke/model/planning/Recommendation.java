@@ -29,8 +29,8 @@ public class Recommendation {
     /**
      * Returns number of days of the trip based on entered start and end dates.
      *
+     * @param itineraryDetails contains all info to make an itinerary.
      * @return The number of days of the trip
-     * @param itineraryDetails
      */
 
     public Itinerary makeItinerary(String[] itineraryDetails) throws ParseException, ApiException,
@@ -51,7 +51,7 @@ public class Recommendation {
 
     private int getNumberOfDays(LocalDateTime start, LocalDateTime end) throws
             StartEndDateBeforeNowException, StartEndDateDiscordException {
-        if(start.isBefore(LocalDateTime.now()) || end.isBefore(LocalDateTime.now())) {
+        if (start.isBefore(LocalDateTime.now()) || end.isBefore(LocalDateTime.now())) {
             throw new StartEndDateBeforeNowException();
         } else if (end.isBefore(start) || start.isAfter(end)) {
             throw new StartEndDateDiscordException();

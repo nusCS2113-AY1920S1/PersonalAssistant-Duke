@@ -30,7 +30,7 @@ public class ShowItineraryCommand extends Command {
     @Override
     public CommandResultText execute(Model model) throws DukeException, FileNotFoundException {
         Itinerary itinerary = model.getItinerary(name);
-        if(itinerary == null) {
+        if (itinerary == null) {
             throw new ItineraryNotFoundException();
         }
         return new CommandResultText(itinerary.printItinerary());

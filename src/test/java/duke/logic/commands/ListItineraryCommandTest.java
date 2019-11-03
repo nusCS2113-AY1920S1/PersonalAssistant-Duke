@@ -44,7 +44,7 @@ class ListItineraryCommandTest {
             stringBuilder.append(i++).append(". ").append(name).append("\n");
         }
 
-        assertEquals(result, "Your Saved Itineraries are :" + "\n" + stringBuilder.toString() );
+        assertEquals(result, "Your Saved Itineraries are :" + "\n" + stringBuilder.toString());
 
     }
 

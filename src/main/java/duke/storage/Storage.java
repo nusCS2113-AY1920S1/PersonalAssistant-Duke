@@ -88,6 +88,11 @@ public class Storage {
         readItineraryTable();
     }
 
+    /**
+     * Reads the itinerary hash map from storage.
+     *
+     * @throws FileLoadFailException If the file cannot be loaded.
+     */
     public void readItineraryTable() throws FileLoadFailException {
         itineraryTable = new HashMap<>();
         try {
@@ -225,8 +230,6 @@ public class Storage {
 
     /**
      * Returns Venues fetched from stored memory.
-     *
-     * @return The List of all Venues in Recommendations list.
      */
     public void readRecommendations() {
         List<Agenda> agendaList = new ArrayList<>();
@@ -335,7 +338,7 @@ public class Storage {
     public void writeNewItinerary() throws FileNotSavedException {
         String file = ITINERARIES_FILE_PATH;
         try {
-            if(newItinerary != null) {
+            if (newItinerary != null) {
                 FileWriter writer = new FileWriter(file, true);
                 writer.write(newItinerary.getName() + "\n" + newItinerary.getStartDate().toString() + "\n"
                         + newItinerary.getEndDate().toString() + "\n"
@@ -380,6 +383,11 @@ public class Storage {
         return recommendation;
     }
 
+    /**
+     * Stores a newly added itinerary.
+     *
+     * @throws ParseException If itinerary is not parsed properly.
+     */
     public void storeNewItinerary(Itinerary itinerary, String[] itineraryDetails) throws ParseException {
         List<Agenda> agendaList = new ArrayList<>();
         int i = 4;

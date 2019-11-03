@@ -107,12 +107,12 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public void storeNewItinerary (Itinerary itinerary , String[] itineraryDetails) throws ParseException {
+    public void storeNewItinerary(Itinerary itinerary, String[] itineraryDetails) throws ParseException {
         storage.storeNewItinerary(itinerary, itineraryDetails);
     }
 
     @Override
-    public void confirmRecentItinerary () {
+    public void confirmRecentItinerary() {
         storage.confirmRecentItinerary(recentItinerary);
     }
 

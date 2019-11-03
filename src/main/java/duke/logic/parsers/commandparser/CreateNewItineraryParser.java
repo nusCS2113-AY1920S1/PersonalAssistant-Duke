@@ -28,7 +28,7 @@ public class CreateNewItineraryParser extends CommandParser {
 
         start = ParserTimeUtil.parseStringToDate(itineraryDetails[0].strip());
         end = ParserTimeUtil.parseStringToDate(itineraryDetails[1].strip());
-        if(start.isBefore(LocalDateTime.now()) || end.isBefore(LocalDateTime.now())) {
+        if (start.isBefore(LocalDateTime.now()) || end.isBefore(LocalDateTime.now())) {
             throw new StartEndDateBeforeNowException();
         } else if (end.isBefore(start) || start.isAfter(end)) {
             throw new StartEndDateDiscordException();
