@@ -131,30 +131,27 @@ public class CommandWeather extends Command {
     private LinkedHashMap<String, LinkedHashMap<String, String>> storeWeatherDataFromJson() {
         String json = consultWeatherApi();
         LinkedHashMap<String, LinkedHashMap<String, String>> weatherData = new LinkedHashMap<>();
-        try {
-            if (json != null) {
-                JsonObject jsonObject = new JsonParser().parse(json).getAsJsonObject();
-                JsonArray arr = jsonObject.getAsJsonArray("consolidated_weather");
-                for (int i = 0; i < arr.size(); i++) {
-                    String weatherStateName = arr.get(i).getAsJsonObject().get("weather_state_name").getAsString();
-                    String minTemp = arr.get(i).getAsJsonObject().get("min_temp").getAsString();
-                    String maxTemp = arr.get(i).getAsJsonObject().get("max_temp").getAsString();
-                    String theTemp = arr.get(i).getAsJsonObject().get("the_temp").getAsString();
-                    String applicableDate = arr.get(i).getAsJsonObject().get("applicable_date").getAsString();
-                    LinkedHashMap<String, String> innerMap = new LinkedHashMap<>();
-                    innerMap.put("Forecast Date", applicableDate);
-                    innerMap.put("Minimum Temperature in Degrees Celsius", minTemp);
-                    innerMap.put("Maximum Temperature in Degrees Celsius", maxTemp);
-                    innerMap.put("Average Temperature in Degrees Celsius", theTemp);
-                    innerMap.put("State Of Weather", weatherStateName);
-                    weatherData.put(String.valueOf(i), innerMap);
-                }
-                return weatherData;
+
+        if (json != null) {
+            JsonObject jsonObject = new JsonParser().parse(json).getAsJsonObject();
+            JsonArray arr = jsonObject.getAsJsonArray("consolidated_weather");
+            for (int i = 0; i < arr.size(); i++) {
+                String weatherStateName = arr.get(i).getAsJsonObject().get("weather_state_name").getAsString();
+                String minTemp = arr.get(i).getAsJsonObject().get("min_temp").getAsString();
+                String maxTemp = arr.get(i).getAsJsonObject().get("max_temp").getAsString();
+                String theTemp = arr.get(i).getAsJsonObject().get("the_temp").getAsString();
+                String applicableDate = arr.get(i).getAsJsonObject().get("applicable_date").getAsString();
+                LinkedHashMap<String, String> innerMap = new LinkedHashMap<>();
+                innerMap.put("Forecast Date", applicableDate);
+                innerMap.put("Minimum Temperature in Degrees Celsius", minTemp);
+                innerMap.put("Maximum Temperature in Degrees Celsius", maxTemp);
+                innerMap.put("Average Temperature in Degrees Celsius", theTemp);
+                innerMap.put("State Of Weather", weatherStateName);
+                weatherData.put(String.valueOf(i), innerMap);
             }
-            return null;
-        } catch (Exception e) {
-            return null;
+            return weatherData;
         }
+        return null;
     }
 
     public Set<String> getPeriodsPossible() {
