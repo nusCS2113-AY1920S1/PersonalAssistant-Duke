@@ -9,12 +9,28 @@ import duke.ui.Ui;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.logging.*;
+
 
 import static duke.common.BookingMessages.*;
 
 public class AddBookingCommand extends Command<BookingList, Ui, BookingStorage> {
 
     private static String msg = "";
+    private static final Logger logger = Logger.getLogger(AddBookingCommand.class.getName());
+
+    private static void setupLogger() {
+        LogManager.getLogManager().reset();
+        logger.setLevel(Level.INFO);
+
+        try {
+            FileHandler fh = new FileHandler("logFile.log",true);
+            fh.setLevel(Level.INFO);
+            logger.addHandler(fh);
+        } catch (java.io.IOException e){
+            logger.log(Level.SEVERE, "File logger is not working.", e);
+        }
+    }
 
     public AddBookingCommand(String userInput) {
         this.userInput = userInput;
@@ -49,6 +65,7 @@ public class AddBookingCommand extends Command<BookingList, Ui, BookingStorage> 
             Integer.parseInt(input);
             return true;
         } catch (NumberFormatException e) {
+            logger.warning("Index input is not an integer.");
             return false;
         }
     }
@@ -67,6 +84,7 @@ public class AddBookingCommand extends Command<BookingList, Ui, BookingStorage> 
             new SimpleDateFormat("dd/MM/yyyy").parse(bookingDate);
             return true;
         } catch (ParseException e) {
+            logger.warning("Invalid date format entered.");
             return false;
         }
     }
@@ -114,8 +132,8 @@ public class AddBookingCommand extends Command<BookingList, Ui, BookingStorage> 
     }
 
     @Override
-    public ArrayList<String> execute(BookingList bookingList, Ui ui, BookingStorage bookingStorage) throws
-            ParseException {
+    public ArrayList<String> execute(BookingList bookingList, Ui ui, BookingStorage bookingStorage) throws ParseException {
+        AddBookingCommand.setupLogger();
         ArrayList<String> arrayList = new ArrayList<>();
         if (userInput.trim().equals(COMMAND_ADD_BOOKING)) {
             arrayList.add(ERROR_MESSAGE_EMPTY_BOOKING_DETAILS);

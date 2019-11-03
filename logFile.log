@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+</log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2019-11-03T13:56:00.884751800Z</date>
+  <millis>1572789360884</millis>
+  <nanos>751800</nanos>
+  <sequence>0</sequence>
+  <logger>duke.logic.command.bookingcommands.DeleteBookingCommand</logger>
+  <level>WARNING</level>
+  <class>duke.logic.command.bookingcommands.DeleteBookingCommand</class>
+  <method>isParsable</method>
+  <thread>18</thread>
+  <message>Index input is not an integer.</message>
+</record>
+</log>
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+</log>
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2019-11-03T13:59:30.703098300Z</date>
+  <millis>1572789570703</millis>
+  <nanos>98300</nanos>
+  <sequence>0</sequence>
+  <logger>duke.logic.command.bookingcommands.DeleteBookingCommand</logger>
+  <level>WARNING</level>
+  <class>duke.logic.command.bookingcommands.DeleteBookingCommand</class>
+  <method>execute</method>
+  <thread>17</thread>
+  <message>Invalid deletebooking command</message>
+</record>
+</log>
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+</log>
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+</log>
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+</log>
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+</log>
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+</log>
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2019-11-03T14:09:30.457888600Z</date>
+  <millis>1572790170457</millis>
+  <nanos>888600</nanos>
+  <sequence>0</sequence>
+  <logger>duke.logic.command.bookingcommands.AddBookingCommand</logger>
+  <level>WARNING</level>
+  <class>duke.logic.command.bookingcommands.AddBookingCommand</class>
+  <method>isDateParsable</method>
+  <thread>17</thread>
+  <message>Invalid date format entered.</message>
+</record>
+</log>
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2019-11-03T14:15:29.664802700Z</date>
+  <millis>1572790529664</millis>
+  <nanos>802700</nanos>
+  <sequence>0</sequence>
+  <logger>duke.logic.command.bookingcommands.ViewBookingScheduleCommand</logger>
+  <level>WARNING</level>
+  <class>duke.logic.command.bookingcommands.ViewBookingScheduleCommand</class>
+  <method>isDateParsable</method>
+  <thread>17</thread>
+  <message>Invalid date format entered.</message>
+</record>
+</log>
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+</log>
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+</log>
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+</log>
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2019-11-03T14:21:35.983751900Z</date>
+  <millis>1572790895983</millis>
+  <nanos>751900</nanos>
+  <sequence>0</sequence>
+  <logger>duke.Duke</logger>
+  <level>WARNING</level>
+  <class>duke.Duke</class>
+  <method>runProgram</method>
+  <thread>17</thread>
+  <message>wrong command!!</message>
+</record>
+</log>
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2019-11-03T14:21:43.060662700Z</date>
+  <millis>1572790903060</millis>
+  <nanos>662700</nanos>
+  <sequence>1</sequence>
+  <logger>duke.Duke</logger>
+  <level>WARNING</level>
+  <class>duke.Duke</class>
+  <method>runProgram</method>
+  <thread>17</thread>
+  <message>wrong command!!</message>
+</record>
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+</log>
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+</log>
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+</log>
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+</log>
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+</log>
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2019-11-03T14:26:20.377141600Z</date>
+  <millis>1572791180377</millis>
+  <nanos>141600</nanos>
+  <sequence>0</sequence>
+  <logger>duke.logic.command.bookingcommands.DeleteBookingCommand</logger>
+  <level>WARNING</level>
+  <class>duke.logic.command.bookingcommands.DeleteBookingCommand</class>
+  <method>isParsable</method>
+  <thread>17</thread>
+  <message>Index input is not an integer.</message>
+</record>
+</log>
