@@ -1,5 +1,6 @@
 package command;
 
+import common.AlphaNUSException;
 import common.TaskList;
 import payment.Payee;
 import payment.PaymentManager;
@@ -24,6 +25,9 @@ import java.util.Calendar;
 public class Process {
     public SimpleDateFormat dataformat = new SimpleDateFormat("dd/MM/yyyy HHmm");
     ProjectManager projectmanager = new ProjectManager();
+
+    public Process() throws AlphaNUSException {
+    }
 
     /**
      * Trims leading and trailing whitespace of an array of strings.
@@ -664,7 +668,7 @@ public class Process {
         DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
         String formattedDate = dateFormat.format(date);
         String commandTime = input + " ~ " + formattedDate;
-        storage.save(commandTime);
+        //storage.save(commandTime); TODO
     }
 
     /**
@@ -674,7 +678,7 @@ public class Process {
      * @param storage command.Storage that stores the input commands entered by the user.
      */
     public void history(Ui ui, ArrayList<String> commandList, Storage storage) {
-        commandList = storage.load();
+        //commandList = storage.load(); TODO
         ui.printArrayList(commandList);
     }
 
@@ -694,7 +698,7 @@ public class Process {
         Date dateFirst = sdf.parse(date1);
         String date2 = splitdates[2];
         Date dateSecond = sdf.parse(date2);
-        commandList = storage.load();
+        //commandList = storage.load(); TODO
         ArrayList<String> viewhistory = new ArrayList<String>();
         for (int i = 0; i < commandList.size() - 1; i = i + 1) {
             String token = null;
@@ -736,7 +740,7 @@ public class Process {
         Date dateFirst = sdf.parse(date1);
         String date2 = splitdates[2];
         Date dateSecond = sdf.parse(date2);
-        commandList = storage.load();
+        //commandList = storage.load(); TODO
         for (int i = 0; i < commandList.size() - 1; i = i + 1) {
             String token = null;
             String token1 = null;
@@ -753,7 +757,7 @@ public class Process {
             Date dateCommand = sdf.parse(token1);
             if ((dateCommand.compareTo(dateFirst)) >= 0) {
                 if ((dateCommand.compareTo(dateSecond)) <= 0) {
-                    Storage.remove(commandList.get(i));
+                    //Storage.remove(commandList.get(i)); TODO
                 }
             }
         }

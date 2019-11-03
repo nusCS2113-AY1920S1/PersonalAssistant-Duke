@@ -1,5 +1,7 @@
 package project;
 
+import command.Storage;
+import common.AlphaNUSException;
 import payment.Payee;
 
 import java.util.ArrayList;
@@ -9,13 +11,14 @@ import java.util.LinkedHashMap;
 public class ProjectManager {
     public Project currentProject;
     public LinkedHashMap<String, Project> projectmap;
+    private Storage storage = new Storage();
 
     /**
      * Initialises a project manager instance to manage the projects.
      */
-    public ProjectManager() {
+    public ProjectManager() throws AlphaNUSException {
         this.currentProject = null;
-        this.projectmap = new LinkedHashMap<>();
+        this.projectmap = storage.readFromProjectsFile();
     }
 
     /**

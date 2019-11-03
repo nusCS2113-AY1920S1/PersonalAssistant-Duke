@@ -13,7 +13,15 @@ import java.util.ArrayList;
  */
 public class Parser {
     private static Instruction instr = new Instruction();
-    private static Process process = new Process();
+    private static Process process;
+
+    static {
+        try {
+            process = new Process();
+        } catch (AlphaNUSException e) {
+            e.printStackTrace();
+        }
+    }
 
 
     /**
@@ -31,7 +39,8 @@ public class Parser {
         Storage storage, ArrayList<String> commandList) {
         try {
             if (instr.isBye(input)) {
-                //print bye message
+                System.out.println("Saving...");
+                storage.writeToProjectsFile(process.projectmanager.projectmap);
                 ui.byeMessage();
                 ui.getIn().close();
                 return true;
