@@ -11,7 +11,7 @@ public class RedoStateList implements ModeStringList {
     private static Stack<State> entryStateList = new Stack<>();
     private static Stack<State> debtStateList = new Stack<>();
     private static Stack<State> limitStateList = new Stack<>();
-    private static Stack<State> shortcutStateList = new Stack<>();
+    //private static Stack<State> shortcutStateList = new Stack<>();
 
     /**
      * This method will push the input state onto the stack of State in this class with respect to the mode.

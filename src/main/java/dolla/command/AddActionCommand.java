@@ -11,7 +11,8 @@ import java.util.ArrayList;
 public class AddActionCommand extends Command {
     private String mode;
     private String command;
-    private ArrayList<Record> recordList;
+    private static final String UNDO = "undo";
+    private static final String REDO = "redo";
 
     /**
      * This method will set the mode and command in this class.
@@ -26,20 +27,18 @@ public class AddActionCommand extends Command {
     @Override
     public void execute(DollaData dollaData) throws Exception {
         switch (command) {
-        case "undo":
-            recordList = Undo.processUndoState(mode);
+        case UNDO:
+            ArrayList<Record> recordList = Undo.processUndoState(mode);
             if (recordList != null) {
                 Redo.addToStateList(mode, dollaData.getRecordList(mode));
                 dollaData.setRecordList(recordList);
-                System.out.println("an undo entry have performed");
             }
             break;
-        case "redo":
+        case REDO:
             recordList = Redo.processRedoState(mode);
             if (recordList != null) {
                 Undo.addToStateList(mode, dollaData.getRecordList(mode));
                 dollaData.setRecordList(recordList);
-                System.out.println("an redo entry have performed");
             }
             break;
         default:
