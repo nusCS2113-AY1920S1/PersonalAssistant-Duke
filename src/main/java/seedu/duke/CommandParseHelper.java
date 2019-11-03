@@ -95,6 +95,7 @@ public class CommandParseHelper {
             userInput = userInput.replaceAll("\\s*(?<key>-[\\w]+)\\s+(?<value>[\\w]+[\\s|\\w/]*)\\s*$", "");
             optionMatcher = optionPattern.matcher(userInput);
         }
+        System.out.println(optionList);
         return optionList;
     }
 
