@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.Stack;
 
 public class ChronologerStateList implements Serializable {
-    private static ArrayList<Object> chronologerStateList = new ArrayList<>();
     private static Stack<Object> chronologerUndoStack = new Stack<>();
     private static Stack<Object> chronologerRedoStack = new Stack<>();
 

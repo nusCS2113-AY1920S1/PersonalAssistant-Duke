@@ -33,7 +33,7 @@ class TimelineWindow extends UiComponent<Region> {
     private static final Double tuesdayX = 241.0;
     private static final Double wednesdayX = 436.0;
     private static final Double thursdayX = 633.0;
-    private static final Double fridayX = 815.0;
+    private static final Double fridayX = 828.0;
     private static final Double saturdayX = 44.0;
     private static final Double sundayX = 241.0;
     private static final Double weekdayY = 50.0;
@@ -208,11 +208,11 @@ class TimelineWindow extends UiComponent<Region> {
         }  else if (shiftLocationOfHighlight.equals(saturday)) {
             moveXOfDays = saturdayX;
             moveYOfDays = weekendY;
-            todayLabel.setStyle("-fx-border-color: #FF0000;");
+            todayLabel.setStyle("-fx-border-color: #FF0000; -fx-border-width: 3;");
         }  else if (shiftLocationOfHighlight.equals(sunday)) {
             moveXOfDays = sundayX;
             moveYOfDays = weekendY;
-            todayLabel.setStyle("-fx-border-color: #FF0000;");
+            todayLabel.setStyle("-fx-border-color: #FF0000; -fx-border-width: 3;");
         }
 
         todayLabel.setLayoutX(moveXOfDays);
