@@ -56,13 +56,13 @@ public class EditRequiredIngredientCommand extends Command<RecipeList, Ui, Recip
                          arrayList.add(ERROR_MESSAGE_RECIPE_DOES_NOT_EXIST);
                      } else {
                          if (recipeList.containsRecipeIngredient(recipeTitle, ingredientName).equals("null")) {
-                             if (isParsable(quantity) && isKnownUnit(unit) && isParsable(position) && isValidPosition(recipeTitle, position, recipeList)) {
+                             if ((isParsable(quantity) || isParsableDbl(quantity)) && isKnownUnit(unit) && isParsable(position) && isValidPosition(recipeTitle, position, recipeList)) {
                                  // what if they anyhow input position?
                                  recipeList.insertReqIngredient(recipeTitle, position, ingredientName, quantity, unit, additionalInfo);
                                  recipeStorage.saveFile(recipeList);
                                  arrayList.add(MESSAGE_ADDED_TO_REQ_INGREDIENTS + "\n" + "       " + ingredientName);
                              } else {
-                                 if (!isParsable(quantity)) {
+                                 if (!isParsable(quantity) || !isParsableDbl(quantity)) {
                                      arrayList.add(ERROR_MESSAGE_INVALID_QUANTITY + "\n");
                                  }
                                  if (!isKnownUnit(unit)) {
@@ -147,15 +147,15 @@ public class EditRequiredIngredientCommand extends Command<RecipeList, Ui, Recip
                          arrayList.add(ERROR_MESSAGE_RECIPE_DOES_NOT_EXIST);
                      } else {
                          if (recipeList.containsRecipeIngredient(recipeTitle, ingredientName).equals("null")) {
-                             if (isParsable(quantity) && isKnownUnit(unit)) {
+                             if ((isParsable(quantity) || isParsableDbl(quantity)) && isKnownUnit(unit)) {
 
                                  // what if they anyhow input position?
                                  recipeList.appendReqIngredient(recipeTitle, ingredientName, quantity, unit, additionalInfo);
                                  recipeStorage.saveFile(recipeList);
                                  arrayList.add(MESSAGE_ADDED_TO_REQ_INGREDIENTS + "\n" + "       " + ingredientName);
-                             } else if (!isParsable(quantity) && isKnownUnit(unit)){
+                             } else if ((!isParsable(quantity) || !isParsableDbl(quantity)) && isKnownUnit(unit)){
                                  arrayList.add(ERROR_MESSAGE_INVALID_QUANTITY);
-                             } else  if (!isKnownUnit(unit) && isParsable(quantity)) {
+                             } else  if (!isKnownUnit(unit) && (isParsable(quantity) || isParsableDbl(quantity))) {
                                  arrayList.add(ERROR_MESSAGE_INVALID_UNIT);
                              } else {
                                  arrayList.add(ERROR_MESSAGE_INVALID_QUANTITY_OR_UNIT);
@@ -281,6 +281,15 @@ public class EditRequiredIngredientCommand extends Command<RecipeList, Ui, Recip
     private static boolean isParsable(String quantity) {
         try {
             Integer.parseInt(quantity);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
+
+    private static boolean isParsableDbl(String quantity) {
+        try {
+            Double.parseDouble(quantity);
             return true;
         } catch (NumberFormatException e) {
             return false;

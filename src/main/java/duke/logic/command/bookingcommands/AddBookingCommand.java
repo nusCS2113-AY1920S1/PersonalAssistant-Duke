@@ -20,6 +20,48 @@ public class AddBookingCommand extends Command<BookingList, Ui, BookingStorage> 
         this.userInput = userInput;
     }
 
+    private static boolean isValidName(String input) {
+        for (char c : input.toCharArray()) {
+            if (!Character.isLetter(c) && !(c == '_')) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private static boolean isValidContactNo(String input) {
+        for (char c : input.toCharArray()) {
+            if (!Character.isDigit(c)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Validates that user inputs an integer value for the index.
+     *
+     * @param input String containing integer input from user for the index
+     * @return true if the user inputs an integer and false otherwise
+     */
+    private static boolean isParsable(String input) {
+        try {
+            Integer.parseInt(input);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
+
+    private static boolean isValidPax(String input) {
+        int pax = Integer.parseInt(input);
+        if (pax > 0 && pax < 10) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     private static boolean isDateParsable(String bookingDate) {
         try {
             new SimpleDateFormat("dd/MM/yyyy").parse(bookingDate);
@@ -27,6 +69,39 @@ public class AddBookingCommand extends Command<BookingList, Ui, BookingStorage> 
         } catch (ParseException e) {
             return false;
         }
+    }
+
+    private static boolean isValidDate(String bookingDate) {
+        String[] dateInput = bookingDate.split("/");
+
+        int day = Integer.parseInt(dateInput[0]);
+        int month = Integer.parseInt(dateInput[1]);
+        int year = Integer.parseInt(dateInput[2]);
+
+        if (month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12) {
+            if (day > 0 && day <= 31 && year >= 2000) {
+                return true;
+            }
+        }
+        if (month == 4 || month == 6 || month == 9 || month == 11) {
+            if (day > 0 && day <= 30 && year >= 2000) {
+                return true;
+            }
+        }
+        if (month == 2) {
+            if (year >= 2000 && (year - 2000) % 4 == 0) { //is a leap year
+                if (day > 0 && day <= 29) {
+                    return true;
+                }
+                return false;
+            } else if (year >= 2000 && (year - 2000) % 4 != 0) { //is a common year
+                if (day > 0 && day <= 28) {
+                    return true;
+                }
+                return false;
+            }
+        }
+        return false;
     }
 
     private static boolean isAvailableDate(String bookingDate, BookingList bookingList) {
@@ -39,39 +114,65 @@ public class AddBookingCommand extends Command<BookingList, Ui, BookingStorage> 
     }
 
     @Override
-    public ArrayList<String> execute(BookingList bookingList, Ui ui, BookingStorage bookingStorage) throws ParseException {
+    public ArrayList<String> execute(BookingList bookingList, Ui ui, BookingStorage bookingStorage) throws
+            ParseException {
         ArrayList<String> arrayList = new ArrayList<>();
-        String[] temp = userInput.split("\\s", 6);
         if (userInput.trim().equals(COMMAND_ADD_BOOKING)) {
             arrayList.add(ERROR_MESSAGE_EMPTY_BOOKING_DETAILS);
-        } else if (userInput.trim().charAt(10) == ' ' && temp.length == 6) {
-            String customerName = temp[1].trim();
-            String customerContact = temp[2].trim();
-            String numberOfPax = temp[3].trim();
-            String bookingDate = temp[4].trim();
-            String orderName = temp[5].trim();
+        } else if (userInput.contains("orders/")) {
+            String[] temp = userInput.split("orders/", 2);
+            String[] details = temp[0].split("\\s+");
+            if (userInput.trim().charAt(10) == ' ' && details.length == 5) {
+                String customerName = details[1].trim();
+                String customerContact = details[2].trim();
+                String numberOfPax = details[3].trim();
+                String bookingDate = details[4].trim();
+                String orderName = temp[1].trim();
 
-            if (isDateParsable(bookingDate)) {
-                if (isAvailableDate(bookingDate, bookingList)) {
-                    if (orderName.contains("orders/")) {
-                        bookingList.addBooking(customerName, customerContact, numberOfPax, bookingDate, orderName);
-                        bookingStorage.saveFile(bookingList);
+                if (isValidName(customerName)) {
+                    if (isValidContactNo((customerContact))) {
+                        if (isParsable(numberOfPax)) {
+                            if (isValidPax(numberOfPax)) {
+                                if (isDateParsable(bookingDate)) {
+                                    if (isValidDate(bookingDate)) {
+                                        if (isAvailableDate(bookingDate, bookingList)) {
+                                            if (!orderName.isEmpty()) {
+                                                bookingList.addBooking(customerName, customerContact, numberOfPax, bookingDate, orderName);
+                                                bookingStorage.saveFile(bookingList);
 
-                        int size = bookingList.getSize();
-                        if (size == 1) {
-                            msg = " booking in the list.";
+                                                int size = bookingList.getSize();
+                                                if (size == 1) {
+                                                    msg = " booking in the list.";
+                                                } else {
+                                                    msg = " bookings in the list.";
+                                                }
+                                                arrayList.add(MESSAGE_BOOKING_ADDED + "       " + bookingList.getBookingList().get(size - 1) + "\n" + "Now you have " + size + msg);
+                                            } else {
+                                                arrayList.add(ERROR_MESSAGE_EMPTY_ORDERS);
+                                            }
+                                        } else {
+                                            arrayList.add(ERROR_MESSAGE_UNAVAILABLE_DATE);
+                                        }
+                                    } else {
+                                        arrayList.add(ERROR_MESSAGE_OVERFLOW_DATE);
+                                    }
+                                } else {
+                                    arrayList.add(ERROR_MESSAGE_INVALID_DATE);
+                                }
+                            } else {
+                                arrayList.add(ERROR_MESSAGE_INVALID_PAX);
+                            }
                         } else {
-                            msg = " bookings in the list.";
+                            arrayList.add(ERROR_MESSAGE_UNKNOWN_PAX);
                         }
-                        arrayList.add(MESSAGE_BOOKING_ADDED + "       " + bookingList.getBookingList().get(size - 1) + "\n" + "Now you have " + size + msg);
                     } else {
-                        arrayList.add(ERROR_MESSAGE_INVALID_ORDERS);
+                        arrayList.add(ERROR_MESSAGE_INVALID_CONTACT_NO);
                     }
                 } else {
-                    arrayList.add(ERROR_MESSAGE_UNAVAILABLE_DATE);
+                    arrayList.add(ERROR_MESSAGE_INVALID_NAME);
                 }
             } else {
-                arrayList.add(ERROR_MESSAGE_INVALID_DATE);
+                arrayList.add(ERROR_MESSAGE_INVALID_BOOKING_DETAILS);
             }
         } else {
             arrayList.add(ERROR_MESSAGE_INVALID_BOOKING_DETAILS);

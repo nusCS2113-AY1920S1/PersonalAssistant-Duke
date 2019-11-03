@@ -43,21 +43,11 @@ public class AddToInventoryCommand extends Command<InventoryList, Ui, InventoryS
                 if (ingredientName.isEmpty() || quantity.isEmpty() || unit.isEmpty()) {
                     arrayList.add(ERROR_MESSAGE_INGREDIENT_INCOMPLETE);
                 } else {
-                    if (isParsable(quantity) && isKnownUnit(unit)) {
-//                        !inventoryList.containsInventoryIngredient(ingredientName).equals("")
+                    if ((isParsable(quantity) || isParsableDbl(quantity)) && isKnownUnit(unit)) {
+
                         if (inventoryList.containsIngredient(ingredientName)) {
-                            String temp = inventoryList.containsInventoryIngredient(ingredientName);
-                            double currentQuan = inventoryList.calculateMass(quantity, unit);
-                            System.out.println(currentQuan);
-                            currentQuan += Double.parseDouble(temp.split("\\|", 2)[0].trim());
-                            additionalInfo = temp.split("\\|", 2)[1].trim();
-                            if (unit.equals("kg")) {
-                                unit = "g";
-                            }
-                            if (unit.equals("l")) {
-                                unit = "ml";
-                            }
-                            inventoryList.addIngredient(ingredientName, Double.toString(currentQuan), unit, additionalInfo);
+                            inventoryList.addIngredientMass(ingredientName, quantity, unit);
+                            inventoryList.replaceAdditionalInfo(ingredientName, additionalInfo);
                             inventoryStorage.saveFile(inventoryList);
                             int index = inventoryList.getSize();
                             arrayList.add(MESSAGE_ADDED_TO_INVENTORY + "\n" + "       " + ingredientName + "\n" + "Now you have " + index + " ingredient(s) in your inventory");
@@ -67,9 +57,9 @@ public class AddToInventoryCommand extends Command<InventoryList, Ui, InventoryS
                             int index = inventoryList.getSize();
                             arrayList.add(MESSAGE_ADDED_TO_INVENTORY + "\n" + "       " + ingredientName + "\n" + "Now you have " + index + " ingredient(s) in your inventory");
                         }
-                    } else if (!isParsable(quantity) && isKnownUnit(unit)){
+                    } else if ((!isParsable(quantity) || !isParsableDbl(quantity)) && isKnownUnit(unit)){
                         arrayList.add(ERROR_MESSAGE_INVALID_QUANTITY);
-                    } else  if (!isKnownUnit(unit) && isParsable(quantity)) {
+                    } else  if (!isKnownUnit(unit) && (isParsable(quantity) || isParsableDbl(quantity))) {
                         arrayList.add(ERROR_MESSAGE_INVALID_UNIT);
                     } else {
                         arrayList.add(ERROR_MESSAGE_INVALID_QUANTITY_OR_UNIT);
@@ -87,6 +77,15 @@ public class AddToInventoryCommand extends Command<InventoryList, Ui, InventoryS
     private static boolean isParsable(String quantity) {
         try {
             Integer.parseInt(quantity);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
+
+    private static boolean isParsableDbl(String quantity) {
+        try {
+            Double.parseDouble(quantity);
             return true;
         } catch (NumberFormatException e) {
             return false;

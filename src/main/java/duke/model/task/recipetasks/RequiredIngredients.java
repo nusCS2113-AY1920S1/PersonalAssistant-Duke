@@ -1,13 +1,11 @@
 package duke.model.task.recipetasks;
 
 import duke.model.task.ingredienttasks.Ingredient;
-import javafx.util.Pair;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 
-import static duke.common.Messages.*;
+import static duke.common.Messages.DISPLAYED_INDEX_OFFSET;
 
 public class RequiredIngredients {
 
@@ -96,6 +94,10 @@ public class RequiredIngredients {
             }
         }
         return joinedString;
+    }
+
+    public ArrayList<Ingredient> getList() {
+        return this.requiredIngredientList;
     }
 
     public ArrayList<String> getRequiredIngredientList () {
