@@ -20,8 +20,8 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 image::e0313687.png[width="150", align="left"]
 {empty} [https://github.com/e0313687[github]]
 
-Role: Developer +
-Responsibilities: 
+Role: Developement Lead +
+Responsibilities: UI
 
 '''
 
@@ -29,8 +29,8 @@ Responsibilities:
 image::namiwa.png[width="150", align="left"]
 {empty}[http://github.com/namiwa[github]] 
 
-Role: Developer +
-Responsibilities:
+Role: Team Lead +
+Responsibilities: Data and Testing
 
 '''
 
@@ -38,8 +38,8 @@ Responsibilities:
 image::kyawtsan99.png[width="150", align="left"]
 {empty}[http://github.com/kyawtsan99[github]] 
 
-Role: Developer +
-Responsibilities: 
+Role: Documentation Lead +
+Responsibilities: UI
 
 '''
 
@@ -47,8 +47,8 @@ Responsibilities:
 image::longlece.png[width="150", align="left"]
 {empty}[http://github.com/LongLeCE[github]]
 
-Role: Developer +
-Responsibilities: 
+Role: Integration Lead +
+Responsibilities: Threading and Optimisation
 
 '''
 
@@ -56,7 +56,7 @@ Responsibilities:
 image::andrewleow97.png[width="150", align="left"]
 {empty}[http://github.com/andrewleow97[github]] 
 
-Role: Developer +
-Responsibilities:
+Role: Project Management Lead +
+Responsibilities: Dev Ops
 
 '''

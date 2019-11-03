@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.Set;
 
-import planner.logic.exceptions.legacy.ModEmptyCommandException;
 import planner.logic.modules.legacy.task.Task;
 import planner.logic.modules.module.ModuleTask;
 
@@ -45,27 +44,22 @@ public class PlannerUi {
         scan.close();
     }
 
-    /**
-     * Reads the next line of input if it is valid.
-     * @return String of user input.
-     * @throws ModEmptyCommandException there's an error in the next line of input.
-     */
-    public String readCommand() throws ModEmptyCommandException {
-        if (scan.hasNext()) {
-            return scan.nextLine().strip();
-        } else {
-            throw new ModEmptyCommandException();
-        }
+    public String readInput() {
+        return scan.nextLine().strip();
+    }
+
+    public String readPassword() {
+        return this.readInput(); // No good way to do this yet
     }
 
     /**
      * Confirm user's action.
      * @return true if user confirms else false
      */
-    public boolean confirm() throws ModEmptyCommandException {
+    public boolean confirm() {
         boolean result = true;
         while (result) {
-            String input = this.readCommand();
+            String input = this.readInput();
             if (yes.contains(input)) {
                 break;
             } else if (no.contains(input)) {
@@ -75,6 +69,90 @@ public class PlannerUi {
             }
         }
         return result;
+    }
+
+    /**
+     * Prompt user for input.
+     * @param message message to display to user beforehand
+     * @param allowEmpty whether to allow empty input
+     * @param secure whether to display user input
+     * @return user input
+     */
+    public String prompt(String message, boolean allowEmpty, boolean secure) {
+        this.println(message);
+        String input;
+        if (secure) {
+            input = this.readPassword();
+        } else {
+            input = this.readInput();
+        }
+        while (!allowEmpty && input.isBlank()) {
+            input = this.invalidResponsePrompt(false, secure);
+        }
+        return input;
+    }
+
+    public String prompt(String message) {
+        return this.prompt(message, false, false);
+    }
+
+    public int yearPrompt() {
+        return this.intPrompt("Please enter your current year (i.e. 1, 2, ...):", 1, 2, 3, 4, 5);
+    }
+
+    public int semesterPrompt() {
+        return this.intPrompt("Please enter your current semester (1 or 2):", 1, 2);
+    }
+
+    public int intPrompt(String message) {
+        return this.intPrompt(message, (List<Integer>) null);
+    }
+
+    public int intPrompt(String message, Integer... validOptions) {
+        return this.intPrompt(message, Arrays.asList(validOptions));
+    }
+
+    /**
+     * Prompt user for integer input.
+     * @param message message to display beforehand
+     * @param validOptions valid input numbers
+     * @return input integer
+     */
+    public int intPrompt(String message, List<Integer> validOptions) {
+        String number = this.prompt(message);
+        while (true) {
+            try {
+                int result = Integer.parseInt(number);
+                if (validOptions == null || validOptions.contains(result)) {
+                    return result;
+                } else {
+                    throw new NumberFormatException();
+                }
+            } catch (NumberFormatException ignored) {
+                number = this.invalidResponsePrompt();
+            }
+        }
+    }
+
+    public String invalidResponsePrompt() {
+        return this.invalidResponsePrompt(false, false);
+    }
+
+    public String invalidResponsePrompt(boolean allowEmpty, boolean secure) {
+        return this.prompt("Invalid response, please try again!", allowEmpty, secure);
+    }
+
+    public String loginPrompt() {
+        return this.prompt("Please login to continue! Enter 'login' to login"
+                + "\nNot registered? Just enter 'register' and I will help you setup!");
+    }
+
+    public String userExistPrompt() {
+        return this.prompt("That username is taken, please try something else!");
+    }
+
+    public String noSuchUserPrompt() {
+        return this.prompt("Username not found, please try again!");
     }
 
     public void clearedMsg(String type) {
@@ -231,7 +309,6 @@ public class PlannerUi {
         System.out.println("Got it, graded " + moduleCode + " with grade: " + letterGrade);
     }
 
-
     /**
      * Message to print the sorted module list.
      */
@@ -240,7 +317,7 @@ public class PlannerUi {
     }
 
     /**
-     * Sorts by ascending order and prints to the users.
+     * Sorts by the order the user indicates and prints to the users.
      */
     public void showSorted(List<?> list) {
         showLine();
@@ -317,25 +394,29 @@ public class PlannerUi {
         }
     }
 
-    /**
-     * Message to print the sorted module list.
-     */
-    public void sortModuleMsg() {
-        System.out.println("Here are your modules in your requested orders!");
-    }
-
-    /**
-     * Sorts the module by the requested order and prints to the users.
-     * @param mods List of modules the student is taking.
-     */
-    public void showSortedModules(List<ModuleTask> mods) {
-        showLine();
-        for (ModuleTask hold : mods) {
-            System.out.println(hold);
-        }
-    }
-
     public void showUpdatedMsg() {
         System.out.println("Your module data files has been updated!");
+    }
+
+    /**
+     * Message to print the reminder list.
+     */
+    public void reminderMsg() {
+        showLine();
+        System.out.println("Please remember to update your module information!");
+        showLine();
+    }
+
+    /**
+     * Message to print the list of reminder options.
+     */
+    public void reminderList() {
+        showLine();;
+        System.out.println("Would you like to off your reminder for\n"
+                            + "1) for 30 mins\n"
+                            + "2) for 1 hour\n"
+                            + "3) for 12 hours\n"
+                            + "4) for 24 hours\n"
+                            + "*helpline* : for 1), enter 'reminder one'");
     }
 }

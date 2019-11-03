@@ -34,7 +34,7 @@ public class JsonWrapper {
 
     private Gson gson;
     private NattyWrapper natty;
-    private RequestsData requestsData;
+    private RequestData requestsData;
     private final String listFile = "data/modsListData.json";
     private final String listDetailedFile = "data/modsDetailedListData.json";
     private final String userModuleFile = "data/userData.json";
@@ -50,7 +50,7 @@ public class JsonWrapper {
     public JsonWrapper() {
         gson = new Gson();
         natty = new NattyWrapper();
-        requestsData = new RequestsData();
+        requestsData = new RequestData();
     }
 
     public Date parseStringToDate(String input) throws ModInvalidTimeException {

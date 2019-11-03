@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.util.HashMap;
 
+import planner.credential.CredentialManager;
 import planner.logic.command.EndCommand;
 import planner.logic.command.ModuleCommand;
 import planner.logic.exceptions.legacy.ModException;
@@ -15,7 +16,6 @@ import planner.logic.modules.module.ModuleTasksList;
 import planner.logic.parser.Parser;
 import planner.ui.cli.PlannerUi;
 import planner.util.crawler.JsonWrapper;
-import planner.util.legacy.reminder.Reminder;
 import planner.util.logger.PlannerLogger;
 import planner.util.storage.Storage;
 
@@ -29,10 +29,10 @@ public class CliLauncher {
     private ModuleTasksList modTasks;
     private CcaList ccas;
     private Parser argparser;
-    private Reminder reminder;
     private JsonWrapper jsonWrapper;
     private PlannerUi modUi;
     private HashMap<String, ModuleInfoDetailed> modDetailedMap;
+    private CredentialManager credential;
     private transient ByteArrayOutputStream output;
 
 
@@ -46,8 +46,10 @@ public class CliLauncher {
         jsonWrapper = new JsonWrapper();
         modTasks = new ModuleTasksList();
         ccas = new CcaList();
+        credential = new CredentialManager();
         if (gui) {
             this.redirectOutput();
+            //credential.prompt(modUi);
             modUi.helloMsg();
         }
     }
@@ -73,7 +75,7 @@ public class CliLauncher {
         try {
             modDetailedMap = jsonWrapper.getModuleDetailedMap(true, store);
             modTasks.setTasks(jsonWrapper.readJsonTaskList(store));
-            PlannerLogger.setLogFile();
+            PlannerLogger.setLogFile(store);
         } catch (ModFailedJsonException ej) {
             ej.getMessage();
             PlannerLogger.log(ej);
@@ -94,7 +96,7 @@ public class CliLauncher {
 
     private boolean handleInput() {
         try {
-            String input = modUi.readCommand();
+            String input = modUi.readInput();
             ModuleCommand c = argparser.parseCommand(input);
             if (c != null) {
                 c.execute(modDetailedMap, modTasks, ccas, modUi, store, jsonWrapper);
@@ -131,6 +133,7 @@ public class CliLauncher {
     public static void main(String[] args) {
         //TODO: args flag could be passed into program for optional runs
         CliLauncher planner = new CliLauncher();
+        //planner.credential.prompt(planner.modUi);
         planner.modRunArgparse4j();
     }
 }

@@ -218,15 +218,25 @@ Example: +
 
 Sorts out modules or ccas accordingly.
 
-==== Sorting and printing the modules : `sort module`
-
-Sorts the module list according to alphabetical order and numerical order and prints the module list. + 
-Format: `sort module`
-
-==== Sorting and printing the CCAs : `sort cca`
+==== Sorting and printing the CCAs : `sort ccas`
 
 Sorts the cca list according to alphabetical order and prints the cca list. + 
-Format: `sort cca` 
+Format: `sort ccas` 
+
+==== Sorting and printing the modules : `sort modules code`
+
+Sorts the module list according to alphabetical order and prints the module list. + 
+Format: `sort modules`
+
+==== Sorting and printing the modules : `sort modules level`
+
+Sorts the module list by the numerical order and prints the module list. + 
+Format: `sort modules`
+
+==== Sorting and printing the modules : `sort modules mc`
+
+Sorts the module list according to the number of mcs and prints the module list. + 
+Format: `sort modules`
 
 === Clearing the data : `clear`
 
@@ -253,6 +263,28 @@ Format: `scheduleCca INDEX --begin BEGIN_TIME --end END_TIME --DAY_OF_WEEK`
 * Example: `scheduleCca 1 --begin 13:00 --end 15:00 Tuesday`
 ****
 
+=== Updating module data : `update`
+
+Allows the user to directly update the module data. +
+Format: `update YEAR_SEM_1-YEAR_SEM_2`
+
+****
+* YEAR_SEM_1 and YEAR_SEM_2 must both be in the format YYYY, ie `2019-2020`
+****
+
+=== Disabling of reminders to update the module data: `reminder`
+
+Allows you the stop the reminder to update the module data for a specified period of time. +
+Format: `reminder`
+
+==== Shows the list of the different specified period of time: `reminder list`
+
+Gives four options to determine how long you want to stop the reminders. 
+
+==== Choosing the desired period of time: `reminder NUMBER`
+
+Allows you to choose the desired period of time for the reminders to stop, which ranges from 30 minutes to 1 day.
+
 === Exiting the program : `bye`
 
 Exits the program. +
@@ -270,10 +302,74 @@ There is no need to save manually.
 [[Errors]]
 == Errors
 *Error Handling*
-* When you input commands or parameters in a way that the program does not understand, errors will be thrown, which let you know what is wrong.
+When you input commands or parameters in a way in which the program does not understand, errors will be thrown, informing the user what was causing the error.
 
 [TIP]
 If you follow what the errors tell you to fix in your command, you can get the program to work as intended!
+ +
+ +
+Or even better, simply type or add `-h` to the end of the command you intend to input and ModPlanner will output a detailed guildline for you!
+
+// tag::ParserErrors[]
+
+=== Parser Errors
+If you encountered an error message starting with `ModPlanner: error:`, then this section is for you!
+
+There are 4 common types of Parser Errors:
+
+==== `ModPlanner: error: invalid choice ...`
+This error happens when you input an invalid command or argument to ModPlanner. However, the error message will display the valid options for you. In some cases, ModPlanner may even suggest a possible command that it thinks you intended to write!
+ +
+ +
+Example of input that can cause this error: `clean` +
+Example error message:
+
+image::ParserInvalidChoice.png[]
+
+> **_Solving the error:_** +
+> Select one from the provided legal options. ModPlanner even noticed that you probably meant `clear` which is a valid command, and suggested it.
+ +
+
+==== `ModPlanner: error: too few arguments`
+This error occurs when you don't supply enough arguments for a specific command.
+ +
+ +
+Example of input that can cause this error: `add module` +
+Example error message:
+
+image::ParserTooFewArguments.png[]
+
+> **_Solving the error:_** +
+> Look for the missing arguments as provided in the error message. In this case, it is `moduleCode`. If you are unsure what to input for `moduleCode`, try `add module -h`.
+
+image::ParserAddModuleHelp.png[]
+
+==== `ModPlanner: error: unrecognized arguments: ...`
+This error is triggered when the name of a named argument is specified incorrectly.
+ +
+ +
+Example of input that can cause this error: `add cca test cca --beginTime 15:00 --end 5pm --dayOfWeek MONDAY` +
+Example error message:
+
+image::ParserUnrecognizedArguments.png[]
+
+> **_Solving the error:_** +
+> Look for the correct argument name as provided in the error message! In this case, `--beginTime` should be changed to `--begin`.
+ +
+
+==== `ModPlanner: error: argument index: could not convert ...`
+Certain arguments should be parsed in the correct format in order for the value to be evaluated correctly. If you encountered this error, chances are you tried to parse a non-integer value to an integer-type argument.
+ +
+ +
+Example of input that can cause this error: `remove cca notANumber` +
+Example error message:
+
+image::ParserCouldNotConvert.png[]
+
+> **_Solving the error:_** +
+> Look for the correct type of the argument from the error message and change your argument to match the type. In this case, `index` should be an `int` but the ModPlanner could not convert the input value `notANumber` to an `int`. An example of a correct command is `remove cca 1` (provided your CCA list is not empty!).
+
+// end::ParserErrors[]
 
 === `ModBadRequestStatus`
 This error appears when there is bad internet connection. The information from the nusMods V2 API is not fully fetched.
@@ -378,14 +474,19 @@ eg. `cap module` +
 e.g `grade CS101 A-` +
 `grade CS1231 S`
 * *Sort* : 
-** `sort module`
-** `sort cca`
+** `sort ccas`
+** `sort modules code`
+** `sort modules level`
+** `sort modules mc`
 * *Clear* :
 ** `clear modules`
 ** `clear ccas`
 * *Schedule CCA* :
 ** `scheduleCca INDEX --begin BEGIN_TIME --end END_TIME --DAY_OF_WEEK` +
 e.g `scheduleCca 1 --begin 13:00 --end 15:00 Tuesday`
+* *Update* :
+** `update YEAR_SEM_1-YEAR_SEM_2`
+*** e.g `update 2019-2020`
 * *Exit* :
 ** `bye`
 
