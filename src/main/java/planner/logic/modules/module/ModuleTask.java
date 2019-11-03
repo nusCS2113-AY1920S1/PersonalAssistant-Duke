@@ -29,6 +29,8 @@ public class ModuleTask extends Task {
         return moduleInfoDetailed;
     }
 
+    public String getPrerequisites() { return moduleInfoDetailed.getPrerequisites();}
+
     public String getGrade() {
         return moduleInfoDetailed.getGrade();
     }

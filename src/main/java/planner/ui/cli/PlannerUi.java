@@ -286,19 +286,16 @@ public class PlannerUi {
     /**
      * Prints the list of modules that have not been graded/taken for prerequisite of another module.
      */
-    public void capModuleIncompleteMsg(List<List<String>> toCalculate) {
+    public void capModuleIncompleteMsg(List<String> toCalculate) {
         int i = 0;
         showLine();
-        System.out.println("Please complete the following prerequisite modules: ");
+        System.out.println("Please complete any/all of the following prerequisite modules and add them to your list: ");
         while (i < toCalculate.size()) {
-            if (!toCalculate.get(i).isEmpty()) {
-                for (String x : toCalculate.get(i)) {
-                    System.out.print(x + " or ");
-                }
-                System.out.print("\n");
-            }
+            System.out.println(toCalculate.get(i));
             i++;
         }
+        System.out.println("If you have completed any of these modules preclusions, please add their preclusions " +
+            "to your module list with the appropriate grade and try again.");
     }
 
     /**
