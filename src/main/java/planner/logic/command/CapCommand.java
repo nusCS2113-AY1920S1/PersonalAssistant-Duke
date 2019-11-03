@@ -198,7 +198,8 @@ public class CapCommand extends ModuleCommand {
         ModNoPrerequisiteException,
         ModEmptyListException {
         String moduleCode = scanner.next().toUpperCase();
-        if (detailedMap.get(moduleCode).getPrerequisites().isEmpty() ||
+        if (detailedMap.get(moduleCode).getPrerequisites().isEmpty()
+            ||
             detailedMap.get(moduleCode).getPrerequisites().isBlank()) {
             throw new ModNoPrerequisiteException();
         }
@@ -234,16 +235,16 @@ public class CapCommand extends ModuleCommand {
                 }
             }
         }
-         if (prunedModules.isEmpty()) {
-             if (projectedModuleCap == 0 && mcCount == 0) {
-                 plannerUi.capModMsg(0.00, moduleCode);
-             } else {
-                 double averageCap = projectedModuleCap / mcCount;
-                 plannerUi.capModMsg(averageCap, moduleCode);
-             }
-         } else {
-         plannerUi.capModuleIncompleteMsg(prunedModules);
-         }
+        if (prunedModules.isEmpty()) {
+            if (projectedModuleCap == 0 && mcCount == 0) {
+                plannerUi.capModMsg(0.00, moduleCode);
+            } else {
+                double averageCap = projectedModuleCap / mcCount;
+                plannerUi.capModMsg(averageCap, moduleCode);
+            }
+        } else {
+            plannerUi.capModuleIncompleteMsg(prunedModules);
+        }
     }
 
 
