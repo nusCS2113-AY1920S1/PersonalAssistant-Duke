@@ -31,16 +31,30 @@ public class AssignmentController {
      * @param input The input from the user.
      */
     public void assignAndUnassign(String input) {
+        if (input.length() < 12) {
+            errorMessages.add("Insufficient parameters! Indicate the tasks and members whom you wish to assign or remove!");
+            errorMessages.add("Format is \"assign task -i TASK_INDEX -to [MEMBER_INDEX] -rm [MEMBER_INDEX]\"");
+            errorMessages.add("You must either assign a task to someone, or remove, or both!");
+            return;
+        }
+        input = input.substring(12); //remove the "assign task " portion
         ArrayList<ArrayList<Integer>> assignmentParams = parserHelper.parseAssignmentParams(input, project);
         errorMessages.addAll(parserHelper.getErrorMessages());
         ArrayList<Integer> validTaskIndexes = assignmentParams.get(0);
         ArrayList<Integer> validAssignees = assignmentParams.get(1);
         ArrayList<Integer> validUnassignees = assignmentParams.get(2);
 
+        if (validTaskIndexes.size() == 0) {
+            errorMessages.add("No valid task numbers detected. Cannot assign any tasks.");
+            errorMessages.add("Please input valid task numbers in this format: -i TASK_INDEX");
+            return;
+        }
+
         if (validAssignees.size() == 0 && validUnassignees.size() == 0) {
-            errorMessages.add("Insufficient parameters! Indicate the member whom you wish to assign or remove!");
-            errorMessages.add("Format is \"assign task -i TASK_INDEX -to [MEMBER_INDEX] -rm [MEMBER_INDEX]");
+            errorMessages.add("Insufficient parameters! Indicate the members whom you wish to assign or remove!");
+            errorMessages.add("Format is \"assign task -i TASK_INDEX -to [MEMBER_INDEX] -rm [MEMBER_INDEX]\"");
             errorMessages.add("You must either assign a task to someone, or remove, or both!");
+            return;
         }
 
         Project project = this.project;

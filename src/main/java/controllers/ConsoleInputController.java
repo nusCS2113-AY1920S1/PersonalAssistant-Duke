@@ -34,7 +34,12 @@ public class ConsoleInputController implements IController {
     public String[] onCommandReceived(String input) {
         ArchDukeLogger.logInfo(ConsoleInputController.class.getName(), "User input: '" + input + "'");
         Scanner inputReader = new Scanner(input);
-        String command = inputReader.next();
+        String command = "";
+        if (inputReader.hasNext()) {
+            command = inputReader.next();
+        } else {
+            return new String[] {"No input detected! Type \"help\" for a list of commands!"};
+        }
 
         switch (command) {
         case "bye":

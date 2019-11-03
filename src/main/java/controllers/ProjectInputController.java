@@ -394,7 +394,7 @@ public class ProjectInputController implements IController {
         ArchDukeLogger.logDebug(ProjectInputController.class.getName(), "[projectAssignTask] User input: '"
                 + projectCommand + "'");
         AssignmentController assignmentController = new AssignmentController(projectToManage);
-        assignmentController.assignAndUnassign(projectCommand.substring(12));
+        assignmentController.assignAndUnassign(projectCommand);
         ArrayList<String> errorMessages = assignmentController.getErrorMessages();
         ArrayList<String> successMessages = assignmentController.getSuccessMessages();
         errorMessages.addAll(successMessages);
