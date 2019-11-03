@@ -6,12 +6,17 @@ import owlmoney.logic.command.Command;
 import owlmoney.logic.command.find.FindRecurringExpenditureCommand;
 import owlmoney.logic.parser.exception.ParserException;
 
+/**
+ * Represents the parsing of inputs for finding recurring expenditure.
+ */
 public class ParseFindRecurring extends ParseFind {
+
     /**
-     * Creates an instance of ParseFindTransaction.
+     * Creates an instance of ParseFindRecurring.
      *
      * @param data Raw user input data.
-     * @param type Represents the type of object to be searched.
+     * @param type Represents the type of object to search for. In this case, a search for recurring
+     *             expenditure from savings account will be performed.
      * @throws ParserException If there are redundant parameters or first parameter is invalid.
      */
     public ParseFindRecurring(String data, String type) throws ParserException {
@@ -51,9 +56,9 @@ public class ParseFindRecurring extends ParseFind {
     }
 
     /**
-     * Returns the command to find transaction.
+     * Returns the command to find recurring expenditure.
      *
-     * @return Returns FindTransactionCommand to be executed.
+     * @return Returns FindRecurringExpenditureCommand to be executed.
      */
     public Command getCommand() {
         FindRecurringExpenditureCommand newFindRecurringExpenditureCommand = new FindRecurringExpenditureCommand(

@@ -716,15 +716,13 @@ public class Profile {
     }
 
     /**
-     * Finds the transactions in either bank or card object that matches with the keywords provided by user.
+     * Finds recurring expenditure in the savings account that matches with the keywords provided by user.
      *
-     * @param name        The bank or card name to be searched for.
+     * @param name        The bank name to be searched for.
      * @param description The description keyword to match against.
      * @param category    The category keyword to match against.
      * @param ui          The object required for printing.
-     * @throws BankException        If bank name specified does not exist.
-     * @throws TransactionException If parsing of date fails.
-     * @throws CardException        If card with the name does not exist.
+     * @throws BankException If bank name specified does not exist.
      */
     public void findRecurringExpenditure(String name, String description, String category,
             String type, Ui ui) throws BankException {

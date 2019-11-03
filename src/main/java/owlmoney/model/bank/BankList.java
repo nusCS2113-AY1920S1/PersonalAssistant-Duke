@@ -1119,14 +1119,13 @@ public class BankList {
     }
 
     /**
-     * Finds matching bank transactions from the account specified by the user.
+     * Finds matching recurring expenditure from the savings account specified by the user.
      *
-     * @param bankName    The name of the bank object to search for matching bank transaction.
+     * @param bankName    The name of the bank object to search for matching recurring expenditure.
      * @param description The description keyword to match against.
      * @param category    The category keyword to match against.
      * @param ui          The object required for printing.
-     * @throws BankException        If bank name specified does not exist.
-     * @throws TransactionException If parsing of date fails.
+     * @throws BankException If bank name specified does not exist.
      */
     public void bankListFindRecurringExpenditure(String bankName, String description, String category, Ui ui)
             throws BankException {

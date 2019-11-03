@@ -185,13 +185,12 @@ public class RecurringExpenditureList {
         recurringExpenditures.add(expenditure);
     }
 
-
     /**
-     * Finds the transactions that matches with the keywords specified by the user.
+     * Finds recurring expenditures that matches with the keywords specified by the user.
      *
      * @param description The description keyword to match against.
-     * @param category The category keyword to match against.
-     * @param ui The object required for printing.
+     * @param category    The category keyword to match against.
+     * @param ui          The object required for printing.
      */
     public void findMatchingRecurringExpenditure(String description, String category, Ui ui) {
         if (!(description.isBlank() || description.isEmpty())) {
@@ -203,10 +202,10 @@ public class RecurringExpenditureList {
     }
 
     /**
-     * Finds the transactions that matches with the description keyword specified by the user.
+     * Finds recurring expenditures that matches with the description keyword specified by the user.
      *
      * @param keyword The description keyword to match against.
-     * @param ui The object required for printing.
+     * @param ui      The object required for printing.
      */
     private void findByDescription(String keyword, Ui ui) {
         String matchingKeyword = keyword.toUpperCase();
@@ -226,10 +225,10 @@ public class RecurringExpenditureList {
     }
 
     /**
-     * Finds the transactions that matches with the category keyword specified by the user.
+     * Finds recurring expenditures that matches with the category keyword specified by the user.
      *
      * @param keyword The category keyword to match against.
-     * @param ui The object required for printing.
+     * @param ui      The object required for printing.
      */
     private void findByCategory(String keyword, Ui ui) {
         String matchingKeyword = keyword.toUpperCase();
@@ -252,10 +251,10 @@ public class RecurringExpenditureList {
     }
 
     /**
-     * Prints the header to list the found transactions.
+     * Prints the header to list the found recurring expenditures.
      *
-     * @param counter    Represents the counter of the transaction for printing.
-     * @param ui         The object use for printing.
+     * @param counter Represents the counter of the recurring expenditures for printing.
+     * @param ui      The object use for printing.
      */
     private void printOneHeaderForFind(int counter, String findType, Ui ui) {
         if (counter == 0) {

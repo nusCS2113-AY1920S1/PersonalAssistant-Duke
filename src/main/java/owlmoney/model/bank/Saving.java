@@ -571,11 +571,12 @@ public class Saving extends Bank {
     }
 
     /**
-     * Finds the bonds that matches with the keywords specified by the user.
+     * Finds the recurring expenditure that matches with the keywords specified by the user
+     * for savings account.
      *
-     * @param bondName The bondName keyword to match against.
-     * @param ui      The object required for printing.
-     * @throws BondException If no bonds could be found.
+     * @param description The description keyword to match against.
+     * @param category    The category keyword to match against.
+     * @param ui          The object required for printing.
      */
     @Override
     public void findRecurringExpenditure(String description, String category, Ui ui) {
