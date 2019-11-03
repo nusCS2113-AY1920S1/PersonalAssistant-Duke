@@ -299,6 +299,10 @@ public class ProjectInputController implements IController {
         ArchDukeLogger.logDebug(ProjectInputController.class.getName(), "[projectEditTask] User input: '"
                 + projectCommand + "'");
         try {
+            if (projectCommand.length() <= 10) {
+                return new String[] {"No parameters detected. Please enter details in the following format:",
+                "TASK_INDEX [-t TASK_NAME] [-p TASK_PRIORITY] [-d TASK_DUEDATE] [-c TASK_CREDIT] [-s STATE]"};
+            }
             int taskIndexNumber = Integer.parseInt(projectCommand.substring(10).split(" ")[0]);
             String updatedTaskDetails = projectCommand.substring(projectCommand.indexOf("-"));
 
@@ -337,6 +341,9 @@ public class ProjectInputController implements IController {
         for (Integer index: validTaskIndexes) {
             outputMessages.add("Removed task " + index + ": " + projectToManage.getTaskIndexName(index));
             projectToManage.removeTask(index);
+        }
+        if (!validTaskIndexes.isEmpty()) {
+            outputMessages.add("\t * Take note that index numbers of other tasks may have changed after deleting!");
         }
         return outputMessages.toArray(new String[0]);
     }

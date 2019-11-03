@@ -103,6 +103,9 @@ public class ConsoleInputController implements IController {
                         + projectRepository.getItem(Integer.parseInt(managingProjectIndex)).getName()};
             } catch (IndexOutOfBoundsException err) {
                 return new String[] {"Please enter the correct index of an existing Project!"};
+            } catch (NumberFormatException err) {
+                return new String[] {"The project \"" + managingProjectIndex + "\" does not exist!",
+                "Please ensure the project index number exists and is an integer."};
             }
         } else {
             return new String[] {"Please enter a project number!"};
