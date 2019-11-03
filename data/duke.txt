@@ -3,4 +3,3 @@ D|0|submit homework|k-pop is so great man i love it.|01/10/2019 2359
 F|1|take computing class|empty|2 hours
 T|1|dance|empty
 D|0|finish reading book|empty|23/02/2019 1111
-D|0|hello|empty|23/01/2019 1111

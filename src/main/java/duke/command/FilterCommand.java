@@ -19,7 +19,6 @@ public class FilterCommand extends Command {
     private static final int ZERO = 0;
     private static final int ONE = 1;
     private static final int TWO = 2;
-    private static final int THREE = 3;
     private static final int FOUR = 4;
 
 
@@ -60,9 +59,6 @@ public class FilterCommand extends Command {
             } else if (taskType.equals("deadline") && items.get(i) instanceof Deadline) {
                 filterList.add(items.get(i));
                 filterList.setFilterIndex(TWO);
-//            } else if (taskType.equals("repeat") && items.get(i) instanceof Repeat) {
-//                filterList.add(items.get(i));
-//                filterList.setFilterIndex(THREE);
             } else if (taskType.equals("fixedduration") && items.get(i) instanceof FixedDuration) {
                 filterList.add(items.get(i));
                 filterList.setFilterIndex(FOUR);

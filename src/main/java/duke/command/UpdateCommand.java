@@ -61,9 +61,6 @@ public class UpdateCommand extends Command {
                         newtaskObj = new Todo(items.get(index).getDescription());
                     }
                 } else if (typeDesc.equals("deadline")) {
-//                    if (items.get(index) instanceof Repeat) {
-//                        newtaskObj = new Deadline(items.get(index).getDescription(), items.get(index).getDateTime());
-//                    }
                     if (items.get(index) instanceof Deadline) {
                         throw new DukeException("     You are updating the same type of task! (Deadline)");
                     } else {
@@ -75,14 +72,6 @@ public class UpdateCommand extends Command {
                     } else {
                         newtaskObj = new FixedDuration(items.get(index).getDescription(), 0, "min");
                     }
-//                } else if (typeDesc.equals("repeat")) {
-//                    if (items.get(index) instanceof Deadline) {
-//                        newtaskObj = new Repeat(items.get(index).getDescription(), items.get(index).getDateTime());
-//                    } else if (items.get(index) instanceof Repeat) {
-//                        throw new DukeException("     You are updating the same type of task! (Repeat)");
-//                    } else {
-//                        newtaskObj = new Repeat(items.get(index).getDescription(), "01/01/2001 0001");
-//                    }
                 }
                 items.setTaskType(index, newtaskObj);
             }
@@ -118,9 +107,6 @@ public class UpdateCommand extends Command {
                         newtaskObj = new Todo(items.get(index).getDescription());
                     }
                 } else if (typeDesc.equals("deadline")) {
-//                    if (items.get(index) instanceof Repeat) {
-//                        newtaskObj = new Deadline(items.get(index).getDescription(), items.get(index).getDateTime());
-//                    }
                     if (items.get(index) instanceof Deadline) {
                         return "     (>_<) OOPS!!! You are updating the same type of task! (Deadline)";
                     } else {
@@ -133,15 +119,6 @@ public class UpdateCommand extends Command {
                         newtaskObj = new FixedDuration(items.get(index).getDescription(), 0, "min");
                     }
                 }
-//                else if (typeDesc.equals("repeat")) {
-//                    if (items.get(index) instanceof Deadline) {
-//                        newtaskObj = new Repeat(items.get(index).getDescription(), items.get(index).getDateTime());
-//                    } else if (items.get(index) instanceof Repeat) {
-//                        return "     (>_<) OOPS!!! You are updating the same type of task! (Repeat)";
-//                    } else {
-//                        newtaskObj = new Repeat(items.get(index).getDescription(), "01/01/2001 0001");
-//                    }
-//                }
                 items.setTaskType(index, newtaskObj);
             }
         } catch (ParseException e) {

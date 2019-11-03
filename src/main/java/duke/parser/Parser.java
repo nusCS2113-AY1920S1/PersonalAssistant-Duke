@@ -1,8 +1,41 @@
 package duke.parser;
 
-import duke.command.*;
+import duke.command.BackupCommand;
+import duke.command.ExitCommand;
+import duke.command.DeleteCommand;
+import duke.command.Command;
+import duke.command.ListCommand;
+import duke.command.DoneCommand;
+import duke.command.FindCommand;
+import duke.command.AddCommand;
+import duke.command.FilterCommand;
+import duke.command.ListPriorityCommand;
+import duke.command.ShowNotesCommand;
+import duke.command.AddNotesCommand;
+import duke.command.DeleteNotesCommand;
+import duke.command.DuplicateFoundCommand;
+import duke.command.SetPriorityCommand;
+import duke.command.FindTasksByPriorityCommand;
+import duke.command.RemindCommand;
+import duke.command.UpdateCommand;
+import duke.command.ViewBudgetCommand;
+import duke.command.ResetBudgetCommand;
+import duke.command.AddContactsCommand;
+import duke.command.ListContactsCommand;
+import duke.command.DeleteContactCommand;
+import duke.command.FindContactCommand;
+import duke.command.AddBudgetCommand;
+
 import duke.dukeexception.DukeException;
-import duke.task.*;
+import duke.task.TaskList;
+import duke.task.Todo;
+import duke.task.Deadline;
+import duke.task.Task;
+import duke.task.BudgetList;
+import duke.task.ContactList;
+import duke.task.DetectDuplicate;
+import duke.task.FixedDuration;
+import duke.task.Contacts;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
