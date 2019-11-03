@@ -1,4 +1,4 @@
-package seedu.duke;
+package seedu.duke.common.parser;
 
 import seedu.duke.common.command.Command;
 import seedu.duke.common.command.Command.Option;

@@ -1,7 +1,7 @@
 package seedu.duke.task.command;
 
 import javafx.util.Pair;
-import seedu.duke.CommandParseHelper;
+import seedu.duke.common.parser.CommandParseHelper;
 import seedu.duke.task.entity.Task;
 import seedu.duke.task.parser.TaskCommandParseHelper;
 

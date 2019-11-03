@@ -1,11 +1,10 @@
 package seedu.duke.task;
 
-import seedu.duke.CommandParseHelper;
+import seedu.duke.common.parser.CommandParseHelper;
 import seedu.duke.task.command.TaskParseNaturalDateHelper;
 import seedu.duke.task.entity.Deadline;
 import seedu.duke.task.entity.Event;
 import seedu.duke.task.entity.Task;
-import seedu.duke.task.parser.TaskCommandParseHelper;
 import seedu.duke.ui.UI;
 
 import java.util.ArrayList;
