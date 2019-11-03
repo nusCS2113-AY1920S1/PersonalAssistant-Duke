@@ -297,10 +297,16 @@ Example: +
 ==== Find task(s) with keyword: `find`
 Format: `find KEYWORD` +
 
-Returns a list of items that contains KEYWORD. This feature will search all the attributes of a task. +
+Returns a list of items that contains KEYWORD. This feature will search through the displayed string of
+the task including all the attributes and signifier. (Case insensitive) +
 
 Example: +
 `find cat` will return `cat`, `tabby #cat`, `SoCcat`, `concatenation`
+
+[TIP]
+`find` command has a lot of flexibility in usage. If the user wants to find all deadlines, they can search
+using `find by:` since all deadlines will contain a `by:` as shown in the list. This is also applicable to
+keywords like `Overdue` and `Past`.
 
 ==== Done a task: `done`
 Format: `done ITEM_NUMBER` +

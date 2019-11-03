@@ -164,7 +164,7 @@ public class HelpCommand extends Command {
          */
         public String toString() {
             String output = "";
-            output += "\t$" + description + System.lineSeparator();
+            output += "\t==>" + description + System.lineSeparator();
             output += "\t" + format;
             return output;
         }

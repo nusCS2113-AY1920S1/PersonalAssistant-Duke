@@ -159,7 +159,7 @@ public class EmailCommandParseHelper {
         }
         int index = Integer.parseInt(input) - 1;
         if (index < 0 || index >= Model.getInstance().getEmailListLength()) {
-            throw new EmailParseException("Index " + (index + 1) + " out of bounds for length "
+            throw new EmailParseException("Index " + (index + 1) + " out of bounds of 1 to "
                     + Model.getInstance().getEmailListLength());
         }
         return index;

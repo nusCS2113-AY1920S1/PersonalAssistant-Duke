@@ -28,7 +28,7 @@ public interface Storage {
         if (!fileExists(path)) {
             createFileIfNotExist(path);
         }
-        Files.writeString(path, content, StandardOpenOption.WRITE);
+        Files.writeString(path, content, StandardOpenOption.TRUNCATE_EXISTING, StandardOpenOption.WRITE);
     }
 
     /**

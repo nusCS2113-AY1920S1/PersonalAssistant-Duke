@@ -123,7 +123,7 @@ public class TaskCommandParseHelper {
         }
         int index = Integer.parseInt(input) - 1;
         if (index < 0 || index >= Model.getInstance().getTaskListLength()) {
-            throw new TaskParseException("Index " + (index + 1) + " out of bounds for length "
+            throw new TaskParseException("Index " + (index + 1) + " out of bounds of 1 to "
                     + Model.getInstance().getTaskListLength());
         }
         return index;
