@@ -77,8 +77,10 @@ public class SearchCommand extends Command {
                 SearchUi.printSearchDesc(mode, recordList, searchContent);
             } else if (component.equals(COMPONENT_NAME)) {
                 SearchUi.printSearchName(mode, recordList, searchContent);
-            } else if (component.equals(COMPONENT_NAME)) {
+            } else if (component.equals(COMPONENT_DATE)) {
                 SearchUi.printSearchDate(mode, recordList, searchContent);
+            } else {
+                SearchUi.printInvalidSearchFormat();
             }
         } else if (mode.equals(MODE_LIMIT) && component.equals(COMPONENT_DURATION)) {
             SearchUi.printSearchDuration(mode, recordList, searchContent);

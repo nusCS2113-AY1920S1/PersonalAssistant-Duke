@@ -12,7 +12,6 @@ import dolla.command.SortCommand;
 import dolla.command.SearchCommand;
 
 import dolla.task.Limit;
-import dolla.ui.LimitUi;
 import dolla.ui.SearchUi;
 import dolla.ui.Ui;
 
@@ -64,15 +63,17 @@ public class LimitParser extends Parser {
                 return new ErrorCommand();
             }
         } else if (commandToRun.equals(ParserStringList.COMMAND_SEARCH)) {
-            String component;
+            String component = null;
             String content;
             try {
-                component = verifySearchCommand(inputArray[1]);
+                if(verifyLimitSearchComponent(inputArray[1])) {
+                    component = inputArray[1];
+                } else {
+                    SearchUi.printInvalidLimitSearchComponent();
+                }
                 content = inputArray[2];
             } catch (IndexOutOfBoundsException e) {
                 SearchUi.printInvalidSearchFormat();
-                return new ErrorCommand();
-            } catch (Exception e) {
                 return new ErrorCommand();
             }
             return new SearchCommand(mode, component, content);

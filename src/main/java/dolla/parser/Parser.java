@@ -404,19 +404,30 @@ public abstract class Parser implements ParserStringList, ModeStringList {
 
     //@@author tatayu
     /**
-     * To check if the component in the search command is valid.
-     * @param s the string to be checked.
-     * @return any of the component if the command is any of these choices.
-     * @throws Exception invalid component.
+     * Check if the component is valid
+     * @param s string at the component position
+     * @return true if it is a valid component
      */
-    public String verifySearchCommand(String s) throws Exception {
-        if (s.equals(SEARCH_DESCRIPTION) || s.equals(SEARCH_DATE) || s.equals(SEARCH_NAME)
-                || s.equals(SEARCH_DURATION)) {
-            return s;
-        } else {
-            SearchUi.printInvalidSearchFormat();
-            throw new Exception();
-        }
+    protected Boolean verifyDebtSearchComponent(String s) {
+        return s.equals(SEARCH_DESCRIPTION) || s.equals(SEARCH_DATE) || s.equals(SEARCH_NAME);
+    }
+
+    /**
+     * Check if the component is valid
+     * @param s string at the component position
+     * @return true if it is a valid component
+     */
+    protected Boolean verifyEntrySearchComponent(String s) {
+        return s.equals(SEARCH_DESCRIPTION) || s.equals(SEARCH_DATE);
+    }
+
+    /**
+     * Check if the component is valid
+     * @param s string at the component position
+     * @return true if it is a valid component
+     */
+    protected Boolean verifyLimitSearchComponent(String s) {
+       return s.equals(SEARCH_DURATION);
     }
 
     //@@author Weng-Kexin

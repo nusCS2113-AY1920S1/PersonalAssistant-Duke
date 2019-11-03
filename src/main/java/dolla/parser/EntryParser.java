@@ -55,15 +55,17 @@ public class EntryParser extends Parser {
                 return new ErrorCommand();
             }
         } else if (commandToRun.equals(COMMAND_SEARCH)) {
-            String component;
+            String component = null;
             String content;
             try {
-                component = verifySearchCommand(inputArray[1]);
+                if(verifyEntrySearchComponent(inputArray[1])) {
+                    component = inputArray[1];
+                } else {
+                    SearchUi.printInvalidEntrySearchComponent();
+                }
                 content = inputArray[2];
             } catch (IndexOutOfBoundsException e) {
                 SearchUi.printInvalidSearchFormat();
-                return new ErrorCommand();
-            } catch (Exception e) {
                 return new ErrorCommand();
             }
             return new SearchCommand(mode, component, content);

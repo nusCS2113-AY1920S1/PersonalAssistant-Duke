@@ -17,7 +17,9 @@ import dolla.task.Debt;
 import dolla.ui.DebtUi;
 import dolla.action.Repeat;
 import dolla.ui.SearchUi;
+import dolla.ui.Ui;
 
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 //@@author tatayu
@@ -54,9 +56,19 @@ public class DebtsParser extends Parser {
                 description = dateString[0];
                 if (inputLine.contains(t.getPrefixTag())) {
                     String[] dateAndTag = dateString[1].split(t.getPrefixTag());
-                    date = Time.readDate(dateAndTag[0].trim());
+                    try {
+                        date = Time.readDate(dateAndTag[0].trim());
+                    } catch (DateTimeParseException e) {
+                        Ui.printDateFormatError();
+                        throw new Exception("invalid date");
+                    }
                 } else {
-                    date = Time.readDate(dateString[1].trim());
+                    try {
+                        date = Time.readDate(dateString[1].trim());
+                    } catch (DateTimeParseException e) {
+                        Ui.printDateFormatError();
+                        throw new Exception("invalid date");
+                    }
                 }
             } catch (IndexOutOfBoundsException e) {
                 DebtUi.printInvalidDebtFormatError();
@@ -94,15 +106,17 @@ public class DebtsParser extends Parser {
                 return new ErrorCommand();
             }
         } else if (commandToRun.equals(COMMAND_SEARCH)) {
-            String component;
-            String content;
+            String component = inputArray[1];
+            String content = inputArray[2];
             try {
-                component = verifySearchCommand(inputArray[1]);
-                content = inputArray[2];
-            } catch (IndexOutOfBoundsException e) {
+                if(verifyDebtSearchComponent(inputArray[1])) {
+                    component = inputArray[1];
+                    content = inputArray[2];
+                } else {
+                    SearchUi.printInvalidDebtSearchComponent();
+                }
+            } catch (NullPointerException e) {
                 SearchUi.printInvalidSearchFormat();
-                return new ErrorCommand();
-            } catch (Exception e) {
                 return new ErrorCommand();
             }
             return new SearchCommand(mode, component, content);
