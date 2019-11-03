@@ -1,5 +1,6 @@
 package entertainment.pro.storage.user;
 
+import entertainment.pro.commons.exceptions.DuplicateEntryException;
 import entertainment.pro.model.MovieInfoObject;
 import entertainment.pro.model.MovieModel;
 import entertainment.pro.storage.utils.BlacklistStorage;
@@ -58,12 +59,12 @@ public class Blacklist {
      *
      * @param movie command that was entered by the user in split array form
      */
-    public static void addToBlacklistKeyWord(String movie) {
+    public static void addToBlacklistKeyWord(String movie) throws DuplicateEntryException {
         if (movie.trim() == "") {
             return;
         }
         if (blackListKeyWords.contains(movie.toLowerCase())) {
-            return;
+            throw new DuplicateEntryException("blacklist");
         }
         blackListKeyWords.add(movie.toLowerCase());
         saveBlackList();
@@ -73,13 +74,13 @@ public class Blacklist {
      * Adding Movies to blacklist.
      * @param mo movie object
      */
-    public static void addToBlacklistMoviesID(MovieInfoObject mo) {
+    public static void addToBlacklistMoviesID(MovieInfoObject mo) throws DuplicateEntryException {
         if (mo == null) {
             return;
         }
         for (MovieModel mm: blackListMovies) {
             if (mm.getTitle().toLowerCase().trim().equals(mo.getTitle().toLowerCase().trim())) {
-                return;
+                throw new DuplicateEntryException("blacklist");
             }
         }
         blackListMovies.add(new MovieModel(mo.getId() , mo.getTitle().toLowerCase()));
@@ -89,12 +90,13 @@ public class Blacklist {
     /**
      * Adding Movies to blacklist.
      */
-    public static void addToBlacklistMovie(String movie) {
+    public static void addToBlacklistMovie(String movie) throws DuplicateEntryException {
         if (movie.trim() == "") {
             return;
         }
         if (blackListMoviesTitle.contains(movie.toLowerCase().trim())) {
-            return;
+
+            throw new DuplicateEntryException("blacklist");
         }
         blackListMoviesTitle.add(movie.toLowerCase());
         saveBlackList();

@@ -53,109 +53,109 @@ public class CommandParser {
             return;
         }
         switch(command.getRootCommand()) {
-            case search:
-                SearchCommand sc = new SearchCommand(uicontroller);
-                sc.initCommand(commandArr , commandStr, command.getSubRootCommand());
-                if (command.isValidCommand()) {
-                    CommandStack.pushCmd(sc);
-                }
-                break;
-            case view:
-                ViewCommand vc = new ViewCommand(uicontroller);
-                vc.initCommand(commandArr , commandStr, command.getSubRootCommand());
-                if (command.isValidCommand()) {
-                    CommandStack.pushCmd(vc);
-                }
-                break;
-            case help:
-                HelpCommand hc = new HelpCommand(uicontroller);
-                hc.initCommand(commandArr, commandStr, command.getSubRootCommand());
-                if (command.isValidCommand()) {
-                    CommandStack.pushCmd(hc);
-                }
-                break;
-            case more:
-                MoreCommand mc = new MoreCommand(uicontroller);
-                mc.initCommand(commandArr, commandStr, command.getSubRootCommand());
-                if (command.isValidCommand()) {
-                    CommandStack.pushCmd(mc);
-                }
-                break;
-            case yes:
-                YesCommand yc = new YesCommand(uicontroller);
-                yc.initCommand(commandArr, commandStr, command.getSubRootCommand());
-                if (command.isValidCommand()) {
-                    CommandStack.pushCmd(yc);
-                }
-                break;
-            case add:
-                AddCommand wc = new AddCommand(uicontroller);
-                wc.initCommand(commandArr, commandStr, command.getSubRootCommand());
-                if (command.isValidCommand()) {
-                    CommandStack.pushCmd(wc);
-                }
-                break;
-            case exit:
-                ExitCommand exitCommand = new ExitCommand(uicontroller);
-                exitCommand.initCommand(commandArr, commandStr, command.getSubRootCommand());
-                if (command.isValidCommand()) {
-                    CommandStack.pushCmd(exitCommand);
-                }
-                break;
-            case set:
-                SetCommand stc = new SetCommand(uicontroller);
-                stc.initCommand(commandArr, commandStr , command.getSubRootCommand());
-                if (command.isValidCommand()) {
-                    CommandStack.pushCmd(stc);
-                }
-                break;
-            case playlist:
-                PlaylistCommand pc = new PlaylistCommand(uicontroller);
-                pc.initCommand(commandArr, commandStr , command.getSubRootCommand());
-                if (command.isValidCommand()) {
-                    CommandStack.pushCmd(pc);
-                }
-                break;
-            case preference:
-                PreferenceCommand pfc = new PreferenceCommand(uicontroller);
-                pfc.initCommand(commandArr, commandStr , command.getSubRootCommand());
-                if (command.isValidCommand()) {
-                    CommandStack.pushCmd(pfc);
-                }
-                break;
-            case restriction:
-                RestrictionCommand rc = new RestrictionCommand(uicontroller);
-                rc.initCommand(commandArr, commandStr, command.getSubRootCommand());
-                if (command.isValidCommand()) {
-                    CommandStack.pushCmd(rc);
-                }
-                break;
-            case blacklist:
-                BlacklistCommand bbc = new BlacklistCommand(uicontroller);
-                bbc.initCommand(commandArr, commandStr, command.getSubRootCommand());
+        case search:
+            SearchCommand sc = new SearchCommand(uicontroller);
+            sc.initCommand(commandArr , commandStr, command.getSubRootCommand());
+            if (command.isValidCommand()) {
+                CommandStack.pushCmd(sc);
+            }
+            break;
+        case view:
+            ViewCommand vc = new ViewCommand(uicontroller);
+            vc.initCommand(commandArr , commandStr, command.getSubRootCommand());
+            if (command.isValidCommand()) {
+                CommandStack.pushCmd(vc);
+            }
+            break;
+        case help:
+            HelpCommand hc = new HelpCommand(uicontroller);
+            hc.initCommand(commandArr, commandStr, command.getSubRootCommand());
+            if (command.isValidCommand()) {
+                CommandStack.pushCmd(hc);
+            }
+            break;
+        case more:
+            MoreCommand mc = new MoreCommand(uicontroller);
+            mc.initCommand(commandArr, commandStr, command.getSubRootCommand());
+            if (command.isValidCommand()) {
+                CommandStack.pushCmd(mc);
+            }
+            break;
+        case yes:
+            YesCommand yc = new YesCommand(uicontroller);
+            yc.initCommand(commandArr, commandStr, command.getSubRootCommand());
+            if (command.isValidCommand()) {
+                CommandStack.pushCmd(yc);
+            }
+            break;
+        case add:
+            AddCommand wc = new AddCommand(uicontroller);
+            wc.initCommand(commandArr, commandStr, command.getSubRootCommand());
+            if (command.isValidCommand()) {
+                CommandStack.pushCmd(wc);
+            }
+            break;
+        case set:
+            SetCommand stc = new SetCommand(uicontroller);
+            stc.initCommand(commandArr, commandStr , command.getSubRootCommand());
+            if (command.isValidCommand()) {
+                CommandStack.pushCmd(stc);
+            }
+            break;
+        case playlist:
+            PlaylistCommand pc = new PlaylistCommand(uicontroller);
+            pc.initCommand(commandArr, commandStr , command.getSubRootCommand());
+            if (command.isValidCommand()) {
+                CommandStack.pushCmd(pc);
+            }
+            break;
+        case preference:
+            PreferenceCommand pfc = new PreferenceCommand(uicontroller);
+            pfc.initCommand(commandArr, commandStr , command.getSubRootCommand());
+            if (command.isValidCommand()) {
+                CommandStack.pushCmd(pfc);
+            }
+            break;
+        case restriction:
+            RestrictionCommand rc = new RestrictionCommand(uicontroller);
+            rc.initCommand(commandArr, commandStr, command.getSubRootCommand());
+            if (command.isValidCommand()) {
+                CommandStack.pushCmd(rc);
+            }
+            break;
+        case blacklist:
+            BlacklistCommand bbc = new BlacklistCommand(uicontroller);
+            bbc.initCommand(commandArr, commandStr, command.getSubRootCommand());
 
-                if (command.isValidCommand()) {
-                    CommandStack.pushCmd(bbc);
-                }
-                break;
-            case watchlist:
-                WatchlistCommand wlc = new WatchlistCommand(uicontroller);
-                wlc.initCommand(commandArr, commandStr, command.getSubRootCommand());
-                if (command.isValidCommand()) {
-                    CommandStack.pushCmd(wlc);
-                }
-                break;
-            case find:
-                FindCommand fc = new FindCommand(uicontroller);
-                fc.initCommand(commandArr, commandStr, command.getSubRootCommand());
-                if (command.isValidCommand()) {
-                    CommandStack.pushCmd(fc);
-                }
-                break;
-            default:
-                CommandPair pair = CommandDebugger.commandSpellChecker(commandArr , COMMANDKEYS.none , uicontroller);
-                ((MovieHandler) uicontroller).setGeneralFeedbackText("Sorry we are unable to process your command. " +
-                        "Please check help for more details!");
+            if (command.isValidCommand()) {
+                CommandStack.pushCmd(bbc);
+            }
+            break;
+        case watchlist:
+            WatchlistCommand wlc = new WatchlistCommand(uicontroller);
+            wlc.initCommand(commandArr, commandStr, command.getSubRootCommand());
+            if (command.isValidCommand()) {
+                CommandStack.pushCmd(wlc);
+            }
+            break;
+        case find:
+            FindCommand fc = new FindCommand(uicontroller);
+            fc.initCommand(commandArr, commandStr, command.getSubRootCommand());
+            if (command.isValidCommand()) {
+                CommandStack.pushCmd(fc);
+            }
+            break;
+        case exit:
+            ExitCommand ec = new ExitCommand(uicontroller);
+            ec.initCommand(commandArr , commandStr , command.getSubRootCommand());
+            if (command.isValidCommand()) {
+                CommandStack.pushCmd(ec);
+            }
+            break;
+        default:
+            CommandPair pair = CommandDebugger.commandSpellChecker(commandArr , COMMANDKEYS.none , uicontroller);
+            ((MovieHandler) uicontroller).setGeneralFeedbackText("Sorry we are unable to process your command. " +
+                    "Please check help for more details!");
 
         }
     }
@@ -172,111 +172,107 @@ public class CommandParser {
 
         System.out.print("Whats happening");
         switch(commandArr[0].toLowerCase()) {
-            case "search":
-                SearchCommand sc = new SearchCommand(uicontroller);
-                if (sc.initCommand(commandArr , command)) {
-                    CommandStack.pushCmd(sc);
-                }
-                break;
-            case "view":
-                ViewCommand vc = new ViewCommand(uicontroller);
-                if (vc.initCommand(commandArr , command)) {
-                    CommandStack.pushCmd(vc);
-                }
-                break;
-            case "help":
-                HelpCommand hc = new HelpCommand(uicontroller);
-                if (hc.initCommand(commandArr , command)) {
-                    CommandStack.pushCmd(hc);
-                }
-                break;
-            case "more":
-                MoreCommand mc = new MoreCommand(uicontroller);
-                if (mc.initCommand(commandArr , command)) {
-                    CommandStack.pushCmd(mc);
-                }
-                break;
-            case "yes":
-                YesCommand yc = new YesCommand(uicontroller);
-                if (yc.initCommand(commandArr , command)) {
-                    CommandStack.pushCmd(yc);
-                }
-                break;
-            case "add":
-                AddCommand wc = new AddCommand(uicontroller);
-                if (wc.initCommand(commandArr , command)) {
-                    CommandStack.pushCmd(wc);
-                }
-                break;
-            case "exit":
-                ExitCommand exitCommand = new ExitCommand(uicontroller);
-                if (exitCommand.initCommand(commandArr, command)) {
-                    CommandStack.pushCmd(exitCommand);
-                }
-                break;
-            case "set":
-                SetCommand stc = new SetCommand(uicontroller);
-                if (stc.initCommand(commandArr , command)) {
-                    CommandStack.pushCmd(stc);
-                }
-                break;
-            case "playlist":
-                PlaylistCommand pc = new PlaylistCommand(uicontroller);
-                if (pc.initCommand(commandArr , command)) {
-                    CommandStack.pushCmd(pc);
-                }
-                break;
-            case "remove":
-                RemoveCommand removec = new RemoveCommand(uicontroller);
-                if (removec.initCommand(commandArr , command)) {
-                    CommandStack.pushCmd(removec);
-                }
-                break;
-            case "preference":
-                PreferenceCommand pfc = new PreferenceCommand(uicontroller);
-                if (pfc.initCommand(commandArr , command)) {
-                    CommandStack.pushCmd(pfc);
-                }
-                break;
-            case "restriction":
-                RestrictionCommand rc = new RestrictionCommand(uicontroller);
-                if (rc.initCommand(commandArr , command)) {
-                    CommandStack.pushCmd(rc);
-                }
-                break;
-            case "get":
-                GetCommand gc = new GetCommand(uicontroller);
-                if (gc.initCommand(commandArr , command)) {
-                    CommandStack.pushCmd(gc);
-                }
-                break;
-            case "blacklist":
-                BlacklistCommand bbc = new BlacklistCommand(uicontroller);
-                bbc.initCommand(commandArr , command);
-
-                if (bbc.initCommand(commandArr , command)) {
-                    CommandStack.pushCmd(bbc);
-                }
-                break;
-            case "watchlist":
-                WatchlistCommand wlc = new WatchlistCommand(uicontroller);
-                wlc.initCommand(commandArr , command);
-                if (wlc.initCommand(commandArr , command)) {
-                    CommandStack.pushCmd(wlc);
-                }
-                break;
-            case "find":
-                FindCommand fc = new FindCommand(uicontroller);
-                fc.initCommand(commandArr , command);
-                if (fc.initCommand(commandArr, command)) {
-                    CommandStack.pushCmd(fc);
-                }
-                break;
-            default:
-                CommandPair pair = CommandDebugger.commandSpellChecker(commandArr , COMMANDKEYS.none, uicontroller);
-                askUserConfirmation(pair , uicontroller , commandArr);
-                processCommand(pair , commandArr , command, uicontroller);
-                break;
+        case "search":
+            SearchCommand sc = new SearchCommand(uicontroller);
+            if (sc.initCommand(commandArr , command)) {
+                CommandStack.pushCmd(sc);
+            }
+            break;
+        case "view":
+            ViewCommand vc = new ViewCommand(uicontroller);
+            if (vc.initCommand(commandArr , command)) {
+                CommandStack.pushCmd(vc);
+            }
+            break;
+        case "help":
+            HelpCommand hc = new HelpCommand(uicontroller);
+            if (hc.initCommand(commandArr , command)) {
+                CommandStack.pushCmd(hc);
+            }
+            break;
+        case "more":
+            MoreCommand mc = new MoreCommand(uicontroller);
+            if (mc.initCommand(commandArr , command)) {
+                CommandStack.pushCmd(mc);
+            }
+            break;
+        case "yes":
+            YesCommand yc = new YesCommand(uicontroller);
+            if (yc.initCommand(commandArr , command)) {
+                CommandStack.pushCmd(yc);
+            }
+            break;
+        case "add":
+            AddCommand wc = new AddCommand(uicontroller);
+            if (wc.initCommand(commandArr , command)) {
+                CommandStack.pushCmd(wc);
+            }
+            break;
+        case "set":
+            SetCommand stc = new SetCommand(uicontroller);
+            if (stc.initCommand(commandArr , command)) {
+                CommandStack.pushCmd(stc);
+            }
+            break;
+        case "playlist":
+            PlaylistCommand pc = new PlaylistCommand(uicontroller);
+            if (pc.initCommand(commandArr , command)) {
+                CommandStack.pushCmd(pc);
+            }
+            break;
+        case "remove":
+            RemoveCommand removec = new RemoveCommand(uicontroller);
+            if (removec.initCommand(commandArr , command)) {
+                CommandStack.pushCmd(removec);
+            }
+            break;
+        case "preference":
+            PreferenceCommand pfc = new PreferenceCommand(uicontroller);
+            if (pfc.initCommand(commandArr , command)) {
+                CommandStack.pushCmd(pfc);
+            }
+            break;
+        case "restriction":
+            RestrictionCommand rc = new RestrictionCommand(uicontroller);
+            if (rc.initCommand(commandArr , command)) {
+                CommandStack.pushCmd(rc);
+            }
+            break;
+        case "get":
+            GetCommand gc = new GetCommand(uicontroller);
+            if (gc.initCommand(commandArr , command)) {
+                CommandStack.pushCmd(gc);
+            }
+            break;
+        case "blacklist":
+            BlacklistCommand bbc = new BlacklistCommand(uicontroller);
+            if (bbc.initCommand(commandArr , command)) {
+                CommandStack.pushCmd(bbc);
+            }
+            break;
+        case "watchlist":
+            WatchlistCommand wlc = new WatchlistCommand(uicontroller);
+            if (wlc.initCommand(commandArr , command)) {
+                CommandStack.pushCmd(wlc);
+            }
+            break;
+        case "find":
+            FindCommand fc = new FindCommand(uicontroller);
+            if (fc.initCommand(commandArr, command)) {
+                CommandStack.pushCmd(fc);
+            }
+            break;
+        case "exit":
+            ExitCommand ec = new ExitCommand(uicontroller);
+            if (ec.initCommand(commandArr , command)) {
+                CommandStack.pushCmd(ec);
+            }
+            break;
+        default:
+            CommandPair pair = CommandDebugger.commandSpellChecker(commandArr , COMMANDKEYS.none, uicontroller);
+            askUserConfirmation(pair , uicontroller , commandArr);
+            processCommand(pair , commandArr , command, uicontroller);
+            break;
         }
     }
 

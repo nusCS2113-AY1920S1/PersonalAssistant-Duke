@@ -15,9 +15,9 @@ public class SearchResultContextTest {
     @Test public void testaddResults(){
 
         ArrayList<MovieInfoObject> searchresults = new ArrayList<MovieInfoObject>(Arrays.asList(
-                new MovieInfoObject(true,12,"title 1" ) ,
-                new MovieInfoObject(true,15,"title 2" ) ,
-                new MovieInfoObject(true,18,"title 3" )));
+                new MovieInfoObject(12,"title 1" ,true),
+                new MovieInfoObject(15,"title 2" ,true) ,
+                new MovieInfoObject(18,"title 3" ,true)));
 
         ArrayList<String> possibilities = new ArrayList<String>(Arrays.asList("title 1" , "title 2" , "title 3"));
 

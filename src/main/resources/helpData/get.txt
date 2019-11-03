@@ -1,2 +1,4 @@
 Get functionality:
-    Sorry please refer to the User guide for the time being
+    #recommendation         :Get Recommendation
+
+            usage: get recommendation
