@@ -2,9 +2,9 @@ package seedu.duke.ui;
 
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import seedu.duke.CommandParseHelper;
+import seedu.duke.common.parser.CommandParseHelper;
 import seedu.duke.Duke;
-import seedu.duke.LogsCenter;
+import seedu.duke.common.logger.LogsCenter;
 import seedu.duke.common.command.Command;
 import seedu.duke.common.model.Model;
 import java.util.ArrayList;

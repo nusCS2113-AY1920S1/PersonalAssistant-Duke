@@ -1,6 +1,6 @@
 package seedu.duke.email.parser;
 
-import seedu.duke.CommandParseHelper;
+import seedu.duke.common.parser.CommandParseHelper;
 import seedu.duke.common.command.Command;
 import seedu.duke.common.command.ExitCommand;
 import seedu.duke.common.command.FlipCommand;

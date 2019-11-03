@@ -11,6 +11,7 @@ import seedu.duke.ui.UI;
 
 import java.io.IOException;
 import java.util.logging.Logger;
+import seedu.duke.common.logger.LogsCenter;
 
 public class Main extends Application {
 

@@ -1,4 +1,4 @@
-package seedu.duke;
+package seedu.duke.common.logger;
 
 import seedu.duke.common.storage.Storage;
 

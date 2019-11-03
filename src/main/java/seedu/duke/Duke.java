@@ -9,7 +9,7 @@ import seedu.duke.common.network.SimpleServer;
 import seedu.duke.ui.UI;
 
 import java.util.logging.Logger;
-
+import seedu.duke.common.logger.LogsCenter;
 
 /**
  * The main class of the program, which provides the entry point.
