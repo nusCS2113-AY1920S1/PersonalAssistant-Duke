@@ -4,7 +4,6 @@ import duke.task.Todo;
 import duke.task.Deadline;
 import duke.task.ContactList;
 import duke.task.FixedDuration;
-import duke.task.Repeat;
 import duke.task.Task;
 import duke.task.TaskList;
 import duke.task.PriorityList;
@@ -439,9 +438,6 @@ public class Ui {
             } else if (taskType.equals("deadline") && items.get(i) instanceof Deadline) {
                 out.println("     " + (i + ONE) + "." + items.get(i).toString());
                 numFound++;
-            } else if (taskType.equals("repeat") && items.get(i) instanceof Repeat) {
-                out.println("     " + (i + ONE) + "." + items.get(i).toString());
-                numFound++;
             } else if (taskType.equals("fixedduration") && items.get(i) instanceof FixedDuration) {
                 out.println("     " + (i + ONE) + "." + items.get(i).toString());
                 numFound++;
@@ -467,9 +463,6 @@ public class Ui {
                 str += "     " + (i + ONE) + "." + items.get(i).toStringGui() + "\n";
                 numFound++;
             } else if (taskType.equals("deadline") && items.get(i) instanceof Deadline) {
-                str += "     " + (i + ONE) + "." + items.get(i).toStringGui() + "\n";
-                numFound++;
-            } else if (taskType.equals("repeat") && items.get(i) instanceof Repeat) {
                 str += "     " + (i + ONE) + "." + items.get(i).toStringGui() + "\n";
                 numFound++;
             } else if (taskType.equals("fixedduration") && items.get(i) instanceof FixedDuration) {
@@ -568,6 +561,13 @@ public class Ui {
      */
     public void showDuplicateMsg() {
         out.println("     The same task is already in the list!");
+    }
+
+    /**
+     * Outputs an alert when a duplicated inout is detected.
+     */
+    public String showDuplicateMsgGui() {
+        return "     The same task is already in the list!";
     }
 
     /**

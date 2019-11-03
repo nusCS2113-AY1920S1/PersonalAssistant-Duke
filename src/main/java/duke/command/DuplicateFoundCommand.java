@@ -31,7 +31,7 @@ public class DuplicateFoundCommand extends Command {
      */
     @Override
     public String executeGui(TaskList items, Ui ui) {
-        return "";
+        return ui.showDuplicateMsgGui();
     }
 
     /**

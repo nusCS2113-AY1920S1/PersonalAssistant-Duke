@@ -1,45 +1,9 @@
 package duke.parser;
 
-import duke.command.AddNotesCommand;
-import duke.command.DeleteNotesCommand;
-import duke.command.ShowNotesCommand;
-import duke.command.Command;
-import duke.command.FindCommand;
-import duke.command.FilterCommand;
-import duke.command.ListCommand;
-import duke.command.FindTasksByPriorityCommand;
-import duke.command.DuplicateFoundCommand;
-import duke.command.UpdateCommand;
-import duke.command.DoneCommand;
-import duke.command.RemindCommand;
-import duke.command.AddCommand;
-import duke.command.BackupCommand;
-import duke.command.ExitCommand;
-import duke.command.ListPriorityCommand;
-import duke.command.AddMultipleCommand;
-import duke.command.SetPriorityCommand;
-import duke.command.DeleteCommand;
-import duke.command.AddBudgetCommand;
-import duke.command.DeleteContactCommand;
-import duke.command.ListContactsCommand;
-import duke.command.AddContactsCommand;
-import duke.command.ResetBudgetCommand;
-import duke.command.ViewBudgetCommand;
-import duke.command.FindContactCommand;
+import duke.command.*;
 import duke.dukeexception.DukeException;
-import duke.task.TaskList;
-import duke.task.Todo;
-import duke.task.Deadline;
-import duke.task.Task;
-import duke.task.Repeat;
-import duke.task.FixedDuration;
-import duke.task.DetectDuplicate;
-import duke.task.Contacts;
-import duke.task.BudgetList;
-import duke.task.ContactList;
+import duke.task.*;
 
-
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -252,61 +216,6 @@ public class Parser {
                 }
                 return new AddCommand(taskObj);
             }
-        } else if (arr.length > ZERO && (arr[ZERO].equals("repeat") || arr[ZERO].equals("rep"))) {
-            //repeat <task> /from <date time> /for 3 <day/week/month>
-            for (int i = ONE; i < arr.length; i++) {
-                if ((arr[i].trim().isEmpty() || !arr[i].substring(ZERO, ONE).equals("/")) && !getDate) {
-                    taskDesc += arr[i] + " ";
-                } else {
-                    if (!getDate) { //detect "/"
-                        getDate = true;
-                    } else {
-                        dateDesc += arr[i] + " ";
-                    }
-                }
-            }
-            taskDesc = taskDesc.trim();
-            dateDesc = dateDesc.trim();
-
-            if (taskDesc.isEmpty()) {
-                throw new DukeException("     (>_<) OOPS!!! The description of a " + arr[ZERO] + " cannot be empty.");
-            } else if (dateDesc.isEmpty()) {
-                throw new DukeException("     (>_<) OOPS!!! The description of date/time for "
-                        + arr[ZERO] + " cannot be empty.");
-            } else {
-                String repeatSettings;
-                int repeatTimes;
-                String repeatPeriod;
-                try {
-                    repeatSettings = dateDesc.split("/for ")[ONE];
-                    repeatTimes = Integer.parseInt(repeatSettings.replaceAll("[\\D]", ""));
-                    repeatPeriod = repeatSettings.split(repeatTimes + " ")[ONE];
-
-                } catch (Exception e) {
-                    logr.log(Level.WARNING,"Format is in: repeat <task> /from <date time> "
-                            + "/for <repeat times> <days/weeks>", e);
-                    throw new DukeException("Format is in: repeat <task> /from <date time> "
-                            + "/for <repeat times> <days/weeks>");
-                }
-
-                ArrayList<Task> repeatList = new ArrayList<>();
-                String timeDesc = dateDesc.split(" ", THREE)[ONE];
-                for (int i = ZERO; i < repeatTimes; i++) {
-                    Task taskObj;
-                    taskObj = new Repeat(taskDesc, dateDesc);
-                    dateDesc = DateParser.add(dateDesc, repeatPeriod) + " " + timeDesc;
-                    repeatList.add(taskObj);
-
-                    for (int j = ZERO; j < items.size(); j++) {
-                        if (taskObj.getDateTime().equals(items.get(j).getDateTime()) && !items.get(j).isDone()) {
-                            throw new DukeException("     (>_<) OOPS!!! The date/time for "
-                                    + arr[ZERO] + " clashes with " + items.get(j).toString()
-                                    + "\n     Please choose another date/time! Or mark the above task as Done first!");
-                        }
-                    }
-                }
-                return new AddMultipleCommand(repeatList);
-            }
         } else if (arr.length > ZERO && (arr[ZERO].equals("fixedduration") || arr[ZERO].equals("fd"))) {
             //fixedduration <task> /for <duration> <unit>
             String description = "";
@@ -506,7 +415,7 @@ public class Parser {
                 logr.log(Level.WARNING,"Format is in: addcontact <name>, <contact>, <email>, <office>",e);
                 throw new DukeException("Format is in: addcontact <name>, <contact>, <email>, <office>");
             }
-        } else if (sentence.equals("listcontacts") || sentence.equals("lc")) {
+        } else if (sentence.equals("listcontacts") || sentence.equals("lc") || sentence.equals(("listcontact"))) {
             return new ListContactsCommand(contactList);
         } else if (arr.length > ZERO && (arr[ZERO].equals("deletecontact") || arr[ZERO].equals("dc"))) {
             if (arr.length == ONE) {

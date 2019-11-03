@@ -5,7 +5,6 @@ import duke.task.TaskList;
 import duke.task.Todo;
 import duke.task.Deadline;
 import duke.task.Task;
-import duke.task.Repeat;
 import duke.task.FixedDuration;
 import duke.ui.Ui;
 
@@ -122,15 +121,6 @@ public class Storage {
                         t.setNotes(notesDesc);
                         items.add(t);
                     }
-                } else if (commandList[ZERO].equals("R")) {
-                    if (taskDesc.isEmpty() || dateDesc.isEmpty()) {
-                        throw new DukeException("Error reading description or date/time, skipping to next line");
-                    } else {
-                        t = new Repeat(taskDesc, dateDesc);
-                        t.setStatusIcon(checked);
-                        t.setNotes(notesDesc);
-                        items.add(t);
-                    }
                 } else if (commandList[ZERO].equals("F")) {
                     if (taskDesc.isEmpty() || durDesc.isEmpty()) {
                         throw new DukeException("Error reading fixed duration description,"
@@ -143,7 +133,7 @@ public class Storage {
                         items.add(t);
                     }
                 } else if (!commandList[ZERO].isEmpty()) {
-                    throw new DukeException("Error reading whether if its T, D, R, or F skipping to next line");
+                    throw new DukeException("Error reading whether if its T, D, or F skipping to next line");
                 }
             } catch (Exception e) {
                 ui.showErrorMsg("     Error when reading current line, please fix the text file:");

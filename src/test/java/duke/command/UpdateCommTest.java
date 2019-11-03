@@ -5,11 +5,12 @@ import duke.task.Task;
 import duke.task.TaskList;
 import duke.task.Todo;
 import duke.ui.Ui;
+import org.junit.jupiter.api.Test;
+
+import java.text.ParseException;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
-
-import org.junit.jupiter.api.Test;
-import java.text.ParseException;
 
 //@@author talesrune
 class UpdateCommTest {
