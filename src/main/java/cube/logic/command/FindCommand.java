@@ -1,6 +1,7 @@
 //@@author ZKathrynx
 package cube.logic.command;
 
+import cube.logic.command.exception.CommandErrorMessage;
 import cube.logic.command.exception.CommandException;
 import cube.model.food.FoodList.SortType;
 import cube.model.food.FoodList;
@@ -72,14 +73,27 @@ public class FindCommand extends Command{
                 CommandUtil.requireValidIndex(list, findIndex);
                 return new CommandResult(String.format(MESSAGE_SUCCESS_SINGLE, list.get(findIndex), list.size()));
             case NAME:
-                CommandUtil.requireValidName(list, findDescription);
-                return new CommandResult(String.format(MESSAGE_SUCCESS_SINGLE, list.get(findDescription), list.size()));
-            case TYPE:
-                CommandUtil.requireValidType(list, findDescription);
                 FoodList result = new FoodList();
                 int count = 0;
                 for (int i = 0; i < list.size(); i ++) {
-                    if (list.get(i).getType()!=null && list.get(i).getType().equals(findDescription)) {
+                    if (list.get(i).getName().toLowerCase().contains(findDescription.toLowerCase())) {
+                        result.add(list.get(i));
+                        count ++;
+                    }
+                }
+                if (sortType != null) {
+                    result.sort(sortType);
+                }
+                if (count == 0) {
+                    throw new CommandException(CommandErrorMessage.FOOD_NOT_EXISTS);
+                }
+                return new CommandResult(String.format(MESSAGE_SUCCESS_MULTIPLE, count,result,list.size()));
+            case TYPE:
+                CommandUtil.requireValidType(list, findDescription);
+                result = new FoodList();
+                count = 0;
+                for (int i = 0; i < list.size(); i ++) {
+                    if (list.get(i).getType()!=null && list.get(i).getType().toLowerCase().equals(findDescription.toLowerCase())) {
                         result.add(list.get(i));
                         count ++;
                     }

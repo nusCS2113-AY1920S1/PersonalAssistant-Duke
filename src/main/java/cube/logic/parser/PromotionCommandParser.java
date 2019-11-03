@@ -49,16 +49,25 @@ public class PromotionCommandParser implements ParserPrototype<PromotionCommand>
         Promotion tempPromotion = new Promotion(foodName);
 
         if (discountIndex != -1) {
+            if (!ParserUtil.hasField(args,discountIndex+1)) {
+                throw new ParserException(ParserErrorMessage.EMPTY_FIELD);
+            }
             tempPromotion.setDiscount(Double.parseDouble(args[discountIndex+1]));
         }
 
         if (startDateIndex != -1) {
+            if (!ParserUtil.hasField(args,startDateIndex+1)) {
+                throw new ParserException(ParserErrorMessage.EMPTY_FIELD);
+            }
             tempPromotion.setStartDate(ParserUtil.parseStringToDate(args[startDateIndex+1]));
         } else {
             tempPromotion.setStartDate(new Date());
         }
 
         if (endDateIndex != -1) {
+            if (!ParserUtil.hasField(args,endDateIndex+1)) {
+                throw new ParserException(ParserErrorMessage.EMPTY_FIELD);
+            }
             tempPromotion.setEndDate(ParserUtil.parseStringToDate(args[endDateIndex+1]));
         }
 

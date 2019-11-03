@@ -72,7 +72,7 @@ public class ParserUtil {
 			fullString += inputs[i];
 		}
 
-		return fullString;
+		return fullString.trim();
 	}
 
 	/**
@@ -119,6 +119,20 @@ public class ParserUtil {
 			}
 		}
 		return false;
+	}
+
+	/**
+	 * Find out whether the field value is empty.
+	 * @param inputs tokens containing the full string to be found.
+	 * @param index the index after which there should be a field value.
+	 * @return true if the field value after index is not empty
+	 *         false otherwise.
+	 */
+	public static boolean hasField (String[] inputs, int index) {
+		if (index >= inputs.length || inputs[index].matches("-(.*)")) {
+			return false;
+		}
+		return true;
 	}
 
 	/**
