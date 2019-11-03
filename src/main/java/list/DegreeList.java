@@ -157,14 +157,14 @@ public class DegreeList implements Serializable, Cloneable {
      * @throws DukeException
      */
     public void swap(String input, DegreeListStorage dd) throws DukeException {
-        String[] split = input.split(Parser.swap);
-        if(split.length < 3) {
+        String[] split = input.split(" ");
+        if(split.length < 2) {
             throw new DukeException("Please mention both the indices to swap the degrees");
-        } else if(split.length > 3) {
+        } else if(split.length > 2) {
             throw new DukeException("Too many arguments");
-        } else if (split.length == 3){
+        } else if (split.length == 2){
                 String first_index = split[0];
-                String second_index = split[2];
+                String second_index = split[1];
                 int request = Integer.parseInt(first_index);
                 //String degree = list.get(request - 1);
                 int request1 = Integer.parseInt(second_index);

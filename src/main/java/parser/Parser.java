@@ -19,7 +19,7 @@ public class Parser {
     public static String taskSeparator = "\\s*\\|\\s*";
     public static String dateSeparator = "\\s*\\&\\s*";
     public static String postpone = "\\s*/to\\s*";
-    public static String swap = "\\s*\\s*\\s*";
+    //public static String swap = "\\s+\\s+\\s+";
     public static String newLine = "\n";
     public static int windowWidth = 80;
     public static String acceptedExtensions = "txt|csv";
