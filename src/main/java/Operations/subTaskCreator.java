@@ -13,10 +13,10 @@ public class subTaskCreator {
      * @throws RoomShareException when the sub tasks are added to non assignment classes
      */
     public subTaskCreator(int index, String subTasks) throws RoomShareException {
-        if (TaskList.currentList().get(index) instanceof Assignment) {
+        if (TaskList.get(index) instanceof Assignment) {
             ((Assignment) TaskList.currentList().get(index)).setSubTasks(subTasks);
         } else {
-            throw new RoomShareException(ExceptionType.subTask);
+            throw new RoomShareException(ExceptionType.subTaskError);
         }
     }
 }

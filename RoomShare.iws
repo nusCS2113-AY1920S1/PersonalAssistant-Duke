@@ -21,6 +21,11 @@
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.2" />
   </component>
+  <component name="RecentsManager">
+    <key name="IntroduceConstantDialog.RECENTS_KEY">
+      <recent name="CustomExceptions.RoomShareException" />
+    </key>
+  </component>
   <component name="RunDashboard">
     <option name="ruleStates">
       <list>
@@ -33,7 +38,14 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.TaskCreatorTest.updateTask">
+  <component name="RunManager" selected="Application.RoomShare">
+    <configuration name="RoomShare" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="RoomShare" />
+      <module name="main" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="TaskCreatorTest.create" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="test" />
       <option name="PACKAGE_NAME" value="" />
@@ -49,16 +61,6 @@
       <option name="PACKAGE_NAME" value="" />
       <option name="MAIN_CLASS_NAME" value="TaskCreatorTest" />
       <option name="METHOD_NAME" value="extractDate" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="TaskCreatorTest.extractPriority" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="test" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="TaskCreatorTest" />
-      <option name="METHOD_NAME" value="extractPriority" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -86,11 +88,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.RoomShare" />
         <item itemvalue="JUnit.TaskCreatorTest.updateTask" />
         <item itemvalue="JUnit.TaskCreatorTest.create" />
         <item itemvalue="JUnit.TaskCreatorTest.extractDate" />
         <item itemvalue="JUnit.TaskCreatorTest.extractType" />
-        <item itemvalue="JUnit.TaskCreatorTest.extractPriority" />
       </list>
     </recent_temporary>
   </component>
