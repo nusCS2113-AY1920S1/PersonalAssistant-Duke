@@ -35,7 +35,7 @@ public class CommandConvert extends Command {
         this.to = getCurrencyConvertTo(userInput);
         this.description = "Command that converts the user input cash amount from"
                 + " one currency to another and prints it on the User Interface.\n"
-                + "FORMAT : convert <amount up to 2dp> /from <Base> /to <Req>";
+                + "FORMAT : convert <amount> /from <Base currency ISO e.g USD > /to <Required Currency ISO e.g SGD>";
     }
 
     @Override
