@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static cube.testutil.Assert.assertThrowEquals;
-/*
+
 public class ListCommandTest {
     private class FoodListStub extends FoodList {
     }
@@ -31,13 +31,13 @@ public class ListCommandTest {
         ListCommand command = new ListCommand(type);
     	assertEquals(command.sortType, type);
     }
-*/
+
     /** 
      * Dependent on correct implementation of following class:
      *	 ModelManager, StorageManager, Food.getRevenue(), CommandResult 
      * Storage not tested.
      */
- /* @Test
+    @Test
     public void execute_list_noSort() throws CommandException {
         FoodListStub list = new FoodListStub();
         ModelStub model = new ModelStub();
@@ -48,7 +48,4 @@ public class ListCommandTest {
     	CommandResult expectedResult = new CommandResult(String.format(ListCommand.MESSAGE_SUCCESS, list, Food.getRevenue()), false, false);
     	assertEquals(result, expectedResult);
     }
-
 }
-*/
-//notes here: commented out cus buggy... temporarily i hope
