@@ -91,7 +91,7 @@ public class Parser {
             String inputCategory = input.substring(2);
             if (scanner.hasNext()) {
                 input = scanner.next();
-                if (input.startsWith("d/")) {
+                if (input.startsWith("m/")) {
                     try {
                         String inputDate = input.substring(2);
                         if (!inputDate.equals("") && 0 < Integer.parseInt(inputDate)
