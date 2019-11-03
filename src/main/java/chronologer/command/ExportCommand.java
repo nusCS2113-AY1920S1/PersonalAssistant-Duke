@@ -28,32 +28,51 @@ import java.util.GregorianCalendar;
  * Processes and export the timeline as an ics file.
  *
  * @author Tan Yi Xiang
- * @version v1.5
+ * @version v1.6
  */
 public class ExportCommand extends Command {
 
     private static final String DEADLINE = "DEADLINE";
     private static final String EVENT = "EVENT";
     private static final String TODO_PERIOD = "TODO PERIOD";
-    private String fileName;
 
-    public ExportCommand(String fileName) {
+    private String fileName;
+    private boolean hasDeadlineFlag;
+    private boolean hasEventFlag;
+    private boolean hasTodoFlag;
+
+    /**
+     * Initializes the different parameters for the export command.
+     * @param fileName Name of the file
+     * @param hasDeadlineFlag Indication to extract deadline tasks.
+     * @param hasEventFlag Indication to extract event tasks.
+     * @param hasTodoFlag Indication to extract todo with period tasks.
+     */
+    public ExportCommand(String fileName, Boolean hasDeadlineFlag, Boolean hasEventFlag, Boolean hasTodoFlag) {
         this.fileName = fileName;
+        this.hasDeadlineFlag = hasDeadlineFlag;
+        this.hasEventFlag = hasEventFlag;
+        this.hasTodoFlag = hasTodoFlag;
     }
 
     @Override
     public void execute(TaskList tasks, Storage storage) throws ChronologerException {
-
         Calendar calendar = initializeCalendar();
         ArrayList<Task> taskList = tasks.getTasks();
-        for (Task task : taskList) {
-            if (isDeadline(task)) {
-                VEvent deadline = convertDeadline(task);
-                calendar.getComponents().add(deadline);
-            } else if (isEvent(task) || isTodoPeriod(task)) {
-                VEvent event = convertEventOrTodoPeriod(task);
-                calendar.getComponents().add(event);
-            }
+        checkEmptyList(taskList);
+        if (hasDeadlineFlag) {
+            extractDeadline(taskList, calendar);
+        }
+        if (hasEventFlag) {
+            extractEvent(taskList, calendar);
+        }
+        if (hasTodoFlag) {
+            extractTodoPeriod(taskList, calendar);
+        }
+        if (!hasDeadlineFlag && !hasEventFlag && !hasTodoFlag) {
+            extractDeadline(taskList, calendar);
+            extractEvent(taskList, calendar);
+            extractTodoPeriod(taskList, calendar);
         }
         CalendarOutput.outputCalendar(fileName, calendar);
     }
@@ -64,6 +83,33 @@ public class ExportCommand extends Command {
         calendar.getProperties().add(Version.VERSION_2_0);
         calendar.getProperties().add(CalScale.GREGORIAN);
         return calendar;
+    }
+
+    private void extractDeadline(ArrayList<Task> taskList, Calendar calendar) {
+        for (Task task : taskList) {
+            if (isDeadline(task)) {
+                VEvent deadline = convertDeadline(task);
+                calendar.getComponents().add(deadline);
+            }
+        }
+    }
+
+    private void extractEvent(ArrayList<Task> taskList, Calendar calendar) {
+        for (Task task : taskList) {
+            if (isEvent(task)) {
+                VEvent event = convertEventOrTodoPeriod(task);
+                calendar.getComponents().add(event);
+            }
+        }
+    }
+
+    private void extractTodoPeriod(ArrayList<Task> taskList, Calendar calendar) {
+        for (Task task : taskList) {
+            if (isTodoPeriod(task)) {
+                VEvent todoPeriod = convertEventOrTodoPeriod(task);
+                calendar.getComponents().add(todoPeriod);
+            }
+        }
     }
 
     private java.util.Calendar convertToCalendar(LocalDateTime startDate) {
@@ -121,6 +167,13 @@ public class ExportCommand extends Command {
         }
     }
 
+    private void checkEmptyList(ArrayList<Task> taskList) throws ChronologerException {
+        if (taskList.size() == 0) {
+            UiTemporary.printOutput(ChronologerException.emptyExport());
+            throw new ChronologerException(ChronologerException.emptyExport());
+        }
+    }
+
     private boolean isDeadline(Task task) {
         return (DEADLINE.equals(task.getType()));
     }
@@ -132,4 +185,5 @@ public class ExportCommand extends Command {
     private boolean isTodoPeriod(Task task) {
         return (TODO_PERIOD.equals(task.getType()));
     }
+
 }

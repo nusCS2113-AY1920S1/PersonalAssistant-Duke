@@ -17,6 +17,7 @@ import java.util.ArrayList;
 
 /**
  * Test class for postpone commands.
+ *
  * @author Tan Yi Xiang
  * @version V1.0
  */
@@ -34,13 +35,18 @@ public class PostponeTest {
         storage = new Storage(file);
     }
 
+
     @Test
     void testPostpone() throws ChronologerException {
         Task deadlineTest = new Deadline("Deadline test", LocalDateTime.of(2001, 1, 1, 1, 0));
         Task eventTest = new Event("Event test", LocalDateTime.of(2002, 2, 2, 2, 0),
             LocalDateTime.of(2002, 3, 3, 3, 0));
+        Task deadlineCLashTest = new Deadline("Deadline test", LocalDateTime.of(2019, 12, 12,
+            19, 0));
+
         tasks.add(deadlineTest);
         tasks.add(eventTest);
+        tasks.add(deadlineCLashTest);
 
         PostponeCommand command = new PostponeCommand(0, LocalDateTime.of(2004, 4, 4, 4, 0));
         command.execute(tasks, storage);
@@ -51,6 +57,14 @@ public class PostponeTest {
         command.execute(tasks, storage);
         Assertions.assertEquals(eventTest.getStartDate(), LocalDateTime.of(2004, 4, 4, 4, 0));
         Assertions.assertEquals(eventTest.getEndDate(), LocalDateTime.of(2005, 5, 5, 5, 0));
+    }
+
+    @Test
+    void testClash() {
+        PostponeCommand command = new PostponeCommand(3, LocalDateTime.of(2004, 4, 4, 4, 0));
+        Assertions.assertThrows(ChronologerException.class, () -> {
+            command.execute(tasks, storage);
+        });
     }
 
     @Test
