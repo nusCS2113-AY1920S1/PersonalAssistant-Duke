@@ -54,7 +54,7 @@ public class Parser {
         String [] messageSplit = message.split(" ");
         WordGetter wordSimilarity = new WordGetter();
         String commandName = wordSimilarity.closestWord(messageSplit[0]);
-        if(!commandName.equals(messageSplit[0])) {
+        if (!commandName.equals(messageSplit[0])) {
             ui.autoCorrectMessage(commandName);
         }
         messageSplit[0] = commandName;
