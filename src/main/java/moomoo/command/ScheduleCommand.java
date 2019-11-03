@@ -7,7 +7,8 @@ import moomoo.task.MooMooException;
 import moomoo.task.CategoryList;
 import moomoo.task.Storage;
 import moomoo.task.Ui;
-import moomoo.task.SchedulePayment;
+
+import java.util.ArrayList;
 
 /**
  * Represents the command to create a scheduled payment event in advance.
@@ -50,8 +51,13 @@ public class ScheduleCommand extends Command {
         String amount;
         amount = arr[2];
         task = task.replace("n/", "") + " " + amount.replace("a/", "");
-        SchedulePayment newTask = new SchedulePayment(date, task);
-        calendar.addToCalendar(newTask);
+        if (calendar.calendar.containsKey(date)) {
+            ArrayList<String> dayTasks = calendar.calendar.get(date);
+            dayTasks.add(task);
+            calendar.calendar.replace(date, dayTasks);
+        } else {
+            calendar.addToCalendar(date, task);
+        }
         ui.setOutput("You have scheduled a payment on " + date + " for " + task + " dollars.");
         storage.saveScheduleToFile(calendar);
     }

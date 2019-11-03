@@ -1,20 +1,28 @@
 package moomoo.task;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class ScheduleList {
-    public ArrayList<SchedulePayment> fullSchedule;
+    public HashMap<String, ArrayList<String>> calendar;
 
     public ScheduleList() {
-        this.fullSchedule = new ArrayList<>();
+        this.calendar = new HashMap<>();
     }
 
-    public ScheduleList(ArrayList<SchedulePayment> loadedSchedule) {
-        this.fullSchedule = loadedSchedule;
+    public ScheduleList(HashMap<String, ArrayList<String>> loadedSchedule) {
+        this.calendar = loadedSchedule;
     }
 
-    public void addToCalendar(SchedulePayment list) {
-        fullSchedule.add(list);
+    /**
+     * Adds a new item to hashmap if date indicated was not found in hashmap.
+     * @param date Pass in the scheduled task's date.
+     * @param task Pass in the task to be added.
+     */
+    public void addToCalendar(String date, String task) {
+        ArrayList<String> dayTasks = new ArrayList<>();
+        dayTasks.add(task);
+        calendar.put(date, dayTasks);
     }
 
     /**
@@ -28,9 +36,9 @@ public class ScheduleList {
         if (date.length() < 8) {
             date = "0" + date;
         }
-        for (SchedulePayment p : fullSchedule) {
-            if (date.equals(p.date)) {
-                output += (p.tasks + "\n");
+        if (calendar.containsKey(date)) {
+            for (String n : calendar.get(date)) {
+                output += (n + "\n");
             }
         }
         return output;
