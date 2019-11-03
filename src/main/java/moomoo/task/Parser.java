@@ -1,6 +1,18 @@
 package moomoo.task;
 
-import moomoo.command.*;
+import moomoo.command.Command;
+import moomoo.command.EditBudgetCommand;
+import moomoo.command.ExitCommand;
+import moomoo.command.GraphCategoryCommand;
+import moomoo.command.GraphTotalCommand;
+import moomoo.command.HelpCommand;
+import moomoo.command.ListBudgetCommand;
+import moomoo.command.MainDisplayCommand;
+import moomoo.command.MooCommand;
+import moomoo.command.SavingsBudgetCommand;
+import moomoo.command.ScheduleCommand;
+import moomoo.command.SetBudgetCommand;
+import moomoo.command.TotalCommand;
 import moomoo.command.category.AddCategoryCommand;
 import moomoo.command.category.AddExpenditureCommand;
 import moomoo.command.category.DeleteCategoryCommand;
@@ -36,7 +48,6 @@ public class Parser {
         }
         switch (commandType) {
         case ("bye"):
-            return new ExitCommand(true);
         case ("exit"):
             return new ExitCommand(true);
         case ("budget"):
@@ -83,7 +94,8 @@ public class Parser {
                 if (input.startsWith("d/")) {
                     try {
                         String inputDate = input.substring(2);
-                        if (!inputDate.equals("") && 0 < Integer.parseInt(inputDate) && Integer.parseInt(inputDate) < 13) {
+                        if (!inputDate.equals("") && 0 < Integer.parseInt(inputDate)
+                                && Integer.parseInt(inputDate) < 13) {
                             return new GraphCategoryCommand(inputCategory,
                                     Integer.parseInt(inputDate),
                                     LocalDate.now().getYear());
