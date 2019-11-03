@@ -82,11 +82,14 @@ public class MainWindow extends AnchorPane {
 
 
     private Duke duke;
-    private Tooltip toolTip;
+    private Tooltip toolTip = new Tooltip();
+    private Reminders remind = new Reminders();
 
     private int refreshType = Numbers.ZERO.value;
     private static final int TIMER_DELAY = 500;
     private static final int VBOX_WIDTH = 200;
+    private static final double TOOLTIP_SHOWDELAY = 70.0;
+    private static final double TOOLTIP_SHOWDURATION = 0.001;
     private static final Logger logr = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/myUser.png"));
@@ -108,21 +111,19 @@ public class MainWindow extends AnchorPane {
         setVboxWidth(false);
         setButtonsVisibility(true);
         selectedTab =  tpTabs.getSelectionModel();
-        toolTip = new Tooltip();
-        toolTip.setText("");
+        //toolTip.setText("");
         listT.setTooltip(toolTip);
-        toolTip.setShowDelay(Duration.millis(70.0));
-        toolTip.setShowDuration(Duration.millis(0.001));
+        toolTip.setShowDelay(Duration.millis(TOOLTIP_SHOWDELAY));
+        toolTip.setShowDuration(Duration.millis(TOOLTIP_SHOWDURATION));
 
         dialogContainer.getChildren().add(
                 DialogBox.getDukeDialog(Ui.showWelcomeGui(), dukeImage)
         );
 
         TaskList items = duke.getTaskList();
-        Reminders remind = new Reminders();
         dialogContainer.getChildren().add(
                 //DialogBox.getDukeDialog("Upcoming Reminders: \n" + items.getList(), dukeImage)
-                DialogBox.getDukeDialog(remind.getReminders(3, items).getList(), dukeImage)
+                DialogBox.getDukeDialog(remind.getReminders(Numbers.THREE.value, items).getList(), dukeImage)
         );
     }
 
@@ -132,6 +133,10 @@ public class MainWindow extends AnchorPane {
             System.exit(Numbers.ZERO.value);
         }
     };
+
+    private Date createTimerDelay() {
+        return new Date(System.currentTimeMillis() + TIMER_DELAY);
+    }
 
     /**
      * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
@@ -152,7 +157,7 @@ public class MainWindow extends AnchorPane {
                 dialogContainer.getChildren().add(
                         DialogBox.getDukeDialog(response, dukeImage)
                 );
-                timer.schedule(exitDuke, new Date(System.currentTimeMillis() + TIMER_DELAY));
+                timer.schedule(exitDuke, createTimerDelay());
             }  else if (cmd instanceof BackupCommand) {
                 duke.saveState(cmd);
                 response = Ui.showBackupMessageGui();
@@ -413,7 +418,7 @@ public class MainWindow extends AnchorPane {
             dialogContainer.getChildren().add(
                     DialogBox.getDukeDialog(response, dukeImage)
             );
-            timer.schedule(exitDuke, new Date(System.currentTimeMillis() + TIMER_DELAY));
+            timer.schedule(exitDuke, createTimerDelay());
         } catch (DukeException e) {
             response = Ui.showErrorMsgGui(e.getMessage());
             logr.log(Level.WARNING, response, e);

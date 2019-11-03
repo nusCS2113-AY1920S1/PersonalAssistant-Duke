@@ -15,7 +15,7 @@ import java.util.logging.Logger;
  * A GUI for Duke using FXML.
  */
 public class Main extends Application {
-    private Duke duke = new Duke("data/duke.txt", "data/priority.txt", "data/budget.txt","data/contacts.txt");
+    private Duke duke = new Duke();
     private static final Logger logr = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
     @Override
