@@ -293,7 +293,7 @@ the `EmailTagListCommand` to `CommandParseHelper` and then to `UI`
 
 *Step 5*: `EmailTags` checks the conditions of the each tags in `tags`, we say that a tag exists if there
 is email with the tag. If none of the emails has the tag, we say that the tag does not exist. We say that
-both tags co-exist if there is email with both tags.
+both tags co-exist if there is email tagged with both tags.
 
 ** In this example, both tags `Fun` and `Project` co-exist.
 
@@ -308,9 +308,43 @@ with both tags>"
 
 
 ===== Design Considerations
-The tags associated with emails is stored in HashMap<String, HashMap<String, EmailList>>,
-where the String here refers to the tag name, and EmailList is an ArrayList<Email>.
 
+* Alternative 1 (current choice): +
+The tags associated with emails is stored in `TagMap`:
+
+** TagMap is a `HashMap<String, SubTagMap>`:
+*** Each `key` in the HashMap is a tag name (we call it `root tag name` here) that exists in the email list.
+*** The `value` associated with each `key` is a `SubTagMap`.
+
+** `SubTagMap` is a `HashMap<String, EmailList>`:
+*** Each `key` in the HashMap is a tag name (we call it `sub tag name` here) that co-exists with the `root tag
+name` from the `TagMap`. We say that both tags co-exist if there is email tagged with both tags.
+*** The `value` associated with each `key` is an `EmailList`, which is the list of emails tagged with both
+`root tag name` and `sub tag name`.
+
+** For example, let `emailOne` be an email tagged with `Tutorial` and `CS2113T`, `emailTwo` be an email tagged
+with `Tutorial` and `CG2271`.
+*** After calling `EmailTags#updateEmailTagList`, the TagMap has the following structure: +
+{ +
+    Tutorial={Tutorial=emailOne emailTwo, CS2113T=emailOne, CG2271=emailTwo}, +
+    CS2113T={CS2113T=emailOne, Tutorial=emailOne}, +
+    CG2271={CG2271=emailTwo, Tutorial= emailTwo} +
+}
+
+** Pros: Faster search when user invokes `EmailTagListCommand`, since `EmailTags#displayEmailTagList` is
+navigating in the HashMap.
+** Cons: Current implementation invokes the `EmailTags#updateEmailTagList` on every user input to keep the
+tagMap and email list view in GUI updated, which increases the computational load.
+
+* Alternative 2: +
+Loop through each tag of each email in the list of emails, and check if the each tag equals to the tag
+requested by the user, if yes, add the email to the list, if no, continue with the loop. After finishing
+the loop, output the email(s) in the list.
+
+** Pros: This implementation does not have to maintain a TagMap structure to keep track of the emails with
+the tags, therefore does not requires update of the TagMap, this saves the space and computational load of the program.
+** Cons: Slower search when user invokes `EmailTagListCommand`, since it has to loop through each tag of
+each email in the list of emails.
 
 === Logging
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the
