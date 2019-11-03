@@ -41,7 +41,7 @@ public class CommandUtil {
     }
 
     /**
-     * Checks that a given food tyep is in the food list.
+     * Checks that a given food type is in the food list.
      *
      * @param list The food list.
      * @param foodType The food type to check.
