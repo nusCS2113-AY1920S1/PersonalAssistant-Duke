@@ -57,6 +57,12 @@ public class DateTimeExtractor {
         } else if (command.equals("exam")) {
             dateEvent = LocalDateTime.parse(dateTimeFromUser, DATE_FORMATTER);
             return dateEvent;
+        } else if (command.equals("lecture")) {
+            dateEvent = LocalDateTime.parse(dateTimeFromUser, DATE_FORMATTER);
+            return dateEvent;
+        } else if (command.equals("tutorial")) {
+            dateEvent = LocalDateTime.parse(dateTimeFromUser, DATE_FORMATTER);
+            return dateEvent;
         }
         // Allows the developer to know that a command other than deadline or event was
         // passed to the function!

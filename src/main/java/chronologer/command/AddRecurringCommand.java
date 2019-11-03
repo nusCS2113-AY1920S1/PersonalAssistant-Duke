@@ -1,0 +1,36 @@
+package chronologer.command;
+
+import java.time.LocalDateTime;
+
+import chronologer.exception.ChronologerException;
+import chronologer.storage.ChronologerStateList;
+import chronologer.storage.Storage;
+import chronologer.task.Event;
+import chronologer.task.Task;
+import chronologer.task.TaskList;
+import chronologer.ui.UiTemporary;
+
+public class AddRecurringCommand extends AddCommand {
+
+    public AddRecurringCommand(String command, String taskDescription, LocalDateTime startDate, LocalDateTime endDate,
+            String modCode) {
+        super(command, taskDescription, startDate, endDate, modCode);
+    }
+
+    @Override
+    public void execute(TaskList tasks, Storage storage) throws ChronologerException {
+        Task task;
+        LocalDateTime timeNow = LocalDateTime.now();
+        while (this.formattedStartDate.isAfter(timeNow)) {
+            task = new Event(taskDescription, formattedStartDate, formattedEndDate, modCode);
+            tasks.add(task);
+            System.out.println(formattedEndDate + " ------------------------------ " + formattedEndDate);
+            this.formattedEndDate = this.formattedEndDate.minusWeeks(1);
+            this.formattedStartDate = this.formattedStartDate.minusWeeks(1);
+        }
+        ChronologerStateList.addState(tasks.getTasks());
+        storage.saveFile(tasks.getTasks());
+        UiTemporary.printOutput(
+                "Got it! I've added this task" + "\nNow you have " + tasks.getSize() + " task(s) in the list.");
+    }
+}
