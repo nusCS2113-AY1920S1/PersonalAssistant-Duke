@@ -1,14 +1,34 @@
 {
-  "31/10/2019": [
+  "2019-11-03": [
+    {
+      "description": "hotcakes",
+      "type": "B",
+      "isDone": false,
+      "date": "2019-11-03",
+      "nutritionValue": {
+        "calorie": 600
+      },
+      "cost": "0"
+    },
+    {
+      "description": "tea",
+      "type": "B",
+      "isDone": false,
+      "date": "2019-11-03",
+      "nutritionValue": {
+        "calorie": 50
+      },
+      "cost": "0"
+    }
+  ],
+  "2019-11-02": [
     {
       "description": "burger",
-      "type": "L",
+      "type": "B",
       "isDone": false,
-      "date": "31/10/2019",
+      "date": "2019-11-02",
       "nutritionValue": {
-        "sodium": 20,
-        "fats": 20,
-        "calorie": 400
+        "calorie": 600
       },
       "cost": "0"
     }

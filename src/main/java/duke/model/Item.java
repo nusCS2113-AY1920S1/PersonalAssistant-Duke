@@ -2,6 +2,9 @@ package duke.model;
 
 import duke.model.meal.Meal;
 
+import java.time.LocalDate;
+import java.util.HashMap;
+
 /**
  * item is a public class that extends from meal.
  */
@@ -11,8 +14,8 @@ public class Item extends Meal {
      * This is the constructor of item object, which is used to store default meal info.
      * @param description the description of the item object
      */
-    public Item(String description, String details) {
-        super(description, details);
+    public Item(String description, LocalDate dateArgStr, HashMap<String, String> details) {
+        super(description, dateArgStr, details);
         super.type = "S";
     }
 

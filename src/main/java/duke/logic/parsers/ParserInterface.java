@@ -4,8 +4,9 @@ import duke.commons.exceptions.DukeException;
 import duke.logic.commands.Command;
 import duke.ui.Ui;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
+
+import static duke.commons.constants.DateConstants.LOCAL_DATE_FORMATTER;
 
 /**
  * Represents a parser that processes user input into a Command of type T.
@@ -13,7 +14,8 @@ import java.text.SimpleDateFormat;
  */
 public interface ParserInterface<T extends Command> {
     Ui ui = new Ui();
-    DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+    DateTimeFormatter dateFormat = LOCAL_DATE_FORMATTER;
+
     /**
      * Parses user input into a Command of type T and returns it.
      * @param userInputStr String input by user.

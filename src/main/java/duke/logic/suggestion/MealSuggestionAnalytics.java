@@ -4,8 +4,8 @@ import duke.model.meal.Meal;
 import duke.model.meal.MealList;
 import duke.model.meal.SuggestMeal;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Collections;
 import java.util.HashMap;
 
@@ -23,7 +23,7 @@ public class MealSuggestionAnalytics {
     }
 
     // get meal suggestion given the calorie limit and the max number of meals to suggest.
-    public ArrayList<Meal> getMealSuggestions(MealList meals, Calendar suggestionDate, int calorieLimit,
+    public ArrayList<Meal> getMealSuggestions(MealList meals, LocalDate suggestionDate, int calorieLimit,
                                               int maxMealsToSuggest, String mealSuggestionTypeStr) {
 
         setDefaultSuggestionMealList(meals.getStoredList(), suggestionDate, mealSuggestionTypeStr);
@@ -35,7 +35,7 @@ public class MealSuggestionAnalytics {
 
     // set the default meal list from which meals are suggested.
     private void setDefaultSuggestionMealList(HashMap<String, HashMap<String, Integer>> defaultMealSuggestionList,
-                                              Calendar suggestionDate, String mealTypeStr) {
+                                              LocalDate suggestionDate, String mealTypeStr) {
         defaultSuggestionMealList.clear();
         for (String mealNameStr : defaultMealSuggestionList.keySet()) {
             HashMap<String, Integer> mealNutrients  = defaultMealSuggestionList.get(mealNameStr);

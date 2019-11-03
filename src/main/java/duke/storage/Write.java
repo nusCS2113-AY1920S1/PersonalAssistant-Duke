@@ -1,7 +1,6 @@
 package duke.storage;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import duke.commons.exceptions.DukeException;
 import duke.commons.file.FilePathNames;
 import duke.commons.file.FilePaths;
@@ -16,7 +15,11 @@ import duke.model.wallet.Wallet;
  */
 public class Write {
     FilePaths filePaths = new FilePaths();
-    Gson gson = new GsonBuilder().setPrettyPrinting().create();
+    private Gson gson;
+
+    public Write(Gson gson) {
+        this.gson = gson;
+    }
 
     /**
      * This is a function that will update the input/output file from the current arraylist of meals.

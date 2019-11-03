@@ -43,7 +43,7 @@ public class AddCommand extends Command {
         ui.showLine();
         try {
             meals.addMeals(this.meal);
-            wallet.addTransactions(cost,this.meal.getDate());
+            wallet.addTransactions(cost,this.meal.getDate().format(dateFormat));
             ArrayList<Meal> mealData = meals.getMealTracker().get(this.meal.getDate());
             ui.showAdded(this.meal, mealData, user, this.meal.getDate());
             storage.updateFile(meals);

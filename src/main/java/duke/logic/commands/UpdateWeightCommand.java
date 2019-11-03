@@ -6,15 +6,13 @@ import duke.model.user.User;
 import duke.model.wallet.Wallet;
 import duke.storage.Storage;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
+import java.time.LocalDate;
 import java.util.HashMap;
 
 public class UpdateWeightCommand extends Command {
     private String description;
     private String weight;
-    private String date;
+
     /**
      * Constructor for UpdateWeightCommand.
      * @param description the data to update the user document with
@@ -54,25 +52,22 @@ public class UpdateWeightCommand extends Command {
     public void stage0(User user, Storage storage) {
         ui.showLine();
         String[] temp = description.split("/date");
-        Calendar calendarDate = Calendar.getInstance();
-        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        date = dateFormat.format(calendarDate.getTime());
         weight = temp[0].trim();
-        HashMap<String, Double> allWeight = user.getAllWeight();
+        HashMap<LocalDate, Double> allWeight = user.getAllWeight();
         if (temp.length > 1) {
-            date = temp[1];
+            currentDate = LocalDate.parse(temp[1], dateFormat);
         }
-        if (!allWeight.containsKey(date)) {
+        if (!allWeight.containsKey(currentDate)) {
             try {
-                user.setWeight(Integer.parseInt(weight), date);
-                ui.showWeightUpdate(user, Integer.parseInt(weight), date);
+                user.setWeight(Integer.parseInt(weight), currentDate);
+                ui.showWeightUpdate(user, Integer.parseInt(weight), currentDate);
                 ui.showLine();
-            } catch (DukeException e) {
+            } catch (NumberFormatException e) {
                 ui.showMessage(e.getMessage());
             }
         } else {
             isDone = false;
-            ui.showConfirmation(weight, date);
+            ui.showConfirmation(weight, currentDate);
             ui.showLine();
         }
         try {
@@ -86,9 +81,9 @@ public class UpdateWeightCommand extends Command {
         ui.showLine();
         if (this.responseStr.equals("y")) {
             try {
-                user.setWeight(Integer.parseInt(weight), date);
-                ui.showWeightUpdate(user, Integer.parseInt(weight), date);
-            } catch (DukeException e) {
+                user.setWeight(Integer.parseInt(weight), currentDate);
+                ui.showWeightUpdate(user, Integer.parseInt(weight), currentDate);
+            } catch (Exception e) {
                 ui.showMessage(e.getMessage());
             }
         } else {

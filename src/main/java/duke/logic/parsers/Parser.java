@@ -64,7 +64,7 @@ public class Parser {
      */
     public Command parse(String fullCommandStr) throws DukeException {
 
-        this.parserUtil.parse(fullCommandStr);
+        this.parserUtil.parse(fullCommandStr.trim());
         String commandStr = this.parserUtil.getCommand();
         String argumentStr = this.parserUtil.getArgument();
 

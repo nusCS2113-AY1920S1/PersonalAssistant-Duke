@@ -3,8 +3,8 @@ package duke.logic.parsers;
 import duke.commons.exceptions.DukeException;
 import duke.logic.commands.SuggestMealCommand;
 
-import java.text.ParseException;
-import java.util.Calendar;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.HashMap;
 
 //@@author HashirZahir
@@ -17,7 +17,7 @@ public class SuggestMealCommandParser implements ParserInterface<SuggestMealComm
     private static final String displayArgStr = "display";
     private static final String mealTypeArgStr = "type";
     // Default values for arguments
-    private Calendar suggestionDate = Calendar.getInstance();
+    private LocalDate suggestionDate = LocalDate.now();
     private int maxMealsToSuggest = 5;
     private String mealTypeStr = "L";
 
@@ -41,8 +41,8 @@ public class SuggestMealCommandParser implements ParserInterface<SuggestMealComm
 
         if (argumentsMap.containsKey(dateArgStr)) {
             try {
-                suggestionDate.setTime(dateFormat.parse(argumentsMap.get(dateArgStr)));
-            } catch (ParseException e) {
+                suggestionDate = LocalDate.parse(argumentsMap.get(dateArgStr), dateFormat);
+            } catch (DateTimeParseException e) {
                 return new SuggestMealCommand(true, "Unable to parse" + dateArgStr + " as a date. "
                         + "Please follow DD/MM/YYYY format.");
             }

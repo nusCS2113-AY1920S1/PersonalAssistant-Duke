@@ -22,7 +22,8 @@ public class ClearCommandParser implements ParserInterface<ClearCommand> {
             String[] startAndEndDates = ArgumentSplitter.splitArguments(userInputStr, " ");
             return new ClearCommand(startAndEndDates[0], startAndEndDates[1]);
         } catch (DukeException e) {
-            return new ClearCommand(false, "Please enter 2 dates; Start and End dates to clear meals from.");
+            return new ClearCommand(false, "Please enter 2 dates; "
+                    + "Start and End dates to clear meals from.");
         }
     }
 }

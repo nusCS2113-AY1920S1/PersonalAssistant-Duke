@@ -6,8 +6,11 @@ import duke.model.user.User;
 import duke.model.wallet.Transaction;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import static duke.commons.constants.DateConstants.LOCAL_DATE_FORMATTER;
 
 public class Ui {
     private static final String UI_PADDING = "     ";
@@ -43,8 +46,8 @@ public class Ui {
         showList(meals, messageStr);
     }
 
-    public void showSuggestedMealList(ArrayList<Meal> meals, String dateStr) {
-        String messageStr = "Here are the suggested meals for " + dateStr;
+    public void showSuggestedMealList(ArrayList<Meal> meals, LocalDate date) {
+        String messageStr = "Here are the suggested meals for " + date.format(LOCAL_DATE_FORMATTER);
         showList(meals, messageStr);
         showLine();
         showMessage("Please select which meal you would like by providing "
@@ -58,13 +61,13 @@ public class Ui {
         System.out.println(UI_PADDING + currentMeal);
     }
 
-    public void showAdded(Meal currentMeal, ArrayList<Meal> meals, User user, String dateStr) {
+    public void showAdded(Meal currentMeal, ArrayList<Meal> meals, User user, LocalDate dateStr) {
         System.out.println(UI_PADDING + "Got it. I've added this meal:");
         System.out.println(UI_PADDING + currentMeal);
         showCaloriesLeft(meals, user, dateStr);
     }
 
-    public void showUpdated(Meal newMeal, ArrayList<Meal> meals, User user, String dateStr) {
+    public void showUpdated(Meal newMeal, ArrayList<Meal> meals, User user, LocalDate dateStr) {
         System.out.println(UI_PADDING + "Got it. I've updated this old meal with this: " + newMeal);
         showCaloriesLeft(meals, user, dateStr);
     }
@@ -75,7 +78,7 @@ public class Ui {
      * @param user User information which we want to query.
      * @param dateStr Date in which remaining calories are computed.
      */
-    public void showCaloriesLeft(ArrayList<Meal> meals, User user, String dateStr) {
+    public void showCaloriesLeft(ArrayList<Meal> meals, User user, LocalDate dateStr) {
         int totalActualConsume = 0;
         int totalPossibleConsume = 0;
         for (int i = 0; i < meals.size(); i += 1) {
@@ -85,7 +88,7 @@ public class Ui {
                 totalActualConsume += currentMealCalorie;
             }
         }
-        System.out.println(UI_PADDING + "On " + dateStr + ", you have:");
+        System.out.println(UI_PADDING + "On " + dateStr.format(LOCAL_DATE_FORMATTER) + ", you have:");
         System.out.println(UI_PADDING + UI_PADDING + (user.getDailyCalorie() - totalActualConsume)
                 + " calories left (marked as done)");
         System.out.println(UI_PADDING + UI_PADDING + (user.getDailyCalorie() - totalPossibleConsume)
@@ -151,18 +154,20 @@ public class Ui {
         }
     }
 
-    public void showWeightUpdate(User user, int weight, String date) {
+    public void showWeightUpdate(User user, int weight, LocalDate date) {
         System.out.println(UI_PADDING + user.getName() + ", your weight has been updated on "
-                + date + " to " + weight + "kg.");
+                + date.format(LOCAL_DATE_FORMATTER) + " to " + weight + "kg.");
     }
 
     public void showRejected() {
         System.out.println(UI_PADDING + "Understood, I've stopped the update.");
     }
 
-    public void showConfirmation(String weight, String date) {
-        System.out.println(UI_PADDING + "You have entered " + weight + " on " + date + ".");
-        System.out.println(UI_PADDING + "Would you like to overwrite the record on " + date + "?(Y/N)");
+    public void showConfirmation(String weight, LocalDate date) {
+        System.out.println(UI_PADDING + "You have entered " + weight
+                + " on " + date.format(LOCAL_DATE_FORMATTER) + ".");
+        System.out.println(UI_PADDING + "Would you like to overwrite the record on "
+                + date.format(LOCAL_DATE_FORMATTER) + "?(Y/N)");
     }
 
     public void showTransactionAdded(Transaction transaction, BigDecimal accountBalance) {

@@ -2,13 +2,14 @@ package duke.model.user;
 
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDate;
 import java.util.HashMap;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class UserTest {
-    private User user = new User("Foo Chi Hen", 22, 100, Gender.MALE, 0, 100, "29/10/2019");
+    private User user = new User("Foo Chi Hen", 22, 100, Gender.MALE, 0, 100, LocalDate.now());
 
     @Test
     void user() {
