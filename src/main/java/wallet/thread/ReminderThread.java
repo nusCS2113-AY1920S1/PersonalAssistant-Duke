@@ -60,9 +60,7 @@ public class ReminderThread implements Runnable {
                 Ui.printLoanTableClose();
                 Thread.sleep(timeInSeconds * 1000);
             } catch (InterruptedException e) {
-                ui.printLine();
-                System.out.println("Stopping thread...");
-                ui.printLine();
+                System.out.println("Auto reminder interrupted...");
             }
         }
         if (!LogicManager.getWalletList().getWalletList().get(LogicManager.getWalletList()

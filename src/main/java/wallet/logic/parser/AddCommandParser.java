@@ -34,7 +34,7 @@ public class AddCommandParser implements Parser<AddCommand> {
             try {
                 expense = parseExpense(arguments[1]);
             } catch (ArrayIndexOutOfBoundsException err) {
-                throw new InsufficientParameters("There are no arguments when adding expenses!");
+                throw new InsufficientParameters("There are insufficient arguments when adding expenses!");
             }
             if (expense != null) {
                 return new AddCommand(expense);
@@ -47,7 +47,7 @@ public class AddCommandParser implements Parser<AddCommand> {
             try {
                 contact = parseContact(arguments[1]);
             } catch (ArrayIndexOutOfBoundsException err) {
-                throw new InsufficientParameters("There are no arguments when adding contacts!");
+                throw new InsufficientParameters("There are insufficient arguments when adding contacts!");
             }
             if (contact != null) {
                 return new AddCommand(contact);
@@ -59,7 +59,7 @@ public class AddCommandParser implements Parser<AddCommand> {
             try {
                 loan = parseLoan(arguments[1]);
             } catch (ArrayIndexOutOfBoundsException err) {
-                throw new InsufficientParameters("There are no arguments when adding loans!");
+                throw new InsufficientParameters("There are insufficient arguments when adding loans!");
             }
             if (loan != null) {
                 return new AddCommand(loan);

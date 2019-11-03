@@ -2,6 +2,7 @@
 
 package wallet.logic.command;
 
+import wallet.exception.WrongParameterFormat;
 import wallet.logic.LogicManager;
 import wallet.model.Wallet;
 import wallet.reminder.Reminder;
@@ -52,12 +53,20 @@ public class ReminderCommand extends Command {
             }
         } else if (info.length == 2) {
             if (info[0].equals("set")) {
-                timeInSeconds = Integer.parseInt(info[1]);
-                LogicManager.getReminder().autoRemindStop();
-                LogicManager.getReminder().setTimeInSeconds(timeInSeconds);
-                System.out.println(MESSAGE_SUCCESS_REMINDER_SET + timeInSeconds + " seconds");
-                if (LogicManager.getReminder().getAutoRemind()) {
-                    LogicManager.getReminder().autoRemindStart();
+                try {
+                    timeInSeconds = Integer.parseInt(info[1]);
+                } catch (NumberFormatException err) {
+                    throw new WrongParameterFormat("Please ensure the time set(in seconds) is a number!");
+                }
+                if (timeInSeconds >= 600) {
+                    LogicManager.getReminder().autoRemindStop();
+                    LogicManager.getReminder().setTimeInSeconds(timeInSeconds);
+                    System.out.println(MESSAGE_SUCCESS_REMINDER_SET + timeInSeconds + " seconds");
+                    if (LogicManager.getReminder().getAutoRemind()) {
+                        LogicManager.getReminder().autoRemindStart();
+                    }
+                } else {
+                    Ui.printError("The minimum time interval for auto reminders is 10 minutes (a.k.a 600 seconds)");
                 }
             }
         } else {
