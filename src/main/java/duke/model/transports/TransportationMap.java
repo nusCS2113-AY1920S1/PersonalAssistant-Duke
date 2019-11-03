@@ -25,14 +25,43 @@ public class TransportationMap {
     private ArrayList<TrainStation> eastWestLineSub;
 
     /**
-     * Initialise createMap object with both busStopMap and busMap.
+     * Constructor for TransportationMap object with both busStopMap and busMap.
      *
-     * @param busStopMap Map of busStop object
-     * @param busMap Map of BusService object
+     * @param busStopMap Map of BusStop objects.
+     * @param busMap Map of BusService objects.
      */
     public TransportationMap(HashMap<String, BusStop> busStopMap, HashMap<String, BusService> busMap) {
         this.busMap = busMap;
         this.busStopMap = busStopMap;
+    }
+
+    /**
+     * Sorts all TrainStations by TrainCode.
+     */
+    static class SortByTrainCode implements Comparator<TrainStation> {
+        private String trainLine;
+
+        SortByTrainCode(String trainLine) {
+            this.trainLine = trainLine;
+        }
+
+        @Override
+        public int compare(TrainStation o1, TrainStation o2) {
+            int trainCodeNumber = getTrainCodeNumber(o1, this.trainLine);
+            int trainCodeNumber2 = getTrainCodeNumber(o2, this.trainLine);
+            assert trainCodeNumber != -1 : "Train Station in wrong line";
+            assert trainCodeNumber2 != -1 : "Train Station in wrong line";
+            return trainCodeNumber - trainCodeNumber2;
+        }
+
+        private int getTrainCodeNumber(TrainStation o1, String trainLine) {
+            for (String trainCode : o1.getTrainCodes()) {
+                if (trainCode.contains(trainLine)) {
+                    return Integer.parseInt(trainCode.substring(2));
+                }
+            }
+            return -1;
+        }
     }
 
     public HashMap<String, BusService> getBusMap() {
@@ -43,11 +72,77 @@ public class TransportationMap {
         return this.busStopMap;
     }
 
+    /**
+     * Gets an ArrayList of TrainStation with the corresponding TrainLine code.
+     *
+     * @param trainLineCode Code of mrt line
+     * @return mrt line
+     */
+    public ArrayList<TrainStation> getTrainLine(String trainLineCode) {
+        switch (trainLineCode) {
+        case "NE":
+            return this.northEastLine;
+        case "NS":
+            return this.northSouthLine;
+        case "CC":
+            return this.circleLine;
+        case "CE":
+            return this.circleLineSub;
+        case "EW":
+            return this.eastWestLine;
+        case "CG":
+            return this.eastWestLineSub;
+        case "DT":
+            return this.downtownLine;
+        default:
+            return null;
+        }
+    }
+
+    /**
+     * Gets a sorted ArrayList of TrainStations of a specific TrainLine.
+     *
+     * @param trainStations The ArrayList of TrainStations to get.
+     * @param trainLineCode The TrainLine code.
+     * @return trainStations The sorted ArrayList of TrainStations of the line.
+     */
+    private ArrayList<TrainStation> getSortedTrainLine(ArrayList<TrainStation> trainStations, String trainLineCode) {
+        trainStations.sort(new SortByTrainCode(trainLineCode));
+        return trainStations;
+    }
+
+    public HashMap<String, TrainStation> getTrainMap() {
+        return trainMap;
+    }
+
+    /**
+     * Gets a TrainStation from the map.
+     *
+     * @param query The TrainStation name.
+     * @return The TrainStation.
+     * @throws QueryFailedException If the TrainStation cannot be found.
+     */
+    public TrainStation getTrainStation(String query) throws QueryFailedException {
+        if (trainMap.containsKey(query)) {
+            return trainMap.get(query);
+        }
+
+        throw new QueryFailedException("TRAIN_STATION");
+    }
+
+    /**
+     * Sets the TrainMap according to a HashMap of key String and value TrainStation.
+     *
+     * @param trainMap The TrainMap to set.
+     */
     public void setTrainMap(HashMap<String, TrainStation> trainMap) {
         this.trainMap = trainMap;
         setTrainLine();
     }
 
+    /**
+     * Sets the TrainLines for the TrainMap.
+     */
     private void setTrainLine() {
         ArrayList<TrainStation> northEastLine = new ArrayList<>();
         ArrayList<TrainStation> northSouthLine = new ArrayList<>();
@@ -82,92 +177,14 @@ public class TransportationMap {
                     downtownLine.add(trainStation);
                 }
 
-
             }
         }
-        this.northEastLine = sortTrainLine(northEastLine, "NE");
-        this.northSouthLine = sortTrainLine(northSouthLine, "NS");
-        this.circleLine = sortTrainLine(circleLine, "CC");
-        this.circleLineSub = sortTrainLine(circleLineSub, "CE");
-        this.downtownLine = sortTrainLine(downtownLine, "DT");
-        this.eastWestLine = sortTrainLine(eastWestLine, "EW");
-        this.eastWestLineSub = sortTrainLine(eastWestLineSub, "CG");
-    }
-
-    private ArrayList<TrainStation> sortTrainLine(ArrayList<TrainStation> trainLine, String trainLineCode) {
-        trainLine.sort(new SortByTrainCode(trainLineCode));
-        return trainLine;
-    }
-
-    /**
-     * Returns mrt line of corresponding code.
-     *
-     * @param lineCode Code of mrt line
-     * @return mrt line
-     */
-    public ArrayList<TrainStation> getTrainLine(String lineCode) {
-        switch (lineCode) {
-        case "NE":
-            return this.northEastLine;
-        case "NS":
-            return this.northSouthLine;
-        case "CC":
-            return this.circleLine;
-        case "CE":
-            return this.circleLineSub;
-        case "EW":
-            return this.eastWestLine;
-        case "CG":
-            return this.eastWestLineSub;
-        case "DT":
-            return this.downtownLine;
-        default:
-            return null;
-        }
-    }
-
-    static class SortByTrainCode implements Comparator<TrainStation> {
-        private String trainLine;
-
-        SortByTrainCode(String trainLine) {
-            this.trainLine = trainLine;
-        }
-
-        @Override
-        public int compare(TrainStation o1, TrainStation o2) {
-            int trainCodeNumber = getTrainCodeNumber(o1, this.trainLine);
-            int trainCodeNumber2 = getTrainCodeNumber(o2, this.trainLine);
-            assert trainCodeNumber != -1 : "Train Station in wrong line";
-            assert trainCodeNumber2 != -1 : "Train Station in wrong line";
-            return trainCodeNumber - trainCodeNumber2;
-        }
-
-        private int getTrainCodeNumber(TrainStation o1, String trainLine) {
-            for (String trainCode : o1.getTrainCodes()) {
-                if (trainCode.contains(trainLine)) {
-                    return Integer.parseInt(trainCode.substring(2));
-                }
-            }
-            return -1;
-        }
-    }
-
-    public HashMap<String, TrainStation> getTrainMap() {
-        return trainMap;
-    }
-
-    /**
-     * Gets a TrainStation from the map.
-     *
-     * @param query The TrainStation name.
-     * @return The TrainStation.
-     * @throws QueryFailedException If the TrainStation cannot be found.
-     */
-    public TrainStation getTrainStation(String query) throws QueryFailedException {
-        if (trainMap.containsKey(query)) {
-            return trainMap.get(query);
-        }
-
-        throw new QueryFailedException("TRAIN_STATION");
+        this.northEastLine = getSortedTrainLine(northEastLine, "NE");
+        this.northSouthLine = getSortedTrainLine(northSouthLine, "NS");
+        this.circleLine = getSortedTrainLine(circleLine, "CC");
+        this.circleLineSub = getSortedTrainLine(circleLineSub, "CE");
+        this.downtownLine = getSortedTrainLine(downtownLine, "DT");
+        this.eastWestLine = getSortedTrainLine(eastWestLine, "EW");
+        this.eastWestLineSub = getSortedTrainLine(eastWestLineSub, "CG");
     }
 }

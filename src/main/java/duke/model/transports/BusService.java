@@ -22,24 +22,6 @@ public class BusService {
     }
 
     /**
-     * get the route of bus in direction indicated.
-     *
-     * @param direction direction of travel
-     * @return All bus stop in direction of travel
-     */
-    public ArrayList<String> getDirection(Direction direction) {
-        if (direction == Direction.FORWARD) {
-            return forward;
-        } else {
-            return backward;
-        }
-    }
-
-    public String getBus() {
-        return bus;
-    }
-
-    /**
      * Add the bus stop code to the route which the bus would travel to.
      *
      * @param busCode Code of bus stop
@@ -51,6 +33,29 @@ public class BusService {
         } else {
             this.backward.add(busCode);
         }
+    }
+
+    /**
+     * Gets the route of bus in direction indicated.
+     *
+     * @param direction Direction of travel.
+     * @return All bus stops in direction of travel in an ArrayList.
+     */
+    public ArrayList<String> getDirection(Direction direction) {
+        if (direction == Direction.FORWARD) {
+            return forward;
+        } else {
+            return backward;
+        }
+    }
+
+    /**
+     * Gets the bus service number.
+     *
+     * @return bus The bus service number.
+     */
+    public String getBus() {
+        return bus;
     }
 }
 

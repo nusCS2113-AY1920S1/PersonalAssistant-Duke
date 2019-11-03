@@ -24,14 +24,14 @@ class RouteNodeDeleteCommandTest {
 
         BusStop newNode = new BusStop("66211", "", "", 0, 0);
         newNode.fetchData(model);
-        model.getRoutes().get(0).addNode(newNode);
+        model.getRoutes().get(0).add(newNode);
         assertTrue(model.getRoutes().get(0).getNode(0) instanceof BusStop);
 
         RouteNodeDeleteCommand routeNodeDeleteCommand =
                 (RouteNodeDeleteCommand) Parser.parseComplexCommand("routeNodeDelete 1 1");
         routeNodeDeleteCommand.execute(model);
 
-        assertTrue(model.getRoutes().get(0).getNumNodes() == 0);
+        assertTrue(model.getRoutes().get(0).size() == 0);
 
         //negative test for deleting non-existant route node
         RouteNodeDeleteCommand routeNodeDeleteCommand3 =

@@ -3,15 +3,13 @@ package duke.model.transports;
 import duke.commons.exceptions.NullResultException;
 import duke.commons.exceptions.QueryOutOfBoundsException;
 import duke.commons.exceptions.RouteNodeDuplicateException;
-import duke.model.locations.BusStop;
 import duke.model.locations.RouteNode;
-import duke.model.locations.TrainStation;
 import duke.model.locations.Venue;
 
 import java.util.ArrayList;
 
 /**
- * Represents a route between 2 locations as a list of route nodes.
+ * Represents a route between 2 locations.
  */
 public class Route {
     private ArrayList<RouteNode> nodes;
@@ -44,102 +42,12 @@ public class Route {
     }
 
     /**
-     * Gets the node at index.
-     *
-     * @param index The index of node.
-     * @return node The node at index.
-     * @throws IndexOutOfBoundsException The exception when index is out of bounds.
-     */
-    public RouteNode getNode(int index) throws IndexOutOfBoundsException {
-        try {
-            return nodes.get(index);
-        } catch (IndexOutOfBoundsException e) {
-            throw new IndexOutOfBoundsException();
-        }
-    }
-
-    /**
-     * Gets the Arraylist of Route Nodes.
-     *
-     * @return nodes The ArrayList of Route Nodes.
-     */
-    public ArrayList<RouteNode> getNodes() {
-        return nodes;
-    }
-
-    /**
-     * Gets the Arraylist of Route Nodes as Venues instead.
-     *
-     * @return nodes The ArrayList of Route Nodes.
-     */
-    public ArrayList<Venue> getVenueNodes() {
-        ArrayList<Venue> result = new ArrayList<>();
-        for (RouteNode node: nodes) {
-            result.add(node);
-        }
-        return result;
-    }
-
-    /**
-     * Gets the starting node of the route.
-     *
-     * @return node The start node.
-     */
-    public RouteNode getStartNode() {
-        if (nodes.size() > 0) {
-            return nodes.get(0);
-        } else {
-            return null;
-        }
-    }
-
-    /**
-     * Gets the starting node of the route.
-     * @return node The start node.
-     */
-    public RouteNode getEndNode() {
-        if (nodes.size() > 0) {
-            return nodes.get(nodes.size() - 1);
-        } else {
-            return null;
-        }
-    }
-
-    public int getNumNodes() {
-        return nodes.size();
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public void remove(int index) throws IndexOutOfBoundsException {
-        nodes.remove(index);
-    }
-
-    public void setNodes(ArrayList<RouteNode> nodes) {
-        this.nodes = nodes;
-    }
-
-    /**
      * Adds a new node to the route at a given index.
      *
      * @param newNode The new node to add.
      * @param index The index of the node to add to.
-     * @exception QueryOutOfBoundsException If the index is out of bounds.
      * @exception RouteNodeDuplicateException If the route is a duplicate.
+     * @exception QueryOutOfBoundsException If the index is out of bounds.
      */
     public void addNode(RouteNode newNode, int index) throws RouteNodeDuplicateException, QueryOutOfBoundsException {
         if (index >= 0 && index <= nodes.size()) {
@@ -161,7 +69,7 @@ public class Route {
      * @param newNode The new node to add.
      * @exception RouteNodeDuplicateException If the route is a duplicate.
      */
-    public void addNode(RouteNode newNode) throws RouteNodeDuplicateException {
+    public void add(RouteNode newNode) throws RouteNodeDuplicateException {
         for (RouteNode node: nodes) {
             if (node.equals(newNode)) {
                 throw new RouteNodeDuplicateException();
@@ -172,15 +80,41 @@ public class Route {
     }
 
     /**
-     * Fetches a node with the given name.
+     * Deletes the node at a given index.
+     *
+     * @param index The index of the node to delete.
+     * @throws IndexOutOfBoundsException If the index is out of bounds.
+     */
+    public void remove(int index) throws IndexOutOfBoundsException {
+        nodes.remove(index);
+    }
+
+    /**
+     * Gets the node at a given index.
+     *
+     * @param index The index of the node.
+     * @return node The node at the index.
+     * @throws IndexOutOfBoundsException If the index is out of bounds.
+     */
+    public RouteNode getNode(int index) throws IndexOutOfBoundsException {
+        try {
+            return nodes.get(index);
+        } catch (IndexOutOfBoundsException e) {
+            throw new IndexOutOfBoundsException();
+        }
+    }
+
+    /**
+     * Gets a node with the given name.
      *
      * @param name The query name.
      * @return node The queried node.
-     * @throws NullResultException The exception when nothing is found.
+     * @throws NullResultException If nothing is found.
      */
-    public RouteNode fetchNode(String name) throws NullResultException {
+    public RouteNode getNodeByName(String name) throws NullResultException {
         for (RouteNode node: nodes) {
-            if (node.getAddress().equals(name.toLowerCase())) {
+            String nodeName = node.getAddress().toLowerCase();
+            if (nodeName.equals(name.toLowerCase())) {
                 return node;
             }
         }
@@ -189,17 +123,76 @@ public class Route {
     }
 
     /**
-     * Deletes a node at the given index.
+     * Gets the Arraylist of Route Nodes.
      *
-     * @param index The index to delete
-     * @throws QueryOutOfBoundsException If the query is out of bounds.
+     * @return nodes The ArrayList of Route Nodes.
      */
-    public void deleteNode(int index) throws QueryOutOfBoundsException {
-        try {
-            nodes.remove(index);
-        } catch (IndexOutOfBoundsException e) {
-            throw new QueryOutOfBoundsException();
+    public ArrayList<RouteNode> getNodes() {
+        return nodes;
+    }
+
+    /**
+     * Gets the Arraylist of Route Nodes as Venues instead.
+     *
+     * @return nodes The ArrayList of Route Nodes.
+     */
+    public ArrayList<Venue> getNodesAsVenue() {
+        return new ArrayList<>(nodes);
+    }
+
+    /**
+     * Gets the starting node of the route.
+     *
+     * @return node The start node.
+     */
+    public RouteNode getStartNode() {
+        if (nodes.size() > 0) {
+            return nodes.get(0);
+        } else {
+            return null;
         }
+    }
+
+    /**
+     * Gets the starting node of the route.
+     *
+     * @return node The start node.
+     */
+    public RouteNode getEndNode() {
+        if (nodes.size() > 0) {
+            return nodes.get(nodes.size() - 1);
+        } else {
+            return null;
+        }
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setNodes(ArrayList<RouteNode> nodes) {
+        this.nodes = nodes;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    /**
+     * Returns the size of the Route.
+     *
+     * @return The size of the Route.
+     */
+    public int size() {
+        return nodes.size();
     }
 
     /**
@@ -210,6 +203,7 @@ public class Route {
             return true;
         }
 
-        return otherRoute != null && otherRoute.getName().equals(getName());
+        return otherRoute != null && otherRoute.getName().equals(getName())
+                && otherRoute.getDescription().equals(getDescription()) && otherRoute.getNodes().equals(nodes);
     }
 }

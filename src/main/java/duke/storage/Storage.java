@@ -8,6 +8,7 @@ import duke.commons.exceptions.DukeDuplicateTaskException;
 import duke.commons.exceptions.FileLoadFailException;
 import duke.commons.exceptions.FileNotSavedException;
 import duke.commons.exceptions.ParseException;
+import duke.commons.exceptions.RouteDuplicateException;
 import duke.commons.exceptions.RouteNodeDuplicateException;
 import duke.commons.exceptions.StartEndDateBeforeNowException;
 import duke.commons.exceptions.StartEndDateDiscordException;
@@ -207,12 +208,12 @@ public class Storage {
             while (s.hasNext()) {
                 String input = s.nextLine();
                 if (input.split("\\|", 2)[0].strip().equals("route")) {
-                    if (newRoute.getNumNodes() != 0) {
+                    if (newRoute.size() != 0) {
                         newRoutes.add(newRoute);
                     }
                     newRoute = ParserStorageUtil.createRouteFromStorage(input);
                 } else {
-                    newRoute.addNode(ParserStorageUtil.createNodeFromStorage(input));
+                    newRoute.add(ParserStorageUtil.createNodeFromStorage(input));
                 }
             }
             if (!newRoute.getName().equals("")) {
@@ -220,7 +221,8 @@ public class Storage {
             }
             s.close();
             routes.setRoutes(newRoutes);
-        } catch (FileNotFoundException | RouteNodeDuplicateException | CorruptedFileException e) {
+        } catch (FileNotFoundException | RouteDuplicateException | CorruptedFileException
+                | RouteNodeDuplicateException e) {
             throw new FileLoadFailException(ROUTES_FILE_PATH);
         }
     }

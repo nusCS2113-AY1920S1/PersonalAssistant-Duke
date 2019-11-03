@@ -82,7 +82,7 @@ public class RouteGenerateCommand extends Command {
                             description += inbetweenVenue.getAddress() + "/";
                             route.setDescription(description);
                         }
-                        route.addNode((RouteNode) inbetweenVenue);
+                        route.add((RouteNode) inbetweenVenue);
                     } catch (RouteNodeDuplicateException e) {
                         //remove duplicate nodes and merge
                         route = pruneDuplicateRoute(route, inbetweenVenue);
@@ -91,9 +91,9 @@ public class RouteGenerateCommand extends Command {
             }
 
             if (venue instanceof BusStop || venue instanceof TrainStation) {
-                route.addNode((RouteNode) venue);
+                route.add((RouteNode) venue);
             } else {
-                route.addNode(PathFinder.generateCustomRouteNode(venue));
+                route.add(PathFinder.generateCustomRouteNode(venue));
             }
 
             previousVenue = venue;
@@ -123,16 +123,16 @@ public class RouteGenerateCommand extends Command {
      */
     private Route pruneDuplicateRoute(Route route, Venue target) throws RouteGenerateFailException {
         try {
-            for (int i = route.getNumNodes() - 1; i >= 0; i--) {
+            for (int i = route.size() - 1; i >= 0; i--) {
                 if (!route.getNode(i).equals(target)) {
-                    route.deleteNode(i);
+                    route.remove(i);
                 } else {
                     break;
                 }
             }
 
             return route;
-        } catch (QueryOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             throw new RouteGenerateFailException();
         }
     }

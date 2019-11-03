@@ -28,6 +28,15 @@ public class TrainStation extends RouteNode {
     }
 
     /**
+     * Sets the trainCodes from an ArrayList of Strings.
+     *
+     * @param trainCodes The ArrayList of Strings.
+     */
+    public void setTrainCodes(ArrayList<String> trainCodes) {
+        this.trainCodes = trainCodes;
+    }
+
+    /**
      * Gets the ArrayList of train code of the train station in String.
      *
      * @return trainCodes The ArrayList of train code of the train station in String.

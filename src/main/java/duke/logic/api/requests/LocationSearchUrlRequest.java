@@ -15,7 +15,7 @@ import duke.commons.exceptions.ApiException;
 import duke.model.locations.Venue;
 
 /**
- * Handles URL requests to OneMap API to get coordinates of location.
+ * Handles Search URL requests to OneMap API.
  */
 public class LocationSearchUrlRequest extends UrlRequest {
     private static final String PARAM_TYPE = "searchVal";
@@ -34,7 +34,7 @@ public class LocationSearchUrlRequest extends UrlRequest {
     /**
      * Executes the URL request to OneMap API.
      *
-     * @return JSONObject The response from OneMap API.
+     * @return The Venue object created from the request result.
      * @throws ApiException If there is an issue with the request.
      */
     @Override
@@ -52,18 +52,22 @@ public class LocationSearchUrlRequest extends UrlRequest {
         } catch (IOException e) {
             throw new ApiException();
         }
+
         if (response != null) {
             JsonParser jp = new JsonParser();
             JsonElement root = jp.parse(response);
-            JsonObject result = root.getAsJsonObject();
-            JsonArray arr = result.getAsJsonArray("results");
+            JsonObject results = root.getAsJsonObject();
+            JsonArray arr = results.getAsJsonArray("results");
 
-            if (Integer.parseInt(String.valueOf(result.getAsJsonPrimitive("found"))) > 0) {
-                return new Venue(arr.get(0).getAsJsonObject().get("ADDRESS").getAsString(),
-                        arr.get(0).getAsJsonObject().get("LATITUDE").getAsDouble(),
-                        arr.get(0).getAsJsonObject().get("LONGITUDE").getAsDouble(),
-                        arr.get(0).getAsJsonObject().get("X").getAsDouble(),
-                        arr.get(0).getAsJsonObject().get("Y").getAsDouble());
+            String numFoundString = String.valueOf(results.getAsJsonPrimitive("found"));
+            int numFound = Integer.parseInt(numFoundString);
+
+
+            if (numFound > 0) {
+                JsonObject firstResult = arr.get(0).getAsJsonObject();
+                return new Venue(firstResult.get("ADDRESS").getAsString(), firstResult.get("LATITUDE").getAsDouble(),
+                        firstResult.get("LONGITUDE").getAsDouble(), firstResult.get("X").getAsDouble(),
+                        firstResult.get("Y").getAsDouble());
             }
         }
         throw new ApiException();

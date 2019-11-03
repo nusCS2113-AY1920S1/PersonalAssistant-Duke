@@ -7,7 +7,7 @@ Kranji | 1.4252 | 103.7620 | NS7
 Marsiling | 1.4326 | 103.7742 | NS8
 Woodlands | 1.437094 | 103.786483 | NS9
 Admiralty | 1.4406 | 103.8010 | NS10
-Sembawang | 104491 | 103.8200 | NS11
+Sembawang | 1.04491 | 103.8200 | NS11
 Yishun | 1.4295 | 103.8350 | NS13
 Khatib | 1.4173 | 103.8330 | NS14
 Yio Chu Kang | 1.3817 | 103.8449 | NS15

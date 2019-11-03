@@ -5,8 +5,8 @@ import duke.commons.Messages;
 /**
  * Displays an error when a route is not found.
  */
-public class DukeRouteNotFoundException extends DukeException {
-    public DukeRouteNotFoundException() {
+public class RouteNotFoundException extends DukeException {
+    public RouteNotFoundException() {
         super(Messages.ERROR_ROUTE_NOT_FOUND);
     }
 }

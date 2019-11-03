@@ -140,8 +140,8 @@ public class ParserStorageUtil {
     public static BusStop createBusStopDataFromStorage(String line) {
         String[] busStopData = line.split("\\|");
         String busCode = busStopData[0].strip();
-        String description = busStopData[1].strip();
-        String address = busStopData[2].strip();
+        String address = busStopData[1].strip();
+        String description = busStopData[2].strip();
         double latitude = Double.parseDouble(busStopData[3].strip());
         double longitude = Double.parseDouble(busStopData[4].strip());
         BusStop busStop = new BusStop(busCode, address, description, latitude, longitude);
