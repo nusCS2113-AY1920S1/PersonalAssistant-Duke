@@ -104,8 +104,9 @@ public class ConsoleInputController implements IController {
             } catch (IndexOutOfBoundsException err) {
                 return new String[] {"Please enter the correct index of an existing Project!"};
             } catch (NumberFormatException err) {
-                return new String[] {"The project \"" + managingProjectIndex + "\" does not exist!",
-                "Please ensure the project index number exists and is an integer."};
+                return new String[]
+                {"The project \"" + managingProjectIndex + "\" does not exist!",
+                 "Please ensure the project index number exists and is an integer."};
             }
         } else {
             return new String[] {"Please enter a project number!"};
@@ -130,8 +131,9 @@ public class ConsoleInputController implements IController {
                     return new String[]{"Index out of bounds! Please check project index!"};
                 }
             } catch (NumberFormatException err) {
-                return new String[]{"Invalid project index: " + projectInput,
-                "Please ensure that the project number is an integer, and that it exists in the repo!"};
+                return new String[]
+                {"Invalid project index: " + projectInput,
+                 "Please ensure that the project number is an integer, and that it exists in the repo!"};
             }
         } else {
             return new String[] {"Please enter a project number to delete"};

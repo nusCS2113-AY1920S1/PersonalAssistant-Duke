@@ -52,19 +52,18 @@ public class AssignmentControllerTest {
         assertEquals("Test task", project.getTask(1).getTaskName());
     }
 
-
     @Test
     void testAssignAndUnassign() {
         AssignmentController assignmentController = new AssignmentController(project);
         String assignCommand = "assign task -i 1 -to 1 2 -rm 3 4";
-        assignmentController.assignAndUnassign(assignCommand.substring(12));
+        assignmentController.assignAndUnassign(assignCommand);
         assertTrue(project.containsAssignment(project.getTask(1), member1));
         assertTrue(project.containsAssignment(project.getTask(1), member2));
         assertFalse(project.containsAssignment(project.getTask(1), member3));
 
         assignmentController = new AssignmentController(project);
         assignCommand = "assign task -i 1 -to 3 -rm 1 ";
-        assignmentController.assignAndUnassign(assignCommand.substring(12));
+        assignmentController.assignAndUnassign(assignCommand);
         assertFalse(project.containsAssignment(project.getTask(1), member1));
         assertTrue(project.containsAssignment(project.getTask(1), member2));
         assertTrue(project.containsAssignment(project.getTask(1), member3));

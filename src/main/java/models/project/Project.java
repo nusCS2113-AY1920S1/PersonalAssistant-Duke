@@ -196,7 +196,7 @@ public class Project implements IProject {
         return getTask(index).getTaskName();
     }
 
-    public boolean MemberExists(IMember newMember) {
+    public boolean memberExists(IMember newMember) {
         return this.memberList.contains(newMember);
     }
 

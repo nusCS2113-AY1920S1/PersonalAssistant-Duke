@@ -32,7 +32,8 @@ public class AssignmentController {
      */
     public void assignAndUnassign(String input) {
         if (input.length() < 12) {
-            errorMessages.add("Insufficient parameters! Indicate the tasks and members whom you wish to assign or remove!");
+            errorMessages.add("Insufficient parameters!"
+                + "Indicate the tasks and members whom you wish to assign or remove!");
             errorMessages.add("Format is \"assign task -i TASK_INDEX -to [MEMBER_INDEX] -rm [MEMBER_INDEX]\"");
             errorMessages.add("You must either assign a task to someone, or remove, or both!");
             return;

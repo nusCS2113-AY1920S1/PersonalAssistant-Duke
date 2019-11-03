@@ -177,14 +177,15 @@ public class ProjectInputController implements IController {
         //try to create member
         IMember newMember = memberFactory.create(memberDetails);
         if (newMember.getName() != null) {
-            if (projectToManage.MemberExists(newMember)) {
+            if (projectToManage.memberExists(newMember)) {
                 return new String[] {"The member you have tried to add already exists!",
                     "Member name: " + newMember.getName(),
                     "Please ensure that each member has a different name."};
             } else {
                 projectToManage.addMember((Member) newMember);
-                return new String[]{"Added new member to: " + projectToManage.getName(), ""
-                    + "Member details " + newMember.getDetails()};
+                return new String[]
+                    {"Added new member to: " + projectToManage.getName(),
+                    "Member details " + newMember.getDetails()};
             }
         } else {
             return new String[] {newMember.getDetails()};
@@ -329,8 +330,9 @@ public class ProjectInputController implements IController {
                 + projectCommand + "'");
         try {
             if (projectCommand.length() <= 10) {
-                return new String[] {"No parameters detected. Please enter details in the following format:",
-                "TASK_INDEX [-t TASK_NAME] [-p TASK_PRIORITY] [-d TASK_DUEDATE] [-c TASK_CREDIT] [-s STATE]"};
+                return new String[]
+                {"No parameters detected. Please enter details in the following format:",
+                 "TASK_INDEX [-t TASK_NAME] [-p TASK_PRIORITY] [-d TASK_DUEDATE] [-c TASK_CREDIT] [-s STATE]"};
             }
             int taskIndexNumber = Integer.parseInt(projectCommand.substring(10).split(" ")[0]);
             String updatedTaskDetails = projectCommand.substring(projectCommand.indexOf("-"));
@@ -459,10 +461,12 @@ public class ProjectInputController implements IController {
                 "[projectViewAssignments] User input: '" + projectCommand + "'");
         String errorMessageInsufficientParams = "Please input the parameters to view assignments:";
         String errorMessageNoSymbol = "**\t-m for viewing by member, -t for viewing by task.";
-        String errorMessageNoSuffix = "**\t\"all\" to view all assignments, or enter selected task/member index numbers.";
-        String errorMessageGuide = "You may refer to the user guide or enter \"help\" for the list of possible commands.";
+        String errorMessageNoSuffix = "**\t\"all\" to view all assignments,"
+            + "or enter selected task/member index numbers.";
+        String errorMessageGuide = "You may refer to the user guide or enter \"help\""
+            + "for the list of possible commands.";
 
-        if (projectCommand.length() <= 20) {
+        if (projectCommand.length() <= 18) {
             return (new String[] {errorMessageInsufficientParams, errorMessageNoSuffix, errorMessageNoSymbol,
                 errorMessageGuide});
         } else {
@@ -474,8 +478,8 @@ public class ProjectInputController implements IController {
                 return projectViewTasksAssignments(projectToManage,
                         projectCommand.substring(20));
             } else {
-                return (new String[] {"Could not understand your command! Please use:",
-                errorMessageNoSymbol});
+                return (new String[]
+                {"Could not understand your command! Please use:", errorMessageNoSymbol});
             }
         }
     }

@@ -19,7 +19,7 @@ public class AssignmentViewHelper {
         ArrayList<String> outputToPrint = new ArrayList<>();
         HashMap<Member, ArrayList<Task>> memberAndIndividualTasks = project.getMembersIndividualTaskList();
         if (memberAndIndividualTasks.keySet().isEmpty()) {
-            outputToPrint.add("No members in project yet. ");
+            outputToPrint.add("No members in project yet.");
             outputToPrint.add("Please add members and assign them tasks before using this command!");
             return outputToPrint;
         }

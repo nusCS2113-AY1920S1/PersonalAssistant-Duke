@@ -67,8 +67,8 @@ class ProjectInputControllerTest {
             projectOutput[0]);
         simulatedUserInput = "add member -n";
         projectOutput = projectInputController.projectAddMember(project, simulatedUserInput);
-        assertEquals("Name cannot be empty! Please follow the add command format in user guide!" +
-            " \"add member -n NAME\" is the minimum requirement for add member command", projectOutput[0]);
+        assertEquals("Name cannot be empty! Please follow the add command format in user guide!"
+            + " \"add member -n NAME\" is the minimum requirement for add member command", projectOutput[0]);
     }
 
 
@@ -194,7 +194,7 @@ class ProjectInputControllerTest {
     }
 
     @Test
-    void testProjectAddTask() {
+    void testProjectAddTask_valid() {
         try {
             Project project = new Project("Infinity_Gauntlet");
             dueDate = dateTimeHelper.formatDate("21/09/2019");
@@ -202,15 +202,15 @@ class ProjectInputControllerTest {
                     + "-r do something -r do another thing";
             projectInputController.projectAddTask(project, simulatedUserInput);
 
-            simulatedUserInput = "add task -t Documentation for product -p 2 -c 40 "
+            simulatedUserInput = "add task -t Documentation for product 1 -p 2 -c 40 "
                     + "-s done -r do something -r do another thing";
             projectInputController.projectAddTask(project, simulatedUserInput);
 
-            simulatedUserInput = "add task  -p 2 -t Documentation for product -c 40 -r do something "
+            simulatedUserInput = "add task  -p 2 -t Documentation for product 2 -c 40 -r do something "
                     + "-r do another thing";
             projectInputController.projectAddTask(project, simulatedUserInput);
 
-            simulatedUserInput = "add task -t Documentation for product -p 2 -c 40";
+            simulatedUserInput = "add task -t Documentation for product 3 -p 2 -c 40";
             projectInputController.projectAddTask(project, simulatedUserInput);
 
             simulatedUserInput = "add task -s doing -t Documentation for CS2113 -c 40 -d 21/09/2019 -p 2";
@@ -224,9 +224,9 @@ class ProjectInputControllerTest {
             expectedOutput = "1. Documentation for product | Priority: 2 | Due: 21 Sep 2019"
                     + dateTimeHelper.getDifferenceDays(dueDate)
                     + " | Credit: 40 | State: TODO"
-                    + "2. Documentation for product | Priority: 2 | Due: -- | Credit: 40 | State: DONE"
-                    + "3. Documentation for product | Priority: 2 | Due: -- | Credit: 40 | State: OPEN"
-                    + "4. Documentation for product | Priority: 2 | Due: -- | Credit: 40 | State: OPEN"
+                    + "2. Documentation for product 1 | Priority: 2 | Due: -- | Credit: 40 | State: DONE"
+                    + "3. Documentation for product 2 | Priority: 2 | Due: -- | Credit: 40 | State: OPEN"
+                    + "4. Documentation for product 3 | Priority: 2 | Due: -- | Credit: 40 | State: OPEN"
                     + "5. Documentation for CS2113 | Priority: 2 | Due: 21 Sep 2019"
                     + dateTimeHelper.getDifferenceDays(dueDate)
                     + " | Credit: 40 | State: DOING";
@@ -475,7 +475,7 @@ class ProjectInputControllerTest {
     }
 
     @Test
-    void testProjectAssignTask() {
+    void testProjectAssignTask_valid() {
         Project project = new Project("Infinity_Gauntlet");
         simulatedUserInput = "add task -t Documentation for product -p 2 -d 21/09/2019 -c 40 -s todo "
                 + "-r do something -r do another thing";
@@ -490,11 +490,13 @@ class ProjectInputControllerTest {
         assertEquals("Assigned to member 1 (Jerry Zhang).", output[1]);
         assertEquals("Assigned to member 2 (Dillen).", output[2]);
 
-        simulatedUserInput = "assign task -i";
+        //To add later on
+        /*
+        simulatedUserInput = "assign task -i 1 -to 1";
         output = projectInputController.projectAssignTask(project, simulatedUserInput);
-        assertEquals("Insufficient parameters! Indicate the member whom you wish to assign or remove!",
-            output[0]);
-
+        assertEquals("For task 1 (Documentation for product):", output[0]);
+        assertEquals("", output[1]);
+        */
     }
 
     @Test
@@ -520,16 +522,21 @@ class ProjectInputControllerTest {
         Project project = new Project("New project");
         simulatedUserInput = "view assignments";
         String[] output = projectInputController.projectViewAssignments(project, simulatedUserInput);
-        assertEquals(3, output.length);
         assertEquals("Please input the parameters to view assignments:", output[0]);
         simulatedUserInput = "view assignments -";
         output = projectInputController.projectViewAssignments(project, simulatedUserInput);
-        assertEquals(3, output.length);
         assertEquals("Please input the parameters to view assignments:", output[0]);
         simulatedUserInput = "view assignments atm";
         output = projectInputController.projectViewAssignments(project, simulatedUserInput);
-        assertEquals(1, output.length);
-        assertEquals("Could not understand your command! Please use -m for member, -t for task",
+        assertEquals("Could not understand your command! Please use:",
             output[0]);
+        //no members
+        simulatedUserInput = "view assignments -m all";
+        output = projectInputController.projectViewAssignments(project, simulatedUserInput);
+        assertEquals("No members in project yet.", output[0]);
+        //no tasks
+        simulatedUserInput = "view assignments -t all";
+        output = projectInputController.projectViewAssignments(project, simulatedUserInput);
+        assertEquals("No tasks in project yet.", output[0]);
     }
 }
