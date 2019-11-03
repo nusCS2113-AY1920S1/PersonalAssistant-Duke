@@ -220,7 +220,7 @@ public class MainWindow extends AnchorPane {
     private void updateInputList(String input) {
         String stripedInput = input.split(" ", 2)[1];
         if (inputList.contains(stripedInput)) {
-            inputListIndex = inputList.indexOf(stripedInput);
+            inputListIndex = inputList.indexOf(stripedInput) + 1;
         } else {
             inputList.add(stripedInput);
             inputListIndex = inputList.size();
