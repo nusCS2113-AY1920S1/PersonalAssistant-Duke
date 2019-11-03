@@ -15,7 +15,7 @@ public class UiConfig {
      * Creates a new instance of UiConfig class with default settings.
      */
     public UiConfig() {
-        this.windowHeight = 750;
+        this.windowHeight = 600;
         this.windowWidth = 600;
     }
 

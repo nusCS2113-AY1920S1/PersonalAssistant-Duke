@@ -10,11 +10,11 @@ import javafx.stage.Stage;
 
 import java.util.logging.Logger;
 
-public class MainApp extends Application {
+public class CubeApp extends Application {
 
     private StorageManager storageManager;
     private FileUtilJson<StorageManager> storage;
-    private final Logger logger = LogUtil.getLogger(MainApp.class);
+    private final Logger logger = LogUtil.getLogger(CubeApp.class);
 
 
     @Override
