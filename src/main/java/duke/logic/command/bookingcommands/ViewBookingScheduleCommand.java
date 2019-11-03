@@ -30,6 +30,39 @@ public class ViewBookingScheduleCommand extends Command<BookingList, Ui, Booking
         }
     }
 
+    private static boolean isValidDate(String bookingDate) {
+        String[] dateInput = bookingDate.split("/");
+
+        int day = Integer.parseInt(dateInput[0]);
+        int month = Integer.parseInt(dateInput[1]);
+        int year = Integer.parseInt(dateInput[2]);
+
+        if (month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12) {
+            if (day > 0 && day <= 31 && year >= 2000) {
+                return true;
+            }
+        }
+        if (month == 4 || month == 6 || month == 9 || month == 11) {
+            if (day > 0 && day <= 30 && year >= 2000) {
+                return true;
+            }
+        }
+        if (month == 2) {
+            if (year >= 2000 && (year - 2000) % 4 == 0) { //is a leap year
+                if (day > 0 && day <= 29) {
+                    return true;
+                }
+                return false;
+            } else if (year >= 2000 && (year - 2000) % 4 != 0) { //is a common year
+                if (day > 0 && day <= 28) {
+                    return true;
+                }
+                return false;
+            }
+        }
+        return false;
+    }
+
     private static boolean isCurrentTime (Date currDate, Date bookingDate) {
         Calendar calendar = GregorianCalendar.getInstance();
 
@@ -58,25 +91,29 @@ public class ViewBookingScheduleCommand extends Command<BookingList, Ui, Booking
         } else if (userInput.trim().charAt(19) == ' ') {
             String inputDate = userInput.substring(20).trim();
             if (isDateParsable(inputDate)) {
-                Date currDate = new SimpleDateFormat("dd/MM/yyyy").parse(inputDate);
-                
-                ArrayList<Booking> scheduleList = new ArrayList<>();
-                for (Booking booking : bookingList.getBookingList()) {
-                    Date bookingDate = booking.getDateTime();
-                    if (isCurrentTime(currDate, bookingDate)) {
-                        scheduleList.add(booking);
+                if (isValidDate(inputDate)) {
+                    Date currDate = new SimpleDateFormat("dd/MM/yyyy").parse(inputDate);
+
+                    ArrayList<Booking> scheduleList = new ArrayList<>();
+                    for (Booking booking : bookingList.getBookingList()) {
+                        Date bookingDate = booking.getDateTime();
+                        if (isCurrentTime(currDate, bookingDate)) {
+                            scheduleList.add(booking);
+                        }
                     }
-                }
-                String outputDate = new SimpleDateFormat("dd MMMM yyyy").format(currDate);
-                if (scheduleList.isEmpty()) {
-                    arrayList.add(MESSAGE_NO_BOOKING + outputDate + MESSAGE_PROMPT_ADDBOOKING);
+                    String outputDate = new SimpleDateFormat("dd MMMM yyyy").format(currDate);
+                    if (scheduleList.isEmpty()) {
+                        arrayList.add(MESSAGE_NO_BOOKING + outputDate + MESSAGE_PROMPT_ADDBOOKING);
+                    } else {
+                        arrayList.add(MESSAGE_BOOKING_ON + outputDate);
+                        for (int i = 0; i < scheduleList.size(); i++) {
+                            arrayList.add("      " + (i + 1) + ". " + scheduleList.get(i));
+                        }
+                    }
                 } else {
-                    arrayList.add(MESSAGE_BOOKING_ON + outputDate);
-                    for (int i = 0; i < scheduleList.size(); i++) {
-                        arrayList.add("      " + (i + 1) + ". " + scheduleList.get(i));
-                    }
+                    arrayList.add(ERROR_MESSAGE_OVERFLOW_DATE);
                 }
-            } else {
+            }else {
                 arrayList.add(ERROR_MESSAGE_INVALID_DATE);
             }
         } else {

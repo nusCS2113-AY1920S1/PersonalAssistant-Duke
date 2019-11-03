@@ -5,6 +5,7 @@ import duke.model.task.bookingtasks.Booking;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 
 import static duke.common.BookingMessages.*;
 import static duke.common.Messages.DISPLAYED_INDEX_OFFSET;
@@ -42,7 +43,8 @@ public class BookingList {
         ArrayList<String> arrFind = new ArrayList<>();
         for (int i = 0; i < getSize(); i++) {
             if (bookingList.get(i).getCustomerName().toLowerCase().equals(customerName)) {
-                arrFind.add("      " + bookingList.get(i).toString());
+                final int displayIndex = i + DISPLAYED_INDEX_OFFSET;
+                arrFind.add("     " + displayIndex + ". " + bookingList.get(i).toString());
             }
         }
         if (arrFind.isEmpty()) {
@@ -56,7 +58,8 @@ public class BookingList {
 
         for (int i = 0; i < getSize(); i++) {
             if (bookingList.get(i).getCustomerName().toLowerCase().equals(customerName)) {
-                arrOrders.addAll(Arrays.asList(bookingList.get(i).getOrders()));
+                String orderOutput = "     " + Arrays.toString( bookingList.get(i).getOrders()) + " on " + bookingList.get(i).getBookingDateFormatted();
+                arrOrders.addAll(Collections.singletonList(orderOutput));
             }
         }
         if (arrOrders.isEmpty()) {
