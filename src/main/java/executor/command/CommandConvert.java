@@ -76,7 +76,7 @@ public class CommandConvert extends Command {
         if (fromStr != null) {
             return fromStr.toUpperCase();
         }
-       return null;
+        return null;
     }
 
     /**
