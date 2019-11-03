@@ -45,15 +45,12 @@ dependencies {
 
     testImplementation 'org.junit.jupiter:junit-jupiter:5.5.0'
 
-    compile 'com.jfoenix:jfoenix:9.0.8' // Java 9
-    compile (
-            [group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.4.1'],
-            [group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: '2.4.1'],
-            [group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.4.1'],
-            [group: 'org.ocpsoft.prettytime', name: 'prettytime', version: '4.0.1.Final'],
-            [group: 'org.ocpsoft.prettytime', name: 'prettytime-nlp', version: '4.0.2.Final'],
-    )
-
+    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.4.1'
+    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: '2.4.1'
+    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.4.1'
+    implementation group: 'org.ocpsoft.prettytime', name: 'prettytime', version: '4.0.1.Final'
+    implementation group: 'org.ocpsoft.prettytime', name: 'prettytime-nlp', version: '4.0.2.Final'
+    implementation group: 'com.jfoenix', name: 'jfoenix', version: '9.0.8'
 }
 
 test {

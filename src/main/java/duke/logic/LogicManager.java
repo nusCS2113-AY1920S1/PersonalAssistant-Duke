@@ -2,6 +2,7 @@ package duke.logic;
 
 import duke.logic.command.Command;
 import duke.logic.command.CommandResult;
+import duke.logic.command.ExitCommand;
 import duke.logic.command.RedoCommand;
 import duke.logic.command.UndoCommand;
 import duke.logic.command.exceptions.CommandException;
@@ -165,5 +166,8 @@ public class LogicManager implements Logic {
         //Undo and Redo
         autoCompleter.addCommandClass(UndoCommand.class);
         autoCompleter.addCommandClass(RedoCommand.class);
+
+        //Exit command
+        autoCompleter.addCommandClass(ExitCommand.class);
     }
 }

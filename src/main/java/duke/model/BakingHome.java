@@ -45,7 +45,7 @@ public class BakingHome implements ReadOnlyBakingHome {
     }
 
     /**
-     * Creates BakingHome fro {@code toBeCopied}.
+     * Creates BakingHome for {@code toBeCopied}.
      */
     public BakingHome(ReadOnlyBakingHome toBeCopied) {
         this();
@@ -205,10 +205,12 @@ public class BakingHome implements ReadOnlyBakingHome {
 
     public void setProduct(Product originalProduct, Product editedProduct) {
         requireNonNull(editedProduct);
-
         products.set(originalProduct, editedProduct);
     }
 
+    /**
+     * Replaces the contents of the product list with {@code products}.
+     */
     public void setProducts(List<Product> products) {
         this.products.setAll(products);
     }

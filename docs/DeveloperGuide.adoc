@@ -12,7 +12,6 @@ ifdef::env-github[]
 :note-caption: :information_source:
 :warning-caption: :warning:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3/tree/master
 
 By: `Team T12-3`      Since: `Oct 2019`      Licence: `MIT`
 
@@ -26,25 +25,12 @@ Refer to the guide <<SettingUp#, here>>.
 === Architecture
 
 .Architecture Diagram
-image::ArchitectureDiagram.png[]
+image::architecture_diagram.png[]
 
-The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
+The *_Architecture Diagram_* given above explains the high-level design of BakingHome.
+Given below is a quick overview of each component.
 
-[TIP]
-The `.puml` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder.
-Refer to the <<UsingPlantUml#, Using PlantUML guide>> to learn how to create and edit diagrams.
-
-`Main` has two classes called link:{repoURL}/src/main/java/seedu/address/Main.java[`Main`] and link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp`]. It is responsible for,
-
-* At app launch: Initializes the components in the correct sequence, and connects them up with each other.
-* At shut down: Shuts down the components and invokes cleanup method where necessary.
-
-<<Design-Commons,*`Commons`*>> represents a collection of classes used by multiple other components.
-The following class plays an important role at the architecture level:
-
-* `LogsCenter` : Used by many classes to write log messages to the App's log file.
-
-The rest of the App consists of four components.
+BakingHome consists of four components.
 
 * <<Design-Ui,*`UI`*>>: The UI of the App.
 * <<Design-Logic,*`Logic`*>>: The command executor.
@@ -54,22 +40,7 @@ The rest of the App consists of four components.
 Each of the four components
 
 * Defines its _API_ in an `interface` with the same name as the Component.
-* Exposes its functionality using a `{Component Name}Manager` class.
-
-For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
-
-.Class Diagram of the Logic Component
-image::LogicClassDiagram.png[]
-
-[discrete]
-==== How the architecture components interact with each other
-
-The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
-
-.Component interactions for `delete 1` command
-image::ArchitectureSequenceDiagram.png[]
-
-The sections below give more details of each component.
+* Exposes its functionality using a `Manager` class.
 
 [[Design-Ui]]
 === UI component
@@ -93,12 +64,12 @@ The `UI` component,
 
 [[fig-LogicClassDiagram]]
 .Structure of the Logic Component
-image::LogicClassDiagram.png[]
+image::logic_diagram.png[]
 
 *API* :
-link:{repoURL}/src/main/java/duke/logic/Logic.java[`Logic.java`]
+link:https://github.com/AY1920S1-CS2113T-T12-3/main/blob/master/src/main/java/duke/logic/Logic.java[`Logic.java`]
 
-. `Logic` uses the `BakingHomeParser` class to parse the user command.
+. `LogicManager` uses the `Parser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
 . The command execution can affect the `Model` (for example, deleting an order).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
@@ -270,13 +241,17 @@ Refer to the guide <<DevOps#, here>>.
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
-* can type fast
-* prefers typing over mouse input
-* is reasonably comfortable using CLI apps
+Bakery managers of home bakeries, who prefer typing and is willing to use a Desktop application to manage his business.
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+Such a manager needs to take care of every single aspect of his bakery business, from allocating, from keeping track of revenue, to taking the customers order.
+He might even need to do the baking, since there are limited man power.
+
+Though currently there are many well developed applications for the stuff he needs to do, there is not an application that integrates all the features he needs.
+It is hard for him to switch between different apps.
+
+BakingHome is an one-stop desktop application that has all the important features for such a manager to eliminate the trouble of changing between different apps.
+
+*Value proposition*: All-in-one bakery management system for home bakeries.
 
 [appendix]
 == User Stories
@@ -286,17 +261,51 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+|`* * *` |user |Add products with details |Track what products my Bakery has
 
-|`* * *` |user |add a new person |
+|`* * *` |user |Edit a product's details |Keep my products updated to new improvements
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |user |Delete a product |Remove irrelevant products that have been phased out
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* *` |user |Archive a product |In case my business has evolved but I do not want to lose an older product
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* *` |user |Have a default ingredient cost calculated for me even if I don't enter the cost |Have something to refer to when deciding the cost
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`*` |user |Have my ingredient information in product automatically when the corresponding ingredient is changed |Cut back on have to do duplicate work by re-entering the new information
+
+|`* * *` |user |Add new orders |Track the orders that have been placed
+
+|`* * *` |user |Edit an order's details |Adjust the order if my customer's preferences change
+
+|`* * *` |user |Delete orders by batch |Save myself from the trouble of deleting them one by one
+
+|`* *` |user |Sort the orders by date created, date of delivery or tags |Look for orders more easily
+
+|`* *` |user |Search for orders by date created, date of delivery or tags |Find the orders I want more easily
+
+|`* *` |careless user |Undo deleting an order |Reverse a change instead of typing out the whole order again
+
+|`* *` |user |Mark orders as done, canceled or finished |Keep the orders organised and easy to sort
+
+|`* * *` |user |Add, edit and delete my ingredients in the shopping list easily |Manage the bakery more easily
+
+|`* *` |user |Transfer my ingredient list from the shopping list to inventory list in a single step |Save the trouble of having to manually re-key every single ingredient
+
+|`* *` |user |Clear my Inventory lists |It is easier to manage
+
+|`* *` |user |Be able to track the expiry dates of ingredients in my inventory |Keep stock without having to physically check it myself
+
+|`* *` |user |Be reminded of ingredients that are going to expire soon in the inventory |Reduce wastage of ingredients
+
+|`* * *` |user |Store my transactions |Reference them easily in the future
+
+|`* * *` |user |Edit older transaction details |Change individual records which may have been logged wrongly
+
+|`* * *` |user |Delete older transaction |Remove older and irrelevant data from my sales calculations
+
+|`* *` |user |Automatically log expenditures and sales |There is no need to retype information from completing an order or shopping buy
+
+|`* *` |user |Calculate revenue, cost and hence profit instantly |Check the bakery's finances with a quick glance
 |=======================================================================
 
 _{More to be added}_
@@ -382,30 +391,56 @@ These instructions only provide a starting point for testers to work on; testers
 . Initial launch
 
 .. Download the jar file and copy into an empty folder
-.. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+.. Run the jar file in console using `java -jar` +
+   Expected: Shows the GUI. The window size may not be optimum.
 
-. Saving window preferences
+. Showdown
 
-.. Resize the window to an optimum size. Move the window to a different location. Close the window.
-.. Re-launch the app by double-clicking the jar file. +
-   Expected: The most recent window size and location is retained.
+.. Enter `exit` in command box. +
+   Expected: The application quits.
 
-_{ more test cases ... }_
+=== Adding an Order
 
-=== Deleting a person
+. Adding an order with no item
+.. Test case: `order add -name Jiajun` +
+   Expected: A new order with no item is added.
+The order's customer name field is `Jiajun`
+.. Test case: `order add -name abcdabcdabcdabcdabcdabcd`
+Expected: A error message pops up.
+The error message is "Name should be no more than 20 characters"
+.. Test case: `order add -rmk abcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcd`
+Expected: A error message pops up.
+The error message is "Remarks should be no more than 50 characters"
+. Adding an order with items
+.. Prerequisites: `Cake` product should be in Product List; `Fish` product should **not** be in Product List.
+.. Test case: `order add -item Cake, 1` +
+   Expected: A new order with one item `Cake` is added.
+.. Test case: `order add -item Fish, 1` +
+   Expected: A error message pops up.
 
-. Deleting a person while all persons are listed
+=== Deleting Orders
 
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
-   Expected: Similar to previous.
+. Deleting a single order.
 
-_{ more test cases ... }_
+.. Prerequisites: At least 1 order in Order List
+.. Test case: `order remove 1` +
+   Expected: The first order is deleted from the list.
+.. Test case: `order remove 0` +
+   Expected: No order is deleted.
+Error details shown in the pop-up bar.
+.. Other incorrect delete commands to try: `order remove`, `order remove x` (where x is larger than the list size) Expected: Similar to previous.
+
+. Deleting multiple orders
+
+.. Prerequisites: At least 2 orders in Order List
+.. Test case: `order remove 2, 1` + 
+   Expected: The first and second orders are deleted.
+.. Test case: `order remove 1~2` + 
+   Expected: Similar to previous
+.. Test case: `order remove 1~x` (where x is larger than the list size) +
+   Expected: Error details shown in the pop-up bar.
+.. Other incorrect commands to try: `order remove 1,x` (where x is larger than the list size), `order remove 2~1`
+Expected: Similar to previous
 
 === Saving data
 

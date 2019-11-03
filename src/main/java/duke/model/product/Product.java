@@ -76,7 +76,7 @@ public class Product {
     }
 
     /**
-     * Creates a Product.
+     * Creates a Product with all field given.
      */
     public Product(String productName, Double retailPrice, Double ingredientCost,
                    IngredientItemList ingredientItemList, Product.Status status) {
@@ -94,7 +94,7 @@ public class Product {
         }
     }
 
-    /** Constructor for edit comProduct */
+    /** Constructor for edit Product */
     public Product(String productName, Double retailPrice, Double ingredientCost, Product.Status status) {
         requireAllNonNull(productName);
         checkEmpty(productName, MESSAGE_CONSTRAINTS);
@@ -149,20 +149,6 @@ public class Product {
         this.ingredients = ingredients;
     }
 
-    /*
-        public List<Ingredient> getIngredients() {
-            return this.ingredients;
-        }
-
-        /*
-            public List<Ingredient> getIngredients() {
-                return this.ingredients;
-            }
-
-            public void setIngredients(List<Ingredient> ingredients) {
-                this.ingredients = ingredients;
-            }
-        */
     @Override
     public String toString() {
         return productName + ": " + retailPrice + "$" + ingredients.toString();
