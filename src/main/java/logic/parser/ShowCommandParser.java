@@ -47,11 +47,10 @@ public class ShowCommandParser {
                 if (memberName.equals("")) {
                     throw new DukeException(EMPTY_MEMBER_NAME_MESSAGE);
 
-                } else{
+                } else {
                     return new ShowMemberDetailsCommand(memberName);
                 }
-            }
-            else {
+            } else {
                 throw new DukeException(INVALID_SHOW_TYPE_MESSAGE);
             }
 

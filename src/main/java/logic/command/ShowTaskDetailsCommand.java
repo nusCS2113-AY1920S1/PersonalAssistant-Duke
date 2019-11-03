@@ -28,12 +28,12 @@ public class ShowTaskDetailsCommand extends Command {
         } else {
             String output = "";
             output +=  "Task Name: " + model.getTaskNameById(indexOfTask - 1);
-            output +=  " [" + model.getTaskList().get(indexOfTask-1).getStatusIcon() + "]\n";
-            if (model.getTaskDateTimeById(indexOfTask-1) != null) {
+            output +=  " [" + model.getTaskList().get(indexOfTask - 1).getStatusIcon() + "]\n";
+            if (model.getTaskDateTimeById(indexOfTask - 1) != null) {
                 output +=  "Deadline: " + model.getTaskDateTimeById(indexOfTask - 1) + "\n";
             }
-            if (model.getTaskList().get(indexOfTask-1).getMemberList().size() != 0) {
-                output +=  "Member(s) assigned: " + model.getTaskList().get(indexOfTask-1).getMemberList() + "\n";
+            if (model.getTaskList().get(indexOfTask - 1).getMemberList().size() != 0) {
+                output +=  "Member(s) assigned: " + model.getTaskList().get(indexOfTask - 1).getMemberList() + "\n";
             }
 
 
