@@ -17,6 +17,7 @@ import java.util.ArrayList;
 
 /**
  * Test class for postpone commands.
+ *
  * @author Tan Yi Xiang
  * @version V1.0
  */
@@ -59,10 +60,10 @@ public class PostponeTest {
     }
 
     @Test
-    void testClash(){
+    void testClash() {
         PostponeCommand command = new PostponeCommand(3, LocalDateTime.of(2004, 4, 4, 4, 0));
         Assertions.assertThrows(ChronologerException.class, () -> {
-           command.execute(tasks,storage);
+            command.execute(tasks, storage);
         });
     }
 
