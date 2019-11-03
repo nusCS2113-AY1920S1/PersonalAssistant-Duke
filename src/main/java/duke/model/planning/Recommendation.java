@@ -35,18 +35,24 @@ public class Recommendation {
 
     public Itinerary makeItinerary(String[] itineraryDetails) throws ParseException, ApiException,
             StartEndDateBeforeNowException, StartEndDateDiscordException {
-        LocalDateTime start = ParserTimeUtil.parseStringToDate(itineraryDetails[1].strip());
-        LocalDateTime end = ParserTimeUtil.parseStringToDate(itineraryDetails[2].strip());
-        Venue hotelLocation = ApiParser.getLocationSearch(itineraryDetails[0].strip());
+        try {
+            ApiParser.getLocationSearch(itineraryDetails[0].strip());
+        } catch (ApiException e) {
+            LocalDateTime start = ParserTimeUtil.parseStringToDate(itineraryDetails[1].strip());
+            LocalDateTime end = ParserTimeUtil.parseStringToDate(itineraryDetails[2].strip());
 
-        Itinerary itinerary = new Itinerary(start, end, hotelLocation, "New Recommendation");
+            Itinerary itinerary = new Itinerary(start, end, hotelLocation, "New Recommendation");
 
-        List<Agenda> agendaList1 = new ArrayList<>(agendaList.subList(0,getNumberOfDays(start, end)));
+            List<Agenda> agendaList1 = new ArrayList<>(agendaList.subList(0, getNumberOfDays(start, end)));
 
-        assert (!agendaList1.isEmpty()) : "list should not be null";
-        itinerary.setTasks(agendaList1);
+            assert (!agendaList1.isEmpty()) : "list should not be null";
+            itinerary.setTasks(agendaList1);
 
-        return itinerary;
+            return itinerary;
+        } finally {
+            Venue hotelLocation = ApiParser.getLocationSearch(itineraryDetails[0].strip());
+
+        }
     }
 
     private int getNumberOfDays(LocalDateTime start, LocalDateTime end) throws
