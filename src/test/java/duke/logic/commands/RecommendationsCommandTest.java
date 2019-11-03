@@ -3,16 +3,11 @@ package duke.logic.commands;
 import duke.ModelStub;
 import duke.commons.exceptions.DukeException;
 import duke.logic.commands.results.CommandResultText;
-import duke.model.locations.Venue;
-import duke.model.planning.Itinerary;
 import org.junit.jupiter.api.Test;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class RecommendationsCommandTest {
 

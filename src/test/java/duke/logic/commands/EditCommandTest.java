@@ -1,7 +1,6 @@
 package duke.logic.commands;
 
 import duke.ModelStub;
-import duke.commons.exceptions.CorruptedFileException;
 import duke.commons.exceptions.FileLoadFailException;
 import duke.commons.exceptions.FileNotSavedException;
 import duke.logic.commands.results.CommandResultText;

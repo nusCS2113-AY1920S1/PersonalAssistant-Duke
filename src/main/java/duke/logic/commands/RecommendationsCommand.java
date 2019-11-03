@@ -12,7 +12,7 @@ import java.util.logging.Logger;
  * Recommends an itinerary based on number of trip days entered by user.
  */
 public class RecommendationsCommand extends Command {
-    private static final Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+    // private static final Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
     private String[] itineraryDetails;
 
     public RecommendationsCommand(String... itineraryDetails) {

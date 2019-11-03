@@ -3,12 +3,10 @@ package duke.logic.commands;
 import duke.ModelStub;
 import duke.commons.exceptions.DukeException;
 import duke.logic.commands.results.CommandResultText;
-import duke.model.planning.Itinerary;
 import org.junit.jupiter.api.Test;
 
 import java.io.FileNotFoundException;
 import java.time.LocalDateTime;
-import java.util.HashMap;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

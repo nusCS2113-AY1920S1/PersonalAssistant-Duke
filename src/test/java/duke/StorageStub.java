@@ -1,22 +1,14 @@
-package duke.storage;
+package duke;
 
 import duke.commons.Messages;
 import duke.commons.exceptions.ApiException;
-import duke.commons.exceptions.CategoryNotFoundException;
-import duke.commons.exceptions.CorruptedFileException;
-import duke.commons.exceptions.DukeDuplicateTaskException;
 import duke.commons.exceptions.FileLoadFailException;
 import duke.commons.exceptions.FileNotSavedException;
 import duke.commons.exceptions.ParseException;
-import duke.commons.exceptions.RouteDuplicateException;
-import duke.commons.exceptions.RouteNodeDuplicateException;
-import duke.commons.exceptions.StartEndDateBeforeNowException;
-import duke.commons.exceptions.StartEndDateDiscordException;
 import duke.logic.api.ApiParser;
 import duke.logic.parsers.ParserStorageUtil;
 import duke.logic.parsers.ParserTimeUtil;
 import duke.model.Event;
-import duke.model.lists.AgendaList;
 import duke.model.lists.EventList;
 import duke.model.lists.RouteList;
 import duke.model.locations.BusStop;
@@ -39,9 +31,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Scanner;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
@@ -173,59 +163,6 @@ public class StorageStub {
     }
 
     /**
-     * Reads events from filepath. Creates empty events if file cannot be read.
-     *
-     * @throws FileLoadFailException If file cannot be loaded.
-     */
-    private void readEvent() throws FileLoadFailException {
-        List<Event> events = new ArrayList<>();
-        try {
-            File f = new File(EVENTS_FILE_PATH);
-            Scanner s = new Scanner(f);
-            while (s.hasNext()) {
-                events.add(ParserStorageUtil.createTaskFromStorage(s.nextLine()));
-            }
-            s.close();
-            this.events.setEvents(events);
-        } catch (FileNotFoundException | ParseException | DukeDuplicateTaskException e) {
-            throw new FileLoadFailException(EVENTS_FILE_PATH);
-        }
-    }
-
-    /**
-     * Reads routes from filepath. Creates empty routes if file cannot be read.
-     *
-     * @throws FileLoadFailException If there is a duplicate route that is read.d.
-     */
-    private void readRoutes() throws FileLoadFailException {
-        List<Route> newRoutes = new ArrayList<>();
-        try {
-            File file = new File(ROUTES_FILE_PATH);
-            Scanner s = new Scanner(file);
-            Route newRoute = new Route(new ArrayList<>(), "", "");
-            while (s.hasNext()) {
-                String input = s.nextLine();
-                if (input.split("\\|", 2)[0].strip().equals("route")) {
-                    if (newRoute.size() != 0) {
-                        newRoutes.add(newRoute);
-                    }
-                    newRoute = ParserStorageUtil.createRouteFromStorage(input);
-                } else {
-                    newRoute.add(ParserStorageUtil.createNodeFromStorage(input));
-                }
-            }
-            if (!newRoute.getName().equals("")) {
-                newRoutes.add(newRoute);
-            }
-            s.close();
-            routes.setRoutes(newRoutes);
-        } catch (FileNotFoundException | RouteDuplicateException | CorruptedFileException
-                | RouteNodeDuplicateException e) {
-            throw new FileLoadFailException(ROUTES_FILE_PATH);
-        }
-    }
-
-    /**
      * Returns Venues fetched from stored memory.
      *
      */
@@ -247,25 +184,6 @@ public class StorageStub {
     }
 
     /**
-     * Reads the profile from filepath. Creates new empty profile if file doesn't exist.
-     */
-    private void readProfile() throws FileLoadFailException {
-        profileCard = new ProfileCard();
-        try {
-            File f = new File(PROFILE_FILE_PATH);
-            Scanner s = new Scanner(f);
-            while (s.hasNext()) {
-                String input = s.nextLine();
-                ParserStorageUtil.createProfileFromStorage(profileCard, input);
-            }
-            s.close();
-        } catch (FileNotFoundException | ParseException | CategoryNotFoundException e) {
-            profileCard = new ProfileCard();
-            throw new FileLoadFailException(PROFILE_FILE_PATH);
-        }
-    }
-
-    /**
      * Writes the tasks into a file of the given filepath.
      *
      * @throws FileNotSavedException If a file cannot be saved.
@@ -273,21 +191,6 @@ public class StorageStub {
     public void write() throws FileNotSavedException {
         writeEvents();
         writeRoutes();
-    }
-
-    /**
-     * Writes the profile to local storage.
-     *
-     * @throws FileNotSavedException If the file cannot be saved.
-     */
-    private void writeProfile() throws FileNotSavedException {
-        try {
-            FileWriter writer = new FileWriter(PROFILE_FILE_PATH);
-            writer.write(ParserStorageUtil.toProfileStorageString(profileCard) + "\n");
-            writer.close();
-        } catch (IOException e) {
-            throw new FileNotSavedException(PROFILE_FILE_PATH);
-        }
     }
 
     /**
