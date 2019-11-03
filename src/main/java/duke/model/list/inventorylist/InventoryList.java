@@ -3,6 +3,7 @@ package duke.model.list.inventorylist;
 import duke.model.task.ingredienttasks.Ingredient;
 
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class InventoryList {
@@ -41,6 +42,57 @@ public class InventoryList {
         this.inventoryHM.clear();
     }
 
+    public boolean removeUsedIngredients(ArrayList<Ingredient> reqIngredients) {
+        boolean isRemoved = true;
+            for (Ingredient Ingredient : reqIngredients) {
+                String ingredientName = Ingredient.getIngredientName();
+                double ingredientMass = Ingredient.getMass();
+                Ingredient inventoryIngredient = this.inventoryHM.get(ingredientName);
+                double inventoryIngredientMass = inventoryIngredient.getMass();
+                // if ingredient does not exist in inventory or not enough
+                if (!isDeductable(ingredientMass, inventoryIngredientMass) || !isInInventory(ingredientName)) {
+                    isRemoved = false;
+                    break;
+                } else {
+                    System.out.println(inventoryIngredient.getMass());
+                    deductMass(ingredientMass, inventoryIngredient);
+                    System.out.println(inventoryIngredient.getMass());
+
+                    System.out.println(inventoryIngredient.getQuantity());
+                    System.out.println(inventoryIngredient.getUnit());
+                    updateQuantity(inventoryIngredient);
+                    System.out.println(inventoryIngredient.getQuantity());
+                    System.out.println(inventoryIngredient.getUnit());
+                    System.out.println(inventoryIngredient.getMass());
+                }
+            }
+            return isRemoved;
+    }
+
+    public void deductMass(double ingredientMass, Ingredient inventoryIngredient) {
+        inventoryIngredient.deductMass(ingredientMass);
+    }
+
+    public void updateQuantity(Ingredient inventoryIngredient) {
+        inventoryIngredient.updateQuantity();
+    }
+
+    public boolean isDeductable(double ingredientMass, double inventoryIngredientMass) {
+        if (inventoryIngredientMass - ingredientMass < 0) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public boolean isInInventory(String ingredientName) {
+        return this.inventoryHM.containsKey(ingredientName);
+    }
+
+    public double getIngredientMass(String ingredientName) {
+        Ingredient ingred = this.inventoryHM.get(ingredientName);
+        return ingred.getMass();
+    }
     public void addIngredient(String ingredientName, String quantity, String unit, String additionalInfo) throws ParseException {
         inventoryHM.put(ingredientName, new Ingredient(ingredientName, quantity, unit, additionalInfo));
     }
