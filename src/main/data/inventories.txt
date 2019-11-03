@@ -1,5 +1,1 @@
-orange | 4503.5 | G | cold
-apple | 6016.5 | G | No additional information.
-prawn | 11025.0 | G | No additional information.
-bun | 5974.0 | G | No additional information.
-sugar | 9166.6 | G | stirred
+sugar | 48.84615384615385 | TABLESPOON | No additional information.
