@@ -1,7 +1,5 @@
 package duke.storage;
 
-import duke.commons.Messages;
-import duke.commons.exceptions.ApiException;
 import duke.commons.exceptions.CategoryNotFoundException;
 import duke.commons.exceptions.CorruptedFileException;
 import duke.commons.exceptions.DukeDuplicateTaskException;
@@ -10,7 +8,6 @@ import duke.commons.exceptions.FileNotSavedException;
 import duke.commons.exceptions.ParseException;
 import duke.commons.exceptions.RouteDuplicateException;
 import duke.commons.exceptions.RouteNodeDuplicateException;
-import duke.logic.api.ApiParser;
 import duke.logic.parsers.ParserStorageUtil;
 import duke.logic.parsers.ParserTimeUtil;
 import duke.model.Event;

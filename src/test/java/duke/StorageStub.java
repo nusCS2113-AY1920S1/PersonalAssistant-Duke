@@ -35,14 +35,13 @@ import java.util.logging.Logger;
  * Manages storage of Duke data in local storage.
  */
 public class StorageStub {
-    private static final Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+    //    private static final Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
     private EventList events;
     private RouteList routes;
     private TransportationMap map;
     private ProfileCard profileCard;
     private Recommendation recommendation;
     private HashMap<String, Itinerary> itineraryTable;
-    private Itinerary newItinerary;
 
     private static final String BUS_FILE_PATH = "/data/bus.txt";
     private static final String RECOMMENDATIONS_FILE_PATH = "/data/recommendations.txt";

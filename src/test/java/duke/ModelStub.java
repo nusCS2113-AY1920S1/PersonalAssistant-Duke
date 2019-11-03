@@ -2,7 +2,6 @@ package duke;
 
 import duke.commons.exceptions.FileLoadFailException;
 import duke.commons.exceptions.FileNotSavedException;
-import duke.commons.exceptions.ParseException;
 import duke.commons.exceptions.RouteDuplicateException;
 import duke.model.Model;
 import duke.model.lists.EventList;
