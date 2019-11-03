@@ -45,7 +45,6 @@ public class AddOrderCommand extends OrderCommand {
 
     private static final String DEFAULT_CUSTOMER_NAME = "customer";
     private static final String DEFAULT_CUSTOMER_CONTACT = "N/A";
-    private static final Date DEFAULT_DELIVERY_DATE = Calendar.getInstance().getTime();
     private static final String DEFAULT_REMARKS = "N/A";
     private static final Order.Status DEFAULT_STATUS = Order.Status.ACTIVE;
 
@@ -99,7 +98,7 @@ public class AddOrderCommand extends OrderCommand {
             new Customer(descriptor.getCustomerName().orElse(DEFAULT_CUSTOMER_NAME),
                 descriptor.getCustomerContact().orElse(DEFAULT_CUSTOMER_CONTACT)
             ),
-            descriptor.getDeliveryDate().orElse(DEFAULT_DELIVERY_DATE),
+            descriptor.getDeliveryDate().orElse(getDefaultDeliveryDate()),
             descriptor.getStatus().orElse(DEFAULT_STATUS),
             descriptor.getRemarks().orElse(DEFAULT_REMARKS),
             productItems,
@@ -122,4 +121,12 @@ public class AddOrderCommand extends OrderCommand {
         }
         return total;
     }
+
+    /**
+     * Returns the default delivery date.
+     */
+    private Date getDefaultDeliveryDate() {
+        return Calendar.getInstance().getTime();
+    }
+
 }
