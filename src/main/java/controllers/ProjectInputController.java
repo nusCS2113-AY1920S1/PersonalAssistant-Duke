@@ -20,6 +20,7 @@ import util.ViewHelper;
 import util.factories.MemberFactory;
 import util.factories.ReminderFactory;
 import util.factories.TaskFactory;
+import util.json.JsonConverter;
 import util.log.ArchDukeLogger;
 
 public class ProjectInputController implements IController {
@@ -30,6 +31,7 @@ public class ProjectInputController implements IController {
     private boolean isManagingAProject;
     private ViewHelper viewHelper;
     private CommandHelper commandHelper;
+    private JsonConverter jsonConverter = new JsonConverter();
 
     /**
      * Constructor for ProjectInputController takes in a View model and a ProjectRepository.
@@ -84,23 +86,18 @@ public class ProjectInputController implements IController {
                 responseToView = projectExit(projectToManage);
             } else if (projectFullCommand.matches("add member.*")) {
                 responseToView =  projectAddMember(projectToManage, projectFullCommand);
-                // jsonConverter.saveProject(projectToManage);
             } else if (projectFullCommand.matches("edit member.*")) {
                 responseToView = projectEditMember(projectToManage, projectFullCommand);
-                // jsonConverter.saveProject(projectToManage);
             } else if (projectFullCommand.matches("delete member.*")) {
                 responseToView = projectDeleteMember(projectToManage, projectFullCommand);
-                // jsonConverter.saveProject(projectToManage);
             } else if (projectFullCommand.matches("view members.*")) {
                 responseToView = projectViewMembers(projectToManage);
             } else if (projectFullCommand.matches("role.*")) {
                 responseToView = projectRoleMembers(projectToManage, projectFullCommand);
-                // jsonConverter.saveProject(projectToManage);
             } else if (projectFullCommand.matches("view credits.*")) {
                 responseToView = projectViewCredits(projectToManage);
             } else if (projectFullCommand.matches("add task.*")) {
                 responseToView = projectAddTask(projectToManage, projectFullCommand);
-                // jsonConverter.saveProject(projectToManage);
             } else if (projectFullCommand.matches("view tasks.*")) {
                 responseToView = projectViewTasks(projectToManage, projectFullCommand);
             } else if (projectFullCommand.matches("view assignments.*")) {
@@ -109,19 +106,14 @@ public class ProjectInputController implements IController {
                 responseToView = projectViewTaskRequirements(projectToManage, projectFullCommand);
             } else if (projectFullCommand.matches("edit task requirements.*")) {
                 responseToView = projectEditTaskRequirements(projectToManage, projectFullCommand);
-                // jsonConverter.saveProject(projectToManage);
             } else if (projectFullCommand.matches("edit task.*")) {
                 responseToView = projectEditTask(projectToManage, projectFullCommand);
-                // jsonConverter.saveProject(projectToManage);
             } else if (projectFullCommand.matches("delete task.*")) {
                 responseToView = projectDeleteTask(projectToManage, projectFullCommand);
-                // jsonConverter.saveProject(projectToManage);
             } else if (projectFullCommand.matches("assign task.*")) {
                 responseToView = projectAssignTask(projectToManage, projectFullCommand);
-                // jsonConverter.saveProject(projectToManage);
             } else if (projectFullCommand.matches("add reminder.*")) {
                 responseToView = projectAddReminder(projectToManage,projectFullCommand);
-                // jsonConverter.saveProject(projectToManage);
             } else if (projectFullCommand.matches("help")) {
                 responseToView = projectHelp();
             } else if (projectFullCommand.matches("bye")) {
@@ -130,6 +122,7 @@ public class ProjectInputController implements IController {
                 return new String[] {"Invalid command. Try again!"};
             }
         }
+        jsonConverter.saveProject(projectToManage);
         return responseToView;
     }
 

@@ -8,10 +8,9 @@ import exceptions.DukeException;
 import models.project.Project;
 import util.log.ArchDukeLogger;
 
-
 import java.io.File;
-import java.io.FileWriter;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -24,6 +23,7 @@ public class JsonConverter {
      */
     public void saveProject(Project project) {
         Gson gson = new GsonBuilder()
+                .enableComplexMapKeySerialization()
                 .setPrettyPrinting()
                 .create();
         try {
