@@ -482,7 +482,7 @@ public class TaskCommandParseHelper {
             return new InvalidCommand("Please enter a time of correct format after \'-time\'");
         }
         LocalDateTime currentTime = LocalDateTime.now();
-        if (time.compareTo(currentTime) < 0) {
+        if (time.compareTo(currentTime) < -1) {
             return new InvalidCommand("Input date is not prior to current date. Please enter a date that "
                     + "has not passed");
         }
@@ -502,7 +502,7 @@ public class TaskCommandParseHelper {
             return new InvalidCommand("Please enter a time of correct format after \'-time\'");
         }
         LocalDateTime currentTime = LocalDateTime.now();
-        if (time.compareTo(currentTime) < 0) {
+        if (time.compareTo(currentTime) < -1) {
             return new InvalidCommand("Input date is not prior to current date. Please enter a date that "
                     + "has not passed");
         }
