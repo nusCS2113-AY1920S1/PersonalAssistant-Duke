@@ -19,11 +19,14 @@ import duke.commands.task.AddTaskCommand;
 import duke.commands.task.DeleteTaskCommand;
 import duke.commands.task.FindTaskCommand;
 import duke.commands.task.ListTasksCommand;
+import duke.commands.task.UpcomingTasksCommand;
 import duke.commands.task.UpdateTaskCommand;
 import duke.exceptions.DukeException;
 import duke.util.DukeUi;
 import duke.util.Parser;
 import duke.util.TypoCorrector;
+
+import java.time.LocalDateTime;
 
 /**
  * Represents a Parser that parses user input into a specific
@@ -137,6 +140,8 @@ public class CommandManager {
                 throw new DukeException("Please use the `update task :#<task id>"
                         + " :<updated description>` format.");
             }
+        case "show upcoming tasks":
+            return new UpcomingTasksCommand(LocalDateTime.now());
         case "duke":
             return new DukeCommand();
         case "bye":

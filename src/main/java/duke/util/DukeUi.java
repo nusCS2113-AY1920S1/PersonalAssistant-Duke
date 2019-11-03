@@ -2,6 +2,7 @@ package duke.util;
 
 import duke.exceptions.DukeException;
 import duke.models.assignedtasks.AssignedTask;
+import duke.models.assignedtasks.UpcomingTasks;
 import duke.models.patients.Patient;
 import duke.models.tasks.Task;
 
@@ -634,6 +635,24 @@ public class DukeUi {
             output += " - " + command + "\n\n";
         }
         printDukeResponse(output);
+    }
+
+    /**
+     * Prints out lists for each day of upcoming week + the tasks designated for those days.
+     *
+     * @param upcomingTasks The list of tasks for the upcoming date.
+     */
+    public void showUpcomingTasks(UpcomingTasks upcomingTasks) {
+        String output = "";
+        output += upcomingTasks.getFormattedDate() + ":\n";
+        ArrayList<String> taskDescriptions = upcomingTasks.getUpcomingTaskDescriptions();
+        ArrayList<String> patientNames = upcomingTasks.getPatientNames();
+        for (int i = 0; i < upcomingTasks.getUpcomingTasks().size(); i++) {
+            output += "Unique ID: " + upcomingTasks.getUpcomingTasks().get(i).getUuid() + ".\nDescription: "
+                    + taskDescriptions.get(i) + "\nFor patient: " + patientNames.get(i) + "\n\n";
+        }
+        printDukeResponse(output);
+
     }
     //@@author
 
