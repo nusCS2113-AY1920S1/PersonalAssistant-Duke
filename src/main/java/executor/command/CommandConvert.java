@@ -61,7 +61,7 @@ public class CommandConvert extends Command {
             String amountStr = Parser.parseForPrimaryInput(commandType, userInput);
             return Double.parseDouble(amountStr);
         } catch (Exception e) {
-            Ui.dukeSays("Please enter a valid amount. ");
+            Ui.dukeSays("Please enter a valid amount");
             return null;
         }
     }
@@ -89,7 +89,7 @@ public class CommandConvert extends Command {
         if (toStr != null) {
             return toStr.toUpperCase();
         }
-       
+
         return null;
     }
 
