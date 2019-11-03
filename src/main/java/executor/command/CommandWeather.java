@@ -80,29 +80,27 @@ public class CommandWeather extends Command {
     private void printWeatherDataOutput() {
 
         int size = getLengthOfHashMapToPrint(getWhichWeatherDataUserWants(this.userInput));
-        try {
-            if (this.fullWeatherData != null) {
-                Ui.dukeSays("Duke$$$ has predicted the following weather forecast :");
-                for (Map.Entry<String, LinkedHashMap<String, String>> weather : this.fullWeatherData.entrySet()) {
-                    String weatherKey = weather.getKey();
-                    if (Integer.parseInt(weatherKey) < size) {
-                        System.out.println("\n");
-                        for (Map.Entry<String, String> weatherEntry : weather.getValue().entrySet()) {
-                            String field = weatherEntry.getKey();
-                            String value = weatherEntry.getValue();
-                            System.out.println(field + " : " + value);
-                        }
+
+        if (this.fullWeatherData != null) {
+            Ui.dukeSays("Duke$$$ has predicted the following weather forecast :");
+            for (Map.Entry<String, LinkedHashMap<String, String>> weather : this.fullWeatherData.entrySet()) {
+                String weatherKey = weather.getKey();
+                if (Integer.parseInt(weatherKey) < size) {
+                    System.out.println("\n");
+                    for (Map.Entry<String, String> weatherEntry : weather.getValue().entrySet()) {
+                        String field = weatherEntry.getKey();
+                        String value = weatherEntry.getValue();
+                        System.out.println(field + " : " + value);
                     }
                 }
-                Ui.printSeparator();
-            } else {
-                Ui.dukeSays("Weather Data not available \n"
-                        + "1. Please ensure that you have active Internet access \n"
-                        + "2. Please also ensure that you follow correct format for the user input \n");
             }
-        } catch (Exception e) {
-            Ui.dukeSays(getErrorMessage());
+            Ui.printSeparator();
+        } else {
+            Ui.dukeSays("Weather Data not available \n"
+                    + "1. Please ensure that you have active Internet access \n"
+                    + "2. Please also ensure that you follow correct format for the user input \n");
         }
+
     }
 
     /**
