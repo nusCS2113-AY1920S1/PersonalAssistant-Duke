@@ -2,6 +2,7 @@ package duke.util;
 
 import duke.exceptions.DukeException;
 import duke.models.assignedtasks.AssignedTask;
+import duke.models.assignedtasks.UpcomingTasks;
 import duke.models.patients.Patient;
 import duke.models.tasks.Task;
 
@@ -636,12 +637,14 @@ public class DukeUi {
         printDukeResponse(output);
     }
 
-    public void showUpcomingTasks(String date, ArrayList<String> taskDescriptions, ArrayList<AssignedTask> tasks) {
+    public void showUpcomingTasks(UpcomingTasks upcomingTasks) {
         String output = "";
-        output += date + ":\n";
-        for (int i = 0; i < tasks.size(); i++) {
-            output += "Unique ID: " + tasks.get(i).getUuid() + ".\nDescription: "
-                    + taskDescriptions.get(i) + "\n\n";
+        output += upcomingTasks.getFormattedDate() + ":\n";
+        ArrayList<String> taskDescriptions = upcomingTasks.getUpcomingTaskDescriptions();
+        ArrayList<String> patientNames = upcomingTasks.getPatientNames();
+        for (int i = 0; i < upcomingTasks.getUpcomingTasks().size(); i++) {
+            output += "Unique ID: " + upcomingTasks.getUpcomingTasks().get(i).getUuid() + ".\nDescription: "
+                    + taskDescriptions.get(i) + "\nFor patient: " + patientNames.get(i) + "\n\n";
         }
         printDukeResponse(output);
 

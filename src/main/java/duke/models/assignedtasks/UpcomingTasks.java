@@ -1,6 +1,9 @@
+//@@lmtaek
+
 package duke.models.assignedtasks;
 
 import duke.exceptions.DukeException;
+import duke.models.patients.PatientManager;
 import duke.models.tasks.TaskManager;
 
 import java.time.LocalDate;
@@ -14,9 +17,10 @@ public class UpcomingTasks {
     LocalDate date;
     ArrayList<AssignedTask> tasks = new ArrayList<AssignedTask>();
     ArrayList<String> taskDescriptions = new ArrayList<String>();
+    ArrayList<String> patientsForTasks = new ArrayList<String>();
     DateTimeFormatter dateFormatParser = DateTimeFormatter.ofPattern("E, dd/MM");
 
-    public UpcomingTasks(LocalDateTime dateTime, AssignedTaskManager assignedTaskManager, TaskManager taskManager) throws DukeException {
+    public UpcomingTasks(LocalDateTime dateTime, AssignedTaskManager assignedTaskManager, TaskManager taskManager, PatientManager patientManager) throws DukeException {
         this.dateTime = dateTime;
         this.date = dateTime.toLocalDate();
         for (AssignedTask task : assignedTaskManager.getAssignTasks()) {
@@ -48,6 +52,10 @@ public class UpcomingTasks {
         for (AssignedTask task : tasks) {
             taskDescriptions.add(taskManager.getTask(task.getTid()).getDescription());
         }
+
+        for (AssignedTask task : tasks) {
+            patientsForTasks.add(patientManager.getPatient(task.getPid()).getName());
+        }
     }
 
     public ArrayList<AssignedTask> getUpcomingTasks() {
@@ -56,6 +64,10 @@ public class UpcomingTasks {
 
     public ArrayList<String> getUpcomingTaskDescriptions() {
         return taskDescriptions;
+    }
+
+    public ArrayList<String> getPatientNames() {
+        return patientsForTasks;
     }
 
     public String getFormattedDate() {

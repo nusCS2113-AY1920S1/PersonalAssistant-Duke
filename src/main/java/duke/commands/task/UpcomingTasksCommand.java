@@ -28,9 +28,8 @@ public class UpcomingTasksCommand implements Command {
     @Override
     public void execute(AssignedTaskManager patientTask, TaskManager tasks, PatientManager patientList, DukeUi dukeUi, StorageManager storageManager) throws DukeException {
         for (LocalDateTime date : dates) {
-            UpcomingTasks upcomingTaskForDay = new UpcomingTasks(date, patientTask, tasks);
-            dukeUi.showUpcomingTasks(upcomingTaskForDay.getFormattedDate(),
-                    upcomingTaskForDay.getUpcomingTaskDescriptions(), upcomingTaskForDay.getUpcomingTasks());
+            UpcomingTasks upcomingTaskForDay = new UpcomingTasks(date, patientTask, tasks, patientList);
+            dukeUi.showUpcomingTasks(upcomingTaskForDay);
         }
 
     }
