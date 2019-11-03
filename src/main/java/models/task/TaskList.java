@@ -213,17 +213,23 @@ public class TaskList {
         ArrayList<String> successMessages = new ArrayList<>();
         ArrayList<String> errorMessagesForInvalidIndexes = new ArrayList<>();
         Arrays.sort(indexesToBeRemoved);
+        ArrayList<Integer> listOfUsedIntegers = new ArrayList<>();
+        int startingNumOfTaskRequirements = this.taskList.get(taskIndexNumber - 1).getNumOfTaskRequirements();
         for (int i = indexesToBeRemoved.length - 1; i >= 0; i--) {
             try {
                 int indexToBeRemoved = Integer.parseInt(indexesToBeRemoved[i]);
                 if (indexToBeRemoved > 0
-                        && indexToBeRemoved <= this.taskList.get(taskIndexNumber - 1).getNumOfTaskRequirements()) {
-                    successMessages.add("'"
-                        + this.taskList.get(taskIndexNumber - 1).getTaskRequirements().get(indexToBeRemoved)
-                            .substring(3)
-                        + "' is no longer a requirement of this task!");
-                    this.taskList.get(taskIndexNumber - 1).removeTaskRequirement(indexToBeRemoved);
-
+                        && indexToBeRemoved <= startingNumOfTaskRequirements) {
+                    if (!listOfUsedIntegers.contains(indexToBeRemoved)) {
+                        successMessages.add("'"
+                                + this.taskList.get(taskIndexNumber - 1).getTaskRequirements().get(indexToBeRemoved)
+                                .substring(3)
+                                + "' is no longer a requirement of this task!");
+                        listOfUsedIntegers.add(indexToBeRemoved);
+                        this.taskList.get(taskIndexNumber - 1).removeTaskRequirement(indexToBeRemoved);
+                    } else {
+                        errorMessagesForInvalidIndexes.add("Index '" + indexToBeRemoved + "' was repeated!");
+                    }
                 } else {
                     errorMessagesForInvalidIndexes.add("'" + indexToBeRemoved
                             + "' is not a valid task requirement index!");
