@@ -78,8 +78,13 @@ public class BondList {
      * @throws BondException If duplicate bond name is found.
      */
     public void bondExist(Bond bond) throws BondException {
+        String bondName = bond.getName();
+        String capitalBondName = bondName.toUpperCase();
         for (int i = ISZERO; i < getSize(); i++) {
-            if (bond.getName().equals(bondLists.get(i).getName())) {
+            Bond currentBond = bondLists.get(i);
+            String currentBondName = currentBond.getName();
+            String capitalCurrentBondName = currentBondName.toUpperCase();
+            if (capitalBondName.equals(capitalCurrentBondName)) {
                 throw new BondException("Bond with the name: " + bond.getName() + " already exists");
             }
         }
@@ -95,12 +100,15 @@ public class BondList {
         if (getSize() == ISZERO) {
             throw new BondException("There are no bonds");
         }
+        String capitalBondName = bondName.toUpperCase();
         for (int i = ISZERO; i < getSize(); i++) {
-            if (bondName.equals(bondLists.get(i).getName())) {
-                Bond temp = bondLists.get(i);
+            Bond currentBond = bondLists.get(i);
+            String currentBondName = currentBond.getName();
+            String capitalCurrentBondName = currentBondName.toUpperCase();
+            if (capitalBondName.equals(capitalCurrentBondName)) {
                 bondLists.remove(i);
                 ui.printMessage("Bond with the following details has been deleted: ");
-                printOneBond(ONE_INDEX, temp, ISSINGLE, ui);
+                printOneBond(ONE_INDEX, currentBond, ISSINGLE, ui);
                 return;
             }
         }
@@ -115,9 +123,13 @@ public class BondList {
      * @throws BondException if the bond does not exist.
      */
     public Bond getBond(String bondName) throws BondException {
+        String capitalBondName = bondName.toUpperCase();
         for (int i = ISZERO; i < getSize(); i++) {
-            if (bondName.equals(bondLists.get(i).getName())) {
-                return bondLists.get(i);
+            Bond currentBond = bondLists.get(i);
+            String currentBondName = currentBond.getName();
+            String capitalCurrentBondName = currentBondName.toUpperCase();
+            if (capitalBondName.equals(capitalCurrentBondName)) {
+                return currentBond;
             }
         }
         throw new BondException("There are no bonds with the name: " + bondName);
@@ -142,8 +154,12 @@ public class BondList {
      * @throws BondException If the bond does not exist or the year is smaller than the original.
      */
     public void editBond(String bondName, String year, String rate, Ui ui) throws BondException {
+        String capitalBondName = bondName.toUpperCase();
         for (int i = ISZERO; i < getSize(); i++) {
-            if (bondName.equals(bondLists.get(i).getName())) {
+            Bond currentBond = bondLists.get(i);
+            String currentBondName = currentBond.getName();
+            String capitalCurrentBondName = currentBondName.toUpperCase();
+            if (capitalBondName.equals(capitalCurrentBondName)) {
                 editBondYear(year, i);
                 editBondRate(rate, i);
                 ui.printMessage("Bond with the following details has been edited: ");

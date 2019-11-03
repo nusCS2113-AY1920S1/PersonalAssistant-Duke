@@ -64,13 +64,13 @@ public abstract class ParseSaving {
      */
     public void fillHashTable() throws ParserException {
         savingsParameters.put(AMOUNT,
-                parseRawData.extractParameter(rawData, AMOUNT, SAVINGS_KEYWORD));
+                parseRawData.extractParameter(rawData, AMOUNT, SAVINGS_KEYWORD).trim());
         savingsParameters.put(INCOME,
-                parseRawData.extractParameter(rawData, INCOME, SAVINGS_KEYWORD));
+                parseRawData.extractParameter(rawData, INCOME, SAVINGS_KEYWORD).trim());
         savingsParameters.put(NAME,
-                parseRawData.extractParameter(rawData, NAME, SAVINGS_KEYWORD));
+                parseRawData.extractParameter(rawData, NAME, SAVINGS_KEYWORD).trim());
         savingsParameters.put(NEW_NAME,
-                parseRawData.extractParameter(rawData, NEW_NAME, SAVINGS_KEYWORD));
+                parseRawData.extractParameter(rawData, NEW_NAME, SAVINGS_KEYWORD).trim());
     }
 
     /**

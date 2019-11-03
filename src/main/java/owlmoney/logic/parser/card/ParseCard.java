@@ -41,13 +41,13 @@ public abstract class ParseCard {
      */
     public void fillHashTable() throws ParserException {
         cardParameters.put(NAME,
-                parseRawData.extractParameter(rawData, NAME, CARD_KEYWORD));
+                parseRawData.extractParameter(rawData, NAME, CARD_KEYWORD).trim());
         cardParameters.put(LIMIT,
-                parseRawData.extractParameter(rawData, LIMIT, CARD_KEYWORD));
+                parseRawData.extractParameter(rawData, LIMIT, CARD_KEYWORD).trim());
         cardParameters.put(REBATE,
-                parseRawData.extractParameter(rawData, REBATE, CARD_KEYWORD));
+                parseRawData.extractParameter(rawData, REBATE, CARD_KEYWORD).trim());
         cardParameters.put(NEW_NAME,
-                parseRawData.extractParameter(rawData, NEW_NAME, CARD_KEYWORD));
+                parseRawData.extractParameter(rawData, NEW_NAME, CARD_KEYWORD).trim());
     }
 
     /**
