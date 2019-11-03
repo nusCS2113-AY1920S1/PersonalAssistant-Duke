@@ -5,6 +5,7 @@ import models.member.Member;
 import models.member.MemberList;
 import models.reminder.Reminder;
 import models.reminder.ReminderList;
+import models.task.ITask;
 import models.task.Task;
 import models.task.TaskList;
 
@@ -205,5 +206,9 @@ public class Project implements IProject {
 
     public Member getMember(int indexNumber) {
         return this.memberList.getMember(indexNumber);
+    }
+
+    public boolean taskExists(ITask task) {
+        return this.taskList.contains((Task) task);
     }
 }

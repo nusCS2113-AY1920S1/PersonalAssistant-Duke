@@ -300,6 +300,11 @@ public class ProjectInputController implements IController {
         try {
             ITask newTask = taskFactory.createTask(projectCommand.substring(9));
             if (newTask.getDetails() != null) {
+                if (projectToManage.taskExists(newTask)) {
+                    return new String[]{"The task you are trying to add already exists!",
+                        "Task name: " + newTask.getTaskName(),
+                        "Please ensure that each task has a different task name."};
+                }
                 projectToManage.addTask((Task) newTask);
                 return new String[] {"Added new task to the list."};
             }
