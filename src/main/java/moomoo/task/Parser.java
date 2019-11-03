@@ -8,7 +8,6 @@ import moomoo.command.category.ListCategoryCommand;
 import moomoo.task.category.CategoryParser;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
@@ -37,6 +36,8 @@ public class Parser {
         }
         switch (commandType) {
         case ("bye"):
+            return new ExitCommand(true);
+        case ("exit"):
             return new ExitCommand(true);
         case ("budget"):
             return parseBudget(scanner);
