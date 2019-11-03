@@ -473,7 +473,6 @@ public class TaskCommandParseHelper {
     private static Command parseAddDeadlineCommand(String input, LocalDateTime time, String doAfter,
                                                    ArrayList<String> tags, Task.Priority priority,
                                                    ArrayList<String> links) {
-        Task.TaskType taskType = Task.TaskType.DEADLINE;
         Matcher deadlineMatcher = prepareCommandMatcher(input, "deadline\\s+(?<name>\\w+[\\s+\\w+]*)\\s*");
         if (!deadlineMatcher.matches()) {
             return new InvalidCommand("Please enter a name after \'deadline\'");
@@ -481,14 +480,18 @@ public class TaskCommandParseHelper {
         if (time == null) {
             return new InvalidCommand("Please enter a time of correct format after \'-time\'");
         }
+        LocalDateTime currentTime = LocalDateTime.now();
+        if (time.compareTo(currentTime) < -1) {
+            return new InvalidCommand("Input date is not prior to current date. Please enter a date that "
+                    + "has not passed");
+        }
         String name = deadlineMatcher.group("name");
-        return new TaskAddCommand(taskType, name, time, doAfter, tags, priority, links);
+        return new TaskAddCommand(Task.TaskType.DEADLINE, name, time, doAfter, tags, priority, links);
     }
 
     private static Command parseEventCommand(String input, LocalDateTime time, String doAfter,
                                              ArrayList<String> tags, Task.Priority priority,
                                              ArrayList<String> links) {
-        Task.TaskType taskType = Task.TaskType.EVENT;
         Matcher eventMatcher = prepareCommandMatcher(input, "event\\s+(?<name>\\w+[\\s+\\w+]*)\\s*");
         if (!eventMatcher.matches()) {
             return new InvalidCommand("Please enter a name after \'event\'");
@@ -496,8 +499,13 @@ public class TaskCommandParseHelper {
         if (time == null) {
             return new InvalidCommand("Please enter a time of correct format after \'-time\'");
         }
+        LocalDateTime currentTime = LocalDateTime.now();
+        if (time.compareTo(currentTime) < -1) {
+            return new InvalidCommand("Input date is not prior to current date. Please enter a date that "
+                    + "has not passed");
+        }
         String name = eventMatcher.group("name");
-        return new TaskAddCommand(taskType, name, time, doAfter, tags, priority, links);
+        return new TaskAddCommand(Task.TaskType.EVENT, name, time, doAfter, tags, priority, links);
     }
 
     private static Command parseLinkCommand(String input, ArrayList<Command.Option> optionList) {
