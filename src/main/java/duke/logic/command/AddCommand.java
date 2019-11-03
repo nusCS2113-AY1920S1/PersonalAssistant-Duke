@@ -88,7 +88,7 @@ public class AddCommand extends Command {
      * @param undoStack UndoStack of all mirror commands
      */
     @Override
-    public void savePrevState(TaskList tasks, UndoStack undoStack) {
+    public void savePrevState(TaskList tasks, UndoStack undoStack) throws DukeException {
         int idx = tasks.size();
         undoStack.addAction(new DeleteCommand(Optional.empty(), Integer.toString(idx + 1)));
     }

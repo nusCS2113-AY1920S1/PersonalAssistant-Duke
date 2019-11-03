@@ -53,10 +53,10 @@ public class TaskList {
      * this is to initalise a duke.tasklist.TaskList with an ArrayList of Tasks which fulfil the filter predicate
      * tasks which do not fulfil the predicate will not be present in this TaskList
      *
-     * @param list the main TaskList containing all of the user's tasks
+     * @param list   the main TaskList containing all of the user's tasks
      * @param filter the filter predicate for each task
      */
-    public TaskList(TaskList list, Optional<String> filter) {
+    public TaskList(TaskList list, Optional<String> filter) throws DukeException {
         taskList = new ArrayList<>();
         longestFilter = filter.get().length();
         for (int i = 0; i < list.size(); i++) {
@@ -80,8 +80,14 @@ public class TaskList {
         return taskList.size();
     }
 
-    public Task get(int index) {
-        return taskList.get(index);
+    public Task get(int index) throws DukeException {
+        if (index < 0) {
+            throw new DukeException("Please enter a positive index!");
+        }
+        if (index < taskList.size()) {
+            return taskList.get(index);
+        }
+        throw new DukeException("Please enter valid task index!");
     }
 
 
@@ -140,7 +146,7 @@ public class TaskList {
      * If a filter is given, then the index will be based on the filtered list that was printed to the user
      *
      * @param filter the filter predicate for each task
-     * @param index the index of the task as seen by the user in the TaskList printed
+     * @param index  the index of the task as seen by the user in the TaskList printed
      */
     public void remove(Optional<String> filter, int index) throws DukeException {
         Task t = get(filter, index);
@@ -229,13 +235,17 @@ public class TaskList {
      * to its corresponding index on the actual TaskList.
      *
      * @param filter filter for each task
-     * @param index index of TaskList where task will be inserted
-     * @param t new Task to be inserted at index
+     * @param index  index of TaskList where task will be inserted
+     * @param t      new Task to be inserted at index
      * @throws DukeException if an invalid index is given
      */
     public void insert(Optional<String> filter, int index, Task t) throws DukeException {
-        int i = reduceFilter(filter, index);
-        taskList.add(i, t);
+        if (index == taskList.size()) {
+            taskList.add(index,t);
+        } else {
+            int i = reduceFilter(filter, index);
+            taskList.add(i, t);
+        }
     }
 
     /**
@@ -243,8 +253,8 @@ public class TaskList {
      * will be converted to its corresponding index on the actual TaskList.
      *
      * @param filter filter for each task
-     * @param index index of TaskList which user saw corresponds to desired task
-     * @param t new Task to replace original at index
+     * @param index  index of TaskList which user saw corresponds to desired task
+     * @param t      new Task to replace original at index
      * @throws DukeException if an invalid index is given
      */
     public void set(Optional<String> filter, int index, Task t) throws DukeException {
@@ -258,26 +268,31 @@ public class TaskList {
      * task in the TaskList. If there is no filter, then the actual index is given so nothing needs to be changed.
      *
      * @param filter filter predicate for each task
-     * @param index index of TaskList which user saw corresponds to desired task
+     * @param index  index of TaskList which user saw corresponds to desired task
      * @return integer value of the actual index of the task in the TaskList
      * @throws DukeException if invalid index is given
      */
     private int reduceFilter(Optional<String> filter, int index) throws DukeException {
         int counter = -1;
+        if (index < 0) {
+            throw new DukeException("Please enter a positive index!");
+        }
         if (filter.isPresent()) {
             for (int i = 0; i < taskList.size(); i++) {
                 Task t = taskList.get(i);
                 if (t.getFilter().equals(filter)) {
                     counter++;
                 }
-                if (counter == index - 1) {
+                if (counter == index) {
                     return i;
                 }
             }
         } else {
-            return index - 1;
+            if (index < taskList.size()) {
+                return index;
+            }
         }
-        throw new DukeException("Index not found");
+        throw new DukeException("Please enter a valid task index!");
     }
 
     public int getLongestFilter() {

@@ -1,5 +1,6 @@
 package duke.ui;
 
+import duke.exception.DukeException;
 import duke.task.Task;
 import duke.tasklist.TaskList;
 
@@ -15,7 +16,7 @@ public class TaskListPrinter {
      * @param ui the Ui object that handles user interactions
      * @param list the TaskList to be printed for the user
      */
-    public static void print(Ui ui, TaskList list) {
+    public static void print(Ui ui, TaskList list) throws DukeException {
         int taskCount = list.size();
         int filterLength = list.getLongestFilter();
         String filterHead = createFilterHead(filterLength);

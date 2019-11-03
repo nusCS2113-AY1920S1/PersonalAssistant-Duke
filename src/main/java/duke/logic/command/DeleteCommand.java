@@ -24,9 +24,13 @@ public class DeleteCommand extends Command {
      * @param filter filter for each task
      * @param index given index of the task
      */
-    public DeleteCommand(Optional<String> filter, String index) {
+    public DeleteCommand(Optional<String> filter, String index) throws DukeException {
         this.filter = filter;
-        this.index = Integer.parseInt(index);
+        try {
+            this.index = Integer.parseInt(index) - 1;
+        } catch (NumberFormatException e) {
+            throw new DukeException("Please enter a numerical field for the index!");
+        }
     }
 
     /**

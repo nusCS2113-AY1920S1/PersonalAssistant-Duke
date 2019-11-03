@@ -62,7 +62,7 @@ public class EditCommand extends Command {
                     int priorityLevel = Integer.parseInt(edit);
                     t.setPriority(priorityLevel);
                 } catch (NumberFormatException e) {
-                    throw new DukeException("Please enter a numerical field for the duration!");
+                    throw new DukeException("Please enter a numerical field for the priority!");
                 }
                 break;
             case "t":
@@ -81,7 +81,7 @@ public class EditCommand extends Command {
                 t.setRecurrence(edit);
                 break;
             default:
-                throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what field you are trying to edit!");
+                throw new DukeException("I'm sorry, I do not know what field you are trying to edit!");
             }
         }
         storage.save(tasks);

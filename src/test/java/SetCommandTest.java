@@ -91,10 +91,10 @@ class SetCommandTest {
         assertEquals(expectedDateTime, actualDateTime);
 
         // recurrence set
-        setCommand = new SetCommand(noFilter, 6, newTask);
+        setCommand = new SetCommand(noFilter, 0, newTask);
         String expectedRecurrence = baseTask.getRecurrenceCode();
         setCommand.execute(list, ui, storage);
-        String actualRecurrence = list.get(noFilter, 6).getRecurrenceCode();
+        String actualRecurrence = list.get(noFilter, 0).getRecurrenceCode();
         assertEquals(expectedRecurrence, actualRecurrence);
     }
 }

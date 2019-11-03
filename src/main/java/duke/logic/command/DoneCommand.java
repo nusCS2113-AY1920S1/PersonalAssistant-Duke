@@ -22,21 +22,25 @@ public class DoneCommand extends Command {
      * Includes filter and index to find the location of the task in the actual TaskList
      *
      * @param filter filter for each task
-     * @param index given index of the task
+     * @param index  given index of the task
      */
-    public DoneCommand(Optional<String> filter, String index) {
+    public DoneCommand(Optional<String> filter, String index) throws DukeException {
         this.filter = filter;
-        this.index = Integer.parseInt(index);
+        try {
+            this.index = Integer.parseInt(index) - 1;
+        } catch (NumberFormatException e) {
+            throw new DukeException("Please enter a numerical field for the index!");
+        }
     }
 
     /**
      * Executes the marking of a Task as done
      *
-     * @param tasks TaskList of all of user's tasks
-     * @param ui Ui handling user interaction
+     * @param tasks   TaskList of all of user's tasks
+     * @param ui      Ui handling user interaction
      * @param storage Storage handling saving and loading of TaskList
      * @throws DukeException if invalid index is given
-     * @throws IOException NA
+     * @throws IOException   NA
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException, IOException {
@@ -50,7 +54,8 @@ public class DoneCommand extends Command {
     /**
      * Saves a mirror command in the UndoStack
      * In the event that the user marked the wrong task as done, he can just call undo to undo the task
-     * @param tasks TaskList of all of user's tasks
+     *
+     * @param tasks     TaskList of all of user's tasks
      * @param undoStack Storage handling saving and loading of TaskList
      * @throws DukeException
      */

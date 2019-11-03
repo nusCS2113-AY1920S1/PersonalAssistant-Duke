@@ -139,7 +139,7 @@ public class EditCommandTest {
         editCommand = new EditCommandParser().parse(Optional.empty(), "1 -desc hello world");
         Exception exception = assertThrows(DukeException.class, () ->
                 editCommand.execute(tasks, ui, storage));
-        assertEquals("☹ OOPS!!! I'm sorry, but I don't know what field you are trying to edit!",
+        assertEquals("I'm sorry, I do not know what field you are trying to edit!",
                 exception.getMessage());
     }
 
@@ -150,7 +150,7 @@ public class EditCommandTest {
         editCommand = new EditCommandParser().parse(Optional.empty(), "1 -priority hello world");
         Exception exception = assertThrows(DukeException.class, () ->
                 editCommand.execute(tasks, ui, storage));
-        assertEquals("Please enter a numerical field for the duration!", exception.getMessage());
+        assertEquals("Please enter a numerical field for the priority!", exception.getMessage());
     }
 
     @Test
