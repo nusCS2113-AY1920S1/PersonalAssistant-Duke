@@ -5,12 +5,21 @@ import duke.command.ExitCommand;
 import duke.command.ListPriorityCommand;
 import duke.command.UndoBudgetCommand;
 import duke.command.Command;
-import duke.command.AddMultipleCommand;
 import duke.command.SetPriorityCommand;
 import duke.command.DeleteCommand;
 import duke.command.FilterCommand;
 import duke.command.FindTasksByPriorityCommand;
 import duke.command.FindTasksByDateCommand;
+import duke.command.ListCommand;
+import duke.command.DoneCommand;
+import duke.command.FindCommand;
+import duke.command.AddCommand;
+import duke.command.ShowNotesCommand;
+import duke.command.AddNotesCommand;
+import duke.command.DeleteNotesCommand;
+import duke.command.DuplicateFoundCommand;
+import duke.command.RemindCommand;
+import duke.command.UpdateCommand;
 import duke.command.ViewBudgetCommand;
 import duke.command.ResetBudgetCommand;
 import duke.command.AddContactsCommand;
@@ -18,17 +27,6 @@ import duke.command.ListContactsCommand;
 import duke.command.DeleteContactCommand;
 import duke.command.FindContactCommand;
 import duke.command.AddBudgetCommand;
-import duke.command.ShowNotesCommand;
-import duke.command.AddNotesCommand;
-import duke.command.ListCommand;
-import duke.command.DuplicateFoundCommand;
-import duke.command.DoneCommand;
-import duke.command.FindCommand;
-import duke.command.DeleteNotesCommand;
-import duke.command.AddCommand;
-import duke.command.RemindCommand;
-import duke.command.UpdateCommand;
-
 
 import duke.dukeexception.DukeException;
 import duke.enums.ErrorMessages;
@@ -37,15 +35,12 @@ import duke.task.TaskList;
 import duke.task.Todo;
 import duke.task.Deadline;
 import duke.task.Task;
-import duke.task.Repeat;
-import duke.task.FixedDuration;
-import duke.task.DetectDuplicate;
-import duke.task.Contacts;
 import duke.task.BudgetList;
 import duke.task.ContactList;
+import duke.task.DetectDuplicate;
+import duke.task.FixedDuration;
+import duke.task.Contacts;
 
-
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.Date;
@@ -274,65 +269,6 @@ public class Parser {
                     }
                 }
                 return new AddCommand(taskObj);
-            }
-        } else if (arr.length > Numbers.ZERO.value
-                && (arr[Numbers.ZERO.value].equals("repeat") || arr[Numbers.ZERO.value].equals("rep"))) {
-            DetectDuplicate detectDuplicate = new DetectDuplicate(items);
-            for (int i = Numbers.ONE.value; i < arr.length; i++) {
-                if ((arr[i].trim().isEmpty()
-                        || !arr[i].substring(Numbers.ZERO.value, Numbers.ONE.value).equals("/")) && !getDate) {
-                    taskDesc += arr[i] + " ";
-                } else {
-                    if (!getDate) { //detect "/"
-                        getDate = true;
-                    } else {
-                        dateDesc += arr[i] + " ";
-                    }
-                }
-            }
-            taskDesc = taskDesc.trim();
-            dateDesc = dateDesc.trim();
-
-            if (taskDesc.isEmpty()) {
-                throw new DukeException("     (>_<) OOPS!!! The description of a "
-                        + arr[Numbers.ZERO.value] + " cannot be empty.");
-            } else if (dateDesc.isEmpty()) {
-                throw new DukeException("     (>_<) OOPS!!! The description of date/time for "
-                        + arr[Numbers.ZERO.value] + " cannot be empty.");
-            } else {
-                String repeatSettings;
-                int repeatTimes;
-                String repeatPeriod;
-                try {
-                    repeatSettings = dateDesc.split("/for ")[Numbers.ONE.value];
-                    repeatTimes = Integer.parseInt(repeatSettings.replaceAll("[\\D]", ""));
-                    repeatPeriod = repeatSettings.split(repeatTimes + " ")[Numbers.ONE.value];
-
-                } catch (Exception e) {
-                    logr.log(Level.WARNING, ErrorMessages.REPEAT_FORMAT.message, e);
-                    throw new DukeException(ErrorMessages.REPEAT_FORMAT.message);
-                }
-
-                ArrayList<Task> repeatList = new ArrayList<>();
-                String timeDesc = dateDesc.split(" ", Numbers.THREE.value)[Numbers.ONE.value];
-                for (int i = Numbers.ZERO.value; i < repeatTimes; i++) {
-                    Task taskObj;
-                    taskObj = new Repeat(taskDesc, dateDesc);
-                    dateDesc = DateParser.add(dateDesc, repeatPeriod) + " " + timeDesc;
-                    repeatList.add(taskObj);
-
-                    for (int j = Numbers.ZERO.value; j < items.size(); j++) {
-                        if (taskObj.getDateTime().equals(items.get(j).getDateTime()) && !items.get(j).isDone()) {
-                            throw new DukeException("     (>_<) OOPS!!! The date/time for "
-                                    + arr[Numbers.ZERO.value] + " clashes with " + items.get(j).toString()
-                                    + "\n     Please choose another date/time! Or mark the above task as Done first!");
-                        }
-                    }
-                }
-                if (detectDuplicate.isDuplicate(arr[Numbers.ZERO.value], taskDesc)) {
-                    return new DuplicateFoundCommand();
-                }
-                return new AddMultipleCommand(repeatList);
             }
         } else if (arr.length > Numbers.ZERO.value
                 && (arr[Numbers.ZERO.value].equals("fixedduration") || arr[Numbers.ZERO.value].equals("fd"))) {
@@ -594,7 +530,7 @@ public class Parser {
                 logr.log(Level.WARNING, ErrorMessages.CONTACT_FORMAT.message, e);
                 throw new DukeException(ErrorMessages.CONTACT_FORMAT.message);
             }
-        } else if (sentence.equals("listcontacts") || sentence.equals("lc")) {
+        } else if (sentence.equals("listcontacts") || sentence.equals("lc") || sentence.equals(("listcontact"))) {
             return new ListContactsCommand(contactList);
         } else if (arr.length > Numbers.ZERO.value
                 && (arr[Numbers.ZERO.value].equals("deletecontact") || arr[Numbers.ZERO.value].equals("dc"))) {
