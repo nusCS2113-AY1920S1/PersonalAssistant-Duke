@@ -48,12 +48,6 @@ public class ParseDeleteCardBill extends ParseCardBill {
             if (DATE.equals(key)) {
                 yearMonth = checkDate(value);
             }
-            if (EXPNO.equals(key)) {
-                checkInt(EXPNO, value);
-            }
-            if (DEPNO.equals(key)) {
-                checkInt(DEPNO, value);
-            }
         }
     }
 
@@ -66,8 +60,7 @@ public class ParseDeleteCardBill extends ParseCardBill {
     public Command getCommand() {
         DeleteCardBillCommand newDeleteCardBillCommand =
                 new DeleteCardBillCommand(cardBillParameters.get(CARD), yearMonth,
-                        cardBillParameters.get(BANK), Integer.parseInt(cardBillParameters.get(EXPNO)),
-                        Integer.parseInt(cardBillParameters.get(DEPNO)));
+                        cardBillParameters.get(BANK));
         return newDeleteCardBillCommand;
     }
 }

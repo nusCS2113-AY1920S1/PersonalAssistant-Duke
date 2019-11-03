@@ -318,7 +318,9 @@ Depending on the `type` of command the user enters, the specific parser class in
 `ParseAddBond`, `ParseDeleteInvestment`) which will return a `Command` object back to main to prepare for execution.
 
 The execution of commands will be elaborated in subsequent diagrams below.
+
 // tag::add_savings[]
+
 === Adding Savings
 .Sequence Diagram of Adding Savings
 image::AddSavingCommand.png[width="800"]
@@ -355,8 +357,11 @@ to an Arraylist containing all bank objects.
 bank objects.
 . Once the savings object has been added, the details of the new savings object will be displayed to inform the user
 of the *successful* addition of the savings object.
+
 // end::add_savings[]
+
 // tag::editing_bonds[]
+
 === Editing Bonds
 
 The `/edit /bonds` feature aims to help users update the specific details of the investment `bonds` that they
@@ -371,7 +376,7 @@ allowing these *2* parameters to be changed was because we wanted consistency ac
 interest throughout the lifespan of the investment `bond`.
 
 .Sequence Diagram of Editing Bonds
-image::editBondCommand.png[width="970"]
+image::editBondCommand.png[width="800"]
 
 [NOTE]
 The sequence diagram presented above is assumed to be a valid command which will produce a successful result.

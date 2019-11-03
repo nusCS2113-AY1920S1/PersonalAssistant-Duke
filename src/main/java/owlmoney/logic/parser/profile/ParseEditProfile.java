@@ -52,8 +52,8 @@ public class ParseEditProfile {
      * @throws ParserException If duplicate parameters are detected.
      */
     public void fillHashTable() throws ParserException {
-        profileParameters.put(NAME, parseRawData.extractParameter(rawData, NAME, PROFILE_KEYWORD));
-        profileParameters.put(NEW_NAME, parseRawData.extractParameter(rawData, NEW_NAME, PROFILE_KEYWORD));
+        profileParameters.put(NAME, parseRawData.extractParameter(rawData, NAME, PROFILE_KEYWORD).trim());
+        profileParameters.put(NEW_NAME, parseRawData.extractParameter(rawData, NEW_NAME, PROFILE_KEYWORD).trim());
     }
 
     /**

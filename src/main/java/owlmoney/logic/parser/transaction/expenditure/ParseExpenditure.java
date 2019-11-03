@@ -76,19 +76,19 @@ public abstract class ParseExpenditure {
      */
     public void fillHashTable() throws ParserException {
         expendituresParameters.put(AMOUNT,
-                parseRawData.extractParameter(rawData, AMOUNT, EXPENDITURE_KEYWORD));
+                parseRawData.extractParameter(rawData, AMOUNT, EXPENDITURE_KEYWORD).trim());
         expendituresParameters.put(DATE,
-                parseRawData.extractParameter(rawData, DATE, EXPENDITURE_KEYWORD));
+                parseRawData.extractParameter(rawData, DATE, EXPENDITURE_KEYWORD).trim());
         expendituresParameters.put(DESCRIPTION,
-                parseRawData.extractParameter(rawData, DESCRIPTION, EXPENDITURE_KEYWORD));
+                parseRawData.extractParameter(rawData, DESCRIPTION, EXPENDITURE_KEYWORD).trim());
         expendituresParameters.put(CATEGORY,
-                parseRawData.extractParameter(rawData, CATEGORY, EXPENDITURE_KEYWORD));
+                parseRawData.extractParameter(rawData, CATEGORY, EXPENDITURE_KEYWORD).trim());
         expendituresParameters.put(FROM,
-                parseRawData.extractParameter(rawData, FROM, EXPENDITURE_KEYWORD));
+                parseRawData.extractParameter(rawData, FROM, EXPENDITURE_KEYWORD).trim());
         expendituresParameters.put(TRANSNO,
-                parseRawData.extractParameter(rawData, TRANSNO, EXPENDITURE_KEYWORD));
+                parseRawData.extractParameter(rawData, TRANSNO, EXPENDITURE_KEYWORD).trim());
         expendituresParameters.put(NUM,
-                parseRawData.extractParameter(rawData, NUM, EXPENDITURE_KEYWORD));
+                parseRawData.extractParameter(rawData, NUM, EXPENDITURE_KEYWORD).trim());
     }
 
     /**
@@ -112,7 +112,7 @@ public abstract class ParseExpenditure {
      */
     void checkInt(String variable, String valueString) throws ParserException {
         if (!RegexUtil.regexCheckListNumber(valueString)) {
-            throw new ParserException(variable + " can only be a positive number with at most 9 digits");
+            throw new ParserException(variable + " can only be a positive integer with at most 9 digits");
         }
     }
 
@@ -125,6 +125,18 @@ public abstract class ParseExpenditure {
     void checkDescription(String descString, String keyword) throws ParserException {
         if (!RegexUtil.regexCheckDescription(descString)) {
             throw new ParserException(keyword + " can only contain numbers and letters and at most 50 characters");
+        }
+    }
+
+    /**
+     * Checks if the category entered by the user does not have special characters and is not too long.
+     *
+     * @param category Category of transaction.
+     * @throws ParserException If the string has special characters or is too long.
+     */
+    void checkCategory(String category) throws ParserException {
+        if (!RegexUtil.regexCheckCategory(category)) {
+            throw new ParserException("/category can only contain numbers and letters and at most 15 characters");
         }
     }
 

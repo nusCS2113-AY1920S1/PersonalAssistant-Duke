@@ -107,7 +107,7 @@ public class GoalsListTest {
         GoalsException thrown = assertThrows(GoalsException.class, () ->
                         testList.deleteFromGoalList("test3", testUi),
                 "Expected to deleteFromGoalsList to throw, but didn't");
-        assertEquals("There is no goal with the name: test3", thrown.toString());
+        assertEquals("There are no goals with the name: test3", thrown.toString());
     }
 
     @Test

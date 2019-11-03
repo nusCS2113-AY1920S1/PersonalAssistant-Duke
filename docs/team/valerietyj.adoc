@@ -4,21 +4,24 @@
 :repoURL: https://github.com/AY1920S1-CS2113T-W17-3/main
 :experimental:
 
-= *Valerie Tan* - Project Portfolio for OwlMoney
+== *Valerie Tan* - Project Portfolio for OwlMoney
 
-Hello I am Valerie, currently pursuing Information Security in the National University of Singapore (NUS).
+Hello I am Valerie, a Year 2 Undergraduate pursuing Information Security in the National University of Singapore (NUS).
 
 This portfolio aims to provide a detailed outline of my contributions during the development of our group's
 application, *OwlMoney*.
+
+
 We are a team of five, led by<<shamussy#,Shamus Neo Zhi Kai>> and comprises of <<briantkm#,Brian Tan Kian Ming>>,
 <<mong-nus#,Mong Zheng Wei>>, <<terencetan#, Terence Tan Wee Theng>> and <<valerietyj#,myself>>.
 
-== About the project
-[.underline]*OwlMoney* is specially created and developed for our Software Engineering
-and Object-Oriented Project, focused on designing and implementing a command-line based personal assistant.
+=== About the project
+[.underline]*OwlMoney* is a finance tracker and investment management application, specially created and developed
+for our Software Engineering and Object-Oriented Project, focused on designing and
+implementing a command-line based personal assistant.
 
 We decided to name it [.underline]*OwlMoney* as it equipped with the mission to help Undergraduates / Fresh Graduates
-manage and *_track their finances efficiently, effectively, and more conveniently._*
+*_manage and track their finances efficiently, effectively, and more conveniently._*
 
 At first start, OwlMoney provides users with a fresh look and thereafter, a
 direct way of entering and accessing the features in OwlMoney:
@@ -27,10 +30,10 @@ direct way of entering and accessing the features in OwlMoney:
 image::UiReadMe.png[width="800"]
 
 My main responsibility when developing this application was to implement and
-design the code for `goals` feature. Following sections will illustrate in
-details my contribution as one of *OwlMoney's* Developer for the past 8-weeks.
+design the code for `goals` feature. The following sections will go in-depth on `goals` feature and
+showcase my team contribution as one of *OwlMoney's* Developer for the past 8-weeks.
 
-== Summary of Contributions
+=== Summary of Contributions
 Here are the links as a reference to my implementation for `goals` Features:
 
 * {repoURL}/commits?author=valeriety[Commits]
@@ -40,7 +43,7 @@ Here are the links as a reference to my implementation for `goals` Features:
 * https://nuscs2113-ay1920s1.github.io/dashboard/#search=valerietyj[RepoSense
 Code Contribution Dashboard]
 
-=== Enhancement added
+==== Enhancement added
 `goals` features functionality for users to `add`, `delete`, `edit` and `list` financial goals.
 OwlMoney users have a choice of linking their saving accounts to the goals added to better facilitate tracking of
 their goals progress.
@@ -63,25 +66,26 @@ Listing of all financial goals user has set.
 
 Justification of features added::
 Our target users for OwlMoney are Fresh Graduates / Undergraduates, these features stated above were necessary to
-model real-life setting of having goals and target.
+model real-life setting of having goals and target, providing users the flexibility whilst achieving their target goals.
 
 Highlights::
 `goals` works well with future implementations and enhancement for OwlMoney such as linking to other accounts or
-unlocking new achievements.
-
-`goals` are meant to motivate users to save and properly manage their finances for any financial goals that they wish
-to achieve. There were several challenges faced due to design considerations of `goals`.
+unlocking new achievements. `goals` are meant to motivate users to save and properly manage their finances for any
+financial goals that they wish to achieve. Each goals have a deadline set and users goals will be marked automatically
+when their savings account reach their target amount.
 
 Credits::
 Collaborated with <<briantkm#, Brian Tan Kian Ming>> on the linking of user's goal to savings account.
 
-=== Other contributions
+==== Other contributions
 
 * Project Management:
 ** Assist in coordinating team meetings and documenting meeting notes.
 * Documentation:
 ** As a team, we worked together on the User Guide and Developer Guide,
 ensuring they are bug-free and reader-friendliness.
+** As a team, we worked closely together in the initial stage of OwlMoney's development to
+identify suitable target users, user stories and use cases.
 * Team contribution:
 ** Reviewed Pull Requests
 ** Fixed bugs and errors on Developer Guide, User Guide as per Tutor's advice
@@ -89,7 +93,7 @@ ensuring they are bug-free and reader-friendliness.
 
 
 
-== Contributions to User Guide
+=== Contributions to User Guide
 |===
 |_Listed below are my additions to OwlMoney's User Guide that are specific to end-users which is helpful for them
 to get started with OwlMoney._
@@ -97,10 +101,10 @@ to get started with OwlMoney._
 
 include::../UserGuide.adoc[tag=goals]
 
-== Contributions to Developer Guide
+=== Contributions to Developer Guide
 |===
-|_These are the currently the areas which I have contributed to `goals` features in the Developer Guide.
-to guide end-users with the_
+|_Listed below are the areas which I have currently contributed to `goals` features in the Developer Guide, which aims
+to provide experienced end-users a walk-through on the design implementation and frameworks of OwlMoney._
 |===
 include::../DeveloperGuide.adoc[tag=goals_class]
 

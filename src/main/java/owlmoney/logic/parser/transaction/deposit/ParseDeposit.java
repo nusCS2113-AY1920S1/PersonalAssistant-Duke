@@ -73,19 +73,19 @@ public abstract class ParseDeposit {
      */
     public void fillHashTable() throws ParserException {
         depositParameters.put(AMOUNT,
-                parseRawData.extractParameter(rawData, AMOUNT, EXPENDITURE_KEYWORD));
+                parseRawData.extractParameter(rawData, AMOUNT, EXPENDITURE_KEYWORD).trim());
         depositParameters.put(DATE,
-                parseRawData.extractParameter(rawData, DATE, EXPENDITURE_KEYWORD));
+                parseRawData.extractParameter(rawData, DATE, EXPENDITURE_KEYWORD).trim());
         depositParameters.put(DESCRIPTION,
-                parseRawData.extractParameter(rawData, DESCRIPTION, EXPENDITURE_KEYWORD));
+                parseRawData.extractParameter(rawData, DESCRIPTION, EXPENDITURE_KEYWORD).trim());
         depositParameters.put(TO,
-                parseRawData.extractParameter(rawData, TO, EXPENDITURE_KEYWORD));
+                parseRawData.extractParameter(rawData, TO, EXPENDITURE_KEYWORD).trim());
         depositParameters.put(TRANSNO,
-                parseRawData.extractParameter(rawData, TRANSNO, EXPENDITURE_KEYWORD));
+                parseRawData.extractParameter(rawData, TRANSNO, EXPENDITURE_KEYWORD).trim());
         depositParameters.put(FROM,
-                parseRawData.extractParameter(rawData, FROM, EXPENDITURE_KEYWORD));
+                parseRawData.extractParameter(rawData, FROM, EXPENDITURE_KEYWORD).trim());
         depositParameters.put(NUM,
-                parseRawData.extractParameter(rawData, NUM, EXPENDITURE_KEYWORD));
+                parseRawData.extractParameter(rawData, NUM, EXPENDITURE_KEYWORD).trim());
     }
 
     /**
@@ -109,7 +109,7 @@ public abstract class ParseDeposit {
      */
     void checkInt(String variable, String valueString) throws ParserException {
         if (!RegexUtil.regexCheckListNumber(valueString)) {
-            throw new ParserException(variable + " can only be a positive number with at most 9 digits");
+            throw new ParserException(variable + " can only be a positive integer with at most 9 digits");
         }
     }
 
