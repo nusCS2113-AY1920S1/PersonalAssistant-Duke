@@ -55,7 +55,7 @@ public class ExpenseCommand extends Command {
             } else if (ui.fullCommand.contains("delete")) {
                 new DeleteExpenseCommand(ui, storage, expenses);
             } else if (ui.fullCommand.equals("list")) {
-                new ExpenseListCommand(ui, expenses);
+                new ExpenseListCommand(ui, storage, expenses);
             }
             ui.readCommand();
         }

@@ -41,11 +41,11 @@ public class DeleteExpenseCommand {
         DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate getKey = LocalDate.parse(getKeyFromList, fmt);
 
-        String getValueFromList = expenseList.get(index).split(" ")[1] + " " + expenseList.get(index).split(" ")[2];
+        String getValueFromList = expenseList.get(index).split(" | ")[0].trim();
         for (LocalDate key : expenses.keySet()) {
             if (key.equals(getKey)) {
                 for (int i = 0; i < expenses.get(key).size(); i++) {
-                    if (expenses.get(key).get(i).equals(getValueFromList)) {
+                    if (expenses.get(key).get(i).contains(getValueFromList)) {
                         expenses.get(key).remove(i);
                     }
                 }
@@ -53,7 +53,6 @@ public class DeleteExpenseCommand {
         }
 
         expenseList.remove(index);
-        expenses.get(getKey).remove(index);
         /*Stores the updated expenses map after deletion of expenses*/
         String toStore = "";
         for (LocalDate key : expenses.keySet()) {
