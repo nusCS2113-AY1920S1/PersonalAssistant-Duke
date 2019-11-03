@@ -35,7 +35,7 @@ public interface IProject {
 
     void editTask(int taskIndexNumber, String updatedTaskDetails);
 
-    void editTaskRequirements(int taskIndexNumber, String updatedTaskRequirements);
+    String[] editTaskRequirements(int taskIndexNumber, String updatedTaskRequirements);
 
     ArrayList<String> getCredits();
 
