@@ -79,10 +79,51 @@ public class ConsecutiveLogin extends Achievements {
      */
     public ConsecutiveLogin(String achievementLevel) {
         this.description = "Dedicated to the art";
-        this.information = "Logs in for 5, 10 and 15 days for Bronze, Silver and Gold consecutively.";
+        switch(achievementLevel) {
+            case "Bronze": {
+                this.information = "(User logs in 5 days consecutively)";
+            } break;
+            case "Silver": {
+                this.information = "(User logs in 10 days consecutively)";
+            } break;
+            case "Gold" : {
+                this.information = "(User logs in 15 days consecutively)";
+            } break;
+        }
         this.achievementLevel = achievementLevel;
         this.points = 0;
         this.locked = true;
+    }
+
+    private String progress() {
+        double nextLevel = consecutiveCount;
+        double goal = 0;
+        double percentage = 0;
+        switch(achievementLevel) {
+            case "Bronze": {
+                if(consecutiveCount >= 5) {
+                    nextLevel = 5;
+                }
+                goal = 5;
+                percentage = nextLevel/goal * 100;
+            } break;
+            case "Silver": {
+                if(consecutiveCount >= 10) {
+                    nextLevel = 10;
+                }
+                goal = 10;
+                percentage = nextLevel/goal * 100;
+            } break;
+            case "Gold": {
+                if(consecutiveCount >= 15) {
+                    nextLevel = 15;
+                }
+                goal = 15;
+                percentage = nextLevel/goal * 100;
+            } break;
+        }
+
+        return " Progress: [" + (int)percentage + "%]";
     }
 
     /**
@@ -238,7 +279,7 @@ public class ConsecutiveLogin extends Achievements {
      */
     @Override
     public String toString() {
-        return super.toString() + " " + points + " " + description + " " + achievementLevel;
+        return super.toString() + " " + points + " " + description + " " + achievementLevel + " " + this.information + progress();
     }
 
     /**

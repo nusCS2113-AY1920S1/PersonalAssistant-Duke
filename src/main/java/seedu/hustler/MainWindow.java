@@ -32,8 +32,12 @@ public class MainWindow extends AnchorPane{
     private TextField userInput;
     @FXML
     private TextArea console;
+
     @FXML
     private static PrintStream ps;
+
+    @FXML
+    private static PrintStream hps;
     @FXML
     private Button sendButton;
     @FXML
@@ -85,10 +89,12 @@ public class MainWindow extends AnchorPane{
     public void initialize() throws IOException {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         ps = new PrintStream(new Console(console));
+        //hps = new PrintStream(new HistoryConsole(historyConsole));
         console.setEditable(false);
         onPrinting();
         Hustler.initialize();
         showWelcome();
+//        rootPane.getChildren().remove(historyConsole);
     }
 
     public void setHustler(Hustler h) {
@@ -99,6 +105,11 @@ public class MainWindow extends AnchorPane{
         System.setOut(ps);
         System.setErr(ps);
     }
+
+//    public static void onHCPrinting() {
+//        System.setOut(hps);
+//        System.setErr(hps);
+//    }
 
     public static void offPrinting() {
         System.setOut(dummyStream);
@@ -117,12 +128,31 @@ public class MainWindow extends AnchorPane{
 
         public void appendText(String valueOf) {
             Platform.runLater(() -> console.appendText(valueOf));
+//            Font font = new Font("Gill Sans", 15);
+//            console.setFont(font);
         }
-
         public void write(int b) {
             appendText(String.valueOf((char)b));
         }
     }
+
+//    public class HistoryConsole extends OutputStream {
+//        private TextArea historyConsole;
+//
+//        public HistoryConsole(TextArea historyConsole) {
+//            this.historyConsole = historyConsole;
+//
+//        }
+//
+//        public void appendHCText(String valueOf) {
+//            Platform.runLater(() -> historyConsole.appendText(valueOf));
+//            Font font = new Font("Gill Sans", 15);
+//            historyConsole.setFont(font);
+//        }
+//        public void write(int b) {
+//            appendHCText(String.valueOf((char)b));
+//        }
+//    }
 
     /**
      * Creates a dummy stream which does not print anything.
@@ -154,12 +184,16 @@ public class MainWindow extends AnchorPane{
             console.clear();
             if (Arrays.asList(timerModeCommands).contains(command)) {
                 taskCompletionModeAction();
+
             } else if (input.equals("/achievements")) {
                 achievementAction();
+
             } else if (Arrays.asList(avatarModeCommands).contains(command)) {
                 avatarAction();
+
             } else if (Arrays.asList(shopModeCommands).contains(command)) {
                 shopAction();
+
             } else {
                 taskAction();
             }
@@ -239,6 +273,7 @@ public class MainWindow extends AnchorPane{
         profile.setEffect(null);
         trolley.setEffect(null);
         swords.setEffect(null);
+        //history.setEffect(null);
 
         task.setStyle("-fx-background-color:#243342");
         taskCompletionMode.setStyle("-fx-background-color:#34495E");
@@ -248,6 +283,7 @@ public class MainWindow extends AnchorPane{
         shop.setStyle("-fx-background-color:#34495E");
         arena.setStyle("-fx-background-color:#34495E");
         //settings.setStyle("-fx-background-color:#34495E");
+        //historyButton.setStyle("-fx-background-color:#34495E");
 
         task.textFillProperty().setValue(Paint.valueOf("#ffffff"));
         taskCompletionMode.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
@@ -257,6 +293,7 @@ public class MainWindow extends AnchorPane{
         shop.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
         arena.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
         // settings.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
+       // historyButton.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
     }
 
     @FXML
@@ -291,6 +328,7 @@ public class MainWindow extends AnchorPane{
         profile.setEffect(null);
         trolley.setEffect(null);
         swords.setEffect(null);
+        //history.setEffect(null);
 
         task.setStyle("-fx-background-color:#34495E");
         taskCompletionMode.setStyle("-fx-background-color:#243342");
@@ -300,6 +338,7 @@ public class MainWindow extends AnchorPane{
         shop.setStyle("-fx-background-color:#34495E");
         arena.setStyle("-fx-background-color:#34495E");
         //settings.setStyle("-fx-background-color:#34495E");
+        //historyButton.setStyle("-fx-background-color:#34495E");
 
         task.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
         taskCompletionMode.textFillProperty().setValue(Paint.valueOf("#ffffff"));
@@ -309,6 +348,7 @@ public class MainWindow extends AnchorPane{
         shop.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
         arena.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
         //settings.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
+        //historyButton.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
     }
 
     @FXML
@@ -340,6 +380,7 @@ public class MainWindow extends AnchorPane{
         profile.setEffect(null);
         trolley.setEffect(null);
         swords.setEffect(null);
+        //history.setEffect(null);
 
         task.setStyle("-fx-background-color:#34495E");
         taskCompletionMode.setStyle("-fx-background-color:#34495E");
@@ -349,6 +390,7 @@ public class MainWindow extends AnchorPane{
         shop.setStyle("-fx-background-color:#34495E");
         arena.setStyle("-fx-background-color:#34495E");
         //settings.setStyle("-fx-background-color:#34495E");
+        //historyButton.setStyle("-fx-background-color:#34495E");
 
         task.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
         taskCompletionMode.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
@@ -358,6 +400,7 @@ public class MainWindow extends AnchorPane{
         shop.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
         arena.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
         //settings.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
+        //historyButton.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
     }
 
     @FXML
@@ -392,6 +435,7 @@ public class MainWindow extends AnchorPane{
         profile.setEffect(null);
         trolley.setEffect(null);
         swords.setEffect(null);
+        //history.setEffect(null);
 
         task.setStyle("-fx-background-color:#34495E");
         taskCompletionMode.setStyle("-fx-background-color:#34495E");
@@ -401,6 +445,7 @@ public class MainWindow extends AnchorPane{
         shop.setStyle("-fx-background-color:#34495E");
         arena.setStyle("-fx-background-color:#34495E");
         //settings.setStyle("-fx-background-color:#34495E");
+        //historyButton.setStyle("-fx-background-color:#34495E");
 
         task.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
         taskCompletionMode.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
@@ -410,6 +455,7 @@ public class MainWindow extends AnchorPane{
         shop.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
         arena.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
         //settings.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
+        //historyButton.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
     }
 
     @FXML
@@ -444,6 +490,7 @@ public class MainWindow extends AnchorPane{
         profile.setEffect(color);
         trolley.setEffect(null);
         swords.setEffect(null);
+        //history.setEffect(null);
 
         task.setStyle("-fx-background-color:#34495E");
         taskCompletionMode.setStyle("-fx-background-color:#34495E");
@@ -453,6 +500,7 @@ public class MainWindow extends AnchorPane{
         shop.setStyle("-fx-background-color:#34495E");
         arena.setStyle("-fx-background-color:#34495E");
         //settings.setStyle("-fx-background-color:#34495E");
+        ///historyButton.setStyle("-fx-background-color:#34495E");
 
         task.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
         taskCompletionMode.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
@@ -462,6 +510,7 @@ public class MainWindow extends AnchorPane{
         shop.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
         arena.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
         //settings.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
+        //historyButton.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
     }
 
     @FXML
@@ -497,6 +546,7 @@ public class MainWindow extends AnchorPane{
         profile.setEffect(null);
         trolley.setEffect(color);
         swords.setEffect(null);
+        //history.setEffect(null);
 
         task.setStyle("-fx-background-color:#34495E");
         taskCompletionMode.setStyle("-fx-background-color:#34495E");
@@ -506,6 +556,7 @@ public class MainWindow extends AnchorPane{
         shop.setStyle("-fx-background-color:#243342");
         arena.setStyle("-fx-background-color:#34495E");
         //settings.setStyle("-fx-background-color:#34495E");
+        //historyButton.setStyle("-fx-background-color:#34495E");
 
         task.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
         taskCompletionMode.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
@@ -515,6 +566,7 @@ public class MainWindow extends AnchorPane{
         shop.textFillProperty().setValue(Paint.valueOf("#ffffff"));
         arena.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
         //settings.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
+        //historyButton.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
     }
 
     @FXML
@@ -550,6 +602,7 @@ public class MainWindow extends AnchorPane{
         profile.setEffect(null);
         trolley.setEffect(null);
         swords.setEffect(color);
+        //history.setEffect(null);
 
         task.setStyle("-fx-background-color:#34495E");
         taskCompletionMode.setStyle("-fx-background-color:#34495E");
@@ -559,6 +612,7 @@ public class MainWindow extends AnchorPane{
         shop.setStyle("-fx-background-color:#34495E");
         arena.setStyle("-fx-background-color:#243342");
         //settings.setStyle("-fx-background-color:#34495E");
+        //historyButton.setStyle("-fx-background-color:#34495E");
 
         achievement.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
         task.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
@@ -568,5 +622,60 @@ public class MainWindow extends AnchorPane{
         shop.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
         arena.textFillProperty().setValue(Paint.valueOf("#ffffff"));
         //settings.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
+        //historyButton.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
     }
+
+//    @FXML
+//    public void historyAction() {
+//        heading.getChildren().clear();
+//
+//        Text arenaAction = new Text("HISTORY");
+//        arenaAction.setFont(Font.font("Gill Sans", 15));
+//        arenaAction.setFill(Color.GRAY);
+//
+//        StackPane titlePane = new StackPane();
+//        //titlePane.setMargin(title1, new Insets(0,0,0,50));
+//        titlePane.setAlignment(arenaAction, Pos.CENTER);
+//        titlePane.prefHeightProperty().bind(heading.prefHeightProperty());
+//        titlePane.prefWidthProperty().bind(heading.widthProperty());
+//        titlePane.getChildren().addAll(arenaAction);
+//
+//        heading.getChildren().addAll(titlePane);
+//
+//        flowPane.setStyle("-fx-background-color:#ffffff");
+//        flowPane.getChildren().clear();
+//
+//        ColorAdjust color = new ColorAdjust();
+//        color.setContrast(0.35);
+//        color.setHue(-0.21);
+//        color.setBrightness(0.09);
+//        color.setSaturation(1.0);
+//
+//        menu.setEffect(null);
+//        timer.setEffect(null);
+//        trophy.setEffect(null);
+//        spiderGraph.setEffect(null);
+//        profile.setEffect(null);
+//        trolley.setEffect(null);
+//        swords.setEffect(null);
+//        history.setEffect(color);
+//
+//        task.setStyle("-fx-background-color:#34495E");
+//        taskCompletionMode.setStyle("-fx-background-color:#34495E");
+//        achievement.setStyle("-fx-background-color:#34495E");
+//        statistics.setStyle("-fx-background-color:#34495E");
+//        avatar.setStyle("-fx-background-color:#34495E");
+//        shop.setStyle("-fx-background-color:#34495E");
+//        arena.setStyle("-fx-background-color:#34495E");
+//        historyButton.setStyle("-fx-background-color:#243342");
+//
+//        achievement.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
+//        task.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
+//        taskCompletionMode.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
+//        statistics.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
+//        avatar.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
+//        shop.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
+//        arena.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
+//        historyButton.textFillProperty().setValue(Paint.valueOf("#ffffff"));
+//    }
 }

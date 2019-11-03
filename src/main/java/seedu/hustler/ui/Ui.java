@@ -303,7 +303,7 @@ public class Ui {
      * @param achievement newly unlocked achievement
      */
     public void showAchievementUnlocked(Achievements achievement) {
-        System.out.println("Congratulations, you have unlocked this achievement!" + achievement.toString());
+        System.out.println("Congratulations, you have unlocked this achievement!\n" + achievement.toString());
     }
 
     /**
@@ -312,7 +312,7 @@ public class Ui {
      * @param achievementList list of achievements
      */
     public void showAchievementList(ArrayList<Achievements> achievementList) {
-        System.out.println(" ACHIEVEMENTS UNLOCKED ");
+        System.out.println("********* UNLOCKED ACHIEVEMENTS *********");
         if (!achievementList.isEmpty()) {
             int l = 0;
             for (int i = 0; i < achievementList.size(); i++) {
@@ -322,7 +322,7 @@ public class Ui {
                     System.out.println(achievementList.get(i));
                 }
             }
-            System.out.println(" LOCKED ACHIEVEMENTS ");
+            System.out.println("\n********* LOCKED ACHIEVEMENTS *********");
             int j = 0;
             for (int i = 0; i < achievementList.size(); i++) {
                 if (achievementList.get(i).checkLock()) {
@@ -331,7 +331,7 @@ public class Ui {
                     System.out.println(achievementList.get(i));
                 }
             }
-            System.out.println("Total Points = " + totalPoints);
+            System.out.println("\nTotal Points = " + totalPoints);
         }
     }
 }

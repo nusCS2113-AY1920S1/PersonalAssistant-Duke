@@ -67,10 +67,50 @@ public class DoneTask extends Achievements {
      */
     public DoneTask(String achievementLevel) {
         this.description = "Completionist";
-        this.information = "Completed 5 tasks, 25 tasks and 125 tasks for Bronze, Silver and Gold consecutively.";
+        switch(achievementLevel) {
+            case "Bronze": {
+                this.information = "(User completes 5 tasks)";
+            } break;
+            case "Silver": {
+                this.information = "(User completes 10 tasks)";
+            } break;
+            case "Gold" : {
+                this.information = "(User completes 15 tasks)";
+            } break;
+        }
         this.achievementLevel = achievementLevel;
         this.points = 0;
         this.locked = true;
+    }
+
+    private String progress() {
+        double nextLevel = numberOfDone;
+        double goal;
+        double percentage = 0;
+        switch(achievementLevel) {
+            case "Bronze": {
+                if(numberOfDone >= 5) {
+                    nextLevel = 5;
+                }
+                goal = 5;
+                percentage = nextLevel/goal * 100;
+            } break;
+            case "Silver": {
+                if(numberOfDone >= 10) {
+                    nextLevel = 10;
+                }
+                goal = 10;
+                percentage = nextLevel/goal * 100;
+            } break;
+            case "Gold": {
+                if(numberOfDone >= 15) {
+                    nextLevel = 15;
+                }
+                goal = 15;
+                percentage = nextLevel/goal * 100;
+            } break;
+        }
+        return " Progress: [" + (int)percentage + "%]";
     }
 
     /**
@@ -195,7 +235,7 @@ public class DoneTask extends Achievements {
      */
     @Override
     public String toString() {
-        return super.toString() + " " + points + " " + description + " " + achievementLevel;
+        return super.toString() + " " + points + " " + description + " " + achievementLevel + " " + this.information +  progress();
     }
 
     /**
