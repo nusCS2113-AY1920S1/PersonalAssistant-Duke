@@ -185,8 +185,12 @@ public class CapCommand extends ModuleCommand {
             currentCap += (letterGradeToCap(userInfo[1].toUpperCase()) * mcTemp);
             userInput = scanner.nextLine();
         }
-        double averageCap = currentCap / mcCount;
-        plannerUi.capMsg(averageCap);
+        if (currentCap == 0 && mcCount == 0) {
+            plannerUi.capMsg(0.00);
+        } else {
+            double averageCap = currentCap / mcCount;
+            plannerUi.capMsg(averageCap);
+        }
     }
 
     /**
