@@ -25,23 +25,12 @@ Refer to the guide <<SettingUp#, here>>.
 === Architecture
 
 .Architecture Diagram
-image::ArchitectureDiagram.png[]
+image::architecture_diagram.png[]
 
 The *_Architecture Diagram_* given above explains the high-level design of BakingHome.
 Given below is a quick overview of each component.
 
-`MainApp` has two classes called link:https://github.com/AY1920S1-CS2113T-T12-3/main/blob/master/src/main/java/duke/Main.java[`Main`] and link:https://github.com/AY1920S1-CS2113T-T12-3/main/blob/master/src/main/java/duke/Launcher.java[`Launcher`].
-It is responsible for,
-
-* At app launch: Initializes the components in the correct sequence, and connects them up with each other.
-* At shut down: Shuts down the components and invokes cleanup method where necessary.
-
-<<Design-Commons,*`Commons`*>> represents a collection of classes used by multiple other components.
-The following class plays an important role at the architecture level:
-
-* `LogsCenter` : Used by many classes to write log messages to the App's log file.
-
-The rest of the App consists of four components.
+BakingHome consists of four components.
 
 * <<Design-Ui,*`UI`*>>: The UI of the App.
 * <<Design-Logic,*`Logic`*>>: The command executor.
@@ -75,12 +64,12 @@ The `UI` component,
 
 [[fig-LogicClassDiagram]]
 .Structure of the Logic Component
-image::LogicClassDiagram.png[]
+image::logic_diagram.png[]
 
 *API* :
 link:https://github.com/AY1920S1-CS2113T-T12-3/main/blob/master/src/main/java/duke/logic/Logic.java[`Logic.java`]
 
-. `Logic` uses the `BakingHomeParser` class to parse the user command.
+. `LogicManager` uses the `Parser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
 . The command execution can affect the `Model` (for example, deleting an order).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.

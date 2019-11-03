@@ -131,11 +131,13 @@ public class AutoCompleterTest {
      * 3.   not null   |   negative number
      * 4.   not null   |   larger than userInput.length()
      *
-     * Applying boundary value analysis, we have 4 more:
-     * 5.   not null   |   0
-     * 6.   not null   |   -1
-     * 7.   length n   |   n
-     * 8.   length n   |   n+1
+     * Applying boundary value analysis (BVA), we have 6 more:
+     * 5.   not null   |   -1
+     * 6.   not null   |   0
+     * 7.   not null   |   1
+     * 8    length n   |   n-1
+     * 9.   length n   |   n
+     * 10.   length n   |   n+1
      */
 
     @Test
@@ -161,23 +163,37 @@ public class AutoCompleterTest {
             () -> new AutoCompleter.UserInputState("order", 10));
     }
 
-    @Test
-    public void newState_zeroCaretPosition_success() {
-        Assertions.assertAll(() -> new AutoCompleter.UserInputState("hello", 0));
-    }
-
+    //==== BVA ====
+    /**
+     * BVA test case 5.
+     */
     @Test
     public void newState_minusOneCaretPosition_throwsParseException() {
         Assertions.assertThrows(ParseException.class,
             () -> new AutoCompleter.UserInputState("order", -1));
     }
 
+    /**
+     * BVA test cases 6,7.
+     */
     @Test
-    public void newState_upperBoundaryCaretPosition_success() {
-        Assertions.assertAll(() -> new AutoCompleter.UserInputState("hello", 5));
-
+    public void newState_zeroCaretPosition_success() {
+        Assertions.assertAll(() -> new AutoCompleter.UserInputState("hello", 1));
+        Assertions.assertAll(() -> new AutoCompleter.UserInputState("hello", 0));
     }
 
+    /**
+     * BVA Test cases 8,9.
+     */
+    @Test
+    public void newState_upperBoundaryCaretPosition_success() {
+        Assertions.assertAll(() -> new AutoCompleter.UserInputState("hello", 4));
+        Assertions.assertAll(() -> new AutoCompleter.UserInputState("hello", 5));
+    }
+
+    /**
+     * BVA Test case 10.
+     */
     @Test
     public void newState_upperBoundaryCaretPosition_throwsParseException() {
         Assertions.assertThrows(ParseException.class,
