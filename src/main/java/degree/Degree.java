@@ -502,7 +502,7 @@ public class Degree {
      *
      * @return String which is the longest alias (thus proper)
      */
-    private String getProperName() {
+    public String getProperName() {
         String res = "";
         for(String x:aliases) {
             if(x.length() > res.length()) {
@@ -523,9 +523,9 @@ public class Degree {
     }
 
     /**
-     * Returns the similar list of modules from all modules compared to another degree
+     * Returns the difference list of modules from all modules compared to another degree
      *
-     * @return ModuleList containing similar modules;
+     * @return ModuleList containing different modules;
      */
 
     public ModuleList masterDifference(Degree other)

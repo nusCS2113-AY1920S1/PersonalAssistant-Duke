@@ -72,10 +72,15 @@ public class Parser {
             }
         } else if (command.matches("todo|deadline|event|done|delete|find|select|recurring|after|within|fixed"
                 + "|snooze|schedule|add|remove|swap|sort|detail|compare")) {
-            if (!temp.hasNextLine()) {
+            if (!temp.hasNextLine() && command.matches("detail")) {
+                throw new DukeException("You can try \" detail come \" to show information on Computer Engineering!");
+            } else if (!temp.hasNextLine() && command.matches("compare")) {
+                throw new DukeException("You can try \" compare bme come \" to show differences between "
+                        + "Biomedical Engineering and Computer Engineering!");
+            } else if (!temp.hasNextLine()) {
                 throw new DukeException("OOPS!!! The description of a " + command + " cannot be empty.");
             }
-            String input = temp.nextLine();
+                String input = temp.nextLine();
             input = input.strip();
             //System.out.println("input is" + input + "\nCommand is" + command);
 

@@ -46,6 +46,7 @@ public class Duke extends Application {
     private UniversityTaskHandler universityTaskHandler = new UniversityTaskHandler();
     private DegreeListStorage DegreeListStorage = new DegreeListStorage();
     private CommandList commandList = new CommandList();
+    private Boolean typoFlag;
     public ArrayList<String> getTasks() {
         return mydegrees;
     }
@@ -111,6 +112,7 @@ public class Duke extends Application {
      */
     //method output initial reading of save file
     public String run(String line) throws DukeException {
+        typoFlag = false;
         ByteArrayOutputStream output = new ByteArrayOutputStream();
         PrintStream ps = new PrintStream(output);
         PrintStream old = System.out;
@@ -139,6 +141,9 @@ public class Duke extends Application {
                 if ((c.getClass() == AddCommand.class) | (c.getClass() == ModCommand.class)
                         | (c.getClass() == SortCommand.class) | (c.getClass() == SwapCommand.class)) {
                     commandList.addCommand(c, this.myList, this.ui, this.storage, this.lists, this.degreesManager, line);
+                } else if ((c.getClass() == BadCommand.class) || c.getClass() == null) {
+                    typoFlag = true; //when the user enters a command not understood by the program, trigger flag
+                    c.execute(this.myList, this.ui, this.storage, this.lists, this.degreesManager);
                 } else {
                     c.execute(this.myList, this.ui, this.storage, this.lists, this.degreesManager);
                 }
@@ -195,6 +200,42 @@ public class Duke extends Application {
     @Override
     public void start(Stage stage) {
 
+    }
+
+    /**
+     * Method to return the current task list in duke, for use in javafx
+     *
+     * @return the task list to be used by javafx
+     */
+    public TaskList getTaskList() {
+        return this.myList;
+    }
+
+    /**
+     * Method to return the current choices of degree list in duke, for use in javafx
+     *
+     * @return the choices of degrees list to be used by javafx
+     */
+    public DegreeList getDegreeList() {
+        return this.lists;
+    }
+
+    /**
+     * Method to check if the most recent input has a type and thus the command is not accepted
+     *
+     * @return the flag to javafx to check for user typos
+     */
+    public Boolean getTypoFlag () {
+        return this.typoFlag;
+    }
+
+    /**
+     * Method to return the degree information stored in duke, for use in javafx
+     *
+     * @return the degree manager storing the degree information, of use in javafx
+     */
+    public DegreeManager getDegreesManager () {
+        return this.degreesManager;
     }
 
 }

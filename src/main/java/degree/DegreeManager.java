@@ -1,6 +1,7 @@
 package degree;
 
 import exception.DukeException;
+import list.DegreeList;
 import module.ModuleList;
 import storage.Storage;
 
@@ -15,6 +16,7 @@ public class DegreeManager {
     private Map<String, Degree> degreeInfo = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
     private Map<String, List<String>> disjointSetFake = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
     private ModuleList masterList = new ModuleList();
+    private boolean foundFlag = true;
 
     /**
      * Constructs a degree manager class which handles queries for degrees and returns the appropiate information
@@ -39,30 +41,6 @@ public class DegreeManager {
      */
     public DegreeManager() {
 
-    }
-
-    /**
-     * Method to facilitate the deep cloning of this taskList.
-     * Returns a copy of this taskList, but with different references.
-     * This is to avoid shallow copying, which will also modify the saved state of the taskList.
-     *
-     * @return A copy of this taskList with different references to objects.
-     */
-    public DegreeManager deepClone() {
-        try {
-            //Serialization of object
-            ByteArrayOutputStream byteOutputStream = new ByteArrayOutputStream();
-            ObjectOutputStream objectOutputStream = new ObjectOutputStream(byteOutputStream);
-            objectOutputStream.writeObject(this);
-
-            //De-serialization of object
-            ByteArrayInputStream byteInputStream = new ByteArrayInputStream(byteOutputStream.toByteArray());
-            ObjectInputStream objectInputStream = new ObjectInputStream(byteInputStream);
-            return (DegreeManager) objectInputStream.readObject();
-        } catch (IOException | ClassNotFoundException e) {
-            System.out.println(e.getLocalizedMessage());
-            return null;
-        }
     }
 
     /**
@@ -102,11 +80,19 @@ public class DegreeManager {
         throw new DukeException(item + " was not found in our records!");
     }
 
+    /**
+     * Clears out the current degreeManager.
+     */
     public void clear() {
         degreeInfo.clear();
     }
 
-    public long size() {
+    /**
+     * Returns the size of this degreeManager.
+     *
+     * @return The number of degrees in this degreeManager.
+     */
+    public int size() {
         return degreeInfo.size();
     }
 
@@ -139,5 +125,33 @@ public class DegreeManager {
             throw new DukeException("Unable to find matching degrees for: "+ errorList.toString());
         }
         degreeInfo.get(split[0]).compare(degreeInfo.get(split[1]));
+    }
+
+    /**
+     * Returns the modules of a certain degree as a moduleList.
+     *
+     * @param degree The name of the degree corresponding to the modules required.
+     * @return The modules of this degree as a moduleList.
+     */
+    public ModuleList getModuleList(String degree) {
+        return degreeInfo.get(degree).getMaster();
+    }
+
+    /**
+     * Method to return the full name of a degree course to check if a degree exists.
+     *
+     * @return String full name of the course/degree
+     */
+    public String getFullDegreeName(String degree) {
+        return degreeInfo.get(degree).getProperName();
+    }
+
+    /**
+     * Method to return a flag to check if a degree exists.
+     *
+     * @return boolean check for existence of a degree.
+     */
+    public boolean getFoundFlag() {
+        return this.foundFlag;
     }
 }
