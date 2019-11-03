@@ -412,10 +412,14 @@ public class ProjectInputController implements IController {
     public String[] projectViewAssignments(Project projectToManage, String projectCommand) {
         ArchDukeLogger.logDebug(ProjectInputController.class.getName(),
                 "[projectViewAssignments] User input: '" + projectCommand + "'");
-        if (projectCommand.length() <= 18) {
-            return (new String[]{"Please input the parameters to view assignments:",
-                "-m for viewing by member, -t for viewing by task.",
-                "You may refer to the user guide for the list of possible commands."});
+        String errorMessageInsufficientParams = "Please input the parameters to view assignments:";
+        String errorMessageNoSymbol = "**\t-m for viewing by member, -t for viewing by task.";
+        String errorMessageNoSuffix = "**\t\"all\" to view all assignments, or enter selected task/member index numbers.";
+        String errorMessageGuide = "You may refer to the user guide or enter \"help\" for the list of possible commands.";
+
+        if (projectCommand.length() <= 20) {
+            return (new String[] {errorMessageInsufficientParams, errorMessageNoSuffix, errorMessageNoSymbol,
+                errorMessageGuide});
         } else {
             String input = projectCommand.substring(17);
             if (input.charAt(0) == '-' && input.charAt(1) == 'm') {
@@ -425,7 +429,8 @@ public class ProjectInputController implements IController {
                 return projectViewTasksAssignments(projectToManage,
                         projectCommand.substring(20));
             } else {
-                return (new String[] {"Could not understand your command! Please use -m for member, -t for task"});
+                return (new String[] {"Could not understand your command! Please use:",
+                errorMessageNoSymbol});
             }
         }
     }
