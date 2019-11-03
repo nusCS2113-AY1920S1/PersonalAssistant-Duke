@@ -147,46 +147,108 @@ public class TaskList {
      * @param taskIndexNumber Index of task to be edited.
      * @param updatedTaskRequirements Array containing indexes of task requirements to be removed and
      *                                task requirements to be added.
+     * @return String array of success and error messages to be printed.
      */
-    public void editTaskRequirements(int taskIndexNumber, String updatedTaskRequirements) {
+    public String[] editTaskRequirements(int taskIndexNumber, String updatedTaskRequirements) {
+        ArrayList<String> successMessages = new ArrayList<>();
+        successMessages.add("Success!");
+        ArrayList<String> errorMessages = new ArrayList<>();
+        errorMessages.add("Errors...");
+
         ArrayList<String> newTaskRequirementDetails = parserHelper.parseTaskRequirementDetails(updatedTaskRequirements);
+        errorMessages.addAll(parserHelper.getErrorMessages());
+
         String taskReqIndexesToBeRemoved = newTaskRequirementDetails.get(0);
         if (!taskReqIndexesToBeRemoved.equals("--")) {
-            removeTaskRequirements(taskIndexNumber, taskReqIndexesToBeRemoved);
+            ArrayList<String> results = removeTaskRequirements(taskIndexNumber, taskReqIndexesToBeRemoved);
+            if (!results.contains("error start")) {
+                successMessages.addAll(results);
+            } else {
+                while (!"error start".equals(results.get(0))) {
+                    successMessages.add(results.get(0));
+                    results.remove(0);
+                }
+                results.remove(0); //remove "error start"
+                errorMessages.addAll(results);
+            }
         }
         newTaskRequirementDetails.remove(0);
-        addTaskRequirements(taskIndexNumber, newTaskRequirementDetails);
+
+        if (newTaskRequirementDetails.size() != 0) {
+            successMessages.addAll(addTaskRequirements(taskIndexNumber, newTaskRequirementDetails));
+        }
+
+        //combining success messages and error messages into one array
+        if (successMessages.size() == 1) {
+            successMessages.remove(0);
+        } else {
+            successMessages.add("");
+        }
+        if (errorMessages.size() == 1) {
+            successMessages.add("There were no errors!");
+        } else {
+            successMessages.addAll(errorMessages);
+        }
+
+        return successMessages.toArray(new String[0]);
     }
 
     /**
      * Removes task requirement with input index.
      * @param taskIndexNumber Index of task to be edited.
      * @param taskReqIndexesToBeRemoved String containing indexes of task requirements to be removed.
+     * @return String array of success and error messages
      */
-    private void removeTaskRequirements(int taskIndexNumber, String taskReqIndexesToBeRemoved) {
+    private ArrayList<String> removeTaskRequirements(int taskIndexNumber, String taskReqIndexesToBeRemoved) {
         String[] indexesToBeRemoved = taskReqIndexesToBeRemoved.split(" ");
+        ArrayList<String> successMessages = new ArrayList<>();
+        ArrayList<String> errorMessagesForInvalidIndexes = new ArrayList<>();
         Arrays.sort(indexesToBeRemoved);
+        ArrayList<Integer> listOfUsedIntegers = new ArrayList<>();
+        int startingNumOfTaskRequirements = this.taskList.get(taskIndexNumber - 1).getNumOfTaskRequirements();
         for (int i = indexesToBeRemoved.length - 1; i >= 0; i--) {
-            int indexToBeRemoved = Integer.parseInt(indexesToBeRemoved[i]);
-            if (indexToBeRemoved > 0
-                    && indexToBeRemoved <= this.taskList.get(taskIndexNumber - 1).getNumOfTaskRequirements()) {
-                //input validation if input index to be removed does not exist, but currently does not show mistake to
-                // user
-                this.taskList.get(taskIndexNumber - 1).removeTaskRequirement(indexToBeRemoved);
+            try {
+                int indexToBeRemoved = Integer.parseInt(indexesToBeRemoved[i]);
+                if (indexToBeRemoved > 0
+                        && indexToBeRemoved <= startingNumOfTaskRequirements) {
+                    if (!listOfUsedIntegers.contains(indexToBeRemoved)) {
+                        successMessages.add("'"
+                                + this.taskList.get(taskIndexNumber - 1).getTaskRequirements().get(indexToBeRemoved)
+                                .substring(3)
+                                + "' is no longer a requirement of this task!");
+                        listOfUsedIntegers.add(indexToBeRemoved);
+                        this.taskList.get(taskIndexNumber - 1).removeTaskRequirement(indexToBeRemoved);
+                    } else {
+                        errorMessagesForInvalidIndexes.add("Index '" + indexToBeRemoved + "' was repeated!");
+                    }
+                } else {
+                    errorMessagesForInvalidIndexes.add("'" + indexToBeRemoved
+                            + "' is not a valid task requirement index!");
+                }
+            } catch (NumberFormatException e) {
+                errorMessagesForInvalidIndexes.add("'" + indexesToBeRemoved[i] + "' is not a number!");
             }
         }
+
+        successMessages.add("error start");
+        successMessages.addAll(errorMessagesForInvalidIndexes);
+        return successMessages;
     }
 
     /**
      * Adds new task requirements to a specific task.
      * @param taskIndexNumber Index of task to be edited.
      * @param newTaskRequirements Array containing indexes of task requirements to be added.
+     * @return Arraylist of String containing success or error messages
      *
      */
-    private void addTaskRequirements(int taskIndexNumber, ArrayList<String> newTaskRequirements) {
+    private ArrayList<String> addTaskRequirements(int taskIndexNumber, ArrayList<String> newTaskRequirements) {
+        ArrayList<String> successMessages = new ArrayList<>();
         for (String s : newTaskRequirements) {
             this.taskList.get(taskIndexNumber - 1).addTaskRequirement(s);
+            successMessages.add("'" + s + "' has been successfully added as a new requirement of this task!");
         }
+        return successMessages;
     }
 
     public boolean contains(Task task) {
