@@ -30,7 +30,7 @@ public class LogsCenter {
     private static FileHandler fileHandler;
     private static ConsoleHandler consoleHandler;
 
-    private static String logFileName = "emailManager.log";
+    private static String logFileName = ".\\data\\logs\\emailManager.log";
 
     /**
      * Initializes with a custom log level (specified in the {@code config} object)
@@ -94,9 +94,7 @@ public class LogsCenter {
         try {
             if (fileHandler == null) {
                 fileHandler = createFileHandler();
-                System.out.println(fileHandler.toString());
             }
-            System.out.println(fileHandler.toString());
             logger.addHandler(fileHandler);
         } catch (Exception e) {
             logger.warning("Error adding file handler for logger.");
