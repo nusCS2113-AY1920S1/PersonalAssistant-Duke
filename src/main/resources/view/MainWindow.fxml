@@ -17,7 +17,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="601.0" prefWidth="590.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.hustler.MainWindow">
+<AnchorPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="601.0" prefWidth="590.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.hustler.MainWindow">
     <children>
         <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" hvalue="1.0" layoutX="176.0" layoutY="524.0" prefHeight="79.0" prefWidth="415.0" vvalue="1.0">
             <content>
@@ -161,6 +161,18 @@
                   <ImageView fx:id="swords" fitHeight="44.0" fitWidth="42.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@/images/Arena.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <padding>
+                  <Insets right="60.0" />
+               </padding>
+            </Button>
+            <Button fx:id="historyButton" layoutY="522.0" mnemonicParsing="false" onAction="#historyAction" onMouseClicked="#removeWelcome" prefHeight="62.0" prefWidth="176.0" style="-fx-background-color: #34495e;" text="HISTORY" textFill="#95a5a6" wrapText="true" AnchorPane.bottomAnchor="28.0" AnchorPane.topAnchor="522.0">
+               <graphic>
+                  <ImageView fx:id="history" fitHeight="44.0" fitWidth="42.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/history.png" />
                      </image>
                   </ImageView>
                </graphic>
