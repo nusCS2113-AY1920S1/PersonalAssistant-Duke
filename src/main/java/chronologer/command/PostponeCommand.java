@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
  * Postpones a task to different times.
  *
  * @author Tan Yi Xiang
- * @version 1.7
+ * @version 1.8
  */
 public class PostponeCommand extends Command {
 
@@ -173,6 +173,7 @@ public class PostponeCommand extends Command {
      */
     private void postponeDateRange(Task taskToBePostponed, LocalDateTime startDate,
                                    LocalDateTime toDate, TaskList tasks, Storage storage) throws ChronologerException {
+        checkEventTodoDate(startDate, taskToBePostponed.getStartDate(), toDate, taskToBePostponed.getEndDate());
         taskToBePostponed.setStartDate(startDate);
         taskToBePostponed.setEndDate(toDate);
         ChronologerStateList.addState((tasks.getTasks()));
@@ -192,10 +193,48 @@ public class PostponeCommand extends Command {
      */
     private void postponeDate(Task taskToBePostponed, LocalDateTime startDate,
                               TaskList tasks, Storage storage) throws ChronologerException {
+        checkDeadlineDate(startDate, taskToBePostponed.getStartDate());
         taskToBePostponed.setStartDate(startDate);
         ChronologerStateList.addState((tasks.getTasks()));
         tasks.updatePriority(null);
         storage.saveFile(tasks.getTasks());
+    }
+
+    /**
+     * Check if new deadline date later than old deadline date.
+     *
+     * @param newStartDate New deadline date
+     * @param oldStartDate Old deadline date
+     * @throws ChronologerException If new deadline date earlier than old deadline date
+     */
+    private void checkDeadlineDate(LocalDateTime newStartDate, LocalDateTime oldStartDate) throws ChronologerException {
+        if (newStartDate.isBefore(oldStartDate)) {
+            UiTemporary.printOutput(ChronologerException.postponeDateError());
+            throw new ChronologerException(ChronologerException.postponeDateError());
+        }
+    }
+
+    /**
+     * Check if event/todo dates are later than the old dates and also checks if enddate later than startdate.
+     *
+     * @param newStartDate New event/Todo start date
+     * @param oldStartDate Old event/Todo start date
+     * @param newEndDate   New event/Todo end date
+     * @param oldEndDate   Old event/Todo end date
+     * @throws ChronologerException If new event dates later than old event dates and if endate earlier than startdate
+     */
+    private void checkEventTodoDate(LocalDateTime newStartDate, LocalDateTime oldStartDate, LocalDateTime
+        newEndDate, LocalDateTime oldEndDate) throws ChronologerException {
+        if (newStartDate.isBefore(oldStartDate) || newEndDate.isBefore(oldEndDate)) {
+            UiTemporary.printOutput(ChronologerException.postponeDateError());
+            throw new ChronologerException(ChronologerException.postponeDateError());
+        }
+
+        if (newEndDate.isBefore(newStartDate)) {
+            UiTemporary.printOutput(ChronologerException.endDateError());
+            throw new ChronologerException(ChronologerException.endDateError());
+        }
+
     }
 
     private boolean isDeadline(Task task) {
