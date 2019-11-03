@@ -4,10 +4,8 @@ package com.algosenpai.app.logic.command;
 
 import com.algosenpai.app.logic.constant.Commands;
 
-import java.lang.reflect.Array;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.List;
 
 public class InvalidCommand extends Command {
 
@@ -23,19 +21,27 @@ public class InvalidCommand extends Command {
     public String execute() {
         String input = new String();
         for (String i : inputs) {
-            input += i;
+            if (!Commands.isInteger(i)) {
+                input += i;
+            }
         }
-        return "Sorry please input a valid command. Did you mean... " + compare(input).toString();
+        return "Sorry please input a valid command. Did you mean... " + compare(input);
     }
 
-    static ArrayList<String> compare(String input) {
-        String[] names = Commands.getNames();
-        int num = -1;
+    /**
+     * Returns the closest possible word(s) to the invalid command entered by user.
+     * @param input invalid command that the user entered
+     * @return possible command(s) that the user might have meant
+     */
+
+    private static String compare(String input) {
+        int num = 100;
+        List<String> name = Commands.getNames();
         ArrayList<String> strings = new ArrayList<>();
 
-        for (String s: names) {
+        for (String s: name) {
             int temp = editDist(input, s, input.length(), s.length());
-            if (temp > num) {
+            if (temp < num) {
                 num = temp;
                 if (!strings.isEmpty()) {
                     clear(strings);
@@ -45,8 +51,19 @@ public class InvalidCommand extends Command {
                 strings.add(s);
             }
         }
-        return strings;
+        return strings.toString();
     }
+
+    /**
+     * Returns the edit distance from one word to another, which in other words,
+     * means how many steps of the 3 operations (insert, remove and replace)
+     * are needed to change one word to another.
+     * @param input invalid command that the user entered
+     * @param known one of the list of commands
+     * @param x length of input
+     * @param y length of known
+     * @return minimum steps to convert input to known
+     */
 
     private static int editDist(String input, String known, int x, int y) {
         if (x == 0) {
@@ -65,6 +82,14 @@ public class InvalidCommand extends Command {
         editDist(input, known, x - 1, y - 1));
     }
 
+    /**
+     * Returns the minimum of the three operations.
+     * @param a inserting
+     * @param b removing
+     * @param c replacing
+     * @return the minimum of the three operations
+     */
+
     private static int minimum(int a, int b, int c) {
         if (a <= b && a <= c) {
             return a;
@@ -74,6 +99,12 @@ public class InvalidCommand extends Command {
             return c;
         }
     }
+
+    /**
+     * Clears an arraylist.
+     * @param list input arraylist
+     * @return arraylist that has been cleared
+     */
 
     private static ArrayList<String> clear(ArrayList<String> list) {
         while (!list.isEmpty()) {

@@ -36,13 +36,13 @@ public class MenuCommand extends Command {
         } else {
             switch (inputs.get(1)) {
             case "hello":
-                return "hello <name> <gender> do note that gender refers to 'boy' or 'girl'";
+                return "hello <name> <boy | girl>";
             case "help":
-                return "help <level of difficulty>";
+                return "help <chapter>";
             case "select":
-                return "select <chapter name>";
+                return "select <chapter>";
             case "quiz":
-                return "quiz";
+                return "quiz || quiz < answer | back | next | end >";
             case "result":
                 return "result";
             case "history":
@@ -50,7 +50,7 @@ public class MenuCommand extends Command {
             case "undo":
                 return "undo || undo <number of steps you'd like to undo>";
             case "clear":
-                return "clear <chapter number>";
+                return "clear";
             case "reset":
                 return "reset";
             case "save":
@@ -62,7 +62,9 @@ public class MenuCommand extends Command {
             case "archive":
                 return "archive <question number>";
             case "review":
-                return "review";
+                return "review <question number>";
+            case "volume":
+                return "volume <sound level>";
             default:
                 return "enter `menu` or `menu <command>`";
             }
