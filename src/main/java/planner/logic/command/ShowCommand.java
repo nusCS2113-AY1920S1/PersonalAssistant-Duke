@@ -69,7 +69,7 @@ public class ShowCommand extends ModuleCommand {
         switch (arg("toShow")) {
             case "cca": {
                 plannerUi.listCcaMsg();
-                int count = 0;
+                int count = 1;
                 for (Cca cca : ccas) {
                     plannerUi.println(count++ + " " + cca);
                 }
@@ -78,7 +78,7 @@ public class ShowCommand extends ModuleCommand {
 
             case ("core"): {
                 plannerUi.coreModReport();
-                int count = 0;
+                int count = 1;
                 Set<String> coreModList = getCoreModList();
                 for (int i = 0; i < tasks.getTasks().size(); i++) {
                     String moduleCode = tasks.getTasks().get(i).getModuleCode();
@@ -95,7 +95,7 @@ public class ShowCommand extends ModuleCommand {
 
             case ("ge"): {
                 plannerUi.geModReport();
-                int count = 0;
+                int count = 1;
                 for (int i = 0; i < tasks.getTasks().size(); i++) {
                     String moduleCode = tasks.getTasks().get(i).getModuleInfoDetailed().getModuleCode();
                     if (moduleCode.startsWith("GE")) {
@@ -111,7 +111,7 @@ public class ShowCommand extends ModuleCommand {
 
             case ("ue"): {
                 plannerUi.ueModReport();
-                int count = 0;
+                int count = 1;
                 Set<String> coreModList = getCoreModList();
                 for (int i = 0; i < tasks.getTasks().size(); i++) {
                     String moduleCode = tasks.getTasks().get(i).getModuleInfoDetailed().getModuleCode();
