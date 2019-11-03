@@ -1,16 +1,24 @@
+//@@author LL-Pengfei
+/**
+ * HelpCommand.java
+ * Generate information about supported commands.
+ */
 package cube.logic.command;
 
-import cube.model.food.FoodList;
 import cube.model.ModelManager;
 import cube.storage.StorageManager;
 import cube.logic.command.util.CommandResult;
 
-public class HelpCommand extends Command{
-
+/**
+ * This class supports a command that generates relevant
+ * information about all other commands.
+ */
+public class HelpCommand extends Command {
 	public static final String MESSAGE_SUCCESS = "Currently we support the following commands: (all command ignore cases)\n"
 			+ "Manipulate food:\n"
 			+ String.format("%1$-50s", "  'add <food name> -t <food type> -p <price> -s <stock> -e <expiry date>' ") + "add a new food product with all details/description\n"
-			+ String.format("%1$-50s", "  'profit -n <food name> -period <date>-<date>'") + "show the profit and revenue for a food cross a period\n"
+			+ String.format("%1$-50s", "  'profit -t1 time1 -t2 time2 -all OR -i <number> OR -n <food name> OR -t <food type>'") + "generate the profit & revenue for a food product in the list across a period, -all for all food\n"
+			+ String.format("%1$-50s", "  'revenue -all OR -i <number> OR -n <food name> OR -t <food type>'") + "generate the revenue for the specified food product in the list, -all for total revenue\n"
 			+ String.format("%1$-50s", "  'delete -i <number> OR -n <food name> OR -t <food type>'") + "delete the specified food product in the list\n"
 			+ String.format("%1$-50s", "  'sold <food name> -q <quantity>'") + "marks quantity q of product n sold\n"
 			+ "Show inventory:\n"
