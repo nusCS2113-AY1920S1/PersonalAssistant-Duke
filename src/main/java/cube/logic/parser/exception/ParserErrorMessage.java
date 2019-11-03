@@ -8,7 +8,7 @@ public class ParserErrorMessage {
     public static final String INVALID_COMMAND
             = "OOPS!!! The command is invalid. Enter 'help' to view the list of command";
     public static final String INVALID_PARAMETER
-            = "OOPS!!! Your input contains invalid parameter";
+            = "OOPS!!! Your input contains invalid parameter.";
     public static final String REPETITIVE_PARAMETER
             = "OOPS!!! Your input contains repetitive parameter";
     public static final String INVALID_NAME
