@@ -1,56 +1,81 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.Scene?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.Scene?>
 <?import javafx.stage.Stage?>
+<?import java.net.URL?>
+<fx:root minHeight="600" minWidth="600" onCloseRequest="#handleExit" title="Cube"
+         type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <scene>
+        <Scene>
+            <stylesheets>
+                <URL value="@/view/Theme.css"/>
+            </stylesheets>
 
-<fx:root minHeight="700" minWidth="600" onCloseRequest="#handleExit" title="Cube" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
-  <scene>
-    <Scene>
+            <VBox>
+                <GridPane fx:id="menuBarPane" styleClass="menu-bar">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                    </rowConstraints>
+                    <MenuBar fx:id="menuBar">
+                        <Menu mnemonicParsing="false" text="File">
+                            <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit"/>
+                        </Menu>
+                        <Menu mnemonicParsing="false" text="Help">
+                            <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help"/>
+                        </Menu>
 
-      <VBox>
-        <MenuBar fx:id="menuBar" VBox.vgrow="NEVER">
-          <Menu mnemonicParsing="false" text="File">
-            <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
-          </Menu>
-          <Menu mnemonicParsing="false" text="Help">
-            <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
-          </Menu>
-        </MenuBar>
+                    </MenuBar>
+                    <HBox alignment="TOP_RIGHT" GridPane.columnIndex="1">
+                        <Button fx:id="minimizeBtn" onAction="#handleMinimize" text="-"/>
+                        <Button fx:id="maximizeBtn" onAction="#handleMaximize" text="+"/>
+                        <Button fx:id="exitBtn" onAction="#handleExit" text="×"/>
+                    </HBox>
+                </GridPane>
 
-        <StackPane fx:id="commandBoxPlaceholder" styleClass="pane-with-border" VBox.vgrow="NEVER">
-          <padding>
-            <Insets bottom="5" left="10" right="10" top="5" />
-          </padding>
-        </StackPane>
+                <StackPane fx:id="commandBoxPlaceholder" styleClass="pane-with-border" VBox.vgrow="NEVER">
+                    <padding>
+                        <Insets bottom="5" left="10" right="10" top="5"/>
+                    </padding>
+                </StackPane>
 
-        <StackPane fx:id="resultDisplayPlaceholder" minHeight="200" prefHeight="200" minWidth="400" styleClass="pane-with-border" VBox.vgrow="NEVER">
-          <padding>
-            <Insets bottom="5" left="10" right="10" top="5" />
-          </padding>
-        </StackPane>
+                <StackPane fx:id="resultDisplayPlaceholder" minHeight="150" minWidth="400" prefHeight="200"
+                           styleClass="pane-with-border" VBox.vgrow="NEVER">
+                    <padding>
+                        <Insets bottom="5" left="10" right="10" top="5"/>
+                    </padding>
+                </StackPane>
 
-        <StackPane fx:id="overviewDisplayPlaceholder" minHeight="50" prefHeight="50" minWidth="400" styleClass="pane-with-border" VBox.vgrow="NEVER">
-          <padding>
-            <Insets bottom="5" left="10" right="10" top="5" />
-          </padding>
-        </StackPane>
+                <StackPane fx:id="overviewDisplayPlaceholder" minHeight="50" minWidth="400" prefHeight="50"
+                           styleClass="pane-with-border" VBox.vgrow="NEVER">
+                    <padding>
+                        <Insets bottom="5" left="10" right="10" top="5"/>
+                    </padding>
+                </StackPane>
 
-        <VBox fx:id="viewList" minHeight="350" prefHeight="350" minWidth="400" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
-          <padding>
-            <Insets bottom="10" left="10" right="10" top="10" />
-          </padding>
-          <StackPane fx:id="listPanelPlaceholder" VBox.vgrow="ALWAYS" />
-        </VBox>
-
-        <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
-      </VBox>
-    </Scene>
-  </scene>
+                <VBox fx:id="viewList" minHeight="200" minWidth="400" prefHeight="350" styleClass="pane-with-border"
+                      VBox.vgrow="ALWAYS">
+                    <padding>
+                        <Insets bottom="10" left="10" right="10" top="10"/>
+                    </padding>
+                    <StackPane fx:id="listPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+                </VBox>
+                <StackPane fx:id="statusbarPlaceholder" maxHeight="30" VBox.vgrow="NEVER"/>
+            </VBox>
+        </Scene>
+    </scene>
 </fx:root>

@@ -41,11 +41,30 @@ public class ParserUtil {
 		}
 		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
 		formatter.setTimeZone(TimeZone.getTimeZone("GMT-8:00"));
+		Date date;
 		try {
-			Date date = formatter.parse(dateString);
-			return date;
+			date = formatter.parse(dateString);
 		} catch (ParseException e) {
 			throw new ParserException(ParserErrorMessage.INVALID_DATE_FORMAT);
+		}
+		// check the negative date, month, year etc.
+		requireValidDate(dateString);
+		return date;
+	}
+
+	/**
+	 * Checks the date value is reasonable.
+	 * However, it doesn't handle edge cases such as leap year, even or odd month.
+	 * @param dateString The date input by user.
+	 * @throws ParserException if the date value is not reasonable.
+	 */
+	public static void requireValidDate(String dateString) throws ParserException{
+		String[] timeStamps = dateString.split("/");
+		int date = Integer.valueOf(timeStamps[0]);
+		int month = Integer.valueOf(timeStamps[1]);
+		int year = Integer.valueOf(timeStamps[2]);
+		if (date <= 0 || date > 31 || month <= 0 || month > 12 || year < 0) {
+			throw new ParserException(ParserErrorMessage.INVALID_DATE_VALUE);
 		}
 	}
 

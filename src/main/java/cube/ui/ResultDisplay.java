@@ -1,10 +1,10 @@
 package cube.ui;
 
-import javafx.scene.layout.StackPane;
-import javafx.scene.control.TextArea;
 import javafx.fxml.FXML;
+import javafx.scene.control.TextArea;
+import javafx.scene.layout.StackPane;
 
-public class ResultDisplay extends UiManager<StackPane>  {
+public class ResultDisplay extends UiManager<StackPane> {
     private static final String FXML = "ResultDisplay.fxml";
 
     @FXML

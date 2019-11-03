@@ -23,6 +23,7 @@ public class Parser {
 	 * config
 	 * list -sort expiry/name/stock
 	 * find -i index / -n foodName / -t foodType --sort expiry/name/stock
+	 * profit -t1 time1 -t2 time2 -i index / -n foodName / -t foodType / -all All
 	 * revenue -i index / -n foodName / -t foodType
 	 * delete -i index / -n foodName / -t foodType
 	 * sold -n foodName -q quantity
@@ -42,18 +43,24 @@ public class Parser {
 			//Alphabetical order
 			case "add":
 				return new AddCommandParser().parse(inputs);
+			case "list":
+				return new ListCommandParser().parse(inputs);
+			case "find":
+				return new FindCommandParser().parse(inputs);
+			case "update":
+				return new UpdateCommandParser().parse(inputs);
+			case "profit":
+				return new ProfitCommandParser().parse(inputs);
+			case "delete":
+				return new DeleteCommandParser().parse(inputs);
+			case "sold":
+				return new SoldCommandParser().parse(inputs);
 			case "batch":
 				return new BatchCommandParser().parse(inputs);
 			case "config":
 				return new ConfigCommandParser().parse(inputs);
-			case "delete":
-				return new DeleteCommandParser().parse(inputs);
-			case "find":
-				return new FindCommandParser().parse(inputs);
 			case "help":
 				return new HelpCommand();
-			case "list":
-				return new ListCommandParser().parse(inputs);
 			case "promotion":
 				return new PromotionCommandParser().parse(inputs);
 			case "reminder":
@@ -61,10 +68,6 @@ public class Parser {
 			case "revenue" :
 				//TODO: improve generate revenue
 				return new RevenueCommandParser().parse(inputs);
-			case "sold":
-				return new SoldCommandParser().parse(inputs);
-			case "update":
-				return new UpdateCommandParser().parse(inputs);
 			case "bye":
 			case "exit":
 			case "quit":
