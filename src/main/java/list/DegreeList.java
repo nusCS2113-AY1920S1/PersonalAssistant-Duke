@@ -83,8 +83,64 @@ public class DegreeList implements Serializable, Cloneable {
      * @throws DukeException The degree does not exist?
      */
     public void add_custom(String input, Storage storage) throws DukeException {
-        list.add(input);
-        System.out.print("Added " + input + " to your choice of degrees.\n");
+
+        if(input.matches("Materials Science and Engineering|MSE|Materials Science Engineering")) {
+            if(list.contains("Materials Science and Engineering") || list.contains("MSE") || list.contains("Materials Science Engineering")) {
+                throw new DukeException("The degree already exists in your choices");
+            }
+        }
+
+        if(input.matches("Computer Engineering|CEG|Com E")) {
+            if(list.contains("Computer Engineering") || list.contains("CEG") || list.contains("Com E")) {
+                throw new DukeException("The degree already exists in your choices");
+            }
+        }
+        if(input.matches("Biomedical Engineering|BME|BioMed|Bio Eng|BM")) {
+            if(list.contains("Biomedical Engineering") || list.contains("BME") || list.contains("BioMed") || list.contains("Bio Eng") || list.contains("BM")) {
+                throw new DukeException("The degree already exists in your choices");
+            }
+        }
+        if(input.matches("Chemical Engineering|Chem Eng|ChE")) {
+            if(list.contains("Chemical Engineering") || list.contains("Chem Eng") || list.contains("ChE")) {
+                throw new DukeException("The degree already exists in your choices");
+            }
+        }
+        if(input.matches("Civil Engineering|Civil E|CivE|Civil")) {
+            if(list.contains("Civil Engineering") || list.contains("Civil E") || list.contains("CivE") || list.contains("Civil")) {
+                throw new DukeException("The degree already exists in your choices");
+            }
+        }
+        if(input.matches("Electrical Engineering|EE|ElecE")) {
+            if(list.contains("Electrical Engineering") || list.contains("EE") || list.contains("ElecE")) {
+                throw new DukeException("The degree already exists in your choices");
+            }
+        }
+        if(input.matches("Environmental Engineering|ENVE")) {
+            if(list.contains("Environmental Engineering") || list.contains("ENVE")) {
+                throw new DukeException("The degree already exists in your choices");
+            }
+        }
+        if(input.matches("Mechanical Engineering|Mech Eng|ME")) {
+            if(list.contains("Mechanical Engineering") || list.contains("Mech Eng") || list.contains("ME")) {
+                throw new DukeException("The degree already exists in your choices");
+            }
+        }
+        if(input.matches("Industrial and Systems Engineering|ISE|IE|Industrial Systems")) {
+            if(list.contains("Industrial and Systems Engineering") || list.contains("ISE") || list.contains("IE") || list.contains("Industrial Systems")) {
+                throw new DukeException("The degree already exists in your choices");
+            }
+        }
+
+        if(input.matches("Materials Science and Engineering|MSE|Materials Science Engineering")) {
+            if(list.contains("Materials Science and Engineering") || list.contains("MSE") || list.contains("Materials Science Engineering")) {
+                throw new DukeException("The degree already exists in your choices");
+            }
+        }
+
+        else {
+            list.add(input);
+            System.out.print("Added " + input + " to your choice of degrees.\n");
+        }
     }
 
     /**

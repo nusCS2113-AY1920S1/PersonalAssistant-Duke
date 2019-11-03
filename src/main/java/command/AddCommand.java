@@ -62,17 +62,17 @@ public class AddCommand extends Command {
             memento1 = new Memento(degreesBuffer);
             memento2 = new Memento(tasksBuffer);
 
-            if(this.arguments.matches("Biomedical Engineering|Chemical Engineering|Civil Engineering|"
-                    + "Computer Engineering|Electrical Engineering|Environmental Engineering"
-                    + "|Industrial and Systems Engineering|Mechanical Engineering|Materials Science and Engineering|BME"
-                    + "|BME|BioMed|Bio Eng|BM|ChE|Chem Eng|CivE|Civil E|Civil|CEG|Com E|EE|ElecE|ENVE|Mech Eng|ME|ISE"
-                    + "|IE|Industrial Systems|Materials Science Engineering|MSE")) {
+            if(this.arguments.matches("Materials Science and Engineering|Biomedical Engineering|Chemical Engineering|Civil Engineering|"
+                    + "Computer Engineering|Electrical Engineering|Environmental Engineering|"
+                    + "Industrial and Systems Engineering|Mechanical Engineering|BME|"
+                    + "BME|BioMed|Bio Eng|BM|ChE|Chem Eng|CivE|Civil E|Civil|CEG|Com E|EE|ElecE|ENVE|Mech Eng|ME|ISE|"
+                    + "IE|Industrial Systems|Materials Science Engineering|MSE")) {
                 lists.add_custom(this.arguments, storage);
                 UniversityTaskHandler universityTaskHandler = new UniversityTaskHandler();
                 universityTaskHandler.addDegreeTasks(this.arguments, tasks);
             }
             else {
-                throw new DukeException("Wrong formatting convention is used to add degree. The correct format is e.g. Computer Engineering");
+                throw new DukeException("Wrong formatting convention is used to add degree");
             }
         }
         else {
