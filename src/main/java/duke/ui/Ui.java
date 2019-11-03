@@ -1,6 +1,6 @@
 package duke.ui;
 
-import duke.model.Goal;
+import duke.model.user.Goal;
 import duke.model.meal.Meal;
 import duke.model.user.User;
 import duke.model.wallet.Transaction;
@@ -8,6 +8,7 @@ import duke.model.wallet.Transaction;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 
 import static duke.commons.constants.DateConstants.LOCAL_DATE_FORMATTER;
@@ -263,6 +264,17 @@ public class Ui {
         System.out.println(UI_BOUNDARY);
         System.out.println(UI_PADDING + "To meet your goals, you should do: " + calories + " calories");
         System.out.println(UI_PADDING + "worth of exercises today. All the best!");
+    }
+
+    public void showExerciseOptions(HashMap<String, Integer> exerciseHashMap) {
+        System.out.println(UI_PADDING + "Here are the exercise options available to you:");
+        int counter = 1;
+        for (String itr : exerciseHashMap.keySet()) {
+            int minsOfExercise = exerciseHashMap.get(itr);
+            System.out.print(UI_PADDING + counter + ". ");
+            System.out.print(itr + ": " + minsOfExercise + " mins \n");
+            counter++;
+        }
         System.out.println(UI_BOUNDARY);
     }
 }

@@ -1,7 +1,7 @@
 package duke.logic.parsers;
 
 import duke.commons.exceptions.DukeException;
-import duke.logic.commands.AddItemCommand;
+import duke.logic.commands.AddDefaultValueCommand;
 import duke.model.meal.Meal;
 
 import java.time.LocalDate;
@@ -10,7 +10,7 @@ import java.util.HashMap;
 /**
  * Parser class to handle addition of Item object to model.
  */
-public class AddItemCommandParser implements ParserInterface<AddItemCommand> {
+public class AddDefaultValueCommandParser implements ParserInterface<AddDefaultValueCommand> {
 
     /**
      * Parses user input and returns an AddItemCommand encapsulating a Item object.
@@ -18,7 +18,7 @@ public class AddItemCommandParser implements ParserInterface<AddItemCommand> {
      * @return <code>AddItemCommand</code> Command object encapsulating a breakfast object
      */
     @Override
-    public AddItemCommand parse(String userInputStr) {
+    public AddDefaultValueCommand parse(String userInputStr) {
         String[] mealNameAndInfo;
         HashMap<String, String> nutritionInfoMap;
         LocalDate dateArgStr = null;
@@ -28,7 +28,7 @@ public class AddItemCommandParser implements ParserInterface<AddItemCommand> {
             mealNameAndInfo = ArgumentSplitter.splitMealArguments(userInputStr);
             nutritionInfoMap = ArgumentSplitter.splitForwardSlashArguments(mealNameAndInfo[1]);
         } catch (DukeException e) {
-            return new AddItemCommand(true, e.getMessage());
+            return new AddDefaultValueCommand(true, e.getMessage());
         }
 
         for (String details : nutritionInfoMap.keySet()) {
@@ -36,10 +36,10 @@ public class AddItemCommandParser implements ParserInterface<AddItemCommand> {
             try {
                 int value = Integer.parseInt(intArgStr);
             } catch (NumberFormatException e) {
-                return new AddItemCommand(true, "Unable to parse " + intArgStr
+                return new AddDefaultValueCommand(true, "Unable to parse " + intArgStr
                         + " as an integer. ");
             }
         }
-        return new AddItemCommand(new Meal(mealNameAndInfo[0], dateArgStr, nutritionInfoMap));
+        return new AddDefaultValueCommand(new Meal(mealNameAndInfo[0], dateArgStr, nutritionInfoMap));
     }
 }

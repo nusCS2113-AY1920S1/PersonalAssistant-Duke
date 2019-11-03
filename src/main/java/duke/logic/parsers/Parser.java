@@ -78,7 +78,7 @@ public class Parser {
             case PARSER_DINNER_COMMAND:
                 return new AddDinnerCommandParser().parse(argumentStr);
             case PARSER_ADD_COMMAND:
-                return new AddItemCommandParser().parse(argumentStr);
+                return new AddDefaultValueCommandParser().parse(argumentStr);
             case PARSER_LIST_COMMAND:
                 return new ListCommandParser().parse(argumentStr);
             case PARSER_DONE_COMMAND:

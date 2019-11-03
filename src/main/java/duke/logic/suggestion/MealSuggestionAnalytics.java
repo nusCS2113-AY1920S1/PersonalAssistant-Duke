@@ -25,7 +25,7 @@ public class MealSuggestionAnalytics {
     public ArrayList<Meal> getMealSuggestions(MealList meals, LocalDate suggestionDate, int calorieLimit,
                                               int maxMealsToSuggest, String mealSuggestionTypeStr) {
 
-        setDefaultSuggestionMealList(meals.getStoredList(), suggestionDate, mealSuggestionTypeStr);
+        setDefaultSuggestionMealList(meals.getDefaultValues(), suggestionDate, mealSuggestionTypeStr);
 
         ArrayList<SuggestMeal> suggestionMealList = getMealListWithinCalories(calorieLimit);
         suggestionMealList = getFilteredDisplayList(suggestionMealList, maxMealsToSuggest);

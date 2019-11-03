@@ -7,7 +7,7 @@ import duke.commons.file.FilePathNames;
 import duke.commons.file.FilePaths;
 import duke.commons.file.FileUtil;
 import duke.logic.autocorrect.Autocorrect;
-import duke.model.Goal;
+import duke.model.user.Goal;
 import duke.model.meal.Meal;
 import duke.model.meal.MealList;
 import duke.model.user.User;
@@ -30,9 +30,6 @@ public class Load {
     // Flag to set if jar resource should be called if user file does not exist in host system.
     private static final boolean useResourceAsBackup = true;
     private Gson gson;
-
-
-
 
     public Load(Gson gson) {
         this.gson = gson;
@@ -69,9 +66,9 @@ public class Load {
         Type defaultItemHashMap = new TypeToken<HashMap<String, HashMap<String, Integer>>>(){}.getType();
         bufferedReader = FileUtil.readFile(defaultMealFilePathStr, useResourceAsBackup);
         try {
-            HashMap<String, HashMap<String, Integer>> data = gson.fromJson(bufferedReader,defaultItemHashMap);
+            HashMap<String, HashMap<String, Integer>> data = gson.fromJson(bufferedReader, defaultItemHashMap);
             if (data != null) {
-                meals.setStoredItems(data);
+                meals.setDefaultValues(data);
                 bufferedReader.close();
             }
         } catch (Exception e) {
@@ -91,7 +88,7 @@ public class Load {
                 user.setGoal(goal, true);
             }
         } catch (Exception e) {
-            throw new DukeException("Error reading goal file");
+            throw new DukeException("Error reading goal file" + e.getMessage());
         }
     }
 

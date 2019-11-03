@@ -3,7 +3,7 @@ package duke.logic.parsers;
 import duke.commons.exceptions.DukeException;
 import duke.logic.autocorrect.Autocorrect;
 import duke.logic.commands.AddCommand;
-import duke.logic.commands.AddItemCommand;
+import duke.logic.commands.AddDefaultValueCommand;
 import duke.logic.commands.ExitCommand;
 import duke.logic.commands.HelpCommand;
 import duke.logic.commands.ListCommand;
@@ -33,7 +33,7 @@ class ParserTest {
             assertTrue(parser.parse("dinner burger /calories 100 /date 1/1/2019")
                     instanceof AddCommand);
             assertTrue(parser.parse("add burger /calorie 100 /sodium 100 /fats 100")
-                    instanceof AddItemCommand);
+                    instanceof AddDefaultValueCommand);
             assertTrue(parser.parse("list") instanceof ListCommand);
             assertTrue(parser.parse("done 1") instanceof MarkDoneCommand);
             assertTrue(parser.parse("help") instanceof HelpCommand);

@@ -5,7 +5,7 @@ import duke.commons.exceptions.DukeException;
 import duke.commons.file.FilePathNames;
 import duke.commons.file.FilePaths;
 import duke.commons.file.FileUtil;
-import duke.model.Goal;
+import duke.model.user.Goal;
 import duke.model.meal.MealList;
 import duke.model.user.User;
 import duke.model.wallet.Wallet;
@@ -33,7 +33,7 @@ public class Write {
 
 
     public void writeDefaults(MealList meals) throws DukeException {
-        String toWriteStr = gson.toJson(meals.getStoredList());
+        String toWriteStr = gson.toJson(meals.getDefaultValues());
         FileUtil.writeFile(toWriteStr, filePaths.getFilePathStr(FilePathNames.FILE_PATH_DEFAULT_MEAL_FILE));
     }
 

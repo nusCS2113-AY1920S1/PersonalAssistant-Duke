@@ -4,6 +4,8 @@ import duke.logic.commands.AddGoalCommand;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -14,7 +16,8 @@ import static duke.commons.constants.DateConstants.DATE_FORMAT;
  * Parser class to handle setting of goals.
  */
 public class AddGoalCommandParser implements ParserInterface<AddGoalCommand> {
-    private SimpleDateFormat dateFormat = DATE_FORMAT;
+    LocalDate startDate;
+    LocalDate endDate;
 
     /**
      * Parse user input and return AddGoalCommand.
@@ -28,8 +31,8 @@ public class AddGoalCommandParser implements ParserInterface<AddGoalCommand> {
         if (argumentsMap.containsKey("startdate")) {
             String dateStr = argumentsMap.get("startdate");
             try {
-                dateFormat.parse(dateStr);
-            } catch (ParseException e) {
+                startDate = LocalDate.parse(dateStr, dateFormat);
+            } catch (DateTimeParseException e) {
                 return new AddGoalCommand(true, "Unable to parse " + dateStr + " as a date. "
                         + "Please follow DD/MM/YYYY format.");
             }
@@ -39,10 +42,14 @@ public class AddGoalCommandParser implements ParserInterface<AddGoalCommand> {
         if (argumentsMap.containsKey("enddate")) {
             String dateStr = argumentsMap.get("enddate");
             try {
-                dateFormat.parse(dateStr);
-            } catch (ParseException e) {
+                endDate = LocalDate.parse(dateStr, dateFormat);
+            } catch (DateTimeParseException e) {
                 return new AddGoalCommand(true, "Unable to parse " + dateStr + " as a date. "
                         + "Please follow DD/MM/YYYY format.");
+            }
+            if (startDate.isAfter(endDate)) {
+                return new AddGoalCommand(true, "It appears startdate is after enddate."
+                        + " Please enter a valid set of dates");
             }
         }
 
@@ -54,6 +61,10 @@ public class AddGoalCommandParser implements ParserInterface<AddGoalCommand> {
             } catch (NumberFormatException e) {
                 return new AddGoalCommand(true, "Unable to parse " + floatStr + " as a number. "
                         + "Please enter a valid integer.");
+            }
+            if (Double.parseDouble(floatStr) <= 0) {
+                return new AddGoalCommand(true, "Unable to accept a negative or zero number as "
+                        + "weight. Please try entering a valid target weight.");
             }
         }
 

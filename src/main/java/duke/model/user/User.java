@@ -1,6 +1,5 @@
 package duke.model.user;
 
-import duke.model.Goal;
 import duke.model.meal.MealList;
 import duke.model.wallet.Account;
 
@@ -132,10 +131,6 @@ public class User {
 
     public void setGender(Gender gender) {
         this.gender = gender;
-    }
-
-    public void setIsSetup() {
-        this.isSetup = true;
     }
 
     public String getName() {

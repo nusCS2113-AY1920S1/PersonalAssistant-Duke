@@ -1,7 +1,7 @@
 package duke.logic.commands;
 
 import duke.commons.exceptions.DukeException;
-import duke.model.Goal;
+import duke.model.user.Goal;
 import duke.model.meal.MealList;
 import duke.model.user.User;
 import duke.model.wallet.Wallet;

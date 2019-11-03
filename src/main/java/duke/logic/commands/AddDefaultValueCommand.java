@@ -11,18 +11,18 @@ import duke.storage.Storage;
  * AddItemCommand is a public class that inherits from abstract class Command.
  * An AddItemCommand object encapsulates the current meal that is to be added.
  */
-public class AddItemCommand extends Command {
+public class AddDefaultValueCommand extends Command {
     private Meal meal;
 
     /**
      * Constructor for AddItemCommand.
      * @param meal The meal to be added.
      */
-    public AddItemCommand(Meal meal) {
+    public AddDefaultValueCommand(Meal meal) {
         this.meal = meal;
     }
 
-    public AddItemCommand(boolean flag, String messageStr) {
+    public AddDefaultValueCommand(boolean flag, String messageStr) {
         this.isFail = true;
         this.errorStr = messageStr;
     }
@@ -37,7 +37,7 @@ public class AddItemCommand extends Command {
     @Override
     public void execute(MealList meals, Storage storage, User user, Wallet wallet) {
         ui.showLine();
-        meals.addStoredItem(this.meal);
+        meals.addDefaultValues(this.meal);
         ui.showAddedItem(this.meal);
         try {
             storage.updateDefaults(meals);

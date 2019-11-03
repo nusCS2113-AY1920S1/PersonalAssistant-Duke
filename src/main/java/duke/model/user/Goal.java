@@ -1,4 +1,4 @@
-package duke.model;
+package duke.model.user;
 
 import duke.model.meal.Meal;
 import duke.model.meal.MealList;
