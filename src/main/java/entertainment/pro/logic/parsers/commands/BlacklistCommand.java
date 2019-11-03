@@ -101,12 +101,12 @@ public class BlacklistCommand extends CommandSuper {
 
         } catch (DuplicateEntryException e) {
 
+
             ((MovieHandler) this.getUiController())
                     .setFeedbackText(PromptMessages.DUPLICATE_BLACKLIST + Blacklist.printList());
         }
 
         logger.log(Level.INFO , PromptMessages.BLACKLIST_ADD_SUCCUESS);
-        ((MovieHandler) this.getUiController()).setGeneralFeedbackText(Blacklist.printList());
     }
 
     /**

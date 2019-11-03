@@ -95,6 +95,7 @@ public class Blacklist {
             return;
         }
         if (blackListMoviesTitle.contains(movie.toLowerCase().trim())) {
+
             throw new DuplicateEntryException("blacklist");
         }
         blackListMoviesTitle.add(movie.toLowerCase());
