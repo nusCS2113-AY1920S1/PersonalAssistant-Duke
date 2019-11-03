@@ -23,7 +23,7 @@ import oof.storage.StorageManager;
  */
 public abstract class Command {
 
-    protected static final int DESCRIPTION_LENGTH_MAX = 20;
+    private static final int DESCRIPTION_LENGTH_MAX = 20;
 
     /**
      * Invokes other Command subclasses based on the input given by the user.
@@ -43,7 +43,7 @@ public abstract class Command {
      *
      * @return True if maximum description length is exceeded, false otherwise.
      */
-    public boolean exceedsMaxLength(String description) {
+    boolean exceedsMaxLength(String description) {
         return description.length() >= DESCRIPTION_LENGTH_MAX;
     }
 
@@ -54,7 +54,7 @@ public abstract class Command {
      * @param dateTime Timestamp supplied by user.
      * @return Parsed Timestamp if the Timestamp is valid, else returns "failed".
      */
-    public String parseDateTime(String dateTime) {
+    String parseDateTime(String dateTime) {
         try {
             SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy HH:mm");
             Date parsed = format.parse(dateTime);
@@ -70,7 +70,7 @@ public abstract class Command {
      * @param date Date input by user
      * @return Parsed Date if the Date is valid, else returns "failed".
      */
-    public String parseDate(String date) {
+    String parseDate(String date) {
         try {
             SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
             Date parsed = format.parse(date);
@@ -102,7 +102,7 @@ public abstract class Command {
      * @param date String processed by ParseTimeStamp method.
      * @return true if date is not equals to "failed", false otherwise.
      */
-    protected boolean isDateValid(String date) {
+    boolean isDateValid(String date) {
         return !date.equals("failed");
     }
 
@@ -124,7 +124,7 @@ public abstract class Command {
      * @return A date in the date format specified.
      * @throws ParseException Throws an exception if datetime cannot be parsed.
      */
-    public Date convertStringToDate(String date) throws ParseException {
+    Date convertStringToDate(String date) throws ParseException {
         return new SimpleDateFormat("HH:mm").parse(date);
     }
 
@@ -134,7 +134,7 @@ public abstract class Command {
      * @param task Task object.
      * @return String containing date from Task object.
      */
-    protected String getDate(Task task) {
+    String getDate(Task task) {
         if (task instanceof Todo) {
             return ((Todo) task).getTodoDate().substring(0, 10);
         } else if (task instanceof Deadline) {

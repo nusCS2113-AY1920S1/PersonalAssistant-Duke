@@ -21,11 +21,11 @@ public class AddEventCommand extends Command {
 
     public static final String COMMAND_WORD = "event";
     protected ArrayList<String> arguments;
-    protected static final int INDEX_DESCRIPTION = 0;
-    protected static final int INDEX_DATE_TIME_START = 1;
-    protected static final int INDEX_DATE_TIME_END = 2;
-    protected static final int ARRAY_SIZE_DATE_TIME_START = 2;
-    protected static final int ARRAY_SIZE_DATE_TIME_END = 3;
+    static final int INDEX_DESCRIPTION = 0;
+    static final int INDEX_DATE_TIME_START = 1;
+    static final int INDEX_DATE_TIME_END = 2;
+    static final int ARRAY_SIZE_DATE_TIME_START = 2;
+    static final int ARRAY_SIZE_DATE_TIME_END = 3;
 
     /**
      * Constructor for AddEventCommand.
@@ -38,18 +38,13 @@ public class AddEventCommand extends Command {
     }
 
     /**
-     * Performs a series of three main tasks.
-     * Processes the Command inputted by user into description and date.
-     * Checks for the validity of the format of date.
-     * Adds an Event object to the TaskList
-     * and prints the object added before calling methods in Storage to
-     * store the object added in the hard disk.
+     * Adds an event task to taskList.
      *
-     * @param semesterList Instance of SemesterList that stores Semester objects.
-     * @param taskList     Instance of TaskList that stores Task objects.
-     * @param ui           Instance of Ui that is responsible for visual feedback.
-     * @param storageManager      Instance of Storage that enables the reading and writing of Task
-     *                     objects to hard disk.
+     * @param semesterList   Instance of SemesterList that stores Semester objects.
+     * @param taskList       Instance of TaskList that stores Task objects.
+     * @param ui             Instance of Ui that is responsible for visual feedback.
+     * @param storageManager Instance of Storage that enables the reading and writing of Task
+     *                       objects to hard disk.
      * @throws OofException if user input invalid commands.
      */
     public void execute(SemesterList semesterList, TaskList taskList, Ui ui, StorageManager storageManager)
