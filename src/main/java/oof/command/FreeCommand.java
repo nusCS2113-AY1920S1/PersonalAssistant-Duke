@@ -8,7 +8,6 @@ import oof.Ui;
 import oof.exception.OofException;
 import oof.model.task.Event;
 import oof.model.task.Task;
-import oof.model.tracker.TrackerList;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

@@ -11,7 +11,6 @@ import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import oof.exception.OofException;
 import oof.model.module.Lesson;
@@ -26,7 +25,6 @@ import oof.model.task.Task;
 import oof.model.task.TaskList;
 import oof.model.task.Todo;
 import oof.model.tracker.Tracker;
-import oof.model.tracker.TrackerList;
 
 /**
  * Represents a Storage class to store and read Task objects to/from hard disk.
@@ -80,10 +78,11 @@ public class Storage {
     private static final int DEFAULT_THRESHOLD = 24;
     private static final int INDEX_TASK_STATUS = 1;
     private static final int INDEX_TRACKER_MODULECODE = 0;
-    private static final int INDEX_TRACKER_DESCRIPTION = 1;
-    private static final int INDEX_TRACKER_STARTDATE = 2;
-    private static final int INDEX_TRACKER_LASTUPDATED = 3;
-    private static final int INDEX_TRACKER_TIMETAKEN = 4;
+    private static final int INDEX_TRACKER_TASKINDEX = 1;
+    private static final int INDEX_TRACKER_DESCRIPTION = 2;
+    private static final int INDEX_TRACKER_STARTDATE = 3;
+    private static final int INDEX_TRACKER_LASTUPDATED = 4;
+    private static final int INDEX_TRACKER_TIMETAKEN = 5;
 
     /**
      * Constructor for Storage class.
@@ -210,13 +209,12 @@ public class Storage {
      * @param trackerList   TrackerList of Tracker objects.
      * @throws OofException if unable to write TrackerList.
      */
-    public void writeTrackerList(TrackerList trackerList) throws OofException {
+    public void writeTrackerList(ArrayList<Tracker> trackerList) throws OofException {
         try {
-            List<Tracker> arr = trackerList.getTrackers();
             String filename = PATH_TRACKER;
             BufferedWriter out = new BufferedWriter(new FileWriter(filename));
-            for (int i = 0; i < trackerList.getSize(); i++) {
-                Tracker tracker = trackerList.getTracker(i);
+            for (int i = 0; i < trackerList.size(); i++) {
+                Tracker tracker = trackerList.get(i);
                 out.write(tracker.toStorageString() + "\n");
             }
             out.close();
@@ -228,19 +226,19 @@ public class Storage {
     /**
      * Reads Tracker objects that were previously saved to hard disk.
      *
-     * @return TrackerList that contains Tracker objects.
+     * @return ArrayList containing Tracker objects.
      * @throws OofException if unable to read tracker.txt.
      */
-    public TrackerList readTrackerList() throws OofException {
+    public ArrayList<Tracker> readTrackerList() throws OofException {
         try {
             File file = new File(PATH_TRACKER);
             FileReader fileReader = new FileReader(file);
             BufferedReader br = new BufferedReader(fileReader);
-            TrackerList trackerList = new TrackerList();
+            ArrayList<Tracker> trackerList = new ArrayList<>();
             String line;
             while ((line = br.readLine()) != null) {
                 Tracker tracker = processLine(line);
-                trackerList.addTracker(tracker);
+                trackerList.add(tracker);
             }
             return trackerList;
         } catch (IOException | ParseException e) {
@@ -260,6 +258,7 @@ public class Storage {
 
         String[] processed = line.split(DELIMITER_TRACKER);
         String moduleCode = processed[INDEX_TRACKER_MODULECODE];
+        int taskIndex = Integer.parseInt(processed[INDEX_TRACKER_TASKINDEX]);
         String description = processed[INDEX_TRACKER_DESCRIPTION];
         String startDate = processed[INDEX_TRACKER_STARTDATE];
         String lastUpdated = processed[INDEX_TRACKER_LASTUPDATED];
@@ -272,7 +271,7 @@ public class Storage {
         }
         Date updated = readFormat.parse(lastUpdated);
 
-        return new Tracker(moduleCode, description, start, updated, timeTaken);
+        return new Tracker(moduleCode, taskIndex, description, start, updated, timeTaken);
     }
 
     /**

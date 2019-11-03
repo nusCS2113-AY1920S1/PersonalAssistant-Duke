@@ -19,7 +19,6 @@ import oof.model.task.Event;
 import oof.model.task.Task;
 import oof.model.task.TaskList;
 import oof.model.tracker.Tracker;
-import oof.model.tracker.TrackerList;
 
 /**
  * Represents a Ui class that is responsible for Input/Output operations.
@@ -798,15 +797,19 @@ public class Ui {
     /**
      * Print when Start Tracker Command is completed.
      *
-     * @param tracker description of Tracker object.
+     * @param tracker   description of Tracker object.
+     * @param taskList  TaskList object.
      */
-    public void printStartAtCurrent(Tracker tracker) {
+    public void printStartAtCurrent(Tracker tracker, TaskList taskList) {
         printLine();
-        String assigmentModule = tracker.getModuleCode();
-        String assignmentName = tracker.getDescription();
-        System.out.println("Begin Assignment: " + assigmentModule + " " + assignmentName);
+        String moduleCode = tracker.getModuleCode().toUpperCase();
+        int index = tracker.getTaskIndex();
+        Task task = taskList.getTask(index);
+        String taskDescription = task.getDescription();
+        System.out.println("Begin Task: " + taskDescription);
+        System.out.println("Module Code: " + moduleCode);
         System.out.println("It is currently " + tracker.getLastUpdated());
-        System.out.println("Current total time spent on " + assignmentName + ": "
+        System.out.println("Current total time spent on " + taskDescription + ": "
                 + tracker.getTimeTaken() + " minutes");
     }
 
@@ -814,27 +817,36 @@ public class Ui {
      * Print when Stop Tracker Command is completed.
      *
      * @param tracker       description of Tracker object.
+     * @param taskList      TaskList object.
      */
-    public void printEndAtCurrent(Tracker tracker) {
+    public void printEndAtCurrent(Tracker tracker, TaskList taskList) {
         printLine();
-        String assigmentModule = tracker.getModuleCode();
-        String assignmentName = tracker.getDescription();
-        System.out.println("Ending Assignment: " + assigmentModule + " " + assignmentName);
+        String moduleCode = tracker.getModuleCode().toUpperCase();
+        int index = tracker.getTaskIndex();
+        Task task = taskList.getTask(index);
+        String taskDescription = task.getDescription();
+        System.out.println("Ending Task: " + taskDescription);
+        System.out.println("Module Code: " + moduleCode);
         System.out.println("It is currently " + tracker.getLastUpdated());
-        System.out.println("Total time spent on " + assignmentName + ": " + tracker.getTimeTaken() + " minutes");
+        System.out.println("Total time spent on " + taskDescription + ": " + tracker.getTimeTaken() + " minutes");
     }
 
     /**
      * Print when Stop Tracker Command is completed.
-     * @param tracker          description of Tracker object.
+     *
+     * @param tracker           description of Tracker object.
+     * @param taskList          TaskList object.
      */
-    public void printPauseAtCurrent(Tracker tracker) {
+    public void printPauseAtCurrent(Tracker tracker, TaskList taskList) {
         printLine();
-        String assigmentModule = tracker.getModuleCode();
-        String assignmentName = tracker.getDescription();
-        System.out.println("Pausing Assignment: " + assigmentModule + " " + assignmentName);
+        String moduleCode = tracker.getModuleCode().toUpperCase();
+        int index = tracker.getTaskIndex();
+        Task task = taskList.getTask(index);
+        String taskDescription = task.getDescription();
+        System.out.println("Pausing Task: " + taskDescription);
+        System.out.println("Module Code: " + moduleCode);
         System.out.println("It is currently " + tracker.getLastUpdated());
-        System.out.println("Total time spent on " + assignmentName + ": " + tracker.getTimeTaken() + " minutes");
+        System.out.println("Total time spent on " + taskDescription + ": " + tracker.getTimeTaken() + " minutes");
     }
 
     /**
@@ -1000,10 +1012,10 @@ public class Ui {
      *
      * @param moduleTrackerList   ArrayList of Tracker objects.
      */
-    public void printTrackerDiagram(TrackerList moduleTrackerList) {
+    public void printTrackerDiagram(ArrayList<Tracker> moduleTrackerList, long totalTimeTaken) {
         printLine();
-        for (int i = 0; i < moduleTrackerList.getSize(); i++) {
-            Tracker moduleTracker = moduleTrackerList.getTracker(i);
+        for (int i = 0; i < moduleTrackerList.size(); i++) {
+            Tracker moduleTracker = moduleTrackerList.get(i);
             int timeTaken = (int) moduleTracker.getTimeTaken();
             if (timeTaken < SEGMENT_SIZE) {
                 System.out.print("| ");
@@ -1012,8 +1024,10 @@ public class Ui {
                 printTrackerDiagramBar(segmentedTimeTaken);
             }
             String moduleCode = moduleTracker.getModuleCode();
-            System.out.print("\t" + moduleCode + " -- " + timeTaken + " minutes\n");
+            System.out.println("\t" + moduleCode + " -- " + timeTaken + " minutes");
         }
+        printLine();
+        System.out.println("Total Time: " + totalTimeTaken + " minutes");
     }
 
     /**

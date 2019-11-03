@@ -611,7 +611,7 @@ Adds an assignment `lab` for the selected module with the due date as `23-11-201
 === Start/Stop/Pause Assignment Tracker: `tracker`
 You can track an assignment from the current time.
 
-Format: `tracker /INSTRUCTION MODULE_CODE ASSIGNMENT_DESCRIPTION`
+Format: `tracker /INSTRUCTION TASK_INDEX MODULE_CODE`
 
 *Options for INSTRUCTION* +
 [horizontal]
@@ -620,25 +620,25 @@ pause:: pause tracking an assignment from the current time.
 stop:: stop tracking an assignment from the current time.
 view:: view a histogram featuring the total amount fo time spent on each module.
 
-Example: `tracker /start cs2101 ppp`
+Example: `tracker /start 22 cs2101`
 
 [[StartTracker]]
 .Starts Assignment Tracker
 image::StartTracker.png[StartTracker]
 
-Example: `tracker /pause cs2101 ppp`
+Example: `tracker /pause 22 cs2101`
 
 [[PauseTracker]]
 .Pauses Assignment Tracker
 image::PauseTracker.png[PauseTracker]
 
-Example: `tracker /stop cs2101 ppp`
+Example: `tracker /stop 22 cs2101`
 
 [[StopTracker]]
 .Stops Assignment Tracker
 image::StopTracker.png[StopTracker]
 
-=== View Assignment Tracker: `tracker`
+=== View Assignment Tracker: `tracker `
 You can view a histogram featuring the amount of time you spend on each module in blocks of 10 minutes with `tracker /view`.
 
 Format: `tracker /view`
@@ -862,18 +862,18 @@ This feature runs in the background thus no input is needed from you.
 
 Starts assignment tracker. 
 
-* *Start Assignment Tracker*: `tracker /start MODULE_CODE ASSIGNMENT_DESCRIPTION` +
-e.g. `tracker /start cs2113t user guide`
+* *Start Assignment Tracker*: `tracker /start TASK_INDEX MODULE_CODE` +
+e.g. `tracker /start 20 cs2113t`
 
 Pauses assignment tracker. 
 
-* *Pause Assignment Tracker*: `tracker /pause MODULE_CODE ASSIGNMENT_DESCRIPTION` +
-e.g. `tracker /pause cs2113t user guide`
+* *Pause Assignment Tracker*: `tracker /pause TASK_INDEX MODULE_CODE` +
+e.g. `tracker /pause 20 cs2113t`
 
 Stops assignment tracker. 
 
-* *Stop Assignment Tracker*: `tracker /stop MODULE_CODE ASSIGNMENT_DESCRIPTION` +
-e.g. `tracker /stop cs2113t user guide`
+* *Stop Assignment Tracker*: `tracker /stop TASK_INDEX MODULE_CODE` +
+e.g. `tracker /stop 20 cs2113t`
 
 View assignment tracker diagram. 
 

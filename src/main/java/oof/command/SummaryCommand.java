@@ -9,7 +9,6 @@ import oof.model.task.Deadline;
 import oof.model.task.Event;
 import oof.model.task.Task;
 import oof.model.task.Todo;
-import oof.model.tracker.TrackerList;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
