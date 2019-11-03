@@ -8,6 +8,9 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 //@@author e0318465
+/**
+ * Tests to ensure that detect duplicates works.
+ */
 public class DetectDuplicateTest {
     @Test
     void detectDuplicateTest() {
@@ -20,12 +23,12 @@ public class DetectDuplicateTest {
         Command cmd = new DuplicateFoundCommand();
         Task task2 = new Todo("homework");
         items.add(task2);
-        if(detectDuplicate.isDuplicate("todo", "homework")) {
+        if (detectDuplicate.isDuplicate("todo", "homework")) {
             assertEquals("     The same task is already in the list!", cmd.executeGui(items,ui));
         }
         Task task3 = new Todo("project work");
         items.add(task3);
-        if(detectDuplicate.isDuplicate("todo", "project work")) {
+        if (detectDuplicate.isDuplicate("todo", "project work")) {
             assertEquals("[T][X] project work", task3.toString());
         }
     }

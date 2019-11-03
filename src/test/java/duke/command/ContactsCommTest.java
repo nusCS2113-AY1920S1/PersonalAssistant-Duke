@@ -12,6 +12,9 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 //@@author e0318465
+/**
+ * Tests to check whether all the contacts related functionalities are working.
+ */
 public class ContactsCommTest {
 
     @Test
@@ -51,8 +54,8 @@ public class ContactsCommTest {
                 + "     Name: Prof Tan, 91234567, , E1-08-11\n", cmd5.executeGui(items, ui));
 
         Command cmd6 = new FindContactCommand("Lester", contactList);
-        assertEquals("     Here are the matching contacts in your list:\n" +
-                "     No matching tasks found.", cmd6.executeGui(items, ui));
+        assertEquals("     Here are the matching contacts in your list:\n"
+                + "     No matching tasks found.", cmd6.executeGui(items, ui));
     }
 
     @Test
