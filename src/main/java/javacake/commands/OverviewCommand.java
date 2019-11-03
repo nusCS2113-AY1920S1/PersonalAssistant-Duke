@@ -30,9 +30,13 @@ public class OverviewCommand extends Command {
     private static int indentations = 5;
 
     /**
-     * Constructor for MegaListCommand.
+     * Constructor for OverviewCommand.
+     * Checks that no parameters are included.
+     * @param inputCommand Overview command from user.
+     * @throws CakeException If other parameter is appended to command.
      */
-    public OverviewCommand() {
+    public OverviewCommand(String inputCommand) throws CakeException {
+        checksParam(inputCommand);
         type = CmdType.TREE;
     }
 

@@ -12,6 +12,17 @@ import java.util.ArrayList;
 public class ListNoteCommand extends Command {
 
     public ListNoteCommand() {
+
+    }
+
+    /**
+     * Constructor for ListCommand.
+     * Checks that no parameters are included.
+     * @param inputCommand List command from user.
+     * @throws CakeException If other parameter is appended to command.
+     */
+    public ListNoteCommand(String inputCommand) throws CakeException {
+        checksParam(inputCommand);
         type = CmdType.LISTNOTE;
     }
 

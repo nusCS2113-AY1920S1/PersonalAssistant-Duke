@@ -12,6 +12,10 @@ public class DeleteNoteCommand extends Command {
     private static String fileName;
     private static String fullFilePath;
 
+    private static final char[] ILLEGAL_CHARACTERS = { '/', '\n', '\r', '\t',
+        '\0', '\f', '`', '?', '*', '\\', '<', '>', '|', '\"', ':', '.', ','};
+
+
     /**
      * Constructor for DeleteNoteCommand.
      * Command used to delete a specific existing notes.
@@ -60,7 +64,7 @@ public class DeleteNoteCommand extends Command {
      * @throws CakeException If illegal character or invalid file name detected.
      */
     private void processFile(String inputFileName) throws CakeException {
-        if (containsIllegalCharacters(inputFileName)) {
+        if (hasIllegalCharacters(inputFileName)) {
             throw new CakeException("Invalid file name: Illegal character in file name detected!");
         } else if (fileDoesNotExist(inputFileName)) {
             throw new CakeException("Invalid file name: No such file!");
@@ -82,13 +86,27 @@ public class DeleteNoteCommand extends Command {
     }
 
     /**
-     * Checks for illegal characters in file name given by users.
-     * Ensures no illegal access to other files in other directories.
-     * @param inputFileName name of file user wants to delete.
-     * @return true if inputFileName contains illegal characters.
+     * Checks if the input file name contains any illegal characters.
+     * @param inputFileName Specified file name by user.
+     * @return True if file name contains illegal characters.
      */
-    private boolean containsIllegalCharacters(String inputFileName) {
-        return CreateNoteCommand.containsIllegals(inputFileName);
+    public static boolean hasIllegalCharacters(String inputFileName) {
+        for (char illegalChar : ILLEGAL_CHARACTERS) {
+            if (containsIllegal(inputFileName, illegalChar)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Checks if file name contains illegal characters.
+     * @param inputFileName Name of input file.
+     * @param illegalChar Characters that are not allowed in file name.
+     * @return True if file name contains illegal character.
+     */
+    private static boolean containsIllegal(String inputFileName, char illegalChar) {
+        return inputFileName.indexOf(illegalChar) >= 0;
     }
 
     /**

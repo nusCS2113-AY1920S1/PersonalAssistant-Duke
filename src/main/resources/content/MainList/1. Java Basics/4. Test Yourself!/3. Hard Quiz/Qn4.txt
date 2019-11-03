@@ -19,4 +19,4 @@ public class animal {
 Will Java compile this code?
 
 (1) Yes, size will be initalised to null when declared by the class
-(2) No, non-static field ‘size’ cannot be referenced from from static context | 2
+(2) No, non-static field ‘size’ cannot be referenced from from static context | 2 | 2

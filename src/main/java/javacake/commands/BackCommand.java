@@ -8,6 +8,17 @@ import javacake.ui.Ui;
 public class BackCommand extends Command {
 
     public BackCommand() {
+
+    }
+
+    /**
+     * Constructor for BackCommand.
+     * Checks that no parameters are included.
+     * @param inputCommand Back command from user.
+     * @throws CakeException If other parameter is appended to command.
+     */
+    public BackCommand(String inputCommand) throws CakeException {
+        checksParam(inputCommand);
         type = CmdType.BACK;
     }
 

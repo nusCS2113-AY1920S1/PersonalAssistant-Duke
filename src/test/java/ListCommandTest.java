@@ -31,7 +31,7 @@ public class ListCommandTest {
             Logic logic = Logic.getInstance();
             Ui ui = new Ui();
             StorageManager sm = new StorageManager();
-            ListCommand lc = new ListCommand();
+            ListCommand lc = new ListCommand("list");
             String actualOutput = lc.execute(logic, ui, sm);
             assertEquals(expectedOutput.trim(), actualOutput.trim());
         } catch (CakeException e) {

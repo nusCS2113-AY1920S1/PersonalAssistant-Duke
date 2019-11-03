@@ -1,6 +1,7 @@
 package javacake.commands;
 
 import javacake.Logic;
+import javacake.exceptions.CakeException;
 import javacake.storage.Profile;
 import javacake.storage.StorageManager;
 import javacake.ui.Ui;
@@ -10,7 +11,19 @@ import javacake.tasks.Task;
 import java.util.ArrayList;
 
 public class ReminderCommand extends Command {
+
     public ReminderCommand() {
+
+    }
+
+    /**
+     * Constructor for ReminderCommand.
+     * Checks that no parameters are included.
+     * @param inputCommand Reminder command from user.
+     * @throws CakeException If other parameter is appended to command.
+     */
+    public ReminderCommand(String inputCommand) throws CakeException {
+        checksParam(inputCommand);
         type = CmdType.REMIND;
     }
 

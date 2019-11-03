@@ -2,6 +2,7 @@ package javacake.notes;
 
 import javacake.exceptions.CakeException;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -46,8 +47,8 @@ public class NoteList {
      */
     private String processFileNames(String resultName) throws CakeException {
         try {
-            String[] partitionsInFilePath = resultName.split("\\\\");
-            return partitionsInFilePath[partitionsInFilePath.length - 1];
+            File file = new File(resultName);
+            return file.getName();
         } catch (IndexOutOfBoundsException e) {
             throw new CakeException(e.getMessage());
         }

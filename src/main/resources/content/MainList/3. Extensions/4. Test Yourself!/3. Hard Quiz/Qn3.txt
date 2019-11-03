@@ -8,4 +8,4 @@ enum Level {
 
 Does this follow correct coding conventions?
 (1) Yes
-(2) No | 2
+(2) No | 2 | 2

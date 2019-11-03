@@ -37,15 +37,15 @@ public class Parser {
         String commandWord = buffer[0];
         helper(commandWord);
         switch (commandWord) {
-        case ("exit"): return new ExitCommand();
-        case ("list"): return new ListCommand();
-        case ("back"): return new BackCommand();
-        case ("score"): return new ScoreCommand();
-        case ("reset"): return new ResetCommand();
+        case ("exit"): return new ExitCommand(inputCommand);
+        case ("list"): return new ListCommand(inputCommand);
+        case ("back"): return new BackCommand(inputCommand);
+        case ("score"): return new ScoreCommand(inputCommand);
+        case ("reset"): return new ResetCommand(inputCommand);
         case ("help"): return new HelpCommand(inputCommand);
-        case ("overview"): return new OverviewCommand();
-        case ("listnote"): return new ListNoteCommand();
-        case ("reminder"): return new ReminderCommand();
+        case ("overview"): return new OverviewCommand(inputCommand);
+        case ("listnote"): return new ListNoteCommand(inputCommand);
+        case ("reminder"): return new ReminderCommand(inputCommand);
         case ("goto"): return new GoToCommand(inputCommand);
         case ("createnote"): return new CreateNoteCommand(inputCommand);
         case ("editnote"): return new EditNoteCommand(inputCommand);

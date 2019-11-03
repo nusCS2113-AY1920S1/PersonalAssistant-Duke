@@ -21,6 +21,19 @@ public abstract class Command {
     public abstract String execute(Logic logic, Ui ui, StorageManager storageManager)
             throws CakeException;
 
+    /**
+     * Checks if input command has no other parameter appended.
+     * @param inputCommand Command input from user.
+     * @throws CakeException If parameter is appended to command.
+     */
+    public static void checksParam(String inputCommand) throws CakeException {
+        String bySpaces = "\\s+";
+        String[] subStrings = inputCommand.split(bySpaces);
+        if (subStrings.length > 1) {
+            throw new CakeException("Please ensure there is no parameter(s) for this command");
+        }
+    }
+
 
     /**
      * Method to check whether command is of type exit.

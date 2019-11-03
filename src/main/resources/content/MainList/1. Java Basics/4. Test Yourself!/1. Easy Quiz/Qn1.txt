@@ -8,4 +8,4 @@ An IDE generally consists of:
 
 (4) Other tools that aid various aspects of coding e.g. support for automated testing, drag-and-drop construction of UI components, version management support, simulation of the target runtime platform, and modeling support.
 
-(5) All of the above | 5
+(5) All of the above | 5 | 5
