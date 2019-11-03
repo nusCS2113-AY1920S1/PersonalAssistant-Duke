@@ -114,12 +114,24 @@ public class Ingredient {
 
     private UnitOfMeasurement assignUnit(String unit) {
         switch (unit) {
-            case "KG": return UnitOfMeasurement.KG;
-            case "ML": return UnitOfMeasurement.ML;
-            case "L": return UnitOfMeasurement.L;
-            case "CUP": return UnitOfMeasurement.CUP;
-            case "TEASPOON": return UnitOfMeasurement.TEASPOON;
-            case "TABLESPOON": return UnitOfMeasurement.TABLESPOON;
+            case "kg":
+            case "KG":
+                return UnitOfMeasurement.KG;
+            case "ml":
+            case "ML":
+                return UnitOfMeasurement.ML;
+            case "l":
+            case "L":
+                return UnitOfMeasurement.L;
+            case "cup":
+            case "CUP":
+                return UnitOfMeasurement.CUP;
+            case "teaspoon":
+            case "TEASPOON":
+                return UnitOfMeasurement.TEASPOON;
+            case "tablespoon":
+            case "TABLESPOON":
+                return UnitOfMeasurement.TABLESPOON;
             default: return UnitOfMeasurement.G;
         }
     }
