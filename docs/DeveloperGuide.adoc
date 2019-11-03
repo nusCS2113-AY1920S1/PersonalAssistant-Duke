@@ -82,39 +82,29 @@ The `RecurringCommand` class extends `Command` by providing methods to set a cur
 Additionally, it consists of the following features:
 
 * User can select a `Task` in the `TaskList` to be a recurring task.
-* User can choose an integer between `1 - 10` for the number of times the task should recur.
-* User can also choose the `Frequency` of recurrence with the choices being `DAILY, WEEKLY, MONTHLY, YEARLY`
+* User can choose an integer between `1 - 10` inclusive for the number of times the task should recur.
+* User can choose an integer between `1 - 4` inclusive for the `Frequency` of recurrence.
+
+The choices are as follows: +
++1.+ DAILY +
++2.+ WEEKLY + 
++3.+ MONTHLY +
++4.+ YEARLY +
 
 These features are implemented in the `parse` method of the `CommandParser` class that parses user input commands.
 
 Given below is an example usage scenario and how the `RecurringCommand` class behaves at each step.
 
 *Step 1.* +
-The user types in `recurring 1 2`. The `parse` method in `CommandParser` class is called to parse the command to obtain integers `1` as the `Index` of the `Task` in `TaskList` and `2` as the `number of recurrences`.
+The user types in `recurring 1 1 1`. The `parse` method in `CommandParser` class is called to parse the command to obtain integers `1` as the `Index` of the `Task` in `TaskList`, `1` as the `number of recurrences` and `1` as the `frequency` of recurrence.
 
 [WARNING]
 `OofException` will be thrown if the user enters invalid commands.
 
 *Step 2.* +
-The `parse` method then prompts the user to input the `frequency` of recurrence. +
-
-[TIP]
-
-The choices are as follows: +
-1. DAILY +
-2. WEEKLY + 
-3. MONTHLY +
-4. YEARLY +
-
-The user chooses `1`. The `parse` method then parses the command to obtain an integer `1` which sets the `Frequency` of recurrence as `DAILY`.
-
-[WARNING]
-`OofException` will be thrown if the user enters invalid commands.
+A new instance of `RecurringCommand` class is returned to the main `Oof` program with the parameters `1, 1, 1` as described above. The `execute` method of `RecurringCommand` class is then called.
 
 *Step 3.* +
-A new instance of `RecurringCommand` class is returned to the main `Oof` program with the parameters `1, 2, 1` as described above. The `execute` method of `RecurringCommand` class is then called.
-
-*Step 4.* +
 The `setRecurringTask` method in `RecurringCommand` class is then called by `execute` method. This method does three main things: 
 
 * Calls `getTask` method from `TaskList` class to get the user selected `Task`.
@@ -124,7 +114,7 @@ The `setRecurringTask` method in `RecurringCommand` class is then called by `exe
 * Calls `recurInstances` method in `RecurringCommand` class to set upcoming recurring `Tasks` based on user selected `Number of recurrences` and `Frequency` by:
 ** `recurInstances` method calls `dateTimeIncrement` method in `RecurringCommand` class to increment the `DateTime` based on the user input `Frequency`.
 
-*Step 5.* +
+*Step 4.* +
 After `setRecurring` method finishes its execution, the `execute` method continues on to print the updated `TaskList` by calling `printRecurringMessage` method in `Ui` class and saves the new `Tasks` into persistent storage by calling `writeToFile` method in `Storage` class.
 
 The following sequence diagram summarises what happens when a user executes a new command:
