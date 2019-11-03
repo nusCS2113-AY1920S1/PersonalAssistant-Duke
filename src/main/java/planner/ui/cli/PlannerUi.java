@@ -279,7 +279,8 @@ public class PlannerUi {
      */
     public void capModMsg(double predictedCap, String moduleCode) {
         showLine();
-        System.out.println("Here is your predicted CAP for " + moduleCode);
+        System.out.println("Here is your predicted CAP for " + moduleCode +
+            " based on the modules you have taken.");
         System.out.printf("%.2f\n", predictedCap);
     }
 
@@ -294,8 +295,8 @@ public class PlannerUi {
             System.out.println(toCalculate.get(i));
             i++;
         }
-        System.out.println("If you have completed any of these modules preclusions, please add their preclusions " +
-            "to your module list with the appropriate grade and try again.");
+        System.out.println("If you have completed any of these modules preclusions/co-requisites/equivalents," +
+                "please add them to your module list with the appropriate grade and try again.");
     }
 
     /**
@@ -408,7 +409,7 @@ public class PlannerUi {
      * Message to print the list of reminder options.
      */
     public void reminderList() {
-        showLine();;
+        showLine();
         System.out.println("Would you like to off your reminder for\n"
                             + "1) for 30 mins\n"
                             + "2) for 1 hour\n"

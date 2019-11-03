@@ -9,6 +9,7 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.antlr.runtime.CharStreamState;
 import planner.logic.exceptions.legacy.ModException;
 import planner.logic.exceptions.legacy.ModMissingArgumentException;
 import planner.logic.exceptions.planner.ModNoPrerequisiteException;
@@ -209,7 +210,7 @@ public class CapCommand extends ModuleCommand {
         ArrayList<String> prunedModules = parsePrerequisiteTree(detailedMap.get(moduleCode).getPrerequisites());
         for (ModuleTask x : moduleTasksList.getTasks()) {
             if (prunedModules.contains(x.getModuleCode())) {
-                if (letterGradeToCap(moduleCode) != 0.00) {
+                if (letterGradeToCap(x.getGrade()) != 0.00) {
                     mcCount += x.getModuleCredit();
                     projectedModuleCap += letterGradeToCap(x.getGrade()) * x.getModuleCredit();
                 }
@@ -218,10 +219,17 @@ public class CapCommand extends ModuleCommand {
         }
          if (!prunedModules.isEmpty()) {
             for (String module : prunedModules) {
+                boolean hasPreclusions = false;
                 for (ModuleTask x : moduleTasksList.getTasks()) {
                     if (detailedMap.get(module).getPreclusion().contains(x.getModuleCode())) {
-
-                    };
+                        hasPreclusions = true;
+                        mcCount += x.getModuleCredit();
+                        projectedModuleCap += letterGradeToCap(x.getGrade()) * x.getModuleCredit();
+                        break;
+                    }
+                }
+                if (hasPreclusions) {
+                    prunedModules.remove(module);
                 }
             }
         }
@@ -253,10 +261,10 @@ public class CapCommand extends ModuleCommand {
                                  Scanner scanner,
                                  List<ModuleTask> moduleList) {
         for (ModuleTask module : moduleList) {
-            if (!module.getModuleInfoDetailed().getAttributes().isSu() || letterGradeToCap(module.getGrade()) != 0.00) {
+            if (letterGradeToCap(module.getGrade()) != 0.00) {
                 mcCount += module.getModuleCredit();
+                projectedCap += (letterGradeToCap(module.getGrade()) * module.getModuleCredit());
             }
-            projectedCap += (letterGradeToCap(module.getGrade()) * module.getModuleCredit());
         }
         double averageCap = projectedCap / mcCount;
         if (projectedCap == 0 && mcCount == 0) {
@@ -277,7 +285,7 @@ public class CapCommand extends ModuleCommand {
      */
     public ArrayList<String> parsePrerequisiteTree(String prerequisites) {
         Matcher matcher = Pattern.compile("[a-zA-Z][a-zA-Z][a-zA-Z]?[0-9][0-9][0-9][0-9][a-zA-Z]?").matcher(prerequisites);
-        ArrayList<String> prerequisiteModules = new ArrayList<String>();
+        ArrayList<String> prerequisiteModules = new ArrayList<>();
         while (matcher.find()) {
             prerequisiteModules.add(matcher.group());
         }
