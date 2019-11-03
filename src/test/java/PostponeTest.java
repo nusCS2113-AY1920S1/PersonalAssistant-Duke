@@ -68,6 +68,14 @@ public class PostponeTest {
     }
 
     @Test
+    void testPostponeDateEarly() {
+        PostponeCommand command = new PostponeCommand(3, LocalDateTime.of(2002, 2, 2, 2, 0));
+        Assertions.assertThrows(ChronologerException.class, () -> {
+            command.execute(tasks, storage);
+        });
+    }
+
+    @Test
     void testError() {
         Assertions.assertThrows(ChronologerException.class, () -> {
             ParserFactory.parse("postpone");
