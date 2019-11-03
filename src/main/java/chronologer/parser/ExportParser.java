@@ -25,7 +25,6 @@ public class ExportParser extends DescriptionParser {
         super.extract();
         extractFlags(taskFeatures);
         String fileName = removeFlags(taskFeatures);
-        System.out.println(Flag.DEADLINE.getFlag());
         return new ExportCommand(fileName, hasDeadlineFlag, hasEventFlag, hasTodoFlag);
     }
 
