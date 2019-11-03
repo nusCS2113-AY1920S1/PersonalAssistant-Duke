@@ -23,7 +23,7 @@ public class SetShortcutParserTest {
     }
 
     @Test
-    public void createShortcut_multipleUserInput_success() {
+    public void createShortcut_multipleUserInputs_success() {
         Assertions.assertAll(() -> parser.parse("name order add; order remove"));
     }
 }
