@@ -40,7 +40,11 @@ public class FeedbackList {
 
  */
 
-    // delete ingredient by index on list
+    /**
+     * Delete feedback by inputting index
+     *
+     * @param i the index of feedback to be deleted
+     */
     public void deleteFeedback(int i) {
         if (feedbackList.size() - 1 <= 1) {
             msg = " feedback in the list.";

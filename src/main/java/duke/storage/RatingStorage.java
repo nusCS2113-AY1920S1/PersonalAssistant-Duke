@@ -6,6 +6,9 @@ import duke.model.task.recipetasks.Rating2;
 import java.io.*;
 import java.util.ArrayList;
 
+/**
+ * Handles the ability to read and write to the storage location.
+ */
 public class RatingStorage {
     private final ArrayList<Rating2> arrRating2List = new ArrayList<>();
     private final String filePathRating;

@@ -59,8 +59,6 @@ public class EditPrepStepCommand extends Command<RecipeList, Ui, RecipeStorage> 
                     }
                 }
 
-
-
                 else if (isDel(command)) {
                     String[] split = description.split(command, 2);
                     recipeTitle = split[0].trim();
@@ -125,6 +123,12 @@ public class EditPrepStepCommand extends Command<RecipeList, Ui, RecipeStorage> 
         return arrayList;
     }
 
+    /**
+     * Checks if the input contains all of the ingredient's name, quantity, unit, and additional information
+     *
+     * @param description String containing the input information
+     * @return true if all of the ingredient's name, quantity, unit, and additional information are provided
+     */
     private boolean hasAllIngredientFields(String description) {
         if (description.contains("n/") && description.contains("q/") && description.contains("u/")) {
             return true;
@@ -133,6 +137,12 @@ public class EditPrepStepCommand extends Command<RecipeList, Ui, RecipeStorage> 
         }
     }
 
+    /**
+     * Checks if the input contains one and only one command
+     *
+     * @param description String containing the input information
+     * @return true if the input contains only one command
+     */
     private static boolean hasOneCommand(String description) {
         int i = 0;
         if (description.contains("ins/")) {
@@ -209,6 +219,12 @@ public class EditPrepStepCommand extends Command<RecipeList, Ui, RecipeStorage> 
         return Integer.parseInt(position) <= (recipeList.getRecipeList().get(recipeTitle).getRequiredIngredients().getSize() + 1);
     }
 
+    /**
+     * Checks if the input unit is validate
+     *
+     * @param unit String containing the input unit
+     * @return true if the unit is known
+     */
     private static boolean isKnownUnit(String unit) { // edit this part.
         if (unit.equals("g") || unit.equals("kg") || unit.equals("l") || unit.equals("ml") || unit.equals("cup") || unit.equals("teaspoon") || unit.equals("tablespoon")) {
             return true;

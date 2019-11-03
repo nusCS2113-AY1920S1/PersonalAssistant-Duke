@@ -28,6 +28,11 @@ public class PrepTimeList {
         return arrList;
     }
 
+    /**
+     * Add new preparation time to a recipe
+     *
+     * @param prepTime String containing the new preparation step
+     */
     public void addPrepTime(String prepTime) throws ParseException {
 //        prepTimeList.add(new PrepTime(getSize() + 1, prepTime));
 //        int index = prepTimeList.size();
@@ -35,8 +40,12 @@ public class PrepTimeList {
 //        System.out.println(MESSAGE_ADDED + "       " + prepTimeList.get(index - 1) + "\n" + MESSAGE_ITEMS1 + index + msg);
     }
 
-    // delete prep step by index on list
-    public void deletePrepStep(int i) {
+    /**
+     * Delete preparation time by inputting index
+     *
+     * @param i the index of preparation time to be deleted
+     */
+    public void deletePrepTime(int i) {
         msg = " preparation time in the list.";
         System.out.println(MESSAGE_DELETE + "       " + prepTimeList.get(i)
                 + "\n" + MESSAGE_ITEMS1 + (prepTimeList.size() - 1) + msg);

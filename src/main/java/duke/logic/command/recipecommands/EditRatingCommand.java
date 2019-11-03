@@ -55,6 +55,12 @@ public class EditRatingCommand extends Command<RecipeList, Ui, RecipeStorage> {
         return arrayList;
     }
 
+    /**
+     * Checks if the input rating is in accepted  style
+     *
+     * @param rating String containing the input rating
+     * @return true if the input rating is one of "average", "good", "delicious"
+     */
     private boolean isValidRating(String rating) {
         return (rating.equals("") || rating.equals("average") || rating.equals("good") || rating.equals("delicious"));
     }

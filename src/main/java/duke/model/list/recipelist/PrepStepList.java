@@ -28,6 +28,11 @@ public class PrepStepList {
         return arrList;
     }
 
+    /**
+     * Add new preparation step to a recipe
+     *
+     * @param prepStep String containing the new preparation step
+     */
     public void addPrepStep(String prepStep) throws ParseException {
         prepStepList.add(new PrepStep(getSize() + 1, prepStep));
         int index = prepStepList.size();
@@ -39,7 +44,11 @@ public class PrepStepList {
         System.out.println(MESSAGE_ADDED + "       " + prepStepList.get(index - 1) + "\n" + MESSAGE_ITEMS1 + index + msg);
     }
 
-    // delete prep step by index on list
+    /**
+     * Delete preparation step by inputting index
+     *
+     * @param i the index of preparation step to be deleted
+     */
     public void deletePrepStep(int i) {
         if (prepStepList.size() - 1 <= 1) {
             msg = " prep step in the list.";

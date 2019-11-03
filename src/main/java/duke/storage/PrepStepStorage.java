@@ -6,6 +6,9 @@ import duke.model.task.recipetasks.PrepStep;
 import java.io.*;
 import java.util.ArrayList;
 
+/**
+ * Handles the ability to read and write to the storage location.
+ */
 public class PrepStepStorage {
     private final ArrayList<PrepStep> arrPrepStepList = new ArrayList<>();
     private final String filePathPrepStep;
