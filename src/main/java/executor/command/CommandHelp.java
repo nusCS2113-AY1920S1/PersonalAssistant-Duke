@@ -1,6 +1,7 @@
 package executor.command;
 
 import executor.task.TaskList;
+import interpreter.Parser;
 import ui.Ui;
 import ui.Wallet;
 
@@ -22,16 +23,14 @@ public class CommandHelp extends Command {
 
     @Override
     public void execute(TaskList taskList) {
-          String[] checkerForExtraInput;
-          checkerForExtraInput = userInput.split(" ");
-         try {
-             if (!checkerForExtraInput[1].isEmpty()) {
-                 System.out.println("Extra variable is added. Please follow -> FORMAT : help");
-                 return;
-             }
-         } catch (Exception e) {
+        String checkerForExtraInput;
+        checkerForExtraInput = Parser.parseForPrimaryInput(CommandType.HELP, userInput);
 
-         }
+        if (!checkerForExtraInput.isEmpty()) {
+            Ui.dukeSays("Extra variable is added. Please follow -> FORMAT : help");
+            return;
+        }
+
           ArrayList<String> help = new ArrayList<String>();
           for (String s : CommandType.getNames()) {
               if (!s.equals("ERROR") && !s.equals("TASK") && !s.equals("BLANK")) {
