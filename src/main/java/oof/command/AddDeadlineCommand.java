@@ -17,9 +17,9 @@ public class AddDeadlineCommand extends Command {
 
     public static final String COMMAND_WORD = "deadline";
     protected ArrayList<String> arguments;
-    protected static final int INDEX_DESCRIPTION = 0;
+    static final int INDEX_DESCRIPTION = 0;
     protected static final int INDEX_DATE = 1;
-    protected static final int ARRAY_SIZE_DATE = 2;
+    static final int ARRAY_SIZE_DATE = 2;
 
 
     /**
@@ -33,18 +33,13 @@ public class AddDeadlineCommand extends Command {
     }
 
     /**
-     * Performs a series of three main tasks.
-     * Processes the Command inputted by user into description and date.
-     * Checks for the validity of the format of date.
-     * Adds a Deadline object to the TaskList
-     * and prints the object added before calling methods in Storage to
-     * store the object added in the hard disk.
+     * Adds a deadline task to taskList.
      *
-     * @param semesterList Instance of SemesterList that stores Semester objects.
-     * @param taskList     Instance of TaskList that stores Task objects.
-     * @param ui           Instance of Ui that is responsible for visual feedback.
-     * @param storageManager      Instance of Storage that enables the reading and writing of Task
-     *                     objects to hard disk.
+     * @param semesterList   Instance of SemesterList that stores Semester objects.
+     * @param taskList       Instance of TaskList that stores Task objects.
+     * @param ui             Instance of Ui that is responsible for visual feedback.
+     * @param storageManager Instance of Storage that enables the reading and writing of Task
+     *                       objects to hard disk.
      * @throws OofException if user input invalid commands.
      */
     @Override

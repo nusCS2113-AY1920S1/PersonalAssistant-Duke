@@ -14,7 +14,7 @@ import oof.storage.StorageManager;
 /**
  * Represents a Reminder class to remind user on upcoming deadlines.
  */
-public class Reminder {
+class Reminder {
 
     private static final long MILLISECOND_TO_HOUR = 60 * 60 * 1000;
     private static final String DEFAULT_DATETIME = "00-00-0000 00:00";
@@ -25,7 +25,7 @@ public class Reminder {
      * @param taskList TaskList that contains Task objects.
      * @param ui       Ui that is responsible for visual feedback.
      */
-    public void checkDeadline(TaskList taskList, Ui ui, StorageManager storageManager) {
+    void checkDeadline(TaskList taskList, Ui ui, StorageManager storageManager) {
         int count = 1;
         int upcomingThreshold = storageManager.readThreshold();
         for (int i = 0; i < taskList.getSize(); i++) {
@@ -67,17 +67,16 @@ public class Reminder {
 
     /**
      * Parses the timestamp for the deadlines.
+     *
      * @param task Deadline task object.
      * @return Returns the parsed date if the date format is parsable.
      */
     private Date parseDateTime(Ui ui, Deadline task) {
-        String defaultDateTime = DEFAULT_DATETIME;
         Date defaultDate = new Date();
         try {
             String dateTime = task.getDeadlineDateTime();
-            defaultDate = new SimpleDateFormat("dd-MM-yyyy HH:mm").parse(defaultDateTime);
-            Date dueDate = new SimpleDateFormat("dd-MM-yyyy HH:mm").parse(dateTime);
-            return dueDate;
+            defaultDate = new SimpleDateFormat("dd-MM-yyyy HH:mm").parse(DEFAULT_DATETIME);
+            return new SimpleDateFormat("dd-MM-yyyy HH:mm").parse(dateTime);
         } catch (ParseException | DateTimeException e) {
             ui.printOofException((OofException) e);
             return defaultDate;
@@ -86,12 +85,13 @@ public class Reminder {
 
     /**
      * Displays the reminders and returns the number of reminders displayed.
-     * @param taskList Instance of TaskList that stores Task objects.
-     * @param ui Ui that is responsible for visual feedback.
-     * @param dueDate Due date of current deadline.
+     *
+     * @param taskList          Instance of TaskList that stores Task objects.
+     * @param ui                Ui that is responsible for visual feedback.
+     * @param dueDate           Due date of current deadline.
      * @param upcomingThreshold DateTime threshold for OOF to display the reminders.
-     * @param count Number of reminders displayed thus far.
-     * @param index Index in the taskList.
+     * @param count             Number of reminders displayed thus far.
+     * @param index             Index in the taskList.
      * @return Returns the updated number of reminders displayed.
      */
     private int displayReminders(TaskList taskList, Ui ui, Date dueDate, int upcomingThreshold, int count,

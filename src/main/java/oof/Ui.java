@@ -53,7 +53,7 @@ public class Ui {
     private static final String ANSI_RESET = "\u001B[0m";
     private static final String ANSI_BRIGHT_RED = "\u001B[91m";
     private static final String ANSI_BRIGHT_GREEN = "\u001B[92m";
-    private static final String ANSI_BRIGHT_CYAN   = "\u001B[96m";
+    private static final String ANSI_BRIGHT_CYAN = "\u001B[96m";
     private static final String ANSI_BRIGHT_WHITE = "\u001B[97m";
     private static final String ANSI_BG_BLUE = "\u001B[44m";
     private static final String ANSI_BG_BLACK = "\u001B[40m";
@@ -77,7 +77,7 @@ public class Ui {
      *
      * @return Scanner to scan for next line of user input.
      */
-    public String scanLine() {
+    String scanLine() {
         scan.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
         return scan.nextLine();
     }
@@ -85,7 +85,7 @@ public class Ui {
     /**
      * Prints 3D ascii logo OOF.
      */
-    public void printOofLogo() {
+    private void printOofLogo() {
         String logo = "                          ________  ________  ________ \n"
                 + "                         |\\   __  \\|\\   __  \\|\\  _____\\\n"
                 + "                         \\ \\  \\|\\  \\ \\  \\|\\  \\ \\  \\__/ \n"
@@ -100,7 +100,7 @@ public class Ui {
     /**
      * Prints welcome message for OOF.
      */
-    public void hello() {
+    void hello() {
         printOofLogo();
         printLine();
         System.out.println(" Hello! I'm OOF");
@@ -110,7 +110,7 @@ public class Ui {
     /**
      * Prints command prompt.
      */
-    public void printCommandPrompt() {
+    void printCommandPrompt() {
         printLine();
         System.out.println(" Enter a command: ");
     }
@@ -127,7 +127,7 @@ public class Ui {
     /**
      * Prints lines.
      */
-    public void printLine() {
+    private void printLine() {
         System.out.println("________________________________________________________________________________");
     }
 
@@ -221,7 +221,7 @@ public class Ui {
     /**
      * Prints a reminder regarding upcoming deadlines.
      */
-    public void printReminder() {
+    void printReminder() {
         printLine();
         System.out.println(" Reminder these tasks have upcoming deadlines:");
     }
@@ -229,7 +229,7 @@ public class Ui {
     /**
      * Prints a reminder that the user has no deadlines.
      */
-    public void printNoDeadlines() {
+    void printNoDeadlines() {
         printLine();
         System.out.println(" You have no upcoming deadlines :)");
     }
@@ -240,7 +240,7 @@ public class Ui {
      * @param count Position of upcoming deadline in reminder list.
      * @param task  Task object of upcoming deadline.
      */
-    public void printUpcomingDeadline(int count, Task task) {
+    void printUpcomingDeadline(int count, Task task) {
         System.out.println(" \t" + count + "." + task);
     }
 
@@ -274,20 +274,6 @@ public class Ui {
                 System.out.println(" \t" + (i + 1) + ". " + matchedTasks.get(i));
             }
         }
-    }
-
-    /**
-     * Prints list of options for the recurring frequency of a task.
-     */
-    public void printRecurringOptions() {
-        printLine();
-        String options = " Here are the available options for recurring tasks:\n"
-                + " \t1. Daily\n"
-                + " \t2. Weekly\n"
-                + " \t3. Monthly\n"
-                + " \t4. Yearly\n"
-                + " \tPlease choose one of the four options for your recurring frequency.";
-        System.out.println(options);
     }
 
     /**
@@ -566,12 +552,18 @@ public class Ui {
             largestColSize++;
         }
         String newDetails = " " + details;
-        if (task[TYPE].equals(TODO)) {
+        switch (task[TYPE]) {
+        case TODO:
             newDetails = ANSI_BRIGHT_GREEN + newDetails + ANSI_RESET;
-        } else if (task[TYPE].equals(DEADLINE)) {
+            break;
+        case DEADLINE:
             newDetails = ANSI_BRIGHT_RED + newDetails + ANSI_RESET;
-        } else if (task[TYPE].equals(EVENT)) {
+            break;
+        case EVENT:
             newDetails = ANSI_BRIGHT_CYAN + newDetails + ANSI_RESET;
+            break;
+        default:
+            break;
         }
         int length = newDetails.length() - ANSI_LENGTH;
         while (length < largestColSize + DATE_SPACES) {
@@ -634,7 +626,7 @@ public class Ui {
      *
      * @param yearMonth Object containing month and year information.
      */
-    public void printCalendarLabel(YearMonth yearMonth) {
+    private void printCalendarLabel(YearMonth yearMonth) {
         String[] months = {"", "JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE", "JULY", "AUGUST",
                 "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER"};
         String month = months[yearMonth.getMonthValue()];
@@ -645,7 +637,7 @@ public class Ui {
     /**
      * Prints calendar header.
      */
-    public void printCalendarHeader() {
+    private void printCalendarHeader() {
         System.out.println("-----------------------------------------------------------------------------------------"
                 + "------------------------------------------------------------------");
         System.out.println("|         SUN         |         MON         |         TUE         |         WED         |"
@@ -659,7 +651,7 @@ public class Ui {
      *
      * @param yearMonth Object containing month and year information.
      */
-    public void printCalendarBody(YearMonth yearMonth, ArrayList<ArrayList<String[]>> calendar) {
+    private void printCalendarBody(YearMonth yearMonth, ArrayList<ArrayList<String[]>> calendar) {
         String[] date = {"  ", " 1", " 2", " 3", " 4", " 5", " 6", " 7",
                 " 8", " 9", "10", "11", "12", "13", "14", "15",
                 "16", "17", "18", "19", "20", "21", "22", "23",
@@ -709,8 +701,8 @@ public class Ui {
      * @param dayIndex      Offset for current day.
      * @param calendarRows  Number of rows to be printed for current week.
      */
-    public void printCalendarDetails(ArrayList<ArrayList<String[]>> calendar, ArrayList<String> calendarDates,
-                                     int dayIndex, int calendarRows) {
+    private void printCalendarDetails(ArrayList<ArrayList<String[]>> calendar, ArrayList<String> calendarDates,
+                                      int dayIndex, int calendarRows) {
         for (int row = 0; row < calendarRows; row++) {
             System.out.print("|");
             for (int day = 0; day < DAYS_IN_WEEK; day++) {
@@ -738,7 +730,7 @@ public class Ui {
      * @param taskTime Time of deadline or event.
      * @param taskName Name of deadline or event.
      */
-    public void printDeadlineAndEvent(String taskTime, String taskName) {
+    private void printDeadlineAndEvent(String taskTime, String taskName) {
         if (taskName.length() > TEXT_SIZE_SHORT) {
             taskName = taskName.substring(DESCRIPTION_SHORT_START, DESCRIPTION_SHORT_END);
             System.out.print(" " + taskTime + " " + taskName + ".. |");
@@ -753,7 +745,7 @@ public class Ui {
      *
      * @param taskName Name of todo.
      */
-    public void printTodo(String taskName) {
+    private void printTodo(String taskName) {
         if (taskName.length() > TEXT_SIZE_LONG) {
             taskName = taskName.substring(DESCRIPTION_LONG_START, DESCRIPTION_LONG_END);
             System.out.print(" " + taskName + ".. |");

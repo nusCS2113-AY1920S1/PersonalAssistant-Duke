@@ -5,7 +5,7 @@ package oof.model.task;
  */
 public class Deadline extends Task {
 
-    protected String deadlineDateTime;
+    String deadlineDateTime;
 
     /**
      * Constructor for Deadline.

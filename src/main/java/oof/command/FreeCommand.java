@@ -48,11 +48,11 @@ public class FreeCommand extends Command {
     /**
      * Finds free time during the queried time period.
      *
-     * @param semesterList Instance of SemesterList that stores Semester objects.
-     * @param taskList     Instance of TaskList that contains list of tasks.
-     * @param ui           Instance of Ui that is responsible for visual feedback.
-     * @param storageManager      Instance of Storage that enables the reading and writing of Task
-     *                     objects to hard disk.
+     * @param semesterList   Instance of SemesterList that stores Semester objects.
+     * @param taskList       Instance of TaskList that contains list of tasks.
+     * @param ui             Instance of Ui that is responsible for visual feedback.
+     * @param storageManager Instance of Storage that enables the reading and writing of Task
+     *                       objects to hard disk.
      * @throws OofException if user input invalid commands.
      */
     @Override
@@ -140,7 +140,7 @@ public class FreeCommand extends Command {
      * @param startTime     Starting time of task.
      * @param endTime       Ending time of task.
      * @param event         Event task object.
-     * @throws OofException   Prints customised exception message.
+     * @throws OofException Prints customised exception message.
      */
     private void populateList(String dateStart, String freeSlotsDate, String startTime, String endTime, Event event)
             throws OofException {
@@ -158,7 +158,7 @@ public class FreeCommand extends Command {
      * Checks for the list of events for duplicate timings.
      *
      * @param startTime The start time of the event
-     * @return  true if the list contains the same start time, false otherwise.
+     * @return true if the list contains the same start time, false otherwise.
      */
     private boolean isDuplicate(Date startTime) {
         if (eventStartTimes.isEmpty()) {
@@ -197,8 +197,8 @@ public class FreeCommand extends Command {
     /**
      * Checks if the event date is the same as the user specified date.
      *
-     * @param eventStartDate     Start date of event being compared.
-     * @param freeSlotsDate Date of free time to search for.
+     * @param eventStartDate Start date of event being compared.
+     * @param freeSlotsDate  Date of free time to search for.
      * @return true if event date and user specified date is the same.
      */
     private boolean isSameDate(String eventStartDate, String freeSlotsDate) {
