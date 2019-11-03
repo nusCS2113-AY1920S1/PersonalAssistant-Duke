@@ -52,7 +52,7 @@ public class CommandGetSpendingByYear extends Command {
             }
             receiptsInYear = wallet.getReceipts().findReceiptByYear(year);
             Double totalMoney = receiptsInYear.getTotalCashSpent();
-            Ui.dukeSays("The total amount of money spent in " + year + " : " + totalMoney);
+            Ui.dukeSays("The total amount of money spent in " + year + " : $" + totalMoney);
 
         } catch (Exception e) {
             Ui.dukeSays("Year input is either a double or contains String values. FORMAT : expendedyear 2019");
