@@ -60,7 +60,6 @@ public class DebtsParser extends Parser {
                         date = Time.readDate(dateAndTag[0].trim());
                     } catch (DateTimeParseException e) {
                         Ui.printDateFormatError();
-                        throw new Exception("invalid date");
                     }
                 } else {
                     try {
