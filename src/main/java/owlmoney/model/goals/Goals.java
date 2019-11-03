@@ -104,7 +104,7 @@ public class Goals {
      */
     String getSavingAccount() {
         if (savingAccount == null) {
-            return "NOT TIED";
+            return "-NOT TIED-";
         } else {
             return savingAccount.getAccountName();
         }

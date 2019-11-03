@@ -23,7 +23,7 @@ public class GoalsList {
     private static final int ISZERO = 0;
     private Storage storage;
     private static final String PROFILE_GOAL_LIST_FILE_NAME = "profile_goallist.csv";
-
+    private static final String UNTIEDBANK = "-NOT TIED-";
 
     /**
      * Creates a instance of GoalsList that contains an arrayList of Goals.
@@ -80,7 +80,7 @@ public class GoalsList {
         if (goalExists(goals.getGoalsName())) {
             throw new GoalsException("There is already a goal with the same name " + goals.getGoalsName());
         }
-        if (goals.getRawStatus() == true) {
+        if (goals.getRawStatus()) {
             throw new GoalsException("You cannot add a goal that is already achieved!");
         }
         checkNumGoals();
@@ -106,8 +106,12 @@ public class GoalsList {
         if (goalList.size() <= ISZERO) {
             throw new GoalsException("There are no goals set!");
         } else {
+            String capitalGoalName = goalName.toUpperCase();
             for (int i = ISZERO; i < goalList.size(); i++) {
-                if (goalList.get(i).getGoalsName().equals(goalName)) {
+                Goals currentGoal = goalList.get(i);
+                String currentGoalName = currentGoal.getGoalsName();
+                String capitalCurrentGoalName = currentGoalName.toUpperCase();
+                if (capitalGoalName.equals(capitalCurrentGoalName)) {
                     Goals temp = goalList.get(i);
                     goalList.remove(i);
                     ui.printMessage("Details of the goal being removed:");
@@ -118,24 +122,28 @@ public class GoalsList {
                         ui.printError("Error trying to save your goals to disk. Your data is"
                                 + " at risk, but we will try again, feel free to continue using the program.");
                     }
-                    break;
-                } else {
-                    throw new GoalsException("There is no goal with the name: " + goalName);
+                    return;
                 }
             }
+            throw new GoalsException("There are no goals with the name: " + goalName);
         }
     }
 
     /**
      * Compares if the current goal name is the same as the new intended goal name.
      *
-     * @param currentGoals Current Goal Name of the Goal.
+     * @param currentGoal Current Goal Name of the Goal.
      * @param newGoalName  New Goal Name that user intends to change.
      * @throws GoalsException If there's a goal of the same name.
      */
-    private void compareGoals(Goals currentGoals, String newGoalName) throws GoalsException {
+    private void compareGoals(Goals currentGoal, String newGoalName) throws GoalsException {
+        String currentGoalName = currentGoal.getGoalsName();
+        String capitalCurrentGoalName = currentGoalName.toUpperCase();
         for (int i = ISZERO; i < goalList.size(); i++) {
-            if (goalList.get(i).getGoalsName().equals(newGoalName) && !goalList.get(i).equals(currentGoals)) {
+            Goals checkGoal = goalList.get(i);
+            String checkGoalName = checkGoal.getGoalsName();
+            String capitalCheckGoalName = checkGoalName.toUpperCase();
+            if (capitalCheckGoalName.equals(capitalCurrentGoalName) && !checkGoal.equals(currentGoal)) {
                 throw new GoalsException("There is already a goal with the same name: " + newGoalName);
             }
         }
@@ -148,8 +156,12 @@ public class GoalsList {
      * @return True if it exists and False if it doesn't.
      */
     private boolean goalExists(String goalName) {
+        String capitalGoalName = goalName.toUpperCase();
         for (int i = ISZERO; i < goalList.size(); i++) {
-            if (goalName.equals(goalList.get(i).getGoalsName())) {
+            Goals currentGoal = goalList.get(i);
+            String currentGoalName = currentGoal.getGoalsName();
+            String capitalCurrentGoalName = currentGoalName.toUpperCase();
+            if (capitalGoalName.equals(capitalCurrentGoalName)) {
                 return true;
             }
         }
@@ -169,21 +181,25 @@ public class GoalsList {
      */
     public void editGoals(String goalName, String amount, Date date, String newName, Bank savingAcc, Ui ui)
             throws GoalsException {
+        String capitalGoalName = goalName.toUpperCase();
         for (int i = ISZERO; i < goalList.size(); i++) {
-            if (goalList.get(i).getGoalsName().equals(goalName)) {
+            Goals currentGoal = goalList.get(i);
+            String currentGoalName = currentGoal.getGoalsName();
+            String capitalCurrentGoalName = currentGoalName.toUpperCase();
+            if (capitalGoalName.equals(capitalCurrentGoalName)) {
                 if (!(newName.isEmpty() || newName.isBlank())) {
-                    compareGoals(goalList.get(i), newName);
-                    goalList.get(i).setGoalsName(newName);
+                    compareGoals(currentGoal, newName);
+                    currentGoal.setGoalsName(newName);
                 }
                 if (!(amount.isBlank() || amount.isEmpty())) {
-                    goalList.get(i).setGoalsAmount(Double.parseDouble(amount));
+                    currentGoal.setGoalsAmount(Double.parseDouble(amount));
                 }
                 if (date != null) {
-                    goalList.get(i).setGoalsDate(date);
+                    currentGoal.setGoalsDate(date);
                 }
                 if (savingAcc != null) {
-                    if (savingAcc.getCurrentAmount() < goalList.get(i).getGoalsAmount()) {
-                        goalList.get(i).setSavingAccount(savingAcc);
+                    if (savingAcc.getCurrentAmount() < currentGoal.getGoalsAmount()) {
+                        currentGoal.setSavingAccount(savingAcc);
                     } else {
                         throw new GoalsException("You cannot add a goal that is already achieved!");
                     }
@@ -242,10 +258,15 @@ public class GoalsList {
      * @param bankName Name of deleted bank account.
      */
     public void changeTiedAccountsToNull(String bankName) {
+        String capitalBankName = bankName.toUpperCase();
         for (int i = ISZERO; i < goalList.size(); i++) {
-            Goals currentGoal = getGoal(i);
-            String tiedAccount = currentGoal.getSavingAccount();
-            if (bankName.equals(tiedAccount)) {
+            Goals currentGoal = goalList.get(i);
+            String currentGoalBank = currentGoal.getSavingAccount();
+            if (currentGoalBank == null) {
+                continue;
+            }
+            String capitalCurrentGoalBank = currentGoalBank.toUpperCase();
+            if (capitalBankName.equals(capitalCurrentGoalBank)) {
                 currentGoal.setSavingAccount(null);
             }
         }
@@ -277,7 +298,7 @@ public class GoalsList {
             String stringAmount = decimalFormat.format(amount);
             String date = exportDateFormat.format(goalList.get(i).getGoalsDateInDateFormat());
             String savingsAccountName = goalList.get(i).getSavingAccount();
-            if ("NOT TIED".equals(savingsAccountName)) {
+            if (UNTIEDBANK.equals(savingsAccountName)) {
                 savingsAccountName = null;
             }
             boolean doneStatus = goalList.get(i).getRawStatus();

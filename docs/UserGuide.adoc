@@ -239,6 +239,8 @@ Take note that there is a maximum of *50* character limit.
 
 | `CATEGORY` should contain alphabetic characters and spaces only.
 
+Take note that there is a maximum of *15* character limit.
+
 |======
 
 
@@ -1531,7 +1533,51 @@ Transfers $`250` from `DBB Vickers Account` to `JunBank Savings Account` on `1/1
 
 // tag::recurringExpenditureSyntax[]
 
-==== Adding recurring expenditures `/add /recurbankexp`
+==== Recurring expenditures management
+
+In this section, you'll be introduced to commands and parameters that help you to manage
+recurring expenditures in *OwlMoney*.
+
+Below is a list of command parameters that you can expect to use for the commands in this section.
+[cols="18%,37%,45%"]
+|======
+|*Parameter*| *Description* | *Acceptable Range of Values*
+| `ACCOUNT_NAME`
+| Indicates the name of the bank account.
+
+(e.g. DBB Vickers Account)
+
+| `ACCOUNT_NAME` should contain alphabetic characters, numeric characters, and spaces only.
+
+`ACCOUNT_NAME` is case-sensitive.
+
+Take note that there is a maximum of *30* character limit.
+
+| `AMOUNT`
+| Indicates the amount of money.
+
+(e.g. 2113.30)
+
+| `AMOUNT` should contain only digits up to *2* decimal places and a maximum of *9* digits.
+
+| `DESCRIPTION`
+| Indicates the description of the transaction.
+| `DESCRIPTION` should contain alphabetic characters, numeric characters, and spaces only.
+
+Take note that there is a maximum of *50* character limit.
+
+| `CATEGORY`
+| The category that the expenditure can be tagged to.
+
+(e.g. Bills)
+
+| `CATEGORY` should contain alphabetic characters and spaces only.
+
+Take note that there is a maximum of *15* character limit.
+
+|======
+
+===== Adding recurring expenditures `/add /recurbankexp`
 
 Postpaid mobile plan bills that are consistent monthly? We can save you the hassle from adding them every month!
 
@@ -1547,7 +1593,7 @@ Adds a recurring expenditure that deducts $`72.90` every *1st* of the month to p
 Savings
 Account` categorised under the `Bills` category.
 
-==== Editing recurring expenditure `/edit /recurbankexp`
+===== Editing recurring expenditure `/edit /recurbankexp`
 
 *Command Syntax*
 
@@ -1565,7 +1611,7 @@ At least one of `/desc`, `/category` or `/amount` must be used.
 
 Edits recurring expenditure number `2` description to `Telco Bills` to charge $`119.90`.
 
-==== Deleting recurring expenditure `/delete /recurbankexp`
+===== Deleting recurring expenditure `/delete /recurbankexp`
 
 Cancelled your recurring bill? You can delete it!
 
@@ -1585,6 +1631,13 @@ To find out which recurring expenditure to delete, use the `/list` or `/find` fu
 Deletes a recurring expenditure from `JunBank Savings Account` with transaction number `1`.
 
 // end::recurringExpenditureSyntax[]
+
+==== Updating profile
+
+Have some recurring transactions which have not been reflected yet? You can update your profile!
+
+*Command Syntax*
+`/update`
 
 == Future Enhancements `[coming in v2.0]`
 === Multi-Currency Support `/currency USD`
@@ -1930,5 +1983,10 @@ user*
 | Delete an existing expenditure record tied to the savings bank account.
 | `/delete /recurbankexp /from ACCOUNT_NAME /transno TRANSACTION_NUMBER`
 | `/delete /recurexpenditure /from JunBank Savings Account /transno 1`
+
+| *Update outdated profile*
+| Checks all recurring transactions and update the profile if needed.
+| `/update`
+| `/update`
 
 |======

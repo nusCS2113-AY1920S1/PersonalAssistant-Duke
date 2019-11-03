@@ -12,7 +12,8 @@ import owlmoney.logic.parser.exception.ParserException;
  */
 public class ParseAddRecurringExpenditure extends ParseRecurringExpenditure {
 
-    static final String ADD = "/add";
+    private static final String ADD = "/add";
+    private static final String RESERVEDCATEGORY = "deposit";
 
     /**
      * Creates an instance of ParseAddRecurringExpenditure.
@@ -37,12 +38,12 @@ public class ParseAddRecurringExpenditure extends ParseRecurringExpenditure {
         while (savingsIterator.hasNext()) {
             String key = savingsIterator.next();
             String value = expendituresParameters.get(key);
-            if (CATEGORY.equals(key) && "deposit".equals(value)) {
+            if (CATEGORY.equals(key) && RESERVEDCATEGORY.equals(value)) {
                 throw new ParserException(key + " cannot be deposit when adding a new recurring expenditure");
             } else if (CATEGORY.equals(key) && (value.isBlank() || value.isEmpty())) {
                 expendituresParameters.put(CATEGORY, "Miscellaneous");
             } else if (CATEGORY.equals(key)) {
-                checkDescription(value, key);
+                checkCategory(value);
             }
             if (AMOUNT.equals(key) && value.isBlank()) {
                 throw new ParserException(key + " cannot be deposit when adding a new recurring expenditure");

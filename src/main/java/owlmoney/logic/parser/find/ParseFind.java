@@ -74,15 +74,15 @@ public abstract class ParseFind {
      */
     public void fillHashTable() throws ParserException {
         findParameters.put(DESCRIPTION,
-                parseRawData.extractParameter(rawData, DESCRIPTION, FIND_KEYWORD));
+                parseRawData.extractParameter(rawData, DESCRIPTION, FIND_KEYWORD).trim());
         findParameters.put(CATEGORY,
-                parseRawData.extractParameter(rawData, CATEGORY, FIND_KEYWORD));
+                parseRawData.extractParameter(rawData, CATEGORY, FIND_KEYWORD).trim());
         findParameters.put(FROM,
-                parseRawData.extractParameter(rawData, FROM, FIND_KEYWORD));
+                parseRawData.extractParameter(rawData, FROM, FIND_KEYWORD).trim());
         findParameters.put(TO,
-                parseRawData.extractParameter(rawData, TO, FIND_KEYWORD));
+                parseRawData.extractParameter(rawData, TO, FIND_KEYWORD).trim());
         findParameters.put(NAME,
-                parseRawData.extractParameter(rawData, NAME, FIND_KEYWORD));
+                parseRawData.extractParameter(rawData, NAME, FIND_KEYWORD).trim());
     }
 
     /**

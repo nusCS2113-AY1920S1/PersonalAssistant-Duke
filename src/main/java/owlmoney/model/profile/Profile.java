@@ -1138,8 +1138,7 @@ public class Profile {
             // If exception is thrown, the expenditure list could potentially be corrupted
             // because some transactions have been transferred and some have not.
             ui.printMessage(error.getMessage());
-            throw new CardException("Paying of card bill failed! Your data may potentially be corrupted!"
-                    + "Please contact the administrator!");
+            throw new CardException("Paying of card bill failed! Your data may potentially be corrupted!");
         }
 
     }
@@ -1180,7 +1179,7 @@ public class Profile {
      */
     public double getBankExpAmountById(String bank, int expenditureId)
             throws BankException, TransactionException {
-        return bankList.bankListGetExpAmountById(bank, expenditureId);
+        return bankList.bankListGetExpenditureAmountById(bank, expenditureId);
     }
 
     /**

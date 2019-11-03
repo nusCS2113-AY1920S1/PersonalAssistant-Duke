@@ -81,6 +81,11 @@ class Main {
             List<String[]> importData = storage.readFile(PROFILE_FILE_NAME);
             String userName = importData.get(0)[0];
             profile = new Profile(userName, ui);
+            try {
+                profile.profileUpdate(ui);
+            } catch (BankException exceptionMessage) {
+                ui.printError("Error updating outdated recurring transactions");
+            }
             ui.greet(profile.profileGetUsername());
         } catch (IOException exceptionMessage) {
             ui.printError("Unable to import profile files, starting fresh");

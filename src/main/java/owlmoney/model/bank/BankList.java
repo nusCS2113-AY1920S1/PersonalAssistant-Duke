@@ -56,9 +56,14 @@ public class BankList {
      * @return The name of the bank account.
      */
     public Bank bankListGetSavingAccount(String bankName) throws BankException {
+        String capitalBankName = bankName.toUpperCase();
         for (int i = 0; i < getBankListSize(); i++) {
-            if (bankLists.get(i).getAccountName().equals(bankName) && bankLists.get(i).getType().equals(SAVING)) {
-                return bankLists.get(i);
+            Bank currentBank = bankLists.get(i);
+            String currentBankName = currentBank.getAccountName();
+            String capitalCurrentBankName = currentBankName.toUpperCase();
+            String currentBankType = currentBank.getType();
+            if (capitalBankName.equals(capitalCurrentBankName) && currentBankType.equals(SAVING)) {
+                return currentBank;
             }
         }
         throw new BankException("Cannot find savings account with the name: " + bankName);
@@ -106,7 +111,7 @@ public class BankList {
      *
      * @return size of bankList.
      */
-    public int getBankListSize() {
+    int getBankListSize() {
         return bankLists.size();
     }
 
@@ -134,9 +139,13 @@ public class BankList {
      * @return the result bankName is of bankType.
      */
     private boolean hasCorrectBankNameAndType(String bankName, String bankType) {
+        String capitalBankName = bankName.toUpperCase();
         for (int i = ISZERO; i < getBankListSize(); i++) {
-            if ((bankName.equals(bankLists.get(i).getAccountName()))
-                    && (bankType.equals(bankLists.get(i).getType()))) {
+            Bank currentBank = bankLists.get(i);
+            String currentBankName = currentBank.getAccountName();
+            String capitalCurrentBankName = currentBankName.toUpperCase();
+            if (capitalBankName.equals(capitalCurrentBankName)
+                    && (bankType.equals(currentBank.getType()))) {
                 return true;
             }
         }
@@ -150,8 +159,12 @@ public class BankList {
      * @return the result bankName exists.
      */
     private boolean bankAccountExists(String bankName) {
+        String capitalName = bankName.toUpperCase();
         for (int i = ISZERO; i < getBankListSize(); i++) {
-            if (bankName.equals(bankLists.get(i).getAccountName())) {
+            Bank currentBank = bankLists.get(i);
+            String currentBankName = currentBank.getAccountName();
+            String capitalNameInList = currentBankName.toUpperCase();
+            if (capitalName.equals(capitalNameInList)) {
                 return true;
             }
         }
@@ -192,13 +205,16 @@ public class BankList {
      * @throws BankException If bank account fails any criteria.
      */
     public void bankListDeleteBank(String bankName, String bankType, Ui ui) throws BankException {
+        String capitalBankName = bankName.toUpperCase();
         if (canPassDeleteBankRequirements(bankName, bankType)) {
             for (int i = ISZERO; i < getBankListSize(); i++) {
-                if (bankName.equals(bankLists.get(i).getAccountName())) {
-                    Bank temp = bankLists.get(i);
+                Bank currentBank = bankLists.get(i);
+                String currentBankName = currentBank.getAccountName();
+                String capitalCurrentBankName = currentBankName.toUpperCase();
+                if (capitalBankName.equals(capitalCurrentBankName)) {
                     bankLists.remove(i);
                     ui.printMessage("Removed bank with the following details: ");
-                    printOneBank(ONE_INDEX, temp, ISSINGLE, ui);
+                    printOneBank(ONE_INDEX, currentBank, ISSINGLE, ui);
                     try {
                         exportBankList();
                         Files.deleteIfExists(Paths.get(FILE_PATH + Integer.toString(i)
@@ -232,21 +248,25 @@ public class BankList {
      */
     public void bankListEditSavings(String bankName, String newName, String amount, String income, Ui ui)
             throws BankException {
+        String capitalBankName = bankName.toUpperCase();
         for (int i = ISZERO; i < getBankListSize(); i++) {
-            if (bankLists.get(i).getAccountName().equals(bankName)
-                    && "saving".equals(bankLists.get(i).getType())) {
+            Bank currentBank = bankLists.get(i);
+            String currentBankName = currentBank.getAccountName();
+            String capitalCurrentBankName = currentBankName.toUpperCase();
+            if (capitalBankName.equals(capitalCurrentBankName)
+                    && "saving".equals(currentBank.getType())) {
                 if (!(newName.isEmpty() || newName.isBlank())) {
-                    compareBank(bankLists.get(i), newName);
-                    bankLists.get(i).setAccountName(newName);
+                    compareBank(currentBank, newName);
+                    currentBank.setAccountName(newName);
                 }
                 if (!(amount.isBlank() || amount.isEmpty())) {
-                    bankLists.get(i).setCurrentAmount(Double.parseDouble(amount));
+                    currentBank.setCurrentAmount(Double.parseDouble(amount));
                 }
                 if (!(income.isEmpty() || income.isBlank())) {
-                    bankLists.get(i).setIncome(Double.parseDouble(income));
+                    currentBank.setIncome(Double.parseDouble(income));
                 }
                 ui.printMessage("New details of the account:");
-                printOneBank(ONE_INDEX, bankLists.get(i), ISSINGLE, ui);
+                printOneBank(ONE_INDEX, currentBank, ISSINGLE, ui);
                 try {
                     exportBankList();
                 } catch (IOException e) {
@@ -267,8 +287,12 @@ public class BankList {
      * @throws BankException If new name is not unique.
      */
     private void compareBank(Bank currentBank, String newBankName) throws BankException {
+        String capitalNewBankName = newBankName.toUpperCase();
         for (int i = ISZERO; i < getBankListSize(); i++) {
-            if (bankLists.get(i).getAccountName().equals(newBankName) && !bankLists.get(i).equals(currentBank)) {
+            Bank checkBank = bankLists.get(i);
+            String checkBankName = checkBank.getAccountName();
+            String capitalCheckBankName = checkBankName.toUpperCase();
+            if (capitalCheckBankName.equals(capitalNewBankName) && !checkBank.equals(currentBank)) {
                 throw new BankException("There is already a bank account with the name " + newBankName);
             }
         }
@@ -285,18 +309,22 @@ public class BankList {
      */
     public void bankListEditInvestment(String bankName, String newName, String amount, Ui ui)
             throws BankException {
+        String capitalBankName = bankName.toUpperCase();
         for (int i = ISZERO; i < getBankListSize(); i++) {
-            if (bankLists.get(i).getAccountName().equals(bankName)
+            Bank currentBank = bankLists.get(i);
+            String currentBankName = currentBank.getAccountName();
+            String capitalCurrentBankName = currentBankName.toUpperCase();
+            if (capitalBankName.equals(capitalCurrentBankName)
                     && "investment".equals(bankLists.get(i).getType())) {
                 if (!(newName.isEmpty() || newName.isBlank())) {
-                    compareBank(bankLists.get(i), newName);
-                    bankLists.get(i).setAccountName(newName);
+                    compareBank(currentBank, newName);
+                    currentBank.setAccountName(newName);
                 }
                 if (!(amount.isBlank() || amount.isEmpty())) {
-                    bankLists.get(i).setCurrentAmount(Double.parseDouble(amount));
+                    currentBank.setCurrentAmount(Double.parseDouble(amount));
                 }
                 ui.printMessage("New details of the account:");
-                printOneBank(ONE_INDEX, bankLists.get(i), ISSINGLE, ui);
+                printOneBank(ONE_INDEX, currentBank, ISSINGLE, ui);
                 try {
                     exportBankList();
                 } catch (IOException e) {
@@ -339,15 +367,19 @@ public class BankList {
      *
      * @param bankToList The name of the bank account.
      * @param ui         required for printing.
-     * @param displayNum Number of expenditures to list.
+     * @param expenditureToDisplay Number of expenditures to list.
      * @throws TransactionException If no expenditure is found.
      * @throws BankException        If bank name does not exist.
      */
-    public void bankListListBankExpenditure(String bankToList, Ui ui, int displayNum)
+    public void bankListListBankExpenditure(String bankToList, Ui ui, int expenditureToDisplay)
             throws TransactionException, BankException {
+        String capitalBankToList = bankToList.toUpperCase();
         for (int i = ISZERO; i < getBankListSize(); i++) {
-            if (bankToList.equals(bankLists.get(i).getAccountName())) {
-                bankLists.get(i).listAllExpenditure(ui, displayNum);
+            Bank currentBank = bankLists.get(i);
+            String currentBankName = currentBank.getAccountName();
+            String capitalCurrentBankName = currentBankName.toUpperCase();
+            if (capitalBankToList.equals(capitalCurrentBankName)) {
+                currentBank.listAllExpenditure(ui, expenditureToDisplay);
                 return;
             }
         }
@@ -359,15 +391,19 @@ public class BankList {
      *
      * @param bankToList The name of the bank account.
      * @param ui         required for printing.
-     * @param displayNum Number of deposits to list.
+     * @param depositsToDisplay Number of deposits to list.
      * @throws TransactionException If no deposit is found.
      * @throws BankException        If bank account does not exist.
      */
-    public void bankListListBankDeposit(String bankToList, Ui ui, int displayNum)
+    public void bankListListBankDeposit(String bankToList, Ui ui, int depositsToDisplay)
             throws TransactionException, BankException {
+        String capitalBankToList = bankToList.toUpperCase();
         for (int i = ISZERO; i < getBankListSize(); i++) {
-            if (bankToList.equals(bankLists.get(i).getAccountName())) {
-                bankLists.get(i).listAllDeposit(ui, displayNum);
+            Bank currentBank = bankLists.get(i);
+            String currentBankName = currentBank.getAccountName();
+            String capitalCurrentBankName = currentBankName.toUpperCase();
+            if (capitalBankToList.equals(capitalCurrentBankName)) {
+                currentBank.listAllDeposit(ui, depositsToDisplay);
                 return;
             }
         }
@@ -378,20 +414,24 @@ public class BankList {
      * Adds an expenditure tied to a bank account.
      * This will store the expenditure in the ExpenditureList in the bank account.
      *
-     * @param accName The Bank account name.
-     * @param exp     The instance of the expenditure.
+     * @param accountName The Bank account name.
+     * @param expenditure     The instance of the expenditure.
      * @param ui      Required for printing.
      * @param type    Type of bank to add expenditure into.
      * @throws BankException If bank account does not exist.
      */
-    public void bankListAddExpenditure(String accName, Transaction exp, Ui ui, String type)
+    public void bankListAddExpenditure(String accountName, Transaction expenditure, Ui ui, String type)
             throws BankException {
+        String capitalAccountName = accountName.toUpperCase();
         for (int i = ISZERO; i < getBankListSize(); i++) {
-            if (bankLists.get(i).getAccountName().equals(accName)) {
-                bankLists.get(i).addInExpenditure(exp, ui, type);
+            Bank currentBank = bankLists.get(i);
+            String currentBankName = currentBank.getAccountName();
+            String capitalCurrentBankName = currentBankName.toUpperCase();
+            if (capitalAccountName.equals(capitalCurrentBankName)) {
+                currentBank.addInExpenditure(expenditure, ui, type);
                 try {
                     exportBankList();
-                    bankLists.get(i).exportBankTransactionList(Integer.toString(i));
+                    currentBank.exportBankTransactionList(Integer.toString(i));
                 } catch (IOException e) {
                     ui.printError("Error trying to save your additions to disk. Your data is"
                             + " at risk, but we will try again, feel free to continue using the program.");
@@ -399,15 +439,15 @@ public class BankList {
                 return;
             }
         }
-        throw new BankException("There is no account with the name: " + accName);
+        throw new BankException("There is no account with the name: " + accountName);
     }
 
     /**
      * Edits an expenditure from the transactionList in the bank account.
      *
-     * @param expNum       The transaction number.
+     * @param transactionNumber       The transaction number.
      * @param editFromBank The name of the bank account.
-     * @param desc         The description of the expenditure.
+     * @param description         The description of the expenditure.
      * @param amount       The amount of the expenditure.
      * @param date         The date of the expenditure.
      * @param category     The category of the expenditure.
@@ -415,14 +455,18 @@ public class BankList {
      * @throws BankException        If bank account does not exist.
      * @throws TransactionException If incorrect date format.
      */
-    public void bankListEditExpenditure(int expNum, String editFromBank, String desc,
+    public void bankListEditExpenditure(int transactionNumber, String editFromBank, String description,
             String amount, String date, String category, Ui ui) throws BankException, TransactionException {
+        String capitalEditFromBank = editFromBank.toUpperCase();
         for (int i = ISZERO; i < getBankListSize(); i++) {
-            if (bankLists.get(i).getAccountName().equals(editFromBank)) {
-                bankLists.get(i).editExpenditureDetails(expNum, desc, amount, date, category, ui);
+            Bank currentBank = bankLists.get(i);
+            String currentBankName = currentBank.getAccountName();
+            String capitalCurrentBankName = currentBankName.toUpperCase();
+            if (capitalCurrentBankName.equals(capitalEditFromBank)) {
+                currentBank.editExpenditureDetails(transactionNumber, description, amount, date, category, ui);
                 try {
                     exportBankList();
-                    bankLists.get(i).exportBankTransactionList(Integer.toString(i));
+                    currentBank.exportBankTransactionList(Integer.toString(i));
                 } catch (IOException e) {
                     ui.printError("Error trying to save your edits to disk. Your data is"
                             + " at risk, but we will try again, feel free to continue using the program.");
@@ -436,20 +480,24 @@ public class BankList {
     /**
      * Deletes an expenditure from the transactionList in the bank account.
      *
-     * @param expNum         The transaction number.
+     * @param transactionNumber         The transaction number.
      * @param deleteFromBank The name of the bank account.
      * @param ui             required for printing.
      * @throws TransactionException If invalid transaction.
      * @throws BankException        If bank account does not exist.
      */
-    public void bankListDeleteExpenditure(int expNum, String deleteFromBank, Ui ui)
+    public void bankListDeleteExpenditure(int transactionNumber, String deleteFromBank, Ui ui)
             throws TransactionException, BankException {
+        String capitalDeleteFromBank = deleteFromBank.toUpperCase();
         for (int i = ISZERO; i < getBankListSize(); i++) {
-            if (deleteFromBank.equals(bankLists.get(i).getAccountName())) {
-                bankLists.get(i).deleteExpenditure(expNum, ui);
+            Bank currentBank = bankLists.get(i);
+            String currentBankName = currentBank.getAccountName();
+            String capitalCurrentBankName = currentBankName.toUpperCase();
+            if (capitalCurrentBankName.equals(capitalDeleteFromBank)) {
+                currentBank.deleteExpenditure(transactionNumber, ui);
                 try {
                     exportBankList();
-                    bankLists.get(i).exportBankTransactionList(Integer.toString(i));
+                    currentBank.exportBankTransactionList(Integer.toString(i));
                 } catch (IOException e) {
                     ui.printError("Error trying to save your deletes to disk. Your data is"
                             + " at risk, but we will try again, feel free to continue using the program.");
@@ -464,19 +512,24 @@ public class BankList {
      * Adds a deposit tied to a bank account.
      * This will store the expenditure in the transactionList in the bank account.
      *
-     * @param accName  The Bank account name.
-     * @param dep      The instance of the deposit.
+     * @param accountName  The Bank account name.
+     * @param deposit      The instance of the deposit.
      * @param ui       Required for printing.
      * @param bankType Type of bank to add deposit into
      * @throws BankException If bank name does not exist.
      */
-    public void bankListAddDeposit(String accName, Transaction dep, Ui ui, String bankType) throws BankException {
+    public void bankListAddDeposit(String accountName, Transaction deposit, Ui ui, String bankType)
+            throws BankException {
+        String capitalAccountName = accountName.toUpperCase();
         for (int i = ISZERO; i < getBankListSize(); i++) {
-            if (bankLists.get(i).getAccountName().equals(accName)) {
-                bankLists.get(i).addDepositTransaction(dep, ui, bankType);
+            Bank currentBank = bankLists.get(i);
+            String currentBankName = currentBank.getAccountName();
+            String capitalCurrentBankName = currentBankName.toUpperCase();
+            if (capitalAccountName.equals(capitalCurrentBankName)) {
+                currentBank.addDepositTransaction(deposit, ui, bankType);
                 try {
                     exportBankList();
-                    bankLists.get(i).exportBankTransactionList(Integer.toString(i));
+                    currentBank.exportBankTransactionList(Integer.toString(i));
                 } catch (IOException e) {
                     ui.printError("Error trying to save your additions to disk. Your data is"
                             + " at risk, but we will try again, feel free to continue using the program.");
@@ -484,30 +537,34 @@ public class BankList {
                 return;
             }
         }
-        throw new BankException("Cannot find bank with name: " + accName);
+        throw new BankException("Cannot find bank with name: " + accountName);
 
     }
 
     /**
      * Edits a deposit from the transactionList in the bank account.
      *
-     * @param expNum       The transaction number.
+     * @param transactionNumber       The transaction number.
      * @param editFromBank The name of the bank account.
-     * @param desc         The description of the deposit.
+     * @param description         The description of the deposit.
      * @param amount       The amount of the deposit.
      * @param date         The date of the deposit.
      * @param ui           required for printing.
      * @throws BankException        If bank name does not exist.
      * @throws TransactionException If incorrect date format.
      */
-    public void bankListEditDeposit(int expNum, String editFromBank, String desc,
+    public void bankListEditDeposit(int transactionNumber, String editFromBank, String description,
             String amount, String date, Ui ui) throws BankException, TransactionException {
+        String capitalEditFromBank = editFromBank.toUpperCase();
         for (int i = ISZERO; i < getBankListSize(); i++) {
-            if (bankLists.get(i).getAccountName().equals(editFromBank)) {
-                bankLists.get(i).editDepositDetails(expNum, desc, amount, date, ui);
+            Bank currentBank = bankLists.get(i);
+            String currentBankName = currentBank.getAccountName();
+            String capitalCurrentBankName = currentBankName.toUpperCase();
+            if (capitalEditFromBank.equals(capitalCurrentBankName)) {
+                currentBank.editDepositDetails(transactionNumber, description, amount, date, ui);
                 try {
                     exportBankList();
-                    bankLists.get(i).exportBankTransactionList(Integer.toString(i));
+                    currentBank.exportBankTransactionList(Integer.toString(i));
                 } catch (IOException e) {
                     ui.printError("Error trying to save your edits to disk. Your data is"
                             + " at risk, but we will try again, feel free to continue using the program.");
@@ -521,19 +578,24 @@ public class BankList {
     /**
      * Deletes a deposit from the transactionList in the bank account.
      *
-     * @param accName The name of the bank account.
+     * @param accountName The name of the bank account.
      * @param index   The transaction number.
      * @param ui      required for printing.
      * @throws BankException        If bank account does not exist.
      * @throws TransactionException If transaction is not a deposit.
      */
-    public void bankListDeleteDeposit(String accName, int index, Ui ui) throws BankException, TransactionException {
+    public void bankListDeleteDeposit(String accountName, int index, Ui ui)
+            throws BankException, TransactionException {
+        String capitalAccountName = accountName.toUpperCase();
         for (int i = ISZERO; i < getBankListSize(); i++) {
-            if (bankLists.get(i).getAccountName().equals(accName)) {
-                bankLists.get(i).deleteDepositTransaction(index, ui);
+            Bank currentBank = bankLists.get(i);
+            String currentBankName = currentBank.getAccountName();
+            String capitalCurrentBankName = currentBankName.toUpperCase();
+            if (capitalAccountName.equals(capitalCurrentBankName)) {
+                currentBank.deleteDepositTransaction(index, ui);
                 try {
                     exportBankList();
-                    bankLists.get(i).exportBankTransactionList(Integer.toString(i));
+                    currentBank.exportBankTransactionList(Integer.toString(i));
                 } catch (IOException e) {
                     ui.printError("Error trying to save your deletions to disk. Your data is"
                             + " at risk, but we will try again, feel free to continue using the program.");
@@ -541,43 +603,51 @@ public class BankList {
                 return;
             }
         }
-        throw new BankException("Cannot find bank with name: " + accName);
+        throw new BankException("Cannot find bank with name: " + accountName);
     }
 
     /**
      * Checks if the bond exists before adding.
      *
-     * @param accName the bank account name.
+     * @param accountName the bank account name.
      * @param bond    the bond object.
      * @throws BankException If bank does not exist.
      * @throws BondException If duplicate bond name found.
      */
-    public void bankListIsBondExist(String accName, Bond bond) throws BankException, BondException {
+    public void bankListIsBondExist(String accountName, Bond bond) throws BankException, BondException {
+        String capitalAccountName = accountName.toUpperCase();
         for (int i = ISZERO; i < getBankListSize(); i++) {
-            if (accName.equals(bankLists.get(i).getAccountName())) {
-                bankLists.get(i).investmentCheckBondExist(bond);
+            Bank currentBank = bankLists.get(i);
+            String currentBankName = currentBank.getAccountName();
+            String capitalCurrentBankName = currentBankName.toUpperCase();
+            if (capitalAccountName.equals(capitalCurrentBankName)) {
+                currentBank.investmentCheckBondExist(bond);
                 return;
             }
         }
-        throw new BankException("Cannot find bank with name: " + accName);
+        throw new BankException("Cannot find bank with name: " + accountName);
     }
 
     /**
      * Adds a bond to a bank account in the bankList.
      *
-     * @param accName name of bank account.
+     * @param accountName name of bank account.
      * @param bond    bond object.
      * @param ui      required for printing.
      * @throws BankException If bank account does not exist.
      */
-    public void bankListAddBond(String accName, Bond bond, Ui ui) throws BankException {
+    public void bankListAddBond(String accountName, Bond bond, Ui ui) throws BankException {
+        String capitalAccountName = accountName.toUpperCase();
         for (int i = ISZERO; i < getBankListSize(); i++) {
-            if (accName.equals(bankLists.get(i).getAccountName())) {
-                bankLists.get(i).addBondToInvestmentAccount(bond, ui);
+            Bank currentBank = bankLists.get(i);
+            String currentBankName = currentBank.getAccountName();
+            String capitalCurrentBankName = currentBankName.toUpperCase();
+            if (capitalAccountName.equals(capitalCurrentBankName)) {
+                currentBank.addBondToInvestmentAccount(bond, ui);
                 try {
                     exportBankList();
-                    bankLists.get(i).exportInvestmentBondList(Integer.toString(i));
-                    bankLists.get(i).exportBankTransactionList(Integer.toString(i));
+                    currentBank.exportInvestmentBondList(Integer.toString(i));
+                    currentBank.exportBankTransactionList(Integer.toString(i));
                 } catch (IOException e) {
                     ui.printError("Error trying to save your additions to disk. Your data is"
                             + " at risk, but we will try again, feel free to continue using the program.");
@@ -585,7 +655,7 @@ public class BankList {
                 return;
             }
         }
-        throw new BankException("Cannot find bank with name: " + accName);
+        throw new BankException("Cannot find bank with name: " + accountName);
     }
 
     /**
@@ -600,13 +670,17 @@ public class BankList {
      */
     public void bankListEditBond(String bankName, String bondName, String year, String rate, Ui ui)
             throws BankException, BondException {
+        String capitalBankName = bankName.toUpperCase();
         for (int i = ISZERO; i < getBankListSize(); i++) {
-            if (bankName.equals(bankLists.get(i).getAccountName())) {
-                bankLists.get(i).investmentEditBond(bondName, year, rate, ui);
+            Bank currentBank = bankLists.get(i);
+            String currentBankName = currentBank.getAccountName();
+            String capitalCurrentBankName = currentBankName.toUpperCase();
+            if (capitalBankName.equals(capitalCurrentBankName)) {
+                currentBank.investmentEditBond(bondName, year, rate, ui);
                 try {
                     exportBankList();
-                    bankLists.get(i).exportInvestmentBondList(Integer.toString(i));
-                    bankLists.get(i).exportBankTransactionList(Integer.toString(i));
+                    currentBank.exportInvestmentBondList(Integer.toString(i));
+                    currentBank.exportBankTransactionList(Integer.toString(i));
                 } catch (IOException e) {
                     ui.printError("Error trying to save your edits to disk. Your data is"
                             + " at risk, but we will try again, feel free to continue using the program.");
@@ -626,13 +700,17 @@ public class BankList {
      * @throws BankException if the bank is not found.
      */
     public void bankListDeleteBond(String bankName, String bondName, Ui ui) throws BankException, BondException {
+        String capitalBankName = bankName.toUpperCase();
         for (int i = ISZERO; i < getBankListSize(); i++) {
-            if (bankName.equals(bankLists.get(i).getAccountName())) {
-                bankLists.get(i).investmentDeleteBond(bondName, ui);
+            Bank currentBank = bankLists.get(i);
+            String currentBankName = currentBank.getAccountName();
+            String capitalCurrentBankName = currentBankName.toUpperCase();
+            if (capitalBankName.equals(capitalCurrentBankName)) {
+                currentBank.investmentDeleteBond(bondName, ui);
                 try {
                     exportBankList();
-                    bankLists.get(i).exportInvestmentBondList(Integer.toString(i));
-                    bankLists.get(i).exportBankTransactionList(Integer.toString(i));
+                    currentBank.exportInvestmentBondList(Integer.toString(i));
+                    currentBank.exportBankTransactionList(Integer.toString(i));
                 } catch (IOException e) {
                     ui.printError("Error trying to save your deletions to disk. Your data is"
                             + " at risk, but we will try again, feel free to continue using the program.");
@@ -653,9 +731,13 @@ public class BankList {
      * @throws BondException if the bond does not exist.
      */
     public Bond bankListGetBond(String bankName, String bondName) throws BankException, BondException {
+        String capitalBankName = bankName.toUpperCase();
         for (int i = ISZERO; i < getBankListSize(); i++) {
-            if (bankName.equals(bankLists.get(i).getAccountName())) {
-                return bankLists.get(i).investmentGetBond(bondName);
+            Bank currentBank = bankLists.get(i);
+            String currentBankName = currentBank.getAccountName();
+            String capitalCurrentBankName = currentBankName.toUpperCase();
+            if (capitalBankName.equals(capitalCurrentBankName)) {
+                return currentBank.investmentGetBond(bondName);
             }
         }
         throw new BankException("Cannot find bank with name: " + bankName);
@@ -671,9 +753,13 @@ public class BankList {
      * @throws BondException If there are no bonds.
      */
     public void bankListListBond(String bankName, Ui ui, int displayNum) throws BankException, BondException {
+        String capitalBankName = bankName.toUpperCase();
         for (int i = ISZERO; i < getBankListSize(); i++) {
-            if (bankName.equals(bankLists.get(i).getAccountName())) {
-                bankLists.get(i).investmentListBond(displayNum, ui);
+            Bank currentBank = bankLists.get(i);
+            String currentBankName = currentBank.getAccountName();
+            String capitalCurrentBankName = currentBankName.toUpperCase();
+            if (capitalBankName.equals(capitalCurrentBankName)) {
+                currentBank.investmentListBond(displayNum, ui);
                 return;
             }
         }
@@ -746,16 +832,20 @@ public class BankList {
      */
     public void bankListAddRecurringExpenditure(String bankName, Transaction newRecurringExpenditure, Ui ui)
             throws BankException, TransactionException {
-        for (int i = 0; i < getBankListSize(); i++) {
-            if (bankLists.get(i).getAccountName().equals(bankName)) {
-                bankLists.get(i).savingAddRecurringExpenditure(newRecurringExpenditure, ui);
+        String capitalBankName = bankName.toUpperCase();
+        for (int i = ISZERO; i < getBankListSize(); i++) {
+            Bank currentBank = bankLists.get(i);
+            String currentBankName = currentBank.getAccountName();
+            String capitalCurrentBankName = currentBankName.toUpperCase();
+            if (capitalBankName.equals(capitalCurrentBankName)) {
+                currentBank.savingAddRecurringExpenditure(newRecurringExpenditure, ui);
                 try {
                     exportBankList();
-                    if (bankLists.get(i).getType().equals(INVESTMENT)) {
-                        bankLists.get(i).exportInvestmentBondList(Integer.toString(i));
+                    if (currentBank.getType().equals(INVESTMENT)) {
+                        currentBank.exportInvestmentBondList(Integer.toString(i));
                     }
-                    bankLists.get(i).exportBankTransactionList(Integer.toString(i));
-                    bankLists.get(i).exportBankRecurringTransactionList(Integer.toString(i));
+                    currentBank.exportBankTransactionList(Integer.toString(i));
+                    currentBank.exportBankRecurringTransactionList(Integer.toString(i));
                 } catch (IOException e) {
                     ui.printError("Error trying to save your additions to disk. Your data is"
                             + " at risk, but we will try again, feel free to continue using the program.");
@@ -777,16 +867,20 @@ public class BankList {
      */
     public void bankListDeleteRecurringExpenditure(String bankName, int index, Ui ui)
             throws BankException, TransactionException {
-        for (int i = 0; i < getBankListSize(); i++) {
-            if (bankLists.get(i).getAccountName().equals(bankName)) {
-                bankLists.get(i).savingDeleteRecurringExpenditure(index, ui);
+        String capitalBankName = bankName.toUpperCase();
+        for (int i = ISZERO; i < getBankListSize(); i++) {
+            Bank currentBank = bankLists.get(i);
+            String currentBankName = currentBank.getAccountName();
+            String capitalCurrentBankName = currentBankName.toUpperCase();
+            if (capitalBankName.equals(capitalCurrentBankName)) {
+                currentBank.savingDeleteRecurringExpenditure(index, ui);
                 try {
                     exportBankList();
-                    if (bankLists.get(i).getType().equals(INVESTMENT)) {
-                        bankLists.get(i).exportInvestmentBondList(Integer.toString(i));
+                    if (currentBank.getType().equals(INVESTMENT)) {
+                        currentBank.exportInvestmentBondList(Integer.toString(i));
                     }
-                    bankLists.get(i).exportBankTransactionList(Integer.toString(i));
-                    bankLists.get(i).exportBankRecurringTransactionList(Integer.toString(i));
+                    currentBank.exportBankTransactionList(Integer.toString(i));
+                    currentBank.exportBankRecurringTransactionList(Integer.toString(i));
                 } catch (IOException e) {
                     ui.printError("Error trying to save your deletions to disk. Your data is"
                             + " at risk, but we will try again, feel free to continue using the program.");
@@ -807,9 +901,13 @@ public class BankList {
      */
     public void bankListListRecurringExpenditure(String bankName, Ui ui)
             throws BankException, TransactionException {
-        for (int i = 0; i < getBankListSize(); i++) {
-            if (bankLists.get(i).getAccountName().equals(bankName)) {
-                bankLists.get(i).savingListRecurringExpenditure(ui);
+        String capitalBankName = bankName.toUpperCase();
+        for (int i = ISZERO; i < getBankListSize(); i++) {
+            Bank currentBank = bankLists.get(i);
+            String currentBankName = currentBank.getAccountName();
+            String capitalCurrentBankName = currentBankName.toUpperCase();
+            if (capitalBankName.equals(capitalCurrentBankName)) {
+                currentBank.savingListRecurringExpenditure(ui);
                 return;
             }
         }
@@ -828,16 +926,21 @@ public class BankList {
     public void bankListEditRecurringExpenditure(
             String bankName, int index, String description, String amount, String category, Ui ui)
             throws BankException, TransactionException {
-        for (int i = 0; i < getBankListSize(); i++) {
-            if (bankLists.get(i).getAccountName().equals(bankName)) {
-                bankLists.get(i).savingEditRecurringExpenditure(index, description, amount, category, ui);
+        String capitalBankName = bankName.toUpperCase();
+        for (int i = ISZERO; i < getBankListSize(); i++) {
+            Bank currentBank = bankLists.get(i);
+            String currentBankName = currentBank.getAccountName();
+            String capitalCurrentBankName = currentBankName.toUpperCase();
+            String currentBankType = currentBank.getType();
+            if (capitalBankName.equals(capitalCurrentBankName)) {
+                currentBank.savingEditRecurringExpenditure(index, description, amount, category, ui);
                 try {
                     exportBankList();
-                    if (bankLists.get(i).getType().equals(INVESTMENT)) {
-                        bankLists.get(i).exportInvestmentBondList(Integer.toString(i));
+                    if (currentBankType.equals(INVESTMENT)) {
+                        currentBank.exportInvestmentBondList(Integer.toString(i));
                     }
-                    bankLists.get(i).exportBankTransactionList(Integer.toString(i));
-                    bankLists.get(i).exportBankRecurringTransactionList(Integer.toString(i));
+                    currentBank.exportBankTransactionList(Integer.toString(i));
+                    currentBank.exportBankRecurringTransactionList(Integer.toString(i));
                 } catch (IOException e) {
                     ui.printError("Error trying to save your edits to disk. Your data is"
                             + " at risk, but we will try again, feel free to continue using the program.");
@@ -876,35 +979,43 @@ public class BankList {
     /**
      * Checks whether the bank object to transfer the fund actually exist in the list.
      *
-     * @param accName the bank account name.
+     * @param accountName the bank account name.
      * @param amount  the amount to transfer.
      * @throws BankException If bank does not exist.
      */
-    public String bankListIsAccountExistToTransfer(String accName, double amount) throws BankException {
+    public String bankListIsAccountExistToTransfer(String accountName, double amount) throws BankException {
+        String capitalAccountName = accountName.toUpperCase();
         for (int i = ISZERO; i < getBankListSize(); i++) {
-            if (accName.equals(bankLists.get(i).getAccountName())) {
+            Bank currentBank = bankLists.get(i);
+            String currentBankName = currentBank.getAccountName();
+            String capitalCurrentBankName = currentBankName.toUpperCase();
+            if (capitalAccountName.equals(capitalCurrentBankName)) {
                 bankListIsSufficientForTransfer(bankLists.get(i), amount);
-                return bankLists.get(i).getType();
+                return currentBank.getType();
             }
         }
         throw new BankException("Unable to transfer fund as the sender bank account does not exist: "
-                + accName);
+                + accountName);
     }
 
     /**
      * Checks whether the bank object to receive the fund actually exist in the list.
      *
-     * @param accName the bank account name.
+     * @param accountName the bank account name.
      * @throws BankException If bank does not exist.
      */
-    public String bankListIsAccountExistToReceive(String accName) throws BankException {
+    public String bankListIsAccountExistToReceive(String accountName) throws BankException {
+        String capitalAccountName = accountName.toUpperCase();
         for (int i = ISZERO; i < getBankListSize(); i++) {
-            if (accName.equals(bankLists.get(i).getAccountName())) {
+            Bank currentBank = bankLists.get(i);
+            String currentBankName = currentBank.getAccountName();
+            String capitalCurrentBankName = currentBankName.toUpperCase();
+            if (capitalAccountName.equals(capitalCurrentBankName)) {
                 return bankLists.get(i).getType();
             }
         }
         throw new BankException("Unable to transfer fund as the receiving bank account does not exist: "
-                + accName);
+                + accountName);
     }
 
     /**
@@ -933,10 +1044,14 @@ public class BankList {
      */
     public void checkInvestmentAccountExist(String bondName, String investmentName, Ui ui)
             throws BankException, BondException {
+        String capitalInvestmentName = investmentName.toUpperCase();
         for (int i = ISZERO; i < getBankListSize(); i++) {
-            if (investmentName.equals(bankLists.get(i).getAccountName())
-                    && INVESTMENT.equals(bankLists.get(i).getType())) {
-                bankLists.get(i).findBondInInvestment(bondName, ui);
+            Bank currentBank = bankLists.get(i);
+            String currentBankName = currentBank.getAccountName();
+            String capitalCurrentBankName = currentBankName.toUpperCase();
+            if (capitalInvestmentName.equals(capitalCurrentBankName)
+                    && INVESTMENT.equals(currentBank.getType())) {
+                currentBank.findBondInInvestment(bondName, ui);
                 return;
             }
         }
@@ -990,9 +1105,13 @@ public class BankList {
      */
     public void bankListFindTransaction(String bankName, String fromDate, String toDate,
             String description, String category, Ui ui) throws BankException, TransactionException {
+        String capitalBankName = bankName.toUpperCase();
         for (int i = ISZERO; i < getBankListSize(); i++) {
-            if (bankLists.get(i).getAccountName().equals(bankName)) {
-                bankLists.get(i).findTransaction(fromDate, toDate, description, category, ui);
+            Bank currentBank = bankLists.get(i);
+            String currentBankName = currentBank.getAccountName();
+            String capitalCurrentBankName = currentBankName.toUpperCase();
+            if (capitalBankName.equals(capitalCurrentBankName)) {
+                currentBank.findTransaction(fromDate, toDate, description, category, ui);
                 return;
             }
         }
@@ -1059,6 +1178,7 @@ public class BankList {
 
     /**
      * Imports deposits loaded from save file into respective bank accounts.
+     *
      * @param bankName bank name the deposits should be imported to.
      * @param deposit an instance of the deposit to be imported.
      * @param bankType the type of bank account.
@@ -1075,6 +1195,7 @@ public class BankList {
 
     /**
      * Imports expenditures loaded from save file into respective bank accounts.
+     *
      * @param bankName bank name the deposits should be imported to.
      * @param expenditure an instance of the expenditure to be imported.
      * @param type type of expenditure.
@@ -1093,6 +1214,7 @@ public class BankList {
 
     /**
      * Imports banks loaded from save file into bankList.
+     *
      * @param newBank an instance of the bank account to be imported.
      */
     public void bankListImportNewBank(Bank newBank) {
@@ -1101,6 +1223,7 @@ public class BankList {
 
     /**
      * Imports recurring expenditures from save file into respective bank accounts.
+     *
      * @param bankName bank name the deposits should be imported to.
      * @param newRecurringExpenditure an instance of the expenditure to be imported.
      * @throws BankException if the bank account does not support this feature.
@@ -1139,7 +1262,7 @@ public class BankList {
      * @throws TransactionException If transaction does not exist.
      * @throws BankException        If bank account does not exist.
      */
-    public double bankListGetExpAmountById(String bank, int expenditureId)
+    public double bankListGetExpenditureAmountById(String bank, int expenditureId)
             throws TransactionException, BankException {
         for (int i = ISZERO; i < getBankListSize(); i++) {
             if (bankLists.get(i).getAccountName().equals(bank)) {
@@ -1161,9 +1284,13 @@ public class BankList {
      */
     public int bankListGetCardBillExpenditureId(String bankName, UUID cardId, YearMonth billDate)
             throws BankException {
-        for (int i = 0; i < bankLists.size(); i++) {
-            if (bankLists.get(i).getAccountName().equals(bankName)) {
-                return bankLists.get(i).getCardBillExpenditureId(cardId, billDate);
+        String capitalBankName = bankName.toUpperCase();
+        for (int i = ISZERO; i < getBankListSize(); i++) {
+            Bank currentBank = bankLists.get(i);
+            String currentBankName = currentBank.getAccountName();
+            String capitalCurrentBankName = currentBankName.toUpperCase();
+            if (capitalBankName.equals(capitalCurrentBankName)) {
+                return currentBank.getCardBillExpenditureId(cardId, billDate);
             }
         }
         return -1;
@@ -1181,9 +1308,13 @@ public class BankList {
      */
     public int bankListGetCardBillDepositId(String bankName, UUID cardId, YearMonth billDate)
             throws BankException {
-        for (int i = 0; i < bankLists.size(); i++) {
-            if (bankLists.get(i).getAccountName().equals(bankName)) {
-                return bankLists.get(i).getCardBillDepositId(cardId, billDate);
+        String capitalBankName = bankName.toUpperCase();
+        for (int i = ISZERO; i < getBankListSize(); i++) {
+            Bank currentBank = bankLists.get(i);
+            String currentBankName = currentBank.getAccountName();
+            String capitalCurrentBankName = currentBankName.toUpperCase();
+            if (capitalBankName.equals(capitalCurrentBankName)) {
+                return currentBank.getCardBillDepositId(cardId, billDate);
             }
         }
         return -1;

@@ -61,13 +61,13 @@ public class ParseTransfer {
      */
     public void fillHashTable() throws ParserException {
         transferParameters.put(AMOUNT,
-                parseRawData.extractParameter(rawData, AMOUNT, TRANSFER_KEYWORD));
+                parseRawData.extractParameter(rawData, AMOUNT, TRANSFER_KEYWORD).trim());
         transferParameters.put(FROM,
-                parseRawData.extractParameter(rawData, FROM, TRANSFER_KEYWORD));
+                parseRawData.extractParameter(rawData, FROM, TRANSFER_KEYWORD).trim());
         transferParameters.put(TO,
-                parseRawData.extractParameter(rawData, TO, TRANSFER_KEYWORD));
+                parseRawData.extractParameter(rawData, TO, TRANSFER_KEYWORD).trim());
         transferParameters.put(DATE,
-                parseRawData.extractParameter(rawData, DATE, TRANSFER_KEYWORD));
+                parseRawData.extractParameter(rawData, DATE, TRANSFER_KEYWORD).trim());
     }
 
     /**
