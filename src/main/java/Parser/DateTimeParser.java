@@ -13,7 +13,7 @@ public class DateTimeParser {
     private static String[] dateTimeStringSplit;
     private static String[] dateStringSplit;
     private static String[] timeStringSplit;
-    private static LookupTable lookupTable = new LookupTable();
+    private static LookupTable lookupTable = LookupTable.getInstance();
     private static SimpleDateFormat eventDateInputFormat = new SimpleDateFormat("dd/MM/yyyy"); //format date for event
     private static SimpleDateFormat eventTimeInputFormat = new SimpleDateFormat("HHmm"); //format time for event
     private static SimpleDateFormat dateOutputFormat = new SimpleDateFormat("E dd/MM/yyyy");

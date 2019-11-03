@@ -6,7 +6,6 @@ import DukeExceptions.DukeInvalidCommandException;
 
 import DukeExceptions.DukeInvalidDateTimeException;
 import DukeExceptions.DukeInvalidFormatException;
-import Commons.Parser;
 import Tasks.Deadline;
 import Tasks.Event;
 import java.text.ParseException;
@@ -20,7 +19,7 @@ public class AddParse extends Parse {
     private static String[] split;
     private static String[] split1;
     private static String fullCommand;
-    private static final Logger LOGGER = Logger.getLogger(Parser.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(AddParse.class.getName());
 
     /**
      * Creates AddParse object.

@@ -50,7 +50,7 @@ public class RemindCommand extends Command {
      * @throws DukeException On invalid task and time input
      */
     @Override
-    public String execute(LookupTable LT, TaskList events, TaskList deadlines, Ui ui, Storage storage) throws Exception {
+    public String execute(TaskList events, TaskList deadlines, Ui ui, Storage storage) throws Exception {
         reminder = storage.getReminderObject();
         reminder.setDeadlines(deadlines);
         HashMap<String, HashMap<String, ArrayList<Assignment>>> deadlineMap = deadlines.getMap();

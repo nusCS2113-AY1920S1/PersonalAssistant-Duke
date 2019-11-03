@@ -3,7 +3,6 @@ package Parser;
 import Commands.Command;
 import Commands.ShowWorkloadCommand;
 import DukeExceptions.DukeInvalidFormatException;
-import Commons.Parser;
 import Commons.LookupTable;
 
 import java.text.SimpleDateFormat;
@@ -17,8 +16,7 @@ import java.util.logging.Logger;
 public class WorkloadParse extends Parse{
 
     private static String fullCommand;
-    private static final Logger LOGGER = Logger.getLogger(Parser.class.getName());
-    private static LookupTable LT = new LookupTable();
+    private static final Logger LOGGER = Logger.getLogger(WorkloadParse.class.getName());
 
     /**
      * Creates a WorkloadParse object.

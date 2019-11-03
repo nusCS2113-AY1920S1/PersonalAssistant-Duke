@@ -34,7 +34,7 @@ public class FilterCommand extends Command{
      * @return This returns the method in the Ui object which returns the string to display list message
      */
     @Override
-    public String execute(LookupTable LT, TaskList events, TaskList deadlines, Ui ui, Storage storage) {
+    public String execute(TaskList events, TaskList deadlines, Ui ui, Storage storage) {
         ArrayList<String> out = new ArrayList<>();
         HashMap<String, HashMap<String, ArrayList<Assignment>>> emap = events.getMap();
         Set<String> allMods = emap.keySet();

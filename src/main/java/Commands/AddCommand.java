@@ -36,9 +36,8 @@ public class AddCommand extends Command {
      * @return This returns the method in the Ui object which returns the string to display add task message
      */
     @Override
-    public String execute(LookupTable LT, TaskList events, TaskList deadlines, Ui ui, Storage storage) {
+    public String execute(TaskList events, TaskList deadlines, Ui ui, Storage storage) {
         String out = "";
-        AlertBox alertBox = new AlertBox();
         ArrayList<String> conflict = new ArrayList<>();
 
         if (task.getType().equals("[E]")) {

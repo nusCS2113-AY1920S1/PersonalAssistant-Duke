@@ -23,7 +23,6 @@ public class Duke  {
     private final Ui ui;
     private final Reminder reminder;
     private static final Logger LOGGER = Logger.getLogger(Duke.class.getName());
-    private static LookupTable LT;
     public static ArrayList<String> userInputs = new ArrayList<>();
 
     /**
@@ -41,7 +40,6 @@ public class Duke  {
             storage.readEventList(events);
             reminder.setDeadlines(deadlines);
             storage.setReminderOnStart();
-            LT = new LookupTable();
         } catch (Exception e) {
             ui.showLoadingError(e);
             LOGGER.log(Level.SEVERE, e.toString(), e);
@@ -56,7 +54,7 @@ public class Duke  {
     private String run(String input) {
         try {
             Command c = MainParser.parse(input);
-            return c.execute(LT,events, deadlines, ui, storage);
+            return c.execute(events, deadlines, ui, storage);
         } catch (Exception e) {
             LOGGER.severe(e.toString());
             return ui.getError(e);
@@ -84,9 +82,4 @@ public class Duke  {
         String selectedOption = RetrieveFreeTimesCommand.getSelectedOption();
         return selectedOption;
     }
-
-    public LookupTable getLT() {
-        return this.LT;
-    }
-
 }

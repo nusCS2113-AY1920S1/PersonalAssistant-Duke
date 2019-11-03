@@ -56,7 +56,7 @@ public class DeleteCommand extends Command {
      * @throws DukeException On ArrayList out of bound error
      */
     @Override
-    public String execute(LookupTable LT, TaskList events, TaskList deadlines, Ui ui, Storage storage) throws DukeException {
+    public String execute(TaskList events, TaskList deadlines, Ui ui, Storage storage) throws DukeException {
        try {
            HashMap<String, HashMap<String, ArrayList<Assignment>>> eventMap = events.getMap();
            HashMap<String, HashMap<String, ArrayList<Assignment>>> deadlineMap = deadlines.getMap();

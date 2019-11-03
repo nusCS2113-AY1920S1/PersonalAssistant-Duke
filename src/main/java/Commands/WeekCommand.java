@@ -14,6 +14,7 @@ import java.util.logging.Logger;
 
 public class WeekCommand extends Command {
     private static final Logger LOGGER = Logger.getLogger(WeekCommand.class.getName());
+    private LookupTable lookupTable = LookupTable.getInstance();
     private String week;
     private final ObservableList<Text> monList = FXCollections.observableArrayList();
     private final ObservableList<Text> tueList = FXCollections.observableArrayList();
@@ -96,8 +97,8 @@ public class WeekCommand extends Command {
     /**
      * This method generates data in day GridPane ListViews based on the week selected
      */
-    public void setListView(LookupTable LT, TaskList eventsList) {
-        ArrayList<String> weekDates = generateDateDay(week, LT);
+    public void setListView(LookupTable lookupTable, TaskList eventsList) {
+        ArrayList<String> weekDates = generateDateDay(week, lookupTable);
         for(String module: eventsList.getMap().keySet()) {
             HashMap<String, ArrayList<Assignment>> moduleValue = eventsList.getMap().get(module);
             ArrayList<String> dates = checkIfExist(moduleValue, weekDates);
@@ -153,12 +154,12 @@ public class WeekCommand extends Command {
     }
 
     @Override
-    public String execute(LookupTable LT, TaskList events, TaskList deadlines, Ui ui, Storage storage) throws Exception {
+    public String execute(TaskList events, TaskList deadlines, Ui ui, Storage storage) throws Exception {
 //        String intWeek = week.replaceFirst("Week", "");
 //        intWeek = intWeek.trim();
 //        Integer duration = Integer.parseInt(intWeek);
 //        if(duration < 1 || duration > 13) return ui.showWeeksInvalidEntry();
-        setListView(LT, events);
+        setListView(lookupTable, events);
         sortList();
         weekList = new WeekList(monList, tueList, wedList, thuList, friList, satList, sunList);
         return "";

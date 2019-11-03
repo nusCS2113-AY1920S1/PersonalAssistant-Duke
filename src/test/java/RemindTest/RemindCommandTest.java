@@ -38,7 +38,6 @@ public class RemindCommandTest {
     private static SimpleDateFormat dateOutputFormat = new SimpleDateFormat("E dd/MM/yyyy");
     private static SimpleDateFormat timeOutputFormat = new SimpleDateFormat("hh:mm a");
     private static SimpleDateFormat deadlineDateFormat = new SimpleDateFormat("E dd/MM/yyyy hh:mm a");
-    private LookupTable lookupTable = new LookupTable();
     private StorageStub storageStub = new StorageStub();
     private TaskList events = new TaskList();
     private Ui ui = new Ui();
@@ -79,7 +78,7 @@ public class RemindCommandTest {
         String expected = "Sorry, your selected task has already passed!";
         String actual = "";
         try {
-            actual = command.execute(lookupTable, events, deadlines, ui, storageStub);
+            actual = command.execute(events, deadlines, ui, storageStub);
         } catch (Exception e) {
             actual = e.getMessage();
         }
@@ -92,7 +91,7 @@ public class RemindCommandTest {
         String expected = "Sorry, you cannot set a time that has already passed!";
         String actual = "";
         try {
-            actual = command.execute(lookupTable, events, deadlines, ui, storageStub);
+            actual = command.execute(events, deadlines, ui, storageStub);
         } catch (Exception e) {
             actual = e.getMessage();
         }
@@ -105,7 +104,7 @@ public class RemindCommandTest {
         String expected = "Sorry, you have no such mod entered in your deadline table!";
         String actual = "";
         try {
-            actual = command.execute(lookupTable, events, deadlines, ui, storageStub);
+            actual = command.execute(events, deadlines, ui, storageStub);
         } catch (Exception e) {
             actual = e.getMessage();
         }
@@ -118,7 +117,7 @@ public class RemindCommandTest {
         String expected = "Sorry, you have no such timing entered in your deadline table!";
         String actual = "";
         try {
-            actual = command.execute(lookupTable, events, deadlines, ui, storageStub);
+            actual = command.execute(events, deadlines, ui, storageStub);
         } catch (Exception e) {
             actual = e.getMessage();
         }
@@ -131,7 +130,7 @@ public class RemindCommandTest {
         String expected = "Sorry, there are no such task description in your deadline table!";
         String actual = "";
         try {
-            actual = command.execute(lookupTable, events, deadlines, ui, storageStub);
+            actual = command.execute(events, deadlines, ui, storageStub);
         } catch (Exception e) {
             actual = e.getMessage();
         }
@@ -144,7 +143,7 @@ public class RemindCommandTest {
         String expected = "Sorry, you have a reminder set for " + taskWithReminder.getDescription() + " at: " + taskWithReminder.getDateTime();
         String actual = "";
         try {
-            actual = command.execute(lookupTable, events, deadlines, ui, storageStub);
+            actual = command.execute(events, deadlines, ui, storageStub);
         } catch (Exception e) {
             actual = e.getMessage();
         }
@@ -157,7 +156,7 @@ public class RemindCommandTest {
         String expected = "Sorry, you have no such reminder at that inputted time.";
         String actual = "";
         try {
-            actual = command.execute(lookupTable, events, deadlines, ui, storageStub);
+            actual = command.execute(events, deadlines, ui, storageStub);
         } catch (Exception e) {
             actual = e.getMessage();
         }
@@ -170,7 +169,7 @@ public class RemindCommandTest {
         String expected = "Sorry, you have no such reminder with inputted description at that time";
         String actual = "";
         try {
-            actual = command.execute(lookupTable, events, deadlines, ui, storageStub);
+            actual = command.execute(events, deadlines, ui, storageStub);
         } catch (Exception e) {
             actual = e.getMessage();
         }
@@ -183,7 +182,7 @@ public class RemindCommandTest {
         String expected = "Reminder has been set for " + taskAfterCurrentDate.getModCode() + " " + taskAfterCurrentDate.getDescription() + "at: " + reminderSetDateString;
         String actual = "";
         try {
-            actual = command.execute(lookupTable, events, deadlines, ui, storageStub);
+            actual = command.execute(events, deadlines, ui, storageStub);
         } catch (Exception e) {
             actual = e.getMessage();
         }
@@ -196,7 +195,7 @@ public class RemindCommandTest {
         String expected = "Reminder has been removed for " + taskWithReminder.getModCode() + " " + taskWithReminder.getDescription() + "at: " + reminderRemoveDateString;
         String actual = "";
         try {
-            actual = command.execute(lookupTable, events, deadlines, ui, storageStub);
+            actual = command.execute(events, deadlines, ui, storageStub);
         } catch (Exception e) {
             actual = e.getMessage();
         }

@@ -2,11 +2,7 @@ package Parser;
 
 import Commands.Command;
 import Commands.RecurringCommand;
-import DukeExceptions.DukeException;
-import DukeExceptions.DukeInvalidCommandException;
-import DukeExceptions.DukeInvalidDateTimeException;
 import DukeExceptions.DukeInvalidFormatException;
-import Commons.Parser;
 import Commons.LookupTable;
 
 import java.text.ParseException;
@@ -20,8 +16,7 @@ public class RecurParse extends Parse {
 
     private static String fullCommand;
     private static String[] modCodeAndDescriptionSplit;
-    private static final Logger LOGGER = Logger.getLogger(Parser.class.getName());
-    private static LookupTable LT = new LookupTable();
+    private static final Logger LOGGER = Logger.getLogger(RecurParse.class.getName());
 
     public RecurParse(String fullCommand) {
         this.fullCommand = fullCommand;

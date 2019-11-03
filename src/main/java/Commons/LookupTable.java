@@ -13,12 +13,13 @@ import java.util.logging.Logger;
 public class LookupTable {
     private static Map<String, String> map = new HashMap<>();
     private static final Logger LOGGER = Logger.getLogger(LookupTable.class.getName());
+    private static LookupTable lookupTable;
 
     /**
      * Creates a lookup table object and read from Lookup.txt file
      * @throws IOException
      */
-    public LookupTable() {
+    private LookupTable() {
         try {
             String line;
             InputStream is = this.getClass().getClassLoader().getResourceAsStream("documents/Lookup.txt");
@@ -49,4 +50,14 @@ public class LookupTable {
        return map.get(week_day.toLowerCase().trim());//week_day in the format of (week x day x)
     }
 
+    public static LookupTable getInstance() {
+        if (lookupTable == null) {
+            synchronized (LookupTable.class) {
+                if (lookupTable == null) {
+                    lookupTable = new LookupTable();
+                }
+            }
+        }
+        return lookupTable;
+    }
 }

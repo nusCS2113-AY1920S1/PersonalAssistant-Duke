@@ -84,7 +84,7 @@ public class RecurringCommand extends Command {
     }
 
     @Override
-    public String execute(LookupTable LT, TaskList events, TaskList deadlines, Ui ui, Storage storage) throws Exception {
+    public String execute(TaskList events, TaskList deadlines, Ui ui, Storage storage) throws Exception {
         SimpleDateFormat dateFormat = new SimpleDateFormat("E dd/MM/yyyy");
         Date startDate = dateFormat.parse(startDateString);
         Date endDate = dateFormat.parse(endDateString);

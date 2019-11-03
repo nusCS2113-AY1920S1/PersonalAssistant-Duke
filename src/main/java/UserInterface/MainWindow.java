@@ -90,13 +90,10 @@ public class MainWindow extends BorderPane implements Initializable {
     private ArrayList<Assignment> overdue;
     private TaskList eventsList;
     private TaskList deadlinesList;
-    private static LookupTable LT;
     public static ArrayList<String> outputList = new ArrayList<>();
     private static WeekList outputWeekList = new WeekList();
     private static final Logger LOGGER = Logger.getLogger(MainWindow.class.getName());
-    static {
-        LT = new LookupTable();
-    }
+    private static LookupTable lookupTable = LookupTable.getInstance();
 
 
     /**
@@ -377,14 +374,14 @@ public class MainWindow extends BorderPane implements Initializable {
             Date dateTime = new Date();
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
             String date = dateFormat.format(dateTime);
-            selectedWeek = LT.getValue(date);
-            currentWeek.setText(selectedWeek + " ( " + LT.getValue(selectedWeek.toLowerCase()) + " )");
+            selectedWeek = lookupTable.getValue(date);
+            currentWeek.setText(selectedWeek + " ( " + lookupTable.getValue(selectedWeek.toLowerCase()) + " )");
             week = selectedWeek;
             currentWeek.setFont(Font.font("Verdana", FontWeight.BOLD, FontPosture.ITALIC,30));
             currentWeek.setTextFill(Color.GOLDENROD);
         }
         else{
-            currentWeek.setText(selectedWeek + " ( " + LT.getValue(selectedWeek.toLowerCase()) + " )");
+            currentWeek.setText(selectedWeek + " ( " + lookupTable.getValue(selectedWeek.toLowerCase()) + " )");
             //week = selectedWeek;
         }
     }

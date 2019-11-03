@@ -4,7 +4,6 @@ import Commands.Command;
 import Commands.DoneCommand;
 import DukeExceptions.DukeInvalidCommandException;
 import DukeExceptions.DukeInvalidFormatException;
-import Commons.Parser;
 import Tasks.Deadline;
 import Tasks.Event;
 import java.text.ParseException;
@@ -18,7 +17,7 @@ public class DoneParse extends Parse {
     private static String[] split;
     private static String[] split1;
     private static String fullCommand;
-    private static final Logger LOGGER = Logger.getLogger(Parser.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(DoneParse.class.getName());
 
     /**
      * Creates DoneParse object.
