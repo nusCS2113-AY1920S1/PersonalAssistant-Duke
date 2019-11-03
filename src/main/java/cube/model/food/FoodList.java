@@ -7,7 +7,14 @@ public class FoodList{
 	private ArrayList<Food> foodArrayList;
 
 	public enum SortType {
-		EXPIRY, NAME, STOCK
+		EXPIRY, NAME, STOCK;
+
+        public static boolean IsDefined(String temp){
+            if(temp.equals("EXPIRY")||temp.equals("NAME")||temp.equals("STOCK")) {
+                return true;
+            }
+            return false;
+        }
 	}
 
 	public FoodList() {
@@ -33,7 +40,7 @@ public class FoodList{
 
 	public Food get(String foodName) {
 		for(Food food : foodArrayList) {
-			if (food.getName().equals(foodName)) {
+			if (food.getName().toLowerCase().equals(foodName.toLowerCase())) {
 				return food;
 			}
 		}
@@ -46,7 +53,7 @@ public class FoodList{
 
 	public void removeName(String foodName) {
 		for(int i = 0; i < foodArrayList.size(); i ++) {
-			if (foodArrayList.get(i).getName().equals(foodName)) {
+			if (foodArrayList.get(i).getName().toLowerCase().equals(foodName.toLowerCase())) {
 				foodArrayList.remove(i);
 				break;
 			}
@@ -66,7 +73,7 @@ public class FoodList{
 
 	public boolean existsName(String foodName) {
 		for(Food food : foodArrayList) {
-			if (food.getName().equals(foodName)) {
+			if (food.getName().toLowerCase().equals(foodName.toLowerCase())) {
 				return true;
 			}
 		}
@@ -75,7 +82,7 @@ public class FoodList{
 
 	public boolean existsType(String foodType) {
 		for(Food food : foodArrayList) {
-			if (food.getType() != null && food.getType().equals(foodType)) {
+			if (food.getType() != null && food.getType().toLowerCase().equals(foodType.toLowerCase())) {
 				return true;
 			}
 		}

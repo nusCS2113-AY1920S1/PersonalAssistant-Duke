@@ -57,14 +57,14 @@ public class Parser {
 				return new SoldCommandParser().parse(inputs);
 			case "batch":
 				return new BatchCommandParser().parse(inputs);
-			case "reminder":
-				return new ReminderCommandParser().parse(inputs);
 			case "config":
 				return new ConfigCommandParser().parse(inputs);
 			case "help":
 				return new HelpCommand();
 			case "promotion":
 				return new PromotionCommandParser().parse(inputs);
+			case "reminder":
+				return new ReminderCommandParser().parse(inputs);
 			case "revenue" :
 				//TODO: improve generate revenue
 				return new RevenueCommandParser().parse(inputs);
