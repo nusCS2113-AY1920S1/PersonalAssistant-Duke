@@ -10,4 +10,9 @@ public class StorageManager {
         this.storage = new Storage();
         this.profile = new Profile();
     }
+
+    public StorageManager(String filepath) throws CakeException {
+        this.storage = new Storage(filepath);
+        this.profile = new Profile(filepath);
+    }
 }

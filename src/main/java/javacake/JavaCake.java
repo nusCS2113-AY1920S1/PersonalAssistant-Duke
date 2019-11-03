@@ -34,8 +34,25 @@ public class JavaCake {
         try {
             logic = Logic.getInstance();
             storageManager = new StorageManager();
-            //            storage = new Storage();
-            //            profile = new Profile();
+            userProgress = storageManager.profile.getTotalProgress();
+            userName = storageManager.profile.getUsername();
+            // Default username when creating new profile
+            checkIfNewUser("NEW_USER_!@#");
+        } catch (CakeException e) {
+            ui.showLoadingError();
+            logger.log(Level.WARNING, "Profile set-up failed.");
+        }
+    }
+
+    /**
+     * Constructor for main class to initialise the settings[TEST].
+     */
+    public JavaCake(String testFilePath) {
+        logger.log(Level.INFO, "Starting JavaCake Constructor!");
+        ui = new Ui();
+        try {
+            logic = Logic.getInstance();
+            storageManager = new StorageManager(testFilePath);
             userProgress = storageManager.profile.getTotalProgress();
             userName = storageManager.profile.getUsername();
             // Default username when creating new profile

@@ -28,6 +28,7 @@ public class Main extends Application {
             stage.setScene(scene);
             fxmlLoader.<MainWindow>getController().setJavaCake(javaCake);
             fxmlLoader.<MainWindow>getController().setStage(stage);
+            stage.setResizable(false);
             stage.show();
             stage.getIcons().add(new Image(this.getClass().getResourceAsStream("/images/app_icon.jpg")));
             stage.setTitle("JavaCake");
