@@ -211,7 +211,7 @@ public class Duke {
      */
     public void run() {
         ui.showWelcome();
-        Ui.showReminder(items);
+        //Ui.showReminder(items);
         String sentence;
 
         while (true) {

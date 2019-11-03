@@ -1,5 +1,6 @@
 package duke.command;
 
+import duke.enums.Numbers;
 import duke.storage.Storage;
 import duke.task.FilterList;
 import duke.task.TaskList;
@@ -15,13 +16,6 @@ import duke.task.Repeat;
  */
 public class FilterCommand extends Command {
     protected String taskType;
-    private static final int MINUS_ONE = -1;
-    private static final int ZERO = 0;
-    private static final int ONE = 1;
-    private static final int TWO = 2;
-    private static final int THREE = 3;
-    private static final int FOUR = 4;
-
 
     /**
      * Creates a command with the specified type of task.
@@ -52,20 +46,20 @@ public class FilterCommand extends Command {
     @Override
     public void execute(TaskList items, FilterList filterList) {
         filterList.clear();
-        filterList.setFilterIndex(MINUS_ONE);
-        for (int i = ZERO; i < items.size(); i++) {
+        filterList.setFilterIndex(Numbers.MINUS_ONE.value);
+        for (int i = Numbers.ZERO.value; i < items.size(); i++) {
             if (taskType.equals("todo") && items.get(i) instanceof Todo) {
                 filterList.add(items.get(i));
-                filterList.setFilterIndex(ONE);
+                filterList.setFilterIndex(Numbers.ONE.value);
             } else if (taskType.equals("deadline") && items.get(i) instanceof Deadline) {
                 filterList.add(items.get(i));
-                filterList.setFilterIndex(TWO);
+                filterList.setFilterIndex(Numbers.TWO.value);
             } else if (taskType.equals("repeat") && items.get(i) instanceof Repeat) {
                 filterList.add(items.get(i));
-                filterList.setFilterIndex(THREE);
+                filterList.setFilterIndex(Numbers.THREE.value);
             } else if (taskType.equals("fixedduration") && items.get(i) instanceof FixedDuration) {
                 filterList.add(items.get(i));
-                filterList.setFilterIndex(FOUR);
+                filterList.setFilterIndex(Numbers.FOUR.value);
             }
         }
     }

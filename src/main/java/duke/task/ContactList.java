@@ -1,5 +1,7 @@
 package duke.task;
 
+import duke.enums.Numbers;
+
 import java.util.ArrayList;
 
 /**
@@ -8,8 +10,6 @@ import java.util.ArrayList;
 //@@author e0318465
 public class ContactList {
     protected ArrayList<Contacts> contactList;
-    private static final int ZERO = 0;
-    private static final int ONE = 1;
 
     /**
      * Creates an empty contact list using an array list.
@@ -63,8 +63,8 @@ public class ContactList {
      */
     public String getContactList() {
         String fullContactList = "";
-        for (int i = ZERO; i < contactList.size(); i++) {
-            fullContactList += "     " + (i + ONE) + ". " + contactList.get(i).toStringGui() + "\n";
+        for (int i = Numbers.ZERO.value; i < contactList.size(); i++) {
+            fullContactList += "     " + (i + Numbers.ONE.value) + ". " + contactList.get(i).toStringGui() + "\n";
         }
         return fullContactList;
     }

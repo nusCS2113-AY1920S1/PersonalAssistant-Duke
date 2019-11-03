@@ -1,6 +1,7 @@
 package duke.task;
 
 import duke.dukeexception.DukeException;
+import duke.enums.Numbers;
 
 import java.time.LocalDateTime;
 
@@ -9,17 +10,16 @@ import java.time.LocalDateTime;
  * Represents a task that stores description and boolean that indicates the task as completed.
  */
 public class Task {
-    private static final int ZERO = 0;
 
     protected String description;
     protected String notesDesc = "empty";
     protected boolean isDone;
-    public int numberOfDays = ZERO;
+    public int numberOfDays = Numbers.ZERO.value;
     public LocalDateTime currentDate;
     public LocalDateTime dueDate;
 
     public int priority;
-    public int reminders;
+    protected Reminders reminders;
 
     /**
      * Creates a task with the specified description.
@@ -131,7 +131,6 @@ public class Task {
         return this.numberOfDays;
     }
 
-    //@@author gervaiseang
     /**
      * Set the remaining days of reminder.
      *
@@ -143,14 +142,6 @@ public class Task {
     }
 
     //@@author
-    /**
-     * Set the remaining days of reminder.
-     *
-     * @return boolean that triggers the reminder.
-     */
-    public boolean isTriggerReminder() {
-        return false;
-    }
 
     /**
      * Set the priority of one task.

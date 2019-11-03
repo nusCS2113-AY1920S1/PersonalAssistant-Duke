@@ -1,7 +1,10 @@
-T|1|read a book|empty
+T|1|read a book|read page 578
 D|0|submit homework|k-pop is so great man i love it.|01/10/2019 2359
 F|1|take computing class|empty|2 hours
 R|0|workout|100 push ups, 100 sit ups, 10km run.|10/10/2019 1000
 R|0|workout|empty|11/10/2019 1000
 R|0|workout|empty|12/10/2019 1000
 T|0|dance|empty
+F|0|build a robot|empty|3 hours
+D|0|dance|empty|02/11/2019 2000
+D|0|CS2113 proj|empty|02/11/2019 0000

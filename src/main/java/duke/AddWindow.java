@@ -1,6 +1,7 @@
 package duke;
 
 
+import duke.enums.Numbers;
 import duke.task.TaskList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
@@ -17,7 +18,7 @@ import javafx.stage.Stage;
  */
 public class AddWindow extends AnchorPane {
     private Duke duke;
-    private static final int ZERO = 0;
+
 
     private MainWindow mainWindow;
 
@@ -62,7 +63,7 @@ public class AddWindow extends AnchorPane {
                 "Repeat"
         );
         TaskList items = d.getTaskList();
-        for (int i = ZERO; i < items.size(); i++) {
+        for (int i = Numbers.ZERO.value; i < items.size(); i++) {
             cbExistingTask.getItems().add(items.get(i).getDescription());
         }
     }
