@@ -635,6 +635,14 @@ public class DukeUi {
         }
         printDukeResponse(output);
     }
+
+    public void showUpcomingTasks(String date, ArrayList<AssignedTask> tasks) {
+        System.out.println(date + ":\n");
+        for (AssignedTask task : tasks) {
+            System.out.println(task.toString() + "\n");
+        }
+
+    }
     //@@author
 
 }
