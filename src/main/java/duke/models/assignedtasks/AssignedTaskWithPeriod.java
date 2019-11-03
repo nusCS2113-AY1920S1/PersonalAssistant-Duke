@@ -1,3 +1,5 @@
+//@@author WEIFENG-NUSCEG
+
 package duke.models.assignedtasks;
 
 import duke.util.DateTimeParser;
@@ -6,23 +8,32 @@ import duke.exceptions.DukeException;
 import java.time.Duration;
 import java.time.LocalDateTime;
 
+/**
+ * Represents a Assigned task that has been assigned to a patient with a period.
+ */
 public class AssignedTaskWithPeriod extends AssignedTask {
-
     private long duration;
 
     /**
-     * .
+     * Create a new AssignedTask with its patient id, task id, period, and task type.
      *
-     * @param pid   .
-     * @param tid   .
-     * @param stime .
-     * @param etime .
-     * @param type  .
+     * @param pid   patient id
+     * @param tid   task id
+     * @param stime starting time
+     * @param etime ending time
+     * @param type  task type
      */
     public AssignedTaskWithPeriod(int pid, int tid, String stime, String etime, String type) throws DukeException {
         super(pid, tid, type);
         setStartDateRaw(stime);
         setEndDateRaw(etime);
+
+        try {
+            this.duration = Duration.between(getStartDate(), getEndDate()).toMillis();
+        } catch (Exception e) {
+            throw new DukeException("You can not assign a end time earlier than its start time !");
+        }
+
         try {
             setStartDate(DateTimeParser.convertToLocalDateTime(stime));
             setEndDate(DateTimeParser.convertToLocalDateTime(etime));
@@ -30,25 +41,32 @@ public class AssignedTaskWithPeriod extends AssignedTask {
             throw new DukeException("The date time format is wrong!");
         }
 
-        duration = Duration.between(getStartDate(), getEndDate()).toMillis();
+
     }
 
     /**
-     * .
+     * Create a new AssignedTask with its patient id, task id, period, and task type, recursive status,
+     * is task done status.
      *
-     * @param pid          .
-     * @param tid          .
-     * @param isDone       .
-     * @param isRecurrsive .
-     * @param stime        .
-     * @param etime        .
-     * @param type         .
+     * @param pid          patient id
+     * @param tid          task id
+     * @param isDone       is task done
+     * @param isRecurrsive is task recursive
+     * @param stime        starting time
+     * @param etime        ending time
+     * @param type         task type
      */
     public AssignedTaskWithPeriod(int pid, int tid, boolean isDone,
                                   boolean isRecurrsive, String stime, String etime, String type) throws DukeException {
         super(pid, tid, isDone, isRecurrsive, type);
         setStartDateRaw(stime);
         setEndDateRaw(etime);
+        this.duration = Duration.between(getStartDate(), getEndDate()).toMillis();
+
+        if (duration < 0) {
+            throw new DukeException("You can not assign a end time earlier than its start time !");
+        }
+
         try {
             setStartDate(DateTimeParser.convertToLocalDateTime(stime));
             setEndDate(DateTimeParser.convertToLocalDateTime(etime));
@@ -56,21 +74,21 @@ public class AssignedTaskWithPeriod extends AssignedTask {
             throw new DukeException("The date time format is wrong!");
         }
 
-        duration = Duration.between(getStartDate(), getEndDate()).toMillis();
     }
 
 
     /**
-     * .
+     * Create a new AssignedTask with its patient id, task id, period, and task type, recursive status,
+     * is task done status and unique id.
      *
-     * @param pid          .
-     * @param tid          .
-     * @param isDone       .
-     * @param isRecurrsive .
-     * @param stime        .
-     * @param etime        .
-     * @param type         .
-     * @param uniqueId     .
+     * @param pid          patient id
+     * @param tid          task id
+     * @param isDone       is task done
+     * @param isRecurrsive is task recursive
+     * @param stime        staring time
+     * @param etime        ending time
+     * @param type         task type
+     * @param uniqueId     unique id
      */
     public AssignedTaskWithPeriod(int pid, int tid, boolean isDone,
                                   boolean isRecurrsive, String stime, String etime, String type, int uniqueId)
@@ -89,9 +107,9 @@ public class AssignedTaskWithPeriod extends AssignedTask {
     }
 
     /**
-     * .
+     * Return a string with the task status icon and the time after parsing.
      *
-     * @return .
+     * @return a string with the task information
      */
     public String toString() {
         return super.printStatus() + " From " + DateTimeParser

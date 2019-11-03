@@ -7,9 +7,9 @@ import duke.commands.assignedtask.AssignPeriodTaskCommand;
 import duke.commands.assignedtask.DeleteAssignedTaskCommand;
 import duke.commands.assignedtask.FindAssignedTaskCommand;
 import duke.commands.functional.DukeCommand;
-import duke.commands.functional.ExitCommand;
 import duke.commands.functional.HelpCommand;
 import duke.commands.functional.UndoCommand;
+import duke.commands.functional.ExitCommand;
 import duke.commands.patient.AddPatientCommand;
 import duke.commands.patient.DeletePatientCommand;
 import duke.commands.patient.FindPatientCommand;
@@ -44,6 +44,7 @@ public class CommandManager {
             DukeUi.getDukeUi().typoCorrection(possibleCommand);
             userInput = possibleCommand;
         }
+
         String[] command = userInput.toLowerCase().split(":");
         String keyWord = command[0].trim();
 
