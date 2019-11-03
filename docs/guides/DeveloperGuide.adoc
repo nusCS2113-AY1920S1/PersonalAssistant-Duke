@@ -210,12 +210,12 @@ explains how `Logic` component parse the input.
 
 * `CommandParseHelper` takes in the `input`, parses and extracts tags information and stores it
 inside ArrayList<Option>  `optionList`, then passes the `input` and `optionList` to `EmailCommandParseHelper`.
-** `input` is `email update 2`
-** `optionList` is `[tag=Fun, tag=Project]`
+** `input` here is `email update 2`
+** `optionList` here is `[tag=Fun, tag=Project]`
 * `EmailCommandParseHelper` parses the `index` of email and extract tags information `optionList` and
 stores it in ArrayList<String> `tags`.
-** `index` is `2`
-** `tags` is `[Fun, Project]`
+** `index` here is `2`
+** `tags` here is `[Fun, Project]`
 * `EmailCommandParseHelper` creates a new `EmailTagCommand` by passing in `index` and `tags`, then return
 the `EmailTagCommand` to `CommandParseHelper` and then to `UI`
 
