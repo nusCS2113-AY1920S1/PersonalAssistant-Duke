@@ -42,5 +42,6 @@ public class ExitCommand implements Command {
     public void execute(AssignedTaskManager patientTask, TaskManager tasks,
                         PatientManager patientList, DukeUi dukeUi, StorageManager storageManager) throws DukeException {
         dukeUi.exitInformation();
+        System.exit(0);
     }
 }
