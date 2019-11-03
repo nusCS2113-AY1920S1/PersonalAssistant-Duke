@@ -3,7 +3,6 @@ package executor.command;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import duke.exception.DukeException;
 import executor.task.TaskList;
 import interpreter.Parser;
 import ui.Ui;
@@ -154,12 +153,12 @@ public class CommandWeather extends Command {
         return null;
     }
 
-    public Set<String> getPeriodsPossible() {
+    private Set<String> getPeriodsPossible() {
         return periodsPossible;
     }
 
 
-    public void setFullWeatherData(LinkedHashMap<String, LinkedHashMap<String, String>> fullWeatherData) {
+    private void setFullWeatherData(LinkedHashMap<String, LinkedHashMap<String, String>> fullWeatherData) {
         this.fullWeatherData = fullWeatherData;
     }
 
@@ -167,7 +166,7 @@ public class CommandWeather extends Command {
      * getErrorMessage helps to retrieve the long message whenever required.
      * @return String form of the error message to be displayed is returned
      */
-    public String getErrorMessage() {
+    private String getErrorMessage() {
         String errorMessage = "Please enter in either of the following format : \n"
                 + "1. weather /until now \n"
                 + "2. weather /until later \n"
