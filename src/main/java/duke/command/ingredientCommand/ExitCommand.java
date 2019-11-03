@@ -1,14 +1,14 @@
 package duke.command.ingredientCommand;
 
-import duke.command.Cmd;
+import duke.command.Command;
 import duke.list.GenericList;
 import duke.storage.Storage;
 import duke.ui.Ui;
 
 /**
- * Represents a specific {@link Cmd} used to exit the program after the user inputs "bye".
+ * Represents a specific {@link Command} used to exit the program after the user inputs "bye".
  */
-public class ExitCommand<T> extends Cmd<T>{
+public class ExitCommand<T> extends Command<T> {
 
     @Override
     public boolean isExit() {

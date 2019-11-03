@@ -1,5 +1,6 @@
 package duke.task;
 
+import duke.exception.DukeException;
 import duke.parser.Convert;
 
 import java.util.Date;
@@ -15,13 +16,13 @@ public class Event extends Task {
     /**
      * The constructor method for Event.
      */
-    public Event(String description, String str) {
+    public Event(String description, String str) throws DukeException {
         super(description);
         this.setNewDate(str);
     }
 
     @Override
-    public void setNewDate(String date) {
+    public void setNewDate(String date) throws DukeException {
         this.at = date;
         this.date = Convert.stringToDate(at);
     }

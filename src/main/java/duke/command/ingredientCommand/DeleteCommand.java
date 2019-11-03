@@ -1,6 +1,6 @@
 package duke.command.ingredientCommand;
 
-import duke.command.Cmd;
+import duke.command.Command;
 import duke.exception.DukeException;
 import duke.ingredient.Ingredient;
 import duke.ingredient.IngredientsList;
@@ -11,9 +11,9 @@ import duke.ui.Ui;
 import java.io.IOException;
 
 /**
- * Represents a specific {@link Cmd} used to delete a {@link Ingredient} from the {@link IngredientsList}.
+ * Represents a specific {@link Command} used to delete a {@link Ingredient} from the {@link IngredientsList}.
  */
-public class DeleteCommand<T> extends Cmd<T> {
+public class DeleteCommand<T> extends Command<T> {
     private int taskNb;
 
     public DeleteCommand(int taskNb) {

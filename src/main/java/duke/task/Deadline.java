@@ -1,5 +1,6 @@
 package duke.task;
 
+import duke.exception.DukeException;
 import duke.parser.Convert;
 
 import java.util.Date;
@@ -15,13 +16,13 @@ public class Deadline extends Task {
     /**
      * The constructor method for Deadline.
      */
-    public Deadline(String description, String str) {
+    public Deadline(String description, String str) throws DukeException {
         super(description);
         this.setNewDate(str);
     }
 
     @Override
-    public void setNewDate(String date) {
+    public void setNewDate(String date) throws DukeException {
         this.by = date;
         this.date = Convert.stringToDate(by);
     }

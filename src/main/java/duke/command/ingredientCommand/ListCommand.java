@@ -1,6 +1,6 @@
 package duke.command.ingredientCommand;
 
-import duke.command.Cmd;
+import duke.command.Command;
 import duke.exception.DukeException;
 import duke.ingredient.Ingredient;
 import duke.ingredient.IngredientsList;
@@ -9,9 +9,9 @@ import duke.storage.Storage;
 import duke.ui.Ui;
 
 /**
- * Represents a specific {@link Cmd} used to list all the {@link Ingredient}s in the {@link IngredientsList}.
+ * Represents a specific {@link Command} used to list all the {@link Ingredient}s in the {@link IngredientsList}.
  */
-public class ListCommand<T> extends Cmd<T> {
+public class ListCommand<T> extends Command<T> {
 
     @Override
     public void execute(GenericList<T> IngredientsList, Ui ui, Storage storage) throws DukeException {

@@ -3,8 +3,11 @@ package duke.order;
 import duke.Duke;
 import duke.exception.DukeException;
 import duke.storage.Printable;
+
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Date;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 /**
  * Represents a general Order to be added by {@link Duke}.
@@ -55,6 +58,10 @@ public class Order implements Printable {
         Date setDate = date;
         Date todayDate = new Date();
         if (setDate.before(todayDate)) { throw new DukeException("Must set date equal or after today"); }
+        this.date = setDate;
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        String setDateToString = simpleDateFormat.format(setDate);
+        this.dateToString = setDateToString;
     }
 
     /**
@@ -129,7 +136,7 @@ public class Order implements Printable {
         for (Map.Entry<String, Integer> entry : content.entrySet()) {
             String dishName = entry.getKey();
             int amount = entry.getValue();
-            description += "\nD|" + dishName + "|" + amount;
+            description += "|D|" + dishName + "|" + amount;
         }
         return description;
     }

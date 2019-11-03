@@ -1,17 +1,12 @@
 package duke.ui;
 
 import duke.Duke;
-
+import duke.dish.Dish;
 import duke.ingredient.Ingredient;
 import duke.ingredient.IngredientsList;
 
-import java.util.Calendar;
-
-import duke.dish.Dish;
-
-
 import java.io.IOException;
-
+import java.util.Calendar;
 import java.util.Scanner;
 
 /**
@@ -95,16 +90,6 @@ public class Ui {
         System.out.println("\n");
     }
 
-    //TODO: resolve unmappable character
-    /*public void orderDrawing() {
-        System.out.println( "\t ╭━━━╮╱╱╱╱╱╱╱╱╱╭╮╱╱╱╱╱╱╱╱╱╱╱\n" +
-                "\t ┃╭━╮┃╱╱╱╱╱╱╱╱╱┃┃╱╱╱╱╱╱╱╱╱╱╱\n" +
-                "\t ┃┃╱┃┃╱╱╭━╮╱╱╭━╯┃╱╱╭━━╮╱╱╭━╮\n" +
-                "\t ┃┃╱┃┃╱╱┃╭╯╱╱┃╭╮┃╱╱┃┃━┫╱╱┃╭╯\n" +
-                "\t ┃╰━╯┃╱╱┃┃╱╱╱┃╰╯┃╱╱┃┃━┫╱╱┃┃╱\n" +
-                "\t ╰━━━╯╱╱╰╯╱╱╱╰━━╯╱╱╰━━╯╱╱╰╯╱\n");
-    }*/
-
     /**
      * Used to print the greeting message from {@link Duke}.
      */
@@ -137,6 +122,7 @@ public class Ui {
         System.out.println("\t 'b' add/remove/use an ingredient");
         System.out.println("\t 'c' place/remove/change an order");
         System.out.println("\t 'd' add/remove/change a dish");
+        System.out.println("\t 't' view today's todo list");
         System.out.println("\t 'q' to exit");
     }
 
@@ -172,28 +158,22 @@ public class Ui {
         System.out.println("\t list");
         System.out.println("\t ingredient <description> <amount> <index>");
         System.out.println("\t initialize (REMOVES all entries in the list)");
-        System.out.println("\t back, return to maim menu");
+        System.out.println("\t back, return to main menu");
         System.out.println("\t template");
         showLine();
     }
     public void showOrderTemplate() {
-        //orderDrawing();
         showLine();
-        System.out.println("\t Continue by adding, removing, listing, altering, marking done order \n\t Template: ");
+        System.out.println("\t Continue by adding, removing, altering, listing order and initializing order list. \n\t Command Template: ");
         showLine();
-        System.out.println("\t add <dish1 name>*<dish1 amount>, <dish2 name>*<dish2 amount>, ... , <dishN name>*<dishN amount>" +
-                " /on <order date: DD/MM/YYYY>");
-        System.out.println("\t list <list type: all, undone, today, undoneToday>");
-        System.out.println("\t list dish <filtering dish name>");
-        System.out.println("\t list date <filtering order serving date: DD/MM/YYYY>");
-
-        System.out.println("\t alter <order index> <order date: DD/MM/YYYY>");
-        System.out.println("\t done <order index>");
-        System.out.println("\t remove <order index>");
-
-
-        System.out.println("\t initialize (REMOVES all entries in the order list)");
-        System.out.println("\t ***** Note: order index starts from 1 *****");
+        System.out.println("\t init");
+        System.out.println("\t add [-d ORDER_DATE-(dd/mm/yyyy)] -n DISH1_NAME[*DISH_AMOUNT], DISH2_NAME[*DISH_AMOUNT]");
+        System.out.println("\t alter ORDER_INDEX ORDER_DATE-(dd/mm/yyyy)");
+        System.out.println("\t remove ORDER_INDEX");
+        System.out.println("\t done ORDER_INDEX");
+        System.out.println("\t list [-l LIST_TYPE-(option: all (default) | undone | today | undoneToday)]");
+        System.out.println("\t list -n DISH_NAME    *** Find the dishes in today's undone orders ***");
+        System.out.println("\t list -d ORDER_DATE-(dd/mm/yyyy) [-l LIST_TYPE-(option: all (default) | undone)]");
         showLine();
     }
     public void showIngredientsInFridge(IngredientsList ingredientsList) {

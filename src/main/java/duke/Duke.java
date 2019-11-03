@@ -1,6 +1,7 @@
 package duke;
 
-import duke.command.Cmd;
+import duke.command.Command;
+import duke.command.ViewTodoListCommand;
 import duke.command.ingredientCommand.ExitCommand;
 import duke.command.ingredientCommand.RemoveAllExpired;
 import duke.dish.Dish;
@@ -25,7 +26,7 @@ import java.io.IOException;
 public class Duke {
 
     private FridgeStorage fridgeStorage;
-    private Storage orderStorage;
+    private Storage<Order> orderStorage;
     private TaskList tasks;
     private Ui ui;
     private DishList dish;
@@ -38,24 +39,21 @@ public class Duke {
     /**
      * The constructor method for Duke.
      *
-     * @param filePath used to specify the location of the file in the hard disc.
+     * @param fridgeFilePath  used to specify the location of the fridge storage file in the hard disc.
+     * @param  orderFilePath used to specify the location of the order storage file in the hard disc.
      */
-    public Duke(String filePath) {
-        String fridgeFilePath = "data/fridge.txt";
-        String orderFilePath = "data/order.txt";
+    public Duke(String fridgeFilePath,  String orderFilePath) throws DukeException {
         dish = new DishList();
         order = new OrderList();
         fridge = new Fridge();
         ui = new Ui();
-        //taskStorage = new TaskStorage(filePath);
         fridgeStorage = new FridgeStorage(fridgeFilePath);
         orderStorage = new OrderStorage(orderFilePath);
         try {
-            //tasks = new TaskList(taskStorage.load().getAllEntries());
             fridge = new Fridge(fridgeStorage);
+            order = new OrderList(orderStorage.getEntries().getAllEntries());
         } catch (DukeException e) {
             ui.showLoadingError();
-            // System.out.println(e);
             e.printStackTrace();
             tasks = new TaskList();
         }
@@ -66,7 +64,7 @@ public class Duke {
      */
     public void run() throws IOException, InterruptedException {
         String fullCommand;
-        ui.clearScreen();
+        //ui.clearScreen();
         ui.showWelcome();
         if (fridge.hasExpiredIngredients()) {
             ui.showHasExpiring();
@@ -86,7 +84,7 @@ public class Duke {
                 ui.showOptions();
                 ui.showLine();
                 fullCommand = ui.readCommand();
-                ui.clearScreen();
+                //ui.clearScreen();
                 ui.showLine();
                 switch (fullCommand) {
                     case "options": {
@@ -94,13 +92,19 @@ public class Duke {
                         break;
                     }
                     case "q": {
-                        Cmd command = new ExitCommand();
+                        Command command = new ExitCommand();
                         command.execute(null, ui, null);
                         isExit = command.isExit();
                         break;
                     }
+                    case "t": {
+                        Command command = new ViewTodoListCommand();
+                        command.execute(order, ui, orderStorage);
+                        isExit = command.isExit();
+                        break;
+                    }
                     case "a": {
-                        Cmd<Ingredient> command = new RemoveAllExpired(fridge);
+                        Command<Ingredient> command = new RemoveAllExpired(fridge);
                         command.execute(fridge.getAllIngredients(), ui, fridgeStorage);
                         isExit = command.isExit();
                         break;
@@ -111,12 +115,12 @@ public class Duke {
                         while (true) {
                             try {
                                 fullCommand = ui.readCommand();
-                                ui.clearScreen();
+                                //ui.clearScreen();
                                 if (fullCommand.trim().equals("back")) {
                                     break;
                                 }
                                 if (fullCommand.trim().equals("q")) {
-                                    Cmd command = new ExitCommand();
+                                    Command command = new ExitCommand();
                                     command.execute(null, ui, null);
                                     isExit = command.isExit();
                                     break;
@@ -129,7 +133,7 @@ public class Duke {
                                     ui.showIngredientTemplate();
                                     continue;
                                 }
-                                Cmd<Ingredient> command = Parser.parse(fullCommand, Type.INGREDIENT);
+                                Command<Ingredient> command = Parser.parse(fullCommand, Type.INGREDIENT);
                                 command.execute(fridge.getAllIngredients(), ui, fridgeStorage);
                             } catch (DukeException e) {
                                 System.out.println(e.getLocalizedMessage());
@@ -139,17 +143,15 @@ public class Duke {
                         break;
                     }
                     case "c": {
-                        ui.showOrderTemplate();
+                        System.out.println("\t Managing order now\n\t You can type 'template' to retrieve command format");
+                        ui.showLine();
                         while (true) {
                             try {
                                 fullCommand = ui.readCommand();
-                                ui.clearScreen();
-                                if (fullCommand.trim().equals("back")) {
-                                    break;
-                                }
+                                //ui.clearScreen();
+                                if (fullCommand.trim().equals("back")) { break; }
                                 if (fullCommand.trim().equals("q")) {
-
-                                    Cmd command = new ExitCommand();
+                                    Command command = new ExitCommand();
                                     command.execute(null, ui, null);
                                     isExit = command.isExit();
                                     break;
@@ -158,7 +160,7 @@ public class Duke {
                                     ui.showOrderTemplate();
                                     continue;
                                 }
-                                Cmd<Order> command = Parser.parse(fullCommand, Type.ORDER);
+                                Command<Order> command = Parser.parse(fullCommand, Type.ORDER);
                                 command.execute(order, ui, orderStorage);
                             } catch (DukeException e) {
                                 System.out.println(e.getLocalizedMessage());
@@ -171,9 +173,9 @@ public class Duke {
                             try {
                                 ui.showDishTemplate();
                                 fullCommand = ui.readCommand();
-                                ui.clearScreen();
+                                //ui.clearScreen();
                                 if(fullCommand.trim().equals("q")) {
-                                    Cmd command = new ExitCommand();
+                                    Command command = new ExitCommand();
                                     command.execute(null, ui, null);
                                     isExit = command.isExit();
                                     break;
@@ -185,7 +187,7 @@ public class Duke {
                                     ui.clearScreen();
                                     continue;
                                 }
-                                Cmd<Dish> command = Parser.parse(fullCommand, Type.DISH);
+                                Command<Dish> command = Parser.parse(fullCommand, Type.DISH);
                                 command.execute(dish, ui, orderStorage);
                             } catch (DukeException e) {
                                 System.out.println(e.getLocalizedMessage());
@@ -207,7 +209,9 @@ public class Duke {
     /**
      * =============== MAIN FUNCTION ===============.
      */
-    public static void main(String[] args) throws IOException, InterruptedException {
-        new Duke("data/tasks.txt").run();
+    public static void main(String[] args) throws IOException, InterruptedException, DukeException {
+        String fridgeFilePath = "data/fridge.txt";
+        String orderFilePath = "data/order.txt";
+        new Duke(fridgeFilePath, orderFilePath).run();
     }
 }

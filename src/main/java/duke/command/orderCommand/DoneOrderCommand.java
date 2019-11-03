@@ -1,6 +1,6 @@
 package duke.command.orderCommand;
 
-import duke.command.Cmd;
+import duke.command.Command;
 import duke.exception.DukeException;
 import duke.list.GenericList;
 import duke.order.Order;
@@ -9,9 +9,9 @@ import duke.storage.Storage;
 import duke.ui.Ui;
 
 /**
- * Represents a specific {@link Cmd} used to mark a {@link Order} as done.
+ * Represents a specific {@link Command} used to mark a {@link Order} as done.
  */
-public class DoneOrderCommand extends Cmd<Order> {
+public class DoneOrderCommand extends Command<Order> {
     private int orderIndex;
 
     /**
@@ -24,7 +24,7 @@ public class DoneOrderCommand extends Cmd<Order> {
     }
 
     @Override
-    public void execute(GenericList<Order> orderList, Ui ui, Storage storage) throws DukeException {
+    public void execute(GenericList<Order> orderList, Ui ui, Storage orderStorage) throws DukeException {
         if (orderList.size()==0) {
             throw new DukeException("No order in the list! No order can be done!");
         }
@@ -34,31 +34,15 @@ public class DoneOrderCommand extends Cmd<Order> {
                 int number = orderIndex+1;
                 throw new DukeException("Order "+number+" has already been done!");
             }
+            orderStorage.changeContent(orderIndex+1);
 
             // to do
-            // 1. update storage file
-            // 2. Need to update after menu is created
-//            String dish;
-//            int amount;
-//            for (Map.Entry<String, Integer> entry : doneOrder.getOrderContent().entrySet()) {
-//                dish = entry.getKey();
-//                amount = entry.getValue();
-//                int dishIndex;
-//                for (int i=0; i<amount ;i++) {
-//                    //decrement dish amount from the menu
-//                    //new DeleteDishCommand(dishIndex)
-//                }
-//            }
+            // update chef's to do list
 
             ((OrderList)orderList).markOrderDone(orderIndex);
             ui.showMarkDoneOrder(orderList.getEntry(orderIndex).toString());
-
-
-            //storage.changeContent(orderIndex);
-
-
         } else {
-            throw new DukeException("Must enter a valid order number, between 1 and " + orderList.size());
+            throw new DukeException("Must enter a valid order number, between 1 and " + orderList.size() + " to be done");
         }
     }
 }
