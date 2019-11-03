@@ -46,15 +46,12 @@ public class CommandWeather extends Command {
      * @return this function returns a String based on user's choice 
      */
     private String getWhichWeatherDataUserWants(String userInput) {
-        try {
-            String period = Parser.parseForFlag("until", userInput);
-            if (period != null && getPeriodsPossible().contains(period)) {
-                period = period.toLowerCase();
-                return period;
-            } else {
-                throw new DukeException(getErrorMessage());
-            }
-        } catch (Exception e) {
+        String period = Parser.parseForFlag("until", userInput);
+        if (period != null && getPeriodsPossible().contains(period)) {
+            period = period.toLowerCase();
+            return period;
+        } else {
+            Ui.dukeSays(getErrorMessage());
             Ui.dukeSays("However we believe you would want to know the weather forecast for today.");
             return "now";
         }
