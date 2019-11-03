@@ -247,7 +247,7 @@ public class CommandConvert extends Command {
         } catch (Exception e) {
             String errorMessage = "DUKE$$$ could not understand the input. \n"
                     + "Please follow the following formatting to convert : \n"
-                    + "For example : convert <amount up to 2dp> /from USD /to SGD \n"
+                    + "For example : convert <amount> /from USD /to SGD \n"
                     + "\n";
             Ui.dukeSays(errorMessage);
             return null;
