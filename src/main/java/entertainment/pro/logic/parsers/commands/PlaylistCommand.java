@@ -75,7 +75,7 @@ public class PlaylistCommand extends CommandSuper {
             movieHandler.refresh();
         } catch (PlaylistExceptions e) {
             System.out.println(e);
-            movieHandler.setFeedbackText(e.getMessage());
+            movieHandler.setGeneralFeedbackText(e.getMessage());
         }
         movieHandler.clearSearchTextField();
     }

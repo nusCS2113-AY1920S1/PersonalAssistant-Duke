@@ -60,7 +60,7 @@ public class AddCommand extends CommandSuper {
             }
             WatchlistHandler.print_list((MovieHandler) (this.getUiController()));
         } catch (NullPointerException | IndexOutOfBoundsException e) {
-            ((MovieHandler) (this.getUiController())).setFeedbackText("Please enter a valid command in the form of: \n"
+            ((MovieHandler) (this.getUiController())).setGeneralFeedbackText("Please enter a valid command in the form of: \n"
                     + "add watchlist <name of movie> -d <type of duke.task> -s"
                     + " <start date only for duke.task> -e <end date for duke.task>");
         }

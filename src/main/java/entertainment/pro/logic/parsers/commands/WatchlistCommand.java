@@ -49,6 +49,10 @@ public class WatchlistCommand  extends CommandSuper {
     private void addToWatchList() throws Exception {
         try {
             String movie = ((MovieHandler)this.getUiController()).getAPIRequester().beginAddRequest(getPayload());
+            if (movie.equals("")) {
+                ((MovieHandler)(this.getUiController())).setGeneralFeedbackText("Movie not found.\nPlease check your spelling");
+                return;
+            }
             movie = movie.toLowerCase();
             String type = this.getFlagMap().get("-t").get(0);
             switch (type) {
@@ -62,7 +66,7 @@ public class WatchlistCommand  extends CommandSuper {
                 break;
             }
         } catch (NullPointerException | IndexOutOfBoundsException e) {
-            ((MovieHandler)(this.getUiController())).setFeedbackText("Please enter a valid command in the form of: \n"
+            ((MovieHandler)(this.getUiController())).setGeneralFeedbackText("Please enter a valid command in the form of: \n"
                     + "watchlist add <name of movie> -d <type of task> -s <start date only for task> "
                     + "-e <end date for task>");
         }
@@ -77,7 +81,7 @@ public class WatchlistCommand  extends CommandSuper {
         Deadline deadline = new Deadline(movie, "D", endDate);
         if (!WatchlistHandler.add(deadline)) {
             ((MovieHandler)this.getUiController()).clearSearchTextField();
-            ((MovieHandler)this.getUiController()).setFeedbackText("No duplicates allowed");
+            ((MovieHandler)this.getUiController()).setGeneralFeedbackText("No duplicates allowed");
         } else {
             WatchlistHandler.print_list((MovieHandler)(this.getUiController()));
         }
@@ -93,7 +97,7 @@ public class WatchlistCommand  extends CommandSuper {
         Period period = new Period(movie, "P", stDate, enDate);
         if (!WatchlistHandler.add(period)) {
             ((MovieHandler)this.getUiController()).clearSearchTextField();
-            ((MovieHandler)this.getUiController()).setFeedbackText("No duplicates allowed");
+            ((MovieHandler)this.getUiController()).setGeneralFeedbackText("No duplicates allowed");
         } else {
             WatchlistHandler.print_list((MovieHandler)(this.getUiController()));
         }
@@ -114,7 +118,7 @@ public class WatchlistCommand  extends CommandSuper {
             System.out.println(i);
             WatchlistHandler.markIndexAsDone(i, (MovieHandler)(this.getUiController()));
         } catch (NullPointerException | IndexOutOfBoundsException e) {
-            ((MovieHandler)(this.getUiController())).setFeedbackText("please enter a valid task number");
+            ((MovieHandler)(this.getUiController())).setGeneralFeedbackText("please enter a valid task number");
         }
     }
 
@@ -124,7 +128,7 @@ public class WatchlistCommand  extends CommandSuper {
     private void executeNameTaskDone() {
         String movie = getPayload();
         if (!WatchlistHandler.markMovieAsDone(movie, (MovieHandler)(this.getUiController()))) {
-            ((MovieHandler)(this.getUiController())).setFeedbackText("please enter a movie in the watchlist");
+            ((MovieHandler)(this.getUiController())).setGeneralFeedbackText("please enter a movie in the watchlist");
         }
     }
 
@@ -135,10 +139,10 @@ public class WatchlistCommand  extends CommandSuper {
         String mov = getPayload();
         System.out.println(mov);
         if (WatchlistHandler.removeFromWatchlist(mov, (MovieHandler)(this.getUiController()))) {
-            ((MovieHandler) getUiController()).setFeedbackText("Successfully removed the movie from WatchList: " + mov);
+            ((MovieHandler) getUiController()).setGeneralFeedbackText("Successfully removed the movie from WatchList: " + mov);
         } else {
             ((MovieHandler) getUiController())
-                    .setFeedbackText("Such a movie does not exist in your WatchList. Check your spelling?");
+                    .setGeneralFeedbackText("Such a movie does not exist in your WatchList. Check your spelling?");
         }
     }
 }

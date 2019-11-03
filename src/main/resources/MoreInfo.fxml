@@ -9,15 +9,15 @@
 <?import javafx.scene.text.*?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="-1.0" prefWidth="490.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="entertainment.pro.ui.InfoController">
+<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="-1.0" prefWidth="510.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="entertainment.pro.ui.InfoController">
   <children>
-    <Label fx:id="movieTitleLabel" alignment="CENTER" layoutX="0.0" prefHeight="30.0" prefWidth="503.0" text="MovieName" textAlignment="CENTER" wrapText="true" AnchorPane.topAnchor="-1.0">
+    <Label fx:id="movieTitleLabel" alignment="CENTER" layoutX="0.0" prefHeight="30.0" prefWidth="510.0" text="MovieName" textAlignment="CENTER" wrapText="true" AnchorPane.topAnchor="-1.0">
       <font>
         <Font name="System Bold" size="18.0" />
       </font>
     </Label>
     <ImageView fx:id="movieBackdropImageView" fitHeight="134.25" fitWidth="179.0" layoutX="27.0" layoutY="41.0" pickOnBounds="true" preserveRatio="true" />
-    <GridPane fx:id="movieGridPane" layoutX="13.0" layoutY="168.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="480.0">
+    <GridPane fx:id="movieGridPane" layoutX="13.0" layoutY="168.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="490.0">
       <children>
         <Label text="Plot Summary:" GridPane.columnIndex="0" GridPane.rowIndex="0">
           <GridPane.margin>
@@ -64,7 +64,7 @@
     </HBox>
     <HBox layoutX="215.0" layoutY="78.0" prefHeight="30.0" prefWidth="248.0">
       <children>
-        <Label text="Release Date:" />
+        <Label fx:id="releaseDateLabel" text="Release Date:" />
         <Label id="movieRatingLabel" fx:id="movieReleaseDateLabel" text="Label">
           <HBox.margin>
             <Insets left="5.0" fx:id="x5" />

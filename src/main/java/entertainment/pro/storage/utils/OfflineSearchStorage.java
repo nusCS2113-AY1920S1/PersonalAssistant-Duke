@@ -1,14 +1,12 @@
 package entertainment.pro.storage.utils;
 
 import entertainment.pro.logic.movieRequesterAPI.RetrieveRequest;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.ArrayList;
 
 /**
@@ -25,40 +23,46 @@ public class OfflineSearchStorage {
     private static String POPULAR_TV_DATA_FILEPATH = "/data/PopularTV.json";
     private static String TRENDING_TV_DATA_FILEPATH = "/data/TrendingTV.json";
     private static String TOP_RATED_TV_DATA_FILEPATH = "/data/RatedTV.json";
+    private static String MOVIES_DATABASE_FILEPATH = "/data/movieData/";
+    private static final String KEYWORD_FOR_SEARCH_REQUESTS = "results";
 
     /**
      * load and fetch appropriate string data for search requests.
      */
-    public String load() throws IOException {
+    public JSONArray load() throws IOException {
+        String dataFromJSON = "";
+        JSONArray searchData = new JSONArray();
         RetrieveRequest.MoviesRequestType type = RetrieveRequest.getGetType();
         String filename = getFileName(type);
+        if (type.equals(RetrieveRequest.MoviesRequestType.SEARCH_MOVIES)) {
+            searchData = getSearchData();
+            return searchData;
+        }
         InputStream inputStream = getClass().getResourceAsStream(filename);
         InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
         BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-        String dataFromJSON = "";
         String line;
-
         while ((line = bufferedReader.readLine()) != null) {
             dataFromJSON += line;
         }
         bufferedReader.close();
         inputStreamReader.close();
         inputStream.close();
-
         JSONParser jsonParser = new JSONParser();
         JSONObject jsonObject = new JSONObject();
         try {
-            //parse into JSONObject.
             jsonObject = (JSONObject) jsonParser.parse(dataFromJSON);
+            searchData = (JSONArray) jsonObject.get(KEYWORD_FOR_SEARCH_REQUESTS);
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        //return jsonObject;
-        return dataFromJSON;
+        //return jsonArray;
+        return searchData;
     }
 
     /**
      * Responsible for obtaining and returning the appropriate filename for the respective search requests.
+     *
      * @param type Type to specify the respective search request.
      * @return appropriate filename that contains data for the respective search requests.
      */
@@ -98,7 +102,31 @@ public class OfflineSearchStorage {
         return filename;
     }
 
+    /**
+     *
+     * @return
+     */
+    public JSONArray getSearchData() {
+        JSONArray searchResults = new JSONArray();
+        for (int i = 1; i <= 500; i += 1) {
+            String filename = MOVIES_DATABASE_FILEPATH;
+            filename += i + ".json";
+            System.out.println(filename);
+            JSONParser parser = new JSONParser();
+            JSONArray jsonArray = new JSONArray();
+            try {
+                jsonArray = (JSONArray) parser.parse(new FileReader(filename));
+            } catch (org.json.simple.parser.ParseException | FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            for (int j = 0; j < jsonArray.size(); j += 1) {
+                JSONObject jsonObject = (JSONObject) jsonArray.get(j);
+                searchResults.add(jsonObject);
+            }
+        }
+        return searchResults;
+    }
 }
-
-
 
