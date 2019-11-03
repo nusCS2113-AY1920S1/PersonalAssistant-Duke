@@ -153,7 +153,7 @@ public class ParserHelper {
         for (String s : newTaskRequirementsArrayList) {
             String trimmedString = s.trim();
             if (trimmedString.length() <= 2) {
-                if (trimmedString.equals("r") || trimmedString.equals("rm")) {
+                if ("r".equals(trimmedString) || "rm".equals(trimmedString)) {
                     errorMessages.add("There is an empty flag '-" + trimmedString + "'");
                 } else {
                     errorMessages.add("'-" + trimmedString + "' is an invalid flag");
