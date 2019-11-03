@@ -175,13 +175,6 @@ public class ParserHelper {
             }
         }
 
-        if (errorMessages.size() == 0) {
-            taskRequirementDetails.add("No error");
-        } else {
-            taskRequirementDetails.addAll(errorMessages);
-            taskRequirementDetails.add("Errors end");
-        }
-
         if (taskReqIndexesToBeRemoved.size() == 0) {
             taskRequirementDetails.add("--");
         } else {
@@ -194,8 +187,6 @@ public class ParserHelper {
         }
 
         taskRequirementDetails.addAll(taskRequirementsToBeAdded);
-
-        errorMessages.clear();
         return taskRequirementDetails;
     }
 

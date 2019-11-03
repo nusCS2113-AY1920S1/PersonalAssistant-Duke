@@ -156,16 +156,7 @@ public class TaskList {
         errorMessages.add("Errors...");
 
         ArrayList<String> newTaskRequirementDetails = parserHelper.parseTaskRequirementDetails(updatedTaskRequirements);
-
-        if ("No error".equals(newTaskRequirementDetails.get(0))) {
-            newTaskRequirementDetails.remove(0);
-        } else {
-            while (!"Errors end".equals(newTaskRequirementDetails.get(0))) {
-                errorMessages.add(newTaskRequirementDetails.get(0));
-                newTaskRequirementDetails.remove(0);
-            }
-            newTaskRequirementDetails.remove(0); //to remove "Errors end"
-        }
+        errorMessages.addAll(parserHelper.getErrorMessages());
 
         String taskReqIndexesToBeRemoved = newTaskRequirementDetails.get(0);
         if (!taskReqIndexesToBeRemoved.equals("--")) {
