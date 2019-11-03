@@ -15,7 +15,7 @@ public class UndoContactCommand {
      * @return
      * @throws IOException
      */
-    static Map<String,String> Undo(Map<String, String> contacts, Stack<Map<String, String>> oldcontacts, Storage storage) throws IOException {
+    public static Map<String,String> Undo(Map<String, String> contacts, Stack<Map<String, String>> oldcontacts, Storage storage) throws IOException {
         if(!oldcontacts.empty()){
             contacts=oldcontacts.peek();
             String toStore="";
