@@ -124,8 +124,7 @@ public class Logic {
                             inputs, quizList, questionNumber, isQuizMode, isNewQuiz, chapterNumber.get());
                 }
             } else {
-                return new QuizTestCommand(
-                           inputs, quizList, questionNumber, isQuizMode, isNewQuiz, chapterNumber.get());
+                return new QuizCommand(inputs);
             }
         }
         quizList = quizMaker.generateQuiz(chapterNumber.get(), quizList);
