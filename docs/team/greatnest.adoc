@@ -9,4 +9,22 @@
 
 == Overview
 
-MooMooMoney is a money management application written in Java with a GUI written using JavaFx 11
+MooMooMoney is a money management command line application written in Java.
+
+== Summary of Contributions
+
+* Enhancement Added: I have added the ability for the user to manage their budget.
+**	What it does: Allow users to set a monthly budget for the various categories that they have created to enable them to view the savings every month in that category.
+**	Justification: This would allow users to set a budget to determine if they are exceeding the budget that they have set based on the expenditures that they have done. They can easily view the savings for each category and how much they have overshot their budget for each category for each month.
+Code contributed: Please click this link to view my contributed code: [Functional & Test Code]
+Other Contributions:
+* Project Management:
+** Handled the tagging and releases during milestones along with release of JAR file on Github.
+*	Tools
+**	Added other CI services like Azure Pipelines and Appveyor to the team repo
+
+== Contributions to the User Guide
+Added manage a budget in the User Guide
+
+== Contributions to the Developer Guide
+Added budget feature implementation to the Developer Guide

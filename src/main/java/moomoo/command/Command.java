@@ -3,10 +3,10 @@ package moomoo.command;
 import moomoo.task.ScheduleList;
 import moomoo.task.Budget;
 import moomoo.task.MooMooException;
-import moomoo.task.CategoryList;
+import moomoo.task.category.CategoryList;
 import moomoo.task.Ui;
 import moomoo.task.Storage;
-import moomoo.task.Category;
+import moomoo.task.category.Category;
 
 /**
  * Represents the various commands to be executed.
@@ -20,7 +20,7 @@ public abstract class Command {
      * @param isExit True if the program should exit after running this command, false otherwise
      * @param input Input given by the user
      */
-    Command(boolean isExit, String input) {
+    public Command(boolean isExit, String input) {
         this.isExit = isExit;
         this.input = input;
     }

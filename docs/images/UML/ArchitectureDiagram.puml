@@ -1,0 +1,39 @@
+@startuml
+!include <office/Concepts/documents>
+!include <office/Users/user>
+
+hide footbox
+hide members
+hide circle
+
+skinparam MinClassWidth 50
+skinparam ParticipantPadding 10
+skinparam Shadowing false
+skinparam DefaultTextAlignment center
+skinparam packageStyle Rectangle
+
+
+Package " "<<Rectangle>>{
+    Class UI #A09872
+    Class Parser #C05234
+    Class Storage #D09123
+    Class Command #D01234
+    Class MooMooLauncher #E09812
+    Class MooMoo #A09234
+    Class Main #B09235
+}
+
+Class "<$user>" as User #ABCDEF
+Class "<$documents>" as File #A09145
+
+MooMooLauncher -down-> Main
+MooMooLauncher -down-> MooMoo
+UI -> Parser
+Parser -> Command
+Command -> Storage
+Main -right-> UI
+MooMoo -right-> UI
+
+Storage .right.>File
+User -down-> UI
+@enduml

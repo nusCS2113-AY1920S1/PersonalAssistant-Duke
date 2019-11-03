@@ -1,11 +1,12 @@
 package moomoo.command;
 
 import moomoo.task.Budget;
-import moomoo.task.Category;
-import moomoo.task.CategoryList;
 import moomoo.task.ScheduleList;
 import moomoo.task.Storage;
 import moomoo.task.Ui;
+import moomoo.task.MooMooException;
+import moomoo.task.category.Category;
+import moomoo.task.category.CategoryList;
 
 import java.text.DecimalFormat;
 import java.time.LocalDate;
@@ -39,7 +40,7 @@ public class SavingsBudgetCommand extends Command {
 
     @Override
     public void execute(ScheduleList calendar, Budget budget, CategoryList catList, Category category,
-                        Ui ui, Storage storage) {
+                        Ui ui, Storage storage) throws MooMooException {
         String[] outputArray;
         String outputValue = "";
         double totalSavings = 0;
@@ -51,7 +52,7 @@ public class SavingsBudgetCommand extends Command {
 
         for (String iteratorCategory : categories) {
             iteratorCategory = iteratorCategory.toLowerCase();
-            Category currentCategory = catList.getCategory(iteratorCategory);
+            Category currentCategory = catList.get(iteratorCategory);
 
             if (currentCategory == null) {
                 outputValue += iteratorCategory + " category does not exist."
@@ -90,7 +91,7 @@ public class SavingsBudgetCommand extends Command {
         double totalSavings = 0;
         String output = outputVal;
         double savings = budget.getBudgetFromCategory(iteratorCategory)
-                - currentCategory.getCategoryTotalPerMonthYear(start.getMonthValue(), start.getYear());
+                - currentCategory.getTotal(start.getMonthValue(), start.getYear());
 
         totalSavings += savings;
         if (savings > 0) {
@@ -122,7 +123,7 @@ public class SavingsBudgetCommand extends Command {
             for (int currentYear = start.getYear(); currentYear <= end.getYear(); ++currentYear) {
                 for (int currentMonth = startMonthValue; currentMonth <= endMonthValue; ++currentMonth) {
                     ++numberOfMonths;
-                    totalExpenditure += currentCategory.getCategoryTotalPerMonthYear(currentMonth, currentYear);
+                    totalExpenditure += currentCategory.getTotal(currentMonth, currentYear);
 
                 }
                 startMonthValue = 1;
@@ -133,7 +134,7 @@ public class SavingsBudgetCommand extends Command {
         } else {
             numberOfMonths = end.getMonthValue() - start.getMonthValue() + 1;
             for (int i = start.getMonthValue(); i < end.getMonthValue() + 1; ++i) {
-                totalExpenditure += currentCategory.getCategoryTotalPerMonthYear(i, start.getYear());
+                totalExpenditure += currentCategory.getTotal(i, start.getYear());
             }
         }
         double savings = (numberOfMonths * budget.getBudgetFromCategory(iteratorCategory))

@@ -1,4 +1,4 @@
-package moomoo.command;
+package moomoo.command.category;
 
 public class DeleteExpenditureCommand {
 

@@ -1,5 +1,7 @@
 package moomoo.task;
 
+import moomoo.task.category.Category;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
@@ -130,7 +132,7 @@ public class Ui {
      * Prints out a message enclosed between two lines.
      * @param text message to be printed
      */
-    public void print(String text) {
+    private void print(String text) {
         System.out.println(text);
     }
 
@@ -169,10 +171,10 @@ public class Ui {
 
     /**
      * Prints out when a category is deleted.
-     * @param category name of the new category
+     * @param categoryName name of the new category
      */
-    public void showRemovedCategoryMessage(Category category) {
-        print("Ok, I've deleted the category named " + category.toString() + ".");
+    public void showRemovedCategoryMessage(String categoryName) {
+        print("Ok, I've deleted the category named " + categoryName + ".");
     }
 
     /**
@@ -228,5 +230,25 @@ public class Ui {
      */
     public void showInputPrompt(String text) {
         print(text);
+    }
+
+    /**
+     * Shows the user what are the possible commands.
+     */
+    public void showHelp() {
+        String text = "Try one of these commands:\n"
+                + "add c/[Category name]\n"
+                + "delete c/[Category name]\n"
+                + "add n/[Expenditure name] a/[Amount spent] c/[Category] d/[YYYY-MM-DD]\n"
+                + "sort\n"
+                + "budget\n"
+                + "schedule\n"
+                + "graph\n"
+                + "total";
+        print(text);
+    }
+
+    public void printMainDisplay(String newMainDisplay) {
+        print(newMainDisplay);
     }
 }

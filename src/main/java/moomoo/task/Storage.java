@@ -1,5 +1,8 @@
 package moomoo.task;
 
+import moomoo.task.category.Category;
+import moomoo.task.category.Expenditure;
+
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Array;
@@ -50,17 +53,22 @@ public class Storage {
      * @throws MooMooException Thrown when the file does not exist
      */
     public ArrayList<Category> loadCategories() throws MooMooException {
-        ArrayList<Category> categoryArrayList = new ArrayList<Category>();
+        ArrayList<Category> categoryArrayList = new ArrayList<>();
         try {
             File myNewFile = new File(categoryFilePath);
             if (myNewFile.createNewFile()) {
-                return new ArrayList<>();
+                return populateDefaultCategories(categoryArrayList);
             } else {
                 List<String> input = Files.readAllLines(Paths.get(this.categoryFilePath));
-                Category newCategory = new Category("Misc");
+                Category newCategory = new Category("misc");
                 for (String s : input) {
-                    newCategory = new Category(s);
-                    categoryArrayList.add(newCategory);
+                    if (s.startsWith("c/")) {
+                        newCategory = new Category(s.replace("c/", ""));
+                        categoryArrayList.add(newCategory);
+                    } else if (categoryArrayList.isEmpty()) {
+                        categoryArrayList.add(newCategory);
+                        saveCategoryToFile("misc");
+                    }
                 }
                 return categoryArrayList;
             }
@@ -70,29 +78,46 @@ public class Storage {
     }
 
     /**
+     * Creates a populated array of default categories.
+     * @param categoryArrayList category list
+     * @return populated category list
+     * @throws MooMooException throws exception if file cannot be found
+     */
+    private ArrayList<Category> populateDefaultCategories(ArrayList<Category> categoryArrayList)
+            throws MooMooException {
+        categoryArrayList.add(new Category("misc"));
+        categoryArrayList.add(new Category("food"));
+        categoryArrayList.add(new Category("transportation"));
+        categoryArrayList.add(new Category("bills"));
+        saveCategoryToFile("misc");
+        saveCategoryToFile("food");
+        saveCategoryToFile("transportation");
+        saveCategoryToFile("bills");
+        return categoryArrayList;
+    }
+
+    /**
      * Loads in budgetFile not found. New file will be created from an existing file into a created HashMap object.
      * @return HashMap object consisting of the categories and corresponding budget read from file.
-     * @throws MooMooException Thrown when the file does not exist
      */
     public HashMap<String, Double> loadBudget(ArrayList<Category> catList, Ui ui) {
         try {
             if (Files.isRegularFile(Paths.get(this.budgetFilePath))) {
                 HashMap<String, Double> loadedBudgets = new HashMap<String, Double>();
-                String input = Files.readString(Paths.get(this.budgetFilePath));
-
-                String[] splitInput = input.split(" \\| ");
+                List<String> readInput = Files.readAllLines(Paths.get(this.budgetFilePath));
                 String category = "";
                 double budget = 0;
-                for (int i = 0; i < splitInput.length; ++i) {
+
+                for (int i = 0; i < readInput.size(); ++i) {
                     if (i % 2 == 1) {
                         if (!"".equals(category)) {
-                            budget = Double.parseDouble(splitInput[i]);
+                            budget = Double.parseDouble(readInput.get(i));
                             loadedBudgets.put(category, budget);
                         }
                         category = "";
                     } else {
-                        if (isInCategoryList(catList, splitInput[i])) {
-                            category = splitInput[i];
+                        if (isInCategoryList(catList, readInput.get(i))) {
+                            category = readInput.get(i);
                         }
                     }
                 }
@@ -110,7 +135,6 @@ public class Storage {
     /**
      * Loads scheduled payments from file into an ArrayList object.
      * @return ArrayList object consisting of the scheduled payments read from the file
-     * @throws MooMooException Thrown when file does not exist
      */
     public HashMap<String, ArrayList<String>> loadCalendar(Ui ui) {
         HashMap<String, ArrayList<String>> scheduleMap = new HashMap<>();
@@ -149,9 +173,10 @@ public class Storage {
     private void createFileAndDirectory(String filePath) throws MooMooException {
         try {
             File myNewFile = new File(filePath);
+            myNewFile.getParentFile().mkdir();
             myNewFile.createNewFile();
         } catch (IOException e) {
-            throw new MooMooException("Unable to create file. Please restart the program");
+            throw new MooMooException("Unable to create file. Your data will not be saved.");
         }
     }
 
@@ -185,8 +210,7 @@ public class Storage {
         createFileAndDirectory(this.categoryFilePath);
         try {
             String newCategory = Files.readString(Paths.get(this.categoryFilePath));
-            //newCategory += ("c/" + category + "\n");
-            newCategory += (category + "\n");
+            newCategory = ("c/" + category + "\n" + newCategory);
             Files.writeString(Paths.get(this.categoryFilePath), newCategory);
         } catch (IOException e) {
             throw new MooMooException("Unable to write to file. Please retry again.");
@@ -222,9 +246,8 @@ public class Storage {
         Iterator budgetIterator = budget.getBudget().entrySet().iterator();
         while (budgetIterator.hasNext()) {
             Map.Entry mapElement = (Map.Entry)budgetIterator.next();
-            toSave += mapElement.getKey() + " | " + df.format(mapElement.getValue()) + " | ";
+            toSave += mapElement.getKey() + "\n" + mapElement.getValue() + "\n";
         }
-        toSave = toSave.substring(0, toSave.length() - 3);
         try {
             Files.writeString(Paths.get(this.budgetFilePath), toSave);
         } catch (Exception e) {

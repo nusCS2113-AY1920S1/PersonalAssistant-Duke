@@ -1,6 +1,6 @@
 package moomoo.stubs;
 
-import moomoo.task.Expenditure;
+import moomoo.task.category.Expenditure;
 
 import java.time.LocalDateTime;
 import java.time.LocalDate;
@@ -8,7 +8,6 @@ import java.time.LocalDate;
 public class ExpenditureStub extends Expenditure {
     private String name;
     private double cost;
-    private LocalDateTime dateTime;
     private LocalDate date;
 
     /**
@@ -18,6 +17,7 @@ public class ExpenditureStub extends Expenditure {
      * @param date Date and time of expenditure.
      */
     public ExpenditureStub(String name, double cost, LocalDate date) {
+        super(name, cost, date);
         this.name = name;
         this.cost = cost;
         this.date = date;

@@ -1,15 +1,17 @@
-package moomoo.command;
+package moomoo.command.category;
 
 import java.time.LocalDate;
 
+import moomoo.command.Command;
+import moomoo.command.NotificationCommand;
 import moomoo.task.MooMooException;
 import moomoo.task.Storage;
 import moomoo.task.Ui;
 import moomoo.task.Budget;
-import moomoo.task.Category;
-import moomoo.task.CategoryList;
+import moomoo.task.category.Category;
+import moomoo.task.category.CategoryList;
 import moomoo.task.ScheduleList;
-import moomoo.task.Expenditure;
+import moomoo.task.category.Expenditure;
 
 public class AddExpenditureCommand extends Command {
 
@@ -37,17 +39,13 @@ public class AddExpenditureCommand extends Command {
     @Override
     public void execute(ScheduleList calendar, Budget budget, CategoryList categoryList, Category category,
                         Ui ui, Storage storage) throws MooMooException {
-        for (int i = 0; i < categoryList.size(); i++) {
-            if (categoryList.get(i).toString().equals(categoryName)) {
-                Expenditure newExpenditure = new Expenditure(expenditureName, amount, date);
-                categoryList.get(i).add(newExpenditure);
-                Category cat = categoryList.get(i);
-                NotificationCommand alert = new NotificationCommand(categoryName, cat.getCategoryMonthTotal());
-                alert.execute(calendar, budget, categoryList, category, ui, storage);
-                storage.saveExpenditureToFile(newExpenditure, categoryName);
-                ui.showNewExpenditureMessage(expenditureName, categoryName);
-            }
-        }
+        Category cat = categoryList.get(categoryName);
+        Expenditure newExpenditure = new Expenditure(expenditureName, amount, date);
+        cat.add(newExpenditure);
+        NotificationCommand alert = new NotificationCommand(categoryName, cat.getTotal());
+        alert.execute(calendar, budget, categoryList, category, ui, storage);
+        storage.saveExpenditureToFile(newExpenditure, categoryName);
+        ui.showNewExpenditureMessage(expenditureName, categoryName);
     }
 }
 

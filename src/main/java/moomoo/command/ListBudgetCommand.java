@@ -1,11 +1,12 @@
 package moomoo.command;
 
 import moomoo.task.Budget;
-import moomoo.task.Category;
-import moomoo.task.CategoryList;
 import moomoo.task.ScheduleList;
 import moomoo.task.Storage;
 import moomoo.task.Ui;
+import moomoo.task.MooMooException;
+import moomoo.task.category.Category;
+import moomoo.task.category.CategoryList;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -30,7 +31,7 @@ public class ListBudgetCommand extends Command {
 
     @Override
     public void execute(ScheduleList calendar, Budget budget, CategoryList catList, Category category,
-                        Ui ui, Storage storage) {
+                        Ui ui, Storage storage) throws MooMooException {
         String outputValue = "";
         double currentBudget = 0;
         if (categories.size() == 0) {
@@ -51,7 +52,7 @@ public class ListBudgetCommand extends Command {
         for (int i = 0; i < categories.size(); ++i) {
             String categoryName = categories.get(i).toLowerCase();
 
-            if (catList.getCategory(categoryName) != null) {
+            if (catList.get(categoryName) != null) {
                 currentBudget = budget.getBudgetFromCategory(categoryName);
                 if (currentBudget == 0) {
                     outputValue += "Budget for " + categoryName + " has not been set.\n";

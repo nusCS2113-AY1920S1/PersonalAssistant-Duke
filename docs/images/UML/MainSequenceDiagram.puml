@@ -1,0 +1,33 @@
+@startuml
+Actor User as user
+Participant ":UI" as ui
+Participant ":Parser" as parser
+Participant ":Command" as command
+Participant ":Storage" as storage
+
+user -> ui : "budget set c/food b/100"
+activate ui
+
+ui -> parser : "budget set c/food b/100"
+activate parser
+
+parser -> command : execute()
+activate command
+deactivate parser
+
+command -> storage : saveBudgetToFile()
+activate storage
+
+storage -> storage: createFileAndDirectory()
+activate storage
+deactivate storage
+
+storage --> command
+deactivate storage
+
+command --> ui
+deactivate ui
+deactivate command
+
+ui --> user
+@enduml

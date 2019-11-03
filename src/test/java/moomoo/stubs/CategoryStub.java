@@ -1,9 +1,8 @@
 package moomoo.stubs;
 
-import moomoo.task.Category;
-import moomoo.task.Expenditure;
+import moomoo.task.category.Category;
+import moomoo.task.category.Expenditure;
 
-import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.ArrayList;
 import java.time.LocalDate;
@@ -13,10 +12,15 @@ public class CategoryStub extends Category {
     private ArrayList<ExpenditureStub> category;
 
     public CategoryStub() {
-
+        super("");
     }
 
+    /**
+     * Creates a category.
+     * @param name name of category
+     */
     public CategoryStub(String name) {
+        super("");
         this.category = new ArrayList<>();
         this.name = name;
     }
@@ -27,10 +31,10 @@ public class CategoryStub extends Category {
     }
 
     @Override
-    public double getCategoryTotalPerMonthYear(int month, int year) {
+    public double getTotal(int month, int year) {
         double totalCost = 0.00;
         for (int i = 0; i < category.size(); i++) {
-            Expenditure currExpenditure = category.get(i);
+            ExpenditureStub currExpenditure = category.get(i);
             if (currExpenditure.getDate().getMonthValue() == month
                     && currExpenditure.getDate().getYear() == year) {
                 totalCost += currExpenditure.getCost();

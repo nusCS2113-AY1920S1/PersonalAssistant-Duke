@@ -1,11 +1,12 @@
-package moomoo.command;
+package moomoo.command.category;
 
+import moomoo.command.Command;
 import moomoo.task.ScheduleList;
 import moomoo.task.Budget;
-import moomoo.task.CategoryList;
+import moomoo.task.category.CategoryList;
 import moomoo.task.Ui;
 import moomoo.task.Storage;
-import moomoo.task.Category;
+import moomoo.task.category.Category;
 
 public class ListCategoryCommand extends Command {
     public ListCategoryCommand() {
