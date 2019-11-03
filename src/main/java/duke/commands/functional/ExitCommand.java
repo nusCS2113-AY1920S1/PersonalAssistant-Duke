@@ -1,5 +1,6 @@
 package duke.commands.functional;
 
+import com.sun.tools.javac.Main;
 import duke.commands.Command;
 import duke.exceptions.DukeException;
 import duke.models.tasks.TaskManager;
@@ -42,5 +43,6 @@ public class ExitCommand implements Command {
     public void execute(AssignedTaskManager patientTask, TaskManager tasks,
                         PatientManager patientList, DukeUi dukeUi, StorageManager storageManager) throws DukeException {
         dukeUi.exitInformation();
+        System.exit(0);
     }
 }

@@ -239,6 +239,7 @@ public class MainWindow extends UiPart<Stage> {
 
     }
 
+
     /**
      * Event handler of BarCharPopUpButton.
      */
@@ -410,6 +411,8 @@ public class MainWindow extends UiPart<Stage> {
         assignTaskUuidField.clear();
 
     }
+
+    
     //@@author
 
 
