@@ -51,4 +51,8 @@ public class Booking {
         return bookingDate;
     }
 
+    public String getBookingDateFormatted() {
+        return dateFormatter.format(date);
+    }
+
 }

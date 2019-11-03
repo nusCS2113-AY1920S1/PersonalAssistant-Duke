@@ -36,11 +36,15 @@ public class BookingMessages {
 
     public static final String ERROR_MESSAGE_INVALID_CONTACT_NO = "Invalid Contact number. \n Contact number can only contain digits!";
 
-    public static final String ERROR_MESSAGE_INVALID_PAX = "In valid pax. \n Number of Pax must be between 1-8.";
+    public static final String ERROR_MESSAGE_UNKNOWN_PAX = "Unknown pax index entered. \n Kindly enter an integer for number of pax!";
 
-    public static final String ERROR_MESSAGE_NO_ORDERS = "No orders input! \n Please enter addbooking command again with orders/ <order_name_1>, <order_name_2>...";
+    public static final String ERROR_MESSAGE_INVALID_PAX = "Invalid pax. \n Number of Pax must be between 1-9.";
+
+    public static final String ERROR_MESSAGE_EMPTY_ORDERS = "No orders input! \n Please enter addbooking command again with: orders/ <order_name_1>, <order_name_2>...";
 
     public static final String ERROR_MESSAGE_INVALID_DATE = "Invalid booking date entered.\n Please enter date again in this format: dd/MM/yyyy";
+
+    public static final String ERROR_MESSAGE_OVERFLOW_DATE = "No such date!.\n Please enter a valid date input.";
 
     public static final String ERROR_MESSAGE_UNAVAILABLE_DATE = "Date entered is unavailable due to existing booking:(\n Please enter another date!";
 
