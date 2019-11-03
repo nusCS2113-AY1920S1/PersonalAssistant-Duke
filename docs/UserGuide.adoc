@@ -6,7 +6,7 @@
 :toc-title:
 :toc-placement: preamble
 :sectnums:
-:repoURL: https://github.com/AY1920S1-CS2113T-F11-2/main/releases/tag/mid-v1.1
+:repoURL: https://github.com/AY1920S1-CS2113T-F11-2/main/releases/tag/v1.2.1
 
 By: `Team AY1920S1-CS2113T-F11-2`      Since: `Sep 2019`      Licence: `MIT`
 
@@ -25,7 +25,8 @@ and many other cool features. Users can interact with Dolla with the various key
 .  Ensure you have Java `11` or above installed in your Computer.
 .  Download the latest Dolla.jar link:{repoURL}/release[here].
 .  Copy the file to the folder you want to use as the home folder for your Dolla.
-.  Double-click the file to start the app.The GUI should appear in a few seconds.
+.  Open the command prompt and go to the path where the jar file is in. Execute the jar file with the
+   this command : `java -jar dolla-x.x.x.jar`.
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. type `entries` and press kbd:[Enter] will list all the income and expense.
 .  Here are some example command you can try:
@@ -70,11 +71,11 @@ Customise various features of Dolla, like how many items to show per page on a l
 *Command Format*
 
 * Uppercase word in square brackets are the parameter to be inputed by the you. +
-e.g. `*add expense* [AMOUNT] [DESCRIPTION] /on[DATE]`, the `[AMOUNT]`, `[DESCRIPTION]` and `[DATE]` are parameters which the you can input as `*add expense* $5 dinner /on 11/11/2019`.
+e.g. `*add expense* [AMOUNT] [DESCRIPTION] /on[DATE]`, the `[AMOUNT]`, `[DESCRIPTION]` and `[DATE]` are parameters which the you can input as `*add expense* 5 dinner /on 11/11/2019`.
 * Item in curly braces are optional. +
-e.g. `*add income* [AMOUNT] [DESCRIPTION] /on [DATE] {/tag [TAG]}` can be `add income $40 TA salary for CS1010 /on 10/10/2019 /tag salary` or `*add income* $40 TA salary for CS1010 /on 10/10/2019`.
+e.g. `*add income* [AMOUNT] [DESCRIPTION] /on [DATE] {/tag [TAG]}` can be `add income 40 TA salary for CS1010 /on 10/10/2019 /tag salary` or `*add income* 40 TA salary for CS1010 /on 10/10/2019`.
 * Parameters should be in the correct order. +
-e.g. `*add recurring expense* [AMOUNT] [DESCRIPTION] /every [DURATION]` should be `*add recurring expense* $45 phone bill /every month` and should not be `*add recurring expense* phone bill $45 /every month`.
+e.g. `*add recurring expense* [AMOUNT] [DESCRIPTION] /every [DURATION]` should be `*add recurring expense* 45 phone bill /every month` and should not be `*add recurring expense* phone bill 45 /every month`.
 
 *NOTE*: Words in *bold* are the keywords that define the type of command to be executed. e.g. `*remove* [LIST NO.]` `*remove*` is the keyword that will execute the remove command.
 
@@ -93,30 +94,59 @@ Format: +
 These commands can be used in the modes `*entry*`, `*limit*`, `*debt*` and `*shortcut*`.
 
 Common Commands Available: +
-`*page*` `*remove*` `*search description*` `*search date*` `*search name*` `*search duration*` `*modify*` `*sort /date*` `*sort /tag*` `*sort /amount*`
+`*undo*` `*redo*` `*repeat*` `*remove*` `*search description*` `*search date*` `*search name*`
+`*search duration*` `*modify*` `*sort date*` `*sort tag*` `*sort amount*` `*sort description*` `*sort name*` `*page*`
 
-=== Show the list of logs of each mode
+*NOTE*: *NOT* all command can be used in all of the mode. Certain commands are only
+available in certain mode.
 
-You can check the list of logs added for the mode that you are currently in.
+=== Show the list of records in each mode
 
+You can check the list of records added for the mode that you are currently in. +
 Format: +
 `*entries*` `*debts*` `*limits*` `*shortcuts*`
 
-*NOTE*: You have to enter that mode first before checking the list of logs.
+*NOTE*: You have to enter the respective mode first before checking the list of records.
 
-==== Change the page of the list: `page`
+==== Undo a command: `undo`
 
-Each page of the list will only show 10 different tasks at a time. User can change the page of the list to check their tasks. +
+Undo a previous command in a particular mode. +
 Format: +
-`*page* [PAGE NO.]`
+`*undo*`
+
+*NOTE*: This command is only valid if you have previously execute a `"add"` type of command or `remove` command.
 
 Example:
 
-* `page 3`
+* `undo`
 
-==== Remove an entry from the list: `remove`
+==== Redo an undo command: `redo`
 
-Remove a particular entry from the list based on the list number. +
+Redo a previous undo command in a particular mode. +
+Format: +
+`*redo*`
+
+*NOTE*: This command is only valid if you have previously execute an `undo` command.
+
+Example:
+
+* `redo`
+
+==== Repeat a command: `repeat`
+
+Repeat a previous `"add"` type of command in a particular mode. +
+Format: +
+`*repeat*`
+
+*NOTE*: This command is only valid if you have previously execute a `"add"` type of command.
+
+Example:
+
+* `repeat`
+
+==== Remove an record from the list: `remove`
+
+Remove a particular record from the list based on the list number. +
 Format: +
 `*remove* [LIST NO.]`
 
@@ -128,7 +158,7 @@ Example:
 
 ==== Search for a task from the list by description: `search description`
 
-Search for logs from the list by description based on the keyword(s) input by the user. +
+Search for records from the list by description based on the keyword(s) input by the user. +
 Format: +
 `*search description* [KEYWORD(S)]`
 
@@ -138,7 +168,7 @@ Example:
 
 ==== Search for a task from the list by date: `search date`
 
-Search for logs from the list by date based on the keyword(s) input by the user. +
+Search for records from the list by date based on the keyword(s) input by the user. +
 Format: +
 `*search date* [KEYWORD(S)]`
 
@@ -148,7 +178,7 @@ Example:
 
 ==== Search for a task from the list by name: `search name`
 
-Search for logs from the list by name based on the keyword(s) input by the user. +
+Search for records from the list by name based on the keyword(s) input by the user. +
 Format: +
 `*search name* [KEYWORD(S)]`
 
@@ -158,7 +188,7 @@ Example:
 
 ==== Search for a task from the list by duration: `search duration`
 
-Search for logs from the list by duration based on the keyword(s) input by the user. +
+Search for records from the list by duration based on the keyword(s) input by the user. +
 Format: +
 `*search duration* [KEYWORD(S)]`
 
@@ -168,7 +198,7 @@ Example:
 
 ==== Modify an expense/income: `modify`
 
-Modify the whole entry or a component of a particular entry in the list. +
+Modify the whole record or a component of a particular record in the list. +
 Format: +
 `*modify* [LIST NO.] {COMPONENT}`
 
@@ -177,39 +207,61 @@ Examples:
 * `modify 3` +
 * `modify 4 description`
 
-==== Sort the list by date: `sort /date`
+==== Sort the list by date: `sort date`
 
-Sort the list by date in ascending or descending order. +
+Sort the list by date in ascending order. +
 Format: +
-`*sort /date* ascending` +
-`*sort /date* descending`
+`*sort date*`
 
 Example:
 
-* `sort /date ascending`
+* `sort date`
 
-==== Sort the list by tag: `sort /tag`
+==== Sort the list by tag: `sort tag` `[Coming in 1.4]`
 
-Sort the list by tag alphabetically in ascending or descending order. +
+Sort the list by tag alphabetically in ascending order. +
 Format: +
-`*sort /tag* ascending` +
-`*sort /tag* descending`
+`*sort tag*`
 
 Example:
 
-* `*sort /tag* descending`
+* `sort tag`
 
-==== Sort the list by amount: `sort /amount`
+==== Sort the list by amount: `sort amount`
 
-Sort the list by the amount in ascending or descending order. +
+Sort the list by the amount in ascending order. +
 Format: +
-`*sort /amount* ascending` +
-`*sort /amount* descending`
+`*sort amount*`
+
+==== Sort the list by description: `sort description`
+
+Sort the list by the description alphabetically in ascending order. +
+Format: +
+`*sort description*`
 
 Example:
 
-* `sort /amount ascending`
+* `sort description`
 
+==== Sort the list by name: `sort name`
+
+Sort the list by the name alphabetically in ascending order. +
+Format: +
+`*sort name*`
+
+Example:
+
+* `sort name`
+
+==== Change the page of the list: `page` `[comming in 2.0]`
+
+Each page of the list will only show 10 different tasks at a time. User can change the page of the list to check their tasks. +
+Format: +
+`*page* [PAGE NO.]`
+
+Example:
+
+* `page 3`
 {nbsp} +
 
 === Switch the mode to dolla: `dolla`
@@ -227,10 +279,10 @@ Format: +
 
 Examples:
 
-* `add expense $45 MRT concession pass /on 24/09/2019 /tag transport`
-* `add income $500 part time tuition /on 01/09/2019`
+* `add expense 45 MRT concession pass /on 24/09/2019 /tag transport`
+* `add income 500 part time tuition /on 01/09/2019`
 
-==== Add a new entry to the shortcut: `create shortcut expense`, `create shortcut income`
+==== Add a new entry to the shortcut: `create shortcut expense`, `create shortcut income` `[Coming in 1.4]`
 
 Add a new expense or income to shortcuts. +
 Format: +
@@ -242,7 +294,7 @@ Examples:
 * `create shortcut income tuition $100`
 * `create shortcut expense ice-cream $5 food`
 
-==== Add recurring expense or income: `add recurring expense`, `add recurring income`
+==== Add recurring expense or income: `add recurring expense`, `add recurring income` `[Coming in 1.4]`
 
 Add a recurring expense or income that happens periodically. +
 Format: +
@@ -253,9 +305,9 @@ Format: +
 
 Examples:
 
-* `add recurring expense $59 phone bill /every month /starting 01/01/2019 /tag bill`
+* `add recurring expense 59 phone bill /every month /starting 01/01/2019 /tag bill`
 
-* `add recurring income $800 part time job /every month`
+* `add recurring income 800 part time job /every month`
 
 ==== Reminders:
 
@@ -272,11 +324,11 @@ Format: +
 
 Examples:
 
-* `owe xx $4 bubble tea`
+* `owe xx 4 bubble tea`
 
-* `borrow xx $10 lunch`
+* `borrow xx 10 lunch`
 
-==== View statistics: `stats`, `view`
+==== View statistics: `stats`, `view` `[Coming in 1.4]`
 
 View spending statistics on a specific tag for a specified duration. +
 Format: +
@@ -304,12 +356,12 @@ Examples:
 
 Users can look through, edit and remove entries in this mode. +
 Format: +
-`*entries*`
+`*entry*`
 
 Common Commands Available: +
-`*page*` `*remove*` `*search description*` `*search date*` `*modify*` `*sort /date*` `*sort /tag*` `*sort /amount*`
+`*undo*` `*redo*` `*repeat*` `*page*` `*remove*` `*search description*` `*search date*` `*modify*` `*sort date*` `*sort amount*` `*sort description*` `*sort tag*`
 
-==== Add to shortcut: `create shortcut`
+==== Add to shortcut: `create shortcut` `[Coming in 1.4]`
 
 Add an existing entry to the shortcut. +
 Format: +
@@ -330,7 +382,7 @@ Format: +
 *NOTE*: In this mode, `*[DURATION]*` can be daily, weekly or monthly.
 
 ==== Common Commands Available: +
-`*page*` `*remove*` `*search duration*` `*modify*` `*sort /date*` `*sort /tag*` `*sort /amount*`
+`*page*` `*remove*` `*search duration*` `*modify*` `*sort tag*` `*sort amount*`
 
 ==== Set duration-based expense budget: `set budget`
 
@@ -382,11 +434,12 @@ Format: +
 `*debts*`
 
 Common Commands Available: +
-`*page*` `*remove*` `*search description*` `*search date*` `*search name*` `*modify*` `*sort /date*` `*sort /tag*` `*sort /amount*`
+`*undo*` `*redo*` `*repeat*` `*page*` `*remove*` `*search description*` `*search date*` `*search name*` `*modify*` `*sort date*` `*sort tag*`
+`*sort amount*` `*sort name*` `*sort description*`
 
 {nbsp} +
 
-=== Switch the mode to Shortcuts: `shortcuts`
+=== Switch the mode to Shortcuts: `shortcuts` `[Coming in 1.4]`
 
 Users can look through, edit and remove shortcuts in this mode. +
 Format: +
@@ -447,26 +500,30 @@ e.g. `search tata`
 e.g. `search monthly`
 * *modify:* `modify [LIST NO.] {COMPONENT}` +
 e.g. `modify 4 tag`
-* *sort /date:* `sort /date ascending/descending` +
-e.g. sort /date ascending
-* *sort /tag:* `sort /tag ascending/descending` +
-e.g. sort /tag descending
-* *sort /amount:* `sort /amount ascending/descending` +
-e.g. sort /amount ascending
+* *sort date:* `sort date` +
+e.g. `sort date`
+* *sort tag:* `sort tag` +
+e.g. `sort tag`
+* *sort amount:* `sort amount` +
+e.g. `sort amount`
+* *sort description:* `sort description` +
+e.g. `sort description`
+* *sort name:* `sort name` +
+e.g. `sort name`
 * *add recurring expense:* `add recurring expense [AMOUNT] [DESCRIPTION] /every [DURATION] {/starting [STARTDATE]} {/tag [TAG]}` +
 e.g. `add recurring expense $59 phone bill /every month /starting 01/01/2019 /tag bill`
 * *add recurring income:* `add recurring income [AMOUNT] [DESCRIPTION] /every [DURATION] {/starting [STARTDATE]} {/tag [TAG]}` +
 e.g. `add recurring income $800 pocket money /every month /starting 01/01/2019 /tag allowances`
 * *set budget* `set budget [AMOUNT] [DURATION]` +
 * *set budget* `set budget [AMOUNT] /tag [TAG]` +
-e.g. `set budget $20 /tag bubble tea`
-e.g. `set budget $50 weekly`
-* *set saving* `set saving [AMOUNT] /for [DURATION]` +
-e.g. `set saving $300 /for every month`
-* *owe:* `owe [FRIEND] [AMOUNT] [DESCRIPTION]` +
-e.g. `owe xx $4 bubble tea`
-* *borrow:* `borrow [FRIEND] [AMOUNT] [DESCRIPTION]` +
-e.g. `borrow xx $10 lunch`
+e.g. `set budget 20 /tag bubble tea`
+e.g. `set budget 50 weekly`
+* *set saving* `set saving [AMOUNT] [DURATION]` +
+e.g. `set saving 300 monthly`
+* *owe:* `owe [FRIEND] [AMOUNT] [DESCRIPTION] /due [DATE]` +
+e.g. `owe xx 4 bubble tea 10/10/2019`
+* *borrow:* `borrow [FRIEND] [AMOUNT] [DESCRIPTION] /due [DATE]` +
+e.g. `borrow xx 10 lunch 14/10/2019`
 * *stats:* `stats [TAG] [DURATION] [CHART_TYPE]` +
 e.g. stats Food September histogram
 * *stats:* `stats [DATE/MONTH/YEAR]` +

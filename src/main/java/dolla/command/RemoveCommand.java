@@ -1,6 +1,7 @@
 package dolla.command;
 
 import dolla.DollaData;
+import dolla.ui.RemoveUi;
 import dolla.ui.Ui;
 import dolla.action.Redo;
 import dolla.action.Undo;
@@ -60,10 +61,10 @@ public class RemoveCommand extends Command {
                 Undo.addCommand(mode, recordList.get().get(logNumInt).getUserInput(), logNumInt);
                 Redo.clearRedo(mode);
             }
-            Ui.echoRemove(recordList.get().get(logNumInt).getRecordDetail());
+            RemoveUi.echoRemove(recordList.get().get(logNumInt).getRecordDetail());
             dollaData.removeFromRecordList(mode, logNumInt);
         } catch (IndexOutOfBoundsException e) {
-            Ui.printRemoveError(recordList.size());
+            RemoveUi.printRemoveError(recordList.size());
         }
     }
 

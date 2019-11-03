@@ -14,6 +14,7 @@ import dolla.command.SearchCommand;
 import dolla.task.Limit;
 import dolla.ui.LimitUi;
 import dolla.ui.SearchUi;
+import dolla.ui.Ui;
 
 /**
  * This class handles all limit related parsing (set, edit, remove).
@@ -38,25 +39,32 @@ public class LimitParser extends Parser {
         if (commandToRun.equals(ParserStringList.LIMIT_COMMAND_LIST)) {
             return new ShowListCommand(mode);
         } else if (commandToRun.equals(ParserStringList.LIMIT_COMMAND_SET)) {
-            String limitType = findLimitType(inputArray[1]);
-            double limitAmount = findLimitAmount();
-            String limitDuration = findLimitDuration(inputArray[3]);
-            boolean verifiedSetCommand;
-            verifiedSetCommand = verifySetLimitCommand(limitType, limitAmount, limitDuration);
+            boolean verifiedSetCommand = verifySetLimitCommand();
             if (verifiedSetCommand) {
-                Limit limit = new Limit(limitType, limitAmount, limitDuration);
+                String typeStr = inputArray[1];
+                double amountInt = findLimitAmount();
+                String durationStr = inputArray[3];
+                Limit limit = new Limit(typeStr, amountInt, durationStr);
                 Tag t = new Tag();
                 t.handleTag(inputLine, inputArray, limit);
-                return new AddLimitCommand(limitType, limitAmount, limitDuration);
+                return new AddLimitCommand(typeStr, amountInt, durationStr);
             } else {
                 return new ErrorCommand();
             }
         } else if (commandToRun.equals(ParserStringList.COMMAND_REMOVE)) {
-            return new RemoveCommand(mode, inputArray[1]);
+            if (verifyRemove()) {
+                return new RemoveCommand(mode, inputArray[1]);
+            } else {
+                return new ErrorCommand();
+            }
         } else if (commandToRun.equals(COMMAND_MODIFY)) {
             if (verifyFullModifyCommand()) {
                 // TODO: Update when ready
                 //return new InitialModifyCommand(inputArray[1]);
+                Ui.printUpcomingFeature();
+                return new ErrorCommand();
+            } else if (verifyPartialModifyCommand()) {
+                // TODO:
                 return new ErrorCommand();
             } else {
                 return new ErrorCommand();
@@ -74,61 +82,25 @@ public class LimitParser extends Parser {
                 return new ErrorCommand();
             }
             return new SearchCommand(mode, component, content);
-        } else if (commandToRun.equalsIgnoreCase(ParserStringList.COMMAND_SORT)) {
-            return new SortCommand(mode, inputArray[1]);
+        } else if (commandToRun.equals(ParserStringList.COMMAND_SORT)) {
+            if (verifySort()) {
+                return new SortCommand(mode, inputArray[1]);
+            } else {
+                return new ErrorCommand();
+            }
         } else {
             return invalidCommand();
         }
-    }
-
-    private String findLimitType(String inputType) {
-        String limitType = "";
-        try {
-            if (inputType.equalsIgnoreCase(LIMIT_TYPE_S)) {
-                limitType = LIMIT_TYPE_S;
-            } else if (inputType.equalsIgnoreCase(LIMIT_TYPE_B)) {
-                limitType = LIMIT_TYPE_B;
-            } else {
-                LimitUi.invalidLimitTypePrinter();
-            }
-        } catch (IndexOutOfBoundsException e) {
-            LimitUi.invalidSetCommandPrinter();
-        } catch (Exception e) {
-            LimitUi.printErrorMsg();
-        }
-        return limitType;
     }
 
     private double findLimitAmount() {
         double amount = 0;
         try {
             amount = stringToDouble(inputArray[2]);
-        } catch (IndexOutOfBoundsException e) {
-            LimitUi.invalidSetCommandPrinter();
         } catch (NumberFormatException e) {
             LimitUi.invalidAmountPrinter();
         }
         return amount;
-    }
-
-    private String findLimitDuration(String inputDuration) {
-        String limitDuration = "";
-        try {
-            if (inputDuration.equalsIgnoreCase((LIMIT_DURATION_D))) {
-                limitDuration = LIMIT_DURATION_D;
-            } else if (inputDuration.equalsIgnoreCase((LIMIT_DURATION_W))) {
-                limitDuration = LIMIT_DURATION_W;
-            } else if (inputDuration.equalsIgnoreCase((LIMIT_DURATION_M))) {
-                limitDuration = LIMIT_DURATION_M;
-            } else {
-                LimitUi.invalidLimitDurationPrinter();
-            }
-        } catch (IndexOutOfBoundsException e) {
-            LimitUi.invalidSetCommandPrinter();
-        } catch (Exception e) {
-            LimitUi.printErrorMsg();
-        }
-        return limitDuration;
     }
 
     private Boolean verifyLimitType(String limitType) {
@@ -146,7 +118,19 @@ public class LimitParser extends Parser {
         return (limitAmount != 0);
     }
 
-    private Boolean verifySetLimitCommand(String limitType, double limitAmount, String limitDuration) {
-        return verifyLimitType(limitType) && verifyLimitAmount(limitAmount) && verifyLimitDuration(limitDuration);
+    private Boolean verifySetLimitCommand() {
+        boolean isValid;
+        try {
+            String typeStr = inputArray[1];
+            double amountInt = findLimitAmount();
+            String durationStr = inputArray[3];
+            isValid = verifyLimitType(typeStr) && verifyLimitAmount(amountInt) && verifyLimitDuration(durationStr);
+        } catch (IndexOutOfBoundsException e) {
+            LimitUi.invalidSetCommandPrinter();
+            isValid = false;
+        } catch (Exception e) {
+            isValid = false;
+        }
+        return isValid;
     }
 }

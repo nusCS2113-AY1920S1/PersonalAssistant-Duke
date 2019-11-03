@@ -6,8 +6,14 @@ import dolla.ui.EntryUi;
 import dolla.ui.SearchUi;
 import dolla.ui.Ui;
 import dolla.ui.ModifyUi;
+
 import dolla.command.Command;
 import dolla.command.ErrorCommand;
+import dolla.ui.EntryUi;
+import dolla.ui.ModifyUi;
+import dolla.ui.SortUi;
+import dolla.ui.Ui;
+import dolla.ui.RemoveUi;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
@@ -153,6 +159,67 @@ public abstract class Parser implements ParserStringList, ModeStringList {
 
     //@@author yetong1895
     /**
+     * This method will check if the input contain an type to sort.
+     * @return true is inputArray[1] contain something, false if inputArray[1] is invalid.
+     */
+    protected boolean verifySort() {
+        if (inputArray.length < 2) {
+            SortUi.printInvalidSort(mode);
+            return false;
+        } else {
+            switch (mode) {
+            case MODE_ENTRY:
+                if (inputArray[1].equals(SORT_TYPE_AMOUNT)
+                    || inputArray[1].equals(SORT_TYPE_DATE)
+                    || inputArray[1].equals(SORT_TYPE_DESC)) {
+                    return true;
+                } else {
+                    SortUi.printInvalidSort(mode);
+                    return false;
+                }
+            case MODE_DEBT:
+                if (inputArray[1].equals(SORT_TYPE_AMOUNT)
+                    || inputArray[1].equals(SORT_TYPE_DATE)
+                    || inputArray[1].equals(SORT_TYPE_DESC)
+                    || inputArray[1].equals(SORT_TYPE_NAME)) {
+                    return true;
+                } else {
+                    SortUi.printInvalidSort(mode);
+                    return false;
+                }
+            case MODE_LIMIT:
+                if (inputArray[1].equals(SORT_TYPE_DATE)) {
+                    return true;
+                } else {
+                    SortUi.printInvalidSort(mode);
+                    return false;
+                }
+            default:
+                SortUi.printInvalidSort(mode);
+                return false;
+            }
+        }
+    }
+
+    /**
+     * The method will check if the user have entered a valid number to be removed.
+     * @return true if there is a valid number or false otherwise.
+     */
+    protected boolean verifyRemove() {
+        if (inputArray.length < 2) {
+            RemoveUi.printInvalidRemoveMessage();
+            return false;
+        }
+        try {
+            Integer.parseInt(inputArray[1]);
+        } catch (NumberFormatException e) {
+            RemoveUi.printInvalidRemoveMessage();
+            return false;
+        }
+        return true;
+    }
+
+    /**
      * This method will set the prevPosition int in this class.
      * @param prevPosition the prevPosition of a deleted input.
      */
@@ -211,10 +278,14 @@ public abstract class Parser implements ParserStringList, ModeStringList {
             break;
         case MODE_LIMIT:
             // TODO
-            break;
+            Ui.printUpcomingFeature();
+            return false;
+            //break;
         case MODE_DEBT:
             // TODO
-            break;
+            Ui.printUpcomingFeature();
+            return false;
+            //break;
         case MODE_SHORTCUT:
             // TODO
             break;

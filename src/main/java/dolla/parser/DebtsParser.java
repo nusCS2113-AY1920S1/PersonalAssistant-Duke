@@ -88,6 +88,8 @@ public class DebtsParser extends Parser {
         } else if (commandToRun.equals(COMMAND_MODIFY)) {
             if (verifyFullModifyCommand()) {
                 return new InitialModifyCommand(inputArray[1]);
+            } else if (verifyPartialModifyCommand()) {
+                // TODO
             } else {
                 return new ErrorCommand();
             }
@@ -105,9 +107,17 @@ public class DebtsParser extends Parser {
             }
             return new SearchCommand(mode, component, content);
         } else if (commandToRun.equals(COMMAND_SORT)) {
-            return new SortCommand(mode, inputArray[1]);
+            if (verifySort()) {
+                return new SortCommand(mode, inputArray[1]);
+            } else {
+                return new ErrorCommand();
+            }
         } else if (commandToRun.equals(COMMAND_REMOVE)) {
-            return new RemoveCommand(mode, inputArray[1]);
+            if (verifyRemove()) {
+                return new RemoveCommand(mode, inputArray[1]);
+            } else {
+                return new ErrorCommand();
+            }
         } else if (commandToRun.equals(DEBT_COMMAND_REDO)
                 || commandToRun.equals(DEBT_COMMAND_UNDO)
                 || commandToRun.equals(DEBT_COMMAND_REPEAT)) {
@@ -115,6 +125,8 @@ public class DebtsParser extends Parser {
         } else {
             return invalidCommand();
         }
+
+        return new ErrorCommand();
     }
 
     //@@author yetong1895

@@ -16,7 +16,7 @@ public class Tag {
      * Instantiates a new Tag.
      */
     public Tag() {
-        this.tagName = null;
+        this.tagName = "";
     }
 
     public String getPrefixTag() {

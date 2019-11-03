@@ -49,7 +49,11 @@ public class EntryParser extends Parser {
                 return new ErrorCommand();
             }
         } else if (commandToRun.equals(COMMAND_SORT)) {
-            return new SortCommand(mode, inputArray[1]);
+            if (verifySort()) {
+                return new SortCommand(mode, inputArray[1]);
+            } else {
+                return new ErrorCommand();
+            }
         } else if (commandToRun.equals(COMMAND_SEARCH)) {
             String component;
             String content;
@@ -63,8 +67,12 @@ public class EntryParser extends Parser {
                 return new ErrorCommand();
             }
             return new SearchCommand(mode, component, content);
-        } else if (commandToRun.equals(COMMAND_REMOVE)) { //TODO: indexoutofbound exception
-            return new RemoveCommand(mode, inputArray[1]);
+        } else if (commandToRun.equals(COMMAND_REMOVE)) {
+            if (verifyRemove()) {
+                return new RemoveCommand(mode, inputArray[1]);
+            } else {
+                return new ErrorCommand();
+            }
         } else if (commandToRun.equals(ENTRY_COMMAND_REDO)
                 || commandToRun.equals(ENTRY_COMMAND_UNDO)
                 || commandToRun.equals(ENTRY_COMMAND_REPEAT)) {

@@ -18,24 +18,30 @@ public interface ParserStringList {
     String LIMIT_COMMAND_SET = "set";
 
     // Commands specific to Debt mode
-    static final String DEBT_COMMAND_OWE = "owe";
-    static final String DEBT_COMMAND_BORROW = "borrow";
-    static final String DEBT_COMMAND_LIST = "debts";
-    static final String BILL_COMMAND_BILL = "bill";
-    static final String BILL_COMMAND_LIST = "bills";
+    String DEBT_COMMAND_OWE = "owe";
+    String DEBT_COMMAND_BORROW = "borrow";
+    String DEBT_COMMAND_LIST = "debts";
+    String BILL_COMMAND_BILL = "bill";
+    String BILL_COMMAND_LIST = "bills";
 
     // Shared Commands
-    static final String COMMAND_MODIFY = "modify";
-    static final String COMMAND_SORT = "sort";
-    static final String COMMAND_SEARCH = "search";
-    static final String COMMAND_REMOVE = "remove";
+    String COMMAND_MODIFY = "modify";
+    String COMMAND_SORT = "sort";
+    String COMMAND_SEARCH = "search";
+    String COMMAND_REMOVE = "remove";
 
     // Components used in modify
-    static final String COMPONENT_TYPE = "/type";
-    static final String COMPONENT_DESC = "/desc";
-    static final String COMPONENT_AMOUNT = "/amount";
-    static final String COMPONENT_DATE = "/on";
-    static final String COMPONENT_TAG = "/tag";
+    String COMPONENT_TYPE = "/type";
+    String COMPONENT_DESC = "/desc";
+    String COMPONENT_AMOUNT = "/amount";
+    String COMPONENT_DATE = "/on";
+    String COMPONENT_TAG = "/tag";
+
+    //Components used in sort
+    String SORT_TYPE_AMOUNT = "amount";
+    String SORT_TYPE_DATE = "date";
+    String SORT_TYPE_DESC = "description";
+    String SORT_TYPE_NAME = "name";
 
     //Search Components
     static final String SEARCH_DESCRIPTION = "description";
