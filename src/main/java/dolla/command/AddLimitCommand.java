@@ -1,10 +1,9 @@
 package dolla.command;
 
 import dolla.DollaData;
-import dolla.ModeStringList;
-import dolla.action.LimitState;
+import dolla.action.state.LimitState;
 import dolla.action.Redo;
-import dolla.action.UndoStateList;
+import dolla.action.state.UndoStateList;
 import dolla.task.Limit;
 import dolla.task.LimitList;
 import dolla.ui.LimitUi;

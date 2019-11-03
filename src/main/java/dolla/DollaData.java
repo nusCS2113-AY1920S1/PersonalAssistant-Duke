@@ -56,6 +56,11 @@ public class DollaData implements ModeStringList {
         }
     }
 
+    /**
+     * The method will get the ArrayList of Record with respect to the mode.
+     * @param mode the mode that the program is in.
+     * @return the ArrayList of Record.
+     */
     public ArrayList<Record> getRecordList(String mode) {
         if (mode.equals(MODE_ENTRY)) {
             return entryList.get();
@@ -179,21 +184,31 @@ public class DollaData implements ModeStringList {
         modifyIndex = index;
     }
 
+    /**
+     * getPrevMode TODO: update.
+     * @return preMode
+     */
     public String getPrevMode() {
         return prevMode;
     }
 
+    /**
+     * This method will set the ArrayList of Record in the object with respect to the mode.
+     * @param recordList the ArrayList of Record to be set as.
+     */
     public void setRecordList(ArrayList<Record> recordList) {
         switch (mode) {
-            case "entry":
-                this.entryList.setRecordList(recordList);
-                break;
-            case "debt":
-                this.debtList.setRecordList(recordList);
-                break;
-            case "limit":
-                this.limitList.setRecordList(recordList);
-                break;
+        case MODE_ENTRY:
+            this.entryList.setRecordList(recordList);
+            break;
+        case MODE_DEBT:
+            this.debtList.setRecordList(recordList);
+            break;
+        case MODE_LIMIT:
+            this.limitList.setRecordList(recordList);
+            break;
+        default:
+            break;
         }
     }
 }

@@ -7,13 +7,18 @@ import dolla.task.Record;
 
 import java.util.ArrayList;
 
+//@@author yetong1895
 public class AddActionCommand extends Command {
     private String mode;
     private String command;
     private ArrayList<Record> recordList;
 
-    //@@author yetong1895
-    public AddActionCommand (String mode, String command) {
+    /**
+     * This method will set the mode and command in this class.
+     * @param mode the mode to be set in this class.
+     * @param command the command to be set in this class.
+     */
+    public AddActionCommand(String mode, String command) {
         this.mode = mode;
         this.command = command;
     }

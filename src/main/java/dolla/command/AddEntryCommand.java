@@ -1,11 +1,10 @@
 package dolla.command;
 
 import dolla.DollaData;
-import dolla.ModeStringList;
 import dolla.Time;
-import dolla.action.EntryState;
+import dolla.action.state.EntryState;
 import dolla.action.Redo;
-import dolla.action.UndoStateList;
+import dolla.action.state.UndoStateList;
 import dolla.task.EntryList;
 import dolla.ui.EntryUi;
 import dolla.ui.Ui;
@@ -61,6 +60,6 @@ public class AddEntryCommand extends Command {
         //        + description + ", date: " + Time.dateToString(date) + ", prevPosition: "
         //        + prevPosition) + " }";
         return (command + "{ " + type + ", " + amount + ", "
-                + description + ", " + Time.dateToString(date)) + " }";
+                + description + ", " + Time.dateToString(date)) + "}";
     }
 }

@@ -61,7 +61,7 @@ public class RecordList {
         return 0;
     }
 
-    public void setRecordList (ArrayList<Record> recordList) {
+    public void setRecordList(ArrayList<Record> recordList) {
         this.list = recordList;
     }
 }

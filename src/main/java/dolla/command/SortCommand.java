@@ -14,10 +14,10 @@ import dolla.sort.SortName;
 import java.util.ArrayList;
 
 public class SortCommand extends Command {
-    private final String TYPE_AMOUNT = "amount";
-    private final String TYPE_DATE = "date";
-    private final String TYPE_DESC = "description";
-    private final String TYPE_NAME = "name";
+    private static final String TYPE_AMOUNT = "amount";
+    private static final String TYPE_DATE = "date";
+    private static final String TYPE_DESC = "description";
+    private static final String TYPE_NAME = "name";
     private String mode;
     private String type;
 

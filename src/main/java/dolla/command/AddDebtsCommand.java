@@ -1,8 +1,10 @@
 package dolla.command;
 
 import dolla.DollaData;
-import dolla.ModeStringList;
-import dolla.action.*;
+
+import dolla.action.Redo;
+import dolla.action.state.DebtState;
+import dolla.action.state.UndoStateList;
 import dolla.task.DebtList;
 import dolla.ui.DebtUi;
 import dolla.ui.Ui;
@@ -38,11 +40,11 @@ public class AddDebtsCommand extends Command {
 
     @Override
     public void execute(DollaData dollaData) {
-        Debt newDebt = new Debt(type, name, amount, description, date);
         index = dollaData.getRecordListObj(mode).size();
         DebtList debtList = (DebtList) dollaData.getRecordListObj(mode);
         UndoStateList.addState(new DebtState(debtList.get()), mode);
         Redo.clearRedoState(mode);
+        Debt newDebt = new Debt(type, name, amount, description, date);
         int duplicateDebtIndex = debtList.findExistingRecordIndex(dollaData, newDebt, mode);
         if (recordDoesNotExist(duplicateDebtIndex)) {
             dollaData.addToRecordList(mode, newDebt);

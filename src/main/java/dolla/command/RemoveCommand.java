@@ -1,7 +1,12 @@
 package dolla.command;
 
 import dolla.DollaData;
-import dolla.action.*;
+
+import dolla.action.Redo;
+import dolla.action.state.DebtState;
+import dolla.action.state.EntryState;
+import dolla.action.state.LimitState;
+import dolla.action.state.UndoStateList;
 import dolla.ui.RemoveUi;
 import dolla.task.RecordList;
 

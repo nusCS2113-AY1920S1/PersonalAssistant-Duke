@@ -15,7 +15,6 @@ import dolla.command.RemoveCommand;
 import dolla.command.SearchCommand;
 import dolla.task.Debt;
 import dolla.ui.DebtUi;
-import dolla.action.Repeat;
 
 import java.util.ArrayList;
 

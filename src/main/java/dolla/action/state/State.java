@@ -1,10 +1,10 @@
-package dolla.action;
+package dolla.action.state;
 
-import dolla.task.Entry;
 import dolla.task.Record;
 
 import java.util.ArrayList;
 
+//@@author yetong1895
 public class State {
     protected ArrayList<Record> entryState = new ArrayList<>();
     protected ArrayList<Record> debtState = new ArrayList<>();
