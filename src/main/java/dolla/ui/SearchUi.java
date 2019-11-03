@@ -24,7 +24,7 @@ public class SearchUi extends Ui {
                 System.out.println("\t" + listNum + ". " + recordList.get().get(i).getRecordDetail());
             }
         }
-        if(listNum == 0) {
+        if (listNum == 0) {
             System.out.println("No results are found :(");
         }
         System.out.println(line);
@@ -48,7 +48,7 @@ public class SearchUi extends Ui {
                 System.out.println("\t" + listNum + ". " + recordList.get().get(i).getRecordDetail());
             }
         }
-        if(listNum == 0) {
+        if (listNum == 0) {
             System.out.println("No results are found :(");
         }
         System.out.println(line);
@@ -72,7 +72,7 @@ public class SearchUi extends Ui {
                 System.out.println("\t" + listNum + ". " + recordList.get().get(i).getRecordDetail());
             }
         }
-        if(listNum == 0) {
+        if (listNum == 0) {
             System.out.println("No results are found :(");
         }
         System.out.println(line);
@@ -95,7 +95,7 @@ public class SearchUi extends Ui {
                 System.out.println("\t" + listNum + ". " + recordList.get().get(i).getRecordDetail());
             }
         }
-        if(listNum == 0) {
+        if (listNum == 0) {
             System.out.println("No results are found :(");
         }
         System.out.println(line);

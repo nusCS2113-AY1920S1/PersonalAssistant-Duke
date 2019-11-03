@@ -3,7 +3,6 @@ package dolla.parser;
 import dolla.ModeStringList;
 import dolla.Time;
 import dolla.ui.EntryUi;
-import dolla.ui.SearchUi;
 import dolla.ui.LimitUi;
 import dolla.ui.Ui;
 import dolla.ui.ModifyUi;
@@ -404,30 +403,30 @@ public abstract class Parser implements ParserStringList, ModeStringList {
 
     //@@author tatayu
     /**
-     * Check if the component is valid
-     * @param s string at the component position
-     * @return true if it is a valid component
+     * Check if the component is valid.
+     * @param s string at the component position.
+     * @return true if it is a valid component.
      */
     protected Boolean verifyDebtSearchComponent(String s) {
         return s.equals(SEARCH_DESCRIPTION) || s.equals(SEARCH_DATE) || s.equals(SEARCH_NAME);
     }
 
     /**
-     * Check if the component is valid
-     * @param s string at the component position
-     * @return true if it is a valid component
+     * Check if the component is valid.
+     * @param s string at the component position.
+     * @return true if it is a valid component.
      */
     protected Boolean verifyEntrySearchComponent(String s) {
         return s.equals(SEARCH_DESCRIPTION) || s.equals(SEARCH_DATE);
     }
 
     /**
-     * Check if the component is valid
-     * @param s string at the component position
-     * @return true if it is a valid component
+     * Check if the component is valid.
+     * @param s string at the component position.
+     * @return true if it is a valid component.
      */
     protected Boolean verifyLimitSearchComponent(String s) {
-       return s.equals(SEARCH_DURATION);
+        return s.equals(SEARCH_DURATION);
     }
 
     //@@author Weng-Kexin

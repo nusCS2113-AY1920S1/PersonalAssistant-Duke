@@ -67,7 +67,6 @@ public class DebtsParser extends Parser {
                         date = Time.readDate(dateString[1].trim());
                     } catch (DateTimeParseException e) {
                         Ui.printDateFormatError();
-                        throw new Exception("invalid date");
                     }
                 }
             } catch (IndexOutOfBoundsException e) {
@@ -109,7 +108,7 @@ public class DebtsParser extends Parser {
             String component = null;
             String content = null;
             try {
-                if(verifyDebtSearchComponent(inputArray[1]) && inputArray[2] != null) {
+                if (verifyDebtSearchComponent(inputArray[1]) && inputArray[2] != null) {
                     component = inputArray[1];
                     content = inputArray[2];
                 } else {

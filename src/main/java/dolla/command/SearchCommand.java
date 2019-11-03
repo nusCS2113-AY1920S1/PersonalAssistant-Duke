@@ -48,18 +48,19 @@ public class SearchCommand extends Command {
         RecordList recordList = new RecordList(new ArrayList<>());
 
         switch (mode) {
-            case "entry":
-                recordList = dollaData.getRecordList(mode);
-                break;
-            case "debt":
-                recordList = dollaData.getRecordList(mode);
-                break;
-            case "limit":
-                recordList = dollaData.getRecordList(mode);
-                break;
-            default:
-                break;
+        case "entry":
+            recordList = dollaData.getRecordList(mode);
+            break;
+        case "debt":
+            recordList = dollaData.getRecordList(mode);
+            break;
+        case "limit":
+            recordList = dollaData.getRecordList(mode);
+            break;
+        default:
+            break;
         }
+
 
         boolean listIsEmpty = (recordList.size() == 0);
 

@@ -64,14 +64,17 @@ public class LimitParser extends Parser {
             }
         } else if (commandToRun.equals(ParserStringList.COMMAND_SEARCH)) {
             String component = null;
-            String content;
+            String content = null;
             try {
-                if(verifyLimitSearchComponent(inputArray[1])) {
+                if (verifyDebtSearchComponent(inputArray[1]) && inputArray[2] != null) {
                     component = inputArray[1];
+                    content = inputArray[2];
                 } else {
-                    SearchUi.printInvalidLimitSearchComponent();
+                    SearchUi.printInvalidDebtSearchComponent();
                 }
-                content = inputArray[2];
+            } catch (NullPointerException e) {
+                SearchUi.printInvalidSearchFormat();
+                return new ErrorCommand();
             } catch (IndexOutOfBoundsException e) {
                 SearchUi.printInvalidSearchFormat();
                 return new ErrorCommand();
