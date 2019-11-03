@@ -559,15 +559,9 @@ Example: `tracker /stop 22 cs2101`
 image::StopTracker.png[StopTracker]
 
 ==== Viewing Task Tracker: `tracker`
-You can view a histogram featuring the amount of time you spend on each module in blocks of 10 minutes with `tracker /view`.
+You can view a histogram featuring the amount of time you spend on each module in blocks of 10 minutes.
 
-Format: `tracker /view`
-
-[[ViewTracker]]
-.Displays Task Tracker by Module Code
-image::ViewTracker.png[ViewTracker]
-
-Format: `tracker /view TIME_PERIOD [_coming soon in v1.4_]`
+Format: `tracker /view PERIOD`
 
 *Options for TIME_PERIOD* +
 [horizontal]
@@ -575,7 +569,11 @@ day:: filter time spent on each `Module` today.
 week:: filter time spent on each `Module` over the last 7 days.
 all:: filter time spent on each `Module` over all entries.
 
-Example: `tracker /view day`
+Example: `tracker /view week`
+
+[[ViewTracker]]
+.Displays Task Tracker by Module Code
+image::ViewTracker.png[ViewTracker]
 
 === Organisation
 
@@ -860,8 +858,8 @@ e.g. `tracker /stop 20 cs2113t`
 
 View assignment tracker diagram. 
 
-* *View Assignment Tracker*: `tracker /view` +
-e.g. `tracker /view`
+* *View Assignment Tracker*: `tracker /view TIME_PERIOD` +
+e.g. `tracker /view week`
 
 Exit *OOF* by using this command. 
 
