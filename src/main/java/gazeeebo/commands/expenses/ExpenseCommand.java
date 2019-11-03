@@ -59,7 +59,7 @@ public class ExpenseCommand extends Command {
                 copyMap(expenses, oldExpenses);
                 new DeleteExpenseCommand(ui, storage, expenses);
             } else if (ui.fullCommand.equals("list")) {
-                new ExpenseListCommand(ui, expenses);
+                new ExpenseListCommand(ui, storage, expenses);
             } else if (ui.fullCommand.equals("undo")) {
                 expenses = UndoExpensesCommand.undoExpenses(expenses, oldExpenses, storage);
             } else if (ui.fullCommand.equals("esc")) {

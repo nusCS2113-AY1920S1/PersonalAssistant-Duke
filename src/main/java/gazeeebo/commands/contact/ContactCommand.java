@@ -62,7 +62,7 @@ public class ContactCommand extends Command {
             } else if (ui.fullCommand.equals("help")) {
                 System.out.println(helpContact);
             } else if (ui.fullCommand.equals("undo")){
-                contactList = UndoContactCommand.Undo(contactList,oldcontacts,storage);
+                contactList = gazeeebo.commands.Contact.UndoContactCommand.Undo(contactList,oldcontacts,storage);
             } else {
                 System.out.println("Command not found:\n" + helpContact);
             }
