@@ -86,7 +86,7 @@ public class UI {
         DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd_HHmm");
         Date date = new Date();
         String dateStr = dateFormat.format(date);
-        String fileName = logPath + File.separator +  "log" + dateStr +  ".txt";
+        String fileName = logPath + File.separator +  "log" + dateStr +  ".log";
 
         FileHandler fh = null;
         try {
