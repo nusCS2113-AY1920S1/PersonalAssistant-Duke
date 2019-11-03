@@ -354,7 +354,8 @@ logging levels and logging destinations.
 * The logging level can be controlled using the logLevel
 * The Logger for a class can be obtained using LogsCenter.getLogger(Class) which will log messages according
 to the specified logging level
-* Currently log messages are output through: Console and to a .log file.
+* Currently log messages are output through: Console and to a .log file in `data/logs` folder with the format
+`"log" + "yyyyMMdd_HHmm" + ".log"`.
 * Logging Levels
 ** SEVERE : Critical problem detected which may possibly cause the termination of the application
 ** WARNING : Can continue, but with caution
