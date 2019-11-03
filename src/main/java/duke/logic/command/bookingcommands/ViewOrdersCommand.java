@@ -15,13 +15,13 @@ public class ViewOrdersCommand extends Command<BookingList, Ui, BookingStorage> 
         this.userInput = userInput;
     }
 
-    private static boolean isAlphabet(String input) {
-        char firstChar = input.charAt(0);
-        if (Character.isLetter(firstChar)) {
-            return true;
-        }else {
-            return false;
+    private static boolean isValidName(String input) {
+        for (char c : input.toCharArray()) {
+            if (!Character.isLetter(c) && !(c == '_')) {
+                return false;
+            }
         }
+        return true;
     }
 
     @Override
@@ -31,7 +31,7 @@ public class ViewOrdersCommand extends Command<BookingList, Ui, BookingStorage> 
             arrayList.add(ERROR_MESSAGE_EMPTY_NAME_VIEW);
         } else if (userInput.trim().charAt(10) == ' ') {
             String customerName = userInput.split("\\s", 2)[1].trim().toLowerCase();
-            if (isAlphabet(customerName)) {
+            if (isValidName(customerName)) {
                 arrayList.add(MESSAGE_ORDERS_FOR + customerName);
                 arrayList.addAll(bookingList.viewOrders(customerName));
             } else {
