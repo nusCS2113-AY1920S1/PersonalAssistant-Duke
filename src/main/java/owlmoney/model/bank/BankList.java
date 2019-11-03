@@ -1119,6 +1119,32 @@ public class BankList {
     }
 
     /**
+     * Finds matching bank transactions from the account specified by the user.
+     *
+     * @param bankName    The name of the bank object to search for matching bank transaction.
+     * @param description The description keyword to match against.
+     * @param category    The category keyword to match against.
+     * @param ui          The object required for printing.
+     * @throws BankException        If bank name specified does not exist.
+     * @throws TransactionException If parsing of date fails.
+     */
+    public void bankListFindRecurringExpenditure(String bankName, String description, String category, Ui ui)
+            throws BankException {
+        String capitalBankName = bankName.toUpperCase();
+        for (int i = ISZERO; i < getBankListSize(); i++) {
+            Bank currentBank = bankLists.get(i);
+            String currentBankName = currentBank.getAccountName();
+            String capitalCurrentBankName = currentBankName.toUpperCase();
+            String currentBankType = currentBank.getType();
+            if (capitalBankName.equals(capitalCurrentBankName) && SAVING.equals(currentBankType)) {
+                currentBank.findRecurringExpenditure(description, category, ui);
+                return;
+            }
+        }
+        throw new BankException("Savings account with the following name does not exist: " + bankName);
+    }
+
+    /**
      * Prepares the bankList for exporting of bank name and type of the bank account.
      *
      * @return ArrayList of String arrays for containing each bank in the bank list.

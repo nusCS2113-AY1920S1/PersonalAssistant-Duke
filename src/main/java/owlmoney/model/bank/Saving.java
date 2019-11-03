@@ -569,4 +569,16 @@ public class Saving extends Bank {
         }
         return -1;
     }
+
+    /**
+     * Finds the bonds that matches with the keywords specified by the user.
+     *
+     * @param bondName The bondName keyword to match against.
+     * @param ui      The object required for printing.
+     * @throws BondException If no bonds could be found.
+     */
+    @Override
+    public void findRecurringExpenditure(String description, String category, Ui ui) {
+        recurringExpenditures.findMatchingRecurringExpenditure(description, category, ui);
+    }
 }

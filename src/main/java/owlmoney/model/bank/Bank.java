@@ -360,6 +360,19 @@ public abstract class Bank {
     }
 
     /**
+     * Finds the bonds that matches with the keywords specified by the user.
+     *
+     * @param bondName The bondName keyword to match against.
+     * @param ui      The object required for printing.
+     * @throws BankException If used on savings account.
+     * @throws BondException If no bonds could be found.
+     */
+    public void findRecurringExpenditure(String description, String category, Ui ui)
+            throws BankException {
+        throw new BankException("This account does not support this feature");
+    }
+
+    /**
      * Returns expenditure amount based on the specified expenditure id.
      *
      * @param expno Expenditure id of the expenditure to be searched.

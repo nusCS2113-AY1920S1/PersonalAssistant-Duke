@@ -16,6 +16,11 @@ public class RecurringExpenditureList {
     private static final String RECURITEMTYPE = "recurItem";
     private static final boolean ISMULTIPLE = true;
     private static final boolean ISSINGLE = false;
+    private static final int ISZERO = 0;
+    private static final String FINDDESCRIPTION = "description";
+    private static final String FINDCATEGORY = "category";
+    private static final int ONE_INDEX = 1;
+
 
     /**
      * Creates an instance of Recurring Expenditure list that contains an ArrayList of recurring expenditures.
@@ -178,5 +183,84 @@ public class RecurringExpenditureList {
             recurringExpenditures.remove(0);
         }
         recurringExpenditures.add(expenditure);
+    }
+
+
+    /**
+     * Finds the transactions that matches with the keywords specified by the user.
+     *
+     * @param description The description keyword to match against.
+     * @param category The category keyword to match against.
+     * @param ui The object required for printing.
+     */
+    public void findMatchingRecurringExpenditure(String description, String category, Ui ui) {
+        if (!(description.isBlank() || description.isEmpty())) {
+            findByDescription(description, ui);
+        }
+        if (!(category.isBlank() || category.isEmpty())) {
+            findByCategory(category, ui);
+        }
+    }
+
+    /**
+     * Finds the transactions that matches with the description keyword specified by the user.
+     *
+     * @param keyword The description keyword to match against.
+     * @param ui The object required for printing.
+     */
+    private void findByDescription(String keyword, Ui ui) {
+        String matchingKeyword = keyword.toUpperCase();
+        int printCounter = ISZERO;
+        for (int i = ISZERO; i < recurringExpenditures.size(); i++) {
+            if (recurringExpenditures.get(i).getDescription().toUpperCase().contains(matchingKeyword)) {
+                printOneHeaderForFind(printCounter, FINDDESCRIPTION, ui);
+                printOneTransaction((i + ONE_INDEX), recurringExpenditures.get(i), ISMULTIPLE, ui);
+                printCounter++;
+            }
+        }
+        if (printCounter == ISZERO) {
+            ui.printMessage("No matches for the description keyword: " + keyword);
+        } else {
+            ui.printDivider();
+        }
+    }
+
+    /**
+     * Finds the transactions that matches with the category keyword specified by the user.
+     *
+     * @param keyword The category keyword to match against.
+     * @param ui The object required for printing.
+     */
+    private void findByCategory(String keyword, Ui ui) {
+        String matchingKeyword = keyword.toUpperCase();
+        int printCounter = ISZERO;
+        for (int i = ISZERO; i < recurringExpenditures.size(); i++) {
+            Transaction currentExpenditure = recurringExpenditures.get(i);
+            String currentExpenditureCategory = currentExpenditure.getCategory();
+            String capitalcurrentCategory = currentExpenditureCategory.toUpperCase();
+            if (capitalcurrentCategory.contains(matchingKeyword)) {
+                printOneHeaderForFind(printCounter, FINDCATEGORY, ui);
+                printOneTransaction((i + ONE_INDEX), recurringExpenditures.get(i), ISMULTIPLE, ui);
+                printCounter++;
+            }
+        }
+        if (printCounter == ISZERO) {
+            ui.printMessage("No matches for the category keyword: " + keyword);
+        } else {
+            ui.printDivider();
+        }
+    }
+
+    /**
+     * Prints the header to list the found transactions.
+     *
+     * @param counter    Represents the counter of the transaction for printing.
+     * @param ui         The object use for printing.
+     */
+    private void printOneHeaderForFind(int counter, String findType, Ui ui) {
+        if (counter == 0) {
+            ui.printMessage("Find by: " + findType);
+            ui.printTransactionHeader(RECURTRANSTYPE);
+        }
     }
 }
