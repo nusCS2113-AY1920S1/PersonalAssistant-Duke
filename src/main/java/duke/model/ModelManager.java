@@ -1,8 +1,6 @@
 package duke.model;
 
-import duke.commons.exceptions.FileLoadFailException;
 import duke.commons.exceptions.FileNotSavedException;
-import duke.commons.exceptions.ItineraryNotFoundException;
 import duke.commons.exceptions.ParseException;
 import duke.commons.exceptions.RouteDuplicateException;
 import duke.model.lists.EventList;
@@ -133,7 +131,6 @@ public class ModelManager implements Model {
      */
     @Override
     public Itinerary getItinerary(String name) {
-
       return itineraryTable.get(name);
     }
 
