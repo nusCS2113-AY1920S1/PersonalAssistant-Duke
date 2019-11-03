@@ -1,5 +1,22 @@
 {
   "orders" : [ {
+<<<<<<< HEAD
+    "id" : 1572570825933,
+    "creationDate" : "2019-11-01T01:13:45.933+0000",
+    "name" : "customer",
+    "contact" : "N/A",
+    "remarks" : "N/A",
+    "deliveryDate" : "2019-11-01T01:13:43.314+0000",
+    "status" : "ACTIVE",
+    "total" : 0.0,
+    "items" : [ ]
+  } ],
+  "products" : [ {
+    "productName" : "Small chesse cake",
+    "ingredientItems" : [ ],
+    "ingredientCost" : 0.0,
+    "retailPrice" : 0.0,
+=======
     "id" : 1572357772448,
     "creationDate" : "2019-10-29T14:02:52.448+0000",
     "name" : "Arron",
@@ -480,11 +497,16 @@
     } ],
     "ingredientCost" : 4.0,
     "retailPrice" : 3.0,
+>>>>>>> c46f5747278f3a4163156ca76fe522cb180e7cc4
     "status" : "ACTIVE"
   } ],
   "inventory" : [ {
     "ingredient" : {
+<<<<<<< HEAD
+      "name" : "D",
+=======
       "name" : "Butter",
+>>>>>>> c46f5747278f3a4163156ca76fe522cb180e7cc4
       "unitPrice" : 0.0,
       "remarks" : "gram"
     },
@@ -495,7 +517,11 @@
       "unitPrice" : 0.0,
       "remarks" : "gram"
     },
+<<<<<<< HEAD
+    "amount" : 7.0
+=======
     "amount" : 258.0
+>>>>>>> c46f5747278f3a4163156ca76fe522cb180e7cc4
   }, {
     "ingredient" : {
       "name" : "Egg",

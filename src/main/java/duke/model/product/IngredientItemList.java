@@ -3,8 +3,6 @@ package duke.model.product;
 import duke.model.commons.Item;
 import duke.model.inventory.Ingredient;
 
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.ArrayList;
 
 public class IngredientItemList extends ArrayList<Item<Ingredient>> {
