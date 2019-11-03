@@ -1,10 +1,9 @@
 package cube.ui;
 
 
-import cube.MainApp;
+import cube.CubeApp;
 import javafx.fxml.FXMLLoader;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 
@@ -13,7 +12,7 @@ public abstract class UiManager<Type> {
     /**
      * Resource folder where FXML files are stored.
      */
-    public static final String FXML_FILE_FOLDER = File.separator + "view" + File.separator;
+    public static final String FXML_FILE_FOLDER = "view/";
 
     private FXMLLoader fxmlLoader = new FXMLLoader();
 
@@ -78,7 +77,7 @@ public abstract class UiManager<Type> {
      */
     private static URL getFxmlUrl(String FXML) {
         String fxmlPath = FXML_FILE_FOLDER + FXML;
-        URL fxmlUrl = MainApp.class.getClassLoader().getResource(fxmlPath);
+        URL fxmlUrl = CubeApp.class.getClassLoader().getResource(fxmlPath);
 
         return fxmlUrl;
     }

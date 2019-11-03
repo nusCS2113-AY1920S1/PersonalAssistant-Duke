@@ -46,7 +46,7 @@ public class FoodListCard extends UiManager<HBox> {
         tags.getChildren().add(new Label(food.getType()));
         price.setText("Price: $" + food.getPrice());
         stock.setText("Stock: " + food.getStock());
-        expiry.setText("Expiry Date: " + food.getExpiryDate().toString());
+        expiry.setText("Expiry: " + food.getExpiryDate().toString());
 
         this.editExecutor = editExecutor;
         this.deleteExecutor = deleteExecutor;
@@ -54,13 +54,11 @@ public class FoodListCard extends UiManager<HBox> {
 
     @FXML
     private void handleEdit() {
-        System.out.println("EDIT");
         editExecutor.execute(index);
     }
 
     @FXML
     private void handleDelete() {
-        System.out.println("DELETE");
         deleteExecutor.execute(index);
     }
 

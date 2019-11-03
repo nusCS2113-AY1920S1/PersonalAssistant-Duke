@@ -5,14 +5,14 @@
 
 .label {
     -fx-font-size: 11pt;
-    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-family: "Trebuchet MS";
     -fx-text-fill: #555555;
     -fx-opacity: 0.9;
 }
 
 .text-field {
     -fx-font-size: 12pt;
-    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-family: "Trebuchet MS";
 }
 
 .tab-pane {
@@ -62,13 +62,13 @@
 }
 
 .cell_big_label {
-    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-family: "Trebuchet MS";
     -fx-font-size: 16px;
     -fx-text-fill: #1c313a;
 }
 
 .cell_small_label {
-    -fx-font-family: "Segoe UI";
+    -fx-font-family: "Trebuchet MS";
     -fx-font-size: 13px;
     -fx-text-fill: #1c313a;
 }
@@ -89,7 +89,7 @@
 
 .result-display {
     -fx-background-color: transparent;
-    -fx-font-family: "Segoe UI";
+    -fx-font-family: "Trebuchet MS";
     -fx-font-size: 10pt;
     -fx-text-fill: #455a64;
 }
@@ -99,7 +99,7 @@
 }
 
 .status-bar .label {
-    -fx-font-family: "Segoe UI Light";
+    -fx-font-family: "Trebuchet MS";
     -fx-text-fill: #455a64;
     -fx-padding: 4px;
     -fx-pref-height: 30px;
@@ -137,22 +137,21 @@
 }
 
 .menu-bar .label {
-    -fx-font-size: 12pt;
-    -fx-font-family: "Segoe UI Light";
+    -fx-font-size: 10pt;
+    -fx-font-family: "Trebuchet MS";
     -fx-text-fill: #f9fafa;
 }
 
 .menu-bar .button {
     -fx-background-color: transparent;
-    -fx-font-family: "Segoe UI";
-    -fx-font-size: 11pt;
+    -fx-font-family: "Trebuchet MS";
+    -fx-font-size: 10pt;
     -fx-text-fill: #ffffff;
 }
 
 .menu-bar .button:hover {
     -fx-background-color: #718792;
 }
-
 
 .menu-item:focused {
     -fx-background-color: #718792;
@@ -163,14 +162,16 @@
 }
 
 .button {
-    -fx-background-color: #f5f5f6;
+    -fx-background-color: #455a64;
     -fx-background-radius: 0;
-    -fx-font-family: "Segoe UI";
-    -fx-font-size: 11pt;
+    -fx-font-family: "Trebuchet MS";
+    -fx-font-size: 10pt;
+    -fx-text-fill: #f5f5f6;
 }
 
 .button:hover {
-    -fx-background-color: #455a64;
+    -fx-background-color: #f5f5f6;
+    -fx-text-fill: #455a64;
 }
 
 .button:pressed, .button:default:hover:pressed {
@@ -231,7 +232,7 @@
 
 #commandTextField {
     -fx-background-color: derive(#e1e2e1, 30%);
-    -fx-font-family: "Segoe UI";
+    -fx-font-family: "Trebuchet MS";
     -fx-font-size: 11pt;
     -fx-text-fill: #455a64;
 }

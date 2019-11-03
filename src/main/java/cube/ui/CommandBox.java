@@ -42,10 +42,9 @@ public class CommandBox extends UiManager<StackPane> {
         try {
             commandExecutor.execute(fullCommand);
         } catch (CubeException e) {
-            System.out.println(e.getMessage());
+            commandTextField.clear();
         }
 
-        System.out.println(commandTextField.getText());
         commandTextField.clear();
     }
 
