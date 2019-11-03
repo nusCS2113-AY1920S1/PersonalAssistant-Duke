@@ -14,6 +14,7 @@ import java.util.TreeMap;
  */
 public class ConjunctiveModule extends Module {
     private Map<String, String> modules = new TreeMap<>();
+    private String fullModuleName;
 
     /**
      * Conjuctive Modules are those linked together as either or requirements
@@ -25,6 +26,7 @@ public class ConjunctiveModule extends Module {
     public ConjunctiveModule(String input, Integer mc)
     {
         this.mc = mc;
+        this.fullModuleName = input;
         String[] split = input.split("\\s+OR\\s+");
         for(String full: split)
         {
@@ -126,5 +128,14 @@ public class ConjunctiveModule extends Module {
         System.out.println(list.toString());
     }
 
+    /**
+     * Returns both names of conjunctive modules in one string
+     *
+     * @return the names of both conjunctive modules as a string
+     */
+    @Override
+    public String getFullModuleName() {
+        return this.fullModuleName;
+    }
 
 }

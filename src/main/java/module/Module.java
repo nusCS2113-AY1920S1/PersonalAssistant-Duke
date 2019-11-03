@@ -128,7 +128,7 @@ public class Module implements Comparable<Module> {
      *
      * @return String that is the human friendly name of the module
      */
-    private String getName(){
+    public String getName(){
         return this.name;
     }
 
@@ -137,7 +137,7 @@ public class Module implements Comparable<Module> {
      *
      * @return Integer that is the credits allocated to the module
      */
-    Integer getMc()
+    public Integer getMc()
     {
         return mc;
     }
@@ -180,5 +180,15 @@ public class Module implements Comparable<Module> {
     public int compareTo(Module other)
     {
         return this.getCode().compareTo(other.getCode());
+    }
+
+    /**
+     * Returns the full name of the modules.
+     * To be overwritten in the ConjunctiveModule class.
+     *
+     * @return The full name of this module.
+     */
+    public String getFullModuleName() {
+        return this.getName();
     }
 }
