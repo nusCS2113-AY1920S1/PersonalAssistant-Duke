@@ -54,10 +54,10 @@ public class TaskList {
             tasks.remove(idx[0]);
         }
         else {
+            if (idx[0] < 0 || idx[0] >= tasks.size() || idx[1] < 0 || idx[1] >= tasks.size()) {
+                throw new RoomShareException(ExceptionType.outOfBounds);
+            }
             for (int i = idx[0]; idx[1] >= idx[0]; idx[1]--) {
-                if (i < 0 || i >= tasks.size()) {
-                    throw new RoomShareException(ExceptionType.outOfBounds);
-                }
                 deletedList.add(tasks.get(i));
                 tasks.remove(i);
             }
@@ -102,10 +102,10 @@ public class TaskList {
             tasks.get(index[0]).setDone(true);
         }
         else {
+            if (index[0] < 0 || index[0] >= tasks.size() || index[1] < 0 || index[1] >= tasks.size()) {
+                throw new RoomShareException(ExceptionType.outOfBounds);
+            }
             for (int i = index[0]; i <= index[1]; i++){
-                if (i < 0 || i >= tasks.size()) {
-                    throw new RoomShareException(ExceptionType.outOfBounds);
-                }
                 tasks.get(i).setDone(true);
             }
         }
@@ -263,8 +263,12 @@ public class TaskList {
      * @param first the first task
      * @param second the second task
      */
-    public void reorder(int first, int second) {
-        Collections.swap(tasks, first, second);
+    public void reorder(int first, int second) throws RoomShareException {
+        try {
+            Collections.swap(tasks, first, second);
+        } catch (IndexOutOfBoundsException e) {
+            throw new RoomShareException(ExceptionType.outOfBounds);
+        }
     }
 
     /**

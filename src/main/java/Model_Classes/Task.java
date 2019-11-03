@@ -79,7 +79,7 @@ public abstract class Task{
      * shows a tick if done, and a cross if not done.
      * @return A String showing a tick or X symbol.
      */
-    public String getStatusIcon() { return (isDone ? "[\u2713] " : "[\u2718] "); } //return tick or X symbols
+    public String getStatusIcon() { return (isDone ? "[v] " : "[x] "); } //return tick or X symbols
 
     /**
      * Returns String of the assignee that was specified

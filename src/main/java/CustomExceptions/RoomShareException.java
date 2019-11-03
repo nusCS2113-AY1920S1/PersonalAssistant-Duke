@@ -10,7 +10,7 @@ public class RoomShareException extends Exception {
     private static final String TIME_CLASH_TEXT = "\tTime Clash Detected\n";
     private static final String WRONG_FORMAT_TEXT = "\tWrong Format Detected\n";
     private static final String WRONG_PRIORITY_TEXT = "\tYou've entered wrong format of priority\n";
-    private static final String SUB_TASK_TEXT = "\tMeetings do not support Subtasks\n";
+    private static final String SUB_TASK_TEXT = "\tOnly Assignments are supported with Subtasks\n";
     public static final String WRONG_TASK_TYPE_TEXT = "\tOnly meeting, assignment, or leave tag are accepted\n";
     public static final String EMPTY_DESCRIPTION_TEXT = "\tYou haven't included the description of you task\n";
     public static final String EMPTY_DATE_TEXT = "\tYou haven't included the date of your task\n";
@@ -20,6 +20,9 @@ public class RoomShareException extends Exception {
     public static final String WRONG_INDEX_FORMAT_TEXT = "\tThe index you've enter is in the wrong format\n";
     public static final String WRONG_TIME_FORMAT_TEXT = "\tYou've entered an invalid time format\n";
     public static final String WRONG_SORT_TYPE_TEXT = "\tPlease enter a valid sort type: priority, alphabetical or deadline\n";
+    public static final String LOG_ERROR_TEXT = "\tError writing to a new log file. Please try again.\n";
+    public static final String NEGATIVE_AMOUNT_TEXT = "\tThe amount of time to snooze a task cannot be negative.\n";
+    public static final String EMPTY_SUB_TASK = "\tYou haven't included your list of sub-tasks\n";
 
 
     private String message;
@@ -67,7 +70,7 @@ public class RoomShareException extends Exception {
             message = WRONG_PRIORITY_TEXT;
             break;
 
-        case subTask:
+        case subTaskError:
             message = SUB_TASK_TEXT;
             break;
 
@@ -87,12 +90,20 @@ public class RoomShareException extends Exception {
             message = EMPTY_TASK_TYPE_TEXT;
             break;
 
+        case emptySubTask:
+            message = EMPTY_SUB_TASK;
+            break;
+
         case wrongSortFormat:
             message = WRONG_SORT_TYPE_TEXT;
             break;
 
         case logError:
-            message = "Error writing to a new log file. Please try again.";
+            message = LOG_ERROR_TEXT;
+            break;
+
+        case negativeTimeAmount:
+            message = NEGATIVE_AMOUNT_TEXT;
             break;
 
         default:
