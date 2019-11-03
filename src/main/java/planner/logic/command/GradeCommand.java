@@ -29,7 +29,7 @@ public class GradeCommand extends ModuleCommand {
     }
 
     /**
-     * Constructor for testing
+     * Constructor for testing.
      */
     public GradeCommand(String moduleCode, String letterGrade) {
         this.moduleCode = moduleCode;

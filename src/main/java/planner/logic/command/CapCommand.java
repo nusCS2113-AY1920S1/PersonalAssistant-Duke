@@ -198,7 +198,8 @@ public class CapCommand extends ModuleCommand {
         ModNoPrerequisiteException,
         ModEmptyListException {
         String moduleCode = scanner.next().toUpperCase();
-        if (detailedMap.get(moduleCode).getPrerequisites().isEmpty() || detailedMap.get(moduleCode).getPrerequisites().isBlank()) {
+        if (detailedMap.get(moduleCode).getPrerequisites().isEmpty() ||
+            detailedMap.get(moduleCode).getPrerequisites().isBlank()) {
             throw new ModNoPrerequisiteException();
         }
         if (!detailedMap.containsKey(moduleCode)) {
@@ -217,7 +218,7 @@ public class CapCommand extends ModuleCommand {
                 prunedModules.remove(x.getModuleCode());
             }
         }
-         if (!prunedModules.isEmpty()) {
+        if (!prunedModules.isEmpty()) {
             for (String module : prunedModules) {
                 boolean hasPreclusions = false;
                 for (ModuleTask x : moduleTasksList.getTasks()) {
@@ -284,7 +285,8 @@ public class CapCommand extends ModuleCommand {
      * @return A List of lists of string of prerequisite modules to be graded before calculating cap
      */
     public ArrayList<String> parsePrerequisiteTree(String prerequisites) {
-        Matcher matcher = Pattern.compile("[a-zA-Z][a-zA-Z][a-zA-Z]?[0-9][0-9][0-9][0-9][a-zA-Z]?").matcher(prerequisites);
+        Matcher matcher = Pattern.compile("[a-zA-Z][a-zA-Z][a-zA-Z]?[0-9][0-9][0-9][0-9][a-zA-Z]?")
+            .matcher(prerequisites);
         ArrayList<String> prerequisiteModules = new ArrayList<>();
         while (matcher.find()) {
             prerequisiteModules.add(matcher.group());
