@@ -336,7 +336,7 @@ public class ParserHelper {
             if (unassignees.contains(index)) {
                 repeated.add(index);
                 errorMessages.add("Cannot assign and unassign task to member " + index + " ("
-                    + project.getMembers().getMember(index).getName() + ") at the same time");
+                    + project.getMember(index).getName() + ") at the same time");
 
             }
         }

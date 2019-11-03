@@ -65,7 +65,7 @@ public class AssignmentController {
 
             //assigning tasks
             for (Integer assigneeIndex : validAssignees) {
-                Member member = project.getMembers().getMember(assigneeIndex);
+                Member member = project.getMember(assigneeIndex);
                 if (project.containsAssignment(task, member)) {
                     successMessages.add("Task has already been assigned to member "
                         + assigneeIndex + " ("
@@ -79,7 +79,7 @@ public class AssignmentController {
             }
             //unassigning tasks
             for (Integer unassigneeIndex : validUnassignees) {
-                Member member = project.getMembers().getMember(unassigneeIndex);
+                Member member = project.getMember(unassigneeIndex);
                 if (!project.containsAssignment(task, member)) {
                     successMessages.add("Task cannot be unassigned from member "
                         + unassigneeIndex + " (" + member.getName() + ") as it was "
