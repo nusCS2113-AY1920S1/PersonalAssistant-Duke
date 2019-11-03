@@ -22,6 +22,7 @@ import planner.logic.command.SearchThenAddCommand;
 import planner.logic.command.ShowCommand;
 import planner.logic.command.SortCommand;
 import planner.logic.command.UpdateModuleInfo;
+import planner.logic.command.ReminderCommand;
 import planner.logic.exceptions.legacy.ModException;
 import planner.logic.parser.action.Join;
 import planner.util.logger.PlannerLogger;
@@ -51,16 +52,17 @@ public class Parser {
      */
     // Add new command types here
     private void mapBuiltinCommands() {
-        this.mapCommand("add", SearchThenAddCommand.class);
-        this.mapCommand("show", ShowCommand.class);
-        this.mapCommand("bye", EndCommand.class);
-        this.mapCommand("remove", RemoveCommand.class);
-        this.mapCommand("scheduleCca", AddCcaScheduleCommand.class);
-        this.mapCommand("clear", ClearCommand.class);
-        this.mapCommand("sort", SortCommand.class);
-        this.mapCommand("cap", CapCommand.class);
-        this.mapCommand("grade", GradeCommand.class);
-        this.mapCommand("update", UpdateModuleInfo.class);
+        mapCommand("add", SearchThenAddCommand.class);
+        mapCommand("show", ShowCommand.class);
+        mapCommand("bye", EndCommand.class);
+        mapCommand("remove", RemoveCommand.class);
+        mapCommand("scheduleCca", AddCcaScheduleCommand.class);
+        mapCommand("clear", ClearCommand.class);
+        mapCommand("sort", SortCommand.class);
+        mapCommand("cap", CapCommand.class);
+        mapCommand("grade", GradeCommand.class);
+        mapCommand("update", UpdateModuleInfo.class);
+        mapCommand("reminder", ReminderCommand.class);
     }
 
     /**
@@ -76,12 +78,10 @@ public class Parser {
         addParsers.addParser("module")
                 .help("Add a module")
                 .addArgument("moduleCode")
-                .required(true)
                 .help("Codename of module to add");
         Subparser addCcaParser = addParsers.addParser("cca")
                 .help("Add a cca");
         addCcaParser.addArgument("name")
-                .required(true)
                 .nargs("+")
                 .action(this.joinString)
                 .help("Name of cca");
@@ -155,25 +155,28 @@ public class Parser {
         sortParsers.addParser("ccas")
                 .help("Sort your CCAs");
 
-        Subparser capParser = getSubParser("cap")
-                .help("Calculate your CAP");
-        capParser.addArgument("toCap")
-            .choices("overall", "list", "module")
-            .help("What type of CAP to calculate");
+        getSubParser("cap")
+                .help("Calculate your CAP")
+                .addArgument("toCap")
+                .choices("overall", "list", "module")
+                .help("What type of CAP to calculate");
 
         Subparser gradeParser = getSubParser("grade")
                 .help("Enter your grades and let me calculate your GPA for you!");
         gradeParser.addArgument("moduleCode")
-            .required(true)
             .help("Codename of module to grade");
         gradeParser.addArgument("letterGrade")
-            .required(true)
             .help("Grade you achieved for this module");
 
-        Subparser updateParser = getSubParser("update");
-        updateParser.addArgument("academicYear")
-                .required(true)
+        getSubParser("update")
+                .help("Update modules database")
+                .addArgument("academicYear")
                 .help("Academic year of your choice, in format 2018-2019");
+
+        getSubParser("reminder")
+                .help("Setting reminders")
+                .addArgument("toReminder")
+                .help("When do you want to set the reminder again");
 
     }
 

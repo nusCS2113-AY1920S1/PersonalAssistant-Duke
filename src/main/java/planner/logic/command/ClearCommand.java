@@ -24,8 +24,7 @@ public class ClearCommand extends ModuleCommand {
                         CcaList ccas,
                         PlannerUi plannerUi,
                         Storage store,
-                        JsonWrapper jsonWrapper)
-                        throws ModException {
+                        JsonWrapper jsonWrapper) {
         String toClear = arg("toClear");
         plannerUi.clearMsg(toClear);
         boolean confirm = plannerUi.confirm();

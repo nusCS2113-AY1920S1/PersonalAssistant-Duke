@@ -16,9 +16,9 @@ import java.util.List;
 import planner.logic.exceptions.planner.ModBadRequestStatus;
 import planner.util.storage.Storage;
 
-public class RequestsData {
+public class RequestData {
 
-    public RequestsData() {
+    public RequestData() {
 
     }
 
