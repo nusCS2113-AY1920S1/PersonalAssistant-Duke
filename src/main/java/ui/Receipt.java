@@ -69,8 +69,12 @@ public class Receipt {
         return this.getTags().contains(tag);
     }
 
-    public boolean equalsDate(String date){
-        System.out.println(LocalDate.parse(date));
+    /**
+     * Checks if a date equals to the date property of Receipt Object.
+     * @param date String to be checked
+     * @return true if date equals tot the one in the Receipt Object, false otherwise.
+     */
+    public boolean equalsDate(String date) {
         return this.getDate().equals(LocalDate.parse(date));
     }
 

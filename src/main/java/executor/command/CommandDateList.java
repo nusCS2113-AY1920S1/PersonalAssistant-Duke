@@ -18,7 +18,7 @@ public class CommandDateList extends Command {
      */
     public CommandDateList(String userInput) {
         this.userInput = userInput;
-        this.description = "Lists based on date. Format: listmy <date>";
+        this.description = "Lists receipts based on date input. Format: datelist <date>";
         this.commandType = CommandType.DATELIST;
         this.date = Parser.parseForPrimaryInput(this.commandType, userInput);
     }
@@ -31,13 +31,10 @@ public class CommandDateList extends Command {
     @Override
     public void execute(Wallet wallet) {
         ReceiptTracker dateReceipts = wallet.getReceipts().findReceiptsByDate(this.date);
-        Ui.dukeSays("You have the following receipts for" + userInput);
+        Ui.dukeSays("You have the following receipts for" + " " + date);
         Ui.printSeparator();
         dateReceipts.printReceipts();
         Ui.printSeparator();
-
-
-
     }
 
 }
