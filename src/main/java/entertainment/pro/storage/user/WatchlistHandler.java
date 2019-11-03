@@ -80,7 +80,7 @@ public class WatchlistHandler {
                     + "][" + i.getStatusIcon() + "] " + message + "\n";
             index++;
         }
-        handle.setFeedbackText(result);
+        handle.setGeneralFeedbackText(result);
     }
 
     /**
@@ -101,9 +101,9 @@ public class WatchlistHandler {
                 result += space + index + 1 + ".[" + t.getType()
                         + "][" + t.getStatusIcon() + "] " + ((Period) t).toMessage();
             }
-            handle.setFeedbackText(result);
+            handle.setGeneralFeedbackText(result);
         } catch (IndexOutOfBoundsException e) {
-            handle.setFeedbackText("Please enter a valid index that is not greater than the size of the watchlist!");
+            handle.setGeneralFeedbackText("Please enter a valid index that is not greater than the size of the watchlist!");
         }
     }
 
@@ -161,7 +161,7 @@ public class WatchlistHandler {
                     result += space + index + 1 + ".[" + task.getType()
                             + "][" + task.getStatusIcon() + "] " + ((Period) task).toMessage();
                 }
-                handle.setFeedbackText(result);
+                handle.setGeneralFeedbackText(result);
                 return true;
             }
             index++;

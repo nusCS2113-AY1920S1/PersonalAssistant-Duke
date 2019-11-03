@@ -105,10 +105,8 @@ public class BlacklistCommand extends CommandSuper {
                     .setFeedbackText(PromptMessages.DUPLICATE_BLACKLIST + Blacklist.printList());
         }
 
-
-
         logger.log(Level.INFO , PromptMessages.BLACKLIST_ADD_SUCCUESS);
-
+        ((MovieHandler) this.getUiController()).setGeneralFeedbackText(Blacklist.printList());
     }
 
     /**
@@ -138,10 +136,10 @@ public class BlacklistCommand extends CommandSuper {
         logger.log(Level.INFO , PromptMessages.BLACKLIST_REMOVE_SUCCUESS);
 
         if (stat) {
-            ((MovieHandler) getUiController()).setFeedbackText(PromptMessages.BLACKLIST_REMOVE_SUCCUESS);
+            ((MovieHandler) getUiController()).setGeneralFeedbackText(PromptMessages.BLACKLIST_REMOVE_SUCCUESS);
         } else {
             ((MovieHandler) getUiController())
-                    .setFeedbackText(PromptMessages.BLACKLIST_REMOVE_FAILURE);
+                    .setGeneralFeedbackText(PromptMessages.BLACKLIST_REMOVE_FAILURE);
 
         }
     }

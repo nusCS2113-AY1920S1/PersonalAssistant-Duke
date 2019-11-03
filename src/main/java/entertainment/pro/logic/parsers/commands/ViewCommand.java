@@ -5,21 +5,22 @@ import entertainment.pro.commons.exceptions.EmptyCommandException;
 import entertainment.pro.commons.exceptions.Exceptions;
 import entertainment.pro.commons.exceptions.MissingInfoException;
 import entertainment.pro.logic.parsers.CommandParser;
+import entertainment.pro.model.MovieInfoObject;
 import entertainment.pro.storage.user.Blacklist;
 import entertainment.pro.storage.user.WatchlistHandler;
 import entertainment.pro.ui.Controller;
 import entertainment.pro.ui.MovieHandler;
 import entertainment.pro.logic.parsers.CommandStructure;
 import entertainment.pro.logic.parsers.CommandSuper;
-//import entertainment.pro.model.PastCommandStructure;
-
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
 
 public class ViewCommand extends CommandSuper {
     private Controller controller;
+    private int constant = 5;
 
     public ViewCommand(Controller uicontroller) {
         super(COMMANDKEYS.view, CommandStructure.cmdStructure.get(COMMANDKEYS.view), uicontroller);
@@ -28,20 +29,20 @@ public class ViewCommand extends CommandSuper {
     @Override
     public void executeCommands() throws Exceptions {
         switch (this.getSubRootCommand()) {
-        case watchlist:
-            WatchlistHandler.print_list((MovieHandler) (this.getUiController()));
-            break;
-        case blacklist:
-            ((MovieHandler) this.getUiController()).setFeedbackText(Blacklist.printList());
-            break;
-//        case back:
-//            executeBackCommands();
-//            break;
-        case entry:
-            executeEntryCommands(Integer.parseInt(getPayload()));
-            break;
-        default:
-            break;
+            case watchlist:
+                WatchlistHandler.print_list((MovieHandler) (this.getUiController()));
+                break;
+            case blacklist:
+                ((MovieHandler) this.getUiController()).setGeneralFeedbackText(Blacklist.printList());
+                break;
+            case entry:
+                executeEntryCommands(Integer.parseInt(getPayload()));
+                break;
+            case recommendation:
+                executeRecommendationCommand();
+                break;
+            default:
+                break;
         }
     }
 
@@ -60,41 +61,23 @@ public class ViewCommand extends CommandSuper {
         //int num = Integer.parseInt(payload);
         //System.out.println("this is num +" + num);
         ((MovieHandler) this.getUiController()).showMovie(num);
-//        if (!(((MovieHandler) this.getUiController()).isViewBack())) {
-//            ((MovieHandler) this.getUiController()).updatePastCommands(now);
-//        }
     }
 
-//    private void executeBackCommands() throws Exceptions {
-//        PastCommandStructure pastCommandStructure =
-//                ((MovieHandler) this.getUiController()).getPastCommands().getMap().get(
-//                        ((MovieHandler) this.getUiController()).getPastCommands().getMap().size() - 2);
-//        String command = pastCommandStructure.getQuery();
-//        String[] getStrips = command.split(" ");
-//        System.out.println("this is past command " + command);
-//        ((MovieHandler) this.getUiController()).setViewBack(true);
-//
-//        if (command.startsWith("view entry")) {
-//            //System.out.println("riyazzz");
-//            ((MovieHandler) this.getUiController()).setViewBackMoreInfo(true);
-//            String pastCommand = ((MovieHandler) this.getUiController()).getPastCommands().getMap().get(
-//                    ((MovieHandler) this.getUiController()).getPastCommands().getMap().size() - 3).getQuery();
-//            System.out.println("this is past command " + pastCommand);
-//
-//            try {
-//                CommandParser.parseCommands(pastCommand, ((MovieHandler) this.getUiController()));
-//            } catch (IOException | Exceptions e) {
-//                e.printStackTrace();
-//            }
-//            //executeEntryCommands(num);
-//        } else {
-//            try {
-//                CommandParser.parseCommands(command, ((MovieHandler) this.getUiController()));
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//        }
-//
-//    }
+    /**
+     * prints out a list of recommendations based on the users set preferences.
+     * @throws IOException file was not able to be found
+     */
+    private void executeRecommendationCommand() throws Exceptions {
+        String feedback = "Your recommended movies are: \n";
+        MovieHandler movieHandler = ((MovieHandler) this.getUiController());
+        ArrayList<Integer> preferenceIndices = movieHandler.getUserProfile().getGenreIdPreference();
+        ArrayList<MovieInfoObject>  movies = movieHandler.getAPIRequester()
+                .beginSearchGenre(Integer.toString(preferenceIndices.get(0)), movieHandler.getUserProfile().isAdult());
+        for (int i = 0; i < constant; i++) {
+            feedback += i + 1 + ". " + movies.get(i).getTitle() + "\n";
+        }
+        movieHandler.setGeneralFeedbackText(feedback);
+    }
+
 }
 

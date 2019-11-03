@@ -1,5 +1,6 @@
 package entertainment.pro.logic.cinemaRequesterAPI;
 
+import entertainment.pro.commons.PromptMessages;
 import entertainment.pro.commons.exceptions.Exceptions;
 import entertainment.pro.logic.movieRequesterAPI.RequestListener;
 import entertainment.pro.logic.movieRequesterAPI.URLRetriever;
@@ -12,6 +13,8 @@ import org.json.simple.parser.ParseException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 /**
  * Class that handles fetching results from The Google API service and then parsing them into CinemaInfoObjects.
@@ -38,7 +41,13 @@ public class CinemaRetrieveRequest implements CinemaInfoFetcher {
      */
     public ArrayList<CinemaInfoObject> searchNearestCinemas(String location) throws Exceptions {
         try {
-            String url = MAIN_URL + location + "&key=" + API_KEY;
+            String[] token = location.split(" ");
+            String result = "";
+            for (int i = 0; i < token.length; i++) {
+                result += token[i];
+                if (i != token.length - 1) result += "%20";
+            }
+            String url = MAIN_URL + result + "&key=" + API_KEY;
             URLRetriever retrieve = new URLRetriever();
             String json = retrieve.readURLAsString(new URL(url));
             fetchedCinemasJSON(json);
@@ -55,7 +64,7 @@ public class CinemaRetrieveRequest implements CinemaInfoFetcher {
     @Override
     public void fetchedCinemasJSON(String json) {
         if (json == null) {
-            variableListener.requestFailed();
+            variableListener.requestTimedOut(PromptMessages.NO_RESULTS_FOUND);
             return;
         }
         JSONParser parser = new JSONParser();
@@ -68,6 +77,8 @@ public class CinemaRetrieveRequest implements CinemaInfoFetcher {
             for (int i = 0; i < cinemas.size(); i++) {
                 parsedCinemas.add(parseCinemaJSON((JSONObject)(cinemas.get(i))));
             }
+            Collections.sort(parsedCinemas, Comparator.comparingDouble(CinemaInfoObject::getRating));
+            Collections.reverse(parsedCinemas);
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -98,6 +109,6 @@ public class CinemaRetrieveRequest implements CinemaInfoFetcher {
      */
     @Override
     public void connectionTimedOut() {
-        variableListener.requestTimedOut();
+        variableListener.requestTimedOut(PromptMessages.NO_RESULTS_FOUND);
     }
 }

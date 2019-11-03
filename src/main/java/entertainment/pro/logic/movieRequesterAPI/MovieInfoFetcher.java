@@ -32,15 +32,13 @@ public class MovieInfoFetcher implements Runnable {
      */
     @Override
     public void run() {
+        String json = "";
         try {
-            String json = URLRetriever.readURLAsString(movieRequestUrl);
+            json = URLRetriever.readURLAsString(movieRequestUrl);
             movieRequestListener.fetchedJSON(json);
             //System.out.println("passed");
         } catch (Exceptions ex) {
-            // Notify the listener that the connection have timed out.
-            //movieRequestListener.connectionTimedOut();
-            String json = null;
-            movieRequestListener.fetchedJSON(json);
+            movieRequestListener.fetchOfflineData();
             }
         }
     }

@@ -63,6 +63,6 @@ public class FindCommand extends CommandSuper {
             display = "no cinemas in this location, please try a different one";
         }
         ((MovieHandler) this.getUiController()).clearSearchTextField();
-        ((MovieHandler) this.getUiController()).setFeedbackText(display);
+        ((MovieHandler) this.getUiController()).setGeneralFeedbackText(display);
     }
 }
