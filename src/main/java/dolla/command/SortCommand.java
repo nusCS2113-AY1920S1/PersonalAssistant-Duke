@@ -24,7 +24,7 @@ public class SortCommand extends Command {
     }
 
     @Override
-    public void execute(DollaData dollaData) throws Exception {
+    public void execute(DollaData dollaData) {
         RecordList recordList = new RecordList(new ArrayList<>());
         ArrayList<Record> list;
         switch (mode) {

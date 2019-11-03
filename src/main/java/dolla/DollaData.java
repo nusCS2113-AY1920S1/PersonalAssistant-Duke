@@ -14,7 +14,7 @@ import static dolla.storage.Storage.getBillsFromSave;
 
 public class DollaData implements ModeStringList {
 
-    private String mode = "dolla";
+    private String mode = MODE_DOLLA;
     private EntryList entryList; // TODO: Find out alternatives to using a public variable
     private DebtList debtList;
     private LimitList limitList;
@@ -42,14 +42,16 @@ public class DollaData implements ModeStringList {
      * @return The RecordList according to the specified mode.
      */
     public RecordList getRecordList(String mode) {
-        if (mode.equals(MODE_ENTRY)) {
+        switch (mode) {
+        case MODE_ENTRY:
             return entryList;
-        } else if (mode.equals(MODE_DEBT)) {
+        case MODE_DEBT:
             return debtList;
-        } else if (mode.equals(MODE_LIMIT)) {
+        case MODE_LIMIT:
             return limitList;
+        default:
+            return null; // placeholder so that Dolla can compile
         }
-        return null; // placeholder so that Dolla can compile
     }
 
     /**
@@ -60,14 +62,16 @@ public class DollaData implements ModeStringList {
      * @return The Record according to the specified mode.
      */
     public Record getRecordFromList(String mode, int index) {
-        if (mode.equals(MODE_ENTRY)) {
+        switch (mode) {
+        case MODE_ENTRY:
             return entryList.getFromList(index);
-        } else if (mode.equals(MODE_DEBT)) {
+        case MODE_DEBT:
             return debtList.getFromList(index);
-        } else if (mode.equals(MODE_LIMIT)) {
+        case MODE_LIMIT:
             return limitList.getFromList(index);
+        default:
+            return null; // placeholder so that Dolla can compile
         }
-        return null; // placeholder so that Dolla can compile
     }
 
     public RecordList getBillRecordList() {

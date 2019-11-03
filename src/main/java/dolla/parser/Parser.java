@@ -4,15 +4,13 @@ import dolla.ModeStringList;
 import dolla.Time;
 import dolla.ui.EntryUi;
 import dolla.ui.SearchUi;
+import dolla.ui.LimitUi;
 import dolla.ui.Ui;
 import dolla.ui.ModifyUi;
 
 import dolla.command.Command;
 import dolla.command.ErrorCommand;
-import dolla.ui.EntryUi;
-import dolla.ui.ModifyUi;
 import dolla.ui.SortUi;
-import dolla.ui.Ui;
 import dolla.ui.RemoveUi;
 
 import java.time.LocalDate;
@@ -87,7 +85,7 @@ public abstract class Parser implements ParserStringList, ModeStringList {
      * @param str String (of number) to be converted into integer type.
      * @return Integer type of the specified string.
      */
-    public double stringToDouble(String str) {
+    public static double stringToDouble(String str) {
         double newDouble = 0.0;
         try {
             newDouble = Double.parseDouble(str);
@@ -404,6 +402,7 @@ public abstract class Parser implements ParserStringList, ModeStringList {
         return tempStr;
     }
 
+    //@@author tatayu
     /**
      * To check if the component in the search command is valid.
      * @param s the string to be checked.
@@ -412,11 +411,54 @@ public abstract class Parser implements ParserStringList, ModeStringList {
      */
     public String verifySearchCommand(String s) throws Exception {
         if (s.equals(SEARCH_DESCRIPTION) || s.equals(SEARCH_DATE) || s.equals(SEARCH_NAME)
-            || s.equals(SEARCH_DURATION)) {
+                || s.equals(SEARCH_DURATION)) {
             return s;
         } else {
             SearchUi.printInvalidSearchFormat();
             throw new Exception();
         }
     }
+
+    //@@author Weng-Kexin
+    protected double findLimitAmount() {
+        double amount = 0;
+        try {
+            amount = stringToDouble(inputArray[2]);
+        } catch (NumberFormatException e) {
+            LimitUi.invalidAmountPrinter();
+        }
+        return amount;
+    }
+
+    private Boolean verifyLimitType(String limitType) {
+        return limitType.equals(LIMIT_TYPE_S)
+                || limitType.equals(LIMIT_TYPE_B);
+    }
+
+    private Boolean verifyLimitDuration(String limitDuration) {
+        return limitDuration.equals(LIMIT_DURATION_D)
+                || limitDuration.equals(LIMIT_DURATION_W)
+                || limitDuration.equals(LIMIT_DURATION_M);
+    }
+
+    private Boolean verifyLimitAmount(double limitAmount) {
+        return (limitAmount != 0);
+    }
+
+    protected Boolean verifySetLimitCommand() {
+        boolean isValid;
+        try {
+            String typeStr = inputArray[1];
+            double amountInt = findLimitAmount();
+            String durationStr = inputArray[3];
+            isValid = verifyLimitType(typeStr) && verifyLimitAmount(amountInt) && verifyLimitDuration(durationStr);
+        } catch (IndexOutOfBoundsException e) {
+            LimitUi.invalidSetCommandPrinter();
+            isValid = false;
+        } catch (Exception e) {
+            isValid = false;
+        }
+        return isValid;
+    }
+
 }

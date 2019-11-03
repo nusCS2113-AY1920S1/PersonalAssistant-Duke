@@ -22,12 +22,6 @@ import dolla.ui.Ui;
 //@@author Weng-Kexin
 public class LimitParser extends Parser {
 
-    private static final String LIMIT_TYPE_S = "saving";
-    private static final String LIMIT_TYPE_B = "budget";
-
-    private static final String LIMIT_DURATION_D = "daily";
-    private static final String LIMIT_DURATION_W = "weekly";
-    private static final String LIMIT_DURATION_M = "monthly";
 
     protected LimitParser(String inputLine) {
         super(inputLine);
@@ -91,46 +85,5 @@ public class LimitParser extends Parser {
         } else {
             return invalidCommand();
         }
-    }
-
-    private double findLimitAmount() {
-        double amount = 0;
-        try {
-            amount = stringToDouble(inputArray[2]);
-        } catch (NumberFormatException e) {
-            LimitUi.invalidAmountPrinter();
-        }
-        return amount;
-    }
-
-    private Boolean verifyLimitType(String limitType) {
-        return limitType.equals(LIMIT_TYPE_S)
-               || limitType.equals(LIMIT_TYPE_B);
-    }
-
-    private Boolean verifyLimitDuration(String limitDuration) {
-        return limitDuration.equals(LIMIT_DURATION_D)
-               || limitDuration.equals(LIMIT_DURATION_W)
-               || limitDuration.equals(LIMIT_DURATION_M);
-    }
-
-    private Boolean verifyLimitAmount(double limitAmount) {
-        return (limitAmount != 0);
-    }
-
-    private Boolean verifySetLimitCommand() {
-        boolean isValid;
-        try {
-            String typeStr = inputArray[1];
-            double amountInt = findLimitAmount();
-            String durationStr = inputArray[3];
-            isValid = verifyLimitType(typeStr) && verifyLimitAmount(amountInt) && verifyLimitDuration(durationStr);
-        } catch (IndexOutOfBoundsException e) {
-            LimitUi.invalidSetCommandPrinter();
-            isValid = false;
-        } catch (Exception e) {
-            isValid = false;
-        }
-        return isValid;
     }
 }

@@ -1,10 +1,8 @@
 package dolla.ui;
 
 import dolla.task.Record;
-import dolla.task.Task;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  * duke.Ui is a class that handles all interactions to the user.
@@ -107,26 +105,6 @@ public abstract class Ui {
         System.out.println(line);
     }
 
-    //unused
-    /**
-     * This method prints the details of the specified task and specified duke.task.TaskList size.
-     * <p>
-     * This method is typically called when a task is created, so that the user can
-     * check the details of the created task.
-     * </p>
-     *
-     * @param currTask duke.task.Task to be printed.
-     * @param listSize Size of the duke.task.TaskList.
-     */
-    public static void echoAdd(Task currTask, int listSize) {
-        ArrayList<String> msg = new ArrayList<String>(Arrays.asList(
-                "Got it. I've added this task: ",
-                "  " + currTask.getTask(),
-                "Now you have " + listSize + " task(s) in the list."
-        ));
-        printMsg(msg);
-    }
-
     /**
      * Prints the details of the specified record and is typically called when a new record is entered,
      * so that the user can check the details of the created record.
@@ -159,89 +137,6 @@ public abstract class Ui {
     }
 
     /**
-     * Prints an error message when fixed duration entered is invalid.
-     */
-    public static void printFixDurationTaskError() {
-        System.out.println(line);
-        System.out.println("\tSorry, please enter a valid fixed duration task.");
-        System.out.println(line);
-    }
-
-    /**
-     * This method will print the error message when the user enter a invalid recurring event.
-     */
-    public static void printRecurringTaskError() {
-        System.out.println(line);
-        System.out.println("\tSorry, please enter a valid recurring event.");
-        System.out.println(line);
-    }
-
-    /**
-     * This method will print the error message when the user enter a invalid day of the week.
-     */
-    public static void printInvalidDayInput() {
-        System.out.println(line);
-        System.out.println("\tSorry, please enter a valid day of the week.");
-        System.out.println(line);
-    }
-
-    /**
-     * This method will print the error message when the user enter a invalid do after event.
-     */
-    public static void printInvalidDoAfterInput() {
-        System.out.println(line);
-        System.out.println("\tPlease enter a valid do after");
-        System.out.println(line);
-    }
-
-    /**
-     * This method will print the error message when the user enter a time that conflicts with a task
-     * that's in the task list.
-     *
-     * @param conflictingTask the conflicting task
-     */
-    public static void printTimeConflictError(Task conflictingTask) {
-        System.out.println(line);
-        System.out.println("\tI'm sorry, an error has occurred!");
-        System.out.println("\tThe time you have entered conflicts with the following task: ");
-        System.out.println("\t  " + conflictingTask.getTask());
-        System.out.println("Try looking for another time. :)");
-        System.out.println(line);
-    }
-
-    /**
-     * Prints the snoozed task with new date after successfully snoozing.
-     *
-     * @param snoozedTask task that was snoozed
-     */
-    public static void printSnoozedTask(Task snoozedTask) {
-        System.out.println(line);
-        System.out.println("\tNoted. I have snoozed this task:");
-        System.out.println("\t" + snoozedTask.getTaskDescription() + " " + snoozedTask.getDateStr());
-        System.out.println(line);
-    }
-
-    /**
-     * Prints an error message for no date in task.
-     *
-     * @param taskToSnooze the task to snooze
-     */
-    public static void printNoDateToSnoozeError(Task taskToSnooze) {
-        System.out.println(line);
-        System.out.println("\tOOPS! " + taskToSnooze + " do not have a date to snooze!");
-        System.out.println(line);
-    }
-
-    /**
-     * Prints a default error message.
-     */
-    public static void printErrorMsg() {
-        System.out.println(line);
-        System.out.println("\tOOPS! An error has occurred.");
-        System.out.println(line);
-    }
-
-    /**
      * Prints error message when string parsed is not an integer.
      *
      * @param str to be parsed to an integer
@@ -249,15 +144,6 @@ public abstract class Ui {
     public static void printInvalidNumberError(String str) {
         System.out.println(line);
         System.out.println("\t" + str + " is not a number. Please use a number instead!");
-        System.out.println(line);
-    }
-
-    /**
-     * Prints error message when the new date to snooze until is before the old date.
-     */
-    public static void printOldDateIsAfterError() {
-        System.out.println(line);
-        System.out.println("\tOOPS! The new date given should be after the previous date!");
         System.out.println(line);
     }
 
@@ -315,8 +201,33 @@ public abstract class Ui {
      */
     public static void printUpcomingFeature() {
         System.out.println(line);
-        System.out.println("\tSorry, I can't do that yet. Stay tune for a later version and maybe my creators"
+        System.out.println("\tSorry, I can't do that yet. Stay tuned for a later version and maybe my creators"
                 + "will teach me how to do that. :(");
         System.out.println(line);
     }
+
+    //@@author yetong1895
+    /**
+     * This method will let the thread sleep for the "time" amount of time.
+     * @param time the time for the thread to sleep
+     */
+    public static void sleep(int time) {
+        try {
+            Thread.sleep(time);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+    }
+
+    /**
+     * This method will print input String in typewriter style.
+     * @param message the message to print in typewriter style.
+     */
+    public static void typewriter(String message) {
+        for (int i = 0; i < message.length(); i++) {
+            System.out.printf("%c",message.charAt(i));
+            sleep(10);
+        }
+    }
+
 }
