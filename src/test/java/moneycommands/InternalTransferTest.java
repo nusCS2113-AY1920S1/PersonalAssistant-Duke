@@ -7,6 +7,7 @@ import money.Account;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.ParseException;
@@ -20,7 +21,7 @@ public class InternalTransferTest {
     private static String SAMPLE_DEPOSIT1 = "deposit 200 OCBC /at 3/3/2018";
     private static String SAMPLE_WITHDRAW1 = "withdraw 200 OCBC /at 3/3/2019";
 
-    InternalTransferTest() {
+    InternalTransferTest() throws IOException {
         ui = new Ui();
         Path currentDir = Paths.get("data/account-test.txt");
         String filePath = currentDir.toAbsolutePath().toString();

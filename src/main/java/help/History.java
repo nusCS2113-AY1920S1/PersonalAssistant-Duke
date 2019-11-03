@@ -21,12 +21,20 @@ public class History {
         this.flag = true;
     }
 
+    public ArrayList getCommandsEntered() {
+        return commandsEntered;
+    }
+
     public void setFlagTrue() { //the command before this is up
         flag = true;
     }
 
     public void setFlagFalse() { //the command before this is down
         flag = false;
+    }
+
+    public boolean getFlag() {
+        return flag;
     }
 
     public void addingCommandsEntered(String commands) {
@@ -47,6 +55,10 @@ public class History {
 
     public void setFlagForFirstPress() {
         flagForFirstPress = true;
+    }
+
+    public boolean getFlagForFirstPress() {
+        return flagForFirstPress;
     }
 
     /**
