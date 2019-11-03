@@ -1,17 +1,27 @@
 package chronologer.parser;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeParseException;
 import java.util.regex.PatternSyntaxException;
 
 import chronologer.command.AddRecurringCommand;
 import chronologer.command.Command;
-import chronologer.command.ListCommand;
 import chronologer.exception.ChronologerException;
 import chronologer.ui.UiTemporary;
 
+/**
+ * Processes input for recurring events.
+ * 
+ * @author Hans kurnia
+ * @version 1.0
+ */
 public class RecurringEventParser extends EventParser {
 
+    /**
+     * Creates a new parser to handle recurring events.
+     * 
+     * @param userInput input from user
+     * @param command   command-type of input
+     */
     public RecurringEventParser(String userInput, String command) {
         super(userInput, command);
     }

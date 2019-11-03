@@ -10,14 +10,32 @@ import chronologer.task.Task;
 import chronologer.task.TaskList;
 import chronologer.ui.UiTemporary;
 
+/**
+ * Adds weekly recurring tasks to taskslist.
+ * 
+ * @author Hans kurnia
+ * @version 1.0
+ */
 public class AddRecurringCommand extends AddCommand {
 
+    /**
+     * Contructs a new "add recurring command".
+     * 
+     * @param command         command-type of input
+     * @param taskDescription description of task
+     * @param startDate       start date of task
+     * @param endDate         end date of task
+     * @param modCode         module code of task
+     */
     public AddRecurringCommand(String command, String taskDescription, LocalDateTime startDate, LocalDateTime endDate,
             String modCode) {
         super(command, taskDescription, startDate, endDate, modCode);
     }
 
     @Override
+    /**
+     * Adds tasks till end of semester at specified timeslots.
+     */
     public void execute(TaskList tasks, Storage storage) throws ChronologerException {
         Task task;
         LocalDateTime timeNow = LocalDateTime.now();
