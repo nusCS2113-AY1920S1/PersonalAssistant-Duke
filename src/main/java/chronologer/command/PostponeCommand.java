@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
  * Postpones a task to different times.
  *
  * @author Tan Yi Xiang
- * @version 1.7
+ * @version 1.8
  */
 public class PostponeCommand extends Command {
 
@@ -66,24 +66,19 @@ public class PostponeCommand extends Command {
     public void execute(TaskList tasks, Storage storage) throws ChronologerException {
         isIndexValid(tasks);
         Task taskToBePostponed = tasks.getTasks().get(indexOfTask);
-        String description = taskToBePostponed.getDescription();
-        if (isDeadline(taskToBePostponed)) {
-            if (isDeadlineClash(description, startDate, tasks)) {
-                throw new ChronologerException(ChronologerException.taskClash());
-            } else {
-                postponeDate(taskToBePostponed, startDate, tasks, storage);
-                UiTemporary.printOutput(POSTPONED_DEADLINE + taskToBePostponed.toString());
-            }
-        } else if (isEvent(taskToBePostponed)) {
-            if (isEventClash(description, startDate, toDate, tasks)) {
-                throw new ChronologerException(ChronologerException.taskClash());
-            } else {
-                postponeDateRange(taskToBePostponed, startDate, toDate, tasks, storage);
-                UiTemporary.printOutput(POSTPONED_EVENT + taskToBePostponed.toString());
-            }
+
+        if (isDeadlinePostponeable(taskToBePostponed, tasks)) {
+            postponeDate(taskToBePostponed, startDate, tasks, storage);
+            UiTemporary.printOutput(POSTPONED_DEADLINE + taskToBePostponed.toString());
+
+        } else if (isEventPostponeable(taskToBePostponed, tasks)) {
+            postponeDateRange(taskToBePostponed, startDate, toDate, tasks, storage);
+            UiTemporary.printOutput(POSTPONED_EVENT + taskToBePostponed.toString());
+
         } else if (isTodoPeriod(taskToBePostponed)) {
             postponeDateRange(taskToBePostponed, startDate, toDate, tasks, storage);
             UiTemporary.printOutput(POSTPONED_TODO + taskToBePostponed.toString());
+
         } else {
             UiTemporary.printOutput(UNABLE_TO_POSTPONE);
         }
@@ -99,6 +94,45 @@ public class PostponeCommand extends Command {
             UiTemporary.printOutput(ChronologerException.taskDoesNotExist());
             throw new ChronologerException(ChronologerException.taskDoesNotExist());
         }
+    }
+
+    /**
+     * Check if task is deadline and doesn't clash with other deadlines at the same time.
+     *
+     * @param taskToBePostponed The task to be postponed
+     * @param tasks             The list of tasks
+     * @return True if task is a deadline and doesn't clash
+     */
+    private boolean isDeadlinePostponeable(Task taskToBePostponed, TaskList tasks) throws ChronologerException {
+
+        if (isDeadline(taskToBePostponed)) {
+            if (isDeadlineClash(taskToBePostponed.getDescription(), startDate, tasks)) {
+                UiTemporary.printOutput(ChronologerException.taskClash());
+                throw new ChronologerException(ChronologerException.taskClash());
+            } else {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Check if task is event and doesn't clash with other events at the same time.
+     *
+     * @param taskToBePostponed The task to be postponed
+     * @param tasks             The list of tasks
+     * @return True if task is an event and doesn't clash
+     */
+    private boolean isEventPostponeable(Task taskToBePostponed, TaskList tasks) throws ChronologerException {
+        if (isEvent(taskToBePostponed)) {
+            if (isEventClash(taskToBePostponed.getDescription(), startDate, toDate, tasks)) {
+                UiTemporary.printOutput(ChronologerException.taskClash());
+                throw new ChronologerException(ChronologerException.taskClash());
+            } else {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -139,6 +173,7 @@ public class PostponeCommand extends Command {
      */
     private void postponeDateRange(Task taskToBePostponed, LocalDateTime startDate,
                                    LocalDateTime toDate, TaskList tasks, Storage storage) throws ChronologerException {
+        checkEventTodoDate(startDate, taskToBePostponed.getStartDate(), toDate, taskToBePostponed.getEndDate());
         taskToBePostponed.setStartDate(startDate);
         taskToBePostponed.setEndDate(toDate);
         ChronologerStateList.addState((tasks.getTasks()));
@@ -158,10 +193,48 @@ public class PostponeCommand extends Command {
      */
     private void postponeDate(Task taskToBePostponed, LocalDateTime startDate,
                               TaskList tasks, Storage storage) throws ChronologerException {
+        checkDeadlineDate(startDate, taskToBePostponed.getStartDate());
         taskToBePostponed.setStartDate(startDate);
         ChronologerStateList.addState((tasks.getTasks()));
         tasks.updatePriority(null);
         storage.saveFile(tasks.getTasks());
+    }
+
+    /**
+     * Check if new deadline date later than old deadline date.
+     *
+     * @param newStartDate New deadline date
+     * @param oldStartDate Old deadline date
+     * @throws ChronologerException If new deadline date earlier than old deadline date
+     */
+    private void checkDeadlineDate(LocalDateTime newStartDate, LocalDateTime oldStartDate) throws ChronologerException {
+        if (newStartDate.isBefore(oldStartDate)) {
+            UiTemporary.printOutput(ChronologerException.postponeDateError());
+            throw new ChronologerException(ChronologerException.postponeDateError());
+        }
+    }
+
+    /**
+     * Check if event/todo dates are later than the old dates and also checks if enddate later than startdate.
+     *
+     * @param newStartDate New event/Todo start date
+     * @param oldStartDate Old event/Todo start date
+     * @param newEndDate   New event/Todo end date
+     * @param oldEndDate   Old event/Todo end date
+     * @throws ChronologerException If new event dates later than old event dates and if endate earlier than startdate
+     */
+    private void checkEventTodoDate(LocalDateTime newStartDate, LocalDateTime oldStartDate, LocalDateTime
+        newEndDate, LocalDateTime oldEndDate) throws ChronologerException {
+        if (newStartDate.isBefore(oldStartDate) || newEndDate.isBefore(oldEndDate)) {
+            UiTemporary.printOutput(ChronologerException.postponeDateError());
+            throw new ChronologerException(ChronologerException.postponeDateError());
+        }
+
+        if (newEndDate.isBefore(newStartDate)) {
+            UiTemporary.printOutput(ChronologerException.endDateError());
+            throw new ChronologerException(ChronologerException.endDateError());
+        }
+
     }
 
     private boolean isDeadline(Task task) {

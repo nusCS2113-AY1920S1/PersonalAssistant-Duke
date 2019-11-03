@@ -19,12 +19,12 @@ import java.time.LocalDateTime;
  */
 public class AddCommand extends Command {
 
-    private String command;
-    private String taskDescription;
-    private LocalDateTime formattedStartDate;
-    private LocalDateTime formattedEndDate;
-    private int duration = 0;
-    private String modCode;
+    protected String command;
+    protected String taskDescription;
+    protected LocalDateTime formattedStartDate;
+    protected LocalDateTime formattedEndDate;
+    protected int duration = 0;
+    protected String modCode;
 
     /**
      * Initializes the different parameters when adding a task.

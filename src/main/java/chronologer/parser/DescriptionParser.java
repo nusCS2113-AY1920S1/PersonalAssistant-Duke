@@ -46,7 +46,7 @@ public abstract class DescriptionParser extends Parser {
         boolean take = false;
         for (String word : words) {
             if (take) {
-                return word;
+                return word.toUpperCase();
             }
             if (word.equals("/m")) {
                 take = true;

@@ -99,6 +99,9 @@ public class ParserFactory {
         case "examination":
             command = "exam";
             return new EventParser(userInput, command).parse();
+        case "lecture": //fallthrough
+        case "tutorial":
+            return new RecurringEventParser(userInput, command).parse();
         default:
             // Empty string or unknown command.
             UiTemporary.printUnknownInput();

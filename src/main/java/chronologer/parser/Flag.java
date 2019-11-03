@@ -4,7 +4,10 @@ public enum Flag {
     BY("/by"),
     AT("/at"),
     BETWEEN("/between"), FOR("/for"),
-    IN("/in");
+    IN("/in"),
+    DEADLINE("-d"),
+    EVENT("-e"),
+    TODO("-t");
 
     private String flag;
 

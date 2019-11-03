@@ -17,7 +17,7 @@ public class Event extends Task implements Serializable, Comparable<Event> {
     private static final String EVENT = "EVENT";
 
     /**
-     * creates a new Event task.
+     * Creates a new Event task.
      *
      * @param description description of task
      * @param startDate   end time of task
@@ -32,7 +32,7 @@ public class Event extends Task implements Serializable, Comparable<Event> {
     }
 
     /**
-     * creates a new Event task.
+     * Creates a new Event task.
      *
      * @param description description of task
      * @param startDate   end time of task
@@ -44,7 +44,7 @@ public class Event extends Task implements Serializable, Comparable<Event> {
         this.endDate = endDate;
         this.startDate = startDate;
         this.modCode = modCode;
-        if (!modCode.isBlank()) {
+        if (description.equals("exam")) {
             this.priority = Priority.HIGH;
         }
         setReminder(3);
