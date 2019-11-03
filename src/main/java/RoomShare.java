@@ -95,7 +95,9 @@ public class RoomShare {
                 Ui.clearScreen();
                 ui.startUp();
                 try {
-                    taskList.done(parser.getIndexRange());
+                    String input = parser.getCommandLine();
+                    int[] index = parser.getIndexRange(input);
+                    taskList.done(index);
                     ui.showDone();
                 } catch (RoomShareException e) {
                     ui.showError(e);
@@ -107,7 +109,8 @@ public class RoomShare {
                 Ui.clearScreen();
                 ui.startUp();
                 try {
-                    int[] index = parser.getIndexRange();
+                    String input = parser.getCommandLine();
+                    int[] index = parser.getIndexRange(input);
                     taskList.delete(index, tempDeleteList);
                     ui.showDeleted(index);
                 } catch (RoomShareException e) {

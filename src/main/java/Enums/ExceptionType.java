@@ -1,5 +1,27 @@
 package Enums;
 
 public enum ExceptionType {
-    wrongTimeFormat, wrongIndexFormat, writeError, timeClash, emptyList, wrongFormat, emptyUser, outOfBounds, wrongPriority, test, subTask, wrongTaskType, emptyDescription, emptyDate, emptyTaskType, wrongSortFormat, logError, negativeTimeAmount
-}
+    wrongTimeFormat,
+    wrongIndexFormat,
+    wrongSortFormat,
+    wrongTaskType,
+    wrongFormat,
+    wrongPriority,
+    negativeTimeAmount,
+
+    timeClash,
+    emptyList,
+    emptyUser,
+    outOfBounds,
+
+    test,
+    subTaskError,
+
+    emptyDescription,
+    emptyDate,
+    emptyTaskType,
+
+    logError,
+    writeError
+
+    }

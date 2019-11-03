@@ -69,7 +69,7 @@ public class RoomShareException extends Exception {
             message = WRONG_PRIORITY_TEXT;
             break;
 
-        case subTask:
+        case subTaskError:
             message = SUB_TASK_TEXT;
             break;
 

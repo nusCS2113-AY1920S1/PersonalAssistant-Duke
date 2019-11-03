@@ -4,6 +4,7 @@ import CustomExceptions.RoomShareException;
 import Enums.ExceptionType;
 import Enums.SortType;
 import Enums.TimeUnit;
+import javafx.util.Pair;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -77,8 +78,8 @@ public class Parser {
      * Return a single index number or a range of index number requested by users for command 'done' and 'delete'
      * @return a single index or a range of index
      */
-    public int[] getIndexRange() throws RoomShareException {
-        String[] temp = scanner.nextLine().trim().split("-",2);
+    public int[] getIndexRange(String input) throws RoomShareException {
+        String[] temp = input.trim().split("-",2);
         try {
             int[] index;
             if (temp.length == 1) {
@@ -120,7 +121,7 @@ public class Parser {
     public Date formatDateCustom_1(String by) throws RoomShareException {
         try {
             return new SimpleDateFormat("dd/MM/yyyy HH:mm").parse(by);
-        } catch (ParseException e2) {
+        } catch (ParseException | IndexOutOfBoundsException | IllegalArgumentException e2) {
             throw new RoomShareException(ExceptionType.wrongFormat);
         }
     }
@@ -136,6 +137,8 @@ public class Parser {
             String[] temp = by.split(" ");
             String day = temp[0];
             String[] time = temp[1].split(":");
+
+            // extract and validate hours and minutes
             int hours = Integer.parseInt(time[0]);
             int minutes = Integer.parseInt(time[1]);
             date.setHours(hours);
@@ -256,6 +259,8 @@ public class Parser {
         }
 
     }
+
+
 
     /**
      * Returns the index of the task and priority the user wants to set it to

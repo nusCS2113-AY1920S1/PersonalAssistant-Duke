@@ -16,7 +16,7 @@ public class subTaskCreator {
         if (TaskList.get(index) instanceof Assignment) {
             ((Assignment) TaskList.currentList().get(index)).setSubTasks(subTasks);
         } else {
-            throw new RoomShareException(ExceptionType.subTask);
+            throw new RoomShareException(ExceptionType.subTaskError);
         }
     }
 }
