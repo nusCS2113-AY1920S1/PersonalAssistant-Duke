@@ -409,7 +409,7 @@ Format: `recurring INDEX NUMBER_OF_OCCURRENCES FREQUENCY`
 
 Example:
 
-+1.+ The user enters `recurring 1 1 1` 
++1.+ The user enters `recurring 1 1 1`
 
 [[Recurring]]
 .Example to show recurring feature's usage
@@ -491,10 +491,10 @@ Example:
 .Typing free 08-11-2019 into OOF
 image::FreeTimeExample.png[FreeTimeExample, width="890"]
 
-+2.+ `OOF` displays all the free time slots that you have. 
++2.+ `OOF` displays all the free time slots that you have.
 
 [[FreeTimeDisplay]]
-.Typing free with a valid date in the valid format of DD-MM-YYYY 
+.Typing free with a valid date in the valid format of DD-MM-YYYY
 image::FreeTimeDisplay.png[FreeTimeDisplay, width="890"]
 
 ==== Setting reminders for upcoming deadlines: `NIL`
@@ -528,43 +528,43 @@ image::Threshold.png[Threshold]
 
 Tasks that have `deadlines` within 48 hours from the `current time` will be in the reminders.
 
-==== Starting/Stopping/Pausing Assignment Tracker: `tracker`
-You can track an assignment from the current time.
+==== Starting/Stopping/Pausing Task Tracker: `tracker`
+You can track a task from the current time.
 
 Format: `tracker /INSTRUCTION TASK_INDEX MODULE_CODE`
 
 *Options for INSTRUCTION* +
 [horizontal]
-start:: begin tracking an assignment from the current time.
-pause:: pause tracking an assignment from the current time.
-stop:: stop tracking an assignment from the current time.
+start:: begin tracking a task from the current time.
+pause:: pause tracking a task from the current time.
+stop:: stop tracking a task from the current time.
 view:: view a histogram featuring the total amount fo time spent on each module.
 
 Example: `tracker /start 22 cs2101`
 
 [[StartTracker]]
-.Starts Assignment Tracker
+.Starts Task Tracker
 image::StartTracker.png[StartTracker]
 
 Example: `tracker /pause 22 cs2101`
 
 [[PauseTracker]]
-.Pauses Assignment Tracker
+.Pauses Task Tracker
 image::PauseTracker.png[PauseTracker]
 
 Example: `tracker /stop 22 cs2101`
 
 [[StopTracker]]
-.Stops Assignment Tracker
+.Stops Task Tracker
 image::StopTracker.png[StopTracker]
 
-==== Viewing Assignment Tracker: `tracker`
+==== Viewing Task Tracker: `tracker`
 You can view a histogram featuring the amount of time you spend on each module in blocks of 10 minutes with `tracker /view`.
 
 Format: `tracker /view`
 
 [[ViewTracker]]
-.Displays Assignment Tracker by Module Code
+.Displays Task Tracker by Module Code
 image::ViewTracker.png[ViewTracker]
 
 Format: `tracker /view TIME_PERIOD [_coming soon in v1.4_]`
@@ -655,7 +655,7 @@ image::ViewweekDefault.png[ViewweekDefault]
 image::ViewweekParam.png[ViewweekParam]
 
 ====  Viewing all tasks in calendar view: `calendar`
-You can view all your tasks for any month so that you are aware of your schedule for that month. 
+You can view all your tasks for any month so that you are aware of your schedule for that month.
 
 Format: `calendar MM YYYY`
 

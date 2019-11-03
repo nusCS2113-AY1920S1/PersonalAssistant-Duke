@@ -1011,7 +1011,7 @@ public class Ui {
             Tracker moduleTracker = moduleTrackerList.get(i);
             int timeTaken = (int) moduleTracker.getTimeTaken();
             if (timeTaken < SEGMENT_SIZE) {
-                System.out.print("| ");
+                System.out.print("|\n| ");
             } else {
                 int segmentedTimeTaken = timeTaken / SEGMENT_SIZE;
                 printTrackerDiagramBar(segmentedTimeTaken);
