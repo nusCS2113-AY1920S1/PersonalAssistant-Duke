@@ -120,12 +120,18 @@ public class ConsoleInputController implements IController {
     private String[] commandDelete(Scanner inputReader) {
         ArchDukeLogger.logDebug(ConsoleInputController.class.getName(), "[commandDelete] User input: " + inputReader);
         if (inputReader.hasNext()) {
-            int projectIndex = Integer.parseInt(inputReader.next());
-            boolean isProjectDeleted = this.projectRepository.deleteItem(projectIndex);
-            if (isProjectDeleted) {
-                return new String[] {"Project " + projectIndex + " has been deleted"};
-            } else {
-                return new String[] {"Index out of bounds! Please check project index!"};
+            String projectInput = inputReader.next();
+            try {
+                int projectIndex = Integer.parseInt(projectInput);
+                boolean isProjectDeleted = this.projectRepository.deleteItem(projectIndex);
+                if (isProjectDeleted) {
+                    return new String[]{"Project " + projectIndex + " has been deleted"};
+                } else {
+                    return new String[]{"Index out of bounds! Please check project index!"};
+                }
+            } catch (NumberFormatException err) {
+                return new String[]{"Invalid project index: " + projectInput,
+                "Please ensure that the project number is an integer, and that it exists in the repo!"};
             }
         } else {
             return new String[] {"Please enter a project number to delete"};

@@ -202,4 +202,8 @@ public class Project implements IProject {
     public int getIndexOfMember(IMember newMember) {
         return this.memberList.getIndexOfMember(newMember);
     }
+
+    public Member getMember(int indexNumber) {
+        return this.memberList.getMember(indexNumber);
+    }
 }

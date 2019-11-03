@@ -1,6 +1,10 @@
 package controllers;
 
+import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.Scanner;
 import models.member.IMember;
 import models.member.Member;
 import models.project.Project;
@@ -17,11 +21,6 @@ import util.factories.MemberFactory;
 import util.factories.ReminderFactory;
 import util.factories.TaskFactory;
 import util.log.ArchDukeLogger;
-
-import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Scanner;
 
 public class ProjectInputController implements IController {
     private Scanner manageProjectInput;
@@ -180,7 +179,8 @@ public class ProjectInputController implements IController {
         if (newMember.getName() != null) {
             if (projectToManage.MemberExists(newMember)) {
                 return new String[] {"The member you have tried to add already exists!",
-                "Details: " + newMember.getDetails()};
+                    "Member name: " + newMember.getName(),
+                    "Please ensure that each member has a different name."};
             } else {
                 projectToManage.addMember((Member) newMember);
                 return new String[]{"Added new member to: " + projectToManage.getName(), ""
@@ -223,20 +223,37 @@ public class ProjectInputController implements IController {
     public String[] projectDeleteMember(Project projectToManage, String projectCommand) {
         ArchDukeLogger.logDebug(ProjectInputController.class.getName(), "[projectDeleteMember] User input: '"
                 + projectCommand + "'");
+        if (projectCommand.length() <= 14) {
+            return new String[] {"Can't delete members: No member index numbers detected!",
+                "Please enter them as space-separated integers."};
+        }
+        ArrayList<String> outputMessages = new ArrayList<>();
+        ParserHelper parserHelper = new ParserHelper();
+        ArrayList<Integer> validMemberIndexes = parserHelper.parseMembersIndexes(projectCommand.substring(14),
+            projectToManage.getNumOfMembers());
+        outputMessages.addAll(parserHelper.getErrorMessages());
+        if (validMemberIndexes.isEmpty()) {
+            return new String[] {"No valid members to delete."};
+        }
+        Collections.sort(validMemberIndexes);
+        Collections.reverse(validMemberIndexes);
+        for (Integer index : validMemberIndexes) {
+            Member memberToRemove = projectToManage.getMember(index);
+            outputMessages.add("Removed member " + index + ": " + memberToRemove.getDetails());
+            projectToManage.removeMember(memberToRemove);
+        }
+        if (!validMemberIndexes.isEmpty()) {
+            outputMessages.add("Take note that the member indexes might have changed after deleting!");
+        }
+        //Shift this logger statement into ParserHelper to detect anytime there is incorrect input
+        /*
         try {
-            int memberIndexNumber = Integer.parseInt(projectCommand.substring(14).split(" ")[0]);
-            if (projectToManage.getNumOfMembers() >= memberIndexNumber) {
-                Member memberToRemove = projectToManage.getMembers().getMember(memberIndexNumber);
-                projectToManage.removeMember(memberToRemove);
-                return new String[]{"Removed member with the index number " + memberIndexNumber};
-            } else {
-                return new String[]{"The member index entered is invalid."};
-            }
         } catch (IndexOutOfBoundsException e) {
             ArchDukeLogger.logError(ProjectInputController.class.getName(), "[projectEditMember] "
                     + "Please enter the index number of the member to be deleted correctly.");
             return new String[] {"Please enter the index number of the member to be deleted correctly."};
-        }
+        }*/
+        return outputMessages.toArray(new String[0]);
     }
 
     /**
