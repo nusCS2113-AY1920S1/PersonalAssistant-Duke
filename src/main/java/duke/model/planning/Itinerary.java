@@ -90,6 +90,11 @@ public class Itinerary extends AgendaList {
         return result.toString();
     }
 
+    /**
+     * This makes the agenda list of a new Itinerary entered.
+     *
+     * @param itineraryDetails is the details of the itinerary to make.
+     */
     public void makeAgendaList(String[] itineraryDetails) throws ParseException {
         List<Agenda> agendaList = new ArrayList<>();
         int i = 4;

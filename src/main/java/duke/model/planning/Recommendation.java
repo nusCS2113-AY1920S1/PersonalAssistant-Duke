@@ -33,26 +33,30 @@ public class Recommendation {
      * @return The number of days of the trip
      */
 
-    public Itinerary makeItinerary(String[] itineraryDetails) throws ParseException, ApiException,
+    public Itinerary makeItinerary(String[] itineraryDetails) throws ParseException,
             StartEndDateBeforeNowException, StartEndDateDiscordException {
+        LocalDateTime start = ParserTimeUtil.parseStringToDate(itineraryDetails[1].strip());
+        LocalDateTime end = ParserTimeUtil.parseStringToDate(itineraryDetails[2].strip());
         try {
-            ApiParser.getLocationSearch(itineraryDetails[0].strip());
-        } catch (ApiException e) {
-            LocalDateTime start = ParserTimeUtil.parseStringToDate(itineraryDetails[1].strip());
-            LocalDateTime end = ParserTimeUtil.parseStringToDate(itineraryDetails[2].strip());
-
-            Itinerary itinerary = new Itinerary(start, end, hotelLocation, "New Recommendation");
-
-            List<Agenda> agendaList1 = new ArrayList<>(agendaList.subList(0, getNumberOfDays(start, end)));
-
-            assert (!agendaList1.isEmpty()) : "list should not be null";
-            itinerary.setTasks(agendaList1);
-
-            return itinerary;
-        } finally {
             Venue hotelLocation = ApiParser.getLocationSearch(itineraryDetails[0].strip());
-
+            return getAgenda(start, end, hotelLocation);
+        } catch (ApiException e) {
+            Venue hotelLocation = new Venue("DUMMY LOCATION", 1.3973210291170202,
+                    103.753758637401, 0, 0);
+            return getAgenda(start, end, hotelLocation);
         }
+    }
+
+    private Itinerary getAgenda(LocalDateTime start, LocalDateTime end, Venue hotelLocation) throws
+            StartEndDateBeforeNowException, StartEndDateDiscordException {
+        Itinerary itinerary = new Itinerary(start, end, hotelLocation, "New Recommendation");
+
+        List<Agenda> agendaList1 = new ArrayList<>(agendaList.subList(0, getNumberOfDays(start, end)));
+
+        assert (!agendaList1.isEmpty()) : "list should not be null";
+        itinerary.setTasks(agendaList1);
+
+        return itinerary;
     }
 
     private int getNumberOfDays(LocalDateTime start, LocalDateTime end) throws
