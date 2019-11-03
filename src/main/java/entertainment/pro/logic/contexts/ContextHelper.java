@@ -2,10 +2,13 @@ package entertainment.pro.logic.contexts;
 
 import entertainment.pro.commons.enums.COMMANDKEYS;
 import entertainment.pro.logic.parsers.CommandStructure;
+import entertainment.pro.model.UserProfile;
 import entertainment.pro.storage.user.Blacklist;
+import entertainment.pro.storage.utils.EditProfileJson;
 import entertainment.pro.ui.Controller;
 import entertainment.pro.ui.MovieHandler;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Map;
@@ -256,30 +259,37 @@ public class ContextHelper {
             return CommandContext.getRoot();
         } else if (splitCommand.length == ONE_WORD && isRootCommandComplete(splitCommand[0])) {
             allPossibilities =  CommandContext.getPossibilitiesSubRootGivenRoot(splitCommand[0]);
-            updateCommandInputFieldWithHints(controller , allPossibilities , "");
+            updateCommandInputFieldWithHints(controller, allPossibilities, "");
 //            String update = completeCommand(allPossibilities, "");
 //            ((MovieHandler) controller).updateTextField(update);
 //            return allPossibilities;
         } else if (splitCommand.length == ONE_WORD) {
             allPossibilities =  CommandContext.getPossibilitiesForRoot(incompleteCommand);
-            updateCommandInputFieldWithHints(controller , allPossibilities , incompleteCommand);
+            updateCommandInputFieldWithHints(controller, allPossibilities, incompleteCommand);
 //            String update = completeCommand(allPossibilities, incompleteCommand);
 //            ((MovieHandler) controller).updateTextField(update);
 //            return allPossibilities;
         } else if (splitCommand.length == TWO_WORDS && isSubRootCommandComplete(splitCommand[1])) {
-            allPossibilities  = commandSpecificHints(
+            if (splitCommand[0].equalsIgnoreCase("playlist")) {
+                try {
+                    return new EditProfileJson().load().getPlaylistNames();
+                } catch (IOException e) {
+                    return null;
+                }
+            }
+            allPossibilities = commandSpecificHints(
                     splitCommand[0],
                     splitCommand[1],
                     "");
 
             if (allPossibilities.size() > 10) {
-                allPossibilities = getSubList(allPossibilities , 10);
+                allPossibilities = getSubList(allPossibilities, 10);
             }
 //            return allPossibilities;
         } else if (splitCommand.length == TWO_WORDS) {
             allPossibilities = CommandContext
                     .getPossibilitiesSubRoot(splitCommand[0], incompleteCommand);
-            updateCommandInputFieldWithHints(controller , allPossibilities , incompleteCommand);
+            updateCommandInputFieldWithHints(controller, allPossibilities, incompleteCommand);
 //            String update = completeCommand(allPossibilities, incompleteCommand);
 //            ((MovieHandler) controller).updateTextField(update);
 //            return allPossibilities;
@@ -289,7 +299,7 @@ public class ContextHelper {
                     splitCommand[1],
                     incompleteCommand);
 
-            updateCommandInputFieldWithHints(controller , allPossibilities , incompleteCommand);
+            updateCommandInputFieldWithHints(controller, allPossibilities, incompleteCommand);
 
 //            String update = completeCommand(allPossibilities, incompleteCommand);
 //            ((MovieHandler) controller).updateTextField(update);
