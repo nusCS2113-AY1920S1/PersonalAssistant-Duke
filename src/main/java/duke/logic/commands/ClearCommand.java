@@ -9,6 +9,7 @@ import duke.storage.Storage;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
+//@@author HashirZahir
 /**
  * ClearCommand is a public class that inherits from abstract class Command.
  * A ClearCommand object encapsulates the 2 dates between which all meal data will be cleared.

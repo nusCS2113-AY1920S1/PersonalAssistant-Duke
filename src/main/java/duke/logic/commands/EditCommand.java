@@ -6,9 +6,9 @@ import duke.model.meal.MealList;
 import duke.model.user.User;
 import duke.model.wallet.Wallet;
 import duke.storage.Storage;
-
 import java.time.LocalDate;
 
+//@@author HashirZahir
 public class EditCommand extends Command {
     private Meal updatedMeal;
 
