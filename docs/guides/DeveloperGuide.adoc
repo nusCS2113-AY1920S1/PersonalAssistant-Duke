@@ -165,6 +165,22 @@ This process repeats until all the email information in the response is processe
 [caption="Figure N+1: "]
 image::EmailContentParseHelper.png[Content Parsing, 800]
 
+Email content parsing is to parse the keyword from different components of an email.
+
+Email content parsing starts with the calling of `allKeywordInEmail(email)` and parse in the email in
+`Email` type.
+
+It then gets all the `KeywordPair` from the `KeywordList`. A `KeywordPair` contains a human readable
+`keyword` signifying the "meaning" of the keyword. It also contains multiple `expressions` which will be
+looked through the email for matches.
+
+For each email component (subject, sender, body etc), the `keywordInString(emailComponent, keywordPair)` is
+called to search for matches across these components. It will then return a relevance score. Higher
+relevance score means a more occurrence. Keyword with all its expressions absent in the email will get a 0
+relevance score. Also, subject and sender will have a higher weights compared to the email body.
+
+Each keyword searched in the email with a relevance score higher than 0 (at least 1 occurrence), will be
+added to the email as a tag by calling `addTag(keywordPair, relevanceScore)`.
 
 ==== Email Tagging
 *Email Manager* allows user to tag emails by tags.
@@ -192,6 +208,17 @@ An example usage of the command is as follows:
 *Step 2* :
 
 ===== Design Considerations
+Aspect: Handling updating of tags
+
+* Alternative 1 (current choice): if at least one tag is entered as part of the command, it will overwrite all current tags of the task being modified.
+** Pros: makes it consistent with other parameters of the update command and gives users an option to replace/remove tags
+** Cons: if there are many tags, and the user only wants to add on an extra tag, the user will need to retype all existing tags into the command.
+* Alternative 2: if a tag is entered as part of the command, it will amend on top of existing tags.
+** Pros: this will save users time if they only want to add on tags
+** Cons: no option to remove tags
+* Alternative 3 (proposed): there will be an option to add tags and an option to remove tags.
+** Pros: gives users highest amount of flexibility and control over the tags they want to keep.
+** Cons: added complexity in commands
 
 ==== Email Filtering by Tag(s)
 *Email Manager* allows user to filter emails by tag(s).
@@ -244,39 +271,6 @@ instead of just its size
 == Testing
 
 == Dev Ops
-
-Email content parsing is to parse the keyword from different components of an email.
-
-Email content parsing starts with the calling of `allKeywordInEmail(email)` and parse in the email in
-`Email` type.
-
-It then gets all the `KeywordPair` from the `KeywordList`. A `KeywordPair` contains a human readable
-`keyword` signifying the "meaning" of the keyword. It also contains multiple `expressions` which will be
-looked through the email for matches.
-
-For each email component (subject, sender, body etc), the `keywordInString(emailComponent, keywordPair)` is
-called to search for matches across these components. It will then return a relevance score. Higher
-relevance score means a more occurrence. Keyword with all its expressions absent in the email will get a 0
-relevance score. Also, subject and sender will have a higher weights compared to the email body.
-
-Each keyword searched in the email with a relevance score higher than 0 (at least 1 occurrence), will be
-added to the email as a tag by calling `addTag(keywordPair, relevanceScore)`.
-
-=== Design considerations
-
-Aspect: Handling updating of tags
-
-* Alternative 1 (current choice): if at least one tag is entered as part of the command, it will overwrite all current tags of the task being modified.
-** Pros: makes it consistent with other parameters of the update command and gives users an option to replace/remove tags
-** Cons: if there are many tags, and the user only wants to add on an extra tag, the user will need to retype all existing tags into the command.
-* Alternative 2: if a tag is entered as part of the command, it will amend on top of existing tags.
-** Pros: this will save users time if they only want to add on tags
-** Cons: no option to remove tags
-* Alternative 3 (proposed): there will be an option to add tags and an option to remove tags.
-** Pros: gives users highest amount of flexibility and control over the tags they want to keep.
-** Cons: added complexity in commands
-
-
 === Build Automation
 We use https://gradle.org/[Gradle] for _build automation.
 See link:{repoURL}/tutorials/gradleTutorial.md[Gradle Tutorial] for more details.
