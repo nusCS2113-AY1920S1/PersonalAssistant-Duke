@@ -636,11 +636,12 @@ public class DukeUi {
         printDukeResponse(output);
     }
 
-    public void showUpcomingTasks(String date, ArrayList<AssignedTask> tasks) {
+    public void showUpcomingTasks(String date, ArrayList<String> taskDescriptions, ArrayList<AssignedTask> tasks) {
         String output = "";
         output += date + ":\n";
-        for (AssignedTask task : tasks) {
-            output += task.toString() + "\n";
+        for (int i = 0; i < tasks.size(); i++) {
+            output += "Unique ID: " + tasks.get(i).getUuid() + ".\nDescription: "
+                    + taskDescriptions.get(i) + "\n\n";
         }
         printDukeResponse(output);
 
