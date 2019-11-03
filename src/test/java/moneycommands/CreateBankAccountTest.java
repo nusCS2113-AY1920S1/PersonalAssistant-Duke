@@ -8,6 +8,7 @@ import money.BankTracker;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.ParseException;
@@ -19,7 +20,7 @@ public class CreateBankAccountTest {
     private MoneyStorage moneyStorage;
     private static String SAMPLE_INPUT1 = "bank-account OCBC /amt 30 /at 27/7/2017 /rate 0.005";
 
-    CreateBankAccountTest() {
+    CreateBankAccountTest() throws IOException {
         ui = new Ui();
         Path currentDir = Paths.get("data/account-test.txt");
         String filePath = currentDir.toAbsolutePath().toString();
