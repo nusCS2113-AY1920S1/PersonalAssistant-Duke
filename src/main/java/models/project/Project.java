@@ -190,4 +190,7 @@ public class Project implements IProject {
         this.reminderList.addReminderList(reminder);
     }
 
+    public String getTaskIndexName(Integer index) {
+        return getTask(index).getTaskName();
+    }
 }

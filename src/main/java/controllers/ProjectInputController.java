@@ -1,5 +1,6 @@
 package controllers;
 
+import java.util.Collections;
 import models.member.IMember;
 import models.member.Member;
 import models.project.Project;
@@ -322,14 +323,22 @@ public class ProjectInputController implements IController {
     public String[] projectDeleteTask(Project projectToManage, String projectCommand) {
         ArchDukeLogger.logDebug(ProjectInputController.class.getName(), "[projectDeleteTask] User input: '"
                 + projectCommand + "'");
-        int taskIndexNumber = Integer.parseInt(projectCommand.substring(12).split(" ")[0]);
-        if (projectToManage.getNumOfTasks() >= taskIndexNumber) {
-            String removedTaskString = "Removed " + projectToManage.getTask(taskIndexNumber).getTaskName();
-            projectToManage.removeTask(taskIndexNumber);
-            return new String[] {removedTaskString};
-        } else {
-            return new String[] {"The task index entered is invalid."};
+        if (projectCommand.length() <= 12) {
+            return new String[] {"No task number detected! Please enter the task index number."};
         }
+        ArrayList<String> outputMessages = new ArrayList<>();
+        ParserHelper parserHelper = new ParserHelper();
+        ArrayList<Integer> validTaskIndexes = parserHelper.parseTasksIndexes(projectCommand.substring(12),
+            projectToManage.getNumOfTasks());
+        outputMessages.addAll(parserHelper.getErrorMessages());
+        // Sort to ensure task indexes work in the correct way
+        Collections.sort(validTaskIndexes);
+        Collections.reverse(validTaskIndexes);
+        for (Integer index: validTaskIndexes) {
+            outputMessages.add("Removed task " + index + ": " + projectToManage.getTaskIndexName(index));
+            projectToManage.removeTask(index);
+        }
+        return outputMessages.toArray(new String[0]);
     }
 
     /**
