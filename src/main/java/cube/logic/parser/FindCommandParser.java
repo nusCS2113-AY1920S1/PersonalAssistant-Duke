@@ -38,7 +38,11 @@ public class FindCommandParser implements ParserPrototype<FindCommand> {
                     }
                 }
                 if (sortIndex!=-1) {
-                    return new FindCommand(type,"TYPE", FoodList.SortType.valueOf(args[sortIndex+1].toUpperCase()));
+                    if (FoodList.SortType.IsDefined(args[sortIndex+1])){
+                        return new FindCommand(type,"TYPE", FoodList.SortType.valueOf(args[sortIndex+1].toUpperCase()));
+                    } else {
+                        throw new ParserException(ParserErrorMessage.INVALID_SORT_TYPE);
+                    }
                 }
                 return new FindCommand(type,"TYPE");
         }

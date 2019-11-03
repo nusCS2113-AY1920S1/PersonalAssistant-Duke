@@ -7,7 +7,14 @@ public class FoodList{
 	private ArrayList<Food> foodArrayList;
 
 	public enum SortType {
-		EXPIRY, NAME, STOCK
+		EXPIRY, NAME, STOCK;
+
+        public static boolean IsDefined(String temp){
+            if(temp.equals("EXPIRY")||temp.equals("NAME")||temp.equals("STOCK")) {
+                return true;
+            }
+            return false;
+        }
 	}
 
 	public FoodList() {

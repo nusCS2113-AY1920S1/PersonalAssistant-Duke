@@ -126,10 +126,10 @@ public class ParserUtil {
 	 *         false otherwise.
 	 */
 	public static boolean isValidNumber (String input) {
-		int number;
+		double number;
 		try{
-			number = Integer.parseInt(input);
-			if (number<0){
+			number = Double.parseDouble(input);
+			if (number<0||number>=10000){
 				return false;
 			}
 			return true;

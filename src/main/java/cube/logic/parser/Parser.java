@@ -44,8 +44,6 @@ public class Parser {
 				return new AddCommandParser().parse(inputs);
 			case "batch":
 				return new BatchCommandParser().parse(inputs);
-			case "reminder":
-				return new ReminderCommandParser().parse(inputs);
 			case "config":
 				return new ConfigCommandParser().parse(inputs);
 			case "delete":
@@ -58,6 +56,8 @@ public class Parser {
 				return new ListCommandParser().parse(inputs);
 			case "promotion":
 				return new PromotionCommandParser().parse(inputs);
+			case "reminder":
+				return new ReminderCommandParser().parse(inputs);
 			case "revenue" :
 				//TODO: improve generate revenue
 				return new RevenueCommandParser().parse(inputs);

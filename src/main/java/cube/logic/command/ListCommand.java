@@ -36,7 +36,6 @@ public class ListCommand extends Command{
 	/**
 	 *
 	 *
-	 * @param list The food list.
 	 * @param storage The current Storage.
 	 * @return The message feedback to user before Programme Exit.
 	 */
