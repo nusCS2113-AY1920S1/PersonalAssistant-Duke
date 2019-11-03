@@ -205,7 +205,7 @@ An example usage of the command is as follows:
 
 *Step 1*: The user launches the application. The user inputs `email update 2 -tag Fun -tag Project`
 
-*Step 2*: `UI` component captures the input and passes to `Logic` component to parse the input. Below
+*Step 2*: `UI` component captures the input and passes to `Logic` component to parse the input. Section below
 explains how `Logic` component parse the input.
 
 * `CommandParseHelper` takes in the `input`, parses and extracts tags information and stores it
@@ -232,8 +232,8 @@ the `EmailTagCommand` to `CommandParseHelper` and then to `UI`
 
 *Step 6*: `EmailList` returns a String `responseMsg` to `EmailTagCommand`.
 
-** `responseMsg` here is "Tags added: [Project, Fun] to email: <title of email at index 2>"
-
+** `responseMsg` here is: +
+ "Tags added: [Project, Fun] to email: <title of email at index 2>"
 
 ===== Design Considerations
 
@@ -270,9 +270,42 @@ image::emailFilterSequenceDiagram.jpg[Email Filter Sequence Diagram, 800]
 
 An example usage of the command is as follows:
 
-*Step 1* :
+*Step 1* : The user launches the application. The user wishes to tag the 2nd email in the list with "Fun"
+and "Project" (Implementation of part is explained in Section 5.3.2). After tagging the email, the user wishes
+to view the list of emails with these tags, hence the user inputs `email list -tag Fun -tag Project`.
 
-*Step 2* :
+*Step 2* : `UI` component captures the input and passes to `Logic` component to parse the input. Section below
+explains how `Logic` component parse the input.
+
+* `CommandParseHelper` takes in the `input`, parses and extracts tags information and stores it
+inside ArrayList<Option>  `optionList`, then passes the `input` and `optionList` to `EmailCommandParseHelper`.
+** `input` here is `email list`
+** `optionList` here is `[tag=Fun, tag=Project]`
+* `EmailCommandParseHelper` parses the `input` and extract tags information `optionList` and
+stores it in ArrayList<String> `tags`.
+** `tags` here is `[Fun, Project]`
+* `EmailCommandParseHelper` creates a new `EmailTagListCommand` by passing in `tags`, then return
+the `EmailTagListCommand` to `CommandParseHelper` and then to `UI`
+
+*Step 3* : `EmailTagListCommand#execute(model)` is called by `UI`.
+
+*Step 4*: `EmailTagListCommand` calls `EmailTags#displayEmailTagList(tags)`.
+
+*Step 5*: `EmailTags` checks the conditions of the each tags in `tags`, we say that a tag exists if there
+is email with the tag. If none of the emails has the tag, we say that the tag does not exist. We say that
+both tags co-exist if there is email with both tags.
+
+** In this example, both tags `Fun` and `Project` co-exist.
+
+*Step 6*: `EmailTags` call `TagMap.get("Fun").get("Project")`. `TagMap` returns `emailList` which is the
+email(s) tagged with both `Fun` and `Project`.
+
+*Step 7*: `EmailTags` returns a String `responseMsg` to `EmailTagListCommand`.
+
+** `responseMsg` here is: +
+"Here is the email tagged with both #Project and #Fun: <list of title of email(s)
+with both tags>"
+
 
 ===== Design Considerations
 The tags associated with emails is stored in HashMap<String, HashMap<String, EmailList>>,
