@@ -87,7 +87,7 @@ public interface Model {
 
     Itinerary getRecentItinerary();
 
-    void storeNewItinerary(Itinerary itinerary, String[] itineraryDetails) throws ParseException;
+    void storeNewItinerary(Itinerary itinerary) throws ParseException;
 
     void confirmRecentItinerary();
 

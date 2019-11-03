@@ -43,7 +43,8 @@ public class NewItineraryCommand extends Command {
         Venue hotelLocation = ApiParser.getLocationSearch(hotel);
         Itinerary itinerary = new Itinerary(start, end, hotelLocation, name);
         itinerary.getNumberOfDays();
-        model.storeNewItinerary(itinerary, itineraryDetails);
+        itinerary.makeAgendaList(itineraryDetails);
+        model.storeNewItinerary(itinerary);
         model.save();
         return new CommandResultText("New Itinerary Created with name:" + itinerary.getName());
     }

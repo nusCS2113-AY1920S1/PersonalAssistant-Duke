@@ -105,13 +105,13 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void storeNewItinerary(Itinerary itinerary, String[] itineraryDetails) throws ParseException {
-        storage.storeNewItinerary(itinerary, itineraryDetails);
+    public void storeNewItinerary(Itinerary itinerary) {
+        this.itineraryTable.put(itinerary.getName(), itinerary);
     }
 
     @Override
     public void confirmRecentItinerary() {
-        storage.confirmRecentItinerary(recentItinerary);
+        this.itineraryTable.put(recentItinerary.getName(), recentItinerary);
     }
 
     @Override

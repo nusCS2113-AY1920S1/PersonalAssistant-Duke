@@ -36,6 +36,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -51,7 +52,6 @@ public class Storage {
     private ProfileCard profileCard;
     private Recommendation recommendation;
     private HashMap<String, Itinerary> itineraryTable;
-    private Itinerary newItinerary;
 
     private static final String BUS_FILE_PATH = "/data/bus.txt";
     private static final String RECOMMENDATIONS_FILE_PATH = "/data/recommendations.txt";
@@ -338,29 +338,20 @@ public class Storage {
     public void writeNewItinerary() throws FileNotSavedException {
         String file = ITINERARIES_FILE_PATH;
         try {
-            if (newItinerary != null) {
-                FileWriter writer = new FileWriter(file, true);
-                writer.write(newItinerary.getName() + "\n" + newItinerary.getStartDate().toString() + "\n"
-                        + newItinerary.getEndDate().toString() + "\n"
-                        + newItinerary.getHotelLocation().toString() + "\n");
-                for (Agenda agenda : newItinerary.getList()) {
+            FileWriter writer = new FileWriter(file, false);
+            for (Map.Entry<String,Itinerary> entry : itineraryTable.entrySet()) {
+                writer.write(entry.getKey() + "\n" + entry.getValue().getStartDate().toString() + "\n"
+                        + entry.getValue().getEndDate().toString() + "\n"
+                        + entry.getValue().getHotelLocation().toString() + "\n");
+                for (Agenda agenda : entry.getValue().getList()) {
                     writer.write(agenda.toString());
                 }
                 writer.write("\n");
-                writer.close();
             }
+            writer.close();
         } catch (IOException e) {
             throw new FileNotSavedException(file);
         }
-    }
-
-    /**
-     * Retrieves an itinerary from persistent storage based on its serial number.
-     *
-     * @param name The itineraries serial number.
-     */
-    public Itinerary getItinerary(String name) {
-        return itineraryTable.get(name);
     }
 
     public EventList getEvents() {
@@ -381,61 +372,6 @@ public class Storage {
 
     public Recommendation getRecommendations() {
         return recommendation;
-    }
-
-    /**
-     * Stores a newly added itinerary.
-     *
-     * @throws ParseException If itinerary is not parsed properly.
-     */
-    public void storeNewItinerary(Itinerary itinerary, String[] itineraryDetails) throws ParseException {
-        List<Agenda> agendaList = new ArrayList<>();
-        int i = 4;
-        try {
-            while (i < itineraryDetails.length) {
-                List<Venue> venueList = new ArrayList<>();
-                List<Todo> todoList = new ArrayList<>();
-                final int number = Integer.parseInt(itineraryDetails[i++]);
-                while (itineraryDetails[i].equals("/venue")) {
-                    i++;
-                    venueList.add(ApiParser.getLocationSearch(itineraryDetails[i++]));
-                    StringBuilder todos = new StringBuilder();
-                    if (i == itineraryDetails.length - 1 || itineraryDetails[i].matches("-?\\d+")) {
-                        throw new ParseException(Messages.ITINERARY_EMPTY_TODOLIST);
-                    }
-                    todos.append(itineraryDetails[++i]).append("|");
-                    i++;
-                    while (itineraryDetails[i].equals("/and")) {
-                        i++;
-                        todos.append(itineraryDetails[i++]).append("|");
-                        if (i >= itineraryDetails.length) {
-                            break;
-                        }
-                    }
-                    todoList = ParserStorageUtil.getTodoListFromStorage(todos.toString());
-                    if (i >= itineraryDetails.length) {
-                        break;
-                    }
-                }
-                Agenda agenda = new Agenda(todoList, venueList, number);
-                agendaList.add(agenda);
-                itinerary.setTasks(agendaList);
-
-                this.itineraryTable.put(itinerary.getName(), itinerary);
-                this.newItinerary = itinerary;
-            }
-        } catch (ArrayIndexOutOfBoundsException e) {
-            throw new ParseException(Messages.ITINERARY_FAIL_CREATION);
-        } catch (NumberFormatException e) {
-            throw new ParseException(Messages.ITINERARY_INCORRECT_COMMAND);
-        } catch (ApiException | ParseException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void confirmRecentItinerary(Itinerary recentItinerary) {
-        this.itineraryTable.put(recentItinerary.getName(), recentItinerary);
-        this.newItinerary = recentItinerary;
     }
 
     public HashMap<String, Itinerary> getItineraryTable() {
