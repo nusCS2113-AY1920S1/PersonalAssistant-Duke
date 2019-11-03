@@ -2,91 +2,50 @@ package dolla.command;
 
 import dolla.DollaData;
 import dolla.action.Redo;
-import dolla.action.Repeat;
 import dolla.action.Undo;
-import dolla.parser.MainParser;
-import dolla.parser.Parser;
+import dolla.task.Record;
 
+import java.util.ArrayList;
+
+//@@author yetong1895
 public class AddActionCommand extends Command {
     private String mode;
     private String command;
-    private String actionInput;
-    private int prevPosition;
-    private static final String EMPTY_STACK_MESSAGE = "empty stack";
-    private static final String NULL_MESSAGE = "null";
+    private ArrayList<Record> recordList;
 
-    //@@author yetong1895
     /**
-     * create an instance of AddActionCommand.
-     * @param mode    the mode that the user is in.
-     * @param command the command that the user input.
+     * This method will set the mode and command in this class.
+     * @param mode the mode to be set in this class.
+     * @param command the command to be set in this class.
      */
     public AddActionCommand(String mode, String command) {
         this.mode = mode;
         this.command = command;
     }
 
-    /**
-     * This method will get the action input from undo with respect
-     * the the mode that the user is in.
-     */
-    private void undoCommand() {
-        actionInput = Undo.processCommand(mode);
-        if (!actionInput.equals(EMPTY_STACK_MESSAGE)) {
-            String[] parser = actionInput.split(" ", 2);
-            if (parser[0].equals("remove")) {
-                actionInput = parser[0] + " " + parser[1];
-            } else {
-                prevPosition = Integer.parseInt(parser[0]);
-                actionInput = parser[1];
-            }
-        }
-    }
-
-    /**
-     * This method will get teh action input from redo.
-     */
-    private void redoCommand() {
-        actionInput = Redo.processRedo(mode);
-    }
-
-    /**
-     * This method will get the value of actionInput by calling the respective method to get it.
-     */
-    private void processActionInput() {
+    @Override
+    public void execute(DollaData dollaData) throws Exception {
         switch (command) {
         case "undo":
-            undoCommand();
+            recordList = Undo.processUndoState(mode);
+            if (recordList != null) {
+                Redo.addToStateList(mode, dollaData.getRecordList(mode));
+                dollaData.setRecordList(recordList);
+                System.out.println("an undo entry have performed");
+            }
             break;
         case "redo":
-            redoCommand();
-            break;
-        case "repeat":
-            actionInput = Repeat.getRepeatInput(mode);
+            recordList = Redo.processRedoState(mode);
+            if (recordList != null) {
+                Undo.addToStateList(mode, dollaData.getRecordList(mode));
+                dollaData.setRecordList(recordList);
+                System.out.println("an redo entry have performed");
+            }
             break;
         default:
             break;
         }
-    }
 
-    @Override
-    public void execute(DollaData dollaData) throws Exception {
-        processActionInput();
-        if (!actionInput.equals(EMPTY_STACK_MESSAGE) && !actionInput.equals(NULL_MESSAGE)) {
-            switch (command) {
-            case "undo":
-                setPrevPosition();
-                break;
-            case "redo":
-                setRedoFlag();
-                break;
-            default:
-                break;
-            }
-
-            Command c = MainParser.handleInput(mode, actionInput);
-            c.execute(dollaData);
-        }
     }
 
     @Override
@@ -94,18 +53,4 @@ public class AddActionCommand extends Command {
         return null;
     }
 
-
-    /**
-     * This method will set the previous position int in the respective mode.
-     */
-    private void setPrevPosition() {
-        Parser.setPrevPosition(prevPosition);
-    }
-
-    /**
-     * This method will call the setRedoFlag method in the respective mode.
-     */
-    private void setRedoFlag() {
-        Parser.setRedoFlag();
-    }
 }

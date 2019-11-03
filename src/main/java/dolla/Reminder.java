@@ -29,7 +29,7 @@ public class Reminder {
      */
     public void showReminder(DollaData dollaData) {
         RecordList recordList = new RecordList(new ArrayList<>());
-        recordList = dollaData.getRecordList(mode);
+        recordList = dollaData.getRecordListObj(mode);
         today = LocalDate.now();
         printReminder(today, recordList);
     }

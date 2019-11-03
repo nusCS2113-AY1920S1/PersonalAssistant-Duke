@@ -17,6 +17,13 @@ public interface ParserStringList {
     String LIMIT_COMMAND_LIST = "limits";
     String LIMIT_COMMAND_SET = "set";
 
+    String LIMIT_TYPE_S = "saving";
+    String LIMIT_TYPE_B = "budget";
+
+    String LIMIT_DURATION_D = "daily";
+    String LIMIT_DURATION_W = "weekly";
+    String LIMIT_DURATION_M = "monthly";
+
     // Commands specific to Debt mode
     String DEBT_COMMAND_OWE = "owe";
     String DEBT_COMMAND_BORROW = "borrow";
@@ -43,4 +50,8 @@ public interface ParserStringList {
     String SORT_TYPE_DESC = "description";
     String SORT_TYPE_NAME = "name";
 
+    //Components used in Action
+    String COMMAND_REDO = "redo";
+    String COMMAND_UNDO = "undo";
+    String COMMAND_REPEAT = "repeat";
 }

@@ -23,15 +23,15 @@ public class DebtList extends RecordList {
     }
 
     @Override
-    public void insertPrevPosition(int prevPosition, Record newRecord) {
-        super.insertPrevPosition(prevPosition, newRecord);
+    public void removeFromList(int index) {
+        super.removeFromList(index);
         StorageWrite.setDebts(get()); //save
     }
 
     @Override
-    public void removeFromList(int index) {
-        super.removeFromList(index);
-        StorageWrite.setDebts(get()); //save
+    public void setRecordList(ArrayList<Record> recordList) {
+        this.list = recordList;
+        StorageWrite.setDebts(get());
     }
 
     /**
@@ -45,7 +45,7 @@ public class DebtList extends RecordList {
     public int findExistingRecordIndex(DollaData dollaData, Record inputRecord, String mode) {
         Debt debt = (Debt) inputRecord;
         int index = - 1;
-        DebtList debtList = (DebtList) dollaData.getRecordList(mode);
+        DebtList debtList = (DebtList) dollaData.getRecordListObj(mode);
         for (int i = 0; i < debtList.size(); i++) {
             Debt currDebt = (Debt) (debtList.getFromList(i));
             String currType = currDebt.type;

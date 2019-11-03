@@ -1,106 +1,69 @@
 package dolla.action;
 
-import dolla.ui.ActionUi;
+import dolla.ModeStringList;
 
-import java.util.EmptyStackException;
-import java.util.Stack;
+import dolla.action.state.LimitState;
+import dolla.action.state.DebtState;
+import dolla.action.state.EntryState;
+import dolla.action.state.RedoStateList;
+import dolla.action.state.State;
+import dolla.task.Record;
+import java.util.ArrayList;
 
-public class Redo {
-    private static String redoInput;
-    private static String userInput;
-    private static String mode;
-    private static int index;
+//@@author yetong1895
+public class Redo implements ModeStringList {
+    private static State state;
+    private static ArrayList<Record> list;
 
-    private static Stack<String> redoEntryCommand = new Stack<>();
-    private static Stack<String> redoDebtCommand = new Stack<>();
-    private static Stack<String> redoLimitCommand = new Stack<>();
-
-
-    //@@author yetong1895
     /**
-     * This method will process a "add" command.
-     * @param mode      the mode that the user is in.
-     * @param userInput the input from the user.
+     * This method will get the state from the RedoStateList containing all the states.
+     * @param mode the mode that the program is in.
      */
-    public static void addCommand(String mode, String userInput) {
-        Redo.mode = mode;
-        Redo.userInput = userInput;
-        add();
+    public static void receiveRedoState(String mode) {
+        state = RedoStateList.getState(mode);
     }
 
     /**
-     * This method will process a "remove" command.
-     * @param mode  the mode that the user is in.
-     * @param index the index of the removing string.
+     * This method will add the current state to the RedoStateList containing all the states.
+     * @param mode the mode that the program is in.
+     * @param currStatelist the ArrayList containing the current state.
      */
-    public static void removeCommand(String mode, int index) {
-        Redo.mode = mode;
-        Redo.index = index + 1;
-        remove();
-    }
-
-    /**
-     * This method will push the "add" command into the respective stack
-     * depending on the current mode.
-     */
-    private static void add() {
-        if (mode.equals("entry")) {
-            redoEntryCommand.push("add " + userInput);
-        } else if (mode.equals("debt")) {
-            redoDebtCommand.push(userInput);
-        } else {
-            redoLimitCommand.push(userInput);
+    public static void addToStateList(String mode, ArrayList<Record> currStatelist) {
+        if (mode.equals(MODE_ENTRY)) {
+            RedoStateList.addState(new EntryState(currStatelist), mode);
+        } else if (mode.equals(MODE_DEBT)) {
+            RedoStateList.addState(new DebtState(currStatelist), mode);
+        } else if (mode.equals(MODE_LIMIT)) {
+            RedoStateList.addState(new LimitState(currStatelist), mode);
         }
     }
 
     /**
-     * This method will push the "remove" command into the respective stack
-     * depending on the current mode. The "|redo" serve as an indication that
-     * this command come from "redo".
+     * This method will return the state obtained from a state with respect to the mode.
+     * @param mode the mode that the program is in.
+     * @return list the ArrayList containing the redo state.
      */
-    private static void remove() {
-        redoInput = "remove " + index + "|redo";
-        if (mode.equals("entry")) {
-            redoEntryCommand.push(redoInput);
-        } else if (mode.equals("debt")) {
-            redoDebtCommand.push(redoInput);
-        } else {
-            redoLimitCommand.push(redoInput);
-        }
-    }
-
-    /**
-     * This method will return the redoInput.
-     * @return redoInput a string that serve as a redo input.
-     */
-    public static String processRedo(String mode) {
-        try {
-            if (mode.equals("entry")) {
-                redoInput = redoEntryCommand.pop();
-            } else if (mode.equals("debt")) {
-                redoInput = redoDebtCommand.pop();
-            } else {
-                redoInput = redoLimitCommand.pop();
+    public static ArrayList<Record> processRedoState(String mode) {
+        receiveRedoState(mode);
+        if (state != null) {
+            if (mode.equals(MODE_ENTRY)) {
+                list = state.getEntryState();
+            } else if (mode.equals(MODE_DEBT)) {
+                list = state.getDebtState();
+            } else if (mode.equals(MODE_LIMIT)) {
+                list = state.getLimitState();
             }
-        } catch (EmptyStackException e) {
-            ActionUi.printEmptyStackError("redo");
-            redoInput = "empty stack";
+            return list;
+        } else {
+            return null;
         }
-        return redoInput;
     }
 
     /**
-     * This method will clear the respective stack with respect to
-     * the mode that the user is currently in.
-     * @param mode the mode that the user is in.
+     * This method will call the clear method in RedoStateList.
+     * @param mode the mode that the program is in.
      */
-    public static void clearRedo(String mode) {
-        if (mode.equals("entry")) {
-            redoEntryCommand.clear();
-        } else if (mode.equals("debt")) {
-            redoDebtCommand.clear();
-        } else {
-            redoLimitCommand.clear();
-        }
+    public static void clearRedoState(String mode) {
+        RedoStateList.clear(mode);
     }
 }
