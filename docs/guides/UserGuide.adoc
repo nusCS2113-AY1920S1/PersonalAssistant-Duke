@@ -390,7 +390,7 @@ Format: `show INDEX_NUMBER` +
 Show the email content of the email at the index number in the email list.
 
 Example: +
-`show 3`
+`show 3`: show the 3rd email in the list.
 
 [TIP]
 You can press `Esc` key on your keyboard any time to switch display between the list and content view of emails.
