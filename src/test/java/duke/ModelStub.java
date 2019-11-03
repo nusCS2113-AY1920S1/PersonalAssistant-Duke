@@ -1,26 +1,20 @@
 package duke;
 
-import duke.commons.exceptions.DukeDateTimeParseException;
-import duke.commons.exceptions.DukeException;
-import duke.commons.exceptions.FileLoadFailException;
 import duke.commons.exceptions.FileNotSavedException;
-import duke.commons.exceptions.ItineraryInsufficientAgendasException;
 import duke.commons.exceptions.ParseException;
-import duke.commons.exceptions.RecommendationDayExceededException;
-import duke.model.Model;
-import duke.model.planning.Recommendation;
-import duke.model.transports.TransportationMap;
 import duke.commons.exceptions.RouteDuplicateException;
+import duke.model.Model;
 import duke.model.lists.EventList;
 import duke.model.lists.RouteList;
 import duke.model.lists.VenueList;
 import duke.model.locations.BusStop;
-import duke.model.planning.Agenda;
 import duke.model.planning.Itinerary;
+import duke.model.planning.Recommendation;
 import duke.model.profile.ProfileCard;
 import duke.model.transports.BusService;
 import duke.model.transports.Route;
-import duke.storage.Storage;
+import duke.model.transports.TransportationMap;
+import duke.storage.StorageStub;
 
 import java.util.HashMap;
 import java.util.List;
@@ -29,7 +23,7 @@ import java.util.List;
  * Implements the methods defined in the Model Interface.
  */
 public class ModelStub implements Model {
-    private Storage storage;
+    private StorageStub storage;
     private EventList events;
     private RouteList routes;
     private TransportationMap map;
@@ -42,7 +36,7 @@ public class ModelStub implements Model {
      * Constructs a new ModelManager object.
      */
     public ModelStub() {
-        storage = new Storage();
+        storage = new StorageStub();
         events = storage.getEvents();
         map = storage.getMap();
         routes = storage.getRoutes();
