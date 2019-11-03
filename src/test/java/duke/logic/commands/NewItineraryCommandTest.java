@@ -3,12 +3,15 @@ package duke.logic.commands;
 import duke.ModelStub;
 import duke.commons.exceptions.DukeException;
 import duke.logic.commands.results.CommandResultText;
+import duke.model.locations.Venue;
+import duke.model.planning.Itinerary;
 import org.junit.jupiter.api.Test;
 
 import java.io.FileNotFoundException;
 import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class NewItineraryCommandTest {
 
@@ -18,23 +21,15 @@ class NewItineraryCommandTest {
         LocalDateTime startDate = LocalDateTime.of(2020, 9, 9, 9, 9);
         LocalDateTime endDate = LocalDateTime.of(2020, 9, 13, 9, 9);
 
-        String [] itineraryDetails = {"YEW TEE INDUSTRIAL ESTATE", startDate.toString(), endDate.toString()};
+        String [] itineraryDetails = { "23/04/15","24/04/15", "bedok", "SundayVacay", "1", "/venue",
+                "Bedok", "/do", "swimming", "/and", "jumping", "/and", "swinging"};
 
-        RecommendationsCommand recommendationsCommand = new RecommendationsCommand(itineraryDetails);
+        NewItineraryCommand newItineraryCommand = new NewItineraryCommand(startDate, endDate,
+                "YEW TEE INDUSTRIAL ESTATE", "SundayPlan",itineraryDetails );
 
-        recommendationsCommand.execute(model);
+        newItineraryCommand.execute(model);
 
-        AddSampleItineraryCommand addSampleItineraryCommand = new AddSampleItineraryCommand();
-
-        addSampleItineraryCommand.execute(model);
-
-        ShowItineraryCommand showItineraryCommand = new ShowItineraryCommand(model.getRecentItinerary().getName());
-
-        CommandResultText commandResultText = showItineraryCommand.execute(model);
-
-        String result = commandResultText.getMessage();
-
-        assertEquals(result, model.getItinerary(model.getRecentItinerary().getName()).printItinerary());
+        assertTrue(model.getItineraryTable().containsKey("SundayPlan"));
 
     }
 
