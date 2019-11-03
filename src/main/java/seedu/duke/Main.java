@@ -10,12 +10,18 @@ import javafx.stage.Stage;
 import seedu.duke.ui.UI;
 
 import java.io.IOException;
+import java.util.logging.Logger;
 
 public class Main extends Application {
+
+    private static final Logger logger = LogsCenter.getLogger(Main.class);
 
     @Override
     public void start(Stage stage) {
         try {
+            LogsCenter.init();
+            logger.info("=============================[ Initializing Email Manager "
+                    + "]===========================");
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);

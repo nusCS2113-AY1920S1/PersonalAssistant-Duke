@@ -43,7 +43,6 @@ public class EmailTags {
                 }
             }
         }
-        System.out.println(tagMap);
         return tagMap;
     }
 
