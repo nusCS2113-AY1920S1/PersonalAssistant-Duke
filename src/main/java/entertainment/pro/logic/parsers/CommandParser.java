@@ -5,25 +5,10 @@ import entertainment.pro.commons.exceptions.EmptyCommandException;
 import entertainment.pro.commons.exceptions.MissingInfoException;
 import entertainment.pro.logic.execution.CommandStack;
 import entertainment.pro.commons.exceptions.Exceptions;
+import entertainment.pro.logic.parsers.commands.*;
 import entertainment.pro.model.CommandPair;
 import entertainment.pro.ui.Controller;
 import entertainment.pro.ui.MovieHandler;
-
-import entertainment.pro.logic.parsers.commands.PreferenceCommand;
-import entertainment.pro.logic.parsers.commands.RemoveCommand;
-import entertainment.pro.logic.parsers.commands.RestrictionCommand;
-import entertainment.pro.logic.parsers.commands.SearchCommand;
-import entertainment.pro.logic.parsers.commands.SetCommand;
-import entertainment.pro.logic.parsers.commands.ViewCommand;
-import entertainment.pro.logic.parsers.commands.WatchlistCommand;
-import entertainment.pro.logic.parsers.commands.YesCommand;
-import entertainment.pro.logic.parsers.commands.AddCommand;
-import entertainment.pro.logic.parsers.commands.BlacklistCommand;
-import entertainment.pro.logic.parsers.commands.FindCommand;
-import entertainment.pro.logic.parsers.commands.GetCommand;
-import entertainment.pro.logic.parsers.commands.HelpCommand;
-import entertainment.pro.logic.parsers.commands.MoreCommand;
-import entertainment.pro.logic.parsers.commands.PlaylistCommand;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -160,6 +145,13 @@ public class CommandParser {
                 CommandStack.pushCmd(fc);
             }
             break;
+        case exit:
+            ExitCommand ec = new ExitCommand(uicontroller);
+            ec.initCommand(commandArr , commandStr , command.getSubRootCommand());
+            if (command.isValidCommand()) {
+                CommandStack.pushCmd(ec);
+            }
+            break;
         default:
             CommandPair pair = CommandDebugger.commandSpellChecker(commandArr , COMMANDKEYS.none , uicontroller);
             ((MovieHandler) uicontroller).setFeedbackText("Sorry we are unable to process your command. " +
@@ -254,24 +246,26 @@ public class CommandParser {
             break;
         case "blacklist":
             BlacklistCommand bbc = new BlacklistCommand(uicontroller);
-            bbc.initCommand(commandArr , command);
-
             if (bbc.initCommand(commandArr , command)) {
                 CommandStack.pushCmd(bbc);
             }
             break;
         case "watchlist":
             WatchlistCommand wlc = new WatchlistCommand(uicontroller);
-            wlc.initCommand(commandArr , command);
             if (wlc.initCommand(commandArr , command)) {
                 CommandStack.pushCmd(wlc);
             }
             break;
         case "find":
             FindCommand fc = new FindCommand(uicontroller);
-            fc.initCommand(commandArr , command);
             if (fc.initCommand(commandArr, command)) {
                 CommandStack.pushCmd(fc);
+            }
+            break;
+        case "exit":
+            ExitCommand ec = new ExitCommand(uicontroller);
+            if (ec.initCommand(commandArr , command)) {
+                CommandStack.pushCmd(ec);
             }
             break;
         default:

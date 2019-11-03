@@ -1,6 +1,7 @@
 package entertainment.pro.logic.parsers.commands;
 import entertainment.pro.commons.PromptMessages;
 import entertainment.pro.commons.enums.COMMANDKEYS;
+import entertainment.pro.commons.exceptions.DuplicateEntryException;
 import entertainment.pro.logic.contexts.SearchResultContext;
 import entertainment.pro.logic.parsers.CommandStructure;
 import entertainment.pro.logic.parsers.CommandSuper;
@@ -79,24 +80,34 @@ public class BlacklistCommand extends CommandSuper {
     public void addToBlackList() {
         String movie = getPayload().trim();
 
-        if (getFlagMap().get("-k") != null) {
-            if (isInteger(movie, 10)) {
-                Blacklist.addToBlacklistKeyWord(SearchResultContext.getIndex(Integer.parseInt(movie)).getTitle());
+        try {
+
+            if (getFlagMap().get("-k") != null) {
+                if (isInteger(movie, 10)) {
+                    Blacklist.addToBlacklistKeyWord(SearchResultContext.getIndex(Integer.parseInt(movie)).getTitle());
+                } else {
+                    Blacklist.addToBlacklistKeyWord(movie);
+                }
             } else {
-                Blacklist.addToBlacklistKeyWord(movie);
-            }
-        } else {
-            if (isInteger(movie, 10)) {
-                Blacklist.addToBlacklistMoviesID(SearchResultContext.getIndex(Integer.parseInt(movie)));
-            } else {
-                Blacklist.addToBlacklistMovie(movie);
+                if (isInteger(movie, 10)) {
+                    Blacklist.addToBlacklistMoviesID(SearchResultContext.getIndex(Integer.parseInt(movie)));
+                } else {
+                    Blacklist.addToBlacklistMovie(movie);
+                }
+
             }
 
+            ((MovieHandler) this.getUiController()).setFeedbackText(Blacklist.printList());
+
+        } catch (DuplicateEntryException e) {
+
+            ((MovieHandler) this.getUiController())
+                    .setFeedbackText(PromptMessages.DUPLICATE_BLACKLIST + Blacklist.printList());
         }
 
-        logger.log(Level.INFO , PromptMessages.BLACKLIST_ADD_SUCCUESS);
 
-        ((MovieHandler) this.getUiController()).setFeedbackText(Blacklist.printList());
+
+        logger.log(Level.INFO , PromptMessages.BLACKLIST_ADD_SUCCUESS);
 
     }
 

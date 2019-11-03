@@ -40,6 +40,10 @@ public class CommandStructure {
                 //EMPTY
             });
 
+            put(COMMANDKEYS.exit, new COMMANDKEYS[] {
+                    //EMPTY
+            });
+
             put(COMMANDKEYS.set, new COMMANDKEYS[] {
                 COMMANDKEYS.name, COMMANDKEYS.age, COMMANDKEYS.preference, COMMANDKEYS.sort, COMMANDKEYS.restriction
             });
@@ -92,5 +96,6 @@ public class CommandStructure {
         COMMANDKEYS.get,
         COMMANDKEYS.preference,
         COMMANDKEYS.restriction,
-        COMMANDKEYS.find};
+        COMMANDKEYS.find,
+        COMMANDKEYS.exit};
 }

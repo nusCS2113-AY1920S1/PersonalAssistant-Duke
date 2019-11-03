@@ -2,4 +2,3 @@ Get functionality:
     #recommendation         :Get Recommendation
 
             usage: get recommendation
-                   
