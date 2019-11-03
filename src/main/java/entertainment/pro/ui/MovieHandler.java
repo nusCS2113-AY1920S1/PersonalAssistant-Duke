@@ -624,10 +624,10 @@ public class MovieHandler extends Controller implements RequestListener {
                 playlistVBox.getChildren().add(playlistPane);
                 count++;
             }
-            mMoviesScrollPane.setContent(playlistVBox);
-            mMoviesScrollPane.setVvalue(0);
-            pageTracker.setToPlaylistList();
         }
+        mMoviesScrollPane.setContent(playlistVBox);
+        mMoviesScrollPane.setVvalue(0);
+        pageTracker.setToPlaylistList();
     }
 
     private AnchorPane buildPlaylistPane(Playlist playlist, int i) {
