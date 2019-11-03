@@ -223,6 +223,21 @@ The tags associated with emails is stored in HashMap<String, HashMap<String, Ema
 where the String here refers to the tag name, and EmailList is an ArrayList<Email>.
 
 
+=== Logging
+We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the
+logging levels and logging destinations.
+
+===== Current Implementation
+* The logging level can be controlled using the logLevel
+* The Logger for a class can be obtained using LogsCenter.getLogger(Class) which will log messages according
+to the specified logging level
+* Currently log messages are output through: Console and to a .log file.
+* Logging Levels
+** SEVERE : Critical problem detected which may possibly cause the termination of the application
+** WARNING : Can continue, but with caution
+** INFO : Information showing the noteworthy actions by the App
+** FINE : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list
+instead of just its size
 
 == Documentation
 
@@ -261,7 +276,33 @@ Aspect: Handling updating of tags
 ** Pros: gives users highest amount of flexibility and control over the tags they want to keep.
 ** Cons: added complexity in commands
 
-=== Logging
+
+=== Build Automation
+We use https://gradle.org/[Gradle] for _build automation.
+See link:{repoURL}/tutorials/gradleTutorial.md[Gradle Tutorial] for more details.
+
+=== Continuous Integration
+We use https://travis-ci.org/[Travis CI] to perform _Continuous Integration_ on our projects.
+
+=== Coverage Reporting
+We use https://coveralls.io/[Coveralls] to track the code coverage of our projects.
+
+=== Making a Release
+Here are the steps to create a new release.
+
+.  Update the archiveVersion number of shadowJar in link:{repoURL}/build.gradle[`build.gradle`].
+.  Generate a JAR file <<UsingGradle#creating-the-jar-file, using Gradle>>.
+.  Tag the repo with the version number. e.g. `v0.1`
+.  https://help.github.com/articles/creating-releases/[Create a new release using GitHub] and upload the JAR file you created.
+
+=== Managing Dependencies
+A project often depends on third-party libraries. For example, *Email manager* depends on the https://openjfx.io/[JavaFX] for GUI support. Managing these _dependencies_ can be automated using Gradle.
+For example, Gradle can download the dependencies automatically, which is better than these alternatives:
+
+[loweralpha]
+. Include those libraries in the repo (this bloats the repo size)
+. Require developers to download those libraries manually (this creates extra work for developers)
+
 
 [appendix]
 == Suggested Programming Tasks to Get Started
