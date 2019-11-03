@@ -481,6 +481,11 @@ public class TaskCommandParseHelper {
         if (time == null) {
             return new InvalidCommand("Please enter a time of correct format after \'-time\'");
         }
+        LocalDateTime currentTime = LocalDateTime.now();
+        if (time.compareTo(currentTime) < 0) {
+            return new InvalidCommand("Input date is not prior to current date. Please enter a date that "
+                    + "has not passed");
+        }
         String name = deadlineMatcher.group("name");
         return new TaskAddCommand(taskType, name, time, doAfter, tags, priority, links);
     }
