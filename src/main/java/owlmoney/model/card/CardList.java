@@ -54,19 +54,22 @@ public class CardList {
     /**
      * Deletes an instance of a card from the CardList.
      *
-     * @param name name of the card to be deleted.
+     * @param cardName name of the card to be deleted.
      * @param ui   required for printing.
      * @throws CardException If CardList is empty or card to be deleted do not exist.
      */
-    public void cardListDeleteCard(String name, Ui ui) throws CardException {
+    public void cardListDeleteCard(String cardName, Ui ui) throws CardException {
         cardListCheckListEmpty();
         boolean isDeleted = false;
-        for (int i = ISZERO; i < cardLists.size(); i++) {
-            if (cardLists.get(i).getName().equals(name)) {
-                Card temp = cardLists.get(i);
+        String capitalCardName = cardName.toUpperCase();
+        for (int i = ISZERO; i < getCardListSize(); i++) {
+            Card currentCard = cardLists.get(i);
+            String currentCardName = currentCard.getName();
+            String capitalCurrentCardName = currentCardName.toUpperCase();
+            if (capitalCardName.equals(capitalCurrentCardName)) {
                 cardLists.remove(i);
                 ui.printMessage("Card with the following details has been removed:");
-                printOneCard(ONE_INDEX, temp, ISSINGLE, ui);
+                printOneCard(ONE_INDEX, currentCard, ISSINGLE, ui);
                 isDeleted = true;
                 break;
             }
@@ -92,7 +95,7 @@ public class CardList {
      *
      * @return size of cardList.
      */
-    public int getCardListSize() {
+    int getCardListSize() {
         return cardLists.size();
     }
 
@@ -103,8 +106,12 @@ public class CardList {
      * @return the result specifying whether the credit card name already exists.
      */
     private boolean cardExists(String cardName) {
+        String capitalCardName = cardName.toUpperCase();
         for (int i = ISZERO; i < getCardListSize(); i++) {
-            if (cardName.equals(cardLists.get(i).getName())) {
+            Card currentCard = cardLists.get(i);
+            String currentCardName = currentCard.getName();
+            String capitalCurrentCardName = currentCardName.toUpperCase();
+            if (capitalCardName.equals(capitalCurrentCardName)) {
                 return true;
             }
         }
@@ -119,8 +126,12 @@ public class CardList {
      */
     public void checkCardExists(String cardName) throws CardException {
         boolean isExist = false;
+        String capitalCardName = cardName.toUpperCase();
         for (int i = ISZERO; i < getCardListSize(); i++) {
-            if (cardName.equals(cardLists.get(i).getName())) {
+            Card currentCard = cardLists.get(i);
+            String currentCardName = currentCard.getName();
+            String capitalCurrentCardName = currentCardName.toUpperCase();
+            if (capitalCardName.equals(capitalCurrentCardName)) {
                 isExist = true;
             }
         }
@@ -137,8 +148,12 @@ public class CardList {
      * @throws CardException If new card name is not unique.
      */
     private void compareCard(Card currentCard, String newCardName) throws CardException {
+        String capitalNewCardName = newCardName.toUpperCase();
         for (int i = ISZERO; i < getCardListSize(); i++) {
-            if (cardLists.get(i).getName().equals(newCardName) && !cardLists.get(i).equals(currentCard)) {
+            Card checkCard = cardLists.get(i);
+            String checkCardName = checkCard.getName();
+            String capitalCheckCardName = checkCardName.toUpperCase();
+            if (capitalCheckCardName.equals(capitalNewCardName) && !checkCard.equals(currentCard)) {
                 throw new CardException("There is already a credit card with the name: " + newCardName);
             }
         }
@@ -159,30 +174,34 @@ public class CardList {
     /**
      * Edits the credit card details.
      *
-     * @param name    Credit Card to be edited.
+     * @param cardName    Credit Card to be edited.
      * @param newName New name of credit card if any.
      * @param limit   New limit of credit card if any.
      * @param rebate  New rebate of credit card if any.
      * @param ui      Required for printing.
      * @throws CardException If card cannot be found or new card name already exist.
      */
-    public void cardListEditCard(String name, String newName, String limit, String rebate, Ui ui)
+    public void cardListEditCard(String cardName, String newName, String limit, String rebate, Ui ui)
             throws CardException {
-        for (int i = ISZERO; i < cardLists.size(); i++) {
-            if (cardLists.get(i).getName().equals(name)) {
+        String capitalCardName = cardName.toUpperCase();
+        for (int i = ISZERO; i < getCardListSize(); i++) {
+            Card currentCard = cardLists.get(i);
+            String currentCardName = currentCard.getName();
+            String capitalCurrentCardName = currentCardName.toUpperCase();
+            if (capitalCardName.equals(capitalCurrentCardName)) {
                 if (!(newName.isEmpty() || newName.isBlank())) {
-                    compareCard(cardLists.get(i), newName);
-                    cardLists.get(i).setName(newName);
+                    compareCard(currentCard, newName);
+                    currentCard.setName(newName);
                 }
                 if (!(limit.isEmpty() || limit.isBlank())) {
-                    this.checkUnpaidCannotEditLimit(cardLists.get(i));
-                    cardLists.get(i).setLimit(Double.parseDouble(limit));
+                    this.checkUnpaidCannotEditLimit(currentCard);
+                    currentCard.setLimit(Double.parseDouble(limit));
                 }
                 if (!(rebate.isEmpty() || rebate.isBlank())) {
-                    cardLists.get(i).setRebate(Double.parseDouble(rebate));
+                    currentCard.setRebate(Double.parseDouble(rebate));
                 }
                 ui.printMessage("New details of the cards: ");
-                printOneCard(ONE_INDEX, cardLists.get(i), ISSINGLE, ui);
+                printOneCard(ONE_INDEX, currentCard, ISSINGLE, ui);
                 return;
             }
         }
@@ -209,16 +228,20 @@ public class CardList {
      * This will store the expenditure in the ExpenditureList in the credit card.
      *
      * @param cardName The credit card name.
-     * @param exp      The instance of the expenditure.
+     * @param expenditure      The instance of the expenditure.
      * @param ui       Required for printing.
      * @param type     Type of account to add expenditure into
      * @throws CardException If the credit card name cannot be found.
      */
-    public void cardListAddExpenditure(String cardName, Transaction exp, Ui ui, String type)
+    public void cardListAddExpenditure(String cardName, Transaction expenditure, Ui ui, String type)
             throws CardException {
-        for (int i = ISZERO; i < cardLists.size(); i++) {
-            if (cardLists.get(i).getName().equals(cardName)) {
-                cardLists.get(i).addInExpenditure(exp, ui, type);
+        String capitalCardName = cardName.toUpperCase();
+        for (int i = ISZERO; i < getCardListSize(); i++) {
+            Card currentCard = cardLists.get(i);
+            String currentCardName = currentCard.getName();
+            String capitalCurrentCardName = currentCardName.toUpperCase();
+            if (capitalCardName.equals(capitalCurrentCardName)) {
+                currentCard.addInExpenditure(expenditure, ui, type);
                 return;
             }
         }
@@ -236,8 +259,12 @@ public class CardList {
      */
     public void cardListListCardExpenditure(String cardToList, Ui ui, int displayNum)
             throws TransactionException, CardException {
-        for (int i = ISZERO; i < cardLists.size(); i++) {
-            if (cardToList.equals(cardLists.get(i).getName())) {
+        String capitalCardToList = cardToList.toUpperCase();
+        for (int i = ISZERO; i < getCardListSize(); i++) {
+            Card currentCard = cardLists.get(i);
+            String currentCardName = currentCard.getName();
+            String capitalCurrentCardName = currentCardName.toUpperCase();
+            if (capitalCardToList.equals(capitalCurrentCardName)) {
                 cardLists.get(i).listAllExpenditure(ui, displayNum);
                 return;
             }
@@ -248,17 +275,21 @@ public class CardList {
     /**
      * Deletes an expenditure from the transactionList in the card object.
      *
-     * @param expNum                The transaction number.
+     * @param transactionNumber                The transaction number.
      * @param deleteFromAccountCard The name of the card.
      * @param ui                    Required for printing.
      * @throws CardException        If card does not exist.
      * @throws TransactionException If invalid transaction.
      */
-    public void cardListDeleteExpenditure(int expNum, String deleteFromAccountCard, Ui ui)
+    public void cardListDeleteExpenditure(int transactionNumber, String deleteFromAccountCard, Ui ui)
             throws CardException, TransactionException {
-        for (int i = ISZERO; i < cardLists.size(); i++) {
-            if (deleteFromAccountCard.equals(cardLists.get(i).getName())) {
-                cardLists.get(i).deleteExpenditure(expNum, ui);
+        String capitalDeleteFromAccountCard = deleteFromAccountCard.toUpperCase();
+        for (int i = ISZERO; i < getCardListSize(); i++) {
+            Card currentCard = cardLists.get(i);
+            String currentCardName = currentCard.getName();
+            String capitalCurrentCardName = currentCardName.toUpperCase();
+            if (capitalDeleteFromAccountCard.equals(capitalCurrentCardName)) {
+                currentCard.deleteExpenditure(transactionNumber, ui);
                 return;
             }
         }
@@ -268,7 +299,7 @@ public class CardList {
     /**
      * Edits an expenditure from the transactionList in the card object.
      *
-     * @param expNum       The transaction number.
+     * @param transactionNumber       The transaction number.
      * @param editFromCard The name of the card.
      * @param desc         The description of the expenditure.
      * @param amount       The amount of the expenditure.
@@ -278,11 +309,15 @@ public class CardList {
      * @throws CardException        If card does not exist.
      * @throws TransactionException If incorrect date format.
      */
-    public void cardListEditExpenditure(int expNum, String editFromCard, String desc, String amount,
+    public void cardListEditExpenditure(int transactionNumber, String editFromCard, String desc, String amount,
             String date, String category, Ui ui) throws CardException, TransactionException {
-        for (int i = ISZERO; i < cardLists.size(); i++) {
-            if (cardLists.get(i).getName().equals(editFromCard)) {
-                cardLists.get(i).editExpenditureDetails(expNum, desc, amount, date, category, ui);
+        String capitalEditFromCard = editFromCard.toUpperCase();
+        for (int i = ISZERO; i < getCardListSize(); i++) {
+            Card currentCard = cardLists.get(i);
+            String currentCardName = currentCard.getName();
+            String capitalCurrentCardName = currentCardName.toUpperCase();
+            if (capitalEditFromCard.equals(capitalCurrentCardName)) {
+                cardLists.get(i).editExpenditureDetails(transactionNumber, desc, amount, date, category, ui);
                 return;
             }
         }
@@ -364,9 +399,13 @@ public class CardList {
      */
     public void cardListFindTransaction(String cardName, String fromDate, String toDate,
             String description, String category, Ui ui) throws CardException, TransactionException {
+        String capitalCardName = cardName.toUpperCase();
         for (int i = ISZERO; i < getCardListSize(); i++) {
-            if (cardLists.get(i).getName().equals(cardName)) {
-                cardLists.get(i).findTransaction(fromDate, toDate, description, category, ui);
+            Card currentCard = cardLists.get(i);
+            String currentCardName = currentCard.getName();
+            String capitalCurrentCardName = currentCardName.toUpperCase();
+            if (capitalCardName.equals(capitalCurrentCardName)) {
+                currentCard.findTransaction(fromDate, toDate, description, category, ui);
                 return;
             }
         }
@@ -376,17 +415,21 @@ public class CardList {
     /**
      * Returns the total unpaid expenditure amount based on the specified date.
      *
-     * @param card      The credit card to search the expenditures from.
+     * @param cardName      The credit card to search the expenditures from.
      * @param date      The YearMonth date of the expenditures to search.
      * @return          The total unpaid expenditure amount based on the specified date.
      * @throws CardException If card does not exist.
      */
-    public double getUnpaidBillAmount(String card, YearMonth date) throws CardException {
-        checkCardExists(card);
+    public double getUnpaidBillAmount(String cardName, YearMonth date) throws CardException {
+        checkCardExists(cardName);
         double billAmount = 0;
-        for (int i = 0; i < cardLists.size(); i++) {
-            if (card.equals(cardLists.get(i).getName())) {
-                billAmount = cardLists.get(i).getUnpaidBillAmount(date);
+        String capitalCardName = cardName.toUpperCase();
+        for (int i = ISZERO; i < getCardListSize(); i++) {
+            Card currentCard = cardLists.get(i);
+            String currentCardName = currentCard.getName();
+            String capitalCurrentCardName = currentCardName.toUpperCase();
+            if (capitalCardName.equals(capitalCurrentCardName)) {
+                billAmount = currentCard.getUnpaidBillAmount(date);
             }
         }
         return billAmount;
@@ -395,17 +438,21 @@ public class CardList {
     /**
      * Returns the total paid expenditure amount based on the specified date.
      *
-     * @param card      The credit card to search the expenditures from.
+     * @param cardName      The credit card to search the expenditures from.
      * @param date      The YearMonth date of the expenditures to search.
      * @return          The total unpaid expenditure amount based on the specified date.
      * @throws CardException    If card does not exist.
      */
-    public double getPaidBillAmount(String card, YearMonth date) throws CardException {
-        checkCardExists(card);
+    public double getPaidBillAmount(String cardName, YearMonth date) throws CardException {
+        checkCardExists(cardName);
         double billAmount = 0;
-        for (int i = 0; i < cardLists.size(); i++) {
-            if (card.equals(cardLists.get(i).getName())) {
-                billAmount = cardLists.get(i).getPaidBillAmount(date);
+        String capitalCardName = cardName.toUpperCase();
+        for (int i = ISZERO; i < getCardListSize(); i++) {
+            Card currentCard = cardLists.get(i);
+            String currentCardName = currentCard.getName();
+            String capitalCurrentCardName = currentCardName.toUpperCase();
+            if (capitalCardName.equals(capitalCurrentCardName)) {
+                billAmount = currentCard.getPaidBillAmount(date);
             }
         }
         return billAmount;
@@ -414,16 +461,20 @@ public class CardList {
     /**
      * Returns the monthly rebate of the credit card.
      *
-     * @param card  The credit card to get the monthly rebate information from.
+     * @param cardName  The credit card to get the monthly rebate information from.
      * @return      The monthly rebate of the credit card.
      * @throws CardException    If card does not exist.
      */
-    public double getRebateAmount(String card) throws CardException {
-        checkCardExists(card);
+    public double getRebateAmount(String cardName) throws CardException {
+        checkCardExists(cardName);
         double rebateAmount = 0;
-        for (int i = 0; i < cardLists.size(); i++) {
-            if (card.equals(cardLists.get(i).getName())) {
-                rebateAmount = cardLists.get(i).getRebate();
+        String capitalCardName = cardName.toUpperCase();
+        for (int i = ISZERO; i < getCardListSize(); i++) {
+            Card currentCard = cardLists.get(i);
+            String currentCardName = currentCard.getName();
+            String capitalCurrentCardName = currentCardName.toUpperCase();
+            if (capitalCardName.equals(capitalCurrentCardName)) {
+                rebateAmount = currentCard.getRebate();
             }
         }
         return rebateAmount;
@@ -432,15 +483,19 @@ public class CardList {
     /**
      * Returns the id of the credit card.
      *
-     * @param card  The credit card to get the id from.
+     * @param cardName  The credit card to get the id from.
      * @return      The id of the credit card.
      * @throws CardException    If card does not exist.
      */
-    public UUID getCardId(String card) throws CardException {
-        checkCardExists(card);
+    public UUID getCardId(String cardName) throws CardException {
+        checkCardExists(cardName);
         UUID id = null;
-        for (int i = 0; i < cardLists.size(); i++) {
-            if (card.equals(cardLists.get(i).getName())) {
+        String capitalCardName = cardName.toUpperCase();
+        for (int i = ISZERO; i < getCardListSize(); i++) {
+            Card currentCard = cardLists.get(i);
+            String currentCardName = currentCard.getName();
+            String capitalCurrentCardName = currentCardName.toUpperCase();
+            if (capitalCardName.equals(capitalCurrentCardName)) {
                 id = cardLists.get(i).getId();
             }
         }
@@ -450,16 +505,20 @@ public class CardList {
     /**
      * Transfers expenditures from unpaid list to paid list.
      *
-     * @param card      The credit card of which the expenditures to transfer.
+     * @param cardName      The credit card of which the expenditures to transfer.
      * @param cardDate  The YearMonth date of expenditures to transfer.
      * @param type      Type of expenditure (card or bank).
      * @throws TransactionException If invalid transaction when deleting.
      */
-    public void transferExpUnpaidToPaid(String card, YearMonth cardDate, String type)
+    public void transferExpUnpaidToPaid(String cardName, YearMonth cardDate, String type)
             throws TransactionException {
-        for (int i = 0; i < cardLists.size(); i++) {
-            if (card.equals(cardLists.get(i).getName())) {
-                cardLists.get(i).transferExpUnpaidToPaid(cardDate, type);
+        String capitalCardName = cardName.toUpperCase();
+        for (int i = ISZERO; i < getCardListSize(); i++) {
+            Card currentCard = cardLists.get(i);
+            String currentCardName = currentCard.getName();
+            String capitalCurrentCardName = currentCardName.toUpperCase();
+            if (capitalCardName.equals(capitalCurrentCardName)) {
+                currentCard.transferExpUnpaidToPaid(cardDate, type);
             }
         }
     }
@@ -467,16 +526,20 @@ public class CardList {
     /**
      * Transfers expenditures from paid list to unpaid list.
      *
-     * @param card      The credit card of which the expenditures to transfer.
+     * @param cardName      The credit card of which the expenditures to transfer.
      * @param cardDate  The YearMonth date of expenditures to transfer.
      * @param type      Type of expenditure (card or bank).
      * @throws TransactionException If invalid transaction when deleting.
      */
-    public void transferExpPaidToUnpaid(String card, YearMonth cardDate, String type)
+    public void transferExpPaidToUnpaid(String cardName, YearMonth cardDate, String type)
             throws TransactionException {
-        for (int i = 0; i < cardLists.size(); i++) {
-            if (card.equals(cardLists.get(i).getName())) {
-                cardLists.get(i).transferExpPaidToUnpaid(cardDate, type);
+        String capitalCardName = cardName.toUpperCase();
+        for (int i = ISZERO; i < getCardListSize(); i++) {
+            Card currentCard = cardLists.get(i);
+            String currentCardName = currentCard.getName();
+            String capitalCurrentCardName = currentCardName.toUpperCase();
+            if (capitalCardName.equals(capitalCurrentCardName)) {
+                currentCard.transferExpPaidToUnpaid(cardDate, type);
             }
         }
     }

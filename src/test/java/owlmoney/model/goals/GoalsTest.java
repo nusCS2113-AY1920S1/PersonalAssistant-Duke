@@ -27,7 +27,7 @@ public class GoalsTest {
         assertEquals(expectedDate, goalsDate);
 
         String goalsSavingAcc = testGoals.getSavingAccount();
-        String expectedSavingAcc = "NOT TIED";
+        String expectedSavingAcc = "-NOT TIED-";
         assertEquals(expectedSavingAcc, goalsSavingAcc);
 
         String goalsRemaining = testGoals.getRemainingAmount();

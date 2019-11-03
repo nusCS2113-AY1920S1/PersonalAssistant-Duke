@@ -75,19 +75,19 @@ public abstract class ParseBond {
      */
     public void fillHashTable() throws ParserException {
         bondParameters.put(AMOUNT,
-                parseRawData.extractParameter(rawData, AMOUNT, BOND_KEYWORD));
+                parseRawData.extractParameter(rawData, AMOUNT, BOND_KEYWORD).trim());
         bondParameters.put(NAME,
-                parseRawData.extractParameter(rawData, NAME, BOND_KEYWORD));
+                parseRawData.extractParameter(rawData, NAME, BOND_KEYWORD).trim());
         bondParameters.put(DATE,
-                parseRawData.extractParameter(rawData, DATE, BOND_KEYWORD));
+                parseRawData.extractParameter(rawData, DATE, BOND_KEYWORD).trim());
         bondParameters.put(RATE,
-                parseRawData.extractParameter(rawData, RATE, BOND_KEYWORD));
+                parseRawData.extractParameter(rawData, RATE, BOND_KEYWORD).trim());
         bondParameters.put(YEAR,
-                parseRawData.extractParameter(rawData, YEAR, BOND_KEYWORD));
+                parseRawData.extractParameter(rawData, YEAR, BOND_KEYWORD).trim());
         bondParameters.put(FROM,
-                parseRawData.extractParameter(rawData, FROM, BOND_KEYWORD));
+                parseRawData.extractParameter(rawData, FROM, BOND_KEYWORD).trim());
         bondParameters.put(NUM,
-                parseRawData.extractParameter(rawData, NUM, BOND_KEYWORD));
+                parseRawData.extractParameter(rawData, NUM, BOND_KEYWORD).trim());
     }
 
     /**

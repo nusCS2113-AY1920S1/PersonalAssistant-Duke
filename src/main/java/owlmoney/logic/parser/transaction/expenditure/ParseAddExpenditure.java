@@ -12,7 +12,8 @@ import owlmoney.logic.parser.exception.ParserException;
  */
 public class ParseAddExpenditure extends ParseExpenditure {
 
-    static final String ADD = "/add";
+    private static final String ADD = "/add";
+    private static final String RESERVEDCATEGORY = "deposit";
     private Date date;
 
     /**
@@ -44,12 +45,12 @@ public class ParseAddExpenditure extends ParseExpenditure {
                     && (value.isBlank() || value.isEmpty())) {
                 throw new ParserException(key + " cannot be empty when adding a new expenditure");
             }
-            if (CATEGORY.equals(key) && "deposit".equals(value)) {
+            if (CATEGORY.equals(key) && RESERVEDCATEGORY.equals(value)) {
                 throw new ParserException(key + " cannot be deposit when adding a new expenditure");
             } else if (CATEGORY.equals(key) && (value.isBlank() || value.isEmpty())) {
                 expendituresParameters.put(CATEGORY, "Miscellaneous");
             } else if (CATEGORY.equals(key)) {
-                checkDescription(value, key);
+                checkCategory(value);
             }
             if (AMOUNT.equals(key)) {
                 checkAmount(value);

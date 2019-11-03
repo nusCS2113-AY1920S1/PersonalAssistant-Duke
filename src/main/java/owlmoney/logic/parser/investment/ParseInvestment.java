@@ -63,11 +63,11 @@ public abstract class ParseInvestment {
      */
     public void fillHashTable() throws ParserException {
         investmentParameters.put(AMOUNT,
-                parseRawData.extractParameter(rawData, AMOUNT, INVESTMENT_KEYWORD));
+                parseRawData.extractParameter(rawData, AMOUNT, INVESTMENT_KEYWORD).trim());
         investmentParameters.put(NAME,
-                parseRawData.extractParameter(rawData, NAME, INVESTMENT_KEYWORD));
+                parseRawData.extractParameter(rawData, NAME, INVESTMENT_KEYWORD).trim());
         investmentParameters.put(NEW_NAME,
-                parseRawData.extractParameter(rawData, NEW_NAME, INVESTMENT_KEYWORD));
+                parseRawData.extractParameter(rawData, NEW_NAME, INVESTMENT_KEYWORD).trim());
     }
 
     /**

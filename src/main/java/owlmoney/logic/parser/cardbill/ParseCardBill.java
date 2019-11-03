@@ -45,11 +45,11 @@ public abstract class ParseCardBill {
      */
     public void fillHashTable() throws ParserException {
         cardBillParameters.put(CARD,
-                parseRawData.extractParameter(rawData, CARD, CARDBILL_KEYWORD));
+                parseRawData.extractParameter(rawData, CARD, CARDBILL_KEYWORD).trim());
         cardBillParameters.put(BANK,
-                parseRawData.extractParameter(rawData, BANK, CARDBILL_KEYWORD));
+                parseRawData.extractParameter(rawData, BANK, CARDBILL_KEYWORD).trim());
         cardBillParameters.put(DATE,
-                parseRawData.extractParameter(rawData, DATE, CARDBILL_KEYWORD));
+                parseRawData.extractParameter(rawData, DATE, CARDBILL_KEYWORD).trim());
     }
 
     /**

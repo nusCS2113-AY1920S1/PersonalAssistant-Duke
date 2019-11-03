@@ -11,6 +11,7 @@ import owlmoney.logic.parser.exception.ParserException;
  */
 public class ParseEditExpenditure extends ParseExpenditure {
     private static final String EDIT = "/edit";
+    private static final String RESERVEDCATEGORY = "deposit";
 
     /**
      * Creates an instance of ParseEditExpenditure.
@@ -45,7 +46,10 @@ public class ParseEditExpenditure extends ParseExpenditure {
             } else if (FROM.equals(key)) {
                 checkName(value);
             }
-            if (CATEGORY.equals(key) && !(value.isBlank() || value.isEmpty())) {
+            if (CATEGORY.equals(key) && RESERVEDCATEGORY.equals(value)) {
+                throw new ParserException(key + " cannot be deposit when editing an expenditure");
+            } else if (CATEGORY.equals(key) && !(value.isBlank() || value.isEmpty())) {
+                checkCategory(value);
                 changeCounter++;
             }
             if (AMOUNT.equals(key) && !(value.isBlank() || value.isEmpty())) {
