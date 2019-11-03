@@ -1,5 +1,6 @@
 package duke;
 
+import duke.commons.exceptions.FileLoadFailException;
 import duke.commons.exceptions.FileNotSavedException;
 import duke.commons.exceptions.ParseException;
 import duke.commons.exceptions.RouteDuplicateException;
@@ -35,7 +36,7 @@ public class ModelStub implements Model {
     /**
      * Constructs a new ModelManager object.
      */
-    public ModelStub() {
+    public ModelStub() throws FileLoadFailException {
         storage = new StorageStub();
         events = storage.getEvents();
         map = storage.getMap();

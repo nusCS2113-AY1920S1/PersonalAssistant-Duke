@@ -82,10 +82,10 @@ public class StorageStub {
         readBus();
         readTrain();
 //        readProfile();
-//        readRecommendations();
+        readRecommendations();
 //        readEvent();
 //        readRoutes();
-//        readItineraryTable();
+        readItineraryTable();
     }
 
     public void readItineraryTable() throws FileLoadFailException {

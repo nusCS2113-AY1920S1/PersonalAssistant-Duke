@@ -1,6 +1,7 @@
 package duke.model.locations;
 
 import duke.ModelStub;
+import duke.commons.exceptions.FileLoadFailException;
 import duke.commons.exceptions.QueryFailedException;
 import org.junit.jupiter.api.Test;
 
@@ -98,7 +99,7 @@ class TrainStationTest {
     }
 
     @Test
-    void testFetch() throws QueryFailedException {
+    void testFetch() throws FileLoadFailException {
         TrainStation v3 = new TrainStation(new ArrayList<String>(), "Woodlands", "",
                 0, 0);
         ModelStub model = new ModelStub();
