@@ -47,7 +47,7 @@ public class RemoveCommand extends ModuleCommand {
             case "module":
             default: {
                 if (index < 0 || index >= tasks.getSize() || tasks.getTasks().isEmpty()) {
-                    throw new ModEmptyListException();
+                    throw new ModOutOfBoundException();
                 }
                 ModuleTask delMod = tasks.getTasks().get(index);
                 plannerUi.deleteMsg(delMod);
