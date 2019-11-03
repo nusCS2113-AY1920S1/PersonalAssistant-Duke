@@ -62,13 +62,21 @@ e.g. `orders/ <order_name_1>...` can be in `orders/ Chicken rice, Seafood pasta,
 
 === Managing Bookings
 
-Managing booking is a feature that allows the user to do operations such as adding & deleting a booking to booking list, filter out booking based on search date or customer name, and extract the orders for a specific booking.
+ Managing booking is a feature that allows the user to do operations such as adding & deleting a booking to booking list, filter out booking based on search date or customer name, and extract the orders for a specific booking.
 
 ====  Adding a new booking: `addbooking`
 
-Adds a new booking with all relevant customer details into the booking list. +
+ Adds a new booking with all relevant customer details into the booking list.
 
-Format: `addbooking <customer_name> <customer_contact> <number_of_pax> <booking_date_dd/MM/yyyy> orders/ <order_name_1>, <order_name_2>...`
+Format: `addbooking <customer_name e.g. John_Lim> <customer_contact> <number_of_pax> <booking_date e.g dd/MM/yyyy> orders/ <order_name_1>, <order_name_2>...`
+
+* Customer name: Contains only letters and “_”. E.g. John_Lim.
+* Customer contact number: Contains only digits.
+* Number of pax: Contains only digits from 1 - 9.
+* Booking date: Input format day/month/year. E.g 25/12/2019.
+* Orders: Key orders/ with _{whitspace}_ followed by the name of the orders, separated with comma “,”. E.g orders/ garlic prawn, ribeye steak
+
+All 5 fields are compulsory and separated by _{whitspace}_.
 
 Examples:
 
@@ -76,11 +84,11 @@ Examples:
 
 ====  Deleting a booking: `deletebooking`
 
-Deletes a customer booking in the booking list +
+ Deletes a customer booking in the booking list
 
 Format: `deletebooking <booking_list_index*>` +
 
-* booking list index can be found by using the command `listallbookings`.
+*booking list index can be found by using the command `listallbookings`.
 
 Examples:
 
@@ -88,12 +96,13 @@ Examples:
 
 ====  View all current bookings: `listallbookings`
 
-Shows all current bookings in the booking list. All details including customer name, contact number, number of pax, booking date and orders will be displayed.
+ Shows all current bookings in the booking list. All details including customer name, contact number, number of pax, booking date and orders will be displayed.
 
 Format: `listallbookings`
 
-Output Result: +
- Here are all the current bookings in your list:
+Output Result:
+
+Here are all the current bookings in your list:
 
 . [Customer name: zihan] [Contact No.: 91520567] [No. of pax: 2] [Booking on: 10 October 2019] [Orders: steak and fish]
 . [Customer name: John] [Contact No.: 8473739] [No. of pax: 2] [Booking on: 1 January 2019] [Orders: pasta, garlic prawn]
@@ -101,7 +110,7 @@ Output Result: +
 
 ====  Find a specific booking: `findbooking`
 
-Shows the booking containing a specific keyword of the customer name in the booking list. +
+ Shows the booking for the searched customer name in the booking list.
 
 Format: `findbooking <customer_name>`
 
@@ -116,7 +125,7 @@ Here are the matching bookings in your list:
 
 ==== View bookings on specific date: `viewbookingschedule`
 
-Shows the bookings on specific date in the booking list.
+ Shows the bookings on specific date in the booking list.
 
 Format: `viewbookingschedule <booking_date_ddMMyyy>`
 
@@ -131,19 +140,19 @@ Here are your bookings for 12 December 2019
 
 ==== View orders for a specific booking: `vieworders`
 
-Shows the orders made by a customer on a specific booking.
+ Shows the orders made by a customer on a specific booking.
 
 Format: `vieworders <customer_name>`
 
 Examples:
 
-* `vieworders john`
+* `vieworders John`
 
-Output Result: +
- Here are your orders for: john
+Output Result:
 
-* Pasta
-* Garlic prawn
+Here are your orders for: John
+
+[Pasta, Garlic prawn] on 1 January 2019
 
 
 === Managing Recipes
