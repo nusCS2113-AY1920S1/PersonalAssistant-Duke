@@ -1,1 +1,19 @@
-[]
+[
+  {
+    "name": "john",
+    "taskList": [],
+    "skillList": []
+  },
+  {
+    "name": "james",
+    "taskList": [],
+    "skillList": []
+  },
+  {
+    "name": "lenald",
+    "taskList": [],
+    "skillList": [
+      "coding"
+    ]
+  }
+]
