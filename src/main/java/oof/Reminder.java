@@ -1,14 +1,15 @@
 package oof;
 
-import oof.exception.OofException;
-import oof.model.task.TaskList;
-import oof.model.task.Deadline;
-import oof.model.task.Task;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.DateTimeException;
 import java.util.Date;
+
+import oof.exception.OofException;
+import oof.model.task.Deadline;
+import oof.model.task.Task;
+import oof.model.task.TaskList;
+import oof.storage.StorageManager;
 
 /**
  * Represents a Reminder class to remind user on upcoming deadlines.
@@ -24,9 +25,9 @@ public class Reminder {
      * @param taskList TaskList that contains Task objects.
      * @param ui       Ui that is responsible for visual feedback.
      */
-    public void checkDeadline(TaskList taskList, Ui ui, Storage storage) {
+    public void checkDeadline(TaskList taskList, Ui ui, StorageManager storageManager) {
         int count = 1;
-        int upcomingThreshold = storage.readThreshold();
+        int upcomingThreshold = storageManager.readThreshold();
         for (int i = 0; i < taskList.getSize(); i++) {
             Task task = taskList.getTask(i);
             if (task instanceof Deadline) {

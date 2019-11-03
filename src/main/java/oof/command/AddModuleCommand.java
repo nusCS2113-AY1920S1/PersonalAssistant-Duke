@@ -1,74 +1,57 @@
 package oof.command;
 
+import java.util.ArrayList;
+
 import oof.SelectedInstance;
-import oof.Storage;
 import oof.Ui;
 import oof.exception.OofException;
 import oof.model.module.Module;
 import oof.model.module.Semester;
 import oof.model.module.SemesterList;
 import oof.model.task.TaskList;
+import oof.storage.StorageManager;
 
 public class AddModuleCommand extends Command {
 
-    private String line;
+    public static final String COMMAND_WORD = "module";
+    private ArrayList<String> arguments;
     private static final int INDEX_CODE = 0;
     private static final int INDEX_NAME = 1;
-    private static final String REGEX_SPLIT = "/name";
+    private static final int ARRAY_SIZE_NAME = 2;
 
     /**
      * Constructor for AddModuleCommand.
      *
-     * @param line Command inputted by user for processing.
+     * @param arguments Command inputted by user for processing.
      */
-    public AddModuleCommand(String line) {
+    public AddModuleCommand(ArrayList<String> arguments) {
         super();
-        this.line = line;
+        this.arguments = arguments;
     }
 
     @Override
-    public void execute(SemesterList semesterList, TaskList tasks, Ui ui, Storage storage) throws OofException {
-        String[] argumentSplit = line.split(REGEX_SPLIT);
-        if (!hasCode(argumentSplit)) {
+    public void execute(SemesterList semesterList, TaskList tasks, Ui ui, StorageManager storageManager)
+            throws OofException {
+        if (arguments.get(INDEX_CODE).isEmpty()) {
             throw new OofException("OOPS!! The module needs a code.");
-        } else if (!hasName(argumentSplit)) {
+        } else if (arguments.size() < ARRAY_SIZE_NAME || arguments.get(INDEX_NAME).isEmpty()) {
             throw new OofException("OOPS!! The module needs a name.");
         }
-        String code = argumentSplit[INDEX_CODE].trim();
-        String name = argumentSplit[INDEX_NAME].trim();
+        String moduleName = arguments.get(INDEX_NAME);
+        String moduleCode = arguments.get(INDEX_CODE);
+        String description = moduleCode + " " + moduleName;
+        if (exceedsMaxLength(description)) {
+            throw new OofException("Task exceeds maximum description length!");
+        }
         SelectedInstance selectedInstance = SelectedInstance.getInstance();
         Semester semester = selectedInstance.getSemester();
         if (semester == null) {
             throw new OofException("OOPS!! Please select a semester!");
         }
-        Module module = new Module(code, name);
+        Module module = new Module(moduleCode, moduleName);
         semester.addModule(module);
         ui.printModuleAddedMessage(module);
-        storage.writeSemesters(semesterList);
-    }
-
-    /**
-     * Checks if module has a code.
-     *
-     * @param argumentSplit processed user input.
-     * @return true if Module code is more than length 0 and is not whitespace.
-     */
-    private boolean hasCode(String[] argumentSplit) {
-        return argumentSplit.length > 0 && argumentSplit[INDEX_CODE].trim().length() > 0;
-    }
-
-    /**
-     * Checks if module has a name.
-     *
-     * @param argumentSplit processed user input.
-     * @return true if name is more than length 0 and is not whitespace
-     */
-    private boolean hasName(String[] argumentSplit) {
-        return argumentSplit.length > 1 && argumentSplit[INDEX_NAME].trim().length() > 0;
-    }
-
-    @Override
-    public boolean isExit() {
-        return false;
+        selectedInstance.selectModule(module);
+        storageManager.writeSemesterList(semesterList);
     }
 }

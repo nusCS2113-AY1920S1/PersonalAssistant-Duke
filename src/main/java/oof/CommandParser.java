@@ -1,6 +1,6 @@
 package oof;
 
-import java.util.InputMismatchException;
+import java.util.ArrayList;
 
 import oof.command.AddAssessmentCommand;
 import oof.command.AddAssignmentCommand;
@@ -10,14 +10,14 @@ import oof.command.AddLessonCommand;
 import oof.command.AddModuleCommand;
 import oof.command.AddSemesterCommand;
 import oof.command.AddToDoCommand;
+import oof.command.ByeCommand;
 import oof.command.CalendarCommand;
 import oof.command.Command;
-import oof.command.CompleteCommand;
 import oof.command.DeleteLessonCommand;
 import oof.command.DeleteModuleCommand;
 import oof.command.DeleteSemesterCommand;
 import oof.command.DeleteTaskCommand;
-import oof.command.ExitCommand;
+import oof.command.DoneCommand;
 import oof.command.FindCommand;
 import oof.command.FreeCommand;
 import oof.command.HelpCommand;
@@ -29,13 +29,13 @@ import oof.command.SelectSemesterCommand;
 import oof.command.SnoozeCommand;
 import oof.command.SummaryCommand;
 import oof.command.ThresholdCommand;
+import oof.command.TrackerCommand;
 import oof.command.ViewAllModuleCommand;
 import oof.command.ViewAllSemesterCommand;
 import oof.command.ViewLessonCommand;
 import oof.command.ViewSelectedModuleCommand;
 import oof.command.ViewSelectedSemesterCommand;
 import oof.command.ViewWeekCommand;
-import oof.command.TrackerCommand;
 import oof.exception.OofException;
 
 /**
@@ -43,263 +43,436 @@ import oof.exception.OofException;
  */
 public class CommandParser {
 
-    private static Ui ui;
-    private static final int LENGTH_COMMAND_ONLY = 1;
-    private static final int LENGTH_COMMAND_AND_TASK = 2;
-    private static final int INDEX_ARGUMENT_COMMAND = 0;
-    private static final int INDEX_ARGUMENT_TASK_NUMBER = 1;
-    private static final int INDEX_ARGUMENT_COUNT = 2;
-    private static final int INDEX_TASK_TYPE = 1;
+    private static final String DELIMITER = "||";
 
     /**
      * Parses the input given by user and calls specific Commands
      * after checking the validity of the input.
      *
-     * @param line Command inputted by user.
+     * @param input Command entered by user.
      * @return Command based on the user input.
      * @throws OofException Catches invalid commands given by user.
      */
-    public static Command parse(String line) throws OofException {
-        String[] argumentArray = line.split(" ");
-        switch (argumentArray[INDEX_ARGUMENT_COMMAND]) {
-        case "bye":
-            return new ExitCommand();
-        case "list":
+    public static Command parse(String input) throws OofException {
+        if (containsIllegalInput(input)) {
+            throw new OofException("Your command contains illegal input!");
+        }
+        String command = getFirstWord(input);
+        input = input.replaceFirst(command, "").trim();
+        switch (command) {
+        case ByeCommand.COMMAND_WORD:
+            return new ByeCommand();
+
+        case ListCommand.COMMAND_WORD:
             return new ListCommand();
-        case "help":
-            line = line.replaceFirst("help", "").trim();
-            return new HelpCommand(line);
-        case "done":
-            return parseDone(argumentArray, line);
-        case "todo":
-            line = line.replaceFirst("todo", "").trim();
-            return new AddToDoCommand(line);
-        case "assignment":
-            line = line.replaceFirst("assignment", "").trim();
-            return new AddAssignmentCommand(line);
-        case "deadline":
-            line = line.replaceFirst("deadline", "").trim();
-            return new AddDeadlineCommand(line);
-        case "assessment":
-            line = line.replaceFirst("assessment", "").trim();
-            return new AddAssessmentCommand(line);
-        case "event":
-            line = line.replaceFirst("event", "").trim();
-            return new AddEventCommand(line);
-        case "delete":
-            return parseDelete(argumentArray, line);
-        case "find":
-            return new FindCommand(line);
-        case "snooze":
-            return parseSnooze(argumentArray, line);
-        case "schedule":
-            line = line.replaceFirst("schedule", "").trim();
-            return new ScheduleCommand(line);
-        case "summary":
+
+        case HelpCommand.COMMAND_WORD:
+            return new HelpCommand(input);
+
+        case DoneCommand.COMMAND_WORD:
+            return parseDoneCommand(input);
+
+        case AddToDoCommand.COMMAND_WORD:
+            return parseAddToDoCommand(input);
+
+        case AddAssignmentCommand.COMMAND_WORD:
+            return parseAddAssignmentCommand(input);
+
+        case AddDeadlineCommand.COMMAND_WORD:
+            return parseAddDeadlineCommand(input);
+
+        case AddAssessmentCommand.COMMAND_WORD:
+            return parseAddAssessmentCommand(input);
+
+        case AddEventCommand.COMMAND_WORD:
+            return parseAddEventCommand(input);
+
+        case DeleteTaskCommand.COMMAND_WORD:
+            return parseDeleteCommand(input);
+
+        case FindCommand.COMMAND_WORD:
+            return new FindCommand(input);
+
+        case SnoozeCommand.COMMAND_WORD:
+            return parseSnooze(input);
+
+        case ScheduleCommand.COMMAND_WORD:
+            return new ScheduleCommand(input);
+
+        case SummaryCommand.COMMAND_WORD:
             return new SummaryCommand();
-        case "recurring":
-            return parseRecurring(argumentArray);
-        case "calendar":
-            return new CalendarCommand(argumentArray);
-        case "viewweek":
-            return new ViewWeekCommand(argumentArray);
-        case "free":
-            line = line.replaceFirst("free", "").trim();
-            return new FreeCommand(line);
-        case "tracker":
-            line = line.replaceFirst("tracker", "").trim();
-            return new TrackerCommand(line);
-        case "threshold":
-            line = line.replaceFirst("threshold", "").trim();
-            return new ThresholdCommand(line);
-        case "semester":
-            return parseSemester(argumentArray, line);
-        case "module":
-            return parseModule(argumentArray, line);
-        case "lesson":
-            return parseLesson(argumentArray, line);
+
+        case RecurringCommand.COMMAND_WORD:
+            return new RecurringCommand(input);
+
+        case CalendarCommand.COMMAND_WORD:
+            return new CalendarCommand(input);
+
+        case ViewWeekCommand.COMMAND_WORD:
+            return parseViewWeekCommand(input);
+
+        case FreeCommand.COMMAND_WORD:
+            return new FreeCommand(input);
+
+        case TrackerCommand.COMMAND_WORD:
+            return new TrackerCommand(input);
+
+        case ThresholdCommand.COMMAND_WORD:
+            return parseThresholdCommand(input);
+
+        case AddSemesterCommand.COMMAND_WORD:
+            return parseSemesterCommand(input);
+
+        case AddModuleCommand.COMMAND_WORD:
+            return parseModuleCommand(input);
+
+        case AddLessonCommand.COMMAND_WORD:
+            return parseLessonCommand(input);
+
         default:
             throw new OofException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
     }
 
     /**
+     * Checks if user input contains illegal characters.
+     *
+     * @param line User input.
+     * @return True if user input contains illegal characters, false otherwise.
+     */
+    private static boolean containsIllegalInput(String line) {
+        return line.contains(DELIMITER);
+    }
+
+    /**
+     * Extracts the Command type from user input.
+     *
+     * @param input User input.
+     * @return String containing type of command.
+     */
+    private static String getFirstWord(String input) {
+        int index = input.indexOf(' ');
+        if (index == -1) { // Input only contains a single word
+            return input;
+        } else {
+            return input.substring(0, index).trim(); // Extracts first word.
+        }
+    }
+
+    /**
+     * Tokenize the user input into an argument array.
+     *
+     * @param input User input.
+     * @param argumentDelimiters Specific delimiters for the command to be tokenized.
+     * @return ArrayList of tokenized user input.
+     */
+    private static ArrayList<String> tokenizeToStringArray(String input, String[] argumentDelimiters) {
+        int argumentDelimitersIndex = 0;
+        String[] inputSplit = input.split(" ");
+        ArrayList<String> argumentArray = new ArrayList<>();
+        StringBuilder argument = new StringBuilder();
+        for (int index = 0; index < inputSplit.length; index++) {
+            if (argumentDelimitersIndex >= argumentDelimiters.length) {
+                argument.append(inputSplit[index]).append(" ");
+            } else if (inputSplit[index].equals(argumentDelimiters[argumentDelimitersIndex])) {
+                argumentArray.add(argument.toString().trim());
+                argumentDelimitersIndex++;
+                argument = new StringBuilder();
+            } else {
+                argument.append(inputSplit[index]).append(" ");
+            }
+        }
+        argumentArray.add(argument.toString().trim());
+        return argumentArray;
+    }
+
+    /**
      * Parses input if the user input starts with done.
      *
-     * @param argumentArray Command inputted by user in string array format.
-     * @param line          Command inputted by user in string format.
-     * @return Returns an instance of CompleteCommand if the parameters are valid.
-     * @throws OofException Throws exception if the parameters are invalid.
+     * @param input Command inputted by user in string format.
+     * @return Instance of CompleteCommand with parsed input as arguments
+     * @throws OofException Throws exception if input is empty or not a valid integer.
      */
-    private static Command parseDone(String[] argumentArray, String line) throws OofException {
-        if (argumentArray.length == LENGTH_COMMAND_ONLY) {
+    private static Command parseDoneCommand(String input) throws OofException {
+        if (input.isEmpty()) {
             throw new OofException("OOPS!!! Please enter a number!");
+        } else {
+            try {
+                int index = Integer.parseInt(input) - 1;
+                return new DoneCommand(index);
+            } catch (NumberFormatException e) {
+                throw new OofException("OOPS!!! Please enter a valid number!");
+            }
         }
-        try {
-            int completeIndex = Integer.parseInt(line.replaceFirst("done", "").trim()) - 1;
-            return new CompleteCommand(completeIndex);
-        } catch (NumberFormatException e) {
-            throw new OofException("OOPS!!! Please enter a valid number!");
-        }
+    }
+
+    /**
+     * Parses command for adding todo tasks.
+     *
+     * @param input User input.
+     * @return Instance of AddToDoCommand if the user input is successfully tokenized.
+     */
+    private static Command parseAddToDoCommand(String input) {
+        String[] argumentDelimiters = {"/on"};
+        ArrayList<String> arguments = tokenizeToStringArray(input, argumentDelimiters);
+        return new AddToDoCommand(arguments);
+    }
+
+    /**
+     * Parses command for adding assignment tasks.
+     *
+     * @param input User input.
+     * @return Instance of AddAssignmentCommand if the user input is successfully tokenized.
+     */
+    private static Command parseAddAssignmentCommand(String input) {
+        String[] argumentDelimiters = {"/by"};
+        ArrayList<String> arguments = tokenizeToStringArray(input, argumentDelimiters);
+        return new AddAssignmentCommand(arguments);
+    }
+
+    /**
+     * Parses command for adding deadline tasks.
+     *
+     * @param input User input.
+     * @return Instance of AddDeadlineCommand if the user input is successfully tokenized.
+     */
+    private static Command parseAddDeadlineCommand(String input) {
+        String[] argumentDelimiters = {"/by"};
+        ArrayList<String> arguments = tokenizeToStringArray(input, argumentDelimiters);
+        return new AddDeadlineCommand(arguments);
+    }
+
+    /**
+     * Parses command for adding Assessment tasks.
+     *
+     * @param input User input.
+     * @return Instance of AddAssessmentCommand if the user input is successfully tokenized.
+     */
+    private static Command parseAddAssessmentCommand(String input) {
+        String[] argumentDelimiters = {"/from", "/to"};
+        ArrayList<String> arguments = tokenizeToStringArray(input, argumentDelimiters);
+        return new AddAssessmentCommand(arguments);
+    }
+
+    /**
+     * Parses command for adding event tasks.
+     *
+     * @param input User input.
+     * @return Instance of AddEventCommand if the user input is successfully tokenized.
+     */
+    private static Command parseAddEventCommand(String input) {
+        String[] argumentDelimiters = {"/from", "/to"};
+        ArrayList<String> arguments = tokenizeToStringArray(input, argumentDelimiters);
+        return new AddEventCommand(arguments);
     }
 
     /**
      * Parses input if the user input starts with delete.
      *
-     * @param argumentArray Command inputted by user in string array format.
-     * @param line          Command inputted by user in string format.
-     * @return Returns an instance of DeleteCommand if the parameters are valid.
+     * @param input Command inputted by user in string format.
+     * @return Instance of DeleteCommand if the parameters are valid.
      * @throws OofException Throws exception if the parameters are invalid.
      */
-    private static Command parseDelete(String[] argumentArray, String line) throws OofException {
-        if (argumentArray.length == LENGTH_COMMAND_ONLY) {
+    private static Command parseDeleteCommand(String input) throws OofException {
+        if (input.isEmpty()) {
             throw new OofException("OOPS!!! Please enter a number!");
-        } else if (argumentArray.length == LENGTH_COMMAND_AND_TASK) {
+        } else {
             try {
-                int deleteIndex = Integer.parseInt(line.replaceFirst("delete", "").trim()) - 1;
-                return new DeleteTaskCommand(deleteIndex);
+                int index = Integer.parseInt(input) - 1;
+                return new DeleteTaskCommand(index);
             } catch (NumberFormatException e) {
                 throw new OofException("OOPS!!! Please enter a valid number!");
             }
-        } else {
-            throw new OofException("OOPS!!! I'm sorry, but I don't know what that means :-(");
-        }
-    }
-
-    /**
-     * Parses input if the user input starts with semester.
-     *
-     * @param argumentArray Command inputted by user in string array format.
-     * @param line          Command inputted by user in string format.
-     * @return Returns relevant Semester Commands if the parameters are valid.
-     * @throws OofException Throws exception if the parameters are invalid.
-     */
-    private static Command parseSemester(String[] argumentArray, String line) throws OofException {
-        if (argumentArray.length == LENGTH_COMMAND_ONLY) {
-            return new ViewSelectedSemesterCommand();
-        } else if (argumentArray[INDEX_TASK_TYPE].equals("/view")) {
-            return new ViewAllSemesterCommand();
-        } else if (argumentArray[INDEX_TASK_TYPE].equals("/add")) {
-            line = line.replaceFirst("semester /add", "").trim();
-            return new AddSemesterCommand(line);
-        } else if (argumentArray[INDEX_TASK_TYPE].equals("/delete")) {
-            line = line.replaceFirst("semester /delete", "").trim();
-            try {
-                int deleteIndex = Integer.parseInt(line) - 1;
-                return new DeleteSemesterCommand(deleteIndex);
-            } catch (NumberFormatException e) {
-                throw new OofException("OOPS!!! Please enter a valid number!");
-            }
-        } else if (argumentArray[INDEX_TASK_TYPE].equals("/select")) {
-            line = line.replaceFirst("semester /select", "").trim();
-            return new SelectSemesterCommand(line);
-        } else {
-            throw new OofException("OOPS!!! I'm sorry, but I don't know what that means :-(");
-        }
-    }
-
-    /**
-     * Parses input if the user input starts with module.
-     *
-     * @param argumentArray Command inputted by user in string array format.
-     * @param line          Command inputted by user in string format.
-     * @return Returns relevant Module Commands if the parameters are valid.
-     * @throws OofException Throws exception if the parameters are invalid.
-     */
-    private static Command parseModule(String[] argumentArray, String line) throws OofException {
-        if (argumentArray.length == LENGTH_COMMAND_ONLY) {
-            return new ViewSelectedModuleCommand();
-        } else if (argumentArray[INDEX_TASK_TYPE].equals("/view")) {
-            return new ViewAllModuleCommand();
-        } else if (argumentArray[INDEX_TASK_TYPE].equals("/add")) {
-            line = line.replaceFirst("module /add", "").trim();
-            return new AddModuleCommand(line);
-        } else if (argumentArray[INDEX_TASK_TYPE].equals("/delete")) {
-            line = line.replaceFirst("module /delete", "").trim();
-            try {
-                int deleteIndex = Integer.parseInt(line) - 1;
-                return new DeleteModuleCommand(deleteIndex);
-            } catch (NumberFormatException e) {
-                throw new OofException("OOPS!!! Please enter a valid number!");
-            }
-        } else if (argumentArray[INDEX_TASK_TYPE].equals("/select")) {
-            line = line.replaceFirst("module /select", "").trim();
-            return new SelectModuleCommand(line);
-        } else {
-            throw new OofException("OOPS!!! I'm sorry, but I don't know what that means :-(");
-        }
-    }
-
-    /**
-     * Parses input if the user input starts with lesson.
-     *
-     * @param argumentArray Command inputted by user in string array format.
-     * @param line          Command inputted by user in string format.
-     * @return Returns relevant Lesson Commands if the parameters are valid.
-     * @throws OofException Throws exception if the parameters are invalid.
-     */
-    private static Command parseLesson(String[] argumentArray, String line) throws OofException {
-        if (argumentArray.length == LENGTH_COMMAND_ONLY) {
-            return new ViewLessonCommand();
-        } else if (argumentArray[INDEX_TASK_TYPE].equals("/add")) {
-            line = line.replaceFirst("lesson /add", "").trim();
-            return new AddLessonCommand(line);
-        } else if (argumentArray[INDEX_TASK_TYPE].equals("/delete")) {
-            line = line.replaceFirst("lesson /delete", "").trim();
-            try {
-                int deleteIndex = Integer.parseInt(line) - 1;
-                return new DeleteLessonCommand(deleteIndex);
-            } catch (NumberFormatException e) {
-                throw new OofException("OOPS!!! Please enter a valid number!");
-            }
-        } else {
-            throw new OofException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
     }
 
     /**
      * Parses input if the user input starts with snooze.
      *
-     * @param argumentArray Command inputted by user in string array format.
-     * @param line          Command inputted by user in string format.
-     * @return Returns an instance of SnoozeCommand if the parameters are valid.
+     * @param input Command inputted by user in string format
+     * @return Returns an instance of SnoozeCommand
      * @throws OofException Throws exception if the parameters are invalid.
      */
-    private static Command parseSnooze(String[] argumentArray, String line) throws OofException {
-        if (argumentArray.length == LENGTH_COMMAND_ONLY) {
-            throw new OofException("OOPS!!! Please enter a number!");
-        }
+    private static Command parseSnooze(String input) throws OofException {
         try {
-            int snoozeIndex = Integer.parseInt(line.replaceFirst("snooze", "").trim()) - 1;
-            return new SnoozeCommand(snoozeIndex);
+            int index = Integer.parseInt(input) - 1;
+            return new SnoozeCommand(index);
         } catch (NumberFormatException e) {
             throw new OofException("OOPS!!! Please enter a valid number!");
         }
     }
 
     /**
-     * Parses input if the user input starts with recurring.
+     * Parses input for ThresholdCommand.
      *
-     * @param argumentArray Command inputted by user in string array format.
-     * @return Returns an instance of RecurringCommand if the parameters are valid.
+     * @param input Command input by user
+     * @return instance of ThresholdCommand with parsed input as arguments
+     * @throws OofException Throws exception if input is empty or not a valid integer.
+     */
+    private static Command parseThresholdCommand(String input) throws OofException {
+        if (input.isEmpty()) {
+            throw new OofException("OOPS!!! Please enter a number!");
+        } else {
+            try {
+                int threshold = Integer.parseInt(input);
+                return new ThresholdCommand(threshold);
+            } catch (NumberFormatException e) {
+                throw new OofException("OOPS!!! Please enter a valid number!");
+            }
+        }
+    }
+
+    /**
+     * Parses input for ViewWeekCommand.
+     *
+     * @param input User input.
+     * @return Instance of ViewWeekCommand with parsed input as arguments.
+     */
+    private static Command parseViewWeekCommand(String input) {
+        String[] argumentArray = input.split(" ");
+        return new ViewWeekCommand(argumentArray);
+    }
+
+
+    /**
+     * Parses input if the user input starts with semester.
+     *
+     * @param input Command inputted by user in string format.
+     * @return Returns relevant Semester Commands if the parameters are valid.
      * @throws OofException Throws exception if the parameters are invalid.
      */
-    private static Command parseRecurring(String[] argumentArray) throws OofException {
-        if (argumentArray.length == LENGTH_COMMAND_ONLY) {
-            throw new OofException("OOPS!!! Please enter the task number and number of recurrences!");
-        } else if (argumentArray.length == LENGTH_COMMAND_AND_TASK) {
-            throw new OofException("OOPS!!! Please enter the number of recurrences!");
+    private static Command parseSemesterCommand(String input) throws OofException {
+        if (input.isEmpty()) {
+            return new ViewSelectedSemesterCommand();
+        } else {
+            String commandFlag = getFirstWord(input);
+            input = input.replaceFirst(commandFlag, "").trim();
+            switch (commandFlag) {
+            case "/add":
+                return parseSemesterAdd(input);
+            case "/delete":
+                return parseSemesterDelete(input);
+            case "/select":
+                return parseSemesterSelect(input);
+            case "/view":
+                return new ViewAllSemesterCommand();
+            default:
+                throw new OofException("OOPS!!! I'm sorry, but I don't know what that means :-(");
+            }
         }
+    }
+
+    private static Command parseSemesterAdd(String input) {
+        String[] argumentDelimiters = {"/name", "/from", "/to"};
+        ArrayList<String> argumentArray = tokenizeToStringArray(input, argumentDelimiters);
+        return new AddSemesterCommand(argumentArray);
+    }
+
+    private static Command parseSemesterDelete(String input) throws OofException {
         try {
-            int recurringIndex = Integer.parseInt(argumentArray[INDEX_ARGUMENT_TASK_NUMBER].trim()) - 1;
-            int recurringCount = Integer.parseInt(argumentArray[INDEX_ARGUMENT_COUNT].trim());
-            ui = new Ui();
-            ui.printRecurringOptions();
-            int recurringFrequency = ui.scanInt();
-            return new RecurringCommand(recurringIndex, recurringCount, recurringFrequency);
+            int deleteIndex = Integer.parseInt(input) - 1;
+            return new DeleteSemesterCommand(deleteIndex);
         } catch (NumberFormatException e) {
-            throw new OofException("OOPS!!! Please enter valid numbers!");
-        } catch (InputMismatchException e) {
+            throw new OofException("OOPS!!! Please enter a valid number!");
+        }
+    }
+
+    private static Command parseSemesterSelect(String input) throws OofException {
+        try {
+            int index = Integer.parseInt(input) - 1;
+            return new SelectSemesterCommand(index);
+        } catch (NumberFormatException e) {
+            throw new OofException("OOPS!!! Please enter a valid number!");
+        }
+    }
+
+    /**
+     * Parses input if the user input starts with module.
+     *
+     * @param input Command inputted by user in string format.
+     * @return Returns relevant Module Commands if the parameters are valid.
+     * @throws OofException Throws exception if the parameters are invalid.
+     */
+    private static Command parseModuleCommand(String input) throws OofException {
+        if (input.isEmpty()) {
+            return new ViewSelectedModuleCommand();
+        } else {
+            String commandFlag = getFirstWord(input);
+            input = input.replaceFirst(commandFlag, "").trim();
+            switch (commandFlag) {
+            case "/add":
+                return parseModuleAdd(input);
+            case "/delete":
+                return parseModuleDelete(input);
+            case "/select":
+                return parseModuleSelect(input);
+            case "/view":
+                return new ViewAllModuleCommand();
+            default:
+                throw new OofException("OOPS!!! I'm sorry, but I don't know what that means :-(");
+            }
+        }
+    }
+
+    private static Command parseModuleAdd(String input) {
+        String[] argumentDelimiters = {"/name"};
+        ArrayList<String> argumentArray = tokenizeToStringArray(input, argumentDelimiters);
+        return new AddModuleCommand(argumentArray);
+    }
+
+    private static Command parseModuleDelete(String input) throws OofException {
+        try {
+            int deleteIndex = Integer.parseInt(input) - 1;
+            return new DeleteModuleCommand(deleteIndex);
+        } catch (NumberFormatException e) {
+            throw new OofException("OOPS!!! Please enter a valid number!");
+        }
+    }
+
+    private static Command parseModuleSelect(String input) throws OofException {
+        try {
+            int index = Integer.parseInt(input) - 1;
+            return new SelectModuleCommand(index);
+        } catch (NumberFormatException e) {
+            throw new OofException("OOPS!!! Please enter a valid number!");
+        }
+    }
+
+    /**
+     * Parses input if the user input starts with lesson.
+     *
+     * @param input Command inputted by user in string format.
+     * @return Returns relevant Lesson Commands if the parameters are valid.
+     * @throws OofException Throws exception if the parameters are invalid.
+     */
+    private static Command parseLessonCommand(String input) throws OofException {
+        if (input.isEmpty()) {
+            return new ViewLessonCommand();
+        } else {
+            String commandFlag = getFirstWord(input);
+            input = input.replaceFirst(commandFlag, "").trim();
+            switch (commandFlag) {
+            case "/add":
+                return parseLessonAdd(input);
+            case "/delete":
+                return parseLessonDelete(input);
+            default:
+                throw new OofException("OOPS!!! I'm sorry, but I don't know what that means :-(");
+            }
+        }
+    }
+
+    private static Command parseLessonAdd(String input) {
+        String[] argumentDelimiters = {"/day", "/from", "/to"};
+        ArrayList<String> argumentArray = tokenizeToStringArray(input, argumentDelimiters);
+        return new AddLessonCommand(argumentArray);
+    }
+
+    private static Command parseLessonDelete(String input) throws OofException {
+        try {
+            int deleteIndex = Integer.parseInt(input) - 1;
+            return new DeleteLessonCommand(deleteIndex);
+        } catch (NumberFormatException e) {
             throw new OofException("OOPS!!! Please enter a valid number!");
         }
     }

@@ -1,74 +1,58 @@
 package oof.command;
 
+import java.util.ArrayList;
+
 import oof.SelectedInstance;
-import oof.Storage;
 import oof.Ui;
 import oof.exception.OofException;
 import oof.model.module.SemesterList;
 import oof.model.module.Module;
 import oof.model.task.Assignment;
 import oof.model.task.TaskList;
+import oof.storage.StorageManager;
 
-public class AddAssignmentCommand extends Command {
+public class AddAssignmentCommand extends AddDeadlineCommand {
 
-    private String line;
-    private static final int INDEX_NAME = 0;
-    private static final int INDEX_DATE_BY = 1;
+    public static final String COMMAND_WORD = "assignment";
 
     /**
      * Constructor for AddAssignmentCommand.
      *
-     * @param line Command inputted by user for processing.
+     * @param arguments Command inputted by user for processing.
      */
-    public AddAssignmentCommand(String line) {
-        super();
-        this.line = line;
+    public AddAssignmentCommand(ArrayList<String> arguments) {
+        super(arguments);
     }
 
     @Override
-    public void execute(SemesterList semesterList, TaskList taskList, Ui ui, Storage storage) throws OofException {
+    public void execute(SemesterList semesterList, TaskList taskList, Ui ui, StorageManager storageManager)
+            throws OofException {
         SelectedInstance selectedInstance = SelectedInstance.getInstance();
         Module module = selectedInstance.getModule();
         if (module == null) {
             throw new OofException("OOPS!! Please select a Module.");
         }
-        String[] nameAndDueDate = line.split(" /by ");
-        if (!hasName(nameAndDueDate)) {
+        String moduleCode = module.getModuleCode();
+        String description = arguments.get(INDEX_DESCRIPTION);
+        if (arguments.get(INDEX_DESCRIPTION).equals("")) {
             throw new OofException("OOPS!!! The assignment needs a name.");
-        } else if (!hasDueDate(nameAndDueDate)) {
+        }
+        if (arguments.size() < ARRAY_SIZE_DATE || arguments.get(INDEX_DATE).equals("")) {
             throw new OofException("OOPS!!! The assignment needs a due date.");
         }
-        String name = nameAndDueDate[INDEX_NAME].trim();
-        String date = parseTimeStamp(nameAndDueDate[INDEX_DATE_BY].trim());
-        if (isDateValid(date)) {
-            Assignment assignment = new Assignment(module.getModuleCode(), name, date);
+        String date = parseDateTime(arguments.get(INDEX_DATE));
+        if (!isDateValid(date)) {
+            throw new OofException("OOPS!!! The due date is invalid.");
+        } else {
+            Assignment assignment = new Assignment(moduleCode, description, date);
+            if (exceedsMaxLength(assignment.getDescription())) {
+                throw new OofException("OOPS!!! Task exceeds maximum description length!");
+            }
             taskList.addTask(assignment);
             module.addAssignment(assignment);
             ui.addTaskMessage(assignment, taskList.getSize());
-            storage.writeTaskList(taskList);
-        } else {
-            throw new OofException("OOPS!!! The due date is invalid.");
+            storageManager.writeTaskList(taskList);
         }
-    }
-
-    /**
-     * Checks if assignment has a name.
-     *
-     * @param lineSplit processed user input.
-     * @return true if name is more than length 0 and is not whitespace
-     */
-    private boolean hasName(String[] lineSplit) {
-        return lineSplit[INDEX_NAME].trim().length() > 0;
-    }
-
-    /**
-     * Checks if assignment has a due date.
-     *
-     * @param lineSplit processed user input.
-     * @return true if there is a due date and due date is not whitespace.
-     */
-    private boolean hasDueDate(String[] lineSplit) {
-        return lineSplit.length != 1 && lineSplit[INDEX_DATE_BY].trim().length() > 0;
     }
 
     @Override

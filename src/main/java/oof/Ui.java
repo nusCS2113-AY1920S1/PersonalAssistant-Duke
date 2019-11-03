@@ -1,5 +1,6 @@
 package oof;
 
+import java.io.FileNotFoundException;
 import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
 import java.time.YearMonth;
@@ -13,12 +14,11 @@ import oof.model.module.Lesson;
 import oof.model.module.Module;
 import oof.model.module.Semester;
 import oof.model.module.SemesterList;
-import oof.model.task.Assessment;
-import oof.model.task.Assignment;
 import oof.model.task.Event;
 import oof.model.task.Task;
 import oof.model.task.TaskList;
 import oof.model.tracker.Tracker;
+import oof.storage.StorageManager;
 
 /**
  * Represents a Ui class that is responsible for Input/Output operations.
@@ -41,24 +41,23 @@ public class Ui {
     private static final int DESCRIPTION_SHORT_END = 11;
     private static final int DESCRIPTION_LONG_START = 0;
     private static final int DESCRIPTION_LONG_END = 17;
-    private static final int LEAST_COL_SIZE = 19;
     private static final int TIME = 0;
     private static final int DESCRIPTION = 1;
+    private static final int TYPE = 2;
     private static final int FIRST_VAR = 0;
     private static final int SEGMENT_SIZE = 10;
+    private static final int ANSI_LENGTH = 9;
+    private static final String TODO = "TODO";
+    private static final String DEADLINE = "DEADLINE";
+    private static final String EVENT = "EVENT";
     private static final String ANSI_RESET = "\u001B[0m";
     private static final String ANSI_BRIGHT_RED = "\u001B[91m";
     private static final String ANSI_BRIGHT_GREEN = "\u001B[92m";
-    private static final String ANSI_BRIGHT_YELLOW = "\u001B[93m";
-    private static final String ANSI_BRIGHT_BLUE = "\u001B[94m";
-    private static final String ANSI_BRIGHT_PURPLE = "\u001B[95m";
-    private static final String ANSI_BRIGHT_CYAN = "\u001B[96m";
+    private static final String ANSI_BRIGHT_CYAN   = "\u001B[96m";
     private static final String ANSI_BRIGHT_WHITE = "\u001B[97m";
     private static final String ANSI_BG_BLUE = "\u001B[44m";
     private static final String ANSI_BG_BLACK = "\u001B[40m";
-    private static final String[] colouredText = {ANSI_BRIGHT_RED, ANSI_BRIGHT_GREEN, ANSI_BRIGHT_YELLOW,
-            ANSI_BRIGHT_BLUE, ANSI_BRIGHT_PURPLE, ANSI_BRIGHT_CYAN, ANSI_BRIGHT_WHITE};
-    private Storage storage = new Storage();
+    private StorageManager storageManager = new StorageManager();
 
     public Ui() {
         scan = new Scanner(System.in);
@@ -209,25 +208,10 @@ public class Ui {
     }
 
     /**
-     * Prints a continue prompt and waits for user input.
-     *
-     * @return User input if it is equals to "Y" or "N"
-     */
-    public String printContinuePrompt() {
-        String input = "";
-        while (true) {
-            System.out.println(" Continue anyway? (Y/N)");
-            input = scanLine();
-            if (input.equals("Y") || input.equals("N")) {
-                return input;
-            }
-        }
-    }
-
-    /**
      * Prints a warning regarding event clashes.
      */
     public void printClashWarning(ArrayList<Event> eventClashes) {
+        printLine();
         System.out.println(" Warning! Event being added clashes with the following events:");
         for (Event e : eventClashes) {
             System.out.println(" \t" + e.toString());
@@ -296,12 +280,13 @@ public class Ui {
      * Prints list of options for the recurring frequency of a task.
      */
     public void printRecurringOptions() {
+        printLine();
         String options = " Here are the available options for recurring tasks:\n"
                 + " \t1. Daily\n"
                 + " \t2. Weekly\n"
                 + " \t3. Monthly\n"
                 + " \t4. Yearly\n"
-                + " \tPlease choose one of the four options for your recurring frequency.\n";
+                + " \tPlease choose one of the four options for your recurring frequency.";
         System.out.println(options);
     }
 
@@ -331,11 +316,9 @@ public class Ui {
 
     /**
      * Prints and applies format for command list available to user.
-     *
-     * @throws OofException if readManual method fails.
      */
-    public void printHelpCommands() throws OofException {
-        ArrayList<String> commands = storage.readManual();
+    public void printHelpCommands() throws FileNotFoundException {
+        ArrayList<String> commands = storageManager.readManual();
         printLine();
         for (String command : commands) {
             System.out.println(" \t" + command);
@@ -352,6 +335,8 @@ public class Ui {
         System.out.println(" \t" + command);
     }
 
+    //@@author jasperosy
+
     /**
      * Prints the tasks for a particular week.
      *
@@ -360,11 +345,25 @@ public class Ui {
      * @param largestTaskSize Size of the day with the largest number of tasks.
      * @param largestColSize  Size of the largest column in the View Week output.
      */
-    public void printViewWeek(ArrayList<ArrayList<String[]>> tasks, Date startDate, int largestTaskSize,
-                              int largestColSize) {
+    public void printViewWeek(
+            ArrayList<ArrayList<String[]>> tasks, Date startDate, int largestTaskSize, int largestColSize) {
+        printViewWeekLegend();
         printViewWeekHeader(largestColSize);
         printViewWeekBody(startDate, largestColSize);
         printViewWeekDetails(tasks, largestTaskSize, largestColSize);
+    }
+
+    /**
+     * Prints the legend for ViewWeek command.
+     */
+    private void printViewWeekLegend() {
+        printLine();
+        String legend = "Legend: \n"
+                + ANSI_BG_BLACK + ANSI_BRIGHT_GREEN + "\tTodo\n"
+                + ANSI_BG_BLACK + ANSI_BRIGHT_RED + "\tDeadline\n"
+                + ANSI_BG_BLACK + ANSI_BRIGHT_CYAN + "\tEvent\n";
+        System.out.println(legend);
+        System.out.print(ANSI_RESET);
     }
 
     /**
@@ -477,14 +476,13 @@ public class Ui {
         for (int i = 0; i < largestColSize + DATE_SPACES - DESCRIPTION_SHORT_END; i++) {
             spaces += " ";
         }
+        System.out.print(ANSI_RESET);
         for (int i = 0; i < DAYS_IN_WEEK; i++) {
             if (i != DAYS_IN_WEEK - 1) {
-                System.out.print(" " + colouredText[i] + ANSI_BG_BLACK
-                        + calendarDates.get(i) + ANSI_RESET + spaces + "|");
+                System.out.print(" " + ANSI_BG_BLACK + calendarDates.get(i) + ANSI_RESET + spaces + "|");
             }
         }
-        System.out.print(" " + colouredText[DAYS_IN_WEEK - 1] + ANSI_BG_BLACK
-                + calendarDates.get(DAYS_IN_WEEK - 1) + ANSI_RESET + spaces);
+        System.out.print(" " + ANSI_BG_BLACK + calendarDates.get(DAYS_IN_WEEK - 1) + ANSI_RESET + spaces);
         printViewWeekBorder();
         System.out.println();
     }
@@ -521,9 +519,11 @@ public class Ui {
         for (int dayInWeek = 0; dayInWeek < DAYS_IN_WEEK; dayInWeek++) {
             int colSize = tasks.get(dayInWeek).size();
             if (taskNo < colSize) {
-                String task = getTaskDetails(tasks.get(dayInWeek).get(taskNo));
-                task = padTaskDetails(task, largestColSize);
-                System.out.print(task);
+                ArrayList<String[]> dailyTasks = tasks.get(dayInWeek);
+                String[] task = dailyTasks.get(taskNo);
+                String taskDetails = getTaskDetails(task);
+                taskDetails = padTaskDetails(task, taskDetails, largestColSize);
+                System.out.print(taskDetails);
                 if (dayInWeek != DAYS_IN_WEEK - 1) {
                     System.out.print("|");
                 } else {
@@ -556,17 +556,27 @@ public class Ui {
     /**
      * Pads the details of a task to fit into a day of the ViewWeek command output.
      *
+     * @param task           Array containing type, description and time of task.
      * @param details        Details of a task.
      * @param largestColSize Size of the largest column in the ViewWeek command output.
      * @return Padded details of a task.
      */
-    private String padTaskDetails(String details, int largestColSize) {
+    private String padTaskDetails(String[] task, String details, int largestColSize) {
         if (!isEven(largestColSize)) {
             largestColSize++;
         }
         String newDetails = " " + details;
-        while (newDetails.length() < largestColSize + DATE_SPACES) {
+        if (task[TYPE].equals(TODO)) {
+            newDetails = ANSI_BRIGHT_GREEN + newDetails + ANSI_RESET;
+        } else if (task[TYPE].equals(DEADLINE)) {
+            newDetails = ANSI_BRIGHT_RED + newDetails + ANSI_RESET;
+        } else if (task[TYPE].equals(EVENT)) {
+            newDetails = ANSI_BRIGHT_CYAN + newDetails + ANSI_RESET;
+        }
+        int length = newDetails.length() - ANSI_LENGTH;
+        while (length < largestColSize + DATE_SPACES) {
             newDetails += " ";
+            length++;
         }
         return newDetails;
     }
@@ -578,7 +588,10 @@ public class Ui {
      * @return String containing the details of a task.
      */
     private String getTaskDetails(String[] details) {
-        return details[DESCRIPTION] + " " + details[TIME];
+        if (details[TYPE].equals(TODO)) {
+            return details[DESCRIPTION];
+        }
+        return details[TIME] + " " + details[DESCRIPTION];
     }
 
     /**
@@ -586,7 +599,7 @@ public class Ui {
      *
      * @param largestColSize Longest possible description for task.
      */
-    public void printEntryBodySpace(int largestColSize) {
+    private void printEntryBodySpace(int largestColSize) {
         printViewWeekBorder();
         if (!isEven(largestColSize)) {
             largestColSize++;
@@ -603,6 +616,7 @@ public class Ui {
             }
         }
     }
+    //@@author jasperosy
 
     /**
      * Prints calendar.
@@ -780,25 +794,25 @@ public class Ui {
     /**
      * Prints the event details.
      *
-     * @param eventName     The name of the event to be printed.
      * @param timeSlotStart The start time of the time slot.
      * @param timeSlotEnd   The end time of the time slot.
      */
-    public void printEventDetails(String eventName, String timeSlotStart, String timeSlotEnd) {
+    public void printEventDetails(String timeSlotStart, String timeSlotEnd) {
         System.out.print("| " + timeSlotStart + " - " + timeSlotEnd + " |");
-        int padSize = TEXT_WIDTH - eventName.length();
-        int padStart = eventName.length() + padSize / 2;
-        eventName = String.format("%" + padStart + "s", eventName);
-        eventName = String.format("%-" + TEXT_WIDTH + "s", eventName);
-        System.out.println(eventName + "|");
+        String slotTaken = "BUSY";
+        int padSize = TEXT_WIDTH - slotTaken.length();
+        int padStart = slotTaken.length() + padSize / 2;
+        slotTaken = String.format("%" + padStart + "s", slotTaken);
+        slotTaken = String.format("%-" + TEXT_WIDTH + "s", slotTaken);
+        System.out.println(ANSI_BRIGHT_RED + slotTaken + ANSI_RESET + "|");
         System.out.println("-----------------------------------------------------");
     }
 
     /**
      * Print when Start Tracker Command is completed.
      *
-     * @param tracker   description of Tracker object.
-     * @param taskList  TaskList object.
+     * @param tracker  description of Tracker object.
+     * @param taskList TaskList object.
      */
     public void printStartAtCurrent(Tracker tracker, TaskList taskList) {
         printLine();
@@ -816,8 +830,8 @@ public class Ui {
     /**
      * Print when Stop Tracker Command is completed.
      *
-     * @param tracker       description of Tracker object.
-     * @param taskList      TaskList object.
+     * @param tracker  description of Tracker object.
+     * @param taskList TaskList object.
      */
     public void printEndAtCurrent(Tracker tracker, TaskList taskList) {
         printLine();
@@ -834,8 +848,8 @@ public class Ui {
     /**
      * Print when Stop Tracker Command is completed.
      *
-     * @param tracker           description of Tracker object.
-     * @param taskList          TaskList object.
+     * @param tracker  description of Tracker object.
+     * @param taskList TaskList object.
      */
     public void printPauseAtCurrent(Tracker tracker, TaskList taskList) {
         printLine();
@@ -854,7 +868,7 @@ public class Ui {
      *
      * @param threshold The threshold for upcoming deadlines requested by the user.
      */
-    public void printUpdatedThreshold(String threshold) {
+    public void printUpdatedThreshold(int threshold) {
         printLine();
         System.out.println(" Threshold has been updated to " + threshold);
     }
@@ -966,27 +980,6 @@ public class Ui {
         System.out.println(" " + moduleCode + " " + lesson.getLessonName() + " has been removed.");
     }
 
-    /**
-     * Prints notification for added Assignment.
-     *
-     * @param assignment Assignment object being added.
-     */
-    public void printAssignmentAddedMessage(Assignment assignment) {
-        printLine();
-        System.out.println(" \"" + assignment.getModuleCode() + " " + assignment.getDescription()
-                + "\" has been added!");
-    }
-
-    /**
-     * Prints notification for added Assessment.
-     *
-     * @param assessment Assessment object being added.
-     */
-    public void printAssessmentAddedMessage(Assessment assessment) {
-        printLine();
-        System.out.println(" \"" + assessment.toString() + "\" has been added!");
-    }
-
     public void printSelectSemesterMessage(Semester semester) {
         printLine();
         System.out.println(" \"" + semester.toString() + "\" has been selected!");
@@ -1010,7 +1003,7 @@ public class Ui {
     /**
      * Print Tracker Diagram from TrackerList object.
      *
-     * @param moduleTrackerList   ArrayList of Tracker objects.
+     * @param moduleTrackerList ArrayList of Tracker objects.
      */
     public void printTrackerDiagram(ArrayList<Tracker> moduleTrackerList, long totalTimeTaken) {
         printLine();
@@ -1033,7 +1026,7 @@ public class Ui {
     /**
      * Print a bar of Tracker Diagram according to number of 10 minute blocks.
      *
-     * @param segmentedTimeTaken    number of 10 minute blocks.
+     * @param segmentedTimeTaken number of 10 minute blocks.
      */
     private void printTrackerDiagramBar(int segmentedTimeTaken) {
         for (int i = 0; i < segmentedTimeTaken; i++) {

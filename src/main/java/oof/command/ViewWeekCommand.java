@@ -1,23 +1,30 @@
 package oof.command;
 
-import oof.Storage;
+import java.time.YearMonth;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+
+import oof.Ui;
 import oof.model.module.SemesterList;
 import oof.model.task.Deadline;
 import oof.model.task.Event;
 import oof.model.task.Task;
-import oof.Ui;
 import oof.model.task.TaskList;
 import oof.model.task.Todo;
+import oof.storage.StorageManager;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
+//@@author jasperosy
 
 /**
  * Represents a Command to view tasks for a particular week.
  */
 public class ViewWeekCommand extends Command {
 
+    public static final String COMMAND_WORD = "viewweek";
+    private static final String TODO = "TODO";
+    private static final String EVENT = "EVENT";
+    private static final String DEADLINE = "DEADLINE";
     private int day;
     private int week;
     private int month;
@@ -31,9 +38,9 @@ public class ViewWeekCommand extends Command {
     private static final int INDEX_DAY = 0;
     private static final int INDEX_MONTH = 1;
     private static final int INDEX_YEAR = 2;
+    private static final int OFFSET = 1;
     private static final int MONTH_JANUARY = 0;
     private static final int MONTH_DECEMBER = 11;
-    private static final int OFFSET = 1;
     private static final int DAYS_IN_WEEK = 7;
     private static final int LEAST_POSSIBLE_TASK_SIZE = 0;
     private static final int LEAST_POSSIBLE_COL_SIZE = 19;
@@ -50,38 +57,48 @@ public class ViewWeekCommand extends Command {
         }
         Calendar calendar = Calendar.getInstance();
         try {
-            this.day = Integer.parseInt(argumentArray[INDEX_DAY + OFFSET]);
-            this.month = Integer.parseInt(argumentArray[INDEX_MONTH + OFFSET]) - 1;
-            this.year = Integer.parseInt(argumentArray[INDEX_YEAR + OFFSET]);
-            this.lastDate = calendar.getActualMaximum(Calendar.DATE);
+            this.day = Integer.parseInt(argumentArray[INDEX_DAY]);
+            this.month = Integer.parseInt(argumentArray[INDEX_MONTH]) - 1;
+            this.year = Integer.parseInt(argumentArray[INDEX_YEAR]);
+            calendar.set(year, month, day);
+            this.week = calendar.get(Calendar.WEEK_OF_YEAR);
+            YearMonth yearMonth = YearMonth.of(year, month + OFFSET);
+            this.lastDate = yearMonth.lengthOfMonth();
             if ((this.day < DATE_FIRST || this.day > lastDate)
                     || (this.month < MONTH_JANUARY || this.month > MONTH_DECEMBER)) {
                 this.day = calendar.get(Calendar.DATE);
                 this.month = calendar.get(Calendar.MONTH);
                 this.year = calendar.get(Calendar.YEAR);
-                this.lastDate = calendar.getActualMaximum(Calendar.DATE);
+                calendar.set(year, month, day);
+                this.week = calendar.get(Calendar.WEEK_OF_YEAR);
+                yearMonth = YearMonth.of(year, month + OFFSET);
+                this.lastDate = yearMonth.lengthOfMonth();
             }
         } catch (IndexOutOfBoundsException | NumberFormatException e) {
             this.day = calendar.get(Calendar.DATE);
             this.month = calendar.get(Calendar.MONTH);
             this.year = calendar.get(Calendar.YEAR);
-            this.lastDate = calendar.getActualMaximum(Calendar.DATE);
+            calendar.set(year, month, day);
+            this.week = calendar.get(Calendar.WEEK_OF_YEAR);
+            YearMonth yearMonth = YearMonth.of(year, month + OFFSET);
+            this.lastDate = yearMonth.lengthOfMonth();
         }
     }
 
     /**
      * Prints calendar for the current week.
-     * @param semesterList Instance of SemesterList that stores Semester objects.
-     * @param taskList     Instance of TaskList that stores Task objects.
-     * @param ui           Instance of Ui that is responsible for visual feedback.
-     * @param storage      Instance of Storage that enables the reading and writing of Task
+     *
+     * @param semesterList   Instance of SemesterList that stores Semester objects.
+     * @param taskList       Instance of TaskList that stores Task objects.
+     * @param ui             Instance of Ui that is responsible for visual feedback.
+     * @param storageManager Instance of Storage that enables the reading and writing of Task
      */
     @Override
-    public void execute(SemesterList semesterList, TaskList taskList, Ui ui, Storage storage) {
+    public void execute(SemesterList semesterList, TaskList taskList, Ui ui, StorageManager storageManager) {
         Calendar calendar = Calendar.getInstance();
         Date date = getStartDate(this.day, this.month, this.year);
         calendar.setTime(date);
-        for (Task task : taskList.getTasks()) {
+        for (Task task : taskList.getTaskList()) {
             if (task instanceof Todo) {
                 addToDoTask(task, calendar);
             } else if (task instanceof Deadline) {
@@ -100,7 +117,8 @@ public class ViewWeekCommand extends Command {
 
     /**
      * Adds todo task to the list of task for the week if the task falls into the week of interest.
-     * @param task Task to be added to the list of task.
+     *
+     * @param task     Task to be added to the list of task.
      * @param calendar Instance of calendar index generation.
      */
     private void addToDoTask(Task task, Calendar calendar) {
@@ -111,13 +129,14 @@ public class ViewWeekCommand extends Command {
             String time = "";
             int day = ((Integer.parseInt(dateSplit[INDEX_DAY]) - calendar.get(Calendar.DATE)) + lastDate)
                     % lastDate;
-            addEntry(time, description, day);
+            addEntry(TODO, time, description, day);
         }
     }
 
     /**
      * Adds deadline task to the list of task for the week if the task falls into the week of interest.
-     * @param task Task to be added to the list of task.
+     *
+     * @param task     Task to be added to the list of task.
      * @param calendar Instance of calendar index generation.
      */
     private void addDeadlineTask(Task task, Calendar calendar) {
@@ -129,13 +148,14 @@ public class ViewWeekCommand extends Command {
             String time = dateTimeSplit[INDEX_TIME];
             int day = ((Integer.parseInt(dateSplit[INDEX_DAY]) - calendar.get(Calendar.DATE)) + lastDate)
                     % lastDate;
-            addEntry(time, description, day);
+            addEntry(DEADLINE, time, description, day);
         }
     }
 
     /**
      * Adds event task to the list of task for the week if the task falls into the week of interest.
-     * @param task Task to be added to the list of task.
+     *
+     * @param task     Task to be added to the list of task.
      * @param calendar Instance of calendar index generation.
      */
     private void addEventTask(Task task, Calendar calendar) {
@@ -147,12 +167,13 @@ public class ViewWeekCommand extends Command {
             String time = dateTimeSplit[INDEX_TIME];
             int day = ((Integer.parseInt(dateSplit[INDEX_DAY]) - calendar.get(Calendar.DATE)) + lastDate)
                     % lastDate;
-            addEntry(time, description, day);
+            addEntry(EVENT, time, description, day);
         }
     }
 
     /**
      * Finds the largest number of tasks in the week to be printed.
+     *
      * @param calendarTasks Tasks to be printed for the week.
      * @return Largest number of tasks in the week to be printed.
      */
@@ -169,6 +190,7 @@ public class ViewWeekCommand extends Command {
 
     /**
      * Finds the task with the longest description and time.
+     *
      * @param calendarTasks Tasks to be printed for the week.
      * @return Return the size of the task with the longest description and time.
      */
@@ -197,7 +219,6 @@ public class ViewWeekCommand extends Command {
     private Date getStartDate(int day, int month, int year) {
         Calendar calendar = Calendar.getInstance();
         calendar.set(year, month, day);
-        this.week = calendar.get(Calendar.WEEK_OF_YEAR);
         int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK) - 1;
         calendar.add(Calendar.DATE, -dayOfWeek);
         return calendar.getTime();
@@ -214,9 +235,11 @@ public class ViewWeekCommand extends Command {
         int day = Integer.parseInt(dateSplit[INDEX_DATE]);
         int month = Integer.parseInt(dateSplit[INDEX_MONTH]) - 1;
         int year = Integer.parseInt(dateSplit[INDEX_YEAR]);
-        calendar.set(year, month, day);
+        Date date = getStartDate(day, month, year);
+        calendar.setTime(date);
+        year = calendar.get(Calendar.YEAR);
         int week = calendar.get(Calendar.WEEK_OF_YEAR);
-        return this.week == week && this.month == month && this.year == year;
+        return this.week == week && this.year == year;
     }
 
     /**
@@ -226,8 +249,8 @@ public class ViewWeekCommand extends Command {
      * @param description Description of task.
      * @param day         Day of task.
      */
-    private void addEntry(String time, String description, int day) {
-        String[] entry = {time, description};
+    private void addEntry(String type, String time, String description, int day) {
+        String[] entry = {time, description, type};
         this.calendarTasks.get(day).add(entry);
     }
 }

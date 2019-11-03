@@ -1,31 +1,30 @@
 package oof.command;
 
-import oof.Storage;
+import java.util.ArrayList;
+
 import oof.Ui;
 import oof.exception.OofException;
 import oof.model.module.SemesterList;
-import oof.model.task.Deadline;
-import oof.model.task.Event;
 import oof.model.task.Task;
 import oof.model.task.TaskList;
-import oof.model.task.Todo;
+import oof.storage.StorageManager;
 
 /**
  * Represents a Command to query schedule on a specified date.
  */
 public class ScheduleCommand extends Command {
 
+    public static final String COMMAND_WORD = "schedule";
     private String date;
-    private static final int LIST_EMPTY = 0;
 
     /**
      * Constructor for ScheduleCommand.
      *
-     * @param date String containing date.
+     * @param input String containing input.
      */
-    public ScheduleCommand(String date) {
+    public ScheduleCommand(String input) {
         super();
-        this.date = date;
+        this.date = input;
     }
 
     /**
@@ -34,19 +33,20 @@ public class ScheduleCommand extends Command {
      * @param semesterList Instance of SemesterList that stores Semester objects.
      * @param taskList     Instance of TaskList that stores Task objects.
      * @param ui           Instance of Ui that is responsible for visual feedback.
-     * @param storage      Instance of Storage that enables the reading and writing of Task
+     * @param storageManager      Instance of Storage that enables the reading and writing of Task
      *                     objects to hard disk.
      * @throws OofException if user inputs invalid command or date has no tasks scheduled.
      */
-    public void execute(SemesterList semesterList, TaskList taskList, Ui ui, Storage storage) throws OofException {
-        if (this.date.isEmpty()) {
+    public void execute(SemesterList semesterList, TaskList taskList, Ui ui, StorageManager storageManager)
+            throws OofException {
+        if (date.isEmpty()) {
             throw new OofException("OOPS! Please enter a date!");
         }
         TaskList scheduledTasks = scheduleByDate(taskList);
-        if (scheduledTasks.getSize() == LIST_EMPTY) {
-            throw new OofException("There are no Tasks scheduled on " + this.date + ".");
+        if (scheduledTasks.isEmpty()) {
+            throw new OofException("There are no Tasks scheduled on " + date + ".");
         }
-        ui.printTasksByDate(scheduledTasks, this.date);
+        ui.printTasksByDate(scheduledTasks, date);
     }
 
     /**
@@ -67,26 +67,13 @@ public class ScheduleCommand extends Command {
      * @return ArrayList of Task objects associated to given date.
      */
     private TaskList scheduleByDate(TaskList taskList) {
-        TaskList scheduledTasks = new TaskList();
-        for (int i = 0; i < taskList.getSize(); i++) {
-            Task t = taskList.getTask(i);
-            if (isValid(t)) {
-                String date = getDate(t);
-                if (compareDate(this.date, date)) {
-                    scheduledTasks.addTask(t);
-                }
+        ArrayList<Task> scheduledTasks = new ArrayList<>();
+        for (Task task : taskList.getTaskList()) {
+            String date = getDate(task);
+            if (compareDate(this.date, date)) {
+                scheduledTasks.add(task);
             }
         }
-        return scheduledTasks;
-    }
-
-    /**
-     * Check Task type.
-     *
-     * @param task Task object.
-     * @return boolean if Task object is of a valid Task type or not.
-     */
-    private boolean isValid(Task task) {
-        return task instanceof Todo || task instanceof Deadline || task instanceof Event;
+        return new TaskList(scheduledTasks);
     }
 }

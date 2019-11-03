@@ -1,13 +1,13 @@
 package oof.command;
 
 import oof.SelectedInstance;
-import oof.Storage;
 import oof.Ui;
 import oof.exception.OofException;
 import oof.model.module.Module;
 import oof.model.module.Semester;
 import oof.model.module.SemesterList;
 import oof.model.task.TaskList;
+import oof.storage.StorageManager;
 
 /**
  * Represents a Command to delete a specific Module.
@@ -15,8 +15,6 @@ import oof.model.task.TaskList;
 public class DeleteModuleCommand extends Command {
 
     private int index;
-    private static final int EMPTY = 0;
-    private Semester semester;
 
     /**
      * Constructor for DeleteModuleCommand.
@@ -29,7 +27,8 @@ public class DeleteModuleCommand extends Command {
     }
 
     @Override
-    public void execute(SemesterList semesterList, TaskList tasks, Ui ui, Storage storage) throws OofException {
+    public void execute(SemesterList semesterList, TaskList tasks, Ui ui, StorageManager storageManager)
+            throws OofException {
         SelectedInstance selectedInstance = SelectedInstance.getInstance();
         Semester semester = selectedInstance.getSemester();
         if (!semester.isIndexValid(index)) {
@@ -38,7 +37,7 @@ public class DeleteModuleCommand extends Command {
         Module module = semester.getModule(index);
         semester.removeModule(index);
         ui.printModuleRemovalMessage(module);
-        storage.writeSemesters(semesterList);
+        storageManager.writeSemesterList(semesterList);
     }
 
     @Override

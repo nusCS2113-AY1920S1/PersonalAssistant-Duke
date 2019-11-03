@@ -1,35 +1,34 @@
 package oof.command;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.DateTimeException;
-import java.util.Date;
+import java.util.ArrayList;
 
-import oof.Storage;
 import oof.Ui;
 import oof.exception.OofException;
 import oof.model.module.SemesterList;
 import oof.model.task.Task;
 import oof.model.task.TaskList;
 import oof.model.task.Todo;
+import oof.storage.StorageManager;
 
 /**
  * Represents a Command to add Todo objects to TaskList.
  */
 public class AddToDoCommand extends Command {
 
-    private String line;
+    public static final String COMMAND_WORD = "todo";
+    private ArrayList<String> arguments;
     private static final int INDEX_DESCRIPTION = 0;
-    private static final int INDEX_DATE_ON = 1;
+    private static final int INDEX_DATE = 1;
+    private static final int ARRAY_SIZE_DATE = 2;
 
     /**
      * Constructor for AddTodoCommand.
      *
-     * @param line Command inputted by user.
+     * @param arguments Command inputted by user.
      */
-    public AddToDoCommand(String line) {
+    public AddToDoCommand(ArrayList<String> arguments) {
         super();
-        this.line = line;
+        this.arguments = arguments;
     }
 
     /**
@@ -41,57 +40,29 @@ public class AddToDoCommand extends Command {
      * @param semesterList Instance of SemesterList that stores Semester objects.
      * @param taskList     Instance of TaskList that stores Task objects.
      * @param ui      Instance of Ui that is responsible for visual feedback.
-     * @param storage Instance of Storage that enables the reading and writing of Task
+     * @param storageManager Instance of Storage that enables the reading and writing of Task
      *                objects to hard disk.
      * @throws OofException if user input invalid commands.
      */
-    public void execute(SemesterList semesterList, TaskList taskList, Ui ui, Storage storage) throws OofException {
-        String[] lineSplit = line.split("/on");
-        if (!hasDescription(lineSplit)) {
+    public void execute(SemesterList semesterList, TaskList taskList, Ui ui, StorageManager storageManager)
+            throws OofException {
+        if (arguments.get(INDEX_DESCRIPTION).equals("")) {
             throw new OofException("OOPS!!! The todo needs a description.");
-        } else if (!hasOnDate(lineSplit)) {
+        } else if (arguments.size() < ARRAY_SIZE_DATE || arguments.get(INDEX_DATE).equals("")) {
             throw new OofException("OOPS!!! The todo needs a date.");
         }
-        String description = lineSplit[INDEX_DESCRIPTION].trim();
-        String onDate = parseTimeStamp(lineSplit[INDEX_DATE_ON].trim());
-        if (isDateValid(onDate)) {
-            Task task = new Todo(description, onDate);
-            taskList.addTask(task);
-            storage.writeTaskList(taskList);
-            ui.addTaskMessage(task, taskList.getSize());
-        } else {
+        String description = arguments.get(INDEX_DESCRIPTION);
+        String date = parseDate(arguments.get(INDEX_DATE));
+        if (exceedsMaxLength(description)) {
+            throw new OofException("Task exceeds maximum description length!");
+        } else if (!isDateValid(date)) {
             throw new OofException("OOPS!!! The date is invalid.");
+        } else {
+            Task task = new Todo(description, date);
+            taskList.addTask(task);
+            ui.addTaskMessage(task, taskList.getSize());
+            storageManager.writeTaskList(taskList);
         }
-    }
-
-    @Override
-    public String parseTimeStamp(String date) {
-        try {
-            SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
-            Date parsed = format.parse(date);
-            return format.format(parsed);
-        } catch (ParseException | DateTimeException e) {
-            return "failed";
-        }
-    }
-
-    /**
-     * Checks if input has a description.
-     *
-     * @return true if description is more than length 0 and is not whitespace.
-     */
-    private boolean hasDescription(String[] lineSplit) {
-        return lineSplit[0].trim().length() > 0;
-    }
-
-    /**
-     * Checks if input has a date.
-     *
-     * @param lineSplit processed user input.
-     * @return true if there is a date and date is not whitespace.
-     */
-    private boolean hasOnDate(String[] lineSplit) {
-        return lineSplit.length != 1 && lineSplit[INDEX_DATE_ON].trim().length() > 0;
     }
 
 }

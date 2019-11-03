@@ -1,34 +1,32 @@
 package oof.command;
 
 import oof.SelectedInstance;
-import oof.Storage;
 import oof.Ui;
 import oof.exception.OofException;
 import oof.model.module.Semester;
 import oof.model.module.SemesterList;
 import oof.model.task.TaskList;
+import oof.storage.StorageManager;
 
 public class SelectSemesterCommand extends Command {
 
-    private String line;
+    private int index;
 
-    public SelectSemesterCommand(String line) {
+    public SelectSemesterCommand(int index) {
         super();
-        this.line = line;
+        this.index = index;
     }
 
     @Override
-    public void execute(SemesterList semesterList, TaskList taskList, Ui ui, Storage storage) throws OofException {
+    public void execute(SemesterList semesterList, TaskList taskList, Ui ui, StorageManager storageManager)
+            throws OofException {
         try {
-            int index = Integer.parseInt(line) - 1;
             SelectedInstance selectedInstance = SelectedInstance.getInstance();
             Semester semester = semesterList.getSemester(index);
             selectedInstance.selectSemester(semester);
             ui.printSelectSemesterMessage(semester);
         } catch (IndexOutOfBoundsException e) {
             throw new OofException("OOPS!! The index is out of bounds.");
-        } catch (NumberFormatException e) {
-            throw new OofException("OOPS!! The index is invalid.");
         }
     }
 }

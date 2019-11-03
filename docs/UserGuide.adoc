@@ -1,6 +1,7 @@
-﻿= OOF (Outstanding Organisation Friend) - User Guide
+= OOF (Outstanding Organisation Friend) - User Guide
 :site-section: UserGuide
 :toc:
+:toclevels: 4
 :toc-title:
 :toc-placement: preamble
 :sectnums:
@@ -64,19 +65,22 @@ Refer to <<Features>> for details of each command.
 [[Features]]
 == Features
 In this section, the expected command format will be introduced, and you can expect to learn the various commands you can use.
-====
+
 *Command Format*
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user
 e.g. `deadline DESCRIPTION /by DD-MM-YYYY HH:MM`
 
+* The maximum length for a task's description is `20`
+
 [NOTE]
 
 Don't worry if you do not understand everything at once. +
 There are plentiful examples provided to aid your understanding of the commands' usage.
-====
 
-=== Viewing our manual: `help`
+=== Navigation
+
+==== Viewing the manual: `help`
 Shows you a list of commands that can be used.
 
 Format: `help`
@@ -91,7 +95,7 @@ image::Help.png[Help]
 
 Usage of all the features is shown to you if `help` is entered.
 
-=== Viewing the usage of individual commands: `help`
+==== Viewing the usage of individual commands: `help`
 Shows you the specific usage for the command you have entered.
 
 Format: `help COMMAND`
@@ -106,283 +110,10 @@ image::HelpCommand.png[HelpCommand]
 
 Correct syntax of adding a `deadline` is shown.
 
-=== Adding a task: `deadline`
-You can choose to add a task with a deadline. +
+==== Exiting the program: `bye`
+Exits the program.
 
-Format: `deadline DESCRIPTION /by DD-MM-YYYY HH:MM`
-
-* `Description` of the task to be done can have multiple words, not just limited to single-word descriptions.
-* `Date and time` have to *strictly* be in the format as stated above.
-
-Example:
-
-* `deadline homework /by 2019 20-11-2019 13:00` +
-
-[[Deadline]]
-.Example usage of deadline feature
-image::Deadline.png[Deadline]
-
-Adds a task with description and datetime to be `homework` and `2019 20-11-2019 13:00` respectively.
-
-=== Adding an event: `event`
-You can add an event with a scheduled starting and ending time. +
-
-Format: `event DESCRIPTION /from DD-MM-YYYY HH:MM /to DD-MM-YYYY HH:MM`
-
-* `Description` of the task to be done can have multiple words, not just limited to single-word descriptions.
-* `Date and time` have to *strictly* be in the format as stated above.
-
-Example:
-
-* `event project meeting /from 20-11-2019 13:00 /to 20-11-2019 17:00` +
-
-[[Event]]
-.Example usage of event feature
-image::Event.png[Event]
-
-Adds an event with description, start and end time to be `project meeting`, `20-11-2019 13:00` and `20-11-2019 17:00` respectively.
-
-=== Adding a task: `todo`
-You can choose to add a task to be done on a specific day.
-
-Format: `todo DESCRIPTION /on DD-MM-YYYY`
-
-* `Description` of the task to be done can have multiple words, not just limited to single-word descriptions.
-* `Date` has to *strictly* be in the format as stated above.
-
-Example:
-
-* `todo withdraw money /on 19-11-2019` +
-
-[[Todo]]
-.Example usage of todo feature
-image::Todo.png[Todo]
-
-Adds a task called `withdraw money` on `19-11-2019`.
-
-=== Setting a recurring task: `recurring`
-You can select a task that will be repeated based on your preference.
-
-Format: `recurring INDEX NUMBER_OF_OCCURRENCES`
-
-* The `INDEX` refers to the index number displayed in the list of tasks recorded. (`list` can be used to display the saved tasks).
-* `NUMBER_OF_OCCURRENCES` refers to the number of times the selected task recurs.
-*The user chooses to enter a `FREQUENCY` which is an option from 1-4.
-
-[NOTE]
-
-The task will require you to enter the frequency of recurrence in this manner afterward: +
-1. DAILY +
-2. WEEKLY +
-3. MONTHLY +
-4. YEARLY
-
-Example:
-
-+1.+ The user enters `recurring 4 3` 
-
-[[Recurring]]
-.Example to show recurring feature's usage
-image::Recurring.png[Recurring]
-
-+2.+ The user presses kbd:[ENTER] and he/she can then choose an option by entering a number `1-4` to choose the frequency of recurrence.
-
-[[RecurringPrompt]]
-.Options for recurring frequency
-image::RecurringPrompt.png[RecurringPrompt]
-
-+3.+The user chooses option `2`.
-
-[[RecurringOutput]]
-.Output after selecting option 2
-image::RecurringOutput.png[RecurringOutput]
-
-=== Listing tasks: `list`
-You can list all the tasks that you have saved in *OOF*.
-
-Format: `list`
-
-Example:
-
-* User enters `list`
-
-[[List]]
-.Output of list command
-image::List.png[List]
-
-A list of tasks currently saved in *OOF* will be displayed.
-
-=== Marking task as done: `done`
-You can mark tasks as completed so that you can track your progress.
-
-Format: `done INDEX`
-
-* The `INDEX` refers to the index number displayed in the list of tasks recorded. (`list` can be used to display the saved tasks).
-
-Examples:
-
-* `done 2` +
-
-[[Done]]
-.Output of done command.
-image::Done.png[Done]
-
-Deletes the 1st task in the list of tasks.
-
-=== Deleting a task: `delete`
-You can delete tasks that you have completed or no longer valid.
-
-Format: `delete INDEX`
-
-* The `INDEX` refers to the index number displayed in the list of tasks recorded. (`list` can be used to display the saved tasks).
-
-Examples:
-
-* `delete 10` +
-
-[[Delete]]
-.Output of delete command
-image::Delete.png[Delete]
-
-Deletes the 10th task in the list of tasks.
-
-
-=== Finding tasks quickly: `find`
-You can quickly find anything you have inputted by providing *OOF* with a keyword.
-
-Format: `find DESCRIPTION`
-
-* `Description` of the task to be done can have multiple words, not just limited to single-word descriptions.
-
-Example:
-
-* `find complete` +
-
-[[Find]]
-.Output of find command
-image::Find.png[Find]
-
-Finds tasks with `complete` in the description.
-
-=== Choosing a threshold for tasks: `threshold`
-You can set a comfortable threshold to tell *OOF* when to remind you to complete your tasks.
-
-Format: `threshold HH`
-
-* `time` has to *strictly* be in the format as stated above.
-
-Example:
-
-* `threshold 48` +
-
-Example:
-
-[[Threshold]]
-.Output of threshold command
-image::Threshold.png[Threshold]
-
-Changes the threshold of the program to 48 hours.
-
-=== Viewing a summary of a day's task by date: `schedule`
-You can view a summary of all the tasks and events on a specific day of your choice.
-
-Format: `schedule DD-MM-YYYY`
-
-* `Date` has to strictly be in the format as stated above.
-
-Example:
-
-* `schedule 30-10-2019` +
-
-[[Schedule]]
-.Output of schedule command
-image::Schedule.png[Schedule]
-
-Provides a summary of a list of todo, deadlines and events that will occur on `30-10-2019`.
-
-=== Viewing a summary of the next day’s task: `summary`
-You can view a summary of all the tasks to be done for the next day.
-
-Format: `summary`
-
-Example:
-
-* `summary` +
-
-[[Summary]]
-.Output of summary command
-image::Summary.png[Summary]
-
-Provides a summary of a list of todo, deadlines and events that will occur tomorrow.
-
-=== Viewing free time slots: `free`
-You can view the time slots you are available on a specific day so that you can plan project meetings with your friends.
-
-Format: `free DD-MM-YYYY`
-
-* `Date` has to *strictly* be in the format as stated above.
-
-Example:
-
-+1.+ Type `free 30-10-2019` as a command press kbd:[ENTER]
-
-[[FreeTimeExample]]
-.Typing free 30-10-2019 into OOF 
-image::FreeTimeExample.png[FreeTimeExample, width="890"]
-
-+2.+ `OOF` displays all the free time slots that you have. 
-
-[[FreeTimeDisplay]]
-.Typing free with a valid date in the valid format of DD-MM-YYYY 
-image::FreeTimeDisplay.png[FreeTimeDisplay, width="890"]
-
-=== Viewing tasks in week view: `viewweek`
-You can view the tasks for any particular week in a table format so that you can have a grasp of what to expect for a particular or even track your own progress.
-
-Format: `viewweek DD MM YYYY`
-
-[NOTE]
-Note that the parameters `DD MM YYYY` are optional and the command will automatically show tasks for the current week if these parameters are not shown. The tasks for each day are chronologically sorted.
-
-Example:
-
-+1.+ Type `viewweek` as a command and press kbd:[ENTER]
-
-[[ViewweekWelcome]]
-.Typing viewweek into OOF
-image::ViewweekWelcome.png[ViewweekWelcome]
-
-+2.+ `OOF` displays the tasks for the week for you.
-
-[[ViewweekDefault]]
-.Typing viewweek without date
-image::ViewweekDefault.png[ViewweekDefault]
-
-+3.+ If you wish to display tasks for a particular week, you can input `DD MM YYYY`.
-
-[[ViewweekParam]]
-.Typing viewweek with date
-image::ViewweekParam.png[ViewweekParam]
-
-===  Viewing all tasks in calendar view: `calendar`
-You can view all your tasks for any month so that you are aware of your schedule for that month. 
-
-Format: `calendar MM YYYY`
-
-* `MONTH` is an integer from 1-12 (representing January to December).
-* `YEAR` is an integer greater than or equal to 0.
-
-Example: `calendar 10 2019`
-
-=== Setting reminders for upcoming deadlines: `NIL`
-You can get timely reminders for the tasks that are expiring.
-
-
-[[Reminder]]
-.Output of reminder command
-image::Reminder.png[Reminder]
-
-This command functions in the background so *OOF* automatically reminds you of the expiring tasks when you start our program.
+Format: `bye`
 
 === Semesters
 You can plan ahead for your entire university journey using a few simple commands.
@@ -425,10 +156,8 @@ Example:
 * `semester delete 2` 
 
 [[SemesterDelete]]
-.Deleting a semester
+.Deleting a Semester.
 image::SemesterDelete.png[SemesterDelete]
-
-Deletes the 2nd semester in the list of semesters.
 
 
 ==== Selecting a semester: `semester /select`
@@ -447,7 +176,6 @@ Example:
 image::SemesterSelect.png[SemesterSelect]
 
 Selects the 1st semester in the list of semesters.
-
 
 === Modules
 You can keep track of your modules each semester with the help of the module commands.
@@ -565,7 +293,9 @@ image::LessonDelete.png[LessonDelete]
 
 Deletes the 1st lesson in the list of lessons.
 
-=== Adding assessment data: `assessment`
+=== Adding tasks
+
+==== Adding assessment data: `assessment`
 You can keep track of assessments by adding assessments.
 
 Format: `assessment DESCRIPTION /from DD-MM-YYYY HH:MM /to DD-MM-YYYY HH:MM`
@@ -586,7 +316,7 @@ Adds an assessment with name, start and end time as `final examination`, `25-11-
 .Adding an assessment
 image::AssessmentAdd.png[AssessmentAdd]
 
-=== Adding assignment data: `assignment`
+==== Adding assignment data: `assignment`
 You can use this command to keep track of an assignment for a particular module.
 
 Format: `assignment DESCRIPTION /by DD-MM-YYYY HH:MM`
@@ -608,7 +338,197 @@ image::AssignmentAdd.png[AssignmentAdd]
 
 Adds an assignment `lab` for the selected module with the due date as `23-11-2019 23:59`.
 
-=== Start/Stop/Pause Assignment Tracker: `tracker`
+==== Adding a deadline: `deadline`
+You can choose to add a task with a deadline. +
+
+Format: `deadline DESCRIPTION /by DD-MM-YYYY HH:MM`
+
+* `Description` of the task to be done can have multiple words, not just limited to single-word descriptions.
+* `Date and time` have to *strictly* be in the format as stated above.
+
+Example:
+
+* `deadline homework /by 20-11-2019 13:00` +
+
+[[Deadline]]
+.Example usage of deadline feature
+image::Deadline.png[Deadline]
+
+Adds a task with description and datetime to be `homework` and `20-11-2019 13:00` respectively.
+
+==== Adding an event: `event`
+You can add an event with a scheduled starting and ending time. +
+
+Format: `event DESCRIPTION /from DD-MM-YYYY HH:MM /to DD-MM-YYYY HH:MM`
+
+* `Description` of the task to be done can have multiple words, not just limited to single-word descriptions.
+* `Date and time` have to *strictly* be in the format as stated above.
+
+Example:
+
+* `event project meeting /from 20-11-2019 13:00 /to 20-11-2019 17:00` +
+
+[[Event]]
+.Example usage of event feature
+image::Event.png[Event]
+
+Adds an event with description, start and end time to be `project meeting`, `20-11-2019 13:00` and `20-11-2019 17:00` respectively.
+
+==== Adding a todo: `todo`
+You can choose to add a task to be done on a specific day.
+
+Format: `todo DESCRIPTION /on DD-MM-YYYY`
+
+* `Description` of the task to be done can have multiple words, not just limited to single-word descriptions.
+* `Date` has to *strictly* be in the format as stated above.
+
+Example:
+
+* `todo withdraw money /on 19-11-2019` +
+
+[[Todo]]
+.Example usage of todo feature
+image::Todo.png[Todo]
+
+Adds a task called `withdraw money` on `19-11-2019`.
+
+=== Modifying tasks
+
+==== Setting a recurring task: `recurring`
+You can select a task that will be repeated based on your preference.
+
+Format: `recurring INDEX NUMBER_OF_OCCURRENCES FREQUENCY`
+
+* The `INDEX` refers to the index number displayed in the list of tasks recorded. (`list` can be used to display the saved tasks).
+* `NUMBER_OF_OCCURRENCES` refers to the number of times the selected task recurs which is an integer from `1-10`.
+* `FREQUENCY` refers to the recurring frequency which is an integer from `1-4`.
+** +1.+ DAILY +
+** +2.+ WEEKLY +
+** +3.+ MONTHLY +
+** +4.+ YEARLY
+
+Example:
+
++1.+ The user enters `recurring 1 1 1` 
+
+[[Recurring]]
+.Example to show recurring feature's usage
+image::Recurring.png[Recurring]
+
++2.+ The user presses kbd:[ENTER]
+
+[[RecurringOutput]]
+.Output after selecting option 2
+image::RecurringOutput.png[RecurringOutput]
+
+The command shows the new recurring task that was added.
+
+==== Marking a task as done: `done`
+You can mark tasks as completed so that you can track your progress.
+
+Format: `done INDEX`
+
+* The `INDEX` refers to the index number displayed in the list of tasks recorded. (`list` can be used to display the saved tasks).
+
+Examples:
+
+* `done 2` +
+
+[[Done]]
+.Output of done command.
+image::Done.png[Done]
+
+Marks the 2nd task in the list of tasks as done.
+
+==== Deleting a task: `delete`
+You can delete tasks that you have completed or no longer valid.
+
+Format: `delete INDEX`
+
+* The `INDEX` refers to the index number displayed in the list of tasks recorded. (`list` can be used to display the saved tasks).
+
+Examples:
+
+* `delete 10` +
+
+[[Delete]]
+.Output of delete command
+image::Delete.png[Delete]
+
+Deletes the 10th task in the list of tasks.
+
+=== Productivity
+
+==== Finding tasks quickly: `find`
+You can quickly find anything you have inputted by providing *OOF* with a keyword.
+
+Format: `find DESCRIPTION`
+
+* `Description` of the task to be done can have multiple words, not just limited to single-word descriptions.
+
+Example:
+
+* `find complete` +
+
+[[Find]]
+.Output of find command
+image::Find.png[Find]
+
+Finds tasks with `complete` in the description.
+
+==== Viewing free time slots: `free`
+You can view the time slots you are available on a specific day so that you can plan project meetings with your friends.
+
+Format: `free DATE`
+
+* `DATE` has to *strictly* be in the format `DD-MM-YYYY`.
+
+Example:
+
++1.+ Type `free 08-11-2019` as a command press kbd:[ENTER]
+
+[[FreeTimeExample]]
+.Typing free 08-11-2019 into OOF
+image::FreeTimeExample.png[FreeTimeExample, width="890"]
+
++2.+ `OOF` displays all the free time slots that you have. 
+
+[[FreeTimeDisplay]]
+.Typing free with a valid date in the valid format of DD-MM-YYYY 
+image::FreeTimeDisplay.png[FreeTimeDisplay, width="890"]
+
+==== Setting reminders for upcoming deadlines: `NIL`
+You can get timely reminders for the tasks that are expiring.
+
+[[Reminder]]
+.Output of reminder command
+image::Reminder.png[Reminder]
+
+[NOTE]
+This command functions in the background so *OOF* automatically reminds you of the expiring tasks when you start our program. +
+You can customise the `threshold` to tell *OOF* when to remind you to complete your tasks. +
+View the detailed description on the usage of `threshold` below.
+
+==== Choosing a threshold for tasks: `threshold`
+You can set a comfortable threshold to tell *OOF* when to remind you to complete your tasks. +
+
+Format: `threshold HH`
+
+* `HH` represents the minimum number of hours from the `current time` to the `deadline` of tasks before *OOF* reminds you of those tasks.
+
+Example:
+
+* `threshold 48` +
+
+Example:
+
+[[Threshold]]
+.Output of threshold command
+image::Threshold.png[Threshold]
+
+Tasks that have `deadlines` within 48 hours from the `current time` will be in the reminders.
+
+==== Starting/Stopping/Pausing Assignment Tracker: `tracker`
 You can track an assignment from the current time.
 
 Format: `tracker /INSTRUCTION TASK_INDEX MODULE_CODE`
@@ -638,7 +558,7 @@ Example: `tracker /stop 22 cs2101`
 .Stops Assignment Tracker
 image::StopTracker.png[StopTracker]
 
-=== View Assignment Tracker: `tracker `
+==== Viewing Assignment Tracker: `tracker`
 You can view a histogram featuring the amount of time you spend on each module in blocks of 10 minutes with `tracker /view`.
 
 Format: `tracker /view`
@@ -657,12 +577,96 @@ all:: filter time spent on each `Module` over all entries.
 
 Example: `tracker /view day`
 
-=== Exiting the program: `bye`
-Exits the program.
+=== Organisation
 
-Format: `bye`
+==== Listing tasks: `list`
+You can list all the tasks that you have saved in *OOF*.
 
-=== View undone tasks brought forward to the next day: `undone [_coming soon in v2.0_]`
+Format: `list`
+
+Example:
+
+* User enters `list`
+
+[[List]]
+.Output of list command
+image::List.png[List]
+
+A list of tasks currently saved in *OOF* will be displayed.
+
+==== Viewing a summary of the next day’s task: `summary`
+You can view a summary of all the tasks to be done for the next day.
+
+Format: `summary`
+
+Example:
+
+* `summary` +
+
+[[Summary]]
+.Output of summary command
+image::Summary.png[Summary]
+
+Provides a summary of a list of todo, deadlines and events that will occur tomorrow.
+
+==== Viewing a summary of a day's task by date: `schedule`
+You can view a summary of all the tasks and events on a specific day of your choice.
+
+Format: `schedule DD-MM-YYYY`
+
+* `Date` has to strictly be in the format as stated above.
+
+Example:
+
+* `schedule 30-10-2019` +
+
+[[Schedule]]
+.Output of schedule command
+image::Schedule.png[Schedule]
+
+Provides a summary of a list of todo, deadlines and events that will occur on `30-10-2019`.
+
+==== Viewing tasks in week view: `viewweek`
+You can view the tasks for any particular week in a table format so that you can have a grasp of what to expect for a particular or even track your own progress.
+
+Format: `viewweek DD MM YYYY`
+
+[NOTE]
+Note that the parameters `DD MM YYYY` are optional and the command will automatically show tasks for the current week if these parameters are not shown. The tasks for each day are chronologically sorted.
+
+Example:
+
++1.+ Type `viewweek` as a command and press kbd:[ENTER]
+
+[[ViewweekWelcome]]
+.Typing viewweek into OOF
+image::ViewweekWelcome.png[ViewweekWelcome]
+
++2.+ `OOF` displays tasks for the week for you.
+
+[[ViewweekDefault]]
+.Typing viewweek without date
+image::ViewweekDefault.png[ViewweekDefault]
+
++3.+ If you wish to display tasks for a particular week, you can input `DD MM YYYY`.
+
+[[ViewweekParam]]
+.Typing viewweek with date
+image::ViewweekParam.png[ViewweekParam]
+
+====  Viewing all tasks in calendar view: `calendar`
+You can view all your tasks for any month so that you are aware of your schedule for that month. 
+
+Format: `calendar MM YYYY`
+
+* `MONTH` is an integer from 1-12 (representing January to December).
+* `YEAR` is an integer greater than or equal to 0.
+
+Example: `calendar 10 2019`
+
+=== _Coming soon in v2.0_
+
+==== Viewing incomplete tasks: `undone`
 You can view the list of all the tasks not done that were brought forward to the next day.
 
 Format: `undone`
@@ -673,7 +677,7 @@ Example:
 You can postpone the tasks that were not fulfilled to the next day.
 
 
-=== Filter tasks by categories: `filter [_coming soon in v2.0_]`
+==== Filtering tasks by categories: `filter`
 You can filter tasks by matching the category given.
 
 Format: `filter CATEGORY`
@@ -685,7 +689,7 @@ Example:
 * `filter todo` +
 You can display all todo tasks.
 
-=== Adding a task: `tentative [_coming soon in v2.0_]`
+==== Adding a task: `tentative`
 You can add a task that can be confirmed at a later time.
 
 Format: `tentative DESCRIPTION`
@@ -697,7 +701,7 @@ Example:
 * `tentative group lunch` +
 Adds a tentative task called `group lunch`.
 
-=== Adding a task: `do-after [_coming soon in v2.0_]`
+==== Adding a task: `do-after`
 You can add a task that needs to be done after a specified task.
 
 Format: `do-after INDEX DESCRIPTION`
@@ -710,20 +714,7 @@ Example:
 * `do-after 1 buy groceries` +
 Adds a do-after task called `buy groceries` that will be displayed once the 1st task in the list has been completed.
 
-=== Add estimated time taken: `estimate [_coming soon in v2.0_]`
-You can add the estimated time taken to complete a task.
-
-Format: `estimate INDEX HH`
-
-* The `INDEX` refers to the index number displayed in the list of tasks recorded. (`list` can be used to display the saved tasks).
-* `time` has to *strictly* be in the format as stated above.
-
-Example:
-
-* `estimate 1 48` +
-Adds to the 1st task the estimated time taken of 48 hours to complete it.
-
-=== Adding a task: `range [_coming soon in v2.0_]`
+==== Adding a task: `range`
 You can add a task that needs to be completed within a certain time period 
 
 Format: `range DESCRIPTION /from DD-MM-YYYY HH:MM /to DD-MM-YYYY HH:MM`
@@ -736,12 +727,12 @@ Example:
 * `range study for exam /from 01-10-2019 21:00 /to 05-10-2019 11:00` +
 Adds a task with description and time period to `study for exam` and between `01-10-2019 21:00` to `05-10-2019 11:00`.
 
-=== View two different calendars side-by-side: `viewDual [_coming soon in v2.0_]`
+==== Viewing two different calendars side-by-side: `viewDual`
 Transforms all current tasks into two calendar views, one for tutor tasks and one for student tasks. 
 
 Format: `viewDual`
 
-=== Export calendar: `export [_coming soon in v2.0_]`
+==== Exporting the calendar: `export`
 You can export all current tasks recorded into a shareable format in calendar view.  
 
 Format: `export`
@@ -788,16 +779,8 @@ e.g. `todo withdraw money /on 19-09-2019`
 
 Set a recurring task. 
 
-* *Recurring*: `recurring INDEX NUMBER_OF_OCCURRENCES` +
-e.g. `recurring 4 3`
-
-[NOTE]
-You will be prompted to enter a number from 1-4 afterward. +
-`1` represents `DAILY`. +
-`2` represents `WEEKLY`. +
-`3` represents `MONTHLY`. +
-`4` represents `YEARLY`. 
-
+* *Recurring*: `recurring INDEX NUMBER_OF_OCCURRENCES FREQUENCY` +
+e.g. `recurring 1 1 1`
 
 List all the task you have saved in *OOF* 
 
@@ -894,11 +877,8 @@ Exit *OOF* by using this command.
 
 * *ViewUndone*: `viewUndone`
 
-* *Estimate*: `estimate` 
-
 * *Range*: `range` 
 
 * *ViewDual*: `viewDual`
 
 * *Export*: `export`
-

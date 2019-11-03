@@ -2,105 +2,37 @@ package oof.command;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
-import oof.Storage;
 import oof.Ui;
 import oof.exception.OofException;
 import oof.model.module.Semester;
 import oof.model.module.SemesterList;
 import oof.model.task.TaskList;
+import oof.storage.StorageManager;
 
 public class AddSemesterCommand extends Command {
-    private String line;
+
+    public static final String COMMAND_WORD = "semester";
+    private ArrayList<String> arguments;
     private static final int INDEX_YEAR = 0;
-    private static final int INDEX_NAME = 0;
-    private static final int INDEX_DATE_START = 0;
-    private static final int INDEX_DATE_END = 1;
-    private static final int INDEX_DETAILS = 1;
-    private static final String REGEX_NAME = "/name";
-    private static final String REGEX_FROM = "/from";
-    private static final String REGEX_TO = "/to";
+    private static final int INDEX_NAME = 1;
+    private static final int INDEX_DATE_START = 2;
+    private static final int INDEX_DATE_END = 3;
+    private static final int SIZE_NAME = 2;
+    private static final int SIZE_DATE_START = 3;
+    private static final int SIZE_DATE_END = 4;
 
 
     /**
      * Constructor for AddSemesterCommand.
      *
-     * @param line Command inputted by user for processing.
+     * @param arguments Command inputted by user for processing.
      */
-    public AddSemesterCommand(String line) {
+    public AddSemesterCommand(ArrayList<String> arguments) {
         super();
-        this.line = line;
-    }
-
-    @Override
-    public void execute(SemesterList semesterList, TaskList tasks, Ui ui, Storage storage) throws OofException {
-        String[] yearSplit = line.split(REGEX_NAME);
-        if (!hasYear(yearSplit)) {
-            throw new OofException("OOPS!! The semester needs a year.");
-        }
-        if (!hasName(yearSplit)) {
-            throw new OofException("OOPS!! The semester needs a name.");
-        }
-        String[] nameSplit = yearSplit[INDEX_DETAILS].split(REGEX_FROM);
-        if (!hasStartDate(nameSplit)) {
-            throw new OofException("OOPS!! The semester needs a start date.");
-        }
-        String[] dateSplit = nameSplit[INDEX_DETAILS].split(REGEX_TO);
-        if (!hasEndDate(dateSplit)) {
-            throw new OofException("OOPS!! The semester needs an end date.");
-        }
-        String year = yearSplit[INDEX_YEAR].trim();
-        String name = nameSplit[INDEX_NAME].trim();
-        String startDate = dateSplit[INDEX_DATE_START].trim();
-        String endDate = dateSplit[INDEX_DATE_END].trim();
-        if (isDateValid(startDate) && isDateValid(endDate) && (hasClashes(semesterList, startDate, endDate))) {
-            throw new OofException("OOPS!! The semester clashes with another semester.");
-        }
-        Semester semester = new Semester(year, name, startDate, endDate);
-        semesterList.addSemester(semester);
-        ui.printSemesterAddedMessage(semester);
-        storage.writeSemesters(semesterList);
-    }
-
-    /**
-     * Checks if semester has a year.
-     *
-     * @param yearSplit Array containing arguments.
-     * @return true if year is not whitespace.
-     */
-    private boolean hasYear(String[] yearSplit) {
-        return yearSplit[INDEX_YEAR].trim().length() > 0;
-    }
-
-    /**
-     * Checks if semester has a name.
-     *
-     * @param yearSplit Array containing arguments.
-     * @return true if name is not whitespace.
-     */
-    private boolean hasName(String[] yearSplit) {
-        return yearSplit.length > 1 && yearSplit[INDEX_NAME].trim().length() > 0;
-    }
-
-    /**
-     * Checks if input has a start date (argument given before "/to").
-     *
-     * @param nameSplit Array containing arguments.
-     * @return true if there is a start date and start date is not whitespace.
-     */
-    private boolean hasStartDate(String[] nameSplit) {
-        return nameSplit.length > 1 && nameSplit[INDEX_DATE_START].trim().length() > 0;
-    }
-
-    /**
-     * Checks if input has an end date (argument given after "/to").
-     *
-     * @param dateSplit Array containing arguments.
-     * @return true if there is an end date and end date is not whitespace.
-     */
-    private boolean hasEndDate(String[] dateSplit) {
-        return dateSplit.length > 1 && dateSplit[INDEX_DATE_END].trim().length() > 0;
+        this.arguments = arguments;
     }
 
     /**
@@ -133,6 +65,35 @@ public class AddSemesterCommand extends Command {
         return false;
     }
 
+    @Override
+    public void execute(SemesterList semesterList, TaskList tasks, Ui ui, StorageManager storageManager)
+            throws OofException {
+        if (arguments.get(INDEX_YEAR).isEmpty()) {
+            throw new OofException("OOPS!! The semester needs a year.");
+        } else if (arguments.size() < SIZE_NAME || arguments.get(INDEX_NAME).isEmpty()) {
+            throw new OofException("OOPS!! The semester needs a name.");
+        } else if (arguments.size() < SIZE_DATE_START || arguments.get(INDEX_DATE_START).isEmpty()) {
+            throw new OofException("OOPS!! The semester needs a start date.");
+        } else if (arguments.size() < SIZE_DATE_END || arguments.get(INDEX_DATE_END).isEmpty()) {
+            throw new OofException("OOPS!! The semester needs an end date.");
+        }
+        String year = arguments.get(INDEX_YEAR);
+        String name = arguments.get(INDEX_NAME);
+        String startDate = arguments.get(INDEX_DATE_START);
+        String endDate = arguments.get(INDEX_DATE_END);
+        String description = year + " " + name;
+        if (exceedsMaxLength(description)) {
+            throw new OofException("Task exceeds maximum description length!");
+        }
+        if (isDateValid(startDate) && isDateValid(endDate) && (hasClashes(semesterList, startDate, endDate))) {
+            throw new OofException("OOPS!! The semester clashes with another semester.");
+        }
+        Semester semester = new Semester(year, name, startDate, endDate);
+        semesterList.addSemester(semester);
+        ui.printSemesterAddedMessage(semester);
+        storageManager.writeSemesterList(semesterList);
+    }
+
     /**
      * Checks if start and end date are chronologically accurate.
      *
@@ -156,10 +117,5 @@ public class AddSemesterCommand extends Command {
     private boolean isClash(Date newStartTime, Date newEndTime, Date currStartTime, Date currEndTime) {
         return (newStartTime.compareTo(currStartTime) >= 0 && newStartTime.compareTo(currEndTime) < 0)
                 || (newEndTime.compareTo(currStartTime) > 0 && newEndTime.compareTo(currEndTime) <= 0);
-    }
-
-    @Override
-    public boolean isExit() {
-        return false;
     }
 }
