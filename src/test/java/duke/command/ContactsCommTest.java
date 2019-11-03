@@ -1,5 +1,8 @@
 package duke.command;
 
+import duke.dukeexception.DukeException;
+import duke.enums.ErrorMessages;
+import duke.enums.Numbers;
 import duke.task.ContactList;
 import duke.task.Contacts;
 import duke.task.TaskList;
@@ -37,9 +40,7 @@ public class ContactsCommTest {
                 + "     Name: Prof Tan\n"
                 + "     Number: 91234567\n"
                 + "     Email: tancc@nus.edu.sg\n"
-                + "     Office: E1-08-11\n"
-                + "     Now you have 1 contact(s) in the list.", cmd3.executeGui(items, ui)
-                + "\n     Now you have 1 contact(s) in the list.");
+                + "     Office: E1-08-11", cmd3.executeGui(items, ui));
 
         Command cmd4 = new ListContactsCommand(contactList);
         assertEquals("Here are all your contacts:\n"
@@ -48,6 +49,39 @@ public class ContactsCommTest {
         Command cmd5 = new FindContactCommand("prof tan", contactList);
         assertEquals("     Here are the matching contacts in your list:\n"
                 + "     Name: Prof Tan, 91234567, , E1-08-11\n", cmd5.executeGui(items, ui));
+
+        Command cmd6 = new FindContactCommand("Lester", contactList);
+        assertEquals("     Here are the matching contacts in your list:\n" +
+                "     No matching tasks found.", cmd6.executeGui(items, ui));
     }
 
+    @Test
+    void contactsTest_invalidInput_exceptionThrown() throws DukeException {
+        ContactList contactList = new ContactList();
+        String[] contactDetails = {"Albert", "91234567"};
+        try {
+            Contacts contactObj = new Contacts(contactDetails[Numbers.ZERO.value],
+                    contactDetails[Numbers.ONE.value],
+                    contactDetails[Numbers.TWO.value],
+                    contactDetails[Numbers.THREE.value]);
+            new AddContactsCommand(contactObj, contactList);
+        } catch (Exception e) {
+            assertEquals("Format is in: addcontact <name>, <contact>, <email>, <office>",
+                    ErrorMessages.CONTACT_FORMAT.message);
+        }
+
+        String nonIntegerInput = "abc";
+        try {
+            new DeleteContactCommand(Integer.parseInt(nonIntegerInput), contactList);
+        } catch (NumberFormatException e) {
+            assertEquals("     Input is not an integer value!", ErrorMessages.NON_INTEGER_ALERT.message);
+        }
+
+        String emptyKeyword = "";
+        try {
+            new FindContactCommand(emptyKeyword, contactList);
+        } catch (Exception e) {
+            assertEquals("     (>_<) OOPS!!! The keyword cannot be empty.", ErrorMessages.KEYWORD_IS_EMPTY.message);
+        }
+    }
 }

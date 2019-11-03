@@ -535,14 +535,14 @@ public class Parser {
         } else if (arr.length > Numbers.ZERO.value
                 && (arr[Numbers.ZERO.value].equals("deletecontact") || arr[Numbers.ZERO.value].equals("dc"))) {
             if (arr.length == Numbers.ONE.value) {
-                throw new DukeException("     (>_<) OOPS!!! The contact index cannot be empty.");
+                throw new DukeException(ErrorMessages.CONTACT_INDEX.message);
             } else {
                 try {
                     Integer.parseInt(arr[Numbers.ONE.value]); //Catches for non integer value
                     return new DeleteContactCommand(
                             Integer.parseInt(arr[Numbers.ONE.value]) - Numbers.ONE.value, contactList);
                 } catch (NumberFormatException e) {
-                    throw new DukeException("     Input is not an integer value!");
+                    throw new DukeException(ErrorMessages.NON_INTEGER_ALERT.message);
                 }
             }
         } else if (arr.length > Numbers.ZERO.value
