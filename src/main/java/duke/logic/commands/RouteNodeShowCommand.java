@@ -50,8 +50,7 @@ public class RouteNodeShowCommand extends Command {
      * @throws QueryOutOfBoundsException If the query is out of bounds.
      */
     @Override
-    public CommandResultImage execute(Model model) throws QueryOutOfBoundsException,
-            ApiException {
+    public CommandResultImage execute(Model model) throws QueryOutOfBoundsException {
         try {
             Route route = model.getRoutes().get(indexRoute);
             RouteNode node = model.getRoutes().get(indexRoute).getNode(indexNode);
@@ -63,15 +62,18 @@ public class RouteNodeShowCommand extends Command {
             } else {
                 param = node.getAddress();
             }
+            try {
+                Venue query = ApiParser.getLocationSearch(param);
+                ArrayList<String> points = generateOtherPoints(route, node, indexNode);
 
-            Venue query = ApiParser.getLocationSearch(param);
-            ArrayList<String> points = generateOtherPoints(route, node, indexNode);
+                Image image = ApiParser.getStaticMap(ApiParser.generateStaticMapParams(DIMENSIONS, DIMENSIONS,
+                        ZOOM_LEVEL, String.valueOf(query.getLatitude()), String.valueOf(query.getLongitude()), "",
+                        generateLineParam(points, rgb), generatePointParam(route, node)));
 
-            Image image = ApiParser.getStaticMap(ApiParser.generateStaticMapParams(DIMENSIONS, DIMENSIONS, ZOOM_LEVEL,
-                    String.valueOf(query.getLatitude()), String.valueOf(query.getLongitude()), "",
-                    generateLineParam(points, rgb), generatePointParam(route, node)));
-
-            return new CommandResultImage(Messages.PROMPT_ROUTE_SELECTOR_DISPLAY + node.getDisplayInfo(), image);
+                return new CommandResultImage(Messages.PROMPT_ROUTE_SELECTOR_DISPLAY + node.getDisplayInfo(), image);
+            } catch (ApiException e) {
+                return new CommandResultImage(Messages.PROMPT_ROUTE_SELECTOR_DISPLAY + node.getDisplayInfo(), null);
+            }
         } catch (IndexOutOfBoundsException e) {
             throw new QueryOutOfBoundsException();
         }

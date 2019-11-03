@@ -4,6 +4,14 @@ package duke.commons;
  * Defines messages used by SGTravel.
  */
 public class Messages {
+    /**
+     * Command Messages.
+     * Include any specific error messages pertaining to the command.
+     * Format is COMMAND_DESCRIPTION
+     */
+    public static final String LOCATIONSEARCH_STARTER = "These are the coordinates of your search:\n";
+    public static final String LOCATIONSEARCH_API_EXCEPTION
+            = "Sorry, but the search has timed out due to connection issues.";
 
     /**
      * Error messages.

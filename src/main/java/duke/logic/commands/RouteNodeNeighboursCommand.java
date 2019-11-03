@@ -55,11 +55,15 @@ public class RouteNodeNeighboursCommand extends Command {
      * @return The CommandResultText.
      */
     @Override
-    public CommandResultImage execute(Model model) throws ApiException, QueryOutOfBoundsException {
+    public CommandResultImage execute(Model model) throws QueryOutOfBoundsException {
         ArrayList<Venue> result = getNeighbour(model);
-        Image image = getImage(model, result);
+        try {
+            Image image = getImage(model, result);
 
-        return new CommandResultImage(image, MESSAGE_SUCCESS, result);
+            return new CommandResultImage(image, MESSAGE_SUCCESS, result);
+        } catch (ApiException e) {
+            return new CommandResultImage(null, MESSAGE_SUCCESS, result);
+        }
     }
 
     private Image getImage(Model model, ArrayList<Venue> nearbyNodes) throws ApiException {
