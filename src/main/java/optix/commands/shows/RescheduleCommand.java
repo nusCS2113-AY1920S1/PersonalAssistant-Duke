@@ -12,7 +12,7 @@ import optix.util.OptixDateFormatter;
 import java.time.LocalDate;
 
 //@@author CheeSengg
-public class PostponeCommand extends Command {
+public class RescheduleCommand extends Command {
     private String details;
 
     private OptixDateFormatter formatter = new OptixDateFormatter();
@@ -24,15 +24,15 @@ public class PostponeCommand extends Command {
 
     private static final String MESSAGE_SHOW_CLASH = "☹ OOPS!!! There already exists a show for %1$s.\n";
 
-    private static final String MESSAGE_INVALID_NEW_DATE = "☹ OOPS!!! It is not possible to postpone to the past.\n";
+    private static final String MESSAGE_INVALID_NEW_DATE = "☹ OOPS!!! It is not possible to reschedule to the past.\n";
 
-    private static final String MESSAGE_SUCCESSFUL = "%1$s has been postponed from %2$s to %3$s.\n";
+    private static final String MESSAGE_SUCCESSFUL = "%1$s has been rescheduled from %2$s to %3$s.\n";
 
     /**
-     * Command to postpone show.
+     * Command to reschedule show.
      * @param splitStr String containing "SHOW_NAME|OLD_DATE|NEW_DATE"
      */
-    public PostponeCommand(String splitStr) {
+    public RescheduleCommand(String splitStr) {
         this.details = splitStr;
     }
 
@@ -63,16 +63,17 @@ public class PostponeCommand extends Command {
                 } else if (!model.hasSameName(localOldDate, showName)) {
                     message = MESSAGE_DOES_NOT_MATCH;
                 } else {
-                    model.postponeShow(localOldDate, localNewDate);
+                    model.rescheduleShow(localOldDate, localNewDate);
                     storage.write(model.getShows());
                     message = String.format(MESSAGE_SUCCESSFUL, showName, oldDate, newDate);
                 }
             }
         } catch (OptixException e) {
             message = e.getMessage();
-        } finally {
-            ui.setMessage(message);
+            ui.setMessage(message.toString());
+            return "";
         }
+        ui.setMessage(message.toString());
         return "show";
     }
 

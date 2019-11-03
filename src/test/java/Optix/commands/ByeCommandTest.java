@@ -31,18 +31,10 @@ class ByeCommandTest {
         ByeCommand testCommand = new ByeCommand();
         testCommand.execute(model, ui, storage);
 
-        String expected = "__________________________________________________________________________________\n"
-                + "Bye. Hope to see you again soon!\n"
-                + "__________________________________________________________________________________\n";
-        assertEquals(expected, ui.showCommandLine());
+        String expected = "Bye. Hope to see you again soon!\n";
+        assertEquals(expected, ui.getMessage());
         assertTrue(new File(filePath, "optix.txt").exists());
         assertTrue(new File(filePath, "archive.txt").exists());
-    }
-
-    @Test
-    void testExit() {
-        Command c = new ByeCommand();
-        assertTrue(c.isExit());
     }
 
     @AfterAll

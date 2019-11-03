@@ -48,6 +48,8 @@ class TabCommandTest {
         assertEquals(model.getShowsHistory(), model.getShowsGui());
         new TabCommand("finance").execute(model, ui, storage);
         assertEquals("Here is your list of projected earnings.\n", ui.getMessage());
+        new TabCommand("help").execute(model, ui, storage);
+        assertEquals("Here are the list of commands you can use.\n", ui.getMessage());
         assertEquals(model.getShows(), model.getShowsGui());
         new TabCommand("random command").execute(model, ui, storage);
         String expected = "☹ OOPS!!! That is an invalid command\n"

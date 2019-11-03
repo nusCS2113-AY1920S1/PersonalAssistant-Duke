@@ -37,7 +37,7 @@ public class DeleteCommand extends Command {
             detailsArray = parseDetails(this.details);
         } catch (OptixInvalidCommandException e) {
             ui.setMessage(e.getMessage());
-            return "show";
+            return "";
         }
 
         String[] showDates = detailsArray[1].split("\\|");

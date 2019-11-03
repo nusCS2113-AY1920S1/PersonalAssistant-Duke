@@ -36,7 +36,7 @@ public class ListDateCommand extends Command {
             }
             int year = formatter.getYear(splitStr[1].trim());
             int month = formatter.getMonth(splitStr[0].trim().toLowerCase());
-            if (year == 0 || month == 0) {
+            if (year < storage.getToday().getYear() || month == 0) {
                 throw new OptixInvalidDateException();
             }
             formattedMonthOfYear = formatter.intToMonth(month) + ' ' + year;
@@ -49,9 +49,10 @@ public class ListDateCommand extends Command {
             }
         } catch (OptixException e) {
             message.append(e.getMessage());
-        } finally {
             ui.setMessage(message.toString());
+            return "";
         }
+        ui.setMessage(message.toString());
         return "show";
     }
 

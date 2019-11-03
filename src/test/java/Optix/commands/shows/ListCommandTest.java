@@ -32,10 +32,8 @@ class ListCommandTest {
         // testing for an empty show list
         ListCommand testCommand1 = new ListCommand();
         testCommand1.execute(model, ui, storage);
-        String expected1 = "__________________________________________________________________________________\n"
-                + "☹ OOPS!!! There are no shows in the near future.\n"
-                + "__________________________________________________________________________________\n";
-        assertEquals(expected1, ui.showCommandLine());
+        String expected1 = "☹ OOPS!!! There are no shows in the near future.\n";
+        assertEquals(expected1, ui.getMessage());
     }
 
     @Test
@@ -48,12 +46,10 @@ class ListCommandTest {
         addShow2.execute(model, ui, storage);
         ListCommand testCommand2 = new ListCommand();
         testCommand2.execute(model, ui, storage);
-        String expected2 = "__________________________________________________________________________________\n"
-                + "Here are the list of shows:\n"
+        String expected2 = "Here are the list of shows:\n"
                 + "1. dummy test 1 (on: 05/05/2020)\n"
-                + "2. dummy test 2 (on: 06/05/2020)\n"
-                + "__________________________________________________________________________________\n";
-        assertEquals(expected2, ui.showCommandLine());
+                + "2. dummy test 2 (on: 06/05/2020)\n";
+        assertEquals(expected2, ui.getMessage());
     }
 
     @AfterAll

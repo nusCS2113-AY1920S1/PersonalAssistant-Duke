@@ -12,7 +12,7 @@ import java.io.File;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class PostponeCommandTest {
+class RescheduleCommandTest {
     private Ui ui;
     private static File currentDir = new File(System.getProperty("user.dir"));
     private static File filePath = new File(currentDir.toString() + "\\src\\test\\data\\testOptix");
@@ -27,9 +27,9 @@ class PostponeCommandTest {
     }
 
     @Test
-    @DisplayName("Postponing non existent show")
+    @DisplayName("Rescheduling non existent show")
     void testNoShow() {
-        new PostponeCommand("Non existent show|5/5/2020|6/5/2020").execute(model, ui, storage);
+        new RescheduleCommand("Non existent show|5/5/2020|6/5/2020").execute(model, ui, storage);
         String expected = "☹ OOPS!!! The show cannot be found.\n";
         assertEquals(expected, ui.getMessage());
     }
@@ -38,7 +38,7 @@ class PostponeCommandTest {
     @DisplayName("Incomplete Details")
     void testIncompleteDetails() {
         new AddCommand("Test Show|5|5/5/2030").execute(model, ui, storage);
-        new PostponeCommand("Test Show").execute(model, ui, storage);
+        new RescheduleCommand("Test Show").execute(model, ui, storage);
         String expected = "☹ OOPS!!! That is an invalid command\n"
                 + "Please try again. \n";
         assertEquals(expected, ui.getMessage());
@@ -47,7 +47,7 @@ class PostponeCommandTest {
     @Test
     @DisplayName("No Details Test")
     void testNoDetails() {
-        new PostponeCommand("").execute(model, ui, storage); // No details
+        new RescheduleCommand("").execute(model, ui, storage); // No details
         String expected = "☹ OOPS!!! That is an invalid command\n"
                 + "Please try again. \n";
         assertEquals(expected, ui.getMessage());
@@ -57,7 +57,7 @@ class PostponeCommandTest {
     @DisplayName("Invalid Date Details")
     void testInvalidDate() {
         new AddCommand("Test Show|5|5/5/2030").execute(model, ui, storage);
-        new PostponeCommand("Test Show|12|5/13/2020").execute(model, ui, storage);
+        new RescheduleCommand("Test Show|12|5/13/2020").execute(model, ui, storage);
         String expected = "☹ OOPS!!! That is an invalid date.\n"
                 + "Please try again. \n";
         assertEquals(expected, ui.getMessage());
@@ -65,16 +65,14 @@ class PostponeCommandTest {
 
     @Test
     @DisplayName("Valid execute")
-    void testValidPostpone() {
+    void testValidReschedule() {
         // add test shows
         AddCommand addTestShow1 = new AddCommand("Test Show 1|20|5/5/2020");
         addTestShow1.execute(model, ui, storage);
-        PostponeCommand testCommand = new PostponeCommand("Test Show 1|5/5/2020|6/5/2020");
+        RescheduleCommand testCommand = new RescheduleCommand("Test Show 1|5/5/2020|6/5/2020");
         testCommand.execute(model, ui, storage);
-        String expected1 = "__________________________________________________________________________________\n"
-                + "Test Show 1 has been postponed from 5/5/2020 to 6/5/2020.\n"
-                + "__________________________________________________________________________________\n";
-        assertEquals(expected1, ui.showCommandLine());
+        String expected1 = "Test Show 1 has been rescheduled from 5/5/2020 to 6/5/2020.\n";
+        assertEquals(expected1, ui.getMessage());
     }
 
     @AfterAll

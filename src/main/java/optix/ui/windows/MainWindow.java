@@ -29,7 +29,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     private JFXButton archiveButton;
     @FXML
-    private JFXButton versionButton;
+    private JFXButton helpButton;
 
     //// All the elements on the left side of the window.
     @FXML
@@ -102,6 +102,9 @@ public class MainWindow extends AnchorPane {
         case "finance":
             displayFinance();
             break;
+        case "help":
+            displayHelp();
+            break;
         default:
             break;
         }
@@ -132,7 +135,7 @@ public class MainWindow extends AnchorPane {
 
     private void displaySeats(String fullCommand) {
         String[] splitStr = fullCommand.split("\\|");
-        if (splitStr.length >= 2 && !optix.getShowsGui().isEmpty()) {
+        if (splitStr.length == 2 && !optix.getShowsGui().isEmpty()) {
             clearDisplay();
 
             LocalDate localDate = new OptixDateFormatter().toLocalDate(splitStr[1].trim());
@@ -141,6 +144,12 @@ public class MainWindow extends AnchorPane {
 
             display.getChildren().add(SeatsDisplayController.displaySeats(theatre, localDate));
         }
+    }
+
+    @FXML
+    private void displayHelp() {
+        clearDisplay();
+        display.getChildren().add(HelpWindow.getHelpWindow());
     }
 
     @FXML

@@ -30,7 +30,7 @@
                   <Font name="Roboto" size="16.0" />
                </font>
             </JFXButton>
-            <JFXButton fx:id="versionButton" layoutX="563.0" prefHeight="80.0" prefWidth="150.0" ripplerFill="#909497" style="-fx-background-color: #CACFD2;" text="Version" textFill="#1f1b24">
+            <JFXButton fx:id="helpButton" layoutX="563.0" onAction="#displayHelp" prefHeight="80.0" prefWidth="150.0" ripplerFill="#909497" style="-fx-background-color: #CACFD2;" text="Help" textFill="#1f1b24">
                <font>
                   <Font name="Roboto" size="16.0" />
                </font>

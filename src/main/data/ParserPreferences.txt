@@ -6,9 +6,8 @@ e|edit
 h|help
 fin|finance
 l|list
-p|postpone
+rd|reschedule
 re|reassign-seat
 arc|archive
 s|sell
-t|add
 v|view

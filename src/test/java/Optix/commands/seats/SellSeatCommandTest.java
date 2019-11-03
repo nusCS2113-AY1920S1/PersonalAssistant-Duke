@@ -63,7 +63,7 @@ class SellSeatCommandTest {
         new SellSeatCommand("Test Show|10/10/2030|A1 A2 A3").execute(model, ui, storage);
         String expected = "You have successfully purchased the following seats: \n"
                 + "[A2, A3]\n"
-                + "The total cost of the ticket is $60.00\n"
+                + "The total cost of the tickets are $60.00\n"
                 + "The following seats are unavailable: \n"
                 + "[A1]\n";
         assertEquals(expected, ui.getMessage());

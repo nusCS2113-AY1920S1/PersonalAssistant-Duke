@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<fx:root minHeight="-Infinity" minWidth="-Infinity" prefWidth="580.0" style="-fx-background-color: #E5E7E9; -fx-background-radius: 5;" type="VBox" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label prefWidth="579.0" text="List Of Commands:">
+         <font>
+            <Font name="Roboto Bold" size="24.0" />
+         </font>
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="5.0" top="10.0" />
+         </padding>
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
+      </Label>
+      <Label layoutX="10.0" layoutY="10.0" prefWidth="579.0" text="Show Related Commands:">
+         <font>
+            <Font name="Roboto Bold" size="18.0" />
+         </font>
+         <padding>
+            <Insets bottom="5.0" left="10.0" right="5.0" top="10.0" />
+         </padding>
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
+      </Label>
+      <Label fx:id="showHelpLbl" layoutX="10.0" layoutY="10.0" prefWidth="579.0" text="Label">
+         <font>
+            <Font name="Roboto" size="16.0" />
+         </font>
+         <opaqueInsets>
+            <Insets bottom="5.0" />
+         </opaqueInsets>
+         <padding>
+            <Insets bottom="5.0" left="10.0" top="10.0" />
+         </padding>
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
+      </Label>
+      <Label layoutX="10.0" layoutY="97.0" prefWidth="579.0" text="Seat Related Commands:">
+         <font>
+            <Font name="Roboto Bold" size="18.0" />
+         </font>
+         <padding>
+            <Insets bottom="5.0" left="10.0" top="10.0" />
+         </padding>
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
+      </Label>
+      <Label fx:id="seatHelpLbl" layoutX="10.0" layoutY="25.0" prefWidth="579.0" text="Label">
+         <font>
+            <Font name="Roboto" size="16.0" />
+         </font>
+         <opaqueInsets>
+            <Insets bottom="5.0" />
+         </opaqueInsets>
+         <padding>
+            <Insets bottom="5.0" left="10.0" top="10.0" />
+         </padding>
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
+      </Label>
+      <Label layoutX="10.0" layoutY="49.0" prefWidth="579.0" text="Finance Related Commands:">
+         <font>
+            <Font name="Roboto Bold" size="18.0" />
+         </font>
+         <padding>
+            <Insets bottom="5.0" left="10.0" top="10.0" />
+         </padding>
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
+      </Label>
+      <Label fx:id="financeHelpLbl" layoutX="10.0" layoutY="40.0" prefWidth="579.0" text="Label">
+         <font>
+            <Font name="Roboto" size="16.0" />
+         </font>
+         <opaqueInsets>
+            <Insets bottom="5.0" />
+         </opaqueInsets>
+         <padding>
+            <Insets bottom="5.0" left="10.0" top="10.0" />
+         </padding>
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
+      </Label>
+      <Label layoutX="10.0" layoutY="140.0" prefWidth="579.0" text="Alias Related Commands:">
+         <font>
+            <Font name="Roboto Bold" size="18.0" />
+         </font>
+         <padding>
+            <Insets bottom="5.0" left="10.0" top="10.0" />
+         </padding>
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
+      </Label>
+      <Label fx:id="aliasHelpLbl" layoutX="10.0" layoutY="10.0" prefWidth="579.0" text="Label">
+         <font>
+            <Font name="Roboto" size="16.0" />
+         </font>
+         <opaqueInsets>
+            <Insets bottom="5.0" />
+         </opaqueInsets>
+         <padding>
+            <Insets bottom="5.0" left="10.0" top="10.0" />
+         </padding>
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
+      </Label>
+   </children>
+</fx:root>

@@ -32,10 +32,8 @@ class ListDateCommandTest {
         // try looking for a show that does not exist
         ListDateCommand testCommand1 = new ListDateCommand("december 2020");
         testCommand1.execute(model, ui, storage);
-        String expected1 = "__________________________________________________________________________________\n"
-                + "☹ OOPS!!! There are no shows on December 2020.\n"
-                + "__________________________________________________________________________________\n";
-        assertEquals(expected1, ui.showCommandLine());
+        String expected1 = "☹ OOPS!!! There are no shows on December 2020.\n";
+        assertEquals(expected1, ui.getMessage());
     }
 
     @Test
@@ -49,12 +47,10 @@ class ListDateCommandTest {
         // attempt to view dummy show.
         ListDateCommand testCommand2 = new ListDateCommand("May 2020");
         testCommand2.execute(model, ui, storage);
-        String expected2 = "__________________________________________________________________________________\n"
-                + "These shows are showing on May 2020: \n"
+        String expected2 = "These shows are showing on May 2020: \n"
                 + "1. Dummy Show (on: 05/05/2020)\n"
-                + "2. Dummy Show (on: 06/05/2020)\n"
-                + "__________________________________________________________________________________\n";
-        assertEquals(expected2, ui.showCommandLine());
+                + "2. Dummy Show (on: 06/05/2020)\n";
+        assertEquals(expected2, ui.getMessage());
     }
 
     @Test

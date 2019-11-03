@@ -373,7 +373,7 @@ efficient
 
 |Must-have |manager |set the tiers of the seats |set different prices depending on the popularity of the seats.
 
-|Must-have |manager |postpone shows |keep track of my shows even in the event of unforeseen circumstances.
+|Must-have |manager |reschedule shows |keep track of my shows even in the event of unforeseen circumstances.
 
 |Must-have |manager |edit the name of existing shows |correct spelling mistakes.
 
@@ -602,13 +602,13 @@ Use case resumes from step 3 of MSS.
 . User enters the help command.
 . Optix responds by displaying all available commands and their usage.
 
-=== Use case: UC09 - Postpone shows to a later date
+=== Use case: UC09 - Reschedule shows to another day
 
 *Actor*: Theatre manager
 
 *MSS*:
 
-. User enters the postpone command, followed by the name of the show, the current-date of the show to postpone and the new-date.
+. User enters the reschedule command, followed by the name of the show, the current-date of the show to reschedule and the new-date.
 . Optix responds by displaying the new-date for the show.
          Use case ends.
 
@@ -665,7 +665,7 @@ Steps i to iv are repeated until the command entered is correct. Use case resume
 
 *MSS*:
 . User enters the view-profit command, followed by the show name, the show date of the show
-to postpone and the new show name.
+to reschedule and the new show name.
 . Optix responds by displaying the profit for the show.
 
 Use case ends.
@@ -774,7 +774,7 @@ Use case resumes from step 2.
 * Command to list specific show to get date of showing (To check when the show is happening and check seat availability)
 * Command to refund ticket for the show.
 * Tutorial/ Help function
-* Command to postpone particular show to an empty slot
+* Command to reschedule particular show to an empty slot
 
 [appendix]
 == Non-functional Requirements

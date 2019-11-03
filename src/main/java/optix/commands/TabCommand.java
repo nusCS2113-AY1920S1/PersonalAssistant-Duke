@@ -11,6 +11,7 @@ public class TabCommand extends Command {
     private  static final String MESSAGE_ARCHIVE = "Here is your list of archived shows.\n";
     private static final String MESSAGE_SHOW = "Here is your list of scheduled shows.\n";
     private static final String MESSAGE_FINANCE = "Here is your list of projected earnings.\n";
+    private static final String MESSAGE_HELP = "Here are the list of commands you can use.\n";
 
     public TabCommand(String commandWord) {
         this.commandWord = commandWord.trim().toLowerCase();
@@ -31,6 +32,9 @@ public class TabCommand extends Command {
             case "finance":
                 model.setShowsGui(model.getShows());
                 ui.setMessage(MESSAGE_FINANCE);
+                break;
+            case "help":
+                ui.setMessage(MESSAGE_HELP);
                 break;
             default:
                 throw new OptixInvalidCommandException();

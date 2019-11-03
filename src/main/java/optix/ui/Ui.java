@@ -1,7 +1,5 @@
 package optix.ui;
 
-import java.util.Scanner;
-
 /**
  * Reads in the input user and
  * returns the response by Optix.
@@ -16,25 +14,12 @@ public class Ui {
      */
     private String message;
 
-    private Scanner sc = new Scanner(System.in);
-
-    private static final String SPACES = "__________________________________________________________________________________\n";
-
     private static final String MESSAGE_GREET = "Hello! I'm Optix\n"
             + "What can I do for you?\n";
 
 
     public Ui() {
         this.message = MESSAGE_GREET;
-    }
-
-    /**
-     * Read in the command by user.
-     *
-     * @return String input by user.
-     */
-    public String readCommand() {
-        return sc.nextLine();
     }
 
     /**
@@ -48,18 +33,5 @@ public class Ui {
 
     public String getMessage() {
         return message;
-    }
-
-    /**
-     * Prints out the Optix's response based on user's input.
-     *
-     * @return Response by Optix.
-     */
-    public String showCommandLine() {
-        return SPACES + message + SPACES;
-    }
-
-    public void exitOptix() {
-        sc.close();
     }
 }

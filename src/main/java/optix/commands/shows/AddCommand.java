@@ -47,10 +47,10 @@ public class AddCommand extends Command {
             }
         } catch (NumberFormatException e) {
             ui.setMessage("Please set a number for the seat base price.\n");
-            return "show";
+            return "";
         } catch (OptixException e) {
             ui.setMessage(e.getMessage());
-            return "show";
+            return "";
         }
 
         LocalDate today = storage.getToday();

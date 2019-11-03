@@ -2,14 +2,14 @@ package optix.util;
 
 import optix.commands.ByeCommand;
 import optix.commands.Command;
-import optix.commands.HelpCommand;
 import optix.commands.TabCommand;
+import optix.commands.finance.ViewMonthlyCommand;
+import optix.commands.finance.ViewProfitCommand;
 import optix.commands.parser.AddAliasCommand;
 import optix.commands.parser.ListAliasCommand;
 import optix.commands.parser.RemoveAliasCommand;
 import optix.commands.parser.ResetAliasCommand;
 import optix.commands.seats.ReassignSeatCommand;
-
 import optix.commands.seats.SellSeatCommand;
 import optix.commands.seats.ViewSeatsCommand;
 import optix.commands.shows.AddCommand;
@@ -18,19 +18,15 @@ import optix.commands.shows.EditCommand;
 import optix.commands.shows.ListCommand;
 import optix.commands.shows.ListDateCommand;
 import optix.commands.shows.ListShowCommand;
-import optix.commands.shows.PostponeCommand;
-import optix.commands.finance.ViewMonthlyCommand;
-import optix.commands.finance.ViewProfitCommand;
+import optix.commands.shows.RescheduleCommand;
 import optix.exceptions.OptixException;
 import optix.exceptions.OptixInvalidCommandException;
 
-
-import java.io.IOException;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
-import java.io.BufferedReader;
-
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -45,7 +41,7 @@ public class Parser {
     private File preferenceFile; // the path to the file itself
     // array of all possible command values
     private static String[] commandList = {"bye", "list", "help", "edit", "sell", "view",
-        "postpone", "add", "delete", "reassign-seat", "show", "archive", "finance"};
+        "reschedule", "add", "delete", "reassign-seat", "show", "archive", "finance"};
 
     /**
      * Set the path to directory containing the save file for preferences.
@@ -74,7 +70,7 @@ public class Parser {
      * @throws OptixException if the Command word is not recognised by Optix.
      */
     public Command parse(String fullCommand) throws OptixException {
-        // add exception for null pointer exception. e.g. postpone
+        // add exception for null pointer exception. e.g. reschedule
         String[] splitStr = fullCommand.trim().split(" ", 2);
         String aliasName = splitStr[0];
         String commandName = commandAliasMap.getOrDefault(aliasName, aliasName);
@@ -86,8 +82,6 @@ public class Parser {
                 return new ByeCommand();
             case "list":
                 return new ListCommand();
-            case "help":
-                return new HelpCommand();
             case "reset-alias":
                 return new ResetAliasCommand(this.preferenceFilePath);
             case "list-alias":
@@ -105,8 +99,8 @@ public class Parser {
                 return new SellSeatCommand(splitStr[1]);
             case "view":
                 return new ViewSeatsCommand(splitStr[1]);
-            case "postpone":
-                return new PostponeCommand(splitStr[1]);
+            case "reschedule":
+                return new RescheduleCommand(splitStr[1]);
             case "list":
                 return parseList(splitStr[1]);
             case "bye":
@@ -119,8 +113,6 @@ public class Parser {
                 return new ViewProfitCommand(splitStr[1]);
             case "view-monthly": //e.g. view-monthly May 2020
                 return new ViewMonthlyCommand(splitStr[1]);
-            case "help":
-                return new HelpCommand(splitStr[1].trim());
             case "add-alias":
                 return new AddAliasCommand(splitStr[1], this.preferenceFilePath);
             case "remove-alias":
@@ -215,12 +207,12 @@ public class Parser {
         commandAliasMap.put("shw", "show");
         commandAliasMap.put("fin", "finance");
         commandAliasMap.put("b", "bye");
-        commandAliasMap.put("l", "list");
+        commandAliasMap.put("l", "list");   
         commandAliasMap.put("h", "help");
         commandAliasMap.put("e", "edit");
         commandAliasMap.put("s", "sell");
         commandAliasMap.put("v", "view");
-        commandAliasMap.put("p", "postpone");
+        commandAliasMap.put("rd", "reschedule");
         commandAliasMap.put("a", "add");
         commandAliasMap.put("d", "delete");
     }

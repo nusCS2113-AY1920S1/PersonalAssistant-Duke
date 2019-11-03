@@ -11,20 +11,11 @@ public class ByeCommand extends Command {
     public String execute(Model model, Ui ui, Storage storage) {
         storage.write(model.getShows());
         ui.setMessage(MESSAGE_BYE);
-        ui.exitOptix();
         return "bye";
     }
 
     @Override
     public String[] parseDetails(String details) {
         return new String[0];
-    }
-
-    /**
-     * Exits Optix.
-     */
-    @Override
-    public boolean isExit() {
-        return true;
     }
 }

@@ -54,6 +54,7 @@ public class EditCommand extends Command {
             ui.setMessage(message.toString());
         } catch (OptixException e) {
             ui.setMessage(e.getMessage());
+            return "";
         }
         return "show";
     }

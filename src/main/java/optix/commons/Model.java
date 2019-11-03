@@ -1,6 +1,5 @@
 package optix.commons;
 
-import optix.commons.model.Show;
 import optix.commons.model.ShowMap;
 import optix.commons.model.Theatre;
 import optix.util.OptixDateFormatter;
@@ -61,8 +60,8 @@ public class Model {
         this.setShowsGui(shows);
     }
 
-    public void postponeShow(LocalDate oldDate, LocalDate newDate) {
-        shows.postponeShow(oldDate, newDate);
+    public void rescheduleShow(LocalDate oldDate, LocalDate newDate) {
+        shows.rescheduleShow(oldDate, newDate);
         this.setShowsGui(shows);
     }
 

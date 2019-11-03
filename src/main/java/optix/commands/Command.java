@@ -6,8 +6,6 @@ import optix.exceptions.OptixInvalidCommandException;
 import optix.ui.Ui;
 
 public abstract class Command {
-    protected boolean quit;
-
     /**
      * Processes user input to be stored, queried, modified in ShowMap,
      * to show response by program in ui and store existing data in Storage.
@@ -27,8 +25,4 @@ public abstract class Command {
      *                                      number of parameters for the Command.
      */
     public abstract String[] parseDetails(String details) throws OptixInvalidCommandException;
-
-    public boolean isExit() {
-        return false;
-    }
 }

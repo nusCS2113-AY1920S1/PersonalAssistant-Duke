@@ -153,10 +153,10 @@ list Dec 2020
 list December 2020
 ----
 
-==== Postpone a show to a later date: `postpone`
-Use the `postpone` command to postpone the requested
+==== Reschedule a show to a another date: `reschedule`
+Use the `reschedule` command to reschedule the requested
 current show in the showlist to a specified date.  +
-Format: `postpone SHOW_NAME|OLD_DATE|NEW_DATE`
+Format: `reschedule SHOW_NAME|OLD_DATE|NEW_DATE`
 
 * Changes the date of the specified `SHOW_NAME` from `OLD_DATE` to `NEW_DATE`
 * Invalid if the date of `SHOW_NAME` does not match `OLD_DATE`
@@ -164,7 +164,7 @@ Format: `postpone SHOW_NAME|OLD_DATE|NEW_DATE`
 
 Example:
 ----
-postpone Phantom of the Opera|5/5/2020|10/5/2020
+reschedule Phantom of the Opera|5/5/2020|10/5/2020
 ----
 
 ==== Editing a show’s name: `edit`
@@ -392,8 +392,8 @@ Eg. `list May 2020`
 
 * *List Alias*: `List-alias`
 
-* *Postpone*: `postpone SHOW_NAME|OLD_DATE|NEW_DATE`
-Eg. `postpone Phantom of the Opera|5/5/2020|10/5/2020`
+* *reschedule*: `reschedule SHOW_NAME|OLD_DATE|NEW_DATE`
+Eg. `reschedule Phantom of the Opera|5/5/2020|10/5/2020`
 
 * *Reassign-seat*: `reassign-seat SHOW_NAME|SHOW_DATE|OLD_SEAT|NEW_SEAT`
 Eg. `reassign-seat Phantom of the Opera|5/5/2020|A1|A2`

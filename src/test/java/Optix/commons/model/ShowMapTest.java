@@ -27,8 +27,8 @@ class ShowMapTest {
     }
 
     @Test
-    void testPostponeShow() {
-        shows.postponeShow(date1, date2);
+    void testReschduleShow() {
+        shows.rescheduleShow(date1, date2);
         assertFalse(shows.containsKey(date1));
         assertTrue(shows.containsKey(date2));
     }
@@ -66,7 +66,7 @@ class ShowMapTest {
     void testSellSeats() {
         String expected = "You have successfully purchased the following seats: \n"
                           + "[A1, A2]\n"
-                          + "The total cost of the ticket is $60.00\n";
+                          + "The total cost of the tickets are $60.00\n";
         assertEquals(expected, shows.sellSeats(date1, "A1", "A2"));
         expected = "☹ OOPS!!! All of the seats [A1, A2] are unavailable\n";
         assertEquals(expected, shows.sellSeats(date1, "A1", "A2"));

@@ -27,7 +27,7 @@ public class ListAliasCommand extends Command {
             systemMessage.append(entry.getKey()).append(" : ").append(entry.getValue()).append('\n');
         }
         ui.setMessage(systemMessage.toString());
-        return "seat";
+        return "";
     }
 
     @Override

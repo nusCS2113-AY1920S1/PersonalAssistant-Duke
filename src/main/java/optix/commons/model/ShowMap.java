@@ -45,7 +45,7 @@ public class ShowMap extends TreeMap<LocalDate, Theatre> {
         this.get(showDate).setShowName(showName);
     }
 
-    public void postponeShow(LocalDate oldDate, LocalDate newDate) {
+    public void rescheduleShow(LocalDate oldDate, LocalDate newDate) {
         Theatre theatre = this.deleteShow(oldDate);
         this.put(newDate, theatre);
     }

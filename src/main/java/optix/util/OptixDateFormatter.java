@@ -111,7 +111,14 @@ public class OptixDateFormatter {
      */
     public int getYear(String year) throws OptixInvalidDateException {
         try {
-            return Integer.parseInt(year);
+            int yr = Integer.parseInt(year);
+            if (yr < 100 && yr >= 10) {
+                return yr + 2000;
+            } else if (yr < 1000) {
+                throw new OptixInvalidDateException();
+            } else {
+                return yr;
+            }
         } catch (NumberFormatException e) {
             throw new OptixInvalidDateException();
         }

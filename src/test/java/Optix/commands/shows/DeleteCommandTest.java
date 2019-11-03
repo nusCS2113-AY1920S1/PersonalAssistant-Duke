@@ -52,11 +52,9 @@ class DeleteCommandTest {
     void testInvalidDelete() { // deleting a show that does not exist
         DeleteCommand testCommand2 = new DeleteCommand("Non-existent show|4/5/2020");
         testCommand2.execute(model, ui, storage);
-        String expected2 = "__________________________________________________________________________________\n"
-                + "☹ OOPS!!! Unable to find the following shows:\n"
-                + "1. Non-existent show (on: 4/5/2020)\n"
-                + "__________________________________________________________________________________\n";
-        assertEquals(expected2, ui.showCommandLine());
+        String expected2 = "☹ OOPS!!! Unable to find the following shows:\n"
+                + "1. Non-existent show (on: 4/5/2020)\n";
+        assertEquals(expected2, ui.getMessage());
     }
 
     @Test

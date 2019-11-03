@@ -71,10 +71,8 @@ class EditCommandTest {
         addTestShow1.execute(model, ui, storage);
         EditCommand testCommand = new EditCommand("Test Show 1|5/5/2020|Test Show 3");
         testCommand.execute(model, ui, storage);
-        String expected1 = "__________________________________________________________________________________\n"
-                + "Show has been successfully updated to Test Show 3.\n"
-                + "__________________________________________________________________________________\n";
-        assertEquals(expected1, ui.showCommandLine());
+        String expected1 = "Show has been successfully updated to Test Show 3.\n";
+        assertEquals(expected1, ui.getMessage());
     }
 
     @AfterAll

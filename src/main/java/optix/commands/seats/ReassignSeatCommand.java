@@ -52,9 +52,10 @@ public class ReassignSeatCommand extends Command {
             }
         } catch (OptixException e) {
             message.append(e.getMessage());
-        } finally {
             ui.setMessage(message.toString());
+            return "";
         }
+        ui.setMessage(message.toString());
         return "seat";
     }
 

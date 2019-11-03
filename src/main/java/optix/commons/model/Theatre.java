@@ -6,7 +6,7 @@ public class Theatre {
     //@SuppressWarnings("checkstyle:membername")
     private static final String SPACES = "  "; // CHECKSTYLE IGNORE THIS LINE
     private static final String STAGE = "                |STAGE|           \n"; // CHECKSTYLE IGNORE THIS LINE
-    private static final String MESSAGE_TICKET_COST = "The total cost of the ticket is $%1$.2f\n";
+    private static final String MESSAGE_TICKET_COST = "The total cost of the tickets are $%1$.2f\n";
 
     private Seat[][] seats = new Seat[6][10];
     private int tierOneSeats;
