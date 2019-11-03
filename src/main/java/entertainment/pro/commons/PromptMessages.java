@@ -55,6 +55,8 @@ public class PromptMessages {
     public static final String FILE_NOT_FOUND = "File not found!";
     public static final String FILES_NOT_FOUND  = "File not found! Please wait for next update!";
 
+    public static final String DUPLICATE_BLACKLIST = "Blacklisted item already exists. Here is your blacklist\n";
+
 
 
     //API Messages

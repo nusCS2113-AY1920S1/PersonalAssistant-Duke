@@ -1,0 +1,3 @@
+Exits the Program
+
+            usage: exit
