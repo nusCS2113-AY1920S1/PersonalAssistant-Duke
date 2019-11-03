@@ -16,7 +16,7 @@ public class InvalidCommand extends Command {
 
     @Override
     public String execute() {
-        return "Invalid Command!";
+        return "Invalid Command! Type \"menu\" to see a list of commands";
 
         /*String input = new String();
         for (String i : inputs) {
