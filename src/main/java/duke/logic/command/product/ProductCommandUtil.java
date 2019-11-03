@@ -42,7 +42,7 @@ public class ProductCommandUtil {
      * @return edited product
      */
     public static Product getAddedProductFromDescriptor(ProductDescriptor productDescriptor) throws ParseException {
-        Product product = new Product();
+
         if (!productDescriptor.getProductName().isPresent()) {
             throw new ParseException(ProductMessageUtils.MESSAGE_MISSING_PRODUCT_NAME);
         }
@@ -51,7 +51,7 @@ public class ProductCommandUtil {
         if (name.isBlank() || name.isEmpty()) {
             throw new ParseException(ProductMessageUtils.MESSAGE_MISSING_PRODUCT_NAME);
         }
-        product.setProductName(name);
+        Product product = new Product(name);
         if (!productDescriptor.getIngredientCost().isEmpty()) {
             product.setIngredientCost(productDescriptor.getIngredientCost().get());
         } else {
