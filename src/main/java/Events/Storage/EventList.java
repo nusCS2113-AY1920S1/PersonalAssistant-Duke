@@ -188,7 +188,7 @@ public class EventList {
 //        logger.log(Level.INFO, "Recurring events are added to the list");
     }
 
-    //@@author
+    //@@author Ryan-Wong-Ren-Wei
     /**
      * Checks the list of events for any clashes with the newly added event. If
      * there is a clash, return a reference to the event, if not, return null.
@@ -249,6 +249,7 @@ public class EventList {
         Collections.sort(eventArrayList);
     }
 
+    //@@author
     /**
      * Deletes a event from the list.
      *
@@ -334,6 +335,7 @@ public class EventList {
                 reminderDeadline + "):\n" + filteredList(objectPredicate);
     }
 
+    //@@author
     /**
      * Used to reinstate deleted event in case of failure to reschedule
      */

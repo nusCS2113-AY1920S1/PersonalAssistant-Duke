@@ -110,7 +110,7 @@ public class UI {
         System.out.println("3.  \"goal edit <event index> <goal index> /<new goal>\" \n\t-- Edit an existing goal.");
         System.out.println("4.  \"goal achieved <event index> <goal index>\"         \n\t-- Set the goal as achieved.");
         System.out.println("5.  \"goal view <event index>\"                          " +
-                "-- Display the goals list of a specified event with their status.");
+                "\n\t-- Display the goals list of a specified event with their status.");
         System.out.print(lineSeparation);
     }
 
@@ -390,10 +390,12 @@ public class UI {
     /**
      * prints message when input format is wrong for addition of new event type event.
      */
-    void eventFormatWrong() {
+    public void newEntryFormatWrong() {
         System.out.print(lineSeparation);
-        System.out.println("Please enter the date in the format 'dd-MM-yyyy HHmm HHmm' or 'dd-MM-yyyy'.\n" +
-                "First time entered is start time, second time entered is end time.");
+        System.out.println("Please enter the date in the format 'dd-MM-yyyy HHmm HHmm' for Event" +
+                " or 'dd-MM-yyyy' for ToDo.\n" +
+                "For Event entry, first time entered is start time, second time entered is end time.");
+        System.out.println("Please also ensure that the date you entered is valid.");
         System.out.print(lineSeparation);
     }
 
