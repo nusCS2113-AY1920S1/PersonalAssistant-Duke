@@ -44,7 +44,6 @@ public class Ingredient {
 
     public void deductMass(double ingredientMass) {
         this.mass -= ingredientMass;
-        System.out.println(this.mass + "left");
     }
 
     public void updateQuantity() {
@@ -115,12 +114,12 @@ public class Ingredient {
 
     private UnitOfMeasurement assignUnit(String unit) {
         switch (unit) {
-            case "kg": return UnitOfMeasurement.KG;
-            case "ml": return UnitOfMeasurement.ML;
-            case "l": return UnitOfMeasurement.L;
-            case "cup": return UnitOfMeasurement.CUP;
-            case "teaspoon": return UnitOfMeasurement.TEASPOON;
-            case "tablespoon": return UnitOfMeasurement.TABLESPOON;
+            case "KG": return UnitOfMeasurement.KG;
+            case "ML": return UnitOfMeasurement.ML;
+            case "L": return UnitOfMeasurement.L;
+            case "CUP": return UnitOfMeasurement.CUP;
+            case "TEASPOON": return UnitOfMeasurement.TEASPOON;
+            case "TABLESPOON": return UnitOfMeasurement.TABLESPOON;
             default: return UnitOfMeasurement.G;
         }
     }

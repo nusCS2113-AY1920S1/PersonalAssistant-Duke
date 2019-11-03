@@ -19,10 +19,8 @@ public class FindBookingCommand extends Command<BookingList, Ui, BookingStorage>
         char firstChar = input.charAt(0);
         System.out.println(firstChar);
         if (Character.isLetter(firstChar)) {
-            System.out.println("is a letter");
             return true;
         }else {
-            System.out.println("is a digit");
             return false;
         }
     }
