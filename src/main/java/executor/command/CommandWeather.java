@@ -79,7 +79,6 @@ public class CommandWeather extends Command {
     private void printWeatherDataOutput() {
 
         int size = getLengthOfHashMapToPrint(getWhichWeatherDataUserWants(this.userInput));
-
         if (this.fullWeatherData != null) {
             Ui.dukeSays("Duke$$$ has predicted the following weather forecast :");
             for (Map.Entry<String, LinkedHashMap<String, String>> weather : this.fullWeatherData.entrySet()) {
@@ -99,7 +98,6 @@ public class CommandWeather extends Command {
                     + "1. Please ensure that you have active Internet access \n"
                     + "2. Please also ensure that you follow correct format for the user input \n");
         }
-
     }
 
     /**
