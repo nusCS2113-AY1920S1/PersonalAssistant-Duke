@@ -20,7 +20,18 @@ public class UpcomingTasks {
     ArrayList<String> patientsForTasks = new ArrayList<String>();
     DateTimeFormatter dateFormatParser = DateTimeFormatter.ofPattern("E, dd/MM");
 
-    public UpcomingTasks(LocalDateTime dateTime, AssignedTaskManager assignedTaskManager, TaskManager taskManager, PatientManager patientManager) throws DukeException {
+    /**
+     * Constructor for Upcoming Tasks class. Will create task list for tasks assigned to provided date,
+     * and find relevant corresponding information to be provided to the user such as task descriptions,
+     * or patients involved in tasks.
+     * @param dateTime The provided date for the desired upcoming tasks.
+     * @param assignedTaskManager The user's list of assigned tasks.
+     * @param taskManager The user's list of all tasks.
+     * @param patientManager The user's list of all patient profiles.
+     * @throws DukeException Thrown when the constructor is unable to find all the required information.
+     */
+    public UpcomingTasks(LocalDateTime dateTime, AssignedTaskManager assignedTaskManager,
+                         TaskManager taskManager, PatientManager patientManager) throws DukeException {
         this.dateTime = dateTime;
         this.date = dateTime.toLocalDate();
         for (AssignedTask task : assignedTaskManager.getAssignTasks()) {
@@ -45,7 +56,7 @@ public class UpcomingTasks {
                 }
             } else {
                 throw new DukeException("Unable to determine upcoming tasks for "
-                + getFormattedDate() + ".");
+                        + getFormattedDate() + ".");
             }
         }
 
@@ -58,18 +69,34 @@ public class UpcomingTasks {
         }
     }
 
+    /**
+     * Returns AssignedTask array list with all tasks designated for the provided date.
+     * @return Array list with designated date's tasks
+     */
     public ArrayList<AssignedTask> getUpcomingTasks() {
         return tasks;
     }
 
+    /**
+     * Returns String array list with all descriptions of designated tasks for provided date.
+     * @return Array list with task descriptions for designated date's tasks
+     */
     public ArrayList<String> getUpcomingTaskDescriptions() {
         return taskDescriptions;
     }
 
+    /**
+     * Returns String array list with all patient names of designated tasks for provided date.
+     * @return Array list with patient names for designated date's tasks
+     */
     public ArrayList<String> getPatientNames() {
         return patientsForTasks;
     }
 
+    /**
+     * Returns String version of provided date in 'E, dd/MM' format.
+     * @return Reformatted date.
+     */
     public String getFormattedDate() {
         return dateTime.format(dateFormatParser);
     }

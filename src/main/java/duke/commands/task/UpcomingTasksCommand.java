@@ -17,6 +17,11 @@ public class UpcomingTasksCommand implements Command {
     LocalDateTime fromDate;
     ArrayList<LocalDateTime> dates = new ArrayList<LocalDateTime>();
 
+    /**
+     * The constructor for the UpcomingTasksCommand. Takes today's date and prepares UpcomingTask lists
+     * for each day within the following week.
+     * @param fromDate The current date.
+     */
     public UpcomingTasksCommand(LocalDateTime fromDate) {
         this.fromDate = fromDate;
         for (int i = 0; i < 7; i++) {
@@ -26,7 +31,9 @@ public class UpcomingTasksCommand implements Command {
     }
 
     @Override
-    public void execute(AssignedTaskManager patientTask, TaskManager tasks, PatientManager patientList, DukeUi dukeUi, StorageManager storageManager) throws DukeException {
+    public void execute(AssignedTaskManager patientTask, TaskManager tasks,
+                        PatientManager patientList, DukeUi dukeUi,
+                        StorageManager storageManager) throws DukeException {
         for (LocalDateTime date : dates) {
             UpcomingTasks upcomingTaskForDay = new UpcomingTasks(date, patientTask, tasks, patientList);
             dukeUi.showUpcomingTasks(upcomingTaskForDay);

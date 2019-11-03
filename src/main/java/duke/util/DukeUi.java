@@ -637,6 +637,11 @@ public class DukeUi {
         printDukeResponse(output);
     }
 
+    /**
+     * Prints out lists for each day of upcoming week + the tasks designated for those days.
+     *
+     * @param upcomingTasks The list of tasks for the upcoming date.
+     */
     public void showUpcomingTasks(UpcomingTasks upcomingTasks) {
         String output = "";
         output += upcomingTasks.getFormattedDate() + ":\n";
