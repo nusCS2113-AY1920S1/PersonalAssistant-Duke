@@ -88,9 +88,13 @@ public class ExpenseCommand extends Command {
      * @param oldExpenses stack of map of previous expenses
      */
     private void copyMap(Map<LocalDate, ArrayList<String>> expenses, Stack<Map<LocalDate, ArrayList<String>>> oldExpenses) {
-        Map<LocalDate, ArrayList<String>> currentExpenses= new TreeMap<>();
+        Map<LocalDate, ArrayList<String>> currentExpenses = new TreeMap<>();
         for (LocalDate key : expenses.keySet()) {
-            currentExpenses.put(key, expenses.get(key));
+            ArrayList<String> listNameExpenses = new ArrayList<>();
+            for (int i = 0; i < expenses.get(key).size(); i++) {
+                listNameExpenses.add(expenses.get(key).get(i));
+            }
+            currentExpenses.put(key, listNameExpenses);
         }
         oldExpenses.push(currentExpenses);
     }
