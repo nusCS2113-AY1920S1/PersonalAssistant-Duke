@@ -1281,10 +1281,10 @@ public class Profile {
                 String cardName = importCardData.get(i)[0];
                 String unPaidTransactionFileName = i + CARD_UNPAID_TRANSACTION_LIST_FILE_NAME;
                 String paidTransactionFileName = i + CARD_PAID_TRANSACTION_LIST_FILE_NAME;
-                if(storage.isFileExist(unPaidTransactionFileName)) {
+                if (storage.isFileExist(unPaidTransactionFileName)) {
                     loadTransactionForCards(unPaidTransactionFileName, cardName);
                 }
-                if(storage.isFileExist(paidTransactionFileName)) {
+                if (storage.isFileExist(paidTransactionFileName)) {
                     loadTransactionForCards(paidTransactionFileName, cardName);
                 }
             }
@@ -1312,16 +1312,16 @@ public class Profile {
             String cardId = importDataRow[4];
             String billDate = importDataRow[5];
             UUID uuid = null;
-            if(!cardId.equals("")) {
+            if (!cardId.equals("")) {
                 uuid = UUID.fromString(cardId);
             }
             YearMonth yearMonthBillDate = null;
-            if(!billDate.equals(BLANK)) {
+            if (!billDate.equals(BLANK)) {
                 yearMonthBillDate = YearMonth.parse(billDate);
             }
-            if(!cardId.equals(BLANK) && !billDate.equals(BLANK)) {
-                Transaction newExpenditure = new Expenditure(description, doubleAmount,dateInFormat
-                        ,uuid,yearMonthBillDate);
+            if (!cardId.equals(BLANK) && !billDate.equals(BLANK)) {
+                Transaction newExpenditure = new Expenditure(description, doubleAmount,dateInFormat,
+                        uuid,yearMonthBillDate);
                 profileImportNewUnpaidCardTransaction(cardName, newExpenditure);
 
             } else {

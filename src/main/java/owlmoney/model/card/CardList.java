@@ -512,7 +512,7 @@ public class CardList {
                     cardLists.get(i).exportCardPaidTransactionList(Integer.toString(i));
                     cardLists.get(i).exportCardUnpaidTransactionList(Integer.toString(i));
                 } catch (IOException exceptionMessage) {
-                    throw new TransactionException ("Error trying to save your card expenditure"
+                    throw new TransactionException("Error trying to save your card expenditure"
                             + " to disk. Your data is at risk, but we will try again, "
                             + "feel free to continue using the program.");
                 }
@@ -537,7 +537,7 @@ public class CardList {
                     cardLists.get(i).exportCardPaidTransactionList(Integer.toString(i));
                     cardLists.get(i).exportCardUnpaidTransactionList(Integer.toString(i));
                 } catch (IOException exceptionMessage) {
-                    throw new TransactionException ("Error trying to save your card expenditure"
+                    throw new TransactionException("Error trying to save your card expenditure"
                             + " to disk. Your data is at risk, but we will try again, "
                             + "feel free to continue using the program.");
                 }
@@ -601,7 +601,7 @@ public class CardList {
      */
     public void cardListImportNewUnpaidCardExpenditure(String cardName, Transaction newExpenditure) {
         for (int i = 0; i < cardLists.size(); i++) {
-            if(cardLists.get(i).getName().equals(cardName)) {
+            if (cardLists.get(i).getName().equals(cardName)) {
                 cardLists.get(i).importNewUnpaidExpenditure(newExpenditure);
             }
         }
@@ -615,7 +615,7 @@ public class CardList {
      */
     public void cardListImportNewPaidCardExpenditure(String cardName, Transaction newExpenditure) {
         for (int i = 0; i < cardLists.size(); i++) {
-            if(cardLists.get(i).getName().equals(cardName)) {
+            if (cardLists.get(i).getName().equals(cardName)) {
                 cardLists.get(i).importNewPaidExpenditure(newExpenditure);
             }
         }

@@ -406,7 +406,7 @@ public class Card {
         decimalFormat.setRoundingMode(RoundingMode.DOWN);
         SimpleDateFormat exportDateFormat = new SimpleDateFormat("dd/MM/yyyy");
         exportArrayList.add(new String[]{"description","amount","date","category","cardId","billDate",});
-        for(int i = 0; i < paid.getSize(); i++) {
+        for (int i = 0; i < paid.getSize(); i++) {
             String description = paid.get(i).getDescription();
             double amount = paid.get(i).getAmount();
             Date date = paid.get(i).getDateInDateFormat();
@@ -416,15 +416,15 @@ public class Card {
             String stringAmount = decimalFormat.format(amount);
             String stringDate = exportDateFormat.format(date);
             String stringUuid = "";
-            if(cardId != null) {
+            if (cardId != null) {
                 stringUuid = cardId.toString();
             }
             String stringBillDate = "";
-            if(billDate != null) {
+            if (billDate != null) {
                 stringBillDate = billDate.toString();
             }
             exportArrayList.add(new String[]
-                    {description, stringAmount, stringDate, category, stringUuid, stringBillDate});
+                {description, stringAmount, stringDate, category, stringUuid, stringBillDate});
         }
         return exportArrayList;
     }
@@ -455,7 +455,7 @@ public class Card {
         decimalFormat.setRoundingMode(RoundingMode.DOWN);
         SimpleDateFormat exportDateFormat = new SimpleDateFormat("dd/MM/yyyy");
         exportArrayList.add(new String[]{"description","amount","date","category","cardId","billDate",});
-        for(int i = 0; i < unpaid.getSize(); i++) {
+        for (int i = 0; i < unpaid.getSize(); i++) {
             String description = unpaid.get(i).getDescription();
             double amount = unpaid.get(i).getAmount();
             Date date = unpaid.get(i).getDateInDateFormat();
@@ -465,15 +465,15 @@ public class Card {
             String stringAmount = decimalFormat.format(amount);
             String stringDate = exportDateFormat.format(date);
             String stringUuid = "";
-            if(cardId != null) {
+            if (cardId != null) {
                 stringUuid = cardId.toString();
             }
             String stringBillDate = "";
-            if(billDate != null) {
+            if (billDate != null) {
                 stringBillDate = billDate.toString();
             }
             exportArrayList.add(new String[]
-                    {description, stringAmount, stringDate, category, stringUuid, stringBillDate});
+                {description, stringAmount, stringDate, category, stringUuid, stringBillDate});
         }
         return exportArrayList;
     }
