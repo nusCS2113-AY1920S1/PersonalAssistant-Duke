@@ -83,11 +83,11 @@ public interface Model {
 
     HashMap<String,Itinerary> getItineraryTable();
 
-    void storeRecentItinerary(Itinerary itinerary);
+    void setRecentItinerary(Itinerary itinerary);
 
     Itinerary getRecentItinerary();
 
-    void storeNewItinerary(Itinerary itinerary) throws ParseException;
+    void setNewItinerary(Itinerary itinerary) throws ParseException;
 
     void confirmRecentItinerary();
 

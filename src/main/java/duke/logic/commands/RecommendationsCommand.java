@@ -29,7 +29,7 @@ public class RecommendationsCommand extends Command {
 
         Itinerary recentItinerary = recommendation.makeItinerary(itineraryDetails);
 
-        model.storeRecentItinerary(recentItinerary);
+        model.setRecentItinerary(recentItinerary);
 
         return new CommandResultText(recentItinerary.printItinerary());
     }

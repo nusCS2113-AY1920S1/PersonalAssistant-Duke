@@ -95,7 +95,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void storeRecentItinerary(Itinerary recentItinerary) {
+    public void setRecentItinerary(Itinerary recentItinerary) {
         this.recentItinerary = recentItinerary;
     }
 
@@ -105,7 +105,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void storeNewItinerary(Itinerary itinerary) {
+    public void setNewItinerary(Itinerary itinerary) {
         this.itineraryTable.put(itinerary.getName(), itinerary);
     }
 

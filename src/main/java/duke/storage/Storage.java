@@ -68,6 +68,7 @@ public class Storage {
     public Storage() {
         events = new EventList();
         routes = new RouteList();
+        itineraryTable = new HashMap<>();
         try {
             read();
         } catch (FileLoadFailException e) {
@@ -94,7 +95,6 @@ public class Storage {
      * @throws FileLoadFailException If the file cannot be loaded.
      */
     public void readItineraryTable() throws FileLoadFailException {
-        itineraryTable = new HashMap<>();
         try {
             File itinerariesFile = new File(ITINERARIES_FILE_PATH);
             Scanner scanner = new Scanner(itinerariesFile);
@@ -129,8 +129,6 @@ public class Storage {
             }
             scanner.close();
         } catch (FileNotFoundException | ParseException e) {
-            itineraryTable = new HashMap<>();
-            logger.info(e.getMessage());
             throw new FileLoadFailException(ITINERARIES_FILE_PATH);
         }
     }

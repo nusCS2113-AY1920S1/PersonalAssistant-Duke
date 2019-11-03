@@ -44,7 +44,7 @@ public class NewItineraryCommand extends Command {
         Itinerary itinerary = new Itinerary(start, end, hotelLocation, name);
         itinerary.getNumberOfDays();
         itinerary.makeAgendaList(itineraryDetails);
-        model.storeNewItinerary(itinerary);
+        model.setNewItinerary(itinerary);
         model.save();
         return new CommandResultText("New Itinerary Created with name:" + itinerary.getName());
     }

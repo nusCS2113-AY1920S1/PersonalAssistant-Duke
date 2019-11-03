@@ -1,11 +1,8 @@
 package duke;
 
-import duke.commons.Messages;
-import duke.commons.exceptions.ApiException;
 import duke.commons.exceptions.FileLoadFailException;
 import duke.commons.exceptions.FileNotSavedException;
 import duke.commons.exceptions.ParseException;
-import duke.logic.api.ApiParser;
 import duke.logic.parsers.ParserStorageUtil;
 import duke.logic.parsers.ParserTimeUtil;
 import duke.model.Event;
@@ -62,6 +59,7 @@ public class StorageStub {
     public StorageStub() throws FileLoadFailException {
         events = new EventList();
         routes = new RouteList();
+        itineraryTable = new HashMap<>();
         read();
     }
 
@@ -81,7 +79,6 @@ public class StorageStub {
      * @throws FileLoadFailException If the file cannot be loaded.
      */
     public void readItineraryTable() throws FileLoadFailException {
-        itineraryTable = new HashMap<>();
         try {
             File itinerariesFile = new File(ITINERARIES_FILE_PATH);
             Scanner scanner = new Scanner(itinerariesFile);
@@ -116,8 +113,6 @@ public class StorageStub {
             }
             scanner.close();
         } catch (FileNotFoundException | ParseException e) {
-            itineraryTable = new HashMap<>();
-            logger.info(e.getMessage());
             throw new FileLoadFailException(ITINERARIES_FILE_PATH);
         }
     }
@@ -164,7 +159,6 @@ public class StorageStub {
 
     /**
      * Returns Venues fetched from stored memory.
-     *
      */
     public void readRecommendations() {
         List<Agenda> agendaList = new ArrayList<>();
@@ -229,39 +223,6 @@ public class StorageStub {
         }
     }
 
-    /**
-     * Writes recommendations to filepath.
-     *
-     * @throws FileNotSavedException If the file cannot be saved.
-     */
-    public void writeNewItinerary() throws FileNotSavedException {
-        String file = ITINERARIES_FILE_PATH;
-        try {
-            if (newItinerary != null) {
-                FileWriter writer = new FileWriter(file, true);
-                writer.write(newItinerary.getName() + "\n" + newItinerary.getStartDate().toString() + "\n"
-                        + newItinerary.getEndDate().toString() + "\n"
-                        + newItinerary.getHotelLocation().toString() + "\n");
-                for (Agenda agenda : newItinerary.getList()) {
-                    writer.write(agenda.toString());
-                }
-                writer.write("\n");
-                writer.close();
-            }
-        } catch (IOException e) {
-            throw new FileNotSavedException(file);
-        }
-    }
-
-    /**
-     * Retrieves an itinerary from persistent storage based on its serial number.
-     *
-     * @param name The itineraries serial number.
-     */
-    public Itinerary getItinerary(String name) {
-        return itineraryTable.get(name);
-    }
-
     public EventList getEvents() {
         return events;
     }
@@ -280,61 +241,6 @@ public class StorageStub {
 
     public Recommendation getRecommendations() {
         return recommendation;
-    }
-
-    /**
-     * Stores a newly added itinerary.
-     *
-     * @throws ParseException If itinerary is not parsed properly.
-     */
-    public void storeNewItinerary(Itinerary itinerary, String[] itineraryDetails) throws ParseException {
-        List<Agenda> agendaList = new ArrayList<>();
-        int i = 4;
-        try {
-            while (i < itineraryDetails.length) {
-                List<Venue> venueList = new ArrayList<>();
-                List<Todo> todoList = new ArrayList<>();
-                final int number = Integer.parseInt(itineraryDetails[i++]);
-                while (itineraryDetails[i].equals("/venue")) {
-                    i++;
-                    venueList.add(ApiParser.getLocationSearch(itineraryDetails[i++]));
-                    StringBuilder todos = new StringBuilder();
-                    if (i == itineraryDetails.length - 1 || itineraryDetails[i].matches("-?\\d+")) {
-                        throw new ParseException(Messages.ITINERARY_EMPTY_TODOLIST);
-                    }
-                    todos.append(itineraryDetails[++i]).append("|");
-                    i++;
-                    while (itineraryDetails[i].equals("/and")) {
-                        i++;
-                        todos.append(itineraryDetails[i++]).append("|");
-                        if (i >= itineraryDetails.length) {
-                            break;
-                        }
-                    }
-                    todoList = ParserStorageUtil.getTodoListFromStorage(todos.toString());
-                    if (i >= itineraryDetails.length) {
-                        break;
-                    }
-                }
-                Agenda agenda = new Agenda(todoList, venueList, number);
-                agendaList.add(agenda);
-                itinerary.setTasks(agendaList);
-
-                this.itineraryTable.put(itinerary.getName(), itinerary);
-                this.newItinerary = itinerary;
-            }
-        } catch (ArrayIndexOutOfBoundsException e) {
-            throw new ParseException(Messages.ITINERARY_FAIL_CREATION);
-        } catch (NumberFormatException e) {
-            throw new ParseException(Messages.ITINERARY_INCORRECT_COMMAND);
-        } catch (ApiException | ParseException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void confirmRecentItinerary(Itinerary recentItinerary) {
-        this.itineraryTable.put(recentItinerary.getName(), recentItinerary);
-        this.newItinerary = recentItinerary;
     }
 
     public HashMap<String, Itinerary> getItineraryTable() {

@@ -96,7 +96,7 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public void storeRecentItinerary(Itinerary recentItinerary) {
+    public void setRecentItinerary(Itinerary recentItinerary) {
         this.recentItinerary = recentItinerary;
     }
 
@@ -106,13 +106,13 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public void storeNewItinerary(Itinerary itinerary, String[] itineraryDetails) throws ParseException {
-        storage.storeNewItinerary(itinerary, itineraryDetails);
+    public void setNewItinerary(Itinerary itinerary) {
+        this.itineraryTable.put(itinerary.getName(), itinerary);
     }
 
     @Override
     public void confirmRecentItinerary() {
-        storage.confirmRecentItinerary(recentItinerary);
+        this.itineraryTable.put(recentItinerary.getName(), recentItinerary);
     }
 
     @Override
@@ -132,7 +132,6 @@ public class ModelStub implements Model {
      */
     @Override
     public Itinerary getItinerary(String name) {
-
         return itineraryTable.get(name);
     }
 
