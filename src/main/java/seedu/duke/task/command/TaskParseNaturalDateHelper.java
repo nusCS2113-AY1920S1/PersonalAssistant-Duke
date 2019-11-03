@@ -1,5 +1,6 @@
 package seedu.duke.task.command;
 
+import javafx.scene.text.Text;
 import javafx.util.Pair;
 import seedu.duke.common.parser.CommandParseHelper;
 import seedu.duke.task.entity.Task;
@@ -25,8 +26,9 @@ public class TaskParseNaturalDateHelper {
     private static boolean isCorrectNaturalDate(String input) {
         DayOfWeek[] dayOfWeeks = DayOfWeek.values();
         for (int i = 0; i < dayOfWeeks.length; i++) {
-            String day = dayOfWeeks[i].getDisplayName(TextStyle.SHORT, Locale.US);
-            if (day.equals(input)) {
+            String shortForm = dayOfWeeks[i].getDisplayName(TextStyle.SHORT, Locale.US);
+            String fullForm = dayOfWeeks[i].getDisplayName(TextStyle.FULL, Locale.US);
+            if (fullForm.equals(input) || shortForm.equals(input)) {
                 return true;
             }
         }
@@ -56,11 +58,11 @@ public class TaskParseNaturalDateHelper {
                 dateTime = date.atTime(timing);
             }
             DayOfWeek dayOfWeek = dateTime.getDayOfWeek();
-            String day = dayOfWeek.getDisplayName(TextStyle.SHORT, Locale.US);
-            while (!day.contains(parsedDay)) {
+            String fullForm = dayOfWeek.getDisplayName(TextStyle.FULL, Locale.US);
+            while (!fullForm.contains(parsedDay)) {
                 dateTime = dateTime.plusDays(1);
                 dayOfWeek = dateTime.getDayOfWeek();
-                day = dayOfWeek.getDisplayName(TextStyle.SHORT, Locale.US);
+                fullForm = dayOfWeek.getDisplayName(TextStyle.FULL, Locale.US);
             }
         } catch (DateTimeParseException e) {
             throw new CommandParseHelper.CommandParseException("Wrong Date Time format");
