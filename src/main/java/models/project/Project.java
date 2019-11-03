@@ -1,5 +1,6 @@
 package models.project;
 
+import models.member.IMember;
 import models.member.Member;
 import models.member.MemberList;
 import models.reminder.Reminder;
@@ -192,5 +193,13 @@ public class Project implements IProject {
 
     public String getTaskIndexName(Integer index) {
         return getTask(index).getTaskName();
+    }
+
+    public boolean MemberExists(IMember newMember) {
+        return this.memberList.contains(newMember);
+    }
+
+    public int getIndexOfMember(IMember newMember) {
+        return this.memberList.getIndexOfMember(newMember);
     }
 }

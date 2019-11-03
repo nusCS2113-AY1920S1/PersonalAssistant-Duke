@@ -154,5 +154,4 @@ public class ConsoleInputController implements IController {
         return managingProjectIndex;
     }
 
-
 }

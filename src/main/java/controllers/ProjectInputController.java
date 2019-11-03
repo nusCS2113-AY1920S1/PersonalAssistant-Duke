@@ -175,11 +175,17 @@ public class ProjectInputController implements IController {
         String memberDetails = projectCommand.substring(11);
         int numberOfCurrentMembers = projectToManage.getNumOfMembers();
         memberDetails = memberDetails + " -x " + numberOfCurrentMembers;
+        //try to create member
         IMember newMember = memberFactory.create(memberDetails);
         if (newMember.getName() != null) {
-            projectToManage.addMember((Member) newMember);
-            return new String[] {"Added new member to: " + projectToManage.getName(), ""
+            if (projectToManage.MemberExists(newMember)) {
+                return new String[] {"The member you have tried to add already exists!",
+                "Details: " + newMember.getDetails()};
+            } else {
+                projectToManage.addMember((Member) newMember);
+                return new String[]{"Added new member to: " + projectToManage.getName(), ""
                     + "Member details " + newMember.getDetails()};
+            }
         } else {
             return new String[] {newMember.getDetails()};
         }

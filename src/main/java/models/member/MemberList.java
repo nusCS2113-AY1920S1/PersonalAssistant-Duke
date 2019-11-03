@@ -123,4 +123,11 @@ public class MemberList implements IMemberList {
         return memberList.size();
     }
 
+    public boolean contains(IMember newMember) {
+        return this.memberList.contains(newMember);
+    }
+
+    public int getIndexOfMember(IMember member) {
+        return this.memberList.indexOf(member);
+    }
 }
