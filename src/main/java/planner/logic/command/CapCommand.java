@@ -12,6 +12,7 @@ import java.util.regex.Pattern;
 import org.antlr.runtime.CharStreamState;
 import planner.logic.exceptions.legacy.ModException;
 import planner.logic.exceptions.legacy.ModMissingArgumentException;
+import planner.logic.exceptions.planner.ModBadGradeException;
 import planner.logic.exceptions.planner.ModNoPrerequisiteException;
 import planner.logic.exceptions.planner.ModNotFoundException;
 import planner.logic.modules.module.ModuleInfoDetailed;
@@ -158,15 +159,17 @@ public class CapCommand extends ModuleCommand {
                                     PlannerUi plannerUi,
                                     Storage store,
                                     Scanner scanner)
-        throws ModMissingArgumentException, ModNotFoundException, ModEmptyCommandException {
+        throws ModMissingArgumentException, ModNotFoundException, ModEmptyCommandException,
+        ModBadGradeException {
         String userInput = scanner.nextLine();
         while (!isComplete(userInput)) {
             if (userInput.isEmpty()) {
                 throw new ModEmptyCommandException();
-                //"Please input a completed module and your grade for it,"
-                //" or input done to finish and calculate your CAP"
             }
             String[] userInfo = userInput.split(" ");
+            if (userInfo.length <= 1) {
+                throw new ModBadGradeException();
+            }
             if (!detailedMap.containsKey(userInfo[0].toUpperCase())) {
                 throw new ModNotFoundException();
             }
@@ -175,7 +178,7 @@ public class CapCommand extends ModuleCommand {
                 || letterGradeToCap(userInfo[1].toUpperCase()) != 0.00) {
                 mcCount += mcTemp;
             }
-            if (userInfo[1].isEmpty()) {
+            if (userInfo[1].isEmpty() || userInfo[1].isBlank()) {
                 throw new ModMissingArgumentException("Please input a letter grade for this module.");
             }
 

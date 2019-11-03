@@ -82,10 +82,6 @@ task coverage(type: JacocoReport) {
     }
 }
 
-tasks.withType(JavaCompile) {
-    options.encoding = 'UTF-8'
-}
-
 test {
     testLogging {
         events TestLogEvent.FAILED, TestLogEvent.SKIPPED
