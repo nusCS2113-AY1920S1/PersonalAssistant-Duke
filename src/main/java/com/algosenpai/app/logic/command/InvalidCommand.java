@@ -19,7 +19,7 @@ public class InvalidCommand extends Command {
 
     @Override
     public String execute() {
-        String input = new String();
+        String input = "";
         for (String i : inputs) {
             if (!Commands.isInteger(i)) {
                 input += i;
