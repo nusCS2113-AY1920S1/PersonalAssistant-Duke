@@ -7,9 +7,9 @@ import duke.list.GenericList;
 import duke.storage.Storage;
 import duke.ui.Ui;
 
-public class InitCommand extends Command<Dish> {
+public class ResetDishCommand extends Command<Dish> {
 
-    public InitCommand() {
+    public ResetDishCommand() {
         //clears all the amount in dishes
     }
 

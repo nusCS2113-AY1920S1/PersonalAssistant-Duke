@@ -80,7 +80,7 @@ public class Parser {
                     case "list":
                         return new ListDishCommand();
                     case "initialize":
-                        return new InitCommand();
+                        return new ResetDishCommand();
                     case "ingredient":
                         String[] getIng = splitted[1].split(" ", 3);
                         int amount = 0;
