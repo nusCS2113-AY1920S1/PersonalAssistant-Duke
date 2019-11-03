@@ -6,12 +6,14 @@ import com.google.gson.reflect.TypeToken;
 import common.AlphaNUSException;
 import project.Project;
 
-import java.io.*;
-import java.lang.reflect.Type;
+
+import java.io.File;
 import java.io.BufferedWriter;
-import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.FileWriter;
+import java.io.IOException;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.lang.reflect.Type;
 import java.util.LinkedHashMap;
 
 /**
@@ -53,12 +55,12 @@ public class Storage {
      * @throws AlphaNUSException If the file cannot be read.
      */
     public LinkedHashMap<String, Project> readFromProjectsFile() throws AlphaNUSException {
-        Type ProjectMapType = new TypeToken<LinkedHashMap<String, Project>>(){}.getType();
+        Type projectmaptype = new TypeToken<LinkedHashMap<String, Project>>(){}.getType();
         LinkedHashMap<String, Project> projectmap;
         try {
             File file = new File(ProjectsFilePath);
             BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
-            projectmap = gson.fromJson(bufferedReader, ProjectMapType);
+            projectmap = gson.fromJson(bufferedReader, projectmaptype);
             bufferedReader.close();
         } catch (Exception e) {
             throw new AlphaNUSException("Unable to read file");
