@@ -10,6 +10,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 
 import java.time.DayOfWeek;
@@ -41,7 +42,8 @@ class TimelineWindow extends UiComponent<Region> {
     private static Double moveXOfDays = 0.0;
     private static Double moveYOfDays = 0.0;
 
-
+    @FXML
+    private AnchorPane backgroundOfTimeline;
     @FXML
     private ListView<String> mondayTask;
     @FXML
@@ -64,11 +66,14 @@ class TimelineWindow extends UiComponent<Region> {
     private ListView<String> reminderTask;
     @FXML
     private Label todayLabel;
+    @FXML
+    private Label todayLabel1;
 
     private Parser parser;
     private Command command;
     private TaskList tasks;
-    private static final String DEFAULT_CONTROL_INNER_BACKGROUND = "#373737";
+    private static final String DARK_MODE = "#373737";
+    private static final String LIGHT_MODE = "#f1f1f1";
 
     /**
      * Constructs a UiComponent with the corresponding FXML file name and root object.
@@ -92,7 +97,7 @@ class TimelineWindow extends UiComponent<Region> {
         populateReminders();
         prioritizedTodayTasks();
         tasksWithoutDates();
-        initializeListViewComponents();
+        updateListViewComponentsDarkMode();
     }
 
     /**
@@ -100,20 +105,66 @@ class TimelineWindow extends UiComponent<Region> {
      */
     @FXML
     public void initialize() {
-
     }
 
-    private void initializeListViewComponents() {
-        initializeListViewDarkComponents(mondayTask);
-        initializeListViewDarkComponents(tuesdayTask);
-        initializeListViewDarkComponents(wednesdayTask);
-        initializeListViewDarkComponents(thursdayTask);
-        initializeListViewDarkComponents(fridayTask);
-        initializeListViewDarkComponents(saturdayTask);
-        initializeListViewDarkComponents(sundayTask);
-        initializeListViewDarkComponents(priorityTask);
-        initializeListViewDarkComponents(tasksWithoutDates);
+    @FXML
+    private void updateDarkBackground() {
+        backgroundOfTimeline.setStyle("-fx-background-color: #000000;");
     }
+
+    @FXML
+    private void updateLightBackground() {
+        backgroundOfTimeline.setStyle("-fx-background-color: #e4e4e4;");
+    }
+
+    private void updateListViewComponentsDarkMode() {
+        listViewComponents(mondayTask, DARK_MODE);
+        mondayTask.setStyle("-fx-background-color: #000000;");
+        listViewComponents(tuesdayTask,DARK_MODE);
+        tuesdayTask.setStyle("-fx-background-color: #000000;");
+        listViewComponents(wednesdayTask, DARK_MODE);
+        wednesdayTask.setStyle("-fx-background-color: #000000;");
+        listViewComponents(thursdayTask, DARK_MODE);
+        thursdayTask.setStyle("-fx-background-color: #000000;");
+        listViewComponents(fridayTask, DARK_MODE);
+        fridayTask.setStyle("-fx-background-color: #000000;");
+        listViewComponents(saturdayTask, DARK_MODE);
+        saturdayTask.setStyle("-fx-background-color: #000000;");
+        listViewComponents(sundayTask, DARK_MODE);
+        sundayTask.setStyle("-fx-background-color: #000000;");
+        listViewComponents(priorityTask, DARK_MODE);
+        priorityTask.setStyle("-fx-background-color: #000000;");
+        listViewComponents(tasksWithoutDates, DARK_MODE);
+        tasksWithoutDates.setStyle("-fx-background-color: #000000;");
+        listViewComponents(reminderTask, DARK_MODE);
+        reminderTask.setStyle("-fx-background-color: #000000;");
+        updateDarkBackground();
+    }
+
+    private void updateListViewComponentsLightMode() {
+        listViewComponents(mondayTask,LIGHT_MODE);
+        mondayTask.setStyle("-fx-background-color: #e4e4e4;");
+        listViewComponents(tuesdayTask, LIGHT_MODE);
+        tuesdayTask.setStyle("-fx-background-color: #e4e4e4;");
+        listViewComponents(wednesdayTask, LIGHT_MODE);
+        wednesdayTask.setStyle("-fx-background-color: #e4e4e4;");
+        listViewComponents(thursdayTask, LIGHT_MODE);
+        thursdayTask.setStyle("-fx-background-color: #e4e4e4;");
+        listViewComponents(fridayTask, LIGHT_MODE);
+        fridayTask.setStyle("-fx-background-color: #e4e4e4;");
+        listViewComponents(saturdayTask, LIGHT_MODE);
+        saturdayTask.setStyle("-fx-background-color: #e4e4e4;");
+        listViewComponents(sundayTask, LIGHT_MODE);
+        sundayTask.setStyle("-fx-background-color: #e4e4e4;");
+        listViewComponents(priorityTask, LIGHT_MODE);
+        priorityTask.setStyle("-fx-background-color: #e4e4e4;");
+        listViewComponents(tasksWithoutDates, LIGHT_MODE);
+        tasksWithoutDates.setStyle("-fx-background-color: #e4e4e4;");
+        listViewComponents(reminderTask, LIGHT_MODE);
+        reminderTask.setStyle("-fx-background-color: #e4e4e4;");
+        updateLightBackground();
+    }
+
 
     /**
      * This method populates the ListView with prioritized tasks for the day.
@@ -169,6 +220,24 @@ class TimelineWindow extends UiComponent<Region> {
                 }
             }
         });
+
+        tasks.getTheme().addListener((ListChangeListener<Integer>) change -> {
+            while (change.next()) {
+                if (change.wasAdded()) {
+                    if (tasks.getTheme().get(0).equals(1)) {
+                        updateListViewComponentsLightMode();
+                    } else {
+                        updateListViewComponentsDarkMode();
+                    }
+                } else if (change.wasReplaced()) {
+                    if (tasks.getTheme().get(0).equals(1)) {
+                        updateListViewComponentsLightMode();
+                    } else {
+                        updateListViewComponentsDarkMode();
+                    }
+                }
+            }
+        });
     }
 
     /**
@@ -189,7 +258,9 @@ class TimelineWindow extends UiComponent<Region> {
         String saturday = dtf.format(sundayDate.minusDays(1));
         String sunday = dtf.format(sundayDate);
         String shiftLocationOfHighlight = dtf.format(now);
+
         todayLabel.setStyle("-fx-border-color: #009933; -fx-border-width: 3;");
+        todayLabel1.setStyle("-fx-border-color: #009933; -fx-border-width: 3;");
         if (shiftLocationOfHighlight.equals(monday)) {
             moveXOfDays = mondayX;
             moveYOfDays = weekdayY;
@@ -209,14 +280,16 @@ class TimelineWindow extends UiComponent<Region> {
             moveXOfDays = saturdayX;
             moveYOfDays = weekendY;
             todayLabel.setStyle("-fx-border-color: #FF0000; -fx-border-width: 3;");
+            todayLabel1.setStyle("-fx-border-color: #FF0000; -fx-border-width: 3;");
         }  else if (shiftLocationOfHighlight.equals(sunday)) {
             moveXOfDays = sundayX;
             moveYOfDays = weekendY;
             todayLabel.setStyle("-fx-border-color: #FF0000; -fx-border-width: 3;");
+            todayLabel1.setStyle("-fx-border-color: #FF0000; -fx-border-width: 3;");
         }
-
         todayLabel.setLayoutX(moveXOfDays);
         todayLabel.setLayoutY(moveYOfDays);
+
 
         ObservableList<String> mondayTasks = FXCollections.observableArrayList(tasks.scheduleForDay(monday));
         mondayTask.setItems(mondayTasks);
@@ -234,7 +307,7 @@ class TimelineWindow extends UiComponent<Region> {
         sundayTask.setItems(sundayTasks);
     }
 
-    private void initializeListViewDarkComponents(ListView<String> stringListView) {
+    private void listViewComponents(ListView<String> stringListView, String MODE) {
         stringListView.setCellFactory(new Callback<ListView<String>, ListCell<String>>() {
             @Override
             public ListCell<String> call(ListView<String> param) {
@@ -243,7 +316,7 @@ class TimelineWindow extends UiComponent<Region> {
                     protected void updateItem(String item, boolean empty) {
                         super.updateItem(item, empty);
                         setText(item);
-                        setStyle("-fx-control-inner-background: " + DEFAULT_CONTROL_INNER_BACKGROUND + ";");
+                        setStyle("-fx-control-inner-background: " + MODE + ";");
                     }
                 };
             }

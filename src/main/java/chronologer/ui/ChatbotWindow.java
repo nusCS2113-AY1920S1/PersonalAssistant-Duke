@@ -45,7 +45,7 @@ class ChatbotWindow extends UiComponent<Region> {
     private String currentInput = "default";
 
     /**
-     * Constructs the chatbot window of the application.
+     * Constructs the chat-bot window of the application.
      *
      * @param command Holds the Command object responsible for executing user commands.
      * @param parser Holds the Parser object which is responsible for parsing user input.
@@ -63,7 +63,7 @@ class ChatbotWindow extends UiComponent<Region> {
     }
 
     @FXML
-    private void handleAction() {
+    private void handleUserInput() {
         String input = inputTextField.getText();
         storeUserInputHistory(input);
         try {
@@ -113,7 +113,7 @@ class ChatbotWindow extends UiComponent<Region> {
             switch (keyEvent.getCode()) {
             case ENTER:
                 keyEvent.consume();
-                handleAction();
+                handleUserInput();
                 break;
             case UP:
                 keyEvent.consume();

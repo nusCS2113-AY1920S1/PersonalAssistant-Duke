@@ -5,6 +5,7 @@ import chronologer.command.ExitCommand;
 import chronologer.command.ExportCommand;
 import chronologer.command.ListCommand;
 import chronologer.command.RedoCommand;
+import chronologer.command.StoreVersionCommand;
 import chronologer.command.UndoCommand;
 import chronologer.exception.ChronologerException;
 import chronologer.ui.UiTemporary;
@@ -88,6 +89,12 @@ public class ParserFactory {
             return new UndoCommand();
         case "redo":
             return new RedoCommand();
+        case "theme":
+            return new ThemeParser(userInput,command).parse();
+        case "restore":
+            return new RestoreVersionParser(userInput,command).parse();
+        case "store":
+            return new StoreVersionParser(userInput,command).parse();
         case "exam": //fallthrough
         case "examination":
             command = "exam";
