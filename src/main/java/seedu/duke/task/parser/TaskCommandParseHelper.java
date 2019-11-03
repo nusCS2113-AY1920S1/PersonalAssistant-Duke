@@ -1,7 +1,7 @@
 package seedu.duke.task.parser;
 
 import javafx.util.Pair;
-import seedu.duke.CommandParseHelper;
+import seedu.duke.common.parser.CommandParseHelper;
 import seedu.duke.common.command.InvalidCommand;
 import seedu.duke.common.command.LinkCommand;
 import seedu.duke.common.command.HelpCommand;
@@ -9,7 +9,6 @@ import seedu.duke.common.command.Command;
 import seedu.duke.common.command.FlipCommand;
 import seedu.duke.common.command.ExitCommand;
 import seedu.duke.common.model.Model;
-import seedu.duke.task.TaskList;
 import seedu.duke.task.command.TaskAddCommand;
 import seedu.duke.task.command.TaskClearListCommand;
 import seedu.duke.task.command.TaskDeleteCommand;
@@ -30,8 +29,8 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static seedu.duke.CommandParseHelper.extractTags;
-import static seedu.duke.CommandParseHelper.extractTime;
+import static seedu.duke.common.parser.CommandParseHelper.extractTags;
+import static seedu.duke.common.parser.CommandParseHelper.extractTime;
 
 public class TaskCommandParseHelper {
     private static UI ui = UI.getInstance();
