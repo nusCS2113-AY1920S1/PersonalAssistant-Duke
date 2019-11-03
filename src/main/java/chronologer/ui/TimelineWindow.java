@@ -307,7 +307,7 @@ class TimelineWindow extends UiComponent<Region> {
         sundayTask.setItems(sundayTasks);
     }
 
-    private void listViewComponents(ListView<String> stringListView, String MODE) {
+    private void listViewComponents(ListView<String> stringListView, String mode) {
         stringListView.setCellFactory(new Callback<ListView<String>, ListCell<String>>() {
             @Override
             public ListCell<String> call(ListView<String> param) {
@@ -316,7 +316,7 @@ class TimelineWindow extends UiComponent<Region> {
                     protected void updateItem(String item, boolean empty) {
                         super.updateItem(item, empty);
                         setText(item);
-                        setStyle("-fx-control-inner-background: " + MODE + ";");
+                        setStyle("-fx-control-inner-background: " + mode + ";");
                     }
                 };
             }
