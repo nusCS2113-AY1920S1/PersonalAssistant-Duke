@@ -64,7 +64,9 @@ public class AddCommand extends Command {
 
             if(this.arguments.matches("Biomedical Engineering|Chemical Engineering|Civil Engineering|"
                     + "Computer Engineering|Electrical Engineering|Environmental Engineering"
-                    + "|Industrial and Systems Engineering|Mechanical Engineering|Materials Science and Engineering")) {
+                    + "|Industrial and Systems Engineering|Mechanical Engineering|Materials Science and Engineering|BME"
+                    + "|BME|BioMed|Bio Eng|BM|ChE|Chem Eng|CivE|Civil E|Civil|CEG|Com E|EE|ElecE|ENVE|Mech Eng|ME|ISE"
+                    + "|IE|Industrial Systems|Materials Science Engineering|MSE")) {
                 lists.add_custom(this.arguments, storage);
                 UniversityTaskHandler universityTaskHandler = new UniversityTaskHandler();
                 universityTaskHandler.addDegreeTasks(this.arguments, tasks);
