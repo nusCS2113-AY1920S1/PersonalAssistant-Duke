@@ -15,3 +15,6 @@ bin/
 
 # Data Directory
 data/*
+
+# Local Storage
+localdata/*

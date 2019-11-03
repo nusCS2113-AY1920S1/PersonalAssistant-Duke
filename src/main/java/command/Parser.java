@@ -39,7 +39,6 @@ public class Parser {
         Storage storage, ArrayList<String> commandList) {
         try {
             if (instr.isBye(input)) {
-                System.out.println("Saving...");
                 storage.writeToProjectsFile(process.projectmanager.projectmap);
                 ui.byeMessage();
                 ui.getIn().close();

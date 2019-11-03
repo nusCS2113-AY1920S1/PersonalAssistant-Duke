@@ -76,29 +76,47 @@ public class Process {
      * @return
      */
     public void addProject(String input, Ui ui) {
-        String[] split = input.split("pr/", 2);
-        split = cleanStrStr(split);
-        if (split.length != 2) {
-            System.out.println("\t" + "Incorrect input");
-            System.out.println("\t" + "Correct Format: add project pr/PROJECT_NAME");
-            return;
-        } //TODO refactor
+        try {
+            String[] splitproject = input.split("pr/", 2);
+            splitproject = cleanStrStr(splitproject);
+            String[] splitamount = splitproject[1].split("am/", 2);
+            splitamount = cleanStrStr(splitamount);
 
-        String projectname = split[1];
-        if (projectname.isEmpty()) {
-            System.out.println("\t" + "Project name cannot be empty!");
-            System.out.println("\t" + "Correct Format: add project pr/PROJECT_NAME");
-            return;
-        } //TODO refactor
-        
-        if (projectmanager.projectmap.containsKey(projectname)) {
-            System.out.println("\t" + "Project already exists!");
-            return;
-        } //TODO refactor
-        
-        Project newProject = projectmanager.addProject(projectname);
-        int projectsize = projectmanager.projectmap.size();
-        ui.printAddProject(newProject, projectsize);
+
+            //input validity check
+            if (splitamount.length != 2) {
+                System.out.println("\t" + "Incorrect input");
+                System.out.println("\t" + "Correct Format: add project pr/PROJECT_NAME am/AMOUNT_OF_FUND");
+                return;
+            }
+
+            String projectname = splitamount[0];
+            String inputamount = splitamount[1];
+
+            if (projectname.isEmpty()) {
+                System.out.println("\t" + "Project name cannot be empty!");
+                System.out.println("\t" + "Correct Format: add project pr/PROJECT_NAME am/AMOUNT_OF_FUND");
+                return;
+            } //TODO refactor
+            if (projectmanager.projectmap.containsKey(projectname)) {
+                System.out.println("\t" + "Project already exists!");
+                return;
+            } //TODO refactor
+
+            if (inputamount.isEmpty()) {
+                Project newProject = projectmanager.addProject(projectname);
+                int projectsize = projectmanager.projectmap.size();
+                ui.printAddProject(newProject, projectsize);
+            } else {
+                double projectamount = Double.parseDouble(inputamount);
+                Project newProject = projectmanager.addProject(projectname, projectamount);
+                int projectsize = projectmanager.projectmap.size();
+                ui.printAddProject(newProject, projectsize);
+            }
+        } catch (NumberFormatException e) {
+            ui.exceptionMessage("\t" + "Amount of funds should be a number!");
+        }
+
     }
 
     /**
