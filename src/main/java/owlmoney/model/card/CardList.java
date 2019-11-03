@@ -153,7 +153,7 @@ public class CardList {
             Card checkCard = cardLists.get(i);
             String checkCardName = checkCard.getName();
             String capitalCheckCardName = checkCardName.toUpperCase();
-            if (capitalCheckCardName.equals(capitalCheckCardName) && !checkCard.equals(currentCard)) {
+            if (capitalCheckCardName.equals(capitalNewCardName) && !checkCard.equals(currentCard)) {
                 throw new CardException("There is already a credit card with the name: " + newCardName);
             }
         }
