@@ -4,6 +4,7 @@
  *
  * @author kuromono
  */
+
 package cube.logic.command;
 
 import cube.exception.CubeException;
@@ -33,9 +34,13 @@ public class BatchCommand extends Command {
     private final String MESSAGE_EXPORT = "exported";
     private final String MESSAGE_IMPORT = "imported";
 
+    private final String MESSAGE_FILE_NOT_FOUND = "The file that you are importing cannot be found:\n"
+        + "%1$s\n";
+
     /**
      * Default constructor.
-     * @param fileName Sets the filename of the CSV file to be loaded/saved from.
+     *
+     * @param fileName      Sets the filename of the CSV file to be loaded/saved from.
      * @param operationType Specifies to either IMPORT or EXPORT operation.
      */
     public BatchCommand(String fileName, String operationType) {
@@ -46,19 +51,26 @@ public class BatchCommand extends Command {
 
     /**
      * Calls & updates the required functions for CSV batch import operations.
-     * @param model ModelManager object to update the FoodList object from the import.
+     *
+     * @param model   ModelManager object to update the FoodList object from the import.
      * @param storage StorageManager object to update the FoodList object from the import.
      * @throws CubeException Throws an exception if error occured during file handling.
      */
-    private void batchImport(ModelManager model, StorageManager storage) throws CubeException {
-        ArrayList<Food> foodList = batchUtil.load();
-        FoodList importedFoodList = new FoodList(foodList);
-        model.setFoodList(importedFoodList);
-        storage.storeFoodList(importedFoodList);
+    private boolean batchImport(ModelManager model, StorageManager storage) throws CubeException {
+        if (batchUtil.checkFileAvailable(false)) {
+            ArrayList<Food> foodList = batchUtil.load();
+            FoodList importedFoodList = new FoodList(foodList);
+            model.setFoodList(importedFoodList);
+            storage.storeFoodList(importedFoodList);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**
      * Calls & updates the required functions for CSV batch export operations.
+     *
      * @param storage StorageManager object that contains the FoodList object to be saved.
      * @throws CubeException Throws an exception if error occured during file handling.
      */
@@ -74,8 +86,12 @@ public class BatchCommand extends Command {
         try {
             switch (operationType) {
             case IMPORT:
-                batchImport(model, storage);
-                return new CommandResult(String.format(MESSAGE_SUCCESS, MESSAGE_IMPORT, fileName));
+                boolean importSuccess = batchImport(model, storage);
+                if (importSuccess) {
+                    return new CommandResult(String.format(MESSAGE_SUCCESS, MESSAGE_IMPORT, fileName));
+                } else {
+                    return new CommandResult(String.format(MESSAGE_FILE_NOT_FOUND, fileName));
+                }
             case EXPORT:
                 batchExport(storage);
                 return new CommandResult(String.format(MESSAGE_SUCCESS, MESSAGE_EXPORT, fileName));

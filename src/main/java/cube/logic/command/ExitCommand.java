@@ -25,11 +25,10 @@ public class ExitCommand extends Command{
 	}
 
 	/**
-	 * Provides exit feedback to user.
-	 *
-	 * @param list The food list.
-	 * @param storage The current Storage.
-	 * @return The message feedback to user before Programme Exit.
+	 * Signals exit to main engine, and provide exit feedback to user.
+	 * @param model The facade of all models.
+	 * @param storage The storage manager for commands.
+	 * @return The command result with feedback to user.
 	 */
 	@Override
 	public CommandResult execute(ModelManager model, StorageManager storage) {

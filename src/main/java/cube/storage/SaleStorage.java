@@ -1,8 +1,4 @@
-/**
- * This class supports sale-relevant methods for storage.
- *
- * @author tygq13
- */
+//@author tygq13
 package cube.storage;
 
 import cube.model.sale.SalesHistory;
@@ -11,23 +7,23 @@ public class SaleStorage {
     private SalesHistory salesHistory;
 
     /**
-     * Default constructor for SaleStorage.
+     * Default constructor for SalesStorage
      */
     public SaleStorage() {
         this.salesHistory = new SalesHistory();
     }
 
     /**
-     * Getter for SalesHistory.
-     * @return SalesHistory object containing previous sales histories.
+     * Gets the sales history in this storage.
+     * @return the sales history.
      */
     public SalesHistory getSalesHistory() {
         return salesHistory;
     }
 
     /**
-     * Setter for SalesHistory.
-     * @param salesHistory object containing sales histories.
+     * Updates the SalesHistory in this storage.
+     * @param salesHistory The list of sales record.
      */
     public void storeSalesHistory(SalesHistory salesHistory) {
         this.salesHistory = salesHistory;
