@@ -14,7 +14,8 @@ public class NotificationCommand extends Command {
 
     /**
      * Alerts user if user exceeded the budget.
-     * @param cat The name of the category that user just added his expenditure to.
+     *
+     * @param cat         The name of the category that user just added his expenditure to.
      * @param expenditure The total current expenditure of that category.
      */
     public NotificationCommand(String cat, double expenditure) {
@@ -37,5 +38,7 @@ public class NotificationCommand extends Command {
         }
         double balance = budget.getBudgetFromCategory(cat) - expenditure;
         ui.setOutput(alert + "Budget remaining = " + balance);
+        ui.showResponse();
     }
 }
+

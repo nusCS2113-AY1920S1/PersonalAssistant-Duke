@@ -164,9 +164,10 @@ public class Storage {
     private void createFileAndDirectory(String filePath) throws MooMooException {
         try {
             File myNewFile = new File(filePath);
+            myNewFile.getParentFile().mkdir();
             myNewFile.createNewFile();
         } catch (IOException e) {
-            throw new MooMooException("Unable to create file. Please restart the program");
+            throw new MooMooException("Unable to create file. Your data will not be saved.");
         }
     }
 

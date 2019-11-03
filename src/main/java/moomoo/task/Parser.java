@@ -39,7 +39,12 @@ public class Parser {
      */
     public static Command parse(String input, Ui ui) throws MooMooException {
         Scanner scanner = new Scanner(input);
-        String commandType = scanner.next();
+        String commandType;
+        try {
+            commandType = scanner.next();
+        } catch (Exception e) {
+            throw new MooMooException("OOPS!!! I'm sorry, but I don't know what that means :-(");
+        }
         switch (commandType) {
         case ("bye"):
             return new ExitCommand(true);
