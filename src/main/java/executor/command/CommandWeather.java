@@ -147,7 +147,7 @@ public class CommandWeather extends Command {
                     innerMap.put("Forecast Date", applicableDate);
                     innerMap.put("Minimum Temperature in Degrees Celsius", minTemp);
                     innerMap.put("Maximum Temperature in Degrees Celsius", maxTemp);
-                    innerMap.put("Current Temperature in Degrees Celsius", theTemp);
+                    innerMap.put("Average Temperature in Degrees Celsius", theTemp);
                     innerMap.put("State Of Weather", weatherStateName);
                     weatherData.put(String.valueOf(i), innerMap);
                 }
