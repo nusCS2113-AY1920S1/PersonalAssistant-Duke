@@ -13,10 +13,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class ProductTest {
 
     @Test
-    public void createNewProduct_emptyName_throwsUnsupportedOperationException() {
-        Product product = new ProductBuilder().withName("").build();
-        assertThrows(ParseException.class, ProductMessageUtils.MESSAGE_MISSING_PRODUCT_NAME,
-                () -> product.setProductName(""));
+    public void createNewProduct_emptyName_throwsParseExceptionWithMessage() {
+        assertThrows(IllegalArgumentException.class, ProductMessageUtils.MESSAGE_MISSING_PRODUCT_NAME,
+                () -> new ProductBuilder().withName("").build());
     }
 
     @Test

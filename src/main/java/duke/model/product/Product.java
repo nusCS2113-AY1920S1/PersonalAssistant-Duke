@@ -1,5 +1,7 @@
 package duke.model.product;
 
+import duke.logic.message.ProductMessageUtils;
+
 import java.util.Objects;
 
 import static duke.commons.util.AppUtil.checkEmpty;
@@ -15,10 +17,6 @@ public class Product {
         ACTIVE,
         ARCHIVE
     }
-
-
-    public static final String MESSAGE_CONSTRAINTS = "Product name can take any values, "
-            + "and should not be blank";
 
     private String productName;
     private IngredientItemList ingredients;
@@ -44,7 +42,7 @@ public class Product {
      */
     public Product(String productName, String retailPrice, String ingredientCost) {
         requireAllNonNull(productName);
-        checkEmpty(productName, MESSAGE_CONSTRAINTS);
+        checkEmpty(productName, ProductMessageUtils.MESSAGE_MISSING_PRODUCT_NAME);
 
         try {
             this.productName = productName;
@@ -62,7 +60,7 @@ public class Product {
      */
     public Product(String productName, String retailPrice, String ingredientCost, IngredientItemList ingredientItemList) {
         requireAllNonNull(productName);
-        checkEmpty(productName, MESSAGE_CONSTRAINTS);
+        checkEmpty(productName, ProductMessageUtils.MESSAGE_MISSING_PRODUCT_NAME);
 
         try {
             this.productName = productName;
@@ -81,7 +79,7 @@ public class Product {
     public Product(String productName, Double retailPrice, Double ingredientCost,
                    IngredientItemList ingredientItemList, Product.Status status) {
         requireAllNonNull(productName);
-        checkEmpty(productName, MESSAGE_CONSTRAINTS);
+        checkEmpty(productName, ProductMessageUtils.MESSAGE_MISSING_PRODUCT_NAME);
 
         try {
             this.productName = productName;
@@ -97,7 +95,7 @@ public class Product {
     /** Constructor for edit Product */
     public Product(String productName, Double retailPrice, Double ingredientCost, Product.Status status) {
         requireAllNonNull(productName);
-        checkEmpty(productName, MESSAGE_CONSTRAINTS);
+        checkEmpty(productName, ProductMessageUtils.MESSAGE_MISSING_PRODUCT_NAME);
 
         try {
             this.productName = productName;
