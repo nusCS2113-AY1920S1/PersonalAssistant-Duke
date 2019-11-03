@@ -243,6 +243,14 @@ public class CardList {
         for (int i = ISZERO; i < cardLists.size(); i++) {
             if (cardLists.get(i).getName().equals(cardName)) {
                 cardLists.get(i).addInExpenditure(exp, ui, type);
+                try {
+                    cardLists.get(i).exportCardPaidTransactionList(Integer.toString(i));
+                    cardLists.get(i).exportCardUnpaidTransactionList(Integer.toString(i));
+                } catch (IOException exceptionMessage) {
+                    ui.printError("Error trying to save your card expenditure"
+                            + " to disk. Your data is at risk, but we will try again, "
+                            + "feel free to continue using the program.");
+                }
                 return;
             }
         }
@@ -283,6 +291,14 @@ public class CardList {
         for (int i = ISZERO; i < cardLists.size(); i++) {
             if (deleteFromAccountCard.equals(cardLists.get(i).getName())) {
                 cardLists.get(i).deleteExpenditure(expNum, ui);
+                try {
+                    cardLists.get(i).exportCardPaidTransactionList(Integer.toString(i));
+                    cardLists.get(i).exportCardUnpaidTransactionList(Integer.toString(i));
+                } catch (IOException exceptionMessage) {
+                    ui.printError("Error trying to save your card expenditure"
+                            + " to disk. Your data is at risk, but we will try again, "
+                            + "feel free to continue using the program.");
+                }
                 return;
             }
         }
@@ -307,6 +323,14 @@ public class CardList {
         for (int i = ISZERO; i < cardLists.size(); i++) {
             if (cardLists.get(i).getName().equals(editFromCard)) {
                 cardLists.get(i).editExpenditureDetails(expNum, desc, amount, date, category, ui);
+                try {
+                    cardLists.get(i).exportCardPaidTransactionList(Integer.toString(i));
+                    cardLists.get(i).exportCardUnpaidTransactionList(Integer.toString(i));
+                } catch (IOException exceptionMessage) {
+                    ui.printError("Error trying to save your card expenditure"
+                            + " to disk. Your data is at risk, but we will try again, "
+                            + "feel free to continue using the program.");
+                }
                 return;
             }
         }
@@ -484,6 +508,14 @@ public class CardList {
         for (int i = 0; i < cardLists.size(); i++) {
             if (card.equals(cardLists.get(i).getName())) {
                 cardLists.get(i).transferExpUnpaidToPaid(cardDate, type);
+                try {
+                    cardLists.get(i).exportCardPaidTransactionList(Integer.toString(i));
+                    cardLists.get(i).exportCardUnpaidTransactionList(Integer.toString(i));
+                } catch (IOException exceptionMessage) {
+                    throw new TransactionException ("Error trying to save your card expenditure"
+                            + " to disk. Your data is at risk, but we will try again, "
+                            + "feel free to continue using the program.");
+                }
             }
         }
     }
@@ -501,6 +533,14 @@ public class CardList {
         for (int i = 0; i < cardLists.size(); i++) {
             if (card.equals(cardLists.get(i).getName())) {
                 cardLists.get(i).transferExpPaidToUnpaid(cardDate, type);
+                try {
+                    cardLists.get(i).exportCardPaidTransactionList(Integer.toString(i));
+                    cardLists.get(i).exportCardUnpaidTransactionList(Integer.toString(i));
+                } catch (IOException exceptionMessage) {
+                    throw new TransactionException ("Error trying to save your card expenditure"
+                            + " to disk. Your data is at risk, but we will try again, "
+                            + "feel free to continue using the program.");
+                }
             }
         }
     }
@@ -551,5 +591,33 @@ public class CardList {
             throw new CardException("The maximum limit of 10 credit cards has been reached.");
         }
         cardLists.add(newCard);
+    }
+
+    /**
+     * Imports unpaid card expenditures from save file into the card's unpaid list.
+     *
+     * @param cardName the name of the card to tie the expenditure to.
+     * @param newExpenditure an instance of expenditure to be imported.
+     */
+    public void cardListImportNewUnpaidCardExpenditure(String cardName, Transaction newExpenditure) {
+        for (int i = 0; i < cardLists.size(); i++) {
+            if(cardLists.get(i).getName().equals(cardName)) {
+                cardLists.get(i).importNewUnpaidExpenditure(newExpenditure);
+            }
+        }
+    }
+
+    /**
+     * Imports paid card expenditures from save file into card's paid list.
+     *
+     * @param cardName the name of the card to tie the expenditure to.
+     * @param newExpenditure an instance of expenditure to be imported.
+     */
+    public void cardListImportNewPaidCardExpenditure(String cardName, Transaction newExpenditure) {
+        for (int i = 0; i < cardLists.size(); i++) {
+            if(cardLists.get(i).getName().equals(cardName)) {
+                cardLists.get(i).importNewPaidExpenditure(newExpenditure);
+            }
+        }
     }
 }

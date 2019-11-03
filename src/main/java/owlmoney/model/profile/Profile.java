@@ -57,10 +57,12 @@ public class Profile {
     private static final String INVESTMENT_TRANSACTION_LIST_FILE_NAME = "_investment_transactionList.csv";
     private static final String SAVING_TRANSACTION_LIST_FILE_NAME = "_saving_transactionList.csv";
     private static final String SAVING_RECURRING_TRANSACTION_LIST_FILE_NAME = "_saving_recurring_transactionList.csv";
+    private static final String CARD_PAID_TRANSACTION_LIST_FILE_NAME = "_card_paid_transactionList.csv";
+    private static final String CARD_UNPAID_TRANSACTION_LIST_FILE_NAME = "_card_unpaid_transactionList.csv";
     private static final String PROFILE_FILE_NAME = "profile.csv";
     private static final String HAS_SPENT = "true";
     private static final String NOT_SPENT = "false";
-    private static final String NO_BANK_ACCOUNT = "";
+    private static final String BLANK = "";
     private static final int ARRAY_INDEX = 1;
 
     /**
@@ -99,6 +101,12 @@ public class Profile {
             loadCardsFromImportedData();
         } catch (IllegalArgumentException | IndexOutOfBoundsException
                 | NullPointerException | CardException exceptionMessage) {
+            ui.printError("Error importing cards from persistent storage.");
+        }
+        try {
+            iterateCardsToAddTransaction();
+        } catch (IllegalArgumentException | IndexOutOfBoundsException | NullPointerException
+                | ParseException exceptionMessage) {
             ui.printError("Error importing cards from persistent storage.");
         }
     }
@@ -1009,7 +1017,7 @@ public class Profile {
                 Date dateInFormat = dateFormat.parse(date);
                 String savingsAccountName = importDataRow[3];
                 double doubleAmount = Double.parseDouble(amount);
-                if (NO_BANK_ACCOUNT.equals(savingsAccountName)) {
+                if (BLANK.equals(savingsAccountName)) {
                     newGoal = new Goals(goalName,doubleAmount,dateInFormat);
                 } else {
                     newGoal = new Goals(goalName,doubleAmount,dateInFormat,
@@ -1185,7 +1193,7 @@ public class Profile {
      * @return Index of the expenditure transaction object if found. If not found, return -1.
      * @throws BankException If bank account does not support this feature.
      */
-    public int profileGetCardBillExpenditureId(String bankName, UUID cardId, YearMonth billDate)
+    private int profileGetCardBillExpenditureId(String bankName, UUID cardId, YearMonth billDate)
             throws BankException {
         return bankList.bankListGetCardBillExpenditureId(bankName, cardId, billDate);
     }
@@ -1200,7 +1208,7 @@ public class Profile {
      * @return Index of the deposit transaction object if found. If not found, return -1.
      * @throws BankException If bank account does not support this feature.
      */
-    public int profileGetCardBillDepositId(String bankName, UUID cardId, YearMonth billDate)
+    private int profileGetCardBillDepositId(String bankName, UUID cardId, YearMonth billDate)
             throws BankException {
         return bankList.bankListGetCardBillDepositId(bankName, cardId, billDate);
     }
@@ -1215,7 +1223,7 @@ public class Profile {
      * @throws CardException If either expenditure or deposit object not found.
      * @throws BankException If bank account does not support this feature.
      */
-    public void checkExpenditureAndDepositExistsInSavings(String bankName, UUID cardId,
+    private void checkExpenditureAndDepositExistsInSavings(String bankName, UUID cardId,
             YearMonth billDate) throws CardException, BankException {
         int expenditureExist = profileGetCardBillExpenditureId(bankName, cardId, billDate);
         int depositExist = profileGetCardBillDepositId(bankName, cardId, billDate);
@@ -1238,6 +1246,12 @@ public class Profile {
         }
     }
 
+    /**
+     * Adds cards from imported data.
+     *
+     * @throws NumberFormatException if there are errors in parsing double.
+     * @throws CardException if there are card related errors.
+     */
     private void loadCardsFromImportedData() throws NumberFormatException, CardException {
         if (storage.isFileExist(PROFILE_CARD_LIST_FILE_NAME)) {
             List<String[]> importData = importListDataFromStorage(PROFILE_CARD_LIST_FILE_NAME,ui);
@@ -1253,5 +1267,87 @@ public class Profile {
                 profileImportNewCard(newCard);
             }
         }
+    }
+
+    /**
+     * Iterates the card file line by line to add specific transactions tied to the card.
+     *
+     * @throws ParseException if there are errors parsing date or double.
+     */
+    private void iterateCardsToAddTransaction() throws ParseException {
+        if (storage.isFileExist(PROFILE_BANK_LIST_FILE_NAME)) {
+            List<String[]> importCardData = importListDataFromStorage(PROFILE_CARD_LIST_FILE_NAME, ui);
+            for (int i = 0; i < importCardData.size(); i++) {
+                String cardName = importCardData.get(i)[0];
+                String unPaidTransactionFileName = i + CARD_UNPAID_TRANSACTION_LIST_FILE_NAME;
+                String paidTransactionFileName = i + CARD_PAID_TRANSACTION_LIST_FILE_NAME;
+                if(storage.isFileExist(unPaidTransactionFileName)) {
+                    loadTransactionForCards(unPaidTransactionFileName, cardName);
+                }
+                if(storage.isFileExist(paidTransactionFileName)) {
+                    loadTransactionForCards(paidTransactionFileName, cardName);
+                }
+            }
+        }
+    }
+
+    /**
+     * Imports transactions tied to each card.
+     *
+     * @param fileName the file name of the card
+     * @param cardName the card name for identification.
+     * @throws ParseException if there are errors parsing double or date.
+     */
+    private void loadTransactionForCards(String fileName, String cardName)
+            throws ParseException {
+        List<String[]> importData = importListDataFromStorage(fileName,ui);
+        for (String[] importDataRow : importData) {
+            String description = importDataRow[0];
+            String amount = importDataRow[1];
+            double doubleAmount = Double.parseDouble(amount);
+            String date = importDataRow[2];
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+            Date dateInFormat = dateFormat.parse(date);
+            String category = importDataRow[3];
+            String cardId = importDataRow[4];
+            String billDate = importDataRow[5];
+            UUID uuid = null;
+            if(!cardId.equals("")) {
+                uuid = UUID.fromString(cardId);
+            }
+            YearMonth yearMonthBillDate = null;
+            if(!billDate.equals(BLANK)) {
+                yearMonthBillDate = YearMonth.parse(billDate);
+            }
+            if(!cardId.equals(BLANK) && !billDate.equals(BLANK)) {
+                Transaction newExpenditure = new Expenditure(description, doubleAmount,dateInFormat
+                        ,uuid,yearMonthBillDate);
+                profileImportNewUnpaidCardTransaction(cardName, newExpenditure);
+
+            } else {
+                Transaction newExpenditure = new Expenditure(description,doubleAmount,dateInFormat,category);
+                profileImportNewPaidCardTransaction(cardName, newExpenditure);
+            }
+        }
+    }
+
+    /**
+     * Imports unpaid card transactions.
+     *
+     * @param cardName the name of the card that the transactions are tied to.
+     * @param newExpenditure an instance of unpaid expenditures to import.
+     */
+    private void profileImportNewUnpaidCardTransaction(String cardName, Transaction newExpenditure) {
+        cardList.cardListImportNewUnpaidCardExpenditure(cardName, newExpenditure);
+    }
+
+    /**
+     * Imports paid card transactions.
+     *
+     * @param cardName the name of the card that the transactions are tied to.
+     * @param newExpenditure an instance of paid expenditures to import.
+     */
+    private void profileImportNewPaidCardTransaction(String cardName, Transaction newExpenditure) {
+        cardList.cardListImportNewPaidCardExpenditure(cardName, newExpenditure);
     }
 }
