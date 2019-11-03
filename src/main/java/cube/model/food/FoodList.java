@@ -62,10 +62,12 @@ public class FoodList{
 
 	public int removeType(String foodType) {
 		int count = 0;
-		for(int i = 0; i < foodArrayList.size(); i ++) {
+		for(int i = 0; i < foodArrayList.size();) {
 			if (foodArrayList.get(i).getType()!=null && foodArrayList.get(i).getType().equals(foodType)) {
 				foodArrayList.remove(i);
 				count ++;
+			} else {
+				i ++;
 			}
 		}
 		return count;
