@@ -59,7 +59,7 @@ public class MainWindow extends AnchorPane {
     private UserInputHandler userInputHandler;
     private boolean isShowingEmail = false;
     private boolean isUpKey;
-    private int inputListIndex;
+    private int inputListIndex = 0;
     private ArrayList<String> inputList = new ArrayList<>();
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/winner.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/robot.png"));
@@ -245,16 +245,11 @@ public class MainWindow extends AnchorPane {
     private String navigateInputList() {
         String prevInput = "";
         if (isUpKey) {
-            if (inputListIndex < 1) {
-                inputListIndex = inputList.size();
-            }
-            inputListIndex--;
+            inputListIndex = (inputListIndex - 1) % inputList.size();
+            inputListIndex = inputListIndex < 0 ? inputListIndex + inputList.size() : inputListIndex;
             prevInput = inputList.get(inputListIndex);
         } else {
-            if (inputListIndex > inputList.size() - 2) {
-                inputListIndex = -1;
-            }
-            inputListIndex++;
+            inputListIndex = (inputListIndex + 1) % inputList.size();
             prevInput = inputList.get(inputListIndex);
         }
         return prevInput;
