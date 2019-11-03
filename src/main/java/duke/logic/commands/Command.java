@@ -48,6 +48,7 @@ public abstract class Command {
     }
 
     public void failure() {
+        ui.showLine();
         ui.showMessage(this.errorStr);
         ui.showLine();
     }
