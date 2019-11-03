@@ -1,8 +1,7 @@
 package Commands;
 
-import Commons.LookupTable;
 import Commons.Storage;
-import Commons.Ui;
+import Commons.UserInteraction;
 import Tasks.TaskList;
 /**
  * Represents the command to show the list of tasks on a TaskList object
@@ -24,7 +23,7 @@ public class ListCommand extends Command {
      * @return This returns the method in the Ui object which returns the string to display list message
      */
     @Override
-    public String execute(TaskList events, TaskList deadlines, Ui ui, Storage storage) {
+    public String execute(TaskList events, TaskList deadlines, UserInteraction ui, Storage storage) {
         if(list.equals("event")) {
             listToView = events;
         } else if(list.equals("deadline")){

@@ -3,10 +3,9 @@ package Commands;
 import DukeExceptions.DukeException;
 import DukeExceptions.DukeInvalidDateTimeException;
 
-import Commons.LookupTable;
 import Commons.Reminder;
 import Commons.Storage;
-import Commons.Ui;
+import Commons.UserInteraction;
 import Parser.DateTimeParser;
 import Tasks.Assignment;
 import Tasks.TaskList;
@@ -50,7 +49,7 @@ public class RemindCommand extends Command {
      * @throws DukeException On invalid task and time input
      */
     @Override
-    public String execute(TaskList events, TaskList deadlines, Ui ui, Storage storage) throws Exception {
+    public String execute(TaskList events, TaskList deadlines, UserInteraction ui, Storage storage) throws Exception {
         reminder = storage.getReminderObject();
         reminder.setDeadlines(deadlines);
         HashMap<String, HashMap<String, ArrayList<Assignment>>> deadlineMap = deadlines.getMap();

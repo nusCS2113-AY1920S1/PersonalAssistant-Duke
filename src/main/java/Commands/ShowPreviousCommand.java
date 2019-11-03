@@ -1,9 +1,8 @@
 package Commands;
 
 import Commons.Duke;
-import Commons.LookupTable;
 import Commons.Storage;
-import Commons.Ui;
+import Commons.UserInteraction;
 import DukeExceptions.DukeInvalidCommandException;
 import Tasks.TaskList;
 import java.util.ArrayList;
@@ -51,7 +50,7 @@ public class ShowPreviousCommand extends Command{
      * @throws Exception
      */
     @Override
-    public String execute(TaskList events, TaskList deadlines, Ui ui, Storage storage) throws DukeInvalidCommandException {
+    public String execute(TaskList events, TaskList deadlines, UserInteraction ui, Storage storage) throws DukeInvalidCommandException {
 //        fullCommand = fullCommand.replace("show/previous", "");
 //        fullCommand = fullCommand.trim();
 

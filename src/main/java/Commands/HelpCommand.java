@@ -2,7 +2,7 @@ package Commands;
 
 import Commons.LookupTable;
 import Commons.Storage;
-import Commons.Ui;
+import Commons.UserInteraction;
 import Tasks.TaskList;
 
 import java.io.BufferedReader;
@@ -27,7 +27,7 @@ public class HelpCommand extends Command{
      * @return This returns the method in the Ui object which returns the string to display delete task message
      */
     @Override
-    public String execute(TaskList events, TaskList deadlines, Ui ui, Storage storage) throws Exception {
+    public String execute(TaskList events, TaskList deadlines, UserInteraction ui, Storage storage) throws Exception {
         try {
         String line;
         InputStream is = this.getClass().getClassLoader().getResourceAsStream("documents/Help.txt");

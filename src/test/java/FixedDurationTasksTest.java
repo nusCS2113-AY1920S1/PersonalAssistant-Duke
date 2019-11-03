@@ -1,10 +1,10 @@
 import Commons.Storage;
-import Commons.Ui;
+import Commons.UserInteraction;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class FixedDurationTasksTest {
-    Ui ui = new Ui();
+    UserInteraction ui = new UserInteraction();
     Storage storage = new Storage();
 /*
     @Test

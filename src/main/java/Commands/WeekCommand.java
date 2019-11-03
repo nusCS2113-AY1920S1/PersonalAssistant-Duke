@@ -154,7 +154,7 @@ public class WeekCommand extends Command {
     }
 
     @Override
-    public String execute(TaskList events, TaskList deadlines, Ui ui, Storage storage) throws Exception {
+    public String execute(TaskList events, TaskList deadlines, UserInteraction ui, Storage storage) throws Exception {
 //        String intWeek = week.replaceFirst("Week", "");
 //        intWeek = intWeek.trim();
 //        Integer duration = Integer.parseInt(intWeek);

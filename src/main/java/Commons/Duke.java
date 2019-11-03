@@ -20,7 +20,7 @@ public class Duke  {
     private final Storage storage;
     private final TaskList events;
     private final TaskList deadlines;
-    private final Ui ui;
+    private final UserInteraction ui;
     private final Reminder reminder;
     private static final Logger LOGGER = Logger.getLogger(Duke.class.getName());
     public static ArrayList<String> userInputs = new ArrayList<>();
@@ -29,7 +29,7 @@ public class Duke  {
      * Creates Duke object.
      */
     public Duke() {
-        ui = new Ui();
+        ui = new UserInteraction();
         storage = new Storage();
         events = new TaskList();
         deadlines = new TaskList();

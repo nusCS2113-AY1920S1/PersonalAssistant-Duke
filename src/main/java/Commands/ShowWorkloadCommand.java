@@ -2,7 +2,7 @@ package Commands;
 
 import Commons.LookupTable;
 import Commons.Storage;
-import Commons.Ui;
+import Commons.UserInteraction;
 import Tasks.Assignment;
 import Tasks.TaskList;
 
@@ -30,7 +30,7 @@ public class ShowWorkloadCommand extends Command {
     }
 
     @Override
-    public String execute (TaskList events, TaskList deadlines, Ui ui, Storage storage) throws ParseException, FileNotFoundException {
+    public String execute (TaskList events, TaskList deadlines, UserInteraction ui, Storage storage) throws ParseException, FileNotFoundException {
         String workloadWeek = lookupTable.getValue(week);
         HashMap<String, HashMap<String, ArrayList<Assignment>>> eventMap = events.getMap();
         HashMap<String, HashMap<String, ArrayList<Assignment>>> deadlineMap = deadlines.getMap();

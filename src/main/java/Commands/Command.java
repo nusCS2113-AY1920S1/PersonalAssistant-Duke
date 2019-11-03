@@ -1,8 +1,7 @@
 package Commands;
 
-import Commons.LookupTable;
 import Commons.Storage;
-import Commons.Ui;
+import Commons.UserInteraction;
 import Tasks.TaskList;
 
 /**
@@ -10,5 +9,5 @@ import Tasks.TaskList;
  * carried out when an input is entered by the user.
  */
 public abstract class Command {
-    public abstract String execute(TaskList events, TaskList deadlines, Ui ui, Storage storage) throws Exception;
+    public abstract String execute(TaskList events, TaskList deadlines, UserInteraction ui, Storage storage) throws Exception;
 }

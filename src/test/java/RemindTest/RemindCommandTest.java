@@ -2,8 +2,7 @@ package RemindTest;
 
 import Commands.Command;
 import Commands.RemindCommand;
-import Commons.LookupTable;
-import Commons.Ui;
+import Commons.UserInteraction;
 import StubClasses.ReminderStub;
 import StubClasses.StorageStub;
 import Tasks.Assignment;
@@ -40,7 +39,7 @@ public class RemindCommandTest {
     private static SimpleDateFormat deadlineDateFormat = new SimpleDateFormat("E dd/MM/yyyy hh:mm a");
     private StorageStub storageStub = new StorageStub();
     private TaskList events = new TaskList();
-    private Ui ui = new Ui();
+    private UserInteraction ui = new UserInteraction();
 
     @BeforeAll
     public static void setAllVariables() {

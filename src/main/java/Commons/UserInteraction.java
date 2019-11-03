@@ -13,7 +13,7 @@ import java.util.Date;
  * Represents the user interface which displays the messages to
  * respond to the user based on the user's input.
  */
-public class Ui {
+public class UserInteraction {
     private static final String NO_FIELD = "void";
     private final String byeMessage = "Bye. Hope to see you again soon!\n";
 
