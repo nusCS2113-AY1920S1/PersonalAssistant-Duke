@@ -72,16 +72,11 @@ public class CommandConvert extends Command {
      * @return this function returns the 3 character unique string representing the currency to convert from
      */
     private String getCurrencyCovertFrom(String userInput) {
-        try {
-            String fromStr = Parser.parseForFlag("from", userInput);
-            if (fromStr != null) {
-                return fromStr.toUpperCase();
-            }
-        } catch (Exception e) {
-            Ui.dukeSays("Please enter a valid ISO 4217 country code to convert from.");
-            return null;
+        String fromStr = Parser.parseForFlag("from", userInput);
+        if (fromStr != null) {
+            return fromStr.toUpperCase();
         }
-        return null;
+       return null;
     }
 
     /**
@@ -90,15 +85,11 @@ public class CommandConvert extends Command {
      * @return this function return the 3 character unique string representing the currency to covert to
      */
     private String getCurrencyConvertTo(String userInput) {
-        try {
-            String toStr = Parser.parseForFlag("to", userInput);
-            if (toStr != null) {
-                return toStr.toUpperCase();
-            }
-        } catch (Exception e) {
-            Ui.dukeSays("Please enter a valid ISO 4217 country code to convert to. ");
-            return null;
+        String toStr = Parser.parseForFlag("to", userInput);
+        if (toStr != null) {
+            return toStr.toUpperCase();
         }
+       
         return null;
     }
 
