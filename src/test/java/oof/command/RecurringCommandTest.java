@@ -9,10 +9,15 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
+
+/**
+ * Testing class for RecurringCommand.
+ */
 class RecurringCommandTest {
 
 
     private Oof oof = new Oof();
+    private TaskList taskList = oof.getTaskList();
 
     /**
      * Tests the behaviour when an invalid number of parameters are given.
@@ -167,26 +172,25 @@ class RecurringCommandTest {
     @Test
     void execute_CorrectCommandAndRecurOnce_AddTodo() throws OofException {
         oof.executeCommand("recurring 1 1 1");
-        TaskList taskList = oof.getTaskList();
         int lastIndex = taskList.getSize() - 1;
         Task task = taskList.getTask(lastIndex);
-        oof.executeCommand("delete " + (++lastIndex));
         assertEquals("[T][N] borrow another book (on: 31-12-2019)", task.toString());
+        oof.executeCommand("delete " + (++lastIndex));
         oof.executeCommand("recurring 1 1 2");
         lastIndex = taskList.getSize() - 1;
         task = taskList.getTask(lastIndex);
-        oof.executeCommand("delete " + (++lastIndex));
         assertEquals("[T][N] borrow another book (on: 06-01-2020)", task.toString());
+        oof.executeCommand("delete " + (++lastIndex));
         oof.executeCommand("recurring 1 1 3");
         lastIndex = taskList.getSize() - 1;
         task = taskList.getTask(lastIndex);
-        oof.executeCommand("delete " + (++lastIndex));
         assertEquals("[T][N] borrow another book (on: 30-01-2020)", task.toString());
+        oof.executeCommand("delete " + (++lastIndex));
         oof.executeCommand("recurring 1 1 4");
         lastIndex = taskList.getSize() - 1;
         task = taskList.getTask(lastIndex);
-        oof.executeCommand("delete " + (++lastIndex));
         assertEquals("[T][N] borrow another book (on: 30-12-2020)", task.toString());
+        oof.executeCommand("delete " + (++lastIndex));
     }
 
     /**
@@ -197,26 +201,25 @@ class RecurringCommandTest {
     @Test
     void execute_CorrectCommandAndRecurOnce_AddDeadline() throws OofException {
         oof.executeCommand("recurring 2 1 1");
-        TaskList taskList = oof.getTaskList();
         int lastIndex = taskList.getSize() - 1;
         Task task = taskList.getTask(lastIndex);
-        oof.executeCommand("delete " + (++lastIndex));
         assertEquals("[D][N] homework (by: 14-10-2019 23:59)", task.toString());
+        oof.executeCommand("delete " + (++lastIndex));
         oof.executeCommand("recurring 2 1 2");
         lastIndex = taskList.getSize() - 1;
         task = taskList.getTask(lastIndex);
-        oof.executeCommand("delete " + (++lastIndex));
         assertEquals("[D][N] homework (by: 20-10-2019 23:59)", task.toString());
+        oof.executeCommand("delete " + (++lastIndex));
         oof.executeCommand("recurring 2 1 3");
         lastIndex = taskList.getSize() - 1;
         task = taskList.getTask(lastIndex);
-        oof.executeCommand("delete " + (++lastIndex));
         assertEquals("[D][N] homework (by: 13-11-2019 23:59)", task.toString());
+        oof.executeCommand("delete " + (++lastIndex));
         oof.executeCommand("recurring 2 1 4");
         lastIndex = taskList.getSize() - 1;
         task = taskList.getTask(lastIndex);
-        oof.executeCommand("delete " + (++lastIndex));
         assertEquals("[D][N] homework (by: 13-10-2020 23:59)", task.toString());
+        oof.executeCommand("delete " + (++lastIndex));
     }
 
     /**
@@ -227,26 +230,25 @@ class RecurringCommandTest {
     @Test
     void execute_CorrectCommandAndRecurOnce_AddEvent() throws OofException {
         oof.executeCommand("recurring 3 1 1");
-        TaskList taskList = oof.getTaskList();
         int lastIndex = taskList.getSize() - 1;
         Task task = taskList.getTask(lastIndex);
-        oof.executeCommand("delete " + (++lastIndex));
         assertEquals("[E][N] lecture (from: 09-10-2019 10:00 to: 09-10-2019 12:00)", task.toString());
+        oof.executeCommand("delete " + (++lastIndex));
         oof.executeCommand("recurring 3 1 2");
         lastIndex = taskList.getSize() - 1;
         task = taskList.getTask(lastIndex);
-        oof.executeCommand("delete " + (++lastIndex));
         assertEquals("[E][N] lecture (from: 15-10-2019 10:00 to: 15-10-2019 12:00)", task.toString());
+        oof.executeCommand("delete " + (++lastIndex));
         oof.executeCommand("recurring 3 1 3");
         lastIndex = taskList.getSize() - 1;
         task = taskList.getTask(lastIndex);
-        oof.executeCommand("delete " + (++lastIndex));
         assertEquals("[E][N] lecture (from: 08-11-2019 10:00 to: 08-11-2019 12:00)", task.toString());
+        oof.executeCommand("delete " + (++lastIndex));
         oof.executeCommand("recurring 3 1 4");
         lastIndex = taskList.getSize() - 1;
         task = taskList.getTask(lastIndex);
-        oof.executeCommand("delete " + (++lastIndex));
         assertEquals("[E][N] lecture (from: 08-10-2020 10:00 to: 08-10-2020 12:00)", task.toString());
+        oof.executeCommand("delete " + (++lastIndex));
     }
 
     /**
@@ -257,14 +259,13 @@ class RecurringCommandTest {
     @Test
     void execute_CorrectCommandAndRecurMoreThanOnce_AddTasks() throws OofException {
         oof.executeCommand("recurring 1 2 1");
-        TaskList taskList = oof.getTaskList();
         int lastIndex = taskList.getSize() - 1;
         Task task = taskList.getTask(lastIndex);
-        oof.executeCommand("delete " + (++lastIndex));
         assertEquals("[T][N] borrow another book (on: 01-01-2020)", task.toString());
+        oof.executeCommand("delete " + (++lastIndex));
         lastIndex = taskList.getSize() - 1;
         task = taskList.getTask(lastIndex);
-        oof.executeCommand("delete " + (++lastIndex));
         assertEquals("[T][N] borrow another book (on: 31-12-2019)", task.toString());
+        oof.executeCommand("delete " + (++lastIndex));
     }
 }
