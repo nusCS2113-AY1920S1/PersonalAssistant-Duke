@@ -289,7 +289,7 @@ location of `ParserPreferences.txt` is decided in `Optix.java`. By default, it i
 The following operations are operations related to command aliasing:
 
 * Parser#addAlias(NEW_ALIAS, COMMAND) -- adds a alias-command pair to the commandAliasMap.
-* Parser#removeAlias(NEW_ALIAS, COMMAND) -- removes a alias-command pair from the commandAliasMAp.
+* Parser#removeAlias(NEW_ALIAS, COMMAND) -- removes a alias-command pair from the commandAliasMap.
 * Parser#loadPreferences() -- loads all alias-command pairs from `ParserPreferences.txt`. `ParserPreferences.txt` is the
 file where all the alias-command pairs are saved.
 * Parser#resetPreferences() -- clears all alias-command pairs from `commandAliasMap` and adds in the default
@@ -631,6 +631,136 @@ Use case resumes from step 2 of MSS.
 
 Steps i to iv are repeated until the command entered is correct.
 Use case resumes from step 2 of MSS.
+
+=== Use Case: UC10 - Edit show's name without removal and addition
+*Actor*: Theatre manager
+
+*MSS*:
+
+. User enters the edit command, followed by the show name, the show date of the show to edit and the new show name.
+. Optix responds by displaying the new show name for the show.
+
+Use case ends.
+
+*Extensions*:
+
+* Extension 1
+.. Optix detects an error in the details entered.
+.. Optix informs the user that the show has passed.
+.. Optix requests command from user again.
+.. User re-enters command.
+
+Steps i to iv are repeated until the command entered is correct. Use case resumes from step 2.
+
+* Extension 2
+.. Optix detects that there is no show of the given input in the list.
+.. Optix informs the user that the show does not exist.
+.. Optix requests command from user again.
+.. User re-enters command.
+
+Steps i to iv are repeated until the command entered is correct. Use case resumes from step 2.
+
+=== Use Case: UC11 - View profit of a show
+*Actor*: Theatre manager
+
+*MSS*:
+. User enters the view-profit command, followed by the show name, the show date of the show
+to postpone and the new show name.
+. Optix responds by displaying the profit for the show.
+
+Use case ends.
+
+*Extensions*:
+
+* Extension 1
+.. Optix detects that there is no such show on that date.
+.. Optix replies that there is no such show on the date.
+.. Optix requests command from user again.
+.. User re-enters command.
+
+Steps i to iv are repeated until the command entered is correct.
+Use case resumes from step 2.
+
+=== Use Case: UC12 - View profit of a certain month
+*Actor*: Accountant
+
+*MSS*:
+. User enters the view-monthly command, followed by the month and year.
+. Optix responds by displaying the profit for that month.
+
+Use case ends.
+
+*Extensions*:
+
+* Extension 1
+.. Optix detects that there are no shows for that particular month.
+.. Optix replies that there is no show.
+.. Optix requests command from user again.
+.. User re-enters command.
+Steps i to iv are repeated until the command entered is correct.
+Use case resumes from step 2.
+
+* Extension 2
+.. Optix detects that the month and year entered are in the future.
+.. Optix replies with the projected profit for that month.
+
+Use case resumes from step 2.
+
+=== Use Case: UC12 - View profit of a certain month
+*Actor*: User
+
+*MSS*:
+. User enters the reassign command, followed by the show name, show date, old seat and new seat.
+. Optix searches for that specific seat in that particular show and removes the seat.
+. Optix marks the new seat as booked and updates the profit of that show as well as the number of seats left.
+. Optix responds by displaying the success message and the cost difference between the seats.
+
+Use case ends.
+
+*Extensions*:
+
+* Extension 1
+.. Optix detects that there is no such show on that date.
+.. Optix replies that there is no such show on the date.
+.. Optix requests command from user again.
+.. User re-enters command.
+Steps i to iv are repeated until the command entered is correct.
+Use case resumes from step 2.
+
+* Extension 2
+.. Optix detects that the old seat and new seat are the same.
+.. Optix replies that the command is invalid.
+.. Optix requests command from user again.
+.. User re-enters command.
+Steps i to iv are repeated until the command entered is correct.
+Use case resumes from step 2.
+
+* Extension 3
+.. Optix detects that the seats entered are invalid.
+.. Optix replies that the command is invalid.
+.. Optix requests command from user again.
+.. User re-enters command.
+
+Steps i to iv are repeated until the command entered is correct.
+Use case resumes from step 2.
+
+* Extension 4
+.. Optix detects that the old seat has not been booked.
+.. Optix replies that there is no need to reassign the seat.
+.. Optix requests command from user again.
+.. User re-enters command.
+
+Steps i to iv are repeated until the command entered is correct.
+Use case resumes from step 2.
+
+* Extension 5
+.. Optix detects that the new seat has already been booked.
+.. Optix replies that the seat cannot be reassigned.
+.. Optix requests the user to view the seating arrangement and re-enter the command with a valid seat.
+.. User re-enters command.
+
+Steps i to iv are repeated until the command entered is correct.
+Use case resumes from step 2.
 
 
 [appendix]
