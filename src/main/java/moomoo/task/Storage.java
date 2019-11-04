@@ -115,7 +115,7 @@ public class Storage {
                         category = "";
                     } else {
                         if (isInCategoryList(catList, readInput.get(i))) {
-                            category = readInput.get(i);
+                            category = readInput.get(i).toLowerCase();
                         }
                     }
                 }
@@ -269,7 +269,7 @@ public class Storage {
      */
     private boolean isInCategoryList(ArrayList<Category> catList, String value) {
         for (Category cat : catList) {
-            if (cat.toString().equals(value)) {
+            if (cat.toString().equalsIgnoreCase(value)) {
                 return true;
             }
         }
