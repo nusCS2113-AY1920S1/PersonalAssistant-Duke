@@ -17,6 +17,33 @@ public class Blacklist {
     private static ArrayList<MovieModel>  blackListMovies = new ArrayList<>();
     private static ArrayList<String>  blackListMoviesTitle = new ArrayList<>();
 
+
+    /**
+     * Gets the blacklistkeywords arraylist.
+     * @return the arraylist of blacklisted keywords
+     */
+    public static ArrayList<String> getBlackListKeyWords() {
+        return (ArrayList<String>) blackListKeyWords;
+    }
+
+    /**
+     * Gets the blacklistMovieTitles arraylist.
+     * @return the arraylist of blacklisted Movie titles
+     */
+    public static ArrayList<String> getBlackListMoviesTitle() {
+        return (ArrayList<String>) blackListMoviesTitle.clone();
+    }
+
+    /**
+     * Gets the blacklistMovies arraylist.
+     * @return the arraylist of blacklisted movie objects
+     */
+    public static ArrayList<MovieModel> getBlackListMovies() {
+
+        return (ArrayList<MovieModel>) blackListMovies.clone();
+    }
+
+
     /**
      * initialises the blacklisted words from the file.
      */
@@ -30,14 +57,14 @@ public class Blacklist {
     /**
      * Initialise keywords arraylist from file data.
      */
-    public static void initialiseBlackListKey(ArrayList<String> keywords) {
+    private static void initialiseBlackListKey(ArrayList<String> keywords) {
         blackListKeyWords = (ArrayList<String>) keywords.clone();
     }
 
     /**
      * Initialise MovieTitles arraylist from file data.
      */
-    public static void initialiseBlackListMovieTitles(ArrayList<String> movieTitles) {
+    private static void initialiseBlackListMovieTitles(ArrayList<String> movieTitles) {
         blackListMoviesTitle = (ArrayList<String>) movieTitles.clone();
     }
 
@@ -45,7 +72,7 @@ public class Blacklist {
     /**
      * Initialise MovieID arraylist from file data.
      */
-    public static void initialiseBlackListMovieID(ArrayList<MovieModel> movies) {
+    private static void initialiseBlackListMovieID(ArrayList<MovieModel> movies) {
         for (MovieModel m : movies) {
 
 
@@ -75,7 +102,7 @@ public class Blacklist {
      * @param mo movie object
      */
     public static void addToBlacklistMoviesID(MovieInfoObject mo) throws DuplicateEntryException {
-        if (mo == null) {
+        if (mo == null || mo.getTitle() == "") {
             return;
         }
         for (MovieModel mm: blackListMovies) {
@@ -162,7 +189,7 @@ public class Blacklist {
      * @return true if keyword successfully removed
      */
     public static boolean removeFromBlacklistMovies(MovieInfoObject movie)  {
-        if (movie != null) {
+        if (movie == null) {
             return false;
         }
 
@@ -178,7 +205,7 @@ public class Blacklist {
      * @param movie movie title
      * @return true if keyword successfully removed
      */
-    public static boolean removeMovieTitle(String movie)  {
+    private static boolean removeMovieTitle(String movie)  {
 
         if (blackListMoviesTitle.contains(movie.toLowerCase())) {
             blackListMoviesTitle.remove(movie.toLowerCase());
@@ -193,7 +220,7 @@ public class Blacklist {
      * @param movie movie title
      * @return true if keyword successfully removed
      */
-    public static boolean removeMovieObj(String movie)  {
+    private static boolean removeMovieObj(String movie)  {
 
         for (MovieModel mo : blackListMovies) {
             if (mo.getTitle().toLowerCase() == movie.toLowerCase()) {
@@ -209,7 +236,7 @@ public class Blacklist {
      * @param movie movie object
      * @return true if keyword successfully removed
      */
-    public static boolean removeMovieObjById(MovieInfoObject movie)  {
+    private static boolean removeMovieObjById(MovieInfoObject movie)  {
 
         for (MovieModel mo : blackListMovies) {
             if (mo.getId() == movie.getId()) {
@@ -276,35 +303,12 @@ public class Blacklist {
         return feedback;
     }
 
-    /**
-     * Gets the blacklistkeywords arraylist.
-     * @return the arraylist keywords
-     */
-    public static ArrayList<String> getBlackListMovies() {
-        return (ArrayList<String>) blackListKeyWords.clone();
-    }
+
 
     /**
-     * checkstyle made me put javadoc here >:( whoever made this function pls edit the the javadoc tqtq -wh.
-     */
-    public static ArrayList<String> getBlackListAll() {
-        ArrayList<String> hints = new ArrayList<>();
-        for (String a: blackListKeyWords) {
-            hints.add(a);
-        }
-
-        for (String a: blackListMoviesTitle) {
-            hints.add(a);
-        }
-
-        for (MovieModel a: blackListMovies) {
-            hints.add(a.getTitle());
-        }
-        return hints;
-    }
-
-    /**
-     * checkstyle made me put javadoc here >:( whoever made this function pls edit the the javadoc tqtq -wh.
+     * gets possible predictions from list of blacklisted items.
+     *
+     * @param keyword the keyword used for predictions.
      */
     public static ArrayList<String> getBlackListHints(String keyword) {
         keyword = keyword.toLowerCase();

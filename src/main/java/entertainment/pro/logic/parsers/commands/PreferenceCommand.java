@@ -1,5 +1,7 @@
 package entertainment.pro.logic.parsers.commands;
 
+import entertainment.pro.commons.PromptMessages;
+import entertainment.pro.commons.exceptions.InvalidFormatCommandExceptions;
 import entertainment.pro.storage.utils.ProfileCommands;
 import entertainment.pro.ui.Controller;
 import entertainment.pro.ui.MovieHandler;
@@ -66,7 +68,12 @@ public class PreferenceCommand extends CommandSuper {
         ProfileCommands command = new ProfileCommands(movieHandler.getUserProfile());
         for (int i = 0; i < containsPossibleInputs.size(); i += 1) {
             if (getFlagMap().containsKey(containsPossibleInputs.get(i))) {
-                command.addPreference(this.getFlagMap(), containsPossibleInputs.get(i));
+                try {
+                    command.addPreference(this.getFlagMap(), containsPossibleInputs.get(i));
+                    movieHandler.setGeneralFeedbackText(PromptMessages.PREFERENCES_SUCCESS);
+                } catch (InvalidFormatCommandExceptions invalidFormatCommandExceptions) {
+                    movieHandler.setGeneralFeedbackText(PromptMessages.INVALID_FORMAT);
+                }
             }
         }
     }
@@ -83,7 +90,12 @@ public class PreferenceCommand extends CommandSuper {
         ProfileCommands command = new ProfileCommands(movieHandler.getUserProfile());
         for (int i = 0; i < containsPossibleInputs.size(); i += 1) {
             if (getFlagMap().containsKey(containsPossibleInputs.get(i))) {
-                command.removePreference(this.getFlagMap(), containsPossibleInputs.get(i));
+                try {
+                    command.removePreference(this.getFlagMap(), containsPossibleInputs.get(i));
+                    movieHandler.setGeneralFeedbackText(PromptMessages.PREFERENCES_SUCCESS);
+                } catch (InvalidFormatCommandExceptions invalidFormatCommandExceptions) {
+                    movieHandler.setGeneralFeedbackText(PromptMessages.INVALID_FORMAT);
+                }
             }
         }
 
@@ -102,7 +114,12 @@ public class PreferenceCommand extends CommandSuper {
         ProfileCommands command = new ProfileCommands(movieHandler.getUserProfile());
         for (int i = 0; i < containsPossibleInputs.size(); i += 1) {
             if (getFlagMap().containsKey(containsPossibleInputs.get(i))) {
-                command.clearPreference(this.getFlagMap(), containsPossibleInputs.get(i));
+                try {
+                    command.clearPreference(this.getFlagMap(), containsPossibleInputs.get(i));
+                    movieHandler.setGeneralFeedbackText(PromptMessages.PREFERENCES_SUCCESS);
+                } catch (InvalidFormatCommandExceptions invalidFormatCommandExceptions) {
+                    movieHandler.setGeneralFeedbackText(PromptMessages.INVALID_FORMAT);
+                }
             }
         }
 

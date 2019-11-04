@@ -2,7 +2,9 @@ package entertainment.pro.storage.utils;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import entertainment.pro.commons.exceptions.InvalidFormatCommandExceptions;
 import entertainment.pro.commons.exceptions.SetExceptions;
+import entertainment.pro.logic.movieRequesterAPI.RetrieveRequest;
 import entertainment.pro.model.GenreId;
 import entertainment.pro.model.UserProfile;
 import entertainment.pro.ui.Controller;
@@ -19,7 +21,7 @@ import java.util.TreeMap;
 
 
 /**
- * class that contains all methods that deal with Profile object.
+ * Class contains all methods that deal with Profile object.
  */
 public class ProfileCommands {
     //    private File genreList;
@@ -31,7 +33,7 @@ public class ProfileCommands {
     private static String GET_NEW_ADULT_RATING = "-a";
 
     /**
-     * constructor for ProfileCommands.
+     * Constructor for ProfileCommands.
      */
     public ProfileCommands(UserProfile userProfile) throws IOException {
         //genreList = new File("../../../../EPdata/genreIDlist.txt");
@@ -58,10 +60,15 @@ public class ProfileCommands {
     /**
      * to add preferences to userprofile.
      */
-    public void addPreference(TreeMap<String, ArrayList<String>> flagMap, String getInput) throws IOException {
+    public void addPreference(TreeMap<String, ArrayList<String>> flagMap, String getInput) throws IOException, InvalidFormatCommandExceptions {
         ArrayList<Integer> genrePreferences = new ArrayList<>(50);
         ArrayList<Integer> genreRestrict = new ArrayList<>(50);
-        int sortOption;
+        int sortOption = 0;
+        if (getInput.equals(GET_NEW_SORT) || getInput.equals(GET_NEW_ADULT_RATING)) {
+            if (flagMap.size() != 1) {
+                throw new InvalidFormatCommandExceptions();
+            }
+        }
         for (String log : flagMap.get(getInput)) {
             if (getInput.equals(GET_NEW_GENRE_PREF)) {
                 System.out.println("ok so far0...");
@@ -74,14 +81,23 @@ public class ProfileCommands {
             if (getInput.equals(GET_NEW_ADULT_RATING)) {
                 if (log.equals("true")) {
                     userProfile.setAdult(true);
-                } else {
+                } else if (log.equals("false")){
                     userProfile.setAdult(false);
+                } else {
+                    throw new InvalidFormatCommandExceptions();
                 }
                 System.out.println("ok so far2...");
             }
             if (getInput.equals(GET_NEW_SORT)) {
                 System.out.println("ok so far..." + log);
-                sortOption = Integer.parseInt(log);
+                try {
+                    sortOption = Integer.parseInt(log);
+                    if (sortOption <= 0 || sortOption > 3) {
+                        throw new InvalidFormatCommandExceptions();
+                    }
+                } catch (NumberFormatException e) {
+                    throw new InvalidFormatCommandExceptions();
+                }
                 System.out.println("ok so far..." + sortOption);
                 getSortFromUserInput(sortOption);
                 System.out.println("ok so far3...");
@@ -98,7 +114,7 @@ public class ProfileCommands {
     /**
      * to remove preferences from userprofile.
      */
-    public void removePreference(TreeMap<String, ArrayList<String>> flagMap, String getInput) throws IOException {
+    public void removePreference(TreeMap<String, ArrayList<String>> flagMap, String getInput) throws IOException, InvalidFormatCommandExceptions {
         ArrayList<Integer> removeGenrePreferences = new ArrayList<>(50);
         ArrayList<Integer> removeGenreRestrict = new ArrayList<>(50);
         for (String log : flagMap.get(getInput)) {
@@ -110,17 +126,27 @@ public class ProfileCommands {
             }
         }
         if (getInput.equals(GET_NEW_ADULT_RATING)) {
-            if (userProfile.isAdult()) {
-                userProfile.setAdult(false);
-                System.out.println("ok so far...0");
+            ArrayList<String> getFlag = flagMap.get(GET_NEW_ADULT_RATING);
+            if (getFlag.isEmpty()) {
+                if (userProfile.isAdult()) {
+                    userProfile.setAdult(false);
+                    System.out.println("ok so far...0");
+                } else {
+                    userProfile.setAdult(true);
+                    System.out.println("ok so far...1");
+                }
             } else {
-                userProfile.setAdult(true);
-                System.out.println("ok so far...1");
+                throw new InvalidFormatCommandExceptions();
             }
         }
         if (getInput.equals(GET_NEW_SORT)) {
-            clearSortPreference();
-            System.out.println("ok so far...3");
+            ArrayList<String> getFlag = flagMap.get(GET_NEW_SORT);
+            if (getFlag.isEmpty()) {
+                clearSortPreference();
+                System.out.println("ok so far...3");
+            } else {
+                throw new InvalidFormatCommandExceptions();
+            }
         }
 
         userProfile.removeGenreIdPreference(removeGenrePreferences);
@@ -133,23 +159,30 @@ public class ProfileCommands {
     /**
      * to clear userprofile preferences.
      */
-    public void clearPreference(TreeMap<String, ArrayList<String>> flagMap, String getInput) throws IOException {
-        if (getInput.equals(GET_NEW_GENRE_PREF)) {
-            clearGenrePreference();
+    public void clearPreference(TreeMap<String, ArrayList<String>> flagMap, String getInput) throws IOException, InvalidFormatCommandExceptions {
+
+        ArrayList<String>getFlag = flagMap.get(getInput);
+        if (getFlag.isEmpty()) {
+
+            if (getInput.equals(GET_NEW_GENRE_PREF)) {
+                clearGenrePreference();
+            }
+            if (getInput.equals(GET_NEW_GENRE_RESTRICT)) {
+                clearGenreRestrict();
+            }
+            if (getInput.equals(GET_NEW_ADULT_RATING)) {
+                clearAdultPreference();
+            }
+            if (getInput.equals(GET_NEW_SORT)) {
+                clearSortPreference();
+            }
+            editProfileJson.updateProfile(userProfile);
+        } else {
+            throw new InvalidFormatCommandExceptions();
         }
-        if (getInput.equals(GET_NEW_GENRE_RESTRICT)) {
-            clearGenreRestrict();
-        }
-        if (getInput.equals(GET_NEW_ADULT_RATING)) {
-            clearAdultPreference();
-        }
-        if (getInput.equals(GET_NEW_SORT)) {
-            clearSortPreference();
-        }
-        editProfileJson.updateProfile(userProfile);
     }
 
-    private void clearSortPreference() {
+    public void clearSortPreference() {
         setSort(false, false, false);
     }
 

@@ -36,11 +36,8 @@ public class PromptMessages {
             "to go back to the search results.";
     public static final String IO_EXCEPTION_IN_OFFLINE = "I'm sorry but something went wrong when fetching data. PLease try again later!";
 
-    public static final String SORT_SUCCESS = "Nice! You have successfully updated your sort preferences";
-    public static final String PREFERNCES_SUCCESS = "Nice! You have successfully updated your preferences";
+    public static final String PREFERENCES_SUCCESS = "Nice! You have successfully updated your preferences";
 
-    public static final String VIEW_BACK_SUCCESS = "Nice! Displaying your last action...";
-    public static final String VIEW_BACK_FAILURE = "Sorry! I am unable to display your last action";
 
     public static final String AUTOCOMPLETION_PROMPT = "Did you mean this?";
 
@@ -67,7 +64,7 @@ public class PromptMessages {
     //API Messages
     public static final String RECACHING_DATA_API_ERROR = "Sorry, but something went wrong when recaching data";
     public static final String API_FAIL_GENERAL = "☹ I'sorry, but something went wrong when fetching data";
-    public static final String API_FAIL_EMPTY = "☹ I'sorry, but I could not find anything related to your request";
+    public static final String API_NULL_DATA = "Null data in API";
     public static final String API_TIME_OUT = "☹ I'sorry, but your request took so long";
     public static final String API_MALFORMED_URL = "Malformed URL in fetching data";
     public static final String SOCKET_TIMEOUT_URL = "Socket Timeout in fetching data";

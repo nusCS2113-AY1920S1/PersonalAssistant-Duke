@@ -14,7 +14,7 @@ import java.util.Arrays;
 
 public class testCommandSuper {
     @Test
-    public void testGetSubRoot(){
+    public void subCommand_validInputs_success(){
         SearchCommand sc = new SearchCommand(null);
 
         try{
@@ -38,7 +38,26 @@ public class testCommandSuper {
 
 
     @Test
-    public void testprocessFlags() {
+    public void subCommand_invalidInputs_failure(){
+        SearchCommand sc = new SearchCommand(null);
+
+        try{
+            assertEquals(false , sc.subCommand(new String[]{}));
+            assertEquals( COMMANDKEYS.none , sc.getSubRootCommand());
+            assertEquals(false , sc.subCommand(new String[]{"Jupiter is a planet"}));
+            assertEquals( COMMANDKEYS.none , sc.getSubRootCommand());
+            assertEquals(false , sc.subCommand(new String[]{"search"}));
+            assertEquals( COMMANDKEYS.none , sc.getSubRootCommand());
+
+        }catch (Exception e){
+
+        }
+
+    }
+
+
+    @Test
+    public void processFlags_validInputs_success() {
 
         SearchCommand sc = new SearchCommand(null);
 
@@ -75,7 +94,24 @@ public class testCommandSuper {
 
 
     @Test
-    public void testpayload() {
+    public void processFlags_invalidInputs_failure() {
+
+        SearchCommand sc2 = new SearchCommand(null);
+        String command2 = "search movies joker";
+        sc2.processFlags(command2.split(" ") , command2);
+        assertEquals(0 , sc2.getFlagMap().keySet().size());
+
+
+        String command3 = "";
+        sc2.processFlags(command3.split(" ") , command3);
+        assertEquals(0 , sc2.getFlagMap().keySet().size());
+
+
+    }
+
+
+    @Test
+    public void processPayload_validInputs_success() {
 
         SearchCommand sc = new SearchCommand(null);
 
@@ -100,7 +136,30 @@ public class testCommandSuper {
         sc.processPayload(command5.split(" "));
         assertEquals("" , sc.getPayload());
 
+    }
 
+
+    @Test
+    public void processPayload_invalidInputs_failure() {
+
+        SearchCommand sc = new SearchCommand(null);
+
+
+        String command4 = "search movies";
+        sc.processPayload(command4.split(" "));
+        assertEquals("" , sc.getPayload());
+
+        String command5 = "search movies ";
+        sc.processPayload(command5.split(" "));
+        assertEquals("" , sc.getPayload());
+
+        String command6 = "";
+        sc.processPayload(command6.split(" "));
+        assertEquals("" , sc.getPayload());
+
+        String command7 = "blreacjlist adu joker";
+        sc.processPayload(command7.split(" "));
+        assertEquals("joker" , sc.getPayload());
 
 
     }

@@ -2,6 +2,7 @@ package entertainment.pro.logic.movieRequesterAPI;
 
 import entertainment.pro.commons.PromptMessages;
 import entertainment.pro.commons.exceptions.Exceptions;
+import entertainment.pro.commons.exceptions.FailedAPIException;
 import entertainment.pro.logic.parsers.commands.SearchCommand;
 import entertainment.pro.model.SearchProfile;
 import entertainment.pro.storage.utils.OfflineSearchStorage;
@@ -31,7 +32,7 @@ public class RetrieveRequest implements InfoFetcher {
     private static final String PRINT_SUITABLE_FOR = "Suitable for";
     private static final String UNAVAILABLE_INFO = "N/A";
     private static final String RECACHE_PARSE_ERROR = "Parsing error took place when recaching data";
-    private RequestListener requestListener;
+    private static RequestListener requestListener;
     private ArrayList<MovieInfoObject> finalSearchResults = new ArrayList<>();
     private SearchProfile searchProfile;
     private static RetrieveRequest.MoviesRequestType getType;
@@ -312,15 +313,20 @@ public class RetrieveRequest implements InfoFetcher {
      * @param certInfo JSONArray from which the certification for the TV show is extacted.
      * @return Certification for the TV show from a JSONArray.
      */
-    private static String getTVCertFromJSON(JSONArray certInfo) {
+    public static String getTVCertFromJSON(JSONArray certInfo) throws FailedAPIException {
         String cert = UNAVAILABLE_INFO;
         String certStrings = "";
-        for (int i = 0; i < certInfo.size(); i += 1) {
-            JSONObject castPair = (JSONObject) certInfo.get(i);
-            if (castPair.get(TO_SPECIFY_ISO).equals(TO_SPECIFY_UK)) {
-                certStrings = castPair.get(TO_SPECIFY_RATING).toString();
-                cert = PRINT_SUITABLE_FOR + certStrings + " years & above";
+        try {
+            for (int i = 0; i < certInfo.size(); i += 1) {
+                JSONObject castPair = (JSONObject) certInfo.get(i);
+                if (castPair.get(TO_SPECIFY_ISO).equals(TO_SPECIFY_UK)) {
+                    certStrings = castPair.get(TO_SPECIFY_RATING).toString();
+                    cert = PRINT_SUITABLE_FOR + certStrings + " years & above";
+                }
             }
+        } catch (NullPointerException e) {
+            requestListener.requestTimedOut(PromptMessages.API_FAIL_GENERAL);
+            throw new FailedAPIException(PromptMessages.API_NULL_DATA);
         }
         return cert;
     }
@@ -331,7 +337,7 @@ public class RetrieveRequest implements InfoFetcher {
      * @param certInfo JSONArray from which the certification for the movie is extacted.
      * @return Certification for the movie from a JSONArray.
      */
-    private static String getMovieCertFromJSON(JSONArray certInfo) {
+    public static String getMovieCertFromJSON(JSONArray certInfo) {
         String cert = UNAVAILABLE_INFO;
         String certStrings = "";
         for (int i = 0; i < certInfo.size(); i += 1) {

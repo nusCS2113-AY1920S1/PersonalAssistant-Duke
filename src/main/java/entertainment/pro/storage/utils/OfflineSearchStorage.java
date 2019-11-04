@@ -33,7 +33,7 @@ public class OfflineSearchStorage {
      * @return JSONArray that consist of all the required data for the search request.
      * @throws Exceptions when encounter a failed/interrupted I/O operation.
      */
-    public JSONArray load() throws IOException, Exceptions {
+    public static JSONArray load() throws IOException, Exceptions {
         String dataFromJSON = "";
         JSONArray searchData = new JSONArray();
         RetrieveRequest.MoviesRequestType type = RetrieveRequest.getGetType();
@@ -61,8 +61,8 @@ public class OfflineSearchStorage {
      * @return String that consists all the data fetched from the file.
      * @throws Exceptions when encounter a failed/interrupted I/O operation.
      */
-    private String getData(String filename) throws Exceptions {
-        InputStream inputStream = getClass().getResourceAsStream(filename);
+    public static String getData(String filename) throws Exceptions {
+        InputStream inputStream = OfflineSearchStorage.class.getResourceAsStream(filename);
         InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
         BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
         String line = "";
@@ -86,7 +86,7 @@ public class OfflineSearchStorage {
      * @param type Type to specify the respective search request.
      * @return appropriate filename that contains data for the respective search requests.
      */
-    private String getFileName(RetrieveRequest.MoviesRequestType type) {
+    public static String getFileName(RetrieveRequest.MoviesRequestType type) {
         String filename = "";
         switch (type) {
             case CURRENT_MOVIES:
@@ -127,7 +127,7 @@ public class OfflineSearchStorage {
      * @return JSONArray that consist of all the required data for the search request.
      * @throws Exceptions when encounter a failed/interrupted I/O operation.
      */
-    public JSONArray getSearchData() throws Exceptions {
+    public static JSONArray getSearchData() throws Exceptions {
         JSONArray searchResults = new JSONArray();
         for (int i = 1; i <= 1055; i += 1) {
             String filename = MOVIES_DATABASE_FILEPATH;
