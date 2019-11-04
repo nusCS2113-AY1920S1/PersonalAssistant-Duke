@@ -82,7 +82,7 @@ public class ProjectInputController implements IController {
             isManagingAProject = false;
             responseToView = projectExit(this.projectToManage);
         } else if (projectFullCommand.matches("add member.*")) {
-            responseToView =  projectAddMember(this.projectToManage, projectFullCommand);
+            responseToView = projectAddMember(this.projectToManage, projectFullCommand);
         } else if (projectFullCommand.matches("edit member.*")) {
             responseToView = projectEditMember(this.projectToManage, projectFullCommand);
         } else if (projectFullCommand.matches("delete member.*")) {

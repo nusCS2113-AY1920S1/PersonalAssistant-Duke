@@ -1,5 +1,7 @@
 package controllers;
 
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import repositories.ProjectRepository;
 
@@ -30,14 +32,14 @@ public class ProjectInputControllerManageTest {
 
     @Test
     void onCommandReceived_noProjectIndex_executionFail() {
-        simulatedUserInput = "bye";
+        simulatedUserInput = "test";
         simulatedOutput = projectInputController.onCommandReceived(simulatedUserInput);
         expectedOutput = new String[] {"Input is not a number! Please input a proper project index!"};
         assertArrayEquals(expectedOutput, simulatedOutput);
     }
 
-    @Test
-    void onCommandReceived_exitsProject_executionSuccess() {
+    @BeforeEach
+    void initializeProjectInputController() {
         while (projectRepository.getAll().size() != 0) {
             projectRepository.deleteItem(1);
         }
@@ -46,10 +48,22 @@ public class ProjectInputControllerManageTest {
         simulatedOutput = projectInputController.onCommandReceived(simulatedUserInput);
         expectedOutput = new String[] {"Please enter a new command:"};
         assertArrayEquals(expectedOutput, simulatedOutput);
+    }
 
+    @Test
+    void onCommandReceived_exitsProject_executionSuccess() {
         simulatedUserInput = "bye";
         simulatedOutput = projectInputController.manageProject(simulatedUserInput);
         expectedOutput = new String[] {"Bye. Hope to see you again soon!"};
+        assertArrayEquals(expectedOutput, simulatedOutput);
+    }
+
+    @Test
+    void manageProject_addMember_executionSuccess() {
+        simulatedUserInput = "add member -n Thor";
+        simulatedOutput = projectInputController.manageProject(simulatedUserInput);
+        expectedOutput = new String[] {"Added new member to: Avengers Testing",
+                                       "Member details 1. Thor (Phone: -- | Email: -- | Role: member)"};
         assertArrayEquals(expectedOutput, simulatedOutput);
     }
 }
