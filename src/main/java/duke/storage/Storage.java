@@ -1,6 +1,6 @@
 package duke.storage;
 
-import duke.commons.exceptions.DukeDuplicateTaskException;
+import duke.commons.exceptions.DuplicateTaskException;
 import duke.commons.exceptions.FileLoadFailException;
 import duke.commons.exceptions.FileNotSavedException;
 import duke.commons.exceptions.ParseException;
@@ -188,7 +188,7 @@ public class Storage {
             s.close();
             this.events.setEvents(events);
         } catch (FileNotFoundException | ParseException
-                | DukeDuplicateTaskException e) {
+                | DuplicateTaskException e) {
             throw new FileLoadFailException(EVENTS_FILE_PATH);
         }
     }

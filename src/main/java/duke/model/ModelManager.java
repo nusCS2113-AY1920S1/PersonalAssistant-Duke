@@ -1,6 +1,7 @@
 package duke.model;
 
 import duke.commons.exceptions.FileNotSavedException;
+import duke.commons.exceptions.NoRecentItineraryException;
 import duke.commons.exceptions.ParseException;
 import duke.commons.exceptions.RouteDuplicateException;
 import duke.model.lists.EventList;
@@ -100,7 +101,10 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Itinerary getRecentItinerary() {
+    public Itinerary getRecentItinerary() throws NoRecentItineraryException {
+        if (recentItinerary == null) {
+            throw new NoRecentItineraryException();
+        }
         return recentItinerary;
     }
 

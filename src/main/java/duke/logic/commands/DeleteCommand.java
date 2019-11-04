@@ -26,6 +26,8 @@ public class DeleteCommand extends Command {
      * Executes this command and returns a text result.
      *
      * @param model The model object containing event list.
+     * @throws FileNotSavedException If the data could not be saved.
+     * @throws QueryOutOfBoundsException If the index is out of bounds.
      */
     @Override
     public CommandResultText execute(Model model) throws QueryOutOfBoundsException, FileNotSavedException {

@@ -68,7 +68,7 @@ public class Itinerary extends AgendaList {
      *
      * @return The String which lists the itinerary in full
      */
-    public String printItinerary() throws StartEndDateBeforeNowException, StartEndDateDiscordException {
+    public String printItinerary() {
 
         int days = getNumberOfDays();
 

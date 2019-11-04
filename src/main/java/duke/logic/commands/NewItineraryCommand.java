@@ -39,7 +39,7 @@ public class NewItineraryCommand extends Command {
      * @param model The model object containing information about the user.
      */
     @Override
-    public CommandResultText execute(Model model) throws DukeException, FileNotFoundException {
+    public CommandResultText execute(Model model) throws DukeException {
         Venue hotelLocation = ApiParser.getLocationSearch(hotel);
         Itinerary itinerary = new Itinerary(start, end, hotelLocation, name);
         itinerary.getNumberOfDays();

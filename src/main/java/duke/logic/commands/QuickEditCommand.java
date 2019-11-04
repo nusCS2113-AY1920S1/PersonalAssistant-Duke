@@ -1,10 +1,12 @@
 package duke.logic.commands;
 
+import duke.commons.Messages;
 import duke.commons.exceptions.ApiException;
 import duke.commons.exceptions.CorruptedFileException;
 import duke.commons.exceptions.EventSelectionOutOfBoundsException;
 import duke.commons.exceptions.FileNotSavedException;
 import duke.commons.exceptions.ParseException;
+import duke.commons.exceptions.QueryOutOfBoundsException;
 import duke.logic.commands.results.CommandResultText;
 import duke.logic.edits.Editor;
 import duke.model.Event;
@@ -29,7 +31,7 @@ public class QuickEditCommand extends Command {
 
     @Override
     public CommandResultText execute(Model model) throws ApiException,
-            FileNotSavedException, CorruptedFileException, EventSelectionOutOfBoundsException,
+            FileNotSavedException, QueryOutOfBoundsException,
             ParseException {
         try {
             Event event = model.getEvents().get(index);
@@ -39,7 +41,7 @@ public class QuickEditCommand extends Command {
             model.save();
             return new CommandResultText(MESSAGE_EDIT_SUCCESS + event);
         } catch (IndexOutOfBoundsException e) {
-            throw new EventSelectionOutOfBoundsException();
+            throw new ParseException(Messages.ERROR_INPUT_INVALID_FORMAT);
         }
     }
 }

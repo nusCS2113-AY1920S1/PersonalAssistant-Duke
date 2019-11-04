@@ -1,6 +1,7 @@
 package duke.model.lists;
 
-import duke.commons.exceptions.DukeDuplicateTaskException;
+import duke.commons.exceptions.DuplicateTaskException;
+import duke.commons.exceptions.QueryOutOfBoundsException;
 import duke.model.Event;
 import duke.model.TaskWithDates;
 
@@ -36,9 +37,9 @@ public class EventList implements Iterable<Event>, Listable<Event>, Serializable
      * @param event The Event to add.
      */
     @Override
-    public void add(Event event) throws DukeDuplicateTaskException {
+    public void add(Event event) throws DuplicateTaskException {
         if (contains(event)) {
-            throw new DukeDuplicateTaskException();
+            throw new DuplicateTaskException();
         }
         events.add(event);
     }
@@ -47,10 +48,14 @@ public class EventList implements Iterable<Event>, Listable<Event>, Serializable
      * Removes a Event from the VenueList at a given index.
      *
      * @param index The index of the Event.
-     * @throws IndexOutOfBoundsException If the index is out of bounds.
+     * @throws QueryOutOfBoundsException If the index is out of bounds.
      */
-    public Event remove(int index) {
-        return events.remove(index);
+    public Event remove(int index) throws QueryOutOfBoundsException {
+        try {
+            return events.remove(index);
+        } catch (IndexOutOfBoundsException e) {
+            throw new QueryOutOfBoundsException();
+        }
     }
 
     /**
@@ -86,9 +91,9 @@ public class EventList implements Iterable<Event>, Listable<Event>, Serializable
      * Replaces the contents of this list with {@code Events}.
      * {@code Events} must not contain duplicate Events.
      */
-    public void setEvents(List<Event> events) throws DukeDuplicateTaskException {
+    public void setEvents(List<Event> events) throws DuplicateTaskException {
         if (!eventsAreUnique(events)) {
-            throw new DukeDuplicateTaskException();
+            throw new DuplicateTaskException();
         }
         this.events = events;
     }

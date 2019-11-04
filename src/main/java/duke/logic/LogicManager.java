@@ -40,7 +40,7 @@ public class LogicManager extends Logic {
      * @param userInput The input string from user.
      * @return CommandResult Object containing information for Ui to display.
      */
-    public CommandResult execute(String userInput) throws DukeException, FileNotFoundException {
+    public CommandResult execute(String userInput) throws DukeException {
         Command c;
         if (EditorManager.isActive()) {
             logger.log(Level.INFO, "editing...");

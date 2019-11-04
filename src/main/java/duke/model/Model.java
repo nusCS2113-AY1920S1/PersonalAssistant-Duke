@@ -2,6 +2,7 @@ package duke.model;
 
 import duke.commons.exceptions.DukeException;
 import duke.commons.exceptions.FileNotSavedException;
+import duke.commons.exceptions.NoRecentItineraryException;
 import duke.commons.exceptions.ParseException;
 import duke.commons.exceptions.RouteDuplicateException;
 import duke.model.lists.EventList;
@@ -85,7 +86,7 @@ public interface Model {
 
     void setRecentItinerary(Itinerary itinerary);
 
-    Itinerary getRecentItinerary();
+    Itinerary getRecentItinerary() throws NoRecentItineraryException;
 
     void setNewItinerary(Itinerary itinerary) throws ParseException;
 

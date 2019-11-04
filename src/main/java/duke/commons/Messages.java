@@ -207,6 +207,7 @@ public class Messages {
             + "itinerary properly";
     public static final String ITINERARY_INCORRECT_COMMAND = "I'm sorry, but your command syntax is wrong ";
     public static final String ITINERARY_NOT_FOUND = "I'm sorry, but that list does not exist ";
+    public static final String ITINERARY_NO_RECENT = "I'm sorry, there are no recent itinerary to add.";
 
 
     public static final String RECOMMENDATION_DAY_EXCEEDED = "I'm sorry, but your stay is too long ";

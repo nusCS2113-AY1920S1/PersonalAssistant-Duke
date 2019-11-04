@@ -19,7 +19,7 @@ public class ListItineraryCommand extends Command {
      * @param model The model object containing information about the user.
      */
     @Override
-    public CommandResultText execute(Model model) throws DukeException, FileNotFoundException {
+    public CommandResultText execute(Model model) throws DukeException {
         StringBuilder stringBuilder = new StringBuilder();
         HashMap<String, Itinerary> itineraryHashMap = model.getItineraryTable();
         int i = 1;

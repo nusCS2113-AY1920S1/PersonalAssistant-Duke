@@ -33,7 +33,7 @@ public class AgendaList implements Iterable<Agenda> {
      */
     public void add(Agenda toAdd) {
         //        if (contains(toAdd)) {
-        //            throw new DukeDuplicateTaskException();
+        //            throw new DuplicateTaskException();
         //        } else if (hasAnomaly(toAdd)) {
         //            throw new DukeException(Messages.ANOMALY_FOUND);
         //        }
@@ -51,7 +51,7 @@ public class AgendaList implements Iterable<Agenda> {
         //        }
         //
         //        if (!target.isSameTask(editedTask) && contains(editedTask)) {
-        //            throw new DukeDuplicateTaskException();
+        //            throw new DuplicateTaskException();
         //        }
         list.set(index, editedAgenda);
     }
