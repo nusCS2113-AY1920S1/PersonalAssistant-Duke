@@ -10,6 +10,9 @@ import duke.logic.edits.Editor;
 import duke.model.Event;
 import duke.model.Model;
 
+/**
+ * Edits an event.
+ */
 public class QuickEditCommand extends Command {
     private static final String MESSAGE_EDIT_SUCCESS = "The following is successfully changed:\n";
     private static final int DESCRIPTION = 0;
@@ -22,11 +25,24 @@ public class QuickEditCommand extends Command {
         this.index = index;
     }
 
+    /**
+     * Constructs a QuickEditCommand object.
+     * @param index The index of the Event.
+     * @param descriptors The new descriptors of the Event.
+     */
     public QuickEditCommand(int index, String... descriptors) {
         this(index);
         this.descriptors = descriptors;
     }
 
+    /**
+     * Executes this command and returns a text result.
+     * @param model {@code Model} which the command should operate on.
+     * @throws ApiException If the api call fails.
+     * @throws FileNotSavedException If the data cannot be saved.
+     * @throws QueryOutOfBoundsException If the index given is out of bounds.
+     * @throws ParseException If the descriptors cannot be parsed.
+     */
     @Override
     public CommandResultText execute(Model model) throws ApiException,
             FileNotSavedException, QueryOutOfBoundsException,
