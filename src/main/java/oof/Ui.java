@@ -779,7 +779,8 @@ public class Ui {
      * @param timeSlotEnd   The end time of the time slot.
      */
     public void printFreeSlots(String timeSlotStart, String timeSlotEnd) {
-        System.out.println("| " + timeSlotStart + " - " + timeSlotEnd + " |               free                |");
+        System.out.print("| " + timeSlotStart + " - " + timeSlotEnd + " |");
+        System.out.println(centraliseDetails("free") + "|");
         System.out.println("-----------------------------------------------------");
     }
 
@@ -789,15 +790,35 @@ public class Ui {
      * @param timeSlotStart The start time of the time slot.
      * @param timeSlotEnd   The end time of the time slot.
      */
-    public void printEventDetails(String timeSlotStart, String timeSlotEnd) {
+    public void printBusySlots(String timeSlotStart, String timeSlotEnd) {
         System.out.print("| " + timeSlotStart + " - " + timeSlotEnd + " |");
-        String slotTaken = "BUSY";
-        int padSize = TEXT_WIDTH - slotTaken.length();
-        int padStart = slotTaken.length() + padSize / 2;
-        slotTaken = String.format("%" + padStart + "s", slotTaken);
-        slotTaken = String.format("%-" + TEXT_WIDTH + "s", slotTaken);
-        System.out.println(ANSI_BRIGHT_RED + slotTaken + ANSI_RESET + "|");
+        System.out.println(ANSI_BRIGHT_RED + centraliseDetails("BUSY") + ANSI_RESET + "|");
         System.out.println("-----------------------------------------------------");
+    }
+
+    /**
+     * Prints deadlines to do as suggestions to the user.
+     *
+     * @param deadlineName  The name of the deadline suggested.
+     */
+    public void printSuggestionDetails(ArrayList<String> deadlineName) {
+        System.out.println("You may plan to complete the following deadlines in your free time:");
+        for (int i = 1; i <= deadlineName.size(); i++) {
+            System.out.println(" \t" + i + ". " + deadlineName.get(i - 1));
+        }
+    }
+
+    /**
+     * Centralises the details to be printed.
+     *
+     * @param slotName  Name of the slot being printed.
+     * @return  A string that has been center justified.
+     */
+    private String centraliseDetails(String slotName) {
+        int padSize = TEXT_WIDTH - slotName.length();
+        int padStart = slotName.length() + padSize / 2;
+        slotName = String.format("%" + padStart + "s", slotName);
+        return String.format("%-" + TEXT_WIDTH + "s", slotName);
     }
 
     /**

@@ -107,25 +107,36 @@ public abstract class Command {
     }
 
     /**
-     * Converts a date into a string.
+     **
+     * Converts a string into a time.
      *
-     * @param date The date to be converted.
-     * @return A string in the date format specified.
+     * @param time The string to be converted.
+     * @return A time in the format specified.
+     * @throws ParseException Throws an exception if time cannot be parsed.
      */
-    public String convertDateToString(Date date) {
-        SimpleDateFormat format = new SimpleDateFormat("HH:mm");
-        return format.format(date);
+    public Date convertStringToTime(String time) throws ParseException {
+        return new SimpleDateFormat("HH:mm").parse(time);
     }
 
     /**
      * Converts a string into a date.
      *
      * @param date The string to be converted.
-     * @return A date in the date format specified.
-     * @throws ParseException Throws an exception if datetime cannot be parsed.
+     * @return A date in the format specified.
+     * @throws ParseException Throws an exception if date cannot be parsed.
      */
-    Date convertStringToDate(String date) throws ParseException {
-        return new SimpleDateFormat("HH:mm").parse(date);
+    public Date convertStringToDate(String date) throws ParseException {
+        return new SimpleDateFormat("dd-MM-yyyy").parse(date);
+    }
+
+    /**
+     * Convert a Date Object into a string.
+     *
+     * @param date The date to be converted.
+     * @return A string in the format specified.
+     */
+    public String convertDatetoString(Date date) {
+        return new SimpleDateFormat("dd-MM-yyyy").format(date);
     }
 
     /**
