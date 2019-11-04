@@ -73,6 +73,10 @@ public class Command {
         boolean changesMade = true;
 //        logger.log(Level.INFO, "Read in the command");
         switch (command) {
+            case "help":
+                findHelp(ui);
+                break;
+
             case "list":
                 listEvents(events, ui);
                 changesMade = false;
@@ -173,9 +177,49 @@ public class Command {
         }
     }
 
+    private void findHelp(UI ui) {
+        if (continuation.isEmpty()) {
+            ui.printHelpList();
+        } else {
+            switch (continuation) {
+                case "calendar":
+                    ui.printCalendarHelp();
+                    break;
+                case "lesson":
+                case "practice":
+                case "concert":
+                case "exam":
+                case "recital":
+                case "todo":
+                case "delete":
+                case "event":
+                    ui.printEventHelp();
+                    break;
+                case "goal":
+                    ui.printGoalHelp();
+                    break;
+                case "contact":
+                    ui.printContactHelp();
+                    break;
+                case "checklist":
+                    ui.printChecklistHelp();
+                    break;
+                case "reschedule":
+                case "edit":
+                case "done":
+                case "change":
+                    ui.printChangeHelp();
+                    break;
+                default:
+                    ui.printHelpList();
+            }
+        }
+
+    }
+
     private void checklistManagement(EventList events, UI ui) {
         if (continuation.isEmpty()) {
-            ui.eventDescriptionEmpty();
+            ui.checklistCommandWrongFormat();
 //            logger.log(Level.WARNING, "The description of checklistManagement is empty");
         } else {
             try {
@@ -238,7 +282,7 @@ public class Command {
             lastWeek.addDaysAndSetMidnight(-7);
             calendarView = new CalendarView(events, lastWeek);
         } else {
-            ui.printInvalidCommand();
+            ui.calendarCommandWrongFormat();
         }
 
         calendarView.setCalendarInfo();
@@ -267,7 +311,7 @@ public class Command {
      */
     private void showBudget(EventList events, UI ui) {
         if (continuation.isEmpty()) {
-            ui.eventDescriptionEmpty();
+            ui.budgetCommandWrongFormat();
 //            logger.log(Level.WARNING, "The description of showBudget is empty");
         } else {
             String monthAndYear = continuation;
@@ -335,7 +379,7 @@ public class Command {
      */
     private void viewEvents(EventList events, UI ui) {
         if (continuation.isEmpty()) {
-            ui.eventDescriptionEmpty();
+            ui.viewCommandWrongFormat();
 //            logger.log(Level.WARNING, "The description of viewEvents is empty");
         } else {
             String dateToView = continuation;
@@ -545,7 +589,7 @@ public class Command {
      */
     private void goalsManagement(EventList events, UI ui) {
         if (continuation.isEmpty()) {
-            ui.noSuchEvent();
+            ui.goalCommandWrongFormat();
 //            logger.log(Level.INFO, "The description of goalManagement is empty");
             return;
         }
@@ -615,7 +659,7 @@ public class Command {
      */
     private void contactManagement(EventList events, UI ui) {
         if (continuation.isEmpty()) {
-            ui.noSuchEvent();
+            ui.contactCommandWrongFormat();
 //            logger.log(Level.WARNING, "The description of contactManagement is empty");
             return;
         }
