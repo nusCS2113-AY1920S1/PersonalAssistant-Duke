@@ -1,5 +1,4 @@
 package gazeeebo.commands.contact;
-
 import gazeeebo.UI.Ui;
 
 import java.io.IOException;

@@ -19,13 +19,14 @@ import java.util.Map;
 public class ContactCommand extends Command {
     private static final String LINEBREAK
             = "------------------------------------------\n";
+
     /**
      * This method is the list of all the
      * contact numbers and you got add/find/delete contacts.
      *
-     * @param list    list of all tasks
-     * @param ui      the object that deals with printing things to the user.
-     * @param storage the object that deals with storing data.
+     * @param list         list of all tasks
+     * @param ui           the object that deals with printing things to the user.
+     * @param storage      the object that deals with storing data.
      * @param commandStack
      * @throws IOException Catch error if the read file fails
      */
@@ -56,19 +57,24 @@ public class ContactCommand extends Command {
         while (!ui.fullCommand.equals("esc")) {
             if (ui.fullCommand.split(" ")[0].equals("add")
                     || ui.fullCommand.equals("1")) {
-                copyMap(contactList,oldcontacts);
+                copyMap(contactList, oldcontacts);
                 new AddContactCommand(ui, contactList);
-            } else if (ui.fullCommand.split(" ")[0].equals("find")) {
+            } else if (ui.fullCommand.split(" ")[0].equals("find")
+                    || ui.fullCommand.equals("2")) {
                 new FindContactCommand(ui, contactList, LINEBREAK);
-            } else if (ui.fullCommand.equals("list")) {
+            } else if (ui.fullCommand.equals("list")
+                    || ui.fullCommand.equals("4")) {
                 new ListContactCommand(contactList, LINEBREAK);
-            } else if (ui.fullCommand.contains("delete")) {
-                copyMap(contactList,oldcontacts);
+            } else if (ui.fullCommand.split(" ")[0].equals("delete")
+                    || ui.fullCommand.equals("3")) {
+                copyMap(contactList, oldcontacts);
                 new DeleteContactCommand(ui, contactList);
-            } else if (ui.fullCommand.equals("help")) {
+            } else if (ui.fullCommand.equals("help")
+                    || ui.fullCommand.equals("6")) {
                 System.out.println(helpContact);
-            } else if (ui.fullCommand.equals("undo")){
-                contactList = UndoContactCommand.Undo(contactList,oldcontacts,storage);
+            } else if (ui.fullCommand.equals("undo")
+                    || ui.fullCommand.equals("5")) {
+                contactList = UndoContactCommand.Undo(contactList, oldcontacts, storage);
             } else {
                 System.out.println("Command not found:\n" + helpContact);
             }
@@ -82,12 +88,24 @@ public class ContactCommand extends Command {
             System.out.println("What do you want to do next ?");
             ui.readCommand();
         }
-        System.out.print("Going back to Main Menu\n");
+        System.out.print("Go back to Main Menu...\n" +
+                "Content Page:\n" +
+                "------------------ \n" +
+                "1. help\n" +
+                "2. contacts\n" +
+                "3. expenses\n" +
+                "4. places\n" +
+                "5. tasks\n" +
+                "6. cap\n" +
+                "7. spec\n" +
+                "8. moduleplanner\n" +
+                "9. notes\n");
     }
 
     /**
      * Copy of old contacts
-     * @param contacts current contacts list
+     *
+     * @param contacts    current contacts list
      * @param oldcontacts
      */
     private void copyMap(Map<String, String> contacts, Stack<Map<String, String>> oldcontacts) {

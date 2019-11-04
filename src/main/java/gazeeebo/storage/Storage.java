@@ -17,6 +17,18 @@ import java.util.stream.Collectors;
 
 public class Storage {
 
+    private String absolute_Path = "Save.txt";
+    private String absolutePath_password = "Password.txt";
+    private String absolutePath_Contact = "Contact.txt";
+    private String absolutePath_Expenses = "Expenses.txt";
+    private String absolutePath_Places = "Places.txt";
+    private String absolutePath_Trivia = "Trivia.txt";
+    private String absolutePath_CAP = "CAP.txt";
+    private String absolutePath_Specialization = "Specialization.txt";
+    private String absolutePath_StudyPlanner = "Study_Plan.txt";
+    private String absolutePath_CompletedElectives = "CompletedElectives.txt";
+    private String absolutePath_Prerequisite = "Prerequisite.txt";
+
     private String[] absolutePath = {"Save.txt","/Save.txt"};
     private String[] absolutePathPassword = {"Password.txt","/Password.txt"};
     private String[] absolutePathContact = {"Contact.txt", "/Contact.txt"};
@@ -73,6 +85,7 @@ public class Storage {
                 FileWriter fw = new FileWriter(path[0], true);
                 String s;
 
+
                 while (sc.hasNext()) {
                     s = sc.nextLine() + "\n";// read a line
                     fw.write(s); // write to output file
@@ -93,6 +106,7 @@ public class Storage {
     public ArrayList<Task> readFromSaveFile() throws FileNotFoundException {
         ArrayList<Task> tList = new ArrayList<Task>();
 //        InputStream inputStream = Storage.class.getResourceAsStream(absolutePath);
+
 //        Scanner sc = new Scanner(inputStream);
         File f = new File(absolutePathResource);
         Scanner sc = new Scanner(f);
@@ -210,6 +224,7 @@ public class Storage {
      */
     public ArrayList<StringBuilder> readFromPasswordFile() throws FileNotFoundException {
         ArrayList<StringBuilder> passwordList = new ArrayList<>();
+
          File f = new File(absolutePathPasswordResource);
         Scanner sc = new Scanner(f);
 //         InputStream inputStream = Storage.class.getResourceAsStream(absolutePathPassword);
@@ -249,6 +264,7 @@ public class Storage {
         HashMap<String, String> contactList = new HashMap<String, String>();
 //        InputStream inputStream = Storage.class.getResourceAsStream(absolutePath_Contact);
 //        Scanner sc = new Scanner(inputStream);
+
         File f = new File(absolutePathContactResource);
         Scanner sc = new Scanner(f);
         while (sc.hasNext()) {
@@ -277,6 +293,7 @@ public class Storage {
         DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 //        InputStream inputStream = Storage.class.getResourceAsStream(absolutePath_Expenses);
 //        Scanner sc = new Scanner(inputStream);
+
         File f = new File(absolutePathExpensesResource);
         Scanner sc = new Scanner(f);
         while (sc.hasNext()) {
@@ -302,6 +319,7 @@ public class Storage {
         HashMap<String, String> placesList = new HashMap<String, String>();
 //        InputStream inputStream = Storage.class.getResourceAsStream(absolutePath_Places);
 //        Scanner sc = new Scanner(inputStream);
+
         File f = new File(absolutePathPlacesResource);
         Scanner sc = new Scanner(f);
         while (sc.hasNext()) {
@@ -315,6 +333,7 @@ public class Storage {
         Map<String, ArrayList<String>> CommandMemory = new HashMap<>();
 //        InputStream inputStream = Storage.class.getResourceAsStream(absolutePath_Trivia);
 //        Scanner sc = new Scanner(inputStream);
+
         File f = new File(absolutePathTriviaResource);
         Scanner sc = new Scanner(f);
         while (sc.hasNext()) {
@@ -372,6 +391,7 @@ public class Storage {
         HashMap<String, ArrayList<CAPCommand>> CAPList = new HashMap<String, ArrayList<CAPCommand>>();
 //        InputStream inputStream = Storage.class.getResourceAsStream(absolutePath_CAP);
 //        Scanner sc = new Scanner(inputStream);
+
         File f = new File(absolutePathCAPResource);
         Scanner sc = new Scanner(f);
         while (sc.hasNext()) {
@@ -407,6 +427,7 @@ public class Storage {
 
     public HashMap<String, ArrayList<ModuleCategory>> Specialization() throws IOException {
         HashMap<String, ArrayList<ModuleCategory>> specMap = new HashMap<>();
+
         File file = new File(absolutePathSpecializationResource);
         Scanner sc = new Scanner(file);
 //        InputStream inputStream = Storage.class.getResourceAsStream(absolutePathSpecialization);
@@ -418,7 +439,7 @@ public class Storage {
             moduleBD.add(mC);
             specMap.put(split[1], moduleBD);
         }
-        //}
+
         return specMap;
     }
 
@@ -433,6 +454,7 @@ public class Storage {
         HashMap<String, ArrayList<String>> completedEMap = new HashMap<>();
 //        InputStream inputStream = Storage.class.getResourceAsStream(absolutePathCompletedElectives);
 //        Scanner sc = new Scanner(inputStream);
+
 //        if (new File(absolutePathCompletedElectives).exists()) {
             File file = new File(absolutePathCompletedElectivesResource);
             Scanner sc = new Scanner(file);
@@ -461,6 +483,7 @@ public class Storage {
 //        InputStream inputStream = Storage.class.getResourceAsStream(absolutePath_StudyPlanner);
 //        Scanner sc = new Scanner(inputStream);
       //  if (new File(absolutePath_StudyPlanner).exists()) {
+
             File file = new File(absolutePathStudyPlannerResource);
             Scanner sc = new Scanner(file);
             for (int i = 0; i < 8; i++) {
@@ -486,6 +509,7 @@ public class Storage {
 
     public HashMap<String, ArrayList<String>> readFromPrerequisiteFile() throws IOException {
         HashMap<String,ArrayList<String>> PrerequisiteList = new  HashMap<String,ArrayList<String>>();
+
 //        InputStream inputStream = Storage.class.getResourceAsStream(absolutePath_Prerequisite);
 //        Scanner sc = new Scanner(inputStream);
         File file = new File(absolutePathPrerequisiteResource);

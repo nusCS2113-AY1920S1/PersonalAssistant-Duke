@@ -44,10 +44,8 @@ public class AddContactCommandTest {
     void testAddContactsCommand() throws IOException {
         HashMap<String, String> map = new HashMap<>();
         Map<String, String> contact = new TreeMap<String, String>(map);
-        ByteArrayInputStream in = new ByteArrayInputStream("Test,9625 1822".getBytes());
-        System.setIn(in);
+        ui.fullCommand = "add Test,96251822";
         AddContactCommand test = new AddContactCommand(ui, contact);
-        assertEquals("Input in this format: Name,Number\n"
-                + "Successfully added: Test,9625 1822\n", output.toString());
+        assertEquals("Successfully added: Test,96251822\n", output.toString());
     }
 }

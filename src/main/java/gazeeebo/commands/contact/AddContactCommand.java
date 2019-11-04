@@ -20,14 +20,15 @@ public class AddContactCommand {
             throws IOException {
         try {
             String toAdd = "";
-            switch (ui.fullCommand.split(" ").length) {
+            String[] splitInput = ui.fullCommand.split(" ");
+            switch (splitInput.length) {
                 case 1:
                     System.out.print("Input in this format: Name,Number\n");
                     ui.readCommand();
                     toAdd = ui.fullCommand;
                     break;
                 case 2:
-                    toAdd = (ui.fullCommand.split(" ")[1]);
+                    toAdd = splitInput[1];
                     break;
                 default:
                     throw new ArrayIndexOutOfBoundsException();
@@ -37,7 +38,7 @@ public class AddContactCommand {
             String number = splitCommand[1];
             contactList.put(name, number);
             System.out.print("Successfully added: "
-                    + ui.fullCommand + "\n");
+                    + toAdd + "\n");
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.print("Please Input in the correct format\n");
         }

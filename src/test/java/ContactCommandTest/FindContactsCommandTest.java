@@ -62,6 +62,6 @@ public class FindContactsCommandTest {
         contact.put("jason", "9825 1822");
         ui.fullCommand = "find Elis";
         FindContactCommand test = new FindContactCommand(ui, contact, LINE_BREAK);
-        assertEquals("Elis is not found in the list.", output.toString());
+        assertEquals("Elis is not found in the list.\n", output.toString());
     }
 }

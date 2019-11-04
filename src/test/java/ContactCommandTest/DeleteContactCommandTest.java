@@ -57,14 +57,4 @@ public class DeleteContactCommandTest {
         DeleteContactCommand test = new DeleteContactCommand(ui, contact);
         assertEquals("jason is not found in the list.\n", output.toString());
     }
-
-    @Test
-    void testDeleteWrongFormatContactsCommand() {
-        HashMap<String, String> map = new HashMap<>();
-        Map<String, String> contact = new TreeMap<String, String>(map);
-        contact.put("janel", "9625 1722");
-        ui.fullCommand = "delete";
-        DeleteContactCommand test = new DeleteContactCommand(ui, contact);
-        assertEquals("Incorrect format: delete name\n", output.toString());
-    }
 }
