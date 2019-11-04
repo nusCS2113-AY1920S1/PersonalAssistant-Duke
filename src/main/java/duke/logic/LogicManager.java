@@ -29,7 +29,7 @@ public class LogicManager extends Logic {
     /**
      * Creates LogicManager instance.
      */
-    public LogicManager() throws FileLoadFailException {
+    public LogicManager() {
         model = new ModelManager();
         conversationManager = new ConversationManager();
     }
