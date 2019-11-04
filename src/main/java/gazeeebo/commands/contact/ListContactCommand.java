@@ -1,3 +1,4 @@
+
 package gazeeebo.commands.contact;
 
 
@@ -7,7 +8,8 @@ import java.util.Map;
  * List all the contacts in the list.
  */
 public class ListContactCommand {
-    private static final int HORT_LINE_SEPARATOR = 30;
+    /** Separates contacts.*/
+    private static final int SPACE_NUMBER = 30;
 
     /**
      * List out all the phone numbers.
@@ -49,7 +51,7 @@ public class ListContactCommand {
     private void forPrint(final Map<String, String> contact,
                          final String lineBreak, final String key) {
         System.out.print(key);
-        int l = HORT_LINE_SEPARATOR - key.length();
+        int l = SPACE_NUMBER - key.length();
         for (int i = 0; i < l; i++) {
             System.out.print(" ");
         }

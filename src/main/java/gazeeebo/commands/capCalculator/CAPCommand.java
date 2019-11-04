@@ -9,7 +9,11 @@ import gazeeebo.tasks.Task;
 
 import java.io.IOException;
 import java.text.ParseException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.TreeMap;
+import java.util.HashMap;
+import java.util.Stack;
 
 /**
  * Deals with the user in the main CAP page.
@@ -64,15 +68,20 @@ public class CAPCommand extends Command {
         while (!(ui.fullCommand.equals("esc") || ui.fullCommand.equals("6"))) {
             try {
                 double cap = new CalculateCAPCommand().calculateCAP(caplist);
-                if (ui.fullCommand.split(" ")[0].equals("add") || ui.fullCommand.equals("1")) {
+                if (ui.fullCommand.split(" ")[0].equals("add")
+                        || ui.fullCommand.equals("1")) {
                     new AddCAPCommand(ui, caplist);
-                } else if (ui.fullCommand.split(" ")[0].equals("find") || ui.fullCommand.equals("2")) {
+                } else if (ui.fullCommand.split(" ")[0].equals("find")
+                        || ui.fullCommand.equals("2")) {
                     new FindCAPCommand(ui, caplist, lineBreak);
-                } else if (ui.fullCommand.split(" ")[0].equals("list") || ui.fullCommand.equals("4")) {
+                } else if (ui.fullCommand.split(" ")[0].equals("list")
+                        || ui.fullCommand.equals("4")) {
                     new ListCAPCommand(ui, caplist, lineBreak);
-                } else if (ui.fullCommand.split(" ")[0].equals("delete") || ui.fullCommand.equals("3")) {
+                } else if (ui.fullCommand.split(" ")[0].equals("delete")
+                        || ui.fullCommand.equals("3")) {
                     new DeleteCAPCommand(ui, caplist);
-                } else if (ui.fullCommand.equals("help") || ui.fullCommand.equals("5")) {
+                } else if (ui.fullCommand.equals("help")
+                        || ui.fullCommand.equals("5")) {
                     System.out.println(helpCAP);
                 } else {
                     throw new ArrayIndexOutOfBoundsException();
@@ -96,18 +105,18 @@ public class CAPCommand extends Command {
                 ui.readCommand();
             }
         }
-        System.out.print("Go back to Main Menu...\n" +
-                "Content Page:\n" +
-                "------------------ \n" +
-                "1. help\n" +
-                "2. contacts\n" +
-                "3. expenses\n" +
-                "4. places\n" +
-                "5. tasks\n" +
-                "6. cap\n" +
-                "7. spec\n" +
-                "8. moduleplanner\n" +
-                "9. notes\n\n");
+        System.out.print("Go back to Main Menu...\n"
+                + "Content Page:\n"
+                + "------------------ \n"
+                + "1. help\n"
+                + "2. contacts\n"
+                + "3. expenses\n"
+                + "4. places\n"
+                + "5. tasks\n"
+                + "6. cap\n"
+                + "7. spec\n"
+                + "8. moduleplanner\n"
+                + "9. notes\n");
     }
 
     /** */

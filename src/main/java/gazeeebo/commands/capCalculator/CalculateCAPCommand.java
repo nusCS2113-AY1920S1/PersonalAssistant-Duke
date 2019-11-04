@@ -7,6 +7,8 @@ import java.util.Map;
  * Calculate the cap by using a formula.
  */
 public class CalculateCAPCommand {
+    /** Modules without a grade score (S/US/CS) = 0.1.*/
+    private static final double DONT_COUNT_SCORE = 0.1;
     /**
      * Calculate the CAP of all the modules.
      *
@@ -18,11 +20,12 @@ public class CalculateCAPCommand {
             ArrayList<CAPCommand>> caplist) {
         double sumGPAMCS = 0;
         int sumMCS = 0;
+        double scoreNotToCount = DONT_COUNT_SCORE;
         for (String key : caplist.keySet()) {
             for (int i = 0; i < caplist.get(key).size(); i++) {
                 double score = new ConvertGradeToScoreCommand().
                         converter(caplist.get(key).get(i).grade);
-                if (score != 0.1) {
+                if (score != scoreNotToCount) {
                     sumGPAMCS += caplist.get(key).get(i).moduleCredit * score;
                     sumMCS += caplist.get(key).get(i).moduleCredit;
                 }
@@ -48,8 +51,9 @@ public class CalculateCAPCommand {
             if (key.equals(semNumber)) {
                 for (int i = 0; i < caplist.get(key).size(); i++) {
                     double score =
-                            new ConvertGradeToScoreCommand().converter(caplist.get(key).get(i).grade);
-                    if (score != 0.1) {
+                            new ConvertGradeToScoreCommand().
+                                    converter(caplist.get(key).get(i).grade);
+                    if (score != DONT_COUNT_SCORE) {
                         sumGPAMCS += caplist.get(key).get(i).moduleCredit
                                 * score;
                         sumMCS += caplist.get(key).get(i).moduleCredit;

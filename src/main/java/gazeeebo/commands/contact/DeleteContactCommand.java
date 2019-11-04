@@ -1,3 +1,4 @@
+
 package gazeeebo.commands.contact;
 import gazeeebo.UI.Ui;
 
@@ -34,7 +35,8 @@ public class DeleteContactCommand {
             }
             if (contactList.containsKey(nameToDelete)) {
                 contactList.remove(nameToDelete);
-                System.out.print("Successfully deleted: " + nameToDelete + "\n");
+                System.out.print("Successfully deleted: "
+                        + nameToDelete + "\n");
             } else {
                 System.out.print(nameToDelete + " is not found in the list.\n");
             }

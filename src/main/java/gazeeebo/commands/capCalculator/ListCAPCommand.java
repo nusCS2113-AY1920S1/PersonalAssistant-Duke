@@ -1,3 +1,4 @@
+
 package gazeeebo.commands.capCalculator;
 
 import gazeeebo.UI.Ui;
@@ -13,16 +14,23 @@ import java.util.Map;
 public class ListCAPCommand {
     /** For formatting the spacing between module name and vertical line. */
     private static final int BLANK_SPACING = 12;
-
+    /** Upper bound of the number of semesters.*/
+    private static final int UPPER_BOUNDARY = 8;
+    /** Lower bound of the number of semesters.*/
+    private static final int LOWER_BOUNDARY = 1;
     /**
-     * list out the modules and show the CAP of all the modules or a particular sem.
+     * list out the modules and
+     * show the CAP of all the modules or a particular sem.
      *
      * @param ui        prints things to the user.
-     * @param caplist   deals stores semNumber, moduleCode, moduleCredits and CAP score.
+     * @param caplist   deals stores
+     *                  semNumber, moduleCode, moduleCredits and CAP score.
      * @param lineBreak print out a separator to separate each line in the list.
      * @throws IOException catch the error if the read file fails.
      */
-    public ListCAPCommand(final Ui ui, final Map<String, ArrayList<CAPCommand>> caplist, final String lineBreak) throws IOException {
+    public ListCAPCommand(final Ui ui,
+                          final Map<String, ArrayList<CAPCommand>> caplist,
+                          final String lineBreak) throws IOException {
         try {
             CalculateCAPCommand calculatedGPA = new CalculateCAPCommand();
             String listWhat = "";
@@ -40,13 +48,11 @@ public class ListCAPCommand {
                 default:
                     throw new ArrayIndexOutOfBoundsException();
             }
-            int upperboundary = 8;
-            int lowerboundary = 1;
             if ("all".equals(listWhat)) {
                 cap = calculatedGPA.calculateCAP(caplist);
                 listAll(caplist, lineBreak, cap);
-            } else if (Integer.parseInt(listWhat) <= upperboundary
-                    && Integer.parseInt(listWhat) >= lowerboundary){
+            } else if (Integer.parseInt(listWhat) <= UPPER_BOUNDARY
+                    && Integer.parseInt(listWhat) >= LOWER_BOUNDARY) {
                 cap = calculatedGPA.calculateCAPPerSem(caplist, listWhat);
                 listSem(caplist, ui, lineBreak, cap, listWhat);
             } else {
@@ -65,7 +71,8 @@ public class ListCAPCommand {
      * @param lineBreak print out a separator to separate each line in the list.
      * @param cap       CAP of the modules.
      */
-    private void listAll(final Map<String, ArrayList<CAPCommand>> caplist, final String lineBreak, final double cap) {
+    private void listAll(final Map<String, ArrayList<CAPCommand>> caplist,
+                         final String lineBreak, final double cap) {
         System.out.print("Sem | Module code | MC | CAP\n" + lineBreak);
         for (String key : caplist.keySet()) {
             for (int i = 0; i < caplist.get(key).size(); i++) {
@@ -93,6 +100,7 @@ public class ListCAPCommand {
      *                  semNumber, moduleCode, moduleCredits and GPA score.
      * @param lineBreak print out a separator to separate each line in the list.
      * @param cap       CAP of the modules.
+     * @param semNumber semester that user input
      */
     private void listSem(final Map<String, ArrayList<CAPCommand>> caplist,
                          final Ui ui, final String lineBreak,
@@ -110,7 +118,8 @@ public class ListCAPCommand {
                         for (int j = 0; j < noBlankSpacing; j++) {
                             System.out.print(" ");
                         }
-                        System.out.print("| " + caplist.get(key).get(i).moduleCredit
+                        System.out.print("| " + caplist.get(key).
+                                get(i).moduleCredit
                                 + "  | " + caplist.get(key).get(i).grade
                                 + "\n" + lineBreak);
                         isEmpty = false;

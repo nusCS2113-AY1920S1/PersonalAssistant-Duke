@@ -42,7 +42,8 @@ public class FindCAPCommand {
             boolean isExist = false;
             for (String key : caplist.keySet()) {
                 for (int i = 0; i < caplist.get(key).size(); i++) {
-                      if (caplist.get(key).get(i).moduleCode.equals(findInput)) {
+                      if (caplist.get(key).get(i).
+                              moduleCode.equals(findInput)) {
                         int noBlankSpacing = BLANK_SPACING
                                 - caplist.get(key).get(i).moduleCode.length();
                         toPrint += key + "   | "
@@ -50,8 +51,10 @@ public class FindCAPCommand {
                         for (int j = 0; j < noBlankSpacing; j++) {
                             toPrint += " ";
                         }
-                        toPrint += "| " + caplist.get(key).get(i).moduleCredit + "  | "
-                                + caplist.get(key).get(i).grade + "\n" + lineBreak;
+                        toPrint += "| " + caplist.get(key).
+                                get(i).moduleCredit + "  | "
+                                + caplist.get(key).get(i).grade
+                                + "\n" + lineBreak;
                         isExist = true;
                     }
                 }

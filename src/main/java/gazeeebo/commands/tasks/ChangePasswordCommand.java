@@ -15,7 +15,8 @@ import java.util.Stack;
 
 public class ChangePasswordCommand extends Command {
     /**
-     * This method will verify current password and write the new password to the Password.txt file.
+     * This method will verify current password
+     * and write the new password to the Password.txt file.
      *
      * @param list    task lists
      * @param ui      the object that deals with printing things to the user.
@@ -25,13 +26,16 @@ public class ChangePasswordCommand extends Command {
      */
     @Override
     public void execute(final ArrayList<Task> list, final Ui ui,
-                        final Storage storage, final Stack<ArrayList<Task>> commandStack,
-                        final ArrayList<Task> deletedTask, final TriviaManager triviaManager)
+                        final Storage storage,
+                        final Stack<ArrayList<Task>> commandStack,
+                        final ArrayList<Task> deletedTask,
+                        final TriviaManager triviaManager)
             throws DukeException, ParseException, IOException {
         System.out.println("Enter your current password:");
         ui.readCommand();
         while (!ui.fullCommand.equals("esc")) {
-            if (ui.fullCommand.equals(storage.readFromPasswordFile().get(0).toString())) {
+            if (ui.fullCommand.equals(storage.
+                    readFromPasswordFile().get(0).toString())) {
                 System.out.println("Enter new password:");
                 ui.readCommand();
                 String realPassword = ui.fullCommand;
@@ -44,12 +48,13 @@ public class ChangePasswordCommand extends Command {
                 System.out.println("Password successfully changed.");
                 break;
             } else {
-                System.out.println("Wrong password, exit by entering esc or try again:");
+                System.out.println("Wrong password, "
+                        + "exit by entering esc or try again:");
                 ui.readCommand();
             }
         }
     }
-
+    /** Exit the program if isExit is true.*/
     @Override
     public boolean isExit() {
         return false;
