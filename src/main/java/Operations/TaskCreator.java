@@ -62,7 +62,9 @@ public class TaskCreator {
             description = descriptionArray2[0].trim();
         } else
             throw new RoomShareException(ExceptionType.emptyDescription);
-
+        if (hasSpecialCharacters(description)) {
+            throw new RoomShareException(ExceptionType.invalidInputString);
+        }
         return description;
     }
 
@@ -108,7 +110,7 @@ public class TaskCreator {
         String[] dateArray = input.split("&");
         ArrayList<Date> dates = new ArrayList<>();
         if (count > 0) {
-            if (count == 2) {
+            if (count <= 2) {
                 String dateInput = dateArray[1].trim();
                 try {
                     dates.add(parser.formatDate(dateInput));
@@ -143,13 +145,17 @@ public class TaskCreator {
      * @param input user's input
      * @return the name of the assignee
      */
-    public String extractAssignee(String input) {
+    public String extractAssignee(String input) throws RoomShareException{
         String[] assigneeArray = input.split("@");
         String assignee;
         if (assigneeArray.length != 1) {
             assignee = assigneeArray[1].trim();
         } else {
             assignee = "everyone";
+        }
+        // check for special characters
+        if (hasSpecialCharacters(assignee)) {
+            throw new RoomShareException(ExceptionType.invalidInputString);
         }
         return assignee;
     }
@@ -202,6 +208,28 @@ public class TaskCreator {
         }
 
         return new Pair<>(duration,unit);
+    }
+
+    public boolean hasSpecialCharacters(String input) {
+        boolean isInvalid = false;
+        if (input.contains("#")) {
+            isInvalid = true;
+        } else if (input.contains("@")) {
+            isInvalid = true;
+        } else if (input.contains("!")) {
+            isInvalid = true;
+        } else if (input.contains("*")) {
+            isInvalid = true;
+        } else if (input.contains("^")) {
+            isInvalid = true;
+        } else if (input.contains("%")) {
+            isInvalid = true;
+        } else if (input.contains("&")) {
+            isInvalid = true;
+        } else if (input.contains("(")) {
+            isInvalid = true;
+        }
+        return isInvalid;
     }
 
     /**
@@ -263,13 +291,13 @@ public class TaskCreator {
         //extract reminder
         boolean remind = this.extractReminder(input);
 
-        if (type.contains("assignment")) {
+        if (type.equals("assignment")) {
             Assignment assignment = new Assignment(description, date);
             assignment.setPriority(priority);
             assignment.setAssignee(assignee);
             assignment.setRecurrenceSchedule(recurrence);
             return assignment;
-        } else if (type.contains("leave")) {
+        } else if (type.equals("leave")) {
             String user;
             String[] leaveUserArray = input.split("@");
             if (leaveUserArray.length != 1) {
@@ -280,7 +308,7 @@ public class TaskCreator {
             leave.setPriority(priority);
             leave.setRecurrenceSchedule(recurrence);
             return leave;
-        } else if (type.contains("meeting")) {
+        } else if (type.equals("meeting")) {
             if (remind) {
                 if (unit.equals(TimeUnit.unDefined)) {
                     // duration was not specified or not correctly input
@@ -361,7 +389,12 @@ public class TaskCreator {
         }
 
         if (input.contains("@")) {
-            String assignee = this.extractAssignee(input);
+            String assignee = null;
+            try {
+                assignee = this.extractAssignee(input);
+            } catch (RoomShareException e) {
+                assignee = "everyone";
+            }
             oldTask.setAssignee(assignee);
         }
 

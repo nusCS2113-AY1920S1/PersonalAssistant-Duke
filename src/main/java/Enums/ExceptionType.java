@@ -10,6 +10,7 @@ public enum ExceptionType {
     negativeTimeAmount,
 
     timeClash,
+    duplicateTask,
     emptyList,
     emptyUser,
     outOfBounds,
@@ -17,12 +18,15 @@ public enum ExceptionType {
 
     test,
     subTaskError,
+    duplicateSubtask,
 
     emptyDescription,
     emptyDate,
     emptyTaskType,
 
     logError,
-    writeError
+    writeError,
+    loadError,
 
+    invalidInputString
     }

@@ -20,6 +20,7 @@ public class ListRoutine {
      * lists the tasks and the associated information, while showing the progress bar
      */
     public void list() {
+        ui.showSort();
         ui.showList();
         try {
             taskList.list();

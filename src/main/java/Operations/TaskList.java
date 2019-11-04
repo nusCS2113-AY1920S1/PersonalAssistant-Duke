@@ -66,6 +66,7 @@ public class TaskList {
     /**
      * Lists out all tasks in the current list in the order they were added into the list.
      * shows all information related to the tasks
+     * hides completed tasks
      * @throws RoomShareException when the list is empty
      */
     public void list() throws RoomShareException {
@@ -73,14 +74,42 @@ public class TaskList {
         if( tasks.size() != 0 ){
             int listCount = 1;
             for (Task output : tasks) {
-                System.out.println("\t" + listCount + ". " + output.toString());
-                if( output instanceof Assignment && !(((Assignment) output).getSubTasks() == null) ) {
-                    ArrayList<String> subTasks = ((Assignment) output).getSubTasks();
-                    for(String subtask : subTasks) {
-                        System.out.println("\t" + "\t" + "-" + subtask);
+                if( !output.getDone() ) {
+                    System.out.println("\t" + listCount + ". " + output.toString());
+                    if( output instanceof Assignment && !(((Assignment) output).getSubTasks() == null) ) {
+                        ArrayList<String> subTasks = ((Assignment) output).getSubTasks();
+                        for(String subtask : subTasks) {
+                            System.out.println("\t" + "\t" + "- " + subtask);
+                        }
                     }
+                    listCount += 1;
                 }
-                listCount += 1;
+            }
+        } else {
+            throw new RoomShareException(ExceptionType.emptyList);
+        }
+    }
+
+    /**
+     * Lists out completed tasks in the list
+     * @throws RoomShareException
+     */
+    public void showCompleted() throws RoomShareException {
+        sortTasks();
+        System.out.println("Completed Tasks:");
+        if( tasks.size() != 0 ){
+            int listCount = 1;
+            for (Task output : tasks) {
+                if( output.getDone() ) {
+                    System.out.println("\t" + listCount + ". " + output.toString());
+                    if( output instanceof Assignment && !(((Assignment) output).getSubTasks() == null) ) {
+                        ArrayList<String> subTasks = ((Assignment) output).getSubTasks();
+                        for(String subtask : subTasks) {
+                            System.out.println("\t" + "\t" + "- " + subtask);
+                        }
+                    }
+                    listCount += 1;
+                }
             }
         } else {
             throw new RoomShareException(ExceptionType.emptyList);
@@ -121,8 +150,8 @@ public class TaskList {
         for (Task query : tasks) {
             if (query.toString().toLowerCase().contains(key.trim())) {
                 System.out.println("\t" + queryCount + ". " + query.toString());
+                queryCount += 1;
             }
-            queryCount += 1;
         }
         if (queryCount == 1) {
             System.out.println("    Your search returned no results.... Try searching with another keyword!");
@@ -230,9 +259,9 @@ public class TaskList {
     public static void compareAlphabetical() {
         Collections.sort(tasks, (task1, task2) -> {
             if( task1.getDone() && !task2.getDone() ) {
-                return -1;
-            } else if( task2.getDone() && !task1.getDone() ) {
                 return 1;
+            } else if( task2.getDone() && !task1.getDone() ) {
+                return -1;
             } else {
                 String name1 = task1.getDescription();
                 String name2 = task2.getDescription();
@@ -247,9 +276,9 @@ public class TaskList {
     public static void compareDeadline() {
         Collections.sort(tasks, (task1, task2) -> {
             if( task1.getDone() && !task2.getDone() ) {
-                return -1;
-            } else if( task2.getDone() && !task1.getDone() ) {
                 return 1;
+            } else if( task2.getDone() && !task1.getDone() ) {
+                return -1;
             } else {
                 Date date1 = task1.getDate();
                 Date date2 = task2.getDate();
@@ -333,5 +362,11 @@ public class TaskList {
             throw new RoomShareException(ExceptionType.outOfBounds);
         }
     }
+
+    /**
+     * Returns current sort type of list
+     * @return current sort type of list
+     */
+    public static SortType getSortType() { return sortType; }
 
 }
