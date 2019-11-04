@@ -76,6 +76,10 @@ public class SortCommand extends ModuleCommand {
                         taskList.sort(Comparator.comparing((Object t) -> ((ModuleTask) t).getModuleLevel()));
                         break;
                     }
+                    case ("grade"): {
+                        taskList.sort(Comparator.comparing((Object t) -> ((ModuleTask) t).getGradeAsNumbers()));
+                        break;
+                    }
                     case ("mc"): {
                         taskList.sort(Comparator.comparing((Object t) -> ((ModuleTask) t).getModuleCredit()));
                         break;

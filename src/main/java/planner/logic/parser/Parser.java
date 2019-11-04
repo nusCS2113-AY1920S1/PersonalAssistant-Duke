@@ -164,7 +164,7 @@ public class Parser {
         sortParsers.addParser("modules")
                 .help("Sort your modules")
                 .addArgument("type")
-                .choices("code", "level", "mc")
+                .choices("code", "grade", "level", "mc")
                 .help("What to use for sorting");
         sortParsers.addParser("ccas")
                 .help("Sort your CCAs");

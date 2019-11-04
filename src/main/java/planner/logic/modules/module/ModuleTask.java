@@ -65,6 +65,39 @@ public class ModuleTask extends TaskWithMultipleWeeklyPeriod {
         moduleInfoDetailed.setGrade(letterGrade);
     }
 
+    /**
+     * Returns the grades as a number for sorting.
+     * @return the number allocated for the grade.
+     */
+    public int getGradeAsNumbers() {
+        switch (moduleInfoDetailed.getGrade()) {
+            case "A+":
+                return 0;
+            case "A":
+                return 1;
+            case "A-":
+                return 2;
+            case "B+":
+                return 3;
+            case "B":
+                return 4;
+            case "B-":
+                return 5;
+            case "C+":
+                return 6;
+            case "C":
+                return 7;
+            case "D+":
+                return 8;
+            case "D":
+                return 9;
+            case "F":
+                return 10;
+            default:
+                return 20;
+        }
+    }
+
     @Override
     public String toString() {
         return super.toString() + " | " + moduleInfoDetailed.toString();
