@@ -278,7 +278,7 @@ public class ProjectInputController implements IController {
         } catch (NumberFormatException | ParseException e) {
             ArchDukeLogger.logError(ProjectInputController.class.getName(), "[projectAddTask] "
                     + "Please enter your task format correctly.");
-            return new String[] {"Please enter your task format correctly."};
+            return new String[] {"Please ensure that your task format are correct and dates are valid."};
         }
     }
 

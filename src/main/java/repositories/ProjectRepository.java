@@ -9,6 +9,7 @@ import util.log.ArchDukeLogger;
 
 import java.util.ArrayList;
 
+//@@author Lucria
 public class ProjectRepository implements IRepository<Project> {
     private ArrayList<Project> allProjects;
     private ProjectFactory projectFactory;
