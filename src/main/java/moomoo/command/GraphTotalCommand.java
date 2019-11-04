@@ -77,8 +77,7 @@ public class GraphTotalCommand extends Command {
             
             if (i % 2 == 0) {
                 output = output + ANSI_CYAN + categoryName;
-            }
-            else {
+            } else {
                 output = output + categoryName;
             }
             
