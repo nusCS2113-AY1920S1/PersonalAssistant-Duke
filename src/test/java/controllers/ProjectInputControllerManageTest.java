@@ -95,5 +95,11 @@ public class ProjectInputControllerManageTest {
                                        "The credit for this task has been set to 1!",
                                        "The state of this task has been set to DONE!"};
         assertArrayEquals(expectedOutput, simulatedOutput);
+
+        simulatedUserInput = "delete task 1";
+        simulatedOutput = projectInputController.manageProject(simulatedUserInput);
+        expectedOutput = new String[] {"Removed task 1: Kill Ironman",
+                                       "Take note that index numbers of other tasks may have changed after deleting!"};
+        assertArrayEquals(expectedOutput, simulatedOutput);
     }
 }
