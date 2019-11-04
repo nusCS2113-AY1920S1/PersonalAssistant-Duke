@@ -115,6 +115,8 @@ public class ProjectInputController implements IController {
                 responseToView = projectAssignTask(projectToManage, projectFullCommand);
             } else if (projectFullCommand.matches("add reminder.*")) {
                 responseToView = projectAddReminder(projectToManage,projectFullCommand);
+            } else if (projectFullCommand.matches("view")) {
+                responseToView = projectViewSelf(projectToManage);
             } else if (projectFullCommand.matches("help")) {
                 responseToView = projectHelp();
             } else if (projectFullCommand.matches("bye")) {
@@ -125,6 +127,12 @@ public class ProjectInputController implements IController {
         }
         jsonConverter.saveProject(projectToManage);
         return responseToView;
+    }
+
+    private String[] projectViewSelf(Project projectToManage) {
+        ArrayList<ArrayList<String>> responseModel = new ArrayList<>();
+        responseModel.add(projectRepository.getProjectDetailsForTable(projectToManage));
+        return viewHelper.consolePrintTable(responseModel);
     }
 
     private String[] projectHelp() {

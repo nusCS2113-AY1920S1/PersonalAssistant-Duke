@@ -199,10 +199,6 @@ public class Project implements IProject {
         return this.memberList.contains(newMember);
     }
 
-    public int getIndexOfMember(IMember newMember) {
-        return this.memberList.getIndexOfMember(newMember);
-    }
-
     public Member getMember(int indexNumber) {
         return (Member) this.memberList.getMember(indexNumber);
     }
