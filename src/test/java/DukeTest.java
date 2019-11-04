@@ -1,28 +1,25 @@
 import Events.EventTypes.Event;
+import Events.EventTypes.EventSubclasses.AssessmentSubclasses.Recital;
 import Events.EventTypes.EventSubclasses.Concert;
 import Events.EventTypes.EventSubclasses.RecurringEventSubclasses.Lesson;
 import Events.EventTypes.EventSubclasses.RecurringEventSubclasses.Practice;
 import Events.EventTypes.EventSubclasses.ToDo;
 import Events.Formatting.EventDate;
-import Events.Formatting.Predicate;
 import Events.Storage.ClashException;
+import Events.Storage.EndBeforeStartException;
 import Events.Storage.EventList;
-
-import UserElements.Command;
+import Events.Storage.Goal;
+import UserElements.ConcertBudgeting.CostExceedsBudgetException;
 import org.junit.jupiter.api.Test;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.Calendar;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class DukeTest {
 
 
+    //@@author Ryan-Wong-Ren-Wei
     @Test
     /**
      * test clash handling for single event addition
@@ -30,11 +27,11 @@ public class DukeTest {
     public void clashTest(){
         ArrayList<String> readFromFile = new ArrayList<String>();
         String fileContent;
-        fileContent = "✗T fawpeifwe 02-12-2019\n";
+        fileContent = "XT/fawpeifwe/02-12-2019";
         readFromFile.add(fileContent);
-        fileContent = "✗P apiejfpwiefw 03-12-2019 1500 03-12-2019 1800\n";
+        fileContent = "XP/apiejfpwiefw/03-12-2019 1500/03-12-2019 1800";
         readFromFile.add(fileContent);
-        fileContent = "✗C halloween 04-12-2019 1600 04-12-2019 1930\n";
+        fileContent = "XC/halloween/04-12-2019 1600/04-12-2019 1930/13";
         readFromFile.add(fileContent);
 
         EventList eventListTest = new EventList(readFromFile);
@@ -56,11 +53,11 @@ public class DukeTest {
     public void clashTestRecurring(){
         ArrayList<String> readFromFile = new ArrayList<String>();
         String fileContent;
-        fileContent = "✗T fawpeifwe 02-12-2019\n";
+        fileContent = "XT/fawpeifwe/02-12-2019";
         readFromFile.add(fileContent);
-        fileContent = "✗P apiejfpwiefw 03-12-2019 1500 03-12-2019 1800\n";
+        fileContent = "XP/apiejfpwiefw/03-12-2019 1500/03-12-2019 1800";
         readFromFile.add(fileContent);
-        fileContent = "✗C halloween 04-12-2019 1600 04-12-2019 1930\n";
+        fileContent = "XC/halloween/04-12-2019 1600/04-12-2019 1930/3";
         readFromFile.add(fileContent);
 
         EventList eventListTest = new EventList(readFromFile);
@@ -79,11 +76,11 @@ public class DukeTest {
     public void testSorting() throws Exception{
         ArrayList<String> readFromFile = new ArrayList<String>();
         String fileContent;
-        fileContent = "✗T fawpeifwe 02-12-2019\n";
+        fileContent = "XT/fawpeifwe/02-12-2019";
         readFromFile.add(fileContent);
-        fileContent = "✗P apiejfpwiefw 03-12-2019 1500 03-12-2019 1800\n";
+        fileContent = "XP/apiejfpwiefw/03-12-2019 1500/03-12-2019 1800";
         readFromFile.add(fileContent);
-        fileContent = "✗C halloween 04-12-2019 1600 04-12-2019 1930\n";
+        fileContent = "XC/halloween/04-12-2019 1600/04-12-2019 1930/5";
         readFromFile.add(fileContent);
 
         EventList eventListTest = new EventList(readFromFile);
@@ -104,7 +101,7 @@ public class DukeTest {
         eventListCompare.add(new ToDo("fawpeifwe", "02-12-2019"));
         eventListCompare.add(new Lesson("Full Orchestra rehearsal", "03-12-2019 1400", "03-12-2019 1500"));
         eventListCompare.add(new Practice("apiejfpwiefw", "03-12-2019 1500", "03-12-2019 1800"));
-        eventListCompare.add(new Concert("halloween", "04-12-2019 1600", "04-12-2019 1930"));
+        eventListCompare.add(new Concert("halloween", "04-12-2019 1600", "04-12-2019 1930", 5));
         eventListCompare.add(new Practice("Horn practice", "05-12-2019 1400", "05-12-2019 1600"));
 
         int i = 0;
@@ -112,7 +109,6 @@ public class DukeTest {
 //            System.out.println(currEvent.toString());
 //            System.out.println(eventListCompare.get(i).toString());
             if (!currEvent.toString().equals(eventListCompare.get(i).toString())) {
-                System.out.println("hi" + i);
                 succeeded = false;
             }
             ++i;
@@ -121,38 +117,64 @@ public class DukeTest {
         assertEquals(true, succeeded);
     }
 
+    @Test
+    public void goalsListTest() throws CostExceedsBudgetException, EndBeforeStartException, ClashException {
+        ArrayList<String> testListString = new ArrayList<>();
+        EventList testList = new EventList(testListString);
+        Event practiceTest1 = new Practice("band rehearsal", "12-12-2019 1800", "12-12-2019 2100");
+        testList.addEvent(practiceTest1);
+        Goal practiceGoal1 = new Goal("Finish Flight of the Bumblebee");
+        testList.getEvent(0).addGoal(practiceGoal1);
+        int goalIndex = 1;
+        String testOutput = "";
+        for (Goal goalObject : practiceTest1.getGoalList()) {
+            testOutput += goalIndex + ". " + goalObject.getGoal() + " - " + "Achieved: " + goalObject.getStatus();
+            goalIndex += 1;
+        }
+        boolean isGoalFound = !testOutput.isEmpty();
+        //testing if added successfully
+        assertEquals(true, isGoalFound);
 
-//    private static final int GREATER_THAN = 1;
-//
-//
-//    private static final int DATE = 0;
-//    @Test
-//    public void viewScheduleTest() {
-//        ArrayList<String> testListString = new ArrayList<>();
-//        EventList testList = new EventList(testListString);
-//        Task toDoTest = new ToDo("cheese");
-//        testList.addTask(toDoTest);
-//        Task deadlineTest1 = new Deadline("eat cheese", "19/09/2019 1900");
-//        testList.addTask(deadlineTest1);
-//        Task deadlineTest2 = new Deadline("buy cheese", "19/09/2019 2000");
-//        testList.addTask(deadlineTest2);
-//        Task deadlineTest3 = new Deadline("throw cheese", "19/09/2020 1000");
-//        testList.addTask(deadlineTest3);
-//        Task eventTest = new Event("cheese party", "20/09/2019 2100");
-//        testList.addTask(eventTest);
-//        String dateToView = "19/09/2019";
-//        String foundTask = "";
-//        int viewIndex = 1;
-//        EventDate findDate = new EventDate(dateToView);
-//        for (Task testViewTask : testList.getTaskArrayList()) {
-//            if (testViewTask.toString().contains(findDate.toOutputString())) {
-//                foundTask += viewIndex + ". " + testViewTask.toString() + "\n";
-//                viewIndex++;
-//            }
-//        }
-//        boolean isTasksFound = !foundTask.isEmpty();
-//        assertEquals(true, isTasksFound);
-//    }
+        Goal practiceGoal2 = new Goal("Finish Symphony No.9");
+        testList.getEvent(0).editGoalList(practiceGoal2, 0);
+        boolean isUpdated = false;
+        if (testList.getEvent(0).getGoalList().get(0).getGoal().equals("Finish Symphony No.9")) {
+            isUpdated = true;
+        }
+        //testing if edited successfully
+        assertEquals(true, isUpdated);
+
+
+    }
+
+    //@@author
+    @Test
+    public void viewScheduleTest() throws CostExceedsBudgetException, EndBeforeStartException, ClashException {
+        ArrayList<String> testListString = new ArrayList<>();
+        EventList testList = new EventList(testListString);
+        Event toDoTest = new ToDo("cheese", "19-09-2019");
+        testList.addNewTodo(toDoTest);
+        Event practiceTest1 = new Practice("individual practice", "19-09-2019 1900", "19-09-2019 2000");
+        testList.addEvent(practiceTest1);
+        Event practiceTest2 = new Practice("sectional practice", "19-09-2019 2100", "19-09-2019 2200");
+        testList.addEvent(practiceTest2);
+        Event practiceTest3 = new Practice("full band rehearsal", "19-09-2020 1000", "19-09-2020 1100");
+        testList.addEvent(practiceTest3);
+        Event eventTest = new Recital("band recital", "20-09-2019 2100", "20-09-2019 2200");
+        testList.addEvent(eventTest);
+        String dateToView = "19-09-2019";
+        String foundTask = "";
+        int viewIndex = 1;
+        EventDate findDate = new EventDate(dateToView);
+        for (Event testViewTask : testList.getEventArrayList()) {
+            if (testViewTask.toString().contains(findDate.getFormattedDateString())) {
+                foundTask += viewIndex + ". " + testViewTask.toString() + "\n";
+                viewIndex++;
+            }
+        }
+        boolean isTasksFound = !foundTask.isEmpty();
+        assertEquals(true, isTasksFound);
+    }
 //
 //    @Test
 //    public void addRecurringEventTest() {

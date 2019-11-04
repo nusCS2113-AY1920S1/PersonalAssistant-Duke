@@ -296,6 +296,18 @@ Storing all the matching events as a single string, passing the string into the 
 implementation is undesirable as it will be difficult to access individual matching events in the case the user wishes to edit
 them as mentioned above.
 
+=== Goals List
+==== How is it implemented
+The goals list is an array list type that stores a list of goals to be achieved by the user for each individual event, particularly
+for Lesson and Practice type events. When the user first creates the event, the event is created without a goal list. Only
+when the user types in "goal add <event ID>" then a goal list is created for the specified event. The user can then manipulate
+the goal list by using "goal edit", "goal delete" or "goal view" commands.
+
+===== Adding a goal
+Step 1: When the command "goal add <event ID>" is entered, the goalsManagement() function will be called.
+
+Step 2: The command will be split up into separate strings
+
 === Reminders
 
 ==== How it is implemented
@@ -456,7 +468,6 @@ Extensions 5.1: User inputs an invalid rating.
 === Viewing all events in the coming 7 days.
 . User enters a command to view all events in the next 7 days.
 . System shows all events in the next 7 days in a calendar table.
-
 
 [appendix]
 == Non-functional requirements

@@ -8,21 +8,26 @@ import Events.EventTypes.EventSubclasses.RecurringEventSubclasses.Lesson;
 import Events.EventTypes.EventSubclasses.RecurringEventSubclasses.Practice;
 import Events.EventTypes.EventSubclasses.ToDo;
 import Events.Formatting.CalendarView;
+import Events.Formatting.DateStringValidator;
 import Events.Formatting.EventDate;
 import Events.Storage.*;
-import Events.Storage.Instruments.*;
+import Events.Storage.Instruments.InstrumentList;
 import UserElements.ConcertBudgeting.CostExceedsBudgetException;
 
-
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.logging.Logger;
 
-
+//@@author
 /**
  * Represents a command that is passed via user input.
  * Multiple types of commands are possible, executed using switch case method.
  */
 public class Command {
+
+    private static Logger logger = Logger.getLogger("Command");
+
 
     /**
      * The String representing the type of command e.g add/delete event
@@ -41,7 +46,7 @@ public class Command {
      * @param command      The Model_Class.Command type
      * @param continuation The Model_Class.Command specific instructions
      */
-    public Command(String command, String continuation) {
+    Command(String command, String continuation) {
         this.command = command;
         this.continuation = continuation;
     }
@@ -52,7 +57,7 @@ public class Command {
      *
      * @param command The Model_Class.Command type
      */
-    public Command(String command) {
+    Command(String command) {
         this.command = command;
         this.continuation = "";
     }
@@ -66,6 +71,7 @@ public class Command {
      */
     public void execute(EventList events, UI ui, Storage storage, InstrumentList instruments) {
         boolean changesMade = true;
+//        logger.log(Level.INFO, "Read in the command");
         switch (command) {
             case "list":
                 listEvents(events, ui);
@@ -91,7 +97,7 @@ public class Command {
                 break;
 
             case "todo":
-                createNewTodo(events, ui);
+                addNewTodo(events, ui);
                 break;
 
             case "lesson":
@@ -139,7 +145,7 @@ public class Command {
             case "budget":
                 showBudget(events, ui);
                 break;
-            
+
             case "goal":
                 goalsManagement(events, ui);
                 break;
@@ -151,11 +157,11 @@ public class Command {
             case "checklist":
                 checklistManagement(events, ui);
                 break;
-                
+
             case "instrument":
-            	instrumentManagement(instruments, ui);
-            	break;
-                
+                instrumentManagement(instruments, ui);
+                break;
+
             default:
                 ui.printInvalidCommand();
                 changesMade = false;
@@ -170,6 +176,7 @@ public class Command {
     private void checklistManagement(EventList events, UI ui) {
         if (continuation.isEmpty()) {
             ui.eventDescriptionEmpty();
+//            logger.log(Level.WARNING, "The description of checklistManagement is empty");
         } else {
             try {
                 String[] splitChecklist = continuation.split("/");
@@ -209,8 +216,10 @@ public class Command {
                 }
             } catch (IndexOutOfBoundsException ne) {
                 ui.noSuchEvent();
+//                logger.log(Level.WARNING, ne.getMessage(), ne);
             } catch (NumberFormatException numE) {
                 ui.notAnInteger();
+//                logger.log(Level.WARNING, numE.getMessage(), numE);
             }
         }
     }
@@ -242,6 +251,7 @@ public class Command {
     private void editEvent(EventList events, UI ui) {
         if (continuation.isEmpty()) {
             ui.eventDescriptionEmpty();
+//            logger.log(Level.WARNING, "The description of editEvent is empty");
         } else {
             String[] splitInfo = continuation.split("/");
             int eventIndex = Integer.parseInt(splitInfo[0]) - 1;
@@ -251,9 +261,14 @@ public class Command {
         }
     }
 
+    //@@author Ryan-Wong-Ren-Wei
+    /**
+     * passes budget to UI for printing to output
+     */
     private void showBudget(EventList events, UI ui) {
         if (continuation.isEmpty()) {
             ui.eventDescriptionEmpty();
+//            logger.log(Level.WARNING, "The description of showBudget is empty");
         } else {
             String monthAndYear = continuation;
             try {
@@ -262,13 +277,16 @@ public class Command {
                 //NEED TO PRINT COST HERE!
             } catch (NullPointerException e) {
                 UI.printNoCostsForThatMonth();
+//                logger.log(Level.WARNING, e.getMessage(), e);
             }
         }
     }
 
+    //@@author
     private void searchEvents(EventList events, UI ui) {
         if (continuation.isEmpty()) {
             ui.eventDescriptionEmpty();
+//            logger.log(Level.WARNING, "The description of searchEvents is empty");
         } else {
             String searchKeyWords = continuation;
             String foundEvent = "";
@@ -288,7 +306,7 @@ public class Command {
     /**
      * Finds the next 3 free days in the schedule and passes them to UI class to be printed.
      */
-    public void checkFreeDays(EventList events, UI ui) {
+    private void checkFreeDays(EventList events, UI ui) {
         Calendar dayToCheckIfFree = Calendar.getInstance();
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
         String currentDay = formatter.format(dayToCheckIfFree.getTime());
@@ -315,9 +333,10 @@ public class Command {
     /**
      * Searches list for events found in a singular date, passes to UI for printing.
      */
-    public void viewEvents(EventList events, UI ui) {
+    private void viewEvents(EventList events, UI ui) {
         if (continuation.isEmpty()) {
             ui.eventDescriptionEmpty();
+//            logger.log(Level.WARNING, "The description of viewEvents is empty");
         } else {
             String dateToView = continuation;
             String foundEvent = "";
@@ -334,9 +353,11 @@ public class Command {
         }
     }
 
-    public void addNewEvent(EventList events, UI ui, char eventType) {
+    //@@author Ryan-Wong-Ren-Wei
+    private void addNewEvent(EventList events, UI ui, char eventType) {
         if (continuation.isEmpty()) {
             ui.eventDescriptionEmpty();
+//            logger.log(Level.WARNING, "The description of the addNewEvent is empty");
         } else {
             int NO_PERIOD = -1;
 
@@ -357,16 +378,21 @@ public class Command {
 
             } catch (ClashException e) { //clash found
                 ui.scheduleClash(e.getClashEvent());
+//                logger.log(Level.WARNING, e.getMessage(), e);
             } catch (CostExceedsBudgetException e) { //budget exceeded in attempt to add concert
                 ui.costExceedsBudget(e.getConcert(), e.getBudget());
-            } catch (StringIndexOutOfBoundsException | ArrayIndexOutOfBoundsException | NullPointerException e) {
-                ui.eventFormatWrong();
+//                logger.log(Level.WARNING, e.getMessage(), e);
+            } catch (StringIndexOutOfBoundsException | ArrayIndexOutOfBoundsException | ParseException e) {
+                ui.newEntryFormatWrong();
+//                logger.log(Level.WARNING, e.getMessage(), e);
             } catch (EndBeforeStartException e) { //start time is after end time
                 ui.eventEndsBeforeStart();
+//                logger.log(Level.WARNING, e.getMessage(), e);
             }
         }
     }
 
+    //@@author Ryan-Wong-Ren-Wei
     /**
      * Instantiates a new event based on details passed as parameter
      *
@@ -397,22 +423,28 @@ public class Command {
                         entryForEvent.getEndDate());
                 break;
         }
-
+//        logger.log(Level.INFO, "New event is created");
         return newEvent;
     }
 
-    public void createNewTodo(EventList events, UI ui) {
+    private void addNewTodo(EventList events, UI ui) {
         if (continuation.isEmpty()) {
             ui.eventDescriptionEmpty();
+//            logger.log(Level.WARNING, "The description of createNewTodo is empty");
             return;
         }
-        EntryForEvent entryForEvent = new EntryForEvent().invoke(); //separate all info into relevant details
-        Event newEvent = new ToDo(entryForEvent.getDescription(), entryForEvent.getStartDate());
-        events.addNewTodo(newEvent);
-        ui.eventAdded(newEvent, events.getNumEvents());
+        try {
+            EntryForToDo entryForToDo = new EntryForToDo().invoke(); //separate all info into relevant details
+            Event newToDo = new ToDo(entryForToDo.getDescription(), entryForToDo.getDate());
+            events.addNewTodo(newToDo);
+            ui.eventAdded(newToDo, events.getNumEvents());
+        } catch (StringIndexOutOfBoundsException | ArrayIndexOutOfBoundsException | ParseException e) {
+            ui.newEntryFormatWrong();
+        }
     }
 
-    public void deleteEvent(EventList events, UI ui) {
+    //@@author
+    private void deleteEvent(EventList events, UI ui) {
         try {
             int eventNo = Integer.parseInt(continuation);
             Event currEvent = events.getEvent(eventNo - 1);
@@ -420,12 +452,14 @@ public class Command {
             ui.eventDeleted(currEvent);
         } catch (IndexOutOfBoundsException outOfBoundsE) {
             ui.noSuchEvent();
+//            logger.log(Level.WARNING, outOfBoundsE.getMessage(), outOfBoundsE);
         } catch (NumberFormatException notInteger) {
             ui.notAnInteger();
+//            logger.log(Level.WARNING, notInteger.getMessage(), notInteger);
         }
     }
 
-    public void markEventAsDone(EventList events, UI ui) {
+    private void markEventAsDone(EventList events, UI ui) {
         try {
             int eventNo = Integer.parseInt(continuation);
             if (events.getEvent(eventNo - 1) instanceof ToDo) {
@@ -433,22 +467,26 @@ public class Command {
                 ui.eventDone(events.getEvent(eventNo - 1));
             } else {
                 ui.noSuchEvent();
+//                logger.log(Level.INFO, "Do not have the event in the list");
             }
         } catch (IndexOutOfBoundsException outOfBoundsE) {
             ui.noSuchEvent();
+//            logger.log(Level.WARNING, outOfBoundsE.getMessage(), outOfBoundsE);
         } catch (NumberFormatException notInteger) {
             ui.notAnInteger();
+//            logger.log(Level.WARNING, notInteger.getMessage(), notInteger);
         }
     }
 
     //@@author YuanJiayi
+
     /**
      * Reschedules the date and time of an existing event.
      *
      * @param events The event list.
      */
-    public void rescheduleEvent(EventList events, UI ui) {
-        Event copyOfEvent = null, newEvent = null;
+    private void rescheduleEvent(EventList events, UI ui) {
+        Event newEvent;
         EventDate copyOfStartDate;
         EventDate copyOfEndDate;
         try {
@@ -468,9 +506,9 @@ public class Command {
             newEvent.rescheduleStartDate(newStartDate); //reschedule start date & time
             newEvent.rescheduleEndDate(newEndDate); //reschedule end date & time
 
-
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
             ui.rescheduleFormatWrong();
+//            logger.log(Level.WARNING, e.getMessage(), e);
             return;
         }
 
@@ -482,28 +520,33 @@ public class Command {
             newEvent.rescheduleStartDate(copyOfStartDate);
             newEvent.rescheduleEndDate(copyOfEndDate);
             events.undoDeletionOfEvent(newEvent);
+//            logger.log(Level.WARNING, clashE.getMessage(), clashE);
         } catch (CostExceedsBudgetException e) {
             ui.costExceedsBudget(e.getConcert(), e.getBudget());
             newEvent.rescheduleStartDate(copyOfStartDate);
             newEvent.rescheduleEndDate(copyOfEndDate);
             events.undoDeletionOfEvent(newEvent);
+//            logger.log(Level.WARNING, e.getMessage(), e);
         } catch (Exception e) {
             ui.eventEndsBeforeStart();
             newEvent.rescheduleStartDate(copyOfStartDate);
             newEvent.rescheduleEndDate(copyOfEndDate);
             events.undoDeletionOfEvent(newEvent);
+//            logger.log(Level.WARNING, e.getMessage(), e);
         }
     }
 
-    //@@author
+    //@@author yenpeichih
+
     /**
      * Manages the goals of an existing event.
      *
      * @param events The event list.
      */
-    public void goalsManagement(EventList events, UI ui) {
+    private void goalsManagement(EventList events, UI ui) {
         if (continuation.isEmpty()) {
             ui.noSuchEvent();
+//            logger.log(Level.INFO, "The description of goalManagement is empty");
             return;
         }
         try {
@@ -514,12 +557,31 @@ public class Command {
                 int goalIndex = Integer.parseInt(goalCommand[2]);
                 switch (goalCommand[0]) {
                     case "delete":
-                        events.getEvent(eventIndex).removeGoal(goalIndex - 1);
-                        ui.goalDeleted();
+                        if (!events.getEvent(eventIndex).getGoalList().isEmpty()) {
+                            events.getEvent(eventIndex).removeGoal(goalIndex - 1);
+                            ui.goalDeleted();
+                        } else {
+                            ui.noSuchGoal();
+                        }
                         break;
 
                     case "edit":
-                        //edit goal
+                        if (!events.getEvent(eventIndex).getGoalList().isEmpty()) {
+                            Goal newGoal = new Goal(splitGoal[1]);
+                            events.getEvent(eventIndex).editGoalList(newGoal, goalIndex - 1);
+                            ui.goalUpdated();
+                        } else {
+                            ui.noSuchGoal();
+                        }
+                        break;
+
+                    case "achieved":
+                        if (!events.getEvent(eventIndex).getGoalList().isEmpty()) {
+                            events.getEvent(eventIndex).updateGoalAchieved(goalIndex - 1);
+                            ui.goalSetAsAchieved();
+                        } else {
+                            ui.noSuchGoal();
+                        }
                         break;
                 }
             } else {
@@ -531,19 +593,21 @@ public class Command {
                         break;
 
                     case "view":
-                        //print goals list
                         ui.printEventGoals(events.getEvent(eventIndex));
                         break;
                 }
             }
         } catch (IndexOutOfBoundsException ne) {
             ui.noSuchEvent();
+//            logger.log(Level.WARNING, ne.getMessage(), ne);
         } catch (NumberFormatException numE) {
             ui.notAnInteger();
+//            logger.log(Level.WARNING, numE.getMessage(), numE);
         }
     }
 
     //@@author YuanJiayi
+
     /**
      * Manage the contacts of an existing event.
      *
@@ -552,6 +616,7 @@ public class Command {
     private void contactManagement(EventList events, UI ui) {
         if (continuation.isEmpty()) {
             ui.noSuchEvent();
+//            logger.log(Level.WARNING, "The description of contactManagement is empty");
             return;
         }
         try {
@@ -602,65 +667,70 @@ public class Command {
             }
         } catch (IndexOutOfBoundsException e) {
             ui.noSuchEvent();
+//            logger.log(Level.WARNING, e.getMessage(), e);
         } catch (NumberFormatException en) {
             ui.notAnInteger();
+//            logger.log(Level.WARNING, en.getMessage(), en);
         }
     }
-    
+
     //@@author Dng132FEI
     public void instrumentManagement(InstrumentList instruments, UI ui) {
-    	try {
-	    	if (continuation.isEmpty()) {
-	            ui.noSuchEvent();
-	            return;
-	    	}
-	    	String splitInstrument[] = continuation.split("/");
-	    	String instrumentCommand[] = continuation.split(" ");
-	    	int instrumentIndex;
-	    	String instrumentIndexAndName;
-	    	switch (instrumentCommand[0]) {
-	    	    case "add":
-	    			instrumentIndex = instruments.addInstrument(splitInstrument[1]);
-	    			instrumentIndexAndName = instruments.getIndexAndInstrument(instrumentIndex);
-	    			ui.instrumentAdded(instrumentIndexAndName);
-	    			break;
-	    	    case "service":
-	    	    	instrumentIndex = Integer.parseInt(instrumentCommand[1]);
-	    	    	EventDate inputDate = new EventDate(splitInstrument[2]);
-	    	    	int serviceIndex = instruments.service(instrumentIndex, inputDate, splitInstrument[1]);
-	    	    	instrumentIndexAndName = instruments.getIndexAndInstrument(instrumentIndex);
-	    	    	String serviceIndexAndName = instruments.getIndexAndService(instrumentIndex, serviceIndex);
-	    	    	ui.serviceAdded(serviceIndexAndName, instrumentIndexAndName);
-	    	    	break;
-	    	    case "view":
-	    	    	switch (instrumentCommand[1]) {
-	    	    	    case "instruments":
-	    	    	    	String listOfInstruments = instruments.getInstruments();
-	    	                ui.printInstruments(listOfInstruments);
-	    	                break;
-	    	    	    case "services":
-	    	    	    	instrumentIndex = Integer.parseInt(instrumentCommand[2]);
-	    	                String listOfServices = instruments.getInstrumentServiceInfo(instrumentIndex);
-	    	                instrumentIndexAndName = instruments.getIndexAndInstrument(instrumentIndex);
-	    	                ui.printServices(listOfServices, instrumentIndexAndName);
-	    	                break;
-	    	    	}
-	    	    	break;
-	    	}
-    	} catch (IndexOutOfBoundsException e) {
+        try {
+            if (continuation.isEmpty()) {
+                ui.noSuchEvent();
+//	            logger.log(Level.WARNING, "The description of instrumentManagement is empty");
+                return;
+            }
+            String splitInstrument[] = continuation.split("/");
+            String instrumentCommand[] = continuation.split(" ");
+            int instrumentIndex;
+            String instrumentIndexAndName;
+            switch (instrumentCommand[0]) {
+                case "add":
+                    instrumentIndex = instruments.addInstrument(splitInstrument[1]);
+                    instrumentIndexAndName = instruments.getIndexAndInstrument(instrumentIndex);
+                    ui.instrumentAdded(instrumentIndexAndName);
+                    break;
+                case "service":
+                    instrumentIndex = Integer.parseInt(instrumentCommand[1]);
+                    EventDate inputDate = new EventDate(splitInstrument[2]);
+                    int serviceIndex = instruments.service(instrumentIndex, inputDate, splitInstrument[1]);
+                    instrumentIndexAndName = instruments.getIndexAndInstrument(instrumentIndex);
+                    String serviceIndexAndName = instruments.getIndexAndService(instrumentIndex, serviceIndex);
+                    ui.serviceAdded(serviceIndexAndName, instrumentIndexAndName);
+                    break;
+                case "view":
+                    switch (instrumentCommand[1]) {
+                        case "instruments":
+                            String listOfInstruments = instruments.getInstruments();
+                            ui.printInstruments(listOfInstruments);
+                            break;
+                        case "services":
+                            instrumentIndex = Integer.parseInt(instrumentCommand[2]);
+                            String listOfServices = instruments.getInstrumentServiceInfo(instrumentIndex);
+                            instrumentIndexAndName = instruments.getIndexAndInstrument(instrumentIndex);
+                            ui.printServices(listOfServices, instrumentIndexAndName);
+                            break;
+                    }
+                    break;
+            }
+        } catch (IndexOutOfBoundsException e) {
             ui.noSuchEvent();
+//            logger.log(Level.WARNING, e.getMessage(), e);
         }
     }
 
     //@@author
-    public void remindEvents(EventList events, UI ui) {
+    private void remindEvents(EventList events, UI ui) {
         ui.printReminder(events);
     }
 
-    public void listEvents(EventList events, UI ui) {
+    private void listEvents(EventList events, UI ui) {
         UI.printListOfEvents(events);
     }
 
+    //@@author Ryan-Wong-Ren-Wei
     /**
      * Contains all info concerning a new entry an event.
      */
@@ -675,19 +745,19 @@ public class Command {
             return description;
         }
 
-        public String getStartDate() {
+        String getStartDate() {
             return startDate;
         }
 
-        public String getEndDate() {
+        String getEndDate() {
             return endDate;
         }
 
-        public int getPeriod() {
+        int getPeriod() {
             return period;
         }
 
-        public int getCost() {
+        int getCost() {
             return cost;
         }
 
@@ -696,7 +766,7 @@ public class Command {
          *
          * @return organized entryForEvent information
          */
-        public EntryForEvent invoke() {
+        private EntryForEvent invoke() throws ParseException {
             int NON_RECURRING = -1;
             String[] splitEvent = continuation.split("/");
             description = splitEvent[0];
@@ -707,12 +777,12 @@ public class Command {
             if (splitDate.length == 3) {
                 startDate = splitDate[0] + " " + splitDate[1];
                 endDate = splitDate[0] + " " + splitDate[2];
-            } else if (splitDate.length == 2) {
-                startDate = splitDate[0] + " " + splitDate[1];
-                endDate = "";
-            } else {
-                startDate = splitDate[0];
-                endDate = "";
+            }
+
+            if (!DateStringValidator.isValidDateForEvent(startDate) ||
+                    !DateStringValidator.isValidDateForEvent(endDate)) {
+
+                throw new ParseException("Invalid date for Event", 0);
             }
 
             if (splitEvent.length == 2) {//cant find period extension of command, event is non-recurring
@@ -723,9 +793,42 @@ public class Command {
                     period = NON_RECURRING;
                 } else {
                     period = Integer.parseInt(splitEvent[2]);
+//                    logger.log(Level.INFO, "The event to be added is recurring");
                 }
             }
             return this;
+        }
+    }
+
+    /**
+     * Contains all info concerning a new entry for a ToDo
+     */
+    private class EntryForToDo {
+        private String description;
+        private String date;
+
+        public String getDescription() {
+            return description;
+        }
+
+        public String getDate() {
+            return date;
+        }
+
+        /**
+         * contains all info regarding an entry for a ToDo
+         *
+         * @return organized entryForEvent information
+         */
+        public EntryForToDo invoke() throws ParseException{
+            String[] splitEvent = continuation.split("/");
+            description = splitEvent[0];
+            date = splitEvent[1];
+            if (DateStringValidator.isValidDateForToDo(date)) {
+                return this;
+            } else {
+                throw new ParseException("Date is invalid", 0);
+            }
         }
     }
 }

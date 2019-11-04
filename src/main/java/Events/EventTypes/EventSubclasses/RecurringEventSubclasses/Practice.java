@@ -12,7 +12,7 @@ public class Practice extends RecurrentEvent {
     }
 
     /**
-     * creates new practice class without boolean to read from user input (assume incopmlete)
+     * creates new practice class without boolean to read from user input (assume incomplete)
      */
     public Practice(String description,String startDateAndTime, String endDateAndTime) {
         super(description, false, startDateAndTime, endDateAndTime, 'P');

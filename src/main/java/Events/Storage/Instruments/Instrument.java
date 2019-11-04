@@ -1,13 +1,12 @@
 package Events.Storage.Instruments;
 
-import java.util.ArrayList;
-
-import Events.EventTypes.Event;
 import Events.Formatting.EventDate;
-import Events.Storage.Instruments.ServiceInfo;
+
+import java.util.ArrayList;
+import java.util.logging.Logger;
 
 public class Instrument {
-
+    private static Logger logger = Logger.getLogger("Instrument");
     private String instrumentName;
     private ArrayList<ServiceInfo> serviceInfoList;
     
@@ -19,7 +18,7 @@ public class Instrument {
      */
     public Instrument(String name) {
        this.instrumentName = name;
-       serviceInfoList = new ArrayList<ServiceInfo>();
+       serviceInfoList = new ArrayList<>();
     }
     
     public String getName() {
@@ -29,6 +28,7 @@ public class Instrument {
     public int addService (EventDate date, String description) {
     	ServiceInfo newServiceInfo = new ServiceInfo(date, description);
         serviceInfoList.add(newServiceInfo);
+//        logger.log(Level.INFO, "The new service info is added to the list");
         return serviceInfoList.size();
     }
     

@@ -25,6 +25,7 @@ allowing the students to focus more on the important aspects of their education.
 
 == Quick Start
 
+. Friendly notice: currently the writing to file is not fully completed, please ignore the error message.
 . Ensure you have Java `11` or above installed in your computer
 . Download the latest `mistermusik.jar`
 . Copy the file to the folder you want to use as the home folder for your MisterMusik
@@ -75,7 +76,8 @@ Format: `exam <name of exam> /dd-MM-yyyy HHmm HHmm`
 Format: `recital <name of recital> /dd-MM-yyyy HHmm HHmm`
 +
 . Concerts : `concert` +
-Format: `concert <name of concert> /dd-MM-yyyy HHmm HHmm`
+Format: `concert <concert name> /dd-MM-yyyy HHmm HHmm/<cost of concert>` +
+Note: Cost of concert must be an integer (for simplicity regarding budgeting).
 
 
 === Recurring events :
@@ -104,8 +106,8 @@ starting from a specified day, including the events within this time period. +
 
 Brings up a list of tasks for a particular date. +
 
-Format: `view dd/MM/yyyy` +
-E.g. “view 18/09/2019”
+Format: `view dd-MM-yyyy` +
+E.g. “view 18-09-2019”
 displays all events/todos on/by the date 18 September 2019.
 
 
@@ -121,7 +123,8 @@ Format: `check`
 
 === Marking a task as done: `done`
 
-Marks a ToDo in the list as completed, denoted by a tick when displaying the task. +
+Marks a ToDo in the list as completed, denoted by a tick when displaying the task.
+This functionality does not work for events that are not ToDos. +
 
 Format: `done <task index>` +
 E.g. “done 5” marks task number 5 as done.
@@ -164,9 +167,10 @@ Format: `searchfree 4h`
 
 === Search
 
-The user will be able to search for a specific task using keywords.
+The user is able to search for a specific event/task using keywords.
 
-Format: `find <keyword>`
+Format: `find <keyword>` will display all events/tasks previously entered
+containing the desired keyword.
 
 === Edit an event/ToDo
 The user is able to edit the name of the event/ToDo he entered in case he entered it wrongly.
@@ -179,17 +183,44 @@ The user is able to add, delete, view, and edit contacts information of an event
 A contact includes name, email address, and phone number.
 
 ==== Add contact item
-Format: `contact add <event index> /<name>, <email>, <phone number>`
+Format: `contact add <event index> /<name>, <email>, <phone number>` +
+Users can type kbd:[Space] instead of `<name>` or `<email>` or `<phone number>` if the user do not want to write in one
+or two type of information. (e.g. `contact add 1 /name, ,12345678` adds a contact set without email address to the
+first event)
 
 ==== Delete contact item
-Format: `contact delete <event index> <contact index> /`
+Format: `contact delete <event index> <contact index>`
 
 ==== View contact
-Format: `contact view <event index> /`
+Format: `contact view <event index>`
 
 ==== Edit contact item
 Format: `contact edit <event index> <contact index> <edit type> /<new contact information>` +
 The edit types are name, email, and phone.
+
+=== Goals list
+Goals list of each event helps the user keep track of the outcome that they wishes to achieve by the end of the event.
+The user is able to add, edit, delete or set a goal as achieved.
+
+==== Adding a goal
+`goal add <event index>/<input goal>`
+This adds a goal to a specific event.
+
+==== Editing a goal
+`goal edit <event index> <goal index>/<new input goal>`
+This edits an existing goal.
+
+==== Deleting a goal
+`goal delete <event index> <goal index>`
+This deletes a specified goal.
+
+==== Setting a goal as achieved
+`goal achieved <event index> <goal index>`
+This sets the specified goal as achieved.
+
+==== Viewing the goal list
+`goal view <event index>`
+This displays the goals list of a specified event along with their status - whether a goal is achieved or not.
 
 === Checklists
 Checklist of each event can be used to remind users of certain items (e.g. bring glasses to concert).
@@ -212,6 +243,38 @@ This edits a specific item in the checklist of an event.
 ==== delete checklist item
 `checklist delete <event index> <item index>`
 This deletes an item from the checklist of an event.
+
+=== Goals list
+Goals list of each event helps the user keep track of the outcome that they wishes to achieve by the end of the event.
+The user is able to add, edit, delete or set a goal as achieved.
+
+==== Adding a goal
+`goal add <event index>/<input goal>`
+This adds a goal to a specific event.
+
+==== Editing a goal
+`goal edit <event index> <goal index>/<new input goal>`
+This edits an existing goal.
+
+==== Deleting a goal
+`goal delete <event index> <goal index>`
+This deletes a specified goal.
+
+==== Setting a goal as achieved
+`goal achieved <event index> <goal index>`
+This sets the specified goal as achieved.
+
+==== Viewing the goal list
+`goal view <event index>`
+This displays the goals list of a specified event along with their status - whether a goal is achieved or not.
+
+=== viewing monthly costs of concerts
+The total cost of concerts each month can be viewed by the user using the
+`budget` command.
+
+Format: `budget MM-yyyy` symbolising the month and year the user wishes to take a look at. +
+Note: MM must be a two digit value. For example, the month of may, 2019 must be entered as
+`05-2019` instead of `5-2019`.
 
 === Exiting the program : `bye`
 
@@ -243,6 +306,20 @@ and specifying which type they would like to be displayed. +
 
 E.g. “reminder exam”
 displays a reminder of all exam events within the next 3 days.
+
+=== Budget handling system
+
+The system allows for the user to handle their own monthly budget. There is a set budget
+for each month (fixed at $50 initially) that stops users from entering new concerts into
+the schedule if that new concert would cause the costs of concerts for the month to exceed
+the stipulated budget.
+
+For example, if the list contains a concert on the 4th of July, 2019 that costs $49,
+entering a new concert that costs more than a dollar would causes the system to cancel the
+operation as it would lead to monthly costs of $51 that exceeds the monthly budget of $50.
+
+The user also has the ability to change the stipulated budget for each month or universally if
+he/she wishes to (Coming in v1.4).
 
 == FAQ
 *Q:* How do I transfer my data to another Computer? +
