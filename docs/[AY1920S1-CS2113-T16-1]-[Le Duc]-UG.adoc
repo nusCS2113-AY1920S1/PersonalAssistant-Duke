@@ -108,12 +108,13 @@ Example:
 Be careful : when creating an event, two dates can’t clash
 
 
-=== Find the task by keyword : `find`
+=== Find the task by relevancy : `find`
 
-To find a task by keyword : `find KEYWORD`
+To find a task by character relevancy : `find KEYWORD`
 
-The find command allows the user to search for tasks by keyword.
-The command will return a list of tasks, ordered by ascending relevancy.
+The find command allows the user to search for tasks via character matching (NOT keyword search).
+The command will return tasks ordered by ascending relevancy.
+
 Typos in the user query will not affect performance.
 
 Examples:
