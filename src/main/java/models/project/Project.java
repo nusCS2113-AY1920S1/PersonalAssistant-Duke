@@ -204,7 +204,7 @@ public class Project implements IProject {
     }
 
     public Member getMember(int indexNumber) {
-        return this.memberList.getMember(indexNumber);
+        return (Member) this.memberList.getMember(indexNumber);
     }
 
     public boolean taskExists(ITask task) {
