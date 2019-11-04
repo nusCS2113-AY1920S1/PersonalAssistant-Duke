@@ -29,7 +29,7 @@ public abstract class Parser implements ParserStringList, ModeStringList {
     protected String inputLine;
     protected String type;
     protected double amount;
-    protected String[] inputArray;
+    protected static String[] inputArray;
     protected String commandToRun;
     protected static final String SPACE = " ";
     protected static int undoFlag = 0;
@@ -50,6 +50,10 @@ public abstract class Parser implements ParserStringList, ModeStringList {
     }
 
     public abstract Command parseInput();
+
+    public static String[] getInputArray() {
+        return inputArray;
+    }
 
     /**
      * Splits the input from the user and assigns the relevant data into description and date variables.
@@ -402,16 +406,6 @@ public abstract class Parser implements ParserStringList, ModeStringList {
     }
 
     //@@author Weng-Kexin
-    protected double findLimitAmount() {
-        double amount = 0;
-        try {
-            amount = stringToDouble(inputArray[2]);
-        } catch (NumberFormatException e) {
-            LimitUi.invalidAmountPrinter();
-        }
-        return amount;
-    }
-
     private Boolean verifyLimitType(String limitType) {
         return limitType.equals(LIMIT_TYPE_S)
                 || limitType.equals(LIMIT_TYPE_B);
@@ -430,14 +424,16 @@ public abstract class Parser implements ParserStringList, ModeStringList {
     protected Boolean verifySetLimitCommand() {
         boolean isValid;
         try {
+            double amountInt = stringToDouble(inputArray[2]);
+
             String typeStr = inputArray[1];
-            double amountInt = findLimitAmount();
             String durationStr = inputArray[3];
             isValid = verifyLimitType(typeStr) && verifyLimitAmount(amountInt) && verifyLimitDuration(durationStr);
-        } catch (IndexOutOfBoundsException e) {
-            LimitUi.invalidSetCommandPrinter();
+        } catch (NumberFormatException e) {
+            LimitUi.invalidAmountPrinter();
             isValid = false;
-        } catch (Exception e) {
+        } catch (Exception e) { //index out of bounds here also
+            //LimitUi.invalidSetCommandPrinter();
             isValid = false;
         }
         return isValid;

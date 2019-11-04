@@ -11,6 +11,7 @@ import dolla.command.ErrorCommand;
 import dolla.task.Debt;
 import dolla.task.Entry;
 import dolla.task.Limit;
+import dolla.ui.LimitUi;
 
 import java.time.LocalDate;
 
@@ -58,8 +59,8 @@ public class DollaParser extends Parser {
                 String[] desc = inputLine.split(inputArray[2] + " ");
                 String[] dateString = desc[1].split(" /due ");
                 description = dateString[0];
-                if (inputLine.contains(t.getPrefixTag())) {
-                    String[] dateAndTag = dateString[1].split(t.getPrefixTag());
+                if (inputLine.contains(COMPONENT_TAG)) {
+                    String[] dateAndTag = dateString[1].split(COMPONENT_TAG);
                     date = Time.readDate(dateAndTag[0].trim());
                 } else {
                     date = Time.readDate(dateString[1].trim());
@@ -77,13 +78,14 @@ public class DollaParser extends Parser {
         } else if (commandToRun.equals(ParserStringList.LIMIT_COMMAND_SET)) {
             if (verifySetLimitCommand()) {
                 String typeStr = inputArray[1];
-                double amountInt = findLimitAmount();
+                double amountInt = stringToDouble(inputArray[2]);
                 String durationStr = inputArray[3];
                 Limit limit = new Limit(typeStr, amountInt, durationStr);
                 Tag t = new Tag();
                 t.handleTag(inputLine, inputArray, limit);
                 return new AddLimitCommand(typeStr, amountInt, durationStr);
             } else {
+                LimitUi.invalidSetCommandPrinter();
                 return new ErrorCommand();
             }
         } else {

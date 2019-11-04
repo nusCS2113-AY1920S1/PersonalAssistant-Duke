@@ -52,8 +52,8 @@ public class DebtsParser extends Parser {
                 String[] dateString = desc[1].split(" /due ");
                 description = dateString[0];
 
-                if (inputLine.contains(t.getPrefixTag())) {
-                    String[] dateAndTag = dateString[1].split(t.getPrefixTag());
+                if (inputLine.contains(COMPONENT_TAG)) {
+                    String[] dateAndTag = dateString[1].split(COMPONENT_TAG);
                     date = Time.readDate(dateAndTag[0].trim());
                 } else {
                     date = Time.readDate(dateString[1].trim());

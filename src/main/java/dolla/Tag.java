@@ -1,9 +1,10 @@
 package dolla;
 
+import dolla.parser.Parser;
 import dolla.task.Record;
 import dolla.ui.Ui;
 
-import static dolla.ModeStringList.PREFIX_TAG;
+import static dolla.parser.ParserStringList.COMPONENT_TAG;
 
 /**
  * This class handles tag related methods.
@@ -12,6 +13,7 @@ import static dolla.ModeStringList.PREFIX_TAG;
 public class Tag {
 
     private String tagName;
+    private String[] inputArray = Parser.getInputArray();
 
     /**
      * Instantiates a new Tag.
@@ -20,22 +22,22 @@ public class Tag {
         this.tagName = "";
     }
 
-    public String getPrefixTag() {
-        return PREFIX_TAG;
-    }
-
     private String getTagName() {
         return tagName;
     }
 
     public String toString() {
-        return '[' + getTagName() + ']';
+        if (hasTag()) {
+            return "[Tag: " + getTagName() + ']';
+        } else {
+            return "";
+        }
     }
 
-    private Boolean hasTag(String[] inputArray) {
+    private Boolean hasTag() {
         boolean hasTag = false;
         for (int i = 0; i < inputArray.length - 1; i++) {
-            if (inputArray[i].equalsIgnoreCase(PREFIX_TAG)) {
+            if (inputArray[i].equals(COMPONENT_TAG)) {
                 hasTag = true;
                 break;
             }
@@ -44,7 +46,7 @@ public class Tag {
     }
 
     private void extractTagName(String inputLine) {
-        String[] tagArray = inputLine.split(PREFIX_TAG);
+        String[] tagArray = inputLine.split(COMPONENT_TAG);
         tagName = tagArray[1].trim();
     }
 
@@ -52,7 +54,7 @@ public class Tag {
      * Method handles input to check for tag and store it.
      */
     public void handleTag(String inputLine, String[] inputArray, Record record) { //todo: change to inside parser
-        if (hasTag(inputArray)) {
+        if (hasTag()) {
             extractTagName(inputLine);
             Dolla.tagList.addTag(tagName, record); //todo: find out how to store
             Ui.printAddedTagMsg(tagName);

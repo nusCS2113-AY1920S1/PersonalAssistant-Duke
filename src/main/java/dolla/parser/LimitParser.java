@@ -12,6 +12,7 @@ import dolla.command.SortCommand;
 import dolla.command.SearchCommand;
 
 import dolla.task.Limit;
+import dolla.ui.LimitUi;
 import dolla.ui.Ui;
 
 /**
@@ -31,16 +32,16 @@ public class LimitParser extends Parser {
         if (commandToRun.equals(ParserStringList.LIMIT_COMMAND_LIST)) {
             return new ShowListCommand(mode);
         } else if (commandToRun.equals(ParserStringList.LIMIT_COMMAND_SET)) {
-            boolean verifiedSetCommand = verifySetLimitCommand();
-            if (verifiedSetCommand) {
+            if (verifySetLimitCommand()) {
                 String typeStr = inputArray[1];
-                double amountInt = findLimitAmount();
+                double amountInt = stringToDouble(inputArray[2]);
                 String durationStr = inputArray[3];
                 Limit limit = new Limit(typeStr, amountInt, durationStr);
                 Tag t = new Tag();
                 t.handleTag(inputLine, inputArray, limit);
                 return new AddLimitCommand(typeStr, amountInt, durationStr);
             } else {
+                LimitUi.invalidSetCommandPrinter();
                 return new ErrorCommand();
             }
         } else if (commandToRun.equals(ParserStringList.COMMAND_REMOVE)) {
