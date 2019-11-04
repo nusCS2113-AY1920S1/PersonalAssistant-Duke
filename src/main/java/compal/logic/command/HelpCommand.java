@@ -25,7 +25,6 @@ public class HelpCommand extends Command {
     public static final String CMD_DELETE = "delete";
     public static final String CMD_EVENT = "event";
     public static final String CMD_DEADLINE = "deadline";
-    public static final String CMD_RECUR_TASK = "recurtask";
     public static final String CMD_VIEW = "view";
     public static final String CMD_FIND = "find";
     public static final String CMD_SET_REMINDER = "set-reminder";
@@ -41,9 +40,11 @@ public class HelpCommand extends Command {
             + "delete: delete one task\n\t"
             + "edit: edit one task\n\t"
             + "event: add event type tasks\n\t"
+            + "export: export your own timetable\n\t"
             + "find: search for tasks containing key word\n\t"
             + "findfreeslot: find a free slot with existing timetable\n\t"
             + "help: learn how to use all commands\n\t"
+            + "import: import your own timetable\n\t"
             + "list: list all the task stored in COMPal\n\t"
             + "set-reminder: set reminder for a task\n\t"
             + "view: get the daily/weekly/monthly view of timetable\n\t"

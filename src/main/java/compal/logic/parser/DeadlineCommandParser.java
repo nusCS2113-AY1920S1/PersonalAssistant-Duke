@@ -9,8 +9,8 @@ import compal.model.tasks.Task;
 import java.util.ArrayList;
 import java.util.logging.Logger;
 
-//@@author LTPZ
-//@@author yueyeah
+// @@author yueyeah
+// @@author LTPZ
 /**
  * Command parser that parses arguments given by the user when adding deadline or recurring deadline.
  */
@@ -33,6 +33,7 @@ public class DeadlineCommandParser implements CommandParser {
             finalDate = startDateList.get(lastStartDateIndex);
         }
         isFinalDateAfterStartDate(startDateList.get(INDEX_ZERO), finalDate);
+        isValidInterval(interval);
         logger.info("Successfully parse deadline command");
         return new DeadlineCommand(description, priority, startDateList, endTime, finalDate, interval);
     }

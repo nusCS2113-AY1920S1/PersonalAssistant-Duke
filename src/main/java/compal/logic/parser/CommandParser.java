@@ -64,12 +64,13 @@ public interface CommandParser {
     String MESSAGE_MISSING_ID_ARG = "ArgumentError: Missing /id";
     String MESSAGE_MISSING_TYPE_ARG = "ArgumentError: Missing /type";
     String MESSAGE_INVALID_TYPE = "Error: The type does not exist!";
-    String MESSAGE_INVALID_PRIORITY = "Invalid Priority Input";
+    String MESSAGE_INVALID_PRIORITY = "Invalid priority input";
     String MESSAGE_LIMIT_EXCEEDED = "Error: Input entered is out of range!";
     String MESSAGE_INVALID_FILE_NAME_FORMAT = "Error: Invalid file name for export!";
-    String MESSAGE_INVALID_FILE_NAME_TIME = "Error: Invalid final date time";
+    String MESSAGE_INVALID_FINAL_TIME = "Error: Invalid final date time";
     String MESSAGE_MISSING_FILE_NAME_ARG = "ArgumentError: Missing /file-name";
     String MESSAGE_MISSING_FILE_NAME = "Error: Missing file name input!";
+    String MESSAGE_INVALID_INTERVAL = "Invalid interval input";
 
     /**
      * Method specification for different command parsers to parse user input.
@@ -611,12 +612,24 @@ public interface CommandParser {
         c.setTime(dayEnd);
         Date dateEnd = c.getTime();
         if (dateStart.after(dateEnd)) {
-            throw new ParserException(MESSAGE_INVALID_FILE_NAME_TIME);
+            throw new ParserException(MESSAGE_INVALID_FINAL_TIME);
+        }
+    }
+
+    //@author LTPZ
+    /**
+     * Check if the interval is positive.
+     *
+     * @param interval The interval input
+     * @throws ParserException if the interval is not positive
+     */
+    default void isValidInterval(int interval) throws ParserException {
+        if (interval <= 0) {
+            throw new ParserException(MESSAGE_INVALID_INTERVAL);
         }
     }
 
     //@@author yueyeah
-
     /**
      * Check if the user input contains the token. Used to check for optional arguments like /final-date.
      *

@@ -17,20 +17,21 @@ import static compal.logic.parser.CommandParserTestUtil.assertParseSuccess;
 public class HelpCommandParserTest {
     private HelpCommandParser parser = new HelpCommandParser();
     private TaskList taskList = new TaskList();
-    private static final String CMD_EXIT = "bye";
-    private static final String CMD_LIST = "list";
-    private static final String CMD_DONE = "done";
-    private static final String CMD_DELETE = "delete";
-    private static final String CMD_EVENT = "event";
-    private static final String CMD_DEADLINE = "deadline";
-    private static final String CMD_RECUR_TASK = "recurtask";
-    private static final String CMD_VIEW = "view";
-    private static final String CMD_FIND = "find";
-    private static final String CMD_SET_REMINDER = "set-reminder";
-    private static final String CMD_VIEW_REMINDER = "view-reminder";
-    private static final String CMD_HELP = "help";
-    private static final String CMD_FIND_FREE_SLOT = "findfreeslot";
-    private static final String CMD_EDIT = "edit";
+    public static final String CMD_EXIT = "bye";
+    public static final String CMD_LIST = "list";
+    public static final String CMD_DONE = "done";
+    public static final String CMD_DELETE = "delete";
+    public static final String CMD_EVENT = "event";
+    public static final String CMD_DEADLINE = "deadline";
+    public static final String CMD_VIEW = "view";
+    public static final String CMD_FIND = "find";
+    public static final String CMD_SET_REMINDER = "set-reminder";
+    public static final String CMD_VIEW_REMINDER = "view-reminder";
+    public static final String CMD_IMPORT = "import";
+    public static final String CMD_EXPORT = "export";
+    public static final String CMD_HELP = "help";
+    public static final String CMD_FIND_FREE_SLOT = "findfreeslot";
+    public static final String CMD_EDIT = "edit";
 
 
 
@@ -84,9 +85,15 @@ public class HelpCommandParserTest {
     }
 
     @Test
-    void parse_correct_cmd_recur_task() throws CommandException {
-        assertParseSuccess(parser,"help_" + CMD_RECUR_TASK,
-                new HelpCommand("help_" + CMD_RECUR_TASK).commandExecute(taskList),taskList);
+    void parse_correct_cmd_import() throws CommandException {
+        assertParseSuccess(parser,"help_" + CMD_IMPORT,
+                new HelpCommand("help_" + CMD_IMPORT).commandExecute(taskList),taskList);
+    }
+
+    @Test
+    void parse_correct_cmd_export() throws CommandException {
+        assertParseSuccess(parser,"help_" + CMD_EXPORT,
+                new HelpCommand("help_" + CMD_EXPORT).commandExecute(taskList),taskList);
     }
 
     @Test
