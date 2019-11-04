@@ -18,7 +18,6 @@ public class StaticMapCommand extends Command {
     private static final String BLUE_VALUE = "0";
 
     private String param;
-    private Image image;
 
     /**
      * Creates a new StaticMapCommand for the given location query.
@@ -34,11 +33,12 @@ public class StaticMapCommand extends Command {
      *
      * @param model The Model object containing task list.
      * @return The CommandResult containing the image from StaticMap.
+     * @throws ApiException If the api call fails.
      */
     @Override
     public CommandResultImage execute(Model model) throws ApiException {
         Venue query = ApiParser.getLocationSearch(param);
-        this.image = ApiParser.getStaticMap(ApiParser.generateStaticMapParams(DIMENSIONS, DIMENSIONS, ZOOM_LEVEL,
+        Image image = ApiParser.getStaticMap(ApiParser.generateStaticMapParams(DIMENSIONS, DIMENSIONS, ZOOM_LEVEL,
                 String.valueOf(query.getLatitude()), String.valueOf(query.getLongitude()), "", "",
                 ApiParser.generateStaticMapPoint(String.valueOf(query.getLatitude()),
                         String.valueOf(query.getLongitude()), RED_VALUE, GREEN_VALUE, BLUE_VALUE, param)));
