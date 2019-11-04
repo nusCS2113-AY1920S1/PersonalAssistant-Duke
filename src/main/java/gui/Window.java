@@ -250,7 +250,7 @@ public class Window {
             output += (i + 1) + ". " + tasks.get(i) + '\n';
             //================ For displaying skill requirement list ==============================
             ArrayList<String> skillList = tasks.get(i).getSkillReqList();
-            if (skillList.size() != 0) {
+            if (skillList != null && skillList.size() != 0) {
                 output += "     required Skill List: \n";
             }
             for (int k = 0; k < skillList.size(); k += 1) {
@@ -292,7 +292,7 @@ public class Window {
 
             //================ For displaying skill requirement list ==============================
             ArrayList<String> skillList = members.get(i).getSkillList();
-            if (skillList.size() != 0) {
+            if (skillList != null && skillList.size() != 0) {
                 output += "     Skills: \n";
             }
             for (int k = 0; k < skillList.size(); k += 1) {
