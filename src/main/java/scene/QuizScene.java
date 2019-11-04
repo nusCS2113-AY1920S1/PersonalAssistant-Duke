@@ -52,9 +52,6 @@ public class QuizScene extends NewScene {
             this.generateQuiz();
             startQuiz = true;
             return ui.quizDisplay(quizCommand.question, quizCommand.options, quizCommand.optionSequence);
-        } else if (countQuiz == 5) {
-            startQuiz = false;
-            return ui.quizIncorrect(wrongQuiz, countQuiz, quizArray);
         } else {
             if (!startQuiz) {
                 throw new CommandInvalidException(userInput);
@@ -72,10 +69,18 @@ public class QuizScene extends NewScene {
                         quizArray.add(quizCommand.question + ": " + quizCommand.answer);
                         wrongQuiz += 1;
                     }
-                    this.generateQuiz();
-                    return s
-                            + "\n"
-                            + ui.quizDisplay(quizCommand.question, quizCommand.options, quizCommand.optionSequence);
+
+                    if (countQuiz < 5) {
+                        this.generateQuiz();
+                        return s + "\n"
+                                + ui.quizDisplay(quizCommand.question, quizCommand.options, quizCommand.optionSequence);
+                    } else {
+                        startQuiz = false;
+                        return s + "\n"
+                                + ui.quizIncorrect(wrongQuiz, countQuiz, quizArray);
+                    }
+
+
                 } catch (NumberFormatException e) {
 
                     throw new InvalidAnswerException();
