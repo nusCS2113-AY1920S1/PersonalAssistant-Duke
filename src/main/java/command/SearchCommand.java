@@ -8,6 +8,7 @@ import exception.WordCountEmptyException;
 import storage.Storage;
 import ui.Ui;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -26,18 +27,24 @@ public class SearchCommand extends Command {
     public String execute(Ui ui, Bank bank, Storage storage) {
         try {
             String meaning = bank.searchWordBankForMeaning(this.searchTerm);
-            Word word = bank.getWordFromWordBank(this.searchTerm);
-            if (word.getNumberOfSearches() == 0) {
-                storage.updateFile(word.toString(),"");
-                storage.writeFile(word.toString(),true);
-            }
             bank.increaseSearchCount(searchTerm);
             return ui.showSearch(this.searchTerm, meaning);
         } catch (NoWordFoundException e) {
-            ArrayList<String> arrayList = bank.getClosedWords(this.searchTerm);
             StringBuilder stringBuilder = new StringBuilder();
+            //Look up Oxford dictionary.
+            stringBuilder.append("Unable to locate \"" + searchTerm
+                    + "\" in local dictionary.\nLooking up Oxford dictionary.\n\n");
+            try {
+                String result = OxfordCall.onlineSearch(searchTerm);
+                stringBuilder.append(ui.showSearch(this.searchTerm, result));
+            } catch (NoWordFoundException e2) {
+                stringBuilder.append("Failed to find the word from Oxford dictionary.\n");
+            }
+
+            // Spell checking. Look up similar words from local dictionary.
+            ArrayList<String> arrayList = bank.getClosedWords(this.searchTerm);
             if (arrayList.size() > 0) {
-                stringBuilder.append("Are you looking for these words instead?\n");
+                stringBuilder.append("\nAre you looking for these words instead?\n");
             }
             for (int i = 0; i < arrayList.size(); i++) {
                 stringBuilder.append(arrayList.get(i) + "\n");

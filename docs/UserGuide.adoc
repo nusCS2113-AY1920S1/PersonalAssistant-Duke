@@ -26,7 +26,7 @@ WordUp (WU) is a desktop-based application for english language learners who pre
 .  Download the latest `wordup.jar` https://github.com/AY1920S1-CS2113-T14-3/main/releases/tag/v1.3[here].
 .  Copy the file to the folder you want to use as the home folder for your WordUp.
 .  Ensure that you have `JavaFX` installed.
-.  [Windows] Open command prompt by typing cmd in the start bar.
+.  [Windows] Open command prompt by typing cmd in the start bar. 
 .  Enter the following command: `java --module-path [path to javafx lib folder]C:\Java\javafx-sdk-11.0.2\lib --add-modules=javafx.controls -jar [path to home folder of WordUp]C:\home\wordup-v1.3.jar`
 .  If you encounter a `Module Not Found` error, please check that you do not have a spacing in your file path to `javafx\lib`.
 .  Type the command in the command box and press Enter to execute it. e.g. typing `help` and pressing `Enter` opens up the window showing a list of commands available. +
@@ -64,8 +64,7 @@ Examples:
 === Adding a word: `add`
 
 Adds a word to the Word Bank. +
-Format: `add w/WORD w/MEANING [t/TAG]...`
-
+Format: `add w/WORD m/MEANING [t/TAG]...`
 
 Examples:
 
@@ -144,6 +143,9 @@ Format: `search_begin w/WORD`
 Examples:
 
 * `search  w/d` +
+=======
+* `search_begin  w/d` +
+
 Returns `drink, dog, do, etc`
 
 
@@ -195,7 +197,7 @@ Examples:
 
 * Enter `schedule` +
 Enter a list of 'enter key' separated words: `life[Enter] is[Enter] great[Enter][Enter]` +
-Enter a date and time for the reminder: `31/10/2019 2359` +
+Enter a date and time for the reminder: `31-10-2019 2359` +
 Reminder is set. Summary of reminder details is shown. Reminder pop up will be shown at time set.
 // end::schedule[]
 
@@ -251,6 +253,8 @@ Format: `history INTEGER`
 Shows search frequency of each word in specified order. +
 Format: `freq o/ORDER`
 
+=======
+
 === Exiting the program : `exit`
 
 Exits the program. +
@@ -280,6 +284,8 @@ e.g. `add w/life m/the existence of an individual human being or animal.`
 e.g. `addsyn w/water s/liquid beverage drink`
 * *Delete* : `delete w/word` +
 e.g. `delete w/life`
+* *Add Synonym* : `addsyn w/WORD s/SYNONYM1 SYNONYM2 SYNONYM3 ...` +
+e.g. `addsyn w/water s/liquid beverage drink`* 
 * *Edit* : `edit w/WORD m/NEW_MEANGING` +
 e.g. `edit w/life m/the existence of a living thing.`
 * *Help* : `help [COMMAND]`
