@@ -14,6 +14,9 @@ import oof.model.task.TaskList;
 import oof.model.task.Todo;
 import oof.storage.StorageManager;
 
+/**
+ * Shows a summary of tomorrow's tasks.
+ */
 public class SummaryCommand extends Command {
 
     public static final String COMMAND_WORD = "summary";
@@ -71,11 +74,11 @@ public class SummaryCommand extends Command {
     /**
      * Gets a summary of tomorrow's Tasks.
      *
-     * @param semesterList Instance of SemesterList that stores Semester objects.
-     * @param taskList    Instance of TaskList that stores Task objects.
-     * @param ui           Instance of Ui that is responsible for visual feedback.
-     * @param storageManager      Instance of Storage that enables the reading and writing of Task
-     *                     objects to hard disk.
+     * @param semesterList   Instance of SemesterList that stores Semester objects.
+     * @param taskList       Instance of TaskList that stores Task objects.
+     * @param ui             Instance of Ui that is responsible for visual feedback.
+     * @param storageManager Instance of Storage that enables the reading and writing of Task
+     *                       objects to hard disk.
      * @throws OofException if there are no tasks scheduled for tomorrow.
      */
     @Override

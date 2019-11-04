@@ -17,7 +17,7 @@ public abstract class Task {
     static final int INDEX_DATE = 0;
     static final int INDEX_TIME = 1;
     String description;
-    boolean status;
+    private boolean status;
     private Frequency frequency;
     private static final int DAILY = 1;
     private static final int WEEKLY = 2;
@@ -68,7 +68,7 @@ public abstract class Task {
      *
      * @return Status icon of the Task.
      */
-    public String getStatusIcon() {
+    String getStatusIcon() {
         return (status ? "Y" : "N"); //return tick or X symbols
     }
 

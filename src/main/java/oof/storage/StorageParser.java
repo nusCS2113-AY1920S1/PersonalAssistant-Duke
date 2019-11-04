@@ -18,7 +18,6 @@ import oof.model.task.Event;
 import oof.model.task.Task;
 import oof.model.task.Todo;
 import oof.model.tracker.Tracker;
-import oof.model.tracker.TrackerList;
 
 /**
  * Represents a class to parse save file data and object data.
@@ -66,10 +65,11 @@ public class StorageParser {
     private static final int INDEX_TASK_TIME_END = 6;
     private static final int INDEX_TASK_STATUS = 1;
     private static final int INDEX_TRACKER_MODULECODE = 0;
-    private static final int INDEX_TRACKER_DESCRIPTION = 1;
-    private static final int INDEX_TRACKER_STARTDATE = 2;
-    private static final int INDEX_TRACKER_LASTUPDATED = 3;
-    private static final int INDEX_TRACKER_TIMETAKEN = 4;
+    private static final int INDEX_TRACKER_TASKINDEX = 1;
+    private static final int INDEX_TRACKER_DESCRIPTION = 2;
+    private static final int INDEX_TRACKER_STARTDATE = 3;
+    private static final int INDEX_TRACKER_LASTUPDATED = 4;
+    private static final int INDEX_TRACKER_TIMETAKEN = 5;
 
     /**
      * Converts data to ArrayList of Semester objects.
@@ -374,6 +374,7 @@ public class StorageParser {
         Date start;
         String[] processed = line.split(DELIMITER_TRACKER);
         String moduleCode = processed[INDEX_TRACKER_MODULECODE];
+        int taskIndex = Integer.parseInt(processed[INDEX_TRACKER_TASKINDEX]);
         String description = processed[INDEX_TRACKER_DESCRIPTION];
         String startDate = processed[INDEX_TRACKER_STARTDATE];
         String lastUpdated = processed[INDEX_TRACKER_LASTUPDATED];
@@ -386,7 +387,7 @@ public class StorageParser {
                 start = readFormat.parse(startDate);
             }
             Date updated = readFormat.parse(lastUpdated);
-            return new Tracker(moduleCode, description, start, updated, timeTaken);
+            return new Tracker(moduleCode, taskIndex, description, start, updated, timeTaken);
         } catch (ParseException e) {
             throw new OofException(("Unable to process stored Tracker data."));
         }
@@ -408,9 +409,9 @@ public class StorageParser {
      * @param trackerList Instance of trackerList that stores tracker objects
      * @return ArrayList containing data strings of tracker data.
      */
-    public static ArrayList<String> trackerListToData(TrackerList trackerList) {
+    public static ArrayList<String> trackerListToData(ArrayList<Tracker> trackerList) {
         ArrayList<String> data = new ArrayList<>();
-        for (Tracker tracker : trackerList.getTrackers()) {
+        for (Tracker tracker : trackerList) {
             data.add(tracker.toStorageString());
         }
         return data;

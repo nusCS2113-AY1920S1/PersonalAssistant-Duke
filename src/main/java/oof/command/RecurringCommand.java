@@ -25,9 +25,13 @@ import oof.storage.StorageManager;
 public class RecurringCommand extends Command {
 
     public static final String COMMAND_WORD = "recurring";
+    private int taskIndex;
+    private int recurringCount;
+    private int recurringFrequency;
     private static final int INDEX_TASK_INDEX = 0;
     private static final int INDEX_RECURRING_COUNT = 1;
-    private static final int ARGUMENT_COUNT = 2;
+    private static final int INDEX_RECURRING_FREQUENCY = 2;
+    private static final int ARGUMENT_COUNT = 3;
     private ArrayList<String> arguments;
     private static final int COUNT_MIN = 1;
     private static final int COUNT_MAX = 10;
@@ -36,6 +40,7 @@ public class RecurringCommand extends Command {
     private static final int MONTHLY = 3;
     private static final int YEARLY = 4;
     private static final int DAYS_IN_WEEK = 7;
+    private static final int DATE_ONLY = 1;
 
     /**
      * Constructor for RecurringCommand.
@@ -61,32 +66,43 @@ public class RecurringCommand extends Command {
     @Override
     public void execute(SemesterList semesterList, TaskList taskList, Ui ui, StorageManager storageManager)
             throws OofException {
-        if (arguments.size() < ARGUMENT_COUNT) {
-            throw new OofException("OOPS!!! Please enter the task number and number of recurrences!");
+        if (arguments.size() != ARGUMENT_COUNT) {
+            throw new OofException("OOPS!!! Please enter the right number of arguments!");
         } else {
             try {
-                int taskIndex = Integer.parseInt(arguments.get(INDEX_TASK_INDEX)) - 1;
-                int recurringCount = Integer.parseInt(arguments.get(INDEX_RECURRING_COUNT));
-                ui.printRecurringOptions();
-                int recurringFrequency = ui.scanInt();
+                taskIndex = Integer.parseInt(arguments.get(INDEX_TASK_INDEX)) - 1;
+                recurringCount = Integer.parseInt(arguments.get(INDEX_RECURRING_COUNT));
+                recurringFrequency = Integer.parseInt(arguments.get(INDEX_RECURRING_FREQUENCY));
                 if (!taskList.isIndexValid(taskIndex)) {
                     throw new OofException("OOPS!!! Please select a valid task!");
                 } else if (!isCountValid(recurringCount)) {
-                    throw new OofException("OOPS!!! The valid number of recurrences is from 1-10!");
+                    throw new OofException("OOPS!!! Please enter a valid number of recurrences!");
                 } else if (!isFrequencyValid(recurringFrequency)) {
-                    throw new OofException("OOPS!!! Please enter a valid number!");
+                    throw new OofException("OOPS!!! Please enter a valid frequency!");
                 } else {
-                    try {
-                        setRecurringTask(ui, taskList, taskIndex, recurringCount, recurringFrequency);
-                        ui.printRecurringMessage(taskList);
-                        storageManager.writeTaskList(taskList);
-                    } catch (InputMismatchException e) {
-                        throw new OofException("OOPS!!! Please enter a valid number!");
-                    }
+                    runRecurringCommand(ui, taskList, storageManager);
                 }
             } catch (NumberFormatException e) {
-                throw new OofException("OOPS!!! Please enter a valid number!");
+                throw new OofException("OOPS!!! Please enter valid numbers!");
             }
+        }
+    }
+
+    /**
+     * Wrapper function for running a successful instance of RecurringCommand.
+     *
+     * @param ui Instance of Ui.
+     * @param taskList Instance of TaskList.
+     * @param storageManager Instance of StorageManager.
+     * @throws OofException Prints customised error message.
+     */
+    private void runRecurringCommand(Ui ui, TaskList taskList, StorageManager storageManager) throws OofException {
+        try {
+            setRecurringTask(ui, taskList, taskIndex, recurringCount, recurringFrequency);
+            ui.printRecurringMessage(taskList);
+            storageManager.writeTaskList(taskList);
+        } catch (InputMismatchException e) {
+            throw new OofException("OOPS!!! Please enter valid numbers!");
         }
     }
 
@@ -98,6 +114,7 @@ public class RecurringCommand extends Command {
      * @param index     Index of the task.
      * @param count     Number of recurrences for the recurring task.
      * @param frequency Frequency of recurrence for the recurring task.
+     * @throws OofException dateTimeIncrement method throws OofException.
      */
     private void setRecurringTask(Ui ui, TaskList taskList, int index, int count, int frequency) throws OofException {
         Task task = taskList.getTask(index);
@@ -115,6 +132,7 @@ public class RecurringCommand extends Command {
      * @param task      Recurring task.
      * @param count     Number of recurrences for the recurring task.
      * @param frequency Frequency of recurrence for the recurring task.
+     * @throws OofException dateTimeIncrement method throws OofException.
      */
     private void recurInstances(Ui ui, TaskList taskList, Task task, int count, int frequency) throws OofException {
         if (task instanceof Todo) {
@@ -196,7 +214,7 @@ public class RecurringCommand extends Command {
      */
     private String dateTimeIncrement(String dateTime, int frequency, int increment) throws OofException {
         SimpleDateFormat format;
-        if (dateTime.split(" ").length == 1) {
+        if (dateTime.split(" ").length == DATE_ONLY) {
             format = new SimpleDateFormat("dd-MM-yyyy");
         } else {
             format = new SimpleDateFormat("dd-MM-yyyy HH:mm");

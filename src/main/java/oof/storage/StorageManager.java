@@ -12,7 +12,6 @@ import oof.model.module.SemesterList;
 import oof.model.task.Task;
 import oof.model.task.TaskList;
 import oof.model.tracker.Tracker;
-import oof.model.tracker.TrackerList;
 
 /**
  * Represents a Storage Manager to invoke StorageParser and Storage classes.
@@ -113,10 +112,10 @@ public class StorageManager {
      * @return TrackerList that contains Tracker objects.
      * @throws OofException if unable to read tracker.txt.
      */
-    public TrackerList readTrackerList() throws OofException, FileNotFoundException {
+    public ArrayList<Tracker> readTrackerList() throws OofException, FileNotFoundException {
         ArrayList<String> data = storage.loadFile(PATH_TRACKER);
         ArrayList<Tracker> trackers = StorageParser.dataToTrackerList(data);
-        return new TrackerList(trackers);
+        return trackers;
     }
 
     /**
@@ -124,7 +123,7 @@ public class StorageManager {
      *
      * @param trackerList TrackerList of Tracker objects.
      */
-    public void writeTrackerList(TrackerList trackerList) {
+    public void writeTrackerList(ArrayList<Tracker> trackerList) {
         ArrayList<String> data = StorageParser.trackerListToData(trackerList);
         storage.writeFile(PATH_TRACKER, data);
     }

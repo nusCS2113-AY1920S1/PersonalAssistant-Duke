@@ -397,39 +397,31 @@ Adds a task called `withdraw money` on `19-11-2019`.
 ==== Setting a recurring task: `recurring`
 You can select a task that will be repeated based on your preference.
 
-Format: `recurring INDEX NUMBER_OF_OCCURRENCES`
+Format: `recurring INDEX NUMBER_OF_OCCURRENCES FREQUENCY`
 
 * The `INDEX` refers to the index number displayed in the list of tasks recorded. (`list` can be used to display the saved tasks).
-* `NUMBER_OF_OCCURRENCES` refers to the number of times the selected task recurs.
-*The user chooses to enter a `FREQUENCY` which is an option from 1-4.
-
-[NOTE]
-
-The task will require you to enter the frequency of recurrence in this manner afterward: +
-1. DAILY +
-2. WEEKLY +
-3. MONTHLY +
-4. YEARLY
+* `NUMBER_OF_OCCURRENCES` refers to the number of times the selected task recurs which is an integer from `1-10`.
+* `FREQUENCY` refers to the recurring frequency which is an integer from `1-4`.
+** +1.+ DAILY +
+** +2.+ WEEKLY +
+** +3.+ MONTHLY +
+** +4.+ YEARLY
 
 Example:
 
-+1.+ The user enters `recurring 4 3`
++1.+ The user enters `recurring 1 1 1`
 
 [[Recurring]]
 .Example to show recurring feature's usage
 image::Recurring.png[Recurring]
 
-+2.+ The user presses kbd:[ENTER] and he/she can then choose an option by entering a number `1-4` to choose the frequency of recurrence.
-
-[[RecurringPrompt]]
-.Options for recurring frequency
-image::RecurringPrompt.png[RecurringPrompt]
-
-+3.+The user chooses option `2`.
++2.+ The user presses kbd:[ENTER]
 
 [[RecurringOutput]]
 .Output after selecting option 2
 image::RecurringOutput.png[RecurringOutput]
+
+The command shows the new recurring task that was added.
 
 ==== Marking a task as done: `done`
 You can mark tasks as completed so that you can track your progress.
@@ -536,46 +528,40 @@ image::Threshold.png[Threshold]
 
 Tasks that have `deadlines` within 48 hours from the `current time` will be in the reminders.
 
-==== Starting/Stopping/Pausing Assignment Tracker: `tracker`
-You can track an assignment from the current time.
+==== Starting/Stopping/Pausing Task Tracker: `tracker`
+You can track a task from the current time.
 
-Format: `tracker /INSTRUCTION MODULE_CODE ASSIGNMENT_DESCRIPTION`
+Format: `tracker /INSTRUCTION TASK_INDEX MODULE_CODE`
 
 *Options for INSTRUCTION* +
 [horizontal]
-start:: begin tracking an assignment from the current time.
-pause:: pause tracking an assignment from the current time.
-stop:: stop tracking an assignment from the current time.
+start:: begin tracking a task from the current time.
+pause:: pause tracking a task from the current time.
+stop:: stop tracking a task from the current time.
 view:: view a histogram featuring the total amount fo time spent on each module.
 
-Example: `tracker /start cs2101 ppp`
+Example: `tracker /start 22 cs2101`
 
 [[StartTracker]]
-.Starts Assignment Tracker
+.Starts Task Tracker
 image::StartTracker.png[StartTracker]
 
-Example: `tracker /pause cs2101 ppp`
+Example: `tracker /pause 22 cs2101`
 
 [[PauseTracker]]
-.Pauses Assignment Tracker
+.Pauses Task Tracker
 image::PauseTracker.png[PauseTracker]
 
-Example: `tracker /stop cs2101 ppp`
+Example: `tracker /stop 22 cs2101`
 
 [[StopTracker]]
-.Stops Assignment Tracker
+.Stops Task Tracker
 image::StopTracker.png[StopTracker]
 
-==== Viewing Assignment Tracker: `tracker`
-You can view a histogram featuring the amount of time you spend on each module in blocks of 10 minutes with `tracker /view`.
+==== Viewing Task Tracker: `tracker`
+You can view a histogram featuring the amount of time you spend on each module in blocks of 10 minutes.
 
-Format: `tracker /view`
-
-[[ViewTracker]]
-.Displays Assignment Tracker by Module Code
-image::ViewTracker.png[ViewTracker]
-
-Format: `tracker /view TIME_PERIOD [_coming soon in v1.4_]`
+Format: `tracker /view PERIOD`
 
 *Options for TIME_PERIOD* +
 [horizontal]
@@ -583,7 +569,11 @@ day:: filter time spent on each `Module` today.
 week:: filter time spent on each `Module` over the last 7 days.
 all:: filter time spent on each `Module` over all entries.
 
-Example: `tracker /view day`
+Example: `tracker /view week`
+
+[[ViewTracker]]
+.Displays Task Tracker by Module Code
+image::ViewTracker.png[ViewTracker]
 
 === Organisation
 
@@ -787,16 +777,8 @@ e.g. `todo withdraw money /on 19-09-2019`
 
 Set a recurring task.
 
-* *Recurring*: `recurring INDEX NUMBER_OF_OCCURRENCES` +
-e.g. `recurring 4 3`
-
-[NOTE]
-You will be prompted to enter a number from 1-4 afterward. +
-`1` represents `DAILY`. +
-`2` represents `WEEKLY`. +
-`3` represents `MONTHLY`. +
-`4` represents `YEARLY`.
-
+* *Recurring*: `recurring INDEX NUMBER_OF_OCCURRENCES FREQUENCY` +
+e.g. `recurring 1 1 1`
 
 List all the task you have saved in *OOF*
 
@@ -861,23 +843,23 @@ This feature runs in the background thus no input is needed from you.
 
 Starts assignment tracker.
 
-* *Start Assignment Tracker*: `tracker /start MODULE_CODE ASSIGNMENT_DESCRIPTION` +
-e.g. `tracker /start cs2113t user guide`
+* *Start Assignment Tracker*: `tracker /start TASK_INDEX MODULE_CODE` +
+e.g. `tracker /start 20 cs2113t`
 
 Pauses assignment tracker.
 
-* *Pause Assignment Tracker*: `tracker /pause MODULE_CODE ASSIGNMENT_DESCRIPTION` +
-e.g. `tracker /pause cs2113t user guide`
+* *Pause Assignment Tracker*: `tracker /pause TASK_INDEX MODULE_CODE` +
+e.g. `tracker /pause 20 cs2113t`
 
 Stops assignment tracker.
 
-* *Stop Assignment Tracker*: `tracker /stop MODULE_CODE ASSIGNMENT_DESCRIPTION` +
-e.g. `tracker /stop cs2113t user guide`
+* *Stop Assignment Tracker*: `tracker /stop TASK_INDEX MODULE_CODE` +
+e.g. `tracker /stop 20 cs2113t`
 
 View assignment tracker diagram.
 
-* *View Assignment Tracker*: `tracker /view` +
-e.g. `tracker /view`
+* *View Assignment Tracker*: `tracker /view TIME_PERIOD` +
+e.g. `tracker /view week`
 
 Exit *OOF* by using this command.
 
