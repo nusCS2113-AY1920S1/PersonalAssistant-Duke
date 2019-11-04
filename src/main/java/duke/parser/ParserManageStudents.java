@@ -1,5 +1,6 @@
 package duke.parser;
 
+import duke.data.StudentStorage;
 import duke.models.students.ManageStudents;
 import duke.models.students.Student;
 
@@ -25,12 +26,17 @@ public final class ParserManageStudents implements IParser {
      */
     private Scanner sc;
 
+    private StudentStorage save;
+
     /**
      * Constructor for Manage Students Parser.
      */
     ParserManageStudents() {
         students = new ManageStudents();
         sc = new Scanner(System.in);
+        save = new StudentStorage(students.getStudentList());
+        StudentStorage read = new StudentStorage(students.getStudentList());
+        read.loadStudentListFile(students.getStudentList());
     }
 
     /**
@@ -45,6 +51,7 @@ public final class ParserManageStudents implements IParser {
         new CliView().manageStudentsHeading();
         switch (cmd) {
         case "list":
+            StudentStorage read = new StudentStorage(students.getStudentList());
             students.listAllStudents();
             break;
         case "add":
@@ -107,6 +114,7 @@ public final class ParserManageStudents implements IParser {
         default:
             System.out.println("Incorrect Command.");
         }
+        save.updateStudentList(students.getStudentList());
     }
 
     /**

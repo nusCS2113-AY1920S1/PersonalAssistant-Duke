@@ -106,5 +106,13 @@ public class Student implements IStudent {
             + getAddress();
     }
 
+    /**
+     * Format to save student list into text.
+     * @return student list.
+     */
+    public String getFormat() {
+        return getName() + ", " + getAge() + ", " + getAddress();
+    }
+
 
 }
