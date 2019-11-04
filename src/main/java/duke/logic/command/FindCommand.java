@@ -19,6 +19,7 @@ import duke.ui.Ui;
  * matching duke.task.Task objects were found
  */
 public class FindCommand extends Command {
+    Optional<String> filter;
     private String keyword;
     private Command listCommand;
 
@@ -27,31 +28,33 @@ public class FindCommand extends Command {
      * Prints all the tasks which match the given keyword and filter
      *
      * @param keyword keyword used to search for matching tasks
-     * @param filter filter for each task
+     * @param filter  filter for each task
      */
     public FindCommand(String keyword, Optional<String> filter) {
         this.keyword = keyword;
-        this.listCommand = new ListCommand(filter);
+        this.filter = filter;
+        this.listCommand = new ListCommand(Optional.empty());
     }
 
     /**
      * executes the finding of all matching tasks and prints the corresponding tasks
      *
-     * @param tasks TaskList of all of user's tasks
-     * @param ui Ui handling user interaction
+     * @param tasks   TaskList of all of user's tasks
+     * @param ui      Ui handling user interaction
      * @param storage Storage handling saving and loading of TaskList
      * @throws ParseException NA
-     * @throws IOException NA
-     * @throws DukeException NA
+     * @throws IOException    NA
+     * @throws DukeException  NA
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws ParseException, IOException, DukeException {
         if (tasks.size() == 0) {
             ui.showLine("You have no tasks in your list! :-)");
         } else {
+            ArrayList<Task> filteredTaskList = tasks.getList(filter);
             ArrayList<Task> foundTasksTemp = new ArrayList<Task>();
-            for (int i = 0; i < tasks.size(); i++) {
-                Task currentTask = tasks.get(i);
+            for (int i = 0; i < filteredTaskList.size(); i++) {
+                Task currentTask = filteredTaskList.get(i);
                 if (currentTask.getDescription().contains(keyword)) {
                     foundTasksTemp.add(currentTask);
                 }
@@ -67,7 +70,8 @@ public class FindCommand extends Command {
 
     /**
      * Not applicable for this Command.
-     * @param tasks NA
+     *
+     * @param tasks     NA
      * @param undoStack NA
      * @throws DukeException NA
      */

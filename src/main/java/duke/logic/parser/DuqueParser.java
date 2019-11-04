@@ -50,6 +50,10 @@ public class DuqueParser {
 
         switch (keyword) {
         case "bye":
+            if (1 == fcArray.length) {
+                return new ExitCommand();
+            }
+            System.out.println("I don't like goodbyes with strings attached....");
             return new ExitCommand();
         case "help":
             if (1 == fcArray.length) {

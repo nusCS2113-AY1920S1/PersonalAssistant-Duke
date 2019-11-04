@@ -71,6 +71,17 @@ public class TaskList {
         return taskList;
     }
 
+    public ArrayList<Task> getList(Optional<String> filter) {
+        ArrayList<Task> temp = new ArrayList<Task>();
+        for (int i = 0; i < taskList.size(); i++) {
+            Task t = taskList.get(i);
+            if (t.getFilter().equals(filter)) {
+                temp.add(t);
+            }
+        }
+        return temp;
+    }
+
     /**
      * returns the number of tasks
      *
@@ -241,7 +252,7 @@ public class TaskList {
      */
     public void insert(Optional<String> filter, int index, Task t) throws DukeException {
         if (index == taskList.size()) {
-            taskList.add(index,t);
+            taskList.add(index, t);
         } else {
             int i = reduceFilter(filter, index);
             taskList.add(i, t);
