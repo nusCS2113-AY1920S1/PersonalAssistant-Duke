@@ -80,9 +80,14 @@ public class TaskSchedulerTest {
         TaskScheduler.scheduleByDeadline(tasks, taskDuration, secondDeadlineStartDate);
         String testOutput = outContent.toString();
         String expectedOutput = "_______________________________\n\r\n"
-                + String.format("You can schedule this task from now till %s\n", firstEventStartDate.format(DateTimeExtractor.DATE_FORMATTER))
-                + String.format("You can schedule this task from %s till %s\n", secondEventEndDate.format(DateTimeExtractor.DATE_FORMATTER), thirdEventStartDate.format(DateTimeExtractor.DATE_FORMATTER))
-                + String.format("You can schedule this task from %s till %s\n\r\n", thirdEventEndDate.format(DateTimeExtractor.DATE_FORMATTER), secondDeadlineStartDate.format(DateTimeExtractor.DATE_FORMATTER))
+                + String.format("You can schedule this task from now till %s\n",
+                firstEventStartDate.format(DateTimeExtractor.DATE_FORMATTER))
+                + String.format("You can schedule this task from %s till %s\n",
+                secondEventEndDate.format(DateTimeExtractor.DATE_FORMATTER),
+                thirdEventStartDate.format(DateTimeExtractor.DATE_FORMATTER))
+                + String.format("You can schedule this task from %s till %s\n\r\n",
+                thirdEventEndDate.format(DateTimeExtractor.DATE_FORMATTER),
+                secondDeadlineStartDate.format(DateTimeExtractor.DATE_FORMATTER))
                 + "_______________________________\n\r\n";
         Assertions.assertEquals(expectedOutput, testOutput);
     }
