@@ -44,6 +44,7 @@ public class ChronologerException extends Exception {
     private static final String END_DATE_EARLIER_MSG = "OOPS!! Your end date is earlier than your start date";
     private static final String INVALID_WEEK = "OOPS!! Your week is invalid!";
     private static final String INVALID_VERSION = "OOPS!! Your version is invalid!";
+
     /**
      * Handles wrong date or time errors.
      *
@@ -208,9 +209,13 @@ public class ChronologerException extends Exception {
         return END_DATE_EARLIER_MSG;
     }
 
-    public static String invalidWeek() { return INVALID_WEEK; }
+    public static String invalidWeek() {
+        return INVALID_WEEK;
+    }
 
-    public static String invalidVersion() { return INVALID_VERSION; }
+    public static String invalidVersion() {
+        return INVALID_VERSION;
+    }
 
     public ChronologerException(String message) {
         super(message);

@@ -5,10 +5,12 @@ import chronologer.command.WeekCommand;
 import chronologer.exception.ChronologerException;
 
 public class WeekParser extends DescriptionParser {
+    private static final int CURRENT_WEEK_INDICATOR = -1;
+
     WeekParser(String userInput, String command)  {
         super(userInput, command);
     }
-    private final int CURRENT_WEEK_INDICATOR = -1;
+
     private int extractWeek(String taskFeatures) throws ChronologerException {
         if (taskFeatures.contains("current")) {
             return CURRENT_WEEK_INDICATOR;

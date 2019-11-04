@@ -88,7 +88,7 @@ class TimelineWindow extends UiComponent<Region> {
     private static final int FRIDAY = 2;
     private static final int SATURDAY = 1;
     private static final int SUNDAY = 0;
-    private final int CURRENT_WEEK_INDICATOR = -1;
+    private static final int CURRENT_WEEK_INDICATOR = -1;
 
     private LocalDate currentSundayDate;
 
@@ -147,17 +147,17 @@ class TimelineWindow extends UiComponent<Region> {
 
     private void setListViewBackgroundAndTheme(ListView<String> task1, ListView<String> task2, ListView<String> task3,
                                                ListView<String> task4, ListView<String> task5, String theme,
-                                               String BACKGROUND) {
+                                               String background) {
         listViewComponents(task1, theme);
-        task1.setStyle(BACKGROUND);
+        task1.setStyle(background);
         listViewComponents(task2, theme);
-        task2.setStyle(BACKGROUND);
+        task2.setStyle(background);
         listViewComponents(task3, theme);
-        task3.setStyle(BACKGROUND);
+        task3.setStyle(background);
         listViewComponents(task4, theme);
-        task4.setStyle(BACKGROUND);
+        task4.setStyle(background);
         listViewComponents(task5, theme);
-        task5.setStyle(BACKGROUND);
+        task5.setStyle(background);
     }
 
     /**
@@ -240,12 +240,11 @@ class TimelineWindow extends UiComponent<Region> {
         LocalDate firstMondayOfSemester = firstDay.with(TemporalAdjusters.nextOrSame(DayOfWeek.MONDAY));
         LocalDate firstSundayOfSemester = firstMondayOfSemester.with(TemporalAdjusters.nextOrSame(DayOfWeek.SUNDAY));
         LocalDate requiredSundayDate;
-        if (chosenWeek == CURRENT_WEEK_INDICATOR)
-        {
+        if (chosenWeek == CURRENT_WEEK_INDICATOR) {
             requiredSundayDate = LocalDate.now().with(TemporalAdjusters.nextOrSame(Sunday));
             todayLabel.setVisible(true);
         } else {
-            requiredSundayDate = firstSundayOfSemester.plusDays(chosenWeek*7);
+            requiredSundayDate = firstSundayOfSemester.plusDays(chosenWeek * 7);
             if (requiredSundayDate.isEqual(LocalDate.now().with(TemporalAdjusters.nextOrSame(Sunday)))) {
                 todayLabel.setVisible(true);
             } else {

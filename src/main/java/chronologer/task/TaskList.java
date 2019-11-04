@@ -341,6 +341,10 @@ public class TaskList {
         }
     }
 
+    /**
+     * Allows the user to view different weeks, weeks 0 - 18.
+     * @param choiceOfWeek Holds the week the user wants.
+     */
     public void updateWeek(int choiceOfWeek) {
         if (choiceOfWeek != prevWeek && choiceOfWeek != -2) {
             currentSetting.remove(1);
