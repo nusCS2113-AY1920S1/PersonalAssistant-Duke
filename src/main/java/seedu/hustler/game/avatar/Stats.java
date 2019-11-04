@@ -74,10 +74,10 @@ public class Stats implements Convertible {
      * @return the String consisting of the stats.
      */
     public String getStats(Optional<Weapon> weapon, Optional<Armor> armor) {
-        return "Damage: "  + (this.damage + (weapon.map(value -> + value.getDamageIncr()).orElse(0))) + "\n"
-            + "Defence: " + (this.defence + (armor.map(value -> + value.getDefenceIncr()).orElse(0))) + "\n"
-            + "Stamina: " + (this.stamina + (armor.map(value -> + value.getStaminaIncr()).orElse(0))) + "\n"
-            + "Speed: " + this.speed;
+        return "\tDamage: "  + (this.damage + (weapon.map(value -> + value.getDamageIncr()).orElse(0))) + "\n"
+            + "\tDefence: " + (this.defence + (armor.map(value -> + value.getDefenceIncr()).orElse(0))) + "\n"
+            + "\tStamina: " + (this.stamina + (armor.map(value -> + value.getStaminaIncr()).orElse(0))) + "\n"
+            + "\tSpeed: " + this.speed;
     }
 
     @Override
