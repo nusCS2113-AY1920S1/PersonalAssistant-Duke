@@ -15,8 +15,7 @@ import java.util.ArrayList;
 
 //@@author maxxyx96
 public class BudgetStorage {
-    protected String filePath = "";
-    String storageClassPath = this.getClass().getProtectionDomain().getCodeSource().getLocation().getPath();
+    protected String filePath = System.getProperty("user.dir") + "/";
 
     /**
      * Creates a storage with path pointing to the file in the system.
@@ -24,20 +23,6 @@ public class BudgetStorage {
      * @param filePathForBudget The location of the file in computer.
      */
     public BudgetStorage(String filePathForBudget) {
-        int numberofSlash;
-        storageClassPath = storageClassPath.replaceAll("%20", " ");
-        String[] pathSplitter = storageClassPath.split("/");
-        numberofSlash = pathSplitter.length - Numbers.ONE.value;
-        for (String directory: pathSplitter) {
-            if (numberofSlash == Numbers.ZERO.value) {
-                break;
-            } else if (!directory.isEmpty() && !directory.equals("build") && !directory.equals("out")) {
-                this.filePath += directory + "/";
-            } else if (directory.equals("build") || directory.equals("out")) {
-                break;
-            }
-            numberofSlash--;
-        }
         this.filePath += filePathForBudget;
     }
 
