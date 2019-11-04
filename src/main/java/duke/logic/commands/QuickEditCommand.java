@@ -4,7 +4,7 @@ import duke.commons.Messages;
 import duke.commons.exceptions.ApiException;
 import duke.commons.exceptions.FileNotSavedException;
 import duke.commons.exceptions.ParseException;
-import duke.commons.exceptions.QueryOutOfBoundsException;
+import duke.commons.exceptions.OutOfBoundsException;
 import duke.logic.commands.results.CommandResultText;
 import duke.logic.edits.Editor;
 import duke.model.Event;
@@ -40,12 +40,12 @@ public class QuickEditCommand extends Command {
      * @param model {@code Model} which the command should operate on.
      * @throws ApiException If the api call fails.
      * @throws FileNotSavedException If the data cannot be saved.
-     * @throws QueryOutOfBoundsException If the index given is out of bounds.
+     * @throws OutOfBoundsException If the index given is out of bounds.
      * @throws ParseException If the descriptors cannot be parsed.
      */
     @Override
     public CommandResultText execute(Model model) throws ApiException,
-            FileNotSavedException, QueryOutOfBoundsException,
+            FileNotSavedException, OutOfBoundsException,
             ParseException {
         try {
             Event event = model.getEvents().get(index);

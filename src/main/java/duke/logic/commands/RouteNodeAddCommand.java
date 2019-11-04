@@ -3,7 +3,7 @@ package duke.logic.commands;
 import duke.commons.exceptions.ApiException;
 import duke.commons.exceptions.FileNotSavedException;
 import duke.commons.exceptions.QueryFailedException;
-import duke.commons.exceptions.QueryOutOfBoundsException;
+import duke.commons.exceptions.OutOfBoundsException;
 import duke.commons.exceptions.DuplicateRouteNodeException;
 import duke.logic.commands.results.CommandResultImage;
 import duke.model.Model;
@@ -40,13 +40,13 @@ public class RouteNodeAddCommand extends Command {
      * @return The CommandResultText.
      * @throws FileNotSavedException If the file is not saved.
      * @throws DuplicateRouteNodeException If there is a duplicate RouteNode.
-     * @throws QueryOutOfBoundsException If the query is out of bounds.
+     * @throws OutOfBoundsException If the query is out of bounds.
      * @throws QueryFailedException If the query fails.
      * @throws ApiException If the api call fails.
      */
     @Override
     public CommandResultImage execute(Model model) throws QueryFailedException, DuplicateRouteNodeException,
-            QueryOutOfBoundsException, FileNotSavedException, ApiException {
+            OutOfBoundsException, FileNotSavedException, ApiException {
         if (node instanceof BusStop) {
             ((BusStop) node).fetchData(model);
         } else if (node instanceof TrainStation) {
@@ -61,11 +61,11 @@ public class RouteNodeAddCommand extends Command {
             } else if (indexNode >= 0) {
                 route.addNode(node, indexNode);
             } else {
-                throw new QueryOutOfBoundsException();
+                throw new OutOfBoundsException();
             }
 
         } catch (IndexOutOfBoundsException e) {
-            throw new QueryOutOfBoundsException();
+            throw new OutOfBoundsException();
         }
 
         model.save();

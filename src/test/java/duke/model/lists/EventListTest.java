@@ -2,7 +2,7 @@ package duke.model.lists;
 
 import duke.commons.exceptions.DuplicateTaskException;
 import duke.commons.exceptions.DukeException;
-import duke.commons.exceptions.QueryOutOfBoundsException;
+import duke.commons.exceptions.OutOfBoundsException;
 import duke.logic.parsers.ParserTimeUtil;
 import duke.model.Event;
 
@@ -231,7 +231,7 @@ class EventListTest {
         assertFalse(events.contains(event1));
         events.remove(0);
         assertFalse(events.contains(event2));
-        assertThrows(QueryOutOfBoundsException.class, () -> events.remove(-1));
-        assertThrows(QueryOutOfBoundsException.class, () -> events.remove(2));
+        assertThrows(OutOfBoundsException.class, () -> events.remove(-1));
+        assertThrows(OutOfBoundsException.class, () -> events.remove(2));
     }
 }

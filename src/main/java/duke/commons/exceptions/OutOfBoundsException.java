@@ -5,12 +5,12 @@ import duke.commons.Messages;
 /**
  * Exception thrown when index query is out of bounds.
  */
-public class QueryOutOfBoundsException extends DukeException {
+public class OutOfBoundsException extends DukeException {
 
     /**
      * Constructs the Exception.
      */
-    public QueryOutOfBoundsException() {
+    public OutOfBoundsException() {
         super(Messages.ERROR_INDEX_OUT_OF_BOUNDS);
     }
 }

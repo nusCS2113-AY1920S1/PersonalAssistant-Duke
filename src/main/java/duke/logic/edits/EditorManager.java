@@ -4,7 +4,7 @@ import duke.commons.exceptions.ApiException;
 import duke.commons.exceptions.EmptyVenueException;
 import duke.commons.exceptions.EventNotSelectedException;
 import duke.commons.exceptions.ParseException;
-import duke.commons.exceptions.QueryOutOfBoundsException;
+import duke.commons.exceptions.OutOfBoundsException;
 import duke.logic.commands.Command;
 import duke.logic.commands.EditCommand;
 import duke.logic.commands.results.PanelResult;
@@ -60,12 +60,12 @@ public class EditorManager {
      * @param userInput The input string from user.
      * @return Command object for logic to execute.
      * @throws EventNotSelectedException If there are no event selected.
-     * @throws QueryOutOfBoundsException If the Event field is out of bounds.
+     * @throws OutOfBoundsException If the Event field is out of bounds.
      * @throws ParseException If the user input cannot be parsed.
      * @throws ApiException If the API request timeout.
      */
     public static Command edit(String userInput) throws EventNotSelectedException, ParseException,
-            ApiException, QueryOutOfBoundsException {
+            ApiException, OutOfBoundsException {
         if (!eventSelector.isLock()) {
             throw new EventNotSelectedException();
         }

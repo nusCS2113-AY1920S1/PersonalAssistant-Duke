@@ -4,6 +4,6 @@ import duke.commons.Messages;
 
 public class NoSuchBusStopException extends DukeException {
     public NoSuchBusStopException() {
-        super(Messages.ERROR_NO_SUCH_BUS_STOP);
+        super(Messages.ERROR_BUS_STOP_NOT_FOUND);
     }
 }

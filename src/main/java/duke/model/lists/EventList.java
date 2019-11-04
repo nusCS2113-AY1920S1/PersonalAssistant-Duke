@@ -1,7 +1,7 @@
 package duke.model.lists;
 
 import duke.commons.exceptions.DuplicateTaskException;
-import duke.commons.exceptions.QueryOutOfBoundsException;
+import duke.commons.exceptions.OutOfBoundsException;
 import duke.model.Event;
 import duke.model.TaskWithDates;
 
@@ -48,13 +48,13 @@ public class EventList implements Iterable<Event>, Listable<Event>, Serializable
      * Removes a Event from the VenueList at a given index.
      *
      * @param index The index of the Event.
-     * @throws QueryOutOfBoundsException If the index is out of bounds.
+     * @throws OutOfBoundsException If the index is out of bounds.
      */
-    public Event remove(int index) throws QueryOutOfBoundsException {
+    public Event remove(int index) throws OutOfBoundsException {
         try {
             return events.remove(index);
         } catch (IndexOutOfBoundsException e) {
-            throw new QueryOutOfBoundsException();
+            throw new OutOfBoundsException();
         }
     }
 

@@ -3,7 +3,7 @@ package duke.logic.commands;
 import duke.commons.enumerations.Constraint;
 import duke.commons.exceptions.FileNotSavedException;
 import duke.commons.exceptions.InputNotDoubleException;
-import duke.commons.exceptions.QueryOutOfBoundsException;
+import duke.commons.exceptions.OutOfBoundsException;
 import duke.commons.exceptions.UnknownConstraintException;
 import duke.commons.exceptions.UnknownFieldException;
 import duke.logic.commands.results.CommandResultText;
@@ -42,13 +42,13 @@ public class RouteNodeEditCommand extends Command {
      * @return The CommandResultText.
      * @throws FileNotSavedException If the file is not saved.
      * @throws InputNotDoubleException If the input is not an integer.
-     * @throws QueryOutOfBoundsException If the query is out of bounds.
+     * @throws OutOfBoundsException If the query is out of bounds.
      * @throws UnknownFieldException If the field is unknown.
      * @throws UnknownConstraintException If the constraint is unknown.
      */
     @Override
     public CommandResultText execute(Model model) throws FileNotSavedException, InputNotDoubleException,
-            QueryOutOfBoundsException, UnknownFieldException, UnknownConstraintException {
+            OutOfBoundsException, UnknownFieldException, UnknownConstraintException {
         try {
             RouteNode node = model.getRoutes().get(indexRoute).getNode(indexNode);
             switch (var.toLowerCase()) {
@@ -77,7 +77,7 @@ public class RouteNodeEditCommand extends Command {
         } catch (IllegalArgumentException e) {
             throw new UnknownConstraintException();
         } catch (IndexOutOfBoundsException e) {
-            throw new QueryOutOfBoundsException();
+            throw new OutOfBoundsException();
         }
     }
 }

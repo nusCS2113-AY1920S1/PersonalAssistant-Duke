@@ -1,8 +1,8 @@
 package duke.logic.parsers.commandParsers;
 
 import duke.commons.exceptions.ParseException;
-import duke.commons.exceptions.StartEndDateBeforeNowException;
-import duke.commons.exceptions.StartEndDateDiscordException;
+import duke.commons.exceptions.ChronologyBeforePresentException;
+import duke.commons.exceptions.ChronologyInconsistentException;
 import duke.logic.commands.Command;
 import duke.logic.commands.NewItineraryCommand;
 import duke.logic.parsers.ParserTimeUtil;
@@ -39,9 +39,9 @@ public class CreateNewItineraryParser extends CommandParser {
         LocalDateTime start = ParserTimeUtil.parseStringToDate(itineraryDetails[ZERO].strip());
         LocalDateTime end = ParserTimeUtil.parseStringToDate(itineraryDetails[ONE].strip());
         if (start.isBefore(LocalDateTime.now()) || end.isBefore(LocalDateTime.now())) {
-            throw new StartEndDateBeforeNowException();
+            throw new ChronologyBeforePresentException();
         } else if (end.isBefore(start) || start.isAfter(end)) {
-            throw new StartEndDateDiscordException();
+            throw new ChronologyInconsistentException();
         }
         String hotelLocation = itineraryDetails[TWO].strip();
         String name = itineraryDetails[THREE].strip();

@@ -1,7 +1,7 @@
 package duke.logic.commands;
 
 import duke.commons.Messages;
-import duke.commons.exceptions.CategoryNotFoundException;
+import duke.commons.exceptions.NoSuchCategoryException;
 import duke.commons.exceptions.FileNotSavedException;
 import duke.commons.exceptions.ParseException;
 import duke.logic.commands.results.CommandResult;
@@ -39,11 +39,11 @@ public class ProfileSetPreferenceCommand extends Command {
     /**
      * Executes this command and returns a text result.
      * @param model The model containing the profile.
-     * @throws CategoryNotFoundException If there is no such category.
+     * @throws NoSuchCategoryException If there is no such category.
      * @throws FileNotSavedException If the data cannot be saved.
      */
     @Override
-    public CommandResult execute(Model model) throws CategoryNotFoundException, FileNotSavedException {
+    public CommandResult execute(Model model) throws NoSuchCategoryException, FileNotSavedException {
         model.getProfileCard().setPreference(category, setting);
         model.save();
         return new CommandResultText("Your preference for " + category + " is set to " + setting);

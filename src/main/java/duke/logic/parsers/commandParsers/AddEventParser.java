@@ -50,7 +50,7 @@ public class AddEventParser extends CommandParser {
         try {
             return new Event(withinDetails[ZERO].strip(), start, end);
         } catch (ApiException e) {
-            throw new ParseException(Messages.ERROR_API_DATA_NULL);
+            throw new ParseException(Messages.ERROR_API_FAIL);
         }
     }
 

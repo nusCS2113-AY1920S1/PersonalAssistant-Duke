@@ -1,6 +1,5 @@
 package duke.logic.parsers;
 
-import duke.commons.exceptions.DukeUnknownCommandException;
 import duke.commons.exceptions.ParseException;
 import duke.logic.conversations.DeleteConversation;
 import duke.logic.conversations.FindConversation;
@@ -16,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class ConversationParserTest {
 
     @Test
-    void parse() throws DukeUnknownCommandException, ParseException {
+    void parse() throws ParseException {
         assertTrue(ConversationParser.parse("done")
                 instanceof MarkDoneConversation);
         assertTrue(ConversationParser.parse("delete")

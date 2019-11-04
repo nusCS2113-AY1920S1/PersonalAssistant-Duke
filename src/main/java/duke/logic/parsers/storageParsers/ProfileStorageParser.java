@@ -1,7 +1,7 @@
 package duke.logic.parsers.storageParsers;
 
 import duke.commons.Messages;
-import duke.commons.exceptions.CategoryNotFoundException;
+import duke.commons.exceptions.NoSuchCategoryException;
 import duke.commons.exceptions.ParseException;
 import duke.logic.parsers.ParserTimeUtil;
 import duke.model.profile.ProfileCard;
@@ -30,7 +30,7 @@ public class ProfileStorageParser {
                 for (int i = 1; i < token.length; i++) {
                     try {
                         profileCard.setPreference(category[i], token[i].strip().equals("true"));
-                    } catch (CategoryNotFoundException e) {
+                    } catch (NoSuchCategoryException e) {
                         throw new ParseException(Messages.ERROR_DATA_CORRUPTED);
                     }
                 }

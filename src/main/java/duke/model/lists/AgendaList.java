@@ -44,7 +44,7 @@ public class AgendaList implements Iterable<Agenda> {
      * Replaces the Day {@code target} in the list with {@code editedDay}.
      * {@code target} must exist in the list.
      */
-    public void setTask(Agenda target, Agenda editedAgenda) throws DukeException {
+    public void setTask(Agenda target, Agenda editedAgenda) {
         int index = list.indexOf(target);
         //        if (index == -1) {
         //            throw new DukeTaskNotFoundException();

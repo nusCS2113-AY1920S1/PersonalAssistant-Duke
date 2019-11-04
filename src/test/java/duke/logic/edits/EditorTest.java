@@ -3,7 +3,7 @@ package duke.logic.edits;
 import duke.commons.exceptions.ApiException;
 import duke.commons.exceptions.DukeException;
 import duke.commons.exceptions.ParseException;
-import duke.commons.exceptions.QueryOutOfBoundsException;
+import duke.commons.exceptions.OutOfBoundsException;
 import duke.logic.parsers.ParserTimeUtil;
 import duke.model.Event;
 
@@ -42,7 +42,7 @@ class EditorTest {
         Editor.edit("02/02/18", event, END_DATE);
         assertEquals(event.getEndDate().toLocalDate(), ParserTimeUtil.parseStringToDate("02/02/18").toLocalDate());
         assertNotEquals(event.getEndDate(), endDate);
-        assertThrows(QueryOutOfBoundsException.class, () -> Editor.edit("meow", event, -1));
-        assertThrows(QueryOutOfBoundsException.class, () -> Editor.edit("meow", event, 3));
+        assertThrows(OutOfBoundsException.class, () -> Editor.edit("meow", event, -1));
+        assertThrows(OutOfBoundsException.class, () -> Editor.edit("meow", event, 3));
     }
 }

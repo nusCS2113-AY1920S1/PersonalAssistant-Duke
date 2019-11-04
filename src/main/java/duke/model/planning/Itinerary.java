@@ -3,8 +3,6 @@ package duke.model.planning;
 import duke.commons.Messages;
 import duke.commons.exceptions.ApiException;
 import duke.commons.exceptions.ParseException;
-import duke.commons.exceptions.StartEndDateBeforeNowException;
-import duke.commons.exceptions.StartEndDateDiscordException;
 import duke.logic.api.ApiParser;
 import duke.logic.parsers.storageParsers.PlanningStorageParser;
 import duke.model.lists.AgendaList;
@@ -108,7 +106,7 @@ public class Itinerary extends AgendaList {
                     venueList.add(ApiParser.getLocationSearch(itineraryDetails[i++]));
                     StringBuilder todos = new StringBuilder();
                     if (i == itineraryDetails.length - 1 || itineraryDetails[i].matches("-?\\d+")) {
-                        throw new ParseException(Messages.ITINERARY_EMPTY_TODOLIST);
+                        throw new ParseException(Messages.ERROR_ITINERARY_EMPTY_TODOLIST);
                     }
                     todos.append(itineraryDetails[++i]).append("|");
                     i++;
@@ -129,9 +127,9 @@ public class Itinerary extends AgendaList {
                 this.setTasks(agendaList);
             }
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new ParseException(Messages.ITINERARY_FAIL_CREATION);
+            throw new ParseException(Messages.ERROR_ITINERARY_FAIL_CREATION);
         } catch (NumberFormatException e) {
-            throw new ParseException(Messages.ITINERARY_INCORRECT_COMMAND);
+            throw new ParseException(Messages.ERROR_ITINERARY_INCORRECT_COMMAND);
         } catch (ApiException | ParseException e) {
             e.printStackTrace();
         }

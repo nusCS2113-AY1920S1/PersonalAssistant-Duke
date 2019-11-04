@@ -1,7 +1,7 @@
 package duke.logic.commands;
 
 import duke.commons.exceptions.FileNotSavedException;
-import duke.commons.exceptions.QueryOutOfBoundsException;
+import duke.commons.exceptions.OutOfBoundsException;
 import duke.commons.exceptions.UnknownFieldException;
 import duke.logic.commands.results.CommandResultText;
 import duke.model.Model;
@@ -36,11 +36,11 @@ public class RouteEditCommand extends Command {
      * @return The CommandResultText.
      * @throws FileNotSavedException If the file is not saved.
      * @throws UnknownFieldException If the queried field is not valid.
-     * @throws QueryOutOfBoundsException If the query is out of bounds.
+     * @throws OutOfBoundsException If the query is out of bounds.
      */
     @Override
     public CommandResultText execute(Model model) throws FileNotSavedException,
-            UnknownFieldException, QueryOutOfBoundsException {
+            UnknownFieldException, OutOfBoundsException {
         try {
             Route route = model.getRoutes().get(index);
             switch (field.toLowerCase()) {
@@ -57,7 +57,7 @@ public class RouteEditCommand extends Command {
             model.save();
             return new CommandResultText(MESSAGE_SUCCESS);
         } catch (IndexOutOfBoundsException e) {
-            throw new QueryOutOfBoundsException();
+            throw new OutOfBoundsException();
         }
     }
 }

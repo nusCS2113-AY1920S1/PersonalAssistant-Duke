@@ -1,6 +1,6 @@
 package duke.logic.commands;
 
-import duke.commons.exceptions.QueryOutOfBoundsException;
+import duke.commons.exceptions.OutOfBoundsException;
 import duke.logic.commands.results.CommandResultMap;
 import duke.model.Model;
 
@@ -24,14 +24,14 @@ public class RouteShowCommand extends Command {
      *
      * @param model The model object containing information about the user.
      * @return The CommandResultRouteMap.
-     * @throws QueryOutOfBoundsException If the query is out of bounds.
+     * @throws OutOfBoundsException If the query is out of bounds.
      */
     @Override
-    public CommandResultMap execute(Model model) throws QueryOutOfBoundsException {
+    public CommandResultMap execute(Model model) throws OutOfBoundsException {
         try {
             return new CommandResultMap(model.getRoutes().get(index));
         } catch (IndexOutOfBoundsException e) {
-            throw new QueryOutOfBoundsException();
+            throw new OutOfBoundsException();
         }
     }
 }

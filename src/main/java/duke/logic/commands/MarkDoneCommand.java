@@ -1,7 +1,7 @@
 package duke.logic.commands;
 
 import duke.commons.exceptions.FileNotSavedException;
-import duke.commons.exceptions.QueryOutOfBoundsException;
+import duke.commons.exceptions.OutOfBoundsException;
 import duke.logic.commands.results.CommandResultText;
 import duke.model.Event;
 import duke.model.Model;
@@ -26,18 +26,18 @@ public class MarkDoneCommand extends Command {
      * Executes this command and returns a text result.
      *
      * @param model The model object containing event list.
-     * @throws QueryOutOfBoundsException If the index is out of bounds.
+     * @throws OutOfBoundsException If the index is out of bounds.
      * @throws FileNotSavedException If the data cannot be saved.
      */
     @Override
-    public CommandResultText execute(Model model) throws QueryOutOfBoundsException, FileNotSavedException {
+    public CommandResultText execute(Model model) throws OutOfBoundsException, FileNotSavedException {
         try {
             Event event = model.getEvents().get(index);
             event.setDone(true);
             model.save();
             return new CommandResultText(MESSAGE_MARK_DONE + event);
         } catch (IndexOutOfBoundsException e) {
-            throw new QueryOutOfBoundsException();
+            throw new OutOfBoundsException();
         }
     }
 }

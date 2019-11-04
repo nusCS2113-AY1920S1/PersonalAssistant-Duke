@@ -1,6 +1,6 @@
 package duke.model.lists;
 
-import duke.commons.exceptions.RouteNotFoundException;
+import duke.commons.exceptions.NoSuchRouteException;
 import duke.commons.exceptions.DuplicateRouteException;
 import duke.model.transports.Route;
 
@@ -51,11 +51,11 @@ public class RouteList implements Iterable<Route>, Listable<Route> {
      * Removes an existing Route from the list.
      *
      * @param toRemove The route to remove.
-     * @exception RouteNotFoundException If the route is not found.
+     * @exception NoSuchRouteException If the route is not found.
      */
-    public void remove(Route toRemove) throws RouteNotFoundException {
+    public void remove(Route toRemove) throws NoSuchRouteException {
         if (!list.remove(toRemove)) {
-            throw new RouteNotFoundException();
+            throw new NoSuchRouteException();
         }
     }
 
@@ -80,13 +80,13 @@ public class RouteList implements Iterable<Route>, Listable<Route> {
      * @param target The existing route.
      * @param editedRoute The new route.
      * @exception DuplicateRouteException If there is a duplicate route.
-     * @exception RouteNotFoundException If the route is not found.
+     * @exception NoSuchRouteException If the route is not found.
      */
     public void setRoute(Route target, Route editedRoute) throws DuplicateRouteException,
-            RouteNotFoundException {
+            NoSuchRouteException {
         int index = list.indexOf(target);
         if (index == -1) {
-            throw new RouteNotFoundException();
+            throw new NoSuchRouteException();
         }
 
         if (target.isSameRoute(editedRoute) || contains(editedRoute)) {

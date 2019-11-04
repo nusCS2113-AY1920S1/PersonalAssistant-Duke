@@ -1,7 +1,7 @@
 package duke.model.transports;
 
 import duke.commons.exceptions.NullResultException;
-import duke.commons.exceptions.QueryOutOfBoundsException;
+import duke.commons.exceptions.OutOfBoundsException;
 import duke.commons.exceptions.DuplicateRouteNodeException;
 import duke.model.locations.BusStop;
 import duke.model.locations.RouteNode;
@@ -57,19 +57,19 @@ class RouteTest {
         BusStop v1 = new BusStop("45039","Opp Yew Tee Ind Est", "Woodlands Rd",
                 1.39585817355572, 103.75427816224409);
 
-        assertThrows(QueryOutOfBoundsException.class, () -> {
+        assertThrows(OutOfBoundsException.class, () -> {
             route.addNode(v1, 1);
         });
 
-        assertThrows(QueryOutOfBoundsException.class, () -> {
+        assertThrows(OutOfBoundsException.class, () -> {
             route.addNode(v1, 2);
         });
 
-        assertThrows(QueryOutOfBoundsException.class, () -> {
+        assertThrows(OutOfBoundsException.class, () -> {
             route.addNode(v1, -1);
         });
 
-        assertThrows(QueryOutOfBoundsException.class, () -> {
+        assertThrows(OutOfBoundsException.class, () -> {
             route.addNode(v1, -2);
         });
 

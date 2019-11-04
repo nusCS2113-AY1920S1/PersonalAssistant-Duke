@@ -1,7 +1,7 @@
 package duke.logic.commands;
 
 import duke.commons.exceptions.ApiException;
-import duke.commons.exceptions.QueryOutOfBoundsException;
+import duke.commons.exceptions.OutOfBoundsException;
 import duke.logic.api.ApiParser;
 import duke.logic.commands.results.CommandResultImage;
 import duke.model.Model;
@@ -54,10 +54,10 @@ public class RouteNodeNeighboursCommand extends Command {
      * @param model The model object containing information about the user.
      * @return The CommandResultText.
      * @throws ApiException If the api call fails.
-     * @throws QueryOutOfBoundsException If the index is out of bounds.
+     * @throws OutOfBoundsException If the index is out of bounds.
      */
     @Override
-    public CommandResultImage execute(Model model) throws ApiException, QueryOutOfBoundsException {
+    public CommandResultImage execute(Model model) throws ApiException, OutOfBoundsException {
         ArrayList<Venue> result = getNeighbour(model);
         Image image = getImage(model, result);
 
@@ -86,7 +86,7 @@ public class RouteNodeNeighboursCommand extends Command {
         return image;
     }
 
-    private ArrayList<Venue> getNeighbour(Model model) throws QueryOutOfBoundsException {
+    private ArrayList<Venue> getNeighbour(Model model) throws OutOfBoundsException {
         try {
             ArrayList<Venue> result = new ArrayList<>();
             ArrayList<Venue> temp = new ArrayList<>();
@@ -112,7 +112,7 @@ public class RouteNodeNeighboursCommand extends Command {
 
             return result;
         } catch (IndexOutOfBoundsException e) {
-            throw new QueryOutOfBoundsException();
+            throw new OutOfBoundsException();
         }
     }
 

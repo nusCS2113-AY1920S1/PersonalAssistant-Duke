@@ -2,8 +2,8 @@ package duke.model.planning;
 
 import duke.commons.exceptions.ApiException;
 import duke.commons.exceptions.ParseException;
-import duke.commons.exceptions.StartEndDateBeforeNowException;
-import duke.commons.exceptions.StartEndDateDiscordException;
+import duke.commons.exceptions.ChronologyBeforePresentException;
+import duke.commons.exceptions.ChronologyInconsistentException;
 import duke.logic.api.ApiParser;
 import duke.logic.parsers.ParserTimeUtil;
 import duke.model.locations.Venue;
@@ -34,7 +34,7 @@ public class Recommendation {
      */
 
     public Itinerary makeItinerary(String[] itineraryDetails) throws ParseException,
-            StartEndDateBeforeNowException, StartEndDateDiscordException {
+            ChronologyBeforePresentException, ChronologyInconsistentException {
         LocalDateTime start = ParserTimeUtil.parseStringToDate(itineraryDetails[1].strip());
         LocalDateTime end = ParserTimeUtil.parseStringToDate(itineraryDetails[2].strip());
         try {
@@ -48,7 +48,7 @@ public class Recommendation {
     }
 
     private Itinerary getAgenda(LocalDateTime start, LocalDateTime end, Venue hotelLocation) throws
-            StartEndDateBeforeNowException, StartEndDateDiscordException {
+            ChronologyBeforePresentException, ChronologyInconsistentException {
         Itinerary itinerary = new Itinerary(start, end, hotelLocation, "New Recommendation");
 
         List<Agenda> agendaList1 = new ArrayList<>(agendaList.subList(0, getNumberOfDays(start, end)));
@@ -60,11 +60,11 @@ public class Recommendation {
     }
 
     private int getNumberOfDays(LocalDateTime start, LocalDateTime end) throws
-            StartEndDateBeforeNowException, StartEndDateDiscordException {
+            ChronologyBeforePresentException, ChronologyInconsistentException {
         if (start.isBefore(LocalDateTime.now()) || end.isBefore(LocalDateTime.now())) {
-            throw new StartEndDateBeforeNowException();
+            throw new ChronologyBeforePresentException();
         } else if (end.isBefore(start) || start.isAfter(end)) {
-            throw new StartEndDateDiscordException();
+            throw new ChronologyInconsistentException();
         } else {
             LocalDateTime tempDateTime = LocalDateTime.from(start);
             long days = tempDateTime.until(end, ChronoUnit.DAYS);
