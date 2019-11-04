@@ -1,27 +1,21 @@
 [
   {
-    "name": "john",
+    "name": "P1",
     "taskList": [
-      "john",
-      "james",
-      "null"
-    ],
-    "skillList": [],
-    "biography": "2"
-  },
-  {
-    "name": "james",
-    "taskList": [
-      "lame",
-      "hi"
+      "job A",
+      "job B",
+      "job C"
     ],
     "skillList": []
   },
   {
-    "name": "lenald",
+    "name": "P2",
     "taskList": [],
-    "skillList": [
-      "coding"
-    ]
+    "skillList": []
+  },
+  {
+    "name": "P3",
+    "taskList": [],
+    "skillList": []
   }
 ]

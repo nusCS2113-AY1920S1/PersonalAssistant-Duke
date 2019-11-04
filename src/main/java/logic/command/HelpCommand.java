@@ -22,9 +22,10 @@ public class HelpCommand extends Command {
                         + "6. link\n"
                         + "7. unlink\n"
                         + "8. edit\n"
-                        + "9. list\n"
-                        + "10. schedule\n"
-                        + "11. bye\n";
+                        + "9. show\n"
+                        + "10. list\n"
+                        + "11. schedule\n"
+                        + "12. bye\n";
 
         return new CommandOutput(output);
     }
