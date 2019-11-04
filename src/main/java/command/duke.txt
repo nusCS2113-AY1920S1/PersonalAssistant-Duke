@@ -1,13 +1,1 @@
-delete payee p/payee   ~ 24-10-2019 22:51:48
-add project pr/RAG  ~ 25-10-2019 10:11:29
-goto project pr/RAG  ~ 25-10-2019 10:11:52
-delete project pr/RAG  ~ 25-10-2019 10:12:09
-add project pr/RAG  ~ 25-10-2019 10:20:32
-add project pr/FLAG  ~ 25-10-2019 10:20:57
-goto project pr/RAG  ~ 25-10-2019 10:21:13
-add project pr/RAG  ~ 25-10-2019 10:23:11
-add project pr/flag  ~ 25-10-2019 10:23:26
-add project pr/rag  ~ 25-10-2019 10:25:05
-add project pr/flag  ~ 25-10-2019 10:25:13
-add payee p/payeename e/email m/matricnum ph/999  ~ 25-10-2019 10:28:51
-add payment p/payeename i/itemname c/9.99 v/invoice d/deadline  ~ 25-10-2019 10:29:34
+

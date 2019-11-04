@@ -192,8 +192,8 @@ Ensure `FIELD` supplied matches one of the acceptable fields above!
 
 Examples:
 
-* `redetail 2 d/drinks 8 d/snacks 20`
-* `redetail 2`(i.e. this operation removes all previous details)
+* `edit p/John Doe v/ f/EMAIL r/johnyy@u.nus.edu`
+* `edit p/John Doe v/INV-001 f/COST r/10.00`
 
 //=== Find a payment or deadline based on its description: `find`
 //
@@ -354,20 +354,16 @@ There is no need to save manually.
 * *Delete Project*: `delete project pr/PROJECT_NAME`
 * *Go to Project*: `goto project pr/PROJECT_NAME`
 * *List Projects*: `list projects`
+* *Set Total Fund*: `set fund am/AMOUNT`
+* *Add to Fund*: `add fund add/500`
+* *Assign Fund*: `assign fund pr/PROJECT_NAME am/AMOUNT`
+* *Show Fund*: `show fund`
 * *Add Payee*: `add payee p/PAYEE e/EMAIL m/MATRICNUM ph/PHONENUM`
 * *Add Payment*: `add payment p/PAYEE i/ITEM c/COST v/INVOICE`
-* *list*: `list`
-* *deadline*: `deadline d/DESCRIPTION`
-* *invoice*: `invoice ID i/INVOICE_number`
-* *reminder*: `reminder`
-* *edit* : `edit ID d/NEW_DESCRIPTION`
-* *snooze*: `snooze ID`
-* *payments* : `payments d/DESCRIPTION [p/PAYMENT_DETAIL]...`
-* *redetail*: `redetail ID [d/PAYMENT_DETAIL]...`
-* *find* : `find d/DESCRIPTION`
-* *view* : `view t/DATE`
-* *delete* : `delete ID`
-* *approve*: `approve ID [m/MESSAGE]`
+* *Edit Payment/Payee*: `edit p/PAYEE v/INVOICE f/FIELD r/REPLACEMENT`
+* *Delete Payee*: `delete payee p/PAYEE`
+* *Full History*: `history`
+* *Specific History*: `view history h/DATE_1 to DATE_2`
 * *exit*: `bye`
 
 
