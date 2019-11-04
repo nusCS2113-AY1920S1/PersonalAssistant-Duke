@@ -830,7 +830,8 @@ Use case resumes at step 2.
 *MSS*
 
 1.  User [underline]#selects a specific project to manage (UC03)#.
-2.  User requests to add member specifying name, phone number and email address.
+2.  User enters command to add member specifying at least the member's name.
+    Phone number and email address are optional.
 3.  ArchDuke adds specified member into current project.
 +
 Use case ends.
@@ -839,10 +840,13 @@ Use case ends.
 
 [none]
 
-* 2a. The given information is invalid.
+* 2a. The given information (member details) is invalid.
 ** 2a1. ArchDuke shows an error message.
 +
 Use case resumes at step 1.
+
+* 2b. The user enters the name of a member already in the project.
+** 2b1. ArchDuke shows an error message informing user of existing member.
 
 [discrete]
 === Use case: Edit members in a specific project (UC05)
@@ -899,10 +903,24 @@ Use case resumes at step 1.
 *MSS*
 
 1.  User [underline]#selects a specific project to manage (UC03)#.
-2.  User requests to assign a specific task to one or several members.
-3.  ArchDuke assigns specified members to specified task in current project.
+2.  User requests to assign/unassign a specific task to one or several members.
+3.  ArchDuke assigns/unassigns specified members to specified task in current project.
 +
 Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. User enters invalid index numbers of tasks/members.
+** 2a1. ArchDuke shows error messages indicating invalid index numbers of respective tasks/members.
++
+Use case resumes from step 2.
+
+[none]
+* 2b. User tries to assign task to someone who has already been assigned the task, or unassigns
+** 2b1. ArchDuke shows error message indicating unsuccessful assignments.
++
+Use case resumes from step 2.
 
 [discrete]
 === Use case: Complete tasks in a specific project (UC09)
