@@ -58,6 +58,6 @@ public class Jaccard implements Serializable {
         word1List1.addAll(word2List);
 
         int union = word1List1.size();
-        return intersection / ((double)union-intersection);
+        return intersection / ((double)union - intersection);
     }
 }
