@@ -78,7 +78,7 @@ public class StorageStub {
      *
      * @throws FileLoadFailException If the file cannot be loaded.
      */
-    public void readItineraryTable() throws FileLoadFailException {
+    private void readItineraryTable() throws FileLoadFailException {
         try {
             File itinerariesFile = new File(ITINERARIES_FILE_PATH);
             Scanner scanner = new Scanner(itinerariesFile);
@@ -160,18 +160,22 @@ public class StorageStub {
     /**
      * Returns Venues fetched from stored memory.
      */
-    public void readRecommendations() {
+    private void readRecommendations() {
         List<Agenda> agendaList = new ArrayList<>();
         Scanner scanner = new Scanner(getClass().getResourceAsStream(RECOMMENDATIONS_FILE_PATH));
         int i = 1;
         while (scanner.hasNext()) {
             List<Venue> venueList = new ArrayList<>();
-            venueList.add(PlanningStorageParser.getVenueFromStorage(scanner.nextLine()));
-            List<Todo> todoList = PlanningStorageParser.getTodoListFromStorage(scanner.nextLine());
-            venueList.add(PlanningStorageParser.getVenueFromStorage(scanner.nextLine()));
-            todoList.addAll(PlanningStorageParser.getTodoListFromStorage(scanner.nextLine()));
-            Agenda agenda = new Agenda(todoList, venueList, i++);
-            agendaList.add(agenda);
+            try {
+                venueList.add(PlanningStorageParser.getVenueFromStorage(scanner.nextLine()));
+                List<Todo> todoList = PlanningStorageParser.getTodoListFromStorage(scanner.nextLine());
+                venueList.add(PlanningStorageParser.getVenueFromStorage(scanner.nextLine()));
+                todoList.addAll(PlanningStorageParser.getTodoListFromStorage(scanner.nextLine()));
+                Agenda agenda = new Agenda(todoList, venueList, i++);
+                agendaList.add(agenda);
+            } catch (ParseException e) {
+                assert (false);
+            }
         }
         scanner.close();
         this.recommendation = new Recommendation(agendaList);
@@ -182,7 +186,7 @@ public class StorageStub {
      *
      * @throws FileNotSavedException If a file cannot be saved.
      */
-    public void write() throws FileNotSavedException {
+    void write() throws FileNotSavedException {
         writeEvents();
         writeRoutes();
     }
