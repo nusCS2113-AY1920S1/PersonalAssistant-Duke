@@ -25,6 +25,7 @@ public class RoomShareException extends Exception {
     public static final String EMPTY_SUB_TASK = "\tYou haven't included your list of sub-tasks\n";
     public static final String DUPLICATE_SUB = "\tDuplicate subtask detected\n";
     public static final String DUPLICATE_TASK = "\tDuplicate task detected\n";
+    public static final String LEAVE_DONE = "\tLeave cannot be set to done\n";
 
 
     private String message;
@@ -114,6 +115,10 @@ public class RoomShareException extends Exception {
 
         case duplicateTask:
             message = DUPLICATE_TASK;
+            break;
+
+        case leaveDone:
+            message = LEAVE_DONE;
             break;
 
         default:

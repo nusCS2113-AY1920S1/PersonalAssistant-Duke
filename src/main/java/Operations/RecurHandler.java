@@ -33,7 +33,7 @@ public class RecurHandler {
      * Returns a boolean value that determines if there was any recurrence triggered.
      * @return A boolean value where true indicates a recurrence was triggered, and false being otherwise.
      */
-    public boolean checkRecurrence() {
+    public boolean checkRecurrence() throws RoomShareException {
         LocalDateTime now = LocalDateTime.now();
         DateTimeFormatter dateTimeFormatterNow = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
         String currentTime = now.format(dateTimeFormatterNow);
@@ -107,7 +107,7 @@ public class RecurHandler {
      * @param isEdited boolean variable describing if the task list has been edited in anyway
      * @return isPassed boolean variable describing if the recurrence date has been passed.
      */
-    private boolean dateHasPassedOthers(String currentTime, Task check, boolean isEdited) {
+    private boolean dateHasPassedOthers(String currentTime, Task check, boolean isEdited) throws RoomShareException {
         boolean isPassed = false;
         try {
             Date current = parser.formatDateCustom_1(currentTime);
