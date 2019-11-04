@@ -30,6 +30,7 @@ import duke.logic.parsers.commandParsers.RecommendationParser;
 import duke.logic.parsers.commandParsers.RouteAddParser;
 import duke.logic.parsers.commandParsers.RouteDeleteParser;
 import duke.logic.parsers.commandParsers.RouteEditParser;
+import duke.logic.parsers.commandParsers.RouteGenerateParser;
 import duke.logic.parsers.commandParsers.RouteListParser;
 import duke.logic.parsers.commandParsers.RouteNodeAddParser;
 import duke.logic.parsers.commandParsers.RouteNodeDeleteParser;
@@ -102,7 +103,7 @@ public class Parser {
         case "routeNodeList":
             return new RouteNodeListParser(getWord(input)).parse();
         case "routeGenerate":
-            return ParserUtil.createRouteGenerateCommand(getWord(input));
+            return new RouteGenerateParser(getWord(input)).parse();
         case "routeShow":
             return new RouteShowCommand(ParserUtil.getIntegerIndexInList(0, 2, getWord(input)));
         case "routeNodeShow":
