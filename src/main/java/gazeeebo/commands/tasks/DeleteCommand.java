@@ -28,7 +28,13 @@ public class DeleteCommand extends Command {
      * @throws NullPointerException
      */
     @Override
-    public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<ArrayList<Task>> commandStack, ArrayList<Task> deletedTask, TriviaManager triviaManager) throws DukeException, ParseException, IOException {
+    public void execute(final ArrayList<Task> list, final Ui ui,
+                        final Storage storage,
+                        final Stack<ArrayList<Task>> commandStack,
+                        final ArrayList<Task> deletedTask,
+                        final TriviaManager triviaManager)
+            throws DukeException,
+            ParseException, IOException {
         if (ui.fullCommand.length() == 6) {
             throw new DukeException("OOPS!!! The description of a deletion cannot be empty.");
         } else {
