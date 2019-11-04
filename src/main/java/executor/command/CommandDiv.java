@@ -32,7 +32,7 @@ public class CommandDiv extends Command {
     @Override
     public void execute(Wallet wallet) {
         this.entryOne = Double.parseDouble(Parser.parseForPrimaryInput(this.commandType, userInput));
-        this.entryTwo = Double.parseDouble(Parser.parseForFlag("/", userInput));
+        this.entryTwo = Double.parseDouble(Parser.parseForFlag("", userInput));
         double result = entryOne / entryTwo;
         System.out.println(result);
     }
