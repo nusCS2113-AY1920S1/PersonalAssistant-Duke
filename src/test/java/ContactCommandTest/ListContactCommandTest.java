@@ -2,7 +2,7 @@ package ContactCommandTest;
 
 import gazeeebo.TriviaManager.TriviaManager;
 import gazeeebo.UI.Ui;
-import gazeeebo.commands.Contact.ListContactCommand;
+import gazeeebo.commands.contact.ListContactCommand;
 import gazeeebo.storage.Storage;
 import gazeeebo.tasks.Task;
 import org.junit.jupiter.api.AfterEach;

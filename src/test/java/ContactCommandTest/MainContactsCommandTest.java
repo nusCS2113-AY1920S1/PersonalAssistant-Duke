@@ -1,6 +1,6 @@
 package ContactCommandTest;
 
-import gazeeebo.commands.Contact.*;
+import gazeeebo.commands.contact.*;
 import gazeeebo.storage.Storage;
 import gazeeebo.tasks.Task;
 import gazeeebo.UI.Ui;
@@ -52,10 +52,22 @@ public class MainContactsCommandTest {
                         + "2. Find contacts base on name: find name\n"
                         + "3. Delete a contact: delete name\n"
                         + "4. See your contacts list: list\n"
-                        + "5. Help Command: help\n"
-                        + "6. Exit contact page: esc\n"
+                        + "5. Undo Command: undo\n"
+                        + "6. Help Command: help\n"
+                        + "7. Exit contact page: esc\n"
                         + "__________________________________________________________\n\n"
-                + "Going back to Main Menu\n"
+                + "Go back to Main Menu...\n" +
+                        "Content Page:\n" +
+                        "------------------ \n" +
+                        "1. help\n" +
+                        "2. contacts\n" +
+                        "3. expenses\n" +
+                        "4. places\n" +
+                        "5. tasks\n" +
+                        "6. cap\n" +
+                        "7. spec\n" +
+                        "8. moduleplanner\n" +
+                        "9. notes\n"
                 , output.toString()
         );
     }

@@ -410,12 +410,7 @@ public class Storage {
                 }
             }
             /* semNumber doesn't exist in the list */
-            if (isEqual == false) {
-                moduleList.add(newCAP);
-                CAPList.put(semNumber, moduleList);
-            }
-            /* semNumber doesn't exist in the list */
-            if (isEqual == false) {
+            if (!isEqual) {
                 moduleList.add(newCAP);
                 CAPList.put(semNumber, moduleList);
             }
