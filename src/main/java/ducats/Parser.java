@@ -25,6 +25,8 @@ import ducats.commands.UndoCommand;
 import ducats.commands.ViewCommand;
 import ducats.components.Jaccard;
 import ducats.components.WordGetter;
+import ducats.Ui;
+
 
 /**
  * A class used to interpret the incoming messages and translate them into the appropriate duke.Commands.
@@ -39,7 +41,7 @@ public class Parser {
      * @return the duke.Commands.duke.Commands.Command object interpreted from the input message
      * @throws DucatsException in the case of parsing errors
      */
-    public static Command parse(String message) throws DucatsException {
+    public static Command parse(Ui ui,String message) throws DucatsException {
         String [] commandList = {"bye", "list", "delete", "deletebar","editbar",
                                     "find","done", "new","help","view","addbar",
                                     "overlay","group","overlay_bar_group", "metronome",
@@ -52,6 +54,9 @@ public class Parser {
         String [] messageSplit = message.split(" ");
         WordGetter wordSimilarity = new WordGetter();
         String commandName = wordSimilarity.closestWord(messageSplit[0]);
+        if (!commandName.equals(messageSplit[0])) {
+            ui.autoCorrectMessage(commandName);
+        }
         messageSplit[0] = commandName;
         message = String.join(" ", messageSplit);
         switch (commandName) {
