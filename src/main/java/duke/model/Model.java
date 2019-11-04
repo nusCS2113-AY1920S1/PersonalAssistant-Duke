@@ -78,7 +78,7 @@ public interface Model {
      */
     VenueList getEventVenues();
 
-    Itinerary getItinerary(String number) throws DukeException;
+    Itinerary getItinerary(String number);
 
     Recommendation getRecommendations();
 
