@@ -78,7 +78,7 @@ public class PatientManager {
      * @param name contains the name to be checked.
      * @throws DukeException if the name is invalid.
      */
-    public void nameIdValid(String name) throws DukeException {
+    public void nameIsValid(String name) throws DukeException {
         Pattern regex = Pattern.compile("[$&+,:;=\\\\?@#|/'<>.^*()%!-]");
         if (regex.matcher(name).find()) {
             throw new DukeException(PatientManager.class, "The patient's name cannot contain any special characters.");
@@ -105,7 +105,7 @@ public class PatientManager {
         }
         char firstChar = nric.charAt(0);
         if (firstChar != 'S' && firstChar != 'T' && firstChar != 'F' && firstChar != 'G') {
-            throw new DukeException("The first letter of NRIC can only be S, T, F or G");
+            throw new DukeException("The first letter of NRIC can only be S, T, F or G.");
         }
         String nricSubstring = nric.substring(1);
         if (nricSubstring.length() != 8) {
@@ -142,7 +142,7 @@ public class PatientManager {
      */
     public void addPatient(Patient patient) throws DukeException {
         try {
-            nameIdValid(patient.getName());
+            nameIsValid(patient.getName());
             nricIsValid(patient.getNric());
             roomIsValid(patient.getRoom());
         } catch (Exception e) {
