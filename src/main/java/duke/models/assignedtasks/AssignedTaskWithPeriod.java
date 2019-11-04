@@ -54,10 +54,6 @@ public class AssignedTaskWithPeriod extends AssignedTask {
         setStartDateRaw(stime);
         setEndDateRaw(etime);
 
-        if (getEndDate().isBefore(getStartDate())) {
-            throw new DukeException("You can't assign the end time earlier than the start time!");
-        }
-
         try {
             setStartDate(DateTimeParser.convertToLocalDateTime(stime));
             setEndDate(DateTimeParser.convertToLocalDateTime(etime));
