@@ -86,6 +86,7 @@ public class Ui extends AnchorPane {
         dialogContainer.getChildren().add(DialogBox.getSenpaiDialog(GREETING_MESSAGE, senpaiImage));
         handle();
         userPic.setImage(userImage);
+        userInput.setPromptText("Enter a command (Enter \"menu\" to see a list of commands");
         levelProgress.setProgress(0);
         playerLevel.setText("You are Level 1");
         handle();

@@ -18,7 +18,7 @@ public class QueuePopPushQuestion extends Question {
         LinkedList<Integer> queue = createList(queueSize);
         ArrayList<String> instructions = new ArrayList<>();
         //Determines the number of instructions to be added.
-        int numberOfInstructions = getRandomNumber(4, 3);
+        int numberOfInstructions = getRandomNumber(3, 3);
         //Populate instructions
         addInstructions(instructions, numberOfInstructions);
 
