@@ -290,7 +290,8 @@ public class Ui {
                     + "Format: search_begin w/d";
         } else {
             return "Here are the commands for WordUp.\n"
-                    + "add, delete, edit, exit, freq, help, history, list, schedule, search, search_begin, tag, addsyn, quiz\n"
+                    + "add, delete, edit, exit, freq, help, history, list,"
+                    + " schedule, search, search_begin, tag, addsyn, quiz\n"
                     + "Enter \"help [command]\" for more details.";
         }
     }
