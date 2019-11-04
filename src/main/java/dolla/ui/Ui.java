@@ -23,6 +23,20 @@ public abstract class Ui {
     protected static final String SORT_DATE = "date";
     protected static final String SORT_NAME = "name";
 
+    private static String newLogo =
+            "\t   /$$$$$$$            /$$ /$$  \n"
+          + "\t  | $$__  $$          | $$| $$   \n"
+          + "\t  | $$  \\ $$  /$$$$$$ | $$| $$  /$$$$$$ \n"
+          + "\t  | $$  | $$ /$$__  $$| $$| $$ |____  $$\n"
+          + "\t  | $$  | $$| $$  \\ $$| $$| $$  /$$$$$$$\n"
+          + "\t  | $$  | $$| $$  | $$| $$| $$ /$$__  $$\n"
+          + "\t  | $$$$$$$/|  $$$$$$/| $$| $$|  $$$$$$$\n"
+          + "\t  |_______/  \\______/ |__/|__/ \\_______/\n";
+
+
+
+
+
     private static String logo =
         "\t ____    _   _  _   _       \n"
         + "\t|  _  \\/ _ \\| || | /  \\      \n"
@@ -36,7 +50,7 @@ public abstract class Ui {
 
     private static String welcomeMsg =
         "\tHello from\n"
-        + logo
+        + newLogo
         + version
         + line
         + "\n\tI help keep track of your finance!\n"
@@ -205,4 +219,29 @@ public abstract class Ui {
                 + "will teach me how to do that. :(");
         System.out.println(line);
     }
+
+    //@@author yetong1895
+    /**
+     * This method will let the thread sleep for the "time" amount of time.
+     * @param time the time for the thread to sleep
+     */
+    public static void sleep(int time) {
+        try {
+            Thread.sleep(time);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+    }
+
+    /**
+     * This method will print input String in typewriter style.
+     * @param message the message to print in typewriter style.
+     */
+    public static void typewriter(String message) {
+        for (int i = 0; i < message.length(); i++) {
+            System.out.printf("%c",message.charAt(i));
+            sleep(10);
+        }
+    }
+
 }

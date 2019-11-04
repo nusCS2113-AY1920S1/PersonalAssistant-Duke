@@ -1,99 +1,82 @@
 package dolla.action;
 
-import dolla.ui.ActionUi;
+import dolla.ModeStringList;
+import dolla.action.state.LimitState;
+import dolla.action.state.DebtState;
+import dolla.action.state.EntryState;
+import dolla.action.state.State;
+import dolla.action.state.UndoStateList;
+import dolla.task.Record;
 
-import java.util.EmptyStackException;
-import java.util.Stack;
+import java.util.ArrayList;
 
-public class Undo {
-    private static String userInput; //user inputs
-    private static String undoInput; //reverse logic inputs
-    private static String mode;
-    private static int index;
-    private static int prevPosition;
+//@@author yetong1895
+public class Undo implements ModeStringList {
+    private static State state;
+    private static ArrayList<Record> list;
 
-    private static Stack<String> undoEntryCommand = new Stack<>();
-    private static Stack<String> undoDebtCommand = new Stack<>();
-    private static Stack<String> undoLimitCommand = new Stack<>();
-
-    //@@author yetong1895
     /**
-     * This method will process a "remove" command.
-     * @param mode  the mode that the user is in.
-     * @param index the index of the removing string.
+     * This method will get the state from the UndoStateList containing all the states.
+     * @param mode the mode that the program is in.
      */
-    public static void removeCommand(String mode, int index) {
-        Undo.mode = mode;
-        Undo.index = index;
-        remove();
+    public static void receiveUndoState(String mode) {
+        state = UndoStateList.getState(mode);
     }
 
     /**
-     * This method will process a "add" command.
-     * @param mode         the mode that the user is in.
-     * @param userInput    the input from the user.
-     * @param prevPosition the previous position of a deleted input.
+     * This method will add the current state to the UndoStateList containing all the states.
+     * @param mode the mode that the program is in.
+     * @param currStatelist the ArrayList containing the current state.
      */
-    public static void addCommand(String mode, String userInput, int prevPosition) {
-        Undo.mode = mode;
-        Undo.userInput = userInput;
-        Undo.prevPosition = prevPosition;
-        add();
-    }
-
-    /**
-     * This method will push the "remove" command into the respective stack
-     * depending on the current mode. The "/undo" serve as an indication that
-     * this command come from "undo".
-     */
-    public static void remove() {
-        undoInput = "remove " + index + "/undo";
-        if (mode.equals("entry")) {
-            undoEntryCommand.push(undoInput);
-        } else if (mode.equals("debt")) {
-            undoDebtCommand.push(undoInput);
-        } else {
-            undoLimitCommand.push(undoInput);
+    public static void addToStateList(String mode, ArrayList<Record> currStatelist) {
+        if (mode.equals(MODE_ENTRY)) {
+            UndoStateList.addState(new EntryState(currStatelist), mode);
+        } else if (mode.equals(MODE_DEBT)) {
+            UndoStateList.addState(new DebtState(currStatelist), mode);
+        } else if (mode.equals(MODE_LIMIT)) {
+            UndoStateList.addState(new LimitState(currStatelist), mode);
         }
     }
 
     /**
-     * This method will push the "add" command into the respective stack
-     * depending on the current mode. The prevPosition represents the
-     * previous position that the deleted string is at.
+     * This method will return the state obtained from a state with respect to the mode.
+     * @param mode the mode that the program is in.
+     * @return list the ArrayList containing the undo state.
      */
-    public static void add() {
-        if (mode.equals("entry")) {
-            undoInput = prevPosition + " " + "add " + userInput;
-            undoEntryCommand.push(undoInput);
-        } else if (mode.equals("debt")) {
-            undoInput = prevPosition + " " + userInput;
-            undoDebtCommand.push(undoInput);
-        } else {
-            undoInput = prevPosition + " " + "set " + userInput;
-            undoLimitCommand.push(undoInput);
-        }
-    }
-
-    /**
-     * This method will return the undoInput.
-     * @param mode the mode that the user is in.
-     * @return undoInput is the String that serve as an undo input.
-     */
-    public static String processCommand(String mode) {
-        try {
-            if (mode.equals("entry")) {
-                undoInput = undoEntryCommand.pop();
-            } else if (mode.equals("debt")) {
-                undoInput = undoDebtCommand.pop();
-            } else {
-                undoInput = undoDebtCommand.pop();
+    public static ArrayList<Record> processUndoState(String mode) {
+        receiveUndoState(mode);
+        if (state != null) {
+            if (mode.equals(MODE_ENTRY)) {
+                list = state.getEntryState();
+            } else if (mode.equals(MODE_DEBT)) {
+                list = state.getDebtState();
+            } else if (mode.equals(MODE_LIMIT)) {
+                list = state.getLimitState();
             }
-        } catch (EmptyStackException e) {
-            ActionUi.printEmptyStackError("undo");
-            return "empty stack";
+            return list;
+        } else {
+            return null;
         }
-        return undoInput;
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
 

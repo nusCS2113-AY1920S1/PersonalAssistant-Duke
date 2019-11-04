@@ -2,17 +2,18 @@ package dolla.parser;
 
 import dolla.Tag;
 
-import dolla.command.Command;
 
 import dolla.command.AddLimitCommand;
-import dolla.command.RemoveCommand;
-import dolla.command.ShowListCommand;
+import dolla.command.Command;
 import dolla.command.ErrorCommand;
-import dolla.command.SortCommand;
+import dolla.command.ShowListCommand;
+import dolla.command.RemoveCommand;
 import dolla.command.SearchCommand;
-
+import dolla.command.SortCommand;
+import dolla.command.AddActionCommand;
 import dolla.task.Limit;
 import dolla.ui.LimitUi;
+import dolla.ui.SearchUi;
 import dolla.ui.Ui;
 
 /**
@@ -63,8 +64,22 @@ public class LimitParser extends Parser {
                 return new ErrorCommand();
             }
         } else if (commandToRun.equals(ParserStringList.COMMAND_SEARCH)) {
-            String component = inputArray[1];
-            String content = inputArray[2];
+            String component = null;
+            String content = null;
+            try {
+                if (verifyDebtSearchComponent(inputArray[1]) && inputArray[2] != null) {
+                    component = inputArray[1];
+                    content = inputArray[2];
+                } else {
+                    SearchUi.printInvalidDebtSearchComponent();
+                }
+            } catch (NullPointerException e) {
+                SearchUi.printInvalidSearchFormat();
+                return new ErrorCommand();
+            } catch (IndexOutOfBoundsException e) {
+                SearchUi.printInvalidSearchFormat();
+                return new ErrorCommand();
+            }
             return new SearchCommand(mode, component, content);
         } else if (commandToRun.equals(ParserStringList.COMMAND_SORT)) {
             if (verifySort()) {
@@ -72,6 +87,10 @@ public class LimitParser extends Parser {
             } else {
                 return new ErrorCommand();
             }
+        } else if (commandToRun.equals(COMMAND_REDO)
+                || commandToRun.equals(COMMAND_UNDO)
+                || commandToRun.equals(COMMAND_REPEAT)) {
+            return new AddActionCommand(mode, commandToRun);
         } else {
             return invalidCommand();
         }

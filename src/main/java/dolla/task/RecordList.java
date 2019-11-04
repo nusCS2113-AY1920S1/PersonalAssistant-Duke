@@ -24,9 +24,6 @@ public class RecordList {
         list.add(newRecord);
     }
 
-    public void insertPrevPosition(int prevPosition, Record newRecord) {
-        list.add(prevPosition, newRecord);
-    }
 
     public int size() {
         return list.size();
@@ -62,5 +59,9 @@ public class RecordList {
 
     public int findExistingRecordIndex(DollaData dollaData, Record record, String mode) {
         return 0;
+    }
+
+    public void setRecordList(ArrayList<Record> recordList) {
+        this.list = recordList;
     }
 }
