@@ -27,6 +27,7 @@ public class QuizScene extends NewScene {
      * Instantiates a QuizScene.
      * @param storage object required to create quiz scene
      */
+
     public QuizScene(Ui ui, Bank bank, Storage storage, Stage window) {
         super(ui, bank, storage, ui.quizGreet(), window);
         setupHandleInput();
@@ -76,8 +77,8 @@ public class QuizScene extends NewScene {
                     }
                     //System.out.println(duplicateQuestion);
                     if (countQuiz < 4) {
-                        while(true){
-                            if(!isDuplicate(this.generateQuiz())){
+                        while (true) {
+                            if (!isDuplicate(this.generateQuiz())) {
                                 break;
                             }
                         }
@@ -129,7 +130,7 @@ public class QuizScene extends NewScene {
         }
     }
 
-    public boolean isDuplicate(String str){
+    private boolean isDuplicate(String str) {
         for (int i = 0; i < duplicateQuestion.size(); i++) {
             if (duplicateQuestion.get(i).equals(str)) {
                 return true;
