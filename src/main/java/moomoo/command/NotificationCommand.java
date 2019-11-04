@@ -29,11 +29,14 @@ public class NotificationCommand extends Command {
                         Ui ui, Storage storage) throws MooMooException {
         String alert = "";
         if (expenditure > budget.getBudgetFromCategory(cat)) {
-            alert = "You have exceeded your budget of " + budget.getBudgetFromCategory(cat) + " for " + cat + "!\n";
+            alert = "\u001B[36m" + "You have exceeded your budget of " + budget.getBudgetFromCategory(cat)
+                    + " for " + cat + "!\n";
         } else if (expenditure == budget.getBudgetFromCategory(cat)) {
-            alert = "You have reached your budget limit of " + budget.getBudgetFromCategory(cat) + ".\n";
+            alert = "\u001B[36m" + "You have reached your budget limit of " + budget.getBudgetFromCategory(cat)
+                    + ".\n";
         } else if (expenditure > budget.getBudgetFromCategory(cat) * 0.9) {
-            alert = "You are reaching your budget limit of " + budget.getBudgetFromCategory(cat) + " for " + cat
+            alert = "\u001B[36m" + "You are reaching your budget limit of " + budget.getBudgetFromCategory(cat)
+                    + " for " + cat
                     + ".\n";
         }
         double balance = budget.getBudgetFromCategory(cat) - expenditure;
