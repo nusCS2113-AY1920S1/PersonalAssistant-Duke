@@ -1,10 +1,19 @@
 package duke.model.planning;
 
+import duke.commons.Messages;
+import duke.commons.exceptions.ApiException;
+import duke.commons.exceptions.ParseException;
+import duke.commons.exceptions.StartEndDateBeforeNowException;
+import duke.commons.exceptions.StartEndDateDiscordException;
+import duke.logic.api.ApiParser;
+import duke.logic.parsers.ParserStorageUtil;
 import duke.model.lists.AgendaList;
 import duke.model.locations.Venue;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Represents an Itinerary and its contained information.
@@ -51,7 +60,7 @@ public class Itinerary extends AgendaList {
     public int getNumberOfDays() {
         LocalDateTime tempDateTime = LocalDateTime.from(startDate);
         long days = tempDateTime.until(endDate, ChronoUnit.DAYS);
-        return Integer.parseInt(String.valueOf(days));
+        return Integer.parseInt(String.valueOf(days)) + 1;
     }
 
     /**
@@ -59,7 +68,7 @@ public class Itinerary extends AgendaList {
      *
      * @return The String which lists the itinerary in full
      */
-    public String printItinerary() {
+    public String printItinerary() throws StartEndDateBeforeNowException, StartEndDateDiscordException {
 
         int days = getNumberOfDays();
 
@@ -79,5 +88,53 @@ public class Itinerary extends AgendaList {
             }
         }
         return result.toString();
+    }
+
+    /**
+     * This makes the agenda list of a new Itinerary entered.
+     *
+     * @param itineraryDetails is the details of the itinerary to make.
+     */
+    public void makeAgendaList(String[] itineraryDetails) throws ParseException {
+        List<Agenda> agendaList = new ArrayList<>();
+        int i = 4;
+        try {
+            while (i < itineraryDetails.length) {
+                List<Venue> venueList = new ArrayList<>();
+                List<Todo> todoList = new ArrayList<>();
+                final int number = Integer.parseInt(itineraryDetails[i++]);
+                while (itineraryDetails[i].equals("/venue")) {
+                    i++;
+                    venueList.add(ApiParser.getLocationSearch(itineraryDetails[i++]));
+                    StringBuilder todos = new StringBuilder();
+                    if (i == itineraryDetails.length - 1 || itineraryDetails[i].matches("-?\\d+")) {
+                        throw new ParseException(Messages.ITINERARY_EMPTY_TODOLIST);
+                    }
+                    todos.append(itineraryDetails[++i]).append("|");
+                    i++;
+                    while (itineraryDetails[i].equals("/and")) {
+                        i++;
+                        todos.append(itineraryDetails[i++]).append("|");
+                        if (i >= itineraryDetails.length) {
+                            break;
+                        }
+                    }
+                    todoList = ParserStorageUtil.getTodoListFromStorage(todos.toString());
+                    if (i >= itineraryDetails.length) {
+                        break;
+                    }
+                }
+                Agenda agenda = new Agenda(todoList, venueList, number);
+                agendaList.add(agenda);
+                this.setTasks(agendaList);
+            }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new ParseException(Messages.ITINERARY_FAIL_CREATION);
+        } catch (NumberFormatException e) {
+            throw new ParseException(Messages.ITINERARY_INCORRECT_COMMAND);
+        } catch (ApiException | ParseException e) {
+            e.printStackTrace();
+        }
+
     }
 }

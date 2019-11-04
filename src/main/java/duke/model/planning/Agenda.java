@@ -29,10 +29,6 @@ public class Agenda extends VenueList {
         return this.todoList;
     }
 
-    public void setTodo(int index, Todo todo) {
-        todoList.set(index,todo);
-    }
-
     public void setDay(int day) {
         this.day = day;
     }

@@ -1,5 +1,6 @@
 package duke.logic;
 
+import duke.commons.exceptions.FileLoadFailException;
 import duke.commons.exceptions.ParseException;
 import duke.logic.commands.Command;
 import duke.logic.commands.results.CommandResult;
@@ -28,7 +29,7 @@ public class LogicManager extends Logic {
     /**
      * Creates LogicManager instance.
      */
-    public LogicManager() {
+    public LogicManager() throws FileLoadFailException {
         model = new ModelManager();
         conversationManager = new ConversationManager();
     }

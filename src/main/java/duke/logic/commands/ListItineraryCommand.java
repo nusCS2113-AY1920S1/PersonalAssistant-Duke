@@ -3,8 +3,10 @@ package duke.logic.commands;
 import duke.commons.exceptions.DukeException;
 import duke.logic.commands.results.CommandResultText;
 import duke.model.Model;
+import duke.model.planning.Itinerary;
 
 import java.io.FileNotFoundException;
+import java.util.HashMap;
 
 /**
  * Lists the stored itineraries names an serial number.
@@ -18,6 +20,12 @@ public class ListItineraryCommand extends Command {
      */
     @Override
     public CommandResultText execute(Model model) throws DukeException, FileNotFoundException {
-        return new CommandResultText("Your Saved Itineraries are :" + "\n" + model.listItineraries());
+        StringBuilder stringBuilder = new StringBuilder();
+        HashMap<String, Itinerary> itineraryHashMap = model.getItineraryTable();
+        int i = 1;
+        for (String name : itineraryHashMap.keySet()) {
+            stringBuilder.append(i++).append(". ").append(name).append("\n");
+        }
+        return new CommandResultText("Your Saved Itineraries are :" + "\n" + stringBuilder.toString());
     }
 }
