@@ -28,17 +28,6 @@ public class Budgeting {
     public Budgeting(ArrayList<Event> eventList, int budget) {
         this.budget = budget;
         createMap(eventList);
-
-//        Iterator monthlyCostIterator = monthlyCosts.entrySet().iterator();
-//
-//        while (monthlyCostIterator.hasNext()) {
-//            Map.Entry mapElement = (Map.Entry)monthlyCostIterator.next();
-//            MonthlyBudget testMonthlyBudget = (MonthlyBudget) mapElement.getValue();
-//            for (Concert testConcert : testMonthlyBudget.getListOfConcerts()){
-//                System.out.print(testConcert.toString() + " ");
-//                System.out.println(testConcert.getCost());
-//            }
-//        }
     }
 
     /**
@@ -62,7 +51,7 @@ public class Budgeting {
      *
      * @param concert Concert that was added.
      */
-    public void updateMonthlyCost(Concert concert) throws CostExceedsBudgetException {
+    public void updateMonthlyCost(Concert concert) throws CostExceedsBudgetException, NumberFormatException {
         String monthAndYear = getMonthAndYear(concert.getStartDate());
 
         MonthlyBudget currMonthlyBudget = monthlyCosts.get(monthAndYear);
@@ -76,6 +65,9 @@ public class Budgeting {
     }
 
     public void setBudget(int budget) {
+        if (budget < 0) {
+            throw new NumberFormatException();
+        }
         this.budget = budget;
     }
 

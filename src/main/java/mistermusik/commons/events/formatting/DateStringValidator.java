@@ -22,7 +22,7 @@ public interface DateStringValidator {
         format.setLenient(false);
         try {
             format.parse(dateString);
-        } catch (ParseException e) {
+        } catch (ParseException | NullPointerException e) {
             return false;
         }
         return true;

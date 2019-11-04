@@ -150,7 +150,7 @@ public class Command {
                 break;
 
             case "budget":
-                showBudget(events, ui);
+                showOrSetBudget(events, ui);
                 break;
 
             case "goal":
@@ -312,10 +312,20 @@ public class Command {
     /**
      * passes budget to UI for printing to output
      */
-    private void showBudget(EventList events, UI ui) {
+    private void showOrSetBudget(EventList events, UI ui) {
         if (continuation.isEmpty()) {
             ui.budgetCommandWrongFormat();
-//            logger.log(Level.WARNING, "The description of showBudget is empty");
+            //            logger.log(Level.WARNING, "The description of showOrSetBudget is empty");
+        } else if (continuation.substring(0,3).equals("set")) {
+            // budget set <new budget>
+            try {
+                int newBudget = Integer.parseInt(continuation.substring(4));
+                events.getBudgeting().setBudget(newBudget);
+                UI.budgetSet(newBudget);
+            } catch (NumberFormatException e) {
+                ui.notAnInteger();
+            }
+
         } else {
             String monthAndYear = continuation;
             try {
@@ -593,7 +603,7 @@ public class Command {
     private void goalsManagement(EventList events, UI ui) {
         if (continuation.isEmpty()) {
             ui.goalCommandWrongFormat();
-//            logger.log(Level.INFO, "The description of goalManagement is empty");
+            //            logger.log(Level.INFO, "The description of goalManagement is empty");
             return;
         }
         try {
