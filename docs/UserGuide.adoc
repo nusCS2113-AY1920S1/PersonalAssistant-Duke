@@ -218,7 +218,7 @@ Shows the list of the last 5 words added, with the latest entry first.
 // end::history[]
 
 // tag::synonyms[]
-=== Adding synonyms of a word : `addsym`
+=== Adding synonyms of a word : `addsyn`
 *Caution*: The synonyms are currently not written to the storage file due to some issues on our side, so we have disabled the writing, all synonyms will be cleared when the program is closed. We will fix this issue by Week 12 after we re-enable the saving
 
 Adds one or many synonyms to an existing word in the database. +
@@ -280,8 +280,6 @@ e.g. `add w/life m/the existence of an individual human being or animal.`
 e.g. `addsyn w/water s/liquid beverage drink`
 * *Delete* : `delete w/word` +
 e.g. `delete w/life`
-* *Add Synonym* : `addsyn w/WORD s/SYNONYM1 SYNONYM2 SYNONYM3 ...` +
-e.g. `addsyn w/water s/liquid beverage drink`*
 * *Edit* : `edit w/WORD m/NEW_MEANGING` +
 e.g. `edit w/life m/the existence of a living thing.`
 * *Help* : `help [COMMAND]`
