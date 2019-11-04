@@ -1,6 +1,7 @@
-package duke.logic.parsers;
+package duke.logic.parsers.storageParsers;
 
-import duke.commons.exceptions.DukeException;
+import duke.commons.exceptions.ApiException;
+import duke.commons.exceptions.ParseException;
 import duke.model.Event;
 
 import org.junit.jupiter.api.Test;
@@ -10,12 +11,12 @@ import java.time.LocalDateTime;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
-class ParserStorageUtilTest {
+class EventStorageParserTest {
 
     @Test
-    void createTaskFromDate() throws DukeException {
+    void createEventFromStorage() throws ApiException, ParseException {
         Event event = new Event("NTU", LocalDateTime.now(), LocalDateTime.now());
-        Event check = ParserStorageUtil.createTaskFromStorage(ParserStorageUtil.toStorageString(event));
+        Event check = EventStorageParser.createEventFromStorage(EventStorageParser.toStorageString(event));
         assertFalse(check.isDone());
         assertEquals(check.getDescription(), "NTU");
     }

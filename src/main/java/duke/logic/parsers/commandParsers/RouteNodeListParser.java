@@ -1,4 +1,4 @@
-package duke.logic.parsers.commandparser;
+package duke.logic.parsers.commandParsers;
 
 import duke.commons.exceptions.ParseException;
 import duke.logic.commands.Command;

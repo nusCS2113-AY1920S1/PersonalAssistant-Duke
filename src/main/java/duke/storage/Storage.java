@@ -10,6 +10,7 @@ import duke.commons.exceptions.RouteDuplicateException;
 import duke.commons.exceptions.RouteNodeDuplicateException;
 import duke.logic.parsers.ParserStorageUtil;
 import duke.logic.parsers.ParserTimeUtil;
+import duke.logic.parsers.storageParsers.EventStorageParser;
 import duke.model.Event;
 import duke.model.lists.EventList;
 import duke.model.lists.RouteList;
@@ -181,7 +182,7 @@ public class Storage {
             File f = new File(EVENTS_FILE_PATH);
             Scanner s = new Scanner(f);
             while (s.hasNext()) {
-                events.add(ParserStorageUtil.createTaskFromStorage(s.nextLine()));
+                events.add(EventStorageParser.createEventFromStorage(s.nextLine()));
             }
             s.close();
             this.events.setEvents(events);
@@ -257,8 +258,7 @@ public class Storage {
                 ParserStorageUtil.createProfileFromStorage(profileCard, input);
             }
             s.close();
-        } catch (FileNotFoundException | ParseException | CategoryNotFoundException
-                | IndexOutOfBoundsException e) {
+        } catch (FileNotFoundException | ParseException | IndexOutOfBoundsException e) {
             profileCard = new ProfileCard();
             throw new FileLoadFailException(PROFILE_FILE_PATH);
         }
@@ -300,7 +300,7 @@ public class Storage {
         try {
             FileWriter writer = new FileWriter(EVENTS_FILE_PATH);
             for (Event event : events) {
-                writer.write(ParserStorageUtil.toStorageString(event) + "\n");
+                writer.write(EventStorageParser.toStorageString(event) + "\n");
             }
             writer.close();
         } catch (IOException e) {

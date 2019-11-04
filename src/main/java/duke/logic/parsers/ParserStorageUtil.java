@@ -1,5 +1,6 @@
 package duke.logic.parsers;
 
+import duke.commons.Messages;
 import duke.commons.enumerations.Direction;
 import duke.commons.exceptions.CategoryNotFoundException;
 import duke.commons.exceptions.CorruptedFileException;
@@ -14,7 +15,6 @@ import duke.model.locations.TrainStation;
 import duke.model.locations.Venue;
 import duke.model.transports.BusService;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,38 +22,6 @@ import java.util.List;
  * Parser for Storage related operations.
  */
 public class ParserStorageUtil {
-    /**
-     * Parses a Event from String format back to Event.
-     *
-     * @param line The String description of an Event.
-     * @return The corresponding Event object.
-     */
-    public static Event createTaskFromStorage(String line) throws ParseException {
-        String[] eventParts = line.split("\\|");
-        String type = eventParts[0].strip();
-        String status = eventParts[1].strip();
-        String description = eventParts[2].strip();
-        Event event;
-        assert ("E".equals(type)) : "There should only be events.";
-        LocalDateTime start = ParserTimeUtil.parseStringToDate(eventParts[3].strip());
-        LocalDateTime end = ParserTimeUtil.parseStringToDate(eventParts[4].strip());
-        Venue location = getLocationFromStorage(eventParts);
-        event = new Event(description, start, end, location);
-        event.setDone("true".equals(status));
-        return event;
-    }
-
-    /**
-     * Parses part of a task back to a Location.
-     */
-    private static Venue getLocationFromStorage(String[] taskParts) {
-        String address = taskParts[5].strip();
-        double longitude = Double.parseDouble(taskParts[7].strip());
-        double latitude = Double.parseDouble(taskParts[6].strip());
-        double distX = Double.parseDouble(taskParts[8].strip());
-        double distY = Double.parseDouble(taskParts[9].strip());
-        return new Venue(address, latitude, longitude, distX, distY);
-    }
 
     /**
      * Updates the profile with data from the storage.
@@ -61,7 +29,7 @@ public class ParserStorageUtil {
      * @param line The String description of an profile.
      */
     public static void createProfileFromStorage(ProfileCard profileCard, String line)
-            throws ParseException, CategoryNotFoundException {
+            throws ParseException {
         String[] token = line.split("\\|");
         switch (token[0].strip()) {
         case "person":
@@ -70,23 +38,16 @@ public class ParserStorageUtil {
         case "preference":
             String[] category = {"", "sports", "entertainment", "arts", "lifestyle"};
             for (int i = 1; i < token.length; i++) {
-                profileCard.setPreference(category[i], token[i].strip().equals("true"));
+                try {
+                    profileCard.setPreference(category[i], token[i].strip().equals("true"));
+                } catch (CategoryNotFoundException e) {
+                    throw new ParseException(Messages.ERROR_DATA_CORRUPTED);
+                }
             }
             break;
         default:
             break;
         }
-    }
-
-    /**
-     * Parses an Event from Event to String format.
-     *
-     * @param event The Event.
-     * @return The corresponding String format of the task object.
-     */
-    public static String toStorageString(Event event) {
-        return "E | " + event.isDone() + " | " + event.getDescription() + " | " + event.getStartDate()
-                + " | " + event.getEndDate() + " | " + event.getLocation();
     }
 
     /**

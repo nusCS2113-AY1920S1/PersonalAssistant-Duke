@@ -5,6 +5,7 @@ import duke.commons.exceptions.FileNotSavedException;
 import duke.commons.exceptions.ParseException;
 import duke.logic.parsers.ParserStorageUtil;
 import duke.logic.parsers.ParserTimeUtil;
+import duke.logic.parsers.storageParsers.EventStorageParser;
 import duke.model.Event;
 import duke.model.lists.EventList;
 import duke.model.lists.RouteList;
@@ -194,7 +195,7 @@ public class StorageStub {
         try {
             FileWriter writer = new FileWriter(EVENTS_FILE_PATH);
             for (Event event : events) {
-                writer.write(ParserStorageUtil.toStorageString(event) + "\n");
+                writer.write(EventStorageParser.toStorageString(event) + "\n");
             }
             writer.close();
         } catch (IOException e) {
