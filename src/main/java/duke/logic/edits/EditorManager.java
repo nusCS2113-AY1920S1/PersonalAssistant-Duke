@@ -1,10 +1,8 @@
 package duke.logic.edits;
 
 import duke.commons.exceptions.ApiException;
-import duke.commons.exceptions.DukeException;
 import duke.commons.exceptions.EmptyVenueException;
 import duke.commons.exceptions.EventNotSelectedException;
-import duke.commons.exceptions.EventSelectionOutOfBoundsException;
 import duke.commons.exceptions.ParseException;
 import duke.commons.exceptions.QueryOutOfBoundsException;
 import duke.logic.commands.Command;

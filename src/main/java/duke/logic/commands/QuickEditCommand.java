@@ -2,8 +2,6 @@ package duke.logic.commands;
 
 import duke.commons.Messages;
 import duke.commons.exceptions.ApiException;
-import duke.commons.exceptions.CorruptedFileException;
-import duke.commons.exceptions.EventSelectionOutOfBoundsException;
 import duke.commons.exceptions.FileNotSavedException;
 import duke.commons.exceptions.ParseException;
 import duke.commons.exceptions.QueryOutOfBoundsException;
