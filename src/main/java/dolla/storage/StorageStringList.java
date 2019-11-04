@@ -23,5 +23,5 @@ public interface StorageStringList {
     String SAVING = "saving";
     String OWE = "owe";
     String BORROW = "borrow";
-
+    String BILL = "bill";
 }

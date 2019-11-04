@@ -1,5 +1,6 @@
 package dolla.parser;
 
+import dolla.DollaData;
 import dolla.Tag;
 import dolla.Time;
 import dolla.command.Command;
@@ -13,7 +14,10 @@ import dolla.command.SortCommand;
 import dolla.command.AddActionCommand;
 import dolla.command.RemoveCommand;
 import dolla.command.SearchCommand;
+import dolla.command.RemoveNameCommand;
+import dolla.task.BillList;
 import dolla.task.Debt;
+import dolla.task.RecordList;
 import dolla.ui.DebtUi;
 import dolla.ui.SearchUi;
 import dolla.ui.Ui;
@@ -91,6 +95,30 @@ public class DebtsParser extends Parser {
                 return new ErrorCommand();
             }
             return new AddBillCommand(BILL_COMMAND_BILL, people, amount, nameList);
+        } else if (commandToRun.equals(BILL_COMMAND_PAID)) {
+            int billNum = 0;
+            String name = null;
+            RecordList recordList;
+            DollaData dollaData = new DollaData();
+            recordList = dollaData.getBillRecordList();
+            if(recordList.size() == 0) {
+                DebtUi.printEmptyBillMessage();
+            }
+            try {
+                if(verifyPaidCommand(inputArray[1], recordList) && inputArray[2] != null) {
+                    billNum = Integer.parseInt(inputArray[1]);
+                    name = inputArray[2];
+                } else {
+                    DebtUi.printInvalidPaidFormatError();
+                    return new ErrorCommand();
+                }
+            } catch (IndexOutOfBoundsException e) {
+                DebtUi.printInvalidPaidFormatError();
+                return new ErrorCommand();
+            } catch (Exception e) {
+                return new ErrorCommand();
+            }
+            return new RemoveNameCommand(billNum, name);
         } else if (commandToRun.equals(COMMAND_MODIFY)) {
             if (verifyFullModifyCommand()) {
                 return new InitialModifyCommand(inputArray[1]);
@@ -136,7 +164,6 @@ public class DebtsParser extends Parser {
         } else {
             return invalidCommand();
         }
-
         return new ErrorCommand();
     }
 }

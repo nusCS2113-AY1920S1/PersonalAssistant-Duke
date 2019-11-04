@@ -1,6 +1,7 @@
 package dolla.task;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 /**
  * A class that is inherited from all forms of recording, ie. entry, Limit and debt so that we can perform polymorphism.
@@ -14,6 +15,8 @@ public abstract class Record {
     protected String userInput;
     protected double amount;
     protected String recordType;
+    protected ArrayList<String> nameList;
+    protected int people;
 
     protected static final String RECORD_ENTRY = "entry";
     protected static final String RECORD_LIMIT = "limit";
@@ -71,6 +74,17 @@ public abstract class Record {
 
     public void setDate(LocalDate ld) {
         date = ld;
+    }
+
+    public ArrayList<String> getNameList() {
+        return nameList;
+    }
+
+    public int getPeople() {
+        return people;
+    }
+    public double getBillAmount() {
+        return amount;
     }
 
     public abstract String amountToMoney();
