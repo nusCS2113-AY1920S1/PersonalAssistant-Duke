@@ -72,7 +72,7 @@ public class Command {
      * @param ui      Class containing all relevant user interface instructions.
      * @param storage Class containing access to the storage file and related instructions.
      */
-    public void execute(EventList events, UI ui, Storage storage, InstrumentList instruments) {
+    public void execute(EventList events, UI ui, Storage storage, InstrumentList instruments, EventDate calendarStartDate) {
         boolean changesMade = true;
 //        logger.log(Level.INFO, "Read in the command");
         switch (command) {
@@ -146,7 +146,7 @@ public class Command {
                 break;
 
             case "calendar":
-                printCalendar(events, ui);
+                printCalendar(events, ui, calendarStartDate);
                 break;
 
             case "budget":
@@ -177,6 +177,9 @@ public class Command {
         if (changesMade) {
             events.sortList();
             storage.saveToFile(events, ui);
+        }
+        if (!(command.equals("calendar"))) {
+            printCalendar(events, ui, calendarStartDate);
         }
     }
 
@@ -271,19 +274,17 @@ public class Command {
         }
     }
 
-    private void printCalendar(EventList events, UI ui) {
+    private void printCalendar(EventList events, UI ui, EventDate calendarStartDate) {
         CalendarView calendarView = null;
         if (continuation.isEmpty()) {
-            EventDate today = new EventDate(new Date());
+            EventDate today = new EventDate(calendarStartDate.getEventJavaDate());
             calendarView = new CalendarView(events, today);
         } else if (continuation.equals("next")) {
-            EventDate nextWeek = new EventDate(new Date());
-            nextWeek.addDaysAndSetMidnight(7);
-            calendarView = new CalendarView(events, nextWeek);
+            calendarStartDate.addDaysAndSetMidnight(7);
+            calendarView = new CalendarView(events, calendarStartDate);
         } else if (continuation.equals("last")) {
-            EventDate lastWeek = new EventDate(new Date());
-            lastWeek.addDaysAndSetMidnight(-7);
-            calendarView = new CalendarView(events, lastWeek);
+            calendarStartDate.addDaysAndSetMidnight(-7);
+            calendarView = new CalendarView(events, calendarStartDate);
         } else {
             ui.calendarCommandWrongFormat();
         }
@@ -354,16 +355,14 @@ public class Command {
      * Finds the next 3 free days in the schedule and passes them to UI class to be printed.
      */
     private void checkFreeDays(EventList events, UI ui) {
-        Calendar dayToCheckIfFree = Calendar.getInstance();
-        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
-        String currentDay = formatter.format(dayToCheckIfFree.getTime());
-        EventDate dayToCheckIfFreeObject = new EventDate(currentDay);
+        EventDate dayToCheckIfFreeObject = new EventDate(new Date());
+        dayToCheckIfFreeObject.addDaysAndSetMidnight(0);
         Queue<String> daysFree = new LinkedList<>();
         int nextDays = 1;
         while (daysFree.size() <= 3) {
             boolean isFree = true;
             for (Event viewEvent : events.getEventArrayList()) {
-                if (viewEvent.getStartDate().getFormattedDateString().equals(dayToCheckIfFreeObject.getFormattedDateString())) {
+                if (viewEvent.getStartDate().getFormattedDateString().substring(0,16).equals(dayToCheckIfFreeObject.getFormattedDateString())) {
                     isFree = false;
                     break;
                 }
