@@ -19,7 +19,7 @@ public class SearchCommand extends Command {
     protected String searchTerm;
 
     public SearchCommand(String queryWord) {
-        this.searchTerm = queryWord;
+        this.searchTerm = queryWord.toLowerCase();
     }
 
     @Override

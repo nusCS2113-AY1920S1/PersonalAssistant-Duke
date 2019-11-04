@@ -2,13 +2,11 @@ package dictionary;
 
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
 import exception.NoWordFoundException;
 import command.OxfordCall;
-import exception.NoWordFoundException;
 import exception.WordAlreadyExistsException;
 import exception.WordBankEmptyException;
 import storage.Storage;
@@ -39,16 +37,11 @@ public class WordBank {
      * @throws NoWordFoundException when the wordBank does not contain the word
      */
     public Word getWord(String word) throws NoWordFoundException {
-        try {
-            if (wordBank.containsKey(word)) {
-                return wordBank.get(word);
-            } else {
-                throw new NoWordFoundException(word);
-            }
-        } catch (NoWordFoundException e) {
-            e.showError();
+        if (wordBank.containsKey(word)) {
+            return wordBank.get(word);
+        } else {
+            throw new NoWordFoundException(word);
         }
-        return null;
     }
 
     public boolean isEmpty() {
@@ -87,7 +80,6 @@ public class WordBank {
      * @throws NoWordFoundException if the word doesn't exist in the word bank nor Oxford dictionary
      */
     public String searchWordMeaning(String word) throws WordBankEmptyException, NoWordFoundException {
-        word = word.toLowerCase();
         String s = "";
         if (wordBank.isEmpty()) {
             throw new WordBankEmptyException();
@@ -108,10 +100,9 @@ public class WordBank {
      * @throws NoWordFoundException if no words in the WordBank have that beginning substring
      */
     public ArrayList<String> searchWordWithBegin(String word) throws NoWordFoundException {
-        word = word.toLowerCase();
         ArrayList<String> arrayList = new ArrayList<>();
         String upperBoundWord = wordBank.ceilingKey(word);
-        if (!upperBoundWord.startsWith(word)) {
+        if (upperBoundWord == null || !upperBoundWord.startsWith(word)) {
             throw new NoWordFoundException(word);
         }
         SortedMap<String, Word> subMap = wordBank.subMap(upperBoundWord, wordBank.lastKey());
@@ -179,6 +170,9 @@ public class WordBank {
 
     /**
      * Checks spelling when user input a non-existing word.
+     * A word is considered to be close will must differs in less than its length
+     * compared to the searched word.
+     * Also consider words with one swap between any 2 characters.
      * @param word word to be searched
      * @return list of words that is considered to be close from the word user is looking for
      */
@@ -187,6 +181,16 @@ public class WordBank {
         for (Word w : wordBank.values()) {
             if (w.isClosed(word)) {
                 closedWords.add(w.getWordString());
+            }
+            for (int i = 0; i < word.length(); i++) {
+                for (int j = i + 1; j < word.length(); j++) {
+                    StringBuilder wordWithOneSwap = new StringBuilder(word);
+                    wordWithOneSwap.setCharAt(i, word.charAt(j));
+                    wordWithOneSwap.setCharAt(j, word.charAt(i));
+                    if (w.isClosed(wordWithOneSwap.toString())) {
+                        closedWords.add(w.getWordString());
+                    }
+                }
             }
         }
         return closedWords;

@@ -51,6 +51,10 @@ public class Word {
         return word;
     }
 
+    public void setStringLowerCase() {
+        word = word.toLowerCase();
+    }
+
     public int getNumberOfSearches() {
         return numberOfSearches;
     }
@@ -82,13 +86,37 @@ public class Word {
      */
     private double differenceToWord(String another) {
         int lengthOfShorterWord = Math.min(another.length(), word.length());
-        int count = 0;
-        for (int i = 0; i < lengthOfShorterWord; i++) {
-            if (word.charAt(i) != another.charAt(i)) {
-                count++;
+        int count = editDistance(another);
+        return count * 1.0 / lengthOfShorterWord;
+    }
+
+    /**
+     * Levenshtein distance between 2 strings.
+     * Calculates the minimum number of changes from 1 string to get to another
+     * Possible changes are insert, delete or change change characters
+     * @param another represents another string to be compared
+     * @return the minimum number of edits
+     */
+    private int editDistance (String another) {
+        int m = word.length();
+        int n = another.length();
+        int[][] edit = new int[m][n];
+        for (int i = 0; i < n; i++) {
+            edit[0][i] = i;
+        }
+        for (int i = 1; i < m; i++) {
+            edit[i][0] = i;
+            for (int j = 1; j < n; j++) {
+                int replace;
+                if (word.charAt(i) == another.charAt(j)) {
+                    replace = edit[i-1][j-1];
+                } else {
+                    replace = edit[i-1][j-1] + 1;
+                }
+                edit[i][j] = Math.min(replace, Math.min(edit[i][j-1] + 1, edit[i-1][j] + 1));
             }
         }
-        return count * 1.0 / lengthOfShorterWord;
+        return edit[m-1][n-1];
     }
 
     /**
