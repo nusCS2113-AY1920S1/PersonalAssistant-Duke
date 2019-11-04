@@ -231,6 +231,7 @@ public class ParserHelper {
         return taskDetails;
     }
 
+    //@@author sinteary
     /**
      * Parses input String to get valid task and member index numbers, as well as error messages
      * for invalid index numbers.
@@ -372,4 +373,5 @@ public class ParserHelper {
     public ArrayList<String> getErrorMessages() {
         return this.errorMessages;
     }
+    //@@author
 }

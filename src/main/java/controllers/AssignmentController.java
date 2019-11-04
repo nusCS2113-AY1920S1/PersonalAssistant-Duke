@@ -105,8 +105,8 @@ public class AssignmentController {
     }
 
     /**
-     * Returns messages about successful assignments for valid tasks.
-     * @return an ArrayList of success messages.
+     * Returns messages about successful assignments to be shown to the user.
+     * @return an ArrayList of success messages indicating successful assignment.
      */
     public ArrayList<String> getSuccessMessages() {
         return successMessages;
