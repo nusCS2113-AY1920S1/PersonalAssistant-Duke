@@ -384,7 +384,8 @@ public class Parser {
         char[] chars = s.toCharArray();
         for (int index = 0; index < chars.length; index++) {
             int codePoint = Character.codePointAt(chars, index);
-            if (!Character.isLetter(codePoint) && !Character.isSpaceChar(codePoint)) {
+            if (!Character.isLetter(codePoint) && !Character.isSpaceChar(codePoint)
+                    && !(chars[index]==',' || chars[index]=='.' || chars[index]==';')) {
                 return false;
             }
         }
