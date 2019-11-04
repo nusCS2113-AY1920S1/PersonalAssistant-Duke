@@ -83,6 +83,7 @@ public abstract class Record {
     public int getPeople() {
         return people;
     }
+
     public double getBillAmount() {
         return amount;
     }

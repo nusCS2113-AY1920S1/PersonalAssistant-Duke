@@ -387,7 +387,7 @@ public abstract class Parser implements ParserStringList, ModeStringList {
     protected Boolean verifyPaidCommand(String s, RecordList recordList) {
         try {
             Integer.parseInt(s);
-            if(Integer.parseInt(s) < recordList.size()){
+            if (Integer.parseInt(s) < recordList.size()) {
                 return true;
             }
         } catch (Exception e) {

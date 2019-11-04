@@ -101,11 +101,11 @@ public class DebtsParser extends Parser {
             RecordList recordList;
             DollaData dollaData = new DollaData();
             recordList = dollaData.getBillRecordList();
-            if(recordList.size() == 0) {
+            if (recordList.size() == 0) {
                 DebtUi.printEmptyBillMessage();
             }
             try {
-                if(verifyPaidCommand(inputArray[1], recordList) && inputArray[2] != null) {
+                if (verifyPaidCommand(inputArray[1], recordList) && inputArray[2] != null) {
                     billNum = Integer.parseInt(inputArray[1]);
                     name = inputArray[2];
                 } else {

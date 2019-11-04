@@ -12,6 +12,7 @@ public class RemoveNameCommand extends Command {
 
     protected int billNum;
     protected String name;
+
     public RemoveNameCommand(int billNum, String name) {
         this.billNum = billNum;
         this.name = name;
@@ -24,12 +25,12 @@ public class RemoveNameCommand extends Command {
         int people = recordList.get().get(billNum - 1).getPeople();
         double amount = recordList.get().get(billNum - 1).getBillAmount();
         ArrayList<String> nameList = recordList.get().get(billNum - 1).getNameList();
-        for(int i = 0; i < nameList.size(); i++) {
+        for (int i = 0; i < nameList.size(); i++) {
             if (nameList.get(i).equals(name)) {
                 nameList.remove(i);
             }
         }
-        if(nameList.size() == 0) {
+        if (nameList.size() == 0) {
             dollaData.removeFromRecordList("bill", billNum - 1);
             DebtUi.printFinishMessage();
         } else {
