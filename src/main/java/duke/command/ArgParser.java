@@ -193,10 +193,8 @@ public class ArgParser {
         String newSwitchName = elementBuilder.toString().toLowerCase();
 
         // previous switch was not given an argument
-        if (currSwitchName != null) {
-            if (switchMap.get(currSwitchName).argLevel == ArgLevel.REQUIRED) {
-                throw new DukeHelpException("I need an argument for this switch: " + currSwitchName, currCommand);
-            }
+        if (currSwitchName != null && switchMap.get(currSwitchName).argLevel == ArgLevel.REQUIRED) {
+            throw new DukeHelpException("I need an argument for this switch: " + currSwitchName, currCommand);
         }
 
         // search for switch name in switch name map, then use algorithm to find it
