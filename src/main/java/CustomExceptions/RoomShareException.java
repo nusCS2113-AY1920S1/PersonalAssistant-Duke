@@ -21,10 +21,11 @@ public class RoomShareException extends Exception {
     public static final String WRONG_TIME_FORMAT_TEXT = "\tYou've entered an invalid time format\n";
     public static final String WRONG_SORT_TYPE_TEXT = "\tPlease enter a valid sort type: priority, alphabetical or deadline\n";
     public static final String LOG_ERROR_TEXT = "\tError writing to a new log file. Please try again.\n";
-    public static final String NEGATIVE_AMOUNT_TEXT = "\tThe amount of time to snooze a task cannot be negative.\n";
+    public static final String NEGATIVE_AMOUNT_TEXT = "\tThe amount of time cannot be negative.\n";
     public static final String EMPTY_SUB_TASK = "\tYou haven't included your list of sub-tasks\n";
     public static final String DUPLICATE_SUB = "\tDuplicate subtask detected\n";
     public static final String DUPLICATE_TASK = "\tDuplicate task detected\n";
+    public static final String LEAVE_DONE = "\tLeave cannot be set to done\n";
     public static final String INVALID_INPUT_TEXT = "\tYour input String seems to be wrong.\n"
             +"\tPlease check your formatting and ensure that the use of special characters are correct!\n";
     public static final String LOAD_ERROR_MESSAGE = "\terror in loading file: will be initialising empty list instead!\n";
@@ -119,7 +120,11 @@ public class RoomShareException extends Exception {
         case duplicateTask:
             message = DUPLICATE_TASK;
             break;
-
+            
+        case leaveDone:
+            message = LEAVE_DONE;
+            break;
+            
         case invalidInputString:
             message = INVALID_INPUT_TEXT;
             break;
