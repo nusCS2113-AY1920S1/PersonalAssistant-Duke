@@ -375,8 +375,8 @@ public class TaskCommandParseHelper {
         Task.Priority level = null;
         if (level.HIGH.name().equals(input)) {
             return level.HIGH;
-        } else if (level.MED.name().equals(input)) {
-            return level.MED;
+        } else if (level.MEDIUM.name().equals(input) || level.MED.name().equals(input)) {
+            return level.MEDIUM;
         } else if (level.LOW.name().equals(input)) {
             return level.LOW;
         } else {
@@ -480,11 +480,6 @@ public class TaskCommandParseHelper {
         if (time == null) {
             return new InvalidCommand("Please enter a time of correct format after \'-time\'");
         }
-        LocalDateTime currentTime = LocalDateTime.now();
-        if (time.compareTo(currentTime) < -1) {
-            return new InvalidCommand("Input date is not prior to current date. Please enter a date that "
-                    + "has not passed");
-        }
         String name = deadlineMatcher.group("name");
         return new TaskAddCommand(Task.TaskType.DEADLINE, name, time, doAfter, tags, priority, links);
     }
@@ -498,11 +493,6 @@ public class TaskCommandParseHelper {
         }
         if (time == null) {
             return new InvalidCommand("Please enter a time of correct format after \'-time\'");
-        }
-        LocalDateTime currentTime = LocalDateTime.now();
-        if (time.compareTo(currentTime) < -1) {
-            return new InvalidCommand("Input date is not prior to current date. Please enter a date that "
-                    + "has not passed");
         }
         String name = eventMatcher.group("name");
         return new TaskAddCommand(Task.TaskType.EVENT, name, time, doAfter, tags, priority, links);
