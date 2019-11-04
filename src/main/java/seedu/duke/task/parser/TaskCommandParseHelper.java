@@ -375,7 +375,7 @@ public class TaskCommandParseHelper {
         Task.Priority level = null;
         if (level.HIGH.name().equals(input)) {
             return level.HIGH;
-        } else if (level.MEDIUM.name().equals(input)) {
+        } else if (level.MEDIUM.name().equals(input) || level.MED.name().equals(input)) {
             return level.MEDIUM;
         } else if (level.LOW.name().equals(input)) {
             return level.LOW;

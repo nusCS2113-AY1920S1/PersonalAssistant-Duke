@@ -18,7 +18,7 @@ public class Task {
      * The enumeration of priority level.
      */
     public enum Priority {
-        HIGH, MEDIUM, LOW
+        HIGH, MEDIUM, MED, LOW
     }
 
     /**
