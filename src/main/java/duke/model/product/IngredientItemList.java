@@ -7,14 +7,6 @@ import java.util.ArrayList;
 
 public class IngredientItemList extends ArrayList<Item<Ingredient>> {
 
-    public Double getIngredientCost() {
-        Double ingredientCost = 0.0;
-        for(int i = 0; i < this.size(); i++) {
-            ingredientCost += this.get(i).getTotalPrice();
-        }
-        return ingredientCost;
-    }
-
     @Override
     public String toString() {
         String s = "";

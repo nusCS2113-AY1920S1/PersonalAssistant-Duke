@@ -25,86 +25,28 @@ public class Product {
     private Status status;
 
 
-    public Product() {
+    /** Constructor for ProductParserUtil*/
+    public Product(String productName) {
+        this.productName = productName;
         this.ingredients = new IngredientItemList();
         this.ingredientCost = DEFAULT_INGREDIENT_COST;
         this.retailPrice = DEFAULT_RETAIL_PRICE;
         this.status = DEFAULT_STATUS;
     }
 
-    /** Constructor for Order parser.util*/
-    public Product(String productName) {
-        this.productName = productName;
-    }
-
-    /**
-     * Creates a Product.
-     */
-    public Product(String productName, String retailPrice, String ingredientCost) {
-        requireAllNonNull(productName);
-        checkEmpty(productName, ProductMessageUtils.MESSAGE_MISSING_PRODUCT_NAME);
-
-        try {
-            this.productName = productName;
-            this.ingredients = new IngredientItemList();
-            this.ingredientCost = Double.parseDouble(ingredientCost);
-            this.retailPrice = Double.parseDouble(retailPrice);
-            this.status = Status.ACTIVE;
-        } catch (NumberFormatException e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * Creates a Product.
-     */
-    public Product(String productName, String retailPrice, String ingredientCost, IngredientItemList ingredientItemList) {
-        requireAllNonNull(productName);
-        checkEmpty(productName, ProductMessageUtils.MESSAGE_MISSING_PRODUCT_NAME);
-
-        try {
-            this.productName = productName;
-            this.ingredientCost = Double.parseDouble(ingredientCost);
-            this.retailPrice = Double.parseDouble(retailPrice);
-            this.status = Status.ACTIVE;
-            this.ingredients = ingredientItemList;
-        } catch (NumberFormatException e) {
-            e.printStackTrace();
-        }
-    }
-
     /**
      * Creates a Product with all field given.
+     * This is only allowed in creating product for EditProductCommand as it provides status in the arguments.
      */
     public Product(String productName, Double retailPrice, Double ingredientCost,
                    IngredientItemList ingredientItemList, Product.Status status) {
         requireAllNonNull(productName);
         checkEmpty(productName, ProductMessageUtils.MESSAGE_MISSING_PRODUCT_NAME);
-
-        try {
-            this.productName = productName;
-            this.ingredientCost = ingredientCost;
-            this.retailPrice = retailPrice;
-            this.status = status;
-            this.ingredients = ingredientItemList;
-        } catch (NumberFormatException e) {
-            e.printStackTrace();
-        }
-    }
-
-    /** Constructor for edit Product */
-    public Product(String productName, Double retailPrice, Double ingredientCost, Product.Status status) {
-        requireAllNonNull(productName);
-        checkEmpty(productName, ProductMessageUtils.MESSAGE_MISSING_PRODUCT_NAME);
-
-        try {
-            this.productName = productName;
-            this.ingredientCost = ingredientCost;
-            this.retailPrice = retailPrice;
-            this.status = status;
-        } catch (NumberFormatException e) {
-            e.printStackTrace();
-        }
+        this.productName = productName;
+        this.ingredientCost = ingredientCost;
+        this.retailPrice = retailPrice;
+        this.status = status;
+        this.ingredients = ingredientItemList;
     }
 
     public void setProductName(String productName) {
@@ -168,6 +110,5 @@ public class Product {
     public int hashCode() {
         return Objects.hash(productName);
     }
-
 }
 
