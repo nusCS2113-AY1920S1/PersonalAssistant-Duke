@@ -23,6 +23,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TitledPane;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
@@ -136,6 +137,36 @@ public class MainWindow extends UiPart<Stage> {
     private VBox helpGuideContainer;
     @FXML
     private ScrollPane helpGuideScrollPane;
+
+    @FXML
+    private VBox firstDayBox;
+    @FXML
+    private VBox secondDayBox;
+    @FXML
+    private VBox thirdDayBox;
+    @FXML
+    private VBox forthDayBox;
+    @FXML
+    private VBox fifthDayBox;
+    @FXML
+    private VBox sixthDayBox;
+    @FXML
+    private VBox seventhDayBoy;
+
+    @FXML
+    private TitledPane firstTitlePane;
+    @FXML
+    private TitledPane secondTitlePane;
+    @FXML
+    private TitledPane thirdTitlePane;
+    @FXML
+    private TitledPane forthTitlePane;
+    @FXML
+    private TitledPane fifthTitlePane;
+    @FXML
+    private TitledPane sixthTitlePane;
+    @FXML
+    private TitledPane seventhTitlePane;
 
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
@@ -631,6 +662,10 @@ public class MainWindow extends UiPart<Stage> {
             helpGuideContainer.getChildren().addAll(newHelpBox);
             helpGuideScrollPane.setContent(helpGuideContainer);
         }
+    }
+
+    public void showUpcomingTasks() {
+
     }
 
 }

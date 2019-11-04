@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Scene?>
+<?import javafx.scene.control.Accordion?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
@@ -12,6 +13,7 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.effect.Reflection?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
@@ -260,6 +262,81 @@
                                             </AnchorPane>
                                         </content>
                                     </Tab>
+                              <Tab text="UpcomingTasks">
+                                <content>
+                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                       <children>
+                                          <Accordion maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="690.0" prefWidth="275.0">
+                                            <panes>
+                                              <TitledPane fx:id="firstTitlePane" animated="false" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="690.0" prefWidth="275.0" text="untitled 1">
+                                                <content>
+                                                  <AnchorPane fx:id="firstUpcomingTaskContainer" minHeight="0.0" minWidth="0.0" prefHeight="495.0" prefWidth="285.0">
+                                                         <children>
+                                                            <VBox fx:id="firstDayBox" prefHeight="690.0" prefWidth="275.0" />
+                                                         </children>
+                                                      </AnchorPane>
+                                                </content>
+                                              </TitledPane>
+                                                <TitledPane fx:id="secondTitlePane" animated="false" layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="690.0" prefWidth="275.0" text="untitled 1">
+                                                   <content>
+                                                      <AnchorPane fx:id="secondUpcomingTaskContainer" minHeight="0.0" minWidth="0.0" prefHeight="495.0" prefWidth="285.0">
+                                                         <children>
+                                                            <VBox fx:id="secondDayBox" prefHeight="690.0" prefWidth="275.0" />
+                                                         </children>
+                                                      </AnchorPane>
+                                                   </content>
+                                                </TitledPane>
+                                                <TitledPane fx:id="thirdTitlePane" animated="false" layoutX="10.0" layoutY="37.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="690.0" prefWidth="275.0" text="untitled 1">
+                                                   <content>
+                                                      <AnchorPane fx:id="thirdUpcomingTaskContainer" minHeight="0.0" minWidth="0.0" prefHeight="495.0" prefWidth="285.0">
+                                                         <children>
+                                                            <VBox fx:id="thirdDayBox" prefHeight="690.0" prefWidth="275.0" />
+                                                         </children>
+                                                      </AnchorPane>
+                                                   </content>
+                                                </TitledPane>
+                                                <TitledPane fx:id="fourthTitlePane" animated="false" layoutX="10.0" layoutY="673.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="690.0" prefWidth="275.0" text="untitled 1">
+                                                   <content>
+                                                      <AnchorPane fx:id="fourthUpcomingTaskContainer" minHeight="0.0" minWidth="0.0" prefHeight="495.0" prefWidth="285.0">
+                                                         <children>
+                                                            <VBox fx:id="fourthDayBox" prefHeight="690.0" prefWidth="275.0" />
+                                                         </children>
+                                                      </AnchorPane>
+                                                   </content>
+                                                </TitledPane>
+                                                <TitledPane fx:id="fifthTitlePane" animated="false" layoutX="10.0" layoutY="673.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="690.0" prefWidth="275.0" text="untitled 1">
+                                                   <content>
+                                                      <AnchorPane fx:id="fifthUpcomingTaskContainer" minHeight="0.0" minWidth="0.0" prefHeight="495.0" prefWidth="285.0">
+                                                         <children>
+                                                            <VBox fx:id="fifthDayBox" prefHeight="690.0" prefWidth="275.0" />
+                                                         </children>
+                                                      </AnchorPane>
+                                                   </content>
+                                                </TitledPane>
+                                                <TitledPane fx:id="sixthTitlePane" animated="false" layoutX="10.0" layoutY="673.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="690.0" prefWidth="275.0" text="untitled 1">
+                                                   <content>
+                                                      <AnchorPane fx:id="sixthUpcomingTaskContainer" minHeight="0.0" minWidth="0.0" prefHeight="495.0" prefWidth="285.0">
+                                                         <children>
+                                                            <VBox fx:id="sixthDayBox" prefHeight="690.0" prefWidth="275.0" />
+                                                         </children>
+                                                      </AnchorPane>
+                                                   </content>
+                                                </TitledPane>
+                                                <TitledPane fx:id="seventhTitlePane" animated="false" layoutX="10.0" layoutY="673.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="690.0" prefWidth="275.0" text="untitled 1">
+                                                   <content>
+                                                      <AnchorPane fx:id="seventhUpcomingTaskContainer" minHeight="0.0" minWidth="0.0" prefHeight="495.0" prefWidth="285.0">
+                                                         <children>
+                                                            <VBox fx:id="seventhDayBox" prefHeight="690.0" prefWidth="275.0" />
+                                                         </children>
+                                                      </AnchorPane>
+                                                   </content>
+                                                </TitledPane>
+                                            </panes>
+                                          </Accordion>
+                                       </children>
+                                    </AnchorPane>
+                                </content>
+                              </Tab>
                                     <Tab text="Help Guide">
                                         <content>
                                             <AnchorPane fx:id="helpAnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="690.0" prefWidth="275.0">
