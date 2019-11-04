@@ -12,6 +12,7 @@ import ducats.components.Song;
 import ducats.components.SongList;
 import ducats.components.VerseList;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class AsciiCommand extends Command<SongList> {
@@ -140,12 +141,94 @@ public class AsciiCommand extends Command<SongList> {
         return printSongAscii(tempSong);
     }
 
+    public static String wrapContent(String str){
+        String[] strings = str.split("\n");
+        ArrayList<ArrayList<String>> rows = new ArrayList<>();
+        for(int i = 0; i < strings.length; i++){
+            rows.add(new ArrayList<>());
+        }
+        for(int i = 0; i < strings.length; i++){
+            strings[i] = strings[i].substring(4);
+            for(int j = 0; j < strings[i].length(); j++){
+                if(j % 72 == 0){
+                    if(j+72 < strings[i].length()){
+                        rows.get(i).add(strings[i].substring(j, j+72));
+                    }
+                    else {
+                        rows.get(i).add(strings[i].substring(j));
+                    }
+                }
+            }
+       }
+
+        StringBuilder result = new StringBuilder();
+        int count = rows.get(0).size();
+        for(int i = 0; i < count; i++){
+            for(int j = 0; j < 15; j ++){
+                switch (j){
+                    case 0:
+                        result.append("UC: ");
+                        break;
+                    case 1:
+                        result.append("UB: ");
+                        break;
+                    case 2:
+                        result.append("UA: ");
+                        break;
+                    case 3:
+                        result.append("UG: ");
+                        break;
+                    case 4:
+                        result.append("UF: ");
+                        break;
+                    case 5:
+                        result.append("UE: ");
+                        break;
+                    case 6:
+                        result.append("UD: ");
+                        break;
+                    case 7:
+                        result.append("MC: ");
+                        break;
+                    case 8:
+                        result.append("LB: ");
+                        break;
+                    case 9:
+                        result.append("LA: ");
+                        break;
+                    case 10:
+                        result.append("LG: ");
+                        break;
+                    case 11:
+                        result.append("LF: ");
+                        break;
+                    case 12:
+                        result.append("LE: ");
+                        break;
+                    case 13:
+                        result.append("LD: ");
+                        break;
+                    case 14:
+                        result.append("LC: ");
+                        break;
+                }
+                result.append(rows.get(j).get(i) + "\n");
+                if(j==14){
+                    result.append("\n");
+                }
+            }
+        }
+        return result.toString();
+    }
+
     /**
      * Prints out the selected song in ASCII format to represent the song sheet.
      * @param song the song that user wants to print in ASCII
      */
     public static String printSongAscii(Song song) {
         ArrayList<ArrayList<String>> songAscii = parseSongAscii(getSongAscii(song));
+        //ArrayList<ArrayList<ArrayList<String>>> rowsSongAscii = new ArrayList<>();
+
         StringBuilder stringResult = new StringBuilder();
         for (int i = 0; i < 15; i++) {
             for (int j = 0; j < songAscii.get(i).size(); j++) {
@@ -164,7 +247,8 @@ public class AsciiCommand extends Command<SongList> {
             //System.out.println();
             stringResult.append("\n");
         }
-        return stringResult.toString();
+        return wrapContent(stringResult.toString());
+        //return stringResult.toString();
     }
 
 
