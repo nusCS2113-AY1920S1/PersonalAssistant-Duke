@@ -150,8 +150,8 @@ public class TaskList {
         for (Task query : tasks) {
             if (query.toString().toLowerCase().contains(key.trim())) {
                 System.out.println("\t" + queryCount + ". " + query.toString());
+                queryCount += 1;
             }
-            queryCount += 1;
         }
         if (queryCount == 1) {
             System.out.println("    Your search returned no results.... Try searching with another keyword!");
