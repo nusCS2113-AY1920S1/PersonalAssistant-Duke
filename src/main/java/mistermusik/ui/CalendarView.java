@@ -1,7 +1,8 @@
 //@@author ZhangYihanNus
-package mistermusik.commons.events.formatting;
+package mistermusik.ui;
 
 import mistermusik.commons.events.eventtypes.Event;
+import mistermusik.commons.events.formatting.EventDate;
 import mistermusik.logic.EventList;
 
 import java.util.*;

@@ -1,7 +1,6 @@
 
 package mistermusik;
 
-import mistermusik.commons.events.formatting.CalendarView;
 import mistermusik.commons.events.formatting.EventDate;
 import mistermusik.logic.EventList;
 import mistermusik.storage.Instruments.InstrumentList;
