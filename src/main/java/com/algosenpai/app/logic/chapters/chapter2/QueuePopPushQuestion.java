@@ -13,12 +13,12 @@ public class QueuePopPushQuestion extends Question {
 
     QueuePopPushQuestion() {
         //Generates a size for the queue between 4 and 8.
-        queueSize = 7;//getRandomNumber(7,4);
+        queueSize = getRandomNumber(7,4);
         //Populates the queue with positive integers under 100.
         LinkedList<Integer> queue = createList(queueSize);
         ArrayList<String> instructions = new ArrayList<>();
         //Determines the number of instructions to be added.
-        int numberOfInstructions = 6;//getRandomNumber(3, 3);
+        int numberOfInstructions = getRandomNumber(3, 3);
         //Populate instructions
         addInstructions(instructions, numberOfInstructions);
 
