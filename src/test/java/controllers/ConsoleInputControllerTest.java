@@ -12,6 +12,7 @@ public class ConsoleInputControllerTest {
     private ProjectRepository projectRepository;
     private ConsoleInputController consoleInputController;
 
+    //@@author seanlimhx
     public ConsoleInputControllerTest() {
         this.projectRepository = new ProjectRepository();
         this.consoleInputController = new ConsoleInputController(this.projectRepository);
@@ -42,16 +43,17 @@ public class ConsoleInputControllerTest {
         }
         projectRepository.addToRepo("create Avengers");
 
-        String[] expectedOutput = new String[] {"+------------------------------------------------------------+",
-            "|Project 1: Avengers                                         |",
-            "+------------------------------------------------------------+",
-            "|Members:                                                    |",
-            "| --                                                         |",
-            "|Next Deadline:                                              |",
-            "| --                                                         |",
-            "|Overall Progress:                                           |",
-            "| --                                                         |",
-            "+------------------------------------------------------------+"};
+        String[] expectedOutput = new String[] {
+            "+----------------------------------------------------------------------+",
+            "|Project 1: Avengers                                                   |",
+            "+----------------------------------------------------------------------+",
+            "|Members:                                                              |",
+            "| --                                                                   |",
+            "|Next Deadline:                                                        |",
+            "| --                                                                   |",
+            "|Overall Progress:                                                     |",
+            "| --                                                                   |",
+            "+----------------------------------------------------------------------+"};
         String[] actualOutput = consoleInputController.onCommandReceived("list");
         assertArrayEquals(expectedOutput, actualOutput);
     }
@@ -64,26 +66,27 @@ public class ConsoleInputControllerTest {
         projectRepository.addToRepo("create Avengers");
         projectRepository.addToRepo("create Justice League");
 
-        String[] expectedOutput = new String[] {"+------------------------------------------------------------+",
-            "|Project 1: Avengers                                         |",
-            "+------------------------------------------------------------+",
-            "|Members:                                                    |",
-            "| --                                                         |",
-            "|Next Deadline:                                              |",
-            "| --                                                         |",
-            "|Overall Progress:                                           |",
-            "| --                                                         |",
-            "+------------------------------------------------------------+",
-            "+------------------------------------------------------------+",
-            "|Project 2: Justice League                                   |",
-            "+------------------------------------------------------------+",
-            "|Members:                                                    |",
-            "| --                                                         |",
-            "|Next Deadline:                                              |",
-            "| --                                                         |",
-            "|Overall Progress:                                           |",
-            "| --                                                         |",
-            "+------------------------------------------------------------+"};
+        String[] expectedOutput = new String[] {
+            "+----------------------------------------------------------------------+",
+            "|Project 1: Avengers                                                   |",
+            "+----------------------------------------------------------------------+",
+            "|Members:                                                              |",
+            "| --                                                                   |",
+            "|Next Deadline:                                                        |",
+            "| --                                                                   |",
+            "|Overall Progress:                                                     |",
+            "| --                                                                   |",
+            "+----------------------------------------------------------------------+",
+            "+----------------------------------------------------------------------+",
+            "|Project 2: Justice League                                             |",
+            "+----------------------------------------------------------------------+",
+            "|Members:                                                              |",
+            "| --                                                                   |",
+            "|Next Deadline:                                                        |",
+            "| --                                                                   |",
+            "|Overall Progress:                                                     |",
+            "| --                                                                   |",
+            "+----------------------------------------------------------------------+"};
         String[] actualOutput = consoleInputController.onCommandReceived("list");
         assertArrayEquals(expectedOutput, actualOutput);
     }
