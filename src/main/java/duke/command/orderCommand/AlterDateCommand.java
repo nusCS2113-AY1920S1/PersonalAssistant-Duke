@@ -1,10 +1,13 @@
 package duke.command.orderCommand;
 
 import duke.command.Command;
+import duke.dish.DishList;
 import duke.exception.DukeException;
-import duke.list.GenericList;
+import duke.ingredient.IngredientsList;
 import duke.order.Order;
-import duke.storage.Storage;
+import duke.order.OrderList;
+import duke.storage.FridgeStorage;
+import duke.storage.OrderStorage;
 import duke.ui.Ui;
 
 import java.util.Date;
@@ -12,7 +15,7 @@ import java.util.Date;
 /**
  * Represents a specific {@link Command} used to alter the {@link Order} serving date.
  */
-public class AlterDateCommand extends Command<Order> {
+public class AlterDateCommand extends Command {
 
     private int orderIndex;
     private Date date;
@@ -29,7 +32,7 @@ public class AlterDateCommand extends Command<Order> {
     }
 
     @Override
-    public void execute(GenericList<Order> orderList, Ui ui, Storage orderStorage) throws DukeException {
+    public void execute(IngredientsList il, DishList dl, OrderList orderList, Ui ui, FridgeStorage fs, OrderStorage orderStorage) throws DukeException {
         if (orderList.size()==0) {
             throw new DukeException("No order in the list! No order can be altered!");
         }
@@ -39,11 +42,7 @@ public class AlterDateCommand extends Command<Order> {
             order.setDate(date);
             ui.showOrderChangedDate(order.getDate(),orderList.getEntry(orderIndex).toString());
             orderStorage.changeContent(orderIndex+1);
-
-            // to do:
-            // update today's dish(task) list if new date is today
-
-
+            // TODO: update today's dish(task) list if new date is today
         } else {
             throw new DukeException("Must enter a valid order index number between 1 and "+orderList.size());
         }

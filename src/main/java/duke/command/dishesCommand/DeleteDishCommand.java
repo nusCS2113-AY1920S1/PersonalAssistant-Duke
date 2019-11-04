@@ -1,27 +1,28 @@
 package duke.command.dishesCommand;
 
 import duke.command.Command;
-import duke.dish.Dish;
+import duke.dish.DishList;
 import duke.exception.DukeException;
-import duke.list.GenericList;
-import duke.storage.Storage;
+import duke.ingredient.IngredientsList;
+import duke.order.OrderList;
+import duke.storage.FridgeStorage;
+import duke.storage.OrderStorage;
 import duke.ui.Ui;
 
-
-public class DeleteDishCommand extends Command<Dish> {
+public class DeleteDishCommand extends Command {
 
     private int Nb;
 
+    //constructor
     public DeleteDishCommand(int dishNb) {
-        //super(dishNb);
         this.Nb = dishNb;
     }
 
     @Override
-    public void execute(GenericList<Dish> dish1, Ui ui, Storage storage) throws DukeException {
+    public void execute(IngredientsList il, DishList dishList, OrderList ol, Ui ui, FridgeStorage fs, OrderStorage os) throws DukeException {
         try {
-            ui.showDeletedDIsh(dish1.getEntry(Nb - 1).getDishname());
-            dish1.removeEntry(Nb - 1);
+            ui.showDeletedDIsh(dishList.getEntry(Nb - 1).getDishname());
+            dishList.removeEntry(Nb - 1);
         } catch (Exception e) {
             throw new DukeException("dish does not exist");
         }

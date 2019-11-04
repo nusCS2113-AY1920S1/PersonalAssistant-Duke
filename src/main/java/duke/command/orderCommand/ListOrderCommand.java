@@ -2,12 +2,14 @@ package duke.command.orderCommand;
 
 import duke.command.Command;
 import duke.command.ingredientCommand.ListCommand;
+import duke.dish.DishList;
 import duke.exception.DukeException;
-import duke.list.GenericList;
+import duke.ingredient.IngredientsList;
 import duke.order.Order;
 import duke.order.OrderList;
 import duke.parser.Convert;
-import duke.storage.Storage;
+import duke.storage.FridgeStorage;
+import duke.storage.OrderStorage;
 import duke.ui.Ui;
 
 import java.util.ArrayList;
@@ -16,9 +18,8 @@ import java.util.List;
 
 /**
  * Represents a specific {@link Command} used to list all the {@link Order}s in the {@link OrderList}.
- *
  */
-public class ListOrderCommand extends ListCommand<Order> {
+public class ListOrderCommand extends ListCommand {
 
     private String[] listType;
 
@@ -32,9 +33,9 @@ public class ListOrderCommand extends ListCommand<Order> {
     }
 
     @Override
-    public void execute(GenericList<Order> orderList, Ui ui, Storage orderStorage) throws DukeException {
+    public void execute(IngredientsList il, DishList dl, OrderList orderList, Ui ui, FridgeStorage fs, OrderStorage os) throws DukeException {
         if (orderList.size() == 0) { throw new DukeException("No orders in the order list!");}
-        List<Order> filtered = parse((OrderList) orderList);
+        List<Order> filtered = parse(orderList);
         ui.showLine();
         if (filtered.size()==0) { throw new DukeException("No orders found");}
         else if (filtered.size()==1) { System.out.println("\t Here are the order in the order list:"); }

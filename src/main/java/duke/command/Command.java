@@ -1,22 +1,20 @@
 package duke.command;
 
-import duke.command.ingredientCommand.ExitCommand;
+import duke.dish.DishList;
 import duke.exception.DukeException;
-import duke.list.GenericList;
-import duke.storage.Storage;
+import duke.ingredient.IngredientsList;
+import duke.order.OrderList;
+import duke.storage.FridgeStorage;
+import duke.storage.OrderStorage;
 import duke.ui.Ui;
 
-import java.io.IOException;
+public abstract class Command {
 
-public abstract class Command<T> {
-    public abstract void execute(GenericList<T> genlist, Ui ui, Storage storage) throws DukeException, IOException;
-    /**
-     * Returns the boolean indicating that it is( not) an {@link ExitCommand}.
-     *
-     * @return false by default
-     */
+    public void execute(IngredientsList il, DishList dl, OrderList ol, Ui ui, FridgeStorage fs, OrderStorage os) throws DukeException {
+        throw new DukeException(" NANI??? Looks like one of our developer used the abstract class Cmd!");
+    }
+
     public boolean isExit() {
         return false;
     }
-
 }

@@ -1,10 +1,13 @@
 package duke.command.ingredientCommand;
 
 import duke.command.Command;
+import duke.dish.DishList;
 import duke.exception.DukeException;
 import duke.ingredient.Ingredient;
-import duke.list.GenericList;
-import duke.storage.Storage;
+import duke.ingredient.IngredientsList;
+import duke.order.OrderList;
+import duke.storage.FridgeStorage;
+import duke.storage.OrderStorage;
 import duke.ui.Ui;
 
 import java.text.SimpleDateFormat;
@@ -12,18 +15,18 @@ import java.text.SimpleDateFormat;
 /**
  * Represents a specific {@link Command} used to find a String occurring in the {@link Ingredient}.
  */
-public class FindIngredientCommand extends Command<Ingredient> {
+public class FindIngredientCommand extends Command {
 
     private String toFind;
-    private String pattern = "dd/MM/yyyy";
-    private SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+    private SimpleDateFormat simpleDateFormat;
 
     public FindIngredientCommand(String toFind) {
         this.toFind = toFind;
+        simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
     }
 
     @Override
-    public void execute(GenericList<Ingredient> ingList, Ui ui, Storage storage) throws DukeException {
+    public void execute(IngredientsList ingList, DishList dl, OrderList ol, Ui ui, FridgeStorage fs, OrderStorage os) throws DukeException {
         int i = 1;
         StringBuilder sb = new StringBuilder();
 

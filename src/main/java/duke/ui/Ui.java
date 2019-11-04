@@ -17,6 +17,8 @@ public class Ui {
     private Scanner scanner;
     private static final String line = "_________________________________________________________________________________________";
 
+    private final boolean DRAW = false;
+
     /**
      * The constructor method for Ui.
      */
@@ -41,6 +43,7 @@ public class Ui {
     }
 
     public void chefDrawing() {
+        if(!DRAW) return;
         System.out.println("                           (c)___c____(c)           ");
         System.out.println("                            \\ ........../          ");
         System.out.println("                             |.........|            ");
@@ -76,6 +79,7 @@ public class Ui {
         System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~   ");
     }
     public void dishDrawing() {
+        if(!DRAW) return;
         System.out.println("            (\\                                      ");
         System.out.println("             \\ \\                                   ");
         System.out.println("               \\/ ___,.-------..__                  ");
@@ -97,14 +101,14 @@ public class Ui {
         showLine();
         Calendar c = Calendar.getInstance();
         int timeOfDay = c.get(Calendar.HOUR_OF_DAY);
-        String greeting = "Hello";
-        if (timeOfDay >= 0 && timeOfDay < 12) {
+        String greeting;
+        if (timeOfDay < 12) {
             greeting = "Good Morning";
-        } else if (timeOfDay >= 12 && timeOfDay < 16) {
+        } else if (timeOfDay < 16) {
             greeting = "Good Afternoon";
-        } else if (timeOfDay >= 16 && timeOfDay < 21) {
+        } else if (timeOfDay < 21) {
             greeting = "Good Evening";
-        } else if (timeOfDay >= 21 && timeOfDay < 24) {
+        } else {
             greeting = "Good Night";
         }
         System.out.println("\t " + greeting + " chef! I'm Duke");

@@ -1,28 +1,28 @@
 package duke.command.ingredientCommand;
 
 import duke.command.Command;
+import duke.dish.DishList;
 import duke.exception.DukeException;
 import duke.fridge.Fridge;
-import duke.ingredient.Ingredient;
 import duke.ingredient.IngredientsList;
-import duke.list.GenericList;
-import duke.storage.Storage;
+import duke.order.OrderList;
+import duke.storage.FridgeStorage;
+import duke.storage.OrderStorage;
 import duke.ui.Ui;
 
-import java.io.IOException;
-
-public class RemoveAllExpired extends Command<Ingredient> {
+public class RemoveAllExpired extends Command {
 
     private Fridge fridge;
+
     public RemoveAllExpired(Fridge fridge){
-        this.fridge=fridge;
+        this.fridge = fridge;
     }
+
     @Override
-    public void execute(GenericList<Ingredient> genlist, Ui ui, Storage storage) throws DukeException, IOException {
+    public void execute(IngredientsList il, DishList dl, OrderList ol, Ui ui, FridgeStorage fs, OrderStorage os) throws DukeException {
         if(fridge.hasExpiredIngredients()) {
-            //System.out.println(" has expired "+fridge.getExpiredIngredients().size());
             IngredientsList expired=fridge.removeExpired();
-            (storage).update();
+            (fs).update();
             ui.show(" Removed: "+expired.toString());
         }
         else

@@ -1,29 +1,30 @@
 package duke.command.dishesCommand;
 
 import duke.command.Command;
-import duke.dish.Dish;
+import duke.dish.DishList;
 import duke.exception.DukeException;
-import duke.list.GenericList;
-import duke.storage.Storage;
+import duke.ingredient.IngredientsList;
+import duke.order.OrderList;
+import duke.storage.FridgeStorage;
+import duke.storage.OrderStorage;
 import duke.ui.Ui;
 
-public class ResetDishCommand extends Command<Dish> {
-
-    public ResetDishCommand() {
-        //clears all the amount in dishes
-    }
+public class ResetDishCommand extends Command {
 
     @Override
-    public void execute(GenericList<Dish> dish1, Ui ui, Storage storage) throws DukeException {
+    public void execute(IngredientsList il, DishList dishList, OrderList ol, Ui ui, FridgeStorage fs, OrderStorage os) throws DukeException {
         System.out.println("\t are you sure you want to clear list? [y/n]");
         String command = ui.readCommand();
         if(command.toLowerCase().equals("y")){
-            dish1.clearList();
+            dishList.clearList();
             System.out.println("\t LIST IS CLEARED");
         }
         else if(command.toLowerCase().equals("n")){
             System.out.println("\t LIST IS NOT CLEARED");
         }
-        else {throw new DukeException("Please enter y or n after 'initialize' command");}
+        else {
+            System.out.println("\t LIST IS NOT CLEARED");
+            throw new DukeException("Please enter y or n after 'initialize' command");
+        }
     }
 }
