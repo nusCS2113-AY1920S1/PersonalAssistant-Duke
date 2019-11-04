@@ -61,7 +61,8 @@ public class CommandHelper {
         helpList.add("");
         helpList.add(" - view task requirements TASK_INDEX");
         helpList.add("");
-        helpList.add(" - edit task requirements TASK_INDEX [-r TASK_REQUIREMENT] [-rm TASK_INDEXES_TO_BE_REMOVED");
+        helpList.add(" - edit task requirements TASK_INDEX [-r TASK_REQUIREMENT] "
+                + "[-rm TASK_REQUIREMENT_INDEXES_TO_BE_REMOVED]");
         helpList.add("");
         helpList.add(" - view assignments /MODIFIER");
         helpList.add("");

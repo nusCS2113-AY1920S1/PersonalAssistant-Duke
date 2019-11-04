@@ -297,6 +297,7 @@ class ProjectInputControllerTest {
             assertEquals(expectedOutput,actualOutput);
 
             simulatedUserInput = "edit task 1 -c 70 -s doing -p 6 -d 12/12/2020 -t End Game";
+            //6 is an invalid value for task priority, so priority remains as 2 after this command
             dueDate = dateTimeHelper.formatDate("12/12/2020");
             projectInputController.projectEditTask(project,simulatedUserInput);
             actualOutput = "";
@@ -304,7 +305,7 @@ class ProjectInputControllerTest {
                     project.getTasksAndAssignedMembers()).toArray(new String[0])) {
                 actualOutput += message;
             }
-            expectedOutput = "1. End Game | Priority: 6 | Due: 12 Dec 2020"
+            expectedOutput = "1. End Game | Priority: 2 | Due: 12 Dec 2020"
                     + dateTimeHelper.getDifferenceDays(dueDate)
                     + " | Credit: 70 | State: DOING";
             assertEquals(expectedOutput,actualOutput);

@@ -3,15 +3,19 @@ package models.task;
 import models.member.Member;
 import util.ParserHelper;
 import util.SortHelper;
+import util.date.DateTimeHelper;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 
 public class TaskList {
     private ArrayList<Task> taskList;
     private ParserHelper parserHelper;
     private SortHelper sortHelper;
+    private DateTimeHelper dateTimeHelper;
 
     /**
      * Class representing a list with all task sort in the project.
@@ -20,6 +24,7 @@ public class TaskList {
         this.taskList = new ArrayList<>();
         this.parserHelper = new ParserHelper();
         this.sortHelper = new SortHelper();
+        this.dateTimeHelper = new DateTimeHelper();
     }
 
     /**
@@ -108,34 +113,92 @@ public class TaskList {
 
     /**
      * Edits details of a task excluding task requirements.
+     * @param taskIndexNumber Index of task to be edited
      * @param updatedTaskDetails input command String in the form of (tasks to be edited can be in any order)
      *                           edit task i/TASK_INDEX [n/TASK_NAME] [p/TASK_PRIORITY]
      *                           [d/TASK_DUEDATE] [c/TASK_CREDIT] [s/STATE]
+     * @return String array containing messages to the user to be printed.
      */
-    public void editTask(int taskIndexNumber, String updatedTaskDetails) {
+    public String[] editTask(int taskIndexNumber, String updatedTaskDetails) {
         ArrayList<String> taskDetails = parserHelper.parseTaskDetails(updatedTaskDetails);
         String taskName = taskDetails.get(0);
+        ArrayList<String> messagesForUser = new ArrayList<>();
+        ArrayList<String> successMessages = new ArrayList<>();
+        ArrayList<String> errorMessages = new ArrayList<>(parserHelper.getErrorMessages());
 
         Task task = taskList.get(taskIndexNumber - 1);
         if (!("--".equals(taskName))) {
             task.setTaskName(taskName);
+            successMessages.add("The name of this task has been changed to '" + taskName + "'!");
         }
         String taskPriority = taskDetails.get(1);
         if (!("-1".equals(taskPriority))) {
-            task.setTaskPriority(Integer.parseInt(taskPriority));
+            try {
+                int newTaskPriority = Integer.parseInt(taskPriority);
+                if (newTaskPriority < 1 || newTaskPriority > 5) {
+                    errorMessages.add("Task priority should only be from 1 to 5!");
+                } else {
+                    task.setTaskPriority(newTaskPriority);
+                    successMessages.add("The priority for this task has been set to " + newTaskPriority + "!");
+                }
+            } catch (NumberFormatException e) {
+                errorMessages.add("Input for new task priority is not a number!");
+            }
         }
         String taskDueDate = taskDetails.get(2);
         if (taskDueDate != null) {
-            task.setDueDate(taskDueDate);
+            try {
+                Date newDueDate = dateTimeHelper.formatDate(taskDueDate);
+                task.setDueDate(newDueDate);
+                successMessages.add("The new due date for this task has been set to "
+                        + dateTimeHelper.formatDateForDisplay(newDueDate) + "!");
+            } catch (ParseException e) {
+                errorMessages.add("Input for new task due date is invalid! Please input the date in the "
+                        + "form 'dd/mm/yyyy'.");
+            }
         }
         String taskCredit = taskDetails.get(3);
         if (!("-1".equals(taskCredit))) {
-            task.setTaskCredit(Integer.parseInt(taskCredit));
+            try {
+                int newTaskCredit = Integer.parseInt(taskCredit);
+                if (newTaskCredit < 1 || newTaskCredit > 100) {
+                    errorMessages.add("Credits for a task should only be from 1 to 100!");
+                } else {
+                    task.setTaskCredit(newTaskCredit);
+                    successMessages.add("The credit for this task has been set to " + newTaskCredit + "!");
+                }
+            } catch (NumberFormatException e) {
+                errorMessages.add("Input for new task credit is not a number!");
+            }
+
         }
         String taskState = taskDetails.get(4);
         if (!("NONE".equals(taskState))) {
-            task.setTaskState(taskState);
+            String newTaskStateLowerCase = taskState.toLowerCase();
+            if ("open".equals(taskState) || "doing".equals(taskState)
+                    || "done".equals(taskState) || "todo".equals(taskState)) {
+                task.setTaskState(newTaskStateLowerCase);
+                successMessages.add("The state of this task has been set to " + taskState.toUpperCase() + "!");
+            } else {
+                errorMessages.add("There are only 4 possible states of a task: 'open', 'todo', 'doing' and 'done'. "
+                        + "Please give a valid state!");
+            }
         }
+
+        if (successMessages.size() != 0) {
+            messagesForUser.add("Success!");
+            messagesForUser.addAll(successMessages);
+            if (errorMessages.size() != 0) {
+                messagesForUser.add("");
+                messagesForUser.add("Errors...");
+                messagesForUser.addAll(errorMessages);
+            }
+        } else {
+            messagesForUser.add("Errors...");
+            messagesForUser.addAll(errorMessages);
+        }
+
+        return messagesForUser.toArray(new String[0]);
     }
 
     public int getSize() {

@@ -32,7 +32,7 @@ public interface IProject {
 
     Task getTask(int taskIndex);
 
-    void editTask(int taskIndexNumber, String updatedTaskDetails);
+    String[] editTask(int taskIndexNumber, String updatedTaskDetails);
 
     String[] editTaskRequirements(int taskIndexNumber, String updatedTaskRequirements);
 
