@@ -177,7 +177,7 @@ public class Command {
             events.sortList();
             storage.saveToFile(events, ui);
         }
-        if (!(command.equals("calendar"))) {
+        if ((command.equals("calendar"))) {
             printCalendar(events, ui, calendarStartDate);
         }
     }
