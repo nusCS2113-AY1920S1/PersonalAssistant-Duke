@@ -5,9 +5,7 @@ import chronologer.storage.CalendarOutput;
 import chronologer.storage.Storage;
 import chronologer.task.Task;
 import chronologer.task.TaskList;
-import chronologer.task.Todo;
 import chronologer.ui.UiTemporary;
-import net.fortuna.ical4j.data.CalendarOutputter;
 import net.fortuna.ical4j.model.Calendar;
 import net.fortuna.ical4j.model.DateTime;
 import net.fortuna.ical4j.model.component.VEvent;
@@ -28,7 +26,7 @@ import java.util.GregorianCalendar;
  * Processes and export the timeline as an ics file.
  *
  * @author Tan Yi Xiang
- * @version v1.6
+ * @version v1.7
  */
 public class ExportCommand extends Command {
 
@@ -43,10 +41,11 @@ public class ExportCommand extends Command {
 
     /**
      * Initializes the different parameters for the export command.
-     * @param fileName Name of the file
+     *
+     * @param fileName        Name of the file
      * @param hasDeadlineFlag Indication to extract deadline tasks.
-     * @param hasEventFlag Indication to extract event tasks.
-     * @param hasTodoFlag Indication to extract todo with period tasks.
+     * @param hasEventFlag    Indication to extract event tasks.
+     * @param hasTodoFlag     Indication to extract todo with period tasks.
      */
     public ExportCommand(String fileName, Boolean hasDeadlineFlag, Boolean hasEventFlag, Boolean hasTodoFlag) {
         this.fileName = fileName;
@@ -127,7 +126,8 @@ public class ExportCommand extends Command {
         java.util.Calendar deadlineCalendar = convertToCalendar(task.getStartDate());
         DateTime deadlineDate = new DateTime(deadlineCalendar.getTime());
         DateTime currentDate = getCurrentDate();
-        VEvent deadline = new VEvent(currentDate, deadlineDate, task.getDescription());
+        String title = createTitle(task);
+        VEvent deadline = new VEvent(currentDate, deadlineDate, title);
         createDescription(task, deadline);
         createLocation(task, deadline);
         UidGenerator generator = new RandomUidGenerator();
@@ -140,7 +140,8 @@ public class ExportCommand extends Command {
         java.util.Calendar eventEndCalendar = convertToCalendar(task.getEndDate());
         DateTime startEventDate = new DateTime(eventStartCalendar.getTime());
         DateTime endEventDate = new DateTime(eventEndCalendar.getTime());
-        VEvent event = new VEvent(startEventDate, endEventDate, task.getDescription());
+        String title = createTitle(task);
+        VEvent event = new VEvent(startEventDate, endEventDate, title);
         createDescription(task, event);
         createLocation(task, event);
         UidGenerator generator = new RandomUidGenerator();
@@ -152,6 +153,14 @@ public class ExportCommand extends Command {
         LocalDateTime currentDate = LocalDateTime.now();
         java.util.Calendar currentCalendar = convertToCalendar(currentDate);
         return new DateTime(currentCalendar.getTime());
+    }
+
+    private String createTitle(Task task) {
+        if ("".equals(task.getModCode())) {
+            return task.getDescription();
+        } else {
+            return task.getModCode() + ": " + task.getDescription();
+        }
     }
 
     private void createDescription(Task task, VEvent event) {
