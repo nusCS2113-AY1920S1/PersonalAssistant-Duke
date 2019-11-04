@@ -15,27 +15,22 @@ public class UpdatePatientCommand implements Command {
 
     private String[] command;
 
-    /**
-     * .
-     *
-     * @param command .
-     */
     public UpdatePatientCommand(String[] command) {
         this.command = command;
     }
 
     /**
-     * .
+     * It updates a new patient in Dukepital.
      *
-     * @param patientTask        .
-     * @param tasks              .
-     * @param patientManager     .
-     * @param dukeUi                 .
-     * @param storageManager .
-     * @throws DukeException .
+     * @param assignedTaskManager contains the information between all the tasks and patients.
+     * @param taskManager         contains information of all the tasks.
+     * @param patientManager      contains information of all the patients.
+     * @param dukeUi              interacts with user.
+     * @param storageManager      save the changes in csv file.
+     * @throws DukeException      if the patient is not added successfully.
      */
     @Override
-    public void execute(AssignedTaskManager patientTask, TaskManager tasks, PatientManager patientManager,
+    public void execute(AssignedTaskManager assignedTaskManager, TaskManager taskManager, PatientManager patientManager,
                         DukeUi dukeUi, StorageManager storageManager) throws DukeException {
         char firstChar = command[0].charAt(0);
         if (firstChar == '#') {
@@ -71,9 +66,9 @@ public class UpdatePatientCommand implements Command {
     }
 
     /**
-     * .
+     * It terminates the Dukepital.
      *
-     * @return .
+     * @return false.
      */
     @Override
     public boolean isExit() {

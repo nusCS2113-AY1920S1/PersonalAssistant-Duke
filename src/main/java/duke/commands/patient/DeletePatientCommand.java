@@ -34,10 +34,10 @@ public class DeletePatientCommand implements Command {
      * It extracts patient id from the delete patient command.
      *
      * @param deletedPatientInfo contains the delete patient command.
-     * @param dukeUi                 allows user to choose the patient to delete.
+     * @param dukeUi             allows user to choose the patient to delete.
      * @param patientManager     retrieves patient based on patient id.
-     * @return patient to be deleted.
-     * @throws DukeException if no matched patient found.
+     * @return                   patient to be deleted.
+     * @throws DukeException     if no matched patient found.
      */
     public Patient getPatientByDeletePatientCommand(String deletedPatientInfo, DukeUi dukeUi,
                                                     PatientManager patientManager) throws DukeException {
@@ -69,9 +69,9 @@ public class DeletePatientCommand implements Command {
      * @param assignedTaskManager contains the information between all the tasks and patients.
      * @param taskManager         contains information of all the tasks.
      * @param patientManager      contains information of all the patients.
-     * @param dukeUi                  interacts with user.
+     * @param dukeUi              interacts with user.
      * @param storageManager      save the changes in csv file.
-     * @throws DukeException if there is error deleting the patient.
+     * @throws DukeException      if there is error deleting the patient.
      */
     @Override
     public void execute(AssignedTaskManager assignedTaskManager, TaskManager taskManager, PatientManager patientManager,

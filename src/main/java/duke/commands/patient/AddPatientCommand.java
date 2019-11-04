@@ -18,7 +18,7 @@ public class AddPatientCommand implements Command {
     /**
      * It extracts the patient information.
      *
-     * @param patientInfo contains the patient information to be added.
+     * @param patientInfo    contains the patient information to be added.
      * @throws DukeException if there ia any information is missing.
      */
     public AddPatientCommand(String[] patientInfo) throws DukeException {
@@ -38,9 +38,9 @@ public class AddPatientCommand implements Command {
      * @param assignedTaskManager contains the information between all the tasks and patients.
      * @param taskManager         contains information of all the tasks.
      * @param patientManager      contains information of all the patients.
-     * @param dukeUi                  interacts with user.
+     * @param dukeUi              interacts with user.
      * @param storageManager      save the changes in csv file.
-     * @throws DukeException if the patient is not added successfully.
+     * @throws DukeException      if the patient is not added successfully.
      */
     @Override
     public void execute(AssignedTaskManager assignedTaskManager, TaskManager taskManager, PatientManager patientManager,
