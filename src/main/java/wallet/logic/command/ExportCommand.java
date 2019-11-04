@@ -9,6 +9,8 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class ExportCommand extends Command {
@@ -41,13 +43,17 @@ public class ExportCommand extends Command {
 
         try {
             File current = new File(ExportCommand.class.getProtectionDomain().getCodeSource().getLocation()
-                .toURI().getPath());
+                    .toURI().getPath());
             File csv = null;
             FileWriter output;
-            if ("expenses".equals(type)) {
-                csv = new File(current.getParentFile().getPath(), "exportedExpenses.csv");
-            } else if ("loans".equals(type)) {
-                csv = new File(current.getParentFile().getPath(), "exportedLoans.csv");
+            LocalDateTime localDate = LocalDateTime.now();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy-HH.mm.ss");
+            String currentDate = localDate.format(formatter);
+
+            if ("expense".equals(type)) {
+                csv = new File(current.getParentFile().getPath(), "WalletCLi-expenses-" + currentDate + ".csv");
+            } else if ("loan".equals(type)) {
+                csv = new File(current.getParentFile().getPath(), "WalletCLi-loans-" + currentDate + ".csv");
             }
 
             if (csv != null) {

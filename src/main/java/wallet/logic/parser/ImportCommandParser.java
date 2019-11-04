@@ -39,7 +39,7 @@ public class ImportCommandParser implements Parser<ImportCommand> {
             System.out.println(MESSAGE_ERROR_WRONG_FORMAT);
             return null;
         }
-        if ("loans".equals(arguments[0])) {
+        if ("loan".equals(arguments[0])) {
             ArrayList<Loan> data = parseLoans(arguments[1]);
             if (data != null) {
                 ImportList importList = new ImportList(data, null);
@@ -47,7 +47,7 @@ public class ImportCommandParser implements Parser<ImportCommand> {
             } else {
                 return null;
             }
-        } else if ("expenses".equals(arguments[0])) {
+        } else if ("expense".equals(arguments[0])) {
             ArrayList<Expense> data = parseExpenses(arguments[1]);
             if (data != null) {
                 ImportList importList = new ImportList(null, data);
