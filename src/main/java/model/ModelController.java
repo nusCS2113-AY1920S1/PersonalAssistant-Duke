@@ -61,7 +61,7 @@ public class ModelController implements Model {
     }
 
     public String getTaskNameById(int index) {
-        return tasksManager.getTaskNameById(index);
+        return tasksManager.getNameById(index);
     }
 
     @Override
@@ -104,11 +104,11 @@ public class ModelController implements Model {
     }
 
     public String tasksAllInorderTime() {
-        return tasksManager.scheduleTeamAll();
+        return tasksManager.tasksAllInorderTime();
     }
 
     public String tasksTodoInorderTime() {
-        return tasksManager.scheduleTeamTodo();
+        return tasksManager.tasksTodoInorderTime();
     }
 
     public String tasksAllInorderPicNum() {
@@ -223,7 +223,7 @@ public class ModelController implements Model {
      */
     @Override
     public String deleteTask(int index) {
-        String name = tasksManager.getTaskNameById(index);
+        String name = tasksManager.getNameById(index);
         memberManager.deleteTaskInMembers(name);
         Task toDelete = tasksManager.getTaskByName(name);
         tasksManager.deleteTask(toDelete);
@@ -232,12 +232,12 @@ public class ModelController implements Model {
 
     public String scheduleMemberAll(String memberName) {
         ArrayList<String> tasksName = memberManager.getTaskListOfMember(memberName);
-        return tasksManager.scheduleAllTasks(tasksName);
+        return tasksManager.tasksAllInorderTime(tasksName);
     }
 
     public String scheduleMemberTodo(String memberName) {
         ArrayList<String> tasksName = memberManager.getTaskListOfMember(memberName);
-        return tasksManager.scheduleTodoTasks(tasksName);
+        return tasksManager.tasksTodoInorderTime(tasksName);
     }
 
     @Override

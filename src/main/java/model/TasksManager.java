@@ -23,6 +23,8 @@ public class TasksManager implements Serializable {
         }
     }
 
+    //====================== add and delete task ======================
+
     //@@author JustinChia1997
 
     /**
@@ -42,6 +44,17 @@ public class TasksManager implements Serializable {
         }
     }
 
+    //@@author yuyanglin28
+    /**
+     *
+     * @param toDelete
+     * @return
+     */
+    public boolean deleteTask(Task toDelete) {
+        return taskList.remove(toDelete);
+    }
+
+    //========================== get tasks or get something through tasks ==================
     /**
      * Get the Task object by its id.
      *
@@ -56,66 +69,38 @@ public class TasksManager implements Serializable {
         return null;
     }
 
-    /**
-     * @return true if skill req was sucessfully added
-     */
-    public boolean addReqSkill(String taskName, String skillName) {
-        if (hasTask(taskName)) {
-            return getTaskByName(taskName).addReqSkill(skillName);
-        } else {
-            return false;
-        }
-    }
+    //@@author JustinChia1997
 
     /**
-     * Delete a task from the task list.
-     */
-    public boolean deleteTask(Task toDelete) {
-
-        return taskList.remove(toDelete);
-    }
-
-    /**
-     * Add link(s) from task(s) to member(s). Duplicated link will be cancelled.
+     * Finds Task from task list. returns null if no match was found
      *
-     * @param tasks Array of Member objects to link.
-     * @param toAdd Array of Member object to link.
+     * @param name arraylist
+     * @return Task
      */
-    public void addMember(Task[] tasks, String[] toAdd) {
-        for (int i = 0; i < tasks.length; i++) {
-            for (int j = 0; j < toAdd.length; j++) {
-                tasks[i].addMember(toAdd[j]);
+    public Task getTaskByName(String name) {
+        for (int i = 0; i < taskList.size(); i += 1) {
+            if (taskList.get(i).getName().equals(name.trim())) {
+                return taskList.get(i);
             }
         }
+        return null;
     }
 
-    /**
-     * Delete link(s) from task(s) to member(s). Non-existing link won't be deleted.
-     * This is the reverse method of <code>addMember(Task[] tasks, Member[] toAdd)</code> method.
-     *
-     * @param tasks    arraylist
-     * @param toDelete arraylist
-     */
-    public void deleteMember(Task[] tasks, String[] toDelete) {
-        for (int i = 0; i < tasks.length; i++) {
-            for (int j = 0; j < toDelete.length; j++) {
-                tasks[i].deleteMember(toDelete[j]);
-            }
-        }
+    public String getNameById(int index) {
+        return getTaskById(index).getName();
     }
 
-    //@@author yuyanglin28
+    public int getIndexInListByTask(Task task) {
+        return taskList.indexOf(task) + 1;
+    }
 
-    /**
-     * delete member (person in charge) in task list
-     *
-     * @param memberName member name to be deleted
-     */
-    public void deleteMemberInTasks(String memberName) {
-        for (int i = 0; i < taskList.size(); i++) {
-            Task toCheck = taskList.get(i);
-            toCheck.deleteMember(memberName);
-        }
+    public String getNameByTask(Task task) {
+        return task.getName();
+    }
+
+    public String getTaskDes(int index) {
+        Task task = getTaskById(index);
+        return task.getDescription();
     }
 
     //@@author JustinChia1997
@@ -150,9 +135,11 @@ public class TasksManager implements Serializable {
         return todoNum;
     }
 
-
+    //@@author yuyanglin28
     /**
-     * java doc
+     *
+     * @param tasksName
+     * @return
      */
     public double getProgress(ArrayList<String> tasksName) {
         double total = tasksName.size();
@@ -168,15 +155,67 @@ public class TasksManager implements Serializable {
         return bd.doubleValue();
     }
 
-    public String getTaskNameById(int index) {
-        return getTaskById(index).getName();
+    //====================== add or delete something for task =======================
+
+    /**
+     * @return true if skill req was sucessfully added
+     */
+    public boolean addReqSkill(String taskName, String skillName) {
+        if (hasTask(taskName)) {
+            return getTaskByName(taskName).addReqSkill(skillName);
+        } else {
+            return false;
+        }
     }
 
-    public int getIndexInListByTask(Task task) {
-        return taskList.indexOf(task) + 1;
+    /**
+     * Add link(s) from task(s) to member(s). Duplicated link will be cancelled.
+     *
+     * @param tasks Array of Member objects to link.
+     * @param toAdd Array of Member object to link.
+     */
+    public void addMember(Task[] tasks, String[] toAdd) {
+        for (int i = 0; i < tasks.length; i++) {
+            for (int j = 0; j < toAdd.length; j++) {
+                tasks[i].addMember(toAdd[j]);
+            }
+        }
     }
 
+    /**
+     * Delete link(s) from task(s) to member(s). Non-existing link won't be deleted.
+     * This is the reverse method of <code>addMember(Task[] tasks, Member[] toAdd)</code> method.
+     *
+     * @param tasks    arraylist
+     * @param toDelete arraylist
+     */
+    public void deleteMember(Task[] tasks, String[] toDelete) {
+        for (int i = 0; i < tasks.length; i++) {
+            for (int j = 0; j < toDelete.length; j++) {
+                tasks[i].deleteMember(toDelete[j]);
+            }
+        }
+    }
 
+    //@@author yuyanglin28
+    /**
+     * delete member (person in charge) in task list
+     *
+     * @param memberName member name to be deleted
+     */
+    public void deleteMemberInTasks(String memberName) {
+        for (int i = 0; i < taskList.size(); i++) {
+            Task toCheck = taskList.get(i);
+            toCheck.deleteMember(memberName);
+        }
+    }
+
+    public void updateTaskDes(int index, String des) {
+        Task task = getTaskById(index);
+        task.setDescription(des);
+    }
+
+    //========================== common ============================
     //@@author JustinChia1997
 
     /**
@@ -191,119 +230,22 @@ public class TasksManager implements Serializable {
         return false;
     }
 
-    //@@author JustinChia1997
-
+    //@@author yuaynglin28
     /**
-     * Finds Task from task list. returns null if no match was found
-     *
-     * @param name arraylist
-     * @return Task
+     * This method is to transfer array list tasks to string
+     * @param tasks array list of tasks
+     * @return string to represent tasks, contains index in list, status, name, and time (if has)
      */
-    public Task getTaskByName(String name) {
-        for (int i = 0; i < taskList.size(); i += 1) {
-            if (taskList.get(i).getName().equals(name.trim())) {
-                return taskList.get(i);
-            }
-        }
-        return null;
-    }
-
-    public String getNameByTask(Task task) {
-        return task.getName();
-    }
-
-
-    public void updateTaskDes(int index, String des) {
-        Task task = getTaskById(index);
-        task.setDescription(des);
-    }
-
-    public String getTaskDes(int index) {
-        Task task = getTaskById(index);
-        return task.getDescription();
-    }
-
-    //@@author yuyanglin28
-
-    /**
-     * get the tasks contain keyword
-     *
-     * @param keyword keyword to be searched
-     * @return a string shows the task list contain keyword
-     */
-    public String getTasksByKeyword(String keyword) {
+    private String showTasks(ArrayList<Task> tasks) {
         String result = "";
-        for (int i = 0; i < taskList.size(); i++) {
-            String des = getTaskDes(i);
-            String name = getTaskNameById(i);
-            int indexInList = i + 1;
-            if (name.contains(keyword)) {
-                result += "\n" + indexInList + ". " + taskList.get(i);
-            } else if (des != null && des.contains(keyword)) {
-                result += "\n" + indexInList + ". " + taskList.get(i);
-            }
+        for (int i = 0; i < tasks.size(); i++) {
+            Task task = tasks.get(i);
+            result += "\n" + getIndexInListByTask(task) + ". " + task;
         }
         return result;
     }
 
-    //@@author yuyanglin28
-
-    /**
-     * schedule all task list
-     *
-     * @return a string shows the scheduled task list
-     */
-    public String scheduleTeamAll() {
-        ArrayList<Task> taskListCopy = (ArrayList<Task>)taskList.clone();
-        return showScheduleOfTaskList(taskListCopy);
-    }
-
-    //@@author yuyanglin28
-
-    /**
-     * schedule todo task list
-     *
-     * @return a string shows the scheduled todo task list
-     */
-    public String scheduleTeamTodo() {
-        ArrayList<Task> taskListCopy = (ArrayList<Task>) taskList.clone();
-        ArrayList<Task> todoTasks = pickTodo(taskListCopy);
-        return showScheduleOfTaskList(todoTasks);
-
-    }
-
-    //@@author yuyanglin28
-
-    /**
-     * schedule tasks supplied by task name
-     *
-     * @param tasksName tasks to be scheduled
-     * @return a string shows the scheduled task list
-     */
-    public String scheduleAllTasks(ArrayList<String> tasksName) {
-        ArrayList<Task> allTasks = new ArrayList<>();
-        for (int i = 0; i < tasksName.size(); i++) {
-            allTasks.add(getTaskByName(tasksName.get(i)));
-        }
-        return showScheduleOfTaskList(allTasks);
-    }
-
-    //@@author yuyanglin28
-
-    /**
-     * schedule todo tasks supplied by task name
-     *
-     * @param tasksName tasks to be scheduled (contain finished tasks)
-     * @return a string shows the scheduled todo task list
-     */
-    public String scheduleTodoTasks(ArrayList<String> tasksName) {
-        ArrayList<Task> allTasks = new ArrayList<>();
-        for (int i = 0; i < tasksName.size(); i++) {
-            allTasks.add(getTaskByName(tasksName.get(i)));
-        }
-        ArrayList<Task> todoTasks = pickTodo(allTasks);
-        return showScheduleOfTaskList(todoTasks);
-    }
+    //======================== reminder ==============================
 
     /**
      * Sets the reminder time in the task of index given
@@ -317,6 +259,84 @@ public class TasksManager implements Serializable {
 
     public void clearReminder(int taskIndex) {
         taskList.get(taskIndex).setReminder(null);
+    }
+
+    //======================== For find command =====================
+
+    //@@author yuyanglin28
+    /**
+     * get the tasks contain keyword
+     *
+     * @param keyword keyword to be searched
+     * @return a string shows the task list contain keyword
+     */
+    public String getTasksByKeyword(String keyword) {
+        String result = "";
+        for (int i = 0; i < taskList.size(); i++) {
+            String des = getTaskDes(i);
+            String name = getNameById(i);
+            int indexInList = i + 1;
+            if (name.contains(keyword)) {
+                result += "\n" + indexInList + ". " + taskList.get(i);
+            } else if (des != null && des.contains(keyword)) {
+                result += "\n" + indexInList + ". " + taskList.get(i);
+            }
+        }
+        return result;
+    }
+
+    //================== For tasks in order of time =====================
+
+    //@@author yuyanglin28
+    /**
+     * schedule all task list
+     *
+     * @return a string shows the scheduled task list
+     */
+    public String tasksAllInorderTime() {
+        return showTasks(sortByTime(taskList));
+    }
+
+    //@@author yuyanglin28
+    /**
+     * schedule todo task list
+     *
+     * @return a string shows the scheduled todo task list
+     */
+    public String tasksTodoInorderTime() {
+        return showTasks(sortByTime(pickTodo(taskList)));
+    }
+
+    //@@author yuyanglin28
+
+    /**
+     * schedule tasks supplied by task name
+     *
+     * @param tasksName tasks to be scheduled
+     * @return a string shows the scheduled task list
+     */
+    public String tasksAllInorderTime(ArrayList<String> tasksName) {
+        ArrayList<Task> tasks = new ArrayList<>();
+        for (int i = 0; i < tasksName.size(); i++) {
+            tasks.add(getTaskByName(tasksName.get(i)));
+        }
+        return showTasks(sortByTime(tasks));
+    }
+
+    //@@author yuyanglin28
+
+    /**
+     * schedule todo tasks supplied by task name
+     *
+     * @param tasksName tasks to be scheduled (contain finished tasks)
+     * @return a string shows the scheduled todo task list
+     */
+    public String tasksTodoInorderTime(ArrayList<String> tasksName) {
+        ArrayList<Task> tasks = new ArrayList<>();
+        for (int i = 0; i < tasksName.size(); i++) {
+            tasks.add(getTaskByName(tasksName.get(i)));
+        }
+        return showTasks(sortByTime(pickTodo(taskList)));
     }
 
 
@@ -358,11 +378,13 @@ public class TasksManager implements Serializable {
         return filtered;
     }
 
-    private String showScheduleOfTaskList(ArrayList<Task> toSorted) {
-        ArrayList<Task> tasks = sortByTime(toSorted);
-        return showTasks(tasks);
-    }
+    //===================== task in order of pic num ================
 
+    //@@author yuyanglin28
+    /**
+     *
+     * @return
+     */
     public String tasksAllInorderPicNum() {
         return tasksInorderPicNum(taskList);
     }
@@ -372,7 +394,7 @@ public class TasksManager implements Serializable {
         return tasksInorderPicNum(todoTasks);
     }
 
-    private String tasksInorderPicNum(ArrayList<Task> tasks) {
+    public String tasksInorderPicNum(ArrayList<Task> tasks) {
         ArrayList<Task> toSort = (ArrayList<Task>) tasks.clone();
         String result = "";
         int size = toSort.size();
@@ -388,39 +410,18 @@ public class TasksManager implements Serializable {
             }
             int indexInList = getIndexInListByTask(toSort.get(minIndex));
             result += "\n" + indexInList + ". " + toSort.get(minIndex) + " has " + min + " PICs.";
-            System.out.println(result);
             toSort.remove(minIndex);
         }
         return result;
     }
 
-    private String showTasks(ArrayList<Task> tasks) {
-        String result = "";
-        for (int i = 0; i < tasks.size(); i++) {
-            Task task = tasks.get(i);
-            result += "\n" + getIndexInListByTask(task) + ". " + task;
-        }
-        return result;
-    }
+    //=============== check time crash ===========
 
+    //@@author yuyanglin28
     /**
-     * javadoc
-     */
-    public static String getDateString(Date date) {
-        String year = (date.getYear() + 1900) + "";
-        String mm = (date.getMonth() + 1) + "";
-        if (Integer.valueOf(mm) < 10) {
-            mm = "0" + mm;
-        }
-        String day = date.getDate() + "";
-        if (Integer.valueOf(day) < 10) {
-            day = "0" + day;
-        }
-        return year + "/" + mm + "/" + day;
-    }
-
-    /**
-     * javadoc
+     * This method is to check time crash for just one member
+     * @param tasksName tasksName list stored in one member
+     * @return if there is time crash, return time and tasks name, if no, empty string
      */
     public String check(ArrayList<String> tasksName) {
         ArrayList<Task> tasks = new ArrayList<>();
@@ -444,28 +445,56 @@ public class TasksManager implements Serializable {
                         index = i;
                     } else {
                         if (count != 1) {
-                            String name = "";
-                            for (int j = count; j > 0; j--) {
-                                Task task = sorted.get(i - j);
-                                name += " " + getIndexInListByTask(task) + ". " + getNameByTask(task);
-                            }
-                            result += "\n" + date2 + " " + count + "tasks:" + name;
+                            result += getTimeCrashString(count, i, date2, sorted);
                         }
                         count = 1;
                         continue;
                     }
                 }
                 if (count != 1) {
-                    String name = "";
-                    for (int j = count; j > 0; j--) {
-                        Task task = sorted.get(index + 2 - j);
-                        name += " " + getIndexInListByTask(task) + ". " + getNameByTask(task);
-                    }
-                    result += "\n" + getDateString(sorted.get(index).getTime()) + " " + count + " tasks:\n" + name;
+                    String date = getDateString(sorted.get(index).getTime());
+                    result += getTimeCrashString(count, index + 2, date, sorted);
                 }
             }
         }
         return result;
+    }
+
+    //@@author yuyanglin28
+    /**
+     * This method is to get time crash string
+     * @param count number of tasks that on the same day
+     * @param end the index in sorted array list of tasks that not equal to the previous
+     * @param date the same day
+     * @param sorted sorted (in order of time) array list of tasks
+     * @return a string to represent the tasks on the same day
+     */
+    private String getTimeCrashString(int count, int end, String date, ArrayList<Task> sorted) {
+        String name = "";
+        for (int j = count; j > 0; j--) {
+            Task task = sorted.get(end - j);
+            name += " " + getIndexInListByTask(task) + ". " + getNameByTask(task);
+        }
+        return "\n" + date + " " + count + "tasks:" + name;
+    }
+
+    //@@author yuyanglin28
+    /**
+     * This method is to get the date string
+     * @param date type Date data to be transferred
+     * @return a string represent the date
+     */
+    private String getDateString(Date date) {
+        String year = (date.getYear() + 1900) + "";
+        String mm = (date.getMonth() + 1) + "";
+        if (Integer.parseInt(mm) < 10) {
+            mm = "0" + mm;
+        }
+        String day = date.getDate() + "";
+        if (Integer.parseInt(day) < 10) {
+            day = "0" + day;
+        }
+        return year + "/" + mm + "/" + day;
     }
 
 }
