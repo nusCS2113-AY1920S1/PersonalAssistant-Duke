@@ -94,7 +94,7 @@ Format: `remove module INDEX`
 Examples:
 
 * `show module` +
-`remove 2` +
+`remove module 2` +
 Removes the 2nd module in the module list.
 
 ==== Removing a CCA: `remove cca`
@@ -111,7 +111,7 @@ Format: `remove cca INDEX`
 Examples:
 
 * `show cca` +
-`remove 2` +
+`remove cca 2` +
 Removes the 2nd CCA in the CCA list.
 
 === Listing modules or cca : `show`
