@@ -1,5 +1,7 @@
 package Model_Classes;
 
+import CustomExceptions.RoomShareException;
+import Enums.ExceptionType;
 import Enums.Priority;
 import Enums.RecurrenceScheduleType;
 
@@ -70,7 +72,10 @@ public abstract class Task{
     /**
      * Sets the task to be done
      */
-    public void setDone(boolean done) {
+    public void setDone(boolean done) throws RoomShareException {
+        if( this instanceof Leave ) {
+            throw new RoomShareException(ExceptionType.leaveDone);
+        }
         isDone = done;
     }
 

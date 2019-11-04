@@ -16,7 +16,7 @@ public enum ExceptionType {
     outOfBounds,
     emptySubTask,
 
-    test,
+    leaveDone,
     subTaskError,
     duplicateSubtask,
 
