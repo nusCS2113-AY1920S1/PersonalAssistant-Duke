@@ -1,13 +1,11 @@
 package booking;
 
-import java.time.Month;
 import java.time.ZoneId;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoField;
 import java.util.Date;
 
 public class Booking {
@@ -19,6 +17,7 @@ public class Booking {
     protected String name;
     private String description;
     private String status;
+    private String approvedBy;
 
     /**
      * Facility.booking.Booking constructor to make booking
@@ -59,6 +58,7 @@ public class Booking {
         this.timeEnd = storedEnd.toInstant().atZone(ZoneId.systemDefault()).toLocalTime();
         this.name = username;
         this.status = status;
+        this.approvedBy = null;
     }
 
     /**
@@ -133,13 +133,18 @@ public class Booking {
         return description;
     }
 
-
-    public void approveStatus() {
+    public void approveStatus(String username) {
         status = "A";
+        approvedBy = username;
     }
 
-    public void rejectStatus() {
+    public void rejectStatus(String username) {
         status = "R";
+        approvedBy = username;
+    }
+
+    public String getApprovedBy() {
+        return approvedBy;
     }
 
 }

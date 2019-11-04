@@ -17,22 +17,25 @@ public class LogoutCommand extends Command {
 
     //@@ AmirAzhar
     /**
-     * User logout.
-     * @param input    from user
-     * @param splitStr tokenized input
-     * @throws DukeException if format not followed
+     * Logout.
+     * @param userList List of users.
+     * @param inventory List of items
+     * @param roomList List of rooms
+     * @param bookingList bookings list
+     * @param ui user interface
+     * @param userStorage manage storage for users
+     * @param inventoryStorage manage inventory storage
+     * @param bookingstorage manage bookings storage
+     * @param roomstorage manage room storage
      */
-    public LogoutCommand(String input, String[] splitStr) throws DukeException, IOException {
-        if (UnusedLogin.getCurrentUser() == null) {
-            throw new DukeException("You are not currently logged in!");
-        }
-    }
-
     @Override
     public void execute(UserList userList, Inventory inventory, RoomList roomList, BookingList bookingList, Ui ui,
-                        Storage userStorage, Storage inventoryStorage, Storage bookingstorage, Storage roomstorage) {
-        userList.loginStatus = false;
-        ui.addToOutput("You have successfully logged out from: " + userList.currentUser);
-        userList.currentUser = null;
+                        Storage userStorage, Storage inventoryStorage, Storage bookingstorage, Storage roomstorage) throws DukeException {
+        if(userList.getLoginStatus() == false) {
+            throw new DukeException("OOPS!!! You are not currently logged in!");
+        }
+        userList.logout();
+        ui.addToOutput("You have successfully logged out from: " + userList.getCurrentUser());
+        userList.setCurrentUser(null) ;
     }
 }

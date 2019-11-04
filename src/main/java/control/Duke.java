@@ -21,6 +21,7 @@ import java.text.ParseException;
  * control.Duke is a chatbot that manage tasks for the user
  */
 public class Duke {
+    private final User user;
     private Storage bookingStorage;
     private BookingList bookingList;
     private RoomList roomList;
@@ -44,6 +45,7 @@ public class Duke {
         roomStorage = new Storage(roomListFile);
         inventoryStorage = new Storage(inventoryFile);
         userStorage = new Storage(userFile);
+        user = new User("null");
 
         File dir = new File(Constants.DIRECTORY);
         if (!dir.exists()) {
@@ -106,5 +108,9 @@ public class Duke {
 
     public RoomList getRoomList() {
         return roomList;
+    }
+
+    public UserList getUserList() {
+        return userList;
     }
 }
