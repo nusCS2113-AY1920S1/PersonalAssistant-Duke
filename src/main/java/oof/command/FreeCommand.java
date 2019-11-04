@@ -207,8 +207,8 @@ public class FreeCommand extends Command {
      * @param endTime       Ending time of event.
      * @throws OofException Prints customised exception message.
      */
-    private void populateEventTimes(String dateStart, String dateEnd, String freeSlotsDate, String startTime
-            , String endTime) throws OofException {
+    private void populateEventTimes(String dateStart, String dateEnd, String freeSlotsDate, String startTime,
+            String endTime) throws OofException {
         try {
             Date freeDate = convertStringToDate(freeSlotsDate);
             Date eventStartTime = convertStringToTime(startTime);
@@ -239,8 +239,8 @@ public class FreeCommand extends Command {
      * @param dueDateAndTime Due date and time of deadline.
      * @throws OofException Prints customised exception message.
      */
-    private void populateDeadlines(String dueDateAndTime, String fullDescription, String freeSlotsDate, String dueDate
-            , boolean isCompleted) throws OofException {
+    private void populateDeadlines(String dueDateAndTime, String fullDescription, String freeSlotsDate, String dueDate,
+            boolean isCompleted) throws OofException {
         try {
             SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy HH:mm");
             Date upcomingDateAndTime = format.parse(dueDateAndTime);
