@@ -41,6 +41,7 @@ public class DeleteCommand extends Command {
     public DeleteCommand(String indexStr) {
         try {
             this.index = Integer.parseInt(indexStr.trim());
+            parsedDate = currentDate;
         } catch (NumberFormatException nfe) {
             ui.showMessage("Unable to parse input " + indexStr + " as integer index. " + helpText);
         }
