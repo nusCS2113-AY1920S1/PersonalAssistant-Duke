@@ -23,29 +23,39 @@ import java.util.TreeMap;
 public class ExpenseCommand extends Command {
 
     /**
-     * This method is allows user to call commands to add expenses, find expenses on a certain date, delete a chosen expense,
+     * This method is allows user to call commands to add expenses,
+     * find expenses on a certain date, delete a chosen expense,
      * see the expense list and exit the expense page.
      *
-     * @param list list of all tasks
-     * @param ui the object that deals with printing things to the user.
-     * @param storage the object that deals with storing data.
+     * @param list         list of all tasks
+     * @param ui           the object that deals with
+     *                     printing things to the user
+     * @param storage      the object that deals with storing data
      * @param commandStack
      * @throws IOException Catch error if the read file fails
      */
     @Override
-    public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<ArrayList<Task>> commandStack, ArrayList<Task> deletedTask, TriviaManager triviaManager) throws IOException, ParseException {
-        HashMap<LocalDate, ArrayList<String>> map = storage.Expenses(); //Read the file
-        Map<LocalDate, ArrayList<String>> expenses = new TreeMap<LocalDate, ArrayList<String>>(map);
+    public void execute(final ArrayList<Task> list,
+                        final Ui ui, final Storage storage,
+                        final Stack<ArrayList<Task>> commandStack,
+                        final ArrayList<Task> deletedTask,
+                        final TriviaManager triviaManager)
+            throws IOException, ParseException {
 
-        System.out.print("Welcome to your expenses record! What would you like to do?\n\n");
-        System.out.println("__________________________________________________________");
+        /*Read file from storage*/
+        HashMap<LocalDate, ArrayList<String>> map = storage.Expenses();
+        Map<LocalDate, ArrayList<String>> expenses =
+                new TreeMap<LocalDate, ArrayList<String>>(map);
+
+        System.out.print("Welcome to your expenses record!"
+                + " What would you like to do?\n\n");
         System.out.println("1. Add expenses command: add");
         System.out.println("2. Find expenses on a certain date: find date");
         System.out.println("3. Delete a certain expense: delete expense");
         System.out.println("4. See your expense list: list");
         System.out.println("5. Exit Expense page: esc");
-        System.out.println("__________________________________________________________");
-
+        System.out.println("_________________________"
+                + "_________________________________");
         ui.readCommand();
         while (!ui.fullCommand.equals("esc")) {
             if (ui.fullCommand.contains("add")) {
@@ -55,23 +65,24 @@ public class ExpenseCommand extends Command {
             } else if (ui.fullCommand.contains("delete")) {
                 new DeleteExpenseCommand(ui, storage, expenses);
             } else if (ui.fullCommand.equals("list")) {
-                new ExpenseListCommand(ui, storage, expenses);
+                new ExpenseListCommand(ui, expenses);
             }
             ui.readCommand();
         }
-        System.out.println("Go back to Main Menu...\n" +
-                "Content Page:\n" +
-                "------------------ \n" +
-                "1. help\n" +
-                "2. contacts\n" +
-                "3. expenses\n" +
-                "4. places\n" +
-                "5. tasks\n" +
-                "6. cap\n" +
-                "7. spec\n" +
-                "8. moduleplanner\n" +
-                "9. notes\n");
+        System.out.println("Go back to Main Menu...\n"
+                + "Content Page:\n"
+                + "------------------ \n"
+                + "1. help\n"
+                + "2. contacts\n"
+                + "3. expenses\n"
+                + "4. places\n"
+                + "5. tasks\n"
+                + "6. cap\n"
+                + "7. spec\n"
+                + "8. moduleplanner\n"
+                + "9. notes\n");
     }
+
     @Override
     public boolean isExit() {
         return false;
