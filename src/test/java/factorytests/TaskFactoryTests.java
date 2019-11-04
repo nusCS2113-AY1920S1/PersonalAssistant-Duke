@@ -36,7 +36,7 @@ class TaskFactoryTests {
     void taskCreation_fullCorrectInputs_creationSuccess() {
         simulatedFactoryInput = "-t Killing Thanos -p 1 -d 28/09/2019 -c 100 -s done -r Use Iron Man";
         try {
-            ITask simulatedTask = taskFactory.createTask(simulatedFactoryInput);
+            ITask simulatedTask = taskFactory.create(simulatedFactoryInput);
             ArrayList<String> expectedRequirements = new ArrayList<>();
             expectedRequirements.add("Use Iron Man");
             Task expectedTask = new Task("Killing Thanos", 1,
@@ -54,7 +54,7 @@ class TaskFactoryTests {
     void taskCreation_correctPartialInputs_creationSuccess() {
         simulatedFactoryInput = "-t Turning back time -p 5 -c 5";
         try {
-            ITask simulatedTask = taskFactory.createTask(simulatedFactoryInput);
+            ITask simulatedTask = taskFactory.create(simulatedFactoryInput);
             Task expectedTask = new Task("Turning back time", 5,
                     null, 5, TaskState.OPEN, null);
             assertEquals(expectedTask.getDetails(), simulatedTask.getDetails());
@@ -70,7 +70,7 @@ class TaskFactoryTests {
     void taskCreation_wrongInputs_creationFailed() {
         simulatedFactoryInput = "-t Missing priority -c 5";
         try {
-            ITask simulatedTask = taskFactory.createTask(simulatedFactoryInput);
+            ITask simulatedTask = taskFactory.create(simulatedFactoryInput);
             NullTask expectedTask = new NullTask();
             assertEquals(expectedTask.getDetails(), simulatedTask.getDetails());
             assertEquals(expectedTask.getTaskName(),simulatedTask.getTaskName());

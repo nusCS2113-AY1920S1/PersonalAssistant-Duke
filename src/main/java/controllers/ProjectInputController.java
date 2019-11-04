@@ -267,15 +267,18 @@ public class ProjectInputController implements IController {
         ArchDukeLogger.logDebug(ProjectInputController.class.getName(), "[projectAddTask] User input: '"
                 + projectCommand + "'");
         try {
-            ITask newTask = taskFactory.createTask(projectCommand.substring(9));
+            ITask newTask = taskFactory.create(projectCommand.substring(9));
             if (newTask.getDetails() != null) {
                 projectToManage.addTask((Task) newTask);
                 return new String[] {"Added new task to the list."};
             }
             return new String[] {"Failed to create new task. Please ensure all "
-                        + "necessary parameters are given"};
+                                + "necessary parameters are given correctly.",
+                                "Task priority must be an integer between 1 to 5",
+                                "Task credit must be an integer between 0 to 100",
+                                "Date must be a valid date!"};
 
-        } catch (NumberFormatException | ParseException e) {
+        } catch (NumberFormatException e) {
             ArchDukeLogger.logError(ProjectInputController.class.getName(), "[projectAddTask] "
                     + "Please enter your task format correctly.");
             return new String[] {"Please ensure that your task format are correct and dates are valid."};

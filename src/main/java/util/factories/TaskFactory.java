@@ -11,7 +11,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class TaskFactory {
+public class TaskFactory implements IArchDukeFactory<ITask>{
     private ParserHelper parserHelper;
     private DateTimeHelper dateTimeHelper;
 
@@ -25,7 +25,7 @@ public class TaskFactory {
      * @param input Input containing the information about the task and priority.
      * @return Task as an object
      */
-    public ITask createTask(String input) throws ParseException {
+    public ITask create(String input) {
         if (!input.contains("-t") || !input.contains("-p") || !input.contains("-c")) {
             return new NullTask();
         }
@@ -39,11 +39,21 @@ public class TaskFactory {
         ArrayList<String> newTaskDetails = parserHelper.parseTaskDetails(taskDetails[0]);
         String newTaskName = newTaskDetails.get(0);
         int newTaskPriority = Integer.parseInt(newTaskDetails.get(1));
+        if (newTaskPriority < 1 || newTaskPriority > 5) {
+            return new NullTask();
+        }
         Date newTaskDate = null;
         if (newTaskDetails.get(2) != null) {
-            newTaskDate = dateTimeHelper.formatDate(newTaskDetails.get(2));
+            try{
+                newTaskDate = dateTimeHelper.formatDate(newTaskDetails.get(2));
+            } catch (ParseException err) {
+                return new NullTask();
+            }
         }
         int newTaskCredit = Integer.parseInt(newTaskDetails.get(3));
+        if (newTaskCredit < 0 || newTaskCredit > 100) {
+            return new NullTask();
+        }
         TaskState newTaskState = TaskState.OPEN;
         if (!("NONE".equals(newTaskDetails.get(4)))) {
             newTaskState = convertStringToTaskState(newTaskDetails.get(4));
