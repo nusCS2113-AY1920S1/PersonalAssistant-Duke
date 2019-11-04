@@ -144,6 +144,11 @@ public class ContactList {
         return -1;
     }
 
+    /**
+     * Sorts contact list by name(A to Z).
+     *
+     * @return a list of sorted contacts by name.
+     */
     public ArrayList<Contact> sortByName() {
         ArrayList<Contact> contactSortByName = (this.contactList);
         Collections.sort(contactSortByName, Comparator.comparing(a -> a.getName().toLowerCase()));

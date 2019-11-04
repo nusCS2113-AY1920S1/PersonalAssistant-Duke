@@ -103,7 +103,7 @@ public class ExportCommandParser implements Parser<ExportCommand> {
         } catch (NumberFormatException e) {
             System.out.println(MESSAGE_ERROR_WRONG_YEARMONTH);
             return null;
-        } catch (DateTimeException e){
+        } catch (DateTimeException e) {
             System.out.println(MESSAGE_ERROR_WRONG_YEARMONTH);
             return null;
         }
