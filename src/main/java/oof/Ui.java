@@ -36,6 +36,7 @@ public class Ui {
     private static final int TEXT_SIZE_SHORT = 13;
     private static final int TEXT_SIZE_LONG = 19;
     private static final int TEXT_WIDTH = 35;
+    private static final int TEXT_CENTER = 2;
     private static final int HEADER_WIDTH = 49;
     private static final int DESCRIPTION_SHORT_START = 0;
     private static final int DESCRIPTION_SHORT_END = 11;
@@ -765,7 +766,7 @@ public class Ui {
         System.out.println("-----------------------------------------------------");
         String dayWithDate = dayOfWeek + " " + freeDate;
         int padSize = HEADER_WIDTH - dayWithDate.length();
-        int padStart = dayWithDate.length() + padSize / 2;
+        int padStart = dayWithDate.length() + padSize / TEXT_CENTER;
         dayWithDate = String.format("%" + padStart + "s", dayWithDate);
         dayWithDate = String.format("%-" + HEADER_WIDTH + "s", dayWithDate);
         System.out.println("| " + dayWithDate + " |");
@@ -799,7 +800,7 @@ public class Ui {
     /**
      * Prints deadlines to do as suggestions to the user.
      *
-     * @param deadlineName  The name of the deadline suggested.
+     * @param deadlineName The name of the deadline suggested.
      */
     public void printSuggestionDetails(ArrayList<String> deadlineName) {
         System.out.println("You may plan to complete the following deadlines in your free time:");
@@ -811,12 +812,12 @@ public class Ui {
     /**
      * Centralises the details to be printed.
      *
-     * @param slotName  Name of the slot being printed.
-     * @return  A string that has been center justified.
+     * @param slotName Name of the slot being printed.
+     * @return A string that has been center justified.
      */
     private String centraliseDetails(String slotName) {
         int padSize = TEXT_WIDTH - slotName.length();
-        int padStart = slotName.length() + padSize / 2;
+        int padStart = slotName.length() + padSize / TEXT_CENTER;
         slotName = String.format("%" + padStart + "s", slotName);
         return String.format("%-" + TEXT_WIDTH + "s", slotName);
     }
