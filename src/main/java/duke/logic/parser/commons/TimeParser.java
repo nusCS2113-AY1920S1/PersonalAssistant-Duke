@@ -56,9 +56,10 @@ public class TimeParser {
         //    throw new ParseException(Message.MESSAGE_INVALID_DATE);
         //}
         //return dates.get(0);
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
         try {
-            return new SimpleDateFormat("dd/MM/yyyy HH:mm").parse(str.strip());
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+            simpleDateFormat.setLenient(false);
+            return simpleDateFormat.parse(str);
         } catch (java.text.ParseException e) {
             throw new ParseException(Message.MESSAGE_INVALID_DATE);
         }
