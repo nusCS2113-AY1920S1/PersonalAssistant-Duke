@@ -27,7 +27,7 @@ public class AddMemberCommand extends Command {
     @Override
     public CommandOutput execute(Model model) throws DukeException {
         model.addMember(name);
-        if (skills.size() != 0) {
+        if (skills != null) {
             for (int i = 0; i < skills.size(); i += 1) {
                 model.addMemberSkill(name, skills.get(i));
             }
