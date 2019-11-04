@@ -67,8 +67,14 @@ public class ProductBuilder {
         this.ingredients.add(IngredientBuilder.buildIngredientItem(name));
         return this;
     }
+
     public ProductBuilder addIngredientNameAndQuantity(String name, Double quantity) {
         this.ingredients.add(IngredientBuilder.buildIngredientItemWithQuantity(name, quantity));
+        return this;
+    }
+
+    public ProductBuilder withStatus(Product.Status status) {
+        this.status = status;
         return this;
     }
 

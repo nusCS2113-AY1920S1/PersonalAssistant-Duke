@@ -80,10 +80,12 @@ public class ProductDescriptor {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        ProductDescriptor that = (ProductDescriptor) o;
-        return Objects.equals(productName, that.productName)
-                //&& Objects.equals(items, that.items)
-                && status == that.status;
+        ProductDescriptor d = (ProductDescriptor) o;
+        return getProductName().equals(d.getProductName())
+                && getIngredientItemList().equals(d.getIngredientItemList())
+                && getStatus().equals(d.getStatus())
+                && getRetailPrice().equals(d.getRetailPrice())
+                && getStatus().equals(d.getStatus());
     }
 
     @Override

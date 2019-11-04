@@ -7,12 +7,13 @@ import java.util.ArrayList;
 
 public class IngredientItemList extends ArrayList<Item<Ingredient>> {
 
+
     @Override
     public String toString() {
         String s = "";
         for (int i = 0; i < this.size(); i++) {
             Item<Ingredient> ingredientItem = this.get(i);
-            s += "[" + ingredientItem.getItem().getName() + "," + ingredientItem.getQuantity() + "]" + "\n";
+            s += "[" + ingredientItem.getItem().getName() + "," + ingredientItem.getQuantity() + "]";
         }
         return s;
     }

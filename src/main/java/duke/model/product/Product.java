@@ -1,5 +1,6 @@
 package duke.model.product;
 
+import duke.commons.util.TestUtil;
 import duke.logic.message.ProductMessageUtils;
 
 import java.util.Objects;
@@ -91,9 +92,25 @@ public class Product {
 
     @Override
     public String toString() {
-        return productName + ": " + retailPrice + "$" + ingredients.toString();
+        return "{" +
+                "Product Name: " + productName + "," + System.lineSeparator() +
+                "Retail Price: $" + retailPrice  + "," + System.lineSeparator() +
+                "Cost: $" + ingredientCost + "," + System.lineSeparator() +
+                "Ingredients: " + ingredients.toString() + System.lineSeparator() +
+                "Status: " + status +
+                "}";
     }
 
+    /**
+     * Checks if two products have the same information for all fields
+     * using toString() function which prints out all fields.
+     * @param p another product
+     * @return true if the provided product has the same information for all fields
+     */
+    public boolean hasSameInfo(Product p) {
+        TestUtil.printToFile(toString() + System.lineSeparator() +"/////////////////////" + System.lineSeparator() + p.toString());
+        return toString().equals(p.toString());
+    }
     @Override
     public boolean equals(Object o) {
         if (this == o) {
