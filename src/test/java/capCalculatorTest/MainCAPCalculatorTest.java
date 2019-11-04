@@ -42,7 +42,7 @@ public class MainCAPCalculatorTest {
     }
 
     @Test
-    void testMainCommand() throws IOException, ParseException, DukeException {
+    void testMainESCCommand() throws IOException, ParseException, DukeException {
         TriviaManager triviaManager = new TriviaManager(storage);
         String moduleCode = "", grade = "";
         int moduleCredit = 0;
@@ -52,12 +52,14 @@ public class MainCAPCalculatorTest {
         test.execute(list, ui, storage, commandStack, deletedTask, triviaManager);
         assertEquals("Welcome to your CAP Calculator page! What would you like to do?\n\n"
                         + "__________________________________________________________\n"
-                        + "1. Add module: add\n"
+                        + "1. Add module: add semester number,"
+                        + "module's code, module's credit, module's grade\n"
                         + "2. Find module: find moduleCode\n"
                         + "3. Delete a module: delete module\n"
-                        + "4. See your CAP list: list\n"
-                        + "5. Help Command: help\n"
-                        + "6. Exit CAP page: esc\n"
+                        + "4. See your CAP list: list all/semester number\n"
+                        + "5. List of commands for CAP page: commands\n"
+                        + "6. Help page: help\n"
+                        + "7. Exit CAP page: esc\n"
                         + "__________________________________________________________\n"
                         + "\nGo back to Main Menu...\n" +
                         "Content Page:\n" +
@@ -70,7 +72,42 @@ public class MainCAPCalculatorTest {
                         "6. cap\n" +
                         "7. spec\n" +
                         "8. moduleplanner\n" +
-                        "9. notes\n\n"
+                        "9. notes\n"
+                , output.toString()
+        );
+    }
+    @Test
+    void testMainNumCommand() throws IOException, ParseException, DukeException {
+        TriviaManager triviaManager = new TriviaManager(storage);
+        String moduleCode = "", grade = "";
+        int moduleCredit = 0;
+        CAPCommand test = new CAPCommand(moduleCode, moduleCredit, grade);
+        ByteArrayInputStream in = new ByteArrayInputStream("7".getBytes());
+        System.setIn(in);
+        test.execute(list, ui, storage, commandStack, deletedTask, triviaManager);
+        assertEquals("Welcome to your CAP Calculator page! What would you like to do?\n\n"
+                        + "__________________________________________________________\n"
+                        + "1. Add module: add semester number,"
+                        + "module's code, module's credit, module's grade\n"
+                        + "2. Find module: find moduleCode\n"
+                        + "3. Delete a module: delete module\n"
+                        + "4. See your CAP list: list all/semester number\n"
+                        + "5. List of commands for CAP page: commands\n"
+                        + "6. Help page: help\n"
+                        + "7. Exit CAP page: esc\n"
+                        + "__________________________________________________________\n"
+                        + "\nGo back to Main Menu...\n" +
+                        "Content Page:\n" +
+                        "------------------ \n" +
+                        "1. help\n" +
+                        "2. contacts\n" +
+                        "3. expenses\n" +
+                        "4. places\n" +
+                        "5. tasks\n" +
+                        "6. cap\n" +
+                        "7. spec\n" +
+                        "8. moduleplanner\n" +
+                        "9. notes\n"
                 , output.toString()
         );
     }

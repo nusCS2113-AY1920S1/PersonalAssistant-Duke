@@ -4,6 +4,8 @@ package gazeeebo.commands.contact;
 import gazeeebo.TriviaManager.TriviaManager;
 import gazeeebo.UI.Ui;
 import gazeeebo.commands.Command;
+import gazeeebo.commands.help.HelpCommand;
+import gazeeebo.exception.DukeException;
 import gazeeebo.storage.Storage;
 import gazeeebo.tasks.Task;
 
@@ -41,7 +43,8 @@ public class ContactCommand extends Command {
                         final Storage storage,
                         final Stack<ArrayList<Task>> commandStack,
                         final ArrayList<Task> deletedTask,
-                        final TriviaManager triviaManager) throws IOException {
+                        final TriviaManager triviaManager)
+            throws IOException, DukeException {
         HashMap<String, String> map
                 = storage.readFromContactFile(); //Read the file
         Map<String, String> contactList = new TreeMap<String, String>(map);
@@ -50,13 +53,14 @@ public class ContactCommand extends Command {
                 + "What would you like to do?\n\n");
         String helpContact = "_________________________"
                 + "_________________________________\n"
-                + "1. Add contacts: add\n"
+                + "1. Add contacts: add name,number\n"
                 + "2. Find contacts base on name: find name\n"
                 + "3. Delete a contact: delete name\n"
                 + "4. See your contacts list: list\n"
                 + "5. Undo Command: undo\n"
-                + "6. Help Command: help\n"
-                + "7. Exit contact page: esc\n"
+                + "6. List of commands for contacts page: commands\n"
+                + "7. Help page: help\n"
+                + "8. Exit contact page: esc\n"
                 + "_____________________________"
                 + "_____________________________\n\n";
         System.out.print(helpContact);
@@ -69,20 +73,24 @@ public class ContactCommand extends Command {
             } else if (ui.fullCommand.split(" ")[0].equals("find")
                     || ui.fullCommand.equals("2")) {
                 new FindContactCommand(ui, contactList, LINEBREAK);
-            } else if (ui.fullCommand.equals("list")
-                    || ui.fullCommand.equals("4")) {
-                new ListContactCommand(contactList, LINEBREAK);
             } else if (ui.fullCommand.split(" ")[0].equals("delete")
                     || ui.fullCommand.equals("3")) {
                 copyMap(contactList, oldcontacts);
                 new DeleteContactCommand(ui, contactList);
-            } else if (ui.fullCommand.equals("help")
-                    || ui.fullCommand.equals("6")) {
-                System.out.println(helpContact);
+            } else if (ui.fullCommand.equals("list")
+                    || ui.fullCommand.equals("4")) {
+                new ListContactCommand(contactList, LINEBREAK);
             } else if (ui.fullCommand.equals("undo")
                     || ui.fullCommand.equals("5")) {
                 contactList = UndoContactCommand.
                         undo(contactList, oldcontacts, storage);
+            } else if (ui.fullCommand.equals("commands")
+                    || ui.fullCommand.equals("6")) {
+                System.out.println(helpContact);
+            } else if (ui.fullCommand.equals("help")
+                    || ui.fullCommand.equals("7")) {
+                (new HelpCommand()).execute(null, ui, null,
+                        null, null, null);
             } else {
                 System.out.println("Command not found:\n" + helpContact);
             }
@@ -125,7 +133,9 @@ public class ContactCommand extends Command {
         oldcontacts.push(currentcontacts);
     }
 
-    /** When isExit is true, it will stop the system.*/
+    /**
+     * When isExit is true, it will stop the system.
+     */
     @Override
     public boolean isExit() {
         return false;

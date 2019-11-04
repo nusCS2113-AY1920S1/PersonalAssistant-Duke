@@ -28,7 +28,7 @@ public class Parser {
             return new ExpenseCommand();
         } else if (command.equals("places") || command.equals("4")) {
             return new PlacesCommand();
-        } else if (splitCommand[0].equals("bye") || command.equals("10")) {
+        } else if (splitCommand[0].equals("bye")) {
             return new ByeCommand();
         } else if (command.equals("spec") || command.equals("7")) {
             return new SpecializationCommand();

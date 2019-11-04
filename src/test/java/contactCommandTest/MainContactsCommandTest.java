@@ -1,6 +1,7 @@
 package contactCommandTest;
 
 import gazeeebo.commands.contact.*;
+import gazeeebo.exception.DukeException;
 import gazeeebo.storage.Storage;
 import gazeeebo.tasks.Task;
 import gazeeebo.UI.Ui;
@@ -40,7 +41,7 @@ public class MainContactsCommandTest {
     }
 
     @Test
-    void testWelcome() throws IOException {
+    void testWelcome() throws IOException, DukeException {
         TriviaManager triviaManager = new TriviaManager(storage);
         ContactCommand test = new ContactCommand();
         ByteArrayInputStream in = new ByteArrayInputStream("esc".getBytes());
@@ -48,13 +49,14 @@ public class MainContactsCommandTest {
         test.execute(list, ui, storage, commandStack, deletedTask, triviaManager);
         assertEquals("Welcome to your contacts page! What would you like to do?\n\n"
                         + "__________________________________________________________\n"
-                        + "1. Add contacts: add\n"
+                        + "1. Add contacts: add name,number\n"
                         + "2. Find contacts base on name: find name\n"
                         + "3. Delete a contact: delete name\n"
                         + "4. See your contacts list: list\n"
                         + "5. Undo Command: undo\n"
-                        + "6. Help Command: help\n"
-                        + "7. Exit contact page: esc\n"
+                        + "6. List of commands for contacts page: commands\n"
+                        + "7. Help page: help\n"
+                        + "8. Exit contact page: esc\n"
                         + "__________________________________________________________\n\n"
                 + "Go back to Main Menu...\n" +
                         "Content Page:\n" +

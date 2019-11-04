@@ -1,8 +1,10 @@
+
 package gazeeebo.commands.capCalculator;
 
 import gazeeebo.TriviaManager.TriviaManager;
 import gazeeebo.UI.Ui;
 import gazeeebo.commands.Command;
+import gazeeebo.commands.help.HelpCommand;
 import gazeeebo.exception.DukeException;
 import gazeeebo.storage.Storage;
 import gazeeebo.tasks.Task;
@@ -49,12 +51,14 @@ public class CAPCommand extends Command {
             IOException, NullPointerException {
         String helpCAP = "__________________"
                 + "________________________________________\n"
-                + "1. Add module: add\n"
+                + "1. Add module: add semester number,"
+                + "module's code, module's credit, module's grade\n"
                 + "2. Find module: find moduleCode\n"
                 + "3. Delete a module: delete module\n"
-                + "4. See your CAP list: list\n"
-                + "5. Help Command: help\n"
-                + "6. Exit CAP page: esc\n"
+                + "4. See your CAP list: list all/semester number\n"
+                + "5. List of commands for CAP page: commands\n"
+                + "6. Help page: help\n"
+                + "7. Exit CAP page: esc\n"
                 + "_________________"
                 + "_________________________________________\n\n";
         System.out.print("Welcome to your CAP Calculator page! "
@@ -65,7 +69,7 @@ public class CAPCommand extends Command {
         Map<String, ArrayList<CAPCommand>> caplist = new TreeMap<>(map);
         String lineBreak = "------------------------------\n";
         ui.readCommand();
-        while (!(ui.fullCommand.equals("esc") || ui.fullCommand.equals("6"))) {
+        while (!(ui.fullCommand.equals("esc") || ui.fullCommand.equals("7"))) {
             try {
                 double cap = new CalculateCAPCommand().calculateCAP(caplist);
                 if (ui.fullCommand.split(" ")[0].equals("add")
@@ -81,7 +85,11 @@ public class CAPCommand extends Command {
                         || ui.fullCommand.equals("3")) {
                     new DeleteCAPCommand(ui, caplist);
                 } else if (ui.fullCommand.equals("help")
-                        || ui.fullCommand.equals("5")) {
+                        || ui.fullCommand.equals("6")) {
+                    (new HelpCommand()).execute(null, ui, null,
+                            null, null, null);
+                } else if (ui.fullCommand.equals("commands")
+                || ui.fullCommand.equals("5")) {
                     System.out.println(helpCAP);
                 } else {
                     throw new ArrayIndexOutOfBoundsException();

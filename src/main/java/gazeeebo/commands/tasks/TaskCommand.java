@@ -36,7 +36,12 @@ public class TaskCommand extends Command {
      * @throws ParseException
      */
     @Override
-    public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<ArrayList<Task>> commandStack, ArrayList<Task> deletedTask, TriviaManager triviaManager) throws IOException, DukeException, ParseException {
+    public void execute(ArrayList<Task> list, final Ui ui,
+                        final Storage storage,
+                        final Stack<ArrayList<Task>> commandStack,
+                        final ArrayList<Task> deletedTask, final TriviaManager triviaManager)
+            throws IOException,
+            DukeException, ParseException {
         System.out.println("Welcome to your Tasks page! What would you like to do?\n");
         CalendarView calendarView = new CalendarView();
         calendarView.monthlyView(list);
@@ -73,8 +78,8 @@ public class TaskCommand extends Command {
                 + "Deleting a note: deleteNote day/week/month YYY-MM-DD/YYYY-MM-DD/YYYY-MM note_number\n"
                 + "Listing all notes: listNote day/week/month YYY-MM-DD/YYYY-MM-DD/YYYY-MM note_number\n"
                 + "Show all commands: commands\n"
-                + "Return to main page: esc\n" +
-                "________________________________________________________________________________________________\n";
+                + "Return to main page: esc\n"
+                + "________________________________________________________________________________________________\n";
         System.out.println(commandList);
         ArrayList<Task> oldList;
         while (!ui.fullCommand.equals("esc")) {
@@ -177,7 +182,7 @@ public class TaskCommand extends Command {
                 new UndoneCommand().execute(list, ui, storage, commandStack, deletedTask, triviaManager);
                 commandStack.push(oldList);
             } else if (splitCommand[0].equals("undo")) {
-                list = UndoTaskCommand.undo(commandStack,list,storage);
+                list = UndoTaskCommand.undo(commandStack, list, storage);
             } else if (splitCommand[0].equals("edit")) {
                 oldList = new ArrayList<>();
                 copyOldList(oldList, list);
@@ -202,18 +207,18 @@ public class TaskCommand extends Command {
             } else if (command.equals("calendar annual view")) {
                 new CalendarView().annualView(list);
             } else if (command.equals("esc")) {
-                System.out.println("Go back to Main Menu...\n" +
-                        "Content Page:\n" +
-                        "------------------ \n" +
-                        "1. help\n" +
-                        "2. contacts\n" +
-                        "3. expenses\n" +
-                        "4. places\n" +
-                        "5. tasks\n" +
-                        "6. cap\n" +
-                        "7. spec\n" +
-                        "8. moduleplanner\n" +
-                        "9. notes\n");
+                System.out.println("Go back to Main Menu...\n"
+                        + "Content Page:\n"
+                        + "------------------ \n"
+                        + "1. help\n"
+                        + "2. contacts\n"
+                        + "3. expenses\n"
+                        + "4. places\n"
+                        + "5. tasks\n"
+                        + "6. cap\n"
+                        + "7. spec\n"
+                        + "8. moduleplanner\n"
+                        + "9. notes\n");
             } else {
                 System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(");
             }

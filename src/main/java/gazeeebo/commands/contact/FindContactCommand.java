@@ -25,7 +25,7 @@ public class FindContactCommand {
                               final String lineBreak) {
         try {
             String nameToFind = "";
-            String toPrint = "";
+            StringBuilder toPrint = new StringBuilder();
             boolean isExist = false;
             if (ui.fullCommand.split(" ").length == 1) {
                 System.out.println("What is the name you want to find?");
@@ -43,12 +43,13 @@ public class FindContactCommand {
             for (String keys : contactList.keySet()) {
                 if (keys.contains(nameToFind)) {
                     isExist = true;
-                    toPrint += keys;
+                    toPrint.append(keys);
                     int l = SPACE_NUMBER - keys.length();
                     for (int i = 0; i < l; i++) {
-                        toPrint += " ";
+                        toPrint.append(" ");
                     }
-                    toPrint += "| " + contactList.get(keys) + "\n" + lineBreak;
+                    toPrint.append("| ").append(contactList.get(keys)).
+                            append("\n").append(lineBreak);
                 }
             }
             if (!isExist) {

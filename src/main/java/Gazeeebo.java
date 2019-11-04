@@ -37,7 +37,7 @@ public class Gazeeebo {
             NoteStorage.readFromFile("NoteMonthly.txt", NoteList.monthly);
             NotePageStorage.readFromGoalFile();
             NotePageStorage.readFromModulesFile();
-            ui.UpcomingTask(list);
+            ui.upcomingTask(list);
             ui.MajorCategories();
             while (!isExit) {
                 ui.readCommand();
