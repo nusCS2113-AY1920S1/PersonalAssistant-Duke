@@ -20,7 +20,7 @@ import java.util.TreeMap;
  * Collection of helpful functions to parse user input.
  */
 public class Util {
-    private static final String INVALID_FORMAT_MESSAGE = "Please enter dates in the format dd/mm/yyyy hhmm";
+    private static final String INVALID_FORMAT_MESSAGE = "Please enter dates in the format dd/mm/yyyy hhmm.";
     private static final String INVALID_DATE_FORMAT_MESSAGE = "Please enter date in the format dd/mm/yyyy.";
     private static final DateTimeFormatter formatter =
             DateTimeFormatter.ofPattern("dd/MM/uuuu HHmm")
@@ -104,11 +104,7 @@ public class Util {
      */
     public static LocalDateTime parseDateTime(String dateTime) throws DuchessException {
         try {
-            String[] arr = dateTime.split(" ");
-            if (arr.length > 2) {
-                throw new DuchessException(INVALID_FORMAT_MESSAGE);
-            }
-            return LocalDateTime.of(parseDate(arr[0]), parseTime(arr[1]));
+            return LocalDateTime.parse(dateTime, formatter);
         } catch (IndexOutOfBoundsException | DateTimeParseException e) {
             throw new DuchessException(INVALID_FORMAT_MESSAGE);
         }
