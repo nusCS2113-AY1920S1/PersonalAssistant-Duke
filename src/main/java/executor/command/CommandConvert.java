@@ -310,7 +310,7 @@ public class CommandConvert extends Command {
         return amount;
     }
 
-    public Double getExchangeRate() {
+    private Double getExchangeRate() {
         return exchangeRate;
     }
 
