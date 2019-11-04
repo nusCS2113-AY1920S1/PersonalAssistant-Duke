@@ -28,5 +28,6 @@ public enum ExceptionType {
     writeError,
     loadError,
 
-    invalidInputString
+    invalidInputString,
+    invalidDateError
     }

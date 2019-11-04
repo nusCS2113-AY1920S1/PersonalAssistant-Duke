@@ -109,29 +109,47 @@ public class TaskCreator {
 
         String[] dateArray = input.split("&");
         ArrayList<Date> dates = new ArrayList<>();
+        Date currentDate = new Date();
         if (count > 0) {
             if (count <= 2) {
                 String dateInput = dateArray[1].trim();
                 try {
-                    dates.add(parser.formatDate(dateInput));
+                    Date date = parser.formatDate(dateInput);
+                    if (currentDate.compareTo(date) > 0) {
+                        // the input date is before the current date
+                        throw new RoomShareException(ExceptionType.invalidDateError);
+                    }
+                    dates.add(date);
                 } catch (RoomShareException e) {
                     System.out.println(DATE_FORMAT_ERROR);
-                    dates.add(new Date());
+                    dates.add(currentDate);
                 }
             } else {
                 String fromInput = dateArray[1].trim();
                 String toInput = dateArray[2].trim();
+                Date from = new Date();
                 try {
-                    dates.add(parser.formatDate(fromInput));
+                    from = parser.formatDate(fromInput);
+                    if (currentDate.compareTo(from) > 0) {
+                        // input date is before the current date
+                        throw new RoomShareException(ExceptionType.invalidDateError);
+                    }
+                    dates.add(from);
                 } catch (RoomShareException e) {
                     System.out.println(STARTING_DATE_FORMAT_ERROR);
-                    dates.add(new Date());
+                    dates.add(currentDate);
                 }
                 try {
+                    Date to = parser.formatDate(toInput);
+                    if (currentDate.compareTo(to) > 0 || from.compareTo(to) > 0) {
+                        // the date is before the current date or is before the starting
+                        // date of the leave
+                        throw new RoomShareException(ExceptionType.invalidDateError);
+                    }
                     dates.add(parser.formatDate(toInput));
                 } catch (RoomShareException e) {
                     System.out.println(ENDING_DATE_FORMAT_ERROR);
-                    dates.add(new Date());
+                    dates.add(currentDate);
                 }
             }
         } else
