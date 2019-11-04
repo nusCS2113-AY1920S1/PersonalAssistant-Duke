@@ -13,7 +13,7 @@ checkstyle {
 
 shadowJar {
     archiveBaseName = "JavaCake"
-    archiveVersion = "1.3"
+    archiveVersion = "midv1.4"
     archiveClassifier = null
     archiveAppendix = null
 }
