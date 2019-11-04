@@ -35,11 +35,11 @@ public class Task {
      * @param duration    how long the task would take to complete
      */
     public Task(Optional<String> filter, Optional<LocalDateTime> dateTime, Recurrence recurrence,
-                String description, int duration) {
+                String description, int duration, int priority) throws DukeException {
         this.description = description;
         this.isDone = false;
         this.key = "";
-        this.priority = Priority.LOW;
+        setPriority(priority);
         this.recurrence = recurrence;
         this.filter = filter;
         this.duration = duration;
@@ -149,18 +149,15 @@ public class Task {
         switch (i) {
         case 0:
             priority = Priority.LOW;
-            System.out.println(this + " has a new priority of LOW");
             break;
         case 1:
             priority = Priority.MEDIUM;
-            System.out.println(this + " has a new priority of MEDIUM");
             break;
         case 2:
             priority = Priority.HIGH;
-            System.out.println(this + " has a new priority of HIGH");
             break;
         default:
-            throw new DukeException("No such priority exists.");
+            throw new DukeException("No such priority exists!");
         }
     }
 

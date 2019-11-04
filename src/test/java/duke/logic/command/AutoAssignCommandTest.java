@@ -81,10 +81,10 @@ class AutoAssignCommandTest {
         String description3 = "cs2113 homework 2";
         String description4 = "More cs homework";
 
-        t.add(new Task(empty, dateTime1, recurrenceDaily, description1, 4));
-        t.add(new Task(Optional.of("cs"), dateTime3, recurrenceDaily, description3, 4));
-        t.add(new Task(Optional.of("cs"), dateTime2, recurrenceNone, description2, 5));
-        t.add(new Task(empty, dateTime2, recurrenceNone, description4, 5));
+        t.add(new Task(empty, dateTime1, recurrenceDaily, description1, 4,1));
+        t.add(new Task(Optional.of("cs"), dateTime3, recurrenceDaily, description3, 4,1));
+        t.add(new Task(Optional.of("cs"), dateTime2, recurrenceNone, description2, 5,1));
+        t.add(new Task(empty, dateTime2, recurrenceNone, description4, 5,1));
 
         return t;
     }

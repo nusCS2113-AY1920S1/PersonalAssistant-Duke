@@ -52,6 +52,18 @@ class AddCommandParserTest {
     }
 
     @Test
+    public void parse_testDurationPriority_success() throws DukeException, IOException {
+        TaskList l = new TaskList();
+        AddCommandParser a = new AddCommandParser();
+        Optional<String> noFilter = Optional.empty();
+        String command = "task why am i doing this??? -p 3";
+        AddCommand aCom = a.parse(noFilter, command);
+        aCom.execute(l, ui, storage);
+        Task actualTask = l.get(0);
+        assertTrue(actualTask.getPriorityLevel() == 2);
+    }
+
+    @Test
     public void parse_testDateTimeParsed_success() throws DukeException, IOException {
         TaskList l = new TaskList();
         AddCommandParser a = new AddCommandParser();
@@ -72,7 +84,31 @@ class AddCommandParserTest {
         String command = "task why am i doing this??? -goodriddance today 1000";
         Exception exception = assertThrows(DukeException.class, () ->
                 a.parse(noFilter, command));
-        assertEquals("I don't know which field you are trying to edit!",
+        assertEquals("I don't know which field you are trying to add!",
+                exception.getMessage());
+    }
+
+    @Test
+    public void parse_testWrongDurationNonNumerical_failure() throws DukeException, IOException {
+        TaskList l = new TaskList();
+        AddCommandParser a = new AddCommandParser();
+        Optional<String> noFilter = Optional.empty();
+        String command = "task why am i doing this??? -d s";
+        Exception exception = assertThrows(DukeException.class, () ->
+                a.parse(noFilter, command));
+        assertEquals("Please enter a numerical field for the duration!",
+                exception.getMessage());
+    }
+
+    @Test
+    public void parse_testWrongPriorityonNumerical_failure() throws DukeException, IOException {
+        TaskList l = new TaskList();
+        AddCommandParser a = new AddCommandParser();
+        Optional<String> noFilter = Optional.empty();
+        String command = "task why am i doing this??? -p s";
+        Exception exception = assertThrows(DukeException.class, () ->
+                a.parse(noFilter, command));
+        assertEquals("Please enter a numerical field for the priority!",
                 exception.getMessage());
     }
 }

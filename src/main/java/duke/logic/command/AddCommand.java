@@ -1,5 +1,6 @@
 package duke.logic.command;
 
+import javax.swing.*;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.Optional;
@@ -25,6 +26,7 @@ public class AddCommand extends Command {
     private Optional<String> filter;
     private Optional<LocalDateTime> dateTime;
     private Recurrence recurrence;
+    private int priority;
 
     /**
      * Constructor for AddCommand
@@ -39,13 +41,14 @@ public class AddCommand extends Command {
      * @throws DukeException if event has no starting time
      */
     public AddCommand(Optional<String> filter, Optional<LocalDateTime> dateTime, Optional<String> recurrence,
-                      String description, String taskType, int duration) throws DukeException {
+                      String description, String taskType, int duration, int priority) throws DukeException {
         this.filter = filter;
         this.dateTime = dateTime;
         this.recurrence = new Recurrence(recurrence);
         this.description = description;
         this.taskType = taskType;
         this.duration = duration;
+        this.priority = priority;
     }
 
     /**
@@ -64,7 +67,7 @@ public class AddCommand extends Command {
             if (!dateTime.isPresent()) {
                 throw new DukeException("Your event needs to have a starting time.");
             }
-            Event newEvent = new Event(filter, dateTime, recurrence, description, duration);
+            Event newEvent = new Event(filter, dateTime, recurrence, description, duration, priority);
             AbnormalityChecker abnormalityChecker = new AbnormalityChecker(tasks);
             if (abnormalityChecker.checkEventClash(newEvent)) {
                 System.out.println("There is a clash with another event at the same time");
@@ -73,7 +76,7 @@ public class AddCommand extends Command {
             }
             break;
         default:
-            Task newTask = new Task(filter, dateTime, recurrence, description, duration);
+            Task newTask = new Task(filter, dateTime, recurrence, description, duration, priority);
             tasks.add(newTask);
             break;
         }
