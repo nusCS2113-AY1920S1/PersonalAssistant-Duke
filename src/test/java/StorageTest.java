@@ -1,11 +1,13 @@
 import chronologer.exception.ChronologerException;
 import chronologer.storage.Storage;
 import chronologer.task.Deadline;
+import chronologer.task.Priority;
 import chronologer.task.Task;
 import chronologer.task.TaskList;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
@@ -41,6 +43,7 @@ class StorageTest {
     }
 
     @Test
+    @Order(1)
     void testSave() throws ChronologerException, IOException {
         storage.saveFile(tasks.getTasks());
         String jsonString = Files.readString(Paths.get(String.valueOf(file)), StandardCharsets.US_ASCII);
@@ -53,6 +56,17 @@ class StorageTest {
             + "\"isIgnored\":false,\"isDone\":false,\"modCode\":\"\"}]";
 
         Assertions.assertEquals(expectedJson, jsonString);
+    }
+
+    @Test
+    @Order(2)
+    void testLoad() throws ChronologerException, IOException {
+        testSave();
+        TaskList tasks = storage.loadFile(file);
+        Task task = tasks.getTasks().get(0);
+        Assertions.assertEquals(task.getDescription(), deadlineTest.getDescription());
+        Assertions.assertEquals(task.getStartDate(), deadlineTest.getStartDate());
+        Assertions.assertEquals(Priority.MEDIUM, task.getPriority());
     }
 
     @AfterAll

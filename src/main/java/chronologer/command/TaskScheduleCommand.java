@@ -1,5 +1,6 @@
 package chronologer.command;
 
+import chronologer.TaskScheduler;
 import chronologer.exception.ChronologerException;
 import chronologer.storage.Storage;
 import chronologer.task.Task;
@@ -21,8 +22,8 @@ import java.util.ArrayList;
  */
 public class TaskScheduleCommand extends Command {
 
-    private Long durationToSchedule;
-    private final int indexOfTask;
+    private final Long durationToSchedule;
+    private final Integer indexOfTask;
     private final Integer indexOfDeadline;
     private final LocalDateTime deadlineDate;
 
@@ -32,6 +33,7 @@ public class TaskScheduleCommand extends Command {
      * @param indexDeadline is the index number of the selected deadline in the TaskList
      */
     public TaskScheduleCommand(int indexOfTask, int indexDeadline) {
+        this.durationToSchedule = null;
         this.indexOfTask = indexOfTask;
         this.indexOfDeadline = indexDeadline;
         this.deadlineDate = null;
@@ -43,9 +45,34 @@ public class TaskScheduleCommand extends Command {
      * @param deadlineDate is the date to schedule the task by
      */
     public TaskScheduleCommand(int indexOfTask, LocalDateTime deadlineDate) {
+        this.durationToSchedule = null;
         this.indexOfTask = indexOfTask;
+        this.indexOfDeadline = null;
         this.deadlineDate = deadlineDate;
-        this.indexOfDeadline = -1;
+    }
+
+    /**
+     * Initialises the command parameter for an inputted duration to be done by a selected deadline.
+     * @param duration is the minimum hours of a free period that the user wishes to find
+     * @param indexOfDeadline is the index number of the selected deadline in the TaskList
+     */
+    public TaskScheduleCommand(Long duration, int indexOfDeadline) {
+        this.durationToSchedule = duration;
+        this.indexOfTask = null;
+        this.indexOfDeadline = indexOfDeadline;
+        this.deadlineDate = null;
+    }
+
+    /**
+     * Initialises the command parameter for an inputted duration to be done by an inputted date.
+     * @param duration is the minimum hours of a free period that the user wishes to find
+     * @param deadlineDate is the date to schedule the task by
+     */
+    public TaskScheduleCommand(Long duration, LocalDateTime deadlineDate) {
+        this.durationToSchedule = duration;
+        this.indexOfTask = null;
+        this.indexOfDeadline = null;
+        this.deadlineDate = deadlineDate;
     }
 
     /**
@@ -59,18 +86,23 @@ public class TaskScheduleCommand extends Command {
         Todo todo;
         Deadline deadline;
         LocalDateTime deadlineDate;
+        Long duration;
 
         ArrayList<Task> list = tasks.getTasks();
 
-        try {
-            todo = (Todo) list.get(indexOfTask);
-        } catch (ClassCastException e) {
-            UiTemporary.printOutput("Task selected is not a Todo with a duration");
-            throw new ChronologerException("Task selected is not a Todo with a duration");
+        if (this.indexOfTask != null) {
+            try {
+                todo = (Todo) list.get(indexOfTask);
+            } catch (ClassCastException e) {
+                UiTemporary.printOutput("Task selected is not a Todo with a duration");
+                throw new ChronologerException("Task selected is not a Todo with a duration");
+            }
+            duration = (long) todo.duration;
+        } else {
+            duration = this.durationToSchedule;
         }
-        durationToSchedule = (long) todo.duration;
 
-        if (this.deadlineDate == null) {
+        if (this.indexOfDeadline != null) {
             try {
                 deadline = (Deadline) list.get(indexOfDeadline);
             } catch (ClassCastException e) {
@@ -81,48 +113,18 @@ public class TaskScheduleCommand extends Command {
         } else {
             deadlineDate = this.deadlineDate;
         }
+
+        if (deadlineDate == null) {
+            TaskScheduler.scheduleTask(tasks, duration);
+            return;
+        }
+
         if (LocalDateTime.now().isAfter(deadlineDate)) {
+            UiTemporary.printOutput("The selected deadline is overdue!");
             throw new ChronologerException("The selected deadline is overdue!");
         }
 
-        ArrayList<Event> dateList = tasks.obtainEventList(deadlineDate);
-        if (dateList.size() == 0) {
-            UiTemporary.printOutput("You can schedule this task from now till the deadline.\n");
-            return;
-        }
-
-        Long duration;
-        LocalDateTime nextStartDate = dateList.get(0).getStartDate();
-        duration = ChronoUnit.HOURS.between(LocalDateTime.now(), nextStartDate);
-        if (durationToSchedule <= duration) {
-            UiTemporary.printOutput("You can schedule this task from now till " + nextStartDate);
-            return;
-        }
-
-        boolean isFreeBetweenEvents = false;
-        for (int i = 0; i < dateList.size(); i++) {
-            LocalDateTime currentEndDate = dateList.get(i).getEndDate();
-            if (i == dateList.size() - 1) {
-                nextStartDate = deadlineDate;
-                if (currentEndDate.isAfter(deadlineDate)) {
-                    currentEndDate = deadlineDate;
-                }
-            } else {
-                nextStartDate = dateList.get(i + 1).getStartDate();
-            }
-
-            duration = ChronoUnit.HOURS.between(currentEndDate, nextStartDate);
-            if (durationToSchedule <= duration) {
-                isFreeBetweenEvents = true;
-                UiTemporary.printOutput("You can schedule this task from " + currentEndDate
-                        + " till " + nextStartDate);
-                break;
-            }
-        }
-
-        if (!isFreeBetweenEvents) {
-            UiTemporary.printOutput("There is no free slot to insert the task. Consider freeing up your schedule.");
-        }
+        TaskScheduler.scheduleByDeadline(tasks, duration, deadlineDate);
     }
 
     // TODO: Figure a way for GUI to accept subsequent inputs

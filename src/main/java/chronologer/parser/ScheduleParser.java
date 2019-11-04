@@ -5,7 +5,6 @@ import chronologer.command.TaskScheduleCommand;
 import chronologer.exception.ChronologerException;
 import chronologer.ui.UiTemporary;
 
-import java.text.ParseException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
@@ -19,6 +18,7 @@ public class ScheduleParser extends IndexParser {
 
     private static final int INDEX_INPUT = 0;
     private static final int DATE_INPUT = 1;
+    private static final int NO_DEADLINE_INPUT = 2;
 
     public ScheduleParser(String userInput, String command) {
         super(userInput, command);
@@ -42,6 +42,8 @@ public class ScheduleParser extends IndexParser {
         case DATE_INPUT:
             LocalDateTime dateOfDeadline = extractDeadlineDate(taskFeatures);
             return new TaskScheduleCommand(indexOfTask, dateOfDeadline);
+        case NO_DEADLINE_INPUT:
+            return new TaskScheduleCommand(indexOfTask, null);
         default:
             return null;
         }
@@ -67,14 +69,18 @@ public class ScheduleParser extends IndexParser {
         try {
             convertedDate = DateTimeExtractor.extractDateTime(extractedDate, command);
         } catch (DateTimeParseException e) {
+            UiTemporary.printOutput(ChronologerException.wrongDateOrTime());
             logger.writeLog(e.toString(), this.getClass().getName(), userInput);
-            throw new ChronologerException(ChronologerException.unknownUserCommand());
+            throw new ChronologerException(ChronologerException.wrongDateOrTime());
         }
 
         return convertedDate;
     }
 
     private int checkInputType(String taskFeatures) throws ChronologerException {
+        if (taskFeatures.split("\\s+").length == 1) {
+            return NO_DEADLINE_INPUT;
+        }
         String stringToCheck = taskFeatures.split(Flag.BY.getFlag(), 2)[1].trim();
         if (stringToCheck.isEmpty()) {
             throw new ChronologerException(ChronologerException.emptyDateOrTime());
