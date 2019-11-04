@@ -59,25 +59,6 @@ image::Ui.png[width="600" height="400"]
 SGTravel shows the available commands to the user. +
 Format: `help`
 
-=== Listing all places to visit : `list`
-
-SGTravel shows a list of all the places to visit in SGTravel. +
-Format: `list`
-
-=== Finding certain events you have: `find`
-
-SGTravel shows the events whose names contain any of the given keywords. +
-Format: `find KEYWORD`
-
-****
-* The search is case sensitive. e.g `Changi Airport` will match `Changi Airport`
-****
-
-Examples:
-
-* `find Singapore` +
-Returns `Singapore` and `Singapore Bishan`
-
 === Setting a profile: `profile`
 
 Setup a profile in SGTravel +
@@ -116,6 +97,108 @@ Vaild STATE:
 Examples:
 
 * `profileSet sports true`
+
+=== Adding an event: `event`
+
+Adds an event to SGTravel +
+Format: `event VENUE between DATE and DATE`
+
+Examples:
+
+* `event Geylang between Mon and Wed`
+
+=== Deleting an event : `delete`
+
+Deletes the specified event from SGTravel. +
+Format: `delete INDEX`
+
+****
+* Deletes the event at the specified `INDEX`.
+* The index refers to the index number shown in the displayed task list.
+* The index *must be a positive integer* 1, 2, 3, ...
+****
+
+Examples:
+
+* `list` +
+`delete 2` +
+Deletes the 2nd event in SGTravel.
+
+=== Marking an event : `done`
+
+Mark the specified event as done on SGTravel. +
+Format: `done INDEX`
+
+****
+* Marks the event done at the specified `INDEX`.
+* The index refers to the index number shown in the displayed task list.
+* The index *must be a positive integer* 1, 2, 3, ...
+****
+
+Examples:
+
+* `list` +
+`done 2` +
+Marks the 2nd event as done in SGTravel.
+
+=== Editing places of visit: `edit`
+
+Panel will automatically select an intial location and the current location will be glowing green in color. +
+Users will use `up, down, left, right or ESC and Enter` key to then select the place of visit they want to edit. +
+`Enter` selects and `ESC` deselects. +
+Once an event is selected (orange), simply type in the new `VENUE/DATE` into the CLI depending on what is currently highlighted. +
+
+Examples:
+
+* `Orchard road` if updating the `VENUE`
+* `Mon` or `12/12/12` if updating a `DATE`
+
++
+image::Ui.png[width="600" height="400"]
+
+To save the edits, type `save` or `done` or `x`. +
+To discard the changes, type `close` or `end` or `X`.+
+Alternatively, user can use `e INDEX LOCATION START_DATE END_DATE` +
+Where `INDEX` is the index of the event, `LOCATION` is the new location of the event, the `START_DATE` is the start date of the event, the `END_DATE` of the end date of the event.
+
+=== Listing all places to visit : `list`
+
+SGTravel shows a list of all the places to visit in SGTravel. +
+Format: `list`
+
+=== Finding certain events you have: `find`
+
+SGTravel shows the events whose names contain any of the given keywords. +
+Format: `find KEYWORD`
+
+****
+* The search is case sensitive. e.g `Changi Airport` will match `Changi Airport`
+****
+
+Examples:
+
+* `find Singapore` +
+Returns `Singapore` and `Singapore Bishan`
+
+=== Searching for a location in Singapore: `search`
+
+SGTravel finds the location with the given keywords. +
+Format: `search KEYWORD`
+
+Examples:
+
+* `find Bishan mrt`
+
+=== Searching for the map of a location in Singapore: `map`
+
+SGTravel finds the map of a location with the given keywords. +
+Format: `map KEYWORD`
+
+Examples:
+
+* `map NUS`
++
+image::Ui.png[width="600" height="400"]
 
 === Recommend an Itinerary: `recommend`
 
@@ -171,50 +254,6 @@ Examples:
 * `showItinerary 1`
 
 Will show the `TwoDayHoliday` Itinerary.
-
-
-=== Adding an event: `event`
-
-Adds an event to SGTravel +
-Format: `event VENUE between DATE and DATE`
-
-Examples:
-
-* `event Geylang between Mon and Wed`
-
-=== Deleting an event : `delete`
-
-Deletes the specified event from SGTravel. +
-Format: `delete INDEX`
-
-****
-* Deletes the event at the specified `INDEX`.
-* The index refers to the index number shown in the displayed task list.
-* The index *must be a positive integer* 1, 2, 3, ...
-****
-
-Examples:
-
-* `list` +
-`delete 2` +
-Deletes the 2nd event in SGTravel.
-
-=== Marking an event : `done`
-
-Mark the specified event as done on SGTravel. +
-Format: `done INDEX`
-
-****
-* Marks the event done at the specified `INDEX`.
-* The index refers to the index number shown in the displayed task list.
-* The index *must be a positive integer* 1, 2, 3, ...
-****
-
-Examples:
-
-* `list` +
-`done 2` +
-Marks the 2nd event as done in SGTravel.
 
 === Creating a new Route: `routeAdd`
 
@@ -308,6 +347,8 @@ Format: `routeShow INDEX_ROUTE`
 Examples:
 
 * `routeShow 1`
++
+image::Ui.png[width="600" height="400"]
 
 === Showing the information of a RouteNode with image: `routeNodeShow`
 
@@ -320,7 +361,7 @@ Format: `routeNodeShow INDEX_ROUTE INDEX_NODE`
 
 Examples:
 
-* `routeNodeShow 1`
+* `routeNodeShow 1 1`
 
 === Showing the information of nearby RouteNodes with image: `routeNodeNearby`
 
@@ -335,6 +376,8 @@ Format: `routeNodeNearby INDEX_ROUTE INDEX_NODE`
 Examples:
 
 * `routeNodeNearby 1 1`
++
+image::Ui.png[width="600" height="400"]
 
 === Deleting a Route: `routeDelete`
 
@@ -393,8 +436,10 @@ Format: `bye`
 
 === Viewing calendar : `view`
 
-SGTravel will display a calendar containing the events. +
+SGTravel will display a calendar containing the events. Click or hover to view other events on the same day. +
 Format: `view`
++
+image::Ui.png[width="600" height="400"]
 
 === Saving the data
 
@@ -408,23 +453,6 @@ SGTravel will automatically display Singapore map when the relevant commands are
 === Viewing of information
 
 All relevant information will be displayed on a side panel of the SGTravel application when the relevant commands are invoke. +
-
-=== Editing places of visit: `edit`
-
-Panel will automatically select an intial location and the current location will be glowing green in color. +
-Users will use `up, down, left, right or ESC and Enter` key to then select the place of visit they want to edit. +
-`Enter` selects and `ESC` deselects. +
-Once an event is selected (orange), simply type in the new `VENUE/DATE` into the CLI depending on what is currently highlighted. +
-
-Examples:
-
-* `Orchard road` if updating the `VENUE`
-* `Mon` or `12/12/12` if updating a `DATE`
-
-To save the edits, type `save` or `done` or `x`. +
-To discard the changes, type `close` or `end` or `X`.+
-Alternatively, user can use `e INDEX LOCATION START_DATE END_DATE` +
-Where `INDEX` is the index of the event, `LOCATION` is the new location of the event, the `START_DATE` is the start date of the event, the `END_DATE` of the end date of the event.
 
 == Features that are coming in version 2.0!
 
