@@ -704,7 +704,7 @@ public class MovieHandler extends Controller implements RequestListener {
 
     /**
      * This function is called when the user wants to see more information about a movie.
-     * @param movie t
+     * @param movie Object that contains all the informations about a movie/TV show.
      * @throws Exceptions
      */
     public void moviePosterClicked(MovieInfoObject movie) throws Exceptions {

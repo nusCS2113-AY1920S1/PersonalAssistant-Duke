@@ -166,6 +166,7 @@ public class SearchCommand extends CommandSuper {
                         movieHandler.getUserProfile());
             } else {
                 movieHandler.setGeneralFeedbackText(PromptMessages.INVALID_COMBI_OF_FLAGS);
+                throw new InvalidFormatCommandExceptions();
             }
         } else {
             if (this.getFlagMap().containsKey(GET_NEW_GENRE_PREF)) {

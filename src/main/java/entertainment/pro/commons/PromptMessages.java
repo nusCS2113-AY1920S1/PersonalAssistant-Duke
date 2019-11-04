@@ -32,8 +32,8 @@ public class PromptMessages {
     public static final String INVALID_PARAM_IN_SEARCH = "Invalid parameter entered in search command";
     public static final String TO_VIEW_MORE_INFO = "To view more information about a movie/TV show, enter the command, " +
             "'view entry NUM' where NUM is the integer of the movie/TV show printed below its title.";
-    public static final String TO_VIEW_BACK_SEARCHES = "To go back to search results, press 'tab' and press 'enter' " +
-            "to go back the search results.";
+    public static final String TO_VIEW_BACK_SEARCHES = "To go back to search results, press 'tab', go through the past commands and press 'enter' " +
+            "to go back to the search results.";
     public static final String IO_EXCEPTION_IN_OFFLINE = "I'm sorry but something went wrong when fetching data. PLease try again later!";
 
     public static final String SORT_SUCCESS = "Nice! You have successfully updated your sort preferences";
