@@ -13,8 +13,6 @@ import duke.ui.Ui;
  * Task data into the JSON file and initiate the exit procedure
  */
 public class ExitCommand extends Command {
-    public ExitCommand() {
-    }
 
     /**
      * Saves TaskList of user tasks to the JSON data file

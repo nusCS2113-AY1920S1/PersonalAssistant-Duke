@@ -49,12 +49,12 @@ class UndoCommandTest {
         String description2 = "description2";
 
         //Create different Tasks to use as template for testing
-        list.add(new Task(haveFilter, dateTime1, haveRecurrence, description1, 1)); // base
-        list.add(new Task(haveFilter, dateTime1, haveRecurrence, description1, 2)); // diff duration
-        list.add(new Task(noFilter, dateTime1, haveRecurrence, description1, 1)); // diff filter
-        list.add(new Task(haveFilter, dateTime1, haveRecurrence, description2, 1)); // diff description
-        list.add(new Task(haveFilter, dateTime2, haveRecurrence, description1, 1)); // diff datetime
-        list.add(new Task(haveFilter, dateTime1, noRecurrence, description1, 1)); // diff recurrence
+        list.add(new Task(haveFilter, dateTime1, haveRecurrence, description1, 1,1)); // base
+        list.add(new Task(haveFilter, dateTime1, haveRecurrence, description1, 2,1)); // diff duration
+        list.add(new Task(noFilter, dateTime1, haveRecurrence, description1, 1,1)); // diff filter
+        list.add(new Task(haveFilter, dateTime1, haveRecurrence, description2, 1,1)); // diff description
+        list.add(new Task(haveFilter, dateTime2, haveRecurrence, description1, 1,1)); // diff datetime
+        list.add(new Task(haveFilter, dateTime1, noRecurrence, description1, 1,1)); // diff recurrence
 
         return list;
     }
@@ -71,7 +71,7 @@ class UndoCommandTest {
         Task prevTask;
 
         // undo AddCommand
-        testCommand = new AddCommand(noFilter, Optional.empty(), Optional.empty(), "undo this", "task", 0);
+        testCommand = new AddCommand(noFilter, Optional.empty(), Optional.empty(), "undo this", "task", 0, 1);
         expectedTask = list.get(noFilter, 6);
         testCommand.savePrevState(list, undoStack);
         testCommand.execute(list, ui, storage);

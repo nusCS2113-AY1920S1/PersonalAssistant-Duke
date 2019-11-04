@@ -88,10 +88,10 @@ class AbnormalityCheckerTest {
         String description3 = "cs2113 homework 2";
         String description4 = "More cs homework";
 
-        t.add(new Event(empty, dateTime1, recurrenceDaily, description1, 4));
-        t.add(new Event(Optional.of("cs"), dateTime3, recurrenceDaily, description3, 4));
-        t.add(new Event(Optional.of("cs"), dateTime2, recurrenceNone, description2, 5));
-        t.add(new Event(empty, dateTime2, recurrenceNone, description4, 5));
+        t.add(new Event(empty, dateTime1, recurrenceDaily, description1, 4, 1));
+        t.add(new Event(Optional.of("cs"), dateTime3, recurrenceDaily, description3, 4, 1));
+        t.add(new Event(Optional.of("cs"), dateTime2, recurrenceNone, description2, 5, 1));
+        t.add(new Event(empty, dateTime2, recurrenceNone, description4, 5, 1));
 
         return t;
     }
@@ -104,7 +104,7 @@ class AbnormalityCheckerTest {
         Optional<LocalDateTime> dateTime = Optional.of(LocalDateTime.of(2018, Month.OCTOBER, 29,
                 0, 0));
 
-        Event clashingEvent = new Event(Optional.empty(), dateTime, recurrenceNone, "abc", 5);
+        Event clashingEvent = new Event(Optional.empty(), dateTime, recurrenceNone, "abc", 5, 1);
         assertTrue(abnormalityChecker.checkEventClash(clashingEvent));
     }
 
@@ -116,7 +116,7 @@ class AbnormalityCheckerTest {
         Optional<LocalDateTime> dateTime = Optional.of(LocalDateTime.of(2030, Month.OCTOBER, 29,
                 0, 0));
 
-        Event clashingEvent = new Event(Optional.empty(), dateTime, recurrenceNone, "abc", 5);
+        Event clashingEvent = new Event(Optional.empty(), dateTime, recurrenceNone, "abc", 5, 1);
         assertFalse(abnormalityChecker.checkEventClash(clashingEvent));
     }
 }

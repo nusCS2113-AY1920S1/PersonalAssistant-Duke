@@ -3,6 +3,7 @@ package duke.task;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
+import duke.exception.DukeException;
 import duke.extensions.Recurrence;
 
 /**
@@ -30,8 +31,8 @@ public class Event extends Task {
      * @param duration fixed duration of the task
      */
     public Event(Optional<String> filter, Optional<LocalDateTime> dateTime, Recurrence recurrence, String description,
-                 int duration) {
-        super(filter, dateTime, recurrence, description, duration);
+                 int duration, int priority) throws DukeException {
+        super(filter, dateTime, recurrence, description, duration, priority);
         this.key = "[E]";
     }
 }

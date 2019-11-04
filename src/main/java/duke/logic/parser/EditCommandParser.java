@@ -44,10 +44,10 @@ public class EditCommandParser implements Parser<EditCommand> {
     private int getIndexFromCommand(String fullEditArg) throws DukeException {
         String[] temp = fullEditArg.split(" ", 2);
         try {
-            int indexNo = Integer.parseInt(temp[0]);
+            int indexNo = Integer.parseInt(temp[0]) - 1;
             return indexNo;
         } catch (NumberFormatException e) {
-            throw new DukeException("Please enter a valid index");
+            throw new DukeException("Please enter a numerical field for the index!");
         }
     }
 

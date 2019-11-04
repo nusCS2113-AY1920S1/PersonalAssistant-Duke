@@ -53,10 +53,10 @@ public class EditCommandTest {
         String description1 = "cs2113 is the best :')";
         String description2 = "cg2271 is the best :')";
         String description3 = "st2334 is the best :')";
-        t.add(new Task(empty, dateTime1, recurrenceDaily, description1, 4));
-        t.add(new Task(cs, dateTime3, recurrenceDaily, description3, 4));
-        t.add(new Task(empty, dateTime2, recurrenceNone, description2, 5));
-        t.add(new Task(cs, dateTime1, recurrenceWeekly, description3, 4));
+        t.add(new Task(empty, dateTime1, recurrenceDaily, description1, 4,1));
+        t.add(new Task(cs, dateTime3, recurrenceDaily, description3, 4,1));
+        t.add(new Task(empty, dateTime2, recurrenceNone, description2, 5,1));
+        t.add(new Task(cs, dateTime1, recurrenceWeekly, description3, 4,1));
 
         return t;
     }
@@ -139,7 +139,7 @@ public class EditCommandTest {
         editCommand = new EditCommandParser().parse(Optional.empty(), "1 -desc hello world");
         Exception exception = assertThrows(DukeException.class, () ->
                 editCommand.execute(tasks, ui, storage));
-        assertEquals("☹ OOPS!!! I'm sorry, but I don't know what field you are trying to edit!",
+        assertEquals("I'm sorry, I do not know what field you are trying to edit!",
                 exception.getMessage());
     }
 
@@ -150,7 +150,7 @@ public class EditCommandTest {
         editCommand = new EditCommandParser().parse(Optional.empty(), "1 -priority hello world");
         Exception exception = assertThrows(DukeException.class, () ->
                 editCommand.execute(tasks, ui, storage));
-        assertEquals("Please enter a numerical field for the duration!", exception.getMessage());
+        assertEquals("Please enter a numerical field for the priority!", exception.getMessage());
     }
 
     @Test
@@ -184,16 +184,20 @@ public class EditCommandTest {
     }
 
     @Test
-    void savePrevStateTest() throws DukeException {
-        TaskList tasks = createTaskList();
-
-        EditCommand editCommand = new EditCommand(Optional.empty(), 2, new ArrayList<KeywordAndField>());
-        editCommand.savePrevState(tasks, undoStack);
-        Task expectedTask = tasks.get(2);
-        Command expectedCommand = new SetCommand(Optional.empty(), 2, expectedTask);
-        Command actualCommand = undoStack.retrieveRecent();
-        //assertEquals(expectedCommand, actualCommand);
-        //No idea what to assert to test this TODO?
+    public void constructor_nonNumericalIndex_failure() throws DukeException {
+        Optional<String> cs = Optional.of("cs");
+        Exception exception = assertThrows(DukeException.class, () ->
+                new EditCommandParser().parse(Optional.empty(), "g -r hello world"));
+        assertEquals("Please enter a numerical field for the index!", exception.getMessage());
     }
 
+    @Test
+    public void constructor_indexOutOfBoundsTooHigh_failure() throws DukeException {
+        TaskList tasks = createTaskList();
+        Optional<String> cs = Optional.of("cs");
+        EditCommand e =  new EditCommandParser().parse(Optional.empty(), "10 -r hello world");
+        Exception exception = assertThrows(DukeException.class, () ->
+                e.execute(tasks, ui, storage));
+        assertEquals("Please enter a valid task index!", exception.getMessage());
+    }
 }

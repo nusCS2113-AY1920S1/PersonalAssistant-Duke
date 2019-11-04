@@ -8,14 +8,13 @@ import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.Optional;
 
-import org.junit.jupiter.api.Test;
-
 import duke.exception.DukeException;
 import duke.extensions.Recurrence;
 import duke.storage.Storage;
 import duke.task.Task;
 import duke.tasklist.TaskList;
 import duke.ui.Ui;
+import org.junit.jupiter.api.Test;
 
 
 class AddCommandTest {
@@ -48,10 +47,10 @@ class AddCommandTest {
         String description1 = "cs2113 is the best :')";
         String description2 = "cg2271 is the best :')";
         String description3 = "st2334 is the best :')";
-        t.add(new Task(empty, dateTime1, recurrenceDaily, description1, 4));
-        t.add(new Task(cs, dateTime3, recurrenceDaily, description3, 4));
-        t.add(new Task(empty, dateTime2, recurrenceNone, description2, 5));
-        t.add(new Task(cs, dateTime1, recurrenceWeekly, description3, 4));
+        t.add(new Task(empty, dateTime1, recurrenceDaily, description1, 4, 1));
+        t.add(new Task(cs, dateTime3, recurrenceDaily, description3, 4, 1));
+        t.add(new Task(empty, dateTime2, recurrenceNone, description2, 5, 1));
+        t.add(new Task(cs, dateTime1, recurrenceWeekly, description3, 4, 1));
 
         return t;
     }
@@ -65,7 +64,7 @@ class AddCommandTest {
                 0, 0));
         Recurrence recurrenceWeekly = new Recurrence(Optional.of("weekly"));
         AddCommand addCommand = new AddCommand(Optional.of("cs"), dateTime, Optional.of("weekly"), "tower",
-                "task", 2);
+                "task", 2, 1);
 
         addCommand.execute(tasks, ui, storage);
         String expectedDescriptionOfTask = "tower 29/10/2017 00:00";
@@ -77,11 +76,11 @@ class AddCommandTest {
     public void execute_addCommandEvent_success() throws DukeException, IOException {
         TaskList tasks = createTaskList();
 
-        //Parameters of new task
+        //Parameters of new task/
         Optional<LocalDateTime> dateTime = Optional.of(LocalDateTime.of(2017, Month.OCTOBER, 29,
                 0, 0));
         AddCommand addCommand = new AddCommand(Optional.of("cs"), dateTime, Optional.of("weekly"), "tower",
-                "event", 2);
+                "event", 2, 1);
 
         addCommand.execute(tasks, ui, storage);
         String expectedStringOfTask = "[R][E][N] tower (29/10/2017 00:00)";
@@ -94,7 +93,7 @@ class AddCommandTest {
         TaskList tasks = createTaskList();
         //Parameters of new task
         AddCommand addCommand = new AddCommand(Optional.of("cs"), Optional.empty(), Optional.of("weekly"), "tower",
-                "event", 2);
+                "event", 2, 1);
 
         Exception exception = assertThrows(DukeException.class, () ->
                 addCommand.execute(tasks, ui, storage));

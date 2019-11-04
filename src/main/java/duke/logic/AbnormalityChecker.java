@@ -1,5 +1,6 @@
 package duke.logic;
 
+import duke.exception.DukeException;
 import duke.task.Event;
 import duke.task.Task;
 import duke.tasklist.TaskList;
@@ -25,12 +26,12 @@ public class AbnormalityChecker {
      * @param event Event task to be checked
      * @return a boolean whether the event classes with current Events
      */
-    public boolean checkEventClash(Event event) {
+    public boolean checkEventClash(Event event) throws DukeException {
         Task task;
         for (int i = 0; i < taskList.size(); i++) {
             task = taskList.get(i);
             if (task instanceof Event) {
-                if (((Event) task).getDateTime().equals(event.getDateTime())) {
+                if (task.getDateTime().equals(event.getDateTime())) {
                     return true;
                 }
             }
