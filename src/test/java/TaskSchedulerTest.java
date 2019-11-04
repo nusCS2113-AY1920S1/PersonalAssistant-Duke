@@ -1,4 +1,5 @@
 import chronologer.TaskScheduler;
+import chronologer.parser.DateTimeExtractor;
 import chronologer.task.Task;
 import chronologer.task.Event;
 import chronologer.task.TaskList;
@@ -20,26 +21,29 @@ public class TaskSchedulerTest {
     private LocalDateTime firstDeadlineStartDate = LocalDateTime.now().plusDays(1);
     private LocalDateTime secondDeadlineStartDate = LocalDateTime.now().plusDays(2);
 
+    private static LocalDateTime firstEventStartDate = LocalDateTime.now().plusDays(1).plusHours(4);
+    private static LocalDateTime firstEventEndDate = LocalDateTime.now().plusDays(1).plusHours(8);
+
+    private static LocalDateTime secondEventStartDate = LocalDateTime.now().plusDays(1).plusHours(9);
+    private static LocalDateTime secondEventEndDate = LocalDateTime.now().plusDays(1).plusHours(11);
+
+    private static LocalDateTime thirdEventStartDate = LocalDateTime.now().plusDays(1).plusHours(15);
+    private static LocalDateTime thirdEventEndDate = LocalDateTime.now().plusDays(1).plusHours(18);
+
     /**
-     * Setups the necessary base to carry out the test operations.
+     * Populates the schedule with necessary tasks to carry out the test operations.
      */
     @BeforeAll
     public static void setup() {
         list = new ArrayList<>();
         tasks = new TaskList(list);
 
-        LocalDateTime firstEventStartDate = LocalDateTime.now().plusDays(1).plusHours(4);
-        LocalDateTime firstEventEndDate = LocalDateTime.now().plusDays(1).plusHours(8);
         Event firstEvent = new Event("first event", firstEventStartDate, firstEventEndDate);
         tasks.add(firstEvent);
 
-        LocalDateTime secondEventStartDate = LocalDateTime.now().plusDays(1).plusHours(9);
-        LocalDateTime secondEventEndDate = LocalDateTime.now().plusDays(1).plusHours(11);
         Event secondEvent = new Event("second event", secondEventStartDate, secondEventEndDate);
         tasks.add(secondEvent);
 
-        LocalDateTime thirdEventStartDate = LocalDateTime.now().plusDays(1).plusHours(15);
-        LocalDateTime thirdEventEndDate = LocalDateTime.now().plusDays(1).plusHours(18);
         Event thirdEvent = new Event("third event", thirdEventStartDate, thirdEventEndDate);
         tasks.add(thirdEvent);
     }
@@ -75,8 +79,12 @@ public class TaskSchedulerTest {
         Long taskDuration = (long) 2;
         TaskScheduler.scheduleByDeadline(tasks, taskDuration, secondDeadlineStartDate);
         String testOutput = outContent.toString();
-        String expectedOutput = "_______________________________\n\r\n";
-
+        String expectedOutput = "_______________________________\n\r\n"
+                + String.format("You can schedule this task from now till %s\n", firstEventStartDate.format(DateTimeExtractor.DATE_FORMATTER))
+                + String.format("You can schedule this task from %s till %s\n", secondEventEndDate.format(DateTimeExtractor.DATE_FORMATTER), thirdEventStartDate.format(DateTimeExtractor.DATE_FORMATTER))
+                + String.format("You can schedule this task from %s till %s\n\r\n", thirdEventEndDate.format(DateTimeExtractor.DATE_FORMATTER), secondDeadlineStartDate.format(DateTimeExtractor.DATE_FORMATTER))
+                + "_______________________________\n\r\n";
+        Assertions.assertEquals(expectedOutput, testOutput);
     }
 
 
