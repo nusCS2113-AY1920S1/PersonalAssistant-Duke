@@ -18,19 +18,20 @@ import static duke.common.RecipeMessages.*;
 public class ListAllRecipeCommand extends Command<RecipeList, Ui, RecipeStorage> {
 
     /**
-     * Constructor for class ListCommand.
-     * @param userInput String containing input command from user
+     * Constructor for class ListAllRecipeCommand.
+     *
+     * @param userInput input command from user
      */
     public ListAllRecipeCommand(String userInput) {
         this.userInput = userInput;
     }
 
     /**
-     * Processes the list command to display all tasks in task list.
-     * @param recipeList contains the task list
-     * @param recipeStorage deals with loading tasks from the file and saving tasks in the file
+     * Processes the list command to display all recipes in recipe list.
+     *
+     * @param recipeList the list of recipes
+     * @param recipeStorage dealing with loading recipes from the file and saving recipes in the file
      */
-
     public ArrayList<String> execute(RecipeList recipeList, Ui ui, RecipeStorage recipeStorage) {
         ArrayList<String> arrayList = new ArrayList<>();
         if (userInput.trim().equals(COMMAND_LIST_RECIPES)) {
@@ -52,6 +53,12 @@ public class ListAllRecipeCommand extends Command<RecipeList, Ui, RecipeStorage>
         return false;
     }
 
+    /**
+     * Processes the list command to display all recipes in recipe list in the order that they are entered.
+     *
+     * @param map the recipe list
+     * @return arrayList containing all the recipes
+     */
     private ArrayList<String> listOfRecipes(LinkedHashMap<String, Recipe> map) {
         Set entries = map.entrySet();
         Iterator entryIter = entries.iterator();
@@ -67,6 +74,12 @@ public class ListAllRecipeCommand extends Command<RecipeList, Ui, RecipeStorage>
         return arrayList;
     }
 
+    /**
+     * Processes the list command to display all recipes in recipe list in the order of preparation time.
+     *
+     * @param map the recipe list
+     * @return arrayList containing all the recipes in th eorder of preparation time
+     */
     private ArrayList<String> listOfRecipesyPrepTime(LinkedHashMap<String, Recipe> map) {
         Set entries = map.entrySet();
         Iterator entryIter = entries.iterator();
