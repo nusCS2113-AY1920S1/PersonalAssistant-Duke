@@ -8,6 +8,7 @@ import util.date.DateTimeHelper;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 
 public class TaskList {
@@ -147,7 +148,10 @@ public class TaskList {
         String taskDueDate = taskDetails.get(2);
         if (taskDueDate != null) {
             try {
-                task.setDueDate(dateTimeHelper.formatDate(taskDueDate));
+                Date newDueDate = dateTimeHelper.formatDate(taskDueDate);
+                task.setDueDate(newDueDate);
+                successMessages.add("The new due date for this task has been set to "
+                        + dateTimeHelper.formatDateForDisplay(newDueDate) + "!");
             } catch (ParseException e) {
                 errorMessages.add("Input for new task due date is invalid! Please input the date in the "
                         + "form 'dd/mm/yyyy'.");
