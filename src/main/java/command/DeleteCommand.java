@@ -28,11 +28,6 @@ public class DeleteCommand extends Command {
         this.synonyms = new ArrayList<>();
     }
 
-    /**
-     * Sets the tags for deletion.
-     * @param deletedWord,tags
-     * Will delete specific tags inside deletedWord
-     */
     public DeleteCommand(String deletedWord, ArrayList<String> tags) {
         this.deletedWord = deletedWord;
         this.tags = tags;

@@ -376,9 +376,8 @@ public class Parser {
      * Checks a string to ensure it contains only alphabets and spaces.
      * @param s where s is the string to be scanned
      * @return true or false
-     * @throws InvalidCharacterException
      */
-    protected static boolean isAlphabetString(String s) throws InvalidCharacterException {
+    protected static boolean isAlphabetString(String s) {
         if (s == null || s.length() == 0) {
             return false;
         }
