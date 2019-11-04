@@ -23,6 +23,20 @@ public abstract class Ui {
     protected static final String SORT_DATE = "date";
     protected static final String SORT_NAME = "name";
 
+    private static String newLogo =
+            "\t   /$$$$$$$            /$$ /$$  \n"
+          + "\t  | $$__  $$          | $$| $$   \n"
+          + "\t  | $$  \\ $$  /$$$$$$ | $$| $$  /$$$$$$ \n"
+          + "\t  | $$  | $$ /$$__  $$| $$| $$ |____  $$\n"
+          + "\t  | $$  | $$| $$  \\ $$| $$| $$  /$$$$$$$\n"
+          + "\t  | $$  | $$| $$  | $$| $$| $$ /$$__  $$\n"
+          + "\t  | $$$$$$$/|  $$$$$$/| $$| $$|  $$$$$$$\n"
+          + "\t  |_______/  \\______/ |__/|__/ \\_______/\n";
+
+
+
+
+
     private static String logo =
         "\t ____    _   _  _   _       \n"
         + "\t|  _  \\/ _ \\| || | /  \\      \n"
@@ -36,7 +50,7 @@ public abstract class Ui {
 
     private static String welcomeMsg =
         "\tHello from\n"
-        + logo
+        + newLogo
         + version
         + line
         + "\n\tI help keep track of your finance!\n"

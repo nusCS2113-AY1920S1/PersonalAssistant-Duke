@@ -17,10 +17,6 @@ public class SearchCommand extends Command {
     private String component;
     private String searchContent;
 
-    protected static final String MODE_ENTRY = "entry";
-    protected static final String MODE_DEBT = "debt";
-    protected static final String MODE_LIMIT = "limit";
-
     protected static final String COMPONENT_DESCRIPTION = "description";
     protected static final String COMPONENT_NAME = "name";
     protected static final String COMPONENT_DATE = "date";
@@ -49,13 +45,13 @@ public class SearchCommand extends Command {
 
         switch (mode) {
         case "entry":
-            recordList = dollaData.getRecordList(mode);
+            recordList = dollaData.getRecordListObj(mode);
             break;
         case "debt":
-            recordList = dollaData.getRecordList(mode);
+            recordList = dollaData.getRecordListObj(mode);
             break;
         case "limit":
-            recordList = dollaData.getRecordList(mode);
+            recordList = dollaData.getRecordListObj(mode);
             break;
         default:
             break;
@@ -77,7 +73,7 @@ public class SearchCommand extends Command {
                 SearchUi.printSearchDesc(mode, recordList, searchContent);
             } else if (component.equals(COMPONENT_NAME)) {
                 SearchUi.printSearchName(mode, recordList, searchContent);
-            } else if (component.equals(COMPONENT_NAME)) {
+            } else if (component.equals(COMPONENT_DATE)) {
                 SearchUi.printSearchDate(mode, recordList, searchContent);
             }
         } else if (mode.equals(MODE_LIMIT) && component.equals(COMPONENT_DURATION)) {

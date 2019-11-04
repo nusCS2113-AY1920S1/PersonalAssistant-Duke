@@ -21,7 +21,7 @@ public class InitialModifyCommand extends Command {
     @Override
     public void execute(DollaData dollaData) {
         String currMode = dollaData.getMode();
-        if (isIndexInList(dollaData.getRecordList(currMode))) {
+        if (isIndexInList(dollaData.getRecordListObj(currMode))) {
             ModifyUi.printInitialModifyMsg(currMode);
             dollaData.updateMode("modify " + currMode);
             dollaData.prepForModify(currMode, index);

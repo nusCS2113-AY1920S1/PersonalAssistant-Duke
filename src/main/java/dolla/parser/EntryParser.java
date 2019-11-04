@@ -1,7 +1,6 @@
 package dolla.parser;
 
 import dolla.Tag;
-import dolla.action.Repeat;
 import dolla.command.Command;
 import dolla.command.AddEntryCommand;
 import dolla.command.AddActionCommand;
@@ -15,10 +14,6 @@ import dolla.command.modify.PartialModifyEntryCommand;
 import dolla.task.Entry;
 
 public class EntryParser extends Parser {
-
-    private static final String ENTRY_COMMAND_REDO = "redo";
-    private static final String ENTRY_COMMAND_UNDO = "undo";
-    private static final String ENTRY_COMMAND_REPEAT = "repeat";
 
     public EntryParser(String inputLine) {
         super(inputLine);
@@ -35,7 +30,8 @@ public class EntryParser extends Parser {
                 Tag t = new Tag();
                 Entry entry = new Entry(inputArray[1], stringToDouble(inputArray[2]), description, date);
                 t.handleTag(inputLine, inputArray, entry);
-                return processAdd();
+                return new AddEntryCommand(inputArray[1], stringToDouble(inputArray[2]),
+                        description, date);
             } else {
                 return new ErrorCommand();
             }
@@ -63,32 +59,13 @@ public class EntryParser extends Parser {
             } else {
                 return new ErrorCommand();
             }
-        } else if (commandToRun.equals(ENTRY_COMMAND_REDO)
-                || commandToRun.equals(ENTRY_COMMAND_UNDO)
-                || commandToRun.equals(ENTRY_COMMAND_REPEAT)) {
+        } else if (commandToRun.equals(COMMAND_REDO)
+                || commandToRun.equals(COMMAND_UNDO)
+                || commandToRun.equals(COMMAND_REPEAT)) {
             return new AddActionCommand(mode, commandToRun);
         } else {
             return invalidCommand();
         }
-    }
-
-    //@@author yetong1895
-    private Command processAdd() {
-        Command addEntry;
-        Repeat.setRepeatInput("entry", inputLine);
-        if (undoFlag == 1) { //undo input
-            addEntry = new AddEntryCommand(inputArray[1], stringToDouble(inputArray[2]),
-                    description, date, prevPosition);
-            resetUndoFlag();
-        } else if (redoFlag == 1) {
-            addEntry = new AddEntryCommand(inputArray[1], stringToDouble(inputArray[2]),
-                    description, date, -2);
-        } else { //normal input, prePosition is -1
-            addEntry = new AddEntryCommand(inputArray[1], stringToDouble(inputArray[2]),
-                    description, date, -1);
-            resetRedoFlag();
-        }
-        return addEntry;
     }
 }
 
