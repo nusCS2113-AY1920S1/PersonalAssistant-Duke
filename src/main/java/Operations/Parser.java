@@ -154,7 +154,9 @@ public class Parser {
      */
     public Date formatDateCustom_1(String by) throws RoomShareException {
         try {
-            return new SimpleDateFormat("dd/MM/yyyy HH:mm").parse(by);
+            Date date = new SimpleDateFormat("dd/MM/yyyy HH:mm").parse(by);
+            date.setSeconds(0);
+            return date;
         } catch (ParseException | IndexOutOfBoundsException | IllegalArgumentException e2) {
             throw new RoomShareException(ExceptionType.wrongFormat);
         }
@@ -250,7 +252,7 @@ public class Parser {
             int minutes = Integer.parseInt(time[1]);
             outputDate.setHours(hours);
             outputDate.setMinutes(minutes);
-
+            outputDate.setSeconds(0);
             return outputDate;
         } catch (IndexOutOfBoundsException | IllegalArgumentException e) {
             return null;
