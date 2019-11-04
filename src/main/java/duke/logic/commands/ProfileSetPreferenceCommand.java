@@ -1,7 +1,8 @@
 package duke.logic.commands;
 
 import duke.commons.Messages;
-import duke.commons.exceptions.DukeException;
+import duke.commons.exceptions.CategoryNotFoundException;
+import duke.commons.exceptions.FileNotSavedException;
 import duke.commons.exceptions.ParseException;
 import duke.logic.commands.results.CommandResult;
 import duke.logic.commands.results.CommandResultText;
@@ -16,8 +17,9 @@ public class ProfileSetPreferenceCommand extends Command {
 
     /**
      * Constructs ProfileSetPreferenceCommand object.
-     * @param category Category of preference to set
-     * @param setting Setting which user wish to set preference to
+     * @param category Category of preference to set.
+     * @param setting Setting which user wish to set preference to.
+     * @throws ParseException If the user try to change settings to contain garbage.
      */
     public ProfileSetPreferenceCommand(String category, String setting) throws ParseException {
         this.category = category.toLowerCase();
@@ -34,8 +36,14 @@ public class ProfileSetPreferenceCommand extends Command {
         }
     }
 
+    /**
+     * Executes this command and returns a text result.
+     * @param model The model containing the profile.
+     * @throws CategoryNotFoundException If there is no such category.
+     * @throws FileNotSavedException If the data cannot be saved.
+     */
     @Override
-    public CommandResult execute(Model model) throws DukeException {
+    public CommandResult execute(Model model) throws CategoryNotFoundException, FileNotSavedException {
         model.getProfileCard().setPreference(category, setting);
         model.save();
         return new CommandResultText("Your preference for " + category + " is set to " + setting);
