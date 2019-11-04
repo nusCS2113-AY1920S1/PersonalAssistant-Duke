@@ -31,6 +31,9 @@ public class CommandGameLoad extends Command {
                 farmio.getSimulation().simulate("GameNew", 0, true);
                 ui.showWarning(e.getMessage());
                 ui.typeWriter("Starting a new game.", true);
+                farmio.getSimulation().simulate("GameNew", 0, true);
+                ui.typeWriter("New Game Created!", false);
+                ui.typeWriter("Enter your name:", false);
                 farmio.setStage(Farmio.Stage.NAME_ADD);
                 return;
             } else {

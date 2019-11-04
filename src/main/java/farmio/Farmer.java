@@ -66,7 +66,10 @@ public class Farmer {
             this.tasks = new TaskList((JSONArray) jsonObject.get(JSON_KEY_TASK_LIST));
             this.currentTask = (int) (long) jsonObject.get(JSON_KEY_TASK_CURRENT);
             this.hasfailedCurrentTask = (Boolean) jsonObject.get(JSON_KEY_TASK_STATUS_FAIL);
-            this.name = (String) jsonObject.get(JSON_KEY_NAME);
+            String savedName = (String) jsonObject.get(JSON_KEY_NAME);
+            String loadName = savedName.toUpperCase();
+            isValidName(loadName);
+            this.name = loadName;
         } catch (Exception e) {
             throw new FarmioException("Game save corrupted!");
         }
@@ -81,6 +84,17 @@ public class Farmer {
         this.tasks = tasks;
         this.name = name;
     }
+
+    private void isValidName(String loadName) throws FarmioException {
+        boolean hasError = false;
+        if(loadName.equals("MENU") || !(loadName.length() <= 15 && loadName.length() > 0 && (loadName.matches("[a-zA-Z0-9]+") || loadName.contains("_")))) {
+                hasError = true;
+        }
+        if(hasError) {
+            throw new FarmioException("Invalid Name!");
+        }
+    }
+
     /**
      * Adds the user's name.
      * @param username as the name the user inputs.
