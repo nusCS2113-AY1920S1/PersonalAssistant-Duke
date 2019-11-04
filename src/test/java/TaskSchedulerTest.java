@@ -1,10 +1,10 @@
 import chronologer.TaskScheduler;
-import chronologer.storage.Storage;
-import chronologer.task.*;
+import chronologer.task.Task;
+import chronologer.task.Event;
+import chronologer.task.TaskList;
 import org.junit.jupiter.api.*;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.PrintStream;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -13,8 +13,6 @@ public class TaskSchedulerTest {
 
     private static ArrayList<Task> list;
     private static TaskList tasks;
-    private static File file;
-    private static Storage storage;
 
     private ByteArrayOutputStream outContent;
     private PrintStream originalOut;
@@ -29,8 +27,6 @@ public class TaskSchedulerTest {
     public static void setup() {
         list = new ArrayList<>();
         tasks = new TaskList(list);
-        file = new File(System.getProperty("user.dir") + "/src/test/ArrayList");
-        storage = new Storage(file);
 
         LocalDateTime firstEventStartDate = LocalDateTime.now().plusDays(1).plusHours(4);
         LocalDateTime firstEventEndDate = LocalDateTime.now().plusDays(1).plusHours(8);
