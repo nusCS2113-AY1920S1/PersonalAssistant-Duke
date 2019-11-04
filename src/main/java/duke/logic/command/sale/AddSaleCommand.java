@@ -40,7 +40,6 @@ public class AddSaleCommand extends SaleCommand {
     private static final String DEFAULT_DESCRIPTION = "N/A";
     private static final double DEFAULT_VALUE = 0.0;
     private static final boolean DEFAULT_TRUTH = false;
-    private static final Date DEFAULT_SALE_DATE = Calendar.getInstance().getTime();
     private static final String DEFAULT_REMARKS = "N/A";
 
     private final SaleDescriptor addSaleDescriptor;
@@ -82,9 +81,16 @@ public class AddSaleCommand extends SaleCommand {
         String description = saleDescriptor.getDescription().orElse(DEFAULT_DESCRIPTION);
         double value = saleDescriptor.getValue().orElse(DEFAULT_VALUE);
         boolean isSpend = saleDescriptor.isSpend().orElse(DEFAULT_TRUTH);
-        Date saleDate = saleDescriptor.getSaleDate().orElse(DEFAULT_SALE_DATE);
+        Date saleDate = saleDescriptor.getSaleDate().orElse(getDefaultSaleDate());
         String remarks = saleDescriptor.getRemarks().orElse(DEFAULT_REMARKS);
         Sale sale = new Sale(description, value, isSpend, saleDate, remarks);
         return sale;
+    }
+
+    /**
+     * Returns the default delivery date.
+     */
+    public static Date getDefaultSaleDate() {
+        return Calendar.getInstance().getTime();
     }
 }

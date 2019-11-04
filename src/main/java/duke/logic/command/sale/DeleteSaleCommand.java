@@ -41,7 +41,7 @@ public class DeleteSaleCommand extends SaleCommand {
         List<Sale> toDelete = new ArrayList<>();
         for (Index index : indices) {
             if (index.getZeroBased() >= model.getFilteredSaleList().size()) {
-                throw new CommandException(Message.MESSAGE_INDEX_OUT_OF_BOUND);
+                throw new CommandException("Sale entry not found.");
             }
             toDelete.add(model.getFilteredSaleList().get(index.getZeroBased()));
         }

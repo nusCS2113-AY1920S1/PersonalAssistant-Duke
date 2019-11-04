@@ -56,18 +56,13 @@ public class JsonAdaptedProduct {
      * Converts a given {@code Product} into this class for Jackson use.
      */
     public Product toModelType() {
-        Product product = new Product();
-        product.setProductName(productName);
-        product.setIngredientCost(ingredientCost);
-        product.setRetailPrice(retailPrice);
-        product.setStatus(this.status);
-
         IngredientItemList ingredientItemList = new IngredientItemList();
         for (JsonAdaptedIngredientItem jsonAdaptedIngredientItem : ingredientItems) {
             ingredientItemList.add(jsonAdaptedIngredientItem.toModelType());
 
         }
-        product.setIngredients(ingredientItemList);
+
+        Product product = new Product(productName, retailPrice, ingredientCost, ingredientItemList, status);
 
         return product;
     }
