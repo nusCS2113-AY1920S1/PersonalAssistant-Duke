@@ -41,6 +41,7 @@ public class TaskList {
      * Deletes a task from the list. Task to be deleted is specified by the index that is input into this method
      * Will not perform any operations if the index does not exist in the list.
      * @param index Index of task in the list to be deleted
+     * @param deletedList temporary storage list for the deleted items so they can be restored
      * @throws RoomShareException If the index cannot be found in the list of tasks.
      */
     public void delete(int[] index, TempDeleteList deletedList) throws RoomShareException {
@@ -53,10 +54,10 @@ public class TaskList {
             tasks.remove(idx[0]);
         }
         else {
+            if (idx[0] < 0 || idx[0] >= tasks.size() || idx[1] < 0 || idx[1] >= tasks.size()) {
+                throw new RoomShareException(ExceptionType.outOfBounds);
+            }
             for (int i = idx[0]; idx[1] >= idx[0]; idx[1]--) {
-                if (i < 0 || i >= tasks.size()) {
-                    throw new RoomShareException(ExceptionType.outOfBounds);
-                }
                 deletedList.add(tasks.get(i));
                 tasks.remove(i);
             }
@@ -64,20 +65,51 @@ public class TaskList {
     }
     /**
      * Lists out all tasks in the current list in the order they were added into the list.
+     * shows all information related to the tasks
+     * hides completed tasks
+     * @throws RoomShareException when the list is empty
      */
     public void list() throws RoomShareException {
         sortTasks();
         if( tasks.size() != 0 ){
             int listCount = 1;
             for (Task output : tasks) {
-                System.out.println("\t" + listCount + ". " + output.toString());
-                if( output instanceof Assignment && !(((Assignment) output).getSubTasks() == null) ) {
-                    ArrayList<String> subTasks = ((Assignment) output).getSubTasks();
-                    for(String subtask : subTasks) {
-                        System.out.println("\t" + "\t" + "-" + subtask);
+                if( !output.getDone() ) {
+                    System.out.println("\t" + listCount + ". " + output.toString());
+                    if( output instanceof Assignment && !(((Assignment) output).getSubTasks() == null) ) {
+                        ArrayList<String> subTasks = ((Assignment) output).getSubTasks();
+                        for(String subtask : subTasks) {
+                            System.out.println("\t" + "\t" + "- " + subtask);
+                        }
                     }
+                    listCount += 1;
                 }
-                listCount += 1;
+            }
+        } else {
+            throw new RoomShareException(ExceptionType.emptyList);
+        }
+    }
+
+    /**
+     * Lists out completed tasks in the list
+     * @throws RoomShareException
+     */
+    public void showCompleted() throws RoomShareException {
+        sortTasks();
+        System.out.println("Completed Tasks:");
+        if( tasks.size() != 0 ){
+            int listCount = 1;
+            for (Task output : tasks) {
+                if( output.getDone() ) {
+                    System.out.println("\t" + listCount + ". " + output.toString());
+                    if( output instanceof Assignment && !(((Assignment) output).getSubTasks() == null) ) {
+                        ArrayList<String> subTasks = ((Assignment) output).getSubTasks();
+                        for(String subtask : subTasks) {
+                            System.out.println("\t" + "\t" + "- " + subtask);
+                        }
+                    }
+                    listCount += 1;
+                }
             }
         } else {
             throw new RoomShareException(ExceptionType.emptyList);
@@ -99,10 +131,10 @@ public class TaskList {
             tasks.get(index[0]).setDone(true);
         }
         else {
+            if (index[0] < 0 || index[0] >= tasks.size() || index[1] < 0 || index[1] >= tasks.size()) {
+                throw new RoomShareException(ExceptionType.outOfBounds);
+            }
             for (int i = index[0]; i <= index[1]; i++){
-                if (i < 0 || i >= tasks.size()) {
-                    throw new RoomShareException(ExceptionType.outOfBounds);
-                }
                 tasks.get(i).setDone(true);
             }
         }
@@ -118,8 +150,8 @@ public class TaskList {
         for (Task query : tasks) {
             if (query.toString().toLowerCase().contains(key.trim())) {
                 System.out.println("\t" + queryCount + ". " + query.toString());
+                queryCount += 1;
             }
-            queryCount += 1;
         }
         if (queryCount == 1) {
             System.out.println("    Your search returned no results.... Try searching with another keyword!");
@@ -134,12 +166,19 @@ public class TaskList {
         return tasks;
     }
 
+    /**
+     * replaces the task at the specified index with a new task
+     * @param index index of the task to be replaced
+     * @param replacement the replacement task
+     */
     public void replace(int index, Task replacement) {
         tasks.set(index, replacement);
     }
 
     /**
-     * Sets priority of task
+     * Sets priority of task at an index to a new priority
+     * @param info the information of the task index and the priority it should be set to
+     * @throws RoomShareException when the priority specified is wrong or index is out of bounds
      */
     public void setPriority(String[] info) throws RoomShareException {
         try {
@@ -181,6 +220,7 @@ public class TaskList {
 
     /**
      * Sorts the list based on current sort mode
+     * @throws IllegalArgumentException when the sort type is not of priority, alphabetical or by deadline
      */
     public static void sortTasks() {
         switch (sortType) {
@@ -219,9 +259,9 @@ public class TaskList {
     public static void compareAlphabetical() {
         Collections.sort(tasks, (task1, task2) -> {
             if( task1.getDone() && !task2.getDone() ) {
-                return -1;
-            } else if( task2.getDone() && !task1.getDone() ) {
                 return 1;
+            } else if( task2.getDone() && !task1.getDone() ) {
+                return -1;
             } else {
                 String name1 = task1.getDescription();
                 String name2 = task2.getDescription();
@@ -236,9 +276,9 @@ public class TaskList {
     public static void compareDeadline() {
         Collections.sort(tasks, (task1, task2) -> {
             if( task1.getDone() && !task2.getDone() ) {
-                return -1;
-            } else if( task2.getDone() && !task1.getDone() ) {
                 return 1;
+            } else if( task2.getDone() && !task1.getDone() ) {
+                return -1;
             } else {
                 Date date1 = task1.getDate();
                 Date date2 = task2.getDate();
@@ -252,8 +292,12 @@ public class TaskList {
      * @param first the first task
      * @param second the second task
      */
-    public void reorder(int first, int second) {
-        Collections.swap(tasks, first, second);
+    public void reorder(int first, int second) throws RoomShareException {
+        try {
+            Collections.swap(tasks, first, second);
+        } catch (IndexOutOfBoundsException e) {
+            throw new RoomShareException(ExceptionType.outOfBounds);
+        }
     }
 
     /**
@@ -261,6 +305,7 @@ public class TaskList {
      * @param index the index of the task to be snoozed
      * @param amount the amount of time to snooze
      * @param timeUnit unit for snooze time: month, day, hour, minute
+     * @throws IndexOutOfBoundsException when the specified index is not within the task list indices
      */
     public void snooze (int index, int amount, TimeUnit timeUnit) throws RoomShareException {
         try {
@@ -307,9 +352,10 @@ public class TaskList {
     /**
      * Retrieve a task from the list
      * @param index the index of the task
-     * @return
+     * @return the task at the specified index of the task list
+     * @throws RoomShareException when the index specified is out of bounds
      */
-    public Task get(int index) throws RoomShareException{
+    public static Task get(int index) throws RoomShareException{
         try {
             return tasks.get(index);
         } catch (IndexOutOfBoundsException e) {
@@ -318,11 +364,9 @@ public class TaskList {
     }
 
     /**
-     * Update a task inside the task list
-     * @param index index of the task to be updated
-     * @param newTask the new task
+     * Returns current sort type of list
+     * @return current sort type of list
      */
-    public void update(int index, Task newTask) {
-        tasks.set(index, newTask);
-    }
+    public static SortType getSortType() { return sortType; }
+
 }

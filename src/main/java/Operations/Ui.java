@@ -2,6 +2,7 @@ package Operations;
 
 import Enums.SortType;
 import Enums.TimeUnit;
+import Model_Classes.ProgressBar;
 
 import java.io.IOException;
 
@@ -19,15 +20,26 @@ public class Ui {
      * Shows the startup logo for RoomShare
      */
     public void startUp() {
-        String logo = "******   ******\n"
-                    + "**  **   **\n"
-                    + "**  **   **\n"
-                    + "******   ******\n"
-                    + "******       **\n"
-                    + "**   **      **\n"
-                    + "**    ** ******";
+        String logo = "      /@@&@@@*\n"
+                + "      (@&@/ (@@@/ \n"
+                + "      (@&&(    /@@@.\n"
+                + "      /@&&(       &@@\n"
+                + "      /@&&@/       #@@(\n"
+                + "      (@&&%@@@*    *&@@(\n"
+                + "      (@&@/  %@@@&%%&&@&,\n"
+                + "      (@&@(     &@&@@@@#   ,#%&%(* \n"
+                + "      &@&@/     ,@@%      (@&&@@@@@@(\n"
+                + "        #@&      /@@#     (@@&     /@@@&*\n"
+                + "                  #@@/    .&@&        %@@%\n"
+                + "                  .&@@,     &@@*         /,\n"
+                + "                   #&@&       #@@&.\n"
+                + "                    #@@&        .&@@# \n"
+                + "                       ##          .&@@/\n"
+                + "                           (&*        %@@/\n"
+                + "                             %@%       /@@%\n"
+                + "                               ,@@@.   /@@@/\n"
+                + "                                  .%@@@@&@@*\n";
         System.out.println("Hello from RoomShare!\n" + logo);
-        System.out.println("How may I serve you?");
         System.out.println("Enter 'help' if you require assistance");
     }
 
@@ -99,7 +111,7 @@ public class Ui {
 
     public void helpReorder() {
         System.out.println("Reorder 2 different tasks in the task list");
-        System.out.println("\teg. reorder 1 3");
+        System.out.println("\teg. reorder 1 - 3");
         System.out.println("\tThis will swap the order task 1 and task 3");
     }
 
@@ -129,13 +141,6 @@ public class Ui {
 
     public void helpLog() {
         System.out.println("Logs the current task list into a saved file");
-    }
-
-    /**
-     * Prints an error message telling the user that the data file cannot be loaded and an empty list is generated instead
-     */
-    public void showLoadError() {
-        System.out.println("Error in loading data file, initialising empty task list...");
     }
 
     /**
@@ -252,6 +257,14 @@ public class Ui {
         System.out.println("Log has been successfully written to " + filePath);
     }
 
+    public void showUpdated (int index) {
+        System.out.println("Great! I've updated task " + index);
+    }
+
+    public static void showProgress(TaskList taskList) {
+        new ProgressBar(taskList.getSize(), taskList.getDoneSize()).showBar();
+    }
+
     public static void clearScreen() throws IOException, InterruptedException {
         new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
     }
@@ -262,5 +275,16 @@ public class Ui {
 
     public void showChangeInPriority(SortType sortType) {
         System.out.println("Your sorting preferences have been set to " + sortType.toString());
+    }
+
+    public void showSort() {
+        System.out.print("sort: ");
+        if( TaskList.getSortType().equals(SortType.priority) ) {
+            System.out.println("Priority");
+        } else if( TaskList.getSortType().equals(SortType.alphabetical) ) {
+            System.out.println("Alphabetical");
+        } else {
+            System.out.println("Deadline");
+        }
     }
 }

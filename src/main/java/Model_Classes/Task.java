@@ -1,5 +1,7 @@
 package Model_Classes;
 
+import CustomExceptions.RoomShareException;
+import Enums.ExceptionType;
 import Enums.Priority;
 import Enums.RecurrenceScheduleType;
 
@@ -70,16 +72,12 @@ public abstract class Task{
     /**
      * Sets the task to be done
      */
-    public void setDone(boolean done) {
+    public void setDone(boolean done) throws RoomShareException {
+        if( this instanceof Leave ) {
+            throw new RoomShareException(ExceptionType.leaveDone);
+        }
         isDone = done;
     }
-
-    /**
-     * Returns the status of the completion of the task.
-     * shows a tick if done, and a cross if not done.
-     * @return A String showing a tick or X symbol.
-     */
-    public String getStatusIcon() { return (isDone ? "[\u2713] " : "[\u2718] "); } //return tick or X symbols
 
     /**
      * Returns String of the assignee that was specified
@@ -176,12 +174,12 @@ public abstract class Task{
 
     /**
      * Returns both the status icon and the description of the task.
-     * @return
+     * @return the information of the task, consisting of status icon, description and assignee
      */
     public String toString() {
         if (hasRecurring)
-            return getStatusIcon() + getDescription() + " " + "(" + getAssignee() + ") (every "
+            return " " + getDescription() + " " + "(" + getAssignee() + ") (every "
                     + getRecurrenceSchedule().toString() + ")";
-        return getStatusIcon() + getDescription() + " " + "(" + getAssignee() + ")";
+        return " " + getDescription() + " " + "(" + getAssignee() + ")";
     }
 }

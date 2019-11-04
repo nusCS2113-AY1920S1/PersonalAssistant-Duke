@@ -20,7 +20,9 @@ public class TaskCreatorTest {
     private static String input1 = "add #meeting# (description) &22/12/2019 18:00& *high* %week% " +
             "@john@ ^2 hours^ !R!";
     private static String input2 = "add #meeting# (description) &23/12/2019 18:00&";
-    private static String input3 = "add #leave# (description) &24/12/2019 18:00&25/12/2019 18:00&";
+    private static String input3 = "add #leave# (description) &24/12/2019 18:00&25/12/2019 18:00& @Harry@";
+    private static String updates = "update 1 (another description) &22/12/2020 19:00& *medium* %day% " +
+            "@bob@ ^120 minutes^";
     @Test
     void extractDescription() {
         try {
@@ -161,13 +163,34 @@ public class TaskCreatorTest {
             Leave leave = (Leave) taskCreator.create(input3);
             assertFalse(leave.getDone());
             assertFalse(leave.hasRecurring());
-            assertEquals(leave.getAssignee(), "everyone");
+            assertEquals(leave.getAssignee(), "Harry");
             assertEquals(leave.getEndDate(), date4);
             assertEquals(leave.getStartDate(), date3);
             assertEquals(leave.getDescription(), "description");
             assertEquals(leave.getPriority(), Priority.low);
             assertEquals(leave.getRecurrenceSchedule(), RecurrenceScheduleType.none);
         } catch (RoomShareException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    void updateTask() {
+        try {
+            SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+            Date newDate = format.parse("22/12/2020 19:00");
+
+            Meeting meeting = (Meeting) taskCreator.create(input1);
+            taskCreator.updateTask(updates,meeting);
+            assertFalse(meeting.getDone());
+            assertEquals(meeting.getDescription(), "another description");
+            assertEquals(meeting.getDate(),newDate);
+            assertEquals(meeting.getPriority(), Priority.medium);
+            assertEquals(meeting.getAssignee(), "bob");
+            assertEquals(meeting.getDuration(), "120");
+            assertEquals(meeting.getTimeUnit(), TimeUnit.minutes);
+            assertEquals(meeting.getRecurrenceSchedule(), RecurrenceScheduleType.day);
+        } catch (RoomShareException | ParseException e) {
             e.printStackTrace();
         }
     }

@@ -11,6 +11,22 @@ import java.util.Date;
  * This class checks if there are clashes in timings for meetings
  */
 public class CheckAnomaly {
+
+    /**
+     * Checks for tasks with the same description when adding a new task
+     * @param task task we are checking
+     * @return true if duplicate detected and false if no duplicate detected
+     */
+    public static Boolean checkDuplicate(Task task) {
+        String name = task.getDescription();
+        for( Task output : TaskList.currentList() ) {
+            if( output.getDescription().equals(name) ) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     /**
      * Checks first if the task is a meeting, then decides which check function to use depending on whether the meeting has a fixed duration
      * @param task task we are checking
@@ -19,9 +35,9 @@ public class CheckAnomaly {
     public static Boolean checkTask(Task task) {
         if( task instanceof Meeting ) {
             if( ((Meeting) task).isFixedDuration() ) {
-                return checkTimeDuration((Meeting) task);
+                return checkTimeDuration(task);
             } else {
-                return checkTime((Meeting) task);
+                return checkTime(task);
             }
         }
         return false;
@@ -61,16 +77,16 @@ public class CheckAnomaly {
         for( int i = 0; i<TaskList.currentList().size(); i++ ) {
             // If task is a meeting, checks if it has a fixed duration
             if ( curr.get(i) instanceof Meeting ) {
+                long check1 = curr.get(i).getDate().getTime() / 10000 * 10000;
+                long check2 = at.getTime() / 10000 * 10000;
                 if( ((Meeting) curr.get(i)).isFixedDuration() ) {
                     if( checkIntersect(at, (Meeting) curr.get(i)) ) {
                         return true;
                     }
-                } else if( curr.get(i).getDate().equals(at) ) {
+                } else if( check1 == check2 ) {
                     return true;
                 }
-            } //else if( curr.get(i) instanceof Meeting && ((Meeting) curr.get(i)).isFixedDuration() ) {
-
-           //}
+            }
         }
         return false;
     }

@@ -4,9 +4,17 @@ import Enums.TaskType;
 
 public class Help {
     private Ui ui = new Ui();
+
+    /**
+     * constructor for help class
+     */
     public Help() {
     }
 
+    /**
+     * shows the help tips for the command specified by the keyword
+     * @param keyword the command the user wants tot seek help on
+     */
     public void showHelp(String keyword) {
         TaskType taskType;
         try {
@@ -57,6 +65,9 @@ public class Help {
         }
     }
 
+    /**
+     * shows all commands that can be used with help
+     */
     public void helpCommandList() {
         ui.helpList();
     }

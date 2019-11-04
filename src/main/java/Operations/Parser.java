@@ -4,6 +4,7 @@ import CustomExceptions.RoomShareException;
 import Enums.ExceptionType;
 import Enums.SortType;
 import Enums.TimeUnit;
+import javafx.util.Pair;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -46,15 +47,34 @@ public class Parser {
     }
 
     /**
-     * Returns the index number requested by the user for commands like 'snooze'
-     * @return index Index the user wishes to perform operations on.
+     * Returns the index number requested by the user for commands like 'snooze, update'
+     * @param input the input the user has entered
+     * @return the index the user wishes to perform operations on.
+     * @throws RoomShareException when the format is invalid
      */
-    public Integer getIndex() throws RoomShareException {
+    public Integer getIndex(String input) throws RoomShareException {
         try {
-            String temp = scanner.next().trim();
-            int index = Integer.parseInt(temp) - 1;
+            String[] arr = input.trim().split(" ");
+            int index = Integer.parseInt(arr[0]) - 1;
             return index;
         } catch (IllegalArgumentException e) {
+            throw new RoomShareException(ExceptionType.wrongIndexFormat);
+        }
+    }
+
+    /**
+     * Return the first/second/... index number requested by the user for command like 'reorder'
+     * @param input the input the user has entered
+     * @param ordinal the first/second/...
+     * @return the index the user wishes to perform operations on.
+     * @throws RoomShareException when the format is invalid
+     */
+    public Integer getIndex(String input, int ordinal) throws RoomShareException {
+        try {
+            String[] arr = input.trim().split(" ");
+            int index = Integer.parseInt(arr[ordinal]) - 1 ;
+            return index;
+        } catch (IllegalArgumentException | IndexOutOfBoundsException e) {
             throw new RoomShareException(ExceptionType.wrongIndexFormat);
         }
     }
@@ -63,10 +83,10 @@ public class Parser {
      * Returns the index number requested by the user for subTask.
      * @return index Index the user wishes to assign subtasks to.
      */
-    public Integer getIndexSubtask() throws RoomShareException{
+    public Integer getIndexSubtask(String input) throws RoomShareException {
         try {
-            String temp = scanner.next().trim();
-            int index = Integer.parseInt(temp) - 1;
+            String[] arr = input.trim().split(" ");
+            int index = Integer.parseInt(arr[0]) - 1;
             return index;
         } catch (IllegalArgumentException e) {
             throw new RoomShareException(ExceptionType.wrongIndexFormat);
@@ -74,11 +94,26 @@ public class Parser {
     }
 
     /**
+     * Return the sub-tasks list from the user's input
+     * @param input the input the user has entered
+     * @return the sub-tasks list as a String
+     * @throws RoomShareException when there is no sub-tasks list
+     */
+    public String getSubTasks(String input) throws RoomShareException {
+        try {
+            String[] arr = input.trim().split(" ", 2);
+            return arr[1];
+        } catch (IndexOutOfBoundsException e) {
+            throw new RoomShareException(ExceptionType.emptySubTask);
+        }
+    }
+
+    /**
      * Return a single index number or a range of index number requested by users for command 'done' and 'delete'
      * @return a single index or a range of index
      */
-    public int[] getIndexRange() throws RoomShareException {
-        String[] temp = scanner.nextLine().trim().split("-",2);
+    public int[] getIndexRange(String input) throws RoomShareException {
+        String[] temp = input.trim().split("-",2);
         try {
             int[] index;
             if (temp.length == 1) {
@@ -92,7 +127,7 @@ public class Parser {
     }
 
     /**
-     * Returns a Date object from a raw date that is stored as a String in every format
+     * Returns a Date object from a raw date that is stored as a String in any format
      * @param by Input String containing the date information.
      * @return A Date object containing the appropriately formatted date.
      * @throws RoomShareException if the input is uninterpretable.
@@ -119,8 +154,10 @@ public class Parser {
      */
     public Date formatDateCustom_1(String by) throws RoomShareException {
         try {
-            return new SimpleDateFormat("dd/MM/yyyy HH:mm").parse(by);
-        } catch (ParseException e2) {
+            Date date = new SimpleDateFormat("dd/MM/yyyy HH:mm").parse(by);
+            date.setSeconds(0);
+            return date;
+        } catch (ParseException | IndexOutOfBoundsException | IllegalArgumentException e2) {
             throw new RoomShareException(ExceptionType.wrongFormat);
         }
     }
@@ -136,6 +173,8 @@ public class Parser {
             String[] temp = by.split(" ");
             String day = temp[0];
             String[] time = temp[1].split(":");
+
+            // extract and validate hours and minutes
             int hours = Integer.parseInt(time[0]);
             int minutes = Integer.parseInt(time[1]);
             date.setHours(hours);
@@ -171,7 +210,7 @@ public class Parser {
             if (!temp[0].toLowerCase().equals("next") && !temp[0].toLowerCase().equals("this"))
                 return null;
 
-            // Check which day of the next week the user input
+            // Check which day of the week the user input
             String day = temp[1].trim();
             DayOfWeek dayOfWeek;
             if (day.toLowerCase().equals("monday") || day.toLowerCase().equals("mon")) {
@@ -213,7 +252,7 @@ public class Parser {
             int minutes = Integer.parseInt(time[1]);
             outputDate.setHours(hours);
             outputDate.setMinutes(minutes);
-
+            outputDate.setSeconds(0);
             return outputDate;
         } catch (IndexOutOfBoundsException | IllegalArgumentException e) {
             return null;
@@ -233,11 +272,12 @@ public class Parser {
      * Returns the amount of time the customer request to snooze
      * @return the amount of time the customer request to snooze
      */
-    public int getAmount() throws RoomShareException{
+    public int getAmount(String input) throws RoomShareException{
         try {
-            String temp = scanner.next().trim();
-            return Integer.parseInt(temp);
-        } catch (IllegalArgumentException e) {
+            String[] arr = input.trim().split(" ");
+            int amount = Integer.parseInt(arr[1]);
+            return amount;
+        } catch (IllegalArgumentException | IndexOutOfBoundsException e) {
             throw new RoomShareException(ExceptionType.wrongTimeFormat);
         }
     }
@@ -246,15 +286,17 @@ public class Parser {
      * Returns the unit of time the customer request to snooze
      * @return the unit of time the customer request to snooze
      */
-    public TimeUnit getTimeUnit() throws RoomShareException{
+    public TimeUnit getTimeUnit(String input) throws RoomShareException{
         try {
-            String temp = scanner.next().trim();
-            return TimeUnit.valueOf(temp);
-        } catch (IllegalArgumentException e) {
+            String[] arr = input.trim().split(" ");
+            return TimeUnit.valueOf(arr[2]);
+        } catch (IllegalArgumentException | IndexOutOfBoundsException e) {
             throw new RoomShareException(ExceptionType.wrongTimeFormat);
         }
 
     }
+
+
 
     /**
      * Returns the index of the task and priority the user wants to set it to
@@ -264,10 +306,9 @@ public class Parser {
         return scanner.nextLine().trim().split(" ", 2);
     }
 
-    public SortType getSort() throws RoomShareException {
+    public SortType getSort(String input) throws RoomShareException {
         try {
-            String sortName = scanner.nextLine().trim();
-            SortType sortType = SortType.valueOf(sortName);
+            SortType sortType = SortType.valueOf(input.trim());
             return sortType;
         } catch (IllegalArgumentException e) {
             throw new RoomShareException(ExceptionType.wrongSortFormat);
@@ -275,11 +316,11 @@ public class Parser {
 
     }
 
+    /**
+     * Closes the scanner used in Parser class
+     */
     public void close() {
         scanner.close();
     }
 
-    public void discardNext() {
-        scanner.next();
-    }
 }

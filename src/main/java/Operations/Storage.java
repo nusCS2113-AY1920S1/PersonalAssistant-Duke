@@ -28,6 +28,7 @@ public class Storage {
      * Extracts the relevant information from the data.txt file in Duke to create the tasks.
      * Populates an ArrayList with these created tasks.
      *
+     *
      * @return taskArrayList An ArrayList of Tasks that is created from the .txt file.
      * @throws RoomShareException If the file has mistakes in formatting. Creates and empty task list instead and returns the empty list.
      */
@@ -42,8 +43,11 @@ public class Storage {
             }
             parser = new Parser();
             for (String list : tempList) {
-                String[] temp = list.split("#", 0);
+                String[] temp = list.split("#");
 
+                if (temp.length > 11) {
+                    throw new RoomShareException(ExceptionType.loadError);
+                }
                 // Identify type of task
                 String scanType = temp[0].trim();
                 SaveType type;
@@ -94,7 +98,12 @@ public class Storage {
                 }
 
                 String scanRecurrence = temp[5].trim();
-                RecurrenceScheduleType recurrence = RecurrenceScheduleType.valueOf(scanRecurrence);
+                RecurrenceScheduleType recurrence = null;
+                try {
+                    recurrence = RecurrenceScheduleType.valueOf(scanRecurrence);
+                } catch (IllegalArgumentException e) {
+                    throw new RoomShareException(ExceptionType.loadError);
+                }
 
                 String scanUser = temp[6].trim();
                 String user = scanUser;
@@ -103,10 +112,20 @@ public class Storage {
                 boolean isFixedDuration = scanIsFixedDuration.equals("F");
 
                 String scanDuration = temp[8].trim();
-                int duration = Integer.parseInt(scanDuration);
+                int duration = 0;
+                try {
+                    duration = Integer.parseInt(scanDuration);
+                } catch (NumberFormatException e) {
+                    throw new RoomShareException(ExceptionType.loadError);
+                }
 
                 String scanUnit = temp[9].trim();
-                TimeUnit unit = TimeUnit.valueOf(scanUnit);
+                TimeUnit unit = null;
+                try {
+                    unit = TimeUnit.valueOf(scanUnit);
+                } catch (IllegalArgumentException e) {
+                    throw new RoomShareException(ExceptionType.loadError);
+                }
                 String scanSubTask = "";
                 if (temp.length > 10) {
                     scanSubTask = temp[10].trim();
@@ -170,7 +189,7 @@ public class Storage {
                 String out = "";
                 String type = String.valueOf(s.toString().charAt(1));
                 String isDone = s.getDone() ? "y" : "n";
-                String priority = s.getPriority().name();
+                String priority = s.getPriority().toString();
                 String description = s.getDescription();
                 String date = convertForStorage(s);
                 String recurrence = s.getRecurrenceSchedule().toString();
