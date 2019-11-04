@@ -234,28 +234,73 @@ Example :
 
 Display statistics : `stats`
 
+Display statistics about your tasklist.
+
+Enter command `stats` to view general statistics,
+`stats -p` to view detailed priority statistics,
+or `stats -c` to view detailed completion statistics.
+
 Example:
 
 * `stats`
 
-Output:
+
+General Statistics Example:
+```
+stats
+        ---------------------------------------------------------------------------------
+Here are some general statistics about your task list:
+Number of tasks: 8.0
+Number of Todo's : 3
+Number of Events: 1
+Number of Homeworks: 4
+Number of Uncompleted Tasks: 5
+Number of Completed Tasks: 3
+Percent Complete: 37.5%
+        ---------------------------------------------------------------------------------
 
 ```
-Here are some statistics about your task list:
+* `stats -c`
 
-Number of tasks: 13.0
 
-Number of Todo's : 6.0
+Completion Statistics Example
+```
+stats -c
+        ---------------------------------------------------------------------------------
+Here are some completion statistics about your task list:
+----COMPLETION COUNTS----
+Number of incomplete Homeworks remaining: 2
+Number of incomplete Todos remaining: 2
+Number of incomplete Events  remaining: 1
+----COMPLETION PERCENTAGES----
+Percent of incomplete Homework: 50.0%
+Percent of incomplete Todo: 66.66666666666666%
+Percent of incomplete Events: 100.0%
+        ---------------------------------------------------------------------------------
 
-Number of Events: 2.0
+```
+* `stats -p`
 
-Number of homeworks: 5.0
 
-Number of Uncompleted Tasks: 13.0
+Priority Statistics Example:
+```
+stats -p
+        ---------------------------------------------------------------------------------
+Here are some priority statistics about your task list:
+----PRIORITY COUNTS----
+Number of tasks with priority 5: 7
+Number of tasks with priority 4: 0
+Number of tasks with priority 3: 0
+Number of tasks with priority 2: 1
+Number of tasks with priority 1: 0
+----PRIORITY PERCENTAGES----
+Percent of tasks with priority 5: 87.5%
+Percent of tasks with priority 4: 0.0%
+Percent of tasks with priority 3: 0.0%
+Percent of tasks with priority 2: 12.5%
+Percent of tasks with priority 1: 0.0%
+        ---------------------------------------------------------------------------------
 
-Number of Completed Tasks: 0.0
-
-Percent Complete: 0.0%
 ```
 
 === Sort by: `sort`
