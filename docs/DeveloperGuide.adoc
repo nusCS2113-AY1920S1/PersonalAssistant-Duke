@@ -132,7 +132,7 @@ initializing the `View` layer.
 
 * `Factory` classes : Used mainly by `Repositories` and `Controllers` to create objects based on user input.
 * `Logger` classes: Used by all classes to write log messages to ArchDuke's log file.
-* `ParserHelper` class: Used by all classes for user input parsing
+* `ParserHelper` class: Used by all classes for user input parsing.
 * `SortHelper` class: Used primarily by `Repositories` and `Controllers` for sorting objects based on description
 before a Response model is generated for the `View` layer.
 * `DateTimeHelper` class: Used for handling anything that is related to Date objects or parsing inputs for Date objects
@@ -179,7 +179,7 @@ the commands by coordinating all other components.
 // .Structure of the UI Component
 // image::UiClassDiagram.png[]
 
-=== 2.3. Controller Layer
+=== 2.2. Controller Layer
 
 // [[fig-LogicClassDiagram]]
 // .Structure of the Logic Component
@@ -187,7 +187,7 @@ the commands by coordinating all other components.
 // *API* :
 // link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
-==== 2.2.1 ConsoleInputController
+==== 2.2.1. ConsoleInputController
 `ConsoleInputController` is the class which deals with the CRUD functionalities for all the projects of the user.
 
 *Rationale for implementation*
@@ -198,29 +198,39 @@ the commands by coordinating all other components.
 *Rationale for implementation*
 
 We realized that the commands related to managing a project are extremely complex. Hence we had to segregate the methods related
-to managing a project from the `ConsoleInputController` and this resulted in the creation of the `ProjectInputController`.
+to managing a single project from the `ConsoleInputController` and this resulted in the creation of the `ProjectInputController`.
 
 When the project is being managed, all the commands input by the user are directly handled by the `ProjectInputController`.
 Hence, `ProjectInputController` acts like a parser for commands dealing with the CRUD functionalities for Members, Tasks,
-Task Assignments and Reminders.
+Task Assignments and Reminders. Control is handed back to the `ConsoleInputController` after exiting from managing a project.
 
 ==== 2.2.3 AssignmentController
 `AssignmentController` is a class which manages the assignment of tasks to group members.
 
 *Rationale for implementation*
-
 Before the implementation of `AssignmentController`, the parsing of assign commands was planned to be done within the
-ProjectInputController class. However, we realised that parsing for assignment commands would be extremely complex due
-to the potentially high number of arguments.
+`ProjectInputController` class. However, we realised that parsing for assignment commands would be extremely complex due
+to the potentially high number of arguments and operations that need to be done.
 
 * Example command: `assign task -i 1 2 -to 1 2 3 -rm 4 5`
 
-The task index numbers (1, 2) , assignee indexes (1, 2, 3) and unassigned indexes (4, 5) must be parsed. They should also be
-validated to ensure that the index numbers exist, and do not cause errors/exceptions such as IndexOutOfBoundException. From
-the parsed input, task assignments can then be managed. Therefore, the `AssignmentController` was created for the following reasons:
+There are 3 parts of the input that must be parsed and validated. These are:
 
-1. To ensure that these 3 parts of the input can be easily managed
-2. To isolate the assignment commands to avoid making the code in projectInputController too long
+* task index numbers (1, 2)
+* assignee indexes (1, 2, 3)
+* unassignee indexes (4, 5)
+
+There are 2 types of invalid inputs that could arise from assignment commands. The user should be informed about them in
+the given order:
+
+1. Invalid index numbers, such as non-integer values (eg. "abc"), or index numbers that do not yet exist
+(eg. member index 999 in a project with 5 members).
+
+2. Assigning a task that is already assigned to a member, or unassigning a task from members
+who are not assigned in the first place.
+
+Separating the assignment methods into a single, focused class can help to fulfil the
+Separation of Concerns Principle.
 
 === 2.3. Repository layer
 
@@ -464,7 +474,7 @@ Assignments are tracked in the `Project` class using 2 Java HashMaps.
 
 * `taskAndListOfMembersAssigned`
 ** Key: `Task`
-** Value: ArrayList of assigned `Member` objects (List of members assigned to task)
+** Value: ArrayList of `Member` objects (List of members assigned to task)
 
 * `memberAndIndividualListOfTasks`
 ** Key: `Member`
