@@ -9,10 +9,10 @@ import dolla.command.action.state.LimitState;
 import dolla.command.action.state.UndoStateList;
 import dolla.task.Record;
 import dolla.ui.RemoveUi;
-import dolla.task.RecordList;
 
 import java.util.ArrayList;
 
+//@@author yetong1895
 /**
  * RemoveCommand is a Command used to remove a Task from the TaskList.
  */
@@ -20,7 +20,6 @@ public class RemoveCommand extends Command {
     private String logNumStr;
     protected String mode;
 
-    //@@author yetong1895
     public RemoveCommand(String mode, String logNumStr) {
         this.mode = mode;
         this.logNumStr = logNumStr;

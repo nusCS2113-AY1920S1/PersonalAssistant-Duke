@@ -5,7 +5,9 @@ public class StorageUi extends Ui {
      * This method will print the message for successfully loading the save.
      */
     public static void printStorageLoadMessage() {
+        System.out.println(line);
         System.out.println("\tYour save data has been loaded :)");
+        System.out.println(line);
     }
 
     /**

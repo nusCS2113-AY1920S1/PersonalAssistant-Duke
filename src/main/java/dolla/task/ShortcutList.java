@@ -4,6 +4,10 @@ import dolla.storage.StorageWrite;
 
 import java.util.ArrayList;
 
+//@@author yetong1895
+/**
+ * Holds all the shortcut that have been added to Dolla.
+ */
 public class ShortcutList extends RecordList {
     public ShortcutList(ArrayList<Record> importEntryList) {
         super(importEntryList);

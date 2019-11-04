@@ -7,10 +7,11 @@ import dolla.ui.Ui;
 
 import java.util.ArrayList;
 
+//@@author yetong1895
 public class AddShortcutCommand extends Command {
     private int index;
 
-    public AddShortcutCommand (String index) {
+    public AddShortcutCommand(String index) {
         this.index = Integer.parseInt(index);
     }
 

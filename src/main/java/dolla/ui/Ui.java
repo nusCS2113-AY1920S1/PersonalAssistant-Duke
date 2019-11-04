@@ -26,18 +26,14 @@ public abstract class Ui {
     protected static final String SORT_NAME = "name";
 
     private static String newLogo =
-            "\t   /$$$$$$$            /$$ /$$  \n"
-          + "\t  | $$__  $$          | $$| $$   \n"
-          + "\t  | $$  \\ $$  /$$$$$$ | $$| $$  /$$$$$$ \n"
-          + "\t  | $$  | $$ /$$__  $$| $$| $$ |____  $$\n"
-          + "\t  | $$  | $$| $$  \\ $$| $$| $$  /$$$$$$$\n"
-          + "\t  | $$  | $$| $$  | $$| $$| $$ /$$__  $$\n"
-          + "\t  | $$$$$$$/|  $$$$$$/| $$| $$|  $$$$$$$\n"
-          + "\t  |_______/  \\______/ |__/|__/ \\_______/\n";
-
-
-
-
+            "\t /$$$$$$$            /$$ /$$  \n"
+          + "\t| $$__  $$          | $$| $$   \n"
+          + "\t| $$  \\ $$  /$$$$$$ | $$| $$  /$$$$$$ \n"
+          + "\t| $$  | $$ /$$__  $$| $$| $$ |____  $$\n"
+          + "\t| $$  | $$| $$  \\ $$| $$| $$  /$$$$$$$\n"
+          + "\t| $$  | $$| $$  | $$| $$| $$ /$$__  $$\n"
+          + "\t| $$$$$$$/|  $$$$$$/| $$| $$|  $$$$$$$\n"
+          + "\t|_______/  \\______/ |__/|__/ \\_______/\n";
 
     private static String logo =
         "\t ____    _   _  _   _       \n"
@@ -91,21 +87,6 @@ public abstract class Ui {
 
     // TODO: DELETE
     /**
-     * This method prints the strings of text from 'msg' with the proper format. Each element
-     * from 'msg' is a line of text to be printed.
-     *
-     * @param msg ArrayList of strings containing the messages to be printed.
-     */
-    public static void printMsg(ArrayList<String> msg) {
-        System.out.println(line);
-        for (String outputMsg : msg) {
-            System.out.println("\t" + outputMsg);
-        }
-        System.out.println(line);
-    }
-
-    // TODO: DELETE
-    /**
      * This method prints the strings of text from 's' with the proper format. Each element
      * from 's' is a line of text to be printed.
      *
@@ -132,7 +113,7 @@ public abstract class Ui {
         System.out.println("\tGot it. I've added this " + currRecord.getRecordType() + ": ");
         System.out.println("\t" + currRecord.getRecordDetail());
         if (currRecord.getRecordType().equals(MODE_SHORTCUT)) {
-            System.out.println("\tYou can switch to shortcut mode to view your list of shortcuts!");
+            System.out.println("\tYou can execute 'shortcuts' to view your list of shortcuts!");
         }
         System.out.println(line);
     }

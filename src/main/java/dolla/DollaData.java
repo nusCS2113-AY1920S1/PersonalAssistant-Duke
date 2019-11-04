@@ -1,10 +1,21 @@
 package dolla;
 
-import dolla.task.*;
+import dolla.task.DebtList;
+import dolla.task.EntryList;
+import dolla.task.LimitList;
+import dolla.task.Record;
+import dolla.task.RecordList;
+import dolla.task.BillList;
+import dolla.task.ShortcutList;
+
 
 import java.util.ArrayList;
 
-import static dolla.storage.Storage.*;
+import static dolla.storage.Storage.getDebtsFromSave;
+import static dolla.storage.Storage.getEntriesFromSave;
+import static dolla.storage.Storage.getLimitsFromSave;
+import static dolla.storage.Storage.getBillsFromSave;
+import static dolla.storage.Storage.getShortcutsFromSave;
 
 public class DollaData implements ModeStringList {
 
@@ -209,10 +220,10 @@ public class DollaData implements ModeStringList {
         case MODE_LIMIT:
             this.limitList.setRecordList(recordList);
             break;
-        case MODE_SHORTCUT: //TODO
+        case MODE_SHORTCUT:
             this.shortcutList.setRecordList(recordList);
             break;
-            default:
+        default:
             break;
         }
     }

@@ -10,6 +10,7 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+//@@author yetong1895
 public class ExecuteShortcutCommand extends Command {
 
     private int index;
@@ -30,7 +31,8 @@ public class ExecuteShortcutCommand extends Command {
                 try {
                     String inputDate = input.nextLine();
                     LocalDate newDate = Time.readDate(inputDate);
-                    Command c = new AddEntryCommand(shortcut.getType(), shortcut.getAmount(), shortcut.getDescription(), newDate);
+                    Command c = new AddEntryCommand(shortcut.getType(), shortcut.getAmount(),
+                                                    shortcut.getDescription(), newDate);
                     c.execute(dollaData);
                     break;
                 } catch (DateTimeParseException e) {

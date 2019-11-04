@@ -25,8 +25,6 @@ public class StorageRead extends Storage {
     public static void load() {
 
         Ui.showWelcome();
-        ArrayList<String> msg = new ArrayList<String>();
-
         try {
             FileReader inFile = new FileReader(PATH);
             BufferedReader inStream = new BufferedReader(inFile);
@@ -66,8 +64,8 @@ public class StorageRead extends Storage {
                             Time.readDate(inArray[4]));
                     break;
                 case SHORTCUT:
-                newRecord = new Shortcut(inArray[1], stringToDouble(inArray[2]),inArray[3]);
-                break;
+                    newRecord = new Shortcut(inArray[1], stringToDouble(inArray[2]),inArray[3]);
+                    break;
                 case BILL_TYPE:
                     ArrayList<String> temp = new ArrayList<String>();
                     String [] names = inArray[4].split(", ");
@@ -92,7 +90,6 @@ public class StorageRead extends Storage {
             StorageUi.printErrorReadingSaveMessage();
             MainParser.exit(); // TODO: Find out what is supposed to happen here
         }
-        Ui.printMsg(msg);
     }
 
     private static void addToList(String type, Record newRecord) {
