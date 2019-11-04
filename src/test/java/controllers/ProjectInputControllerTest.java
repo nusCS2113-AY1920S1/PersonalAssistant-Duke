@@ -489,14 +489,10 @@ class ProjectInputControllerTest {
         assertEquals("For task 1 (Documentation for product):", output[0]);
         assertEquals("Assigned to member 1 (Jerry Zhang).", output[1]);
         assertEquals("Assigned to member 2 (Dillen).", output[2]);
-
-        //To add later on
-        /*
-        simulatedUserInput = "assign task -i 1 -to 1";
+        simulatedUserInput = "assign task -i 1 -rm 1";
         output = projectInputController.projectAssignTask(project, simulatedUserInput);
         assertEquals("For task 1 (Documentation for product):", output[0]);
-        assertEquals("", output[1]);
-        */
+        assertEquals("Unassigned task from member 1 (Jerry Zhang).", output[1]);
     }
 
     @Test

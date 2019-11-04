@@ -36,9 +36,12 @@ public class CLIView {
 
                 ProjectInputController projectInputController = new ProjectInputController(projectRepository);
                 String projectNumber = consoleInputController.getManagingProjectIndex();
+                outputMessage = projectInputController.onCommandReceived(projectNumber);
+                consolePrint(outputMessage);
 
                 while (projectInputController.getIsManagingAProject()) {
-                    String[] projectOutputMessage = projectInputController.onCommandReceived(projectNumber);
+                    commandInput = sc.nextLine();
+                    String[] projectOutputMessage = projectInputController.manageProject(commandInput);
                     consolePrint(projectOutputMessage);
                     if (projectOutputMessage[0].matches("Bye.*")) {
                         isDukeRunning = false;
