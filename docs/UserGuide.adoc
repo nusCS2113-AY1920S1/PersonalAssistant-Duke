@@ -64,7 +64,7 @@ Examples:
 === Adding a word: `add`
 
 Adds a word to the Word Bank. +
-Format: `add w/WORD w/MEANING [t/TAG]...`
+Format: `add w/WORD m/MEANING [t/TAG]...`
 
 
 Examples:
@@ -218,7 +218,7 @@ Shows the list of the last 5 words added, with the latest entry first.
 // end::history[]
 
 // tag::synonyms[]
-=== Adding synonyms of a word : `addsym`
+=== Adding synonyms of a word : `addsyn`
 *Caution*: The synonyms are currently not written to the storage file due to some issues on our side, so we have disabled the writing, all synonyms will be cleared when the program is closed. We will fix this issue by Week 12 after we re-enable the saving
 
 Adds one or many synonyms to an existing word in the database. +
