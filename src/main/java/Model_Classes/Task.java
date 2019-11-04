@@ -18,6 +18,7 @@ public abstract class Task{
     private String assignee;
     private RecurrenceScheduleType recurrenceSchedule;
     private boolean hasRecurring;
+    private boolean isOverdue;
 
     /**
      * Constructor for the task object. takes in the description of the task
@@ -26,6 +27,7 @@ public abstract class Task{
     public Task(String description, Date date) {
         this.description = description;
         this.isDone = false;
+        this.isOverdue = false;
         this.priority = Priority.low;
         this.date = date;
         this.assignee = "everyone";
@@ -77,6 +79,14 @@ public abstract class Task{
             throw new RoomShareException(ExceptionType.leaveDone);
         }
         isDone = done;
+    }
+
+    public boolean getOverdue() {
+        return isOverdue;
+    }
+
+    public void setOverdue(boolean overdue) {
+        isOverdue = overdue;
     }
 
     /**
