@@ -83,7 +83,7 @@ public class DeleteCommand extends Command {
             if (contact != null) {
                 wallet.getContactList().setModified(true);
                 System.out.println(MESSAGE_SUCCESS_DELETE_CONTACT);
-                System.out.println(contact.toString());
+                Ui.printContact(contact);
             } else {
                 System.out.println(MESSAGE_ERROR_DELETE_CONTACT);
             }

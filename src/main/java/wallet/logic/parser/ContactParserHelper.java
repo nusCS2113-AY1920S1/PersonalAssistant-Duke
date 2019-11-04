@@ -30,7 +30,7 @@ public class ContactParserHelper {
      * @param toFind Command Line option to find.
      * @return Index of command line option.
      */
-    public int findIndexOf(String[] info, String toFind) {
+    private int findIndexOf(String[] info, String toFind) {
 
         for (int i = 0; i < info.length; i += 1) {
             if (info[i].equals(toFind)) {
@@ -90,9 +90,7 @@ public class ContactParserHelper {
             phone = null;
         }
 
-        Contact processed = new Contact(name, details, phone);
-
-        return processed;
+        return new Contact(name, details, phone);
     }
 
     /**
@@ -132,8 +130,6 @@ public class ContactParserHelper {
                 phoneList.add(info[i]);
             } else if (section == 0) {
                 nameList.add(info[i]);
-            } else {
-                continue;
             }
         }
 
@@ -160,8 +156,6 @@ public class ContactParserHelper {
             return null;
         }
 
-        Contact processed = new Contact(name, details, phone);
-
-        return processed;
+        return new Contact(name, details, phone);
     }
 }

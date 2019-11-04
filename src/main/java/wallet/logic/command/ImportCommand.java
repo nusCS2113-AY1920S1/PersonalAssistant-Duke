@@ -15,12 +15,12 @@ import java.util.ArrayList;
 public class ImportCommand extends Command {
 
     public static final String COMMAND_WORD = "import";
-    public static final String MESSAGE_SUCCESS_ADD_CONTACT = "Got it. I've added this contact:";
-    public static final String MESSAGE_SUCCESS_ADD_EXPENSE = "Got it. I've added this expense:";
-    public static final String MESSAGE_SUCCESS_ADD_LOAN = "Got it. I've added this loan:";
-    public static final String MESSAGE_NEW_BUDGET = " is your new budget for ";
-    public static final String MESSAGE_EXCEED_BUDGET = "Your budget has exceeded!!";
-    public static final String MESSAGE_REACH_BUDGET = "You have reached your budget!!";
+    private static final String MESSAGE_SUCCESS_ADD_CONTACT = "Got it. I've added this contact:";
+    private static final String MESSAGE_SUCCESS_ADD_EXPENSE = "Got it. I've added this expense:";
+    private static final String MESSAGE_SUCCESS_ADD_LOAN = "Got it. I've added this loan:";
+    private static final String MESSAGE_NEW_BUDGET = " is your new budget for ";
+    private static final String MESSAGE_EXCEED_BUDGET = "Your budget has exceeded!!";
+    private static final String MESSAGE_REACH_BUDGET = "You have reached your budget!!";
     private ImportList importList;
     private String type;
 

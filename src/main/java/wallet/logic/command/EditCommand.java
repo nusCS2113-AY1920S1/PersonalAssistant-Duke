@@ -117,9 +117,8 @@ public class EditCommand extends Command {
                     }
                 }
 
-
                 System.out.println(MESSAGE_SUCCESS_EDIT_CONTACT);
-                System.out.println(currentContact.toString());
+                Ui.printContact(currentContact);
             } else {
                 System.out.println(MESSAGE_ERROR_COMMAND);
             }

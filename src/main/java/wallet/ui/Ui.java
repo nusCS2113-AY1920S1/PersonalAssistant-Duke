@@ -178,6 +178,34 @@ public class Ui {
         }
         System.out.println(lineBreak);
     }
+
+    /**
+     * Displays a contact in table format.
+     */
+    public static void printContact(Contact c) {
+        String dash = "-";
+        String lineBreak = new String(new char[100]).replace("\0", dash);
+        String headerBreak = new String(new char[98]).replace("\0", dash);
+        System.out.println(lineBreak);
+        System.out.printf("| %-4s | %-20s | %-20s | %-43s |\n", "ID", "Name", "Phone", "Detail");
+        System.out.println("|" + headerBreak + "|");
+
+        String id = Integer.toString(c.getId()).trim();
+        String name = c.getName();
+        String phone = c.getPhoneNum();
+        String detail = c.getDetail();
+
+        if (phone == null) {
+            phone = "";
+        }
+
+        if (detail == null) {
+            detail = "";
+        }
+
+        System.out.printf("| %-4s | %-20s | %-20s | %-43s |\n", id, name, phone, detail);
+        System.out.println(lineBreak);
+    }
     //@@author
 
     /**

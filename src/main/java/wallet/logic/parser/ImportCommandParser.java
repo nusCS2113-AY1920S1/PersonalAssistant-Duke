@@ -11,7 +11,6 @@ import wallet.model.record.Expense;
 import wallet.model.record.Loan;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -138,25 +137,10 @@ public class ImportCommandParser implements Parser<ImportCommand> {
             filereader.close();
 
 
-        } catch (URISyntaxException e) {
+        } catch (URISyntaxException | IOException | NullPointerException e) {
             System.out.println(MESSAGE_ERROR_READING_CSV);
             return null;
-        } catch (FileNotFoundException e) {
-            System.out.println(MESSAGE_ERROR_READING_CSV);
-            return null;
-        } catch (IOException e) {
-            System.out.println(MESSAGE_ERROR_READING_CSV);
-            return null;
-        } catch (DateTimeParseException e) {
-            System.out.println(MESSAGE_ERROR_CSV_FORMAT);
-            return null;
-        } catch (NullPointerException e) {
-            System.out.println(MESSAGE_ERROR_READING_CSV);
-            return null;
-        } catch (NumberFormatException e) {
-            System.out.println(MESSAGE_ERROR_CSV_FORMAT);
-            return null;
-        } catch (ArrayIndexOutOfBoundsException e) {
+        } catch (DateTimeParseException | NumberFormatException | ArrayIndexOutOfBoundsException e) {
             System.out.println(MESSAGE_ERROR_CSV_FORMAT);
             return null;
         }
@@ -209,25 +193,10 @@ public class ImportCommandParser implements Parser<ImportCommand> {
             csvReader.close();
             filereader.close();
 
-        } catch (URISyntaxException e) {
+        } catch (URISyntaxException | IOException | NullPointerException e) {
             System.out.println(MESSAGE_ERROR_READING_CSV);
             return null;
-        } catch (FileNotFoundException e) {
-            System.out.println(MESSAGE_ERROR_READING_CSV);
-            return null;
-        } catch (IOException e) {
-            System.out.println(MESSAGE_ERROR_READING_CSV);
-            return null;
-        } catch (NullPointerException e) {
-            System.out.println(MESSAGE_ERROR_READING_CSV);
-            return null;
-        } catch (NumberFormatException e) {
-            System.out.println(MESSAGE_ERROR_CSV_FORMAT);
-            return null;
-        } catch (DateTimeParseException e) {
-            System.out.println(MESSAGE_ERROR_CSV_FORMAT);
-            return null;
-        } catch (ArrayIndexOutOfBoundsException e) {
+        } catch (NumberFormatException | DateTimeParseException | ArrayIndexOutOfBoundsException e) {
             System.out.println(MESSAGE_ERROR_CSV_FORMAT);
             return null;
         }
