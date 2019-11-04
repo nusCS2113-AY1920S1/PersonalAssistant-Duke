@@ -25,7 +25,7 @@ public class SongList {
     /**
      * Adds an element to the song list.
      *
-     * @param newSong the ducats.components.Song object to be added to the song list.
+     * @param newSong the ducats.components.Song object to be added to the song list
      */
     public void add(Song newSong) {
         list.add(newSong);
@@ -65,7 +65,7 @@ public class SongList {
     /**
      * Returns the current size of the song list.
      *
-     * @return the current size of the task list.
+     * @return the current size of the task list
      */
     public int getSize() {
         return list.size();
@@ -117,10 +117,24 @@ public class SongList {
     /**
      * Removes from this list all of its elements that are contained in the ArrayList.
      *
-     * @param removeList the specified collection; its elements are removed from the list.
+     * @param removeList the specified collection; its elements are removed from the list
      */
     public void removeAll(ArrayList<Song> removeList) {
         list.removeAll(removeList);
     }
 
+    /**
+     * Returns a boolean value representing whether the song name already exists in the song list or not.
+     *
+     * @return a boolean value that represents whether the song name already exist; returns true if
+     * song name already exist and in use, returns false if song name is not in use
+     */
+    public boolean songExist(String songName) {
+        for (Song song: list) {
+            if (songName.equals(song.getName())) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
