@@ -1,6 +1,6 @@
 package ContactCommandTest;
 
-import gazeeebo.commands.Contact.*;
+import gazeeebo.commands.contact.*;
 import gazeeebo.storage.Storage;
 import gazeeebo.tasks.Task;
 import gazeeebo.UI.Ui;

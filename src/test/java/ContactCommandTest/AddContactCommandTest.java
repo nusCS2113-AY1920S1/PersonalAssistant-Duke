@@ -2,7 +2,7 @@ package ContactCommandTest;
 
 import gazeeebo.TriviaManager.TriviaManager;
 import gazeeebo.UI.Ui;
-import gazeeebo.commands.Contact.AddContactCommand;
+import gazeeebo.commands.contact.AddContactCommand;
 import gazeeebo.storage.Storage;
 import gazeeebo.tasks.Task;
 import org.junit.jupiter.api.AfterEach;
@@ -47,5 +47,13 @@ public class AddContactCommandTest {
         ui.fullCommand = "add Test,96251822";
         AddContactCommand test = new AddContactCommand(ui, contact);
         assertEquals("Successfully added: Test,96251822\n", output.toString());
+    }
+    @Test
+    void testIncorrectFromatAddContactsCommand() throws IOException {
+        HashMap<String, String> map = new HashMap<>();
+        Map<String, String> contact = new TreeMap<String, String>(map);
+        ui.fullCommand = "add Test,96251822 and Jason,123412";
+        AddContactCommand test = new AddContactCommand(ui, contact);
+        assertEquals("Please Input in the correct format\n", output.toString());
     }
 }

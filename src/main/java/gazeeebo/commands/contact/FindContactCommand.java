@@ -28,12 +28,14 @@ public class FindContactCommand {
                 System.out.println("What is the name you want to find?");
                 ui.readCommand();
                 nameToFind = ui.fullCommand;
-            } else {
+            } else if (ui.fullCommand.split(" ").length == 2) {
                 for (int i = 1; i < ui.fullCommand.split(" ").length; i++) {
                     nameToFind
                             = nameToFind.concat(ui.fullCommand.split(" ")[i] + " ");
                 }
                 nameToFind = nameToFind.trim();
+            } else {
+                throw new ArrayIndexOutOfBoundsException();
             }
             for (String keys : contactList.keySet()) {
                 if (keys.contains(nameToFind)) {
@@ -52,7 +54,7 @@ public class FindContactCommand {
                 System.out.print("Name:                         "
                         + "| Number:\n" + lineBreak + toPrint);
             }
-        } catch (IOException e) {
+        } catch (ArrayIndexOutOfBoundsException | IOException e) {
             System.out.print("Please Input in the correct format\n");
         }
     }

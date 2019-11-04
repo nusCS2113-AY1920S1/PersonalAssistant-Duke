@@ -23,12 +23,14 @@ public class DeleteContactCommand {
                 System.out.println("What is the name you want to delete?");
                 ui.readCommand();
                 nameToDelete = ui.fullCommand;
-            } else {
+            } else if (ui.fullCommand.split(" ").length == 2) {
                 for (int i = 1; i < ui.fullCommand.split(" ").length; i++) {
                     nameToDelete = nameToDelete.
                             concat(ui.fullCommand.split(" ")[i] + " ");
                 }
                  nameToDelete = nameToDelete.trim();
+            } else {
+                throw new ArrayIndexOutOfBoundsException();
             }
             if (contactList.containsKey(nameToDelete)) {
                 contactList.remove(nameToDelete);
@@ -36,7 +38,7 @@ public class DeleteContactCommand {
             } else {
                 System.out.print(nameToDelete + " is not found in the list.\n");
             }
-        } catch (IOException e) {
+        } catch (IOException | ArrayIndexOutOfBoundsException e) {
             System.out.print("Please Input in the correct format\n");
         }
     }

@@ -2,7 +2,7 @@ package ContactCommandTest;
 
 import gazeeebo.TriviaManager.TriviaManager;
 import gazeeebo.UI.Ui;
-import gazeeebo.commands.Contact.FindContactCommand;
+import gazeeebo.commands.contact.FindContactCommand;
 import gazeeebo.storage.Storage;
 import gazeeebo.tasks.Task;
 import org.junit.jupiter.api.AfterEach;
@@ -63,5 +63,17 @@ public class FindContactsCommandTest {
         ui.fullCommand = "find Elis";
         FindContactCommand test = new FindContactCommand(ui, contact, LINE_BREAK);
         assertEquals("Elis is not found in the list.\n", output.toString());
+    }
+
+    @Test
+    void testIncorrectFormatFindContactCommand() {
+        HashMap<String, String> map = new HashMap<>();
+        Map<String, String> contact = new TreeMap<String, String>(map);
+        String LINE_BREAK = "------------------------------------------\n";
+        contact.put("janel", "9625 1722");
+        contact.put("jason", "9825 1822");
+        ui.fullCommand = "find janel and jason";
+        FindContactCommand test = new FindContactCommand(ui, contact, LINE_BREAK);
+        assertEquals("Please Input in the correct format\n", output.toString());
     }
 }
