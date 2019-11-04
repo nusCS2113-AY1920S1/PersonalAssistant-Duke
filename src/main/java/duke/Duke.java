@@ -65,7 +65,7 @@ public class Duke {
         return ui.showWelcome();
     }
 
-    public ArrayList<String> runProgram(String userInput) throws ParseException, IOException {
+    public ArrayList<String> runProgram(String userInput) throws ParseException {
         Duke.setupLogger();
         ArrayList<String> arrayList = new ArrayList<>();
 
