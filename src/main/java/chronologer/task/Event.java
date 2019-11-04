@@ -44,6 +44,7 @@ public class Event extends Task implements Serializable, Comparable<Event> {
         this.endDate = endDate;
         this.startDate = startDate;
         this.modCode = modCode;
+        this.type = EVENT;
         if (description.equals("exam")) {
             this.priority = Priority.HIGH;
         }
