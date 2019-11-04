@@ -25,7 +25,6 @@ public class HelpCommand extends Command {
     public static final String CMD_DELETE = "delete";
     public static final String CMD_EVENT = "event";
     public static final String CMD_DEADLINE = "deadline";
-    public static final String CMD_RECUR_TASK = "recurtask";
     public static final String CMD_VIEW = "view";
     public static final String CMD_FIND = "find";
     public static final String CMD_SET_REMINDER = "set-reminder";

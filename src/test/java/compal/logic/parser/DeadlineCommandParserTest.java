@@ -154,6 +154,27 @@ public class DeadlineCommandParserTest {
                 CommandParser.MESSAGE_INVALID_DATE_FORMAT);
     }
 
+    @Test
+    void parser_invalidFinalDateTime_failure() {
+        assertParseFailure(parser, "CS2113T Lecture "
+                        + "/date 10/11/2019 "
+                        + "/end 1800 "
+                        + "/priority high "
+                        + "/final-date 01/11/2019",
+                CommandParser.MESSAGE_INVALID_FINAL_TIME);
+    }
+
+    @Test
+    void parser_invalidInterval_failure() {
+        assertParseFailure(parser, "CS2113T Lecture "
+                        + "/date 10/11/2019 "
+                        + "/end 1800 "
+                        + "/priority high "
+                        + "/final-date 01/12/2019 "
+                        + "/interval -1",
+                CommandParser.MESSAGE_INVALID_INTERVAL);
+    }
+
     /**
      * TESTS FOR VALID INPUT BELOW.
      */
