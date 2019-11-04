@@ -13,6 +13,11 @@ import static duke.common.RecipeMessages.*;
 
 public class AddRecipeCommand extends Command<RecipeList, Ui, RecipeStorage> { // need to settle the problem of duplicate recipes.
 
+    /**
+     * Constructor for class AddRecipeCommand.
+     *
+     * @param userInput input command from user
+     */
     public AddRecipeCommand(String userInput) {
         this.userInput = userInput;
     }

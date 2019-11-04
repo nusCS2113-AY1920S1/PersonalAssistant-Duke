@@ -14,6 +14,11 @@ import static duke.common.RecipeMessages.*;
 
 public class DeleteRecipeCommand extends Command<RecipeList, Ui, RecipeStorage> { // need to settle: if no such recipe is found, tell user.
 
+    /**
+     * Constructor for class DeleteRecipeCommand.
+     *
+     * @param userInput input command from user
+     */
     public DeleteRecipeCommand(String userInput) {
         this.userInput = userInput;
     }
