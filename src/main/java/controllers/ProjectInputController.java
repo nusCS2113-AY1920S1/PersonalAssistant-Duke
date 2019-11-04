@@ -274,9 +274,9 @@ public class ProjectInputController implements IController {
             }
             return new String[] {"Failed to create new task. Please ensure all "
                                 + "necessary parameters are given correctly.",
-                                "Task priority must be an integer between 1 to 5",
-                                "Task credit must be an integer between 0 to 100",
-                                "Date must be a valid date!"};
+                                 "Task priority must be an integer between 1 to 5",
+                                 "Task credit must be an integer between 0 to 100",
+                                 "Date must be a valid date!"};
 
         } catch (NumberFormatException e) {
             ArchDukeLogger.logError(ProjectInputController.class.getName(), "[projectAddTask] "

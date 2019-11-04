@@ -11,7 +11,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class TaskFactory implements IArchDukeFactory<ITask>{
+public class TaskFactory implements IArchDukeFactory<ITask> {
     private ParserHelper parserHelper;
     private DateTimeHelper dateTimeHelper;
 
@@ -37,14 +37,13 @@ public class TaskFactory implements IArchDukeFactory<ITask>{
         }
 
         ArrayList<String> newTaskDetails = parserHelper.parseTaskDetails(taskDetails[0]);
-        String newTaskName = newTaskDetails.get(0);
         int newTaskPriority = Integer.parseInt(newTaskDetails.get(1));
         if (newTaskPriority < 1 || newTaskPriority > 5) {
             return new NullTask();
         }
         Date newTaskDate = null;
         if (newTaskDetails.get(2) != null) {
-            try{
+            try {
                 newTaskDate = dateTimeHelper.formatDate(newTaskDetails.get(2));
             } catch (ParseException err) {
                 return new NullTask();
@@ -58,6 +57,7 @@ public class TaskFactory implements IArchDukeFactory<ITask>{
         if (!("NONE".equals(newTaskDetails.get(4)))) {
             newTaskState = convertStringToTaskState(newTaskDetails.get(4));
         }
+        String newTaskName = newTaskDetails.get(0);
         return new Task(newTaskName, newTaskPriority, newTaskDate, newTaskCredit, newTaskState, taskRequirements);
     }
 
