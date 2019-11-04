@@ -243,14 +243,15 @@ A: Copy and replace the /data folder to the other Team Manager
 ** with both time and member(s)： `add task [TASK_NAME] /at [TIME] /to [MEMBER_NAME] ...`
 * Adding a new member: `add member [MEMBER_NAME]`
 * Removing a task or member: `delete {task/member} INDEX...`
-* Listing: `list {tasks/members}
+* Listing for tasks: `list tasks {all/todo} (picnum)` (for in order of time, refer to schedule)
+* Listing for members: `list members (todonum/progress)`
+* View Schedule: `schedule {team/member} {all/todo} ([MEMBER_NAME])`
 * Find Task by Name: `find [KEYWORD]`
 * Mark Task as Complete: `done INDEX ...`
 * Linking task to a member: `link INDEX ... /to [MEMBER_NAME] ...`
 * Unlinking task from a member: `unlink INDEX ... /from [MEMBER_NAME] ...`
 * Editing task or member details: `edit {task/member} {{time/des}/{bio/email/phone}} INDEX /to [change content]
 * Setting a reminder: `reminder INDEX BEFORE_INT{m/d/h}`
-* View Schedule: `schedule {team/member} {all/todo} ([MEMBER_NAME])`
 * Exiting the program: `bye`
 
 
