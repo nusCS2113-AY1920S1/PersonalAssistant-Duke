@@ -272,4 +272,15 @@ public class Ui {
     public void showChangeInPriority(SortType sortType) {
         System.out.println("Your sorting preferences have been set to " + sortType.toString());
     }
+
+    public void showSort() {
+        System.out.print("sort: ");
+        if( TaskList.getSortType().equals(SortType.priority) ) {
+            System.out.println("Priority");
+        } else if( TaskList.getSortType().equals(SortType.alphabetical) ) {
+            System.out.println("Alphabetical");
+        } else {
+            System.out.println("Deadline");
+        }
+    }
 }

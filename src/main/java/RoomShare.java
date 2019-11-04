@@ -167,8 +167,12 @@ public class RoomShare {
                 try {
                     String input = parser.getCommandLine();
                     if(!(CheckAnomaly.checkTask((taskCreator.create(input))))) {
-                        taskList.add(taskCreator.create(input));
-                        ui.showAdd();
+                        if( !(CheckAnomaly.checkDuplicate((taskCreator.create(input)))) ) {
+                            taskList.add(taskCreator.create(input));
+                            ui.showAdd();
+                        } else {
+                            throw new RoomShareException(ExceptionType.duplicateTask);
+                        }
                     } else {
                         throw new RoomShareException(ExceptionType.timeClash);
                     }
@@ -266,6 +270,17 @@ public class RoomShare {
                     ui.showError(e);
                 }
                 listRoutine.list();
+                break;
+
+            case completed:
+                Ui.clearScreen();
+                ui.startUp();
+                listRoutine.list();
+                try {
+                    taskList.showCompleted();
+                } catch (RoomShareException e) {
+                    ui.showError(e);
+                }
                 break;
 
             default:
