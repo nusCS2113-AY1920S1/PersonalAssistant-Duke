@@ -10,11 +10,16 @@ import ui.Wallet;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
+import java.util.Set;
 import java.util.Map;
+
 
 public class CommandWeather extends Command {
     private LinkedHashMap<String, LinkedHashMap<String, String>> fullWeatherData;
+    private Set<String> periodsPossible = new HashSet<>(Arrays.asList("now", "later", "tomorrow"));
 
     /**
      * CommandWeather displays weather information based on user request.
@@ -30,7 +35,6 @@ public class CommandWeather extends Command {
     @Override
     public void execute(Wallet wallet) {
         printWeatherDataOutput();
-
     }
 
     @Override
@@ -42,17 +46,17 @@ public class CommandWeather extends Command {
     /**
      * getWhichWeatherDataUserWants parses to see until when user wants weather forecast.
      * @param userInput String is the user entered Input from CLI.
-     * @return this function returns a String based on user's choice
+     * @return this function returns a String based on user's choice 
      */
     private String getWhichWeatherDataUserWants(String userInput) {
-        try {
-            return Parser.parseForFlag("until", userInput);
-        } catch (Exception e) {
-            Ui.dukeSays("Please enter in the following format : \n"
-                    + "1. weather /until now \n"
-                    + "2. weather /until later \n"
-                    + "3. weather /until tomorrow \n");
-            return "later";
+        String period = Parser.parseForFlag("until", userInput);
+        if (period != null && getPeriodsPossible().contains(period)) {
+            period = period.toLowerCase();
+            return period;
+        } else {
+            Ui.dukeSays(getErrorMessage());
+            Ui.dukeSays("However we believe you would want to know the weather forecast for today.");
+            return "now";
         }
     }
 
@@ -77,20 +81,27 @@ public class CommandWeather extends Command {
      * printWeatherDataOutput loops through the HashMap of HashMap to get weather data.
      */
     private void printWeatherDataOutput() {
+
         int size = getLengthOfHashMapToPrint(getWhichWeatherDataUserWants(this.userInput));
-        Ui.dukeSays("Duke$$$ has found the following weather forecast as requested :");
-        for (Map.Entry<String, LinkedHashMap<String, String>> weather : this.fullWeatherData.entrySet()) {
-            String weatherKey = weather.getKey();
-            if (Integer.parseInt(weatherKey) < size) {
-                System.out.println("\n");
-                for (Map.Entry<String, String> weatherEntry : weather.getValue().entrySet()) {
-                    String field = weatherEntry.getKey();
-                    String value = weatherEntry.getValue();
-                    System.out.println(field + " : " + value);
+        if (this.fullWeatherData != null) {
+            Ui.dukeSays("Duke$$$ has predicted the following weather forecast :");
+            for (Map.Entry<String, LinkedHashMap<String, String>> weather : this.fullWeatherData.entrySet()) {
+                String weatherKey = weather.getKey();
+                if (Integer.parseInt(weatherKey) < size) {
+                    System.out.println("\n");
+                    for (Map.Entry<String, String> weatherEntry : weather.getValue().entrySet()) {
+                        String field = weatherEntry.getKey();
+                        String value = weatherEntry.getValue();
+                        System.out.println(field + " : " + value);
+                    }
                 }
             }
+            Ui.printSeparator();
+        } else {
+            Ui.dukeSays("Weather Data not available \n"
+                    + "1. Please ensure that you have active Internet access \n"
+                    + "2. Please also ensure that you follow correct format for the user input \n");
         }
-        Ui.printSeparator();
     }
 
     /**
@@ -121,6 +132,7 @@ public class CommandWeather extends Command {
     private LinkedHashMap<String, LinkedHashMap<String, String>> storeWeatherDataFromJson() {
         String json = consultWeatherApi();
         LinkedHashMap<String, LinkedHashMap<String, String>> weatherData = new LinkedHashMap<>();
+
         if (json != null) {
             JsonObject jsonObject = new JsonParser().parse(json).getAsJsonObject();
             JsonArray arr = jsonObject.getAsJsonArray("consolidated_weather");
@@ -134,15 +146,33 @@ public class CommandWeather extends Command {
                 innerMap.put("Forecast Date", applicableDate);
                 innerMap.put("Minimum Temperature in Degrees Celsius", minTemp);
                 innerMap.put("Maximum Temperature in Degrees Celsius", maxTemp);
-                innerMap.put("Current Temperature in Degrees Celsius", theTemp);
+                innerMap.put("Average Temperature in Degrees Celsius", theTemp);
                 innerMap.put("State Of Weather", weatherStateName);
                 weatherData.put(String.valueOf(i), innerMap);
             }
+            return weatherData;
         }
-        return weatherData;
+        return null;
     }
 
-    public void setFullWeatherData(LinkedHashMap<String, LinkedHashMap<String, String>> fullWeatherData) {
+    private Set<String> getPeriodsPossible() {
+        return periodsPossible;
+    }
+
+
+    private void setFullWeatherData(LinkedHashMap<String, LinkedHashMap<String, String>> fullWeatherData) {
         this.fullWeatherData = fullWeatherData;
+    }
+
+    /**
+     * getErrorMessage helps to retrieve the long message whenever required.
+     * @return String form of the error message to be displayed is returned
+     */
+    private String getErrorMessage() {
+        String errorMessage = "Please enter in either of the following format : \n"
+                + "1. weather /until now \n"
+                + "2. weather /until later \n"
+                + "3. weather /until tomorrow \n";
+        return errorMessage;
     }
 }
