@@ -384,7 +384,7 @@ public class Storage {
 
     public void Storage_Trivia(String fileContent) throws IOException {
         File file = new File(absolutePathTriviaResource);
-        if(file.exists() && !file.canWrite()){
+        if (file.exists() && !file.canWrite()){
             System.out.println("File exists and it is read only, making it writable");
             file.setWritable(true);
         }

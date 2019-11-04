@@ -1,10 +1,8 @@
-package CAPCalculatorTest;
+package capCalculatorTest;
 
 import gazeeebo.UI.Ui;
 import gazeeebo.commands.capCalculator.CAPCommand;
 import gazeeebo.commands.capCalculator.FindCAPCommand;
-import gazeeebo.storage.Storage;
-import gazeeebo.tasks.Task;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -18,10 +16,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class FindCAPCommandTest {
     private static final String LINEBREAK = "------------------------------\n";
     private Ui ui = new Ui();
-    private Storage storage = new Storage();
-    private ArrayList<Task> list = new ArrayList<>();
-    private Stack<String> commandStack = new Stack<>();
-    private ArrayList<Task> deletedTask = new ArrayList<>();
     private HashMap<String, ArrayList<CAPCommand>> map = new HashMap<>();
     private Map<String, ArrayList<CAPCommand>> CAPList = new TreeMap<>(map);
 

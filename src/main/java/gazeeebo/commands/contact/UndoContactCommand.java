@@ -17,8 +17,10 @@ public class UndoContactCommand {
      * @throws IOException catch error if error during access to file.
      */
     public static Map<String, String> undo(Map<String, String> contactList,
-                                           final Stack<Map<String, String>> oldcontacts,
-                                           final Storage storage) throws IOException {
+                                           final Stack<Map<String, String>>
+                                                   oldcontacts,
+                                           final Storage storage)
+            throws IOException {
         if (!oldcontacts.empty()) {
             contactList = oldcontacts.peek();
             String toStore = "";

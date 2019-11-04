@@ -1,15 +1,12 @@
-package CAPCalculatorTest;
+package capCalculatorTest;
 
 import gazeeebo.UI.Ui;
 import gazeeebo.commands.capCalculator.CAPCommand;
 import gazeeebo.commands.capCalculator.ListCAPCommand;
-import gazeeebo.storage.Storage;
-import gazeeebo.tasks.Task;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
@@ -20,10 +17,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class ListCAPCommandTest {
     private static final String LINEBREAK = "------------------------------\n";
     private Ui ui = new Ui();
-    private Storage storage = new Storage();
-    private ArrayList<Task> list = new ArrayList<>();
-    private Stack<String> commandStack = new Stack<>();
-    private ArrayList<Task> deletedTask = new ArrayList<>();
     private HashMap<String, ArrayList<CAPCommand>> map = new HashMap<>();
     private Map<String, ArrayList<CAPCommand>> CAPList = new TreeMap<>(map);
 
@@ -120,7 +113,7 @@ public class ListCAPCommandTest {
         list2.add(newCAP2);
         CAPList.put("1",list);
         CAPList.put("2",list2);
-        ui.fullCommand = "list fianiwwf";
+        ui.fullCommand = "list nonsense";
         ListCAPCommand test = new ListCAPCommand(ui,CAPList,LINEBREAK);
         assertEquals("Please Input in the correct format\n", output.toString());
     }
