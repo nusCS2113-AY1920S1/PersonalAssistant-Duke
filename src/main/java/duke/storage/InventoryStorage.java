@@ -7,7 +7,7 @@ import java.io.*;
 import java.util.HashMap;
 
 /**
- * Handles the ability to read and write to the storage location.
+ * Handles the ability to read and write to the inventory storage location.
  */
 public class InventoryStorage {
 
@@ -15,19 +15,18 @@ public class InventoryStorage {
     private final String filePathInventory;
 
     /**
-     * Constructor for the class Storage.
+     * Constructor for the class InventoryStorage.
      *
-     * @param filePathInventory String containing the directory in which the tasks are to be stored
+     * @param filePathInventory the directory in which the inventory are to be stored
      */
     public InventoryStorage(String filePathInventory) {
         this.filePathInventory = filePathInventory;
     }
 
     /**
-
-     * Writing to file to save the task to file.
+     * Writes to file to save the inventory to file.
      *
-     * @param inventoryList contains the task list
+     * @param inventoryList the list containing inventory
      */
     public void saveFile(InventoryList inventoryList) {
         try {
@@ -48,9 +47,9 @@ public class InventoryStorage {
     }
 
     /**
-     * Load all the save tasks in the file.
+     * Loads all the save inventory in the file.
      *
-     * @return the list of tasks in taskList
+     * @return the list of inventory in inventory list
      */
     public HashMap<String, Ingredient> load() {
             try {
@@ -71,7 +70,6 @@ public class InventoryStorage {
                         if (split3.length == 2) {
                             unit = split3[0].trim();
                             additionalInfo = split3[1].trim();
-                            System.out.println(ingredientName + "...." + quantity + "...." + unit + "...." + additionalInfo);
                             Ingredient ingredient = new Ingredient(ingredientName, quantity, unit, additionalInfo);
                             inventoryListHM.put(ingredientName, ingredient);
                         }

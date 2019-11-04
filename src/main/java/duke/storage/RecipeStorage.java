@@ -7,7 +7,7 @@ import java.io.*;
 import java.util.LinkedHashMap;
 
 /**
- * Handles the ability to read and write to the storage location.
+ * Handles the ability to read and write to the recipe storage location.
  */
 public class RecipeStorage {
 
@@ -15,18 +15,18 @@ public class RecipeStorage {
     private final String filePathRecipes;
 
     /**
-     * Constructor for the class Storage.
+     * Constructor for the class RecipeStorage.
      *
-     * @param filePathRecipes String containing the directory in which the tasks are to be stored
+     * @param filePathRecipes the directory in which the recipes are to be stored
      */
     public RecipeStorage(String filePathRecipes) {
         this.filePathRecipes = filePathRecipes;
     }
 
     /**
-     * Writing to file to save the task to file.
+     * Writes to file to save the recipes to file.
      *
-     * @param recipeList contains the task list
+     * @param recipeList the list containing recipes
      */
     public void saveFile(RecipeList recipeList) {
         try {
@@ -47,11 +47,10 @@ public class RecipeStorage {
     }
 
     /**
-     * Load all the save tasks in the file.
+     * Loads all the save recipes in the file.
      *
-     * @return the list of tasks in taskList
+     * @return the list of recipes in recipe list
      */
-
     public LinkedHashMap<String, Recipe> load() {
         try {
             FileReader fileReader = new FileReader(filePathRecipes);

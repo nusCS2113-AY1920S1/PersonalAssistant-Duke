@@ -78,9 +78,9 @@ public class RecipeMessages {
             + "editreqingredient [recipe name] app/ n/ [ingredient name] q/ [quantity] u/ [unit] a/ [additional information]\n"
             + "editreqingredient [recipe name] clr/";
     public static final String ERROR_MESSAGE_EDIT_PREPSTEP_INCORRECT_FORMAT = "Please input the command in the following format:\n"
-            + "editprepstep [recipe name] ins/ [position] p/ [prep step]\n"
+            + "editprepstep [recipe name] ins/ [position] step/ [prep step]\n"
             + "editprepstep [recipe name] del/ [position]\n"
-            + "editprepstep [recipe name] app/ p/ [prep step]\n"
+            + "editprepstep [recipe name] app/ step/ [prep step]\n"
             + "editprepstep [recipe name] clr/";
 
     public static final String ERROR_MESSAGE_EDIT_RATING_INCOMPLETE = "Please provide the title of the recipe which you wish to edit the rating.";

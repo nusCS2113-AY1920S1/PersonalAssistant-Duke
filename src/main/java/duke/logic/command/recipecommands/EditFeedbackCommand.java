@@ -13,6 +13,11 @@ import static duke.common.RecipeMessages.*;
 
 public class EditFeedbackCommand extends Command<RecipeList, Ui, RecipeStorage> {
 
+    /**
+     * Constructor for class EditRecipeCommand.
+     *
+     * @param userInput input command from user
+     */
     public EditFeedbackCommand(String userInput) {
         this.userInput = userInput;
     }
