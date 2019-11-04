@@ -57,7 +57,7 @@ public class ArgumentSplitter {
         String[] tempSplitStrings = userInputStr.split(argPatternStr);
         ArrayList<String> valueStrings = new ArrayList<>();
 
-        /**
+        /*
          * Necessary filtering of empty strings as matching the regex
          * produces leading empty string.
          */

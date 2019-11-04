@@ -20,6 +20,7 @@ public class AddItemCommandParser implements ParserInterface<AddItemCommand> {
     @Override
     public AddItemCommand parse(String userInputStr) {
         String[] mealNameAndInfo;
+        String foodCostStr = "0";
         HashMap<String, String> nutritionInfoMap;
         LocalDate dateArgStr = null;
 
@@ -32,6 +33,9 @@ public class AddItemCommandParser implements ParserInterface<AddItemCommand> {
         }
 
         for (String details : nutritionInfoMap.keySet()) {
+            if (details.equals("cost")) {
+                foodCostStr = nutritionInfoMap.get(details);
+            }
             String intArgStr = nutritionInfoMap.get(details);
             try {
                 int value = Integer.parseInt(intArgStr);
@@ -40,6 +44,6 @@ public class AddItemCommandParser implements ParserInterface<AddItemCommand> {
                         + " as an integer. ");
             }
         }
-        return new AddItemCommand(new Meal(mealNameAndInfo[0], dateArgStr, nutritionInfoMap));
+        return new AddItemCommand(new Meal(mealNameAndInfo[0], dateArgStr, nutritionInfoMap, foodCostStr));
     }
 }

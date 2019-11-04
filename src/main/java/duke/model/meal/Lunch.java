@@ -13,9 +13,8 @@ public class Lunch extends Meal {
      * This is the constructor of lunch object.
      * @param description the description of the lunch object
      */
-    public Lunch(String description, LocalDate date, HashMap<String, String> details) {
-        super(description, date, details);
+    public Lunch(String description, LocalDate date, HashMap<String, String> details, String costStr) {
+        super(description, date, details, costStr);
         super.type = "L";
-        super.cost = "0";
     }
 }

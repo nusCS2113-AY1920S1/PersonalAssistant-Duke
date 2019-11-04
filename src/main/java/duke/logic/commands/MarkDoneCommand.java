@@ -4,6 +4,7 @@ import duke.commons.exceptions.DukeException;
 import duke.model.meal.Meal;
 import duke.model.meal.MealList;
 import duke.model.user.User;
+import duke.model.wallet.Payment;
 import duke.model.wallet.Wallet;
 import duke.storage.Storage;
 
@@ -27,7 +28,7 @@ public class MarkDoneCommand extends Command {
         this(indexStr);
         if (!dateStr.isBlank()) {
             try {
-                currentDate = LocalDate.parse(dateStr,dateFormat);
+                currentDate = LocalDate.parse(dateStr, dateFormat);
             } catch (DateTimeParseException e) {
                 ui.showMessage("Unable to parse input" + dateStr + " as a date. ");
             }
@@ -66,8 +67,10 @@ public class MarkDoneCommand extends Command {
             ui.showMessage("Index provided out of bounds for list of meals on " + currentDate);
         } else {
             Meal currentMeal = meals.markDone(currentDate, index);
+            String foodCostStr = currentMeal.getCostStr();
             try {
                 storage.updateFile(meals);
+                wallet.addTransactions(foodCostStr, currentMeal.getDate().format(dateFormat));
             } catch (DukeException e) {
                 ui.showMessage(e.getMessage());
             }

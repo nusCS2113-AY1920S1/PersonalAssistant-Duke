@@ -23,6 +23,7 @@ public class AddLunchCommandParser implements ParserInterface<AddCommand> {
 
     public AddCommand parse(String userInputStr) {
         String[] mealNameAndInfo;
+        String foodCostStr = "0";
         HashMap<String, String> nutritionInfoMap;
         LocalDate localDate = LocalDate.now();
 
@@ -44,7 +45,10 @@ public class AddLunchCommandParser implements ParserInterface<AddCommand> {
                     return new AddCommand(true, "Unable to parse " + dateArgStr + " as a date. "
                             + "Please follow DD/MM/YYYY format.");
                 }
-            } else {
+            } else if (details.equals("cost")) {
+                foodCostStr = nutritionInfoMap.get(details);
+            }
+            else {
                 String intArgStr = nutritionInfoMap.get(details);
                 try {
                     int value = Integer.parseInt(intArgStr);
@@ -54,6 +58,6 @@ public class AddLunchCommandParser implements ParserInterface<AddCommand> {
                 }
             }
         }
-        return new AddCommand(new Lunch(mealNameAndInfo[0], localDate, nutritionInfoMap), "0");
+        return new AddCommand(new Lunch(mealNameAndInfo[0], localDate, nutritionInfoMap, foodCostStr));
     }
 }

@@ -14,7 +14,7 @@ public class Meal {
     protected boolean isDone;
     protected LocalDate date;
     protected HashMap<String, Integer> nutritionValue = new HashMap<String, Integer>();
-    protected String cost;
+    protected String costStr;
 
     /**
      * This is the constructor of Task object.
@@ -22,8 +22,9 @@ public class Meal {
      * @param date the date the meal is associated with
      * @param details the nutritional data associated with the meal
      */
-    public Meal(String description, LocalDate date, HashMap<String, String> details) {
+    public Meal(String description, LocalDate date, HashMap<String, String> details, String costStr) {
         this.description = description.trim();
+        this.costStr = costStr.trim();
         //todo: date input can only be accepted at the back of the statement
         if (date != null) {
             this.date = date;
@@ -44,6 +45,7 @@ public class Meal {
         this.date = LocalDate.now();
         this.description = description.trim();
         this.nutritionValue = nutritionValue;
+        this.costStr = "0";
     }
 
     /**
@@ -99,6 +101,10 @@ public class Meal {
      */
     public LocalDate getDate() {
         return this.date;
+    }
+
+    public String getCostStr() {
+        return this.costStr;
     }
 
     public HashMap<String, Integer> getNutritionalValue() {

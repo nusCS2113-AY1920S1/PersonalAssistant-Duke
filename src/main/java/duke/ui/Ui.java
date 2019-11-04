@@ -265,4 +265,6 @@ public class Ui {
         System.out.println(UI_PADDING + "worth of exercises today. All the best!");
         System.out.println(UI_BOUNDARY);
     }
+
+    
 }
