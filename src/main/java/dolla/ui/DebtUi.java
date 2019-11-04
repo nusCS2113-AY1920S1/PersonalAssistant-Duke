@@ -61,4 +61,14 @@ public class DebtUi extends Ui {
         System.out.println(MSG_MODIFY_DEBT);
         System.out.println(line);
     }
+
+    /**
+     * Print error message for invalid bill input.
+     */
+    public static void printInvalidBillFormatError() {
+        System.out.println(line);
+        System.out.println("\tplease follow the format "
+                + "'bill [NUMBER OF PEOPLE] [TOTAL AMOUNT] [NAME1] [NAME2]...'");
+        System.out.println(line);
+    }
 }

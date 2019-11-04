@@ -57,27 +57,32 @@ public class SearchCommand extends Command {
             break;
         }
 
+
         boolean listIsEmpty = (recordList.size() == 0);
 
-        if (listIsEmpty) {
-            ListUi.printEmptyListError(mode);
-            return;
-        } else if (mode.equals(MODE_ENTRY)) {
-            if (component.equals(COMPONENT_DESCRIPTION)) {
-                SearchUi.printSearchDesc(mode, recordList, searchContent);
-            } else if (component.equals(COMPONENT_DATE)) {
-                SearchUi.printSearchDate(mode, recordList, searchContent);
+        try {
+            if (listIsEmpty) {
+                ListUi.printEmptyListError(mode);
+                return;
+            } else if (mode.equals(MODE_ENTRY)) {
+                if (component.equals(COMPONENT_DESCRIPTION)) {
+                    SearchUi.printSearchDesc(mode, recordList, searchContent);
+                } else if (component.equals(COMPONENT_DATE)) {
+                    SearchUi.printSearchDate(mode, recordList, searchContent);
+                }
+            } else if (mode.equals(MODE_DEBT)) {
+                if (component.equals(COMPONENT_DESCRIPTION)) {
+                    SearchUi.printSearchDesc(mode, recordList, searchContent);
+                } else if (component.equals(COMPONENT_NAME)) {
+                    SearchUi.printSearchName(mode, recordList, searchContent);
+                } else if (component.equals(COMPONENT_DATE)) {
+                    SearchUi.printSearchDate(mode, recordList, searchContent);
+                }
+            } else if (mode.equals(MODE_LIMIT) && component.equals(COMPONENT_DURATION)) {
+                SearchUi.printSearchDuration(mode, recordList, searchContent);
             }
-        } else if (mode.equals(MODE_DEBT)) {
-            if (component.equals(COMPONENT_DESCRIPTION)) {
-                SearchUi.printSearchDesc(mode, recordList, searchContent);
-            } else if (component.equals(COMPONENT_NAME)) {
-                SearchUi.printSearchName(mode, recordList, searchContent);
-            } else if (component.equals(COMPONENT_DATE)) {
-                SearchUi.printSearchDate(mode, recordList, searchContent);
-            }
-        } else if (mode.equals(MODE_LIMIT) && component.equals(COMPONENT_DURATION)) {
-            SearchUi.printSearchDuration(mode, recordList, searchContent);
+        } catch (Exception e) {
+            SearchUi.printInvalidSearchFormat();
         }
     }
 

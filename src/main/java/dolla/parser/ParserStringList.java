@@ -50,6 +50,12 @@ public interface ParserStringList {
     String SORT_TYPE_DESC = "description";
     String SORT_TYPE_NAME = "name";
 
+    //Search Components
+    static final String SEARCH_DESCRIPTION = "description";
+    static final String SEARCH_DATE = "date";
+    static final String SEARCH_NAME = "name";
+    static final String SEARCH_DURATION = "duration";
+
     //Components used in Action
     String COMMAND_REDO = "redo";
     String COMMAND_UNDO = "undo";
