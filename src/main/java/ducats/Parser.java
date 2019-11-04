@@ -8,7 +8,7 @@ import ducats.commands.Command;
 import ducats.commands.CopyCommand;
 import ducats.commands.DeleteBarCommand;
 import ducats.commands.DeleteCommand;
-import ducats.commands.EditCommand;
+import ducats.commands.EditBarCommand;
 import ducats.commands.GroupCommand;
 import ducats.commands.HelpCommand;
 import ducats.commands.InsertBarCommand;
@@ -20,14 +20,9 @@ import ducats.commands.OverlayBarGroup;
 import ducats.commands.OverlayBarSong;
 import ducats.commands.OverlayGroupGroup;
 import ducats.commands.RedoCommand;
-import ducats.commands.SwapCommand;
+import ducats.commands.SwapBarCommand;
 import ducats.commands.UndoCommand;
 import ducats.commands.ViewCommand;
-import ducats.commands.AsciiCommand;
-import ducats.commands.OverlayGroupGroup;
-import java.util.ArrayList;
-import java.util.HashMap;
-
 import ducats.components.Jaccard;
 import ducats.components.WordGetter;
 
@@ -45,12 +40,12 @@ public class Parser {
      * @throws DucatsException in the case of parsing errors
      */
     public static Command parse(String message) throws DucatsException {
-        String [] commandList = {"bye", "list", "delete", "deletebar","edit",
+        String [] commandList = {"bye", "list", "delete", "deletebar","editbar",
                                     "find","done", "new","help","view","addbar",
                                     "overlay","group","overlay_bar_group", "metronome",
                                     "overlay_group_group", "overlay_bar_song", "ascii",
                                     "redo", "undo", "open",
-                                    "copy", "insertbar", "swap"};
+                                    "copy", "insertbar", "swapbar"};
         double maximumVal = 0;
         //String commandName = "";
         Jaccard similarityChecker = new Jaccard();
@@ -90,14 +85,14 @@ public class Parser {
                 return new InsertBarCommand(message);
             }
             break;
-        case "swap":
-            if (message.length() >= 6) {
-                return new SwapCommand(message);
+        case "swapbar":
+            if (message.length() >= 9) {
+                return new SwapBarCommand(message);
             }
             break;
-        case "edit":
-            if (message.length() >= 6) {
-                return new EditCommand(message);
+        case "editbar":
+            if (message.length() >= 9) {
+                return new EditBarCommand(message);
             }
             break;
         case "new":

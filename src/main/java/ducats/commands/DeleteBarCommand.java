@@ -41,7 +41,7 @@ public class DeleteBarCommand extends Command<SongList> {
         Song activeSong = songList.getSongIndex(songIndex);
 
         try {
-            barIndex = Integer.parseInt(message.substring(10));
+            barIndex = Integer.parseInt(message.substring(14));
         } catch (Exception e) {
             throw new DucatsException("","other");
         }

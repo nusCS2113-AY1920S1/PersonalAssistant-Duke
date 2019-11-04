@@ -13,7 +13,7 @@ import java.util.ArrayList;
 /**
  * A class representing the command to edit a bar of notes in the current song.
  */
-public class EditCommand extends Command<SongList> {
+public class EditBarCommand extends Command<SongList> {
 
     private int songIndex;
 
@@ -21,7 +21,7 @@ public class EditCommand extends Command<SongList> {
      * Constructor for the command to edit a bar in the current song.
      * @param message the input message that resulted in the creation of the duke.Commands.Command
      */
-    public EditCommand(String message) {
+    public EditBarCommand(String message) {
         this.message = message;
         this.songIndex = 0;
     }
@@ -43,7 +43,7 @@ public class EditCommand extends Command<SongList> {
             songIndex = songList.getActiveIndex();
             Song song = songList.getSongIndex(songIndex);
 
-            String[] sections = message.substring(5).split(" ");
+            String[] sections = message.substring(8).split(" ");
             barNo = Integer.parseInt(sections[0].substring(4));
             int notesIndex = message.indexOf(sections[1]);
             Bar newBar = new Bar(barNo, message.substring(notesIndex));

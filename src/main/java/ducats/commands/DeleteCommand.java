@@ -38,7 +38,7 @@ public class DeleteCommand extends Command<SongList> {
         }
         int songIndex = 0;
         try {
-            songIndex = Integer.parseInt(message.substring(7));
+            songIndex = Integer.parseInt(message.substring(12));
         } catch (NumberFormatException e) {
             songIndex = songList.findSongIndex(message.substring(7)) + 1;
         } catch (Exception e) {
