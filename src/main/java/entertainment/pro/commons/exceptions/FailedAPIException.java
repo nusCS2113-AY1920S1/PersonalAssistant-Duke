@@ -7,6 +7,6 @@ import entertainment.pro.commons.PromptMessages;
  */
 public class FailedAPIException extends Exceptions {
     public FailedAPIException(String message) {
-        super(PromptMessages.API_FAIL_GENERAL);
+        super(message);
     }
 }

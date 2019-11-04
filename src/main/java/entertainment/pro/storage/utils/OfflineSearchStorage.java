@@ -1,5 +1,7 @@
 package entertainment.pro.storage.utils;
 
+import entertainment.pro.commons.PromptMessages;
+import entertainment.pro.commons.exceptions.Exceptions;
 import entertainment.pro.logic.movieRequesterAPI.RetrieveRequest;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -27,9 +29,11 @@ public class OfflineSearchStorage {
     private static final String KEYWORD_FOR_SEARCH_REQUESTS = "results";
 
     /**
-     * load and fetch appropriate string data for search requests.
+     * Load and fetch appropriate string data for search requests.
+     * @return JSONArray that consist of all the required data for the search request.
+     * @throws Exceptions when encounter a failed/interrupted I/O operation.
      */
-    public JSONArray load() throws IOException {
+    public JSONArray load() throws IOException, Exceptions {
         String dataFromJSON = "";
         JSONArray searchData = new JSONArray();
         RetrieveRequest.MoviesRequestType type = RetrieveRequest.getGetType();
@@ -38,16 +42,7 @@ public class OfflineSearchStorage {
             searchData = getSearchData();
             return searchData;
         }
-        InputStream inputStream = getClass().getResourceAsStream(filename);
-        InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
-        BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-        String line;
-        while ((line = bufferedReader.readLine()) != null) {
-            dataFromJSON += line;
-        }
-        bufferedReader.close();
-        inputStreamReader.close();
-        inputStream.close();
+        dataFromJSON = getData(filename);
         JSONParser jsonParser = new JSONParser();
         JSONObject jsonObject = new JSONObject();
         try {
@@ -58,6 +53,31 @@ public class OfflineSearchStorage {
         }
         //return jsonArray;
         return searchData;
+    }
+
+    /**
+     * Responsible for fetching the data from the file.
+     * @param filename The name of the file that consists the data.
+     * @return String that consists all the data fetched from the file.
+     * @throws Exceptions when encounter a failed/interrupted I/O operation.
+     */
+    private String getData(String filename) throws Exceptions {
+        InputStream inputStream = getClass().getResourceAsStream(filename);
+        InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+        BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+        String line = "";
+        String dataFromJSON = "";
+        try {
+            while ((line = bufferedReader.readLine()) != null) {
+                dataFromJSON += line;
+            }
+            bufferedReader.close();
+            inputStreamReader.close();
+            inputStream.close();
+        } catch (IOException e) {
+            throw new Exceptions(PromptMessages.IO_EXCEPTION_IN_OFFLINE);
+        }
+        return dataFromJSON;
     }
 
     /**
@@ -103,24 +123,24 @@ public class OfflineSearchStorage {
     }
 
     /**
-     *
-     * @return
+     * Responsible for fetching data for search by name request.
+     * @return JSONArray that consist of all the required data for the search request.
+     * @throws Exceptions when encounter a failed/interrupted I/O operation.
      */
-    public JSONArray getSearchData() {
+    public JSONArray getSearchData() throws Exceptions {
         JSONArray searchResults = new JSONArray();
-        for (int i = 1; i <= 500; i += 1) {
+        for (int i = 1; i <= 1055; i += 1) {
             String filename = MOVIES_DATABASE_FILEPATH;
             filename += i + ".json";
-            System.out.println(filename);
-            JSONParser parser = new JSONParser();
+            String dataFromJSON = getData(filename);
+            JSONParser jsonParser = new JSONParser();
             JSONArray jsonArray = new JSONArray();
             try {
-                jsonArray = (JSONArray) parser.parse(new FileReader(filename));
-            } catch (org.json.simple.parser.ParseException | FileNotFoundException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
+                jsonArray = (JSONArray) jsonParser.parse(dataFromJSON);
+            } catch (ParseException e) {
                 e.printStackTrace();
             }
+            System.out.println(filename);
             for (int j = 0; j < jsonArray.size(); j += 1) {
                 JSONObject jsonObject = (JSONObject) jsonArray.get(j);
                 searchResults.add(jsonObject);
