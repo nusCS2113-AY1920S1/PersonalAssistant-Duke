@@ -35,6 +35,7 @@ public class ListCommand extends Command {
     public static final String MESSAGE_LOANS_SORT = "loans can only be sorted by date, lend or borrow";
     public static final String MESSAGE_EXPENSE_SORT = "expenses can only be sorted by date and category.";
     public static final String MESSAGE_RECURRING_SORT = "recurring can only be sorted by date and category.";
+    public static final String MESSAGE_CONTACT_SORT = "contacts can only be sorted by name (A to Z).";
 
     private final String record;
 
@@ -111,11 +112,27 @@ public class ListCommand extends Command {
                     System.out.println(MESSAGE_USAGE);
                 }
             }
-        } else if ("contact".equals(record)) {
+        } else if (record.contains("contact")) {
             //@@author Xdecosee
-            System.out.println(MESSAGE_LIST_CONTACTS);
             ArrayList<Contact> contactList = wallet.getContactList().getContactList();
-            Ui.printContactTable(contactList);
+            if ("contact".equals(record)) {
+                System.out.println(MESSAGE_LIST_CONTACTS);
+                Ui.printContactTable(contactList);
+            } else {
+                String[] arguments = record.split(" ", 3);
+                if (arguments[1].equals("/sortby")) {
+                    if (arguments[2].equals("name")) {
+                        ArrayList<Contact> sortedContacts = wallet.getContactList().sortByName();
+                        System.out.println(MESSAGE_LIST_CONTACTS);
+                        Ui.printContactTable(sortedContacts);
+                    } else {
+                        System.out.println(MESSAGE_CONTACT_SORT);
+                    }
+                } else {
+                    System.out.println(MESSAGE_USAGE);
+                }
+            }
+
             //@@author
         } else if (record.contains("loan")) {
             if ("loan".equals(record)) {
