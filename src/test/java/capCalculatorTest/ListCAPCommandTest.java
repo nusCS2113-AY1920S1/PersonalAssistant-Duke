@@ -36,36 +36,36 @@ public class ListCAPCommandTest {
     }
 
     @Test
-    void testListAllCAPCommand () throws IOException {
+    void testListAllCAPCommand() throws IOException {
         CAPCommand newCAP = new CAPCommand("CS1231", 4, "A");
         ArrayList<CAPCommand> list = new ArrayList<>();
         list.add(newCAP);
         ArrayList<CAPCommand> list2 = new ArrayList<>();
         CAPCommand newCAP2 = new CAPCommand("CG1112", 6, "A");
         list2.add(newCAP2);
-        CAPList.put("1",list);
-        CAPList.put("2",list2);
+        CAPList.put("1", list);
+        CAPList.put("2", list2);
         ui.fullCommand = "list all";
-        ListCAPCommand test = new ListCAPCommand(ui,CAPList,LINEBREAK);
+        ListCAPCommand test = new ListCAPCommand(ui, CAPList, LINEBREAK);
         assertEquals("Sem | Module code | MC | CAP\n" + LINEBREAK
-                + "1   | CS1231      | 4  | A\n" +LINEBREAK
+                + "1   | CS1231      | 4  | A\n" + LINEBREAK
                 + "2   | CG1112      | 6  | A\n"
                 + LINEBREAK
                 + "Total CAP: 5.0\n", output.toString());
     }
 
     @Test
-    void testListSemFoundCAPCommand () throws IOException {
+    void testListSemFoundCAPCommand() throws IOException {
         CAPCommand newCAP = new CAPCommand("CS1231", 4, "A");
         ArrayList<CAPCommand> list = new ArrayList<>();
         list.add(newCAP);
         ArrayList<CAPCommand> list2 = new ArrayList<>();
         CAPCommand newCAP2 = new CAPCommand("CG1112", 6, "A");
         list2.add(newCAP2);
-        CAPList.put("1",list);
-        CAPList.put("2",list2);
+        CAPList.put("1", list);
+        CAPList.put("2", list2);
         ui.fullCommand = "list 1";
-        ListCAPCommand test = new ListCAPCommand(ui,CAPList,LINEBREAK);
+        ListCAPCommand test = new ListCAPCommand(ui, CAPList, LINEBREAK);
         assertEquals("Sem | Module code | MC | CAP\n" + LINEBREAK
                 + "1   | CS1231      | 4  | A\n"
                 + LINEBREAK
@@ -73,48 +73,48 @@ public class ListCAPCommandTest {
     }
 
     @Test
-    void testListSemFoundEmptyCAPCommand () throws IOException {
+    void testListSemFoundEmptyCAPCommand() throws IOException {
         CAPCommand newCAP = new CAPCommand("CS1231", 4, "A");
         ArrayList<CAPCommand> list = new ArrayList<>();
         list.add(newCAP);
         ArrayList<CAPCommand> list2 = new ArrayList<>();
         CAPCommand newCAP2 = new CAPCommand("CG1112", 6, "A");
         list2.add(newCAP2);
-        CAPList.put("1",list);
-        CAPList.put("2",list2);
+        CAPList.put("1", list);
+        CAPList.put("2", list2);
         ui.fullCommand = "list 3";
-        ListCAPCommand test = new ListCAPCommand(ui,CAPList,LINEBREAK);
+        ListCAPCommand test = new ListCAPCommand(ui, CAPList, LINEBREAK);
         assertEquals("Sem | Module code | MC | CAP\n" + LINEBREAK
                 + "No modules in this semester!\n", output.toString());
     }
 
     @Test
-    void testListSemNotFoundCAPCommand () throws IOException {
+    void testListSemNotFoundCAPCommand() throws IOException {
         CAPCommand newCAP = new CAPCommand("CS1231", 4, "A");
         ArrayList<CAPCommand> list = new ArrayList<>();
         list.add(newCAP);
         ArrayList<CAPCommand> list2 = new ArrayList<>();
         CAPCommand newCAP2 = new CAPCommand("CG1112", 6, "A");
         list2.add(newCAP2);
-        CAPList.put("1",list);
-        CAPList.put("2",list2);
+        CAPList.put("1", list);
+        CAPList.put("2", list2);
         ui.fullCommand = "list 1 and 2";
-        ListCAPCommand test = new ListCAPCommand(ui,CAPList,LINEBREAK);
+        ListCAPCommand test = new ListCAPCommand(ui, CAPList, LINEBREAK);
         assertEquals("Please Input in the correct format\n", output.toString());
     }
 
     @Test
-    void testListNonsenseCAPCommand () throws IOException {
+    void testListNonsenseCAPCommand() throws IOException {
         CAPCommand newCAP = new CAPCommand("CS1231", 4, "A");
         ArrayList<CAPCommand> list = new ArrayList<>();
         list.add(newCAP);
         ArrayList<CAPCommand> list2 = new ArrayList<>();
         CAPCommand newCAP2 = new CAPCommand("CG1112", 6, "A");
         list2.add(newCAP2);
-        CAPList.put("1",list);
-        CAPList.put("2",list2);
+        CAPList.put("1", list);
+        CAPList.put("2", list2);
         ui.fullCommand = "list nonsense";
-        ListCAPCommand test = new ListCAPCommand(ui,CAPList,LINEBREAK);
+        ListCAPCommand test = new ListCAPCommand(ui, CAPList, LINEBREAK);
         assertEquals("Please Input in the correct format\n", output.toString());
     }
 }

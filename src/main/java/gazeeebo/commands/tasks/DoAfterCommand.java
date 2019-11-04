@@ -6,6 +6,7 @@ import gazeeebo.storage.Storage;
 import gazeeebo.TriviaManager.TriviaManager;
 import gazeeebo.UI.Ui;
 import gazeeebo.exception.DukeException;
+
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -16,10 +17,9 @@ import gazeeebo.tasks.DoAfter;
 
 public class DoAfterCommand extends Command {
     /**
-     *
-     * @param list task lists
-     * @param ui the object that deals with printing things to the user.
-     * @param storage the object that deals with storing data.
+     * @param list         task lists
+     * @param ui           the object that deals with printing things to the user.
+     * @param storage      the object that deals with storing data.
      * @param commandStack
      * @throws ParseException
      * @throws IOException

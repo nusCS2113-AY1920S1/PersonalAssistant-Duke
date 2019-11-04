@@ -1,6 +1,8 @@
 
 package gazeeebo.commands.contact;
+
 import gazeeebo.UI.Ui;
+
 import java.io.IOException;
 import java.util.Map;
 
@@ -12,7 +14,7 @@ public class AddContactCommand {
     /**
      * Add new contact into the contact page.
      *
-     * @param ui      deals with printing things to the user.
+     * @param ui          deals with printing things to the user.
      * @param contactList map each name to its own phone number
      * @throws IOException catch any error if read file fails
      */

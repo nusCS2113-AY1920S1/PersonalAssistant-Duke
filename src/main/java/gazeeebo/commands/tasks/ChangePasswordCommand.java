@@ -18,9 +18,9 @@ public class ChangePasswordCommand extends Command {
      * This method will verify current password
      * and write the new password to the Password.txt file.
      *
-     * @param list    task lists
-     * @param ui      the object that deals with printing things to the user.
-     * @param storage the object that deals with storing data.
+     * @param list         task lists
+     * @param ui           the object that deals with printing things to the user.
+     * @param storage      the object that deals with storing data.
      * @param commandStack
      * @throws IOException catch the error if the read file fails.
      */
@@ -54,7 +54,10 @@ public class ChangePasswordCommand extends Command {
             }
         }
     }
-    /** Exit the program if isExit is true.*/
+
+    /**
+     * Exit the program if isExit is true.
+     */
     @Override
     public boolean isExit() {
         return false;

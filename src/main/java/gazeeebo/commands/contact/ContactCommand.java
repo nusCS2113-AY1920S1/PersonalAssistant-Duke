@@ -31,8 +31,7 @@ public class ContactCommand extends Command {
      * contact numbers and you got add/find/delete contacts.
      *
      * @param list         list of all tasks
-     * @param ui           the object that deals
-     *                     with printing things to the user.
+     * @param ui           printing things to the user.
      * @param storage      the object that deals with storing data.
      * @param commandStack store the commands in stack
      * @throws IOException Catch error if the read file fails

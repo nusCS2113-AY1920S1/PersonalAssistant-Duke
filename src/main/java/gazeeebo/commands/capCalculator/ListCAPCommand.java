@@ -12,12 +12,19 @@ import java.util.Map;
  * or list out all modules and the CAP score will be shown.
  */
 public class ListCAPCommand {
-    /** For formatting the spacing between module name and vertical line. */
+    /**
+     * For formatting the spacing between module name and vertical line.
+     */
     private static final int BLANK_SPACING = 12;
-    /** Upper bound of the number of semesters.*/
+    /**
+     * Upper bound of the number of semesters.
+     */
     private static final int UPPER_BOUNDARY = 8;
-    /** Lower bound of the number of semesters.*/
+    /**
+     * Lower bound of the number of semesters.
+     */
     private static final int LOWER_BOUNDARY = 1;
+
     /**
      * list out the modules and
      * show the CAP of all the modules or a particular sem.

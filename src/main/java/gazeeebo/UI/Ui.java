@@ -76,8 +76,8 @@ public class Ui {
         System.out.println("\nContent Page:");
         System.out.println("------------------ "
                 + "");
-        for(int i = 0; i < majorCategories.size(); i++) {
-            System.out.println(i+1 + ". " + majorCategories.get(i));
+        for (int i = 0; i < majorCategories.size(); i++) {
+            System.out.println(i + 1 + ". " + majorCategories.get(i));
         }
 
         System.out.println("To exit: bye");

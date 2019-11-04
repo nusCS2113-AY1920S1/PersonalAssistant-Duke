@@ -23,7 +23,7 @@ import java.util.Stack;
 
 public class TaskCommand extends Command {
     /**
-     *  Parses the user input and return a command object.
+     * Parses the user input and return a command object.
      *
      * @param list
      * @param ui
@@ -232,11 +232,12 @@ public class TaskCommand extends Command {
      *
      * @return true to exit
      */
-   @Override
+    @Override
     public boolean isExit() {
         return false;
     }
 //@@author jessteoxizhi
+
     /**
      * Copy an Arraylist of task.
      *

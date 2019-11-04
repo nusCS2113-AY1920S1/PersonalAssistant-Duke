@@ -76,6 +76,7 @@ public class MainCAPCalculatorTest {
                 , output.toString()
         );
     }
+
     @Test
     void testMainNumCommand() throws IOException, ParseException, DukeException {
         TriviaManager triviaManager = new TriviaManager(storage);

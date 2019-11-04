@@ -7,8 +7,11 @@ import java.util.Map;
  * Calculate the cap by using a formula.
  */
 public class CalculateCAPCommand {
-    /** Modules without a grade score (S/US/CS) = 0.1.*/
+    /**
+     * Modules without a grade score (S/US/CS) = 0.1.
+     */
     private static final double DONT_COUNT_SCORE = 0.1;
+
     /**
      * Calculate the CAP of all the modules.
      *

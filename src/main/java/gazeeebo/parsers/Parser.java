@@ -32,15 +32,15 @@ public class Parser {
             return new ByeCommand();
         } else if (command.equals("spec") || command.equals("7")) {
             return new SpecializationCommand();
-        } else if(splitCommand[0].equals("tasks") || command.equals("5")) {
+        } else if (splitCommand[0].equals("tasks") || command.equals("5")) {
             return new TaskCommand();
-        } else if (splitCommand[0].equals("moduleplanner") || command.equals("8")){
+        } else if (splitCommand[0].equals("moduleplanner") || command.equals("8")) {
             return new studyassistCommand();
-        } else if(splitCommand[0].equals("cap") || command.equals("6")) {
+        } else if (splitCommand[0].equals("cap") || command.equals("6")) {
             String moduleCode = "";
             int moduleCredit = 0;
             String grade = "";
-            return new CAPCommand(moduleCode,moduleCredit,grade);
+            return new CAPCommand(moduleCode, moduleCredit, grade);
         } else if (splitCommand[0].equals("notes") || command.equals("9")) {
             return new GeneralNoteCommand();
         } else {

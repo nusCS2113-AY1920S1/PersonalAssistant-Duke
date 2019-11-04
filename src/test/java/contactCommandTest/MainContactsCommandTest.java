@@ -10,6 +10,7 @@ import gazeeebo.TriviaManager.TriviaManager;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -58,7 +59,7 @@ public class MainContactsCommandTest {
                         + "7. Help page: help\n"
                         + "8. Exit contact page: esc\n"
                         + "__________________________________________________________\n\n"
-                + "Go back to Main Menu...\n" +
+                        + "Go back to Main Menu...\n" +
                         "Content Page:\n" +
                         "------------------ \n" +
                         "1. help\n" +

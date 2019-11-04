@@ -50,6 +50,7 @@ public class DeleteContactCommandTest {
         DeleteContactCommand test = new DeleteContactCommand(ui, contact);
         assertEquals("jason is not found in the list.\n", output.toString());
     }
+
     @Test
     void testDeleteIncorrectFormatContactsCommand() {
         HashMap<String, String> map = new HashMap<>();

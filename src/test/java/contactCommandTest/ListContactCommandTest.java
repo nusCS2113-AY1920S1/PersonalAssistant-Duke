@@ -13,7 +13,6 @@ import java.util.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ListContactCommandTest {
-
     private ByteArrayOutputStream output = new ByteArrayOutputStream();
     private PrintStream mine = new PrintStream(output);
     private PrintStream original = System.out;

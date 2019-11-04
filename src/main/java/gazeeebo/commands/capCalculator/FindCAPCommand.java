@@ -10,7 +10,9 @@ import java.util.Map;
  * Find a module by semNumber or moduleCode.
  */
 public class FindCAPCommand {
-    /** Printing blank spaces. */
+    /**
+     * Printing blank spaces.
+     */
     private static final int BLANK_SPACING = 12;
 
     /**
@@ -35,15 +37,15 @@ public class FindCAPCommand {
                 case (2):
                     findInput = ui.fullCommand.split(" ")[1];
                     break;
-                default :
+                default:
                     throw new ArrayIndexOutOfBoundsException();
             }
             String toPrint = "";
             boolean isExist = false;
             for (String key : caplist.keySet()) {
                 for (int i = 0; i < caplist.get(key).size(); i++) {
-                      if (caplist.get(key).get(i).
-                              moduleCode.equals(findInput)) {
+                    if (caplist.get(key).get(i).
+                            moduleCode.equals(findInput)) {
                         int noBlankSpacing = BLANK_SPACING
                                 - caplist.get(key).get(i).moduleCode.length();
                         toPrint += key + "   | "

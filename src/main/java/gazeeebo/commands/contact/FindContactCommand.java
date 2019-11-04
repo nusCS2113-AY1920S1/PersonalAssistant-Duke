@@ -10,9 +10,12 @@ import java.util.Map;
  * Finds a contact frm contact list.
  */
 public class FindContactCommand {
-    /** space between first
-     * alphabelt to first vertical line separator.*/
+    /**
+     * space between first
+     * alphabelt to first vertical line separator.
+     */
     private static final int SPACE_NUMBER = 30;
+
     /**
      * Finds the contact number with the contact name.
      *

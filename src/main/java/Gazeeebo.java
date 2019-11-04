@@ -8,6 +8,7 @@ import gazeeebo.notes.NoteList;
 import gazeeebo.parsers.Parser;
 import gazeeebo.exception.DukeException;
 import gazeeebo.storage.NoteStorage;
+
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;

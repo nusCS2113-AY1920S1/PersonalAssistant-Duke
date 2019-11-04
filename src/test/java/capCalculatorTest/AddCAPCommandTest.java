@@ -34,14 +34,14 @@ public class AddCAPCommandTest {
     }
 
     @Test
-    void testAddCAPCommand () {
+    void testAddCAPCommand() {
         ui.fullCommand = "add 1,CS1231,4,A";
         AddCAPCommand test = new AddCAPCommand(ui, CAPList);
         assertEquals("Successfully added: CS1231\n", output.toString());
     }
 
     @Test
-    void testIncorrectFormatAddCAPCommand () {
+    void testIncorrectFormatAddCAPCommand() {
         ui.fullCommand = "add 1,CS1231,4,A and 2,EE2026,4,B";
         AddCAPCommand test = new AddCAPCommand(ui, CAPList);
         assertEquals("Please Input in the correct format\n", output.toString());

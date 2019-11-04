@@ -12,8 +12,11 @@ import java.util.Map;
  */
 
 public class AddCAPCommand {
-    /** Index of the grade.*/
+    /**
+     * Index of the grade.
+     */
     private static final int GRADE_INDEX = 3;
+
     /**
      * Add a new module into GPAList.
      *

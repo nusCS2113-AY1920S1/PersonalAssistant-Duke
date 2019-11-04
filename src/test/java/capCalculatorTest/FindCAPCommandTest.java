@@ -33,16 +33,17 @@ public class FindCAPCommandTest {
         System.out.flush();
         System.setOut(original);
     }
+
     @Test
-    void testFindByModuleCodeCAPCommand () {
+    void testFindByModuleCodeCAPCommand() {
         CAPCommand newCAP = new CAPCommand("CS1231", 4, "A");
         ArrayList<CAPCommand> list = new ArrayList<>();
         list.add(newCAP);
         ArrayList<CAPCommand> list2 = new ArrayList<>();
         CAPCommand newCAP2 = new CAPCommand("CG1112", 6, "A");
         list2.add(newCAP2);
-        CAPList.put("1",list);
-        CAPList.put("2",list2);
+        CAPList.put("1", list);
+        CAPList.put("2", list2);
         ui.fullCommand = "find CG1112";
         FindCAPCommand test = new FindCAPCommand(ui, CAPList, LINEBREAK);
         assertEquals("Sem | Module code | MC | CAP\n" + LINEBREAK
@@ -51,30 +52,30 @@ public class FindCAPCommandTest {
     }
 
     @Test
-    void testFindNotInTheCapListCommand () {
+    void testFindNotInTheCapListCommand() {
         CAPCommand newCAP = new CAPCommand("CS1231", 4, "A");
         ArrayList<CAPCommand> list = new ArrayList<>();
         list.add(newCAP);
         ArrayList<CAPCommand> list2 = new ArrayList<>();
         CAPCommand newCAP2 = new CAPCommand("CG1112", 6, "A");
         list2.add(newCAP2);
-        CAPList.put("1",list);
-        CAPList.put("2",list2);
+        CAPList.put("1", list);
+        CAPList.put("2", list2);
         ui.fullCommand = "find CS2101";
         FindCAPCommand test = new FindCAPCommand(ui, CAPList, LINEBREAK);
         assertEquals("CS2101 is not found in the list.\n", output.toString());
     }
 
     @Test
-    void testFindIncorrectFormatInTheCapListCommand () {
+    void testFindIncorrectFormatInTheCapListCommand() {
         CAPCommand newCAP = new CAPCommand("CS1231", 4, "A");
         ArrayList<CAPCommand> list = new ArrayList<>();
         list.add(newCAP);
         ArrayList<CAPCommand> list2 = new ArrayList<>();
         CAPCommand newCAP2 = new CAPCommand("CG1112", 6, "A");
         list2.add(newCAP2);
-        CAPList.put("1",list);
-        CAPList.put("2",list2);
+        CAPList.put("1", list);
+        CAPList.put("2", list2);
         ui.fullCommand = "find cs2101 cs2203";
         FindCAPCommand test = new FindCAPCommand(ui, CAPList, LINEBREAK);
         assertEquals("Please Input in the correct format\n", output.toString());

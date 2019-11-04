@@ -58,7 +58,6 @@ public class FindContactsCommandTest {
         FindContactCommand test = new FindContactCommand(ui, contact, LINE_BREAK);
         assertEquals("jay is not found in the list.\n", output.toString());
     }
-
     @Test
     void testIncorrectFormatFindContactCommand() {
         HashMap<String, String> map = new HashMap<>();

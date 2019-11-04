@@ -93,7 +93,7 @@ public class Storage {
     private String absolutePathPrerequisiteResource
             = "Prerequisite.txt";
 
-    public void startUp () throws IOException {
+    public void startUp() throws IOException {
         ArrayList<String[]> resourcelist = new ArrayList<>();
         resourcelist.add(absolutePath);
         resourcelist.add(absolutePathPassword);
@@ -112,7 +112,7 @@ public class Storage {
         resourcelist.add(getAbsoluteNoteWeekly);
         resourcelist.add(getAbsoluteNoteMonthly);
         resourcelist.add(getAbsolutePathModule);
-        for (String[] path:resourcelist) {
+        for (String[] path : resourcelist) {
             File tmpDir = new File(path[0]);
             boolean exists = tmpDir.exists();
             if (!exists) {
@@ -133,6 +133,7 @@ public class Storage {
             }
         }
     }
+
     public void writeToSaveFile(final String fileContent) throws IOException {
         FileWriter fileWriter = new FileWriter(absolutePathResource);
         fileWriter.write(fileContent);
@@ -260,7 +261,7 @@ public class Storage {
             throws FileNotFoundException {
         ArrayList<StringBuilder> passwordList = new ArrayList<>();
 
-         File f = new File(absolutePathPasswordResource);
+        File f = new File(absolutePathPasswordResource);
         Scanner sc = new Scanner(f);
         while (sc.hasNext()) {
             String decodedPassword = sc.nextLine();
@@ -384,7 +385,7 @@ public class Storage {
 
     public void Storage_Trivia(String fileContent) throws IOException {
         File file = new File(absolutePathTriviaResource);
-        if (file.exists() && !file.canWrite()){
+        if (file.exists() && !file.canWrite()) {
             System.out.println("File exists and it is read only, making it writable");
             file.setWritable(true);
         }
@@ -483,51 +484,51 @@ public class Storage {
 //        Scanner sc = new Scanner(inputStream);
 
 //        if (new File(absolutePathCompletedElectives).exists()) {
-            File file = new File(absolutePathCompletedElectivesResource);
-            Scanner sc = new Scanner(file);
-            while (sc.hasNext()) {
-                ArrayList<String> completedElectiveList = new ArrayList<>();
-                String[] split = sc.nextLine().split("\\|");
-                String checkKey = split[0];
-                boolean isEqual = false;
-                for (String key : completedEMap.keySet()) {
-                    if (checkKey.equals(key)) { //if date equal
-                        completedEMap.get(key).add(split[1]);
-                        isEqual = true;
-                    }
-                    if (isEqual == false) {
-                        completedElectiveList.add(split[1]);
-                        completedEMap.put(checkKey, completedElectiveList);
-                    }
+        File file = new File(absolutePathCompletedElectivesResource);
+        Scanner sc = new Scanner(file);
+        while (sc.hasNext()) {
+            ArrayList<String> completedElectiveList = new ArrayList<>();
+            String[] split = sc.nextLine().split("\\|");
+            String checkKey = split[0];
+            boolean isEqual = false;
+            for (String key : completedEMap.keySet()) {
+                if (checkKey.equals(key)) { //if date equal
+                    completedEMap.get(key).add(split[1]);
+                    isEqual = true;
+                }
+                if (isEqual == false) {
+                    completedElectiveList.add(split[1]);
+                    completedEMap.put(checkKey, completedElectiveList);
                 }
             }
+        }
         //}
         return completedEMap;
     }
 
-    public ArrayList<ArrayList<String>> Read_StudyPlan () throws IOException {
+    public ArrayList<ArrayList<String>> Read_StudyPlan() throws IOException {
         ArrayList<ArrayList<String>> studyplan = new ArrayList<ArrayList<String>>();
 //        InputStream inputStream = Storage.class.getResourceAsStream(absolutePath_StudyPlanner);
 //        Scanner sc = new Scanner(inputStream);
-      //  if (new File(absolutePath_StudyPlanner).exists()) {
+        //  if (new File(absolutePath_StudyPlanner).exists()) {
 
-            File file = new File(absolutePathStudyPlannerResource);
-            Scanner sc = new Scanner(file);
-            for (int i = 0; i < 8; i++) {
-                if (sc.hasNext()) {
-                    String[] split = sc.nextLine().split(" ");
-                    ArrayList<String> temp = Arrays.stream(split).collect(Collectors.toCollection(ArrayList::new));
-                    studyplan.add(temp);
-                } else {
-                    ArrayList<String> temp = new ArrayList<String>();
-                    studyplan.add(temp);
-                }
+        File file = new File(absolutePathStudyPlannerResource);
+        Scanner sc = new Scanner(file);
+        for (int i = 0; i < 8; i++) {
+            if (sc.hasNext()) {
+                String[] split = sc.nextLine().split(" ");
+                ArrayList<String> temp = Arrays.stream(split).collect(Collectors.toCollection(ArrayList::new));
+                studyplan.add(temp);
+            } else {
+                ArrayList<String> temp = new ArrayList<String>();
+                studyplan.add(temp);
             }
-       // }
+        }
+        // }
         return studyplan;
     }
 
-    public void Storage_StudyPlan (String fileContent) throws IOException {
+    public void Storage_StudyPlan(String fileContent) throws IOException {
         BufferedWriter fileWriter = new BufferedWriter(new FileWriter(absolutePathStudyPlannerResource));
         fileWriter.write(fileContent);
         fileWriter.flush();
@@ -535,20 +536,20 @@ public class Storage {
     }
 
     public HashMap<String, ArrayList<String>> readFromPrerequisiteFile() throws IOException {
-        HashMap<String,ArrayList<String>> PrerequisiteList = new  HashMap<String,ArrayList<String>>();
+        HashMap<String, ArrayList<String>> PrerequisiteList = new HashMap<String, ArrayList<String>>();
 
 //        InputStream inputStream = Storage.class.getResourceAsStream(absolutePath_Prerequisite);
 //        Scanner sc = new Scanner(inputStream);
         File file = new File(absolutePathPrerequisiteResource);
         Scanner sc = new Scanner(file);
-        while(sc.hasNext()){
+        while (sc.hasNext()) {
             String WholeSentence = sc.nextLine();
             String head = WholeSentence.split(" ")[0];
             ArrayList<String> Prerequisites = new ArrayList<String>();
-            for(int i = 1;i<WholeSentence.split(" ").length;i++){
+            for (int i = 1; i < WholeSentence.split(" ").length; i++) {
                 Prerequisites.add(WholeSentence.split(" ")[i]);
             }
-            PrerequisiteList.put(head,Prerequisites);
+            PrerequisiteList.put(head, Prerequisites);
         }
         return PrerequisiteList;
     }

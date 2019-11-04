@@ -5,6 +5,7 @@ import gazeeebo.storage.Storage;
 import gazeeebo.tasks.Deadline;
 import gazeeebo.tasks.Event;
 import gazeeebo.tasks.Task;
+
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -14,16 +15,19 @@ import java.util.ArrayList;
  * Automatically replaces the task and adds the new task with the new date.
  */
 public class RecurringCommand {
-    /** Number of dates to add for weekly task.*/
+    /**
+     * Number of dates to add for weekly task.
+     */
     private static final int ADD_WEEKLY_DATE = 7;
+
     /**
      * Replace the task to the next week/month/year base on the
      * word weekly/monthly/yearly when the it is marked as done[D].
      *
-     * @param list             task lists
-     * @param numbercheck      the index of the list
+     * @param list            task lists
+     * @param numbercheck     the index of the list
      * @param listDescription description of the index of the list
-     * @param storage          the object that deals with storing data.
+     * @param storage         the object that deals with storing data.
      * @throws IOException catch the error if read fails.
      */
 

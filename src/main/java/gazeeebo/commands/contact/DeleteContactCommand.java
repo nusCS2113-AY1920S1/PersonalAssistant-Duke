@@ -1,5 +1,6 @@
 
 package gazeeebo.commands.contact;
+
 import gazeeebo.UI.Ui;
 
 import java.io.IOException;
@@ -29,7 +30,7 @@ public class DeleteContactCommand {
                     nameToDelete = nameToDelete.
                             concat(ui.fullCommand.split(" ")[i] + " ");
                 }
-                 nameToDelete = nameToDelete.trim();
+                nameToDelete = nameToDelete.trim();
             } else {
                 throw new ArrayIndexOutOfBoundsException();
             }

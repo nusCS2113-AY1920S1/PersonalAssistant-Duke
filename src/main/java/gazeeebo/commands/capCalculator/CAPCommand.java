@@ -21,17 +21,25 @@ import java.util.Stack;
  * Deals with the user in the main CAP page.
  */
 public class CAPCommand extends Command {
-    /** module name of the module. */
+    /**
+     * module name of the module.
+     */
     protected String moduleCode;
-    /** Modular Credit of the module. */
+    /**
+     * Modular Credit of the module.
+     */
     protected int moduleCredit;
-    /** Alphabetical score for the module. */
+    /**
+     * Alphabetical score for the module.
+     */
     protected String grade;
+
     /**
      * Constructor for CAPCommand.
-     * @param moduleCode name of the module
+     *
+     * @param moduleCode   name of the module
      * @param moduleCredit about of Modular Credit of the module
-     * @param grade Alphabetical score attained
+     * @param grade        Alphabetical score attained
      */
     public CAPCommand(final String moduleCode,
                       final int moduleCredit, final String grade) {
@@ -40,10 +48,12 @@ public class CAPCommand extends Command {
         this.grade = grade;
     }
 
-    /** Decodes the command input in the CAP page. */
+    /**
+     * Decodes the command input in the CAP page.
+     */
     @Override
     public void execute(final ArrayList<Task> list,
-                        final  Ui ui, final Storage storage,
+                        final Ui ui, final Storage storage,
                         final Stack<ArrayList<Task>> commandStack,
                         final ArrayList<Task> deletedTask,
                         final TriviaManager triviaManager)
@@ -89,7 +99,7 @@ public class CAPCommand extends Command {
                     (new HelpCommand()).execute(null, ui, null,
                             null, null, null);
                 } else if (ui.fullCommand.equals("commands")
-                || ui.fullCommand.equals("5")) {
+                        || ui.fullCommand.equals("5")) {
                     System.out.println(helpCAP);
                 } else {
                     throw new ArrayIndexOutOfBoundsException();
@@ -127,7 +137,9 @@ public class CAPCommand extends Command {
                 + "9. notes\n");
     }
 
-    /** */
+    /**
+     *
+     */
     @Override
     public boolean isExit() {
         return false;

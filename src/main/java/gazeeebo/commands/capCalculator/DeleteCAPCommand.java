@@ -13,7 +13,7 @@ public class DeleteCAPCommand {
     /**
      * Delete the module from CAPList.
      *
-     * @param ui      prints things to the user.
+     * @param ui      prints to the user.
      * @param caplist deals stores
      *                semNumber, moduleCode, moduleCredits and GPA score.
      */

@@ -41,6 +41,7 @@ public class AddContactCommandTest {
         AddContactCommand test = new AddContactCommand(ui, contact);
         assertEquals("Successfully added: Test,96251822\n", output.toString());
     }
+
     @Test
     void testIncorrectFormatAddContactsCommand() throws IOException {
         HashMap<String, String> map = new HashMap<>();
