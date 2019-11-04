@@ -79,5 +79,10 @@ public class ProjectInputControllerManageTest {
                                        "Take note that the member indexes might have changed after deleting!"};
         assertArrayEquals(expectedOutput, simulatedOutput);
 
+        simulatedUserInput = "role 1 -n Captain";
+        simulatedOutput = projectInputController.manageProject(simulatedUserInput);
+        expectedOutput = new String[] {"Successfully changed the role of Marvel to Captain."};
+        assertArrayEquals(expectedOutput, simulatedOutput);
+
     }
 }
