@@ -46,7 +46,7 @@ public class Ui {
         System.out.print(line);
     }
 
-    public void HomePageMessage() {
+    public void homePageMessage() {
 
     }
 

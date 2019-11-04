@@ -20,7 +20,7 @@ public class CommandFormat {
 
     public String addPayeeFormat() {
         return "add payee p/PAYEE e/EMAIL m/MATRICNUM ph/PHONENUM";
-}
+    }
 
     public String addPaymentFormat() {
         return "add payment p/PAYEE i/ITEM c/COST v/INVOICE";
