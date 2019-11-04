@@ -52,7 +52,7 @@ image::OofWelcome.png[OofWelcome]
 +
 .  Type a task description in the terminal and press kbd:[Enter] to run it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will list the commands present.
-.  Some example commands you can try: 
+.  Some example commands you can try:
 
 * *`deadline homework /by 12-12-2019 11:11`* : adds a task called `homework` to the saved tasks with the deadline `12-12-2019 11:11`.
 * *`calendar`* : displays all saved tasks in a calendar view.
@@ -127,7 +127,7 @@ Format: `semester /add YEAR /name SEMESTER /from START_DATE /to END_DATE`
 
 Example:
 
-* `semester /add 19/20 /name Semester 2 /from 01-01-2020 /to 05-05-2020` 
+* `semester /add 19/20 /name Semester 2 /from 01-01-2020 /to 05-05-2020`
 
 [[SemesterAdd]]
 .Adding a semester
@@ -153,7 +153,7 @@ Format: `semester /delete INDEX`
 
 Example:
 
-* `semester delete 2` 
+* `semester delete 2`
 
 [[SemesterDelete]]
 .Deleting a Semester.
@@ -169,7 +169,7 @@ Format: `semester /select INDEX`
 
 Example:
 
-* `semester /select 1` 
+* `semester /select 1`
 
 [[SemesterSelect]]
 .Selecting a semester
@@ -192,7 +192,7 @@ Format: `module /add MODULE_CODE /name MODULE_NAME`
 
 Example:
 
-* `module /add CS2107 /name Introduction to Information Security` 
+* `module /add CS2107 /name Introduction to Information Security`
 
 [[ModuleAdd]]
 .Adding a module
@@ -218,7 +218,7 @@ Format: `module /delete INDEX`
 
 Example:
 
-* `module /delete 4` 
+* `module /delete 4`
 
 [[ModuleDelete]]
 .Deleting a module
@@ -235,7 +235,7 @@ Format: `module /select INDEX`
 
 Example:
 
-* `module /select 3` 
+* `module /select 3`
 
 [[ModuleSelect]]
 .Selecting a module
@@ -285,7 +285,7 @@ Format: `lesson /delete INDEX`
 
 Example:
 
-* `lesson /delete 1` 
+* `lesson /delete 1`
 
 [[LessonDelete]]
 .Deleting a lesson
@@ -308,7 +308,7 @@ Requires a module to be selected using `module /select`.
 
 Example:
 
-* `assessment final examination /from 31-10-2019 16:00 /to 31-10-2019 18:00` 
+* `assessment final examination /from 31-10-2019 16:00 /to 31-10-2019 18:00`
 
 Adds an assessment with name, start and end time as `final examination`, `25-11-2019 13:00`, `25-11-2019 15:00` respectively.
 
@@ -330,7 +330,7 @@ Requires a module to be selected using `module /select`.
 
 Example:
 
-* `assignment lab /by 23-11-2019 23:59` 
+* `assignment lab /by 23-11-2019 23:59`
 
 [[AssignmentAdd]]
 .Adding an assignment
@@ -713,7 +713,7 @@ Example:
 Adds a do-after task called `buy groceries` that will be displayed once the 1st task in the list has been completed.
 
 ==== Adding a task: `range`
-You can add a task that needs to be completed within a certain time period 
+You can add a task that needs to be completed within a certain time period
 
 Format: `range DESCRIPTION /from DD-MM-YYYY HH:MM /to DD-MM-YYYY HH:MM`
 
@@ -726,12 +726,12 @@ Example:
 Adds a task with description and time period to `study for exam` and between `01-10-2019 21:00` to `05-10-2019 11:00`.
 
 ==== Viewing two different calendars side-by-side: `viewDual`
-Transforms all current tasks into two calendar views, one for tutor tasks and one for student tasks. 
+Transforms all current tasks into two calendar views, one for tutor tasks and one for student tasks.
 
 Format: `viewDual`
 
 ==== Exporting the calendar: `export`
-You can export all current tasks recorded into a shareable format in calendar view.  
+You can export all current tasks recorded into a shareable format in calendar view.
 
 Format: `export`
 
@@ -750,7 +750,7 @@ Format: `export`
 
 === Available Commands
 
-View the list of features and their usages. 
+View the list of features and their usages.
 
 * *Help*: `help`
 
@@ -758,67 +758,67 @@ View the list of features and their usages.
 You can view the usage of a specific command by typing `help COMMAND`, where `COMMAND` is the name of the feature.
 e.g. `help calendar`
 
-Add a task with a deadline. 
+Add a task with a deadline.
 
 * *Deadline*: `deadline DESCRIPTION /by DD-MM-YYYY HH:MM` +
 e.g. `deadline homework /by 20-09-2019 13:00`
 
 
-Add an event with start and end time. 
+Add an event with start and end time.
 
 * *Event*: `event DESCRIPTION /from DD-MM-YYYY HH:MM /to DD-MM-YYYY HH:MM` +
-e.g. `event project meeting /from 20-09-2019 13:00 /to 20-09-2019 17:00` 
+e.g. `event project meeting /from 20-09-2019 13:00 /to 20-09-2019 17:00`
 
 
-Add a todo with a specific date. 
+Add a todo with a specific date.
 
 * *Todo*: `todo DESCRIPTION /on DD-MM-YYYY` +
 e.g. `todo withdraw money /on 19-09-2019`
 
-Set a recurring task. 
+Set a recurring task.
 
 * *Recurring*: `recurring INDEX NUMBER_OF_OCCURRENCES FREQUENCY` +
 e.g. `recurring 1 1 1`
 
-List all the task you have saved in *OOF* 
+List all the task you have saved in *OOF*
 
-* *List*: `list` 
+* *List*: `list`
 
-Mark a task as done. 
+Mark a task as done.
 
 * *Done*: `done INDEX` +
-e.g. `done 1` 
+e.g. `done 1`
 
-Delete a specific task. 
+Delete a specific task.
 
 * *Delete*: `delete INDEX` +
-e.g. `delete 1` 
+e.g. `delete 1`
 
-Find anything using keywords. 
+Find anything using keywords.
 
 * *Find*: `find DESCRIPTION` +
-e.g. `find withdraw money`   
+e.g. `find withdraw money`
 
-Set a threshold in hours for reminders. 
+Set a threshold in hours for reminders.
 
 * *Threshold*: `threshold HH` +
 e.g. `threshold 48`
 
-Check your schedule on a particular day. 
+Check your schedule on a particular day.
 
 * *Schedule*: `schedule DD-MM-YYYY` +
 e.g. `schedule 04-10-2019`
 
-View a summary of your tasks for the next day. 
+View a summary of your tasks for the next day.
 
-* *Summary*: `summary` 
+* *Summary*: `summary`
 
-View free time slots on a specific day. 
+View free time slots on a specific day.
 
 * *Free*: `free DD-MM-YYYY` +
 e.g. `free 10-10-2019`
 
-View all tasks in a table form for any particular week. 
+View all tasks in a table form for any particular week.
 
 * *ViewWeek*: `viewweek DD MM YYYY`
 e.g. `viewweek 30 10 2019`
@@ -826,7 +826,7 @@ e.g. `viewweek 30 10 2019`
 [NOTE]
 Note that the parameters `DD MM YYYY` are optional and the command will automatically show tasks for the current week if these parameters are not shown. The tasks in each day is chronologically sorted.
 
-View tasks for any particular month in calendar format. 
+View tasks for any particular month in calendar format.
 
 * *Calendar*: `calendar MM YYYY` +
 e.g. `calendar 10 2019`
@@ -834,48 +834,48 @@ e.g. `calendar 10 2019`
 [NOTE]
 Note that the parameters `DD MM YYYY` are optional and the command will automatically show tasks for the current month if these parameters are not shown. The tasks in each day is chronologically sorted.
 
-View reminder based on the threshold set. 
+View reminder based on the threshold set.
 
-* *Reminder*: `NIL` 
+* *Reminder*: `NIL`
 
 [NOTE]
 This feature runs in the background thus no input is needed from you.
 
-Starts assignment tracker. 
+Starts assignment tracker.
 
 * *Start Assignment Tracker*: `tracker /start TASK_INDEX MODULE_CODE` +
 e.g. `tracker /start 20 cs2113t`
 
-Pauses assignment tracker. 
+Pauses assignment tracker.
 
 * *Pause Assignment Tracker*: `tracker /pause TASK_INDEX MODULE_CODE` +
 e.g. `tracker /pause 20 cs2113t`
 
-Stops assignment tracker. 
+Stops assignment tracker.
 
 * *Stop Assignment Tracker*: `tracker /stop TASK_INDEX MODULE_CODE` +
 e.g. `tracker /stop 20 cs2113t`
 
-View assignment tracker diagram. 
+View assignment tracker diagram.
 
 * *View Assignment Tracker*: `tracker /view TIME_PERIOD` +
 e.g. `tracker /view week`
 
-Exit *OOF* by using this command. 
+Exit *OOF* by using this command.
 
-* *Bye*: `bye` 
+* *Bye*: `bye`
 
 === Coming Soon
 
-* *Tentative*: `tentative DESCRIPTION` 
+* *Tentative*: `tentative DESCRIPTION`
 
-* *Do-after*: `Do-after INDEX DESCRIPTION` 
+* *Do-after*: `Do-after INDEX DESCRIPTION`
 
-* *Filter*: `filter CATEGORY` 
+* *Filter*: `filter CATEGORY`
 
 * *ViewUndone*: `viewUndone`
 
-* *Range*: `range` 
+* *Range*: `range`
 
 * *ViewDual*: `viewDual`
 
