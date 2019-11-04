@@ -1,5 +1,7 @@
-package logic.command;
+package logic.command.list;
 
+import logic.command.Command;
+import logic.command.CommandOutput;
 import model.Model;
 import model.Task;
 

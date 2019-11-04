@@ -1,8 +1,6 @@
-package logic.parser;
+package logic.parser.list;
 
 import logic.command.Command;
-import logic.command.ListMembersCommand;
-import logic.command.ListTasksCommand;
 import common.DukeException;
 
 import java.util.regex.Matcher;

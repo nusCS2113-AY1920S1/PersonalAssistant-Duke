@@ -1,6 +1,7 @@
-package logic.command;
+package logic.command.list;
 
-import common.DukeException;
+import logic.command.Command;
+import logic.command.CommandOutput;
 import model.Model;
 
 public class ListMembersProgressCommand extends Command {

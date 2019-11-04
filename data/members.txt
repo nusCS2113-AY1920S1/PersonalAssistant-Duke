@@ -5,7 +5,8 @@
       "Job B",
       "lame",
       "hi",
-      "yooo"
+      "yooo",
+      "john"
     ]
   },
   {
@@ -13,7 +14,8 @@
     "taskList": [
       "john",
       "james",
-      "null"
+      "null",
+      "lame"
     ]
   }
 ]

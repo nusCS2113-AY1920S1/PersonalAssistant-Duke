@@ -1,12 +1,9 @@
-package logic.parser;
+package logic.parser.list;
 
 import common.DukeException;
 import logic.command.Command;
-import logic.command.ListTasksCommand;
-import logic.command.ListTasksPicNumCommand;
-
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import logic.command.list.ListTasksCommand;
+import logic.command.list.ListTasksPicNumCommand;
 
 public class ListTasksAllParser {
 

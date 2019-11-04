@@ -4,6 +4,7 @@ import logic.command.Command;
 import common.DukeException;
 import logic.parser.delete.DeleteCommandParser;
 import logic.parser.edit.EditCommandParser;
+import logic.parser.list.ListCommandParser;
 import logic.parser.schedule.ScheduleCommandParser;
 
 import java.util.regex.Matcher;

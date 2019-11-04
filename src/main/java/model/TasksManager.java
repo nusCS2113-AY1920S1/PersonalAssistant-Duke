@@ -237,7 +237,7 @@ public class TasksManager implements Serializable {
      * @return a string shows the scheduled task list
      */
     public String scheduleTeamAll() {
-        ArrayList<Task> taskListCopy = (ArrayList<Task>) taskList.clone();
+        ArrayList<Task> taskListCopy = (ArrayList<Task>)taskList.clone();
         return showScheduleOfTaskList(taskListCopy);
     }
 
@@ -319,7 +319,7 @@ public class TasksManager implements Serializable {
             Date earliest = new Date(Long.MAX_VALUE);
             int earliestIndex = -1;
             for (int j = 0; j < hasTime.size(); j++) {
-                Date time = hasTime.get(i).getTime();
+                Date time = hasTime.get(j).getTime();
                 if (time.before(earliest)) {
                     earliest = time;
                     earliestIndex = j;
@@ -363,16 +363,14 @@ public class TasksManager implements Serializable {
             int min = Integer.MAX_VALUE;
             int minIndex = -1;
             for (int j = 0; j < toSort.size(); j++) {
-                int num = toSort.get(i).getMemberList().size();
-                //System.out.println(j);
-                //System.out.println(num);
+                int num = toSort.get(j).getMemberList().size();
                 if (num < min) {
-                    minIndex = i;
+                    minIndex = j;
                     min = num;
                 }
             }
-            int indexInList = minIndex + 1;
-            result += "\n" + indexInList + ". " + toSort.get(i) + " has " + min + " PICs.";
+            int indexInList = getIndexInListByTask(toSort.get(minIndex));
+            result += "\n" + indexInList + ". " + toSort.get(minIndex) + " has " + min + " PICs.";
             System.out.println(result);
             toSort.remove(minIndex);
         }
@@ -390,29 +388,33 @@ public class TasksManager implements Serializable {
 
     public String check(ArrayList<String> tasksName) {
         ArrayList<Task> tasks = new ArrayList<>();
-        for (int i = 0; i < tasksName.size(); i++) {
-            Task task = getTaskByName(tasksName.get(i));
-            tasks.add(task);
-        }
-        ArrayList<Task> sorted = sortByTime(pickTodo(tasks));
-        int count = 1;
         String result = "";
-        for (int i = 0; i < sorted.size() - 1; i++) {
-            Date time1 = sorted.get(i).getTime();
-            Date time2 = sorted.get(i + 1).getTime();
-            if (time1.equals(time2)) {
-                count++;
-            } else {
-                if (count != 1) {
-                    String name = "";
-                    for (int j = count; j > 0; j--) {
-                        Task task = sorted.get(i - count);
-                        name += " " + getIndexInListByTask(task) + ". " + getNameByTask(task);
+        if (tasksName.size() > 1) {
+            for (int i = 0; i < tasksName.size(); i++) {
+                Task task = getTaskByName(tasksName.get(i));
+                tasks.add(task);
+            }
+            ArrayList<Task> sorted = sortByTime(pickTodo(tasks));
+            if (sorted.size() > 1) {
+                int count = 1;
+                for (int i = 0; i < sorted.size() - 1; i++) {
+                    Date time1 = sorted.get(i).getTime();
+                    Date time2 = sorted.get(i + 1).getTime();
+                    if (time1.equals(time2)) {
+                        count++;
+                    } else {
+                        if (count != 1) {
+                            String name = "";
+                            for (int j = count; j > 0; j--) {
+                                Task task = sorted.get(i - count);
+                                name += " " + getIndexInListByTask(task) + ". " + getNameByTask(task);
+                            }
+                            result += "\n" + time2 + " " + count + "tasks:" + name;
+                        }
+                        count = 1;
+                        continue;
                     }
-                    result += "\n" + time2 + " " + count + "tasks:" + name;
                 }
-                count = 1;
-                continue;
             }
         }
         return result;

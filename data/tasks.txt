@@ -3,7 +3,8 @@
     "name": "john",
     "isDone": false,
     "memberList": [
-      "P1"
+      "P1",
+      "P2"
     ],
     "skillReqList": [],
     "time": "Dec 12, 2019, 11:11:00 AM"
@@ -31,7 +32,8 @@
     "name": "lame",
     "isDone": false,
     "memberList": [
-      "P2"
+      "P2",
+      "P1"
     ],
     "skillReqList": []
   },
