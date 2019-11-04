@@ -40,6 +40,10 @@ public class AddExpenditureCommand extends Command {
     public void execute(ScheduleList calendar, Budget budget, CategoryList categoryList, Category category,
                         Ui ui, Storage storage) throws MooMooException {
         Category cat = categoryList.get(categoryName);
+        if (cat == null) {
+            throw new MooMooException("Sorry I could not find a category named " + categoryName);
+        }
+
         Expenditure newExpenditure = new Expenditure(expenditureName, amount, date);
         cat.add(newExpenditure);
         NotificationCommand alert = new NotificationCommand(categoryName, cat.getTotal());

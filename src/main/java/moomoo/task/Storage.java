@@ -104,12 +104,17 @@ public class Storage {
                 HashMap<String, Double> loadedBudgets = new HashMap<String, Double>();
                 List<String> readInput = Files.readAllLines(Paths.get(this.budgetFilePath));
                 String category = "";
-                double budget = 0;
+                double budget;
 
                 for (int i = 0; i < readInput.size(); ++i) {
                     if (i % 2 == 1) {
                         if (!"".equals(category)) {
-                            budget = Double.parseDouble(readInput.get(i));
+                            try {
+                                budget = Double.parseDouble(readInput.get(i));
+                            } catch (NumberFormatException e) {
+                                ui.setOutput("Budget file corrupted, please delete it. Your data will be reset.");
+                                return null;
+                            }
                             loadedBudgets.put(category, budget);
                         }
                         category = "";
@@ -122,9 +127,10 @@ public class Storage {
                 return loadedBudgets;
             } else {
                 ui.setOutput("Budget File not found. New file will be created");
+                createFileAndDirectory(this.budgetFilePath);
                 return null;
             }
-        } catch (IOException e) {
+        } catch (IOException | MooMooException e) {
             ui.setOutput("Unable to write to file. Please retry again.");
         }
         return null;
