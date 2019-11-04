@@ -1,5 +1,6 @@
 package duke.logic.parser.order;
 
+import duke.commons.core.Message;
 import duke.logic.command.order.AddOrderCommand;
 import duke.logic.parser.commons.ArgumentMultimap;
 import duke.logic.parser.commons.ArgumentTokenizer;
@@ -32,6 +33,10 @@ public class AddOrderCommandParser implements Parser<AddOrderCommand> {
             PREFIX_ORDER_TOTAL
         );
 
+        if (!map.getPreamble().isBlank()) {
+            throw new ParseException(Message.MESSAGE_INVALID_COMMAND_FORMAT);
+        }
+        
         return new AddOrderCommand(createDescriptor(map));
     }
 }

@@ -15,7 +15,7 @@ public class SetShortcutCommand extends Command {
     private static final String MESSAGE_COMMIT = "Set shortcut";
     private static final String MESSAGE_SET_SUCCESS = "Shortcut [%s] is set.";
     private static final String MESSAGE_REMOVE_SUCCESS = "Shortcut [%s] is removed.";
-    private static final String MESSAGE_EMPTY_SHORTCUT = "Shortcut cannot be empty.";
+    private static final String MESSAGE_EMPTY_SHORTCUT = "Shortcut is not found and thus cannot be removed.";
     private static final String MESSAGE_CANNOT_CONTAIN_DO_COMMAND = "Commands cannot contain do commands.";
     private final Shortcut shortcut;
     private final boolean isEmptyShortcut;
@@ -30,7 +30,7 @@ public class SetShortcutCommand extends Command {
      */
     public SetShortcutCommand(Shortcut shortcut) {
         this.shortcut = shortcut;
-        isEmptyShortcut = shortcut.getUserInputs().get(0).equals("");
+        isEmptyShortcut = shortcut.getUserInputs().isEmpty();
     }
 
     @Override
