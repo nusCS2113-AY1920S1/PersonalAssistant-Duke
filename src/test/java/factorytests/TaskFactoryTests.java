@@ -13,6 +13,7 @@ import org.junit.jupiter.api.Test;
 import util.date.DateTimeHelper;
 import util.factories.TaskFactory;
 
+//@@author Lucria
 class TaskFactoryTests {
     private TaskFactory taskFactory;
     private DateTimeHelper dateTimeHelper;
@@ -35,7 +36,7 @@ class TaskFactoryTests {
     void taskCreation_fullCorrectInputs_creationSuccess() {
         simulatedFactoryInput = "-t Killing Thanos -p 1 -d 28/09/2019 -c 100 -s done -r Use Iron Man";
         try {
-            ITask simulatedTask = taskFactory.createTask(simulatedFactoryInput);
+            ITask simulatedTask = taskFactory.create(simulatedFactoryInput);
             ArrayList<String> expectedRequirements = new ArrayList<>();
             expectedRequirements.add("Use Iron Man");
             Task expectedTask = new Task("Killing Thanos", 1,
@@ -52,34 +53,26 @@ class TaskFactoryTests {
     @Test
     void taskCreation_correctPartialInputs_creationSuccess() {
         simulatedFactoryInput = "-t Turning back time -p 5 -c 5";
-        try {
-            ITask simulatedTask = taskFactory.createTask(simulatedFactoryInput);
-            Task expectedTask = new Task("Turning back time", 5,
-                    null, 5, TaskState.OPEN, null);
-            assertEquals(expectedTask.getDetails(), simulatedTask.getDetails());
-            assertEquals(expectedTask.getTaskName(),simulatedTask.getTaskName());
-            assertEquals(expectedTask.getTaskCredit(), simulatedTask.getTaskCredit());
-            assertEquals(expectedTask.getTaskPriority(), simulatedTask.getTaskPriority());
-        } catch (ParseException err) {
-            fail("ParseException was detected when it shouldn't have");
-        }
+        ITask simulatedTask = taskFactory.create(simulatedFactoryInput);
+        Task expectedTask = new Task("Turning back time", 5,
+                null, 5, TaskState.OPEN, null);
+        assertEquals(expectedTask.getDetails(), simulatedTask.getDetails());
+        assertEquals(expectedTask.getTaskName(),simulatedTask.getTaskName());
+        assertEquals(expectedTask.getTaskCredit(), simulatedTask.getTaskCredit());
+        assertEquals(expectedTask.getTaskPriority(), simulatedTask.getTaskPriority());
     }
 
     @Test
     void taskCreation_wrongInputs_creationFailed() {
         simulatedFactoryInput = "-t Missing priority -c 5";
-        try {
-            ITask simulatedTask = taskFactory.createTask(simulatedFactoryInput);
-            NullTask expectedTask = new NullTask();
-            assertEquals(expectedTask.getDetails(), simulatedTask.getDetails());
-            assertEquals(expectedTask.getTaskName(),simulatedTask.getTaskName());
-            assertEquals(expectedTask.getTaskCredit(), simulatedTask.getTaskCredit());
-            assertEquals(expectedTask.getTaskPriority(), simulatedTask.getTaskPriority());
-            assertEquals(expectedTask.getDueDate(), simulatedTask.getDueDate());
-            assertEquals(expectedTask.getTaskState(), simulatedTask.getTaskState());
-            assertEquals(expectedTask.getTaskRequirements(), simulatedTask.getTaskRequirements());
-        } catch (ParseException e) {
-            fail("ParseException was detected when it shouldn't have");
-        }
+        ITask simulatedTask = taskFactory.create(simulatedFactoryInput);
+        NullTask expectedTask = new NullTask();
+        assertEquals(expectedTask.getDetails(), simulatedTask.getDetails());
+        assertEquals(expectedTask.getTaskName(),simulatedTask.getTaskName());
+        assertEquals(expectedTask.getTaskCredit(), simulatedTask.getTaskCredit());
+        assertEquals(expectedTask.getTaskPriority(), simulatedTask.getTaskPriority());
+        assertEquals(expectedTask.getDueDate(), simulatedTask.getDueDate());
+        assertEquals(expectedTask.getTaskState(), simulatedTask.getTaskState());
+        assertEquals(expectedTask.getTaskRequirements(), simulatedTask.getTaskRequirements());
     }
 }

@@ -5,19 +5,19 @@ import java.util.ArrayList;
 public interface IMemberList {
     void addMember(Member newMember);
 
+    void editMember(int memberIndexNumber, String updatedMemberDetails);
+
     void removeMember(Member memberToRemove);
 
     ArrayList<String> getAllMemberDetails();
 
-    Member getMember(int i);
+    ArrayList<String> getAllMemberDetailsForTable();
 
-    public void editMember(int memberIndexNumber, String updatedMemberDetails);
+    IMember getMember(int i);
 
-    public ArrayList<String> getAllMemberDetailsForTable();
+    int getNumOfMembers();
 
-    public int getNumOfMembers();
+    boolean contains(IMember newMember);
 
-    public boolean contains(IMember newMember);
-
-    public int getIndexOfMember(IMember member);
+    int getIndexOfMember(IMember member);
 }

@@ -8,6 +8,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
+//@@author DKenobi
 public class DateTimeHelper {
     /**
      * This method takes in the date in String and return is as a Date object.
@@ -17,6 +18,7 @@ public class DateTimeHelper {
      */
     public Date formatDate(String date) throws ParseException {
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        formatter.setLenient(false);
         return formatter.parse(date);
     }
 

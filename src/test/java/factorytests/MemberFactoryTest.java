@@ -8,6 +8,7 @@ import util.factories.MemberFactory;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+//@@author Lucria
 public class MemberFactoryTest {
     private MemberFactory memberFactory;
     private String simulatedFactoryInput;

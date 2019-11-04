@@ -1,5 +1,6 @@
 package modeltests.member;
 
+import models.member.IMember;
 import models.member.MemberList;
 import models.member.Member;
 import org.junit.jupiter.api.Test;
@@ -47,8 +48,8 @@ class ListOfMembersInProjectTest {
         Member member = new Member("Tom","91198766", "tom@gmail.com",1, "member");
         MemberList listOfMembersInProject = new MemberList();
         listOfMembersInProject.addMember(member);
-        Member toBeRemoved = listOfMembersInProject.getMember(1);
-        listOfMembersInProject.removeMember(toBeRemoved);
+        IMember toBeRemoved = listOfMembersInProject.getMember(1);
+        listOfMembersInProject.removeMember((Member)toBeRemoved);
         assertEquals(0, listOfMembersInProject.getNumOfMembers());
     }
 }
