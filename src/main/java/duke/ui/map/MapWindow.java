@@ -4,13 +4,11 @@ import duke.logic.commands.results.CommandResultMap;
 import duke.model.locations.RouteNode;
 import duke.model.locations.Venue;
 import duke.ui.UiPart;
-import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -21,30 +19,24 @@ public class MapWindow extends UiPart<Stage> {
     private AnchorPane map;
 
     private static final String FXML = "MapWindow.fxml";
-    private ObservableList<Venue> locations = FXCollections.observableArrayList();
+    private List<Venue> locations = new ArrayList<>();
 
     private void generateNodes(List<RouteNode> routes) {
         locations.addAll(routes);
-    }
-
-    private void attachListener() {
-        locations.addListener((ListChangeListener<Venue>) c -> {
-            map.getChildren().clear();
-            int index = 0;
-            String id = "";
-            for (Venue location : locations) {
-                if (index == 0) {
-                    id = "RouteNodeStart";
-                } else if (index == locations.size() - 1) {
-                    id = "RouteNodeEnd";
-                } else {
-                    id = "RouteNodeIntermediate";
-                }
-
-                map.getChildren().add(LocationCard.getCard(location, id));
-                index++;
+        map.getChildren().clear();
+        int index = 0;
+        String id = "";
+        for (Venue location : locations) {
+            if (index == 0) {
+                id = "RouteNodeStart";
+            } else if (index == locations.size() - 1) {
+                id = "RouteNodeEnd";
+            } else {
+                id = "RouteNodeIntermediate";
             }
-        });
+            map.getChildren().add(LocationCard.getCard(location, id));
+            index++;
+        }
     }
 
     /**
@@ -55,7 +47,6 @@ public class MapWindow extends UiPart<Stage> {
     private MapWindow(Stage root, List<RouteNode> routes) {
         super(FXML, root);
         root.getScene().getStylesheets().addAll(this.getClass().getResource("/css/mapStyle.css").toExternalForm());
-        attachListener();
         generateNodes(routes);
     }
 
