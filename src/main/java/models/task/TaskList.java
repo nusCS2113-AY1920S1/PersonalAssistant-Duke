@@ -159,7 +159,7 @@ public class TaskList {
         errorMessages.addAll(parserHelper.getErrorMessages());
 
         String taskReqIndexesToBeRemoved = newTaskRequirementDetails.get(0);
-        if (!taskReqIndexesToBeRemoved.equals("--")) {
+        if (!("--").equals(taskReqIndexesToBeRemoved)) {
             ArrayList<String> results = removeTaskRequirements(taskIndexNumber, taskReqIndexesToBeRemoved);
             if (!results.contains("error start")) {
                 successMessages.addAll(results);

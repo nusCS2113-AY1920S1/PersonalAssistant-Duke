@@ -37,10 +37,6 @@ public class TaskFactory implements IArchDukeFactory<ITask> {
         }
 
         ArrayList<String> newTaskDetails = parserHelper.parseTaskDetails(taskDetails[0]);
-        int newTaskPriority = Integer.parseInt(newTaskDetails.get(1));
-        if (newTaskPriority < 1 || newTaskPriority > 5) {
-            return new NullTask();
-        }
         Date newTaskDate = null;
         if (newTaskDetails.get(2) != null) {
             try {
@@ -49,8 +45,9 @@ public class TaskFactory implements IArchDukeFactory<ITask> {
                 return new NullTask();
             }
         }
+        int newTaskPriority = Integer.parseInt(newTaskDetails.get(1));
         int newTaskCredit = Integer.parseInt(newTaskDetails.get(3));
-        if (newTaskCredit < 0 || newTaskCredit > 100) {
+        if (newTaskCredit < 0 || newTaskCredit > 100 || newTaskPriority < 1 || newTaskPriority > 5) {
             return new NullTask();
         }
         TaskState newTaskState = TaskState.OPEN;
