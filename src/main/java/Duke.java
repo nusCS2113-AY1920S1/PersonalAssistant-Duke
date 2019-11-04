@@ -1,3 +1,4 @@
+import Events.Formatting.CalendarView;
 import Events.Storage.EventList;
 import Events.Storage.Instruments.InstrumentList;
 import Events.Storage.Storage;
@@ -14,6 +15,7 @@ public class Duke {
     private static Storage storage;
     private static EventList tasks;
     private static InstrumentList instruments = new InstrumentList();
+    private static CalendarView calendarView;
 
     /**
      * main Duke method
@@ -25,7 +27,7 @@ public class Duke {
         String userInput = parser.readUserInput().toLowerCase();
         while (!userInput.equals("bye")) {
             Command currCommand = parser.parseInput(userInput);
-            currCommand.execute(tasks, ui, storage, instruments);
+            currCommand.execute(tasks, ui, storage, instruments, calendarView);
             userInput = parser.readUserInput();
         }
 

@@ -69,7 +69,7 @@ public class Command {
      * @param ui      Class containing all relevant user interface instructions.
      * @param storage Class containing access to the storage file and related instructions.
      */
-    public void execute(EventList events, UI ui, Storage storage, InstrumentList instruments) {
+    public void execute(EventList events, UI ui, Storage storage, InstrumentList instruments, CalendarView calendarView) {
         boolean changesMade = true;
 //        logger.log(Level.INFO, "Read in the command");
         switch (command) {
@@ -143,7 +143,8 @@ public class Command {
                 break;
 
             case "calendar":
-                printCalendar(events, ui);
+                calendarView = generateCalendar(events, ui);
+                ui.printCalendar(calendarView.getStringForOutput());
                 break;
 
             case "budget":
@@ -268,7 +269,7 @@ public class Command {
         }
     }
 
-    private void printCalendar(EventList events, UI ui) {
+    private CalendarView generateCalendar(EventList events, UI ui) {
         CalendarView calendarView = null;
         if (continuation.isEmpty()) {
             EventDate today = new EventDate(new Date());
@@ -286,7 +287,7 @@ public class Command {
         }
 
         calendarView.setCalendarInfo();
-        ui.printCalendar(calendarView.getStringForOutput());
+        return calendarView;
     }
 
     /**

@@ -40,7 +40,7 @@ public class CalendarView {
         endOfWeek.addDaysAndSetMidnight(6);
         EventDate thisDay = new EventDate(startDay.getEventJavaDate());
         int thisDayNum = 0;
-        thisDay.addDaysAndSetMidnight(thisDayNum);
+        thisDay.addDaysAndSetMidnight(0);
 
         for (Event thisEvent : eventArrayList) {
             //if this event is within the next 6 days
@@ -52,6 +52,8 @@ public class CalendarView {
                 if (thisDayNum < 7) {
                     eventsOfTheWeek.get(thisDayNum).offer(thisEvent);
                 }
+            } else if (thisEvent.getStartDate().compare(yesterday) <= 0) {
+                continue;
             } else {
                 break;
             }
