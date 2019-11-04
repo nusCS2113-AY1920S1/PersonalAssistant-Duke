@@ -8,7 +8,6 @@ import module.ModuleList;
 import module.NonDescriptive;
 import parser.Parser;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 
 /**
@@ -24,6 +23,7 @@ public class Degree {
     private ModuleList facultyReq = new ModuleList();
     private ModuleList designProject = new ModuleList();
     private ModuleList electives = new ModuleList();
+    private ModuleList master = new ModuleList();
     private List<String> aliases = new ArrayList<>();
     //private DisjointUnionSet aliases;
     private Integer uem = null;
@@ -32,24 +32,33 @@ public class Degree {
      * Creates the degree using the scraped information in the csv file
      * @param input is a list of strings which should be taken from storage
      */
-    public Degree(List<String> input) throws DukeException {
+    Degree(List<String> input) throws DukeException {
         validateList(input);
         for (int row = 1; row< input.size(); row++)
         {
             String[] split = input.get(row).split(",", -1);
             assert(split.length == 12);
             int col = 0;
-            setUem(split[col]);
+            setUem(split[col].strip());
             for(col = 1; col < split.length - 1; col += 2)
             {
                 //System.out.println("Trying to add " + col +": "+split[col]+" "+split[col+1]);
-                addToList(col, split[col], split[col+1]);
+                addToList(col, split[col].strip(), split[col+1].strip());
             }
             assert (col == split.length - 1);
-            addAlias(split[col]);
+            addAlias(split[col].strip());
         }
         if(uem == null)
             setUem("0");
+        if(this.aliases.isEmpty())
+        {
+            throw new DukeException("There should be at least one common alias to refer to the degree");
+        }
+        master.add(commonCore);
+        master.add(coreMod);
+        master.add(facultyReq);
+        master.add(designProject);
+        master.add(electives);
     }
 
     /**
@@ -117,7 +126,7 @@ public class Degree {
         int credits = validInt(mcs);
         if(in.contains(" OR "))
         {
-            String[] split = in.split(" OR ", -1);
+            String[] split = in.split("\\s+OR\\s+", -1);
             validateModule(split);
             return new ConjunctiveModule(in, credits);
         }
@@ -142,6 +151,10 @@ public class Degree {
     {
         Scanner checker = new Scanner(input);
         String code = checker.next();
+        if(!checker.hasNextLine())
+        {
+            return false;
+        }
         String name = checker.nextLine();
         name = name.strip();
         if(code.matches(Parser.moduleFormat) && name.isBlank())
@@ -228,6 +241,49 @@ public class Degree {
     }
 
     /**
+     * Compares this degree to another degree
+     *
+     * @param other is the other degree class to be compared to
+     */
+    void compare(Degree other)
+    {
+        System.out.println("Comparing between " + getProperName() + " " + other.getProperName());
+        System.out.println("General Education Modules (GE) (5 Modules, each of 4MCs)");
+        System.out.println("Similarities:");
+        System.out.println("Human and Cultures (H&C)");
+        System.out.println("GER 1000 Quantitative Reasoning (QR),");
+        System.out.println("Thinking and Expression (T&E)");
+        System.out.println("Singapore Studies (SS)");
+        System.out.println("GEQ 1000 Asking Questions (AQ))");
+        System.out.println();
+        printListHeader("Unrestricted Electives");
+        if (this.getUem() != other.getUem()) {
+            printCentralized("Differences:");
+            printSideBySide(this.getUem(), other.getUem());
+        }
+        else
+        {
+            printCentralized("Similarities:");
+            printCentralized(String.valueOf(this.getUem()));
+        }
+        System.out.println();
+        System.out.println("Programme Requirements");
+        printListHeader("Faculty Requirements:");
+        printListDifference(this.getFacultyReq(), other.getFacultyReq());
+        printListHeader("Common Core Requirements:");
+        printListDifference(this.getCommonCore(), other.getCommonCore());
+        printListHeader("Core Modules:");
+        printListDifference(this.getCoreMod(), other.getCoreMod());
+        printListHeader("Design and Project Modules:");
+        printListDifference(this.getDesignProject(), other.getDesignProject());
+        printListHeader("Electives:");
+        printListDifference(this.getElectives(), other.getElectives());
+        printListHeader("Total:");
+        printCentralized("Similar:");
+        printSideBySide(160, 160);
+    }
+
+    /**
      * Prints out the degree details
      *
      */
@@ -244,16 +300,89 @@ public class Degree {
         System.out.println();
         System.out.println("Programme Requirements");
         printListHeader("Faculty Requirements:", this.facultyReq.getSum());
-        printList(this.facultyReq);
+        this.facultyReq.print();
         printListHeader("Common Core Requirements:", this.commonCore.getSum());
-        printList(this.commonCore);
+        this.commonCore.print();
         printListHeader("Core Modules:", this.coreMod.getSum());
-        printList(this.coreMod);
+        this.coreMod.print();
         printListHeader("Design and Project Modules:", this.designProject.getSum());
-        printList(this.designProject);
+        this.designProject.print();
         printListHeader("Electives:", this.electives.getSum());
-        printList(this.electives);
+        this.electives.print();
         printListHeader("Total", 160);
+    }
+
+    /**
+     * Compares 2 ModuleList classes and prints out the similarities followed by te differences
+     *
+     * @param listOne is a ModuleList from the original class which called this method
+     * @param listTwo is a ModuleList from the other degree to be compared with
+     */
+    private void printListDifference(ModuleList listOne, ModuleList listTwo) {
+        ModuleList similar = listOne.getSimilar(listTwo);
+        ModuleList myDiff = listOne.getDifference(listTwo);
+        ModuleList theirDiff = listTwo.getDifference(listOne);
+        printCentralized("Similarities:");
+        if(similar.getModules().isEmpty()) {
+            printCentralized("None");
+        }
+        else {
+            similar.printCentral(Parser.windowWidth/2);
+        }
+        printCentralized("Differences:");
+        if(myDiff.getModules().isEmpty() && theirDiff.getModules().isEmpty())
+        {
+            printCentralized("None");
+        }
+        else
+        {
+            Set<Module> mySet = myDiff.getModules();
+            Set<Module> otherSet = theirDiff.getModules();
+            char[] halfScreen = new char[Parser.windowWidth/2];
+            Arrays.fill(halfScreen,' ');
+            ArrayList<String> toPrint = new ArrayList<>();
+            for(Module x: mySet) {
+                toPrint.add(x.getPrint(Parser.windowWidth/2));
+            }
+            int counter = 0;
+            for(Module y: otherSet) {
+                StringBuilder res = new StringBuilder();
+                if(counter < mySet.size()) {
+                    res.append(toPrint.get(counter));
+                    res.append(y.getPrint(Parser.windowWidth/2));
+                    toPrint.set(counter, res.toString());
+                }
+                else {
+                    res.append(halfScreen);
+                    res.append(y.getPrint(Parser.windowWidth/2));
+                    toPrint.add(res.toString());
+                }
+                counter += 1;
+            }
+            if(mySet.size() > otherSet.size()) {
+                int diff = otherSet.size();
+                while(diff < mySet.size()) {
+                    String res = toPrint.get(diff)
+                            + String.valueOf(halfScreen);
+                    toPrint.set(diff, res);
+                    diff += 1;
+                }
+            }
+            for(String comparison: toPrint)
+            {
+                System.out.println(comparison);
+            }
+        }
+        if(myDiff.getSum() != theirDiff.getSum())
+        {
+            printCentralized("Subtotal is DIFFERENT:");
+            printSideBySide(myDiff.getSum() + similar.getSum(), theirDiff.getSum() + similar.getSum());
+        }
+        else
+        {
+            printCentralized("Subtotal is SAME:");
+            printCentralized(String.valueOf(myDiff.getSum() + similar.getSum()));
+        }
     }
 
     /**
@@ -273,19 +402,183 @@ public class Degree {
         System.out.println(result.toString());
     }
 
+    /**
+     * Given a string, it will print out the list header (string)
+     *
+     * @param front is the header to be printed
+     */
+    private void printListHeader(String front)
+    {
+        StringBuilder result = new StringBuilder();
+        result.append(front);
+        char[] pad = new char[Math.max(Parser.windowWidth - result.length(), 0)];
+        Arrays.fill(pad, ' ');
+        result.append(pad);
+        System.out.println(result.toString());
+    }
 
     /**
-     * Given a list of modules, sort them, and then print out the name and mcs linked to each modules
+     * prints a String centralized to the windowwidth
      *
-     * @param modList is a ModuleList class which contains a list of modules;
+     * @param item is the string to be printed
      */
-    private void printList(ModuleList modList)
-    {
-        List<Module> temp = new ArrayList<>(modList.getModules());
-        Collections.sort(temp);
-        for(Module res: temp)
+    private void printCentralized(String item) {
+        int len = item.length();
+        if(len%2 == 1)
         {
-            res.print();
+            len += 1;
         }
+        int padLen = (Parser.windowWidth - len)/2;
+        char[] pad = new char[padLen];
+        Arrays.fill(pad, ' ');
+        StringBuilder line = new StringBuilder();
+        line.append(pad);
+        line.append(item);
+        line.append(pad);
+        while(line.length() < Parser.windowWidth)
+        {
+            line.append(" ");
+        }
+        System.out.println(line.toString());
     }
+
+    /**
+     * Prints out the different uem counts for each degree
+     *
+     * @param no1 an integer detailing the uem count of the first degree
+     * @param no2 an integer detailing the uem count of the degree being compared
+     */
+    private void printSideBySide(int no1, int no2) {
+        StringBuilder line = new StringBuilder();
+        int padLen = (Parser.windowWidth - 8)/4;
+        char[] pad = new char[padLen];
+        Arrays.fill(pad, ' ');
+        line.append(pad);
+        line.append(no1);
+        if(no1 < 1000)
+        {
+            line.append(" ");
+        }
+        if(no1 < 100)
+        {
+            line.append(" ");
+        }
+        if(no1 < 10)
+        {
+            line.append(" ");
+        }
+        line.append(pad);
+        line.append(pad);
+        line.append(no2);
+        if(no2 < 1000)
+        {
+            line.append(" ");
+        }
+        if(no2 < 100)
+        {
+            line.append(" ");
+        }
+        if(no2 < 10)
+        {
+            line.append(" ");
+        }
+        line.append(pad);
+        while(line.length() < Parser.windowWidth)
+        {
+            line.append(" ");
+        }
+        System.out.println(line.toString());
+    }
+
+    /**
+     * Gets the uem value
+     *
+     * @return uem value
+     */
+    private int getUem() { return this.uem;}
+
+    /**
+     * Gets the longest alias in the list of aliases
+     *
+     * @return String which is the longest alias (thus proper)
+     */
+    public String getProperName() {
+        String res = "";
+        for(String x:aliases) {
+            if(x.length() > res.length()) {
+                res = x;
+            }
+        }
+        return res;
+    }
+
+    /**
+     * Returns the similar list of modules from all modules compared to another degree
+     *
+     * @return ModuleList containing similar modules;
+     */
+    public ModuleList masterSimilar(Degree other)
+    {
+        return this.getMaster().getSimilar(other.getMaster());
+    }
+
+    /**
+     * Returns the difference list of modules from all modules compared to another degree
+     *
+     * @return ModuleList containing different modules;
+     */
+
+    public ModuleList masterDifference(Degree other)
+    {
+        return this.getMaster().getDifference(other.getMaster());
+    }
+
+    /**
+     * Gets the CommonCore ModuleList from this Degree
+     *
+     * @return ModuleList which is the CommonCore ModuleList from this Degree
+     */
+    private ModuleList getCommonCore(){ return this.commonCore; }
+
+    /**
+     * Gets the CoreMod ModuleList from this Degree
+     *
+     * @return ModuleList which is the CoreMod ModuleList from this Degree
+     */
+    private ModuleList getCoreMod(){return this.coreMod;}
+
+    /**
+     * Gets the FacultyReq ModuleList from this Degree
+     *
+     * @return ModuleList which is the FacultyReq ModuleList from this Degree
+     */
+    private ModuleList getFacultyReq() {return this.facultyReq;}
+
+    /**
+     * Gets the DesignProject ModuleList from this Degree
+     *
+     * @return ModuleList which is the DesignProject ModuleList from this Degree
+     */
+    private ModuleList getDesignProject() {return this.designProject;}
+
+    /**
+     * Gets the Electives ModuleList from this Degree
+     *
+     * @return ModuleList which is the Electives ModuleList from this Degree
+     */
+    private ModuleList getElectives() {return this.electives;}
+
+    /**
+     * Gets the master list of modules
+     *
+     * @return ModuleList which contains all Modules this degree has
+     */
+    ModuleList getMaster() {return this.master;}
+
+    /**
+     * Gets the list of aliases
+     *
+     * @return an arraylist of aliases
+     */
+    List<String> getAlias() {return this.aliases;}
 }

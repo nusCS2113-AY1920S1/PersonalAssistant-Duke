@@ -23,12 +23,6 @@ public class Parser {
     public static String newLine = "\n";
     public static int windowWidth = 80;
     public static String acceptedExtensions = "txt|csv";
-    private static String addCommand;
-    private static String helpCommand;
-    private static String modCommand;
-    private static String printCommand;
-    private static String searchCommand;
-    //public static String custCommand;
     public static String moduleFormat = "[A-Z]{2,3}[1-9]([0-9]{3}|X{3})[A-Z]{0,1}";
     Parser() {
     }
@@ -43,10 +37,10 @@ public class Parser {
     public static Command parse(String line) throws DukeException {
         Scanner temp = new Scanner(line);
 
-        //Empty command check should already have been done outside, in duke
-//        if (!temp.hasNext()) {
-//            throw new DukeException("Empty Command!");
-//        }
+
+        if (!temp.hasNext()) {
+            throw new DukeException("Empty Command!");
+        }
 
         String command = temp.next();
         if (command.matches("list|bye|choices")) {
@@ -68,7 +62,8 @@ public class Parser {
             } else { //if the user wants to display help for only one command
                 String input = temp.nextLine();
                 input = input.strip();
-                if (input.matches("help|detail|compare|add|degreelist|swap|replace|delete|clear|custom|bye")) {
+                if (input.matches("help|detail|compare|add|degreelist|swap|replace|delete|clear|custom"
+                        + "|bye|undo|redo")) {
                     return new HelpCommand(command, input);
                 } else {
                     throw new DukeException("I do not understand that command. "
@@ -76,16 +71,21 @@ public class Parser {
                 }
             }
         } else if (command.matches("todo|deadline|event|done|delete|find|select|recurring|after|within|fixed"
-                + "|snooze|schedule|add|remove|swap|sort")) {
-            if (!temp.hasNextLine()) {
-                throw new DukeException("☹ OOPS!!! The description of a " + command + " cannot be empty.");
+                + "|snooze|schedule|add|remove|swap|sort|detail|compare")) {
+            if (!temp.hasNextLine() && command.matches("detail")) {
+                throw new DukeException("You can try \" detail come \" to show information on Computer Engineering!");
+            } else if (!temp.hasNextLine() && command.matches("compare")) {
+                throw new DukeException("You can try \" compare bme come \" to show differences between "
+                        + "Biomedical Engineering and Computer Engineering!");
+            } else if (!temp.hasNextLine()) {
+                throw new DukeException("OOPS!!! The description of a " + command + " cannot be empty.");
             }
-            String input = temp.nextLine();
+                String input = temp.nextLine();
             input = input.strip();
             //System.out.println("input is" + input + "\nCommand is" + command);
 
             if (input.isBlank()) {
-                throw new DukeException("☹ OOPS!!! The description of a " + command + " cannot be empty.");
+                throw new DukeException("OOPS!!! The description of a " + command + " cannot be empty.");
             } else {
                 //add new tasks
                 if (command.matches("todo|deadline|event|recurring|after|within|fixed|add")) {
@@ -94,7 +94,7 @@ public class Parser {
                     return new ModCommand(command, input);
                 } else if (command.matches("find|schedule")) { //reading task list
                     return new SearchCommand(command, input);
-                } else if (command.matches("detail")) {
+                } else if (command.matches("detail|compare")) {
                     return new PrintCommand(command, input);
                 } else if (command.matches("swap")) {
                     return new SwapCommand(command, input);
@@ -105,17 +105,4 @@ public class Parser {
         }
         return new BadCommand("bad", "");
     }
-
-    /*
-
-     * Takes in the taskList to be used for recording tasks.
-     * Every time this taskList is updated, it is saved to the save file.
-     *
-     * @param myList The task list to be used for duke.
-     *//*
-    //Currently, Parser.Parser will take in the entire raw input and taskList
-    public void setTaskList(TaskList myList) {
-        this.myList = myList;
-    }*/
-
 }

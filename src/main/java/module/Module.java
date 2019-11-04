@@ -11,7 +11,7 @@ import java.util.Arrays;
 public class Module implements Comparable<Module> {
     String code = "";
     private String name = "";
-    Integer mc = -1;
+    Integer mc = 0;
 
     /**
      * Default module constructor
@@ -35,21 +35,83 @@ public class Module implements Comparable<Module> {
 
     /**
      * Outputs the user friendly view for people to know which module is it
+     * Follows default Parser screen width
      *
      * @return String containing the module's code then its human friendly name, separated by a space
      */
-    public String print()
+    public String getPrint()
     {
         StringBuilder module = new StringBuilder();
         module.append(getCode());
         module.append(" ");
         module.append(getName());
-        char[] pad = new char[Math.max(Parser.windowWidth - module.length() - 4, 0)];
-        Arrays.fill(pad, ' ');
-        module.append(pad);
+        if(module.length() > Parser.windowWidth - 4) {
+            module.setLength(Parser.windowWidth - 8);
+            module.append("... ");
+        }
+        else {
+            char[] pad = new char[Math.max(Parser.windowWidth - module.length() - 4, 0)];
+            Arrays.fill(pad, ' ');
+            module.append(pad);
+        }
         module.append(getMc());
-        System.out.println(module.toString());
+        while(module.length() < Parser.windowWidth)
+        {
+            module.append(" ");
+        }
         return module.toString();
+    }
+
+    /**
+     * Gets the string to be printed with a fixed width
+     *
+     * @param setWidth the width the string should be fixed to
+     * @return the String to be printed
+     */
+    public String getPrint(int setWidth) {
+        StringBuilder module = new StringBuilder();
+        module.append(getCode());
+        module.append(" ");
+        module.append(getName());
+        if(module.length() > setWidth - 5) {
+            module.setLength(setWidth - 9);
+            module.append("...  ");
+        }
+        else {
+            char[] pad = new char[Math.max(setWidth - module.length() - 4, 0)];
+            Arrays.fill(pad, ' ');
+            module.append(pad);
+        }
+        module.append(getMc());
+        while(module.length() < setWidth)
+        {
+            module.append(" ");
+        }
+        return module.toString();
+    }
+
+    public void print()
+    {
+        System.out.println(getPrint());
+    }
+
+
+    /**
+     * Returns the module's Name for the side tab
+     *
+     * @return String which is the module name
+     */
+    public String tabModuleName() {
+        return this.getName();
+    }
+
+    /**
+     * Returns the module's code
+     *
+     * @return string which is the module's code
+     */
+    public String tabModuleCode() {
+        return this.getCode();
     }
 
     /**
@@ -66,7 +128,7 @@ public class Module implements Comparable<Module> {
      *
      * @return String that is the human friendly name of the module
      */
-    private String getName(){
+    public String getName(){
         return this.name;
     }
 
@@ -75,7 +137,7 @@ public class Module implements Comparable<Module> {
      *
      * @return Integer that is the credits allocated to the module
      */
-    Integer getMc()
+    public Integer getMc()
     {
         return mc;
     }
@@ -118,5 +180,15 @@ public class Module implements Comparable<Module> {
     public int compareTo(Module other)
     {
         return this.getCode().compareTo(other.getCode());
+    }
+
+    /**
+     * Returns the full name of the modules.
+     * To be overwritten in the ConjunctiveModule class.
+     *
+     * @return The full name of this module.
+     */
+    public String getFullModuleName() {
+        return this.getName();
     }
 }

@@ -128,7 +128,7 @@ public class Task implements Serializable {
      *
      * @return String which is a status icon in unicode format
      */
-    String getStatusIcon() {
+    public String getStatusIcon() {
         return (isDone ? "Y" : "N"); //return Y or N
     }
 

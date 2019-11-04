@@ -48,7 +48,10 @@ public class PrintCommand extends Command {
             lists.print();
         }
         if(this.command.matches("detail")) {
-            degreesManager.print(command);
+            degreesManager.print(input);
+        }
+        if(this.command.matches("compare")){
+            degreesManager.compare(input);
         }
     }
 }
