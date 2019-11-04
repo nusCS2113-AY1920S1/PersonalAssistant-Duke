@@ -157,14 +157,9 @@ public class Parser {
                 if (isAlphabetString(meaningAndTag[j])) {
                     tags.add(meaningAndTag[j]);
                 }
-                else{
+                else {
                     throw new InvalidCharacterException();
                 }
-            }
-            System.out.println(isAlphabetString(wordDescription));
-            System.out.println(isAlphabetString(meaning));
-            if(!isAlphabetString(wordDescription) || !isAlphabetString(meaning)){
-                throw new InvalidCharacterException();
             }
             word = new Word(wordDescription, meaning, tags);
         } else {
