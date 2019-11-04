@@ -117,6 +117,10 @@ class SaleParserUtil {
             to = TimeParser.convertStringToDate(map.getValue(PREFIX_SALE_TO).get());
         }
 
+        if (from == null || to == null) {
+            throw new ParseException("Filter requires two dates to be present!");
+        }
+
         return new Pair(from, to);
     }
 

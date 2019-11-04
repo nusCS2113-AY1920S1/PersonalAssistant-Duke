@@ -4,17 +4,17 @@ import duke.logic.command.shortcut.SetShortcutCommand;
 import duke.logic.parser.commons.SubCommandParser;
 import duke.logic.parser.exceptions.ParseException;
 import duke.model.shortcut.Shortcut;
+import org.ocpsoft.prettytime.shade.edu.emory.mathcs.backport.java.util.Arrays;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
  * A parser that parses {@code SetShortcutCommand}.
  */
 public class SetShortcutCommandParser implements SubCommandParser<SetShortcutCommand> {
-    private static String MESSAGE_EMPTY_NAME = "Shortcut name cannot be empty.";
-    private static String MESSAGE_EMPTY_COMMAND = "Command cannot be empty.";
+    private static String MESSAGE_EMPTY_NAME = "Shortcut name cannot be blank.";
+    private static String MESSAGE_EMPTY_COMMAND = "The commands in a shortcut cannot be blank.";
     private static String COMMAND_SPLITTER = ";";
 
     @Override
@@ -34,23 +34,25 @@ public class SetShortcutCommandParser implements SubCommandParser<SetShortcutCom
     private List<String> getUserInputs(String userInputsString) throws ParseException {
         assert (userInputsString != null);
 
-        List<String> commands = new ArrayList<>(Arrays.asList(userInputsString.split(COMMAND_SPLITTER)));
-
         if (userInputsString.isBlank()) {
-            return commands;
+            return new ArrayList<>();
         }
 
-        if (commands.isEmpty()) {
+        List<String> commandStrings = new ArrayList<String>(Arrays.asList(userInputsString.split(COMMAND_SPLITTER, -1)));
+
+        System.out.println(commandStrings.size());
+
+        if (commandStrings.isEmpty()) {
             throw new ParseException(MESSAGE_EMPTY_COMMAND);
         }
 
-        for (String command : commands) {
+        for (String command : commandStrings) {
             if (command.isBlank()) {
                 throw new ParseException(MESSAGE_EMPTY_COMMAND);
             }
         }
 
-        return commands;
+        return commandStrings;
     }
 
 }

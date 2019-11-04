@@ -36,8 +36,6 @@ import duke.logic.command.shopping.ClearShoppingCommand;
 import duke.logic.command.shopping.DeleteShoppingCommand;
 import duke.logic.command.shopping.EditShoppingCommand;
 import duke.logic.command.shopping.ShoppingCommand;
-import duke.logic.command.shortcut.ExecuteShortcutCommand;
-import duke.logic.command.shortcut.SetShortcutCommand;
 import duke.logic.parser.commons.AutoCompleter;
 import duke.logic.parser.commons.BakingHomeParser;
 import duke.logic.parser.exceptions.ParseException;
@@ -131,8 +129,8 @@ public class LogicManager implements Logic {
         autoCompleter.addCommandClass(ShowOrderCommand.class);
 
         //Shortcut commands
-        autoCompleter.addCommandClass(SetShortcutCommand.class);
-        autoCompleter.addCommandClass(ExecuteShortcutCommand.class);
+        //autoCompleter.addCommandClass(SetShortcutCommand.class);
+        //autoCompleter.addCommandClass(ExecuteShortcutCommand.class);
 
         //Sale commands
         autoCompleter.addCommandClass(SaleCommand.class);
