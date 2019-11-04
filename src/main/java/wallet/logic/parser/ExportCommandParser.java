@@ -10,6 +10,7 @@ import wallet.model.record.Budget;
 import wallet.model.record.Loan;
 import wallet.model.record.Category;
 
+import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
@@ -18,7 +19,8 @@ import java.util.List;
 
 public class ExportCommandParser implements Parser<ExportCommand> {
 
-    public static final String MESSAGE_ERROR_WRONG_FORMAT = "Wrong Format input for export!";
+    public static final String MESSAGE_ERROR_WRONG_FORMAT = "Wrong Format for command input!";
+    public static final String MESSAGE_ERROR_WRONG_YEARMONTH = "Wrong year and month input!";
     private double budgetLeft;
 
     /**
@@ -30,10 +32,10 @@ public class ExportCommandParser implements Parser<ExportCommand> {
     @Override
     public ExportCommand parse(String input) {
         String[] arguments = input.split(" ", 2);
-        if ("loans".equals(arguments[0])) {
+        if ("loan".equals(arguments[0])) {
             List<String[]> data = parseLoan();
             return new ExportCommand(data, arguments[0]);
-        } else if ("expenses".equals(arguments[0])) {
+        } else if ("expense".equals(arguments[0])) {
             if (arguments.length != 2) {
                 System.out.println(MESSAGE_ERROR_WRONG_FORMAT);
                 return null;
@@ -99,7 +101,10 @@ public class ExportCommandParser implements Parser<ExportCommand> {
             }
 
         } catch (NumberFormatException e) {
-            System.out.println(MESSAGE_ERROR_WRONG_FORMAT);
+            System.out.println(MESSAGE_ERROR_WRONG_YEARMONTH);
+            return null;
+        } catch (DateTimeException e) {
+            System.out.println(MESSAGE_ERROR_WRONG_YEARMONTH);
             return null;
         }
 

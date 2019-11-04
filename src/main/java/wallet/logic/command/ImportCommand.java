@@ -45,7 +45,7 @@ public class ImportCommand extends Command {
     @Override
     public boolean execute(Wallet wallet) {
 
-        if ("loans".equals(type)) {
+        if ("loan".equals(type)) {
 
             ArrayList<Loan> loanData = importList.getLoanList();
             for (Loan loan : loanData) {
@@ -66,7 +66,7 @@ public class ImportCommand extends Command {
 
             }
 
-        } else if ("expenses".equals(type)) {
+        } else if ("expense".equals(type)) {
 
             //@@author Xdecosee-reused
             ArrayList<Expense> expenseData = importList.getExpenseList();
