@@ -23,12 +23,16 @@ public class Assignment extends Task {
     }
 
     /**
-     * Takes in a String, splits it by "," and sets each new String as a subtask of current Task
-     * @param input String containing subtasks separated by ","
+     * Takes in arraylist of subtasks and sets it as this assignment's subtasks
+     * @param subTasks array list containing subtasks
      */
-    public void setSubTasks(String input) {
-        subTasks = new ArrayList<>(Arrays.asList(input.split(",")));
-    }
+    public void setSubTasks(ArrayList<String> subTasks) { this.subTasks =  subTasks; }
+
+    /**
+     * Takes in a String, splits it by "," and sets each new String as a subtask of current Task
+     * @param subTasks string containing subtasks
+     */
+    public void setSubTasks(String subTasks) { this.subTasks = new ArrayList<>(Arrays.asList(subTasks.trim().split(","))); }
 
     /**
      * Returns the ArrayList containing the Assignment's subtasks

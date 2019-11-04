@@ -75,13 +75,6 @@ public abstract class Task{
     }
 
     /**
-     * Returns the status of the completion of the task.
-     * shows a tick if done, and a cross if not done.
-     * @return A String showing a tick or X symbol.
-     */
-    public String getStatusIcon() { return (isDone ? "[v] " : "[x] "); } //return tick or X symbols
-
-    /**
      * Returns String of the assignee that was specified
      * @return name of the user
      */
@@ -180,8 +173,8 @@ public abstract class Task{
      */
     public String toString() {
         if (hasRecurring)
-            return getStatusIcon() + getDescription() + " " + "(" + getAssignee() + ") (every "
+            return " " + getDescription() + " " + "(" + getAssignee() + ") (every "
                     + getRecurrenceSchedule().toString() + ")";
-        return getStatusIcon() + getDescription() + " " + "(" + getAssignee() + ")";
+        return " " + getDescription() + " " + "(" + getAssignee() + ")";
     }
 }
