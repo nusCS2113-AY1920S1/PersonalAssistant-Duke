@@ -70,5 +70,14 @@ public class ProjectInputControllerManageTest {
         simulatedOutput = projectInputController.manageProject(simulatedUserInput);
         expectedOutput = new String[] {"Updated member details with the index number 1"};
         assertArrayEquals(expectedOutput, simulatedOutput);
+
+        simulatedUserInput = "add member -n Dr Strange";
+        simulatedOutput = projectInputController.manageProject(simulatedUserInput);
+        simulatedUserInput = "delete member 2";
+        simulatedOutput = projectInputController.manageProject(simulatedUserInput);
+        expectedOutput = new String[] {"Removed member 2: 2. Dr Strange (Phone: -- | Email: -- | Role: member)",
+                                       "Take note that the member indexes might have changed after deleting!"};
+        assertArrayEquals(expectedOutput, simulatedOutput);
+
     }
 }
