@@ -26,6 +26,10 @@ public class Storage {
      * @param file The storage file
      */
     public Storage(File file) {
+        File folder = new File("data");
+        if (!folder.exists()) {
+            folder.mkdir();
+        }
         this.file = file;
     }
 
