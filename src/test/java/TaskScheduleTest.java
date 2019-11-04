@@ -44,8 +44,8 @@ public class TaskScheduleTest {
         file = new File(System.getProperty("user.dir") + "/src/test/ArrayList");
         storage = new Storage(file);
 
-        LocalDateTime fromDate = LocalDateTime.of(9999, 1, 1, 1, 0);
-        Deadline deadline = new Deadline("0", fromDate);
+        LocalDateTime startDate = LocalDateTime.now().plusDays(3);
+        Deadline deadline = new Deadline("0", startDate);
         tasks.add(deadline);
         Todo filler = new Todo("1", 2);
         tasks.add(filler);
@@ -79,7 +79,7 @@ public class TaskScheduleTest {
     public void testCommandByDateInput() throws ChronologerException, NoSuchFieldException, IllegalAccessException {
         Field[] commandFields;
 
-        LocalDateTime expectedDeadlineDate = LocalDateTime.of(9999, 1, 1, 1, 0);
+        LocalDateTime expectedDeadlineDate = LocalDateTime.now().plusDays(3);
         Command test = new TaskScheduleCommand(1, expectedDeadlineDate);
         test.execute(tasks, storage);
         commandFields = getTaskScheduleCommandFields(test);
