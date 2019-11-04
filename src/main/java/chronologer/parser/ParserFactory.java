@@ -7,6 +7,7 @@ import chronologer.command.ListCommand;
 import chronologer.command.RedoCommand;
 import chronologer.command.StoreVersionCommand;
 import chronologer.command.UndoCommand;
+import chronologer.command.WeekCommand;
 import chronologer.exception.ChronologerException;
 import chronologer.ui.UiTemporary;
 
@@ -95,6 +96,8 @@ public class ParserFactory {
             return new RestoreVersionParser(userInput,command).parse();
         case "store":
             return new StoreVersionParser(userInput,command).parse();
+        case "week":
+            return new WeekParser(userInput,command).parse();
         case "exam": //fallthrough
         case "examination":
             command = "exam";

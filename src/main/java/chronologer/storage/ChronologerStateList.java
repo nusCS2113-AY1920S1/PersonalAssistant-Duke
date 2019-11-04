@@ -30,7 +30,6 @@ public class ChronologerStateList implements Serializable {
      *
      */
     public static void storeVersion(ArrayList<Task> listToStore, int version) throws ChronologerException {
-        System.out.println(version);
         switch (version) {
         case 1:
             storage1.saveFile(listToStore);

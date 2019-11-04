@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="backgroundOfTimeline" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="653.0" prefWidth="1007.0" style="-fx-background-color: #444444;" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="backgroundOfTimeline" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="653.0" prefWidth="1007.0" style="-fx-background-color: #444444;" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1">
    <children>
       <ScrollPane layoutX="14.0" layoutY="92.0" prefHeight="240.0" prefWidth="196.0">
          <content>
@@ -58,12 +58,12 @@
             <ListView fx:id="reminderTask" prefHeight="246.0" prefWidth="300.0" style="-fx-background-color: #373737;" />
          </content>
       </ScrollPane>
-      <Label layoutX="314.0" text="Your timeline for this week" textFill="#808080">
+      <Label fx:id="currentWeekLabel" layoutX="230.0" text="Your timeline week starting with 00/00/0000" textFill="#808080">
          <font>
             <Font size="28.0" />
          </font>
       </Label>
-      <Label fx:id="mondayLabel" layoutX="72.0" layoutY="54.0" text="Monday" textFill="#808080">
+      <Label layoutX="72.0" layoutY="54.0" text="Monday" textFill="#808080">
          <font>
             <Font size="22.0" />
          </font>

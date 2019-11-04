@@ -322,24 +322,38 @@ public class TaskList {
         listOfTasks = updatedListOfTasks;
     }
 
-    private ObservableList<Integer> currentTheme = FXCollections.observableArrayList(-1);
+    private ObservableList<Integer> currentSetting = FXCollections.observableArrayList(-2,-1);
     private int prevTheme = 0;
+    private int prevWeek = -1;
 
     /**
      * Allows the user to change theme - either dark mode or light mode.
      * @param choiceOfTheme Holds the theme that the user wants.
      */
     public void updateTheme(int choiceOfTheme) {
-        if (choiceOfTheme != prevTheme && choiceOfTheme != -1) {
-            currentTheme.clear();
-            currentTheme.add(choiceOfTheme);
-            System.out.println(currentTheme.size());
+        if (choiceOfTheme != prevTheme && choiceOfTheme != -2) {
+            currentSetting.remove(0);
+            currentSetting.add(0, choiceOfTheme);
             prevTheme = choiceOfTheme;
             UiTemporary.printOutput("Theme changed!");
         } else {
             UiTemporary.printOutput("Theme cannot be changed!");
         }
+    }
 
+    /**
+     * Allows the user to view different weeks, weeks 0 - 18.
+     * @param choiceOfWeek Holds the week the user wants.
+     */
+    public void updateWeek(int choiceOfWeek) {
+        if (choiceOfWeek != prevWeek && choiceOfWeek != -2) {
+            currentSetting.remove(1);
+            currentSetting.add(1, choiceOfWeek);
+            prevWeek = choiceOfWeek;
+            UiTemporary.printOutput("Week being viewed has changed!");
+        } else {
+            UiTemporary.printOutput("You are viewing the same week!");
+        }
     }
 
     public ArrayList<Task> getTasks() {
@@ -354,7 +368,7 @@ public class TaskList {
         return listOfTasks.size();
     }
 
-    public ObservableList<Integer> getTheme() {
-        return currentTheme;
+    public ObservableList<Integer> getCurrentSetting() {
+        return currentSetting;
     }
 }

@@ -18,6 +18,8 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAdjusters;
+import java.util.Calendar;
+
 import javafx.collections.ListChangeListener;
 import javafx.util.Callback;
 
@@ -29,19 +31,6 @@ import javafx.util.Callback;
  * 3. Displays the appropriate error message for INVALID user's input.
  */
 class TimelineWindow extends UiComponent<Region> {
-    private static final String FXML = "TimelineWindow.fxml";
-    private static final Double mondayX = 44.0;
-    private static final Double tuesdayX = 241.0;
-    private static final Double wednesdayX = 436.0;
-    private static final Double thursdayX = 633.0;
-    private static final Double fridayX = 828.0;
-    private static final Double saturdayX = 44.0;
-    private static final Double sundayX = 241.0;
-    private static final Double weekdayY = 50.0;
-    private static final Double weekendY = 357.0;
-    private static Double moveXOfDays = 0.0;
-    private static Double moveYOfDays = 0.0;
-
     @FXML
     private AnchorPane backgroundOfTimeline;
     @FXML
@@ -68,12 +57,41 @@ class TimelineWindow extends UiComponent<Region> {
     private Label todayLabel;
     @FXML
     private Label todayLabel1;
+    @FXML
+    private Label currentWeekLabel;
 
-    private Parser parser;
-    private Command command;
     private TaskList tasks;
+
+    private static final String FXML = "TimelineWindow.fxml";
+    private static final Double mondayX = 44.0;
+    private static final Double tuesdayX = 241.0;
+    private static final Double wednesdayX = 436.0;
+    private static final Double thursdayX = 633.0;
+    private static final Double fridayX = 828.0;
+    private static final Double saturdayX = 44.0;
+    private static final Double sundayX = 241.0;
+    private static final Double weekdayY = 50.0;
+    private static final Double weekendY = 357.0;
+    private static Double moveXOfDays = 0.0;
+    private static Double moveYOfDays = 0.0;
+
     private static final String DARK_MODE = "#373737";
     private static final String LIGHT_MODE = "#f1f1f1";
+    private static final String GREEN_LABEL = "-fx-border-color: #009933; -fx-border-width: 3;";
+    private static final String RED_LABEL = "-fx-border-color: #FF0000; -fx-border-width: 3;";
+    private static final String BACKGROUND_COLOR_DARK = "-fx-background-color: #000000;";
+    private static final String BACKGROUND_COLOR_LIGHT = "-fx-background-color: #D3D3D3; -fx-border-color: #FFFFFF";
+    private static final int MONDAY = 6;
+    private static final int TUESDAY = 5;
+    private static final int WEDNESDAY = 4;
+    private static final int THURSDAY = 3;
+    private static final int FRIDAY = 2;
+    private static final int SATURDAY = 1;
+    private static final int SUNDAY = 0;
+    private static final int CURRENT_WEEK_INDICATOR = -1;
+
+    private LocalDate currentSundayDate;
+
 
     /**
      * Constructs a UiComponent with the corresponding FXML file name and root object.
@@ -85,93 +103,68 @@ class TimelineWindow extends UiComponent<Region> {
      */
     TimelineWindow(Command command, Parser parser, TaskList tasks) {
         super(FXML, null);
-        this.command = command;
-        this.parser = parser;
         this.tasks = tasks;
         initializeTimelineComponents();
     }
 
     private void initializeTimelineComponents() {
         attachTasksListener();
+        currentSundayDate = LocalDate.now().with(TemporalAdjusters.nextOrSame(DayOfWeek.SUNDAY));
         populateEveryDay();
         populateReminders();
         prioritizedTodayTasks();
         tasksWithoutDates();
-        updateListViewComponentsDarkMode();
-    }
-
-    /**
-     * This @FXML initialize() is a special function where static members of the GUI can be initialised.
-     */
-    @FXML
-    public void initialize() {
+        setDarkMode();
+        moveTodayLabels();
     }
 
     @FXML
     private void updateDarkBackground() {
-        backgroundOfTimeline.setStyle("-fx-background-color: #000000;");
+        backgroundOfTimeline.setStyle(BACKGROUND_COLOR_DARK);
     }
 
     @FXML
     private void updateLightBackground() {
-        backgroundOfTimeline.setStyle("-fx-background-color: #e4e4e4;");
+        backgroundOfTimeline.setStyle(BACKGROUND_COLOR_LIGHT);
     }
 
-    private void updateListViewComponentsDarkMode() {
-        listViewComponents(mondayTask, DARK_MODE);
-        mondayTask.setStyle("-fx-background-color: #000000;");
-        listViewComponents(tuesdayTask,DARK_MODE);
-        tuesdayTask.setStyle("-fx-background-color: #000000;");
-        listViewComponents(wednesdayTask, DARK_MODE);
-        wednesdayTask.setStyle("-fx-background-color: #000000;");
-        listViewComponents(thursdayTask, DARK_MODE);
-        thursdayTask.setStyle("-fx-background-color: #000000;");
-        listViewComponents(fridayTask, DARK_MODE);
-        fridayTask.setStyle("-fx-background-color: #000000;");
-        listViewComponents(saturdayTask, DARK_MODE);
-        saturdayTask.setStyle("-fx-background-color: #000000;");
-        listViewComponents(sundayTask, DARK_MODE);
-        sundayTask.setStyle("-fx-background-color: #000000;");
-        listViewComponents(priorityTask, DARK_MODE);
-        priorityTask.setStyle("-fx-background-color: #000000;");
-        listViewComponents(tasksWithoutDates, DARK_MODE);
-        tasksWithoutDates.setStyle("-fx-background-color: #000000;");
-        listViewComponents(reminderTask, DARK_MODE);
-        reminderTask.setStyle("-fx-background-color: #000000;");
+    private void setDarkMode() {
+        setListViewBackgroundAndTheme(mondayTask, tuesdayTask, wednesdayTask, thursdayTask, fridayTask, DARK_MODE,
+            BACKGROUND_COLOR_DARK);
+        setListViewBackgroundAndTheme(saturdayTask, sundayTask, priorityTask, tasksWithoutDates, reminderTask,
+            DARK_MODE, BACKGROUND_COLOR_DARK);
         updateDarkBackground();
     }
 
-    private void updateListViewComponentsLightMode() {
-        listViewComponents(mondayTask,LIGHT_MODE);
-        mondayTask.setStyle("-fx-background-color: #e4e4e4;");
-        listViewComponents(tuesdayTask, LIGHT_MODE);
-        tuesdayTask.setStyle("-fx-background-color: #e4e4e4;");
-        listViewComponents(wednesdayTask, LIGHT_MODE);
-        wednesdayTask.setStyle("-fx-background-color: #e4e4e4;");
-        listViewComponents(thursdayTask, LIGHT_MODE);
-        thursdayTask.setStyle("-fx-background-color: #e4e4e4;");
-        listViewComponents(fridayTask, LIGHT_MODE);
-        fridayTask.setStyle("-fx-background-color: #e4e4e4;");
-        listViewComponents(saturdayTask, LIGHT_MODE);
-        saturdayTask.setStyle("-fx-background-color: #e4e4e4;");
-        listViewComponents(sundayTask, LIGHT_MODE);
-        sundayTask.setStyle("-fx-background-color: #e4e4e4;");
-        listViewComponents(priorityTask, LIGHT_MODE);
-        priorityTask.setStyle("-fx-background-color: #e4e4e4;");
-        listViewComponents(tasksWithoutDates, LIGHT_MODE);
-        tasksWithoutDates.setStyle("-fx-background-color: #e4e4e4;");
-        listViewComponents(reminderTask, LIGHT_MODE);
-        reminderTask.setStyle("-fx-background-color: #e4e4e4;");
+    private void setLightMode() {
+        setListViewBackgroundAndTheme(mondayTask, tuesdayTask, wednesdayTask, thursdayTask, fridayTask, LIGHT_MODE,
+            BACKGROUND_COLOR_LIGHT);
+        setListViewBackgroundAndTheme(saturdayTask, sundayTask, priorityTask, tasksWithoutDates, reminderTask,
+            LIGHT_MODE, BACKGROUND_COLOR_LIGHT);
         updateLightBackground();
     }
 
+
+    private void setListViewBackgroundAndTheme(ListView<String> task1, ListView<String> task2, ListView<String> task3,
+                                               ListView<String> task4, ListView<String> task5, String theme,
+                                               String background) {
+        listViewComponents(task1, theme);
+        task1.setStyle(background);
+        listViewComponents(task2, theme);
+        task2.setStyle(background);
+        listViewComponents(task3, theme);
+        task3.setStyle(background);
+        listViewComponents(task4, theme);
+        task4.setStyle(background);
+        listViewComponents(task5, theme);
+        task5.setStyle(background);
+    }
 
     /**
      * This method populates the ListView with prioritized tasks for the day.
      */
     private void populateReminders() {
         ObservableList<String> reminderTasks;
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         LocalDateTime now = LocalDateTime.now();
         reminderTasks = FXCollections.observableArrayList(tasks.fetchReminders(now));
         reminderTask.setItems(reminderTasks);
@@ -193,8 +186,6 @@ class TimelineWindow extends UiComponent<Region> {
      */
     private void tasksWithoutDates() {
         ObservableList<String> holdTasksWithoutDates;
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        LocalDateTime now = LocalDateTime.now();
         holdTasksWithoutDates = FXCollections.observableArrayList(tasks.obtainTasksWithoutDates());
         tasksWithoutDates.setItems(holdTasksWithoutDates);
     }
@@ -221,90 +212,123 @@ class TimelineWindow extends UiComponent<Region> {
             }
         });
 
-        tasks.getTheme().addListener((ListChangeListener<Integer>) change -> {
+        tasks.getCurrentSetting().addListener((ListChangeListener<Integer>) change -> {
             while (change.next()) {
                 if (change.wasAdded()) {
-                    if (tasks.getTheme().get(0).equals(1)) {
-                        updateListViewComponentsLightMode();
+                    if (tasks.getCurrentSetting().get(0).equals(1)) {
+                        setLightMode();
                     } else {
-                        updateListViewComponentsDarkMode();
+                        setDarkMode();
                     }
+                    changeWeek(tasks.getCurrentSetting().get(1));
                 } else if (change.wasReplaced()) {
-                    if (tasks.getTheme().get(0).equals(1)) {
-                        updateListViewComponentsLightMode();
+                    if (tasks.getCurrentSetting().get(0).equals(1)) {
+                        setLightMode();
                     } else {
-                        updateListViewComponentsDarkMode();
+                        setDarkMode();
                     }
+                    changeWeek(tasks.getCurrentSetting().get(1));
                 }
             }
         });
+    }
+
+    private void changeWeek(int chosenWeek) {
+        final DayOfWeek Sunday = DayOfWeek.SUNDAY;
+        int currentYear = Calendar.getInstance().get(Calendar.YEAR);
+        LocalDate firstDay = LocalDate.of(currentYear, 8, 1);
+        LocalDate firstMondayOfSemester = firstDay.with(TemporalAdjusters.nextOrSame(DayOfWeek.MONDAY));
+        LocalDate firstSundayOfSemester = firstMondayOfSemester.with(TemporalAdjusters.nextOrSame(DayOfWeek.SUNDAY));
+        LocalDate requiredSundayDate;
+        if (chosenWeek == CURRENT_WEEK_INDICATOR) {
+            requiredSundayDate = LocalDate.now().with(TemporalAdjusters.nextOrSame(Sunday));
+            todayLabel.setVisible(true);
+        } else {
+            requiredSundayDate = firstSundayOfSemester.plusDays(chosenWeek * 7);
+            if (requiredSundayDate.isEqual(LocalDate.now().with(TemporalAdjusters.nextOrSame(Sunday)))) {
+                todayLabel.setVisible(true);
+            } else {
+                todayLabel.setVisible(false);
+            }
+        }
+        currentSundayDate = requiredSundayDate;
     }
 
     /**
      * This method will populate the ListViews of the timeline.
      */
     private void populateEveryDay() {
+        String monday = getDay(MONDAY);
+        currentWeekLabel.setText("Your timeline for week staring with " + monday);
+        String tuesday = getDay(TUESDAY);
+        String wednesday = getDay(WEDNESDAY);
+        String thursday = getDay(THURSDAY);
+        String friday = getDay(FRIDAY);
+        String saturday = getDay(SATURDAY);
+        String sunday = getDay(SUNDAY);
+
+        setTasks(monday, tuesday, wednesday, mondayTask, tuesdayTask, wednesdayTask);
+        setTasks(thursday, friday, saturday, thursdayTask, fridayTask, saturdayTask);
+        ObservableList<String> sundayTasks = FXCollections.observableArrayList(tasks.scheduleForDay(sunday));
+        sundayTask.setItems(sundayTasks);
+    }
+
+    /**
+     * Returns date required of particular day as a String.
+     * @param dayAdjuster Holds the days to subtract from Sunday eg. to get Monday subtract 6.
+     */
+    private String getDay(int dayAdjuster) {
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        return dtf.format(currentSundayDate.minusDays(dayAdjuster));
+    }
+
+    private void moveTodayLabels() {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         LocalDateTime now = LocalDateTime.now();
 
-        final DayOfWeek Sunday = DayOfWeek.SUNDAY;
-        LocalDate sundayDate = LocalDate.now().with(TemporalAdjusters.nextOrSame(Sunday));
-
-        String monday = dtf.format(sundayDate.minusDays(6));
-        String tuesday = dtf.format(sundayDate.minusDays(5));
-        String wednesday = dtf.format(sundayDate.minusDays(4));
-        String thursday = dtf.format(sundayDate.minusDays(3));
-        String friday = dtf.format(sundayDate.minusDays(2));
-        String saturday = dtf.format(sundayDate.minusDays(1));
-        String sunday = dtf.format(sundayDate);
         String shiftLocationOfHighlight = dtf.format(now);
 
-        todayLabel.setStyle("-fx-border-color: #009933; -fx-border-width: 3;");
-        todayLabel1.setStyle("-fx-border-color: #009933; -fx-border-width: 3;");
-        if (shiftLocationOfHighlight.equals(monday)) {
+        todayLabel.setStyle(GREEN_LABEL);
+        todayLabel1.setStyle(GREEN_LABEL);
+        if (shiftLocationOfHighlight.equals(getDay(MONDAY))) {
             moveXOfDays = mondayX;
             moveYOfDays = weekdayY;
-        }  else if (shiftLocationOfHighlight.equals(tuesday)) {
+        }  else if (shiftLocationOfHighlight.equals(getDay(TUESDAY))) {
             moveXOfDays = tuesdayX;
             moveYOfDays = weekdayY;
-        }  else if (shiftLocationOfHighlight.equals(wednesday)) {
+        }  else if (shiftLocationOfHighlight.equals(getDay(WEDNESDAY))) {
             moveXOfDays = wednesdayX;
             moveYOfDays = weekdayY;
-        }  else if (shiftLocationOfHighlight.equals(thursday)) {
+        }  else if (shiftLocationOfHighlight.equals(getDay(THURSDAY))) {
             moveXOfDays = thursdayX;
             moveYOfDays = weekdayY;
-        }  else if (shiftLocationOfHighlight.equals(friday)) {
+        }  else if (shiftLocationOfHighlight.equals(getDay(FRIDAY))) {
             moveXOfDays = fridayX;
             moveYOfDays = weekdayY;
-        }  else if (shiftLocationOfHighlight.equals(saturday)) {
+        }  else if (shiftLocationOfHighlight.equals(getDay(SATURDAY))) {
             moveXOfDays = saturdayX;
             moveYOfDays = weekendY;
-            todayLabel.setStyle("-fx-border-color: #FF0000; -fx-border-width: 3;");
-            todayLabel1.setStyle("-fx-border-color: #FF0000; -fx-border-width: 3;");
-        }  else if (shiftLocationOfHighlight.equals(sunday)) {
+            todayLabel.setStyle(RED_LABEL);
+            todayLabel1.setStyle(RED_LABEL);
+        }  else if (shiftLocationOfHighlight.equals(getDay(SUNDAY))) {
             moveXOfDays = sundayX;
             moveYOfDays = weekendY;
-            todayLabel.setStyle("-fx-border-color: #FF0000; -fx-border-width: 3;");
-            todayLabel1.setStyle("-fx-border-color: #FF0000; -fx-border-width: 3;");
+            todayLabel.setStyle(RED_LABEL);
+            todayLabel1.setStyle(RED_LABEL);
         }
         todayLabel.setLayoutX(moveXOfDays);
         todayLabel.setLayoutY(moveYOfDays);
+    }
 
 
-        ObservableList<String> mondayTasks = FXCollections.observableArrayList(tasks.scheduleForDay(monday));
-        mondayTask.setItems(mondayTasks);
-        ObservableList<String> tuesdayTasks = FXCollections.observableArrayList(tasks.scheduleForDay(tuesday));
-        tuesdayTask.setItems(tuesdayTasks);
-        ObservableList<String> wednesdayTasks = FXCollections.observableArrayList(tasks.scheduleForDay(wednesday));
-        wednesdayTask.setItems(wednesdayTasks);
-        ObservableList<String> thursdayTasks = FXCollections.observableArrayList(tasks.scheduleForDay(thursday));
-        thursdayTask.setItems(thursdayTasks);
-        ObservableList<String> fridayTasks = FXCollections.observableArrayList(tasks.scheduleForDay(friday));
-        fridayTask.setItems(fridayTasks);
-        ObservableList<String> saturdayTasks = FXCollections.observableArrayList(tasks.scheduleForDay(saturday));
-        saturdayTask.setItems(saturdayTasks);
-        ObservableList<String> sundayTasks = FXCollections.observableArrayList(tasks.scheduleForDay(sunday));
-        sundayTask.setItems(sundayTasks);
+    private void setTasks(String day1, String day2, String day3, ListView<String> day1Task,
+                          ListView<String> day2Task, ListView<String> day3Task) {
+        ObservableList<String> thursdayTasks = FXCollections.observableArrayList(tasks.scheduleForDay(day1));
+        day1Task.setItems(thursdayTasks);
+        ObservableList<String> fridayTasks = FXCollections.observableArrayList(tasks.scheduleForDay(day2));
+        day2Task.setItems(fridayTasks);
+        ObservableList<String> saturdayTasks = FXCollections.observableArrayList(tasks.scheduleForDay(day3));
+        day3Task.setItems(saturdayTasks);
     }
 
     private void listViewComponents(ListView<String> stringListView, String mode) {
