@@ -107,7 +107,7 @@ public class TaskCreator {
             }
         }
 
-        String[] dateArray = input.split("&");
+        String[] dateArray = input.trim().split("&");
         ArrayList<Date> dates = new ArrayList<>();
         Date currentDate = new Date();
         if (count > 0) {
@@ -206,7 +206,7 @@ public class TaskCreator {
      * @param input user's input
      * @return the amount of time and unit of the duration as a Pair<Integer,TimeUnit>
      */
-    public Pair<Integer, TimeUnit> extractDuration(String input) {
+    public Pair<Integer, TimeUnit> extractDuration(String input) throws RoomShareException {
         String[] durationArray = input.split("\\^");
         int duration;
         TimeUnit unit;
@@ -225,6 +225,8 @@ public class TaskCreator {
             unit = TimeUnit.unDefined;
         }
 
+        if (duration < 0)
+            throw new RoomShareException(ExceptionType.negativeTimeAmount);
         return new Pair<>(duration,unit);
     }
 
@@ -372,7 +374,7 @@ public class TaskCreator {
      * @param input user's input
      * @param oldTask the task to be updated
      */
-    public void updateTask(String input, Task oldTask) {
+    public void updateTask(String input, Task oldTask) throws RoomShareException {
         try {
             if (input.contains("(") && input.contains(")")) {
                 String description = this.extractDescription(input);
