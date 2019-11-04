@@ -72,7 +72,7 @@ public class Command {
      * @param ui      Class containing all relevant user interface instructions.
      * @param storage Class containing access to the storage file and related instructions.
      */
-    public void execute(EventList events, UI ui, Storage storage, InstrumentList instruments, CalendarView calendarView) {
+    public void execute(EventList events, UI ui, Storage storage, InstrumentList instruments, EventDate calendarStartDate) {
         boolean changesMade = true;
 //        logger.log(Level.INFO, "Read in the command");
         switch (command) {
@@ -146,8 +146,7 @@ public class Command {
                 break;
 
             case "calendar":
-                calendarView = generateCalendar(events, ui);
-                ui.printCalendar(calendarView.getStringForOutput());
+                printCalendar(events, ui, calendarStartDate);
                 break;
 
             case "budget":
@@ -178,6 +177,9 @@ public class Command {
         if (changesMade) {
             events.sortList();
             storage.saveToFile(events, ui);
+        }
+        if (!(command.equals("calendar"))) {
+            printCalendar(events, ui, calendarStartDate);
         }
     }
 
@@ -272,25 +274,23 @@ public class Command {
         }
     }
 
-    private CalendarView generateCalendar(EventList events, UI ui) {
+    private void printCalendar(EventList events, UI ui, EventDate calendarStartDate) {
         CalendarView calendarView = null;
         if (continuation.isEmpty()) {
-            EventDate today = new EventDate(new Date());
+            EventDate today = new EventDate(calendarStartDate.getEventJavaDate());
             calendarView = new CalendarView(events, today);
         } else if (continuation.equals("next")) {
-            EventDate nextWeek = new EventDate(new Date());
-            nextWeek.addDaysAndSetMidnight(7);
-            calendarView = new CalendarView(events, nextWeek);
+            calendarStartDate.addDaysAndSetMidnight(7);
+            calendarView = new CalendarView(events, calendarStartDate);
         } else if (continuation.equals("last")) {
-            EventDate lastWeek = new EventDate(new Date());
-            lastWeek.addDaysAndSetMidnight(-7);
-            calendarView = new CalendarView(events, lastWeek);
+            calendarStartDate.addDaysAndSetMidnight(-7);
+            calendarView = new CalendarView(events, calendarStartDate);
         } else {
             ui.calendarCommandWrongFormat();
         }
 
         calendarView.setCalendarInfo();
-        return calendarView;
+        ui.printCalendar(calendarView.getStringForOutput());
     }
 
     /**

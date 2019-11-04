@@ -2,6 +2,7 @@
 package mistermusik;
 
 import mistermusik.commons.events.formatting.CalendarView;
+import mistermusik.commons.events.formatting.EventDate;
 import mistermusik.logic.EventList;
 import mistermusik.storage.Instruments.InstrumentList;
 import mistermusik.storage.Storage;
@@ -11,6 +12,7 @@ import mistermusik.ui.UI;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Date;
 
 public class Main {
     private static Parser parser = new Parser();
@@ -18,7 +20,7 @@ public class Main {
     private static Storage storage;
     private static EventList tasks;
     private static InstrumentList instruments = new InstrumentList();
-    private static CalendarView calendarView;
+    private static EventDate calendarStartDate;
 
     /**
      * main mistermusik.Main method
@@ -30,7 +32,7 @@ public class Main {
         String userInput = parser.readUserInput().toLowerCase();
         while (!userInput.equals("bye")) {
             Command currCommand = parser.parseInput(userInput);
-            currCommand.execute(tasks, ui, storage, instruments, calendarView);
+            currCommand.execute(tasks, ui, storage, instruments, calendarStartDate);
             userInput = parser.readUserInput();
         }
 
@@ -45,5 +47,6 @@ public class Main {
         ui = new UI();
         storage = new Storage(new File("data/mistermusik.Main.txt"));
         tasks = new EventList(storage.readFromFile(ui));
+        calendarStartDate = new EventDate(new Date());
     }
 }
