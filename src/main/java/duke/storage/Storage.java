@@ -91,7 +91,7 @@ public class Storage {
      *
      * @throws FileLoadFailException If the file cannot be loaded.
      */
-    public void readItineraryTable() throws FileLoadFailException {
+    private void readItineraryTable() throws FileLoadFailException {
         try {
             File itinerariesFile = new File(ITINERARIES_FILE_PATH);
             Scanner scanner = new Scanner(itinerariesFile);
@@ -125,7 +125,7 @@ public class Storage {
                 itineraryTable.put(itinerary.getName(), itinerary);
             }
             scanner.close();
-        } catch (FileNotFoundException | ParseException e) {
+        } catch (FileNotFoundException | ParseException | IndexOutOfBoundsException e) {
             throw new FileLoadFailException(ITINERARIES_FILE_PATH);
         }
     }
@@ -185,7 +185,8 @@ public class Storage {
             }
             s.close();
             this.events.setEvents(events);
-        } catch (FileNotFoundException | ParseException | DukeDuplicateTaskException e) {
+        } catch (FileNotFoundException | ParseException | DukeDuplicateTaskException
+                | IndexOutOfBoundsException e) {
             throw new FileLoadFailException(EVENTS_FILE_PATH);
         }
     }
@@ -218,7 +219,7 @@ public class Storage {
             s.close();
             routes.setRoutes(newRoutes);
         } catch (FileNotFoundException | RouteDuplicateException | CorruptedFileException
-                | RouteNodeDuplicateException e) {
+                | RouteNodeDuplicateException | IndexOutOfBoundsException e) {
             throw new FileLoadFailException(ROUTES_FILE_PATH);
         }
     }
@@ -226,7 +227,7 @@ public class Storage {
     /**
      * Returns Venues fetched from stored memory.
      */
-    public void readRecommendations() {
+    private void readRecommendations() {
         List<Agenda> agendaList = new ArrayList<>();
         Scanner scanner = new Scanner(getClass().getResourceAsStream(RECOMMENDATIONS_FILE_PATH));
         int i = 1;
@@ -256,7 +257,8 @@ public class Storage {
                 ParserStorageUtil.createProfileFromStorage(profileCard, input);
             }
             s.close();
-        } catch (FileNotFoundException | ParseException | CategoryNotFoundException e) {
+        } catch (FileNotFoundException | ParseException | CategoryNotFoundException
+                | IndexOutOfBoundsException e) {
             profileCard = new ProfileCard();
             throw new FileLoadFailException(PROFILE_FILE_PATH);
         }
@@ -330,7 +332,7 @@ public class Storage {
      *
      * @throws FileNotSavedException If the file cannot be saved.
      */
-    public void writeNewItinerary() throws FileNotSavedException {
+    private void writeNewItinerary() throws FileNotSavedException {
         String file = ITINERARIES_FILE_PATH;
         try {
             FileWriter writer = new FileWriter(file, false);
