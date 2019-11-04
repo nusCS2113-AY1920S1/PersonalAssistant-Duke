@@ -21,7 +21,6 @@ public class NewParser {
     private static final String DONE_COMMAND_WORD = "DONE";
     private static final String SNOOZE_COMMAND_WORD = "SNOOZE";
     private static final String RENAME_COMMAND_WORD = "RENAME";
-
     private static final String LINK_COMMAND_WORD = "LINK";
     private static final String UNLINK_COMMAND_WORD = "UNLINK";
     private static final String HELP_COMMAND_WORD = "HELP";
