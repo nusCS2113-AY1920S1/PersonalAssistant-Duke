@@ -54,9 +54,9 @@ public class FindCommand extends CommandSuper {
         }
         if (length > 0) {
             for (int i = 0; i < length; i++) {
-                display += i + 1 + ". Name: " + cinemas.get(i).getName() + "\n";
+                display += i + 1 + ". Name: " + cinemas.get(i).getName() + " [Rating: " +
+                        cinemas.get(i).getRating() + "]\n";
                 display += "    Address: " + cinemas.get(i).getAddress() + "\n";
-                display += "    Rating: " + cinemas.get(i).getRating() + "\n";
                 display += "\n";
             }
         } else {

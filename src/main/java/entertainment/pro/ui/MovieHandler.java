@@ -117,7 +117,6 @@ public class MovieHandler extends Controller implements RequestListener {
     private static RetrieveRequest mMovieRequest;
     private static CinemaRetrieveRequest mCinemaRequest;
     private int index = 0;
-    //    private static PastCommands pastCommands = new PastCommands();
     static String command = "";
     ArrayList<Integer> genrePreference = new ArrayList<>();
     ArrayList<Integer> genreRestriction = new ArrayList<>();
@@ -143,18 +142,13 @@ public class MovieHandler extends Controller implements RequestListener {
 
     /**
      * This function is called when JavaFx runtime when view is loaded.
+     * Responsible for setting the components in the UI.
      */
     @FXML
     public void setLabels() throws IOException {
         System.out.println("called setlabels");
         EditProfileJson editProfileJson = new EditProfileJson();
         userProfile = editProfileJson.load();
-        //ArrayList<Integer> arrayList = userPr
-//        try {
-//            pastCommands.setMap(PastUserCommands.load());
-//        } catch (ParseException e) {
-//            e.printStackTrace();
-//        }
         userNameLabel.setText(userProfile.getUserName());
         userAgeLabel.setText(Integer.toString(userProfile.getUserAge()));
         playlists = userProfile.getPlaylistNames();
@@ -183,7 +177,7 @@ public class MovieHandler extends Controller implements RequestListener {
 
 
     /**
-     * checkstyle made me put javadoc here >:( whoever made this function pls edit the the javadoc tqtq -wh.
+     * Called by JavaFX runtime when view is loaded.
      */
     @FXML
     public void initialize() throws IOException, Exceptions {
@@ -193,25 +187,16 @@ public class MovieHandler extends Controller implements RequestListener {
         mCinemaRequest = new CinemaRetrieveRequest(this);
         LOGGER.setLevel(Level.ALL);
         LOGGER.log(Level.INFO , "MAIN UI INITIALISED");
-
         CommandContext.initialiseContext();
-
         BlacklistStorage bp = new BlacklistStorage();
         System.out.println("Tgt we are winners");
         bp.load();
-
-
-
         HelpStorage.initialiseAllHelp();
-
         mSearchTextField.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
             if (event.getCode() == KeyCode.TAB) {
                 System.out.println("Tab pressed");
-
-
                 setAutoCompleteText(ContextHelper.getAllHints(mSearchTextField.getText(), this));
                 event.consume();
-
             } else if (event.getCode().equals(KeyCode.ALT_GRAPH) || event.getCode().equals(KeyCode.ALT)) {
                 System.out.println("I pressed bit");
                 mSearchTextField.clear();
@@ -221,9 +206,7 @@ public class MovieHandler extends Controller implements RequestListener {
                 } else {
                     mSearchTextField.clear();
                     mSearchTextField.setText(cmd);
-
                 }
-
                 mSearchTextField.positionCaret(mSearchTextField.getText().length());
             } else if (event.getCode() == KeyCode.ENTER) {
                 clearAutoCompleteFeedbackText();
@@ -240,7 +223,6 @@ public class MovieHandler extends Controller implements RequestListener {
                     setGeneralFeedbackText(PromptMessages.MISSING_ARGUMENTS);
                 }
                 clearSearchTextField();
-
             } else if (event.getCode().equals(KeyCode.DOWN)) {
                 mMoviesScrollPane.requestFocus();
                 mMoviesFlowPane.getChildren().get(0).setStyle("-fx-border-color: white");
@@ -248,18 +230,6 @@ public class MovieHandler extends Controller implements RequestListener {
         });
 
         mMovieRequest.beginSearchRequest(RetrieveRequest.MoviesRequestType.CURRENT_MOVIES);
-        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-        Date date = new Date();
-        String now = formatter.format(date);
-//        PastCommandStructure pastCommandStructure = new PastCommandStructure(now, "view movies current");
-//        ArrayList<PastCommandStructure> arrayList = pastCommands.getMap();
-//        arrayList.add(pastCommandStructure);
-        //System.out.println(now + " " + command);
-//        pastCommands.setMap(arrayList);
-//        PastUserCommands.update(pastCommands);
-
-        //generalFeedbackText.setText("Welcome to Entertainment Pro. Displaying currently showing movies...");
-
         //Real time changes to text field
         mSearchTextField.textProperty().addListener((observable, oldValue, newValue) -> {
             System.out.println("textfield changed from " + oldValue + " to " + newValue);
@@ -393,6 +363,10 @@ public class MovieHandler extends Controller implements RequestListener {
         setGeneralFeedbackText(PromptMessages.NO_RESULTS_FOUND);
     }
 
+    /**
+     * Responsible for filtering the search results to remove blacklist items.
+     * @param moviesInfo ArrayList containing all the seacrh results.
+     */
     public void obtainedResultsData(ArrayList<MovieInfoObject> moviesInfo) {
         ArrayList<MovieInfoObject> filteredMovies = Blacklist.filter(moviesInfo);
         final ArrayList<MovieInfoObject> MoviesFinal = filteredMovies;
@@ -416,38 +390,9 @@ public class MovieHandler extends Controller implements RequestListener {
         });
     }
 
-    /**
-     * checkstyle made me put javadoc here >:( whoever made this function pls edit the the javadoc tqtq -wh.
-     */
-    public void displayMovies() {
-        mMovies = SearchResultContext.getMoviesToDisplay();
-        mImagesLoadingProgress = new double[mMovies.size()];
-        Platform.runLater(() -> {
-            try {
-                buildMoviesFlowPane(SearchResultContext.getMoviesToDisplay());
-            } catch (Exceptions exceptions) {
-                exceptions.printStackTrace();
-            }
-        });
-    }
-
 
     /**
-     * This funcion is called to print a message when the data for movies/tv shows is unavailable due to
-     * no internet connection.
-     *
-     * @param headerText consists of the string to be printed.
-     */
-    private void showDownloadFailureAlert(String headerText) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Failed to download");
-        alert.setHeaderText(headerText);
-        alert.setContentText("Please ensure you have an active internet connection.");
-        alert.showAndWait();
-    }
-
-    /**
-     * This function initalises the progress bar and extracts movie posters fro every movie.
+     * This function initalizes the progress bar and extracts movie posters fro every movie.
      *
      * @param movies is a array containing details about every movie/tv show that is being displayed.
      */
@@ -467,9 +412,8 @@ public class MovieHandler extends Controller implements RequestListener {
             AnchorPane posterPane = buildMoviePosterPane(movies.get(i), i + 1);
             mMoviesFlowPane.getChildren().add(posterPane);
         }
-        //  mMoviesScrollPane.setFitToWidth(true);
-        mMoviesScrollPane.setContent(mMoviesFlowPane);
         mMoviesScrollPane.setFitToWidth(true);
+        mMoviesScrollPane.setContent(mMoviesFlowPane);
         mMoviesScrollPane.setVvalue(0);
     }
 
@@ -478,7 +422,7 @@ public class MovieHandler extends Controller implements RequestListener {
      * to build the movie posters.
      * @param movie a object that contains information about a movie
      * @param index a unique number assigned to every movie/tv show that is being displayed.
-     * @return anchorpane consisting of the movie poster, name and the unique id.
+     * @return Anchorpane consisting of the movie poster, name and the unique id.
      */
 
     private AnchorPane buildMoviePosterPane(MovieInfoObject movie, int index) throws Exceptions {
@@ -565,37 +509,20 @@ public class MovieHandler extends Controller implements RequestListener {
         if (currentTotalProgress >= mMovies.size()) {
             mProgressBar.setVisible(false);
             mStatusLabel.setText("");
-//            if (isViewBack) {
-//                PastCommandStructure pastCommandStructure = getPastCommands().getMap().get(
-//                        getPastCommands().getMap().size() - 2);
-//                String command = pastCommandStructure.getQuery();
-//                String[] getStrips = command.split(" ");
-//                int num = 0;
-//                if (getPastCommands().getMap().get(getPastCommands().getMap().size() - 2)
-//                        .getQuery().startsWith("view entry")) {
-//                    num = Integer.parseInt(getStrips[2]);
-//                }
-//                showMovie(num);
-//                isViewBack = false;
-//                getPastCommands().getMap().remove(getPastCommands().getMap().size() - 1);
-//                getPastCommands().getMap().remove(getPastCommands().getMap().size() - 1);
-//                PastUserCommands.update(pastCommands);
-//
-//            }
         }
     }
 
-    public boolean isViewBack() {
-        return isViewBack;
-    }
 
     /**
-     * checkstyle made me put javadoc here >:( whoever made this function pls edit the the javadoc tqtq -wh.
+     * Responsible for displaying more information about a movie/TV show item.
+     * @param num the movie/TV show item that user want to know mpre information about.
+     * @throws Exceptions
      */
     public void showMovie(int num) throws Exceptions {
         //System.out.println("this is " + mMovies.size());
         MovieInfoObject movie = mMovies.get(num - 1);
         moviePosterClicked(movie);
+        setGeneralFeedbackText(PromptMessages.TO_VIEW_BACK_SEARCHES);
         System.out.println("this is it 4");
     }
 
@@ -776,7 +703,9 @@ public class MovieHandler extends Controller implements RequestListener {
 
 
     /**
-     * Tis function is called when the user wants to see more information about a movie.
+     * This function is called when the user wants to see more information about a movie.
+     * @param movie t
+     * @throws Exceptions
      */
     public void moviePosterClicked(MovieInfoObject movie) throws Exceptions {
         try {
@@ -1020,80 +949,6 @@ public class MovieHandler extends Controller implements RequestListener {
     }
 
 
-    // Menu item events
-    @FXML
-    public void exitMenuItemClicked() {
-        System.exit(0);
-    }
-
-    @FXML
-    public void aboutMenuItemClicked() {
-    }
-
-    /**
-     * Displays list of current movies showing on cinemas.
-     */
-    public static void showCurrentMovies() throws Exceptions {
-        mMovieRequest.beginSearchRequest(RetrieveRequest.MoviesRequestType.CURRENT_MOVIES);
-    }
-
-    /**
-     * Displays list of current tv shows showing.
-     */
-    public static void showCurrentTV() throws Exceptions {
-        mMovieRequest.beginSearchRequest(RetrieveRequest.MoviesRequestType.CURRENT_TV);
-    }
-
-    /**
-     * Displays list of upcoming movies.
-     */
-    public static void showUpcomingMovies() throws Exceptions {
-        mMovieRequest.beginSearchRequest(RetrieveRequest.MoviesRequestType.UPCOMING_MOVIES);
-    }
-
-    /**
-     * Displays list of upcoming tv shows.
-     */
-    public static void showUpcomingTV() throws Exceptions {
-        mMovieRequest.beginSearchRequest(RetrieveRequest.MoviesRequestType.CURRENT_TV);
-    }
-
-    /**
-     * Displays list of popular movies.
-     */
-    public static void showPopMovies() throws Exceptions {
-
-        mMovieRequest.beginSearchRequest(RetrieveRequest.MoviesRequestType.POPULAR_MOVIES);
-    }
-
-    /**
-     * Displays list of popular tv shows.
-     */
-    public static void showPopTV() throws Exceptions {
-        mMovieRequest.beginSearchRequest(RetrieveRequest.MoviesRequestType.POPULAR_TV);
-    }
-
-
-    /**
-     * Displays list of trending movies.
-     */
-    public static void showTrendMovies() throws Exceptions {
-        mMovieRequest.beginSearchRequest(RetrieveRequest.MoviesRequestType.TRENDING_MOVIES);
-        ;
-    }
-
-    /**
-     * Displays list of trending tv shows.
-     */
-    public static void showTrendTV() throws Exceptions {
-        mMovieRequest.beginSearchRequest(RetrieveRequest.MoviesRequestType.TRENDING_TV);
-    }
-
-
-
-    public static void showSearchMovie() throws Exceptions {
-        mMovieRequest.beginSearchRequest(RetrieveRequest.MoviesRequestType.TRENDING_TV);
-    }
 
     public static void setSearchProfile(SearchProfile searchProfile) {
         mMovieRequest.setSearchProfile(searchProfile);

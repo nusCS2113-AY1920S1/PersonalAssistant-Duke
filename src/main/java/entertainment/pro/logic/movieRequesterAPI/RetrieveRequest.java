@@ -2,6 +2,7 @@ package entertainment.pro.logic.movieRequesterAPI;
 
 import entertainment.pro.commons.PromptMessages;
 import entertainment.pro.commons.exceptions.Exceptions;
+import entertainment.pro.logic.parsers.commands.SearchCommand;
 import entertainment.pro.model.SearchProfile;
 import entertainment.pro.storage.utils.OfflineSearchStorage;
 import entertainment.pro.ui.MovieHandler;
@@ -26,14 +27,18 @@ import java.util.logging.Logger;
  */
 public class RetrieveRequest implements InfoFetcher {
     private static final String DEFAULT_IMAGE_FILENAME = "/images/cross.png";
+    private static final String RECACHE_IO_ERROR = "IOException took place when recaching data";
     private static final String PRINT_SUITABLE_FOR = "Suitable for";
     private static final String UNAVAILABLE_INFO = "N/A";
+    private static final String RECACHE_PARSE_ERROR = "Parsing error took place when recaching data";
     private RequestListener requestListener;
     private ArrayList<MovieInfoObject> finalSearchResults = new ArrayList<>();
     private SearchProfile searchProfile;
     private static RetrieveRequest.MoviesRequestType getType;
     private boolean isOffline = false;
     private String messageToBePrinted = "";
+    private static final Logger logger = Logger.getLogger(RetrieveRequest.class.getName());
+
 
     // API Usage constants
     private static final String MAIN_URL = "http://api.themoviedb.org/3/";
@@ -51,6 +56,7 @@ public class RetrieveRequest implements InfoFetcher {
     private static final String TO_SPECIFY_US = "US";
     private static final String TO_SPECIFY_CERTIFICATION = "certification";
     private static final String TO_SPECIFY_RELEASE_DATES = "release_dates";
+    private static final String TO_SPECIFY_TRUE = "true";
 
 
     // General Data Request URL's
@@ -78,6 +84,7 @@ public class RetrieveRequest implements InfoFetcher {
 
     // Data Keys for both movie and TV shows
     private static final String MOVIE_TITLE = "title";
+    private static final String ADULT = "adult";
     private static final String TV_TITLE = "original_name";
     private static final String RELEASE_DATE = "release_date";
     private static final String DATA_ID = "id";
@@ -448,7 +455,7 @@ public class RetrieveRequest implements InfoFetcher {
         OfflineSearchStorage offlineSearchStorage = new OfflineSearchStorage();
         try {
             resultsJSON = offlineSearchStorage.load();
-        } catch (IOException e) {
+        } catch (IOException | Exceptions e) {
             e.printStackTrace();
         }
         parseJSON(resultsJSON);
@@ -509,11 +516,13 @@ public class RetrieveRequest implements InfoFetcher {
         }
         if (isOffline) {
             // to print a message that offline data is being used
-            messageToBePrinted += "\n" + PromptMessages.DATA_OBTAINED_FROM_LOCAL_FILES;
+            messageToBePrinted += "\n" + PromptMessages.DATA_OBTAINED_FROM_LOCAL_FILES + "\n";
+            messageToBePrinted += "\n" + PromptMessages.TO_VIEW_MORE_INFO;
             requestListener.requestTimedOut(messageToBePrinted);
         } else {
             // to print message that data was extracted from API successfully
-            messageToBePrinted += "\n" + PromptMessages.DATA_OBTAINED_FROM_API;
+            messageToBePrinted += "\n" + PromptMessages.DATA_OBTAINED_FROM_API + "\n";
+            messageToBePrinted += "\n" + PromptMessages.TO_VIEW_MORE_INFO;
             requestListener.requestCompleted(messageToBePrinted);
         }
         requestListener.obtainedResultsData(finalSearchResults);
@@ -554,6 +563,10 @@ public class RetrieveRequest implements InfoFetcher {
     }
 
 
+    /**
+     * Responsible for returning the type of search request that is being done.
+     * @return type of search request that is being done.
+     */
     public static MoviesRequestType getGetType() {
         return getType;
     }
@@ -567,12 +580,19 @@ public class RetrieveRequest implements InfoFetcher {
      */
     private void fetchJSONData(String URLString) throws Exceptions {
         Thread fetchThread = null;
+        if (URLString.isEmpty() || URLString.isBlank()) {
+            logger.log(Level.SEVERE, PromptMessages.API_INVALID_REQUEST);
+            messageToBePrinted = PromptMessages.API_INVALID_REQUEST;
+            requestListener.requestTimedOut(messageToBePrinted);
+        }
         try {
             fetchThread = new Thread(new MovieInfoFetcher(new URL(URLString), this));
             fetchThread.start();
             //System.out.println("bef MovieInfoFetcher");
         } catch (MalformedURLException ex) {
-            Logger.getLogger(RetrieveRequest.class.getName()).log(Level.SEVERE, null, ex);
+            logger.log(Level.SEVERE, PromptMessages.API_MALFORMED_URL);
+            messageToBePrinted = PromptMessages.API_FAIL_GENERAL;
+            requestListener.requestTimedOut(messageToBePrinted);
         }
     }
 
@@ -668,7 +688,10 @@ public class RetrieveRequest implements InfoFetcher {
         return movieInfo;
     }
 
-    // Checks if API config data needs to be recached
+    /**
+     * Responsible for checking if API config data needs to be recached
+     * @throws Exceptions
+     */
     private void checkIfConfigNeeded() throws Exceptions {
         boolean configNeeded = true;
 
@@ -697,7 +720,9 @@ public class RetrieveRequest implements InfoFetcher {
         }
     }
 
-    // Reads in the config data from disk
+    /**
+     * Responsiblr for reading in the config data from disk.
+     */
     private void readConfigData() {
         try {
             ObjectInputStream file = new ObjectInputStream(new FileInputStream(CONFIG_FILENAME));
@@ -720,8 +745,10 @@ public class RetrieveRequest implements InfoFetcher {
         }
     }
 
-    // Writes out the config data to file
-    // NOTE: Only call after all config data was recached
+    /**
+     * Responsible for  writing out the config data to file.
+     *  Function is called after all config data was recached.
+     */
     private void writeConfigData() {
         try {
             ObjectOutputStream file = new ObjectOutputStream(new FileOutputStream(CONFIG_FILENAME));
@@ -731,13 +758,19 @@ public class RetrieveRequest implements InfoFetcher {
             file.writeObject(resultsPosterSizes);
             file.writeObject(resultsBackdropSizes);
             file.close();
-        } catch (IOException ex) {
             // Failed to write, data will be not be cached and will be recached on next run
-            System.err.println("Error: Unable to cache config data: \n" + ex.getMessage());
+        } catch (IOException ex) {
+            logger.log(Level.SEVERE, RECACHE_PARSE_ERROR);
+            messageToBePrinted = PromptMessages.RECACHING_DATA_API_ERROR;
+            requestListener.requestTimedOut(messageToBePrinted);
+
         }
     }
 
-    // Re-caches the config data to the binary config file
+    /**
+     * Responsible for re-caching the config data to the binary config file.
+     * @throws Exceptions when encounter ParseException or IOException.
+     */
     private void reCacheConfigData() throws Exceptions {
         try {
             // Download the config data and parse
@@ -763,69 +796,32 @@ public class RetrieveRequest implements InfoFetcher {
 
                     writeConfigData();
                 } catch (org.json.simple.parser.ParseException ex) {
-                    // Failed to parse... TODO: Call listener and notify error
+                    logger.log(Level.SEVERE, RECACHE_PARSE_ERROR);
+                    messageToBePrinted = PromptMessages.RECACHING_DATA_API_ERROR;
+                    requestListener.requestTimedOut(messageToBePrinted);
+
                 }
             }
+            // Failed to download config data
         } catch (IOException ex) {
-            // Failed to download config data...
-            // TODO: Call listener and notify error
+            logger.log(Level.SEVERE, RECACHE_IO_ERROR);
+            messageToBePrinted = PromptMessages.RECACHING_DATA_API_ERROR;
+            requestListener.requestTimedOut(messageToBePrinted);
+
         }
     }
 
     /**
-     * Fetches the strings for the genres for the given move. Note: This is operation is NOT asynchronous.
-     *
-     * @param movie The movie for which the genre strings need to be fetched.
-     * @return A string array for the movie genre strings.
+     * REsponsible for checking whether a movie/TV show meets users' preferences and requirements.
+     * @param entryInfo JSONObject containing all the information about a movie/TV show.
+     * @return true if the movie/TV show meets users' preferences and requirements.
      */
-    public static String[] getGenreStrings(MovieInfoObject movie) throws Exceptions {
-        try {
-            String jsonResult = "";
-            if (movie.isMovie()) {
-                jsonResult = URLRetriever.readURLAsString(new URL(MAIN_URL + GENRE_LIST_MOVIE_URL + API_KEY));
-            } else {
-                jsonResult = URLRetriever.readURLAsString(new URL(MAIN_URL + GENRE_LIST_TV_URL + API_KEY));
-
-
-            }
-            JSONParser parser = new JSONParser();
-            JSONObject jsonData = (JSONObject) parser.parse(jsonResult);
-            JSONArray genres = (JSONArray) jsonData.get("genres");
-
-            Set<Integer> genrePref = new HashSet<>();
-            Set<Integer> genreRestric = new HashSet<>();
-            String[] genreStrings = new String[movie.getGenreIdInfo().size()];
-            for (int i = 0; i < movie.getGenreIdInfo().size(); i++) {
-                genreStrings[i] = getGenreStringForID(movie.getGenreIdInfo().get(i), genres);
-            }
-
-            return genreStrings;
-        } catch (MalformedURLException | org.json.simple.parser.ParseException ex) {
-            ex.printStackTrace();
-        }
-        return null;
-    }
-
-    // Returns the genre string for the given genre ID using the given JSONArray of dictionaries of {ID: Genre String}
-    private static String getGenreStringForID(long genreID, JSONArray genreList) {
-        String genre = null;
-
-        for (int i = 0; i < genreList.size(); i++) {
-            JSONObject genrePair = (JSONObject) genreList.get(i);
-            if ((long) genrePair.get("id") == genreID) {
-                genre = (String) genrePair.get("name");
-            }
-        }
-        return genre;
-    }
-
-
     private boolean checkCondition(JSONObject entryInfo) {
 
         //System.out.println(searchProfile.getName());
         if ((isOffline) && getType.equals(MoviesRequestType.SEARCH_MOVIES)) {
             String searchName = searchProfile.getName().toLowerCase();
-            String entryInfoName = ((String) entryInfo.get("title")).toLowerCase();
+            String entryInfoName = ((String) entryInfo.get(MOVIE_TITLE)).toLowerCase();
           //  if (searchName.indexOf(entryInfoName) == -1) {
             if (!(searchName.equals(entryInfoName))) {
                 return false;
@@ -852,7 +848,7 @@ public class RetrieveRequest implements InfoFetcher {
         } catch (NullPointerException e) {
             haveGenreRestrict = false;
         }
-        JSONArray jsonArray = (JSONArray) entryInfo.get("genre_ids");
+        JSONArray jsonArray = (JSONArray) entryInfo.get(GENRES);
         boolean containPrefGenre = false;
 
         //   System.out.println("this is set " + genrePref);
@@ -877,5 +873,6 @@ public class RetrieveRequest implements InfoFetcher {
 
         }
     }
+
 
 }

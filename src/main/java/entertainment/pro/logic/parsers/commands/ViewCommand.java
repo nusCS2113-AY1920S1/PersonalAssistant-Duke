@@ -36,7 +36,8 @@ public class ViewCommand extends CommandSuper {
                 ((MovieHandler) this.getUiController()).setGeneralFeedbackText(Blacklist.printList());
                 break;
             case entry:
-                executeEntryCommands(Integer.parseInt(getPayload()));
+                int num = Integer.parseInt(getPayload());
+                executeEntryCommands(num);
                 break;
             case recommendation:
                 executeRecommendationCommand();
@@ -47,19 +48,13 @@ public class ViewCommand extends CommandSuper {
     }
 
     /**
-     * Responisible for displaying more information about a movie/TV show.
+     * Responsible for displaying more information about a movie/TV show.
      * Called when user is viewing list of movies/TV shows from a search request and want to know more information.
      *
      * @param num The number of the movie or TV show in the list indicated below the title.
      * @throws Exceptions
      */
     private void executeEntryCommands(int num) throws Exceptions {
-        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-        Date date = new Date();
-        String now = formatter.format(date);
-        //String payload = getPayload();
-        //int num = Integer.parseInt(payload);
-        //System.out.println("this is num +" + num);
         ((MovieHandler) this.getUiController()).showMovie(num);
     }
 

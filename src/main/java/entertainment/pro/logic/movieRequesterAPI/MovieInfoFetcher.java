@@ -2,6 +2,7 @@ package entertainment.pro.logic.movieRequesterAPI;
 
 import entertainment.pro.commons.PromptMessages;
 import entertainment.pro.commons.exceptions.Exceptions;
+import entertainment.pro.ui.MovieHandler;
 
 import java.net.URL;
 
@@ -19,16 +20,16 @@ public class MovieInfoFetcher implements Runnable {
      * @param listener   The listener to call when the fetch completes or fails
      */
     public MovieInfoFetcher(URL requestUrl, InfoFetcher listener) throws Exceptions {
+        movieRequestListener = listener;
+        movieRequestUrl = requestUrl;
         if (requestUrl == null) {
             throw new Exceptions(PromptMessages.API_INVALID_REQUEST);
         }
-        movieRequestListener = listener;
-        movieRequestUrl = requestUrl;
     }
 
 
     /**
-     * Responsible for begining the data fetch asynchronously.
+     * Responsible for beginning the data fetch asynchronously.
      */
     @Override
     public void run() {
