@@ -23,7 +23,6 @@ public class MemberList implements IMemberList {
      * Adds a new member to the member list of this project.
      * @param newMember A new member to be added to the project.
      */
-    @Override
     public void addMember(Member newMember) {
         newMember.setIndexNumber(this.memberList.size() + 1);
         this.memberList.add(newMember);
@@ -34,7 +33,6 @@ public class MemberList implements IMemberList {
      * @param memberIndexNumber The index number of the member whose details are to be updated.
      * @param updatedMemberDetails The updated member details.
      */
-    @Override
     public void editMember(int memberIndexNumber, String updatedMemberDetails) {
         String [] memberDetails = parserHelper.parseMemberDetails(updatedMemberDetails);
         String name = memberDetails[0];
@@ -57,7 +55,6 @@ public class MemberList implements IMemberList {
      * Shifts the index numbers of all members up if required.
      * @param toBeRemoved The Member that needs to be removed
      */
-    @Override
     public void removeMember(Member toBeRemoved) {
         if (toBeRemoved.getIndexNumber() < memberList.size()) { //if need to reassign index numbers after removal
             this.memberList.remove(toBeRemoved);
@@ -73,7 +70,6 @@ public class MemberList implements IMemberList {
      * Returns an ArrayList with String descriptions of members details.
      * @return An ArrayList with String descriptions of members details.
      */
-    @Override
     public ArrayList<String> getAllMemberDetails() {
         ArrayList<String> memberDetails = new ArrayList<>();
         for (Member member : this.memberList) {
@@ -86,7 +82,6 @@ public class MemberList implements IMemberList {
      * Returns an ArrayList of Strings in the format to be printed in table form.
      * @return An ArrayList of Strings in the format to be printed in table form.
      */
-    @Override
     public ArrayList<String> getAllMemberDetailsForTable() {
         ArrayList<String> memberDetailsForTable = new ArrayList<>();
         if (this.memberList.size() == 0) {
@@ -104,26 +99,31 @@ public class MemberList implements IMemberList {
         return memberDetailsForTable;
     }
 
-    @Override
-    public Member getMember(int i) {
-        return this.memberList.get(i - 1);
+    /**
+     * Method returns a IMember.
+     * @param i : Member index.
+     * @return : IMember. Will return a NullMember if index doesn't exist
+     */
+    public IMember getMember(int i) {
+        try {
+            return this.memberList.get(i - 1);
+        } catch (IndexOutOfBoundsException err) {
+            return new NullMember("Requested member index is out of bounds! Please check again.");
+        }
     }
 
     /**
      * Returns the size of the current member list.
      * @return The size of the current member list.
      */
-    @Override
     public int getNumOfMembers() {
         return memberList.size();
     }
 
-    @Override
     public boolean contains(IMember newMember) {
         return this.memberList.contains(newMember);
     }
 
-    @Override
     public int getIndexOfMember(IMember member) {
         return this.memberList.indexOf(member);
     }

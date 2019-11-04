@@ -4,6 +4,7 @@ import models.project.IProject;
 import models.project.NullProject;
 import models.project.Project;
 
+//@@author Lucria
 public class ProjectFactory implements IArchDukeFactory<IProject> {
     /**
      * Creation of an IProject object.

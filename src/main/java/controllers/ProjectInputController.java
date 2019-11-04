@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.Scanner;
 import models.member.IMember;
 import models.member.Member;
+import models.member.NullMember;
 import models.project.Project;
 import models.reminder.IReminder;
 import models.reminder.Reminder;
@@ -147,9 +148,12 @@ public class ProjectInputController implements IController {
         }
         int memberIndex = Integer.parseInt(commandOptions[0]);
         IMember selectedMember = projectToManage.getMembers().getMember(memberIndex);
-        selectedMember.setRole(commandOptions[1]);
-        return new String[] {"Successfully changed the role of " + selectedMember.getName() + " to "
-                                + selectedMember.getRole() + "."};
+        if (selectedMember.getClass() != NullMember.class) {
+            selectedMember.setRole(commandOptions[1]);
+            return new String[] {"Successfully changed the role of " + selectedMember.getName() + " to "
+                    + selectedMember.getRole() + "."};
+        }
+        return new String[] {selectedMember.getDetails()};
     }
 
     /**
@@ -167,7 +171,6 @@ public class ProjectInputController implements IController {
         String memberDetails = projectCommand.substring(11);
         int numberOfCurrentMembers = projectToManage.getNumOfMembers();
         memberDetails = memberDetails + " -x " + numberOfCurrentMembers;
-        //try to create member
         IMember newMember = memberFactory.create(memberDetails);
         if (newMember.getName() != null) {
             if (projectToManage.memberExists(newMember)) {
@@ -293,7 +296,7 @@ public class ProjectInputController implements IController {
         ArchDukeLogger.logDebug(ProjectInputController.class.getName(), "[projectAddTask] User input: '"
                 + projectCommand + "'");
         try {
-            ITask newTask = taskFactory.createTask(projectCommand.substring(9));
+            ITask newTask = taskFactory.create(projectCommand.substring(9));
             if (newTask.getDetails() != null) {
                 if (projectToManage.taskExists(newTask)) {
                     return new String[]{"The task you are trying to add already exists!",
@@ -304,12 +307,15 @@ public class ProjectInputController implements IController {
                 return new String[] {"Added new task to the list."};
             }
             return new String[] {"Failed to create new task. Please ensure all "
-                        + "necessary parameters are given"};
+                                + "necessary parameters are given correctly.",
+                                 "Task priority must be an integer between 1 to 5",
+                                 "Task credit must be an integer between 0 to 100",
+                                 "Date must be a valid date!"};
 
-        } catch (NumberFormatException | ParseException e) {
+        } catch (NumberFormatException e) {
             ArchDukeLogger.logError(ProjectInputController.class.getName(), "[projectAddTask] "
                     + "Please enter your task format correctly.");
-            return new String[] {"Please enter your task format correctly."};
+            return new String[] {"Please ensure that your task format are correct and dates are valid."};
         }
     }
 

@@ -7,10 +7,9 @@ import util.log.ArchDukeLogger;
 
 import java.util.Scanner;
 
-public class CLIView {
-    private static final String HORILINE = "\t____________________________________________________________";
-    private static final String INDENTATION = "\t";
+import static util.constant.ConstantHelper.*;
 
+public class CLIView {
     private ConsoleInputController consoleInputController;
     private ProjectRepository projectRepository;
 
@@ -26,8 +25,7 @@ public class CLIView {
         ArchDukeLogger.logInfo(CLIView.class.getName(), "ArchDuke have started.");
         Scanner sc = new Scanner(System.in);
         boolean isDukeRunning = true;
-        consolePrint("Hello! I'm Duke", "What can I do for you?");
-        //noinspection InfiniteLoopStatement
+        consolePrint(HELLO_MESSAGE);
         while (isDukeRunning) {
             String commandInput = sc.nextLine();
             ArchDukeLogger.logInfo(CLIView.class.getName(), "User input: " + commandInput);
@@ -49,6 +47,7 @@ public class CLIView {
                 }
             } else if (outputMessage[0].matches("Bye.*")) {
                 isDukeRunning = false;
+                consolePrint(outputMessage);
             } else {
                 consolePrint(outputMessage);
             }

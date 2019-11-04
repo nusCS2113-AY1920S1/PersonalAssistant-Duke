@@ -166,7 +166,7 @@ class ProjectInputControllerTest {
         simulatedUserInput = "add member -n Sean";
         projectInputController.projectAddMember(project, simulatedUserInput);
 
-        simulatedUserInput = "add task -t task1 -p 10 -c 10 -s todo";
+        simulatedUserInput = "add task -t task1 -p 1 -c 10 -s todo";
         projectInputController.projectAddTask(project, simulatedUserInput);
 
         simulatedUserInput = "add task -t task2 -p 5 -c 10 -s doing";
@@ -318,7 +318,7 @@ class ProjectInputControllerTest {
     void testProjectViewTask() {
         try {
             Project project = new Project("Infinity_Gauntlet");
-            simulatedUserInput = "add task -t task1 -p 10 -c 10 -s todo -d 12/12/2021";
+            simulatedUserInput = "add task -t task1 -p 5 -c 10 -s todo -d 12/12/2021";
             projectInputController.projectAddTask(project, simulatedUserInput);
             simulatedUserInput = "add task -t task2 -p 5 -c 100 -s doing";
             projectInputController.projectAddTask(project, simulatedUserInput);
@@ -340,7 +340,7 @@ class ProjectInputControllerTest {
                     project.getTasksAndAssignedMembers()).toArray(new String[0])) {
                 actualOutput += message;
             }
-            expectedOutput = "1. task1 | Priority: 10 | Due: 12 Dec 2021"
+            expectedOutput = "1. task1 | Priority: 5 | Due: 12 Dec 2021"
                     + dateTimeHelper.getDifferenceDays(dueDate1)
                     + " | Credit: 10 | State: TODO"
                     + "2. task2 | Priority: 5 | Due: -- | Credit: 100 | State: DOING"
@@ -354,7 +354,7 @@ class ProjectInputControllerTest {
                     project.getTasksAndAssignedMembers(), "/PRIORITY").toArray(new String[0])) {
                 actualOutput += message;
             }
-            expectedOutput = "1. task1 | Priority: 10 | Due: 12 Dec 2021"
+            expectedOutput = "1. task1 | Priority: 5 | Due: 12 Dec 2021"
                     + dateTimeHelper.getDifferenceDays(dueDate1)
                     + " | Credit: 10 | State: TODO"
                     + "2. task2 | Priority: 5 | Due: -- | Credit: 100 | State: DOING"
@@ -368,7 +368,7 @@ class ProjectInputControllerTest {
                     project.getTasksAndAssignedMembers(), "/NAME").toArray(new String[0])) {
                 actualOutput += message;
             }
-            expectedOutput = "1. task1 | Priority: 10 | Due: 12 Dec 2021"
+            expectedOutput = "1. task1 | Priority: 5 | Due: 12 Dec 2021"
                     + dateTimeHelper.getDifferenceDays(dueDate1)
                     + " | Credit: 10 | State: TODO"
                     + "2. task2 | Priority: 5 | Due: -- | Credit: 100 | State: DOING"
@@ -385,7 +385,7 @@ class ProjectInputControllerTest {
             expectedOutput = "1. task3 | Priority: 1 | Due: 01 Jan 2020"
                     + dateTimeHelper.getDifferenceDays(dueDate2)
                     + " | Credit: 50 | State: DONE"
-                    + "2. task1 | Priority: 10 | Due: 12 Dec 2021"
+                    + "2. task1 | Priority: 5 | Due: 12 Dec 2021"
                     + dateTimeHelper.getDifferenceDays(dueDate1)
                     + " | Credit: 10 | State: TODO";
             assertEquals(expectedOutput, actualOutput);
@@ -399,7 +399,7 @@ class ProjectInputControllerTest {
                     + "2. task3 | Priority: 1 | Due: 01 Jan 2020"
                     + dateTimeHelper.getDifferenceDays(dueDate2)
                     + " | Credit: 50 | State: DONE"
-                    + "3. task1 | Priority: 10 | Due: 12 Dec 2021"
+                    + "3. task1 | Priority: 5 | Due: 12 Dec 2021"
                     + dateTimeHelper.getDifferenceDays(dueDate1)
                     + " | Credit: 10 | State: TODO";
             assertEquals(expectedOutput, actualOutput);
@@ -409,7 +409,7 @@ class ProjectInputControllerTest {
                     project.getTasksAndAssignedMembers(), "/WHO-Dillen").toArray(new String[0])) {
                 actualOutput += message;
             }
-            expectedOutput = "1. task1 | Priority: 10 | Due: 12 Dec 2021"
+            expectedOutput = "1. task1 | Priority: 5 | Due: 12 Dec 2021"
                     + dateTimeHelper.getDifferenceDays(dueDate1)
                     + " | Credit: 10 | State: TODO"
                     + "2. task2 | Priority: 5 | Due: -- | Credit: 100 | State: DOING";
