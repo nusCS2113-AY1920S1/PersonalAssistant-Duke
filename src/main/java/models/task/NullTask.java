@@ -59,7 +59,7 @@ public class NullTask implements ITask {
     }
 
     @Override
-    public void setDueDate(String newDueDateString) {
+    public void setDueDate(Date newDueDate) {
         /**
          * Empty method
          */

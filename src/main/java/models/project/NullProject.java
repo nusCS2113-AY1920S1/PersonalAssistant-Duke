@@ -80,10 +80,11 @@ public class NullProject implements IProject {
     }
 
     @Override
-    public void editTask(int taskIndexNumber, String updatedTaskDetails) {
+    public String[] editTask(int taskIndexNumber, String updatedTaskDetails) {
         /*
         Empty method
          */
+        return new String[0];
     }
 
     @Override

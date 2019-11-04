@@ -24,7 +24,7 @@ public interface ITask {
 
     void setTaskPriority(int newTaskPriority);
 
-    void setDueDate(String newDueDateString);
+    void setDueDate(Date newDueDate);
 
     void setTaskCredit(int newTaskCredit);
 

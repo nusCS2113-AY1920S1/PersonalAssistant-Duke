@@ -337,15 +337,14 @@ public class ProjectInputController implements IController {
             String updatedTaskDetails = projectCommand.substring(projectCommand.indexOf("-"));
 
             if (projectToManage.getNumOfTasks() >= taskIndexNumber && taskIndexNumber > 0) {
-                projectToManage.editTask(taskIndexNumber, updatedTaskDetails);
-                return new String[] { "The task has been updated!" };
+                return projectToManage.editTask(taskIndexNumber, updatedTaskDetails);
             }
             return new String[] {"The task index entered is invalid."};
 
         } catch (NumberFormatException e) {
             ArchDukeLogger.logError(ProjectInputController.class.getName(), "[projectEditTask] "
-                    + "Please enter your task format correctly.");
-            return new String[] {"Please enter your task format correctly."};
+                    + "Please enter a valid number for your task index.");
+            return new String[] {"Please enter a valid number for your task index."};
         }
     }
 
