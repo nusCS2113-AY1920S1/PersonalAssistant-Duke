@@ -32,10 +32,8 @@ public class ListCommandParser {
         switch (listType) {
         case TASK:
             return ListTasksParser.parseListTasks(arguments);
-
         case MEMBER:
             return ListMembersParser.parseListMembers(arguments);
-
         default:
             throw new DukeException(LIST_USAGE);
         }

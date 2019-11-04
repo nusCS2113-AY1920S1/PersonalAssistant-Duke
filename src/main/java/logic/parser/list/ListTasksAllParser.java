@@ -13,14 +13,12 @@ public class ListTasksAllParser {
     public static Command parseListTasksAll(String argument) throws DukeException {
 
         switch (argument) {
-            case ListTasksParser.PICNUM:
-                return new ListTasksPicNumCommand();
-
-            case ListCommandParser.NONE:
-                return new ListTasksCommand();
-
-            default:
-                throw new DukeException(ListTasksParser.LIST_USAGE);
+        case ListTasksParser.PICNUM:
+            return new ListTasksPicNumCommand();
+        case ListCommandParser.NONE:
+            return new ListTasksCommand();
+        default:
+            throw new DukeException(ListTasksParser.LIST_USAGE);
         }
 
     }

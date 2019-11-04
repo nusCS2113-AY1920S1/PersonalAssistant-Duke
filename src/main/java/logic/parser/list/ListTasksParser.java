@@ -32,12 +32,10 @@ public class ListTasksParser {
         switch (listType) {
         case ALL:
             return ListTasksAllParser.parseListTasksAll(arguments);
-
         case TODO:
             return ListTasksTodoParser.parseListTasksTodo(arguments);
-
         default:
-             throw new DukeException(LIST_USAGE);
+            throw new DukeException(LIST_USAGE);
         }
 
     }

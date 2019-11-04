@@ -236,16 +236,21 @@ public class ModelController implements Model {
         return tasksManager.scheduleTodoTasks(tasksName);
     }
 
+    @Override
     public String check() {
         String result = "";
         for (int i = 0; i < memberManager.getMemberListSize(); i++) {
             String memberName = memberManager.getMemberNameById(i);
             ArrayList<String> tasksName = memberManager.getTaskListOfMember(memberName);
-            result += "\n" + memberName + ": " + tasksManager.check(tasksName);
+            String subResult = tasksManager.check(tasksName);
+            if (!subResult.equals("")) {
+                result += "\n" + memberName + ": " + tasksManager.check(tasksName);
+            }
         }
         return result;
     }
 
+    @Override
     public String membersInorderProgress() {
         ArrayList<Double> progress = new ArrayList<>();
         for (int i = 0; i < memberManager.getMemberListSize(); i++) {
@@ -256,6 +261,9 @@ public class ModelController implements Model {
         return memberManager.membersInorderProgress(progress);
     }
 
+
+
+    @Override
     public String membersInorderTodoNum() {
         ArrayList<Integer> todoNum = new ArrayList<>();
         for (int i = 0; i < memberManager.getMemberListSize(); i++) {

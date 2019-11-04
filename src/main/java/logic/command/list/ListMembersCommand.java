@@ -13,11 +13,15 @@ public class ListMembersCommand extends Command {
 
     public static final String COMMAND_WORD = "members";
     public static final String EMPTY_MEMBERS_LIST = "There are currently no member in project manager";
-    //private String arguments;
+    private String arguments;
 
-    //public ListMembersCommand(String arguments) {
-        //this.arguments = arguments;
-    //}
+    public ListMembersCommand() {
+
+    }
+
+    public ListMembersCommand(String arguments) {
+        this.arguments = arguments;
+    }
 
     @Override
     public CommandOutput execute(Model model) {

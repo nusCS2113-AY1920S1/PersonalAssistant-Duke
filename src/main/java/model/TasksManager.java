@@ -131,7 +131,10 @@ public class TasksManager implements Serializable {
         ArrayList<Task> todoTasks = pickTodo(taskList);
         return showTasks(todoTasks);
     }
-    
+
+    /**
+     *javadoc
+     */
     public int getTodoTasks(ArrayList<String> tasksName) {
         int todoNum = 0;
         for (int i = 0; i < tasksName.size(); i++) {
@@ -143,10 +146,20 @@ public class TasksManager implements Serializable {
         return todoNum;
     }
 
+
+    /**
+     * java doc
+     */
     public double getProgress(ArrayList<String> tasksName) {
         double total = tasksName.size();
         int todoNum = getTodoTasks(tasksName);
-        double progress = todoNum/total;
+        double doneNum = total - todoNum;
+        double progress;
+        if (total == 0) {
+            progress = 1.0;
+        } else {
+            progress = doneNum / total;
+        }
         BigDecimal bd = new BigDecimal(progress).setScale(2, RoundingMode.HALF_UP);
         return bd.doubleValue();
     }
@@ -386,6 +399,25 @@ public class TasksManager implements Serializable {
         return result;
     }
 
+    /**
+     * javadoc
+     */
+    public static String getDateString(Date date) {
+        String year = (date.getYear() + 1900) + "";
+        String mm = (date.getMonth() + 1) + "";
+        if (Integer.valueOf(mm) < 10) {
+            mm = "0" + mm;
+        }
+        String day = date.getDate() + "";
+        if (Integer.valueOf(day) < 10) {
+            day = "0" + day;
+        }
+        return year + "/" + mm + "/" + day;
+    }
+
+    /**
+     * javadoc
+     */
     public String check(ArrayList<String> tasksName) {
         ArrayList<Task> tasks = new ArrayList<>();
         String result = "";
@@ -397,23 +429,35 @@ public class TasksManager implements Serializable {
             ArrayList<Task> sorted = sortByTime(pickTodo(tasks));
             if (sorted.size() > 1) {
                 int count = 1;
+                int index = -1;
                 for (int i = 0; i < sorted.size() - 1; i++) {
                     Date time1 = sorted.get(i).getTime();
                     Date time2 = sorted.get(i + 1).getTime();
-                    if (time1.equals(time2)) {
+                    String date1 = getDateString(time1);
+                    String date2 = getDateString(time2);
+                    if (date1.equals(date2)) {
                         count++;
+                        index = i;
                     } else {
                         if (count != 1) {
                             String name = "";
                             for (int j = count; j > 0; j--) {
-                                Task task = sorted.get(i - count);
+                                Task task = sorted.get(i - j);
                                 name += " " + getIndexInListByTask(task) + ". " + getNameByTask(task);
                             }
-                            result += "\n" + time2 + " " + count + "tasks:" + name;
+                            result += "\n" + date2 + " " + count + "tasks:" + name;
                         }
                         count = 1;
                         continue;
                     }
+                }
+                if (count != 1) {
+                    String name = "";
+                    for (int j = count; j > 0; j--) {
+                        Task task = sorted.get(index + 2 - j);
+                        name += " " + getIndexInListByTask(task) + ". " + getNameByTask(task);
+                    }
+                    result += "\n" + getDateString(sorted.get(index).getTime()) + " " + count + " tasks:\n" + name;
                 }
             }
         }

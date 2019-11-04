@@ -3,8 +3,7 @@
     "name": "john",
     "isDone": false,
     "memberList": [
-      "P1",
-      "P2"
+      "john"
     ],
     "skillReqList": [],
     "time": "Dec 12, 2019, 11:11:00 AM"
@@ -13,83 +12,48 @@
     "name": "james",
     "isDone": false,
     "memberList": [
-      "P1"
+      "john"
     ],
     "skillReqList": [
       "yo"
     ],
-    "time": "Dec 12, 2019, 11:12:00 AM"
+    "time": "Dec 12, 2019, 12:11:00 AM"
   },
   {
     "name": "null",
     "isDone": false,
     "memberList": [
-      "P1"
+      "john"
     ],
-    "skillReqList": []
+    "skillReqList": [],
+    "time": "Dec 12, 2019, 12:11:00 AM"
   },
   {
     "name": "lame",
     "isDone": false,
     "memberList": [
-      "P2",
-      "P1"
+      "james"
     ],
-    "skillReqList": []
+    "skillReqList": [],
+    "time": "Dec 11, 2019, 12:11:00 AM"
   },
   {
     "name": "hi",
     "isDone": false,
     "memberList": [
-      "P2"
+      "james"
     ],
-    "skillReqList": []
+    "skillReqList": [],
+    "time": "Dec 11, 2019, 10:11:00 AM"
   },
   {
     "name": "yooo",
     "isDone": false,
-    "memberList": [
-      "P2"
-    ],
-    "skillReqList": []
-  }
-]
-||||||| merged common ancestors
-[
-  {
-    "name": "john",
-    "isDone": false,
     "memberList": [],
     "skillReqList": []
   },
   {
-    "name": "james",
-    "isDone": false,
-    "memberList": [],
-    "skillReqList": [
-      "yo"
-    ]
-  },
-  {
-    "name": "null",
-    "isDone": false,
-    "memberList": [],
-    "skillReqList": []
-  },
-  {
-    "name": "lame",
-    "isDone": false,
-    "memberList": [],
-    "skillReqList": []
-  },
-  {
-    "name": "hi",
-    "isDone": false,
-    "memberList": [],
-    "skillReqList": []
-  },
-  {
-    "name": "yooo",
+    "name": "todo something",
     "isDone": false,
     "memberList": [],
     "skillReqList": []

@@ -9,7 +9,7 @@ public class ScheduleTeamAllCommand extends Command {
 
     private static final String SUCCESS_MSSAGE = "Schedule all tasks of the whole team: ";
     private static final String FAIL_MSSAGE = "fail to schedule all tasks of the whole team.";
-    private static final String EMPTY_MSSAGE = "no todo task for the whole team.";
+    private static final String EMPTY_MSSAGE = "no task for the whole team.";
 
     @Override
     public CommandOutput execute(Model model) throws DukeException {

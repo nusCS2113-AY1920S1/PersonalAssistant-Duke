@@ -121,8 +121,6 @@ public class MemberManager {
      * Delete link(s) from member(s) to task(s). Non-existing link won't be deleted.
      * This is the reverse method of <code>addTask(Member[] members, Task[] toAdd)</code> method.
      *
-     * @param members  Array of Member objects to delete link.
-     * @param toDelete Array of Task objects to delete link.
      */
     /*public void deleteTask(Member[] members, Task[] toDelete) {
         for (int i = 0; i < members.length; i++) {
@@ -211,39 +209,96 @@ public class MemberManager {
         member.setPhone(phone);
     }
 
+    static int countIntOccurrences(ArrayList<Integer> arr, int x) {
+        int res = 0;
+        for (int i = 0; i < arr.size(); i++) {
+            if (x == arr.get(i)) {
+                res++;
+            }
+        }
+        return res;
+    }
+
+    static int countDoubleOccurrences(ArrayList<Double> arr, double x) {
+        int res = 0;
+        for (int i = 0; i < arr.size(); i++) {
+            if (x == arr.get(i)) {
+                res++;
+            }
+        }
+        return res;
+    }
+
+    /**
+     * javadoc
+     */
     public String membersInorderProgress(ArrayList<Double> progress) {
         String result = "";
-        for (int i = 0; i < progress.size(); i++) {
+        int size = progress.size();
+        ArrayList<Double> progressCopy = (ArrayList<Double>) progress.clone();
+        for (int i = 0; i < size; i++) {
             double max = -1;
-            int maxIndex = -1;
             for (int j = 0; j < progress.size(); j++) {
-                if (progress.get(i) > max) {
-                    maxIndex = i;
-                    max = progress.get(i);
+                if (progress.get(j) > max) {
+                    max = progress.get(j);
                 }
             }
-            result += "\n" + maxIndex + 1 + ". " + getMemberNameById(maxIndex)
-                    + " progress is: " + progress.get(maxIndex);
-            progress.remove(max);
+            int res = countDoubleOccurrences(progressCopy, max);
+            int indexInlist;
+            if (res != 1) {
+                int start = 0;
+                for (int k = 0; k < res; k++) {
+                    indexInlist = progressCopy.subList(start, progressCopy.size()).indexOf(max) + start + 1;
+                    result += "\n" + indexInlist + ". " + getMemberNameById(indexInlist - 1)
+                            + " progress is: " + max;
+                    start = indexInlist;
+                    progress.remove(max);
+                }
+            } else {
+                indexInlist = progressCopy.indexOf(max) + 1;
+                result += "\n" + indexInlist + ". " + getMemberNameById(indexInlist - 1)
+                        + " progress is: " + max;
+                progress.remove(max);
+            }
         }
         return result;
     }
 
 
+    /**
+     * java doc
+     */
     public String membersInorderTodoNum(ArrayList<Integer> todoNum) {
         String result = "";
-        for (int i = 0; i < todoNum.size(); i++) {
-            double max = -1;
-            int maxIndex = -1;
+        int size = todoNum.size();
+        System.out.println(size);
+        ArrayList<Integer> todoNumCopy = (ArrayList<Integer>) todoNum.clone();
+        for (int i = 0; i < size; i++) {
+            int min = Integer.MAX_VALUE;
+            System.out.println(todoNum.size());
             for (int j = 0; j < todoNum.size(); j++) {
-                if (todoNum.get(i) > max) {
-                    maxIndex = i;
-                    max = todoNum.get(i);
+                if (todoNum.get(j) < min) {
+                    min = todoNum.get(j);
                 }
             }
-            result += "\n" + maxIndex + 1 + ". " + getMemberNameById(maxIndex)
-                    + " has todo tasks: " + todoNum.get(maxIndex);
-            todoNum.remove(max);
+            int res = countIntOccurrences(todoNumCopy, min);
+            int indexInlist;
+            if (res != 1) {
+                int start = 0;
+                for (int k = 0; k < res; k++) {
+                    indexInlist = todoNumCopy.subList(start, todoNumCopy.size()).indexOf(min) + start + 1;
+                    result += "\n" + indexInlist + ". " + getMemberNameById(indexInlist - 1)
+                            + " has todo tasks: " + min;
+                    start = indexInlist;
+                    todoNum.remove((Object)min);
+                }
+            } else {
+                indexInlist = todoNumCopy.indexOf(min) + 1;
+                result += "\n" + indexInlist + ". " + getMemberNameById(indexInlist - 1)
+                        + " has todo tasks: " + min;
+                todoNum.remove((Object)min);
+            }
+
         }
         return result;
     }

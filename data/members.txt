@@ -1,12 +1,19 @@
 [
   {
     "name": "john",
-    "taskList": [],
+    "taskList": [
+      "john",
+      "james",
+      "null"
+    ],
     "skillList": []
   },
   {
     "name": "james",
-    "taskList": [],
+    "taskList": [
+      "lame",
+      "hi"
+    ],
     "skillList": []
   },
   {
@@ -17,4 +24,3 @@
     ]
   }
 ]
-
