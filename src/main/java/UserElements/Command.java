@@ -351,16 +351,14 @@ public class Command {
      * Finds the next 3 free days in the schedule and passes them to UI class to be printed.
      */
     private void checkFreeDays(EventList events, UI ui) {
-        Calendar dayToCheckIfFree = Calendar.getInstance();
-        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
-        String currentDay = formatter.format(dayToCheckIfFree.getTime());
-        EventDate dayToCheckIfFreeObject = new EventDate(currentDay);
+        EventDate dayToCheckIfFreeObject = new EventDate(new Date());
+        dayToCheckIfFreeObject.addDaysAndSetMidnight(0);
         Queue<String> daysFree = new LinkedList<>();
         int nextDays = 1;
         while (daysFree.size() <= 3) {
             boolean isFree = true;
             for (Event viewEvent : events.getEventArrayList()) {
-                if (viewEvent.getStartDate().getFormattedDateString().equals(dayToCheckIfFreeObject.getFormattedDateString())) {
+                if (viewEvent.getStartDate().getFormattedDateString().substring(0,16).equals(dayToCheckIfFreeObject.getFormattedDateString())) {
                     isFree = false;
                     break;
                 }
