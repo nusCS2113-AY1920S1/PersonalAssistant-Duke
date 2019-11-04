@@ -241,16 +241,6 @@ Examples:
 * `tag w/banana t/fruit` +
 Assigns the word banana with tag fruit.
 
-=== Viewing history : `history`
-
-Shows adding history. +
-Format: `history INTEGER`
-
-=== Viewing search frequency : `freq`
-
-Shows search frequency of each word in specified order. +
-Format: `freq o/ORDER`
-
 === Exiting the program : `exit`
 
 Exits the program. +
