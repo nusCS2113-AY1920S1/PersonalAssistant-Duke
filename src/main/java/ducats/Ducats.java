@@ -73,7 +73,7 @@ public class Ducats {
         while (!isExit) {
             try {
                 String fullCommand = ui.readCommand();
-                Command c = Parser.parse(fullCommand);
+                Command c = Parser.parse(ui,fullCommand);
                 //if the command uses the SongList
                 String output;
                 if (c instanceof AddBarCommand

@@ -19,13 +19,13 @@ public class WordGetter implements Serializable {
             "overlay","group","overlay_bar_group", "metronome",
             "overlay_group_group", "overlay_bar_song", "ascii",
             "redo", "undo", "open",
-            "copy", "insertbar", "swapbar"};
+            "copy", "insertbar", "swapbar","yes","no","play"};
         double maximumVal = 0;
         String commandName = "sasaff";
         Jaccard similarityChecker = new Jaccard();
         for (String temp: commandList) {
             double similarityValue = similarityChecker.similarity(temp,stringToCheck);
-            if (maximumVal < similarityValue && similarityValue >= .25) {
+            if (maximumVal < similarityValue && similarityValue >= .35) {
                 maximumVal = similarityValue;
                 commandName = temp;
             }

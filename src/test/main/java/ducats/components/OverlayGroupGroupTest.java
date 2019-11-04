@@ -15,9 +15,11 @@ import ducats.components.Song;
 public class OverlayGroupGroupTest extends TestCase {
     @Test
     public void testGroupGroup() {
-        //ducats.Storage storage = new ducats.Storage(Paths.get("/home/rishi/Desktop/cs2113t/team/main/data/todo_list" +".txt"));
-
-        ducats.Storage storage = new ducats.Storage(Paths.get("data", "songlist.txt"));
+        //ducats.Storage storage = new ducats.Storage(Paths.get
+        // ("/home/rishi/Desktop/cs2113t/team/main/data/todo_list" +".txt"));
+        String fileDelimiter = System.getProperty("file.separator");
+        ducats.Storage storage = new ducats.Storage (System.getProperty("user.dir") + fileDelimiter + "songlist.txt");
+        //ducats.Storage storage = new ducats.Storage(Paths.get("data", "songlist.txt"));
         SongList songs = new SongList();
         String testSong = "twinkle aminor 123 [[UAs],[UA],[UAs],[UA],[UAs],[UA],[UAs],[UA]] [[UEs;UAs],[UE;UA],[UEs;" +
                 "UAs],[UE;UA],[UEs;UAs],[UE;UA],[UEs;UAs],[UE;UA]] [[MCs;UEs],[MC;UE],[MCs;UEs],[MC;UE],[MCs;UEs],[MC;UE],[MCs;UEs],[MC;UE]]" +
