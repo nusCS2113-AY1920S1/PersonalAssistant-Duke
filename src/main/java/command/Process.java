@@ -689,13 +689,13 @@ public class Process {
      * @param storage command.Storage that stores the input commands entered by the user.
      */
 
-    public void commandHistory(String input, Ui ui, Storage storage) {
+    public void commandHistory(String input, Ui ui, Storage storage) throws AlphaNUSException {
         Calendar cal = Calendar.getInstance();
         Date date = cal.getTime();
         DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
         String formattedDate = dateFormat.format(date);
         String commandTime = input + " ~ " + formattedDate;
-        //storage.save(commandTime); TODO
+        storage.writeToCommandsFile(commandTime);
     }
 
     /**
@@ -705,8 +705,8 @@ public class Process {
      * @param commandList ArrayList of commands.
      * @param storage     command.Storage that stores the input commands entered by the user.
      */
-    public void history(Ui ui, ArrayList<String> commandList, Storage storage) {
-        //commandList = storage.load(); TODO
+    public void history(Ui ui, ArrayList<String> commandList, Storage storage) throws AlphaNUSException {
+        commandList = storage.readFromCommandsFile();
         ui.printArrayList(commandList);
     }
 
@@ -718,7 +718,7 @@ public class Process {
      * @param commandList ArrayList of commands.
      * @param storage     command.Storage that stores the input commands entered by the user.
      */
-    public void viewhistory(String input, Ui ui, ArrayList<String> commandList, Storage storage) throws ParseException {
+    public void viewhistory(String input, Ui ui, ArrayList<String> commandList, Storage storage) throws ParseException, AlphaNUSException {
         String[] splitspace = input.split(" ", 3);
         String[] splitslash = splitspace[2].split("/", 2);
         String[] splitdates = splitslash[1].split(" ", 3);
@@ -727,7 +727,7 @@ public class Process {
         Date dateFirst = sdf.parse(date1);
         String date2 = splitdates[2];
         Date dateSecond = sdf.parse(date2);
-        //commandList = storage.load(); TODO
+        commandList = storage.readFromCommandsFile();
         ArrayList<String> viewhistory = new ArrayList<String>();
             for (int i = 0; i < commandList.size() - 1; i = i + 1) {
                 String token = null;
@@ -752,4 +752,3 @@ public class Process {
             ui.printArrayList(viewhistory);
         }
     }
-}

@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
 /**
@@ -21,7 +22,7 @@ import java.util.LinkedHashMap;
  */
 public class Storage {
     private static String ProjectsFilePath = "localdata/Projects.json";
-    private static String CommandListFilePath = "localdata/CommandList.json";
+    private static String CommandListFilePath = "localdata/history.json";
 
     private Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
@@ -75,5 +76,38 @@ public class Storage {
      */
     public static void remove(String str){
         //TODO
+    }
+
+    public void writeToCommandsFile(String command) throws AlphaNUSException {
+        String toWriteStr = gson.toJson(command);
+        try {
+            File file = new File(CommandListFilePath);
+            if (!file.exists()) {
+                file.getParentFile().mkdirs();
+                file.createNewFile();
+            }
+            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file, true));
+                bufferedWriter.write(toWriteStr);
+                bufferedWriter.newLine();
+                bufferedWriter.close();
+        } catch (IOException e) {
+            throw new AlphaNUSException("Unable to write to file: " + CommandListFilePath);
+        }
+    }
+    public ArrayList<String> readFromCommandsFile() throws AlphaNUSException {
+        //Type commandListtype = new TypeToken<ArrayList<String>>(){}.getType();
+        String line = null;
+        ArrayList<String> List = new ArrayList<String>();
+        try {
+            File file = new File(CommandListFilePath);
+            BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
+            while((line = bufferedReader.readLine()) != null) {
+               List.add(line);
+            }
+            bufferedReader.close();
+        } catch (Exception e) {
+            throw new AlphaNUSException("Unable to read file");
+        }
+        return List;
     }
 }
