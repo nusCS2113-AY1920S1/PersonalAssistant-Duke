@@ -44,20 +44,20 @@ public class ConsoleInputController implements IController {
             }
 
             switch (command) {
-                case "bye":
-                    return end();
-                case "create":
-                    return commandCreate(input);
-                case "list":
-                    return commandList();
-                case "manage":
-                    return commandManage(inputReader);
-                case "delete":
-                    return commandDelete(inputReader);
-                case "help":
-                    return commandHelp();
-                default:
-                    return new String[] {"Invalid inputs. Please refer to User Guide or type help!"};
+            case "bye":
+                return end();
+            case "create":
+                return commandCreate(input);
+            case "list":
+                return commandList();
+            case "manage":
+                return commandManage(inputReader);
+            case "delete":
+                return commandDelete(inputReader);
+            case "help":
+                return commandHelp();
+            default:
+                return new String[] {"Invalid inputs. Please refer to User Guide or type help!"};
             }
         } catch (NullPointerException err) {
             return new String[] {"Please delete any corrupted .json saved data and try again!"};

@@ -63,6 +63,7 @@ public class ProjectRepository implements IRepository<Project> {
         }
     }
 
+    //@@author seanlimhx
     /**
      * Method to get all project details in a suitable form for CLIView to print in a table form.
      * @return ArrayList of details to be presented in each table, with each element as an ArrayList
@@ -107,6 +108,12 @@ public class ProjectRepository implements IRepository<Project> {
         return responseModel;
     }
 
+    //@@author Lucria
+    /**
+     * Method for getting the details about the currently managed Project for ProjectInputController
+     * @param selectedProject : current Project that is being managed
+     * @return : Returns an ArrayList of String for printing in a user friendly format
+     */
     public ArrayList<String> getProjectDetailsForTable(Project selectedProject) {
         ArrayList<String> responseModel = new ArrayList<>();
         responseModel.add("Project " + (allProjects.indexOf(selectedProject) + 1) + ": " + selectedProject.getName());
