@@ -332,11 +332,14 @@ public class ProjectInputController implements IController {
                 return new String[]
                 {"No parameters detected. Please enter details in the following format:",
                  "TASK_INDEX [-t TASK_NAME] [-p TASK_PRIORITY] [-d TASK_DUEDATE] [-c TASK_CREDIT] [-s STATE]"};
-            }
-            int taskIndexNumber = Integer.parseInt(projectCommand.substring(10).split(" ")[0]);
-            String updatedTaskDetails = projectCommand.substring(projectCommand.indexOf("-"));
-
+            } 
+            int taskIndexNumber = Integer.parseInt(projectCommand.substring(10).trim().split(" ")[0]);
             if (projectToManage.getNumOfTasks() >= taskIndexNumber && taskIndexNumber > 0) {
+                if (!projectCommand.contains("-")) {
+                    return new String[] {"No flags are found! Available flags for use are '-t', '-p, '-d', '-c' and "
+                            + "'-s' to indicate the new task details! Refer to the user guide for more help!"};
+                }
+                String updatedTaskDetails = projectCommand.substring(projectCommand.indexOf("-"));
                 return projectToManage.editTask(taskIndexNumber, updatedTaskDetails);
             }
             return new String[] {"The task index entered is invalid."};

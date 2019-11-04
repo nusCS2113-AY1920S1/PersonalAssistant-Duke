@@ -123,7 +123,7 @@ public class TaskList {
         String taskName = taskDetails.get(0);
         ArrayList<String> messagesForUser = new ArrayList<>();
         ArrayList<String> successMessages = new ArrayList<>();
-        ArrayList<String> errorMessages = new ArrayList<>();
+        ArrayList<String> errorMessages = new ArrayList<>(parserHelper.getErrorMessages());
 
         Task task = taskList.get(taskIndexNumber - 1);
         if (!("--".equals(taskName))) {
