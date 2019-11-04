@@ -62,7 +62,9 @@ public class EditRatingCommand extends Command<RecipeList, Ui, RecipeStorage> {
      * @return true if the input rating is one of "average", "good", "delicious"
      */
     private boolean isValidRating(String rating) {
-        return (rating.equals("") || rating.equals("average") || rating.equals("good") || rating.equals("delicious"));
+        return (rating.equals("") || rating.equals("average") || rating.equals("good") || rating.equals("delicious")
+                                  || rating.equals("Average") || rating.equals("Good") || rating.equals("Delicious")
+                                  || rating.equals("AVERAGE") || rating.equals("GOOD") || rating.equals("DELICIOUS"));
     }
 
     @Override

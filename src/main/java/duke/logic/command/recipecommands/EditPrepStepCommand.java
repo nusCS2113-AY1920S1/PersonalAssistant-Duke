@@ -23,43 +23,45 @@ public class EditPrepStepCommand extends Command<RecipeList, Ui, RecipeStorage> 
         ArrayList<String> arrayList = new ArrayList<>();
         if (userInput.trim().equals(COMMAND_EDIT_PREPSTEP)) {
             arrayList.add(ERROR_MESSAGE_GENERAL + MESSAGE_FOLLOWUP_NUll);
-        } else if (userInput.trim().charAt(12) == ' ') {
+        }
+        else if (userInput.trim().charAt(12) == ' ') {
             String description = userInput.split("\\s", 2)[1].trim();
             String recipeTitle, position, prepStep, remaining;
             if (hasOneCommand(description)) {
                 String command = whichCommand(description);
 
                 if (isIns(command)) {
-                    String[] split = description.split(command, 2);
-                    recipeTitle = split[0].trim();
-                    remaining = split[1].trim();
-                    position = remaining.split("p/", 2)[0].trim();
-                    prepStep = remaining.split("p/", 2)[1].trim();
-
-                    if (recipeTitle.isEmpty() || position.isEmpty() || prepStep.isEmpty()) {
-                        arrayList.add(ERROR_MESSAGE_EDIT_PREPSTEP_INS_INCOMPLETE);
-                    } else if (!recipeList.containsRecipe(recipeTitle)) {
-                        arrayList.add(ERROR_MESSAGE_RECIPE_DOES_NOT_EXIST);
+                    if (!description.contains("stetp/")) {
+                        arrayList.add(ERROR_MESSAGE_EDIT_PREPSTEP_INS_INCORRECT_FORMAT + "\n");
                     } else {
-                        if (isParsable(position) && isValidPosition(recipeTitle, position, recipeList)) {
-                            recipeList.insertPrepStep(recipeTitle, position, prepStep);
-                            recipeStorage.saveFile(recipeList);
-                            arrayList.add(MESSAGE_ADDED_TO_PREPSTEPS + "\n" + "       " + prepStep);
+                        String[] split = description.split(command, 2);
+                        recipeTitle = split[0].trim();
+                        remaining = split[1].trim();
+                        position = remaining.split("step/", 2)[0].trim();
+                        prepStep = remaining.split("step/", 2)[1].trim();
+
+                        if (recipeTitle.isEmpty() || position.isEmpty() || prepStep.isEmpty()) {
+                            arrayList.add(ERROR_MESSAGE_EDIT_PREPSTEP_INS_INCOMPLETE);
+                        } else if (!recipeList.containsRecipe(recipeTitle)) {
+                            arrayList.add(ERROR_MESSAGE_RECIPE_DOES_NOT_EXIST);
                         } else {
-                            if (!isParsable(position)) {
-                                arrayList.add(ERROR_MESSAGE_INVALID_INDEX + "\n");
-                            }
-                            if (!isValidPosition(recipeTitle, position, recipeList)) {
-                                arrayList.add(ERROR_MESSAGE_PREPSTEP_INVALID_POSITION);
-                            }
-                            else {
-                                arrayList.add(ERROR_MESSAGE_EDIT_PREPSTEP_INS_INCORRECT_FORMAT + "\n");
+                            if (isParsable(position) && isValidPosition(recipeTitle, position, recipeList)) {
+                                recipeList.insertPrepStep(recipeTitle, position, prepStep);
+                                recipeStorage.saveFile(recipeList);
+                                arrayList.add(MESSAGE_ADDED_TO_PREPSTEPS + "\n" + "       " + prepStep);
+                            } else {
+                                if (!isParsable(position)) {
+                                    arrayList.add(ERROR_MESSAGE_INVALID_INDEX + "\n");
+                                }
+                                if (!isValidPosition(recipeTitle, position, recipeList)) {
+                                    arrayList.add(ERROR_MESSAGE_PREPSTEP_INVALID_POSITION);
+                                } else {
+                                    arrayList.add(ERROR_MESSAGE_EDIT_PREPSTEP_INS_INCORRECT_FORMAT + "\n");
+                                }
                             }
                         }
                     }
-                }
-
-                else if (isDel(command)) {
+                } else if (isDel(command)) {
                     String[] split = description.split(command, 2);
                     recipeTitle = split[0].trim();
                     position = split[1].trim();
@@ -67,7 +69,7 @@ public class EditPrepStepCommand extends Command<RecipeList, Ui, RecipeStorage> 
                         arrayList.add(ERROR_MESSAGE_EDIT_PREPSTEP_DEL_INCOMPLETE);
                     } else if (!recipeList.containsRecipe(recipeTitle)) {
                         arrayList.add(ERROR_MESSAGE_RECIPE_DOES_NOT_EXIST);
-                    }else {
+                    } else {
                         if (isParsable(position)) {
                             String deletedPrepStep = recipeList.deletePrepStep(recipeTitle, position);
                             recipeStorage.saveFile(recipeList);
@@ -78,23 +80,27 @@ public class EditPrepStepCommand extends Command<RecipeList, Ui, RecipeStorage> 
                     }
                 }
 
-
                 else if (isApp(command)) {
-                    String[] split = description.split(command, 2);
-                    recipeTitle = split[0].trim();
-                    remaining = split[1].trim();
-                    prepStep = remaining.split("p/", 2)[1].trim();
-
-                    if (recipeTitle.isEmpty() || prepStep.isEmpty()) {
-                        arrayList.add(ERROR_MESSAGE_EDIT_PREPSTEP_APP_INCOMPLETE);
-                    } else if (!recipeList.containsRecipe(recipeTitle)) {
-                        arrayList.add(ERROR_MESSAGE_RECIPE_DOES_NOT_EXIST);
+                    if (!description.contains("step/")) {
+                        arrayList.add(ERROR_MESSAGE_EDIT_PREPSTEP_INS_INCORRECT_FORMAT + "\n");
                     } else {
-                        recipeList.appendPrepStep(recipeTitle, prepStep);
-                        recipeStorage.saveFile(recipeList);
-                        arrayList.add(MESSAGE_ADDED_TO_PREPSTEPS + "\n" + "       " + prepStep);
+                        String[] split = description.split(command, 2);
+                        recipeTitle = split[0].trim();
+                        remaining = split[1].trim();
+                        prepStep = remaining.split("step/", 2)[1].trim();
+
+                        if (recipeTitle.isEmpty() || prepStep.isEmpty()) {
+                            arrayList.add(ERROR_MESSAGE_EDIT_PREPSTEP_APP_INCOMPLETE);
+                        } else if (!recipeList.containsRecipe(recipeTitle)) {
+                            arrayList.add(ERROR_MESSAGE_RECIPE_DOES_NOT_EXIST);
+                        } else {
+                            recipeList.appendPrepStep(recipeTitle, prepStep);
+                            recipeStorage.saveFile(recipeList);
+                            arrayList.add(MESSAGE_ADDED_TO_PREPSTEPS + "\n" + "       " + prepStep);
+                        }
                     }
                 }
+
 
                 else if (isClr(command)) {
                     String[] split = description.split(command, 2);
@@ -109,8 +115,6 @@ public class EditPrepStepCommand extends Command<RecipeList, Ui, RecipeStorage> 
                         arrayList.add(MESSAGE_CLEARED_PREPSTEPS);
                     }
                 }
-
-
                 else {
                     arrayList.add(ERROR_MESSAGE_EDIT_PREPSTEP_INCORRECT_FORMAT);
                 }
