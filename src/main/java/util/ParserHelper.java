@@ -138,32 +138,54 @@ public class ParserHelper {
     /**
      * Parses string input to extract task requirements to be added and indexes of task requirements to be removed.
      * @param input Contains the new task requirements and indexes of task requirements to be removed.
-     * @return An ArrayList consisting of indexes to be removed in index 0, and subsequent elements containing
-     *         new task requirements
+     * @return An ArrayList consisting of indexes to be removed in index 0, new task requirements and error messages
      */
     public ArrayList<String> parseTaskRequirementDetails(String input) {
         ArrayList<String> taskRequirementDetails = new ArrayList<>();
 
-        String taskReqIndexesToBeRemoved = "--";
+        ArrayList<String> taskReqIndexesToBeRemoved = new ArrayList<>();
         ArrayList<String> taskRequirementsToBeAdded = new ArrayList<>();
+        errorMessages.clear();
 
         String[] newTaskRequirementsArray = input.split("-");
         ArrayList<String> newTaskRequirementsArrayList = new ArrayList<>(Arrays.asList(newTaskRequirementsArray));
         newTaskRequirementsArrayList.remove(0);
         for (String s : newTaskRequirementsArrayList) {
-            switch (s.substring(0, 2)) {
+            String trimmedString = s.trim();
+            if (trimmedString.length() <= 2) {
+                if ("r".equals(trimmedString) || "rm".equals(trimmedString)) {
+                    errorMessages.add("There is an empty flag '-" + trimmedString + "'");
+                } else {
+                    errorMessages.add("'-" + trimmedString + "' is an invalid flag");
+                }
+                continue;
+            }
+
+            switch (trimmedString.split(" ")[0]) {
             case "rm":
-                taskReqIndexesToBeRemoved = s.substring(3);
+                String[] splitTrimmedString = trimmedString.substring(3).split(" ");
+                taskReqIndexesToBeRemoved.addAll(Arrays.asList(splitTrimmedString));
                 break;
-            case "r ":
-                taskRequirementsToBeAdded.add(s.substring(2));
+            case "r":
+                taskRequirementsToBeAdded.add(trimmedString.substring(2));
                 break;
             default:
+                errorMessages.add("Invalid flag is used in this entry: -" + trimmedString);
                 break;
             }
         }
 
-        taskRequirementDetails.add(taskReqIndexesToBeRemoved);
+        if (taskReqIndexesToBeRemoved.size() == 0) {
+            taskRequirementDetails.add("--");
+        } else {
+            StringBuilder taskReqIndexesToBeRemovedString = new StringBuilder();
+            for (String s1 : taskReqIndexesToBeRemoved) {
+                taskReqIndexesToBeRemovedString.append(s1);
+                taskReqIndexesToBeRemovedString.append(" ");
+            }
+            taskRequirementDetails.add(taskReqIndexesToBeRemovedString.toString().trim());
+        }
+
         taskRequirementDetails.addAll(taskRequirementsToBeAdded);
         return taskRequirementDetails;
     }
