@@ -282,10 +282,16 @@ public class Ui {
         } else if (instruction.equals("quiz")) {
             return "Take a quiz to test yourself.\n"
                     + "Format: quiz";
+        } else if (instruction.equals("schedule")) {
+            return "Schedule words to study.\nReminder pop up will be shown at time set.\n"
+                    + "Format: schedule";
+        } else if (instruction.equals("search_begin")) {
+            return "Search for words with their prefix.\n"
+                    + "Format: search_begin w/d";
         } else {
-            return "Here are the instructions for WordUp.\n"
-                    + "add, delete, edit, exit, freq, help, history, list, search, tag, addsyn, quiz\n"
-                    + "Enter \"help [instruction]\" for more details.";
+            return "Here are the commands for WordUp.\n"
+                    + "add, delete, edit, exit, freq, help, history, list, schedule, search, search_begin, tag, addsyn, quiz\n"
+                    + "Enter \"help [command]\" for more details.";
         }
     }
 
