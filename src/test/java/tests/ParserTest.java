@@ -1,12 +1,12 @@
 package tests;
 
 import duke.command.Command;
-import duke.command.home.HomeNewCommand;
 import duke.command.Parser;
 import duke.exception.DukeException;
 import duke.ui.context.UiContext;
 import mocks.DoctorCommand;
 import mocks.TestCommands;
+import mocks.ValidEmptyCommand;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -83,6 +83,16 @@ public class ParserTest {
             assertEquals("double \" quote", docCmd.getSwitchVal("switch"));
         } catch (DukeException excp) {
             fail("Exception thrown when parsing strings and escapes: " + excp.getMessage());
+        }
+    }
+
+    @Test
+    public void parseCommands_validEmptyCommand_errorNotThrown() {
+        try {
+            Command testCmd = uut.parse("empty");
+            assertEquals(ValidEmptyCommand.class, testCmd.getClass());
+        } catch (DukeException excp) {
+            fail("Exception thrown when parsing valid empty command: " + excp.getMessage());
         }
     }
 }
