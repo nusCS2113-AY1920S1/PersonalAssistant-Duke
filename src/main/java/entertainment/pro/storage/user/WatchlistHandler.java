@@ -142,6 +142,25 @@ public class WatchlistHandler {
         return names;
     }
 
+
+    /**
+     * return a list of possible hints from watchlist for autocomplete.
+     * @param keyword incomplete command of the user
+     * @return ArrayList list of movie titles currently in the watchlist that could potentially be
+     * what the user is trying to type.
+     *
+     */
+    public static ArrayList<String> getWatchListHints(String keyword) {
+        ArrayList<String> hints = new ArrayList<>();
+        for (Tasks i : watch) {
+            if (i.getDescription().toLowerCase().contains(keyword.toLowerCase())) {
+                hints.add(i.getDescription());
+            }
+
+        }
+        return hints;
+    }
+
     /**
      * searches for a movie in the watchlist to mark as its corresponding task as done
      * @param movie: title of the movie to be searched

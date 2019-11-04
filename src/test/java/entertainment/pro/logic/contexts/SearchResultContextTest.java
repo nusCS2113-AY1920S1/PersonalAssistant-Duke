@@ -12,7 +12,8 @@ import java.util.HashMap;
 
 public class SearchResultContextTest {
 
-    @Test public void testaddResults(){
+    @Test
+    public void addResults_validInputs_success(){
 
         ArrayList<MovieInfoObject> searchresults = new ArrayList<MovieInfoObject>(Arrays.asList(
                 new MovieInfoObject(12,"title 1" ,true),
@@ -27,6 +28,24 @@ public class SearchResultContextTest {
         possibilities.sort(null);
 
         assertEquals(true ,  possibilities.equals(possible));
+
+
+    }
+
+
+    @Test
+    public void addResults_invalidInputs_failure(){
+
+        ArrayList<MovieInfoObject> searchresults = new ArrayList<MovieInfoObject>(Arrays.asList(
+                new MovieInfoObject(12,"title 1" ,true),
+                new MovieInfoObject(15,"title 2" ,true) ,
+                new MovieInfoObject(18,"title 3" ,true)));
+
+
+        SearchResultContext.addResults(searchresults);
+        ArrayList<String> possible = SearchResultContext.getPossibilities("japan");
+
+        assertEquals(0 ,  possible.size());
 
 
     }
