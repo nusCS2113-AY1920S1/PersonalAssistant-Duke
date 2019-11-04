@@ -10,10 +10,10 @@ import moomoo.task.Storage;
 import moomoo.task.Ui;
 
 public class GraphCategoryCommand extends Command {
-    private final String fullBlock = "H";
-    private final String halfBlock = "l";
-    private final String topBorder = "v";
-    private final String bottomBorder = "^";
+    private final String fullBlock = "\u2588"; //"H";
+    private final String halfBlock = "\u258c"; //"l";
+    private final String topBorder = "\u252c";//"v";
+    private final String bottomBorder = "\u2534";//"^";
     private String horizontalAxisTop = "";
     private String horizontalAxisBottom = "";
     private String output = "";
