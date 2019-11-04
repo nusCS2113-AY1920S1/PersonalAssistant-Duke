@@ -1,4 +1,4 @@
-package duke.logic.parsers.commandParsers;
+package duke.logic.parsers.commandparsers;
 
 import duke.commons.Messages;
 import duke.commons.enumerations.Constraint;
@@ -33,7 +33,8 @@ public class RouteGenerateParser extends CommandParser {
         String[] details = input.split(" to | by ", THREE);
         if (details.length == THREE) {
             try {
-                return new RouteGenerateCommand(details[ZERO], details[ONE], Constraint.valueOf(details[TWO].toUpperCase()));
+                return new RouteGenerateCommand(details[ZERO], details[ONE],
+                        Constraint.valueOf(details[TWO].toUpperCase()));
             } catch (IllegalArgumentException e) {
                 throw new ParseException(Messages.ERROR_CONSTRAINT_UNKNOWN);
             }

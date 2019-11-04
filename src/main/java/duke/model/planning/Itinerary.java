@@ -4,7 +4,7 @@ import duke.commons.Messages;
 import duke.commons.exceptions.ApiException;
 import duke.commons.exceptions.ParseException;
 import duke.logic.api.ApiParser;
-import duke.logic.parsers.storageParsers.PlanningStorageParser;
+import duke.logic.parsers.storageparsers.PlanningStorageParser;
 import duke.model.lists.AgendaList;
 import duke.model.locations.Venue;
 

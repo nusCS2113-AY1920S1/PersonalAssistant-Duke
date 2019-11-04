@@ -1,4 +1,4 @@
-package duke.logic.parsers.storageParsers;
+package duke.logic.parsers.storageparsers;
 
 import duke.commons.exceptions.ApiException;
 import duke.commons.exceptions.ParseException;

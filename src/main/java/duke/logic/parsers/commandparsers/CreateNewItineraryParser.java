@@ -1,4 +1,4 @@
-package duke.logic.parsers.commandParsers;
+package duke.logic.parsers.commandparsers;
 
 import duke.commons.exceptions.ParseException;
 import duke.commons.exceptions.ChronologyBeforePresentException;

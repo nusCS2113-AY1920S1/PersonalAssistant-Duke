@@ -1,4 +1,4 @@
-package duke.logic.parsers.commandParsers;
+package duke.logic.parsers.commandparsers;
 
 import duke.logic.commands.Command;
 import duke.logic.commands.StaticMapCommand;

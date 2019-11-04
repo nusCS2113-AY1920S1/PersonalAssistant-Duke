@@ -36,7 +36,8 @@ public class Messages {
     public static final String ERROR_ITINERARY_EMPTY_TODOLIST = "I'm sorry, but entering todos for a day is compulsory";
     public static final String ERROR_ITINERARY_FAIL_CREATION = "I'm sorry, but you have not entered your "
             + "itinerary properly";
-    public static final String ERROR_ITINERARY_INCORRECT_COMMAND = "I'm sorry, but your itinerary command syntax is wrong ";
+    public static final String ERROR_ITINERARY_INCORRECT_COMMAND = "I'm sorry, but your itinerary command "
+            + "syntax is wrong.";
     public static final String ERROR_ITINERARY_NOT_FOUND = "I'm sorry, but that itinerary list does not exist ";
     public static final String ERROR_ITINERARY_NO_RECENT = "I'm sorry, there are no recent itinerary to add.";
     public static final String ERROR_RECOMMENDATION_FAIL = "I'm sorry, the days of the trip is too long.\n"
