@@ -61,7 +61,6 @@ public class AddCommand extends Command {
                 for (int i = 0; i< conflict.size();i++){
                     show += conflict.get(0);
                 }
-               // alertBox.display("Warning", out, show, Alert.AlertType.WARNING);
             }
         } else if (task.getType().equals("[D]")) {
             deadlines.addTask(this.task);

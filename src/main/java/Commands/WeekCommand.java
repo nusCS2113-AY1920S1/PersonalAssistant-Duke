@@ -13,7 +13,6 @@ import java.util.HashMap;
 import java.util.logging.Logger;
 
 public class WeekCommand extends Command {
-    private static final Logger LOGGER = Logger.getLogger(WeekCommand.class.getName());
     private LookupTable lookupTable = LookupTable.getInstance();
     private String week;
     private final ObservableList<Text> monList = FXCollections.observableArrayList();
@@ -154,7 +153,7 @@ public class WeekCommand extends Command {
     }
 
     @Override
-    public String execute(TaskList events, TaskList deadlines, UserInteraction ui, Storage storage) throws Exception {
+    public String execute(TaskList events, TaskList deadlines, UserInteraction ui, Storage storage) {
 //        String intWeek = week.replaceFirst("Week", "");
 //        intWeek = intWeek.trim();
 //        Integer duration = Integer.parseInt(intWeek);

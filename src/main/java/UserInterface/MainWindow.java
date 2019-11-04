@@ -3,10 +3,7 @@ package UserInterface;
 import Commands.ShowPreviousCommand;
 import Commands.WeekCommand;
 import Commands.UpdateProgressIndicatorCommand;
-import Commons.Duke;
-import Commons.LookupTable;
-import Commons.Storage;
-import Commons.WeekList;
+import Commons.*;
 import DukeExceptions.DukeIOException;
 import DukeExceptions.DukeInvalidFormatException;
 import Parser.WeekParse;
@@ -35,6 +32,7 @@ import javafx.util.Pair;
 
 import java.io.*;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -92,7 +90,7 @@ public class MainWindow extends BorderPane implements Initializable {
     private TaskList deadlinesList;
     public static ArrayList<String> outputList = new ArrayList<>();
     private static WeekList outputWeekList = new WeekList();
-    private static final Logger LOGGER = Logger.getLogger(MainWindow.class.getName());
+    private final Logger LOGGER = DukeLogger.getLogger(MainWindow.class);
     private static LookupTable lookupTable = LookupTable.getInstance();
 
 
@@ -114,7 +112,7 @@ public class MainWindow extends BorderPane implements Initializable {
             setDeadlineTableContents();
             setProgressContainer();
         } catch (NullPointerException | IOException | ParseException e) {
-            LOGGER.log(Level.SEVERE, e.toString(), e);
+            LOGGER.severe("Unable to initialise main window GUI." + e.getMessage());
         }
     }
 
@@ -122,7 +120,7 @@ public class MainWindow extends BorderPane implements Initializable {
         try {
             ArrayList<String> listOfQuotes = new ArrayList<>();
             InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("documents/quotes.txt");
-            InputStreamReader inputStreamReader = new InputStreamReader(inputStream, "UTF-8");
+            InputStreamReader inputStreamReader = new InputStreamReader(inputStream, StandardCharsets.UTF_8);
             BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
             StringBuffer sb = new StringBuffer();
             String firstLine;
@@ -138,7 +136,7 @@ public class MainWindow extends BorderPane implements Initializable {
             inputStreamReader.close();
             inputStream.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            LOGGER.severe("quotes.txt not found. Unable to load quote of the day." + e.getMessage());
         }
     }
 
@@ -161,7 +159,7 @@ public class MainWindow extends BorderPane implements Initializable {
             try {
                 loads = fxmlLoad.load();
             } catch (IOException e) {
-                LOGGER.log(Level.SEVERE, e.toString(), e);
+                LOGGER.severe("ProgressIndicator.fxml not found." + e.getMessage());
             }
             int totalNumOfTasks = progressIndicatorValues.get(module).getKey();
             int completedValue = progressIndicatorValues.get(module).getValue();

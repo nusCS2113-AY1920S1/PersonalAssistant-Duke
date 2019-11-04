@@ -56,24 +56,19 @@ public class DeleteCommand extends Command {
      */
     @Override
     public String execute(TaskList events, TaskList deadlines, UserInteraction ui, Storage storage) throws DukeException {
-       try {
-           HashMap<String, HashMap<String, ArrayList<Assignment>>> eventMap = events.getMap();
-           HashMap<String, HashMap<String, ArrayList<Assignment>>> deadlineMap = deadlines.getMap();
-
-           if (list.equals("event")) {
-               isInsideMapDone(eventMap, task);
-               events.removeTask(task);
-               storage.updateEventList(events);
-               listToChange = events;
-           } else if (list.equals("deadline")) {
-               isInsideMapDone(deadlineMap, task);
-               deadlines.removeTask(task);
-               storage.updateDeadlineList(deadlines);
-               listToChange = deadlines;
-           }
-           return ui.showDelete(task, listToChange.taskListSize());
-       } catch (ArrayIndexOutOfBoundsException e) {
-           throw new DukeException("\u2639" + " OOPS!!! I'm sorry, but we cannot find the input task  :-(\n");
-       }
+        HashMap<String, HashMap<String, ArrayList<Assignment>>> eventMap = events.getMap();
+        HashMap<String, HashMap<String, ArrayList<Assignment>>> deadlineMap = deadlines.getMap();
+        if (list.equals("event")) {
+            isInsideMapDone(eventMap, task);
+            events.removeTask(task);
+            storage.updateEventList(events);
+            listToChange = events;
+        } else if (list.equals("deadline")) {
+            isInsideMapDone(deadlineMap, task);
+            deadlines.removeTask(task);
+            storage.updateDeadlineList(deadlines);
+            listToChange = deadlines;
+        }
+        return ui.showDelete(task, listToChange.taskListSize());
     }
 }

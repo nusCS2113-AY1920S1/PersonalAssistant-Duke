@@ -2,6 +2,7 @@ package Parser;
 
 import Commands.Command;
 import Commands.RecurringCommand;
+import Commons.DukeLogger;
 import DukeExceptions.DukeInvalidFormatException;
 import Commons.LookupTable;
 
@@ -16,7 +17,7 @@ public class RecurParse extends Parse {
 
     private static String fullCommand;
     private static String[] modCodeAndDescriptionSplit;
-    private static final Logger LOGGER = Logger.getLogger(RecurParse.class.getName());
+    private final Logger LOGGER = DukeLogger.getLogger(RecurParse.class);
 
     public RecurParse(String fullCommand) {
         this.fullCommand = fullCommand;
@@ -32,7 +33,7 @@ public class RecurParse extends Parse {
             String[] fullCommandSplit = activity.split("/start");
             String modCodeAndDescription = fullCommandSplit[0].trim();
             modCodeAndDescriptionSplit = modCodeAndDescription.trim().split(" ");
-            if(!super.isModCode(modCodeAndDescriptionSplit[1])){
+            if (!super.isModCode(modCodeAndDescriptionSplit[1])) {
                 throw new DukeInvalidFormatException("\u2639" + " OOPS!!! The ModCode is invalid");
             }
             String dateAndTime = fullCommandSplit[1].trim();
@@ -50,12 +51,9 @@ public class RecurParse extends Parse {
                 modCodeAndDescription = modCodeAndDescription.substring(7).trim();
                 isRecur = true;
             }
-
-
             if (modCodeAndDescription.isEmpty()) {
                 throw new DukeInvalidFormatException("\u2639" + " OOPS!!! The description of a event cannot be empty.");
             }
-
             String[] in = DateTimeParser.recurringEventParse(dateAndTime);
             String startDateString = in[0];
             String endDateString = in[1];
@@ -63,7 +61,7 @@ public class RecurParse extends Parse {
             String endTimeString = in[3];
             return new RecurringCommand(modCodeAndDescription, startDateString, endDateString, startTimeString, endTimeString, isBiweekly, isRecur);
         } catch (ParseException | ArrayIndexOutOfBoundsException e) {
-            LOGGER.log(Level.INFO, e.toString(), e);
+            LOGGER.info("Invalid recur format" + e.getMessage());
             throw new DukeInvalidFormatException("OOPS!!! Please enter recurring event as follows:\n" +
                     "recur/(fill) modCode name_of_event /start dd/MM/yyyy to dd/MM/yyyy /from HHmm /to HHmm\n" +
                     "Note: replace (fill) with either: weekly, biweekly, rmweekly, rmbiweekly\n" +

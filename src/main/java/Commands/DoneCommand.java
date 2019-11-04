@@ -56,23 +56,19 @@ public class DoneCommand extends Command {
      */
     @Override
     public String execute(TaskList events, TaskList deadlines, UserInteraction ui, Storage storage) throws DukeException {
-        try{
-            HashMap<String, HashMap<String, ArrayList<Assignment>>> eventMap = events.getMap();
-            HashMap<String, HashMap<String, ArrayList<Assignment>>> deadlineMap = deadlines.getMap();
+        HashMap<String, HashMap<String, ArrayList<Assignment>>> eventMap = events.getMap();
+        HashMap<String, HashMap<String, ArrayList<Assignment>>> deadlineMap = deadlines.getMap();
 
-            if (list.equals("event")) {
-                isInsideMapRemove(eventMap, task);
-                events.updateTask(task);
-                storage.updateEventList(events);
-            } else if (list.equals("deadline")) {
-                isInsideMapRemove(deadlineMap, task);
-                deadlines.updateTask(task);
-                storage.updateDeadlineList(deadlines);
-            }
-            task.setDone(true);
-            return ui.showDone(task);
-        } catch(ArrayIndexOutOfBoundsException e) {
-            throw new DukeException("\u2639" + " OOPS!!! I'm sorry, but we cannot find the input task  :-(\n");
+        if (list.equals("event")) {
+            isInsideMapRemove(eventMap, task);
+            events.updateTask(task);
+            storage.updateEventList(events);
+        } else if (list.equals("deadline")) {
+            isInsideMapRemove(deadlineMap, task);
+            deadlines.updateTask(task);
+            storage.updateDeadlineList(deadlines);
         }
+        task.setDone(true);
+        return ui.showDone(task);
     }
 }

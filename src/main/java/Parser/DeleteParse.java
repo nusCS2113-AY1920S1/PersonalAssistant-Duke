@@ -2,6 +2,7 @@ package Parser;
 
 import Commands.Command;
 import Commands.DeleteCommand;
+import Commons.DukeLogger;
 import DukeExceptions.DukeInvalidCommandException;
 import DukeExceptions.DukeInvalidFormatException;
 import Tasks.Deadline;
@@ -17,7 +18,7 @@ public class DeleteParse extends Parse {
     private static String[] split;
     private static String[] split1;
     private static String fullCommand;
-    private static final Logger LOGGER = Logger.getLogger(DeleteParse.class.getName());
+    private final Logger LOGGER = DukeLogger.getLogger(DeleteParse.class);
 
     /**
      * Creates a DeleteParse object.
@@ -32,13 +33,13 @@ public class DeleteParse extends Parse {
      * @throws Exception Returned if command does not adhere to format
      */
     @Override
-    public Command parse() throws Exception {
+    public Command parse() throws DukeInvalidFormatException, DukeInvalidCommandException {
         if (fullCommand.trim().substring(0, 8).equals("delete/e")) {
             try { //add/e module_code description /at date from time to time
                 String activity = fullCommand.trim().substring(8);
                 split = activity.split("/at"); //split[0] is " module_code description", split[1] is "date from time to time"
                 split1 = split[0].trim().split(" ");
-                if(!super.isModCode(split1[0])){
+                if (!super.isModCode(split1[0])) {
                     throw new DukeInvalidFormatException("\u2639" + " OOPS!!! The ModCode is invalid");
                 }
                 if (split[0].trim().isEmpty()) {
@@ -47,7 +48,7 @@ public class DeleteParse extends Parse {
                 String[] out = DateTimeParser.EventParse(split[1]);
                 return new DeleteCommand("event", new Event(split[0].trim(), out[0],out[1],out[2]));
             } catch (ParseException | ArrayIndexOutOfBoundsException e) {
-                LOGGER.log(Level.INFO, e.toString(), e);
+                LOGGER.info("Invalid format for deleting event" + e.getMessage());
                 throw new DukeInvalidFormatException("OOPS!!! Please enter in the format as follows:\n" +
                         "delete/e mod_code name_of_event /at dd/MM/yyyy /from HHmm /to HHmm\n" +
                         "or delete/e mod_code name_of_event /at week x day /from HHmm /to HHmm\n");
@@ -57,7 +58,7 @@ public class DeleteParse extends Parse {
                 String activity = fullCommand.trim().substring(8);
                 split = activity.split("/by");
                 split1 = split[0].trim().split(" ");
-                if(!super.isModCode(split1[0])){
+                if (!super.isModCode(split1[0])) {
                     throw new DukeInvalidFormatException("\u2639" + " OOPS!!! The ModCode is invalid");
                 }
                 if (split[0].trim().isEmpty()) {
@@ -65,9 +66,8 @@ public class DeleteParse extends Parse {
                 }
                 String[] out = DateTimeParser.DeadlineParse(split[1]);
                 return new DeleteCommand("deadline", new Deadline(split[0].trim(), out[0],out[1]));
-
             } catch (ParseException | ArrayIndexOutOfBoundsException e) {
-                LOGGER.log(Level.INFO, e.toString(), e);
+                LOGGER.info("Invalid format for deleting deadline" + e.getMessage());
                 throw new DukeInvalidFormatException("OOPS!!! Please enter in the format as follows:\n" +
                         "delete/d mod_code name_of_event /by dd/MM/yyyy HHmm\n" +
                         "or delete/d mod_code name_of_event /by week x day HHmm\n");

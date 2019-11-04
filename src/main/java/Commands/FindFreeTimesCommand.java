@@ -293,7 +293,7 @@ public class FindFreeTimesCommand extends Command {
                         dateTimeEnd = increaseDateTime(dateTimeStart, duration);
                         if(dateTimeEnd.before(dateUpperBoundary)) freeTimeData.add(new Pair<>(dateTimeStart, dateTimeEnd));
                         if(checkFreeTimeOptions()) return;
-                    } else {//dateTimeEnd.after(dateBoundary)
+                    } else { //dateTimeEnd.after(dateBoundary)
                         String nextKey = dataMap.higherKey(date);
                         if(nextKey == null) {
                             Date nextDay = dateTimeFormat12.parse(date + " 12:00 AM");

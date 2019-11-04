@@ -20,7 +20,6 @@ public class ShowWorkloadCommand extends Command {
     private String week;
     private LookupTable lookupTable = LookupTable.getInstance();
 
-
     /**
      * Show recommended weekly workload
      * @param week week to see workload

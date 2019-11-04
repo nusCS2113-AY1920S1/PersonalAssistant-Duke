@@ -2,6 +2,7 @@ package Parser;
 
 import Commands.AddCommand;
 import Commands.Command;
+import Commons.DukeLogger;
 import DukeExceptions.DukeInvalidCommandException;
 
 import DukeExceptions.DukeInvalidDateTimeException;
@@ -19,7 +20,7 @@ public class AddParse extends Parse {
     private static String[] split;
     private static String[] split1;
     private static String fullCommand;
-    private static final Logger LOGGER = Logger.getLogger(AddParse.class.getName());
+    private final Logger LOGGER = DukeLogger.getLogger(AddParse.class);
 
     /**
      * Creates AddParse object.
@@ -35,13 +36,13 @@ public class AddParse extends Parse {
      * @throws Exception Returned if command does not adhere to format
      */
     @Override
-    public Command parse() throws Exception {
+    public Command parse() throws DukeInvalidFormatException, DukeInvalidCommandException {
         if (fullCommand.trim().substring(0, 5).equals("add/d")) {//deadline
             try {
                 String activity = fullCommand.trim().substring(5);
                 split = activity.split("/by");
                 split1 = split[0].trim().split(" ");
-                if(!super.isModCode(split1[0])){
+                if (!super.isModCode(split1[0])) {
                     throw new DukeInvalidFormatException("\u2639" + " OOPS!!! The ModCode is invalid");
                 }
                 if (split[0].trim().isEmpty()) {
@@ -49,14 +50,9 @@ public class AddParse extends Parse {
                 }
                 String[] out = DateTimeParser.DeadlineParse(split[1]);
                 return new AddCommand(new Deadline(split[0].trim(), out[0], out[1]));
-            } catch (ArrayIndexOutOfBoundsException e) {
-                LOGGER.log(Level.INFO, e.toString(), e);
+            } catch (ParseException | ArrayIndexOutOfBoundsException e) {
+                LOGGER.info("Invalid format for adding deadline" + e.getMessage());
                 throw new DukeInvalidFormatException(" OOPS!!! Please enter deadline as follows:\n" +
-                        "add/d mod_code name_of_event /by dd/MM/yyyy HHmm\n" +
-                        "or add/d mod_code name_of_event /by week x day HHmm\n");
-            } catch (ParseException e) {
-                LOGGER.log(Level.INFO, e.toString(), e);
-                throw new DukeInvalidDateTimeException(" OOPS!!! Please enter deadline as follows:\n" +
                         "add/d mod_code name_of_event /by dd/MM/yyyy HHmm\n" +
                         "or add/d mod_code name_of_event /by week x day HHmm\n");
             }
@@ -65,7 +61,7 @@ public class AddParse extends Parse {
                 String activity = fullCommand.trim().substring(5);
                 split = activity.split("/at"); //split[0] is " module_code description", split[1] is "date /from time /to time"
                 split1 = split[0].trim().split(" ");
-                if(!super.isModCode(split1[0])){
+                if (!super.isModCode(split1[0])) {
                     throw new DukeInvalidFormatException("\u2639" + " OOPS!!! The ModCode is invalid");
                 }
                 if (split[0].trim().isEmpty()) {
@@ -74,7 +70,7 @@ public class AddParse extends Parse {
                 String[] out = DateTimeParser.EventParse(split[1]);
                 return new AddCommand(new Event(split[0].trim(),out[0],out[1],out[2]));
             } catch (ParseException | ArrayIndexOutOfBoundsException e ) {
-                LOGGER.log(Level.INFO, e.toString(), e);
+                LOGGER.info("Invalid format for adding event" + e.getMessage());
                 throw new DukeInvalidFormatException("OOPS!!! Please enter event as follows:\n" +
                         "add/e modCode name_of_event /at dd/MM/yyyy from HHmm to HHmm\n" +
                         "For example: add/e CS1231 project meeting /at 1/1/2020 /from 1500 /to 1700");

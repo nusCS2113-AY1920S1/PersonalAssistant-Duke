@@ -3,6 +3,8 @@ package Commons;
 import Commands.Command;
 import Commands.RetrieveFreeTimesCommand;
 import Commands.RetrievePreviousCommand;
+import DukeExceptions.DukeIOException;
+import DukeExceptions.DukeInvalidDateTimeException;
 import Tasks.TaskList;
 
 import Parser.MainParser;
@@ -22,7 +24,7 @@ public class Duke  {
     private final TaskList deadlines;
     private final UserInteraction ui;
     private final Reminder reminder;
-    private static final Logger LOGGER = Logger.getLogger(Duke.class.getName());
+    private final Logger LOGGER = DukeLogger.getLogger(Duke.class);
     public static ArrayList<String> userInputs = new ArrayList<>();
 
     /**
@@ -40,9 +42,8 @@ public class Duke  {
             storage.readEventList(events);
             reminder.setDeadlines(deadlines);
             storage.setReminderOnStart();
-        } catch (Exception e) {
-            ui.showLoadingError(e);
-            LOGGER.log(Level.SEVERE, e.toString(), e);
+        } catch (DukeIOException | DukeInvalidDateTimeException e) {
+            LOGGER.severe(ui.showLoadingError(e) + e.getMessage());
         }
     }
 
@@ -56,7 +57,7 @@ public class Duke  {
             Command c = MainParser.parse(input);
             return c.execute(events, deadlines, ui, storage);
         } catch (Exception e) {
-            LOGGER.severe(e.toString());
+            LOGGER.severe(e.toString() + e.getMessage());
             return ui.getError(e);
         }
     }
@@ -75,8 +76,8 @@ public class Duke  {
         return previousInput;
     }
 
-    /*
-    This method retrieves the free time option selected by the user
+    /**
+     * This method retrieves the free time option selected by the user
      */
     public static String getSelectedOption() {
         String selectedOption = RetrieveFreeTimesCommand.getSelectedOption();

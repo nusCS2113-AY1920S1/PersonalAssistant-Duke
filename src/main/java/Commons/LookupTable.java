@@ -12,7 +12,7 @@ import java.util.logging.Logger;
  */
 public class LookupTable {
     private static Map<String, String> map = new HashMap<>();
-    private static final Logger LOGGER = Logger.getLogger(LookupTable.class.getName());
+    private final Logger LOGGER = DukeLogger.getLogger(LookupTable.class);
     private static LookupTable lookupTable;
 
     /**
@@ -37,7 +37,7 @@ public class LookupTable {
             isr.close();
             is.close();
         } catch (IOException e) {
-            LOGGER.log(Level.SEVERE, e.toString(), e);
+            LOGGER.severe("Lookup.txt not found" + e.getMessage());
         }
     }
 

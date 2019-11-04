@@ -36,7 +36,6 @@ public class Reminder {
     private Storage storage;
     private Image img;
     private TaskList deadlines;
-    private static final Logger LOGGER = Logger.getLogger(Reminder.class.getName());
 
     /**
      * Creates reminder object.
