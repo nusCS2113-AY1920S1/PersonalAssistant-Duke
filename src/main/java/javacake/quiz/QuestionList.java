@@ -69,11 +69,11 @@ public class QuestionList {
                     stringBuilder.append(sentenceRead).append("\n");
                 }
                 reader.close();
-                
                 String read = stringBuilder.toString();
                 String[] questions = read.substring(0, stringBuilder.length() - 1).split("\\|\\s*");
-                this.chosenQuestions.add(new Question(questions[0], questions[1], Integer.parseInt(questions[2])));
-                
+                this.chosenQuestions.add(new Question(questions[0],
+                        questions[1].trim(), Integer.parseInt(questions[2])));
+
             } catch (Exception e) {
                 throw new CakeException("Error in loading file :(");
             }
