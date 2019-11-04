@@ -4,7 +4,6 @@
 :toc-title:
 :toc-placement: preamble
 :sectnums:
-:imagesDir: images
 :stylesDir: stylesheets
 :xrefstyle: full
 ifdef::env-github[]
@@ -26,7 +25,7 @@ Refer to the guide <<SettingUp#, here>>.
 === Architecture
 
 .Architecture Diagram
-image::ArchitectureDiagram.jpeg[]
+image:images/ArchitectureDiagram.jpeg[]
 
 The *_Architecture Diagram_* given above explains the high-level design of the El Duque.
 
@@ -42,7 +41,7 @@ The 5 main components of the app are:
 The sequence diagram below shows how the different components interact with each other for the scenario where the user issues the “task sleep well” command.
 
 .Component interactions for "task sleep well" command
-image::ComponentSequence.jpeg[]
+image:images/ComponentSequence.jpeg[]
 
 The sections below give more details of each component.
 
@@ -50,7 +49,7 @@ The sections below give more details of each component.
 === UI component
 
 .Structure of the UI Component
-image::UiClassDiagram.png[]
+image:images/UiClassDiagram.png[]
 
 The ui package is relatively simple, since we have no GUI. The ui package consists of 2 classes - `TaskListPrinter` and `Ui`. `TaskListPrinter` is a class that handles the printing of the `TaskList` for the user to view. `Ui` is a class that deals with user interactions. `TaskListPrinter` depends on `Task` and `TaskList` while the logic package relies heavily on `UI` (e.g. all commands have execute method which uses `Ui`).
 
@@ -60,7 +59,7 @@ The ui package is relatively simple, since we have no GUI. The ui package consis
 
 
 .Structure of the Logic Component
-image::LogicClassDiagram.png[]
+image:images/LogicClassDiagram.png[]
 
 .  `Logic` uses the `DuqueParser` to parse the user command.
 .  Depending on the user command, a different parser will be created to handle the command.
@@ -72,9 +71,7 @@ image::LogicClassDiagram.png[]
 === Model component
 
 .Structure of the TaskList Component
-image::ModelClassDiagram.jpeg[]
-
-*API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
+image:images/ModelClassDiagram.jpeg[]
 
 The `TaskList`:
 
@@ -86,7 +83,7 @@ The `TaskList`:
 === Storage component
 
 .Structure of the Storage Component
-image::StorageClassDiagram.png[]
+image:images/StorageClassDiagram.png[]
 
 The storage package contains 3 classes - `RuntimeTypeAdaptorFactory`, `Storage` and `UndoStack`. `RuntimeTypeAdaptorFactory` is a class that facilitates serializing and deserializing since we store our persistent data in a json file. Storage is a class that deals with the saving and loading of all task data the user has saved. `UndoStack` contains all the mirror commands of commands which can be undone.
 
@@ -191,7 +188,7 @@ Given below is an example usage scenario of an edit that includes a filter and h
 The following sequence diagram summarises how the edit operation works:
 
 .Sequence Diagram for Edit Command
-image::EditCommandSequenceDiagram.jpg[]
+image:images/EditCommandSequenceDiagram.jpg[]
 
 ==== Design Considerations
 ===== Aspect: How actual index of task is found when given an index based on the filtered list
@@ -251,7 +248,7 @@ This feature uses the keyword pomo followed by a few commands to control it’s 
 Given below is the sequence diagram of how the pomodoro feature work. 
 
 .Sequence Diagram for Pomodoro Feature
-image::PomodoroSequenceDiagram.jpeg[]
+image:images/PomodoroSequenceDiagram.jpeg[]
 
 ==== Design Considerations
 ===== Aspect: How actual index of task is found when given an index based on the filtered list
