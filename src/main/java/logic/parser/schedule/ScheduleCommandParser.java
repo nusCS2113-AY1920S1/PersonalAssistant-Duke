@@ -9,9 +9,9 @@ import java.util.regex.Pattern;
 public class ScheduleCommandParser {
 
     private static final Pattern BASIC_ADD_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
-    private static final String TEAM = "team";
+    private static final String TASKS = "tasks";
     private static final String MEMBER = "member";
-    private static final String SCHEDULE_USAGE = "Usage: schedule [team/member] [all/todo] {member name}";
+    private static final String SCHEDULE_USAGE = "Usage: schedule [tasks/member] [all/todo] {member name}";
 
     //@@author yuyanglin28
     /**
@@ -33,7 +33,7 @@ public class ScheduleCommandParser {
         scheduleType = scheduleType.trim();
 
         switch (scheduleType) {
-        case TEAM:
+        case TASKS:
             return ScheduleTeamParser.parseScheduleTeam(arguments);
         case MEMBER:
             return ScheduleMemberParser.parseScheduleMember(arguments);
