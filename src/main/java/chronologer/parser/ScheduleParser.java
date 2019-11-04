@@ -5,7 +5,6 @@ import chronologer.command.TaskScheduleCommand;
 import chronologer.exception.ChronologerException;
 import chronologer.ui.UiTemporary;
 
-import java.text.ParseException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 

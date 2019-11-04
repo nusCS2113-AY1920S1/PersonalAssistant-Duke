@@ -1,5 +1,6 @@
 package chronologer;
 
+import chronologer.parser.DateTimeExtractor;
 import chronologer.task.Event;
 import chronologer.task.TaskList;
 import chronologer.ui.UiTemporary;
@@ -11,6 +12,13 @@ import java.util.ArrayList;
 public final class TaskScheduler {
 
     private static final int SEARCH_HARD_LIMIT = 30;
+    private static final String SCHEDULE_ANYTIME_BY_DEADLINE =
+            "You can schedule this task from now till the deadline.\n";
+    private static final String SCHEDULE_ANYTIME = "You can schedule this task anytime.\n";
+    private static final String SCHEDULE_NOW_TILL_FORMAT = "You can schedule this task from now till %s \n";
+    private static final String SCHEDULE_FROM_TILL_FORMAT = "You can schedule this task from %s till %s \n";
+    private static final String NO_FREE_SLOTS =
+            "There is no free slot to insert the task. Consider freeing up your schedule.";
 
     /**
      * Finds a free period of time within the user's schedule for a given duration by a given deadline.
@@ -21,7 +29,7 @@ public final class TaskScheduler {
     public static void scheduleByDeadline(TaskList tasks, Long durationToSchedule, LocalDateTime deadlineDate) {
         ArrayList<Event> dateList = tasks.obtainEventList(deadlineDate);
         if (dateList.size() == 0) {
-            UiTemporary.printOutput("You can schedule this task from now till the deadline.\n");
+            UiTemporary.printOutput(SCHEDULE_ANYTIME_BY_DEADLINE);
             return;
         }
 
@@ -37,7 +45,7 @@ public final class TaskScheduler {
         LocalDateTime deadlineDate = LocalDateTime.now().plusDays(SEARCH_HARD_LIMIT);
         ArrayList<Event> eventList = tasks.obtainEventList(deadlineDate);
         if (eventList.size() == 0) {
-            UiTemporary.printOutput("You can schedule this task anytime.\n");
+            UiTemporary.printOutput(SCHEDULE_ANYTIME);
             return;
         }
 
@@ -50,7 +58,8 @@ public final class TaskScheduler {
         LocalDateTime nextStartDate = eventList.get(0).getStartDate();
         duration = ChronoUnit.HOURS.between(LocalDateTime.now(), nextStartDate);
         if (durationToSchedule <= duration) {
-            UiTemporary.printOutput("You can schedule this task from now till " + nextStartDate);
+            String formattedNextStartDate = nextStartDate.format(DateTimeExtractor.DATE_FORMATTER);
+            UiTemporary.printOutput(String.format(SCHEDULE_NOW_TILL_FORMAT, formattedNextStartDate));
             return;
         }
 
@@ -69,13 +78,15 @@ public final class TaskScheduler {
             duration = ChronoUnit.HOURS.between(currentEndDate, nextStartDate);
             if (durationToSchedule <= duration) {
                 isFreeBetweenEvents = true;
-                UiTemporary.printOutput("You can schedule this task from " + currentEndDate
-                        + " till " + nextStartDate + "\n");
+                String formattedCurrentEndDate = currentEndDate.format(DateTimeExtractor.DATE_FORMATTER);
+                String formattedNextStartDate = nextStartDate.format(DateTimeExtractor.DATE_FORMATTER);
+                UiTemporary.printOutput(String.format(SCHEDULE_FROM_TILL_FORMAT,
+                        formattedCurrentEndDate, formattedNextStartDate));
             }
         }
 
         if (!isFreeBetweenEvents) {
-            UiTemporary.printOutput("There is no free slot to insert the task. Consider freeing up your schedule.");
+            UiTemporary.printOutput(NO_FREE_SLOTS);
         }
     }
 }
