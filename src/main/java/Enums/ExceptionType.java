@@ -25,6 +25,8 @@ public enum ExceptionType {
     emptyTaskType,
 
     logError,
-    writeError
+    writeError,
+    loadError,
 
+    invalidInputString
     }

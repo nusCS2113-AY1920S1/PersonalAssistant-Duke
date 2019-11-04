@@ -24,6 +24,9 @@ public class subTaskCreator {
 
             for( int i=0; i<temp.size(); i++ ) {
                 temp.set(i, temp.get(i).trim());
+                if (hasSpecialCharacters(temp.get(i))) {
+                    throw new RoomShareException(ExceptionType.invalidInputString);
+                }
                 boolean duplicate = false;
                 if( !subtasks.isEmpty() ) {
                     for( int m=0; m<subtasks.size(); m++ ) {
@@ -45,5 +48,27 @@ public class subTaskCreator {
         } else {
             throw new RoomShareException(ExceptionType.subTaskError);
         }
+    }
+
+    public boolean hasSpecialCharacters(String input) {
+        boolean isInvalid = false;
+        if (input.contains("#")) {
+            isInvalid = true;
+        } else if (input.contains("@")) {
+            isInvalid = true;
+        } else if (input.contains("!")) {
+            isInvalid = true;
+        } else if (input.contains("*")) {
+            isInvalid = true;
+        } else if (input.contains("^")) {
+            isInvalid = true;
+        } else if (input.contains("%")) {
+            isInvalid = true;
+        } else if (input.contains("&")) {
+            isInvalid = true;
+        } else if (input.contains("(")) {
+            isInvalid = true;
+        }
+        return isInvalid;
     }
 }

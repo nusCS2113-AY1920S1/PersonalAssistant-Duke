@@ -20,13 +20,25 @@ public class Ui {
      * Shows the startup logo for RoomShare
      */
     public void startUp() {
-        String logo = "******   ******\n"
-                    + "**  **   **\n"
-                    + "**  **   **\n"
-                    + "******   ******\n"
-                    + "******       **\n"
-                    + "**   **      **\n"
-                    + "**    ** ******";
+        String logo = "      /@@&@@@*\n"
+                + "      (@&@/ (@@@/ \n"
+                + "      (@&&(    /@@@.\n"
+                + "      /@&&(       &@@\n"
+                + "      /@&&@/       #@@(\n"
+                + "      (@&&%@@@*    *&@@(\n"
+                + "      (@&@/  %@@@&%%&&@&,\n"
+                + "      (@&@(     &@&@@@@#   ,#%&%(* \n"
+                + "      &@&@/     ,@@%      (@&&@@@@@@(\n"
+                + "        #@&      /@@#     (@@&     /@@@&*\n"
+                + "                  #@@/    .&@&        %@@%\n"
+                + "                  .&@@,     &@@*         /,\n"
+                + "                   #&@&       #@@&.\n"
+                + "                    #@@&        .&@@# \n"
+                + "                       ##          .&@@/\n"
+                + "                           (&*        %@@/\n"
+                + "                             %@%       /@@%\n"
+                + "                               ,@@@.   /@@@/\n"
+                + "                                  .%@@@@&@@*\n";
         System.out.println("Hello from RoomShare!\n" + logo);
         System.out.println("How may I serve you?");
         System.out.println("Enter 'help' if you require assistance");
@@ -130,13 +142,6 @@ public class Ui {
 
     public void helpLog() {
         System.out.println("Logs the current task list into a saved file");
-    }
-
-    /**
-     * Prints an error message telling the user that the data file cannot be loaded and an empty list is generated instead
-     */
-    public void showLoadError() {
-        System.out.println("Error in loading data file, initialising empty task list...");
     }
 
     /**
