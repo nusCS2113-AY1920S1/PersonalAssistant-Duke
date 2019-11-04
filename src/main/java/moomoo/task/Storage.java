@@ -86,11 +86,11 @@ public class Storage {
         categoryArrayList.add(new Category("misc"));
         categoryArrayList.add(new Category("food"));
         categoryArrayList.add(new Category("transportation"));
-        categoryArrayList.add(new Category("bills"));
+        categoryArrayList.add(new Category("shopping"));
         saveCategoryToFile("misc");
         saveCategoryToFile("food");
         saveCategoryToFile("transportation");
-        saveCategoryToFile("bills");
+        saveCategoryToFile("shopping");
         return categoryArrayList;
     }
 
