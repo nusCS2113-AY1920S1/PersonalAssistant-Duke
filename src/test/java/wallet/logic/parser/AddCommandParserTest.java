@@ -25,7 +25,7 @@ import java.time.LocalDate;
 public class AddCommandParserTest {
     //@@author kyang96
     @Test
-    public void parseExpenseValidInputSuccess() {
+    public void parseExpense_validInput_success() {
         AddCommandParser parser = new AddCommandParser();
         String input = "Lunch $10 Food /on 11/11/2019";
         Expense expense = parser.parseExpense(input);
@@ -40,7 +40,7 @@ public class AddCommandParserTest {
     }
 
     @Test
-    public void parseExpenseValidRecurringInputSuccess() {
+    public void parseExpense_validRecurringInput_success() {
         AddCommandParser parser = new AddCommandParser();
         String input = "Phone Bill $49 Bills /on 05/10/2019 /r monthly";
         Expense expense = parser.parseExpense(input);
@@ -96,7 +96,7 @@ public class AddCommandParserTest {
      */
     @ParameterizedTest
     @ValueSource(strings = {"", " ", "/d /p"})
-    public void parseContactInvalidInputTrue(String input) {
+    public void parseContact_invalidInput_true(String input) {
         AddCommandParser parser = new AddCommandParser();
         Contact contact = parser.parseContact(input);
         assertNull(contact, "Return Contact should be null:");
@@ -107,7 +107,7 @@ public class AddCommandParserTest {
      */
     @ParameterizedTest
     @ValueSource(strings = {"Mary /d /p  ", "Mary Tan", "Mary /p 9728 1831 /d sister", "Test /p /p"})
-    public void parseContactValidInputSuccess(String input) {
+    public void parseContact_validInput_success(String input) {
         AddCommandParser parser = new AddCommandParser();
         Contact contact = parser.parseContact(input);
         Contact match = null;

@@ -25,7 +25,7 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 public class EditCommandParserTest {
     //@@author kyang96
     @Test
-    public void parseExpenseValidInputSuccess() {
+    public void parseExpense_validInput_success() {
         EditCommandParser parser = new EditCommandParser();
         String input = "2 /d Supper /a 10 /c Others";
         Expense expense = parser.parseExpense(input);
@@ -41,7 +41,7 @@ public class EditCommandParserTest {
     }
 
     @Test
-    public void parseExpenseValidRecurringInputSuccess() {
+    public void parseExpense_validRecurringInput_success() {
         EditCommandParser parser = new EditCommandParser();
         String input = "2 /d Supper /a 10 /c Others /r Daily";
         Expense expense = parser.parseExpense(input);
@@ -63,7 +63,7 @@ public class EditCommandParserTest {
      */
     @ParameterizedTest
     @ValueSource(strings = {"", "  ", "1", "garbage"})
-    public void parseContactInvalidInputTrue(String input) {
+    public void parseContact_invalidInput_true(String input) {
         EditCommandParser parser = new EditCommandParser();
         Contact contact = parser.parseContact(input);
         assertNull(contact, "Return Contact should be null:");
@@ -75,7 +75,7 @@ public class EditCommandParserTest {
     @ParameterizedTest
     @ValueSource(strings = {"6 /n /d /p", "6 /n   /d   /p  ",
         "6 /n John /p 7183 /d brother 123@abc.com", "8 /n Test /d /d /doctor"})
-    public void parseContactValidInputSuccess(String input) {
+    public void parseContact_validInput_success(String input) {
         EditCommandParser parser = new EditCommandParser();
         Contact contact = parser.parseContact(input);
         Contact match = null;
