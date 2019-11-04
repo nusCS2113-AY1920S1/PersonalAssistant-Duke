@@ -124,6 +124,14 @@ public class ModelController implements Model {
         return tasksManager.tasksTodoInorderPicNum();
     }
 
+    //@@author JasonChanWQ
+    public boolean isInTaskList(int taskIndex) {
+        if(taskIndex < 1 || taskIndex > tasksManager.getTaskList().size()){
+            return false;
+        }
+        return true;
+    }
+
 
     //=================Member interfaces=============================================
 

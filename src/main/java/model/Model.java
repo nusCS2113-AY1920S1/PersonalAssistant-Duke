@@ -49,6 +49,8 @@ public interface Model {
 
     String updateTaskDes(int index, String des);
 
+    boolean isInTaskList(int taskIndex);
+
     //TODO look into using exceptions instead?
     boolean addTaskReqSkill(String taskName, String skillName);
 
