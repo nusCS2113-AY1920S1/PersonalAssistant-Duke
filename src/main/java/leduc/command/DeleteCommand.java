@@ -46,9 +46,7 @@ public class DeleteCommand extends Command {
         else { // the tasks exist
             Task removedTask = tasks.remove(index);
             storage.save(tasks.getList());
-            ui.display("\t Noted. I've removed this task: \n" +
-                    "\t\t" + removedTask.toString() +
-                    "\n\t Now you have "+ tasks.size() +" tasks in the list");
+            ui.showDelete(removedTask, tasks.size());
         }
     }
     /**

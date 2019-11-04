@@ -70,8 +70,7 @@ public class PrioritizeCommand extends Command {
         Task t = tasks.get(taskIndex);
         t.setPriority(priority);
         storage.save(tasks.getList());
-        ui.display("\t Got it. I've set the priority of this task:\n\t   "
-                        + t.toString()+ " to " + t.getPriority());
+        ui.showPrioritize(t);
     }
 
     /**

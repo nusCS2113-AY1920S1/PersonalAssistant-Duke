@@ -32,4 +32,8 @@ public class ConflictDateException extends DukeException {
         return "\t ConflictDateException:\n\t\t ☹ OOPS!!! There is a date conflict with this event :" +
                 conflictTasks;
     }
+
+    public ArrayList<Task> getTasks() {
+        return tasks;
+    }
 }

@@ -33,7 +33,7 @@ public class ListCommand extends Command {
             ui.showList(tasks);
         }
         else {
-            ui.display("\t There is any task yet ");
+            ui.showNoTask();
         }
     }
     /**

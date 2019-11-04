@@ -115,9 +115,9 @@ public class FindCommand extends Command {
 
         }
         if (result.isEmpty()) {
-            ui.display("\t There is no matching tasks in your list");
+            ui.showFindNotMatching();
         } else {
-            ui.display("\t Here are the matching tasks in your list:\n" + result);
+            ui.showFindMatching(result);
         }
     }
     /**

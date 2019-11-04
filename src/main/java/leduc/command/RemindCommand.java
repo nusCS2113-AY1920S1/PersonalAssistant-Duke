@@ -54,10 +54,10 @@ public class RemindCommand extends Command {
                     result += sortedTasks.displayOneElementList(i);
                 }
             }
-            System.out.println(result);
+            ui.display(result);
         }
         else{
-            ui.display("\t There are no upcoming tasks in your list");
+            ui.showNoTask();
         }
 
     }

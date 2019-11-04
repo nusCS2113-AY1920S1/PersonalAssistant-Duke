@@ -6,6 +6,7 @@ import leduc.exception.FileException;
 import leduc.exception.MeaninglessException;
 import leduc.storage.Storage;
 import leduc.task.TaskList;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -13,18 +14,29 @@ import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class ShowCommandTest {
-    @Test
-    public void ShowCommandTest(){
-        Ui ui = new Ui();
-        Storage storage = null;
+
+    private static Ui ui;
+    private static Storage storage;
+    private static TaskList tasks;
+
+    /**
+     * Represents the before of ShowCommandTest.
+     */
+    @BeforeAll
+    public static void beforeShowCommandTest(){
+        ui = new UiEn();
         try {
-            storage = new Storage(System.getProperty("user.dir")+ "/src/test/testFile/testFile.txt", System.getProperty("user.dir")+ "/src/test/testFile/configTest.txt");
+            storage = new Storage(System.getProperty("user.dir")+ "/src/test/java/testFile/testFile.txt", System.getProperty("user.dir")+ "/src/test/java/testFile/configTest.txt",System.getProperty("user.dir")+ "/src/test/java/testFile/welcome.txt");
         } catch (FileException e) {
             e.printStackTrace();
         } catch (MeaninglessException e) {
             e.printStackTrace();
         }
-        TaskList tasks = new TaskList(new ArrayList<>());
+        tasks = new TaskList(new ArrayList<>());
+    }
+
+    @Test
+    public void ShowCommandTest(){
         ShowCommand showCommand = new ShowCommand("test");
         int dayOfWeek = 0;
         try {

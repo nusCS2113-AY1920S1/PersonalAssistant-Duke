@@ -1,9 +1,11 @@
 package leduc;
 
-import leduc.command.DeadlineCommand;
+import leduc.command.HomeworkCommand;
 import leduc.exception.*;
 import leduc.storage.Storage;
 import leduc.task.TaskList;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -14,50 +16,55 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  * Represents a JUnit test class for the DeadlineCommand.
  */
 public class DeadlineCommandTest {
+    private static Ui ui;
+    private static Storage storage;
+    private static TaskList tasks;
 
+    /**
+     * Represents the before of deadlineCommandExecuteTest.
+     */
+    @BeforeAll
+    public static void beforeDeadlineCommandExecuteTest(){
+        ui = new UiEn();
+        try {
+            storage = new Storage(System.getProperty("user.dir")+ "/src/test/java/testFile/testFile.txt", System.getProperty("user.dir")+ "/src/test/java/testFile/configTest.txt",System.getProperty("user.dir")+ "/src/test/java/testFile/welcome.txt");
+        } catch (FileException e) {
+            e.printStackTrace();
+        } catch (MeaninglessException e) {
+            e.printStackTrace();
+        }
+        tasks = new TaskList(new ArrayList<>());
+        assertTrue(tasks.size()==0);
+    }
     /**
      * Represents a JUnit test method for the DeadlineCommand.
      * Test the command depending on the input String (user).
      */
     @Test
     public void deadlineCommandExecuteTest()  {
-        Ui ui = new Ui();
-        Storage storage = null;
-        try {
-            storage = new Storage(System.getProperty("user.dir")+ "/src/test/testFile/testFile.txt", System.getProperty("user.dir")+ "/src/test/testFile/configTest.txt");
-        } catch (FileException e) {
-            e.printStackTrace();
-        } catch (MeaninglessException e) {
-            e.printStackTrace();
-        }
-        TaskList tasks = new TaskList(new ArrayList<>());
-        assertTrue(tasks.size()==0);
-
-
-
-        DeadlineCommand deadlineCommand1 = new DeadlineCommand("deadline ok");
+        HomeworkCommand deadlineCommand1 = new HomeworkCommand("deadline ok");
         try{
             deadlineCommand1.execute(tasks,ui,storage);
         }
         catch( DukeException e ){
-            assertTrue(e instanceof EmptyDeadlineDateException);
+            assertTrue(e instanceof EmptyHomeworkDateException);
         }
         assertTrue(tasks.size()==0);
 
 
 
-        DeadlineCommand deadlineCommand2 = new DeadlineCommand("deadline /by 12/12/2000 22:22");
+        HomeworkCommand deadlineCommand2 = new HomeworkCommand("deadline /by 12/12/2000 22:22");
         try{
             deadlineCommand2.execute(tasks,ui,storage);
         }
         catch(DukeException e ){
-            assertTrue(e instanceof EmptyDeadlineException);
+            assertTrue(e instanceof EmptyHomeworkException);
         }
         assertTrue(tasks.size()==0);
 
 
 
-        DeadlineCommand deadlineCommand3 = new DeadlineCommand("deadline d1 /by 12-12-2000 22:22");
+        HomeworkCommand deadlineCommand3 = new HomeworkCommand("deadline d1 /by 12-12-2000 22:22");
         try{
             deadlineCommand3.execute(tasks,ui,storage);
         }
@@ -66,7 +73,7 @@ public class DeadlineCommandTest {
         }
         assertTrue(tasks.size()==0);
 
-        DeadlineCommand deadlineCommand4 = new DeadlineCommand("deadline d1 /by 12/12/2000 22:22");
+        HomeworkCommand deadlineCommand4 = new HomeworkCommand("deadline d1 /by 12/12/2000 22:22");
         try{
             deadlineCommand4.execute(tasks,ui,storage);
         }
@@ -75,7 +82,7 @@ public class DeadlineCommandTest {
         }
         assertTrue(tasks.size()==1);
 
-        DeadlineCommand deadlineCommand5 = new DeadlineCommand("deadline d1 /by 12/12/2000 22:22 prio 6");
+        HomeworkCommand deadlineCommand5 = new HomeworkCommand("deadline d1 /by 12/12/2000 22:22 prio 6");
         try{
             deadlineCommand5.execute(tasks,ui,storage);
         }
@@ -87,7 +94,7 @@ public class DeadlineCommandTest {
         assertTrue(tasks.get(0).getPriority() == 5);
 
 
-        DeadlineCommand deadlineCommand6 = new DeadlineCommand("deadline d1 /by 12/12/2000 22:22 prio 12");
+        HomeworkCommand deadlineCommand6 = new HomeworkCommand("deadline d1 /by 12/12/2000 22:22 prio 12");
         try{
             deadlineCommand6.execute(tasks,ui,storage);
         }
@@ -96,7 +103,7 @@ public class DeadlineCommandTest {
         }
         assertTrue(tasks.size()==2);
 
-        DeadlineCommand deadlineCommand7 = new DeadlineCommand("deadline d1 /by 12/12/2000 22:22 prio Qzeaze");
+        HomeworkCommand deadlineCommand7 = new HomeworkCommand("deadline d1 /by 12/12/2000 22:22 prio Qzeaze");
         try{
             deadlineCommand7.execute(tasks,ui,storage);
         }
@@ -104,7 +111,13 @@ public class DeadlineCommandTest {
             assertTrue(e instanceof PrioritizeLimitException);
         }
         assertTrue(tasks.size()==2);
+    }
 
+    /**
+     * Represents the after of deadlineCommandExecuteTest.
+     */
+    @AfterAll
+    public static void afterDeadlineCommandExecuteTest(){
         tasks.getList().removeAll(tasks.getList());
         try {
             storage.save(tasks.getList());
@@ -113,7 +126,5 @@ public class DeadlineCommandTest {
             assertTrue(false);
         }
         assertTrue(tasks.size()==0);
-
     }
-
 }

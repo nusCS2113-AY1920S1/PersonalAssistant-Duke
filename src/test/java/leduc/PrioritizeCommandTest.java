@@ -4,6 +4,8 @@ import leduc.command.PrioritizeCommand;
 import leduc.exception.*;
 import leduc.storage.Storage;
 import leduc.task.*;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
@@ -18,23 +20,26 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  * Represents a JUnit test class for the PrioritizeCommand.
  */
 public class PrioritizeCommandTest {
+
+    private static Ui ui;
+    private static Storage storage;
+    private static TaskList tasks;
+
     /**
-     * Represents a JUnit test method for the PrioritizeCommand.
-     * Test the command depending on the input String (user).
+     * Represents the before of PrioritizeCommandTest.
      */
-    @Test
-    public void PrioritizeCommandTest() {
-        Ui ui = new Ui();
-        Storage storage = null;
+    @BeforeAll
+    public static void beforePrioritizeCommandTest(){
+        ui = new UiEn();
         try {
-            storage = new Storage(System.getProperty("user.dir")+ "/src/test/testFile/testFile.txt", System.getProperty("user.dir")+ "/src/test/testFile/configTest.txt");
+            storage = new Storage(System.getProperty("user.dir")+ "/src/test/java/testFile/testFile.txt", System.getProperty("user.dir")+ "/src/test/java/testFile/configTest.txt",System.getProperty("user.dir")+ "/src/test/java/testFile/welcome.txt");
         } catch (FileException e) {
             e.printStackTrace();
         } catch (MeaninglessException e) {
             e.printStackTrace();
         }
 
-        TaskList tasks = new TaskList(new ArrayList<>());
+        tasks = new TaskList(new ArrayList<>());
 
         LocalDateTime d1 = null;
         LocalDateTime d2 = null;
@@ -54,7 +59,7 @@ public class PrioritizeCommandTest {
             }
         }
         date1 = new Date(d1);
-        tasks.add(new DeadlinesTask("d1",date1));
+        tasks.add(new HomeworkTask("d1",date1));
 
         try{
             d1 = LocalDateTime.parse("21/09/2019 22:22".trim(), formatter);
@@ -84,14 +89,22 @@ public class PrioritizeCommandTest {
             }
         }
         date1 = new Date(d1);
-        tasks.add(new DeadlinesTask("d1",date1));
+        tasks.add(new HomeworkTask("d1",date1));
 
         assertTrue(tasks.size()==6);
 
         for (Task t : tasks.getList()){
             assertTrue(t.getPriority()==5);
         }
+    }
 
+
+    /**
+     * Represents a JUnit test method for the PrioritizeCommand.
+     * Test the command depending on the input String (user).
+     */
+    @Test
+    public void PrioritizeCommandTest() {
         PrioritizeCommand prioritizeCommand1 = new PrioritizeCommand("prioritize 5 ,ez");
         try{
             prioritizeCommand1.execute(tasks,ui,storage);
@@ -184,7 +197,13 @@ public class PrioritizeCommandTest {
                     assertTrue(false);
                 }
         }
+    }
 
+    /**
+     * Represents the after of PrioritizeCommand.
+     */
+    @AfterAll
+    public static void afterPrioritizeCommand(){
         tasks.getList().removeAll(tasks.getList());
         try {
             storage.save(tasks.getList());
