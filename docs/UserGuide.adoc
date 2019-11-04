@@ -195,7 +195,7 @@ Examples:
 
 * Enter `schedule` +
 Enter a list of 'enter key' separated words: `life[Enter] is[Enter] great[Enter][Enter]` +
-Enter a date and time for the reminder: `31/10/2019 2359` +
+Enter a date and time for the reminder: `31-10-2019 2359` +
 Reminder is set. Summary of reminder details is shown. Reminder pop up will be shown at time set.
 // end::schedule[]
 
