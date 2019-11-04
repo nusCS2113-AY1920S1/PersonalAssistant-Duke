@@ -57,8 +57,8 @@ public class CommandConvert extends Command {
      * @return the amount which user wishes to convert is returned
      */
     private Double extractAmount(CommandType commandType, String userInput) {
+        String amountStr = Parser.parseForPrimaryInput(commandType, userInput);
         try {
-            String amountStr = Parser.parseForPrimaryInput(commandType, userInput);
             return Double.parseDouble(amountStr);
         } catch (Exception e) {
             Ui.dukeSays("Please enter a valid amount");
