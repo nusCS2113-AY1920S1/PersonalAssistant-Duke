@@ -124,7 +124,8 @@ public class Parser {
      * @throws WrongAddFormatException when the format of the delete command does not match the required format
      * @throws EmptyWordException when there is no word entered with the command
      */
-    protected static Command parseAdd(String[] taskInfo) throws WrongAddFormatException, EmptyWordException, InvalidCharacterException {
+    protected static Command parseAdd(String[] taskInfo) throws WrongAddFormatException,
+            EmptyWordException, InvalidCharacterException {
         if (taskInfo.length == 1) {
             throw new WrongAddFormatException();
         }
@@ -157,8 +158,7 @@ public class Parser {
             for (int j = 1; j < meaningAndTag.length; ++j) {
                 if (isAlphabetString(meaningAndTag[j])) {
                     tags.add(meaningAndTag[j]);
-                }
-                else {
+                } else {
                     throw new InvalidCharacterException();
                 }
             }
@@ -371,6 +371,12 @@ public class Parser {
         }
         return new QuizCommand();
     }
+
+    /**
+     * Checks a string to ensure it contains only alphabets and spaces
+     * @param s
+     * @return true or false
+     */
     protected static boolean isAlphabetString(String s) {
         if (s == null || s.length() == 0) {
             return false;

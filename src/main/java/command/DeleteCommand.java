@@ -18,7 +18,7 @@ public class DeleteCommand extends Command {
     protected ArrayList<String> synonyms;
 
     /**
-     * Sets the string for deletion
+     * Sets the string for deletion.
      * @param deletedWord
      */
     public DeleteCommand(String deletedWord) {
