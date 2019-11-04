@@ -22,6 +22,8 @@ public abstract class Command {
      * javadoc
      */
     public boolean checkMemberIndex(int index, Model model) {
+        System.out.println(index);
+        System.out.println(model.getMemberListSize());
         if (index < 1 || index > model.getMemberListSize()) {
             return false;
         } else {

@@ -1,6 +1,7 @@
 [
   {
     "name": "john",
+    "description": "test des",
     "isDone": false,
     "memberList": [
       "john"

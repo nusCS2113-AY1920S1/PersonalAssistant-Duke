@@ -6,7 +6,8 @@
       "james",
       "null"
     ],
-    "skillList": []
+    "skillList": [],
+    "biography": "2"
   },
   {
     "name": "james",

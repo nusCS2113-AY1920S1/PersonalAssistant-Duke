@@ -22,7 +22,7 @@ public class EditMemberBioCommand extends Command {
 
     @Override
     public CommandOutput execute(Model model) throws DukeException {
-        if (checkMemberIndex(memberIndexInList, model)) {
+        if (!checkMemberIndex(memberIndexInList, model)) {
             return new CommandOutput(INDEX_NOT_IN_MEMlIST_MESSAGE);
         } else {
             String oldbio = model.updateMemberBio(memberIndexInList - 1, bio);
