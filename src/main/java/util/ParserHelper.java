@@ -164,30 +164,35 @@ public class ParserHelper {
         errorMessages.clear();
 
         String[] newTaskRequirementsArray = input.split("-");
-        ArrayList<String> newTaskRequirementsArrayList = new ArrayList<>(Arrays.asList(newTaskRequirementsArray));
-        newTaskRequirementsArrayList.remove(0);
-        for (String s : newTaskRequirementsArrayList) {
-            String trimmedString = s.trim();
-            if (trimmedString.length() <= 2) {
-                if ("r".equals(trimmedString) || "rm".equals(trimmedString)) {
-                    errorMessages.add("There is an empty flag '-" + trimmedString + "'");
-                } else {
-                    errorMessages.add("'-" + trimmedString + "' is an invalid flag");
+        if (newTaskRequirementsArray.length == 0) {
+            errorMessages.add("Please input a complete flag! Examples for valid flags include '-r' and '-rm'."
+                    + " Refer to the user guide for more help!");
+        } else {
+            ArrayList<String> newTaskRequirementsArrayList = new ArrayList<>(Arrays.asList(newTaskRequirementsArray));
+            newTaskRequirementsArrayList.remove(0);
+            for (String s : newTaskRequirementsArrayList) {
+                String trimmedString = s.trim();
+                if (trimmedString.length() <= 2) {
+                    if ("r".equals(trimmedString) || "rm".equals(trimmedString)) {
+                        errorMessages.add("There is an empty flag '-" + trimmedString + "'");
+                    } else {
+                        errorMessages.add("'-" + trimmedString + "' is an invalid flag");
+                    }
+                    continue;
                 }
-                continue;
-            }
 
-            switch (trimmedString.split(" ")[0]) {
-            case "rm":
-                String[] splitTrimmedString = trimmedString.substring(3).split(" ");
-                taskReqIndexesToBeRemoved.addAll(Arrays.asList(splitTrimmedString));
-                break;
-            case "r":
-                taskRequirementsToBeAdded.add(trimmedString.substring(2));
-                break;
-            default:
-                errorMessages.add("Invalid flag is used in this entry: -" + trimmedString);
-                break;
+                switch (trimmedString.split(" ")[0]) {
+                case "rm":
+                    String[] splitTrimmedString = trimmedString.substring(3).split(" ");
+                    taskReqIndexesToBeRemoved.addAll(Arrays.asList(splitTrimmedString));
+                    break;
+                case "r":
+                    taskRequirementsToBeAdded.add(trimmedString.substring(2));
+                    break;
+                default:
+                    errorMessages.add("Invalid flag is used in this entry: -" + trimmedString);
+                    break;
+                }
             }
         }
 
