@@ -7,6 +7,7 @@ import chronologer.ui.UiTemporary;
 
 import java.text.ParseException;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 
 /**
  * Extract the components required to create an event class.
@@ -15,10 +16,21 @@ import java.time.LocalDateTime;
  * @version v1.0
  */
 public class EventParser extends DescriptionParser {
-
+    
+    /**
+     * creates new parser for Event.
+     * 
+     * @param userInput  input from user
+     * @param command    command type
+     */
     public EventParser(String userInput, String command) {
         super(userInput, command);
         this.checkType = Flag.AT.getFlag();
+        if (userInput.contains("/m")) {
+            this.hasModCode = true;
+        } else {
+            this.hasModCode = false;
+        }
     }
 
     @Override
@@ -35,32 +47,35 @@ public class EventParser extends DescriptionParser {
             UiTemporary.printOutput(ChronologerException.emptyDateOrTime());
             throw new ChronologerException(ChronologerException.emptyDateOrTime());
         }
+        if (hasModCode) {
+            String modCode = extractModCode(taskFeatures);
+            return new AddCommand(command, taskDescription, fromDate, toDate, modCode);
+        }
         assert toDate != null;
         assert fromDate != null;
         return new AddCommand(command, taskDescription, fromDate, toDate);
     }
 
-    private LocalDateTime extractFromDate(String dateTimeFromUser) throws ChronologerException {
+    protected LocalDateTime extractFromDate(String dateTimeFromUser) throws ChronologerException {
         try {
             String fromDateString = dateTimeFromUser.split("-", 2)[0].trim();
             return DateTimeExtractor.extractDateTime(fromDateString, command);
-        } catch (ParseException e) {
+        } catch (DateTimeParseException e) {
             logger.writeLog(e.toString(), this.getClass().getName(), userInput);
             UiTemporary.printOutput(ChronologerException.wrongDateOrTime());
             throw new ChronologerException(ChronologerException.wrongDateOrTime());
         }
     }
 
-    private LocalDateTime extractToDate(String dateTimeFromUser) throws ChronologerException {
+    protected LocalDateTime extractToDate(String dateTimeFromUser) throws ChronologerException {
         try {
             String toDateString = dateTimeFromUser.split("-", 2)[1].trim();
             return DateTimeExtractor.extractDateTime(toDateString, command);
-        } catch (ParseException e) {
+        } catch (DateTimeParseException e) {
             logger.writeLog(e.toString(), this.getClass().getName(), userInput);
             UiTemporary.printOutput(ChronologerException.wrongDateOrTime());
             throw new ChronologerException(ChronologerException.wrongDateOrTime());
         }
     }
-
 
 }

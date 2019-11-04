@@ -1,6 +1,7 @@
 package chronologer.command;
 
 import chronologer.exception.ChronologerException;
+import chronologer.storage.ChronologerStateList;
 import chronologer.task.Deadline;
 import chronologer.task.Event;
 import chronologer.task.Task;
@@ -8,7 +9,6 @@ import chronologer.task.TaskList;
 import chronologer.storage.Storage;
 import chronologer.task.Todo;
 import chronologer.ui.UiTemporary;
-
 import java.time.LocalDateTime;
 
 /**
@@ -19,12 +19,12 @@ import java.time.LocalDateTime;
  */
 public class AddCommand extends Command {
 
-    private String command;
-    private String taskDescription;
-    private LocalDateTime formattedStartDate;
-    private LocalDateTime formattedEndDate;
-    private int duration = 0;
-    private String modCode;
+    protected String command;
+    protected String taskDescription;
+    protected LocalDateTime formattedStartDate;
+    protected LocalDateTime formattedEndDate;
+    protected int duration = 0;
+    protected String modCode;
 
     /**
      * Initializes the different parameters when adding a task.
@@ -117,12 +117,20 @@ public class AddCommand extends Command {
                 throw new ChronologerException(ChronologerException.taskClash());
             }
             break;
+        case "exam":
+            task = new Event(taskDescription, formattedStartDate, formattedEndDate, modCode);
+            if (tasks.isClash(task)) {
+                UiTemporary.printOutput(ChronologerException.taskClash());
+                throw new ChronologerException(ChronologerException.taskClash());
+            }
+            break;
         default:
             UiTemporary.printOutput(ChronologerException.unknownUserCommand());
             throw new ChronologerException(ChronologerException.unknownUserCommand());
         }
 
         tasks.add(task);
+        ChronologerStateList.addState(tasks.getTasks());
         storage.saveFile(tasks.getTasks());
         UiTemporary.printOutput("Got it! I've added this task:" + "\n  " + task.toString() + "\nNow you have "
                 + tasks.getSize() + " task(s) in the list.");

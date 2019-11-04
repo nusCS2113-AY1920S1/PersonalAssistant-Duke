@@ -23,15 +23,23 @@ public class Todo extends Task implements Serializable {
 
     public Todo(String description) {
         super(description);
-    }
-
-    public Todo(String description, int duration) {
-        super(description);
-        this.duration = duration;
+        this.type = TODO;
     }
 
     /**
-     * Creates a ToDo task with a specific duration and timing.
+     * Creates a ToDo task with a specific duration.
+     *
+     * @param description description of task
+     * @param duration   duration of the task
+     */
+    public Todo(String description, int duration) {
+        super(description);
+        this.duration = duration;
+        this.type = TODO_DURATION;
+    }
+
+    /**
+     * Creates a ToDo task with a specific period and timing.
      *
      * @param description description of task
      * @param startDate   start time of the task
@@ -41,6 +49,7 @@ public class Todo extends Task implements Serializable {
         super(description);
         this.startDate = startDate;
         this.endDate = endDate;
+        this.type = TODO_PERIOD;
     }
 
     /**
@@ -65,7 +74,7 @@ public class Todo extends Task implements Serializable {
                 + "(for " + duration + " hours)";
         }
         if (!comment.isBlank()) {
-            message = message + "  Note to self: " + comment;
+            message = message + "\n  Note to self: " + comment;
         }
         return message;
     }
@@ -80,14 +89,7 @@ public class Todo extends Task implements Serializable {
         return false;
     }
 
-    @Override
-    public String getType() {
-        if (duration != 0) {
-            return TODO_DURATION;
-        } else if (startDate != null) {
-            return TODO_PERIOD;
-        } else {
-            return TODO;
-        }
+    public int getDuration() {
+        return duration;
     }
 }

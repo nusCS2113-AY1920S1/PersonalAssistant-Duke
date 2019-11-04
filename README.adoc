@@ -1,5 +1,5 @@
 image::docs/images/organization logo.png[width="600", align="center"]
-image::docs/images/Ui.png[width="600", align="center"]
+image::docs/images/GUI_current_as_at_30_10_2019.png[width="600", align="center"]
 
 * This is a desktop activities manager application called chronologer. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
 * It is a Java application intended for students to keep track of various kinds tasks, events and other activities they might have.
@@ -7,12 +7,12 @@ image::docs/images/Ui.png[width="600", align="center"]
 
 == Site Map
 
-* <<UserGuide#, User Guide>>
+* https://github.com/AY1920S1-CS2113-T13-3/main/blob/master/docs/UserGuide.adoc[User Guide] (https://docs.google.com/document/d/1VvQkaFA1a4wwRuHORtm_oWX4MfhZwbbGz6x5F7ykQQQ/edit?usp=sharing[Google doc link])
 * <<DeveloperGuide#, Developer Guide>>
 * <<LearningOutcomes#, Learning Outcomes>>
-* <<AboutUs#, About Us>>
+* https://github.com/AY1920S1-CS2113-T13-3/main/blob/master/docs/AboutUs.adoc[AboutUs]
 * <<ContactUs#, Contact Us>>
 
 == Acknowledgements
 
-* Libraries used: https://github.com/junit-team/junit5[JUnit5]
+* Libraries used: https://github.com/junit-team/junit5[JUnit5], https://github.com/ical4j/ical4j[ical4j], https://github.com/google/gson[Gson]

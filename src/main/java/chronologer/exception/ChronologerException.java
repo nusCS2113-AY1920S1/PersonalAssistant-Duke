@@ -23,8 +23,8 @@ public class ChronologerException extends Exception {
         + "See the manual above!";
     private static final String NONEXISTING_TASK_MSG = "OOPS!!! The task you searched for does not exist. "
         + "See the manual above!";
-    private static final String WRITE_ERROR_MSG = "OOPS!!! Unable to write file. The program will be terminated.";
-    private static final String READ_ERROR_MSG = "OOPS!!! Unable to read from file. The program will be terminated.";
+    private static final String WRITE_ERROR_MSG = "OOPS!!! Unable to write file.";
+    private static final String READ_ERROR_MSG = "OOPS!!! Unable to read from file.";
     private static final String NONEXISTING_CLASS_MSG = "OOPS!!! Unable to extract certain features of the Duke Project"
         + " Please ensure the project was imported properly";
     private static final String MISSING_FILE_MSG = "OOPS!!! Unable to read from previous task list. "
@@ -39,6 +39,9 @@ public class ChronologerException extends Exception {
     private static final String MISSING_COMMENT_MSG = "OOPS!!! The comment section is empty. Please try again";
     private static final String CALENDAR_WRITE_ERROR = " OOPS!!! Unable to write calendar file.";
     private static final String MISSING_MODULE_MSG = " OOPS!!! The needed module code is missing.";
+    private static final String EMPTY_EXPORT_MSG = "OOPS!! There are no tasks to export with!";
+    private static final String EARLY_DATE_MSG = "OOPS!! The date you are postponing to is earlier than the old date";
+    private static final String END_DATE_EARLIER_MSG = "OOPS!! Your end date is earlier than your start date";
 
     /**
      * Handles wrong date or time errors.
@@ -191,6 +194,19 @@ public class ChronologerException extends Exception {
     public static String missingModuleCode() {
         return MISSING_MODULE_MSG;
     }
+
+    public static String emptyExport() {
+        return EMPTY_EXPORT_MSG;
+    }
+
+    public static String postponeDateError() {
+        return EARLY_DATE_MSG;
+    }
+
+    public static String endDateError() {
+        return END_DATE_EARLIER_MSG;
+    }
+
 
     public ChronologerException(String message) {
         super(message);

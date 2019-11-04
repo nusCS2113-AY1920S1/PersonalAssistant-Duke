@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 class Reminder implements Serializable {
-    private LocalDateTime reminderDate;
+    LocalDateTime reminderDate;
 
     Reminder(int days, LocalDateTime startDate) {
         reminderDate = startDate.minusDays(days);

@@ -4,9 +4,8 @@ import chronologer.command.Command;
 import chronologer.command.PostponeCommand;
 import chronologer.exception.ChronologerException;
 import chronologer.ui.UiTemporary;
-
-import java.text.ParseException;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 
 /**
  * Extract the components required for the postpone command from the user input.
@@ -51,7 +50,7 @@ public class PostponeParser extends IndexParser {
         try {
             newFromDate = DateTimeExtractor.extractDateTime(obtainStartDate, command);
             newToDate = DateTimeExtractor.extractDateTime(obtainEndDate, command);
-        } catch (ParseException e) {
+        } catch (DateTimeParseException e) {
             UiTemporary.printOutput(ChronologerException.wrongDateOrTime());
             logger.writeLog(e.toString(), this.getClass().getName(), userInput);
             throw new ChronologerException(ChronologerException.wrongDateOrTime());
@@ -61,10 +60,12 @@ public class PostponeParser extends IndexParser {
     private void extractDeadlineDates(String dateString) throws ChronologerException {
         try {
             newFromDate = DateTimeExtractor.extractDateTime(dateString, command);
-        } catch (ParseException e) {
+        } catch (DateTimeParseException e) {
             UiTemporary.printOutput(ChronologerException.wrongDateOrTime());
             logger.writeLog(e.toString(), this.getClass().getName(), userInput);
             throw new ChronologerException(ChronologerException.wrongDateOrTime());
         }
     }
+
+
 }

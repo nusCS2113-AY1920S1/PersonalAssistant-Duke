@@ -2,7 +2,7 @@ package chronologer.ui;
 
 import chronologer.task.Task;
 import chronologer.task.TaskList;
-
+import javafx.beans.value.ObservableIntegerValue;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -17,6 +17,7 @@ public class UiTemporary {
 
     // All the different definitions including the string definitions are here.
     public static String userOutputForUI;
+    private ObservableIntegerValue currentTheme;
 
     private static String userOutputDash = "_______________________________\n";
 

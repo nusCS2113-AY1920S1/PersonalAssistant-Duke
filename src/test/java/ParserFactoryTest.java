@@ -9,6 +9,11 @@ import java.lang.reflect.Field;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Test class for parser factory.
+ * @author Fauzan
+ * @version V1.0
+ */
 public class ParserFactoryTest {
 
     LocalDateTime startDate = LocalDateTime.of(2001,1,1,1,0);
@@ -71,7 +76,7 @@ public class ParserFactoryTest {
         Assertions.assertThrows(ChronologerException.class, () -> {
             ParserFactory.parse("deadline test");
         });
-        Assertions.assertThrows(DateTimeParseException.class, () -> {
+        Assertions.assertThrows(ChronologerException.class, () -> {
             ParserFactory.parse("deadline test /by");
         });
         Assertions.assertThrows(ChronologerException.class, () -> {

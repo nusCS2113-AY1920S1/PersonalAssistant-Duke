@@ -17,18 +17,6 @@ import java.util.ArrayList;
 public abstract class Command {
 
     /**
-     * Defines that isExit is false when instantiated to allow program to continue running.
-     */
-    protected boolean isExit = false;
-
-    /**
-     * Terminates the program by setting isExit to true.
-     */
-    public void commandOut() {
-        isExit = true;
-    }
-
-    /**
      * Checks if the index of a Task provided by the user is within the TaskList.
      *
      * @param indexOfTask Holds the index of the task to be commented on.
@@ -57,8 +45,6 @@ public abstract class Command {
         UiTemporary.printDash();
     }
 
-
-
     /**
      * Contracts all Command type classes to have their own respective execute
      * methods.
@@ -69,10 +55,4 @@ public abstract class Command {
      */
     public abstract void execute(TaskList tasks, Storage storage) throws ChronologerException;
 
-    /**
-     * This getExit function is called by a program to check the status of exit.
-     */
-    public boolean getExit() {
-        return isExit;
-    }
 }

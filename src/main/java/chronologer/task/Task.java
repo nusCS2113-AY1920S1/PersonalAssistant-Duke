@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
  */
 public abstract class Task implements Serializable {
 
+    protected String type;
     protected String description;
     protected LocalDateTime startDate = null;
     protected LocalDateTime endDate = null;
@@ -94,7 +95,9 @@ public abstract class Task implements Serializable {
         return message;
     }
 
-    public abstract String getType();
+    public String getType() {
+        return type;
+    }
 
     abstract boolean isClash(Task taskToCheck);
 

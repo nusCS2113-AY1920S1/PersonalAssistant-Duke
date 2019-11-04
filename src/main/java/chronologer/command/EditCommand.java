@@ -1,6 +1,7 @@
 package chronologer.command;
 
 import chronologer.exception.ChronologerException;
+import chronologer.storage.ChronologerStateList;
 import chronologer.storage.Storage;
 import chronologer.task.Task;
 import chronologer.task.TaskList;
@@ -32,6 +33,7 @@ public class EditCommand extends Command {
     public void execute(TaskList tasks, Storage storage) throws ChronologerException {
         if ((isIndexValid(indexOfTask, tasks.getSize()))) {
             Task taskToEdit = tasks.editTaskDescription(indexOfTask, newDescription);
+            ChronologerStateList.addState((tasks.getTasks()));
             storage.saveFile(tasks.getTasks());
             UiTemporary.printOutput("Noted. Your new task description is:" + "\n " + taskToEdit.getDescription());
         }

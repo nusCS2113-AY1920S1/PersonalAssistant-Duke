@@ -4,6 +4,9 @@ import chronologer.command.Command;
 import chronologer.command.ExitCommand;
 import chronologer.command.ExportCommand;
 import chronologer.command.ListCommand;
+import chronologer.command.RedoCommand;
+import chronologer.command.StoreVersionCommand;
+import chronologer.command.UndoCommand;
 import chronologer.exception.ChronologerException;
 import chronologer.ui.UiTemporary;
 
@@ -44,7 +47,8 @@ public class ParserFactory {
             }
             return new TodoParser(userInput, command).parse();
         case "deadline":
-            return new DeadlineParser(userInput, command, false).parse();
+        case "assignment":
+            return new DeadlineParser(userInput, command).parse();
         case "event":
             return new EventParser(userInput, command).parse();
         case "find":
@@ -80,10 +84,24 @@ public class ParserFactory {
         case "schedule":
             return new ScheduleParser(userInput, command).parse();
         case "export":
-            return new ExportCommand();
-        case "assignment":
-            return new DeadlineParser(userInput, command, true).parse();
-
+            return new ExportParser(userInput,command).parse();
+        case "undo":
+            return new UndoCommand();
+        case "redo":
+            return new RedoCommand();
+        case "theme":
+            return new ThemeParser(userInput,command).parse();
+        case "restore":
+            return new RestoreVersionParser(userInput,command).parse();
+        case "store":
+            return new StoreVersionParser(userInput,command).parse();
+        case "exam": //fallthrough
+        case "examination":
+            command = "exam";
+            return new EventParser(userInput, command).parse();
+        case "lecture": //fallthrough
+        case "tutorial":
+            return new RecurringEventParser(userInput, command).parse();
         default:
             // Empty string or unknown command.
             UiTemporary.printUnknownInput();

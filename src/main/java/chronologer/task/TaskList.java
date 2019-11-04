@@ -1,8 +1,12 @@
 package chronologer.task;
 
 import java.time.LocalDateTime;
+
+import chronologer.ui.UiTemporary;
+import javafx.beans.value.ObservableIntegerValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -15,11 +19,6 @@ import java.util.Comparator;
  * @version v1.0
  */
 public class TaskList {
-
-    private static final String DEADLINE = "DEADLINE";
-    private static final String EVENT = "EVENT";
-    private static final String TODO_DURATION = "TODO DURATION";
-    private static final String TODO_PERIOD = "TODO PERIOD";
 
     private ArrayList<Task> listOfTasks;
     private ObservableList<Task> observableListOfTasks;
@@ -50,10 +49,8 @@ public class TaskList {
 
     /**
      * This custom comparator allows the sorting of both deadlines and events.
-     *
-     * @param task contains the task that needs to be added.
      */
-    public static final Comparator<Task> PriorityComparator = (firstPriority, secondPriority) -> {
+    private static final Comparator<Task> PriorityComparator = (firstPriority, secondPriority) -> {
         if (firstPriority.priority.equals(Priority.HIGH) && secondPriority.priority.equals(Priority.MEDIUM)) {
             return -1;
         } else if (firstPriority.priority.equals(Priority.MEDIUM) && secondPriority.priority.equals(Priority.MEDIUM)) {
@@ -168,8 +165,8 @@ public class TaskList {
     public Task addLocation(Integer indexOfTask, String taskWithLocation) {
         Task taskHasLocation = listOfTasks.get(indexOfTask);
         taskHasLocation.setLocation("Location of the task is " + taskWithLocation);
+        observableListOfTasks.add(taskHasLocation);
         return taskHasLocation;
-
     }
 
     /**
@@ -177,8 +174,7 @@ public class TaskList {
      *
      * @param dayToFind is of String type which contains the desired date of
      *                  schedule.
-     * @return sortDateList the sorted schedule of all the tasks on a particular
-     *         ate.
+     * @return sortDateList the sorted schedule of all the tasks on a particular date.
      */
     public ArrayList<Task> schedule(String dayToFind) {
         ArrayList<Task> sortedDateList = new ArrayList<Task>();
@@ -187,7 +183,7 @@ public class TaskList {
                 sortedDateList.add(listOfTasks.get(i));
             }
         }
-        Collections.sort(sortedDateList, DateComparator);
+        sortedDateList.sort(DateComparator);
         return sortedDateList;
     }
 
@@ -207,7 +203,6 @@ public class TaskList {
                 priorityList.add(listOfTask);
             }
         }
-
         priorityList.sort(PriorityComparator);
         for (int i = 0; i < priorityList.size(); i++) {
             stringPriorityList.add(priorityList.get(i).toString());
@@ -231,8 +226,10 @@ public class TaskList {
     }
 
     //@@author fauzt-reused
+
     /**
      * Retrieves all Event tasks in the main task list in chronologically-ordered list.
+     *
      * @param deadlineDate is the cut-off time to search all prior relevant events
      * @return all the events in the main task list in chronological order
      */
@@ -240,7 +237,7 @@ public class TaskList {
         ArrayList<Event> eventList = new ArrayList<>();
         for (Task item : listOfTasks) {
             boolean isAnEventBeforeDeadline = item.getClass() == Event.class
-                    && item.getStartDate().isBefore(deadlineDate);
+                && item.getStartDate().isBefore(deadlineDate);
             if (isAnEventBeforeDeadline) {
                 eventList.add((Event) item);
             }
@@ -250,7 +247,21 @@ public class TaskList {
         return eventList;
     }
 
-    //@@author
+    /**
+     * Fetches all reminders for the current date.
+     *
+     * @return Holds reminders for the current date.
+     */
+    public ArrayList<String> fetchReminders(LocalDateTime currentDateTime) {
+        ArrayList<String> reminders = new ArrayList<>();
+        for (Task listOfTask : listOfTasks) {
+            if (listOfTask.isReminderTrigger() && listOfTask.reminder.reminderDate == currentDateTime) {
+                reminders.add(listOfTask.getDescription());
+            }
+        }
+        return reminders;
+    }
+
     /**
      * This function allows the user to obtain the tasks on a particular date, but
      * only with description.
@@ -265,7 +276,7 @@ public class TaskList {
         for (int i = 0; i < obtainDescriptions.size(); i++) {
             if (obtainDescriptions.get(i).toString().contains(dayToFind)) {
                 scheduleDescriptionOnly.add(obtainDescriptions.get(i).getModCode().trim() + " "
-                        + obtainDescriptions.get(i).getDescription().trim());
+                    + obtainDescriptions.get(i).getDescription().trim());
             }
         }
         return scheduleDescriptionOnly;
@@ -280,6 +291,7 @@ public class TaskList {
      */
     public Task editTaskDescription(int indexOfTask, String newDescription) {
         Task taskToBeEdited = listOfTasks.get(indexOfTask);
+        observableListOfTasks.remove(taskToBeEdited);
         taskToBeEdited.setDescription(newDescription);
         observableListOfTasks.add(taskToBeEdited);
         return taskToBeEdited;
@@ -289,34 +301,45 @@ public class TaskList {
      * Function to allow user to edit/add comments to existing tasks.
      *
      * @param indexOfTask Index of task in list
-     * @param comment     commnent to be added/edited
+     * @param comment     Holds comment to be added/edited
      * @return taskToBeEdited The task that has its comment edited/added
      */
     public Task editTaskComment(int indexOfTask, String comment) {
         Task taskToBeEdited = listOfTasks.get(indexOfTask);
+        observableListOfTasks.remove(taskToBeEdited);
         taskToBeEdited.setComment(comment);
         observableListOfTasks.add(taskToBeEdited);
         return taskToBeEdited;
     }
 
-    public boolean isDeadline(Task task) {
-        return (DEADLINE.equals(task.getType()));
-    }
-
-    public boolean isEvent(Task task) {
-        return (EVENT.equals(task.getType()));
-    }
-
-    public boolean isTodoDuration(Task task) {
-        return (TODO_DURATION.equals(task.getType()));
-    }
-
-    public boolean isTodoPeriod(Task task) {
-        return (TODO_PERIOD.equals(task.getType()));
-    }
-
     public void updatePriority(Task task) {
         observableListOfTasks.add(task);
+        observableListOfTasks.remove(task);
+    }
+
+    public void updateListOfTasks(ArrayList<Task> updatedListOfTasks) {
+        listOfTasks.clear();
+        listOfTasks = updatedListOfTasks;
+    }
+
+    private ObservableList<Integer> currentTheme = FXCollections.observableArrayList(-1);
+    private int prevTheme = 0;
+
+    /**
+     * Allows the user to change theme - either dark mode or light mode.
+     * @param choiceOfTheme Holds the theme that the user wants.
+     */
+    public void updateTheme(int choiceOfTheme) {
+        if (choiceOfTheme != prevTheme && choiceOfTheme != -1) {
+            currentTheme.clear();
+            currentTheme.add(choiceOfTheme);
+            System.out.println(currentTheme.size());
+            prevTheme = choiceOfTheme;
+            UiTemporary.printOutput("Theme changed!");
+        } else {
+            UiTemporary.printOutput("Theme cannot be changed!");
+        }
+
     }
 
     public ArrayList<Task> getTasks() {
@@ -331,4 +354,7 @@ public class TaskList {
         return listOfTasks.size();
     }
 
+    public ObservableList<Integer> getTheme() {
+        return currentTheme;
+    }
 }

@@ -9,7 +9,7 @@ import chronologer.ui.UiTemporary;
  * Extract the components required for the edit command from the user input.
  *
  * @author Tan Yi Xiang
- * @version v1.0
+ * @version v1.1
  */
 public class EditParser extends IndexParser {
 
@@ -28,8 +28,10 @@ public class EditParser extends IndexParser {
 
     private String extractNewDescription(String taskFeatures) throws ChronologerException {
         String[] editCommandParts = taskFeatures.split("\\s+", 2);
-        String newDescription = editCommandParts[1].trim();
-        if (newDescription.isEmpty()) {
+        String newDescription;
+        try {
+            newDescription = editCommandParts[1].trim();
+        } catch (ArrayIndexOutOfBoundsException e) {
             UiTemporary.printOutput(ChronologerException.emptyUserDescription());
             logger.writeLog(EMPTY_DESCRIPTION, this.getClass().getName(), userInput);
             throw new ChronologerException(ChronologerException.emptyUserDescription());

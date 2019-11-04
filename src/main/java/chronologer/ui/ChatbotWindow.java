@@ -10,8 +10,12 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * UI component that allows the user to interact with Chronologer like a chatbot.
@@ -27,17 +31,21 @@ class ChatbotWindow extends UiComponent<Region> {
     @FXML
     private VBox dialogBoxContainer;
     @FXML
-    private TextField userInputTextField;
-    @FXML
     private Button sendButton;
+    @FXML
+    private TextField inputTextField;
 
     private Parser parser;
     private Command command;
     private TaskList tasks;
     private Storage storage;
 
+    private List<String> userInputHistory = new ArrayList<>();
+    private int userInputHistoryPointer = 0;
+    private String currentInput = "default";
+
     /**
-     * Constructs the chatbot window of the application.
+     * Constructs the chat-bot window of the application.
      *
      * @param command Holds the Command object responsible for executing user commands.
      * @param parser Holds the Parser object which is responsible for parsing user input.
@@ -49,13 +57,15 @@ class ChatbotWindow extends UiComponent<Region> {
         this.tasks = tasks;
         this.storage = storage;
         scrollPane.vvalueProperty().bind(dialogBoxContainer.heightProperty());
+
+        attachInputListeners();
         printWelcome();
     }
 
     @FXML
     private void handleUserInput() {
-        String input = userInputTextField.getText();
-        userInputTextField.clear();
+        String input = inputTextField.getText();
+        storeUserInputHistory(input);
         try {
             Command command = ParserFactory.parse(input);
             command.execute(tasks, storage);
@@ -65,11 +75,7 @@ class ChatbotWindow extends UiComponent<Region> {
         DialogBox toChangeDimension = DialogBox.getUserDialog(" " + input);
         dialogBoxContainer.getChildren().addAll(toChangeDimension.getRoot(),
             DialogBox.getChronologerDialog(UiTemporary.userOutputForUI).getRoot());
-    }
-
-    private void setText(String text) {
-        userInputTextField.setText(text);
-        userInputTextField.positionCaret(userInputTextField.getText().length());
+        inputTextField.clear();
     }
 
     /**
@@ -82,10 +88,64 @@ class ChatbotWindow extends UiComponent<Region> {
     }
 
     /**
-      * Prints chronologer's welcome message.
-      */
+     * Prints chronologer's welcome message.
+     */
     private void printWelcome() {
         print(CHRONOLOGER_WELCOME_MESSAGE);
+    }
+
+    private void setText(String text) {
+        inputTextField.setText(text);
+        inputTextField.positionCaret(inputTextField.getText().length());
+    }
+
+    /**
+     * Handles the key press event which simulates command line.
+     */
+    private void attachInputListeners() {
+        inputTextField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (userInputHistoryPointer == userInputHistory.size()) {
+                currentInput = newValue;
+            }
+        });
+
+        inputTextField.addEventHandler(KeyEvent.KEY_PRESSED, keyEvent -> {
+            switch (keyEvent.getCode()) {
+            case ENTER:
+                keyEvent.consume();
+                handleUserInput();
+                break;
+            case UP:
+                keyEvent.consume();
+                if (userInputHistoryPointer >= 1) {
+                    userInputHistoryPointer -= 1;
+                    setText(userInputHistory.get(userInputHistoryPointer));
+                }
+                break;
+            case DOWN:
+                keyEvent.consume();
+                if (userInputHistoryPointer < userInputHistory.size() - 1) {
+                    userInputHistoryPointer += 1;
+                    setText(userInputHistory.get(userInputHistoryPointer));
+                } else if (userInputHistoryPointer == userInputHistory.size() - 1) {
+                    userInputHistoryPointer += 1;
+                    setText(currentInput);
+                }
+                break;
+            default:
+                break;
+            }
+        });
+    }
+
+    private void storeUserInputHistory(String input) {
+        if (userInputHistoryPointer != userInputHistory.size() - 1
+            || (userInputHistoryPointer == userInputHistory.size() - 1
+            && !input.equals(userInputHistory.get(userInputHistoryPointer)))) {
+            userInputHistory.add(input);
+        }
+        userInputHistoryPointer = userInputHistory.size();
+        currentInput = null;
     }
 
 }

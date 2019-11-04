@@ -1,6 +1,7 @@
 package chronologer.command;
 
 import chronologer.exception.ChronologerException;
+import chronologer.storage.ChronologerStateList;
 import chronologer.task.Task;
 import chronologer.storage.Storage;
 import chronologer.task.TaskList;
@@ -30,6 +31,7 @@ public class DeleteCommand extends Command {
     public void execute(TaskList tasks, Storage storage) throws ChronologerException {
         if (isIndexValid(indexOfTask, tasks.getSize())) {
             Task task = tasks.delete(indexOfTask);
+            ChronologerStateList.addState(tasks.getTasks());
             storage.saveFile(tasks.getTasks());
             UiTemporary.printOutput("Noted. I've removed this task:" + "\n " + task.toString() + "\nNow you have "
                 + tasks.getSize() + " task(s) in the list.");

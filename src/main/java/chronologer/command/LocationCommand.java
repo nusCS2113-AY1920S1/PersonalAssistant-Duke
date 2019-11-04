@@ -1,6 +1,7 @@
 package chronologer.command;
 
 import chronologer.exception.ChronologerException;
+import chronologer.storage.ChronologerStateList;
 import chronologer.storage.Storage;
 import chronologer.task.Task;
 import chronologer.task.TaskList;
@@ -38,6 +39,7 @@ public class LocationCommand extends Command {
     public void execute(TaskList tasks, Storage storage) throws ChronologerException {
         if (isIndexValid(indexOfTask, tasks.getSize())) {
             Task taskWithLocation = tasks.addLocation(indexOfTask, locationOfTask);
+            ChronologerStateList.addState((tasks.getTasks()));
             storage.saveFile(tasks.getTasks());
             UiTemporary.printOutput("Noted. Your task location has been added:" + "\n "
                 + taskWithLocation.toString() + " " + taskWithLocation.getLocation());

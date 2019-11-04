@@ -1,6 +1,7 @@
 package chronologer.command;
 
 import chronologer.exception.ChronologerException;
+import chronologer.storage.ChronologerStateList;
 import chronologer.task.Task;
 import chronologer.storage.Storage;
 import chronologer.task.TaskList;
@@ -28,6 +29,7 @@ public class DoneCommand extends Command {
     public void execute(TaskList tasks, Storage storage) throws ChronologerException {
         if (isIndexValid(indexOfTask, tasks.getSize())) {
             Task task = tasks.markAsDone(indexOfTask);
+            ChronologerStateList.addState((tasks.getTasks()));
             storage.saveFile(tasks.getTasks());
             UiTemporary.printOutput("Nice! I've marked this task as done: " + task.toString());
         }

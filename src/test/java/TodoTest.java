@@ -1,5 +1,6 @@
 import java.text.ParseException;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -42,7 +43,7 @@ public class TodoTest {
             to = DateTimeExtractor.extractDateTime("01/01/2019 2200", "todo");
             Todo newTodo = new Todo("testTodo", from, to);
             Assertions.assertEquals(newTodo.getStartDate(), from);
-        } catch (ParseException e) {
+        } catch (DateTimeParseException e) {
             throw new ChronologerException(ChronologerException.wrongDateOrTime());
         }
     }
