@@ -9,6 +9,7 @@ import java.util.Optional;
 import java.util.Scanner;
 import java.util.Set;
 
+import duke.exception.DukeException;
 import duke.task.Task;
 import duke.tasklist.TaskList;
 
@@ -22,7 +23,7 @@ public class TaskAssigner {
      * @param tasks TaskList of all of user's tasks
      * @param task  Task to be auto assigned
      */
-    public static void assign(TaskList tasks, Task task) {
+    public static void assign(TaskList tasks, Task task) throws DukeException {
         if (task.getFilter().isPresent()) {
             System.out.println(String.format("This task already has a filter \"%s\"!", task.getFilter().get()));
             return;
@@ -148,7 +149,7 @@ public class TaskAssigner {
      * @param tasks TaskList of all of user's tasks
      * @return Set of filters
      */
-    public static HashSet<String> getFilters(TaskList tasks) {
+    public static HashSet<String> getFilters(TaskList tasks) throws DukeException {
         ArrayList<String> filters = new ArrayList<String>();
         for (int i = 0; i < tasks.size(); i++) {
             Optional<String> filter = tasks.get(i).getFilter();
@@ -168,7 +169,7 @@ public class TaskAssigner {
      * @return Map of filter to average VectorCount of filter
      */
     public static Map<String, ArrayList<Integer>> getFilterVectors(Set<String> filters, TaskList tasks,
-                                                                   ArrayList<ArrayList<Integer>> vectorCounts) {
+                                                                   ArrayList<ArrayList<Integer>> vectorCounts) throws DukeException {
         Map<String, ArrayList<Integer>> filterVectorCounts = new HashMap<String, ArrayList<Integer>>();
         for (int i = 0; i < tasks.size(); i++) {
             Optional<String> filter = tasks.get(i).getFilter();

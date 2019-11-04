@@ -44,12 +44,12 @@ class SetCommandTest {
         String description2 = "description2";
 
         //Create different Tasks to use as template for testing
-        list.add(new Task(haveFilter, dateTime1, haveRecurrence, description1, 1)); // base
-        list.add(new Task(haveFilter, dateTime1, haveRecurrence, description1, 2)); // diff duration
-        list.add(new Task(noFilter, dateTime1, haveRecurrence, description1, 1)); // diff filter
-        list.add(new Task(haveFilter, dateTime1, haveRecurrence, description2, 1)); // diff description
-        list.add(new Task(haveFilter, dateTime2, haveRecurrence, description1, 1)); // diff datetime
-        list.add(new Task(haveFilter, dateTime1, noRecurrence, description1, 1)); // diff recurrence
+        list.add(new Task(haveFilter, dateTime1, haveRecurrence, description1, 1,1)); // base
+        list.add(new Task(haveFilter, dateTime1, haveRecurrence, description1, 2,1)); // diff duration
+        list.add(new Task(noFilter, dateTime1, haveRecurrence, description1, 1,1)); // diff filter
+        list.add(new Task(haveFilter, dateTime1, haveRecurrence, description2, 1,1)); // diff description
+        list.add(new Task(haveFilter, dateTime2, haveRecurrence, description1, 1,1)); // diff datetime
+        list.add(new Task(haveFilter, dateTime1, noRecurrence, description1, 1,1));// diff recurrence
 
         return list;
     }
@@ -91,10 +91,10 @@ class SetCommandTest {
         assertEquals(expectedDateTime, actualDateTime);
 
         // recurrence set
-        setCommand = new SetCommand(noFilter, 6, newTask);
+        setCommand = new SetCommand(noFilter, 0, newTask);
         String expectedRecurrence = baseTask.getRecurrenceCode();
         setCommand.execute(list, ui, storage);
-        String actualRecurrence = list.get(noFilter, 6).getRecurrenceCode();
+        String actualRecurrence = list.get(noFilter, 0).getRecurrenceCode();
         assertEquals(expectedRecurrence, actualRecurrence);
     }
 }

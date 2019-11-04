@@ -1,9 +1,11 @@
 package duke.logic.command;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.PrintStream;
+import java.text.ParseException;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.Optional;
@@ -14,13 +16,25 @@ import duke.storage.Storage;
 import duke.task.Task;
 import duke.tasklist.TaskList;
 import duke.ui.Ui;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-class DoneCommandTest {
+class FindCommandTest {
     private static final String FILE_PATH = "data/editCommandTest.json";
-
     private static final Ui ui = new Ui();
     private static final Storage storage = new Storage(FILE_PATH);
+
+    private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+    private final PrintStream originalOut = System.out;
+
+    public void setUpOutput() {
+        System.setOut(new PrintStream(outContent));
+    }
+
+    public void restoreStreams() {
+        System.setOut(originalOut);
+    }
 
     private TaskList createTaskList() throws DukeException {
         TaskList t = new TaskList();
@@ -55,30 +69,32 @@ class DoneCommandTest {
     }
 
     @Test
-    public void execute_filteredDone_success() throws DukeException, IOException {
-        TaskList tasks = createTaskList();
-        DoneCommand doneCommand = new DoneCommand(Optional.of("cs"), "1");
-        doneCommand.execute(tasks, ui, storage);
-        String expectedStatusIcon = "Y";
-        String actualStatusIcon = tasks.get(1).getStatusIcon();
-        assertEquals(expectedStatusIcon, actualStatusIcon);
+    public void execute_findTestContainsCorrectFind_success() throws DukeException, IOException, ParseException {
+        TaskList t = createTaskList();
+        Optional<String> noFilter = Optional.empty();
+        setUpOutput();
+        FindCommand findCommand = new FindCommand("cs2113", noFilter);
+        findCommand.execute(t, ui, storage);
+        assertTrue(outContent.toString().contains("cs2113 is the best :') 29/10/2017 00:00"));
     }
 
     @Test
-    public void execute_done_success() throws DukeException, IOException {
-        TaskList tasks = createTaskList();
-        DoneCommand doneCommand = new DoneCommand(Optional.empty(), "1");
-        doneCommand.execute(tasks, ui, storage);
-        String expectedStatusIcon = "Y";
-        String actualStatusIcon = tasks.get(0).getStatusIcon();
-        assertEquals(expectedStatusIcon, actualStatusIcon);
+    public void execute_findTestContainsWrongFind_failure() throws DukeException, IOException, ParseException {
+        TaskList t = createTaskList();
+        Optional<String> noFilter = Optional.empty();
+        setUpOutput();
+        FindCommand findCommand = new FindCommand("cs2113", noFilter);
+        findCommand.execute(t, ui, storage);
+        assertTrue(!outContent.toString().contains("cg2271 is the best :') 29/10/2017 00:00"));
     }
 
     @Test
-    public void constructor_nonNumericalIndex_failure() {
-        Optional<String> cs = Optional.of("cs");
-        Exception exception = assertThrows(DukeException.class, () ->
-                new DoneCommand(cs, "non"));
-        assertEquals("Please enter a numerical field for the index!", exception.getMessage());
+    public void execute_findTestNoTaskFound_sucess() throws DukeException, IOException, ParseException {
+        TaskList t = createTaskList();
+        Optional<String> noFilter = Optional.empty();
+        setUpOutput();
+        FindCommand findCommand = new FindCommand("LAS1201", noFilter);
+        findCommand.execute(t, ui, storage);
+        assertTrue(outContent.toString().contains("I'm sorry we found no tasks matching that description!"));
     }
 }

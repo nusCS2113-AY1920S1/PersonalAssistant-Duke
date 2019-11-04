@@ -1,15 +1,15 @@
 package duke.logic;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import java.util.ArrayList;
+import java.util.Optional;
+
 import duke.exception.DukeException;
 import duke.logic.command.EditCommand;
 import duke.logic.parser.EditCommandParser;
 import duke.logic.parser.KeywordAndField;
 import org.junit.jupiter.api.Test;
-
-import java.util.ArrayList;
-import java.util.Optional;
-
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class EditCommandParserTest {
 

@@ -2,8 +2,18 @@ package duke.logic.parser;
 
 import java.util.Optional;
 
-import duke.logic.command.*;
 import duke.exception.DukeException;
+import duke.logic.command.AutoAssignCommand;
+import duke.logic.command.Command;
+import duke.logic.command.DeleteCommand;
+import duke.logic.command.DoneCommand;
+import duke.logic.command.ExitCommand;
+import duke.logic.command.FindCommand;
+import duke.logic.command.HelpCommand;
+import duke.logic.command.ListCommand;
+import duke.logic.command.PomodoroCommand;
+import duke.logic.command.RandomCommand;
+import duke.logic.command.UndoCommand;
 import duke.storage.UndoStack;
 
 /**
@@ -24,6 +34,9 @@ public class DuqueParser {
     public static Command parseCommand(String fullCommand, UndoStack undoStack) throws DukeException {
         Optional<String> filter = Optional.empty();
         fullCommand = fullCommand.trim();
+        if (fullCommand.equals("")) {
+            throw new DukeException("Please type something for me to do!");
+        }
         if (fullCommand.charAt(0) == '-') {
             if (fullCommand.length() == 1 || !fullCommand.contains(" ")) {
                 throw new DukeException("Sorry I don't understand what you mean.");
@@ -37,9 +50,17 @@ public class DuqueParser {
 
         switch (keyword) {
         case "bye":
+            if (1 == fcArray.length) {
+                return new ExitCommand();
+            }
+            System.out.println("I don't like goodbyes with strings attached....");
             return new ExitCommand();
         case "help":
+            if (1 == fcArray.length) {
+                return new HelpCommand();
+            }
             return new HelpCommand();
+            //update with more detailed help command
         case "list":
             if (1 == fcArray.length) {
                 return new ListCommand(filter);
@@ -47,7 +68,7 @@ public class DuqueParser {
             return new ListCommand(fcArray[1], filter);
         case "delete":
             if (fcArray.length == 1) {
-                throw new DukeException("☹ OOPS!!! The description of delete cannot be empty.");
+                throw new DukeException("Please input an index of the task to be deleted!");
             }
             return new DeleteCommand(filter, fcArray[1]);
         case "find":

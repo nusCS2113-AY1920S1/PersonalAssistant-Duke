@@ -20,8 +20,12 @@ public class AutoAssignCommand extends Command {
      *
      * @param index
      */
-    public AutoAssignCommand(String index) {
-        this.index = Integer.parseInt(index);
+    public AutoAssignCommand(String index) throws DukeException {
+        try {
+            this.index = Integer.parseInt(index) - 1;
+        } catch (NumberFormatException e) {
+            throw new DukeException("Please enter a numerical field for the index!");
+        }
     }
 
     /**
@@ -35,7 +39,7 @@ public class AutoAssignCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException, IOException {
-        TaskAssigner.assign(tasks, tasks.get(index - 1));
+        TaskAssigner.assign(tasks, tasks.get(index));
         storage.save(tasks);
     }
 

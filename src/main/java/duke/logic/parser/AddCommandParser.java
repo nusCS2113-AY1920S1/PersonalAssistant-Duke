@@ -14,6 +14,7 @@ public class AddCommandParser implements Parser<AddCommand> {
     private String taskType;
 
     private int duration = 0;
+    private int priority = 0;
     private Optional<LocalDateTime> dateTime = Optional.empty();
     private Optional<String> recurrence = Optional.empty();
 
@@ -46,8 +47,15 @@ public class AddCommandParser implements Parser<AddCommand> {
             case "t":
                 this.dateTime = Optional.of(DateTimeParser.parseDateTime(field));
                 break;
+            case "p":
+                try {
+                    priority = Integer.parseInt(field) - 1;
+                } catch (NumberFormatException e) {
+                    throw new DukeException("Please enter a numerical field for the priority!");
+                }
+                break;
             default:
-                throw new DukeException("I don't know which field you are trying to edit!");
+                throw new DukeException("I don't know which field you are trying to add!");
 
             }
         }
@@ -74,6 +82,6 @@ public class AddCommandParser implements Parser<AddCommand> {
     public AddCommand parse(Optional<String> filter, String args) throws DukeException {
         getTypeAndDescription(args);
         getKeywordAndFields(args);
-        return new AddCommand(filter, dateTime, recurrence, description, taskType, duration);
+        return new AddCommand(filter, dateTime, recurrence, description, taskType, duration, priority);
     }
 }

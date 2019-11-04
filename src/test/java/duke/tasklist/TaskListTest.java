@@ -1,27 +1,18 @@
-package duke.logic.command;
+package duke.tasklist;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.Optional;
 
 import duke.exception.DukeException;
 import duke.extensions.Recurrence;
-import duke.storage.Storage;
 import duke.task.Task;
-import duke.tasklist.TaskList;
-import duke.ui.Ui;
 import org.junit.jupiter.api.Test;
 
-class DoneCommandTest {
-    private static final String FILE_PATH = "data/editCommandTest.json";
-
-    private static final Ui ui = new Ui();
-    private static final Storage storage = new Storage(FILE_PATH);
-
+class TaskListTest {
     private TaskList createTaskList() throws DukeException {
         TaskList t = new TaskList();
 
@@ -55,30 +46,35 @@ class DoneCommandTest {
     }
 
     @Test
-    public void execute_filteredDone_success() throws DukeException, IOException {
-        TaskList tasks = createTaskList();
-        DoneCommand doneCommand = new DoneCommand(Optional.of("cs"), "1");
-        doneCommand.execute(tasks, ui, storage);
-        String expectedStatusIcon = "Y";
-        String actualStatusIcon = tasks.get(1).getStatusIcon();
-        assertEquals(expectedStatusIcon, actualStatusIcon);
+    public void get_indexOutOfBoundsTooHigh_failure() throws DukeException {
+        TaskList t = createTaskList();
+        Exception exception = assertThrows(DukeException.class, () ->
+                t.get(4));
+        assertEquals("Please enter valid task index!", exception.getMessage());
     }
 
     @Test
-    public void execute_done_success() throws DukeException, IOException {
-        TaskList tasks = createTaskList();
-        DoneCommand doneCommand = new DoneCommand(Optional.empty(), "1");
-        doneCommand.execute(tasks, ui, storage);
-        String expectedStatusIcon = "Y";
-        String actualStatusIcon = tasks.get(0).getStatusIcon();
-        assertEquals(expectedStatusIcon, actualStatusIcon);
+    public void get_indexOutOfBoundsBelowZero_failure() throws DukeException {
+        TaskList t = createTaskList();
+        Exception exception = assertThrows(DukeException.class, () ->
+                t.get(-1));
+        assertEquals("Please enter a positive index!", exception.getMessage());
     }
 
     @Test
-    public void constructor_nonNumericalIndex_failure() {
+    public void filteredGet_indexOutOfBoundsBelowZero_failure() throws DukeException {
+        TaskList t = createTaskList();
         Optional<String> cs = Optional.of("cs");
         Exception exception = assertThrows(DukeException.class, () ->
-                new DoneCommand(cs, "non"));
-        assertEquals("Please enter a numerical field for the index!", exception.getMessage());
+                t.get(cs,-1));
+        assertEquals("Please enter a positive index!", exception.getMessage());
+    }
+    @Test
+    public void filteredGet_indexOutOfBoundsTooHigh_failure() throws DukeException {
+        TaskList t = createTaskList();
+        Optional<String> cs = Optional.of("cs");
+        Exception exception = assertThrows(DukeException.class, () ->
+                t.get(cs,3));
+        assertEquals("Please enter a valid task index!", exception.getMessage());
     }
 }
