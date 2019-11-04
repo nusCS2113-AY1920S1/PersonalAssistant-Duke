@@ -1,6 +1,7 @@
 package moomoo.task;
 
 import moomoo.task.category.Category;
+import moomoo.task.category.CategoryList;
 import moomoo.task.category.Expenditure;
 
 import java.io.File;
@@ -8,6 +9,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.text.DecimalFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -50,25 +52,29 @@ public class Storage {
      * @return ArrayList object consisting of the categories read from the file.
      * @throws MooMooException Thrown when the file does not exist
      */
-    public ArrayList<Category> loadCategories() throws MooMooException {
-        ArrayList<Category> categoryArrayList = new ArrayList<>();
+    public CategoryList loadExpenditure() throws MooMooException {
+        CategoryList categoryList = new CategoryList();
         try {
-            File myNewFile = new File(categoryFilePath);
+            File myNewFile = new File(expenditureFilePath);
             if (myNewFile.createNewFile()) {
-                return populateDefaultCategories(categoryArrayList);
+                return populateDefaultCategories(categoryList);
             } else {
-                List<String> input = Files.readAllLines(Paths.get(this.categoryFilePath));
-                Category newCategory = new Category("misc");
+                List<String> input = Files.readAllLines(Paths.get(this.expenditureFilePath));
                 for (String s : input) {
-                    if (s.startsWith("c/")) {
-                        newCategory = new Category(s.replace("c/", ""));
-                        categoryArrayList.add(newCategory);
-                    } else if (categoryArrayList.isEmpty()) {
-                        categoryArrayList.add(newCategory);
-                        saveCategoryToFile("misc");
+                    String[] entry = s.split(" \\| ");
+                    if (entry.length == 4) {
+                        String category = entry[0];
+                        String name = entry[1];
+                        double cost = Double.parseDouble(entry[2]);
+                        LocalDate date = LocalDate.parse(entry[3]);
+                        Expenditure expenditure = new Expenditure(name, cost, date);
+                        if (!categoryList.hasCategory(category)) {
+                            categoryList.add(new Category(category));
+                        }
+                        categoryList.get(category).add(expenditure);
                     }
                 }
-                return categoryArrayList;
+                return categoryList;
             }
         } catch (IOException e) {
             throw new MooMooException("Unable to read file. Please retry again.");
@@ -77,21 +83,21 @@ public class Storage {
 
     /**
      * Creates a populated array of default categories.
-     * @param categoryArrayList category list
+     * @param categoryList category list
      * @return populated category list
      * @throws MooMooException throws exception if file cannot be found
      */
-    private ArrayList<Category> populateDefaultCategories(ArrayList<Category> categoryArrayList)
+    private CategoryList populateDefaultCategories(CategoryList categoryList)
             throws MooMooException {
-        categoryArrayList.add(new Category("misc"));
-        categoryArrayList.add(new Category("food"));
-        categoryArrayList.add(new Category("transportation"));
-        categoryArrayList.add(new Category("shopping"));
+        categoryList.add(new Category("misc"));
+        categoryList.add(new Category("food"));
+        categoryList.add(new Category("transportation"));
+        categoryList.add(new Category("shopping"));
         saveCategoryToFile("misc");
         saveCategoryToFile("food");
         saveCategoryToFile("transportation");
         saveCategoryToFile("shopping");
-        return categoryArrayList;
+        return categoryList;
     }
 
     /**
@@ -101,7 +107,7 @@ public class Storage {
     public HashMap<String, Double> loadBudget(ArrayList<Category> catList, Ui ui) {
         try {
             if (Files.isRegularFile(Paths.get(this.budgetFilePath))) {
-                HashMap<String, Double> loadedBudgets = new HashMap<String, Double>();
+                HashMap<String, Double> loadedBudgets = new HashMap<>();
                 List<String> readInput = Files.readAllLines(Paths.get(this.budgetFilePath));
                 String category = "";
                 double budget = 0;
@@ -178,14 +184,18 @@ public class Storage {
      */
     public void deleteCategoryFromFile(String category) throws MooMooException {
         try {
-            List<String> data = Files.readAllLines(Paths.get(this.categoryFilePath));
-            for (String iterator : data) {
-                if (iterator.contentEquals("c/" + category)) {
-                    data.remove(iterator);
-                    break;
+            List<String> data = Files.readAllLines(Paths.get(this.expenditureFilePath));
+            ArrayList<String> toDelete = new ArrayList<>();
+            for (String entry : data) {
+                String[] split = entry.split(" \\| ");
+                if (split[0].contentEquals(category)) {
+                    toDelete.add(entry);
                 }
             }
-            Files.write(Paths.get(this.categoryFilePath), data);
+            for (String entry : toDelete) {
+                data.remove(entry);
+            }
+            Files.write(Paths.get(this.expenditureFilePath), data);
         } catch (IOException e) {
             throw new MooMooException("Unable to write to file. Please retry again.");
         }
