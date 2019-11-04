@@ -5,14 +5,10 @@ package duke.models.assignedtasks;
 import duke.util.DateTimeParser;
 import duke.exceptions.DukeException;
 
-import java.time.Duration;
-import java.time.LocalDateTime;
-
 /**
  * Represents a Assigned task that has been assigned to a patient with a period.
  */
 public class AssignedTaskWithPeriod extends AssignedTask {
-    private long duration;
 
     /**
      * Create a new AssignedTask with its patient id, task id, period, and task type.
@@ -29,19 +25,15 @@ public class AssignedTaskWithPeriod extends AssignedTask {
         setEndDateRaw(etime);
 
         try {
-            this.duration = Duration.between(getStartDate(), getEndDate()).toMillis();
-        } catch (Exception e) {
-            throw new DukeException("You can not assign a end time earlier than its start time !");
-        }
-
-        try {
             setStartDate(DateTimeParser.convertToLocalDateTime(stime));
             setEndDate(DateTimeParser.convertToLocalDateTime(etime));
         } catch (DukeException e) {
             throw new DukeException("The date time format is wrong!");
         }
 
-
+        if (getEndDate().isBefore(getStartDate())) {
+            throw new DukeException("You can't assign the end time earlier than the start time!");
+        }
     }
 
     /**
@@ -61,10 +53,9 @@ public class AssignedTaskWithPeriod extends AssignedTask {
         super(pid, tid, isDone, isRecurrsive, type);
         setStartDateRaw(stime);
         setEndDateRaw(etime);
-        this.duration = Duration.between(getStartDate(), getEndDate()).toMillis();
 
-        if (duration < 0) {
-            throw new DukeException("You can not assign a end time earlier than its start time !");
+        if (getEndDate().isBefore(getStartDate())) {
+            throw new DukeException("You can't assign the end time earlier than the start time!");
         }
 
         try {
@@ -72,6 +63,10 @@ public class AssignedTaskWithPeriod extends AssignedTask {
             setEndDate(DateTimeParser.convertToLocalDateTime(etime));
         } catch (DukeException e) {
             throw new DukeException("The date time format is wrong!");
+        }
+
+        if (getEndDate().isBefore(getStartDate())) {
+            throw new DukeException("You can't assign the end time earlier than the start time!");
         }
 
     }
@@ -96,6 +91,7 @@ public class AssignedTaskWithPeriod extends AssignedTask {
         super(pid, tid, isDone, isRecurrsive, type, uniqueId);
         setStartDateRaw(stime);
         setEndDateRaw(etime);
+
         try {
             setStartDate(DateTimeParser.convertToLocalDateTime(stime));
             setEndDate(DateTimeParser.convertToLocalDateTime(etime));
@@ -103,7 +99,9 @@ public class AssignedTaskWithPeriod extends AssignedTask {
             throw new DukeException("The date time format is wrong!");
         }
 
-        duration = Duration.between(getStartDate(), getEndDate()).toMillis();
+        if (getEndDate().isBefore(getStartDate())) {
+            throw new DukeException("You can't assign the end time earlier than the start time!");
+        }
     }
 
     /**
