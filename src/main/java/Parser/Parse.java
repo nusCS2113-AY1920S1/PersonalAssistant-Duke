@@ -17,13 +17,13 @@ public abstract class Parse {
     public boolean isModCode(String string) {
         if (string.length() < 6){
             return  false;
-        } else if (string.substring(0, 1).matches("\\w+") && string.substring(2, 5).matches("\\d+")) {
+        } else if (string.substring(0, 2).matches("\\w+") && string.substring(2, 6).matches("\\d+")) {
             Integer size = string.length();
-            if (size -  6 > 0 && string.substring(5,6).matches("\\d+")) return false;
+            if (size - 6 > 0 && string.substring(6, 7).matches("\\d+")) return false;
             return true;
-        } else if (string.substring(0, 2).matches("\\w+") && string.substring(3, 6).matches("\\d+")) {
+        } else if (string.length() >= 7 && string.substring(0, 3).matches("\\w+") && string.substring(3, 7).matches("\\d+")) {
             Integer size = string.length();
-            if (size -  7 > 0 && string.substring(6,7).matches("\\d+")) return false;
+            if (size -  7 > 0 && string.substring(7,8).matches("\\d+")) return false;
             return true;
         } else {
             return false;
