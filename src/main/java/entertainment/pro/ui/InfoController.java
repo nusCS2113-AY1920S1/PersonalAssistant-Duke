@@ -8,6 +8,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 
+/**
+ * This class is
+ */
 public class InfoController {
     @FXML
     private Label movieTitleLabel;
@@ -30,83 +33,71 @@ public class InfoController {
     @FXML
     private Label movieCertLabel;
 
+    /**
+     * Responsible for returning the title label.
+     * @return the title label.
+     */
     public Label getMovieTitleLabel() {
         return movieTitleLabel;
     }
 
-    public void setMovieTitleLabel(Label movieTitleLabel) {
-        this.movieTitleLabel = movieTitleLabel;
-    }
-
+    /**
+     * Responsible for returning the genres label.
+     * @return the genres label.
+     */
     public Label getMovieGenresLabel() {
         return movieGenresLabel;
     }
 
-    public void setMovieGenresLabel(Label movieGenresLabel) {
-        this.movieGenresLabel = movieGenresLabel;
-    }
 
+    /**
+     * Responsible for returning the release date label.
+     * @return the release date label.
+     */
     public Label getMovieReleaseDateLabel() {
         return movieReleaseDateLabel;
     }
 
-    public void setMovieReleaseDateLabel(Label movieReleaseDateLabel) {
-        this.movieReleaseDateLabel = movieReleaseDateLabel;
-    }
 
+    /**
+     * Responsible for returning the rating label.
+     * @return the rating label.
+     */
     public Label getMovieRatingLabel() {
         return movieRatingLabel;
     }
 
-    public void setMovieRatingLabel(Label movieRatingLabel) {
-        this.movieRatingLabel = movieRatingLabel;
-    }
-
+    /**
+     * Responsible for returning the summary label.
+     * @return the summary label.
+     */
     public Label getMovieSummaryLabel() {
         return movieSummaryLabel;
     }
 
-    public void setMovieSummaryLabel(Label movieSummaryLabel) {
-        this.movieSummaryLabel = movieSummaryLabel;
-    }
-
+    /**
+     * Responsible for returning the backdrop poster image.
+     * @return the backdrop poster image.
+     */
     public ImageView getMovieBackdropImageView() {
         return movieBackdropImageView;
     }
 
-    public void setMovieBackdropImageView(ImageView movieBackdropImageView) {
-        this.movieBackdropImageView = movieBackdropImageView;
-    }
-
-    public AnchorPane getAnchorPane() {
-        return anchorPane;
-    }
-
-    public void setAnchorPane(AnchorPane anchorPane) {
-        this.anchorPane = anchorPane;
-    }
-
-    public GridPane getMovieGridPane() {
-        return movieGridPane;
-    }
-
-    public void setMovieGridPane(GridPane movieGridPane) {
-        this.movieGridPane = movieGridPane;
-    }
-
+    /**
+     * Responsible for returning the cast label.
+     * @return the cast label.
+     */
     public Label getMovieCastLabel() {
         return movieCastLabel;
     }
 
-    public void setMovieCastLabel(Label movieCastLabel) {
-        this.movieCastLabel = movieCastLabel;
-    }
 
+    /**
+     * Responsible for returning the certification label.
+     * @return the certification label.
+     */
     public Label getMovieCertLabel() {
         return movieCertLabel;
     }
 
-    public void setMovieCertLabel(Label movieCertLabel) {
-        this.movieCertLabel = movieCertLabel;
-    }
 }

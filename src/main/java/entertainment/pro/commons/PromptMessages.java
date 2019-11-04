@@ -30,6 +30,10 @@ public class PromptMessages {
             "Please take note that posters for search results are unavailable for offline search requests]";
     public static final String EMPTY_PARAM_IN_SEARCH = "Empty parameter entered in search command";
     public static final String INVALID_PARAM_IN_SEARCH = "Invalid parameter entered in search command";
+    public static final String TO_VIEW_MORE_INFO = "To view more information about a movie/TV show, enter the command, " +
+            "'view entry NUM' where NUM is the integer of the movie/TV show printed below its title.";
+    public static final String TO_VIEW_BACK_SEARCHES = "To go back to search results, press 'tab' and press 'enter' " +
+            "to go back the search results.";
 
     public static final String SORT_SUCCESS = "Nice! You have successfully updated your sort preferences";
     public static final String PREFERNCES_SUCCESS = "Nice! You have successfully updated your preferences";
@@ -58,11 +62,13 @@ public class PromptMessages {
 
 
     //API Messages
+    public static final String RECACHING_DATA_API_ERROR = "Sorry, but something went wrong when recaching data";
     public static final String API_FAIL_GENERAL = "☹ I'sorry, but something went wrong when fetching data";
     public static final String API_FAIL_EMPTY = "☹ I'sorry, but I could not find anything related to your request";
     public static final String API_TIME_OUT = "☹ I'sorry, but your request took so long";
-    public static final String API_OFFLINE = "☹ I'sorry, no internet connection detected. "
-            + "So, the app will operate in offline mode";
+    public static final String API_MALFORMED_URL = "Malformed URL in fetching data";
+    public static final String SOCKET_TIMEOUT_URL = "Socket Timeout in fetching data";
+    public static final String IO_ERROR_URL = "I/O Exception in fetching data";
     public static final String API_INVALID_REQUEST = "☹ I'sorry, but your request is either unclear or invalid";
     //PlaylistExceptions messages
     public static final String PLAYLIST_EXISTS_START =  "☹ I'sorry, but there's already a playlist with called <";

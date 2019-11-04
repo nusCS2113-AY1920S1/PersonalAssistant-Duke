@@ -108,7 +108,7 @@ public class OfflineSearchStorage {
      */
     public JSONArray getSearchData() {
         JSONArray searchResults = new JSONArray();
-        for (int i = 1; i <= 500; i += 1) {
+        for (int i = 1; i <= 1055; i += 1) {
             String filename = MOVIES_DATABASE_FILEPATH;
             filename += i + ".json";
             System.out.println(filename);
