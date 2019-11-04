@@ -983,14 +983,14 @@ public class BankList {
      * @param amount  the amount to transfer.
      * @throws BankException If bank does not exist.
      */
-    public String bankListIsAccountExistToTransfer(String accountName, double amount) throws BankException {
+    public String getTransferBankType(String accountName, double amount) throws BankException {
         String capitalAccountName = accountName.toUpperCase();
         for (int i = ISZERO; i < getBankListSize(); i++) {
             Bank currentBank = bankLists.get(i);
             String currentBankName = currentBank.getAccountName();
             String capitalCurrentBankName = currentBankName.toUpperCase();
             if (capitalAccountName.equals(capitalCurrentBankName)) {
-                bankListIsSufficientForTransfer(bankLists.get(i), amount);
+                checkSufficientForTransfer(bankLists.get(i), amount);
                 return currentBank.getType();
             }
         }
@@ -1004,7 +1004,7 @@ public class BankList {
      * @param accountName the bank account name.
      * @throws BankException If bank does not exist.
      */
-    public String bankListIsAccountExistToReceive(String accountName) throws BankException {
+    public String getReceiveBankType(String accountName) throws BankException {
         String capitalAccountName = accountName.toUpperCase();
         for (int i = ISZERO; i < getBankListSize(); i++) {
             Bank currentBank = bankLists.get(i);
@@ -1025,7 +1025,7 @@ public class BankList {
      * @param amount the amount to be transferred.
      * @throws BankException If bank does not have sufficient fund.
      */
-    private void bankListIsSufficientForTransfer(Bank bank, double amount) throws BankException {
+    private void checkSufficientForTransfer(Bank bank, double amount) throws BankException {
         if (bank.getCurrentAmount() >= amount) {
             return;
         }
