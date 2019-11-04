@@ -1,14 +1,8 @@
 package controllers;
 
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import repositories.ProjectRepository;
-
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.InputStream;
-import java.io.PrintStream;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -83,6 +77,23 @@ public class ProjectInputControllerManageTest {
         simulatedOutput = projectInputController.manageProject(simulatedUserInput);
         expectedOutput = new String[] {"Successfully changed the role of Marvel to Captain."};
         assertArrayEquals(expectedOutput, simulatedOutput);
+    }
 
+    @Test
+    void manageProject_taskMethods_executionSuccess() {
+        simulatedUserInput = "add task -t Kill Thanos -c 100 -p 1";
+        simulatedOutput = projectInputController.manageProject(simulatedUserInput);
+        expectedOutput = new String[] {"Added new task to the list."};
+        assertArrayEquals(expectedOutput, simulatedOutput);
+
+        simulatedUserInput = "edit task 1 -t Kill Ironman -c 1 -p 5 -d 20/11/2019 -s done";
+        simulatedOutput = projectInputController.manageProject(simulatedUserInput);
+        expectedOutput = new String[] {"Success!",
+                                       "The name of this task has been changed to 'Kill Ironman'!",
+                                       "The priority for this task has been set to 5!",
+                                       "The new due date for this task has been set to 20 Nov 2019!",
+                                       "The credit for this task has been set to 1!",
+                                       "The state of this task has been set to DONE!"};
+        assertArrayEquals(expectedOutput, simulatedOutput);
     }
 }

@@ -29,6 +29,7 @@ public class DateTimeHelper {
      */
     public String formatDateForDisplay(Date date) {
         SimpleDateFormat formatter = new SimpleDateFormat("dd MMM yyyy");
+        formatter.setLenient(false);
         return formatter.format(date);
     }
 
@@ -39,6 +40,7 @@ public class DateTimeHelper {
      */
     public String getDifferenceDays(Date taskDate) {
         DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        formatter.setLenient(false);
         Date currentDate = new Date();
         try {
             currentDate = formatter.parse(formatter.format(currentDate));
