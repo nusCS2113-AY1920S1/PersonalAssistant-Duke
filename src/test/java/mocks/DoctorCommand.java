@@ -20,4 +20,17 @@ public class DoctorCommand extends ArgCommand {
     protected ArgSpec getSpec() {
         return DoctorSpec.getSpec();
     }
+
+    // expose methods for testing
+
+    @Override
+    public String getArg() {
+        return super.getArg();
+    }
+
+    @Override
+    public String getSwitchVal(String switchName) {
+        return super.getSwitchVal(switchName);
+    }
+
 }

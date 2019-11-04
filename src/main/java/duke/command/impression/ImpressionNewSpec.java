@@ -14,7 +14,7 @@ public class ImpressionNewSpec extends ArgSpec {
 
     private ImpressionNewSpec() {
         emptyArgMsg = "You didn't tell me anything about the new data to enter!";
-        cmdArgLevel = ArgLevel.REQUIRED;
+        cmdArgLevel = ArgLevel.NONE;
         initSwitches(
                 new Switch("medicine", null, true, ArgLevel.NONE, "m"),
                 new Switch("investigation", null, true, ArgLevel.NONE, "i", "invx"),
@@ -22,6 +22,7 @@ public class ImpressionNewSpec extends ArgSpec {
                 new Switch("observation", null, true, ArgLevel.NONE, "o"),
                 new Switch("result", null, true, ArgLevel.NONE, "r"),
                 new Switch("go", null, true, ArgLevel.NONE, "g"),
+                new Switch("name", String.class, false, ArgLevel.REQUIRED, "n"),
                 new Switch("status", String.class, true, ArgLevel.REQUIRED, "sta"),
                 new Switch("priority", Integer.class, true, ArgLevel.REQUIRED, "pri"),
                 new Switch("summary", String.class, true, ArgLevel.REQUIRED, "sum"),

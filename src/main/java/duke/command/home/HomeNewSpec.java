@@ -13,8 +13,9 @@ public class HomeNewSpec extends ArgSpec {
 
     private HomeNewSpec() {
         emptyArgMsg = "You did not tell me anything about the patient you wish to add to the system!";
-        cmdArgLevel = ArgLevel.REQUIRED;
+        cmdArgLevel = ArgLevel.NONE;
         initSwitches(
+                new Switch("name", String.class, false, ArgLevel.REQUIRED, "n"),
                 new Switch("bed", String.class, false, ArgLevel.REQUIRED, "b"),
                 new Switch("allergies", String.class, false, ArgLevel.REQUIRED, "a",
                         "allergy"),

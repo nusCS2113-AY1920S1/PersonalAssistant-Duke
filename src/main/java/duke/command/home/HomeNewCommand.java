@@ -33,7 +33,7 @@ public class HomeNewCommand extends ArgCommand {
             }
         }
 
-        Patient patient = new Patient(getArg(), bed,
+        Patient patient = new Patient(getSwitchVal("name"), bed,
                 getSwitchVal("allergies"), height, weight, age, number,
                 address, history);
         core.patientMap.addPatient(patient);
