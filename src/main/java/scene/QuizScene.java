@@ -81,7 +81,7 @@ public class QuizScene extends NewScene {
                     }
 
 
-                    } catch (NumberFormatException e) {
+                } catch (NumberFormatException e) {
 
                     throw new InvalidAnswerException();
                 }
