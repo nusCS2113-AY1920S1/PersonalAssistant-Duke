@@ -127,7 +127,7 @@ public class SongList {
      * Returns a boolean value representing whether the song name already exists in the song list or not.
      *
      * @return a boolean value that represents whether the song name already exist; returns true if
-     * song name already exist and in use, returns false if song name is not in use
+     *         song name already exist and in use, returns false if song name is not in use
      */
     public boolean songExist(String songName) {
         for (Song song: list) {
