@@ -7,26 +7,25 @@ import java.io.*;
 import java.util.ArrayList;
 
 /**
- * Handles the ability to read and write to the storage location.
+ * Handles the ability to read and write to the preparation step storage location.
  */
 public class PrepStepStorage {
     private final ArrayList<PrepStep> arrPrepStepList = new ArrayList<>();
     private final String filePathPrepStep;
 
     /**
-     * Constructor for the class Storage.
+     * Constructor for the class PrepStepStorage.
      *
-     * @param filePathPrepStep String containing the directory in which the tasks are to be stored
+     * @param filePathPrepStep the directory in which the preparation steps are to be stored
      */
     public PrepStepStorage(String filePathPrepStep) {
         this.filePathPrepStep = filePathPrepStep;
     }
 
     /**
-
-     * Writing to file to save the task to file.
+     * Writes to file to save the preparation steps to file.
      *
-     * @param prepStepList contains the task list
+     * @param prepStepList the list containing recipes
      */
     public void saveFile(PrepStepList prepStepList) {
         try {
@@ -42,9 +41,9 @@ public class PrepStepStorage {
     }
 
     /**
-     * Load all the save tasks in the file.
+     * Loads all the save preparation steps in the file.
      *
-     * @return the list of tasks in taskList
+     * @return the list of preparation steps in preparation step list
      */
     public ArrayList<PrepStep> load() {
         try {

@@ -15,6 +15,10 @@ public class RatingList {
         this.rating2List = new ArrayList<>();
     }
 
+    /**
+     * Constructor for class RatingList.
+     * @param rating2List list containing all the ratings
+     */
     public RatingList(ArrayList<Rating2> rating2List) {
         this.rating2List = rating2List;
     }
@@ -29,9 +33,9 @@ public class RatingList {
     }
 
     /**
-     * Add new rating to a recipe
+     * Adds new rating to a recipe.
      *
-     * @param rating String containing the new preparation step
+     * @param rating the new rating
      */
     public void addRating(String rating) throws ParseException {
         rating2List.add(new Rating2(getSize() + 1, rating));
@@ -45,7 +49,7 @@ public class RatingList {
     }
 
     /**
-     * Delete rating by inputting index
+     * Deletes a rating according to the index
      *
      * @param i the index of rating to be deleted
      */

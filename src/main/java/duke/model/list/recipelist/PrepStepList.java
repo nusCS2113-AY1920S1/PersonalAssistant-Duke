@@ -15,6 +15,11 @@ public class PrepStepList {
         this.prepStepList = new ArrayList<>();
     }
 
+    /**
+     * Constructor for class PrepStepList.
+     *
+     * @param prepStepList list containing all the preparation steps
+     */
     public PrepStepList(ArrayList<PrepStep> prepStepList) {
         this.prepStepList = prepStepList;
     }
@@ -29,9 +34,9 @@ public class PrepStepList {
     }
 
     /**
-     * Add new preparation step to a recipe
+     * Adds new preparation step to a recipe.
      *
-     * @param prepStep String containing the new preparation step
+     * @param prepStep the new preparation step
      */
     public void addPrepStep(String prepStep) throws ParseException {
         prepStepList.add(new PrepStep(getSize() + 1, prepStep));
@@ -45,7 +50,7 @@ public class PrepStepList {
     }
 
     /**
-     * Delete preparation step by inputting index
+     * Deletes a preparation step according to the index
      *
      * @param i the index of preparation step to be deleted
      */

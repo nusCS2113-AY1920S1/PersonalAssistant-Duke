@@ -15,6 +15,11 @@ public class PrepTimeList {
         this.prepTimeList = new ArrayList<>();
     }
 
+    /**
+     * Constructor for class PrepTimeList.
+     *
+     * @param prepTimeList list containing all the preparation time
+     */
     public PrepTimeList(ArrayList<PrepTime> prepTimeList) {
         this.prepTimeList = prepTimeList;
     }
@@ -28,20 +33,20 @@ public class PrepTimeList {
         return arrList;
     }
 
-    /**
-     * Add new preparation time to a recipe
-     *
-     * @param prepTime String containing the new preparation step
-     */
-    public void addPrepTime(String prepTime) throws ParseException {
+//    /**
+//     * Adds new preparation time to a recipe.
+//     *
+//     * @param prepTime the new preparation time
+//     */
+//    public void addPrepTime(String prepTime) throws ParseException {
 //        prepTimeList.add(new PrepTime(getSize() + 1, prepTime));
 //        int index = prepTimeList.size();
 //        msg = " preparation time in the list.";
 //        System.out.println(MESSAGE_ADDED + "       " + prepTimeList.get(index - 1) + "\n" + MESSAGE_ITEMS1 + index + msg);
-    }
+//    }
 
     /**
-     * Delete preparation time by inputting index
+     * Deletes a preparation time according to the index
      *
      * @param i the index of preparation time to be deleted
      */

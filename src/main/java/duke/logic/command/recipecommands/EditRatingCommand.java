@@ -13,6 +13,11 @@ import static duke.common.RecipeMessages.*;
 
 public class EditRatingCommand extends Command<RecipeList, Ui, RecipeStorage> {
 
+    /**
+     * Constructor for class EditRatingCommand.
+     *
+     * @param userInput input command from user
+     */
     public EditRatingCommand(String userInput) {
         this.userInput = userInput;
     }
@@ -56,10 +61,10 @@ public class EditRatingCommand extends Command<RecipeList, Ui, RecipeStorage> {
     }
 
     /**
-     * Checks if the input rating is in accepted  style
+     * Validates the format of input rating from user.
      *
-     * @param rating String containing the input rating
-     * @return true if the input rating is one of "average", "good", "delicious"
+     * @param rating the input rating from user
+     * @return true if the input rating is one of "average", "good", and "delicious"
      */
     private boolean isValidRating(String rating) {
         return (rating.equals("") || rating.equals("average") || rating.equals("good") || rating.equals("delicious")
