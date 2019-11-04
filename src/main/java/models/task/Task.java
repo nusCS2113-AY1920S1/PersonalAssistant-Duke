@@ -23,9 +23,7 @@ public class Task implements ITask {
             return false;
         } else {
             Task other = (Task) obj;
-            return this.taskName.equals(other.taskName)
-                && this.taskPriority == other.taskPriority
-                && this.taskCredit == other.taskCredit;
+            return this.taskName.equals(other.taskName);
         }
     }
 

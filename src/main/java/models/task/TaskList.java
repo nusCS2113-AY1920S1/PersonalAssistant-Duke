@@ -90,7 +90,7 @@ public class TaskList {
      */
     public ArrayList<String> getAllSortedTaskDetails(HashMap<Task, ArrayList<Member>> tasksAndAssignedMembers,
                                                      String sortCriteria) {
-        return this.parserHelper.parseSortTaskDetails(tasksAndAssignedMembers,taskList,sortCriteria);
+        return this.parserHelper.parseSortTaskDetails(tasksAndAssignedMembers, taskList, sortCriteria);
     }
 
     /**

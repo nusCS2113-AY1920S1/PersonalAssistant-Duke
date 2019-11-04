@@ -32,9 +32,7 @@ public class Member implements IMember {
             return false;
         } else {
             Member other = (Member) obj;
-            return this.name.equals(other.name)
-                && this.phone.equals(other.phone)
-                && this.email.equals(other.email);
+            return this.name.equals(other.name);
         }
     }
 

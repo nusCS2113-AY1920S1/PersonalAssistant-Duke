@@ -34,7 +34,12 @@ public class ConsoleInputController implements IController {
     public String[] onCommandReceived(String input) {
         ArchDukeLogger.logInfo(ConsoleInputController.class.getName(), "User input: '" + input + "'");
         Scanner inputReader = new Scanner(input);
-        String command = inputReader.next();
+        String command = "";
+        if (inputReader.hasNext()) {
+            command = inputReader.next();
+        } else {
+            return new String[] {"No input detected! Type \"help\" for a list of commands!"};
+        }
 
         switch (command) {
         case "bye":
@@ -98,6 +103,10 @@ public class ConsoleInputController implements IController {
                         + projectRepository.getItem(Integer.parseInt(managingProjectIndex)).getName()};
             } catch (IndexOutOfBoundsException err) {
                 return new String[] {"Please enter the correct index of an existing Project!"};
+            } catch (NumberFormatException err) {
+                return new String[]
+                {"The project \"" + managingProjectIndex + "\" does not exist!",
+                 "Please ensure the project index number exists and is an integer."};
             }
         } else {
             return new String[] {"Please enter a project number!"};
@@ -112,12 +121,19 @@ public class ConsoleInputController implements IController {
     private String[] commandDelete(Scanner inputReader) {
         ArchDukeLogger.logDebug(ConsoleInputController.class.getName(), "[commandDelete] User input: " + inputReader);
         if (inputReader.hasNext()) {
-            int projectIndex = Integer.parseInt(inputReader.next());
-            boolean isProjectDeleted = this.projectRepository.deleteItem(projectIndex);
-            if (isProjectDeleted) {
-                return new String[] {"Project " + projectIndex + " has been deleted"};
-            } else {
-                return new String[] {"Index out of bounds! Please check project index!"};
+            String projectInput = inputReader.next();
+            try {
+                int projectIndex = Integer.parseInt(projectInput);
+                boolean isProjectDeleted = this.projectRepository.deleteItem(projectIndex);
+                if (isProjectDeleted) {
+                    return new String[]{"Project " + projectIndex + " has been deleted"};
+                } else {
+                    return new String[]{"Index out of bounds! Please check project index!"};
+                }
+            } catch (NumberFormatException err) {
+                return new String[]
+                {"Invalid project index: " + projectInput,
+                 "Please ensure that the project number is an integer, and that it exists in the repo!"};
             }
         } else {
             return new String[] {"Please enter a project number to delete"};
@@ -145,6 +161,5 @@ public class ConsoleInputController implements IController {
     public String getManagingProjectIndex() {
         return managingProjectIndex;
     }
-
 
 }

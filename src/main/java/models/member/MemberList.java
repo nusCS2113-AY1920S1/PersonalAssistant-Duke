@@ -34,6 +34,7 @@ public class MemberList implements IMemberList {
      * @param memberIndexNumber The index number of the member whose details are to be updated.
      * @param updatedMemberDetails The updated member details.
      */
+    @Override
     public void editMember(int memberIndexNumber, String updatedMemberDetails) {
         String [] memberDetails = parserHelper.parseMemberDetails(updatedMemberDetails);
         String name = memberDetails[0];
@@ -58,14 +59,6 @@ public class MemberList implements IMemberList {
      */
     @Override
     public void removeMember(Member toBeRemoved) {
-        /*
-            Implement methods to ensure that task assignments are updated,
-            credits are redistributed, etc.
-            1) Scroll through all tasks of this member. Remove them from the ListOfMemebersAssignedToTask.
-            2) Recalculate the credits for other members in the task.
-            3) Change task state if necessary (if only 1 member was DOING, now it is OPEN)
-            4) Update index number of other members if necessary.
-         */
         if (toBeRemoved.getIndexNumber() < memberList.size()) { //if need to reassign index numbers after removal
             this.memberList.remove(toBeRemoved);
             for (int i = 1; i <= memberList.size(); i++) {
@@ -93,6 +86,7 @@ public class MemberList implements IMemberList {
      * Returns an ArrayList of Strings in the format to be printed in table form.
      * @return An ArrayList of Strings in the format to be printed in table form.
      */
+    @Override
     public ArrayList<String> getAllMemberDetailsForTable() {
         ArrayList<String> memberDetailsForTable = new ArrayList<>();
         if (this.memberList.size() == 0) {
@@ -119,8 +113,18 @@ public class MemberList implements IMemberList {
      * Returns the size of the current member list.
      * @return The size of the current member list.
      */
+    @Override
     public int getNumOfMembers() {
         return memberList.size();
     }
 
+    @Override
+    public boolean contains(IMember newMember) {
+        return this.memberList.contains(newMember);
+    }
+
+    @Override
+    public int getIndexOfMember(IMember member) {
+        return this.memberList.indexOf(member);
+    }
 }

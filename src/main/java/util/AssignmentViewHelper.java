@@ -17,8 +17,13 @@ public class AssignmentViewHelper {
     public static ArrayList<String> getMemberOutput(ArrayList<Integer> membersToView,
         Project project) {
         ArrayList<String> outputToPrint = new ArrayList<>();
-        outputToPrint.add("Here are each member's tasks:");
         HashMap<Member, ArrayList<Task>> memberAndIndividualTasks = project.getMembersIndividualTaskList();
+        if (memberAndIndividualTasks.keySet().isEmpty()) {
+            outputToPrint.add("No members in project yet.");
+            outputToPrint.add("Please add members and assign them tasks before using this command!");
+            return outputToPrint;
+        }
+        outputToPrint.add("Here are each member's tasks:");
         for (Integer index : membersToView) {
             Member member  = project.getMembers().getMember(index);
             outputToPrint.add("Tasks assigned to " + member.getName());
@@ -43,8 +48,12 @@ public class AssignmentViewHelper {
      */
     public static ArrayList<String> getTaskOutput(ArrayList<Integer> tasksToView, Project project) {
         ArrayList<String> outputToPrint = new ArrayList<>();
-        outputToPrint.add("Here are the members assigned to each task:");
         HashMap<Task, ArrayList<Member>> tasksAndAssignedMembers = project.getTasksAndAssignedMembers();
+        if (tasksAndAssignedMembers.keySet().isEmpty()) {
+            outputToPrint.add("No tasks in project yet.");
+            outputToPrint.add("Please add tasks and assign them to members before using this command!");
+        }
+        outputToPrint.add("Here are the members assigned to each task:");
         for (Integer index : tasksToView) {
             Task task = project.getTask(index);
             outputToPrint.add(task.getDetails());
