@@ -1,17 +1,25 @@
 package moneycommands;
 
-import controlpanel.*;
+import controlpanel.MoneyStorage;
+import controlpanel.Ui;
+import controlpanel.DukeException;
 import money.Account;
 
-public class startCommand extends MoneyCommand{
+public class StartCommand extends MoneyCommand {
 
     private String message;
 
     //@@author therealnickcheong
-    public startCommand(boolean isNewUser) throws DukeException {
-        if(isNewUser){
+
+    /**
+     * command to start Financial Ghost if is a first time user.
+     * @param isNewUser check is the user is a first time user.
+     * @throws DukeException tells user to use the init command if is a first time user.
+     */
+    public StartCommand(boolean isNewUser) throws DukeException {
+        if (isNewUser) {
             message = "You are a new user please type: init [existing savings] [Avg Monthly Expenditure]\n";
-        }else{
+        } else {
             throw new DukeException("You're an existing user");
         }
     }
