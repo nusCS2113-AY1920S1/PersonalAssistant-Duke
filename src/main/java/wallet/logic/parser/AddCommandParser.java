@@ -92,7 +92,8 @@ public class AddCommandParser implements Parser<AddCommand> {
      * @throws NumberFormatException  Wrong format.
      * @throws InsufficientParameters Insufficient parameters provided.
      */
-    public Expense parseExpense(String input) throws DateTimeParseException, NumberFormatException, InsufficientParameters {
+    public Expense parseExpense(String input) throws DateTimeParseException,
+                                                NumberFormatException, InsufficientParameters {
         boolean isRecurring = input.contains("/r");
         String[] arguments = input.split("\\$");
         String desc = arguments[0].trim();
