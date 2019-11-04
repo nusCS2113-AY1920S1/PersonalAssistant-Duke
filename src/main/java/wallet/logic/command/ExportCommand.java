@@ -44,9 +44,9 @@ public class ExportCommand extends Command {
                 .toURI().getPath());
             File csv = null;
             FileWriter output;
-            if ("expenses".equals(type)) {
+            if ("expense".equals(type)) {
                 csv = new File(current.getParentFile().getPath(), "exportedExpenses.csv");
-            } else if ("loans".equals(type)) {
+            } else if ("loan".equals(type)) {
                 csv = new File(current.getParentFile().getPath(), "exportedLoans.csv");
             }
 

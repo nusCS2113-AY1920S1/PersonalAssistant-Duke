@@ -19,7 +19,8 @@ import java.util.List;
 
 public class ExportCommandParser implements Parser<ExportCommand> {
 
-    public static final String MESSAGE_ERROR_WRONG_FORMAT = "Wrong Format for year and month input!";
+    public static final String MESSAGE_ERROR_WRONG_FORMAT = "Wrong Format for command input!";
+    public static final String MESSAGE_ERROR_WRONG_YEARMONTH = "Wrong year and month input!";
     private double budgetLeft;
 
     /**
@@ -100,10 +101,10 @@ public class ExportCommandParser implements Parser<ExportCommand> {
             }
 
         } catch (NumberFormatException e) {
-            System.out.println(MESSAGE_ERROR_WRONG_FORMAT);
+            System.out.println(MESSAGE_ERROR_WRONG_YEARMONTH);
             return null;
         } catch (DateTimeException e){
-            System.out.println(MESSAGE_ERROR_WRONG_FORMAT);
+            System.out.println(MESSAGE_ERROR_WRONG_YEARMONTH);
             return null;
         }
 
