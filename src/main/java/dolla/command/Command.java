@@ -1,13 +1,14 @@
 package dolla.command;
 
 import dolla.DollaData;
+import dolla.ModeStringList;
 import dolla.parser.Parser;
 import dolla.ui.Ui;
 
 /**
  * Command is an abstract class which all types of command will inherit from.
  */
-public abstract class Command {
+public abstract class Command implements ModeStringList {
     protected int index;
 
     /**
@@ -42,20 +43,6 @@ public abstract class Command {
             Ui.printInvalidNumberError(str);
         }
         return newInt;
-    }
-
-    /**
-     * This method will call the resetUndoFlag method in the respective mode.
-     */
-    protected void resetUndoFlag() {
-        Parser.resetUndoFlag();
-    }
-
-    /**
-     * This method will call the resetRedoFlag method in the respective mode.
-     */
-    protected void resetRedoFlag() {
-        Parser.resetRedoFlag();
     }
 
     protected Boolean recordDoesNotExist(int recordIndex) {

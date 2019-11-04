@@ -55,4 +55,9 @@ public interface ParserStringList {
     static final String SEARCH_DATE = "date";
     static final String SEARCH_NAME = "name";
     static final String SEARCH_DURATION = "duration";
+
+    //Components used in Action
+    String COMMAND_REDO = "redo";
+    String COMMAND_UNDO = "undo";
+    String COMMAND_REPEAT = "repeat";
 }

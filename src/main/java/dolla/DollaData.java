@@ -7,6 +7,8 @@ import dolla.task.Record;
 import dolla.task.RecordList;
 import dolla.task.BillList;
 
+import java.util.ArrayList;
+
 import static dolla.storage.Storage.getDebtsFromSave;
 import static dolla.storage.Storage.getEntriesFromSave;
 import static dolla.storage.Storage.getLimitsFromSave;
@@ -36,12 +38,12 @@ public class DollaData implements ModeStringList {
     }
 
     /**
-     * Returns the relevant RecordList (ie. EntryList) according to the specified mode.
+     * Returns the relevant RecordList object according to the specified mode.
      *
      * @param mode The mode pertaining to the RecordList to be retrieved.
      * @return The RecordList according to the specified mode.
      */
-    public RecordList getRecordList(String mode) {
+    public RecordList getRecordListObj(String mode) {
         switch (mode) {
         case MODE_ENTRY:
             return entryList;
@@ -52,6 +54,22 @@ public class DollaData implements ModeStringList {
         default:
             return null; // placeholder so that Dolla can compile
         }
+    }
+
+    /**
+     * The method will get the ArrayList of Record with respect to the mode.
+     * @param mode the mode that the program is in.
+     * @return the ArrayList of Record.
+     */
+    public ArrayList<Record> getRecordList(String mode) {
+        if (mode.equals(MODE_ENTRY)) {
+            return entryList.get();
+        } else if (mode.equals(MODE_DEBT)) {
+            return debtList.get();
+        } else if (mode.equals(MODE_LIMIT)) {
+            return limitList.get();
+        }
+        return null;
     }
 
     /**
@@ -96,23 +114,6 @@ public class DollaData implements ModeStringList {
 
     public void addBillToRecordList(Record newRecord) {
         billList.add(newRecord);
-    }
-
-    /**
-     * Add to prev position.
-     *
-     * @param mode         the mode
-     * @param newRecord       the new record
-     * @param prevPosition the prev position
-     */
-    public void addToPrevPosition(String mode, Record newRecord, int prevPosition) {
-        if (mode.equals(MODE_ENTRY)) {
-            entryList.insertPrevPosition(prevPosition, newRecord);
-        } else if (mode.equals(MODE_DEBT)) {
-            debtList.insertPrevPosition(prevPosition, newRecord);
-        } else if (mode.equals(MODE_LIMIT)) {
-            limitList.insertPrevPosition(prevPosition, newRecord);
-        }
     }
 
     /**
@@ -183,7 +184,31 @@ public class DollaData implements ModeStringList {
         modifyIndex = index;
     }
 
+    /**
+     * getPrevMode TODO: update.
+     * @return preMode
+     */
     public String getPrevMode() {
         return prevMode;
+    }
+
+    /**
+     * This method will set the ArrayList of Record in the object with respect to the mode.
+     * @param recordList the ArrayList of Record to be set as.
+     */
+    public void setRecordList(ArrayList<Record> recordList) {
+        switch (mode) {
+        case MODE_ENTRY:
+            this.entryList.setRecordList(recordList);
+            break;
+        case MODE_DEBT:
+            this.debtList.setRecordList(recordList);
+            break;
+        case MODE_LIMIT:
+            this.limitList.setRecordList(recordList);
+            break;
+        default:
+            break;
+        }
     }
 }
