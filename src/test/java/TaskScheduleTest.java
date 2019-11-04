@@ -44,8 +44,8 @@ public class TaskScheduleTest {
         file = new File(System.getProperty("user.dir") + "/src/test/ArrayList");
         storage = new Storage(file);
 
-        LocalDateTime fromDate = LocalDateTime.of(9999, 1, 1, 1, 0);
-        Deadline deadline = new Deadline("0", fromDate);
+        LocalDateTime startDate = LocalDateTime.now().plusDays(3);
+        Deadline deadline = new Deadline("0", startDate);
         tasks.add(deadline);
         Todo filler = new Todo("1", 2);
         tasks.add(filler);
@@ -60,16 +60,16 @@ public class TaskScheduleTest {
         commandFields = getTaskScheduleCommandFields(test);
 
         Long testDuration = (Long) commandFields[0].get(test);
-        int testIndexOfTodo = (int) commandFields[1].get(test);
+        Integer testIndexOfTodo = (Integer) commandFields[1].get(test);
         Todo testTodo = (Todo) tasks.getTasks().get(testIndexOfTodo);
-        int testIndexOfDeadline = (int) commandFields[2].get(test);
+        Integer testIndexOfDeadline = (Integer) commandFields[2].get(test);
         Deadline testDeadline = (Deadline) tasks.getTasks().get(testIndexOfDeadline);
         LocalDateTime testDeadlineDate = (LocalDateTime) commandFields[3].get(test);
 
         Todo expectedTodo = (Todo) tasks.getTasks().get(1);
         Deadline expectedDeadline = (Deadline) tasks.getTasks().get(0);
 
-        Assertions.assertEquals(testDuration, 2);
+        Assertions.assertNull(testDuration);
         Assertions.assertSame(testTodo, expectedTodo);
         Assertions.assertSame(testDeadline, expectedDeadline);
         Assertions.assertNull(testDeadlineDate);
@@ -79,22 +79,22 @@ public class TaskScheduleTest {
     public void testCommandByDateInput() throws ChronologerException, NoSuchFieldException, IllegalAccessException {
         Field[] commandFields;
 
-        LocalDateTime expectedDeadlineDate = LocalDateTime.of(9999, 1, 1, 1, 0);
+        LocalDateTime expectedDeadlineDate = LocalDateTime.now().plusDays(3);
         Command test = new TaskScheduleCommand(1, expectedDeadlineDate);
         test.execute(tasks, storage);
         commandFields = getTaskScheduleCommandFields(test);
 
         Long testDuration = (Long) commandFields[0].get(test);
-        int testIndexOfTodo = (int) commandFields[1].get(test);
+        Integer testIndexOfTodo = (Integer) commandFields[1].get(test);
         Todo testTodo = (Todo) tasks.getTasks().get(testIndexOfTodo);
-        int testIndexOfDeadline = (int) commandFields[2].get(test);
+        Integer testIndexOfDeadline = (Integer) commandFields[2].get(test);
         LocalDateTime testDeadlineDate = (LocalDateTime) commandFields[3].get(test);
 
         Todo expectedTodo = (Todo) tasks.getTasks().get(1);
 
-        Assertions.assertEquals(testDuration, 2);
+        Assertions.assertNull(testDuration);
         Assertions.assertSame(testTodo, expectedTodo);
-        Assertions.assertEquals(testIndexOfDeadline, -1);
+        Assertions.assertNull(testIndexOfDeadline);
         Assertions.assertEquals(testDeadlineDate, expectedDeadlineDate);
     }
 
