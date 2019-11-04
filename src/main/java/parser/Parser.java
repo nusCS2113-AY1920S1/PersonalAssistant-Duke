@@ -24,6 +24,7 @@ import exception.WordUpException;
 import exception.WrongAddFormatException;
 import exception.WrongAddSynonymFormatException;
 import exception.WrongAddTagFormatException;
+import exception.ReminderWrongDateFormatException;
 import exception.WrongDeleteFormatException;
 import exception.WrongEditFormatException;
 import exception.WrongHistoryFormatException;
@@ -53,8 +54,8 @@ public class Parser {
      */
     public static Command parse(String input) {
         try {
-            String[] taskInfo = input.split(" ", 2);
-            String userCommand = taskInfo[0];
+            String[] taskInfo = input.trim().split(" ", 2);
+            String userCommand = taskInfo[0].trim();
             Command command;
             if (userCommand.equals("exit")) {
                 command = new ExitCommand();
@@ -285,7 +286,7 @@ public class Parser {
      * @param dateInput String value of date from user input
      * @return Date object containing date values from date String input
      */
-    public static Date parseDate(String dateInput) {
+    public static Date parseDate(String dateInput) throws ReminderWrongDateFormatException {
         String pattern = "dd-MM-yyyy HHmm";
         SimpleDateFormat formattedDate = new SimpleDateFormat(pattern);
         Date date = new Date();
@@ -293,7 +294,7 @@ public class Parser {
         try {
             date = formattedDate.parse(dateInput);
         } catch (java.text.ParseException e) {
-            e.printStackTrace();
+            throw new ReminderWrongDateFormatException();
         }
         return date;
     }

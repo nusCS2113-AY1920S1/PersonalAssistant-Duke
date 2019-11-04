@@ -1,8 +1,14 @@
 package scene;
 
-import command.Command;
 import dictionary.Bank;
+import command.Command;
 import exception.WordUpException;
+import javafx.event.EventHandler;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.stage.Stage;
+import parser.Parser;
+import ui.Ui;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -32,6 +38,7 @@ public abstract class NewScene {
     protected Storage storage;
     protected String greet;
     protected Stage window;
+    protected String previousInput = "";
 
     public NewScene() {
 
@@ -52,8 +59,10 @@ public abstract class NewScene {
         this.ui = ui;
         this.bank = bank;
         this.storage = storage;
-        scrollPane = new ScrollPane();
+
         dialogContainer = new VBox();
+
+        scrollPane = new ScrollPane();
         scrollPane.setContent(dialogContainer);
 
         userInput = new TextField();
@@ -105,6 +114,7 @@ public abstract class NewScene {
     protected void setupHandleInput() {
         sendButton.setOnMouseClicked((event) -> {
             try {
+                this.previousInput = userInput.getText();
                 handleUserInput();
             } catch (WordUpException e) {
                 resolveException(e);
@@ -113,12 +123,19 @@ public abstract class NewScene {
 
         userInput.setOnAction((event) -> {
             try {
+                this.previousInput = userInput.getText();
                 handleUserInput();
             } catch (WordUpException e) {
                 resolveException(e);
             }
         });
 
+        userInput.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.UP) {
+                userInput.setText(previousInput);
+                userInput.positionCaret(previousInput.length());
+            }
+        });
     }
 
     protected void handleUserInput() throws WordUpException {

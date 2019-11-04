@@ -26,9 +26,9 @@ WordUp (WU) is a desktop-based application for english language learners who pre
 .  Download the latest `wordup.jar` https://github.com/AY1920S1-CS2113-T14-3/main/releases/tag/v1.3[here].
 .  Copy the file to the folder you want to use as the home folder for your WordUp.
 .  Ensure that you have `JavaFX` installed.
-.  [Windows] Open command prompt by typing cmd in the start bar.
+.  [Windows] Open command prompt by typing cmd in the start bar. 
 .  Enter the following command: `java --module-path [path to javafx lib folder]C:\Java\javafx-sdk-11.0.2\lib --add-modules=javafx.controls -jar [path to home folder of WordUp]C:\home\wordup-v1.3.jar`
-.  If you encounter a `Module Not Found` error, please check that you do not have a spacing in your file path to `javafx\lib`.
+.  If you encounter a `Module Not Found` error, please check that you do not have a spacing in your file path to `javafx\lib`. 
 .  Type the command in the command box and press Enter to execute it. e.g. typing `help` and pressing `Enter` opens up the window showing a list of commands available. +
 .  Some example commands you can try:
 
@@ -65,7 +65,6 @@ Examples:
 
 Adds a word to the Word Bank. +
 Format: `add w/WORD w/MEANING [t/TAG]...`
-
 
 Examples:
 
@@ -143,7 +142,7 @@ Format: `search_begin w/WORD`
 
 Examples:
 
-* `search  w/d` +
+* `search_begin  w/d` +
 Returns `drink, dog, do, etc`
 
 
@@ -250,6 +249,8 @@ Format: `history INTEGER`
 
 Shows search frequency of each word in specified order. +
 Format: `freq o/ORDER`
+
+=======
 
 === Exiting the program : `exit`
 

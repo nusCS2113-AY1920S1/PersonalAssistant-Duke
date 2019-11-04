@@ -6,6 +6,7 @@ import command.Command;
 import command.QuizCommand;
 import exception.ChangeSceneException;
 import exception.ReminderSetupException;
+import exception.ReminderWordListEmptyException;
 import exception.WordUpException;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -32,7 +33,25 @@ public class MainScene extends NewScene {
 
     @Override
     public void resolveException(WordUpException e) {
-        window.setScene(new QuizScene(ui, bank, storage, window).getScene());
+        if (e instanceof ChangeSceneException) {
+            window.setScene(new QuizScene(ui, bank, storage, window).getScene());
+        } else if (e instanceof ReminderSetupException) {
+            isSettingUpReminder = false;
+            reminderSetUpState = 1;
+            displaySystemResponse(e.showError());
+        }
+    }
+
+    /**
+     * Displays a message from WordUp to the user on JavaFX.
+     * @param s the system message to be displayed
+     */
+    public void displaySystemResponse(String s) {
+        Label response = new Label(s);
+
+        dialogContainer.getChildren().addAll(
+                Box.getDukeDialog(response, new ImageView(duke))
+        );
     }
 
     @Override
@@ -52,22 +71,25 @@ public class MainScene extends NewScene {
         Command c;
         if (isSettingUpReminder) {
             if (reminderSetUpState == 1) {
-                //execute step 2
-                reminderSetUpState += 1;
-                c = new SetReminderCommand(reminderSetUpState, userInput);
-            } else if (reminderSetUpState == 2) { //when user is entering a list of words
-                if (userInput.equals("")) { //user enters a blank line; end of list input
-                    //execute step 3
-                    reminderSetUpState += 1; //assert state 3
+                reminderSetUpState = 2;                                 //execute step 2
+                if (userInput.equals("")) {
+                    isSettingUpReminder = false;
+                    throw new ReminderWordListEmptyException();
+                } else {
+                    c = new SetReminderCommand(reminderSetUpState, userInput);
+                }
+            } else if (reminderSetUpState == 2) {                       //when user is entering a list of words
+                if (userInput.equals("")) {                             //user enters a blank line; end of list input
+                    reminderSetUpState = 3;                             //assert state 3
                     c = new SetReminderCommand(reminderSetUpState);
                 } else {
                     c = new SetReminderCommand(userInput);
                 }
             } else if (reminderSetUpState == 3) {
-                //execute step 4
-                reminderSetUpState += 1; //assert state 4
+                reminderSetUpState = 4;                                 //assert state 4
                 c = new SetReminderCommand(reminderSetUpState, userInput);
                 isSettingUpReminder = false;
+                reminderSetUpState = 1;
             } else {
                 throw new ReminderSetupException();
             }

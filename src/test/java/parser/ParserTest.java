@@ -14,6 +14,7 @@ import command.AddCommand;
 import command.ListCommand;
 import command.QuizCommand;
 import command.SetReminderCommand;
+import exception.WrongAddFormatException;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
