@@ -95,7 +95,7 @@ public class Storage {
     }
 
     /**
-     * Loads in budgetFile not found. New file will be created from an existing file into a created HashMap object.
+     * Loads in budget list from file or creates one if doesn't exist.
      * @return HashMap object consisting of the categories and corresponding budget read from file.
      */
     public HashMap<String, Double> loadBudget(ArrayList<Category> catList, Ui ui) {
