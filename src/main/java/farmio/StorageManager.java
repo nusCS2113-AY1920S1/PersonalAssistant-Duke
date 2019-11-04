@@ -46,14 +46,16 @@ public class StorageManager implements Storage {
             LOGGER.log(Level.WARNING, e.toString());
             throw new FarmioException("Game save corrupted!");
         }
+        double level;
         try{
-            double level = (Double) jsonFarmer.get("level");
-            if(!getLevelExist(level)){
-                LOGGER.log(Level.INFO, "Detected invalid level: " + level);
-                throw new FarmioException("Game level corrupted!");
-            }
+            level = (Double) jsonFarmer.get("level");
         }catch(Exception e){
-            LOGGER.log(Level.WARNING, "Failed level double check. >" + e.toString());
+            LOGGER.log(Level.WARNING, "Failed level double check. " + e.toString());
+            throw new FarmioException("Game level is corrupted!");
+        }
+        if(!getLevelExist(level)){
+            LOGGER.log(Level.INFO, "Detected invalid level: " + level);
+            throw new FarmioException("Game level is corrupted!");
         }
         return jsonFarmer;
     }
