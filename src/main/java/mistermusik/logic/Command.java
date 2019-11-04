@@ -316,7 +316,7 @@ public class Command {
         if (continuation.isEmpty()) {
             ui.budgetCommandWrongFormat();
             //            logger.log(Level.WARNING, "The description of showOrSetBudget is empty");
-        } else if (continuation.substring(0,3).equals("set")) {
+        } else if (continuation.substring(0,3).equals("set")) { //set new budget
             // budget set <new budget>
             try {
                 int newBudget = Integer.parseInt(continuation.substring(4));
@@ -325,16 +325,14 @@ public class Command {
             } catch (NumberFormatException e) {
                 ui.notAnInteger();
             }
-
-        } else {
+        } else { //show budget for given month
             String monthAndYear = continuation;
             try {
                 int cost = events.getBudgeting().getCostForMonth(monthAndYear);
                 UI.printCostForMonth(monthAndYear, cost);
-                //NEED TO PRINT COST HERE!
             } catch (NullPointerException e) {
                 UI.printNoCostsForThatMonth();
-//                logger.log(Level.WARNING, e.getMessage(), e);
+                //logger.log(Level.WARNING, e.getMessage(), e);
             }
         }
     }
