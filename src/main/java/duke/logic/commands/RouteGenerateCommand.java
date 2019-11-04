@@ -3,13 +3,11 @@ package duke.logic.commands;
 import duke.commons.Messages;
 import duke.commons.enumerations.Constraint;
 import duke.commons.exceptions.ApiException;
-import duke.commons.exceptions.CorruptedFileException;
 import duke.commons.exceptions.FileNotSavedException;
 import duke.commons.exceptions.QueryFailedException;
-import duke.commons.exceptions.QueryOutOfBoundsException;
 import duke.commons.exceptions.DuplicateRouteException;
 import duke.commons.exceptions.RouteGenerateFailException;
-import duke.commons.exceptions.RouteNodeDuplicateException;
+import duke.commons.exceptions.DuplicateRouteNodeException;
 import duke.commons.exceptions.UnknownConstraintException;
 import duke.logic.PathFinder;
 import duke.logic.api.ApiParser;
@@ -46,9 +44,9 @@ public class RouteGenerateCommand extends Command {
     }
 
     @Override
-    public CommandResultText execute(Model model) throws ApiException,
-            QueryFailedException, QueryOutOfBoundsException, RouteNodeDuplicateException, FileNotSavedException,
-            CorruptedFileException, DuplicateRouteException, RouteGenerateFailException, UnknownConstraintException {
+    public CommandResultText execute(Model model) throws ApiException, UnknownConstraintException,
+            RouteGenerateFailException, QueryFailedException, DuplicateRouteNodeException,
+            DuplicateRouteException, FileNotSavedException {
         Venue startVenue = ApiParser.getLocationSearch(startPoint);
         Venue endVenue = ApiParser.getLocationSearch(endPoint);
         PathFinder pathFinder = new PathFinder(model.getMap());
@@ -83,8 +81,7 @@ public class RouteGenerateCommand extends Command {
                             route.setDescription(description);
                         }
                         route.add((RouteNode) inbetweenVenue);
-                    } catch (RouteNodeDuplicateException e) {
-                        //remove duplicate nodes and merge
+                    } catch (DuplicateRouteNodeException e) {
                         route = pruneDuplicateRoute(route, inbetweenVenue);
                     }
                 }

@@ -53,6 +53,8 @@ public class RouteNodeNeighboursCommand extends Command {
      *
      * @param model The model object containing information about the user.
      * @return The CommandResultText.
+     * @throws ApiException If the api call fails.
+     * @throws QueryOutOfBoundsException If the index is out of bounds.
      */
     @Override
     public CommandResultImage execute(Model model) throws ApiException, QueryOutOfBoundsException {
@@ -121,7 +123,7 @@ public class RouteNodeNeighboursCommand extends Command {
      * @param query The original RouteNode being queried.
      * @return points The ArrayList of points.
      */
-    public ArrayList<String> generateOtherPoints(Route route, RouteNode query) {
+    private ArrayList<String> generateOtherPoints(Route route, RouteNode query) {
         ArrayList<String> points = new ArrayList<>();
         int startIndex = Math.max(0, indexNode - 3);
         int endIndex = Math.min(route.size() - 1, startIndex + 6);
@@ -143,7 +145,7 @@ public class RouteNodeNeighboursCommand extends Command {
      * @param rgb The RGB value.
      * @return The line parameters.
      */
-    public String generateLineParam(ArrayList<String> points, String rgb)  {
+    private String generateLineParam(ArrayList<String> points, String rgb)  {
         return ApiParser.generateStaticMapLines(points, rgb, LINE_WIDTH);
     }
 
@@ -154,7 +156,7 @@ public class RouteNodeNeighboursCommand extends Command {
      * @param query The RouteNode being shown.
      * @return result The point parameters.
      */
-    public String generatePointParam(Route route, RouteNode query, ArrayList<Venue> nearbyNodes) {
+    private String generatePointParam(Route route, RouteNode query, ArrayList<Venue> nearbyNodes) {
         String result = "";
 
         int index = 1;

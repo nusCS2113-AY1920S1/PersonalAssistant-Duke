@@ -1,7 +1,6 @@
 package duke.logic.commands;
 
 import duke.commons.enumerations.Constraint;
-import duke.commons.exceptions.CorruptedFileException;
 import duke.commons.exceptions.FileNotSavedException;
 import duke.commons.exceptions.InputNotDoubleException;
 import duke.commons.exceptions.QueryOutOfBoundsException;
@@ -41,7 +40,6 @@ public class RouteNodeEditCommand extends Command {
      *
      * @param model The model object containing information about the user.
      * @return The CommandResultText.
-     * @throws CorruptedFileException If the file is corrupted.
      * @throws FileNotSavedException If the file is not saved.
      * @throws InputNotDoubleException If the input is not an integer.
      * @throws QueryOutOfBoundsException If the query is out of bounds.
@@ -49,8 +47,8 @@ public class RouteNodeEditCommand extends Command {
      * @throws UnknownConstraintException If the constraint is unknown.
      */
     @Override
-    public CommandResultText execute(Model model) throws CorruptedFileException, FileNotSavedException,
-            InputNotDoubleException, QueryOutOfBoundsException, UnknownFieldException, UnknownConstraintException {
+    public CommandResultText execute(Model model) throws FileNotSavedException, InputNotDoubleException,
+            QueryOutOfBoundsException, UnknownFieldException, UnknownConstraintException {
         try {
             RouteNode node = model.getRoutes().get(indexRoute).getNode(indexNode);
             switch (var.toLowerCase()) {

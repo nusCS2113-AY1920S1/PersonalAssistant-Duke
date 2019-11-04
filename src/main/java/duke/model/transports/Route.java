@@ -2,7 +2,7 @@ package duke.model.transports;
 
 import duke.commons.exceptions.NullResultException;
 import duke.commons.exceptions.QueryOutOfBoundsException;
-import duke.commons.exceptions.RouteNodeDuplicateException;
+import duke.commons.exceptions.DuplicateRouteNodeException;
 import duke.model.locations.RouteNode;
 import duke.model.locations.Venue;
 
@@ -46,14 +46,14 @@ public class Route {
      *
      * @param newNode The new node to add.
      * @param index The index of the node to add to.
-     * @exception RouteNodeDuplicateException If the route is a duplicate.
+     * @exception DuplicateRouteNodeException If the route is a duplicate.
      * @exception QueryOutOfBoundsException If the index is out of bounds.
      */
-    public void addNode(RouteNode newNode, int index) throws RouteNodeDuplicateException, QueryOutOfBoundsException {
+    public void addNode(RouteNode newNode, int index) throws DuplicateRouteNodeException, QueryOutOfBoundsException {
         if (index >= 0 && index <= nodes.size()) {
             for (RouteNode node : nodes) {
                 if (node.equals(newNode)) {
-                    throw new RouteNodeDuplicateException();
+                    throw new DuplicateRouteNodeException();
                 }
             }
             nodes.add(index, newNode);
@@ -67,12 +67,12 @@ public class Route {
      * Alternate method to add a node at the end of the Route.
      *
      * @param newNode The new node to add.
-     * @exception RouteNodeDuplicateException If the route is a duplicate.
+     * @exception DuplicateRouteNodeException If the route is a duplicate.
      */
-    public void add(RouteNode newNode) throws RouteNodeDuplicateException {
+    public void add(RouteNode newNode) throws DuplicateRouteNodeException {
         for (RouteNode node: nodes) {
             if (node.equals(newNode)) {
-                throw new RouteNodeDuplicateException();
+                throw new DuplicateRouteNodeException();
             }
         }
 

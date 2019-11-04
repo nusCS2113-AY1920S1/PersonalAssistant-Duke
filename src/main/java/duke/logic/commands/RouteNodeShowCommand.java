@@ -48,6 +48,7 @@ public class RouteNodeShowCommand extends Command {
      * @param model The model object containing information about the user.
      * @return The CommandResultRouteMap.
      * @throws QueryOutOfBoundsException If the query is out of bounds.
+     * @throws ApiException If the api call fails.
      */
     @Override
     public CommandResultImage execute(Model model) throws QueryOutOfBoundsException,
@@ -84,7 +85,7 @@ public class RouteNodeShowCommand extends Command {
      * @param query The original RouteNode being queried.
      * @return points The ArrayList of points.
      */
-    public ArrayList<String> generateOtherPoints(Route route, RouteNode query, int indexNode) {
+    private ArrayList<String> generateOtherPoints(Route route, RouteNode query, int indexNode) {
         ArrayList<String> points = new ArrayList<>();
         int startIndex = Math.max(0, indexNode - 3);
         int endIndex = Math.min(route.size() - 1, startIndex + NODE_MAX_SIZE);
@@ -106,7 +107,7 @@ public class RouteNodeShowCommand extends Command {
      * @param rgb The RGB value.
      * @return The line parameters.
      */
-    public String generateLineParam(ArrayList<String> points, String rgb)  {
+    private String generateLineParam(ArrayList<String> points, String rgb)  {
         return ApiParser.generateStaticMapLines(points, rgb, LINE_WIDTH);
     }
 
@@ -117,7 +118,7 @@ public class RouteNodeShowCommand extends Command {
      * @param query The RouteNode being shown.
      * @return result The point parameters.
      */
-    public String generatePointParam(Route route, RouteNode query) {
+    private String generatePointParam(Route route, RouteNode query) {
         String result = "";
         for (RouteNode node: route.getNodes()) {
             if (!node.equals(query) && isWithinDistance(node, query)) {

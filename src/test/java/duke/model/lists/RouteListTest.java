@@ -1,7 +1,7 @@
 package duke.model.lists;
 
 import duke.commons.exceptions.DuplicateRouteException;
-import duke.commons.exceptions.RouteNodeDuplicateException;
+import duke.commons.exceptions.DuplicateRouteNodeException;
 import duke.commons.exceptions.RouteNotFoundException;
 import duke.model.transports.Route;
 import org.junit.jupiter.api.Test;
@@ -106,7 +106,7 @@ class RouteListTest {
     }
 
     @Test
-    void setRoute() throws DuplicateRouteException, RouteNodeDuplicateException, RouteNotFoundException {
+    void setRoute() throws DuplicateRouteException, DuplicateRouteNodeException, RouteNotFoundException {
         RouteList routeList = new RouteList();
         Route route1 = new Route("To NUS", "by bus");
         Route route2 = new Route("To NTU", "by bus");
@@ -126,7 +126,7 @@ class RouteListTest {
     }
 
     @Test
-    void setRoutes() throws DuplicateRouteException, RouteNodeDuplicateException, RouteNotFoundException {
+    void setRoutes() throws DuplicateRouteException, DuplicateRouteNodeException, RouteNotFoundException {
         RouteList routeList = new RouteList();
         Route route1 = new Route("To NUS", "by bus");
         Route route2 = new Route("To NTU", "by bus");

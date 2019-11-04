@@ -2,7 +2,7 @@ package duke.model.transports;
 
 import duke.commons.exceptions.NullResultException;
 import duke.commons.exceptions.QueryOutOfBoundsException;
-import duke.commons.exceptions.RouteNodeDuplicateException;
+import duke.commons.exceptions.DuplicateRouteNodeException;
 import duke.model.locations.BusStop;
 import duke.model.locations.RouteNode;
 import org.junit.jupiter.api.Test;
@@ -39,20 +39,20 @@ class RouteTest {
     }
 
     @Test
-    void addNode() throws RouteNodeDuplicateException {
+    void addNode() throws DuplicateRouteNodeException {
         Route route = new Route("To Sentosa", "tomorrow");
         BusStop v1 = new BusStop("45039","Opp Yew Tee Ind Est", "Woodlands Rd",
                 1.39585817355572, 103.75427816224409);
 
         route.add(v1);
 
-        assertThrows(RouteNodeDuplicateException.class, () -> {
+        assertThrows(DuplicateRouteNodeException.class, () -> {
             route.add(v1);
         });
     }
 
     @Test
-    void addNodeByIndex() throws RouteNodeDuplicateException {
+    void addNodeByIndex() throws DuplicateRouteNodeException {
         Route route = new Route("To Sentosa", "tomorrow");
         BusStop v1 = new BusStop("45039","Opp Yew Tee Ind Est", "Woodlands Rd",
                 1.39585817355572, 103.75427816224409);
@@ -74,13 +74,13 @@ class RouteTest {
         });
 
         route.add(v1);
-        assertThrows(RouteNodeDuplicateException.class, () -> {
+        assertThrows(DuplicateRouteNodeException.class, () -> {
             route.addNode(v1, 1);
         });
     }
 
     @Test
-    void remove() throws RouteNodeDuplicateException {
+    void remove() throws DuplicateRouteNodeException {
         Route route = new Route("To Sentosa", "tomorrow");
 
         assertThrows(IndexOutOfBoundsException.class, () -> {
@@ -113,7 +113,7 @@ class RouteTest {
     }
 
     @Test
-    void getNode() throws RouteNodeDuplicateException {
+    void getNode() throws DuplicateRouteNodeException {
         Route route = new Route("To Sentosa", "tomorrow");
         BusStop v1 = new BusStop("45039","Opp Yew Tee Ind Est", "Woodlands Rd",
                 1.39585817355572, 103.75427816224409);
@@ -143,7 +143,7 @@ class RouteTest {
     }
 
     @Test
-    void getNodeByName() throws RouteNodeDuplicateException, NullResultException {
+    void getNodeByName() throws DuplicateRouteNodeException, NullResultException {
         Route route = new Route("To Sentosa", "tomorrow");
         BusStop v1 = new BusStop("45039","Opp Yew Tee Ind Est", "Woodlands Rd",
                 1.39585817355572, 103.75427816224409);
@@ -163,7 +163,7 @@ class RouteTest {
     }
 
     @Test
-    void getStartNode() throws RouteNodeDuplicateException {
+    void getStartNode() throws DuplicateRouteNodeException {
         Route route = new Route("To Sentosa", "tomorrow");
         BusStop v1 = new BusStop("45039","Opp Yew Tee Ind Est", "Woodlands Rd",
                 1.39585817355572, 103.75427816224409);
@@ -179,7 +179,7 @@ class RouteTest {
     }
 
     @Test
-    void getEndNode() throws RouteNodeDuplicateException {
+    void getEndNode() throws DuplicateRouteNodeException {
         Route route = new Route("To Sentosa", "tomorrow");
         BusStop v1 = new BusStop("45039","Opp Yew Tee Ind Est", "Woodlands Rd",
                 1.39585817355572, 103.75427816224409);
@@ -195,7 +195,7 @@ class RouteTest {
     }
 
     @Test
-    void isSameRoute() throws RouteNodeDuplicateException {
+    void isSameRoute() throws DuplicateRouteNodeException {
         Route route = new Route("To Sentosa", "tomorrow");
         Route route2 = new Route("To Sentosa", "tomorrow");
 
