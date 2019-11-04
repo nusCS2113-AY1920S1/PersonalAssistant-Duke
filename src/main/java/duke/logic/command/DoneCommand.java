@@ -45,10 +45,15 @@ public class DoneCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException, IOException {
         Task t = tasks.get(filter, index);
-        t.markAsDone();
-        ui.showLine("Congratulations on completing the following task:");
-        ui.showLine(t.getDescription());
-        storage.save(tasks);
+        if (t.getIsDone()) {
+            ui.showLine("Congratulations you've already completed this task! Go move on and do other task stop "
+                    + "staying in the past!");
+        } else {
+            t.markAsDone();
+            ui.showLine("Congratulations on completing the following task:");
+            ui.showLine(t.getDescription());
+            storage.save(tasks);
+        }
     }
 
     /**

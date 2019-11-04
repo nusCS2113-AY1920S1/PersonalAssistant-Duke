@@ -74,6 +74,9 @@ public class Task {
         return (isDone ? "Y" : "N");
     }
 
+    public boolean getIsDone() {
+        return isDone;
+    }
     /**
      * Flags the boolean attribute isDone as true in a task
      * Prints out the confirmation that the task is marked done
