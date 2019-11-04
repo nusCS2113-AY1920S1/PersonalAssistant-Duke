@@ -13,6 +13,12 @@
   },
   {
     "name": "P3",
-    "taskList": []
+    "taskList": [],
+    "skillList": []
+  },
+  {
+    "name": "john",
+    "taskList": [],
+    "skillList": []
   }
 ]
