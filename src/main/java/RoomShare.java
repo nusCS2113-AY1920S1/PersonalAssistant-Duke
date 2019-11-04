@@ -94,7 +94,6 @@ public class RoomShare {
             case done:
                 Ui.clearScreen();
                 ui.startUp();
-                listRoutine.list();
                 try {
                     String input = parser.getCommandLine();
                     int[] index = parser.getIndexRange(input);
@@ -103,6 +102,7 @@ public class RoomShare {
                 } catch (RoomShareException e) {
                     ui.showError(e);
                 }
+                listRoutine.list();
                 break;
 
             case delete:
@@ -117,12 +117,12 @@ public class RoomShare {
                 } catch (RoomShareException e) {
                     ui.showError(e);
                 }
+                listRoutine.list();
                 break;
 
             case restore:
                 Ui.clearScreen();
                 ui.startUp();
-                listRoutine.list();
                 try {
                     String input = parser.getCommandLine();
                     int restoreIndex = parser.getIndex(input);
@@ -130,6 +130,7 @@ public class RoomShare {
                 } catch (RoomShareException e) {
                     ui.showError(e);
                 }
+                listRoutine.list();
                 break;
 
             case find:
@@ -143,7 +144,6 @@ public class RoomShare {
             case priority:
                 Ui.clearScreen();
                 ui.startUp();
-                listRoutine.list();
                 boolean success = true;
                 try {
                     taskList.list();
@@ -159,12 +159,12 @@ public class RoomShare {
                         ui.prioritySet();
                     }
                 }
+                listRoutine.list();
                 break;
 
             case add:
                 Ui.clearScreen();
                 ui.startUp();
-                listRoutine.list();
                 try {
                     String input = parser.getCommandLine();
                     if(!(CheckAnomaly.checkTask((taskCreator.create(input))))) {
@@ -180,12 +180,12 @@ public class RoomShare {
                 } catch (RoomShareException e) {
                     ui.showError(e);
                 }
+                listRoutine.list();
                 break;
 
             case snooze:
                 Ui.clearScreen();
                 ui.startUp();
-                listRoutine.list();
                 try {
                     String input = parser.getCommandLine();
                     int index = parser.getIndex(input);
@@ -198,12 +198,12 @@ public class RoomShare {
                 } catch (RoomShareException e) {
                     ui.showError(e);
                 }
+                listRoutine.list();
                 break;
 
             case reorder:
                 Ui.clearScreen();
                 ui.startUp();
-                listRoutine.list();
                 try {
                     String input = parser.getCommandLine();
                     int firstIndex = parser.getIndex(input, 0);
@@ -213,12 +213,12 @@ public class RoomShare {
                 } catch (RoomShareException e) {
                     ui.showError(e);
                 }
+                listRoutine.list();
                 break;
 
             case subtask:
                 Ui.clearScreen();
                 ui.startUp();
-                listRoutine.list();
                 try {
                     String input = parser.getCommandLine();
                     int index = parser.getIndexSubtask(input);
@@ -227,12 +227,12 @@ public class RoomShare {
                 } catch (RoomShareException e) {
                     ui.showError(e);
                 }
+                listRoutine.list();
                 break;
 
             case update:
                 Ui.clearScreen();
                 ui.startUp();
-                listRoutine.list();
                 try {
                     String input = parser.getCommandLine();
                     int index = parser.getIndex(input);
@@ -242,12 +242,12 @@ public class RoomShare {
                 } catch (RoomShareException e) {
                     ui.showError(e);
                 }
+                listRoutine.list();
                 break;
                 
             case sort:
                 Ui.clearScreen();
                 ui.startUp();
-                listRoutine.list();
                 SortType sortType;
                 try {
                     String input = parser.getCommandLine();
@@ -258,6 +258,7 @@ public class RoomShare {
                 }
                 TaskList.changeSort(sortType);
                 ui.showChangeInPriority(sortType);
+                listRoutine.list();
                 break;
 
             case log:
