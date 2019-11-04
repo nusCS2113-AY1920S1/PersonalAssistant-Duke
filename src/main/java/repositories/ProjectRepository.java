@@ -110,7 +110,7 @@ public class ProjectRepository implements IRepository<Project> {
 
     //@@author Lucria
     /**
-     * Method for getting the details about the currently managed Project for ProjectInputController
+     * Method for getting the details about the currently managed Project for ProjectInputController.
      * @param selectedProject : current Project that is being managed
      * @return : Returns an ArrayList of String for printing in a user friendly format
      */
