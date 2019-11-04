@@ -40,7 +40,6 @@ public class Ui {
                 + "                               ,@@@.   /@@@/\n"
                 + "                                  .%@@@@&@@*\n";
         System.out.println("Hello from RoomShare!\n" + logo);
-        System.out.println("How may I serve you?");
         System.out.println("Enter 'help' if you require assistance");
     }
 
