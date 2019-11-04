@@ -164,6 +164,10 @@ public class ContextHelper {
         System.out.println(incompleteCommand.length());
         System.out.println(lengthOfLongestCommonSubstring);
 
+        if (incompleteCommand.length() > lengthOfLongestCommonSubstring) {
+            return "";
+        }
+
         String completed = allPossibilities.get(0).substring(incompleteCommand.length(),
                 lengthOfLongestCommonSubstring);
 

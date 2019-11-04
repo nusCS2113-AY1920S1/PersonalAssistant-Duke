@@ -14,12 +14,8 @@ import java.io.IOException;
 public class CommandStacktest {
 
     @Test
-    public void testCommandStack(){
-        assertEquals(0 ,CommandStack.getSize());
+    public void CommandStack_validInputs_success(){
 
-        assertEquals(null,CommandStack.nextCommand());
-
-        assertEquals(null,CommandStack.topCmd());
         try {
             CommandStack.pushCmd(new SearchCommand(null));
             assertEquals(1 , CommandStack.getSize());
@@ -38,6 +34,16 @@ public class CommandStacktest {
         }catch (Exceptions e){
 
         }
+
+    }
+
+    @Test
+    public void CommandStack_invalidInputs_failure(){
+        assertEquals(0 ,CommandStack.getSize());
+
+        assertEquals(null,CommandStack.nextCommand());
+
+        assertEquals(null,CommandStack.topCmd());
 
     }
 }
