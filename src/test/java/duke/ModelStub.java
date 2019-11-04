@@ -151,6 +151,5 @@ public class ModelStub implements Model {
      */
     @Override
     public void save() throws FileNotSavedException {
-        storage.write();
     }
 }
