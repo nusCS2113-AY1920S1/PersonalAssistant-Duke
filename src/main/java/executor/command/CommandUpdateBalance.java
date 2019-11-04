@@ -20,6 +20,8 @@ public class CommandUpdateBalance extends Command {
         this.commandType = CommandType.SETBALANCE;
         this.newBalance = extractAmount();
         this.description = "Updates current balance to new balance in the wallet";
+
+
     }
 
     @Override
@@ -29,10 +31,14 @@ public class CommandUpdateBalance extends Command {
 
     @Override
     public void execute(Wallet wallet) {
+        if(getExecutedCommands().contains(this.commandType.toString())){
+            Ui.dukeSays("SetBalance can only be executed once!");
+        }
         DecimalFormat decimalFormat = new DecimalFormat("#0.00");
         wallet.setBalance(this.newBalance);
         Ui.dukeSays("Balance updated to: $" + decimalFormat.format(this.newBalance));
         Ui.printSeparator();
+        getExecutedCommands().add(this.commandType.toString());
     }
 
     private Double extractAmount() {
@@ -41,7 +47,7 @@ public class CommandUpdateBalance extends Command {
         try {
             return Double.parseDouble(incomeStr);
         } catch (Exception e) {
-            return 0.0;
+            return null;
         }
     }
 }
