@@ -1,13 +1,8 @@
 package scene;
 
-import command.SetReminderCommand;
-import dictionary.Bank;
 import command.Command;
-import dictionary.WordCount;
+import dictionary.Bank;
 import exception.WordUpException;
-import javafx.stage.Stage;
-import parser.Parser;
-import ui.Ui;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -18,7 +13,10 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+import parser.Parser;
 import storage.Storage;
+import ui.Ui;
 
 public abstract class NewScene {
     protected ScrollPane scrollPane;
@@ -27,8 +25,8 @@ public abstract class NewScene {
     protected Button sendButton;
     protected Scene scene;
     protected AnchorPane layout;
-    protected Image user = new Image(this.getClass().getResourceAsStream("/images/user.jpg"));
-    protected Image duke = new Image(this.getClass().getResourceAsStream("/images/duke.jpg"));
+    protected Image user = new Image(this.getClass().getResourceAsStream("/images/girl.png"));
+    protected Image duke = new Image(this.getClass().getResourceAsStream("/images/robot.png"));
     protected Ui ui;
     protected Bank bank;
     protected Storage storage;

@@ -14,24 +14,27 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/AY1920S1-CS2113-T14-3/main/releases
 
-By: `Team T14-3`      Since: `August 2019`      Licence: `MIT`
+By: `Team T14-3`      Since: `August 2019`
 
 == Introduction
 
-WordUp (WU) is a desktop-based application for english language learners who prefer having a digital version of a personal vocabulary booklet. More importantly, WU is great for on-the-go revision, which is not easily achieved with traditional hardcopy wordbanks. WU provides convenience and efficiency of adding words in a wordbank, and allows users to manage their word collection faster with a Command Line Interface (CLI), as well as having a Graphical User Interface (GUI) for more interactive functions and for better visualisation of content stored.
+WordUp (WU) is a desktop-based application for english language learners who prefer having a digital version of a personal vocabulary booklet (otherwise known as a word bank). More importantly, WU is great for on-the-go revision, which is not easily achieved with traditional hardcopy word banks. WU provides convenience and efficiency of adding words in a word bank, and allows users to manage their word collection faster with a Command Line Interface (CLI), as well as having a Graphical User Interface (GUI) for more interactive functions and for better visualisation of content stored.
 
 == Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `wordup.jar` link:{repoURL}/releases[here].
+.  Download the latest `wordup.jar` https://github.com/AY1920S1-CS2113-T14-3/main/releases/tag/v1.3[here].
 .  Copy the file to the folder you want to use as the home folder for your WordUp.
-.  Double-click the file to start the app. The GUI should appear in a few seconds.
-.  Type the command in the command box and press Enter to execute it. e.g. typing help and pressing Enter opens up the window showing a list of commands available. +
+.  Ensure that you have `JavaFX` installed.
+.  [Windows] Open command prompt by typing cmd in the start bar.
+.  Enter the following command: `java --module-path [path to javafx lib folder]C:\Java\javafx-sdk-11.0.2\lib --add-modules=javafx.controls -jar [path to home folder of WordUp]C:\home\wordup-v1.3.jar`
+.  If you encounter a `Module Not Found` error, please check that you do not have a spacing in your file path to `javafx\lib`.
+.  Type the command in the command box and press Enter to execute it. e.g. typing `help` and pressing `Enter` opens up the window showing a list of commands available. +
 .  Some example commands you can try:
 
 * *`list`* : shows the list of words currently stored in the Word Bank in alphabetical displayOrder or otherwise customised in the app settings
 * **`add`**`w/life m/the existence of an individual human being or animal` : adds a word tagged by “w/” with its corresponding meaning tagged “m/” into the Word Bank
-* **`delete`**`freedom` : deletes the Word Bank entry of the word “freedom”
+* **`delete`**`w/freedom` : deletes the Word Bank entry of the word “freedom”
 * *`exit`* : exits the application
 
 .  Refer to <<Features>> for in-depth details for more commands.
@@ -42,35 +45,41 @@ WordUp (WU) is a desktop-based application for english language learners who pre
 ====
 *Command Format*
 
+*Caution*: The tags and synonyms are currently not written to the storage file due to some issues on our side, so we have disabled the writing, all tags and synonyms will be cleared when the program is closed. We will fix this issue by Week 12 after we re-enable the saving
+
 * Words in `UPPER_CASE` are parameter values to be supplied by the user e.g. in `add w/WORD m/MEANING`, `WORD` and `MEANING` are parameters to be replaced by user input, such as in the form of `w/life` and `m/the existence of an individual human being or animal`.
 * Items in square brackets are optional e.g. `r/REMINDERDATE [TIME]` can be used as `r/24/02/2300 0900` or `r/24/02/2300`.
 * Items with `…` after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `t/negative`, `t/emotions`, `t/lesson3`
 ====
-
 === Viewing help : `help`
 
-Format: `help`
+Shows available commands and their usage. +
+Format: `help [COMMAND]`
+
+Examples:
+
+* `help` shows all available commands. +
+* `help delete` shows the description and usage of delete command.
 
 === Adding a word: `add`
 
 Adds a word to the Word Bank. +
-Format: `add w/WORD w/MEANING [r/REMINDER] [t/TAG]...`
+Format: `add w/WORD w/MEANING [t/TAG]...`
+
 
 Examples:
 
 * `add w/life m/the existence of an individual human being or animal t/meaningoflife t/livingit` +
-* `add w/happy m/a state of joy r/24/02/2300 0900 t/lesson3`
+* `add w/happy m/a state of joy t/lesson3`
 
 === Listing all words inside dictionary : `list`
 
 Shows a list of words categorised as specified. +
-Format: `list [t/EXISTING_TAG] [o/ORDER]`
+Format: `list [o/ORDER]`
 
-Example: `list t/emotions o/asc` shows the list of words tagged “emotions” in alphabetical displayOrder +
+Example: `list o/asc` shows the list of words tagged “emotions” in alphabetical displayOrder +
 
 [TIP]
-Not supplying any tags will show a list containing all words listed in alphabetical displayOrder. ++
-
 List of possible o/ORDER values: +
  `asc` - displayOrder the list in ascending alphabetical displayOrder +
  `desc` - displayOrder the list in descending alphabetical displayOrder
@@ -108,10 +117,41 @@ Returns `a liquid for consumption`
 * `search w/potatoes` +
 Returns suggestion of `potato`
 
+=== Checking search frequency: `freq`
+
+Displays the list of words in ascending or descending order of search count.
+
+Examples:
+
+* `freq o/asc` +
+Returns a list of words in ascending order of search count (from lowest to highest search count).
+
+[TIP]
+List of possible o/ORDER values: +
+ `asc` - displayOrder the list in ascending alphabetical displayOrder +
+ `desc` - displayOrder the list in descending alphabetical displayOrder
+
+=== Searching for words with their begin: `search_begin`
+
+Search for the list words that in the dictionary that have a specific part. +
+Format: `search_begin w/WORD`
+
+****
+* The search is case insensitive as they will be converted to lowercase. e.g `HaNs` will match `hans`
+* Full words will be matched and given a result immediately.
+****
+
+Examples:
+
+* `search  w/d` +
+Returns `drink, dog, do, etc`
+
+
 === Generating quizzes: `quiz`
 
 Generate quizzes from the wordBank to test the user's understanding. +
 Format: `quiz`
+
 
 // tag::delete[]
 === Deleting a word object : `delete`
@@ -126,15 +166,90 @@ Format: `delete w/WORD [t/TAG]`
 
 Examples:
 
-* `list` +
-`delete w/drink` +
+* `delete w/drink` +
 Deletes the drink object from dictionary.
 
+* `delete w/drink t/action` +
+Deletes the tag action from word drink.
+
 // end::delete[]
+
+
 === [Not supported] Clearing all entries : `clear`
 
 Clears all entries from the dictionary. +
 Format: `clear`
+
+
+// tag::schedule[]
+=== Scheduling words to study : `schedule`
+
+Schedules reminders for a selected list of words given a user specified date and time. +
+Format: `schedule`
+
+****
+* Users can set a reminder for multiple words at one go. Terminate word input by entering blank line.
+****
+
+Examples:
+
+* Enter `schedule` +
+Enter a list of 'enter key' separated words: `life[Enter] is[Enter] great[Enter][Enter]` +
+Enter a date and time for the reminder: `31/10/2019 2359` +
+Reminder is set. Summary of reminder details is shown. Reminder pop up will be shown at time set.
+// end::schedule[]
+
+
+// tag::history[]
+=== Checking recently added words : `history`
+
+Shows a list of recently added words by the user. +
+Format: `history INTEGER(number of past entries to be shown)`
+
+****
+* Entering a number larger than the number of words in the word bank returns all the words in the word bank.
+* List is shown with the latest added words at the top.
+****
+
+Examples:
+
+* `history 5` +
+Shows the list of the last 5 words added, with the latest entry first.
+// end::history[]
+
+// tag::synonyms[]
+=== Adding synonyms of a word : `addsym`
+*Caution*: The synonyms are currently not written to the storage file due to some issues on our side, so we have disabled the writing, all synonyms will be cleared when the program is closed. We will fix this issue by Week 12 after we re-enable the saving
+
+Adds one or many synonyms to an existing word in the database. +
+Format: `addsyn w/WORD_TO_BE_TAGGED s/SYNONYM1 SYNONYM2` +
+
+If there are more than one synonym to be added, please separate them by spaces.
+
+//end::synonyms[]
+
+=== Adding tags to a word : `tag`
+*Caution*: The tags are currently not written to the storage file due to some issues on our side, so we have disabled the writing, all tags will be cleared when the program is closed. We will fix this issue by Week 12 after we re-enable the saving
+
+Assigns a tag to an existing word in the database. +
+Format: `tag w/WORD_TO_BE_TAGGED t/NEW_TAG`
+
+If there are more than one tag to be added, please use `t/` for each tag
+
+Examples:
+
+* `tag w/banana t/fruit` +
+Assigns the word banana with tag fruit.
+
+=== Viewing history : `history`
+
+Shows adding history. +
+Format: `history INTEGER`
+
+=== Viewing search frequency : `freq`
+
+Shows search frequency of each word in specified order. +
+Format: `freq o/ORDER`
 
 === Exiting the program : `exit`
 
@@ -149,7 +264,7 @@ There is no need to save manually.
 // tag::Excel Integration[]
 === Full integration into Excel/CSV `[coming in v2.0]`
 
-_{explain how the user can enable/disable data encryption}_
+_{}_
 // end::Excel Integration[]
 
 == FAQ
@@ -161,16 +276,27 @@ _{explain how the user can enable/disable data encryption}_
 
 * *Add* `add w/WORD m/MEANING [t/TAG]...` +
 e.g. `add w/life m/the existence of an individual human being or animal.`
+* *Add Synonym* : `addsyn w/WORD s/SYNONYM1 SYNONYM2 SYNONYM3 ...` +
+e.g. `addsyn w/water s/liquid beverage drink`
 * *Delete* : `delete w/word` +
 e.g. `delete w/life`
+* *Add Synonym* : `addsyn w/WORD s/SYNONYM1 SYNONYM2 SYNONYM3 ...` +
+e.g. `addsyn w/water s/liquid beverage drink`*
 * *Edit* : `edit w/WORD m/NEW_MEANGING` +
 e.g. `edit w/life m/the existence of a living thing.`
-* *Find* : `search w/WORD` +
+* *Help* : `help [COMMAND]`
+e.g. `help add`
+* *List* : `list`
+* *Quiz* : `quiz` -> `start`
+* *Search* : `search w/WORD` +
 e.g. `search w/life`
 * *Tag* : `tag w/WORD t/TAG1 t/TAG2 t/TAG3` +
 e.g. `tag w/happy t/emotion t/delight`
-* *Add Synonym* : `addsyn w/WORD s/SYNONYM1 SYNONYM2 SYNONYM3 ...` +
-e.g. `addsyn w/water s/liquid beverage drink`
-* *Quiz* : `quiz` -> `start`
-* *List* : `list`
-* *Help* : `help`
+* *History* : `history INTEGER` +
+e.g. `history 5`
+* *Schedule* : `schedule` -> `WORD ... [Enter blank line]` -> `DATE TIME` +
+e.g. `schedule` -> `happy[Enter] unhappy[Enter] bipolar[Enter][Enter]` -> `29-10-2019 2359`
+* *Search Frequency* : `freq o/ORDER` +
+e.g. `freq o/asc`
+* *Exit* : `exit`
+
