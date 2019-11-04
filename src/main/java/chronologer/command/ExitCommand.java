@@ -1,5 +1,6 @@
 package chronologer.command;
 
+import chronologer.storage.ChronologerStateList;
 import chronologer.storage.Storage;
 import chronologer.task.TaskList;
 
@@ -18,6 +19,7 @@ public class ExitCommand extends Command {
      * Terminates the program by updating isExit to true.
      */
     public void execute(TaskList tasks, Storage storage)  {
+        ChronologerStateList.storeUndoRedo();
         System.exit(0);
     }
 

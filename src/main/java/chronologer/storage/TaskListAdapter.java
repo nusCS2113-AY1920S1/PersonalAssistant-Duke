@@ -50,6 +50,4 @@ public class TaskListAdapter implements JsonDeserializer<TaskList> {
         taskList = new TaskList(listOfTasks);
         return taskList;
     }
-
-
 }

@@ -2,6 +2,8 @@ package chronologer.task;
 
 import java.time.LocalDateTime;
 
+import chronologer.ui.UiTemporary;
+import javafx.beans.value.ObservableIntegerValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -320,6 +322,26 @@ public class TaskList {
         listOfTasks = updatedListOfTasks;
     }
 
+    private ObservableList<Integer> currentTheme = FXCollections.observableArrayList(-1);
+    private int prevTheme = 0;
+
+    /**
+     * Allows the user to change theme - either dark mode or light mode.
+     * @param choiceOfTheme Holds the theme that the user wants.
+     */
+    public void updateTheme(int choiceOfTheme) {
+        if (choiceOfTheme != prevTheme && choiceOfTheme != -1) {
+            currentTheme.clear();
+            currentTheme.add(choiceOfTheme);
+            System.out.println(currentTheme.size());
+            prevTheme = choiceOfTheme;
+            UiTemporary.printOutput("Theme changed!");
+        } else {
+            UiTemporary.printOutput("Theme cannot be changed!");
+        }
+
+    }
+
     public ArrayList<Task> getTasks() {
         return listOfTasks;
     }
@@ -332,4 +354,7 @@ public class TaskList {
         return listOfTasks.size();
     }
 
+    public ObservableList<Integer> getTheme() {
+        return currentTheme;
+    }
 }

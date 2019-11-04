@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="653.0" prefWidth="1007.0" style="-fx-background-color: #000000;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="backgroundOfTimeline" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="653.0" prefWidth="1007.0" style="-fx-background-color: #444444;" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <ScrollPane layoutX="14.0" layoutY="92.0" prefHeight="240.0" prefWidth="196.0">
          <content>
@@ -58,61 +58,62 @@
             <ListView fx:id="reminderTask" prefHeight="246.0" prefWidth="300.0" style="-fx-background-color: #373737;" />
          </content>
       </ScrollPane>
-      <Label layoutX="314.0" text="Your timeline for this week" textFill="#a8a8a8">
+      <Label layoutX="314.0" text="Your timeline for this week" textFill="#808080">
          <font>
             <Font size="28.0" />
          </font>
       </Label>
-      <Label fx:id="mondayLabel" layoutX="72.0" layoutY="54.0" text="Monday" textFill="#a8a8a8">
+      <Label fx:id="mondayLabel" layoutX="72.0" layoutY="54.0" text="Monday" textFill="#808080">
          <font>
             <Font size="22.0" />
          </font>
       </Label>
-      <Label layoutX="268.0" layoutY="54.0" text="Tuesday" textFill="#a8a8a8">
+      <Label layoutX="268.0" layoutY="54.0" text="Tuesday" textFill="#808080">
          <font>
             <Font size="22.0" />
          </font>
       </Label>
-      <Label layoutX="447.0" layoutY="54.0" text="Wednesday" textFill="#a8a8a8">
+      <Label layoutX="447.0" layoutY="54.0" text="Wednesday" textFill="#808080">
          <font>
             <Font size="22.0" />
          </font>
       </Label>
-      <Label layoutX="656.0" layoutY="54.0" text="Thursday" textFill="#a8a8a8">
+      <Label layoutX="656.0" layoutY="54.0" text="Thursday" textFill="#808080">
          <font>
             <Font size="22.0" />
          </font>
       </Label>
-      <Label layoutX="866.0" layoutY="54.0" text="Friday" textFill="#a8a8a8">
+      <Label layoutX="866.0" layoutY="54.0" text="Friday" textFill="#808080">
          <font>
             <Font size="22.0" />
          </font>
       </Label>
-      <Label layoutX="272.0" layoutY="361.0" text="Sunday" textFill="#a8a8a8">
+      <Label layoutX="272.0" layoutY="361.0" text="Sunday" textFill="#808080">
          <font>
             <Font size="22.0" />
          </font>
       </Label>
-      <Label layoutX="69.0" layoutY="361.0" text="Saturday" textFill="#a8a8a8">
+      <Label layoutX="69.0" layoutY="361.0" text="Saturday" textFill="#808080">
          <font>
             <Font size="22.0" />
          </font>
       </Label>
       <Label fx:id="todayLabel" layoutX="866.0" layoutY="7.0" prefHeight="40.0" prefWidth="134.0" style="-fx-border-color: #009933; -fx-border-width: 3;" textFill="#787878" />
-      <Label layoutX="469.0" layoutY="328.0" prefHeight="78.0" prefWidth="122.0" style="-fx-wrap-text: true;" text="High-Medium priority tasks" textAlignment="JUSTIFY" textFill="#a8a8a8">
+      <Label layoutX="469.0" layoutY="328.0" prefHeight="78.0" prefWidth="122.0" style="-fx-wrap-text: true;" text="High-Medium priority tasks" textAlignment="JUSTIFY" textFill="#808080">
          <font>
             <Font size="19.0" />
          </font>
       </Label>
-      <Label layoutX="844.0" layoutY="351.0" text="Reminders" textFill="#a8a8a8">
+      <Label layoutX="844.0" layoutY="351.0" text="Reminders" textFill="#808080">
          <font>
             <Font size="22.0" />
          </font>
       </Label>
-      <Label layoutX="659.0" layoutY="328.0" prefHeight="78.0" prefWidth="134.0" style="-fx-wrap-text: true;" text="Non-time bound tasks" textAlignment="JUSTIFY" textFill="#a8a8a8">
+      <Label layoutX="659.0" layoutY="328.0" prefHeight="78.0" prefWidth="134.0" style="-fx-wrap-text: true;" text="Non-time bound tasks" textAlignment="JUSTIFY" textFill="#808080">
          <font>
             <Font size="19.0" />
          </font>
       </Label>
+      <Label fx:id="todayLabel1" layoutX="447.0" layoutY="338.0" prefHeight="60.0" prefWidth="520.0" style="-fx-border-color: #009933; -fx-border-width: 3;" textFill="#787878" />
    </children>
 </AnchorPane>

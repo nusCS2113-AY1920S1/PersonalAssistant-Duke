@@ -17,6 +17,7 @@ import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.Stack;
 
 /**
  * Reads and writes to persistent storage in Json format.
@@ -85,7 +86,6 @@ public class Storage {
             TaskList taskList = gson.fromJson(json,TaskList.class);
             bufferedReader.close();
             return taskList;
-
         } catch (FileNotFoundException e) {
             UiTemporary.printOutput(ChronologerException.fileDoesNotExist());
             throw new ChronologerException(ChronologerException.fileDoesNotExist());

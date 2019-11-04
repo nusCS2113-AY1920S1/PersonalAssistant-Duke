@@ -7,18 +7,18 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="653.0" prefWidth="372.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="653.0" prefWidth="372.0" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <ScrollPane fx:id="scrollPane" maxHeight="-Infinity" prefHeight="614.0" prefWidth="369.0">
          <content>
-            <VBox fx:id="dialogBoxContainer" prefHeight="614.0" prefWidth="454.0" style="-fx-background-color: #373737;" />
+            <VBox fx:id="dialogBoxContainer" prefHeight="614.0" prefWidth="454.0" style="-fx-background-color: #444444;" />
          </content>
       </ScrollPane>
       <TextField fx:id="inputTextField" layoutY="613.0" prefHeight="0.0" prefWidth="298.0" AnchorPane.bottomAnchor="1.0" AnchorPane.rightAnchor="74.0">
          <font>
             <Font size="17.0" />
          </font></TextField>
-      <Button fx:id="sendButton" layoutX="298.0" layoutY="613.0" mnemonicParsing="false" onAction="#handleAction" prefHeight="39.0" prefWidth="72.0" text="Send">
+      <Button fx:id="sendButton" layoutX="298.0" layoutY="613.0" mnemonicParsing="false" onAction="#handleUserInput" prefHeight="39.0" prefWidth="72.0" text="Send">
          <font>
             <Font size="18.0" />
          </font>
