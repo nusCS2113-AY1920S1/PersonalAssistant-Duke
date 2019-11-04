@@ -135,6 +135,4 @@ class AutoAssignCommandTest {
         Optional<String> actualTaskFilter = tasks.get(3).getFilter();
         assertEquals(expectedTaskFilter.get(), actualTaskFilter.get());
     }
-
-
 }

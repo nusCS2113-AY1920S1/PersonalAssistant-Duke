@@ -47,7 +47,7 @@ public class EditCommandParser implements Parser<EditCommand> {
             int indexNo = Integer.parseInt(temp[0]) - 1;
             return indexNo;
         } catch (NumberFormatException e) {
-            throw new DukeException("Please enter a valid index");
+            throw new DukeException("Please enter a numerical field for the index!");
         }
     }
 

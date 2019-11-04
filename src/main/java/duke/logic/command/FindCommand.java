@@ -57,7 +57,11 @@ public class FindCommand extends Command {
                 }
             }
             TaskList foundTasks = new TaskList(foundTasksTemp);
-            listCommand.execute(foundTasks, ui, storage);
+            if (foundTasks.size() == 0) {
+                ui.showLine("I'm sorry we found no tasks matching that description!");
+            } else {
+                listCommand.execute(foundTasks, ui, storage);
+            }
         }
     }
 
