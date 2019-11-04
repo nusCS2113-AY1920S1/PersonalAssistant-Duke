@@ -109,23 +109,42 @@ public class TaskList {
 
 
     public static String runDeadline(ArrayList<Task> data, String input, TaskState state) throws CakeException {
-        if (input.length() == 8) {
+        if (input.length() <= 9) {
             throw new CakeException("[!] No task description\nPlease input:\n'deadline TASK /by TASK_DATE'");
         }
         input = input.substring(9);
-        int startOfBy = input.indexOf("/");
-        if (startOfBy <= 0) {
-            throw new CakeException("[!] No task description\nPlease input:\n'deadline TASK /by TASK_DATE'");
+        String[] listStr = input.split("\\s+");
+        if (listStr.length < 3) {
+            throw new CakeException("[!] Improper format\nPlease input:\n'deadline TASK /by TASK_DATE'");
         }
-        if (input.charAt(startOfBy - 1) != ' ') {
-            throw new CakeException("[!] Please leave space!\nPlease input:\n'deadline TASK /by TASK_DATE'");
+        String taskInput = "";
+        String argumentDate = "";
+        int idxSlash = -1;
+        for (int i = 0; i < listStr.length; ++i) {
+            if (listStr[i].equals("/by")) {
+                idxSlash = i;
+                break;
+            }
         }
-        String tt1 = input.substring(0, startOfBy - 1);
-        if (startOfBy + 4 >= input.length()) {
-            throw new CakeException("[!] No date parameter!\nPlease input:\n'deadline TASK /by TASK_DATE'");
+        if (idxSlash == -1 || idxSlash == (listStr.length - 1)) {
+            throw new CakeException("[!] Improper format\nPlease input:\n'deadline TASK /by TASK_DATE'");
+        } else {
+            for (int i = 0; i < idxSlash; ++i) {
+                taskInput += listStr[i];
+                if (i != idxSlash - 1) {
+                    taskInput += " ";
+                }
+            }
+            for (int i = idxSlash + 1; i < listStr.length; ++i) {
+                argumentDate += listStr[i];
+                if (i != listStr.length - 1) {
+                    argumentDate += " ";
+                }
+            }
         }
-        String tt2 = input.substring(startOfBy + 4);
-        Task tempTask = new Deadline(tt1, tt2);
+        System.out.println("Task: " + taskInput);
+        System.out.println("Date: " + argumentDate);
+        Task tempTask = new Deadline(taskInput, argumentDate);
         return getString(data, state, tempTask);
     }
 
@@ -185,7 +204,7 @@ public class TaskList {
             tempTask.markAsDone();
         }
         data.add(tempTask);
-        stringBuilder.append("Got it. I've added this task: ").append("\n   ");
+        stringBuilder.append("Got it. I've added this task:").append("\n");
         stringBuilder.append(tempTask.getFullString()).append("\n");
         stringBuilder.append("Now you have ")
                 .append(Storage.getInternalDataSize()).append(" tasks in the list.");

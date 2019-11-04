@@ -128,41 +128,43 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         //CHECKSTYLE:OFF
-        try {
-            input = userInput.getText();
-            String inputDivider[] = input.split("\\s+");
-            // get input first, don't get response first...
-            userInput.clear();
-            JavaCake.logger.log(Level.INFO, "INPUT: " + input);
-            DialogBox.isScrollingText = true;
-            AvatarScreen.avatarMode = AvatarScreen.AvatarMode.HAPPY;
-            if (input.equals("exit")) {
-                handleExit();
-            } else if (input.equals("listnote")) {
-                handleListNote();
-            } else if (inputDivider[0].equals("deletenote")) {
-                handleDeleteNote();
-            } else if (inputDivider[0].equals("createnote")) {
-                handleCreateNote();
-            } else if (isStarting && JavaCake.isFirstTimeUser) { //set up new username
-                handleStartAndFirstTime();
-            } else if (isTryingReset) { //confirmation of reset
-                handleResetConfirmation();
-            } else if (isWritingNote) {
-                handleWriteNote();
-            } else if (isResult) { // On results screen
-                handleIsResult();
-            } else if (isReview) {
-                handleIsReview();
-            } else {
-                handleOtherProcesses();
+        if (!isExit) {
+            try {
+                input = userInput.getText();
+                String inputDivider[] = input.split("\\s+");
+                // get input first, don't get response first...
+                userInput.clear();
+                JavaCake.logger.log(Level.INFO, "INPUT: " + input);
+                DialogBox.isScrollingText = true;
+                AvatarScreen.avatarMode = AvatarScreen.AvatarMode.HAPPY;
+                if (input.equals("exit")) {
+                    handleExit();
+                } else if (input.equals("listnote")) {
+                    handleListNote();
+                } else if (inputDivider[0].equals("deletenote")) {
+                    handleDeleteNote();
+                } else if (inputDivider[0].equals("createnote")) {
+                    handleCreateNote();
+                } else if (isStarting && JavaCake.isFirstTimeUser) { //set up new username
+                    handleStartAndFirstTime();
+                } else if (isTryingReset) { //confirmation of reset
+                    handleResetConfirmation();
+                } else if (isWritingNote) {
+                    handleWriteNote();
+                } else if (isResult) { // On results screen
+                    handleIsResult();
+                } else if (isReview) {
+                    handleIsReview();
+                } else {
+                    handleOtherProcesses();
+                }
+            } catch (CakeException e) {
+                response = e.getMessage();
+                showContentContainer();
+                JavaCake.logger.log(Level.WARNING, e.getMessage());
             }
-        } catch (CakeException e) {
-            response = e.getMessage();
-            showContentContainer();
-            JavaCake.logger.log(Level.WARNING, e.getMessage());
+            //CHECKSTYLE:ON
         }
-        //CHECKSTYLE:ON
     }
 
     @FXML

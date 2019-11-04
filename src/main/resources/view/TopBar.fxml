@@ -20,7 +20,7 @@
             <Insets bottom="5.0" left="15.0" top="5.0" />
          </HBox.margin>
       </ImageView>
-      <Label fx:id="title" prefHeight="76.0" prefWidth="206.0" text="JavaCake" textFill="WHITE">
+      <Label fx:id="title" text="JavaCake" textFill="WHITE">
          <HBox.margin>
             <Insets bottom="5.0" left="5.0" right="5.0" />
          </HBox.margin>
@@ -31,14 +31,6 @@
             <Font name="French Script MT" size="59.0" />
          </font>
       </Label>
-      <ImageView fx:id="cakeRight" fitHeight="80.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../images/cake.png" />
-         </image>
-         <HBox.margin>
-            <Insets bottom="5.0" top="5.0" />
-         </HBox.margin>
-      </ImageView>
       <AnchorPane>
          <HBox.margin>
             <Insets left="190.0" />
@@ -55,5 +47,13 @@
             <Label fx:id="quizD" layoutX="286.0" layoutY="20.0" text="Quiz ALL" textFill="WHITE" />
          </children>
       </AnchorPane>
+      <ImageView fx:id="cakeRight" fitHeight="80.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/cake.png" />
+         </image>
+         <HBox.margin>
+            <Insets left="15.0" right="15.0" top="5.0" />
+         </HBox.margin>
+      </ImageView>
    </children>
 </fx:root>

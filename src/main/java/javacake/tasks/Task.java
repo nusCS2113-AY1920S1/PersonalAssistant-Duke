@@ -1,6 +1,8 @@
 package javacake.tasks;
 
 
+import javacake.exceptions.CakeException;
+
 import java.util.Date;
 
 public abstract class Task {
@@ -61,5 +63,5 @@ public abstract class Task {
         return taskType;
     }
 
-    public abstract void changeDate(String newDate);
+    public abstract void changeDate(String newDate) throws CakeException;
 }
