@@ -1,17 +1,12 @@
 package gazeeebo.commands.contact;
 
-import gazeeebo.storage.Storage;
-import gazeeebo.tasks.Task;
 import gazeeebo.TriviaManager.TriviaManager;
 import gazeeebo.UI.Ui;
 import gazeeebo.commands.Command;
-
+import gazeeebo.storage.Storage;
+import gazeeebo.tasks.Task;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Stack;
-import java.util.HashMap;
-import java.util.TreeMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Deals with the user input in the contacts page.

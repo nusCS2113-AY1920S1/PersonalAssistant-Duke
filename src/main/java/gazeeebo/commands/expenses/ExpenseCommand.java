@@ -36,6 +36,8 @@ public class ExpenseCommand extends Command {
     public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<ArrayList<Task>> commandStack, ArrayList<Task> deletedTask, TriviaManager triviaManager) throws IOException, ParseException {
         HashMap<LocalDate, ArrayList<String>> map = storage.Expenses(); //Read the file
         Map<LocalDate, ArrayList<String>> expenses = new TreeMap<LocalDate, ArrayList<String>>(map);
+        Stack<Map<LocalDate, ArrayList<String>>> oldExpenses = new Stack<>();
+        boolean isExitExpenses = false;
 
         System.out.print("Welcome to your expenses record! What would you like to do?\n\n");
         System.out.println("__________________________________________________________");
@@ -46,32 +48,57 @@ public class ExpenseCommand extends Command {
         System.out.println("5. Exit Expense page: esc");
         System.out.println("__________________________________________________________");
 
-        ui.readCommand();
-        while (!ui.fullCommand.equals("esc")) {
+        while (!isExitExpenses) {
+            ui.readCommand();
             if (ui.fullCommand.contains("add")) {
+                copyMap(expenses, oldExpenses);
                 new AddExpenseCommand(ui, storage, expenses);
             } else if (ui.fullCommand.contains("find")) {
                 new FindExpenseCommand(ui, expenses);
             } else if (ui.fullCommand.contains("delete")) {
+                copyMap(expenses, oldExpenses);
                 new DeleteExpenseCommand(ui, storage, expenses);
             } else if (ui.fullCommand.equals("list")) {
-                new ExpenseListCommand(ui, expenses);
+                new ExpenseListCommand(ui, storage, expenses);
+            } else if (ui.fullCommand.equals("undo")) {
+                expenses = UndoExpensesCommand.undoExpenses(expenses, oldExpenses, storage);
+            } else if (ui.fullCommand.equals("esc")) {
+                isExitExpenses = true;
+                System.out.println("Go back to Main Menu...\n" +
+                        "Content Page:\n" +
+                        "------------------ \n" +
+                        "1. help\n" +
+                        "2. contacts\n" +
+                        "3. expenses\n" +
+                        "4. places\n" +
+                        "5. tasks\n" +
+                        "6. cap\n" +
+                        "7. spec\n" +
+                        "8. moduleplanner\n" +
+                        "9. notes\n"
+                );
             }
-            ui.readCommand();
         }
-        System.out.println("Go back to Main Menu...\n" +
-                "Content Page:\n" +
-                "------------------ \n" +
-                "1. help\n" +
-                "2. contacts\n" +
-                "3. expenses\n" +
-                "4. places\n" +
-                "5. tasks\n" +
-                "6. cap\n" +
-                "7. spec\n" +
-                "8. moduleplanner\n" +
-                "9. notes\n");
     }
+
+    /**
+     * copy map of places into a stack of maps.
+     *
+     * @param expenses map of current expenses
+     * @param oldExpenses stack of map of previous expenses
+     */
+    private void copyMap(Map<LocalDate, ArrayList<String>> expenses, Stack<Map<LocalDate, ArrayList<String>>> oldExpenses) {
+        Map<LocalDate, ArrayList<String>> currentExpenses = new TreeMap<>();
+        for (LocalDate key : expenses.keySet()) {
+            ArrayList<String> listNameExpenses = new ArrayList<>();
+            for (int i = 0; i < expenses.get(key).size(); i++) {
+                listNameExpenses.add(expenses.get(key).get(i));
+            }
+            currentExpenses.put(key, listNameExpenses);
+        }
+        oldExpenses.push(currentExpenses);
+    }
+
     @Override
     public boolean isExit() {
         return false;

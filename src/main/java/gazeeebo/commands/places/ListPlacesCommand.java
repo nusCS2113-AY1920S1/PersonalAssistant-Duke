@@ -1,4 +1,5 @@
 //@@author jessteoxizhi
+
 package gazeeebo.commands.places;
 
 import java.util.Map;
@@ -19,7 +20,7 @@ public class ListPlacesCommand {
                 System.out.print(" ");
             }
             System.out.print("| ");
-            System.out.print(places.get(key)+ "\n" + lineBreak);
+            System.out.print(places.get(key) + "\n" + lineBreak);
         }
     }
 }
