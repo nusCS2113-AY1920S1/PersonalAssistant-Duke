@@ -194,6 +194,17 @@ public class ModelController implements Model {
         return oldPhone;
     }
 
+    public int getMemberIDByName(String name) {
+        int memberIndex = 0;
+        for (int i = 0; i < memberManager.getMemberList().size(); i++) {
+            if (name.equals(memberManager.getMemberNameById(i))) {
+                memberIndex = i;
+                break;
+            }
+        }
+        return memberIndex;
+    }
+
 
     //============================ Task and member interfaces =================================
 

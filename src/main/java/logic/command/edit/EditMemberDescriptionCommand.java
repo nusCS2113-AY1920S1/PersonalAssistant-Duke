@@ -24,13 +24,7 @@ public class EditMemberDescriptionCommand extends Command {
 
     @Override
     public CommandOutput execute(Model model) throws DukeException {
-        int memberIndex = 0;
-        for (int i = 0; i < model.getMemberListSize(); i++) {
-            if (oldName.equals(model.getMemberNameById(i))) {
-                memberIndex = i;
-                break;
-            }
-        }
+
         Member oldMember = new Member(oldName);
         Member newMember = new Member(newName);
 
@@ -39,7 +33,7 @@ public class EditMemberDescriptionCommand extends Command {
         } else if (model.getMemberList().contains(newMember)) {
             return new CommandOutput(newName + INPUT_NAME_ALREADY_IN_MEMBER_lIST_MESSAGE);
         } else {
-
+            int memberIndex=model.getMemberIDByName(oldName);
             model.getMemberList().get(memberIndex).setName(newName);
 
             for (Task task : model.getTaskList()) {
@@ -47,7 +41,6 @@ public class EditMemberDescriptionCommand extends Command {
                     task.updateMember(oldName, newName);
                 }
             }
-
             return new CommandOutput(oldName + SUCCESS_MESSAGE + newName);
         }
     }
