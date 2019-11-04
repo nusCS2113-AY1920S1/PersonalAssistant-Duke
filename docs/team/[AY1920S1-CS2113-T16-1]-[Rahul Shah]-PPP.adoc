@@ -12,15 +12,15 @@ Le Duc is a task management product aiming to assist high school students manage
 == Contributions Summary
 * *Major Enhancement*: *Added the ability to generate a reminder for upcoming tasks*
 ** What it does: Analyzes the user's tasklist, and will generate a reminder that highlights the top 3 upcoming tasks that are not yet complete.
-** Justification: A user with a busy schedule could easily forget about a task that he/she must do. This feature will scan for upcoming tasks are remind the user of them, thus preventing the user from falling behind.
-
+** Justification: A user with a busy schedule could easily forget about a task that he/she must do. This feature will scan for upcoming tasks and remind the user of them, thus preventing the user from falling behind.
+** Contributions: Search by day/week/month was implemented by Jérôme Huang
 * *Major Enhancement*: *Created an advanced search feature*
 ** What it does: Uses an advanced string matching algorithm to search for tasks by descriptions, despite partial queries or query typos. Also allows the user to search for tasks by other metrics, such as completion, a date window, etc.
 ** Justification : The user may accidentally make a typo in their query, or make broad queries (search for tasks with certain keywords). An advanced search feature allows for this flexibility.
 
 * *Major Enhancement*: *Generate Statistics from the Tasklist*
-** What it does: Will analyze the tasklist and display interesting metrics to the user, such as % of tasks completed, the count of each type of task, etc.
-** Justification: This feature will help the user to make future decisions. For example, in the case when a large percentage of tasks are not complete, he/she might refrain from taking on an aeditional workload.
+** What it does: Will analyze the tasklist and display interesting metrics to the user, such as % of tasks completed, the count of each type of task, etc. User can view detailed metrics regarding task priority/ completion via flags.
+** Justification: This feature will help the user to make future decisions. For example, in the case when a large percentage of tasks are not complete, he/she might refrain from taking on an additional workload.
 ** Highlights: This enhancement will allow for interesting insights to be generated from the users schedule, most of which are not necessarily intuitive to see without aggregating all historical tasks over time.
 * *Minor enhancement*: Created a homework task type..
 
