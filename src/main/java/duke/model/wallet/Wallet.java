@@ -39,8 +39,8 @@ public class Wallet {
         this.account = wallet.getAccount();
     }
 
-    public void addTransactions(String cost, String date) {
-        this.transactions.addTransaction(new Transaction(cost, date));
-        this.account.withdraw(new BigDecimal(cost));
+    public void addPaymentTransaction(Payment payment) {
+        this.transactions.addTransaction(payment);
+        this.account.withdraw(payment.getTransactionAmount());
     }
 }

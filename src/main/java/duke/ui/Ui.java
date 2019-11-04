@@ -3,7 +3,9 @@ package duke.ui;
 import duke.model.Goal;
 import duke.model.meal.Meal;
 import duke.model.user.User;
+import duke.model.wallet.Payment;
 import duke.model.wallet.Transaction;
+import duke.model.wallet.Wallet;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -266,5 +268,14 @@ public class Ui {
         System.out.println(UI_BOUNDARY);
     }
 
-    
+    public void showPayment(Payment payment) {
+        System.out.println(UI_PADDING + "You have paid " + payment.getTransactionAmount() + "SGD. "
+                            + "The amount has been deducted from your account.");
+    }
+
+    public void showAccountBalance(Wallet wallet) {
+        System.out.println(UI_PADDING + "You current account balance is: " + wallet.getAccountBalance());
+    }
+
+
 }

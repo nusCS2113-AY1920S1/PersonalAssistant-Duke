@@ -68,16 +68,19 @@ public class MarkDoneCommand extends Command {
         } else {
             Meal currentMeal = meals.markDone(currentDate, index);
             String foodCostStr = currentMeal.getCostStr();
+            Payment payment = new Payment(foodCostStr, currentMeal.getDate().format(dateFormat));
             try {
                 storage.updateFile(meals);
-                wallet.addTransactions(foodCostStr, currentMeal.getDate().format(dateFormat));
+                wallet.addPaymentTransaction(payment);
+                storage.updateTransaction(wallet);
             } catch (DukeException e) {
                 ui.showMessage(e.getMessage());
             }
-
             ui.showDone(currentMeal, meals.getMealsList(currentDate));
             ArrayList<Meal> currentMeals = meals.getMealsList(currentDate);
             ui.showCaloriesLeft(currentMeals, user, currentDate);
+            ui.showPayment(payment);
+            ui.showAccountBalance(wallet);
             ui.showLine();
         }
     }

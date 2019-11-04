@@ -33,7 +33,7 @@ public class Meal {
         }
         if (details.size() != 0) {
             for (String nutrient : details.keySet()) {
-                if (!nutrient.equals("date")) {
+                if (!nutrient.equals("date") && !nutrient.equals("cost")) {
                     int value = Integer.parseInt(details.get(nutrient));
                     nutritionValue.put(nutrient, value);
                 }
