@@ -27,7 +27,6 @@ public class CLIView {
         Scanner sc = new Scanner(System.in);
         boolean isDukeRunning = true;
         consolePrint("Hello! I'm Duke", "What can I do for you?");
-        //noinspection InfiniteLoopStatement
         while (isDukeRunning) {
             String commandInput = sc.nextLine();
             ArchDukeLogger.logInfo(CLIView.class.getName(), "User input: " + commandInput);
@@ -49,6 +48,7 @@ public class CLIView {
                 }
             } else if (outputMessage[0].matches("Bye.*")) {
                 isDukeRunning = false;
+                consolePrint(outputMessage);
             } else {
                 consolePrint(outputMessage);
             }
