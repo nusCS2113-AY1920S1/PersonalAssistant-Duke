@@ -706,4 +706,119 @@ class TransactionListTest {
         }
 
     }
+
+    //Tests function for find feature.
+    @Test
+    void findMatchingTransaction_allParameterMatch_success() {
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
+        Ui uiTest = new Ui();
+        TransactionList transactionListTemp = new TransactionList();
+        try {
+            Transaction expenditureTestOne = new Expenditure("Chicken Rice", 15,
+                    (temp.parse("10/6/2019")), "Food");
+            Transaction expenditureTestTwo = new Expenditure("Bubble Tea", 10,
+                    (temp.parse("10/7/2019")), "Food");
+            Transaction depositTest = new Deposit("Fund Received", 100,
+                    (temp.parse("11/9/2019")), "Deposit");
+
+            transactionListTemp.addExpenditureToList(expenditureTestOne, uiTest, "saving");
+            transactionListTemp.addExpenditureToList(expenditureTestTwo, uiTest, "saving");
+            transactionListTemp.addExpenditureToList(depositTest, uiTest, "saving");
+        } catch (ParseException error) {
+            System.out.println("Expected no throw, but error thrown");
+        }
+        try {
+            outContent.reset();
+            transactionListTemp.findMatchingTransaction("10/7/2019",
+                    "19/9/2019", "rice", "deposit", uiTest);
+            String expectedOutput = "Find by: description" + NEWLINE
+                    + "Transaction No.      Description                                             "
+                    + "Amount          Date                 Category             " + NEWLINE
+                    + "-------------------------------------------------------------------------------"
+                    + "--------------------------------------------------" + NEWLINE
+                    + "1                    Chicken Rice                                            "
+                    + "[-] $15.00      10 June 2019         Food                 " + NEWLINE
+                    + "--------------------------------------------------------------------------"
+                    + "-------------------------------------------------------" + NEWLINE
+                    + "Find by: category" + NEWLINE
+                    + "Transaction No.      Description                                             "
+                    + "Amount          Date                 Category             " + NEWLINE
+                    + "-------------------------------------------------------------------------------"
+                    + "--------------------------------------------------" + NEWLINE
+                    + "3                    Fund Received                                           "
+                    + "[+] $100.00     11 September 2019    Deposit              " + NEWLINE
+                    + "--------------------------------------------------------------------------"
+                    + "-------------------------------------------------------" + NEWLINE
+                    + "Find by: date range" + NEWLINE
+                    + "Transaction No.      Description                                             "
+                    + "Amount          Date                 Category             " + NEWLINE
+                    + "-----------------------------------------------------------------------------"
+                    + "----------------------------------------------------" + NEWLINE
+                    + "2                    Bubble Tea                                              "
+                    + "[-] $10.00      10 July 2019         Food                 " + NEWLINE
+                    + "3                    Fund Received                                           "
+                    + "[+] $100.00     11 September 2019    Deposit              " + NEWLINE
+                    + "----------------------------------------------------------------------------"
+                    + "-----------------------------------------------------" + NEWLINE;
+            assertEquals(expectedOutput,outContent.toString());
+            outContent.reset();
+        } catch (TransactionException error) {
+            System.out.println("Expected no throw, but error thrown");
+        }
+    }
+
+    //Tests function for find feature.
+    @Test
+    void findMatchingTransaction_allParameterMissMatch_printErrorMessage() {
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
+        Ui uiTest = new Ui();
+        TransactionList transactionListTemp = new TransactionList();
+        try {
+            Transaction expenditureTestOne = new Expenditure("Chicken Rice", 15,
+                    (temp.parse("10/6/2019")), "Food");
+            Transaction expenditureTestTwo = new Expenditure("Bubble Tea", 10,
+                    (temp.parse("10/7/2019")), "Food");
+            Transaction depositTest = new Deposit("Fund Received", 100,
+                    (temp.parse("11/9/2019")), "Deposit");
+
+            transactionListTemp.addExpenditureToList(expenditureTestOne, uiTest, "saving");
+            transactionListTemp.addExpenditureToList(expenditureTestTwo, uiTest, "saving");
+            transactionListTemp.addExpenditureToList(depositTest, uiTest, "saving");
+        } catch (ParseException error) {
+            System.out.println("Expected no throw, but error thrown");
+        }
+        try {
+            outContent.reset();
+            transactionListTemp.findMatchingTransaction("01/01/2019",
+                    "01/01/2019", "No such word", "No such word", uiTest);
+            String expectedOutput = "No matches for the description keyword: No such word" + NEWLINE
+                    + "No matches for the category keyword: No such word" + NEWLINE
+                    + "No matches for the date range specified: 01/01/2019 to 01/01/2019" + NEWLINE;
+            assertEquals(expectedOutput,outContent.toString());
+            outContent.reset();
+        } catch (TransactionException error) {
+            System.out.println("Expected no throw, but error thrown");
+        }
+    }
+
+    //Tests function for find feature.
+    @Test
+    void findMatchingTransaction_emptyTransactionList_printErrorMessage() {
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
+        Ui uiTest = new Ui();
+        TransactionList transactionListTemp = new TransactionList();
+        try {
+            transactionListTemp.findMatchingTransaction("", "",
+                    "No such description", "", uiTest);
+        } catch (TransactionException error) {
+            System.out.println("Expected no throw, but error thrown");
+        }
+        String expectedOutput = "Transaction list is empty." + NEWLINE;
+        assertEquals(expectedOutput,outContent.toString());
+
+    }
+
 }
