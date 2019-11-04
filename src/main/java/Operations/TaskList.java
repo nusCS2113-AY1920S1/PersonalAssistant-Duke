@@ -75,7 +75,16 @@ public class TaskList {
             int listCount = 1;
             for (Task output : tasks) {
                 if( !output.getDone() ) {
-                    System.out.println("\t" + listCount + ". " + output.toString());
+                    Priority priority = output.getPriority();
+                    String priorityLVL;
+                    if (priority.equals(Priority.low)) {
+                        priorityLVL = " *";
+                    } else if(priority.equals(Priority.medium)) {
+                        priorityLVL = " **";
+                    } else {
+                        priorityLVL = " ***";
+                    }
+                    System.out.println("\t" + listCount + ". " + output.toString() + priorityLVL);
                     if( output instanceof Assignment && !(((Assignment) output).getSubTasks() == null) ) {
                         ArrayList<String> subTasks = ((Assignment) output).getSubTasks();
                         for(String subtask : subTasks) {
