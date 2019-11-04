@@ -15,10 +15,10 @@ public final class TaskScheduler {
     private static final String SCHEDULE_ANYTIME_BY_DEADLINE =
             "You can schedule this task from now till the deadline.\n";
     private static final String SCHEDULE_ANYTIME = "You can schedule this task anytime.\n";
-    private static final String SCHEDULE_NOW_TILL_FORMAT = "You can schedule this task from now till %s \n";
-    private static final String SCHEDULE_FROM_TILL_FORMAT = "You can schedule this task from %s till %s \n";
+    private static final String SCHEDULE_NOW_TILL_FORMAT = "You can schedule this task from now till %s\n";
+    private static final String SCHEDULE_FROM_TILL_FORMAT = "You can schedule this task from %s till %s\n";
     private static final String NO_FREE_SLOTS =
-            "There is no free slot to insert the task. Consider freeing up your schedule.";
+            "There is no free slot to insert the task. Consider freeing up your schedule.\n";
 
     /**
      * Finds a free period of time within the user's schedule for a given duration by a given deadline.
@@ -54,16 +54,16 @@ public final class TaskScheduler {
 
     private static void searchFreePeriodsInEventList(Long durationToSchedule, LocalDateTime deadlineDate,
                                                      ArrayList<Event> eventList) {
+        boolean isFreeBetweenEvents = false;
         Long duration;
         LocalDateTime nextStartDate = eventList.get(0).getStartDate();
         duration = ChronoUnit.HOURS.between(LocalDateTime.now(), nextStartDate);
         if (durationToSchedule <= duration) {
+            isFreeBetweenEvents = true;
             String formattedNextStartDate = nextStartDate.format(DateTimeExtractor.DATE_FORMATTER);
-            UiTemporary.printOutput(String.format(SCHEDULE_NOW_TILL_FORMAT, formattedNextStartDate));
-            return;
+            UiTemporary.loadMultiLineOutput(String.format(SCHEDULE_NOW_TILL_FORMAT, formattedNextStartDate));
         }
 
-        boolean isFreeBetweenEvents = false;
         for (int i = 0; i < eventList.size(); i++) {
             LocalDateTime currentEndDate = eventList.get(i).getEndDate();
             if (i == eventList.size() - 1) {
@@ -80,13 +80,16 @@ public final class TaskScheduler {
                 isFreeBetweenEvents = true;
                 String formattedCurrentEndDate = currentEndDate.format(DateTimeExtractor.DATE_FORMATTER);
                 String formattedNextStartDate = nextStartDate.format(DateTimeExtractor.DATE_FORMATTER);
-                UiTemporary.printOutput(String.format(SCHEDULE_FROM_TILL_FORMAT,
+                UiTemporary.loadMultiLineOutput(String.format(SCHEDULE_FROM_TILL_FORMAT,
                         formattedCurrentEndDate, formattedNextStartDate));
             }
         }
 
         if (!isFreeBetweenEvents) {
             UiTemporary.printOutput(NO_FREE_SLOTS);
+            return;
         }
+
+        UiTemporary.printMultiLineOutput();
     }
 }

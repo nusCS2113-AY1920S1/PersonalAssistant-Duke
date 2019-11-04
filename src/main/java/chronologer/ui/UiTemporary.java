@@ -4,6 +4,7 @@ import chronologer.task.Task;
 import chronologer.task.TaskList;
 import javafx.beans.value.ObservableIntegerValue;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -30,6 +31,9 @@ public class UiTemporary {
         + "What can I do for you?\n" + "_______________________________\n";
 
     private static Scanner scanner = new Scanner(System.in);
+
+    private static List<String> multiLineList = new ArrayList<>();
+    private static StringBuilder multiLineOutput;
 
     /**
      * Prints a 'dashed' line.
@@ -75,6 +79,33 @@ public class UiTemporary {
         System.out.println(userOutputDash);
         System.out.println(userOutput);
         System.out.println(userOutputDash);
+    }
+
+    /**
+     * Loads the list of string to be printed with another line of string.
+     * @param userOutput is the additional line of string to load the current string with
+     */
+    public static void loadMultiLineOutput(String userOutput) {
+        multiLineList.add(userOutput);
+    }
+
+    /**
+     * Prints out the multi-lined string to the UI and clears the list of strings for any subsequent inputs.
+     */
+    public static void printMultiLineOutput() {
+        initialiseStringBuilder();
+        for (String output: multiLineList) {
+            multiLineOutput.append(output);
+        }
+        UiTemporary.userOutputForUI = multiLineOutput + "\n";
+        System.out.println(userOutputDash);
+        System.out.println(multiLineOutput);
+        System.out.println(userOutputDash);
+        multiLineList.clear();
+    }
+
+    private static void initialiseStringBuilder() {
+        multiLineOutput = new StringBuilder();
     }
 
     /**

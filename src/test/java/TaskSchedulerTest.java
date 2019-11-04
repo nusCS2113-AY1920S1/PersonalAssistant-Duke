@@ -20,7 +20,7 @@ public class TaskSchedulerTest {
     private PrintStream originalOut;
 
     private LocalDateTime firstDeadlineStartDate = LocalDateTime.now().plusDays(1);
-    LocalDateTime secondDeadlineStartDate = LocalDateTime.now().plusDays(2);
+    private LocalDateTime secondDeadlineStartDate = LocalDateTime.now().plusDays(2);
 
     /**
      * Setups the necessary base to carry out the test operations.
@@ -48,6 +48,9 @@ public class TaskSchedulerTest {
         tasks.add(thirdEvent);
     }
 
+    /**
+     * Sets up the output stream to read the UI/CLI messages before each test.
+     */
     @BeforeEach
     public void setUpStreams() {
         originalOut = System.out;
@@ -64,11 +67,20 @@ public class TaskSchedulerTest {
     public void testTaskSchedulerForEmptySchedule() {
         Long taskDuration = (long) 2;
         TaskScheduler.scheduleByDeadline(tasks, taskDuration, firstDeadlineStartDate);
-        String test = outContent.toString();
-        String expected = "_______________________________\n\r\n" +
-                "You can schedule this task from now till the deadline.\n\r\n" +
-                "_______________________________\n\r\n";
-        Assertions.assertEquals(expected, test);
+        String testOutput = outContent.toString();
+        String expectedOutput = "_______________________________\n\r\n"
+                + "You can schedule this task from now till the deadline.\n\r\n"
+                + "_______________________________\n\r\n";
+        Assertions.assertEquals(expectedOutput, testOutput);
+    }
+
+    @Test
+    public void testTaskSchedulerForFilledSchedule() {
+        Long taskDuration = (long) 2;
+        TaskScheduler.scheduleByDeadline(tasks, taskDuration, secondDeadlineStartDate);
+        String testOutput = outContent.toString();
+        String expectedOutput = "_______________________________\n\r\n";
+
     }
 
 
