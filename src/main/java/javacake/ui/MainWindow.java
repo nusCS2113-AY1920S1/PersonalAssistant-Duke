@@ -102,7 +102,8 @@ public class MainWindow extends GridPane {
             showContentContainer();
         } else {
             response = Ui.showWelcomeMsgPhaseA(JavaCake.isFirstTimeUser)
-                    + Ui.showWelcomeMsgPhaseB(JavaCake.isFirstTimeUser, JavaCake.userName, JavaCake.userProgress);
+                    + Ui.showWelcomeMsgPhaseB(JavaCake.isFirstTimeUser,
+                    JavaCake.userName, JavaCake.storageManager);
             showContentContainer();
         }
         setAvatarDialogLoop();
@@ -373,7 +374,7 @@ public class MainWindow extends GridPane {
         JavaCake.logger.log(Level.INFO, "New user initialising...");
         JavaCake.userName = input;
         JavaCake.storageManager.profile.overwriteName(JavaCake.userName);
-        response = Ui.showWelcomeMsgPhaseB(JavaCake.isFirstTimeUser, JavaCake.userName, JavaCake.userProgress);
+        response = Ui.showWelcomeMsgPhaseB(JavaCake.isFirstTimeUser, JavaCake.userName, JavaCake.storageManager);
         showContentContainer();
         isStarting = false;
     }
