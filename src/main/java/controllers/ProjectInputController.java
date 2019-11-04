@@ -25,7 +25,6 @@ import util.json.JsonConverter;
 import util.log.ArchDukeLogger;
 
 public class ProjectInputController implements IController {
-    private Scanner manageProjectInput;
     private ProjectRepository projectRepository;
     private MemberFactory memberFactory;
     private TaskFactory taskFactory;
@@ -33,6 +32,7 @@ public class ProjectInputController implements IController {
     private ViewHelper viewHelper;
     private CommandHelper commandHelper;
     private JsonConverter jsonConverter = new JsonConverter();
+    private Project projectToManage;
 
     /**
      * Constructor for ProjectInputController takes in a View model and a ProjectRepository.
@@ -40,7 +40,6 @@ public class ProjectInputController implements IController {
      * @param projectRepository The object holding all projects.
      */
     public ProjectInputController(ProjectRepository projectRepository) {
-        this.manageProjectInput = new Scanner(System.in);
         this.projectRepository = projectRepository;
         this.memberFactory = new MemberFactory();
         this.taskFactory = new TaskFactory();
@@ -64,68 +63,64 @@ public class ProjectInputController implements IController {
             isManagingAProject = false;
             return new String[] {"Input is not a number! Please input a proper project index!"};
         }
-        Project projectToManage = projectRepository.getItem(projectNumber);
+        this.projectToManage = projectRepository.getItem(projectNumber);
         isManagingAProject = true;
-        return manageProject(projectToManage);
+        return new String[] {"Please enter a new command:"};
     }
 
     /**
      * Manages the project.
-     * @param projectToManage The project specified by the user.
      * @return Boolean variable giving status of whether the exit command is entered.
      */
-    private String[] manageProject(Project projectToManage) {
+    public String[] manageProject(String projectFullCommand) {
         ArchDukeLogger.logDebug(ProjectInputController.class.getName(), "[manageProject]");
-        String[] responseToView = {"Please enter a command."};
-        if (manageProjectInput.hasNextLine()) {
-            String projectFullCommand = manageProjectInput.nextLine();
-            ArchDukeLogger.logInfo(ProjectInputController.class.getName(), "Managing:"
-                    + projectToManage.getName() + ",input:'"
-                    + projectFullCommand + "'");
-            if (projectFullCommand.matches("exit")) {
-                isManagingAProject = false;
-                responseToView = projectExit(projectToManage);
-            } else if (projectFullCommand.matches("add member.*")) {
-                responseToView =  projectAddMember(projectToManage, projectFullCommand);
-            } else if (projectFullCommand.matches("edit member.*")) {
-                responseToView = projectEditMember(projectToManage, projectFullCommand);
-            } else if (projectFullCommand.matches("delete member.*")) {
-                responseToView = projectDeleteMember(projectToManage, projectFullCommand);
-            } else if (projectFullCommand.matches("view members.*")) {
-                responseToView = projectViewMembers(projectToManage);
-            } else if (projectFullCommand.matches("role.*")) {
-                responseToView = projectRoleMembers(projectToManage, projectFullCommand);
-            } else if (projectFullCommand.matches("view credits.*")) {
-                responseToView = projectViewCredits(projectToManage);
-            } else if (projectFullCommand.matches("add task.*")) {
-                responseToView = projectAddTask(projectToManage, projectFullCommand);
-            } else if (projectFullCommand.matches("view tasks.*")) {
-                responseToView = projectViewTasks(projectToManage, projectFullCommand);
-            } else if (projectFullCommand.matches("view assignments.*")) {
-                responseToView = projectViewAssignments(projectToManage, projectFullCommand);
-            } else if (projectFullCommand.matches("view task requirements.*")) { // need to refactor this
-                responseToView = projectViewTaskRequirements(projectToManage, projectFullCommand);
-            } else if (projectFullCommand.matches("edit task requirements.*")) {
-                responseToView = projectEditTaskRequirements(projectToManage, projectFullCommand);
-            } else if (projectFullCommand.matches("edit task.*")) {
-                responseToView = projectEditTask(projectToManage, projectFullCommand);
-            } else if (projectFullCommand.matches("delete task.*")) {
-                responseToView = projectDeleteTask(projectToManage, projectFullCommand);
-            } else if (projectFullCommand.matches("assign task.*")) {
-                responseToView = projectAssignTask(projectToManage, projectFullCommand);
-            } else if (projectFullCommand.matches("add reminder.*")) {
-                responseToView = projectAddReminder(projectToManage,projectFullCommand);
-            } else if (projectFullCommand.matches("view")) {
-                responseToView = projectViewSelf(projectToManage);
-            } else if (projectFullCommand.matches("help")) {
-                responseToView = projectHelp();
-            } else if (projectFullCommand.matches("bye")) {
-                return end();
-            } else {
-                return new String[] {"Invalid command. Try again!"};
-            }
+        String[] responseToView;
+        ArchDukeLogger.logInfo(ProjectInputController.class.getName(), "Managing:"
+                + this.projectToManage.getName() + ",input:'"
+                + projectFullCommand + "'");
+        if (projectFullCommand.matches("exit")) {
+            isManagingAProject = false;
+            responseToView = projectExit(this.projectToManage);
+        } else if (projectFullCommand.matches("add member.*")) {
+            responseToView =  projectAddMember(this.projectToManage, projectFullCommand);
+        } else if (projectFullCommand.matches("edit member.*")) {
+            responseToView = projectEditMember(this.projectToManage, projectFullCommand);
+        } else if (projectFullCommand.matches("delete member.*")) {
+            responseToView = projectDeleteMember(this.projectToManage, projectFullCommand);
+        } else if (projectFullCommand.matches("view members.*")) {
+            responseToView = projectViewMembers(this.projectToManage);
+        } else if (projectFullCommand.matches("role.*")) {
+            responseToView = projectRoleMembers(this.projectToManage, projectFullCommand);
+        } else if (projectFullCommand.matches("view credits.*")) {
+            responseToView = projectViewCredits(this.projectToManage);
+        } else if (projectFullCommand.matches("add task.*")) {
+            responseToView = projectAddTask(this.projectToManage, projectFullCommand);
+        } else if (projectFullCommand.matches("view tasks.*")) {
+            responseToView = projectViewTasks(this.projectToManage, projectFullCommand);
+        } else if (projectFullCommand.matches("view assignments.*")) {
+            responseToView = projectViewAssignments(this.projectToManage, projectFullCommand);
+        } else if (projectFullCommand.matches("view task requirements.*")) { // need to refactor this
+            responseToView = projectViewTaskRequirements(this.projectToManage, projectFullCommand);
+        } else if (projectFullCommand.matches("edit task requirements.*")) {
+            responseToView = projectEditTaskRequirements(this.projectToManage, projectFullCommand);
+        } else if (projectFullCommand.matches("edit task.*")) {
+            responseToView = projectEditTask(this.projectToManage, projectFullCommand);
+        } else if (projectFullCommand.matches("delete task.*")) {
+            responseToView = projectDeleteTask(this.projectToManage, projectFullCommand);
+        } else if (projectFullCommand.matches("assign task.*")) {
+            responseToView = projectAssignTask(this.projectToManage, projectFullCommand);
+        } else if (projectFullCommand.matches("add reminder.*")) {
+            responseToView = projectAddReminder(this.projectToManage,projectFullCommand);
+        } else if (projectFullCommand.matches("view")) {
+            responseToView = projectViewSelf(this.projectToManage);
+        } else if (projectFullCommand.matches("help")) {
+            responseToView = projectHelp();
+        } else if (projectFullCommand.matches("bye")) {
+            return end();
+        } else {
+            return new String[] {"Invalid command. Try again!"};
         }
-        jsonConverter.saveProject(projectToManage);
+        jsonConverter.saveProject(this.projectToManage);
         return responseToView;
     }
 
