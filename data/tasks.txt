@@ -1,5 +1,6 @@
 [
   {
+
     "name": "job A",
     "isDone": false,
     "memberList": [
@@ -11,6 +12,7 @@
     "name": "job B",
     "isDone": false,
     "memberList": [
+
       "P1"
     ],
     "skillReqList": []

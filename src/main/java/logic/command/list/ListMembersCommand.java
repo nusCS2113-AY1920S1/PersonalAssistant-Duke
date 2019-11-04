@@ -1,5 +1,7 @@
-package logic.command;
+package logic.command.list;
 
+import logic.command.Command;
+import logic.command.CommandOutput;
 import model.Member;
 import model.Model;
 
@@ -10,8 +12,12 @@ import gui.Window;
 public class ListMembersCommand extends Command {
 
     public static final String COMMAND_WORD = "members";
-    public static final String EMPTY_TASKS_LIST = "There are currently no member in project manager";
+    public static final String EMPTY_MEMBERS_LIST = "There are currently no member in project manager";
     private String arguments;
+
+    public ListMembersCommand() {
+
+    }
 
     public ListMembersCommand(String arguments) {
         this.arguments = arguments;
@@ -36,7 +42,7 @@ public class ListMembersCommand extends Command {
                         + members.get(i).getName() + "\n";
             }
         } else {
-            finalOutput = EMPTY_TASKS_LIST;
+            finalOutput = EMPTY_MEMBERS_LIST;
         }
         return finalOutput;
     }

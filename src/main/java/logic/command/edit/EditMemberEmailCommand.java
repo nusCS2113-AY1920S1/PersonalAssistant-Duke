@@ -22,7 +22,7 @@ public class EditMemberEmailCommand extends Command {
 
     @Override
     public CommandOutput execute(Model model) throws DukeException {
-        if (checkMemberIndex(memberIndexInList, model)) {
+        if (!checkMemberIndex(memberIndexInList, model)) {
             return new CommandOutput(INDEX_NOT_IN_MEMlIST_MESSAGE);
         } else {
             String oldemail = model.updateMemberEmail(memberIndexInList - 1, email);

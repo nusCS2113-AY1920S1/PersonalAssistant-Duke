@@ -23,21 +23,29 @@ public interface Model {
 
     int getTaskListSize();
 
+    String getTasks();
+
+    String getTodoTasks();
+
     String getTaskNameById(int index);
 
     Date getTaskDateTimeById(int indexOfTask);
 
     TasksManager getTasksManager();
 
+    String getTasksByKeyword(String keyword) throws DukeException;
+
     Task addTask(String name) throws DukeException;
 
     boolean hasTask(String name) throws DukeException;
 
-    String getTasksByKeyword(String keyword) throws DukeException;
+    String tasksAllInorderTime() throws DukeException;
 
-    String scheduleTeamAll() throws DukeException;
+    String tasksTodoInorderTime() throws DukeException;
 
-    String scheduleTeamTodo() throws DukeException;
+    String tasksAllInorderPicNum();
+
+    String tasksTodoInorderPicNum();
 
     String updateTaskDes(int index, String des);
 
@@ -66,6 +74,10 @@ public interface Model {
 
     boolean addMemberSkill(String memberName, String skillName);
 
+    String membersInorderProgress();
+
+    String membersInorderTodoNum();
+
     //==================Task and Member Interface======================
     void link(int tasksIndexes, String memberNames);
 
@@ -78,4 +90,6 @@ public interface Model {
     String scheduleMemberAll(String memberName) throws DukeException;
 
     String scheduleMemberTodo(String memberName) throws DukeException;
+
+    String check();
 }

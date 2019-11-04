@@ -22,7 +22,7 @@ public class EditTaskDesCommand extends Command {
 
     @Override
     public CommandOutput execute(Model model) throws DukeException {
-        if (checkTaskIndex(taskIndexInList, model)) {
+        if (!checkTaskIndex(taskIndexInList, model)) {
             return new CommandOutput(INDEX_NOT_IN_MEMlIST_MESSAGE);
         } else {
             String oldDes = model.updateTaskDes(taskIndexInList - 1, des);
