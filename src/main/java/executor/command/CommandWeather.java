@@ -10,7 +10,11 @@ import ui.Wallet;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.LinkedHashMap;
+import java.util.Set;
+import java.util.Map;
 
 
 public class CommandWeather extends Command {
