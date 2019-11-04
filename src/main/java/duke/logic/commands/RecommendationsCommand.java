@@ -1,6 +1,5 @@
 package duke.logic.commands;
 
-import duke.commons.exceptions.DukeException;
 import duke.commons.exceptions.ParseException;
 import duke.logic.commands.results.CommandResultText;
 import duke.model.Model;
