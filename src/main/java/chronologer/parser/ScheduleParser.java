@@ -69,7 +69,7 @@ public class ScheduleParser extends IndexParser {
         LocalDateTime convertedDate;
         try {
             convertedDate = DateTimeExtractor.extractDateTime(extractedDate, command);
-        } catch (DateTimeParseException | ParseException e) {
+        } catch (DateTimeParseException e) {
             UiTemporary.printOutput(ChronologerException.wrongDateOrTime());
             logger.writeLog(e.toString(), this.getClass().getName(), userInput);
             throw new ChronologerException(ChronologerException.wrongDateOrTime());
