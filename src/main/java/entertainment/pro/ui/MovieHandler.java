@@ -223,8 +223,6 @@ public class MovieHandler extends Controller implements RequestListener {
                     setGeneralFeedbackText(PromptMessages.MISSING_ARGUMENTS);
                 }
                 clearSearchTextField();
-                clearAutoCompleteFeedbackText();
-                clearGeneralFeedbackText();
             } else if (event.getCode().equals(KeyCode.DOWN)) {
                 mMoviesScrollPane.requestFocus();
                 mMoviesFlowPane.getChildren().get(0).setStyle("-fx-border-color: white");

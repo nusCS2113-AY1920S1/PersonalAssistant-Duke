@@ -452,7 +452,7 @@ public class RetrieveRequest implements InfoFetcher {
         OfflineSearchStorage offlineSearchStorage = new OfflineSearchStorage();
         try {
             resultsJSON = offlineSearchStorage.load();
-        } catch (IOException e) {
+        } catch (IOException | Exceptions e) {
             e.printStackTrace();
         }
         parseJSON(resultsJSON);

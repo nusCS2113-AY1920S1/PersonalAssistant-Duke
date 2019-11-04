@@ -97,11 +97,11 @@
                     <Insets bottom="5.0" />
                   </VBox.margin>
                 </Label>
-                  <ScrollPane prefHeight="200.0" prefWidth="200.0">
-                      <content>
-                          <TextFlow fx:id="genreListText" prefHeight="34.0" prefWidth="109.0" />
-                      </content>
-                  </ScrollPane>
+                <ScrollPane prefHeight="200.0" prefWidth="200.0">
+                  <content>
+                    <TextFlow fx:id="genreListText" prefHeight="34.0" prefWidth="109.0" />
+                  </content>
+                </ScrollPane>
               </children>
               <VBox.margin>
                 <Insets top="5.0" fx:id="x18" />
@@ -185,8 +185,8 @@
             </TextField>
             <VBox fx:id="autoCompleteVBox" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-1.0" prefHeight="40.0" prefWidth="666.0" VBox.vgrow="ALWAYS">
               <children>
-                <Text fx:id="autoCompleteText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome to Entertainment-Pro! Start exploring now..." wrappingWidth="620.0" VBox.vgrow="SOMETIMES" />
-                <Text fx:id="generalFeedbackText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="" wrappingWidth="620.0" VBox.vgrow="SOMETIMES">
+                <Text fx:id="autoCompleteText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome to Entertainment-Pro! Start exploring now..." wrappingWidth="1100.0" VBox.vgrow="SOMETIMES" />
+                <Text fx:id="generalFeedbackText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="" wrappingWidth="1100.0" VBox.vgrow="SOMETIMES">
                   <VBox.margin>
                     <Insets top="7.0" />
                   </VBox.margin>
