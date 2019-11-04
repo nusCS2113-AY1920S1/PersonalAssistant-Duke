@@ -20,10 +20,12 @@ public class ListCommandTest {
     }
 	private class ModelStub extends ModelManager{
         FoodListStub list = new FoodListStub();
+        /*
         @Override
         public FoodListStub getFoodList(){
                  return list;
         }
+         */
 	}
     @Test
     public void construct_sortType_successful() {
