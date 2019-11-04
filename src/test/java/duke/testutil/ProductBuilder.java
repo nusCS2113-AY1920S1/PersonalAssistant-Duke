@@ -1,7 +1,6 @@
 package duke.testutil;
 
 import duke.model.commons.Item;
-import duke.model.commons.Quantity;
 import duke.model.inventory.Ingredient;
 import duke.model.product.IngredientItemList;
 import duke.model.product.Product;
@@ -10,13 +9,13 @@ import duke.model.product.Product;
  * A utility class to help with building Product objects.
  */
 public class ProductBuilder {
-    public static final String DEFAULT_NAME = "Cheese cake";
-    public static final Double DEFAULT_COST = 3.0;
-    public static final Double DEFAULT_PRICE = 5.9;
+    //public static final String DEFAULT_NAME = "Cheese cake";
+    public static final Double DEFAULT_COST = 0.0;
+    public static final Double DEFAULT_PRICE = 0.0;
     public static final Product.Status DEFAULT_STATUS = Product.Status.valueOf("ACTIVE");
 
     public static final Item<Ingredient> DEFAULT_INGREDIENT_ITEM = IngredientBuilder.buildIngredientItemWithQuantity(
-            "Cream Cheese", 3.0);
+            "Cream Cheese", 0.0);
     public static final IngredientItemList DEFAULT_INGREDIENTS =
             new IngredientItemList();
 
@@ -27,10 +26,11 @@ public class ProductBuilder {
     private Product.Status status;
 
     public ProductBuilder() {
-        productName = DEFAULT_NAME;
-        //?
-       // ingredients = new IngredientItemList();
-        ingredients.add(DEFAULT_INGREDIENT_ITEM);
+    }
+
+    public ProductBuilder(String productName) {
+        this.productName = productName;
+        ingredients = new IngredientItemList();
         ingredientCost = DEFAULT_COST;
         retailPrice = DEFAULT_PRICE;
         status = DEFAULT_STATUS;
