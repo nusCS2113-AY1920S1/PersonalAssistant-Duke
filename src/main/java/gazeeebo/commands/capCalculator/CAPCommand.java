@@ -46,7 +46,7 @@ public class CAPCommand extends Command {
         String helpCAP = "__________________"
                 + "________________________________________\n"
                 + "1. Add module: add\n"
-                + "2. Find module: find moduleCode/semNumber\n"
+                + "2. Find module: find moduleCode\n"
                 + "3. Delete a module: delete module\n"
                 + "4. See your CAP list: list\n"
                 + "5. Help Command: help\n"
@@ -61,38 +61,42 @@ public class CAPCommand extends Command {
         Map<String, ArrayList<CAPCommand>> caplist = new TreeMap<>(map);
         String lineBreak = "------------------------------\n";
         ui.readCommand();
-        while (!ui.fullCommand.equals("esc")) {
-            double cap = new CalculateCAPCommand().calculateCAP(caplist);
-            if (ui.fullCommand.equals("add")) {
-                new AddCAPCommand(ui, caplist);
-            } else if (ui.fullCommand.equals("list")) {
-                new ListCAPCommand(ui, caplist, lineBreak);
-            } else if (ui.fullCommand.split(" ")[0].equals("find")
-                    && !ui.fullCommand.equals("find")) {
-                new FindCAPCommand(ui, caplist, lineBreak);
-            } else if (ui.fullCommand.split(" ")[0].equals("delete")
-                    && !ui.fullCommand.equals("delete")) {
-                new DeleteCAPCommand(ui, caplist);
-            } else if (ui.fullCommand.equals("help")) {
-                System.out.println(helpCAP);
-            } else {
+        while (!(ui.fullCommand.equals("esc") || ui.fullCommand.equals("6"))) {
+            try {
+                double cap = new CalculateCAPCommand().calculateCAP(caplist);
+                if (ui.fullCommand.split(" ")[0].equals("add") || ui.fullCommand.equals("1")) {
+                    new AddCAPCommand(ui, caplist);
+                } else if (ui.fullCommand.split(" ")[0].equals("find") || ui.fullCommand.equals("2")) {
+                    new FindCAPCommand(ui, caplist, lineBreak);
+                } else if (ui.fullCommand.split(" ")[0].equals("list") || ui.fullCommand.equals("4")) {
+                    new ListCAPCommand(ui, caplist, lineBreak);
+                } else if (ui.fullCommand.split(" ")[0].equals("delete") || ui.fullCommand.equals("3")) {
+                    new DeleteCAPCommand(ui, caplist);
+                } else if (ui.fullCommand.equals("help") || ui.fullCommand.equals("5")) {
+                    System.out.println(helpCAP);
+                } else {
+                    throw new ArrayIndexOutOfBoundsException();
+                }
+            } catch (ArrayIndexOutOfBoundsException e) {
                 System.out.println("Command not found:\n" + helpCAP);
-            }
-            String toStore = "";
-            for (String key : caplist.keySet()) {
-                for (int i = 0; i < caplist.get(key).size(); i++) {
-                    toStore = toStore.concat(key + "|"
-                            + caplist.get(key).get(i).moduleCode
-                            + "|" + caplist.get(key).get(i).moduleCredit
-                            + "|" + caplist.get(key).get(i).grade + "\n");
+            } finally {
+                String toStore = "";
+                for (String key : caplist.keySet()) {
+                    for (int i = 0; i < caplist.get(key).size(); i++) {
+                        toStore = toStore.concat(key + "|"
+                                + caplist.get(key).get(i).moduleCode
+                                + "|" + caplist.get(key).get(i).moduleCredit
+                                + "|" + caplist.get(key).get(i).grade + "\n");
+
+                    }
 
                 }
+                storage.writeToCAPFile(toStore);
+                System.out.println("What do you want to do next ?");
+                ui.readCommand();
             }
-            storage.writeToCAPFile(toStore);
-            System.out.println("What do you want to do next ?");
-            ui.readCommand();
         }
-        System.out.println("Go back to Main Menu...\n" +
+        System.out.print("Go back to Main Menu...\n" +
                 "Content Page:\n" +
                 "------------------ \n" +
                 "1. help\n" +
@@ -103,7 +107,7 @@ public class CAPCommand extends Command {
                 "6. cap\n" +
                 "7. spec\n" +
                 "8. moduleplanner\n" +
-                "9. notes\n");
+                "9. notes\n\n");
     }
 
     /** */

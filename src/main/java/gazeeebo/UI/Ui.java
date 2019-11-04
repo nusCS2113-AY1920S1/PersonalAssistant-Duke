@@ -72,6 +72,7 @@ public class Ui {
         majorCategories.add("spec");
         majorCategories.add("moduleplanner");
         majorCategories.add("notes");
+        majorCategories.add("bye");
 
         System.out.println("\nContent Page:");
         System.out.println("------------------ " +
