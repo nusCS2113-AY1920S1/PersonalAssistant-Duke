@@ -32,11 +32,11 @@ public class ScheduleCommand extends Command {
         }
         input = input.substring(8);
         if (!input.contains("d/")) {
-            throw new MooMooException("OOPS!!! Please indicate the scheduled date using d/<dd/mm/yy>");
+            throw new MooMooException("MOOOO!!! Please indicate the scheduled date using d/<dd/mm/yy>");
         } else if (!input.contains("a/")) {
-            throw new MooMooException("OOPS!!! Please indicate the amount to be paid using a/<amount>");
+            throw new MooMooException("MOOOO!!! Please indicate the amount to be paid using a/<amount>");
         } else if (!input.contains("n/")) {
-            throw new MooMooException("OOPS!!! Please indicate the type of payment using n/<description of payment>");
+            throw new MooMooException("MOOOO!!! Please indicate the type of payment using n/<description of payment>");
         }
 
         /*
@@ -58,7 +58,32 @@ public class ScheduleCommand extends Command {
         } else {
             calendar.addToCalendar(date, task);
         }
-        ui.setOutput("You have scheduled a payment on " + date + " for " + task + " dollars.");
+        String BLANK = " ";
+        int blank = 31 - date.length();
+        for (int j = 1; j <= blank; j++) {
+            BLANK += " ";
+        }
+        String BLANK2 = " ";
+        blank = 23 - task.length();
+        for (int j = 0; j < blank; j++) {
+            BLANK2 += " ";
+        }
+        String cow =
+                "._______________________________________.\n" +
+                "| ___  ___ _  _ ___ ___  _   _ _    ___ |\n" +
+                "|/ __|/ __| || | __|   \\| | | | |  | __||\n" +
+                "|\\__ \\ (__| __ | _|| |) | |_| | |__| _| |\n" +
+                "||___/\\___|_||_|___|___/ \\___/|____|___||\n" +
+                "|                                       |\n" +
+                "|Date : " + date + BLANK + "|\n" +
+                "|Task : " + task + " dollars" + BLANK2 + "|\n" +
+                ".---------------------------------------.\n" +
+                "        \\   ^__^\n" +
+                "         \\  (oo)\\_______\n" +
+                "            (__)\\       )\\/\\\n" +
+                "                ||----w |\n" +
+                "                ||     ||\n";
+        ui.setOutput(cow);
         storage.saveScheduleToFile(calendar);
     }
 }
