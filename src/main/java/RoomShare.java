@@ -40,7 +40,6 @@ public class RoomShare {
             taskList = new TaskList(storage.loadFile("data.txt"));
         } catch (RoomShareException e) {
             ui.showError(e);
-            ui.showLoadError();
             ArrayList<Task> emptyList = new ArrayList<>();
             taskList = new TaskList(emptyList);
         }
@@ -100,6 +99,7 @@ public class RoomShare {
                     taskList.done(index);
                     ui.showDone();
                 } catch (RoomShareException e) {
+                    storage.writeFile(TaskList.currentList(), "data.txt");
                     ui.showError(e);
                 }
                 listRoutine.list();
@@ -108,13 +108,13 @@ public class RoomShare {
             case delete:
                 Ui.clearScreen();
                 ui.startUp();
-                listRoutine.list();
                 try {
                     String input = parser.getCommandLine();
                     int[] index = parser.getIndexRange(input);
                     taskList.delete(index, tempDeleteList);
                     ui.showDeleted(index);
                 } catch (RoomShareException e) {
+                    storage.writeFile(TaskList.currentList(), "data.txt");
                     ui.showError(e);
                 }
                 listRoutine.list();
@@ -128,6 +128,7 @@ public class RoomShare {
                     int restoreIndex = parser.getIndex(input);
                     tempDeleteList.restore(restoreIndex, taskList);
                 } catch (RoomShareException e) {
+                    storage.writeFile(TaskList.currentList(), "data.txt");
                     ui.showError(e);
                 }
                 listRoutine.list();
@@ -153,11 +154,13 @@ public class RoomShare {
                     success = false;
                     ui.showError(e);
                     ui.priorityInstruction();
+                    storage.writeFile(TaskList.currentList(), "data.txt");
                 } finally {
                     if (success) {
                         TaskList.sortTasks();
                         ui.prioritySet();
                     }
+                    storage.writeFile(TaskList.currentList(), "data.txt");
                 }
                 listRoutine.list();
                 break;
@@ -179,6 +182,7 @@ public class RoomShare {
                     }
                 } catch (RoomShareException e) {
                     ui.showError(e);
+                    storage.writeFile(TaskList.currentList(), "data.txt");
                 }
                 listRoutine.list();
                 break;
@@ -197,6 +201,7 @@ public class RoomShare {
                     ui.showSnoozeComplete(index + 1, amount, timeUnit);
                 } catch (RoomShareException e) {
                     ui.showError(e);
+                    storage.writeFile(TaskList.currentList(), "data.txt");
                 }
                 listRoutine.list();
                 break;
@@ -212,6 +217,7 @@ public class RoomShare {
                     ui.showReordering();
                 } catch (RoomShareException e) {
                     ui.showError(e);
+                    storage.writeFile(TaskList.currentList(), "data.txt");
                 }
                 listRoutine.list();
                 break;
@@ -226,6 +232,7 @@ public class RoomShare {
                     new subTaskCreator(index, subTasks);
                 } catch (RoomShareException e) {
                     ui.showError(e);
+                    storage.writeFile(TaskList.currentList(), "data.txt");
                 }
                 listRoutine.list();
                 break;
@@ -241,6 +248,7 @@ public class RoomShare {
                     ui.showUpdated(index+1);
                 } catch (RoomShareException e) {
                     ui.showError(e);
+                    storage.writeFile(TaskList.currentList(), "data.txt");
                 }
                 listRoutine.list();
                 break;
@@ -255,6 +263,7 @@ public class RoomShare {
                 } catch (RoomShareException e) {
                     ui.showError(e);
                     sortType = SortType.priority;
+                    storage.writeFile(TaskList.currentList(), "data.txt");
                 }
                 TaskList.changeSort(sortType);
                 ui.showChangeInPriority(sortType);
@@ -270,6 +279,7 @@ public class RoomShare {
                     ui.showLogSuccess(filePath);
                 } catch (RoomShareException e) {
                     ui.showError(e);
+                    storage.writeFile(TaskList.currentList(), "data.txt");
                 }
                 break;
 
@@ -281,11 +291,15 @@ public class RoomShare {
                     taskList.showCompleted();
                 } catch (RoomShareException e) {
                     ui.showError(e);
+                    storage.writeFile(TaskList.currentList(), "data.txt");
                 }
                 break;
 
             default:
+                Ui.clearScreen();
+                listRoutine.list();
                 ui.showCommandError();
+                storage.writeFile(TaskList.currentList(), "data.txt");
                 break;
             }
         }

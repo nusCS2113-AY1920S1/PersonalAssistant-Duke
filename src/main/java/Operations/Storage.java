@@ -43,8 +43,11 @@ public class Storage {
             }
             parser = new Parser();
             for (String list : tempList) {
-                String[] temp = list.split("#", 0);
+                String[] temp = list.split("#");
 
+                if (temp.length > 11) {
+                    throw new RoomShareException(ExceptionType.loadError);
+                }
                 // Identify type of task
                 String scanType = temp[0].trim();
                 SaveType type;
@@ -95,7 +98,12 @@ public class Storage {
                 }
 
                 String scanRecurrence = temp[5].trim();
-                RecurrenceScheduleType recurrence = RecurrenceScheduleType.valueOf(scanRecurrence);
+                RecurrenceScheduleType recurrence = null;
+                try {
+                    recurrence = RecurrenceScheduleType.valueOf(scanRecurrence);
+                } catch (IllegalArgumentException e) {
+                    throw new RoomShareException(ExceptionType.loadError);
+                }
 
                 String scanUser = temp[6].trim();
                 String user = scanUser;
@@ -104,10 +112,20 @@ public class Storage {
                 boolean isFixedDuration = scanIsFixedDuration.equals("F");
 
                 String scanDuration = temp[8].trim();
-                int duration = Integer.parseInt(scanDuration);
+                int duration = 0;
+                try {
+                    duration = Integer.parseInt(scanDuration);
+                } catch (NumberFormatException e) {
+                    throw new RoomShareException(ExceptionType.loadError);
+                }
 
                 String scanUnit = temp[9].trim();
-                TimeUnit unit = TimeUnit.valueOf(scanUnit);
+                TimeUnit unit = null;
+                try {
+                    unit = TimeUnit.valueOf(scanUnit);
+                } catch (IllegalArgumentException e) {
+                    throw new RoomShareException(ExceptionType.loadError);
+                }
                 String scanSubTask = "";
                 if (temp.length > 10) {
                     scanSubTask = temp[10].trim();

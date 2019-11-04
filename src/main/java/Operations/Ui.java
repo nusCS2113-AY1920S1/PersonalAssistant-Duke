@@ -145,13 +145,6 @@ public class Ui {
     }
 
     /**
-     * Prints an error message telling the user that the data file cannot be loaded and an empty list is generated instead
-     */
-    public void showLoadError() {
-        System.out.println("Error in loading data file, initialising empty task list...");
-    }
-
-    /**
      * Prints a message telling the user that the task at the index has been deleted.
      *
      * @param index Index of task to be deleted.

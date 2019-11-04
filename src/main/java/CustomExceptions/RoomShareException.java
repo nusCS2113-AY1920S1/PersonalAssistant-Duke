@@ -25,6 +25,8 @@ public class RoomShareException extends Exception {
     public static final String EMPTY_SUB_TASK = "\tYou haven't included your list of sub-tasks\n";
     public static final String DUPLICATE_SUB = "\tDuplicate subtask detected\n";
     public static final String DUPLICATE_TASK = "\tDuplicate task detected\n";
+    public static final String INVALID_INPUT_TEXT = "\tYour input String seems to be wrong.\n"
+            +"\tPlease check your formatting and ensure that the use of special characters are correct!\n";
 
 
     private String message;
@@ -114,6 +116,14 @@ public class RoomShareException extends Exception {
 
         case duplicateTask:
             message = DUPLICATE_TASK;
+            break;
+
+        case invalidInputString:
+            message = INVALID_INPUT_TEXT;
+            break;
+
+        case loadError:
+            message = "\terror in loading file: will be initialising empty list instead!\n";
             break;
 
         default:

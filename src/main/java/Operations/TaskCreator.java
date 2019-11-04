@@ -108,7 +108,7 @@ public class TaskCreator {
         String[] dateArray = input.split("&");
         ArrayList<Date> dates = new ArrayList<>();
         if (count > 0) {
-            if (count == 2) {
+            if (count <= 2) {
                 String dateInput = dateArray[1].trim();
                 try {
                     dates.add(parser.formatDate(dateInput));
@@ -221,6 +221,36 @@ public class TaskCreator {
         }
     }
 
+    public boolean isValid(String input) {
+        boolean isCorrect = true;
+        String[] typeArray = input.split("#");
+        String[] descriptionArray = input.split("\\(");
+        String[] dateArray = input.split("&");
+        String[] priorityArray = input.split("\\*");
+        String[] assigneeArray = input.split("@");
+        String[] recurrenceArray = input.split("%");
+        String[] fixedDurationArray = input.split("^");
+        String[] reminderArray = input.split("!");
+        if (typeArray.length == 2 || typeArray.length > 3) {
+            isCorrect = false;
+        } else if (descriptionArray.length == 2 || descriptionArray.length > 3) {
+            isCorrect = false;
+        } else if (dateArray.length == 2 || dateArray.length > 3) {
+            isCorrect =false;
+        } else if (priorityArray.length == 2 || priorityArray.length > 3) {
+            isCorrect = false;
+        } else if (assigneeArray.length == 2 || assigneeArray.length > 3) {
+            isCorrect = false;
+        } else if (recurrenceArray.length == 2 || recurrenceArray.length > 3) {
+            isCorrect = false;
+        } else if (fixedDurationArray.length == 2 || fixedDurationArray.length > 3) {
+            isCorrect = false;
+        } else if (reminderArray.length == 2 || reminderArray.length > 3) {
+            isCorrect = false;
+        }
+        return isCorrect;
+    }
+
     /**
      * Create a new task based on the description the user key in
      * @param input the description of the task
@@ -228,6 +258,10 @@ public class TaskCreator {
      * @throws RoomShareException when there are some formatting errors
      */
     public Task create(String input) throws RoomShareException {
+        // preliminary test for correctness on input string
+//        if (!isValid(input)) {
+//            throw new RoomShareException(ExceptionType.invalidInputString);
+//        }
         // extract the Task Type
         String type = this.extractType(input);
 
@@ -263,13 +297,13 @@ public class TaskCreator {
         //extract reminder
         boolean remind = this.extractReminder(input);
 
-        if (type.contains("assignment")) {
+        if (type.equals("assignment")) {
             Assignment assignment = new Assignment(description, date);
             assignment.setPriority(priority);
             assignment.setAssignee(assignee);
             assignment.setRecurrenceSchedule(recurrence);
             return assignment;
-        } else if (type.contains("leave")) {
+        } else if (type.equals("leave")) {
             String user;
             String[] leaveUserArray = input.split("@");
             if (leaveUserArray.length != 1) {
@@ -280,7 +314,7 @@ public class TaskCreator {
             leave.setPriority(priority);
             leave.setRecurrenceSchedule(recurrence);
             return leave;
-        } else if (type.contains("meeting")) {
+        } else if (type.equals("meeting")) {
             if (remind) {
                 if (unit.equals(TimeUnit.unDefined)) {
                     // duration was not specified or not correctly input
