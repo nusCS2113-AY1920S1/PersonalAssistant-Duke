@@ -1,6 +1,7 @@
 package duke.logic.commands;
 
 import duke.commons.exceptions.ParseException;
+import duke.commons.exceptions.RecommendationFailException;
 import duke.logic.commands.results.CommandResultText;
 import duke.model.Model;
 import duke.model.planning.Itinerary;
@@ -21,9 +22,10 @@ public class RecommendationsCommand extends Command {
      *
      * @param model The model object containing information about the user.
      * @throws ParseException If the itineraryDetails cannot be parsed.
+     * @throws RecommendationFailException If there are too many days.
      */
     @Override
-    public CommandResultText execute(Model model) throws ParseException {
+    public CommandResultText execute(Model model) throws ParseException, RecommendationFailException {
 
         Recommendation recommendation = model.getRecommendations();
 

@@ -4,6 +4,7 @@ import duke.commons.exceptions.ApiException;
 import duke.commons.exceptions.ParseException;
 import duke.commons.exceptions.ChronologyBeforePresentException;
 import duke.commons.exceptions.ChronologyInconsistentException;
+import duke.commons.exceptions.RecommendationFailException;
 import duke.logic.api.ApiParser;
 import duke.logic.parsers.ParserTimeUtil;
 import duke.model.locations.Venue;
@@ -30,11 +31,10 @@ public class Recommendation {
      * Returns number of days of the trip based on entered start and end dates.
      *
      * @param itineraryDetails contains all info to make an itinerary.
-     * @return The number of days of the trip
+     * @return The itinerary based on the number of days of the trip.
      */
 
-    public Itinerary makeItinerary(String[] itineraryDetails) throws ParseException,
-            ChronologyBeforePresentException, ChronologyInconsistentException {
+    public Itinerary makeItinerary(String[] itineraryDetails) throws ParseException, RecommendationFailException {
         LocalDateTime start = ParserTimeUtil.parseStringToDate(itineraryDetails[1].strip());
         LocalDateTime end = ParserTimeUtil.parseStringToDate(itineraryDetails[2].strip());
         try {
@@ -48,10 +48,14 @@ public class Recommendation {
     }
 
     private Itinerary getAgenda(LocalDateTime start, LocalDateTime end, Venue hotelLocation) throws
-            ChronologyBeforePresentException, ChronologyInconsistentException {
+            ChronologyBeforePresentException, ChronologyInconsistentException, RecommendationFailException {
         Itinerary itinerary = new Itinerary(start, end, hotelLocation, "New Recommendation");
 
-        List<Agenda> agendaList1 = new ArrayList<>(agendaList.subList(0, getNumberOfDays(start, end)));
+        int days = getNumberOfDays(start, end);
+        if (days > 8) {
+            throw new RecommendationFailException();
+        }
+        List<Agenda> agendaList1 = new ArrayList<>(agendaList.subList(0, days));
 
         assert (!agendaList1.isEmpty()) : "list should not be null";
         itinerary.setTasks(agendaList1);
