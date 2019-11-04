@@ -35,7 +35,7 @@ public class Main extends Application {
             stage.setMinHeight(600);
             stage.setMinWidth(850);
             stage.showingProperty().addListener((observable, oldValue, showing) -> {
-                if(showing) {
+                if (showing) {
                     stage.setMinHeight(stage.getMinHeight());
                     stage.setMinWidth(stage.getMinWidth());
                 }
