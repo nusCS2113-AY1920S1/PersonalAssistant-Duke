@@ -64,7 +64,8 @@ Examples:
 === Adding a word: `add`
 
 Adds a word to the Word Bank. +
-Format: `add w/WORD m/MEANING [t/TAG]...`
+
+Format: `add w/WORD w/MEANING [t/TAG]...`
 
 Examples:
 
@@ -143,9 +144,7 @@ Format: `search_begin w/WORD`
 Examples:
 
 * `search  w/d` +
-=======
 * `search_begin  w/d` +
-
 Returns `drink, dog, do, etc`
 
 
@@ -284,8 +283,6 @@ e.g. `add w/life m/the existence of an individual human being or animal.`
 e.g. `addsyn w/water s/liquid beverage drink`
 * *Delete* : `delete w/word` +
 e.g. `delete w/life`
-* *Add Synonym* : `addsyn w/WORD s/SYNONYM1 SYNONYM2 SYNONYM3 ...` +
-e.g. `addsyn w/water s/liquid beverage drink`* 
 * *Edit* : `edit w/WORD m/NEW_MEANGING` +
 e.g. `edit w/life m/the existence of a living thing.`
 * *Help* : `help [COMMAND]`
