@@ -67,17 +67,13 @@ public class TaskManager {
      * @throws DukeException if the task is not added successfully.
      */
     public void addTask(Task taskToBeAdded) throws DukeException {
-        if (taskToBeAdded.getDescription().length() < 4) {
+        if (taskToBeAdded.getDescription().length() < 3) {
             throw new DukeException("The task description is too short.");
         }
-        ArrayList<Task> sameTasks = new ArrayList<>();
         for (Task task : taskIdMap.values()) {
-            if (task.getDescription().toLowerCase().equals(taskToBeAdded.getDescription())) {
-                sameTasks.add(task);
+            if (task.getDescription().toLowerCase().equals(taskToBeAdded.getDescription().toLowerCase())) {
+                throw new DukeException("The task '" + taskToBeAdded.getDescription() + "' already existed.");
             }
-        }
-        if (sameTasks.size() > 0) {
-            throw new DukeException("The task '" + taskToBeAdded.getDescription() + "' already existed.");
         }
         if (taskToBeAdded.getId() == 0) {
             maxId += 1;
