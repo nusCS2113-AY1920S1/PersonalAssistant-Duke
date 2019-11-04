@@ -20,29 +20,31 @@ public interface Model {
     //==================Task Interface======================
     ArrayList<Task> getTaskList();
 
-    String getTodoTasks();
-
     int getTaskListSize();
+
+    String getTasks();
+
+    String getTodoTasks();
 
     String getTaskNameById(int index);
 
     TasksManager getTasksManager();
 
+    String getTasksByKeyword(String keyword) throws DukeException;
+
     Task addTask(String name) throws DukeException;
 
     boolean hasTask(String name) throws DukeException;
 
-    String getTasksByKeyword(String keyword) throws DukeException;
+    String tasksAllInorderTime() throws DukeException;
 
-    String scheduleTeamAll() throws DukeException;
-
-    String scheduleTeamTodo() throws DukeException;
-
-    String updateTaskDes(int index, String des);
+    String tasksTodoInorderTime() throws DukeException;
 
     String tasksAllInorderPicNum();
 
     String tasksTodoInorderPicNum();
+
+    String updateTaskDes(int index, String des);
 
     //TODO look into using exceptions instead?
     boolean addTaskReqSkill(String taskName, String skillName);

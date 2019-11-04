@@ -52,6 +52,10 @@ public class ModelController implements Model {
         return tasksManager.getTodoTasks();
     }
 
+    public String getTasks() {
+        return tasksManager.getTasks();
+    }
+
     public int getTaskListSize() {
         return tasksManager.getTaskListSize();
     }
@@ -99,11 +103,11 @@ public class ModelController implements Model {
         return tasksManager.getTasksByKeyword(keyword);
     }
 
-    public String scheduleTeamAll() {
+    public String tasksAllInorderTime() {
         return tasksManager.scheduleTeamAll();
     }
 
-    public String scheduleTeamTodo() {
+    public String tasksTodoInorderTime() {
         return tasksManager.scheduleTeamTodo();
     }
 

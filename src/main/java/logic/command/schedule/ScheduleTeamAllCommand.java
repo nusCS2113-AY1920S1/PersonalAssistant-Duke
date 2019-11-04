@@ -14,7 +14,7 @@ public class ScheduleTeamAllCommand extends Command {
     @Override
     public CommandOutput execute(Model model) throws DukeException {
         try {
-            String tasks = model.scheduleTeamAll();
+            String tasks = model.tasksAllInorderTime();
             if (tasks.equals("")) {
                 return new CommandOutput(EMPTY_MSSAGE);
             } else {

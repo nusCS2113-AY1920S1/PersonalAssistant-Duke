@@ -2,23 +2,26 @@ package logic.parser.list;
 
 import logic.command.Command;
 import common.DukeException;
+import logic.parser.NewParser;
 
 import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class ListCommandParser {
 
-    public static final String LIST_USAGE = "Usage: list tasks {all/todo} (picnum) or list members (todonum/progress)";
-    private static final Pattern BASIC_LIST_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
+    private static final String LIST_USAGE = "Usage: list tasks {all/todo} (picnum) or list members (todonum/progress)";
     private static final String TASK = "tasks";
     private static final String MEMBER = "members";
-    public static final String NONE = "";
+    static final String NONE = "";
 
+    //@@author yuyanglin28
     /**
-     * Parses add commands.
+     * parse list command, according to the list type after list, task/member
+     * @param partialCommand command after list
+     * @return a list command
+     * @throws DukeException throw exception when the pattern or list type not correct
      */
     public static Command parseListCommand(String partialCommand) throws DukeException {
-        final Matcher matcher = BASIC_LIST_COMMAND_FORMAT.matcher(partialCommand.trim());
+        final Matcher matcher = NewParser.BASIC_COMMAND_FORMAT.matcher(partialCommand.trim());
         if (!matcher.matches()) {
             throw new DukeException(LIST_USAGE);
         }

@@ -7,8 +7,12 @@ import logic.command.list.ListTasksPicNumCommand;
 
 public class ListTasksAllParser {
 
+    //@@author yuyanglin28
     /**
-     * Parses add commands.
+     * parse list all task command, according to list type, picnum/'nothing'
+     * @param argument command after all
+     * @return a list all task command
+     * @throws DukeException throw exception when list type is not correct
      */
     public static Command parseListTasksAll(String argument) throws DukeException {
 
@@ -18,7 +22,7 @@ public class ListTasksAllParser {
         case ListCommandParser.NONE:
             return new ListTasksCommand();
         default:
-            throw new DukeException(ListTasksParser.LIST_USAGE);
+            throw new DukeException(ListTasksParser.LIST_TASK_USAGE);
         }
 
     }

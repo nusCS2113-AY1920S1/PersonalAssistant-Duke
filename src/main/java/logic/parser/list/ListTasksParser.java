@@ -2,25 +2,29 @@ package logic.parser.list;
 
 import common.DukeException;
 import logic.command.Command;
+import logic.parser.NewParser;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class ListTasksParser {
 
-    public static final String LIST_USAGE = "Usage: list tasks {all/todo} (picnum)";
-    private static final Pattern BASIC_LIST_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
+    static final String LIST_TASK_USAGE = "Usage: list tasks {all/todo} (picnum)";
     private static final String ALL = "all";
     private static final String TODO = "todo";
-    public static final String PICNUM = "picnum";
+    static final String PICNUM = "picnum";
 
+    //@@author yuyanglin28
     /**
-     * Parses add commands.
+     * parse list task command, according to the list type, todo/all
+     * @param partialCommand command after task
+     * @return a list task command
+     * @throws DukeException throw exception when command pattern or list type is not correct
      */
     public static Command parseListTasks(String partialCommand) throws DukeException {
-        final Matcher matcher = BASIC_LIST_COMMAND_FORMAT.matcher(partialCommand.trim());
+        final Matcher matcher = NewParser.BASIC_COMMAND_FORMAT.matcher(partialCommand.trim());
         if (!matcher.matches()) {
-            throw new DukeException(LIST_USAGE);
+            throw new DukeException(LIST_TASK_USAGE);
         }
 
         String listType = matcher.group("commandWord");
@@ -35,7 +39,7 @@ public class ListTasksParser {
         case TODO:
             return ListTasksTodoParser.parseListTasksTodo(arguments);
         default:
-            throw new DukeException(LIST_USAGE);
+            throw new DukeException(LIST_TASK_USAGE);
         }
 
     }

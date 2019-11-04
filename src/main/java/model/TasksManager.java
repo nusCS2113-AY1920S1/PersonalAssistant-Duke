@@ -127,6 +127,10 @@ public class TasksManager implements Serializable {
         return taskList.size();
     }
 
+    public String getTasks() {
+        return showTasks(taskList);
+    }
+
     public String getTodoTasks() {
         ArrayList<Task> todoTasks = pickTodo(taskList);
         return showTasks(todoTasks);
