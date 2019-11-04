@@ -59,11 +59,16 @@ public class ProjectInputControllerManageTest {
     }
 
     @Test
-    void manageProject_addMember_executionSuccess() {
+    void manageProject_memberMethods_executionSuccess() {
         simulatedUserInput = "add member -n Thor";
         simulatedOutput = projectInputController.manageProject(simulatedUserInput);
         expectedOutput = new String[] {"Added new member to: Avengers Testing",
                                        "Member details 1. Thor (Phone: -- | Email: -- | Role: member)"};
+        assertArrayEquals(expectedOutput, simulatedOutput);
+
+        simulatedUserInput = "edit member 1 -n Marvel -e captain.marvel@gmail.com -i 91234567";
+        simulatedOutput = projectInputController.manageProject(simulatedUserInput);
+        expectedOutput = new String[] {"Updated member details with the index number 1"};
         assertArrayEquals(expectedOutput, simulatedOutput);
     }
 }

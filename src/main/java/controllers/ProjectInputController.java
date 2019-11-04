@@ -1,10 +1,5 @@
 package controllers;
 
-import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Scanner;
 import models.member.IMember;
 import models.member.Member;
 import models.member.NullMember;
@@ -23,6 +18,11 @@ import util.factories.ReminderFactory;
 import util.factories.TaskFactory;
 import util.json.JsonConverter;
 import util.log.ArchDukeLogger;
+
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 
 public class ProjectInputController implements IController {
     private ProjectRepository projectRepository;
@@ -227,11 +227,10 @@ public class ProjectInputController implements IController {
             return new String[] {"Can't delete members: No member index numbers detected!",
                 "Please enter them as space-separated integers."};
         }
-        ArrayList<String> outputMessages = new ArrayList<>();
         ParserHelper parserHelper = new ParserHelper();
         ArrayList<Integer> validMemberIndexes = parserHelper.parseMembersIndexes(projectCommand.substring(14),
             projectToManage.getNumOfMembers());
-        outputMessages.addAll(parserHelper.getErrorMessages());
+        ArrayList<String> outputMessages = new ArrayList<>(parserHelper.getErrorMessages());
         if (validMemberIndexes.isEmpty()) {
             outputMessages.add("No valid member indexes. Cannot delete members.");
             return outputMessages.toArray(new String[0]);
@@ -363,11 +362,10 @@ public class ProjectInputController implements IController {
         if (projectCommand.length() <= 12) {
             return new String[] {"No task number detected! Please enter the task index number."};
         }
-        ArrayList<String> outputMessages = new ArrayList<>();
         ParserHelper parserHelper = new ParserHelper();
         ArrayList<Integer> validTaskIndexes = parserHelper.parseTasksIndexes(projectCommand.substring(12),
             projectToManage.getNumOfTasks());
-        outputMessages.addAll(parserHelper.getErrorMessages());
+        ArrayList<String> outputMessages = new ArrayList<>(parserHelper.getErrorMessages());
         // Sort to ensure task indexes work in the correct way
         Collections.sort(validTaskIndexes);
         Collections.reverse(validTaskIndexes);
