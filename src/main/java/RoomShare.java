@@ -98,6 +98,7 @@ public class RoomShare {
                     int[] index = parser.getIndexRange(input);
                     taskList.done(index);
                     ui.showDone();
+                    storage.writeFile(TaskList.currentList(), "data.txt");
                 } catch (RoomShareException e) {
                     storage.writeFile(TaskList.currentList(), "data.txt");
                     ui.showError(e);
@@ -113,6 +114,7 @@ public class RoomShare {
                     int[] index = parser.getIndexRange(input);
                     taskList.delete(index, tempDeleteList);
                     ui.showDeleted(index);
+                    storage.writeFile(TaskList.currentList(), "data.txt");
                 } catch (RoomShareException e) {
                     storage.writeFile(TaskList.currentList(), "data.txt");
                     ui.showError(e);
@@ -127,6 +129,7 @@ public class RoomShare {
                     String input = parser.getCommandLine();
                     int restoreIndex = parser.getIndex(input);
                     tempDeleteList.restore(restoreIndex, taskList);
+                    storage.writeFile(TaskList.currentList(), "data.txt");
                 } catch (RoomShareException e) {
                     storage.writeFile(TaskList.currentList(), "data.txt");
                     ui.showError(e);
@@ -150,6 +153,7 @@ public class RoomShare {
                     taskList.list();
                     ui.priorityInstruction();
                     taskList.setPriority(parser.getPriority());
+                    storage.writeFile(TaskList.currentList(), "data.txt");
                 } catch (RoomShareException e) {
                     success = false;
                     ui.showError(e);
@@ -174,6 +178,7 @@ public class RoomShare {
                         if( !(CheckAnomaly.checkDuplicate((taskCreator.create(input)))) ) {
                             taskList.add(taskCreator.create(input));
                             ui.showAdd();
+                            storage.writeFile(TaskList.currentList(), "data.txt");
                         } else {
                             throw new RoomShareException(ExceptionType.duplicateTask);
                         }
@@ -199,6 +204,7 @@ public class RoomShare {
                         throw new RoomShareException(ExceptionType.negativeTimeAmount);
                     taskList.snooze(index, amount, timeUnit);
                     ui.showSnoozeComplete(index + 1, amount, timeUnit);
+                    storage.writeFile(TaskList.currentList(), "data.txt");
                 } catch (RoomShareException e) {
                     ui.showError(e);
                     storage.writeFile(TaskList.currentList(), "data.txt");
@@ -215,6 +221,7 @@ public class RoomShare {
                     int secondIndex = parser.getIndex(input, 1);
                     taskList.reorder(firstIndex, secondIndex);
                     ui.showReordering();
+                    storage.writeFile(TaskList.currentList(), "data.txt");
                 } catch (RoomShareException e) {
                     ui.showError(e);
                     storage.writeFile(TaskList.currentList(), "data.txt");
@@ -230,6 +237,7 @@ public class RoomShare {
                     int index = parser.getIndexSubtask(input);
                     String subTasks = parser.getSubTasks(input);
                     new subTaskCreator(index, subTasks);
+                    storage.writeFile(TaskList.currentList(), "data.txt");
                 } catch (RoomShareException e) {
                     ui.showError(e);
                     storage.writeFile(TaskList.currentList(), "data.txt");
@@ -246,6 +254,7 @@ public class RoomShare {
                     Task oldTask = taskList.get(index);
                     taskCreator.updateTask(input,oldTask);
                     ui.showUpdated(index+1);
+                    storage.writeFile(TaskList.currentList(), "data.txt");
                 } catch (RoomShareException e) {
                     ui.showError(e);
                     storage.writeFile(TaskList.currentList(), "data.txt");
@@ -260,6 +269,7 @@ public class RoomShare {
                 try {
                     String input = parser.getCommandLine();
                     sortType = parser.getSort(input);
+                    storage.writeFile(TaskList.currentList(), "data.txt");
                 } catch (RoomShareException e) {
                     ui.showError(e);
                     sortType = SortType.priority;
@@ -277,6 +287,7 @@ public class RoomShare {
                 try {
                     String filePath = storage.writeLogFile(TaskList.currentList());
                     ui.showLogSuccess(filePath);
+                    storage.writeFile(TaskList.currentList(), "data.txt");
                 } catch (RoomShareException e) {
                     ui.showError(e);
                     storage.writeFile(TaskList.currentList(), "data.txt");
@@ -289,6 +300,7 @@ public class RoomShare {
                 listRoutine.list();
                 try {
                     taskList.showCompleted();
+                    storage.writeFile(TaskList.currentList(), "data.txt");
                 } catch (RoomShareException e) {
                     ui.showError(e);
                     storage.writeFile(TaskList.currentList(), "data.txt");

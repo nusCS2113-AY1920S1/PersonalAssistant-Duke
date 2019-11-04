@@ -62,7 +62,9 @@ public class TaskCreator {
             description = descriptionArray2[0].trim();
         } else
             throw new RoomShareException(ExceptionType.emptyDescription);
-
+        if (hasSpecialCharacters(description)) {
+            throw new RoomShareException(ExceptionType.invalidInputString);
+        }
         return description;
     }
 
@@ -143,13 +145,17 @@ public class TaskCreator {
      * @param input user's input
      * @return the name of the assignee
      */
-    public String extractAssignee(String input) {
+    public String extractAssignee(String input) throws RoomShareException{
         String[] assigneeArray = input.split("@");
         String assignee;
         if (assigneeArray.length != 1) {
             assignee = assigneeArray[1].trim();
         } else {
             assignee = "everyone";
+        }
+        // check for special characters
+        if (hasSpecialCharacters(assignee)) {
+            throw new RoomShareException(ExceptionType.invalidInputString);
         }
         return assignee;
     }
@@ -202,6 +208,28 @@ public class TaskCreator {
         }
 
         return new Pair<>(duration,unit);
+    }
+
+    public boolean hasSpecialCharacters(String input) {
+        boolean isInvalid = false;
+        if (input.contains("#")) {
+            isInvalid = true;
+        } else if (input.contains("@")) {
+            isInvalid = true;
+        } else if (input.contains("!")) {
+            isInvalid = true;
+        } else if (input.contains("*")) {
+            isInvalid = true;
+        } else if (input.contains("^")) {
+            isInvalid = true;
+        } else if (input.contains("%")) {
+            isInvalid = true;
+        } else if (input.contains("&")) {
+            isInvalid = true;
+        } else if (input.contains("(")) {
+            isInvalid = true;
+        }
+        return isInvalid;
     }
 
     /**
@@ -361,7 +389,12 @@ public class TaskCreator {
         }
 
         if (input.contains("@")) {
-            String assignee = this.extractAssignee(input);
+            String assignee = null;
+            try {
+                assignee = this.extractAssignee(input);
+            } catch (RoomShareException e) {
+                assignee = "everyone";
+            }
             oldTask.setAssignee(assignee);
         }
 
