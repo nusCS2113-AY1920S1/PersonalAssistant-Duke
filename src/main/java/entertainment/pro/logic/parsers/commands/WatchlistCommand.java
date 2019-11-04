@@ -80,10 +80,10 @@ public class WatchlistCommand  extends CommandSuper {
         String endDate = this.getFlagMap().get("-e").get(0);
         Deadline deadline = new Deadline(movie, "D", endDate);
         if (!WatchlistHandler.add(deadline)) {
-            ((MovieHandler)this.getUiController()).clearSearchTextField();
-            ((MovieHandler)this.getUiController()).setGeneralFeedbackText("No duplicates allowed");
+            ((MovieHandler) this.getUiController()).clearSearchTextField();
+            ((MovieHandler) this.getUiController()).setGeneralFeedbackText("No duplicates allowed");
         } else {
-            WatchlistHandler.print_list((MovieHandler)(this.getUiController()));
+            WatchlistHandler.print_list(( MovieHandler ) (this.getUiController()));
         }
     }
 

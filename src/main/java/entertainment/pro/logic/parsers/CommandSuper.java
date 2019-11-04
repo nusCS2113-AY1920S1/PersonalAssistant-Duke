@@ -292,10 +292,17 @@ public abstract class CommandSuper {
         for (Map.Entry<String, ArrayList<String>> entry : flagMap.entrySet()) {
             flagsStr += entry.getKey();
             flagsStr += " ";
+            boolean first = true;
             for (String val : entry.getValue()) {
+                if (first) {
+                    flagsStr += val;
+                    first = false;
+                    continue;
+                }
+                flagsStr += " , ";
                 flagsStr += val;
-                flagsStr += ", ";
             }
+            flagsStr += " ";
         }
 
         return getRoot().toString() + " " + getSubRootCommand().toString() + " "  + payload + " " + flagsStr;

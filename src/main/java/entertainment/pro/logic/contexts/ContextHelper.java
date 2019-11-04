@@ -4,6 +4,7 @@ import entertainment.pro.commons.enums.COMMANDKEYS;
 import entertainment.pro.logic.parsers.CommandStructure;
 import entertainment.pro.model.UserProfile;
 import entertainment.pro.storage.user.Blacklist;
+import entertainment.pro.storage.user.WatchlistHandler;
 import entertainment.pro.storage.utils.EditProfileJson;
 import entertainment.pro.ui.Controller;
 import entertainment.pro.ui.MovieHandler;
@@ -170,20 +171,32 @@ public class ContextHelper {
 
     }
 
+//
+//
+//    private static ArrayList<String> commandSpecificHints(String root) {
+//        switch (root.toLowerCase().trim()) {
+//        case("blacklist"):
+//            System.out.println("BLACKLSITWEDM vervle");
+//            return Blacklist.getBlackListAll();
+//        default:
+//            return new ArrayList<String>() {
+//                {
+//                    add("Do you need help?? Enter (help <Root COMMAND> to learn more about your command)");
+//                }
+//            };
+//        }
+//    }
 
 
-    private static ArrayList<String> commandSpecificHints(String root) {
-        switch (root.toLowerCase().trim()) {
-        case("blacklist"):
-            System.out.println("BLACKLSITWEDM vervle");
-            return Blacklist.getBlackListAll();
-        default:
-            return new ArrayList<String>() {
-                {
-                    add("Do you need help?? Enter (help <Root COMMAND> to learn more about your command)");
-                }
-            };
+    private static ArrayList<String> filterHints(ArrayList<String> hints , String incompleteCmd) {
+        ArrayList<String> filteredHints =  new ArrayList<>();
+        for (String s : hints) {
+            if (s.toLowerCase().contains(incompleteCmd.toLowerCase())) {
+                filteredHints.add(s);
+            }
         }
+
+        return filteredHints;
     }
 
     /**
@@ -202,12 +215,19 @@ public class ContextHelper {
             }
             return hints;
         case ("watchlist"):
-                //TODO ADD WATCHLIST HINTS
-//                ArrayList<String> hints = Blacklist.getBlackListHints(incompleteCommand);
-//                if (!subRoot.equals("remove")) {
-//                    hints.addAll(SearchResultContext.getPossibilities(incompleteCommand));
-//                }
-//                return hints;
+            ArrayList<String> watchlisthints = WatchlistHandler.getWatchListHints(incompleteCommand);
+            if (!subRoot.equals("remove")) {
+                watchlisthints.addAll(SearchResultContext.getPossibilities(incompleteCommand));
+            }
+            return watchlisthints;
+
+        case ("playlist"):
+            try {
+                ArrayList<String> playlistNames =  new EditProfileJson().load().getPlaylistNames();
+                return filterHints(playlistNames , incompleteCommand);
+            } catch (IOException e) {
+                return new ArrayList<String>();
+            }
         default:
             return SearchResultContext.getPossibilities(incompleteCommand);
         }
@@ -229,6 +249,12 @@ public class ContextHelper {
     }
 
 
+    /**
+     * Creates a sublist of size newSize.
+     * @param hints
+     * @param newSize
+     * @return a subset of the hints. Used when the number of hints is far too long.
+     */
     private static ArrayList<String> getSubList(ArrayList<String> hints , int newSize) {
         ArrayList<String> sublist = new ArrayList<>();
         for (String s : hints) {
@@ -260,23 +286,10 @@ public class ContextHelper {
         } else if (splitCommand.length == ONE_WORD && isRootCommandComplete(splitCommand[0])) {
             allPossibilities =  CommandContext.getPossibilitiesSubRootGivenRoot(splitCommand[0]);
             updateCommandInputFieldWithHints(controller, allPossibilities, "");
-//            String update = completeCommand(allPossibilities, "");
-//            ((MovieHandler) controller).updateTextField(update);
-//            return allPossibilities;
         } else if (splitCommand.length == ONE_WORD) {
             allPossibilities =  CommandContext.getPossibilitiesForRoot(incompleteCommand);
             updateCommandInputFieldWithHints(controller, allPossibilities, incompleteCommand);
-//            String update = completeCommand(allPossibilities, incompleteCommand);
-//            ((MovieHandler) controller).updateTextField(update);
-//            return allPossibilities;
         } else if (splitCommand.length == TWO_WORDS && isSubRootCommandComplete(splitCommand[1])) {
-            if (splitCommand[0].equalsIgnoreCase("playlist")) {
-                try {
-                    return new EditProfileJson().load().getPlaylistNames();
-                } catch (IOException e) {
-                    return null;
-                }
-            }
             allPossibilities = commandSpecificHints(
                     splitCommand[0],
                     splitCommand[1],
@@ -285,14 +298,10 @@ public class ContextHelper {
             if (allPossibilities.size() > 10) {
                 allPossibilities = getSubList(allPossibilities, 10);
             }
-//            return allPossibilities;
         } else if (splitCommand.length == TWO_WORDS) {
             allPossibilities = CommandContext
                     .getPossibilitiesSubRoot(splitCommand[0], incompleteCommand);
             updateCommandInputFieldWithHints(controller, allPossibilities, incompleteCommand);
-//            String update = completeCommand(allPossibilities, incompleteCommand);
-//            ((MovieHandler) controller).updateTextField(update);
-//            return allPossibilities;
         } else {
             allPossibilities  = commandSpecificHints(
                     splitCommand[0],
@@ -300,10 +309,6 @@ public class ContextHelper {
                     incompleteCommand);
 
             updateCommandInputFieldWithHints(controller, allPossibilities, incompleteCommand);
-
-//            String update = completeCommand(allPossibilities, incompleteCommand);
-//            ((MovieHandler) controller).updateTextField(update);
-//            return allPossibilities;
         }
 
         return allPossibilities;

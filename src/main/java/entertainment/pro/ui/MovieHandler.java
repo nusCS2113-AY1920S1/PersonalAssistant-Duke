@@ -1009,9 +1009,6 @@ public class MovieHandler extends Controller implements RequestListener {
         return userProfile;
     }
 
-//    public static PastCommands getPastCommands() {
-//        return pastCommands;
-//    }
 
     public ArrayList<MovieInfoObject> getmMovies() {
         return mMovies;
