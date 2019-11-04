@@ -1,11 +1,14 @@
 package controllers;
 
 import java.util.ArrayList;
+
+import models.member.IMember;
 import models.project.Project;
 import models.member.Member;
 import models.task.Task;
 import util.ParserHelper;
 
+//@@author sinteary
 public class AssignmentController {
     private ArrayList<String> errorMessages;
     private ArrayList<String> successMessages;
@@ -50,13 +53,13 @@ public class AssignmentController {
 
             //assigning tasks
             for (Integer assigneeIndex : validAssignees) {
-                Member member = project.getMembers().getMember(assigneeIndex);
-                if (project.containsAssignment(task, member)) {
+                IMember member = project.getMembers().getMember(assigneeIndex);
+                if (project.containsAssignment(task, (Member)member)) {
                     successMessages.add("Task has already been assigned to member "
                         + assigneeIndex + " ("
                         + member.getName() + ").");
                 } else {
-                    project.createAssignment(task, member);
+                    project.createAssignment(task, (Member)member);
                     successMessages.add("Assigned to member "
                         + assigneeIndex + " ("
                         + member.getName() + ").");
@@ -64,13 +67,13 @@ public class AssignmentController {
             }
             //unassigning tasks
             for (Integer unassigneeIndex : validUnassignees) {
-                Member member = project.getMembers().getMember(unassigneeIndex);
-                if (!project.containsAssignment(task, member)) {
+                IMember member = project.getMembers().getMember(unassigneeIndex);
+                if (!project.containsAssignment(task, (Member)member)) {
                     successMessages.add("Task cannot be unassigned from member "
                         + unassigneeIndex + " (" + member.getName() + ") as it was "
                         + "not assigned in the first place!");
                 } else {
-                    project.removeAssignment(member, task);
+                    project.removeAssignment((Member)member, task);
                     successMessages.add("Unassigned task from member " + unassigneeIndex
                         + " (" + member.getName() + ").");
                 }
@@ -93,5 +96,4 @@ public class AssignmentController {
     public ArrayList<String> getSuccessMessages() {
         return successMessages;
     }
-
 }

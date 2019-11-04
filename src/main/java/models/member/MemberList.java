@@ -111,8 +111,12 @@ public class MemberList implements IMemberList {
     }
 
     @Override
-    public Member getMember(int i) {
-        return this.memberList.get(i - 1);
+    public IMember getMember(int i) {
+        try {
+            return this.memberList.get(i - 1);
+        } catch (IndexOutOfBoundsException err) {
+            return new NullMember("Requested member index is out of bounds! Please check again.");
+        }
     }
 
     /**

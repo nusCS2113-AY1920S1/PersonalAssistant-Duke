@@ -2,6 +2,7 @@ package controllers;
 
 import models.member.IMember;
 import models.member.Member;
+import models.member.NullMember;
 import models.project.Project;
 import models.reminder.IReminder;
 import models.reminder.Reminder;
@@ -147,9 +148,12 @@ public class ProjectInputController implements IController {
         }
         int memberIndex = Integer.parseInt(commandOptions[0]);
         IMember selectedMember = projectToManage.getMembers().getMember(memberIndex);
-        selectedMember.setRole(commandOptions[1]);
-        return new String[] {"Successfully changed the role of " + selectedMember.getName() + " to "
-                                + selectedMember.getRole() + "."};
+        if (selectedMember.getClass() != NullMember.class) {
+            selectedMember.setRole(commandOptions[1]);
+            return new String[] {"Successfully changed the role of " + selectedMember.getName() + " to "
+                    + selectedMember.getRole() + "."};
+        }
+        return new String[] {selectedMember.getDetails()};
     }
 
     /**
@@ -211,9 +215,9 @@ public class ProjectInputController implements IController {
                 + projectCommand + "'");
         try {
             int memberIndexNumber = Integer.parseInt(projectCommand.substring(14).split(" ")[0]);
-            if (projectToManage.getNumOfMembers() >= memberIndexNumber) {
-                Member memberToRemove = projectToManage.getMembers().getMember(memberIndexNumber);
-                projectToManage.removeMember(memberToRemove);
+            IMember memberToRemove = projectToManage.getMembers().getMember(memberIndexNumber);
+            if (memberToRemove.getClass() != NullMember.class) {
+                projectToManage.removeMember((Member)memberToRemove);
                 return new String[]{"Removed member with the index number " + memberIndexNumber};
             } else {
                 return new String[]{"The member index entered is invalid."};

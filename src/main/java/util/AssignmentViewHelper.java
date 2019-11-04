@@ -1,5 +1,6 @@
 package util;
 
+import models.member.IMember;
 import models.project.Project;
 import models.member.Member;
 import models.task.Task;
@@ -20,7 +21,7 @@ public class AssignmentViewHelper {
         outputToPrint.add("Here are each member's tasks:");
         HashMap<Member, ArrayList<Task>> memberAndIndividualTasks = project.getMembersIndividualTaskList();
         for (Integer index : membersToView) {
-            Member member  = project.getMembers().getMember(index);
+            IMember member = project.getMembers().getMember(index);
             outputToPrint.add("Tasks assigned to " + member.getName());
             if (memberAndIndividualTasks.get(member).size() == 0) {
                 outputToPrint.add("No tasks assigned yet.");
