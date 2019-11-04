@@ -51,18 +51,103 @@ public class UI {
                 + "|_|      |_| |__________| |__________/  |__________| |__|    \\__\\" + "\n";
         System.out.println(logo);
         System.out.println(lineSeparation + "Hello! I'm MisterMusik!\nWhat can I do for you?\n");
+        printHelpList();
+        System.out.println("Please enter the command: ");
+    }
 
-        System.out.println("Commands:");
-        System.out.println("1. list: Print a list of events currently stored.");
-        System.out.println("2. todo <description of event>: Adds a simple event with no time or date involved");
-        System.out.println("3. event OR deadline <description of event> /at OR /by <time>: adds an event/deadline to the list of events.");
-        System.out.println("4. done <event number>: completes a event");
-        System.out.println("5. bye: exits the program\n");
-        System.out.println("6. reminder: view your upcoming events for the next 3 days");
-        System.out.println("When entering dates and times, you may do so in the following format for faster entry : \n" +
-                "dd-MM-yyyy HHmm\n" + lineSeparation);
-//        printReminder(Events);
-        System.out.println("Enter a command:");
+    void printHelpList() {
+        System.out.print(lineSeparation);
+        System.out.println("Notice: Words in <> are the parameters to be supplied by the user;");
+        System.out.println("        Items in [] are optional;");
+        System.out.println("        Items with | in between them indicate the user can choose to use either of them");
+        System.out.println("-----Basic Commands-----");
+        System.out.println("1.  \"help\"            -- Print out all the commands you can input.");
+        System.out.println("2.  \"list\"            -- Print out all the events in the list.");
+        System.out.println("3.  \"reminder\"        -- Display the list of events over the next 3 days.");
+        System.out.println("4.  \"check\"           -- Print the next 3 free days.");
+        System.out.println("5.  \"find <keyword>\"  -- Search for a specific event using keywords.");
+        System.out.println("6.  \"view dd-MM-yyyy\" -- Print the event list for a particular date.");
+        System.out.println("7.  \"budget MM-yyyy\"  -- View monthly cost of concerts.");
+        System.out.println("8.  \"bye\"             -- Exit the program.");
+        System.out.println("-----More Commands-----");
+        System.out.println("1.  \"help calendar\"   -- To see commands about calendar.");
+        System.out.println("2.  \"help event\"      -- To see commands about how to add or delete event.");
+        System.out.println("3.  \"help goal\"       -- To see commands about goal management of an event.");
+        System.out.println("4.  \"help contact\"    -- To see commands about contact management of an event.");
+        System.out.println("5.  \"help checklist\"  -- To see commands about checklist management of an event.");
+        System.out.println("6.  \"help change\"     -- To see commands about changing basic information of an event.");
+        System.out.print(lineSeparation);
+    }
+
+    void printCalendarHelp() {
+        System.out.print(lineSeparation);
+        System.out.println("1.  \"calendar\"      -- Print the calendar for the current week.");
+        System.out.println("2.  \"calendar last\" -- Print the calendar for the last week.");
+        System.out.println("3.  \"calendar next\" -- Print the calendar for the next week.");
+        System.out.print(lineSeparation);
+    }
+
+    void printEventHelp() {
+        System.out.print(lineSeparation);
+        System.out.println("1.  \"todo <description> /dd-MM-yyyy [HHmm]\"                                  \n\t-- " +
+                "Add a todo task to the list.");
+        System.out.println("2.  \"exam|recital|lesson|practice <description> /dd-MM-yyyy HHmm HHmm\"       \n\t-- " +
+                "Add an event to the list.");
+        System.out.println("3.  \"concert <description> /dd-MM-yyyy HHmm HHmm [/<cost of concert>]\"       \n\t-- " +
+                "Add a concert to the list.");
+        System.out.println("4.  \"practice|lesson <description> /dd-MM-yyyy HHmm HHmm /<period(in days)>\" \n\t-- " +
+                "Add recurring events with the first event date to the list.");
+        System.out.println("5.  \"delete <event index>\"                                                   \n\t-- " +
+                "Delete the specific event.");
+        System.out.print(lineSeparation);
+    }
+
+    void printGoalHelp() {
+        System.out.print(lineSeparation);
+        System.out.println("1.  \"goal add <event index> /<goal>\"                   \n\t-- " +
+                "Add a goal to a specific event.");
+        System.out.println("2.  \"goal delete <event index> <goal>\"                 \n\t-- Delete a specified goal.");
+        System.out.println("3.  \"goal edit <event index> <goal index> /<new goal>\" \n\t-- Edit an existing goal.");
+        System.out.println("4.  \"goal achieved <event index> <goal index>\"         \n\t-- Set the goal as achieved.");
+        System.out.println("5.  \"goal view <event index>\"                          " +
+                "\n\t-- Display the goals list of a specified event with their status.");
+        System.out.print(lineSeparation);
+    }
+
+    void printContactHelp() {
+        System.out.print(lineSeparation);
+        System.out.println("1.  \"contact add <event index> /<name>, [<email>], [<phone number>]\"        \n\t-- " +
+                "Add a contact to a specific event.");
+        System.out.println("2.  \"contact delete <event index> <contact index>\"                          \n\t-- " +
+                "Delete a specified contact.");
+        System.out.println("3.  \"contact edit <event index> <contact index> <edit type> /<new contact>\" \n\t-- " +
+                "Edit an existing contact, the edit type should be one of \"name\", \"email\", and \"phone\".");
+        System.out.println("4.  \"contact view <event index>\"                                            \n\t-- " +
+                "Display the contact list of a specified event with their status.");
+        System.out.print(lineSeparation);
+    }
+
+    void printChecklistHelp() {
+        System.out.print(lineSeparation);
+        System.out.println("1.  \"checklist add <event index> /<checklist>\"                        \n\t-- " +
+                "Add a checklist to a specific event.");
+        System.out.println("2.  \"checklist delete <event index> <checklist index>\"                \n\t-- " +
+                "Delete a specified checklist.");
+        System.out.println("3.  \"checklist edit <event index> <checklist index> /<new checklist>\" \n\t-- " +
+                "Edit an existing checklist.");
+        System.out.println("4.  \"checklist view <event index>\"                                    \n\t-- " +
+                "Display the checklist list of a specified event with their status.");
+        System.out.print(lineSeparation);
+    }
+
+    void printChangeHelp() {
+        System.out.print(lineSeparation);
+        System.out.println("\"1.  done <event index>\"                  \n\t-- " +
+                "Mark a Todo task as completed. Do not work for non-Todo event.");
+        System.out.println("\"2.  reschedule <event index> dd-MM-yyyy\" \n\t-- " +
+                "Reschedule the date and time of an event.");
+        System.out.println("\"3.  edit <event index> /<description>\"   \n\t-- Edit the description of an event.");
+        System.out.print(lineSeparation);
     }
 
     /**
@@ -71,8 +156,7 @@ public class UI {
      *
      * @param events the EventList used in the Duke function.
      */
-
-    public void printReminder(EventList events) {
+    void printReminder(EventList events) {
         System.out.print(lineSeparation);
         System.out.print(events.getReminder());
         System.out.print(lineSeparation);
@@ -81,25 +165,32 @@ public class UI {
     /**
      * Prints a message when an invalid command is entered.
      */
-    public void printInvalidCommand() {
+    void printInvalidCommand() {
         System.out.print(lineSeparation);
         System.out.println("Sorry! I don't know what that means.");
         System.out.print(lineSeparation);
     }
 
-    public void contactAdded() {
+    void calendarCommandWrongFormat() {
+        System.out.print(lineSeparation);
+        System.out.println("The format of calendar command is wrong.");
+        System.out.println("Please enter \"help calendar\" to see right format.");
+        System.out.print(lineSeparation);
+    }
+
+    void contactAdded() {
         System.out.print(lineSeparation);
         System.out.println("Ok, the contact has been added to the event.");
         System.out.print(lineSeparation);
     }
 
-    public void contactDeleted() {
+    void contactDeleted() {
         System.out.print(lineSeparation);
         System.out.println("Ok, the contact has been deleted from the event.");
         System.out.print(lineSeparation);
     }
 
-    public void printEventContacts(Event viewEventContact) {
+    void printEventContacts(Event viewEventContact) {
         System.out.print(lineSeparation);
         System.out.println("Here is the list of contacts for the following event " + viewEventContact.toString());
         int contactNo = 1;
@@ -111,14 +202,14 @@ public class UI {
         System.out.print(lineSeparation);
     }
 
-    public void contactEdited(Contact newContact) {
+    void contactEdited(Contact newContact) {
         System.out.print(lineSeparation);
         System.out.println("The contact has been edited to: Name: " + newContact.getName() + " Email: "
                 + newContact.getEmail() + " Phone Number: " +newContact.getPhoneNo());
         System.out.print(lineSeparation);
     }
 
-    public void noContactInEvent() {
+    void noContactInEvent() {
         System.out.print(lineSeparation);
         System.out.println("Do not have any contact in this event.");
         System.out.print(lineSeparation);
@@ -129,7 +220,7 @@ public class UI {
      *
      * @param events Model_Class.EventList object containing all stored classes and pertaining methods.
      */
-    public static void printListOfEvents(EventList events) {
+    static void printListOfEvents(EventList events) {
         System.out.print(lineSeparation);
         System.out.print(events.listOfEvents_String());
         System.out.print(lineSeparation);
@@ -181,7 +272,7 @@ public class UI {
      *
      * @param event event in question
      */
-    public void eventDone(Event event) {
+    void eventDone(Event event) {
         System.out.print(lineSeparation);
         System.out.println("Nice! I've marked this event as done:");
         System.out.println(event.toString());
@@ -193,7 +284,7 @@ public class UI {
      *
      * @param event event in question to be deleted
      */
-    public void eventDeleted(Event event) {
+    void eventDeleted(Event event) {
         System.out.print(lineSeparation);
         System.out.println("Noted. I've removed this event:");
         System.out.println(event.toString());
@@ -207,7 +298,7 @@ public class UI {
      * @param allFoundEvents string containing all the events found, separated by newline character
      * @param found          boolean signifying whether or not any events were found
      */
-    public void printFoundEvents(String allFoundEvents, boolean found) {
+    void printFoundEvents(String allFoundEvents, boolean found) {
         if (found) {
             System.out.print(lineSeparation);
             System.out.println("Here are the matching events in your list:");
@@ -223,13 +314,13 @@ public class UI {
     /**
      * prints message if command does not contain valid input for related event.
      */
-    public void noSuchEvent() {
+    void noSuchEvent() {
         System.out.print(lineSeparation);
         System.out.println("There is no such event! Please try again.");
         System.out.print(lineSeparation);
     }
 
-    public void rescheduleFormatWrong() {
+    void rescheduleFormatWrong() {
         System.out.print(lineSeparation);
         System.out.println("Please enter command in the following format:\n" +
                 "reschedule <taskIndex> dd-MM-yyyy HHmm HHmm\n" +
@@ -240,13 +331,48 @@ public class UI {
     /**
      * prints message if no event description is found when adding a new event to the list
      */
-    public void eventDescriptionEmpty() {
+    void eventDescriptionEmpty() {
         System.out.print(lineSeparation);
         System.out.println("The description of your event cannot be empty!");
         System.out.print(lineSeparation);
     }
 
-    public void eventEndsBeforeStart() {
+    void checklistCommandWrongFormat() {
+        System.out.print(lineSeparation);
+        System.out.println("The format of checklist command is wrong.");
+        System.out.println("Please enter \"help checklist\" to see the right format.");
+        System.out.print(lineSeparation);
+    }
+
+    void budgetCommandWrongFormat() {
+        System.out.print(lineSeparation);
+        System.out.println("The format of budget command is wrong.");
+        System.out.println("Please enter \"budget MM-yyyy\" to view monthly cost of concerts.");
+        System.out.print(lineSeparation);
+    }
+
+    void viewCommandWrongFormat() {
+        System.out.print(lineSeparation);
+        System.out.println("The format of view command is wrong.");
+        System.out.println("Please enter \"view dd-MM-yyyy\" to view the events of a particular date.");
+        System.out.print(lineSeparation);
+    }
+
+    void goalCommandWrongFormat() {
+        System.out.print(lineSeparation);
+        System.out.println("The format of goal management command is wrong.");
+        System.out.println("Please enter \"help goal\" to see the right commands.");
+        System.out.print(lineSeparation);
+    }
+
+    void contactCommandWrongFormat() {
+        System.out.print(lineSeparation);
+        System.out.println("The format of contact management command is wrong.");
+        System.out.println("Please enter \"help contact\" to see the right commands.");
+        System.out.print(lineSeparation);
+    }
+
+    void eventEndsBeforeStart() {
         System.out.print(lineSeparation);
         System.out.println("The event you added ends before it starts! Please try again.");
         System.out.print(lineSeparation);
@@ -255,7 +381,7 @@ public class UI {
     /**
      * prints message when event index from input is not an integer
      */
-    public void notAnInteger() {
+    void notAnInteger() {
         System.out.print(lineSeparation);
         System.out.println("That is not a valid integer! Please enter the index of the event you intend to alter.");
         System.out.print(lineSeparation);
@@ -264,14 +390,16 @@ public class UI {
     /**
      * prints message when input format is wrong for addition of new event type event.
      */
-    public void eventFormatWrong() {
+    public void newEntryFormatWrong() {
         System.out.print(lineSeparation);
-        System.out.println("Please enter the date in the format 'dd-MM-yyyy HHmm HHmm' or 'dd-MM-yyyy'.\n" +
-                "First time entered is start time, second time entered is end time.");
+        System.out.println("Please enter the date in the format 'dd-MM-yyyy HHmm HHmm' for Event" +
+                " or 'dd-MM-yyyy' for ToDo.\n" +
+                "For Event entry, first time entered is start time, second time entered is end time.");
+        System.out.println("Please also ensure that the date you entered is valid.");
         System.out.print(lineSeparation);
     }
 
-    public void scheduleClash(Event event) {
+    void scheduleClash(Event event) {
         System.out.print(lineSeparation);
         System.out.println("That event clashes with another in the schedule! " +
                 "Please resolve the conflict and try again!");
@@ -282,7 +410,7 @@ public class UI {
     /**
      * prints message when recurring events are added to the list successfully
      */
-    public void recurringEventAdded(Event eventAdded, int numEvents, int period) {
+    void recurringEventAdded(Event eventAdded, int numEvents, int period) {
         System.out.println(lineSeparation + "Got it. I've added these recurring events:");
         System.out.println("[" + eventAdded.getDoneSymbol() + "][" + eventAdded.getType() + "] " +
                 eventAdded.getDescription() + " START: " + eventAdded.getStartDate().getFormattedDateString() +
@@ -296,7 +424,7 @@ public class UI {
      *
      * @param freeDays queue of free days of type DateObj
      */
-    public void printFreeDays(Queue<String> freeDays) {
+    void printFreeDays(Queue<String> freeDays) {
         System.out.print(lineSeparation);
         System.out.println("Here are the next 3 free days!");
         for (int i = 0; i <= freeDays.size(); i++) {
@@ -310,7 +438,7 @@ public class UI {
      *
      * @param event event after rescheduled
      */
-    public void rescheduleEvent(Event event) {
+    void rescheduleEvent(Event event) {
         System.out.print(lineSeparation);
         System.out.println("Rescheduled event to " + event.toString() + " successfully!");
         System.out.print(lineSeparation);
@@ -328,7 +456,7 @@ public class UI {
      * @param eventIndex  The index of the edited event.
      * @param eventEdited The event after edit.
      */
-    public void printEditedEvent(int eventIndex, Event eventEdited) {
+    void printEditedEvent(int eventIndex, Event eventEdited) {
         try {
             System.out.println(lineSeparation + "Got it. Successfully edited event" + eventIndex + ":");
             System.out.println("[" + eventEdited.getDoneSymbol() + "][" + eventEdited.getType() + "] " +
@@ -342,14 +470,14 @@ public class UI {
         }
     }
 
-    public void printCalendar(String calendarInfo) {
+    void printCalendar(String calendarInfo) {
         System.out.print(lineSeparation);
         System.out.println("Here is the calendar of the 7 days!");
         System.out.println(calendarInfo);
         System.out.println("\nEnter a command:");
     }
 
-    public void costExceedsBudget(Concert concert, int budget) {
+    void costExceedsBudget(Concert concert, int budget) {
         System.out.print(lineSeparation);
         System.out.println("The following concert you wanted to add causes you to exceed the stipulated budget for that month!");
         System.out.println(concert.toString());
@@ -359,20 +487,20 @@ public class UI {
         System.out.print(lineSeparation);
     }
 
-    public static void printCostForMonth(String monthAndYear, int cost) {
+    static void printCostForMonth(String monthAndYear, int cost) {
         System.out.print(lineSeparation);
         System.out.println("Your total concert costs for " + monthAndYear + " is:");
         System.out.println("$" + cost);
         System.out.print(lineSeparation);
     }
 
-    public static void printNoCostsForThatMonth() {
+    static void printNoCostsForThatMonth() {
         System.out.print(lineSeparation);
         System.out.println("There are no concerts for that month!");
         System.out.print(lineSeparation);
     }
 
-    public void printEventGoals(Event viewEventGoal) {
+    void printEventGoals(Event viewEventGoal) {
         System.out.println("Here is the list of goals for the following event: " + viewEventGoal.toString());
         if (!viewEventGoal.getGoalList().isEmpty()) {
             int goalIndex = 1;
@@ -385,47 +513,47 @@ public class UI {
         }
     }
 
-    public void goalAdded() {
+    void goalAdded() {
         System.out.println("Ok, the goal has been added to the event.");
     }
 
-    public void goalDeleted() {
+    void goalDeleted() {
         System.out.println("Ok, the goal has been deleted from the event.");
     }
 
-    public void goalUpdated() {
+    void goalUpdated() {
         System.out.println("Ok, the goal has been updated.");
     }
 
-    public void goalSetAsAchieved() {
+    void goalSetAsAchieved() {
         System.out.println("Ok, the goal has been set as achieved. Congratulations for achieving the goal!");
     }
 
-    public void noSuchGoal() {
+    void noSuchGoal() {
         System.out.println("Sorry, the specified goal does not exist!");
     }
   
-    public void checklistDeleted(int eventIndex) {
+    void checklistDeleted(int eventIndex) {
         System.out.print(lineSeparation);
         System.out.println("Ok, checklist of event " + eventIndex + 1 + " has been deleted.");
         System.out.print(lineSeparation);
     }
 
-    public void checklistEdited(String newChecklistItem, int eventIndex) {
+    void checklistEdited(String newChecklistItem, int eventIndex) {
         System.out.print(lineSeparation);
         System.out.println("Ok, checklist of event " + eventIndex + 1 + " has been edited to:");
         System.out.println(newChecklistItem);
         System.out.print(lineSeparation);
     }
 
-    public void checklistAdded(String newChecklistItem, int eventIndex) {
+    void checklistAdded(String newChecklistItem, int eventIndex) {
         System.out.print(lineSeparation);
         System.out.println("Ok, the following item has been added to checklist of event " + eventIndex + 1 + ":");
         System.out.println(newChecklistItem);
         System.out.print(lineSeparation);
     }
 
-    public void printEventChecklist(ArrayList<String> thisChecklist, int eventIndex, Event eventAdded) {
+    void printEventChecklist(ArrayList<String> thisChecklist, int eventIndex, Event eventAdded) {
         System.out.print(lineSeparation);
         System.out.println("Here is the checklist for the following event: ");
         System.out.println("[" + eventAdded.getDoneSymbol() + "][" + eventAdded.getType() + "] " +
@@ -439,14 +567,14 @@ public class UI {
         System.out.print(lineSeparation);
     }
     
-    public void instrumentAdded(String instrumentIndexAndName) {
+    void instrumentAdded(String instrumentIndexAndName) {
     	System.out.print(lineSeparation);
     	System.out.println("Ok, the following instrument has been added: ");
     	System.out.println(instrumentIndexAndName);
     	System.out.println(lineSeparation);
     }
     
-    public void serviceAdded(String serviceIndexAndName, String instrumentIndexAndName) {
+    void serviceAdded(String serviceIndexAndName, String instrumentIndexAndName) {
     	System.out.println(lineSeparation);
     	System.out.println("Ok, the following service: ");
     	System.out.println(serviceIndexAndName);
@@ -455,14 +583,14 @@ public class UI {
     	System.out.println(lineSeparation);
     }
     
-    public void printInstruments(String instruments) {
+    void printInstruments(String instruments) {
     	System.out.println(lineSeparation);
     	System.out.println("Here are the list of instruments stored in the system: ");
     	System.out.println(instruments);
     	System.out.println(lineSeparation);
     }
     
-    public void printServices(String services, String instrumentIndexAndName) {
+    void printServices(String services, String instrumentIndexAndName) {
     	System.out.println(lineSeparation);
     	System.out.println("Here are the list of services: ");
     	System.out.println(services);

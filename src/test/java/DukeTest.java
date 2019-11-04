@@ -19,6 +19,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class DukeTest {
 
 
+    //@@author Ryan-Wong-Ren-Wei
     @Test
     /**
      * test clash handling for single event addition
@@ -146,10 +147,7 @@ public class DukeTest {
 
     }
 
-//    private static final int GREATER_THAN = 1;
-//
-//
-//    private static final int DATE = 0;
+    //@@author
     @Test
     public void viewScheduleTest() throws CostExceedsBudgetException, EndBeforeStartException, ClashException {
         ArrayList<String> testListString = new ArrayList<>();
