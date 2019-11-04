@@ -243,12 +243,12 @@
       "amount" : 5.0
     } ]
   }, {
-    "id" : 1572743490821,
-    "creationDate" : "2019-11-03T01:11:30.821+0000",
+    "id": 1572797325938,
+    "creationDate": "2019-11-03T16:08:45.938+0000",
     "name" : "Alice",
     "contact" : "12345678",
     "remarks" : "no nuts",
-    "deliveryDate" : "2019-11-05T00:58:30.541+0000",
+    "deliveryDate": "2019-11-06T15:32:55.705+0000",
     "status" : "COMPLETED",
     "total" : 15.0,
     "items" : [ {
@@ -502,14 +502,14 @@
       "unitPrice" : 0.0,
       "remarks" : ""
     },
-    "amount" : 25.0
+    "amount": 20.0
   }, {
     "ingredient" : {
       "name" : "Sugar",
       "unitPrice" : 0.0,
       "remarks" : "gram"
     },
-    "amount" : 350.0
+    "amount": 200.0
   }, {
     "ingredient" : {
       "name" : "Strawberry",
@@ -523,14 +523,14 @@
       "unitPrice" : 0.0,
       "remarks" : "ml"
     },
-    "amount" : 875.0
+    "amount": 750.0
   }, {
     "ingredient" : {
       "name" : "Flour",
       "unitPrice" : 0.0,
       "remarks" : "gram"
     },
-    "amount" : 5740.0
+    "amount": 5480.0
   }, {
     "ingredient" : {
       "name" : "Apple",
@@ -561,6 +561,27 @@
     "isSpend" : false,
     "saleDate" : "2019-11-05T00:58:30.541+0000",
     "remarks" : "no nuts"
+  },
+    {
+      "id": 1572797325974,
+      "description": "Order 1572797325938 completed.",
+      "value": 15.0,
+      "isSpend": false,
+      "saleDate": "2019-11-06T15:32:55.705+0000",
+      "remarks": "no nuts"
   } ],
-  "shortcuts" : [ ]
+  "shortcuts": [
+    {
+      "name": "1",
+      "userInputs": [
+        "order add -name "
+      ]
+    },
+    {
+      "name": "s",
+      "userInputs": [
+        "1"
+      ]
+    }
+  ]
 }

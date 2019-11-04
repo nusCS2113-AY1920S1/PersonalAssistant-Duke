@@ -1,6 +1,7 @@
 package duke.logic.command.order;
 
 import duke.commons.core.LogsCenter;
+import duke.commons.core.Message;
 import duke.commons.core.index.Index;
 import duke.logic.command.CommandResult;
 import duke.logic.command.exceptions.CommandException;
@@ -26,7 +27,6 @@ public class CompleteOrderCommand extends OrderCommand {
     private static final String MESSAGE_COMPLETE_SUCCESS = "%s order(s) completed.";
     private static final String MESSAGE_COMPLETE_INSUFFICIENT_INVENTORY = "%s order(s) completed. "
         + "Insufficient ingredients are deducted to zero in inventory.";
-    private static final String MESSAGE_INDEX_OUT_OF_BOUND = "Index [%d] out of bound.";
     private final Set<Index> indices;
 
     public static final String AUTO_COMPLETE_INDICATOR = OrderCommand.COMMAND_WORD + " " + COMMAND_WORD;
@@ -49,12 +49,19 @@ public class CompleteOrderCommand extends OrderCommand {
     public CommandResult execute(Model model) throws CommandException {
         String executeResult = MESSAGE_COMPLETE_SUCCESS;
 
+        //Check complete eligibility
         for (Index index : indices) {
             if (index.getZeroBased() >= model.getFilteredOrderList().size()) {
                 logger.warning(String.format("Index [%d] out of bound", index.getOneBased()));
-                throw new CommandException(String.format(MESSAGE_INDEX_OUT_OF_BOUND, index.getOneBased()));
+                throw new CommandException(Message.MESSAGE_INDEX_OUT_OF_BOUND);
             }
 
+            if (Order.Status.COMPLETED.equals(model.getFilteredOrderList().get(index.getZeroBased()).getStatus())) {
+                throw new CommandException(String.format(Message.MESSAGE_ORDER_ALREADY_COMPLETED, index.getOneBased()));
+            }
+        }
+
+        for (Index index : indices) {
             OrderDescriptor descriptor = new OrderDescriptor();
             descriptor.setStatus(Order.Status.COMPLETED);
 
@@ -69,12 +76,12 @@ public class CompleteOrderCommand extends OrderCommand {
             }
 
             model.setOrder(index,
-                    OrderCommandUtil.modifyOrder(
-                        model.getFilteredOrderList().get(index.getZeroBased()),
-                        descriptor,
-                        model.getFilteredProductList(),
-                        model.getFilteredInventoryList()
-                    )
+                OrderCommandUtil.modifyOrder(
+                    model.getFilteredOrderList().get(index.getZeroBased()),
+                    descriptor,
+                    model.getFilteredProductList(),
+                    model.getFilteredInventoryList()
+                )
             );
 
             //Add new sale entry

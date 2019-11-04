@@ -12,16 +12,12 @@ import duke.logic.command.order.OrderCommand;
 import duke.logic.command.product.ProductCommand;
 import duke.logic.command.sale.SaleCommand;
 import duke.logic.command.shopping.ShoppingCommand;
-import duke.logic.command.shortcut.ExecuteShortcutCommand;
-import duke.logic.command.shortcut.SetShortcutCommand;
 import duke.logic.parser.exceptions.ParseException;
 import duke.logic.parser.inventory.InventoryCommandParser;
 import duke.logic.parser.order.OrderCommandParser;
 import duke.logic.parser.product.ProductCommandParser;
 import duke.logic.parser.sale.SaleCommandParser;
 import duke.logic.parser.shopping.ShoppingCommandParser;
-import duke.logic.parser.shortcut.ExecuteShortcutCommandParser;
-import duke.logic.parser.shortcut.SetShortcutCommandParser;
 import duke.logic.parser.system.ExitCommandParser;
 import duke.logic.parser.undo.RedoCommandParser;
 import duke.logic.parser.undo.UndoCommandParser;
@@ -75,10 +71,10 @@ public class BakingHomeParser {
             return new InventoryCommandParser().parse(subCommandAndArgs);
         case ShoppingCommand.COMMAND_WORD:
             return new ShoppingCommandParser().parse(subCommandAndArgs);
-        case SetShortcutCommand.COMMAND_WORD:
-            return new SetShortcutCommandParser().parse(subCommandAndArgs);
-        case ExecuteShortcutCommand.COMMAND_WORD:
-            return new ExecuteShortcutCommandParser().parse(subCommandAndArgs);
+//        case SetShortcutCommand.COMMAND_WORD:
+//            return new SetShortcutCommandParser().parse(subCommandAndArgs);
+//        case ExecuteShortcutCommand.COMMAND_WORD:
+//            return new ExecuteShortcutCommandParser().parse(subCommandAndArgs);
         case UndoCommand.COMMAND_WORD:
             return new UndoCommandParser().parse(subCommandAndArgs);
         case RedoCommand.COMMAND_WORD:
