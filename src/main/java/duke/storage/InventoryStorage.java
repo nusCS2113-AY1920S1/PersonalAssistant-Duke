@@ -71,7 +71,6 @@ public class InventoryStorage {
                         if (split3.length == 2) {
                             unit = split3[0].trim();
                             additionalInfo = split3[1].trim();
-                            System.out.println(ingredientName + "...." + quantity + "...." + unit + "...." + additionalInfo);
                             Ingredient ingredient = new Ingredient(ingredientName, quantity, unit, additionalInfo);
                             inventoryListHM.put(ingredientName, ingredient);
                         }
