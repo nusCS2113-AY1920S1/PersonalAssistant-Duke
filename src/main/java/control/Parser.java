@@ -24,7 +24,7 @@ public class Parser {
         case "login":
             return new LoginCommand(input, splitStr);
         case "logout":
-            return new LogoutCommand(input, splitStr);
+            return new LogoutCommand();
         case "create":
             return new CreateAccountCommand(input, splitStr);
         case "add":
