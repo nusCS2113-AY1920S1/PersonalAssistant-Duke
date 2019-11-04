@@ -27,10 +27,11 @@ public class MarkDoneCommand extends Command {
      * Executes this command and returns a text result.
      *
      * @param model The model object containing event list.
+     * @throws QueryOutOfBoundsException If the index is out of bounds.
+     * @throws FileNotSavedException If the data cannot be saved.
      */
     @Override
-    public CommandResultText execute(Model model) throws QueryOutOfBoundsException, FileNotSavedException,
-            CorruptedFileException {
+    public CommandResultText execute(Model model) throws QueryOutOfBoundsException, FileNotSavedException {
         try {
             Event event = model.getEvents().get(index);
             event.setDone(true);
