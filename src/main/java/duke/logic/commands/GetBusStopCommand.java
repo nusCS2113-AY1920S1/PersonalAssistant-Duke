@@ -1,5 +1,6 @@
 package duke.logic.commands;
 
+import duke.commons.exceptions.NoSuchBusStopException;
 import duke.commons.exceptions.NullResultException;
 import duke.logic.commands.results.CommandResultText;
 import duke.model.Model;
@@ -21,9 +22,10 @@ public class GetBusStopCommand extends Command {
      * Executes this command and returns a text result.
      *
      * @param model The model object containing transports.
+     * @throws NoSuchBusStopException If no such bus stop exists.
      */
     @Override
-    public CommandResultText execute(Model model) throws NullResultException {
+    public CommandResultText execute(Model model) throws NoSuchBusStopException {
         HashMap<String, BusStop> allBus = model.getBusStops();
         return new CommandResultText(getResult(allBus));
     }
@@ -32,14 +34,14 @@ public class GetBusStopCommand extends Command {
      * Gets the result of the bus stop query.
      * @param allBus Hash map that stores all bus stops in Singapore.
      * @return The result of the query in String.
-     * @throws NullResultException If the bus stop could not be found.
+     * @throws NoSuchBusStopException If no such bus stop exists.
      */
-    private String getResult(HashMap<String, BusStop> allBus) throws NullResultException {
+    private String getResult(HashMap<String, BusStop> allBus) throws NoSuchBusStopException {
         if (allBus.containsKey(buscode)) {
             BusStop busStop = allBus.get(buscode);
             return getBusStopInformation(busStop);
         }
-        throw new NullResultException();
+        throw new NoSuchBusStopException();
     }
 
     /**

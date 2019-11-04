@@ -60,7 +60,8 @@ public class Messages {
     public static final String ERROR_EVENT_OUT_OF_BOUND = "The index is out of bounds for the EventList.";
     public static final String ERROR_EVENT_NOT_SELECTED = "There are no events selected.";
     public static final String ERROR_NULL_RESULT = "Nothing could be found.";
-    public static final String ERROR_NO_SUCH_BUS_SERVICE = "I'm sorry, there is no such bes service";
+    public static final String ERROR_NO_SUCH_BUS_SERVICE = "I'm sorry, there is no such bus service.";
+    public static final String ERROR_NO_SUCH_BUS_STOP = "I'm sorry, there is no such bus stop.";
 
     /**
      * Messages sent via Prompt by Duke.
