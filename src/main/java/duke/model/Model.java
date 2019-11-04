@@ -4,7 +4,7 @@ import duke.commons.exceptions.DukeException;
 import duke.commons.exceptions.FileNotSavedException;
 import duke.commons.exceptions.NoRecentItineraryException;
 import duke.commons.exceptions.ParseException;
-import duke.commons.exceptions.RouteDuplicateException;
+import duke.commons.exceptions.DuplicateRouteException;
 import duke.model.lists.EventList;
 import duke.model.lists.RouteList;
 import duke.model.lists.VenueList;
@@ -64,7 +64,7 @@ public interface Model {
      *
      * @param route The route to add.
      */
-    void addRoute(Route route) throws RouteDuplicateException;
+    void addRoute(Route route) throws DuplicateRouteException;
 
     /**
      * Saves the Model data in storage.

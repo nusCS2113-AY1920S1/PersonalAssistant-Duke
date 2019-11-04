@@ -7,7 +7,7 @@ import duke.commons.exceptions.CorruptedFileException;
 import duke.commons.exceptions.FileNotSavedException;
 import duke.commons.exceptions.QueryFailedException;
 import duke.commons.exceptions.QueryOutOfBoundsException;
-import duke.commons.exceptions.RouteDuplicateException;
+import duke.commons.exceptions.DuplicateRouteException;
 import duke.commons.exceptions.RouteGenerateFailException;
 import duke.commons.exceptions.RouteNodeDuplicateException;
 import duke.commons.exceptions.UnknownConstraintException;
@@ -48,7 +48,7 @@ public class RouteGenerateCommand extends Command {
     @Override
     public CommandResultText execute(Model model) throws ApiException,
             QueryFailedException, QueryOutOfBoundsException, RouteNodeDuplicateException, FileNotSavedException,
-            CorruptedFileException, RouteDuplicateException, RouteGenerateFailException, UnknownConstraintException {
+            CorruptedFileException, DuplicateRouteException, RouteGenerateFailException, UnknownConstraintException {
         Venue startVenue = ApiParser.getLocationSearch(startPoint);
         Venue endVenue = ApiParser.getLocationSearch(endPoint);
         PathFinder pathFinder = new PathFinder(model.getMap());
