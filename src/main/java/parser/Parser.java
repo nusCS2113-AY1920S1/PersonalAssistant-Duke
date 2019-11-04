@@ -1,21 +1,21 @@
 package parser;
 
+import command.AddCommand;
 import command.AddTagCommand;
+import command.AddSynonymCommand;
+import command.BadCommand;
 import command.Command;
+import command.DeleteCommand;
 import command.EditCommand;
 import command.ExitCommand;
 import command.HelpCommand;
+import command.HistoryCommand;
+import command.ListCommand;
+import command.QuizCommand;
 import command.SearchBeginCommand;
+import command.SearchCommand;
 import command.SearchFrequencyCommand;
 import command.SetReminderCommand;
-import command.QuizCommand;
-import command.ListCommand;
-import command.AddCommand;
-import command.DeleteCommand;
-import command.SearchCommand;
-import command.HistoryCommand;
-import command.BadCommand;
-
 import dictionary.Word;
 
 import exception.*;
@@ -31,6 +31,11 @@ import java.util.HashSet;
 public class Parser {
 
     /**
+     * Valid string for input word, which contains a-z, A-Z.
+     */
+    private static final String VALID_REGEX = "^[a-zA-Z]*$";
+
+    /**
      * Extracts the command specified in the user input and creates the respective command objects.
      *
      * @param input user input from command line
@@ -42,7 +47,7 @@ public class Parser {
             String userCommand = taskInfo[0];
             Command command;
             if (userCommand.equals("exit")) {
-                return new ExitCommand();
+                command = new ExitCommand();
             } else if (userCommand.equals("help")) {
                 command = parseHelp(taskInfo);
             } else if (userCommand.equals("add")) {
@@ -65,6 +70,8 @@ public class Parser {
                 command = parseEdit(taskInfo);
             } else if (userCommand.equals("tag")) {
                 command = parseTag(taskInfo);
+            } else if (userCommand.equals("addsyn")) {
+                command = parseSynonym(taskInfo);
             } else if (userCommand.equals("quiz")) {
                 command = parseQuiz(taskInfo);
             } else {
@@ -107,7 +114,7 @@ public class Parser {
      * @throws EmptyWordException when there is no word entered with the command
      */
     protected static Command parseAdd(String[] taskInfo)
-            throws WrongAddFormatException, EmptyWordException, EmptyTagException {
+            throws WrongAddFormatException, EmptyWordException, EmptyTagException, InvalidInputWordException {
         if (taskInfo.length == 1) {
             throw new WrongAddFormatException();
         }
@@ -122,6 +129,9 @@ public class Parser {
         String wordDescription = wordDetail[0].trim();
         if (wordDescription.length() == 0) {
             throw new EmptyWordException();
+        }
+        if (!isValidInputWord(wordDescription)) {
+            throw new InvalidInputWordException();
         }
         String[] meaningAndTag = wordDetail[1].split("t/");
         String meaning = meaningAndTag[0].trim();
@@ -151,7 +161,7 @@ public class Parser {
      * @throws WrongDeleteFormatException when the format of the delete command does not match required format
      */
     protected static Command parseDelete(String[] taskInfo)
-            throws WrongDeleteFormatException, EmptyWordException, EmptyTagException {
+            throws WrongDeleteFormatException, EmptyWordException, EmptyTagException, InvalidInputWordException {
         if (taskInfo.length == 1 || !taskInfo[1].startsWith("w/") || taskInfo[1].split("w/").length != 2) {
             throw new WrongDeleteFormatException();
         }
@@ -160,6 +170,9 @@ public class Parser {
             String deletedWord = taskInfo[1].substring(2).trim();
             if (deletedWord.length() == 0) {
                 throw new EmptyWordException();
+            }
+            if (!isValidInputWord(deletedWord)) {
+                throw new InvalidInputWordException();
             }
             return new DeleteCommand(deletedWord);
         } else {
@@ -184,7 +197,8 @@ public class Parser {
      * @return a SearchCommand object
      * @throws WrongSearchFormatException when the format of the search command does not match required format
      */
-    protected static Command parseSearch(String[] taskInfo) throws WrongSearchFormatException, EmptyWordException {
+    protected static Command parseSearch(String[] taskInfo)
+            throws WrongSearchFormatException, EmptyWordException, InvalidInputWordException {
         if (taskInfo.length == 1 || !taskInfo[1].startsWith("w/")) {
             throw new WrongSearchFormatException();
         }
@@ -192,16 +206,23 @@ public class Parser {
         if (word.length() == 0) {
             throw new EmptyWordException();
         }
+        if (!isValidInputWord(word)) {
+            throw new InvalidInputWordException();
+        }
         return new SearchCommand(word);
     }
 
-    protected static Command parseSearchBegin(String[] taskInfo) throws WrongSearchBeginFormatException, EmptyWordException {
+    protected static Command parseSearchBegin(String[] taskInfo)
+            throws WrongSearchBeginFormatException, EmptyWordException, InvalidInputWordException {
         if (taskInfo.length == 1 || !taskInfo[1].startsWith("w/")) {
             throw new WrongSearchBeginFormatException();
         }
         String word = taskInfo[1].substring(2).trim();
         if (word.length() == 0) {
             throw new EmptyWordException();
+        }
+        if (!isValidInputWord(word)) {
+            throw new InvalidInputWordException();
         }
         return new SearchBeginCommand(word);
     }
@@ -275,7 +296,7 @@ public class Parser {
      * @param dateInput String value of date from user input
      * @return Date object containing date values from date String input
      */
-    public static Date parseDate(String dateInput) {
+    public static Date parseDate(String dateInput) throws ReminderWrongDateFormatException {
         String pattern = "dd-MM-yyyy HHmm";
         SimpleDateFormat formattedDate = new SimpleDateFormat(pattern);
         Date date = new Date();
@@ -283,7 +304,7 @@ public class Parser {
         try {
             date = formattedDate.parse(dateInput);
         } catch (java.text.ParseException e) {
-            e.printStackTrace();
+            throw new ReminderWrongDateFormatException();
         }
         return date;
     }
@@ -330,6 +351,30 @@ public class Parser {
     }
 
     /**
+     * Parses an add synonym command.
+     * @param taskInfo String array containing first stage parsed user input
+     * @return a AddSynonymCommand object
+     * @throws WrongAddSynonymFormatException when the format of the add synonym command does not match required format
+     * @author Ng Jian Wei
+     */
+    protected static Command parseSynonym(String[] taskInfo) throws WrongAddSynonymFormatException {
+        if (taskInfo.length == 1 || !taskInfo[1].startsWith("w/")) { //taskInfo[1] is w/drink s/beverage
+            throw new WrongAddSynonymFormatException();
+        }
+        String[] wordAndSynonyms = taskInfo[1].split("s/"); // "w/drink" and "beverage syno2 syno3"
+        if (wordAndSynonyms.length == 1) {
+            throw new WrongAddSynonymFormatException();
+        }
+        String wordDescription = wordAndSynonyms[0].substring(2).trim(); //drink
+        String[] synonymsString = wordAndSynonyms[1].trim().split(" ");
+        ArrayList<String> synonyms = new ArrayList<>();
+        for (String s : synonymsString) {
+            synonyms.add(s.trim());
+        }
+        return new AddSynonymCommand(wordDescription, synonyms);
+    }
+
+    /**
      * Parses a quiz command.
      * @param taskInfo String array containing first stage parsed user input
      * @return a QuizCommand object
@@ -342,4 +387,15 @@ public class Parser {
         return new QuizCommand();
     }
 
+    /**
+     * Checks if an input word is in valid form.
+     * Valid input is a word that contains a-z, A-Z
+     * @param word string represents word input by user
+     * @return true if input is valid
+     */
+    protected static boolean isValidInputWord (String word) {
+        return ((word != null)
+                && (!word.equals(""))
+                && (word.matches(VALID_REGEX)));
+    }
 }

@@ -71,6 +71,27 @@ public class Ui {
     }
 
     /**
+     * Shows the tags to be added.
+     * @param word word to add tag
+     * @param synonyms list of tags to be added
+     * @param synonymHashSet hash set represents existed tags of the word
+     * @return a string shown when command is completed
+     */
+    public String showAddSynonym(String word, ArrayList<String> synonyms, HashSet<String> synonymHashSet) {
+        String returnedString = "I have added "
+                + (synonyms.size() == 1 ? "this synonym \""
+                + synonyms.get(0) + "\"" : "these synonyms")
+                + " to word \"" + word + "\"" + "\n";
+        returnedString += "Here " + (synonymHashSet.size() == 1 ? "is the synonym " : "are the synonyms ")
+                + "of word \"" + word + "\"" + "\n";
+        StringBuilder stringBuilder = new StringBuilder();
+        for (String synonym : synonymHashSet) {
+            stringBuilder.append(synonym + "\n");
+        }
+        return returnedString + stringBuilder.toString();
+    }
+
+    /**
      * Shows the list of all words in the word bank.
      * @param wordBank to store all words
      * @param order displayOrder to show words (ascending / descending)
@@ -225,7 +246,8 @@ public class Ui {
     public String showHelp(String instruction) {
         if (instruction.equals("add")) {
             return "Add a word to wordbank.\n"
-                    + "Format: add w/WORD m/MEANING [t/TAG]";
+                    + "Format: add w/WORD m/MEANING [t/TAG]\n"
+                    + "The TAG field is optional";
         } else if (instruction.equals("delete")) {
             return "Delete a word or tag from wordbank.\n"
                     + "Format: delete w/WORD_TO_BE_DELETED [t/TAG]";
@@ -251,14 +273,26 @@ public class Ui {
                     + "Format: edit w/WORD m/MEANING";
         } else if (instruction.equals("tag")) {
             return "Add tags of a specific word.\n"
-                    + "Format: tag w/WORD t/TAG...";
+                    + "Format: tag w/WORD t/TAG...\n"
+                    + "For more than one tag, please append \"t/\" before each tag";
+        } else if (instruction.equals("addsyn")) {
+            return "Add synonyms to a word.\n"
+                    + "Format: addsyn w/WORD s/synonyms\n"
+                    + "For more than one synonym, you may separate them by a space";
         } else if (instruction.equals("quiz")) {
             return "Take a quiz to test yourself.\n"
                     + "Format: quiz";
+        } else if (instruction.equals("schedule")) {
+            return "Schedule words to study.\nReminder pop up will be shown at time set.\n"
+                    + "Format: schedule";
+        } else if (instruction.equals("search_begin")) {
+            return "Search for words with their prefix.\n"
+                    + "Format: search_begin w/d";
         } else {
-            return "Here are the instructions for WordUp.\n"
-                    + "add, delete, edit, exit, freq, help, history, list, search, tag, quiz\n"
-                    + "Enter \"help [instruction]\" for more details.";
+            return "Here are the commands for WordUp.\n"
+                    + "add, delete, edit, exit, freq, help, history, list,"
+                    + " schedule, search, search_begin, tag, addsyn, quiz\n"
+                    + "Enter \"help [command]\" for more details.";
         }
     }
 

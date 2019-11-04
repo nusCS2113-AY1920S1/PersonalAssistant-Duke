@@ -1,10 +1,11 @@
 package scene;
 
-import command.SetReminderCommand;
 import dictionary.Bank;
 import command.Command;
-import dictionary.WordCount;
 import exception.WordUpException;
+import javafx.event.EventHandler;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import parser.Parser;
 import ui.Ui;
@@ -27,13 +28,14 @@ public abstract class NewScene {
     protected Button sendButton;
     protected Scene scene;
     protected AnchorPane layout;
-    protected Image user = new Image(this.getClass().getResourceAsStream("/images/user.jpg"));
-    protected Image duke = new Image(this.getClass().getResourceAsStream("/images/duke.jpg"));
+    protected Image user = new Image(this.getClass().getResourceAsStream("/images/girl.png"));
+    protected Image duke = new Image(this.getClass().getResourceAsStream("/images/robot.png"));
     protected Ui ui;
     protected Bank bank;
     protected Storage storage;
     protected String greet;
     protected Stage window;
+    protected String previousInput = "";
 
     public NewScene() {
 
@@ -54,8 +56,10 @@ public abstract class NewScene {
         this.ui = ui;
         this.bank = bank;
         this.storage = storage;
-        scrollPane = new ScrollPane();
+
         dialogContainer = new VBox();
+
+        scrollPane = new ScrollPane();
         scrollPane.setContent(dialogContainer);
 
         userInput = new TextField();
@@ -107,6 +111,7 @@ public abstract class NewScene {
     protected void setupHandleInput() {
         sendButton.setOnMouseClicked((event) -> {
             try {
+                this.previousInput = userInput.getText();
                 handleUserInput();
             } catch (WordUpException e) {
                 resolveException(e);
@@ -115,12 +120,19 @@ public abstract class NewScene {
 
         userInput.setOnAction((event) -> {
             try {
+                this.previousInput = userInput.getText();
                 handleUserInput();
             } catch (WordUpException e) {
                 resolveException(e);
             }
         });
 
+        userInput.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.UP) {
+                userInput.setText(previousInput);
+                userInput.positionCaret(previousInput.length());
+            }
+        });
     }
 
     protected void handleUserInput() throws WordUpException {

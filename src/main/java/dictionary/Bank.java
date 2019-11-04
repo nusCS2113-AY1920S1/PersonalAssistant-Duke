@@ -11,8 +11,9 @@ import java.util.HashSet;
 import java.util.TreeMap;
 
 public class Bank {
-    private WordBank wordBank;
-    private TagBank tagBank;
+    WordBank wordBank;
+    TagBank tagBank;
+    SynonymBank synonymBank;
     WordCount wordCount;
 
     /**
@@ -21,6 +22,7 @@ public class Bank {
     public Bank() {
         wordBank = new WordBank();
         tagBank = new TagBank();
+        synonymBank = new SynonymBank();
         wordCount = new WordCount(wordBank);
     }
 
@@ -31,6 +33,7 @@ public class Bank {
     public Bank(Storage storage) {
         wordBank = new WordBank(storage);
         tagBank = new TagBank();
+        synonymBank = new SynonymBank();
         wordCount = new WordCount(wordBank);
     }
 
@@ -89,6 +92,7 @@ public class Bank {
     public void addWordToBank(Word word) throws WordAlreadyExistsException {
         wordBank.addWord(word);
         tagBank.addWordToAllTags(word);
+        synonymBank.addWordAllSynonyms(word);
         wordCount.addWord(word);
     }
 
@@ -100,6 +104,7 @@ public class Bank {
     public void deleteWordFromBank(Word word) throws NoWordFoundException {
         wordBank.deleteWord(word);
         tagBank.deleteWordAllTags(word);
+        synonymBank.deleteWordAllSynonyms(word);
         wordCount.deleteWord(word);
     }
 
@@ -121,6 +126,26 @@ public class Bank {
                            ArrayList<String> deletedTags, ArrayList<String> nullTags) {
         wordBank.deleteTags(deletedWord, tags, deletedTags, nullTags);
         tagBank.deleteWordSomeTags(deletedTags, deletedWord);
+    }
+
+    /**
+     * Adds a list of synonyms to a word in WordBank and adds the word to each of the synonyms.
+     * @param wordDescription word to be added tag
+     * @param synonyms list of tags to add
+     * @return all synonyms of the word after adding to show to user
+     * @throws NoWordFoundException if the word doesn't exist in the WordBank
+     * @author Ng Jian Wei
+     */
+    public HashSet<String> addSynonym(String wordDescription, ArrayList<String> synonyms) throws NoWordFoundException {
+        HashSet<String> synonymHashSet = wordBank.addSynonym(wordDescription, synonyms);
+        synonymBank.addSynonym(wordDescription, synonyms);
+        return synonymHashSet;
+    }
+
+    public void deleteSynonyms(String deletedWord, ArrayList<String> synonyms,
+                               ArrayList<String> deletedSynonyms, ArrayList<String> nullSynonyms) {
+        wordBank.deleteSynonyms(deletedWord, synonyms, deletedSynonyms, nullSynonyms);
+        synonymBank.deleteWordSomeSynonyms(deletedSynonyms, deletedWord);
     }
 
     public void editWordMeaning(String editedWord, String newMeaning) throws NoWordFoundException {

@@ -1,9 +1,8 @@
 package storage;
 
+import dictionary.Bank;
 import dictionary.TagBank;
 import dictionary.Word;
-import dictionary.Bank;
-
 import dictionary.WordBank;
 import exception.WordAlreadyExistsException;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
@@ -19,17 +18,15 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.BufferedReader;
-import java.io.FileInputStream;
 import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.FileWriter;
-
 import java.io.IOException;
-
 import java.util.Iterator;
 import java.util.Stack;
 import java.util.TreeMap;
