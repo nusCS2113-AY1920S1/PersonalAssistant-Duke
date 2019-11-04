@@ -28,6 +28,8 @@ public class RoomShareException extends Exception {
     public static final String LEAVE_DONE = "\tLeave cannot be set to done\n";
     public static final String INVALID_INPUT_TEXT = "\tYour input String seems to be wrong.\n"
             +"\tPlease check your formatting and ensure that the use of special characters are correct!\n";
+    public static final String LOAD_ERROR_MESSAGE = "\terror in loading file: will be initialising empty list instead!\n";
+    public static final String INVALID_DATE_MESSAGE = "\tThe date you've input is before the current date!\n";
 
 
     private String message;
@@ -128,7 +130,11 @@ public class RoomShareException extends Exception {
             break;
 
         case loadError:
-            message = "\terror in loading file: will be initialising empty list instead!\n";
+            message = LOAD_ERROR_MESSAGE;
+            break;
+
+        case invalidDateError:
+            message = INVALID_DATE_MESSAGE;
             break;
 
         default:

@@ -309,6 +309,7 @@ public class RoomShare {
 
             default:
                 Ui.clearScreen();
+                ui.startUp();
                 listRoutine.list();
                 ui.showCommandError();
                 storage.writeFile(TaskList.currentList(), "data.txt");
