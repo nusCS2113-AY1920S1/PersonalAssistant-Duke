@@ -174,7 +174,6 @@ public class Ui extends AnchorPane {
         }
     }
 
-
     private void addToList(ListBox listBox) {
         listContainer.getChildren().addAll(listBox);
     }
