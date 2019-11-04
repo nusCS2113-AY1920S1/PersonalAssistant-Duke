@@ -9,14 +9,12 @@ import dolla.task.Record;
 import dolla.task.Bill;
 import dolla.ui.StorageUi;
 import dolla.ui.Ui;
+import dolla.task.Shortcut;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-//import java.io.InputStream;
-//import java.io.FileInputStream;
-//import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 public class StorageRead extends Storage {
@@ -67,9 +65,9 @@ public class StorageRead extends Storage {
                     newRecord = new Debt(BORROW, inArray[1], stringToDouble(inArray[2]), inArray[3],
                             Time.readDate(inArray[4]));
                     break;
-                //case SHORTCUT: //special case for shortcut,only one string
-                //newRecord = new shortcut(inArray[1]);
-                //break;
+                case SHORTCUT:
+                newRecord = new Shortcut(inArray[1], stringToDouble(inArray[2]),inArray[3]);
+                break;
                 case BILL_TYPE:
                     ArrayList<String> temp = new ArrayList<String>();
                     String [] names = inArray[4].split(", ");

@@ -4,6 +4,8 @@ import dolla.task.Record;
 
 import java.util.ArrayList;
 
+import static dolla.ModeStringList.MODE_SHORTCUT;
+
 /**
  * duke.Ui is a class that handles all interactions to the user.
  */
@@ -129,15 +131,9 @@ public abstract class Ui {
         System.out.println(line);
         System.out.println("\tGot it. I've added this " + currRecord.getRecordType() + ": ");
         System.out.println("\t" + currRecord.getRecordDetail());
-        System.out.println(line);
-    }
-
-    /**
-     * Prints an error message when date in not in the format 'DD/MM/YYYY HHmm'.
-     */
-    public static void printDateTimeFormatError() {
-        System.out.println(line);
-        System.out.println("\tPlease use the format 'DD/MM/YYYY HHmm'!");
+        if (currRecord.getRecordType().equals(MODE_SHORTCUT)) {
+            System.out.println("\tYou can switch to shortcut mode to view your list of shortcuts!");
+        }
         System.out.println(line);
     }
 
@@ -242,6 +238,20 @@ public abstract class Ui {
             System.out.printf("%c",message.charAt(i));
             sleep(10);
         }
+    }
+
+    /**
+     * This method will print the error message if user is trying trying to remove a non-existing record.
+     * @param number the total number of record.
+     */
+    public static void printNumberOfRecords(int number) {
+        System.out.println(line);
+        System.out.println("\tSorry, you only have " + number + " record(s).");
+        System.out.println(line);
+    }
+
+    public static void printDateRequest() {
+        System.out.println("\tPlease enter your new entry date in the format 'DD/MM/YYYY'");
     }
 
 }

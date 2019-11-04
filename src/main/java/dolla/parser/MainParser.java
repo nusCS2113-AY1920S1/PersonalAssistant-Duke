@@ -48,6 +48,9 @@ public class MainParser implements ParserStringList, ModeStringList {
         case MODE_LIMIT:
             LimitParser limitParser = new LimitParser(inputLine);
             return limitParser.parseInput();
+        case MODE_SHORTCUT:
+            ShortcutParser shortcutParser = new ShortcutParser(inputLine);
+            return shortcutParser.parseInput();
         case MODE_MODIFY_ENTRY:
         case MODE_MODIFY_LIMIT:
         case MODE_MODIFY_DEBT:

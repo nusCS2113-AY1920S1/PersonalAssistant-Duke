@@ -18,6 +18,7 @@ public abstract class Record {
     protected static final String RECORD_ENTRY = "entry";
     protected static final String RECORD_LIMIT = "limit";
     protected static final String RECORD_DEBT = "debt";
+    protected static final String RECORD_SHORTCUT = "shortcut";
 
     protected String duration;
 

@@ -44,13 +44,8 @@ public class RemoveCommand extends Command {
      */
     @Override
     public void execute(DollaData dollaData) {
-        int logNumInt;
+        int recordNumInt;
         ArrayList<Record> recordList = dollaData.getRecordList(mode);
-        boolean isListEmpty = (recordList.size() == 0);
-
-        if (isListEmpty) {
-            return; // TODO: return error command
-        }
         try {
             if (mode.equals(MODE_ENTRY)) {
                 UndoStateList.addState(new EntryState(recordList), mode);
@@ -60,11 +55,12 @@ public class RemoveCommand extends Command {
                 UndoStateList.addState(new LimitState(recordList), mode);
             }
             Redo.clearRedoState(mode);
-            logNumInt = stringToInt(logNumStr) - 1;
-            RemoveUi.echoRemove(recordList.get(logNumInt).getRecordDetail());
-            dollaData.removeFromRecordList(mode, logNumInt);
+            recordNumInt = stringToInt(logNumStr) - 1;
+            Record record = recordList.get(recordNumInt);
+            RemoveUi.echoRemove(record.getRecordDetail());
+            dollaData.removeFromRecordList(mode, recordNumInt);
         } catch (IndexOutOfBoundsException e) {
-            RemoveUi.printRemoveError(recordList.size());
+            RemoveUi.printNumberOfRecords(recordList.size());
         }
     }
 
