@@ -316,6 +316,10 @@ public class TaskCreator {
             assignment.setPriority(priority);
             assignment.setAssignee(assignee);
             assignment.setRecurrenceSchedule(recurrence);
+            if(remind) {
+                TaskReminder taskReminder = new TaskReminder(description, duration);
+                taskReminder.start();
+            }
             return assignment;
         } else if (type.equals("leave")) {
             String user;

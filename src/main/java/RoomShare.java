@@ -16,6 +16,7 @@ public class RoomShare {
     private Ui ui;
     private Storage storage;
     private TaskList taskList;
+    private TaskList doneTaskList;
     private Parser parser;
     private RecurHandler recurHandler;
     private TempDeleteList tempDeleteList;
@@ -58,9 +59,9 @@ public class RoomShare {
     public void run() throws RoomShareException, IOException, InterruptedException {
         boolean isExit = false;
         while (!isExit) {
-            String command = parser.getCommand();
             TaskType type;
             try {
+                String command = parser.getCommand();
                 type = TaskType.valueOf(command);
             } catch (IllegalArgumentException e) {
                 type = TaskType.others;
@@ -304,6 +305,17 @@ public class RoomShare {
                 } catch (RoomShareException e) {
                     ui.showError(e);
                     storage.writeFile(TaskList.currentList(), "data.txt");
+                }
+                break;
+
+            case overdue:
+                Ui.clearScreen();
+                ui.startUp();
+                listRoutine.list();
+                try {
+                    taskList.showOverdue();
+                } catch (RoomShareException e) {
+                    ui.showError(e);
                 }
                 break;
 

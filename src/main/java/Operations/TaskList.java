@@ -74,7 +74,10 @@ public class TaskList {
         if( tasks.size() != 0 ){
             int listCount = 1;
             for (Task output : tasks) {
-                if( !output.getDone() ) {
+                if(new Date().after(output.getDate())) {
+                    output.setOverdue(true);
+                }
+                if( !output.getDone() && !output.getOverdue()) {
                     System.out.println("\t" + listCount + ". " + output.toString());
                     if( output instanceof Assignment && !(((Assignment) output).getSubTasks() == null) ) {
                         ArrayList<String> subTasks = ((Assignment) output).getSubTasks();
@@ -116,6 +119,27 @@ public class TaskList {
         }
     }
 
+    public void showOverdue() throws RoomShareException {
+        sortTasks();
+        System.out.println("Overdue Tasks:");
+        if( tasks.size() != 0 ){
+            int listCount = 1;
+            for (Task output : tasks) {
+                if( output.getOverdue() ) {
+                    System.out.println("\t" + listCount + ". " + output.toString());
+                    if( output instanceof Assignment && !(((Assignment) output).getSubTasks() == null) ) {
+                        ArrayList<String> subTasks = ((Assignment) output).getSubTasks();
+                        for(String subtask : subTasks) {
+                            System.out.println("\t" + "\t" + "- " + subtask);
+                        }
+                    }
+                    listCount += 1;
+                }
+            }
+        } else {
+            throw new RoomShareException(ExceptionType.emptyList);
+        }
+    }
 
     /**
      * Sets a task in the list as 'done' to mark that the user has completed the task.
@@ -334,7 +358,13 @@ public class TaskList {
      * @return the number of tasks inside the task list
      */
     public int getSize() {
-        return tasks.size();
+        int count =0;
+        for(Task t : tasks) {
+            if(!t.getOverdue()) {
+                count += 1;
+            }
+        }
+        return count;
     }
 
     /**
@@ -344,7 +374,7 @@ public class TaskList {
     public int getDoneSize(){
         int count = 0;
         for (Task t: tasks){
-            if (t.getDone()) count++;
+            if (t.getDone() && !t.getOverdue()) count++;
         }
         return count;
     }
