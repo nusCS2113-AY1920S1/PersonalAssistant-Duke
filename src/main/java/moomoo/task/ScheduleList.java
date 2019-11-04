@@ -33,9 +33,9 @@ public class ScheduleList {
      */
     public String showSchedule(String date) {
         String output =
-                ".__________________________.\n" +
-                "|Outstanding Payment Today |\n" +
-                "|--------------------------|\n";
+                ".__________________________.\n"
+                + "|Outstanding Payment Today |\n"
+                + "|--------------------------|\n";
         if (date.length() < 8) {
             date = "0" + date;
         }
@@ -43,18 +43,18 @@ public class ScheduleList {
             for (String n : calendar.get(date)) {
                 String[] amount = n.split(" ");
                 int index = amount.length - 1;
-                String BLANKS = " ";
+                String blanks = " ";
                 n = n.replaceAll("[0-9]","");
                 int blank = 19 - n.length();
                 for (int i = 1; i <= blank; i++) {
-                    BLANKS += " ";
+                    blanks += " ";
                 }
-                String BLANK2 = " ";
+                String blank2 = " ";
                 blank = 4 - amount[index].length();
                 for (int i = 1; i <= blank; i++) {
-                    BLANK2 += " ";
+                    blank2 += " ";
                 }
-                output += "|" + n + BLANKS + "|" + amount[index] + BLANK2 + "|\n";
+                output += "|" + n + blanks + "|" + amount[index] + blank2 + "|\n";
             }
         }
         output += ".--------------------------.\n";

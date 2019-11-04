@@ -150,21 +150,21 @@ public class Ui {
      * @param categoryName name of the new category
      */
     public void showNewCategoryMessage(String categoryName) {
-        String BLANK_SPACE = " ";
+        String blankSpace = " ";
         int blanks = 18 - categoryName.length();
-        for (int i = 0; i<blanks; i++) {
-            BLANK_SPACE += " ";
+        for (int i = 0; i < blanks; i++) {
+            blankSpace += " ";
         }
         String output =
-                " _________________________________________________\n" +
-                "/ Mooo.                                           \\\n" +
-                "\\ New category named : " + categoryName + " added. " + BLANK_SPACE + "/\n" +
-                " -------------------------------------------------\n" +
-                "        \\   ^__^\n" +
-                "         \\  (oo)\\_______\n" +
-                "            (__)\\       )\\/\\\n" +
-                "                ||----w |\n" +
-                "                ||     ||\n";
+                " _________________________________________________\n"
+                + "/ Mooo.                                           \\\n"
+                + "\\ New category named : " + categoryName + " added. " + blankSpace + "/\n"
+                + " -------------------------------------------------\n"
+                + "        \\   ^__^\n"
+                + "         \\  (oo)\\_______\n"
+                + "            (__)\\       )\\/\\\n"
+                + "                ||----w |\n"
+                + "                ||     ||\n";
         print(output);
     }
 
@@ -214,27 +214,27 @@ public class Ui {
      * @param categoryName name of the new expenditure
      */
     public void showNewExpenditureMessage(String expenditureName, String categoryName) {
-        String BLANK_SPACE = " ";
+        String blankSpace = " ";
         int blanks = 18 - expenditureName.length();
         for (int i = 0; i < blanks; i++) {
-            BLANK_SPACE += " ";
+            blankSpace += " ";
         }
-        String BLANK2 = " ";
+        String blank2 = " ";
         blanks = 32 - categoryName.length();
-        for(int i = 0; i < blanks; i++) {
-            BLANK2 += " ";
+        for (int i = 0; i < blanks; i++) {
+            blank2 += " ";
         }
         String output =
-                "  _________________________________________________\n" +
-                        " / Mooo.                                           \\\n" +
-                        "|  New expenditure named : " + expenditureName + " added" + BLANK_SPACE + "|\n" +
-                        " \\ To category : " + categoryName + "." + BLANK2 + "/\n" +
-                        "  -------------------------------------------------\n" +
-                        "        \\   ^__^\n" +
-                        "         \\  (oo)\\_______\n" +
-                        "            (__)\\       )\\/\\\n" +
-                        "                ||----w |\n" +
-                        "                ||     ||\n";
+                "  _________________________________________________\n"
+                + " / Mooo.                                           \\\n"
+                + "|  New expenditure named : " + expenditureName + " added" + blankSpace + "|\n"
+                + " \\ To category : " + categoryName + "." + blank2 + "/\n"
+                + "  -------------------------------------------------\n"
+                + "        \\   ^__^\n"
+                + "         \\  (oo)\\_______\n"
+                + "            (__)\\       )\\/\\\n"
+                + "                ||----w |\n"
+                + "                ||     ||\n";
         print(output);
     }
 
@@ -267,17 +267,17 @@ public class Ui {
      */
     public void showMonthlyTotal(double monthlyTotal, Category category, int month) {
         String cow =
-                ".__________________________________.\n" +
-                "|Month : " + month + "blank" + "|\n" +
-                "|Category : " + category.toString() + "|\n" +
-                "|                                  |\n" +
-                "|Total spending : $" + monthlyTotal + "|\n" +
-                ".----------------------------------.\n" +
-                "        \\   ^__^\n" +
-                "         \\  (oo)\\_______\n" +
-                "            (__)\\       )\\/\\\n" +
-                "                ||----w |\n" +
-                "                ||     ||\n";
+                ".__________________________________.\n"
+                + "|Month : " + month + "blank" + "|\n"
+                + "|Category : " + category.toString() + "|\n"
+                + "|                                  |\n"
+                + "|Total spending : $" + monthlyTotal + "|\n"
+                + ".----------------------------------.\n"
+                + "        \\   ^__^\n"
+                + "         \\  (oo)\\_______\n"
+                + "            (__)\\       )\\/\\\n"
+                + "                ||----w |\n"
+                + "                ||     ||\n";
 
         print(cow);
     }

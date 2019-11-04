@@ -58,31 +58,31 @@ public class ScheduleCommand extends Command {
         } else {
             calendar.addToCalendar(date, task);
         }
-        String BLANK = " ";
+        String blankSpace = " ";
         int blank = 31 - date.length();
         for (int j = 1; j <= blank; j++) {
-            BLANK += " ";
+            blankSpace += " ";
         }
-        String BLANK2 = " ";
+        String blank2 = " ";
         blank = 23 - task.length();
         for (int j = 0; j < blank; j++) {
-            BLANK2 += " ";
+            blank2 += " ";
         }
         String cow =
-                "._______________________________________.\n" +
-                "| ___  ___ _  _ ___ ___  _   _ _    ___ |\n" +
-                "|/ __|/ __| || | __|   \\| | | | |  | __||\n" +
-                "|\\__ \\ (__| __ | _|| |) | |_| | |__| _| |\n" +
-                "||___/\\___|_||_|___|___/ \\___/|____|___||\n" +
-                "|                                       |\n" +
-                "|Date : " + date + BLANK + "|\n" +
-                "|Task : " + task + " dollars" + BLANK2 + "|\n" +
-                ".---------------------------------------.\n" +
-                "        \\   ^__^\n" +
-                "         \\  (oo)\\_______\n" +
-                "            (__)\\       )\\/\\\n" +
-                "                ||----w |\n" +
-                "                ||     ||\n";
+                "._______________________________________.\n"
+                + "| ___  ___ _  _ ___ ___  _   _ _    ___ |\n"
+                + "|/ __|/ __| || | __|   \\| | | | |  | __||\n"
+                + "|\\__ \\ (__| __ | _|| |) | |_| | |__| _| |\n"
+                + "||___/\\___|_||_|___|___/ \\___/|____|___||\n"
+                + "|                                       |\n"
+                + "|Date : " + date + blankSpace + "|\n"
+                + "|Task : " + task + " dollars" + blank2 + "|\n"
+                + ".---------------------------------------.\n"
+                + "        \\   ^__^\n"
+                + "         \\  (oo)\\_______\n"
+                + "            (__)\\       )\\/\\\n"
+                + "                ||----w |\n"
+                + "                ||     ||\n";
         ui.setOutput(cow);
         storage.saveScheduleToFile(calendar);
     }

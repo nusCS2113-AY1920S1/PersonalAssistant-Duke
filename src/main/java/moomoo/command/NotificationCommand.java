@@ -40,29 +40,29 @@ public class NotificationCommand extends Command {
                     + ".\n";
         }
         int blank = 47 - alert.length();
-        String BLANK_SPACE = " ";
+        String blankSpace = " ";
         for (int i = 0; i < blank; i++) {
-            BLANK_SPACE += " ";
+            blankSpace += " ";
         }
         double balance = budget.getBudgetFromCategory(cat) - expenditure;
         blank = 28 - String.valueOf(balance).length();
-        String BLANK2 = " ";
+        String blank2 = " ";
         for (int i = 0; i < blank; i++) {
-            BLANK2 += " ";
+            blank2 += " ";
         }
         String colour = ANSI_RED;
         if (alert.length() < 1) {
             colour = ANSI_GREEN;
         }
-        String cow = colour +
-                "                     .-------------------------------------------------.\n" +
-                "  ,/         \\,      |  __  __  ___   ___                              |\n" +
-                " ((__,-\"\"\"-,__))     | |  \\/  |/ _ \\ / _ \\                             |\n" +
-                " .-'(       )`-,     | | |\\/| | (_) | (_) |                            |\n" +
-                " `~~` d\\ /b `~~`     | |_|  |_|\\___/ \\___/                             |\n" +
-                "     |     |         | " + alert + BLANK_SPACE + "|\n" +
-                "     (6___6)         | " + "Budget remaining : " + balance + BLANK2 + "|\n" +
-                "      `---`          .-------------------------------------------------." + ANSI_RESET;
+        String cow = colour
+                + "                     .-------------------------------------------------.\n"
+                + "  ,/         \\,      |  __  __  ___   ___                              |\n"
+                + " ((__,-\"\"\"-,__))     | |  \\/  |/ _ \\ / _ \\                             |\n"
+                + " .-'(       )`-,     | | |\\/| | (_) | (_) |                            |\n"
+                + " `~~` d\\ /b `~~`     | |_|  |_|\\___/ \\___/                             |\n"
+                + "     |     |         | " + alert + blankSpace + "|\n"
+                + "     (6___6)         | " + "Budget remaining : " + balance + blank2 + "|\n"
+                + "      `---`          .-------------------------------------------------." + ANSI_RESET;
 
         ui.setOutput(cow);
     }
