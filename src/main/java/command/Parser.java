@@ -34,12 +34,12 @@ public class Parser {
      * @return Returns boolean variable to indicate when to stop parsing for input.
      * @throws AlphaNUSException if input is not valid.
      */
-
     public static boolean parse(String input, TaskList tasklist, Ui ui, Fund fund, 
         Storage storage, ArrayList<String> commandList) {
         try {
             if (instr.isBye(input)) {
                 storage.writeToProjectsFile(process.projectmanager.projectmap);
+                storage.writeToFundFile(fund);
                 ui.byeMessage();
                 ui.getIn().close();
                 return true;
@@ -53,7 +53,7 @@ public class Parser {
                 process.listProjects(ui);
             } else if (instr.isAddProject(input)) {
                 //process.commandHistory(input, ui, storage);
-                process.addProject(input, ui);
+                process.addProject(input, ui, fund);
             } else if (instr.isDeleteProject(input)) {
                 process.deleteProject(input, ui);
                 //process.commandHistory(input, ui, storage);

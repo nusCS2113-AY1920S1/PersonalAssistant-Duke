@@ -27,11 +27,11 @@ public class AlphaNUS {
     /**
      * Creates a AlphaNUS instance and initialises the required attributes.
      */
-    public AlphaNUS() {
+    public AlphaNUS() throws AlphaNUSException {
         ui = new Ui();
         storage = new Storage();
         tasklist = new TaskList();
-        fund = new Fund(); //TODO the fund need to be stored in the text file.
+        fund = storage.readFromFundFile();
         //commandList = storage.load(); TODO
 
     }
@@ -39,11 +39,12 @@ public class AlphaNUS {
     /**
      * Method to run the AlphaNUS instance and take in the inputs of the user.
      */
-    public void run() throws AlphaNUSException {
+    public void run() {
         ui.startMessage();
 
         boolean isExit = false;
         while (!isExit) {
+
             String input = ui.readInput();
             isExit = Parser.parse(input, tasklist, ui, fund, storage, commandList);
         }

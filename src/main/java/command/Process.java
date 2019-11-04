@@ -1,6 +1,7 @@
 package command;
 
 import common.AlphaNUSException;
+import common.CommandFormat;
 import common.TaskList;
 import payment.Payee;
 import payment.PaymentManager;
@@ -23,10 +24,11 @@ import java.util.HashMap;
 import java.util.Calendar;
 
 public class Process {
-    public SimpleDateFormat dataformat = new SimpleDateFormat("dd/MM/yyyy HHmm");
+    private SimpleDateFormat dataformat = new SimpleDateFormat("dd/MM/yyyy HHmm");
+    private CommandFormat commandformat = new CommandFormat();
     ProjectManager projectmanager = new ProjectManager();
 
-    public Process() throws AlphaNUSException {
+    Process() throws AlphaNUSException {
     }
 
     /**
@@ -75,7 +77,7 @@ public class Process {
      * @param ui Ui that interacts with the user.
      * @return
      */
-    public void addProject(String input, Ui ui) {
+    public void addProject(String input, Ui ui, Fund fund) {
         try {
             String[] splitproject = input.split("pr/", 2);
             splitproject = cleanStrStr(splitproject);
@@ -86,7 +88,7 @@ public class Process {
             //input validity check
             if (splitamount.length != 2) {
                 System.out.println("\t" + "Incorrect input");
-                System.out.println("\t" + "Correct Format: add project pr/PROJECT_NAME am/AMOUNT_OF_FUND");
+                System.out.println("\t" + "Correct Format: " + commandformat.addProjectFormat());
                 return;
             }
 
@@ -95,7 +97,7 @@ public class Process {
 
             if (projectname.isEmpty()) {
                 System.out.println("\t" + "Project name cannot be empty!");
-                System.out.println("\t" + "Correct Format: add project pr/PROJECT_NAME am/AMOUNT_OF_FUND");
+                System.out.println("\t" + "Correct Format: " + commandformat.addProjectFormat());
                 return;
             } //TODO refactor
             if (projectmanager.projectmap.containsKey(projectname)) {
@@ -109,9 +111,14 @@ public class Process {
                 ui.printAddProject(newProject, projectsize);
             } else {
                 double projectamount = Double.parseDouble(inputamount);
-                Project newProject = projectmanager.addProject(projectname, projectamount);
-                int projectsize = projectmanager.projectmap.size();
-                ui.printAddProject(newProject, projectsize);
+                if (fund.getFundRemaining() >= projectamount) {
+                    fund.takeFund(projectamount);
+                    Project newProject = projectmanager.addProject(projectname, projectamount);
+                    int projectsize = projectmanager.projectmap.size();
+                    ui.printAddProject(newProject, projectsize);
+                } else {
+                    ui.exceptionMessage("\t" + "Not enough funds");
+                }
             }
         } catch (NumberFormatException e) {
             ui.exceptionMessage("\t" + "Amount of funds should be a number!");
@@ -129,7 +136,7 @@ public class Process {
         split = cleanStrStr(split);
         if (split.length != 2) {
             System.out.println("\t" + "Incorrect input");
-            System.out.println("\t" + "Correct Format: delete project pr/PROJECT_NAME");
+            System.out.println("\t" + "Correct Format: " + commandformat.deleteProjectFormat());
             return;
         } //TODO refactor
         
@@ -225,7 +232,7 @@ public class Process {
 
     /**
      * Process the add fund command to add fund value to specific project
-     * Command Format: assign fund p/PROJECT_NAME am/AMOUNT_OF_FUND.
+     * Command Format: assign fund pr/PROJECT_NAME am/AMOUNT_OF_FUND.
      * @param input Input from the user.
      * @param ui Ui that interacts with the user.
      * @param fund the total fund the that the organisation owns
@@ -540,7 +547,7 @@ public class Process {
     }
 */
     /**
-     * Processes the edit command, amends the data of a payee or payment already exisiting in the records.
+     * Processes the edit command, amends the data of a payee or payment already existing in the records.
      * INPUT FORMAT: edit p/PAYEE v/INVOICE f/FIELD r/REPLACEMENT
      * @param input Input from the user.
      * @param ui Ui that interacts with the user.

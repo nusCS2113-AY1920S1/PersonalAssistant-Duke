@@ -46,6 +46,10 @@ public class Ui {
         System.out.print(line);
     }
 
+    public void HomePageMessage() {
+
+    }
+
     /**
      * Prints ending message for the AlphaNUS program.
      */
@@ -421,12 +425,13 @@ public class Ui {
         System.out.println("\t" + "Delete Project:       " + commandFormat.deleteProjectFormat());
         System.out.println("\t" + "List Projects:        " + commandFormat.listProjectFormat());
         System.out.println("\t" + "Go to a Project:      " + commandFormat.gotoProjectFormat());
-        System.out.println("\t" + "Add Payee:            " + commandFormat.addPayeeFormat());
-        System.out.println("\t" + "Add Payment:          " + commandFormat.addPaymentFormat());
-        System.out.println("\t" + "Delete Payee:         " + commandFormat.deletePayeeFormat());
         System.out.println("\t" + "Set Fund:             " + commandFormat.setFundFormat());
         System.out.println("\t" + "Add Fund:             " + commandFormat.addFundFormat());
         System.out.println("\t" + "Assign Fund:          " + commandFormat.assignFundFormat());
+        System.out.println("\t" + "Add Payee:            " + commandFormat.addPayeeFormat());
+        System.out.println("\t" + "Add Payment:          " + commandFormat.addPaymentFormat());
+        System.out.println("\t" + "Delete Payee:         " + commandFormat.deletePayeeFormat());
+        System.out.println("\t" + "Edit Payment/Payee:   " + commandFormat.editPaymentFormat());
         System.out.println("\t" + "History of Commands:  " + commandFormat.historyFormat());
         System.out.println("\t" + "View History within a certain period:         " + commandFormat.viewhistoryFormat());
         System.out.println("\t" + "Exit:                 " + commandFormat.exitFormat());
