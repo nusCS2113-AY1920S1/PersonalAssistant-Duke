@@ -1,7 +1,6 @@
 package duke.logic.commands;
 
 import duke.commons.exceptions.NoSuchBusStopException;
-import duke.commons.exceptions.NullResultException;
 import duke.logic.commands.results.CommandResultText;
 import duke.model.Model;
 import duke.model.locations.BusStop;
