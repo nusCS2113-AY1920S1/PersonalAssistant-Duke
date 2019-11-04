@@ -21,7 +21,7 @@ public class RoomShareException extends Exception {
     public static final String WRONG_TIME_FORMAT_TEXT = "\tYou've entered an invalid time format\n";
     public static final String WRONG_SORT_TYPE_TEXT = "\tPlease enter a valid sort type: priority, alphabetical or deadline\n";
     public static final String LOG_ERROR_TEXT = "\tError writing to a new log file. Please try again.\n";
-    public static final String NEGATIVE_AMOUNT_TEXT = "\tThe amount of time to snooze a task cannot be negative.\n";
+    public static final String NEGATIVE_AMOUNT_TEXT = "\tThe amount of time cannot be negative.\n";
     public static final String EMPTY_SUB_TASK = "\tYou haven't included your list of sub-tasks\n";
     public static final String DUPLICATE_SUB = "\tDuplicate subtask detected\n";
     public static final String DUPLICATE_TASK = "\tDuplicate task detected\n";
