@@ -25,17 +25,17 @@ public class Duke {
     private OrderList order;
     private Fridge fridge;
 
+    private final String fridgeFilePath = "data/fridge.txt";
+    private final String orderFilePath = "data/order.txt";
+
     public enum Type {
         INGREDIENT, DISH, ORDER
     }
 
     /**
      * The constructor method for Duke.
-     *
-     * @param fridgeFilePath  used to specify the location of the fridge storage file in the hard disc.
-     * @param  orderFilePath used to specify the location of the order storage file in the hard disc.
      */
-    public Duke(String fridgeFilePath,  String orderFilePath) {
+    public Duke() {
         dish = new DishList();
         order = new OrderList();
         fridge = new Fridge();
@@ -203,8 +203,6 @@ public class Duke {
      * =============== MAIN FUNCTION ===============.
      */
     public static void main(String[] args) {
-        String fridgeFilePath = "data/fridge.txt";
-        String orderFilePath = "data/order.txt";
-        new Duke(fridgeFilePath, orderFilePath).run();
+        new Duke().run();
     }
 }
