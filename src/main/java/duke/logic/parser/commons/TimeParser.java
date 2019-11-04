@@ -7,7 +7,6 @@ import org.ocpsoft.prettytime.nlp.PrettyTimeParser;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 
 //@@author liujiajun
 /**
@@ -43,7 +42,7 @@ public class TimeParser {
 
     /**
      * Converts a string representing the date to a Date object.
-     *
+     * TODO: Update docs
      * @param str a string representing the date. Can be either in the format {@code MM/DD/yyyy HH:mm},
      *            or in natural language.
      *            for example, "10/30/1999 18:00" (in specified format),
@@ -52,10 +51,16 @@ public class TimeParser {
      * @throws ParseException if the string cannot be parsed into a date.
      */
     public static Date convertStringToDate(String str) throws ParseException {
-        List<Date> dates = prettyTimeParser.parse(str);
-        if (dates.isEmpty()) {
+        //List<Date> dates = prettyTimeParser.parse(str);
+        //if (dates.isEmpty()) {
+        //    throw new ParseException(Message.MESSAGE_INVALID_DATE);
+        //}
+        //return dates.get(0);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+        try {
+            return new SimpleDateFormat("dd/MM/yyyy HH:mm").parse(str.strip());
+        } catch (java.text.ParseException e) {
             throw new ParseException(Message.MESSAGE_INVALID_DATE);
         }
-        return dates.get(0);
     }
 }
