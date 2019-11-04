@@ -15,7 +15,7 @@ import java.util.Stack;
 
 public class EditCommand extends Command {
     /**
-     * This method will receive the user's input on which
+     * Receive the user's input on which
      * list index to edit and then receive another
      * user's input, checking he/she wants to edit the
      * task's description or time or both and

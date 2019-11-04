@@ -21,7 +21,6 @@ public class Gazeeebo {
      * @param args a String array that takes in input from the command line
      */
     public static void main(String[] args) throws IOException {
-
         ArrayList<Task> list;
         Stack<ArrayList<Task>> CommandStack = new Stack<ArrayList<Task>>();
         ArrayList<Task> deletedTask = new ArrayList<Task>();

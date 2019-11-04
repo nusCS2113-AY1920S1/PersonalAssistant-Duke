@@ -15,9 +15,10 @@ public class EditBothCommand {
     /**
      * This method will receive the user new description
      * and time and edit the old description and time in the list.
-     * @param list task lists
-     * @param ui the object that deals with printing things to the user.
-     * @param listIndex  the index of the list
+     *
+     * @param list      task lists
+     * @param ui        the object that deals with printing things to the user.
+     * @param listIndex the index of the list
      * @throws IOException
      */
     public EditBothCommand(final ArrayList<Task> list,

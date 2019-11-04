@@ -142,7 +142,7 @@ public class Ui {
     public static void showDeadlineDateFormatError() {
         System.out.println("Date Time has to be in YYYY-MM-DD HH:mm:ss format");
     }
-
+    /** */
     public static void showEventDateFormatError() {
         System.out.println("Date Time has to be in YYYY-MM-DD HH:mm:ss-HH:mm:ss format");
     }

@@ -25,7 +25,7 @@ public class TaskCommand extends Command {
     /**
      * Parses the user input and return a command object.
      *
-     * @param list
+     * @param list list of tasks
      * @param ui
      * @param storage
      * @param commandStack

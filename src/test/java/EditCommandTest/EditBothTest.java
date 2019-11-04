@@ -47,4 +47,5 @@ public class EditBothTest {
                         + "\n\tTo:   [E][ND]basketball trg (at:12 Dec 2019 09:00:00-11:00:00)\n",
                 output.toString());
     }
+
 }

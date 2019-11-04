@@ -16,8 +16,9 @@ public class EditDescriptionCommand {
     /**
      * This method will receive the user's
      * new description and edit the old description.
-     * @param list task lists
-     * @param ui the object that deals with printing things to the user.
+     *
+     * @param list      task lists
+     * @param ui        the object that deals with printing things to the user.
      * @param listIndex the index of the list
      * @throws IOException
      */

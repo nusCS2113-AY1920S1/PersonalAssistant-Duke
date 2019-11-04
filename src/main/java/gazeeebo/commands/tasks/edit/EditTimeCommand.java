@@ -1,4 +1,5 @@
 package gazeeebo.commands.tasks.edit;
+
 import gazeeebo.tasks.Deadline;
 import gazeeebo.tasks.Event;
 import gazeeebo.tasks.Task;
@@ -13,8 +14,9 @@ public class EditTimeCommand {
     /**
      * This method will receive the user's
      * new time and edit the old time in the list.
-     * @param list task lists
-     * @param ui the object that deals with printing things to the user.
+     *
+     * @param list        task lists
+     * @param ui          the object that deals with printing things to the user.
      * @param listnoIndex the index of the list
      * @throws IOException
      */

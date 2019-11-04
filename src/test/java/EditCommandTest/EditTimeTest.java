@@ -34,7 +34,7 @@ public class EditTimeTest {
         System.setOut(original);
     }
 
-    
+
     @Test
     void testEditTime() throws IOException {
         Deadline testd = new Deadline("tutorial homework", "2019-12-12 10:10:10");
