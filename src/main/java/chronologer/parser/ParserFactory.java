@@ -3,7 +3,9 @@ package chronologer.parser;
 import chronologer.command.Command;
 import chronologer.command.ExitCommand;
 import chronologer.command.ExportCommand;
+import chronologer.command.HelpCommand;
 import chronologer.command.ListCommand;
+import chronologer.command.ManualCommand;
 import chronologer.command.RedoCommand;
 import chronologer.command.StoreVersionCommand;
 import chronologer.command.UndoCommand;
@@ -98,6 +100,10 @@ public class ParserFactory {
             return new StoreVersionParser(userInput,command).parse();
         case "week":
             return new WeekParser(userInput,command).parse();
+        case "help":
+            return new HelpCommand();
+        case "manual":
+            return new ManualCommand();
         case "exam": //fallthrough
         case "examination":
             command = "exam";
