@@ -50,8 +50,8 @@ public class ParserStorageUtil {
         String address = taskParts[5].strip();
         double longitude = Double.parseDouble(taskParts[7].strip());
         double latitude = Double.parseDouble(taskParts[6].strip());
-        double distX = Double.parseDouble(taskParts[7].strip());
-        double distY = Double.parseDouble(taskParts[8].strip());
+        double distX = Double.parseDouble(taskParts[8].strip());
+        double distY = Double.parseDouble(taskParts[9].strip());
         return new Venue(address, latitude, longitude, distX, distY);
     }
 
