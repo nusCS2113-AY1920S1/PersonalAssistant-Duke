@@ -8,7 +8,7 @@ import mistermusik.commons.events.eventtypes.eventsubclasses.Concert;
 import mistermusik.commons.events.eventtypes.eventsubclasses.recurringeventsubclasses.Lesson;
 import mistermusik.commons.events.eventtypes.eventsubclasses.recurringeventsubclasses.Practice;
 import mistermusik.commons.events.eventtypes.eventsubclasses.ToDo;
-import mistermusik.commons.events.formatting.CalendarView;
+import mistermusik.ui.CalendarView;
 import mistermusik.commons.events.formatting.DateStringValidator;
 import mistermusik.commons.events.formatting.EventDate;
 import mistermusik.storage.*;
@@ -18,7 +18,6 @@ import mistermusik.commons.Goal;
 import mistermusik.ui.UI;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.logging.Logger;
 
