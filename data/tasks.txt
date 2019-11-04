@@ -1,28 +1,23 @@
 [
   {
-
     "name": "job A",
     "isDone": false,
     "memberList": [
       "P1"
-    ],
-    "skillReqList": []
+    ]
   },
   {
     "name": "job B",
-    "isDone": false,
+    "isDone": true,
     "memberList": [
-
       "P1"
-    ],
-    "skillReqList": []
+    ]
   },
   {
     "name": "job C",
     "isDone": false,
     "memberList": [
       "P1"
-    ],
-    "skillReqList": []
+    ]
   }
 ]

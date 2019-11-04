@@ -5,17 +5,14 @@
       "job A",
       "job B",
       "job C"
-    ],
-    "skillList": []
+    ]
   },
   {
     "name": "P2",
-    "taskList": [],
-    "skillList": []
+    "taskList": []
   },
   {
     "name": "P3",
-    "taskList": [],
-    "skillList": []
+    "taskList": []
   }
 ]
