@@ -15,7 +15,6 @@ import dolla.command.AddActionCommand;
 import dolla.command.RemoveCommand;
 import dolla.command.SearchCommand;
 import dolla.command.RemoveNameCommand;
-import dolla.task.BillList;
 import dolla.task.Debt;
 import dolla.task.RecordList;
 import dolla.ui.DebtUi;
