@@ -6,10 +6,12 @@ import java.util.ArrayList;
 import java.util.Optional;
 
 import duke.exception.DukeException;
+import duke.logic.AbnormalityChecker;
 import duke.logic.parser.DateTimeParser;
 import duke.logic.parser.KeywordAndField;
 import duke.storage.Storage;
 import duke.storage.UndoStack;
+import duke.task.Event;
 import duke.task.Task;
 import duke.tasklist.TaskList;
 import duke.ui.Ui;
@@ -27,8 +29,8 @@ public class EditCommand extends Command {
      * Finds the actual location of the task in the user TaskList using a given filter and index
      * keyword and fields include all new fields to be updated
      *
-     * @param filter filter for each task
-     * @param taskListIndex index of the task
+     * @param filter           filter for each task
+     * @param taskListIndex    index of the task
      * @param keywordAndFields keywords and corresponding fields to be updated
      */
     public EditCommand(Optional<String> filter, int taskListIndex, ArrayList<KeywordAndField> keywordAndFields) {
@@ -41,10 +43,10 @@ public class EditCommand extends Command {
      * Executes the editing process to change a task's attributes
      * Multiple attributes can be updated at once.
      *
-     * @param tasks TaskList of all of user's tasks
-     * @param ui Ui handling user interaction
+     * @param tasks   TaskList of all of user's tasks
+     * @param ui      Ui handling user interaction
      * @param storage Storage handling saving and loading of TaskList
-     * @throws IOException NA
+     * @throws IOException   NA
      * @throws DukeException if invalid user inputs are given
      */
     @Override
@@ -67,6 +69,14 @@ public class EditCommand extends Command {
                 break;
             case "t":
                 Optional<LocalDateTime> dateTime = Optional.of(DateTimeParser.parseDateTime(edit));
+                if (t instanceof Event) {
+                    AbnormalityChecker abnormalityChecker = new AbnormalityChecker(tasks);
+                    if (abnormalityChecker.checkEventClash((Event) t)) {
+                        throw new DukeException("There is a clash with another event at the same time");
+                    } else {
+                        t.setDateTime(dateTime);
+                    }
+                }
                 t.setDateTime(dateTime);
                 break;
             case "d":
@@ -91,7 +101,7 @@ public class EditCommand extends Command {
      * Adds a mirror command to top of the the UndoStack
      * Allows the user to undo this EditCommand call in the event of a mistake
      *
-     * @param tasks TaskList of all of user's tasks
+     * @param tasks     TaskList of all of user's tasks
      * @param undoStack UndoStack containing all mirror commands
      * @throws DukeException if invalid index is given
      */

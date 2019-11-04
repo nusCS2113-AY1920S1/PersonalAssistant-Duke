@@ -1,6 +1,5 @@
 package duke.logic.command;
 
-import javax.swing.*;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.Optional;
@@ -70,7 +69,7 @@ public class AddCommand extends Command {
             Event newEvent = new Event(filter, dateTime, recurrence, description, duration, priority);
             AbnormalityChecker abnormalityChecker = new AbnormalityChecker(tasks);
             if (abnormalityChecker.checkEventClash(newEvent)) {
-                System.out.println("There is a clash with another event at the same time");
+                throw new DukeException("There is a clash with another event at the same time");
             } else {
                 tasks.add(newEvent);
             }

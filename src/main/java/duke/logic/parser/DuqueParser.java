@@ -68,7 +68,7 @@ public class DuqueParser {
             return new ListCommand(fcArray[1], filter);
         case "delete":
             if (fcArray.length == 1) {
-                throw new DukeException("☹ OOPS!!! The description of delete cannot be empty.");
+                throw new DukeException("Please input an index of the task to be deleted!");
             }
             return new DeleteCommand(filter, fcArray[1]);
         case "find":
