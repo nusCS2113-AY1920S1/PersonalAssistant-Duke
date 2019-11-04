@@ -22,20 +22,41 @@ By: `Team CS2113T-F11-4`      Since: `Aug 2019`      Licence: `MIT`
 
 == Design
 === Overall Architecture
+image::Architecture main.png[width = 95%]
 There are three main components in the overall architecture of the application.
 
-`Duke` class: contains the `main()` class of the application.
-* Upon startup: a Welcome Message is printed (see section under Ui) data is loaded from the memory storage to the system.
-* Upon exit (when the user enters 'bye'): a Goodbye Message is printed (see section under Ui).
+=== Main component
+Main component has one class called `Duke`. It is responsible for the following: +
 
-`Events` Package: contains classes pertaining to the events.
-
-`UserElements` Package: contains classes pertaining to I/O and the interaction between user and system.
+. On startup: Initializes all components and sets up the correct file path so that the program correctly interacts
+with the external txt file.
+. During runtime: Acts as an intermediary between the `Parser` class and the `Command` class.
+. On shutdown: Interacts with the UI class to communicate the shutdown message to the user.
 
 === UI component
-=== Model component
+UI component contains all classes necessary to interact successfully with the user. The `Parser` parses input commands
+from the user whilst the `UI` class handles all necessary dissemination of information to the user through the terminal.
+
+=== Logic component
+This component contains all necessary classes that :
+
+. Are in charge of handling how all necessary information is internally stored within the program's runtime.
+. Alter the internally stored information whenever necessary (i.e when changes are made by the user).
+. Extract information requested by the user from the stored information and pass them back to the user through the UI
+component
+. This is achieved through the two classes `EventList` and `Command`. `EventList` decides how information is stored
+internally as well as how internal stored information is altered and/or extracted. `Command` commands the `EventList`
+class on what needs to be done at any point in time.
+
 === Storage component
-=== Common classes
+This component contains all necessary classes that read and write external txt files. This is where all information is
+stored while the program is not running. +
+In particular, the `Storage` class directly reads from and writes to and external txt file in the data directory.
+
+=== Commons
+This component represent all other low-level classes required for the program to function. +
+This includes classes like the `Event` class which is the abstract parent class for all the types of classes that
+represent the different types of events(`ToDo`, `Concert`, `Exam`, etc.) a user can input as an entry in the program.
 
 == Implementation
 This section describes some noteworthy details on how certain features are implemented.
