@@ -10,6 +10,16 @@ import moomoo.task.Storage;
 import moomoo.task.Ui;
 
 public class GraphCategoryCommand extends Command {
+    private static final String ANSI_RESET = "\u001B[0m";
+    private static final String ANSI_BLACK = "\u001B[30m";
+    private static final String ANSI_RED = "\u001B[31m";
+    private static final String ANSI_GREEN = "\u001B[32m";
+    private static final String ANSI_YELLOW = "\u001B[33m";
+    private static final String ANSI_BLUE = "\u001B[34m";
+    private static final String ANSI_PURPLE = "\u001B[35m";
+    private static final String ANSI_CYAN = "\u001B[36m";
+    private static final String ANSI_WHITE = "\u001B[37m";
+    
     private final String fullBlock = "\u2588"; //"H";
     private final String halfBlock = "\u258c"; //"l";
     private final String topBorder = "\u252c";//"v";
@@ -71,7 +81,12 @@ public class GraphCategoryCommand extends Command {
                 expenditureName = expenditureName.substring(0, 11) + "...";
 
             }
-            output = output + expenditureName;
+    
+            if (i % 2 == 0) {
+                output = output + ANSI_CYAN + expenditureName;
+            } else {
+                output = output + expenditureName;
+            }
             
             for (int j = 0; j < (cat.getLongestExpenditure() - expenditureName.length() + 1); j += 1) {
                 output += " ";
@@ -88,9 +103,12 @@ public class GraphCategoryCommand extends Command {
                 output = output + halfBlock;
             }
             output = output + "  " + roundToTwoDp(percentage) + "%\n";
+    
+            if (i % 2 == 0) {
+                output = output + ANSI_RESET;
+            }
         }
         output += topSpace + horizontalAxisBottom + "\n";
         ui.setOutput(output);
-        
     }
 }

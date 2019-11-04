@@ -11,6 +11,16 @@ import moomoo.task.Ui;
 import java.time.LocalDate;
 
 public class GraphTotalCommand extends Command {
+    private static final String ANSI_RESET = "\u001B[0m";
+    private static final String ANSI_BLACK = "\u001B[30m";
+    private static final String ANSI_RED = "\u001B[31m";
+    private static final String ANSI_GREEN = "\u001B[32m";
+    private static final String ANSI_YELLOW = "\u001B[33m";
+    private static final String ANSI_BLUE = "\u001B[34m";
+    private static final String ANSI_PURPLE = "\u001B[35m";
+    private static final String ANSI_CYAN = "\u001B[36m";
+    private static final String ANSI_WHITE = "\u001B[37m";
+    
     private final String fullBlock = "\u2588"; //"H";
     private final String halfBlock = "\u258c"; //"l";
     private final String topBorder = "\u252c";//"v";
@@ -46,6 +56,9 @@ public class GraphTotalCommand extends Command {
             horizontalAxisBottom += bottomBorder;
         }
         
+        horizontalAxisTop = ANSI_YELLOW + horizontalAxisTop + ANSI_RESET;
+        horizontalAxisBottom = ANSI_YELLOW + horizontalAxisBottom + ANSI_RESET;
+        
         String topSpace = "";
         for (int i = 0; i < catList.getLongestCategory(); i += 1) {
             topSpace += " ";
@@ -61,7 +74,12 @@ public class GraphTotalCommand extends Command {
             if (categoryName.length() > 14) {
                 categoryName = categoryName.substring(0, 11) + "...";
             }
-            output = output + categoryName;
+            
+            if (i % 2 == 0) {
+                output = output + ANSI_CYAN + categoryName;
+            } else {
+                output = output + categoryName;
+            }
             
             for (int j = 0; j < (catList.getLongestCategory() - categoryName.length() + 1); j += 1) {
                 output += " ";
@@ -76,6 +94,10 @@ public class GraphTotalCommand extends Command {
                 output = output + halfBlock;
             }
             output = output + "  " + percentage + "%\n";
+    
+            if (i % 2 == 0) {
+                output = output + ANSI_RESET;
+            }
         }
         output += topSpace + horizontalAxisBottom + "\n";
         ui.setOutput(output);
