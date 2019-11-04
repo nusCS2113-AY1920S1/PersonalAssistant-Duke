@@ -667,6 +667,7 @@ public class Process {
         commandList = storage.load();
         ArrayList<String> viewhistory = new ArrayList<String>();
         for(int i = 0; i < commandList.size() - 1; i = i + 1){
+            System.out.println(commandList.get(i));
             String token = null;
             String token1 = null;
             String[] splitdate_command = commandList.get(i).split("~",2);

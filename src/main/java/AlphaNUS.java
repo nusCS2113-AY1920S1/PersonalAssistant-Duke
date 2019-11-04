@@ -25,7 +25,7 @@ public class AlphaNUS {
      */
     public AlphaNUS() {
         ui = new Ui();
-        String filepath = "duke.txt";
+        String filepath = "data/duke.txt";
 
         storage = new Storage(filepath);
         tasklist = new TaskList();
