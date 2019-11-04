@@ -8,7 +8,6 @@ import moomoo.task.category.CategoryList;
 import moomoo.task.MooMooException;
 import moomoo.task.Parser;
 import moomoo.task.ScheduleList;
-import moomoo.task.SchedulePayment;
 import moomoo.task.Storage;
 import moomoo.task.Ui;
 
@@ -59,7 +58,7 @@ public class MooMoo {
             budget = new Budget(loadedBudget);
         }
 
-        ArrayList<SchedulePayment> scheduleList = storage.loadCalendar(ui);
+        HashMap<String, ArrayList<String>> scheduleList = storage.loadCalendar(ui);
         if (scheduleList == null) {
             ui.showResponse();
             calendar = new ScheduleList();

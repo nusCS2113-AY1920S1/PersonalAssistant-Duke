@@ -5,6 +5,8 @@ import moomoo.task.category.Expenditure;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Array;
+import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.text.DecimalFormat;
@@ -134,8 +136,8 @@ public class Storage {
      * Loads scheduled payments from file into an ArrayList object.
      * @return ArrayList object consisting of the scheduled payments read from the file
      */
-    public ArrayList<SchedulePayment> loadCalendar(Ui ui) {
-        ArrayList<SchedulePayment> scheduleArray = new ArrayList<>();
+    public HashMap<String, ArrayList<String>> loadCalendar(Ui ui) {
+        HashMap<String, ArrayList<String>> scheduleMap = new HashMap<>();
         try {
             if (Files.isRegularFile(Paths.get(this.scheduleFilePath))) {
                 List<String> input = Files.readAllLines(Paths.get(this.scheduleFilePath));
@@ -144,11 +146,18 @@ public class Storage {
                         String[] splitInput = s.split(" ", 2);
                         String date = splitInput[0].replace("d/","");
                         String task = splitInput[1].replace("n/", "");
-                        SchedulePayment day = new SchedulePayment(date, task);
-                        scheduleArray.add(day);
+                        if (scheduleMap.containsKey(date)) {
+                            ArrayList<String> tasks = scheduleMap.get(date);
+                            tasks.add(task);
+                            scheduleMap.replace(date, tasks);
+                        } else {
+                            ArrayList<String> newTasks = new ArrayList<>();
+                            newTasks.add(task);
+                            scheduleMap.put(date, newTasks);
+                        }
                     }
                 }
-                return scheduleArray;
+                return scheduleMap;
             } else {
                 ui.setOutput("Schedule File not found. New file will be created");
             }
@@ -253,8 +262,12 @@ public class Storage {
         createFileAndDirectory(this.scheduleFilePath);
 
         String list = "Schedule: \n";
-        for (SchedulePayment c : calendar.fullSchedule) {
-            list += "d/" + c.date + " n/" + c.tasks + "\n";
+        Iterator scheduleIterator = calendar.calendar.entrySet().iterator();
+        while (scheduleIterator.hasNext()) {
+            Map.Entry element = (Map.Entry)scheduleIterator.next();
+            for (String c : (ArrayList<String>)element.getValue()) {
+                list += "d/" + element.getKey() + " n/" + c + "\n";
+            }
         }
         try {
             Files.writeString(Paths.get(this.scheduleFilePath), list);
