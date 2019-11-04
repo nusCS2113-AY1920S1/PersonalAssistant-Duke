@@ -3,9 +3,10 @@ package duke;
 import duke.commons.exceptions.FileLoadFailException;
 import duke.commons.exceptions.FileNotSavedException;
 import duke.commons.exceptions.ParseException;
-import duke.logic.parsers.ParserStorageUtil;
 import duke.logic.parsers.ParserTimeUtil;
 import duke.logic.parsers.storageParsers.EventStorageParser;
+import duke.logic.parsers.storageParsers.PlanningStorageParser;
+import duke.logic.parsers.storageParsers.TransportStorageParser;
 import duke.model.Event;
 import duke.model.lists.EventList;
 import duke.model.lists.RouteList;
@@ -85,7 +86,7 @@ public class StorageStub {
                 String name = scanner.nextLine();
                 LocalDateTime start = ParserTimeUtil.parseStringToDate(scanner.nextLine());
                 LocalDateTime end = ParserTimeUtil.parseStringToDate(scanner.nextLine());
-                Venue hotel = ParserStorageUtil.getVenueFromStorage(scanner.nextLine());
+                Venue hotel = PlanningStorageParser.getVenueFromStorage(scanner.nextLine());
                 Itinerary itinerary = new Itinerary(start, end, hotel, name);
                 List<Agenda> agendaList = new ArrayList<>();
                 String fileLine = scanner.nextLine();
@@ -95,10 +96,10 @@ public class StorageStub {
                     final int number2 = Integer.parseInt(fileLine.split("\\|")[1]);
                     String newVenue = scanner.nextLine();
                     while (newVenue.contains(" | ")) {
-                        venueList.add(ParserStorageUtil.getVenueFromStorage(newVenue));
+                        venueList.add(PlanningStorageParser.getVenueFromStorage(newVenue));
                         newVenue = scanner.nextLine();
                     }
-                    todoList = ParserStorageUtil.getTodoListFromStorage(newVenue);
+                    todoList = PlanningStorageParser.getTodoListFromStorage(newVenue);
                     Agenda agenda = new Agenda(todoList, venueList, number2);
                     agendaList.add(agenda);
                     if (scanner.hasNextLine()) {
@@ -124,7 +125,7 @@ public class StorageStub {
         HashMap<String, TrainStation> trainMap = new HashMap<>();
         Scanner s = new Scanner(getClass().getResourceAsStream(TRAIN_FILE_PATH));
         while (s.hasNext()) {
-            TrainStation newTrain = ParserStorageUtil.createTrainFromStorage(s.nextLine());
+            TrainStation newTrain = TransportStorageParser.createTrainFromStorage(s.nextLine());
             trainMap.put(newTrain.getDescription(), newTrain);
         }
         s.close();
@@ -145,10 +146,10 @@ public class StorageStub {
                 isBusData = true;
             }
             if (isBusData) {
-                BusService busService = ParserStorageUtil.createBusFromStorage(line);
+                BusService busService = TransportStorageParser.createBusFromStorage(line);
                 busData.put(busService.getBus(), busService);
             } else {
-                BusStop busStop = ParserStorageUtil.createBusStopDataFromStorage(line);
+                BusStop busStop = TransportStorageParser.createBusStopDataFromStorage(line);
                 busStopData.put(busStop.getBusCode(), busStop);
             }
         }
@@ -165,10 +166,10 @@ public class StorageStub {
         int i = 1;
         while (scanner.hasNext()) {
             List<Venue> venueList = new ArrayList<>();
-            venueList.add(ParserStorageUtil.getVenueFromStorage(scanner.nextLine()));
-            List<Todo> todoList = ParserStorageUtil.getTodoListFromStorage(scanner.nextLine());
-            venueList.add(ParserStorageUtil.getVenueFromStorage(scanner.nextLine()));
-            todoList.addAll(ParserStorageUtil.getTodoListFromStorage(scanner.nextLine()));
+            venueList.add(PlanningStorageParser.getVenueFromStorage(scanner.nextLine()));
+            List<Todo> todoList = PlanningStorageParser.getTodoListFromStorage(scanner.nextLine());
+            venueList.add(PlanningStorageParser.getVenueFromStorage(scanner.nextLine()));
+            todoList.addAll(PlanningStorageParser.getTodoListFromStorage(scanner.nextLine()));
             Agenda agenda = new Agenda(todoList, venueList, i++);
             agendaList.add(agenda);
         }
@@ -213,7 +214,7 @@ public class StorageStub {
             FileWriter writer = new FileWriter(ROUTES_FILE_PATH);
             String routesString = "";
             for (Route route : routes) {
-                routesString += ParserStorageUtil.toRouteStorageString(route);
+                routesString += TransportStorageParser.toRouteStorageString(route);
             }
             writer.write(routesString);
             writer.close();

@@ -9,7 +9,7 @@ import duke.model.locations.Venue;
 import java.time.LocalDateTime;
 
 /**
- * Storage parser for Events.
+ * Storage parser for Event.
  */
 public class EventStorageParser {
     /**
@@ -17,6 +17,7 @@ public class EventStorageParser {
      *
      * @param line The String description of an Event.
      * @return The corresponding Event object.
+     * @throws ParseException If the data is corrupted.
      */
     public static Event createEventFromStorage(String line) throws ParseException {
         try {

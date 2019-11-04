@@ -6,7 +6,7 @@ import duke.commons.exceptions.ParseException;
 import duke.commons.exceptions.StartEndDateBeforeNowException;
 import duke.commons.exceptions.StartEndDateDiscordException;
 import duke.logic.api.ApiParser;
-import duke.logic.parsers.ParserStorageUtil;
+import duke.logic.parsers.storageParsers.PlanningStorageParser;
 import duke.model.lists.AgendaList;
 import duke.model.locations.Venue;
 
@@ -119,7 +119,7 @@ public class Itinerary extends AgendaList {
                             break;
                         }
                     }
-                    todoList = ParserStorageUtil.getTodoListFromStorage(todos.toString());
+                    todoList = PlanningStorageParser.getTodoListFromStorage(todos.toString());
                     if (i >= itineraryDetails.length) {
                         break;
                     }
