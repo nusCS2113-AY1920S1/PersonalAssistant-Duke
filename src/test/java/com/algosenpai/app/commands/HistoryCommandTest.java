@@ -82,7 +82,8 @@ public class HistoryCommandTest extends ApplicationTest {
         VBox container = find();
         DialogBox dialogBox = (DialogBox) container.getChildren().get(4);
         String actualText = dialogBox.getDialog().getText();
-        Assertions.assertEquals("Have you forgotten our conversation?\ncommand 1\n history \n", actualText);
+        Assertions.assertEquals("OOPS!!! Error occurred. Please key in the number of commands"
+                                          + "you'd like to view in the following format: e.g history 5", actualText);
     }
 
     <T extends Node> T find() {

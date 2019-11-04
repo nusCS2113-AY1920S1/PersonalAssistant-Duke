@@ -20,7 +20,7 @@ By: `CS2113T-T09-3`      Since: `Sept 2019`      Licence: `MIT`
 
 AlgoSenpai Adventures (ASA) is for students taking CS2040 or any similar data structures and algorithms module who
 want to reinforce their understanding of the topics in a fast and engaging way, rather than through rote memorisation.
-More importantly, AB4 is optimized for those who prefer to work with a Command Line Interface (CLI) while still having
+More importantly, ASA is optimized for those who prefer to work with a Command Line Interface (CLI) while still having
 the benefits of a Graphical User Interface (GUI). If you can type fast, ASA can be a more time-efficient solution to
 practice your understanding as compared to VisuAlgo (which uses clicking). Interested? Jump to the <<Quick Start>> to
 get started. Enjoy!
@@ -107,6 +107,38 @@ This command allows you to exit the quiz abruptly if you would like. It will sti
 quiz score based on the answers you have entered. This command only works during the quiz. +
 Format : `quiz end`
 
+=== Entering a quiz answer : `quiz ANSWER`
+This command can only be used when you are playing the quiz itself. +
+Format: `quiz ANSWER` +
+Example: +
+`quiz 60, 40, 30` will mean that you want to enter the answer `60, 40, 30` for the current question
+in the quiz. +
+`quiz 2` will mean that you want to enter the answer `2` for the current question in the quiz.
+
+=== Return to the previous question : `quiz back`
+=======
+This command allows you to choose the chapter of the game to be run. The CHAPTERS that are available
+to be selected in the program are `sorting`, `linkedlist` and `bitmask`. +
+Format: `select CHAPTER` +
+
+Example : +
+`select sorting` will select the chapter on Sorting for the quiz.
+
+This command allows users to return to the previous question if you made a mistake. This would help prevent any accidental input,
+rendering the answer as wrong. This command only works during the quiz. +
+Format : `quiz back`
+
+=== Skip to the next question : `quiz next`
+
+This command allows you to skip to the next question if you would like. This command only works during the quiz. +
+Format : `quiz next`
+
+=== Skip to the next question : `quiz end`
+
+This command allows you to exit the quiz abruptly if you would like. It will still give you a
+quiz score based on the answers you have entered. This command only works during the quiz. +
+Format : `quiz end`
+
 === Choose a chapter : `select`
 
 This command allows you to choose the chapter of the game to be run. The CHAPTERS that are available
@@ -121,12 +153,11 @@ Example : +
 This command will generate a comprehensive summary of the previous quiz that you attempted. You will be able to see
 where you went wrong in your previous quiz so you can improve in your next attempt. +
 Format : `result`
+=======
+This command will generate a comprehensive summary of the previous quiz that you attempted. You will be able to see
+where you went wrong in your previous quiz so you can improve in your next attempt. +
+Format : `result`
 
-//=== Generate an overall report : `report`
-//
-//This command provides a comprehensive summary of results for all the chapters. You can expect to see which chapters you
-//need to improve on, and which chapters are good enough from the comments given. +
-//Format : `report`
 
 === List previously entered commands : `history`
 
@@ -172,7 +203,7 @@ second argument to print the data in the user, archive, or quiz respectively.
 Specify the filename with the extension `.pdf` as the third argument to print the data to PDF +
 Format : `print DATA_SOURCE FILENAME` +
 Example: +
-`print user MyData` will print the UserData (His name, gender, level, exp, chapter information) into a pdf named MyData.
+`print user MyData.pdf` will print the UserData (His name, gender, level, exp, chapter information) into a pdf named MyData.
 
 === Archive questions : `archive`
 
@@ -180,7 +211,7 @@ This command archives the specified question. Specifying the question number arc
 not sure of the correct answer and wish to review the question in greater detail in the future. +
 Format: `archive NUMBER` +
 Example: +
-`archive 1` archives question 1 in the quiz to a pdf file.
+`archive 1` archives question 1 in the quiz. Note that to view the archived questions in pdf, please read the `print archive FILENAME` with FILENAME having the .pdf extension.
 
 === Manually save the game : `save` `[coming in v1.4]`
 
