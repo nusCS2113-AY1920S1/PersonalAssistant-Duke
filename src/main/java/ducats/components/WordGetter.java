@@ -25,6 +25,7 @@ public class WordGetter implements Serializable {
         Jaccard similarityChecker = new Jaccard();
         for (String temp: commandList) {
             double similarityValue = similarityChecker.similarity(temp,stringToCheck);
+
             if (maximumVal < similarityValue && similarityValue >= .35) {
                 maximumVal = similarityValue;
                 commandName = temp;
