@@ -12,7 +12,7 @@ import mistermusik.commons.events.formatting.CalendarView;
 import mistermusik.commons.events.formatting.DateStringValidator;
 import mistermusik.commons.events.formatting.EventDate;
 import mistermusik.storage.*;
-import mistermusik.storage.Instruments.InstrumentList;
+import mistermusik.commons.Instruments.InstrumentList;
 import mistermusik.commons.budgeting.CostExceedsBudgetException;
 import mistermusik.commons.Goal;
 import mistermusik.ui.UI;
