@@ -20,8 +20,8 @@ public class CommandStructure {
 
             put(COMMANDKEYS.view, new COMMANDKEYS[] {
                 COMMANDKEYS.profile, COMMANDKEYS.filters, COMMANDKEYS.preferences, COMMANDKEYS.watchlist,
-                COMMANDKEYS.info, COMMANDKEYS.showtimes, COMMANDKEYS.blacklist,
-                COMMANDKEYS.movies, COMMANDKEYS.tv, COMMANDKEYS.back, COMMANDKEYS.entry
+                COMMANDKEYS.info, COMMANDKEYS.blacklist,
+                COMMANDKEYS.movies, COMMANDKEYS.tv, COMMANDKEYS.back, COMMANDKEYS.entry, COMMANDKEYS.recommendation
 
             });
 
@@ -31,17 +31,17 @@ public class CommandStructure {
 
             put(COMMANDKEYS.help , new COMMANDKEYS[]{
                     COMMANDKEYS.search , COMMANDKEYS.view , COMMANDKEYS.help , COMMANDKEYS.more ,
-                    COMMANDKEYS.yes , COMMANDKEYS.set ,  COMMANDKEYS.playlist , COMMANDKEYS.me , COMMANDKEYS.blacklist,
+                    COMMANDKEYS.set ,  COMMANDKEYS.playlist , COMMANDKEYS.me , COMMANDKEYS.blacklist,
                     COMMANDKEYS.watchlist, COMMANDKEYS.get, COMMANDKEYS.preference, COMMANDKEYS.restriction,
-                    COMMANDKEYS.find
+                    COMMANDKEYS.find , COMMANDKEYS.exit
             });
 
             put(COMMANDKEYS.yes, new COMMANDKEYS[] {
                 //EMPTY
             });
 
-            put (COMMANDKEYS.exit, new COMMANDKEYS[] {
-
+            put(COMMANDKEYS.exit, new COMMANDKEYS[] {
+                    //EMPTY
             });
 
             put(COMMANDKEYS.set, new COMMANDKEYS[] {
@@ -61,9 +61,11 @@ public class CommandStructure {
                 COMMANDKEYS.add, COMMANDKEYS.remove, COMMANDKEYS.clear
             });
 
+            /*
             put(COMMANDKEYS.get, new COMMANDKEYS[]{
                 COMMANDKEYS.recommendation
             });
+            */
 
             put(COMMANDKEYS.watchlist, new COMMANDKEYS[] {
                 COMMANDKEYS.add,  COMMANDKEYS.set,  COMMANDKEYS.delete
@@ -97,5 +99,6 @@ public class CommandStructure {
         COMMANDKEYS.exit,
         COMMANDKEYS.preference,
         COMMANDKEYS.restriction,
-        COMMANDKEYS.find};
+        COMMANDKEYS.find,
+        COMMANDKEYS.exit};
 }

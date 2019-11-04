@@ -2,10 +2,13 @@ package entertainment.pro.logic.contexts;
 
 import entertainment.pro.commons.enums.COMMANDKEYS;
 import entertainment.pro.logic.parsers.CommandStructure;
+import entertainment.pro.model.UserProfile;
 import entertainment.pro.storage.user.Blacklist;
+import entertainment.pro.storage.utils.EditProfileJson;
 import entertainment.pro.ui.Controller;
 import entertainment.pro.ui.MovieHandler;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Map;
@@ -212,6 +215,35 @@ public class ContextHelper {
 
 
     /**
+     * Updates the command input field based on the hints.
+     * @param controller
+     * @param allPossibilities
+     * @param incompleteCommand
+     */
+    private static void updateCommandInputFieldWithHints(Controller controller
+            , ArrayList<String> allPossibilities
+            , String incompleteCommand) {
+
+        String update = completeCommand(allPossibilities, incompleteCommand);
+        ((MovieHandler) controller).updateTextField(update);
+    }
+
+
+    private static ArrayList<String> getSubList(ArrayList<String> hints , int newSize) {
+        ArrayList<String> sublist = new ArrayList<>();
+        for (String s : hints) {
+            if (newSize-- < 0) {
+                break;
+            }
+            sublist.add(s);
+        }
+
+        sublist.add("...");
+        return sublist;
+    }
+
+
+    /**
      * Gets all hints pertaining to the current user input.
      * @param command the current user input
      * @param controller for the UI.
@@ -221,40 +253,60 @@ public class ContextHelper {
         String [] splitCommand = command.toLowerCase().split(" ");
         String incompleteCommand = getLastIncompleteWords(command.toLowerCase(), controller);
 
+        ArrayList<String> allPossibilities = new ArrayList<>();
+
         if (splitCommand.length == NO_WORDS) {
             return CommandContext.getRoot();
         } else if (splitCommand.length == ONE_WORD && isRootCommandComplete(splitCommand[0])) {
-            ArrayList<String> allPossibilities =  CommandContext.getPossibilitiesSubRootGivenRoot(splitCommand[0]);
-            String update = completeCommand(allPossibilities, "");
-            ((MovieHandler) controller).updateTextField(update);
-            return allPossibilities;
+            allPossibilities =  CommandContext.getPossibilitiesSubRootGivenRoot(splitCommand[0]);
+            updateCommandInputFieldWithHints(controller, allPossibilities, "");
+//            String update = completeCommand(allPossibilities, "");
+//            ((MovieHandler) controller).updateTextField(update);
+//            return allPossibilities;
         } else if (splitCommand.length == ONE_WORD) {
-            ArrayList<String> allPossibilities =  CommandContext.getPossibilitiesForRoot(incompleteCommand);
-            String update = completeCommand(allPossibilities, incompleteCommand);
-            ((MovieHandler) controller).updateTextField(update);
-            return allPossibilities;
+            allPossibilities =  CommandContext.getPossibilitiesForRoot(incompleteCommand);
+            updateCommandInputFieldWithHints(controller, allPossibilities, incompleteCommand);
+//            String update = completeCommand(allPossibilities, incompleteCommand);
+//            ((MovieHandler) controller).updateTextField(update);
+//            return allPossibilities;
         } else if (splitCommand.length == TWO_WORDS && isSubRootCommandComplete(splitCommand[1])) {
-            ArrayList<String> allPossibilities  = commandSpecificHints(
+            if (splitCommand[0].equalsIgnoreCase("playlist")) {
+                try {
+                    return new EditProfileJson().load().getPlaylistNames();
+                } catch (IOException e) {
+                    return null;
+                }
+            }
+            allPossibilities = commandSpecificHints(
                     splitCommand[0],
                     splitCommand[1],
                     "");
-            return allPossibilities;
+
+            if (allPossibilities.size() > 10) {
+                allPossibilities = getSubList(allPossibilities, 10);
+            }
+//            return allPossibilities;
         } else if (splitCommand.length == TWO_WORDS) {
-            ArrayList<String> allPossibilities = CommandContext
+            allPossibilities = CommandContext
                     .getPossibilitiesSubRoot(splitCommand[0], incompleteCommand);
-            String update = completeCommand(allPossibilities, incompleteCommand);
-            ((MovieHandler) controller).updateTextField(update);
-            return allPossibilities;
+            updateCommandInputFieldWithHints(controller, allPossibilities, incompleteCommand);
+//            String update = completeCommand(allPossibilities, incompleteCommand);
+//            ((MovieHandler) controller).updateTextField(update);
+//            return allPossibilities;
         } else {
-            ArrayList<String> allPossibilities  = commandSpecificHints(
+            allPossibilities  = commandSpecificHints(
                     splitCommand[0],
                     splitCommand[1],
                     incompleteCommand);
 
-            String update = completeCommand(allPossibilities, incompleteCommand);
-            ((MovieHandler) controller).updateTextField(update);
-            return allPossibilities;
+            updateCommandInputFieldWithHints(controller, allPossibilities, incompleteCommand);
+
+//            String update = completeCommand(allPossibilities, incompleteCommand);
+//            ((MovieHandler) controller).updateTextField(update);
+//            return allPossibilities;
         }
+
+        return allPossibilities;
 
     }
 

@@ -551,10 +551,10 @@ public class MovieHandler extends Controller implements RequestListener {
                 playlistVBox.getChildren().add(playlistPane);
                 count++;
             }
-            mMoviesScrollPane.setContent(playlistVBox);
-            mMoviesScrollPane.setVvalue(0);
-            pageTracker.setToPlaylistList();
         }
+        mMoviesScrollPane.setContent(playlistVBox);
+        mMoviesScrollPane.setVvalue(0);
+        pageTracker.setToPlaylistList();
     }
 
     private AnchorPane buildPlaylistPane(Playlist playlist, int i) {
@@ -677,6 +677,16 @@ public class MovieHandler extends Controller implements RequestListener {
     }
 
     public void showPlaylistList() throws IOException {
+////        PlaylistUi playlistUi = new PlaylistUi(playlistName);
+////        playlistVBox.getChildren().clear();
+////        mMoviesScrollPane.setHvalue(0.5);
+////        mMoviesScrollPane.setVvalue(0.5);
+////        playlistVBox = playlistUi.buildPlaylistVBox(playlists, mProgressBar, mStatusLabel);
+////        mMoviesScrollPane.setContent(playlistVBox);
+////        mMoviesScrollPane.setVvalue(0);
+////        pageTracker.setToPlaylistList();
+//        PlaylistUi playlistUi = new PlaylistUi(playlistName, playlists);
+//        mMoviesScrollPane.setContent(playlistUi.getPlaylistScrollPaneContent());
         buildPlaylistVBox(playlists);
     }
 
@@ -803,6 +813,7 @@ public class MovieHandler extends Controller implements RequestListener {
             } else {
                 controller.getMovieDateLabel().setText("N/A");
             }
+            Text summaryText = new Text(movie.getSummaryInfo());
             controller.getMovieSummaryLabel().setText(movie.getSummaryInfo());
             ArrayList<Long> genreList = movie.getGenreIdInfo();
             String genres = "";
@@ -819,6 +830,8 @@ public class MovieHandler extends Controller implements RequestListener {
             }
             controller.getMovieGenresLabel().setText(genres);
             mMoviesScrollPane.setContent(controller.getPlaylistMovieInfoAnchorPane());
+//            mMoviesFlowPane.getChildren().add(posterView);
+//            mMoviesScrollPane.setContent(mMoviesFlowPane);
             mMoviesScrollPane.setVvalue(0);
             pageTracker.setToPlaylistMovieInfo();
         } catch (IOException e) {
@@ -974,16 +987,16 @@ public class MovieHandler extends Controller implements RequestListener {
      */
     public void refresh() throws IOException {
         switch (pageTracker.getCurrentPage()) {
-            case "playlistList":
-                EditProfileJson editProfileJson = new EditProfileJson();
-                buildPlaylistVBox(editProfileJson.load().getPlaylistNames());
-                break;
-            case "playlistInfo":
-                EditPlaylistJson editPlaylistJson = new EditPlaylistJson(playlistName);
-                buildPlaylistInfo(editPlaylistJson.load());
-                break;
-            default:
-                break;
+        case "playlistList":
+            EditProfileJson editProfileJson = new EditProfileJson();
+            buildPlaylistVBox(editProfileJson.load().getPlaylistNames());
+            break;
+        case "playlistInfo":
+            EditPlaylistJson editPlaylistJson = new EditPlaylistJson(playlistName);
+            buildPlaylistInfo(editPlaylistJson.load());
+            break;
+        default:
+            break;
         }
     }
 
