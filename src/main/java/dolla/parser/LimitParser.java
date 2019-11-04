@@ -10,7 +10,7 @@ import dolla.command.ShowListCommand;
 import dolla.command.RemoveCommand;
 import dolla.command.SearchCommand;
 import dolla.command.SortCommand;
-import dolla.command.AddActionCommand;
+import dolla.command.ActionCommand;
 import dolla.task.Limit;
 import dolla.ui.SearchUi;
 import dolla.ui.Ui;
@@ -89,7 +89,7 @@ public class LimitParser extends Parser {
         } else if (commandToRun.equals(COMMAND_REDO)
                 || commandToRun.equals(COMMAND_UNDO)
                 || commandToRun.equals(COMMAND_REPEAT)) {
-            return new AddActionCommand(mode, commandToRun);
+            return new ActionCommand(mode, commandToRun);
         } else {
             return invalidCommand();
         }

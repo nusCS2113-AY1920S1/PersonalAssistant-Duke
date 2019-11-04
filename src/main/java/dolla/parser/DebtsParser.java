@@ -10,7 +10,7 @@ import dolla.command.ErrorCommand;
 import dolla.command.AddDebtsCommand;
 import dolla.command.AddBillCommand;
 import dolla.command.SortCommand;
-import dolla.command.AddActionCommand;
+import dolla.command.ActionCommand;
 import dolla.command.RemoveCommand;
 import dolla.command.SearchCommand;
 import dolla.task.Debt;
@@ -132,7 +132,7 @@ public class DebtsParser extends Parser {
         } else if (commandToRun.equals(COMMAND_REDO)
                 || commandToRun.equals(COMMAND_UNDO)
                 || commandToRun.equals(COMMAND_REPEAT)) {
-            return new AddActionCommand(mode, commandToRun);
+            return new ActionCommand(mode, commandToRun);
         } else {
             return invalidCommand();
         }

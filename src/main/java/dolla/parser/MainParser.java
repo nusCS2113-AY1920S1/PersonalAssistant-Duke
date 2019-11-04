@@ -23,8 +23,6 @@ public class MainParser implements ParserStringList, ModeStringList {
      */
     public static Command handleInput(String mode, String inputLine) {
 
-        //Scanner input = new Scanner(System.in);
-        //String inputLine = input.nextLine();
         String[] inputArray = inputLine.split(SPACE);
         String command = inputArray[0];
         boolean isExitCommand = isExitCommand(command);

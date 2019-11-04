@@ -46,6 +46,10 @@ public class Entry extends Record {
                 + "[/on " + Time.dateToString(date) + "]";
     }
 
+    public String getShortcutDetails() {
+        return type + " " + amount + " " + description;
+    }
+
     /**
      * Returns a string with information about the entry to be saved.
      * @return String with information of entry in saving format.

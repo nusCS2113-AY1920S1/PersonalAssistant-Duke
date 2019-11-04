@@ -31,6 +31,10 @@ public interface ParserStringList {
     String BILL_COMMAND_BILL = "bill";
     String BILL_COMMAND_LIST = "bills";
 
+    //Commands specific to shortcut
+    String SHORTCUT_COMMAND_CREATE = "create";
+    String SHORTCUT_COMMAND_EXECUTE = "s";
+
     // Shared Commands
     String COMMAND_MODIFY = "modify";
     String COMMAND_SORT = "sort";

@@ -17,6 +17,7 @@ import java.util.Scanner;
 public class Dolla {
 
     private static final String COMMAND_BYE = "bye";
+    private static final String COMMAND_DEBT = "debt";
     private DollaData dollaData = new DollaData();
     protected static TagList tagList = new TagList(); //todo: change
 
@@ -33,7 +34,7 @@ public class Dolla {
      */
     private void run() throws Exception {
         boolean isExit = false;
-        Reminder reminder = new Reminder("debt");
+        Reminder reminder = new Reminder(COMMAND_DEBT);
         reminder.showReminder(dollaData);
         Scanner input = new Scanner(System.in); // TODO: Add to Ui or MainParser instead?
         while (!isExit) {

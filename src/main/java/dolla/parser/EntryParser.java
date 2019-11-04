@@ -3,13 +3,14 @@ package dolla.parser;
 import dolla.Tag;
 import dolla.command.Command;
 import dolla.command.AddEntryCommand;
-import dolla.command.AddActionCommand;
+import dolla.command.ActionCommand;
 import dolla.command.ShowListCommand;
 import dolla.command.ErrorCommand;
 import dolla.command.InitialModifyCommand;
 import dolla.command.SortCommand;
 import dolla.command.SearchCommand;
 import dolla.command.RemoveCommand;
+import dolla.command.ShortcutCommand;
 import dolla.command.modify.PartialModifyEntryCommand;
 import dolla.task.Entry;
 import dolla.ui.SearchUi;
@@ -77,7 +78,10 @@ public class EntryParser extends Parser {
         } else if (commandToRun.equals(COMMAND_REDO)
                 || commandToRun.equals(COMMAND_UNDO)
                 || commandToRun.equals(COMMAND_REPEAT)) {
-            return new AddActionCommand(mode, commandToRun);
+            return new ActionCommand(mode, commandToRun);
+        } else if (commandToRun.equals(SHORTCUT_COMMAND_CREATE)
+                || commandToRun.equals(SHORTCUT_COMMAND_EXECUTE)) {
+            return new ShortcutCommand(inputLine);
         } else {
             return invalidCommand();
         }
