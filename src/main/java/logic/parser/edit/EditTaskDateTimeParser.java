@@ -18,13 +18,14 @@ public class EditTaskDateTimeParser {
     public static final String INVALID_DATETIME_MESSAGE = "Not a valid date time! Date time should be dd/MM/yyyy HHmm";
     public static final String TO_NOT_FOUND_MESSAGE = "Please input a /to";
 
+    //@@author JasonChanWQ
     /**
-     * parse the snooze command, pass the index (in task list) and the new date to command
+     * Parses the user input and returns EditTaskDateTimeCommand
      * @param argument [index] /to [new date]
-     * @return SnoozeCommand
+     * @return EditTaskDateTimeCommand
      * @throws DukeException exception
      */
-    //@@author JasonChanWQ
+
     public static Command parseEditTaskDateTime(String argument) throws DukeException {
         if (argument.equals("")) {
             throw new DukeException(EDIT_DATETIME_USAGE);

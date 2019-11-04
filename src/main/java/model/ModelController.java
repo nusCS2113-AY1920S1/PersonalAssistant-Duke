@@ -5,6 +5,7 @@ import storage.Storage;
 import common.DukeException;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 
 public class ModelController implements Model {
@@ -62,6 +63,10 @@ public class ModelController implements Model {
 
     public String getTaskNameById(int index) {
         return tasksManager.getNameById(index);
+    }
+
+    public Date getTaskDateTimeById(int index) {
+        return tasksManager.getTaskDateTimeById(index);
     }
 
     @Override

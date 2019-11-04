@@ -4,6 +4,7 @@ import common.DukeException;
 import core.Duke;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Exposes the api of Model, this falls in line with open close policy, allowing the different implementations of
@@ -27,6 +28,8 @@ public interface Model {
     String getTodoTasks();
 
     String getTaskNameById(int index);
+
+    Date getTaskDateTimeById(int indexOfTask);
 
     TasksManager getTasksManager();
 
@@ -89,5 +92,4 @@ public interface Model {
     String scheduleMemberTodo(String memberName) throws DukeException;
 
     String check();
-
 }

@@ -30,8 +30,8 @@ public class NewParser {
     private static final String REMINDER_COMMAND_WORD = "REMINDER";
     private static final String MATCH_COMMAND_WORD = "MATCH";
     private static final String EDIT_COMMAND_WORD = "EDIT";
+    public static final String SHOW_COMMAND_WORD = "SHOW";
     private static final String CHECK_COMMAND_WORD = "CHECK";
-
 
     //@@author JustinChia1997
 
@@ -54,7 +54,7 @@ public class NewParser {
         commandWord = commandWord.trim().toUpperCase();
 
         String[] dict = {
-            "ADD", "LIST", "DONE", "DELETE", "HELP", "FIND", "BYE", "REMINDER",
+            "ADD", "LIST", "DONE", "DELETE", "HELP", "FIND", "BYE", "REMINDER", "SHOW",
             "SNOOZE", "SCHEDULE", "CHECK", "LINK", "UNLINK", "RENAME", "EDIT",
             "MATCH", "CHECK"
         };
@@ -92,6 +92,8 @@ public class NewParser {
             return MatchCommandParser.parseMatch(arguments);
         case EDIT_COMMAND_WORD:
             return EditCommandParser.parseEditCommand(arguments);
+        case SHOW_COMMAND_WORD:
+            return ShowCommandParser.parseShowCommand(arguments);
         case CHECK_COMMAND_WORD:
             return CheckCommandParser.parseCheckCommand(arguments);
 

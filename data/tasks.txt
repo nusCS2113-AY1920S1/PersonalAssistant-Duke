@@ -1,62 +1,28 @@
 [
   {
-    "name": "john",
-    "description": "test des",
+
+    "name": "job A",
     "isDone": false,
     "memberList": [
-      "john"
+      "P1"
     ],
-    "skillReqList": [],
-    "time": "Dec 12, 2019, 11:11:00 AM"
-  },
-  {
-    "name": "james",
-    "isDone": false,
-    "memberList": [
-      "john"
-    ],
-    "skillReqList": [
-      "yo"
-    ],
-    "time": "Dec 12, 2019, 12:11:00 AM"
-  },
-  {
-    "name": "null",
-    "isDone": false,
-    "memberList": [
-      "john"
-    ],
-    "skillReqList": [],
-    "time": "Dec 12, 2019, 12:11:00 AM"
-  },
-  {
-    "name": "lame",
-    "isDone": false,
-    "memberList": [
-      "james"
-    ],
-    "skillReqList": [],
-    "time": "Dec 11, 2019, 12:11:00 AM"
-  },
-  {
-    "name": "hi",
-    "isDone": false,
-    "memberList": [
-      "james"
-    ],
-    "skillReqList": [],
-    "time": "Dec 11, 2019, 10:11:00 AM"
-  },
-  {
-    "name": "yooo",
-    "isDone": false,
-    "memberList": [],
     "skillReqList": []
   },
   {
-    "name": "todo something",
+    "name": "job B",
     "isDone": false,
-    "memberList": [],
+    "memberList": [
+
+      "P1"
+    ],
+    "skillReqList": []
+  },
+  {
+    "name": "job C",
+    "isDone": false,
+    "memberList": [
+      "P1"
+    ],
     "skillReqList": []
   }
 ]

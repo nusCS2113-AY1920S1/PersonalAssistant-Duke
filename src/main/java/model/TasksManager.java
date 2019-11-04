@@ -46,9 +46,9 @@ public class TasksManager implements Serializable {
 
     //@@author yuyanglin28
     /**
-     *
-     * @param toDelete
-     * @return
+     * This method is to delete a task
+     * @param toDelete to be deleted task
+     * @return if success return true, else false
      */
     public boolean deleteTask(Task toDelete) {
         return taskList.remove(toDelete);
@@ -103,6 +103,11 @@ public class TasksManager implements Serializable {
         return task.getDescription();
     }
 
+    //@@author JasonChanWQ
+    public Date getTaskDateTimeById(int index) {
+        return getTaskById(index).getTime();
+    }
+
     //@@author JustinChia1997
     public ArrayList<Task> getTaskList() {
         return taskList;
@@ -121,8 +126,11 @@ public class TasksManager implements Serializable {
         return showTasks(todoTasks);
     }
 
+    //@@author yuyanglin28
     /**
-     *javadoc
+     *
+     * @param tasksName
+     * @return
      */
     public int getTodoTasks(ArrayList<String> tasksName) {
         int todoNum = 0;
@@ -157,6 +165,7 @@ public class TasksManager implements Serializable {
 
     //====================== add or delete something for task =======================
 
+    //@@ JustinChia1997
     /**
      * @return true if skill req was sucessfully added
      */
