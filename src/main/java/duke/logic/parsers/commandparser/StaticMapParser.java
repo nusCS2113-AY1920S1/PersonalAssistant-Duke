@@ -1,6 +1,5 @@
 package duke.logic.parsers.commandparser;
 
-import duke.commons.exceptions.ApiException;
 import duke.logic.commands.Command;
 import duke.logic.commands.StaticMapCommand;
 
@@ -11,16 +10,15 @@ public class StaticMapParser extends CommandParser {
     private String location;
 
     /**
-     * Parses user input into location.
-     * @param input The User input
+     * Constructs the StaticMapParser.
      */
     public StaticMapParser(String input) {
         this.location = input;
     }
 
     /**
-     * Constructs StaticMapCommand object.
-     * @return StaticMapCommand object
+     * Parses the user input and constructs StaticMapCommand object.
+     * @return StaticMapCommand object.
      */
     @Override
     public Command parse() {

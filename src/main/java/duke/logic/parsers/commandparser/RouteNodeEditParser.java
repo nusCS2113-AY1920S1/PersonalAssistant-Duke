@@ -9,28 +9,31 @@ import duke.logic.parsers.ParserUtil;
  * Parses the user inputs into suitable format for RouteNodeEditCommand.
  */
 public class RouteNodeEditParser extends CommandParser {
-    private final int firstIndex;
-    private final int secondIndex;
-    private final String thirdFieldInList;
-    private final String fourthFieldInList;
+    private String input;
+    private static final int ZERO = 0;
+    private static final int ONE = 1;
+    private static final int TWO = 2;
+    private static final int THREE = 3;
+    private static final int FOUR = 4;
 
     /**
-     * Parses user input into parameter for RouteNodeEditCommand.
-     * @param input The User input
+     * Constructs the RouteNodeEditParser.
      */
-    public RouteNodeEditParser(String input) throws ParseException {
-        firstIndex = ParserUtil.getIntegerIndexInList(0, 3, input);
-        secondIndex = ParserUtil.getIntegerIndexInList(1, 3, input);
-        thirdFieldInList = ParserUtil.getFieldInList(2, 4, input);
-        fourthFieldInList = ParserUtil.getFieldInList(3, 4, input);
+    public RouteNodeEditParser(String input) {
+        this.input = input;
     }
 
     /**
-     * Constructs RouteNodeEditCommand object.
-     * @return RouteNodeEditCommand object
+     * Parses the user input and constructs RouteNodeEditCommand object.
+     * @return RouteNodeEditCommand object.
+     * @throws ParseException If RouteNodeEditCommand object cannot be created.
      */
     @Override
-    public Command parse() {
+    public Command parse() throws ParseException {
+        int firstIndex = ParserUtil.getIntegerIndexInList(ZERO, FOUR, input);
+        int secondIndex = ParserUtil.getIntegerIndexInList(ONE, FOUR, input);
+        String thirdFieldInList = ParserUtil.getFieldInList(TWO, FOUR, input);
+        String fourthFieldInList = ParserUtil.getFieldInList(THREE, FOUR, input);
         return new RouteNodeEditCommand(firstIndex, secondIndex, thirdFieldInList, fourthFieldInList);
     }
 }

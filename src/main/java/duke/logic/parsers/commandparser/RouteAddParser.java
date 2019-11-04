@@ -7,26 +7,29 @@ import duke.logic.commands.RouteAddCommand;
  * Parses the user inputs into suitable format for RouteAddCommand.
  */
 public class RouteAddParser extends CommandParser {
-    private String[] details;
+    private String input;
+    private static final int ZERO = 0;
+    private static final int ONE = 1;
+    private static final int TWO = 2;
 
     /**
-     * Parses user input into route.
-     * @param input The User input
+     * Constructs the RouteAddParser.
      */
     public RouteAddParser(String input) {
-        details = input.split("desc", 2);
+        this.input = input;
     }
 
     /**
-     * Constructs RecommendationsCommand object.
-     * @return RecommendationsCommand object
+     * Parses the user input and constructs RouteAddCommand object.
+     * @return RouteAddCommand object.
      */
     @Override
     public Command parse() {
-        if (details.length == 2) {
-            return new RouteAddCommand(details[0], details[1]);
+        String[] details = input.split("desc", TWO);
+        if (details.length == TWO) {
+            return new RouteAddCommand(details[ZERO], details[ONE]);
         } else {
-            return new RouteAddCommand(details[0], "");
+            return new RouteAddCommand(details[ZERO], "");
         }
     }
 }

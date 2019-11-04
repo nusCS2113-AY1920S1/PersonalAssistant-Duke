@@ -1,25 +1,23 @@
 package duke.logic.parsers.commandparser;
 
-import duke.commons.exceptions.ApiException;
 import duke.logic.commands.LocationSearchCommand;
 
 /**
  * Parses the user inputs into suitable format for LocationSearchCommand.
  */
-public class LocationSearchParser extends CommandParser<LocationSearchCommand> {
+public class LocationSearchParser extends CommandParser {
     private String location;
 
     /**
-     * Parses user input into location.
-     * @param input The User input
+     * Constructs the LocationSearchParser.
      */
     public LocationSearchParser(String input) {
         location = input;
     }
 
     /**
-     * Constructs LocationSearchCommand object.
-     * @return LocationSearchCommand object
+     * Parses the user input and constructs LocationSearchCommand object.
+     * @return LocationSearchCommand object.
      */
     @Override
     public LocationSearchCommand parse() {

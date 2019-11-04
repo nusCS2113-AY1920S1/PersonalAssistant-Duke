@@ -16,52 +16,52 @@ import java.util.ArrayList;
  */
 public class RouteNodeAddParser extends CommandParser {
     private String input;
-    private RouteNode routeNode;
-    private int firstIndex;
+    private static final int ZERO = 0;
+    private static final int ONE = 1;
+    private static final int TWO = 2;
+    private static final int FOUR = 4;
 
     /**
-     * Parses user input into parameter for RouteNodeAddCommand.
-     * @param input The User input
+     * Constructs the RouteNodeAddParser.
      */
-    public RouteNodeAddParser(String input) throws ParseException {
+    public RouteNodeAddParser(String input) {
         this.input = input;
-        routeNode = createRouteNode(input);
-        firstIndex = ParserUtil.getIntegerIndexInList(0, 4, input);
     }
 
     /**
-     * Returns routeNode base on user input.
-     *
+     * Parses user input and constructs a new RouteNode object.
+     * @return RouteNode object.
+     * @throws ParseException If RouteNode object cannot be created from user input.
      */
-    public static RouteNode createRouteNode(String userInput) throws ParseException {
+    private static RouteNode createRouteNode(String userInput) throws ParseException {
         try {
-            String[] withinDetails = userInput.strip().split("at | with ", 2);
-            if (withinDetails.length != 2) {
+            String[] withinDetails = userInput.strip().split("at | with ", TWO);
+            if (withinDetails.length != TWO) {
                 throw new ParseException(Messages.ERROR_INPUT_INVALID_FORMAT);
             }
 
-            String type = userInput.substring(withinDetails[0].length()).strip().substring(0, 4);
-            if (!("with".equals(type) || "at".equals(type.substring(0, 2)))) {
+            String type = userInput.substring(withinDetails[ZERO].length()).strip().substring(ZERO, FOUR);
+            if (!("with".equals(type) || "at".equals(type.substring(ZERO, TWO)))) {
                 throw new ParseException(Messages.ERROR_INPUT_INVALID_FORMAT);
             }
 
             String[] details;
-            if (type.substring(0, 2).equals("at")) {
-                details = withinDetails[1].strip().split("by ");
-                switch (details[1].toUpperCase()) {
+            if (type.substring(ZERO, TWO).equals("at")) {
+                details = withinDetails[ONE].strip().split("by ");
+                switch (details[ONE].toUpperCase()) {
                 case "BUS":
-                    return new BusStop(details[0].strip(), null, null, 0, 0);
+                    return new BusStop(details[ZERO].strip(), null, null, ZERO, ZERO);
                 case "MRT":
-                    return new TrainStation(new ArrayList<>(), details[0].strip(), null, 0, 0);
+                    return new TrainStation(new ArrayList<>(), details[ZERO].strip(), null, ZERO, ZERO);
                 default:
                     throw new ParseException(Messages.ERROR_INPUT_INVALID_FORMAT);
                 }
             } else {
-                details = withinDetails[1].split("by ");
-                String[] coordinateStrings = details[0].strip().split(" ");
-                assert (coordinateStrings.length == 2);
+                details = withinDetails[ONE].split("by ");
+                String[] coordinateStrings = details[ZERO].strip().split(" ");
+                assert (coordinateStrings.length == TWO);
 
-                double[] coordinates = new double[2];
+                double[] coordinates = new double[TWO];
                 for (int i = 0; i < coordinates.length; i++) {
                     coordinates[i] = Double.parseDouble(coordinateStrings[i].strip());
                 }
@@ -74,16 +74,19 @@ public class RouteNodeAddParser extends CommandParser {
     }
 
     /**
-     * Creates a new RouteNodeAddCommand from input, factoring for empty indexNode field.
-     * @return RouteNodeAddCommand The command.
+     * Parses the user input and constructs RouteNodeAddCommand object.
+     * @return RouteNodeAddCommand object.
+     * @throws ParseException If RouteNodeAddCommand object cannot be created.
      */
     @Override
-    public Command parse() {
+    public Command parse() throws ParseException {
+        RouteNode routeNode = createRouteNode(input);
+        int firstIndex = ParserUtil.getIntegerIndexInList(ZERO, FOUR, input);
         try {
             return new RouteNodeAddCommand(routeNode, firstIndex,
-                    ParserUtil.getIntegerIndexInList(1, 4, input), false);
+                    ParserUtil.getIntegerIndexInList(ONE, FOUR, input), false);
         } catch (ParseException e) {
-            return new RouteNodeAddCommand(routeNode, firstIndex, 0, true);
+            return new RouteNodeAddCommand(routeNode, firstIndex, ZERO, true);
         }
     }
 }

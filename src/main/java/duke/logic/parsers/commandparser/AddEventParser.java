@@ -14,48 +14,54 @@ import java.time.LocalDateTime;
  * Parses the user inputs into suitable format for AddCommand.
  */
 public class AddEventParser extends CommandParser {
-    private Event event;
+    private String input;
+    private static final int ZERO = 0;
+    private static final int ONE = 1;
+    private static final int TWO = 2;
+    private static final int THREE = 3;
 
     /**
-     * Parses user input into event.
-     * @param input The User input
+     * Constructs the AddEventParser.
      */
-    public AddEventParser(String input) throws ParseException {
-        event = createEvent(input);
+    public AddEventParser(String input) {
+        this.input = input;
     }
 
     /**
-     * Parses the userInput and return a new Event constructed from it.
+     * Returns a new Event constructed from user input.
      *
      * @param userInput The userInput read by the user interface.
      * @return The new Event object.
+     * @throws ParseException If Event object cannot be created from user input.
      */
-    public static Event createEvent(String userInput) throws ParseException {
+    private static Event createEvent(String userInput) throws ParseException {
         String[] withinDetails = userInput.substring("event".length()).strip().split("between| and");
-        if (withinDetails.length == 1) {
+        if (withinDetails.length == ONE) {
             throw new ParseException(Messages.ERROR_DESCRIPTION_EMPTY);
         }
-        if (withinDetails.length != 3 || withinDetails[1] == null || withinDetails[2] == null) {
+        if (withinDetails.length != THREE || withinDetails[ONE] == null || withinDetails[TWO] == null) {
             throw new ParseException(Messages.ERROR_INPUT_INVALID_FORMAT);
         }
-        if (withinDetails[0].strip().isEmpty()) {
+        if (withinDetails[ZERO].strip().isEmpty()) {
             throw new ParseException(Messages.ERROR_DESCRIPTION_EMPTY);
         }
-        LocalDateTime start = ParserTimeUtil.parseStringToDate(withinDetails[1].strip());
-        LocalDateTime end = ParserTimeUtil.parseStringToDate(withinDetails[2].strip());
+        LocalDateTime start = ParserTimeUtil.parseStringToDate(withinDetails[ONE].strip());
+        LocalDateTime end = ParserTimeUtil.parseStringToDate(withinDetails[TWO].strip());
         try {
-            return new Event(withinDetails[0].strip(), start, end);
+            return new Event(withinDetails[ZERO].strip(), start, end);
         } catch (ApiException e) {
             throw new ParseException(Messages.ERROR_API_DATA_NULL);
         }
     }
 
     /**
-     * Constructs AddCommand object.
-     * @return AddCommand object
+     * Parses user input and constructs an AddCommand object.
+     * @return AddCommand object.
+     * @throws ParseException If Event object cannot be created from user input.
      */
     @Override
-    public Command parse() {
+    public Command parse() throws ParseException {
+        Event event = createEvent(input);
         return new AddCommand(event);
     }
 }

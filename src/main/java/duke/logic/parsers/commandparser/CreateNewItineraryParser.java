@@ -9,37 +9,42 @@ import duke.logic.parsers.ParserTimeUtil;
 
 import java.time.LocalDateTime;
 
+/**
+ * Parses the user inputs into suitable format for CreateNewItineraryCommand.
+ */
 public class CreateNewItineraryParser extends CommandParser {
-    private LocalDateTime start;
-    private LocalDateTime end;
-    private String hotelLocation;
-    private String name;
-    private String[] itineraryDetails;
+    private String input;
+    private static final int ZERO = 0;
+    private static final int ONE = 1;
+    private static final int TWO = 2;
+    private static final int THREE = 3;
 
     /**
-     * Parses user input into an Itinerary.
+     * Constructs the CreateNewItineraryParser.
      *
      * @param input The User input
-     * @throws ParseException If the input parsing fails.
      */
-    public CreateNewItineraryParser(String input) throws ParseException,
-            StartEndDateBeforeNowException, StartEndDateDiscordException {
-        String[] itineraryDetails = input.substring("newItinerary".length()).strip().split(" ");
+    public CreateNewItineraryParser(String input) {
+        this.input = input;
+    }
 
-        start = ParserTimeUtil.parseStringToDate(itineraryDetails[0].strip());
-        end = ParserTimeUtil.parseStringToDate(itineraryDetails[1].strip());
+    /**
+     * Parses user input and constructs an NewItineraryCommand object.
+     * @return NewItineraryCommand object.
+     * @throws ParseException If NewItineraryCommand object cannot be created from user input.
+     */
+    @Override
+    public Command parse() throws ParseException {
+        String[] itineraryDetails = input.substring("newItinerary".length()).strip().split(" ");
+        LocalDateTime start = ParserTimeUtil.parseStringToDate(itineraryDetails[ZERO].strip());
+        LocalDateTime end = ParserTimeUtil.parseStringToDate(itineraryDetails[ONE].strip());
         if (start.isBefore(LocalDateTime.now()) || end.isBefore(LocalDateTime.now())) {
             throw new StartEndDateBeforeNowException();
         } else if (end.isBefore(start) || start.isAfter(end)) {
             throw new StartEndDateDiscordException();
         }
-        hotelLocation = itineraryDetails[2].strip();
-        name = itineraryDetails[3].strip();
-        this.itineraryDetails = itineraryDetails;
-    }
-
-    @Override
-    public Command parse() {
+        String hotelLocation = itineraryDetails[TWO].strip();
+        String name = itineraryDetails[THREE].strip();
         return new NewItineraryCommand(start, end, hotelLocation, name, itineraryDetails);
     }
 }

@@ -51,8 +51,7 @@ public class Parser {
      * @return The corresponding Command object.
      * @throws ParseException If userInput is undefined.
      */
-    public static Command parseComplexCommand(String input) throws ParseException, StartEndDateDiscordException,
-            StartEndDateBeforeNowException {
+    public static Command parseComplexCommand(String input) throws ParseException {
         String commandWord = getCommandWord(input);
 
         switch (commandWord) {

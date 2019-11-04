@@ -9,44 +9,45 @@ import duke.logic.commands.RecommendationsCommand;
  * Parses the user inputs into suitable format for RecommendationsCommand.
  */
 public class RecommendationParser extends CommandParser {
-    private String[] itineraryDetails;
+    private String input;
+    private static final int ZERO = 0;
+    private static final int ONE = 1;
+    private static final int TWO = 2;
+    private static final int THREE = 3;
 
     /**
-     * Parses user input into recommendation.
-     * @param input The User input
+     * Constructs the RecommendationParser.
      */
-    public RecommendationParser(String input) throws ParseException {
-        itineraryDetails = createRecommendation(input);
+    public RecommendationParser(String input) {
+        this.input = input;
     }
 
     /**
-     * Parses the userInput and return a new Itinerary constructed from it.
-     *
-     * @param userInput The userInput read by the user interface.
-     * @return The new Itinerary object.
+     * Parses the input and return a new Itinerary constructed from it.
+     * @return The Itinerary object.
+     * @throws ParseException If Itinerary object cannot be created.
      */
-    private String[] createRecommendation(String userInput) throws ParseException {
-        String[] itineraryDetails = userInput.substring("recommend".length()).strip().split("between| and");
-        if (itineraryDetails.length == 1) {
-            throw new ParseException(Messages.ERROR_DESCRIPTION_EMPTY);
-        }
+    private String[] createRecommendation() throws ParseException {
+        String[] itineraryDetails = input.substring("recommend".length()).strip().split("between| and");
 
-        if (itineraryDetails.length != 3 || itineraryDetails[1] == null || itineraryDetails[2] == null) {
+        if (itineraryDetails.length != THREE || itineraryDetails[ONE] == null || itineraryDetails[TWO] == null) {
             throw new ParseException(Messages.ERROR_INPUT_INVALID_FORMAT);
         }
 
-        if (itineraryDetails[0].strip().isEmpty()) {
+        if (itineraryDetails[ZERO].strip().isEmpty()) {
             throw new ParseException(Messages.ERROR_DESCRIPTION_EMPTY);
         }
         return itineraryDetails;
     }
 
     /**
-     * Constructs RecommendationsCommand object.
-     * @return RecommendationsCommand object
+     * Parses the user input and constructs RecommendationCommand object.
+     * @return RecommendationCommand object.
+     * @throws ParseException If RecommendationCommand object cannot be created.
      */
     @Override
-    public Command parse() {
+    public Command parse() throws ParseException {
+        String[] itineraryDetails = createRecommendation();
         return new RecommendationsCommand(itineraryDetails);
     }
 }

@@ -9,25 +9,27 @@ import duke.logic.parsers.ParserUtil;
  * Parses the user inputs into suitable format for RouteNodeDeleteCommand.
  */
 public class RouteNodeDeleteParser extends CommandParser {
-
-    private int firstIndex;
-    private int secondIndex;
+    private String input;
+    private static final int ZERO = 0;
+    private static final int ONE = 1;
+    private static final int TWO = 2;
 
     /**
-     * Parses user input into parameter for RouteNodeDeleteCommand.
-     * @param input The User input
+     * Constructs the RouteNodeDeleteParser.
      */
-    public RouteNodeDeleteParser(String input) throws ParseException {
-        firstIndex = ParserUtil.getIntegerIndexInList(0, 2, input);
-        secondIndex = ParserUtil.getIntegerIndexInList(1, 2, input);
+    public RouteNodeDeleteParser(String input) {
+        this.input = input;
     }
 
     /**
-     * Constructs RouteNodeDeleteCommand object.
-     * @return RouteNodeDeleteCommand object
+     * Parses the user input and constructs RouteNodeDeleteCommand object.
+     * @return RouteNodeDeleteCommand object.
+     * @throws ParseException If RouteNodeDeleteCommand object cannot be created.
      */
     @Override
-    public Command parse() {
+    public Command parse() throws ParseException {
+        int firstIndex = ParserUtil.getIntegerIndexInList(ZERO, TWO, input);
+        int secondIndex = ParserUtil.getIntegerIndexInList(ONE, TWO, input);
         return new RouteNodeDeleteCommand(firstIndex, secondIndex);
     }
 }

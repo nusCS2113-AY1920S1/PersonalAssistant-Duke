@@ -9,22 +9,25 @@ import duke.logic.parsers.ParserUtil;
  * Parses the user inputs into suitable format for RouteDeleteCommand.
  */
 public class RouteDeleteParser extends CommandParser {
-    private int index;
+    private String input;
+    private static final int ZERO = 0;
+    private static final int ONE = 1;
 
     /**
-     * Parses user input into route.
-     * @param input The User input
+     * Constructs the RouteDeleteParser.
      */
-    public RouteDeleteParser(String input) throws ParseException {
-        this.index = ParserUtil.getIntegerIndexInList(0, 1, input);
+    public RouteDeleteParser(String input) {
+        this.input = input;
     }
 
     /**
-     * Constructs RouteDeleteCommand object.
-     * @return RouteDeleteCommand object
+     * Parses the user input and constructs RouteDeleteCommand object.
+     * @return RouteDeleteCommand object.
+     * @throws ParseException If RouteDeleteCommand object cannot be created.
      */
     @Override
-    public Command parse() {
+    public Command parse() throws ParseException {
+        int index = ParserUtil.getIntegerIndexInList(ZERO, ONE, input);
         return new RouteDeleteCommand(index);
     }
 }

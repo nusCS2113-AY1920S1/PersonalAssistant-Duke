@@ -9,26 +9,29 @@ import duke.logic.parsers.ParserUtil;
  * Parses the user inputs into suitable format for RouteEditCommand.
  */
 public class RouteEditParser extends CommandParser {
-    private int firstIndex;
-    private String firstEventIndex;
-    private String secondEventIndex;
+    private String input;
+    private static final int ZERO = 0;
+    private static final int ONE = 1;
+    private static final int TWO = 2;
+    private static final int THREE = 3;
 
     /**
-     * Parses user input into parameter for RouteEditCommand.
-     * @param input The User input
+     * Constructs the RouteEditParser.
      */
-    public RouteEditParser(String input) throws ParseException {
-        this.firstIndex = ParserUtil.getIntegerIndexInList(0, 3, input);
-        this.firstEventIndex = ParserUtil.getFieldInList(1, 3, input);
-        this.secondEventIndex = ParserUtil.getFieldInList(2, 3, input);
+    public RouteEditParser(String input) {
+        this.input = input;
     }
 
     /**
-     * Constructs RouteEditCommand object.
-     * @return RouteEditCommand object
+     * Parses the user input and constructs RouteEditCommand object.
+     * @return RouteEditCommand object.
+     * @throws ParseException If RouteEditCommand object cannot be created.
      */
     @Override
-    public Command parse() {
+    public Command parse() throws ParseException {
+        int firstIndex = ParserUtil.getIntegerIndexInList(ZERO, THREE, input);
+        String firstEventIndex = ParserUtil.getFieldInList(ONE, THREE, input);
+        String secondEventIndex = ParserUtil.getFieldInList(TWO, THREE, input);
         return new RouteEditCommand(firstIndex, firstEventIndex, secondEventIndex);
     }
 }

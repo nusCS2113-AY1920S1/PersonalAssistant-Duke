@@ -11,29 +11,30 @@ import java.time.LocalDateTime;
  * Parses the user inputs into suitable format for AddProfileCommand.
  */
 public class AddProfileParser extends CommandParser {
-
-    private String name;
-    private LocalDateTime birthday;
+    private String input;
+    private static final int ZERO = 0;
+    private static final int ONE = 1;
 
     /**
-     * Parses user input into name and birthday.
-     * @param input The User input
+     * Constructs the AddProfileParser.
      */
-    public AddProfileParser(String input) throws ParseException {
-        String[] token = input.split(" ");
-        this.name = "";
-        for (int i = 0; i < token.length - 1; i++) {
-            this.name += token[i] + " ";
-        }
-        this.birthday = ParserTimeUtil.parseStringToDate(token[token.length - 1]);
+    public AddProfileParser(String input) {
+        this.input = input;
     }
 
     /**
-     * Constructs AddProfile object.
-     * @return AddProfile object
+     * Parses user input and constructs an AddProfileCommand object.
+     * @return AddProfileCommand object.
+     * @throws ParseException If AddProfileCommand object cannot be created from user input.
      */
     @Override
-    public Command parse() {
+    public Command parse() throws ParseException {
+        String[] token = input.split(" ");
+        String name = "";
+        for (int i = ZERO; i < token.length - ONE; i++) {
+            name += token[i] + " ";
+        }
+        LocalDateTime birthday = ParserTimeUtil.parseStringToDate(token[token.length - ONE]);
         return new AddProfileCommand(name, birthday);
     }
 }

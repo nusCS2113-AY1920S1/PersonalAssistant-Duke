@@ -1,6 +1,5 @@
 package duke.logic.parsers.commandparser;
 
-import duke.commons.exceptions.DukeException;
 import duke.logic.commands.Command;
 import duke.logic.commands.GetBusStopCommand;
 
@@ -11,16 +10,15 @@ public class GetBusStopParser extends CommandParser {
     private String busStopNo;
 
     /**
-     * Parses user input into busStopNo.
-     * @param input The User input
+     * Constructs the GetBusStopParser.
      */
     public GetBusStopParser(String input) {
         busStopNo = input;
     }
 
     /**
-     * Constructs GetBusStopCommand object.
-     * @return GetBusStopCommand object
+     * Parses the user input and constructs GetBusStopCommand object.
+     * @return GetBusStopCommand object.
      */
     @Override
     public Command parse() {

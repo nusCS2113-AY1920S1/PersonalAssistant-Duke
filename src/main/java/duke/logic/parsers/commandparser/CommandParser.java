@@ -1,26 +1,20 @@
 package duke.logic.parsers.commandparser;
 
-import duke.commons.exceptions.ApiException;
+import duke.commons.exceptions.ParseException;
+import duke.logic.commands.Command;
 
 import java.util.logging.Logger;
 
-public abstract class CommandParser<T> {
+/**
+ * Represents a parser that is able to parse input into a Command object.
+ */
+public abstract class CommandParser<T extends Command> {
     protected static final Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
-    public abstract T parse() throws ApiException;
-
     /**
-     * Gets the field at a given index in a String, delimited by whitespace.
-     *
-     * @param index The index of the field.
-     * @param userInput The userInput read by the user interface.
-     * @return The field.
+     * Parses the data it have into a Command object.
+     * @return Command object.
+     * @throws ParseException If data cannot be parsed.
      */
-    protected String getEventIndexInList(int index, String userInput) {
-        if (index == 1) {
-            return userInput.strip().split(" ", 4)[2];
-        } else {
-            return userInput.strip().split(" ", 4)[3];
-        }
-    }
+    public abstract T parse() throws ParseException;
 }

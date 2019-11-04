@@ -9,22 +9,24 @@ import duke.logic.parsers.ParserUtil;
  * Parses the user inputs into suitable format for DoneCommand.
  */
 public class DoneParser extends CommandParser {
-
-    private int index;
+    private String input;
+    private static final int ZERO = 0;
+    private static final int ONE = 1;
 
     /**
-     * Parses user input into index.
-     * @param input The User input
+     * Constructs the DoneParser.
      */
-    public DoneParser(String input) throws ParseException {
-        index = ParserUtil.getIntegerIndexInList(0, 1, input);
+    public DoneParser(String input) {
+        this.input = input;
     }
 
     /**
-     * Constructs DoneCommand object.
-     * @return DoneCommand object
+     * Parses the user input and constructs DoneCommand object.
+     * @return DoneCommand object.
+     * @throws ParseException If DoneCommand object cannot be created.
      */
-    public Command parse() {
+    public Command parse() throws ParseException {
+        int index = ParserUtil.getIntegerIndexInList(ZERO, ONE, input);
         return new MarkDoneCommand(index);
     }
 }
