@@ -556,9 +556,8 @@ public class TransactionList {
      * Adds an expenditure to the TransactionList.
      *
      * @param expenditure an instance of an expenditure.
-     * @param type the type of expenditure
      */
-    public void importExpenditureToList(Transaction expenditure, String type) {
+    public void importExpenditureToList(Transaction expenditure) {
         if (transactionLists.size() >= MAX_LIST_SIZE) {
             transactionLists.remove(0);
         }

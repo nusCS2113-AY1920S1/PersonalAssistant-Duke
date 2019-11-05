@@ -1,5 +1,7 @@
 package owlmoney.model.card;
 
+import java.io.IOException;
+import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.time.YearMonth;
 import java.util.ArrayList;
@@ -22,9 +24,11 @@ public class CardList {
     private static final int ISZERO = 0;
     private static final int MAX_CARD_LIMIT = 10;
     private Storage storage;
+    private static final String PROFILE_CARD_LIST_FILE_NAME = "profile_cardlist.csv";
 
     /**
      * Creates an arrayList of Cards.
+     *
      * @param storage for importing and exporting purposes.
      */
     public CardList(Storage storage) {
@@ -49,13 +53,19 @@ public class CardList {
         cardLists.add(newCard);
         ui.printMessage("Added a new card with the below details: ");
         printOneCard(ONE_INDEX, newCard, ISSINGLE, ui);
+        try {
+            exportCardList();
+        } catch (IOException e) {
+            ui.printError("Error trying to save your addition of cards to disk. Your data is"
+                    + " at risk, but we will try again, feel free to continue using the program.");
+        }
     }
 
     /**
      * Deletes an instance of a card from the CardList.
      *
      * @param cardName name of the card to be deleted.
-     * @param ui   required for printing.
+     * @param ui       required for printing.
      * @throws CardException If CardList is empty or card to be deleted do not exist.
      */
     public void cardListDeleteCard(String cardName, Ui ui) throws CardException {
@@ -71,6 +81,13 @@ public class CardList {
                 ui.printMessage("Card with the following details has been removed:");
                 printOneCard(ONE_INDEX, currentCard, ISSINGLE, ui);
                 isDeleted = true;
+                try {
+                    exportCardList();
+                } catch (IOException e) {
+                    ui.printError("Error trying to save your deletion of cards to disk. "
+                            + "Your data is at risk, but we will try again, "
+                            + "feel free to continue using the program.");
+                }
                 break;
             }
         }
@@ -174,11 +191,11 @@ public class CardList {
     /**
      * Edits the credit card details.
      *
-     * @param cardName    Credit Card to be edited.
-     * @param newName New name of credit card if any.
-     * @param limit   New limit of credit card if any.
-     * @param rebate  New rebate of credit card if any.
-     * @param ui      Required for printing.
+     * @param cardName Credit Card to be edited.
+     * @param newName  New name of credit card if any.
+     * @param limit    New limit of credit card if any.
+     * @param rebate   New rebate of credit card if any.
+     * @param ui       Required for printing.
      * @throws CardException If card cannot be found or new card name already exist.
      */
     public void cardListEditCard(String cardName, String newName, String limit, String rebate, Ui ui)
@@ -201,7 +218,14 @@ public class CardList {
                     currentCard.setRebate(Double.parseDouble(rebate));
                 }
                 ui.printMessage("New details of the cards: ");
-                printOneCard(ONE_INDEX, currentCard, ISSINGLE, ui);
+                printOneCard(ONE_INDEX, cardLists.get(i), ISSINGLE, ui);
+                try {
+                    exportCardList();
+                } catch (IOException e) {
+                    ui.printError("Error trying to save your editions of cards to disk. "
+                            + "Your data is at risk, but we will try again, "
+                            + "feel free to continue using the program.");
+                }
                 return;
             }
         }
@@ -227,10 +251,10 @@ public class CardList {
      * Adds an expenditure tied to a credit card.
      * This will store the expenditure in the ExpenditureList in the credit card.
      *
-     * @param cardName The credit card name.
-     * @param expenditure      The instance of the expenditure.
-     * @param ui       Required for printing.
-     * @param type     Type of account to add expenditure into
+     * @param cardName    The credit card name.
+     * @param expenditure The instance of the expenditure.
+     * @param ui          Required for printing.
+     * @param type        Type of account to add expenditure into
      * @throws CardException If the credit card name cannot be found.
      */
     public void cardListAddExpenditure(String cardName, Transaction expenditure, Ui ui, String type)
@@ -242,6 +266,14 @@ public class CardList {
             String capitalCurrentCardName = currentCardName.toUpperCase();
             if (capitalCardName.equals(capitalCurrentCardName)) {
                 currentCard.addInExpenditure(expenditure, ui, type);
+                try {
+                    cardLists.get(i).exportCardPaidTransactionList(Integer.toString(i));
+                    cardLists.get(i).exportCardUnpaidTransactionList(Integer.toString(i));
+                } catch (IOException exceptionMessage) {
+                    ui.printError("Error trying to save your card expenditure"
+                            + " to disk. Your data is at risk, but we will try again, "
+                            + "feel free to continue using the program.");
+                }
                 return;
             }
         }
@@ -275,7 +307,7 @@ public class CardList {
     /**
      * Deletes an expenditure from the transactionList in the card object.
      *
-     * @param transactionNumber                The transaction number.
+     * @param transactionNumber     The transaction number.
      * @param deleteFromAccountCard The name of the card.
      * @param ui                    Required for printing.
      * @throws CardException        If card does not exist.
@@ -290,6 +322,14 @@ public class CardList {
             String capitalCurrentCardName = currentCardName.toUpperCase();
             if (capitalDeleteFromAccountCard.equals(capitalCurrentCardName)) {
                 currentCard.deleteExpenditure(transactionNumber, ui);
+                try {
+                    cardLists.get(i).exportCardPaidTransactionList(Integer.toString(i));
+                    cardLists.get(i).exportCardUnpaidTransactionList(Integer.toString(i));
+                } catch (IOException exceptionMessage) {
+                    ui.printError("Error trying to save your card expenditure"
+                            + " to disk. Your data is at risk, but we will try again, "
+                            + "feel free to continue using the program.");
+                }
                 return;
             }
         }
@@ -299,13 +339,13 @@ public class CardList {
     /**
      * Edits an expenditure from the transactionList in the card object.
      *
-     * @param transactionNumber       The transaction number.
-     * @param editFromCard The name of the card.
-     * @param desc         The description of the expenditure.
-     * @param amount       The amount of the expenditure.
-     * @param date         The date of the expenditure.
-     * @param category     The category of the expenditure.
-     * @param ui           Required for printing.
+     * @param transactionNumber The transaction number.
+     * @param editFromCard      The name of the card.
+     * @param desc              The description of the expenditure.
+     * @param amount            The amount of the expenditure.
+     * @param date              The date of the expenditure.
+     * @param category          The category of the expenditure.
+     * @param ui                Required for printing.
      * @throws CardException        If card does not exist.
      * @throws TransactionException If incorrect date format.
      */
@@ -318,6 +358,14 @@ public class CardList {
             String capitalCurrentCardName = currentCardName.toUpperCase();
             if (capitalEditFromCard.equals(capitalCurrentCardName)) {
                 cardLists.get(i).editExpenditureDetails(transactionNumber, desc, amount, date, category, ui);
+                try {
+                    cardLists.get(i).exportCardPaidTransactionList(Integer.toString(i));
+                    cardLists.get(i).exportCardUnpaidTransactionList(Integer.toString(i));
+                } catch (IOException exceptionMessage) {
+                    ui.printError("Error trying to save your card expenditure"
+                            + " to disk. Your data is at risk, but we will try again, "
+                            + "feel free to continue using the program.");
+                }
                 return;
             }
         }
@@ -415,9 +463,9 @@ public class CardList {
     /**
      * Returns the total unpaid expenditure amount based on the specified date.
      *
-     * @param cardName      The credit card to search the expenditures from.
-     * @param date      The YearMonth date of the expenditures to search.
-     * @return          The total unpaid expenditure amount based on the specified date.
+     * @param cardName The credit card to search the expenditures from.
+     * @param date     The YearMonth date of the expenditures to search.
+     * @return The total unpaid expenditure amount based on the specified date.
      * @throws CardException If card does not exist.
      */
     public double getUnpaidBillAmount(String cardName, YearMonth date) throws CardException {
@@ -438,10 +486,10 @@ public class CardList {
     /**
      * Returns the total paid expenditure amount based on the specified date.
      *
-     * @param cardName      The credit card to search the expenditures from.
-     * @param date      The YearMonth date of the expenditures to search.
-     * @return          The total unpaid expenditure amount based on the specified date.
-     * @throws CardException    If card does not exist.
+     * @param cardName The credit card to search the expenditures from.
+     * @param date     The YearMonth date of the expenditures to search.
+     * @return The total unpaid expenditure amount based on the specified date.
+     * @throws CardException If card does not exist.
      */
     public double getPaidBillAmount(String cardName, YearMonth date) throws CardException {
         checkCardExists(cardName);
@@ -461,9 +509,9 @@ public class CardList {
     /**
      * Returns the monthly rebate of the credit card.
      *
-     * @param cardName  The credit card to get the monthly rebate information from.
-     * @return      The monthly rebate of the credit card.
-     * @throws CardException    If card does not exist.
+     * @param cardName The credit card to get the monthly rebate information from.
+     * @return The monthly rebate of the credit card.
+     * @throws CardException If card does not exist.
      */
     public double getRebateAmount(String cardName) throws CardException {
         checkCardExists(cardName);
@@ -483,9 +531,9 @@ public class CardList {
     /**
      * Returns the id of the credit card.
      *
-     * @param cardName  The credit card to get the id from.
-     * @return      The id of the credit card.
-     * @throws CardException    If card does not exist.
+     * @param cardName The credit card to get the id from.
+     * @return The id of the credit card.
+     * @throws CardException If card does not exist.
      */
     public UUID getCardId(String cardName) throws CardException {
         checkCardExists(cardName);
@@ -505,9 +553,9 @@ public class CardList {
     /**
      * Transfers expenditures from unpaid list to paid list.
      *
-     * @param cardName      The credit card of which the expenditures to transfer.
-     * @param cardDate  The YearMonth date of expenditures to transfer.
-     * @param type      Type of expenditure (card or bank).
+     * @param cardName The credit card of which the expenditures to transfer.
+     * @param cardDate The YearMonth date of expenditures to transfer.
+     * @param type     Type of expenditure (card or bank).
      * @throws TransactionException If invalid transaction when deleting.
      */
     public void transferExpUnpaidToPaid(String cardName, YearMonth cardDate, String type)
@@ -519,6 +567,14 @@ public class CardList {
             String capitalCurrentCardName = currentCardName.toUpperCase();
             if (capitalCardName.equals(capitalCurrentCardName)) {
                 currentCard.transferExpUnpaidToPaid(cardDate, type);
+                try {
+                    cardLists.get(i).exportCardPaidTransactionList(Integer.toString(i));
+                    cardLists.get(i).exportCardUnpaidTransactionList(Integer.toString(i));
+                } catch (IOException exceptionMessage) {
+                    throw new TransactionException("Error trying to save your card expenditure"
+                            + " to disk. Your data is at risk, but we will try again, "
+                            + "feel free to continue using the program.");
+                }
             }
         }
     }
@@ -526,9 +582,9 @@ public class CardList {
     /**
      * Transfers expenditures from paid list to unpaid list.
      *
-     * @param cardName      The credit card of which the expenditures to transfer.
-     * @param cardDate  The YearMonth date of expenditures to transfer.
-     * @param type      Type of expenditure (card or bank).
+     * @param cardName The credit card of which the expenditures to transfer.
+     * @param cardDate The YearMonth date of expenditures to transfer.
+     * @param type     Type of expenditure (card or bank).
      * @throws TransactionException If invalid transaction when deleting.
      */
     public void transferExpPaidToUnpaid(String cardName, YearMonth cardDate, String type)
@@ -540,6 +596,91 @@ public class CardList {
             String capitalCurrentCardName = currentCardName.toUpperCase();
             if (capitalCardName.equals(capitalCurrentCardName)) {
                 currentCard.transferExpPaidToUnpaid(cardDate, type);
+                try {
+                    cardLists.get(i).exportCardPaidTransactionList(Integer.toString(i));
+                    cardLists.get(i).exportCardUnpaidTransactionList(Integer.toString(i));
+                } catch (IOException exceptionMessage) {
+                    throw new TransactionException("Error trying to save your card expenditure"
+                            + " to disk. Your data is at risk, but we will try again, "
+                            + "feel free to continue using the program.");
+                }
+            }
+        }
+    }
+
+    /**
+     * Prepares the cardList for exporting of bank name and type of the bank account.
+     *
+     * @return ArrayList of String arrays for containing each card in the card list.
+     */
+    private ArrayList<String[]> prepareExportCardList() {
+        ArrayList<String[]> exportArrayList = new ArrayList<>();
+        DecimalFormat decimalFormat = new DecimalFormat(".00");
+        decimalFormat.setRoundingMode(RoundingMode.DOWN);
+        exportArrayList.add(new String[] {"cardName", "cardLimit", "rebateRate", "uuid"});
+        for (int i = 0; i < cardLists.size(); i++) {
+            String cardName = cardLists.get(i).getName();
+            double cardLimit = cardLists.get(i).getLimit();
+            String stringCardLimit = decimalFormat.format(cardLimit);
+            double rebateRate = cardLists.get(i).getRebate();
+            String stringRebateRate = decimalFormat.format(rebateRate);
+            UUID uuid = cardLists.get(i).getId();
+            String stringUuid = uuid.toString();
+            exportArrayList.add(new String[] {cardName, stringCardLimit, stringRebateRate, stringUuid});
+        }
+        return exportArrayList;
+    }
+
+    /**
+     * Writes the data of the card list that was prepared into permanent storage.
+     *
+     * @throws IOException when unable to write to file.
+     */
+    private void exportCardList() throws IOException {
+        ArrayList<String[]> inputData = prepareExportCardList();
+        storage.writeFile(inputData, PROFILE_CARD_LIST_FILE_NAME);
+    }
+
+    /**
+     * Imports cards loaded from save file into card list.
+     * .
+     *
+     * @param newCard an instance of the card to be imported.
+     */
+    public void cardListImportNewCard(Card newCard) throws CardException {
+        if (cardExists(newCard.getName())) {
+            throw new CardException("There is already a credit card with the name " + newCard.getName());
+        }
+        if (cardLists.size() >= MAX_CARD_LIMIT) {
+            throw new CardException("The maximum limit of 10 credit cards has been reached.");
+        }
+        cardLists.add(newCard);
+    }
+
+    /**
+     * Imports unpaid card expenditures from save file into the card's unpaid list.
+     *
+     * @param cardName       the name of the card to tie the expenditure to.
+     * @param newExpenditure an instance of expenditure to be imported.
+     */
+    public void cardListImportNewUnpaidCardExpenditure(String cardName, Transaction newExpenditure) {
+        for (int i = 0; i < cardLists.size(); i++) {
+            if (cardLists.get(i).getName().equals(cardName)) {
+                cardLists.get(i).importNewUnpaidExpenditure(newExpenditure);
+            }
+        }
+    }
+
+    /**
+     * Imports paid card expenditures from save file into card's paid list.
+     *
+     * @param cardName       the name of the card to tie the expenditure to.
+     * @param newExpenditure an instance of expenditure to be imported.
+     */
+    public void cardListImportNewPaidCardExpenditure(String cardName, Transaction newExpenditure) {
+        for (int i = 0; i < cardLists.size(); i++) {
+            if (cardLists.get(i).getName().equals(cardName)) {
+                cardLists.get(i).importNewPaidExpenditure(newExpenditure);
             }
         }
     }

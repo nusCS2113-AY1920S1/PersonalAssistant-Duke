@@ -92,7 +92,7 @@ public class BankList {
         try {
             exportBankList();
         } catch (IOException e) {
-            ui.printError("Error trying to save your additions to disk. Your data is"
+            ui.printError("Error trying to save your additions of banks to disk. Your data is"
                     + " at risk, but we will try again, feel free to continue using the program.");
         }
     }
@@ -994,7 +994,7 @@ public class BankList {
                 return currentBank.getType();
             }
         }
-        throw new BankException("Unable to transfer fund as bank the sender bank account does not exist: "
+        throw new BankException("Unable to transfer fund as the sender bank account does not exist: "
                 + accountName);
     }
 

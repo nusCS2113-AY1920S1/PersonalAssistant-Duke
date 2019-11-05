@@ -322,8 +322,8 @@ public class Investment extends Bank {
         ArrayList<String[]> inputData = prepareExportBondList();
         try {
             storage.writeFile(inputData,prependFileName + INVESTMENT_BOND_LIST_FILE_NAME);
-        } catch (IOException e) {
-            throw new IOException(e);
+        } catch (IOException exceptionMessage) {
+            throw new IOException(exceptionMessage);
         }
     }
 
@@ -383,7 +383,7 @@ public class Investment extends Bank {
         if (expenditure.getAmount() > this.getCurrentAmount()) {
             throw new BankException("Bank account cannot have a negative amount");
         } else {
-            transactions.importExpenditureToList(expenditure, bankType);
+            transactions.importExpenditureToList(expenditure);
         }
     }
 

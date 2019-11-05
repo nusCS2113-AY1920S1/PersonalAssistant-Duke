@@ -1272,7 +1272,7 @@ to do it! It allows you to search by description, category or a date range!
 
 *Command Syntax*
 
-`/find /banktransaction /name ACCOUNT_NAME /desc DESCRIPTION [/from DATE /to DATE] [/category CATEGORY]`
+`/find /banktransaction /name ACCOUNT_NAME [/desc DESCRIPTION] [/from DATE /to DATE] [/category CATEGORY]`
 
 [NOTE]
 ====
