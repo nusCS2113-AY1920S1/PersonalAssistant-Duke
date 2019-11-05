@@ -18,9 +18,10 @@ public class Todo extends Task {
      * @param bool        String which should be 1 or 0, describing if the Task is done or not
      * @param description String which contains description of Task
      */
-    public Todo(String bool, String description) {
+    public Todo(String bool, String description, String priority) {
         super(description);
         this.isDone = (1 == Integer.parseInt(bool));
+        this.taskPriority = Integer.parseInt(priority);
     }
 
     /**

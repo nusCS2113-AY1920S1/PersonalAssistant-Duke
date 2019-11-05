@@ -11,12 +11,11 @@ import list.DegreeList;
 import list.DegreeListStorage;
 import parser.Parser;
 import storage.Storage;
-import task.UniversityTaskHandler;
+import task.NUSEvents;
 import task.TaskList;
 import ui.UI;
-import list.DegreeList;
+
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.io.PrintStream;
 import java.util.*;
 import java.util.ArrayList;
@@ -43,7 +42,7 @@ public class Duke extends Application {
     private Map<String, List<String>> degrees = new HashMap<>();
     private Map<String, Degree> degreeInfo = new HashMap<>();
     private ArrayList<String> mydegrees = new ArrayList<>();
-    private UniversityTaskHandler universityTaskHandler = new UniversityTaskHandler();
+    private NUSEvents NUSEvents = new NUSEvents();
     private DegreeListStorage DegreeListStorage = new DegreeListStorage();
     private CommandList commandList = new CommandList();
     private Boolean typoFlag;
@@ -79,7 +78,7 @@ public class Duke extends Application {
             System.out.println("Degree Information Failed to Load, please contact Administrator");
         }
         try {
-            universityTaskHandler.loadDegreeTasks(storage.fetchListOutput("degreeTasks")); //loads information from degreeTasks.txt
+            NUSEvents.loadDegreeTasks(storage.fetchListOutput("degreeTasks")); //loads information from degreeTasks.txt
         } catch (DukeException e) {
             System.out.println(e.getLocalizedMessage());
         }

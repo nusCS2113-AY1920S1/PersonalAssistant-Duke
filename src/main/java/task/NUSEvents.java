@@ -11,11 +11,11 @@ import java.util.*;
 @@author woblek
  */
 /**
- * DegreeTask stores an arraylist of tasklists relevant for each degree programme
+ * NUSEvents stores an arraylist of tasklists relevant for each degree programme
  * It adds all relevant tasks related to a particular degree, and puts them into the user's tasklist
  * it removes all tasks from the user's tasklist related to a removed degree
  */
-public class UniversityTaskHandler {
+public class NUSEvents {
     public static ArrayList<TaskList> fullDegreeTasklist = new ArrayList<TaskList>();
 
     // this map relates all the engineering programmes with an arbitrary integer
@@ -65,7 +65,6 @@ public class UniversityTaskHandler {
                 TaskList thisList = new TaskList(toTasklist);
                 fullDegreeTasklist.add(thisList);
                 toTasklist = "";
-
             }
             else{
                 toTasklist = toTasklist + taskDataRaw.get(i) + "\n";

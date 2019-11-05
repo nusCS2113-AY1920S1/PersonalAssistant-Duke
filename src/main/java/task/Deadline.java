@@ -42,11 +42,11 @@ public class Deadline extends Task {
      * @param description String contains description of Task
      * @param dueDate     String contains the date in correct format
      */
-    public Deadline(String bool, String description, String dueDate) throws DukeException {
+    public Deadline(String bool, String description, String dueDate, String priority) throws DukeException {
         this.description = description;
         this.readDate(dueDate);
         this.isDone = (1 == Integer.parseInt(bool));
-        this.assignPriority();
+        this.taskPriority = Integer.parseInt(priority);
     }
 
 
