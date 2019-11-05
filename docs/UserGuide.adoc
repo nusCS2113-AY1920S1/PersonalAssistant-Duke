@@ -1272,7 +1272,7 @@ to do it! It allows you to search by description, category or a date range!
 
 *Command Syntax*
 
-`/find /banktransaction /name ACCOUNT_NAME /desc DESCRIPTION [/from DATE /to DATE] [/category CATEGORY]`
+`/find /banktransaction /name ACCOUNT_NAME [/desc DESCRIPTION] [/from DATE /to DATE] [/category CATEGORY]`
 
 [NOTE]
 ====
@@ -1292,7 +1292,7 @@ At least one of `/desc`, `/category`, or `/from` with `/to` must be used.
 
 * `/find /banktransaction /name JunBank Savings Account /desc bubble tea`
 
-Finds and lists all transactions with the description `bubble tea` charged to `JunBank Savings Account`.
+Finds and lists all transactions that matches the description `bubble tea` charged to `JunBank Savings Account`.
 
 * `/find /banktransaction /name JunBank Savings Account /from 1/1/2019 /to 7/1/2019`
 
@@ -1332,7 +1332,7 @@ do it! It allows you to search by description, category or a date range!
 
 *Command Syntax*
 
-`/find /cardtransaction /name CARD_NAME /desc DESCRIPTION [/from DATE /to DATE] [/category CATEGORY]`
+`/find /cardtransaction /name CARD_NAME [/desc DESCRIPTION] [/from DATE /to DATE] [/category CATEGORY]`
 
 [NOTE]
 ====
@@ -1353,11 +1353,15 @@ At least one of `/desc`, `/category`, or `/from` with `/to` must be used.
 * `/find /cardtransaction /name POBB Tomorrow Card /desc bubble tea`
 
 Finds and list all transactions that matches with the description `bubble tea` from the credit card named `POBB
-Tomorrow Card1`
+Tomorrow Card`
 
 * `/find /cardtransaction /name POBB Tomorrow Card /from 1/1/2019 /to 7/1/2019`
 
 Finds all transactions charged to `POBB Tomorrow Card` between `1/1/2019` and `7/1/2019`.
+
+* `/find /cardtransaction /name POBB Tomorrow Card /category food`
+
+Finds and lists all transactions that matches the category `food` from the credit card named `POBB Tomorrow Card`
 
 * `/find /cardtransaction /name POBB Tomorrow Card /desc bubble tea /from 1/1/2019 /to 7/1/2019 /category food`
 
@@ -1380,6 +1384,59 @@ In the last example above, *OwlMoney* provided you with the flexibility of perfo
 . Search by category
 
 ====
+
+===== Finding bank transaction details `/find /recurbankexp`
+
+Looking for a recurring expenditure from a savings account? *OwlMoney* is able to help you with that by providing you
+various ways to do it! It allows you to search by description or category!
+
+*Command Syntax*
+
+`/find /recurbankexp /name ACCOUNT_NAME [/desc DESCRIPTION] [/category CATEGORY]`
+
+[NOTE]
+====
+Recurring expenditure only exists in savings account.
+====
+
+[WARNING]
+====
+At least one of `/desc` or `/category` must be used.
+
+`DESCRIPTION` used for searching is case-insensitive.
+
+`CATEGORY` used for searching is case-insensitive.
+====
+
+*Example*
+
+* `/find /recurbankexp /name JunBank Savings Account /desc bubble tea`
+
+Finds and lists all recurring expenditures that matches the description `bubble tea` within `JunBank Savings Account`.
+
+* `/find /recurbankexp /name JunBank Savings Account /category food`
+
+Finds and lists all recurring expenditures that matches the category `food` within `JunBank Savings Account`
+
+* `/find /recurbankexp /name JunBank Savings Account /desc bubble tea /category food`
+
+Finds and lists all recurring expenditures that matches any one of the categories:
+
+* ACCOUNT_NAME -> JunBank Savings Account | DESCRIPTION -> bubble tea
+
+* ACCOUNT_NAME -> JunBank Savings Account | CATEGORY -> food
+
+[TIP]
+====
+In the last example above, *OwlMoney* provided you with the flexibility of performing *2* searches in one command:
+
+. Search by description
+
+. Search by category
+
+====
+
+
 
 ==== Listing multiple details `/list`
 
@@ -1956,13 +2013,19 @@ AMOUNT] [/date DATE]`
 | *Finding transaction records within a specified bank account or card that matches with the keyword specified by the
 user*
 | List the transaction records within a specified bank account or card that matches with the keyword specified.
-| `/find /banktransaction /name ACCOUNT_NAME /desc DESCRIPTION [/from DATE /to DATE] [/category CATEGORY]`
+| `/find /banktransaction /name ACCOUNT_NAME [/desc DESCRIPTION] [/from DATE /to DATE] [/category CATEGORY]`
 
-`/find /cardtransaction /name CARD_NAME /desc DESCRIPTION [/from DATE /to DATE] [/category CATEGORY]`
+`/find /cardtransaction /name CARD_NAME [/desc DESCRIPTION] [/from DATE /to DATE] [/category CATEGORY]`
 
 | `/find /banktransaction /name JunBank Savings Account /desc bubble tea /from 1/1/2019 /to 7/1/2019 /category food`
 
 `/find /cardtransaction /name POBB Tomorrow Card /desc bubble tea /from 1/1/2019 to 7/1/2019 /category food`
+
+| *Finding recurring expenditure records within a specified savings account account that matches with the keyword
+specified by the user*
+| List the recurring expenditure records within a specified savings account that matches with the keyword specified.
+| `/find /recurbankexp /name ACCOUNT_NAME [/desc DESCRIPTION] [/category CATEGORY]`
+| * `/find /recurbankexp /name JunBank Savings Account /desc bubble tea /category food`
 
 | *Transferring funds between bank accounts*
 | Transfer funds from one account to another account based on the amount specified by the user.
