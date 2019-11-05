@@ -7,7 +7,7 @@ public interface IStudentList {
 
     void deleteStudent(int index);
 
-    ArrayList<String> getAllStudent();
+    ArrayList<Student> getStudentList();
 
     Student getStudent(int i);
 
