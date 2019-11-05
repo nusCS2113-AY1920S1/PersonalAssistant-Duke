@@ -21,7 +21,9 @@ import static compal.logic.command.ImportCommand.MESSAGE_FILE_NON_ICS;
 //@@author SholihinK
 class ImportCommandTest {
     private ArrayList<Task> taskArrListMain = new ArrayList<>();
+    private ArrayList<Task> taskArrListEmpty = new ArrayList<>();
     private TaskList taskListMain = new TaskList();
+    private TaskList taskListEmpty = new TaskList();
 
     @org.junit.jupiter.api.BeforeEach
     void setUp() {
@@ -36,6 +38,7 @@ class ImportCommandTest {
         taskArrListMain.add(deadline1);
 
         this.taskListMain.setArrList(taskArrListMain);
+        this.taskListEmpty.setArrList(taskArrListEmpty);
     }
 
     @Test
@@ -70,14 +73,15 @@ class ImportCommandTest {
     @Test
     public void execute_import_success() throws CommandException {
         new ExportCommand("testExport").commandExecute(taskListMain);
-        CommandResult test = new ImportCommand("testExport").commandExecute(taskListMain);
+        CommandResult test = new ImportCommand("testExport").commandExecute(taskListEmpty);
         String status = "\u2718";
         String expectedString = "You have successfully imported your schedule!\n"
-            + "This are the task added to COMPal\n" + "\n" + " \n" + "Task ID:1\n"
-            + "[E][" + status + "] CS2105 Lecture \n" + "Date: 01/10/2019 \n" + "Start Time: 1400 \n"
-            + "End Time: 1500 \n" + "Priority: medium\n" + "***************\n" + "\n" + " \n"
-            + "Task ID:2\n" + "[D][" + status + "] Deadline 1 \n" + "Date: 03/10/2019 \n" + "End Time: 1500 \n"
-            + "Priority: high\n" + "***************\n";
+            + "This are the task added to COMPal\n" + "The following tasks were added: \n" + "\n" + " \n"
+            + "Task ID:0\n" + "[E][" + status + "] CS2105 Lecture \n" + "Date: 01/10/2019 \n" + "Start Time: 1400 \n"
+            + "End Time: 1500 \n" + "Priority: medium\n" + "***************\n" + "\n"
+            + "The following deadline were added: \n" + "\n" + " \n" + "Task ID:1\n"
+            + "[D][" + status + "] Deadline 1 \n"
+            + "Date: 03/10/2019 \n" + "End Time: 1500 \n" + "Priority: high\n" + "***************\n" + "\n";
 
         String testedString = test.feedbackToUser;
         Assertions.assertEquals(expectedString, testedString);

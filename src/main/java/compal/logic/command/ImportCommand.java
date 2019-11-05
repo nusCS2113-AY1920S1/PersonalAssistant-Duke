@@ -2,6 +2,7 @@ package compal.logic.command;
 
 import compal.commons.LogUtils;
 import compal.logic.command.exceptions.CommandException;
+import compal.logic.parser.DeadlineCommandParser;
 import compal.model.tasks.Deadline;
 import compal.model.tasks.Event;
 import compal.model.tasks.Task;
@@ -11,6 +12,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.logging.Logger;
 
@@ -125,7 +127,7 @@ public class ImportCommand extends Command {
      *
      * @param eventString The string of the event read from ics
      */
-    private void createTasks(String eventString, TaskList taskList) {
+    private void createTasks(String eventString, TaskList taskList) throws CommandException {
 
         if (eventString.isEmpty()) {
             return;
@@ -153,25 +155,53 @@ public class ImportCommand extends Command {
         }
 
         if ((taskStartDate.equals(taskEndDate) && taskStartTime.equals(taskEndTime))) {
-            Deadline isDeadline = new Deadline(taskDesc, taskPriority, taskStartDate, taskStartTime);
+
+            int interval = 7;
+            ArrayList<String> startDateList = new ArrayList<>();
+            startDateList.add(taskStartDate);
+            DeadlineCommand deadline = new DeadlineCommand(taskDesc, taskPriority, startDateList,
+                taskEndTime, taskEndDate, interval);
+            addedTask += deadline.commandExecute(taskList).feedbackToUser + "\n";
+
             if (hasReminder) {
-                isDeadline.setHasReminder(true);
+                for (Task t : taskList.getArrList()) {
+                    if (t.getSymbol().equals("D")
+                        && t.getDescription().equals(taskDesc)
+                        && t.getStringEndTime().equals(taskEndTime)
+                        && t.getStringMainDate().equals(taskEndDate)) {
+                        System.out.println("HAVE");
+                        System.out.println(t.getId());
+                        new SetReminderCommand(t.getId(), "y").commandExecute(taskList);
+                        break;
+                    }
+                }
             }
 
-            taskList.addTask(isDeadline);
-            addedTask += isDeadline.toString() + "\n";
         } else {
-            Event isEvent = new Event(taskDesc, taskPriority, taskStartDate, taskEndDate, taskStartTime, taskEndTime);
+            int interval = 7;
+            ArrayList<String> startDateList = new ArrayList<>();
+            startDateList.add(taskStartDate);
+            EventCommand event = new EventCommand(taskDesc, startDateList, taskPriority, taskStartTime,
+                taskEndTime, taskEndDate, interval);
+            addedTask += event.commandExecute(taskList).feedbackToUser + "\n";
             if (hasReminder) {
-                isEvent.setHasReminder(true);
+                for (Task t : taskList.getArrList()) {
+                    if (t.getSymbol().equals("E")
+                        && t.getDescription().equals(taskDesc)
+                        && t.getStringStartTime().equals(taskStartTime)
+                        && t.getStringEndTime().equals(taskEndTime)
+                        && t.getStringMainDate().equals(taskStartDate)
+                        && t.getStringTrailingDate().equals(taskEndDate)) {
+                        new SetReminderCommand(t.getId(), "y").commandExecute(taskList);
+                        break;
+                    }
+                }
             }
-            taskList.addTask(isEvent);
-            addedTask += isEvent.toString() + "\n";
         }
     }
 
     private Boolean getReminder(String eventString) {
-        final String alarmToken = "VALARM:";
+        final String alarmToken = "BEGIN:VALARM";
         if (eventString.contains(alarmToken)) {
             return true;
         }

@@ -83,7 +83,7 @@ public class DeadlineCommand extends Command {
                     if (task.getSymbol().equals("D")
                             && task.getStringMainDate().equals(startDateString)
                             && task.getStringEndTime().equals(endTime)
-                            && task.getDescription().equals(description)) {
+                            && task.getDescription().equalsIgnoreCase(description)) {
                         finalList.append(MESSAGE_REPEATED_DEADLINE.concat(task.toString() + "\n"));
                         doesNotExist = false;
                         break;
