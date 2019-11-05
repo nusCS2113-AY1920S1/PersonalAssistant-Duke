@@ -12,8 +12,6 @@ import mistermusik.ui.UI;
 import java.io.File;
 import java.io.IOException;
 import java.util.Date;
-import java.util.logging.Handler;
-import java.util.logging.Logger;
 
 public class Main {
     private static Parser parser = new Parser();
