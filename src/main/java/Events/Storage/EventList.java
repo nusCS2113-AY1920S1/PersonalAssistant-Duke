@@ -46,16 +46,6 @@ public class EventList {
     private Budgeting budgeting;
 
     /**
-     * Index to manage which events are over.
-     */
-    public int currentDateIndex;
-
-    /**
-     * Flag to check if there are unachieved goals for past events.
-     */
-    boolean gotOverUnachieved;
-
-    /**
      * Creates new Model_Class.EventList object.
      *
      * @param inputList list of strings containing all information extracted from save file
@@ -69,9 +59,6 @@ public class EventList {
         final char EXAM = 'E';
         final char RECITAL = 'R';
         eventArrayList = new ArrayList<>();
-
-        currentDateIndex = 0;
-        gotOverUnachieved = false;
 
         for (String currLine : inputList) {
             boolean isDone = currLine.substring(0, 1).equals("V");
@@ -310,9 +297,8 @@ public class EventList {
      * @return String containing all events, separated by a newline.
      */
     public String listOfEvents_String() {
-        pastEventManagement();
         String allEvents = "";
-        for (int i = currentDateIndex; i < eventArrayList.size(); ++i) {
+        for (int i = 0; i < eventArrayList.size(); ++i) {
             if (eventArrayList.get(i) == null) continue;
             int j = i + 1;
             allEvents += j + ". " + this.getEvent(i).toString() + "\n";
@@ -368,49 +354,6 @@ public class EventList {
 
     public Budgeting getBudgeting() {
         return budgeting;
-    }
-
-    /**
-     * Compares the dates of each event with current date
-     */
-    private void pastEventManagement() {
-        Calendar currentDate = Calendar.getInstance();
-        for (int i = 0; i < eventArrayList.size(); i += 1) {
-            if (this.getEvent(i).getStartDate().getEventJavaDate().compareTo(currentDate.getTime()) <= 0) {
-                currentDateIndex = i + 1;
-            }
-        }
-        if (currentDateIndex > 0) {
-            for (int i = 0; i < currentDateIndex; i += 1) {
-                Event eventToCheck = this.getEvent(i);
-                for (int j = 0; j < eventToCheck.getGoalList().size(); j += 1) {
-                    if (!eventToCheck.getGoalObject(j).getBooleanStatus()) {
-                        gotOverUnachieved = true;
-                    }
-                }
-            }
-        }
-    }
-
-    public String getOverUnachievedGoals() {
-        String overUnachievedGoalsList = "\n" + "Below lists all the unachieved goal for past events. Please be reminded to add them to the future events." + "\n";
-        if (gotOverUnachieved) {
-            for (int j = 0; j < currentDateIndex; j += 1) {
-                Event eventToCheck = this.getEvent(j);
-                for (int k = 0; k < eventToCheck.getGoalList().size(); k += 1) {
-                    if (!eventToCheck.getGoalObject(k).getBooleanStatus()) {
-                        Goal unachievedGoal = eventToCheck.getGoalObject(k);
-                        int eventListNum = j + 1;
-                        int goalListNum = k + 1;
-                        overUnachievedGoalsList += "Event " + eventListNum + ": " + eventToCheck.toString() + "---" + " Goal " + goalListNum + ": " + unachievedGoal.getGoal() + "\n";
-                    }
-                }
-            }
-            return overUnachievedGoalsList;
-        } else {
-            overUnachievedGoalsList += "You do not have any unachieved goals for past events! Yay!" + "\n";
-        }
-        return overUnachievedGoalsList;
     }
 
 }
