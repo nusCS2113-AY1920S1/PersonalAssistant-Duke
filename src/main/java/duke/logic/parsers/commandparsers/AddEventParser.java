@@ -34,7 +34,7 @@ public class AddEventParser extends CommandParser {
      * @return The new Event object.
      * @throws ParseException If Event object cannot be created from user input.
      */
-    private static Event createEvent(String userInput) throws ParseException {
+    private Event createEvent(String userInput) throws ParseException {
         String[] withinDetails = userInput.substring("event".length()).strip().split("between| and");
         if (withinDetails.length == ONE) {
             throw new ParseException(Messages.ERROR_DESCRIPTION_EMPTY);
