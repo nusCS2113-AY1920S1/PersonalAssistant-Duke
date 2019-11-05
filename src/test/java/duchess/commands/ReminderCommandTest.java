@@ -2,7 +2,7 @@ package duchess.commands;
 
 import duchess.exceptions.DuchessException;
 import duchess.logic.commands.ReminderCommand;
-import duchess.model.task.DuchessLog;
+import duchess.model.DuchessHistory;
 import duchess.parser.Parser;
 import duchess.storage.Storage;
 import duchess.storage.Store;
@@ -36,7 +36,7 @@ public class ReminderCommandTest {
         Store store = new Store();
         Ui ui = new Ui();
         Storage storage = new Storage(filename);
-        DuchessLog duchessLog = new DuchessLog();
+        DuchessHistory duchessHistory = new DuchessHistory();
 
         // Adding the firstDeadline
         Parser parser = new Parser();

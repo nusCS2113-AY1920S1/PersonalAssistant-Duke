@@ -1,6 +1,6 @@
 import duchess.exceptions.DuchessException;
 import duchess.logic.commands.Command;
-import duchess.model.task.DuchessLog;
+import duchess.model.DuchessHistory;
 import duchess.parser.Parser;
 import duchess.storage.Storage;
 import duchess.storage.Store;
@@ -37,16 +37,16 @@ public class Duke {
      */
     private void run() {
         ui.showWelcome();
-        DuchessLog duchessLog = new DuchessLog();
+        DuchessHistory duchessHistory = new DuchessHistory();
 
         boolean isExit = false;
         while (!isExit) {
             try {
                 String fullCommand = ui.readCommand();
-                duchessLog.add(fullCommand);
+                duchessHistory.add(fullCommand);
                 ui.beginBlock();
                 Command c = parser.parse(fullCommand);
-                DuchessLog.addValidCommands(c);
+                DuchessHistory.addValidCommands(c);
 
                 c.execute(store, ui, storage);
 

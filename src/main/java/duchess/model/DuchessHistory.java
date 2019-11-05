@@ -1,16 +1,16 @@
-package duchess.model.task;
+package duchess.model;
 
 import duchess.logic.commands.Command;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class DuchessLog {
+public class DuchessHistory {
     private static List<String> duchessLog;
 
     private static List<Command> validDuchessLog;
 
-    public DuchessLog() {
+    public DuchessHistory() {
         duchessLog = new ArrayList<>();
         validDuchessLog = new ArrayList<>();
     }
