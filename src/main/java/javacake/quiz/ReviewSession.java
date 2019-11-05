@@ -87,7 +87,7 @@ public class ReviewSession implements QuizManager {
             }
         }
         ui.showLine();
-        return new BackCommand().execute(logic, ui, storageManager);
+        return new BackCommand("back").execute(logic, ui, storageManager);
     }
 
     private static boolean isValidInput(String input) throws CakeException {

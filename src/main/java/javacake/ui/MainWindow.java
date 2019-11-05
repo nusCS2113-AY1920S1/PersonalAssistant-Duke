@@ -301,27 +301,6 @@ public class MainWindow extends GridPane {
         response = EditNoteCommand.getHeadingMessage();
         //response.setEditable(false);
         DialogBox.isScrollingText = false;
-        /*dialogContainer.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
-                    if(mouseEvent.getClickCount() == 2){
-                        //label.setVisible(false);
-                        //TextArea textarea = new TextArea(label.getText());
-                        //textarea.setPrefHeight(label.getHeight() + 10);
-                        //stackpane.getChildren().add(textarea);
-
-                        textarea.setOnKeyPressed(event ->{
-                            System.out.println(event.getCode());
-                            if(event.getCode().toString().equals("ENTER"))
-                            {
-                                stackpane.getChildren().remove(textarea);
-                                label.setVisible(true);
-                            }
-                        });
-                    }
-            }
-        });*/
         showContentContainer();
         EditNoteCommand.clearTextFileContent();
     }
@@ -495,7 +474,7 @@ public class MainWindow extends GridPane {
         timeline.play();
     }
 
-    private boolean isDeadlineRelated() {
+    private boolean isDeadlineRelated() throws CakeException {
         if (input.length() >= 8 && input.substring(0, 8).equals("deadline")) {
             //response = JavaCake.getResponse(input);
             System.out.println(response);
@@ -590,7 +569,7 @@ public class MainWindow extends GridPane {
         showNoteContainer();
     }
 
-    private void showRemindersBox() {
+    private void showRemindersBox() throws CakeException {
         response = Ui.showDeadlineReminder(JavaCake.storageManager);
         //CHECKSTYLE:OFF
         response = response.replaceAll("✓", "\u2713");

@@ -12,9 +12,7 @@ import java.util.ArrayList;
 
 public class ReminderCommand extends Command {
 
-    public ReminderCommand() {
 
-    }
 
     /**
      * Constructor for ReminderCommand.

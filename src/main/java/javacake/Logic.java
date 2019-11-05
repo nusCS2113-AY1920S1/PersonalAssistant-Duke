@@ -3,15 +3,19 @@ package javacake;
 import edu.emory.mathcs.backport.java.util.Collections;
 import javacake.exceptions.CakeException;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.security.CodeSource;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.zip.ZipEntry;
+import java.util.zip.ZipFile;
 import java.util.zip.ZipInputStream;
 
 
@@ -52,53 +56,231 @@ public class Logic {
     /**
      * Stores all files in the currentFilePath into listOfFiles.
      */
-    public void loadFiles() throws CakeException {
-        String[] tempListFiles = currentFilePath.split("/");
+    private void loadFiles() throws CakeException {
+        String[] tempListFiles = splitFilePathIntoPartitions();
         int currFileSlashCounter = tempListFiles.length;
         listOfFiles.clear();
         try {
-            CodeSource src = Logic.class.getProtectionDomain().getCodeSource();
-            boolean isJarMode = true;
-            if (src != null) { //jar
-                URL jar = src.getLocation();
-                ZipInputStream zip = new ZipInputStream(jar.openStream());
-                while (true) {
-                    ZipEntry e = zip.getNextEntry();
-                    if (e == null) {
-                        isJarMode = false;
-                        break;
-                    }
-                    String name = e.getName();
-                    //System.out.println(name);
-                    if (name.startsWith(currentFilePath)) {
-                        String[] listingFiles = name.split("/");
-                        if (listingFiles.length == currFileSlashCounter + 1) {
-                            System.out.println(name + " == " + currFileSlashCounter);
-                            listOfFiles.add(listingFiles[currFileSlashCounter]);
-                            Collections.sort(listOfFiles);
-                            numOfFiles = listOfFiles.size();
-                        }
-                    }
-                }
+            CodeSource src = generateCodeSource();
+            if (runningFromJar()) {
+                processJarFile(src, currFileSlashCounter);
+            } else {
+                processNonJarFile();
             }
-
-            if (!isJarMode) { //non-jar
-                InputStream inputStream = ClassLoader.getSystemClassLoader().getResourceAsStream(currentFilePath);
-                BufferedReader br = new BufferedReader(new InputStreamReader(inputStream));
-                String currentLine;
-                while ((currentLine = br.readLine()) != null) {
-                    //System.out.println(currentLine);
-                    listOfFiles.add(currentLine);
-                }
-                Collections.sort(listOfFiles);
-                numOfFiles = listOfFiles.size();
-                br.close();
-            }
-        } catch (NullPointerException | IOException e) {
+        } catch (NullPointerException e) {
             throw new CakeException("Content not found!" + "\nPls key 'back' or 'list' to view previous content!");
         }
     }
 
+    /**
+     * Checks if current file is running from Jar.
+     * @return True if current file is a Jar file.
+     */
+    private static boolean runningFromJar() {
+        try {
+            String jarFilePath = new File(Logic.class
+                    .getProtectionDomain()
+                    .getCodeSource()
+                    .getLocation()
+                    .getPath())
+                    .toString();
+
+            jarFilePath = URLDecoder.decode(jarFilePath, StandardCharsets.UTF_8);
+
+            try (ZipFile zipFile = new ZipFile(jarFilePath)) {
+                ZipEntry zipEntry = zipFile.getEntry("META-INF/MANIFEST.MF");
+                return zipEntry != null;
+            }
+        } catch (IOException e) {
+            return false;
+        }
+    }
+
+    /**
+     * Splits current file path into their partitions.
+     * @return String array after splitting the current file path by slashes.
+     */
+    private String[] splitFilePathIntoPartitions() {
+        String slash = "/";
+        return currentFilePath.split(slash);
+    }
+
+    /**
+     * Generates code source used for Jar files.
+     * @return Code source based on current logic class.
+     */
+    private CodeSource generateCodeSource() {
+        return Logic.class.getProtectionDomain().getCodeSource();
+    }
+
+    /**
+     * Processes Non-Jar file by reading the files in current file path.
+     * @throws CakeException If file does not exist.
+     */
+    private void processNonJarFile() throws CakeException {
+        InputStream inputStream;
+        BufferedReader br;
+        try {
+            inputStream = generateInputStream();
+            br = generateBufferedReader(inputStream);
+            readAndWrite(br);
+            sortFiles();
+            updateNumberOfFiles();
+            br.close();
+        } catch (IOException e) {
+            throw new CakeException(e.getMessage());
+        }
+    }
+
+    /**
+     * Generates buffered reader based on current input stream.
+     * @param inputStream Input stream based on current file path.
+     * @return Buffered Reader based on current input stream.
+     */
+    private BufferedReader generateBufferedReader(InputStream inputStream) {
+        return new BufferedReader(new InputStreamReader(inputStream));
+    }
+
+    /**
+     * Generates input stream based on current file path.
+     * @return InputStream based on current file path.
+     */
+    private InputStream generateInputStream() {
+        return ClassLoader.getSystemClassLoader().getResourceAsStream(currentFilePath);
+    }
+
+    /**
+     * Sorts the strings in listOfFiles.
+     */
+    private void sortFiles() {
+        Collections.sort(listOfFiles);
+    }
+
+    /**
+     * Reads and writes into listOfFiles used in Non-Jar files.
+     * @param br BufferedReader to read file names in non-jar files.
+     * @throws CakeException If line does not exist.
+     */
+    private void readAndWrite(BufferedReader br) throws CakeException {
+        try {
+            String currentLine;
+            while ((currentLine = br.readLine()) != null) {
+                listOfFiles.add(currentLine);
+            }
+        } catch (IOException e) {
+            throw new CakeException(e.getMessage());
+        }
+    }
+
+
+    /**
+     * Processes Jar files.
+     * @param src CodeSource in Jar file.
+     * @param currFileSlashCounter Current number of file slashes.
+     * @throws CakeException If the file does not exist.
+     */
+    private void processJarFile(CodeSource src, int currFileSlashCounter) throws CakeException {
+        URL jar = src.getLocation();
+        try {
+            ZipInputStream zip = new ZipInputStream(jar.openStream());
+            processZipFile(zip, currFileSlashCounter);
+        } catch (IOException e) {
+            throw new CakeException(e.getMessage());
+        }
+    }
+
+    private void processZipFile(ZipInputStream zip, int currFileSlashCounter) throws CakeException {
+        ZipEntry e;
+        try {
+            while (true) {
+                e = zip.getNextEntry();
+                if (zipEntryIsNull(e)) {
+                    break;
+                }
+                String name = e.getName();
+                updateListOfFiles(name, currFileSlashCounter);
+            }
+        } catch (IOException err) {
+            throw new CakeException(err.getMessage());
+        }
+    }
+
+    /**
+     * Verifies if it is a child file and starts with current file path.
+     * Get the name of the child file and adds it to the list of files.
+     * Sorts the file collection and updates the total number of files.
+     * @param name Name of current file entry.
+     * @param currFileSlashCounter Current number of file slashes.
+     */
+    private void updateListOfFiles(String name, int currFileSlashCounter) {
+        if (name.startsWith(currentFilePath)) {
+            String[] listingFiles = name.split("/");
+            if (isChildDirectory(listingFiles, currFileSlashCounter)) {
+                String childFile;
+                childFile = nameOfChildFile(listingFiles, currFileSlashCounter);
+                addFileToListOfFiles(childFile);
+                sortFileCollection();
+                updateNumberOfFiles();
+            }
+        }
+    }
+
+    /**
+     * Adds current file to the list number of files.
+     * @param childFile Name of the child file.
+     */
+    private void addFileToListOfFiles(String childFile) {
+        listOfFiles.add(childFile);
+    }
+
+    /**
+     * Updates the total number of files.
+     */
+    private void updateNumberOfFiles() {
+        numOfFiles = listOfFiles.size();
+    }
+
+    /**
+     * Sorts all the file in the collection.
+     */
+    private void sortFileCollection() {
+        Collections.sort(listOfFiles);
+    }
+
+    /**
+     * Returns the name of the child file.
+     * @param listingFiles All the files within a file path.
+     * @param currFileSlashCounter Total number of file slashes.
+     * @return name of child file.
+     */
+    private String nameOfChildFile(String[] listingFiles, int currFileSlashCounter) {
+        return listingFiles[currFileSlashCounter];
+    }
+
+    /**
+     * Checks if the current file is a child directory.
+     * Checks if the number of listing files equals to slash counter + 1.
+     * @param listingFiles All the files within a file path.
+     * @param currFileSlashCounter Total number of file slashes.
+     * @return true if it is child directory.
+     */
+    private boolean isChildDirectory(String[] listingFiles, int currFileSlashCounter) {
+        return (listingFiles.length == currFileSlashCounter + 1);
+    }
+
+    /**
+     * Checks if the zipentry is null.
+     * @param e ZipEntry when Jar file is running.
+     * @return Null if zip entry is null.
+     */
+    private boolean zipEntryIsNull(ZipEntry e) {
+        return (e == null);
+    }
+
+    /**
+     * Returns the total number of files.
+     * @return the total number of files.
+     */
     public int getNumOfFiles() {
         return numOfFiles;
     }
@@ -147,13 +329,19 @@ public class Logic {
      * Used for BackCommand.
      */
     public void backToPreviousPath() {
-        if (!currentFilePath.equals(defaultFilePath)) {
-            if (!currentFilePath.contains(".txt")) {
-                currentFilePath = gotoParentFilePath(currentFilePath);
-            } else {
-                currentFilePath = gotoParentFilePath(gotoParentFilePath(currentFilePath));
-            }
+        if (isNotAFileOrMainList()) {
+            currentFilePath = gotoParentFilePath(currentFilePath);
+        } else {
+            currentFilePath = gotoParentFilePath(gotoParentFilePath(currentFilePath));
         }
+    }
+
+    /**
+     * Checks if current file path is not main list and not a text file.
+     * @return True if current file path is not main list and not a text file.
+     */
+    private boolean isNotAFileOrMainList() {
+        return (!currentFilePath.equals(defaultFilePath) && !currentFilePath.contains("txt"));
     }
 
     /**

@@ -40,19 +40,42 @@ public class EditNoteCommand extends Command {
     public EditNoteCommand(String inputCommand) throws CakeException {
         JavaCake.logger.log(Level.INFO, "Processing EditNoteCommand: " + inputCommand);
         type = CmdType.EDITNOTE;
-        String[] wordsInInputCommand = inputCommand.split("\\s+");
+        verifyCommand(inputCommand);
+    }
+
+    /**
+     * Verifies if command contains parameter.
+     * @param inputCommand Editnote command from user.
+     * @throws CakeException If user did not specify file name.
+     */
+    private void verifyCommand(String inputCommand) throws CakeException {
+
+        String bySpaces = "\\s+";
+        String[] wordsInInputCommand = inputCommand.split(bySpaces);
+
         if (wordsInInputCommand.length == 2) {
-            if (fileExist(wordsInInputCommand[1])) {
-                nameOfEditFile = wordsInInputCommand[1];
-                createCurrentFilePath();
-            } else {
-                JavaCake.logger.log(Level.INFO, wordsInInputCommand[1] + " contains illegal file name.");
-                throw new CakeException("Pls enter a valid file name! Type 'listnote' to view available notes!");
-            }
+            String fileName = wordsInInputCommand[1];
+            checkIfFileExist(fileName);
         } else {
             JavaCake.logger.log(Level.INFO, inputCommand + " invalid EditNoteCommand.");
             throw new CakeException("Pls enter a valid editnote command:"
                     + " 'editnote - [name of the file you wish you edit]'");
+        }
+    }
+
+    /**
+     * Checks if file exist.
+     * Updates current file path and nameOfEditFile if file exists.
+     * @param fileName Name of the file to be edited.
+     * @throws CakeException If input file name contains illegal characters.
+     */
+    private void checkIfFileExist(String fileName) throws CakeException {
+        if (fileExist(fileName)) {
+            nameOfEditFile = fileName;
+            createCurrentFilePath();
+        } else {
+            JavaCake.logger.log(Level.INFO, fileName + " contains illegal file name.");
+            throw new CakeException("Pls enter a valid file name! Type 'listnote' to view available notes!");
         }
     }
 
@@ -119,14 +142,27 @@ public class EditNoteCommand extends Command {
     private void readAndSaveNewContent() throws CakeException {
         BufferedWriter bw;
         try {
-            Ui ui = new Ui();
             bw = new BufferedWriter(new FileWriter(new File(currentFilePath)));
+            writeNewLine(bw);
+            bw.close();
+        } catch (IOException e) {
+            throw new CakeException(e.getMessage());
+        }
+    }
+
+    /**
+     * Writes new line into edit file.
+     * @param bw BufferedWriter to write new line into edit file.
+     * @throws CakeException If file does not exist.
+     */
+    private void writeNewLine(BufferedWriter bw) throws CakeException {
+        try {
+            Ui ui = new Ui();
             String lineRead;
             while (!(lineRead = ui.readCommand()).equals("/save")) {
                 bw.write(lineRead);
                 bw.newLine();
             }
-            bw.close();
         } catch (IOException e) {
             throw new CakeException(e.getMessage());
         }
