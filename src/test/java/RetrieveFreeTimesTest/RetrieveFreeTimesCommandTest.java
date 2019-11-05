@@ -1,9 +1,11 @@
 package RetrieveFreeTimesTest;
 
 import Commands.Command;
+import Commands.FindFreeTimesCommand;
 import Commons.LookupTable;
 import Commons.Ui;
 import DukeExceptions.DukeInvalidFormatException;
+import Parser.FindFreeTimesParse;
 import Parser.RetrieveFreeTimesParse;
 import StubClasses.StorageStub;
 import Tasks.TaskList;
@@ -12,6 +14,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.util.ArrayList;
 
@@ -42,19 +45,20 @@ public class RetrieveFreeTimesCommandTest {
     }
 
     @Test
-    public void retrieveFreeTimesCommandWithEmptyList() {
+    public void retrieveFreeTimesCommandWithEmptyList() throws Exception {
         String expected = ui.showSelectionOptionEmptyList();
         String actual = null;
         Command command = null;
         try {
             command = new RetrieveFreeTimesParse(userInputWithValidOption).parse();
             actual = command.execute(lookupTable, events, deadlines, ui, storageStub);
+
         } catch (DukeInvalidFormatException e) {
             actual = e.getMessage();
         }
         assertEquals(expected, actual);
     }
-
+    /*
     @Before
     public void setRetrievedFreeTimesList() {
         String firstPairKey = "Thu 07/11/2019 02:30 PM until 07:30 PM";
@@ -75,9 +79,29 @@ public class RetrieveFreeTimesCommandTest {
         retrievedFreeTimesList.add(new Pair<>(fourthPairKey, fourthPairValue));
         retrievedFreeTimesList.add(new Pair<>(fifthPairKey, fifthPairValue));
     }
+    */
+
+    @Before
+    public void setRetrievedFreeTimesList() {
+        String actual = "No error";
+        String validUserInputWithDuration = "find 3 hours";
+        Command command = null;
+        try {
+            command = new FindFreeTimesParse(validUserInputWithDuration).parse();
+            actual = command.execute(lookupTable, events, deadlines, ui, storageStub);
+        } catch (DukeInvalidFormatException e) {
+            actual = e.getMessage();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        assertNotNull(command, actual);
+    }
 
     @Test
     public void retrieveFreeTimesCommandWithPopulatedList() {
+        setRetrievedFreeTimesList();
+
+        retrievedFreeTimesList = FindFreeTimesCommand.getCompiledFreeTimesList();
         String expected = ui.showSelectionOption(userInputSelectedOption, retrievedFreeTimesList.get(userInputSelectedOption-1).getKey());
         String actual = null;
         Command command = null;
@@ -86,13 +110,15 @@ public class RetrieveFreeTimesCommandTest {
             actual = command.execute(lookupTable, events, deadlines, ui, storageStub);
         } catch (DukeInvalidFormatException e) {
             actual = e.getMessage();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         assertEquals(expected, actual);
+        clearParameter();
     }
 
     @After
     public void clearParameter(){
         retrievedFreeTimesList.clear();
     }
-
 }
