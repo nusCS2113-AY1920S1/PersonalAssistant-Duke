@@ -33,4 +33,9 @@ public class DoctorCommand extends ArgCommand {
         return super.getSwitchVal(switchName);
     }
 
+    @Override
+    public boolean isSwitchSet(String switchName) {
+        return super.isSwitchSet(switchName);
+    }
+
 }

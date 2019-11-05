@@ -25,27 +25,27 @@ public abstract class ArgCommand extends Command {
         // do any necessary pre-processing
     }
 
-    public void setSwitchValsMap(Map<String, String> switchVals) {
+    protected void setSwitchValsMap(Map<String, String> switchVals) {
         this.switchVals.putAll(switchVals);
     }
 
-    public void setSwitchVal(String switchName, String value) {
+    protected void setSwitchVal(String switchName, String value) {
         switchVals.put(switchName, value);
     }
 
-    public String getSwitchVal(String switchName) {
+    protected String getSwitchVal(String switchName) {
         return switchVals.get(switchName);
     }
 
-    public boolean isSwitchSet(String switchName) {
+    protected boolean isSwitchSet(String switchName) {
         return switchVals.containsKey(switchName);
     }
 
-    public void setArg(String arg) {
+    protected void setArg(String arg) {
         this.arg = arg;
     }
 
-    public String getArg() {
+    protected String getArg() {
         return arg;
     }
 
@@ -53,23 +53,23 @@ public abstract class ArgCommand extends Command {
 
     // I hate Java
 
-    public String getEmptyArgMsg() {
+    protected String getEmptyArgMsg() {
         return getSpec().getEmptyArgMsg();
     }
 
-    public ArgLevel getCmdArgLevel() {
+    protected ArgLevel getCmdArgLevel() {
         return getSpec().getCmdArgLevel();
     }
 
-    public Map<String, Switch> getSwitchMap() {
+    protected Map<String, Switch> getSwitchMap() {
         return getSpec().getSwitchMap();
     }
 
-    public Map<String, String> getSwitchAliases() {
+    protected Map<String, String> getSwitchAliases() {
         return getSpec().getSwitchAliases();
     }
 
-    public Map<String, String> getSwitchVals() {
+    protected Map<String, String> getSwitchVals() {
         return Collections.unmodifiableMap(switchVals);
     }
 
@@ -112,6 +112,13 @@ public abstract class ArgCommand extends Command {
         }
     }
 
+    /**
+     * Checks for equality with another ArgCommand object, inspecting arguments and switches.
+     *
+     * @param other The ArgCommand object to check against.
+     * @return True if all switches that are set in one ArgCommand are set in the other, and if all switches that are
+     *     set are set to the same value.
+     */
     public boolean equals(ArgCommand other) {
         if (getClass() != other.getClass()) {
             return false;
@@ -124,12 +131,13 @@ public abstract class ArgCommand extends Command {
         Map<String, String> thisSwitchVals = getSwitchVals();
         Map<String, String> otherSwitchVals = other.getSwitchVals();
         for (String switchName : getSwitchMap().keySet()) {
-            if (!CommandUtils.equalsIfNotBothNull(thisSwitchVals.get(switchName), otherSwitchVals.get(switchName))) {
+            if ((otherSwitchVals.containsKey(switchName) && !thisSwitchVals.containsKey(switchName))
+                    || (!otherSwitchVals.containsKey(switchName) && thisSwitchVals.containsKey(switchName))
+                    || !CommandUtils.equalsIfNotBothNull(thisSwitchVals.get(switchName),
+                    otherSwitchVals.get(switchName))) {
                 return false;
             }
         }
         return true;
     }
-
-
 }

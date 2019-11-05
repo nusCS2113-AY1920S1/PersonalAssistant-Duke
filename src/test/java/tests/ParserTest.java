@@ -28,7 +28,7 @@ public class ParserTest {
             assertEquals("World", docCmd.getSwitchVal("switch"));
             assertEquals("Optional", docCmd.getSwitchVal("optswitch"));
             assertEquals("berhabs", docCmd.getSwitchVal("maybe"));
-            assertTrue(docCmd.getSwitchVals().containsKey("none"));
+            assertTrue(docCmd.isSwitchSet("none"));
         } catch (DukeException excp) {
             fail("Exception thrown while extracting valid test command" + excp.getMessage());
         }
@@ -42,8 +42,8 @@ public class ParserTest {
             assertEquals("Hello", docCmd.getArg());
             assertEquals("World", docCmd.getSwitchVal("switch"));
             assertEquals("Optional", docCmd.getSwitchVal("optswitch"));
-            assertTrue(docCmd.getSwitchVals().containsKey("maybe"));
-            assertTrue(docCmd.getSwitchVals().containsKey("none"));
+            assertTrue(docCmd.isSwitchSet("maybe"));
+            assertTrue(docCmd.isSwitchSet("none"));
         } catch (DukeException excp) {
             fail("Exception thrown while extracting test command with chained switches: " + excp.getMessage());
         }
