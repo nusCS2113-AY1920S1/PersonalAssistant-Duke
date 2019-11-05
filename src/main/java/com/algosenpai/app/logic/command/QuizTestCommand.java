@@ -55,7 +55,10 @@ public class QuizTestCommand extends QuizCommand {
     public String execute() {
         int shownIndex = questionNumber.incrementAndGet();
         int ourIndex = shownIndex - 1;
-        if (shownIndex <= 10) {
+        if (shownIndex == 1) {
+            return (shownIndex) +  ".\t" + quizList.get(ourIndex).getQuestion()
+                    + "\n Your answer: ";
+        } else if (shownIndex <= 10) {
             //add the userinput that has been parsed as his answer.
             if (inputs.size() > 0) {
                 //to end the quiz in the quizmode
@@ -66,11 +69,13 @@ public class QuizTestCommand extends QuizCommand {
                 String userAnswer = extractUserAnswerFromInput();
                 //Sets the answer to the previous question.
                 quizList.get(ourIndex - 1).setUserAnswer(userAnswer);
-
             }
             return (shownIndex) +  ".\t" + quizList.get(ourIndex).getQuestion()
                     + "\n Your answer: ";
         } else {
+            String userAnswer = extractUserAnswerFromInput();
+            //Sets the answer to the previous question.
+            quizList.get(ourIndex - 1).setUserAnswer(userAnswer);
             reset();
             return calculateScore();
         }
