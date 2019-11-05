@@ -18,7 +18,8 @@ public class CommandTagList extends CommandList {
     public CommandTagList(String userInput) {
         super(userInput);
         this.userInput = userInput;
-        this.description = "Lists based on tag";
+        this.description = "Lists based on tag \n"
+                + "FORMAT :  ";
         this.commandType = CommandType.TAGLIST;
         this.tag = Parser.parseForPrimaryInput(this.commandType, userInput);
     }

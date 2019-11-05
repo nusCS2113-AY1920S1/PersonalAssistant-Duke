@@ -28,7 +28,11 @@ public enum CommandType {
     CONVERT(CommandConvert.class),
     DATELIST(CommandDateList.class),
     ERROR(CommandError.class),
-    WEATHER(CommandWeather.class);
+    WEATHER(CommandWeather.class),
+    ADD(CommandAdd.class),
+    SUB(CommandSub.class),
+    DIV(CommandDiv.class),
+    MUL(CommandMul.class);
 
 
     private final Class commandClass;

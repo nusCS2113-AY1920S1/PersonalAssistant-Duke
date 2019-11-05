@@ -13,7 +13,8 @@ public class CommandDisplayExpenditure extends Command {
      */
     public CommandDisplayExpenditure(String userInput) {
         this.userInput = userInput;
-        this.description = "Shows the total amount of money spent";
+        this.description = "Shows the total amount of money spent"
+                + "FORMAT :  ";
         this.commandType = CommandType.EXPENSES;
     }
 

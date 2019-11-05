@@ -20,7 +20,8 @@ public class CommandReminder extends Command {
         this.userInput = userInput;
         this.currentDate.setTime(0);
         this.commandType = CommandType.REMINDER;
-        this.description = "Loops through list and checks if current date matches date linked with task and prints it";
+        this.description = "Loops through list and checks if current date matches date linked with task and prints it \n"
+                + "FORMAT :  ";
     }
 
     @Override

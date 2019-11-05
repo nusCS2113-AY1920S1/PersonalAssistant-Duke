@@ -14,7 +14,8 @@ public class CommandDelete extends Command {
      */
     public CommandDelete(String userInput) {
         this.userInput = userInput;
-        this.description = "Deletes the specific entry that the user wants to remove. FORMAT: delete <Index_of_Entry>";
+        this.description = "Deletes the specific entry that the user wants to remove. \n"
+                + "FORMAT: delete <Index_of_Entry>";
         this.commandType = CommandType.DELETE;
     }
 
