@@ -44,7 +44,7 @@ public class Parser {
                 if (splitted[0].equals("remove")) {
                     if (splitted.length != 2)
                         throw new DukeException("must specify a index");
-                    return new DeleteCommand<Ingredient>(Integer.parseInt(splitted[1]));
+                    return new DeleteCommand(Integer.parseInt(splitted[1]));
                 } else if (splitted[0].equals("use")) {
                     if (splitted.length != 3)
                         throw new DukeException("follow the template: use <ingredient name> <amount>");
@@ -80,7 +80,7 @@ public class Parser {
                     case "list":
                         return new ListDishCommand();
                     case "initialize":
-                        return new InitCommand();
+                        return new ResetDishCommand();
                     case "ingredient":
                         String[] getIng = splitted[1].split(" ", 3);
                         int amount = 0;
@@ -165,7 +165,7 @@ public class Parser {
         return x;
     }
 
-    public static Command<Order> addOrderParser(String[] splitter) throws DukeException {
+    public static Command addOrderParser(String[] splitter) throws DukeException {
         Order newOrder;
         Date orderDate;
         String[] orderedDishes;
@@ -197,7 +197,7 @@ public class Parser {
         return new AddOrderCommand(newOrder);
     }
 
-    public static Command<Order> alterOrderDateParser(String[] splitter) throws DukeException {
+    public static Command alterOrderDateParser(String[] splitter) throws DukeException {
         if (splitter.length == 1) {
             throw new DukeException("Must enter an order index.\n\t Note that ORDER_INDEX starts from 1");
         }
@@ -218,7 +218,7 @@ public class Parser {
         return new AlterDateCommand(orderIndex-1, orderDate);
     }
 
-    public static Command<Order> removeOrDoneOrderParser(String[] splitter) throws DukeException {
+    public static Command removeOrDoneOrderParser(String[] splitter) throws DukeException {
         if (splitter.length == 1) {
             throw new DukeException("Must enter an order index.\n\t Note that ORDER_INDEX starts from 1");
         }

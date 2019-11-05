@@ -17,6 +17,8 @@ public class Ui {
     private Scanner scanner;
     private static final String line = "_________________________________________________________________________________________";
 
+    private final boolean DRAW = false;
+
     /**
      * The constructor method for Ui.
      */
@@ -41,6 +43,7 @@ public class Ui {
     }
 
     public void chefDrawing() {
+        if(!DRAW) return;
         System.out.println("                           (c)___c____(c)           ");
         System.out.println("                            \\ ........../          ");
         System.out.println("                             |.........|            ");
@@ -75,7 +78,9 @@ public class Ui {
         System.out.println("               ~~~        ~~         ~~           ~~              ");
         System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~   ");
     }
+
     public void dishDrawing() {
+        if(!DRAW) return;
         System.out.println("            (\\                                      ");
         System.out.println("             \\ \\                                   ");
         System.out.println("               \\/ ___,.-------..__                  ");
@@ -97,18 +102,17 @@ public class Ui {
         showLine();
         Calendar c = Calendar.getInstance();
         int timeOfDay = c.get(Calendar.HOUR_OF_DAY);
-        String greeting = "Hello";
-        if (timeOfDay >= 0 && timeOfDay < 12) {
+        String greeting;
+        if (timeOfDay < 12) {
             greeting = "Good Morning";
-        } else if (timeOfDay >= 12 && timeOfDay < 16) {
+        } else if (timeOfDay < 16) {
             greeting = "Good Afternoon";
-        } else if (timeOfDay >= 16 && timeOfDay < 21) {
+        } else if (timeOfDay < 21) {
             greeting = "Good Evening";
-        } else if (timeOfDay >= 21 && timeOfDay < 24) {
+        } else {
             greeting = "Good Night";
         }
         System.out.println("\t " + greeting + " chef! I'm Duke");
-
     }
 
     public void showHasExpiring() {
@@ -140,6 +144,7 @@ public class Ui {
         System.out.println("\t type 'show' to see all ingredients currently in the fridge");
         System.out.println("\t type 'template' to see the format of the commands");
     }
+
     public void showIngredientTemplate(){
         System.out.println("\t Continue by adding, removing or using an ingredient \n\t Template: ");
         showLine();
@@ -148,6 +153,7 @@ public class Ui {
         System.out.println("\t use <ingredient name> <amount> *always use most recently expiring ingredients first, to prevent food waste!*");
         showLine();
     }
+
     public void showDishTemplate() {
         dishDrawing();
         showLine();
@@ -162,6 +168,7 @@ public class Ui {
         System.out.println("\t template");
         showLine();
     }
+
     public void showOrderTemplate() {
         showLine();
         System.out.println("\t Continue by adding, removing, altering, listing order and initializing order list. \n\t Command Template: ");
@@ -176,6 +183,7 @@ public class Ui {
         System.out.println("\t list -d ORDER_DATE-(dd/mm/yyyy) [-l LIST_TYPE-(option: all (default) | undone)]");
         showLine();
     }
+
     public void showIngredientsInFridge(IngredientsList ingredientsList) {
         if (ingredientsList.isEmpty())
             System.out.println("\t The fridge is empty, better go buy some ingredients! ");

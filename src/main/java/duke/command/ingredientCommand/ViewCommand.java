@@ -1,9 +1,12 @@
 package duke.command.ingredientCommand;
 
 import duke.command.Command;
+import duke.dish.DishList;
 import duke.ingredient.Ingredient;
-import duke.list.GenericList;
-import duke.storage.Storage;
+import duke.ingredient.IngredientsList;
+import duke.order.OrderList;
+import duke.storage.FridgeStorage;
+import duke.storage.OrderStorage;
 import duke.task.TaskList;
 import duke.ui.Ui;
 
@@ -14,7 +17,7 @@ import java.util.Date;
  * One of the B-Extensions.
  * @author x3chillax
  */
-public class ViewCommand extends Command<Ingredient> {
+public class ViewCommand extends Command {
 
     private Date toView;
 
@@ -23,11 +26,11 @@ public class ViewCommand extends Command<Ingredient> {
     }
 
     @Override
-    public void execute(GenericList<Ingredient> ingredientList, Ui ui, Storage storage) {
+    public void execute(IngredientsList il, DishList dl, OrderList ol, Ui ui, FridgeStorage fs, OrderStorage os) {
         StringBuilder sb = new StringBuilder();
         int i = 1;
         try {
-            for (Ingredient ingredient : ingredientList.getAllEntries()) {
+            for (Ingredient ingredient : il.getAllEntries()) {
                 if ((ingredient.getExpiryDate()).equals(toView)) {
                     //TODO: needs work on this part. comparing of time use Date always takes into account time 0000
                     sb.append("\t ").append(i++).append(".").append(ingredient.toString());
