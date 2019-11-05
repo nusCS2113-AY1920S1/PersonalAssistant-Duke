@@ -22,7 +22,7 @@ public class CommandSchedule extends Command {
         this.userInput = userInput;
         this.commandType = CommandType.VIEWSCHEDULE;
         this.description = "Prints the schedule for the input date \n"
-                + "FORMAT :  \n";
+                + "FORMAT :  ";
     }
 
     @Override

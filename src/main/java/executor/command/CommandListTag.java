@@ -19,7 +19,7 @@ public class CommandListTag extends CommandList {
         super(userInput);
         this.userInput = userInput;
         this.description = "Lists based on tag \n"
-                + "FORMAT :  \n";
+                + "FORMAT :  ";
         this.commandType = CommandType.TAGLIST;
         this.tag = Parser.parseForPrimaryInput(this.commandType, userInput);
     }

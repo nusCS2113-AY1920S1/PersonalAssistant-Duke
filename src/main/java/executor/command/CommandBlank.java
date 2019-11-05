@@ -13,7 +13,7 @@ public class CommandBlank extends Command {
      */
     public CommandBlank(String userInput) {
         this.userInput = userInput;
-        this.description = "Prints a line separator \n";
+        this.description = "Prints a line separator";
         this.commandType = CommandType.BLANK;
     }
 

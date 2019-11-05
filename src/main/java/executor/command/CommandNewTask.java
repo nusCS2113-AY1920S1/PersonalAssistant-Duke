@@ -21,7 +21,7 @@ public class CommandNewTask extends Command {
         this.commandType = CommandType.TASK;
         this.taskType = extractTaskType();
         this.description = "Adds user entry to the list \n"
-                + "FORMAT :  \n";
+                + "FORMAT :  ";
     }
 
     @Override

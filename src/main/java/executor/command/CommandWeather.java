@@ -23,7 +23,8 @@ public class CommandWeather extends Command {
     public CommandWeather(String userInput) {
         this.userInput = userInput;
         this.commandType = CommandType.WEATHER;
-        this.description = "Command that displays weather for now, tomorrow or later";
+        this.description = "Command that displays weather for now, tomorrow or later \n"
+                + "FORMAT : \n";
         setFullWeatherData(storeWeatherDataFromJson());
     }
     

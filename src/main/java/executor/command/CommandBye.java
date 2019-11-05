@@ -14,7 +14,7 @@ public class CommandBye extends Command {
     public CommandBye(String userInput) {
         this.userInput = userInput;
         this.description = "Exits the program \n"
-                + "FORMAT : bye \n";
+                + "FORMAT : bye";
         this.commandType =  CommandType.BYE;
     }
 

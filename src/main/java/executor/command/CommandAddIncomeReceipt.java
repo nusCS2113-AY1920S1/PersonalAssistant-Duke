@@ -21,7 +21,7 @@ public class CommandAddIncomeReceipt extends CommandAddReceipt {
         this.date = extractDate(this.userInput);
         this.tags = extractTags(this.userInput);
         this.description = "You can add a new income receipt. \n"
-                + " FORMAT : in <value> /date <YYYY-MM-DD> /tags <tag> \n";
+                + "FORMAT : in <value> /date <YYYY-MM-DD> /tags <tag>";
     }
 
     @Override

@@ -17,7 +17,7 @@ public class CommandGetSpendingByMonth extends Command {
         this.commandType = CommandType.EXPENDEDMONTH;
         this.userInput = userInput;
         this.description = "Provides the user the total expenditure for the month stated. \n"
-                + "FORMAT: expendedmonth <month> /year <year> \n";
+                + "FORMAT: expendedmonth <month> /year <year>";
     }
     
     @Override

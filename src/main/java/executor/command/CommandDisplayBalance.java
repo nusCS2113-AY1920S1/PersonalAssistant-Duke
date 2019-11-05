@@ -17,7 +17,7 @@ public class CommandDisplayBalance extends Command {
     public CommandDisplayBalance(String userInput) {
         this.userInput = userInput;
         this.description = "Shows the current balance available in the wallet \n"
-                + "FORMAT :  \n";
+                + "FORMAT :  ";
         this.commandType = CommandType.BALANCE;
     }
 
