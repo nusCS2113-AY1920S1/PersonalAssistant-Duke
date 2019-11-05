@@ -17,8 +17,7 @@ public class LoginCommand extends Command {
 
     /**
      * User login.
-     *
-     * @param input    from user
+     * @param input from user
      * @param splitStr tokenized input
      * @throws DukeException if format not followed
      */
@@ -33,12 +32,12 @@ public class LoginCommand extends Command {
     public void execute(UserList userList, Inventory inventory, RoomList roomList, BookingList bookingList, Ui ui,
                         Storage userStorage, Storage inventoryStorage, Storage bookingstorage, Storage roomstorage)
             throws DukeException {
-        if (!userList.loginStatus) {
+        if (!userList.getLoginStatus()) {
             boolean isValid = UserList.checkExistence(userList, splitL[1]);
             if (isValid) {
-                userList.currentUser = splitL[1];
-                userList.loginStatus = true;
-                ui.addToOutput("You have successfully logged in as: " + userList.currentUser);
+                userList.setCurrentUser(splitL[1]);
+                userList.login();
+                ui.addToOutput("You have successfully logged in as: " + userList.getCurrentUser());
             } else {
                 throw new DukeException("The user does not exist!");
             }

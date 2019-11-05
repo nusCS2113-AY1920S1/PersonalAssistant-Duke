@@ -51,6 +51,8 @@ public class Parser {
             return new ListBookingDailyCommand(input, splitStr);
         case "listmonth":
             return new ListBookingMonthCommand(input, splitStr);
+        case "listyear":
+            return new ListBookingYearCommand(input, splitStr);
         case "deleteroom":
             return new DeleteRoomCommand(input, splitStr);
         case "addinventory":

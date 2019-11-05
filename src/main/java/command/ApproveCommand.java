@@ -50,7 +50,7 @@ public class ApproveCommand extends Command {
         if (index < 0 || index >= bookingList.size()) {
             throw new DukeException("OOPS!!! The index you have entered is out of bounds");
         }
-        bookingList.get(index).approveStatus();
+        bookingList.get(index).approveStatus(userList.getCurrentUser());
         ui.addToOutput("This request has been approved");
         ui.addToOutput(bookingList.get(index).toString());
         bookingstorage.saveToFile(bookingList);

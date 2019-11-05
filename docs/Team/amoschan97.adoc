@@ -1,0 +1,68 @@
+= Chan Zhi Zheng Amos - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: Hall Booker
+
+---
+
+== Overview
+
+Hall Booker is an application that aims to help hall admins or staff easily manage hall bookings.
+
+== Summary of contributions
+
+* *Major enhancement*: added *the ability to list bookings on the graphic user interface*
+** What it does: Display the list of bookings in a table format in the left pane of the GUI.
+** Justification: This feature improves the product because a user can more clearly see the bookings and the relevant information such as date, time, and the reason for booking.
+
+* *Minor enhancement*:
+
+* *Code contributed*: [https://nuscs2113-ay1920s1.github.io/dashboard/#=undefined&search=amoschan97[link]]
+* *Other contributions*: Implemented GUI
+
+** Project management:
+*** Managed releases `v1.1` - `v1.2` (2 releases) on GitHub
+** Enhancements to existing features:
+*** Added GUI (#53)
+*** Added stylistic changes to GUI
+*** Inclusion of a splitpane format of the GUI which shows a chat panel, and a preview pane
+*** Set up issue tracker
+*** Set up base code for phase 2
+*** Set up gradle and javafx
+*** Implemented GUI version of list command (#63 #77)
+*** Fixed bug for AddBooking command (#60)
+*** Changed delete command to use index instead (#74)
+*** Implemented use of date object, and fixed storage issues regarding dates (#80)
+** Documentation:
+*** Did documentation of use cases
+*** Set up AboutUs.adoc
+
+== Contributions to the User Guide
+
+Wrote command summary, FAQ and part of features
+
+== Contributions to the Developer Guide
+
+As the one who implemented list command, I also wrote its implementation in the Developer Guide.
+
+---
+image::../images/listCommand_seq.png[]
+
+Current implementation
+
+The purpose of this command is to list all bookings that have been added.
+
+
+The following is an example usage scenario for the list command:
+Step 1: User inputs list.
+Step 2: The program fetches bookings from bookinglist. It iterates through the list and converts each booking in the list into a string.
+
+Step 3: The list is printed to the user through the Ui.
+
+---
+
+I also wrote out the initial use cases for the developer guide
+
+---
