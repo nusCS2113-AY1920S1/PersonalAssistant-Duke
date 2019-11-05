@@ -2097,9 +2097,9 @@ Expected: `Card expenditure` #1 successfully deleted from `card`.
 
 .. Test case:
 `/add /cardbill /card POBB Tomorrow Card /date 10/2019 /bank JunBank Savings Account` +
-Expected: `Card bill` with total amount spent for the specified month added into `savings` expenditure +
-and total rebates added into `savings` deposit. When listing `card` expenditures with +
-`/list /cardexpenditure /from POBB Tomorrow Card`, expenditures for that particular month will be +
+Expected: `Card bill` with total amount spent for the specified month added into `savings` expenditure
+and total rebates added into `savings` deposit. When listing `card` expenditures with
+`/list /cardexpenditure /from POBB Tomorrow Card`, expenditures for that particular month will be
 transferred from unpaid to paid.
 
 === Deleting a card bill
@@ -2110,8 +2110,8 @@ transferred from unpaid to paid.
 
 .. Test case:
 `/delete /cardbill /card POBB Tomorrow Card /date 10/2019 /bank JunBank Savings Account` +
-Expected: `Card bill` expenditure and deposit in `savings` account will be deleted. When listing `card` +
-expenditures with `/list /cardexpenditure /from POBB Tomorrow Card`, expenditures for that particular month +
+Expected: `Card bill` expenditure and deposit in `savings` account will be deleted. When listing `card`
+expenditures with `/list /cardexpenditure /from POBB Tomorrow Card`, expenditures for that particular month 
 will be transferred from paid to unpaid.
 
 === Transferring fund
