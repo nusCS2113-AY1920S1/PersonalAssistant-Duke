@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 import oof.Ui;
-import oof.exception.OofException;
+import oof.exception.command.InvalidArgumentException;
 import oof.model.module.SemesterList;
 import oof.model.task.Deadline;
 import oof.model.task.Event;
@@ -13,6 +13,8 @@ import oof.model.task.Task;
 import oof.model.task.TaskList;
 import oof.model.task.Todo;
 import oof.storage.StorageManager;
+
+//@@author KahLokKee
 
 /**
  * Represents a Command to print calendar.
@@ -51,9 +53,9 @@ public class CalendarCommand extends Command {
             this.month = Integer.parseInt(arguments[INDEX_ARGUMENT_MONTH]);
             this.year = Integer.parseInt(arguments[INDEX_ARGUMENT_YEAR]);
             if (month < MONTH_JANUARY || month > MONTH_DECEMBER) {
-                throw new OofException("Invalid month");
+                throw new InvalidArgumentException("Invalid month");
             }
-        } catch (IndexOutOfBoundsException | NumberFormatException | OofException e) {
+        } catch (IndexOutOfBoundsException | NumberFormatException | InvalidArgumentException e) {
             // The current month and year will be used if there is an invalid input.
             this.month = calendar.get(Calendar.MONTH) + 1;
             this.year = calendar.get(Calendar.YEAR);
@@ -78,18 +80,16 @@ public class CalendarCommand extends Command {
             if (task instanceof Todo) {
                 Todo todo = (Todo) task;
                 dateSplit = todo.getTodoDate().split(DELIMITER_DATE);
-            } else {
-                if (task instanceof Deadline) {
-                    Deadline deadline = (Deadline) task;
-                    String[] dateTimeSplit = deadline.getDeadlineDateTime().split(DELIMITER_DATE_TIME);
-                    dateSplit = dateTimeSplit[INDEX_DATE].split(DELIMITER_DATE);
-                    time = dateTimeSplit[INDEX_TIME];
-                } else if (task instanceof Event) {
-                    Event event = (Event) task;
-                    String[] dateTimeSplit = event.getStartDateTime().split(DELIMITER_DATE_TIME);
-                    dateSplit = dateTimeSplit[INDEX_DATE].split(DELIMITER_DATE);
-                    time = dateTimeSplit[INDEX_TIME];
-                }
+            } else if (task instanceof Deadline) {
+                Deadline deadline = (Deadline) task;
+                String[] dateTimeSplit = deadline.getDeadlineDateTime().split(DELIMITER_DATE_TIME);
+                dateSplit = dateTimeSplit[INDEX_DATE].split(DELIMITER_DATE);
+                time = dateTimeSplit[INDEX_TIME];
+            } else if (task instanceof Event) {
+                Event event = (Event) task;
+                String[] dateTimeSplit = event.getStartDateTime().split(DELIMITER_DATE_TIME);
+                dateSplit = dateTimeSplit[INDEX_DATE].split(DELIMITER_DATE);
+                time = dateTimeSplit[INDEX_TIME];
             }
             if (verifyTask(dateSplit)) {
                 int day = Integer.parseInt(dateSplit[INDEX_DAY]);

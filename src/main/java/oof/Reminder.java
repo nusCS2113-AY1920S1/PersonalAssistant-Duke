@@ -5,7 +5,6 @@ import java.text.SimpleDateFormat;
 import java.time.DateTimeException;
 import java.util.Date;
 
-import oof.exception.OofException;
 import oof.model.task.Deadline;
 import oof.model.task.Task;
 import oof.model.task.TaskList;
@@ -31,7 +30,7 @@ class Reminder {
         for (int i = 0; i < taskList.getSize(); i++) {
             Task task = taskList.getTask(i);
             if (task instanceof Deadline) {
-                Date dueDate = parseDateTime(ui, ((Deadline) task));
+                Date dueDate = parseDateTime(((Deadline) task));
                 count = displayReminders(taskList, ui, dueDate, upcomingThreshold, count, i);
             }
             if (isNoDeadlineReminded(i, taskList, count)) {
@@ -71,14 +70,13 @@ class Reminder {
      * @param task Deadline task object.
      * @return Returns the parsed date if the date format is parsable.
      */
-    private Date parseDateTime(Ui ui, Deadline task) {
+    private Date parseDateTime(Deadline task) {
         Date defaultDate = new Date();
         try {
             String dateTime = task.getDeadlineDateTime();
             defaultDate = new SimpleDateFormat("dd-MM-yyyy HH:mm").parse(DEFAULT_DATETIME);
             return new SimpleDateFormat("dd-MM-yyyy HH:mm").parse(dateTime);
         } catch (ParseException | DateTimeException e) {
-            ui.printOofException((OofException) e);
             return defaultDate;
         }
     }

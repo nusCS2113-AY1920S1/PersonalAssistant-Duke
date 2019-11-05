@@ -1,7 +1,8 @@
 package oof.command;
 
 import oof.Ui;
-import oof.exception.OofException;
+import oof.exception.command.CommandException;
+import oof.exception.command.InvalidArgumentException;
 import oof.model.module.SemesterList;
 import oof.model.task.Deadline;
 import oof.model.task.Event;
@@ -11,6 +12,7 @@ import oof.model.task.Todo;
 import oof.storage.StorageManager;
 
 //@@author jasperosy
+
 /**
  * Represents a Command to snooze a Task.
  */
@@ -37,22 +39,20 @@ public class SnoozeCommand extends Command {
      * @param taskList       Instance of TaskList that stores Task objects.
      * @param ui             Instance of Ui that is responsible for visual feedback.
      * @param storageManager Instance of Storage that enables the reading and writing of Task
+     * @throws InvalidArgumentException if task index or datetime arguments are invalid.
      */
-    public void execute(SemesterList semesterList, TaskList taskList, Ui ui, StorageManager storageManager) {
-        try {
-            if (!isIndexValid(taskList, this.index)) {
-                throw new OofException("OOPS!!! Invalid number!");
-            }
-            Task task = taskList.getTask(this.index);
-            if (task instanceof Deadline) {
-                snoozeDeadline(task, taskList, ui, storageManager);
-            } else if (task instanceof Event) {
-                snoozeEvent(task, taskList, ui, storageManager);
-            } else {
-                snoozeTodo(task, taskList, ui, storageManager);
-            }
-        } catch (OofException e) {
-            ui.printOofException(e);
+    public void execute(SemesterList semesterList, TaskList taskList, Ui ui, StorageManager storageManager) throws
+            CommandException {
+        if (!isIndexValid(taskList, this.index)) {
+            throw new InvalidArgumentException("OOPS!!! Invalid number!");
+        }
+        Task task = taskList.getTask(this.index);
+        if (task instanceof Deadline) {
+            snoozeDeadline(task, taskList, ui, storageManager);
+        } else if (task instanceof Event) {
+            snoozeEvent(task, taskList, ui, storageManager);
+        } else {
+            snoozeTodo(task, taskList, ui, storageManager);
         }
     }
 
@@ -63,10 +63,10 @@ public class SnoozeCommand extends Command {
      * @param taskList       Instance of TaskList that stores Task objects.
      * @param ui             Instance of Ui that is responsible for visual feedback.
      * @param storageManager Instance of Storage that enables the reading and writing of Task
-     * @throws OofException Throws OofException when datetime is invalid.
+     * @throws InvalidArgumentException if datetime argument is invalid.
      */
     private void snoozeDeadline(Task task, TaskList taskList, Ui ui, StorageManager storageManager)
-            throws OofException {
+            throws InvalidArgumentException {
         String description = task.getDescription();
         String date = ui.getTimeStamp();
         date = parseDateTime(date);
@@ -77,7 +77,7 @@ public class SnoozeCommand extends Command {
             ui.printSnoozeMessage(deadline);
             storageManager.writeTaskList(taskList);
         } else {
-            throw new OofException("Timestamp given is invalid! Please try again.");
+            throw new InvalidArgumentException("Timestamp given is invalid! Please try again.");
         }
     }
 
@@ -88,9 +88,10 @@ public class SnoozeCommand extends Command {
      * @param taskList       Instance of TaskList that stores Task objects.
      * @param ui             Instance of Ui that is responsible for visual feedback.
      * @param storageManager Instance of Storage that enables the reading and writing of Task
-     * @throws OofException Throws OofException when datetime is invalid.
+     * @throws InvalidArgumentException if datetime argument is invalid.
      */
-    private void snoozeEvent(Task task, TaskList taskList, Ui ui, StorageManager storageManager) throws OofException {
+    private void snoozeEvent(Task task, TaskList taskList, Ui ui, StorageManager storageManager)
+            throws InvalidArgumentException {
         String description = task.getDescription();
         String startDate = ui.getTimeStamp();
         String endDate = ui.getTimeStamp();
@@ -103,7 +104,7 @@ public class SnoozeCommand extends Command {
             ui.printSnoozeMessage(event);
             storageManager.writeTaskList(taskList);
         } else {
-            throw new OofException("Timestamp given is invalid! Please try again.");
+            throw new InvalidArgumentException("Timestamp given is invalid! Please try again.");
         }
     }
 
@@ -114,9 +115,10 @@ public class SnoozeCommand extends Command {
      * @param taskList       Instance of TaskList that stores Task objects.
      * @param ui             Instance of Ui that is responsible for visual feedback.
      * @param storageManager Instance of Storage that enables the reading and writing of Task
-     * @throws OofException Throws OofException when datetime is invalid.
+     * @throws InvalidArgumentException if datetime argument is invalid.
      */
-    private void snoozeTodo(Task task, TaskList taskList, Ui ui, StorageManager storageManager) throws OofException {
+    private void snoozeTodo(Task task, TaskList taskList, Ui ui, StorageManager storageManager)
+            throws InvalidArgumentException {
         String description = task.getDescription();
         String date = ui.getTimeStamp();
         if (isDateValid(date)) {
@@ -126,7 +128,7 @@ public class SnoozeCommand extends Command {
             ui.printSnoozeMessage(todo);
             storageManager.writeTaskList(taskList);
         } else {
-            throw new OofException("Timestamp given is invalid! Please try again.");
+            throw new InvalidArgumentException("Timestamp given is invalid! Please try again.");
         }
     }
 

@@ -2,11 +2,13 @@ package oof.command;
 
 import oof.SelectedInstance;
 import oof.Ui;
-import oof.exception.OofException;
+import oof.exception.command.InvalidArgumentException;
 import oof.model.module.Semester;
 import oof.model.module.SemesterList;
 import oof.model.task.TaskList;
 import oof.storage.StorageManager;
+
+//@@author KahLokKee
 
 /**
  * Command to select a semester from semesterList.
@@ -33,18 +35,18 @@ public class SelectSemesterCommand extends Command {
      * @param ui             Instance of Ui that is responsible for visual feedback.
      * @param storageManager Instance of Storage that enables the reading and writing of Task
      *                       objects to hard disk.
-     * @throws OofException if user input invalid commands.
+     * @throws InvalidArgumentException if user input invalid commands.
      */
     @Override
     public void execute(SemesterList semesterList, TaskList taskList, Ui ui, StorageManager storageManager)
-            throws OofException {
+            throws InvalidArgumentException {
         try {
             SelectedInstance selectedInstance = SelectedInstance.getInstance();
             Semester semester = semesterList.getSemester(index);
             selectedInstance.selectSemester(semester);
             ui.printSelectSemesterMessage(semester);
         } catch (IndexOutOfBoundsException e) {
-            throw new OofException("OOPS!! The index is out of bounds.");
+            throw new InvalidArgumentException("OOPS!! The index is out of bounds.");
         }
     }
 }

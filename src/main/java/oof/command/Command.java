@@ -7,7 +7,7 @@ import java.util.Comparator;
 import java.util.Date;
 
 import oof.Ui;
-import oof.exception.OofException;
+import oof.exception.command.CommandException;
 import oof.model.module.SemesterList;
 import oof.model.task.Deadline;
 import oof.model.task.Event;
@@ -33,10 +33,10 @@ public abstract class Command {
      * @param ui             Instance of Ui that is responsible for visual feedback.
      * @param storageManager Instance of Storage that enables the reading and writing of Task
      *                       objects to hard disk.
-     * @throws OofException Catches invalid commands given by user.
+     * @throws CommandException if command fails to execute.
      */
     public abstract void execute(SemesterList semesterList, TaskList taskList, Ui ui, StorageManager storageManager)
-            throws OofException;
+            throws CommandException;
 
     /**
      * Checks if description and module code exceeds the maximum description length.

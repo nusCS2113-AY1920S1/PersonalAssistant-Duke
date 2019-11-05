@@ -8,12 +8,17 @@ import java.util.Date;
 
 import oof.SelectedInstance;
 import oof.Ui;
-import oof.exception.OofException;
+import oof.exception.command.CommandException;
+import oof.exception.command.InvalidArgumentException;
+import oof.exception.command.MissingArgumentException;
+import oof.exception.command.ModuleNotSelectedException;
 import oof.model.module.Lesson;
 import oof.model.module.Module;
 import oof.model.module.SemesterList;
 import oof.model.task.TaskList;
 import oof.storage.StorageManager;
+
+//@@author KahLokKee
 
 public class AddLessonCommand extends Command {
 
@@ -45,48 +50,48 @@ public class AddLessonCommand extends Command {
      * @param ui             Instance of Ui that is responsible for visual feedback.
      * @param storageManager Instance of Storage that enables the reading and writing of Task
      *                       objects to hard disk.
-     * @throws OofException if user input invalid commands.
+     * @throws CommandException if module is not selected or if user input contains missing or invalid arguments.
      */
     @Override
     public void execute(SemesterList semesterList, TaskList tasks, Ui ui, StorageManager storageManager)
-            throws OofException {
+            throws CommandException {
         if (arguments.get(INDEX_NAME).isEmpty()) {
-            throw new OofException("OOPS!!! The lesson needs a name.");
+            throw new MissingArgumentException("OOPS!!! The lesson needs a name.");
         } else if (arguments.size() < ARRAY_SIZE_DAY || arguments.get(INDEX_DAY).isEmpty()) {
-            throw new OofException("OOPS!!! The lesson needs a day.");
+            throw new MissingArgumentException("OOPS!!! The lesson needs a day.");
         } else if (arguments.size() < ARRAY_SIZE_START_TIME || arguments.get(INDEX_START_TIME).isEmpty()) {
-            throw new OofException("OOPS!!! The lesson needs a start time.");
+            throw new MissingArgumentException("OOPS!!! The lesson needs a start time.");
         } else if (arguments.size() < ARRAY_SIZE_END_TIME || arguments.get(INDEX_END_TIME).isEmpty()) {
-            throw new OofException("OOPS!!! The lesson needs an end time.");
+            throw new MissingArgumentException("OOPS!!! The lesson needs an end time.");
         }
         String startTime = arguments.get(INDEX_START_TIME);
         String endTime = arguments.get(INDEX_END_TIME);
         if (!isDateValid(startTime)) {
-            throw new OofException("OOPS!!! The start date is invalid.");
+            throw new InvalidArgumentException("OOPS!!! The start date is invalid.");
         } else if (!isDateValid(endTime)) {
-            throw new OofException("OOPS!!! The end date is invalid.");
+            throw new InvalidArgumentException("OOPS!!! The end date is invalid.");
         }
         SimpleDateFormat format = new java.text.SimpleDateFormat("HH:mm");
         try {
             Date newStartTime = format.parse(startTime);
             Date newEndTime = format.parse(endTime);
             if (!isStartDateBeforeEndDate(newStartTime, newEndTime)) {
-                throw new OofException("OOPS!!! The start time of a lesson cannot be after the end time.");
+                throw new InvalidArgumentException("OOPS!!! The start time of a lesson cannot be after the end time.");
             }
         } catch (ParseException e) {
-            throw new OofException("Timestamp given is invalid! Please try again.");
+            throw new InvalidArgumentException("Timestamp given is invalid! Please try again.");
         }
 
         SelectedInstance selectedInstance = SelectedInstance.getInstance();
         Module module = selectedInstance.getModule();
         if (module == null) {
-            throw new OofException("OOPS!! Please select a Module.");
+            throw new ModuleNotSelectedException("OOPS!! Please select a Module.");
         }
         String name = arguments.get(INDEX_NAME);
         String moduleCode = module.getModuleCode();
         String description = moduleCode + " " + name;
         if (exceedsMaxLength(description)) {
-            throw new OofException("Task exceeds maximum description length!");
+            throw new InvalidArgumentException("Task exceeds maximum description length!");
         }
         DayOfWeek dayOfWeek = DayOfWeek.valueOf(arguments.get(INDEX_DAY).toUpperCase());
         Lesson lesson = new Lesson(moduleCode, name, dayOfWeek, startTime, endTime);

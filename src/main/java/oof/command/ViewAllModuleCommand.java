@@ -2,11 +2,15 @@ package oof.command;
 
 import oof.SelectedInstance;
 import oof.Ui;
-import oof.exception.OofException;
+import oof.exception.command.CommandException;
+import oof.exception.command.EmptyListException;
+import oof.exception.command.SemesterNotSelectedException;
 import oof.model.module.Semester;
 import oof.model.module.SemesterList;
 import oof.model.task.TaskList;
 import oof.storage.StorageManager;
+
+//@@author KahLokKee
 
 /**
  * Represents a Command to view the list of Modules.
@@ -20,25 +24,24 @@ public class ViewAllModuleCommand extends Command {
         super();
     }
 
-    @Override
-    public void execute(SemesterList semesterList, TaskList tasks, Ui ui, StorageManager storageManager)
-            throws OofException {
-        viewModuleList(ui);
-    }
-
     /**
      * Prints the list of Modules in a selected Semester.
-     *
-     * @param ui Instance of Ui that is responsible for visual feedback.
-     * @throws OofException if modules list is empty.
+     * @param semesterList   Instance of SemesterList that stores Semester objects.
+     * @param taskList       Instance of TaskList that stores oof.model.task.Task objects.
+     * @param ui             Instance of Ui that is responsible for visual feedback.
+     * @param storageManager Instance of Storage that enables the reading and writing of Task
+     *                       objects to hard disk.
+     * @throws CommandException if Semester intance is not selected or module list is empty.
      */
-    private void viewModuleList(Ui ui) throws OofException {
+    @Override
+    public void execute(SemesterList semesterList, TaskList taskList, Ui ui, StorageManager storageManager)
+            throws CommandException {
         SelectedInstance selectedInstance = SelectedInstance.getInstance();
         Semester semester = selectedInstance.getSemester();
         if (semester == null) {
-            throw new OofException("OOPS!! No Semester selected.");
+            throw new SemesterNotSelectedException("OOPS!! No Semester selected.");
         } else if (semester.getModules().isEmpty()) {
-            throw new OofException("Module List is empty!");
+            throw new EmptyListException("Module List is empty!");
         } else {
             ui.printModuleList(semester);
         }

@@ -3,7 +3,9 @@ package oof;
 import java.io.IOException;
 
 import oof.command.Command;
-import oof.exception.OofException;
+import oof.exception.command.CommandException;
+import oof.exception.ParserException;
+import oof.exception.StorageFileCorruptedException;
 import oof.model.module.SemesterList;
 import oof.model.task.TaskList;
 import oof.storage.StorageManager;
@@ -29,12 +31,12 @@ public class Oof {
         reminder = new Reminder();
         try {
             semesterList = new SemesterList(storageManager.readSemesterList());
-        } catch (IOException | OofException e) {
+        } catch (IOException | StorageFileCorruptedException e) {
             semesterList = new SemesterList();
         }
         try {
             taskList = new TaskList(storageManager.readTaskList(semesterList));
-        } catch (IOException | OofException e) {
+        } catch (IOException | StorageFileCorruptedException e) {
             taskList = new TaskList();
         }
     }
@@ -43,9 +45,10 @@ public class Oof {
      * Executes command entered by user.
      *
      * @param line Command to be tested.
-     * @throws OofException Exceptions thrown by Command classes.
+     * @throws CommandException if command fails to execute.
+     * @throws ParserException if command cannot be parsed.
      */
-    public boolean executeCommand(String line) throws OofException {
+    public boolean executeCommand(String line) throws CommandException, ParserException {
         Command command = CommandParser.parse(line);
         command.execute(semesterList, taskList, ui, storageManager);
         return command.isExit();
@@ -63,8 +66,8 @@ public class Oof {
                 ui.printCommandPrompt();
                 String line = ui.scanLine();
                 isExit = executeCommand(line);
-            } catch (OofException exception) {
-                ui.printOofException(exception);
+            } catch (CommandException | ParserException exception) {
+                ui.printCommandException(exception);
             }
         }
     }

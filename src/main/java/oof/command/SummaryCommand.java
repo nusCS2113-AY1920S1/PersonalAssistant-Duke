@@ -5,13 +5,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
 import oof.Ui;
-import oof.exception.OofException;
 import oof.model.module.SemesterList;
-import oof.model.task.Deadline;
-import oof.model.task.Event;
 import oof.model.task.Task;
 import oof.model.task.TaskList;
-import oof.model.task.Todo;
 import oof.storage.StorageManager;
 
 /**
@@ -40,25 +36,14 @@ public class SummaryCommand extends Command {
     private TaskList getSummary(String input, TaskList arr) {
         for (int i = 0; i < arr.getSize(); i++) {
             Task t = arr.getTask(i);
-            if (isValid(t)) {
-                String date = getDate(t);
-                if (input.equals(date)) {
-                    summary.addTask(t);
-                }
+            String date = getDate(t);
+            if (input.equals(date)) {
+                summary.addTask(t);
             }
         }
         return summary;
     }
 
-    /**
-     * Check Task type.
-     *
-     * @param task Task object.
-     * @return boolean if Task object is of a valid Task type or not.
-     */
-    private boolean isValid(Task task) {
-        return task instanceof Todo || task instanceof Deadline || task instanceof Event;
-    }
 
     /**
      * Get the date of tomorrow in format DD-MM-YYYY.
@@ -79,15 +64,13 @@ public class SummaryCommand extends Command {
      * @param ui             Instance of Ui that is responsible for visual feedback.
      * @param storageManager Instance of Storage that enables the reading and writing of Task
      *                       objects to hard disk.
-     * @throws OofException if there are no tasks scheduled for tomorrow.
      */
     @Override
-    public void execute(SemesterList semesterList, TaskList taskList, Ui ui, StorageManager storageManager)
-            throws OofException {
+    public void execute(SemesterList semesterList, TaskList taskList, Ui ui, StorageManager storageManager) {
         String tomorrow = getTomorrowDate();
         TaskList summary = getSummary(tomorrow, taskList);
         if (summary.isEmpty()) {
-            throw new OofException("There are no Tasks scheduled on " + tomorrow + ".");
+            ui.printNoTaskScheduled(tomorrow);
         }
         ui.printTasksByDate(summary, tomorrow);
     }

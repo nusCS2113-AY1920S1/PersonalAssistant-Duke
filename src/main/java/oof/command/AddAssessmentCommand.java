@@ -3,14 +3,19 @@ package oof.command;
 import java.util.ArrayList;
 
 import oof.SelectedInstance;
-import oof.model.task.Event;
 import oof.Ui;
-import oof.exception.OofException;
-import oof.model.task.Assessment;
+import oof.exception.command.CommandException;
+import oof.exception.command.InvalidArgumentException;
+import oof.exception.command.MissingArgumentException;
+import oof.exception.command.ModuleNotSelectedException;
 import oof.model.module.Module;
 import oof.model.module.SemesterList;
+import oof.model.task.Assessment;
+import oof.model.task.Event;
 import oof.model.task.TaskList;
 import oof.storage.StorageManager;
+
+//@@author KahLokKee
 
 public class AddAssessmentCommand extends AddEventCommand {
 
@@ -33,36 +38,36 @@ public class AddAssessmentCommand extends AddEventCommand {
      * @param ui             Instance of Ui that is responsible for visual feedback.
      * @param storageManager Instance of Storage that enables the reading and writing of Task
      *                       objects to hard disk.
-     * @throws OofException if user input invalid commands.
+     * @throws CommandException if module is not selected or if user input contains missing or invalid arguments.
      */
     @Override
-    public void execute(SemesterList semesterList, TaskList taskList, Ui ui, StorageManager storageManager)
-            throws OofException {
+    public void execute(SemesterList semesterList, TaskList taskList, Ui ui, StorageManager storageManager) throws
+            CommandException {
         SelectedInstance selectedInstance = SelectedInstance.getInstance();
         Module module = selectedInstance.getModule();
         if (module == null) {
-            throw new OofException("OOPS!! Please select a Module.");
+            throw new ModuleNotSelectedException("OOPS!! Please select a Module.");
         } else if (arguments.get(INDEX_DESCRIPTION).isEmpty()) {
-            throw new OofException("OOPS!!! The assessment needs a name.");
+            throw new MissingArgumentException("OOPS!!! The assessment needs a name.");
         } else if (arguments.size() < ARRAY_SIZE_DATE_TIME_START || arguments.get(INDEX_DATE_TIME_START).isEmpty()) {
-            throw new OofException("OOPS!!! The assessment needs a start time.");
+            throw new MissingArgumentException("OOPS!!! The assessment needs a start time.");
         } else if (arguments.size() < ARRAY_SIZE_DATE_TIME_END || arguments.get(INDEX_DATE_TIME_END).isEmpty()) {
-            throw new OofException("OOPS!!! The assessment needs an end time.");
+            throw new MissingArgumentException("OOPS!!! The assessment needs an end time.");
         }
         String description = arguments.get(INDEX_DESCRIPTION);
         String startDateTime = arguments.get(INDEX_DATE_TIME_START);
         String endDateTime = arguments.get(INDEX_DATE_TIME_END);
         if (!isDateValid(startDateTime)) {
-            throw new OofException("OOPS!!! The start date is invalid.");
+            throw new InvalidArgumentException("OOPS!!! The start date is invalid.");
         } else if (!isDateValid(endDateTime)) {
-            throw new OofException("OOPS!!! The end date is invalid.");
+            throw new InvalidArgumentException("OOPS!!! The end date is invalid.");
         } else {
             ArrayList<Event> eventClashes = checkClashes(taskList, startDateTime, endDateTime);
             ui.printClashWarning(eventClashes);
             String moduleCode = module.getModuleCode();
             Assessment assessment = new Assessment(moduleCode, description, startDateTime, endDateTime);
             if (exceedsMaxLength(assessment.getDescription())) {
-                throw new OofException("Task exceeds maximum description length!");
+                throw new InvalidArgumentException("Task exceeds maximum description length!");
             }
             taskList.addTask(assessment);
             module.addAssessment(assessment);

@@ -2,11 +2,15 @@ package oof.command;
 
 import oof.SelectedInstance;
 import oof.Ui;
-import oof.exception.OofException;
+import oof.exception.command.CommandException;
+import oof.exception.command.EmptyListException;
+import oof.exception.command.ModuleNotSelectedException;
 import oof.model.module.Module;
 import oof.model.module.SemesterList;
 import oof.model.task.TaskList;
 import oof.storage.StorageManager;
+
+//@@author KahLokKee
 
 /**
  * Represents a Command to view the list of Lessons.
@@ -20,25 +24,24 @@ public class ViewLessonCommand extends Command {
         super();
     }
 
-    @Override
-    public void execute(SemesterList semesterList, TaskList tasks, Ui ui, StorageManager storageManager)
-            throws OofException {
-        viewLessonList(ui);
-    }
-
     /**
-     * Prints the list of Lessons in a selected Module.
-     *
-     * @param ui Instance of Ui that is responsible for visual feedback.
-     * @throws OofException if lessons list is empty.
+     * Retrieves and prints list of lessons.
+     * @param semesterList   Instance of SemesterList that stores Semester objects.
+     * @param taskList       Instance of TaskList that stores Task objects.
+     * @param ui             Instance of Ui that is responsible for visual feedback.
+     * @param storageManager Instance of Storage that enables the reading and writing of Task
+     *                       objects to hard disk.
+     * @throws CommandException if module instance is not selected or if lessons list is empty.
      */
-    private void viewLessonList(Ui ui) throws OofException {
+    @Override
+    public void execute(SemesterList semesterList, TaskList taskList, Ui ui, StorageManager storageManager)
+            throws CommandException {
         SelectedInstance selectedInstance = SelectedInstance.getInstance();
         Module module = selectedInstance.getModule();
         if (module == null) {
-            throw new OofException("OOPS!! No module selected.");
+            throw new ModuleNotSelectedException("OOPS!! No module selected.");
         } else if (module.getLessons().isEmpty()) {
-            throw new OofException("OOPS!! Lessons List is empty!");
+            throw new EmptyListException("OOPS!! Lessons List is empty!");
         } else {
             ui.printLessonList(module);
         }

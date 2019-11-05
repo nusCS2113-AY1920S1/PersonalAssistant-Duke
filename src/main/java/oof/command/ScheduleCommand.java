@@ -3,7 +3,8 @@ package oof.command;
 import java.util.ArrayList;
 
 import oof.Ui;
-import oof.exception.OofException;
+import oof.exception.command.CommandException;
+import oof.exception.command.MissingArgumentException;
 import oof.model.module.SemesterList;
 import oof.model.task.Task;
 import oof.model.task.TaskList;
@@ -35,16 +36,16 @@ public class ScheduleCommand extends Command {
      * @param ui             Instance of Ui that is responsible for visual feedback.
      * @param storageManager Instance of Storage that enables the reading and writing of Task
      *                       objects to hard disk.
-     * @throws OofException if user inputs invalid command or date has no tasks scheduled.
+     * @throws MissingArgumentException if user input contains missing arguments.
      */
     public void execute(SemesterList semesterList, TaskList taskList, Ui ui, StorageManager storageManager)
-            throws OofException {
+            throws CommandException {
         if (date.isEmpty()) {
-            throw new OofException("OOPS! Please enter a date!");
+            throw new MissingArgumentException("OOPS! Please enter a date!");
         }
         TaskList scheduledTasks = scheduleByDate(taskList);
         if (scheduledTasks.isEmpty()) {
-            throw new OofException("There are no Tasks scheduled on " + date + ".");
+            ui.printNoTaskScheduled(date);
         }
         ui.printTasksByDate(scheduledTasks, date);
     }

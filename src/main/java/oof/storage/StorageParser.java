@@ -6,7 +6,7 @@ import java.time.DayOfWeek;
 import java.util.ArrayList;
 import java.util.Date;
 
-import oof.exception.OofException;
+import oof.exception.StorageFileCorruptedException;
 import oof.model.module.Lesson;
 import oof.model.module.Module;
 import oof.model.module.Semester;
@@ -76,9 +76,9 @@ public class StorageParser {
      *
      * @param data input supplied by storage file.
      * @return ArrayList containing list of Semesters.
-     * @throws OofException if file is corrupted.
+     * @throws StorageFileCorruptedException if file is corrupted.
      */
-    public static ArrayList<Semester> dataToSemester(ArrayList<String> data) throws OofException {
+    public static ArrayList<Semester> dataToSemester(ArrayList<String> data) throws StorageFileCorruptedException {
         ArrayList<Semester> semesters = new ArrayList<>();
         Semester semester = null;
         Module module = null;
@@ -102,7 +102,7 @@ public class StorageParser {
                 }
                 break;
             default:
-                throw new OofException("OOPS!! semester.txt is corrupted.");
+                throw new StorageFileCorruptedException("OOPS!! semester.txt is corrupted.");
             }
         }
         return semesters;
@@ -195,9 +195,10 @@ public class StorageParser {
      * @param data         input supplied by storage file.
      * @param semesterList instance of SemesterList containing Semester data.
      * @return ArrayList containing list of Tasks.
-     * @throws OofException if file is corrupted.
+     * @throws StorageFileCorruptedException if file is corrupted.
      */
-    public static ArrayList<Task> dataToTask(ArrayList<String> data, SemesterList semesterList) throws OofException {
+    public static ArrayList<Task> dataToTask(ArrayList<String> data, SemesterList semesterList)
+            throws StorageFileCorruptedException {
         ArrayList<Task> tasks = new ArrayList<>();
         for (String datum : data) {
             String[] dataSplit = datum.split(DELIMITER);
@@ -218,7 +219,7 @@ public class StorageParser {
                 tasks.add(addAssessment(dataSplit, semesterList));
                 break;
             default:
-                throw new OofException("Output.txt is corrupted!");
+                throw new StorageFileCorruptedException("Output.txt is corrupted!");
             }
         }
         return tasks;
@@ -314,7 +315,7 @@ public class StorageParser {
      *
      * @param lineSplit    Assessment object split in string array format.
      * @param semesterList Instance of SemesterList containing list of semesters.
-     * @return
+     * @return instance of Assessment.
      */
     private static Assessment addAssessment(String[] lineSplit, SemesterList semesterList) {
         String moduleCode = lineSplit[INDEX_ASSESSMENT_MODULE_CODE];
@@ -349,12 +350,13 @@ public class StorageParser {
     }
 
     /**
-     * Processes String of line obtained from tracker.txt.
+     * Processes String of line obtained from tracker.csv.
      *
-     * @param data ArrayList of data from tracker.txt.
+     * @param data ArrayList of data from tracker.csv.
      * @return ArrayList of Tracker objects.
+     * @throws StorageFileCorruptedException if tracker.csv is corrupted
      */
-    public static ArrayList<Tracker> dataToTrackerList(ArrayList<String> data) throws OofException {
+    public static ArrayList<Tracker> dataToTrackerList(ArrayList<String> data) throws StorageFileCorruptedException {
         ArrayList<Tracker> trackers = new ArrayList<>();
         for (String datum : data) {
             trackers.add(processLine(datum));
@@ -363,13 +365,13 @@ public class StorageParser {
     }
 
     /**
-     * Processes String of line obtained from tracker.txt.
+     * Processes String of line obtained from tracker.csv.
      *
-     * @param line String from tracker.txt.
+     * @param line String from tracker.csv.
      * @return Tracker object updated from data found in line.
-     * @throws OofException if file is corrupted.
+     * @throws StorageFileCorruptedException if file is corrupted.
      */
-    private static Tracker processLine(String line) throws OofException {
+    private static Tracker processLine(String line) throws StorageFileCorruptedException {
         SimpleDateFormat readFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm");
         Date start;
         String[] processed = line.split(DELIMITER_TRACKER);
@@ -389,7 +391,7 @@ public class StorageParser {
             Date updated = readFormat.parse(lastUpdated);
             return new Tracker(moduleCode, taskIndex, description, start, updated, timeTaken);
         } catch (ParseException e) {
-            throw new OofException(("Unable to process stored Tracker data."));
+            throw new StorageFileCorruptedException(("Unable to process stored Tracker data."));
         }
     }
 

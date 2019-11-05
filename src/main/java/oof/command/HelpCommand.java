@@ -4,7 +4,9 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 import oof.Ui;
-import oof.exception.OofException;
+import oof.exception.command.CommandException;
+import oof.exception.command.InvalidArgumentException;
+import oof.exception.command.OofManualNotFoundException;
 import oof.model.module.SemesterList;
 import oof.model.task.TaskList;
 import oof.storage.StorageManager;
@@ -36,11 +38,11 @@ public class HelpCommand extends Command {
      * @param ui             Instance of Ui that is responsible for visual feedback.
      * @param storageManager Instance of Storage that enables the reading and writing of Task
      *                       objects to hard disk.
-     * @throws OofException if user input invalid commands.
+     * @throws CommandException if help manual is missing or if user input contains invalid arguments.
      */
     @Override
     public void execute(SemesterList semesterList, TaskList taskList, Ui ui, StorageManager storageManager)
-            throws OofException {
+            throws CommandException {
         try {
             ArrayList<String> commands = storageManager.readManual();
             if (keyword.isEmpty()) {
@@ -50,7 +52,7 @@ public class HelpCommand extends Command {
                 ui.printHelpCommand(description);
             }
         } catch (FileNotFoundException e) {
-            throw new OofException("Manual Unavailable!");
+            throw new OofManualNotFoundException("Manual Unavailable!");
         }
     }
 
@@ -59,9 +61,9 @@ public class HelpCommand extends Command {
      *
      * @param keyword keyword where individual instruction is needed.
      * @return description      use of individual instruction.
-     * @throws OofException if keyword is invalid.
+     * @throws InvalidArgumentException if user input contains invalid arguments.
      */
-    private String individualQuery(String keyword, ArrayList<String> commands) throws OofException {
+    private String individualQuery(String keyword, ArrayList<String> commands) throws InvalidArgumentException {
         String description = null;
         for (int i = COMMANDS_BEGIN; i < commands.size(); i++) {
             if (isMatchCommand(keyword, commands.get(i))) {
@@ -70,7 +72,7 @@ public class HelpCommand extends Command {
             }
         }
         if (description == null) {
-            throw new OofException("Invalid keyword!");
+            throw new InvalidArgumentException("Invalid keyword!");
         }
         return description;
     }
@@ -80,7 +82,7 @@ public class HelpCommand extends Command {
      *
      * @param keyword given by user.
      * @param command stored in manual.txt.
-     * @return boolean True if String values match.
+     * @return True if String values match.
      */
     private boolean isMatchCommand(String keyword, String command) {
         int keywordEnd = command.indexOf("  ");
@@ -96,7 +98,7 @@ public class HelpCommand extends Command {
      * Check if keyword exists.
      *
      * @param index supposed end of keyword
-     * @return boolean True if end of keyword is more than zero (ie exists).
+     * @return True if end of keyword is more than zero (i.e. exists).
      */
     private boolean isKeyword(int index) {
         return index > 0;

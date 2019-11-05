@@ -6,7 +6,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import oof.exception.OofException;
+import oof.exception.StorageFileCorruptedException;
 import oof.model.module.Semester;
 import oof.model.module.SemesterList;
 import oof.model.task.Task;
@@ -36,9 +36,8 @@ public class StorageManager {
      *
      * @return ArrayList containing list of Semester objects.
      * @throws FileNotFoundException if file does not exist.
-     * @throws OofException          if file is corrupted.
      */
-    public ArrayList<Semester> readSemesterList() throws FileNotFoundException, OofException {
+    public ArrayList<Semester> readSemesterList() throws FileNotFoundException, StorageFileCorruptedException {
         ArrayList<String> data = storage.loadFile(PATH_SEMESTER);
         return StorageParser.dataToSemester(data);
     }
@@ -60,9 +59,9 @@ public class StorageManager {
      * @param semesterList Instance of SemesterList containing Semester data
      * @return ArrayList containing list of Task objects.
      * @throws FileNotFoundException if file does not exist.
-     * @throws OofException          if file is corrupted.
      */
-    public ArrayList<Task> readTaskList(SemesterList semesterList) throws FileNotFoundException, OofException {
+    public ArrayList<Task> readTaskList(SemesterList semesterList) throws FileNotFoundException,
+            StorageFileCorruptedException {
         ArrayList<String> data = storage.loadFile(PATH_OUTPUT);
         return StorageParser.dataToTask(data, semesterList);
     }
@@ -110,9 +109,8 @@ public class StorageManager {
      * Reads Tracker objects that were previously saved to hard disk.
      *
      * @return TrackerList that contains Tracker objects.
-     * @throws OofException if unable to read tracker.txt.
      */
-    public ArrayList<Tracker> readTrackerList() throws OofException, FileNotFoundException {
+    public ArrayList<Tracker> readTrackerList() throws FileNotFoundException, StorageFileCorruptedException {
         ArrayList<String> data = storage.loadFile(PATH_TRACKER);
         ArrayList<Tracker> trackers = StorageParser.dataToTrackerList(data);
         return trackers;

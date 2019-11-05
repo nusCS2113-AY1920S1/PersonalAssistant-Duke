@@ -9,7 +9,9 @@ import java.util.InputMismatchException;
 import java.util.List;
 
 import oof.Ui;
-import oof.exception.OofException;
+import oof.exception.command.CommandException;
+import oof.exception.command.InvalidArgumentException;
+import oof.exception.command.MissingArgumentException;
 import oof.model.module.SemesterList;
 import oof.model.task.Deadline;
 import oof.model.task.Event;
@@ -19,6 +21,7 @@ import oof.model.task.Todo;
 import oof.storage.StorageManager;
 
 //@@author jasperosy
+
 /**
  * Represents a command to select and recur a task.
  */
@@ -61,29 +64,29 @@ public class RecurringCommand extends Command {
      * @param ui             Instance of Ui that is responsible for visual feedback.
      * @param storageManager Instance of Storage that enables the reading and writing of Task
      *                       objects to hard disk.
-     * @throws OofException if user input is invalid.
+     * @throws CommandException if user input contains missing or invalid arguments.
      */
     @Override
     public void execute(SemesterList semesterList, TaskList taskList, Ui ui, StorageManager storageManager)
-            throws OofException {
+            throws CommandException {
         if (arguments.size() != ARGUMENT_COUNT) {
-            throw new OofException("OOPS!!! Please enter the right number of arguments!");
+            throw new MissingArgumentException("OOPS!!! Please enter the right number of arguments!");
         } else {
             try {
                 taskIndex = Integer.parseInt(arguments.get(INDEX_TASK_INDEX)) - 1;
                 recurringCount = Integer.parseInt(arguments.get(INDEX_RECURRING_COUNT));
                 recurringFrequency = Integer.parseInt(arguments.get(INDEX_RECURRING_FREQUENCY));
                 if (!taskList.isIndexValid(taskIndex)) {
-                    throw new OofException("OOPS!!! Please select a valid task!");
+                    throw new InvalidArgumentException("OOPS!!! Please select a valid task!");
                 } else if (!isCountValid(recurringCount)) {
-                    throw new OofException("OOPS!!! Please enter a valid number of recurrences!");
+                    throw new InvalidArgumentException("OOPS!!! Please enter a valid number of recurrences!");
                 } else if (!isFrequencyValid(recurringFrequency)) {
-                    throw new OofException("OOPS!!! Please enter a valid frequency!");
+                    throw new InvalidArgumentException("OOPS!!! Please enter a valid frequency!");
                 } else {
                     runRecurringCommand(ui, taskList, storageManager);
                 }
             } catch (NumberFormatException e) {
-                throw new OofException("OOPS!!! Please enter valid numbers!");
+                throw new InvalidArgumentException("OOPS!!! Please enter valid numbers!");
             }
         }
     }
@@ -91,18 +94,19 @@ public class RecurringCommand extends Command {
     /**
      * Wrapper function for running a successful instance of RecurringCommand.
      *
-     * @param ui Instance of Ui.
-     * @param taskList Instance of TaskList.
+     * @param ui             Instance of Ui.
+     * @param taskList       Instance of TaskList.
      * @param storageManager Instance of StorageManager.
-     * @throws OofException Prints customised error message.
+     * @throws InvalidArgumentException if datetime cannot be parsed.
      */
-    private void runRecurringCommand(Ui ui, TaskList taskList, StorageManager storageManager) throws OofException {
+    private void runRecurringCommand(Ui ui, TaskList taskList, StorageManager storageManager)
+            throws InvalidArgumentException {
         try {
             setRecurringTask(ui, taskList, taskIndex, recurringCount, recurringFrequency);
             ui.printRecurringMessage(taskList);
             storageManager.writeTaskList(taskList);
         } catch (InputMismatchException e) {
-            throw new OofException("OOPS!!! Please enter valid numbers!");
+            throw new InvalidArgumentException("OOPS!!! Please enter valid numbers!");
         }
     }
 
@@ -114,9 +118,10 @@ public class RecurringCommand extends Command {
      * @param index     Index of the task.
      * @param count     Number of recurrences for the recurring task.
      * @param frequency Frequency of recurrence for the recurring task.
-     * @throws OofException dateTimeIncrement method throws OofException.
+     * @throws InvalidArgumentException if datetime cannot be parsed.
      */
-    private void setRecurringTask(Ui ui, TaskList taskList, int index, int count, int frequency) throws OofException {
+    private void setRecurringTask(Ui ui, TaskList taskList, int index, int count, int frequency) throws
+            InvalidArgumentException {
         Task task = taskList.getTask(index);
         task.setFrequency(frequency);
         taskList.deleteTask(index);
@@ -132,9 +137,10 @@ public class RecurringCommand extends Command {
      * @param task      Recurring task.
      * @param count     Number of recurrences for the recurring task.
      * @param frequency Frequency of recurrence for the recurring task.
-     * @throws OofException dateTimeIncrement method throws OofException.
+     * @throws InvalidArgumentException if datetime cannot be parsed.
      */
-    private void recurInstances(Ui ui, TaskList taskList, Task task, int count, int frequency) throws OofException {
+    private void recurInstances(Ui ui, TaskList taskList, Task task, int count, int frequency)
+            throws InvalidArgumentException {
         if (task instanceof Todo) {
             for (int i = 1; i <= count; i++) {
                 addToDoTask(taskList, task, i, frequency);
@@ -157,9 +163,9 @@ public class RecurringCommand extends Command {
      * @param task      Task to be set as a recurring instance.
      * @param index     Represents the nth time to which the recurring instance has been generated.
      * @param frequency Represents the frequency of recurrence.
-     * @throws OofException dateTimeIncrement method throws OofException.
+     * @throws InvalidArgumentException if datetime cannot be parsed.
      */
-    private void addToDoTask(TaskList taskList, Task task, int index, int frequency) throws OofException {
+    private void addToDoTask(TaskList taskList, Task task, int index, int frequency) throws InvalidArgumentException {
         String date = ((Todo) task).getTodoDate();
         date = dateTimeIncrement(date, frequency, index);
         Todo todo = new Todo(task.getDescription(), date);
@@ -174,9 +180,10 @@ public class RecurringCommand extends Command {
      * @param task      Task to be set as a recurring instance.
      * @param index     Represents the nth time to which the recurring instance has been generated.
      * @param frequency Represents the frequency of recurrence.
-     * @throws OofException dateTimeIncrement method throws OofException.
+     * @throws InvalidArgumentException if datetime cannot be parsed.
      */
-    private void addDeadlineTask(TaskList taskList, Task task, int index, int frequency) throws OofException {
+    private void addDeadlineTask(TaskList taskList, Task task, int index, int frequency)
+            throws InvalidArgumentException {
         String date = ((Deadline) task).getDeadlineDateTime();
         date = dateTimeIncrement(date, frequency, index);
         Deadline deadline = new Deadline(task.getDescription(), date);
@@ -191,9 +198,9 @@ public class RecurringCommand extends Command {
      * @param task      Task to be set as a recurring instance.
      * @param index     Represents the nth time to which the recurring instance has been generated.
      * @param frequency Represents the frequency of recurrence.
-     * @throws OofException dateTimeIncrement method throws OofException.
+     * @throws InvalidArgumentException if datetime cannot be parsed.
      */
-    private void addEventTask(TaskList taskList, Task task, int index, int frequency) throws OofException {
+    private void addEventTask(TaskList taskList, Task task, int index, int frequency) throws InvalidArgumentException {
         String startTiming = ((Event) task).getStartDateTime();
         startTiming = dateTimeIncrement(startTiming, frequency, index);
         String endTiming = ((Event) task).getEndDateTime();
@@ -210,9 +217,9 @@ public class RecurringCommand extends Command {
      * @param frequency Frequency of recurrence of task.
      * @param increment Number of hops from the first recurrence.
      * @return New datetime after incrementation.
-     * @throws OofException Throws an exception if datetime cannot be parsed.
+     * @throws InvalidArgumentException if datetime cannot be parsed.
      */
-    private String dateTimeIncrement(String dateTime, int frequency, int increment) throws OofException {
+    private String dateTimeIncrement(String dateTime, int frequency, int increment) throws InvalidArgumentException {
         SimpleDateFormat format;
         if (dateTime.split(" ").length == DATE_ONLY) {
             format = new SimpleDateFormat("dd-MM-yyyy");
@@ -233,7 +240,7 @@ public class RecurringCommand extends Command {
             }
             dateTime = format.format(calendar.getTime());
         } catch (ParseException e) {
-            throw new OofException("OOPS!!! Datetime is in the wrong format!");
+            throw new InvalidArgumentException("OOPS!!! Datetime is in the wrong format!");
         }
         return dateTime;
     }

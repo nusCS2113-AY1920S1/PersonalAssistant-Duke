@@ -1,10 +1,13 @@
 package oof.command;
 
 import oof.Ui;
-import oof.exception.OofException;
+import oof.exception.command.CommandException;
+import oof.exception.command.EmptyListException;
 import oof.model.module.SemesterList;
 import oof.model.task.TaskList;
 import oof.storage.StorageManager;
+
+//@@author KahLokKee
 
 /**
  * Represents a Command to view the list of Semesters.
@@ -26,24 +29,13 @@ public class ViewAllSemesterCommand extends Command {
      * @param ui           Instance of Ui that is responsible for visual feedback.
      * @param storageManager      Instance of Storage that enables the reading and writing of Task
      *                     objects to hard disk.
-     * @throws OofException if semesterList or moduleList is empty.
+     * @throws EmptyListException if semester list or module list is empty.
      */
     @Override
     public void execute(SemesterList semesterList, TaskList tasks, Ui ui, StorageManager storageManager)
-            throws OofException {
-        viewSemesterList(semesterList, ui);
-    }
-
-    /**
-     * Prints the list of Semesters.
-     *
-     * @param semesterList Instance of SemesterList Object containing list of Semesters.
-     * @param ui           Instance of Ui that is responsible for visual feedback.
-     * @throws OofException if semesterList is empty.
-     */
-    private void viewSemesterList(SemesterList semesterList, Ui ui) throws OofException {
+            throws CommandException {
         if (semesterList.getSemesterList().isEmpty()) {
-            throw new OofException("Semester List is empty!");
+            throw new EmptyListException("Semester List is empty!");
         } else {
             ui.printSemesterList(semesterList);
         }
