@@ -5,8 +5,10 @@ import duke.commons.enumerations.Direction;
 import duke.logic.commands.results.CommandResultText;
 import duke.commons.exceptions.DukeException;
 import duke.model.Model;
+import duke.model.locations.BusStop;
 import duke.model.transports.BusService;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -32,9 +34,15 @@ public class GetBusRouteCommand extends Command {
             HashMap<String, BusService> busMap = model.getMap().getBusMap();
             BusService bus = busMap.get(this.bus);
             String result = "";
+
+            HashMap<String, BusStop> allBus = model.getBusStops();
             for (String busCode : bus.getDirection(Direction.FORWARD)) {
-                result = result.concat(busCode + "\n");
+                if (allBus.containsKey(busCode)) {
+                    BusStop busStop = allBus.get(busCode);
+                    result = result.concat(busCode + " " + busStop.getAddress() + "\n");
+                }
             }
+
             return new CommandResultText(MESSAGE_BUS_ROUTE + result);
 
         } catch (Throwable e) {

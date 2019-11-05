@@ -1,6 +1,7 @@
 package duke.model.locations;
 
 import duke.commons.enumerations.Constraint;
+import duke.commons.exceptions.QueryFailedException;
 import duke.model.Model;
 
 import java.util.ArrayList;
@@ -25,6 +26,18 @@ public class TrainStation extends RouteNode {
                 double latitude, double longitude) {
         super(Constraint.valueOf("MRT"), address, description, latitude, longitude);
         this.trainCodes = trainCode;
+    }
+
+    /**
+     * Alternative constructor which automatically uses fetchData().
+     *
+     * @param trainStationName The bus code.
+     * @param model The model object containing information about the user.
+     */
+    public TrainStation(String trainStationName, Model model) {
+        super(Constraint.valueOf("MRT"), "", "", 0, 0);
+        this.setAddress(trainStationName);
+        fetchData(model);
     }
 
     /**

@@ -46,9 +46,13 @@ public class GetBusStopCommand extends Command {
      * Gets the information of a bus stop.
      */
     private String getBusStopInformation(BusStop busStop) {
-        return "This is the information for this Bus Stop:\n"
-                + busStop.getAddress() + "\n"
-                + busStop.getLatitude() + "\n"
-                + busStop.getLongitude();
+        String result = "This is the information for this Bus Stop:\n"
+                + busStop.getAddress() + "\n";
+
+        for (String busCode : busStop.getBuses()) {
+            result += busCode + "\n";
+        }
+
+        return result;
     }
 }
