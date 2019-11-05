@@ -1,3 +1,5 @@
+package helpertests;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import util.AssignmentViewHelper;

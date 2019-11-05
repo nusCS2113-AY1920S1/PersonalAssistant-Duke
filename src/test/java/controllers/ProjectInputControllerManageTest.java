@@ -174,9 +174,6 @@ class ProjectInputControllerManageTest {
             "|   - State: OPEN                                                      |",
             "+----------------------------------------------------------------------+"
         };
-        for (String i : simulatedOutput) {
-            System.out.println(i);
-        }
         assertArrayEquals(expectedOutput, simulatedOutput);
     }
 }

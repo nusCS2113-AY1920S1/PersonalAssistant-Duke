@@ -1,3 +1,5 @@
+package helpertests;
+
 import org.junit.jupiter.api.Test;
 import util.ViewHelper;
 
