@@ -159,8 +159,8 @@ public class RescheduleCommandTest {
         try{
             rescheduleCommand7.execute(tasks,ui,storage);
         }
-        catch( DukeException e ){ // Should not happen
-            assertTrue(false);
+        catch( DukeException e ){
+            assertTrue(e instanceof ConflictDateException);
         }
     }
 
