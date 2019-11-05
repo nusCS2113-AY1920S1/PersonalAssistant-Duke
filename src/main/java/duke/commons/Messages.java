@@ -12,6 +12,8 @@ public class Messages {
     public static final String LOCATIONSEARCH_STARTER = "These are the coordinates of your search:\n";
     public static final String LOCATIONSEARCH_API_EXCEPTION
             = "Sorry, but the search has timed out due to connection issues.";
+    public static final String MESSAGE_BUS_ROUTE = "Here is the bus route:\n";
+    public static final String MESSAGE_BUS_ROUTE_NOT_FOUND = "I'm sorry, but nothing was found...\n";
 
     /**
      * Error messages.

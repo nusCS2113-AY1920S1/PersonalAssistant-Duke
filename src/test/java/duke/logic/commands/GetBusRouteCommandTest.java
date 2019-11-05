@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 class GetBusRouteCommandTest {
 
     @Test
-    void GetBusRouteTest() throws DukeException {
+    void getBusRouteTest() throws DukeException {
         ModelStub model = new ModelStub();
         String expected = "Here is the bus route:\n" + "45009 BT PANJANG INT\n" + "44259 Blk 183\n" +
                 "44149 Opp Phoenix Stn\n" + "44271 Bet Blks 13/14\n" + "44281 Blk 8\n" + "44291 Opp Cck Polyclinic\n" +
@@ -48,27 +48,23 @@ class GetBusRouteCommandTest {
         GetBusRouteCommand command = new GetBusRouteCommand("975");
         assertEquals(expected, command.execute(model).getMessage());
 
+        String expectedError = "I'm sorry, but nothing was found...\n";
+
         //non-existant bus stop
         GetBusRouteCommand command2 = new GetBusRouteCommand("0");
-        assertThrows(DukeException.class, () -> {
-            command2.execute(model);
-        });
+        assertEquals(expectedError, command2.execute(model).getMessage());
 
         //negative number bus stop
         GetBusRouteCommand command3 = new GetBusRouteCommand("-1");
-        assertThrows(DukeException.class, () -> {
-            command3.execute(model);
-        });
+        assertEquals(expectedError, command3.execute(model).getMessage());
 
         GetBusRouteCommand command4 = new GetBusRouteCommand("-2");
-        assertThrows(DukeException.class, () -> {
-            command4.execute(model);
-        });
+        assertEquals(expectedError, command4.execute(model).getMessage());
 
         //test for string
         GetBusRouteCommand command5 = new GetBusRouteCommand("test");
-        assertThrows(DukeException.class, () -> {
-            command5.execute(model);
+        assertThrows(AssertionError.class, () -> {
+            command5.execute(model).getMessage();
         });
     }
 }

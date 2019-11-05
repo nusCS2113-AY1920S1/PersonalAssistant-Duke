@@ -1,9 +1,7 @@
 package duke.logic.api;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
 import duke.commons.exceptions.ApiException;
-import duke.commons.exceptions.QueryOutOfBoundsException;
+import duke.commons.exceptions.OutOfBoundsException;
 import duke.logic.api.requests.LocationSearchUrlRequest;
 import duke.logic.api.requests.StaticMapUrlRequest;
 import duke.model.Model;
@@ -21,9 +19,6 @@ import java.util.Map;
  * Handles all API requests.
  */
 public class ApiParser {
-    private static final int MAX_BUS_STOP_DATA_SIZE = 5500;
-    private static final int DATA_SIZE_PER_REQUEST = 500;
-
     private static final double STATIC_MAP_MAX_DIST = 0.04;
     private static final String DIMENSIONS = "512";
     private static final String ZOOM_LEVEL = "16";
@@ -53,6 +48,7 @@ public class ApiParser {
         return req.execute();
     }
 
+    /**
      * Gets Static Map from StaticMap API.
      *
      * @param param String formatted parameters
@@ -143,10 +139,10 @@ public class ApiParser {
      * @param indexNode The index of the RouteNode in the Route.
      * @return image The image from StaticMap API.
      * @throws ApiException If the API request fails.
-     * @throws QueryOutOfBoundsException If fetching any node fails.
+     * @throws OutOfBoundsException If fetching any node fails.
      */
     public static Image generateStaticMapNeighbours(Model model, Route route, RouteNode node, int indexNode)
-            throws ApiException, QueryOutOfBoundsException {
+            throws ApiException, OutOfBoundsException {
         ArrayList<String> points = generateOtherPoints(route, node, indexNode);
 
         String param = getLocationSearchName(node);
@@ -181,9 +177,9 @@ public class ApiParser {
      * @param model The model object containing information about the user.
      * @param node The RouteNode to check.
      * @return result The neighbours of the RouteNode.
-     * @throws QueryOutOfBoundsException If fetching any node fails.
+     * @throws OutOfBoundsException If fetching any node fails.
      */
-    public static ArrayList<Venue> getNeighbour(Model model, RouteNode node) throws QueryOutOfBoundsException {
+    public static ArrayList<Venue> getNeighbour(Model model, RouteNode node) throws OutOfBoundsException {
         try {
             ArrayList<Venue> result = new ArrayList<>();
             ArrayList<Venue> temp = new ArrayList<>();
@@ -210,7 +206,7 @@ public class ApiParser {
 
             return result;
         } catch (IndexOutOfBoundsException e) {
-            throw new QueryOutOfBoundsException();
+            throw new OutOfBoundsException();
         }
     }
 

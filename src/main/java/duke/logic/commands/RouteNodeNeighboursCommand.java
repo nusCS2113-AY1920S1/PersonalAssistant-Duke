@@ -1,7 +1,7 @@
 package duke.logic.commands;
 
 import duke.commons.exceptions.ApiException;
-import duke.commons.exceptions.QueryOutOfBoundsException;
+import duke.commons.exceptions.OutOfBoundsException;
 import duke.logic.api.ApiParser;
 import duke.logic.commands.results.CommandResultImage;
 import duke.model.Model;
@@ -38,7 +38,7 @@ public class RouteNodeNeighboursCommand extends Command {
      * @return The CommandResultImage.
      */
     @Override
-    public CommandResultImage execute(Model model) throws QueryOutOfBoundsException {
+    public CommandResultImage execute(Model model) throws OutOfBoundsException {
         Route route = model.getRoutes().get(indexRoute);
         RouteNode node = model.getRoutes().get(indexRoute).getNode(indexNode);
         ArrayList<Venue> result = ApiParser.getNeighbour(model, node);
@@ -46,7 +46,7 @@ public class RouteNodeNeighboursCommand extends Command {
         try {
             Image image = ApiParser.generateStaticMapNeighbours(model, route, node, indexNode);
             return new CommandResultImage(image, MESSAGE_SUCCESS, result);
-        } catch (ApiException | QueryOutOfBoundsException e) {
+        } catch (ApiException | OutOfBoundsException e) {
             return new CommandResultImage(null, MESSAGE_SUCCESS, result);
         }
     }

@@ -1,7 +1,6 @@
 package duke.model.locations;
 
 import duke.commons.enumerations.Constraint;
-import duke.commons.exceptions.QueryFailedException;
 import duke.model.Model;
 
 import java.util.ArrayList;

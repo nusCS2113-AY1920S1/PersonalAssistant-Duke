@@ -1,6 +1,7 @@
 package duke.logic.parsers;
 
 import duke.ModelStub;
+import duke.commons.exceptions.FileLoadFailException;
 import duke.commons.exceptions.QueryFailedException;
 import duke.logic.api.ApiConstraintParser;
 import duke.model.locations.BusStop;
@@ -15,7 +16,7 @@ import java.util.HashMap;
 
 class ApiConstraintParserTest {
     @Test
-    void getNearestBusStop() throws QueryFailedException {
+    void getNearestBusStop() throws QueryFailedException, FileLoadFailException {
         ModelStub model = new ModelStub();
         HashMap<String, BusStop> busStopMap = model.getBusStops();
 
@@ -33,7 +34,7 @@ class ApiConstraintParserTest {
     }
 
     @Test
-    void getNearestTrainStation() {
+    void getNearestTrainStation() throws FileLoadFailException {
         ModelStub model = new ModelStub();
         HashMap<String, TrainStation> trainStationMap = model.getMap().getTrainMap();
         TrainStation trainStation = new TrainStation("Ang Mo Kio", model);
@@ -47,7 +48,7 @@ class ApiConstraintParserTest {
     }
 
     @Test
-    void getNearestTransport() throws QueryFailedException {
+    void getNearestTransport() throws QueryFailedException, FileLoadFailException {
         ModelStub model = new ModelStub();
         TransportationMap map = model.getMap();
 

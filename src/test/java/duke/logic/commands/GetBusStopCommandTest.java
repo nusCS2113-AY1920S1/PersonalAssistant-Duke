@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 class GetBusStopCommandTest {
 
     @Test
-    void GetBusStopTest() throws DukeException {
+    void getBusStopTest() throws DukeException {
         ModelStub model = new ModelStub();
         String expected = "This is the information for this Bus Stop:\n" + "Clementi Int\n" +
                 "99\n" + "14\n" + "96A\n" + "96B\n" + "147e\n" + "7B\n" + "282\n" + "173\n" + "284\n" + "196\n" +

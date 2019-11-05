@@ -2,9 +2,10 @@ package duke.logic.parsers;
 
 import duke.ModelStub;
 import duke.commons.exceptions.ApiException;
+import duke.commons.exceptions.DuplicateRouteNodeException;
+import duke.commons.exceptions.FileLoadFailException;
 import duke.commons.exceptions.QueryFailedException;
-import duke.commons.exceptions.QueryOutOfBoundsException;
-import duke.commons.exceptions.RouteNodeDuplicateException;
+import duke.commons.exceptions.OutOfBoundsException;
 import duke.logic.api.ApiParser;
 import duke.model.locations.BusStop;
 import duke.model.locations.CustomNode;
@@ -28,12 +29,6 @@ class ApiParserTest {
     private static final String RED_VALUE_OTHER = "255";
     private static final String GREEN_VALUE_OTHER = "122";
     private static final String BLUE_VALUE_OTHER = "0";
-    private static final String RED_VALUE_QUERY = "122";
-    private static final String GREEN_VALUE_QUERY = "255";
-    private static final String BLUE_VALUE_QUERY = "0";
-    private static final String RED_VALUE_NEIGHBOUR = "0";
-    private static final String GREEN_VALUE_NEIGHBOUR = "0";
-    private static final String BLUE_VALUE_NEIGHBOUR = "0";
     private static final String LINE_WIDTH = "2";
 
     @Test
@@ -47,8 +42,8 @@ class ApiParserTest {
     }
 
     @Test
-    void getStaticMap() throws QueryFailedException, QueryOutOfBoundsException,
-            RouteNodeDuplicateException {
+    void getStaticMap() throws QueryFailedException, OutOfBoundsException, FileLoadFailException,
+            DuplicateRouteNodeException {
         ModelStub model = new ModelStub();
         Route route = new Route("Test route", "");
         route.add(new BusStop("17009", model));
@@ -73,7 +68,7 @@ class ApiParserTest {
     }
 
     @Test
-    void getStaticMapNeighbours() throws QueryFailedException, RouteNodeDuplicateException {
+    void getStaticMapNeighbours() throws QueryFailedException, FileLoadFailException, DuplicateRouteNodeException {
         ModelStub model = new ModelStub();
         Route route = new Route("Test route", "");
         route.add(new BusStop("17009", model));
@@ -89,7 +84,8 @@ class ApiParserTest {
     }
 
     @Test
-    void generateStaticMapParams() throws QueryFailedException, RouteNodeDuplicateException, QueryOutOfBoundsException {
+    void generateStaticMapParams() throws QueryFailedException, OutOfBoundsException, FileLoadFailException,
+            DuplicateRouteNodeException {
         ModelStub model = new ModelStub();
         Route route = new Route("Test route", "");
         route.add(new BusStop("17009", model));
@@ -119,7 +115,7 @@ class ApiParserTest {
     }
 
     @Test
-    void generateStaticMapLines() throws QueryFailedException, RouteNodeDuplicateException {
+    void generateStaticMapLines() throws QueryFailedException, FileLoadFailException, DuplicateRouteNodeException {
         ModelStub model = new ModelStub();
         Route route = new Route("Test route", "");
         route.add(new BusStop("17009", model));
@@ -140,7 +136,7 @@ class ApiParserTest {
     }
 
     @Test
-    void generateOtherPoints() throws QueryFailedException, RouteNodeDuplicateException {
+    void generateOtherPoints() throws QueryFailedException, FileLoadFailException, DuplicateRouteNodeException {
         ModelStub model = new ModelStub();
         Route route = new Route("Test route", "");
 
@@ -153,7 +149,7 @@ class ApiParserTest {
     }
 
     @Test
-    void getLocationSearchName() throws QueryFailedException {
+    void getLocationSearchName() throws QueryFailedException, FileLoadFailException {
         ModelStub model = new ModelStub();
         BusStop busStop = new BusStop("17009", model);
         TrainStation trainStation = new TrainStation("Ang Mo Kio", model);
@@ -165,7 +161,7 @@ class ApiParserTest {
     }
 
     @Test
-    void getNeighbours() throws QueryFailedException, QueryOutOfBoundsException {
+    void getNeighbours() throws QueryFailedException, OutOfBoundsException, FileLoadFailException {
         ModelStub model = new ModelStub();
         BusStop newNode = new BusStop("17009", model);
         assertEquals(5, ApiParser.getNeighbour(model, newNode).size());
@@ -175,7 +171,7 @@ class ApiParserTest {
     }
 
     @Test
-    void isWithinDistance() throws QueryFailedException {
+    void isWithinDistance() throws QueryFailedException, FileLoadFailException {
         ModelStub model = new ModelStub();
         //blk 322 amk
         BusStop node1 = new BusStop("54009", model);

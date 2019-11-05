@@ -1,17 +1,13 @@
 package duke.logic.commands;
 
 import duke.ModelStub;
-import duke.commons.exceptions.ApiException;
 import duke.commons.exceptions.DukeException;
 import duke.logic.parsers.Parser;
 import duke.model.Model;
 
 import org.junit.jupiter.api.Test;
 
-import java.io.FileNotFoundException;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class LocationSearchCommandTest {
     private static final String SENTOSA_MESSAGE
