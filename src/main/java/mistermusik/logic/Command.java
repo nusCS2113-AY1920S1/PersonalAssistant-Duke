@@ -208,6 +208,9 @@ public class Command {
                 case "checklist":
                     ui.printChecklistHelp();
                     break;
+                case "instruments":
+                    ui.printInstrumentsHelp();
+                    break;
                 case "reschedule":
                 case "edit":
                 case "done":
