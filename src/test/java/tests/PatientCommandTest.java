@@ -1,17 +1,9 @@
 package tests;
 
-import duke.command.ArgCommand;
-import duke.command.patient.PatientNewCommand;
-import duke.data.Impression;
 import duke.data.Patient;
-import duke.exception.DukeException;
 import duke.ui.context.Context;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import templates.CommandTest;
-
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
 
 public class PatientCommandTest extends CommandTest {
 
@@ -29,6 +21,7 @@ public class PatientCommandTest extends CommandTest {
         core.uiContext.setContext(Context.PATIENT, patient);
     }
 
+    /*
     @Test
     public void patientNewCommand_allSwitches_correctImpressionCreated() {
         String[] switchNames = {"name", "description"};
@@ -42,4 +35,5 @@ public class PatientCommandTest extends CommandTest {
             fail("Exception thrown when validly creating patient from command!");
         }
     }
+     */
 }
