@@ -6,28 +6,14 @@ import duke.commons.exceptions.OutOfBoundsException;
 import duke.logic.api.ApiParser;
 import duke.logic.commands.results.CommandResultImage;
 import duke.model.Model;
-import duke.model.locations.BusStop;
 import duke.model.locations.RouteNode;
-import duke.model.locations.Venue;
 import duke.model.transports.Route;
 import javafx.scene.image.Image;
-
-import java.util.ArrayList;
 
 /**
  * Creates a StaticMap image of a Route for visualization.
  */
 public class RouteNodeShowCommand extends Command {
-    private static final String DIMENSIONS = "512";
-    private static final String ZOOM_LEVEL = "14";
-    private static final String RED_VALUE_OTHER = "255";
-    private static final String GREEN_VALUE_OTHER = "122";
-    private static final String BLUE_VALUE_OTHER = "0";
-    private static final String RED_VALUE_QUERY = "122";
-    private static final String GREEN_VALUE_QUERY = "255";
-    private static final String BLUE_VALUE_QUERY = "0";
-    private static final String LINE_WIDTH = "2";
-    private static final int NODE_MAX_SIZE = 9;
     private int indexRoute;
     private int indexNode;
 

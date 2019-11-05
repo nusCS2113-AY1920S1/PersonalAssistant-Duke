@@ -1,7 +1,6 @@
 package duke.logic.commands;
 
 import duke.ModelStub;
-import duke.commons.exceptions.ApiException;
 import duke.commons.exceptions.DuplicateRouteException;
 import duke.commons.exceptions.DuplicateRouteNodeException;
 import duke.commons.exceptions.FileLoadFailException;

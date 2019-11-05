@@ -133,7 +133,6 @@ public class ApiParser {
     /**
      * Generates an image from StaticMap API for RouteNodeShowCommand.
      *
-     * @param model The model object containing information about the user.
      * @param route The Route that the RouteNode belongs to.
      * @param node The RouteNode that is queried.
      * @param indexNode The index of the RouteNode in the Route.

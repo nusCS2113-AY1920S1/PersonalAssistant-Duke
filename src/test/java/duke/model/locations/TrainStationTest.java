@@ -2,7 +2,6 @@ package duke.model.locations;
 
 import duke.ModelStub;
 import duke.commons.exceptions.FileLoadFailException;
-import duke.commons.exceptions.QueryFailedException;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
