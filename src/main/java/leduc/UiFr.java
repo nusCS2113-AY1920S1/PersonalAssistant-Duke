@@ -66,7 +66,7 @@ public class UiFr extends Ui {
     @Override
     public void showPrioritize(Task task) {
         super.display("\t Compris. La priorité de cette tâche a été assignée:\n\t   "
-                + task.toString()+ " à " + task.getPriority());
+                + task.toString());
     }
     @Override
     public void showReschedule(EventsTask rescheduleTask) {
