@@ -252,4 +252,27 @@ public class Ui extends AnchorPane {
                 booking.getTimeStart().toString(), booking.getTimeEnd().toString(), booking.getStatus(),
                 booking.getDescription(), booking.getApprovedBy());
     }
+
+    public void showHelp() {
+        setOutput("Here are the available commands:\n" +
+                "--------------\n" +
+                "Account\n" +
+                "Add user: adduser <username>\n" +
+                "Remove user: rmuser <username>\n" +
+                "Login: login <username>\n" +
+                "Logout: logout\n" +
+                "--------------\n" +
+                "Booking\n" +
+                "Add booking: add <description> /at <roomcode> /from <DD/MM/YYYY> <HHMM> /to <HHMM>\n" +
+                "List booking: list\n" +
+                "Edit booking: edit <index> <description>\n" +
+                "Delete booking: delete <index>\n" +
+                "List month: listmonth\n" +
+                "List day: listday\n" +
+                "Find booking: find <keyword>, find <index>\n" +
+                "--------------\n" +
+                "Add room: addroom <roomcode> /date <DD/MM/YYYY> <HHMM> /to <HHMM>\n" +
+                "List room: listroom\n" +
+                "Delete room: deleteroom <index>\n");
+    }
 }
