@@ -25,7 +25,7 @@ public class HistoryCommand extends Command {
     @Override
     public String execute() {
         try {
-            HistoryExceptions.checkInput(historyList);
+            HistoryExceptions.checkInput(inputs);
             String argument = historyList.get(1);
             HistoryExceptions.checkArgument(historyList, argument);
             int num = Integer.parseInt(argument);

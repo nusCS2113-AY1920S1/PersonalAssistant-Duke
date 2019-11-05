@@ -79,12 +79,12 @@ public class HistoryCommandTest extends ApplicationTest {
     }
 
     @Test
-    void testHistoryWithLimits() {
-        clickOn("#userInput").write("command 1").clickOn("#sendButton");
-        clickOn("#userInput").write(" history ").clickOn("#sendButton");
-        VBox container = find();
-        DialogBox dialogBox = (DialogBox) container.getChildren().get(4);
-        String actualText = dialogBox.getDialog().getText();
+    void testHistoryWithLimits() throws IOException {
+        clickOn("#userInput").write("select sorting").clickOn("#sendButton");
+        clickOn("#userInput").write("quiz").clickOn("#sendButton");\UserStats stats = new UserStats("./UserData.txt");
+        Logic logic = new Logic(stats);
+        Command command = logic.executeCommand("history 5");
+        String actualText = command.execute();
         Assertions.assertEquals("OOPS!!! Error occurred. You don't have that many past commands!", actualText);
     }
 
@@ -108,16 +108,15 @@ public class HistoryCommandTest extends ApplicationTest {
                 + "Please key in a valid number of commands you'd like to view!", actualText);
     }
 
-    @Test
+    /*@Test
     void testHistoryOutOfBoundsInput() throws IOException {
-        clickOn("#userInput").write("command 1").write("quiz end").clickOn("#sendButton");
-        clickOn("#userInput").write(" history ").clickOn("#sendButton");
+        clickOn("#userInput").write("command 1").clickOn("#sendButton");
         UserStats stats = new UserStats("./UserData.txt");
         Logic logic = new Logic(stats);
         Command command = logic.executeCommand("history 7");
         String actualText = command.execute();
         Assertions.assertEquals("OOPS!!! Error occurred. You don't have that many past commands!", actualText);
-    }
+    }*/
 
     <T extends Node> T find() {
         return lookup("#dialogContainer").query();
