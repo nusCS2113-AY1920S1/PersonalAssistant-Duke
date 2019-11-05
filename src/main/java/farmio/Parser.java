@@ -1,8 +1,30 @@
 package farmio;
 
-import commands.*;
+import commands.Command;
 
 
+import commands.CommandAddName;
+import commands.CommandCheckObjectives;
+import commands.CommandDayEnd;
+import commands.CommandDayStart;
+import commands.CommandGameLoad;
+import commands.CommandGameNew;
+import commands.CommandGameQuit;
+import commands.CommandGameSave;
+import commands.CommandLevelEnd;
+import commands.CommandLevelReset;
+import commands.CommandLevelStart;
+import commands.CommandMenuInGame;
+import commands.CommandMenuStart;
+import commands.CommandShowList;
+import commands.CommandTaskAddReset;
+import commands.CommandTaskCreate;
+import commands.CommandTaskDelete;
+import commands.CommandTaskDeleteAll;
+import commands.CommandTaskEdit;
+import commands.CommandTaskInsert;
+import commands.CommandTasksHint;
+import commands.CommandTasksRun;
 import usercode.tasks.Task;
 import usercode.tasks.IfTask;
 import usercode.tasks.ForTask;
@@ -52,8 +74,6 @@ public class Parser {
             return new CommandMenuStart();
         case LEVEL_START:
             return new CommandLevelStart();
-//        case MENU:
-//            return parseMenu(userInput);
         case RUNNING_DAY:
             return new CommandTasksRun();
         case CHECK_OBJECTIVES:
@@ -76,23 +96,6 @@ public class Parser {
             throw new FarmioException("Invalid Command!");
         }
     }
-
-    /**
-     * Allows the user to resume the game from the menu.
-     *
-     * @param userInput input String from the user
-     * @return Command that corresponds to the user's actions
-     * @throws FarmioException if user input is invalid
-     */
-//    private static Command parseMenu(String userInput) throws FarmioException {
-//        if (userInput.equals("resume game")) {
-//            return new CommandLevelStart();
-//        } else if (userInput.equals("actions") || userInput.equals("conditions") || userInput.equals("market") || userInput.equals("")) {
-//            return new CommandMenuInGame(userInput);
-//        } else {
-//            throw new FarmioException("Invalid command!");
-//        }
-//    }
 
     /**
      * Used to parse the user input during the DAY_END stage. User can choose to either reset the level,

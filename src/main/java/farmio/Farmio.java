@@ -4,6 +4,7 @@ import commands.Command;
 import commands.CommandWelcome;
 import exceptions.FarmioException;
 import exceptions.FarmioFatalException;
+import frontend.AsciiColours;
 import frontend.Simulation;
 import frontend.Ui;
 import frontend.UiManager;
@@ -32,6 +33,9 @@ public class Farmio {
         simulation = new Simulation(this);
         stage = Stage.WELCOME;
         isExit = false;
+        if (System.getProperty("os.name").toLowerCase().startsWith("win")) {
+            AsciiColours.inActivate();
+        }
     }
 
     private void run() {
