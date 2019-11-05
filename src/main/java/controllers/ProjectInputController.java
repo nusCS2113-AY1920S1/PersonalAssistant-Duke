@@ -435,8 +435,9 @@ public class ProjectInputController implements IController {
                 return new String[] {"The task index entered is invalid."};
             } catch (NumberFormatException e) {
                 ArchDukeLogger.logError(ProjectInputController.class.getName(),
-                        "[projectAssignTask] Input is not a number! " + "Please input a proper task index!");
-                return new String[] {"Input is not a number! Please input a proper task index!"};
+                        "[projectAssignTask] Input is either not a number or too large! "
+                                + "Please input a proper task index!");
+                return new String[] {"Input is either not a number or too large! Please input a proper task index!"};
             }
         }
     }
