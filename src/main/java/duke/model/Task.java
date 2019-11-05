@@ -72,7 +72,7 @@ public class Task implements Serializable {
      */
     @Override
     public String toString() {
-        return (isDone ? "[\u2713] " : "[\u2718] ") + description;
+        return (isDone ? "[✓] " : "[✘] ") + description;
     }
 }
 
