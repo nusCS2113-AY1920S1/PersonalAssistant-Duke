@@ -18,7 +18,7 @@ public class Task {
      * The enumeration of priority level.
      */
     public enum Priority {
-        HIGH, MEDIUM, MED, LOW
+        HIGH, MEDIUM, MED, LOW, NULL
     }
 
     /**
@@ -224,7 +224,7 @@ public class Task {
      * @param priority priority level of task.
      */
     public void setPriorityTo(Priority priority) {
-        if (priority == null) {
+        if (priority == Priority.NULL) {
             this.priority = "";
         } else {
             this.priority = priority.name();
@@ -233,5 +233,28 @@ public class Task {
 
     public void setPriorityLevelTo(Priority level) {
         this.level = level;
+    }
+
+    public Priority getPriority() {
+        return level;
+    }
+
+    /**
+     * Get the priority level of task by user input.
+     *
+     * @param input user input
+     * @return priority level of task.
+     */
+    public static Priority getPriorityLevel(String input) {
+        Priority level = null;
+        if (level.HIGH.name().equals(input)) {
+            return level.HIGH;
+        } else if (level.MEDIUM.name().equals(input) || level.MED.name().equals(input)) {
+            return level.MEDIUM;
+        } else if (level.LOW.name().equals(input)) {
+            return level.LOW;
+        } else {
+            return level.NULL;
+        }
     }
 }

@@ -229,8 +229,8 @@ public class TaskCommandParseHelper {
         }
         try {
             String priority = extractPriority(optionList);
-            Task.Priority level = getPriorityLevel(priority);
-            if ("".equals(priority)) {
+            Task.Priority level = Task.getPriorityLevel(priority);
+            if (level == Task.Priority.NULL) {
                 return new InvalidCommand("Please enter a priority level to set for the task after"
                         + " \'-priority\' option");
             } else if (!validPriority(priority)) {
@@ -316,7 +316,7 @@ public class TaskCommandParseHelper {
                                                    ArrayList<TaskUpdateCommand.Attributes> attributes,
                                                    ArrayList<String> descriptions) throws TaskParseException {
         String priority = extractPriority(optionList);
-        Task.Priority level = getPriorityLevel(priority);
+        Task.Priority level = Task.getPriorityLevel(priority);
         if (validPriority(priority)) {
             descriptions.add(level.name());
             attributes.add(TaskUpdateCommand.Attributes.PRIORITY);
@@ -373,13 +373,14 @@ public class TaskCommandParseHelper {
      */
     public static boolean validPriority(String input) {
         for (Task.Priority priority : Task.Priority.values()) {
-            if (priority.name().equals(input)) {
+            if (priority.name().equals(input) && input != "NULL") {
                 return true;
             }
         }
         return false;
     }
 
+<<<<<<< HEAD
     /**
      * Get the priority level of task by user input.
      *
@@ -401,6 +402,10 @@ public class TaskCommandParseHelper {
 
     private static int extractSnooze(ArrayList<Command.Option> optionList) throws TaskParseException {
         String snoozeString = "";
+=======
+    private static String extractSnooze(ArrayList<Command.Option> optionList) {
+        String snooze = "";
+>>>>>>> branch-master
         for (Command.Option option : optionList) {
             if (option.getKey().equals("by") && snoozeString.equals("")) {
                 snoozeString = option.getValue();
@@ -459,9 +464,9 @@ public class TaskCommandParseHelper {
                                                      ArrayList<String> tags, String priority,
                                                      ArrayList<String> links) {
         if ("".equals(priority)) {
-            return constructByType(input, doAfter, time, tags, null, links);
+            return constructByType(input, doAfter, time, tags, Task.Priority.NULL, links);
         } else if (validPriority(priority)) {
-            Task.Priority level = getPriorityLevel(priority);
+            Task.Priority level = Task.getPriorityLevel(priority);
             return constructByType(input, doAfter, time, tags, level, links);
         }
         return new InvalidCommand("Invalid priority");
