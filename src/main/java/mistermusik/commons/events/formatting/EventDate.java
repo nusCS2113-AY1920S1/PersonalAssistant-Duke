@@ -5,14 +5,12 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
-import java.util.logging.Logger;
 
 /**
  * Model_Class.DateObj object stores the input date and time as a java object.
  */
 
 public class EventDate {
-    private static Logger logger = Logger.getLogger("EventDate");
 
     protected String userInputDateString;
 
@@ -66,13 +64,11 @@ public class EventDate {
                     this.formattedDateString = userInputDateString;
                 }
             }
-//            logger.log(Level.INFO, "Format the eventDate from String type to Date type");
         } else if (identifier == DATE_TO_STRING) { //convert date object to input string format and store both.
             SimpleDateFormat formatter = new SimpleDateFormat("EEE, dd MMM yyyy, HH:mm", Locale.ENGLISH);
             this.formattedDateString = formatter.format(javaDate);
             formatter = new SimpleDateFormat("dd-MM-yyyy HHmm");
             this.userInputDateString = formatter.format(javaDate);
-//            logger.log(Level.INFO, "Format the eventDate from Date type to String type");
         }
     }
 

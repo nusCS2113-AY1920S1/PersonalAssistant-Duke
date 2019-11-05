@@ -3,7 +3,7 @@ package mistermusik;
 
 import mistermusik.commons.events.formatting.EventDate;
 import mistermusik.logic.EventList;
-import mistermusik.storage.Instruments.InstrumentList;
+import mistermusik.commons.Instruments.InstrumentList;
 import mistermusik.storage.Storage;
 import mistermusik.logic.Command;
 import mistermusik.ui.Parser;
@@ -27,7 +27,6 @@ public class Main {
     public static void main(String[] args) throws IOException {
         setup();
         ui.welcome();
-
         String userInput = parser.readUserInput().toLowerCase();
         while (!userInput.equals("bye")) {
             Command currCommand = parser.parseInput(userInput);
