@@ -29,11 +29,13 @@ class ImportCommandTest {
     void setUp() {
         Event event1 = new Event("CS2105 Lecture", Task.Priority.medium, "01/10/2019", "01/10/2019", "1400", "1500");
         event1.markAsDone();
+        event1.setHasReminder(true);
 
         taskArrListMain.add(event1);
 
         Deadline deadline1 = new Deadline("Deadline 1", Task.Priority.high, "03/10/2019", "1500");
         deadline1.markAsDone();
+        deadline1.setHasReminder(true);
 
         taskArrListMain.add(deadline1);
 

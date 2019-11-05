@@ -166,7 +166,7 @@ public class ImportCommand extends Command {
                         && t.getDescription().equals(taskDesc)
                         && t.getStringEndTime().equals(taskEndTime)
                         && t.getStringMainDate().equals(taskEndDate)) {
-                        t.setHasReminder(true);
+                        new SetReminderCommand(t.getId(), "y").commandExecute(taskList);
                         break;
                     }
                 }
@@ -178,7 +178,6 @@ public class ImportCommand extends Command {
             startDateList.add(taskStartDate);
             EventCommand event = new EventCommand(taskDesc, startDateList, taskPriority, taskStartTime,
                 taskEndTime, taskEndDate, interval);
-
             finalList += event.commandExecute(taskList).feedbackToUser + "\n";
 
             if (hasReminder) {
@@ -189,7 +188,7 @@ public class ImportCommand extends Command {
                         && t.getStringEndTime().equals(taskEndTime)
                         && t.getStringMainDate().equals(taskStartDate)
                         && t.getStringTrailingDate().equals(taskEndDate)) {
-                        t.setHasReminder(true);
+                        new SetReminderCommand(t.getId(), "y").commandExecute(taskList);
                         break;
                     }
                 }
