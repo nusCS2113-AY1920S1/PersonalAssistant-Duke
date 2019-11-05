@@ -11,14 +11,9 @@ public class ProfileCard {
     private Person person;
     private Preference preference = new Preference();
     private ArrayList<Itinerary> favourite = new ArrayList<>();
-    private boolean isNewUser = true;
 
     public ProfileCard() {
         setPerson("User", LocalDateTime.now());
-    }
-
-    public void setPreference(Preference preference) {
-        this.preference = preference;
     }
 
     public void setPreference(String category, Boolean setting) throws CategoryNotFoundException {
@@ -27,11 +22,6 @@ public class ProfileCard {
 
     public void setPerson(String name, LocalDateTime birthday) {
         this.person = new Person(name, birthday);
-        isNewUser = false;
-    }
-
-    public boolean isNewUser() {
-        return isNewUser;
     }
 
     public String getPersonName() {

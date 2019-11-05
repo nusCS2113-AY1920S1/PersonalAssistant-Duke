@@ -1,16 +1,18 @@
 package duke.logic.parsers.commandparser;
 
+import duke.commons.Messages;
 import duke.commons.exceptions.ParseException;
-import duke.logic.commands.AddProfileCommand;
+import duke.logic.commands.ProfileAddCommand;
 import duke.logic.commands.Command;
 import duke.logic.parsers.ParserTimeUtil;
 
 import java.time.LocalDateTime;
+import java.time.Period;
 
 /**
  * Parses the user inputs into suitable format for AddProfileCommand.
  */
-public class AddProfileParser extends CommandParser {
+public class ProfileAddParser extends CommandParser {
 
     private String name;
     private LocalDateTime birthday;
@@ -19,13 +21,16 @@ public class AddProfileParser extends CommandParser {
      * Parses user input into name and birthday.
      * @param input The User input
      */
-    public AddProfileParser(String input) throws ParseException {
+    public ProfileAddParser(String input) throws ParseException {
         String[] token = input.split(" ");
         this.name = "";
         for (int i = 0; i < token.length - 1; i++) {
             this.name += token[i] + " ";
         }
         this.birthday = ParserTimeUtil.parseStringToDate(token[token.length - 1]);
+        if (Period.between(this.birthday.toLocalDate(), LocalDateTime.now().toLocalDate()).getYears() < 0) {
+            throw new ParseException(Messages.PROFILE_BIRTHDAY_IN_FUTURE);
+        }
     }
 
     /**
@@ -34,6 +39,6 @@ public class AddProfileParser extends CommandParser {
      */
     @Override
     public Command parse() {
-        return new AddProfileCommand(name, birthday);
+        return new ProfileAddCommand(name, birthday);
     }
 }

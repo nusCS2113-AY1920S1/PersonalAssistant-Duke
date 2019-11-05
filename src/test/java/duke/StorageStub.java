@@ -58,6 +58,7 @@ public class StorageStub {
         events = new EventList();
         routes = new RouteList();
         itineraryTable = new HashMap<>();
+        profileCard = new ProfileCard();
         read();
     }
 
@@ -68,7 +69,7 @@ public class StorageStub {
         readBus();
         readTrain();
         readRecommendations();
-        readItineraryTable();
+        //readItineraryTable();
     }
 
     /**

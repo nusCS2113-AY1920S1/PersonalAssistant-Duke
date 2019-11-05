@@ -7,11 +7,11 @@ import duke.model.Model;
 
 import java.time.LocalDateTime;
 
-public class AddProfileCommand extends Command {
+public class ProfileAddCommand extends Command {
     private String name;
     private LocalDateTime birthday;
 
-    public AddProfileCommand(String name, LocalDateTime birthday) {
+    public ProfileAddCommand(String name, LocalDateTime birthday) {
         this.name = name;
         this.birthday = birthday;
     }
@@ -20,6 +20,6 @@ public class AddProfileCommand extends Command {
     public CommandResultText execute(Model model) throws DukeException {
         model.getProfileCard().setPerson(name, birthday);
         model.save();
-        return new CommandResultText(Messages.STARTUP_WELCOME_MESSAGE + name);
+        return new CommandResultText(Messages.STARTUP_WELCOME_MESSAGE + name + "\n");
     }
 }

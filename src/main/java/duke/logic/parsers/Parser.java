@@ -19,7 +19,6 @@ import duke.logic.commands.RouteShowCommand;
 import duke.logic.commands.ShowItineraryCommand;
 import duke.logic.commands.ViewScheduleCommand;
 import duke.logic.parsers.commandparser.AddEventParser;
-import duke.logic.parsers.commandparser.AddProfileParser;
 import duke.logic.parsers.commandparser.CreateNewItineraryParser;
 import duke.logic.parsers.commandparser.DeleteParser;
 import duke.logic.parsers.commandparser.DoneParser;
@@ -27,6 +26,8 @@ import duke.logic.parsers.commandparser.FindParser;
 import duke.logic.parsers.commandparser.GetBusRouteParser;
 import duke.logic.parsers.commandparser.GetBusStopParser;
 import duke.logic.parsers.commandparser.LocationSearchParser;
+import duke.logic.parsers.commandparser.ProfileAddParser;
+import duke.logic.parsers.commandparser.PromptParser;
 import duke.logic.parsers.commandparser.QuickEditParser;
 import duke.logic.parsers.commandparser.RecommendationParser;
 import duke.logic.parsers.commandparser.RouteAddParser;
@@ -123,7 +124,7 @@ public class Parser {
         case "showItinerary":
             return new ShowItineraryCommand(getWord(input));
         case "profile":
-            return new AddProfileParser(getWord(input)).parse();
+            return new ProfileAddParser(getWord(input)).parse();
         case "profileShow":
             return new ProfileShowCommand();
         case "profileSet":

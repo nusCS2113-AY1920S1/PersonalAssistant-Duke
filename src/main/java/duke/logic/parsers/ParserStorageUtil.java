@@ -199,7 +199,7 @@ public class ParserStorageUtil {
         for (int i = 3; i < trainParts.length; i++) {
             trainCode.add(trainParts[i].strip());
         }
-        return new TrainStation(trainCode, null, address, latitude, longitude);
+        return new TrainStation(trainCode, address, address, latitude, longitude);
     }
 
     /**

@@ -257,7 +257,6 @@ public class Storage {
             }
             s.close();
         } catch (FileNotFoundException | ParseException | CategoryNotFoundException e) {
-            profileCard = new ProfileCard();
             throw new FileLoadFailException(PROFILE_FILE_PATH);
         }
     }

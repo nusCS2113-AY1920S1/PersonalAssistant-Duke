@@ -213,4 +213,5 @@ public class Messages {
 
     public static final String START_END_DATE_DISCORD = "Im sorry, there is some discrepancy between your dates";
     public static final String START_END_DATE_BEFORE_NOW = "Im sorry, your dates must be in the future";
+    public static final String PROFILE_BIRTHDAY_IN_FUTURE = "Im sorry, your birthday must be in the past";
 }

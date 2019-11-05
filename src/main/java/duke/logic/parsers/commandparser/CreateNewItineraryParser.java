@@ -9,6 +9,9 @@ import duke.logic.parsers.ParserTimeUtil;
 
 import java.time.LocalDateTime;
 
+/**
+ * Parses the user inputs into suitable format for NewItineraryCommand.
+ */
 public class CreateNewItineraryParser extends CommandParser {
     private LocalDateTime start;
     private LocalDateTime end;

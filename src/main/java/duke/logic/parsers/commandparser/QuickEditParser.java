@@ -5,6 +5,9 @@ import duke.logic.commands.Command;
 import duke.logic.commands.QuickEditCommand;
 import duke.logic.parsers.ParserUtil;
 
+/**
+ * Parses the user inputs into suitable format for QuickEditCommand.
+ */
 public class QuickEditParser extends CommandParser {
     private int index;
     private String firstField;
