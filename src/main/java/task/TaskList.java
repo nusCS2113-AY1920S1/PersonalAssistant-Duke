@@ -73,18 +73,6 @@ public class TaskList implements Serializable, Cloneable {
                 case "E":
                     list.add(new Event(split[1], split[2], split[3], split[4]));
                     break;
-                case "R":
-                    list.add(new Recurring(split[1], split[2], split[3]));
-                    break;
-                case "A":
-                    list.add(new After(split[1], split[2], split[3]));
-                    break;
-                case "W":
-                    list.add(new Within(split[1], split[2], split[3]));
-                    break;
-                case "F":
-                    list.add(new Fixed(split[1], split[2], split[3]));
-                    break;
                 default:
                     throw new DukeException((i + 1) + "has incorrect task format.");
                 }
@@ -247,18 +235,6 @@ public class TaskList implements Serializable, Cloneable {
                 break;
             case "event":
                 temp = new Event(input);
-                break;
-            case "recurring":
-                temp = new Recurring(input);
-                break;
-            case "after":
-                temp = new After(input);
-                break;
-            case "within":
-                temp = new Within(input);
-                break;
-            case "fixed":
-                temp = new Fixed(input);
                 break;
             default:
                 throw new DukeException("What the Hell happened here?\n"

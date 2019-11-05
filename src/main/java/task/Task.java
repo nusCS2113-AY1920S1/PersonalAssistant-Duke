@@ -23,6 +23,9 @@ public class Task implements Serializable {
     String description;
     boolean isDone;
     Integer taskPriority;
+    String userDefinedPriority;
+    String nusDegreeName;
+    Integer taskUrgency;
     //protected String dueDate;
     private Date dueDate = null;
     private ArrayList<Date> tentativeDates = new ArrayList<>();
@@ -212,7 +215,8 @@ public class Task implements Serializable {
             this.taskPriority = -1;
         }
         else{
-            this.taskPriority = 40 - (daysAway / 7);
+            Integer urgency = 40 - (daysAway / 7);
+
         }
     }
 
@@ -255,4 +259,28 @@ public class Task implements Serializable {
         return "G";
     }
 
+    /**
+     * Returns the user defined priority level of the task
+     * @return
+     */
+    public String getUserDefinedPriority() {
+        return userDefinedPriority;
+    }
+
+
+    /**
+     * Returns the NUS Degree Name that is related to this task
+     * @return
+     */
+    public String getNusDegreeName() {
+        return nusDegreeName;
+    }
+
+    /**
+     * sets the NUS Degree Name that is related to this task
+     * @param nusDegreeName
+     */
+    public void setNusDegreeName(String nusDegreeName) {
+        this.nusDegreeName = nusDegreeName;
+    }
 }
