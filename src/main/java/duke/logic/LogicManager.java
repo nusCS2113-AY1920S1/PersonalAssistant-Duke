@@ -22,7 +22,7 @@ import java.util.logging.Logger;
 /**
  * The main logic of the application.
  */
-public class LogicManager extends Logic {
+public class LogicManager implements Logic {
     private static final Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
     private Model model;
     private ConversationManager conversationManager;
@@ -41,6 +41,7 @@ public class LogicManager extends Logic {
      * @param userInput The input string from user.
      * @return CommandResult Object containing information for Ui to display.
      */
+    @Override
     public CommandResult execute(String userInput) throws DukeException {
         Command c;
         if (EditorManager.isActive()) {
