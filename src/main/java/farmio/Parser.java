@@ -306,7 +306,7 @@ public class Parser {
         if(matcher.find()){
             int taskID = Integer.parseInt(matcher.group("id"));
             Task task = parseTask(matcher.group("task"));
-            return new CommandTaskEdit(taskID, task);
+            return new CommandTaskInsert(taskID, task);
         }
         LOGGER.log(Level.SEVERE, "Deteched invalid command for command: " + userInput);
         throw new FarmioException("Invalid Command");
