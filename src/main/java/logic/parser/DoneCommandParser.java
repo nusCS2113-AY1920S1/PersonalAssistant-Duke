@@ -8,9 +8,13 @@ import common.DukeException;
 public class DoneCommandParser {
     public static final String USAGE_UNDONE = "Usage: undone [INDEX] ...\nFor example: undone 1";
     public static final String USAGE_DONE = "Usage: done [INDEX] ...\nFor example: done 1";
+
     //@@author chenyuheng
     /**
-     * add javadoc please
+     * Parse done command.
+     * @param partialCommand The indexe(s) of tasks to be marked as done.
+     * @return the corresponding DoneCommand object.
+     * @throws DukeException If command is not correct.
      */
     public static DoneCommand parseDoneCommand(String partialCommand) throws DukeException {
         if (partialCommand.trim().length() == 0) {
@@ -29,7 +33,13 @@ public class DoneCommandParser {
         return new DoneCommand(indexes);
     }
 
-
+    //@@author chenyuheng
+    /**
+     * Parse undone command.
+     * @param partialCommand The indexe(s) of tasks to be marked as undone.
+     * @return the corresponding UndoneCommand object.
+     * @throws DukeException If command is not correct.
+     */
     public static UndoneCommand parseUndoneCommand(String partialCommand) throws DukeException {
         if (partialCommand.trim().length() == 0) {
             throw new DukeException(USAGE_UNDONE);
