@@ -25,7 +25,7 @@ import rims.resource.Resource;
  * Reserve.txt: [ reservation id ] [ resource id ] [ user id ] [ date from ] [ date until ]
  */
 public class Storage {
-    protected ArrayList<Resource> resources;
+    protected ArrayList<Resource> resources = new ArrayList<Resource>();
     protected File resourceFile;
     protected File reservationFile;
 
@@ -36,9 +36,13 @@ public class Storage {
      * @param resourceFile the file path where the text version of Resources are stored.
      * @param reserveFile the file path where the text version of Reservations are stored.
      */
-    public Storage(String resourceFile, String reserveFile) throws FileNotFoundException, ParseException {
+    public Storage(String resourceFile, String reserveFile) throws FileNotFoundException, ParseException, IOException {
         this.resourceFile = new File(resourceFile);
         this.reservationFile = new File(reserveFile);
+        this.resourceFile.getParentFile().mkdir();
+        this.resourceFile.createNewFile();
+        this.reservationFile.getParentFile().mkdir();
+        this.reservationFile.createNewFile();
         readResourceFile();
     }
 
@@ -59,7 +63,7 @@ public class Storage {
      * @throws ParseException        when unable to parse an integer for ID or checking if a resource is booked.
      */
     public void readResourceFile() throws FileNotFoundException, ParseException {
-        resources = new ArrayList<Resource>();
+        resources.clear();
         Scanner fileScanner = new Scanner(resourceFile);
         while (fileScanner.hasNextLine()) {
             String[] input = fileScanner.nextLine().split(",");

@@ -25,14 +25,16 @@ RIMS (Resource and Inventory Management System) is a *command-line* logistic man
 == Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `RIMS.jar` link:{repoURL}[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
-.  Double-click the file to start the app. The GUI should appear in a few seconds.
+.  Download the latest `rims.jar` link:{repoURL}[here].
+.  Copy the file to the folder you want to use as the home folder for your local RIMS.
+.  In your home folder for RIMS, create a directory called `data`, and in the `data` folder, create two text files:
+`resources.txt` and `reserves.txt`.
+.  Double-click the file to start the app. The UI should appear in a few seconds.
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
-e.g. typing *`list`* and pressing kbd:[Enter] will show you a list of all the rooms and items with their status (booked/reserved/available).
+e.g. typing *`list`* and pressing kbd:[Enter] will show you a list of all the resources with their status (booked/reserved/available).
 .  Some example commands you can try:
 
-* *`list`* : lists all items/rooms and their status (booked/reserved/available)
+* *`list`* : lists all resources and their status (booked/reserved/available)
 * *`bye`* : exits the app
 
 .  Refer to <<Features, Features>> for details of each command.
@@ -54,9 +56,9 @@ e.g. `*ROOM NAME*` is a parameter which can be a name of a room, such as `*semin
 
 ====
 
-=== Adding or Removing Items/Rooms
+=== Adding or Removing Resource(s)
 
-==== Add item/room: `add`
+==== Add resource: `add`
 Add new item(s) or a new room available for loan/booking in RIMS.
 
 .*Format*:
@@ -87,7 +89,7 @@ image::add/add2.jpeg[width="500", align="left"]
 ====
 RIMS will prompt for the quantity of the item specified to be added. +
 
-image::add/add3.jpeg[width="500", align="left"]
+image::add/add3.jpeg[width="650", align="left"]
 ====
 +
 .. Enter the `QUANTITY` of the item to be added into RIMS into the console.
@@ -105,7 +107,7 @@ image::add/add4.jpeg[width="500", align="left"]
 ====
 RIMS will prompt for the room name that the user wants to add. +
 
-image::add/addRoom2.jpeg[width="500", align="left"]
+image::add/addRoom2.jpeg[width="650", align="left"]
 ====
 +
 .. Enter the `ROOM NAME` to be added into the console e.g. `seminar room 2`
@@ -113,10 +115,10 @@ image::add/addRoom2.jpeg[width="500", align="left"]
 ====
 RIMS will display item(s) and the quantity that have been added. +
 
-image::add/addRoom3.jpeg[width="500", align="left"]
+image::add/addRoom3.jpeg[width="650", align="left"]
 ====
 
-==== Delete item/room: `delete`
+==== Delete resource: `delete`
 Delete item(s) or room available for loan/booking in RIMS.
 
 To delete an existing resource:
@@ -146,11 +148,11 @@ image::delete/delete2.jpeg[width="500", align="left"]
 ====
 RIMS will display all items corresponding to that name and their respective statuses (on loan, reserved, available). +
 
-image::delete/delete3.jpeg[width="800", align="left"]
+image::delete/delete3.jpeg[width="1000", align="left"]
 
 RIMS will then prompt for resource ID(s) corresponding to the one or more of the items on the list displayed.
 
-image::delete/delete4.jpeg[width="800", align="left"]
+image::delete/delete4.jpeg[width="1000", align="left"]
 
 ====
 +
@@ -159,7 +161,7 @@ image::delete/delete4.jpeg[width="800", align="left"]
 ====
 RIMS will display item(s) and their resource ID(s) that have been deleted. +
 
-image::delete/delete5.jpeg[width="500", align="left"]
+image::delete/delete5.jpeg[width="450", align="left"]
 ====
 +
 . If `room` is the user input:
@@ -169,7 +171,7 @@ image::delete/delete5.jpeg[width="500", align="left"]
 ====
 RIMS will prompt for the room name that the user wants to delete. +
 
-image:delete/deleteRoom1.jpeg[width="500", align="left"]
+image:delete/deleteRoom1.jpeg[width="550", align="left"]
 ====
 +
 .. Enter the `ROOM NAME` to be added into the console.
@@ -181,72 +183,21 @@ image::delete/deleteRoom2.jpeg[width="500", align="left"]
 ====
 
 
-=== Item/Room Status
+=== Resource Status
 
-==== Loan out item/book room: `lend`
-Registers an item / room as having been lent out, and is unavailable for further loaning until it is returned.
+// ==== Loan out item/book room: `lend`
+// Registers an item / room as having been lent out, and is unavailable for further loaning until it is returned.
 
-.*Format*:
-. `lend /item ITEM /qty QUANTITY /by DEADLINE`
-. `lend /room ROOM /by DEADLINE`
-* If the item or room does not exist in RIMS, then the UI will send a message to inform the user.
-* Quantity must be a positive integer.
-* Quantity must be less than the total number of items available in RIMS, else it will be reduced to zero.
+// .*Format*:
+// . `lend /item ITEM /qty QUANTITY /by DEADLINE`
+// . `lend /room ROOM /by DEADLINE`
+// * If the item or room does not exist in RIMS, then the UI will send a message to inform the user.
+// * Quantity must be a positive integer.
+// * Quantity must be less than the total number of items available in RIMS, else it will be reduced to zero.
 
-.*Examples*:
-* `delete /item book /qty 5`
-* `delete /room multi purpose sports hall`
-
-==== Return an item / room: `return`
-Registers an item / room as having been returned, and is thus available to be loaned again.
-
-.*Format*:
-. `return /item ITEM /qty QUANTITY`
-. `return /room ROOM`
-* Quantity must be a positive integer.
-* Rooms are unique and thus do not require quantities.
-* If the user attempts to return a room / a quantity of items that have not been borrowed, the UI will send an error message to the user.
-
-
-.*Examples*:
-* `return /item frisbee /qty 3`
-* `return /room seminar room 1`
-
-////
-
-=== Adding or Removing Items/Rooms
-
-==== Add item/room: `add`
-Add new item(s) or a new room available for loan/booking in RIMS.
-
-.*Format*:
-To add a new item:
-
-. Enter `add` into the console, then press kbd:[Enter] to execute the command.
-+
-====
-RIMS will prompt for the resource type that the user wants to add. +
-
-image::add/add1.jpeg[width="500", align="left"]
-====
-+
-. Enter the `ITEM NAME` to be added into the console.
-+
-====
-RIMS will prompt for the resource name that the user wants to add. +
-
-image::add/add2.jpeg[width="500", align="left"]
-====
-+
-. Enter the `QUANTITY` of the resource specified to be added into RIMS into the console.
-+
-====
-RIMS will display resource and the quantity that have been added. +
-
-image::add/add3.jpeg[width="500", align="left"]
-====
-
-////
+// .*Examples*:
+// * `delete /item book /qty 5`
+// * `delete /room multi purpose sports hall`
 
 ==== Loan an item / room: `loan`
 Registers a resource as having been loaned out from the current date till a user-specified future date.
@@ -259,7 +210,7 @@ To register a resource as having been loaned out:
 ====
 RIMS will prompt for the type of resource that the user wants to loan out. +
 
-image::loan/loan1.png[width="500", align="left"]
+image::loan/loan1.png[width="700", align="left"]
 ====
 +
 . Enter `item` to register that you wish to loan out an item, or `room` to register that you wish to loan out a room.
@@ -268,7 +219,7 @@ image::loan/loan1.png[width="500", align="left"]
 ====
 RIMS will prompt for the name of the item that you wish to loan out.
 
-image::loan/loan2.png[width="500", align="left"]
+image::loan/loan2.png[width="600", align="left"]
 ====
 +
 .. Enter the `ITEM NAME` to be loaned out.
@@ -276,11 +227,11 @@ image::loan/loan2.png[width="500", align="left"]
 ====
 RIMS will display all quantities of the requested item currently present in its inventory.
 
-image::loan/loan3.png[width="500", align="left"]
+image::loan/loan3.png[width="1000", align="left"]
 
 RIMS will then prompt for the quantity of the item to be loaned out.
 
-image::loan/loan4.png[width="500", align="left"]
+image::loan/loan4.png[width="550", align="left"]
 ====
 +
 .. Enter, in integer format, the quantity of the item to be loaned out.
@@ -288,7 +239,7 @@ image::loan/loan4.png[width="500", align="left"]
 ====
 RIMS will prompt for the date by which the loaned item is to be returned.
 
-image::loan/loan5.png[width:"500", align="left"]
+image::loan/loan5.png[width="700", align="left"]
 ====
 +
 . If you typed `room` to register the loan of a room:
@@ -304,11 +255,11 @@ image::loan/room/loanRoom1.png[width="500", align="left"]
 ====
 RIMS will display the current booking status of the requested room.
 
-image::loan/room/loanRoom2.png[width="500", align="left"]
+image::loan/room/loanRoom2.png[width="700", align="left"]
 
 RIMS will then prompt for the date by which the loaned room is to be returned.
 
-image::loan/room/loanRoom3.png[width:"500", align="left"]
+image::loan/room/loanRoom3.png[width="800", align="left"]
 ====
 +
 . Enter the date by which the loaned resource is to be returned, in the format `DD/MM/YYYY HHmm`.
@@ -316,7 +267,7 @@ image::loan/room/loanRoom3.png[width:"500", align="left"]
 ====
 RIMS will then prompt for a unique identification number by which to identify the requester of the resource.
 
-image::loan/loan6.png[width: "500", align="left"]
+image::loan/loan6.png[width="750", align="left"]
 ====
 +
 . Enter the unique identification number in integer format.
@@ -324,7 +275,7 @@ image::loan/loan6.png[width: "500", align="left"]
 ====
 RIMS will then display a message confirming that the quantity of the requested resource has been registered as loaned out, till the specified date.
 
-image::loan/loan7.png[width: "500", align="left"]
+image::loan/loan7.png[width="800", align="left"]
 ====
 +
 
@@ -340,7 +291,7 @@ To register an item as having been reserved:
 ====
 RIMS will prompt for the type of resource that the user wants to reserve. +
 
-image::reserve/reserve1.jpeg[width="500", align="left"]
+image::reserve/reserve1.jpeg[width="600", align="left"]
 ====
 +
 . Enter `item` to register that you wish to reserve an item, or `room` to register that you wish to reserve a room.
@@ -357,7 +308,7 @@ image::reserve/reserve2.jpeg[width="500", align="left"]
 ====
 RIMS will display all quantities of the requested item currently present in its inventory, and prompt for the quantity of the item to be reserved.
 
-image::reserve/reserve3.jpeg[width="500", align="left"]
+image::reserve/reserve3.jpeg[width="1000", align="left"]
 ====
 +
 .. Enter, in integer format, the quantity of the item to be reserved.
@@ -365,7 +316,7 @@ image::reserve/reserve3.jpeg[width="500", align="left"]
 ====
 RIMS will prompt for the date from which the item is to be reserved.
 
-image::reserve/reserve4.jpeg[width:"500", align="left"]
+image::reserve/reserve4.jpeg[width="700", align="left"]
 ====
 +
 . If you typed `room` to register the reservation of an room:
@@ -373,7 +324,7 @@ image::reserve/reserve4.jpeg[width:"500", align="left"]
 ====
 RIMS will prompt for the name of the room that you wish to reserve.
 
-image::reserve/reserveRoom1.jpeg[width="500", align="left"]
+image::reserve/reserveRoom1.jpeg[width="550", align="left"]
 ====
 +
 .. Enter the `ROOM NAME` to be reserved.
@@ -381,11 +332,11 @@ image::reserve/reserveRoom1.jpeg[width="500", align="left"]
 ====
 RIMS will display the current booking status of the requested room.
 
-image::reserve/reserveRoom2.jpeg[width="500", align="left"]
+image::reserve/reserveRoom2.jpeg[width="600", align="left"]
 
 RIMS will then prompt for the date from which the item is to be reserved.
 
-image::reserve/reserveRoom3.jpeg[width:"500", align="left"]
+image::reserve/reserveRoom3.jpeg[width="700", align="left"]
 ====
 +
 
@@ -394,7 +345,7 @@ image::reserve/reserveRoom3.jpeg[width:"500", align="left"]
 ====
 RIMS will prompt for the date on which the reservation of the item will end.
 
-image::reserve/reserve5.jpeg[width:"500", align="left"]
+image::reserve/reserve5.jpeg[width="650", align="left"]
 ====
 +
 . Enter the date on which the reservation of the resource should end, in the format `DD/MM/YYYY HHmm`.
@@ -402,7 +353,7 @@ image::reserve/reserve5.jpeg[width:"500", align="left"]
 ====
 RIMS will then prompt for a unique identification number by which to identify the requester of the resource.
 
-image::reserve/reserve6.jpeg[width:"500", align="left"]
+image::reserve/reserve6.jpeg[width="500", align="left"]
 ====
 +
 . Enter the unique identification number in integer format.
@@ -410,7 +361,38 @@ image::reserve/reserve6.jpeg[width:"500", align="left"]
 ====
 RIMS will then display a message confirming that the quantity of the requested resource has been registered as reserved, between the two specified dates.
 
-image::reserve/reserve7.jpeg[width: "500", align="left"]
+image::reserve/reserve7.jpeg[width="400", align="left"]
+====
+
+==== Return an item / room: `return`
+Registers an item / room as having been returned, and is thus available to be loaned again.
+
+.*Format*:
+To return a resource that is loaned out:
+
+. Enter `return` into the console, then press kbd:[Enter] to execute the command.
++
+====
+RIMS will prompt for the type of resource that the user wants to loan out. +
+
+image::return/return1.jpeg[width="450", align="left"]
+====
++
+. Enter a unique user ID in intger `item` and press kbd:[Enter] to execute the command, this will display all reservations made by this user.
++
+====
+RIMS will display for all reservations under this user ID, and prompt you to choose one, or multiple reservations to remove.
+
+image::return/return2.jpeg[width="1000", align="left"]
+====
++
++
+. Enter one single reservation ID, or multiple reservation IDs separated by space and press kbd:[Enter] to select the reservations, this removes all selected reservations.
++
+====
+RIMS will remove for all selected reservations selected.
+
+image::return/return3.jpeg[width="1000", align="left"]
 ====
 +
 
@@ -433,13 +415,54 @@ Extends the loan period of an item/room that is currently loaned out.
 ////
 
 ==== List items/rooms and their status: `list`
-View all items and rooms recorded and whether they are available or not.
+View a list of all resources or a list of resources by either item/room/date.
 
 .*Format*:
-. `list`
+To view the various lists:
+
+. To view a list of all resources, enter `list` then press kbd:[Enter].
+.. RIMS will display a list of all the resources that are currently available or currently booked.
++
+====
+
+
+image::list/list1.jpeg[width="1000", align="left"]
+====
+
+. To view a more specific list of resources, enter  `list` followed by a space and either the word `item`, `room` or `date` depending on the type of list you wish to obtain.
+
+. If `item` is the user input:
+.. RIMS will prompt the user to enter the `ITEM NAME`, e.g. `pen`.
+.. RIMS will display a list of all items by that name and all their bookings/availabilities.
++
+====
+
+image::list/list3.jpeg[width="1000", align="left"]
+====
+
+. If `room` is the user input:
+.. RIMS will prompt the user to enter the `ROOM NAME`, e.g. `seminar room 1`.
+.. RIMS will display a list of all rooms by that name and all their bookings/availabilities.
+
++
+====
+
+image::list/listbyroomnew.jpeg[width="1000", align="left"]
+====
+
+
+. If `date` is the user input:
+.. RIMS will prompt the user to enter the `DATE`, e.g. `29/10/2019 1000`.
+.. RIMS will display a list of all the resources that are booked/available on that date.
+
++
+====
+
+image::list/listbydatenew.jpeg[width="1000", align="left"]
+====
 
 ==== View calendar: `calendar`
-View a calendar representation showing what items/rooms are in use/booked for the month.
+View a calendar representation showing what resources are in use/booked for the month.
 
 .*Format*:
 To view calendar: +
@@ -450,13 +473,8 @@ To view calendar: +
 ====
 RIMS will display the calendar of the bookings for the current month +
 
-image::Calendar/Calendar screenshot.png[width="500", align="left"]
+image::Calendar/Calendar screenshot.png[width="1000", align="left"]
 ====
-
-
-
-
-
 
 === Others
 
@@ -464,13 +482,13 @@ image::Calendar/Calendar screenshot.png[width="500", align="left"]
 Terminates RIMS.
 
 .*Format*:
-. `bye`
+. Enter `bye` followed by kbd:[Enter] to exit RIMS.
 
 ==== Reminders
-Reminds user about items or rooms due within a specific period of time, upon starting up RIMS.
+Reminds user about resources due within a specific period of time, upon starting up RIMS.
 
 ==== Saving data
-With the execution of any command, any changes in data on items, rooms and their statuses will be updated on external text files (`.txt`) within the hard drive, to ensure data persistence and retention even after termination of RIMS. Saving manually is not required.
+With the execution of any command, any changes in data on resources and their statuses will be updated on external text files (`.txt`) within the hard drive, to ensure data persistence and retention even after termination of RIMS. Saving manually is not required.
 
 == FAQ
 
@@ -479,12 +497,12 @@ With the execution of any command, any changes in data on items, rooms and their
 
 == Command Summary
 
-* *Add item/room*: `add`
-* *Delete item/room*: `delete`
-* *Loan out item/room*: `loan`
-* *Return item/room*: `return`
-* *Reserve item/room*: `reserve`
+* *Add resources*: `add`
+* *Delete resources*: `delete`
+* *Loan out resources*: `loan`
+* *Return resources*: `return`
+* *Reserve resources*: `reserve`
 //* *Extend an existing loan*: `extend /item ITEM /qty QUANTITY /by DEADLINE` +
-* *List items/rooms and their status*: `list`
+* *List resources and their status*: `list`
 * *View calendar*: `calendar`
 * *Exiting the program*: `bye`
