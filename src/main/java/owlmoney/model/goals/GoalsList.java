@@ -140,53 +140,21 @@ public class GoalsList {
     private void compareGoals(Goals currentGoal, String newGoalName) throws GoalsException {
         String currentGoalName = currentGoal.getGoalsName();
         String capitalCurrentGoalName = currentGoalName.toUpperCase();
-        if (currentGoalName.equals(newGoalName) || capitalCurrentGoalName.equals(newGoalName.toUpperCase())) {
-            throw new GoalsException("Cannot change to a same name as your current goal" + currentGoalName);
-        }
         for (int i = ISZERO; i < goalList.size(); i++) {
             Goals checkGoal = goalList.get(i);
             String checkGoalName = checkGoal.getGoalsName();
             String capitalCheckGoalName = checkGoalName.toUpperCase();
-            if (capitalCheckGoalName.equals(capitalCurrentGoalName) && checkGoalName.equals(currentGoalName)) {
+            if (capitalCheckGoalName.equals(capitalCurrentGoalName) && !checkGoal.equals(currentGoal)) {
                 throw new GoalsException("There is already a goal with the same name: " + newGoalName);
             }
         }
     }
 
-    /**
-     * Checks if user attempts to change to an existing amount.
-     *
-     * @param currentGoal   Current Goal of the Goals user is attempting to change.
-     * @param newGoalAmount New Goal Amount user intends to change.
-     * @throws GoalsException If attempts to change to the same amount as current goal amount.
-     */
-    private void compareGoalAmount(Goals currentGoal, double newGoalAmount) throws GoalsException {
-        double checkGoalAmount = currentGoal.getGoalsAmount();
-        if (checkGoalAmount == newGoalAmount) {
-            throw new GoalsException("Your previous goal amount was already $"
-                    + new DecimalFormat("0.00").format(newGoalAmount));
-        }
-    }
-
-    /**
-     * Checks if user attempts to change to an existing date.
-     *
-     * @param currentGoal Current Goal of the Goals user is attempting to change.
-     * @param date        New Goal Date user intends to change.
-     * @throws GoalsException If attempts to change to the same amount as current goal amount.
-     */
-    private void compareGoalDate(Goals currentGoal, Date date) throws GoalsException {
-        Date checkGoalDate = currentGoal.getGoalsDateInDateFormat();
-        if (checkGoalDate.equals(date)) {
-            throw new GoalsException("Your previous goal target was already " + date);
-        }
-    }
-
-    private void compareGoalSavingAcc(Goals currentGoal, Bank savingAcc) throws GoalsException {
+    private boolean compareGoalSavingAcc(Goals currentGoal, Bank savingAcc) {
         if (!currentGoal.getSavingAccount().equals("-NOT TIED-")
                 && currentGoal.getSavingAccount().equals(savingAcc.getAccountName())) {
-            throw new GoalsException("Your previous linked saving account was already " + savingAcc.getAccountName());
-        }
+            return true;
+        } else return false;
     }
 
     /**
@@ -224,28 +192,27 @@ public class GoalsList {
         String capitalGoalName = goalName.toUpperCase();
         for (int i = ISZERO; i < goalList.size(); i++) {
             Goals currentGoal = goalList.get(i);
-            if (currentGoal.getRawStatus()) {
-                throw new GoalsException("Sorry, you cannot edit a goal that's already achieved! "
-                        + "Try creating a new goal instead!");
-            }
             String currentGoalName = currentGoal.getGoalsName();
             String capitalCurrentGoalName = currentGoalName.toUpperCase();
             if (capitalGoalName.equals(capitalCurrentGoalName)) {
+                if (currentGoal.getRawStatus()) {
+                    throw new GoalsException("Sorry, you cannot edit a goal that's already achieved! "
+                            + "Try creating a new goal instead!");
+                }
                 if (!(newName.isEmpty() || newName.isBlank())) {
                     compareGoals(currentGoal, newName);
                     currentGoal.setGoalsName(newName);
                 }
                 if (!(amount.isBlank() || amount.isEmpty())) {
-                    compareGoalAmount(currentGoal, Double.parseDouble(amount));
                     currentGoal.setGoalsAmount(Double.parseDouble(amount));
                 }
                 if (date != null) {
-                    compareGoalDate(currentGoal, date);
                     currentGoal.setGoalsDate(date);
                 }
                 if (savingAcc != null) {
-                    compareGoalSavingAcc(currentGoal, savingAcc);
-                    if (savingAcc.getCurrentAmount() < currentGoal.getGoalsAmount()) {
+                    if (compareGoalSavingAcc(currentGoal, savingAcc)) {
+                        currentGoal.setSavingAccount(null);
+                    } else if (savingAcc.getCurrentAmount() < currentGoal.getGoalsAmount()) {
                         currentGoal.setSavingAccount(savingAcc);
                     } else {
                         throw new GoalsException("You cannot add a goal that is already achieved!");
@@ -255,7 +222,7 @@ public class GoalsList {
                     if (currentGoal.getRawStatus()) {
                         throw new GoalsException("Cannot change status of a goal that is already achieved!");
                     }
-                    if (currentGoal.getSavingAccount().equals("-NOT TIED-")) {
+                    if (currentGoal.savingAccNotTied()) {
                         currentGoal.markDone();
                     } else {
                         throw new GoalsException("You cannot mark a goal that is linked to a saving account!");
