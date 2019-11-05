@@ -61,6 +61,7 @@ public class JsonBakingHomeStorage implements BakingHomeStorage {
 
     @Override
     public void saveBakingHome(ReadOnlyBakingHome bakingHome) throws IOException {
+        logger.fine("Attempting to write to data file: " + filePath);
         saveBakingHome(bakingHome, filePath);
     }
 

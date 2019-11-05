@@ -24,10 +24,18 @@ public class UiManager implements Ui {
 
     private Logic logic;
     private MainWindow mainWindow;
+    private static UiManager theUiManager = null;
 
-    public UiManager(Logic logic) {
+    private UiManager(Logic logic) {
         super();
         this.logic = logic;
+    }
+
+    public static UiManager getInstance(Logic logic) {
+        if (theUiManager == null) {
+            theUiManager = new UiManager(logic);
+        }
+        return theUiManager;
     }
 
     /**

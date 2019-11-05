@@ -1,5 +1,6 @@
 package duke.logic;
 
+import duke.commons.core.LogsCenter;
 import duke.logic.command.Command;
 import duke.logic.command.CommandResult;
 import duke.logic.command.ExitCommand;
@@ -24,6 +25,7 @@ import duke.logic.command.product.ListProductCommand;
 import duke.logic.command.product.ProductCommand;
 import duke.logic.command.product.SearchProductCommand;
 import duke.logic.command.product.ShowProductCommand;
+import duke.logic.command.product.SortProductCommand;
 import duke.logic.command.sale.AddSaleCommand;
 import duke.logic.command.sale.DeleteSaleCommand;
 import duke.logic.command.sale.EditSaleCommand;
@@ -49,6 +51,7 @@ import duke.storage.BakingHomeStorage;
 import javafx.collections.ObservableList;
 
 import java.io.IOException;
+import java.util.logging.Logger;
 
 public class LogicManager implements Logic {
     private final Model model;
@@ -56,10 +59,14 @@ public class LogicManager implements Logic {
     private final BakingHomeParser bakingHomeParser;
     private final AutoCompleter autoCompleter;
 
+    private final Logger logger = LogsCenter.getLogger(getClass());
+
+    private static LogicManager theLogicManager = null;
+
     /**
      * Creates a logic manager.
      */
-    public LogicManager(Model model, BakingHomeStorage storage) {
+    private LogicManager(Model model, BakingHomeStorage storage) {
         this.model = model;
         this.storage = storage;
         this.bakingHomeParser = new BakingHomeParser();
@@ -67,8 +74,16 @@ public class LogicManager implements Logic {
         addCommandsToAutoComplete();
     }
 
+    public static LogicManager getInstance(Model model, BakingHomeStorage storage) {
+        if (theLogicManager == null) {
+            theLogicManager = new LogicManager(model, storage);
+        }
+        return theLogicManager;
+    }
+
     @Override
     public CommandResult execute(String commandText) throws CommandException, ParseException {
+        logger.info("----------------[USER COMMAND][" + commandText + "]");
         CommandResult commandResult;
         Command command = bakingHomeParser.parseCommand(commandText);
         commandResult = command.execute(model);
@@ -76,6 +91,7 @@ public class LogicManager implements Logic {
         try {
             storage.saveBakingHome(model.getBakingHome());
         } catch (IOException ioe) {
+            logger.severe(ioe.getMessage());
             throw new CommandException(ioe.getMessage(), ioe);
         }
 
@@ -147,6 +163,7 @@ public class LogicManager implements Logic {
         autoCompleter.addCommandClass(ShowProductCommand.class);
         autoCompleter.addCommandClass(ListProductCommand.class);
         autoCompleter.addCommandClass(SearchProductCommand.class);
+        autoCompleter.addCommandClass(SortProductCommand.class);
 
         //Inventory commands
         autoCompleter.addCommandClass(InventoryCommand.class);

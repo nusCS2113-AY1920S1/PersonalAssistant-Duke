@@ -66,8 +66,12 @@ public class Product {
         this.ingredientCost = ingredientCost;
     }
 
-    public double getRetailPrice() {
+    public Double getRetailPrice() {
         return retailPrice;
+    }
+
+    public Double getProfit() {
+        return retailPrice - ingredientCost;
     }
 
     public void setRetailPrice(double retailPrice) {

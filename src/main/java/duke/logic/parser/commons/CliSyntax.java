@@ -31,6 +31,9 @@ public class CliSyntax {
     public static final Prefix PREFIX_PRODUCT_STATUS = new Prefix("-status");
     public static final Prefix PREFIX_PRODUCT_SCOPE = new Prefix("-scope");
     public static final Prefix PREFIX_PRODUCT_SEARCH = new Prefix("-include");
+    public static final Prefix PREFIX_PRODUCT_SORT = new Prefix("-by");
+    public static final Prefix PREFIX_PRODUCT_SORT_REVERSE = new Prefix("-re");
+
 
     public static final Prefix PREFIX_INVENTORY_NAME = new Prefix("-name");
     public static final Prefix PREFIX_INVENTORY_QUANTITY = new Prefix("-qty");
