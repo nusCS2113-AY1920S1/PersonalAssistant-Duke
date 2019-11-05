@@ -101,7 +101,7 @@ public class DuqueParser {
             if (fcArray.length == 1) {
                 throw new DukeException("☹ OOPS!!! Please specify which pomodoro timer you would like to start!");
             }
-            return new PomodoroCommand(fcArray[1]);
+            return new PomodoroCommand(filter, fcArray[1]);
         case "autoassign":
             if (fcArray.length == 1) {
                 throw new DukeException("☹ OOPS!!! Please specify which task to auto assign!");
