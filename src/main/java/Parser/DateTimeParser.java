@@ -122,8 +122,8 @@ public class DateTimeParser {
      * @throws ParseException On wrong date format to parse.
      */
     public static String[] remindDateParse(String input) throws ParseException {
-        // week 9 fri 1500 /to week 9 thu 1500"
-        dateTimeStringSplit = input.trim().split(" /to "); //dateTimeStringSplit[0] = week 9 fri 1500
+        // week 9 fri 1500 /on week 9 thu 1500"
+        dateTimeStringSplit = input.trim().split(" /on "); //dateTimeStringSplit[0] = week 9 fri 1500
         String[] taskDateTimeStringSplit = dateTimeStringSplit[0].trim().split(" ");
         String weekDate = taskDateTimeStringSplit[0].trim();
         String deadlineDate = dateTimeStringSplit[0].substring(0, dateTimeStringSplit[0].length() - 4);

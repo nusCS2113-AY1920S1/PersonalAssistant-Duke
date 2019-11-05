@@ -101,9 +101,9 @@ public class UserInteraction {
         if (remindList.isEmpty()) {
             return "There are no reminders set.";
         }
-        String remindMessage = "Here is the list of reminders set:\n";
+        String remindMessage = "Here is the list of reminders set:";
         for (String string : remindList) {
-            remindMessage = remindMessage + "\n";
+            remindMessage = remindMessage + "\n\n";
             Integer index = remindList.indexOf(string);
             remindMessage = remindMessage + (index + 1) + ". " + string;
         }
@@ -121,7 +121,7 @@ public class UserInteraction {
      * Displays the show cancel reminder message when user sets a reminder for a task.
      */
     public String showCancelReminder(Assignment task, String time) {
-        return "Reminder has been removed for " + task.getModCode() + " " + task.getDescription() + "at: " + time;
+        return "Reminder has been removed for " + task.getModCode() + " " + task.getDescription() + "on: " + time;
     }
 
     /**

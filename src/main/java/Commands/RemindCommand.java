@@ -78,7 +78,9 @@ public class RemindCommand extends Command {
             if (!remindMap.containsKey(time)) {
                 throw new DukeInvalidDateTimeException("Sorry, you have no such reminder at that inputted time.");
             } else if (!remindMap.get(time).getDescription().equals(task.getDescription())) {
-                throw new DukeInvalidDateTimeException("Sorry, you have no such reminder with inputted description at that time");
+                throw new DukeInvalidDateTimeException("Sorry, you have no such reminder with inputted description at that time.");
+            } else if (!remindMap.get(time).getDateTime().equals(task.getDateTime())) {
+                throw new DukeInvalidDateTimeException("Sorry you have no such reminder task with inputted date and time.");
             }
             reminder.removeTimerTask(task, time, reminderTime);
             return ui.showCancelReminder(task, reminderTime);
@@ -88,7 +90,7 @@ public class RemindCommand extends Command {
         }
         if (remindMap.containsKey(time)) {
             Assignment remindedTask = remindMap.get(time);
-            throw new DukeInvalidDateTimeException("Sorry, you have a reminder set for " + remindedTask.getDescription() + " at: " + task.getDateTime());
+            throw new DukeInvalidDateTimeException("Sorry, you have a reminder set for " + remindedTask.getModCode() + " " + remindedTask.getDescription() + " by: " + task.getDateTime());
         } else if (!deadlineMap.containsKey(task.getModCode())) {
             throw new DukeException("Sorry, you have no such mod entered in your deadline table!");
         } else if (!deadlineMap.get(task.getModCode()).containsKey(task.getDate())) {

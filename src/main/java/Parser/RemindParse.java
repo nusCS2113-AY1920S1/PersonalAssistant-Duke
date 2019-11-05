@@ -68,8 +68,8 @@ public class RemindParse extends Parse {
         } catch (ParseException | ArrayIndexOutOfBoundsException e) {
             LOGGER.info("Invalid remind format" + e.getMessage());
             throw new DukeInvalidFormatException("OOPS!!! Please enter remind as follows:\n" +
-                    "remind/(set/rm) mod_code description /by week n.o day time /to week n.o day time\n" +
-                    "For example: remind/set cs2100 hand in homework /by week 9 fri 1500 /to week 9 thu 1500");
+                    "remind/(set/rm) mod_code description /by week n.o day time /on week n.o day time\n" +
+                    "For example: remind/set cs2100 hand in homework /by week 9 fri 1500 /on week 9 thu 1500");
         }
     }
 }
