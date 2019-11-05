@@ -21,6 +21,7 @@ import wallet.model.record.LoanList;
 import wallet.model.record.RecordList;
 import java.text.ParseException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 public class AddCommandParserTest {
     //@@author kyang96
@@ -65,7 +66,8 @@ public class AddCommandParserTest {
                 new RecordList(),
                 new ExpenseList(),
                 new ContactList(),
-                new LoanList());
+                new LoanList(),
+                new ArrayList<>());
 
         //dummy Contact object
         Contact person = new Contact("Mary", "Friend", "1234 5678");

@@ -18,6 +18,8 @@ import wallet.model.record.LoanList;
 import wallet.model.record.RecordList;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertAll;
@@ -112,7 +114,8 @@ public class EditCommandParserTest {
                 new RecordList(),
                 new ExpenseList(),
                 new ContactList(),
-                new LoanList());
+                new LoanList(),
+                new ArrayList<>());
 
         //dummy Contact object
         Contact person1 = new Contact("Mary", "Friend", "1234 5678");
@@ -154,7 +157,8 @@ public class EditCommandParserTest {
                 new RecordList(),
                 new ExpenseList(),
                 new ContactList(),
-                new LoanList());
+                new LoanList(),
+                new ArrayList<>());
 
         //dummy Contact object
         Contact person1 = new Contact("Mary", "Friend", "1234 5678");
@@ -196,7 +200,8 @@ public class EditCommandParserTest {
                 new RecordList(),
                 new ExpenseList(),
                 new ContactList(),
-                new LoanList());
+                new LoanList(),
+                new ArrayList<>());
 
         //dummy Contact object
         Contact person1 = new Contact("Mary", "Friend", "1234 5678");
@@ -238,7 +243,8 @@ public class EditCommandParserTest {
                 new RecordList(),
                 new ExpenseList(),
                 new ContactList(),
-                new LoanList());
+                new LoanList(),
+                new ArrayList<>());
 
         //dummy Contact object
         Contact person1 = new Contact("Mary", "Friend", "1234 5678");
@@ -280,7 +286,8 @@ public class EditCommandParserTest {
                 new RecordList(),
                 new ExpenseList(),
                 new ContactList(),
-                new LoanList());
+                new LoanList(),
+                new ArrayList<>());
 
         //dummy Contact object
         Contact person1 = new Contact("Mary", "Friend", "1234 5678");

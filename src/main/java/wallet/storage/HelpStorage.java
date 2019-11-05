@@ -2,6 +2,8 @@
 
 package wallet.storage;
 
+import wallet.model.help.Help;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.InputStream;
@@ -14,80 +16,72 @@ import java.util.ArrayList;
  */
 public class HelpStorage {
 
-    public static final String DEFAULT_HELP_FILENAME_PATHS = "/helppaths.txt";
-    public static final String MESSAGE_ERROR_ACCESS_SECTION = "Error! Contact admin for help.";
-    private ArrayList<String[]> pathList;
+    private static final String DEFAULT_HELP_FILENAME_PATHS = "/helppaths.txt";
+    private static final String MESSAGE_ERROR_ACCESS_LIST = "Error in setting up help section.";
+
 
     /**
-     * Returns a list of help section names and relative paths.
+     * Returns a list of help sections.
      *
-     * @return A list of help section files information.
+     * @return A list of help sections.
      */
-    public ArrayList<String[]> retrievePaths() {
-        ArrayList<String[]> pathList = new ArrayList<>();
+    public ArrayList<Help> helpData() {
+        ArrayList<Help> choices = new ArrayList<>();
+
         try {
             InputStream is = getClass().getResourceAsStream(DEFAULT_HELP_FILENAME_PATHS);
             InputStreamReader isr = new InputStreamReader(is);
             BufferedReader br = new BufferedReader(isr);
             String str;
+
             while ((str = br.readLine()) != null) {
-                ;
                 String[] data = str.split(",");
                 if (data.length == 2) {
-                    String[] row = {data[0].trim(), data[1].trim()};
-                    pathList.add(row);
+                    ArrayList<String> sectionData = readData(data[1].trim());
+                    Help section = new Help(data[0].trim(), sectionData);
+                    choices.add(section);
                 }
+
             }
             br.close();
             isr.close();
             is.close();
 
-        } catch (NullPointerException e) {
-            System.out.println(MESSAGE_ERROR_ACCESS_SECTION);
-        } catch (FileNotFoundException e) {
-            System.out.println(MESSAGE_ERROR_ACCESS_SECTION);
-        } catch (IOException e) {
-            System.out.println(MESSAGE_ERROR_ACCESS_SECTION);
+        } catch (NullPointerException | IOException e) {
+            System.out.println(MESSAGE_ERROR_ACCESS_LIST);
         }
-        this.pathList = pathList;
-        return pathList;
+
+        return choices;
     }
 
     /**
-     * Prints file content based on the help section user selected.
+     * Retrieve help section content
      *
-     * @param input User selected help section index.
+     * @param filePath file path to a help section.
+     * @return list with help section content.
      */
-    public void sectionData(int input) {
-        String[] chosenPair = pathList.get(input - 1);
-        String chosenPath = chosenPair[1];
+    private ArrayList<String> readData(String filePath) throws IOException {
 
-        try {
-            InputStream is = getClass().getResourceAsStream(chosenPath);
-            InputStreamReader isr = new InputStreamReader(is);
-            BufferedReader br = new BufferedReader(isr);
-            String str;
-            while ((str = br.readLine()) != null) {
-                ;
-                String[] data = str.split("\\|");
-                if (data.length == 2) {
-                    String row = String.format("%-20s %s", data[0].trim(), data[1].trim());
-                    System.out.println(row);
-                } else {
-                    System.out.println();
-                    System.out.println(data[0].trim());
-                }
+        ArrayList<String> sectionContent = new ArrayList<>();
+        InputStream is = getClass().getResourceAsStream(filePath);
+        InputStreamReader isr = new InputStreamReader(is);
+        BufferedReader br = new BufferedReader(isr);
+        String str;
+        while ((str = br.readLine()) != null) {
+
+            String[] data = str.split("\\|");
+            if (data.length == 2) {
+                String row = String.format("%-20s %s", data[0].trim(), data[1].trim());
+                sectionContent.add(row);
+            } else {
+                sectionContent.add("");
+                sectionContent.add(data[0].trim());
             }
-            br.close();
-            isr.close();
-            is.close();
-
-        } catch (NullPointerException e) {
-            System.out.println(MESSAGE_ERROR_ACCESS_SECTION);
-        } catch (FileNotFoundException e) {
-            System.out.println(MESSAGE_ERROR_ACCESS_SECTION);
-        } catch (IOException e) {
-            System.out.println(MESSAGE_ERROR_ACCESS_SECTION);
         }
+        br.close();
+        isr.close();
+        is.close();
+
+        return sectionContent;
     }
 }

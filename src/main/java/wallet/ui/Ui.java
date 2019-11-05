@@ -3,6 +3,7 @@ package wallet.ui;
 import wallet.logic.LogicManager;
 import wallet.logic.command.ListCommand;
 import wallet.model.contact.Contact;
+import wallet.model.help.Help;
 import wallet.model.record.Expense;
 import wallet.model.record.Loan;
 import wallet.thread.ChartThread;
@@ -15,6 +16,12 @@ public class Ui {
      * Scanner object used for reading input from user.
      */
     private Scanner sc;
+    private static final String MESSAGE_NOTE = "Note the following when reading help sections:";
+    private static final String MESSAGE_INDICATOR_REQUIRED = "<> indicates required parameters for command";
+    private static final String MESSAGE_INDICATOR_OPTIONAL = "[]  indicates optional parameters for command";
+    private static final String MESSAGE_AVAILABLE_SECTIONS = "The following help sections are available:";
+    private static final String MESSAGE_CHOOSE_SECTION = "Read a section by typing in: help <section number>";
+
 
     /**
      * Constructs a new ui.Ui object.
@@ -285,4 +292,28 @@ public class Ui {
         System.out.println("OOPS!!! " + exceptionMessage);
     }
 
+    //@@author Xdecosee
+    /**
+     * Show User a list of available help sections.
+     *
+     * @param helpList list of available help sections.
+     */
+    public void showHelp(ArrayList<Help> helpList) {
+
+        int index = 1;
+
+        System.out.println(MESSAGE_AVAILABLE_SECTIONS);
+
+        for (Help h : helpList) {
+            System.out.println(index + "." + h.getChoice());
+            index += 1;
+        }
+
+        System.out.println();
+        System.out.println(MESSAGE_NOTE);
+        System.out.println(MESSAGE_INDICATOR_REQUIRED);
+        System.out.println(MESSAGE_INDICATOR_OPTIONAL);
+        System.out.println();
+        System.out.println(MESSAGE_CHOOSE_SECTION);
+    }
 }

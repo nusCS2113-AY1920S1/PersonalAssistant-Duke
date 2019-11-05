@@ -1,5 +1,6 @@
 package wallet;
 
+import org.apache.commons.logging.Log;
 import wallet.logic.LogicManager;
 import wallet.ui.Ui;
 
@@ -34,6 +35,10 @@ public class Main {
         LogicManager.getReminder().autoRemindStart();
         while (!isExit) {
             String fullCommand = ui.readLine();
+            if(fullCommand.equals("help")){
+               ui.showHelp(LogicManager.getHelpList());
+               continue;
+            }
             //ui.printLine();
             isExit = logicManager.execute(fullCommand);
             //ui.printLine();
