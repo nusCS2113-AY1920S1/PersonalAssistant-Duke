@@ -58,7 +58,7 @@ public class StudentList implements IStudentList {
      * @return name of student.
      */
     public String getStudentName(final int index) {
-       return studentList.get(index - 1).getName();
+        return studentList.get(index - 1).getName();
     }
 
     /**
