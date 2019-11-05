@@ -1,15 +1,21 @@
 Classes in Java
-A class is a blueprint from which individual objects are created.
 
-Following is a sample of a class.
+A class is a template for objects.
+It contains the behaviour of objects of the same kind.
 
-Example
-public class Dog {
-   String breed;
+Say for example we want to create a class of Person, and declare certain
+attributes to it as described in the code below:
+
+public class Person {
+   String name;
    int age;
-   String color;
+   String race;
 
-   void barking() {
+   //constructor of the new class
+   public Person() {
+   }
+
+   void working() {
    }
 
    void hungry() {
@@ -18,3 +24,10 @@ public class Dog {
    void sleeping() {
    }
 }
+
+Now if you want to create a new person in your program named Alice,
+you can simply declare it as such:
+
+Person Alice = new Person();
+
+Note : Multiple objects can be created from a class.

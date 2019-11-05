@@ -123,6 +123,7 @@ public class MainWindow extends GridPane {
     /**
      * Creates two dialog boxes, one echoing user input and the other containing JavaCake's reply
      * and then appends them to the dialog container. Clears the user input after processing.
+     * If quiz is in session, no other commands are executed
      */
     @FXML
     private void handleUserInput() {
@@ -138,6 +139,8 @@ public class MainWindow extends GridPane {
                 AvatarScreen.avatarMode = AvatarScreen.AvatarMode.HAPPY;
                 if (input.equals("exit")) {
                     handleExit();
+                } if (isQuiz) {
+                    handleOtherProcesses();
                 } else if (input.equals("listnote")) {
                     handleListNote();
                 } else if (inputDivider[0].equals("deletenote")) {
@@ -201,11 +204,13 @@ public class MainWindow extends GridPane {
     private void handleOtherProcesses() throws CakeException {
         JavaCake.logger.log(Level.INFO, "executing normal(else) mode!");
         response = javaCake.getResponse(input);
-        if (isDeadlineRelated()) {
+        if (isFirstQuiz()) {
+            JavaCake.logger.log(Level.INFO, "First Quiz Incoming!");
+        } else if (isQuiz) {
+            handleQuiz();
+        } else if (isDeadlineRelated()) {
             //handles "deadline" and "reminder"
             JavaCake.logger.log(Level.INFO, "deadline setting");
-        } else if (isFirstQuiz()) {
-            JavaCake.logger.log(Level.INFO, "First Quiz Incoming!");
         } else if (isFirstResetRequest()) {
             JavaCake.logger.log(Level.INFO, "Reset command executed!");
         } else if (!isQuiz || isStarting) {
@@ -218,8 +223,6 @@ public class MainWindow extends GridPane {
             } else {
                 handleNormalCommand();
             }
-        } else if (isQuiz) {
-            handleQuiz();
         }
     }
 
