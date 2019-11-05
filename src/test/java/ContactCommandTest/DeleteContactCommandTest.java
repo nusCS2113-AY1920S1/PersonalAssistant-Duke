@@ -1,8 +1,7 @@
 package ContactCommandTest;
 
-import gazeeebo.TriviaManager.TriviaManager;
 import gazeeebo.UI.Ui;
-import gazeeebo.commands.Contact.DeleteContactCommand;
+import gazeeebo.commands.contact.DeleteContactCommand;
 import gazeeebo.storage.Storage;
 import gazeeebo.tasks.Task;
 import org.junit.jupiter.api.AfterEach;
@@ -57,14 +56,13 @@ public class DeleteContactCommandTest {
         DeleteContactCommand test = new DeleteContactCommand(ui, contact);
         assertEquals("jason is not found in the list.\n", output.toString());
     }
-
     @Test
-    void testDeleteWrongFormatContactsCommand() {
+    void testDeleteIncorrectFormatContactsCommand() {
         HashMap<String, String> map = new HashMap<>();
         Map<String, String> contact = new TreeMap<String, String>(map);
         contact.put("janel", "9625 1722");
-        ui.fullCommand = "delete";
+        ui.fullCommand = "delete jason and janel";
         DeleteContactCommand test = new DeleteContactCommand(ui, contact);
-        assertEquals("Incorrect format: delete name\n", output.toString());
+        assertEquals("Please Input in the correct format\n", output.toString());
     }
 }

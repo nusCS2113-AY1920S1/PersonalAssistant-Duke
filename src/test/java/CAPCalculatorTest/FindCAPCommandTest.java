@@ -57,23 +57,6 @@ public class FindCAPCommandTest {
     }
 
     @Test
-    void testFindBySemCAPCommand () {
-        CAPCommand newCAP = new CAPCommand("CS1231", 4, "A");
-        ArrayList<CAPCommand> list = new ArrayList<>();
-        list.add(newCAP);
-        ArrayList<CAPCommand> list2 = new ArrayList<>();
-        CAPCommand newCAP2 = new CAPCommand("CG1112", 6, "A");
-        list2.add(newCAP2);
-        CAPList.put("1",list);
-        CAPList.put("2",list2);
-        ui.fullCommand = "find 1";
-        FindCAPCommand test = new FindCAPCommand(ui, CAPList, LINEBREAK);
-        assertEquals("Sem | Module code | MC | CAP\n" + LINEBREAK
-                + "1   | CS1231      | 4  | A\n"
-                + LINEBREAK, output.toString());
-    }
-
-    @Test
     void testFindNotInTheCapListCommand () {
         CAPCommand newCAP = new CAPCommand("CS1231", 4, "A");
         ArrayList<CAPCommand> list = new ArrayList<>();
@@ -86,5 +69,20 @@ public class FindCAPCommandTest {
         ui.fullCommand = "find CS2101";
         FindCAPCommand test = new FindCAPCommand(ui, CAPList, LINEBREAK);
         assertEquals("CS2101 is not found in the list.\n", output.toString());
+    }
+
+    @Test
+    void testFindIncorrectFormatInTheCapListCommand () {
+        CAPCommand newCAP = new CAPCommand("CS1231", 4, "A");
+        ArrayList<CAPCommand> list = new ArrayList<>();
+        list.add(newCAP);
+        ArrayList<CAPCommand> list2 = new ArrayList<>();
+        CAPCommand newCAP2 = new CAPCommand("CG1112", 6, "A");
+        list2.add(newCAP2);
+        CAPList.put("1",list);
+        CAPList.put("2",list2);
+        ui.fullCommand = "find cs2101 cs2203";
+        FindCAPCommand test = new FindCAPCommand(ui, CAPList, LINEBREAK);
+        assertEquals("Please Input in the correct format\n", output.toString());
     }
 }

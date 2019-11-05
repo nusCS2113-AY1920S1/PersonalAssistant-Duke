@@ -1,6 +1,7 @@
 package gazeeebo.commands.capCalculator;
 
 import gazeeebo.UI.Ui;
+import gazeeebo.exception.DukeException;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -14,20 +15,29 @@ public class AddCAPCommand {
     /**
      * Add a new module into GPAList.
      *
-     * @param ui         prints things to the user.
-     * @param caplist    deals stores
-     *                   semNumber, moduleCode, moduleCredits and CAP score.
+     * @param ui      prints things to the user.
+     * @param caplist deals stores
+     *                semNumber, moduleCode, moduleCredits and CAP score.
      * @throws IOException catch the error if the read file fails.
      */
     public AddCAPCommand(final Ui ui, final Map<String,
             ArrayList<CAPCommand>> caplist) throws IOException {
-        System.out.print("Input in this format: "
-                + "semNumber,Module_Code,total_MC,CAP\n");
-        ui.readCommand();
-        String[] splitAddInput = ui.fullCommand.split(",");
-        if (splitAddInput.length != 4) {
-            System.out.print("Incorrect format.\n");
-        } else {
+        try {
+            String toAdd = "";
+            switch (ui.fullCommand.split(" ").length) {
+                case 1:
+                    System.out.print("Input in this format: "
+                            + "semNumber,Module_Code,total_MC,CAP\n");
+                    ui.readCommand();
+                    toAdd = ui.fullCommand;
+                    break;
+                case 2:
+                    toAdd = ui.fullCommand.split(" ")[1];
+                    break;
+                default:
+                    throw new ArrayIndexOutOfBoundsException();
+            }
+            String[] splitAddInput = toAdd.split(",");
             String semNumber = splitAddInput[0];
             String moduleCode = splitAddInput[1];
             int moduleCredit = Integer.parseInt(splitAddInput[2]);
@@ -41,6 +51,8 @@ public class AddCAPCommand {
                 caplist.put(semNumber, semInfo);
             }
             System.out.print("Successfully added: " + moduleCode + "\n");
+        } catch (IOException | ArrayIndexOutOfBoundsException e) {
+            System.out.print("Please Input in the correct format\n");
         }
     }
 }

@@ -47,24 +47,34 @@ public class MainCAPCalculatorTest {
     @Test
     void testMainCommand() throws IOException, ParseException, DukeException {
         TriviaManager triviaManager = new TriviaManager(storage);
-        String moduleCode = "", grade= "";
+        String moduleCode = "", grade = "";
         int moduleCredit = 0;
-        CAPCommand test = new CAPCommand(moduleCode,moduleCredit,grade);
+        CAPCommand test = new CAPCommand(moduleCode, moduleCredit, grade);
         ByteArrayInputStream in = new ByteArrayInputStream("esc".getBytes());
         System.setIn(in);
         test.execute(list, ui, storage, commandStack, deletedTask, triviaManager);
         assertEquals("Welcome to your CAP Calculator page! What would you like to do?\n\n"
                         + "__________________________________________________________\n"
                         + "1. Add module: add\n"
-                        + "2. Find module: find moduleCode/semNumber\n"
+                        + "2. Find module: find moduleCode\n"
                         + "3. Delete a module: delete module\n"
                         + "4. See your CAP list: list\n"
                         + "5. Help Command: help\n"
                         + "6. Exit CAP page: esc\n"
                         + "__________________________________________________________\n"
-                        + "\nGoing back to Main Menu\n"
+                        + "\nGo back to Main Menu...\n" +
+                        "Content Page:\n" +
+                        "------------------ \n" +
+                        "1. help\n" +
+                        "2. contacts\n" +
+                        "3. expenses\n" +
+                        "4. places\n" +
+                        "5. tasks\n" +
+                        "6. cap\n" +
+                        "7. spec\n" +
+                        "8. moduleplanner\n" +
+                        "9. notes\n\n"
                 , output.toString()
         );
     }
-
 }
