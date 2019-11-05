@@ -3,7 +3,6 @@ package commands;
 import exceptions.FarmioFatalException;
 import farmio.Farmer;
 import farmio.Farmio;
-import farmio.Storage;
 import frontend.Ui;
 
 public class CommandGameNew extends Command {
@@ -15,7 +14,6 @@ public class CommandGameNew extends Command {
     @Override
     public void execute(Farmio farmio) throws FarmioFatalException {
         Ui ui = farmio.getUi();
-        Storage storage = farmio.getStorage();
         farmio.setFarmer(new Farmer());
         farmio.getSimulation().simulate("GameNew", 0, true);
         ui.typeWriter("New Game Created!", false);

@@ -13,6 +13,12 @@ public class CommandAddName extends Command {
         this.name = userInput.toUpperCase();
     }
 
+    /**
+     * Adds the name that the user inputs and saves it as an in-game name.
+     * @param farmio The game where its stage is set to NAME_ADD.
+     * @throws FarmioFatalException if simulation file is missing.
+     * @throws FarmioException if name is invalid.
+     */
     @Override
     public void execute(Farmio farmio) throws FarmioException, FarmioFatalException {
         Ui ui = farmio.getUi();
@@ -25,7 +31,7 @@ public class CommandAddName extends Command {
             ui.typeWriter("Welcome Farmer "
                     + name
                     + ", please press [ENTER] to begin the tutorial"
-                    + " or enter [SKIP] to skip the story", false);
+                    + " or enter [skip] to skip the story", false);
             farmio.setStage(Farmio.Stage.LEVEL_START);
         } else if (name.length() == 0) {
             ui.typeWriter("Provide a name.", false);

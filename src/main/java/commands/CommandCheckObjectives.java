@@ -3,7 +3,6 @@ package commands;
 import exceptions.FarmioFatalException;
 import farmio.Farmio;
 import farmio.Level;
-import frontend.AsciiColours;
 
 import java.util.List;
 
@@ -16,8 +15,6 @@ public class CommandCheckObjectives extends Command {
     @Override
     public void execute(Farmio farmio) throws FarmioFatalException {
         Level.ObjectiveResult answer = farmio.getLevel().checkAnswer(farmio);
-        //farmio.getUi().typeWriter(farmio.getLevel().getFeedback(farmio), false); // feedbacks
-
         List<String> feedback = farmio.getLevel().getFeedback(farmio, answer);
         for (String i : feedback) {
             farmio.getUi().typeWriter(i,false);
