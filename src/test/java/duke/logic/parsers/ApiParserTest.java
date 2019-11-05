@@ -127,8 +127,8 @@ class ApiParserTest {
         String rgb = RED_VALUE_OTHER + "," + GREEN_VALUE_OTHER + "," + BLUE_VALUE_OTHER;
         String actual = ApiParser.generateStaticMapLines(points, rgb, LINE_WIDTH);
 
-        String expected = "[[1.29379302903228,103.78507910002646],[1.32653202760922,103.76429968220569]," +
-                "[1.31990193658073,103.95514880285305]]:255,122,0:2";
+        String expected = "[[1.29379302903228,103.78507910002646],[1.32653202760922,103.76429968220569],"
+                + "[1.31990193658073,103.95514880285305]]:255,122,0:2";
         assertEquals(expected, actual);
 
         actual = ApiParser.generateLineParam(points, rgb);

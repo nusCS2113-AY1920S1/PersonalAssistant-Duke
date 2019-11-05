@@ -12,9 +12,9 @@ class GetBusStopCommandTest {
     @Test
     void getBusStopTest() throws DukeException {
         ModelStub model = new ModelStub();
-        String expected = "This is the information for this Bus Stop:\n" + "Clementi Int\n" +
-                "99\n" + "14\n" + "96A\n" + "96B\n" + "147e\n" + "7B\n" + "282\n" + "173\n" + "284\n" + "196\n" +
-                "285\n" + "175\n" + "165\n" + "166\n" + "156\n" + "147\n" + "7\n" + "96\n";
+        String expected = "This is the information for this Bus Stop:\n" + "Clementi Int\n"
+                + "99\n" + "14\n" + "96A\n" + "96B\n" + "147e\n" + "7B\n" + "282\n" + "173\n" + "284\n" + "196\n"
+                + "285\n" + "175\n" + "165\n" + "166\n" + "156\n" + "147\n" + "7\n" + "96\n";
 
 
         GetBusStopCommand command = new GetBusStopCommand("17009");
