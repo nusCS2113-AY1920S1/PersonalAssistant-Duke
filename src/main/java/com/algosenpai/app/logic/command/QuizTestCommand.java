@@ -61,7 +61,6 @@ public class QuizTestCommand extends QuizCommand {
             questionNumber.incrementAndGet();
 
             if (questionNumber.get() < 10) {
-
                 //add the userinput that has been parsed as his answer.
                 if (inputs.size() > 1) {
                     //to end the quiz in the quizmode
@@ -71,20 +70,23 @@ public class QuizTestCommand extends QuizCommand {
                     }
                     QuestionModel currQuestionDisplayed = quizList.get(questionNumber.get() - 1);
                     String userAnswer = extractUserAnswerFromInput();
+                    System.out.println(userAnswer);
                     currQuestionDisplayed.setUserAnswer(userAnswer);
                 }
-
                 return quizList.get(questionNumber.get()).getQuestion()
                         + "\n Your answer: "
                         + quizList.get(questionNumber.get()).getUserAnswer();
             } else {
-
                 reset();
                 return calculateScore();
             }
         }
     }
 
+    /**
+     * Parses the user input into a string format.
+     * @return The string containing the user's answer.
+     */
     private String extractUserAnswerFromInput() {
         StringBuilder answer = new StringBuilder();
         for (int i = 1; i < inputs.size() - 1; i++) {
@@ -96,7 +98,7 @@ public class QuizTestCommand extends QuizCommand {
 
 
     private void reset() {
-        questionNumber.set(-1);
+        questionNumber.set(0);
         isQuizMode.set(false);
         isNewQuiz.set(true);
     }

@@ -127,7 +127,6 @@ public class QueuePopPushQuestion extends Question {
             rtlm.addReviewTracingModel("Consider step : " + cmd);
             if (cmd.contains("Pop")) {
                 rtlm.addReviewTracingModel("Removing this element : " + queue.pollLast() + ".");
-                queue.removeLast();
             } else {
                 String number = cmd.substring(5, cmd.length() - 2);
                 rtlm.addReviewTracingModel("Adding this number to the back : " + number + ".");
