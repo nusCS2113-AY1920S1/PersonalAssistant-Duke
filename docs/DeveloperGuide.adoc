@@ -30,12 +30,13 @@ Main component has one class called `Duke`. It is responsible for the following:
 
 . On startup: Initializes all components and sets up the correct file path so that the program correctly interacts
 with the external txt file.
-. During runtime: Acts as an intermediary between the `Parser` class and the `Command` class.
+. During runtime: Acts as an intermediary between the `Parser` class and the `Command` so that user input can be parsed
+and then executed accordingly.
 . On shutdown: Interacts with the UI class to communicate the shutdown message to the user.
 
 === UI component
 UI component contains all classes necessary to interact successfully with the user. The `Parser` parses input commands
-from the user whilst the `UI` class handles all necessary dissemination of information to the user through the terminal.
+from the user whilst the `UI` class handles all necessary dissemination of information to the user through `System.out`.
 
 === Logic component
 This component contains all necessary classes that :

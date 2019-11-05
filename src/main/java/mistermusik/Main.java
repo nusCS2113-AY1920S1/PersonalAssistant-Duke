@@ -12,6 +12,8 @@ import mistermusik.ui.UI;
 import java.io.File;
 import java.io.IOException;
 import java.util.Date;
+import java.util.logging.Handler;
+import java.util.logging.Logger;
 
 public class Main {
     private static Parser parser = new Parser();
@@ -27,7 +29,6 @@ public class Main {
     public static void main(String[] args) throws IOException {
         setup();
         ui.welcome();
-
         String userInput = parser.readUserInput().toLowerCase();
         while (!userInput.equals("bye")) {
             Command currCommand = parser.parseInput(userInput);
