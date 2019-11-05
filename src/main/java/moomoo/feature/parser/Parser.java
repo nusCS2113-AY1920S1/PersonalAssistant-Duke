@@ -32,11 +32,10 @@ public class Parser {
      * should be done here including separating a line of command into parts for each command.
      *
      * @param input String given by the user
-     * @param ui    MooMoo's ui
      * @return The command object corresponding to the user input
      * @throws MooMooException Thrown when an invalid input is given
      */
-    public static Command parse(String input, Ui ui) throws MooMooException {
+    public static Command parse(String input) throws MooMooException {
         Scanner scanner = new Scanner(input);
         String commandType;
         try {
@@ -53,7 +52,7 @@ public class Parser {
         case ("schedule"):
             return new ScheduleCommand(false, input);
         case ("category"):
-            return CategoryParser.parse(scanner, ui);
+            return CategoryParser.parse(scanner);
         case ("list"):
             return new ListCategoryCommand();
         case ("graph"):
@@ -65,18 +64,18 @@ public class Parser {
         case ("moo"):
             return new MooCommand();
         case ("view"):
-            return parseView(scanner, ui);
+            return parseView(scanner);
         default:
-            return ExpenditureParser.parse(commandType, scanner, ui);
+            return ExpenditureParser.parse(commandType, scanner);
         }
     }
 
-    protected static String parseInput(Scanner scanner, Ui ui, String text) {
+    static String parseInput(Scanner scanner, String text) {
         if (scanner.hasNextLine()) {
             return scanner.nextLine().trim();
         } else {
-            ui.showPrompt(text);
-            return ui.readCommand();
+            Ui.showPrompt(text);
+            return Ui.readCommand();
         }
     }
 
@@ -123,9 +122,9 @@ public class Parser {
         
     }
 
-    private static Command parseView(Scanner scanner, Ui ui) throws MooMooException {
+    private static Command parseView(Scanner scanner) throws MooMooException {
         String text = "Which month's summary do you wish to view?" + "(m/) month" + "(y/) year";
-        String input = parseInput(scanner, ui, text);
+        String input = parseInput(scanner, text);
         LocalDate now = LocalDate.now();
         if (input.startsWith("m/") || input.startsWith("y/")) {
             int month = now.getMonthValue();

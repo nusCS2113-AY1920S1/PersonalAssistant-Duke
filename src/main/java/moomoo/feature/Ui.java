@@ -15,21 +15,29 @@ import java.util.Scanner;
 public class Ui {
     private static final String ANSI_RED = "\u001B[31m";
     private static final String ANSI_WHITE = "\u001B[37m";
-    private String output = null;
-    private Scanner inputScanner;
+    private static String output = null;
+    private static Scanner inputScanner;
+
+    /**
+     * Prints out a message.
+     * @param text message to be printed
+     */
+    private static void print(String text) {
+        System.out.println(text);
+    }
 
     /**
      * Returns the value to be printed to the GUI.
      * @return String to be printed on the GUI
      */
-    public String returnResponse() {
-        return this.output;
+    public static String returnResponse() {
+        return output;
     }
 
     /**
      * Prints the welcome message to the User.
      */
-    public void showWelcome() {
+    public static void showWelcome() {
         print("   \n"
                 + "   ^____^________\n"
                 + "   ( oo )\\ *  *  )\\/\\\n"
@@ -54,25 +62,25 @@ public class Ui {
      * Used to read input from the user.
      * @return String representing the input given by the User
      */
-    public String readCommand() {
-        this.inputScanner = new Scanner(System.in);
-        return this.inputScanner.nextLine().trim();
+    public static String readCommand() {
+        inputScanner = new Scanner(System.in);
+        return inputScanner.nextLine().trim();
     }
 
     /**
      * Used to read input from the user.
      * @return Integer representing the input given by the User
      */
-    public int readNumber() {
-        this.inputScanner = new Scanner(System.in);
-        return this.inputScanner.nextInt();
+    public static int readNumber() {
+        inputScanner = new Scanner(System.in);
+        return inputScanner.nextInt();
     }
 
     /**
      * Sets good bye message to be shown to the User.
      */
-    public void showGoodbye() {
-        this.output = "Hope you had a great time using MooMooMoney!\n"
+    public static void showGoodbye() {
+        output = "Hope you had a great time using MooMooMoney!\n"
                 + "See you next time :)";
     }
 
@@ -81,30 +89,30 @@ public class Ui {
      * @param e MooMooException that occurs
      * @return Message of the MooMooException
      */
-    public String printException(MooMooException e) {
+    public static String printException(MooMooException e) {
         if (!e.getMessage().isBlank()) {
-            this.output = ANSI_RED + e.getMessage() + ANSI_WHITE;
+            output = ANSI_RED + e.getMessage() + ANSI_WHITE;
         }
-        return this.output;
+        return output;
     }
 
     /**
      * Prints out response from command.
      */
-    public void showResponse() {
+    public static void showResponse() {
         try {
             PrintStream out = new PrintStream(System.out, true, "UTF-8");
-            out.println(this.output);
+            out.println(output);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        this.output = "";
+        output = "";
     }
 
     /**
      * Show today's date.
      */
-    public String showDate() {
+    public static String showDate() {
         LocalDate today = LocalDate.now();
         String formattedDate = today.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL));
         String shortDate = today.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT));
@@ -113,26 +121,18 @@ public class Ui {
     }
 
     /**
-     * Sets the output to be printed.
-     * @param output Input value to be printed.
+     * Sets the myOutput to be printed.
+     * @param myOutput Input value to be printed.
      */
-    public void setOutput(String output) {
-        this.output = output;
-    }
-
-    /**
-     * Prints out a message enclosed between two lines.
-     * @param text message to be printed
-     */
-    private void print(String text) {
-        System.out.println(text);
+    public static void setOutput(String myOutput) {
+        output = myOutput;
     }
 
     /**
      * Prints out when a new category is created.
      * @param categoryName name of the new category
      */
-    public void showCategoryMessage(String categoryName) {
+    public static void showCategoryMessage(String categoryName) {
         String blankSpace = " ";
         int blanks = 50 - categoryName.length();
         for (int i = 0; i < blanks; i++) {
@@ -155,7 +155,7 @@ public class Ui {
      * Prints out when a new expenditure is created.
      * @param categoryName name of the new expenditure
      */
-    public void showNewExpenditure(String expenditureName, String categoryName) {
+    public static void showNewExpenditure(String expenditureName, String categoryName) {
         String blankSpace = " ";
         int blanks = 18 - expenditureName.length();
         for (int i = 0; i < blanks; i++) {
@@ -183,14 +183,14 @@ public class Ui {
     /**
      * Promts the user to enter a category index.
      */
-    public void showEnterCategoryMessage() {
+    public static void showEnterCategoryMessage() {
         print("Please enter the index of a category.");
     }
 
     /**
      * Promts the user to enter the number corresponding to a month.
      */
-    public void showEnterMonthMessage() {
+    public static void showEnterMonthMessage() {
         print("Please enter a month in the format MM.");
     }
 
@@ -200,7 +200,7 @@ public class Ui {
      * @param category category user wants to check
      * @param month month that should be totaled
      */
-    public void showMonthlyTotal(double monthlyTotal, Category category, int month) {
+    public static void showMonthlyTotal(double monthlyTotal, Category category, int month) {
         String cow =
                 ".__________________________________.\n"
                 + "|Month : " + month + "blank" + "|\n"
@@ -220,11 +220,11 @@ public class Ui {
     /**
      * Prompts the user to enter what to add.
      */
-    public void showPrompt(String text) {
+    public static void showPrompt(String text) {
         print(text);
     }
 
-    public void printMainDisplay(String newMainDisplay) {
+    public static void printMainDisplay(String newMainDisplay) {
         print(newMainDisplay);
     }
 }

@@ -28,16 +28,14 @@ public class MainDisplayCommand extends Command {
      * @param calendar ScheduleList object containing the schedules.
      * @param budget Budget object containing the budget.
      * @param categoryList CategoryList object containing the categories.
-     * @param ui Ui object for interaction with user interface.
      * @param storage Storage object for interaction with filesystem.
-     * @throws MooMooException Thrown when error such as invalid input occurs
      */
     public void execute(ScheduleList calendar, Budget budget, CategoryList categoryList,
-                        Ui ui, Storage storage) throws MooMooException {
+                        Storage storage) {
         MainDisplay newMainDisplay = new MainDisplay();
         int rows = newMainDisplay.getCatListSize(categoryList);
         int cols = newMainDisplay.getMaxCatSize(categoryList);
         String output = newMainDisplay.toPrint(month,year,rows,cols,categoryList,budget);
-        ui.printMainDisplay(output);
+        Ui.printMainDisplay(output);
     }
 }

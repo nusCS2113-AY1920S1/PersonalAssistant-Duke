@@ -5,8 +5,8 @@ import java.util.Random;
 import moomoo.feature.Budget;
 import moomoo.feature.MooMooException;
 import moomoo.feature.ScheduleList;
-import moomoo.feature.storage.Storage;
 import moomoo.feature.Ui;
+import moomoo.feature.storage.Storage;
 import moomoo.feature.category.CategoryList;
 
 public class MooCommand extends Command {
@@ -32,13 +32,13 @@ public class MooCommand extends Command {
     
     @Override
     public void execute(ScheduleList calendar, Budget budget, CategoryList categoryListList,
-                        Ui ui, Storage storage)
+                        Storage storage)
             throws MooMooException {
         try {
             Random randomGenerator = new Random();
             int messageNo = randomGenerator.nextInt(50);
             String output = mooText[messageNo];
-            ui.setOutput(output);
+            Ui.setOutput(output);
         } catch (Exception e) {
             throw new MooMooException("Hmmm.. Moo?");
         }

@@ -28,13 +28,13 @@ public class DeleteExpenditureCommand extends Command {
     }
 
     @Override
-    public void execute(ScheduleList calendar, Budget budget, CategoryList categoryList, Ui ui,
+    public void execute(ScheduleList calendar, Budget budget, CategoryList categoryList,
                         Storage storage) throws MooMooException {
         try {
             String name = categoryList.get(categoryName).get(expenditureIndex).toString();
             CategoryStorage.deleteFromFile(categoryName);
             categoryList.get(categoryName).delete(expenditureIndex);
-            ui.setOutput("Expenditure named " + name + " re-MOOO-ved\n"
+            Ui.setOutput("Expenditure named " + name + " re-MOOO-ved\n"
                 + "From category: " + categoryName);
         } catch (IndexOutOfBoundsException e) {
             throw new MooMooException("Sorry I don't see an expenditure with that name.");

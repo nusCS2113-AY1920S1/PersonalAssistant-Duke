@@ -3,9 +3,9 @@ package moomoo.command;
 import moomoo.feature.ScheduleList;
 import moomoo.feature.Budget;
 import moomoo.feature.MooMooException;
+import moomoo.feature.Ui;
 import moomoo.feature.category.CategoryList;
 import moomoo.feature.storage.Storage;
-import moomoo.feature.Ui;
 
 import java.util.ArrayList;
 
@@ -24,7 +24,7 @@ public class ScheduleCommand extends Command {
 
     @Override
     public void execute(ScheduleList calendar, Budget budget, CategoryList categoryListList,
-                        Ui ui, Storage storage) throws MooMooException {
+                        Storage storage) throws MooMooException {
         if (input.length() < 8) {
             throw new MooMooException("OOPS!!! To create a schedule payment, "
                     + "please indicate the d/<date in dd/mm/yyyy> a/<amount> n/<description of payment>.");
@@ -82,7 +82,7 @@ public class ScheduleCommand extends Command {
                 + "            (__)\\       )\\/\\\n"
                 + "                ||----w |\n"
                 + "                ||     ||\n";
-        ui.setOutput(cow);
+        Ui.setOutput(cow);
         storage.saveScheduleToFile(calendar);
     }
 }

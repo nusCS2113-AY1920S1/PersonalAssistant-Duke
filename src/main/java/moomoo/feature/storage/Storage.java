@@ -58,7 +58,7 @@ public class Storage {
 
      * @return HashMap object consisting of the categories and corresponding budget read from file.
      */
-    public HashMap<String, Double> loadBudget(ArrayList<Category> catList, Ui ui) {
+    public HashMap<String, Double> loadBudget(ArrayList<Category> catList) {
         try {
             if (Files.isRegularFile(Paths.get(this.budgetFilePath))) {
                 HashMap<String, Double> loadedBudgets = new HashMap<>();
@@ -72,7 +72,7 @@ public class Storage {
                             try {
                                 budget = Double.parseDouble(readInput.get(i));
                             } catch (NumberFormatException e) {
-                                ui.setOutput("Budget file corrupted, please delete it. Your data will be reset.");
+                                Ui.setOutput("Budget file corrupted, please delete it. Your data will be reset.");
                                 return null;
                             }
                             loadedBudgets.put(category, budget);
@@ -86,12 +86,12 @@ public class Storage {
                 }
                 return loadedBudgets;
             } else {
-                ui.setOutput("Budget File not found. New file will be created");
+                Ui.setOutput("Budget File not found. New file will be created");
                 createFileAndDirectory(this.budgetFilePath);
                 return null;
             }
         } catch (IOException | MooMooException e) {
-            ui.setOutput("Unable to write to file. Please retry again.");
+            Ui.setOutput("Unable to write to file. Please retry again.");
         }
         return null;
     }
@@ -100,7 +100,7 @@ public class Storage {
      * Loads scheduled payments from file into an ArrayList object.
      * @return ArrayList object consisting of the scheduled payments read from the file
      */
-    public HashMap<String, ArrayList<String>> loadCalendar(Ui ui) {
+    public HashMap<String, ArrayList<String>> loadCalendar() {
         HashMap<String, ArrayList<String>> scheduleMap = new HashMap<>();
         try {
             if (Files.isRegularFile(Paths.get(this.scheduleFilePath))) {
@@ -123,10 +123,10 @@ public class Storage {
                 }
                 return scheduleMap;
             } else {
-                ui.setOutput("Schedule File not found. New file will be created");
+                Ui.setOutput("Schedule File not found. New file will be created");
             }
         } catch (IOException e) {
-            ui.setOutput("Unable to read file. Please retry again.");
+            Ui.setOutput("Unable to read file. Please retry again.");
         }
         return null;
     }

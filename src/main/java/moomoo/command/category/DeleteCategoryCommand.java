@@ -36,7 +36,7 @@ public class DeleteCategoryCommand extends Command {
 
     @Override
     public void execute(ScheduleList calendar, Budget budget, CategoryList categoryList,
-                        Ui ui, Storage storage) throws MooMooException {
+                        Storage storage) throws MooMooException {
 
         if (isString) {
             this.categoryIndex = categoryList.find(input);
@@ -46,7 +46,7 @@ public class DeleteCategoryCommand extends Command {
         try {
             CategoryStorage.deleteFromFile(input);
             categoryList.delete(categoryIndex);
-            ui.showCategoryMessage("Category named " + input + " re-MOOO-ved. ");
+            Ui.showCategoryMessage("Category named " + input + " re-MOOO-ved. ");
         } catch (IndexOutOfBoundsException e) {
             throw new MooMooException("Please enter a valid category name.");
         }

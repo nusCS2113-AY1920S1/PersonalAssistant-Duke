@@ -1,13 +1,13 @@
 package moomoo.command;
 
 import moomoo.feature.Budget;
+import moomoo.feature.Ui;
 import moomoo.feature.category.Category;
 import moomoo.feature.category.CategoryList;
 import moomoo.feature.category.Expenditure;
 import moomoo.feature.MooMooException;
 import moomoo.feature.ScheduleList;
 import moomoo.feature.storage.Storage;
-import moomoo.feature.Ui;
 
 public class GraphCategoryCommand extends Command {
     private static final String ANSI_RESET = "\u001B[0m";
@@ -50,7 +50,7 @@ public class GraphCategoryCommand extends Command {
     
     @Override
     public void execute(ScheduleList calendar, Budget budget, CategoryList categoryListList,
-                        Ui ui, Storage storage)
+                        Storage storage)
             throws MooMooException {
         Category cat;
         try {
@@ -109,6 +109,6 @@ public class GraphCategoryCommand extends Command {
             }
         }
         output += topSpace + horizontalAxisBottom + "\n";
-        ui.setOutput(output);
+        Ui.setOutput(output);
     }
 }

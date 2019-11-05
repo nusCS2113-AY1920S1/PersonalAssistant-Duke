@@ -1,11 +1,11 @@
 package moomoo.command;
 
 import moomoo.feature.Budget;
+import moomoo.feature.Ui;
 import moomoo.feature.category.CategoryList;
 import moomoo.feature.MooMooException;
 import moomoo.feature.ScheduleList;
 import moomoo.feature.storage.Storage;
-import moomoo.feature.Ui;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -34,7 +34,7 @@ public class EditBudgetCommand extends Command {
 
     @Override
     public void execute(ScheduleList calendar, Budget budget, CategoryList categoryListList,
-                        Ui ui, Storage storage) throws MooMooException {
+                        Storage storage) throws MooMooException {
         String outputValue = "";
         boolean isUpdated = false;
 
@@ -64,7 +64,7 @@ public class EditBudgetCommand extends Command {
                 outputValue += categoryName + " category does not exist. Please add it first.\n";
             }
         }
-        ui.setOutput(outputValue);
+        Ui.setOutput(outputValue);
         if (isUpdated) {
             storage.saveBudgetToFile(budget);
         }

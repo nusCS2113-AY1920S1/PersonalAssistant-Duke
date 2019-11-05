@@ -22,33 +22,31 @@ public class MooMoo {
     private CategoryList categoryList;
     private Budget budget;
     public ScheduleList calendar;
-    private Ui ui;
 
     /**
      * Initializes different Category, Expenditures, Budget, Storage and Ui.
      */
     private MooMoo() {
-        ui = new Ui();
         storage = new Storage("data/budget.txt","data/schedule.txt");
         try {
             categoryList = CategoryStorage.loadFromFile();
         } catch (MooMooException e) {
-            ui.printException(e);
-            ui.showResponse();
+            Ui.printException(e);
+            Ui.showResponse();
             categoryList = new CategoryList();
         }
 
-        HashMap<String, Double> loadedBudget = storage.loadBudget(categoryList.getCategoryList(), ui);
+        HashMap<String, Double> loadedBudget = storage.loadBudget(categoryList.getCategoryList());
         if (loadedBudget == null) {
-            ui.showResponse();
+            Ui.showResponse();
             budget = new Budget();
         } else {
             budget = new Budget(loadedBudget);
         }
 
-        HashMap<String, ArrayList<String>> scheduleList = storage.loadCalendar(ui);
+        HashMap<String, ArrayList<String>> scheduleList = storage.loadCalendar();
         if (scheduleList == null) {
-            ui.showResponse();
+            Ui.showResponse();
             calendar = new ScheduleList();
         } else {
             calendar = new ScheduleList(scheduleList);
@@ -59,28 +57,28 @@ public class MooMoo {
      * Runs the command line interface, reads input from user and returns result accordingly.
      */
     private void run() {
-        ui.showWelcome();
-        String date = ui.showDate();
+        Ui.showWelcome();
+        String date = Ui.showDate();
         String todaySchedule = calendar.showSchedule(date);
-        ui.setOutput(todaySchedule);
-        ui.showResponse();
+        Ui.setOutput(todaySchedule);
+        Ui.showResponse();
         boolean isExit = false;
         while (!isExit) {
             try {
-                String fullCommand = ui.readCommand();
+                String fullCommand = Ui.readCommand();
                 System.out.print("\u001b[2J");
                 System.out.flush();
-                Command c = Parser.parse(fullCommand, ui);
-                c.execute(calendar, budget, categoryList, ui, storage);
+                Command c = Parser.parse(fullCommand);
+                c.execute(calendar, budget, categoryList, storage);
 
-                if (!ui.returnResponse().equals("")) {
-                    ui.showResponse();
+                if (!Ui.returnResponse().equals("")) {
+                    Ui.showResponse();
                 }
               
                 isExit = c.isExit;
             } catch (MooMooException e) {
-                ui.printException(e);
-                ui.showResponse();
+                Ui.printException(e);
+                Ui.showResponse();
             }
         }
     }
@@ -93,17 +91,17 @@ public class MooMoo {
     public String getResponse(String input) {
         boolean isExit;
         try {
-            Command c = Parser.parse(input, ui);
-            c.execute(calendar, budget, categoryList, ui, storage);
+            Command c = Parser.parse(input);
+            c.execute(calendar, budget, categoryList, storage);
 
             isExit = c.isExit;
             if (isExit) {
-                ui.showGoodbye();
-                return ui.returnResponse();
+                Ui.showGoodbye();
+                return Ui.returnResponse();
             }
-            return ui.returnResponse();
+            return Ui.returnResponse();
         } catch (MooMooException e) {
-            return ui.printException(e);
+            return Ui.printException(e);
         }
     }
 

@@ -53,9 +53,9 @@ public class StorageTest {
         Budget newBudget = new Budget();
 
         SetBudgetCommand setBudget = new SetBudgetCommand(false, categories, budgets);
-        setBudget.execute(newCalendar, newBudget, newCatList, newUi, newStorage);
+        setBudget.execute(newCalendar, newBudget, newCatList, newStorage);
 
-        HashMap<String, Double> newHashMap = newStorage.loadBudget(newCatList.getCategoryList(), newUi);
+        HashMap<String, Double> newHashMap = newStorage.loadBudget(newCatList.getCategoryList());
         assertEquals(60.0, newHashMap.get("window"));
         assertEquals(153.34, newHashMap.get("sweets"));
         assertEquals(13840.45, newHashMap.get("laptop"));
@@ -64,9 +64,9 @@ public class StorageTest {
         budgets.set(2, 123.45);
 
         EditBudgetCommand editBudget = new EditBudgetCommand(false, categories, budgets);
-        editBudget.execute(newCalendar, newBudget, newCatList, newUi, newStorage);
+        editBudget.execute(newCalendar, newBudget, newCatList, newStorage);
 
-        newHashMap = newStorage.loadBudget(newCatList.getCategoryList(), newUi);
+        newHashMap = newStorage.loadBudget(newCatList.getCategoryList());
         assertEquals(500.23, newHashMap.get("window"));
         assertEquals(153.34, newHashMap.get("sweets"));
         assertEquals(123.45, newHashMap.get("laptop"));

@@ -2,8 +2,8 @@ package moomoo.command;
 
 import moomoo.feature.Budget;
 import moomoo.feature.ScheduleList;
-import moomoo.feature.storage.Storage;
 import moomoo.feature.Ui;
+import moomoo.feature.storage.Storage;
 import moomoo.feature.MooMooException;
 import moomoo.feature.category.CategoryList;
 
@@ -30,7 +30,7 @@ public class ListBudgetCommand extends Command {
 
     @Override
     public void execute(ScheduleList calendar, Budget budget, CategoryList categoryListList,
-                        Ui ui, Storage storage) throws MooMooException {
+                        Storage storage) throws MooMooException {
         String outputValue = "";
         double currentBudget = 0;
         if (categories.size() == 0) {
@@ -44,7 +44,7 @@ public class ListBudgetCommand extends Command {
                 outputValue += "Budget for " + categoryName + " is $"
                         + df.format(currentBudget) + "\n";
             }
-            ui.setOutput(outputValue);
+            Ui.setOutput(outputValue);
             return;
         }
 
@@ -63,6 +63,6 @@ public class ListBudgetCommand extends Command {
                 outputValue += categoryName + " category does not exist. Please add it first.\n";
             }
         }
-        ui.setOutput(outputValue);
+        Ui.setOutput(outputValue);
     }
 }

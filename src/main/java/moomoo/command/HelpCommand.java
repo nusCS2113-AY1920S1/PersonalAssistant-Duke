@@ -2,8 +2,8 @@ package moomoo.command;
 
 import moomoo.feature.Budget;
 import moomoo.feature.ScheduleList;
-import moomoo.feature.storage.Storage;
 import moomoo.feature.Ui;
+import moomoo.feature.storage.Storage;
 import moomoo.feature.category.CategoryList;
 
 public class HelpCommand extends Command {
@@ -16,7 +16,7 @@ public class HelpCommand extends Command {
     }
 
     @Override
-    public void execute(ScheduleList calendar, Budget budget, CategoryList categoryListList, Ui ui,
+    public void execute(ScheduleList calendar, Budget budget, CategoryList categoryListList,
                         Storage storage) {
         String text = "Try one of these commands:\n"
                 + "bye\n"
@@ -32,6 +32,6 @@ public class HelpCommand extends Command {
                 + "schedule\n"
                 + "graph\n"
                 + "total";
-        ui.setOutput(text);
+        Ui.setOutput(text);
     }
 }

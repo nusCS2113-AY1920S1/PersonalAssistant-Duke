@@ -1,6 +1,5 @@
 package moomoo.command.category;
 
-import moomoo.MooMoo;
 import moomoo.command.Command;
 import moomoo.feature.Budget;
 import moomoo.feature.MooMooException;
@@ -23,7 +22,7 @@ public class AddCategoryCommand extends Command {
 
     @Override
     public void execute(ScheduleList calendar, Budget budget, CategoryList categoryList,
-                        Ui ui, Storage storage) throws MooMooException {
+                        Storage storage) throws MooMooException {
 
         Category newCategory = new Category(input.toLowerCase());
         if (categoryList.hasCategory(input)) {
@@ -33,7 +32,7 @@ public class AddCategoryCommand extends Command {
         } else {
             categoryList.add(newCategory);
             CategoryStorage.saveToFile(input);
-            ui.showCategoryMessage("New category named " + input + " added. ");
+            Ui.showCategoryMessage("New category named " + input + " added. ");
         }
     }
 }

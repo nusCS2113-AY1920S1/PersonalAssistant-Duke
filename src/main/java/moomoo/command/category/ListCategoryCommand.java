@@ -15,7 +15,7 @@ public class ListCategoryCommand extends Command {
 
     @Override
     public void execute(ScheduleList calendar, Budget budget, CategoryList categoryList,
-                        Ui ui, Storage storage) {
+                        Storage storage) {
         String categoryString = "";
         for (int i = 0; i < categoryList.size(); i++) {
             Category category = categoryList.get(i);
@@ -23,14 +23,14 @@ public class ListCategoryCommand extends Command {
                     + category.name() + " [ $"
                     + category.getTotal() + " ]");
         }
-        showCategoryList(categoryString, ui);
+        showCategoryList(categoryString);
     }
 
-    private void showCategoryList(String categories, Ui ui) {
+    private void showCategoryList(String categories) {
         if (categories.isBlank()) {
-            ui.setOutput("There are no existing categories now, add some using the (category add) command.");
+            Ui.setOutput("There are no existing categories now, add some using the (category add) command.");
         } else {
-            ui.setOutput("These are your current categories:"
+            Ui.setOutput("These are your current categories:"
                     + "\n_______________________________________________"
                     + categories
                     + "\n_______________________________________________");

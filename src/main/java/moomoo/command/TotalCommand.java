@@ -2,10 +2,10 @@ package moomoo.command;
 
 import moomoo.feature.ScheduleList;
 import moomoo.feature.Budget;
+import moomoo.feature.Ui;
 import moomoo.feature.category.Category;
 import moomoo.feature.category.CategoryList;
 import moomoo.feature.storage.Storage;
-import moomoo.feature.Ui;
 
 
 public class TotalCommand extends Command {
@@ -16,22 +16,21 @@ public class TotalCommand extends Command {
 
     @Override
     public void execute(ScheduleList calendar, Budget budget, CategoryList categoryList,
-                        Ui ui, Storage storage) {
-        list(ui, categoryList);
-        ui.showEnterCategoryMessage();
-        int cat = ui.readNumber() - 1;
-        ui.showEnterMonthMessage();
-        int month = ui.readNumber();
+                        Storage storage) {
+        list(categoryList);
+        Ui.showEnterCategoryMessage();
+        int cat = Ui.readNumber() - 1;
+        Ui.showEnterMonthMessage();
+        int month = Ui.readNumber();
         double monthlyTotal = categoryList.get(cat).getTotal(month);
-        ui.showMonthlyTotal(monthlyTotal, categoryList.get(cat), month);
+        Ui.showMonthlyTotal(monthlyTotal, categoryList.get(cat), month);
     }
 
     /**
      * Prints the current list of categories.
-     * @param ui MooMoo's ui
      * @param categoryList list
      */
-    public void list(Ui ui, CategoryList categoryList) {
+    public void list(CategoryList categoryList) {
         String categoryString = "";
         for (int i = 0; i < categoryList.size(); i++) {
             Category category = categoryList.get(i);
@@ -39,19 +38,19 @@ public class TotalCommand extends Command {
                     + category.name() + " [ $"
                     + category.getTotal() + " ]");
         }
-        showCategoryList(categoryString, ui);
+        showCategoryList(categoryString);
     }
 
     /**
      * Prints the list of categories.
      * @param categories list of current categories
-     * @param ui MooMoo's ui
+     *
      */
-    private void showCategoryList(String categories, Ui ui) {
+    private void showCategoryList(String categories) {
         if (categories.isBlank()) {
-            ui.setOutput("There are no existing categories now, add some using the (category add) command.");
+            Ui.setOutput("There are no existing categories now, add some using the (category add) command.");
         } else {
-            ui.setOutput("These are your current categories:"
+            Ui.setOutput("These are your current categories:"
                     + "\n_______________________________________________"
                     + categories
                     + "\n_______________________________________________");

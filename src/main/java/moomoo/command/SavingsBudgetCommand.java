@@ -2,8 +2,8 @@ package moomoo.command;
 
 import moomoo.feature.Budget;
 import moomoo.feature.ScheduleList;
-import moomoo.feature.storage.Storage;
 import moomoo.feature.Ui;
+import moomoo.feature.storage.Storage;
 import moomoo.feature.MooMooException;
 import moomoo.feature.category.Category;
 import moomoo.feature.category.CategoryList;
@@ -40,7 +40,7 @@ public class SavingsBudgetCommand extends Command {
 
     @Override
     public void execute(ScheduleList calendar, Budget budget, CategoryList categoryListList,
-                        Ui ui, Storage storage) throws MooMooException {
+                        Storage storage) throws MooMooException {
         String[] outputArray;
         String outputValue = "";
         double totalSavings = 0;
@@ -83,7 +83,7 @@ public class SavingsBudgetCommand extends Command {
             outputValue += "You have overspent your total budget by: $" + df.format(Math.abs(totalSavings)) + "\n";
         }
 
-        ui.setOutput(outputValue);
+        Ui.setOutput(outputValue);
     }
 
     private String[] viewSingleMonthSavings(Budget budget, String iteratorCategory,

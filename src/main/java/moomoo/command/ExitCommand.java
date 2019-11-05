@@ -2,8 +2,8 @@ package moomoo.command;
 
 import moomoo.feature.ScheduleList;
 import moomoo.feature.Budget;
-import moomoo.feature.category.CategoryList;
 import moomoo.feature.Ui;
+import moomoo.feature.category.CategoryList;
 import moomoo.feature.storage.Storage;
 
 /**
@@ -21,7 +21,7 @@ public class ExitCommand extends Command {
 
     @Override
     public void execute(ScheduleList calendar, Budget budget, CategoryList categoryListList,
-                        Ui ui, Storage storage) {
-        ui.showGoodbye();
+                        Storage storage) {
+        Ui.showGoodbye();
     }
 }

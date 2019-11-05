@@ -3,15 +3,18 @@ package moomoo.stubs;
 import moomoo.feature.Ui;
 
 public class UiStub extends Ui {
-    private String response;
+    private static String response;
 
+    /*
     @Override
-    public String returnResponse() {
-        return this.response;
+    public static String returnResponse() {
+        return response;
     }
 
     @Override
     public void setOutput(String output) {
         this.response = output;
     }
+
+     */
 }

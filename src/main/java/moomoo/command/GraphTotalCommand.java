@@ -1,12 +1,12 @@
 package moomoo.command;
 
+import moomoo.feature.Ui;
 import moomoo.feature.category.Category;
 import moomoo.feature.ScheduleList;
 import moomoo.feature.Budget;
 import moomoo.feature.MooMooException;
 import moomoo.feature.category.CategoryList;
 import moomoo.feature.storage.Storage;
-import moomoo.feature.Ui;
 
 import java.time.LocalDate;
 
@@ -39,7 +39,7 @@ public class GraphTotalCommand extends Command {
     
     @Override
     public void execute(ScheduleList calendar, Budget budget, CategoryList categoryList,
-                        Ui ui, Storage storage)
+                        Storage storage)
             throws MooMooException {
 
         if (categoryList.size() == 0) {
@@ -101,6 +101,6 @@ public class GraphTotalCommand extends Command {
             }
         }
         output += topSpace + horizontalAxisBottom + "\n";
-        ui.setOutput(output);
+        Ui.setOutput(output);
     }
 }

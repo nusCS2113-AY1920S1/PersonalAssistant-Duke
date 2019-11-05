@@ -1,11 +1,11 @@
 package moomoo.command;
 
 import moomoo.feature.Budget;
+import moomoo.feature.Ui;
 import moomoo.feature.category.CategoryList;
 import moomoo.feature.MooMooException;
 import moomoo.feature.ScheduleList;
 import moomoo.feature.storage.Storage;
-import moomoo.feature.Ui;
 
 public class NotificationCommand extends Command {
     private String cat;
@@ -28,7 +28,7 @@ public class NotificationCommand extends Command {
 
     @Override
     public void execute(ScheduleList calendar, Budget budget, CategoryList categoryListList,
-                        Ui ui, Storage storage) throws MooMooException {
+                        Storage storage) throws MooMooException {
         String alert = "";
         if (expenditure > budget.getBudgetFromCategory(cat)) {
             alert = "You have exceeded your budget for " + cat + "!";
@@ -62,7 +62,7 @@ public class NotificationCommand extends Command {
                 + "     (6___6)         | " + "Budget remaining : " + balance + blank2 + "|\n"
                 + "      `---`          .-------------------------------------------------." + ANSI_RESET;
 
-        ui.setOutput(cow);
+        Ui.setOutput(cow);
     }
 }
 

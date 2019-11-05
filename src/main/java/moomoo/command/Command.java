@@ -4,7 +4,6 @@ import moomoo.feature.ScheduleList;
 import moomoo.feature.Budget;
 import moomoo.feature.MooMooException;
 import moomoo.feature.category.CategoryList;
-import moomoo.feature.Ui;
 import moomoo.feature.storage.Storage;
 
 /**
@@ -29,11 +28,10 @@ public abstract class Command {
      * Executes necessary functions for each different command.
      * @param budget Budget object containing the budget.
      * @param categoryListList CategoryList object containing the categories
-     * @param ui Ui object for interaction with user interface.
      * @param storage Storage object for interaction with filesystem.
      * @throws MooMooException Thrown when error such as invalid input occurs
      */
     public abstract void execute(ScheduleList calendar, Budget budget, CategoryList categoryListList,
-                                 Ui ui, Storage storage)
+                                 Storage storage)
             throws MooMooException;
 }

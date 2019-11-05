@@ -39,7 +39,7 @@ public class AddExpenditureCommand extends Command {
 
     @Override
     public void execute(ScheduleList calendar, Budget budget, CategoryList categoryList,
-                        Ui ui, Storage storage) throws MooMooException {
+                        Storage storage) throws MooMooException {
         Category cat = categoryList.get(categoryName);
         if (cat == null) {
             throw new MooMooException("Sorry I could not find a category named " + categoryName);
@@ -48,9 +48,9 @@ public class AddExpenditureCommand extends Command {
         Expenditure newExpenditure = new Expenditure(expenditureName, amount, date);
         cat.add(newExpenditure);
         NotificationCommand alert = new NotificationCommand(categoryName, cat.getTotal());
-        alert.execute(calendar, budget, categoryList, ui, storage);
+        alert.execute(calendar, budget, categoryList, storage);
         CategoryStorage.saveToFile(newExpenditure, categoryName);
-        ui.showNewExpenditure(expenditureName, categoryName);
+        Ui.showNewExpenditure(expenditureName, categoryName);
     }
 }
 
