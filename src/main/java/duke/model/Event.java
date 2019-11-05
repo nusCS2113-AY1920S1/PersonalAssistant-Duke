@@ -1,7 +1,6 @@
 package duke.model;
 
 import duke.commons.exceptions.ApiException;
-import duke.commons.exceptions.DukeException;
 import duke.logic.api.ApiParser;
 import duke.model.locations.Venue;
 
