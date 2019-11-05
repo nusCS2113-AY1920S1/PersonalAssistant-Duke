@@ -1,16 +1,17 @@
 package mistermusik.logic;
 
-import mistermusik.commons.events.eventtypes.Event;
-import mistermusik.commons.events.eventtypes.eventsubclasses.assessmentsubclasses.Exam;
-import mistermusik.commons.events.eventtypes.eventsubclasses.assessmentsubclasses.Recital;
-import mistermusik.commons.events.eventtypes.eventsubclasses.Concert;
-import mistermusik.commons.events.eventtypes.eventsubclasses.recurringeventsubclasses.Lesson;
-import mistermusik.commons.events.eventtypes.eventsubclasses.recurringeventsubclasses.Practice;
-import mistermusik.commons.events.eventtypes.eventsubclasses.ToDo;
-import mistermusik.commons.events.formatting.EventDate;
-import mistermusik.commons.events.formatting.Predicate;
+import mistermusik.commons.Goal;
 import mistermusik.commons.budgeting.Budgeting;
 import mistermusik.commons.budgeting.CostExceedsBudgetException;
+import mistermusik.commons.events.eventtypes.Event;
+import mistermusik.commons.events.eventtypes.eventsubclasses.Concert;
+import mistermusik.commons.events.eventtypes.eventsubclasses.ToDo;
+import mistermusik.commons.events.eventtypes.eventsubclasses.assessmentsubclasses.Exam;
+import mistermusik.commons.events.eventtypes.eventsubclasses.assessmentsubclasses.Recital;
+import mistermusik.commons.events.eventtypes.eventsubclasses.recurringeventsubclasses.Lesson;
+import mistermusik.commons.events.eventtypes.eventsubclasses.recurringeventsubclasses.Practice;
+import mistermusik.commons.events.formatting.EventDate;
+import mistermusik.commons.events.formatting.Predicate;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -42,6 +43,16 @@ public class EventList {
      * Class that handles all budgeting for concerts.
      */
     private Budgeting budgeting;
+
+    /**
+     * Index to manage which events are over.
+     */
+    public int currentDateIndex = 0;
+
+    /**
+     * Flag to check if there are unachieved goals for past events.
+     */
+    boolean gotPastUnachieved = false;
 
     /**
      * Creates new Model_Class.EventList object.
@@ -286,8 +297,9 @@ public class EventList {
      * @return String containing all events, separated by a newline.
      */
     public String listOfEvents_String() {
+        findNextEventAndSetBoolean();
         String allEvents = "";
-        for (int i = 0; i < eventArrayList.size(); ++i) {
+        for (int i = currentDateIndex; i < eventArrayList.size(); ++i) {
             if (eventArrayList.get(i) == null) continue;
             int j = i + 1;
             allEvents += j + ". " + this.getEvent(i).toString() + "\n";
@@ -343,4 +355,48 @@ public class EventList {
         return budgeting;
     }
 
+    //@@author yenpeichih
+    /**
+     * Compares the dates of each event with current date
+     */
+    private void findNextEventAndSetBoolean() {
+        Calendar currentDate = Calendar.getInstance();
+        for (int i = 0; i < eventArrayList.size(); i += 1) {
+            if (this.getEvent(i).getStartDate().getEventJavaDate().compareTo(currentDate.getTime()) <= 0) {
+                currentDateIndex = i + 1;
+            }
+        }
+        if (currentDateIndex > 0) {
+            for (int i = 0; i < currentDateIndex; i += 1) {
+                Event eventToCheck = this.getEvent(i);
+                for (int j = 0; j < eventToCheck.getGoalList().size(); j += 1) {
+                    if (!eventToCheck.getGoalObject(j).getBooleanStatus()) {
+                        gotPastUnachieved = true;
+                    }
+                }
+            }
+        }
+    }
+
+    public String getPastEventsWithUnachievedGoals() {
+        String overUnachievedGoalsList = "\n" + "Below lists all the unachieved goal for past events. Please be reminded to add them to the future events." + "\n";
+        if (gotPastUnachieved) {
+            for (int j = 0; j < currentDateIndex; j += 1) {
+                Event eventToCheck = this.getEvent(j);
+                for (int k = 0; k < eventToCheck.getGoalList().size(); k += 1) {
+                    if (!eventToCheck.getGoalObject(k).getBooleanStatus()) {
+                        Goal unachievedGoal = eventToCheck.getGoalObject(k);
+                        int eventListNum = j + 1;
+                        int goalListNum = k + 1;
+                        overUnachievedGoalsList += "Event " + eventListNum + ": " + eventToCheck.toString() + " ---" + " Goal " + goalListNum + ": " + unachievedGoal.getGoal() + "\n";
+                    }
+                }
+            }
+            return overUnachievedGoalsList;
+        } else {
+            overUnachievedGoalsList += "You do not have any unachieved goals for past events! Yay!" + "\n";
+        }
+        return overUnachievedGoalsList;
+    }
+    //@@author
 }
