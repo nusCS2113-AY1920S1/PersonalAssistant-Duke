@@ -2,7 +2,6 @@ package commands;
 
 import exceptions.FarmioFatalException;
 import farmio.Farmio;
-import farmio.Storage;
 import farmio.Farmer;
 import exceptions.FarmioException;
 import frontend.Ui;
@@ -24,7 +23,6 @@ public class CommandTaskCreate extends CommandChangeTask {
     @Override
     public void execute(Farmio farmio) throws FarmioException, FarmioFatalException {
         Ui ui = farmio.getUi();
-        Storage storage = farmio.getStorage();
         Farmer farmer = farmio.getFarmer();
         farmer.getTasks().addTask(task);
         super.saveTaskandResetScreen(farmio);
