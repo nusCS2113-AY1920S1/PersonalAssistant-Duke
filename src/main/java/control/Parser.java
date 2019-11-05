@@ -47,8 +47,6 @@ public class Parser {
             return new LoginCommand(input, splitStr);
         case "logout":
             return new LogoutCommand();
-        case "create":
-            return new CreateAccountCommand(input, splitStr);
         case "add":
             return new AddBookingCommand(input, splitStr);
         case "addroom":
@@ -65,9 +63,9 @@ public class Parser {
             return new RejectCommand(input, splitStr);
         case "delete":
             return new DeleteBookingCommand(input, splitStr);
-        case "findindex" :
+        case "findindex":
             return new FindBookingIndexCommand(input, splitStr);
-        case "find" :
+        case "find":
             return new FindBookingCommand(input, splitStr);
         case "listday":
             return new ListBookingDailyCommand(input, splitStr);
