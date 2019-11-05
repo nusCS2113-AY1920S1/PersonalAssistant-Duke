@@ -20,6 +20,7 @@ import java.util.Collections;
  */
 public class ListCommand extends Command {
     String sortBy = "default";
+
     /**
      * Constructor for ListCommand.
      */
@@ -74,15 +75,14 @@ public class ListCommand extends Command {
             ui.showMessage("There isn't any food on " + currentDate.format(dateFormat));
         }
         switch (sortBy) {
-            case "default":
-                currentMeals.sort(new SortMealByDefault());
-                break;
             case "calorie":
                 currentMeals.sort(new SortMealByCalorie());
                 break;
             case "cost":
                 currentMeals.sort(new SortMealByCost());
                 break;
+            default:
+                currentMeals.sort(new SortMealByDefault());
         }
         ui.showMealList(currentMeals);
         ui.showCaloriesLeft(currentMeals, user, currentDate);

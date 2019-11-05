@@ -15,7 +15,7 @@
       "description": "apple",
       "type": "D",
       "mealType": "DINNER",
-      "isDone": false,
+      "isDone": true,
       "date": "2019-11-06",
       "nutritionValue": {
         "calorie": 800

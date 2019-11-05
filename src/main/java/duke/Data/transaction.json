@@ -41,6 +41,11 @@
           "transactionAmount": 0.5,
           "type": "PAY",
           "date": "2019-11-06"
+        },
+        {
+          "transactionAmount": 1.5,
+          "type": "PAY",
+          "date": "2019-11-06"
         }
       ],
       "2019-11-05": [
@@ -138,7 +143,7 @@
     }
   },
   "account": {
-    "amount": 397.00,
+    "amount": 395.50,
     "currency": "SGD"
   }
 }

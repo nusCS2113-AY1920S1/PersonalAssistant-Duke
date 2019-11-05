@@ -31,7 +31,7 @@ public class ListCommandParser implements ParserInterface<ListCommand> {
                 String dateArgStr = "";
                 try {
                     dateArgStr = argumentInfoMap.get(details);
-                    localDate= LocalDate.parse(dateArgStr, dateFormat);
+                    localDate = LocalDate.parse(dateArgStr, dateFormat);
                 } catch (DateTimeParseException e) {
                     return new ListCommand(false, "Unable to parse \"" + userInputStr + "\" as a date.");
                 }
