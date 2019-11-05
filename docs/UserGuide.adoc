@@ -1385,7 +1385,7 @@ In the last example above, *OwlMoney* provided you with the flexibility of perfo
 
 ====
 
-===== Finding bank transaction details `/find /recurbankexp`
+===== Finding recurring expenditure details `/find /recurbankexp`
 
 Looking for a recurring expenditure from a savings account? *OwlMoney* is able to help you with that by providing you
 various ways to do it! It allows you to search by description or category!
