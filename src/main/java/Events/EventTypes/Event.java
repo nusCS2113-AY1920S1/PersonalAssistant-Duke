@@ -135,6 +135,7 @@ public abstract class Event implements Comparable<Event> {
 //        logger.log(Level.INFO, "The endEventDate of the event is rescheduled");
     }
 
+    //@@author yenpeichih
     public void addGoal(Goal goalInput) {
         goalsList.add(goalInput);
 //        logger.log(Level.INFO, "The new goal is added to the list");
@@ -147,6 +148,10 @@ public abstract class Event implements Comparable<Event> {
 
     public ArrayList<Goal> getGoalList() {
         return goalsList;
+    }
+
+    public Goal getGoalObject(int goalID) {
+        return goalsList.get(goalID);
     }
 
     public void editGoalList(Goal goalInput, int index) {

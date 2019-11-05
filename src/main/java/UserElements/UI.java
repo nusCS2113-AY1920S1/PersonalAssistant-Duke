@@ -220,9 +220,10 @@ public class UI {
      *
      * @param events Model_Class.EventList object containing all stored classes and pertaining methods.
      */
-    static void printListOfEvents(EventList events) {
+    static void printListOfEvents(EventList events, UI ui) {
         System.out.print(lineSeparation);
         System.out.print(events.listOfEvents_String());
+        System.out.print(events.getOverUnachievedGoals());
         System.out.print(lineSeparation);
     }
 
@@ -260,11 +261,6 @@ public class UI {
             System.out.println("Now you have " + numEvents + " events in the list.");
             System.out.print(lineSeparation);
         }
-    }
-
-    public void inputDetails() {
-        System.out.println("Please input the event details below in the format" + "\n" +
-                "<venue>/<teachers or assessors>/<pieces to practice>/<performers>. For non-applicable categories please input 'NA'.");
     }
 
     /**
@@ -598,4 +594,10 @@ public class UI {
     	System.out.println(instrumentIndexAndName);
     	System.out.println(lineSeparation);
     }
+
+    public void printEnteredEventOver() {
+        System.out.println("Reminder: the event you have added has a start date that is already over and hence won't be displayed in the list. You may still view it by" +
+                " using the view schedules command.");
+    }
+
 }

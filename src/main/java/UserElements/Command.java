@@ -374,6 +374,7 @@ public class Command {
         ui.printFreeDays(daysFree);
     }
 
+    //@@author yenpeichih
     /**
      * Searches list for events found in a singular date, passes to UI for printing.
      */
@@ -409,15 +410,22 @@ public class Command {
                 EntryForEvent entryForEvent = new EntryForEvent().invoke(); //separate all info into relevant details
                 Event newEvent = newEvent(eventType, entryForEvent); //instantiate new event
                 assert newEvent != null;
+                Calendar currentDate = Calendar.getInstance();
 
                 if (entryForEvent.getPeriod() == NO_PERIOD) { //non-recurring
 
                     events.addEvent(newEvent);
                     ui.eventAdded(newEvent, events.getNumEvents());
+                    if (newEvent.getStartDate().getEventJavaDate().compareTo(currentDate.getTime()) < 0) {
+                        ui.printEnteredEventOver();
+                    }
 
                 } else { //recurring
                     events.addRecurringEvent(newEvent, entryForEvent.getPeriod());
                     ui.recurringEventAdded(newEvent, events.getNumEvents(), entryForEvent.getPeriod());
+                    if (newEvent.getStartDate().getEventJavaDate().compareTo(currentDate.getTime()) < 0) {
+                        ui.printEnteredEventOver();
+                    }
                 }
 
             } catch (ClashException e) { //clash found
@@ -581,7 +589,6 @@ public class Command {
     }
 
     //@@author yenpeichih
-
     /**
      * Manages the goals of an existing event.
      *
@@ -651,7 +658,6 @@ public class Command {
     }
 
     //@@author YuanJiayi
-
     /**
      * Manage the contacts of an existing event.
      *
@@ -771,7 +777,7 @@ public class Command {
     }
 
     private void listEvents(EventList events, UI ui) {
-        UI.printListOfEvents(events);
+        UI.printListOfEvents(events, ui);
     }
 
     //@@author Ryan-Wong-Ren-Wei
