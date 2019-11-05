@@ -70,7 +70,7 @@ public class UiEn extends Ui {
     @Override
     public void showPrioritize(Task task) {
         super.display("\t Got it. I've set the priority of this task:\n\t   "
-                + task.toString()+ " to " + task.getPriority());
+                + task.toString());
     }
     @Override
     public void showReschedule(EventsTask rescheduleTask) {
