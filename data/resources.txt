@@ -5,3 +5,22 @@
 4,I,frisbee
 6,I,pen
 7,I,pen
+5,I,testicle
+8,I,testicle
+10,I,besticle
+11,I,besticle
+9,I,test
+12,I,test
+0,I,pen
+1,R,seminar room 1
+2,I,frisbee
+3,R,mpsh
+4,I,frisbee
+6,I,pen
+7,I,pen
+5,I,testicle
+8,I,testicle
+10,I,besticle
+11,I,besticle
+9,I,test
+12,I,test

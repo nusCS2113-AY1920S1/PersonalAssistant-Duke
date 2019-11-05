@@ -28,9 +28,9 @@ public class StatsCommand extends Command {
     private String dateTillString;
 
     /**
-     * Constructor of an Statscommand, which takes in a pair of specified dates
+     * Constructor of an Statscommand, which takes in a pair of specified dates.
      * 
-     * @throws ParseException
+     * @throws ParseException catches parse exception when handling dates.
      */
     public StatsCommand(String dateFrom, String dateTill) throws ParseException {
         this.dateFromString = dateFrom;
@@ -57,23 +57,23 @@ public class StatsCommand extends Command {
 
         ui.printLine();
         ui.print("Here are the required stats:");
-
-        long interval = TimeUnit.DAYS.convert((dateTill.getTime() - dateFrom.getTime()), TimeUnit.MILLISECONDS) + 1;
-        Date currentDate = dateFrom;
         ui.printLine();
+
         ui.printDash();
         ui.print("Resource in use each day");
         ui.printDash();
+        long interval = TimeUnit.DAYS.convert((dateTill.getTime() - dateFrom.getTime()), TimeUnit.MILLISECONDS) + 1;
+        Date currentDate = dateFrom;
         int total_count = 0;
-        for (int i = 0; i < interval; i++) {            
+        for (int i = 0; i < interval; i++) {
             int count = resources.getBookedNumberOfResourceForDate(currentDate);
             total_count += count;
             ui.print(dateToString(currentDate) + ":" + Integer.toString(count));
             currentDate = incrementDay(currentDate);
         }
-        double average = total_count/(double)interval;
+        double average = total_count / (double) interval;
         average = BigDecimal.valueOf(average).setScale(3, RoundingMode.HALF_UP).doubleValue();
-        
+
         ui.printDash();
         ui.print("Average resource in use per day: " + Double.toString(average));
         ui.printDash();
@@ -107,6 +107,7 @@ public class StatsCommand extends Command {
 
     /**
      * This utility method takes in a date, increment it by 1 day, then return it.
+     * 
      * @param thisDate
      * @return
      * @throws ParseException
@@ -122,3 +123,7 @@ public class StatsCommand extends Command {
     }
 
 }
+
+// stats for individual items e.g. how often a pen is borrowed per week, per
+// month
+// graph
