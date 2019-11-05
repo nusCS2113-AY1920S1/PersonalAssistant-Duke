@@ -17,6 +17,7 @@ public class ParserHelperTest {
     private final Member member2;
     private final Member member3;
 
+    //@@author sinteary
     ParserHelperTest() {
         this.project = new Project("Test Project");
         this.member1 = new Member("Tom", "NIL", "NIL", 1, "member");
@@ -89,12 +90,11 @@ public class ParserHelperTest {
         assertEquals(0, parsedCommands.get(0).size());
         assertEquals(0, parsedCommands.get(1).size());
         assertEquals(0, parsedCommands.get(2).size());
-
     }
 
     @Test
     public void testParseMembersIndex() {
-        String command = "0 1 2 abc 3 4";
+        String command = "0 1 2 abc 3 4 -1 9999999999999999999";
         ParserHelper parserHelper = new ParserHelper();
         ArrayList<Integer> validMemberIndexes = parserHelper.parseMembersIndexes(command, 3);
         assertTrue(validMemberIndexes.size() == 3);
@@ -105,11 +105,14 @@ public class ParserHelperTest {
         assertTrue(errorMessages.contains("Could not recognise member abc, please ensure it is an integer."));
         assertTrue(errorMessages.contains("Member with index 0 does not exist."));
         assertTrue(errorMessages.contains("Member with index 4 does not exist."));
+        assertTrue(errorMessages.contains("Member with index -1 does not exist."));
+        assertTrue(errorMessages.contains("Could not recognise member 9999999999999999999, "
+            + "please ensure it is an integer."));
     }
 
     @Test
     public void testParseTasksIndex() {
-        String command = "0 1 2 def 3 4";
+        String command = "0 1 2 def 3 4 -1 9999999999999999999";
         ParserHelper parserHelper = new ParserHelper();
         ArrayList<Integer> validTaskIndexes = parserHelper.parseTasksIndexes(command, 3);
         assertTrue(validTaskIndexes.size() == 3);
@@ -120,6 +123,9 @@ public class ParserHelperTest {
         assertTrue(errorMessages.contains("Could not recognise task def, please ensure it is an integer."));
         assertTrue(errorMessages.contains("Task with index 0 does not exist."));
         assertTrue(errorMessages.contains("Task with index 4 does not exist."));
+        assertTrue(errorMessages.contains("Could not recognise task 9999999999999999999, "
+            + "please ensure it is an integer."));
+        assertTrue(errorMessages.contains("Task with index -1 does not exist."));
     }
 
 

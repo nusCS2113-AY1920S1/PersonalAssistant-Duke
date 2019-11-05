@@ -41,6 +41,7 @@ public class Member implements IMember {
         return Objects.hash(this.name, this.phone, this.email);
     }
 
+
     @Override
     public String getDetails() {
         return this.indexNumber + ". " + this.name + " (Phone: " + this.phone + " | Email: "
