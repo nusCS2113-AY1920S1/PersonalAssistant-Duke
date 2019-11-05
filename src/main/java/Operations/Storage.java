@@ -189,7 +189,7 @@ public class Storage {
                 String out = "";
                 String type = String.valueOf(s.toString().charAt(1));
                 String isDone = s.getDone() ? "y" : "n";
-                String priority = s.getPriority().name();
+                String priority = s.getPriority().toString();
                 String description = s.getDescription();
                 String date = convertForStorage(s);
                 String recurrence = s.getRecurrenceSchedule().toString();
