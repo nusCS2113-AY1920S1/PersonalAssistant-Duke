@@ -13,7 +13,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class RouteShowCommandTest {
     @Test
-    void execute() throws FileLoadFailException, DuplicateRouteException, OutOfBoundsException, DuplicateRouteNodeException {
+    void execute() throws FileLoadFailException, DuplicateRouteException, OutOfBoundsException,
+            DuplicateRouteNodeException {
         ModelStub model = new ModelStub();
         Route route = new Route("Test route", "2113");
         model.addRoute(route);

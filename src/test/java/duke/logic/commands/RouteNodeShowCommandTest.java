@@ -16,7 +16,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 class RouteNodeShowCommandTest {
 
     @Test
-    void execute() throws FileLoadFailException, DuplicateRouteException, QueryFailedException, DuplicateRouteNodeException {
+    void execute() throws FileLoadFailException, DuplicateRouteException, QueryFailedException,
+            DuplicateRouteNodeException {
         ModelStub model = new ModelStub();
         Route route = new Route("To Clementi", "by bus!");
         BusStop busStop = new BusStop("17009", model);
