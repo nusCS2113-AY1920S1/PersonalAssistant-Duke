@@ -1,7 +1,7 @@
  import Commands.Command;
 import Commands.RetrievePreviousCommand;
 import Commons.LookupTable;
-import Commons.Ui;
+import Commons.UserInteraction;
 import StubClasses.StorageStub;
 import Tasks.TaskList;
 import org.junit.jupiter.api.BeforeAll;
@@ -18,11 +18,10 @@ public class RetrievePreviousCommandTest {
     private static String userInputToGetFromEmptyPreviousInputList;
     private static String userInputWithValidNumber;
     private static String userInputToGetFromNonEmptyPreviousInputList;
-    private LookupTable lookupTable = new LookupTable();
     private TaskList events = new TaskList();
     private TaskList deadlines = new TaskList();
     private StorageStub storageStub = new StorageStub();
-    private Ui ui = new Ui();
+    private UserInteraction ui = new UserInteraction();
 
     @BeforeAll
     public static void setAllVariables() {
@@ -44,7 +43,7 @@ public class RetrievePreviousCommandTest {
                 "Please enter a valid number less than or equal to " + sizeOfList + " .";
         String actual = "";
         try {
-            actual = command.execute(lookupTable, events, deadlines, ui, storageStub);
+            actual = command.execute(events, deadlines, ui, storageStub);
         } catch (Exception e) {
             actual = e.getMessage();
         }
@@ -58,7 +57,7 @@ public class RetrievePreviousCommandTest {
                 "Format: show previous <num> or show previous <type> <num>";
         String actual = "";
         try {
-            actual = command.execute(lookupTable, events, deadlines, ui, storageStub);
+            actual = command.execute(events, deadlines, ui, storageStub);
         } catch (Exception e) {
             actual = e.getMessage();
         }
@@ -71,7 +70,7 @@ public class RetrievePreviousCommandTest {
         String expected = "Your chosen previous input is: \n add/d CS2100 assignment 2 /by 13/10/2019 1400";
         String actual = "";
         try {
-            actual = command.execute(lookupTable, events, deadlines, ui, storageStub);
+            actual = command.execute(events, deadlines, ui, storageStub);
         } catch (Exception e) {
             actual = e.getMessage();
         }
@@ -84,7 +83,7 @@ public class RetrievePreviousCommandTest {
         String expected = "Your chosen previous input is: \n add/d CS2100 finish tutorial /by 12/10/2019 1300";
         String actual = "";
         try {
-            actual = command.execute(lookupTable, events, deadlines, ui, storageStub);
+            actual = command.execute(events, deadlines, ui, storageStub);
         } catch (Exception e) {
             actual = e.getMessage();
         }
