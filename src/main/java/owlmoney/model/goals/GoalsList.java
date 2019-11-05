@@ -224,6 +224,10 @@ public class GoalsList {
         String capitalGoalName = goalName.toUpperCase();
         for (int i = ISZERO; i < goalList.size(); i++) {
             Goals currentGoal = goalList.get(i);
+            if (currentGoal.getRawStatus()) {
+                throw new GoalsException("Sorry, you cannot edit a goal that's already achieved! " +
+                        "Try creating a new goal instead!");
+            }
             String currentGoalName = currentGoal.getGoalsName();
             String capitalCurrentGoalName = currentGoalName.toUpperCase();
             if (capitalGoalName.equals(capitalCurrentGoalName)) {

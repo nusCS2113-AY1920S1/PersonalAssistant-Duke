@@ -1008,7 +1008,9 @@ Regardless whether it's a short-term goal [.small]_like saving for a holiday_ or
 [.small]_like saving for your wedding or retirement_, we've got you covered!
 
 |===
-Earn an achievement when you reach your goal before your stipulated deadline and unlocked a new achievement!
+|Earn an achievement when you reach your goal before your stipulated deadline and unlocked a new achievement!
+
+*View your achievements* using the command `/list /achievement`
 |===
 
 *Command Syntax*
