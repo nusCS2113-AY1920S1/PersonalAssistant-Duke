@@ -166,6 +166,20 @@ public class TaskList implements Serializable, Cloneable {
     }
 
     /**
+     * takes the integers in the Arraylist, and removes the tasks at those index locations
+     * @param toDelete
+     * @throws DukeException
+     */
+    public void banishDelete(ArrayList<Integer> toDelete) throws DukeException{
+        for (int i = (toDelete.size()-1); i >= 0; i--) {
+            if (isOutOfRange(i)){
+                throw new DukeException("The index was not found within the range");
+            }
+            this.list.remove(i);
+        }
+    }
+
+    /**
      * passes a new date into the event or deadline class.
      *
      * @param input User input of the command to snooze a task as a string.
@@ -258,8 +272,22 @@ public class TaskList implements Serializable, Cloneable {
         }
     }
 
+
+    /**
+     * backend method for adding a task to the tasklist
+     * @param task
+     */
     public void add(Task task) {
-        this.list.add(task); //Straightforward command to add a task, for backend methods
+        this.list.add(task);
+    }
+
+
+    /**
+     * backend method for removing a task from the tasklist
+     * @param i
+     */
+    public void remove(int i){
+        this.list.remove(i);
     }
 
     /**
@@ -335,6 +363,7 @@ public class TaskList implements Serializable, Cloneable {
         if (this.size() == 0) {
             System.out.println("Whoops, there doesn't seem to be anything here at the moment");
         } else {
+            System.out.println("Here are your tasks: \n");
             int counter = 1;
             for (Task task : list) {
                 System.out.println(counter++ + ". " + task.toList());

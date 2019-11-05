@@ -43,11 +43,11 @@ public class Parser {
         }
 
         String command = temp.next();
-        if (command.matches("list|bye|choices")) {
+        if (command.matches("tasks|bye|choices")) {
             if (temp.hasNextLine()) {
                 throw new DukeException(command + " should not have any other arguments (whitespace acceptable)");
             } else {
-                if (command.matches("list")) {
+                if (command.matches("tasks")) {
                     return new PrintCommand(command) {
                     };
                 } else if (command.matches("bye")) {
