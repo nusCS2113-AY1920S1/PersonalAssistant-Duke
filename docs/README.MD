@@ -112,18 +112,39 @@ Example:<br />
 `Delete 3`
 
 
-## 3.2 Postponing a task : `postpone`
+## 3.2 Postpone commands
+### 3.2.1) Postpone a deadline task : `postpone`
+Postpone a deadline to another timeslot.(Applies to assignments and exams)<br />
+Format: `postpone <Index> <Date> <Time>
+- Time must be in 24 hour format (dd/mm/yyyy)
+- List no must be a positive integer not greater than the total number of tasks in the task manager.
+- Chronologer will detect clashes with another deadline at the same time slot.
+- Time postponed must be later than the current one.
 
-Edits an existing task in the task scheduler to a different date. <br />
-Format: `postpone INDEX DATE_TIME`
+Examples:<br />
+`postpone 2 13/12/2019 1900`<br />
 
-- Edits the task at the specified `INDEX`. The index refers to the index number shown in the task list. `INDEX` must be a positive integer.
+### 3.2.2) Postpone an event task : `postpone`
+Postpone an event to another timeslot.(Applies to lectures and tutorials)<br />
+Format: `postpone <Index> <start_datetime - end_datetime>
+- Time must be in 24 hour format (dd/mm/yyyy)
+- List no must be a positive integer not greater than the total number of tasks in the task manager.
+- Chronologer will detect clashes with another event at the same time slot.
+- Time postponed must be later than the current one.
 
+Examples:<br />
+`postpone 4 25/11/2019 0800 - 26/11/2019 1900`<br />
 
-Examples:
+### 3.2.3) Postpone a todo with period task : `postpone`
+Postpone a todo task with period to another time range<br />
+Format: `postpone <Index> <start_datetime - end_datetime>
+- Time must be in 24 hour format (dd/mm/yyyy)
+- List no must be a positive integer not greater than the total number of tasks in the task manager.
+- Todo tasks won't clash with others.
+- Time postponed must be later than the current one.
 
-* `postpone 1 25/09/2019 1500`
-* `postpone 5 27/09/2019 0900 - 03/10/2019 2359`
+Examples:<br />
+`postpone 2 24/06/2019 1900 - 25/06/2019 1900`<br />
 
 ## 3.3 Searching for a free timeslot: 'search'
 
