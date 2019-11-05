@@ -1,6 +1,7 @@
 package wallet.logic;
 
 import wallet.exception.InsufficientParameters;
+import wallet.exception.WrongDateTimeFormat;
 import wallet.exception.WrongParameterFormat;
 import wallet.logic.command.Command;
 import wallet.logic.parser.ExpenseParser;
@@ -107,7 +108,7 @@ public class LogicManager {
             } else {
                 System.out.println(MESSAGE_ERROR_COMMAND);
             }
-        } catch (WrongParameterFormat | InsufficientParameters | ParseException err) {
+        } catch (WrongDateTimeFormat | WrongParameterFormat | InsufficientParameters | ParseException err) {
             Ui.printError(err.toString());
         } catch (Exception e) {
             e.printStackTrace();

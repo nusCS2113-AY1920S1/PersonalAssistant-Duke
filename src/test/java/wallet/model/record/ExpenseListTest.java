@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 
+import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ExpenseListTest {
@@ -14,28 +15,30 @@ public class ExpenseListTest {
     public void addExpense_nonRecurringExpense_success() {
         Expense e = new Expense("Lunch", LocalDate.now(), 3, Category.FOOD, false, null);
         expenseList.addExpense(e);
-        for (Expense ex : expenseList.getExpenseList()) {
-            assertEquals("Lunch", ex.getDescription());
-            assertEquals(LocalDate.now(), ex.getDate());
-            assertEquals(3.0, ex.getAmount());
-            assertEquals(Category.FOOD, ex.getCategory());
-            assertEquals(false, ex.isRecurring());
-            assertEquals(null, ex.getRecFrequency());
-        }
+        Expense expense = expenseList.getExpense(0);
+        assertAll("Expense should contain correct input values",
+            () -> assertEquals("Lunch", expense.getDescription()),
+            () -> assertEquals(LocalDate.now(), expense.getDate()),
+            () -> assertEquals(3.0, expense.getAmount()),
+            () -> assertEquals(Category.FOOD, expense.getCategory()),
+            () -> assertEquals(false, expense.isRecurring()),
+            () -> assertEquals(null, expense.getRecFrequency())
+        );
     }
 
     @Test
-    public void addExpense_recurringExpense_success() {
+    public void addExpense_recurringDailyExpense_success() {
         Expense e = new Expense("Lunch", LocalDate.now(), 3, Category.FOOD, true, "DAILY");
         expenseList.addExpense(e);
-        for (Expense ex : expenseList.getExpenseList()) {
-            assertEquals("Lunch", ex.getDescription());
-            assertEquals(LocalDate.now(), ex.getDate());
-            assertEquals(3.0, ex.getAmount());
-            assertEquals(Category.FOOD, ex.getCategory());
-            assertEquals(true, ex.isRecurring());
-            assertEquals("DAILY", ex.getRecFrequency());
-        }
+        Expense expense = expenseList.getExpense(0);
+        assertAll("Expense should contain correct input values",
+            () -> assertEquals("Lunch", expense.getDescription()),
+            () -> assertEquals(LocalDate.now(), expense.getDate()),
+            () -> assertEquals(3.0, expense.getAmount()),
+            () -> assertEquals(Category.FOOD, expense.getCategory()),
+            () -> assertEquals(true, expense.isRecurring()),
+            () -> assertEquals("DAILY", expense.getRecFrequency())
+        );
     }
 
     @Test
@@ -45,14 +48,15 @@ public class ExpenseListTest {
         e.setDescription("Dinner");
         e.setAmount(5);
         expenseList.editExpense(0, e);
-        for (Expense ex : expenseList.getExpenseList()) {
-            assertEquals("Dinner", ex.getDescription());
-            assertEquals(LocalDate.now(), ex.getDate());
-            assertEquals(5.0, ex.getAmount());
-            assertEquals(Category.FOOD, ex.getCategory());
-            assertEquals(false, ex.isRecurring());
-            assertEquals(null, ex.getRecFrequency());
-        }
+        Expense expense = expenseList.getExpense(0);
+        assertAll("Expense should contain correct edited values",
+            () -> assertEquals("Dinner", expense.getDescription()),
+            () -> assertEquals(LocalDate.now(), expense.getDate()),
+            () -> assertEquals(5.0, expense.getAmount()),
+            () -> assertEquals(Category.FOOD, expense.getCategory()),
+            () -> assertEquals(false, expense.isRecurring()),
+            () -> assertEquals(null, expense.getRecFrequency())
+        );
     }
 
     @Test
@@ -61,5 +65,63 @@ public class ExpenseListTest {
         expenseList.addExpense(e);
         int index = expenseList.findExpenseIndex(e);
         assertEquals(0, index);
+    }
+
+    @Test
+    public void deleteExpense_validId_success() {
+        Expense e = new Expense("Phone Bills", LocalDate.now(), 40, Category.BILLS, true, "MONTHLY");
+        expenseList.addExpense(e);
+        Expense expense = expenseList.deleteExpense(1);
+        assertAll("Deleted expense should contain correct values",
+            () -> assertEquals("Phone Bills", expense.getDescription()),
+            () -> assertEquals(LocalDate.now(), expense.getDate()),
+            () -> assertEquals(40.0, expense.getAmount()),
+            () -> assertEquals(Category.BILLS, expense.getCategory()),
+            () -> assertEquals(true, expense.isRecurring()),
+            () -> assertEquals("MONTHLY", expense.getRecFrequency())
+        );
+    }
+
+    @Test
+    public void deleteExpense_invalidId_nullReturned() {
+        Expense expense = expenseList.deleteExpense(10);
+        assertEquals(null, expense);
+    }
+
+    @Test
+    public void findIndexWithId_validId_success() {
+        Expense e = new Expense("Formal Shirt", LocalDate.now(), 40, Category.SHOPPING, false, null);
+        expenseList.addExpense(e);
+        int index = expenseList.findIndexWithId(1);
+        assertEquals(0, index);
+    }
+
+    @Test
+    public void findIndexWithId_invalidId_success() {
+        Expense e = new Expense("T-Shirt", LocalDate.now(), 10, Category.SHOPPING, false, null);
+        expenseList.addExpense(e);
+        int index = expenseList.findIndexWithId(5);
+        assertEquals(-1, index);
+    }
+
+    @Test
+    public void findExpenseWithId_validId_success() {
+        Expense e = new Expense("Electricity bills", LocalDate.now(), 80.0, Category.BILLS, true, "MONTHLY");
+        expenseList.addExpense(e);
+        Expense expense = expenseList.findExpenseWithId(1);
+        assertAll("Expense should contain correct values",
+            () -> assertEquals("Electricity bills", expense.getDescription()),
+            () -> assertEquals(LocalDate.now(), expense.getDate()),
+            () -> assertEquals(80.0, expense.getAmount()),
+            () -> assertEquals(Category.BILLS, expense.getCategory()),
+            () -> assertEquals(true, expense.isRecurring()),
+            () -> assertEquals("MONTHLY", expense.getRecFrequency())
+        );
+    }
+
+    @Test
+    public void findExpenseWithId_invalidId_nullReturned() {
+        Expense expense = expenseList.findExpenseWithId(-1);
+        assertEquals(null, expense);
     }
 }
