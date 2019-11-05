@@ -13,7 +13,8 @@ import java.util.Map;
  */
 public abstract class CommandSyntaxMessage {
     private static final String listSyntax = "list\n";
-    private static final String newSyntax = "new s/SONG_NAME [key:s/KEY](C) [time:n/TIME_SIG](4/4) [tempo:n/TEMPO](120)\n";
+    private static final String newSyntax =
+            "new s/SONG_NAME [key:s/KEY](C) [time:n/TIME_SIG](4/4) [tempo:n/TEMPO](120)\n";
     private static final String deleteSyntax = "delete song:n/SONG_NUM OR delete song:s/SONG_NAME\n";
     private static final String openSyntax = "open s/SONG_NAME\n";
     private static final String viewSyntax = "view [n/BAR_NO](last bar - 1)\n";
@@ -25,21 +26,21 @@ public abstract class CommandSyntaxMessage {
     private static final String swapbarSyntax = "swapbar bar:n/BAR_NUM bar:n/BAR_NUM\n";
     // TODO: group copy
     private static final String groupSyntax = "group n/START_NUM n/END_NUM s/GROUP_NAME\n";
-    private static final String copySyntax = "copy s/GROUP_NAME\n" +
-            "Format: copy n/START_NUM n/END_NUM\n" +
-            "Format: copy s/GROUP_NAME n/INSERT_INDEX\n" +
-            "Format: copy n/START_NUM n/END_NUM n/INSERT_INDEX\n";
+    private static final String copySyntax = "copy s/GROUP_NAME\n"
+            + "Format: copy n/START_NUM n/END_NUM\n"
+            + "Format: copy s/GROUP_NAME n/INSERT_INDEX\n"
+            + "Format: copy n/START_NUM n/END_NUM n/INSERT_INDEX\n";
     // TODO: overlay overlay_group_group overlay_bar_group overlay_bar_song
-    private static final String overlaySyntax = "overlay n/BAR_NUM1 n/BAR_NUM2\n" +
-            "Format: overlay n/BAR_NUM1 n/BAR_NUM2 repeat\n";
-    private static final String overlay_group_groupSyntax = "overlay_group_group n/SONG1 n/GROUP1 n/SONG2 n/GROUP2\n" +
-            "Format: overlay_group_group n/SONG1 n/GROUP1 n/SONG2 n/GROUP2 repeat\n";
-    private static final String overlay_bar_groupSyntax = "overlay_bar_group n/BAR n/GROUP\n" +
-            "Format: overlay_bar_group n/BAR n/GROUP repeat\n";
-    private static final String overlay_bar_songSyntax = "overlay_bar_song n/SONG1 n/BAR1 n/SONG2 n/BAR2\n" +
-            "Format: overlay_bar_song n/SONG1 n/BAR1 n/SONG2 n/BAR2 repeat\n";
-    private static final String list_groupSyntax = "list_group\n" +
-            "Format: list_group s/STARTING_SUBSTRING\n";
+    private static final String overlaySyntax = "overlay n/BAR_NUM1 n/BAR_NUM2\n"
+            + "Format: overlay n/BAR_NUM1 n/BAR_NUM2 repeat\n";
+    private static final String overlay_group_groupSyntax = "overlay_group_group n/SONG1 n/GROUP1 n/SONG2 n/GROUP2\n"
+            + "Format: overlay_group_group n/SONG1 n/GROUP1 n/SONG2 n/GROUP2 repeat\n";
+    private static final String overlay_bar_groupSyntax = "overlay_bar_group n/BAR n/GROUP\n"
+            + "Format: overlay_bar_group n/BAR n/GROUP repeat\n";
+    private static final String overlay_bar_songSyntax = "overlay_bar_song n/SONG1 n/BAR1 n/SONG2 n/BAR2\n"
+            + "Format: overlay_bar_song n/SONG1 n/BAR1 n/SONG2 n/BAR2 repeat\n";
+    private static final String list_groupSyntax = "list_group\n"
+            + "Format: list_group s/STARTING_SUBSTRING\n";
     private static final String asciiSyntax = "ascii song s/SONG_NAME\n";
     private static final String undoSyntax = "undo\n";
     private static final String redoSyntax = "redo\n";
