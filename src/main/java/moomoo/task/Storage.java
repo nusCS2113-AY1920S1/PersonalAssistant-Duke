@@ -56,22 +56,22 @@ public class Storage {
         CategoryList categoryList = new CategoryList();
         try {
             if (Files.isRegularFile(Paths.get(this.expenditureFilePath))) {
-                    List<String> input = Files.readAllLines(Paths.get(this.expenditureFilePath));
-                    for (String s : input) {
-                        String[] entry = s.split(" \\| ");
-                        if (entry.length == 4) {
-                            String category = entry[0];
-                            String name = entry[1];
-                            double cost = Double.parseDouble(entry[2]);
-                            LocalDate date = LocalDate.parse(entry[3]);
-                            Expenditure expenditure = new Expenditure(name, cost, date);
-                            if (!categoryList.hasCategory(category)) {
-                                categoryList.add(new Category(category));
-                            }
-                            categoryList.get(category).add(expenditure);
+                List<String> input = Files.readAllLines(Paths.get(this.expenditureFilePath));
+                for (String s : input) {
+                    String[] entry = s.split(" \\| ");
+                    if (entry.length == 4) {
+                        String category = entry[0];
+                        String name = entry[1];
+                        double cost = Double.parseDouble(entry[2]);
+                        LocalDate date = LocalDate.parse(entry[3]);
+                        Expenditure expenditure = new Expenditure(name, cost, date);
+                        if (!categoryList.hasCategory(category)) {
+                            categoryList.add(new Category(category));
                         }
+                        categoryList.get(category).add(expenditure);
                     }
-                    return categoryList;
+                }
+                return categoryList;
             } else {
                 ui.setOutput("Category/Expenditure File not found. New file will be created");
                 ui.showResponse();
