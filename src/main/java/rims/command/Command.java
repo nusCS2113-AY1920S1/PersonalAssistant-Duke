@@ -15,6 +15,8 @@ import rims.exception.RimsException;
  */
 public abstract class Command {
     protected Boolean exitCode;
+    protected boolean canModifyData;
+    protected String commandUserInput;
 
     /**
      * Sets the exit code, which is checked after the handling and processing of every command
@@ -22,6 +24,7 @@ public abstract class Command {
      */
     public Command() {
         exitCode = false;
+        canModifyData = false;
     }
 
     /**
@@ -41,6 +44,25 @@ public abstract class Command {
     }
 
     /**
+     * Checks whether the Command type could change ResourceList
+     * or ReservationLists in Resources.
+     * @return true if type of Command may change data.
+     */
+    public boolean canModifyData() {
+        return canModifyData;
+    }
+
+    /**
+     * Returns the command with its relevant arguments inputted by
+     * the user as a string
+     * @return The string with the command details and arguments
+     */
+    public String getCommandUserInput() {
+        return commandUserInput;
+    }
+
+
+    /**
      * In the Command child classes, this method will carry out the necessary operations
      * to execute its command.
      * @param ui An instance of the user interface.
@@ -52,6 +74,5 @@ public abstract class Command {
      */
     public abstract void execute(Ui ui, Storage storage, ResourceList resources)
         throws ParseException, IOException, RimsException;
-
 
 }

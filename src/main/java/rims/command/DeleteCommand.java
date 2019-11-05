@@ -19,23 +19,31 @@ import rims.exception.RimsException;
 public class DeleteCommand extends Command {
     protected String resourceName;
     protected String resourceType;
+    protected int qty;
 
     /**
-     * Constructor for a DeleteCommand, that takes in the name and type of the Resource to be deleted.
+     * Constructor for a DeleteCommand, that takes in the name and type of the
+     * Resource to be deleted.
+     * 
      * @param resourceName the name of the Resource to be deleted.
      * @param resourceType the type (Item or Room) of the Resource to be deleted.
      */
     public DeleteCommand(String resourceName, String resourceType) {
         this.resourceName = resourceName;
         this.resourceType = resourceType;
+        this.canModifyData = true;
+        this.commandUserInput = "delete " + resourceName + " (" + resourceType + ")" + "IDs: ";
     }
 
     /**
-     * Obtains the resource IDs of the Resources to be deleted from the user, removes them from the ResourceList,
-     * and prints a message to the CLI that the Resource objects have been succesfully deleted.
-     * @param ui An instance of the user interface.
-     * @param storage An instance of the Storage class.
-     * @param resources The ResourceList, containing all the created Resources thus far.
+     * Obtains the resource IDs of the Resources to be deleted from the user,
+     * removes them from the ResourceList, and prints a message to the CLI that the
+     * Resource objects have been succesfully deleted.
+     * 
+     * @param ui        An instance of the user interface.
+     * @param storage   An instance of the Storage class.
+     * @param resources The ResourceList, containing all the created Resources thus
+     *                  far.
      * @throws RimsException if the resource IDs specified by the user are invalid
      */
     @Override
@@ -43,9 +51,9 @@ public class DeleteCommand extends Command {
         storage.saveToFile(resources.getResources());
 
         if (resourceType.equals("room")) {
+            ui.printLine();
             Resource thisResource = resources.getResourceByName(resourceName);
             resources.deleteResourceByName(resourceName);
-            ui.printLine();
             ui.print("The following room has been successfully deleted:");
             ui.print(thisResource.toString());
             ui.printLine();
@@ -65,14 +73,14 @@ public class DeleteCommand extends Command {
                     ui.print("No bookings for this resource yet!");
                 }
             }
-            //@@author rabhijit
+            // @@author rabhijit
             ui.printDash();
             ui.printLine();
             String idInput = ui.getInput(
-                "Type in the resource ID(s) (separated by a space for multiple IDs) that you wish to delete:");
+                    "Type in the resource ID(s) (separated by a space for multiple IDs) that you wish to delete:");
             String[] splitIdInput = idInput.split(" ");
             ArrayList<Integer> intIdInput = new ArrayList<Integer>();
-            for (int i = 0; i < splitIdInput.length; i++) {
+            for (int i = 0; i < splitIdInput.length; i++) { ;
                 intIdInput.add(Integer.parseInt(splitIdInput[i]));
             }
             ArrayList<Resource> deletedResources = new ArrayList<Resource>();
@@ -81,6 +89,8 @@ public class DeleteCommand extends Command {
                 deletedResources.add(thisResource);
                 resources.deleteResourceById(intIdInput.get(j));
             }
+            qty = deletedResources.size();
+
             ui.printLine();
             ui.print("The following item(s) have been successfully deleted:");
             for (int k = 0; k < deletedResources.size(); k++) {
@@ -88,6 +98,14 @@ public class DeleteCommand extends Command {
                 ui.print(thisDeletedResource.toString() + " (ID: " + thisDeletedResource.getResourceId() + ")");
             }
             ui.printLine();
+
+            addIdsToCommandUserInput(intIdInput); //Adds information of IDs deleted in commandUserInput
+        }
+    }
+
+    private void addIdsToCommandUserInput(ArrayList<Integer> IdArray) {
+        for (int i : IdArray) {
+            commandUserInput += (i + ", ");
         }
     }
 }
