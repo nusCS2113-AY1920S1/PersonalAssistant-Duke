@@ -57,7 +57,7 @@ public class Duke  {
             Command c = MainParser.parse(input);
             return c.execute(events, deadlines, ui, storage);
         } catch (Exception e) {
-            LOGGER.severe(e.toString() + e.getMessage());
+            LOGGER.info(e.toString() + e.getMessage());
             return ui.getError(e);
         }
     }

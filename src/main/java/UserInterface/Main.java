@@ -15,7 +15,7 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
     private Duke duke = new Duke();
-    private static final Logger logger = DukeLogger.getLogger(Main.class);
+    private final Logger logger = DukeLogger.getLogger(Main.class);
 
     /**
      * This method sets the platform of the GUI
