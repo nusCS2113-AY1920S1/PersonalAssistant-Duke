@@ -21,7 +21,7 @@ public class ShowBillListCommand extends Command {
 
     @Override
     public void execute(DollaData dollaData) throws Exception {
-        RecordList recordList = new RecordList(new ArrayList<>());
+        RecordList recordList;
         recordList = dollaData.getBillRecordList();
 
         boolean listIsEmpty = (recordList.size() == 0);

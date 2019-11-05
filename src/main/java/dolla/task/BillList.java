@@ -17,4 +17,16 @@ public class BillList extends RecordList {
         super.add(newRecord);
         StorageWrite.setBill(get()); //save
     }
+
+    @Override
+    public void removeFromList(int index) {
+        super.removeFromList(index);
+        StorageWrite.setBill(get());
+    }
+
+    @Override
+    public void setRecordList(ArrayList<Record> recordList) {
+        this.list = recordList;
+        StorageWrite.setBill(get());
+    }
 }

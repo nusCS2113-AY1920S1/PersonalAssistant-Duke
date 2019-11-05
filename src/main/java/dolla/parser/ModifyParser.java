@@ -30,7 +30,7 @@ public class ModifyParser extends Parser {
 
         switch (modeToModify) {
         case MODE_ENTRY:
-            if (verifyAddCommand() == true) {
+            if (verifyAddCommand()) {
                 return new FullModifyEntryCommand(inputArray[1], stringToDouble(inputArray[2]), inputArray[3], date);
             } else {
                 return new ErrorCommand();

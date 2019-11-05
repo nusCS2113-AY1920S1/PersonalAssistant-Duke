@@ -24,7 +24,6 @@ public class RecordList {
         list.add(newRecord);
     }
 
-
     public int size() {
         return list.size();
     }

@@ -30,6 +30,7 @@ public interface ParserStringList {
     String DEBT_COMMAND_LIST = "debts";
     String BILL_COMMAND_BILL = "bill";
     String BILL_COMMAND_LIST = "bills";
+    String BILL_COMMAND_PAID = "paid";
 
     // Shared Commands
     String COMMAND_MODIFY = "modify";
