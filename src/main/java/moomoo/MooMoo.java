@@ -34,7 +34,7 @@ public class MooMoo {
         storage = new Storage("data/budget.txt","data/schedule.txt",
                 "data/category.txt", "data/expenditure.txt");
         try {
-            categoryList = storage.loadExpenditure();
+            categoryList = storage.loadExpenditure(ui);
         } catch (MooMooException e) {
             ui.printException(e);
             ui.showResponse();

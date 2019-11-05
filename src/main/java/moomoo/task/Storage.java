@@ -6,8 +6,6 @@ import moomoo.task.category.Expenditure;
 
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.Array;
-import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.text.DecimalFormat;
@@ -54,29 +52,31 @@ public class Storage {
      * @return ArrayList object consisting of the categories read from the file.
      * @throws MooMooException Thrown when the file does not exist
      */
-    public CategoryList loadExpenditure() throws MooMooException {
+    public CategoryList loadExpenditure(Ui ui) throws MooMooException {
         CategoryList categoryList = new CategoryList();
         try {
-            File myNewFile = new File(expenditureFilePath);
-            if (myNewFile.createNewFile()) {
-                return populateDefaultCategories(categoryList);
-            } else {
-                List<String> input = Files.readAllLines(Paths.get(this.expenditureFilePath));
-                for (String s : input) {
-                    String[] entry = s.split(" \\| ");
-                    if (entry.length == 4) {
-                        String category = entry[0];
-                        String name = entry[1];
-                        double cost = Double.parseDouble(entry[2]);
-                        LocalDate date = LocalDate.parse(entry[3]);
-                        Expenditure expenditure = new Expenditure(name, cost, date);
-                        if (!categoryList.hasCategory(category)) {
-                            categoryList.add(new Category(category));
+            if (Files.isRegularFile(Paths.get(this.expenditureFilePath))) {
+                    List<String> input = Files.readAllLines(Paths.get(this.expenditureFilePath));
+                    for (String s : input) {
+                        String[] entry = s.split(" \\| ");
+                        if (entry.length == 4) {
+                            String category = entry[0];
+                            String name = entry[1];
+                            double cost = Double.parseDouble(entry[2]);
+                            LocalDate date = LocalDate.parse(entry[3]);
+                            Expenditure expenditure = new Expenditure(name, cost, date);
+                            if (!categoryList.hasCategory(category)) {
+                                categoryList.add(new Category(category));
+                            }
+                            categoryList.get(category).add(expenditure);
                         }
-                        categoryList.get(category).add(expenditure);
                     }
-                }
-                return categoryList;
+                    return categoryList;
+            } else {
+                ui.setOutput("Category/Expenditure File not found. New file will be created");
+                ui.showResponse();
+                createFileAndDirectory(this.expenditureFilePath);
+                return populateDefaultCategories(categoryList);
             }
         } catch (IOException e) {
             throw new MooMooException("Unable to read file. Please retry again.");
@@ -259,9 +259,9 @@ public class Storage {
     public void saveBudgetToFile(Budget budget) throws MooMooException {
         createFileAndDirectory(this.budgetFilePath);
         String toSave = "";
-        Iterator budgetIterator = budget.getBudget().entrySet().iterator();
+        Iterator<Map.Entry<String, Double>> budgetIterator = budget.getBudget().entrySet().iterator();
         while (budgetIterator.hasNext()) {
-            Map.Entry mapElement = (Map.Entry)budgetIterator.next();
+            Map.Entry<String, Double> mapElement = budgetIterator.next();
             toSave += mapElement.getKey() + "\n" + mapElement.getValue() + "\n";
         }
         try {
@@ -278,10 +278,10 @@ public class Storage {
         createFileAndDirectory(this.scheduleFilePath);
 
         String list = "Schedule: \n";
-        Iterator scheduleIterator = calendar.calendar.entrySet().iterator();
+        Iterator<Map.Entry<String, ArrayList<String>>> scheduleIterator = calendar.calendar.entrySet().iterator();
         while (scheduleIterator.hasNext()) {
-            Map.Entry element = (Map.Entry)scheduleIterator.next();
-            for (String c : (ArrayList<String>)element.getValue()) {
+            Map.Entry<String, ArrayList<String>> element = scheduleIterator.next();
+            for (String c : element.getValue()) {
                 list += "d/" + element.getKey() + " n/" + c + "\n";
             }
         }
