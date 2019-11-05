@@ -4,7 +4,7 @@
       "description": "hashbrown",
       "type": "B",
       "mealType": "BREAKFAST",
-      "isDone": false,
+      "isDone": true,
       "date": "2019-11-06",
       "nutritionValue": {
         "calorie": 500
@@ -12,10 +12,32 @@
       "costStr": "0"
     },
     {
+      "description": "mash",
+      "type": "B",
+      "mealType": "BREAKFAST",
+      "isDone": true,
+      "date": "2019-11-06",
+      "nutritionValue": {
+        "calorie": 500
+      },
+      "costStr": "2.5"
+    },
+    {
+      "description": "icecream",
+      "type": "L",
+      "mealType": "LUNCH",
+      "isDone": true,
+      "date": "2019-11-06",
+      "nutritionValue": {
+        "calorie": 123
+      },
+      "costStr": "0"
+    },
+    {
       "description": "steak",
       "type": "D",
       "mealType": "DINNER",
-      "isDone": false,
+      "isDone": true,
       "date": "2019-11-06",
       "nutritionValue": {
         "calorie": 234
@@ -23,15 +45,16 @@
       "costStr": "0"
     },
     {
-      "description": "icecream",
+      "description": "chocolate",
       "type": "L",
       "mealType": "LUNCH",
       "isDone": false,
       "date": "2019-11-06",
       "nutritionValue": {
-        "calorie": 123
+        "calcium": 200,
+        "calorie": 500
       },
-      "costStr": "0"
+      "costStr": "3.25"
     }
   ],
   "2019-11-05": [

@@ -22,6 +22,7 @@ public class ListCommandParser implements ParserInterface<ListCommand> {
         LocalDate localDate = LocalDate.now();
 
         if (userInputStr.isBlank()) {
+            System.out.println("Blank");
             return new ListCommand();
         }
         argumentInfoMap = ArgumentSplitter.splitForwardSlashArguments(userInputStr);
@@ -31,13 +32,12 @@ public class ListCommandParser implements ParserInterface<ListCommand> {
                 try {
                     dateArgStr = argumentInfoMap.get(details);
                     localDate= LocalDate.parse(dateArgStr, dateFormat);
-                    return new ListCommand(localDate);
                 } catch (DateTimeParseException e) {
                     return new ListCommand(false, "Unable to parse \"" + userInputStr + "\" as a date.");
                 }
             }
             if (details.equals("sort")) {
-                String sortArgStr = argumentInfoMap.get(details);
+                String sortArgStr = argumentInfoMap.get(details).trim();
                 if (sortArgStr.equals("cost")) {
                     return new ListCommand(localDate, sortArgStr);
                 }
@@ -47,6 +47,5 @@ public class ListCommandParser implements ParserInterface<ListCommand> {
             }
         }
         return new ListCommand();
-
     }
 }

@@ -75,13 +75,16 @@ public class ListCommand extends Command {
         }
         switch (sortBy) {
             case "default":
-                currentMeals.sort(new SortMealByDefault());
+                Collections.sort(currentMeals, new SortMealByDefault());
+//                currentMeals.sort(new SortMealByDefault());
                 break;
             case "calorie":
-                currentMeals.sort(new SortMealByCalorie());
+                Collections.sort(currentMeals, new SortMealByCalorie());
+//                currentMeals.sort(new SortMealByCalorie());
                 break;
             case "cost":
-                currentMeals.sort(new SortMealByCost());
+                Collections.sort(currentMeals, new SortMealByCost());
+//                currentMeals.sort(new SortMealByCost());
                 break;
         }
         ui.showMealList(currentMeals);
