@@ -12,13 +12,13 @@ import java.time.format.DateTimeParseException;
  */
 public class DepositCommandParser implements ParserInterface<AddTransactionCommand> {
     LocalDate localDate = LocalDate.now();
+
     /**
      * Parse user input and return AddTransactionCommand.
      * @param userInputStr String input by user.
      * @return <code>AddTransactionCommand</code> Command object encapsulating the amount to be deposited
      */
     @Override
-
     public AddTransactionCommand parse(String userInputStr) {
         try {
             InputValidator.validate(userInputStr);

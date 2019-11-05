@@ -12,6 +12,7 @@ import java.time.format.DateTimeParseException;
  */
 public class PaymentCommandParser implements ParserInterface<AddTransactionCommand> {
     LocalDate localDate = LocalDate.now();
+
     /**
      * Parse user input and return PaymentCommandParser.
      * @param userInputStr String input by user

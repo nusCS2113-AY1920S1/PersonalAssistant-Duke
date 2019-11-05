@@ -72,6 +72,7 @@ public class Ui {
         System.out.println(UI_PADDING + "The meal is already marked done:");
         System.out.println(UI_PADDING + currentMeal);
     }
+
     public void showAdded(Meal currentMeal, ArrayList<Meal> meals, User user, LocalDate dateStr) {
         System.out.println(UI_PADDING + "Got it. I've added this meal:");
         System.out.println(UI_PADDING + currentMeal);

@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 import static duke.commons.constants.DateConstants.LOCAL_DATE_FORMATTER;
+
 public class Transaction {
     protected BigDecimal transactionAmount;
     protected String type = "";

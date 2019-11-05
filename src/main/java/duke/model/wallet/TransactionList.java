@@ -43,11 +43,11 @@ public class TransactionList {
         }
     }
 
-    public HashMap<LocalDate , ArrayList<Transaction>> getTransactionList() {
+    public HashMap<LocalDate, ArrayList<Transaction>> getTransactionList() {
         return this.transactionTracker;
     }
 
-    public HashMap<LocalDate , ArrayList<Transaction>> getTransactionTracker() {
+    public HashMap<LocalDate, ArrayList<Transaction>> getTransactionTracker() {
         return transactionTracker;
     }
 

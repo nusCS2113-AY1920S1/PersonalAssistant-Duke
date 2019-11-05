@@ -47,8 +47,7 @@ public class AddLunchCommandParser implements ParserInterface<AddCommand> {
                 }
             } else if (details.equals("cost")) {
                 foodCostStr = nutritionInfoMap.get(details);
-            }
-            else {
+            } else {
                 String intArgStr = nutritionInfoMap.get(details);
                 try {
                     int value = Integer.parseInt(intArgStr);
