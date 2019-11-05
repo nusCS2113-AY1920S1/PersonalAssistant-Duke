@@ -104,7 +104,7 @@ class ProjectInputControllerManageTest {
     }
 
     @Test
-    void manageProject_viewAllTasks_executionSuccess() {
+    void manageProject_viewTasksMethods_executionSuccess() {
         simulatedUserInput = "view tasks";
         simulatedOutput = projectInputController.manageProject(simulatedUserInput);
         expectedOutput = new String[] {"+----------------------------------------------------------------------+",
@@ -127,6 +127,21 @@ class ProjectInputControllerManageTest {
                                        "|   - Credit: 100                                                      |",
                                        "|   - State: OPEN                                                      |",
                                        "+----------------------------------------------------------------------+",
+        };
+        assertArrayEquals(expectedOutput, simulatedOutput);
+
+        simulatedUserInput = "view task requirements 1";
+        simulatedOutput = projectInputController.manageProject(simulatedUserInput);
+        expectedOutput = new String[] {"This task has no specific requirements."};
+        assertArrayEquals(expectedOutput, simulatedOutput);
+
+        simulatedUserInput = "edit task requirements 1 -r Sacrifice Ironman";
+        simulatedOutput = projectInputController.manageProject(simulatedUserInput);
+        expectedOutput = new String[] {
+            "Success!",
+            "'Sacrifice Ironman' has been successfully added as a new requirement of this task!",
+            "",
+            "There were no errors!"
         };
         assertArrayEquals(expectedOutput, simulatedOutput);
     }
