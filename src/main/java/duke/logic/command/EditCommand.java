@@ -56,6 +56,9 @@ public class EditCommand extends Command {
             String edit = keywordAndFields.get(i).getField();
             Task t = tasks.get(filter, taskListIndex);
             switch (keyword) {
+            case "des":
+            case "desc":
+            case "descript":
             case "description":
                 t.setDescription(edit);
                 break;
@@ -89,6 +92,12 @@ public class EditCommand extends Command {
                 break;
             case "r":
                 t.setRecurrence(edit);
+                break;
+            case "f":
+                if (edit.split(" ").length != 1) {
+                    throw new DukeException("Please enter only one word for the filter!");
+                }
+                t.setFilter(Optional.of(edit));
                 break;
             default:
                 throw new DukeException("I'm sorry, I do not know what field you are trying to edit!");

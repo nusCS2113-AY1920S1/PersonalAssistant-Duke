@@ -1,8 +1,11 @@
 package duke.task;
 
+import javax.sound.midi.Soundbank;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Optional;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import duke.exception.DukeException;
 import duke.extensions.Priority;
@@ -96,6 +99,10 @@ public class Task {
 
     public void setFilter(Optional<String> filter) {
         this.filter = filter;
+        System.out.print(getDescription());
+        String printFilter = filter.toString().substring(9);
+        printFilter = printFilter.replaceAll("]", "");
+        System.out.println(" has a new filter: " + printFilter);
     }
 
     public String getRecurrenceCode() {

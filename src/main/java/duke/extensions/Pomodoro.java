@@ -1,7 +1,9 @@
 package duke.extensions;
 
+import java.util.ArrayList;
 import java.util.Timer;
 
+import duke.exception.DukeException;
 import duke.task.Task;
 
 /**
@@ -15,10 +17,11 @@ public class Pomodoro {
     private static final Pomodoro instance = new Pomodoro();
     private State currState;
     private int currCycle;
-    private Task pomodoroTask;
-    private PomodoroTimerTask pomodoroTimerTask;
+    private ArrayList<Task> pomodoroTaskList = new ArrayList<>();
     private Timer timer;
-
+    private PomodoroTimerTask pomodoroTimerTask;
+    private Brainteasers brainTeasers = new Brainteasers();
+    private String question = "none";
     /**
      * Constructor method that creates a pomodoro that begins with a work cycle
      */
@@ -39,24 +42,39 @@ public class Pomodoro {
     /**
      * Method that starts the timer by creating a new PomodoroTimerTask
      * Inputs period of the TimerTask based on what cycle it is at currently
+     * Checks whether timer has started in the first place by checking pomodoroTimerTask minutes remaining
+     * After timer has started, changes the cycle to the next cycle
      */
-    public void startTimer() {
+    public void startTimer() throws DukeException {
+        if (pomodoroTimerTask != null && pomodoroTimerTask.getMinutesRemaining() > 0) {
+            throw new DukeException("A timer has already started, please end that one first before starting a " +
+                    "new timer!");
+        }
         timer = new Timer();
         switch (currState) {
         case SHORT_BREAK:
-            System.out.println("Short break started");
+            System.out.println("Pomodoro Short break started!");
+            System.out.println("------------------ Here is a brain teaser for you to ponder on ------------------");
+            question = brainTeasers.getRandom();
+            System.out.println(question);
+            System.out.println("--------------------- Type 'pomo answer' to get the answer! ---------------------");
             pomodoroTimerTask = new PomodoroTimerTask(timer, START_SHORTBREAK_MINUTES);
             timer.schedule(pomodoroTimerTask, ONE_MINUTE, ONE_MINUTE);
             currState = State.WORK;
             break;
         case LONG_BREAK:
-            System.out.println("Long break started");
+            System.out.println("Pomodoro Long break started!");
+            System.out.println("------------------ Here is a brain teaser for you to ponder on ------------------");
+            question = brainTeasers.getRandom();
+            System.out.println(question);
+            System.out.println("--------------------- Type 'pomo answer' to get the answer! ---------------------");
             pomodoroTimerTask = new PomodoroTimerTask(timer, START_LONGBREAK_MINUTES);
             timer.schedule(pomodoroTimerTask, ONE_MINUTE, ONE_MINUTE);
             currState = State.WORK;
             break;
         default:
-            System.out.println("Work Started");
+            System.out.println("Pomodoro Work Started!");
+            listTask();
             pomodoroTimerTask = new PomodoroTimerTask(timer, START_WORK_MINUTES);
             timer.schedule(pomodoroTimerTask, ONE_MINUTE, ONE_MINUTE);
             currCycle++;
@@ -68,6 +86,32 @@ public class Pomodoro {
             }
             break;
         }
+    }
+
+    /**
+     * Method to get the answer from the brainteaser class
+     *
+     * @return the answer to the question that was posted
+     */
+    public String getAnswer() {
+        return brainTeasers.getAnswer(question);
+    }
+
+    public void listTask() {
+        System.out.println("-------------- You have the following tasks to complete this pomodoro ----" +
+                "----------");
+        if (pomodoroTaskList.size() == 0) {
+            System.out.println("Guess you are a free man, or would you like to assign some tasks to your" +
+                    " pomodoro? \ntype 'pomo assign INDEX'");
+        } else {
+            for (int i = 0; i < pomodoroTaskList.size(); i++) {
+                Task temp = pomodoroTaskList.get(i);
+                System.out.print(i + 1 + ") ");
+                System.out.println(temp.getDescription());
+            }
+        }
+        System.out.println("--------------------------------  Stay focused fam  ----------------------" +
+                "----------");
     }
 
     /**
@@ -94,8 +138,8 @@ public class Pomodoro {
     /**
      * Method that stops the timer and prints out the state that was completed
      */
-
     public void stopTimer() {
+        pomodoroTimerTask.setMinutesRemaining(0);
         String cState;
         switch (currState) {
         case LONG_BREAK:
@@ -108,7 +152,6 @@ public class Pomodoro {
         default:
             cState = "pomodorodododod";
         }
-
         System.out.println(cState + " has finished!");
         timer.cancel();
     }
@@ -122,12 +165,22 @@ public class Pomodoro {
         currState = State.WORK;
     }
 
-    public Task getPomodoroTask() {
-        return pomodoroTask;
+    public void setPomodoroTask(Task t) {
+        pomodoroTaskList.add(t);
+        System.out.println("You have successfully assigned this task to your pomodoro:");
+        System.out.println(t.getDescription());
     }
 
-    public void setPomodoroTask(Task t) {
-        this.pomodoroTask = t;
+    public void doneTask(int i) throws DukeException {
+        if (i < 1) {
+            throw new DukeException("Please enter a positive index!");
+        }
+        if (i >= pomodoroTaskList.size()) {
+            throw new DukeException("No such task exist in your pomodoro task list!");
+        }
+        Task t = pomodoroTaskList.get(i);
+        System.out.println("Congratulations! You have completed: " + t.getDescription());
+        pomodoroTaskList.remove(i);
     }
 
     /**

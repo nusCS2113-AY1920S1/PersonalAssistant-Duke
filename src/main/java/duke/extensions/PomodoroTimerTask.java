@@ -28,6 +28,10 @@ public class PomodoroTimerTask extends TimerTask {
         return minutesRemaining;
     }
 
+    public void setMinutesRemaining(int minutesRemaining) {
+        this.minutesRemaining = minutesRemaining;
+    };
+
     /**
      * Run method that prints out the time remaining and ends the timer task once the time is up
      */
@@ -35,7 +39,8 @@ public class PomodoroTimerTask extends TimerTask {
         minutesRemaining -= 1;
 
         if (minutesRemaining % 5 == 0) {
-            System.out.println(minutesRemaining + " minutes left. Timer has currently been shortened for testing purposes");
+            System.out.println("% " + minutesRemaining + " minutes left. Timer has "
+                    + "currently been shortened for testing purposes");
         }
         if (minutesRemaining == 0) {
             System.out.println("Pomodoro completed");
