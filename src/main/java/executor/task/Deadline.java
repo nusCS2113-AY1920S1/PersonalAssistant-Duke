@@ -1,6 +1,5 @@
 package executor.task;
 
-import duke.exception.DukeException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -14,14 +13,11 @@ class Deadline extends Task {
         super(name);
         this.taskType = TaskType.DEADLINE;
         this.recordTaskDetails(name);
-        try {
-            this.parseDateTime();
-        } catch (DukeException invalidInput) {
-            invalidInput.printStackTrace();
-        }
+        this.parseDateTime();
+
     }
 
-    private void parseDateTime() throws DukeException {
+    private void parseDateTime() {
 
         if (this.detailDesc == null) {
             return;
@@ -41,7 +37,7 @@ class Deadline extends Task {
             } catch (Exception e) {
                 this.setDate(LocalDate.now());
                 this.setTime(LocalTime.now());
-                throw new DukeException("Invalid Input. Unable to interpret Datetime (use: dd/mm/yyyy HH:mm)");
+                System.out.println("Invalid Input. Unable to interpret Datetime (use: dd-mm-yy HH:mm)");
             }
         }
     }

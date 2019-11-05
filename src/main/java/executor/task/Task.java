@@ -14,8 +14,8 @@ public abstract class Task {
     protected TaskType taskType;
     protected Boolean isDone = false;
     private TaskList queuedTasks = null;
-    protected LocalDate date = null;
-    protected LocalTime time = null;
+    protected LocalDate date;
+    protected LocalTime time;
 
     /**
      * Constructor for the 'Task' Class.
@@ -26,6 +26,7 @@ public abstract class Task {
         this.taskType = TaskType.BLANK;
         this.taskName = name.replace(this.taskType.name(), "").trim();
         this.date = null;
+        this.time = null;
         this.isDone = false;
     }
 
