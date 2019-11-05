@@ -39,11 +39,12 @@ public class EventCommandTest {
         int testInterval = 7;
         boolean testIsInOneDay = true;
         EventCommand testEventCommand = new EventCommand(testDescription, testStartDateList, testPriority,
-                testStartTime, testEndTime, testFinalDateString, testInterval);
+            testStartTime, testEndTime, testFinalDateString, testInterval);
         String testString = testEventCommand.createAndAddEvent(testIsInOneDay, taskListMain, testStartDate);
         Event expectedEvent = createExpectedEvent(testIsInOneDay, testDescription, testStartDateString, testPriority,
-                testStartTime, testEndTime);
-        String expectedString = expectedEvent.toString();
+            testStartTime, testEndTime);
+        String addedHeader = "\nThe following tasks were added: \n";
+        String expectedString = addedHeader.concat(expectedEvent.toString() + "\n");
         Assertions.assertEquals(expectedString, testString);
     }
 
@@ -61,11 +62,12 @@ public class EventCommandTest {
         int testInterval = 7;
         boolean testIsInOneDay = false;
         EventCommand testEventCommand = new EventCommand(testDescription, testStartDateList, testPriority,
-                testStartTime, testEndTime, testFinalDateString, testInterval);
+            testStartTime, testEndTime, testFinalDateString, testInterval);
         String testString = testEventCommand.createAndAddEvent(testIsInOneDay, taskListMain, testStartDate);
         Event expectedEvent = createExpectedEvent(testIsInOneDay, testDescription, testStartDateString, testPriority,
-                testStartTime, testEndTime);
-        String expectedString = expectedEvent.toString();
+            testStartTime, testEndTime);
+        String addedHeader = "\nThe following tasks were added: \n";
+        String expectedString = addedHeader.concat(expectedEvent.toString() + "\n");
         Assertions.assertEquals(expectedString, testString);
     }
 
@@ -84,17 +86,17 @@ public class EventCommandTest {
         int testInterval = 7;
         boolean testIsInOneDay = true;
         EventCommand testEventCommand = new EventCommand(testDescription, testStartDateList, testPriority,
-                testStartTime, testEndTime, testFinalDateString, testInterval);
+            testStartTime, testEndTime, testFinalDateString, testInterval);
         CommandResult testCommandResult = testEventCommand.commandExecute(taskListMain);
         String testString = testCommandResult.feedbackToUser;
 
-        String expectedString = "The following tasks were added: \n";
+        String expectedString = "\nThe following tasks were added: \n";
         while (!testStartDate.after(testFinalDate)) {
             testStartDateString = CompalUtils.dateToString(testStartDate);
             Event indivExpectedEvent = createExpectedEvent(testIsInOneDay, testDescription, testStartDateString,
-                    testPriority, testStartTime, testEndTime);
+                testPriority, testStartTime, testEndTime);
             taskListDup.addTask(indivExpectedEvent);
-            expectedString += indivExpectedEvent.toString();
+            expectedString += indivExpectedEvent.toString() + "\n";
             testStartDate = CompalUtils.incrementDateByDays(testStartDate, testInterval);
         }
 
@@ -116,17 +118,18 @@ public class EventCommandTest {
         int testInterval = 7;
         boolean testIsInOneDay = true;
         EventCommand testEventCommand = new EventCommand(testDescription, testStartDateList, testPriority,
-                testStartTime, testEndTime, testFinalDateString, testInterval);
+            testStartTime, testEndTime, testFinalDateString, testInterval);
         CommandResult testCommandResult = testEventCommand.commandExecute(taskListMain);
         String testString = testCommandResult.feedbackToUser;
 
-        String expectedString = "The following tasks were added: \n";
+        String headerString = "\nThe following tasks were added: \n";
+        String expectedString = "";
         while (!testStartDate.after(testFinalDate)) {
             testStartDateString = CompalUtils.dateToString(testStartDate);
             Event indivExpectedEvent = createExpectedEvent(testIsInOneDay, testDescription, testStartDateString,
-                    testPriority, testStartTime, testEndTime);
+                testPriority, testStartTime, testEndTime);
             taskListDup.addTask(indivExpectedEvent);
-            expectedString += indivExpectedEvent.toString();
+            expectedString += headerString + indivExpectedEvent.toString() + "\n";
             testStartDate = CompalUtils.incrementDateByDays(testStartDate, testInterval);
         }
 
@@ -144,7 +147,7 @@ public class EventCommandTest {
             testTrailingDateString = CompalUtils.dateToString(testTrailingDate);
         }
         Event testEvent = new Event(testDescription, testPriority, testStartDateString, testTrailingDateString,
-                testStartTime, testEndTime);
+            testStartTime, testEndTime);
         return testEvent;
     }
 }

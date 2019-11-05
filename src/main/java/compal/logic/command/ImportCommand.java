@@ -24,13 +24,13 @@ public class ImportCommand extends Command {
         + "Examples:\n\t"
         + "import /file-name cal\n\t\t"
         + "import cal.ics schedule to COMPal.";
-    public static final String MESSAGE_SUCCESS = "You have successfully imported your schedule!\n";
+    public static final String MESSAGE_SUCCESS = "I have tried importing the given File!\nThe results are below:\n";
     public static final String MESSAGE_FILE_NON_EXIST = "Error: File specified to import does not exist!";
     public static final String MESSAGE_FILE_NON_ICS = "Error: File is not a ICS file format that can be read from!";
 
     private String fileName;
     private static final Logger logger = LogUtils.getLogger(ImportCommand.class);
-    private String addedTask = "This are the task added to COMPal\n";
+    private String finalList = "";
 
     /**
      * Construct the ExportCommand class.
@@ -43,14 +43,14 @@ public class ImportCommand extends Command {
 
     @Override
     public CommandResult commandExecute(TaskList taskList) throws CommandException {
-        logger.info("Attempting to execute export command");
+        logger.info("Attempting to execute import command");
 
         checkIfIcsFile();
 
         readFromFile(taskList);
 
-        logger.info("Successfully executed export command");
-        return new CommandResult(MESSAGE_SUCCESS.concat(addedTask), true);
+        logger.info("Successfully executed import command");
+        return new CommandResult(MESSAGE_SUCCESS.concat(finalList), true);
     }
 
     /**
@@ -161,7 +161,7 @@ public class ImportCommand extends Command {
             startDateList.add(taskStartDate);
             DeadlineCommand deadline = new DeadlineCommand(taskDesc, taskPriority, startDateList,
                 taskEndTime, taskEndDate, interval);
-            addedTask += deadline.commandExecute(taskList).feedbackToUser + "\n";
+            finalList += deadline.commandExecute(taskList).feedbackToUser + "\n";
 
             if (hasReminder) {
                 for (Task t : taskList.getArrList()) {
@@ -183,7 +183,7 @@ public class ImportCommand extends Command {
             startDateList.add(taskStartDate);
             EventCommand event = new EventCommand(taskDesc, startDateList, taskPriority, taskStartTime,
                 taskEndTime, taskEndDate, interval);
-            addedTask += event.commandExecute(taskList).feedbackToUser + "\n";
+            finalList += event.commandExecute(taskList).feedbackToUser + "\n";
             if (hasReminder) {
                 for (Task t : taskList.getArrList()) {
                     if (t.getSymbol().equals("E")

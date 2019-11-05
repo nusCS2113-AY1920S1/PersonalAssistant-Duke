@@ -41,7 +41,7 @@ public class DeadlineCommand extends Command {
 
     private static final String MESSAGE_SUCCESSFULLY_ADDED = "\nThe following deadline were added: \n";
     private static final String MESSAGE_REPEATED_DEADLINE = "\nLooks like you already added the task before! \n"
-            + "Use the edit command on the task ID given below to edit it!";
+            + "Use the edit command on the task ID given below!";
     private String description;
     private ArrayList<String> startDateList;
     private Task.Priority priority;
