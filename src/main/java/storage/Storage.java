@@ -4,10 +4,19 @@ import dictionary.Word;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Stack;
 import java.util.TreeMap;
 
@@ -19,7 +28,21 @@ public class Storage {
     private static String FILE_PATH;
 
     public Storage() {
+        File currentDir = new File(System.getProperty("user.dir"));
+        File filePath = new File(currentDir.toString() + "\\data");
+        File dataText = new File(filePath, "wordup.txt");
+        if (!filePath.exists()) {
+            filePath.mkdir();
+        }  if (!dataText.exists()) {
+            try {
+                dataText.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        FILE_PATH = dataText.getAbsolutePath();
     }
+
 
     public Storage(String filePath) {
         FILE_PATH = filePath;

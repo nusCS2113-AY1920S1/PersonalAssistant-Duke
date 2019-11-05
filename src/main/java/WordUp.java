@@ -24,7 +24,7 @@ public class WordUp extends Application {
      */
     public WordUp() {
         ui = new Ui();
-        storage = new Storage("data/wordup.txt");
+        storage = new Storage();
         bank = new Bank(storage);
     }
 
