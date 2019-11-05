@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class StudentProgress implements IProgress {
     @Override
-    public ArrayList<Student> listProgress() {
+    public ArrayList<String> listProgress() {
         return null;
     }
 
@@ -14,7 +14,7 @@ public class StudentProgress implements IProgress {
     }
 
     @Override
-    public void deleteProgress(int index) {
+    public void deleteProgress(final int index) {
 
     }
 }
