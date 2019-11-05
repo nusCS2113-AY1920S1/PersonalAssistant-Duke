@@ -106,7 +106,8 @@ public class ParserHelperTest {
         assertTrue(errorMessages.contains("Member with index 0 does not exist."));
         assertTrue(errorMessages.contains("Member with index 4 does not exist."));
         assertTrue(errorMessages.contains("Member with index -1 does not exist."));
-        assertTrue(errorMessages.contains("Could not recognise member 9999999999999999999, please ensure it is an integer."));
+        assertTrue(errorMessages.contains("Could not recognise member 9999999999999999999, "
+            + "please ensure it is an integer."));
     }
 
     @Test
@@ -122,7 +123,8 @@ public class ParserHelperTest {
         assertTrue(errorMessages.contains("Could not recognise task def, please ensure it is an integer."));
         assertTrue(errorMessages.contains("Task with index 0 does not exist."));
         assertTrue(errorMessages.contains("Task with index 4 does not exist."));
-        assertTrue(errorMessages.contains("Could not recognise task 9999999999999999999, please ensure it is an integer."));
+        assertTrue(errorMessages.contains("Could not recognise task 9999999999999999999, "
+            + "please ensure it is an integer."));
         assertTrue(errorMessages.contains("Task with index -1 does not exist."));
     }
 
