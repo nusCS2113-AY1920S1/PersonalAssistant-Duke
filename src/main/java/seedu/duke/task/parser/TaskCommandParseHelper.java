@@ -390,8 +390,8 @@ public class TaskCommandParseHelper {
         Task.Priority level = null;
         if (level.HIGH.name().equals(input)) {
             return level.HIGH;
-        } else if (level.MED.name().equals(input)) {
-            return level.MED;
+        } else if (level.MEDIUM.name().equals(input) || level.MED.name().equals(input)) {
+            return level.MEDIUM;
         } else if (level.LOW.name().equals(input)) {
             return level.LOW;
         } else {
@@ -497,7 +497,6 @@ public class TaskCommandParseHelper {
     private static Command parseAddDeadlineCommand(String input, LocalDateTime time, String doAfter,
                                                    ArrayList<String> tags, Task.Priority priority,
                                                    ArrayList<String> links) {
-        Task.TaskType taskType = Task.TaskType.DEADLINE;
         Matcher deadlineMatcher = prepareCommandMatcher(input, "deadline\\s+(?<name>\\w+[\\s+\\w+]*)\\s*");
         if (!deadlineMatcher.matches()) {
             return new InvalidCommand("Please enter a name after \'deadline\'");
@@ -507,13 +506,12 @@ public class TaskCommandParseHelper {
                     + "\'-time\'");
         }
         String name = deadlineMatcher.group("name");
-        return new TaskAddCommand(taskType, name, time, doAfter, tags, priority, links);
+        return new TaskAddCommand(Task.TaskType.DEADLINE, name, time, doAfter, tags, priority, links);
     }
 
     private static Command parseEventCommand(String input, LocalDateTime time, String doAfter,
                                              ArrayList<String> tags, Task.Priority priority,
                                              ArrayList<String> links) {
-        Task.TaskType taskType = Task.TaskType.EVENT;
         Matcher eventMatcher = prepareCommandMatcher(input, "event\\s+(?<name>\\w+[\\s+\\w+]*)\\s*");
         if (!eventMatcher.matches()) {
             return new InvalidCommand("Please enter a name after \'event\'");
@@ -523,7 +521,7 @@ public class TaskCommandParseHelper {
                     + "\'-time\'");
         }
         String name = eventMatcher.group("name");
-        return new TaskAddCommand(taskType, name, time, doAfter, tags, priority, links);
+        return new TaskAddCommand(Task.TaskType.EVENT, name, time, doAfter, tags, priority, links);
     }
 
     private static Command parseLinkCommand(String input, ArrayList<Command.Option> optionList) {

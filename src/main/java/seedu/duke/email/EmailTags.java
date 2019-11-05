@@ -6,8 +6,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class EmailTags {
+    private static TagMap tagMap = new TagMap();
 
-    private static HashMap<String, SubTagMap> tagMap = new HashMap<>();
+    //private static HashMap<String, SubTagMap> tagMap = new HashMap<>();
 
     /**
      * Read emailList to construct a HashMap for tree-structured tagged emails.
@@ -148,5 +149,20 @@ public class EmailTags {
             this.subEmailList = subEmailList;
         }
     }
+
+    public static class TagMap extends HashMap<String, SubTagMap> {
+        private String rootTagName;
+        private SubTagMap subTagMap;
+
+        public TagMap() {
+            super();
+        }
+
+        public TagMap(String rootTagName, SubTagMap subTagMap) {
+            this.rootTagName = rootTagName;
+            this.subTagMap = subTagMap;
+        }
+    }
+
 
 }
