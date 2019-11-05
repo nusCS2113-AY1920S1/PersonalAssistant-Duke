@@ -100,7 +100,7 @@ public class UpcomingTasks {
     }
 
     /**
-     * Returns String Array list of each of the provided date's tasks + their respective info
+     * Returns String Array list of each of the provided date's tasks + their respective info.
      * @return Array list of Strings with the date's tasks + info
      */
     public ArrayList<String> getTaskAndInfo() {

@@ -23,7 +23,7 @@ public class UpcomingTasksBox extends HBox {
     private Label upcomingTaskText;
 
     /**
-     * Control representing the 'Help Box' within Dukepital's GUI.
+     * Control representing the 'Upcoming Tasks Box' within Dukepital's GUI.
      */
     private UpcomingTasksBox(String text) {
         try {
@@ -38,6 +38,11 @@ public class UpcomingTasksBox extends HBox {
         upcomingTaskText.setWrapText(true);
     }
 
+    /**
+     * Creates UpcomingTasksBox for each of the tasks listed within a date.
+     * @param taskInfo The String used within the UpcomingTasksBox
+     * @return An array of all the UpcomingTasksBoxes designated for a date.
+     */
     public static ArrayList<UpcomingTasksBox> createUpcomingTasksBoxesForDate(ArrayList<String> taskInfo) {
         ArrayList<UpcomingTasksBox> upcomingTaskBoxes = new ArrayList<UpcomingTasksBox>();
         for (String task : taskInfo) {

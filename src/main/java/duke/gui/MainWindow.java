@@ -668,11 +668,15 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    /**
+     * Handler for Upcoming Tasks tab. Dynamically updates to display tasks assigned for day within upcoming week.
+     * @throws DukeException When Upcoming Tasks tab is unable to locate Upcoming Tasks to fill out respective fields.
+     */
     public void showUpcomingTasks() throws DukeException {
         VBox[] upcomingTaskContainers = {firstDayBox, secondDayBox, thirdDayBox, fourthDayBox,
-                fifthDayBox, sixthDayBox, seventhDayBox };
+                                            fifthDayBox, sixthDayBox, seventhDayBox};
         TitledPane[] titledPanes = {firstTitledPane, secondTitledPane, thirdTitledPane, fourthTitledPane,
-                fifthTitledPane, sixthTitledPane, seventhTitledPane};
+                                    fifthTitledPane, sixthTitledPane, seventhTitledPane};
         ArrayList<UpcomingTasks> upcomingTasks =
                 new UpcomingTasksCommand(LocalDateTime.now(), false).getUpcomingTaskLists();
 
@@ -684,14 +688,14 @@ public class MainWindow extends UiPart<Stage> {
 
         for (int i = 0; i < upcomingTaskContainers.length; i++) {
             titledPanes[i].setText(upcomingTasks.get(i).getFormattedDate());
-//            ArrayList<UpcomingTasksBox> taskBoxesForDate
-//                    = UpcomingTasksBox.createUpcomingTasksBoxesForDate(upcomingTasks.get(i).getTaskAndInfo());
-//
-//            for (UpcomingTasksBox taskInfoForDate : taskBoxesForDate) {
-//                upcomingTaskContainers[i].getChildren().addAll(taskInfoForDate);
-//                titledPanes[i].setContent(upcomingTaskContainers[i]);
-//            }
-        }
-        }
+            ArrayList<UpcomingTasksBox> taskBoxesForDate
+                    = UpcomingTasksBox.createUpcomingTasksBoxesForDate(upcomingTasks.get(i).getTaskAndInfo());
 
+            for (UpcomingTasksBox taskInfoForDate : taskBoxesForDate) {
+                upcomingTaskContainers[i].getChildren().addAll(taskInfoForDate);
+                titledPanes[i].setContent(upcomingTaskContainers[i]);
+            }
+        }
     }
+
+}
