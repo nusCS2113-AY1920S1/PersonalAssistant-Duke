@@ -229,6 +229,7 @@ public class DollaData implements ModeStringList {
             break;
         case MODE_SHORTCUT:
             this.shortcutList.setRecordList(recordList);
+            break;
         case BILL:
             this.billList.setRecordList(recordList);
             break;
