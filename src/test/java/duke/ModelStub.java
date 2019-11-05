@@ -146,8 +146,11 @@ public class ModelStub implements Model {
 
     /**
      * Saves the file to local storage.
+     *
+     * @throws FileNotSavedException If the file cannot be saved.
      */
     @Override
-    public void save() {
+    public void save() throws FileNotSavedException {
+        storage.write();
     }
 }

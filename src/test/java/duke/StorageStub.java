@@ -56,7 +56,7 @@ public class StorageStub {
     /**
      * Constructs a Storage object that contains information from the model.
      */
-    public StorageStub() throws FileLoadFailException {
+    public StorageStub() {
         events = new EventList();
         routes = new RouteList();
         itineraryTable = new HashMap<>();
@@ -66,11 +66,10 @@ public class StorageStub {
     /**
      * Reads all storage file.
      */
-    private void read() throws FileLoadFailException {
+    private void read() {
         readBus();
         readTrain();
         readRecommendations();
-        readItineraryTable();
     }
 
     /**
