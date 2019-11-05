@@ -26,7 +26,7 @@ public class TaskList extends ArrayList<Task> {
         if (this.size() == 0) {
             return "There is nothing in your task list.";
         }
-        String msg = this.size() + "Here are the tasks in your task list:";
+        String msg = "Here are the tasks in your task list (total of " + this.size() + "):";
         for (int i = 0; i < this.size(); i++) {
             msg += System.lineSeparator() + (i + 1);
             msg += ". " + this.get(i);

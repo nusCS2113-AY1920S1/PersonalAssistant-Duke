@@ -21,6 +21,8 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static seedu.duke.common.parser.CommandParseHelper.isNumberTooLarge;
+
 public class EmailCommandParseHelper {
     private static UI ui = UI.getInstance();
 
@@ -63,8 +65,7 @@ public class EmailCommandParseHelper {
         case "addKeyword":
             return parseEmailAddKeywordCommand(optionList, input);
         default:
-            throw new EmailParseException("OOPS!!! Enter \'email help\' to get list of methods for "
-                    + "email.");
+            throw new EmailParseException("Invalid command word. Please enter \'help\' for more information");
         }
     }
 
@@ -94,13 +95,14 @@ public class EmailCommandParseHelper {
         Pattern showCommandPattern = Pattern.compile("^show\\s+(?<index>\\d+)\\s*$");
         Matcher showCommandMatcher = showCommandPattern.matcher(input);
         if (!showCommandMatcher.matches()) {
-            return new InvalidCommand("Please enter a valid index of task after \'show\'");
+            return new InvalidCommand("Please enter a valid index (positive integer equal or less than the "
+                    + "number of emails) of task after \'show\'");
         }
         try {
             int index = parseEmailIndex(showCommandMatcher.group("index"));
             return new EmailShowCommand(index);
         } catch (EmailParseException e) {
-            throw new EmailParseException(e.toString());
+            throw new EmailParseException(e.getMessage());
         }
     }
 
@@ -109,7 +111,8 @@ public class EmailCommandParseHelper {
         Pattern emailTagCommandPattern = Pattern.compile("^update\\s+(?<index>\\d+)\\s*$");
         Matcher emailTagCommandMatcher = emailTagCommandPattern.matcher(input);
         if (!emailTagCommandMatcher.matches()) {
-            return new InvalidCommand("Please enter a valid email index after \'update\'");
+            return new InvalidCommand("Please enter a valid email index (positive integer equal or lss "
+                    + "than the number of emails) after \'update\'");
         }
         ArrayList<String> tags = CommandParseHelper.extractTags(optionList);
         if (!tagsNotEmpty(tags)) {
@@ -119,7 +122,7 @@ public class EmailCommandParseHelper {
             int index = parseEmailIndex(emailTagCommandMatcher.group("index"));
             return new EmailTagCommand(index, tags);
         } catch (EmailParseException e) {
-            throw new EmailParseException(e.toString());
+            throw new EmailParseException(e.getMessage());
         }
     }
 
@@ -150,13 +153,13 @@ public class EmailCommandParseHelper {
     }
 
     private static int parseEmailIndex(String input) throws EmailParseException {
-        String strippedInput = input.replaceAll("^0+", "");
-        if (strippedInput.length() >= 6) {
+        if (isNumberTooLarge(input)) {
             throw new EmailParseException("Invalid index. Index of range 1 ~ 99999 is accepted.");
         }
-        int index = Integer.parseInt(strippedInput) - 1;
+        int index = Integer.parseInt(input) - 1;
         if (index < 0 || index >= Model.getInstance().getEmailListLength()) {
-            throw new EmailParseException("Index out of bounds.");
+            throw new EmailParseException("Index " + (index + 1) + " out of bounds of 1 to "
+                    + Model.getInstance().getEmailListLength());
         }
         return index;
     }
