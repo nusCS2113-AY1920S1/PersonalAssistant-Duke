@@ -77,7 +77,7 @@ public interface Model {
      */
     VenueList getEventVenues();
 
-    Itinerary getItinerary(String number);
+    Itinerary getItinerary(String name);
 
     Recommendation getRecommendations();
 
