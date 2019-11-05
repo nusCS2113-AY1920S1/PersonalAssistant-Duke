@@ -34,6 +34,9 @@ public class ParserHelper {
         ArrayList<String> newMemberDetailsA = new ArrayList<>(Arrays.asList(newMemberDetails));
         newMemberDetailsA.remove(0);
         for (String s : newMemberDetailsA) {
+            if (s.length() <= 0) {
+                continue;
+            }
             switch (s.charAt(0)) {
             case 'n':
                 memberDetails[0] = s.substring(1).trim();
