@@ -310,7 +310,7 @@ public class EventList {
      * @return String containing all events, separated by a newline.
      */
     public String listOfEvents_String() {
-        findNextEventAndSetBoolean();
+        checkForPastEventsAndUnachievedGoalsForThem();
         String allEvents = "";
         for (int i = currentDateIndex; i < eventArrayList.size(); ++i) {
             if (eventArrayList.get(i) == null) continue;
@@ -373,7 +373,7 @@ public class EventList {
     /**
      * Compares the dates of each event with current date
      */
-    private void findNextEventAndSetBoolean() {
+    private void checkForPastEventsAndUnachievedGoalsForThem() {
         Calendar currentDate = Calendar.getInstance();
         for (int i = 0; i < eventArrayList.size(); i += 1) {
             if (this.getEvent(i).getStartDate().getEventJavaDate().compareTo(currentDate.getTime()) <= 0) {
