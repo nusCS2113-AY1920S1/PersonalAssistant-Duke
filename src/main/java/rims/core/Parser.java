@@ -174,7 +174,7 @@ public class Parser {
             // @@author danielcyc
         } else if (words[0].equals("calendar") && words.length == 1 || words[0].equals("c")) {
             CalendarCommand.printCal(resources, ui);
-            c = new ListCommand();
+            c =new ListCommand();
          //@@author hin1
         } else if (words[0].equals("add") || words[0].equals("a")) {
             if (words[1].equals("/item")) {
@@ -384,7 +384,7 @@ public class Parser {
                 String[] splitDateFrom = dateFrom.split(" ");
                 dateFrom = convertNaturalDate(splitDateFrom[0], splitDateFrom[1]);
             }
-            String dateTill = ui.getInput(
+            dateTill = ui.getInput(
                 "Enter the end date in the format: DD/MM/YYYY HHmm, OR in the format: Tuesday HHmm");
             if (dateFrom.length() < 15) {
                 String[] splitDateTill = dateFrom.split(" ");
