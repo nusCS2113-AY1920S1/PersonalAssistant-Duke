@@ -17,6 +17,11 @@ public class FindTaskCommand implements Command {
 
     private String command;
 
+    /**
+     * The constructor for the FindTaskCommand.
+     *
+     * @param command contains the task id/description.
+     */
     public FindTaskCommand(String command) {
         this.command = command;
     }
@@ -25,11 +30,11 @@ public class FindTaskCommand implements Command {
      * It checks whether the command is containing id or description.
      * It finds the task based on id or description.
      *
-     * @param patientTask         contains the information between all the tasks and patients.
-     * @param taskManager         contains information of all tasks.
-     * @param patientManager      contains information of all patients.
-     * @param dukeUi                  interacts with user.
-     * @param storageManager      save the changes in csv file.
+     * @param patientTask    contains the information between all the tasks and patients.
+     * @param taskManager    contains information of all tasks.
+     * @param patientManager contains information of all patients.
+     * @param dukeUi         interacts with user.
+     * @param storageManager save the changes in csv file.
      * @throws DukeException if there is error finding tasks.
      */
     @Override
@@ -47,7 +52,7 @@ public class FindTaskCommand implements Command {
                 Task task = taskManager.getTask(id);
                 dukeUi.taskFoundById(task);
             } catch (Exception e) {
-                throw new DukeException(FindTaskCommand.class, "The task id does not exist.");
+                throw e;
             }
         } else {
             ArrayList<Task> tasksWithSameDescription = taskManager.getTaskByDescription(command);
