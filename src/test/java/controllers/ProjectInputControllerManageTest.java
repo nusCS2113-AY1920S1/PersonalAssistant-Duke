@@ -144,5 +144,39 @@ class ProjectInputControllerManageTest {
             "There were no errors!"
         };
         assertArrayEquals(expectedOutput, simulatedOutput);
+
+        simulatedUserInput = "add task -t ATest -c 100 -p 1";
+        simulatedOutput = projectInputController.manageProject(simulatedUserInput);
+        simulatedUserInput = "add task -t BTest -c 100 -p 1";
+        simulatedOutput = projectInputController.manageProject(simulatedUserInput);
+        simulatedUserInput = "view tasks /NAME";
+        simulatedOutput = projectInputController.manageProject(simulatedUserInput);
+        expectedOutput = new String[] {
+            "+----------------------------------------------------------------------+",
+            "|Tasks of Avengers Testing:                                            |",
+            "+----------------------------------------------------------------------+",
+            "|1. ATest                                                              |",
+            "|   - Priority: 1                                                      |",
+            "|   - Due: --                                                          |",
+            "|   - Credit: 100                                                      |",
+            "|   - State: OPEN                                                      |",
+            "|                                                                      |",
+            "|2. BTest                                                              |",
+            "|   - Priority: 1                                                      |",
+            "|   - Due: --                                                          |",
+            "|   - Credit: 100                                                      |",
+            "|   - State: OPEN                                                      |",
+            "|                                                                      |",
+            "|3. Kill Thanos                                                        |",
+            "|   - Priority: 1                                                      |",
+            "|   - Due: --                                                          |",
+            "|   - Credit: 100                                                      |",
+            "|   - State: OPEN                                                      |",
+            "+----------------------------------------------------------------------+"
+        };
+        for (String i : simulatedOutput) {
+            System.out.println(i);
+        }
+        assertArrayEquals(expectedOutput, simulatedOutput);
     }
 }
