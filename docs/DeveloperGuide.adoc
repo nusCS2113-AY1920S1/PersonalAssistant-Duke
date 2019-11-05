@@ -2012,7 +2012,6 @@ Expected: New `card` is added into the profile.
 `/add /card /name POBB Tomorrow Card /limit 10000 /rebate 1.5` +
 Expected: Error saying that there is already an existing card with the same name.
 
-
 === Editing a credit card
 
 . Editing the name of the `card`
