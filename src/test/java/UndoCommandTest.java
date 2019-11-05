@@ -37,6 +37,7 @@ class UndoCommandTest {
         Optional<String> haveFilter = Optional.of("filter");
         Optional<String> noFilter = Optional.empty();
 
+        System.out.println(Integer.parseInt("-----5"));
         //Date parameters
         Optional<LocalDateTime> dateTime1 = Optional.of(LocalDateTime.of(2017, Month.OCTOBER,
                 29, 0, 0));

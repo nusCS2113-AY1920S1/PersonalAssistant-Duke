@@ -12,7 +12,7 @@ ifdef::env-github[]
 :note-caption: :information_source:
 :warning-caption: :warning:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3/tree/master
+:repoURL: https://https://github.com/AY1920S1-CS2113-T16-2/main
 
 By: `CS2113-T16-2`      Since: `Aug 2019`      Licence: `MIT`
 
@@ -26,48 +26,23 @@ Refer to the guide <<SettingUp#, here>>.
 === Architecture
 
 .Architecture Diagram
-image::ArchitectureDiagram.png[]
+image::ArchitectureDiagram.jpeg[]
 
-The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
+The *_Architecture Diagram_* given above explains the high-level design of the El Duque.
 
-[TIP]
-The `.puml` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder.
-Refer to the <<UsingPlantUml#, Using PlantUML guide>> to learn how to create and edit diagrams.
+The 5 main components of the app are:
 
-`Main` has two classes called link:{repoURL}/src/main/java/seedu/address/Main.java[`Main`] and link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp`]. It is responsible for,
+* `El Duque`: Responsible for initialising all the other components correctly
+* `UI`: UI of the app
+* `Logic`: The command executor of the app
+* `Model`: Stores the data of the app in-memory
+* `Storage`: Reads and writes data to the JSON file
 
-* At app launch: Initializes the components in the correct sequence, and connects them up with each other.
-* At shut down: Shuts down the components and invokes cleanup method where necessary.
+*Interactions between components* +
+The sequence diagram below shows how the different components interact with each other for the scenario where the user issues the “task sleep well” command.
 
-<<Design-Commons,*`Commons`*>> represents a collection of classes used by multiple other components.
-The following class plays an important role at the architecture level:
-
-* `LogsCenter` : Used by many classes to write log messages to the App's log file.
-
-The rest of the App consists of four components.
-
-* <<Design-Ui,*`UI`*>>: The UI of the App.
-* <<Design-Logic,*`Logic`*>>: The command executor.
-* <<Design-Model,*`Model`*>>: Holds the data of the App in-memory.
-* <<Design-Storage,*`Storage`*>>: Reads data from, and writes data to, the hard disk.
-
-Each of the four components
-
-* Defines its _API_ in an `interface` with the same name as the Component.
-* Exposes its functionality using a `{Component Name}Manager` class.
-
-For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
-
-.Class Diagram of the Logic Component
-image::LogicClassDiagram.png[]
-
-[discrete]
-==== How the architecture components interact with each other
-
-The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
-
-.Component interactions for `delete 1` command
-image::ArchitectureSequenceDiagram.png[]
+.Component interactions for "task sleep well" command
+image::ComponentSequence.jpeg[]
 
 The sections below give more details of each component.
 
@@ -77,59 +52,33 @@ The sections below give more details of each component.
 .Structure of the UI Component
 image::UiClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
+The ui package is relatively simple, since we have no GUI. The ui package consists of 2 classes - `TaskListPrinter` and `Ui`. `TaskListPrinter` is a class that handles the printing of the `TaskList` for the user to view. `Ui` is a class that deals with user interactions. `TaskListPrinter` depends on `Task` and `TaskList` while the logic package relies heavily on `UI` (e.g. all commands have execute method which uses `Ui`).
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
-
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
-
-The `UI` component,
-
-* Executes user commands using the `Logic` component.
-* Listens for changes to `Model` data so that the UI can be updated with the modified data.
-
+// tag::logic[]
 [[Design-Logic]]
 === Logic component
 
-[[fig-LogicClassDiagram]]
+
 .Structure of the Logic Component
 image::LogicClassDiagram.png[]
 
-*API* :
-link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
-
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
-.  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a person).
-.  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
-.  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
-
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
-
-.Interactions Inside the Logic Component for the `delete 1` Command
-image::DeleteSequenceDiagram.png[]
-
-NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-
+.  `Logic` uses the `DuqueParser` to parse the user command.
+.  Depending on the user command, a different parser will be created to handle the command.
+.  This results in a `Command` object which is executed by `El Duque`.
+.  The command execution can affect the `Model` (e.g. adding a `Task`).
+.  The result of the command execution, which may affect the `Model`, will be passed back to the `Ui` to display confirmation of the successful execution to the user.
+// end::logic[]
 [[Design-Model]]
 === Model component
 
-.Structure of the Model Component
-image::ModelClassDiagram.png[]
+.Structure of the TaskList Component
+image::ModelClassDiagram.jpeg[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
+The `TaskList`:
 
-The `Model`,
-
-* stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
-* does not depend on any of the other three components.
-
-[NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
- +
-image:BetterModelClassDiagram.png[]
+* Stores an array list of tasks that represents tasks that the user wishes to store. 
+* Event object extends tasks and enforces a compulsory `LocalDateTime` object denoting the time of the event
+* `TaskList` does not depend on other components
 
 [[Design-Storage]]
 === Storage component
@@ -137,23 +86,15 @@ image:BetterModelClassDiagram.png[]
 .Structure of the Storage Component
 image::StorageClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
+The storage package contains 3 classes - `RuntimeTypeAdaptorFactory`, `Storage` and `UndoStack`. `RuntimeTypeAdaptorFactory` is a class that facilitates serializing and deserializing since we store our persistent data in a json file. Storage is a class that deals with the saving and loading of all task data the user has saved. `UndoStack` contains all the mirror commands of commands which can be undone.
 
-The `Storage` component,
-
-* can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in json format and read it back.
-
-[[Design-Commons]]
-=== Common classes
-
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+`Storage` depends on `TaskList` and `Task` because it needs to have the `Task` and `TaskList` variables before saving them. `UndoStack` has a stack of `Commands`, so it depends on `Command`. `UndoCommand` needs the `UndoStack` to perform “un-doing” while `AddCommand`, `EditCommand`, `DeleteCommand` and `DoneCommand` need to add the “negation” of performed tasks to UndoStack.
 
 == Implementation
 
 This section describes some noteworthy details on how certain features are implemented.
 
-// tag::undoredo[]
+// tag::nova[]
 === Filtering
 ==== Implementation
 
@@ -176,10 +117,10 @@ Given below is an example usage scenario and how the filter mechanism behaves at
 . The user launches the application for the first time. The `Duke` main class will be initialized, and the `Ui` class will prompt the user to key in input.
 
 . The user executes `-CS2113 task DG submission -d 2 -t 251019 2359` command to add a new task called `DG submission` which will have a `filter` `CS2113`, a `duration` of `2 hours` to complete, and a deadline at `25/10/2019 23:59`.
----
+[distinct]
 [NOTE]
 If the user's system somehow crashes after executing the above command, the new task entry will still be saved into the JSON storage file and can be recovered on the next launch of the application.
----
+
 . The user executes `-CS2113 list` to view all tasks and events associated with `CS2113`.
 
 . The user now decides that setting the duration of `DG submission` to be only 2 hours was a mistake, and decides to increase the duration needed by executing `-CS2113 edit 1 -d 4`. The `edit` command will call `EditCommand`, which will search for the corresponding task in the `TaskList`, updating whatever values the user has input, in this case updating the `duration` to `4 hours`.
@@ -221,11 +162,12 @@ undo
 ===== Aspect: How undo works
 
 * **Alternative 1 (current choice):** Use a `java.util.Stack` to store mirror commands that facilitate the undoing of undo-able commands.
-** Pros: Easy to implement.
-** Cons: May have performance issues in terms of speed when calling list because a new list must be filtered from all existing tasks within the current `TaskList`.
-* **Alternative 2:** When a new `filter` is created, create a new `TaskList` specific to that `filter` to store those tasks.
-** Pros: Will be faster to show filtered list to the user
-** Cons: Must change implementation of `TaskList`, `TaskListPrinter`, `AddCommand`, `EditCommand` to facilitate this. We must ensure that the implementation of each individual command is correct.
+** Pros: Easy to implement, fast, saves space.
+** Cons: Difficult to concurrently implement a redo feature.
+* **Alternative 2:** Use a java.util.List to store each state of the TaskList whenever it changes regardless of whether calling Undo/Redo.
+** Pros: Able to efficiently execute undo/redo.
+** Cons: Takes up more space which might slow down the program overall or even cause an eventual `Memory Limit Exceeded` exception.
+// end::nova[]
 
 === Editing
 ==== Implementation
@@ -247,7 +189,7 @@ Given below is an example usage scenario of an edit that includes a filter and h
 The following sequence diagram summarises how the edit operation works:
 
 .Sequence Diagram for Edit Command
-image::EditSequenceDiagram.png[]
+image::EditCommandSequenceDiagram.jpg[]
 
 ==== Design Considerations
 ===== Aspect: How actual index of task is found when given an index based on the filtered list
@@ -266,9 +208,70 @@ image::EditSequenceDiagram.png[]
 ** Pros: Won’t need to call individual setters for each attribute.
 ** Cons: Have to deal with AddCommand class to create a new task. 
 
+=== Pomodoro feature
+==== Implementation
+The Pomodoro feature is an inbuilt timer based on the pomodoro workflow. It allows the user to run a timer based on the 25-5 work-rest work ratio and reminds users to manage their work-rest ratio properly.
+
+This feature is implemented using the Singleton design pattern with only one instance of the Pomodoro object. Accessing this instance is through the getInstance() method. 
+
+The Pomodoro object instantiates a java.util timer and the pomodoroTimerTask class and manages the starting and stopping of the timer. The class is configured as follows:
+
+* The timer is configured to run the pomodoroTimerTask.run() every minute. 
+
+* pomodoroTimerTask takes in an integer parameter minutesRemaining and decrements it every minute. This determines how many minutes to run this timerTask for. After it reaches 0, the timer task will cancel itself. 
+
+*Pomodoro States*
+The states are configured based on the pomodoro workflow and are as follows:
+
+* Work : Set to 25 minutes intervals, once completed will switch to a break.
+* Short Break: Set to 5 minutes interval, runs after ever 1st, 2nd and 3rd work cycle.
+* Long Break: Set to 15 minutes interval, runs after every 4th work cycle.
+
+
+
+*Commands*
+This feature uses the keyword pomo followed by a few commands to control it’s actions as listed below.
+
+    pomo [MODIFICATION]
+
+`start`: Begins the timer.
+
+`status`: Outputs the current status of the pomodoro, minutes remaining and current cycle.
+
+`reset`: Resets the timer back to the previous state. 
+
+`restart`: Restarts the pomodoro to the 1st work cycle.
+
+`stop`: Stops the timer. 
+
+`[Coming in v1.4] set`: Assigns a task to the current pomodoro and prints out during status updates.
+
+Given below is the sequence diagram of how the pomodoro feature work. 
+
+.Sequence Diagram for Pomodoro Feature
+image::PomodoroSequenceDiagram.jpeg[]
+
+==== Design Considerations
+===== Aspect: How actual index of task is found when given an index based on the filtered list
+* **Alternative 1 (current choice):** Using 2 separate counters to keep track of actual index versus filtered index
+** Pros: Easy to implement.
+** Cons: Harder to understand.
+* **Alternative 2:** Saves a copy of the filtered list
+** Pros: Clearer to understand. 
+** Cons: Have to deal with multiple lists.
+
+===== Aspect: How the task are updated
+* **Alternative 1 (current choice):** Updating each attribute of a task separately.
+** Pros: Reduces the dependency needed, `EditCommand` only needs to call a setter function instead of a getter for existing attributes followed by `AddCommand`.
+** Cons: Have to create a setter for each attribute of task
+* **Alternative 2:** Create a new task with updated fields.
+** Pros: Won’t need to call individual setters for each attribute.
+** Cons: Have to deal with AddCommand class to create a new task. 
+
+
 === Finding
 ==== Implementation
-The `FindCommand` feature is an extension of the `ListCommand`. As the name suggests, it allows the user to list tasks whose description matches the text.
+The find feature is an extension of the `ListCommand`. As the name suggests, it allows the user to list tasks whose description matches the text.
 
 Given below is an example usage scenario of FindCommand: 
 ----
@@ -286,14 +289,13 @@ Filter contains "cs" and command contains “find tutorial”.
 FindCommand uses the ListCommand object as an attribute. This can be seen as a HAS-A or composition relationship. We chose not to use inheritance as FindCommand is not strictly a ListCommand. Also, this follows the composition over inheritance principle in object-oriented programming.
 Care was taken not to mutate the “main” TaskList in place, but rather, create a new TaskList to store tasks that match the keyword.
 
-=== Future Scope (Next Milestone)
+==== Future Scope (Next Milestone)
 Use similar idea of substring matching with other commands. E.g. done tutorial => show user all the tasks that contain tutorial and ask him to choose which one he has completed.
 
-=== Off-By-One
+=== Feature to handle typos and shortforms
 ==== Implementation
-It is possible that the user typed the command wrongly. E.g. “tasl” instead of “task”. The user will be prompted `(Y/N)` for the correct command name. Helps save time - type a letter instead of full command. Off by one means off by 1 substitution
-
-The `FindCommand` feature is an extension of the `ListCommand`. As the name suggests, it allows the user to list tasks whose description matches the text.
+It is possible that the user typed the command wrongly. E.g. “tasl” instead of “task”. The user will be prompted `(Y/N)` for the correct command name. Helps save time - type a letter instead of full command. Off by one means off by 1 substitution error. This functionality is implemented in `OffByOneChecker`.
+Also, sometimes the user can be lazy to type the whole command, so we allow shortforms - ‘t’ instead of ‘task’, ‘del’ instead of ‘delete’ etc. This functionality is implemented in `StartsWithChecker`.
 
 Given below is an example usage scenario of `Off-By-One`:
 ----
@@ -313,35 +315,63 @@ Y
 
 
 ==== Design Considerations
-The `OffByOne` is designed such that regardless of a valid command, off by one command or wrong command, the expected results are consistent. Hence, we always call `OffByOneChecker` on each input/keyword
+The `OffByOneChecker` and `StartsWithChecker` is designed such that regardless of a valid command, off by one command or wrong command, the expected results are consistent. Hence, we always use `OffByOneChecker` and `StartsWithChecker` on each input/keyword. We can think of `OffByOneChecker` and `StartsWithChecker` as “filtering” the keyword before matching the keyword to some command. The benefit of doing this is that this results in minimal changes in existing code. The Parser class only needs to add 2 lines of code.
 
-=== Future Scope (Next Milestone)
+
+==== Future Scope (Next Milestone)
 Use a more efficient data structure. Extend this to other keywords like “priority”.
 
-== Documentation
+=== Automatically assign filter to some task feature
+==== Implementation
+Some tasks which the user has created are yet to be assigned to a filter. If the user wants to clean up his unassigned tasks by assigning them to some existing filter but he is either not sure what the filter should be or cannot recall the name of the filter, he could use the auto assign feature.
 
-Refer to the guide <<Documentation#, here>>.
+The autoassign command requires taking in the index of an unassigned task.
+If the index given refers to a task with an existing filter already, the user will be informed that the task has already assigned to a filter.
 
-== Testing
 
-Refer to the guide <<Testing#, here>>.
+The autoassign command suggests a suitable filter for the task based on 2 heuristics.
 
-== Dev Ops
+The first heuristic is filter name matching and is straightforward. If the description of the task contains the name of any filter, `ElDuque` will suggest to the user if he wishes to assign the task to the filter. Note that there can be more than 1 filter that meets this criteria. If user says N, then `ElDuque` will prompt for other filters until the user says Y or there are no filters left.
 
-Refer to the guide <<DevOps#, here>>.
+The second heuristic is using cosine similarity and is slightly more complicated. Here are a list of steps `ElDuque` performs for this part:
+
+. For all tasks, we get their descriptions and clean them.
+
+. Cleaning refers to removing beginning and ending whitespace, removing punctuation, changing to lowercase and removing excessing whitespace. E.g. “Buy math  textbook.” will be cleaned to “buy math textbook”.
+
+. All descriptions can now be tokenized into individual words.
+
+    E.g. “buy math textbook” is tokenized into [“buy”, “math”, “textbook”].
+
+. Next, we get a set of unique tokens. Now, we can express the description of each task as a vector of counts of the unique tokens.
+
+    For example, suppose the set of unique tokens are:
+    [“buy”, “sell”, “laundry”, “textbook”, “to”, “math”, “do”, “problems”, “pass”, “exam”]
+    The description will be vectorized like so:
+    “buy math textbook to do math problems to pass exam” => [1 0 0 1 2 2 1 1 1 1]
+
+. For each filter, we can then find all the corresponding vectors and sum them up.
+. Now, we have a vector for each filter. For the unassigned task, we also have a vector.
+. Find the cosine similarity between the task vector and each of the filter vectors. If the best cosine similarity is 0, inform the user there are no suitable filters to auto assign. Else, suggest the filter with the highest cosine similarity.
+
+
+
+==== Design Considerations
+Given the large number of steps for this command, we can isolate many parts of the implementation into methods. For instance, calculating vector counts for a list of tokens can be a method. This improves code reuse and readability.
+
 
 [appendix]
 == Product Scope
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
+* computer science students
 * can type fast
 * prefers typing over mouse input
-* is reasonably comfortable using CLI apps
+* reasonably comfortable using CLI apps
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: Simple default settings to manage tasks for new users which work well. Advanced commands for power users to further increase efficiency of the app.
+
 
 [appendix]
 == User Stories
@@ -353,15 +383,12 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |Priority |As a ... |I want to ... |So that I can...
 |`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
 
-|`* * *` |user |add a new person |
+|`* * *` |user |add a new task |
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |user |delete a task |remove entries that I no longer need
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |user |find a task by name |locate details of tasks without having to go through the entire list
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
-
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
 |=======================================================================
 
 _{More to be added}_
@@ -369,44 +396,53 @@ _{More to be added}_
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `El-Duque` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== Use case: Create a task
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+. Start system
+. System starts with a welcome message
+. User uses the Create Task command
+. User enters the details of the task such as description, type, timing, tags
+. System will inform the user that the task has been created successfully
+
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a. The list is empty.
+* 3a. User creates a recurring task. +
+[none]
+** 3a1. User uses a recurring tag to create a scheduled task e.g. -r week as in *Use Case 2*.
 +
 Use case ends.
 
-* 3a. The given index is invalid.
+* 4a. System detects invalid input.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 4a1. System informs the user and requests for correct input.
 +
-Use case resumes at step 2.
+Use case resumes at step 3.
+
+* 4b. System detects conflicting event times.
++
+[none]
+** 4a1. System informs the user of conflict and requests for correct input.
++
+Use case resumes at step 3.
 
 _{More to be added}_
-
+// tag::nova2[]
 [appendix]
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+.  Should be able to hold up to 1000 tasks without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-
-_{More to be added}_
 
 [appendix]
 == Glossary
@@ -414,25 +450,6 @@ _{More to be added}_
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
 
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
-
-[appendix]
-== Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
 
 [appendix]
 == Instructions for Manual Testing
@@ -448,34 +465,46 @@ These instructions only provide a starting point for testers to work on; testers
 
 .. Download the jar file and copy into an empty folder
 .. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+   Expected: Shows the CLI with a welcome message. The window size may not be optimum.
 
-. Saving window preferences
+. Shutdown
 
-.. Resize the window to an optimum size. Move the window to a different location. Close the window.
-.. Re-launch the app by double-clicking the jar file. +
-   Expected: The most recent window size and location is retained.
+.. Enter the command `bye` +
+   Expected: A goodbye message will be shown and the app will exit.
 
-_{ more test cases ... }_
 
-=== Deleting a person
+=== Adding a task
 
-. Deleting a person while all persons are listed
+. Adding a new simple task
 
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+.. Test case: `task example` +
+   Expected: New task created called example which can be viewed by calling `list`. This undone task will have no filter, no datetime, no recurrence, no duration, and a low priority.
+
+. Adding a new complex task
+
+.. Test case: `-test task example -d 7 -t today -r daily` +
+   Expected: New task created called example which can be viewed by calling `list`. This undone task will have a filter `test`, the current local datetime, a daily recurrence, a 7 hour duration to complete, and a low priority.
+
+
+
+=== Deleting a task
+
+. Deleting a person while all tasks are listed
+
+.. Prerequisites: List all tasks using the `list` command. At least one task in list.
 .. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+   Expected: First task is deleted from the list. Details of the deleted task shown in the status message.
 .. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+   Expected: No task is deleted. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _
    Expected: Similar to previous.
 
-_{ more test cases ... }_
+. Deleting a person while filtered tasks are listed
 
-=== Saving data
-
-. Dealing with missing/corrupted data files
-
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
-
-_{ more test cases ... }_
+.. Prerequisites: List filtered tasks using the `<filter> list` command. At least one task in filtered list.
+.. Test case: `<filter> delete 1` +
+   Expected: First task is deleted from the `<filter> list`. Details of the deleted task shown in the status message.
+.. Test case: `<filter> delete 0` +
+   Expected: No task is deleted. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect delete commands to try: `<filter> delete`, `<filter> delete x` (where x is larger than the filtered list size) _
+   Expected: Similar to previous.
