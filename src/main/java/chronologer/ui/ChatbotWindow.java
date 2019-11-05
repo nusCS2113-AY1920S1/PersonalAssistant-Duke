@@ -6,8 +6,10 @@ import chronologer.parser.Parser;
 import chronologer.parser.ParserFactory;
 import chronologer.storage.Storage;
 import chronologer.task.TaskList;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;

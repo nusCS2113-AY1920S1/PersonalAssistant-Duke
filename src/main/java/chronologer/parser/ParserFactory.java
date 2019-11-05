@@ -3,10 +3,13 @@ package chronologer.parser;
 import chronologer.command.Command;
 import chronologer.command.ExitCommand;
 import chronologer.command.ExportCommand;
+import chronologer.command.HelpCommand;
 import chronologer.command.ListCommand;
+import chronologer.command.ManualCommand;
 import chronologer.command.RedoCommand;
 import chronologer.command.StoreVersionCommand;
 import chronologer.command.UndoCommand;
+import chronologer.command.WeekCommand;
 import chronologer.exception.ChronologerException;
 import chronologer.ui.UiTemporary;
 
@@ -95,6 +98,12 @@ public class ParserFactory {
             return new RestoreVersionParser(userInput,command).parse();
         case "store":
             return new StoreVersionParser(userInput,command).parse();
+        case "week":
+            return new WeekParser(userInput,command).parse();
+        case "help":
+            return new HelpCommand();
+        case "manual":
+            return new ManualCommand();
         case "exam": //fallthrough
         case "examination":
             command = "exam";

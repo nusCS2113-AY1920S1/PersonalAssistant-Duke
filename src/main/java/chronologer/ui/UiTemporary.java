@@ -3,6 +3,7 @@ package chronologer.ui;
 import chronologer.task.Task;
 import chronologer.task.TaskList;
 import javafx.beans.value.ObservableIntegerValue;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -139,20 +140,22 @@ public class UiTemporary {
      * This printManual function is called to aid the user in the usage of 'Duke' by
      * guiding them on how to input their task.
      */
-    public static void printManual() {
-        System.out.println(userOutputDash);
-        System.out.println("Hi, this is Duke!");
-        System.out.println("I am able to let you add tasks of three types! todo, event and deadline");
-        System.out.println("1. To add a todo task, key in todo<space>your task description eg. todo borrow books");
-        System.out.println("2. To add a deadline, key in deadline<space>your deadline description<space>/by<space>the "
-            + "date eg. return books/by dd/MM/yyyy HHmm");
-        System.out.println("3. To add a event, key in event<space>your event description<space>/at<space>the day or "
-            + "date and the time eg. Project meeting /at dd/MM/yyyy HHmm-HHmm");
-        System.out.println("4. To list out all your tasks simply enter list");
-        System.out.println("5. To mark a task as complete just enter done<space>the index of the task as listed");
-        System.out.println("6. To find a task from the task list enter find<space>any word in the task");
-        System.out.println("7. To delete a task just enter delete<space>the index of the task as listed");
-        System.out.println("8. To exit, enter bye");
+    public static String printManual() {
+
+        return ("Hi, this is the Chronologer manual!\n")
+            + ("For all commands with date-time, the format is - dd/MM/yyyy HHmm\n\n")
+            + ("1. Todo - todo<space>your task description eg. todo borrow books\n")
+            + ("2. Deadline - deadline<space>your deadline description<space>/by<space> date-time\n")
+            + ("3. Event - event<space>your event description<space>/at<space> date-time-date-time\n")
+            + ("4. To list out all your tasks simply enter list\n")
+            + ("5. Done - done<space> index of the task as listed\n")
+            + ("6. Find - find<space>any word in the task\n")
+            + ("7. Delete - delete<space> index of task as listed\n")
+            + ("8. Undo/Redo - undo or redo changes to your tasks\n")
+            + ("9. Theme - theme<space>dark or light\n")
+            + ("10. Store/Restore - store or restore<space> index of storage\n")
+            + ("11. To exit, enter bye\n\n")
+            + ("12. If still unclear, enter manual to see our user guide!");
     }
 
     public static void printUnknownInput() {
