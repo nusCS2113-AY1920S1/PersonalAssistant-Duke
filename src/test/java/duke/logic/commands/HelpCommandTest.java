@@ -6,6 +6,9 @@ import duke.logic.commands.results.CommandResultText;
 
 import org.junit.jupiter.api.Test;
 
+import java.awt.*;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class HelpCommandTest {
@@ -14,6 +17,6 @@ class HelpCommandTest {
     void execute() throws DukeException {
         Command c = new HelpCommand();
         ModelStub modelStub = new ModelStub();
-        assertTrue(c.execute(modelStub) instanceof CommandResultText);
+        assertThrows(HeadlessException.class, () -> c.execute(modelStub));
     }
 }
