@@ -314,5 +314,8 @@ public class UiFr extends Ui {
                     "\n\t\t\t éditer la date d'une tache homework : 'edit INDEX /by DATE'"+
                     "\n\t\t\t éditer la période d'une tâche event: 'edit INDEX /at DATE - DATE'");
         }
+        else if (e instanceof UserAnswerException){
+            System.out.println("\t UserAnswerException:\n\t\t ☹ OOPS!!! Veuillez répondre correctement à la question.");
+        }
     }
 }

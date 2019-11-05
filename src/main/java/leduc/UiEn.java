@@ -328,5 +328,8 @@ public class UiEn extends Ui {
                     "\n\t\t\t edit the date of an homework task: 'edit INDEX /by DATE'"+
                     "\n\t\t\t edit the period of an event task: 'edit INDEX /at DATE - DATE'");
         }
+        else if (e instanceof UserAnswerException){
+            System.out.println("\t UserAnswerException:\n\t\t ☹ OOPS!!! Please answer correctly the question.");
+        }
     }
 }
