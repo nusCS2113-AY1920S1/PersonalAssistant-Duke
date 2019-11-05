@@ -22,7 +22,7 @@ public class DeleteTaskCommand implements Command {
     private Task taskToBeDeleted;
 
     /**
-     * It keeps the delete task command.
+     * The constructor for the DeleteTaskCommand.
      *
      * @param deletedTaskInfo contains the information of the patient to be deleted.
      */
@@ -54,7 +54,7 @@ public class DeleteTaskCommand implements Command {
             try {
                 task = taskManager.getTask(id);
             } catch (Exception e) {
-                throw new DukeException(DeleteTaskCommand.class, "The task id does not exist. ");
+                throw e;
             }
         } else {
             throw new DukeException(DeleteTaskCommand.class, "Please follow format 'delete task :#<id>'. ");

@@ -15,7 +15,7 @@ public class PatientManager {
     private int maxId = 0;
 
     /**
-     * instantiate a new TaskList with a empty list.
+     * Instantiate a new PatientList with a empty list.
      */
     public PatientManager(ArrayList<Patient> patientList) {
         for (Patient patient : patientList) {
@@ -27,10 +27,10 @@ public class PatientManager {
     }
 
     /**
-     * .
+     * It checks whether a patient exists.
      *
-     * @param id .
-     * @return .
+     * @param  id contains the id of the patient.
+     * @return    true if the patient exists, otherwise false.
      */
     public boolean doesExist(int id) {
         if (patientIdMap.containsKey(id)) {
@@ -41,11 +41,11 @@ public class PatientManager {
     }
 
     /**
-     * .
+     * It retrieves a patient.
      *
-     * @param id .
-     * @return .
-     * @throws DukeException .
+     * @param id             contains the id of the patient.
+     * @return               the patient.
+     * @throws DukeException if the patient id does not exist.
      */
     public Patient getPatient(int id) throws DukeException {
         if (patientIdMap.containsKey(id)) {
@@ -56,10 +56,10 @@ public class PatientManager {
     }
 
     /**
-     * .
+     * It retrieves a list of patients with the name provided.
      *
-     * @param name .
-     * @return .
+     * @param name contains the name to be checked.
+     * @return     the list of patients who have the same name.
      */
     public ArrayList<Patient> getPatientByName(String name) {
         name = name.toLowerCase();
@@ -75,10 +75,10 @@ public class PatientManager {
     /**
      * It checks whether the name is valid.
      *
-     * @param name contains the name to be checked.
+     * @param name           contains the name to be checked.
      * @throws DukeException if the name is invalid.
      */
-    public void nameIdValid(String name) throws DukeException {
+    public void nameIsValid(String name) throws DukeException {
         Pattern regex = Pattern.compile("[$&+,:;=\\\\?@#|/'<>.^*()%!-]");
         if (regex.matcher(name).find()) {
             throw new DukeException(PatientManager.class, "The patient's name cannot contain any special characters.");
@@ -90,7 +90,7 @@ public class PatientManager {
     /**
      * It checks whether the nric is valid.
      *
-     * @param nric contains the nric to be checked.
+     * @param nric           contains the nric to be checked.
      * @throws DukeException if the nric is invalid.
      */
     public void nricIsValid(String nric) throws DukeException {
@@ -105,7 +105,7 @@ public class PatientManager {
         }
         char firstChar = nric.charAt(0);
         if (firstChar != 'S' && firstChar != 'T' && firstChar != 'F' && firstChar != 'G') {
-            throw new DukeException("The first letter of NRIC can only be S, T, F or G");
+            throw new DukeException("The first letter of NRIC can only be S, T, F or G.");
         }
         String nricSubstring = nric.substring(1);
         if (nricSubstring.length() != 8) {
@@ -124,7 +124,7 @@ public class PatientManager {
     /**
      * It checks whether the room number is valid.
      *
-     * @param room contains the room number to be checked.
+     * @param room           contains the room number to be checked.
      * @throws DukeException if the room number is invalid.
      */
     public void roomIsValid(String room) throws DukeException {
@@ -137,12 +137,12 @@ public class PatientManager {
     /**
      * It adds a new patient to the patient list.
      *
-     * @param patient contains the information of the patient to be added.
+     * @param patient        contains the information of the patient to be added.
      * @throws DukeException if the patient is not added successfully.
      */
     public void addPatient(Patient patient) throws DukeException {
         try {
-            nameIdValid(patient.getName());
+            nameIsValid(patient.getName());
             nricIsValid(patient.getNric());
             roomIsValid(patient.getRoom());
         } catch (Exception e) {
@@ -157,19 +157,19 @@ public class PatientManager {
     }
 
     /**
-     * .
+     * It retrieves the patient list.
      *
-     * @return .
+     * @return the list of patients.
      */
     public ArrayList<Patient> getPatientList() {
         return new ArrayList<>(patientIdMap.values());
     }
 
     /**
-     * .
+     * It deletes a patient from patient list.
      *
-     * @param id .
-     * @throws DukeException .
+     * @param id             contains the id of the patient to be deleted.
+     * @throws DukeException if the patient id does not exist.
      */
     public void deletePatient(int id) throws DukeException {
         if (patientIdMap.containsKey(id)) {

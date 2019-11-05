@@ -1,7 +1,8 @@
+//@@author kkeejjuunn
+
 package duke.commands.patient;
 
 import duke.commands.Command;
-import duke.exceptions.DukeException;
 import duke.util.DukeUi;
 import duke.models.patients.Patient;
 import duke.models.patients.PatientManager;
@@ -18,23 +19,27 @@ public class ListPatientsCommand implements Command {
     }
 
     /**
-     * .
+     * It lists all patients in Dukepital.
      *
-     * @param patientTask        .
-     * @param tasks              .
-     * @param patientList        .
-     * @param dukeUi                 .
-     * @param storageManager .
-     * @throws DukeException .
+     * @param assignedTaskManager contains the information between all the tasks and patients.
+     * @param taskManager         contains information of all the tasks.
+     * @param patientManager      contains information of all the patients.
+     * @param dukeUi              interacts with user.
+     * @param storageManager      save the changes in csv file.
      */
     @Override
-    public void execute(AssignedTaskManager patientTask, TaskManager tasks, PatientManager patientList,
+    public void execute(AssignedTaskManager assignedTaskManager, TaskManager taskManager, PatientManager patientManager,
                         DukeUi dukeUi, StorageManager storageManager) {
 
-        ArrayList<Patient> list = patientList.getPatientList();
-        dukeUi.listAllPatients(list);
+        ArrayList<Patient> patientList = patientManager.getPatientList();
+        dukeUi.listAllPatients(patientList);
     }
 
+    /**
+     * It terminates the Dukepital.
+     *
+     * @return false.
+     */
     @Override
     public boolean isExit() {
         return false;
