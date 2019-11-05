@@ -1004,8 +1004,12 @@ Take note that there is a maximum of *30* character limit.
 ===== Adding financial goals `/add /goals`
 
 Have a financial goal that you wish to achieve? We can certainly help you with that!
-Regardless whether it's a short-term goal _like saving for a holiday_ or a long-term goal
-_like saving for your wedding or retirement_, we've got you covered!
+Regardless whether it's a short-term goal [.small]_like saving for a holiday_ or a long-term goal
+[.small]_like saving for your wedding or retirement_, we've got you covered!
+
+|===
+Earn an achievement when you reach your goal before your stipulated deadline and unlocked a new achievement!
+|===
 
 *Command Syntax*
 
