@@ -508,7 +508,7 @@ class ProjectInputControllerTest {
         assertEquals("Please input the parameters to view assignments:", output[0]);
         simulatedUserInput = "view assignments atm";
         output = projectInputController.projectViewAssignments(project, simulatedUserInput);
-        assertEquals("Could not understand your command! Please use:",
+        assertEquals("Please input the parameters to view assignments:",
             output[0]);
         //no members
         simulatedUserInput = "view assignments -m all";
@@ -518,6 +518,9 @@ class ProjectInputControllerTest {
         simulatedUserInput = "view assignments -t all";
         output = projectInputController.projectViewAssignments(project, simulatedUserInput);
         assertEquals("No tasks in project yet.", output[0]);
+        simulatedUserInput = "view assignments -a 1";
+        output = projectInputController.projectViewAssignments(project, simulatedUserInput);
+        assertEquals("Could not understand your command! Please use:", output[0]);
     }
 
 
