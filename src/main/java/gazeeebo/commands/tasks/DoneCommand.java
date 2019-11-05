@@ -12,6 +12,9 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Stack;
 
+/**
+ * Allows user to record which tasks are completed.
+ */
 public class DoneCommand extends Command {
     /**
      * The string "done " has 5 characters.

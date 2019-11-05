@@ -14,6 +14,10 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Stack;
 
+/**
+ * Groups tasks of the same tags together after
+ * a task is tagged.
+ */
 public class TagCommand extends Command {
     /**
      * Adds a tag e.g. #study to a task.

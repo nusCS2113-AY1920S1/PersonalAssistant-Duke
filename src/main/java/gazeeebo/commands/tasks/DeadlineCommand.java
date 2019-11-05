@@ -16,6 +16,9 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Stack;
 
+/**
+ * This class creates and adds a new deadline task.
+ */
 public class DeadlineCommand extends Command {
     /**
      * The string "deadline" has 6 characters.
@@ -27,7 +30,7 @@ public class DeadlineCommand extends Command {
     static final int DEADLINE_AND_SPACE_CHAR_COUNT = 9;
 
     /**
-     * This class adds deadline tasks to the list of tasks when called.
+     * Adds deadline tasks to the list of tasks when called.
      *
      * @param list          List of all tasks
      * @param ui            the object that deals with

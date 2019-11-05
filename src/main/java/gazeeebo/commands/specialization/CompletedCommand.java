@@ -8,6 +8,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Map;
 
+/**
+ * Allows users to mark a technical elective as completed.
+ */
 public class CompletedCommand {
     /**
      * Index of Communication and Networking specialization.

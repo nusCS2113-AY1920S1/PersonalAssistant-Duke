@@ -8,7 +8,9 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Map;
-
+/**
+ * This class deletes the expense from the expense list and expenses map.
+ */
 public class DeleteExpenseCommand {
 
     /**
@@ -38,7 +40,6 @@ public class DeleteExpenseCommand {
         for (int j = 0; j < expenseList.size(); j++) {
             System.out.println((j + 1) + ". " + expenseList.get(j));
         }
-
         ui.readCommand();
         String expenseIndex = ui.fullCommand;
         int index = Integer.parseInt(expenseIndex) - 1;

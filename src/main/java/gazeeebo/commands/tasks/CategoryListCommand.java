@@ -19,7 +19,9 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Stack;
 
-
+/**
+ * Shows the categorized list when called.
+ */
 public class CategoryListCommand extends Command {
     /**
      * Index of parameter duration on the command is 3.

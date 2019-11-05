@@ -12,6 +12,9 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Stack;
 
+/**
+ * Allows user to find a task via a keyword.
+ */
 public class FindCommand extends Command {
     /**
      * The string "find" has 4 characters.

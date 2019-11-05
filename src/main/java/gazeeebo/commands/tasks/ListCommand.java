@@ -11,9 +11,12 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Stack;
 
+/**
+ * Shows the list of tasks recorded.
+ */
 public class ListCommand extends Command {
     /**
-     * This class displays the list of tasks when called.
+     * Displays the list of tasks when called.
      *
      * @param list          Task list
      * @param ui            The object that deals with

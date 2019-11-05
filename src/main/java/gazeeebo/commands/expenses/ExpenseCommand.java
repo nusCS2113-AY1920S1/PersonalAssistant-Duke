@@ -15,11 +15,9 @@ import java.util.Stack;
 import java.util.Map;
 import java.util.TreeMap;
 
-
 /**
  * Allows user to call commands to record and manage their expenses.
  */
-
 public class ExpenseCommand extends Command {
 
     /**

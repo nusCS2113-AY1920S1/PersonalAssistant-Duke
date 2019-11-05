@@ -10,8 +10,10 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Map;
 
+/**
+ * This class adds the expense from the expense list and expenses.
+ */
 public class AddExpenseCommand {
-
     /**
      * This method adds the expense from the expense list and expenses.
      *

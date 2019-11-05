@@ -15,6 +15,9 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Stack;
 
+/**
+ * This class creates and adds a new event task.
+ */
 public class EventCommand extends Command {
     /**
      * The string "event" has 5 characters.
@@ -51,6 +54,7 @@ public class EventCommand extends Command {
                         final ArrayList<Task> deletedTask,
                         final TriviaManager triviaManager)
             throws DukeException, ParseException, IOException {
+
         String description;
         try {
             if (ui.fullCommand.length() == EVENT_CHAR_COUNT) {

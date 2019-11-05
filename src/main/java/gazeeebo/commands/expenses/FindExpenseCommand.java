@@ -8,6 +8,9 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Map;
 
+/**
+ * This method finds expenses bought on the same date.
+ */
 public class FindExpenseCommand {
 
     /**

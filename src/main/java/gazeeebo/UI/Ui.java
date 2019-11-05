@@ -72,66 +72,67 @@ public class Ui {
         majorCategories.add("spec");
         majorCategories.add("moduleplanner");
         majorCategories.add("notes");
-        majorCategories.add("bye");
 
         System.out.println("\nContent Page:");
-        System.out.println("------------------ " +
-                "");
-        for(int i = 0; i < majorCategories.size(); i++) {
-            System.out.println(i+1 + ". " + majorCategories.get(i));
+        System.out.println("------------------ "
+                + "");
+        for (int i = 0; i < majorCategories.size(); i++) {
+            System.out.println(i + 1 + ". " + majorCategories.get(i));
         }
+
+        System.out.println("To exit: bye");
     }
 
-    public void UpcomingTask(ArrayList<Task> list) throws ParseException {
-        ArrayList<Deadline> DeadlineList = new ArrayList<Deadline>();
-        ArrayList<Event> EventList = new ArrayList<Event>();
+    public void upcomingTask(final ArrayList<Task> list) throws ParseException {
+        ArrayList<Deadline> deadlineList = new ArrayList<Deadline>();
+        ArrayList<Event> eventList = new ArrayList<Event>();
 
         for (Task task : list) {
             if (task.getClass().getName().equals("gazeeebo.tasks.Deadline") && !task.isDone) {
                 Deadline deadline = new Deadline(task.description, task.toString().split("by:")[1].trim());
                 deadline.isDone = task.isDone;
-                DeadlineList.add(deadline);
+                deadlineList.add(deadline);
             } else if (task.getClass().getName().equals("gazeeebo.tasks.Event") && !task.isDone) {
                 Event event = new Event(task.description, task.toString().split("at:")[1].trim());
                 event.isDone = task.isDone;
-                EventList.add(event);
+                eventList.add(event);
             }
         }
-        Collections.sort(DeadlineList, Comparator.comparing(u -> u.by));
-        Collections.sort(EventList, Comparator.comparing(u -> u.date));
+        Collections.sort(deadlineList, Comparator.comparing(u -> u.by));
+        Collections.sort(eventList, Comparator.comparing(u -> u.date));
         System.out.println("Upcoming deadlines:");
-        for (int i = 0; i < DeadlineList.size(); i++) {
-            System.out.println(i + 1 + "." + DeadlineList.get(i).listFormat());
+        for (int i = 0; i < deadlineList.size(); i++) {
+            System.out.println(i + 1 + "." + deadlineList.get(i).listFormat());
         }
         System.out.println("Upcoming events:");
-        for (int i = 0; i < EventList.size(); i++) {
-            System.out.println(i + 1 + "." + EventList.get(i).listFormat());
+        for (int i = 0; i < eventList.size(); i++) {
+            System.out.println(i + 1 + "." + eventList.get(i).listFormat());
         }
     }
 
-    public void showProgessiveBar(ArrayList<Task> list) throws IOException {
-        int UndoneNumber = 0;
-        int DoneNumber = 0;
+    public void showProgessiveBar(final ArrayList<Task> list) throws IOException {
+        int undoneNumber = 0;
+        int doneNumber = 0;
 
         for (int i = 0; i < list.size(); i++) {
             if (list.get(i).isDone) {
-                DoneNumber++;
+                doneNumber++;
             } else {
-                UndoneNumber++;
+                undoneNumber++;
             }
         }
-//        System.out.println(UndoneNumber+" "+DoneNumber);
-        double ProgressPercentageTemp = (DoneNumber * 1.00 / (DoneNumber + UndoneNumber) * 1.00) * 100.000;
-        int ProgressPercentage = (int) ProgressPercentageTemp;
-//        System.out.println(ProgressPercentageTemp+" "+ProgressPercentage);
+//        System.out.println(undoneNumber+" "+doneNumber);
+        double progressPercentageTemp = (doneNumber * 1.00 / (doneNumber + undoneNumber) * 1.00) * 100.000;
+        int progressPercentage = (int) progressPercentageTemp;
+//        System.out.println(progressPercentageTemp+" "+progressPercentage);
         StringBuilder progressivebar = new StringBuilder();
-        for (int i = 0; i < ProgressPercentage / 2; i++) {
+        for (int i = 0; i < progressPercentage / 2; i++) {
             progressivebar.append("/");
         }
-        for (int i = 0; i < (100 - ProgressPercentage) / 2; i++) {
+        for (int i = 0; i < (100 - progressPercentage) / 2; i++) {
             progressivebar.append("_");
         }
-        System.out.println("Task progressive: " + progressivebar.toString() + "(" + ProgressPercentage + "%)");
+        System.out.println("Task progressive: " + progressivebar.toString() + "(" + progressPercentage + "%)");
     }
 
     public void showDateFormatError() {
@@ -141,16 +142,16 @@ public class Ui {
     public static void showDeadlineDateFormatError() {
         System.out.println("Date Time has to be in YYYY-MM-DD HH:mm:ss format");
     }
-
+    /** */
     public static void showEventDateFormatError() {
         System.out.println("Date Time has to be in YYYY-MM-DD HH:mm:ss-HH:mm:ss format");
     }
 
-    public void showIOErrorMessage(Exception e) {
+    public void showIOErrorMessage(final Exception e) {
         System.err.println("An IOException was caught :" + e.getMessage());
     }
 
-    public void showErrorMessage(Exception e) {
+    public void showErrorMessage(final Exception e) {
         System.out.println(e.getMessage());
     }
 

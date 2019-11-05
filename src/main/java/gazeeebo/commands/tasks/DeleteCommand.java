@@ -15,6 +15,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Stack;
 
+/**
+ * This class allows user to delete existing tasks from list.
+ */
 public class DeleteCommand extends Command {
     /**
      * The string "delete" has 6 characters.
@@ -24,9 +27,8 @@ public class DeleteCommand extends Command {
      * The string "delete " has 7 characters.
      */
     static final int DELETE_AND_SPACE_CHAR_COUNT = 7;
-
     /**
-     * This class allows user to delete 1 or more tasks at a time.
+     * Allows user to delete 1 or more tasks at a time.
      *
      * @param list          List of all tasks
      * @param ui            the object that deals with
@@ -41,8 +43,7 @@ public class DeleteCommand extends Command {
      * @throws IOException    Catch error if the read file fails
      */
     @Override
-    public void execute(final ArrayList<Task> list,
-                        final Ui ui,
+    public void execute(final ArrayList<Task> list, final Ui ui,
                         final Storage storage,
                         final Stack<ArrayList<Task>> commandStack,
                         final ArrayList<Task> deletedTask,
@@ -114,7 +115,6 @@ public class DeleteCommand extends Command {
             }
         }
     }
-
     /**
      * Program does not exit and continues running
      * since command "bye" is not called.

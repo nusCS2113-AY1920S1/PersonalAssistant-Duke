@@ -1,3 +1,4 @@
+
 package gazeeebo.commands.tasks;
 
 import gazeeebo.commands.Command;
@@ -14,8 +15,14 @@ import java.util.Stack;
 import gazeeebo.tasks.Task;
 import gazeeebo.tasks.DoAfter;
 
+/**
+ * Allows user to set a reminder task to be done after a certain task.
+ */
 public class DoAfterCommand extends Command {
     /**
+     * Creates a task to be done after the previous task
+     * and sets a reminder when the previous task is done.
+     *
      * @param list         Task lists
      * @param ui           The object that deals with
      *                     printing things to the user.
@@ -33,6 +40,7 @@ public class DoAfterCommand extends Command {
                         final ArrayList<Task> deletedTask,
                         final TriviaManager triviaManager)
             throws DukeException, ParseException, IOException {
+
         String before = "";
         String after = "";
         String[] splitstring = ui.fullCommand.split("/after");
@@ -42,8 +50,9 @@ public class DoAfterCommand extends Command {
         list.add(to);
         System.out.println("Got it. I've added this task:");
         System.out.println(to.listFormat());
-        System.out.println("Now you have " + list.size()
-                + " tasks in the list.");
+
+        System.out.println("Now you have "
+                + list.size() + " tasks in the list.");
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < list.size(); i++) {
             sb.append(list.get(i).toString() + "\n");
@@ -54,6 +63,9 @@ public class DoAfterCommand extends Command {
     /**
      * Program does not exit and continues running
      * since command "bye" is not called.
+     * <p>
+     * Tells the main Duke class that
+     * the system should not exit and continue running.
      *
      * @return false
      */

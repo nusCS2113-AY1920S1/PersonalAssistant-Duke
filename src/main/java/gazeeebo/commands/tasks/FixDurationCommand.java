@@ -1,3 +1,4 @@
+
 package gazeeebo.commands.tasks;
 
 import gazeeebo.commands.Command;
@@ -14,10 +15,13 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Stack;
 
+/**
+ * This class creates and adds a new fixed duration task.
+ */
 public class FixDurationCommand extends Command {
 
     /**
-     * This class adds task that has a fixed duration when called.
+     * Adds task that has a fixed duration when called.
      *
      * @param list          Task list
      * @param ui            The object that deals with
@@ -39,6 +43,7 @@ public class FixDurationCommand extends Command {
                         final ArrayList<Task> deletedTask,
                         final TriviaManager triviaManager)
             throws DukeException, ParseException, IOException {
+
         String description = "";
         String duration = "";
         String[] splitstring;
@@ -50,8 +55,8 @@ public class FixDurationCommand extends Command {
         list.add(to);
         System.out.println("Got it. I've added this task:");
         System.out.println(to.listFormat());
-        System.out.println("Now you have " + list.size()
-                + " tasks in the list.");
+        System.out.println("Now you have "
+                + list.size() + " tasks in the list.");
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < list.size(); i++) {
             sb.append(list.get(i).toString() + "\n");

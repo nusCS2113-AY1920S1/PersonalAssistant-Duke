@@ -1,12 +1,10 @@
 package gazeeebo.commands.Contact;
+
 import gazeeebo.UI.Ui;
 
 import java.io.IOException;
 import java.util.Map;
 
-/**
- * Deletes a contact from the contact list.
- */
 public class DeleteContactCommand {
 
     /**
@@ -28,13 +26,14 @@ public class DeleteContactCommand {
                     nameToDelete = nameToDelete.
                             concat(ui.fullCommand.split(" ")[i] + " ");
                 }
-                 nameToDelete = nameToDelete.trim();
+                nameToDelete = nameToDelete.trim();
             } else {
                 throw new ArrayIndexOutOfBoundsException();
             }
             if (contactList.containsKey(nameToDelete)) {
                 contactList.remove(nameToDelete);
-                System.out.print("Successfully deleted: " + nameToDelete + "\n");
+                System.out.print("Successfully deleted: "
+                        + nameToDelete + "\n");
             } else {
                 System.out.print(nameToDelete + " is not found in the list.\n");
             }

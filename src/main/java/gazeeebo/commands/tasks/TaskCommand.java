@@ -28,9 +28,9 @@ import java.util.Stack;
 
 public class TaskCommand extends Command {
     /**
-     *  Parses the user input and return a command object.
+     * Parses the user input and return a command object.
      *
-     * @param list
+     * @param list list of tasks
      * @param ui
      * @param storage
      * @param commandStack
@@ -49,6 +49,7 @@ public class TaskCommand extends Command {
             throws IOException, DukeException, ParseException {
         System.out.println("Welcome to your Tasks page!"
                 + "What would you like to do?\n");
+
         CalendarView calendarView = new CalendarView();
         calendarView.monthlyView(list);
         String commandList = "___________________________________________________________________________________\n"
@@ -84,8 +85,8 @@ public class TaskCommand extends Command {
                 + "Deleting a note: deleteNote day/week/month YYY-MM-DD/YYYY-MM-DD/YYYY-MM note_number\n"
                 + "Listing all notes: listNote day/week/month YYY-MM-DD/YYYY-MM-DD/YYYY-MM note_number\n"
                 + "Show all commands: commands\n"
-                + "Return to main page: esc\n" +
-                "________________________________________________________________________________________________\n";
+                + "Return to main page: esc\n"
+                + "________________________________________________________________________________________________\n";
         System.out.println(commandList);
         ArrayList<Task> oldList;
         while (!ui.fullCommand.equals("esc")) {
@@ -273,10 +274,11 @@ public class TaskCommand extends Command {
      *
      * @return false
      */
-   @Override
+    @Override
     public boolean isExit() {
         return false;
     }
+
 
     /**
      * Copy an Arraylist of task.

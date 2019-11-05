@@ -13,6 +13,9 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Stack;
 
+/**
+ * Allows user to see which tasks are done.
+ */
 public class DoneListCommand extends Command {
     /**
      * This class shows the list done tasks
@@ -37,6 +40,7 @@ public class DoneListCommand extends Command {
                         final ArrayList<Task> deletedTask,
                         final TriviaManager triviaManager)
             throws DukeException, ParseException, IOException {
+
         ArrayList<Task> doneList = new ArrayList<>();
         try {
             if (ui.fullCommand.equals("done")) {
@@ -53,6 +57,7 @@ public class DoneListCommand extends Command {
                 for (int i = 0; i < doneList.size(); i++) {
                     System.out.println(i + 1 + "."
                             + doneList.get(i).listFormat());
+
                 }
             }
             StringBuilder sb = new StringBuilder();
@@ -62,6 +67,7 @@ public class DoneListCommand extends Command {
             storage.writeToSaveFile(sb.toString());
         } catch (DukeException e) {
             System.out.println(e.getMessage());
+
         }
     }
 

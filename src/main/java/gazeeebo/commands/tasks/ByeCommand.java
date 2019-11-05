@@ -12,6 +12,9 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Stack;
 
+/**
+ * Exits the program when bye command is called.
+ */
 public class ByeCommand extends Command {
     /**
      * Returns void execute function for gazeeebo.commands.ByeCommand.

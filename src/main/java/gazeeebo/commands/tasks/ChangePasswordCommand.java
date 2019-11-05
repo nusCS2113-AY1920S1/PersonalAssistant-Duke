@@ -12,6 +12,10 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Stack;
 
+/**
+ * Allows user to change their current password
+ * to a new password.
+ */
 public class ChangePasswordCommand extends Command {
     /**
      * This method will verify current password and
@@ -34,8 +38,8 @@ public class ChangePasswordCommand extends Command {
         System.out.println("Enter your current password:");
         ui.readCommand();
         while (!ui.fullCommand.equals("esc")) {
-            if (ui.fullCommand.equals(
-                    storage.readFromPasswordFile().get(0).toString())) {
+            if (ui.fullCommand.equals(storage.
+                    readFromPasswordFile().get(0).toString())) {
                 System.out.println("Enter new password:");
                 ui.readCommand();
                 String realPassword = ui.fullCommand;
@@ -48,7 +52,8 @@ public class ChangePasswordCommand extends Command {
                 System.out.println("Password successfully changed.");
                 break;
             } else {
-                System.out.println("Wrong password,"
+
+                System.out.println("Wrong password, "
                         + "exit by entering esc or try again:");
                 ui.readCommand();
             }
@@ -60,6 +65,7 @@ public class ChangePasswordCommand extends Command {
      * since command "bye" is not called.
      *
      * @return false
+     * Exit the program if isExit is true.
      */
     @Override
     public boolean isExit() {

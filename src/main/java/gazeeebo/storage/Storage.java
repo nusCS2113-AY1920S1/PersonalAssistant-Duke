@@ -1,6 +1,13 @@
+
 package gazeeebo.storage;
 
-import java.io.*;
+
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.FileNotFoundException;
+import java.io.File;
+import java.io.BufferedWriter;
+
 
 import gazeeebo.commands.specialization.ModuleCategory;
 import gazeeebo.commands.capCalculator.CAPCommand;
@@ -10,6 +17,8 @@ import gazeeebo.tasks.Event;
 import gazeeebo.tasks.FixedDuration;
 import gazeeebo.tasks.Task;
 import gazeeebo.tasks.*;
+
+import java.io.InputStream;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -17,47 +26,74 @@ import java.util.stream.Collectors;
 
 public class Storage {
 
-    private String absolute_Path = "Save.txt";
-    private String absolutePath_password = "Password.txt";
-    private String absolutePath_Contact = "Contact.txt";
-    private String absolutePath_Expenses = "Expenses.txt";
-    private String absolutePath_Places = "Places.txt";
-    private String absolutePath_Trivia = "Trivia.txt";
-    private String absolutePath_CAP = "CAP.txt";
-    private String absolutePath_Specialization = "Specialization.txt";
-    private String absolutePath_StudyPlanner = "Study_Plan.txt";
-    private String absolutePath_CompletedElectives = "CompletedElectives.txt";
-    private String absolutePath_Prerequisite = "Prerequisite.txt";
+//    private String absolute_Path = "Save.txt";
+//    private String absolutePath_password = "Password.txt";
+//    private String absolutePath_Contact = "Contact.txt";
+//    private String absolutePath_Expenses = "Expenses.txt";
+//    private String absolutePath_Places = "Places.txt";
+//    private String absolutePath_Trivia = "Trivia.txt";
+//    private String absolutePath_CAP = "CAP.txt";
+//    private String absolutePath_Specialization = "Specialization.txt";
+//    private String absolutePath_StudyPlanner = "Study_Plan.txt";
+//    private String absolutePath_CompletedElectives = "CompletedElectives.txt";
+//    private String absolutePath_Prerequisite = "Prerequisite.txt";
 
-    private String[] absolutePath = {"Save.txt","/Save.txt"};
-    private String[] absolutePathPassword = {"Password.txt","/Password.txt"};
-    private String[] absolutePathContact = {"Contact.txt", "/Contact.txt"};
-    private String[] absolutePathExpenses = {"Expenses.txt","/Expenses.txt"};
-    private String[] absolutePathPlaces = {"Places.txt","/Places.txt"};
-    private String[] absolutePathTrivia = {"Trivia.txt","/Trivia.txt"};
-    private String[] absolutePathCAP = {"CAP.txt","/CAP.txt"};
-    private String[] absolutePathSpecialization = {"Specialization.txt","/Specialization.txt"};
-    private String[] absolutePathStudyPlanner = {"Study_Plan.txt","/Study_Plan.txt"};
-    private String[] absolutePathCompletedElectives = {"CompletedElectives.txt","/CompletedElectives.txt"};
-    private String[] absolutePathPrerequisite = {"Prerequisite.txt","/Prerequisite.txt"};
-    private String[] getAbsolutePathGoal = {"goal.txt","/goal.txt"};
-    private String[] getAbsolutePathModule = {"modules.txt","/modules.txt"};
-    private String[] getAbsoluteNoteDaily = {"NoteDaily.txt","/NoteDaily.txt"};
-    private String[] getAbsoluteNoteWeekly = {"NoteMonthly.txt","/NoteMonthly.txt"};
-    private String[] getAbsoluteNoteMonthly = {"NoteWeekly.txt","/NoteWeekly.txt"};
-    private String absolutePathResource = "Save.txt";
-    private String absolutePathPasswordResource = "Password.txt";
-    private String absolutePathContactResource = "Contact.txt";
-    private String absolutePathExpensesResource = "Expenses.txt";
-    private String absolutePathPlacesResource = "Places.txt";
-    private String absolutePathTriviaResource = "Trivia.txt";
-    private String absolutePathCAPResource = "CAP.txt";
-    private String absolutePathSpecializationResource = "Specialization.txt";
-    private String absolutePathStudyPlannerResource = "Study_Plan.txt";
-    private String absolutePathCompletedElectivesResource = "CompletedElectives.txt";
-    private String absolutePathPrerequisiteResource = "Prerequisite.txt";
+    private String[] absolutePath
+            = {"Save.txt", "/Save.txt"};
+    private String[] absolutePathPassword
+            = {"Password.txt", "/Password.txt"};
+    private String[] absolutePathContact
+            = {"Contact.txt", "/Contact.txt"};
+    private String[] absolutePathExpenses
+            = {"Expenses.txt", "/Expenses.txt"};
+    private String[] absolutePathPlaces
+            = {"Places.txt", "/Places.txt"};
+    private String[] absolutePathTrivia
+            = {"Trivia.txt", "/Trivia.txt"};
+    private String[] absolutePathCAP
+            = {"CAP.txt", "/CAP.txt"};
+    private String[] absolutePathSpecialization
+            = {"Specialization.txt", "/Specialization.txt"};
+    private String[] absolutePathStudyPlanner
+            = {"Study_Plan.txt", "/Study_Plan.txt"};
+    private String[] absolutePathCompletedElectives
+            = {"CompletedElectives.txt", "/CompletedElectives.txt"};
+    private String[] absolutePathPrerequisite
+            = {"Prerequisite.txt", "/Prerequisite.txt"};
+    private String[] getAbsolutePathGoal
+            = {"goal.txt", "/goal.txt"};
+    private String[] getAbsolutePathModule
+            = {"modules.txt", "/modules.txt"};
+    private String[] getAbsoluteNoteDaily
+            = {"NoteDaily.txt", "/NoteDaily.txt"};
+    private String[] getAbsoluteNoteWeekly
+            = {"NoteMonthly.txt", "/NoteMonthly.txt"};
+    private String[] getAbsoluteNoteMonthly
+            = {"NoteWeekly.txt", "/NoteWeekly.txt"};
+    private String absolutePathResource
+            = "Save.txt";
+    private String absolutePathPasswordResource
+            = "Password.txt";
+    private String absolutePathContactResource
+            = "Contact.txt";
+    private String absolutePathExpensesResource
+            = "Expenses.txt";
+    private String absolutePathPlacesResource
+            = "Places.txt";
+    private String absolutePathTriviaResource
+            = "Trivia.txt";
+    private String absolutePathCAPResource
+            = "CAP.txt";
+    private String absolutePathSpecializationResource
+            = "Specialization.txt";
+    private String absolutePathStudyPlannerResource
+            = "Study_Plan.txt";
+    private String absolutePathCompletedElectivesResource
+            = "CompletedElectives.txt";
+    private String absolutePathPrerequisiteResource
+            = "Prerequisite.txt";
 
-    public void startUp () throws IOException {
+    public void startUp() throws IOException {
         ArrayList<String[]> resourcelist = new ArrayList<>();
         resourcelist.add(absolutePath);
         resourcelist.add(absolutePathPassword);
@@ -76,18 +112,19 @@ public class Storage {
         resourcelist.add(getAbsoluteNoteWeekly);
         resourcelist.add(getAbsoluteNoteMonthly);
         resourcelist.add(getAbsolutePathModule);
-        for (String[] path:resourcelist) {
+        for (String[] path : resourcelist) {
             File tmpDir = new File(path[0]);
             boolean exists = tmpDir.exists();
-            if(!exists) {
-                InputStream inputStream = Storage.class.getResourceAsStream(path[1]);
+            if (!exists) {
+                InputStream inputStream
+                        = Storage.class.getResourceAsStream(path[1]);
                 Scanner sc = new Scanner(inputStream);
                 FileWriter fw = new FileWriter(path[0], true);
                 String s;
 
 
                 while (sc.hasNext()) {
-                    s = sc.nextLine() + "\n";// read a line
+                    s = sc.nextLine() + "\n"; // read a line
                     fw.write(s); // write to output file
                     fw.flush();
                 }
@@ -96,7 +133,8 @@ public class Storage {
             }
         }
     }
-    public void writeToSaveFile(String fileContent) throws IOException {
+
+    public void writeToSaveFile(final String fileContent) throws IOException {
         FileWriter fileWriter = new FileWriter(absolutePathResource);
         fileWriter.write(fileContent);
         fileWriter.flush();
@@ -105,9 +143,6 @@ public class Storage {
 
     public ArrayList<Task> readFromSaveFile() throws FileNotFoundException {
         ArrayList<Task> tList = new ArrayList<Task>();
-//        InputStream inputStream = Storage.class.getResourceAsStream(absolutePath);
-
-//        Scanner sc = new Scanner(inputStream);
         File f = new File(absolutePathResource);
         Scanner sc = new Scanner(f);
         while (sc.hasNext()) {
@@ -145,33 +180,33 @@ public class Storage {
                 }
                 tList.add(tb);
             } else if (details[0].equals("FD")) {
-                FixedDuration FD = new FixedDuration(details[2].trim(), details[3].trim());
+                FixedDuration fd = new FixedDuration(details[2].trim(), details[3].trim());
                 if (details[1].equals("D")) {
-                    FD.isDone = true;
+                    fd.isDone = true;
                 } else {
-                    FD.isDone = false;
+                    fd.isDone = false;
                 }
-                tList.add(FD);
+                tList.add(fd);
             } else if (details[0].equals("DA")) {
-                DoAfter DA = new DoAfter(details[3].trim(), details[3].trim(), details[2].trim());
+                DoAfter da = new DoAfter(details[3].trim(), details[3].trim(), details[2].trim());
                 if (details[1].equals("D")) {
-                    DA.isDone = true;
+                    da.isDone = true;
                 } else {
-                    DA.isDone = false;
+                    da.isDone = false;
                 }
-                tList.add(DA);
+                tList.add(da);
             } else if (details[0].equals("TE")) {
                 ArrayList<String> timeslots = new ArrayList<String>();
                 for (int i = 3; i < details.length; i++) {
                     timeslots.add(details[i]);
                 }
-                TentativeEvent TE = new TentativeEvent(details[2].trim(), timeslots);
+                TentativeEvent te = new TentativeEvent(details[2].trim(), timeslots);
                 if (details[1].equals("D")) {
-                    TE.isDone = true;
+                    te.isDone = true;
                 } else {
-                    TE.isDone = false;
+                    te.isDone = false;
                 }
-                tList.add(TE);
+                tList.add(te);
             } else {
                 if (details[3].contains("at:") || details[3].contains("by:")) {
                     Event e = new Event(details[2].trim(), details[3].substring(3).trim());
@@ -190,13 +225,13 @@ public class Storage {
                     }
                     tList.add(tb);
                 } else {
-                    FixedDuration FD = new FixedDuration(details[2].trim(), details[3].trim());
+                    FixedDuration fd = new FixedDuration(details[2].trim(), details[3].trim());
                     if (details[1].equals("D")) {
-                        FD.isDone = true;
+                        fd.isDone = true;
                     } else {
-                        FD.isDone = false;
+                        fd.isDone = false;
                     }
-                    tList.add(FD);
+                    tList.add(fd);
                 }
             }
         }
@@ -204,12 +239,12 @@ public class Storage {
     }
 
     /**
-     * Write the encoded password into the Password.txt file
+     * Write the encoded password into the Password.txt file.
      *
      * @param fileContent string to put into the txt file.
      * @throws IOException catch the error if the read file fails.
      */
-    public void writeToPasswordFile(String fileContent) throws IOException {
+    public void writeToPasswordFile(final String fileContent) throws IOException {
         FileWriter fileWriter = new FileWriter(absolutePathPasswordResource);
         fileWriter.write(fileContent);
         fileWriter.flush();
@@ -220,15 +255,14 @@ public class Storage {
      * Read from the Password.txt file, decode the passwords and put it into an array.
      *
      * @return the arrays of password
-     * @throws IOException catch the error if the read file fails.
+     * @throws FileNotFoundException catch the error if the read file fails.
      */
-    public ArrayList<StringBuilder> readFromPasswordFile() throws FileNotFoundException {
+    public ArrayList<StringBuilder> readFromPasswordFile()
+            throws FileNotFoundException {
         ArrayList<StringBuilder> passwordList = new ArrayList<>();
 
-         File f = new File(absolutePathPasswordResource);
+        File f = new File(absolutePathPasswordResource);
         Scanner sc = new Scanner(f);
-//         InputStream inputStream = Storage.class.getResourceAsStream(absolutePathPassword);
-//        Scanner sc = new Scanner(inputStream);
         while (sc.hasNext()) {
             String decodedPassword = sc.nextLine();
             char[] decryption = decodedPassword.toCharArray();
@@ -242,12 +276,12 @@ public class Storage {
     }
 
     /**
-     * THis method writes to the file Contact.txt
+     * THis method writes to the file Contact.txt.
      *
      * @param fileContent save the contact information into this file
      * @throws IOException catch the error if the read file fails.
      */
-    public void writeToContactFile(String fileContent) throws IOException {
+    public void writeToContactFile(final String fileContent) throws IOException {
         FileWriter fileWriter = new FileWriter(absolutePathContactResource);
         fileWriter.write(fileContent);
         fileWriter.flush();
@@ -258,12 +292,12 @@ public class Storage {
      * This method read from the file Contact.txt and put the details into a HashMap
      *
      * @return Returns the HashMap of contacts, key is the contact name and the value is the phone number.
-     * @throws IOException catch the error if the read file fails.
+     * @throws FileNotFoundException catch the error if the read file fails.
      */
-    public HashMap<String, String> readFromContactFile() throws FileNotFoundException {
+    public HashMap<String, String> readFromContactFile()
+            throws FileNotFoundException {
         HashMap<String, String> contactList = new HashMap<String, String>();
-//        InputStream inputStream = Storage.class.getResourceAsStream(absolutePath_Contact);
-//        Scanner sc = new Scanner(inputStream);
+
 
         File f = new File(absolutePathContactResource);
         Scanner sc = new Scanner(f);
@@ -291,8 +325,6 @@ public class Storage {
     public HashMap<LocalDate, ArrayList<String>> Expenses() throws FileNotFoundException {
         HashMap<LocalDate, ArrayList<String>> expenses = new HashMap<LocalDate, ArrayList<String>>();
         DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-//        InputStream inputStream = Storage.class.getResourceAsStream(absolutePath_Expenses);
-//        Scanner sc = new Scanner(inputStream);
 
         File f = new File(absolutePathExpensesResource);
         Scanner sc = new Scanner(f);
@@ -317,8 +349,7 @@ public class Storage {
 
     public HashMap<String, String> readPlaces() throws IOException {
         HashMap<String, String> placesList = new HashMap<String, String>();
-//        InputStream inputStream = Storage.class.getResourceAsStream(absolutePath_Places);
-//        Scanner sc = new Scanner(inputStream);
+
 
         File f = new File(absolutePathPlacesResource);
         Scanner sc = new Scanner(f);
@@ -331,8 +362,6 @@ public class Storage {
 
     public Map<String, ArrayList<String>> Read_Trivia() throws FileNotFoundException {
         Map<String, ArrayList<String>> CommandMemory = new HashMap<>();
-//        InputStream inputStream = Storage.class.getResourceAsStream(absolutePath_Trivia);
-//        Scanner sc = new Scanner(inputStream);
 
         File f = new File(absolutePathTriviaResource);
         Scanner sc = new Scanner(f);
@@ -356,7 +385,7 @@ public class Storage {
 
     public void Storage_Trivia(String fileContent) throws IOException {
         File file = new File(absolutePathTriviaResource);
-        if(file.exists() && !file.canWrite()){
+        if (file.exists() && !file.canWrite()) {
             System.out.println("File exists and it is read only, making it writable");
             file.setWritable(true);
         }
@@ -374,7 +403,7 @@ public class Storage {
      * @param fileContent string to put into the file.
      * @throws IOException catch the error if the read file fails.
      */
-    public void writeToCAPFile(String fileContent) throws IOException {
+    public void writeToCAPFile(final String fileContent) throws IOException {
         FileWriter fileWriter = new FileWriter(absolutePathCAPResource);
         fileWriter.write(fileContent);
         fileWriter.flush();
@@ -387,10 +416,9 @@ public class Storage {
      * @return Returns the HashMap of contacts, key is the contact name and the value is the phone number
      * @throws IOException catch the error if the read file fails.
      */
-    public HashMap<String, ArrayList<CAPCommand>> readFromCAPFile() throws IOException {
-        HashMap<String, ArrayList<CAPCommand>> CAPList = new HashMap<String, ArrayList<CAPCommand>>();
-//        InputStream inputStream = Storage.class.getResourceAsStream(absolutePath_CAP);
-//        Scanner sc = new Scanner(inputStream);
+    public HashMap<String, ArrayList<CAPCommand>> readFromCAPFile()
+            throws IOException {
+        HashMap<String, ArrayList<CAPCommand>> caplist = new HashMap<String, ArrayList<CAPCommand>>();
 
         File f = new File(absolutePathCAPResource);
         Scanner sc = new Scanner(f);
@@ -403,19 +431,19 @@ public class Storage {
             String grade = splitStringTxtFile[3];
             CAPCommand newCAP = new CAPCommand(moduleCode, mc, grade);
             boolean isEqual = false;
-            for (String key : CAPList.keySet()) {
+            for (String key : caplist.keySet()) {
                 if (semNumber.equals(key)) {
-                    CAPList.get(key).add(newCAP);
+                    caplist.get(key).add(newCAP);
                     isEqual = true;
                 }
             }
             /* semNumber doesn't exist in the list */
             if (!isEqual) {
                 moduleList.add(newCAP);
-                CAPList.put(semNumber, moduleList);
+                caplist.put(semNumber, moduleList);
             }
         }
-        return CAPList;
+        return caplist;
     }
 
     public void specializationStorage(String fileContent) throws IOException {
@@ -456,51 +484,51 @@ public class Storage {
 //        Scanner sc = new Scanner(inputStream);
 
 //        if (new File(absolutePathCompletedElectives).exists()) {
-            File file = new File(absolutePathCompletedElectivesResource);
-            Scanner sc = new Scanner(file);
-            while (sc.hasNext()) {
-                ArrayList<String> completedElectiveList = new ArrayList<>();
-                String[] split = sc.nextLine().split("\\|");
-                String checkKey = split[0];
-                boolean isEqual = false;
-                for (String key : completedEMap.keySet()) {
-                    if (checkKey.equals(key)) { //if date equal
-                        completedEMap.get(key).add(split[1]);
-                        isEqual = true;
-                    }
-                    if (isEqual == false) {
-                        completedElectiveList.add(split[1]);
-                        completedEMap.put(checkKey, completedElectiveList);
-                    }
+        File file = new File(absolutePathCompletedElectivesResource);
+        Scanner sc = new Scanner(file);
+        while (sc.hasNext()) {
+            ArrayList<String> completedElectiveList = new ArrayList<>();
+            String[] split = sc.nextLine().split("\\|");
+            String checkKey = split[0];
+            boolean isEqual = false;
+            for (String key : completedEMap.keySet()) {
+                if (checkKey.equals(key)) { //if date equal
+                    completedEMap.get(key).add(split[1]);
+                    isEqual = true;
+                }
+                if (isEqual == false) {
+                    completedElectiveList.add(split[1]);
+                    completedEMap.put(checkKey, completedElectiveList);
                 }
             }
+        }
         //}
         return completedEMap;
     }
 
-    public ArrayList<ArrayList<String>> Read_StudyPlan () throws IOException {
+    public ArrayList<ArrayList<String>> Read_StudyPlan() throws IOException {
         ArrayList<ArrayList<String>> studyplan = new ArrayList<ArrayList<String>>();
 //        InputStream inputStream = Storage.class.getResourceAsStream(absolutePath_StudyPlanner);
 //        Scanner sc = new Scanner(inputStream);
-      //  if (new File(absolutePath_StudyPlanner).exists()) {
+        //  if (new File(absolutePath_StudyPlanner).exists()) {
 
-            File file = new File(absolutePathStudyPlannerResource);
-            Scanner sc = new Scanner(file);
-            for (int i = 0; i < 8; i++) {
-                if (sc.hasNext()) {
-                    String[] split = sc.nextLine().split(" ");
-                    ArrayList<String> temp = Arrays.stream(split).collect(Collectors.toCollection(ArrayList::new));
-                    studyplan.add(temp);
-                } else {
-                    ArrayList<String> temp = new ArrayList<String>();
-                    studyplan.add(temp);
-                }
+        File file = new File(absolutePathStudyPlannerResource);
+        Scanner sc = new Scanner(file);
+        for (int i = 0; i < 8; i++) {
+            if (sc.hasNext()) {
+                String[] split = sc.nextLine().split(" ");
+                ArrayList<String> temp = Arrays.stream(split).collect(Collectors.toCollection(ArrayList::new));
+                studyplan.add(temp);
+            } else {
+                ArrayList<String> temp = new ArrayList<String>();
+                studyplan.add(temp);
             }
-       // }
+        }
+        // }
         return studyplan;
     }
 
-    public void Storage_StudyPlan (String fileContent) throws IOException {
+    public void Storage_StudyPlan(String fileContent) throws IOException {
         BufferedWriter fileWriter = new BufferedWriter(new FileWriter(absolutePathStudyPlannerResource));
         fileWriter.write(fileContent);
         fileWriter.flush();
@@ -508,20 +536,20 @@ public class Storage {
     }
 
     public HashMap<String, ArrayList<String>> readFromPrerequisiteFile() throws IOException {
-        HashMap<String,ArrayList<String>> PrerequisiteList = new  HashMap<String,ArrayList<String>>();
+        HashMap<String, ArrayList<String>> PrerequisiteList = new HashMap<String, ArrayList<String>>();
 
 //        InputStream inputStream = Storage.class.getResourceAsStream(absolutePath_Prerequisite);
 //        Scanner sc = new Scanner(inputStream);
         File file = new File(absolutePathPrerequisiteResource);
         Scanner sc = new Scanner(file);
-        while(sc.hasNext()){
+        while (sc.hasNext()) {
             String WholeSentence = sc.nextLine();
             String head = WholeSentence.split(" ")[0];
             ArrayList<String> Prerequisites = new ArrayList<String>();
-            for(int i = 1;i<WholeSentence.split(" ").length;i++){
+            for (int i = 1; i < WholeSentence.split(" ").length; i++) {
                 Prerequisites.add(WholeSentence.split(" ")[i]);
             }
-            PrerequisiteList.put(head,Prerequisites);
+            PrerequisiteList.put(head, Prerequisites);
         }
         return PrerequisiteList;
     }

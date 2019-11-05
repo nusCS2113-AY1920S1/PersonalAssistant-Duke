@@ -6,6 +6,9 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Map;
 
+/**
+ * This class prints the list of all the expenses.
+ */
 public class ExpenseListCommand {
     /**
      * This method prints the list of all the expenses.
