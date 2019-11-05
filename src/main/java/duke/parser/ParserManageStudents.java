@@ -26,7 +26,9 @@ public final class ParserManageStudents implements IParser {
      * The scanner object to take input.
      */
     private Scanner sc;
-
+    /**
+     * Storage object.
+     */
     private StudentStorage save;
 
     /**
@@ -55,7 +57,6 @@ public final class ParserManageStudents implements IParser {
                 new CliView().manageStudentsHeading();
                 switch (cmd) {
                     case "list":
-                        StudentStorage read = new StudentStorage(students.getStudentList());
                         students.listAllStudents();
                         break;
                     case "add":
@@ -75,10 +76,12 @@ public final class ParserManageStudents implements IParser {
                         }
                         if (search.size() >= 1) {
                             System.out.println(
-                                    "Here are the matching names in your list:");
+                                    "Here are the matching "
+                                            + "names in your list:");
                             int index = 1;
                             for (int i = 0; i < search.size(); i++) {
-                                System.out.println(index++ + ". " + search.get(i));
+                                System.out.println(index++ + ". "
+                                        + search.get(i));
                             }
                         } else {
                             System.out.println("Sorry, there are"
@@ -104,13 +107,15 @@ public final class ParserManageStudents implements IParser {
                         break;
 
                     case "view":
-                        System.out.print("Viewing " + students.getStudentName(Integer.parseInt(word[1])) + " details:\n");
+                        System.out.print("Viewing "
+                                + students.getStudentName(
+                                        Integer.parseInt(word[1]))
+                                + " details:\n");
                         students.getStudent(Integer.parseInt(word[1]));
-//            students.getStudentName(Integer.parseInt(word[1]));
                         break;
 
                     case "progress":
-                        new CliView().studentProgressHeading();
+                        studentProgressParser();
                         //Add student progress
                         break;
 
@@ -132,7 +137,6 @@ public final class ParserManageStudents implements IParser {
      * Method to parse add command.
      */
     public void addCommand() {
-        new CliView().printLine();
         new CliView().addStudentFormat();
         String newStudent = sc.nextLine();
         String[] splitByComma = newStudent.split(",");
@@ -142,5 +146,35 @@ public final class ParserManageStudents implements IParser {
         Student myNewStudent = new Student(
                 name, age, address);
         students.addStudent(myNewStudent);
+    }
+
+    /**
+     * Method to parse student progress commands.
+     */
+    public void studentProgressParser() {
+        boolean runProgress = true;
+        while (runProgress) {
+            new CliView().studentProgressHeading();
+            String input = sc.nextLine();
+            String[] word = input.split(" ");
+            String cmd = word[0];
+            switch (cmd) {
+                case "list":
+                    students.listAllStudents();
+                    break;
+                case "add":
+                    break;
+                case "delete":
+                    break;
+                case "view":
+                    break;
+                case "back":
+                    runProgress = false;
+                    break;
+                default:
+                    System.out.println("Please enter the "
+                            + "correct command format.");
+            }
+        }
     }
 }
