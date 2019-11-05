@@ -10,12 +10,28 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.fail;
 
 public class AddOrderCommandParserTest {
+    private static final String USER_INPUT_WITH_STATUS_VALID = "-status active";
+    private static final String USER_INPUT_WITH_STATUS_INVALID = "-status random";
+    private static final String USER_INPUT_WITH_DATE_INVALID = "-by 32/10/1999";
+    private static final String USER_INPUT_EMPTY = "";
+    private static final String USER_INPUT_WITH_ITEM = "-item apple, %s";
+
+    private static final Double ITEM_QUANTITY_OUT_OF_RANGE = 50000000.0;
+    private static final Double ITEM_QUANTITY_NEGATIVE = -10.0;
+    private static final Double ITEM_QUANTITY_VALID = 2000.0;
+    private static final Double ITEM_QUANTITY_LOWER_BOUNDARY_VALID = 0.0;
+    private static final Double ITEM_QUANTITY_LOWER_BOUNDARY_POSITIVE_VALID = 0.1;
+    private static final Double ITEM_QUANTITY_LOWER_BOUNDARY_NEGATIVE_INVALID = -0.1;
+    private static final Double ITEM_QUANTITY_UPPER_BOUNDARY_VALID = 50000.0;
+    private static final Double ITEM_QUANTITY_UPPER_BOUNDARY_WITHIN_RANGE_VALID = 49999.9;
+    private static final Double ITEM_QUANTITY_UPPER_BOUNDARY_INVALID = 50000.1;
+
     private AddOrderCommandParser parser = new AddOrderCommandParser();
 
     @Test
-    public void addOrder_activeStatus_success() {
+    public void parse_validStatus_success() {
         OrderModelStub modelStub = new OrderModelStub();
-        AddOrderCommand command = parser.parse("-status active");
+        AddOrderCommand command = parser.parse(USER_INPUT_WITH_STATUS_VALID);
         try {
             command.execute(modelStub);
             Assertions.assertEquals(Order.Status.ACTIVE, modelStub.getOrder(0).getStatus());
@@ -25,24 +41,24 @@ public class AddOrderCommandParserTest {
     }
 
     @Test
-    public void addOrder_invalidStatus_failure() {
+    public void parse_invalidStatus_throwsParseException() {
         Assertions.assertThrows(
             ParseException.class,
-            () -> parser.parse("-status RANDOM")
+            () -> parser.parse(USER_INPUT_WITH_STATUS_INVALID)
         );
     }
 
     @Test
-    public void addOrder_invalidDate_failure() {
+    public void parse_invalidDate_throwsParseException() {
         Assertions.assertThrows(
             ParseException.class,
-            () -> parser.parse("-by my")
+            () -> parser.parse(USER_INPUT_WITH_DATE_INVALID)
         );
     }
 
     @Test
-    public void addOrder_noArgument_success() {
-        Assertions.assertAll(() -> parser.parse(""));
+    public void parse_noArgument_success() {
+        Assertions.assertAll(() -> parser.parse(USER_INPUT_EMPTY));
     }
 
     /**
@@ -58,35 +74,35 @@ public class AddOrderCommandParserTest {
      */
 
     @Test
-    public void addOrder_invalid_quantity_failure() {
+    public void parse_invalid_quantity_throwsParseException() {
         Assertions.assertThrows(
             ParseException.class,
-            () -> parser.parse("-item a, 50000000")
+            () -> parser.parse(String.format(USER_INPUT_WITH_ITEM, ITEM_QUANTITY_OUT_OF_RANGE))
         );
 
         Assertions.assertThrows(
             ParseException.class,
-            () -> parser.parse("-item a, -10")
+            () -> parser.parse(String.format(USER_INPUT_WITH_ITEM, ITEM_QUANTITY_NEGATIVE))
         );
     }
 
     @Test
-    public void addOrder_quantityWithinValidRange_success() {
-        Assertions.assertAll(() -> parser.parse("-item a, 100"));
+    public void parse_quantityWithinValidRange_success() {
+        Assertions.assertAll(() -> parser.parse(String.format(USER_INPUT_WITH_ITEM, ITEM_QUANTITY_VALID)));
     }
 
     @Test
-    public void addOrder_boundaryQuantity_success() {
-        Assertions.assertAll(() -> parser.parse("-item a, 0"));
-        Assertions.assertAll(() -> parser.parse("-item a, 50000.0"));
-        Assertions.assertAll(() -> parser.parse("-item a, 49999.9"));
-        Assertions.assertAll(() -> parser.parse("-item a, 0.1"));
+    public void parse_boundaryQuantity_success() {
+        Assertions.assertAll(() -> parser.parse(String.format(USER_INPUT_WITH_ITEM, ITEM_QUANTITY_LOWER_BOUNDARY_VALID)));
+        Assertions.assertAll(() -> parser.parse(String.format(USER_INPUT_WITH_ITEM, ITEM_QUANTITY_UPPER_BOUNDARY_VALID)));
+        Assertions.assertAll(() -> parser.parse(String.format(USER_INPUT_WITH_ITEM, ITEM_QUANTITY_UPPER_BOUNDARY_WITHIN_RANGE_VALID)));
+        Assertions.assertAll(() -> parser.parse(String.format(USER_INPUT_WITH_ITEM, ITEM_QUANTITY_LOWER_BOUNDARY_POSITIVE_VALID)));
     }
 
     @Test
-    public void addOrder_boundaryQuantity_outOfRange() {
-        Assertions.assertThrows(ParseException.class, () -> parser.parse("-item a, -0.01"));
-        Assertions.assertThrows(ParseException.class, () -> parser.parse("-item a, 50000.1"));
+    public void parse_boundaryQuantity_throwsParseException() {
+        Assertions.assertThrows(ParseException.class, () -> parser.parse(String.format(USER_INPUT_WITH_ITEM, ITEM_QUANTITY_LOWER_BOUNDARY_NEGATIVE_INVALID)));
+        Assertions.assertThrows(ParseException.class, () -> parser.parse(String.format(USER_INPUT_WITH_ITEM, ITEM_QUANTITY_UPPER_BOUNDARY_INVALID)));
     }
 
 }
