@@ -297,4 +297,9 @@ public abstract class Ui {
      * display when the edit shortcut mode terminate earlier
      */
     public abstract void terminateShortcut();
+
+    /**
+     * display when the user want to show to another language rathan than those available
+     */
+    public abstract void showErrorLanguage();
 }

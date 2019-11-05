@@ -326,4 +326,8 @@ public class UiFr extends Ui {
     public void terminateShortcut() {
         System.out.println("Le mode d'édition de shortcut a été terminé plus tôt. Tous les shortcut qui ont été édité ont été enregistré.");
     }
+    @Override
+    public void showErrorLanguage() {
+        System.out.println("La langue que vous aviez sélectionné est actuellement indisponible");
+    }
 }

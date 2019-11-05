@@ -35,8 +35,13 @@ public class LanguageCommand extends Command {
             storage.setLanguage(userSubstring);
             ui.showLanguage("French");
         }
+        else if(userSubstring.equals("fr")){
+            storage.setLanguage("en");
+            ui.showLanguage("English");
+        }
         else{
             storage.setLanguage("en");
+            ui.showErrorLanguage();
             ui.showLanguage("English");
         }
         storage.saveConfig();

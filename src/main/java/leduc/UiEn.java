@@ -340,4 +340,9 @@ public class UiEn extends Ui {
     public void terminateShortcut() {
         System.out.println("The shortcut edit mode is being terminated earlier. All shortcut edited until now has been saved");
     }
+
+    @Override
+    public void showErrorLanguage() {
+        System.out.println("The language that you have chosen is currently not available");
+    }
 }
