@@ -7,14 +7,14 @@ import repositories.ProjectRepository;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class ProjectInputControllerManageTest {
+class ProjectInputControllerManageTest {
     private ProjectInputController projectInputController;
     private ProjectRepository projectRepository;
     private String simulatedUserInput;
     private String[] simulatedOutput;
     private String[] expectedOutput;
 
-    public ProjectInputControllerManageTest() {
+    ProjectInputControllerManageTest() {
         this.projectRepository = new ProjectRepository();
         this.projectInputController = new ProjectInputController(this.projectRepository);
     }
@@ -100,6 +100,34 @@ public class ProjectInputControllerManageTest {
         simulatedOutput = projectInputController.manageProject(simulatedUserInput);
         expectedOutput = new String[] {"Removed task 1: Kill Ironman",
                                        "Take note that index numbers of other tasks may have changed after deleting!"};
+        assertArrayEquals(expectedOutput, simulatedOutput);
+    }
+
+    @Test
+    void manageProject_viewAllTasks_executionSuccess() {
+        simulatedUserInput = "view tasks";
+        simulatedOutput = projectInputController.manageProject(simulatedUserInput);
+        expectedOutput = new String[] {"+----------------------------------------------------------------------+",
+                                       "|Tasks of Avengers Testing:                                            |",
+                                       "+----------------------------------------------------------------------+",
+                                       "| - There are currently no tasks! -                                    |",
+                                       "+----------------------------------------------------------------------+"};
+        assertArrayEquals(expectedOutput, simulatedOutput);
+
+        simulatedUserInput = "add task -t Kill Thanos -c 100 -p 1";
+        simulatedOutput = projectInputController.manageProject(simulatedUserInput);
+        simulatedUserInput = "view tasks";
+        simulatedOutput = projectInputController.manageProject(simulatedUserInput);
+        expectedOutput = new String[] {"+----------------------------------------------------------------------+",
+                                       "|Tasks of Avengers Testing:                                            |",
+                                       "+----------------------------------------------------------------------+",
+                                       "|1. Kill Thanos                                                        |",
+                                       "|   - Priority: 1                                                      |",
+                                       "|   - Due: --                                                          |",
+                                       "|   - Credit: 100                                                      |",
+                                       "|   - State: OPEN                                                      |",
+                                       "+----------------------------------------------------------------------+",
+        };
         assertArrayEquals(expectedOutput, simulatedOutput);
     }
 }
