@@ -258,7 +258,7 @@ public class Storage {
         if(sc.hasNext()){
             String languageString = sc.nextLine();
             String[] languageStringSplit = languageString.split(":");
-            if(languageString.length() == 2 || languageStringSplit[0].equals("lang")){
+            if(languageStringSplit.length == 2 && languageStringSplit[0].equals("lang")){
                 this.language = languageStringSplit[1];
                 if(!(this.language.equals("en") || this.language.equals("fr"))){
                     this.language = "en";
