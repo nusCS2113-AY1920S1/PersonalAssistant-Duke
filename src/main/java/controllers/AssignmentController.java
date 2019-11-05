@@ -33,6 +33,8 @@ public class AssignmentController {
      * @param input The input from the user.
      */
     public void assignAndUnassign(String input) {
+        successMessages.clear();
+        errorMessages.clear();
         if (input.length() < 12) {
             errorMessages.add("Insufficient parameters!"
                 + "Indicate the tasks and members whom you wish to assign or remove!");
@@ -90,7 +92,7 @@ public class AssignmentController {
         */
         ArrayList<String> assignMessages = new ArrayList<>();
         for (Integer assigneeIndex : validAssignees) {
-            IMember member = project.getMembers().getMember(assigneeIndex);
+            IMember member = project.getMember(assigneeIndex);
             if (project.containsAssignment(task, (Member)member)) {
                 assignMessages.add("Task has already been assigned to member "
                     + assigneeIndex + " ("
@@ -101,8 +103,8 @@ public class AssignmentController {
                     + assigneeIndex + " ("
                     + member.getName() + ").");
             }
-            successMessages.addAll(assignMessages);
         }
+        successMessages.addAll(assignMessages);
     }
 
     /**
@@ -112,6 +114,9 @@ public class AssignmentController {
      * @param task Task to be unassigned.
      */
     private void unassign(ArrayList<Integer> validUnassignees, Task task) {
+        /*
+        Here's a similar array for unassign messages.
+         */
         ArrayList<String> unassignMessages = new ArrayList<>();
         for (Integer unassigneeIndex : validUnassignees) {
             IMember member = project.getMembers().getMember(unassigneeIndex);
