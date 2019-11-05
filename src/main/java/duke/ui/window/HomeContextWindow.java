@@ -5,8 +5,6 @@ import com.jfoenix.controls.JFXScrollPane;
 import duke.data.DukeObject;
 import duke.data.Patient;
 import duke.ui.card.PatientCard;
-import javafx.collections.MapChangeListener;
-import javafx.collections.ObservableMap;
 import javafx.fxml.FXML;
 import javafx.scene.control.ScrollPane;
 
@@ -24,17 +22,17 @@ public class HomeContextWindow extends ContextWindow {
     @FXML
     private ScrollPane scrollPane;
 
-    private ObservableMap<String, Patient> patientObservableMap;
+    private ArrayList<Patient> patientList;
     private List<DukeObject> indexedPatientList;
 
     /**
      * Constructs the Home UI window.
      *
-     * @param patientObservableMap ObservableMap of {@code Patient} objects.
+     * @param patientList List of {@code Patient} objects.
      */
-    public HomeContextWindow(ObservableMap<String, Patient> patientObservableMap) {
+    public HomeContextWindow(ArrayList<Patient> patientList) {
         super(FXML);
-        this.patientObservableMap = patientObservableMap;
+        this.patientList = patientList;
         JFXScrollPane.smoothScrolling(scrollPane);
         updateUi();
     }
@@ -43,12 +41,11 @@ public class HomeContextWindow extends ContextWindow {
      * Fills {@code indexedPatientList} and {@code patientListPanel}.
      */
     private void fillPatientList() {
-        indexedPatientList = new ArrayList<>(patientObservableMap.values());
-
+        indexedPatientList = new ArrayList<>(patientList);
         patientListPanel.getChildren().clear();
         indexedPatientList.forEach(patient -> {
             PatientCard patientCard = new PatientCard((Patient) patient);
-            patientCard.setIndex(indexedPatientList.indexOf(patient) + 1);
+            patientCard.setIndex(patientList.indexOf(patient) + 1);
             patientListPanel.getChildren().add(patientCard);
         });
     }
@@ -63,6 +60,7 @@ public class HomeContextWindow extends ContextWindow {
 
     /**
      * {@inheritDoc}
+     * @return
      */
     @Override
     public List<DukeObject> getIndexedList(String type) {
@@ -73,9 +71,9 @@ public class HomeContextWindow extends ContextWindow {
      * Attaches a listener to the patient hashmap.
      * This listener updates the {@code patientListPanel} whenever the patient hashmap is updated.
      */
-    private void attachPatientListListener() {
-        patientObservableMap.addListener((MapChangeListener<String, Patient>) change -> {
-            fillPatientList();
-        });
-    }
+    //private void attachPatientListListener() {
+    //   patientObservableMap.addListener((MapChangeListener<String, Patient>) change -> {
+    //       fillPatientList();
+    //   });
+    //}
 }

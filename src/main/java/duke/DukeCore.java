@@ -69,7 +69,7 @@ public class DukeCore extends Application {
      * @throws DukeFatalException If the file writer cannot be setup.
      */
     public void writeJsonFile() throws DukeFatalException {
-        storage.writeJsonFile(patientMap.getPatientHashMap());
+        storage.writeJsonFile(patientMap.getPatientList());
     }
 
     /**

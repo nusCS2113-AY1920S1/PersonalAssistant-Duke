@@ -12,7 +12,6 @@ import duke.exception.DukeException;
 import duke.ui.UiElement;
 import duke.ui.context.Context;
 import duke.ui.context.UiContext;
-import javafx.collections.ObservableMap;
 import javafx.fxml.FXML;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
@@ -20,6 +19,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -40,7 +40,7 @@ public class MainWindow extends UiElement<Stage> {
 
     private Stage primaryStage;
     private UiContext uiContext;
-    private ObservableMap<String, Patient> patientObservableMap;
+    private ArrayList<Patient> patientList;
     private Executor executor;
     private Parser parser;
     private GsonStorage storage;
@@ -60,7 +60,7 @@ public class MainWindow extends UiElement<Stage> {
 
         this.primaryStage = primaryStage;
         this.uiContext = core.uiContext;
-        this.patientObservableMap = core.patientMap.getPatientObservableMap();
+        this.patientList = core.patientMap.getPatientList();
         this.executor = new Executor(core);
         this.parser = new Parser(core.uiContext);
         this.storage = core.storage;
@@ -72,7 +72,7 @@ public class MainWindow extends UiElement<Stage> {
      * Places child UI elements in the main UI window.
      */
     private void placeChildUiElements() {
-        currentContextWindow = new HomeContextWindow(patientObservableMap);
+        currentContextWindow = new HomeContextWindow(patientList);
         currentTab = new Tab("Home", currentContextWindow.getRoot());
         contextWindowHolder.getTabs().add(currentTab);
 
@@ -92,7 +92,7 @@ public class MainWindow extends UiElement<Stage> {
 
             switch ((Context) event.getNewValue()) {
             case HOME:
-                currentContextWindow = new HomeContextWindow(patientObservableMap);
+                currentContextWindow = new HomeContextWindow(patientList);
                 currentTab = new Tab("Home", currentContextWindow.getRoot());
                 break;
             case PATIENT:
