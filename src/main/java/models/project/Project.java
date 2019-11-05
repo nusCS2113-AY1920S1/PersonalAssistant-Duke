@@ -135,6 +135,7 @@ public class Project implements IProject {
         return allMemberCredits;
     }
 
+    //@@author sinteary
     /**
      * This method assigns a task to a member by adding the task to a member's individual
      * task list - tasksAssignedToMembers.
@@ -187,6 +188,7 @@ public class Project implements IProject {
     public HashMap<Task, ArrayList<Member>> getTasksAndAssignedMembers() {
         return this.taskAndListOfMembersAssigned;
     }
+    //@@author
 
     public void addReminderToList(Reminder reminder) {
         this.reminderList.addReminderList(reminder);

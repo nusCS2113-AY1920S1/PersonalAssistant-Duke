@@ -19,5 +19,4 @@ public interface IMemberList {
 
     boolean contains(IMember newMember);
 
-    int getIndexOfMember(IMember member);
 }

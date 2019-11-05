@@ -131,11 +131,13 @@ public class MemberList implements IMemberList {
         return memberList.size();
     }
 
+    /**
+     * Checks if the member list contains a member.
+     * @param newMember The member to be checked.
+     * @return True if the project's member list already contains the member, false otherwise.
+     */
     public boolean contains(IMember newMember) {
         return this.memberList.contains(newMember);
     }
 
-    public int getIndexOfMember(IMember member) {
-        return this.memberList.indexOf(member);
-    }
 }
