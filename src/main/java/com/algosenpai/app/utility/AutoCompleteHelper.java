@@ -1,6 +1,6 @@
 package com.algosenpai.app.utility;
 
-import com.algosenpai.app.logic.constant.Commands;
+import com.algosenpai.app.logic.constant.CommandsEnum;
 
 import java.util.List;
 
@@ -20,7 +20,7 @@ public class AutoCompleteHelper {
             return userInput;
         }
 
-        List<String> commands = Commands.getNames();
+        List<String> commands = CommandsEnum.getNames();
         String bestMatch = userInput;
 
         for (String s: commands) {
