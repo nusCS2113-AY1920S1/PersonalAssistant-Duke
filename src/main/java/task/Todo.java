@@ -1,5 +1,8 @@
 package task;
 
+import exception.DukeException;
+import parser.Parser;
+
 public class Todo extends Task {
     protected String type = "T";
 
@@ -8,8 +11,26 @@ public class Todo extends Task {
      *
      * @param description String containing description information
      */
-    public Todo(String description) {
-        super(description);
+    public Todo(String description) throws DukeException{
+        if (description.contains("/priority")){
+            String[] splitPriority = description.split(Parser.priority);
+            if (splitPriority.length < 2){
+                throw new DukeException("Please enter a priority level!");
+            }
+            if (!splitPriority[1].toLowerCase().matches("high|medium|low")){
+                throw new DukeException("Please ensure that priority level is either High, Medium, or Low");
+            }
+            this.isDone = false;
+            this.description = splitPriority[0];
+            this.userDefinedPriority = splitPriority[1].toLowerCase();
+            this.calculatePriorityScore();
+        }
+        else {
+            this.description = description;
+            this.isDone = false;
+            this.userDefinedPriority = "low";
+//            this.calculatePriorityScore();
+        }
     }
 
     /**
@@ -21,7 +42,7 @@ public class Todo extends Task {
     public Todo(String bool, String description, String priority) {
         super(description);
         this.isDone = (1 == Integer.parseInt(bool));
-        this.taskPriority = Integer.parseInt(priority);
+        this.overallPriorityScore = Integer.parseInt(priority);
     }
 
     /**

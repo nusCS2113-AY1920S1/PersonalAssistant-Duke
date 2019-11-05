@@ -22,7 +22,7 @@ import java.util.concurrent.TimeUnit;
 public class Task implements Serializable {
     String description;
     boolean isDone;
-    Integer taskPriority;
+    Integer overallPriorityScore;
     String userDefinedPriority;
     String nusDegreeName;
     Integer taskUrgency;
@@ -41,7 +41,7 @@ public class Task implements Serializable {
     public Task(String description) {
         this.description = description;
         this.isDone = false;
-        this.taskPriority = 1;
+        this.overallPriorityScore = 1;
 
     }
 
@@ -199,20 +199,23 @@ public class Task implements Serializable {
 
 
 
-    public void setTaskPriority(Integer taskPriority) {
-        this.taskPriority = taskPriority;
+    public void setOverallPriorityScore(Integer overallPriorityScore) {
+        this.overallPriorityScore = overallPriorityScore;
     }
 
 
-    public Integer getTaskPriority() {
-        return taskPriority;
+    public Integer getOverallPriorityScore() {
+        return overallPriorityScore;
     }
 
 
-    public void assignPriority(){
+    public void calculatePriorityScore(){
+        if (this.dueDate == null){
+            this.overallPriorityScore = 1;
+        }
         Integer daysAway = (int)getDifferenceDays(this.dueDate);
         if (daysAway < 0){
-            this.taskPriority = -1;
+            this.overallPriorityScore = -1;
         }
         else{
             Integer urgency = 40 - (daysAway / 7);
