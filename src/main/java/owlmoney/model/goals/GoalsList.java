@@ -436,7 +436,7 @@ public class GoalsList {
      */
     public Goals reminderForGoals() {
         for (int i = 0; i < goalList.size(); i++) {
-            if (goalList.get(i).convertDateToDays() <= 10) {
+            if (goalList.get(i).convertDateToDays() <= 10 && !goalList.get(i).getRawStatus()) {
                 return goalList.get(i);
             }
         }
