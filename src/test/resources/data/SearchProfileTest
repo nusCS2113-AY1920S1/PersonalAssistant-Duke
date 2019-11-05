@@ -1,0 +1,124 @@
+{
+  "results": [
+    {
+    "genreIdPreference": [],
+    "genreIdRestriction": [],
+    "adult": true,
+    "sortByAlphabetical": true,
+    "sortByHighestRating": false,
+    "sortByLatestRelease": false,
+    "name": "",
+    "isMovie": true
+  },
+  {
+    "genreIdPreference": [
+      12,
+      16
+    ],
+    "genreIdRestriction": [],
+    "adult": true,
+    "sortByAlphabetical": true,
+    "sortByHighestRating": false,
+    "sortByLatestRelease": false,
+    "name": "",
+    "isMovie": true
+  },
+  {
+    "genreIdPreference": [],
+    "genreIdRestriction": [
+      12,
+      16
+    ],
+    "adult": true,
+    "sortByAlphabetical": true,
+    "sortByHighestRating": false,
+    "sortByLatestRelease": false,
+    "name": "",
+    "isMovie": true
+  },
+  {
+    "genreIdPreference": [
+      12
+    ],
+    "genreIdRestriction": [
+      16
+    ],
+    "adult": true,
+    "sortByAlphabetical": true,
+    "sortByHighestRating": false,
+    "sortByLatestRelease": false,
+    "name": "",
+    "isMovie": true
+  },
+  {
+    "genreIdPreference": [
+      28
+    ],
+    "genreIdRestriction": [
+      99
+    ],
+    "adult": true,
+    "sortByAlphabetical": false,
+    "sortByHighestRating": true,
+    "sortByLatestRelease": false,
+    "name": "",
+    "isMovie": true
+  },
+  {
+    "genreIdPreference": [
+      28
+    ],
+    "genreIdRestriction": [
+      99
+    ],
+    "adult": true,
+    "sortByAlphabetical": false,
+    "sortByHighestRating": false,
+    "sortByLatestRelease": true,
+    "name": "",
+    "isMovie": true
+  },
+  {
+    "genreIdPreference": [
+      12
+    ],
+    "genreIdRestriction": [
+      16
+    ],
+    "adult": true,
+    "sortByAlphabetical": true,
+    "sortByHighestRating": false,
+    "sortByLatestRelease": false,
+    "name": "finding nemo",
+    "isMovie": true
+  },
+  {
+    "genreIdPreference": [
+      28
+    ],
+    "genreIdRestriction": [
+      99
+    ],
+    "adult": true,
+    "sortByAlphabetical": false,
+    "sortByHighestRating": true,
+    "sortByLatestRelease": false,
+    "name": "finding nemo",
+    "isMovie": true
+  },
+  {
+    "genreIdPreference": [
+      28
+    ],
+    "genreIdRestriction": [
+      99
+    ],
+    "adult": true,
+    "sortByAlphabetical": false,
+    "sortByHighestRating": false,
+    "sortByLatestRelease": true,
+    "name": "finding nemo",
+    "isMovie": true
+  }
+]
+}

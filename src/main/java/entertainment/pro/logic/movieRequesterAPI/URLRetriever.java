@@ -56,10 +56,10 @@ public class URLRetriever {
             return null;
         } catch (SocketTimeoutException ex) {
             logger.log(Level.SEVERE, PromptMessages.SOCKET_TIMEOUT_URL);
-            throw new FailedAPIException(PromptMessages.API_FAIL_GENERAL);
+            return null;
         } catch (IOException ex) {
             logger.log(Level.SEVERE, PromptMessages.IO_ERROR_URL);
-            throw new FailedAPIException(PromptMessages.API_FAIL_GENERAL);
+            return null;
         }
     }
 }

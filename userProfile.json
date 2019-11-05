@@ -1,1 +1,2 @@
-{"userName":"marc","userAge":20,"genreIdPreference":[53,27],"genreIdRestriction":[],"adult":false,"playlistNames":["hello","polygon","happy","DC"],"sortByAlphabetical":true,"sortByHighestRating":false,"sortByLatestRelease":false}
+{"userName":"","userAge":-1,"genreIdPreference":[28],"genreIdRestriction":[27,35],"adult":true,"playlistNames":["hello","polygon"],"sortByAlphabetical":true,"sortByHighestRating":false,"sortByLatestRelease":false}
+
