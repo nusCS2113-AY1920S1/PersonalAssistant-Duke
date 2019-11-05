@@ -121,14 +121,15 @@ public class Logic {
                     return new QuizNextCommand(inputs, quizList, questionNumber);
                 } else {
                     return new QuizTestCommand(
-                            inputs, quizList, questionNumber, isQuizMode, isNewQuiz, chapterNumber.get());
+                            inputs, quizList, questionNumber, isQuizMode, isNewQuiz, chapterNumber.get(),userStats);
                 }
             } else {
                 return new QuizCommand(inputs);
             }
         }
         quizList = quizMaker.generateQuiz(chapterNumber.get(), quizList);
-        return new QuizTestCommand(inputs, quizList, questionNumber, isQuizMode, isNewQuiz,chapterNumber.get());
+        return new
+                QuizTestCommand(inputs, quizList, questionNumber, isQuizMode, isNewQuiz,chapterNumber.get(),userStats);
     }
 
     /**
