@@ -1,6 +1,5 @@
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.PrintStream;
 import java.text.ParseException;
 
 import duke.logic.command.Command;
@@ -33,7 +32,7 @@ public class Duke {
     }
 
     public static void main(String[] args) {
-        new Duke("tasks.json").run();
+        new Duke("duke.json").run();
     }
 
     /**
