@@ -5,6 +5,7 @@ import list.DegreeList;
 import storage.Storage;
 
 import java.io.File;
+import java.lang.reflect.Array;
 import java.util.*;
 /*
 @@author woblek
@@ -31,6 +32,22 @@ public class UniversityTaskHandler {
         aMap.put("Mechanical Engineering", 7);
         aMap.put("Materials Science Engineering", 8);
         degreeMap = Collections.unmodifiableMap(aMap);
+    }
+
+
+    private static final Map<String, String> aliasMap;
+    static {
+        Map<String, String> aMap = new HashMap<>();
+        aMap.put("Biomedical Engineering", "BME");
+        aMap.put("Chemical Engineering", "CHE");
+        aMap.put("Civil Engineering", "CIV");
+        aMap.put("Computer Engineering", "CEG");
+        aMap.put("Electrical Engineering", "EE");
+        aMap.put("Environmental Engineering", "ENV");
+        aMap.put("Industrial Systems Engineering", "ISE");
+        aMap.put("Mechanical Engineering", "ME");
+        aMap.put("Materials Science Engineering", "MSE");
+        aliasMap = Collections.unmodifiableMap(aMap);
     }
 
 
@@ -74,7 +91,7 @@ public class UniversityTaskHandler {
             }
 
         }
-
+        System.out.println("I've also added tasks related to " + degreeName + "\n");
     }
 
     /**
@@ -85,15 +102,17 @@ public class UniversityTaskHandler {
      * @throws DukeException
      */
     public void removeDegreeTasks(String index, DegreeList userDegreeList, TaskList userTaskList) throws DukeException{
-        String removedDegree =  userDegreeList.get(Integer.parseInt(index));
-        TaskList removedTasklist = new TaskList();
+        Integer request = Integer.parseInt(index) - 1;
+        String removedDegreeFull =  userDegreeList.get(request);
+        String removedDegreeAlias = aliasMap.get(removedDegreeFull);
+        ArrayList <Integer> deletionList = new ArrayList<>();
         for (int i = 0; i < userTaskList.size(); i++){
-            if (userTaskList.get(i).description.toLowerCase().contains(removedDegree)){
-                removedTasklist.add(userTaskList.get(i));
-                userTaskList.banishDelete(Integer.toString(i+1));
+            if (userTaskList.get(i).description.contains(removedDegreeAlias)){
+                deletionList.add(i);
             }
         }
-
+        userTaskList.banishDelete(deletionList);
+//        System.out.println("I've also removed tasks related to " + removedDegreeFull);
     }
 
     /**
