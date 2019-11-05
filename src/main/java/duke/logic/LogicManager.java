@@ -60,15 +60,25 @@ public class LogicManager implements Logic {
     private final AutoCompleter autoCompleter;
 
     private final Logger logger = LogsCenter.getLogger(getClass());
+
+    private static LogicManager theLogicManager = null;
+
     /**
      * Creates a logic manager.
      */
-    public LogicManager(Model model, BakingHomeStorage storage) {
+    private LogicManager(Model model, BakingHomeStorage storage) {
         this.model = model;
         this.storage = storage;
         this.bakingHomeParser = new BakingHomeParser();
         this.autoCompleter = new AutoCompleter();
         addCommandsToAutoComplete();
+    }
+
+    public static LogicManager getInstance(Model model, BakingHomeStorage storage) {
+        if (theLogicManager == null) {
+            theLogicManager = new LogicManager(model, storage);
+        }
+        return theLogicManager;
     }
 
     @Override
