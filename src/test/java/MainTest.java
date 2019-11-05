@@ -15,6 +15,7 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class MainTest {
 
@@ -117,6 +118,42 @@ public class MainTest {
         assertEquals(true, succeeded);
     }
 
+    @Test
+    public void testBudget () {
+        ArrayList<String> readFromFile = new ArrayList<String>();
+        String fileContent;
+        fileContent = "XT/fawpeifwe/02-12-2019";
+        readFromFile.add(fileContent);
+        fileContent = "XP/apiejfpwiefw/03-12-2019 1500/03-12-2019 1800";
+        readFromFile.add(fileContent);
+        fileContent = "XC/halloween/04-12-2019 1600/04-12-2019 1930/5";
+        readFromFile.add(fileContent);
+
+        EventList eventListTest = new EventList(readFromFile);
+        boolean succeededInAddingConcert;
+        try {
+            eventListTest.addEvent(new Concert("good concert", "05-12-2019 1500",
+                    "05-12-2019 1600",44));
+            succeededInAddingConcert = true;
+        } catch (CostExceedsBudgetException | EndBeforeStartException | ClashException e) {
+            System.out.println("1");
+            succeededInAddingConcert = false;
+        }
+        assertTrue(succeededInAddingConcert);
+
+        boolean CostExceededBudget = false;
+        try {
+            eventListTest.addEvent(new Concert("good concert", "06-12-2019 1500",
+                    "06-12-2019 1600",2));
+        } catch (CostExceedsBudgetException e) { //entry should exceed cost
+            CostExceededBudget = true;
+        } catch (ClashException | EndBeforeStartException e) {
+        }
+
+        assertTrue(CostExceededBudget);
+    }
+
+    //@@author
     @Test
     public void goalsListTest() throws CostExceedsBudgetException, EndBeforeStartException, ClashException {
         ArrayList<String> testListString = new ArrayList<>();
