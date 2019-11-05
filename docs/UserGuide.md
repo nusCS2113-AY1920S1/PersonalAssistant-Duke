@@ -69,7 +69,7 @@ user needs to enter `d` in main menu first.
 
 To add a dish to the DishList, user needs to execute command below:
 
-Format: `add d/DESC`
+Format: `add <DESC>`
 
 if the dish already exist in the list, message is output:
 
@@ -80,7 +80,7 @@ if the dish already exist in the list, message is output:
 Examples: 
 
 - `add chicken rice`
-- ``add tom yum noodles`
+- `add tom yum noodles`
 
 ```
          _________________________________________________________________________________________
@@ -97,7 +97,7 @@ user needs to enter `d` in main menu first.
 
 Executing this command associates an ingredient to a certain Dish. user needs to execute the command below:
 
-Format: `ingredient d/DESC n/AMOUNT i/INDEX`
+Format: `ingredient <DESC> <AMOUNT> <INDEX>`
 
 Examples:
 
@@ -189,7 +189,7 @@ user needs to enter `d` in main menu first.
 
 user needs to enter the command below:
 
-Format: `remove i/INDEX`
+Format: `remove <INDEX>`
 
 Examples:
 
