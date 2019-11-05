@@ -60,18 +60,26 @@ public class TaskManager {
         return tasksWithThisDescription;
     }
 
-
     /**
      * Adds a Task to the list.
      *
-     * @param task The Task to be added to the list.
+     * @param taskToBeAdded contains the Task to be added to the list.
+     * @throws DukeException if the task is not added successfully.
      */
-    public void addTask(Task task) {
-        if (task.getId() == 0) {
-            maxId += 1;
-            task.setId(maxId);
+    public void addTask(Task taskToBeAdded) throws DukeException {
+        if (taskToBeAdded.getDescription().length() < 3) {
+            throw new DukeException("The task description is too short.");
         }
-        taskIdMap.put(task.getId(), task);
+        for (Task task : taskIdMap.values()) {
+            if (task.getDescription().toLowerCase().equals(taskToBeAdded.getDescription().toLowerCase())) {
+                throw new DukeException("The task '" + taskToBeAdded.getDescription() + "' already existed.");
+            }
+        }
+        if (taskToBeAdded.getId() == 0) {
+            maxId += 1;
+            taskToBeAdded.setId(maxId);
+        }
+        taskIdMap.put(taskToBeAdded.getId(), taskToBeAdded);
     }
 
     /**
