@@ -21,9 +21,9 @@ public class ImportCommand extends Command {
         + "Examples:\n\t"
         + "import /file-name cal\n\t\t"
         + "import cal.ics schedule to COMPal.";
-    private static final String MESSAGE_SUCCESS = "I have tried importing the given File!\nThe results are below:\n";
-    private static final String MESSAGE_FILE_NON_EXIST = "Error: File specified to import does not exist!";
-    private static final String MESSAGE_FILE_NON_ICS = "Error: File is not a ICS file format that can be read from!";
+    public static final String MESSAGE_SUCCESS = "I have tried importing the given File!\nThe results are below:\n";
+    public static final String MESSAGE_FILE_NON_EXIST = "Error: File specified to import does not exist!";
+    public static final String MESSAGE_FILE_NON_ICS = "Error: File is not a ICS file format that can be read from!";
 
     private String fileName;
     private static final Logger logger = LogUtils.getLogger(ImportCommand.class);
@@ -160,7 +160,7 @@ public class ImportCommand extends Command {
                 taskEndTime, taskEndDate, interval);
             finalList += deadline.commandExecute(taskList).feedbackToUser + "\n";
 
-            if (hasReminder) {
+            /*if (hasReminder) {
                 for (Task t : taskList.getArrList()) {
                     if (t.getSymbol().equals("D")
                         && t.getDescription().equals(taskDesc)
@@ -170,7 +170,7 @@ public class ImportCommand extends Command {
                         break;
                     }
                 }
-            }
+            }*/
 
         } else {
             int interval = 7;
@@ -180,7 +180,7 @@ public class ImportCommand extends Command {
                 taskEndTime, taskEndDate, interval);
             finalList += event.commandExecute(taskList).feedbackToUser + "\n";
 
-            if (hasReminder) {
+            /*if (hasReminder) {
                 for (Task t : taskList.getArrList()) {
                     if (t.getSymbol().equals("E")
                         && t.getDescription().equals(taskDesc)
@@ -192,7 +192,7 @@ public class ImportCommand extends Command {
                         break;
                     }
                 }
-            }
+            }*/
         }
     }
 
