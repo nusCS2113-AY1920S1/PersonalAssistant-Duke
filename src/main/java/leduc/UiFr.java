@@ -212,22 +212,22 @@ public class UiFr extends Ui {
 
     @Override
     public void showEnterDayShow() {
-        super.display("Veuillez entrer la date comme DD/MM/YYYY");
+        System.out.print("Vous êtes entré dans le mode show date. Veuillez entrer la date comme DD/MM/YYYY");
     }
 
     @Override
     public void showEnterDayOfWeekShow() {
-        super.display("Veuillez entrer le jour de la semaine comme monday, tuesday, wednesday, thursday, friday, saturday, sunday");
+        System.out.print("Vous êtes entré dans le mode show jour de la semaine. Veuillez entrer le jour de la semaine comme monday, tuesday, wednesday, thursday, friday, saturday, sunday");
     }
 
     @Override
     public void showEnterMonthShow() {
-        super.display("Veuilez entrer le mois comme MM/YYYY");
+        System.out.print("Vous êtes entré dans le mode show mois. Veuilez entrer le mois comme MM/YYYY");
     }
 
     @Override
     public void showEnterYearShow() {
-        super.display("Veuillez entrer l'année comme YYYY");
+        System.out.print("Vous êtes entré dans le mode show année. Veuillez entrer l'année comme YYYY");
     }
     @Override
     public void showNotCompleteList(ArrayList<Task> notCompleteTasks, TaskList tasks) {
