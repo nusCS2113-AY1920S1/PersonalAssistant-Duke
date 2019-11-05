@@ -1,6 +1,6 @@
 package duke.commons.exceptions;
 
-public class ApiException extends DukeException {
+public class ApiException extends ParseException {
 
     public ApiException() {
         super("API failed.");

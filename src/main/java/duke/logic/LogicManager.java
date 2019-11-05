@@ -1,5 +1,6 @@
 package duke.logic;
 
+import duke.commons.exceptions.ApiException;
 import duke.commons.exceptions.ChronologyAfterPresentException;
 import duke.commons.exceptions.ChronologyBeforePresentException;
 import duke.commons.exceptions.ChronologyInconsistentException;
@@ -52,7 +53,7 @@ public class LogicManager implements Logic {
                 c = Parser.parseComplexCommand(userInput);
                 conversationManager.clearContext();
             } catch (ChronologyAfterPresentException | ChronologyBeforePresentException
-                    | ChronologyInconsistentException e) {
+                    | ChronologyInconsistentException | ApiException e) {
                 throw e;
             } catch (ParseException e) {
                 c = getCommandFromConversationManager(userInput);

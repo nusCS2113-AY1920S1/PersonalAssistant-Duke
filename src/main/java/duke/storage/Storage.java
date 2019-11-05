@@ -83,7 +83,7 @@ public class Storage {
         readTrain();
         readProfile();
         readRecommendations();
-        readEvent();
+        readEvents();
         readRoutes();
         readItineraryTable();
     }
@@ -93,7 +93,7 @@ public class Storage {
      *
      * @throws FileLoadFailException If the file cannot be loaded.
      */
-    public void readItineraryTable() throws FileLoadFailException {
+    private void readItineraryTable() throws FileLoadFailException {
         try {
             File itinerariesFile = new File(ITINERARIES_FILE_PATH);
             Scanner scanner = new Scanner(itinerariesFile);
@@ -177,7 +177,7 @@ public class Storage {
      *
      * @throws FileLoadFailException If file cannot be loaded.
      */
-    private void readEvent() throws FileLoadFailException {
+    private void readEvents() throws FileLoadFailException {
         List<Event> events = new ArrayList<>();
         try {
             File f = new File(EVENTS_FILE_PATH);
@@ -228,7 +228,7 @@ public class Storage {
     /**
      * Returns Venues fetched from stored memory.
      */
-    public void readRecommendations() throws ParseException {
+    private void readRecommendations() throws ParseException {
         List<Agenda> agendaList = new ArrayList<>();
         Scanner scanner = new Scanner(getClass().getResourceAsStream(RECOMMENDATIONS_FILE_PATH));
         int i = 1;
@@ -332,7 +332,7 @@ public class Storage {
      *
      * @throws FileNotSavedException If the file cannot be saved.
      */
-    public void writeNewItinerary() throws FileNotSavedException {
+    private void writeNewItinerary() throws FileNotSavedException {
         String file = ITINERARIES_FILE_PATH;
         try {
             FileWriter writer = new FileWriter(file, false);

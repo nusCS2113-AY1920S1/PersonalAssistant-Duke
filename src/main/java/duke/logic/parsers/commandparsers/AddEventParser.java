@@ -53,11 +53,7 @@ public class AddEventParser extends CommandParser {
         LocalDateTime start = ParserTimeUtil.parseStringToDate(withinDetails[ONE].strip());
         LocalDateTime end = ParserTimeUtil.parseStringToDate(withinDetails[TWO].strip());
         checkLogicalDate(start, end);
-        try {
-            return new Event(withinDetails[ZERO].strip(), start, end);
-        } catch (ApiException e) {
-            throw new ParseException(Messages.ERROR_API_FAIL);
-        }
+        return new Event(withinDetails[ZERO].strip(), start, end);
     }
 
     /**

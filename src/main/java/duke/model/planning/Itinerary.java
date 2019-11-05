@@ -130,9 +130,6 @@ public class Itinerary extends AgendaList {
             throw new ParseException(Messages.ERROR_ITINERARY_FAIL_CREATION);
         } catch (NumberFormatException e) {
             throw new ParseException(Messages.ERROR_ITINERARY_INCORRECT_COMMAND);
-        } catch (ApiException | ParseException e) {
-            e.printStackTrace();
         }
-
     }
 }
