@@ -8,7 +8,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 /**
  * A GUI for Duke using FXML.
@@ -23,11 +25,21 @@ public class Main extends Application {
     public void start(Stage stage) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
-            AnchorPane ap = fxmlLoader.load();
+            GridPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
             fxmlLoader.<MainWindow>getController().setJavaCake(javaCake);
             fxmlLoader.<MainWindow>getController().setStage(stage);
+            //stage.setResizable(false);
+            //stage.initStyle(StageStyle.UNDECORATED);
+            stage.setMinHeight(600);
+            stage.setMinWidth(850);
+            stage.showingProperty().addListener((observable, oldValue, showing) -> {
+                if (showing) {
+                    stage.setMinHeight(stage.getMinHeight());
+                    stage.setMinWidth(stage.getMinWidth());
+                }
+            });
             stage.show();
             stage.getIcons().add(new Image(this.getClass().getResourceAsStream("/images/app_icon.jpg")));
             stage.setTitle("JavaCake");

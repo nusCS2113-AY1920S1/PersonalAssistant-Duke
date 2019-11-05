@@ -2,10 +2,12 @@ package javacake.ui;
 
 import javacake.Logic;
 import javacake.commands.ListNoteCommand;
+import javacake.commands.ScoreCommand;
 import javacake.quiz.QuizSession;
 import javacake.commands.ReminderCommand;
 import javacake.exceptions.CakeException;
 import javacake.quiz.Question;
+import javacake.storage.Profile;
 import javacake.storage.StorageManager;
 
 import java.io.BufferedReader;
@@ -44,10 +46,11 @@ public class Ui {
      * Method to obtain Welcome Message Part 2.
      * @param isFirstTime boolean to check if first time
      * @param userName username
-     * @param progress progress of user
+     * @param storageManager progress of user
      * @return String containing first part of welcome message for GUI
      */
-    public static String showWelcomeMsgPhaseB(boolean isFirstTime, String userName, int progress) {
+    public static String showWelcomeMsgPhaseB(boolean isFirstTime, String userName, StorageManager storageManager)
+            throws CakeException {
         StringBuilder strA = new StringBuilder();
         if (isFirstTime) {
             strA.append("\nWelcome to JavaCake, ").append(userName).append("! ");
@@ -55,7 +58,7 @@ public class Ui {
             strA.append(helpMessage());
         } else {
             strA.append("Hello ").append(userName).append("!\n");
-            strA.append(getQuizResults(progress));
+            strA.append(new ScoreCommand("score").execute(Logic.getInstance(), new Ui(), storageManager));
             strA.append("\nWhat do you want to do today?\n");
             strA.append(helpMessage());
         }
@@ -186,29 +189,6 @@ public class Ui {
 
         System.out.println("Type \"review\" to review your answers.");
         System.out.println("Type \"back\" to go back to the table of contents.");
-    }
-
-    /**
-     * Method to get quiz score.
-     * @param progress the user's overall quiz score
-     * @return String with quiz score message
-     */
-    public static String getQuizResults(int progress) {
-        StringBuilder str = new StringBuilder();
-        str.append("Here's your quiz progress so far :D\n");
-        for (int i = 0; i < 4 * QuizSession.TotalMaxQuestions; ++i) {
-            if (i < progress) {
-                str.append("#");
-            } else {
-                str.append("-");
-            }
-        }
-        progress = progress * 100 / (4 * QuizSession.TotalMaxQuestions);
-        if (progress == 99) {
-            progress = 100;
-        }
-        str.append(" ").append(progress).append("%\n");
-        return  str.toString();
     }
 
     /**

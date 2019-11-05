@@ -34,8 +34,25 @@ public class JavaCake {
         try {
             logic = Logic.getInstance();
             storageManager = new StorageManager();
-            //            storage = new Storage();
-            //            profile = new Profile();
+            userProgress = storageManager.profile.getTotalProgress();
+            userName = storageManager.profile.getUsername();
+            // Default username when creating new profile
+            checkIfNewUser("NEW_USER_!@#");
+        } catch (CakeException e) {
+            ui.showLoadingError();
+            logger.log(Level.WARNING, "Profile set-up failed.");
+        }
+    }
+
+    /**
+     * Constructor for main class to initialise the settings[TEST].
+     */
+    public JavaCake(String testFilePath) {
+        logger.log(Level.INFO, "Starting JavaCake Constructor!");
+        ui = new Ui();
+        try {
+            logic = Logic.getInstance();
+            storageManager = new StorageManager(testFilePath);
             userProgress = storageManager.profile.getTotalProgress();
             userName = storageManager.profile.getUsername();
             // Default username when creating new profile
@@ -58,7 +75,7 @@ public class JavaCake {
      * CLI method to overwrite username if initially default
      * and print the required welcome messages.
      */
-    private void initialiseWelcomeCliMode() {
+    private void initialiseWelcomeCliMode() throws CakeException {
         ui.showMessage(Ui.showWelcomeMsgPhaseA(isFirstTimeUser));
         if (isFirstTimeUser) {
             userName = ui.readCommand();
@@ -75,7 +92,7 @@ public class JavaCake {
                 logger.log(Level.WARNING, "Profile overwrite failed.");
             }
         }
-        ui.showMessage(Ui.showWelcomeMsgPhaseB(isFirstTimeUser, userName, userProgress));
+        ui.showMessage(Ui.showWelcomeMsgPhaseB(isFirstTimeUser, userName, storageManager));
     }
 
     /**
@@ -97,7 +114,11 @@ public class JavaCake {
      */
     private void runAsCli() {
         boolean isExit = false;
-        initialiseWelcomeCliMode();
+        try {
+            initialiseWelcomeCliMode();
+        } catch (CakeException e) {
+            e.printStackTrace();
+        }
         while (!isExit) {
             try {
                 String fullCommand = ui.readCommand();

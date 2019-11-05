@@ -20,6 +20,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -36,16 +37,15 @@ import static javacake.quiz.QuestionList.MAX_QUESTIONS;
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
  */
-public class MainWindow extends AnchorPane {
-
+public class MainWindow extends GridPane {
+    @FXML
+    private GridPane mainGrid;
     @FXML
     private ScrollPane scrollPane;
     @FXML
     private VBox dialogContainer;
     @FXML
     private TextField userInput;
-    @FXML
-    private Button sendButton = new Button();
     @FXML
     private HBox topBar;
     @FXML
@@ -60,8 +60,6 @@ public class MainWindow extends AnchorPane {
     private ScrollPane noteScreen;
     @FXML
     private VBox noteContainer;
-    @FXML
-    private Button themeModeButton;
     public static boolean isLightMode = true;
     public static boolean isChanged = false;
     public static boolean doneDialog = false;
@@ -104,7 +102,8 @@ public class MainWindow extends AnchorPane {
             showContentContainer();
         } else {
             response = Ui.showWelcomeMsgPhaseA(JavaCake.isFirstTimeUser)
-                    + Ui.showWelcomeMsgPhaseB(JavaCake.isFirstTimeUser, JavaCake.userName, JavaCake.userProgress);
+                    + Ui.showWelcomeMsgPhaseB(JavaCake.isFirstTimeUser,
+                    JavaCake.userName, JavaCake.storageManager);
             showContentContainer();
         }
         setAvatarDialogLoop();
@@ -128,70 +127,74 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         //CHECKSTYLE:OFF
-        try {
-            input = userInput.getText();
-            String inputDivider[] = input.split("\\s+");
-            // get input first, don't get response first...
-            userInput.clear();
-            JavaCake.logger.log(Level.INFO, "INPUT: " + input);
-            DialogBox.isScrollingText = true;
-            AvatarScreen.avatarMode = AvatarScreen.AvatarMode.HAPPY;
-            if (input.equals("exit")) {
-                handleExit();
-            } else if (input.equals("listnote")) {
-                handleListNote();
-            } else if (inputDivider[0].equals("deletenote")) {
-                handleDeleteNote();
-            } else if (inputDivider[0].equals("createnote")) {
-                handleCreateNote();
-            } else if (isStarting && JavaCake.isFirstTimeUser) { //set up new username
-                handleStartAndFirstTime();
-            } else if (isTryingReset) { //confirmation of reset
-                handleResetConfirmation();
-            } else if (isWritingNote) {
-                handleWriteNote();
-            } else if (isResult) { // On results screen
-                handleIsResult();
-            } else if (isReview) {
-                handleIsReview();
-            } else {
-                handleOtherProcesses();
+        if (!isExit) {
+            try {
+                input = userInput.getText();
+                String inputDivider[] = input.split("\\s+");
+                // get input first, don't get response first...
+                userInput.clear();
+                JavaCake.logger.log(Level.INFO, "INPUT: " + input);
+                DialogBox.isScrollingText = true;
+                AvatarScreen.avatarMode = AvatarScreen.AvatarMode.HAPPY;
+                if (input.equals("exit")) {
+                    handleExit();
+                } else if (input.equals("listnote")) {
+                    handleListNote();
+                } else if (inputDivider[0].equals("deletenote")) {
+                    handleDeleteNote();
+                } else if (inputDivider[0].equals("createnote")) {
+                    handleCreateNote();
+                } else if (isStarting && JavaCake.isFirstTimeUser) { //set up new username
+                    handleStartAndFirstTime();
+                } else if (isTryingReset) { //confirmation of reset
+                    handleResetConfirmation();
+                } else if (isWritingNote) {
+                    handleWriteNote();
+                } else if (isResult) { // On results screen
+                    handleIsResult();
+                } else if (isReview) {
+                    handleIsReview();
+                } else {
+                    handleOtherProcesses();
+                }
+            } catch (CakeException e) {
+                response = e.getMessage();
+                showContentContainer();
+                JavaCake.logger.log(Level.WARNING, e.getMessage());
             }
-        } catch (CakeException e) {
-            response = e.getMessage();
-            showContentContainer();
-            JavaCake.logger.log(Level.WARNING, e.getMessage());
+            //CHECKSTYLE:ON
         }
-        //CHECKSTYLE:ON
     }
 
     @FXML
     private void handleGuiMode() {
         if (isLightMode) { //switches to Dark theme
             isLightMode = false;
-            this.setStyle("-fx-background-color: black");
-            sendButton.setStyle("-fx-background-color: #333; -fx-border-color: black;");
-            themeModeButton.setStyle("-fx-background-color: #333; -fx-border-color: black;");
+            mainGrid.setStyle("-fx-background-color: grey");
             topBar.setStyle("-fx-background-color: #BBB; -fx-border-color: grey;");
-            userInput.setStyle("-fx-background-color: #9999; -fx-background-radius: 10;");
+            userInput.setStyle("-fx-background-color: #555; -fx-background-radius: 10;");
             dialogContainer.setStyle("-fx-background-color: grey;");
-            avatarScreen.setStyle("-fx-background-color: grey;");
+            avatarScreen.setStyle("-fx-background-color: black;");
             taskContainer.setStyle("-fx-background-color: grey;");
             noteContainer.setStyle("-fx-background-color: grey;");
             avatarDialog.setStyle("-fx-background-color: grey;");
+            scrollPane.setStyle("-fx-background: grey;");
+            taskScreen.setStyle("-fx-background: grey;");
+            noteScreen.setStyle("-fx-background: grey;");
         } else { //switches to Light theme
             isLightMode = true;
-            this.setStyle("-fx-background-color: white");
-            sendButton.setStyle("-fx-background-color: #FF9EC7; -fx-border-color: white;");
-            themeModeButton.setStyle("-fx-background-color: #FF9EC7; -fx-border-color: white;");
+            mainGrid.setStyle("-fx-background-color: pink");
             topBar.setStyle("-fx-background-color: #EE8EC7; -fx-border-color: white;");
             userInput.setStyle("-fx-background-color: #EE8EC7;"
                     + " -fx-background-radius: 10;");
             dialogContainer.setStyle("-fx-background-color: pink;");
-            avatarScreen.setStyle("-fx-background-color: #FEE;");
+            avatarScreen.setStyle("-fx-background-color: black;");
             taskContainer.setStyle("-fx-background-color: pink;");
             noteContainer.setStyle("-fx-background-color: pink;");
-            avatarDialog.setStyle("-fx-background-color: #FEE;");
+            avatarDialog.setStyle("-fx-background-color: pink;");
+            scrollPane.setStyle("-fx-background: pink;");
+            taskScreen.setStyle("-fx-background: pink;");
+            noteScreen.setStyle("-fx-background: pink;");
         }
     }
 
@@ -371,7 +374,7 @@ public class MainWindow extends AnchorPane {
         JavaCake.logger.log(Level.INFO, "New user initialising...");
         JavaCake.userName = input;
         JavaCake.storageManager.profile.overwriteName(JavaCake.userName);
-        response = Ui.showWelcomeMsgPhaseB(JavaCake.isFirstTimeUser, JavaCake.userName, JavaCake.userProgress);
+        response = Ui.showWelcomeMsgPhaseB(JavaCake.isFirstTimeUser, JavaCake.userName, JavaCake.storageManager);
         showContentContainer();
         isStarting = false;
     }

@@ -10,4 +10,4 @@ Which of the above are correct?
 (2) Only (i), (iii) and (vi)
 (3) Only (i), (iv) and (v)
 (4) Only (ii), (iii) and (v)
-(5) Only (ii), (iv) and (vi) | 1
+(5) Only (ii), (iv) and (vi) | 1 | 5
