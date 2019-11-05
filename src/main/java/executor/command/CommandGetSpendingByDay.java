@@ -31,6 +31,7 @@ public class CommandGetSpendingByDay extends Command {
             return;
         }
         this.infoCapsule.setCodeToast();
-        this.infoCapsule.setOutputStr("The total amount of money spent today is $" + totalMoney);
+        this.infoCapsule.setOutputStr("The total amount of money spent today"
+                + "(" + currDate + ") " + "is $" + totalMoney);
     }
 }
