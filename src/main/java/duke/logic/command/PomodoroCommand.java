@@ -11,11 +11,13 @@ import duke.tasklist.TaskList;
 import duke.ui.Ui;
 
 public class PomodoroCommand extends Command {
-    private String fullCommand;
     Optional<String> filter;
+    int indexNo;
+    private String fullCommand;
 
     /**
      * Constructor that takes in the command after "pomo"
+     *
      * @param command command to determine what pomodoro to start
      */
     public PomodoroCommand(Optional<String> filter, String command) {
@@ -34,7 +36,7 @@ public class PomodoroCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         Pomodoro pomodoro = Pomodoro.getInstance();
-        String[] fcArray = fullCommand.split(" ",2);
+        String[] fcArray = fullCommand.split(" ", 2);
         String command = fcArray[0];
         switch (command) {
         case "start":
@@ -52,14 +54,24 @@ public class PomodoroCommand extends Command {
         case "stop":
             pomodoro.stopTimer();
             break;
+        case "list":
+            pomodoro.listTask();
+            break;
         case "answer":
             String answer = pomodoro.getAnswer();
             ui.showLine(answer);
             break;
-        case "assign":
-            int indexNo;
+        case "done":
+            try {
+                indexNo = Integer.parseInt(fcArray[1]) - 1;
+            } catch (NumberFormatException e) {
+                throw new DukeException("Please enter a numerical field for the index!");
+            }
+            pomodoro.doneTask(indexNo);
+            break;
+        case "add":
             if (fcArray.length == 1) {
-                throw new DukeException("Please input the index of the task you would like to assign!");
+                throw new DukeException("Please input the index of the task you would like to add!");
             }
             try {
                 indexNo = Integer.parseInt(fcArray[1]) - 1;
@@ -76,7 +88,8 @@ public class PomodoroCommand extends Command {
 
     /**
      * Not applicable for this Command.
-     * @param tasks NA
+     *
+     * @param tasks     NA
      * @param undoStack NA
      * @throws DukeException NA
      */
