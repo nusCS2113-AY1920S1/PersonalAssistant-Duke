@@ -68,10 +68,8 @@ public class TaskSchedulerTest {
         Long taskDuration = (long) 2;
         TaskScheduler.scheduleByDeadline(tasks, taskDuration, firstDeadlineStartDate);
         String testOutput = outContent.toString();
-        String expectedOutput = "_______________________________\n\r\n"
-                + "You can schedule this task from now till the deadline.\n\r\n"
-                + "_______________________________\n\r\n";
-        Assertions.assertEquals(expectedOutput, testOutput);
+        String expectedOutput = "You can schedule this task from now till the deadline.\n";
+        Assertions.assertTrue(testOutput.contains(expectedOutput));
     }
 
     @Test
@@ -79,17 +77,15 @@ public class TaskSchedulerTest {
         Long taskDuration = (long) 2;
         TaskScheduler.scheduleByDeadline(tasks, taskDuration, secondDeadlineStartDate);
         String testOutput = outContent.toString();
-        String expectedOutput = "_______________________________\n\r\n"
-                + String.format("You can schedule this task from now till %s\n",
+        String expectedOutput = String.format("You can schedule this task from now till %s\n",
                 firstEventStartDate.format(DateTimeExtractor.DATE_FORMATTER))
                 + String.format("You can schedule this task from %s till %s\n",
                 secondEventEndDate.format(DateTimeExtractor.DATE_FORMATTER),
                 thirdEventStartDate.format(DateTimeExtractor.DATE_FORMATTER))
-                + String.format("You can schedule this task from %s till %s\n\r\n",
+                + String.format("You can schedule this task from %s till %s\n",
                 thirdEventEndDate.format(DateTimeExtractor.DATE_FORMATTER),
-                secondDeadlineStartDate.format(DateTimeExtractor.DATE_FORMATTER))
-                + "_______________________________\n\r\n";
-        Assertions.assertEquals(expectedOutput, testOutput);
+                secondDeadlineStartDate.format(DateTimeExtractor.DATE_FORMATTER));
+        Assertions.assertTrue(testOutput.contains(expectedOutput));
     }
 
     @Test
@@ -97,10 +93,8 @@ public class TaskSchedulerTest {
         Long taskDuration = (long) 28;
         TaskScheduler.scheduleByDeadline(tasks, taskDuration, secondDeadlineStartDate);
         String testOutput = outContent.toString();
-        String expectedOutput = "_______________________________\n\r\n"
-                + "There is no free slot to insert the task. Consider freeing up your schedule.\n\r\n"
-                + "_______________________________\n\r\n";
-        Assertions.assertEquals(expectedOutput, testOutput);
+        String expectedOutput = "There is no free slot to insert the task. Consider freeing up your schedule.\n";
+        Assertions.assertTrue(testOutput.contains(expectedOutput));
     }
 
 }
