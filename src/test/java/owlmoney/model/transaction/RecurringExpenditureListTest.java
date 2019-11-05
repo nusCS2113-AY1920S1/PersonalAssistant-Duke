@@ -17,6 +17,7 @@ import owlmoney.ui.Ui;
 
 class RecurringExpenditureListTest {
     private static final String NEWLINE = System.lineSeparator();
+    private static final DateFormat temp = new SimpleDateFormat("dd/MM/yyyy");
 
     @Test
     void addRecurringExpenditure_successfulAddingExpenditure_newExpenditureAdded() {
@@ -243,10 +244,11 @@ class RecurringExpenditureListTest {
         System.setOut(new PrintStream(outContent));
         Ui uiTest = new Ui();
         RecurringExpenditureList testList = new RecurringExpenditureList();
-        Transaction testExpenditure = new Expenditure("Test 1", 1, new Date(), "test");
         try {
+            Transaction testExpenditure = new Expenditure("Test 1", 1,
+                    temp.parse("04/11/2019"), "test");
             testList.addRecurringExpenditure(testExpenditure, uiTest);
-        } catch (TransactionException errorMessage) {
+        } catch (TransactionException | ParseException errorMessage) {
             System.out.println("Expected no throw, but error thrown");
         }
         outContent.reset();
@@ -271,10 +273,11 @@ class RecurringExpenditureListTest {
         System.setOut(new PrintStream(outContent));
         Ui uiTest = new Ui();
         RecurringExpenditureList testList = new RecurringExpenditureList();
-        Transaction testExpenditure = new Expenditure("Test 1", 1, new Date(), "test");
         try {
+            Transaction testExpenditure = new Expenditure("Test 1", 1,
+                    temp.parse("04/11/2019"), "test");
             testList.addRecurringExpenditure(testExpenditure, uiTest);
-        } catch (TransactionException errorMessage) {
+        } catch (TransactionException | ParseException errorMessage) {
             System.out.println("Expected no throw, but error thrown");
         }
         outContent.reset();
@@ -292,10 +295,11 @@ class RecurringExpenditureListTest {
         System.setOut(new PrintStream(outContent));
         Ui uiTest = new Ui();
         RecurringExpenditureList testList = new RecurringExpenditureList();
-        Transaction testExpenditure = new Expenditure("Test 1", 1, new Date(), "test");
         try {
+            Transaction testExpenditure = new Expenditure("Test 1", 1,
+                    temp.parse("04/11/2019"), "test");
             testList.addRecurringExpenditure(testExpenditure, uiTest);
-        } catch (TransactionException errorMessage) {
+        } catch (TransactionException | ParseException errorMessage) {
             System.out.println("Expected no throw, but error thrown");
         }
         outContent.reset();
@@ -320,10 +324,11 @@ class RecurringExpenditureListTest {
         System.setOut(new PrintStream(outContent));
         Ui uiTest = new Ui();
         RecurringExpenditureList testList = new RecurringExpenditureList();
-        Transaction testExpenditure = new Expenditure("Test 1", 1, new Date(), "test");
         try {
+            Transaction testExpenditure = new Expenditure("Test 1", 1,
+                    temp.parse("04/11/2019"), "test");
             testList.addRecurringExpenditure(testExpenditure, uiTest);
-        } catch (TransactionException errorMessage) {
+        } catch (TransactionException | ParseException errorMessage) {
             System.out.println("Expected no throw, but error thrown");
         }
         outContent.reset();
@@ -354,10 +359,11 @@ class RecurringExpenditureListTest {
         System.setOut(new PrintStream(outContent));
         Ui uiTest = new Ui();
         RecurringExpenditureList testList = new RecurringExpenditureList();
-        Transaction testExpenditure = new Expenditure("Test 1", 1, new Date(), "test");
         try {
+            Transaction testExpenditure = new Expenditure("Test 1", 1,
+                    temp.parse("04/11/2019"), "test");
             testList.addRecurringExpenditure(testExpenditure, uiTest);
-        } catch (TransactionException errorMessage) {
+        } catch (TransactionException | ParseException errorMessage) {
             System.out.println("Expected no throw, but error thrown");
         }
         outContent.reset();
@@ -391,7 +397,8 @@ class RecurringExpenditureListTest {
         System.setOut(new PrintStream(outContent));
         Ui uiTest = new Ui();
         RecurringExpenditureList testList = new RecurringExpenditureList();
-        Transaction testExpenditure = new Expenditure("Test 1", 1, new Date(), "test");
+        Transaction testExpenditure = new Expenditure("Test 1", 1,
+                new Date(), "test");
         try {
             testList.addRecurringExpenditure(testExpenditure, uiTest);
         } catch (TransactionException errorMessage) {
