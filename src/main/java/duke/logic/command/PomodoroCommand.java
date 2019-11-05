@@ -10,10 +10,22 @@ import duke.ui.Ui;
 public class PomodoroCommand extends Command {
     private String command;
 
+    /**
+     * Constructor that takes in the command after "pomo"
+     * @param command command to determine what pomodoro to start
+     */
     public PomodoroCommand(String command) {
         this.command = command;
     }
 
+    /**
+     * Execute function override. Takes in command after pomo and determines what pomodoro function to execute
+     *
+     * @param tasks
+     * @param ui
+     * @param storage
+     * @throws DukeException if command not understood
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         Pomodoro pomodoro = Pomodoro.getInstance();
@@ -33,8 +45,12 @@ public class PomodoroCommand extends Command {
         case "stop":
             pomodoro.stopTimer();
             break;
+        case "answer":
+            String answer = pomodoro.getAnswer();
+            ui.showLine(answer);
+            break;
         default:
-            throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what pomodoro you are referring to");
+            throw new DukeException("I'm sorry, but I don't know what pomodoro you are referring to");
         }
     }
 

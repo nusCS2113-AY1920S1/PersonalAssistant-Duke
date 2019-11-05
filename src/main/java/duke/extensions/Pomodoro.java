@@ -2,6 +2,7 @@ package duke.extensions;
 
 import java.util.Timer;
 
+import duke.exception.DukeException;
 import duke.task.Task;
 
 /**
@@ -16,8 +17,10 @@ public class Pomodoro {
     private State currState;
     private int currCycle;
     private Task pomodoroTask;
-    private PomodoroTimerTask pomodoroTimerTask;
     private Timer timer;
+    private PomodoroTimerTask pomodoroTimerTask;
+    private Brainteasers brainTeasers = new Brainteasers();
+    private String question = "none";
 
     /**
      * Constructor method that creates a pomodoro that begins with a work cycle
@@ -39,24 +42,38 @@ public class Pomodoro {
     /**
      * Method that starts the timer by creating a new PomodoroTimerTask
      * Inputs period of the TimerTask based on what cycle it is at currently
+     * Checks whether timer has started in the first place by checking pomodoroTimerTask minutes remaining
+     * After timer has started, changes the cycle to the next cycle
      */
-    public void startTimer() {
+    public void startTimer() throws DukeException {
+        if (pomodoroTimerTask != null && pomodoroTimerTask.getMinutesRemaining() > 0) {
+            throw new DukeException("A timer has already started, please end that one first before starting a " +
+                    "new timer!");
+        }
         timer = new Timer();
         switch (currState) {
         case SHORT_BREAK:
-            System.out.println("Short break started");
+            System.out.println("Pomodoro Short break started!");
+            System.out.println("-------------------Here is a brain teaser for you to ponder on-------------------");
+            question = brainTeasers.getRandom();
+            System.out.println(question);
+            System.out.println("----------------------Type 'pomo answer' to get the answer!----------------------");
             pomodoroTimerTask = new PomodoroTimerTask(timer, START_SHORTBREAK_MINUTES);
             timer.schedule(pomodoroTimerTask, ONE_MINUTE, ONE_MINUTE);
             currState = State.WORK;
             break;
         case LONG_BREAK:
-            System.out.println("Long break started");
+            System.out.println("Pomodoro Long break started!");
+            System.out.println("-------------------Here is a brain teaser for you to ponder on-------------------");
+            question = brainTeasers.getRandom();
+            System.out.println(question);
+            System.out.println("----------------------Type 'pomo answer' to get the answer!----------------------");
             pomodoroTimerTask = new PomodoroTimerTask(timer, START_LONGBREAK_MINUTES);
             timer.schedule(pomodoroTimerTask, ONE_MINUTE, ONE_MINUTE);
             currState = State.WORK;
             break;
         default:
-            System.out.println("Work Started");
+            System.out.println("Pomodoro Work Started!");
             pomodoroTimerTask = new PomodoroTimerTask(timer, START_WORK_MINUTES);
             timer.schedule(pomodoroTimerTask, ONE_MINUTE, ONE_MINUTE);
             currCycle++;
@@ -68,6 +85,14 @@ public class Pomodoro {
             }
             break;
         }
+    }
+
+    /**
+     * Method to get the answer from the brainteaser class
+     * @return the answer to the question that was posted
+     */
+    public String getAnswer() {
+        return brainTeasers.getAnswer(question);
     }
 
     /**
@@ -94,8 +119,8 @@ public class Pomodoro {
     /**
      * Method that stops the timer and prints out the state that was completed
      */
-
     public void stopTimer() {
+        pomodoroTimerTask.setMinutesRemaining(0);
         String cState;
         switch (currState) {
         case LONG_BREAK:
@@ -108,7 +133,6 @@ public class Pomodoro {
         default:
             cState = "pomodorodododod";
         }
-
         System.out.println(cState + " has finished!");
         timer.cancel();
     }
