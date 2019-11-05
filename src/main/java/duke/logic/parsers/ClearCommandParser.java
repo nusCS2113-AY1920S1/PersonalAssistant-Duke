@@ -45,8 +45,8 @@ public class ClearCommandParser implements ParserInterface<ClearCommand> {
         }
 
         if (startDate.isAfter(endDate)) {
-            return new ClearCommand(false, "Start date " + startDate + " is after end date " + endDate + "" +
-                    "\nPlease ensure start date is before end date");
+            return new ClearCommand(false, "Start date " + startDate + " is after end date " + endDate + ""
+                    + "\nPlease ensure start date is before end date");
         }
 
         return new ClearCommand(startDate, endDate);
