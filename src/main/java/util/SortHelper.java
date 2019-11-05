@@ -26,19 +26,6 @@ public class SortHelper {
     }
 
     /**
-     * Sorts the list of tasks by the task index.
-     * @param taskList The list of tasks.
-     * @return The list of tasks sorted by the task index.
-     */
-    public ArrayList<String> sortTaskIndex(ArrayList<Task> taskList) {
-        ArrayList<String> taskDetails = new ArrayList<>();
-        /*
-            Empty method
-         */
-        return taskDetails;
-    }
-
-    /**
      * Sorts the list of tasks by the task due date in descending order.
      * @param taskList The list of tasks.
      * @return The list of tasks sorted by the task due date.
@@ -68,7 +55,7 @@ public class SortHelper {
      */
     public ArrayList<String> sortTaskPriority(ArrayList<Task> taskList) {
         ArrayList<String> taskDetails = new ArrayList<>();
-        taskList.sort((task1, task2) -> task2.getTaskPriority() - task1.getTaskPriority());
+        taskList.sort((task1, task2) -> task1.getTaskPriority() - task2.getTaskPriority());
         int taskIndex = 1;
         for (Task task : taskList) {
             taskDetails.add(taskIndex + ". " + task.getDetails());

@@ -1,13 +1,14 @@
 package controllers;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
-import java.text.ParseException;
-import java.util.Date;
 import models.project.Project;
 import org.junit.jupiter.api.Test;
 import repositories.ProjectRepository;
 import util.date.DateTimeHelper;
+
+import java.text.ParseException;
+import java.util.Date;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class ProjectInputControllerTest {
     private ProjectRepository projectRepository;
@@ -297,6 +298,7 @@ class ProjectInputControllerTest {
             assertEquals(expectedOutput,actualOutput);
 
             simulatedUserInput = "edit task 1 -c 70 -s doing -p 6 -d 12/12/2020 -t End Game";
+            //6 is an invalid value for task priority, so priority remains as 2 after this command
             dueDate = dateTimeHelper.formatDate("12/12/2020");
             projectInputController.projectEditTask(project,simulatedUserInput);
             actualOutput = "";
@@ -304,7 +306,7 @@ class ProjectInputControllerTest {
                     project.getTasksAndAssignedMembers()).toArray(new String[0])) {
                 actualOutput += message;
             }
-            expectedOutput = "1. End Game | Priority: 6 | Due: 12 Dec 2020"
+            expectedOutput = "1. End Game | Priority: 2 | Due: 12 Dec 2020"
                     + dateTimeHelper.getDifferenceDays(dueDate)
                     + " | Credit: 70 | State: DOING";
             assertEquals(expectedOutput,actualOutput);
@@ -340,13 +342,13 @@ class ProjectInputControllerTest {
                     project.getTasksAndAssignedMembers()).toArray(new String[0])) {
                 actualOutput += message;
             }
-            expectedOutput = "1. task1 | Priority: 5 | Due: 12 Dec 2021"
+            expectedOutput = "1. task3 | Priority: 1 | Due: 01 Jan 2020"
+                    + dateTimeHelper.getDifferenceDays(dueDate2)
+                    + " | Credit: 50 | State: DONE"
+                    + "2. task1 | Priority: 5 | Due: 12 Dec 2021"
                     + dateTimeHelper.getDifferenceDays(dueDate1)
                     + " | Credit: 10 | State: TODO"
-                    + "2. task2 | Priority: 5 | Due: -- | Credit: 100 | State: DOING"
-                    + "3. task3 | Priority: 1 | Due: 01 Jan 2020"
-                    + dateTimeHelper.getDifferenceDays(dueDate2)
-                    + " | Credit: 50 | State: DONE";
+                    + "3. task2 | Priority: 5 | Due: -- | Credit: 100 | State: DOING";
             assertEquals(expectedOutput, actualOutput);
 
             actualOutput = "";
@@ -354,13 +356,13 @@ class ProjectInputControllerTest {
                     project.getTasksAndAssignedMembers(), "/PRIORITY").toArray(new String[0])) {
                 actualOutput += message;
             }
-            expectedOutput = "1. task1 | Priority: 5 | Due: 12 Dec 2021"
+            expectedOutput = "1. task3 | Priority: 1 | Due: 01 Jan 2020"
+                    + dateTimeHelper.getDifferenceDays(dueDate2)
+                    + " | Credit: 50 | State: DONE"
+                    + "2. task1 | Priority: 5 | Due: 12 Dec 2021"
                     + dateTimeHelper.getDifferenceDays(dueDate1)
                     + " | Credit: 10 | State: TODO"
-                    + "2. task2 | Priority: 5 | Due: -- | Credit: 100 | State: DOING"
-                    + "3. task3 | Priority: 1 | Due: 01 Jan 2020"
-                    + dateTimeHelper.getDifferenceDays(dueDate2)
-                    + " | Credit: 50 | State: DONE";
+                    + "3. task2 | Priority: 5 | Due: -- | Credit: 100 | State: DOING";
             assertEquals(expectedOutput, actualOutput);
 
             actualOutput = "";
@@ -489,14 +491,10 @@ class ProjectInputControllerTest {
         assertEquals("For task 1 (Documentation for product):", output[0]);
         assertEquals("Assigned to member 1 (Jerry Zhang).", output[1]);
         assertEquals("Assigned to member 2 (Dillen).", output[2]);
-
-        //To add later on
-        /*
-        simulatedUserInput = "assign task -i 1 -to 1";
+        simulatedUserInput = "assign task -i 1 -rm 1";
         output = projectInputController.projectAssignTask(project, simulatedUserInput);
         assertEquals("For task 1 (Documentation for product):", output[0]);
-        assertEquals("", output[1]);
-        */
+        assertEquals("Unassigned task from member 1 (Jerry Zhang).", output[1]);
     }
 
     @Test

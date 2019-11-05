@@ -7,7 +7,7 @@ public class ViewHelper {
     private static final String BORDER_CORNER = "+";
     private static final char HORI_BORDER_UNIT = '-';
     private static final String VERTI_BORDER_UNIT = "|";
-    private static final int DEFAULT_HORI_BORDER_LENGTH = 60;
+    private static final int DEFAULT_HORI_BORDER_LENGTH = 70;
 
     /**
      * Returns a String array that contains input in table form.

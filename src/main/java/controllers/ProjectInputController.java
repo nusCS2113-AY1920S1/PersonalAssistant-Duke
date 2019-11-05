@@ -1,10 +1,5 @@
 package controllers;
 
-import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Scanner;
 import models.member.IMember;
 import models.member.Member;
 import models.member.NullMember;
@@ -24,8 +19,12 @@ import util.factories.TaskFactory;
 import util.json.JsonConverter;
 import util.log.ArchDukeLogger;
 
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+
 public class ProjectInputController implements IController {
-    private Scanner manageProjectInput;
     private ProjectRepository projectRepository;
     private MemberFactory memberFactory;
     private TaskFactory taskFactory;
@@ -33,6 +32,7 @@ public class ProjectInputController implements IController {
     private ViewHelper viewHelper;
     private CommandHelper commandHelper;
     private JsonConverter jsonConverter = new JsonConverter();
+    private Project projectToManage;
 
     /**
      * Constructor for ProjectInputController takes in a View model and a ProjectRepository.
@@ -40,7 +40,6 @@ public class ProjectInputController implements IController {
      * @param projectRepository The object holding all projects.
      */
     public ProjectInputController(ProjectRepository projectRepository) {
-        this.manageProjectInput = new Scanner(System.in);
         this.projectRepository = projectRepository;
         this.memberFactory = new MemberFactory();
         this.taskFactory = new TaskFactory();
@@ -64,67 +63,71 @@ public class ProjectInputController implements IController {
             isManagingAProject = false;
             return new String[] {"Input is not a number! Please input a proper project index!"};
         }
-        Project projectToManage = projectRepository.getItem(projectNumber);
+        this.projectToManage = projectRepository.getItem(projectNumber);
         isManagingAProject = true;
-        return manageProject(projectToManage);
+        return new String[] {"Please enter a new command:"};
     }
 
     /**
      * Manages the project.
-     * @param projectToManage The project specified by the user.
      * @return Boolean variable giving status of whether the exit command is entered.
      */
-    private String[] manageProject(Project projectToManage) {
+    public String[] manageProject(String projectFullCommand) {
         ArchDukeLogger.logDebug(ProjectInputController.class.getName(), "[manageProject]");
-        String[] responseToView = {"Please enter a command."};
-        if (manageProjectInput.hasNextLine()) {
-            String projectFullCommand = manageProjectInput.nextLine();
-            ArchDukeLogger.logInfo(ProjectInputController.class.getName(), "Managing:"
-                    + projectToManage.getName() + ",input:'"
-                    + projectFullCommand + "'");
-            if (projectFullCommand.matches("exit")) {
-                isManagingAProject = false;
-                responseToView = projectExit(projectToManage);
-            } else if (projectFullCommand.matches("add member.*")) {
-                responseToView =  projectAddMember(projectToManage, projectFullCommand);
-            } else if (projectFullCommand.matches("edit member.*")) {
-                responseToView = projectEditMember(projectToManage, projectFullCommand);
-            } else if (projectFullCommand.matches("delete member.*")) {
-                responseToView = projectDeleteMember(projectToManage, projectFullCommand);
-            } else if (projectFullCommand.matches("view members.*")) {
-                responseToView = projectViewMembers(projectToManage);
-            } else if (projectFullCommand.matches("role.*")) {
-                responseToView = projectRoleMembers(projectToManage, projectFullCommand);
-            } else if (projectFullCommand.matches("view credits.*")) {
-                responseToView = projectViewCredits(projectToManage);
-            } else if (projectFullCommand.matches("add task.*")) {
-                responseToView = projectAddTask(projectToManage, projectFullCommand);
-            } else if (projectFullCommand.matches("view tasks.*")) {
-                responseToView = projectViewTasks(projectToManage, projectFullCommand);
-            } else if (projectFullCommand.matches("view assignments.*")) {
-                responseToView = projectViewAssignments(projectToManage, projectFullCommand);
-            } else if (projectFullCommand.matches("view task requirements.*")) { // need to refactor this
-                responseToView = projectViewTaskRequirements(projectToManage, projectFullCommand);
-            } else if (projectFullCommand.matches("edit task requirements.*")) {
-                responseToView = projectEditTaskRequirements(projectToManage, projectFullCommand);
-            } else if (projectFullCommand.matches("edit task.*")) {
-                responseToView = projectEditTask(projectToManage, projectFullCommand);
-            } else if (projectFullCommand.matches("delete task.*")) {
-                responseToView = projectDeleteTask(projectToManage, projectFullCommand);
-            } else if (projectFullCommand.matches("assign task.*")) {
-                responseToView = projectAssignTask(projectToManage, projectFullCommand);
-            } else if (projectFullCommand.matches("add reminder.*")) {
-                responseToView = projectAddReminder(projectToManage,projectFullCommand);
-            } else if (projectFullCommand.matches("help")) {
-                responseToView = projectHelp();
-            } else if (projectFullCommand.matches("bye")) {
-                return end();
-            } else {
-                return new String[] {"Invalid command. Try again!"};
-            }
+        String[] responseToView;
+        ArchDukeLogger.logInfo(ProjectInputController.class.getName(), "Managing:"
+                + this.projectToManage.getName() + ",input:'"
+                + projectFullCommand + "'");
+        if (projectFullCommand.matches("exit")) {
+            isManagingAProject = false;
+            responseToView = projectExit(this.projectToManage);
+        } else if (projectFullCommand.matches("add member.*")) {
+            responseToView = projectAddMember(this.projectToManage, projectFullCommand);
+        } else if (projectFullCommand.matches("edit member.*")) {
+            responseToView = projectEditMember(this.projectToManage, projectFullCommand);
+        } else if (projectFullCommand.matches("delete member.*")) {
+            responseToView = projectDeleteMember(this.projectToManage, projectFullCommand);
+        } else if (projectFullCommand.matches("view members.*")) {
+            responseToView = projectViewMembers(this.projectToManage);
+        } else if (projectFullCommand.matches("role.*")) {
+            responseToView = projectRoleMembers(this.projectToManage, projectFullCommand);
+        } else if (projectFullCommand.matches("view credits.*")) {
+            responseToView = projectViewCredits(this.projectToManage);
+        } else if (projectFullCommand.matches("add task.*")) {
+            responseToView = projectAddTask(this.projectToManage, projectFullCommand);
+        } else if (projectFullCommand.matches("view tasks.*")) {
+            responseToView = projectViewTasks(this.projectToManage, projectFullCommand);
+        } else if (projectFullCommand.matches("view assignments.*")) {
+            responseToView = projectViewAssignments(this.projectToManage, projectFullCommand);
+        } else if (projectFullCommand.matches("view task requirements.*")) { // need to refactor this
+            responseToView = projectViewTaskRequirements(this.projectToManage, projectFullCommand);
+        } else if (projectFullCommand.matches("edit task requirements.*")) {
+            responseToView = projectEditTaskRequirements(this.projectToManage, projectFullCommand);
+        } else if (projectFullCommand.matches("edit task.*")) {
+            responseToView = projectEditTask(this.projectToManage, projectFullCommand);
+        } else if (projectFullCommand.matches("delete task.*")) {
+            responseToView = projectDeleteTask(this.projectToManage, projectFullCommand);
+        } else if (projectFullCommand.matches("assign task.*")) {
+            responseToView = projectAssignTask(this.projectToManage, projectFullCommand);
+        } else if (projectFullCommand.matches("add reminder.*")) {
+            responseToView = projectAddReminder(this.projectToManage,projectFullCommand);
+        } else if (projectFullCommand.matches("view")) {
+            responseToView = projectViewSelf(this.projectToManage);
+        } else if (projectFullCommand.matches("help")) {
+            responseToView = projectHelp();
+        } else if (projectFullCommand.matches("bye")) {
+            return end();
+        } else {
+            return new String[] {"Invalid command. Try again!"};
         }
-        jsonConverter.saveProject(projectToManage);
+        jsonConverter.saveProject(this.projectToManage);
         return responseToView;
+    }
+
+    private String[] projectViewSelf(Project projectToManage) {
+        ArrayList<ArrayList<String>> responseModel = new ArrayList<>();
+        responseModel.add(projectRepository.getProjectDetailsForTable(projectToManage));
+        return viewHelper.consolePrintTable(responseModel);
     }
 
     private String[] projectHelp() {
@@ -200,8 +203,8 @@ public class ProjectInputController implements IController {
             int memberIndexNumber = Integer.parseInt(projectCommand.substring(12).split(" ")[0]);
             if (projectToManage.getNumOfMembers() >= memberIndexNumber && memberIndexNumber > 0) {
                 String updatedMemberDetails = projectCommand.substring(projectCommand.indexOf("-"));
-                projectToManage.editMember(memberIndexNumber,updatedMemberDetails);
-                return new String[] { "Updated member details with the index number " + memberIndexNumber};
+                String output = projectToManage.editMember(memberIndexNumber,updatedMemberDetails);
+                return new String[] { output };
             } else {
                 return new String[] {"The member index entered is invalid."};
             }
@@ -224,11 +227,10 @@ public class ProjectInputController implements IController {
             return new String[] {"Can't delete members: No member index numbers detected!",
                 "Please enter them as space-separated integers."};
         }
-        ArrayList<String> outputMessages = new ArrayList<>();
         ParserHelper parserHelper = new ParserHelper();
         ArrayList<Integer> validMemberIndexes = parserHelper.parseMembersIndexes(projectCommand.substring(14),
             projectToManage.getNumOfMembers());
-        outputMessages.addAll(parserHelper.getErrorMessages());
+        ArrayList<String> outputMessages = new ArrayList<>(parserHelper.getErrorMessages());
         if (validMemberIndexes.isEmpty()) {
             outputMessages.add("No valid member indexes. Cannot delete members.");
             return outputMessages.toArray(new String[0]);
@@ -332,20 +334,22 @@ public class ProjectInputController implements IController {
                 return new String[]
                 {"No parameters detected. Please enter details in the following format:",
                  "TASK_INDEX [-t TASK_NAME] [-p TASK_PRIORITY] [-d TASK_DUEDATE] [-c TASK_CREDIT] [-s STATE]"};
-            }
-            int taskIndexNumber = Integer.parseInt(projectCommand.substring(10).split(" ")[0]);
-            String updatedTaskDetails = projectCommand.substring(projectCommand.indexOf("-"));
-
+            } 
+            int taskIndexNumber = Integer.parseInt(projectCommand.substring(10).trim().split(" ")[0]);
             if (projectToManage.getNumOfTasks() >= taskIndexNumber && taskIndexNumber > 0) {
-                projectToManage.editTask(taskIndexNumber, updatedTaskDetails);
-                return new String[] { "The task has been updated!" };
+                if (!projectCommand.contains("-")) {
+                    return new String[] {"No flags are found! Available flags for use are '-t', '-p, '-d', '-c' and "
+                            + "'-s' to indicate the new task details! Refer to the user guide for more help!"};
+                }
+                String updatedTaskDetails = projectCommand.substring(projectCommand.indexOf("-"));
+                return projectToManage.editTask(taskIndexNumber, updatedTaskDetails);
             }
             return new String[] {"The task index entered is invalid."};
 
         } catch (NumberFormatException e) {
             ArchDukeLogger.logError(ProjectInputController.class.getName(), "[projectEditTask] "
-                    + "Please enter your task format correctly.");
-            return new String[] {"Please enter your task format correctly."};
+                    + "Please enter a valid number for your task index.");
+            return new String[] {"Please enter a valid number for your task index."};
         }
     }
 
@@ -360,11 +364,10 @@ public class ProjectInputController implements IController {
         if (projectCommand.length() <= 12) {
             return new String[] {"No task number detected! Please enter the task index number."};
         }
-        ArrayList<String> outputMessages = new ArrayList<>();
         ParserHelper parserHelper = new ParserHelper();
         ArrayList<Integer> validTaskIndexes = parserHelper.parseTasksIndexes(projectCommand.substring(12),
             projectToManage.getNumOfTasks());
-        outputMessages.addAll(parserHelper.getErrorMessages());
+        ArrayList<String> outputMessages = new ArrayList<>(parserHelper.getErrorMessages());
         // Sort to ensure task indexes work in the correct way
         Collections.sort(validTaskIndexes);
         Collections.reverse(validTaskIndexes);
@@ -373,7 +376,7 @@ public class ProjectInputController implements IController {
             projectToManage.removeTask(index);
         }
         if (!validTaskIndexes.isEmpty()) {
-            outputMessages.add("\t * Take note that index numbers of other tasks may have changed after deleting!");
+            outputMessages.add("Take note that index numbers of other tasks may have changed after deleting!");
         }
         return outputMessages.toArray(new String[0]);
     }

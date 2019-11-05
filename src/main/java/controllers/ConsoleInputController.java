@@ -15,6 +15,7 @@ public class ConsoleInputController implements IController {
     private ViewHelper viewHelper;
     private CommandHelper commandHelper;
 
+    //@@author Lucria
     /**
      * Constructor.
      * @param projectRepository : takes in a projectRepository.
@@ -32,33 +33,38 @@ public class ConsoleInputController implements IController {
      */
     @Override
     public String[] onCommandReceived(String input) {
-        ArchDukeLogger.logInfo(ConsoleInputController.class.getName(), "User input: '" + input + "'");
-        Scanner inputReader = new Scanner(input);
-        String command = "";
-        if (inputReader.hasNext()) {
-            command = inputReader.next();
-        } else {
-            return new String[] {"No input detected! Type \"help\" for a list of commands!"};
-        }
+        try {
+            ArchDukeLogger.logInfo(ConsoleInputController.class.getName(), "User input: '" + input + "'");
+            Scanner inputReader = new Scanner(input);
+            String command;
+            if (inputReader.hasNext()) {
+                command = inputReader.next();
+            } else {
+                return new String[] {"No input detected! Type \"help\" for a list of commands!"};
+            }
 
-        switch (command) {
-        case "bye":
-            return end();
-        case "create":
-            return commandCreate(input);
-        case "list":
-            return commandList();
-        case "manage":
-            return commandManage(inputReader);
-        case "delete":
-            return commandDelete(inputReader);
-        case "help":
-            return commandHelp();
-        default:
-            return new String[] {"Invalid inputs. Please refer to User Guide or type help!"};
+            switch (command) {
+            case "bye":
+                return end();
+            case "create":
+                return commandCreate(input);
+            case "list":
+                return commandList();
+            case "manage":
+                return commandManage(inputReader);
+            case "delete":
+                return commandDelete(inputReader);
+            case "help":
+                return commandHelp();
+            default:
+                return new String[] {"Invalid inputs. Please refer to User Guide or type help!"};
+            }
+        } catch (NullPointerException err) {
+            return new String[] {"Please delete any corrupted .json saved data and try again!"};
         }
     }
 
+    //@@author Lucria
     /**
      * Creates a new project with a given name and a number of numbers.
      * @param input To read the input from the user.
@@ -113,7 +119,7 @@ public class ConsoleInputController implements IController {
         }
     }
 
-
+    //@@author Lucria
     /**
      * Deletes a project.
      * @param inputReader To read the input from the user.
@@ -140,6 +146,7 @@ public class ConsoleInputController implements IController {
         }
     }
 
+    //@@author seanlimhx
     /**
      * Displays the set of the commands which can be used.
      */
@@ -150,6 +157,7 @@ public class ConsoleInputController implements IController {
         return viewHelper.consolePrintTable(toPrintAll);
     }
 
+    //@@author Lucria
     /**
      * Method to be called when user says bye to exit the program.
      */

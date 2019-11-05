@@ -49,7 +49,6 @@ public class CommandHelper {
         helpList.add("");
         helpList.add(" - delete member INDEX");
         helpList.add("");
-
         helpList.add(" - view tasks [/MODIFIER]");
         helpList.add("");
         helpList.add(" - add task -t TASK_NAME -p TASK_PRIORITY -c TASK_CREDIT [-d TASK_DUEDATE-(dd/mm/yyyy)] "
@@ -62,14 +61,13 @@ public class CommandHelper {
         helpList.add("");
         helpList.add(" - view task requirements TASK_INDEX");
         helpList.add("");
-        helpList.add(" - edit task requirements TASK_INDEX [-r TASK_REQUIREMENT] [-rm TASK_INDEXES_TO_BE_REMOVED");
+        helpList.add(" - edit task requirements TASK_INDEX [-r TASK_REQUIREMENT] "
+                + "[-rm TASK_REQUIREMENT_INDEXES_TO_BE_REMOVED]");
         helpList.add("");
-
         helpList.add(" - view assignments /MODIFIER");
         helpList.add("");
         helpList.add(" - assign task -i TASK_INDEX -to [MEMBER1_INDEX] [MEMBER2_INDEX] -rm [MEMBER3_INDEX]");
         helpList.add("");
-
         helpList.add(" - view reminder [-l LIST_NAME]");
         helpList.add("");
         helpList.add(" - add reminder -n reminder_NAME [-d TASK_DUEDATE-(dd/mm/yyyy) -l REMINDER_LIST_NAME]");
@@ -79,13 +77,12 @@ public class CommandHelper {
         helpList.add("");
         helpList.add(" - delete reminder INDEX_NUMBER");
         helpList.add("");
-
         helpList.add(" - view credits");
         helpList.add("");
-
+        helpList.add(" - view");
+        helpList.add("");
         helpList.add(" - exit");
         helpList.add("");
-
         helpList.add(" - bye");
 
         return helpList;

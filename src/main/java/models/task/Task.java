@@ -1,6 +1,5 @@
 package models.task;
 
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Objects;
@@ -120,15 +119,11 @@ public class Task implements ITask {
     }
 
     /**
-     * Converts String input into Date object to be set as the new dueDate.
-     * @param newDueDateString String form of the new dueDate to be set.
+     * Set input Date object as the new dueDate.
+     * @param newDueDate Date object of the new dueDate to be set.
      */
-    public void setDueDate(String newDueDateString) {
-        try {
-            this.dueDate = dateTimeHelper.formatDate(newDueDateString);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+    public void setDueDate(Date newDueDate) {
+        this.dueDate = newDueDate;
     }
 
     /**
@@ -144,8 +139,7 @@ public class Task implements ITask {
      * @param newTaskStateString String form of new task state.
      */
     public void setTaskState(String newTaskStateString) {
-        String newTaskStateLowerCase = newTaskStateString.toLowerCase();
-        switch (newTaskStateLowerCase) {
+        switch (newTaskStateString) {
         case "done":
             this.taskState = TaskState.DONE;
             break;
