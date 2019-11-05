@@ -129,6 +129,7 @@ public abstract class Event implements Comparable<Event> {
         this.endEventDate = newEndDate;
     }
 
+    //@@author yenpeichih
     public void addGoal(Goal goalInput) {
         goalsList.add(goalInput);
     }
@@ -139,6 +140,10 @@ public abstract class Event implements Comparable<Event> {
 
     public ArrayList<Goal> getGoalList() {
         return goalsList;
+    }
+
+    public Goal getGoalObject(int goalID) {
+        return goalsList.get(goalID);
     }
 
     public void editGoalList(Goal goalInput, int index) {
