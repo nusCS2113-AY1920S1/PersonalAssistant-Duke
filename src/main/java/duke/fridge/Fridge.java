@@ -67,7 +67,7 @@ public class Fridge {
 
     public IngredientsList removeExpiring(Date expireBefore) throws DukeException {
         List<Ingredient> expired = new ArrayList<>();
-        for(int i=0;i<currentIngredients.getAllEntries().size();i++){
+        for(int i=0; i<currentIngredients.getAllEntries().size(); i++){
             if (!currentIngredients.getAllEntries().get(i).getExpiryDate().after(expireBefore)) {
                 expired.add(currentIngredients.getAllEntries().get(i));
                 currentIngredients.getAllEntries().remove(i);

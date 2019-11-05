@@ -9,6 +9,11 @@ public class Dish implements Printable {
     private String dishname;
     private IngredientsList ingredientsList;
 
+    public Dish(String name, IngredientsList il) {
+        dishname = name;
+        ingredientsList = il;
+    }
+
     public Dish(String name) {
         this.dishname = name;
         this.ingredientsList = new IngredientsList();
@@ -26,21 +31,24 @@ public class Dish implements Printable {
         return dishname;
     }
 
-
     public void addIngredients(Ingredient ingredients) {
         ingredientsList.addEntry(ingredients);
     }
 
     public String toString() {
-        String str = "";
+        String str = "Recipe for " + dishname;
         for (Ingredient i : ingredientsList.getAllEntries()) {
-            str += i.getName() + ",";
+            str += "\n" + i.getName() + ", " + i.getAmount();
         }
-        return str;
+        return str; //Multi-line depending on the size of ingredient list
     }
 
     @Override
     public String printInFile() {
-        return null;
+        String str = dishname;
+        for (Ingredient i : ingredientsList.getAllEntries()) {
+            str += "|" + i.getName() + "|" + i.getAmount();
+        }
+        return str; //Single line
     }
 }

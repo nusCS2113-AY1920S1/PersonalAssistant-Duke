@@ -1,10 +1,6 @@
-<<<<<<< HEAD
-milk|3|09/09/09
+milk|3|09/09/2009
 cheese|4|12/12/2019
 rice|50|12/12/2019
-=======
-somethingsomeone|50|23/12/2019
->>>>>>> upstream/master
 potato|3|12/2/2020
 rice|500|2/3/2020
 rice|250|2/3/2020

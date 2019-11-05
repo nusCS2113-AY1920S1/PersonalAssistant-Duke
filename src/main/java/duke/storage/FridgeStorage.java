@@ -19,7 +19,7 @@ public class FridgeStorage extends Storage<Ingredient> {
     }
 
     @Override
-    GenericList<Ingredient> generate() throws DukeException {
+    public GenericList<Ingredient> generate() throws DukeException {
         for (String next : contentSoFar) {
             //splitting each line to extract the task:
             //type - words[0], done or not - words[1], description - words[2], and more.
@@ -39,8 +39,5 @@ public class FridgeStorage extends Storage<Ingredient> {
                 entries.removeEntry(i);
             }
         update();
-
     }
-
-
 }

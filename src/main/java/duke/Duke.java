@@ -11,6 +11,7 @@ import duke.order.OrderList;
 import duke.parser.Parser;
 import duke.storage.FridgeStorage;
 import duke.storage.OrderStorage;
+import duke.storage.RecipeStorage;
 import duke.ui.Ui;
 
 /**
@@ -20,6 +21,7 @@ public class Duke {
 
     private FridgeStorage fridgeStorage;
     private OrderStorage orderStorage;
+    private RecipeStorage recipeStorage;
     private Ui ui;
     private DishList dish;
     private OrderList order;
@@ -27,6 +29,7 @@ public class Duke {
 
     private final String fridgeFilePath = "data/fridge.txt";
     private final String orderFilePath = "data/order.txt";
+    private final String recipeFilePath = "data/recipebook.txt";
 
     public enum Type {
         INGREDIENT, DISH, ORDER
@@ -43,6 +46,7 @@ public class Duke {
         try {
             fridgeStorage = new FridgeStorage(fridgeFilePath);
             orderStorage = new OrderStorage(orderFilePath);
+            recipeStorage = new RecipeStorage(recipeFilePath); //TODO: use this
             fridge = new Fridge(fridgeStorage);
             order = new OrderList(orderStorage.getEntries().getAllEntries());
         } catch (DukeException e) {
