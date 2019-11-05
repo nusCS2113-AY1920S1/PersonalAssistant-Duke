@@ -28,9 +28,6 @@ public class BlacklistTest {
         } catch (DuplicateEntryException e) {
 
         }
-
-
-
     }
 
     @Test
