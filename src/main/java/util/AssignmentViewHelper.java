@@ -8,6 +8,7 @@ import models.task.Task;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+//@@author sinteary
 public class AssignmentViewHelper {
     /**
      * Returns output to show viewer the task assignments of members.

@@ -442,6 +442,45 @@ public class ProjectInputController implements IController {
     }
 
     /**
+     * Displays all the tasks in the given project.
+     * @param projectToManage The project specified by the user.
+     * @param projectCommand The user input.
+     */
+    public String[] projectViewTasks(Project projectToManage, String projectCommand) {
+        ArchDukeLogger.logDebug(ProjectInputController.class.getName(), "[projectViewTasks] User input: '"
+            + projectCommand + "'");
+        try {
+            if (("view tasks").equals(projectCommand)) {
+                HashMap<Task, ArrayList<Member>> tasksAndAssignedMembers = projectToManage.getTasksAndAssignedMembers();
+                ArrayList<ArrayList<String>> tableToPrint = new ArrayList<>();
+                ArrayList<String> allTaskDetailsForTable
+                    = projectToManage.getTasks().getAllTaskDetailsForTable(tasksAndAssignedMembers, "/PRIORITY");
+                allTaskDetailsForTable.add(0, "Tasks of " + projectToManage.getName() + ":");
+                ArchDukeLogger.logDebug(ProjectInputController.class.getName(), allTaskDetailsForTable.toString());
+                tableToPrint.add(allTaskDetailsForTable);
+                return viewHelper.consolePrintTable(tableToPrint);
+            } else if (projectCommand.length() >= 11) {
+                String sortCriteria = projectCommand.substring(11);
+                HashMap<Task, ArrayList<Member>> tasksAndAssignedMembers = projectToManage.getTasksAndAssignedMembers();
+                ArrayList<ArrayList<String>> tableToPrint = new ArrayList<>();
+                ArrayList<String> allTaskDetailsForTable =
+                    projectToManage.getTasks().getAllTaskDetailsForTable(tasksAndAssignedMembers, sortCriteria);
+                ArchDukeLogger.logDebug(ProjectInputController.class.getName(), allTaskDetailsForTable.toString());
+                allTaskDetailsForTable.add(0, "Tasks of " + projectToManage.getName() + ":");
+                tableToPrint.add(allTaskDetailsForTable);
+                return viewHelper.consolePrintTable(tableToPrint);
+            }
+        } catch (IndexOutOfBoundsException e) {
+            ArchDukeLogger.logError(ProjectInputController.class.getName(), "[projectAssignTask] "
+                + "Currently there are no tasks with the specified attribute.");
+            return (new String[] {"Currently there are no tasks with the specified attribute."});
+        }
+        return null;
+    }
+
+
+    //@@author sinteary
+    /**
      * Manages the assignment to and removal of tasks from members.
      * @param projectToManage The project specified by the user.
      * @param projectCommand The user input.
@@ -475,8 +514,8 @@ public class ProjectInputController implements IController {
         String errorMessageGuide = "You may refer to the user guide or enter \"help\""
             + "for the list of possible commands.";
 
-        if (projectCommand.length() <= 18) {
-            return (new String[] {errorMessageInsufficientParams, errorMessageNoSuffix, errorMessageNoSymbol,
+        if (projectCommand.length() <= 20) {
+            return (new String[] {errorMessageInsufficientParams, errorMessageNoSymbol, errorMessageNoSuffix,
                 errorMessageGuide});
         } else {
             String input = projectCommand.substring(17);
@@ -491,43 +530,6 @@ public class ProjectInputController implements IController {
                 {"Could not understand your command! Please use:", errorMessageNoSymbol});
             }
         }
-    }
-
-    /**
-     * Displays all the tasks in the given project.
-     * @param projectToManage The project specified by the user.
-     * @param projectCommand The user input.
-     */
-    public String[] projectViewTasks(Project projectToManage, String projectCommand) {
-        ArchDukeLogger.logDebug(ProjectInputController.class.getName(), "[projectViewTasks] User input: '"
-                + projectCommand + "'");
-        try {
-            if (("view tasks").equals(projectCommand)) {
-                HashMap<Task, ArrayList<Member>> tasksAndAssignedMembers = projectToManage.getTasksAndAssignedMembers();
-                ArrayList<ArrayList<String>> tableToPrint = new ArrayList<>();
-                ArrayList<String> allTaskDetailsForTable
-                        = projectToManage.getTasks().getAllTaskDetailsForTable(tasksAndAssignedMembers, "/PRIORITY");
-                allTaskDetailsForTable.add(0, "Tasks of " + projectToManage.getName() + ":");
-                ArchDukeLogger.logDebug(ProjectInputController.class.getName(), allTaskDetailsForTable.toString());
-                tableToPrint.add(allTaskDetailsForTable);
-                return viewHelper.consolePrintTable(tableToPrint);
-            } else if (projectCommand.length() >= 11) {
-                String sortCriteria = projectCommand.substring(11);
-                HashMap<Task, ArrayList<Member>> tasksAndAssignedMembers = projectToManage.getTasksAndAssignedMembers();
-                ArrayList<ArrayList<String>> tableToPrint = new ArrayList<>();
-                ArrayList<String> allTaskDetailsForTable =
-                        projectToManage.getTasks().getAllTaskDetailsForTable(tasksAndAssignedMembers, sortCriteria);
-                ArchDukeLogger.logDebug(ProjectInputController.class.getName(), allTaskDetailsForTable.toString());
-                allTaskDetailsForTable.add(0, "Tasks of " + projectToManage.getName() + ":");
-                tableToPrint.add(allTaskDetailsForTable);
-                return viewHelper.consolePrintTable(tableToPrint);
-            }
-        } catch (IndexOutOfBoundsException e) {
-            ArchDukeLogger.logError(ProjectInputController.class.getName(), "[projectAssignTask] "
-                    + "Currently there are no tasks with the specified attribute.");
-            return (new String[] {"Currently there are no tasks with the specified attribute."});
-        }
-        return null;
     }
 
     /**
@@ -565,6 +567,7 @@ public class ProjectInputController implements IController {
         return AssignmentViewHelper.getTaskOutput(validTasks,
             projectToManage).toArray(new String[0]);
     }
+    //@@author
 
     /**
      * Exits the current project.

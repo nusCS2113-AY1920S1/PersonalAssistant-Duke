@@ -1,14 +1,13 @@
 package controllers;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.text.ParseException;
+import java.util.Date;
 import models.project.Project;
 import org.junit.jupiter.api.Test;
 import repositories.ProjectRepository;
 import util.date.DateTimeHelper;
-
-import java.text.ParseException;
-import java.util.Date;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class ProjectInputControllerTest {
     private ProjectRepository projectRepository;
@@ -497,6 +496,34 @@ class ProjectInputControllerTest {
         assertEquals("Unassigned task from member 1 (Jerry Zhang).", output[1]);
     }
 
+    //@@author sinteary
+    @Test
+    void testProjectViewAssignments_invalidInputs() {
+        Project project = new Project("New project");
+        simulatedUserInput = "view assignments";
+        String[] output = projectInputController.projectViewAssignments(project, simulatedUserInput);
+        assertEquals("Please input the parameters to view assignments:", output[0]);
+        simulatedUserInput = "view assignments -";
+        output = projectInputController.projectViewAssignments(project, simulatedUserInput);
+        assertEquals("Please input the parameters to view assignments:", output[0]);
+        simulatedUserInput = "view assignments atm";
+        output = projectInputController.projectViewAssignments(project, simulatedUserInput);
+        assertEquals("Please input the parameters to view assignments:",
+            output[0]);
+        //no members
+        simulatedUserInput = "view assignments -m all";
+        output = projectInputController.projectViewAssignments(project, simulatedUserInput);
+        assertEquals("No members in project yet.", output[0]);
+        //no tasks
+        simulatedUserInput = "view assignments -t all";
+        output = projectInputController.projectViewAssignments(project, simulatedUserInput);
+        assertEquals("No tasks in project yet.", output[0]);
+        simulatedUserInput = "view assignments -a 1";
+        output = projectInputController.projectViewAssignments(project, simulatedUserInput);
+        assertEquals("Could not understand your command! Please use:", output[0]);
+    }
+
+
     @Test
     void assignRole_correctInputs() {
         Project project = new Project("Infinity_Gauntlet");
@@ -515,26 +542,5 @@ class ProjectInputControllerTest {
         assertEquals("StrongGuy", project.getMembers().getMember(3).getRole());
     }
 
-    @Test
-    void testProjectViewAssignments_invalidInputs() {
-        Project project = new Project("New project");
-        simulatedUserInput = "view assignments";
-        String[] output = projectInputController.projectViewAssignments(project, simulatedUserInput);
-        assertEquals("Please input the parameters to view assignments:", output[0]);
-        simulatedUserInput = "view assignments -";
-        output = projectInputController.projectViewAssignments(project, simulatedUserInput);
-        assertEquals("Please input the parameters to view assignments:", output[0]);
-        simulatedUserInput = "view assignments atm";
-        output = projectInputController.projectViewAssignments(project, simulatedUserInput);
-        assertEquals("Could not understand your command! Please use:",
-            output[0]);
-        //no members
-        simulatedUserInput = "view assignments -m all";
-        output = projectInputController.projectViewAssignments(project, simulatedUserInput);
-        assertEquals("No members in project yet.", output[0]);
-        //no tasks
-        simulatedUserInput = "view assignments -t all";
-        output = projectInputController.projectViewAssignments(project, simulatedUserInput);
-        assertEquals("No tasks in project yet.", output[0]);
-    }
+
 }
