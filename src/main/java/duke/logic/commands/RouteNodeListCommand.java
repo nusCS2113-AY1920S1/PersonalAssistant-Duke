@@ -1,6 +1,6 @@
 package duke.logic.commands;
 
-import duke.commons.exceptions.QueryOutOfBoundsException;
+import duke.commons.exceptions.OutOfBoundsException;
 import duke.logic.commands.results.CommandResultText;
 import duke.model.Model;
 
@@ -27,14 +27,14 @@ public class RouteNodeListCommand extends Command {
      *
      * @param model The model object containing information about the user.
      * @return The CommandResultText.
-     * @throws QueryOutOfBoundsException If the query is out of bounds.
+     * @throws OutOfBoundsException If the query is out of bounds.
      */
     @Override
-    public CommandResultText execute(Model model) throws QueryOutOfBoundsException {
+    public CommandResultText execute(Model model) throws OutOfBoundsException {
         try {
             return new CommandResultText(model.getRoutes().get(indexRoute).getNode(indexNode));
         } catch (IndexOutOfBoundsException e) {
-            throw new QueryOutOfBoundsException();
+            throw new OutOfBoundsException();
         }
     }
 }

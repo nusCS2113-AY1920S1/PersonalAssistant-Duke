@@ -2,7 +2,7 @@ package duke.logic.commands;
 
 import duke.ModelStub;
 import duke.commons.exceptions.DukeException;
-import duke.commons.exceptions.QueryOutOfBoundsException;
+import duke.commons.exceptions.OutOfBoundsException;
 import duke.logic.commands.results.CommandResultText;
 import duke.logic.parsers.Parser;
 import duke.model.Model;
@@ -33,21 +33,21 @@ class RouteShowCommandTest {
         //negative test for non-existing route
         RouteListCommand routeListCommand2 =
                 (RouteListCommand) Parser.parseComplexCommand("routeList 2");
-        assertThrows(QueryOutOfBoundsException.class, () -> {
+        assertThrows(OutOfBoundsException.class, () -> {
             routeListCommand2.execute(model);
         });
 
         //negative test for index 0
         RouteListCommand routeListCommand3 =
                 (RouteListCommand) Parser.parseComplexCommand("routeList 0");
-        assertThrows(QueryOutOfBoundsException.class, () -> {
+        assertThrows(OutOfBoundsException.class, () -> {
             routeListCommand3.execute(model);
         });
 
         //negative test for negative index
         RouteListCommand routeListCommand4 =
                 (RouteListCommand) Parser.parseComplexCommand("routeList -1");
-        assertThrows(QueryOutOfBoundsException.class, () -> {
+        assertThrows(OutOfBoundsException.class, () -> {
             routeListCommand4.execute(model);
         });
     }

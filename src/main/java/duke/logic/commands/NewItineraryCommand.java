@@ -1,22 +1,15 @@
 package duke.logic.commands;
 
-import duke.commons.Messages;
-import duke.commons.exceptions.DukeException;
+import duke.commons.exceptions.ApiException;
+import duke.commons.exceptions.FileNotSavedException;
 import duke.commons.exceptions.ParseException;
 import duke.logic.api.ApiParser;
 import duke.logic.commands.results.CommandResultText;
-import duke.logic.parsers.ParserStorageUtil;
 import duke.model.Model;
-import duke.model.lists.AgendaList;
 import duke.model.locations.Venue;
-import duke.model.planning.Agenda;
 import duke.model.planning.Itinerary;
-import duke.model.planning.Todo;
 
-import java.io.FileNotFoundException;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Creates a new custom itinerary.
@@ -29,8 +22,12 @@ public class NewItineraryCommand extends Command {
     private String[] itineraryDetails;
 
     /**
-     * Constructs the command with the given sample itinerary.
-     *
+     * Constructs a NewItineraryCommand.
+     * @param start The start date.
+     * @param end The end date.
+     * @param hotel The hotel name.
+     * @param name The name of the itinerary.
+     * @param itineraryDetails The details of the itinerary.
      */
     public NewItineraryCommand(LocalDateTime start, LocalDateTime end, String hotel, String name,
                                String[] itineraryDetails) {
@@ -45,52 +42,18 @@ public class NewItineraryCommand extends Command {
      * Executes this command on the given task list and user interface.
      *
      * @param model The model object containing information about the user.
+     * @throws ApiException If the api request fails.
+     * @throws ParseException If the information cannot be parsed into an itinerary.
+     * @throws FileNotSavedException If the data cannot be saved.
      */
     @Override
-    public CommandResultText execute(Model model) throws DukeException, FileNotFoundException {
+    public CommandResultText execute(Model model) throws ApiException, ParseException, FileNotSavedException {
         Venue hotelLocation = ApiParser.getLocationSearch(hotel);
         Itinerary itinerary = new Itinerary(start, end, hotelLocation, name);
-        AgendaList agendaList = new AgendaList();
-        int i = 4;
-        try {
-            while (i < itineraryDetails.length) {
-                List<Venue> venueList = new ArrayList<>();
-                List<Todo> todoList = new ArrayList<>();
-                final int number = Integer.parseInt(itineraryDetails[i++]);
-                while (itineraryDetails[i].equals("/venue")) {
-                    i++;
-                    venueList.add(ApiParser.getLocationSearch(itineraryDetails[i++]));
-                    StringBuilder todos = new StringBuilder();
-                    if (i == itineraryDetails.length - 1 || itineraryDetails[i].matches("-?\\d+")) {
-                        throw new ParseException(Messages.ITINERARY_EMPTY_TODOLIST);
-                    }
-                    todos.append(itineraryDetails[++i]).append("|");
-                    i++;
-                    while (itineraryDetails[i].equals("/and")) {
-                        i++;
-                        todos.append(itineraryDetails[i++]).append("|");
-                        if (i >= itineraryDetails.length) {
-                            break;
-                        }
-                    }
-                    todoList = ParserStorageUtil.getTodoListFromStorage(todos.toString());
-                    if (i >= itineraryDetails.length) {
-                        break;
-                    }
-                }
-                Agenda agenda = new Agenda(todoList, venueList, number);
-                agendaList.add(agenda);
-            }
-        } catch (ArrayIndexOutOfBoundsException e) {
-            throw new ParseException(Messages.ITINERARY_FAIL_CREATION);
-        } catch (NumberFormatException e) {
-            throw new ParseException(Messages.ITINERARY_INCORRECT_COMMAND);
-        }
-        itinerary.setTasks(agendaList);
-
-
-        model.saveItinerary(itinerary);
-        model.itineraryListSave(itinerary);
-        return new CommandResultText("New Itinerary Created :" + itinerary.printItinerary());
+        itinerary.getNumberOfDays();
+        itinerary.makeAgendaList(itineraryDetails);
+        model.setNewItinerary(itinerary);
+        model.save();
+        return new CommandResultText("New Itinerary Created with name:" + itinerary.getName());
     }
 }

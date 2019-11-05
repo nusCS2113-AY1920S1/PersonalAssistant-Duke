@@ -16,5 +16,5 @@ public abstract class Command<T> {
      * @return feedback of the operation result for display.
      * @throws DukeException If an error occurs during command execution.
      */
-    public abstract T execute(Model model) throws DukeException, FileNotFoundException;
+    public abstract T execute(Model model) throws DukeException;
 }

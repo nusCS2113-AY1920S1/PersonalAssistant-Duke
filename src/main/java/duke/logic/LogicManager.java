@@ -1,9 +1,12 @@
 package duke.logic;
 
+import duke.commons.exceptions.ChronologyAfterPresentException;
+import duke.commons.exceptions.ChronologyBeforePresentException;
+import duke.commons.exceptions.ChronologyInconsistentException;
+import duke.commons.exceptions.DukeException;
 import duke.commons.exceptions.ParseException;
 import duke.logic.commands.Command;
 import duke.logic.commands.results.CommandResult;
-import duke.commons.exceptions.DukeException;
 import duke.logic.commands.results.PanelResult;
 import duke.logic.conversations.ConversationManager;
 import duke.logic.edits.EditorManager;
@@ -13,7 +16,6 @@ import duke.model.ModelManager;
 
 import javafx.scene.input.KeyCode;
 
-import java.io.FileNotFoundException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -39,7 +41,7 @@ public class LogicManager extends Logic {
      * @param userInput The input string from user.
      * @return CommandResult Object containing information for Ui to display.
      */
-    public CommandResult execute(String userInput) throws DukeException, FileNotFoundException {
+    public CommandResult execute(String userInput) throws DukeException {
         Command c;
         if (EditorManager.isActive()) {
             logger.log(Level.INFO, "editing...");
@@ -48,6 +50,9 @@ public class LogicManager extends Logic {
             try {
                 c = Parser.parseComplexCommand(userInput);
                 conversationManager.clearContext();
+            } catch (ChronologyAfterPresentException | ChronologyBeforePresentException
+                    | ChronologyInconsistentException e) {
+                throw e;
             } catch (ParseException e) {
                 c = getCommandFromConversationManager(userInput);
             }

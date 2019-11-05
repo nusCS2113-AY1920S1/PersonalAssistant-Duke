@@ -1,8 +1,7 @@
 package duke.logic.commands;
 
-import duke.commons.exceptions.CorruptedFileException;
 import duke.commons.exceptions.FileNotSavedException;
-import duke.commons.exceptions.QueryOutOfBoundsException;
+import duke.commons.exceptions.OutOfBoundsException;
 import duke.logic.commands.results.CommandResultText;
 import duke.model.Model;
 import duke.model.lists.RouteList;
@@ -28,13 +27,12 @@ public class RouteDeleteCommand extends Command {
      *
      * @param model The model object containing information about the user.
      * @return The CommandResultText.
-     * @throws CorruptedFileException If the file is corrupted.
      * @throws FileNotSavedException If the file cannot be saved.
-     * @throws QueryOutOfBoundsException If the query is out of bounds.
+     * @throws OutOfBoundsException If the query is out of bounds.
      */
     @Override
-    public CommandResultText execute(Model model) throws CorruptedFileException, FileNotSavedException,
-            QueryOutOfBoundsException {
+    public CommandResultText execute(Model model) throws FileNotSavedException,
+            OutOfBoundsException {
         try {
             RouteList routes = model.getRoutes();
             String routeName = routes.get(index).getName();
@@ -42,7 +40,7 @@ public class RouteDeleteCommand extends Command {
             model.save();
             return new CommandResultText(MESSAGE_DELETION + routeName);
         } catch (IndexOutOfBoundsException e) {
-            throw new QueryOutOfBoundsException();
+            throw new OutOfBoundsException();
         }
     }
 }

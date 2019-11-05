@@ -1,15 +1,15 @@
 package duke.model.locations;
 
 import duke.ModelStub;
-import duke.commons.exceptions.QueryFailedException;
+import duke.commons.exceptions.FileLoadFailException;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class TrainStationTest {
     private ArrayList<String> v1Stations = new ArrayList<>();
@@ -98,7 +98,7 @@ class TrainStationTest {
     }
 
     @Test
-    void testFetch() throws QueryFailedException {
+    void testFetch() throws FileLoadFailException {
         TrainStation v3 = new TrainStation(new ArrayList<String>(), "Woodlands", "",
                 0, 0);
         ModelStub model = new ModelStub();

@@ -1,9 +1,8 @@
 package duke.logic.commands;
 
-import duke.commons.Messages;
 import duke.commons.enumerations.Direction;
+import duke.commons.exceptions.NoSuchBusServiceException;
 import duke.logic.commands.results.CommandResultText;
-import duke.commons.exceptions.DukeException;
 import duke.model.Model;
 import duke.model.locations.BusStop;
 import duke.model.transports.BusService;
@@ -26,6 +25,7 @@ public class GetBusRouteCommand extends Command {
      * Executes this command and returns a text result.
      *
      * @param model The model object containing transports.
+     * @throws NoSuchBusServiceException If there is no such bus service.
      */
     @Override
     public CommandResultText execute(Model model) throws DukeException {

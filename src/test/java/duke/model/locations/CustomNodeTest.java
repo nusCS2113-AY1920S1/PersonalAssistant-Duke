@@ -1,6 +1,7 @@
 package duke.model.locations;
 
 import duke.ModelStub;
+import duke.commons.exceptions.FileLoadFailException;
 import duke.commons.exceptions.QueryFailedException;
 import org.junit.jupiter.api.Test;
 
@@ -82,7 +83,7 @@ class CustomNodeTest {
     }
 
     @Test
-    void testFetch() throws QueryFailedException {
+    void testFetch() throws QueryFailedException, FileLoadFailException {
         BusStop v3 = new BusStop("45039", "", "", 0, 0);
         ModelStub model = new ModelStub();
         v3.fetchData(model);

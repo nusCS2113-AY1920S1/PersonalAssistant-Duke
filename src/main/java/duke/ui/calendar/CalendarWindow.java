@@ -1,6 +1,6 @@
 package duke.ui.calendar;
 
-import duke.commons.exceptions.DukeDuplicateTaskException;
+import duke.commons.exceptions.DuplicateTaskException;
 import duke.logic.commands.results.CommandResultCalender;
 import duke.model.lists.EventList;
 import duke.model.Event;
@@ -128,7 +128,7 @@ public class CalendarWindow extends UiPart<Stage> {
             if (isSameYearMonth(startDate)) {
                 try {
                     filteredEvents.get(startDate.getDayOfMonth()).add(t);
-                } catch (DukeDuplicateTaskException e) {
+                } catch (DuplicateTaskException e) {
                     logger.log(Level.WARNING, "Duplicated tasks should not exists.");
                 }
             }

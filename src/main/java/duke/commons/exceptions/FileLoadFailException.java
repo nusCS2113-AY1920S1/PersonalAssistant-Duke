@@ -2,8 +2,6 @@ package duke.commons.exceptions;
 
 import duke.commons.Messages;
 
-import java.io.File;
-
 /**
  * Exception thrown when file cannot be loaded.
  */

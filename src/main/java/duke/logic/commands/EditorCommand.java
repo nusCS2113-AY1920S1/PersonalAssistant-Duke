@@ -19,6 +19,7 @@ public class EditorCommand extends Command {
      * Executes this command and returns a text result.
      *
      * @param model The model object containing event list.
+     * @throws EmptyVenueException If the event list is empty.
      */
     @Override
     public CommandResultText execute(Model model) throws EmptyVenueException {

@@ -1,7 +1,6 @@
 package duke.logic.commands;
 
-import duke.commons.exceptions.CorruptedFileException;
-import duke.commons.exceptions.DukeDuplicateTaskException;
+import duke.commons.exceptions.DuplicateTaskException;
 import duke.commons.exceptions.FileNotSavedException;
 import duke.logic.commands.results.CommandResultText;
 import duke.model.Event;
@@ -27,10 +26,11 @@ public class AddCommand extends Command {
      * Executes this command and returns a text result.
      *
      * @param model The model object containing event list.
+     * @throws FileNotSavedException If the data could not be saved.
+     * @throws DuplicateTaskException If there is a duplicated event.
      */
     @Override
-    public CommandResultText execute(Model model) throws DukeDuplicateTaskException, FileNotSavedException,
-            CorruptedFileException {
+    public CommandResultText execute(Model model) throws DuplicateTaskException, FileNotSavedException {
         model.getEvents().add(event);
         model.save();
         return new CommandResultText(MESSAGE_ADDITION + event);

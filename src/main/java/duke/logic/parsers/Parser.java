@@ -2,6 +2,7 @@ package duke.logic.parsers;
 
 import duke.commons.Messages;
 import duke.commons.exceptions.ParseException;
+import duke.logic.commands.AddSampleItineraryCommand;
 import duke.logic.commands.Command;
 import duke.logic.commands.EditorCommand;
 import duke.logic.commands.ExitCommand;
@@ -15,26 +16,29 @@ import duke.logic.commands.RouteNodeShowCommand;
 import duke.logic.commands.RouteShowCommand;
 import duke.logic.commands.ShowItineraryCommand;
 import duke.logic.commands.ViewScheduleCommand;
-import duke.logic.parsers.commandparser.AddEventParser;
-import duke.logic.parsers.commandparser.AddProfileParser;
-import duke.logic.parsers.commandparser.CreateNewItineraryParser;
-import duke.logic.parsers.commandparser.DeleteParser;
-import duke.logic.parsers.commandparser.DoneParser;
-import duke.logic.parsers.commandparser.FindParser;
-import duke.logic.parsers.commandparser.GetBusRouteParser;
-import duke.logic.parsers.commandparser.GetBusStopParser;
-import duke.logic.parsers.commandparser.LocationSearchParser;
-import duke.logic.parsers.commandparser.QuickEditParser;
-import duke.logic.parsers.commandparser.RecommendationParser;
-import duke.logic.parsers.commandparser.RouteAddParser;
-import duke.logic.parsers.commandparser.RouteDeleteParser;
-import duke.logic.parsers.commandparser.RouteEditParser;
-import duke.logic.parsers.commandparser.RouteListParser;
-import duke.logic.parsers.commandparser.RouteNodeAddParser;
-import duke.logic.parsers.commandparser.RouteNodeDeleteParser;
-import duke.logic.parsers.commandparser.RouteNodeEditParser;
-import duke.logic.parsers.commandparser.RouteNodeListParser;
-import duke.logic.parsers.commandparser.StaticMapParser;
+import duke.logic.parsers.commandparser.PromptParser;
+import duke.logic.parsers.commandparsers.AddEventParser;
+import duke.logic.parsers.commandparsers.CreateNewItineraryParser;
+import duke.logic.parsers.commandparsers.DeleteParser;
+import duke.logic.parsers.commandparsers.DoneParser;
+import duke.logic.parsers.commandparsers.FindParser;
+import duke.logic.parsers.commandparsers.GetBusRouteParser;
+import duke.logic.parsers.commandparsers.GetBusStopParser;
+import duke.logic.parsers.commandparsers.LocationSearchParser;
+import duke.logic.parsers.commandparsers.ProfileAddParser;
+import duke.logic.parsers.commandparsers.QuickEditParser;
+import duke.logic.parsers.commandparsers.RecommendationParser;
+import duke.logic.parsers.commandparsers.RouteAddParser;
+import duke.logic.parsers.commandparsers.RouteDeleteParser;
+import duke.logic.parsers.commandparsers.RouteEditParser;
+import duke.logic.parsers.commandparsers.RouteGenerateParser;
+import duke.logic.parsers.commandparsers.RouteListParser;
+import duke.logic.parsers.commandparsers.RouteNodeAddParser;
+import duke.logic.parsers.commandparsers.RouteNodeDeleteParser;
+import duke.logic.parsers.commandparsers.RouteNodeEditParser;
+import duke.logic.parsers.commandparsers.RouteNodeListParser;
+import duke.logic.parsers.commandparsers.StaticMapParser;
+import duke.logic.parsers.storageparsers.PlanningStorageParser;
 
 /**
  * Parser for commands entered by the user. It reads from standard input and returns Command objects.
@@ -101,7 +105,7 @@ public class Parser {
         case "routeNodeList":
             return new RouteNodeListParser(getWord(input)).parse();
         case "routeGenerate":
-            return ParserUtil.createRouteGenerateCommand(getWord(input));
+            return new RouteGenerateParser(getWord(input)).parse();
         case "routeShow":
             return new RouteShowCommand(ParserUtil.getIntegerIndexInList(0, 2, getWord(input)));
         case "routeNodeShow":
@@ -110,8 +114,8 @@ public class Parser {
         case "routeNodeNearby":
             return new RouteNodeNeighboursCommand(ParserUtil.getIntegerIndexInList(0, 2, getWord(input)),
                     ParserUtil.getIntegerIndexInList(1, 2, getWord(input)));
-        //case "addThisList":
-            //return new AddSampleItineraryCommand();
+        case "addThisList":
+            return new AddSampleItineraryCommand(PlanningStorageParser.getNewAddListName(input));
         case "newItinerary":
             return new CreateNewItineraryParser(input).parse();
         case "listItinerary":
@@ -119,7 +123,7 @@ public class Parser {
         case "showItinerary":
             return new ShowItineraryCommand(getWord(input));
         case "profile":
-            return new AddProfileParser(getWord(input)).parse();
+            return new ProfileAddParser(getWord(input)).parse();
         case "profileShow":
             return new ProfileShowCommand();
         case "profileSet":

@@ -1,10 +1,17 @@
 package duke.model.planning;
 
+import duke.commons.Messages;
+import duke.commons.exceptions.ApiException;
+import duke.commons.exceptions.ParseException;
+import duke.logic.api.ApiParser;
+import duke.logic.parsers.storageparsers.PlanningStorageParser;
 import duke.model.lists.AgendaList;
 import duke.model.locations.Venue;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Represents an Itinerary and its contained information.
@@ -26,22 +33,6 @@ public class Itinerary extends AgendaList {
         this.name = name;
     }
 
-    public LocalDateTime getStartDate() {
-        return startDate;
-    }
-
-    public LocalDateTime getEndDate() {
-        return endDate;
-    }
-
-    public Venue getHotelLocation() {
-        return hotelLocation;
-    }
-
-    public String getName() {
-        return name;
-    }
-
     /**
      * Returns number of days of the trip based on entered start and end dates.
      *
@@ -51,7 +42,7 @@ public class Itinerary extends AgendaList {
     public int getNumberOfDays() {
         LocalDateTime tempDateTime = LocalDateTime.from(startDate);
         long days = tempDateTime.until(endDate, ChronoUnit.DAYS);
-        return Integer.parseInt(String.valueOf(days));
+        return Integer.parseInt(String.valueOf(days)) + 1;
     }
 
     /**
@@ -80,4 +71,72 @@ public class Itinerary extends AgendaList {
         }
         return result.toString();
     }
+
+    /**
+     * This makes the agenda list of a new Itinerary entered.
+     *
+     * @param itineraryDetails is the details of the itinerary to make.
+     */
+    public void makeAgendaList(String[] itineraryDetails) throws ParseException {
+        List<Agenda> agendaList = new ArrayList<>();
+        int i = 4;
+        try {
+            while (i < itineraryDetails.length) {
+                List<Venue> venueList = new ArrayList<>();
+                List<Todo> todoList = new ArrayList<>();
+                final int number = Integer.parseInt(itineraryDetails[i++]);
+                while (itineraryDetails[i].equals("/venue")) {
+                    i++;
+                    venueList.add(ApiParser.getLocationSearch(itineraryDetails[i++]));
+                    StringBuilder todos = new StringBuilder();
+                    if (i == itineraryDetails.length - 1 || itineraryDetails[i].matches("-?\\d+")) {
+                        throw new ParseException(Messages.ERROR_ITINERARY_EMPTY_TODOLIST);
+                    }
+                    todos.append(itineraryDetails[++i]).append("|");
+                    i++;
+                    while (itineraryDetails[i].equals("/and")) {
+                        i++;
+                        todos.append(itineraryDetails[i++]).append("|");
+                        if (i >= itineraryDetails.length) {
+                            break;
+                        }
+                    }
+                    todoList = PlanningStorageParser.getTodoListFromStorage(todos.toString());
+                    if (i >= itineraryDetails.length) {
+                        break;
+                    }
+                }
+                Agenda agenda = new Agenda(todoList, venueList, number);
+                agendaList.add(agenda);
+                this.setTasks(agendaList);
+            }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new ParseException(Messages.ERROR_ITINERARY_FAIL_CREATION);
+        } catch (NumberFormatException e) {
+            throw new ParseException(Messages.ERROR_ITINERARY_INCORRECT_COMMAND);
+        } catch (ApiException | ParseException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public LocalDateTime getStartDate() {
+        return startDate;
+    }
+
+    public LocalDateTime getEndDate() {
+        return endDate;
+    }
+
+    public Venue getHotelLocation() {
+        return hotelLocation;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
 }

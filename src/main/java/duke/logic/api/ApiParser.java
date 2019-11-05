@@ -1,5 +1,7 @@
 package duke.logic.api;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import duke.commons.exceptions.ApiException;
 import duke.commons.exceptions.QueryOutOfBoundsException;
 import duke.logic.api.requests.LocationSearchUrlRequest;
@@ -51,7 +53,6 @@ public class ApiParser {
         return req.execute();
     }
 
-    /**
      * Gets Static Map from StaticMap API.
      *
      * @param param String formatted parameters

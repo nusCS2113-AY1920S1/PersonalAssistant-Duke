@@ -1,22 +1,20 @@
 package duke.model;
 
-import duke.commons.exceptions.DukeDateTimeParseException;
 import duke.commons.exceptions.DukeException;
-import duke.commons.exceptions.FileLoadFailException;
 import duke.commons.exceptions.FileNotSavedException;
-import duke.commons.exceptions.ItineraryInsufficientAgendasException;
-import duke.commons.exceptions.RecommendationDayExceededException;
-import duke.model.transports.TransportationMap;
-import duke.commons.exceptions.RouteDuplicateException;
+import duke.commons.exceptions.NoRecentItineraryException;
+import duke.commons.exceptions.ParseException;
+import duke.commons.exceptions.DuplicateRouteException;
 import duke.model.lists.EventList;
 import duke.model.lists.RouteList;
 import duke.model.lists.VenueList;
-import duke.model.planning.Agenda;
+import duke.model.locations.BusStop;
 import duke.model.planning.Itinerary;
+import duke.model.planning.Recommendation;
 import duke.model.profile.ProfileCard;
 import duke.model.transports.BusService;
-import duke.model.locations.BusStop;
 import duke.model.transports.Route;
+import duke.model.transports.TransportationMap;
 
 import java.util.HashMap;
 import java.util.List;
@@ -57,16 +55,6 @@ public interface Model {
     List<BusService> getBusService();
 
     /**
-     * Returns the list of all attractions.
-     *
-     * @param numberOfDays Number of days.
-     * @param itinerary The itinerary to store in persistent storage.
-     * @return List of Days.
-     */
-    List<Agenda> getRecommendations(int numberOfDays, Itinerary itinerary) throws FileLoadFailException,
-            FileNotSavedException, RecommendationDayExceededException, ItineraryInsufficientAgendasException;
-
-    /**
      * Returns the list of Routes.
      */
     RouteList getRoutes();
@@ -76,7 +64,7 @@ public interface Model {
      *
      * @param route The route to add.
      */
-    void addRoute(Route route) throws RouteDuplicateException;
+    void addRoute(Route route) throws DuplicateRouteException;
 
     /**
      * Saves the Model data in storage.
@@ -90,15 +78,19 @@ public interface Model {
      */
     VenueList getEventVenues();
 
-    void saveItinerary(Itinerary itinerary) throws FileNotSavedException, ItineraryInsufficientAgendasException;
+    Itinerary getItinerary(String number);
 
-    void itineraryListSave(Itinerary itinerary) throws FileNotSavedException;
+    Recommendation getRecommendations();
 
-    String listItineraries() throws FileLoadFailException;
+    HashMap<String,Itinerary> getItineraryTable();
 
-    Itinerary getItinerary(String number) throws DukeException;
+    void setRecentItinerary(Itinerary itinerary);
 
-    Itinerary readRecommendations() throws FileLoadFailException, DukeDateTimeParseException;
+    Itinerary getRecentItinerary() throws NoRecentItineraryException;
+
+    void setNewItinerary(Itinerary itinerary) throws ParseException;
+
+    void confirmRecentItinerary(String newName);
 
     /**
      * Returns profile of user.

@@ -1,23 +1,19 @@
 package duke;
 
-import duke.commons.exceptions.DukeDateTimeParseException;
-import duke.commons.exceptions.DukeException;
 import duke.commons.exceptions.FileLoadFailException;
 import duke.commons.exceptions.FileNotSavedException;
-import duke.commons.exceptions.ItineraryInsufficientAgendasException;
-import duke.commons.exceptions.RecommendationDayExceededException;
+import duke.commons.exceptions.DuplicateRouteException;
 import duke.model.Model;
-import duke.model.transports.TransportationMap;
-import duke.commons.exceptions.RouteDuplicateException;
 import duke.model.lists.EventList;
 import duke.model.lists.RouteList;
 import duke.model.lists.VenueList;
 import duke.model.locations.BusStop;
-import duke.model.planning.Agenda;
 import duke.model.planning.Itinerary;
+import duke.model.planning.Recommendation;
 import duke.model.profile.ProfileCard;
 import duke.model.transports.BusService;
 import duke.model.transports.Route;
+import duke.model.transports.TransportationMap;
 
 import java.util.HashMap;
 import java.util.List;
@@ -31,15 +27,21 @@ public class ModelStub implements Model {
     private RouteList routes;
     private TransportationMap map;
     private ProfileCard profileCard;
+    private Recommendation recommendations;
+    private HashMap<String, Itinerary> itineraryTable;
+    private Itinerary recentItinerary;
 
     /**
      * Constructs a new ModelManager object.
      */
-    public ModelStub() {
+    public ModelStub() throws FileLoadFailException {
         storage = new StorageStub();
         events = storage.getEvents();
         map = storage.getMap();
         routes = storage.getRoutes();
+        profileCard = storage.getProfileCard();
+        recommendations = storage.getRecommendations();
+        itineraryTable = storage.getItineraryTable();
     }
 
     @Override
@@ -83,13 +85,34 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public List<Agenda> getRecommendations(int numDays, Itinerary itinerary) throws FileNotSavedException,
-            RecommendationDayExceededException, ItineraryInsufficientAgendasException {
-
-        List<Agenda> recommendations = storage.readVenues(numDays);
-        itinerary.setTasks(recommendations);
-        storage.writeItineraries(itinerary, 2);
+    public Recommendation getRecommendations() {
         return recommendations;
+    }
+
+    @Override
+    public HashMap<String, Itinerary> getItineraryTable() {
+        return itineraryTable;
+    }
+
+    @Override
+    public void setRecentItinerary(Itinerary recentItinerary) {
+        this.recentItinerary = recentItinerary;
+    }
+
+    @Override
+    public Itinerary getRecentItinerary() {
+        return recentItinerary;
+    }
+
+    @Override
+    public void setNewItinerary(Itinerary itinerary) {
+        this.itineraryTable.put(itinerary.getName(), itinerary);
+    }
+
+    @Override
+    public void confirmRecentItinerary(String name) {
+        recentItinerary.setName(name);
+        this.itineraryTable.put(name, recentItinerary);
     }
 
     @Override
@@ -103,46 +126,13 @@ public class ModelStub implements Model {
     }
 
     /**
-     * Save a newly created Itinerary to storage.
+     * Shows the Itinerary specified by a give name.
      *
-     * @param itinerary The itinerary to be stored.
+     * @param name The serial number of the Itinerary.
      */
     @Override
-    public void saveItinerary(Itinerary itinerary) throws FileNotSavedException, ItineraryInsufficientAgendasException {
-        storage.writeItineraries(itinerary, 1);
-    }
-
-    /**
-     * Save the newly created itinerary to the Itinerary Lists table of contents.
-     *
-     * @param itinerary The itinerary to be stored.
-     */
-    @Override
-    public void itineraryListSave(Itinerary itinerary) throws FileNotSavedException {
-        storage.writeItinerarySave(itinerary);
-    }
-
-    /**
-     * Shows the Stored Itineraries Table of Contents.
-     */
-    @Override
-    public String listItineraries() throws FileLoadFailException {
-        return storage.readItineraryList();
-    }
-
-    /**
-     * Shows the Itinerary specified by a give serial number.
-     *
-     * @param number The serial number of the Itinerary.
-     */
-    @Override
-    public Itinerary getItinerary(String number) throws DukeException {
-        return storage.getItinerary(number);
-    }
-
-    @Override
-    public Itinerary readRecommendations() throws FileLoadFailException, DukeDateTimeParseException {
-        return storage.readRecommendations();
+    public Itinerary getItinerary(String name) {
+        return itineraryTable.get(name);
     }
 
     /**
@@ -151,7 +141,7 @@ public class ModelStub implements Model {
      * @param route The route to add.
      */
     @Override
-    public void addRoute(Route route) throws RouteDuplicateException {
+    public void addRoute(Route route) throws DuplicateRouteException {
         routes.add(route);
     }
 

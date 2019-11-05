@@ -1,6 +1,6 @@
 package duke.ui;
 
-import duke.commons.exceptions.QueryOutOfBoundsException;
+import duke.commons.exceptions.OutOfBoundsException;
 import duke.logic.commands.results.PanelResult;
 import duke.ui.map.PointCard;
 
@@ -61,7 +61,7 @@ public class SidePanel extends UiPart<AnchorPane> {
                 break;
             default:
             }
-        } catch (QueryOutOfBoundsException e) {
+        } catch (OutOfBoundsException e) {
             logger.log(Level.FINE, "Nothing needs to be highlighted.");
         }
     }
