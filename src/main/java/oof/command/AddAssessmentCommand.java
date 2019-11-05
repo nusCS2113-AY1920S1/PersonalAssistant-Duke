@@ -4,16 +4,18 @@ import java.util.ArrayList;
 
 import oof.SelectedInstance;
 import oof.Ui;
-import oof.exception.CommandException.CommandException;
-import oof.exception.CommandException.InvalidArgumentException;
-import oof.exception.CommandException.MissingArgumentException;
-import oof.exception.CommandException.ModuleNotSelectedException;
+import oof.exception.command.CommandException;
+import oof.exception.command.InvalidArgumentException;
+import oof.exception.command.MissingArgumentException;
+import oof.exception.command.ModuleNotSelectedException;
 import oof.model.module.Module;
 import oof.model.module.SemesterList;
 import oof.model.task.Assessment;
 import oof.model.task.Event;
 import oof.model.task.TaskList;
 import oof.storage.StorageManager;
+
+//@@author KahLokKee
 
 public class AddAssessmentCommand extends AddEventCommand {
 
@@ -39,7 +41,8 @@ public class AddAssessmentCommand extends AddEventCommand {
      * @throws CommandException if module is not selected or if user input contains missing or invalid arguments.
      */
     @Override
-    public void execute(SemesterList semesterList, TaskList taskList, Ui ui, StorageManager storageManager) throws CommandException {
+    public void execute(SemesterList semesterList, TaskList taskList, Ui ui, StorageManager storageManager) throws
+            CommandException {
         SelectedInstance selectedInstance = SelectedInstance.getInstance();
         Module module = selectedInstance.getModule();
         if (module == null) {

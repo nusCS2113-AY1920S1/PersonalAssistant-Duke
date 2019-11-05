@@ -2,7 +2,7 @@ package oof.command;
 
 import oof.SelectedInstance;
 import oof.Ui;
-import oof.exception.CommandException.SemesterNotSelectedException;
+import oof.exception.command.SemesterNotSelectedException;
 import oof.model.module.Semester;
 import oof.model.module.SemesterList;
 import oof.model.task.TaskList;

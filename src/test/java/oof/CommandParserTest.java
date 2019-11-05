@@ -20,7 +20,7 @@ import oof.command.ListCommand;
 import oof.command.RecurringCommand;
 import oof.command.ScheduleCommand;
 import oof.command.SnoozeCommand;
-import oof.exception.CommandException.CommandException;
+import oof.exception.command.CommandException;
 import oof.exception.ParserException;
 
 //@@author jasperosy

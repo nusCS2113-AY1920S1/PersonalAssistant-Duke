@@ -1,8 +1,8 @@
 package oof.command;
 
 import oof.Ui;
-import oof.exception.CommandException.CommandException;
-import oof.exception.CommandException.EmptyListException;
+import oof.exception.command.CommandException;
+import oof.exception.command.EmptyListException;
 import oof.model.module.SemesterList;
 import oof.model.task.TaskList;
 import oof.storage.StorageManager;

@@ -2,11 +2,13 @@ package oof.command;
 
 import oof.SelectedInstance;
 import oof.Ui;
-import oof.exception.CommandException.InvalidArgumentException;
+import oof.exception.command.InvalidArgumentException;
 import oof.model.module.Semester;
 import oof.model.module.SemesterList;
 import oof.model.task.TaskList;
 import oof.storage.StorageManager;
+
+//@@author KahLokKee
 
 /**
  * Command to select a semester from semesterList.

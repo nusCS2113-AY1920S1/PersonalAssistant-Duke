@@ -1,4 +1,4 @@
-package oof.exception.CommandException;
+package oof.exception.command;
 
 public class TrackerNotFoundException extends CommandException {
 

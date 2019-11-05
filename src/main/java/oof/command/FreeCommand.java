@@ -9,8 +9,8 @@ import java.util.Comparator;
 import java.util.Date;
 
 import oof.Ui;
-import oof.exception.CommandException.CommandException;
-import oof.exception.CommandException.InvalidArgumentException;
+import oof.exception.command.CommandException;
+import oof.exception.command.InvalidArgumentException;
 import oof.model.module.SemesterList;
 import oof.model.task.Deadline;
 import oof.model.task.Event;

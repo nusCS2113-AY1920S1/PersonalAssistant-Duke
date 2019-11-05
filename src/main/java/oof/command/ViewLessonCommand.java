@@ -2,9 +2,9 @@ package oof.command;
 
 import oof.SelectedInstance;
 import oof.Ui;
-import oof.exception.CommandException.CommandException;
-import oof.exception.CommandException.EmptyListException;
-import oof.exception.CommandException.ModuleNotSelectedException;
+import oof.exception.command.CommandException;
+import oof.exception.command.EmptyListException;
+import oof.exception.command.ModuleNotSelectedException;
 import oof.model.module.Module;
 import oof.model.module.SemesterList;
 import oof.model.task.TaskList;

@@ -1,7 +1,7 @@
 package oof.command;
 
 import oof.Ui;
-import oof.exception.CommandException.InvalidArgumentException;
+import oof.exception.command.InvalidArgumentException;
 import oof.model.module.SemesterList;
 import oof.model.task.TaskList;
 import oof.storage.StorageManager;

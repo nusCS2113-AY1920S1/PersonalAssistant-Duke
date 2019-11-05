@@ -9,9 +9,9 @@ import java.util.InputMismatchException;
 import java.util.List;
 
 import oof.Ui;
-import oof.exception.CommandException.CommandException;
-import oof.exception.CommandException.InvalidArgumentException;
-import oof.exception.CommandException.MissingArgumentException;
+import oof.exception.command.CommandException;
+import oof.exception.command.InvalidArgumentException;
+import oof.exception.command.MissingArgumentException;
 import oof.model.module.SemesterList;
 import oof.model.task.Deadline;
 import oof.model.task.Event;
@@ -120,7 +120,8 @@ public class RecurringCommand extends Command {
      * @param frequency Frequency of recurrence for the recurring task.
      * @throws InvalidArgumentException if datetime cannot be parsed.
      */
-    private void setRecurringTask(Ui ui, TaskList taskList, int index, int count, int frequency) throws InvalidArgumentException {
+    private void setRecurringTask(Ui ui, TaskList taskList, int index, int count, int frequency) throws
+            InvalidArgumentException {
         Task task = taskList.getTask(index);
         task.setFrequency(frequency);
         taskList.deleteTask(index);

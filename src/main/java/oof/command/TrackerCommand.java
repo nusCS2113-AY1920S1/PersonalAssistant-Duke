@@ -9,11 +9,11 @@ import java.util.Calendar;
 import java.util.Comparator;
 
 import oof.Ui;
-import oof.exception.CommandException.CommandException;
-import oof.exception.CommandException.InvalidArgumentException;
-import oof.exception.CommandException.MissingArgumentException;
-import oof.exception.CommandException.TaskAlreadyCompletedException;
-import oof.exception.CommandException.TrackerNotFoundException;
+import oof.exception.command.CommandException;
+import oof.exception.command.InvalidArgumentException;
+import oof.exception.command.MissingArgumentException;
+import oof.exception.command.TaskAlreadyCompletedException;
+import oof.exception.command.TrackerNotFoundException;
 import oof.exception.StorageFileCorruptedException;
 import oof.model.module.SemesterList;
 import oof.model.task.Task;

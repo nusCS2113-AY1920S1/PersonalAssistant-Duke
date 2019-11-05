@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 import oof.Ui;
-import oof.exception.CommandException.InvalidArgumentException;
+import oof.exception.command.InvalidArgumentException;
 import oof.model.module.SemesterList;
 import oof.model.task.Deadline;
 import oof.model.task.Event;
@@ -13,6 +13,8 @@ import oof.model.task.Task;
 import oof.model.task.TaskList;
 import oof.model.task.Todo;
 import oof.storage.StorageManager;
+
+//@@author KahLokKee
 
 /**
  * Represents a Command to print calendar.
@@ -79,15 +81,15 @@ public class CalendarCommand extends Command {
                 Todo todo = (Todo) task;
                 dateSplit = todo.getTodoDate().split(DELIMITER_DATE);
             } else if (task instanceof Deadline) {
-                    Deadline deadline = (Deadline) task;
-                    String[] dateTimeSplit = deadline.getDeadlineDateTime().split(DELIMITER_DATE_TIME);
-                    dateSplit = dateTimeSplit[INDEX_DATE].split(DELIMITER_DATE);
-                    time = dateTimeSplit[INDEX_TIME];
+                Deadline deadline = (Deadline) task;
+                String[] dateTimeSplit = deadline.getDeadlineDateTime().split(DELIMITER_DATE_TIME);
+                dateSplit = dateTimeSplit[INDEX_DATE].split(DELIMITER_DATE);
+                time = dateTimeSplit[INDEX_TIME];
             } else if (task instanceof Event) {
-                    Event event = (Event) task;
-                    String[] dateTimeSplit = event.getStartDateTime().split(DELIMITER_DATE_TIME);
-                    dateSplit = dateTimeSplit[INDEX_DATE].split(DELIMITER_DATE);
-                    time = dateTimeSplit[INDEX_TIME];
+                Event event = (Event) task;
+                String[] dateTimeSplit = event.getStartDateTime().split(DELIMITER_DATE_TIME);
+                dateSplit = dateTimeSplit[INDEX_DATE].split(DELIMITER_DATE);
+                time = dateTimeSplit[INDEX_TIME];
             }
             if (verifyTask(dateSplit)) {
                 int day = Integer.parseInt(dateSplit[INDEX_DAY]);

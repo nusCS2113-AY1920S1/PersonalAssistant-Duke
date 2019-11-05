@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 import org.junit.jupiter.api.Test;
 
 import oof.Oof;
-import oof.exception.CommandException.CommandException;
+import oof.exception.command.CommandException;
 import oof.exception.ParserException;
 import oof.model.task.Task;
 import oof.model.task.TaskList;

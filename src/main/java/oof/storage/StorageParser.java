@@ -315,7 +315,7 @@ public class StorageParser {
      *
      * @param lineSplit    Assessment object split in string array format.
      * @param semesterList Instance of SemesterList containing list of semesters.
-     * @return
+     * @return instance of Assessment.
      */
     private static Assessment addAssessment(String[] lineSplit, SemesterList semesterList) {
         String moduleCode = lineSplit[INDEX_ASSESSMENT_MODULE_CODE];
@@ -350,14 +350,11 @@ public class StorageParser {
     }
 
     /**
-     * Processes String of line obtained from tracker.csv
-     * .
+     * Processes String of line obtained from tracker.csv.
      *
-     * @param data ArrayList of data from tracker.csv
-     *             .
+     * @param data ArrayList of data from tracker.csv.
      * @return ArrayList of Tracker objects.
-     * @throws StorageFileCorruptedException if tracker.csv
-     * is corrupted
+     * @throws StorageFileCorruptedException if tracker.csv is corrupted
      */
     public static ArrayList<Tracker> dataToTrackerList(ArrayList<String> data) throws StorageFileCorruptedException {
         ArrayList<Tracker> trackers = new ArrayList<>();
@@ -368,11 +365,9 @@ public class StorageParser {
     }
 
     /**
-     * Processes String of line obtained from tracker.csv
-     * .
+     * Processes String of line obtained from tracker.csv.
      *
-     * @param line String from tracker.csv
-     *             .
+     * @param line String from tracker.csv.
      * @return Tracker object updated from data found in line.
      * @throws StorageFileCorruptedException if file is corrupted.
      */

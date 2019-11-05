@@ -3,7 +3,7 @@ package oof;
 import java.io.IOException;
 
 import oof.command.Command;
-import oof.exception.CommandException.CommandException;
+import oof.exception.command.CommandException;
 import oof.exception.ParserException;
 import oof.exception.StorageFileCorruptedException;
 import oof.model.module.SemesterList;
