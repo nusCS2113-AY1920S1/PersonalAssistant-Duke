@@ -2,6 +2,7 @@ package ducats;
 
 import ducats.commands.CommandSyntaxMessage;
 import ducats.components.Bar;
+import ducats.components.Group;
 import ducats.components.Song;
 import ducats.components.SongList;
 
@@ -182,6 +183,18 @@ public class Ui {
                 + word
                 + " in the song.";
         return wrap(result);
+    }
+
+    public String formatListGroups(SongList songList){
+        int songIndex = songList.getActiveIndex();
+        ArrayList<Group> groups = songList.getSongIndex(songIndex).getGroups();
+        String result = "Here are the groups available: \n";
+        int groupCount = 1;
+        for(Group group : groups){
+            result += groupCount + ". "+group.getName()+"\n";
+            groupCount++;
+        }
+        return result;
     }
 
     /**

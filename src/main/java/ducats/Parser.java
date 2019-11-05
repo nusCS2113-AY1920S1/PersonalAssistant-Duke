@@ -1,28 +1,6 @@
 package ducats;
 
-import ducats.commands.AddBarCommand;
-import ducats.commands.AddOverlayCommand;
-import ducats.commands.AsciiCommand;
-import ducats.commands.ByeCommand;
-import ducats.commands.Command;
-import ducats.commands.CopyCommand;
-import ducats.commands.DeleteBarCommand;
-import ducats.commands.DeleteCommand;
-import ducats.commands.EditBarCommand;
-import ducats.commands.GroupCommand;
-import ducats.commands.HelpCommand;
-import ducats.commands.InsertBarCommand;
-import ducats.commands.ListCommand;
-import ducats.commands.MetronomeCommand;
-import ducats.commands.NewCommand;
-import ducats.commands.OpenCommand;
-import ducats.commands.OverlayBarGroup;
-import ducats.commands.OverlayBarSong;
-import ducats.commands.OverlayGroupGroup;
-import ducats.commands.RedoCommand;
-import ducats.commands.SwapBarCommand;
-import ducats.commands.UndoCommand;
-import ducats.commands.ViewCommand;
+import ducats.commands.*;
 import ducats.components.Jaccard;
 import ducats.components.WordGetter;
 import ducats.Ui;
@@ -166,6 +144,11 @@ public class Parser {
         case "metronome":
             if (message.length() >= 11) {
                 return new MetronomeCommand(message);
+            }
+            break;
+        case "list_group":
+            if(message.length() == 10){
+                return new ListGroupCommand();
             }
             break;
         default:

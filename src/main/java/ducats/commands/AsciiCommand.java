@@ -51,22 +51,29 @@ public class AsciiCommand extends Command<SongList> {
             if (command.equals("bar")) {
                 int barNum = Integer.parseInt(message.split(" ", 2)[1].trim());
                 //get the current song out
-                Song song = new Song("Test song", "C-Major", 120);
+
                 //bar index for user is assumed to start from 1
-                if (barNum > song.getNumBars() || barNum < 1) {
+                if (barNum > songList.getSongIndex(songList.getActiveIndex()).getNumBars() || barNum < 1) {
                     throw new DucatsException(message, "AsciiCommand");
                 }
-                Bar bar = song.getBars().get(barNum - 1);
-                result = printBarAscii(bar);
+                Song tempSong = new Song("Test song", "C-Major", 120);
+                Bar displayBar = songList.getSongIndex(songList.getActiveIndex()).getBars().get(barNum - 1);
+                tempSong.addBar(displayBar);
+                result = printSongAscii(tempSong);
             } else if (command.equals("group")) {
                 String groupName = message.split(" ", 2)[1].trim();
                 //Get the verseList from storage
-                VerseList verseList = new VerseList();
-                Group group = verseList.find(groupName);
+                Group group = songList.getSongIndex(songList.getActiveIndex()).findGroup(groupName);
                 if (group == null) {
                     throw new DucatsException(message, "AsciiCommand");
                 } else {
-                    result = printGroupAscii(group);
+                    //wrap the group as a song
+                    Song groupSong = new Song("temp", "aminor", 120);
+                    ArrayList<Bar> bars = group.getBars();
+                    for(Bar bar : bars){
+                        groupSong.addBar(bar);
+                    }
+                    result = printSongAscii(groupSong);
                 }
             } else if (command.equals("song")) {
                 String songName = message.split(" ", 2)[1].trim();

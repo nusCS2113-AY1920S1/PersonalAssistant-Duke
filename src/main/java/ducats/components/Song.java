@@ -144,6 +144,16 @@ public class Song implements Serializable {
 
     }
 
+    //@@author Samuel787
+    public Group findGroup(String name){
+        for(Group group : this.groups){
+            if(group.getName().equals(name)){
+                return group;
+            }
+        }
+        return null;
+    }
+
     //@@author rohan-av
     /**
      * Returns a String representation of the Song to be used for persistent storage.

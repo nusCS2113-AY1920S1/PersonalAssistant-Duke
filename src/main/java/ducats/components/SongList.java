@@ -90,7 +90,7 @@ public class SongList {
     public ArrayList<Song> findSong(String query) {
         ArrayList<Song> result = new ArrayList<>();
         for (Song song: list) {
-            if (song.getName().contains(query)) {
+            if (song.getName().equals(query)) {
                 result.add(song);
             }
         }
@@ -107,7 +107,7 @@ public class SongList {
     public int findSongIndex(String query) {
         int result = -1;
         for (Song song: list) {
-            if (song.getName().contains(query)) {
+            if (song.getName().equals(query)) {
                 result = list.indexOf(song);
             }
         }
