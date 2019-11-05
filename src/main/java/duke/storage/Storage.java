@@ -1,11 +1,12 @@
 package duke.storage;
 
+
+import duke.commons.exceptions.DuplicateRouteException;
+import duke.commons.exceptions.DuplicateRouteNodeException;
 import duke.commons.exceptions.DuplicateTaskException;
 import duke.commons.exceptions.FileLoadFailException;
 import duke.commons.exceptions.FileNotSavedException;
 import duke.commons.exceptions.ParseException;
-import duke.commons.exceptions.DuplicateRouteException;
-import duke.commons.exceptions.DuplicateRouteNodeException;
 import duke.logic.parsers.ParserTimeUtil;
 import duke.logic.parsers.storageparsers.EventStorageParser;
 import duke.logic.parsers.storageparsers.PlanningStorageParser;
@@ -69,7 +70,7 @@ public class Storage {
         itineraryTable = new HashMap<>();
         try {
             read();
-        } catch (FileLoadFailException e) {
+        } catch (FileLoadFailException | ParseException e) {
             logger.log(Level.WARNING, e.getMessage());
         }
     }
@@ -77,7 +78,7 @@ public class Storage {
     /**
      * Reads all storage file.
      */
-    private void read() throws FileLoadFailException {
+    private void read() throws FileLoadFailException, ParseException {
         readBus();
         readTrain();
         readProfile();
@@ -92,7 +93,7 @@ public class Storage {
      *
      * @throws FileLoadFailException If the file cannot be loaded.
      */
-    private void readItineraryTable() throws FileLoadFailException {
+    public void readItineraryTable() throws FileLoadFailException {
         try {
             File itinerariesFile = new File(ITINERARIES_FILE_PATH);
             Scanner scanner = new Scanner(itinerariesFile);
@@ -126,8 +127,7 @@ public class Storage {
                 itineraryTable.put(itinerary.getName(), itinerary);
             }
             scanner.close();
-        } catch (FileNotFoundException | ParseException
-                | NumberFormatException | IndexOutOfBoundsException e) {
+        } catch (FileNotFoundException | ParseException e) {
             throw new FileLoadFailException(ITINERARIES_FILE_PATH);
         }
     }
@@ -187,8 +187,7 @@ public class Storage {
             }
             s.close();
             this.events.setEvents(events);
-        } catch (FileNotFoundException | ParseException
-                | DuplicateTaskException e) {
+        } catch (FileNotFoundException | ParseException | DuplicateTaskException e) {
             throw new FileLoadFailException(EVENTS_FILE_PATH);
         }
     }
@@ -229,22 +228,18 @@ public class Storage {
     /**
      * Returns Venues fetched from stored memory.
      */
-    private void readRecommendations() {
+    public void readRecommendations() throws ParseException {
         List<Agenda> agendaList = new ArrayList<>();
         Scanner scanner = new Scanner(getClass().getResourceAsStream(RECOMMENDATIONS_FILE_PATH));
         int i = 1;
         while (scanner.hasNext()) {
-            try {
-                List<Venue> venueList = new ArrayList<>();
-                venueList.add(PlanningStorageParser.getVenueFromStorage(scanner.nextLine()));
-                List<Todo> todoList = PlanningStorageParser.getTodoListFromStorage(scanner.nextLine());
-                venueList.add(PlanningStorageParser.getVenueFromStorage(scanner.nextLine()));
-                todoList.addAll(PlanningStorageParser.getTodoListFromStorage(scanner.nextLine()));
-                Agenda agenda = new Agenda(todoList, venueList, i++);
-                agendaList.add(agenda);
-            } catch (ParseException e) {
-                logger.log(Level.WARNING, "Resource folder has been corrupted.");
-            }
+            List<Venue> venueList = new ArrayList<>();
+            venueList.add(PlanningStorageParser.getVenueFromStorage(scanner.nextLine()));
+            List<Todo> todoList = PlanningStorageParser.getTodoListFromStorage(scanner.nextLine());
+            venueList.add(PlanningStorageParser.getVenueFromStorage(scanner.nextLine()));
+            todoList.addAll(PlanningStorageParser.getTodoListFromStorage(scanner.nextLine()));
+            Agenda agenda = new Agenda(todoList, venueList, i++);
+            agendaList.add(agenda);
         }
         scanner.close();
         this.recommendation = new Recommendation(agendaList);
@@ -337,7 +332,7 @@ public class Storage {
      *
      * @throws FileNotSavedException If the file cannot be saved.
      */
-    private void writeNewItinerary() throws FileNotSavedException {
+    public void writeNewItinerary() throws FileNotSavedException {
         String file = ITINERARIES_FILE_PATH;
         try {
             FileWriter writer = new FileWriter(file, false);

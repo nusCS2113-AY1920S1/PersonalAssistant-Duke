@@ -1,4 +1,4 @@
-package duke.logic.parsers;
+package duke.logic.parsers.commandparser;
 
 import duke.logic.commands.Command;
 import duke.logic.commands.PromptCommand;

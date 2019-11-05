@@ -10,7 +10,8 @@ import java.time.LocalDateTime;
 /**
  * Sets up the profile.
  */
-public class AddProfileCommand extends Command {
+public class ProfileAddCommand extends Command {
+
     private String name;
     private LocalDateTime birthday;
 
@@ -20,7 +21,8 @@ public class AddProfileCommand extends Command {
      * @param name The name of the person.
      * @param birthday The birthday of the person.
      */
-    public AddProfileCommand(String name, LocalDateTime birthday) {
+    public ProfileAddCommand(String name, LocalDateTime birthday) {
+
         this.name = name;
         this.birthday = birthday;
     }
@@ -35,6 +37,6 @@ public class AddProfileCommand extends Command {
     public CommandResultText execute(Model model) throws FileNotSavedException {
         model.getProfileCard().setPerson(name, birthday);
         model.save();
-        return new CommandResultText(Messages.STARTUP_WELCOME_MESSAGE + name);
+        return new CommandResultText(Messages.STARTUP_WELCOME_MESSAGE + name + "\n");
     }
 }

@@ -60,6 +60,7 @@ public class StorageStub {
         events = new EventList();
         routes = new RouteList();
         itineraryTable = new HashMap<>();
+        profileCard = new ProfileCard();
         read();
     }
 

@@ -1,7 +1,8 @@
 package duke.logic.parsers.commandparsers;
 
+import duke.commons.exceptions.ChronologyAfterPresentException;
 import duke.commons.exceptions.ParseException;
-import duke.logic.commands.AddProfileCommand;
+import duke.logic.commands.ProfileAddCommand;
 import duke.logic.commands.Command;
 import duke.logic.parsers.ParserTimeUtil;
 
@@ -10,7 +11,7 @@ import java.time.LocalDateTime;
 /**
  * Parses the user inputs into suitable format for AddProfileCommand.
  */
-public class AddProfileParser extends CommandParser {
+public class ProfileAddParser extends CommandParser {
     private String input;
     private static final int ZERO = 0;
     private static final int ONE = 1;
@@ -18,7 +19,7 @@ public class AddProfileParser extends CommandParser {
     /**
      * Constructs the AddProfileParser.
      */
-    public AddProfileParser(String input) {
+    public ProfileAddParser(String input) {
         this.input = input;
     }
 
@@ -35,6 +36,9 @@ public class AddProfileParser extends CommandParser {
             name += token[i] + " ";
         }
         LocalDateTime birthday = ParserTimeUtil.parseStringToDate(token[token.length - ONE]);
-        return new AddProfileCommand(name, birthday);
+        if (birthday.isAfter(LocalDateTime.now())) {
+            throw new ChronologyAfterPresentException();
+        }
+        return new ProfileAddCommand(name, birthday);
     }
 }

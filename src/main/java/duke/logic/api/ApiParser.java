@@ -2,15 +2,12 @@ package duke.logic.api;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import duke.commons.enumerations.Direction;
 import duke.commons.exceptions.ApiException;
 import duke.logic.api.requests.LocationSearchUrlRequest;
-import duke.commons.exceptions.DukeException;
 import duke.logic.api.requests.DataMallHttpRequest;
 import duke.logic.api.requests.StaticMapUrlRequest;
 import duke.model.locations.BusStop;
 import duke.model.locations.Venue;
-import duke.model.transports.BusService;
 import javafx.scene.image.Image;
 
 import java.util.ArrayList;
@@ -21,9 +18,7 @@ import java.util.HashMap;
  */
 public class ApiParser {
 
-    private static final int FORWARD_DIRECTION = 1;
     private static final int MAX_BUS_STOP_DATA_SIZE = 5500;
-    private static final int MAX_BUS_SERVICE_DATA_SIZE = 26000;
     private static final int DATA_SIZE_PER_REQUEST = 500;
 
     /**
@@ -64,43 +59,6 @@ public class ApiParser {
         }
 
         return allBus;
-    }
-
-    /**
-     * Returns all bus routes in Singapore.
-     *
-     * @return Bus routes.
-     */
-    public static HashMap<String, BusService> getBusRoute() throws DukeException {
-        String path = "BusRoutes";
-        int skip = 0;
-        HashMap<String, BusService> busMap = new HashMap<>();
-        while (skip < MAX_BUS_SERVICE_DATA_SIZE) {
-            DataMallHttpRequest req = new DataMallHttpRequest("BusRoutes", path, Integer.toString(skip));
-            skip += DATA_SIZE_PER_REQUEST;
-            JsonObject jsonRes = req.execute();
-            JsonArray arr = jsonRes.getAsJsonArray("value");
-            for (int i = 0; i < arr.size(); i++) {
-                Direction direction;
-                String serviceNo = arr.get(i).getAsJsonObject().get("ServiceNo").getAsString();
-                if (arr.get(i).getAsJsonObject().get("Direction").getAsInt() == FORWARD_DIRECTION) {
-                    direction = Direction.FORWARD;
-                } else {
-                    direction = Direction.BACKWARD;
-                }
-                if (busMap.containsKey(serviceNo)) {
-                    busMap.get(serviceNo).addRoute(arr.get(i).getAsJsonObject().get("BusStopCode").getAsString(),
-                            direction);
-                } else {
-                    BusService bus = new BusService(serviceNo);
-                    busMap.put(serviceNo, bus);
-                    bus.addRoute(arr.get(i).getAsJsonObject().get("BusStopCode").getAsString(),
-                            direction);
-                }
-            }
-        }
-
-        return busMap;
     }
 
     /**

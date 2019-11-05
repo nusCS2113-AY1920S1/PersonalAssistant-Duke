@@ -9,7 +9,7 @@ import duke.logic.commands.Command;
 import duke.logic.commands.EditCommand;
 import duke.logic.commands.results.PanelResult;
 import duke.logic.parsers.EditorParser;
-import duke.logic.parsers.PromptParser;
+import duke.logic.parsers.commandparser.PromptParser;
 import duke.logic.selectors.EventFieldSelector;
 import duke.logic.selectors.LocationSelector;
 import duke.model.Event;
