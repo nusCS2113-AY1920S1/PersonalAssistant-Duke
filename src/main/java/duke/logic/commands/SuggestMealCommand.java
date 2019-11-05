@@ -108,7 +108,7 @@ public class SuggestMealCommand extends Command {
 
         Meal chosenMeal = suggestedMealList.get(mealSelectedIndex - 1);
         // TODO: Fix cost of meal
-        addCommand = new AddCommand(chosenMeal, "0");
+        addCommand = new AddCommand(chosenMeal);
         addCommand.execute(meals, storage, user, wallet);
         isDone = true;
     }

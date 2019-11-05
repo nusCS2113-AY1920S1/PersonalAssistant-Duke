@@ -1,36 +1,127 @@
 {
-  "2019-11-03": [
+  "2019-11-05": [
     {
-      "description": "hotcakes",
+      "description": "roti",
       "type": "B",
-      "isDone": false,
-      "date": "2019-11-03",
+      "isDone": true,
+      "date": "2019-11-05",
       "nutritionValue": {
-        "calorie": 600
+        "calorie": 200
       },
-      "cost": "0"
+      "costStr": "2.5"
     },
     {
-      "description": "tea",
-      "type": "B",
-      "isDone": false,
-      "date": "2019-11-03",
+      "description": "bun",
+      "type": "L",
+      "isDone": true,
+      "date": "2019-11-05",
       "nutritionValue": {
-        "calorie": 50
+        "calorie": 200
       },
-      "cost": "0"
+      "costStr": "3.5"
+    },
+    {
+      "description": "bunnybun",
+      "type": "B",
+      "isDone": true,
+      "date": "2019-11-05",
+      "nutritionValue": {
+        "calorie": 200
+      },
+      "costStr": "2.5"
+    },
+    {
+      "description": "caviar",
+      "type": "D",
+      "isDone": true,
+      "date": "2019-11-05",
+      "nutritionValue": {
+        "calorie": 500
+      },
+      "costStr": "20000"
+    },
+    {
+      "description": "gold",
+      "type": "D",
+      "isDone": true,
+      "date": "2019-11-05",
+      "nutritionValue": {
+        "calorie": 500
+      },
+      "costStr": "123123"
+    },
+    {
+      "description": "laksa",
+      "type": "L",
+      "isDone": true,
+      "date": "2019-11-05",
+      "nutritionValue": {
+        "calorie": 500,
+        "fat": 200
+      },
+      "costStr": "2.55"
+    },
+    {
+      "description": "diamond",
+      "type": "D",
+      "isDone": false,
+      "date": "2019-11-05",
+      "nutritionValue": {
+        "calorie": 500
+      },
+      "costStr": "25000"
+    },
+    {
+      "description": "bakpia",
+      "type": "D",
+      "isDone": true,
+      "date": "2019-11-05",
+      "nutritionValue": {
+        "calorie": 590
+      },
+      "costStr": "10"
+    },
+    {
+      "description": "steak",
+      "type": "D",
+      "isDone": true,
+      "date": "2019-11-05",
+      "nutritionValue": {
+        "calorie": 300
+      },
+      "costStr": "123"
     }
   ],
-  "2019-11-02": [
+  "2019-11-04": [
     {
-      "description": "burger",
+      "description": "roti",
       "type": "B",
-      "isDone": false,
-      "date": "2019-11-02",
+      "isDone": true,
+      "date": "2019-11-04",
       "nutritionValue": {
-        "calorie": 600
+        "calorie": 500
       },
-      "cost": "0"
+      "costStr": "2.50"
+    },
+    {
+      "description": "prata",
+      "type": "L",
+      "isDone": true,
+      "date": "2019-11-04",
+      "nutritionValue": {
+        "calorie": 200
+      },
+      "costStr": "3.00"
+    },
+    {
+      "description": "steak",
+      "type": "D",
+      "isDone": false,
+      "date": "2019-11-04",
+      "nutritionValue": {
+        "calorie": 700
+      },
+      "costStr": "0"
     }
   ]
 }

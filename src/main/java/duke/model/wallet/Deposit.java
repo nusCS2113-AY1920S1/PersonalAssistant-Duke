@@ -1,8 +1,10 @@
 package duke.model.wallet;
 
+import java.time.LocalDate;
+
 public class Deposit extends Transaction {
-    public Deposit(String amountString, String dateString) {
-        super(amountString, dateString);
+    public Deposit(String amountString, LocalDate date) {
+        super(amountString, date);
         super.type = "DEP";
     }
 

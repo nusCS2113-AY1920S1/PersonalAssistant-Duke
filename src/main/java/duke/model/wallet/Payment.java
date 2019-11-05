@@ -1,8 +1,10 @@
 package duke.model.wallet;
 
+import java.time.LocalDate;
+
 public class Payment extends Transaction {
-    public Payment(String amountString, String dateString) {
-        super(amountString, dateString);
+    public Payment(String amountString, LocalDate date) {
+        super(amountString, date);
         super.type = "PAY";
     }
 

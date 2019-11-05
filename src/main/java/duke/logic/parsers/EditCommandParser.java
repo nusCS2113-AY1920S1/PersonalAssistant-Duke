@@ -24,6 +24,7 @@ public class EditCommandParser implements ParserInterface<EditCommand> {
     @Override
     public EditCommand parse(String userInputStr) {
         String[] mealNameAndInfo;
+        String foodCostStr = "0";
         HashMap<String, String> nutritionInfoMap;
         DateTimeFormatter dateFormat = LOCAL_DATE_FORMATTER;
         LocalDate localDate = LocalDate.now();
@@ -37,7 +38,7 @@ public class EditCommandParser implements ParserInterface<EditCommand> {
         }
 
         for (String details : nutritionInfoMap.keySet()) {
-            if (details == "date") {
+            if (details.equals("date")) {
                 String dateArgStr = "";
                 try {
                     dateArgStr = nutritionInfoMap.get(details);
@@ -46,6 +47,8 @@ public class EditCommandParser implements ParserInterface<EditCommand> {
                     return new EditCommand(true, "Unable to parse" + dateArgStr + " as a date. "
                             + "Please follow DD/MM/YYYY format.");
                 }
+            } else if (details.equals("cost")) {
+                foodCostStr = nutritionInfoMap.get(details);
             } else {
                 String intArgStr = nutritionInfoMap.get(details);
                 try {
@@ -56,6 +59,6 @@ public class EditCommandParser implements ParserInterface<EditCommand> {
                 }
             }
         }
-        return new EditCommand(new Meal(mealNameAndInfo[0], localDate, nutritionInfoMap));
+        return new EditCommand(new Meal(mealNameAndInfo[0], localDate, nutritionInfoMap, foodCostStr));
     }
 }
