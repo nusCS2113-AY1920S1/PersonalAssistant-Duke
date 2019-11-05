@@ -6,7 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 class Deadline extends Task {
-  
+
     // Initialization
     Deadline(String name) {
         super(name);

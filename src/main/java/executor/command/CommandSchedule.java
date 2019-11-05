@@ -4,13 +4,11 @@ import executor.task.TaskList;
 import interpreter.Parser;
 import ui.Ui;
 import ui.Wallet;
-
-import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class CommandSchedule extends Command {
-    protected String userInput;
+    private String userInput;
 
     /**
      * Constructor for CommandSchedule subCommand Class.
@@ -41,8 +39,8 @@ public class CommandSchedule extends Command {
                     + dateInput
                     + ":\n");
             for (int index = 0; index < taskList.getSize(); ++index) {
-                LocalDate taskDate = taskList.getList().get(index).getDate();//creates of copy of datetime in the task
-                if (taskDate != null && taskDate.equals(userDate)) {
+                String taskDate = taskList.getList().get(index).getDate().format(formatter);//creates of copy of datetime in the task
+                if (taskDate.equals(userDate.format(formatter))) {
                     taskList.printTaskByIndex(index);
                 }
             }

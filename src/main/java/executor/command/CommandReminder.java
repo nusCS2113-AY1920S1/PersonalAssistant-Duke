@@ -4,12 +4,11 @@ import executor.task.Task;
 import executor.task.TaskList;
 import ui.Ui;
 import ui.Wallet;
-
 import java.time.LocalDate;
-import java.util.Date;
+import java.time.format.DateTimeFormatter;
 
 public class CommandReminder extends Command {
-    //private String[] reminders;
+
     private LocalDate currentDate;
 
     /**
@@ -23,6 +22,7 @@ public class CommandReminder extends Command {
         this.currentDate = LocalDate.now();
     }
 
+
     @Override
     public void execute(Wallet wallet) {
 
@@ -30,16 +30,18 @@ public class CommandReminder extends Command {
 
     @Override
     public void execute(TaskList taskList) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy");
         try {
             for (Task task : taskList.getList()) {
-                LocalDate dateOfTask = task.getDate();
-                if (dateOfTask != null && dateOfTask.equals(this.currentDate)) {
+                String dateOfTask = task.getDate().format(formatter);
+                if (dateOfTask.equals(this.currentDate.format(formatter))) {
                         Ui.dukeSays(task.genTaskDesc());
                         Ui.printSeparator();
                     }
                 }
             } catch (Exception e) {
-            System.out.println("sorry");
+            Ui.dukeSays("Please enter the correct format for reminder available if you"
+                    + "type help on the CLI ! \n");
         }
     }
 }
