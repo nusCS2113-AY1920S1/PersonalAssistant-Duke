@@ -2240,21 +2240,3 @@ Expected: Found matching `card` transaction record and displays the results.
 .. Test case:
 `/find /cardtransaction /name POBB Tomorrow Card /category food` +
 Expected: Found matching `card` transaction record and displays the results.
-
-=== Finding recurring expenditure in savings account
-
-. Searching for existing recurring expenditure based on description
-
-.. Prerequisites: There are at least one recurring expenditure and the `savings` account to be search must exist.
-
-.. Test case:
-`/find /recurbankexp /name JunBank Savings Account /desc bubble tea` +
-Expected: Found matching recurring expenditure in `savings` account and displays the results.
-
-. Searching for existing recurring expenditure based on category
-
-.. Prerequisites: There are at least one recurring expenditure and the `savings` account to be search must exist.
-
-.. Test case:
-`/find /recurbankexp /name JunBank Savings Account /category food` +
-Expected: Found matching recurring expenditure in `savings` account and displays the results.
