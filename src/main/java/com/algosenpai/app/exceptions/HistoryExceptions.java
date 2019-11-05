@@ -1,13 +1,19 @@
 package com.algosenpai.app.exceptions;
 
-import com.algosenpai.app.logic.constant.Commands;
+import com.algosenpai.app.logic.parser.Parser;
 
 import java.util.ArrayList;
 
 public class HistoryExceptions extends SenpaiExceptions {
-    public HistoryExceptions (String message) {
+    public HistoryExceptions(String message) {
         super(message);
     }
+
+    /**
+     * To check if the user entered more than one arguments behind the `history` command.
+     * @param historyList list of past commands user entered.
+     * @throws HistoryExceptions informs the user that input is invalid
+     */
 
     public static void checkInput(ArrayList<String> historyList) throws HistoryExceptions {
         if (historyList.size() != 2) {
@@ -15,12 +21,19 @@ public class HistoryExceptions extends SenpaiExceptions {
         }
     }
 
+    /**
+     * To check if the argument entered is an integer greater than 0 and fewer than the number of past commands made.
+     * @param historyList list of past commands user entered.
+     * @param arg whatever that comes after `history` entered by the user
+     * @throws HistoryExceptions informs user the respective error
+     */
+
     public static void checkArgument(ArrayList<String> historyList, String arg) throws HistoryExceptions {
-        if (!Commands.isInteger(arg)) {
+        if (!Parser.isInteger(arg)) {
             throw new HistoryExceptions(ErrorMessages.INVALID_TYPE_OF_ARGUMENT);
         } else {
             int num = Integer.parseInt(arg);
-            if (num > historyList.size()) {
+            if (num > historyList.size() || num < 1) {
                 throw new HistoryExceptions(ErrorMessages.INVALID_SIZE_OF_ARGUMENT);
             }
         }

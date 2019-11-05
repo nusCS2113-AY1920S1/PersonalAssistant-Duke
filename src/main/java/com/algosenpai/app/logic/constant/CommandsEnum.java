@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public enum Commands {
+public enum CommandsEnum {
     hello,
     menu,
     quiz,
@@ -29,24 +29,9 @@ public enum Commands {
      * @return List of strings
      */
     public static List<String> getNames() {
-        List<String> enumNames = Stream.of(Commands.values())
-                                       .map(Commands::name)
+        List<String> enumNames = Stream.of(CommandsEnum.values())
+                                       .map(CommandsEnum::name)
                                        .collect(Collectors.toList());
         return enumNames;
-    }
-
-    /**
-     * Finds out if a string is an integer.
-     * @param s input string
-     * @return boolean true if string is an integer else false otherwise
-     */
-
-    public static boolean isInteger(String s) {
-        try {
-            Integer.parseInt(s);
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
     }
 }

@@ -2,7 +2,8 @@
 
 package com.algosenpai.app.logic.command;
 
-import com.algosenpai.app.logic.constant.Commands;
+import com.algosenpai.app.logic.constant.CommandsEnum;
+import com.algosenpai.app.logic.parser.Parser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,10 +23,10 @@ public class InvalidCommand extends Command {
         String input = "";
         String arg = "";
         for (String i : inputs) {
-            if (!Commands.isInteger(i)) {
+            if (Parser.allCharacters(i)) {
                 input += i;
             } else {
-                arg = i;
+                arg += i;
             }
         }
         if (!compare(input).isEmpty()) {
@@ -44,7 +45,7 @@ public class InvalidCommand extends Command {
 
     private static String compare(String input) {
         int num = 100;
-        List<String> name = Commands.getNames();
+        List<String> name = CommandsEnum.getNames();
         ArrayList<String> strings = new ArrayList<>();
 
         for (String s: name) {
@@ -59,7 +60,7 @@ public class InvalidCommand extends Command {
                 strings.add(s);
             }
         }
-        return strings.toString();
+        return strings.toString().replace("[", "").replace("]","");
     }
 
     /**
