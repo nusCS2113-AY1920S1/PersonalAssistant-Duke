@@ -13,7 +13,6 @@ public class DoctorSpec extends ArgSpec {
     }
 
     private DoctorSpec() {
-        emptyArgMsg = "You didn't tell me what to do!";
         cmdArgLevel = ArgLevel.REQUIRED;
         initSwitches(
                 new Switch("switch", String.class, false, ArgLevel.REQUIRED, "s"),

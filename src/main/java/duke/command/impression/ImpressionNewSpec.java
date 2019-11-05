@@ -13,7 +13,6 @@ public class ImpressionNewSpec extends ArgSpec {
     }
 
     private ImpressionNewSpec() {
-        emptyArgMsg = "You didn't tell me anything about the new data to enter!";
         cmdArgLevel = ArgLevel.NONE;
         initSwitches(
                 new Switch("medicine", null, true, ArgLevel.NONE, "m"),

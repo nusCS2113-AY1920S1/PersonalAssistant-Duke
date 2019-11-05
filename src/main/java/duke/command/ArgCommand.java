@@ -89,10 +89,6 @@ public abstract class ArgCommand extends Command {
 
     // I hate Java
 
-    protected String getEmptyArgMsg() {
-        return getSpec().getEmptyArgMsg();
-    }
-
     protected ArgLevel getCmdArgLevel() {
         return getSpec().getCmdArgLevel();
     }

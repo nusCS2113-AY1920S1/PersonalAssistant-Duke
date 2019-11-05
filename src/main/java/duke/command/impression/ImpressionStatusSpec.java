@@ -12,7 +12,6 @@ public class ImpressionStatusSpec extends ArgSpec {
     }
 
     private ImpressionStatusSpec() {
-        emptyArgMsg = "You didn't tell me anything about the treatment whose status you want to change!";
         cmdArgLevel = ArgLevel.REQUIRED;
         initSwitches(
                 new Switch("set", Integer.class, true, ArgLevel.REQUIRED, "s")

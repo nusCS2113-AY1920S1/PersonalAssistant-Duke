@@ -13,7 +13,6 @@ public class PatientFindSpec extends ArgSpec {
     }
 
     private PatientFindSpec() {
-        emptyArgMsg = "You didn't tell me anything about the search!";
         cmdArgLevel = ArgLevel.REQUIRED;
         initSwitches(
                 new Switch("impression", String.class, true, ArgLevel.NONE, "i"),

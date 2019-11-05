@@ -13,7 +13,6 @@ public class HomeFindSpec extends ArgSpec {
     }
 
     private HomeFindSpec() {
-        emptyArgMsg = "You didn't tell me anything about the search!";
         cmdArgLevel = ArgLevel.REQUIRED;
         initSwitches(
                 new Switch("patient", String.class, true, ArgLevel.NONE, "p"),

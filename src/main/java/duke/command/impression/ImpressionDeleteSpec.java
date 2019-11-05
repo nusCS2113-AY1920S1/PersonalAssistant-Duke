@@ -12,7 +12,6 @@ public class ImpressionDeleteSpec extends ArgSpec {
     }
 
     private ImpressionDeleteSpec() {
-        emptyArgMsg = "You didn't tell me anything about the search!";
         cmdArgLevel = ArgLevel.OPTIONAL;
         initSwitches(
                 new Switch("evidence", String.class, true, ArgLevel.REQUIRED, "e"),

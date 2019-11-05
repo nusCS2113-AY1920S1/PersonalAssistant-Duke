@@ -12,7 +12,6 @@ public class PatientOpenSpec extends ArgSpec {
     }
 
     private PatientOpenSpec() {
-        emptyArgMsg = "You did not tell me what I should open!";
         cmdArgLevel = ArgLevel.REQUIRED;
         initSwitches(
                 new Switch("impression", String.class, true, ArgLevel.NONE, "im"),

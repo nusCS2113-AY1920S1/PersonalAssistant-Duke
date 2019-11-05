@@ -12,7 +12,6 @@ public class ImpressionResultSpec extends ArgSpec {
     }
 
     private ImpressionResultSpec() {
-        emptyArgMsg = "You didn't tell me anything about the investigation you want to convert to a result!";
         cmdArgLevel = ArgLevel.REQUIRED;
         initSwitches(
                 new Switch("summary", String.class, true, ArgLevel.REQUIRED, "sum")

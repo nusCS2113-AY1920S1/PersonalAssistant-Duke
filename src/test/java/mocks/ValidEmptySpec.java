@@ -12,7 +12,6 @@ public class ValidEmptySpec extends ArgSpec {
     }
 
     private ValidEmptySpec() {
-        emptyArgMsg = "You didn't tell me what to do!";
         cmdArgLevel = ArgLevel.OPTIONAL;
         initSwitches(
                 new Switch("switch", String.class, true, ArgLevel.REQUIRED, "s"),

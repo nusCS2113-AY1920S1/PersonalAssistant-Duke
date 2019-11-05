@@ -12,7 +12,6 @@ public class PatientPrimarySpec extends ArgSpec {
     }
 
     private PatientPrimarySpec() {
-        emptyArgMsg = "You did not tell me which impression to set as the primary diagnosis!";
         cmdArgLevel = ArgLevel.NONE;
         initSwitches(
                 new Switch("index", Integer.class, true, ArgLevel.REQUIRED, "i"),

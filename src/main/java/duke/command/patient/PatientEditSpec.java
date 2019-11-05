@@ -12,7 +12,6 @@ public class PatientEditSpec extends ArgSpec {
     }
 
     private PatientEditSpec() {
-        emptyArgMsg = "You did not tell me what you wish to edit for the patient!";
         cmdArgLevel = ArgLevel.NONE;
         initSwitches(
                 // TODO: Changes need to be made to Patient class. Update section in User Guide

@@ -13,7 +13,6 @@ public class ImpressionEditSpec extends ArgSpec {
     }
 
     private ImpressionEditSpec() {
-        emptyArgMsg = "You didn't tell me anything about the new data to enter!";
         cmdArgLevel = ArgLevel.NONE;
         initSwitches(
                 new Switch("append", null, true, ArgLevel.NONE, "a"),

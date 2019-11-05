@@ -89,13 +89,20 @@ public class ParserTest {
     }
 
     @Test
-    public void parseCommand_validEmptyCommand_errorNotThrown() {
+    public void parseCommand_validEmptyCommand_exceptionNotThrown() {
         try {
             Command testCmd = uut.parse("empty");
             assertEquals(ValidEmptyCommand.class, testCmd.getClass());
         } catch (DukeException excp) {
             fail("Exception thrown when parsing valid empty command: " + excp.getMessage());
         }
+    }
+
+    @Test
+    public void parseCommand_invalidEmptyCommand_exceptionThrown() {
+        System.out.println(assertThrows(DukeHelpException.class, () -> {
+            uut.parse("doctor       ");
+        }).getMessage());
     }
 
     @Test

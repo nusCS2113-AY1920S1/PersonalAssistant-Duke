@@ -12,7 +12,6 @@ public class ImpressionMoveSpec extends ArgSpec {
     }
 
     private ImpressionMoveSpec() {
-        emptyArgMsg = "You didn't tell me what to move!";
         cmdArgLevel = ArgLevel.OPTIONAL;
         initSwitches(
                 new Switch("evidence", String.class, true, ArgLevel.REQUIRED, "e"),

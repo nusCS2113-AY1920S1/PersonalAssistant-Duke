@@ -13,7 +13,6 @@ public class ImpressionFindSpec extends ArgSpec {
     }
 
     private ImpressionFindSpec() {
-        emptyArgMsg = "You didn't tell me anything about the search!";
         cmdArgLevel = ArgLevel.REQUIRED;
         initSwitches(
                 new Switch("evidence", String.class, true, ArgLevel.NONE, "e"),

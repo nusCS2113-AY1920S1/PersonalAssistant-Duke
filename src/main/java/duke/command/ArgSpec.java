@@ -12,7 +12,6 @@ import java.util.Set;
  * {@code cmdArgLevel} and {@code emptyArgMsg}, and which calls {@code switchInit()}.
  */
 public abstract class ArgSpec {
-    protected String emptyArgMsg;
     protected ArgLevel cmdArgLevel;
     protected Map<String, Switch> switchMap;
     protected Map<String, String> switchAliases;
@@ -27,10 +26,6 @@ public abstract class ArgSpec {
 
     public Map<String, String> getSwitchAliases() {
         return switchAliases;
-    }
-
-    public String getEmptyArgMsg() {
-        return emptyArgMsg;
     }
 
     protected void initSwitches(Switch... switches) {

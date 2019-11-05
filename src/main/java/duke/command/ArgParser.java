@@ -28,16 +28,11 @@ public class ArgParser {
     public void parseArgument(ArgCommand command, String inputStr) throws DukeException {
         currCommand = command;
         assert (!inputStr.contains("\r"));
-        if (inputStr.length() == 0) {
-            checkEmptyString();
-        }
 
         state = ParseState.EMPTY;
         currSwitchName = null;
         elementBuilder = new StringBuilder();
         isEscaped = false;
-
-        // TODO: identify situations with command arguments after no-arg switches
 
         //FSM :D
         for (int i = 0; i < inputStr.length(); ++i) {
@@ -190,13 +185,13 @@ public class ArgParser {
     private void addSwitch() throws DukeHelpException {
         String newSwitchName = elementBuilder.toString().toLowerCase();
 
-        // previous switch was not given an argument
+        // if previous switch was not given an argument, set to null
         if (currSwitchName != null) {
             currCommand.initSwitchVal(currSwitchName, null);
         }
 
         // search for switch name in switch name map, then use algorithm to find it if necessary
-        if (currCommand.hasSwitch(newSwitchName)) {
+        if (!currCommand.hasSwitch(newSwitchName)) {
             String findSwitchName = CommandUtils.findSwitch(newSwitchName, currCommand);
             if (findSwitchName == null) {
                 throw new DukeHelpException("I don't know what this switch is: " + newSwitchName, currCommand);
@@ -206,23 +201,5 @@ public class ArgParser {
 
         currSwitchName = newSwitchName;
         elementBuilder.setLength(0); //clear elementBuilder
-    }
-
-    // TODO refactor into argcommand
-    private void checkEmptyString() throws DukeException {
-        boolean canBeEmpty = true;
-        if (currCommand.getCmdArgLevel() == ArgLevel.REQUIRED) {
-            canBeEmpty = false;
-        } else {
-            for (Switch switchData : currCommand.getSwitchMap().values()) {
-                if (!switchData.isOptional) {
-                    canBeEmpty = false;
-                    break;
-                }
-            }
-        }
-        if (!canBeEmpty) {
-            throw new DukeException(currCommand.getEmptyArgMsg());
-        }
     }
 }

@@ -12,7 +12,6 @@ public class PatientDeleteSpec extends ArgSpec {
     }
 
     private PatientDeleteSpec() {
-        emptyArgMsg = "You did not tell me anything about what to delete!";
         cmdArgLevel = ArgLevel.NONE;
         initSwitches(
                 new Switch("critical", String.class, true, ArgLevel.OPTIONAL, "c"),

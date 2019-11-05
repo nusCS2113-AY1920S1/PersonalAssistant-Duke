@@ -12,7 +12,6 @@ public class HomeOpenSpec extends ArgSpec {
     }
 
     private HomeOpenSpec() {
-        emptyArgMsg = "You did not tell me anything about the patient you wish to access!";
         cmdArgLevel = ArgLevel.OPTIONAL;
         initSwitches(
                 new Switch("bed", String.class, true, ArgLevel.REQUIRED, "b"),

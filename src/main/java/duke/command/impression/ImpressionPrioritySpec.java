@@ -12,7 +12,6 @@ public class ImpressionPrioritySpec extends ArgSpec {
     }
 
     private ImpressionPrioritySpec() {
-        emptyArgMsg = "You didn't tell me anything about the data whose priority you want to change!";
         cmdArgLevel = ArgLevel.OPTIONAL;
         initSwitches(
                 new Switch("evidence", String.class, true, ArgLevel.REQUIRED, "e"),
