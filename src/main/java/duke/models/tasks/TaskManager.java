@@ -47,7 +47,7 @@ public class TaskManager {
      * Finds all the tasks which contain the given description.
      *
      * @param description contains the description to be searched.
-     * @return an ArrayList of tasks that contain the given description.
+     * @return            an ArrayList of tasks that contain the given description.
      */
     public ArrayList<Task> getTaskByDescription(String description) {
         description = description.toLowerCase();
@@ -61,9 +61,9 @@ public class TaskManager {
     }
 
     /**
-     * Adds a Task to the list.
+     * It adds a Task to the list.
      *
-     * @param taskToBeAdded contains the Task to be added to the list.
+     * @param taskToBeAdded  contains the Task to be added to the list.
      * @throws DukeException if the task is not added successfully.
      */
     public void addTask(Task taskToBeAdded) throws DukeException {
@@ -83,9 +83,10 @@ public class TaskManager {
     }
 
     /**
-     * Removes the Task with the given index from the list.
+     * It removes the task with the given id of the task.
      *
-     * @param id The index of the Task to be deleted.
+     * @param id             contains the id of the Task to be deleted.
+     * @throws DukeException if the task with the id does not exist.
      */
     public void deleteTask(int id) throws DukeException {
         if (taskIdMap.containsKey(id)) {
@@ -97,10 +98,10 @@ public class TaskManager {
     }
 
     /**
-     * .
+     * It checks whether a task exists.
      *
-     * @param id .
-     * @return .
+     * @param  id contains the id of the task.
+     * @return    true if the task exists, otherwise false.
      */
     public boolean doesExist(int id) {
         if (taskIdMap.containsKey(id)) {
@@ -113,8 +114,8 @@ public class TaskManager {
     /**
      * Returns the Task in the list with the given index.
      *
-     * @param id The index of the Task.
-     * @return The Task in the list with the specific index.
+     * @param id contains the id of the Task.
+     * @return   the task in the list with the specific id.
      */
     public Task getTask(int id) throws DukeException {
         if (taskIdMap.containsKey(id)) {
@@ -125,9 +126,9 @@ public class TaskManager {
     }
 
     /**
-     * .
+     * It retrieves all the task in the list.
      *
-     * @return .
+     * @return the list of tasks.
      */
     public ArrayList<Task> getTaskList() {
         return new ArrayList<>(taskIdMap.values());

@@ -4,18 +4,17 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
 /**
- * Represents a task.  Task is an abstract class that can not be
- * instantiated
+ * Represents a task.
  */
 public class Task {
     private SimpleIntegerProperty id = new SimpleIntegerProperty(0);
     private SimpleStringProperty description;
 
     /**
-     * .
+     * Initialises the fields of a task.
      *
-     * @param id          .
-     * @param description .
+     * @param id          contains the id of a task which is an integer.
+     * @param description contains the description of a task which is a string.
      */
     public Task(int id, String description) {
         this.id = new SimpleIntegerProperty(id);
@@ -23,54 +22,45 @@ public class Task {
     }
 
     /**
-     * .
+     * Initialises the minimum fields required to setup a task.
      *
-     * @param description .
+     * @param description contains the description of a task which is a string.
      */
     public Task(String description) {
         this.description = new SimpleStringProperty(description);
     }
 
     /**
-     * Returns a string with the status icon and the description of the task.
+     * It retrieves the id of the task.
      *
-     * @return A string in a specific format with the status and description of the task.
-     */
-    public String printDescription() {
-        return " " + description + " ";
-    }
-
-    /**
-     * Returns the description of the task.
-     *
-     * @return A string that represents the specific activity associated with the task.
+     * @return the id of the task which is an integer.
      */
     public int getId() {
         return this.id.get();
     }
 
     /**
-     * .
+     * It retrieves the description of the task.
      *
-     * @return .
+     * @return the description of the task.
      */
     public String getDescription() {
         return this.description.get();
     }
 
     /**
-     * .
+     * It sets the id of the task.
      *
-     * @param id .
+     * @param id contains the id which is an integer.
      */
     public void setId(int id) {
         this.id.set(id);
     }
 
     /**
-     * .
+     * It sets the description of the task.
      *
-     * @param description .
+     * @param description contains the description which is an string.
      */
     public void setDescription(String description) {
         this.description.set(description);
