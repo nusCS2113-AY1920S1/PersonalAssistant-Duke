@@ -1894,9 +1894,9 @@ Persistent Storage for card related function are not enabled.
 
 . Initial launch
 
-.. Download `OwlMoney-v1.3.jar` file and copy into an empty folder.
-.. Open a *Command Prompt* or *Powershell*, navigate to the folder where you placed `OwlMoney-v1.3.jar`
-in and type `java -jar ./OwlMoney-v1.3.jar` to start *OwlMoney*. +
+.. Download `OwlMoney-v1.4.jar` file and copy into an empty folder.
+.. Open a *Command Prompt* or *Powershell*, navigate to the folder where you placed `OwlMoney-v1.4.jar`
+in and type `java -jar ./OwlMoney-v1.4.jar` to start *OwlMoney*. +
    Expected: Shows the CLI stating that a profile cannot be loaded since this is the first time *OwlMoney* is
 starting up. *Maximise* the *Command Prompt* or *Powershell* to enjoy the best experience *OwlMoney* has to offer.
 .. Enter your name to create your profile for the first time. (e.g. john)
@@ -1963,7 +1963,7 @@ Expected: Updated amount of the `savings` account being displayed after being ed
 .. Test case: `/edit /investment /name DBB Vickers Account /newname BBB Vickers Account` +
 Expected: Updated name of the `investment` account being displayed after being edited.
 
-. Editing the amount of a `investment` account
+. Editing the amount of an `investment` account
 
 .. Prerequisites: There is an existing `investment` account to be edited.
 

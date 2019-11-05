@@ -777,7 +777,7 @@ public class Profile {
         try {
             importData = storage.readFile(fileName);
         } catch (IOException | NullPointerException e) {
-            ui.printError("Unable");
+            ui.printError("Unable to import data from persistent storage");
         }
         return importData;
     }
@@ -1369,7 +1369,7 @@ public class Profile {
      * @throws ParseException if there are errors parsing date or double.
      */
     private void iterateCardsToAddTransaction() throws ParseException {
-        if (storage.isFileExist(PROFILE_BANK_LIST_FILE_NAME)) {
+        if (storage.isFileExist(PROFILE_CARD_LIST_FILE_NAME)) {
             List<String[]> importCardData = importListDataFromStorage(PROFILE_CARD_LIST_FILE_NAME, ui);
             for (int i = 0; i < importCardData.size(); i++) {
                 String cardName = importCardData.get(i)[0];
