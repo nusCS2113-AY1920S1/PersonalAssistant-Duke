@@ -1,11 +1,10 @@
 package moomoo.command;
 
-import moomoo.task.ScheduleList;
-import moomoo.task.Budget;
-import moomoo.task.category.CategoryList;
-import moomoo.task.Ui;
-import moomoo.task.Storage;
-import moomoo.task.category.Category;
+import moomoo.feature.ScheduleList;
+import moomoo.feature.Budget;
+import moomoo.feature.category.CategoryList;
+import moomoo.feature.Ui;
+import moomoo.feature.storage.Storage;
 
 /**
  * Represents the command to exit the program.
@@ -21,7 +20,7 @@ public class ExitCommand extends Command {
     }
 
     @Override
-    public void execute(ScheduleList calendar, Budget budget, CategoryList catList, Category category,
+    public void execute(ScheduleList calendar, Budget budget, CategoryList categoryListList,
                         Ui ui, Storage storage) {
         ui.showGoodbye();
     }

@@ -1,6 +1,6 @@
-package moomoo.task;
+package moomoo.feature;
 
-import moomoo.task.category.CategoryList;
+import moomoo.feature.category.CategoryList;
 
 public class MainDisplay {
 
@@ -109,7 +109,7 @@ public class MainDisplay {
 
         for (int row = 0; row < rows; row++) {             // Run this loop once for each Category
             blankSpaceCat = "";
-            for (int j = 0; j < 14 - categoryList.get(row).toString().length(); j++) {
+            for (int j = 0; j < 14 - categoryList.get(row).name().length(); j++) {
                 blankSpaceCat += " ";
             }
             if (row == 0) {
@@ -120,7 +120,7 @@ public class MainDisplay {
             }
 
 
-            output += categoryList.get(row).toString() + blankSpaceCat + "|";
+            output += categoryList.get(row).name() + blankSpaceCat + "|";
 
             for (int col = 0; col < categoryList.get(row).size(); col++) {   // Run this loop once for each expenditure
                 blankSpaceExp = "";
@@ -148,10 +148,10 @@ public class MainDisplay {
             }
 
             double bud = 0.0;
-            if (budget.getBudgetFromCategory(categoryList.get(row).toString()) != 0.0) {
-                bud = budget.getBudgetFromCategory(categoryList.get(row).toString());
+            if (budget.getBudgetFromCategory(categoryList.get(row).name()) != 0.0) {
+                bud = budget.getBudgetFromCategory(categoryList.get(row).name());
                 blankSpaceBud = "";
-                String budgetStr = Double.toString(budget.getBudgetFromCategory(categoryList.get(row).toString()));
+                String budgetStr = Double.toString(budget.getBudgetFromCategory(categoryList.get(row).name()));
                 for (int k = 0; k < 13 - budgetStr.length(); k++) {
                     blankSpaceBud += " ";
                 }

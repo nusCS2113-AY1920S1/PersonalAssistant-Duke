@@ -2,12 +2,11 @@ package moomoo.command;
 
 import moomoo.stubs.CategoryStub;
 import moomoo.stubs.CategoryListStub;
-import moomoo.stubs.ExpenditureStub;
 import moomoo.stubs.ScheduleListStub;
 import moomoo.stubs.StorageStub;
 import moomoo.stubs.UiStub;
-import moomoo.task.Budget;
-import moomoo.task.MooMooException;
+import moomoo.feature.Budget;
+import moomoo.feature.MooMooException;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
@@ -55,10 +54,36 @@ public class BudgetCommandTest {
         Budget newBudget = new Budget();
 
         SetBudgetCommand setBudget = new SetBudgetCommand(false, categories, budgets);
-        setBudget.execute(newCalendar, newBudget, newCatList, newCategory, newUi, newStorage);
-
-        assertEquals("You have set $50.00 as the budget for shoes\n"
-                + "You have set $100.00 as the budget for food\n"
+        setBudget.execute(newCalendar, newBudget, newCatList, newUi, newStorage);
+        assertEquals(
+                ".__________________________________.\n"
+                        + "| ___ _   _ ___   ___ ___ _____    |\n"
+                        + "|| _ ) | | |   \\ / __| _ |_   _|   |\n"
+                        + "|| _ \\ |_| | |) | (_ | _|  | |     |\n"
+                        + "||___/\\___/|___/ \\___|___| |_|     |\n"
+                        + "|                                  |\n"
+                        + "|Category : shoes                  |\n"
+                        + "|$50.00                            |\n"
+                        + ".----------------------------------.\n"
+                        + "        \\   ^__^\n"
+                        + "         \\  (oo)\\_______\n"
+                        + "            (__)\\       )\\/\\\n"
+                        + "                ||----w |\n"
+                        + "                ||     ||\n"
+                + ".__________________________________.\n"
+                        + "| ___ _   _ ___   ___ ___ _____    |\n"
+                        + "|| _ ) | | |   \\ / __| _ |_   _|   |\n"
+                        + "|| _ \\ |_| | |) | (_ | _|  | |     |\n"
+                        + "||___/\\___/|___/ \\___|___| |_|     |\n"
+                        + "|                                  |\n"
+                        + "|Category : food                   |\n"
+                        + "|$100.00                           |\n"
+                        + ".----------------------------------.\n"
+                        + "        \\   ^__^\n"
+                        + "         \\  (oo)\\_______\n"
+                        + "            (__)\\       )\\/\\\n"
+                        + "                ||----w |\n"
+                        + "                ||     ||\n"
                 + "Please set your budget for places to go to a value more than 0\n"
                 + "test value category does not exist. Please add it first.\n", newUi.returnResponse());
     }
@@ -98,14 +123,14 @@ public class BudgetCommandTest {
         Budget newBudget = new Budget();
 
         SetBudgetCommand setBudget = new SetBudgetCommand(false, categories, budgets);
-        setBudget.execute(newCalendar, newBudget, newCatList, newCategory, newUi, newStorage);
+        setBudget.execute(newCalendar, newBudget, newCatList, newUi, newStorage);
 
         budgets.set(0, 300.0);
         budgets.set(1, -675.0);
         budgets.set(2, 675.0);
 
         EditBudgetCommand editBudget = new EditBudgetCommand(false, categories, budgets);
-        editBudget.execute(newCalendar, newBudget, newCatList, newCategory, newUi, newStorage);
+        editBudget.execute(newCalendar, newBudget, newCatList, newUi, newStorage);
 
         assertEquals("You have changed the budget for shoes from $123.45 to $300.00\n"
                 + "Please set your budget for window to a value more than 0\n"
@@ -150,7 +175,7 @@ public class BudgetCommandTest {
         Budget newBudget = new Budget();
 
         SetBudgetCommand setBudget = new SetBudgetCommand(false, categories, budgets);
-        setBudget.execute(newCalendar, newBudget, newCatList, newCategory, newUi, newStorage);
+        setBudget.execute(newCalendar, newBudget, newCatList, newUi, newStorage);
 
         ArrayList<String> listCategories = new ArrayList<>();
 
@@ -161,7 +186,7 @@ public class BudgetCommandTest {
         listCategories.add("sweets");
 
         ListBudgetCommand listBudget = new ListBudgetCommand(false, listCategories);
-        listBudget.execute(newCalendar, newBudget, newCatList, newCategory, newUi, newStorage);
+        listBudget.execute(newCalendar, newBudget, newCatList, newUi, newStorage);
 
         assertEquals("Budget for shoes is $183.00\n"
                 + "Budget for food is $128.00\n"
@@ -209,13 +234,13 @@ public class BudgetCommandTest {
         Budget newBudget = new Budget();
 
         SetBudgetCommand setBudget = new SetBudgetCommand(false, categories, budgets);
-        setBudget.execute(newCalendar, newBudget, newCatList, newCategory, newUi, newStorage);
+        setBudget.execute(newCalendar, newBudget, newCatList, newUi, newStorage);
 
         LocalDate startDate = LocalDate.of(2019, 9, 15);
         LocalDate endDate = LocalDate.of(2019, 11, 15);
 
         SavingsBudgetCommand savingsBudget = new SavingsBudgetCommand(false, categories, startDate, endDate);
-        savingsBudget.execute(newCalendar, newBudget, newCatList, newCategory, newUi, newStorage);
+        savingsBudget.execute(newCalendar, newBudget, newCatList, newUi, newStorage);
 
         assertEquals("slippers category does not exist. Please create it first.\n"
                 + "Your savings for window from SEPTEMBER 2019 to NOVEMBER 2019 is: $2549.00\n"
@@ -224,7 +249,7 @@ public class BudgetCommandTest {
                 + "Your total savings: $2511.67\n", newUi.returnResponse());
 
         savingsBudget = new SavingsBudgetCommand(false, categories, startDate, null);
-        savingsBudget.execute(newCalendar, newBudget, newCatList, newCategory, newUi, newStorage);
+        savingsBudget.execute(newCalendar, newBudget, newCatList, newUi, newStorage);
 
         assertEquals("slippers category does not exist. Please create it first.\n"
                 + "Your savings for window for SEPTEMBER 2019 is: $788.00\n"
@@ -236,7 +261,7 @@ public class BudgetCommandTest {
         assertEquals(0, categories.size());
 
         savingsBudget = new SavingsBudgetCommand(false, categories, startDate, null);
-        savingsBudget.execute(newCalendar, newBudget, newCatList, newCategory, newUi, newStorage);
+        savingsBudget.execute(newCalendar, newBudget, newCatList, newUi, newStorage);
 
         assertEquals("The budget for shoes does not exist. Please set it using budget set.\n"
                 + "The budget for food does not exist. Please set it using budget set.\n"
@@ -255,7 +280,7 @@ public class BudgetCommandTest {
         endDate = LocalDate.of(2019, 2, 15);
 
         savingsBudget = new SavingsBudgetCommand(false, categories, startDate, endDate);
-        savingsBudget.execute(newCalendar, newBudget, newCatList, newCategory, newUi, newStorage);
+        savingsBudget.execute(newCalendar, newBudget, newCatList, newUi, newStorage);
 
         assertEquals("Your savings for laptop from SEPTEMBER 2017 to FEBRUARY 2019 is: $1066.02\n"
                 + "Your total savings: $1066.02\n", newUi.returnResponse());

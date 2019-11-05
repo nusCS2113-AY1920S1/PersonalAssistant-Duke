@@ -1,11 +1,9 @@
-package moomoo.task.category;
+package moomoo.feature.category;
 
-import moomoo.task.MooMooException;
-import moomoo.task.Ui;
+import moomoo.feature.MooMooException;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Comparator;
 
 public class CategoryList {
     
@@ -27,9 +25,8 @@ public class CategoryList {
         categoryList.add(newCategory);
     }
 
-    public void delete(String categoryName) throws MooMooException {
-        int categoryNumber = find(categoryName);
-        categoryList.remove(categoryNumber);
+    public void delete(int categoryIndex) {
+        categoryList.remove(categoryIndex);
     }
 
     /**
@@ -39,7 +36,7 @@ public class CategoryList {
      */
     public Category get(String value) throws MooMooException {
         for (Category iterCategory : categoryList) {
-            if (iterCategory.toString().equalsIgnoreCase(value)) {
+            if (iterCategory.name().equalsIgnoreCase(value)) {
                 return iterCategory;
             }
         }
@@ -54,9 +51,15 @@ public class CategoryList {
         return categoryList;
     }
 
-    private int find(String categoryName) throws MooMooException {
+    /**
+     * Finds a category within the category list.
+     * @param categoryName category to find
+     * @return index of the category to be found
+     * @throws MooMooException thrown if category is not in the category list
+     */
+    public int find(String categoryName) throws MooMooException {
         for (int i = 0; i < size(); i++) {
-            if (get(i).toString().contentEquals(categoryName)) {
+            if (get(i).name().contentEquals(categoryName)) {
                 return i;
             }
         }
@@ -123,8 +126,8 @@ public class CategoryList {
     public int getLongestCategory() {
         int longestName = 0;
         for (Category category : categoryList) {
-            if (category.toString().length() > longestName) {
-                longestName = category.toString().length();
+            if (category.name().length() > longestName) {
+                longestName = category.name().length();
             }
             if (longestName >= 14) {
                 longestName = 14;
@@ -133,20 +136,6 @@ public class CategoryList {
         }
         
         return longestName;
-    }
-
-    /**
-     * Prints the current list of categories.
-     * @param ui MooMoo's ui
-     */
-    public void list(Ui ui) {
-        String categoryList = "";
-        for (int i = 0; i < this.categoryList.size(); i++) {
-            categoryList = categoryList.concat("\n" + i + ". "
-                    + this.categoryList.get(i).toString()
-                    + " [ $" + this.categoryList.get(i).getTotal() + " ]");
-        }
-        ui.showCategoryList(categoryList);
     }
 
     /**

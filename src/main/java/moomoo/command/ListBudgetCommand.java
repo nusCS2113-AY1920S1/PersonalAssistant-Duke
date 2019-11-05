@@ -1,12 +1,11 @@
 package moomoo.command;
 
-import moomoo.task.Budget;
-import moomoo.task.ScheduleList;
-import moomoo.task.Storage;
-import moomoo.task.Ui;
-import moomoo.task.MooMooException;
-import moomoo.task.category.Category;
-import moomoo.task.category.CategoryList;
+import moomoo.feature.Budget;
+import moomoo.feature.ScheduleList;
+import moomoo.feature.storage.Storage;
+import moomoo.feature.Ui;
+import moomoo.feature.MooMooException;
+import moomoo.feature.category.CategoryList;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -30,13 +29,13 @@ public class ListBudgetCommand extends Command {
     }
 
     @Override
-    public void execute(ScheduleList calendar, Budget budget, CategoryList catList, Category category,
+    public void execute(ScheduleList calendar, Budget budget, CategoryList categoryListList,
                         Ui ui, Storage storage) throws MooMooException {
         String outputValue = "";
         double currentBudget = 0;
         if (categories.size() == 0) {
-            for (int i = 0; i < catList.getCategoryList().size(); ++i) {
-                String categoryName = catList.getCategoryList().get(i).toString();
+            for (int i = 0; i < categoryListList.getCategoryList().size(); ++i) {
+                String categoryName = categoryListList.getCategoryList().get(i).name().toLowerCase();
                 currentBudget = budget.getBudgetFromCategory(categoryName);
                 if (currentBudget == 0) {
                     outputValue += "Budget for " + categoryName + " has not been set\n";
@@ -52,7 +51,7 @@ public class ListBudgetCommand extends Command {
         for (int i = 0; i < categories.size(); ++i) {
             String categoryName = categories.get(i).toLowerCase();
 
-            if (catList.get(categoryName) != null) {
+            if (categoryListList.get(categoryName) != null) {
                 currentBudget = budget.getBudgetFromCategory(categoryName);
                 if (currentBudget == 0) {
                     outputValue += "Budget for " + categoryName + " has not been set.\n";

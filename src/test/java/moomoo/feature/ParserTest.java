@@ -1,6 +1,7 @@
-package moomoo.task;
+package moomoo.feature;
 
 import moomoo.command.Command;
+import moomoo.feature.parser.Parser;
 import moomoo.stubs.CategoryListStub;
 import moomoo.stubs.CategoryStub;
 import moomoo.stubs.ScheduleListStub;
@@ -8,7 +9,6 @@ import moomoo.stubs.StorageStub;
 import moomoo.stubs.UiStub;
 import org.junit.jupiter.api.Test;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -46,21 +46,21 @@ public class ParserTest {
 
         try {
             Command c = newParser.parse("budget savings s/01/2019 e/14/2019", newUi);
-            c.execute(newCalendar, newBudget, newCatList, newCategory, newUi, newStorage);
+            c.execute(newCalendar, newBudget, newCatList, newUi, newStorage);
         } catch (MooMooException e) {
             assertEquals("Please set an end month and year in this format \"e/01/2019\"\n", e.getMessage());
         }
 
         try {
             Command c = newParser.parse("budget savings s/13/2019 e/14/2019", newUi);
-            c.execute(newCalendar, newBudget, newCatList, newCategory, newUi, newStorage);
+            c.execute(newCalendar, newBudget, newCatList, newUi, newStorage);
         } catch (MooMooException e) {
             assertEquals("Please set a start month and year in this format \"s/01/2019\"\n", e.getMessage());
         }
 
         try {
             Command c = newParser.parse("budget savings s/invalid input", newUi);
-            c.execute(newCalendar, newBudget, newCatList, newCategory, newUi, newStorage);
+            c.execute(newCalendar, newBudget, newCatList, newUi, newStorage);
         } catch (MooMooException e) {
             assertEquals("Please input in this format \"c/CATEGORY "
                     + "s/STARTMONTHYEAR e/ENDMONTHYEAR\"\n", e.getMessage());
@@ -68,7 +68,7 @@ public class ParserTest {
 
         try {
             Command c = newParser.parse("budget savings s/invalid", newUi);
-            c.execute(newCalendar, newBudget, newCatList, newCategory, newUi, newStorage);
+            c.execute(newCalendar, newBudget, newCatList, newUi, newStorage);
         } catch (MooMooException e) {
             assertEquals("Please set a start month and year in this format \"s/01/2019\"\n", e.getMessage());
         }
@@ -86,14 +86,54 @@ public class ParserTest {
         newCatList.add(null);
 
         Command c = newParser.parse("budget set c/food c/laptop b/123.45 c/places to go b/150", newUi);
-        c.execute(newCalendar, newBudget, newCatList, newCategory, newUi, newStorage);
-        assertEquals("You have set $123.45 as the budget for food\n"
-                + "You have set $123.45 as the budget for laptop\n"
-                + "You have set $150.00 as the budget for places to go\n", newUi.returnResponse());
+        c.execute(newCalendar, newBudget, newCatList, newUi, newStorage);
+        assertEquals(
+                ".__________________________________.\n"
+                + "| ___ _   _ ___   ___ ___ _____    |\n"
+                + "|| _ ) | | |   \\ / __| _ |_   _|   |\n"
+                + "|| _ \\ |_| | |) | (_ | _|  | |     |\n"
+                + "||___/\\___/|___/ \\___|___| |_|     |\n"
+                + "|                                  |\n"
+                + "|Category : food                   |\n"
+                + "|$123.45                           |\n"
+                + ".----------------------------------.\n"
+                + "        \\   ^__^\n"
+                + "         \\  (oo)\\_______\n"
+                + "            (__)\\       )\\/\\\n"
+                + "                ||----w |\n"
+                + "                ||     ||\n"
+                + ".__________________________________.\n"
+                + "| ___ _   _ ___   ___ ___ _____    |\n"
+                + "|| _ ) | | |   \\ / __| _ |_   _|   |\n"
+                + "|| _ \\ |_| | |) | (_ | _|  | |     |\n"
+                + "||___/\\___/|___/ \\___|___| |_|     |\n"
+                + "|                                  |\n"
+                + "|Category : laptop                 |\n"
+                + "|$123.45                           |\n"
+                + ".----------------------------------.\n"
+                + "        \\   ^__^\n"
+                + "         \\  (oo)\\_______\n"
+                + "            (__)\\       )\\/\\\n"
+                + "                ||----w |\n"
+                + "                ||     ||\n"
+                + ".__________________________________.\n"
+                + "| ___ _   _ ___   ___ ___ _____    |\n"
+                + "|| _ ) | | |   \\ / __| _ |_   _|   |\n"
+                + "|| _ \\ |_| | |) | (_ | _|  | |     |\n"
+                + "||___/\\___/|___/ \\___|___| |_|     |\n"
+                + "|                                  |\n"
+                + "|Category : places to go           |\n"
+                + "|$150.00                           |\n"
+                + ".----------------------------------.\n"
+                + "        \\   ^__^\n"
+                + "         \\  (oo)\\_______\n"
+                + "            (__)\\       )\\/\\\n"
+                + "                ||----w |\n"
+                + "                ||     ||\n", newUi.returnResponse());
 
         try {
             c = newParser.parse("budget set b/100 c/places to go b/150", newUi);
-            c.execute(newCalendar, newBudget, newCatList, newCategory, newUi, newStorage);
+            c.execute(newCalendar, newBudget, newCatList, newUi, newStorage);
 
         } catch (MooMooException e) {
             assertEquals("Please input in this format \"c/CATEGORY b/BUDGET\"", e.getMessage());
@@ -112,17 +152,17 @@ public class ParserTest {
         StorageStub newStorage = new StorageStub();
 
         Command c = newParser.parse("budget set c/food b/100 c/laptop b/125 c/places to go b/123", newUi);
-        c.execute(newCalendar, newBudget, newCatList, newCategory, newUi, newStorage);
+        c.execute(newCalendar, newBudget, newCatList, newUi, newStorage);
 
         c = newParser.parse("budget edit c/food c/laptop b/100 c/places to go b/150", newUi);
-        c.execute(newCalendar, newBudget, newCatList, newCategory, newUi, newStorage);
+        c.execute(newCalendar, newBudget, newCatList, newUi, newStorage);
         assertEquals("The budget for food is the same.\n"
             + "You have changed the budget for laptop from $125.00 to $100.00\n"
             + "You have changed the budget for places to go from $123.00 to $150.00\n", newUi.returnResponse());
 
         try {
             c = newParser.parse("budget edit b/100 c/places to go b/150", newUi);
-            c.execute(newCalendar, newBudget, newCatList, newCategory, newUi, newStorage);
+            c.execute(newCalendar, newBudget, newCatList, newUi, newStorage);
 
         } catch (MooMooException e) {
             assertEquals("Please input in this format \"c/CATEGORY b/BUDGET\"", e.getMessage());

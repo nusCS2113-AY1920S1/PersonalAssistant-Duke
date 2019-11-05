@@ -1,8 +1,7 @@
 package moomoo.stubs;
 
-import moomoo.task.category.Expenditure;
+import moomoo.feature.category.Expenditure;
 
-import java.time.LocalDateTime;
 import java.time.LocalDate;
 
 public class ExpenditureStub extends Expenditure {

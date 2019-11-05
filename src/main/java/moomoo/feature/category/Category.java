@@ -1,4 +1,4 @@
-package moomoo.task.category;
+package moomoo.feature.category;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -33,7 +33,7 @@ public class Category {
         return category.get(i);
     }
 
-    public String toString() {
+    public String name() {
         return categoryName;
     }
 

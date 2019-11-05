@@ -1,4 +1,4 @@
-package moomoo.task.category;
+package moomoo.feature.category;
 
 import java.time.LocalDate;
 

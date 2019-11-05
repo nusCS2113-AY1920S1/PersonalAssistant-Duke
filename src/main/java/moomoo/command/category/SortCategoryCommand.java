@@ -1,12 +1,11 @@
 package moomoo.command.category;
 
 import moomoo.command.Command;
-import moomoo.task.Budget;
-import moomoo.task.category.Category;
-import moomoo.task.category.CategoryList;
-import moomoo.task.ScheduleList;
-import moomoo.task.Ui;
-import moomoo.task.Storage;
+import moomoo.feature.Budget;
+import moomoo.feature.category.CategoryList;
+import moomoo.feature.ScheduleList;
+import moomoo.feature.Ui;
+import moomoo.feature.storage.Storage;
 
 public class SortCategoryCommand extends Command {
 
@@ -15,7 +14,7 @@ public class SortCategoryCommand extends Command {
     }
 
     @Override
-    public void execute(ScheduleList calendar, Budget budget, CategoryList categoryList, Category category, Ui ui,
+    public void execute(ScheduleList calendar, Budget budget, CategoryList categoryList, Ui ui,
                         Storage storage) {
         if (input.startsWith("by name")) {
             categoryList.sortByName();

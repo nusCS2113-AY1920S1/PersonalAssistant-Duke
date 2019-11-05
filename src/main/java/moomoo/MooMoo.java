@@ -1,18 +1,16 @@
 package moomoo;
 
 import moomoo.command.Command;
-import moomoo.task.Budget;
-import moomoo.task.category.Expenditure;
-import moomoo.task.category.Category;
-import moomoo.task.category.CategoryList;
-import moomoo.task.MooMooException;
-import moomoo.task.Parser;
-import moomoo.task.ScheduleList;
-import moomoo.task.SchedulePayment;
-import moomoo.task.Storage;
-import moomoo.task.Ui;
+import moomoo.feature.Budget;
 
-import java.io.IOException;
+import moomoo.feature.MooMooException;
+import moomoo.feature.ScheduleList;
+import moomoo.feature.Ui;
+import moomoo.feature.category.CategoryList;
+import moomoo.feature.parser.Parser;
+import moomoo.feature.storage.CategoryStorage;
+import moomoo.feature.storage.Storage;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -21,36 +19,24 @@ import java.util.HashMap;
  */
 public class MooMoo {
     private Storage storage;
-    private Category category;
     private CategoryList categoryList;
     private Budget budget;
-    private Expenditure expenditure;
     public ScheduleList calendar;
     private Ui ui;
 
     /**
      * Initializes different Category, Expenditures, Budget, Storage and Ui.
      */
-    public MooMoo() {
+    private MooMoo() {
         ui = new Ui();
-        storage = new Storage("data/budget.txt","data/schedule.txt",
-                "data/category.txt", "data/expenditure.txt");
+        storage = new Storage("data/budget.txt","data/schedule.txt");
         try {
-            categoryList = storage.loadExpenditure();
+            categoryList = CategoryStorage.loadFromFile();
         } catch (MooMooException e) {
             ui.printException(e);
             ui.showResponse();
             categoryList = new CategoryList();
         }
-
-        /*
-        try {
-            category = new Category(storage.loadExpenditures());
-        } catch (MooMooException e) {
-            ui.printExceptions(e);
-            ui.showResponse();
-            category = new Category();
-        } */
 
         HashMap<String, Double> loadedBudget = storage.loadBudget(categoryList.getCategoryList(), ui);
         if (loadedBudget == null) {
@@ -60,21 +46,13 @@ public class MooMoo {
             budget = new Budget(loadedBudget);
         }
 
-        ArrayList<SchedulePayment> scheduleList = storage.loadCalendar(ui);
+        HashMap<String, ArrayList<String>> scheduleList = storage.loadCalendar(ui);
         if (scheduleList == null) {
             ui.showResponse();
             calendar = new ScheduleList();
         } else {
             calendar = new ScheduleList(scheduleList);
         }
-        /*
-        ArrayList<Expenditure> category = storage.loadExpenditures(ui);
-        if (category == null) {
-            ui.showResponse();
-            expenditure = new Expenditure();
-        } else {
-            expenditure = new Expenditure(category);
-        } */
     }
 
     /**
@@ -93,7 +71,7 @@ public class MooMoo {
                 System.out.print("\u001b[2J");
                 System.out.flush();
                 Command c = Parser.parse(fullCommand, ui);
-                c.execute(calendar, budget, categoryList, category, ui, storage);
+                c.execute(calendar, budget, categoryList, ui, storage);
 
                 if (!ui.returnResponse().equals("")) {
                     ui.showResponse();
@@ -116,7 +94,7 @@ public class MooMoo {
         boolean isExit;
         try {
             Command c = Parser.parse(input, ui);
-            c.execute(calendar, budget, categoryList, category, ui, storage);
+            c.execute(calendar, budget, categoryList, ui, storage);
 
             isExit = c.isExit;
             if (isExit) {

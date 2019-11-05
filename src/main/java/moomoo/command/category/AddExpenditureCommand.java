@@ -4,14 +4,15 @@ import java.time.LocalDate;
 
 import moomoo.command.Command;
 import moomoo.command.NotificationCommand;
-import moomoo.task.MooMooException;
-import moomoo.task.Storage;
-import moomoo.task.Ui;
-import moomoo.task.Budget;
-import moomoo.task.category.Category;
-import moomoo.task.category.CategoryList;
-import moomoo.task.ScheduleList;
-import moomoo.task.category.Expenditure;
+import moomoo.feature.Budget;
+import moomoo.feature.MooMooException;
+import moomoo.feature.ScheduleList;
+import moomoo.feature.Ui;
+import moomoo.feature.category.Category;
+import moomoo.feature.category.CategoryList;
+import moomoo.feature.category.Expenditure;
+import moomoo.feature.storage.CategoryStorage;
+import moomoo.feature.storage.Storage;
 
 public class AddExpenditureCommand extends Command {
 
@@ -37,15 +38,15 @@ public class AddExpenditureCommand extends Command {
     }
 
     @Override
-    public void execute(ScheduleList calendar, Budget budget, CategoryList categoryList, Category category,
+    public void execute(ScheduleList calendar, Budget budget, CategoryList categoryList,
                         Ui ui, Storage storage) throws MooMooException {
         Category cat = categoryList.get(categoryName);
         Expenditure newExpenditure = new Expenditure(expenditureName, amount, date);
         cat.add(newExpenditure);
         NotificationCommand alert = new NotificationCommand(categoryName, cat.getTotal());
-        alert.execute(calendar, budget, categoryList, category, ui, storage);
-        storage.saveExpenditureToFile(newExpenditure, categoryName);
-        ui.showNewExpenditureMessage(expenditureName, categoryName);
+        alert.execute(calendar, budget, categoryList, ui, storage);
+        CategoryStorage.saveToFile(newExpenditure, categoryName);
+        ui.showNewExpenditure(expenditureName, categoryName);
     }
 }
 

@@ -1,6 +1,6 @@
 package moomoo.stubs;
 
-import moomoo.task.Ui;
+import moomoo.feature.Ui;
 
 public class UiStub extends Ui {
     private String response;

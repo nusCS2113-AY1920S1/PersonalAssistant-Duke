@@ -1,12 +1,11 @@
 package moomoo.command;
 
-import moomoo.task.Budget;
-import moomoo.task.category.Category;
-import moomoo.task.category.CategoryList;
-import moomoo.task.MooMooException;
-import moomoo.task.ScheduleList;
-import moomoo.task.Storage;
-import moomoo.task.Ui;
+import moomoo.feature.Budget;
+import moomoo.feature.category.CategoryList;
+import moomoo.feature.MooMooException;
+import moomoo.feature.ScheduleList;
+import moomoo.feature.storage.Storage;
+import moomoo.feature.Ui;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -33,7 +32,7 @@ public class SetBudgetCommand extends Command {
     }
 
     @Override
-    public void execute(ScheduleList calendar, Budget budget, CategoryList catList, Category category,
+    public void execute(ScheduleList calendar, Budget budget, CategoryList categoryListList,
                         Ui ui, Storage storage) throws MooMooException {
         String outputValue = "";
         boolean isUpdated = false;
@@ -41,15 +40,39 @@ public class SetBudgetCommand extends Command {
         for (int i = 0; i < categories.size(); ++i) {
             String categoryName = categories.get(i).toLowerCase();
             double categoryBudget = budgets.get(i);
-            if (catList.get(categoryName) != null) {
+            if (categoryListList.get(categoryName) != null) {
                 if (categoryBudget <= 0) {
                     outputValue += "Please set your budget for " + categoryName + " to a value more than 0\n";
                     continue;
                 }
                 isUpdated = true;
                 budget.addNewBudget(categoryName, categoryBudget);
-                outputValue += "You have set $" + df.format(categoryBudget) + " as the budget for "
-                        + categoryName + "\n";
+                int blank = 22 - categoryName.length();
+                String blankSpace = " ";
+                for (int j = 0; j < blank; j++) {
+                    blankSpace += " ";
+                }
+                blank = 32 - String.valueOf(df.format(categoryBudget)).length();
+                String blank2 = " ";
+                for (int j = 0; j < blank; j++) {
+                    blank2 += " ";
+                }
+                String cow =
+                      ".__________________________________.\n"
+                       + "| ___ _   _ ___   ___ ___ _____    |\n"
+                       + "|| _ ) | | |   \\ / __| _ |_   _|   |\n"
+                       + "|| _ \\ |_| | |) | (_ | _|  | |     |\n"
+                       + "||___/\\___/|___/ \\___|___| |_|     |\n"
+                       + "|                                  |\n"
+                       + "|Category : " + categoryName + blankSpace + "|\n"
+                       + "|$" + df.format(categoryBudget) + blank2 + "|\n"
+                       + ".----------------------------------.\n"
+                       + "        \\   ^__^\n"
+                       + "         \\  (oo)\\_______\n"
+                       + "            (__)\\       )\\/\\\n"
+                       + "                ||----w |\n"
+                       + "                ||     ||\n";
+                outputValue += cow;
             } else {
                 outputValue += categoryName + " category does not exist. Please add it first.\n";
             }

@@ -1,7 +1,7 @@
 package moomoo.stubs;
 
-import moomoo.task.category.Category;
-import moomoo.task.category.Expenditure;
+import moomoo.feature.category.Category;
+import moomoo.feature.category.Expenditure;
 
 import java.time.Month;
 import java.util.ArrayList;
@@ -26,7 +26,7 @@ public class CategoryStub extends Category {
     }
 
     @Override
-    public String toString() {
+    public String name() {
         return this.name;
     }
 
