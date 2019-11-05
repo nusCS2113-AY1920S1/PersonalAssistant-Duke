@@ -3,6 +3,8 @@ package Commons;
 import Commands.Command;
 import Commands.RetrieveFreeTimesCommand;
 import Commands.RetrievePreviousCommand;
+import DukeExceptions.DukeIOException;
+import DukeExceptions.DukeInvalidDateTimeException;
 import Tasks.TaskList;
 
 import Parser.MainParser;
@@ -20,17 +22,16 @@ public class Duke  {
     private final Storage storage;
     private final TaskList events;
     private final TaskList deadlines;
-    private final Ui ui;
+    private final UserInteraction ui;
     private final Reminder reminder;
-    private static final Logger LOGGER = Logger.getLogger(Duke.class.getName());
-    private static LookupTable LT;
+    private final Logger LOGGER = DukeLogger.getLogger(Duke.class);
     public static ArrayList<String> userInputs = new ArrayList<>();
 
     /**
      * Creates Duke object.
      */
     public Duke() {
-        ui = new Ui();
+        ui = new UserInteraction();
         storage = new Storage();
         events = new TaskList();
         deadlines = new TaskList();
@@ -41,10 +42,8 @@ public class Duke  {
             storage.readEventList(events);
             reminder.setDeadlines(deadlines);
             storage.setReminderOnStart();
-            LT = new LookupTable();
-        } catch (Exception e) {
-            ui.showLoadingError(e);
-            LOGGER.log(Level.SEVERE, e.toString(), e);
+        } catch (DukeIOException | DukeInvalidDateTimeException e) {
+            LOGGER.severe(ui.showLoadingError(e) + e.getMessage());
         }
     }
 
@@ -56,9 +55,9 @@ public class Duke  {
     private String run(String input) {
         try {
             Command c = MainParser.parse(input);
-            return c.execute(LT,events, deadlines, ui, storage);
+            return c.execute(events, deadlines, ui, storage);
         } catch (Exception e) {
-            LOGGER.severe(e.toString());
+            LOGGER.info(e.toString() + e.getMessage());
             return ui.getError(e);
         }
     }
@@ -77,16 +76,11 @@ public class Duke  {
         return previousInput;
     }
 
-    /*
-    This method retrieves the free time option selected by the user
+    /**
+     * This method retrieves the free time option selected by the user
      */
     public static String getSelectedOption() {
         String selectedOption = RetrieveFreeTimesCommand.getSelectedOption();
         return selectedOption;
     }
-
-    public LookupTable getLT() {
-        return this.LT;
-    }
-
 }

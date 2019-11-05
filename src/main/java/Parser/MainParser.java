@@ -29,6 +29,7 @@ public class MainParser {
             case "recur/rmbiweekly":
                 return new RecurParse(fullCommand).parse();
 
+            case "remind/check":
             case "remind/set":
             case "remind/rm":
                 return new RemindParse(fullCommand).parse();

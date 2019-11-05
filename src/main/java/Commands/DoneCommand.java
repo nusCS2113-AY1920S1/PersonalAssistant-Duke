@@ -1,9 +1,8 @@
 package Commands;
 
 import DukeExceptions.DukeException;
-import Commons.LookupTable;
 import Commons.Storage;
-import Commons.Ui;
+import Commons.UserInteraction;
 import Tasks.Assignment;
 import Tasks.TaskList;
 
@@ -56,24 +55,20 @@ public class DoneCommand extends Command {
      * @throws DukeException On ArrayList out of bound error
      */
     @Override
-    public String execute(LookupTable LT,TaskList events, TaskList deadlines, Ui ui, Storage storage) throws DukeException {
-        try{
-            HashMap<String, HashMap<String, ArrayList<Assignment>>> eventMap = events.getMap();
-            HashMap<String, HashMap<String, ArrayList<Assignment>>> deadlineMap = deadlines.getMap();
+    public String execute(TaskList events, TaskList deadlines, UserInteraction ui, Storage storage) throws DukeException {
+        HashMap<String, HashMap<String, ArrayList<Assignment>>> eventMap = events.getMap();
+        HashMap<String, HashMap<String, ArrayList<Assignment>>> deadlineMap = deadlines.getMap();
 
-            if (list.equals("event")) {
-                isInsideMapRemove(eventMap, task);
-                events.updateTask(task);
-                storage.updateEventList(events);
-            } else if (list.equals("deadline")) {
-                isInsideMapRemove(deadlineMap, task);
-                deadlines.updateTask(task);
-                storage.updateDeadlineList(deadlines);
-            }
-            task.setDone(true);
-            return ui.showDone(task);
-        } catch(ArrayIndexOutOfBoundsException e) {
-            throw new DukeException("\u2639" + " OOPS!!! I'm sorry, but we cannot find the input task  :-(\n");
+        if (list.equals("event")) {
+            isInsideMapRemove(eventMap, task);
+            events.updateTask(task);
+            storage.updateEventList(events);
+        } else if (list.equals("deadline")) {
+            isInsideMapRemove(deadlineMap, task);
+            deadlines.updateTask(task);
+            storage.updateDeadlineList(deadlines);
         }
+        task.setDone(true);
+        return ui.showDone(task);
     }
 }

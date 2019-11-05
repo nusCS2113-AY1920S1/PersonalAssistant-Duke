@@ -1,0 +1,6 @@
+Nov 05, 2019 1:01:45 AM Commons.DukeLogger initialise
+INFO: currentLogLevel: INFO
+Nov 05, 2019 1:01:53 AM Commons.Duke run
+SEVERE: DukeExceptions.DukeInvalidCommandException: Invalid input. Please type help to see all commandsInvalid input. Please type help to see all commands
+Nov 05, 2019 1:01:58 AM Commons.Duke run
+SEVERE: DukeExceptions.DukeInvalidFormatException: ☹ OOPS!!! The ModCode is invalid☹ OOPS!!! The ModCode is invalid
