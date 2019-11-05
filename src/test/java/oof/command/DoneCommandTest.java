@@ -53,9 +53,10 @@ public class DoneCommandTest {
     @Test
     void execute_CorrectCommandEntered_MarkDeadlineAsDone() throws CommandException, ParserException {
         oof.executeCommand("deadline test /by 30-10-2019 23:59");
-        oof.executeCommand("done 1");
         TaskList taskList = oof.getTaskList();
-        Task task = taskList.getTask(taskList.getSize() - 1);
+        int lastIndex = taskList.getSize() - 1;
+        Task task = taskList.getTask(lastIndex);
+        oof.executeCommand("done " + (lastIndex + 1));
         assertTrue(task.getStatus());
         taskList.deleteTask(taskList.getSize() - 1);
         StorageManager storageManager = oof.getStorageManager();
@@ -71,9 +72,10 @@ public class DoneCommandTest {
     @Test
     void execute_CorrectCommandEntered_MarkTodoAsDone() throws CommandException, ParserException {
         oof.executeCommand("todo buy groceries /on 30-10-2019");
-        oof.executeCommand("done 1");
         TaskList taskList = oof.getTaskList();
-        Task task = taskList.getTask(taskList.getSize() - 1);
+        int lastIndex = taskList.getSize() - 1;
+        Task task = taskList.getTask(lastIndex);
+        oof.executeCommand("done " + (lastIndex + 1));
         assertTrue(task.getStatus());
         taskList.deleteTask(taskList.getSize() - 1);
         StorageManager storageManager = oof.getStorageManager();
@@ -89,9 +91,10 @@ public class DoneCommandTest {
     @Test
     void execute_CorrectCommandEntered_MarkEventAsDone() throws CommandException, ParserException {
         oof.executeCommand("event meeting /from 01-11-2019 10:00 /to 01-11-2019 12:00");
-        oof.executeCommand("done 1");
         TaskList taskList = oof.getTaskList();
-        Task task = taskList.getTask(taskList.getSize() - 1);
+        int lastIndex = taskList.getSize() - 1;
+        Task task = taskList.getTask(lastIndex);
+        oof.executeCommand("done " + (lastIndex + 1));
         assertTrue(task.getStatus());
         taskList.deleteTask(taskList.getSize() - 1);
         StorageManager storageManager = oof.getStorageManager();
