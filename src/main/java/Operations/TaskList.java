@@ -71,31 +71,32 @@ public class TaskList {
      */
     public void list() throws RoomShareException {
         sortTasks();
-        if( tasks.size() != 0 ){
+        if (tasks.size() != 0) {
             int listCount = 1;
             for (Task output : tasks) {
 
-                if( !output.getDone() ) {
+                if (!output.getDone()) {
                     Priority priority = output.getPriority();
                     String priorityLVL;
                     if (priority.equals(Priority.low)) {
                         priorityLVL = " *";
-                    } else if(priority.equals(Priority.medium)) {
+                    } else if (priority.equals(Priority.medium)) {
                         priorityLVL = " **";
                     } else {
                         priorityLVL = " ***";
                     }
                     System.out.println("\t" + listCount + ". " + output.toString() + priorityLVL);
 
-                if(new Date().after(output.getDate())) {
-                    output.setOverdue(true);
-                }
-                if( !output.getDone() && !output.getOverdue()) {
-                    System.out.println("\t" + listCount + ". " + output.toString());
-                    if( output instanceof Assignment && !(((Assignment) output).getSubTasks() == null) ) {
-                        ArrayList<String> subTasks = ((Assignment) output).getSubTasks();
-                        for(String subtask : subTasks) {
-                            System.out.println("\t" + "\t" + "- " + subtask);
+                    if (new Date().after(output.getDate())) {
+                        output.setOverdue(true);
+                    }
+                    if (!output.getDone() && !output.getOverdue()) {
+                        System.out.println("\t" + listCount + ". " + output.toString());
+                        if (output instanceof Assignment && !(((Assignment) output).getSubTasks() == null)) {
+                            ArrayList<String> subTasks = ((Assignment) output).getSubTasks();
+                            for (String subtask : subTasks) {
+                                System.out.println("\t" + "\t" + "- " + subtask);
+                            }
                         }
                     }
                     listCount += 1;
@@ -285,7 +286,7 @@ public class TaskList {
             } else if( task2.getDone() && !task1.getDone() ) {
                 return -1;
             } else {
-                return  getValue(task1) - getValue(task2);
+                return getValue(task1) - getValue(task2);
             }
         });
     }
