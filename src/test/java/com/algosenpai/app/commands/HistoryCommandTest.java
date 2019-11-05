@@ -109,16 +109,6 @@ public class HistoryCommandTest extends ApplicationTest {
                 + "Please key in a valid number of commands you'd like to view!", actualText);
     }
 
-    /*@Test
-    void testHistoryOutOfBoundsInput() throws IOException {
-        clickOn("#userInput").write("command 1").clickOn("#sendButton");
-        UserStats stats = new UserStats("./UserData.txt");
-        Logic logic = new Logic(stats);
-        Command command = logic.executeCommand("history 7");
-        String actualText = command.execute();
-        Assertions.assertEquals("OOPS!!! Error occurred. You don't have that many past commands!", actualText);
-    }*/
-
     <T extends Node> T find() {
         return lookup("#dialogContainer").query();
     }

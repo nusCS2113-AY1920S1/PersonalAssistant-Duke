@@ -26,7 +26,7 @@ public class HistoryCommand extends Command {
     public String execute() {
         try {
             HistoryExceptions.checkInput(inputs);
-            String argument = historyList.get(1);
+            String argument = inputs.get(1);
             HistoryExceptions.checkArgument(historyList, argument);
             int num = Integer.parseInt(argument);
             StringBuilder history = new StringBuilder();
