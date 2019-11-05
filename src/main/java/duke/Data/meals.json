@@ -3,7 +3,7 @@
     {
       "description": "roti",
       "type": "B",
-      "isDone": false,
+      "isDone": true,
       "date": "2019-11-05",
       "nutritionValue": {
         "calorie": 200
@@ -13,7 +13,7 @@
     {
       "description": "bun",
       "type": "L",
-      "isDone": false,
+      "isDone": true,
       "date": "2019-11-05",
       "nutritionValue": {
         "calorie": 200
@@ -23,12 +23,73 @@
     {
       "description": "bunnybun",
       "type": "B",
-      "isDone": false,
+      "isDone": true,
       "date": "2019-11-05",
       "nutritionValue": {
         "calorie": 200
       },
       "costStr": "2.5"
+    },
+    {
+      "description": "caviar",
+      "type": "D",
+      "isDone": true,
+      "date": "2019-11-05",
+      "nutritionValue": {
+        "calorie": 500
+      },
+      "costStr": "20000"
+    },
+    {
+      "description": "gold",
+      "type": "D",
+      "isDone": true,
+      "date": "2019-11-05",
+      "nutritionValue": {
+        "calorie": 500
+      },
+      "costStr": "123123"
+    },
+    {
+      "description": "laksa",
+      "type": "L",
+      "isDone": true,
+      "date": "2019-11-05",
+      "nutritionValue": {
+        "calorie": 500,
+        "fat": 200
+      },
+      "costStr": "2.55"
+    },
+    {
+      "description": "diamond",
+      "type": "D",
+      "isDone": false,
+      "date": "2019-11-05",
+      "nutritionValue": {
+        "calorie": 500
+      },
+      "costStr": "25000"
+    },
+    {
+      "description": "bakpia",
+      "type": "D",
+      "isDone": true,
+      "date": "2019-11-05",
+      "nutritionValue": {
+        "calorie": 590
+      },
+      "costStr": "10"
+    },
+    {
+      "description": "steak",
+      "type": "D",
+      "isDone": true,
+      "date": "2019-11-05",
+      "nutritionValue": {
+        "calorie": 300
+      },
+      "costStr": "123"
     }
   ],
   "2019-11-04": [

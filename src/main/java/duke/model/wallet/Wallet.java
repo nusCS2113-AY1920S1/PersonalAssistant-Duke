@@ -39,8 +39,12 @@ public class Wallet {
         this.account = wallet.getAccount();
     }
 
-    public void addPaymentTransaction(Payment payment) {
-        this.transactions.addTransaction(payment);
-        this.account.withdraw(payment.getTransactionAmount());
+    public Boolean addPaymentTransaction(Payment payment) {
+        if (this.account.isSufficientBalance(payment.getTransactionAmount())) {
+            this.account.withdraw(payment.getTransactionAmount());
+            this.transactions.addTransaction(payment);
+            return true;
+        }
+        return false;
     }
 }

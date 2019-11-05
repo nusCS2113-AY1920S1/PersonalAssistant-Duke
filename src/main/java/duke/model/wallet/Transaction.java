@@ -3,6 +3,7 @@ package duke.model.wallet;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+import static duke.commons.constants.DateConstants.LOCAL_DATE_FORMATTER;
 public class Transaction {
     protected BigDecimal transactionAmount;
     protected String type = "";
@@ -27,6 +28,6 @@ public class Transaction {
 
     @Override
     public String toString() {
-        return " SGD" + this.transactionAmount + " | " + getDate();
+        return " SGD" + this.transactionAmount + " | " + getDate().format(LOCAL_DATE_FORMATTER);
     }
 }

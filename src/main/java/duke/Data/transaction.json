@@ -38,12 +38,67 @@
           "transactionAmount": 300.5,
           "type": "DEP",
           "date": "2019-11-05"
+        },
+        {
+          "transactionAmount": 2.5,
+          "type": "PAY",
+          "date": "2019-11-05"
+        },
+        {
+          "transactionAmount": 3.5,
+          "type": "PAY",
+          "date": "2019-11-05"
+        },
+        {
+          "transactionAmount": 2.5,
+          "type": "PAY",
+          "date": "2019-11-05"
+        },
+        {
+          "transactionAmount": 200,
+          "type": "DEP",
+          "date": "2019-11-05"
+        },
+        {
+          "transactionAmount": 200,
+          "type": "DEP",
+          "date": "2019-11-05"
+        },
+        {
+          "transactionAmount": 20000,
+          "type": "PAY",
+          "date": "2019-11-05"
+        },
+        {
+          "transactionAmount": 2.55,
+          "type": "PAY",
+          "date": "2019-11-05"
+        },
+        {
+          "transactionAmount": 2.55,
+          "type": "PAY",
+          "date": "2019-11-05"
+        },
+        {
+          "transactionAmount": 10,
+          "type": "PAY",
+          "date": "2019-11-05"
+        },
+        {
+          "transactionAmount": 10,
+          "type": "PAY",
+          "date": "2019-11-05"
+        },
+        {
+          "transactionAmount": 123,
+          "type": "PAY",
+          "date": "2019-11-05"
         }
       ]
     }
   },
   "account": {
-    "amount": 900.5,
+    "amount": 1143.90,
     "currency": "SGD"
   }
 }

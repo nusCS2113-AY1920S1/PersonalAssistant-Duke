@@ -58,11 +58,20 @@ public class Ui {
 
     }
 
-    public void showDone(Meal currentMeal, ArrayList<Meal> meals) {
-        System.out.println(UI_PADDING + "Nice! I've marked these tasks as done:");
+    public void showDone(Meal currentMeal) {
+        System.out.println(UI_PADDING + "Nice! I've marked this meal as done:");
         System.out.println(UI_PADDING + currentMeal);
     }
 
+    public void showNotDone(Meal currentMeal) {
+        System.out.println(UI_PADDING + "The meal will remain as it is:");
+        System.out.println(UI_PADDING + currentMeal);
+    }
+
+    public void showAlreadyMarkedDone(Meal currentMeal) {
+        System.out.println(UI_PADDING + "The meal is already marked done:");
+        System.out.println(UI_PADDING + currentMeal);
+    }
     public void showAdded(Meal currentMeal, ArrayList<Meal> meals, User user, LocalDate dateStr) {
         System.out.println(UI_PADDING + "Got it. I've added this meal:");
         System.out.println(UI_PADDING + currentMeal);
@@ -275,6 +284,11 @@ public class Ui {
 
     public void showAccountBalance(Wallet wallet) {
         System.out.println(UI_PADDING + "You current account balance is: " + wallet.getAccountBalance());
+    }
+
+    public void showInsufficientBalance(Payment payment) {
+        System.out.println(UI_PADDING + "Account Balance insufficient for a " + payment.getTransactionAmount()
+                + "SGD withdrawal");
     }
 
 

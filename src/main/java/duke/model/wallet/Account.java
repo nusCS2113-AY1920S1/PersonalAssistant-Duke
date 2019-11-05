@@ -37,13 +37,11 @@ public class Account {
     }
 
     public void withdraw(BigDecimal withdrawal) {
-        if (withdrawal.compareTo(amount) < 0) {
-            this.amount = amount.subtract(withdrawal);
-            //System.out.println(withdrawal + " " + currency.getCurrencyCode() + " withdrawn from your account");
-        } else {
-            System.out.println("     Balance insufficient for a " + withdrawal
-                    + currency.getCurrencyCode() + " withdrawal");
-        }
+        this.amount = amount.subtract(withdrawal);
+    }
+
+    public boolean isSufficientBalance(BigDecimal withdrawal) {
+        return withdrawal.compareTo(amount) < 0;
     }
 
     public void depositToAccount(BigDecimal depositAmount) {
