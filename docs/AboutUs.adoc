@@ -11,8 +11,7 @@ We are a Chess team based in the http://www.comp.nus.edu.sg[School of Computing,
 
 === *Ng Jing Kiat*
 image::muserr.png[width="150", align="left"]
-https://github.com/muserr[Pawn Muserr]
-//[<<muserr#, portfolio>>]
+https://github.com/muserr[Pawn Muserr pass:[<i class="fa fa-github"></i>]]
 
 Role:
 
@@ -27,8 +26,7 @@ Responsibilities:
 
 === *Lim Si Ying*
 image::limsiying.png[width="150", align="left"]
-https://github.com/limsiying[Queen Si Ying]
-//[<<limsiying#, portfolio>>]
+https://github.com/limsiying[Queen Si Ying pass:[<i class="fa fa-github"></i>]]
 
 Role:
 
@@ -42,8 +40,7 @@ Responsibilities:
 
 === *Mohideen Imran Khan*
 image::mohideenik.png[width="150", align="left"]
-https://github.com/mohideenik[Knight Mohideen]
-//[<<mohideenik#, portfolio>>]
+https://github.com/mohideenik[Knight Mohideen pass:[<i class="fa fa-github"></i>]]
 
 Role:
 
@@ -57,8 +54,7 @@ Responsibilities:
 
 === *Nishanth Elango*
 image::nishanthelango.png[width="150", align="left"]
-https://github.com/nishanthelango[Knight Nishanth]
-//[<<nishanthelango#, portfolio>>]
+https://github.com/nishanthelango[Knight Nishanth pass:[<i class="fa fa-github"></i>]]
 
 Role:
 
@@ -69,3 +65,9 @@ Responsibilities:
 
 * In charge of defining, assigning, and tracking project tasks
 * Ensure project deliverables are done on time and in the right format
+
+
+'''
+
+[quote,"Magnus Carlsen","Chess Grandmaster"]
+I don’t look at computers as opponents. For me it is much more interesting to beat humans.
