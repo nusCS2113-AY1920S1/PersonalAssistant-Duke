@@ -1,11 +1,12 @@
 package util;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
 import models.member.Member;
 import models.project.Project;
 import models.task.Task;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 
 public class ParserHelper {
     private SortHelper sortHelper;
@@ -226,9 +227,6 @@ public class ParserHelper {
             switch (detailedCriteria[0]) {
             case "/NAME":
                 taskDetails = this.sortHelper.sortTaskName(taskList);
-                break;
-            case "/INDEX":
-                taskDetails = this.sortHelper.sortTaskIndex(taskList);
                 break;
             case "/DATE":
                 taskDetails = this.sortHelper.sortTaskDueDate(taskList);
