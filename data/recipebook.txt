@@ -1,0 +1,4 @@
+cake|milk|3|sugar|2|egg|1|wheat|3
+pumpkin pie|pumpkin|1|sugar|1|egg|1
+cookie|wheat|2|cocoa beans|1
+golden apple|gold ingot|8|apple|1

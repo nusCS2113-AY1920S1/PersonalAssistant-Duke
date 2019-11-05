@@ -25,7 +25,7 @@ public class OrderStorage extends Storage<Order> {
     }
 
     @Override
-    GenericList<Order> generate() throws DukeException {
+    public GenericList<Order> generate() throws DukeException {
         entries = new OrderList();
         for (String next : contentSoFar) {
             String[] words = next.split("\\|",3);

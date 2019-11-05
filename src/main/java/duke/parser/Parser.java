@@ -30,96 +30,112 @@ public class Parser {
      * @throws DukeException for any invalid input
      */
     public static Command parse(String fullCommand, Duke.Type type) throws DukeException {
-        String[] splitted;
-
         switch (type) {
-            case INGREDIENT: {
-                splitted = fullCommand.split(" ");
-
-                if (splitted[0].equals("add")) {
-                    if (splitted.length != 4)
-                        throw new DukeException("must specify ingredient name, amount and/or expiry date");
-                    return new AddCommand(new Ingredient(splitted[1], Integer.parseInt(splitted[2]), splitted[3]));
-                }
-                if (splitted[0].equals("remove")) {
-                    if (splitted.length != 2)
-                        throw new DukeException("must specify a index");
-                    return new DeleteCommand(Integer.parseInt(splitted[1]));
-                } else if (splitted[0].equals("use")) {
-                    if (splitted.length != 3)
-                        throw new DukeException("follow the template: use <ingredient name> <amount>");
-                    return new UseCommand(new Ingredient(splitted[1], Integer.parseInt(splitted[2]), new Date()));
-                } else if (splitted[0].equals("listtoday")) {
-                    if (splitted.length != 1)
-                        throw new DukeException("follow the template: listtoday");
-                    return new FindToday();
-                } else if(splitted[0].equals("find")) {
-                    if(splitted.length != 2)
-                        throw new DukeException("follow the template: find <ingredient name>");
-                    return new FindIngredientCommand(splitted[1]);
-                }
-                else
-                    throw new DukeException("not a valid command for an Ingredient");
-            }
-            case DISH: {
-                splitted = fullCommand.split(" ", 2);
-                switch (splitted[0]) {
-                    case "add":
-                        if(splitted.length < 2) {
-                            throw new DukeException("specify dish name");
-                        }
-                        else
-                            splitted[1] = splitted[1].replaceAll("\\s+", " ");
-                        return new AddDishCommand(new Dish(splitted[1]));
-                    case "remove":
-                        try {
-                            return new DeleteDishCommand(Integer.parseInt(splitted[1]));
-                        } catch (ArrayIndexOutOfBoundsException | NumberFormatException e) {
-                            throw new DukeException("enter a valid index");
-                        }
-                    case "list":
-                        return new ListDishCommand();
-                    case "initialize":
-                        return new ResetDishCommand();
-                    case "ingredient":
-                        String[] getIng = splitted[1].split(" ", 3);
-                        int amount = 0;
-                        int index = 0;
-                        try {
-                            amount = Integer.parseInt(getIng[1]);
-                            index = Integer.parseInt(getIng[2]);
-                        } catch (NumberFormatException e) {
-                            throw new DukeException("enter a valid amount/index");
-                        }
-                        return new AddIngredient(new Ingredient(getIng[0], amount, new Date()), index);
-                    default:
-                        throw new DukeException("not a valid command for a Dish");
-                }
-
-            }
-            case ORDER: {
-                splitted = fullCommand.split(" ", 2);
-                if (splitted.length > 4)
-                    throw new DukeException("must specify ordered dishes and order date");
-                else if (splitted[0].equals("add")){  //add a new order
-                    return addOrderParser(splitted);
-                } else if (splitted[0].equals("alter")) { //alter order date
-                    return alterOrderDateParser(splitted);
-                } else if (splitted[0].equals("remove") ||splitted[0].equals("done")) { //remove or done an order
-                    return removeOrDoneOrderParser(splitted);
-                } else if (splitted[0].equals("init")) {
-                    return new InitOrderListCommand();
-                } else if (splitted[0].equals("list")) {//list orders
-                    String[] listType;
-                    if (splitted.length == 1) {
-                        listType = "-l all".split(" ",2);
-                    } else listType = splitted[1].split(" ",2);
-                    if (listType.length==1) {throw new DukeException("Must enter a list type, dishes name, or order date");}
-                    return new ListOrderCommand(listType);
-                } else throw new DukeException("Not a valid command for an order");
-            }
+            case INGREDIENT:
+                return ingredient(fullCommand);
+            case DISH:
+                return dish(fullCommand);
+            case ORDER:
+                return order(fullCommand);
             default:
                 throw new DukeException("not a valid type");
+        }
+    }
+
+    private static Command order(String fullCommand) throws DukeException {
+        String[] part = fullCommand.split(" ", 2);
+        if (part.length > 4)
+            throw new DukeException("must specify ordered dishes and order date");
+        else {
+            switch (part[0]) {
+                case "add":   //add a new order
+                    return addOrderParser(part);
+                case "alter":  //alter order date
+                    return alterOrderDateParser(part);
+                case "remove": //fall through onto next case
+                case "done":  //remove or done an order
+                    return removeOrDoneOrderParser(part);
+                case "init":
+                    return new InitOrderListCommand();
+                case "list": //list orders
+                    String[] listType;
+                    if (part.length == 1) {
+                        listType = "-l all".split(" ", 2);
+                    } else {
+                        listType = part[1].split(" ", 2);
+                    }
+                    if (listType.length == 1) {
+                        throw new DukeException("Must enter a list type, dishes name, or order date");
+                    }
+                    return new ListOrderCommand(listType);
+                default:
+                    throw new DukeException("Not a valid command for an order");
+            }
+        }
+    }
+
+    private static Command dish(String fullCommand) throws DukeException {
+        String[] part = fullCommand.split(" ", 2);
+        switch (part[0]) {
+            case "add":
+                if(part.length < 2) {
+                    throw new DukeException("specify dish name");
+                }
+                else {
+                    part[1] = part[1].replaceAll("\\s+", " ");
+                }
+                return new AddDishCommand(new Dish(part[1]));
+            case "remove":
+                try {
+                    return new DeleteDishCommand(checkInt(part[1]));
+                } catch (ArrayIndexOutOfBoundsException | NumberFormatException e) {
+                    throw new DukeException("enter a valid index");
+                }
+            case "list":
+                return new ListDishCommand();
+            case "initialize":
+                return new ResetDishCommand();
+            case "ingredient":
+                String[] getIng = part[1].split(" ", 3);
+                int amount = 0;
+                int index = 0;
+                try {
+                    amount = checkInt(getIng[1]);
+                    index = checkInt(getIng[2]);
+                } catch (NumberFormatException e) {
+                    throw new DukeException("enter a valid amount/index");
+                }
+                return new AddIngredient(new Ingredient(getIng[0], amount, new Date()), index);
+            default:
+                throw new DukeException("not a valid command for a Dish");
+        }
+    }
+
+    private static Command ingredient(String fullCommand) throws DukeException {
+        String[] part = fullCommand.split(" ");
+        switch (part[0]) {
+            case "add":
+                if (part.length != 4)
+                    throw new DukeException("must specify ingredient name, amount and/or expiry date");
+                return new AddCommand(new Ingredient(part[1], checkInt(part[2]), part[3]));
+            case "remove":
+                if (part.length != 2)
+                    throw new DukeException("must specify a index");
+                return new DeleteCommand(checkInt(part[1]));
+            case "use":
+                if (part.length != 3)
+                    throw new DukeException("follow the template: use <ingredient name> <amount>");
+                return new UseCommand(new Ingredient(part[1], checkInt(part[2]), new Date()));
+            case "listtoday":
+                if (part.length != 1)
+                    throw new DukeException("follow the template: listtoday");
+                return new FindToday();
+            case "find":
+                if (part.length != 2)
+                    throw new DukeException("follow the template: find <ingredient name>");
+                return new FindIngredientCommand(part[1]);
+            default:
+                throw new DukeException("not a valid command for an Ingredient");
         }
     }
 
@@ -149,20 +165,23 @@ public class Parser {
      * @return Returns a valid integer
      * @throws DukeException when it is invalid
      */
-    public static int checkNumber(String str, int size) throws DukeException {
+    public static int parseInt(String str, int size) throws DukeException {
         int x;
         try {
-            //Minus one because index starts from zero.
             //Throws NumberFormatException
-            x = Integer.parseInt(str) - 1;
+            x = Integer.parseInt(str);
         } catch (Exception e) {
             throw new DukeException(e.getMessage());
         }
         if (x < 0 || x >= size) {
-            //Index is out of bounds
-            throw new DukeException("FUCK YOU JOEY!");
+            throw new DukeException("Index is out of bounds.");
         }
         return x;
+    }
+
+    public static int checkInt(String str) throws DukeException {
+        final int MAX = Integer.MAX_VALUE;
+        return parseInt(str, MAX);
     }
 
     public static Command addOrderParser(String[] splitter) throws DukeException {
@@ -186,7 +205,7 @@ public class Parser {
             else {
                 int dishAmount;
                 try{
-                    dishAmount = Integer.parseInt(dishesSplit[1]);
+                    dishAmount = checkInt(dishesSplit[1]);
                     if (dishAmount<=0) {throw new DukeException("Must enter a dishes amount larger than 1");}
                 } catch (NumberFormatException e) {
                     throw new DukeException("cannot resolve non-integer or too large dishes amount");
@@ -205,7 +224,7 @@ public class Parser {
         int orderIndex;
         Date orderDate;
         try {
-            orderIndex = Integer.parseInt(indexAndDate[0]);
+            orderIndex = checkInt(indexAndDate[0]);
             if (orderIndex <= 0) throw new DukeException("Must enter a positive order index");
         } catch (NumberFormatException e) {
             throw new DukeException("Must enter a valid order index");
@@ -223,7 +242,7 @@ public class Parser {
             throw new DukeException("Must enter an order index.\n\t Note that ORDER_INDEX starts from 1");
         }
         try {
-            int orderIndex = Integer.parseInt(splitter[1]);
+            int orderIndex = checkInt(splitter[1]);
             if (orderIndex <= 0) throw new DukeException("Must enter a positive order index");
             if (splitter[0].equals("remove")) return new DeleteOrderCommand(orderIndex - 1);
             else return new DoneOrderCommand(orderIndex - 1);
