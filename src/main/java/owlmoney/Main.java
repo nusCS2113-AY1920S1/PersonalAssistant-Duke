@@ -1,22 +1,23 @@
 package owlmoney;
 
-import java.io.IOException;
-import java.util.List;
-import java.util.Scanner;
-
 import owlmoney.logic.command.Command;
+import owlmoney.logic.command.UpdateCommand;
 import owlmoney.logic.parser.ParseCommand;
-import owlmoney.logic.regex.RegexUtil;
-import owlmoney.model.card.exception.CardException;
 import owlmoney.logic.parser.exception.ParserException;
+import owlmoney.logic.regex.RegexUtil;
 import owlmoney.model.bank.exception.BankException;
 import owlmoney.model.bond.exception.BondException;
+import owlmoney.model.card.exception.CardException;
 import owlmoney.model.goals.exception.GoalsException;
 import owlmoney.model.profile.Profile;
 import owlmoney.model.profile.exception.ProfileException;
 import owlmoney.model.transaction.exception.TransactionException;
 import owlmoney.storage.Storage;
 import owlmoney.ui.Ui;
+
+import java.io.IOException;
+import java.util.List;
+import java.util.Scanner;
 
 /**
  * Starts an instance of OwlMoney.
@@ -82,11 +83,12 @@ class Main {
             String userName = importData.get(0)[0];
             profile = new Profile(userName, ui);
             try {
-                profile.profileUpdate(ui);
+                profile.profileUpdate(ui, true);
             } catch (BankException exceptionMessage) {
                 ui.printError("Error updating outdated recurring transactions");
             }
             ui.greet(profile.profileGetUsername());
+            profile.profileReminderForGoals();
         } catch (IOException exceptionMessage) {
             ui.printError("Unable to import profile files, starting fresh");
             ui.firstTimeRun();
@@ -104,6 +106,8 @@ class Main {
             try {
                 Command command = parser.parseLine();
                 hasExited = command.execute(profile, ui);
+                Command updateProfile = new UpdateCommand(false);
+                updateProfile.execute(profile, ui);
                 if (hasExited) {
                     break;
                 }

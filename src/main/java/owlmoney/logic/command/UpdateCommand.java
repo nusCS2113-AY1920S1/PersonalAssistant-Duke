@@ -8,6 +8,11 @@ import owlmoney.ui.Ui;
  * Executes UpdateCommand and prints the result.
  */
 public class UpdateCommand extends Command {
+    Boolean manualCall;
+
+    public UpdateCommand(boolean manualCall) {
+        this.manualCall = manualCall;
+    }
 
     /**
      * Executes the function to update outdated recurring transactions.
@@ -19,7 +24,7 @@ public class UpdateCommand extends Command {
      */
     @Override
     public boolean execute(Profile profile, Ui ui) throws BankException {
-        profile.profileUpdate(ui);
+        profile.profileUpdate(ui, manualCall);
         return isExit;
     }
 }

@@ -17,6 +17,7 @@ public class Goals {
     private Date date;
     private Bank savingAccount = null;
     private boolean done = false;
+    private boolean isAchieved = false;
 
     /**
      * Creates an instance of Goals.
@@ -65,7 +66,7 @@ public class Goals {
      *
      * @return name of the Goal.
      */
-    String getGoalsName() {
+    public String getGoalsName() {
         return this.name;
     }
 
@@ -74,7 +75,7 @@ public class Goals {
      *
      * @return amount of the Goal.
      */
-    double getGoalsAmount() {
+    public double getGoalsAmount() {
         return this.amount;
     }
 
@@ -83,7 +84,7 @@ public class Goals {
      *
      * @return date of the Goal.
      */
-    String getGoalsDate() {
+    public String getGoalsDate() {
         DateFormat temp = new SimpleDateFormat("dd MMMM yyyy");
         return temp.format(this.date);
     }
@@ -115,7 +116,7 @@ public class Goals {
      *
      * @return remaining amount left to reaching goal.
      */
-    String getRemainingAmount() {
+    public String getRemainingAmount() {
         if (savingAccount == null) {
             return new DecimalFormat("0.00").format(getGoalsAmount());
         } else {
@@ -192,5 +193,21 @@ public class Goals {
 
     void setSavingAccount(Bank newSavingAcc) {
         this.savingAccount = newSavingAcc;
+    }
+
+    boolean getGoalAchievementStatus() {
+        return this.isAchieved;
+    }
+
+    public void achieveGoal() {
+        this.isAchieved = true;
+    }
+
+    double getSavingAmount() {
+        return this.savingAccount.getCurrentAmount();
+    }
+
+    public void markDone() {
+        done = true;
     }
 }
