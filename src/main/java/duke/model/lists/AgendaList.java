@@ -33,7 +33,7 @@ public class AgendaList implements Iterable<Agenda> {
      */
     public void add(Agenda toAdd) {
         //        if (contains(toAdd)) {
-        //            throw new DukeDuplicateTaskException();
+        //            throw new DuplicateTaskException();
         //        } else if (hasAnomaly(toAdd)) {
         //            throw new DukeException(Messages.ANOMALY_FOUND);
         //        }
@@ -44,14 +44,14 @@ public class AgendaList implements Iterable<Agenda> {
      * Replaces the Day {@code target} in the list with {@code editedDay}.
      * {@code target} must exist in the list.
      */
-    public void setTask(Agenda target, Agenda editedAgenda) throws DukeException {
+    public void setTask(Agenda target, Agenda editedAgenda) {
         int index = list.indexOf(target);
         //        if (index == -1) {
         //            throw new DukeTaskNotFoundException();
         //        }
         //
         //        if (!target.isSameTask(editedTask) && contains(editedTask)) {
-        //            throw new DukeDuplicateTaskException();
+        //            throw new DuplicateTaskException();
         //        }
         list.set(index, editedAgenda);
     }

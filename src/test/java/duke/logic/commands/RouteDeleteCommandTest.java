@@ -2,7 +2,7 @@ package duke.logic.commands;
 
 import duke.ModelStub;
 import duke.commons.exceptions.DukeException;
-import duke.commons.exceptions.QueryOutOfBoundsException;
+import duke.commons.exceptions.OutOfBoundsException;
 import duke.logic.parsers.Parser;
 import duke.model.Model;
 
@@ -30,7 +30,7 @@ class RouteDeleteCommandTest {
         //negative test for deleting non-existant route
         RouteDeleteCommand routeDeleteCommand2 =
                 (RouteDeleteCommand) Parser.parseComplexCommand("routeDelete 1");
-        assertThrows(QueryOutOfBoundsException.class, () -> {
+        assertThrows(OutOfBoundsException.class, () -> {
             routeDeleteCommand2.execute(model);
         });
     }

@@ -1,10 +1,7 @@
 package duke.logic.parsers;
 
 import duke.commons.Messages;
-import duke.commons.exceptions.BirthdayError;
 import duke.commons.exceptions.ParseException;
-import duke.commons.exceptions.StartEndDateBeforeNowException;
-import duke.commons.exceptions.StartEndDateDiscordException;
 import duke.logic.commands.AddSampleItineraryCommand;
 import duke.logic.commands.Command;
 import duke.logic.commands.EditorCommand;
@@ -19,27 +16,28 @@ import duke.logic.commands.RouteNodeShowCommand;
 import duke.logic.commands.RouteShowCommand;
 import duke.logic.commands.ShowItineraryCommand;
 import duke.logic.commands.ViewScheduleCommand;
-import duke.logic.parsers.commandparser.AddEventParser;
-import duke.logic.parsers.commandparser.CreateNewItineraryParser;
-import duke.logic.parsers.commandparser.DeleteParser;
-import duke.logic.parsers.commandparser.DoneParser;
-import duke.logic.parsers.commandparser.FindParser;
-import duke.logic.parsers.commandparser.GetBusRouteParser;
-import duke.logic.parsers.commandparser.GetBusStopParser;
-import duke.logic.parsers.commandparser.LocationSearchParser;
-import duke.logic.parsers.commandparser.ProfileAddParser;
 import duke.logic.parsers.commandparser.PromptParser;
-import duke.logic.parsers.commandparser.QuickEditParser;
-import duke.logic.parsers.commandparser.RecommendationParser;
-import duke.logic.parsers.commandparser.RouteAddParser;
-import duke.logic.parsers.commandparser.RouteDeleteParser;
-import duke.logic.parsers.commandparser.RouteEditParser;
-import duke.logic.parsers.commandparser.RouteListParser;
-import duke.logic.parsers.commandparser.RouteNodeAddParser;
-import duke.logic.parsers.commandparser.RouteNodeDeleteParser;
-import duke.logic.parsers.commandparser.RouteNodeEditParser;
-import duke.logic.parsers.commandparser.RouteNodeListParser;
-import duke.logic.parsers.commandparser.StaticMapParser;
+import duke.logic.parsers.commandparsers.AddEventParser;
+import duke.logic.parsers.commandparsers.CreateNewItineraryParser;
+import duke.logic.parsers.commandparsers.DeleteParser;
+import duke.logic.parsers.commandparsers.DoneParser;
+import duke.logic.parsers.commandparsers.FindParser;
+import duke.logic.parsers.commandparsers.GetBusRouteParser;
+import duke.logic.parsers.commandparsers.GetBusStopParser;
+import duke.logic.parsers.commandparsers.LocationSearchParser;
+import duke.logic.parsers.commandparsers.ProfileAddParser;
+import duke.logic.parsers.commandparsers.QuickEditParser;
+import duke.logic.parsers.commandparsers.RecommendationParser;
+import duke.logic.parsers.commandparsers.RouteAddParser;
+import duke.logic.parsers.commandparsers.RouteDeleteParser;
+import duke.logic.parsers.commandparsers.RouteEditParser;
+import duke.logic.parsers.commandparsers.RouteGenerateParser;
+import duke.logic.parsers.commandparsers.RouteListParser;
+import duke.logic.parsers.commandparsers.RouteNodeAddParser;
+import duke.logic.parsers.commandparsers.RouteNodeDeleteParser;
+import duke.logic.parsers.commandparsers.RouteNodeEditParser;
+import duke.logic.parsers.commandparsers.RouteNodeListParser;
+import duke.logic.parsers.commandparsers.StaticMapParser;
 
 /**
  * Parser for commands entered by the user. It reads from standard input and returns Command objects.
@@ -53,8 +51,7 @@ public class Parser {
      * @return The corresponding Command object.
      * @throws ParseException If userInput is undefined.
      */
-    public static Command parseComplexCommand(String input) throws ParseException, StartEndDateDiscordException,
-            StartEndDateBeforeNowException, BirthdayError {
+    public static Command parseComplexCommand(String input) throws ParseException {
         String commandWord = getCommandWord(input);
 
         switch (commandWord) {
@@ -107,7 +104,7 @@ public class Parser {
         case "routeNodeList":
             return new RouteNodeListParser(getWord(input)).parse();
         case "routeGenerate":
-            return ParserUtil.createRouteGenerateCommand(getWord(input));
+            return new RouteGenerateParser(getWord(input)).parse();
         case "routeShow":
             return new RouteShowCommand(ParserUtil.getIntegerIndexInList(0, 2, getWord(input)));
         case "routeNodeShow":

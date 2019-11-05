@@ -1,7 +1,7 @@
 package duke.logic.commands;
 
 import duke.ModelStub;
-import duke.commons.exceptions.DukeDuplicateTaskException;
+import duke.commons.exceptions.DuplicateTaskException;
 import duke.commons.exceptions.DukeException;
 import duke.model.Event;
 import duke.model.Model;
@@ -22,7 +22,7 @@ class AddCommandTest {
         AddCommand addCommand = new AddCommand(event);
         addCommand.execute(model);
         assertTrue(model.getEvents().contains(event));
-        assertThrows(DukeDuplicateTaskException.class, () -> addCommand.execute(model));
+        assertThrows(DuplicateTaskException.class, () -> addCommand.execute(model));
         Event event2 = new Event("NTU", LocalDateTime.now(), LocalDateTime.now());
         AddCommand addCommand2 = new AddCommand(event2);
         addCommand2.execute(model);

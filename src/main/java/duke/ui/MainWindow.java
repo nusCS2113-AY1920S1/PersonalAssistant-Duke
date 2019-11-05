@@ -77,7 +77,7 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Initialises the logic and Ui component of Duke.
      */
-    public void initialise(Main main) throws FileLoadFailException {
+    public void initialise(Main main) {
         this.main = main;
         logic = new LogicManager();
         sgTravelShow(Messages.STARTUP_WELCOME_MESSAGE + logic.getName());
@@ -122,7 +122,7 @@ public class MainWindow extends UiPart<Stage> {
                     new MapWindow((CommandResultMap) result).show();
                 }
 
-            } catch (DukeException | FileNotFoundException e) {
+            } catch (DukeException e) {
                 sgTravelShow(e.getMessage());
             }
         });

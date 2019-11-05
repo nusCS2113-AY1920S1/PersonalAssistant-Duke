@@ -1,10 +1,12 @@
 package duke.logic;
 
-import duke.commons.exceptions.FileLoadFailException;
+import duke.commons.exceptions.ChronologyAfterPresentException;
+import duke.commons.exceptions.ChronologyBeforePresentException;
+import duke.commons.exceptions.ChronologyInconsistentException;
+import duke.commons.exceptions.DukeException;
 import duke.commons.exceptions.ParseException;
 import duke.logic.commands.Command;
 import duke.logic.commands.results.CommandResult;
-import duke.commons.exceptions.DukeException;
 import duke.logic.commands.results.PanelResult;
 import duke.logic.conversations.ConversationManager;
 import duke.logic.edits.EditorManager;
@@ -14,7 +16,6 @@ import duke.model.ModelManager;
 
 import javafx.scene.input.KeyCode;
 
-import java.io.FileNotFoundException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -29,7 +30,7 @@ public class LogicManager extends Logic {
     /**
      * Creates LogicManager instance.
      */
-    public LogicManager() throws FileLoadFailException {
+    public LogicManager() {
         model = new ModelManager();
         conversationManager = new ConversationManager();
     }
@@ -40,7 +41,7 @@ public class LogicManager extends Logic {
      * @param userInput The input string from user.
      * @return CommandResult Object containing information for Ui to display.
      */
-    public CommandResult execute(String userInput) throws DukeException, FileNotFoundException {
+    public CommandResult execute(String userInput) throws DukeException {
         Command c;
         if (EditorManager.isActive()) {
             logger.log(Level.INFO, "editing...");
@@ -50,6 +51,10 @@ public class LogicManager extends Logic {
                 c = Parser.parseComplexCommand(userInput);
                 conversationManager.clearContext();
             } catch (ParseException e) {
+                if (e instanceof ChronologyAfterPresentException || e instanceof ChronologyBeforePresentException
+                        || e instanceof ChronologyInconsistentException) {
+                    throw e;
+                }
                 c = getCommandFromConversationManager(userInput);
             }
         }

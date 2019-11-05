@@ -26,6 +26,7 @@ public class LocationSearchCommand extends Command {
      *
      * @param model The model object containing information about the user.
      * @return The CommandResultText.
+     * @throws ApiException If the Api call fails.
      */
     @Override
     public CommandResultText execute(Model model) throws ApiException {

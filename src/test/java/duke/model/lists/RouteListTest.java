@@ -1,8 +1,8 @@
 package duke.model.lists;
 
-import duke.commons.exceptions.RouteDuplicateException;
-import duke.commons.exceptions.RouteNodeDuplicateException;
-import duke.commons.exceptions.RouteNotFoundException;
+import duke.commons.exceptions.DuplicateRouteException;
+import duke.commons.exceptions.DuplicateRouteNodeException;
+import duke.commons.exceptions.NoSuchRouteException;
 import duke.model.transports.Route;
 import org.junit.jupiter.api.Test;
 
@@ -17,20 +17,20 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class RouteListTest {
 
     @Test
-    void add() throws RouteDuplicateException {
+    void add() throws DuplicateRouteException {
         RouteList routeList = new RouteList();
         Route route1 = new Route("To NUS", "by bus");
 
         routeList.add(route1);
         assertTrue(routeList.contains(route1));
 
-        assertThrows(RouteDuplicateException.class, () -> {
+        assertThrows(DuplicateRouteException.class, () -> {
             routeList.add(route1);
         });
     }
 
     @Test
-    void get() throws RouteDuplicateException {
+    void get() throws DuplicateRouteException {
         RouteList routeList = new RouteList();
         Route route1 = new Route("To NUS", "by bus");
         routeList.add(route1);
@@ -56,7 +56,7 @@ class RouteListTest {
     }
 
     @Test
-    void remove() throws RouteDuplicateException {
+    void remove() throws DuplicateRouteException {
         RouteList routeList = new RouteList();
         Route route1 = new Route("To NUS", "by bus");
         routeList.add(route1);
@@ -106,7 +106,7 @@ class RouteListTest {
     }
 
     @Test
-    void setRoute() throws RouteDuplicateException, RouteNodeDuplicateException, RouteNotFoundException {
+    void setRoute() throws DuplicateRouteException, DuplicateRouteNodeException, NoSuchRouteException {
         RouteList routeList = new RouteList();
         Route route1 = new Route("To NUS", "by bus");
         Route route2 = new Route("To NTU", "by bus");
@@ -116,17 +116,17 @@ class RouteListTest {
         assertTrue(routeList.contains(route2));
 
         Route route3 = new Route("To SMU", "by bus");
-        assertThrows(RouteNotFoundException.class, () -> {
+        assertThrows(NoSuchRouteException.class, () -> {
             routeList.setRoute(route1, route3);
         });
 
-        assertThrows(RouteDuplicateException.class, () -> {
+        assertThrows(DuplicateRouteException.class, () -> {
             routeList.setRoute(route2, route2);
         });
     }
 
     @Test
-    void setRoutes() throws RouteDuplicateException, RouteNodeDuplicateException, RouteNotFoundException {
+    void setRoutes() throws DuplicateRouteException, DuplicateRouteNodeException, NoSuchRouteException {
         RouteList routeList = new RouteList();
         Route route1 = new Route("To NUS", "by bus");
         Route route2 = new Route("To NTU", "by bus");
@@ -140,13 +140,13 @@ class RouteListTest {
         assertTrue(routeList.contains(route2));
 
         routeArrayList.add(route2);
-        assertThrows(RouteDuplicateException.class, () -> {
+        assertThrows(DuplicateRouteException.class, () -> {
             routeList.setRoutes(routeArrayList);
         });
     }
 
     @Test
-    void size() throws RouteDuplicateException {
+    void size() throws DuplicateRouteException {
         RouteList routeList = new RouteList();
         assertEquals(0, routeList.size());
 
@@ -160,7 +160,7 @@ class RouteListTest {
     }
 
     @Test
-    void contains() throws RouteDuplicateException {
+    void contains() throws DuplicateRouteException {
         RouteList routeList = new RouteList();
         Route route1 = new Route("To NUS", "by bus");
 
@@ -177,7 +177,7 @@ class RouteListTest {
     }
 
     @Test
-    void isEmpty() throws RouteDuplicateException {
+    void isEmpty() throws DuplicateRouteException {
         RouteList routeList = new RouteList();
         assertTrue(routeList.isEmpty());
 

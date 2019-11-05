@@ -6,14 +6,12 @@ import duke.logic.commands.results.CommandResultText;
 
 import org.junit.jupiter.api.Test;
 
-import java.io.FileNotFoundException;
-
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class HelpCommandTest {
 
     @Test
-    void execute() throws DukeException, FileNotFoundException {
+    void execute() throws DukeException {
         Command c = new HelpCommand();
         ModelStub modelStub = new ModelStub();
         assertTrue(c.execute(modelStub) instanceof CommandResultText);

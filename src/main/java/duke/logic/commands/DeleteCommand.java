@@ -1,7 +1,7 @@
 package duke.logic.commands;
 
 import duke.commons.exceptions.FileNotSavedException;
-import duke.commons.exceptions.QueryOutOfBoundsException;
+import duke.commons.exceptions.OutOfBoundsException;
 import duke.logic.commands.results.CommandResultText;
 import duke.model.Event;
 import duke.model.Model;
@@ -26,15 +26,17 @@ public class DeleteCommand extends Command {
      * Executes this command and returns a text result.
      *
      * @param model The model object containing event list.
+     * @throws FileNotSavedException If the data could not be saved.
+     * @throws OutOfBoundsException If the index is out of bounds.
      */
     @Override
-    public CommandResultText execute(Model model) throws QueryOutOfBoundsException, FileNotSavedException {
+    public CommandResultText execute(Model model) throws OutOfBoundsException, FileNotSavedException {
         try {
             Event event = model.getEvents().remove(index);
             model.save();
             return new CommandResultText(MESSAGE_DELETE + event);
         } catch (IndexOutOfBoundsException e) {
-            throw new QueryOutOfBoundsException();
+            throw new OutOfBoundsException();
         }
     }
 }

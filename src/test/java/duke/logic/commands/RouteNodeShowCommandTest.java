@@ -2,7 +2,7 @@ package duke.logic.commands;
 
 import duke.ModelStub;
 import duke.commons.exceptions.DukeException;
-import duke.commons.exceptions.QueryOutOfBoundsException;
+import duke.commons.exceptions.OutOfBoundsException;
 import duke.logic.commands.results.CommandResultText;
 import duke.logic.parsers.Parser;
 import duke.model.Model;
@@ -38,28 +38,28 @@ class RouteNodeShowCommandTest {
         //negative test for non-existing route
         RouteNodeListCommand routeNodeListCommand2 =
                 (RouteNodeListCommand) Parser.parseComplexCommand("routeNodeList 2 1");
-        assertThrows(QueryOutOfBoundsException.class, () -> {
+        assertThrows(OutOfBoundsException.class, () -> {
             routeNodeListCommand2.execute(model);
         });
 
         //negative test for non-existing route node in existing route
         RouteNodeListCommand routeNodeListCommand3 =
                 (RouteNodeListCommand) Parser.parseComplexCommand("routeNodeList 1 2");
-        assertThrows(QueryOutOfBoundsException.class, () -> {
+        assertThrows(OutOfBoundsException.class, () -> {
             routeNodeListCommand3.execute(model);
         });
 
         //negative test for negative values in non-existing route
         RouteNodeListCommand routeNodeListCommand4 =
                 (RouteNodeListCommand) Parser.parseComplexCommand("routeNodeList -2 1");
-        assertThrows(QueryOutOfBoundsException.class, () -> {
+        assertThrows(OutOfBoundsException.class, () -> {
             routeNodeListCommand4.execute(model);
         });
 
         //negative test for negative values in non-existing route node in existing route
         RouteNodeListCommand routeNodeListCommand5 =
                 (RouteNodeListCommand) Parser.parseComplexCommand("routeNodeList 1 -2");
-        assertThrows(QueryOutOfBoundsException.class, () -> {
+        assertThrows(OutOfBoundsException.class, () -> {
             routeNodeListCommand5.execute(model);
         });
     }

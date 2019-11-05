@@ -1,6 +1,6 @@
 package duke.logic.commands.results;
 
-import duke.commons.exceptions.QueryOutOfBoundsException;
+import duke.commons.exceptions.OutOfBoundsException;
 import duke.model.Event;
 import duke.model.lists.VenueList;
 import duke.model.locations.Venue;
@@ -92,9 +92,9 @@ public class PanelResult {
     /**
      * Gets the index of the field that is currently selected.
      */
-    public int getField() throws QueryOutOfBoundsException {
+    public int getField() throws OutOfBoundsException {
         if (!isLock) {
-            throw new QueryOutOfBoundsException();
+            throw new OutOfBoundsException();
         }
         return field;
     }

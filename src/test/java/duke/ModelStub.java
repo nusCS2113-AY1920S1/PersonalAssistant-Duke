@@ -2,7 +2,7 @@ package duke;
 
 import duke.commons.exceptions.FileLoadFailException;
 import duke.commons.exceptions.FileNotSavedException;
-import duke.commons.exceptions.RouteDuplicateException;
+import duke.commons.exceptions.DuplicateRouteException;
 import duke.model.Model;
 import duke.model.lists.EventList;
 import duke.model.lists.RouteList;
@@ -140,7 +140,7 @@ public class ModelStub implements Model {
      * @param route The route to add.
      */
     @Override
-    public void addRoute(Route route) throws RouteDuplicateException {
+    public void addRoute(Route route) throws DuplicateRouteException {
         routes.add(route);
     }
 

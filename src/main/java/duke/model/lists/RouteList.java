@@ -1,7 +1,7 @@
 package duke.model.lists;
 
-import duke.commons.exceptions.RouteNotFoundException;
-import duke.commons.exceptions.RouteDuplicateException;
+import duke.commons.exceptions.NoSuchRouteException;
+import duke.commons.exceptions.DuplicateRouteException;
 import duke.model.transports.Route;
 
 import java.util.ArrayList;
@@ -25,12 +25,12 @@ public class RouteList implements Iterable<Route>, Listable<Route> {
      * Adds a unique Route to the list.
      *
      * @param toAdd the Route to add.
-     * @exception RouteDuplicateException If there is a duplicate route.
+     * @exception DuplicateRouteException If there is a duplicate route.
      */
     @Override
-    public void add(Route toAdd) throws RouteDuplicateException {
+    public void add(Route toAdd) throws DuplicateRouteException {
         if (contains(toAdd)) {
-            throw new RouteDuplicateException();
+            throw new DuplicateRouteException();
         }
         list.add(toAdd);
     }
@@ -51,11 +51,11 @@ public class RouteList implements Iterable<Route>, Listable<Route> {
      * Removes an existing Route from the list.
      *
      * @param toRemove The route to remove.
-     * @exception RouteNotFoundException If the route is not found.
+     * @exception NoSuchRouteException If the route is not found.
      */
-    public void remove(Route toRemove) throws RouteNotFoundException {
+    public void remove(Route toRemove) throws NoSuchRouteException {
         if (!list.remove(toRemove)) {
-            throw new RouteNotFoundException();
+            throw new NoSuchRouteException();
         }
     }
 
@@ -79,18 +79,18 @@ public class RouteList implements Iterable<Route>, Listable<Route> {
      *
      * @param target The existing route.
      * @param editedRoute The new route.
-     * @exception RouteDuplicateException If there is a duplicate route.
-     * @exception RouteNotFoundException If the route is not found.
+     * @exception DuplicateRouteException If there is a duplicate route.
+     * @exception NoSuchRouteException If the route is not found.
      */
-    public void setRoute(Route target, Route editedRoute) throws RouteDuplicateException,
-            RouteNotFoundException {
+    public void setRoute(Route target, Route editedRoute) throws DuplicateRouteException,
+            NoSuchRouteException {
         int index = list.indexOf(target);
         if (index == -1) {
-            throw new RouteNotFoundException();
+            throw new NoSuchRouteException();
         }
 
         if (target.isSameRoute(editedRoute) || contains(editedRoute)) {
-            throw new RouteDuplicateException();
+            throw new DuplicateRouteException();
         }
 
         list.set(index, editedRoute);
@@ -100,11 +100,11 @@ public class RouteList implements Iterable<Route>, Listable<Route> {
      * Replaces the contents of this list with a list of Routes.
      *
      * @param routes The list of Routes to replace.
-     * @exception RouteDuplicateException If there is a duplicate route.
+     * @exception DuplicateRouteException If there is a duplicate route.
      */
-    public void setRoutes(List<Route> routes) throws RouteDuplicateException {
+    public void setRoutes(List<Route> routes) throws DuplicateRouteException {
         if (!isUniqueRoutes(routes)) {
-            throw new RouteDuplicateException();
+            throw new DuplicateRouteException();
         }
 
         list = routes;
