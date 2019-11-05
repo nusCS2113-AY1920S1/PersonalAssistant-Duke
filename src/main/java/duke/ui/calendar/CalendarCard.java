@@ -24,7 +24,7 @@ public class CalendarCard extends UiPart<StackPane> {
     private final EventList events;
     private static final String FXML = "CalendarCard.fxml";
     private static final String CLASSNAME = "class duke.model.";
-    private static int currentIndex = 0;
+    private int currentIndex = 0;
     private boolean isCalendarCardClass = true;
 
     private CalendarCard(int day, EventList events) {
