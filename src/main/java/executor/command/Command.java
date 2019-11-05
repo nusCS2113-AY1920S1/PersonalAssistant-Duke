@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Command {
-    private static List<String> executedCommands;
+    private static List<String> executedCommands = new ArrayList<>();
     protected Boolean exitRequest = false;
     protected String userInput = null;
     protected CommandType commandType;
