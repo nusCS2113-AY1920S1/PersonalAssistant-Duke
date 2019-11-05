@@ -5,7 +5,7 @@ import duke.commons.exceptions.ParseException;
 import duke.logic.commands.Command;
 import duke.logic.parsers.ConversationParser;
 import duke.logic.parsers.Parser;
-import duke.logic.parsers.commandparser.PromptParser;
+import duke.logic.parsers.commandparsers.PromptParser;
 
 import java.util.logging.Logger;
 
