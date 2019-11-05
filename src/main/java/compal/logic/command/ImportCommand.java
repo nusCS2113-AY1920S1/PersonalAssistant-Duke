@@ -2,9 +2,6 @@ package compal.logic.command;
 
 import compal.commons.LogUtils;
 import compal.logic.command.exceptions.CommandException;
-import compal.logic.parser.DeadlineCommandParser;
-import compal.model.tasks.Deadline;
-import compal.model.tasks.Event;
 import compal.model.tasks.Task;
 import compal.model.tasks.TaskList;
 
@@ -24,9 +21,9 @@ public class ImportCommand extends Command {
         + "Examples:\n\t"
         + "import /file-name cal\n\t\t"
         + "import cal.ics schedule to COMPal.";
-    public static final String MESSAGE_SUCCESS = "I have tried importing the given File!\nThe results are below:\n";
-    public static final String MESSAGE_FILE_NON_EXIST = "Error: File specified to import does not exist!";
-    public static final String MESSAGE_FILE_NON_ICS = "Error: File is not a ICS file format that can be read from!";
+    private static final String MESSAGE_SUCCESS = "I have tried importing the given File!\nThe results are below:\n";
+    private static final String MESSAGE_FILE_NON_EXIST = "Error: File specified to import does not exist!";
+    private static final String MESSAGE_FILE_NON_ICS = "Error: File is not a ICS file format that can be read from!";
 
     private String fileName;
     private static final Logger logger = LogUtils.getLogger(ImportCommand.class);
@@ -169,8 +166,6 @@ public class ImportCommand extends Command {
                         && t.getDescription().equals(taskDesc)
                         && t.getStringEndTime().equals(taskEndTime)
                         && t.getStringMainDate().equals(taskEndDate)) {
-                        System.out.println("HAVE");
-                        System.out.println(t.getId());
                         new SetReminderCommand(t.getId(), "y").commandExecute(taskList);
                         break;
                     }
@@ -184,6 +179,7 @@ public class ImportCommand extends Command {
             EventCommand event = new EventCommand(taskDesc, startDateList, taskPriority, taskStartTime,
                 taskEndTime, taskEndDate, interval);
             finalList += event.commandExecute(taskList).feedbackToUser + "\n";
+
             if (hasReminder) {
                 for (Task t : taskList.getArrList()) {
                     if (t.getSymbol().equals("E")
@@ -202,10 +198,7 @@ public class ImportCommand extends Command {
 
     private Boolean getReminder(String eventString) {
         final String alarmToken = "BEGIN:VALARM";
-        if (eventString.contains(alarmToken)) {
-            return true;
-        }
-        return false;
+        return eventString.contains(alarmToken);
     }
 
     private String getDesc(String eventString) {
