@@ -10,4 +10,9 @@ public class SortMealByCalorie implements Comparator<Meal> {
     public int compare(Meal meal, Meal mealCompared) {
         return meal.getCalorieValue() - mealCompared.getCalorieValue();
     }
+
+    @Override
+    public Comparator<Meal> reversed() {
+        return null;
+    }
 }

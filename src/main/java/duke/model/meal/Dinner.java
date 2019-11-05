@@ -15,5 +15,6 @@ public class Dinner extends Meal {
     public Dinner(String description, LocalDate date, HashMap<String, String> details, String costStr) {
         super(description, date, details, costStr);
         super.type = "D";
+        super.mealType = MealType.DINNER;
     }
 }
