@@ -50,7 +50,7 @@ public class MainTest {
     /**
      * Test clash handling for recurring events
      */
-    public void clashTestRecurring(){
+    public void clashTestRecurring() {
         ArrayList<String> readFromFile = new ArrayList<String>();
         String fileContent;
         fileContent = "XT/fawpeifwe/02-12-2019";
@@ -73,7 +73,7 @@ public class MainTest {
     }
 
     @Test
-    public void testSorting() throws Exception{
+    public void testSorting() throws Exception {
         ArrayList<String> readFromFile = new ArrayList<String>();
         String fileContent;
         fileContent = "XT/fawpeifwe/02-12-2019";
