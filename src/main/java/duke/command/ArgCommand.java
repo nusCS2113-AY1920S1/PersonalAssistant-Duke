@@ -14,10 +14,16 @@ import java.util.Map;
 public abstract class ArgCommand extends Command {
 
     // TODO: reduce coupling; refactor ArgCommand to have an interactive builder mode?
-    private String arg = null; //argument supplied to the command
-    private HashMap<String, String> switchVals = new HashMap<String, String>(); //hashmap of switch parameters
+    private String arg; //argument supplied to the command
+    private HashMap<String, String> switchVals; //hashmap of switch parameters
+
+    public ArgCommand() {
+         arg = null;
+         switchVals = new HashMap<String, String>();
+    }
 
     public ArgCommand(String arg, String[] switchNames, String[] switchVals) throws DukeException {
+        this();
         setArg(arg);
         if (switchNames.length != switchVals.length) {
             throw new DukeException("You gave me " + switchNames.length + " switch names, but "
