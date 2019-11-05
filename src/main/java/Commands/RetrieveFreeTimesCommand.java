@@ -1,8 +1,7 @@
 package Commands;
 
-import Commons.LookupTable;
 import Commons.Storage;
-import Commons.Ui;
+import Commons.UserInteraction;
 import Tasks.TaskList;
 import javafx.util.Pair;
 
@@ -38,7 +37,7 @@ public class RetrieveFreeTimesCommand extends Command {
      * @return This returns the method in the Ui object which returns the string to display freeTimes message
      */
     @Override
-    public String execute(LookupTable LT, TaskList events, TaskList deadlines, Ui ui, Storage storage) {
+    public String execute(TaskList events, TaskList deadlines, UserInteraction ui, Storage storage) {
         ArrayList<Pair<String, String>> retrievedFreeTimes = FindFreeTimesCommand.getCompiledFreeTimesList();
         if (checkIsEmpty(retrievedFreeTimes))return ui.showSelectionOptionEmptyList();
         else if(checkIfInvalidOption()) return "Please select options between 1 - 5";
