@@ -18,7 +18,8 @@ public class ChangePasswordCommand extends Command {
      * write the new password to the Password.txt file.
      *
      * @param list         Task lists
-     * @param ui           The object that deals with printing things to the user.
+     * @param ui           The object that deals
+     *                     with printing things to the user.
      * @param storage      The object that deals with storing data.
      * @param commandStack
      * @throws IOException Catch the error if the read file fails.
