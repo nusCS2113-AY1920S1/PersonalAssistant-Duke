@@ -12,6 +12,7 @@ import moomoo.task.SchedulePayment;
 import moomoo.task.Storage;
 import moomoo.task.Ui;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -89,6 +90,8 @@ public class MooMoo {
         while (!isExit) {
             try {
                 String fullCommand = ui.readCommand();
+                System.out.print("\u001b[2J");
+                System.out.flush();
                 Command c = Parser.parse(fullCommand, ui);
                 c.execute(calendar, budget, categoryList, category, ui, storage);
 

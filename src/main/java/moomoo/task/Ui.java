@@ -8,10 +8,12 @@ import java.time.format.FormatStyle;
 import java.io.PrintStream;
 import java.util.Scanner;
 
+
 /**
  * Represents the User Interface to be shown to the user.
  */
 public class Ui {
+    private static final String ANSI_RED = "\u001B[31m";
     private String output = null;
     private Scanner inputScanner;
 
@@ -36,7 +38,8 @@ public class Ui {
                 + "MOOOOOOOO!\n"
 
                 + "Welcome to MooMooMoney! Your one-stop budgeting and expenses tracker!\n"
-                + "What can MooMoo do for you today?");
+                + "What can MooMoo do for you today?\n"
+                + "Type [help] for a list of commands, or [bye] to exit the program.");
     }
 
     /**
@@ -71,7 +74,7 @@ public class Ui {
      * @return Message of the MooMooException
      */
     public String printException(MooMooException e) {
-        this.output = e.getMessage();
+        this.output = ANSI_RED + e.getMessage();
         return this.output;
     }
 
@@ -237,10 +240,14 @@ public class Ui {
      */
     public void showHelp() {
         String text = "Try one of these commands:\n"
-                + "add c/[Category name]\n"
-                + "delete c/[Category name]\n"
-                + "add n/[Expenditure name] a/[Amount spent] c/[Category] d/[YYYY-MM-DD]\n"
-                + "sort\n"
+                + "bye\n"
+                + "category add c/[Category name]\n"
+                + "category edit c/[Category name] c/[Category]\n"
+                + "category delete c/[Category name]\n"
+                + "add n/[Name] a/[Amount spent] c/[Category] *d/[YYYY-MM-DD]\n"
+                + "edit i/[Index] *n/[Name] *a/[Amount spent] *c/[Category] *d/[YYYY-MM-DD]\n"
+                + "delete i/[Index] c/[Category]\n"
+                + "sort t/[Type]\n"
                 + "budget\n"
                 + "schedule\n"
                 + "graph\n"

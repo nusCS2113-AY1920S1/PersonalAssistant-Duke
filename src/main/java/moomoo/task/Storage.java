@@ -57,7 +57,7 @@ public class Storage {
         try {
             File myNewFile = new File(expenditureFilePath);
             if (myNewFile.createNewFile()) {
-                return populateDefaultCategories(categoryList);
+                return populateDefaultExpenditures(categoryList);
             } else {
                 List<String> input = Files.readAllLines(Paths.get(this.expenditureFilePath));
                 for (String s : input) {
@@ -72,6 +72,10 @@ public class Storage {
                             categoryList.add(new Category(category));
                         }
                         categoryList.get(category).add(expenditure);
+                    } else if (entry.length == 1) {
+
+                    } else {
+
                     }
                 }
                 return categoryList;
@@ -87,7 +91,7 @@ public class Storage {
      * @return populated category list
      * @throws MooMooException throws exception if file cannot be found
      */
-    private CategoryList populateDefaultCategories(CategoryList categoryList)
+    private CategoryList populateDefaultExpenditures(CategoryList categoryList)
             throws MooMooException {
         categoryList.add(new Category("misc"));
         categoryList.add(new Category("food"));
@@ -211,7 +215,7 @@ public class Storage {
         createFileAndDirectory(this.categoryFilePath);
         try {
             String newCategory = Files.readString(Paths.get(this.categoryFilePath));
-            newCategory = ("c/" + category + "\n" + newCategory);
+            newCategory += (category + "\n");
             Files.writeString(Paths.get(this.categoryFilePath), newCategory);
         } catch (IOException e) {
             throw new MooMooException("Unable to write to file. Please retry again.");
