@@ -45,6 +45,9 @@ public class NewCommand extends Command<SongList> {
             String[] sections = message.substring(4).split(" ");
 
             songName = sections[0];
+            if (songList.songExist(songName)) {
+                throw new DucatsException(message, "song name");
+            }
             key = sections[1];
             timeSignature = sections[2];
             tempo = Integer.parseInt(sections[3]);
@@ -54,7 +57,11 @@ public class NewCommand extends Command<SongList> {
             storage.updateFile(songList);
             return ui.formatNewSong(songList.getSongList(), song);
         } catch (Exception e) {
-            throw new DucatsException(message, "new");
+            if (e instanceof DucatsException && ((DucatsException) e).getType().equals("song name")) {
+                throw new DucatsException(message, "song name");
+            } else {
+                throw new DucatsException(message, "new");
+            }
         }
     }
 
