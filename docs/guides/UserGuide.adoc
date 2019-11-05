@@ -200,6 +200,18 @@ To enter task commands, please ensure you are in task mode. If not, see Section 
 command using `flip`.
 
 ==== Add Tasks Commands
+The following commands in this section allows you to add tasks to Email Manager. They will appear in the centre pane.
+
+[NOTE]
+To help you be more organised, each task is able to contain optional parameters.
+These parameters are a 'doafter' task, a priority level and multiple tags.
+To learn more about these parameters, go to their respective sections:
+<<doafter>>, <<priority>>, <<tag>>.
+
+[TIP]
+For the following commands, you are able to enter the optional parameters in any order
+as long as they are entered after the compulsory parameters.
+
 ===== Adding a todo: `todo`
 Format: `todo TASK_NAME [-doafter DOAFTER_TASK][-priority PRIORITY_LEVEL][-tag TAG1]...` +
 
@@ -255,27 +267,6 @@ Format: `list` +
 
 Gives a complete list of tasks.
 
-==== Update Tasks Commands: `update`
-Format: `update ITEM_NUMBER [-time dd/mm/yyyy hhMM] [-doafter DOAFTER_TASK][-priority PRIORITY_LEVEL][-tag TAG1]...` +
-
-Updates attributes of the specified task. Requires minimum of one attribute to function.
-
-Examples: +
-`update 1 -time Mon ` +
-`update 1 -priority low -doafter eat dinner -tag food`
-
-[TIP]
-Option parameters starting with `-` can be entered in any order, but all of them must be entered after the
-main command body. +
-For example, `deadline 123 -time 11/11/2020 1100 -tag CS` and `deadline 123 -tag CS
--time 11/11/2020 1100` are both valid, but `deadline -time 11/11/2020 1100 123 -tag CS` is not.
-
-[NOTE]
-If there are more than one `time`, `doafter` or `priority` parameters, only the last one will be valid.
-
-[WARNING]
-Any tags in the command will overwrite *all* current tags in the task
-
 ==== Delete Tasks Commands: `delete`
 Format: `delete ITEM_NUMBER` +
 
@@ -308,37 +299,37 @@ Shows the deadline or event tasks for the next NO_OF_DAYS days. +
 Example: +
 `reminder 4`
 
+[[doafter]]
 ==== Do after: `doafter`
-Format: `doafter ITEM_NUMBER -msg DESCRIPTION`  +
+Format: `doafter ITEM_NUMBER -msg ACTIVITY`  +
 
-Records a task to be done after the original task is done. +
+Records an activity to be done after the original task is completed.
+This parameter will accept any valid string and will not be connected to other tasks in the list.
 
-Example: +
+Examples:
+
+`doafter 5 -msg homework`
+
 `doafter 2 -msg work on project`
 
 [NOTE]
-Only one doafter task can be added. To modify an existing doafter task, see the update command.
+Only one 'doafter' task can be added. If you execute another valid `doafter` command
+for the same task, it will overwrite any existing 'doafter' task.
 
-==== Snooze a task: `snooze`
-Format: `snooze ITEM_NUMBER -by NO_OF_DAYS`
+[TIP]
+You can change or add multiple parameters for a single task in one command using the `update` command.
+To learn more, go to <<update>>.
 
-Snoozes the task by the NO_OF_DAYS.
-
-Examples: +
-`snooze 1 -by 4` +
-`snooze 1`
-
-[NOTE]
-If the NO_OF_DAYS is not input, the `snooze` command will automatically snooze the task by 3 days.
-Only tasks of type `deadline` and `event` can be snoozed.
-
+[[priority]]
 ==== Set Priority Command: `set`
 Format: `set ITEM_NUMBER -priority PRIORITY`
 
 Sets a priority to a task.
 
-Examples: +
-`set 1 -priority high` +
+Examples:
+
+`set 1 -priority high`
+
 `set 2 -priority med`
 
 [NOTE]
@@ -349,8 +340,7 @@ Any other PRIORITY inputted will be invalid.
 This command can override the priority set to a task by the command `update ITEM_NUMBER -priority PRIORITY`
 and vice versa.
 
-==== Detect Anomalies (coming in v2.0)
-
+[[tag]]
 ==== Tagging a task: `tag`
 Format: `tag ITEM_NUMBER -tag TAG1 [-tag TAG2]...` +
 
@@ -359,20 +349,69 @@ Tags the specified item with the tag(s) minimum number of tags is 1.
 Example: +
 `tag 1 -tag fun`
 
+==== Snooze a task: `snooze`
+Format: `snooze ITEM_NUMBER [-by NO_OF_DAYS]`
+
+Snoozes the task by the NO_OF_DAYS.
+
+Examples:
+
+`snooze 3`
+
+`snooze 1 -by 4`
+
+[NOTE]
+If the NO_OF_DAYS is not input, the `snooze` command will automatically snooze the task by 3 days.
+Only tasks of type `deadline` and `event` can be snoozed.
+
+[[update]]
+==== Update Tasks Commands: `update`
+Format: `update ITEM_NUMBER [-time dd/mm/yyyy hhMM] [-doafter DOAFTER_TASK][-priority PRIORITY_LEVEL][-tag TAG1]...` +
+
+Updates attributes of the specified task. Requires minimum of one attribute to function.
+
+Examples:
+
+`update 1 -time Mon` +
+`update 1 -priority low -doafter eat dinner -tag food`
+
+[TIP]
+Option parameters starting with `-` can be entered in any order, but all of them must be entered after the
+main command body. +
+For example, `deadline 123 -time 11/11/2020 1100 -tag CS` and `deadline 123 -tag CS
+-time 11/11/2020 1100` are both valid, but `deadline -time 11/11/2020 1100 123 -tag CS` is not.
+
+[NOTE]
+If there are more than one `time`, `doafter` or `priority` parameters, only the last one will be valid.
+
+[WARNING]
+Any tags in the command will overwrite *all* current tags in the task
+
 ==== Linking with emails: `link`
 Format: `link ITEM_NUMBER [-email EMAIL_NUMBER]...` +
 
 Notes which email is related to the task specified. If there is no email parameter,
 the command will return a list of the emails linked to the task.
 
-Examples: +
-`link 2` will give a list of all emails that is linked to task 2. +
+Examples:
+
+`link 2` will give a list of all emails that is linked to task 2.
+
 `link 2 -email 2 -email 4` will link emails 2 and 4 to task 2.
 
 ==== Clear task list: `clear`
-Format: `clear` +
+Format: `clear`
 
 This command deletes all tasks in the list.
+
+[WARNING]
+Once executed, you will not be able to undo this command.
+
+[TIP]
+If you execute this command by accident, you may return to your last saved state
+by closing _Email Manager_ without using the `bye` command.
+
+==== Detect Anomalies (coming in v2.0)
 
 === Email Mode
 
