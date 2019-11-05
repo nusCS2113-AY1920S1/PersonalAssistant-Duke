@@ -65,8 +65,7 @@ public class EmailCommandParseHelper {
         case "addKeyword":
             return parseEmailAddKeywordCommand(optionList, input);
         default:
-            throw new EmailParseException("OOPS!!! Enter \'email help\' to get list of methods for "
-                    + "email.");
+            throw new EmailParseException("Invalid command word. Please enter \'help\' for more information");
         }
     }
 

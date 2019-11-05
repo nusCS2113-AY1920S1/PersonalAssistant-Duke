@@ -160,6 +160,9 @@ public class TaskCommandParseHelper {
     private static int extractDayLimit(Matcher reminderCommandMatcher) throws NumberFormatException, TaskParseException {
         int dayLimit;
         String dayLimitString = reminderCommandMatcher.group("dayLimit");
+        if (dayLimitString == null) {
+            throw new TaskParseException("Day limit not specified. Default is used.");
+        }
         if (dayLimitString.length() > 6) {
             throw new TaskParseException("Reminder day limit only accept positive integer from 1 to 99999. "
                     + "Default is used.");

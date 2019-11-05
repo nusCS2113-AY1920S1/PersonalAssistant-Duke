@@ -176,8 +176,17 @@ public class Email {
         output += "<h3>" + this.subject + "</h3>";
         output += "<h5 style=\"color:gray\">" + this.sender.toWebViewString() + "</h5>";
         output += "<h5 style=\"color:gray\">" + this.getReceivedDateTime() + "</h5>";
-        output += this.body;
+        output += bodyWithoutAttachmentImage();
         return output;
+    }
+
+    private String bodyWithoutAttachmentImage() {
+        //String newBody = body.replaceAll("(width=\"\\d+\" height=\"\\d+\")|(width:[\\d.]+\\w*;"
+        //                + "\\s*height:[\\d.]+)",
+                String newBody = body.replaceAll("<img",
+                "<img style=\"display: none;\"");
+        System.out.println(newBody);
+        return newBody;
     }
 
     private ArrayList<String> getAllExpressions() {
