@@ -36,7 +36,6 @@ public class Reminder {
     private Storage storage;
     private Image img;
     private TaskList deadlines;
-    private static final Logger LOGGER = Logger.getLogger(Reminder.class.getName());
 
     /**
      * Creates reminder object.
@@ -58,6 +57,7 @@ public class Reminder {
         timerMap.remove(date);
         deadlines.setReminder(task , reminderTime, false);
         storage.updateDeadlineList(deadlines);
+        remindMap.remove(date);
     }
 
     public void setDeadlines(TaskList deadlines) {
@@ -68,6 +68,11 @@ public class Reminder {
         return this.remindMap;
     }
 
+    public void reminderOnStartAlert() {
+        AlertBox.display("Reminder!!!", "",
+                "Your previous reminders have been automatically set. To see more, please type remind/check",
+                Alert.AlertType.INFORMATION);
+    }
     /**
      * Creates a new thread when a reminder is set.
      * @param date The time set for the thread to run
@@ -89,9 +94,6 @@ public class Reminder {
             @Override
             public void run() {
                 Platform.runLater(() -> {
-                    AlertBox.display("Reminder!!!", "",
-                            "Please be reminded you have this task: " + task.getDescription() + " For mod: " + task.getModCode() + " by: " + task.getDateTime(),
-                            Alert.AlertType.INFORMATION);
                     Stage owner = new Stage(StageStyle.TRANSPARENT);
                     StackPane root = new StackPane();
                     root.setStyle("-fx-background-color: TRANSPARENT");
@@ -113,6 +115,9 @@ public class Reminder {
                                 owner.close();
                             });
                     notificationBuilder.show();
+                    AlertBox.display("Reminder!!!", "",
+                            "Please be reminded you have this task: " + task.getDescription() + " For mod: " + task.getModCode() + " by: " + task.getDateTime(),
+                            Alert.AlertType.INFORMATION);
                     timer.cancel();
                     deadlines.setReminder(task , reminderTime, false);
                     remindMap.remove(date);

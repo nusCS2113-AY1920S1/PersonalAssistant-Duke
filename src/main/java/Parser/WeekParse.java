@@ -21,7 +21,8 @@ public class WeekParse extends Parse {
     public Command parse() throws DukeInvalidFormatException {
         if (isValid(fullCommand)) {
             fullCommand = getWeek(fullCommand);
-            return new WeekCommand(fullCommand);}
+            return new WeekCommand(fullCommand);
+        }
         else throw new DukeInvalidFormatException(invalidWeek);
     }
 
