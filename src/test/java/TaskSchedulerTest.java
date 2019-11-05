@@ -92,5 +92,15 @@ public class TaskSchedulerTest {
         Assertions.assertEquals(expectedOutput, testOutput);
     }
 
+    @Test
+    public void testTaskSchedulerForNoFreeSlots() {
+        Long taskDuration = (long) 28;
+        TaskScheduler.scheduleByDeadline(tasks, taskDuration, secondDeadlineStartDate);
+        String testOutput = outContent.toString();
+        String expectedOutput = "_______________________________\n\r\n"
+                + "There is no free slot to insert the task. Consider freeing up your schedule.\n\r\n"
+                + "_______________________________\n\r\n";
+        Assertions.assertEquals(expectedOutput, testOutput);
+    }
 
 }
