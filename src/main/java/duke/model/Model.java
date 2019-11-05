@@ -1,6 +1,5 @@
 package duke.model;
 
-import duke.commons.exceptions.DukeException;
 import duke.commons.exceptions.FileNotSavedException;
 import duke.commons.exceptions.NoRecentItineraryException;
 import duke.commons.exceptions.ParseException;
