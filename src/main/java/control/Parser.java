@@ -24,7 +24,7 @@ public class Parser {
         case "login":
             return new LoginCommand(input, splitStr);
         case "logout":
-            return new LogoutCommand(input, splitStr);
+            return new LogoutCommand();
         case "create":
             return new CreateAccountCommand(input, splitStr);
         case "add":
@@ -51,6 +51,8 @@ public class Parser {
             return new ListBookingDailyCommand(input, splitStr);
         case "listmonth":
             return new ListBookingMonthCommand(input, splitStr);
+        case "listyear":
+            return new ListBookingYearCommand(input, splitStr);
         case "deleteroom":
             return new DeleteRoomCommand(input, splitStr);
         case "addinventory":

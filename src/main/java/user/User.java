@@ -13,7 +13,7 @@ public class User {
     }
 
     public String toWriteFile() {
-        return username;
+        return username + "\n";
     }
 
     public String getUsername() {

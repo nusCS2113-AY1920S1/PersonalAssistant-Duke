@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 //@@ AmirAzhar
 public class UserList extends ArrayList<User> {
-    public boolean loginStatus = false;
-    public String currentUser;
+    private boolean loginStatus = false;
+    private String currentUser;
 
     public UserList(ArrayList<String> loader) {
         for (String line : loader)
@@ -28,7 +28,7 @@ public class UserList extends ArrayList<User> {
         boolean found = false;
 
         for (User i : userList) {
-            if (i.username.trim().equals(username)) {
+            if (i.username.toUpperCase().trim().equals(username.toUpperCase())) {
                 found = true;
                 break;
             }
@@ -48,5 +48,25 @@ public class UserList extends ArrayList<User> {
                 break;
             }
         }
+    }
+
+    public String getCurrentUser() {
+        return currentUser;
+    }
+
+    public void logout() {
+        loginStatus = false;
+    }
+
+    public void setCurrentUser(String username) {
+        currentUser = username;
+    }
+
+    public void login() {
+        loginStatus = true;
+    }
+
+    public boolean getLoginStatus() {
+        return loginStatus;
     }
 }

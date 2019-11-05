@@ -52,7 +52,7 @@ public class RejectCommand extends Command {
         if (index < 0 || index >= bookingList.size()) {
             throw new DukeException("OOPS!!! The index you have entered is out of bounds");
         }
-        bookingList.get(index).rejectStatus();
+        bookingList.get(index).rejectStatus(userList.getCurrentUser());
         ui.addToOutput("This request has been rejected");
         ui.addToOutput(bookingList.get(index).toString());
         bookingstorage.saveToFile(bookingList);
