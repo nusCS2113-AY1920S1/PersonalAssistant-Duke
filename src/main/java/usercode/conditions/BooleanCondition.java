@@ -6,7 +6,6 @@ import org.json.simple.JSONObject;
 public class BooleanCondition extends Condition {
 
     public static final String JSON_KEY_TYPE = "condition_boolean_type";
-    public static final String CONDITION_TYPE = "boolean";
 
     private BooleanConditionType type;
 

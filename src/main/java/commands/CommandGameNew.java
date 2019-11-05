@@ -3,7 +3,6 @@ package commands;
 import exceptions.FarmioFatalException;
 import farmio.Farmer;
 import farmio.Farmio;
-import farmio.Storage;
 import frontend.Ui;
 
 public class CommandGameNew extends Command {
