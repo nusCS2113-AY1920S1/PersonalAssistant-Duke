@@ -10,6 +10,10 @@ import planner.util.legacy.periods.TimePeriodWeekly;
 import java.time.DayOfWeek;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public class Cca extends TaskWithMultipleWeeklyPeriod {
 
@@ -67,4 +71,5 @@ public class Cca extends TaskWithMultipleWeeklyPeriod {
     public String type() {
         return "cca";
     }
+
 }

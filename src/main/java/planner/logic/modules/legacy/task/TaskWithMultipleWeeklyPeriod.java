@@ -4,9 +4,12 @@ package planner.logic.modules.legacy.task;
 
 import planner.logic.exceptions.legacy.ModInvalidIndexException;
 import planner.util.legacy.periods.TimeInterval;
+import planner.util.legacy.periods.TimePeriod;
 import planner.util.legacy.periods.TimePeriodWeekly;
 import java.time.DayOfWeek;
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class TaskWithMultipleWeeklyPeriod extends TaskWithMultiplePeriods<TimePeriodWeekly> {
@@ -24,6 +27,10 @@ public class TaskWithMultipleWeeklyPeriod extends TaskWithMultiplePeriods<TimePe
     public TaskWithMultipleWeeklyPeriod(String task, TimePeriodWeekly period) {
         super(task);
         this.addPeriod(period);
+    }
+
+    public TaskWithMultipleWeeklyPeriod(String task) {
+        super(task);
     }
 
     public TaskWithMultipleWeeklyPeriod(String task, DayOfWeek dayOfWeek) {
@@ -74,5 +81,38 @@ public class TaskWithMultipleWeeklyPeriod extends TaskWithMultiplePeriods<TimePe
 
     public DayOfWeek getDayOfWeek(int index) throws ModInvalidIndexException {
         return this.getPeriod(index).getDayOfWeek();
+    }
+
+    //@@author e0313687
+    public boolean happensOnThisDayOfWeek(DayOfWeek dayOfWeek) {
+        return this.getDaysOfWeek().contains(dayOfWeek);
+    }
+
+    /**
+     * Returns a sorted list of this task's time period of the given day.
+     *
+     * @param dayOfWeek The day of the week
+     * @return a sorted list of this task's time period of the given day
+     */
+    public List<TimePeriodWeekly> getTimePeriodOfTheDay(DayOfWeek dayOfWeek) {
+        List<TimePeriodWeekly> timePeriods = new ArrayList<>();
+        List<TimePeriodWeekly> list = this.getPeriods();
+        for (TimePeriodWeekly item : list) {
+            //loop through all the periods, see which period falls under that day
+            if (dayOfWeek.equals(item.getDayOfWeek())) {
+                timePeriods.add(item);
+            }
+        }
+        timePeriods.sort(Comparator.comparing(TimePeriodWeekly::getBegin));
+        //with the current infrastructure I can only loop through, advise to write a helper function
+        return timePeriods;
+    }
+
+    /**
+     * Returns a string describing task on the give dayOfWeek.
+     */
+    public String onWeekDayToString(DayOfWeek day) {
+        List<TimePeriodWeekly> list = this.getTimePeriodOfTheDay(day);
+        return list.toString();
     }
 }
