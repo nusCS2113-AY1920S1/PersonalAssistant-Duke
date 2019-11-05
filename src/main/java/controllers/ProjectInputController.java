@@ -514,8 +514,8 @@ public class ProjectInputController implements IController {
         String errorMessageGuide = "You may refer to the user guide or enter \"help\""
             + "for the list of possible commands.";
 
-        if (projectCommand.length() <= 18) {
-            return (new String[] {errorMessageInsufficientParams, errorMessageNoSuffix, errorMessageNoSymbol,
+        if (projectCommand.length() <= 20) {
+            return (new String[] {errorMessageInsufficientParams, errorMessageNoSymbol, errorMessageNoSuffix,
                 errorMessageGuide});
         } else {
             String input = projectCommand.substring(17);

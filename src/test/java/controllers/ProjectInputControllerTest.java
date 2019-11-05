@@ -496,24 +496,7 @@ class ProjectInputControllerTest {
         assertEquals("Unassigned task from member 1 (Jerry Zhang).", output[1]);
     }
 
-    @Test
-    void assignRole_correctInputs() {
-        Project project = new Project("Infinity_Gauntlet");
-        simulatedUserInput = "add member -n Tony Stark -e richguy@gmail.com -r RichGuy";
-        projectInputController.projectAddMember(project, simulatedUserInput);
-        simulatedUserInput = "add member -n Doctor Strange -i 9123456 -e strange@gmail.com -r SmartGuy";
-        projectInputController.projectAddMember(project, simulatedUserInput);
-        simulatedUserInput = "add member -n Hulk -i 911 -r StrongGuy";
-        projectInputController.projectAddMember(project, simulatedUserInput);
-        simulatedUserInput = "role 1 -n IronMan";
-        projectInputController.projectRoleMembers(project, simulatedUserInput);
-        actualOutput = project.getMembers().getMember(1).getRole();
-        expectedOutput = "IronMan";
-        assertEquals(expectedOutput, actualOutput);
-        assertEquals("SmartGuy", project.getMembers().getMember(2).getRole());
-        assertEquals("StrongGuy", project.getMembers().getMember(3).getRole());
-    }
-
+    //@@author sinteary
     @Test
     void testProjectViewAssignments_invalidInputs() {
         Project project = new Project("New project");
@@ -536,4 +519,25 @@ class ProjectInputControllerTest {
         output = projectInputController.projectViewAssignments(project, simulatedUserInput);
         assertEquals("No tasks in project yet.", output[0]);
     }
+
+
+    @Test
+    void assignRole_correctInputs() {
+        Project project = new Project("Infinity_Gauntlet");
+        simulatedUserInput = "add member -n Tony Stark -e richguy@gmail.com -r RichGuy";
+        projectInputController.projectAddMember(project, simulatedUserInput);
+        simulatedUserInput = "add member -n Doctor Strange -i 9123456 -e strange@gmail.com -r SmartGuy";
+        projectInputController.projectAddMember(project, simulatedUserInput);
+        simulatedUserInput = "add member -n Hulk -i 911 -r StrongGuy";
+        projectInputController.projectAddMember(project, simulatedUserInput);
+        simulatedUserInput = "role 1 -n IronMan";
+        projectInputController.projectRoleMembers(project, simulatedUserInput);
+        actualOutput = project.getMembers().getMember(1).getRole();
+        expectedOutput = "IronMan";
+        assertEquals(expectedOutput, actualOutput);
+        assertEquals("SmartGuy", project.getMembers().getMember(2).getRole());
+        assertEquals("StrongGuy", project.getMembers().getMember(3).getRole());
+    }
+
+
 }
