@@ -2,6 +2,8 @@ package duke.logic.parsers.commandparsers;
 
 import duke.commons.Messages;
 import duke.commons.exceptions.ApiException;
+import duke.commons.exceptions.ChronologyBeforePresentException;
+import duke.commons.exceptions.ChronologyInconsistentException;
 import duke.commons.exceptions.ParseException;
 import duke.logic.commands.AddCommand;
 import duke.logic.commands.Command;
@@ -33,8 +35,11 @@ public class AddEventParser extends CommandParser {
      * @param userInput The userInput read by the user interface.
      * @return The new Event object.
      * @throws ParseException If Event object cannot be created from user input.
+     * @throws ChronologyBeforePresentException If the dates are before now.
+     * @throws ChronologyInconsistentException If the dates are inconsistent.
      */
-    private Event createEvent(String userInput) throws ParseException {
+    private Event createEvent(String userInput) throws ParseException,
+            ChronologyBeforePresentException, ChronologyInconsistentException {
         String[] withinDetails = userInput.substring("event".length()).strip().split("between| and");
         if (withinDetails.length == ONE) {
             throw new ParseException(Messages.ERROR_DESCRIPTION_EMPTY);
@@ -47,10 +52,28 @@ public class AddEventParser extends CommandParser {
         }
         LocalDateTime start = ParserTimeUtil.parseStringToDate(withinDetails[ONE].strip());
         LocalDateTime end = ParserTimeUtil.parseStringToDate(withinDetails[TWO].strip());
+        checkLogicalDate(start, end);
         try {
             return new Event(withinDetails[ZERO].strip(), start, end);
         } catch (ApiException e) {
             throw new ParseException(Messages.ERROR_API_FAIL);
+        }
+    }
+
+    /**
+     * Checks if the dates provided is logical.
+     * Does nothing if it's logical.
+     * @param end The end date.
+     * @param start The start date.
+     * @throws ChronologyBeforePresentException If the dates are before now.
+     * @throws ChronologyInconsistentException If the dates are inconsistent.
+     */
+    private void checkLogicalDate(LocalDateTime start, LocalDateTime end) throws ChronologyBeforePresentException,
+            ChronologyInconsistentException {
+        if (start.isBefore(LocalDateTime.now()) || end.isBefore(LocalDateTime.now())) {
+            throw new ChronologyBeforePresentException();
+        } else if (end.isBefore(start)) {
+            throw new ChronologyInconsistentException();
         }
     }
 
