@@ -3,9 +3,6 @@ package duke.command;
 import duke.exception.DukeException;
 import duke.exception.DukeHelpException;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class ArgParser {
 
     enum ParseState {
@@ -20,8 +17,6 @@ public class ArgParser {
     private ParseState state;
     private String currSwitchName;
     private boolean isEscaped;
-    private Map<String, Switch> switchMap;
-    private HashMap<String, String> switchVals;
 
     /**
      * Parses the user's input after the Command name and loads the parameters for the Command from it.
@@ -39,10 +34,10 @@ public class ArgParser {
 
         state = ParseState.EMPTY;
         currSwitchName = null;
-        switchMap = currCommand.getSwitchMap();
-        switchVals = new HashMap<String, String>();
         elementBuilder = new StringBuilder();
         isEscaped = false;
+
+        // TODO: identify situations with command arguments after no-arg switches
 
         //FSM :D
         for (int i = 0; i < inputStr.length(); ++i) {
@@ -75,33 +70,29 @@ public class ArgParser {
             break;
         case SWITCH:
             addSwitch();
-            if (switchMap.get(currSwitchName).argLevel == ArgLevel.OPTIONAL) {
-                switchVals.put(currSwitchName, null);
-            }
             break;
         default:
             throw new DukeException("Invalid parser state!");
         }
 
-        checkCommandValid();
-        currCommand.setSwitchValsMap(switchVals);
+        if (currSwitchName != null) {
+            currCommand.initSwitchVal(currSwitchName, null);
+        }
+        currCommand.checkCommandValid();
     }
 
     private void handleEmpty(char curr) throws DukeHelpException {
         switch (curr) {
         case '-':
-            //TODO: check if switch is allowed rather than letting addSwitch handle it
             state = ParseState.SWITCH;
             break;
         case '"':
-            checkInputAllowed();
             state = ParseState.STRING;
             break;
         case '\n': //fallthrough
         case ' ': //skip spaces
             break;
         default:
-            checkInputAllowed();
             elementBuilder.append(curr);
             state = ParseState.ARG;
             break;
@@ -168,7 +159,6 @@ public class ArgParser {
             break;
         case '-':
             addSwitch();
-            checkSwitchAllowed();
             break;
         default:
             elementBuilder.append(curr);
@@ -177,13 +167,21 @@ public class ArgParser {
     }
 
     private void writeElement() throws DukeHelpException {
-        assert (currSwitchName != null || currCommand.getArg() == null);
+        if (currSwitchName == null && currCommand.getArg() != null) {
+            throw new DukeHelpException("I don't know what you're trying to tell me with the word '"
+            + elementBuilder.toString() + "'!", currCommand);
+        };
         // if ambiguous whether argument is for command or switch, favour switch
         if (currSwitchName != null) {
-            currCommand.setSwitchVal(currSwitchName, elementBuilder.toString());
+            if (currCommand.isArgForbidden(currSwitchName)) { // switch should not have arguments
+                currCommand.initSwitchVal(currSwitchName, null);
+                currCommand.initArg(elementBuilder.toString());
+            } else {
+                currCommand.initSwitchVal(currSwitchName, elementBuilder.toString());
+            }
             currSwitchName = null;
         } else { //currCommand.arg == null
-            currCommand.setArg(elementBuilder.toString());
+            currCommand.initArg(elementBuilder.toString());
         }
         elementBuilder.setLength(0); //clear elementBuilder
         state = ParseState.EMPTY;
@@ -194,11 +192,11 @@ public class ArgParser {
 
         // previous switch was not given an argument
         if (currSwitchName != null) {
-            currCommand.setSwitchVal(currSwitchName, null);
+            currCommand.initSwitchVal(currSwitchName, null);
         }
 
-        // search for switch name in switch name map, then use algorithm to find it
-        if (!switchMap.containsKey(newSwitchName)) {
+        // search for switch name in switch name map, then use algorithm to find it if necessary
+        if (currCommand.hasSwitch(newSwitchName)) {
             String findSwitchName = CommandUtils.findSwitch(newSwitchName, currCommand);
             if (findSwitchName == null) {
                 throw new DukeHelpException("I don't know what this switch is: " + newSwitchName, currCommand);
@@ -206,57 +204,11 @@ public class ArgParser {
             newSwitchName = findSwitchName;
         }
 
-        // perform final checks based on switch found, then add switch argument
-        if (switchVals.containsKey(newSwitchName)) {
-            throw new DukeHelpException("Multiple values supplied for switch: " + newSwitchName, currCommand);
-        } else {
-            if (switchMap.get(newSwitchName).argLevel != ArgLevel.NONE) {
-                currSwitchName = newSwitchName;
-            } else {
-                switchVals.put(newSwitchName, null);
-            }
-            elementBuilder.setLength(0); //clear elementBuilder
-        }
+        currSwitchName = newSwitchName;
+        elementBuilder.setLength(0); //clear elementBuilder
     }
 
-    private void checkSwitchAllowed() throws DukeHelpException {
-        if (currSwitchName != null) {
-            ArgLevel switchArgLevel = switchMap.get(currSwitchName).argLevel;
-            if (switchArgLevel == ArgLevel.REQUIRED) {
-                throw new DukeHelpException("The switch '" + currSwitchName + "' must have an argument!",
-                        currCommand);
-            } else if (switchArgLevel == ArgLevel.OPTIONAL) {
-                switchVals.put(currSwitchName, null);
-            }
-        }
-    }
-
-    private void checkInputAllowed() throws DukeHelpException {
-        if (currSwitchName == null) {
-            if (currCommand.getArg() == null) {
-                if (currCommand.getCmdArgLevel() == ArgLevel.NONE) {
-                    throw new DukeHelpException("This command should not have an argument!", currCommand);
-                }
-            } else {
-                throw new DukeHelpException("Multiple arguments supplied! You already gave: " + currCommand.getArg(),
-                        currCommand);
-            }
-        }
-    }
-
-    private void checkCommandValid() throws DukeException {
-        if (currCommand.getCmdArgLevel() == ArgLevel.REQUIRED && currCommand.getArg() == null) {
-            throw new DukeHelpException("You need to give an argument for the command!", currCommand);
-        }
-        for (HashMap.Entry<String, Switch> switchEntry : switchMap.entrySet()) {
-            Switch checkSwitch = switchEntry.getValue();
-            if (!checkSwitch.isOptional && !switchVals.containsKey(checkSwitch.name)) {
-                throw new DukeHelpException("You need to give me this switch: "
-                        + switchEntry.getKey(), currCommand);
-            }
-        }
-    }
-
+    // TODO refactor into argcommand
     private void checkEmptyString() throws DukeException {
         boolean canBeEmpty = true;
         if (currCommand.getCmdArgLevel() == ArgLevel.REQUIRED) {

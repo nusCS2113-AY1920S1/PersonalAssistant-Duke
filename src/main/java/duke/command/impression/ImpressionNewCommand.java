@@ -50,7 +50,7 @@ public class ImpressionNewCommand extends DukeDataCommand {
             //TODO proper date parsing
             if ("".equals(getSwitchVal("date"))) {
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM yyyy");
-                setSwitchVal("date", LocalDate.now().format(formatter));
+                initSwitchVal("date", LocalDate.now().format(formatter));
             }
             Medicine medicine = new Medicine(getSwitchVal("name"), impression, priority, status,
                     getSwitchVal("dose"), getSwitchVal("date"), getSwitchVal("duration"));

@@ -24,13 +24,13 @@ public abstract class ArgCommand extends Command {
 
     public ArgCommand(String arg, String[] switchNames, String[] switchVals) throws DukeException {
         this();
-        setArg(arg);
+        initArg(arg);
         if (switchNames.length != switchVals.length) {
             throw new DukeException("You gave me " + switchNames.length + " switch names, but "
                     + switchVals.length + " switch values!");
         }
         for (int i = 0; i < switchNames.length; ++i) {
-            setSwitchVal(switchNames[i], switchVals[i]);
+            initSwitchVal(switchNames[i], switchVals[i]);
         }
     }
 
@@ -39,12 +39,12 @@ public abstract class ArgCommand extends Command {
         // do any necessary pre-processing
     }
 
-    protected void setSwitchValsMap(Map<String, String> switchVals) {
-        this.switchVals.putAll(switchVals);
-    }
-
-    protected void setSwitchVal(String switchName, String value) throws DukeHelpException {
+    protected void initSwitchVal(String switchName, String value) throws DukeHelpException {
         Switch newSwitch = getSwitchMap().get(switchName);
+        if (getSwitchVals().containsKey(switchName)) {
+            throw new DukeHelpException("Multiple values supplied for switch: " + switchName, this);
+        }
+
         if (newSwitch == null) {
             throw new DukeHelpException("I don't know what the '" + switchName + "' switch is!", this);
         }
@@ -67,16 +67,16 @@ public abstract class ArgCommand extends Command {
         return switchVals.containsKey(switchName);
     }
 
-    protected void setArg(String arg) throws DukeHelpException {
+    protected void initArg(String arg) throws DukeHelpException {
         ArgLevel cmdArgLevel = getCmdArgLevel();
-        if (cmdArgLevel == ArgLevel.REQUIRED) {
-            if (arg == null) {
-                throw new DukeHelpException("This command requires an argument!", this);
-            }
-        } else if (cmdArgLevel == ArgLevel.NONE) {
-            if (arg != null) {
-                throw new DukeHelpException("This command should not have an argument!", this);
-            }
+        if (cmdArgLevel == ArgLevel.REQUIRED && arg == null) {
+            throw new DukeHelpException("This command requires an argument!", this);
+        } else if (cmdArgLevel == ArgLevel.NONE && arg != null) {
+            throw new DukeHelpException("This command should not have an argument!", this);
+        }
+
+        if (this.arg != null) {
+            throw new DukeHelpException("Multiple command arguments supplied! You already gave: " + this.arg, this);
         }
         this.arg = arg;
     }
@@ -143,7 +143,7 @@ public abstract class ArgCommand extends Command {
             Switch switchSpec = entry.getValue();
             if (getSwitchVal(switchName) == null && switchSpec.type == String.class && switchSpec.argLevel
                     == ArgLevel.REQUIRED) {
-                setSwitchVal(switchName, "");
+                initSwitchVal(switchName, "");
             }
         }
     }
@@ -175,5 +175,26 @@ public abstract class ArgCommand extends Command {
             }
         }
         return true;
+    }
+
+    public void checkCommandValid() throws DukeHelpException {
+        if (getCmdArgLevel() == ArgLevel.REQUIRED && getArg() == null) {
+            throw new DukeHelpException("You need to give an argument for the command!", this);
+        }
+        for (HashMap.Entry<String, Switch> switchEntry : getSwitchMap().entrySet()) {
+            Switch checkSwitch = switchEntry.getValue();
+            if (!checkSwitch.isOptional && !switchVals.containsKey(checkSwitch.name)) {
+                throw new DukeHelpException("You need to give me this switch: "
+                        + switchEntry.getKey(), this);
+            }
+        }
+    }
+
+    public boolean isArgForbidden(String switchName) {
+        return getSwitchMap().get(switchName).argLevel == ArgLevel.NONE;
+    }
+
+    public boolean hasSwitch(String switchName) {
+        return getSwitchMap().containsKey(switchName);
     }
 }
