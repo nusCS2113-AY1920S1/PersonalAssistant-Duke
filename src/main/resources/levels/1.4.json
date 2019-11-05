@@ -2,7 +2,8 @@
   "narratives": [
     "Now that you have planted your seeds, you can start harvesting wheat when your crops have grown from seedlings to wheat.",
     "The seeds that you have planted will grow into wheat only after a period of time. You can obtain grain by harvesting wheat.",
-    "Simply entering [Do harvestWheat] will not work.",
+    "The action [do harvestWheat] harvests ALL grown wheat in the farm.",
+    "However, simply entering [do harvestWheat] will not work.",
     "This is because the seeds have not grown into wheat yet. Thus it will be impossible to harvest wheat if there are no wheat available",
     "For this level, we will be introducing a new task called 'If'.",
     "'If' can be used when you want an action to be executed after a certain condition is met.",
@@ -10,9 +11,8 @@
     "The format of using an 'If' statement is as follows..\nIf [condition] do [action].~"
   ],
   "feedback": [
-    "to accomplish this task you used the [if] command to check whether you had a wheat",
-    "upon confirmation that there is wheat,",
-    "you succesully harvested the wheat using the [do] command"
+    "In order to complete this task you have to use the [if] command to check whether you had a wheat",
+    "Upon confirming that there is wheat in your farm, you can succesully harvest the wheat using the [do] command",
   ],
   "gold": 0,
   "seeds": 0,

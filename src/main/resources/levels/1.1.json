@@ -1,21 +1,24 @@
 {
   "narratives": [
     "Hi there Farmer +, you only have enough gold to start a small farm. Why not we head over to the market to get started.",
+    "Take note that you cannot enter any game commands during the narratives. If you wish to enter any commands, press [skip].",
     "On your top right hand corner, you can see the location you are at. Currently you are at your Wheatfarm.",
     "On the bottom left hand corner of the screen, you can see the assets you hold. Currently you have 10 gold to start your farm.",
     "On the top left corner you can see your current level which is 1.1. This tutorial ends at level 1.4",
     "Next to that, there is a summary of the objective of the current level. For example, for this level, the objective is to travel to the Market",
     "On the left, the section on GOALS breaks down the objective into individual goals to be accomplished. For example, for this level, the goal is to make your locaton the market",
+    "A summary list of all the commands can be accessed the in-game Menu by entering [menu].",
+    "If you wish to quit the game, you can either type [quit game] or [exit game]",
     "Let's get started!",
     "The goal for this level is to change your location to the Market.",
     "The first command you will be using is a 'Do' command.\nThe 'Do' command instructs farmer + to carry out an action.",
     "The type of tasks available and the action to be executed can be seen in the middle of the screen.",
-    "From the example above, 'Do' is the type of task given and 'gotoMarket' is the action to be carried out by the farmer.",
-    "Enter [Do GoToMarket] to create a task that tells Farmer + to drive to the market.~"
+    "From the example above, 'Do' is the type of task given and 'goToMarket' is the action to be carried out by the farmer.",
+    "Enter [do GoToMarket] to create a task that tells Farmer + to drive to the market.~"
   ],
   "feedback": [
-    "you have succesfully went to the market by using the [do] command ",
-    "Note that your goal changed from white to green whent it is completed (ubuntu only)",
+    "You have succesfully travelled to the market by using the [do] command.",
+    "Note that your goal changed from white to green when it is completed (ubuntu only)",
   ],
   "gold": 0,
   "seeds": 0,

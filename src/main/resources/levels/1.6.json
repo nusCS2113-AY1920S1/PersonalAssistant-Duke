@@ -5,9 +5,9 @@
     "Using the knowledge you have learnt so far, help farmer + get rich!~"
   ],
   "feedback": [
-    "For this Level, you were required to implement a sequence of steps",
-    "You had to check whether you had money before purchasing the seeds",
-    "afterwhich it was necessary to go to the wheat farm and plant seeds",
+    "For this Level, you are required to implement a sequence of steps",
+    "You have to check whether you have enough money before purchasing the seeds",
+    "afterwhich it is necessary to go to the wheat farm and plant seeds",
     "using [if hasSeeds do plantSeeds && if haswWheat do harvestWheat]",
     "before selling the grains at the market"
   ],

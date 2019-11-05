@@ -1,12 +1,12 @@
 {
   "narratives": [
     "Now that you have grains, you can sell them for some extra gold. ",
+    "The action [do sellGrain] sells ALL your grains in your inventory."
     "Hint (you can only buy or sell items at the market)~"
   ],
   "feedback": [
-    "Firstly you had to goto the market using [do gotoMarket]",
-    "afterwhich there was a criteria to check whether you had grain",
-    "by using the [if] command before selling the grain using [do sellGrain]",
+    "Firstly you have to travel to the market using [do gotoMarket]",
+    "At the market, you are able to sell all of your grains using [do sellGrain]"
   ],
   "gold": 15,
   "seeds": 0,

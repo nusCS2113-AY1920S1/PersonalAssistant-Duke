@@ -18,9 +18,6 @@ public class ConditionChecker {
         if (condition == BooleanConditionType.hasGrain) {
             return farmio.getFarmer().getWheatFarm().hasGrain();
         }
-        if (condition == BooleanConditionType.hasGold) {
-            return farmio.getFarmer().hasGold();
-        }
         if (condition == BooleanConditionType.TRUE) {
             return true;
         }
