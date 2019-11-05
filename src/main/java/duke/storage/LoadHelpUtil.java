@@ -25,7 +25,6 @@ public class LoadHelpUtil {
         FilePaths filePaths = new FilePaths();
         String masterHelpFileStr = filePaths.getFilePathStr(FilePathNames.FILE_PATH_MASTER_HELP_FILE);
         String helpFilePathStr = FileUtil.concatPaths(masterHelpFileStr, helpFileRelativePathStr);
-
         BufferedReader bufferedReader = FileUtil.readResourceFile(helpFilePathStr);
         return bufferedReader;
     }

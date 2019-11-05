@@ -93,12 +93,17 @@
           "transactionAmount": 123,
           "type": "PAY",
           "date": "2019-11-05"
+        },
+        {
+          "transactionAmount": 1143.90,
+          "type": "PAY",
+          "date": "2019-11-05"
         }
       ]
     }
   },
   "account": {
-    "amount": 1143.90,
+    "amount": 0.00,
     "currency": "SGD"
   }
 }

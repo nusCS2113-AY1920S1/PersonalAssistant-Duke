@@ -115,6 +115,10 @@ public class Meal {
         this.nutritionValue.put(keyStr, value);
     }
 
+    public int getCalorieValue() {
+        return this.nutritionValue.get("calorie");
+    }
+
     /**
      * This function overrides the toString() function in the object class.
      * @return the status icon and the description of the task
@@ -128,5 +132,6 @@ public class Meal {
         temp += "cost: " + costStr;
         return "[" + this.type + "]" + this.getStatusIcon() + " " + this.description + " | " + temp;
     }
+
 
 }

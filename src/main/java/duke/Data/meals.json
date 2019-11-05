@@ -90,6 +90,16 @@
         "calorie": 300
       },
       "costStr": "123"
+    },
+    {
+      "description": "steaky",
+      "type": "D",
+      "isDone": true,
+      "date": "2019-11-05",
+      "nutritionValue": {
+        "calorie": 200
+      },
+      "costStr": "1143.90"
     }
   ],
   "2019-11-04": [
