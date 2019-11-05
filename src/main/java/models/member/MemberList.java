@@ -36,13 +36,14 @@ public class MemberList implements IMemberList {
      * Updates the member details of an existing member using the index number of the member.
      * @param memberIndexNumber The index number of the member whose details are to be updated.
      * @param updatedMemberDetails The updated member details.
+     * @return An error message if any.
      */
     public String editMember(int memberIndexNumber, String updatedMemberDetails) {
         String [] memberDetails = parserHelper.parseMemberDetails(updatedMemberDetails);
         String name = memberDetails[0];
         String phone = memberDetails[1];
         String email = memberDetails[2];
-        
+
         String errorMessage = validityHelper.emailPhoneErrorMessage(email, phone);
         if (!"".equals(errorMessage)) {
             return errorMessage;
@@ -57,7 +58,7 @@ public class MemberList implements IMemberList {
                 break;
             }
         }
-        return "Updated member details with the index number "+memberIndexNumber;
+        return "Updated member details with the index number " + memberIndexNumber;
     }
 
     /**
