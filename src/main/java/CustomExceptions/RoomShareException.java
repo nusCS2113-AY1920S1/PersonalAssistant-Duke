@@ -30,6 +30,7 @@ public class RoomShareException extends Exception {
             +"\tPlease check your formatting and ensure that the use of special characters are correct!\n";
     public static final String LOAD_ERROR_MESSAGE = "\terror in loading file: will be initialising empty list instead!\n";
     public static final String INVALID_DATE_MESSAGE = "\tThe date you've input is before the current date!\n";
+    public static final String INVALID_LEAVE_DATE_MESSAGE = "\t Your 'to' date cannot be before your 'from' date!\n";
 
 
     private String message;
@@ -135,6 +136,10 @@ public class RoomShareException extends Exception {
 
         case invalidDateError:
             message = INVALID_DATE_MESSAGE;
+            break;
+
+        case invalidDateRange:
+            message = INVALID_LEAVE_DATE_MESSAGE;
             break;
 
         default:
