@@ -2051,7 +2051,7 @@ Expected: Error saying `card` to be deleted does not exist.
 
 === Transferring fund
 
-. Transfer fund between `bank` account (sufficient fund for transfer)
+. Transferring fund between `bank` account (sufficient fund for transfer)
 
 .. Prerequisites: There are at least two existing `bank` accounts with sufficient fund in the sender account for
 transfer.
@@ -2060,7 +2060,7 @@ transfer.
 `/transfer /fund /from JunBank Savings Account /to POBB Savings Account /amount 500 /date 1/1/2019` +
 Expected: Fund successfully transfer between the `bank` account with the transaction being displayed.
 
-. Transfer fund between `bank` account (insufficient fund for transfer)
+. Transferring fund between `bank` account (insufficient fund for transfer)
 
 .. Prerequisites: There are at least two existing `bank` accounts with insufficient fund in the sender account for
 transfer.
@@ -2071,7 +2071,7 @@ Expected: Error saying that sender account has insufficient fund to be transferr
 
 === Finding savings accounts
 
-. Search for existing `savings` account
+. Searching for existing `savings` account
 
 .. Prerequisites: There are at least one existing `savings` accounts.
 
@@ -2079,7 +2079,7 @@ Expected: Error saying that sender account has insufficient fund to be transferr
 `/find /savings /name Jun` +
 Expected: Found matching `savings` account and displays the results.
 
-. Search for non-existing `savings` account
+. Searching for non-existing `savings` account
 
 .. Prerequisites: There are currently no `savings` accounts.
 
@@ -2089,7 +2089,7 @@ Expected: Error sayings that there is no `savings` account found.
 
 === Finding investment accounts
 
-. Search for existing `investment` account
+. Searching for existing `investment` account
 
 .. Prerequisites: There are at least one existing `investment` accounts.
 
@@ -2097,7 +2097,7 @@ Expected: Error sayings that there is no `savings` account found.
 `/find /investment /name Vickers` +
 Expected: Found matching `investment` account and displays the results.
 
-. Search for non-existing `savings` account
+. Searching for non-existing `savings` account
 
 .. Prerequisites: There are currently no `investment` accounts.
 
@@ -2107,7 +2107,7 @@ Expected: Error sayings that there is no `investment` account found.
 
 === Finding cards
 
-. Search for existing `card`
+. Searching for existing `card`
 
 .. Prerequisites: There are at least one existing `card`.
 
@@ -2115,7 +2115,7 @@ Expected: Error sayings that there is no `investment` account found.
 `/find /card /name POBB` +
 Expected: Found matching `card` and displays the results.
 
-. Search for non-existing `card`
+. Searching for non-existing `card`
 
 .. Prerequisites: There are currently no `card`.
 
@@ -2125,7 +2125,7 @@ Expected: Error sayings that there is no `card` found.
 
 === Finding bonds
 
-. Search for existing `bond`
+. Searching for existing `bond`
 
 .. Prerequisites: There are at least one existing `bond`.
 
@@ -2133,7 +2133,7 @@ Expected: Error sayings that there is no `card` found.
 `/find /bonds /name SSB /from DBB Vickers Account` +
 Expected: Found matching `bond` and displays the results.
 
-. Search for non-existing `bond`
+. Searching for non-existing `bond`
 
 .. Prerequisites: There are currently no `bond` .
 
@@ -2143,7 +2143,7 @@ Expected: Error sayings that there is no `bond` found.
 
 === Finding bank transactions
 
-. Search for existing transaction records based on description
+. Searching for existing transaction records based on description
 
 .. Prerequisites: There are at least one transaction record and the `bank` to be search must exist.
 
@@ -2151,7 +2151,7 @@ Expected: Error sayings that there is no `bond` found.
 `/find /banktransaction /name JunBank Savings Account /desc bubble tea` +
 Expected: Found matching `bank` transaction record and displays the results.
 
-. Search for existing transaction records based on category
+. Searching for existing transaction records based on category
 
 .. Prerequisites: There are at least one transaction record and the `bank` to be search must exist.
 
@@ -2161,7 +2161,7 @@ Expected: Found matching `bank` transaction record and displays the results.
 
 === Finding card transactions
 
-. Search for existing transaction records based on description
+. Searching for existing transaction records based on description
 
 .. Prerequisites: There are at least one transaction record and the `card` to be search must exist.
 
@@ -2169,7 +2169,7 @@ Expected: Found matching `bank` transaction record and displays the results.
 `/find /cardtransaction /name POBB Tomorrow Card /desc bubble tea` +
 Expected: Found matching `card` transaction record and displays the results.
 
-. Search for existing transaction records based on category
+. Searching for existing transaction records based on category
 
 .. Prerequisites: There are at least one transaction record and the `card` to be search must exist.
 
@@ -2179,7 +2179,7 @@ Expected: Found matching `card` transaction record and displays the results.
 
 === Finding recurring expenditure in savings account
 
-. Search for existing recurring expenditure based on description
+. Searching for existing recurring expenditure based on description
 
 .. Prerequisites: There are at least one recurring expenditure and the `savings` account to be search must exist.
 
@@ -2187,7 +2187,7 @@ Expected: Found matching `card` transaction record and displays the results.
 `/find /recurbankexp /name JunBank Savings Account /desc bubble tea` +
 Expected: Found matching recurring expenditure in `savings` account and displays the results.
 
-. Search for existing recurring expenditure based on category
+. Searching for existing recurring expenditure based on category
 
 .. Prerequisites: There are at least one recurring expenditure and the `savings` account to be search must exist.
 
