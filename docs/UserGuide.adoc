@@ -1056,7 +1056,7 @@ At least one of `/newname`, `/amount`, `/in`, `/by`, `/from`, `/mark` must be us
 
 `ACCOUNT_NAME` can only be names of existing savings bank accounts and not investment accounts or credit cards.
 
-`/mark` is used to manually mark done *un-tracked* goals and cannot contain trailing arguments!
+`/mark` is used to manually mark *un-tracked* goals status and cannot contain trailing arguments!
 ====
 
 *Example*
@@ -1908,6 +1908,8 @@ AMOUNT] [/date DATE]`
 
 `/list /goals`
 
+`/list /achievement`
+
 | `/list /savings`
 
 `/list /investment`
@@ -1915,6 +1917,8 @@ AMOUNT] [/date DATE]`
 `/list /card`
 
 `/list /goals`
+
+`/list /achievement`
 
 
 | *Listing specific details of cards, accounts, bonds etc.*
