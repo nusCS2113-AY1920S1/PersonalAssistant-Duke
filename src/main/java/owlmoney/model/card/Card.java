@@ -1,14 +1,21 @@
 package owlmoney.model.card;
 
+import java.io.IOException;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.UUID;
 
 import owlmoney.model.card.exception.CardException;
 import owlmoney.model.transaction.Transaction;
 import owlmoney.model.transaction.TransactionList;
 import owlmoney.model.transaction.exception.TransactionException;
+import owlmoney.storage.Storage;
 import owlmoney.ui.Ui;
 
 /**
@@ -24,6 +31,11 @@ public class Card {
     private static final int OBJ_DOES_NOT_EXIST = -1;
     private static final int ONE_ARRAY_INDEX = 1;
     private static final int DIVIDE_BY_2 = 2;
+    private Storage storage;
+    private static final String FILE_PATH = "data/";
+    private static final String CARD_PAID_TRANSACTION_LIST_FILE_NAME = "_card_paid_transactionList.csv";
+    private static final String CARD_UNPAID_TRANSACTION_LIST_FILE_NAME = "_card_unpaid_transactionList.csv";
+
 
     /**
      * Creates a Card with details of name, limit and rebate.
@@ -39,6 +51,25 @@ public class Card {
         this.paid = new TransactionList();
         this.unpaid = new TransactionList();
         this.id = UUID.randomUUID();
+        this.storage = new Storage(FILE_PATH);
+    }
+
+    /**
+     * Creates a Card with details of name, limit and rebate from persistent storage.
+     *
+     * @param name   A name for the credit card.
+     * @param limit  Credit card monthly spending limit.
+     * @param rebate Credit card monthly cash back rebate.
+     * @param uuid The unique id of the card object.
+     */
+    public Card(String name, double limit, double rebate, UUID uuid) {
+        this.name = name;
+        this.limit = limit;
+        this.rebate = rebate;
+        this.paid = new TransactionList();
+        this.unpaid = new TransactionList();
+        this.id = uuid;
+        this.storage = new Storage(FILE_PATH);
     }
 
     /**
@@ -365,5 +396,121 @@ public class Card {
      */
     int getPaidSize() {
         return paid.getSize();
+    }
+
+    /**
+     * Prepares the paid transaction list for exporting.
+     *
+     * @return properly formatted paid transaction list in Arraylist that contains array of strings.
+     */
+    private ArrayList<String[]> prepareExportPaidTransactionList() {
+        ArrayList<String[]> exportArrayList = new ArrayList<>();
+        DecimalFormat decimalFormat = new DecimalFormat(".00");
+        decimalFormat.setRoundingMode(RoundingMode.DOWN);
+        SimpleDateFormat exportDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        exportArrayList.add(new String[]{"description","amount","date","category","cardId","billDate",});
+        for (int i = 0; i < paid.getSize(); i++) {
+            String description = paid.get(i).getDescription();
+            double amount = paid.get(i).getAmount();
+            Date date = paid.get(i).getDateInDateFormat();
+            String category = paid.get(i).getCategory();
+            UUID cardId = paid.get(i).getTransactionCardID();
+            YearMonth billDate = paid.get(i).getTransactionCardBillDate();
+            String stringAmount = decimalFormat.format(amount);
+            String stringDate = exportDateFormat.format(date);
+            String stringUuid = "";
+            if (cardId != null) {
+                stringUuid = cardId.toString();
+            }
+            String stringBillDate = "";
+            if (billDate != null) {
+                stringBillDate = billDate.toString();
+            }
+            exportArrayList.add(new String[]
+                {description, stringAmount, stringDate, category, stringUuid, stringBillDate});
+        }
+        return exportArrayList;
+    }
+
+    /**
+     * Exports the paid transaction list.
+     *
+     * @param prependFileName the index of the card in the cardList.
+     * @throws IOException if there are errors exporting the file.
+     */
+    void exportCardPaidTransactionList(String prependFileName) throws IOException {
+        ArrayList<String[]> inputData = prepareExportPaidTransactionList();
+        try {
+            storage.writeFile(inputData,prependFileName + CARD_PAID_TRANSACTION_LIST_FILE_NAME);
+        } catch (IOException exceptionMessage) {
+            throw new IOException(exceptionMessage);
+        }
+    }
+
+    /**
+     * Prepares the unpaid transaction list for exporting.
+     *
+     * @return properly formatted unpaid transaction list in Arraylist that contains array of strings.
+     */
+    private ArrayList<String[]> prepareExportUnpaidTransactionList() {
+        ArrayList<String[]> exportArrayList = new ArrayList<>();
+        DecimalFormat decimalFormat = new DecimalFormat(".00");
+        decimalFormat.setRoundingMode(RoundingMode.DOWN);
+        SimpleDateFormat exportDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        exportArrayList.add(new String[]{"description","amount","date","category","cardId","billDate",});
+        for (int i = 0; i < unpaid.getSize(); i++) {
+            String description = unpaid.get(i).getDescription();
+            double amount = unpaid.get(i).getAmount();
+            Date date = unpaid.get(i).getDateInDateFormat();
+            String category = unpaid.get(i).getCategory();
+            UUID cardId = unpaid.get(i).getTransactionCardID();
+            YearMonth billDate = unpaid.get(i).getTransactionCardBillDate();
+            String stringAmount = decimalFormat.format(amount);
+            String stringDate = exportDateFormat.format(date);
+            String stringUuid = "";
+            if (cardId != null) {
+                stringUuid = cardId.toString();
+            }
+            String stringBillDate = "";
+            if (billDate != null) {
+                stringBillDate = billDate.toString();
+            }
+            exportArrayList.add(new String[]
+                {description, stringAmount, stringDate, category, stringUuid, stringBillDate});
+        }
+        return exportArrayList;
+    }
+
+    /**
+     * Exports the unpaid transaction list.
+     *
+     * @param prependFileName the index of the card in the cardList.
+     * @throws IOException if there are errors exporting the file.
+     */
+    void exportCardUnpaidTransactionList(String prependFileName) throws IOException {
+        ArrayList<String[]> inputData = prepareExportUnpaidTransactionList();
+        try {
+            storage.writeFile(inputData,prependFileName + CARD_UNPAID_TRANSACTION_LIST_FILE_NAME);
+        } catch (IOException exceptionMessage) {
+            throw new IOException(exceptionMessage);
+        }
+    }
+
+    /**
+     * Imports paid expenditures one at a time.
+     *
+     * @param newExpenditure an instance of the expenditure, contained in 1 line in the save file.
+     */
+    void importNewPaidExpenditure(Transaction newExpenditure) {
+        unpaid.importExpenditureToList(newExpenditure);
+    }
+
+    /**
+     * Imports unpaid expenditures one at a time.
+     *
+     * @param newExpenditure an instance of the expenditure, contained in 1 line in the save file.
+     */
+    void importNewUnpaidExpenditure(Transaction newExpenditure) {
+        paid.importExpenditureToList(newExpenditure);
     }
 }
