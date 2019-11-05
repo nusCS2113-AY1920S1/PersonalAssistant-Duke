@@ -44,7 +44,6 @@ public abstract class CalendarCommand extends Command {
     private static String MidRight = "╣";
     private static String MidLeft = "╠";
 */
-
      private static String Vert = "|";
      private static String Horz = "-";
      private static String TopLeft = "+";
@@ -57,9 +56,7 @@ public abstract class CalendarCommand extends Command {
      private static String MidRight = "+";
      private static String MidLeft = "+";
 
-
-    private static String[][] data = /*{}; //new String[32][];*/
-
+    private static String[][] data =
             { { "frisbee (2)", "rugby ball", "SR2","frisbee (2)", "SR2","frisbee (2)", "rugby ball", "SR2", "rugby ball", "SR2"  }, { "Table tennis table" },
             { "frisbee (1)", "SR2", "SR3","SR4" }, { "ball", "SR2","SR3" }, {}, {}, { "MPSH" }, { "markers (5)" }, { "pen (1)" },
             { "Basketball court" }, { "frisbee (2)", "ball", "SR2","frisbee (2)", "rugby ball", "SR2", "SR4" }, { "SR1", "SR3" }, {}, {},
@@ -69,15 +66,18 @@ public abstract class CalendarCommand extends Command {
             { "MPSH" }, {} };
 
     // todo: check and align days of the week / offset from first box (mon)
-    // todo: add in items and reservation status
-    // todo: add "X more..." for when cell cannot display all rows
     // todo: highlight box of today's date
     // todo: make calendar size dynamic - dependant on size of window
     // todo: make dates overflow from previous months
-    // todo: make headings - month and year as well as days of the week as the axis
     // todo: make entry span across multiple cells
-    // todo: add a resize function
     // todo: change month function
+    //
+    // todo: implement calendar in correct format
+    // todo: java docs
+
+    // todo: add a resize function
+    // todo: make headings - month and year as well as days of the week as the axis
+    // todo: add "X more..." for when cell cannot display all rows
 
     public static void printCal(ResourceList resources, Ui ui) throws ParseException, RimsException {
         getData(resources,ui);
@@ -293,4 +293,15 @@ public abstract class CalendarCommand extends Command {
             int daysInMonth = yearMonthObject.lengthOfMonth();
             return daysInMonth;
         }
+        public static void increaseSize(ResourceList resources, Ui ui) throws ParseException, RimsException {
+            cellHeight ++;
+            cellLength ++;
+            printCal(resources,ui);
+        }
+
+        public static void decreaseSize(ResourceList resources, Ui ui) throws ParseException, RimsException {
+        cellHeight --;
+        cellLength --;
+        printCal(resources,ui);
+    }
 }
