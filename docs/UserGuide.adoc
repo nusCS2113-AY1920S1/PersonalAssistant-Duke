@@ -209,7 +209,7 @@ Examples:
 
 * `recommend orchard between 23/04/19 and 25/04/19`
 
-=== Save a Recommended Itinerary: `addThisList` **NOT AVAILABLE AT THE MOMENT**
+=== Save a Recommended Itinerary: `addThisList`
 
 After SGTravel shows a recommended list, you can save this list using this command +
 Format: `addThisList`
@@ -438,7 +438,7 @@ Format: `bye`
 
 SGTravel will display a calendar containing the events. Click or hover to view other events on the same day. +
 Format: `view`
-+
+
 image::Ui.png[width="600" height="400"]
 
 === Saving the data
