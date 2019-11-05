@@ -4,6 +4,7 @@
 :repoURL: https://github.com/AY1920S1-CS2113T-W17-3/main
 :prURL: {repoURL}/pull
 :forumURL: https://github.com/nusCS2113-AY1920S1/forum/issues
+:mooMoneyURL: https://github.com/AY1920S1-CS2113T-F14-1/main
 :experimental:
 ifdef::env-github[]
 :tip-caption: :bulb:
@@ -75,7 +76,7 @@ Requests]] [https://nuscs2113-ay1920s1.github.io/dashboard/#search=shamussy[Repo
 
 * *Project Management:*
 
-** There were a total of 4 releases, from version 1.0 to version 1.3. I managed the team's repository and was
+** There were a total of 5 releases, from version 1.0 to version 1.4. I managed the team's repository and was
 responsible for producing all of the releases on Github.
 
 * *Enhancements to existing features:*
@@ -90,10 +91,17 @@ it presentable in the `.adoc` format which can be rendered and converted to vari
 platform independent.
 
 * *Community:*
-** Contributed to *forum discussions* (examples: PRs link:{forumURL}/61[#61], link:{forumURL}/60[#60],
+** Contributed to *forum discussions* (examples: PRs link:{forumURL}/86[#86], link:{forumURL}/61[#61],
+link:{forumURL}/60[#60],
 link:{forumURL}/57[#57], link:{forumURL}/26[#26], link:{forumURL}/8[#8])
 
-** Reported bugs (examples: PRs link:{forumURL}/11[#11])
+** Reported *substantial amount bugs* in another team's project, link:{mooMoneyURL}[MooMooMoney]
+(examples: {mooMoneyURL}/issues/156)[#156], {mooMoneyURL}/issues/157)[#157], {mooMoneyURL}/issues/158)[#158],
+{mooMoneyURL}/issues/159)[#159], {mooMoneyURL}/issues/160)[#160], {mooMoneyURL}/issues/161)[#161],
+{mooMoneyURL}/issues/162)[#162], {mooMoneyURL}/issues/163)[#163], {mooMoneyURL}/issues/164)[#164],
+{mooMoneyURL}/issues/156)[#165])
+
+** Reported bugs in module's teaching materials (examples: PRs link:{forumURL}/11[#11])
 
 * *Tools:*
 

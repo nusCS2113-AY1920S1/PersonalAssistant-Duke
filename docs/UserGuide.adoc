@@ -88,9 +88,9 @@ press kbd:[Enter], the result appears immediately!
 
 == Quick Start
 . Ensure you have *Java Version 11* installed on your computer.
-. Download the latest `OwlMoney-v1.3.jar` link:{repoURL}/releases/latest[here].
-. Copy the `OwlMoney-v1.3.jar` file to the folder you want to use as the home folder for *OwlMoney*.
-. Open a *Command Prompt* or *Powershell*, navigate to the target folder and type `java -jar ./OwlMoney-v1.3.jar` to
+. Download the latest `OwlMoney-v1.4.jar` link:{repoURL}/releases/latest[here].
+. Copy the `OwlMoney-v1.4.jar` file to the folder you want to use as the home folder for *OwlMoney*.
+. Open a *Command Prompt* or *Powershell*, navigate to the target folder and type `java -jar ./OwlMoney-v1.4.jar` to
 start *OwlMoney*.
 *OwlMoney* should appear in a few seconds.
 . Maximise the screen to enjoy the best experience of *OwlMoney*, it performs best on displays *1920x1080* and above.
@@ -107,7 +107,7 @@ image::Ui.png[width="970"]
 endif::[]
 +
 . You can now try entering commands in the *command box* and press kbd:[Enter] to execute it! +
-e.g. try typing *`/help` (Not available in v1.3)* and pressing kbd:[Enter] will list down the commands available.
+e.g. try typing *`/help`* and pressing kbd:[Enter] will list down the commands available.
 . Some example commands you can try:
 * `/add /savings /name JunBank Savings Account /amount 4719.90 /income 2000`
 : adds a new `JunBank Savings Account`, which has an initial amount of $`4719.90`.
@@ -157,7 +157,7 @@ Parameter values cannot be empty (unless otherwise stated).
 ====
 
 === General Commands
-==== Viewing help: `/help` (Not Available in v1.3)
+==== Viewing help: `/help`
 Don't worry if you are feeling lost! You can use this User Guide document to gain a better understanding of
 *OwlMoney*'s commands.
 
@@ -168,7 +168,7 @@ To see a list of commands available, simply enter `/help` in the *command box*.
 Alternatively, you can access this User Guide document by clicking link:{repoURL}/blob/master/docs/UserGuide.adoc[here].
 ====
 
-==== Undo Commands: `/undo` (Not Available in v1.3)
+==== Undo Commands: `/undo` (Coming in v2.0)
 Accidentally typed a wrong command? Don't worry, simply type the `/undo` command and you will be back to where you
 started!
 
