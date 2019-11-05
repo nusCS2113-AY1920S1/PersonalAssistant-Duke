@@ -179,15 +179,11 @@ public class ArgParser {
     private void writeElement() throws DukeHelpException {
         assert (currSwitchName != null || currCommand.getArg() == null);
         // if ambiguous whether argument is for command or switch, favour switch
-        try {
-            if (currSwitchName != null) {
-                currCommand.setSwitchVal(currSwitchName, elementBuilder.toString());
-                currSwitchName = null;
-            } else { //currCommand.arg == null
-                currCommand.setArg(elementBuilder.toString());
-            }
-        } catch (DukeException excp) {
-            throw new DukeHelpException(excp.getMessage(), currCommand);
+        if (currSwitchName != null) {
+            currCommand.setSwitchVal(currSwitchName, elementBuilder.toString());
+            currSwitchName = null;
+        } else { //currCommand.arg == null
+            currCommand.setArg(elementBuilder.toString());
         }
         elementBuilder.setLength(0); //clear elementBuilder
         state = ParseState.EMPTY;
@@ -197,8 +193,8 @@ public class ArgParser {
         String newSwitchName = elementBuilder.toString().toLowerCase();
 
         // previous switch was not given an argument
-        if (currSwitchName != null && switchMap.get(currSwitchName).argLevel == ArgLevel.REQUIRED) {
-            throw new DukeHelpException("I need an argument for this switch: " + currSwitchName, currCommand);
+        if (currSwitchName != null) {
+            currCommand.setSwitchVal(currSwitchName, null);
         }
 
         // search for switch name in switch name map, then use algorithm to find it
