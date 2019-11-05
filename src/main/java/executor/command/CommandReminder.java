@@ -5,12 +5,12 @@ import executor.task.TaskList;
 import ui.Ui;
 import ui.Wallet;
 
-import java.util.Calendar;
+import java.time.LocalDate;
 import java.util.Date;
 
 public class CommandReminder extends Command {
     //private String[] reminders;
-    protected Date currentDate = Calendar.getInstance().getTime();
+    protected LocalDate currentDate;
 
     /**
      * Constructor for CommandReminder subCommand Class.
@@ -18,9 +18,9 @@ public class CommandReminder extends Command {
      */
     public CommandReminder(String userInput) {
         this.userInput = userInput;
-        this.currentDate.setTime(0);
         this.commandType = CommandType.REMINDER;
         this.description = "Loops through list and checks if current date matches date linked with task and prints it";
+        this.currentDate = LocalDate.now();
     }
 
     @Override
@@ -32,16 +32,13 @@ public class CommandReminder extends Command {
     public void execute(TaskList taskList) {
         try {
             for (Task task : taskList.getList()) {
-                Date dateCopy = task.getDatetime();
-                if (dateCopy != null) {
-                    dateCopy.setTime(0);
-                    if (dateCopy.equals(this.currentDate)) {
+                LocalDate dateOfTask = task.getDate();
+                if (dateOfTask != null && dateOfTask.equals(this.currentDate)) {
                         Ui.dukeSays(task.genTaskDesc());
                         Ui.printSeparator();
                     }
                 }
-            }
-        } catch (Exception e) {
+            } catch (Exception e) {
             System.out.println("sorry");
         }
     }

@@ -7,6 +7,7 @@ import ui.Wallet;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Date;
 
 public class CommandSchedule extends Command {
@@ -51,7 +52,7 @@ public class CommandSchedule extends Command {
         userDate.setTime(0);
         for (int index = 0; index < taskList.getSize(); ++index) {
             try {
-                Date taskDate = taskList.getList().get(index).getDatetime();//creates of copy of datetime in the task
+                LocalDate taskDate = taskList.getList().get(index).getDate();//creates of copy of datetime in the task
                 if (taskDate == null) {
                     return;
                 }

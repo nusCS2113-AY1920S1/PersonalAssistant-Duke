@@ -28,10 +28,10 @@ class Deadline extends Task {
         }
         if (this.detailDesc.equals("by")) {
             try {
-                this.setDatetime(formatx.parse(this.taskDetails));
-                System.out.println("Date Interpreted: " + formatx.format(this.getDatetime()));
+                this.setDate(formatx.parse(this.taskDetails));
+                System.out.println("Date Interpreted: " + formatx.format(this.getDate()));
             } catch (Exception e) {
-                this.setDatetime(new Date());
+                this.setDate(new Date());
                 throw new DukeException("Invalid Input. Unable to interpret Datetime (use: dd/mm/yyyy HHmm)");
             }
         }
