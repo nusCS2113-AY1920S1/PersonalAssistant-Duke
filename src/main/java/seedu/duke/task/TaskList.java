@@ -147,7 +147,6 @@ public class TaskList extends ArrayList<Task> {
             task.snooze(duration);
             return "Noted. I've snoozed task " + (index + 1) + " by " + duration + " days";
         } else {
-            UI.getInstance().showError("This task cannot be snoozed");
             return "This task cannot be snoozed";
         }
     }
