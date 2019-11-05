@@ -55,8 +55,10 @@ public class DeleteInstalmentCommand extends MoneyCommand {
         storage.addDeletedEntry(deletedEntryIns);
         storage.writeToFile(account);
 
+        MoneyCommand update = new AutoUpdateInstalmentCommand();
         MoneyCommand list = new ListInstalmentCommand();
-        list.execute(account,ui,storage);
+        update.execute(account, ui, storage);
+        list.execute(account, ui, storage);
     }
 
     @Override

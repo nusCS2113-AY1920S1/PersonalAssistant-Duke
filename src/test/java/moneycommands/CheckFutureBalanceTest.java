@@ -7,6 +7,7 @@ import money.Account;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.ParseException;
@@ -18,7 +19,7 @@ public class CheckFutureBalanceTest {
     private MoneyStorage moneyStorage;
     private static String SAMPLE_CREATE_TRACKER1 = "bank-account OCBC /amt 30 /at 27/7/2017 /rate 0.005";
 
-    CheckFutureBalanceTest() {
+    CheckFutureBalanceTest() throws IOException {
         ui = new Ui();
         Path currentDir = Paths.get("data/account-test.txt");
         String filePath = currentDir.toAbsolutePath().toString();

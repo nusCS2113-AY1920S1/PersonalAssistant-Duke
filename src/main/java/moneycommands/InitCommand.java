@@ -1,18 +1,27 @@
 package moneycommands;
 
-import controlpanel.*;
+import controlpanel.DukeException;
+import controlpanel.MoneyStorage;
+import controlpanel.Ui;
 import money.Account;
 
-public class initCommand extends MoneyCommand{
+public class InitCommand extends MoneyCommand {
 
     private String inputString;
     private float userSavings;
     private float avgExp;
 
     //@@author therealnickcheong
-    public initCommand(String cmd, boolean isNewUser) throws DukeException {
+
+    /**
+     * command to initialise Financial Ghost.
+     * @param cmd command entered by user.
+     * @param isNewUser checks if is a first time user.
+     * @throws DukeException if is an existing user.
+     */
+    public InitCommand(String cmd, boolean isNewUser) throws DukeException {
         inputString = cmd;
-        if(!isNewUser){
+        if (!isNewUser) {
             throw new DukeException("You're an existing user");
         }
     }
@@ -27,9 +36,9 @@ public class initCommand extends MoneyCommand{
         try {
             userSavings = Float.parseFloat(inputString.split(" ")[1]);
             avgExp = Float.parseFloat(inputString.split(" ")[2]);
-        }catch(ArrayIndexOutOfBoundsException | NumberFormatException e){
-            throw new DukeException("Please enter in the format: " +
-                    "init [existing savings] [Avg Monthly Expenditure]\n");
+        } catch (ArrayIndexOutOfBoundsException | NumberFormatException e) {
+            throw new DukeException("Please enter in the format: "
+                    + "init [existing savings] [Avg Monthly Expenditure]\n");
         }
 
         account.initialize(userSavings,avgExp);
