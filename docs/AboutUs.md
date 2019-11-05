@@ -56,9 +56,9 @@ Responsibilities: Recurring Events & Delete Command,Model Component
 
 <img src="images/sholihink.png" alt="Sholihin" width="150"/>
 
-\[[github](https://github.com/sholihink)\] \[[portfolio](#sholihink#)\]
+\[[github](https://github.com/sholihink)\] \[[portfolio](teams/SholihinK.pdf)\]
 
 Role: Team Lead,Developer  
-Responsibilities: View,List & Done Command,Daily View Interface,Ui Component
+Responsibilities: View,List,Done,Import & Export Command,Daily View Interface,Ui Component
 
 ---

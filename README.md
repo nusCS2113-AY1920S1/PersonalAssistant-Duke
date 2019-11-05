@@ -36,6 +36,7 @@ Personal Assistant originally created by the [SE-EDU](https://github.com/se-edu)
 * Libraries used: 
     * [JUnit 5](https://github.com/junit-team/junit5), to develop unit tests that were crucial to ensuring a smooth-running application 
     * [JavaFX](https://gluonhq.com/products/javafx/), to render a pleasant user interface
+    * [ical4j](https://github.com/ical4j/ical4j), to read and write iCalendar data streams
     
 ## Contact Us
 * Notice any bugs? Report it via our [issue tracker](https://github.com/AY1920S1-CS2113T-W17-1/main/issues) and 
