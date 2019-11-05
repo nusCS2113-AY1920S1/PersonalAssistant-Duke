@@ -22,7 +22,6 @@ public class ListCommandParser implements ParserInterface<ListCommand> {
         LocalDate localDate = LocalDate.now();
 
         if (userInputStr.isBlank()) {
-            System.out.println("Blank");
             return new ListCommand();
         }
         argumentInfoMap = ArgumentSplitter.splitForwardSlashArguments(userInputStr);
