@@ -13,13 +13,14 @@ public class BudgetWindow extends AnchorPane {
     private TextArea taBudgetList;
 
     /**
-     * Setting up Add Notes Window Interface.
-     *
+     * Setting up Add budget Window Interface.
      *
      * @param budgetDesc The existing notes of the task.
      */
     @FXML
-    public void setBudgetWindow(String budgetDesc) {
+    public void setBudgetWindow(String budgetDesc, float currBudget) {
+        budgetDesc = "     Your current budget is : $" + currBudget + "\n" + budgetDesc;
         taBudgetList.setText(budgetDesc);
     }
 }
+//@@author

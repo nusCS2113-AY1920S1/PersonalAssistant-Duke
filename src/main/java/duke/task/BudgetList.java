@@ -3,11 +3,13 @@ package duke.task;
 import duke.enums.Numbers;
 
 import java.util.ArrayList;
+import java.text.DecimalFormat;
 
 //@@author maxxyx96
 public class BudgetList {
     public static final String INITIAL_BUDGET = "0";
     private ArrayList<String> budgetList;
+    private DecimalFormat decimalFormat = new DecimalFormat("#.00");
 
     /**
      * Creates an empty budget list using an array list if there are no
@@ -38,6 +40,7 @@ public class BudgetList {
      */
     public float floatConverter(String input) {
         try {
+            input = moneyFormat(Float.parseFloat(input));
             return Float.parseFloat(input);
         } catch (Exception e) {
             return Numbers.ZERO.value;
@@ -46,10 +49,20 @@ public class BudgetList {
     }
 
     /**
+     * Converts a float amount to hold a maximum of 2 decimal places.
+     *
+     * @param amount the amount to be converted to two decimal places.
+     * @return the amount that is converted to two decimal places.
+     */
+    public String moneyFormat(float amount) {
+        return decimalFormat.format(amount);
+    }
+
+    /**
      * Changes the budget by the amount stated.
      *
      * @param amount the amount to be added into the budget.
-     * @param remark Some description.
+     * @param remark Some description input by the user.
      */
     public void addToBudget(String amount, String remark) {
         float currentBudget = floatConverter(budgetList.get(Numbers.ZERO.value)) + floatConverter(amount);
@@ -102,8 +115,8 @@ public class BudgetList {
      * @return The list of budget.
      */
     public String getStringList() {
-        if (budgetList.size() < Numbers.ONE.value) {
-            return "     You have not made an entry yet.";
+        if (budgetList.size() < Numbers.TWO.value) {
+            return "     You have not made an entry to the expenses yet.";
         } else {
             String listString = "     Here are your current expenses: \n";
             for (int i = Numbers.ONE.value; i < budgetList.size(); i++) {
