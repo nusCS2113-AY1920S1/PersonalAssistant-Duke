@@ -6,8 +6,6 @@ import duke.logic.command.exceptions.CommandException;
 import duke.logic.parser.commons.CliSyntax;
 import duke.logic.parser.commons.Prefix;
 import duke.model.Model;
-import duke.model.product.Product;
-import javafx.collections.ObservableList;
 
 import static duke.logic.message.ProductMessageUtils.MESSAGE_SORT_PRODUCT_SUCCESS;
 
@@ -28,7 +26,9 @@ public class SortProductCommand extends ProductCommand {
 
     public static final String AUTO_COMPLETE_INDICATOR = ProductCommand.COMMAND_WORD + " " + COMMAND_WORD;
     public static final Prefix[] AUTO_COMPLETE_PARAMETERS = {
-            CliSyntax.PREFIX_PRODUCT_SORT
+            CliSyntax.PREFIX_PRODUCT_SORT,
+            CliSyntax.PREFIX_PRODUCT_SCOPE,
+            CliSyntax.PREFIX_PRODUCT_SORT_REVERSE
     };
 
     /**

@@ -34,11 +34,11 @@ public class ProductPage extends UiPart<AnchorPane> {
 
     public ProductPage(ObservableList<Product> productList) {
         super(FXML);
+        logger.info("Initializing Product Page");
         requireNonNull(productList);
         this.productList = productList;
         showProductList();
     }
-
 
     public void showProductList() {
         listPane.getChildren().add(setUpListTable());
@@ -95,12 +95,6 @@ public class ProductPage extends UiPart<AnchorPane> {
 
         table.getColumns().addAll(nameColumn, priceColumn,
                 costColumn, statusColumn);
+        logger.fine("Product Table set up");
     }
-
-    private IngredientCard getIngredientCard(Index index) {
-        Product product = productList.get(index.getZeroBased());
-        return new IngredientCard(product);
-    }
-
-
 }
