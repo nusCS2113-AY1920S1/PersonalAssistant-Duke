@@ -217,6 +217,7 @@ public class MainWindow extends BorderPane implements Initializable {
             dateTime = assignment.getDateTime();
             if(status == true) {
                 overDays = "-";
+                continue;
             } else {
                 DateFormat timeFormat= new SimpleDateFormat("E dd/MM/yyyy HH:mm a");
                 Date taskDateTime = timeFormat.parse(dateTime);

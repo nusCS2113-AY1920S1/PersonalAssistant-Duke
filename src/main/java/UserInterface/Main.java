@@ -29,6 +29,9 @@ public class Main extends Application {
             BorderPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
+            //stage.setResizable(false);
+            stage.setMinWidth(1000);
+            stage.setMinHeight(743);
             fxmlLoader.<MainWindow>getController().setDuke(duke);
             stage.setTitle("BetterDuke");
             stage.show();

@@ -42,7 +42,7 @@ public class MainParser {
             case "help":
                 return new HelpCommand();
 
-            case "list":
+//            case "list":
             case "done":
                 return new DoneParse(fullCommand).parse();
 
@@ -57,8 +57,10 @@ public class MainParser {
 
             case "retrieve/previous":
                 return new RetrievePreviousCommand(fullCommand);
+
             case "Week":
-                return new WeekParse(fullCommand).parse(); //WeekCommand(fullCommand);
+                return new WeekParse(fullCommand).parse();
+
             case "bye":
                 return new ByeCommand();
 

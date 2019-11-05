@@ -7,6 +7,7 @@ import javafx.util.Pair;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class FindFreeTimesCommand extends Command {
     private static final int HALF_HOUR_MARK = 30;
@@ -125,10 +126,62 @@ public class FindFreeTimesCommand extends Command {
      */
     public String execute(TaskList events, TaskList deadlines, UserInteraction ui, Storage storage) throws Exception {
         if(duration < 1 || duration > 16) return ui.showFreeTimesInvalidDuration(duration.toString());
+//        mapDataMap(events);
+//        findFindTime();
+//        setOutput();
         mapDataMap(events);
+        checkDataMap(); //TODO: remove
         findFindTime();
+        System.out.println("___________"); //TODO: remove
+        checkFreeTimeData(); //TODO: remove
         setOutput();
+        System.out.println(message);  //TODO: remove
+
         return ui.showFreeTimes(message);
+    }
+
+    /**
+     * This method compares current dateTime with database if current is between a task it takes the end time of the task.
+     * @param events The list of event tasks in storage
+     * @return The Reference Date selected
+     */
+    private Date getRefDate(TaskList events) throws ParseException {
+        Comparator<Pair<Long,Assignment>> startTimeComparator = Comparator.comparing(Pair<Long,Assignment>:: getKey);
+
+        Date date = new Date();
+        String strDateDay = dateDayFormat.format(date);
+        Date refDate = date;
+        ArrayList<Pair<Long, Assignment>> extractedAssignmentsOnDate = new ArrayList<>();
+        for(String module: events.getMap().keySet()) {
+            HashMap<String, ArrayList<Assignment>> moduleValues = events.getMap().get(module);
+            if(moduleValues.get(strDateDay) != null) {
+                ArrayList<Assignment> data = moduleValues.get(strDateDay);
+                for (Assignment task : data) {
+                    String startAndEnd = task.getTime();
+                    String[] spiltStartAndEnd = startAndEnd.split("to");
+                    Date startDateTime = dateTimeFormat12.parse(strDateDay + " " + spiltStartAndEnd[0]);
+                    Long inMillis = startDateTime.getTime();
+                    extractedAssignmentsOnDate.add(new Pair<>(inMillis,task));
+                }
+            }
+        }
+//        System.out.println("BEFORE:");
+//        for(Pair<Long, Assignment> task: extractedAssignmentsOnDate) System.out.println(task);
+        extractedAssignmentsOnDate.sort(startTimeComparator);
+//        System.out.println("After:");
+//        for(Pair<Long, Assignment> task: extractedAssignmentsOnDate) System.out.println(task);
+
+
+        for (Pair<Long,Assignment> task : extractedAssignmentsOnDate) {
+            String startAndEnd = task.getValue().getTime();
+            String[] spiltStartAndEnd = startAndEnd.split("to");
+            Date startDateTime = dateTimeFormat12.parse(strDateDay + " " + spiltStartAndEnd[0]);
+            Date endDateTime = dateTimeFormat12.parse(strDateDay + " " + spiltStartAndEnd[1]);
+
+            if (startDateTime.equals(refDate)) refDate = endDateTime;
+            else if((startDateTime.before(refDate) && endDateTime.after(refDate)) && endDateTime.after(refDate)) refDate = endDateTime;
+        }
+        return refDate;
     }
 
     /**
@@ -137,12 +190,15 @@ public class FindFreeTimesCommand extends Command {
      * @throws ParseException The error when the data provided in invalid
      */
     private void mapDataMap(TaskList events) throws ParseException {
-        Date currDate = new Date();
+        Date temp = getRefDate(events);
+        System.out.println("Reference date: " + temp);
+        Date currDate = null;//new Date();
+        currDate = getRefDate(events);
         String strCurrDateDay = dateDayFormat.format(currDate);
         String strCurrTime = timeFormat12.format(currDate);
-        ArrayList<Pair<String, String>> temp = new ArrayList<>();
-        temp.add(new Pair<>(strCurrTime, strCurrTime));
-        dataMap.put(strCurrDateDay, temp);
+//        ArrayList<Pair<String, String>> temp = new ArrayList<>();
+//        temp.add(new Pair<>(strCurrTime, strCurrTime));
+//        dataMap.put(strCurrDateDay, temp);
 
         for(String module: events.getMap().keySet()) {
             HashMap<String, ArrayList<Assignment>> moduleValues = events.getMap().get(module);
@@ -153,11 +209,12 @@ public class FindFreeTimesCommand extends Command {
                 if(strDate.equals(strCurrDateDay)) timeArray.add(new Pair<>(strCurrTime, strCurrTime));
                 if(date.after(currDate)) {
                     ArrayList<Assignment> data = moduleValues.get(strDate);
+                    Date refDate = currDate; //new
                     for (Assignment task : data) {
                         String startAndEnd = task.getTime();
                         String[] spiltStartAndEnd = startAndEnd.split("to");
                         Date startDateTime = dateTimeFormat12.parse(strDate + " " + spiltStartAndEnd[0]);
-                        if(startDateTime.after(currDate)) timeArray.add(new Pair<>(spiltStartAndEnd[0].trim(), spiltStartAndEnd[1].trim()));
+                        if(startDateTime.after(refDate)) timeArray.add(new Pair<>(spiltStartAndEnd[0].trim(), spiltStartAndEnd[1].trim()));
                     }
                     if(dataMap.containsKey(strDate)) timeArray = mergeTimeArray(dataMap.get(strDate), timeArray);
                     timeArray.sort(compareByTime);
@@ -306,7 +363,10 @@ public class FindFreeTimesCommand extends Command {
                             ArrayList<Pair<String, String >> nextDayStartAndEndTimes = dataMap.get(nextKey);
                             String nextDateTime = nextKey + " " + nextDayStartAndEndTimes.get(0).getKey(); //Just need to check first item of next day start time
                             Date nextDateTimeStart = dateTimeFormat12.parse(nextDateTime);
-                            Date dateLowerBoundaryPlusDuration = increaseDateTime(dateLowerBoundary, duration);
+                            //TODO: check before increase 24 hours
+                            dateLowerBoundary = increaseDateTime(dateLowerBoundary, 24); //0700 since look at nextday boundary must be increase by a day
+                            Date dateLowerBoundaryPlusDuration = increaseDateTime(dateLowerBoundary, duration); //2100
+
                             if(dateLowerBoundary.before(nextDateTimeStart) && dateLowerBoundaryPlusDuration.before(nextDateTimeStart)) {
                                 freeTimeData.add(new Pair<>(dateLowerBoundary, dateLowerBoundaryPlusDuration));
                                 if(checkFreeTimeOptions()) return;
@@ -326,21 +386,67 @@ public class FindFreeTimesCommand extends Command {
      */
     private void setOutput(){
         compiledFreeTimes.clear();
+        Comparator<Pair<Long,Pair<String,String>>> startTimeComparator = Comparator.comparing(Pair<Long,Pair<String,String>>:: getKey);
+        ArrayList<Pair<Long, Pair<String,String>>> sortVar = new ArrayList<>();
         for (int i = 0; i < freeTimeData.size(); i++) {
             String compiledFreeTimeToShow;
             String compiledFreeTimeCommand;
             compiledFreeTimeToShow = dateTimeFormat12.format(freeTimeData.get(i).getKey()) + " until " + timeFormat12.format(freeTimeData.get(i).getValue());
-            message += (i+1) + ". " + compiledFreeTimeToShow + "\n";
+            //message += (i+1) + ". " + compiledFreeTimeToShow + "\n"; //Unsorted output method
             String dateTime = dateTimeFormat24.format(freeTimeData.get(i).getKey());
             String[] spiltDateTime = dateTime.split(" ", 3);
             compiledFreeTimeCommand =  "/at " + spiltDateTime[1]+ " /from " + spiltDateTime[2] + " /to "+ timeFormat24.format(freeTimeData.get(i).getValue());
-            compiledFreeTimes.add(new Pair<>(compiledFreeTimeToShow, compiledFreeTimeCommand));
+            //compiledFreeTimes.add(new Pair<>(compiledFreeTimeToShow, compiledFreeTimeCommand));
+
+            //TODO: Sorted output method 1 using Pair<Long, Pair<String, String> > complicated to trace (10 lines)
+            Long sortVar1 = (freeTimeData.get(i).getKey()).getTime();
+            Pair<String, String> sortVar2 = new Pair<String, String>(compiledFreeTimeToShow, compiledFreeTimeCommand);
+            sortVar.add(new Pair<>(sortVar1,sortVar2));
         }
+        sortVar.sort(startTimeComparator);
+
+        for(Integer i = 0; i < 5; i++){
+            compiledFreeTimes.add(sortVar.get(i).getValue());
+            message += ((i+1) +". " + sortVar.get(i).getValue().getKey()) + "\n";
+        }
+
+        //TODO: Sorted output method 2 using comparator by data but takes extra step backwards requires date parsing (15lines)
+        /*
+        Comparator<Pair<String,String>> sortByDay = (a, b) -> {
+            String strA = a.getKey().split("until")[0].trim();
+            String strB = b.getKey().split("until")[0].trim();
+            Date dateA = null;
+            Date dateB = null;
+            try {
+                dateA = dateTimeFormat12.parse(strA);
+                dateB = dateTimeFormat12.parse(strB);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            if(dateA.before(dateB)) return -1;
+            else if(dateA.after(dateB)) return 1;
+            else return dateA.compareTo(dateB);
+        };
+        compiledFreeTimes.sort(sortByDay);
+        for(Integer i = 0; i < 5; i++) message += ((i+1) +". " + compiledFreeTimes.get(i).getKey()) + "\n";*/
     }
-
-
 
     public static ArrayList<Pair<String, String>> getCompiledFreeTimesList() {
         return compiledFreeTimes;
+    }
+
+    private void checkDataMap() {
+        for(Map.Entry<String, ArrayList<Pair<String, String>>> a: dataMap.entrySet()){
+            System.out.println("a: " + a.getKey());
+            for(Pair<String, String> b : a.getValue()){
+                System.out.println("b: " + b.getKey() + "|" + b.getValue());
+            }
+        }
+    }
+
+    private void checkFreeTimeData() {
+        for(Pair<Date, Date> c : freeTimeData){
+            System.out.println("c: " + c.getKey() + "|" + c.getValue());
+        }
     }
 }

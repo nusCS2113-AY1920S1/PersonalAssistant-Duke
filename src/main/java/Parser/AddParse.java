@@ -45,9 +45,14 @@ public class AddParse extends Parse {
                 if (!super.isModCode(split1[0])) {
                     throw new DukeInvalidFormatException("\u2639" + " OOPS!!! The ModCode is invalid");
                 }
+                //condition does not work use the condition below
+                //TODO: review use of condition
                 if (split[0].trim().isEmpty()) {
                     throw new DukeInvalidFormatException("\u2639" + " OOPS!!! The description of a deadline cannot be empty.");
                 }
+                if(!isValidDescription(split1)) throw new DukeInvalidFormatException("\u2639" + " OOPS!!! The description of a deadline cannot be empty.");
+                if(!isValidTime(split[1])) throw new DukeInvalidFormatException("\u2639" + " OOPS!!! The time of a deadline can only contain digits and the time has to be 4 digits.\n" +
+                        "Please enter the time in a 24-hour time format");
                 String[] out = DateTimeParser.DeadlineParse(split[1]);
                 return new AddCommand(new Deadline(split[0].trim(), out[0], out[1]));
             } catch (ParseException | ArrayIndexOutOfBoundsException e) {
@@ -64,9 +69,14 @@ public class AddParse extends Parse {
                 if (!super.isModCode(split1[0])) {
                     throw new DukeInvalidFormatException("\u2639" + " OOPS!!! The ModCode is invalid");
                 }
+                //condition does not work use the condition below
+                //TODO: review use of condition
                 if (split[0].trim().isEmpty()) {
                     throw new DukeInvalidFormatException("\u2639" + " OOPS!!! The description of a event cannot be empty.");
                 }
+                if(!isValidDescription(split1)) throw new DukeInvalidFormatException("\u2639" + " OOPS!!! The description of a event cannot be empty.");
+                if(!isValidTimePeriod(split[1])) throw new DukeInvalidFormatException("\u2639" + " OOPS!!! The time of a event can only contain digits and the time has to be 4 digits.\n" +
+                        "Please enter the time in a 24-hour time format");
                 String[] out = DateTimeParser.EventParse(split[1]);
                 return new AddCommand(new Event(split[0].trim(),out[0],out[1],out[2]));
             } catch (ParseException | ArrayIndexOutOfBoundsException e ) {

@@ -42,10 +42,11 @@ public class ShowPreviousParse extends Parse{
             isNumber = false;
         }
 
-        String[] listOfAllCommands = { "add/d","add/e", "delete/d", "delete/e", "recur/e",
-                "remind/set", "remind/rm", "remind/check", "/show", "filter", "help", "list", "done", "find",
-                "show/previous", "Week" };
-
+        String[] listOfAllCommands = { "add/d","add/e", "delete/d", "delete/e", "recur/weekly",
+                "recur/biweekly", "recur/rmweekly", "recur/rmbiweekly", "remind/set",
+                "remind/rm", "remind/check", "/show", "filter", "help", "list", "done", "find",
+                "show/previous", "retrieve/ft", "retrieve/previous", "Week" };
+      
         boolean isValid = false;
         if (isNumber && number < 0) {
             throw new DukeInvalidFormatException("Invalid Input. Cannot enter negative number");
