@@ -842,6 +842,8 @@ investment or saving account for ease in tracking different expenditure
 |38|* *|existing user|search for specific bank account, credit card or bonds|search and view the details of the
 specific bank account, credit card or bonds with ease.
 |39|* *|organised user|view my financial details in a user friendly format|so that I can review my expenses with ease.
+|40|* *|existing user|search for specific recurring expenditure|search and view the details of the
+specific recurring expenditure.
 |===
 
 
@@ -1835,11 +1837,30 @@ Use case ends.
 +
 Use case ends.
 
+*Actor: Existing user* +
+[[UC-40]] *Use case: UC40 - Search for specific recurring expenditure* +
+*Preconditions:*
 
+* *User has a profile created*
+* *User has added a savings account to the profile*
+* *User has added recurring expenditure to the savings account*
 
+*Main success scenario:*
 
+. User choose to search for specific recurring expenditure.
+. System requests for the keyword to be used for searching.
+. User specifies the keyword to be used for searching.
+. System displays information found from the search.
++
+Use case ends.
 
-
+*Extensions*
+[none]
+* 3a. System detects invalid keyword to be used for searching.
+** 3a1. System requests for the correct keyword to be used for searching.
+** 3a2. User re-enters the keyword to be used for searching.
+** Steps 3a1-3a2 are repeated until the keyword to be used for searching is entered correctly.
+** Use case resumes from step 4.
 
 
 

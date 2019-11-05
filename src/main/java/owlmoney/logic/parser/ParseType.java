@@ -23,6 +23,7 @@ import owlmoney.logic.parser.card.ParseDeleteCard;
 import owlmoney.logic.parser.card.ParseEditCard;
 import owlmoney.logic.parser.find.ParseFindBankOrCard;
 import owlmoney.logic.parser.find.ParseFindBond;
+import owlmoney.logic.parser.find.ParseFindRecurring;
 import owlmoney.logic.parser.find.ParseFindTransaction;
 import owlmoney.logic.parser.goals.ParseAddGoals;
 import owlmoney.logic.parser.goals.ParseDeleteGoals;
@@ -74,6 +75,7 @@ class ParseType extends Parser {
     private static final String INVESTMENT = "investment";
     private static final String BOND = "bonds";
     private static final String GOALS = "goals";
+    private static final String RECURRING = "recurring";
 
     /**
      * Determines the type of command and checks if it is of valid type.
@@ -346,6 +348,11 @@ class ParseType extends Parser {
                 listRecurringExpenditure.fillHashTable();
                 listRecurringExpenditure.checkParameter();
                 return listRecurringExpenditure.getCommand();
+            } else if ("/find".equals(command)) {
+                ParseFindRecurring parseFindRecurringExpenditure = new ParseFindRecurring(rawData, RECURRING);
+                parseFindRecurringExpenditure.fillHashTable();
+                parseFindRecurringExpenditure.checkParameter();
+                return parseFindRecurringExpenditure.getCommand();
             }
             throw new ParserException("You entered an invalid type for recurbankexp");
         case "/fund":

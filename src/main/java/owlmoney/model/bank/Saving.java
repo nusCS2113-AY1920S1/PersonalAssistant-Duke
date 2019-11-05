@@ -566,4 +566,17 @@ public class Saving extends Bank {
         }
         return -1;
     }
+
+    /**
+     * Finds the recurring expenditure that matches with the keywords specified by the user
+     * for savings account.
+     *
+     * @param description The description keyword to match against.
+     * @param category    The category keyword to match against.
+     * @param ui          The object required for printing.
+     */
+    @Override
+    public void findRecurringExpenditure(String description, String category, Ui ui) {
+        recurringExpenditures.findMatchingRecurringExpenditure(description, category, ui);
+    }
 }

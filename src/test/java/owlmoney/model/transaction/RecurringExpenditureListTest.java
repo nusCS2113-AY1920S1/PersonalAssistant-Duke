@@ -8,6 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -16,6 +17,7 @@ import owlmoney.ui.Ui;
 
 class RecurringExpenditureListTest {
     private static final String NEWLINE = System.lineSeparator();
+    private static final DateFormat temp = new SimpleDateFormat("dd/MM/yyyy");
 
     @Test
     void addRecurringExpenditure_successfulAddingExpenditure_newExpenditureAdded() {
@@ -233,5 +235,180 @@ class RecurringExpenditureListTest {
             System.out.println("Expected no throw, but error thrown");
         }
         assertEquals(testExpenditure, testList.get(0));
+    }
+
+    //Tests function for find feature.
+    @Test
+    void findMatchingRecurringExpenditure_matchingCategory_success() {
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
+        Ui uiTest = new Ui();
+        RecurringExpenditureList testList = new RecurringExpenditureList();
+        try {
+            Transaction testExpenditure = new Expenditure("Test 1", 1,
+                    temp.parse("04/11/2019"), "test");
+            testList.addRecurringExpenditure(testExpenditure, uiTest);
+        } catch (TransactionException | ParseException errorMessage) {
+            System.out.println("Expected no throw, but error thrown");
+        }
+        outContent.reset();
+        testList.findMatchingRecurringExpenditure("", "s", uiTest);
+
+        String expectedOutput = "Find by: category" + NEWLINE
+                + "Transaction No.      Description                                             Amount"
+                + "          Next Expense Date    Category             " + NEWLINE
+                + "--------------------------------------------------------------------------------------"
+                + "-------------------------------------------" + NEWLINE
+                + "1                    Test 1                                                  "
+                + "[-] $1.00       04 November 2019     test                 " + NEWLINE
+                + "-------------------------------------------------------------------------------------"
+                + "--------------------------------------------" + NEWLINE;
+        assertEquals(expectedOutput, outContent.toString());
+    }
+
+    //Tests function for find feature.
+    @Test
+    void findMatchingRecurringExpenditure_missMatchCategory_printErrorMessage() {
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
+        Ui uiTest = new Ui();
+        RecurringExpenditureList testList = new RecurringExpenditureList();
+        try {
+            Transaction testExpenditure = new Expenditure("Test 1", 1,
+                    temp.parse("04/11/2019"), "test");
+            testList.addRecurringExpenditure(testExpenditure, uiTest);
+        } catch (TransactionException | ParseException errorMessage) {
+            System.out.println("Expected no throw, but error thrown");
+        }
+        outContent.reset();
+        testList.findMatchingRecurringExpenditure("", "Not exist", uiTest);
+
+        String expectedOutput = "No matches for the category keyword: Not exist" + NEWLINE;
+        assertEquals(expectedOutput, outContent.toString());
+    }
+
+
+    //Tests function for find feature.
+    @Test
+    void findMatchingRecurringExpenditure_matchDescription_success() {
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
+        Ui uiTest = new Ui();
+        RecurringExpenditureList testList = new RecurringExpenditureList();
+        try {
+            Transaction testExpenditure = new Expenditure("Test 1", 1,
+                    temp.parse("04/11/2019"), "test");
+            testList.addRecurringExpenditure(testExpenditure, uiTest);
+        } catch (TransactionException | ParseException errorMessage) {
+            System.out.println("Expected no throw, but error thrown");
+        }
+        outContent.reset();
+        testList.findMatchingRecurringExpenditure("1", "", uiTest);
+
+        String expectedOutput = "Find by: description" + NEWLINE
+                + "Transaction No.      Description                                             Amount"
+                + "          Next Expense Date    Category             " + NEWLINE
+                + "--------------------------------------------------------------------------------------"
+                + "-------------------------------------------" + NEWLINE
+                + "1                    Test 1                                                  "
+                + "[-] $1.00       04 November 2019     test                 " + NEWLINE
+                + "-------------------------------------------------------------------------------------"
+                + "--------------------------------------------" + NEWLINE;
+        assertEquals(expectedOutput, outContent.toString());
+    }
+
+    //Tests function for find feature.
+    @Test
+    void findMatchingRecurringExpenditure_missMatchDescription_printErrorMessage() {
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
+        Ui uiTest = new Ui();
+        RecurringExpenditureList testList = new RecurringExpenditureList();
+        try {
+            Transaction testExpenditure = new Expenditure("Test 1", 1,
+                    temp.parse("04/11/2019"), "test");
+            testList.addRecurringExpenditure(testExpenditure, uiTest);
+        } catch (TransactionException | ParseException errorMessage) {
+            System.out.println("Expected no throw, but error thrown");
+        }
+        outContent.reset();
+        testList.findMatchingRecurringExpenditure("Not exist", "", uiTest);
+
+        String expectedOutput = "No matches for the description keyword: Not exist" + NEWLINE;
+        assertEquals(expectedOutput, outContent.toString());
+    }
+
+    //Tests function for find feature.
+    @Test
+    void findMatchingRecurringExpenditure_emptyRecurringList_printErrorMessage() {
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
+        Ui uiTest = new Ui();
+        RecurringExpenditureList testList = new RecurringExpenditureList();
+
+        testList.findMatchingRecurringExpenditure("Not exist", "", uiTest);
+
+        String expectedOutput = "Recurring expenditure is empty." + NEWLINE;
+        assertEquals(expectedOutput, outContent.toString());
+    }
+
+    //Tests function for find feature.
+    @Test
+    void findMatchingRecurringExpenditure_allParameterMatch_success() {
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
+        Ui uiTest = new Ui();
+        RecurringExpenditureList testList = new RecurringExpenditureList();
+        try {
+            Transaction testExpenditure = new Expenditure("Test 1", 1,
+                    temp.parse("04/11/2019"), "test");
+            testList.addRecurringExpenditure(testExpenditure, uiTest);
+        } catch (TransactionException | ParseException errorMessage) {
+            System.out.println("Expected no throw, but error thrown");
+        }
+        outContent.reset();
+        testList.findMatchingRecurringExpenditure("1", "s", uiTest);
+
+        String expectedOutput = "Find by: description" + NEWLINE
+                + "Transaction No.      Description                                             Amount"
+                + "          Next Expense Date    Category             " + NEWLINE
+                + "--------------------------------------------------------------------------------------"
+                + "-------------------------------------------" + NEWLINE
+                + "1                    Test 1                                                  "
+                + "[-] $1.00       04 November 2019     test                 " + NEWLINE
+                + "-------------------------------------------------------------------------------------"
+                + "--------------------------------------------" + NEWLINE
+                + "Find by: category" + NEWLINE
+                + "Transaction No.      Description                                             Amount"
+                + "          Next Expense Date    Category             " + NEWLINE
+                + "--------------------------------------------------------------------------------------"
+                + "-------------------------------------------" + NEWLINE
+                + "1                    Test 1                                                  "
+                + "[-] $1.00       04 November 2019     test                 " + NEWLINE
+                + "-------------------------------------------------------------------------------------"
+                + "--------------------------------------------" + NEWLINE;
+        assertEquals(expectedOutput, outContent.toString());
+    }
+
+    //Tests function for find feature.
+    @Test
+    void findMatchingRecurringExpenditure_allParameterMissMatch_printErrorMessage() {
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
+        Ui uiTest = new Ui();
+        RecurringExpenditureList testList = new RecurringExpenditureList();
+        Transaction testExpenditure = new Expenditure("Test 1", 1,
+                new Date(), "test");
+        try {
+            testList.addRecurringExpenditure(testExpenditure, uiTest);
+        } catch (TransactionException errorMessage) {
+            System.out.println("Expected no throw, but error thrown");
+        }
+        outContent.reset();
+        testList.findMatchingRecurringExpenditure("Not exist", "Not exist", uiTest);
+
+        String expectedOutput = "No matches for the description keyword: Not exist" + NEWLINE
+                + "No matches for the category keyword: Not exist" + NEWLINE;
+        assertEquals(expectedOutput, outContent.toString());
     }
 }

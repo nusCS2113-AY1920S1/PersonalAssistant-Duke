@@ -258,7 +258,7 @@ class BankListTest {
         outContent.reset();
 
         BankException thrown = assertThrows(BankException.class, () ->
-                        bankList.bankListIsAccountExistToTransfer("No Such Name", 10),
+                        bankList.getTransferBankType("No Such Name", 10),
                 "Expected bankListIsAccountExistToTransfer to throw, but it didn't");
         assertEquals("Unable to transfer fund as the sender bank account does not exist: "
                 + "No Such Name", thrown.getMessage());
@@ -285,7 +285,7 @@ class BankListTest {
         outContent.reset();
 
         BankException thrown = assertThrows(BankException.class, () ->
-                        bankList.bankListIsAccountExistToTransfer("Test Investment Account",
+                        bankList.getTransferBankType("Test Investment Account",
                                 2000),
                 "Expected bankListIsAccountExistToTransfer to throw, but it didn't");
         assertEquals("Insufficient amount for transfer in this bank: Test Investment Account",
@@ -308,7 +308,7 @@ class BankListTest {
             bankList.bankListAddBank(newSavingAccount, uiTest);
             bankList.bankListAddBank(newInvestmentAccount, uiTest);
             outContent.reset();
-            String returnType = bankList.bankListIsAccountExistToTransfer("Test Investment Account",
+            String returnType = bankList.getTransferBankType("Test Investment Account",
                     500);
             assertEquals(expectedReturnType, returnType);
 
@@ -341,7 +341,7 @@ class BankListTest {
         assertEquals(2, bankList.getBankListSize());
 
         BankException thrown = assertThrows(BankException.class, () ->
-                        bankList.bankListIsAccountExistToReceive(nameDoNotExist),
+                        bankList.getReceiveBankType(nameDoNotExist),
                 "Expected bankListIsAccountExistToReceive to throw, but it didn't");
         assertEquals("Unable to transfer fund as the receiving bank account does not exist: "
                 + nameDoNotExist, thrown.getMessage());
@@ -362,7 +362,7 @@ class BankListTest {
             bankList.bankListAddBank(newSavingAccount, uiTest);
             bankList.bankListAddBank(newInvestmentAccount, uiTest);
             outContent.reset();
-            String returnType = bankList.bankListIsAccountExistToReceive("Test Investment Account");
+            String returnType = bankList.getReceiveBankType("Test Investment Account");
             assertEquals(expectedReturnType, returnType);
 
         } catch (BankException error) {

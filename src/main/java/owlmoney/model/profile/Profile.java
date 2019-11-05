@@ -64,6 +64,7 @@ public class Profile {
     private static final String NOT_SPENT = "false";
     private static final String BLANK = "";
     private static final int ARRAY_INDEX = 1;
+    private static final String RECURRING = "recurring";
 
     /**
      * Creates a new instance of the user profile.
@@ -654,8 +655,8 @@ public class Profile {
      */
     public void transferFund(String from, String to, double amount, Date date,
             Ui ui) throws BankException {
-        String fromType = bankList.bankListIsAccountExistToTransfer(from, amount);
-        String toType = bankList.bankListIsAccountExistToReceive(to);
+        String fromType = bankList.getTransferBankType(from, amount);
+        String toType = bankList.getReceiveBankType(to);
         String descriptionTo = "Fund Transfer to " + to;
         Transaction newExpenditure = new Expenditure(descriptionTo, amount, date, TRANSFERCATEGORY);
         bankList.bankListAddExpenditure(from, newExpenditure, ui, checkBankType(fromType));
@@ -729,6 +730,22 @@ public class Profile {
             bankList.bankListFindTransaction(name, fromDate, toDate, description, category, ui);
         } else if (type.equals(CARD)) {
             cardList.cardListFindTransaction(name, fromDate, toDate, description, category, ui);
+        }
+    }
+
+    /**
+     * Finds recurring expenditure in the savings account that matches with the keywords provided by user.
+     *
+     * @param name        The bank name to be searched for.
+     * @param description The description keyword to match against.
+     * @param category    The category keyword to match against.
+     * @param ui          The object required for printing.
+     * @throws BankException If bank name specified does not exist.
+     */
+    public void findRecurringExpenditure(String name, String description, String category,
+            String type, Ui ui) throws BankException {
+        if (RECURRING.equals(type)) {
+            bankList.bankListFindRecurringExpenditure(name, description, category, ui);
         }
     }
 

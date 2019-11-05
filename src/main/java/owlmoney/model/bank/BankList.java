@@ -983,14 +983,14 @@ public class BankList {
      * @param amount  the amount to transfer.
      * @throws BankException If bank does not exist.
      */
-    public String bankListIsAccountExistToTransfer(String accountName, double amount) throws BankException {
+    public String getTransferBankType(String accountName, double amount) throws BankException {
         String capitalAccountName = accountName.toUpperCase();
         for (int i = ISZERO; i < getBankListSize(); i++) {
             Bank currentBank = bankLists.get(i);
             String currentBankName = currentBank.getAccountName();
             String capitalCurrentBankName = currentBankName.toUpperCase();
             if (capitalAccountName.equals(capitalCurrentBankName)) {
-                bankListIsSufficientForTransfer(bankLists.get(i), amount);
+                checkSufficientForTransfer(bankLists.get(i), amount);
                 return currentBank.getType();
             }
         }
@@ -1004,7 +1004,7 @@ public class BankList {
      * @param accountName the bank account name.
      * @throws BankException If bank does not exist.
      */
-    public String bankListIsAccountExistToReceive(String accountName) throws BankException {
+    public String getReceiveBankType(String accountName) throws BankException {
         String capitalAccountName = accountName.toUpperCase();
         for (int i = ISZERO; i < getBankListSize(); i++) {
             Bank currentBank = bankLists.get(i);
@@ -1025,7 +1025,7 @@ public class BankList {
      * @param amount the amount to be transferred.
      * @throws BankException If bank does not have sufficient fund.
      */
-    private void bankListIsSufficientForTransfer(Bank bank, double amount) throws BankException {
+    private void checkSufficientForTransfer(Bank bank, double amount) throws BankException {
         if (bank.getCurrentAmount() >= amount) {
             return;
         }
@@ -1116,6 +1116,31 @@ public class BankList {
             }
         }
         throw new BankException("Bank with the following name does not exist: " + bankName);
+    }
+
+    /**
+     * Finds matching recurring expenditure from the savings account specified by the user.
+     *
+     * @param bankName    The name of the bank object to search for matching recurring expenditure.
+     * @param description The description keyword to match against.
+     * @param category    The category keyword to match against.
+     * @param ui          The object required for printing.
+     * @throws BankException If bank name specified does not exist.
+     */
+    public void bankListFindRecurringExpenditure(String bankName, String description, String category, Ui ui)
+            throws BankException {
+        String capitalBankName = bankName.toUpperCase();
+        for (int i = ISZERO; i < getBankListSize(); i++) {
+            Bank currentBank = bankLists.get(i);
+            String currentBankName = currentBank.getAccountName();
+            String capitalCurrentBankName = currentBankName.toUpperCase();
+            String currentBankType = currentBank.getType();
+            if (capitalBankName.equals(capitalCurrentBankName) && SAVING.equals(currentBankType)) {
+                currentBank.findRecurringExpenditure(description, category, ui);
+                return;
+            }
+        }
+        throw new BankException("Savings account with the following name does not exist: " + bankName);
     }
 
     /**
