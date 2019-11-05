@@ -151,7 +151,7 @@ public class MainWindow extends AnchorPane {
             }
 
             this.dataTask.add(new TaskFX(countString, newTask.getStatusIcon(), newTask.getType(),
-                    newTask.getDescription(), newTask.getDueDate()));
+                    newTask.getDescription(), newTask.getDueDate(), newTask.getUserDefinedPriority()));
         }
 
         for (int i = 0; i < this.degreeList.size(); i++) {
@@ -213,7 +213,7 @@ public class MainWindow extends AnchorPane {
             }
 
             this.dataTask.add(new TaskFX(countString, newTask.getStatusIcon(), newTask.getType(),
-                    newTask.getDescription(), newTask.getDueDate()));
+                    newTask.getDescription(), newTask.getDueDate(), newTask.getUserDefinedPriority()));
         }
 
         for (int i = 0; i < this.degreeList.size(); i++) {

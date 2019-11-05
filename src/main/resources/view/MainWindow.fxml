@@ -55,9 +55,14 @@
                                                         <PropertyValueFactory property="description" />
                                                     </cellValueFactory>
                                                 </TableColumn>
-                                                <TableColumn prefWidth="113.0" text="Date">
+                                                <TableColumn prefWidth="73.0" text="Date">
                                                     <cellValueFactory>
                                                         <PropertyValueFactory property="deadline" />
+                                                    </cellValueFactory>
+                                                </TableColumn>
+                                                <TableColumn prefWidth="10.0" text="Priority">
+                                                    <cellValueFactory>
+                                                        <PropertyValueFactory property="priority" />
                                                     </cellValueFactory>
                                                 </TableColumn>
                                             </columns>
