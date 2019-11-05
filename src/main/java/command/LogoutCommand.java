@@ -16,12 +16,13 @@ public class LogoutCommand extends Command {
 
     @Override
     public void execute(UserList userList, Inventory inventory, RoomList roomList, BookingList bookingList, Ui ui,
-                        Storage userStorage, Storage inventoryStorage, Storage bookingstorage, Storage roomstorage) throws DukeException {
-        if(userList.getLoginStatus() == false) {
+                        Storage userStorage, Storage inventoryStorage, Storage bookingstorage, Storage roomstorage)
+            throws DukeException {
+        if (userList.getLoginStatus() == false) {
             throw new DukeException("OOPS!!! You are not currently logged in!");
         }
         userList.logout();
         ui.addToOutput("You have successfully logged out from: " + userList.getCurrentUser());
-        userList.setCurrentUser(null) ;
+        userList.setCurrentUser(null);
     }
 }
