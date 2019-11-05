@@ -62,10 +62,10 @@ public abstract class Parser implements ParserStringList, ModeStringList {
     public void extractDescTime() throws Exception {
         // dataArray[0] is command, amount and description, dataArray[1] is time and tag
         String[] dataArray = inputLine.split(" /on ");
-        String dateString = (dataArray[1].split(" /tag "))[0];
+        String dateString = (dataArray[1].split(" /tag"))[0];
         description = dataArray[0].split(inputArray[2] + " ")[1];
         try {
-            date = Time.readDate(dateString);
+            date = Time.readDate(dateString.trim());
         } catch (ArrayIndexOutOfBoundsException e) {
             // TODO: Shouldn't happen anymore, need to test if this will happen still
             Ui.printMsg("Please add '/at <date>' after your task to specify the entry date.");

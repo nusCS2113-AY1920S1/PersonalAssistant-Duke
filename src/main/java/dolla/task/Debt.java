@@ -21,14 +21,15 @@ public class Debt extends Record {
      * @param description Description of the debt.
      * @param date        Due date of the debt.
      */
-    public Debt(String type, String name, double amount, String description, LocalDate date) {
+    public Debt(String type, String name, double amount, String description, LocalDate date, String tagName) {
         this.type = type;
         this.name = name;
         this.amount = amount;
         this.description = description;
         this.date = date;
+        this.tagName = tagName;
         this.recordType = RECORD_DEBT;
-        this.userInput = type + " " + name + " " + amount + " " + description + " " + "/due " + Time.dateToString(date);
+        this.userInput = type + " " + name + " " + amount + " " + description + " " + "/due " + Time.dateToString(date) + " " + tagName;
     }
 
     /**
@@ -42,7 +43,8 @@ public class Debt extends Record {
                 + "[" + name + "] "
                 + "[" + amountToMoney() + "] "
                 + "[" + description + "] "
-                + "[/due " + Time.dateToString(date) + "]";
+                + "[/due " + Time.dateToString(date) + "]"
+                + " {Tag: " + tagName + '}';
     }
 
     @Override
@@ -73,7 +75,8 @@ public class Debt extends Record {
                 + name + " | "
                 + amount + " | "
                 + description + " | "
-                + Time.dateToString(date);
+                + Time.dateToString(date) + " | "
+                + tagName;
     }
 
     @Override

@@ -16,27 +16,19 @@ public class Tag {
      * Instantiates a new Tag.
      */
     public Tag() {
-        this.tagName = "";
+        this.tagName = "-";
     }
 
-    private String getTagName() {
+    public String getTagName() {
         return tagName;
     }
 
     @Override
     public String toString() {
-        if (hasTag()) {
-            return " [Tag: " + getTagName() + ']';
-        } else {
+        if (tagName.equals("")) {
             return "";
-        }
-    }
-
-    public String toFormatSave() {
-        if (hasTag()) {
-            return " | " + getTagName();
         } else {
-            return "";
+            return " {Tag: " + tagName + '}';
         }
     }
 
@@ -54,7 +46,6 @@ public class Tag {
     private void extractTagName() {
         String[] tagArray = inputLine.split(COMPONENT_TAG);
         tagName = tagArray[1].trim();
-        System.out.println(tagName);
     }
 
     /**

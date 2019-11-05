@@ -28,11 +28,11 @@ public class DollaParser extends Parser {
 
         if (commandToRun.equals(ENTRY_COMMAND_ADD)) {
             if (verifyAddCommand()) {
-                Tag t = new Tag();
-                Entry entry = new Entry(inputArray[1], stringToDouble(inputArray[2]), description, date);
-                t.handleTag(entry);
+                Tag tag = new Tag();
+                Entry entry = new Entry(inputArray[1], stringToDouble(inputArray[2]), description, date, "");
+                tag.handleTag(entry);
                 //System.out.println(t.toString());
-                return new AddEntryCommand(inputArray[1], stringToDouble(inputArray[2]), description, date);
+                return new AddEntryCommand(inputArray[1], stringToDouble(inputArray[2]), description, date, tag.getTagName());
             } else {
                 return new ErrorCommand();
             }
@@ -49,7 +49,7 @@ public class DollaParser extends Parser {
 
         } else if (commandToRun.equals(DEBT_COMMAND_OWE) || commandToRun.equals(DEBT_COMMAND_BORROW)) {
             String type = commandToRun;
-            String name;
+            String name = null;
             double amount = 0.0;
             LocalDate date = null;
             Tag t = new Tag();
@@ -72,18 +72,15 @@ public class DollaParser extends Parser {
             } catch (Exception e) {
                 return new ErrorCommand();
             }
-            Debt debt = new Debt(type, name, amount, description, date);
+            Debt debt = new Debt(type, name, amount, description, date, "");
             t.handleTag(debt);
-            return new AddDebtsCommand(type, name, amount, description, date);
+            return new AddDebtsCommand(type, name, amount, description, date, t.getTagName());
 
         } else if (commandToRun.equals(ParserStringList.LIMIT_COMMAND_SET)) {
             if (verifySetLimitCommand()) {
                 String typeStr = inputArray[1];
                 double amountInt = stringToDouble(inputArray[2]);
                 String durationStr = inputArray[3];
-                Limit limit = new Limit(typeStr, amountInt, durationStr);
-                Tag t = new Tag();
-                t.handleTag(limit);
                 return new AddLimitCommand(typeStr, amountInt, durationStr);
             } else {
                 LimitUi.invalidSetCommandPrinter();

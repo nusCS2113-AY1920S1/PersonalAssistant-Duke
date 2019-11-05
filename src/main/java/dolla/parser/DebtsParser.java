@@ -73,9 +73,9 @@ public class DebtsParser extends Parser {
             } catch (Exception e) {
                 return new ErrorCommand();
             }
-            Debt debt = new Debt(type, name, amount, description, date);
+            Debt debt = new Debt(type, name, amount, description, date, "");
             t.handleTag(debt);
-            return new AddDebtsCommand(type, name, amount, description, date);
+            return new AddDebtsCommand(type, name, amount, description, date, t.getTagName());
         } else if (commandToRun.equals(BILL_COMMAND_BILL)) {
             int people = 0;
             double amount = 0;
