@@ -21,6 +21,7 @@ public class LocationSearchUrlRequest extends UrlRequest {
     private static final String PARAM_TYPE = "searchVal";
     private static final String OPTIONAL_VARIABLES = "&returnGeom=Y&getAddrDetails=Y&pageNum=1";
     private static final String API_LINK = "https://developers.onemap.sg/commonapi/search?";
+    private final LocationSearchRequest localSearch = new LocationSearchRequest();
 
     /**
      * Constructs the URL Request.
@@ -50,9 +51,8 @@ public class LocationSearchUrlRequest extends UrlRequest {
             response = in.readLine();
             in.close();
         } catch (IOException e) {
-            throw new ApiException();
+            return localSearch.search(param);
         }
-
         if (response != null) {
             JsonParser jp = new JsonParser();
             JsonElement root = jp.parse(response);

@@ -43,6 +43,7 @@ public class Messages {
     public static final String ERROR_ITINERARY_NO_RECENT = "I'm sorry, there are no recent itinerary to add.";
     public static final String ERROR_RECOMMENDATION_FAIL = "I'm sorry, the days of the trip is too long.\n"
             + "I couldn't provide a good recommendation.";
+    public static final String ERROR_HELP_FAIL = "I'm sorry, unable to open user guide.";
 
     /**
      * Messages sent via Prompt by Duke.

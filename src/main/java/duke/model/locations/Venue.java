@@ -118,10 +118,7 @@ public class Venue implements Serializable {
 
         try {
             return getLatitude() == otherVenue.getLatitude()
-                    && getLongitude() == otherVenue.getLongitude()
-                    && getAddress().equals(otherVenue.getAddress())
-                    && getDistX() == otherVenue.getDistX()
-                    && getDistY() == otherVenue.getDistY();
+                    && getLongitude() == otherVenue.getLongitude();
         } catch (NullPointerException e) {
             return false;
         }

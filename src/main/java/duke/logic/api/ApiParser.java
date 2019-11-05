@@ -1,17 +1,12 @@
 package duke.logic.api;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
 import duke.commons.exceptions.ApiException;
 import duke.logic.api.requests.LocationSearchUrlRequest;
-import duke.logic.api.requests.DataMallHttpRequest;
 import duke.logic.api.requests.StaticMapUrlRequest;
-import duke.model.locations.BusStop;
 import duke.model.locations.Venue;
 import javafx.scene.image.Image;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 /**
  * Handles all API requests.
@@ -31,34 +26,6 @@ public class ApiParser {
     public static Venue getLocationSearch(String param) throws ApiException {
         LocationSearchUrlRequest req = new LocationSearchUrlRequest(param);
         return req.execute();
-    }
-
-    /**
-     * Return all bus stops in Singapore.
-     *
-     * @return List of Bus Stops.
-     */
-    public static HashMap<String, BusStop> getBusStop() throws ApiException {
-        String path = "BusStops";
-        int skip = 0;
-        HashMap<String, BusStop> allBus = new HashMap<>();
-        while (skip < MAX_BUS_STOP_DATA_SIZE) {
-            DataMallHttpRequest req = new DataMallHttpRequest("BusStops", path, Integer.toString(skip));
-            skip += DATA_SIZE_PER_REQUEST;
-            JsonObject jsonRes = req.execute();
-            JsonArray arr = jsonRes.getAsJsonArray("value");
-            for (int i = 0; i < arr.size(); i++) {
-                BusStop busstop = new BusStop(
-                        arr.get(i).getAsJsonObject().get("BusStopCode").getAsString(),
-                        arr.get(i).getAsJsonObject().get("RoadName").getAsString(),
-                        arr.get(i).getAsJsonObject().get("Description").getAsString(),
-                        arr.get(i).getAsJsonObject().get("Latitude").getAsDouble(),
-                        arr.get(i).getAsJsonObject().get("Longitude").getAsDouble());
-                allBus.put(arr.get(i).getAsJsonObject().get("BusStopCode").getAsString(), busstop);
-            }
-        }
-
-        return allBus;
     }
 
     /**
