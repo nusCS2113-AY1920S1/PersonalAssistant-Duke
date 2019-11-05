@@ -2,6 +2,10 @@ package parser;
 
 import command.*;
 import exception.DukeException;
+
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 /**
@@ -15,7 +19,7 @@ public class Parser {
     public static String recurring = "\\s*/every\\s*";
     public static String after = "\\s*/after\\s*";
     public static String within = "\\s*/between\\s*";
-    public static String fixed = "\\s*/need\\s*";
+    public static String priority = "\\s*/priority\\s*";
     public static String taskSeparator = "\\s*\\|\\s*";
     public static String dateSeparator = "\\s*\\&\\s*";
     public static String postpone = "\\s*/to\\s*";
@@ -24,6 +28,14 @@ public class Parser {
     public static int windowWidth = 80;
     public static String acceptedExtensions = "txt|csv";
     public static String moduleFormat = "[A-Z]{2,3}[1-9]([0-9]{3}|X{3})[A-Z]{0,1}";
+    public static final Map<String, Integer> userPriorityMap;
+    static {
+        Map<String, Integer> aMap = new HashMap<>();
+        aMap.put("high", 0);
+        aMap.put("medium", 1);
+        aMap.put("low", 2);
+        userPriorityMap = Collections.unmodifiableMap(aMap);
+    }
     Parser() {
     }
 

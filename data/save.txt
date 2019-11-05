@@ -1,11 +1,3 @@
-E | 0 | Kick a ball | 06-11-2019 1800 | 40
-E | 0 | [ME] Open House for Prospective Students | 11-05-2020 1030 | 1
-E | 0 | [ME] NUS-ME Open House | 18-05-2020 1330 | 1
-D | 0 | [ME] CS1010 Placement Examination Application | 26-06-2020 1700 | 1
-D | 0 | [CHE] Chemical Engineering Camp Application | 26-06-2020 1700 | 1
-D | 0 | [CHE] Math Refresher Course Application | 30-06-2020 2359 | 1
-E | 0 | [CEG] Open House for Prospective Students | 11-05-2020 1030 | 1
-E | 0 | [CEG] NUS-ECE Open House | 18-05-2019 1330 | 1
-D | 0 | [CEG] CS1010 Placement Examination Application | 26-06-2020 1700 | 1
-D | 0 | [CEG] Math Refresher Course Application | 30-06-2020 2359 | 1
-E | 0 | [CEG] CEG Freshmen Welcome Tea | 22-07-2020 0900 | 1
+E | 0 | fly me to the moon | 12-12-2019 1300 | high
+E | 0 | fly me to the sun | 12-12-2019 1300 | low
+E | 0 | fly me to mars | 12-12-2019 1400 | high

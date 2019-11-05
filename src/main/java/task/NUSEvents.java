@@ -86,6 +86,7 @@ public class NUSEvents {
         for (int i = 0; i < n; i++) {
             Task toAppend = fullDegreeTasklist.get(degreeMap.get(degreeName)).get(i);
             if (!isDuplicate(toAppend, userTasklist)){
+                toAppend.setNusDegreeName(aliasMap.get(degreeName));
                 userTasklist.add(toAppend);
             }
 
@@ -104,14 +105,14 @@ public class NUSEvents {
         Integer request = Integer.parseInt(index) - 1;
         String removedDegreeFull =  userDegreeList.get(request);
         String removedDegreeAlias = aliasMap.get(removedDegreeFull);
-        ArrayList <Integer> deletionList = new ArrayList<>();
-        for (int i = 0; i < userTaskList.size(); i++){
-            if (userTaskList.get(i).description.contains(removedDegreeAlias)){
-                deletionList.add(i);
+        for (int i = (userTaskList.size()-1); i >= 0; i--){
+            if(userTaskList.get(i).getNusDegreeName() == null){
+                continue;
+            }
+            if (userTaskList.get(i).getNusDegreeName().matches(removedDegreeAlias)){
+                userTaskList.remove(i);
             }
         }
-        userTaskList.banishDelete(deletionList);
-//        System.out.println("I've also removed tasks related to " + removedDegreeFull);
     }
 
     /**
