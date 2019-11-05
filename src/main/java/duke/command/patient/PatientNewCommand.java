@@ -19,7 +19,7 @@ public class PatientNewCommand extends ArgCommand {
         super.execute(core);
 
         Patient patient = (Patient) core.uiContext.getObject();
-        Impression impression = new Impression(getArg(), getSwitchVal("description"), patient);
+        Impression impression = new Impression(getSwitchVal("name"), getSwitchVal("description"), patient);
         patient.addNewImpression(impression);
         patient.updateAttributes();
         core.writeJsonFile();

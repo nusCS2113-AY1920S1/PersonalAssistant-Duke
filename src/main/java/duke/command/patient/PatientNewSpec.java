@@ -14,8 +14,9 @@ public class PatientNewSpec extends ArgSpec {
 
     private PatientNewSpec() {
         emptyArgMsg = "You did not tell me anything about the impression you wish to add for the patient!";
-        cmdArgLevel = ArgLevel.REQUIRED;
+        cmdArgLevel = ArgLevel.NONE;
         initSwitches(
+                new Switch("name", String.class, false, ArgLevel.REQUIRED, "n"),
                 new Switch("description", String.class, false, ArgLevel.REQUIRED, "desc")
         );
     }

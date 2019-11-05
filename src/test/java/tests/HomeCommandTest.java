@@ -8,16 +8,14 @@ import duke.exception.DukeException;
 import org.junit.jupiter.api.Test;
 import templates.CommandTest;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class HomeCommandTest extends CommandTest {
 
@@ -27,16 +25,17 @@ public class HomeCommandTest extends CommandTest {
     @Test
     public void homeNewCommand_allSwitches_correctPatientCreated() {
         ArgCommand newPatientCmd = new HomeNewCommand();
-        String[] switchNames = {"bed", "allergies", "height", "weight", "age", "number", "address", "history"};
-        String[] switchVals = {"C1", "test allergies", "123", "456", "100", "6582447", "test address", "test history"};
-        setupCommand(newPatientCmd, "testCPatient", switchNames, switchVals);
+        String[] switchNames = {"name", "bed", "allergies", "height", "weight", "age", "number", "address", "history"};
+        String[] switchVals = {"testCPatient", "C1", "test allergies", "123", "456", "100", "6582447", "test address",
+            "test history"};
+        setupCommand(newPatientCmd, null, switchNames, switchVals);
         Patient patient = new Patient("testCPatient", "C1", "test allergies", 123,
                 456, 100, 6582447, "test address", "test history");
         try {
             newPatientCmd.execute(core);
             assertTrue(patient.equals(core.patientMap.getPatient("C1")));
         } catch (DukeException excp) {
-            fail("Exception thrown when validly creating patient from command!");
+            fail("Exception thrown when validly creating patient from command: " + excp.getMessage());
         }
     }
 
@@ -62,9 +61,9 @@ public class HomeCommandTest extends CommandTest {
                     + "test history\n\n\n";
             String actual = Files.readString(Paths.get("data/Reports/testCPatient-testC1.txt"),
                     StandardCharsets.US_ASCII);
-            assertEquals(actual, expected);
+            assertEquals(expected, actual);
         } catch (DukeException | IOException excp) {
-            fail("Exception thrown when validly creating report from command in home context!");
+            fail("Exception thrown when validly creating report from command in home context: " + excp.getMessage());
         }
     }
 }

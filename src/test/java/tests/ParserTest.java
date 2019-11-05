@@ -30,14 +30,14 @@ public class ParserTest {
             assertEquals("berhabs", docCmd.getSwitchVal("maybe"));
             assertTrue(docCmd.getSwitchVals().containsKey("none"));
         } catch (DukeException excp) {
-            fail("Exception thrown while extracting valid test command!");
+            fail("Exception thrown while extracting valid test command" + excp.getMessage());
         }
     }
 
     @Test
     public void parseCommands_switchesChained_argumentsExtracted() {
         try {
-            Command testCmd = uut.parse("doctor Hello-switch World-optswitch Optional-none-maybe");
+            Command testCmd = uut.parse("doctor Hello -switch World -optswitch Optional -none-maybe");
             DoctorCommand docCmd = (DoctorCommand) testCmd;
             assertEquals("Hello", docCmd.getArg());
             assertEquals("World", docCmd.getSwitchVal("switch"));
@@ -45,47 +45,44 @@ public class ParserTest {
             assertTrue(docCmd.getSwitchVals().containsKey("maybe"));
             assertTrue(docCmd.getSwitchVals().containsKey("none"));
         } catch (DukeException excp) {
-            fail("Exception thrown while extracting test command with chained switches!");
+            fail("Exception thrown while extracting test command with chained switches: " + excp.getMessage());
         }
     }
 
     @Test
-    public void parseCommands_optionalArgOmitted_argumentsExtracted() {
+    public void parseCommands_differentOrder_argumentsExtracted() {
         try {
-            Command testCmd = uut.parse("doctor Hello -switch World -maybe -none");
+            Command testCmd = uut.parse("doctor -switch World -optswitch Optional Hello");
             DoctorCommand docCmd = (DoctorCommand) testCmd;
             assertEquals("Hello", docCmd.getArg());
             assertEquals("World", docCmd.getSwitchVal("switch"));
-            assertTrue(docCmd.getSwitchVals().containsKey("maybe"));
-            assertTrue(docCmd.getSwitchVals().containsKey("none"));
+            assertEquals("Optional", docCmd.getSwitchVal("optswitch"));
         } catch (DukeException excp) {
-            fail("Exception thrown when missing optional argument!");
+            fail("Exception thrown while extracting arguments in different order: " + excp.getMessage());
         }
     }
 
     @Test
-    public void parseCommands_optionalSwitchOmitted_argumentsExtracted() {
+    public void parseCommands_optionalOmitted_argumentsExtracted() {
         try {
-            Command testCmd = uut.parse("doctor Hello -switch World");
+            Command testCmd = uut.parse("doctor -switch World Hello");
             DoctorCommand docCmd = (DoctorCommand) testCmd;
             assertEquals("Hello", docCmd.getArg());
             assertEquals("World", docCmd.getSwitchVal("switch"));
         } catch (DukeException excp) {
-            fail("Exception thrown when missing optional switch!");
+            fail("Exception thrown when missing optional argument: " + excp.getMessage());
         }
     }
 
     @Test
     public void parseCommands_stringsAndEscapes_argumentsExtracted() {
         try {
-            Command testCmd = uut.parse("doctor Hello\\\\World -switch double \\\" quote"
-                    + "-maybe escaped \\\\ backslash");
+            Command testCmd = uut.parse("doctor \"Hello\\\\World\" -switch \"double \\\" quote\"");
             DoctorCommand docCmd = (DoctorCommand) testCmd;
             assertEquals("Hello\\World", docCmd.getArg());
             assertEquals("double \" quote", docCmd.getSwitchVal("switch"));
-            assertEquals("escaped \\ backslash", docCmd.getSwitchVal("maybe"));
         } catch (DukeException excp) {
-            fail("Exception thrown when parsing strings and escapes!");
+            fail("Exception thrown when parsing strings and escapes: " + excp.getMessage());
         }
     }
 
@@ -95,7 +92,7 @@ public class ParserTest {
             Command testCmd = uut.parse("empty");
             assertEquals(ValidEmptyCommand.class, testCmd.getClass());
         } catch (DukeException excp) {
-            fail("Exception thrown when parsing valid empty command!");
+            fail("Exception thrown when parsing valid empty command: " + excp.getMessage());
         }
     }
 }
