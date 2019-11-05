@@ -26,7 +26,7 @@ public class ViewHelper {
                             + VERTI_BORDER_UNIT;
                     tableContent.add(line);
                 } else {
-                    String[] splitStrings = getArrayOfSplitStrings(s);
+                    String[] splitStrings = getArrayOfSplitStrings(s, tableWidth);
                     for (String s1 : splitStrings) {
                         String line = VERTI_BORDER_UNIT + s1
                                 + getRemainingSpaces(tableWidth - s1.length())
@@ -50,12 +50,13 @@ public class ViewHelper {
      * indexOfStringSplitStart refers to the index of the first char of the split string.
      * indexOfStringSplitEnd refers to the index after the index of the last char of the split string.
      * @param toPrint String to be printed in table form.
+     * @param tableWidth Width of table.
      * @return array of Strings to be printed line by line to fit the table width requirement.
      */
-    public String[] getArrayOfSplitStrings(String toPrint) {
+    public String[] getArrayOfSplitStrings(String toPrint, int tableWidth) {
         ArrayList<String> splitStrings = new ArrayList<>();
         int indexOfStringSplitStart = 0;
-        int indexOfStringSplitEnd = DEFAULT_HORI_BORDER_LENGTH;
+        int indexOfStringSplitEnd = tableWidth;
         boolean isLastLine = false;
         while (!isLastLine) {
             if (toPrint.substring(indexOfStringSplitStart, indexOfStringSplitEnd).contains(" ")) {
@@ -64,24 +65,24 @@ public class ViewHelper {
                 }
                 splitStrings.add(toPrint.substring(indexOfStringSplitStart, indexOfStringSplitEnd));
                 indexOfStringSplitStart = indexOfStringSplitEnd;
-                indexOfStringSplitEnd += DEFAULT_HORI_BORDER_LENGTH;
+                indexOfStringSplitEnd += tableWidth;
 
             } else {
-                //if a single word without space is longer than defaultHoriBorderLength
+                //if a single word without space is longer than tableWidth
                 while (toPrint.charAt(indexOfStringSplitEnd - 1) != ' ') {
                     indexOfStringSplitEnd++;
                     if (indexOfStringSplitEnd == toPrint.length()) {
                         break;
                     }
                 }
-                int numOfLines = (indexOfStringSplitEnd - indexOfStringSplitStart) / (DEFAULT_HORI_BORDER_LENGTH - 1);
+                int numOfLines = (indexOfStringSplitEnd - indexOfStringSplitStart) / (tableWidth - 1);
                 for (int i = 1; i <= numOfLines; i++) {
                     String wordSegment = toPrint.substring(indexOfStringSplitStart,
-                            indexOfStringSplitStart + DEFAULT_HORI_BORDER_LENGTH - 1) + "-";
+                            indexOfStringSplitStart + tableWidth - 1) + "-";
                     splitStrings.add(wordSegment);
-                    indexOfStringSplitStart += (DEFAULT_HORI_BORDER_LENGTH - 1);
+                    indexOfStringSplitStart += (tableWidth - 1);
                 }
-                indexOfStringSplitEnd = indexOfStringSplitStart + DEFAULT_HORI_BORDER_LENGTH;
+                indexOfStringSplitEnd = indexOfStringSplitStart + tableWidth;
             }
             if (indexOfStringSplitEnd >= toPrint.length()) {
                 splitStrings.add(toPrint.substring(indexOfStringSplitStart));
