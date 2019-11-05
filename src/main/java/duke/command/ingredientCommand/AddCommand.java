@@ -3,8 +3,8 @@ package duke.command.ingredientCommand;
 import duke.command.Command;
 import duke.dish.DishList;
 import duke.exception.DukeException;
+import duke.fridge.Fridge;
 import duke.ingredient.Ingredient;
-import duke.ingredient.IngredientsList;
 import duke.order.OrderList;
 import duke.storage.FridgeStorage;
 import duke.storage.OrderStorage;
@@ -19,9 +19,9 @@ public class AddCommand extends Command {
     }
 
     @Override
-    public void execute(IngredientsList il, DishList dl, OrderList ol, Ui ui, FridgeStorage fs, OrderStorage os) throws DukeException {
-        il.addEntry(ingredient);
-        ui.showAddCommand(il.getEntry(ingredient).toString(), il.size());
+    public void execute(Fridge fridge, DishList dl, OrderList ol, Ui ui, FridgeStorage fs, OrderStorage os) throws DukeException {
+        fridge.addIngredient(ingredient);
+        ui.showAddCommand(fridge.getIngredient(ingredient).toString(), fridge.numberOfIngredients());
         fs.update();
     }
 }

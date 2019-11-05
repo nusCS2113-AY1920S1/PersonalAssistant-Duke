@@ -19,9 +19,9 @@ public class RemoveAllExpired extends Command {
     }
 
     @Override
-    public void execute(IngredientsList il, DishList dl, OrderList ol, Ui ui, FridgeStorage fs, OrderStorage os) throws DukeException {
-        if(fridge.hasExpiredIngredients()) {
-            IngredientsList expired=fridge.removeExpired();
+    public void execute(Fridge fridge, DishList dl, OrderList ol, Ui ui, FridgeStorage fs, OrderStorage os) throws DukeException {
+        if(this.fridge.hasExpiredIngredients()) {
+            IngredientsList expired= this.fridge.removeExpired();
             (fs).update();
             ui.show(" Removed: "+expired.toString());
         }

@@ -25,7 +25,7 @@ public class FridgeStorage extends Storage<Ingredient> {
             //type - words[0], done or not - words[1], description - words[2], and more.
             String[] words = next.split("\\|");
             if (words.length != 3)
-                throw new DukeException("Error while reading from the Fridge Storage ");
+                throw new DukeException("Error while reading from the Fridge Storage words length is "+words.length+" adn is "+words[0]);
             entries.addEntry(new Ingredient(words[0], Integer.parseInt(words[1]), words[2]));
         }
         // System.out.println("in generate size of list is "+entries.size());

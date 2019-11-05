@@ -3,8 +3,8 @@ package duke.command.ingredientCommand;
 import duke.command.Command;
 import duke.dish.DishList;
 import duke.exception.DukeException;
+import duke.fridge.Fridge;
 import duke.ingredient.Ingredient;
-import duke.ingredient.IngredientsList;
 import duke.order.OrderList;
 import duke.storage.FridgeStorage;
 import duke.storage.OrderStorage;
@@ -26,11 +26,11 @@ public class FindIngredientCommand extends Command {
     }
 
     @Override
-    public void execute(IngredientsList ingList, DishList dl, OrderList ol, Ui ui, FridgeStorage fs, OrderStorage os) throws DukeException {
+    public void execute(Fridge ingList, DishList dl, OrderList ol, Ui ui, FridgeStorage fs, OrderStorage os) throws DukeException {
         int i = 1;
         StringBuilder sb = new StringBuilder();
 
-        for (Ingredient ingredient : ingList.getAllEntries()) {     //for every ingredient, scan through the ingredientslist
+        for (Ingredient ingredient : ingList.getAllIngredients().getAllEntries()) {     //for every ingredient, scan through the ingredientslist
             i += 1;
             if (ingredient.getName().equals(toFind))
             {

@@ -3,7 +3,7 @@ package duke.command.dishesCommand;
 import duke.command.Command;
 import duke.dish.DishList;
 import duke.exception.DukeException;
-import duke.ingredient.IngredientsList;
+import duke.fridge.Fridge;
 import duke.order.OrderList;
 import duke.storage.FridgeStorage;
 import duke.storage.OrderStorage;
@@ -19,7 +19,7 @@ public class DeleteDishCommand extends Command {
     }
 
     @Override
-    public void execute(IngredientsList il, DishList dishList, OrderList ol, Ui ui, FridgeStorage fs, OrderStorage os) throws DukeException {
+    public void execute(Fridge fridge, DishList dishList, OrderList ol, Ui ui, FridgeStorage fs, OrderStorage os) throws DukeException {
         try {
             ui.showDeletedDIsh(dishList.getEntry(Nb - 1).getDishname());
             dishList.removeEntry(Nb - 1);
