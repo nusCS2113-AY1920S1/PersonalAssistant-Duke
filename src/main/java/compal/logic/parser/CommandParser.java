@@ -307,7 +307,12 @@ public interface CommandParser {
             if (!scanner.hasNext()) {
                 throw new ParserException(MESSAGE_MISSING_INPUT);
             } else {
-                interval = scanner.nextInt();
+                try {
+                    interval = scanner.nextInt();
+                } catch (Exception e) {
+                    //float number
+                    throw new ParserException(MESSAGE_INVALID_INTERVAL);
+                }
             }
         }
         return interval;
