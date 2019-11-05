@@ -24,6 +24,7 @@ public class SortCommandTest {
     private static Ui ui;
     private static Storage storage;
     private static TaskList tasks;
+    private static TaskList tasks2;
 
     /**
      * Represents the before of SortCommandTest.
@@ -40,6 +41,7 @@ public class SortCommandTest {
         }
 
         tasks = new TaskList(new ArrayList<>());
+        tasks2 = new TaskList(new ArrayList<>());
 
         LocalDateTime d1 = null;
         LocalDateTime d2 = null;
@@ -58,6 +60,9 @@ public class SortCommandTest {
         }
         date1 = new Date(d1);
         tasks.add(new HomeworkTask("d1",date1,1));
+        tasks2.add(new HomeworkTask("d1",date1,1));
+        tasks2.add(new HomeworkTask("d2","[✓]",date1));
+
 
         try{
             d1 = LocalDateTime.parse("15/09/2019 22:23".trim(), formatter);
@@ -84,6 +89,8 @@ public class SortCommandTest {
         date1 = new Date(d1);
         date2 = new Date(d2);
         tasks.add(new EventsTask("e1",date1,date2,2));
+        tasks2.add(new EventsTask("e1",date1,date2,2));
+        tasks2.add(new EventsTask("e2","[✓]",date1,date2));
 
         try{
             d1 = LocalDateTime.parse("22/09/2019 12:12".trim(), formatter);
@@ -100,6 +107,9 @@ public class SortCommandTest {
         tasks.add(new TodoTask("&",3));
 
         tasks.add(new TodoTask("1",4));
+        tasks2.add(new TodoTask("t1",4));
+        tasks2.add(new TodoTask("t2","[✓]"));
+
 
         tasks.add(new TodoTask("2",5));
 
@@ -229,6 +239,36 @@ public class SortCommandTest {
         assertEquals("test",tasks.get(11).getTask());
         assertEquals("test 2",tasks.get(9).getTask());
         assertEquals("test 3",tasks.get(7).getTask());
+
+
+        SortCommand sortCommand14 = new SortCommand("sort type");
+        try{
+            sortCommand14.execute(tasks2,ui,storage);
+        }
+        catch( DukeException e ){
+            assertTrue(false);
+        }
+        assertTrue(tasks2.size()==6);// 2 todo tasks, 2 homework tasks, 2 event tasks
+
+
+        assertEquals(tasks2.get(0).getTag(),tasks2.get(1).getTag());
+        assertEquals(tasks2.get(2).getTag(),tasks2.get(3).getTag());
+        assertEquals(tasks2.get(4).getTag(),tasks2.get(5).getTag());
+
+        SortCommand sortCommand15 = new SortCommand("sort done");
+        try{
+            sortCommand15.execute(tasks2,ui,storage);
+        }
+        catch( DukeException e ){
+            assertTrue(false);
+        }
+        assertTrue(tasks2.size()==6);// 3 done tasks, 3 not done
+
+        assertEquals(tasks2.get(0).getMark(),tasks2.get(1).getMark());
+        assertEquals(tasks2.get(1).getMark(),tasks2.get(2).getMark());
+        assertEquals(tasks2.get(3).getMark(),tasks2.get(4).getMark());
+        assertEquals(tasks2.get(4).getMark(),tasks2.get(5).getMark());
+
     }
 
     /**
@@ -237,6 +277,7 @@ public class SortCommandTest {
     @AfterAll
     public static void afterSortCommandTest(){
         tasks.getList().removeAll(tasks.getList());
+        tasks2.getList().removeAll(tasks2.getList());
         try {
             storage.save(tasks.getList());
         }
