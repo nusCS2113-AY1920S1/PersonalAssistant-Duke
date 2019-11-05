@@ -2,7 +2,7 @@ package duke.logic.parsers;
 
 import duke.logic.commands.PromptCommand;
 
-import duke.logic.parsers.commandparser.PromptParser;
+import duke.logic.parsers.commandparsers.PromptParser;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;

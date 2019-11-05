@@ -1,7 +1,6 @@
 package duke.model.planning;
 
 import duke.commons.Messages;
-import duke.commons.exceptions.ApiException;
 import duke.commons.exceptions.ParseException;
 import duke.logic.api.ApiParser;
 import duke.logic.parsers.storageparsers.PlanningStorageParser;
@@ -114,8 +113,6 @@ public class Itinerary extends AgendaList {
             throw new ParseException(Messages.ERROR_ITINERARY_FAIL_CREATION);
         } catch (NumberFormatException e) {
             throw new ParseException(Messages.ERROR_ITINERARY_INCORRECT_COMMAND);
-        } catch (ApiException | ParseException e) {
-            e.printStackTrace();
         }
     }
 
@@ -138,5 +135,4 @@ public class Itinerary extends AgendaList {
     public void setName(String name) {
         this.name = name;
     }
-
 }

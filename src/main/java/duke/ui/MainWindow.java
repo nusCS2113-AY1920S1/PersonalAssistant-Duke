@@ -2,7 +2,6 @@ package duke.ui;
 
 import duke.Main;
 import duke.commons.Messages;
-import duke.commons.exceptions.FileLoadFailException;
 import duke.logic.commands.results.CommandResult;
 import duke.logic.commands.results.CommandResultCalender;
 import duke.logic.commands.results.CommandResultExit;
