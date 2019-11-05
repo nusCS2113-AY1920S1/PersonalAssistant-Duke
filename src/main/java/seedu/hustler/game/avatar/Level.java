@@ -95,4 +95,10 @@ public class Level implements Convertible {
         return this.level + " " + this.xp;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        return obj == this || (obj instanceof Level
+                && this.toString().equals(obj.toString()));
+    }
+
 }

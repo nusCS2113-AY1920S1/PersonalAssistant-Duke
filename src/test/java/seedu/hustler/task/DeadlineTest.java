@@ -3,9 +3,8 @@ package seedu.hustler.task;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static seedu.hustler.parser.DateTimeParser.getDateTime;
+import seedu.hustler.logic.parser.DateTimeParser;
 
 /**
  * Test class for deadline.
@@ -18,7 +17,7 @@ public class DeadlineTest {
      * Dummy test for deadline.
      */
     public void dummyTest() {
-        LocalDateTime localDateTimeOne = getDateTime("5/5/2019 1800");
+        LocalDateTime localDateTimeOne = DateTimeParser.getDateTime("5/5/2019 1800");
 
         Deadline task1 = new Deadline("meet Kartike.", localDateTimeOne);
 
@@ -32,7 +31,7 @@ public class DeadlineTest {
         /* assertEquals(task2.dateBy, "next week"); */
         /* assertEquals(task2.by, "next week"); */
 
-        LocalDateTime localDateTimeTwo = getDateTime("5/5/2019 1200");
+        LocalDateTime localDateTimeTwo = DateTimeParser.getDateTime("5/5/2019 1200");
         Deadline task3 = new Deadline("meet Kartike.", localDateTimeTwo);
         task3.setDateTime(LocalDateTime.of(2019,5,5,18,0));
         assertEquals(task3.getDateTime(), task1.getDateTime());

@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static seedu.hustler.parser.DateTimeParser.getDateTime;
+import static seedu.hustler.logic.parser.DateTimeParser.getDateTime;
 
 /**
  * Test class for Event.

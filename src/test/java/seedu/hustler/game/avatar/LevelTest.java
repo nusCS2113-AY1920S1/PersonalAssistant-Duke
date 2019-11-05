@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 /**
  *  Test class for Level.
  */
-public class Level {
+public class LevelTest {
 
     @Test
     /**
