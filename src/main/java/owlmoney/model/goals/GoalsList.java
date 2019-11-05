@@ -183,11 +183,9 @@ public class GoalsList {
     }
 
     private void compareGoalSavingAcc(Goals currentGoal, Bank savingAcc) throws GoalsException {
-        if (!currentGoal.getSavingAccount().equals("-NOT TIED-")) {
-            if (currentGoal.getSavingAccount().equals(savingAcc.getAccountName())) {
-                throw new GoalsException("Your previous linked saving account was already "
-                        + savingAcc.getAccountName());
-            }
+        if (!currentGoal.getSavingAccount().equals("-NOT TIED-")
+                && currentGoal.getSavingAccount().equals(savingAcc.getAccountName())) {
+            throw new GoalsException("Your previous linked saving account was already " + savingAcc.getAccountName());
         }
     }
 

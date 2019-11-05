@@ -1052,10 +1052,10 @@ public class Profile {
                 }
                 String doneStatus = importDataRow[4];
                 String achievementStatus = importDataRow[5];
-                if (doneStatus.equals("true")) {
+                if (("true").equals(doneStatus)) {
                     newGoal.markDone();
                 }
-                if (achievementStatus.equals("true")) {
+                if (("true").equals(achievementStatus)) {
                     newGoal.achieveGoal();
                 }
                 profileImportNewGoals(newGoal);
