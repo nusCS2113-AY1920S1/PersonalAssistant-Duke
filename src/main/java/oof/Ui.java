@@ -883,7 +883,7 @@ public class Ui {
      */
     public void printUpdatedThreshold(int threshold) {
         printLine();
-        System.out.println(" Threshold has been updated to " + threshold);
+        System.out.println(" You will now be reminded of deadlines in " + threshold + " hours.");
     }
 
     /**

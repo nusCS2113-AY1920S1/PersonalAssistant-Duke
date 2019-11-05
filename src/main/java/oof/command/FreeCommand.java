@@ -18,6 +18,8 @@ import oof.model.task.Task;
 import oof.model.task.TaskList;
 import oof.storage.StorageManager;
 
+//@@author Kenlhc
+
 /**
  * Represents a Command to search for free time slots.
  */
@@ -37,9 +39,9 @@ public class FreeCommand extends Command {
     private static final String FIRST_START_SLOT = "07:00";
     private static final String LAST_END_SLOT = "23:59";
     private String[] startingTimeSlots = {"07:00", "08:00", "09:00", "10:00", "11:00", "12:00", "13:00",
-            "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00"};
+        "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00"};
     private String[] endingTimeSlots = {"08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00",
-            "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00", "23:59"};
+        "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00", "23:59"};
     private ArrayList<Date> eventStartTimes = new ArrayList<>();
     private ArrayList<Date> eventEndTimes = new ArrayList<>();
     private ArrayList<Date> deadlinesDue = new ArrayList<>();
@@ -65,11 +67,11 @@ public class FreeCommand extends Command {
      * @param ui             Instance of Ui that is responsible for visual feedback.
      * @param storageManager Instance of Storage that enables the reading and writing of Task
      *                       objects to hard disk.
-     * @throws CommandException If user input contains missing or invalid arguments.
+     * @throws CommandException if user input contains missing or invalid arguments.
      */
     @Override
     public void execute(SemesterList semesterList, TaskList taskList, Ui ui, StorageManager storageManager)
-            throws CommandException {
+        throws CommandException {
         Date current = new Date();
         try {
             if (isDateAfterCurrentDate(current, dateWanted) || isDateSame(current, dateWanted)) {
@@ -88,8 +90,8 @@ public class FreeCommand extends Command {
      * @param ui       Instance of Ui that is responsible for visual feedback.
      * @param tasks    Instance of TaskList that stores Task Objects.
      * @param freeDate The user specified date.
-     * @throws ParseException Exception may be thrown when parsing datetime.
-     * @throws CommandException   Print customised error message.
+     * @throws ParseException   exception may be thrown when parsing datetime.
+     * @throws CommandException print customised error message.
      */
     private void findFreeTime(Ui ui, TaskList tasks, String freeDate) throws ParseException, CommandException {
         for (int i = 0; i < tasks.getSize(); i++) {
@@ -182,7 +184,7 @@ public class FreeCommand extends Command {
     /**
      * Checks the list of slot states for a consecutive 4 hour free block.
      *
-     * @return True if there is a 4 hour free block, false otherwise
+     * @return true if there is a 4 hour free block, false otherwise
      */
     private boolean isSuggestionBlockPresent() {
         int consecutiveFreeSlots = 0;
@@ -261,7 +263,7 @@ public class FreeCommand extends Command {
      * Checks for the list of events for duplicates.
      *
      * @param startTime The start time of the event
-     * @return True if the list contains the same start and end time, false otherwise.
+     * @return true if the list contains the same start and end time, false otherwise.
      */
     private boolean isDuplicateEvent(Date startTime, Date endTime) {
         if (eventStartTimes.isEmpty()) {
@@ -275,7 +277,7 @@ public class FreeCommand extends Command {
      * Checks the list of deadlines for duplicates.
      *
      * @param dueDateAndTime The date and time of the deadline.
-     * @return True if the list contains the same date and time, false otherwise.
+     * @return true if the list contains the same date and time, false otherwise.
      */
     private boolean isDuplicateDeadline(Date dueDateAndTime) {
         if (deadlinesDue.isEmpty()) {
@@ -289,7 +291,7 @@ public class FreeCommand extends Command {
      * Checks if the deadline is due within a week.
      *
      * @param dueDate The date of the deadline.
-     * @return True if deadline is due within a week, false otherwise.
+     * @return true if deadline is due within a week, false otherwise.
      */
     private boolean isDeadlineDueNextWeek(Date dueDate, String freeDate) throws ParseException {
         Date freeSlotsDate = convertStringToDate(freeDate);
@@ -307,12 +309,12 @@ public class FreeCommand extends Command {
      * @param slotEndTime   End time of the time slot being compared.
      * @param eventStart    Start time of event being compared.
      * @param eventEnd      End time of event being compared.
-     * @return True if there is an overlap of event timing.
+     * @return true if there is an overlap of event timing.
      */
     private boolean isClash(Date slotStartTime, Date slotEndTime, Date eventStart, Date eventEnd) {
         return (slotStartTime.compareTo(eventStart) <= 0 && slotEndTime.compareTo(eventStart) > 0)
-                || (slotStartTime.compareTo(eventStart) >= 0 && eventEnd.compareTo(slotEndTime) <= 0)
-                || (slotStartTime.compareTo(eventStart) >= 0 && slotEndTime.compareTo(eventEnd) <= 0);
+            || (slotStartTime.compareTo(eventStart) >= 0 && eventEnd.compareTo(slotEndTime) <= 0)
+            || (slotStartTime.compareTo(eventStart) >= 0 && slotEndTime.compareTo(eventEnd) <= 0);
     }
 
     /**
@@ -320,7 +322,7 @@ public class FreeCommand extends Command {
      *
      * @param slotEndTime End time of the time slot being compared.
      * @param eventEnd    End time of event being compared.
-     * @return True if the event end time lies within the time slot.
+     * @return true if the event end time lies within the time slot.
      */
     private boolean isEventEndTimeWithinSlot(Date slotEndTime, Date eventEnd) {
         return eventEnd.compareTo(slotEndTime) <= 0;
@@ -331,7 +333,7 @@ public class FreeCommand extends Command {
      *
      * @param currDate Current date being compared.
      * @param freeDate User specified date to search for free time.
-     * @return True if user specified date is before the current date being compared.
+     * @return true if user specified date is before the current date being compared.
      */
     private boolean isDateBeforeCurrentDate(Date currDate, Date freeDate) {
         return freeDate.compareTo(currDate) < 0;
@@ -342,8 +344,8 @@ public class FreeCommand extends Command {
      *
      * @param currDate Current date being compared.
      * @param freeDate User specified date to search for free time.
-     * @return True if user specified date is after the current date being compared, false otherwise.
-     * @throws ParseException Throws an exception if date cannot be parsed.
+     * @return true if user specified date is after the current date being compared, false otherwise.
+     * @throws ParseException throws an exception if date cannot be parsed.
      */
     private boolean isDateAfterCurrentDate(Date currDate, String freeDate) throws ParseException {
         Date freeSlotsDate = convertStringToDate(freeDate);
@@ -355,7 +357,7 @@ public class FreeCommand extends Command {
      *
      * @param currDate Current Date.
      * @param freeDate User specified date to search for free time.
-     * @return True if user specified date is current date.
+     * @return true if user specified date is current date.
      */
     private boolean isDateSame(Date currDate, String freeDate) {
         String currentDate = convertDatetoString(currDate);
@@ -368,8 +370,8 @@ public class FreeCommand extends Command {
      * @param eventStart Start date of event.
      * @param eventEnd   End date of event.
      * @param freeDate   User specified date to search for free time.
-     * @return True if event dates are within the user specified date, false otherwise.
-     * @throws ParseException Throws an exception if date cannot be parsed.
+     * @return true if event dates are within the user specified date, false otherwise.
+     * @throws ParseException throws an exception if date cannot be parsed.
      */
     private boolean isEventDateWithin(String eventStart, String eventEnd, Date freeDate) throws ParseException {
         Date startDate = convertStringToDate(eventStart);
@@ -407,8 +409,8 @@ public class FreeCommand extends Command {
      * Gets the day of the week from the user specified date.
      *
      * @param freeDate The user specified date to search for free time.
-     * @return The day of the week spelt in full.
-     * @throws ParseException Throws an exception if date cannot be parsed.
+     * @return the day of the week spelt in full.
+     * @throws ParseException throws an exception if date cannot be parsed.
      */
     private String getDayOfTheWeek(String freeDate) throws ParseException {
         SimpleDateFormat format = new SimpleDateFormat("EEEE");
