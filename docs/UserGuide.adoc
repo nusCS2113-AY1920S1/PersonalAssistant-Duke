@@ -216,27 +216,37 @@ Example: +
 
 === Sorting and printing the modules or ccas : `sort`
 
-Sorts out modules or ccas accordingly.
+Sorts out modules and/or ccas accordingly.
 
 ==== Sorting and printing the CCAs : `sort ccas`
 
 Sorts the cca list according to alphabetical order and prints the cca list. + 
 Format: `sort ccas` 
 
+==== Sorting and printing the CCAs and modules of a certain day of the week : `sort times`
+
+Sorts the cca and modules together  list according to alphabetical order and prints the cca list. + 
+Format: `sort times DAYOFWEEK` , replace DAYOFWEEK by any of `monday` `tuesday` `wednesday` `thursday` `friday` `saturday` and `sunday` 
+
 ==== Sorting and printing the modules : `sort modules code`
 
 Sorts the module list according to alphabetical order and prints the module list. + 
-Format: `sort modules`
+Format: `sort modules code`
+
+==== Sorting and printing the modules : `sort modules grade`
+
+Sorts the module by the grade entered and prints the module list. + 
+Format: `sort modules grade`
 
 ==== Sorting and printing the modules : `sort modules level`
 
 Sorts the module list by the numerical order and prints the module list. + 
-Format: `sort modules`
+Format: `sort modules level`
 
 ==== Sorting and printing the modules : `sort modules mc`
 
 Sorts the module list according to the number of mcs and prints the module list. + 
-Format: `sort modules`
+Format: `sort modules mc`
 
 === Clearing the data : `clear`
 
@@ -475,7 +485,10 @@ e.g `grade CS101 A-` +
 `grade CS1231 S`
 * *Sort* : 
 ** `sort ccas`
+** `sort times`, `DAYOFWEEK` +
+eg. `sort times monday` +
 ** `sort modules code`
+** `sort modules grade`
 ** `sort modules level`
 ** `sort modules mc`
 * *Clear* :
