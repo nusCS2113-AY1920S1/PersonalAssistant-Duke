@@ -39,23 +39,24 @@ public class Ui {
      * Displays add task message when user wants to add a task.
      */
     public String showAdd(Assignment task, int listSize){
-        return "Got it. I've added this task:\n" + task.toString() + "\n"
-                + "Now you have " + listSize + (listSize > 1 ? " tasks in the list.\n" : " task in the list.\n");
+
+        return "Got it. I've added this task:\n" + task.displayString() + "\n"
+                + "Now you have " + listSize  + (listSize > 1 ? " tasks in the list.\n" : " task in the list.\n");
     }
 
     /**
      * Displays done task message when user marks a task as done.
      */
     public String showDone(Assignment task){
-        return "Nice! I've marked this task as done:\n" + task.toString() + "\n";
+        return "Nice! I've marked this task as done:\n" + task.displayString() + "\n";
     }
 
     /**
      * Displays the delete task message when user wants to delete a task.
      */
     public String showDelete(Assignment task, int listSize){
-        listSize -= 1;
-        return "Noted. I've removed this task:\n" + task.toString() + "\n" + "Now you have "
+        //listSize -= 1;
+        return "Noted. I've removed this task:\n" + task.displayString() + "\n" + "Now you have "
                 + listSize  + (listSize > 1 ? " tasks in the list.\n" : " task in the list.\n");
     }
 

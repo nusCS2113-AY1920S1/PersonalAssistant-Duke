@@ -54,7 +54,7 @@ public class FilterTest {
         String w1 ="Here are the following events/deadline with the keyword key\n" +
                 "1.[E] EventWithKey CS2101 Sat 12/10/2019 01:00 pm to 01:01 pm\n" +
                 "2.[D] DeadlineWithKey CS2101 Sun 13/10/2019 12:00 pm" ;
-        String w2 = new String();
+        String w2;
         try {
             w2 = command.execute(lookupTable, events, deadlines, ui, storage);
         } catch (Exception e) {
@@ -71,7 +71,7 @@ public class FilterTest {
          events.addTask(eventWithKeyword);
          Command command = new FilterCommand(keyword);
          String w1 = "There are no task(s) matching your keyword.";
-         String w2 = new String();
+         String w2 ;
          try {
               w2 = command.execute(lookupTable, events, deadlines, ui, storage);
          } catch (Exception e) {

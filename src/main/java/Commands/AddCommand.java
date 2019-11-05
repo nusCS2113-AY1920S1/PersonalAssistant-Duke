@@ -53,7 +53,7 @@ public class AddCommand extends Command {
                     }
                 }
             }
-            int size = events.taskListSize();
+            int size = events.taskListSize() + 1;
 
             if (conflict.size() == 0) {
                 events.addTask(this.task);

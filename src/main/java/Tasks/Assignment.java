@@ -70,6 +70,9 @@ public abstract class Assignment {
         return "[" + getStatusIcon() + "]" + getReminderStatus()  + remindTimeToString() + getDescription();
     }
 
+    public String displayString(){
+        return "[" + getType() + "]" +"[" + getStatusIcon() + "]" + this.description + " by " + getDateTime();
+    }
     public String getModCode() {
         String[] split = description.trim().split(" ");
         String modcode = split[0].toUpperCase();
