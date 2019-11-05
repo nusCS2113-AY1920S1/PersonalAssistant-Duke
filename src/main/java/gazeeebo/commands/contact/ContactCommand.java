@@ -1,4 +1,4 @@
-package gazeeebo.commands.contact;
+package gazeeebo.commands.Contact;
 
 import gazeeebo.TriviaManager.TriviaManager;
 import gazeeebo.UI.Ui;
@@ -51,20 +51,27 @@ public class ContactCommand extends Command {
         System.out.print(helpContact);
         ui.readCommand();
         while (!ui.fullCommand.equals("esc")) {
-            if (ui.fullCommand.equals("add")) {
+
+            if (ui.fullCommand.split(" ")[0].equals("add")
+                    || ui.fullCommand.equals("1")) {
                 copyMap(contactList, oldcontacts);
-                new gazeeebo.commands.Contact.AddContactCommand(ui, contactList);
-            } else if (ui.fullCommand.split(" ")[0].equals("find")) {
-                new gazeeebo.commands.Contact.FindContactCommand(ui, contactList, LINEBREAK);
-            } else if (ui.fullCommand.equals("list")) {
-                new gazeeebo.commands.Contact.ListContactCommand(contactList, LINEBREAK);
-            } else if (ui.fullCommand.contains("delete")) {
+                new AddContactCommand(ui, contactList);
+            } else if (ui.fullCommand.split(" ")[0].equals("find")
+                    || ui.fullCommand.equals("2")) {
+                new FindContactCommand(ui, contactList, LINEBREAK);
+            } else if (ui.fullCommand.equals("list")
+                    || ui.fullCommand.equals("4")) {
+                new ListContactCommand(contactList, LINEBREAK);
+            } else if (ui.fullCommand.split(" ")[0].equals("delete")
+                    || ui.fullCommand.equals("3")) {
                 copyMap(contactList, oldcontacts);
-                new gazeeebo.commands.Contact.DeleteContactCommand(ui, contactList);
-            } else if (ui.fullCommand.equals("help")) {
+                new DeleteContactCommand(ui, contactList);
+            } else if (ui.fullCommand.equals("help")
+                    || ui.fullCommand.equals("6")) {
                 System.out.println(helpContact);
-            } else if (ui.fullCommand.equals("undo")) {
-                contactList = gazeeebo.commands.Contact.UndoContactCommand.Undo(contactList, oldcontacts, storage);
+            } else if (ui.fullCommand.equals("undo")
+                    || ui.fullCommand.equals("5")) {
+                contactList = UndoContactCommand.Undo(contactList, oldcontacts, storage);
             } else {
                 System.out.println("Command not found:\n" + helpContact);
             }
@@ -78,7 +85,7 @@ public class ContactCommand extends Command {
             System.out.println("What do you want to do next ?");
             ui.readCommand();
         }
-        System.out.println("Go back to Main Menu...\n" +
+        System.out.print("Go back to Main Menu...\n" +
                 "Content Page:\n" +
                 "------------------ \n" +
                 "1. help\n" +

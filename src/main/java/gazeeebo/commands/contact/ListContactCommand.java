@@ -46,7 +46,7 @@ public class ListContactCommand {
      * @param lineBreak print out a separator to separate each line in the list.
      * @param key       gets the key of the contact.
      */
-    public void forPrint(final Map<String, String> contact,
+    private void forPrint(final Map<String, String> contact,
                          final String lineBreak, final String key) {
         System.out.print(key);
         int l = HORT_LINE_SEPARATOR - key.length();

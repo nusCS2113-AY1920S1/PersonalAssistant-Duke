@@ -2,6 +2,7 @@ package gazeeebo.commands.Contact;
 
 import gazeeebo.UI.Ui;
 
+import java.io.IOException;
 import java.util.Map;
 
 /**
@@ -19,35 +20,42 @@ public class FindContactCommand {
     public FindContactCommand(final Ui ui,
                               final Map<String, String> contactList,
                               final String lineBreak) {
-        int a = ui.fullCommand.split(" ")[1].toCharArray()[0];
-        String nameToFind = "";
-        String toPrint = "";
-        boolean isExist = false;
-        for (int i = 1; i < ui.fullCommand.split(" ").length; i++) {
-            if (i != ui.fullCommand.split(" ").length - 1) {
-                nameToFind
-                        = nameToFind.concat(ui.fullCommand.split(" ")[i] + " ");
-            } else {
-                nameToFind
-                        = nameToFind.concat(ui.fullCommand.split(" ")[i]);
-            }
-        }
-        for (String keys : contactList.keySet()) {
-            if (keys.contains(nameToFind)) {
-                isExist = true;
-                toPrint += keys;
-                int l = 30 - keys.length();
-                for (int i = 0; i < l; i++) {
-                    toPrint += " ";
+        try {
+            String nameToFind = "";
+            String toPrint = "";
+            boolean isExist = false;
+            if (ui.fullCommand.split(" ").length == 1) {
+                System.out.println("What is the name you want to find?");
+                ui.readCommand();
+                nameToFind = ui.fullCommand;
+            } else if (ui.fullCommand.split(" ").length == 2) {
+                for (int i = 1; i < ui.fullCommand.split(" ").length; i++) {
+                    nameToFind
+                            = nameToFind.concat(ui.fullCommand.split(" ")[i] + " ");
                 }
-                toPrint += "| " + contactList.get(keys) + "\n" + lineBreak;
+                nameToFind = nameToFind.trim();
+            } else {
+                throw new ArrayIndexOutOfBoundsException();
             }
-        }
-        if (!isExist) {
-            System.out.print(nameToFind + " is not found in the list.");
-        } else {
-            System.out.print("Name:                         "
-                    + "| Number:\n" + lineBreak + toPrint);
+            for (String keys : contactList.keySet()) {
+                if (keys.contains(nameToFind)) {
+                    isExist = true;
+                    toPrint += keys;
+                    int l = 30 - keys.length();
+                    for (int i = 0; i < l; i++) {
+                        toPrint += " ";
+                    }
+                    toPrint += "| " + contactList.get(keys) + "\n" + lineBreak;
+                }
+            }
+            if (!isExist) {
+                System.out.print(nameToFind + " is not found in the list.\n");
+            } else {
+                System.out.print("Name:                         "
+                        + "| Number:\n" + lineBreak + toPrint);
+            }
+        } catch (ArrayIndexOutOfBoundsException | IOException e) {
+            System.out.print("Please Input in the correct format\n");
         }
     }
 }

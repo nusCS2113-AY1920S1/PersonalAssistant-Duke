@@ -1,7 +1,7 @@
 package gazeeebo.commands.Contact;
-
 import gazeeebo.UI.Ui;
 
+import java.io.IOException;
 import java.util.Map;
 
 /**
@@ -17,21 +17,29 @@ public class DeleteContactCommand {
      */
     public DeleteContactCommand(final Ui ui,
                                 final Map<String, String> contactList) {
-        String nameToDelete = "";
-        for (int i = 1; i < ui.fullCommand.split(" ").length; i++) {
-            if (i != ui.fullCommand.split(" ").length - 1) {
-                nameToDelete = nameToDelete.concat(ui.fullCommand.split(" ")[i] + " ");
+        try {
+            String nameToDelete = "";
+            if (ui.fullCommand.split(" ").length == 1) {
+                System.out.println("What is the name you want to delete?");
+                ui.readCommand();
+                nameToDelete = ui.fullCommand;
+            } else if (ui.fullCommand.split(" ").length == 2) {
+                for (int i = 1; i < ui.fullCommand.split(" ").length; i++) {
+                    nameToDelete = nameToDelete.
+                            concat(ui.fullCommand.split(" ")[i] + " ");
+                }
+                 nameToDelete = nameToDelete.trim();
             } else {
-                nameToDelete = nameToDelete.concat(ui.fullCommand.split(" ")[i]);
+                throw new ArrayIndexOutOfBoundsException();
             }
-        }
-        if (ui.fullCommand.equals("delete")) {
-            System.out.print("Incorrect format: delete name\n");
-        } else if (contactList.containsKey(nameToDelete)) {
-            contactList.remove(nameToDelete);
-            System.out.print("Successfully deleted: " + nameToDelete + "\n");
-        } else {
-            System.out.print(nameToDelete + " is not found in the list.\n");
+            if (contactList.containsKey(nameToDelete)) {
+                contactList.remove(nameToDelete);
+                System.out.print("Successfully deleted: " + nameToDelete + "\n");
+            } else {
+                System.out.print(nameToDelete + " is not found in the list.\n");
+            }
+        } catch (IOException | ArrayIndexOutOfBoundsException e) {
+            System.out.print("Please Input in the correct format\n");
         }
     }
 }
