@@ -101,4 +101,14 @@ public class UpcomingTasks {
         return dateTime.format(dateFormatParser);
     }
 
+    public ArrayList<String> getTaskAndInfo() {
+        ArrayList<String> tasksWithInfo = new ArrayList<String>();
+        for (int i = 0; i < tasks.size(); i++) {
+            String output = "Unique ID: " + tasks.get(i).getUuid() + ". \nDescription: "
+                    + taskDescriptions.get(i) + "\nFor patient: " + patientsForTasks.get(i) + "\n";
+            tasksWithInfo.add(output);
+        }
+        return tasksWithInfo;
+    }
+
 }

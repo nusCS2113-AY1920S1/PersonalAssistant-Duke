@@ -1,8 +1,10 @@
 package duke.gui;
 
 import duke.Duke;
+import duke.commands.task.UpcomingTasksCommand;
 import duke.exceptions.DukeException;
 import duke.models.assignedtasks.AssignedTask;
+import duke.models.assignedtasks.UpcomingTasks;
 import duke.models.patients.Patient;
 import duke.models.tasks.Task;
 import javafx.beans.binding.Bindings;
@@ -31,6 +33,7 @@ import javafx.stage.Stage;
 import org.controlsfx.control.textfield.TextFields;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -145,28 +148,28 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private VBox thirdDayBox;
     @FXML
-    private VBox forthDayBox;
+    private VBox fourthDayBox;
     @FXML
     private VBox fifthDayBox;
     @FXML
     private VBox sixthDayBox;
     @FXML
-    private VBox seventhDayBoy;
+    private VBox seventhDayBox;
 
     @FXML
-    private TitledPane firstTitlePane;
+    private TitledPane firstTitledPane;
     @FXML
-    private TitledPane secondTitlePane;
+    private TitledPane secondTitledPane;
     @FXML
-    private TitledPane thirdTitlePane;
+    private TitledPane thirdTitledPane;
     @FXML
-    private TitledPane forthTitlePane;
+    private TitledPane fourthTitledPane;
     @FXML
-    private TitledPane fifthTitlePane;
+    private TitledPane fifthTitledPane;
     @FXML
-    private TitledPane sixthTitlePane;
+    private TitledPane sixthTitledPane;
     @FXML
-    private TitledPane seventhTitlePane;
+    private TitledPane seventhTitledPane;
 
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
@@ -215,8 +218,10 @@ public class MainWindow extends UiPart<Stage> {
         String[] possibleWords = {"add", "delete", "find", "update", "list", "task", "patients", "assigned", "patient",
             "bye", "period", "deadline", "undo", "help"};
         TextFields.bindAutoCompletion(userInput, possibleWords);
-        //@@author
+        //@@lmtaek
         showHelpGuide();
+        showUpcomingTasks();
+        // @@author
     }
 
 
@@ -665,7 +670,22 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     public void showUpcomingTasks() {
+        VBox[] upcomingTaskContainers = {firstDayBox, secondDayBox, thirdDayBox, fourthDayBox,
+                fifthDayBox, sixthDayBox, seventhDayBox };
+        TitledPane[] titledPanes = {firstTitledPane, secondTitledPane, thirdTitledPane, fourthTitledPane,
+                fifthTitledPane, sixthTitledPane, seventhTitledPane};
+        ArrayList<UpcomingTasks> upcomingTasks =
+                new UpcomingTasksCommand(LocalDateTime.now(), false).getUpcomingTaskLists();
+
+        for (int i = 0; i < upcomingTaskContainers.length; i++) {
+            titledPanes[i].setText(upcomingTasks.get(i).getFormattedDate());
+            ArrayList<UpcomingTaskBox> tasksForDate
+                    = UpcomingTaskBox.createUpcomingTaskBox(upcomingTasks.get(i).getTaskAndInfo());
+
+            for (UpcomingTaskBox taskInfoForDate : tasksForDate) {
+                upcomingTaskContainers[i].getChildren().addAll(taskInfoForDate);
+            }
+        }
+        }
 
     }
-
-}

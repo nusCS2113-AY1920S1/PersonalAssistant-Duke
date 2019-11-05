@@ -7,9 +7,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
-import javafx.scene.paint.Color;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  * An example of a custom control using FXML.
@@ -25,7 +25,7 @@ public class UpcomingTaskBox extends HBox {
     /**
      * Control representing the 'Help Box' within Dukepital's GUI.
      */
-    private UpcomingTaskBox(String text, String colorCode) {
+    private UpcomingTaskBox(String text) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/UpcomingTaskBox.fxml"));
             fxmlLoader.setController(this);
@@ -37,7 +37,14 @@ public class UpcomingTaskBox extends HBox {
         upcomingTaskText.setText(text);
         upcomingTaskText.setWrapText(true);
         upcomingTaskText.setAlignment(Pos.CENTER);
-        upcomingTaskText.setTextFill(Color.web(colorCode));
+    }
+
+    public static ArrayList<UpcomingTaskBox> createUpcomingTaskBox(ArrayList<String> taskInfo) {
+        ArrayList<UpcomingTaskBox> upcomingTaskBoxes = new ArrayList<UpcomingTaskBox>();
+        for (String task : taskInfo) {
+            upcomingTaskBoxes.add(new UpcomingTaskBox(task));
+        }
+        return upcomingTaskBoxes;
     }
 
 
