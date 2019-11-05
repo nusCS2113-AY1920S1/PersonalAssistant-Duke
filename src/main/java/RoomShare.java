@@ -177,7 +177,6 @@ public class RoomShare {
                         if( !(CheckAnomaly.checkDuplicate((taskCreator.create(input)))) ) {
                             taskList.add(taskCreator.create(input));
                             ui.showAdd();
-                            storage.writeFile(TaskList.currentList(), "data.txt");
                         } else {
                             throw new RoomShareException(ExceptionType.duplicateTask);
                         }
@@ -186,6 +185,7 @@ public class RoomShare {
                     }
                 } catch (RoomShareException e) {
                     ui.showError(e);
+                } finally {
                     storage.writeFile(TaskList.currentList(), "data.txt");
                 }
                 listRoutine.list();

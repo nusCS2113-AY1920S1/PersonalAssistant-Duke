@@ -7,6 +7,7 @@ public enum ExceptionType {
     wrongTaskType,
     wrongFormat,
     wrongPriority,
+    wrongDateFormat,
     negativeTimeAmount,
 
     timeClash,
