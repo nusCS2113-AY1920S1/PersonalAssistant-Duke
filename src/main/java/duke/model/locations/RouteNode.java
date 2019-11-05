@@ -30,7 +30,7 @@ public abstract class RouteNode extends Venue {
      * @return The details of the RouteNode.
      */
     public String getDisplayInfo() {
-        return getAddress() + "\n" + getDescription() + "\n" + " (" + getLatitude() + ", " + getLongitude() + ")";
+        return getAddress() + "\n" + getDescription() + "\n" + "(" + getLatitude() + ", " + getLongitude() + ")";
     }
 
     /**

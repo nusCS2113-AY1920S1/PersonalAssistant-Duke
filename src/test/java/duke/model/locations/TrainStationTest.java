@@ -2,6 +2,7 @@ package duke.model.locations;
 
 import duke.ModelStub;
 import duke.commons.exceptions.FileLoadFailException;
+import duke.commons.exceptions.QueryFailedException;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -108,5 +109,16 @@ class TrainStationTest {
 
         assertTrue(v1.equals(v3));
         assertFalse(v2.equals(v3));
+    }
+
+    @Test
+    void getDisplayInfo() throws FileLoadFailException {
+        ModelStub model = new ModelStub();
+        TrainStation trainStation = new TrainStation(new ArrayList<>(), "Woodlands", "",
+                0, 0);
+        trainStation.fetchData(model);
+
+        String expected = "Woodlands MRT\n\n(1.437094, 103.786483)";
+        assertEquals(expected, trainStation.getDisplayInfo());
     }
 }
