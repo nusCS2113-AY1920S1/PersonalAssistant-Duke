@@ -1,14 +1,13 @@
 package storage;
 
-import ui.Wallet;
-import ui.ReceiptTracker;
-import ui.Receipt;
-import interpreter.Parser;
-import executor.command.Executor;
-import executor.command.CommandAddIncomeReceipt;
+import duke.exception.DukeException;
+import executor.command.CommandAddReceipt;
 import executor.command.CommandAddSpendingReceipt;
 import executor.command.CommandType;
-
+import ui.IncomeReceipt;
+import ui.Wallet;
+import ui.Receipt;
+import interpreter.Parser;
 import java.io.File;
 import java.io.FileWriter;
 import java.util.Scanner;
@@ -49,22 +48,21 @@ public class StorageWallet {
      *
      * @return Wallet class
      */
-    public Wallet loadData() {
+    public Wallet loadData() throws DukeException {
         Wallet wallet = new Wallet();
         try {
             File file = new File(this.filePath);
             Scanner scanner = new Scanner(file);
             Receipt newReceipt;
             while (scanner.hasNextLine()) {
-                try {
-                    String loadedInput = scanner.nextLine();
-                    wallet = parseAddReceiptFromStorageString(wallet, loadedInput);
-                } catch (Exception e) {
-                    System.out.println(e);
+                String loadedInput = scanner.nextLine();
+                if (loadedInput.equals("")) {
+                    break;
                 }
+                wallet = parseAddReceiptFromStorageString(wallet, loadedInput);
             }
         } catch (Exception e) {
-            System.out.println("No Previously saved wallet Data.");
+            throw new DukeException("No Previously Saved Wallet Data.");
         }
         return wallet;
     }
@@ -73,10 +71,19 @@ public class StorageWallet {
      * Converts saved String in StorageWallet to actual Receipt object and saves in Wallet Object.
      * @param loadedInput The saved String to be converted
      */
-    public Wallet parseAddReceiptFromStorageString(Wallet wallet, String loadedInput) {
-
+    private Wallet parseAddReceiptFromStorageString(Wallet wallet, String loadedInput) {
         CommandType commandtype = Parser.parseForCommandType(loadedInput);
-        Executor.runCommand(null, wallet, commandtype, loadedInput);
+        Receipt r = null;
+        if (commandtype == CommandType.OUT) {
+            CommandAddReceipt c = new CommandAddSpendingReceipt(loadedInput);
+            r = new Receipt(c.getCash(), c.getDate(), c.getTags());
+        } else if (commandtype == CommandType.IN) {
+            CommandAddReceipt c = new CommandAddSpendingReceipt(loadedInput);
+            r = new IncomeReceipt(c.getCash(), c.getDate(), c.getTags());
+        }
+        if (r != null) {
+            wallet.addReceipt(r);
+        }
         return wallet;
     }
 }

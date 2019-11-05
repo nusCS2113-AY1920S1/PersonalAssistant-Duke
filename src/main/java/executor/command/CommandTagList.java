@@ -1,16 +1,13 @@
 package executor.command;
 
-import executor.task.TaskList;
+import duke.exception.DukeException;
 import interpreter.Parser;
-import ui.ReceiptTracker;
-import ui.Ui;
-import ui.Wallet;
+import storage.StorageManager;
 import java.text.DecimalFormat;
 
 public class CommandTagList extends CommandList {
     private String tag;
 
-    //Constructor
     /**
      * Constructor for CommandListTag subCommand Class.
      * @param userInput The user input from the CLI
@@ -25,24 +22,25 @@ public class CommandTagList extends CommandList {
     }
 
     @Override
-    public void execute(TaskList taskList) {
-
-    }
-
-    @Override
-       public void execute(Wallet wallet) {
-        ReceiptTracker taggedReceipts = wallet.getReceipts().findReceiptsByTag(this.tag);
+       public void execute(StorageManager storageManager) {
+        StringBuilder outputStr = new StringBuilder();
         DecimalFormat decimalFormat = new DecimalFormat("#0.00");
-        Ui.dukeSays("You spent a total of $"
-                +
-                decimalFormat.format(taggedReceipts.getTotalCashSpent())
-                + " "
-                + "on"
-                + " "
-                + tag
-        );
-        Ui.printSeparator();
-        taggedReceipts.printReceipts();
-        Ui.printSeparator();
+        try {
+            outputStr.append("You spent a total of $")
+                    .append(decimalFormat.format(storageManager.getReceiptsByTag(this.tag).getTotalCashSpent()))
+                    .append(" ")
+                    .append("on")
+                    .append(" ")
+                    .append(this.tag)
+                    .append("\n")
+                    .append(storageManager.getReceiptsByTag(this.tag).getPrintableReceipts())
+                    .append("\n");
+        } catch (DukeException e) {
+            this.infoCapsule.setCodeError();
+            this.infoCapsule.setOutputStr(e.getMessage());
+            return;
+        }
+        this.infoCapsule.setCodeCli();
+        this.infoCapsule.setOutputStr(outputStr.toString());
     }
 }

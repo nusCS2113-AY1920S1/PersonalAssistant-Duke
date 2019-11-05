@@ -1,17 +1,15 @@
 package executor.command;
 
-import executor.task.TaskList;
-import ui.Ui;
-import ui.Wallet;
+import storage.StorageManager;
 
 public class CommandBlank extends Command {
 
-    // Constructor
     /**
      * Constructor for CommandBlank subCommand Class.
      * @param userInput The user input from the CLI
      */
     public CommandBlank(String userInput) {
+        super();
         this.userInput = userInput;
         this.description = "Prints a line separator";
         this.commandType = CommandType.BLANK;
@@ -21,12 +19,8 @@ public class CommandBlank extends Command {
      * Executes a particular Command.
      */
     @Override
-    public void execute(TaskList taskList) {
-        Ui.printSeparator();
-    }
-
-    @Override
-    public void execute(Wallet wallet) {
-
+    public void execute(StorageManager storageManager) {
+        this.infoCapsule.setCodeToast();
+        this.infoCapsule.setOutputStr("");
     }
 }

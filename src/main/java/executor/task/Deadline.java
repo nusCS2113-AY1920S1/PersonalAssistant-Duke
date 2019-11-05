@@ -24,7 +24,8 @@ class Deadline extends Task {
         }
         if (this.detailDesc.equals("by")) {
             try {
-                LocalDateTime dateTime = LocalDateTime.parse(this.taskDetails, DateTimeFormatter.ofPattern("dd/MM/yy HH:mm"));
+                LocalDateTime dateTime = LocalDateTime.parse(this.taskDetails,
+                        DateTimeFormatter.ofPattern("dd/MM/yy HH:mm"));
                 LocalDate localDate = dateTime.toLocalDate();
                 LocalTime localTime = dateTime.toLocalTime();
                 DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yy");
@@ -34,7 +35,7 @@ class Deadline extends Task {
                 System.out.println("Date Interpreted: "
                         + getDate().format(dateFormatter)
                         + " "
-                        +getTime().format(timeFormatter));
+                        + getTime().format(timeFormatter));
             } catch (Exception e) {
                 this.setDate(LocalDate.now());
                 this.setTime(LocalTime.now());

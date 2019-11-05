@@ -2,7 +2,6 @@ package ui;
 
 import duke.exception.DukeException;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -72,7 +71,7 @@ public class ReceiptTracker extends ArrayList<Receipt> {
         if (this.getFolders().containsKey(tag)) {
             throw new DukeException("Category already exists!");
         }
-        ArrayList<Receipt> taggedReceipts = findReceiptsByTag(tag);
+        ArrayList<Receipt> taggedReceipts = getReceiptsByTag(tag);
         this.getFolders().put(tag, new ReceiptTracker(taggedReceipts));
     }
 
@@ -81,7 +80,7 @@ public class ReceiptTracker extends ArrayList<Receipt> {
      * @param tag Specific String to be filtered with.
      * @return ArrayList containing all the Receipts with the specific tag
      */
-    public ReceiptTracker findReceiptsByTag(String tag) {
+    public ReceiptTracker getReceiptsByTag(String tag) {
         ReceiptTracker taggedReceipts = new ReceiptTracker();
         for (Receipt receipt : this) {
             if (receipt.containsTag(tag)) {
@@ -96,7 +95,7 @@ public class ReceiptTracker extends ArrayList<Receipt> {
      * @param date Specific String to be filtered with
      * @return ArrayList containing all the Receipts with the specific date
      */
-    public ReceiptTracker findReceiptsByDate(String date) {
+    public ReceiptTracker getReceiptsByDate(String date) {
         ReceiptTracker dateReceipts = new ReceiptTracker();
         for (Receipt receipt : this) {
             if (receipt.equalsDate(date)) {
@@ -113,7 +112,7 @@ public class ReceiptTracker extends ArrayList<Receipt> {
      * @param year is the year given by the user
      * @return ArrayList containing all the receipts which corresponds to year and month
      */
-    public ReceiptTracker findReceiptByMonthYear(int month, int year) {
+    public ReceiptTracker getReceiptsByMonthYear(int month, int year) {
         ReceiptTracker receiptByMonthYear = new ReceiptTracker();
         for (Receipt receipt : this) {
             if ((receipt.getDate().getMonthValue() == month) && (receipt.getDate().getYear() == year)) {
@@ -123,13 +122,12 @@ public class ReceiptTracker extends ArrayList<Receipt> {
         return receiptByMonthYear;
     }
 
-
     /**
      * Finds all the receipts that corresponds to that year.
      * @param year is the year given by the user
-     * @return ArrayList containing all the receipts which corresponds to the year given by user
+     * @return ReceiptTracker containing all the receipts which corresponds to the year given by user
      */
-    public ReceiptTracker findReceiptByYear(int year) {
+    public ReceiptTracker getReceiptsByYear(int year) {
         ReceiptTracker receiptByYear = new ReceiptTracker();
         for (Receipt receipt : this) {
             if (receipt.getDate().getYear() == year) {
@@ -161,7 +159,7 @@ public class ReceiptTracker extends ArrayList<Receipt> {
         if (isRegisteredTag(tag)) {
             return this.getFolders().get(tag).getTotalCashSpent();
         } else {
-            ReceiptTracker temp = new ReceiptTracker(this.findReceiptsByTag(tag));
+            ReceiptTracker temp = new ReceiptTracker(this.getReceiptsByTag(tag));
             return temp.getTotalCashSpent();
         }
     }
@@ -200,23 +198,28 @@ public class ReceiptTracker extends ArrayList<Receipt> {
 
     /**
      * Prints all the receipts stored in the ReceiptTracker Object.
+     * @return String containing all the receipts to be printed to the User
      */
-    public void printReceipts() {
+    public String getPrintableReceipts() {
+        StringBuilder outputStr = new StringBuilder();
         for (int index = 0; index < this.size(); ++index) {
             try {
-                System.out.println((index + 1)
-                        + ". "
-                        + this.get(index).getTags()
-                        + " "
-                        + this.get(index).getCashSpent()
-                        + " "
-                        + this.get(index).getDate()
-                );
+                outputStr.append(index + 1)
+                        .append(". ")
+                        .append(this.get(index).getTags())
+                        .append(" ")
+                        .append(this.get(index).getCashSpent())
+                        .append(" ")
+                        .append(this.get(index).getDate())
+                        .append("\n")
+                ;
             } catch (Exception e) {
-                System.out.println("Unable to print Receipt "
-                        + String.valueOf(index + 1)
-                );
+                outputStr.append("Unable to print Receipt ")
+                        .append(String.valueOf(index + 1))
+                        .append("\n")
+                ;
             }
         }
+        return outputStr.toString();
     }
 }

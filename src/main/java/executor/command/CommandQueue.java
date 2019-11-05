@@ -1,10 +1,8 @@
 package executor.command;
 
-import executor.task.Task;
-import executor.task.TaskList;
+import duke.exception.DukeException;
 import interpreter.Parser;
-import ui.Ui;
-import ui.Wallet;
+import storage.StorageManager;
 
 public class CommandQueue extends Command {
     protected String userInput;
@@ -14,42 +12,44 @@ public class CommandQueue extends Command {
      * @param userInput The user input from the CLI
      */
     public CommandQueue(String userInput) {
+        super();
         this.userInput = userInput;
         this.commandType = CommandType.QUEUE;
         this.description = "Queues user-inputted task in the list. \n"
-                +"FORMAT : queue <taskindex> <taskdescription>";
+                + "FORMAT : queue <taskindex> /task <taskdescription>";
     }
 
     @Override
-    public void execute(Wallet wallet) {
-    }
-
-    @Override
-    public void execute(TaskList taskList) {
-        TaskList throwaway = new TaskList();
-        String[] parsedInput = Parser.removeStr(this.commandType.toString(), this.userInput)
-                .split(" ", 2);
-        int mainTaskIndex = Integer.parseInt(parsedInput[0]) - 1;
-        Task mainTask = taskList.getList().get(mainTaskIndex);
-        String taskString = parsedInput[1].trim();
-        CommandType commandType = Parser.parseForCommandType(taskString);
-        Command createNewTaskCommand = Executor.createCommand(commandType, taskString);
-        if (createNewTaskCommand.commandType != CommandType.TASK) {
-            Ui.dukeSays("No Task detected after 'Queue'.");
+    public void execute(StorageManager storageManager) {
+        String taskString = Parser.parseForFlag("task", this.userInput);
+        if (taskString == null) {
+            this.infoCapsule.setCodeError();
+            this.infoCapsule.setOutputStr("New Task to be queued was not specified.\n");
             return;
         }
-        initializeQueue(mainTask);
-        createNewTaskCommand.execute(mainTask.getQueuedTasks());
-    }
-
-    /**
-     * Initializes the Queue if it hasn't been initialized.
-     * @param task The task to initialize the Queue in.
-     */
-    private void initializeQueue(Task task) {
-        if (task.isQueuedTasks()) {
+        CommandType newTaskCommandType = Parser.parseForCommandType(taskString);
+        if (newTaskCommandType == null) {
+            this.infoCapsule.setCodeError();
+            this.infoCapsule.setOutputStr("Unable to decipher task to be queued.");
             return;
         }
-        task.setQueuedTasks(new TaskList());
+        if (newTaskCommandType.getCommandClass() != CommandNewTask.class) {
+            this.infoCapsule.setCodeError();
+            this.infoCapsule.setOutputStr("No Task detected after 'Queue'.");
+            return;
+        }
+        int mainTaskIndex = Integer.parseInt(Parser.parseForPrimaryInput(this.commandType, this.userInput));
+        storageManager.initializeQueueByIndex(mainTaskIndex);
+        String outputStr;
+        try {
+            storageManager.queueTaskByIndex(mainTaskIndex, newTaskCommandType, taskString);
+            outputStr = "New Task Queued after :" + storageManager.getTaskNameByIndex(mainTaskIndex);
+        } catch (DukeException e) {
+            this.infoCapsule.setCodeError();
+            this.infoCapsule.setOutputStr(e.getMessage());
+            return;
+        }
+        this.infoCapsule.setCodeToast();
+        this.infoCapsule.setOutputStr(outputStr);
     }
 }

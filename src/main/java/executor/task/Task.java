@@ -114,6 +114,16 @@ public abstract class Task {
         }
     }
 
+    /**
+     * Initializes the Queue if it hasn't been initialized.
+     */
+    public void initializeQueue() {
+        if (this.isQueuedTasks()) {
+            return;
+        }
+        this.setQueuedTasks(new TaskList());
+    }
+
     // -- Boolean Checkers
 
     /**

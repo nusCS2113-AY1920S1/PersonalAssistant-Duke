@@ -1,15 +1,12 @@
 package executor.command;
 
-import executor.task.TaskList;
 import interpreter.Parser;
-import ui.Wallet;
+import storage.StorageManager;
 
 public class CommandDiv extends Command {
     private String userInput;
     private double entryOne;
     private double entryTwo;
-
-    //Constructor
 
     /**
      * Constructor for CommandListMonYear subCommand Class.
@@ -17,24 +14,35 @@ public class CommandDiv extends Command {
      * @param userInput String is the user input from the CLI
      */
     public CommandDiv(String userInput) {
+        super();
         this.userInput = userInput;
-        this.description = "Divides two double values. Format: div <number> // <number>";
+        this.description = "Divides two double values. \nFORMAT: div <number> // <number>\n";
         this.commandType = CommandType.DIV;
     }
 
-
-
     @Override
-    public void execute(TaskList taskList) {
-
-    }
-
-    @Override
-    public void execute(Wallet wallet) {
-        this.entryOne = Double.parseDouble(Parser.parseForPrimaryInput(this.commandType, userInput));
-        this.entryTwo = Double.parseDouble(Parser.parseForFlag("", userInput));
+    public void execute(StorageManager storageManager) {
+        String entryOneStr = Parser.parseForPrimaryInput(this.commandType, userInput);
+        if (entryOneStr.equals("")) {
+            this.infoCapsule.setCodeError();
+            this.infoCapsule.setOutputStr("Missing Numerator. \n FORMAT: div <number> // <number>\n");
+            return;
+        }
+        this.entryOne = Double.parseDouble(entryOneStr);
+        String entryTwoStr = Parser.parseForFlag("", userInput);
+        if (entryTwoStr == null) {
+            this.infoCapsule.setCodeError();
+            this.infoCapsule.setOutputStr("Missing Divisor. \n FORMAT: div <number> // <number>\n");
+            return;
+        }
+        this.entryTwo = Double.parseDouble(entryTwoStr);
         double result = entryOne / entryTwo;
-        System.out.println(result);
+        this.infoCapsule.setCodeCli();
+        this.infoCapsule.setOutputStr(entryOneStr
+                + " / "
+                + entryTwoStr
+                + result
+                + "\n");
     }
 
 }

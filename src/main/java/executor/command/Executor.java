@@ -1,15 +1,16 @@
 package executor.command;
 
-import executor.task.TaskList;
-import ui.Ui;
-import ui.Wallet;
+import storage.StorageManager;
+import utils.InfoCapsule;
 
 public class Executor {
+    private StorageManager storageLayer;
 
     /**
      * Constructor for 'Executor' Class.
      */
-    public Executor() {
+    public Executor(String taskPath, String walletPath) {
+        this.storageLayer = new StorageManager(taskPath, walletPath);
     }
 
     /**
@@ -18,12 +19,10 @@ public class Executor {
      * @param userInput User input from the CLI
      * @return True if the Command executed calls for an ExitRequest, false otherwise
      */
-    public static boolean runCommand(TaskList taskList, Wallet wallet, CommandType commandType, String userInput) {
+    public InfoCapsule runCommand(CommandType commandType, String userInput) {
         Command c = createCommand(commandType, userInput);
-        Ui.dukeSays("Executing Command: " + c.commandType.toString());
-        c.execute(taskList);
-        c.execute(wallet);
-        return c.getExitRequest();
+        c.execute(this.storageLayer);
+        return c.getInfoCapsule();
     }
 
     /**
@@ -43,5 +42,7 @@ public class Executor {
         return c;
     }
 
-
+    public void saveAllData() {
+        this.storageLayer.saveAllData();
+    }
 }

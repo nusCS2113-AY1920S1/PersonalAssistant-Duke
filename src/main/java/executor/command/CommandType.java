@@ -35,7 +35,6 @@ public enum CommandType {
     DIV(CommandDiv.class),
     MUL(CommandMul.class);
 
-
     private final Class commandClass;
 
     /**
