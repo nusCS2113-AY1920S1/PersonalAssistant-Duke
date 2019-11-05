@@ -32,7 +32,8 @@ public class DollaParser extends Parser {
                 Entry entry = new Entry(inputArray[1], stringToDouble(inputArray[2]), description, date, "");
                 tag.handleTag(entry);
                 //System.out.println(t.toString());
-                return new AddEntryCommand(inputArray[1], stringToDouble(inputArray[2]), description, date, tag.getTagName());
+                return new AddEntryCommand(inputArray[1], stringToDouble(inputArray[2]),
+                        description, date, tag.getTagName());
             } else {
                 return new ErrorCommand();
             }
