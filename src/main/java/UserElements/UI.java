@@ -223,7 +223,7 @@ public class UI {
     static void printListOfEvents(EventList events, UI ui) {
         System.out.print(lineSeparation);
         System.out.print(events.listOfEvents_String());
-        System.out.print(events.getPastEventsWithUnachievedGoals());
+        System.out.print(events.getOverUnachievedGoals());
         System.out.print(lineSeparation);
     }
 

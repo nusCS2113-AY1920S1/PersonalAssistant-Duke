@@ -53,7 +53,7 @@ public class EventList {
     /**
      * Flag to check if there are unachieved goals for past events.
      */
-    boolean gotPastUnachieved;
+    boolean gotOverUnachieved;
 
     /**
      * Creates new Model_Class.EventList object.
@@ -71,7 +71,7 @@ public class EventList {
         eventArrayList = new ArrayList<>();
 
         currentDateIndex = 0;
-        gotPastUnachieved = false;
+        gotOverUnachieved = false;
 
         for (String currLine : inputList) {
             boolean isDone = currLine.substring(0, 1).equals("V");
@@ -310,7 +310,7 @@ public class EventList {
      * @return String containing all events, separated by a newline.
      */
     public String listOfEvents_String() {
-        checkForPastEventsAndUnachievedGoalsForThem();
+        pastEventManagement();
         String allEvents = "";
         for (int i = currentDateIndex; i < eventArrayList.size(); ++i) {
             if (eventArrayList.get(i) == null) continue;
@@ -373,7 +373,7 @@ public class EventList {
     /**
      * Compares the dates of each event with current date
      */
-    private void checkForPastEventsAndUnachievedGoalsForThem() {
+    private void pastEventManagement() {
         Calendar currentDate = Calendar.getInstance();
         for (int i = 0; i < eventArrayList.size(); i += 1) {
             if (this.getEvent(i).getStartDate().getEventJavaDate().compareTo(currentDate.getTime()) <= 0) {
@@ -385,16 +385,16 @@ public class EventList {
                 Event eventToCheck = this.getEvent(i);
                 for (int j = 0; j < eventToCheck.getGoalList().size(); j += 1) {
                     if (!eventToCheck.getGoalObject(j).getBooleanStatus()) {
-                        gotPastUnachieved = true;
+                        gotOverUnachieved = true;
                     }
                 }
             }
         }
     }
 
-    public String getPastEventsWithUnachievedGoals() {
+    public String getOverUnachievedGoals() {
         String overUnachievedGoalsList = "\n" + "Below lists all the unachieved goal for past events. Please be reminded to add them to the future events." + "\n";
-        if (gotPastUnachieved) {
+        if (gotOverUnachieved) {
             for (int j = 0; j < currentDateIndex; j += 1) {
                 Event eventToCheck = this.getEvent(j);
                 for (int k = 0; k < eventToCheck.getGoalList().size(); k += 1) {
@@ -402,7 +402,7 @@ public class EventList {
                         Goal unachievedGoal = eventToCheck.getGoalObject(k);
                         int eventListNum = j + 1;
                         int goalListNum = k + 1;
-                        overUnachievedGoalsList += "Event " + eventListNum + ": " + eventToCheck.toString() + " ---" + " Goal " + goalListNum + ": " + unachievedGoal.getGoal() + "\n";
+                        overUnachievedGoalsList += "Event " + eventListNum + ": " + eventToCheck.toString() + "---" + " Goal " + goalListNum + ": " + unachievedGoal.getGoal() + "\n";
                     }
                 }
             }
