@@ -405,11 +405,12 @@ public class GoalsList {
      * @return Achievement object to create new achievement.
      */
     public Achievement checkForAchievement(int i, Ui ui) {
+
         Goals checkAchievement = goalList.get(i);
         if (checkAchievement.getRawStatus() && checkAchievement.getGoalsDateInDateFormat().after(new Date())
                 && !checkAchievement.getGoalAchievementStatus()) {
             Achievement unlocked = new Achievement(checkAchievement.getGoalsName(), checkAchievement.getGoalsAmount(),
-                    "[GOALS]", checkAchievement.getGoalsDate());
+                    "[GOALS]", checkAchievement.getGoalsDateInDateFormat());
             checkAchievement.achieveGoal();
             try {
                 exportGoalList();

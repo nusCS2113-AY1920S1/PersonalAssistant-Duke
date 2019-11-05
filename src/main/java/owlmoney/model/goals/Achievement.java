@@ -1,5 +1,9 @@
 package owlmoney.model.goals;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  * Contains details for each achievement.
  */
@@ -7,7 +11,7 @@ public class Achievement {
     private String name;
     private double amount;
     private String category;
-    private String date;
+    private Date date;
 
     /**
      * Creates instance of achievement.
@@ -17,7 +21,7 @@ public class Achievement {
      * @param category Currently is GOALS.
      * @param date Goal targeted date.
      */
-    Achievement(String name, double amount, String category, String date) {
+    public Achievement(String name, double amount, String category, Date date) {
         this.name = name;
         this.amount = amount;
         this.category = category;
@@ -57,6 +61,11 @@ public class Achievement {
      * @return date for achievement.
      */
     public String getDate() {
+        DateFormat temp = new SimpleDateFormat("dd MMMM yyyy");
+        return temp.format(this.date);
+    }
+
+    public Date getAchievementDateInDateFormat() {
         return this.date;
     }
 }
