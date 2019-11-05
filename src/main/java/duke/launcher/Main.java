@@ -1,5 +1,6 @@
 package duke.launcher;
 
+import duke.data.StorageSchedule;
 import duke.parser.ParserCommand;
 import duke.data.Storage;
 import duke.models.Schedule;
@@ -18,7 +19,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.text.ParseException;
 
-public class Duke extends Application {
+public class Main extends Application {
     /**
      * Declaring new parser type.
      */
@@ -62,16 +63,13 @@ public class Duke extends Application {
      * @throws FileNotFoundException if storage or schedule files are not found
      * @throws ParseException        if unable to load schedule
      */
-    public Duke() throws IOException {
+    public Main() throws IOException {
         cliView = new CliView();
         storage = new Storage(".\\src\\main\\java\\duke\\data\\duke.txt");
         tasks = new TaskList();
         students = new ManageStudents();
         plan = new MyPlan(new Storage(
-                ".\\src\\main\\java\\duke\\data\\plan.txt").loadPlans());
-        //        schedule = new Schedule(
-        //           new Storage(".\\src\\main\\java\\duke\\data\\timeslots.txt"
-        //           ).loadSchedule());
+            ".\\src\\main\\java\\duke\\data\\plan.txt").loadPlans());
     }
 
     /**
@@ -79,7 +77,10 @@ public class Duke extends Application {
      *
      * @param args expects array of string objects
      */
-    public static void main(final String[] args) {
+    public static void main(final String[] args) throws IOException {
+        StorageSchedule storageSchedule = new StorageSchedule();
+        storageSchedule.save();
+        storageSchedule.load();
         CliView cliView = new CliView();
         cliView.execute();
     }
@@ -92,7 +93,7 @@ public class Duke extends Application {
     @Override
     public void start(final Stage stage) {
         try {
-            URL url = Duke.class.getClassLoader().getResource("view/menu.fxml");
+            URL url = Main.class.getClassLoader().getResource("view/menu.fxml");
             System.out.println(url);
             Parent root = FXMLLoader.load(url);
             stage.setScene(new Scene(root, width, height));

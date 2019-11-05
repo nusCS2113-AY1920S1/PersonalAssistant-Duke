@@ -23,7 +23,7 @@
 
 ---------------  S U M M A R Y ------------
 
-Command Line: -Dfile.encoding=windows-1252 -Duser.country=SG -Duser.language=en -Duser.variant duke.launcher.Duke
+Command Line: -Dfile.encoding=windows-1252 -Duser.country=SG -Duser.language=en -Duser.variant duke.launcher.Main
 
 Host: Intel(R) Core(TM) i5-6200U CPU @ 2.30GHz, 4 cores, 7G,  Windows 10 , 64 bit Build 18362 (10.0.18362.329)
 Time: Thu Oct 31 04:16:45 2019 Malay Peninsula Standard Time elapsed time: 0 seconds (0d 0h 0m 0s)
@@ -143,7 +143,7 @@ symbol engine: initialized successfully - sym options: 0x614 - pdb path: .;C:\Us
 
 VM Arguments:
 jvm_args: -Dfile.encoding=windows-1252 -Duser.country=SG -Duser.language=en -Duser.variant 
-java_command: duke.launcher.Duke
+java_command: duke.launcher.Main
 java_class_path (initial): C:\Users\Dell\Desktop\main\build\classes\java\main;C:\Users\Dell\Desktop\main\build\resources\main;C:\Users\Dell\.gradle\caches\modules-2\files-2.1\org.openjfx\javafx-fxml\11\d5ff9262ef49d166db658d15f37e3ecff38fde4b\javafx-fxml-11-win.jar;C:\Users\Dell\.gradle\caches\modules-2\files-2.1\org.openjfx\javafx-fxml\11\e0f5bb81e21054b59f2ebfa727d40a90ee0260d3\javafx-fxml-11-mac.jar;C:\Users\Dell\.gradle\caches\modules-2\files-2.1\org.openjfx\javafx-fxml\11\e7a757b580fc3e2e1a121768606c7836eef418c\javafx-fxml-11-linux.jar;C:\Users\Dell\.gradle\caches\modules-2\files-2.1\org.openjfx\javafx-controls\11\af8d24de44e16a19ae959028eb23a48c145fb682\javafx-controls-11-win.jar;C:\Users\Dell\.gradle\caches\modules-2\files-2.1\org.openjfx\javafx-controls\11\e3a24a14e8732abc6dc173f15872dc63e2a32e16\javafx-controls-11-mac.jar;C:\Users\Dell\.gradle\caches\modules-2\files-2.1\org.openjfx\javafx-controls\11\794488e3b1f4635d9a1b842bdc872a5eb8fd54ca\javafx-controls-11-linux.jar;C:\Users\Dell\.gradle\caches\modules-2\files-2.1\org.openjfx\javafx-controls\11\58d961774262ec972bf304e16c154a8e18c2050b\javafx-controls-11.jar;C:\Users\Dell\.gradle\caches\modules-2\files-2.1\org.openjfx\javafx-graphics\11\9345c7ea43dbcc73a62eca5332717b4ce617e6c6\javafx-graphics-11-win.jar;C:\Users\Dell\.gradle\caches\modules-2\files-2.1\org.openjfx\javafx-graphics\11\af47a6d3668d3ce1c61e1fe13c44471b6f8d469\javafx-graphics-11-mac.jar;C:\Users\Dell\.gradle\caches\modules-2\files-2.1\org.openjfx\javafx-graphics\11\4ab9edd8d481a420044c473fdb5718ccdd35c836\javafx-graphics-11-linux.jar;C:\Users\Dell\.gradle\caches\modules-2\files-2.1\org.openjfx\javafx-graphics\11\a736dd079047ec0b72b8c4970842a5c5e0c19f2f\javafx-graphics-11.jar;C:\Users\Dell\.gradle\caches\modules-2\files-2.1\org.openjfx\javafx-base\11\ad3a4acfaa28b484d30c40c1f009445cc3f6e68b\javafx-base-11-win.jar;C:\Users\Dell\.gradle\caches\modules-2\files-2.1\org.openjfx\javafx-base\11\4b060dad0affd866df9d959e064faa8a1a2f4af0\javafx-base-11-
 Launcher Type: SUN_STANDARD
 
