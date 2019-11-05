@@ -127,7 +127,7 @@ public class Farmio {
 
     private void setupLogger() throws FarmioFatalException {
         Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
-        Logger rootLogger = Logger.getLogger("global");
+        Logger rootLogger = Logger.getLogger("");
         Handler[] handlers = rootLogger.getHandlers();
         for(Handler handler: handlers){
             rootLogger.removeHandler(handler);
