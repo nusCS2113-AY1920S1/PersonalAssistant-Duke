@@ -1,7 +1,5 @@
 package models.project;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import models.member.IMember;
 import models.member.Member;
 import models.member.MemberList;
@@ -10,6 +8,9 @@ import models.reminder.ReminderList;
 import models.task.ITask;
 import models.task.Task;
 import models.task.TaskList;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Project implements IProject {
     private String name;
@@ -64,8 +65,8 @@ public class Project implements IProject {
     }
 
     @Override
-    public void editMember(int memberIndexNumber, String updatedMemberDetails) {
-        this.memberList.editMember(memberIndexNumber, updatedMemberDetails);
+    public String editMember(int memberIndexNumber, String updatedMemberDetails) {
+        return this.memberList.editMember(memberIndexNumber, updatedMemberDetails);
     }
 
     @Override

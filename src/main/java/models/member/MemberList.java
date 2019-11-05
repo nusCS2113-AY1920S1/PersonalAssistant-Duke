@@ -1,11 +1,14 @@
 package models.member;
 
 import util.ParserHelper;
+import util.ValidityHelper;
+
 import java.util.ArrayList;
 
 public class MemberList implements IMemberList {
     private ArrayList<Member> memberList;
     private ParserHelper parserHelper;
+    private ValidityHelper validityHelper;
 
     /**
      * Class representing a list with all members and their details.
@@ -13,6 +16,7 @@ public class MemberList implements IMemberList {
     public MemberList() {
         this.memberList = new ArrayList<>();
         this.parserHelper = new ParserHelper();
+        this.validityHelper = new ValidityHelper();
     }
 
     public ArrayList<Member> getMemberList() {
@@ -33,11 +37,16 @@ public class MemberList implements IMemberList {
      * @param memberIndexNumber The index number of the member whose details are to be updated.
      * @param updatedMemberDetails The updated member details.
      */
-    public void editMember(int memberIndexNumber, String updatedMemberDetails) {
+    public String editMember(int memberIndexNumber, String updatedMemberDetails) {
         String [] memberDetails = parserHelper.parseMemberDetails(updatedMemberDetails);
         String name = memberDetails[0];
         String phone = memberDetails[1];
         String email = memberDetails[2];
+
+        if (!validityHelper.emailChecker(email)) {
+            return "Email address is not a valid email address! Please adhere to standard "
+                    + "email address formats, such as archduke@emailprovider.com";
+        }
 
         for (Member currentMember : memberList) {
             if (currentMember.getIndexNumber() == memberIndexNumber) {
@@ -48,6 +57,7 @@ public class MemberList implements IMemberList {
                 break;
             }
         }
+        return "Updated member details with the index number "+memberIndexNumber;
     }
 
     /**

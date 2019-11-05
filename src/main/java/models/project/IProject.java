@@ -1,11 +1,12 @@
 package models.project;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import models.member.IMemberList;
 import models.member.Member;
 import models.task.Task;
 import models.task.TaskList;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public interface IProject {
     String getName();
@@ -20,7 +21,7 @@ public interface IProject {
 
     void addMember(Member newMember);
 
-    void editMember(int memberIndexNumber, String updatedMemberDetails);
+    String editMember(int memberIndexNumber, String updatedMemberDetails);
 
     void removeMember(Member toBeRemoved);
 

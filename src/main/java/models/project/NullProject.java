@@ -1,12 +1,12 @@
 package models.project;
 
-import java.util.HashMap;
 import models.member.Member;
 import models.member.MemberList;
 import models.task.Task;
 import models.task.TaskList;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class NullProject implements IProject {
     @Override
@@ -42,10 +42,11 @@ public class NullProject implements IProject {
     }
 
     @Override
-    public void editMember(int memberIndexNumber, String updatedMemberDetails) {
+    public String editMember(int memberIndexNumber, String updatedMemberDetails) {
         /*
         Empty method
          */
+        return null;
     }
 
     @Override

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public interface IMemberList {
     void addMember(Member newMember);
 
-    void editMember(int memberIndexNumber, String updatedMemberDetails);
+    String editMember(int memberIndexNumber, String updatedMemberDetails);
 
     void removeMember(Member memberToRemove);
 
