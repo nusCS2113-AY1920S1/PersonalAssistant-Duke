@@ -3,7 +3,6 @@ package duke.logic.command.product;
 import duke.commons.core.LogsCenter;
 import duke.logic.command.CommandResult;
 import duke.logic.command.exceptions.CommandException;
-import duke.logic.parser.product.ShowProductCommandParser;
 import duke.model.Model;
 
 import java.util.logging.Logger;

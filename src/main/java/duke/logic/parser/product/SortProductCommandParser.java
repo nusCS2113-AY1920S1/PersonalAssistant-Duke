@@ -9,7 +9,9 @@ import duke.logic.parser.exceptions.ParseException;
 
 import static duke.logic.message.ProductMessageUtils.MESSAGE_INVALID_CATEGORY;
 import static duke.logic.message.ProductMessageUtils.MESSAGE_INVALID_SCOPE_VALUE;
-import static duke.logic.parser.commons.CliSyntax.*;
+import static duke.logic.parser.commons.CliSyntax.PREFIX_PRODUCT_SORT;
+import static duke.logic.parser.commons.CliSyntax.PREFIX_PRODUCT_SCOPE;
+import static duke.logic.parser.commons.CliSyntax.PREFIX_PRODUCT_SORT_REVERSE;
 
 public class SortProductCommandParser implements Parser<SortProductCommand> {
 

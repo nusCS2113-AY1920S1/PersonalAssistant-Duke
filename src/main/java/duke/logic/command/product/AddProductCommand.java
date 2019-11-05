@@ -4,14 +4,12 @@ import duke.commons.core.LogsCenter;
 import duke.logic.command.CommandResult;
 import duke.logic.command.exceptions.CommandException;
 import duke.logic.message.ProductMessageUtils;
-import duke.logic.parser.commons.AutoCompleter;
 import duke.logic.parser.commons.CliSyntax;
 import duke.logic.parser.commons.Prefix;
 import duke.logic.parser.exceptions.ParseException;
 import duke.model.Model;
 import duke.model.product.Product;
 
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import static java.util.Objects.requireNonNull;
