@@ -3,7 +3,6 @@ package ducats.commands;
 import ducats.DucatsException;
 import ducats.Storage;
 import ducats.Ui;
-import ducats.components.Bar;
 import ducats.components.Song;
 import ducats.components.SongList;
 
@@ -12,7 +11,6 @@ import ducats.components.SongList;
  * A class that represents the command to delete an bar from a song.
  */
 public class DeleteBarCommand extends Command<SongList> {
-    private int barIndex;
 
     /**
      * Constructor for the duke.Commands.Command created to delete a bar from a song
@@ -22,15 +20,11 @@ public class DeleteBarCommand extends Command<SongList> {
      */
     public DeleteBarCommand(String message) throws DucatsException {
         this.message = message;
-        try {
-            barIndex = Integer.parseInt(message.substring(10));
-        } catch (Exception e) {
-            throw new DucatsException("","other");
-        }
     }
 
     /**
-     * Modifies the song and returns the messages intended to be displayed.
+     * Modifies a song in the song list by deleting an existing bar and
+     * returns the messages intended to be displayed.
      *
      * @param songList the duke.SongList object that contains the song list
      * @param ui the Ui object that determines the displayed output of duke.Duke
@@ -42,18 +36,26 @@ public class DeleteBarCommand extends Command<SongList> {
         if (songList.getSize() == 0) {
             throw new DucatsException("", "empty");
         }
+        int barIndex = 0;
+        int songIndex = songList.getActiveIndex();
+        Song activeSong = songList.getSongIndex(songIndex);
+
+        try {
+            barIndex = Integer.parseInt(message.substring(14));
+        } catch (Exception e) {
+            throw new DucatsException("","other");
+        }
+
         if (barIndex > songList.getSongIndex(songList.getActiveIndex()).getBars().size() || barIndex < 1) {
             throw new DucatsException("", "index");
         } else {
-            Song song = songList.getSongIndex(songList.getActiveIndex());
-            Bar deletedBar = song.getBars().get(barIndex - 1);
-            song.getBars().remove(barIndex - 1);
+            activeSong.getBars().remove(barIndex - 1);
             try {
                 storage.updateFile(songList);
             } catch (Exception e) {
                 throw new DucatsException("","io");
             }
-            return ui.formatDeleteBar(song, deletedBar);
+            return ui.formatDeleteBar(activeSong, barIndex);
         }
     }
 

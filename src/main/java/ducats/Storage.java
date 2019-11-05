@@ -8,26 +8,42 @@ import ducats.components.Song;
 import ducats.components.SongList;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 /**
  * A class to implement persistent storage of the task list using a .txt file.
  */
 public class Storage {
 
-    private Path file;
+    protected File file;
+    private String filepath;
 
     /**
      * Constructor for the duke.Storage class.
      *
-     * @param file the Path object representing the path to the file being used to store the task list.
+     * @param filepath the String object representing the path to the file being used to store the task list.
      */
-    public Storage(Path file) {
-        this.file = file;
+    public Storage(String filepath) {
+        this.filepath = filepath;
+        file = new File(filepath);
+    }
+
+    boolean initialize() throws DucatsException {
+        try {
+            return file.createNewFile();
+        } catch (IOException e) {
+            throw new DucatsException("","io");
+        } catch (SecurityException e) {
+            throw new DucatsException("security");
+        }
     }
 
     // Ducats implementation starts here.
@@ -55,8 +71,16 @@ public class Storage {
     }
 
     private void writeStringsToFile(ArrayList<String> songs) throws DucatsException {
+        FileWriter fileWriter;
         try {
-            Files.write(file, songs, StandardCharsets.UTF_8);
+            fileWriter = new FileWriter(filepath);
+            StringBuilder sb = new StringBuilder();
+            for (String song: songs) {
+                sb.append(song);
+                sb.append(System.lineSeparator());
+            }
+            fileWriter.write(sb.toString());
+            fileWriter.close();
         } catch (IOException e) {
             throw new DucatsException("","io");
         }
@@ -65,12 +89,17 @@ public class Storage {
     private ArrayList<String> readStringsFromFile() throws DucatsException {
         // reads file and returns an ArrayList of lines
         ArrayList<String> result = new ArrayList<>();
-        try (BufferedReader br = Files.newBufferedReader(file)) {
-            String line;
-            while ((line = br.readLine()) != null) {
-                result.add(line);
+        try (Scanner scanner = new Scanner(file)) {
+            while (scanner.hasNextLine()) {
+                String nextLine = scanner.nextLine();
+                if (nextLine.equals("")) {
+                    break;
+                } else {
+                    result.add(nextLine);
+                }
             }
         } catch (Exception e) {
+            System.out.println("que?");
             throw new DucatsException("", "io");
         }
         return result;
@@ -88,6 +117,7 @@ public class Storage {
         for (String line: data) {
             songList.add(convertSongFromString(line));
         }
+
     }
     /**
      * A function that converts a string into a Song element.

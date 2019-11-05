@@ -11,23 +11,22 @@ import java.util.ArrayList;
 
 //@@author jwyf
 /**
- * A class representing the command to add a new bar of notes at the end of the current song.
+ * A class representing the command to insert a new bar of notes between existing bars in the current song.
  */
-public class AddBarCommand extends Command<SongList> {
-
+public class InsertBarCommand extends Command<SongList> {
     private int songIndex;
 
     /**
-     * Constructor for the command to add a new bar to the current song.
+     * Constructor for the command to insert a new bar to the current song.
      * @param message the input message that resulted in the creation of the duke.Commands.Command
      */
-    public AddBarCommand(String message) {
+    public InsertBarCommand(String message) {
         this.message = message;
         this.songIndex = 0;
     }
 
     /**
-     * Modifies a song in the song list by adding a new bar at the end of the song and
+     * Modifies a song in the song list by inserting a new bar between existing bars and
      * returns the messages intended to be displayed.
      *
      * @param songList the duke.components.SongList object that contains the song list
@@ -39,23 +38,25 @@ public class AddBarCommand extends Command<SongList> {
      */
     public String execute(SongList songList, Ui ui, Storage storage) throws DucatsException {
         int barNo;
-        if (message.length() < 7 || !message.substring(0, 7).equals("addbar ")) { //exception if not fully spelt
+        if (message.length() < 10 || !message.substring(0, 10).equals("insertbar ")) { //exception if not fully spelt
             throw new DucatsException(message);
         }
         try {
             songIndex = songList.getActiveIndex();
             Song activeSong = songList.getSongIndex(songIndex);
 
-            barNo = activeSong.getNumBars() + 1;
-            Bar newBar = new Bar(barNo, message.substring(7));
-            activeSong.addBar(newBar);
+            String[] sections = message.substring(10).split(" ");
+            barNo = Integer.parseInt(sections[0].substring(4));
+            int notesIndex = message.indexOf(sections[1]);
+            Bar newBar = new Bar(barNo, message.substring(notesIndex));
+
+            activeSong.getBars().add(barNo - 1, newBar);
 
             storage.updateFile(songList);
             ArrayList<Song> temp = songList.getSongList();
-            return ui.formatAddBar(temp, newBar, activeSong);
-
+            return ui.formatInsertBar(temp, newBar, activeSong);
         } catch (Exception e) {
-            throw new DucatsException(message, "addbar");
+            throw new DucatsException(message, "insertbar");
         }
     }
 

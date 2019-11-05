@@ -8,11 +8,9 @@ import ducats.components.SongList;
 
 //@@author jwyf
 /**
- * A class that represents the command to delete an song from the song list.
+ * A class that represents the command to delete a song from the song list.
  */
 public class DeleteCommand extends Command<SongList> {
-
-    private int songIndex;
 
     /**
      * Constructor for the ducats.Commands.Command created to delete a song from the ducats.SongList
@@ -22,15 +20,11 @@ public class DeleteCommand extends Command<SongList> {
      */
     public DeleteCommand(String message) throws DucatsException {
         this.message = message;
-        try {
-            songIndex = Integer.parseInt(message.substring(7));
-        } catch (Exception e) {
-            throw new DucatsException("","other");
-        }
     }
 
     /**
-     * Modifies the song list in use and returns the messages intended to be displayed.
+     * Deletes an existing song in the song list and
+     * returns the messages intended to be displayed.
      *
      * @param songList the ducats.SongList object that contains the song list
      * @param ui the Ui object that determines the displayed output of ducats.Duke
@@ -42,6 +36,15 @@ public class DeleteCommand extends Command<SongList> {
         if (songList.getSize() == 0) {
             throw new DucatsException("", "empty");
         }
+        int songIndex = 0;
+        try {
+            songIndex = Integer.parseInt(message.substring(12));
+        } catch (NumberFormatException e) {
+            songIndex = songList.findSongIndex(message.substring(7)) + 1;
+        } catch (Exception e) {
+            throw new DucatsException("","other");
+        }
+
         if (songIndex > songList.getSize() || songIndex < 1) {
             throw new DucatsException("", "index");
         } else {

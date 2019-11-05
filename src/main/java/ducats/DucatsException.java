@@ -46,6 +46,7 @@ public class DucatsException extends Exception {
         String word = input.trim().equals("event")
                 || input.trim().equals("overlay")
                 || input.trim().equals("addbar")
+                || input.trim().equals("insertbar")
                 ? "an " : "a ";
 
         if (hasEmptyDescription(input)) {
@@ -94,6 +95,14 @@ public class DucatsException extends Exception {
             }
             case "edit": {
                 message = "OOPS!!! Bar cannot be edited due to invalid input.";
+                break;
+            }
+            case "insertbar": {
+                message = "OOPS!!! New bar cannot be inserted due to invalid input.";
+                break;
+            }
+            case "swap": {
+                message = "OOPS!!! Bars cannot be swapped due to invalid input.";
                 break;
             }
             case "io": {

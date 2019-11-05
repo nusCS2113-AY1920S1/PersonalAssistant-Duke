@@ -19,7 +19,6 @@ public class GroupCommand extends Command<SongList> {
     //@@author Samuel787
     private String message;
 
-
     /**
      * Constructor for the command to group bars together as a verse.
      *

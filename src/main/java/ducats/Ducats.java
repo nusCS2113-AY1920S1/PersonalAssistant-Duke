@@ -8,9 +8,10 @@ import ducats.commands.Command;
 import ducats.commands.CopyCommand;
 import ducats.commands.DeleteBarCommand;
 import ducats.commands.DeleteCommand;
-import ducats.commands.EditCommand;
+import ducats.commands.EditBarCommand;
 import ducats.commands.GroupCommand;
 import ducats.commands.HelpCommand;
+import ducats.commands.InsertBarCommand;
 import ducats.commands.ListCommand;
 import ducats.commands.NewCommand;
 import ducats.commands.OpenCommand;
@@ -18,6 +19,7 @@ import ducats.commands.OverlayBarGroup;
 import ducats.commands.OverlayBarSong;
 import ducats.commands.OverlayGroupGroup;
 import ducats.commands.RedoCommand;
+import ducats.commands.SwapBarCommand;
 import ducats.commands.UndoCommand;
 import ducats.commands.ViewCommand;
 import ducats.components.SongList;
@@ -36,6 +38,7 @@ public class Ducats {
     private UndoRedoStack undoRedoStack;
     private Metronome metronome;
 
+    //@@author rohan-av
     /**
      * Constructor for the duke.Duke object, which initializes the UI, duke.TaskList and duke.Storage in
      * order to carry out its functions.
@@ -45,9 +48,12 @@ public class Ducats {
         songs = new SongList();
 
         //storage = new Storage(Paths.get("/home/rishi/Desktop/cs2113t/team/main/data/todo_list.txt"));
-        storage = new Storage(Paths.get("data", "songlist.txt"));
+        String fileDelimiter = System.getProperty("file.separator");
+        storage = new Storage(System.getProperty("user.dir") + fileDelimiter + "songlist.txt");
+
         metronome = new Metronome();
         try {
+            System.out.println(Ui.showSaveStatus(storage.initialize()));
             storage.loadToList(songs);
         } catch (DucatsException e) {
             System.out.println(ui.showError(e));
@@ -67,7 +73,7 @@ public class Ducats {
         while (!isExit) {
             try {
                 String fullCommand = ui.readCommand();
-                Command c = Parser.parse(fullCommand);
+                Command c = Parser.parse(ui,fullCommand);
                 //if the command uses the SongList
                 String output;
                 if (c instanceof AddBarCommand
@@ -75,7 +81,9 @@ public class Ducats {
                         || c instanceof NewCommand
                         || c instanceof DeleteCommand
                         || c instanceof DeleteBarCommand
-                        || c instanceof EditCommand
+                        || c instanceof InsertBarCommand
+                        || c instanceof SwapBarCommand
+                        || c instanceof EditBarCommand
                         || c instanceof HelpCommand
                         || c instanceof GroupCommand
                         || c instanceof CopyCommand

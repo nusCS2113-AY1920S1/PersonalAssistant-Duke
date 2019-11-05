@@ -13,7 +13,7 @@ import java.util.ArrayList;
 /**
  * A class representing the command to edit a bar of notes in the current song.
  */
-public class EditCommand extends Command<SongList> {
+public class EditBarCommand extends Command<SongList> {
 
     private int songIndex;
 
@@ -21,13 +21,14 @@ public class EditCommand extends Command<SongList> {
      * Constructor for the command to edit a bar in the current song.
      * @param message the input message that resulted in the creation of the duke.Commands.Command
      */
-    public EditCommand(String message) {
+    public EditBarCommand(String message) {
         this.message = message;
         this.songIndex = 0;
     }
 
     /**
-     * Modifies the song in the song list and returns the messages intended to be displayed.
+     * Modifies a song in the song list by editing an existing bar and
+     * returns the messages intended to be displayed.
      *
      * @param songList the duke.components.SongList object that contains the song list
      * @param ui the Ui object responsible for the reading of user input and the display of
@@ -39,13 +40,13 @@ public class EditCommand extends Command<SongList> {
     public String execute(SongList songList, Ui ui, Storage storage) throws DucatsException {
         int barNo;
         try {
-            String[] sections = message.substring(5).split(" ");
+            songIndex = songList.getActiveIndex();
+            Song song = songList.getSongIndex(songIndex);
+
+            String[] sections = message.substring(8).split(" ");
             barNo = Integer.parseInt(sections[0].substring(4));
             int notesIndex = message.indexOf(sections[1]);
             Bar newBar = new Bar(barNo, message.substring(notesIndex));
-
-            songIndex = songList.getActiveIndex();
-            Song song = songList.getSongIndex(songIndex);
 
             song.getBars().add(barNo - 1, newBar);
             Bar oldBar = song.getBars().get(barNo);

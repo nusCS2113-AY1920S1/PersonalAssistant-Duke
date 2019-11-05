@@ -5,7 +5,6 @@ import ducats.Storage;
 import ducats.Ui;
 import ducats.components.Song;
 import ducats.components.SongList;
-import java.util.Arrays;
 
 //@@author jwyf
 /**
@@ -23,7 +22,8 @@ public class NewCommand extends Command<SongList> {
     }
 
     /**
-     * Modifies the song list and returns the messages intended to be displayed.
+     * Create a new song and add it as the last entry of the song list
+     * and returns the messages intended to be displayed.
      *
      * @param songList the ducats.components.SongList object that contains the song list
      * @param ui the Ui object responsible for the reading of user input and the display of
@@ -46,14 +46,12 @@ public class NewCommand extends Command<SongList> {
 
             songName = sections[0];
             key = sections[1];
-            System.out.println(Arrays.toString(sections));
             timeSignature = sections[2];
             tempo = Integer.parseInt(sections[3]);
             song = new Song(songName, key, tempo);
 
             songList.add(song);
             storage.updateFile(songList);
-            System.out.println("after creating song");
             return ui.formatNewSong(songList.getSongList(), song);
         } catch (Exception e) {
             throw new DucatsException(message, "new");

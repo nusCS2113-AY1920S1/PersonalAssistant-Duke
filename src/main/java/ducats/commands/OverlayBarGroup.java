@@ -106,7 +106,7 @@ public class OverlayBarGroup  extends Command<SongList>  {
                 Bar overlayingBar = overlayingBarToBeCopied.copy(overlayingBarToBeCopied);
                 //Bar overlayingBar = barList.get(barIndexToAdd);
                 //System.out.println("adjjdsa");
-                if (sections.length > 2 && sections[2].equals("repeat")) {
+                if (sections.length > 3 && sections[2].equals("repeat")) {
                     Iterator<Group> iterator1 = groupList.iterator();
                     int i = 0;
                     while (iterator1.hasNext()) {
@@ -140,13 +140,13 @@ public class OverlayBarGroup  extends Command<SongList>  {
                 storage.updateFile(songList);
                 return ui.formatAddOverlay(songList.getSongList(), barIndexToAdd,song);
             } else {
-                System.out.println("no such index");
+                //System.out.println("no such index");
                 //System.out.println(songList.getSize());
                 throw new DucatsException(message, "no_index");
             }
 
         } catch (Exception e) {
-            System.out.println(e);
+            //System.out.println(e);
             throw new DucatsException(message, "no_index");
         }
     }

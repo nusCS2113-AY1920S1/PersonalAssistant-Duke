@@ -8,9 +8,10 @@ import ducats.commands.Command;
 import ducats.commands.CopyCommand;
 import ducats.commands.DeleteBarCommand;
 import ducats.commands.DeleteCommand;
-import ducats.commands.EditCommand;
+import ducats.commands.EditBarCommand;
 import ducats.commands.GroupCommand;
 import ducats.commands.HelpCommand;
+import ducats.commands.InsertBarCommand;
 import ducats.commands.ListCommand;
 import ducats.commands.MetronomeCommand;
 import ducats.commands.NewCommand;
@@ -19,13 +20,13 @@ import ducats.commands.OverlayBarGroup;
 import ducats.commands.OverlayBarSong;
 import ducats.commands.OverlayGroupGroup;
 import ducats.commands.RedoCommand;
+import ducats.commands.SwapBarCommand;
 import ducats.commands.UndoCommand;
 import ducats.commands.ViewCommand;
-import ducats.commands.AsciiCommand;
-import ducats.commands.OverlayGroupGroup;
-import java.util.ArrayList;
-import java.util.HashMap;
+import ducats.components.Jaccard;
 import ducats.components.WordGetter;
+import ducats.Ui;
+
 
 /**
  * A class used to interpret the incoming messages and translate them into the appropriate duke.Commands.
@@ -40,10 +41,22 @@ public class Parser {
      * @return the duke.Commands.duke.Commands.Command object interpreted from the input message
      * @throws DucatsException in the case of parsing errors
      */
-    public static Command parse(String message) throws DucatsException {
+    public static Command parse(Ui ui,String message) throws DucatsException {
+        String [] commandList = {"bye", "list", "delete", "deletebar","editbar",
+                                    "find","done", "new","help","view","addbar",
+                                    "overlay","group","overlay_bar_group", "metronome",
+                                    "overlay_group_group", "overlay_bar_song", "ascii",
+                                    "redo", "undo", "open",
+                                    "copy", "insertbar", "swapbar"};
+        double maximumVal = 0;
+        //String commandName = "";
+        Jaccard similarityChecker = new Jaccard();
         String [] messageSplit = message.split(" ");
         WordGetter wordSimilarity = new WordGetter();
         String commandName = wordSimilarity.closestWord(messageSplit[0]);
+        if (!commandName.equals(messageSplit[0])) {
+            ui.autoCorrectMessage(commandName);
+        }
         messageSplit[0] = commandName;
         message = String.join(" ", messageSplit);
         switch (commandName) {
@@ -72,9 +85,19 @@ public class Parser {
                 return new DeleteBarCommand(message);
             }
             break;
-        case "edit":
-            if (message.length() >= 6) {
-                return new EditCommand(message);
+        case "insertbar":
+            if (message.length() >= 11) {
+                return new InsertBarCommand(message);
+            }
+            break;
+        case "swapbar":
+            if (message.length() >= 9) {
+                return new SwapBarCommand(message);
+            }
+            break;
+        case "editbar":
+            if (message.length() >= 9) {
+                return new EditBarCommand(message);
             }
             break;
         case "new":
