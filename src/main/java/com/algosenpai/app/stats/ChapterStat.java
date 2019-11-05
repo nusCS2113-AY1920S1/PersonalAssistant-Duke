@@ -94,21 +94,33 @@ public class ChapterStat {
 
         // Split the string into individual lines.
         String[] lines = string.split("\n");
+        try {
+            int chapterNumber = Integer.parseInt(lines[0].split(" ")[1]);
+            // Each parameter comes after a colon (:), so we split by : and take the second element in the array.
+            String chapterName = lines[0].split(":")[1].substring(1);
+            int attempts = Integer.parseInt(lines[1].split(":")[1].trim());
+            int totalAnswered = parseInt(lines[2].split(":")[1].trim());
+            int correctAnswers = Integer.parseInt(lines[3].split(":")[1].trim());
+            int wrongAnswers = Integer.parseInt(lines[4].split(":")[1].trim());
+            double percentage = Double.parseDouble(lines[5].split(":")[1].trim());
+            String comments = lines[6].split(":")[1].trim();
+            // remove the quotes
+            comments = comments.substring(1,comments.length() - 1);
 
-        int chapterNumber = Integer.parseInt(lines[0].split(" ")[1]);
-        // Each parameter comes after a colon (:), so we split by : and take the second element in the array.
-        String chapterName = lines[0].split(":")[1].substring(1);
-        int attempts = Integer.parseInt(lines[1].split(":")[1].trim());
-        int totalAnswered = parseInt(lines[2].split(":")[1].trim());
-        int correctAnswers = Integer.parseInt(lines[3].split(":")[1].trim());
-        int wrongAnswers = Integer.parseInt(lines[4].split(":")[1].trim());
-        double percentage = Double.parseDouble(lines[5].split(":")[1].trim());
-        String comments = lines[6].split(":")[1].trim();
-        // remove the quotes
-        comments = comments.substring(1,comments.length() - 1);
+            return new ChapterStat(chapterName,chapterNumber,attempts,
+                    totalAnswered,correctAnswers,wrongAnswers,percentage,comments);
+        } catch (Exception e) {
+            e.printStackTrace();
+            ChapterStat c = getDefaultChapter();
+            c.chapterName = "Chapter parsing error";
+            return c;
+        }
 
-        return new ChapterStat(chapterName,chapterNumber,attempts,
-                totalAnswered,correctAnswers,wrongAnswers,percentage,comments);
+    }
+
+    private static ChapterStat getDefaultChapter() {
+
+        return new ChapterStat("DEFAULT CHAPTER",0,0,0,0,0,0,"");
     }
 
     /**

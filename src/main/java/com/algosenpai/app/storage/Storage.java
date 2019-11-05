@@ -28,7 +28,7 @@ public class Storage {
             }
 
             // Fill it with the default UserStats.
-            UserStats newUserStats = UserStats.getDefaultUserStats("username", "??");
+            UserStats newUserStats = UserStats.getDefaultUserStats();
             saveData(filePath, newUserStats.toString());
             return newUserStats.toString();
         }
