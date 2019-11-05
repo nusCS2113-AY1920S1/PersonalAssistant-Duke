@@ -6,6 +6,7 @@ import ui.ReceiptTracker;
 import ui.Ui;
 import ui.Wallet;
 
+import java.time.format.DateTimeParseException;
 
 
 public class CommandDateList extends Command {
@@ -18,12 +19,8 @@ public class CommandDateList extends Command {
      */
     public CommandDateList(String userInput) {
         this.userInput = userInput;
-<<<<<<< HEAD
-        this.description = "Lists receipts based on date input. Format: datelist <date>";
-=======
         this.description = "Lists based on date. \n"
-                + "Format: listmy <date>";
->>>>>>> 2df26d071fbba6a14e53f9d1512f6956ec889c04
+                + "Format: datelist <date>";
         this.commandType = CommandType.DATELIST;
         this.date = Parser.parseForPrimaryInput(this.commandType, userInput);
     }
@@ -35,11 +32,19 @@ public class CommandDateList extends Command {
 
     @Override
     public void execute(Wallet wallet) {
-        ReceiptTracker dateReceipts = wallet.getReceipts().findReceiptsByDate(this.date);
-        Ui.dukeSays("You have the following receipts for" + " " + date);
-        Ui.printSeparator();
-        dateReceipts.printReceipts();
-        Ui.printSeparator();
+        try {
+            if (date == null || date.isEmpty()) {
+                Ui.dukeSays("Date input is missing. FORMAT : datelist yyyy-mm-dd");
+                return;
+            }
+            ReceiptTracker dateReceipts = wallet.getReceipts().findReceiptsByDate(this.date);
+            Ui.dukeSays("You have the following receipts for" + " " + date);
+            Ui.printSeparator();
+            dateReceipts.printReceipts();
+            Ui.printSeparator();
+        } catch (DateTimeParseException e) {
+            Ui.dukeSays("Invalid input. FORMAT : datelist yyyy-mm-dd");
+        }
     }
 
 }
