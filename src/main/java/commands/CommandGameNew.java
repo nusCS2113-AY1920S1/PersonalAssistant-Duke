@@ -15,7 +15,6 @@ public class CommandGameNew extends Command {
     @Override
     public void execute(Farmio farmio) throws FarmioFatalException {
         Ui ui = farmio.getUi();
-        Storage storage = farmio.getStorage();
         farmio.setFarmer(new Farmer());
         farmio.getSimulation().simulate("GameNew", 0, true);
         ui.typeWriter("New Game Created!", false);
