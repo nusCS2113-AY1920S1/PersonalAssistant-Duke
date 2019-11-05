@@ -3,7 +3,9 @@ package oof.command;
 import java.util.ArrayList;
 
 import oof.Ui;
-import oof.exception.OofException;
+import oof.exception.CommandException.CommandException;
+import oof.exception.CommandException.InvalidArgumentException;
+import oof.exception.CommandException.MissingArgumentException;
 import oof.model.module.SemesterList;
 import oof.model.task.Task;
 import oof.model.task.TaskList;
@@ -42,18 +44,18 @@ public class AddToDoCommand extends Command {
      * @throws OofException if user input invalid commands.
      */
     public void execute(SemesterList semesterList, TaskList taskList, Ui ui, StorageManager storageManager)
-            throws OofException {
+            throws CommandException {
         if (arguments.get(INDEX_DESCRIPTION).equals("")) {
-            throw new OofException("OOPS!!! The todo needs a description.");
+            throw new MissingArgumentException("OOPS!!! The todo needs a description.");
         } else if (arguments.size() < ARRAY_SIZE_DATE || arguments.get(INDEX_DATE).equals("")) {
-            throw new OofException("OOPS!!! The todo needs a date.");
+            throw new MissingArgumentException("OOPS!!! The todo needs a date.");
         }
         String description = arguments.get(INDEX_DESCRIPTION);
         String date = parseDate(arguments.get(INDEX_DATE));
         if (exceedsMaxLength(description)) {
-            throw new OofException("Task exceeds maximum description length!");
+            throw new InvalidArgumentException("Task exceeds maximum description length!");
         } else if (!isDateValid(date)) {
-            throw new OofException("OOPS!!! The date is invalid.");
+            throw new InvalidArgumentException("OOPS!!! The date is invalid.");
         } else {
             Task task = new Todo(description, date);
             taskList.addTask(task);

@@ -6,7 +6,9 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import oof.Ui;
-import oof.exception.OofException;
+import oof.exception.CommandException.CommandException;
+import oof.exception.CommandException.InvalidArgumentException;
+import oof.exception.CommandException.MissingArgumentException;
 import oof.model.module.Semester;
 import oof.model.module.SemesterList;
 import oof.model.task.TaskList;
@@ -44,13 +46,13 @@ public class AddSemesterCommand extends Command {
      * @return true if semester being added clashes with other semesters, false otherwise.
      * @throws OofException if start date is after end date or if date is invalid.
      */
-    private boolean hasClashes(SemesterList semesterList, String startDate, String endDate) throws OofException {
+    private boolean hasClashes(SemesterList semesterList, String startDate, String endDate) throws CommandException {
         SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
         try {
             Date dateStart = format.parse(startDate);
             Date dateEnd = format.parse(endDate);
             if (!isStartDateBeforeEndDate(dateStart, dateEnd)) {
-                throw new OofException("OOPS!! The start date of a semester cannot be after the end date.");
+                throw new InvalidArgumentException("OOPS!! The start date of a semester cannot be after the end date.");
             }
             for (Semester semester : semesterList.getSemesterList()) {
                 Date semesterDateStart = format.parse(semester.getStartDate());
@@ -60,7 +62,7 @@ public class AddSemesterCommand extends Command {
                 }
             }
         } catch (ParseException e) {
-            throw new OofException("OOPS!! The date is invalid.");
+            throw new InvalidArgumentException("OOPS!! The date is invalid.");
         }
         return false;
     }
@@ -73,19 +75,19 @@ public class AddSemesterCommand extends Command {
      * @param ui             Instance of Ui that is responsible for visual feedback.
      * @param storageManager Instance of Storage that enables the reading and writing of Task
      *                       objects to hard disk.
-     * @throws OofException if user input invalid commands.
+     * @throws CommandException if user input contains missing or invalid arguments.
      */
     @Override
     public void execute(SemesterList semesterList, TaskList tasks, Ui ui, StorageManager storageManager)
-            throws OofException {
+            throws CommandException {
         if (arguments.get(INDEX_YEAR).isEmpty()) {
-            throw new OofException("OOPS!! The semester needs a year.");
+            throw new MissingArgumentException("OOPS!! The semester needs a year.");
         } else if (arguments.size() < SIZE_NAME || arguments.get(INDEX_NAME).isEmpty()) {
-            throw new OofException("OOPS!! The semester needs a name.");
+            throw new MissingArgumentException("OOPS!! The semester needs a name.");
         } else if (arguments.size() < SIZE_DATE_START || arguments.get(INDEX_DATE_START).isEmpty()) {
-            throw new OofException("OOPS!! The semester needs a start date.");
+            throw new MissingArgumentException("OOPS!! The semester needs a start date.");
         } else if (arguments.size() < SIZE_DATE_END || arguments.get(INDEX_DATE_END).isEmpty()) {
-            throw new OofException("OOPS!! The semester needs an end date.");
+            throw new MissingArgumentException("OOPS!! The semester needs an end date.");
         }
         String year = arguments.get(INDEX_YEAR);
         String name = arguments.get(INDEX_NAME);
@@ -93,10 +95,10 @@ public class AddSemesterCommand extends Command {
         String endDate = arguments.get(INDEX_DATE_END);
         String description = year + " " + name;
         if (exceedsMaxLength(description)) {
-            throw new OofException("Task exceeds maximum description length!");
+            throw new InvalidArgumentException("Task exceeds maximum description length!");
         }
         if (isDateValid(startDate) && isDateValid(endDate) && (hasClashes(semesterList, startDate, endDate))) {
-            throw new OofException("OOPS!! The semester clashes with another semester.");
+            throw new InvalidArgumentException("OOPS!! The semester clashes with another semester.");
         }
         Semester semester = new Semester(year, name, startDate, endDate);
         semesterList.addSemester(semester);

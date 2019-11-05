@@ -36,7 +36,13 @@ import oof.command.ViewLessonCommand;
 import oof.command.ViewSelectedModuleCommand;
 import oof.command.ViewSelectedSemesterCommand;
 import oof.command.ViewWeekCommand;
-import oof.exception.OofException;
+import oof.exception.CommandException.InvalidArgumentException;
+import oof.exception.CommandException.MissingArgumentException;
+import oof.exception.IllegalCommandException;
+import oof.exception.InvalidCommandException;
+import oof.exception.ParserException;
+
+//@@author KahLokKee
 
 /**
  * Represents a parser to process the commands inputted by the user.
@@ -51,11 +57,14 @@ public class CommandParser {
      *
      * @param input Command entered by user.
      * @return Command based on the user input.
-     * @throws OofException Catches invalid commands given by user.
+     * @throws ParserException          if command contains illegal strings or if command does not exists.
+     * @throws InvalidArgumentException if command contains invalid arguments.
+     * @throws MissingArgumentException if command contains missing arguments.
      */
-    public static Command parse(String input) throws OofException {
+    public static Command parse(String input) throws ParserException, InvalidArgumentException,
+            MissingArgumentException {
         if (containsIllegalInput(input)) {
-            throw new OofException("Your command contains illegal input!");
+            throw new IllegalCommandException("Your command contains illegal input!");
         }
         String command = getFirstWord(input);
         input = input.replaceFirst(command, "").trim();
@@ -130,7 +139,7 @@ public class CommandParser {
             return parseLessonCommand(input);
 
         default:
-            throw new OofException("OOPS!!! I'm sorry, but I don't know what that means :-(");
+            throw new InvalidCommandException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
     }
 
@@ -191,17 +200,17 @@ public class CommandParser {
      *
      * @param input Command inputted by user in string format.
      * @return Instance of CompleteCommand with parsed input as arguments
-     * @throws OofException Throws exception if input is empty or not a valid integer.
+     * @throws MissingArgumentException if input is empty or not a valid integer.
      */
-    private static Command parseDoneCommand(String input) throws OofException {
+    private static Command parseDoneCommand(String input) throws MissingArgumentException {
         if (input.isEmpty()) {
-            throw new OofException("OOPS!!! Please enter a number!");
+            throw new MissingArgumentException("OOPS!!! Please enter a number!");
         } else {
             try {
                 int index = Integer.parseInt(input) - 1;
                 return new DoneCommand(index);
             } catch (NumberFormatException e) {
-                throw new OofException("OOPS!!! Please enter a valid number!");
+                throw new MissingArgumentException("OOPS!!! Please enter a valid number!");
             }
         }
     }
@@ -271,17 +280,17 @@ public class CommandParser {
      *
      * @param input Command inputted by user in string format.
      * @return Instance of DeleteCommand if the parameters are valid.
-     * @throws OofException Throws exception if the parameters are invalid.
+     * @throws MissingArgumentException if the arguments are missing.
      */
-    private static Command parseDeleteCommand(String input) throws OofException {
+    private static Command parseDeleteCommand(String input) throws MissingArgumentException {
         if (input.isEmpty()) {
-            throw new OofException("OOPS!!! Please enter a number!");
+            throw new MissingArgumentException("OOPS!!! Please enter a number!");
         } else {
             try {
                 int index = Integer.parseInt(input) - 1;
                 return new DeleteTaskCommand(index);
             } catch (NumberFormatException e) {
-                throw new OofException("OOPS!!! Please enter a valid number!");
+                throw new MissingArgumentException("OOPS!!! Please enter a valid number!");
             }
         }
     }
@@ -291,14 +300,14 @@ public class CommandParser {
      *
      * @param input Command inputted by user in string format
      * @return Returns an instance of SnoozeCommand
-     * @throws OofException Throws exception if the parameters are invalid.
+     * @throws InvalidArgumentException if the argument is invalid.
      */
-    private static Command parseSnooze(String input) throws OofException {
+    private static Command parseSnooze(String input) throws InvalidArgumentException {
         try {
             int index = Integer.parseInt(input) - 1;
             return new SnoozeCommand(index);
         } catch (NumberFormatException e) {
-            throw new OofException("OOPS!!! Please enter a valid number!");
+            throw new InvalidArgumentException("OOPS!!! Please enter a valid number!");
         }
     }
 
@@ -307,17 +316,19 @@ public class CommandParser {
      *
      * @param input Command input by user
      * @return instance of ThresholdCommand with parsed input as arguments
-     * @throws OofException Throws exception if input is empty or not a valid integer.
+     * @throws InvalidArgumentException if command argument is not a valid integer.
+     * @throws MissingArgumentException if command argument is missing.
      */
-    private static Command parseThresholdCommand(String input) throws OofException {
+    private static Command parseThresholdCommand(String input) throws InvalidArgumentException,
+            MissingArgumentException {
         if (input.isEmpty()) {
-            throw new OofException("OOPS!!! Please enter a number!");
+            throw new MissingArgumentException("OOPS!!! Please enter a number!");
         } else {
             try {
                 int threshold = Integer.parseInt(input);
                 return new ThresholdCommand(threshold);
             } catch (NumberFormatException e) {
-                throw new OofException("OOPS!!! Please enter a valid number!");
+                throw new InvalidArgumentException("OOPS!!! Please enter a valid number!");
             }
         }
     }
@@ -339,9 +350,10 @@ public class CommandParser {
      *
      * @param input Command inputted by user in string format.
      * @return Returns relevant Semester Commands if the parameters are valid.
-     * @throws OofException Throws exception if the parameters are invalid.
+     * @throws InvalidCommandException  if command is invalid.
+     * @throws InvalidArgumentException if command arguments are invalid.
      */
-    private static Command parseSemesterCommand(String input) throws OofException {
+    private static Command parseSemesterCommand(String input) throws InvalidCommandException, InvalidArgumentException {
         if (input.isEmpty()) {
             return new ViewSelectedSemesterCommand();
         } else {
@@ -357,7 +369,7 @@ public class CommandParser {
             case "/view":
                 return new ViewAllSemesterCommand();
             default:
-                throw new OofException("OOPS!!! I'm sorry, but I don't know what that means :-(");
+                throw new InvalidCommandException("OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
         }
     }
@@ -368,21 +380,21 @@ public class CommandParser {
         return new AddSemesterCommand(argumentArray);
     }
 
-    private static Command parseSemesterDelete(String input) throws OofException {
+    private static Command parseSemesterDelete(String input) throws InvalidArgumentException {
         try {
             int deleteIndex = Integer.parseInt(input) - 1;
             return new DeleteSemesterCommand(deleteIndex);
         } catch (NumberFormatException e) {
-            throw new OofException("OOPS!!! Please enter a valid number!");
+            throw new InvalidArgumentException("OOPS!!! Please enter a valid number!");
         }
     }
 
-    private static Command parseSemesterSelect(String input) throws OofException {
+    private static Command parseSemesterSelect(String input) throws InvalidArgumentException {
         try {
             int index = Integer.parseInt(input) - 1;
             return new SelectSemesterCommand(index);
         } catch (NumberFormatException e) {
-            throw new OofException("OOPS!!! Please enter a valid number!");
+            throw new InvalidArgumentException("OOPS!!! Please enter a valid number!");
         }
     }
 
@@ -391,9 +403,10 @@ public class CommandParser {
      *
      * @param input Command inputted by user in string format.
      * @return Returns relevant Module Commands if the parameters are valid.
-     * @throws OofException Throws exception if the parameters are invalid.
+     * @throws InvalidCommandException  if command is invalid.
+     * @throws InvalidArgumentException if command arguments are invalid
      */
-    private static Command parseModuleCommand(String input) throws OofException {
+    private static Command parseModuleCommand(String input) throws InvalidCommandException, InvalidArgumentException {
         if (input.isEmpty()) {
             return new ViewSelectedModuleCommand();
         } else {
@@ -409,7 +422,7 @@ public class CommandParser {
             case "/view":
                 return new ViewAllModuleCommand();
             default:
-                throw new OofException("OOPS!!! I'm sorry, but I don't know what that means :-(");
+                throw new InvalidCommandException("OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
         }
     }
@@ -420,21 +433,21 @@ public class CommandParser {
         return new AddModuleCommand(argumentArray);
     }
 
-    private static Command parseModuleDelete(String input) throws OofException {
+    private static Command parseModuleDelete(String input) throws InvalidArgumentException {
         try {
             int deleteIndex = Integer.parseInt(input) - 1;
             return new DeleteModuleCommand(deleteIndex);
         } catch (NumberFormatException e) {
-            throw new OofException("OOPS!!! Please enter a valid number!");
+            throw new InvalidArgumentException("OOPS!!! Please enter a valid number!");
         }
     }
 
-    private static Command parseModuleSelect(String input) throws OofException {
+    private static Command parseModuleSelect(String input) throws InvalidArgumentException {
         try {
             int index = Integer.parseInt(input) - 1;
             return new SelectModuleCommand(index);
         } catch (NumberFormatException e) {
-            throw new OofException("OOPS!!! Please enter a valid number!");
+            throw new InvalidArgumentException("OOPS!!! Please enter a valid number!");
         }
     }
 
@@ -443,9 +456,10 @@ public class CommandParser {
      *
      * @param input Command inputted by user in string format.
      * @return Returns relevant Lesson Commands if the parameters are valid.
-     * @throws OofException Throws exception if the parameters are invalid.
+     * @throws InvalidCommandException  if command is invalid.
+     * @throws InvalidArgumentException if command arguments are invalid.
      */
-    private static Command parseLessonCommand(String input) throws OofException {
+    private static Command parseLessonCommand(String input) throws InvalidCommandException, InvalidArgumentException {
         if (input.isEmpty()) {
             return new ViewLessonCommand();
         } else {
@@ -457,7 +471,7 @@ public class CommandParser {
             case "/delete":
                 return parseLessonDelete(input);
             default:
-                throw new OofException("OOPS!!! I'm sorry, but I don't know what that means :-(");
+                throw new InvalidCommandException("OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
         }
     }
@@ -468,12 +482,12 @@ public class CommandParser {
         return new AddLessonCommand(argumentArray);
     }
 
-    private static Command parseLessonDelete(String input) throws OofException {
+    private static Command parseLessonDelete(String input) throws InvalidArgumentException {
         try {
             int deleteIndex = Integer.parseInt(input) - 1;
             return new DeleteLessonCommand(deleteIndex);
         } catch (NumberFormatException e) {
-            throw new OofException("OOPS!!! Please enter a valid number!");
+            throw new InvalidArgumentException("OOPS!!! Please enter a valid number!");
         }
     }
 }

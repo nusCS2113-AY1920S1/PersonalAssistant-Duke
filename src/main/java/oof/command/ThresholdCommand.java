@@ -1,8 +1,8 @@
 package oof.command;
 
-import oof.model.module.SemesterList;
 import oof.Ui;
-import oof.exception.OofException;
+import oof.exception.CommandException.InvalidArgumentException;
+import oof.model.module.SemesterList;
 import oof.model.task.TaskList;
 import oof.storage.StorageManager;
 
@@ -32,13 +32,13 @@ public class ThresholdCommand extends Command {
      * @param ui             Instance of Ui that is responsible for visual feedback.
      * @param storageManager Instance of Storage that enables the reading and writing of Task
      *                       objects to hard disk.
-     * @throws OofException if threshold given is invalid.
+     * @throws InvalidArgumentException if threshold argument is invalid.
      */
     @Override
     public void execute(SemesterList semesterList, TaskList tasks, Ui ui, StorageManager storageManager)
-            throws OofException {
+            throws InvalidArgumentException {
         if (isNegative(newThreshold)) {
-            throw new OofException("Threshold given invalid! Please input positive integers.");
+            throw new InvalidArgumentException("Threshold given invalid! Please input positive integers.");
         } else {
             storageManager.writeThreshold(newThreshold);
             ui.printUpdatedThreshold(newThreshold);

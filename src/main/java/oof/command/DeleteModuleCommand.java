@@ -2,7 +2,7 @@ package oof.command;
 
 import oof.SelectedInstance;
 import oof.Ui;
-import oof.exception.OofException;
+import oof.exception.CommandException.InvalidArgumentException;
 import oof.model.module.Module;
 import oof.model.module.Semester;
 import oof.model.module.SemesterList;
@@ -34,15 +34,15 @@ public class DeleteModuleCommand extends Command {
      * @param ui             Instance of Ui that is responsible for visual feedback.
      * @param storageManager Instance of Storage that enables the reading and writing of Task
      *                       objects to hard disk.
-     * @throws OofException if user input invalid commands.
+     * @throws InvalidArgumentException if user input contains invalid commands.
      */
     @Override
     public void execute(SemesterList semesterList, TaskList tasks, Ui ui, StorageManager storageManager)
-            throws OofException {
+            throws InvalidArgumentException {
         SelectedInstance selectedInstance = SelectedInstance.getInstance();
         Semester semester = selectedInstance.getSemester();
         if (!semester.isIndexValid(index)) {
-            throw new OofException("OOPS!!! Invalid number!");
+            throw new InvalidArgumentException("OOPS!!! Invalid number!");
         }
         Module module = semester.getModule(index);
         semester.removeModule(index);

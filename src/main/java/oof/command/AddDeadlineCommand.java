@@ -3,7 +3,9 @@ package oof.command;
 import java.util.ArrayList;
 
 import oof.Ui;
-import oof.exception.OofException;
+import oof.exception.CommandException.CommandException;
+import oof.exception.CommandException.InvalidArgumentException;
+import oof.exception.CommandException.MissingArgumentException;
 import oof.model.module.SemesterList;
 import oof.model.task.Deadline;
 import oof.model.task.TaskList;
@@ -40,22 +42,22 @@ public class AddDeadlineCommand extends Command {
      * @param ui             Instance of Ui that is responsible for visual feedback.
      * @param storageManager Instance of Storage that enables the reading and writing of Task
      *                       objects to hard disk.
-     * @throws OofException if user input invalid commands.
+     * @throws CommandException if user input contains missing or invalid arguments.
      */
     @Override
     public void execute(SemesterList semesterList, TaskList taskList, Ui ui, StorageManager storageManager)
-            throws OofException {
+            throws CommandException {
         if (arguments.get(INDEX_DESCRIPTION).isEmpty()) {
-            throw new OofException("OOPS!!! The deadline needs a description.");
+            throw new MissingArgumentException("OOPS!!! The deadline needs a description.");
         } else if (arguments.size() < ARRAY_SIZE_DATE || arguments.get(INDEX_DATE).isEmpty()) {
-            throw new OofException("OOPS!!! The deadline needs a due date.");
+            throw new MissingArgumentException("OOPS!!! The deadline needs a due date.");
         }
         String description = arguments.get(INDEX_DESCRIPTION);
         String date = arguments.get(INDEX_DATE);
         if (exceedsMaxLength(description)) {
-            throw new OofException("Task exceeds maximum description length!");
+            throw new InvalidArgumentException("Task exceeds maximum description length!");
         } else if (!isDateValid(date)) {
-            throw new OofException("OOPS!!! The due date is invalid.");
+            throw new InvalidArgumentException("OOPS!!! The due date is invalid.");
         } else {
             Deadline deadline = new Deadline(description, date);
             taskList.addTask(deadline);

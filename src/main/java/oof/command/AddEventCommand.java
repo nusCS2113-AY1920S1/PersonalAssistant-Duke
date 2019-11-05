@@ -6,7 +6,9 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import oof.Ui;
-import oof.exception.OofException;
+import oof.exception.CommandException.CommandException;
+import oof.exception.CommandException.InvalidArgumentException;
+import oof.exception.CommandException.MissingArgumentException;
 import oof.model.module.SemesterList;
 import oof.model.task.Event;
 import oof.model.task.Task;
@@ -45,26 +47,26 @@ public class AddEventCommand extends Command {
      * @param ui             Instance of Ui that is responsible for visual feedback.
      * @param storageManager Instance of Storage that enables the reading and writing of Task
      *                       objects to hard disk.
-     * @throws OofException if user input invalid commands.
+     * @throws CommandException if user input contains missing or invalid arguments.
      */
     public void execute(SemesterList semesterList, TaskList taskList, Ui ui, StorageManager storageManager)
-            throws OofException {
+            throws CommandException {
         if (arguments.get(INDEX_DESCRIPTION).isEmpty()) {
-            throw new OofException("OOPS!!! The event needs a description.");
+            throw new MissingArgumentException("OOPS!!! The event needs a description.");
         } else if (arguments.size() < ARRAY_SIZE_DATE_TIME_START || arguments.get(INDEX_DATE_TIME_START).isEmpty()) {
-            throw new OofException("OOPS!!! The event needs a start date.");
+            throw new MissingArgumentException("OOPS!!! The event needs a start date.");
         } else if (arguments.size() < ARRAY_SIZE_DATE_TIME_END || arguments.get(INDEX_DATE_TIME_END).isEmpty()) {
-            throw new OofException("OOPS!!! The event needs an end date.");
+            throw new MissingArgumentException("OOPS!!! The event needs an end date.");
         }
         String description = arguments.get(INDEX_DESCRIPTION);
         String startDateTime = parseDateTime(arguments.get(INDEX_DATE_TIME_START));
         String endDateTime = parseDateTime(arguments.get(INDEX_DATE_TIME_END));
         if (exceedsMaxLength(description)) {
-            throw new OofException("Task exceeds maximum description length!");
+            throw new InvalidArgumentException("Task exceeds maximum description length!");
         } else if (!isDateValid(startDateTime)) {
-            throw new OofException("OOPS!!! The start date is invalid.");
+            throw new InvalidArgumentException("OOPS!!! The start date is invalid.");
         } else if (!isDateValid(endDateTime)) {
-            throw new OofException("OOPS!!! The end date is invalid.");
+            throw new InvalidArgumentException("OOPS!!! The end date is invalid.");
         } else {
             ArrayList<Event> eventClashes = checkClashes(taskList, startDateTime, endDateTime);
             ui.printClashWarning(eventClashes);
@@ -85,17 +87,17 @@ public class AddEventCommand extends Command {
      * @throws OofException if start date is after end date or if timestamp is invalid.
      */
     protected ArrayList<Event> checkClashes(TaskList taskList, String startDateTime, String endDateTime)
-            throws OofException {
+            throws CommandException {
         SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy HH:mm");
         try {
             Date newStartDateTime = format.parse(startDateTime);
             Date newEndDateTime = format.parse(endDateTime);
             if (!isStartDateBeforeEndDate(newStartDateTime, newEndDateTime)) {
-                throw new OofException("OOPS!!! The start date cannot be after the end date.");
+                throw new InvalidArgumentException("OOPS!!! The start date cannot be after the end date.");
             }
             return compareEvents(taskList, newStartDateTime, newEndDateTime);
         } catch (ParseException e) {
-            throw new OofException("Timestamp given is invalid! Please try again.");
+            throw new InvalidArgumentException("Timestamp given is invalid! Please try again.");
         }
     }
 

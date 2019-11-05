@@ -4,7 +4,10 @@ import java.util.ArrayList;
 
 import oof.SelectedInstance;
 import oof.Ui;
-import oof.exception.OofException;
+import oof.exception.CommandException.CommandException;
+import oof.exception.CommandException.InvalidArgumentException;
+import oof.exception.CommandException.MissingArgumentException;
+import oof.exception.CommandException.SemesterNotSelectedException;
 import oof.model.module.Module;
 import oof.model.module.Semester;
 import oof.model.module.SemesterList;
@@ -37,26 +40,26 @@ public class AddModuleCommand extends Command {
      * @param ui             Instance of Ui that is responsible for visual feedback.
      * @param storageManager Instance of Storage that enables the reading and writing of Task
      *                       objects to hard disk.
-     * @throws OofException if user input invalid commands.
+     * @throws CommandException if semester is not selected or if user input contains missing or invalid arguments.
      */
     @Override
     public void execute(SemesterList semesterList, TaskList tasks, Ui ui, StorageManager storageManager)
-            throws OofException {
+            throws CommandException {
         if (arguments.get(INDEX_CODE).isEmpty()) {
-            throw new OofException("OOPS!! The module needs a code.");
+            throw new MissingArgumentException("OOPS!! The module needs a code.");
         } else if (arguments.size() < ARRAY_SIZE_NAME || arguments.get(INDEX_NAME).isEmpty()) {
-            throw new OofException("OOPS!! The module needs a name.");
+            throw new MissingArgumentException("OOPS!! The module needs a name.");
         }
         String moduleName = arguments.get(INDEX_NAME);
         String moduleCode = arguments.get(INDEX_CODE);
         String description = moduleCode + " " + moduleName;
         if (exceedsMaxLength(description)) {
-            throw new OofException("Task exceeds maximum description length!");
+            throw new InvalidArgumentException("Task exceeds maximum description length!");
         }
         SelectedInstance selectedInstance = SelectedInstance.getInstance();
         Semester semester = selectedInstance.getSemester();
         if (semester == null) {
-            throw new OofException("OOPS!! Please select a semester!");
+            throw new SemesterNotSelectedException("OOPS!! Please select a semester!");
         }
         Module module = new Module(moduleCode, moduleName);
         semester.addModule(module);

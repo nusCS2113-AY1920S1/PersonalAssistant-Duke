@@ -9,7 +9,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Scanner;
 
-import oof.exception.OofException;
 import oof.model.module.Lesson;
 import oof.model.module.Module;
 import oof.model.module.Semester;
@@ -182,7 +181,7 @@ public class Ui {
      *
      * @param exception Exception encountered.
      */
-    public void printOofException(OofException exception) {
+    public void printCommandException(Exception exception) {
         printLine();
         System.out.println(" " + exception.getMessage());
     }
@@ -1052,4 +1051,14 @@ public class Ui {
             }
         }
     }
+
+    /**
+     * Prints message if there are no Tasks scheduled on a date.
+     *
+     * @param date Date where no task has been scheduled.
+     */
+    public void printNoTaskScheduled(String date) {
+        System.out.println("There are no Tasks scheduled on " + date + ".");
+    }
+
 }

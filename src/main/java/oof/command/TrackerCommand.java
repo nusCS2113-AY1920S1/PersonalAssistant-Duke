@@ -9,7 +9,12 @@ import java.util.Calendar;
 import java.util.Comparator;
 
 import oof.Ui;
-import oof.exception.OofException;
+import oof.exception.CommandException.CommandException;
+import oof.exception.CommandException.InvalidArgumentException;
+import oof.exception.CommandException.MissingArgumentException;
+import oof.exception.CommandException.TaskAlreadyCompletedException;
+import oof.exception.CommandException.TrackerNotFoundException;
+import oof.exception.StorageFileCorruptedException;
 import oof.model.module.SemesterList;
 import oof.model.task.Task;
 import oof.model.task.TaskList;
@@ -44,15 +49,15 @@ public class TrackerCommand extends Command {
 
     @Override
     public void execute(SemesterList semesterList, TaskList taskList, Ui ui, StorageManager storageManager)
-            throws OofException {
+            throws CommandException {
         if (description.isEmpty()) {
-            throw new OofException("Please enter your instructions!");
+            throw new MissingArgumentException("Please enter your instructions!");
         }
 
         ArrayList<Tracker> trackerList;
         try {
             trackerList = storageManager.readTrackerList();
-        } catch (FileNotFoundException e) {
+        } catch (FileNotFoundException | StorageFileCorruptedException e) {
             trackerList = new ArrayList<>();
         }
         String[] input = description.split(" ", SPLIT_INPUT);
@@ -60,7 +65,7 @@ public class TrackerCommand extends Command {
 
         if (trackerCommand.equals(VIEW_COMMAND)) {
             if (input.length != VIEW_COMMAND_LENGTH) {
-                throw new OofException("Invalid Commmand!");
+                throw new InvalidArgumentException("Invalid Commmand!");
             }
             String period = input[PERIOD_INDEX].toLowerCase();
             ArrayList<Tracker> sortedTL = processModuleTrackerList(period, trackerList);
@@ -69,20 +74,20 @@ public class TrackerCommand extends Command {
 
         } else {
             if (input.length != TIMER_COMMAND_LENGTH) {
-                throw new OofException("Invalid Command!");
+                throw new InvalidArgumentException("Invalid Command!");
             }
             String moduleCode = input[MODULE_CODE_INDEX].toLowerCase();
             int taskIndex = Integer.parseInt(input[TASK_INDEX]);
             taskIndex -= CORRECT_INDEX;
             if (taskIndex > taskList.getSize()) {
-                throw new OofException("Invalid Task Index!");
+                throw new InvalidArgumentException("Invalid Task Index!");
             }
 
             Tracker tracker = findTrackerByTaskIndex(trackerList, taskIndex);
             Task task = findTask(taskIndex, taskList);
             boolean isCompleted = task.getStatus();
             if (isCompleted) {
-                throw new OofException("Task has already been completed.");
+                throw new TaskAlreadyCompletedException("Task has already been completed.");
             }
 
             boolean isValidDescription = isValidDescription(taskIndex, trackerList, taskList);
@@ -93,7 +98,7 @@ public class TrackerCommand extends Command {
                     trackerList.add(tracker);
                 } else {
                     if (!isValidDescription) {
-                        throw new OofException("Task descriptions do not match!");
+                        throw new InvalidArgumentException("Task descriptions do not match!");
                     }
                     updateTrackerList(taskIndex, moduleCode, trackerList);
                 }
@@ -104,10 +109,10 @@ public class TrackerCommand extends Command {
             case STOP_COMMAND:
                 assert tracker != null;
                 if (isNotStarted(tracker)) {
-                    throw new OofException("Tracker for this Assignment has not started.");
+                    throw new TrackerNotFoundException("Tracker for this Assignment has not started.");
                 } else {
                     if (!isValidDescription) {
-                        throw new OofException("Task descriptions do not match!");
+                        throw new InvalidArgumentException("Task descriptions do not match!");
                     }
                     updateTimeTaken(tracker);
                     task.setStatus();
@@ -120,10 +125,10 @@ public class TrackerCommand extends Command {
             case PAUSE_COMMAND:
                 assert tracker != null;
                 if (isNotStarted(tracker)) {
-                    throw new OofException("Tracker for this Assignment has not started.");
+                    throw new TrackerNotFoundException("Tracker for this Assignment has not started.");
                 } else {
                     if (!isValidDescription) {
-                        throw new OofException("Task descriptions do not match!");
+                        throw new InvalidArgumentException("Task descriptions do not match!");
                     }
                     updateTimeTaken(tracker);
                     storageManager.writeTrackerList(trackerList);
@@ -132,7 +137,7 @@ public class TrackerCommand extends Command {
                 break;
 
             default:
-                throw new OofException("Invalid Command!");
+                throw new InvalidArgumentException("Invalid Command!");
             }
         }
     }
@@ -143,10 +148,10 @@ public class TrackerCommand extends Command {
      * @param period        limiting period of time given by user.
      * @param trackerList   ArrayList of Tracker objects.
      * @return ArrayList of Tracker objects grouped by Module Code and limited by given period.
-     * @throws OofException if period given by user is invalid or if no data is available within given period.
+     * @throws CommandException if period given by user is invalid or if no data is available within given period.
      */
     private ArrayList<Tracker> processModuleTrackerList(
-            String period, ArrayList<Tracker> trackerList) throws OofException {
+            String period, ArrayList<Tracker> trackerList) throws CommandException {
         ArrayList<Tracker> moduleTrackerList;
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
         if (PERIOD_DAY.equals(period)) {
@@ -155,7 +160,7 @@ public class TrackerCommand extends Command {
             try {
                 today = dateFormat.parse(dateFormat.format(date));
             } catch (ParseException e) {
-                throw new OofException("Unable to parse Date.");
+                throw new InvalidArgumentException("Unable to parse Date.");
             }
             moduleTrackerList = timeSpentByModule(trackerList, today);
         } else if (PERIOD_WEEK.equals(period)) {
@@ -166,16 +171,16 @@ public class TrackerCommand extends Command {
             try {
                 startPeriod = dateFormat.parse(dateFormat.format(date));
             } catch (ParseException e) {
-                throw new OofException("Unable to parse Date.");
+                throw new InvalidArgumentException("Unable to parse Date.");
             }
             moduleTrackerList = timeSpentByModule(trackerList, startPeriod);
         } else if (PERIOD_ALL.equals(period)) {
             moduleTrackerList = timeSpentByModule(trackerList);
         } else {
-            throw new OofException("Invalid Period!");
+            throw new InvalidArgumentException("Invalid Period!");
         }
         if (moduleTrackerList.isEmpty()) {
-            throw new OofException("No tracked data available. Please begin by tracking a Task!");
+            throw new TrackerNotFoundException("No tracked data available. Please begin by tracking a Task!");
         }
         sortAscending(moduleTrackerList);
         return moduleTrackerList;

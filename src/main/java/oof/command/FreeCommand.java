@@ -9,7 +9,8 @@ import java.util.Comparator;
 import java.util.Date;
 
 import oof.Ui;
-import oof.exception.OofException;
+import oof.exception.CommandException.CommandException;
+import oof.exception.CommandException.InvalidArgumentException;
 import oof.model.module.SemesterList;
 import oof.model.task.Deadline;
 import oof.model.task.Event;
@@ -64,20 +65,20 @@ public class FreeCommand extends Command {
      * @param ui             Instance of Ui that is responsible for visual feedback.
      * @param storageManager Instance of Storage that enables the reading and writing of Task
      *                       objects to hard disk.
-     * @throws OofException If user input invalid commands.
+     * @throws CommandException If user input contains missing or invalid arguments.
      */
     @Override
     public void execute(SemesterList semesterList, TaskList taskList, Ui ui, StorageManager storageManager)
-            throws OofException {
+            throws CommandException {
         Date current = new Date();
         try {
             if (isDateAfterCurrentDate(current, dateWanted) || isDateSame(current, dateWanted)) {
                 findFreeTime(ui, taskList, this.dateWanted);
             } else {
-                throw new OofException("OOPS!!! Please enter either today's date or a date in the future!");
+                throw new InvalidArgumentException("OOPS!!! Please enter either today's date or a date in the future!");
             }
         } catch (ParseException e) {
-            throw new OofException("OOPS!!! Please enter the date in the following format: DD-MM-YYYY");
+            throw new InvalidArgumentException("OOPS!!! Please enter the date in the following format: DD-MM-YYYY");
         }
     }
 
@@ -88,9 +89,9 @@ public class FreeCommand extends Command {
      * @param tasks    Instance of TaskList that stores Task Objects.
      * @param freeDate The user specified date.
      * @throws ParseException Exception may be thrown when parsing datetime.
-     * @throws OofException   Print customised error message.
+     * @throws CommandException   Print customised error message.
      */
-    private void findFreeTime(Ui ui, TaskList tasks, String freeDate) throws ParseException, OofException {
+    private void findFreeTime(Ui ui, TaskList tasks, String freeDate) throws ParseException, CommandException {
         for (int i = 0; i < tasks.getSize(); i++) {
             Task task = tasks.getTask(i);
             if (task instanceof Event) {
@@ -121,9 +122,9 @@ public class FreeCommand extends Command {
     /**
      * Parses the slot states for all time slots if they are free or busy.
      *
-     * @throws OofException Prints customised error message.
+     * @throws InvalidArgumentException if user input contains invalid arguments.
      */
-    private void parseSlotStates() throws OofException {
+    private void parseSlotStates() throws CommandException {
         try {
             for (int i = 0; i < TOTAL_TIME_SLOTS; i++) {
                 Date slotStart = convertStringToTime(startingTimeSlots[i]);
@@ -139,7 +140,7 @@ public class FreeCommand extends Command {
                 }
             }
         } catch (DateTimeException | ParseException e) {
-            throw new OofException("Timestamp given is invalid! Please try again.");
+            throw new InvalidArgumentException("Timestamp given is invalid! Please try again.");
         }
     }
 
@@ -159,9 +160,9 @@ public class FreeCommand extends Command {
      * Parses the output for finding free time slots if there are occupied slots.
      *
      * @param ui Prints relevant output.
-     * @throws OofException Prints customised error message.
+     * @throws InvalidArgumentException if user input contains invalid arguments.
      */
-    private void parseOutput(Ui ui) throws OofException {
+    private void parseOutput(Ui ui) throws InvalidArgumentException {
         try {
             for (int i = 0; i < TOTAL_TIME_SLOTS; i++) {
                 if (slotStates.get(i) == SLOT_FREE) {
@@ -174,7 +175,7 @@ public class FreeCommand extends Command {
                 ui.printSuggestionDetails(sortedDeadlineNames);
             }
         } catch (DateTimeException e) {
-            throw new OofException("Timestamp given is invalid! Please try again.");
+            throw new InvalidArgumentException("Timestamp given is invalid! Please try again.");
         }
     }
 
@@ -205,10 +206,10 @@ public class FreeCommand extends Command {
      * @param freeSlotsDate Date inputted by user.
      * @param startTime     Starting time of event.
      * @param endTime       Ending time of event.
-     * @throws OofException Prints customised exception message.
+     * @throws InvalidArgumentException if user input contains invalid arguments.
      */
     private void populateEventTimes(String dateStart, String dateEnd, String freeSlotsDate, String startTime,
-            String endTime) throws OofException {
+            String endTime) throws InvalidArgumentException {
         try {
             Date freeDate = convertStringToDate(freeSlotsDate);
             Date eventStartTime = convertStringToTime(startTime);
@@ -229,7 +230,7 @@ public class FreeCommand extends Command {
             }
 
         } catch (DateTimeException | ParseException e) {
-            throw new OofException("Timestamp given is invalid! Please try again.");
+            throw new InvalidArgumentException("Timestamp given is invalid! Please try again.");
         }
     }
 
@@ -237,10 +238,10 @@ public class FreeCommand extends Command {
      * Populates the list for upcoming deadlines.
      *
      * @param dueDateAndTime Due date and time of deadline.
-     * @throws OofException Prints customised exception message.
+     * @throws InvalidArgumentException if user input contains invalid arguments.
      */
     private void populateDeadlines(String dueDateAndTime, String fullDescription, String freeSlotsDate, String dueDate,
-            boolean isCompleted) throws OofException {
+            boolean isCompleted) throws InvalidArgumentException {
         try {
             SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy HH:mm");
             Date upcomingDateAndTime = format.parse(dueDateAndTime);
@@ -252,7 +253,7 @@ public class FreeCommand extends Command {
                 sortedDeadlineNames.add(fullDescription);
             }
         } catch (ParseException e) {
-            throw new OofException("OOPS!!! Please enter the date in the following format: DD-MM-YYYY");
+            throw new InvalidArgumentException("OOPS!!! Please enter the date in the following format: DD-MM-YYYY");
         }
     }
 

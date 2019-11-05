@@ -1,14 +1,17 @@
 package oof.command;
 
-import oof.Oof;
-import oof.model.task.TaskList;
-import oof.exception.OofException;
-import oof.model.task.Task;
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
+import org.junit.jupiter.api.Test;
+
+import oof.Oof;
+import oof.exception.CommandException.CommandException;
+import oof.exception.ParserException;
+import oof.model.task.Task;
+import oof.model.task.TaskList;
+
+//@@author jasperosy
 
 /**
  * Testing class for RecurringCommand.
@@ -27,25 +30,25 @@ class RecurringCommandTest {
         try {
             oof.executeCommand("recurring");
             fail();
-        } catch (OofException e) {
+        } catch (CommandException | ParserException e) {
             assertEquals("OOPS!!! Please enter the right number of arguments!", e.getMessage());
         }
         try {
             oof.executeCommand("recurring 1");
             fail();
-        } catch (OofException e) {
+        } catch (CommandException | ParserException e) {
             assertEquals("OOPS!!! Please enter the right number of arguments!", e.getMessage());
         }
         try {
             oof.executeCommand("recurring 1 1");
             fail();
-        } catch (OofException e) {
+        } catch (CommandException | ParserException e) {
             assertEquals("OOPS!!! Please enter the right number of arguments!", e.getMessage());
         }
         try {
             oof.executeCommand("recurring 1 1 1 1");
             fail();
-        } catch (OofException e) {
+        } catch (CommandException | ParserException e) {
             assertEquals("OOPS!!! Please enter the right number of arguments!", e.getMessage());
         }
     }
@@ -58,7 +61,7 @@ class RecurringCommandTest {
         try {
             oof.executeCommand("recurring a 1 1");
             fail();
-        } catch (OofException e) {
+        } catch (CommandException | ParserException e) {
             assertEquals("OOPS!!! Please enter valid numbers!", e.getMessage());
         }
     }
@@ -71,7 +74,7 @@ class RecurringCommandTest {
         try {
             oof.executeCommand("recurring 1 a 1");
             fail();
-        } catch (OofException e) {
+        } catch (CommandException | ParserException e) {
             assertEquals("OOPS!!! Please enter valid numbers!", e.getMessage());
         }
     }
@@ -84,7 +87,7 @@ class RecurringCommandTest {
         try {
             oof.executeCommand("recurring 1 1 a");
             fail();
-        } catch (OofException e) {
+        } catch (CommandException | ParserException e) {
             assertEquals("OOPS!!! Please enter valid numbers!", e.getMessage());
         }
     }
@@ -93,23 +96,23 @@ class RecurringCommandTest {
      * Tests the behaviour when an invalid index is given.
      */
     @Test
-    void parse_RecurringEnteredWithInvalidIndex_ThrowsOofException() {
+    void parse_RecurringEnteredWithInvalidIndex_ThrowsException() {
         try {
             oof.executeCommand("recurring -1 1 1");
             fail();
-        } catch (OofException e) {
+        } catch (CommandException | ParserException e) {
             assertEquals("OOPS!!! Please select a valid task!", e.getMessage());
         }
         try {
             oof.executeCommand("recurring 0 1 1");
             fail();
-        } catch (OofException e) {
+        } catch (CommandException | ParserException e) {
             assertEquals("OOPS!!! Please select a valid task!", e.getMessage());
         }
         try {
             oof.executeCommand("recurring 2147483647 1 1");
             fail();
-        } catch (OofException e) {
+        } catch (CommandException | ParserException e) {
             assertEquals("OOPS!!! Please select a valid task!", e.getMessage());
         }
     }
@@ -118,23 +121,23 @@ class RecurringCommandTest {
      * Tests the behaviour when an invalid recurring count is given.
      */
     @Test
-    void parse_RecurringEnteredWithInvalidCount_ThrowsOofException() {
+    void parse_RecurringEnteredWithInvalidCount_ThrowsException() {
         try {
             oof.executeCommand("recurring 1 -1 1");
             fail();
-        } catch (OofException e) {
+        } catch (CommandException | ParserException e) {
             assertEquals("OOPS!!! Please enter a valid number of recurrences!", e.getMessage());
         }
         try {
             oof.executeCommand("recurring 1 11 1");
             fail();
-        } catch (OofException e) {
+        } catch (CommandException | ParserException e) {
             assertEquals("OOPS!!! Please enter a valid number of recurrences!", e.getMessage());
         }
         try {
             oof.executeCommand("recurring 1 0 1");
             fail();
-        } catch (OofException e) {
+        } catch (CommandException | ParserException e) {
             assertEquals("OOPS!!! Please enter a valid number of recurrences!", e.getMessage());
         }
     }
@@ -143,23 +146,23 @@ class RecurringCommandTest {
      * Tests the behaviour when an invalid frequency is given.
      */
     @Test
-    void parse_RecurringEnteredWithInvalidFrequency_ThrowsOofException() {
+    void parse_RecurringEnteredWithInvalidFrequency_ThrowsException() {
         try {
             oof.executeCommand("recurring 1 1 -1");
             fail();
-        } catch (OofException e) {
+        } catch (CommandException | ParserException e) {
             assertEquals("OOPS!!! Please enter a valid frequency!", e.getMessage());
         }
         try {
             oof.executeCommand("recurring 1 1 0");
             fail();
-        } catch (OofException e) {
+        } catch (CommandException | ParserException e) {
             assertEquals("OOPS!!! Please enter a valid frequency!", e.getMessage());
         }
         try {
             oof.executeCommand("recurring 1 1 5");
             fail();
-        } catch (OofException e) {
+        } catch (CommandException | ParserException e) {
             assertEquals("OOPS!!! Please enter a valid frequency!", e.getMessage());
         }
     }
@@ -167,10 +170,11 @@ class RecurringCommandTest {
     /**
      * Tests the behaviour for adding Todo Task.
      *
-     * @throws OofException Execute method throws OofException.
+     * @throws CommandException if command is invalid.
+     * @throws ParserException if command cannot be parsed.
      */
     @Test
-    void execute_CorrectCommandAndRecurOnce_AddTodo() throws OofException {
+    void execute_CorrectCommandAndRecurOnce_AddTodo() throws CommandException, ParserException {
         oof.executeCommand("recurring 1 1 1");
         int lastIndex = taskList.getSize() - 1;
         Task task = taskList.getTask(lastIndex);
@@ -196,10 +200,11 @@ class RecurringCommandTest {
     /**
      * Tests the behaviour for adding Deadline.
      *
-     * @throws OofException Execute method throws OofException.
+     * @throws CommandException if command is invalid.
+     * @throws ParserException if command cannot be parsed.
      */
     @Test
-    void execute_CorrectCommandAndRecurOnce_AddDeadline() throws OofException {
+    void execute_CorrectCommandAndRecurOnce_AddDeadline() throws CommandException, ParserException {
         oof.executeCommand("recurring 2 1 1");
         int lastIndex = taskList.getSize() - 1;
         Task task = taskList.getTask(lastIndex);
@@ -225,10 +230,11 @@ class RecurringCommandTest {
     /**
      * Tests the behaviour for adding Deadline.
      *
-     * @throws OofException Execute method throws OofException.
+     * @throws CommandException if command is invalid.
+     * @throws ParserException if command cannot be parsed.
      */
     @Test
-    void execute_CorrectCommandAndRecurOnce_AddEvent() throws OofException {
+    void execute_CorrectCommandAndRecurOnce_AddEvent() throws CommandException, ParserException {
         oof.executeCommand("recurring 3 1 1");
         int lastIndex = taskList.getSize() - 1;
         Task task = taskList.getTask(lastIndex);
@@ -254,10 +260,11 @@ class RecurringCommandTest {
     /**
      * Tests the behaviour for adding more than one recurring tasks.
      *
-     * @throws OofException Execute method throws OofException.
+     * @throws CommandException if command is invalid.
+     * @throws ParserException if command cannot be parsed.
      */
     @Test
-    void execute_CorrectCommandAndRecurMoreThanOnce_AddTasks() throws OofException {
+    void execute_CorrectCommandAndRecurMoreThanOnce_AddTasks() throws CommandException, ParserException {
         oof.executeCommand("recurring 1 2 1");
         int lastIndex = taskList.getSize() - 1;
         Task task = taskList.getTask(lastIndex);

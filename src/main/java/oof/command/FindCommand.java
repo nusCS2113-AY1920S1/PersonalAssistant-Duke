@@ -3,7 +3,7 @@ package oof.command;
 import java.util.ArrayList;
 
 import oof.Ui;
-import oof.exception.OofException;
+import oof.exception.CommandException.MissingArgumentException;
 import oof.model.module.SemesterList;
 import oof.model.task.Task;
 import oof.model.task.TaskList;
@@ -35,20 +35,20 @@ public class FindCommand extends Command {
      * @param ui             Instance of Ui that is responsible for visual feedback.
      * @param storageManager Instance of Storage that enables the reading and writing of Task
      *                       objects to hard disk.
-     * @throws OofException if user input invalid commands.
+     * @throws MissingArgumentException if user input contains missing arguments.
      */
     public void execute(SemesterList semesterList, TaskList taskList, Ui ui, StorageManager storageManager)
-            throws OofException {
+            throws MissingArgumentException {
         if (argument.isEmpty()) {
-            throw new OofException("OOPS!!! The find command needs a description.");
+            throw new MissingArgumentException("OOPS!!! The find command needs a description.");
         }
         String[] lineSplit = argument.split(" ");
         ArrayList<Task> matchedTasks = new ArrayList<>();
         for (int i = 0; i < taskList.getSize(); i++) {
-            for (int j = 0; j < lineSplit.length; j++) {
+            for (String s : lineSplit) {
                 Task task = taskList.getTask(i);
                 String description = task.getDescription();
-                String keyword = lineSplit[j].trim();
+                String keyword = s.trim();
                 if (description.contains(keyword)) {
                     matchedTasks.add(task);
                 }

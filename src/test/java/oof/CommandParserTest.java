@@ -20,43 +20,54 @@ import oof.command.ListCommand;
 import oof.command.RecurringCommand;
 import oof.command.ScheduleCommand;
 import oof.command.SnoozeCommand;
-import oof.exception.OofException;
+import oof.exception.CommandException.CommandException;
+import oof.exception.ParserException;
+
+//@@author jasperosy
 
 class CommandParserTest {
 
     /**
      * Tests the command for exiting Oof.
-     * @throws OofException Parse method throws OofException.
+     *
+     * @throws CommandException if command is invalid.
+     * @throws ParserException  if command cannot be parsed.
      */
     @Test
-    void parse_ByeEntered_ExitOof() throws OofException {
+    void parse_ByeEntered_ExitOof() throws CommandException, ParserException {
         assertTrue(CommandParser.parse("bye") instanceof ByeCommand);
     }
 
     /**
      * Tests the command for listing tasks.
-     * @throws OofException Parse method throws OofException.
+     *
+     * @throws CommandException if command is invalid.
+     * @throws ParserException  if command cannot be parsed.
      */
     @Test
-    void parse_ListEntered_ListTasks() throws OofException {
+    void parse_ListEntered_ListTasks() throws CommandException, ParserException {
         assertTrue(CommandParser.parse("list") instanceof ListCommand);
     }
 
     /**
      * Tests the command for printing command usage.
-     * @throws OofException Parse method throws OofException.
+     *
+     * @throws CommandException if command is invalid.
+     * @throws ParserException  if command cannot be parsed.
      */
     @Test
-    void parse_HelpEntered_PrintCommandUsage() throws OofException {
+    void parse_HelpEntered_PrintCommandUsage() throws CommandException, ParserException {
         assertTrue(CommandParser.parse("help") instanceof HelpCommand);
     }
 
     /**
      * Tests the command for marking a task as done.
-     * @throws OofException Parse method throws OofException.
+     *
+     * @throws CommandException if command is invalid.
+     * @throws ParserException  if command cannot be parsed.
      */
     @Test
-    void parse_DoneEnteredWithValidIndex_MarksTaskAsCompleted() throws OofException {
+    void parse_DoneEnteredWithValidIndex_MarksTaskAsCompleted() throws CommandException, ParserException {
         assertTrue(CommandParser.parse("done 2") instanceof DoneCommand);
     }
 
@@ -64,11 +75,11 @@ class CommandParserTest {
      * Tests the command for marking a task as done.
      */
     @Test
-    void parse_DoneEnteredWithoutIndex_ThrowOofException() {
+    void parse_DoneEnteredWithoutIndex_ThrowException() {
         try {
             CommandParser.parse("done");
             fail();
-        } catch (OofException e) {
+        } catch (CommandException | ParserException e) {
             assertEquals("OOPS!!! Please enter a number!", e.getMessage());
         }
     }
@@ -77,48 +88,56 @@ class CommandParserTest {
      * Tests the command for marking a task as done.
      */
     @Test
-    void parse_DoneEnteredWithNonInteger_ThrowOofException() {
+    void parse_DoneEnteredWithNonInteger_ThrowException() {
         try {
             CommandParser.parse("done a");
             fail();
-        } catch (OofException e) {
+        } catch (CommandException | ParserException e) {
             assertEquals("OOPS!!! Please enter a valid number!", e.getMessage());
         }
     }
 
     /**
      * Tests the command for adding a todo task.
-     * @throws OofException Parse method throws OofException.
+     *
+     * @throws CommandException if command is invalid.
+     * @throws ParserException  if command cannot be parsed.
      */
     @Test
-    void parse_TodoEnteredWithCorrectFields_AddsTodoTask() throws OofException {
+    void parse_TodoEnteredWithCorrectFields_AddsTodoTask() throws CommandException, ParserException {
         assertTrue(CommandParser.parse("todo borrow book") instanceof AddToDoCommand);
     }
 
     /**
      * Tests the command for adding a deadline.
-     * @throws OofException Parse method throws OofException.
+     *
+     * @throws CommandException if command is invalid.
+     * @throws ParserException  if command cannot be parsed.
      */
     @Test
-    void parse_DeadlineEnteredWithCorrectFields_AddsDeadlineTask() throws OofException {
+    void parse_DeadlineEnteredWithCorrectFields_AddsDeadlineTask() throws CommandException, ParserException {
         assertTrue(CommandParser.parse("deadline homework /by 11-11-2019 11:11") instanceof AddDeadlineCommand);
     }
 
     /**
      * Tests the command for adding an event.
-     * @throws OofException Parse method throws OofException.
+     *
+     * @throws CommandException if command is invalid.
+     * @throws ParserException  if command cannot be parsed.
      */
     @Test
-    void parse_EventEnteredWithCorrectFields_AddsEventTask() throws OofException {
+    void parse_EventEnteredWithCorrectFields_AddsEventTask() throws CommandException, ParserException {
         assertTrue(CommandParser.parse("event testing /at 11-11-2019 11:11") instanceof AddEventCommand);
     }
 
     /**
      * Tests the command for deleting a task.
-     * @throws OofException Parse method throws OofException.
+     *
+     * @throws CommandException if command is invalid.
+     * @throws ParserException  if command cannot be parsed.
      */
     @Test
-    void parse_DeleteEnteredWithValidIndex_DeletesTask() throws OofException {
+    void parse_DeleteEnteredWithValidIndex_DeletesTask() throws CommandException, ParserException {
         assertTrue(CommandParser.parse("delete 1") instanceof DeleteTaskCommand);
     }
 
@@ -126,11 +145,11 @@ class CommandParserTest {
      * Tests the command for deleting a task.
      */
     @Test
-    void parse_DeleteEnteredWithoutIndex_ThrowsOofException() {
+    void parse_DeleteEnteredWithoutIndex_ThrowsException() {
         try {
             CommandParser.parse("delete");
             fail();
-        } catch (OofException e) {
+        } catch (CommandException | ParserException e) {
             assertEquals("OOPS!!! Please enter a number!", e.getMessage());
         }
     }
@@ -139,30 +158,34 @@ class CommandParserTest {
      * Tests the command for deleting a task.
      */
     @Test
-    void parse_DeleteEnteredWithNonInteger_ThrowsOofException() {
+    void parse_DeleteEnteredWithNonInteger_ThrowsException() {
         try {
             CommandParser.parse("delete a");
             fail();
-        } catch (OofException e) {
+        } catch (CommandException | ParserException e) {
             assertEquals("OOPS!!! Please enter a valid number!", e.getMessage());
         }
     }
 
     /**
      * Tests the command for finding a task.
-     * @throws OofException Parse method throws OofException.
+     *
+     * @throws CommandException if command is invalid.
+     * @throws ParserException  if command cannot be parsed.
      */
     @Test
-    void parse_FindEntered_FindTasks() throws OofException {
+    void parse_FindEntered_FindTasks() throws CommandException, ParserException {
         assertTrue(CommandParser.parse("find") instanceof FindCommand);
     }
 
     /**
      * Tests the command for snoozing a task.
-     * @throws OofException Parse method throws OofException.
+     *
+     * @throws CommandException if command is invalid.
+     * @throws ParserException  if command cannot be parsed.
      */
     @Test
-    void parse_SnoozeEnteredWithValidIndex_SnoozesTask() throws OofException {
+    void parse_SnoozeEnteredWithValidIndex_SnoozesTask() throws CommandException, ParserException {
         assertTrue(CommandParser.parse("snooze 1") instanceof SnoozeCommand);
     }
 
@@ -170,11 +193,11 @@ class CommandParserTest {
      * Tests the command for snoozing a task.
      */
     @Test
-    void parse_SnoozeEnteredWithoutIndex_ThrowsOofException() throws OofException {
+    void parse_SnoozeEnteredWithoutIndex_ThrowsException() {
         try {
             CommandParser.parse("snooze");
             fail();
-        } catch (OofException e) {
+        } catch (CommandException | ParserException e) {
             assertEquals("OOPS!!! Please enter a valid number!", e.getMessage());
         }
     }
@@ -183,48 +206,56 @@ class CommandParserTest {
      * Tests the command for snoozing a task.
      */
     @Test
-    void parse_SnoozeEnteredWithNonInteger_ThrowsOofException() throws OofException {
+    void parse_SnoozeEnteredWithNonInteger_ThrowsException() {
         try {
             CommandParser.parse("snooze a");
             fail();
-        } catch (OofException e) {
+        } catch (CommandException | ParserException e) {
             assertEquals("OOPS!!! Please enter a valid number!", e.getMessage());
         }
     }
 
     /**
      * Tests the command for scheduling a task.
-     * @throws OofException Parse method throws OofException.
+     *
+     * @throws CommandException if command is invalid.
+     * @throws ParserException  if command cannot be parsed.
      */
     @Test
-    void parse_ScheduleEntered_SchedulesTask() throws OofException {
+    void parse_ScheduleEntered_SchedulesTask() throws CommandException, ParserException {
         assertTrue(CommandParser.parse("schedule 11-11-2019") instanceof ScheduleCommand);
     }
 
     /**
      * Tests the command for recurring a task.
-     * @throws OofException Parse method throws OofException.
+     *
+     * @throws CommandException if command is invalid.
+     * @throws ParserException  if command cannot be parsed.
      */
     @Test
-    void parse_RecurringEnteredWithValidParameters() throws OofException {
+    void parse_RecurringEnteredWithValidParameters() throws CommandException, ParserException {
         assertTrue(CommandParser.parse("recurring 1 1 1") instanceof RecurringCommand);
     }
 
     /**
      * Tests the command for showing the calendar.
-     * @throws OofException Parse method throws OofException.
+     *
+     * @throws CommandException if command is invalid.
+     * @throws ParserException  if command cannot be parsed.
      */
     @Test
-    void parse_CalendarEntered_ShowCalendar() throws OofException {
+    void parse_CalendarEntered_ShowCalendar() throws CommandException, ParserException {
         assertTrue(CommandParser.parse("calendar") instanceof CalendarCommand);
     }
 
     /**
      * Tests the command to show free time slots.
-     * @throws OofException Parse method throws OofException.
+     *
+     * @throws CommandException if command is invalid.
+     * @throws ParserException  if command cannot be parsed.
      */
     @Test
-    void parse_FreeEnteredWithCorrectFields_ShowFreeTimeSlots() throws OofException {
+    void parse_FreeEnteredWithCorrectFields_ShowFreeTimeSlots() throws CommandException, ParserException {
         assertTrue(CommandParser.parse("free 30-10-2019 23:59") instanceof FreeCommand);
     }
 
@@ -236,7 +267,7 @@ class CommandParserTest {
         try {
             CommandParser.parse("abcd");
             fail();
-        } catch (OofException e) {
+        } catch (CommandException | ParserException e) {
             assertEquals("OOPS!!! I'm sorry, but I don't know what that means :-(", e.getMessage());
         }
     }
